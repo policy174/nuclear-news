@@ -70,7 +70,14 @@ def send_telegram(text: str) -> None:
     time.sleep(1)
 
 
-def collect_articles(feed_name: str, keywords: list[str], state: dict) -> list[dict]:
+def passes_anchor_filter(title: str, description: str, anchors: list[str]) -> bool:
+    if not anchors:
+        return True
+    haystack = (title + " " + description).lower()
+    return any(a.lower() in haystack for a in anchors)
+
+
+def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
     seen_in_run: set[str] = set()
     fresh: list[dict] = []
@@ -97,10 +104,15 @@ def collect_articles(feed_name: str, keywords: list[str], state: dict) -> list[d
             if pub < cutoff:
                 continue
 
+            title_clean = strip_html(item.get("title", ""))
+            desc_clean = strip_html(item.get("description", ""))
+            if not passes_anchor_filter(title_clean, desc_clean, anchors):
+                continue
+
             seen_in_run.add(h)
             fresh.append({
                 "hash": h,
-                "title": strip_html(item.get("title", "")),
+                "title": title_clean,
                 "link": link,
                 "pub": pub,
                 "matched": kw,
@@ -123,13 +135,15 @@ def format_message(feed_name: str, article: dict) -> str:
 
 
 def main() -> None:
-    keywords = json.loads(KEYWORDS_FILE.read_text(encoding="utf-8"))
+    config = json.loads(KEYWORDS_FILE.read_text(encoding="utf-8"))
     state = load_state()
     total_sent = 0
 
-    for feed_name, kw_list in keywords.items():
-        print(f"[{feed_name}] {len(kw_list)} keywords")
-        articles = collect_articles(feed_name, kw_list, state)
+    for feed_name, feed_cfg in config.items():
+        kw_list = feed_cfg["keywords"]
+        anchors = feed_cfg.get("anchors", [])
+        print(f"[{feed_name}] {len(kw_list)} keywords, {len(anchors)} anchors")
+        articles = collect_articles(feed_name, kw_list, anchors, state)
         print(f"[{feed_name}] {len(articles)} new articles")
 
         for article in articles:
