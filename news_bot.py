@@ -15,12 +15,15 @@ NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
 NAVER_CLIENT_SECRET = os.environ["NAVER_CLIENT_SECRET"]
 TELEGRAM_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 KST = timezone(timedelta(hours=9))
 LOOKBACK_HOURS = 6
 DEDUP_RETENTION_DAYS = 14
 STATE_FILE = Path("sent.json")
 KEYWORDS_FILE = Path("keywords.json")
+CURATED_CACHE_FILE = Path("curated.json")
+DIGEST_QUEUE_FILE = Path("digest_queue.json")
 
 NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -42,6 +45,13 @@ DOMAIN_SCORE = {
 DEFAULT_SCORE = 4
 MIN_SCORE = 4
 
+TIER1_DOMAINS = {
+    "nssc.go.kr", "motie.go.kr", "msit.go.kr", "korea.kr",
+    "khnp.co.kr", "kaeri.re.kr", "kins.re.kr", "korad.or.kr",
+    "iaea.org", "world-nuclear.org", "world-nuclear-news.org",
+    "oecd-nea.org", "nrc.gov",
+}
+
 ANTI_TITLE_PATTERNS = [
     re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고)\]"),
 ]
@@ -52,6 +62,42 @@ ANTI_KEYWORDS = [
 ]
 
 KR_SLD = (".co.kr", ".or.kr", ".go.kr", ".ne.kr", ".re.kr", ".ac.kr")
+
+CURATION_SYSTEM_PROMPT = """당신은 한국 원자력정책실의 뉴스 큐레이터입니다.
+
+다음 기준으로 기사를 분류하세요:
+
+[must_read] - 정책 실무자가 반드시 읽어야 할 기사
+- 정부·규제기관(원안위, 산업부, 과기정통부, IAEA, NRC, KINS) 공식 발표·의결
+- 정책 결정 단계 (의결, 고시, 확정, 입법예고, 시행령)
+- 1차 보도, 단독 취재, 수치/계약/예산/일정 명시
+- 사고·중대 안전 이슈, 정전, 고장
+- 핵심 외교 (한미·한미일·체코·폴란드·UAE·사우디 원전 수출, 한미 원자력협정)
+- 주요 사업 마일스톤 (신한울 3·4호기, 계속운전 결정, SMR 인허가 진척)
+- 영향력 있는 전문가 칼럼·기명 기고
+
+[nice_to_know] - 알아두면 좋음
+- 배경 맥락, 업계 동향, 일반 보도
+- 외국 SMR 회사(NuScale, TerraPower, X-energy 등) 일반 마일스톤
+- 학회 발표, 분기 실적, 일반 칼럼
+
+[noise] - 거를 것
+- 단순 보도자료 재탕, 외신 단순 번역
+- 시황·테마주·관련주
+- 기업 PR·ESG·CSR 단순 홍보
+- 행사 스케치, 사진 기사
+- 중복·우라까이
+
+[출력 규칙]
+- 반드시 JSON 한 객체만 출력 (다른 텍스트 금지)
+- 원문에 없는 정보는 절대 추가하지 말 것 (환각 금지)
+- summary: 한 문장 50자 이내, 핵심만
+- why_important: must_read 일 때만 작성. 정책실 실무자 시각에서 2~3문장 200자 이내. 다른 경우 빈 문자열
+- tags: # 으로 시작하는 3개 이내. 예: #원전수출 #SMR #방폐 #계속운전 #한미협정
+
+[출력 형식]
+{"category":"must_read|nice_to_know|noise","summary":"...","why_important":"...","tags":["#태그1","#태그2"]}
+"""
 
 
 def get_domain(url: str) -> str:
@@ -68,7 +114,14 @@ def get_domain(url: str) -> str:
 
 
 def domain_score(url: str) -> int:
-    return DOMAIN_SCORE.get(get_domain(url), DEFAULT_SCORE)
+    d = get_domain(url)
+    if d in TIER1_DOMAINS:
+        return 10
+    return DOMAIN_SCORE.get(d, DEFAULT_SCORE)
+
+
+def is_tier1(url: str) -> bool:
+    return get_domain(url) in TIER1_DOMAINS
 
 
 def is_promotional(title: str, description: str) -> bool:
@@ -93,16 +146,45 @@ def url_hash(url: str) -> str:
     return hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
 
 
+def load_json(path: Path, default):
+    if path.exists():
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            return default
+    return default
+
+
+def save_json(path: Path, data) -> None:
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def load_state() -> dict:
-    if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
-    return {"sent": {}}
+    return load_json(STATE_FILE, {"sent": {}})
 
 
 def save_state(state: dict) -> None:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=DEDUP_RETENTION_DAYS)).isoformat()
     state["sent"] = {h: ts for h, ts in state["sent"].items() if ts > cutoff}
-    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+    save_json(STATE_FILE, state)
+
+
+def load_curated() -> dict:
+    return load_json(CURATED_CACHE_FILE, {})
+
+
+def save_curated(curated: dict) -> None:
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=DEDUP_RETENTION_DAYS)).isoformat()
+    curated = {k: v for k, v in curated.items() if v.get("cached_at", "") > cutoff}
+    save_json(CURATED_CACHE_FILE, curated)
+
+
+def load_queue() -> list:
+    return load_json(DIGEST_QUEUE_FILE, [])
+
+
+def save_queue(queue: list) -> None:
+    save_json(DIGEST_QUEUE_FILE, queue)
 
 
 def search_naver(query: str, display: int = 30) -> list[dict]:
@@ -116,7 +198,7 @@ def search_naver(query: str, display: int = 30) -> list[dict]:
     return r.json().get("items", [])
 
 
-def send_telegram(text: str) -> None:
+def send_telegram(text: str) -> bool:
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": text,
@@ -126,7 +208,9 @@ def send_telegram(text: str) -> None:
     r = requests.post(TELEGRAM_URL, data=payload, timeout=10)
     if not r.ok:
         print(f"  ! Telegram error: {r.status_code} {r.text}")
+        return False
     time.sleep(1)
+    return True
 
 
 def passes_anchor_filter(title: str, description: str, anchors: list[str]) -> bool:
@@ -134,6 +218,67 @@ def passes_anchor_filter(title: str, description: str, anchors: list[str]) -> bo
         return True
     haystack = (title + " " + description).lower()
     return any(a.lower() in haystack for a in anchors)
+
+
+_gemini_client = None
+
+
+def get_gemini():
+    global _gemini_client
+    if _gemini_client is not None:
+        return _gemini_client
+    if not GEMINI_API_KEY:
+        return None
+    try:
+        from google import genai
+        _gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+        return _gemini_client
+    except Exception as e:
+        print(f"  ! Gemini init failed: {e}")
+        return None
+
+
+def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False) -> dict:
+    """LLM 호출. 실패 시 안전한 fallback 반환."""
+    fallback = {
+        "category": "must_read" if force_must_read else "nice_to_know",
+        "summary": title[:50],
+        "why_important": "",
+        "tags": [],
+    }
+    client = get_gemini()
+    if not client:
+        return fallback
+
+    user_text = f"제목: {title}\n요약: {description}\n출처: {domain}"
+    if force_must_read:
+        user_text += "\n\n참고: 이 기사는 정부·규제기관·국제기구 1차 소스이므로 must_read로 분류하고 summary와 why_important만 작성하세요."
+
+    try:
+        from google.genai import types
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=user_text,
+            config=types.GenerateContentConfig(
+                system_instruction=CURATION_SYSTEM_PROMPT,
+                response_mime_type="application/json",
+                temperature=0.2,
+                max_output_tokens=400,
+            ),
+        )
+        result = json.loads(response.text)
+        category = result.get("category", "nice_to_know")
+        if force_must_read:
+            category = "must_read"
+        return {
+            "category": category if category in {"must_read", "nice_to_know", "noise"} else "nice_to_know",
+            "summary": (result.get("summary") or "")[:80],
+            "why_important": (result.get("why_important") or "")[:300],
+            "tags": [t for t in result.get("tags", []) if isinstance(t, str)][:3],
+        }
+    except Exception as e:
+        print(f"  ! curate failed for '{title[:30]}': {e}")
+        return fallback
 
 
 def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict) -> list[dict]:
@@ -186,41 +331,105 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             by_title[norm] = {
                 "hash": h,
                 "title": title,
+                "description": desc,
                 "link": link,
                 "pub": pub,
                 "matched": kw,
                 "score": score,
                 "domain": get_domain(link),
+                "feed": feed_name,
             }
         time.sleep(0.1)
 
     return sorted(by_title.values(), key=lambda x: x["pub"])
 
 
-def format_message(feed_name: str, article: dict) -> str:
+def format_must_read(article: dict, curation: dict) -> str:
+    feed = article["feed"]
+    tags_prefix = f"[{feed}]"
+    if article["matched"] == "한국수력원자력":
+        tags_prefix += "[한수원]"
+
     title = html.escape(article["title"])
-    return f"<b>[{feed_name}]</b> {title}\n{article['link']}"
+    summary = html.escape(curation.get("summary", ""))
+    why = html.escape(curation.get("why_important", ""))
+    tag_str = " ".join(curation.get("tags", []))
+
+    parts = [f"🔴 <b>{tags_prefix}</b> {title}"]
+    if summary:
+        parts.append(f"\n📌 {summary}")
+    if why:
+        parts.append(f"\n💡 {why}")
+    if tag_str:
+        parts.append(f"\n🏷 {html.escape(tag_str)}")
+    parts.append(f"\n🔗 {article['link']}")
+    return "".join(parts)
 
 
 def main() -> None:
     config = json.loads(KEYWORDS_FILE.read_text(encoding="utf-8"))
     state = load_state()
-    total_sent = 0
+    curated = load_curated()
+    queue = load_queue()
+
+    sent_immediate = 0
+    queued = 0
+    dropped = 0
+    now_iso = datetime.now(timezone.utc).isoformat()
 
     for feed_name, feed_cfg in config.items():
         kw_list = feed_cfg["keywords"]
         anchors = feed_cfg.get("anchors", [])
-        print(f"[{feed_name}] {len(kw_list)} keywords, {len(anchors)} anchors")
+        print(f"[{feed_name}] {len(kw_list)} keywords")
         articles = collect_articles(feed_name, kw_list, anchors, state)
-        print(f"[{feed_name}] {len(articles)} new articles after filtering")
+        print(f"[{feed_name}] {len(articles)} candidates after Phase 1 filter")
 
         for article in articles:
-            send_telegram(format_message(feed_name, article))
-            state["sent"][article["hash"]] = datetime.now(timezone.utc).isoformat()
-            total_sent += 1
+            h = article["hash"]
+
+            if h in curated:
+                cur = curated[h]
+            else:
+                cur = curate_with_llm(
+                    article["title"], article["description"],
+                    article["domain"],
+                    force_must_read=is_tier1(article["link"]),
+                )
+                cur["cached_at"] = now_iso
+                curated[h] = cur
+                time.sleep(7)  # Gemini 무료 티어 RPM 제한 (10 RPM)
+
+            category = cur.get("category", "nice_to_know")
+
+            if category == "noise":
+                state["sent"][h] = now_iso
+                dropped += 1
+                continue
+
+            if category == "must_read":
+                ok = send_telegram(format_must_read(article, cur))
+                if ok:
+                    state["sent"][h] = now_iso
+                    sent_immediate += 1
+            else:
+                queue.append({
+                    "hash": h,
+                    "title": article["title"],
+                    "link": article["link"],
+                    "domain": article["domain"],
+                    "feed": article["feed"],
+                    "matched": article["matched"],
+                    "summary": cur.get("summary", ""),
+                    "tags": cur.get("tags", []),
+                    "queued_at": now_iso,
+                })
+                state["sent"][h] = now_iso
+                queued += 1
 
     save_state(state)
-    print(f"Done. Sent {total_sent} messages.")
+    save_curated(curated)
+    save_queue(queue)
+    print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped}")
 
 
 if __name__ == "__main__":
