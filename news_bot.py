@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 import requests
 
@@ -23,6 +24,64 @@ KEYWORDS_FILE = Path("keywords.json")
 
 NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+
+DOMAIN_SCORE = {
+    "hani.co.kr": 9, "chosun.com": 9, "joongang.co.kr": 9,
+    "donga.com": 9, "khan.co.kr": 9, "hankookilbo.com": 9,
+    "kmib.co.kr": 9, "munhwa.com": 9, "seoul.co.kr": 9,
+    "mk.co.kr": 8, "hankyung.com": 8, "etnews.com": 8,
+    "sedaily.com": 8, "fnnews.com": 8, "edaily.co.kr": 7,
+    "mt.co.kr": 7, "asiae.co.kr": 7, "businesspost.co.kr": 7,
+    "electimes.com": 9, "ekn.kr": 9, "energy-news.co.kr": 8,
+    "epj.co.kr": 8, "energytimes.kr": 8, "energydaily.co.kr": 7,
+    "yna.co.kr": 8, "newsis.com": 7, "news1.kr": 7, "yonhapnewstv.co.kr": 7,
+    "kbs.co.kr": 7, "imbc.com": 7, "sbs.co.kr": 7, "ytn.co.kr": 7,
+    "jtbc.co.kr": 7, "tvchosun.com": 6, "ichannela.com": 6, "mbn.co.kr": 6,
+    "newspim.com": 5, "ajunews.com": 5,
+}
+DEFAULT_SCORE = 4
+MIN_SCORE = 4
+
+ANTI_TITLE_PATTERNS = [
+    re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고)\]"),
+]
+ANTI_KEYWORDS = [
+    "관련주", "테마주", "원전주", "원전株", "원자력주", "수혜주",
+    "급등", "급락", "장 마감", "장 시작", "코스피", "코스닥",
+    "상한가", "하한가", "장중", "낙폭",
+]
+
+KR_SLD = (".co.kr", ".or.kr", ".go.kr", ".ne.kr", ".re.kr", ".ac.kr")
+
+
+def get_domain(url: str) -> str:
+    try:
+        host = (urlparse(url).hostname or "").lower()
+    except Exception:
+        return ""
+    if not host:
+        return ""
+    if host.endswith(KR_SLD):
+        return ".".join(host.split(".")[-3:])
+    parts = host.split(".")
+    return ".".join(parts[-2:]) if len(parts) >= 2 else host
+
+
+def domain_score(url: str) -> int:
+    return DOMAIN_SCORE.get(get_domain(url), DEFAULT_SCORE)
+
+
+def is_promotional(title: str, description: str) -> bool:
+    if any(p.search(title) for p in ANTI_TITLE_PATTERNS):
+        return True
+    text = title + " " + description
+    return any(kw in text for kw in ANTI_KEYWORDS)
+
+
+def normalize_title(title: str) -> str:
+    title = re.sub(r"\[[^\]]+\]|\([^)]+\)", "", title)
+    title = re.sub(r"[^\w가-힣]", "", title)
+    return title.lower()
 
 
 def strip_html(text: str) -> str:
@@ -79,8 +138,7 @@ def passes_anchor_filter(title: str, description: str, anchors: list[str]) -> bo
 
 def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
-    seen_in_run: set[str] = set()
-    fresh: list[dict] = []
+    by_title: dict[str, dict] = {}
 
     for kw in keywords:
         try:
@@ -93,9 +151,6 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             link = item.get("originallink") or item.get("link")
             if not link:
                 continue
-            h = url_hash(link)
-            if h in state["sent"] or h in seen_in_run:
-                continue
 
             try:
                 pub = parsedate_to_datetime(item["pubDate"])
@@ -104,34 +159,47 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             if pub < cutoff:
                 continue
 
-            title_clean = strip_html(item.get("title", ""))
-            desc_clean = strip_html(item.get("description", ""))
-            if not passes_anchor_filter(title_clean, desc_clean, anchors):
+            h = url_hash(link)
+            if h in state["sent"]:
                 continue
 
-            seen_in_run.add(h)
-            fresh.append({
+            title = strip_html(item.get("title", ""))
+            desc = strip_html(item.get("description", ""))
+
+            if is_promotional(title, desc):
+                continue
+            if not passes_anchor_filter(title, desc, anchors):
+                continue
+
+            score = domain_score(link)
+            if score < MIN_SCORE:
+                continue
+
+            norm = normalize_title(title)
+            if not norm:
+                continue
+
+            existing = by_title.get(norm)
+            if existing and existing["score"] >= score:
+                continue
+
+            by_title[norm] = {
                 "hash": h,
-                "title": title_clean,
+                "title": title,
                 "link": link,
                 "pub": pub,
                 "matched": kw,
-            })
+                "score": score,
+                "domain": get_domain(link),
+            }
         time.sleep(0.1)
 
-    fresh.sort(key=lambda x: x["pub"])
-    return fresh
+    return sorted(by_title.values(), key=lambda x: x["pub"])
 
 
 def format_message(feed_name: str, article: dict) -> str:
     title = html.escape(article["title"])
-    link = article["link"]
-    pub_local = article["pub"].astimezone(KST).strftime("%m/%d %H:%M")
-    return (
-        f"<b>[{feed_name}]</b> {title}\n"
-        f"<i>{pub_local} · {article['matched']}</i>\n"
-        f"{link}"
-    )
+    return f"<b>[{feed_name}]</b> {title}\n{article['link']}"
 
 
 def main() -> None:
@@ -144,7 +212,7 @@ def main() -> None:
         anchors = feed_cfg.get("anchors", [])
         print(f"[{feed_name}] {len(kw_list)} keywords, {len(anchors)} anchors")
         articles = collect_articles(feed_name, kw_list, anchors, state)
-        print(f"[{feed_name}] {len(articles)} new articles")
+        print(f"[{feed_name}] {len(articles)} new articles after filtering")
 
         for article in articles:
             send_telegram(format_message(feed_name, article))
