@@ -1,19 +1,19 @@
-name: Daily digest
+name: Weekly report
 
 on:
   schedule:
-    - cron: "0 22 * * *"  # UTC 22:00 = KST 07:00
+    - cron: "0 8 * * 5"  # UTC 08:00 Friday = KST 17:00 Friday
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: digest
+  group: weekly
   cancel-in-progress: false
 
 jobs:
-  digest:
+  weekly:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,16 +25,8 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - run: python digest_bot.py
+      - run: python weekly_bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
-      - name: Commit state
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add digest_queue.json || true
-          git diff --cached --quiet || git commit -m "chore: clear digest queue"
-          git push || true
