@@ -66,13 +66,19 @@ def send_long(text: str) -> None:
 
 def format_digest(queue: list) -> str:
     today = datetime.now(KST)
-    header = f"☀️ <b>{today.month}/{today.day} 원자력 일일 브리핑</b> ({len(queue)}건)"
+    nice_items = [a for a in queue if a.get("category") != "market"]
+    market_items = [a for a in queue if a.get("category") == "market"]
 
-    by_feed: dict[str, list] = {}
-    for art in queue:
-        by_feed.setdefault(art.get("feed", "기타"), []).append(art)
+    header = f"☀️ <b>{today.month}/{today.day} 원자력 일일 브리핑</b> ({len(nice_items)}건)"
+    if market_items:
+        header += f" + 시장·주식 {len(market_items)}건"
 
     parts = [header, ""]
+
+    by_feed: dict[str, list] = {}
+    for art in nice_items:
+        by_feed.setdefault(art.get("feed", "기타"), []).append(art)
+
     feed_order = ["정책", "SMR"]
     feeds_sorted = [f for f in feed_order if f in by_feed] + [
         f for f in by_feed if f not in feed_order
@@ -98,6 +104,15 @@ def format_digest(queue: list) -> str:
                 parts.append(f"   {' · '.join(meta_bits)}")
             parts.append(f"   🔗 {art.get('link', '')}")
             parts.append("")
+        parts.append("")
+
+    if market_items:
+        parts.append("📈 <b>시장·주식</b> (참고용)")
+        for art in market_items:
+            title = html.escape(art.get("title", ""))
+            domain = html.escape(art.get("domain", ""))
+            parts.append(f"• {title} <i>({domain})</i>")
+            parts.append(f"  {art.get('link', '')}")
         parts.append("")
 
     return "\n".join(parts).strip()

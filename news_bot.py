@@ -55,48 +55,54 @@ TIER1_DOMAINS = {
 ANTI_TITLE_PATTERNS = [
     re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고)\]"),
 ]
-ANTI_KEYWORDS = [
-    "관련주", "테마주", "원전주", "원전株", "원자력주", "수혜주",
-    "급등", "급락", "장 마감", "장 시작", "코스피", "코스닥",
-    "상한가", "하한가", "장중", "낙폭",
-]
+ANTI_KEYWORDS: list[str] = []  # 주식 관련은 LLM이 market 카테고리로 분류
 
 KR_SLD = (".co.kr", ".or.kr", ".go.kr", ".ne.kr", ".re.kr", ".ac.kr")
 
-CURATION_SYSTEM_PROMPT = """당신은 한국 원자력정책실의 뉴스 큐레이터입니다.
+CURATION_SYSTEM_PROMPT = """당신은 한국 원자력정책실의 뉴스 큐레이터입니다. 정책 실무자에게 진짜 핵심만 골라내야 합니다.
 
-다음 기준으로 기사를 분류하세요:
+[must_read] - 즉시 알아야 하는 핵심. 하루 평균 0~3건. 매우 엄격하게 선별.
+- 정부·규제기관 공식 의결·고시·시행령·법안 본회의 통과 (원안위, 산업부, 과기정통부, 국회, IAEA, NRC, KINS)
+- 신규 원전 부지 결정·인허가 발급, 계속운전 확정, SMR 표준설계인가 발급
+- 사고·중대 안전 이슈 (INES 등급 사건, 정전, 고장, 누출)
+- 한미 원자력협정·재처리·농축 등 외교 핵심 결정·체결
+- 체코·폴란드·UAE·사우디 원전 수출 계약 체결·확정 (협상 단계는 nice_to_know)
+- 전력수급기본계획 확정·공청회·고시
+- 국회 본회의 통과 법안·예산 확정 (단순 발의·심사는 nice_to_know)
 
-[must_read] - 정책 실무자가 반드시 읽어야 할 기사
-- 정부·규제기관(원안위, 산업부, 과기정통부, IAEA, NRC, KINS) 공식 발표·의결
-- 정책 결정 단계 (의결, 고시, 확정, 입법예고, 시행령)
-- 1차 보도, 단독 취재, 수치/계약/예산/일정 명시
-- 사고·중대 안전 이슈, 정전, 고장
-- 핵심 외교 (한미·한미일·체코·폴란드·UAE·사우디 원전 수출, 한미 원자력협정)
-- 주요 사업 마일스톤 (신한울 3·4호기, 계속운전 결정, SMR 인허가 진척)
-- 영향력 있는 전문가 칼럼·기명 기고
+[nice_to_know] - 알아두면 좋음. 대부분이 여기 해당.
+- 정책 동향·진척 보도, 기관 보고서·연구 결과
+- 의원 법안 발의·심사 (통과 전 단계)
+- 칼럼·사설·전문가 인터뷰·기명 기고 (must_read 아님)
+- 외국 SMR 회사 마일스톤 (NuScale, TerraPower 등)
+- 학회 발표, 분기 실적, 회의 결과 (의결 아닌 일반 회의)
+- 단순 사업 진척 보고·중간 단계
 
-[nice_to_know] - 알아두면 좋음
-- 배경 맥락, 업계 동향, 일반 보도
-- 외국 SMR 회사(NuScale, TerraPower, X-energy 등) 일반 마일스톤
-- 학회 발표, 분기 실적, 일반 칼럼
+[market] - 주식·증권·시장 관련. 링크만 추적.
+- 원전株, 테마주, 관련주, 수혜주
+- 기업 주가 분석·전망, 증권사 리포트
+- 코스피/코스닥 시황 코멘트
 
 [noise] - 거를 것
-- 단순 보도자료 재탕, 외신 단순 번역
-- 시황·테마주·관련주
-- 기업 PR·ESG·CSR 단순 홍보
-- 행사 스케치, 사진 기사
+- 보도자료 단순 재탕, 외신 단순 번역
+- 기업 PR·ESG·CSR 단순 홍보, 행사 스케치, 사진 기사
 - 중복·우라까이
+
+[중요 원칙]
+- must_read 분류는 매우 엄격하게. 의심스러우면 nice_to_know.
+- 칼럼·사설·전문가 의견은 절대 must_read 아님.
+- "발표 예정", "전망", "분석", "검토" 같은 추측·전망성 기사는 must_read 아님.
+- 의결·확정·체결·통과 같은 완료된 의사결정만 must_read.
 
 [출력 규칙]
 - 반드시 JSON 한 객체만 출력 (다른 텍스트 금지)
 - 원문에 없는 정보는 절대 추가하지 말 것 (환각 금지)
 - summary: 한 문장 50자 이내, 핵심만
 - why_important: must_read 일 때만 작성. 정책실 실무자 시각에서 2~3문장 200자 이내. 다른 경우 빈 문자열
-- tags: # 으로 시작하는 3개 이내. 예: #원전수출 #SMR #방폐 #계속운전 #한미협정
+- tags: # 으로 시작하는 3개 이내
 
 [출력 형식]
-{"category":"must_read|nice_to_know|noise","summary":"...","why_important":"...","tags":["#태그1","#태그2"]}
+{"category":"must_read|nice_to_know|market|noise","summary":"...","why_important":"...","tags":["#태그1","#태그2"]}
 """
 
 
@@ -271,7 +277,7 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         if force_must_read:
             category = "must_read"
         return {
-            "category": category if category in {"must_read", "nice_to_know", "noise"} else "nice_to_know",
+            "category": category if category in {"must_read", "nice_to_know", "market", "noise"} else "nice_to_know",
             "summary": (result.get("summary") or "")[:80],
             "why_important": (result.get("why_important") or "")[:300],
             "tags": [t for t in result.get("tags", []) if isinstance(t, str)][:3],
@@ -419,6 +425,7 @@ def main() -> None:
                     "domain": article["domain"],
                     "feed": article["feed"],
                     "matched": article["matched"],
+                    "category": category,
                     "summary": cur.get("summary", ""),
                     "tags": cur.get("tags", []),
                     "queued_at": now_iso,
