@@ -1,11 +1,31 @@
 import html
 import json
 import os
+import re
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
+
+
+def safe_json_parse(text: str) -> dict | None:
+    if not text:
+        return None
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    try:
+        return json.loads(text)
+    except Exception:
+        m = re.search(r"\{.*\}", text, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                return None
+        return None
 
 TELEGRAM_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
@@ -138,10 +158,15 @@ def batch_curate(queue_items: list) -> dict:
                 system_instruction=DIGEST_BATCH_PROMPT,
                 response_mime_type="application/json",
                 temperature=0.3,
-                max_output_tokens=2000,
+                max_output_tokens=8000,
             ),
         )
-        result = json.loads(response.text)
+        raw = response.text or ""
+        result = safe_json_parse(raw)
+        if not result:
+            print(f"  ! batch curation: JSON parse failed. Raw output (first 300 chars):")
+            print(f"    {raw[:300]}")
+            return fallback
         return {
             "intro": result.get("intro", ""),
             "policy_signal": result.get("policy_signal"),
@@ -150,7 +175,7 @@ def batch_curate(queue_items: list) -> dict:
             "checkpoint_hashes": result.get("checkpoint_hashes", []) or [],
         }
     except Exception as e:
-        print(f"  ! batch curation failed: {e}")
+        print(f"  ! batch curation failed: {type(e).__name__}: {e}")
         return fallback
 
 
