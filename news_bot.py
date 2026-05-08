@@ -9,6 +9,7 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
+import feedparser
 import requests
 
 NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
@@ -52,6 +53,22 @@ TIER1_DOMAINS = {
     "oecd-nea.org", "nrc.gov",
 }
 
+RSS_SOURCES = [
+    {"url": "https://www.iaea.org/feeds/topnews", "name": "IAEA Top News",
+     "domain_label": "iaea.org"},
+    {"url": "http://www.world-nuclear-news.org/rss", "name": "WNN",
+     "domain_label": "world-nuclear-news.org"},
+    {"url": "https://news.google.com/rss/search?q=site:khnp.co.kr&hl=ko&gl=KR&ceid=KR:ko",
+     "name": "한수원 보도자료", "domain_label": "khnp.co.kr"},
+    {"url": "https://news.google.com/rss/search?q=site:nssc.go.kr&hl=ko&gl=KR&ceid=KR:ko",
+     "name": "원안위 보도자료", "domain_label": "nssc.go.kr"},
+    {"url": "https://news.google.com/rss/search?q=site:motie.go.kr&hl=ko&gl=KR&ceid=KR:ko",
+     "name": "산업부 보도자료", "domain_label": "motie.go.kr"},
+    {"url": "https://news.google.com/rss/search?q=site:kaeri.re.kr&hl=ko&gl=KR&ceid=KR:ko",
+     "name": "원자력연구원 보도자료", "domain_label": "kaeri.re.kr"},
+]
+SMR_HINTS = ("smr", "small modular", "i-smr", "advanced reactor")
+
 ANTI_TITLE_PATTERNS = [
     re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고)\]"),
 ]
@@ -59,47 +76,59 @@ ANTI_KEYWORDS: list[str] = []  # 주식 관련은 LLM이 market 카테고리로 
 
 KR_SLD = (".co.kr", ".or.kr", ".go.kr", ".ne.kr", ".re.kr", ".ac.kr")
 
-CURATION_SYSTEM_PROMPT = """당신은 한국 원자력정책실의 뉴스 큐레이터입니다. 정책 실무자에게 진짜 핵심만 골라내야 합니다.
+CURATION_SYSTEM_PROMPT = """당신은 한국수력원자력 전략경영단 정책개발부의 시니어 정책분석관입니다.
+의사결정자(본부장·부서장)에게 보고하는 분석관 톤으로 작성합니다. 일반 뉴스 큐레이션 톤은 절대 금지.
 
-[must_read] - 즉시 알아야 하는 핵심. 하루 평균 0~3건. 매우 엄격하게 선별.
-- 정부·규제기관 공식 의결·고시·시행령·법안 본회의 통과 (원안위, 산업부, 과기정통부, 국회, IAEA, NRC, KINS)
+[모니터링 핵심 토픽] - 본 부서가 다루는 보고서 영역
+① 미국·EU·국제 원자력 정책 및 외교: NRC·DOE 정책·행정명령, 한미·미영(ATOMBRIDGE)·AUKUS·Stonehaven, EU SMR 얼라이언스, IAEA·OECD/NEA
+② SMR·차세대로 기술경쟁: i-SMR·NuScale·TerraPower·X-energy·Holtec·Kairos·Oklo, 표준설계인가·부지·인허가, 포스코·현대건설·삼성·두산 등 국내 컨소시엄
+③ 글로벌 신규원전 수주 시장: 체코 두코바니·폴란드·UAE·사우디·베트남·필리핀 EPC 계약·발주
+④ 국내 정책환경 및 KHNP 사업: 전력수급기본계획, 계속운전(고리·한빛·한울), 신한울 3·4호기, 사용후핵연료, 고준위 방폐장, 원안위 의결
+⑤ 핵연료주기·기후·에너지 전망: 농축·재처리·123협정·SFM, 러시아 폐쇄형 연료주기, COP·NDC, IEA WEO, WNA Energy Outlook, AI in nuclear
+
+[분류 기준]
+
+must_read - 의사결정자가 즉시 알아야 함. 하루 평균 0~3건. 매우 엄격 선별.
+- 정부·규제기관 공식 의결·고시·시행령·법안 본회의 통과
+- 미국·영국·EU 등 주요국 행정명령·정책 발표
 - 신규 원전 부지 결정·인허가 발급, 계속운전 확정, SMR 표준설계인가 발급
-- 사고·중대 안전 이슈 (INES 등급 사건, 정전, 고장, 누출)
-- 한미 원자력협정·재처리·농축 등 외교 핵심 결정·체결
-- 체코·폴란드·UAE·사우디 원전 수출 계약 체결·확정 (협상 단계는 nice_to_know)
-- 전력수급기본계획 확정·공청회·고시
-- 국회 본회의 통과 법안·예산 확정 (단순 발의·심사는 nice_to_know)
+- 사고·중대 안전 이슈 (INES 등급, 정전, 누출)
+- 한미·미영 등 양자 협력 협정 체결·결정
+- 글로벌 수주 EPC 계약 체결·확정 (협상 단계는 nice_to_know)
+- 전력수급기본계획 확정·고시
+- KHNP 본사 사업 중대 변동
 
-[nice_to_know] - 알아두면 좋음. 대부분이 여기 해당.
-- 정책 동향·진척 보도, 기관 보고서·연구 결과
-- 의원 법안 발의·심사 (통과 전 단계)
-- 칼럼·사설·전문가 인터뷰·기명 기고 (must_read 아님)
-- 외국 SMR 회사 마일스톤 (NuScale, TerraPower 등)
-- 학회 발표, 분기 실적, 회의 결과 (의결 아닌 일반 회의)
-- 단순 사업 진척 보고·중간 단계
+nice_to_know - 맥락·동향. 대부분이 여기 해당.
+- 정책 검토·진척, 기관 보고서·연구 결과 (CFTN, Third Way, Stonehaven, IEA, WNA, OECD/NEA 등)
+- 의원 법안 발의·심사 (통과 전)
+- 칼럼·사설·전문가 인터뷰·기명 기고
+- 외국 SMR 회사 마일스톤, 협상·검토 단계 보도
+- 학회 발표, 분기 실적, 일반 회의 결과
 
-[market] - 주식·증권·시장 관련. 링크만 추적.
-- 원전株, 테마주, 관련주, 수혜주
-- 기업 주가 분석·전망, 증권사 리포트
-- 코스피/코스닥 시황 코멘트
+market - 주식·증권. 링크만 추적.
+- 원전株, 테마주, 관련주, 수혜주, 시황 코멘트, 증권사 리포트
 
-[noise] - 거를 것
+noise - 거를 것.
 - 보도자료 단순 재탕, 외신 단순 번역
-- 기업 PR·ESG·CSR 단순 홍보, 행사 스케치, 사진 기사
+- 기업 PR·ESG·CSR 단순 홍보, 행사 스케치
 - 중복·우라까이
 
 [중요 원칙]
-- must_read 분류는 매우 엄격하게. 의심스러우면 nice_to_know.
-- 칼럼·사설·전문가 의견은 절대 must_read 아님.
-- "발표 예정", "전망", "분석", "검토" 같은 추측·전망성 기사는 must_read 아님.
-- 의결·확정·체결·통과 같은 완료된 의사결정만 must_read.
+- must_read는 매우 엄격. 의심스러우면 nice_to_know.
+- 칼럼·전망·검토·예정은 must_read 아님. 의결·확정·체결·통과만 must_read.
+
+[분량 규칙 - why_important] (must_read 일 때만 작성)
+- 3~4문장, 300자 이내, 격식체(~다 종결).
+- 구성: (a) 핵심 사실 1문장 → (b) KHNP·한국 정책환경 시사점 → (c) 후속 모니터링 포인트 또는 전략적 함의
+- 분석 어휘 사용: "시사점", "전략적", "정책환경", "기회 요인", "리스크", "후속 조치", "함의"
+- 일반 뉴스 요약 톤 절대 금지 ("발표했다", "예정이다" 단순 나열 X)
+- 원문에 없는 정보 추가 금지 (환각 금지)
 
 [출력 규칙]
 - 반드시 JSON 한 객체만 출력 (다른 텍스트 금지)
-- 원문에 없는 정보는 절대 추가하지 말 것 (환각 금지)
-- summary: 한 문장 50자 이내, 핵심만
-- why_important: must_read 일 때만 작성. 정책실 실무자 시각에서 2~3문장 200자 이내. 다른 경우 빈 문자열
-- tags: # 으로 시작하는 3개 이내
+- summary: 사실 기반 한 문장 50자 이내, 중립적
+- why_important: must_read만, 위 분량 규칙 따름. 그 외 빈 문자열
+- tags: #으로 시작 3개 이내. 예: #한미협정 #체코수주 #SMR경쟁 #NRC #계속운전
 
 [출력 형식]
 {"category":"must_read|nice_to_know|market|noise","summary":"...","why_important":"...","tags":["#태그1","#태그2"]}
@@ -287,6 +316,73 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         return fallback
 
 
+def fetch_rss(url: str) -> list[dict]:
+    try:
+        feed = feedparser.parse(url, agent="nuclear-news-bot/1.0")
+        out = []
+        for entry in feed.entries:
+            link = entry.get("link", "")
+            title = entry.get("title", "")
+            description = entry.get("summary", "") or entry.get("description", "")
+            pub = None
+            if entry.get("published_parsed"):
+                pub = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+            elif entry.get("updated_parsed"):
+                pub = datetime(*entry.updated_parsed[:6], tzinfo=timezone.utc)
+            if not link or not title or not pub:
+                continue
+            out.append({
+                "link": link,
+                "title": strip_html(title),
+                "description": strip_html(description),
+                "pub": pub,
+            })
+        return out
+    except Exception as e:
+        print(f"  ! RSS fetch failed for {url}: {e}")
+        return []
+
+
+def assign_feed_from_title(title: str) -> str:
+    t = title.lower()
+    return "SMR" if any(h in t for h in SMR_HINTS) else "정책"
+
+
+def collect_rss_articles(state: dict) -> list[dict]:
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
+    by_title: dict[str, dict] = {}
+
+    for src in RSS_SOURCES:
+        items = fetch_rss(src["url"])
+        print(f"[RSS] {src['name']}: {len(items)} entries")
+        for item in items:
+            if item["pub"] < cutoff:
+                continue
+            h = url_hash(item["link"])
+            if h in state["sent"]:
+                continue
+            if is_promotional(item["title"], item["description"]):
+                continue
+
+            norm = normalize_title(item["title"])
+            if not norm or norm in by_title:
+                continue
+
+            by_title[norm] = {
+                "hash": h,
+                "title": item["title"],
+                "description": item["description"],
+                "link": item["link"],
+                "pub": item["pub"],
+                "matched": src["name"],
+                "score": 10,
+                "domain": src.get("domain_label") or get_domain(item["link"]),
+                "feed": assign_feed_from_title(item["title"]),
+            }
+
+    return list(by_title.values())
+
+
 def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
     by_title: dict[str, dict] = {}
@@ -383,55 +479,81 @@ def main() -> None:
     dropped = 0
     now_iso = datetime.now(timezone.utc).isoformat()
 
+    all_candidates: list[dict] = []
+
     for feed_name, feed_cfg in config.items():
         kw_list = feed_cfg["keywords"]
         anchors = feed_cfg.get("anchors", [])
         print(f"[{feed_name}] {len(kw_list)} keywords")
         articles = collect_articles(feed_name, kw_list, anchors, state)
-        print(f"[{feed_name}] {len(articles)} candidates after Phase 1 filter")
+        print(f"[{feed_name}] {len(articles)} candidates from Naver")
+        all_candidates.extend(articles)
 
-        for article in articles:
-            h = article["hash"]
+    rss_articles = collect_rss_articles(state)
+    print(f"[RSS] {len(rss_articles)} candidates")
+    all_candidates.extend(rss_articles)
 
-            if h in curated:
-                cur = curated[h]
-            else:
-                cur = curate_with_llm(
-                    article["title"], article["description"],
-                    article["domain"],
-                    force_must_read=is_tier1(article["link"]),
-                )
-                cur["cached_at"] = now_iso
-                curated[h] = cur
-                time.sleep(7)  # Gemini 무료 티어 RPM 제한 (10 RPM)
+    deduped: dict[str, dict] = {}
+    for art in all_candidates:
+        norm = normalize_title(art["title"])
+        if not norm:
+            continue
+        existing = deduped.get(norm)
+        if existing and existing["score"] >= art["score"]:
+            continue
+        deduped[norm] = art
 
-            category = cur.get("category", "nice_to_know")
+    final_articles = sorted(deduped.values(), key=lambda x: x["pub"])
+    print(f"After cross-source dedup: {len(final_articles)} unique articles")
 
-            if category == "noise":
+    for article in final_articles:
+        h = article["hash"]
+
+        if h in curated:
+            cur = curated[h]
+        else:
+            force_t1 = is_tier1(article["link"]) or article["score"] >= 10
+            cur = curate_with_llm(
+                article["title"], article["description"],
+                article["domain"],
+                force_must_read=force_t1,
+            )
+            cur["cached_at"] = now_iso
+            cur["title"] = article["title"]
+            cur["link"] = article["link"]
+            cur["feed"] = article["feed"]
+            cur["domain"] = article["domain"]
+            cur["matched"] = article["matched"]
+            curated[h] = cur
+            time.sleep(7)
+
+        category = cur.get("category", "nice_to_know")
+
+        if category == "noise":
+            state["sent"][h] = now_iso
+            dropped += 1
+            continue
+
+        if category == "must_read":
+            ok = send_telegram(format_must_read(article, cur))
+            if ok:
                 state["sent"][h] = now_iso
-                dropped += 1
-                continue
-
-            if category == "must_read":
-                ok = send_telegram(format_must_read(article, cur))
-                if ok:
-                    state["sent"][h] = now_iso
-                    sent_immediate += 1
-            else:
-                queue.append({
-                    "hash": h,
-                    "title": article["title"],
-                    "link": article["link"],
-                    "domain": article["domain"],
-                    "feed": article["feed"],
-                    "matched": article["matched"],
-                    "category": category,
-                    "summary": cur.get("summary", ""),
-                    "tags": cur.get("tags", []),
-                    "queued_at": now_iso,
-                })
-                state["sent"][h] = now_iso
-                queued += 1
+                sent_immediate += 1
+        else:
+            queue.append({
+                "hash": h,
+                "title": article["title"],
+                "link": article["link"],
+                "domain": article["domain"],
+                "feed": article["feed"],
+                "matched": article["matched"],
+                "category": category,
+                "summary": cur.get("summary", ""),
+                "tags": cur.get("tags", []),
+                "queued_at": now_iso,
+            })
+            state["sent"][h] = now_iso
+            queued += 1
 
     save_state(state)
     save_curated(curated)
