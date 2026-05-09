@@ -273,6 +273,25 @@ def get_gemini():
         return None
 
 
+def safe_json_parse(text: str) -> dict | None:
+    if not text:
+        return None
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    try:
+        return json.loads(text)
+    except Exception:
+        m = re.search(r"\{.*\}", text, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                return None
+        return None
+
+
 def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False) -> dict:
     """LLM 호출. 실패 시 안전한 fallback 반환."""
     fallback = {
@@ -292,16 +311,19 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
     try:
         from google.genai import types
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.5-flash-lite",
             contents=user_text,
             config=types.GenerateContentConfig(
                 system_instruction=CURATION_SYSTEM_PROMPT,
                 response_mime_type="application/json",
                 temperature=0.2,
-                max_output_tokens=400,
+                max_output_tokens=1500,
             ),
         )
-        result = json.loads(response.text)
+        result = safe_json_parse(response.text or "")
+        if not result:
+            print(f"  ! curate JSON parse failed for '{title[:30]}'")
+            return fallback
         category = result.get("category", "nice_to_know")
         if force_must_read:
             category = "must_read"
@@ -312,7 +334,11 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
             "tags": [t for t in result.get("tags", []) if isinstance(t, str)][:3],
         }
     except Exception as e:
-        print(f"  ! curate failed for '{title[:30]}': {e}")
+        msg = str(e)
+        if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
+            print(f"  ! curate quota exceeded — skipping rest of articles")
+        else:
+            print(f"  ! curate failed for '{title[:30]}': {type(e).__name__}: {msg[:200]}")
         return fallback
 
 
@@ -525,7 +551,7 @@ def main() -> None:
             cur["domain"] = article["domain"]
             cur["matched"] = article["matched"]
             curated[h] = cur
-            time.sleep(7)
+            time.sleep(5)
 
         category = cur.get("category", "nice_to_know")
 
