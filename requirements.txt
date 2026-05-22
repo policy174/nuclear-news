@@ -1,3 +1,4 @@
-requests>=2.31.0
-google-genai>=1.0.0
-feedparser>=6.0.0
+# 메인 코드는 Python 3.12+ 표준 라이브러리만 사용 (urllib 등)
+# Gemini API도 stdlib urllib로 직접 호출 — SDK 의존성 없음
+# 외부 의존성: yt-dlp (last30days 엔진이 YouTube 자막 추출용으로 호출)
+yt-dlp>=2025.1.1

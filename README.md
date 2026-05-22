@@ -1,55 +1,74 @@
-# 원자력 뉴스 봇
+# 원자력정책실 동향봇
 
-네이버 뉴스 검색 → 텔레그램 채널 발송. 3시간마다 GitHub Actions로 자동 실행.
+Reddit, X, YouTube 등 영어권 소셜 데이터에서 원자력 관련 핫이슈를 30일 간격으로 모아 텔레그램으로 자동 발송합니다.
 
-## 설정 순서
+[mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) 엔진 위에 구축됐습니다.
 
-### 1. GitHub 리포지토리 생성
-- github.com 로그인 → 우측 상단 `+` → `New repository`
-- 이름: `nuclear-news-bot` (아무거나)
-- **Private** 선택 (공개해도 키는 안전하지만 굳이)
-- `Create repository`
+## 운영 방식
 
-### 2. 코드 업로드
-방법 A — GitHub 웹에서 드래그 앤 드롭:
-- 빈 리포지토리 페이지의 `uploading an existing file` 링크 클릭
-- 이 폴더의 모든 파일 드래그 (`.github` 폴더 포함)
-- `Commit changes`
+- **자동 실행:** 매일 평일 오전 7시 KST (GitHub Actions cron)
+- **다중 키워드:** `keywords.json` 에 등록된 토픽별로 메시지 1개씩
+- **품질 필터:** 신뢰 X 핸들 화이트리스트 + 참여도 하한선 + 노이즈 키워드 제외
+- **수동 실행:** GitHub Actions 탭에서 `workflow_dispatch` 클릭
 
-방법 B — Git 명령어:
-```bash
-cd C:\Users\USER\nuclear-news-bot
-git init
-git add .
-git commit -m "init"
-git branch -M main
-git remote add origin https://github.com/<본인계정>/nuclear-news-bot.git
-git push -u origin main
+## 파일 구조
+
+```
+.
+├── keywords.json              # 모니터링 키워드 설정
+├── send_research.py           # 메인 파이프라인 (수집→dedup→발송)
+├── telegram_send.py           # 텔레그램 API 래퍼
+├── dedup.py                   # cross-topic 중복 제거 (URL 정규화 + LLM 의미)
+├── gemini_client.py           # Gemini API 얇은 wrapper (stdlib only)
+├── requirements.txt           # Python 의존성 (yt-dlp)
+├── .github/workflows/
+│   └── daily-news.yml         # GitHub Actions 스케줄
+└── raw/                       # 검색 결과 raw 저장 (.gitignore 처리됨)
 ```
 
-### 3. Secrets 등록
-리포지토리 → `Settings` → 좌측 `Secrets and variables` → `Actions` → `New repository secret`
+## 작동 단계
 
-4개 등록:
-| Name | Value |
-|---|---|
-| `NAVER_CLIENT_ID` | 네이버 개발자센터 발급 Client ID |
-| `NAVER_CLIENT_SECRET` | 네이버 Client Secret |
-| `TELEGRAM_BOT_TOKEN` | BotFather 토큰 |
-| `TELEGRAM_CHAT_ID` | `-1003955025609` |
+1. **Phase 1** — `keywords.json`의 토픽마다 last30days 엔진으로 검색·파싱·룰 기반 필터
+2. **Phase 2** — 모든 토픽의 cluster를 합쳐 cross-topic dedup
+   - URL 정규화 1차 (utm·트래커 제거 후 정확 일치)
+   - Gemini가 "같은 사건" 의미 그룹핑 2차 (한 번의 API 호출)
+   - 각 그룹의 boosted_score 최고치 cluster만 살아남고 나머지 제거
+3. **Phase 3** — 토픽별로 메시지 포맷 후 텔레그램 발송
 
-### 4. 첫 실행
-- `Actions` 탭 → `Nuclear news crawl` → `Run workflow` → `Run workflow` 버튼
-- 1~2분 후 채널에 메시지 도착 확인
-- 실패 시 Actions 로그에서 에러 확인
+## 비밀 키 (GitHub Secrets)
 
-이후 3시간마다 자동 실행됨 (UTC 기준 0,3,6,9,12,15,18,21시 = KST 9,12,15,18,21,0,3,6시).
+저장소 설정에서 다음 값을 등록해야 합니다:
 
-## 키워드 수정
-`keywords.json` 편집 후 커밋하면 다음 실행부터 반영.
+| 이름 | 필수 | 설명 |
+|---|---|---|
+| `TELEGRAM_BOT_TOKEN` | ✅ | BotFather에서 발급한 봇 토큰 |
+| `TELEGRAM_CHAT_ID` | ✅ | 메시지 받을 텔레그램 chat ID |
+| `GEMINI_API_KEY` | ⭕ | Google AI Studio 발급 키. 없으면 dedup의 의미 단계는 스킵되고 URL 단계만 동작 |
+| `X_AUTH_TOKEN` | ⭕ | X 인증 쿠키 (없으면 X 검색 스킵) |
+| `X_CT0` | ⭕ | X CSRF 토큰 |
 
-## 동작 방식
-- 각 키워드마다 네이버 뉴스 검색 (최근 30건, 날짜순)
-- 최근 6시간 내 기사만 (중복 실행/지연 대비 여유)
-- `sent.json`에 기록된 URL은 재발송 안 함 (14일간 보관)
-- 텔레그램으로 `[정책]` / `[SMR]` 태그 붙여 발송
+`GEMINI_MODEL` 은 Repository **Variable**(Secret 아님)로 지정 가능, 기본값 `gemini-2.0-flash`.
+
+## 키워드 추가/수정
+
+`keywords.json` 편집 → `git push` → 다음 실행부터 적용. 코드 수정 불필요.
+
+```json
+{
+  "label": "새 토픽",
+  "schedule": "weekly",
+  "subqueries": ["짧은 검색어 1", "짧은 검색어 2"],
+  "subreddits": "nuclear,energy"
+}
+```
+
+## 로컬 테스트
+
+```bash
+# .env 파일에 토큰 설정 후
+python send_research.py --topic "SMR 동향" --dry-run
+```
+
+## 라이선스
+
+내부 운영용. last30days-skill 은 MIT.
