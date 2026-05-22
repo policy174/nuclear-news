@@ -1,11 +1,13 @@
 name: Daily Nuclear News
 
 on:
-  # 매일 오전 7시 KST = 22:00 UTC 전날
+  # 평일 06:35 KST 시작 → 검색·dedup·발송 끝나고 07:00 전후 도달
   # cron 형식: 분 시 일 월 요일 (UTC 기준)
-  # 0 22 * * 0-4  →  일요일~목요일 22:00 UTC = 월요일~금요일 07:00 KST
+  # 35 21 * * 0-4  →  일~목 21:35 UTC = 월~금 06:35 KST
+  # 정각(:00) 회피 이유: GitHub Actions cron은 매시 정각에 큐 폭주로
+  # 수십 분 지연되는 게 일상. 어중간한 분(:35)으로 옮기면 지연 거의 사라짐.
   schedule:
-    - cron: '0 22 * * 0-4'
+    - cron: '35 21 * * 0-4'
   # 수동 실행 버튼 (Actions 탭에서 누를 수 있음)
   workflow_dispatch:
     inputs:
