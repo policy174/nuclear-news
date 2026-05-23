@@ -1,88 +1,113 @@
 {
-  "_comment": "원자력정책실 모니터링 키워드. 각 토픽은 1개 이상의 subqueries로 구성. 토픽당 텔레그램 메시지 1개.",
-  "_schedule_note": "weekly = 매주 / biweekly_odd = 홀수주에만 / biweekly_even = 짝수주에만",
-  "topics": [
-    {
-      "label": "SMR 동향",
-      "schedule": "weekly",
-      "subqueries": [
-        "small modular reactor",
-        "SMR NuScale Rolls-Royce",
-        "SMR NRC approval"
-      ],
-      "subreddits": "nuclear,NuclearPower,energy"
-    },
-    {
-      "label": "원전 일반 동향",
-      "schedule": "weekly",
-      "subqueries": [
-        "nuclear power plant",
-        "nuclear reactor restart",
-        "nuclear new build construction"
-      ],
-      "subreddits": "nuclear,NuclearPower,energy,climate"
-    },
-    {
-      "label": "AI-원전 빅테크 거래",
-      "schedule": "weekly",
-      "subqueries": [
-        "Microsoft nuclear PPA",
-        "Amazon nuclear data center",
-        "Google Kairos nuclear",
-        "hyperscaler nuclear gigawatt"
-      ],
-      "subreddits": "nuclear,energy,singularity"
-    },
-    {
-      "label": "한국 원전 수출",
-      "schedule": "weekly",
-      "subqueries": [
-        "Korea nuclear export",
-        "Czech Dukovany nuclear",
-        "Barakah UAE nuclear",
-        "KEPCO APR1400"
-      ],
-      "subreddits": "nuclear,energy,geopolitics"
-    },
-    {
-      "label": "경쟁사 동향",
-      "schedule": "weekly",
-      "subqueries": [
-        "Rosatom nuclear export",
-        "Westinghouse AP1000 Poland",
-        "China CGN CNNC nuclear"
-      ],
-      "subreddits": "nuclear,energy,geopolitics"
-    },
-    {
-      "label": "재가동 트렌드",
-      "schedule": "biweekly_odd",
-      "subqueries": [
-        "Three Mile Island restart",
-        "Talen Energy nuclear",
-        "Palisades nuclear restart"
-      ],
-      "subreddits": "nuclear,energy,NuclearPower"
-    },
-    {
-      "label": "사용후핵연료",
-      "schedule": "biweekly_odd",
-      "subqueries": [
-        "Yucca Mountain nuclear waste",
-        "Onkalo Finland repository",
-        "used nuclear fuel storage"
-      ],
-      "subreddits": "nuclear,NuclearPower,energy"
-    },
-    {
-      "label": "핵융합 스타트업",
-      "schedule": "biweekly_even",
-      "subqueries": [
-        "fusion power startup",
-        "Helion Energy fusion",
-        "Commonwealth Fusion Systems"
-      ],
-      "subreddits": "nuclear,energy,Futurology,fusion"
-    }
-  ]
+  "정책": {
+    "negative_terms": "-주가 -채용 -배당 -공모 -병원 -동호회 -부고 -인사발령 -기념식",
+    "keywords": [
+      "원자력 정책",
+      "고준위 방폐물",
+      "사용후핵연료",
+      "원자력안전위원회",
+      "원자력진흥위원회",
+      "원자력진흥법",
+      "원전 수출",
+      "한미 원자력협정",
+      "원전 계속운전",
+      "원전 탄력운전",
+      "부하추종 원전",
+      "NRC 원자력",
+      "한국수력원자력",
+      "전력수급기본계획",
+      "11차 전기본",
+      "10차 전기본",
+      "방폐물관리공단",
+      "사고저항성핵연료",
+      "ATF 핵연료",
+      "두코바니 원전",
+      "폴란드 원전",
+      "사우디 원전",
+      "베트남 원전",
+      "필리핀 원전",
+      "에너지경제연구원",
+      "국회예산정책처 원자력",
+      "한국원자력안전기술원",
+      "한국원자력연구원 보고서",
+      "KINS 원자력",
+      "KAERI 원자력",
+      "AUKUS 원자력",
+      "ATOMBRIDGE",
+      "한미 민간 원자력 협력",
+      "미국 원자력 행정명령",
+      "Nuclear Energy Dominance",
+      "DOE 원자력",
+      "EU SMR 얼라이언스",
+      "EU SMR Alliance",
+      "러시아 폐쇄형 연료주기",
+      "원자력 NDC",
+      "COP 원자력",
+      "IEA WEO 원자력",
+      "WNA Energy Outlook",
+      "한수원 AI",
+      "신한울 3호기",
+      "신한울 4호기"
+    ],
+    "anchors": [
+      "원자력", "원전", "원자로", "핵연료", "방폐", "방사선", "방사능",
+      "원안위", "탈원전", "신한울", "고리원전", "한빛", "월성", "새울",
+      "한수원", "한국수력원자력", "원자력연구원", "원자력협정",
+      "전기본", "전력수급", "KORAD", "사고저항성", "두코바니",
+      "AUKUS", "ATOMBRIDGE", "Stonehaven", "Third Way",
+      "행정명령", "Dominance", "WEO", "WNA", "OECD",
+      "NDC", "COP", "폐쇄형", "AI"
+    ]
+  },
+  "SMR": {
+    "negative_terms": "-주가 -테마주 -관련주 -채용 -공모 -펀드",
+    "keywords": [
+      "SMR",
+      "소형모듈원자로",
+      "혁신형 SMR",
+      "i-SMR",
+      "SMART원전",
+      "NuScale",
+      "BWRX-300",
+      "TerraPower",
+      "테라파워",
+      "Natrium 원전",
+      "X-energy",
+      "엑스에너지",
+      "Xe-100",
+      "Holtec SMR",
+      "홀텍 SMR",
+      "SMR-300",
+      "Kairos Power",
+      "카이로스파워",
+      "Oklo",
+      "AP300",
+      "eVinci",
+      "Rolls-Royce SMR",
+      "두산에너빌리티 SMR",
+      "SMR 인허가",
+      "SMR 표준설계",
+      "SMR 부지",
+      "EU SMR 얼라이언스",
+      "포스코 SMR",
+      "광양제철소 SMR",
+      "포항제철소 SMR",
+      "현대건설 SMR",
+      "삼성물산 SMR"
+    ],
+    "anchors": [
+      "원자력", "원전", "원자로", "소형모듈", "핵연료",
+      "SMR", "NuScale", "BWRX", "i-SMR", "MMR",
+      "TerraPower", "테라파워", "Natrium",
+      "X-energy", "엑스에너지", "Xe-100",
+      "Holtec", "홀텍", "Kairos", "카이로스",
+      "Oklo", "오클로", "AP300", "eVinci",
+      "Westinghouse", "웨스팅하우스",
+      "Rolls-Royce", "롤스로이스",
+      "한수원", "한국수력원자력", "두산에너빌리티", "원자력연구원",
+      "포스코", "현대건설", "삼성물산", "광양", "포항",
+      "EU SMR", "얼라이언스",
+      "표준설계", "인허가"
+    ]
+  }
 }
