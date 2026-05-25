@@ -25,6 +25,8 @@ DEDUP_RETENTION_DAYS = 14
 STATE_FILE = Path("sent.json")
 KEYWORDS_FILE = Path("keywords.json")
 REPORTS_KB_FILE = Path("reports_kb.json")
+EMBEDDINGS_CACHE_FILE = Path("embeddings.json")
+SEMANTIC_DEDUP_THRESHOLD = 0.85
 CURATED_CACHE_FILE = Path("curated.json")
 DIGEST_QUEUE_FILE = Path("digest_queue.json")
 
@@ -272,6 +274,147 @@ def find_relevant_reports(title: str, description: str, kb: list[dict], top_k: i
             scored.append((score, report))
     scored.sort(key=lambda x: x[0], reverse=True)
     return [r for _, r in scored[:top_k]]
+
+
+def load_embeddings_cache() -> dict:
+    if EMBEDDINGS_CACHE_FILE.exists():
+        try:
+            return json.loads(EMBEDDINGS_CACHE_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
+def save_embeddings_cache(cache: dict) -> None:
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=DEDUP_RETENTION_DAYS)).isoformat()
+    cache = {k: v for k, v in cache.items() if v.get("cached_at", "") > cutoff}
+    EMBEDDINGS_CACHE_FILE.write_text(
+        json.dumps(cache, ensure_ascii=False), encoding="utf-8"
+    )
+
+
+def cosine_sim(a: list[float], b: list[float]) -> float:
+    import math
+    if not a or not b or len(a) != len(b):
+        return 0.0
+    dot = sum(x * y for x, y in zip(a, b))
+    na = math.sqrt(sum(x * x for x in a))
+    nb = math.sqrt(sum(x * x for x in b))
+    if na == 0 or nb == 0:
+        return 0.0
+    return dot / (na * nb)
+
+
+def get_or_compute_embedding(text: str, cache_key: str, cache: dict) -> list[float] | None:
+    if cache_key in cache and cache[cache_key].get("vec"):
+        return cache[cache_key]["vec"]
+    client = get_gemini()
+    if not client:
+        return None
+    try:
+        result = client.models.embed_content(
+            model="text-embedding-004",
+            contents=text,
+        )
+        if not result.embeddings:
+            return None
+        vec = list(result.embeddings[0].values)
+        cache[cache_key] = {
+            "vec": vec,
+            "cached_at": datetime.now(timezone.utc).isoformat(),
+        }
+        return vec
+    except Exception as e:
+        msg = str(e)
+        if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
+            print(f"  ! embedding quota exceeded")
+        else:
+            print(f"  ! embedding failed for '{text[:40]}': {type(e).__name__}")
+        return None
+
+
+def semantic_dedup(articles: list[dict], emb_cache: dict, threshold: float = SEMANTIC_DEDUP_THRESHOLD) -> list[dict]:
+    """임베딩 cosine similarity로 의미 중복 제거. 점수 높은 것 우선 유지."""
+    if len(articles) < 2:
+        return articles
+
+    enriched: list[tuple[dict, list[float] | None]] = []
+    for art in articles:
+        emb = get_or_compute_embedding(art["title"], art["hash"], emb_cache)
+        enriched.append((art, emb))
+        time.sleep(0.3)
+
+    enriched.sort(key=lambda x: x[0]["score"], reverse=True)
+
+    kept: list[tuple[dict, list[float] | None]] = []
+    for art, emb in enriched:
+        if emb is None:
+            kept.append((art, emb))
+            continue
+        is_dup = False
+        for kept_art, kept_emb in kept:
+            if kept_emb is None:
+                continue
+            if cosine_sim(emb, kept_emb) >= threshold:
+                is_dup = True
+                break
+        if not is_dup:
+            kept.append((art, emb))
+
+    return [art for art, _ in kept]
+
+
+JUDGE_SYSTEM_PROMPT = """당신은 한국수력원자력 정책개발부 큐레이터입니다.
+다음 기사가 정책분석관에게 업무상 의미 있는지 1차 판단하세요.
+
+[유용함 (useful=1)]
+- 원자력 정책·외교·기술·시장·규제 관련 실질 내용
+- 정부·규제기관 의결·고시·법안·행정명령
+- 한수원·KHNP 사업 동향, 글로벌 SMR·수주 시장
+- 한미·미영·EU 양자/다자 협력
+- 사용후핵연료·고준위방폐장·계속운전 등
+
+[유용하지 않음 (useful=0)]
+- 채용·인사 발령·동정·축사·기념식·시상
+- 정치 일반 (대선·총선·정쟁·여야 공방)
+- 원자력이 부수적으로만 언급되고 본질은 다른 주제 (산업 일반·외교 일반·거시경제)
+- 단순 행사 스케치, 보도자료 단순 PR
+- 학회 일반 (정책 함의 없는 학술 발표)
+- 지역 동향 (지역 행사·민원·동호회·시민단체 일반)
+- 채용공고, 청사 이전 등 일반 행정
+
+[출력] JSON 하나만:
+{"useful": 0 또는 1, "reason": "10자 이내"}"""
+
+
+def llm_judge(title: str, description: str) -> tuple[bool, str]:
+    """경량 사전 필터. 실패하면 보수적으로 통과(True) 반환."""
+    client = get_gemini()
+    if not client:
+        return True, ""
+    try:
+        from google.genai import types
+        response = client.models.generate_content(
+            model="gemini-2.5-flash-lite",
+            contents=f"제목: {title}\n요약: {description[:300]}",
+            config=types.GenerateContentConfig(
+                system_instruction=JUDGE_SYSTEM_PROMPT,
+                response_mime_type="application/json",
+                temperature=0.1,
+                max_output_tokens=80,
+            ),
+        )
+        result = safe_json_parse(response.text or "")
+        if not result:
+            return True, ""
+        useful = bool(int(result.get("useful", 1)))
+        reason = (result.get("reason") or "")[:30]
+        return useful, reason
+    except Exception as e:
+        msg = str(e)
+        if "RESOURCE_EXHAUSTED" not in msg and "429" not in msg:
+            print(f"  ! judge failed for '{title[:30]}': {type(e).__name__}")
+        return True, ""
 
 
 def load_state() -> dict:
@@ -670,8 +813,14 @@ def main() -> None:
             fuzzy_kept.append(art)
             fuzzy_norms.append(norm)
 
-    final_articles = sorted(fuzzy_kept, key=lambda x: x["pub"])
-    print(f"After dedup: {len(deduped)} unique titles → {len(final_articles)} after fuzzy dedup")
+    print(f"After dedup: {len(deduped)} unique titles → {len(fuzzy_kept)} after fuzzy dedup")
+
+    emb_cache = load_embeddings_cache()
+    semantically_unique = semantic_dedup(fuzzy_kept, emb_cache)
+    save_embeddings_cache(emb_cache)
+    print(f"After semantic dedup: {len(semantically_unique)} articles")
+
+    final_articles = sorted(semantically_unique, key=lambda x: x["pub"])
 
     for article in final_articles:
         h = article["hash"]
@@ -680,6 +829,36 @@ def main() -> None:
             cur = curated[h]
         else:
             force_t1 = is_tier1(article["link"]) or article["score"] >= 10
+            # 1차 사전 필터: LLM-as-Judge로 명백한 노이즈 차단 (Tier 1은 스킵, 무조건 통과)
+            if not force_t1:
+                useful, judge_reason = llm_judge(article["title"], article["description"])
+                time.sleep(5)
+                if not useful:
+                    print(f"  ✗ judge skip: '{article['title'][:30]}' ({judge_reason})")
+                    cur = {
+                        "importance": "noise",
+                        "section": "domestic",
+                        "category": "정책",
+                        "title_kr": article["title"],
+                        "summary": "",
+                        "implication": "",
+                        "why_important": "",
+                        "watch_next": "",
+                        "tags": [],
+                        "related_reports": [],
+                        "cached_at": now_iso,
+                        "title": article["title"],
+                        "link": article["link"],
+                        "feed": article["feed"],
+                        "domain": article["domain"],
+                        "matched": article["matched"],
+                        "_judge_reason": judge_reason,
+                    }
+                    curated[h] = cur
+                    state["sent"][h] = now_iso
+                    dropped += 1
+                    continue
+
             relevant = find_relevant_reports(article["title"], article["description"], reports_kb)
             cur = curate_with_llm(
                 article["title"], article["description"],
