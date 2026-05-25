@@ -52,7 +52,7 @@ TIER1_DOMAINS = {
     "nssc.go.kr", "motie.go.kr", "msit.go.kr", "korea.kr",
     "khnp.co.kr", "kaeri.re.kr", "kins.re.kr", "korad.or.kr",
     "iaea.org", "world-nuclear.org", "world-nuclear-news.org",
-    "oecd-nea.org", "nrc.gov",
+    "oecd-nea.org", "nrc.gov", "ans.org",
 }
 
 RSS_SOURCES = [
@@ -60,6 +60,8 @@ RSS_SOURCES = [
      "domain_label": "iaea.org"},
     {"url": "http://www.world-nuclear-news.org/rss", "name": "WNN",
      "domain_label": "world-nuclear-news.org"},
+    {"url": "https://www.ans.org/news/feed/", "name": "ANS Nuclear Newswire",
+     "domain_label": "ans.org"},
     {"url": "https://news.google.com/rss/search?q=site:khnp.co.kr&hl=ko&gl=KR&ceid=KR:ko",
      "name": "한수원 보도자료", "domain_label": "khnp.co.kr"},
     {"url": "https://news.google.com/rss/search?q=site:nssc.go.kr&hl=ko&gl=KR&ceid=KR:ko",
