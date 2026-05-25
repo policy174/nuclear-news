@@ -1,3 +1,4 @@
+import difflib
 import hashlib
 import html
 import json
@@ -23,6 +24,7 @@ LOOKBACK_HOURS = 6
 DEDUP_RETENTION_DAYS = 14
 STATE_FILE = Path("sent.json")
 KEYWORDS_FILE = Path("keywords.json")
+REPORTS_KB_FILE = Path("reports_kb.json")
 CURATED_CACHE_FILE = Path("curated.json")
 DIGEST_QUEUE_FILE = Path("digest_queue.json")
 
@@ -70,68 +72,105 @@ RSS_SOURCES = [
 SMR_HINTS = ("smr", "small modular", "i-smr", "advanced reactor")
 
 ANTI_TITLE_PATTERNS = [
-    re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고)\]"),
+    re.compile(r"\[(보도자료|알림|공지|기업\s*소식|새소식|광고|포토|화보|부고|기획|특집|인사|동정)\]"),
 ]
-ANTI_KEYWORDS: list[str] = []  # 주식 관련은 LLM이 market 카테고리로 분류
+ANTI_KEYWORDS: list[str] = [
+    "원자력병원", "원자력 병원", "원자력 시계",
+    "인사 발령", "인사발령", "임원 인사", "신년사", "취임사",
+    "채용 공고", "채용공고", "직원 채용", "신입 채용", "신입사원 채용",
+    "경력 채용", "경력채용", "임원 채용", "인재 모집", "수시채용",
+    "MOU 체결식", "협약 체결식", "기념식",
+    "동호회", "체육대회", "야유회",
+    "청사 이전", "사옥 이전", "조직 개편 안내",
+]
+MIN_DESCRIPTION_LEN = 30  # 본문 길이 필터 - 이보다 짧으면 stub으로 보고 드롭
 
 KR_SLD = (".co.kr", ".or.kr", ".go.kr", ".ne.kr", ".re.kr", ".ac.kr")
 
 CURATION_SYSTEM_PROMPT = """당신은 한국수력원자력 전략경영단 정책개발부의 시니어 정책분석관입니다.
-의사결정자(본부장·부서장)에게 보고하는 분석관 톤으로 작성합니다. 일반 뉴스 큐레이션 톤은 절대 금지.
+의사결정자(본부장·부서장)에게 보고하는 분석관 톤으로 작성합니다. 일반 뉴스 큐레이션 톤 금지.
 
-[모니터링 핵심 토픽] - 본 부서가 다루는 보고서 영역
-① 미국·EU·국제 원자력 정책 및 외교: NRC·DOE 정책·행정명령, 한미·미영(ATOMBRIDGE)·AUKUS·Stonehaven, EU SMR 얼라이언스, IAEA·OECD/NEA
-② SMR·차세대로 기술경쟁: i-SMR·NuScale·TerraPower·X-energy·Holtec·Kairos·Oklo, 표준설계인가·부지·인허가, 포스코·현대건설·삼성·두산 등 국내 컨소시엄
-③ 글로벌 신규원전 수주 시장: 체코 두코바니·폴란드·UAE·사우디·베트남·필리핀 EPC 계약·발주
-④ 국내 정책환경 및 KHNP 사업: 전력수급기본계획, 계속운전(고리·한빛·한울), 신한울 3·4호기, 사용후핵연료, 고준위 방폐장, 원안위 의결
-⑤ 핵연료주기·기후·에너지 전망: 농축·재처리·123협정·SFM, 러시아 폐쇄형 연료주기, COP·NDC, IEA WEO, WNA Energy Outlook, AI in nuclear
+[3가지 분류 모두 수행]
 
-[분류 기준]
+A. importance (중요도) - 발송 방식 결정
+- must_read: 즉시 알아야 함. 하루 평균 0~3건. 매우 엄격.
+   · 정부·규제기관 공식 의결·고시·시행령·법안 본회의 통과
+   · 주요국 행정명령·정책 발표
+   · 신규 원전 부지 결정·인허가 발급, 계속운전 확정, SMR 표준설계인가 발급
+   · 사고·중대 안전 이슈 (INES 등급, 정전, 누출)
+   · 양자 협력 협정 체결·결정 (한미·미영 등)
+   · 글로벌 수주 EPC 계약 체결·확정 (협상 단계는 nice_to_know)
+   · 전력수급기본계획 확정·고시
+- nice_to_know: 맥락·동향. 정책 함의 있는 기사만.
+- market: 주식·증권·테마주·시황·증권사 리포트
+- noise: **적극 거름. 의심스러우면 noise.**
+   · 보도자료 단순 재탕, 외신 단순 번역, 우라까이
+   · 기업 PR·ESG·CSR 홍보, 행사 스케치, 시상식·축사
+   · **정치 일반**: 대선·총선·지선, 정쟁, 정치인 갈등·비판 성명, 여야 공방
+   · **원자력이 본질이 아닌 기사**: 원자력이 부수적으로만 언급되고 본문은 다른 주제 (산업 일반·외교 일반·거시 경제·사회 일반)
+   · **단순 발언·견해**: 정책 의사결정자가 아닌 학자·시민단체·일반 칼럼니스트 발언
+   · 학회 일반 (춘추계 학술대회 등 정책 함의 없는 단순 행사)
+   · 지역 동향 (지역 행사·민원·동호회·시민단체 일반)
+   · 인사 발령·동정·축하·부고
+   · **기관 행정 일반**: 채용 공고·직원 모집·인재 채용·임원 인사, 청사 이전·조직 개편 단순 안내, 회계연도 일반 행정
+   · **정부 사이트라 해도 본질이 회의 결과·의결·정책 발표가 아닌 경우** (예: 회의 결과인데 안건이 채용·청사·내부 행정·일반 공지)
 
-must_read - 의사결정자가 즉시 알아야 함. 하루 평균 0~3건. 매우 엄격 선별.
-- 정부·규제기관 공식 의결·고시·시행령·법안 본회의 통과
-- 미국·영국·EU 등 주요국 행정명령·정책 발표
-- 신규 원전 부지 결정·인허가 발급, 계속운전 확정, SMR 표준설계인가 발급
-- 사고·중대 안전 이슈 (INES 등급, 정전, 누출)
-- 한미·미영 등 양자 협력 협정 체결·결정
-- 글로벌 수주 EPC 계약 체결·확정 (협상 단계는 nice_to_know)
-- 전력수급기본계획 확정·고시
-- KHNP 본사 사업 중대 변동
+** 의결·확정·체결·통과·발급된 사실만 must_read. 칼럼·전망·검토·예정은 절대 must_read 아님. **
+** 원자력이 단순 키워드로만 등장하고 본질이 다른 주제면 무조건 noise. **
 
-nice_to_know - 맥락·동향. 대부분이 여기 해당.
-- 정책 검토·진척, 기관 보고서·연구 결과 (CFTN, Third Way, Stonehaven, IEA, WNA, OECD/NEA 등)
-- 의원 법안 발의·심사 (통과 전)
-- 칼럼·사설·전문가 인터뷰·기명 기고
-- 외국 SMR 회사 마일스톤, 협상·검토 단계 보도
-- 학회 발표, 분기 실적, 일반 회의 결과
+B. section (주제 영역) - 어느 섹션에 들어갈지
+- smr: SMR/소형모듈원자로 관련 모든 뉴스 (행위자 무관). i-SMR, NuScale, TerraPower, X-energy, Holtec, Kairos, Oklo, AP300, eVinci, EU SMR 얼라이언스, 포스코 SMR, 현대건설 SMR 등.
+- khnp: 한수원(한국수력원자력)이 주체이거나 핵심 행위자 (SMR 제외). 체코·폴란드 APR1400 수주, 신한울/새울/고리/한빛/한울 운영, 한수원 보도자료 등.
+- domestic: 한국 정부·규제기관·국회 (한수원·SMR 제외). 산업부, 원안위(NSSC), KINS, 과기정통부, 국회 입법, 11차 전기본 등.
+- international: 그 외 모든 글로벌 동향 (한국·SMR 무관). IAEA·NRC·DOE·EU·OECD/NEA, 외국 정부 정책, 해외 운영사 동향.
 
-market - 주식·증권. 링크만 추적.
-- 원전株, 테마주, 관련주, 수혜주, 시황 코멘트, 증권사 리포트
+** 우선순위: SMR > 한수원 > 국내 > 해외. 같은 기사가 SMR이면서 한수원이면 SMR. **
 
-noise - 거를 것.
-- 보도자료 단순 재탕, 외신 단순 번역
-- 기업 PR·ESG·CSR 단순 홍보, 행사 스케치
-- 중복·우라까이
+C. category (세부 카테고리) - 4가지 중 하나
+- 정책: 정부·국가 단위 의사결정, 외교, 다자기구 정책 결정 (IAEA, OECD/NEA 등)
+- 기술: 노형·핵연료주기·안전기술·R&D·표준설계
+- 시장: 신규 발주·EPC 계약·인수합병·자본·발전사업자 동향
+- 규제: 인허가·안전기준·환경평가·NRC·NSSC 의결
 
-[중요 원칙]
-- must_read는 매우 엄격. 의심스러우면 nice_to_know.
-- 칼럼·전망·검토·예정은 must_read 아님. 의결·확정·체결·통과만 must_read.
+[필드별 출력 - 모든 텍스트 필드는 한국어로 작성. 원문이 영문이어도 한국어로 옮길 것.]
 
-[분량 규칙 - why_important] (must_read 일 때만 작성)
-- 3~4문장, 300자 이내, 격식체(~다 종결).
-- 구성: (a) 핵심 사실 1문장 → (b) KHNP·한국 정책환경 시사점 → (c) 후속 모니터링 포인트 또는 전략적 함의
-- 분석 어휘 사용: "시사점", "전략적", "정책환경", "기회 요인", "리스크", "후속 조치", "함의"
-- 일반 뉴스 요약 톤 절대 금지 ("발표했다", "예정이다" 단순 나열 X)
-- 원문에 없는 정보 추가 금지 (환각 금지)
+- title_kr: 한국어 제목 (30~60자). 원문이 영문이면 자연스러운 한국어로 번역. 원문이 한국어면 핵심을 살린 정확한 한국어 제목. 인명·기관명 첫 등장 시 한글(원문) 병기.
 
-[출력 규칙]
-- 반드시 JSON 한 객체만 출력 (다른 텍스트 금지)
-- summary: 사실 기반 한 문장 50자 이내, 중립적
-- why_important: must_read만, 위 분량 규칙 따름. 그 외 빈 문자열
-- tags: #으로 시작 3개 이내. 예: #한미협정 #체코수주 #SMR경쟁 #NRC #계속운전
+- summary: 빈 문자열 (사용 안 함).
 
-[출력 형식]
-{"category":"must_read|nice_to_know|market|noise","summary":"...","why_important":"...","tags":["#태그1","#태그2"]}
+- implication: 시사점 1문장 (60자 이내). nice_to_know·must_read만 작성. 핵심 함의만 압축.
+
+- why_important: must_read만 작성. **1~2문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰지 말 것.
+
+- watch_next: 빈 문자열 (사용 안 함).
+
+- tags: # 으로 시작 3개 이내. 예: #한미협정 #체코수주 #SMR경쟁
+
+- related_reports: 사용자 메시지에 [관련 사내 보고서] 섹션이 있고 실제 분석에 참조한 보고서가 있으면 보고서 제목 리스트(최대 2개). 참조 안 했거나 보고서 섹션이 없으면 빈 리스트.
+
+[관련 사내 보고서 활용]
+- 사용자 메시지 끝에 [관련 사내 보고서] 섹션이 있으면 분석에 활용.
+- 동일 주제·맥락이면 implication 또는 why_important에 사내 시각과 일관성 있게 작성 (보고서를 명시적으로 인용할 필요는 없으나 톤·관점 통일).
+- 보고서가 실제로 의미 있게 참조된 경우만 related_reports 채울 것. 단순 키워드 일치는 제외.
+
+[원칙]
+- **모든 텍스트 필드는 한국어**. 영문 원문 입력이 들어와도 한국어로 작성.
+- 원문에 없는 정보 추가 금지 (환각 금지).
+- 일반 뉴스 요약 톤 금지. KHNP 정책분석관 보고 톤.
+
+[출력 형식] - 반드시 JSON 한 객체만
+{
+  "importance": "must_read|nice_to_know|market|noise",
+  "section": "smr|khnp|domestic|international",
+  "category": "정책|기술|시장|규제",
+  "title_kr": "...",
+  "summary": "...",
+  "implication": "...",
+  "why_important": "...",
+  "watch_next": "...",
+  "tags": ["#태그1", "#태그2"],
+  "related_reports": ["보고서 제목 1", "..."]
+}
 """
 
 
@@ -166,6 +205,10 @@ def is_promotional(title: str, description: str) -> bool:
     return any(kw in text for kw in ANTI_KEYWORDS)
 
 
+def is_stub(description: str) -> bool:
+    return len(description.strip()) < MIN_DESCRIPTION_LEN
+
+
 def normalize_title(title: str) -> str:
     title = re.sub(r"\[[^\]]+\]|\([^)]+\)", "", title)
     title = re.sub(r"[^\w가-힣]", "", title)
@@ -192,6 +235,41 @@ def load_json(path: Path, default):
 
 def save_json(path: Path, data) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def load_reports_kb() -> list[dict]:
+    if REPORTS_KB_FILE.exists():
+        try:
+            data = json.loads(REPORTS_KB_FILE.read_text(encoding="utf-8"))
+            return data if isinstance(data, list) else []
+        except Exception:
+            return []
+    return []
+
+
+def find_relevant_reports(title: str, description: str, kb: list[dict], top_k: int = 3) -> list[dict]:
+    """기사 제목·요약과 가장 관련 있는 사내 보고서 top_k개 반환 (점수 기반)."""
+    if not kb:
+        return []
+    text = (title + " " + description).lower()
+    scored: list[tuple[float, dict]] = []
+    for report in kb:
+        score = 0.0
+        for tag in report.get("topic_tags") or []:
+            if isinstance(tag, str) and tag.lower() in text:
+                score += 3.0
+        rtitle = (report.get("title") or "").lower()
+        for word in re.findall(r"[가-힣]{2,}|[a-zA-Z]{3,}", rtitle):
+            if word in text:
+                score += 1.0
+        rsum = (report.get("summary") or "").lower()
+        for word in re.findall(r"[가-힣]{3,}", rsum)[:30]:
+            if word in text:
+                score += 0.3
+        if score > 0:
+            scored.append((score, report))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [r for _, r in scored[:top_k]]
 
 
 def load_state() -> dict:
@@ -222,12 +300,13 @@ def save_queue(queue: list) -> None:
     save_json(DIGEST_QUEUE_FILE, queue)
 
 
-def search_naver(query: str, display: int = 30) -> list[dict]:
+def search_naver(query: str, negative_terms: str = "", display: int = 30) -> list[dict]:
+    full_query = f"{query} {negative_terms}".strip() if negative_terms else query
     headers = {
         "X-Naver-Client-Id": NAVER_CLIENT_ID,
         "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
     }
-    params = {"query": query, "display": display, "sort": "date"}
+    params = {"query": full_query, "display": display, "sort": "date"}
     r = requests.get(NAVER_URL, headers=headers, params=params, timeout=10)
     r.raise_for_status()
     return r.json().get("items", [])
@@ -292,13 +371,24 @@ def safe_json_parse(text: str) -> dict | None:
         return None
 
 
-def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False) -> dict:
+VALID_IMPORTANCE = {"must_read", "nice_to_know", "market", "noise"}
+VALID_SECTIONS = {"smr", "khnp", "domestic", "international"}
+VALID_CATEGORIES = {"정책", "기술", "시장", "규제"}
+
+
+def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
     """LLM 호출. 실패 시 안전한 fallback 반환."""
     fallback = {
-        "category": "must_read" if force_must_read else "nice_to_know",
+        "importance": "must_read" if force_must_read else "nice_to_know",
+        "section": "domestic",
+        "category": "정책",
+        "title_kr": title,
         "summary": title[:50],
+        "implication": "",
         "why_important": "",
+        "watch_next": "",
         "tags": [],
+        "related_reports": [],
     }
     client = get_gemini()
     if not client:
@@ -306,7 +396,16 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
 
     user_text = f"제목: {title}\n요약: {description}\n출처: {domain}"
     if force_must_read:
-        user_text += "\n\n참고: 이 기사는 정부·규제기관·국제기구 1차 소스이므로 must_read로 분류하고 summary와 why_important만 작성하세요."
+        user_text += "\n\n참고: 이 기사는 정부·규제기관·국제기구 1차 소스입니다. **본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의 있는 경우만 must_read**. 채용·일반 행정·공지·축사·시상 등은 noise로 분류하세요."
+
+    if relevant_reports:
+        user_text += "\n\n[관련 사내 보고서]\n"
+        for r in relevant_reports:
+            title_r = r.get("title", "")
+            date_r = r.get("date", "")
+            summary_r = (r.get("summary") or "")[:250]
+            date_suffix = f" ({date_r})" if date_r else ""
+            user_text += f"- 「{title_r}」{date_suffix}: {summary_r}\n"
 
     try:
         from google.genai import types
@@ -317,20 +416,28 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
                 system_instruction=CURATION_SYSTEM_PROMPT,
                 response_mime_type="application/json",
                 temperature=0.2,
-                max_output_tokens=1500,
+                max_output_tokens=3000,
             ),
         )
         result = safe_json_parse(response.text or "")
         if not result:
             print(f"  ! curate JSON parse failed for '{title[:30]}'")
             return fallback
-        category = result.get("category", "nice_to_know")
-        if force_must_read:
-            category = "must_read"
+        importance = result.get("importance", "nice_to_know")
+        # Tier 1이라도 LLM이 noise/market/nice_to_know로 분류하면 그대로 존중 (강제 must_read 안 함)
+        section = result.get("section", "domestic")
+        category = result.get("category", "정책")
+        title_kr = (result.get("title_kr") or "").strip() or title
         return {
-            "category": category if category in {"must_read", "nice_to_know", "market", "noise"} else "nice_to_know",
-            "summary": (result.get("summary") or "")[:80],
-            "why_important": (result.get("why_important") or "")[:300],
+            "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
+            "section": section if section in VALID_SECTIONS else "domestic",
+            "category": category if category in VALID_CATEGORIES else "정책",
+            "title_kr": title_kr[:120],
+            "summary": "",
+            "implication": (result.get("implication") or "")[:80],
+            "why_important": (result.get("why_important") or "")[:180],
+            "watch_next": "",
+            "related_reports": [r for r in (result.get("related_reports") or []) if isinstance(r, str)][:2],
             "tags": [t for t in result.get("tags", []) if isinstance(t, str)][:3],
         }
     except Exception as e:
@@ -409,13 +516,13 @@ def collect_rss_articles(state: dict) -> list[dict]:
     return list(by_title.values())
 
 
-def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict) -> list[dict]:
+def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict, negative_terms: str = "") -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
     by_title: dict[str, dict] = {}
 
     for kw in keywords:
         try:
-            items = search_naver(kw)
+            items = search_naver(kw, negative_terms=negative_terms)
         except Exception as e:
             print(f"  ! [{feed_name}] '{kw}' search failed: {e}")
             continue
@@ -440,6 +547,8 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             desc = strip_html(item.get("description", ""))
 
             if is_promotional(title, desc):
+                continue
+            if is_stub(desc):
                 continue
             if not passes_anchor_filter(title, desc, anchors):
                 continue
@@ -472,24 +581,36 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
     return sorted(by_title.values(), key=lambda x: x["pub"])
 
 
+SECTION_LABEL = {
+    "khnp": "🇰🇷 한수원",
+    "domestic": "🏛️ 국내",
+    "international": "🌐 해외",
+    "smr": "🔋 SMR",
+}
+CATEGORY_EMOJI = {"정책": "🏛", "기술": "⚙️", "시장": "📈", "규제": "📋"}
+
+
 def format_must_read(article: dict, curation: dict) -> str:
-    feed = article["feed"]
-    tags_prefix = f"[{feed}]"
-    if article["matched"] == "한국수력원자력":
-        tags_prefix += "[한수원]"
+    section = curation.get("section", "domestic")
+    category = curation.get("category", "정책")
+    section_lbl = SECTION_LABEL.get(section, section)
+    cat_emoji = CATEGORY_EMOJI.get(category, "📌")
 
-    title = html.escape(article["title"])
-    summary = html.escape(curation.get("summary", ""))
+    original_title = article["title"]
+    title_kr = curation.get("title_kr") or original_title
+    show_original = title_kr.strip() != original_title.strip()
+
     why = html.escape(curation.get("why_important", ""))
-    tag_str = " ".join(curation.get("tags", []))
+    related = curation.get("related_reports") or []
 
-    parts = [f"🔴 <b>{tags_prefix}</b> {title}"]
-    if summary:
-        parts.append(f"\n📌 {summary}")
+    parts = [f"🔴 <b>[{section_lbl}] {cat_emoji} [{category}]</b> {html.escape(title_kr)}"]
+    if show_original:
+        parts.append(f"\n<i>{html.escape(original_title)}</i>")
     if why:
         parts.append(f"\n💡 {why}")
-    if tag_str:
-        parts.append(f"\n🏷 {html.escape(tag_str)}")
+    if related:
+        report_str = ", ".join(html.escape(r) for r in related)
+        parts.append(f"\n📚 관련 사내 보고서: <i>{report_str}</i>")
     parts.append(f"\n🔗 {article['link']}")
     return "".join(parts)
 
@@ -499,6 +620,8 @@ def main() -> None:
     state = load_state()
     curated = load_curated()
     queue = load_queue()
+    reports_kb = load_reports_kb()
+    print(f"Loaded {len(reports_kb)} reports from KB")
 
     sent_immediate = 0
     queued = 0
@@ -510,8 +633,9 @@ def main() -> None:
     for feed_name, feed_cfg in config.items():
         kw_list = feed_cfg["keywords"]
         anchors = feed_cfg.get("anchors", [])
-        print(f"[{feed_name}] {len(kw_list)} keywords")
-        articles = collect_articles(feed_name, kw_list, anchors, state)
+        negative_terms = feed_cfg.get("negative_terms", "")
+        print(f"[{feed_name}] {len(kw_list)} keywords (neg: '{negative_terms}')")
+        articles = collect_articles(feed_name, kw_list, anchors, state, negative_terms=negative_terms)
         print(f"[{feed_name}] {len(articles)} candidates from Naver")
         all_candidates.extend(articles)
 
@@ -529,8 +653,23 @@ def main() -> None:
             continue
         deduped[norm] = art
 
-    final_articles = sorted(deduped.values(), key=lambda x: x["pub"])
-    print(f"After cross-source dedup: {len(final_articles)} unique articles")
+    # Fuzzy dedup — 우라까이·받아쓰기 catch
+    sorted_by_score = sorted(deduped.values(), key=lambda x: x["score"], reverse=True)
+    fuzzy_kept: list[dict] = []
+    fuzzy_norms: list[str] = []
+    for art in sorted_by_score:
+        norm = normalize_title(art["title"])
+        is_dup = False
+        for kept_norm in fuzzy_norms:
+            if difflib.SequenceMatcher(None, norm, kept_norm).ratio() >= 0.82:
+                is_dup = True
+                break
+        if not is_dup:
+            fuzzy_kept.append(art)
+            fuzzy_norms.append(norm)
+
+    final_articles = sorted(fuzzy_kept, key=lambda x: x["pub"])
+    print(f"After dedup: {len(deduped)} unique titles → {len(final_articles)} after fuzzy dedup")
 
     for article in final_articles:
         h = article["hash"]
@@ -539,10 +678,12 @@ def main() -> None:
             cur = curated[h]
         else:
             force_t1 = is_tier1(article["link"]) or article["score"] >= 10
+            relevant = find_relevant_reports(article["title"], article["description"], reports_kb)
             cur = curate_with_llm(
                 article["title"], article["description"],
                 article["domain"],
                 force_must_read=force_t1,
+                relevant_reports=relevant,
             )
             cur["cached_at"] = now_iso
             cur["title"] = article["title"]
@@ -553,14 +694,14 @@ def main() -> None:
             curated[h] = cur
             time.sleep(5)
 
-        category = cur.get("category", "nice_to_know")
+        importance = cur.get("importance", "nice_to_know")
 
-        if category == "noise":
+        if importance == "noise":
             state["sent"][h] = now_iso
             dropped += 1
             continue
 
-        if category == "must_read":
+        if importance == "must_read":
             ok = send_telegram(format_must_read(article, cur))
             if ok:
                 state["sent"][h] = now_iso
@@ -569,13 +710,19 @@ def main() -> None:
             queue.append({
                 "hash": h,
                 "title": article["title"],
+                "title_kr": cur.get("title_kr") or article["title"],
                 "link": article["link"],
                 "domain": article["domain"],
                 "feed": article["feed"],
                 "matched": article["matched"],
-                "category": category,
+                "importance": importance,
+                "section": cur.get("section", "domestic"),
+                "category": cur.get("category", "정책"),
                 "summary": cur.get("summary", ""),
+                "implication": cur.get("implication", ""),
+                "watch_next": cur.get("watch_next", ""),
                 "tags": cur.get("tags", []),
+                "related_reports": cur.get("related_reports") or [],
                 "queued_at": now_iso,
             })
             state["sent"][h] = now_iso

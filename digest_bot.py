@@ -38,6 +38,8 @@ DIGEST_QUEUE_FILE = Path("digest_queue.json")
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
 TG_LIMIT = 3800
 
+MAX_DIGEST_ITEMS = 12  # 하루 다이제스트 최대 아이템 수 (ANS 풍 압축 큐레이션)
+
 SECTION_ORDER = ["khnp", "domestic", "international", "smr"]
 SECTION_LABEL = {
     "khnp": "🇰🇷 한수원 동향",
@@ -189,28 +191,62 @@ def render_item(art: dict) -> list[str]:
 
     implication = html.escape(art.get("implication", ""))
     domain = html.escape(art.get("domain", ""))
+    related = art.get("related_reports") or []
 
     lines = [f"<b>{html.escape(title_kr)}</b>"]
     if show_original:
         lines.append(f"  <i>{html.escape(original_title)}</i>")
     if implication:
         lines.append(f"  → {implication}")
+    if related:
+        lines.append(f"  📚 <i>{', '.join(html.escape(r) for r in related)}</i>")
     if domain:
         lines.append(f"  <i>{domain}</i>")
     lines.append(f"  🔗 {art.get('link','')}")
     return lines
 
 
+def rank_item(art: dict) -> float:
+    imp = get_importance(art)
+    base = 10.0 if imp == "must_read" else 5.0
+    # 한수원 섹션 가중
+    if art.get("section") == "khnp":
+        base += 2.0
+    # 1차 소스 가중 (도메인 점수 활용)
+    domain = art.get("domain", "")
+    if any(d in domain for d in ["iaea.org", "world-nuclear-news", "khnp.co.kr", "nssc.go.kr", "motie.go.kr", "nrc.gov"]):
+        base += 2.0
+    # 관련 보고서 매칭 가중
+    if art.get("related_reports"):
+        base += 1.0
+    return base
+
+
 def format_digest(queue: list) -> str:
     today = datetime.now(KST)
-    nice_items = [a for a in queue if get_importance(a) != "market"]
+    nice_items_all = [a for a in queue if get_importance(a) != "market"]
     market_items = [a for a in queue if get_importance(a) == "market"]
+
+    # 하루 상한 적용 — ANS 풍 압축 큐레이션
+    if len(nice_items_all) > MAX_DIGEST_ITEMS:
+        ranked = sorted(nice_items_all, key=rank_item, reverse=True)
+        nice_items = ranked[:MAX_DIGEST_ITEMS]
+        print(f"Capped: {len(nice_items_all)} candidates → top {MAX_DIGEST_ITEMS}")
+    else:
+        nice_items = nice_items_all
 
     curation = batch_curate(nice_items)
 
     parts: list[str] = []
     parts.append(f"☀️ <b>{today.month}/{today.day} 원자력 일일 브리핑</b>")
-    parts.append(f"<i>총 {len(nice_items)}건" + (f" + 시장 {len(market_items)}건" if market_items else "") + "</i>")
+    excluded = len(nice_items_all) - len(nice_items)
+    count_line = f"<i>총 {len(nice_items)}건"
+    if excluded > 0:
+        count_line += f" (후보 {len(nice_items_all)}건 중 상위 선별)"
+    if market_items:
+        count_line += f" + 시장 {len(market_items)}건"
+    count_line += "</i>"
+    parts.append(count_line)
     parts.append("")
 
     if curation["intro"]:
