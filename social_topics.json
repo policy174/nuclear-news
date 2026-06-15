@@ -1,0 +1,88 @@
+{
+  "_comment": "원자력정책실 모니터링 키워드. 각 토픽은 1개 이상의 subqueries로 구성. 토픽당 텔레그램 메시지 1개.",
+  "_schedule_note": "weekly = 매주 / biweekly_odd = 홀수주에만 / biweekly_even = 짝수주에만",
+  "topics": [
+    {
+      "label": "SMR 동향",
+      "schedule": "weekly",
+      "subqueries": [
+        "small modular reactor",
+        "SMR NuScale Rolls-Royce",
+        "SMR NRC approval"
+      ],
+      "subreddits": "nuclear,NuclearPower,energy"
+    },
+    {
+      "label": "원전 일반 동향",
+      "schedule": "weekly",
+      "subqueries": [
+        "nuclear power plant",
+        "nuclear reactor restart",
+        "nuclear new build construction"
+      ],
+      "subreddits": "nuclear,NuclearPower,energy,climate"
+    },
+    {
+      "label": "AI-원전 빅테크 거래",
+      "schedule": "weekly",
+      "subqueries": [
+        "Microsoft nuclear PPA",
+        "Amazon nuclear data center",
+        "Google Kairos nuclear",
+        "hyperscaler nuclear gigawatt"
+      ],
+      "subreddits": "nuclear,energy,singularity"
+    },
+    {
+      "label": "한국 원전 수출",
+      "schedule": "weekly",
+      "subqueries": [
+        "Korea nuclear export",
+        "Czech Dukovany nuclear",
+        "Barakah UAE nuclear",
+        "KEPCO APR1400"
+      ],
+      "subreddits": "nuclear,energy,geopolitics"
+    },
+    {
+      "label": "경쟁사 동향",
+      "schedule": "weekly",
+      "subqueries": [
+        "Rosatom nuclear export",
+        "Westinghouse AP1000 Poland",
+        "China CGN CNNC nuclear"
+      ],
+      "subreddits": "nuclear,energy,geopolitics"
+    },
+    {
+      "label": "재가동 트렌드",
+      "schedule": "biweekly_odd",
+      "subqueries": [
+        "Three Mile Island restart",
+        "Talen Energy nuclear",
+        "Palisades nuclear restart"
+      ],
+      "subreddits": "nuclear,energy,NuclearPower"
+    },
+    {
+      "label": "사용후핵연료",
+      "schedule": "biweekly_odd",
+      "subqueries": [
+        "Yucca Mountain nuclear waste",
+        "Onkalo Finland repository",
+        "used nuclear fuel storage"
+      ],
+      "subreddits": "nuclear,NuclearPower,energy"
+    },
+    {
+      "label": "핵융합 스타트업",
+      "schedule": "biweekly_even",
+      "subqueries": [
+        "fusion power startup",
+        "Helion Energy fusion",
+        "Commonwealth Fusion Systems"
+      ],
+      "subreddits": "nuclear,energy,Futurology,fusion"
+    }
+  ]
+}

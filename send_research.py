@@ -36,6 +36,9 @@ except (AttributeError, ValueError):
 
 from telegram_send import send_long_text
 from dedup import dedup_clusters
+from scorer import score_clusters
+from sources import credibility_bonus
+from synthesize import build_cards, format_cards_message
 
 # ---- 환경 설정 (Windows / Linux 양쪽 호환) -----------------------------------
 
@@ -197,6 +200,8 @@ CLUSTER_HEAD_RE = re.compile(
 )
 URL_RE = re.compile(r"^\s*-\s+URL:\s+(\S+)", re.MULTILINE)
 META_RE = re.compile(r"^\s*-\s+\d{4}-\d{2}-\d{2}\s+\|\s+(?P<meta>.+?)$", re.MULTILINE)
+# Evidence: 소셜 글의 실제 본문 텍스트 — 카드 합성의 grounding 근거로 사용
+EVIDENCE_RE = re.compile(r"^\s*-\s+Evidence:\s+(?P<ev>.+?)\s*$", re.MULTILINE)
 STATS_LINE_RE = re.compile(
     r"^-\s+(?P<source>Reddit|X|Youtube|Hacker News|Polymarket):\s+(?P<count>\d+)\s+items?",
     re.MULTILINE,
@@ -217,6 +222,9 @@ def parse_clusters(md_text: str, limit: int = 999) -> list[dict]:
 
         url_match = URL_RE.search(body)
         meta_match = META_RE.search(body)
+        # 클러스터 내 모든 Evidence 텍스트를 모아 본문(grounding)으로 사용
+        evidences = [e.strip() for e in EVIDENCE_RE.findall(body) if e.strip()]
+        fulltext = " ".join(evidences)[:3000]
 
         clusters.append({
             "title": m.group("title").strip(),
@@ -224,6 +232,7 @@ def parse_clusters(md_text: str, limit: int = 999) -> list[dict]:
             "sources": [s.strip() for s in m.group("sources").split(",")],
             "url": url_match.group(1) if url_match else None,
             "meta": meta_match.group("meta").strip() if meta_match else "",
+            "fulltext": fulltext,
         })
     clusters.sort(key=lambda c: c["score"], reverse=True)
     return clusters[:limit]
@@ -304,6 +313,9 @@ def quality_boost(cluster: dict) -> int:
             bonus += 15
             break
 
+    # 공신력 출처 보너스 (sources.json: WNN·NucNet·IAEA 등 tier1 +40, tier2 +20)
+    bonus += credibility_bonus(cluster)
+
     return bonus
 
 
@@ -361,7 +373,10 @@ def format_message(topic_label: str, primary_topic: str, clusters: list[dict],
                 lines.append(f"{i}. {title}")
             if meta:
                 lines.append(f"   <i>{meta}</i>")
-            lines.append(f"   <code>[{sources}] · score {c.get('boosted_score', c['score'])}</code>")
+            score_meta = f"[{sources}] · score {c.get('boosted_score', c['score'])}"
+            if c.get("ai_score") is not None:
+                score_meta += f" · AI {c['ai_score']}"
+            lines.append(f"   <code>{score_meta}</code>")
             lines.append("")
 
     return "\n".join(lines)
@@ -371,7 +386,8 @@ def format_message(topic_label: str, primary_topic: str, clusters: list[dict],
 
 
 def load_keywords() -> list[dict]:
-    path = ROOT / "keywords.json"
+    # 소셜 토픽은 social_topics.json (keywords.json 은 news_bot RSS 설정이라 분리)
+    path = ROOT / "social_topics.json"
     return json.loads(path.read_text(encoding="utf-8"))["topics"]
 
 
@@ -429,20 +445,30 @@ def collect_topic(topic: dict, top_n: int) -> dict:
 
 def send_topic_message(label: str, primary: str, clusters: list[dict],
                        stats: dict[str, int], raw_path,
-                       top_n: int, dry_run: bool) -> dict:
-    """수집·dedup 끝난 cluster를 받아 메시지 포맷하고 발송."""
-    clusters = clusters[:top_n]
-    message = format_message(label, primary, clusters, stats, raw_path)
+                       top_n: int, dry_run: bool,
+                       cards: list[dict] | None = None) -> dict:
+    """수집·dedup 끝난 cluster를 받아 메시지 포맷하고 발송.
+
+    cards 가 있으면 합성 카드 형식으로, 없으면 기존 헤드라인 리스트로 폴백.
+    """
+    if cards:
+        cards = cards[:top_n]
+        message = format_cards_message(cards, header=label)
+        item_count = len(cards)
+    else:
+        clusters = clusters[:top_n]
+        message = format_message(label, primary, clusters, stats, raw_path)
+        item_count = len(clusters)
 
     if dry_run:
-        print(f"[dry-run] '{label}' 발송 생략 ({len(message)}자, 항목 {len(clusters)}개)")
-        return {"label": label, "ok": True, "dry_run": True, "items": len(clusters)}
+        print(f"[dry-run] '{label}' 발송 생략 ({len(message)}자, 항목 {item_count}개)")
+        return {"label": label, "ok": True, "dry_run": True, "items": item_count}
 
     try:
         results = send_long_text(message, parse_mode="HTML")
         ok_count = sum(1 for r in results if r.get("ok"))
-        print(f"[발송] '{label}': {ok_count}/{len(results)} 성공 (항목 {len(clusters)}개)")
-        return {"label": label, "ok": ok_count == len(results), "items": len(clusters)}
+        print(f"[발송] '{label}': {ok_count}/{len(results)} 성공 (항목 {item_count}개)")
+        return {"label": label, "ok": ok_count == len(results), "items": item_count}
     except Exception as e:
         print(f"[에러] '{label}' 발송 실패: {e}")
         return {"label": label, "ok": False, "error": str(e)}
@@ -457,6 +483,9 @@ def main() -> int:
     parser.add_argument("--include-biweekly", action="store_true",
                         help="격주 토픽도 포함 (홀수주/짝수주 자동 판단)")
     parser.add_argument("--top", type=int, default=8, help="토픽당 상위 헤드라인 개수 (기본 8)")
+    parser.add_argument("--score-threshold", type=float, default=6.0,
+                        help="AI 점수 임계값. 이 점수 미만 헤드라인은 발송 전 컷 (기본 6.0). "
+                             "GEMINI_API_KEY 없으면 미적용.")
     parser.add_argument("--dry-run", action="store_true", help="텔레그램 발송 없이 실행")
     args = parser.parse_args()
 
@@ -479,15 +508,28 @@ def main() -> int:
     for topic in topics:
         collected.append(collect_topic(topic, top_n=args.top))
 
-    # ---- Phase 2: cross-topic dedup -------------------------------------
-    print("\n=== cross-topic dedup 시작 ===")
+    # ---- Phase 2a: AI 점수 매기기 + threshold 필터 ----------------------
+    # dedup 앞에 끼움 — 노이즈 먼저 컷해야 의미 dedup 호출 토큰·비용 절감.
+    print("\n=== AI 점수 매기기 시작 ===")
     pairs: list[tuple[str, dict]] = []
     for r in collected:
         if not r.get("ok"):
             continue
         for c in r["clusters"]:
             pairs.append((r["label"], c))
-    print(f"[dedup] 전체 cluster {len(pairs)}개 입력")
+    print(f"[score] 전체 cluster {len(pairs)}개 입력 (threshold={args.score_threshold})")
+
+    if pairs:
+        pairs, score_dropped = score_clusters(pairs, threshold=args.score_threshold)
+        print(f"[score] kept {len(pairs)}, dropped {len(score_dropped)}")
+        for t_lbl, c, ai_s, ai_r in score_dropped[:15]:
+            print(f"  · drop [{t_lbl}] '{c['title'][:55]}' ({ai_s}점: {ai_r[:40]})")
+        if len(score_dropped) > 15:
+            print(f"  · ... and {len(score_dropped) - 15} more")
+
+    # ---- Phase 2b: cross-topic dedup -------------------------------------
+    print("\n=== cross-topic dedup 시작 ===")
+    print(f"[dedup] {len(pairs)}개 cluster 입력")
 
     if pairs:
         kept_pairs, dropped = dedup_clusters(pairs)
@@ -507,6 +549,24 @@ def main() -> int:
     else:
         kept_by_topic = {}
 
+    # ---- Phase 2c: 카드 합성 (1회 호출로 전체) --------------------------
+    # top_n 까지만 카드화 — 토큰 절감. 실패/키없음 시 cards=None → 리스트 폴백.
+    print("\n=== 카드 합성 시작 ===")
+    synth_pairs: list[tuple[str, dict]] = []
+    for lbl, lst in kept_by_topic.items():
+        for c in lst[:args.top]:
+            synth_pairs.append((lbl, c))
+
+    cards_by_topic: dict[str, list[dict]] = {}
+    if synth_pairs:
+        cards = build_cards(synth_pairs)
+        if cards is None:
+            print("[카드] 합성 불가(키 없음/실패) → 기존 리스트 형식으로 폴백")
+        else:
+            for card in cards:
+                cards_by_topic.setdefault(card["topic"], []).append(card)
+            print(f"[카드] {len(cards)}장 생성, {len(cards_by_topic)}개 토픽")
+
     # ---- Phase 3: 토픽별 발송 -------------------------------------------
     print("\n=== 발송 시작 ===")
     summary: list[dict] = []
@@ -521,6 +581,7 @@ def main() -> int:
             label=r["label"], primary=r["primary"],
             clusters=clusters_for_topic, stats=r["stats"],
             raw_path=r["raw_path"], top_n=args.top, dry_run=args.dry_run,
+            cards=cards_by_topic.get(r["label"]),
         ))
 
     print("\n=== 최종 요약 ===")

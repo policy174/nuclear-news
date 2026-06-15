@@ -164,26 +164,14 @@ def batch_synthesize(items: list[dict]) -> dict:
 
     user_text = f"지난 7일간 수집된 기사 목록 (총 {len(items)}건):\n\n{article_block}"
 
+    # REST(gemini_client)로 호출 — google-genai SDK 대신. 429(무료 티어 한도)
+    # 백오프 재시도 포함. SDK 무재시도로 weekly 가 즉사하던 버그(2026-06-14) 해결.
     try:
-        from google import genai
-        from google.genai import types
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=user_text,
-            config=types.GenerateContentConfig(
-                system_instruction=WEEKLY_BATCH_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.3,
-                max_output_tokens=10000,
-            ),
+        from gemini_client import call_json
+        result = call_json(
+            WEEKLY_BATCH_PROMPT, user_text,
+            temperature=0.3, max_output_tokens=10000, timeout=120.0,
         )
-        raw = response.text or ""
-        result = safe_json_parse(raw)
-        if not result:
-            print(f"  ! weekly synthesis: JSON parse failed. Raw output (first 300 chars):")
-            print(f"    {raw[:300]}")
-            return fallback
         return {
             "weekly_intro": result.get("weekly_intro", ""),
             "areas": result.get("areas", []) or [],

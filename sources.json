@@ -1,0 +1,35 @@
+{
+  "_comment": "공신력 있는 원자력·에너지 출처 화이트리스트. 여기 등록된 도메인/매체에서 온 기사는 점수 보너스를 받아 상위로 올라오고 dedup 대표로 선정됩니다. 코드 수정 없이 이 파일만 편집하세요.",
+  "_how_it_works": "cluster의 URL 도메인을 먼저 보고, 못 찾으면 제목·메타 텍스트에서 aliases(매체명·X핸들)를 찾습니다. tier1=전문 권위 매체/공식기관(큰 보너스), tier2=신뢰 일반·에너지 매체(중간 보너스).",
+  "tier1_bonus": 40,
+  "tier2_bonus": 20,
+  "tier1": [
+    { "domain": "world-nuclear-news.org", "name": "World Nuclear News", "aliases": ["World Nuclear News", "WNN", "@WNN_Updates"] },
+    { "domain": "nucnet.org", "name": "NucNet", "aliases": ["NucNet", "@NucNet"] },
+    { "domain": "neimagazine.com", "name": "Nuclear Engineering International", "aliases": ["Nuclear Engineering International", "NEI Magazine"] },
+    { "domain": "ans.org", "name": "American Nuclear Society", "aliases": ["American Nuclear Society", "Nuclear Newswire", "@ans_org"] },
+    { "domain": "world-nuclear.org", "name": "World Nuclear Association", "aliases": ["World Nuclear Association", "@World_Nuclear"] },
+    { "domain": "iaea.org", "name": "IAEA", "aliases": ["IAEA", "@IAEAorg"] },
+    { "domain": "oecd-nea.org", "name": "OECD NEA", "aliases": ["OECD NEA", "Nuclear Energy Agency", "@OECD_NEA"] },
+    { "domain": "nrc.gov", "name": "US NRC", "aliases": ["@NRCgov"] },
+    { "domain": "energy.gov", "name": "US DOE", "aliases": ["Department of Energy", "@ENERGY", "@energydotgov", "@DOEnuclear"] },
+    { "domain": "iea.org", "name": "IEA", "aliases": ["International Energy Agency", "@IEA"] },
+    { "domain": "nei.org", "name": "Nuclear Energy Institute", "aliases": ["Nuclear Energy Institute", "@NEI"] }
+  ],
+  "tier2": [
+    { "domain": "reuters.com", "name": "Reuters", "aliases": ["Reuters", "@reuters"] },
+    { "domain": "bloomberg.com", "name": "Bloomberg", "aliases": ["Bloomberg", "@BloombergNRG"] },
+    { "domain": "ft.com", "name": "Financial Times", "aliases": ["Financial Times", "@FT_Energy"] },
+    { "domain": "politico.eu", "name": "Politico EU", "aliases": ["Politico", "@PoliticoEU"] },
+    { "domain": "politico.com", "name": "Politico", "aliases": [] },
+    { "domain": "axios.com", "name": "Axios", "aliases": ["Axios", "@axios"] },
+    { "domain": "powermag.com", "name": "POWER Magazine", "aliases": ["POWER Magazine", "@PowerMag"] },
+    { "domain": "utilitydive.com", "name": "Utility Dive", "aliases": ["Utility Dive"] },
+    { "domain": "spectrum.ieee.org", "name": "IEEE Spectrum", "aliases": ["IEEE Spectrum"] },
+    { "domain": "apnews.com", "name": "AP", "aliases": ["Associated Press"] },
+    { "domain": "cnbc.com", "name": "CNBC", "aliases": ["CNBC"] },
+    { "domain": "koreaherald.com", "name": "Korea Herald", "aliases": ["Korea Herald"] },
+    { "domain": "koreatimes.co.kr", "name": "Korea Times", "aliases": ["Korea Times"] },
+    { "domain": "en.yna.co.kr", "name": "Yonhap", "aliases": ["Yonhap"] }
+  ]
+}

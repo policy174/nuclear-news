@@ -75,7 +75,7 @@ def call_json(
     temperature: float = 0.1,
     max_output_tokens: int = 4096,
     timeout: float = 60.0,
-    retries: int = 2,
+    retries: int = 3,
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
 
@@ -124,12 +124,14 @@ def call_json(
             # 429/5xx만 재시도
             if e.code not in (429, 500, 502, 503, 504) or attempt == retries:
                 raise last_err from e
+            # 429(무료 티어 분당 한도)는 분당 리셋 → 길게 대기. 5xx는 짧게.
+            time.sleep(20 * (attempt + 1) if e.code == 429 else 2 ** attempt)
+            continue
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
             last_err = GeminiError(f"{type(e).__name__}: {e}")
             if attempt == retries:
                 raise last_err
-        # 지수 백오프
-        time.sleep(2 ** attempt)
+            time.sleep(2 ** attempt)
     # 도달 불가
     raise last_err or GeminiError("Gemini 호출 실패")
 
