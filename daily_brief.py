@@ -43,19 +43,32 @@ QUEUE_FILE = ROOT / "digest_queue.json"
 SOCIAL_TOPICS_FILE = ROOT / "social_topics.json"
 KST = timezone(timedelta(hours=9))
 
-MAX_ITEMS = 12  # 소셜 섹션 상한
+MAX_ITEMS = 10  # 소셜 섹션 상한
 
-# 섹션 그룹 — 한국(한수원·국내) 슬롯을 보장해 외국 기사에 안 밀리게.
-SECTION_ORDER = ["khnp", "domestic", "smr", "international"]
-SECTION_LABEL = {
-    "khnp": "🇰🇷 한수원", "domestic": "🏛️ 국내",
-    "smr": "🔋 SMR", "international": "🌐 해외",
-}
-SECTION_CAP = {"khnp": 3, "domestic": 3, "smr": 3, "international": 5}
+# 국내/해외 분리 발송 — 둘 다 양이 많아 각각 별도 브리핑 1개씩.
+DOMESTIC_CAP = 8
+FOREIGN_CAP = 8
+_KR_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
 
 # 도메인 1차 소스 가중 (digest_bot.rank_item 차용)
 PRIMARY_DOMAINS = ("iaea.org", "world-nuclear-news", "khnp.co.kr",
                    "nssc.go.kr", "motie.go.kr", "nrc.gov")
+
+
+def region(art: dict) -> str:
+    """기사를 국내/해외로 분류 (도메인 우선 — 오분류에 견고).
+
+    - 한국 도메인(.kr 등) → 국내
+    - 외국 도메인이라도 section='khnp'(한수원이 주체, 예: 체코 수주) → 국내
+    - 그 외(외국 도메인) → 해외
+      ※ 외국 도메인+'domestic' 태그는 분류 실패(429) 흔적이 많아 해외로 본다.
+    """
+    dom = (art.get("domain") or "").lower()
+    if any(h in dom for h in _KR_HINTS):
+        return "국내"
+    if (art.get("section") or "") == "khnp":
+        return "국내"
+    return "해외"
 
 
 # ---- 큐 입출력 ---------------------------------------------------------------
@@ -205,56 +218,41 @@ def collect_social(saved_raw: list[Path] | None = None,
 
 # ---- 메인 -------------------------------------------------------------------
 
-def build_brief(queue: list[dict],
-                social_pairs: list[tuple[str, dict]] | None = None) -> tuple[str, int]:
-    """큐(+소셜) → (카드 메시지, 카드 수). 섹션별 그룹(한국 보장)."""
+def build_briefs(queue: list[dict],
+                 social_pairs: list[tuple[str, dict]] | None = None) -> list[tuple[str, str]]:
+    """큐(+소셜) → [(지역명, 메시지)]. 국내·해외 2개 브리핑으로 분리.
+
+    소셜(Reddit/X)은 대부분 글로벌이라 해외 브리핑에 붙임.
+    """
     from synthesize import format_cards_message, build_cards
-    from datetime import date
 
     items = [a for a in queue if get_importance(a) != "noise"]
+    dom = sorted([a for a in items if region(a) == "국내"], key=rank_item, reverse=True)[:DOMESTIC_CAP]
+    forn = sorted([a for a in items if region(a) == "해외"], key=rank_item, reverse=True)[:FOREIGN_CAP]
+    print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별")
 
-    # 섹션별로 묶고 각 섹션 상한만큼 선별 — 한수원·국내가 외국에 안 밀리게 보장
-    by_sec: dict[str, list[dict]] = {s: [] for s in SECTION_ORDER}
-    for a in items:
-        sec = a.get("section") or "international"
-        by_sec[sec if sec in by_sec else "international"].append(a)
+    # 투자 보강 — 양쪽 선별분 한 번에 (무료 티어 호출 절감)
+    allsel = dom + forn
+    inv = enrich_investment(allsel)
+    dom_cards = [item_to_card(a, inv.get(i)) for i, a in enumerate(dom)]
+    forn_cards = [item_to_card(a, inv.get(len(dom) + i)) for i, a in enumerate(forn)]
 
-    selected: list[tuple[str, dict]] = []
-    for s in SECTION_ORDER:
-        top = sorted(by_sec[s], key=rank_item, reverse=True)[:SECTION_CAP[s]]
-        selected += [(s, a) for a in top]
-        if by_sec[s]:
-            print(f"[daily_brief] {SECTION_LABEL[s]}: {len(by_sec[s])}건 → {len(top)}건")
+    briefs: list[tuple[str, str]] = []
+    if dom_cards:
+        briefs.append(("국내", format_cards_message(dom_cards, header="🇰🇷 원자력 국내 브리핑")))
 
-    # 투자 보강 — 선별된 것 전체 1회 호출
-    sel_arts = [a for _, a in selected]
-    inv = enrich_investment(sel_arts)
-
-    # 섹션별 카드 렌더
-    cards_by_sec: dict[str, list[dict]] = {s: [] for s in SECTION_ORDER}
-    for i, (s, a) in enumerate(selected):
-        cards_by_sec[s].append(item_to_card(a, inv.get(i)))
-
-    parts = [f"<b>📰 원자력 일일 브리핑 ({date.today().isoformat()})</b>", ""]
-    total = 0
-    for s in SECTION_ORDER:
-        if cards_by_sec[s]:
-            parts.append(format_cards_message(
-                cards_by_sec[s], header=f"━━ {SECTION_LABEL[s]} ━━", show_header=False))
-            total += len(cards_by_sec[s])
-    msg = "\n".join(parts)
-
-    # 소셜 섹션 (Evidence 본문 기반 풀합성 카드)
-    # self_check=False — 무료 티어 호출 수 절감. 합성 프롬프트의 근거-강제로 1차 방어.
+    forn_msg = format_cards_message(forn_cards, header="🌐 원자력 해외 브리핑") if forn_cards else ""
     if social_pairs:
         social_cards = build_cards(social_pairs[:MAX_ITEMS], self_check=False) or []
         if social_cards:
-            msg += "\n" + format_cards_message(
+            sec = format_cards_message(
                 social_cards, header="━━ 🔥 소셜 화제 (Reddit·X) ━━", show_header=False)
-            total += len(social_cards)
-            print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 추가")
+            forn_msg = (forn_msg + "\n" + sec) if forn_msg else sec
+            print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 (해외 브리핑에 추가)")
+    if forn_msg:
+        briefs.append(("해외", forn_msg))
 
-    return msg, total
+    return briefs
 
 
 def main() -> int:
@@ -290,22 +288,32 @@ def main() -> int:
         return 0
 
     print(f"[daily_brief] curated 입력 {len(queue)}건")
-    message, n = build_brief(queue, social_pairs=social_pairs)
-
-    if args.dry_run:
-        print("\n" + "=" * 60)
-        print(message)
-        print("=" * 60)
-        print(f"\n[dry-run] 카드 {n}개, {len(message)}자 (발송 생략)")
+    briefs = build_briefs(queue, social_pairs=social_pairs)
+    if not briefs:
+        print("[daily_brief] 발송할 내용 없음 → 스킵")
         return 0
 
-    results = send_long_text(message, parse_mode="HTML")
-    ok = sum(1 for r in results if r.get("ok"))
-    print(f"[daily_brief] 발송 {ok}/{len(results)} ({n}개 카드)")
+    if args.dry_run:
+        for name, msg in briefs:
+            print("\n" + "=" * 60 + f"  [{name} 브리핑]")
+            print(msg)
+        print(f"\n[dry-run] 브리핑 {len(briefs)}개 (발송 생략)")
+        return 0
+
+    import time
+    all_ok = True
+    for i, (name, msg) in enumerate(briefs):
+        if i > 0:
+            time.sleep(2)  # 텔레그램 rate limit
+        results = send_long_text(msg, parse_mode="HTML")
+        ok = sum(1 for r in results if r.get("ok"))
+        print(f"[daily_brief] {name} 브리핑 발송 {ok}/{len(results)}")
+        all_ok = all_ok and ok == len(results)
+
     if not args.from_curated and not args.keep_queue:
         save_queue([])
         print("[daily_brief] 큐 비움")
-    return 0 if ok == len(results) else 1
+    return 0 if all_ok else 1
 
 
 if __name__ == "__main__":
