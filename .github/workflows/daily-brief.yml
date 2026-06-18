@@ -4,9 +4,10 @@ name: Daily Brief (통합 일일 브리핑)
 # digest_bot / send_research(daily-news) / wnn 을 대체.
 
 on:
-  # 매일 07:00 KST = 22:00 UTC. 정각 큐 폭주 회피용으로 :05 오프셋.
+  # 매일 07:25 KST = 22:25 UTC. GitHub Actions cron은 정시 근처일수록 큐 폭주로
+  # 수~수십 분 지연됨 → 어중간한 분(:25)으로 옮겨 지연·편차 최소화.
   schedule:
-    - cron: '5 22 * * *'
+    - cron: '25 22 * * *'
   workflow_dispatch:
     inputs:
       no_social:

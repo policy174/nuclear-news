@@ -43,7 +43,15 @@ QUEUE_FILE = ROOT / "digest_queue.json"
 SOCIAL_TOPICS_FILE = ROOT / "social_topics.json"
 KST = timezone(timedelta(hours=9))
 
-MAX_ITEMS = 12  # 하루 카드 상한 (압축 큐레이션)
+MAX_ITEMS = 12  # 소셜 섹션 상한
+
+# 섹션 그룹 — 한국(한수원·국내) 슬롯을 보장해 외국 기사에 안 밀리게.
+SECTION_ORDER = ["khnp", "domestic", "smr", "international"]
+SECTION_LABEL = {
+    "khnp": "🇰🇷 한수원", "domestic": "🏛️ 국내",
+    "smr": "🔋 SMR", "international": "🌐 해외",
+}
+SECTION_CAP = {"khnp": 3, "domestic": 3, "smr": 3, "international": 5}
 
 # 도메인 1차 소스 가중 (digest_bot.rank_item 차용)
 PRIMARY_DOMAINS = ("iaea.org", "world-nuclear-news", "khnp.co.kr",
@@ -199,31 +207,50 @@ def collect_social(saved_raw: list[Path] | None = None,
 
 def build_brief(queue: list[dict],
                 social_pairs: list[tuple[str, dict]] | None = None) -> tuple[str, int]:
-    """큐(+소셜) → (카드 메시지, 카드 수)."""
+    """큐(+소셜) → (카드 메시지, 카드 수). 섹션별 그룹(한국 보장)."""
     from synthesize import format_cards_message, build_cards
+    from datetime import date
 
-    # market 등급은 참고용 — 비투자 카드와 분리 가능하나 v1은 함께 랭킹
     items = [a for a in queue if get_importance(a) != "noise"]
-    items.sort(key=rank_item, reverse=True)
-    if len(items) > MAX_ITEMS:
-        print(f"[daily_brief] curated {len(items)}건 → 상위 {MAX_ITEMS}건 선별")
-        items = items[:MAX_ITEMS]
 
-    inv = enrich_investment(items)
-    cards = [item_to_card(a, inv.get(i)) for i, a in enumerate(items)]
+    # 섹션별로 묶고 각 섹션 상한만큼 선별 — 한수원·국내가 외국에 안 밀리게 보장
+    by_sec: dict[str, list[dict]] = {s: [] for s in SECTION_ORDER}
+    for a in items:
+        sec = a.get("section") or "international"
+        by_sec[sec if sec in by_sec else "international"].append(a)
 
-    # format_cards_message 가 날짜를 붙이므로 header 에는 날짜 안 넣음
-    msg = format_cards_message(cards, header="원자력 일일 브리핑")
-    total = len(cards)
+    selected: list[tuple[str, dict]] = []
+    for s in SECTION_ORDER:
+        top = sorted(by_sec[s], key=rank_item, reverse=True)[:SECTION_CAP[s]]
+        selected += [(s, a) for a in top]
+        if by_sec[s]:
+            print(f"[daily_brief] {SECTION_LABEL[s]}: {len(by_sec[s])}건 → {len(top)}건")
+
+    # 투자 보강 — 선별된 것 전체 1회 호출
+    sel_arts = [a for _, a in selected]
+    inv = enrich_investment(sel_arts)
+
+    # 섹션별 카드 렌더
+    cards_by_sec: dict[str, list[dict]] = {s: [] for s in SECTION_ORDER}
+    for i, (s, a) in enumerate(selected):
+        cards_by_sec[s].append(item_to_card(a, inv.get(i)))
+
+    parts = [f"<b>📰 원자력 일일 브리핑 ({date.today().isoformat()})</b>", ""]
+    total = 0
+    for s in SECTION_ORDER:
+        if cards_by_sec[s]:
+            parts.append(format_cards_message(
+                cards_by_sec[s], header=f"━━ {SECTION_LABEL[s]} ━━", show_header=False))
+            total += len(cards_by_sec[s])
+    msg = "\n".join(parts)
 
     # 소셜 섹션 (Evidence 본문 기반 풀합성 카드)
     # self_check=False — 무료 티어 호출 수 절감. 합성 프롬프트의 근거-강제로 1차 방어.
     if social_pairs:
         social_cards = build_cards(social_pairs[:MAX_ITEMS], self_check=False) or []
         if social_cards:
-            social_msg = format_cards_message(
-                social_cards, header="━━━━━━\n🔥 소셜 화제 (Reddit·X)", show_header=False)
-            msg = msg + "\n" + social_msg
+            msg += "\n" + format_cards_message(
+                social_cards, header="━━ 🔥 소셜 화제 (Reddit·X) ━━", show_header=False)
             total += len(social_cards)
             print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 추가")
 
