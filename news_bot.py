@@ -520,12 +520,27 @@ VALID_IMPORTANCE = {"must_read", "nice_to_know", "market", "noise"}
 VALID_SECTIONS = {"smr", "khnp", "domestic", "international"}
 VALID_CATEGORIES = {"정책", "기술", "시장", "규제"}
 
+# 한국 출처 도메인 (이외는 해외로 간주)
+_KR_DOMAIN_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
+
+
+def default_section(domain: str) -> str:
+    """LLM이 section을 못 줄 때 도메인으로 추정.
+
+    미국·글로벌 기사가 '국내(domestic)'로 오분류되는 것 방지 — 기본값은 '해외'.
+    한국 도메인만 domestic(khnp.co.kr이면 khnp)으로.
+    """
+    d = (domain or "").lower()
+    if any(h in d for h in _KR_DOMAIN_HINTS):
+        return "khnp" if "khnp" in d else "domestic"
+    return "international"
+
 
 def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
     """LLM 호출. 실패 시 안전한 fallback 반환."""
     fallback = {
         "importance": "must_read" if force_must_read else "nice_to_know",
-        "section": "domestic",
+        "section": default_section(domain),
         "category": "정책",
         "title_kr": title,
         "summary": title[:50],
@@ -570,12 +585,12 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
             return fallback
         importance = result.get("importance", "nice_to_know")
         # Tier 1이라도 LLM이 noise/market/nice_to_know로 분류하면 그대로 존중 (강제 must_read 안 함)
-        section = result.get("section", "domestic")
+        section = result.get("section") or default_section(domain)
         category = result.get("category", "정책")
         title_kr = (result.get("title_kr") or "").strip() or title
         return {
             "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
-            "section": section if section in VALID_SECTIONS else "domestic",
+            "section": section if section in VALID_SECTIONS else default_section(domain),
             "category": category if category in VALID_CATEGORIES else "정책",
             "title_kr": title_kr[:120],
             "summary": "",
