@@ -897,32 +897,28 @@ def main() -> None:
             dropped += 1
             continue
 
-        if importance == "must_read":
-            ok = send_telegram(format_must_read(article, cur))
-            if ok:
-                state["sent"][h] = now_iso
-                sent_immediate += 1
-        else:
-            queue.append({
-                "hash": h,
-                "title": article["title"],
-                "title_kr": cur.get("title_kr") or article["title"],
-                "link": article["link"],
-                "domain": article["domain"],
-                "feed": article["feed"],
-                "matched": article["matched"],
-                "importance": importance,
-                "section": cur.get("section", "domestic"),
-                "category": cur.get("category", "정책"),
-                "summary": cur.get("summary", ""),
-                "implication": cur.get("implication", ""),
-                "watch_next": cur.get("watch_next", ""),
-                "tags": cur.get("tags", []),
-                "related_reports": cur.get("related_reports") or [],
-                "queued_at": now_iso,
-            })
-            state["sent"][h] = now_iso
-            queued += 1
+        # must_read 포함 모든 비-noise 항목을 큐에 적재 — 즉시 개별 발송 폐지,
+        # 일일 브리핑(daily_brief)으로 통합. must_read 는 rank가 높아 브리핑 상단 노출.
+        queue.append({
+            "hash": h,
+            "title": article["title"],
+            "title_kr": cur.get("title_kr") or article["title"],
+            "link": article["link"],
+            "domain": article["domain"],
+            "feed": article["feed"],
+            "matched": article["matched"],
+            "importance": importance,
+            "section": cur.get("section", "domestic"),
+            "category": cur.get("category", "정책"),
+            "summary": cur.get("summary", ""),
+            "implication": cur.get("implication", ""),
+            "watch_next": cur.get("watch_next", ""),
+            "tags": cur.get("tags", []),
+            "related_reports": cur.get("related_reports") or [],
+            "queued_at": now_iso,
+        })
+        state["sent"][h] = now_iso
+        queued += 1
 
     save_state(state)
     save_curated(curated)
