@@ -237,9 +237,17 @@ def build_briefs(queue: list[dict],
     dom_cards = [item_to_card(a, inv.get(i)) for i, a in enumerate(dom)]
     forn_cards = [item_to_card(a, inv.get(len(dom) + i)) for i, a in enumerate(forn)]
 
+    from datetime import date
+    today = date.today().isoformat()
+
     briefs: list[tuple[str, str]] = []
+    # 국내·해외 둘 다 항상 발송 — 사용자가 같은 시간에 둘 다 기대. 없으면 안내 메시지.
     if dom_cards:
         briefs.append(("국내", format_cards_message(dom_cards, header="🇰🇷 원자력 국내 브리핑")))
+    else:
+        briefs.append(("국내",
+            f"<b>📰 🇰🇷 원자력 국내 브리핑 ({today})</b>\n\n"
+            "<i>오늘은 별도로 잡힌 국내 동향이 없습니다.</i>"))
 
     forn_msg = format_cards_message(forn_cards, header="🌐 원자력 해외 브리핑") if forn_cards else ""
     if social_pairs:
@@ -249,8 +257,10 @@ def build_briefs(queue: list[dict],
                 social_cards, header="━━ 🔥 소셜 화제 (Reddit·X) ━━", show_header=False)
             forn_msg = (forn_msg + "\n" + sec) if forn_msg else sec
             print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 (해외 브리핑에 추가)")
-    if forn_msg:
-        briefs.append(("해외", forn_msg))
+    if not forn_msg:
+        forn_msg = (f"<b>📰 🌐 원자력 해외 브리핑 ({today})</b>\n\n"
+                    "<i>오늘은 별도로 잡힌 해외 동향이 없습니다.</i>")
+    briefs.append(("해외", forn_msg))
 
     return briefs
 
