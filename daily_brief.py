@@ -55,20 +55,32 @@ PRIMARY_DOMAINS = ("iaea.org", "world-nuclear-news", "khnp.co.kr",
                    "nssc.go.kr", "motie.go.kr", "nrc.gov")
 
 
-def region(art: dict) -> str:
-    """기사를 국내/해외로 분류 (도메인 우선 — 오분류에 견고).
+# 명백한 외국 뉴스 도메인 — 429 분류실패로 domestic 태그가 붙어도 해외로 교정
+_FOREIGN_NEWS = ("world-nuclear-news", "ans.org", "iaea.org", "nrc.gov",
+                 "energy.gov", "oecd-nea", "neimagazine", "reuters",
+                 "bloomberg", "powermag", "utilitydive", "spectrum.ieee")
 
-    - 한국 도메인(.kr 등) → 국내
-    - 외국 도메인이라도 section='khnp'(한수원이 주체, 예: 체코 수주) → 국내
-    - 그 외(외국 도메인) → 해외
-      ※ 외국 도메인+'domestic' 태그는 분류 실패(429) 흔적이 많아 해외로 본다.
+
+def region(art: dict) -> str:
+    """기사를 국내/해외로 분류 (키워드 피드·오분류 모두 견고).
+
+    1) section='khnp'(한수원이 주체) → 출처 불문 국내 (체코 수주 등)
+    2) 명백한 외국 뉴스 도메인 → 해외 (429 오분류도 교정)
+    3) 한국 도메인(.kr) → 국내
+    4) section='international' → 해외
+    5) 그 외(국내 키워드 피드 등 도메인 불명확) → 국내
     """
     dom = (art.get("domain") or "").lower()
+    sec = art.get("section") or ""
+    if sec == "khnp":
+        return "국내"
+    if any(f in dom for f in _FOREIGN_NEWS):
+        return "해외"
     if any(h in dom for h in _KR_HINTS):
         return "국내"
-    if (art.get("section") or "") == "khnp":
-        return "국내"
-    return "해외"
+    if sec == "international":
+        return "해외"
+    return "국내"
 
 
 # ---- 큐 입출력 ---------------------------------------------------------------

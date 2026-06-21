@@ -8,7 +8,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote_plus
 
 import feedparser
 import requests
@@ -73,6 +73,19 @@ RSS_SOURCES = [
     {"url": "https://news.google.com/rss/search?q=site:kaeri.re.kr&hl=ko&gl=KR&ceid=KR:ko",
      "name": "원자력연구원 보도자료", "domain_label": "kaeri.re.kr"},
 ]
+
+# 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
+# 타깃 키워드(기관·정책·사업명)로 좁혀 노이즈 최소화. 일반 '원자력' 단독은 의도적으로
+# 제외(원자력병원·원자력시계 등 무관 잡음 방지). 들어온 뒤엔 기존 curation·노이즈 필터로 한 번 더 거름.
+_KR_AFFAIRS_Q = quote_plus(
+    "한수원 OR 원자력안전위원회 OR 원전수출 OR i-SMR OR 신한울 OR 새울원전 "
+    "OR 사용후핵연료 OR 원전 계속운전 OR 전력수급기본계획"
+)
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_KR_AFFAIRS_Q}&hl=ko&gl=KR&ceid=KR:ko",
+    "name": "국내 원자력 보도", "domain_label": "news.google.com",
+})
+
 SMR_HINTS = ("smr", "small modular", "i-smr", "advanced reactor")
 
 ANTI_TITLE_PATTERNS = [
