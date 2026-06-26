@@ -68,6 +68,28 @@ def is_available() -> bool:
     return bool(API_KEY)
 
 
+def _salvage_json(text: str) -> dict:
+    """깨진 JSON 응답 복구: 코드펜스 제거 → 첫 객체 추출 → 문자열 내 raw 줄바꿈 복구.
+
+    모델이 가끔 펜스/머리말을 붙이거나 문자열 값 안에 줄바꿈을 넣어 'Unterminated
+    string'을 만든다. 마지막 시도까지 실패하면 JSONDecodeError 가 그대로 올라가
+    call_json 의 재시도 로직으로 처리된다.
+    """
+    import re
+    s = text.strip()
+    if s.startswith("```"):
+        s = re.sub(r"^```(?:json)?\s*", "", s)
+        s = re.sub(r"\s*```\s*$", "", s)
+    a, b = s.find("{"), s.rfind("}")
+    if a != -1 and b > a:
+        s = s[a:b + 1]
+    try:
+        return json.loads(s)
+    except json.JSONDecodeError:
+        # 문자열 값 안의 raw 줄바꿈을 공백으로 (이스케이프된 \\n 은 건드리지 않음)
+        return json.loads(s.replace("\r", " ").replace("\n", " "))
+
+
 def call_json(
     system_prompt: str,
     user_message: str,
@@ -114,10 +136,9 @@ def call_json(
                 raise GeminiError(f"응답 구조 비정상: {payload}") from e
             try:
                 return json.loads(text)
-            except json.JSONDecodeError as e:
-                # 펜스가 끼어든 경우 한 번 더 정리 시도
-                cleaned = text.strip().strip("`").lstrip("json").strip()
-                return json.loads(cleaned)
+            except json.JSONDecodeError:
+                # 깨진 응답 복구 시도 (펜스·잡텍스트·문자열 내 줄바꿈)
+                return _salvage_json(text)
         except urllib.error.HTTPError as e:
             body_text = e.read().decode("utf-8", errors="replace")
             last_err = GeminiError(f"HTTP {e.code}: {body_text[:300]}")

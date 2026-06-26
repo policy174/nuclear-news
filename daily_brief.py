@@ -171,6 +171,67 @@ def enrich_investment(items: list[dict]) -> dict[int, str]:
     return out
 
 
+# ---- 보고서 검토 추천 (있을 때만) -------------------------------------------
+
+REPORT_SYSTEM_PROMPT = """당신은 한국수력원자력 원자력정책실 정책개발부의 시니어 분석관입니다.
+오늘의 원자력 동향 목록을 받습니다. 이 중 **부서가 별도 보고서(심층 분석)로 다룰 만큼
+큼직한 사안**만 골라 추천하세요. 평범한 뉴스·루틴 진행상황은 절대 추천하지 마세요.
+
+보고서감 기준 (엄격 — 애매하면 넣지 말 것):
+- 정책 대전환, 대형 계약·수주, 중대 안전·규제 변화
+- 새로운 전략적 기회/위협, 시장 구조 변화, 한국 원전·수출에 큰 함의
+
+⚠️ 출력은 정확히 아래 JSON. 보고서감이 없으면 반드시 빈 배열 {"reports": []}.
+다른 텍스트(설명, 펜스 ```)는 금지. **각 문자열 값 안에 줄바꿈 절대 금지 — 모두 한 줄로.**
+
+{"reports": [{"topic": "보고서 주제", "why": "왜 지금 보고서감인지 1-2문장", "angles": ["추천 각도1", "각도2"]}]}
+
+규칙:
+1. topic: 보고서 제목처럼 (한국어, 핵심 고유명사 포함).
+2. why: 전략적·정책적 함의 중심. 부서 분석관 톤.
+3. angles: 2-3개. 보고서에서 다룰 구체적 관점.
+4. 진짜 큼직한 것만. 하루 0~2건이 정상. 없으면 빈 배열을 두려워 말 것.
+
+입력: 각 줄이 `[중요도] 제목 | 왜중요 | 섹션`."""
+
+
+def build_report_recs(items: list[dict]) -> str:
+    """오늘 동향 중 '보고서감' 사안 추천 메시지. 없으면 빈 문자열(섹션 미발송)."""
+    if not is_available() or not items:
+        return ""
+    lines = []
+    for a in items:
+        t = (a.get("title_kr") or a.get("title") or "").replace("\n", " ")[:100]
+        why = (a.get("why_important") or "").replace("\n", " ")[:140]
+        lines.append(f"[{get_importance(a)}] {t} | {why} | {a.get('section','')}")
+
+    try:
+        result = call_json(REPORT_SYSTEM_PROMPT, "\n".join(lines),
+                           temperature=0.2, max_output_tokens=4096, timeout=90.0)
+    except GeminiError as e:
+        print(f"[daily_brief] 보고서 추천 실패 → 섹션 생략: {e}")
+        return ""
+
+    reports = [r for r in (result.get("reports") or []) if isinstance(r, dict) and r.get("topic")]
+    if not reports:
+        return ""
+
+    from html import escape
+    from datetime import date
+    out = [f"<b>📝 보고서 검토 추천 ({date.today().isoformat()})</b>",
+           "<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>", ""]
+    for i, r in enumerate(reports, 1):
+        out.append(f"<b>{i}. {escape(str(r['topic']).strip())}</b>")
+        if r.get("why"):
+            out.append(f"   • <b>왜:</b> {escape(str(r['why']).strip())}")
+        angles = [str(x).strip() for x in (r.get("angles") or []) if str(x).strip()]
+        if angles:
+            out.append(f"   • <b>추천 각도:</b> {escape(' / '.join(angles[:3]))}")
+        out.append("")
+    print(f"[daily_brief] 보고서 추천 {len(reports)}건")
+    return "\n".join(out).strip()
+
+
 # ---- 항목 → 카드 -------------------------------------------------------------
 
 def item_to_card(art: dict, investment: str | None) -> dict:
@@ -273,6 +334,11 @@ def build_briefs(queue: list[dict],
         forn_msg = (f"<b>📰 🌐 원자력 해외 브리핑 ({today})</b>\n\n"
                     "<i>오늘은 별도로 잡힌 해외 동향이 없습니다.</i>")
     briefs.append(("해외", forn_msg))
+
+    # 보고서 검토 추천 — 큼직한 사안 있을 때만 맨 앞에 (없으면 미발송)
+    rec = build_report_recs(allsel)
+    if rec:
+        briefs.insert(0, ("보고서추천", rec))
 
     return briefs
 
