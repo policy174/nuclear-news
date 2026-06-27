@@ -234,6 +234,12 @@ def build_report_recs(items: list[dict]) -> str:
 
 # ---- 항목 → 카드 -------------------------------------------------------------
 
+def _korean_or_none(s: str | None) -> str | None:
+    """한글이 포함된 실제 한국어 문자열일 때만 반환 (영문·빈값·깨진 fallback 차단)."""
+    s = (s or "").strip()
+    return s if s and any("가" <= c <= "힣" for c in s) else None
+
+
 def item_to_card(art: dict, investment: str | None) -> dict:
     """curated 항목을 synthesize.format_cards_message 호환 카드로."""
     link = art.get("link", "")
@@ -247,7 +253,7 @@ def item_to_card(art: dict, investment: str | None) -> dict:
         "topic": art.get("section", ""),
         "cluster": cluster,
         "headline": art.get("title_kr") or art.get("title", ""),
-        "what": (art.get("summary") or "").strip() or None,
+        "what": _korean_or_none(art.get("summary")),
         "why": (art.get("why_important") or "").strip() or None,
         "investment": investment,
         "kr_takeaway": (art.get("implication") or "").strip() or None,

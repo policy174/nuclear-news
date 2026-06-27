@@ -153,7 +153,7 @@ C. category (세부 카테고리) - 4가지 중 하나
 
 - title_kr: 한국어 제목 (30~60자). 원문이 영문이면 자연스러운 한국어로 번역. 원문이 한국어면 핵심을 살린 정확한 한국어 제목. 인명·기관명 첫 등장 시 한글(원문) 병기.
 
-- summary: 빈 문자열 (사용 안 함).
+- summary: '무슨 일'을 한국어 1문장으로 (80자 이내). **모든 항목 작성.** 무슨 일이 일어났는지 사실 중심으로 압축. 절대 영문 제목을 그대로 두지 말 것 — 반드시 한국어.
 
 - implication: 시사점 1문장 (60자 이내). nice_to_know·must_read만 작성. 핵심 함의만 압축.
 
@@ -556,7 +556,7 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         "section": default_section(domain),
         "category": "정책",
         "title_kr": title,
-        "summary": title[:50],
+        "summary": "",
         "implication": "",
         "why_important": "",
         "watch_next": "",
@@ -606,7 +606,7 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
             "section": section if section in VALID_SECTIONS else default_section(domain),
             "category": category if category in VALID_CATEGORIES else "정책",
             "title_kr": title_kr[:120],
-            "summary": "",
+            "summary": (result.get("summary") or "")[:120],
             "implication": (result.get("implication") or "")[:80],
             "why_important": (result.get("why_important") or "")[:180],
             "watch_next": "",
