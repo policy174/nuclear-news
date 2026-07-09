@@ -83,7 +83,9 @@ _KR_AFFAIRS_Q = quote_plus(
 )
 RSS_SOURCES.append({
     "url": f"https://news.google.com/rss/search?q={_KR_AFFAIRS_Q}&hl=ko&gl=KR&ceid=KR:ko",
-    "name": "국내 원자력 보도", "domain_label": "news.google.com",
+    # domain_label에 .kr 포함 → default_section·region()이 국내로 인식 (해외 오분류 방지).
+    # 이 피드는 한국어 원자력 업무 키워드라 정의상 국내 뉴스.
+    "name": "국내 원자력 보도", "domain_label": "news.google.co.kr",
 })
 
 SMR_HINTS = ("smr", "small modular", "i-smr", "advanced reactor")
