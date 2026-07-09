@@ -46,8 +46,8 @@ KST = timezone(timedelta(hours=9))
 MAX_ITEMS = 10  # 소셜 섹션 상한
 
 # 국내/해외 분리 발송 — 둘 다 양이 많아 각각 별도 브리핑 1개씩.
-DOMESTIC_CAP = 8
-FOREIGN_CAP = 8
+DOMESTIC_CAP = 5
+FOREIGN_CAP = 5
 _KR_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
 
 # 도메인 1차 소스 가중 (digest_bot.rank_item 차용)
@@ -305,7 +305,8 @@ def build_briefs(queue: list[dict],
     """
     from synthesize import format_cards_message, build_cards
 
-    items = [a for a in queue if get_importance(a) != "noise"]
+    # 노이즈 + 주식/시장(market) 제외 → 중요한 것만. must_read 는 rank 로 상단.
+    items = [a for a in queue if get_importance(a) not in ("noise", "market")]
     dom = sorted([a for a in items if region(a) == "국내"], key=rank_item, reverse=True)[:DOMESTIC_CAP]
     forn = sorted([a for a in items if region(a) == "해외"], key=rank_item, reverse=True)[:FOREIGN_CAP]
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별")
