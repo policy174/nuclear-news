@@ -793,6 +793,13 @@ def main() -> None:
     state = load_state()
     curated = load_curated()
     queue = load_queue()
+    # 안전장치: daily-brief clear 가 실패해 큐가 쌓여도 3일 지난 항목은 제거
+    # (이미 발송됐을 것 — 무한 반복 방지)
+    _qcut = (datetime.now(timezone.utc) - timedelta(days=3)).isoformat()
+    _before = len(queue)
+    queue = [q for q in queue if (q.get("queued_at") or "9999") >= _qcut]
+    if len(queue) < _before:
+        print(f"큐 정리: {_before} → {len(queue)} (3일 경과 제거)")
     reports_kb = load_reports_kb()
     print(f"Loaded {len(reports_kb)} reports from KB")
 

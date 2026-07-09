@@ -1,19 +1,13 @@
 name: Daily Brief (통합 일일 브리핑)
 
-# 원자력뉴스봇 통합: news_bot(수집) + 소셜(last30days)을 카드 1개로 매일 발송.
-# digest_bot / send_research(daily-news) / wnn 을 대체.
+# 원자력뉴스봇 통합: news_bot(수집)이 쌓은 curated 큐를 국내/해외 카드 브리핑으로 발송.
+# ※ 소셜(last30days)은 무겁고 타임아웃 위험이 있어 이 워크플로에선 제외 — curated(RSS) 중심.
 
 on:
-  # 매일 07:25 KST = 22:25 UTC. GitHub Actions cron은 정시 근처일수록 큐 폭주로
-  # 수~수십 분 지연됨 → 어중간한 분(:25)으로 옮겨 지연·편차 최소화.
+  # 매일 07:25 KST = 22:25 UTC. 정시 큐 폭주 회피용 :25 오프셋.
   schedule:
     - cron: '25 22 * * *'
   workflow_dispatch:
-    inputs:
-      no_social:
-        description: '소셜 수집 생략 (curated만)'
-        type: boolean
-        default: false
 
 permissions:
   contents: write   # 발송 후 digest_queue.json(비운 상태) 커밋
@@ -25,7 +19,7 @@ concurrency:
 jobs:
   brief:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repo
@@ -42,40 +36,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install ffmpeg (소셜 YouTube 자막용)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
-      - name: Clone last30days skill (소셜 수집용)
-        run: |
-          git clone --depth 1 https://github.com/mvanhorn/last30days-skill.git \
-            $HOME/last30days-skill
-
       - name: Run daily brief
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
-          # X (선택 - 없으면 소셜 X 검색 스킵)
-          AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
-          CT0: ${{ secrets.X_CT0 }}
-          LAST30DAYS_SKILL_ROOT: /home/runner/last30days-skill/skills/last30days
-          LAST30DAYS_SAVE_DIR: ${{ github.workspace }}/raw
-          NO_SOCIAL: ${{ github.event.inputs.no_social }}
-        run: |
-          if [ "$NO_SOCIAL" = "true" ]; then
-            python daily_brief.py
-          else
-            python daily_brief.py --with-social
-          fi
+        run: python daily_brief.py
 
-      - name: Commit state (비운 큐)
+      - name: Commit state (비운 큐) — 충돌 시 재시도
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add digest_queue.json || true
-          git commit -m "chore: clear digest queue (daily brief)" || echo "변경 없음"
-          git push || echo "푸시 생략"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            if [ "$(tr -d '[:space:]' < digest_queue.json)" = "[]" ]; then
+              echo "큐 이미 비어있음"; exit 0
+            fi
+            echo "[]" > digest_queue.json
+            git add digest_queue.json
+            git commit -m "chore: clear digest queue (daily brief)"
+            if git push origin HEAD:main; then echo "큐 비우기 성공"; exit 0; fi
+            echo "push 충돌 — 재시도 $i/5"; sleep $((RANDOM % 8 + 4))
+          done
+          echo "!! 큐 비우기 5회 실패 (news_bot 3일 정리로 자동 회복)"
