@@ -13,6 +13,9 @@ from urllib.parse import urlparse, quote_plus
 import feedparser
 import requests
 
+# batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
+from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
+
 NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
 NAVER_CLIENT_SECRET = os.environ["NAVER_CLIENT_SECRET"]
 TELEGRAM_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
@@ -624,6 +627,109 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         return fallback
 
 
+# ---- batch 큐레이션 (기사 N건 → Gemini 1회 호출) -----------------------------
+#
+# 배경: 건별 호출(기사당 judge 1 + 큐레이션 1 = 2회 + 각 5초 대기)이 무료 티어
+# 일일 한도를 소진 → 큐레이션 실패(영문 fallback·오분류·수집 0건인 날)의 근본 원인.
+# 해결: CHUNK 건을 한 번에 분류. 호출 수 ~1/20. judge의 노이즈 컷은 큐레이션의
+# importance=noise 가 흡수하므로 별도 judge 호출도 제거.
+
+BATCH_CHUNK = 10  # 1회 호출당 기사 수 (출력 토큰 여유 고려)
+
+BATCH_SUFFIX = """
+
+[배치 모드 — 출력 형식 오버라이드]
+이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
+동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
+
+{"items": [{"idx": 0, "importance": "...", "section": "...", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "related_reports": []}]}
+
+- 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
+- 제목 앞에 (TIER1) 표시가 있으면 정부·규제기관·국제기구 1차 소스입니다:
+  본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의가 있는 경우만 must_read,
+  채용·일반 행정·공지·축사·시상 등은 noise.
+- 각주처럼 붙은 `관련보고서:` 줄이 있으면 해당 기사 분석에 활용 (실제 참조 시만 related_reports).
+
+입력 형식: 각 기사가
+[idx] (TIER1)? 제목
+요약: ...
+출처: 도메인
+(선택) 관련보고서: 제목1 / 제목2"""
+
+
+def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
+    """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
+
+    실패한 chunk 의 기사는 결과에서 빠짐 → 호출측이 fallback 처리.
+    (건별 재시도로 되돌아가지 않음 — quota 보호가 목적이므로)
+    """
+    if not articles:
+        return {}
+    if not gemini_rest_available():
+        print("  ! GEMINI_API_KEY 없음 → batch 큐레이션 건너뜀 (전건 fallback)")
+        return {}
+
+    out: dict[str, dict] = {}
+    system_prompt = CURATION_SYSTEM_PROMPT + BATCH_SUFFIX
+
+    for start in range(0, len(articles), BATCH_CHUNK):
+        chunk = articles[start:start + BATCH_CHUNK]
+        blocks = []
+        for i, art in enumerate(chunk):
+            t1 = " (TIER1)" if (is_tier1(art["link"]) or art["score"] >= 10) else ""
+            lines = [f"[{i}]{t1} {art['title'][:150]}",
+                     f"요약: {(art.get('description') or '')[:200]}",
+                     f"출처: {art.get('domain','')}"]
+            relevant = find_relevant_reports(art["title"], art.get("description", ""), reports_kb)
+            if relevant:
+                titles = " / ".join(r.get("title", "")[:40] for r in relevant[:2])
+                lines.append(f"관련보고서: {titles}")
+            blocks.append("\n".join(lines))
+
+        try:
+            result = gemini_call_json(
+                system_prompt, "\n\n---\n\n".join(blocks),
+                temperature=0.2, max_output_tokens=8192, timeout=150.0,
+            )
+        except GeminiError as e:
+            print(f"  ! batch 큐레이션 실패 (chunk {start//BATCH_CHUNK+1}): {str(e)[:150]}")
+            continue
+
+        items = result.get("items")
+        if not isinstance(items, list):
+            print(f"  ! batch 응답에 items 없음 (chunk {start//BATCH_CHUNK+1})")
+            continue
+
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            idx = item.get("idx")
+            if not isinstance(idx, int) or not (0 <= idx < len(chunk)):
+                continue
+            art = chunk[idx]
+            importance = item.get("importance", "nice_to_know")
+            section = item.get("section") or default_section(art.get("domain", ""))
+            category = item.get("category", "정책")
+            title_kr = (item.get("title_kr") or "").strip() or art["title"]
+            out[art["hash"]] = {
+                "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
+                "section": section if section in VALID_SECTIONS else default_section(art.get("domain", "")),
+                "category": category if category in VALID_CATEGORIES else "정책",
+                "title_kr": title_kr[:120],
+                "summary": (item.get("summary") or "")[:120],
+                "implication": (item.get("implication") or "")[:80],
+                "why_important": (item.get("why_important") or "")[:180],
+                "watch_next": "",
+                "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
+                "related_reports": [r for r in (item.get("related_reports") or []) if isinstance(r, str)][:2],
+            }
+        # 무료 티어 분당 한도 배려 — chunk 사이 짧은 대기
+        if start + BATCH_CHUNK < len(articles):
+            time.sleep(3)
+
+    return out
+
+
 def fetch_rss(url: str) -> list[dict]:
     try:
         feed = feedparser.parse(url, agent="nuclear-news-bot/1.0")
@@ -859,50 +965,38 @@ def main() -> None:
 
     final_articles = sorted(semantically_unique, key=lambda x: x["pub"])
 
+    # ---- batch 큐레이션: 새 기사만 모아 N건 → 1회 호출 (무료 티어 quota 보호) ----
+    # 기존: 기사당 judge 1회 + 큐레이션 1회 (+각 5초 대기) → 한도 소진이 실패의 근본 원인.
+    # judge 의 노이즈 컷은 큐레이션의 importance=noise 로 흡수 (별도 호출 제거).
+    new_articles = [a for a in final_articles if a["hash"] not in curated]
+    if new_articles:
+        n_calls = (len(new_articles) + BATCH_CHUNK - 1) // BATCH_CHUNK
+        print(f"Batch curation: 새 기사 {len(new_articles)}건 → Gemini {n_calls}회 호출")
+    batch_results = curate_batch(new_articles, reports_kb)
+
     for article in final_articles:
         h = article["hash"]
 
         if h in curated:
             cur = curated[h]
         else:
-            force_t1 = is_tier1(article["link"]) or article["score"] >= 10
-            # 1차 사전 필터: LLM-as-Judge로 명백한 노이즈 차단 (Tier 1은 스킵, 무조건 통과)
-            if not force_t1:
-                useful, judge_reason = llm_judge(article["title"], article["description"])
-                time.sleep(5)
-                if not useful:
-                    print(f"  ✗ judge skip: '{article['title'][:30]}' ({judge_reason})")
-                    cur = {
-                        "importance": "noise",
-                        "section": "domestic",
-                        "category": "정책",
-                        "title_kr": article["title"],
-                        "summary": "",
-                        "implication": "",
-                        "why_important": "",
-                        "watch_next": "",
-                        "tags": [],
-                        "related_reports": [],
-                        "cached_at": now_iso,
-                        "title": article["title"],
-                        "link": article["link"],
-                        "feed": article["feed"],
-                        "domain": article["domain"],
-                        "matched": article["matched"],
-                        "_judge_reason": judge_reason,
-                    }
-                    curated[h] = cur
-                    state["sent"][h] = now_iso
-                    dropped += 1
-                    continue
-
-            relevant = find_relevant_reports(article["title"], article["description"], reports_kb)
-            cur = curate_with_llm(
-                article["title"], article["description"],
-                article["domain"],
-                force_must_read=force_t1,
-                relevant_reports=relevant,
-            )
+            cur = batch_results.get(h)
+            if cur is None:
+                # batch 실패분 — 도메인 기반 안전 fallback.
+                # 건별 재호출로 되돌아가지 않음 (quota 보호가 목적).
+                force_t1 = is_tier1(article["link"]) or article["score"] >= 10
+                cur = {
+                    "importance": "must_read" if force_t1 else "nice_to_know",
+                    "section": default_section(article["domain"]),
+                    "category": "정책",
+                    "title_kr": article["title"],
+                    "summary": "",
+                    "implication": "",
+                    "why_important": "",
+                    "watch_next": "",
+                    "tags": [],
+                    "related_reports": [],
+                }
             cur["cached_at"] = now_iso
             cur["title"] = article["title"]
             cur["link"] = article["link"]
@@ -910,7 +1004,6 @@ def main() -> None:
             cur["domain"] = article["domain"]
             cur["matched"] = article["matched"]
             curated[h] = cur
-            time.sleep(5)
 
         importance = cur.get("importance", "nice_to_know")
 
