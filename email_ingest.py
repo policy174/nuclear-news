@@ -64,14 +64,20 @@ def _strip_tags(s: str) -> str:
 
 
 def _unwrap(url: str, timeout: float = 10.0) -> str:
-    """트래킹 redirect(informz 등)를 최종 기사 URL로. 실패 시 원본 유지."""
-    try:
-        req = urllib.request.Request(url, method="HEAD",
-                                     headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            return resp.geturl()
-    except Exception:
-        return url
+    """트래킹 redirect(email.news.ans.org/c/... 등)를 최종 기사 URL로.
+
+    HEAD 우선, 405 등으로 거부되면 GET(본문 안 읽음) 재시도 — ANS 트래커는
+    HEAD 를 405 로 거부함(실측). 둘 다 실패하면 원본 유지.
+    """
+    for method in ("HEAD", "GET"):
+        try:
+            req = urllib.request.Request(url, method=method,
+                                         headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.geturl()
+        except Exception:
+            continue
+    return url
 
 
 def _extract_candidates(html_body: str) -> list[tuple[str, str]]:
@@ -137,11 +143,14 @@ def fetch_newsletter_articles(state_sent: dict) -> list[dict]:
                 continue
             html_body = body.get_content()
 
+            cands = _extract_candidates(html_body)[:25]
+            n_covered = 0
             seen_links: set[str] = set()
-            for text, href in _extract_candidates(html_body)[:25]:
+            for text, href in cands:
                 final = _unwrap(href)
                 dom = get_domain(final)
                 if not dom or any(c in dom for c in _COVERED_DOMAINS):
+                    n_covered += 1
                     continue  # 이미 RSS 커버 or 도메인 불명
                 if any(j in final.lower() for j in _JUNK_HINTS):
                     continue
@@ -167,6 +176,7 @@ def fetch_newsletter_articles(state_sent: dict) -> list[dict]:
                     "domain": dom,
                     "feed": "정책",
                 })
+            print(f"[email] 메일 1통: 링크 후보 {len(cands)} → 커버·중복 제외 후 신규 {len(articles)}")
         imap.logout()
     except Exception as e:  # noqa: BLE001 — 이메일 실패가 수집 전체를 막으면 안 됨
         print(f"[email] 뉴스레터 수집 실패 → 건너뜀: {type(e).__name__}: {str(e)[:120]}")
