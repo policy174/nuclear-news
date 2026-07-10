@@ -80,9 +80,12 @@ RSS_SOURCES = [
 # 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
 # 타깃 키워드(기관·정책·사업명)로 좁혀 노이즈 최소화. 일반 '원자력' 단독은 의도적으로
 # 제외(원자력병원·원자력시계 등 무관 잡음 방지). 들어온 뒤엔 기존 curation·노이즈 필터로 한 번 더 거름.
+# when:1d — Google News 검색 RSS는 '관련도순'이라 몇 주 지난 기사가 대부분
+# (실측: 100건 중 95건이 1주+) → LOOKBACK 6h 필터에서 전멸해 국내 0건이 되던 원인.
+# 최근 24h 로 한정하면 매시간 크롤이 신선한 기사를 제때 잡는다.
 _KR_AFFAIRS_Q = quote_plus(
     "한수원 OR 원자력안전위원회 OR 원전수출 OR i-SMR OR 신한울 OR 새울원전 "
-    "OR 사용후핵연료 OR 원전 계속운전 OR 전력수급기본계획"
+    "OR 사용후핵연료 OR 원전 계속운전 OR 전력수급기본계획 when:1d"
 )
 RSS_SOURCES.append({
     "url": f"https://news.google.com/rss/search?q={_KR_AFFAIRS_Q}&hl=ko&gl=KR&ceid=KR:ko",
@@ -928,6 +931,13 @@ def main() -> None:
         all_candidates.extend(articles)
 
     rss_articles = collect_rss_articles(state)
+
+    # 이메일 뉴스레터(ANS Nuclear News Daily) 외부 링크 합류 — IMAP 미설정 시 자동 스킵
+    try:
+        from email_ingest import fetch_newsletter_articles
+        rss_articles.extend(fetch_newsletter_articles(state["sent"]))
+    except Exception as e:  # noqa: BLE001
+        print(f"[email] ingest 모듈 실패 → 건너뜀: {type(e).__name__}")
     print(f"[RSS] {len(rss_articles)} candidates")
     all_candidates.extend(rss_articles)
 
