@@ -46,8 +46,9 @@ KST = timezone(timedelta(hours=9))
 MAX_ITEMS = 10  # 소셜 섹션 상한
 
 # 국내/해외 분리 발송 — 둘 다 양이 많아 각각 별도 브리핑 1개씩.
-DOMESTIC_CAP = 5
-FOREIGN_CAP = 5
+# 국내는 사용자가 다른 경로로도 접하므로 적게(핵심만), 해외가 메인.
+DOMESTIC_CAP = 3
+FOREIGN_CAP = 6
 _KR_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
 
 # 도메인 1차 소스 가중 (digest_bot.rank_item 차용)
