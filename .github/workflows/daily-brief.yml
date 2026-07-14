@@ -2,6 +2,15 @@ name: Daily Brief (통합 일일 브리핑)
 
 # 원자력뉴스봇 통합: news_bot(수집)이 쌓은 curated 큐를 국내/해외 카드 브리핑으로 발송.
 # ※ 소셜(last30days)은 무겁고 타임아웃 위험이 있어 이 워크플로에선 제외 — curated(RSS) 중심.
+#
+# 발송 원자성 (outbox 패턴, 2026-07):
+#   ① plan  — 선별→outbox.json(pending) 기록, 큐에서 발송분 hash 만 제거
+#   ② claim push — outbox+큐를 발송 **전에** push. 실패하면 발송하지 않는다
+#      (예전엔 발송 후 push 라 push 실패 시 다음날 통째 재발송·중복이 났음).
+#      큐를 [] 로 덮지 않고 hash 단위로 지우므로, 그 사이 crawl 이 넣은 새 기사도 안전.
+#   ③ send  — outbox 의 pending 브리핑만 발송 (재실행 시 sent 는 건너뜀 = 중복 억제)
+#   ④ confirm push — 발송 결과·delivery_log 기록. 충돌 시 결과(outbox_result.json,
+#      untracked 라 reset 에도 생존)를 재병합해 재시도.
 
 on:
   # 매일 07:25 KST = 22:25 UTC. 정시 큐 폭주 회피용 :25 오프셋.
@@ -10,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # 발송 후 digest_queue.json(비운 상태) 커밋
+  contents: write   # outbox/큐/delivery_log 커밋
 
 concurrency:
   group: daily-brief
@@ -36,29 +45,59 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run daily brief
+      - name: Plan (선별 → outbox 작성 → 큐 정리)
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
-        run: python daily_brief.py
+        run: python daily_brief.py --plan
 
-      - name: Commit state (비운 큐) — 충돌 시 재시도
-        if: always()
+      - name: Push claim (발송 전 커밋 — 실패 시 발송 중단)
+        id: claim
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3 4 5; do
+            git add outbox.json digest_queue.json
+            if git diff --cached --quiet; then echo "변경 없음 (재실행/empty)"; exit 0; fi
+            git commit -m "chore: daily brief claim"
+            if git push origin HEAD:main; then echo "claim push 성공"; exit 0; fi
+            echo "push 충돌 — 재시도 $i/5"
+            # 오늘 outbox 를 보존한 채 최신 main 위에서 재계획 (plan 은 오늘 outbox 재사용 → Gemini 재호출 0)
+            cp outbox.json /tmp/outbox.keep
             git fetch origin main
             git reset --hard origin/main
-            if [ "$(tr -d '[:space:]' < digest_queue.json)" = "[]" ]; then
-              echo "큐 이미 비어있음"; exit 0
-            fi
-            echo "[]" > digest_queue.json
-            git add digest_queue.json
-            git commit -m "chore: clear digest queue (daily brief)"
-            if git push origin HEAD:main; then echo "큐 비우기 성공"; exit 0; fi
-            echo "push 충돌 — 재시도 $i/5"; sleep $((RANDOM % 8 + 4))
+            cp /tmp/outbox.keep outbox.json
+            python daily_brief.py --plan
+            sleep $((RANDOM % 8 + 4))
           done
-          echo "!! 큐 비우기 5회 실패 (news_bot 3일 정리로 자동 회복)"
+          echo "!! claim push 5회 실패 → 발송하지 않음 (중복 방지). 큐는 origin 에 그대로 남아 내일 재시도."
+          exit 1
+
+      - name: Send (텔레그램 발송)
+        id: send
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python daily_brief.py --send
+
+      - name: Confirm (결과 병합 + delivery log) — 충돌 시 재시도
+        if: always() && steps.claim.conclusion == 'success'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            python daily_brief.py --confirm
+            git add outbox.json delivery_log.jsonl
+            if git diff --cached --quiet; then echo "기록할 변경 없음"; exit 0; fi
+            git commit -m "chore: daily brief confirm"
+            if git push origin HEAD:main; then echo "confirm push 성공"; exit 0; fi
+            echo "push 충돌 — 재시도 $i/5"
+            git fetch origin main
+            git reset --hard origin/main
+            sleep $((RANDOM % 8 + 4))
+          done
+          echo "!! confirm push 5회 실패 — 발송 상태 미기록. 36h 창 안 재실행 시 중복 발송 가능성 (수동 확인 권장)"
+          exit 1

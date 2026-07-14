@@ -1,74 +1,86 @@
-# 원자력정책실 동향봇
+# 원자력 뉴스봇 (nuclear-news)
 
-Reddit, X, YouTube 등 영어권 소셜 데이터에서 원자력 관련 핫이슈를 30일 간격으로 모아 텔레그램으로 자동 발송합니다.
+해외 전문지 RSS·한국 기관 보도자료·Google News·ANS 이메일 뉴스레터에서 원자력 뉴스를
+매시간 수집하고, 매일 아침 텔레그램으로 **국내/해외 투자 관점 카드 브리핑**을 보낸다.
+금요일엔 주간 판세 리포트.
 
-[mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) 엔진 위에 구축됐습니다.
+## 파이프라인
 
-## 운영 방식
-
-- **자동 실행:** 매일 평일 오전 7시 KST (GitHub Actions cron)
-- **다중 키워드:** `keywords.json` 에 등록된 토픽별로 메시지 1개씩
-- **품질 필터:** 신뢰 X 핸들 화이트리스트 + 참여도 하한선 + 노이즈 키워드 제외
-- **수동 실행:** GitHub Actions 탭에서 `workflow_dispatch` 클릭
+```
+crawl (매시간)          news_bot.py    RSS·Naver·이메일 수집 → dedup → Gemini batch
+                                       큐레이션(+랭킹 feature) → digest_queue.json 적재
+                        feedback_ingest.py  카드 버튼(👍👎💰📌) 응답 수거 → feedback/*.jsonl
+daily-brief (07:25 KST) daily_brief.py --plan/--send/--confirm
+                                       랭킹(ranking.py) → 카드 브리핑 발송 (outbox 원자성)
+weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강약·watchlist)
+```
 
 ## 파일 구조
 
-```
-.
-├── keywords.json              # 모니터링 키워드 설정
-├── send_research.py           # 메인 파이프라인 (수집→dedup→발송)
-├── telegram_send.py           # 텔레그램 API 래퍼
-├── dedup.py                   # cross-topic 중복 제거 (URL 정규화 + LLM 의미)
-├── gemini_client.py           # Gemini API 얇은 wrapper (stdlib only)
-├── requirements.txt           # Python 의존성 (yt-dlp)
-├── .github/workflows/
-│   └── daily-news.yml         # GitHub Actions 스케줄
-└── raw/                       # 검색 결과 raw 저장 (.gitignore 처리됨)
-```
+| 파일 | 역할 |
+|---|---|
+| `news_bot.py` | 수집·dedup·batch 큐레이션 (Gemini 1회/10건, feature 추출 포함) |
+| `daily_brief.py` | 일일 브리핑: 랭킹→투자 관점(구조화)→보고서 추천→발송 |
+| `weekly_bot.py` | 주간 판세 리포트 (Gemini 주 1회 1호출) |
+| `feedback_ingest.py` | 텔레그램 inline 버튼 피드백 수거 (getUpdates, 매시간) |
+| `ranking.py` + `ranking_config.json` | 설명 가능한 점수식 — **가중치는 JSON 만 편집** |
+| `metrics.py` | 오프라인 품질 지표 (`python metrics.py`) — 표본 부족 시 insufficient_data |
+| `gemini_client.py` | Gemini REST wrapper (429 백오프) |
+| `telegram_send.py` | 텔레그램 발송 (inline keyboard 지원) |
+| `sources.py` + `sources.json` | 출처 공신력 tier — JSON 만 편집 |
+| `email_ingest.py` | ANS Nuclear News Daily 뉴스레터 외부 링크 추출 (IMAP) |
+| `reports_kb.json.example` | 과거 보고서 KB 템플릿 — 채우면 보고서 추천 정밀화 |
+| `keywords.json` | Naver 검색 키워드 — JSON 만 편집 |
+| `dedup.py` `scorer.py` `synthesize.py` `send_research.py` | 소셜(last30days) 경로 — 수동 실행 전용 |
 
-## 작동 단계
+## 상태 파일 (git 이 DB)
 
-1. **Phase 1** — `keywords.json`의 토픽마다 last30days 엔진으로 검색·파싱·룰 기반 필터
-2. **Phase 2** — 모든 토픽의 cluster를 합쳐 cross-topic dedup
-   - URL 정규화 1차 (utm·트래커 제거 후 정확 일치)
-   - Gemini가 "같은 사건" 의미 그룹핑 2차 (한 번의 API 호출)
-   - 각 그룹의 boosted_score 최고치 cluster만 살아남고 나머지 제거
-3. **Phase 3** — 토픽별로 메시지 포맷 후 텔레그램 발송
+| 파일 | 내용 |
+|---|---|
+| `sent.json` | 수집 dedup (URL hash, 14일 보존) |
+| `curated.json` | 큐레이션 캐시 (14일) — weekly 의 입력 |
+| `digest_queue.json` | 발송 대기 큐 (발송분만 hash 단위 제거, 3일 자동 정리) |
+| `outbox.json` | 오늘의 발송 계획·상태 (pending/sent/failed) — 중복 발송 방지 핵심 |
+| `delivery_log.jsonl` | 발송 이력 + 점수 내역(breakdown) — "왜 이 기사가 올라왔나" |
+| `feedback_state.json` / `feedback/YYYY-MM.jsonl` | 텔레그램 버튼 피드백 offset·이벤트 |
 
-## 비밀 키 (GitHub Secrets)
+## 발송 원자성 (outbox 패턴)
 
-저장소 설정에서 다음 값을 등록해야 합니다:
+`--plan`(선별·outbox 기록·큐 정리) → **claim push** → `--send`(pending 만 발송) →
+`--confirm`(결과·delivery_log push). claim push 가 실패하면 발송 자체를 안 한다 →
+"발송했는데 상태 저장 실패 → 다음날 중복" 문제 제거. 같은 날 재실행하면 sent 브리핑은
+건너뛴다. 36시간 지난 pending 은 재발송하지 않는다(stale_skipped).
 
-| 이름 | 필수 | 설명 |
+## 랭킹 조정 (비개발자용)
+
+1. `ranking_config.json` 열기 — 모든 가중치에 한국어 설명 주석이 있다.
+2. 숫자 수정 → commit → 다음 브리핑부터 적용. 코드 수정 불필요.
+3. "왜 이 기사가 뽑혔지?" → `delivery_log.jsonl` 의 `breakdown` 확인.
+4. 피드백 버튼 데이터가 도메인/테마별로 5건 이상 쌓이면 자동으로 순위에 반영된다
+   (그 전엔 무시 — 성급한 학습 방지). 지표는 `python metrics.py`.
+
+## Secrets (GitHub Actions)
+
+| 이름 | 필수 | 용도 |
 |---|---|---|
-| `TELEGRAM_BOT_TOKEN` | ✅ | BotFather에서 발급한 봇 토큰 |
-| `TELEGRAM_CHAT_ID` | ✅ | 메시지 받을 텔레그램 chat ID |
-| `GEMINI_API_KEY` | ⭕ | Google AI Studio 발급 키. 없으면 dedup의 의미 단계는 스킵되고 URL 단계만 동작 |
-| `X_AUTH_TOKEN` | ⭕ | X 인증 쿠키 (없으면 X 검색 스킵) |
-| `X_CT0` | ⭕ | X CSRF 토큰 |
+| `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` | ✅ | 발송·피드백 수거 |
+| `NAVER_CLIENT_ID` / `NAVER_CLIENT_SECRET` | ✅ | 국내 뉴스 검색 |
+| `GEMINI_API_KEY` | ⭕ | 없으면 큐레이션·투자관점 생략(fallback 발송) |
+| `IMAP_USER` / `IMAP_PASSWORD` | ⭕ | ANS 뉴스레터 수집 (Gmail 앱 비밀번호, 공백 제거) |
 
-`GEMINI_MODEL` 은 Repository **Variable**(Secret 아님)로 지정 가능, 기본값 `gemini-2.0-flash`.
-
-## 키워드 추가/수정
-
-`keywords.json` 편집 → `git push` → 다음 실행부터 적용. 코드 수정 불필요.
-
-```json
-{
-  "label": "새 토픽",
-  "schedule": "weekly",
-  "subqueries": ["짧은 검색어 1", "짧은 검색어 2"],
-  "subreddits": "nuclear,energy"
-}
-```
+`GEMINI_MODEL` 은 Repository **Variable** (기본 `gemini-2.5-flash`).
 
 ## 로컬 테스트
 
 ```bash
-# .env 파일에 토큰 설정 후
-python send_research.py --topic "SMR 동향" --dry-run
+python daily_brief.py --dry-run        # 발송 없이 브리핑+점수 내역 출력
+python -m unittest discover tests -v   # 테스트 (외부 호출 0)
+python metrics.py                      # 품질 지표
 ```
 
-## 라이선스
+## 롤백
 
-내부 운영용. last30days-skill 은 MIT.
+- 랭킹만 되돌리기: `ranking_config.json` 을 이전 커밋으로.
+- 전체 롤백: 이 커밋 이전으로 revert. 옛 큐 JSON 은 새 코드가 그대로 읽고(features
+  없으면 기존 점수식), 새 큐 JSON 의 추가 필드는 옛 코드가 무시하므로 양방향 안전.
+- outbox 꼬임: `outbox.json` 삭제 후 daily-brief 워크플로 수동 실행 (그날 큐 기준 재계획).

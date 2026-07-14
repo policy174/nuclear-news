@@ -6,6 +6,9 @@
 raw/
 *-raw-*.md
 
+# 발송 결과 임시 파일 (같은 job 안에서 --send → --confirm 전달용, 커밋 불필요)
+outbox_result.json
+
 # Python
 __pycache__/
 *.pyc

@@ -1,0 +1,63 @@
+{
+  "_comment": "일일 브리핑 랭킹 가중치. 이 파일만 편집하면 코드 수정 없이 순위 로직이 바뀝니다. 숫자를 키우면 그 요소가 더 중요해집니다.",
+  "_how_to_tune": "① feature(0~3점)는 Gemini가 기사마다 매기고, 여기 가중치를 곱해 합산. ② 점수 내역은 delivery_log.jsonl 의 breakdown 에 남으니 '왜 이 기사가 올라왔지?'는 거기서 확인. ③ 피드백 표본이 min_samples 미만이면 피드백 보정은 적용 안 됨(성급한 조정 방지).",
+  "schema_version": 1,
+
+  "importance_base": {
+    "_comment": "큐레이션 중요도 등급의 기본 점수 (기존 must_read+10/nice+5 유지)",
+    "must_read": 10,
+    "nice_to_know": 5
+  },
+
+  "event_weights": {
+    "_comment": "사건 유형별 가점. 확정된 사실(계약·의결·인허가·사고)이 전망·의견보다 높게.",
+    "policy_decision": 6,
+    "regulatory_action": 5,
+    "contract_award": 6,
+    "incident_safety": 6,
+    "project_milestone": 4,
+    "corporate_move": 3,
+    "market_signal": 2,
+    "research_report": 2,
+    "opinion": 0,
+    "other": 1
+  },
+
+  "feature_weights": {
+    "_comment": "각 feature(0~3)에 곱하는 배수. korea_relevance 1.2 = 한국 관련성 3점이면 +3.6점.",
+    "korea_relevance": 1.2,
+    "market_materiality": 1.0,
+    "policy_materiality": 1.0,
+    "novelty": 0.8,
+    "evidence_strength": 0.8
+  },
+
+  "source_bonus": {
+    "_comment": "출처 공신력(sources.json tier 매칭). LLM이 아니라 로컬 도메인 매칭으로 결정.",
+    "tier1": 3.0,
+    "tier2": 1.5
+  },
+
+  "related_reports_bonus": 1.0,
+
+  "time_decay": {
+    "_comment": "큐 적재 후 12시간마다 감점. 오래된 기사가 새 기사에 밀리게.",
+    "per_12h": 0.5,
+    "max": 3.0
+  },
+
+  "diversity": {
+    "_comment": "같은 theme(없으면 section)이 이미 max_per_topic 개 선정됐으면 그 이후 후보에 penalty 감점.",
+    "max_per_topic": 2,
+    "penalty": 2.5
+  },
+
+  "duplicate_similarity": 0.82,
+
+  "feedback": {
+    "_comment": "텔레그램 버튼 피드백을 도메인/theme 단위 사전확률로 반영. 표본 min_samples 미만이면 미적용, 보정폭은 ±cap 제한, halflife_days 지나면 가중치 절반.",
+    "min_samples": 5,
+    "cap": 2.0,
+    "halflife_days": 45
+  }
+}

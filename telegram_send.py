@@ -69,17 +69,26 @@ MAX_LEN = 4000  # 텔레그램 메시지 한도는 4096; 안전 마진 96자
 # ---- 핵심 발송 함수 ----------------------------------------------------------
 
 
-def send_text(text: str, parse_mode: str | None = "HTML") -> dict:
+def send_text(text: str, parse_mode: str | None = "HTML",
+              reply_markup: dict | None = None,
+              disable_preview: bool = False) -> dict:
     """단일 메시지 발송. 4000자 이내여야 함.
 
     parse_mode:
         - "HTML"  : <b>굵게</b>, <i>기울임</i>, <a href='url'>링크</a> 지원 (권장)
         - "MarkdownV2" : 텔레그램 마크다운 (이스케이프 까다로움)
         - None    : 평문
+    reply_markup:
+        - inline keyboard 등 Telegram reply_markup 객체 (dict). 예:
+          {"inline_keyboard": [[{"text": "👍", "callback_data": "fb:xxxx:important"}]]}
     """
     data = {"chat_id": CHAT_ID, "text": text}
     if parse_mode:
         data["parse_mode"] = parse_mode
+    if reply_markup:
+        data["reply_markup"] = json.dumps(reply_markup, ensure_ascii=False)
+    if disable_preview:
+        data["disable_web_page_preview"] = "true"
 
     req = urllib.request.Request(
         f"{API}/sendMessage",
@@ -93,18 +102,23 @@ def send_text(text: str, parse_mode: str | None = "HTML") -> dict:
         raise RuntimeError(f"Telegram API HTTP {e.code}: {body}") from e
 
 
-def send_long_text(text: str, parse_mode: str | None = "HTML") -> list[dict]:
+def send_long_text(text: str, parse_mode: str | None = "HTML",
+                   reply_markup: dict | None = None,
+                   disable_preview: bool = False) -> list[dict]:
     """긴 메시지를 자동으로 여러 메시지로 쪼개서 발송.
 
     가능하면 단락(\\n\\n) 경계에서 끊고, 안 되면 줄(\\n) 경계, 그것도 안 되면
-    글자 단위로 잘라서 보냄.
+    글자 단위로 잘라서 보냄. reply_markup 은 마지막 청크에만 부착
+    (피드백 키보드가 브리핑 끝에 오도록).
     """
     chunks = _split_by_length(text, MAX_LEN)
     results = []
     for i, chunk in enumerate(chunks):
         if i > 0:
             time.sleep(0.5)  # 텔레그램 rate limit 회피
-        results.append(send_text(chunk, parse_mode=parse_mode))
+        markup = reply_markup if i == len(chunks) - 1 else None
+        results.append(send_text(chunk, parse_mode=parse_mode, reply_markup=markup,
+                                 disable_preview=disable_preview))
     return results
 
 

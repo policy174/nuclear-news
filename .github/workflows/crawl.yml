@@ -37,10 +37,20 @@ jobs:
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
 
+      # 브리핑 카드 버튼(👍👎💰📌) 응답 수거 — 별도 워크플로 없이 매시간 crawl 에 편승
+      # (Actions 실행 추가 0회). 실패해도 crawl 을 막지 않음.
+      - name: Ingest feedback (텔레그램 버튼 응답)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python feedback_ingest.py
+
       - name: Commit state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent.json curated.json digest_queue.json
+          { [ -f feedback_state.json ] && git add feedback_state.json; } || true
+          { [ -d feedback ] && git add feedback; } || true
           git diff --cached --quiet || git commit -m "chore: update bot state"
           git push

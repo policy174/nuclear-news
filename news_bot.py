@@ -15,6 +15,7 @@ import requests
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
 from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
+from ranking import sanitize_features
 
 NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
 NAVER_CLIENT_SECRET = os.environ["NAVER_CLIENT_SECRET"]
@@ -60,6 +61,8 @@ TIER1_DOMAINS = {
     "oecd-nea.org", "nrc.gov", "ans.org",
 }
 
+# 기관 site: 검색도 Google News '관련도순' 문제 동일 (2026-07-10 게토차:
+# 검색 RSS 쓸 땐 반드시 when: 연산자). 보도자료는 인덱싱이 늦을 수 있어 2d 버퍼.
 RSS_SOURCES = [
     {"url": "https://www.iaea.org/feeds/topnews", "name": "IAEA Top News",
      "domain_label": "iaea.org"},
@@ -67,13 +70,13 @@ RSS_SOURCES = [
      "domain_label": "world-nuclear-news.org"},
     {"url": "https://www.ans.org/news/feed/", "name": "ANS Nuclear Newswire",
      "domain_label": "ans.org"},
-    {"url": "https://news.google.com/rss/search?q=site:khnp.co.kr&hl=ko&gl=KR&ceid=KR:ko",
+    {"url": "https://news.google.com/rss/search?q=site:khnp.co.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
      "name": "한수원 보도자료", "domain_label": "khnp.co.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:nssc.go.kr&hl=ko&gl=KR&ceid=KR:ko",
+    {"url": "https://news.google.com/rss/search?q=site:nssc.go.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
      "name": "원안위 보도자료", "domain_label": "nssc.go.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:motie.go.kr&hl=ko&gl=KR&ceid=KR:ko",
+    {"url": "https://news.google.com/rss/search?q=site:motie.go.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
      "name": "산업부 보도자료", "domain_label": "motie.go.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:kaeri.re.kr&hl=ko&gl=KR&ceid=KR:ko",
+    {"url": "https://news.google.com/rss/search?q=site:kaeri.re.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
      "name": "원자력연구원 보도자료", "domain_label": "kaeri.re.kr"},
 ]
 
@@ -273,16 +276,27 @@ def load_reports_kb() -> list[dict]:
 
 
 def find_relevant_reports(title: str, description: str, kb: list[dict], top_k: int = 3) -> list[dict]:
-    """기사 제목·요약과 가장 관련 있는 사내 보고서 top_k개 반환 (점수 기반)."""
+    """기사 제목·요약과 가장 관련 있는 사내 보고서 top_k개 반환 (점수 기반).
+
+    매칭은 전부 로컬 — 보고서 내용은 외부 API 로 나가지 않고, 매칭된 제목·요약만
+    큐레이션 프롬프트에 첨부된다. trigger_patterns(명시 트리거) > topic_tags >
+    entities > 제목 단어 순으로 강하게 가중.
+    """
     if not kb:
         return []
     text = (title + " " + description).lower()
     scored: list[tuple[float, dict]] = []
     for report in kb:
         score = 0.0
+        for pat in report.get("trigger_patterns") or []:
+            if isinstance(pat, str) and pat.lower() in text:
+                score += 4.0
         for tag in report.get("topic_tags") or []:
             if isinstance(tag, str) and tag.lower() in text:
                 score += 3.0
+        for ent in report.get("entities") or []:
+            if isinstance(ent, str) and ent.lower() in text:
+                score += 2.0
         rtitle = (report.get("title") or "").lower()
         for word in re.findall(r"[가-힣]{2,}|[a-zA-Z]{3,}", rtitle):
             if word in text:
@@ -645,7 +659,21 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "related_reports": []}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
+
+[features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
+- event_type: 다음 중 하나 (사건의 성격):
+  policy_decision(정부·국회 정책 결정·법안 통과) / regulatory_action(인허가·규제 의결) /
+  contract_award(계약·수주 체결) / project_milestone(착공·준공·임계·병입 등 사업 이정표) /
+  incident_safety(사고·안전 이슈) / corporate_move(기업 전략·투자·조직) /
+  market_signal(시장·가격·수급 신호) / research_report(연구·보고서 발간) /
+  opinion(칼럼·의견·전망) / other
+- 아래 6개는 0~3 정수. 0=무관/없음, 1=약함, 2=유의미, 3=강함:
+  korea_relevance(한국·한수원 직접 관련성), market_materiality(시장·투자 영향),
+  policy_materiality(정책·규제 영향), novelty(새 사실인가 — 후속·반복 보도면 0~1),
+  evidence_strength(확정 사실=3, 공식 발표=2, 관계자 인용=1, 추측·전망=0),
+  report_worthiness(부서 보고서로 다룰 가치 — 매우 엄격, 대부분 0)
+- 확인 불가능하면 낮은 쪽으로. 지어내지 말 것.
 
 - 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
 - 제목 앞에 (TIER1) 표시가 있으면 정부·규제기관·국제기구 1차 소스입니다:
@@ -715,6 +743,8 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             category = item.get("category", "정책")
             title_kr = (item.get("title_kr") or "").strip() or art["title"]
             out[art["hash"]] = {
+                # 랭킹 feature — 범위 밖/누락은 ranking.sanitize_features 가 클램프
+                "features": sanitize_features(item.get("features")),
                 "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
                 "section": section if section in VALID_SECTIONS else default_section(art.get("domain", "")),
                 "category": category if category in VALID_CATEGORIES else "정책",
@@ -1037,9 +1067,12 @@ def main() -> None:
             "category": cur.get("category", "정책"),
             "summary": cur.get("summary", ""),
             "implication": cur.get("implication", ""),
+            # must_read 의 '왜 중요' — 기존 큐 스키마에 빠져 있어 카드에서 유실되던 필드
+            "why_important": cur.get("why_important", ""),
             "watch_next": cur.get("watch_next", ""),
             "tags": cur.get("tags", []),
             "related_reports": cur.get("related_reports") or [],
+            "features": cur.get("features"),  # 랭킹용 (batch 실패분은 None)
             "queued_at": now_iso,
         })
         state["sent"][h] = now_iso

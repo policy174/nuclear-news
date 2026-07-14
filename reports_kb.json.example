@@ -1,0 +1,20 @@
+[
+  {
+    "_comment": "과거 부서 보고서 목록 템플릿. 이 파일을 reports_kb.json 으로 복사해 실제 목록을 채우면 ① 큐레이션이 관련 사내 보고서를 참조하고 ② 보고서 추천 게이트가 negative_examples 로 과잉 추천을 거릅니다. 매칭은 전부 로컬 Python — 보고서 본문은 외부 API 로 나가지 않습니다 (제목·summary 한 줄만 큐레이션 프롬프트에 첨부).",
+    "report_id": "2025-EX-001",
+    "title": "체코 두코바니 수주 이후 유럽 원전 시장 전망 (예시)",
+    "date": "2025-03",
+    "topic": "원전 수출",
+    "topic_tags": ["두코바니", "체코", "APR1000"],
+    "trigger_patterns": ["수출 경쟁국", "유럽 신규 원전 입찰"],
+    "entities": ["KHNP", "EDF", "Westinghouse"],
+    "policy_axis": ["export"],
+    "summary": "체코 수주의 전략적 의미와 폴란드·네덜란드 후속 입찰 대응 방향을 정리 (예시 요약 한 줄).",
+    "positive_examples": [
+      "한수원, 두코바니 본계약 체결 — 이 정도 확정 사실이면 보고서감"
+    ],
+    "negative_examples": [
+      "체코 언론, 두코바니 일정 지연 가능성 보도 — 이런 전망성 반복 보도는 보고서감 아님"
+    ]
+  }
+]
