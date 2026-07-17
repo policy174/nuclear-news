@@ -7269,5 +7269,67 @@
     "feed": "정책",
     "domain": "news.google.co.kr",
     "matched": "국내 원자력 보도"
+  },
+  "dc371148d1b8afa5": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 1,
+      "evidence_strength": 1,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "category": "정책",
+    "title_kr": "언론의 원전 정책 보도 태도 분석: 정부 기조에 따른 보도 경향",
+    "summary": "미디어오늘이 정부의 3대 메가 프로젝트와 원전 정책에 대한 언론 보도 경향이 정부 기조를 따른다고 분석했습니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [
+      "#언론보도",
+      "#정부정책",
+      "#원전정책"
+    ],
+    "related_reports": [],
+    "cached_at": "2026-07-17T21:39:59.502414+00:00",
+    "title": "3대 메가 속도전…원전 띄우고 정부 계산법 따라가는 언론 - 미디어오늘",
+    "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9DOGNaMVlfMzk0T1g3b1JaeGhRUElYSVdLTkE4bmFNbkVZaVM2UktwRHVYVG93WTRMVmV2UjNVSnF4NTlsWDN3R2ZVNjNZMllsOS1DdGhWWW42ZVN4NDVuX2dGdlJtS3hzYjdzaHY2eEI?oc=5",
+    "feed": "정책",
+    "domain": "news.google.co.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "52a290304fefba37": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 1,
+      "evidence_strength": 2,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "smr",
+    "category": "기술",
+    "title_kr": "차세대 원전 인허가 및 운영의 인적 요인 중요성 논의",
+    "summary": "미국원자력학회(ANS)가 차세대 원전의 인허가 및 운영 과정에서 인적 요인의 중요성을 다루는 논의를 진행했습니다.",
+    "implication": "차세대 원전의 안전하고 효율적인 운영을 위해 인적 요인에 대한 심층적 고려가 필요함을 시사합니다.",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR기술",
+      "#인적요인",
+      "#원전안전"
+    ],
+    "related_reports": [],
+    "cached_at": "2026-07-17T21:39:59.502414+00:00",
+    "title": "The human factor in licensing and operating the next generation of nuclear plants",
+    "link": "https://www.ans.org/news/2026-07-17/article-8161/the-human-factor-in-licensing-and-operating-the-next-generation-of-nuclear-plants/",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
   }
 }
