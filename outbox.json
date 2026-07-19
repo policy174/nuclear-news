@@ -1,258 +1,113 @@
 {
   "schema_version": 1,
-  "date": "2026-07-19",
-  "created_at": "2026-07-18T23:14:02.326774+00:00",
-  "status": "sent",
+  "date": "2026-07-20",
+  "created_at": "2026-07-19T23:14:58.016308+00:00",
+  "status": "pending",
   "briefs": [
     {
+      "name": "보고서추천",
+      "text": "<b>📝 보고서 검토 추천 (2026-07-20)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 고리 3·4호기 계속운전 심의 지연 및 재가동 연기</b>\n   • <b>왜:</b> 고리 3·4호기 계속운전 심의 지연으로 인한 재가동 연기는 한수원의 발전 계획 및 수익성에 직접적인 영향을 미치며, 국가 전력 수급 안정성에도 중대한 정책적 함의를 가집니다.\n   • <b>추천 각도:</b> 한수원 발전 계획 및 재무 영향 분석 / 국가 전력 수급 안정성 및 에너지 믹스에 미치는 영향 / 계속운전 심의 절차 개선 방안 검토",
+      "keyboard": null,
+      "status": "pending"
+    },
+    {
       "name": "국내",
-      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-18)</b>\n\n<b>📌 1. 호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상</b>\n   • <b>무슨 일:</b> 정부가 호남 반도체 클러스터 조성을 계기로 원전 건설을 추진하고 있으나, 부지 확보에 어려움이 예상되는 상황입니다.\n   • <b>🇰🇷 한수원 시사점:</b> 정부의 반도체 클러스터 연계 전력 공급 방안 검토는 향후 신규 원전 부지 선정 논의를 촉발할 수 있습니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMihAFBVV95cUxObDlqYlBHZUJ4QlgxNDY4ZFVBNzFlUFBFdlNYU0RieG5jblh3b1ZWZVNDVTMtS3lzbG53N3JDVVVWTV9IZzh0Q0RlREFCeTZyR003a25mU1ZNb3NOQ3JkaU1hSTZiNkVGNUw1VVhDaUZXMWVSdldnNFJrLWF2VkViczhZbFA?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 2. 스페인 최고령 원전, 퇴출 위기 극복하고 운영 지속 결정</b>\n   • <b>무슨 일:</b> 스페인의 최고령 원전이 퇴출 위기에서 벗어나 운영을 지속하게 되었다.\n   • <b>🇰🇷 한수원 시사점:</b> 유럽 내 원전 계속운전 정책 기조 강화 및 에너지 안보 중요성 증대 동향을 시사합니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTFBTREZRSkdUQmtTNlA2dGg2SExUaVFMeV84RkhRR0Y3UDY2NG5rUWtPRmt6ekdhejk3aXBHUmczRzcwNTZWaUV5UlVRamJuT0QtMUphaXI3Z2NBN3RvVG02c2xrVzc?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 3. 경북도·경주시, &#x27;실용&#x27; SMR 유치 실패 후 &#x27;상용&#x27; SMR 유치 재도전</b>\n   • <b>무슨 일:</b> 경상북도와 경주시가 &#x27;실용&#x27; SMR 유치에 실패한 후 &#x27;상용&#x27; SMR 유치에 재도전할 계획이다.\n   • <b>🇰🇷 한수원 시사점:</b> 경북도와 경주시의 SMR 유치 재도전은 국내 SMR 생태계 조성 및 지역 경제 활성화 노력의 일환으로 평가됩니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE5kdTlVZm1RdTV6RVBGTXFweFZQR2h3cms4NVZJQ3FfYUlJR1Rzdl9CV2g1bWhHMUttRDZwVWNleE9ycFpCeTlOa01PQU1aYzlnQlJLN0Y1MW1OZ1pnY2tFY0dmMUNoQjRWbjdDQl85cE5veVFBOE9UOdIBeEFVX3lxTE5kdTlVZm1RdTV6RVBGTXFweFZQR2h3cms4NVZJQ3FfYUlJR1Rzdl9CV2g1bWhHMUttRDZwVWNleE9ycFpCeTlOa01PQU1aYzlnQlJLN0Y1MW1OZ1pnY2tFY0dmMUNoQjRWbjdDQl85cE5veVFBOE9UOQ?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
+      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-19)</b>\n\n<b>📌 1. 고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기</b>\n   • <b>무슨 일:</b> 고리 3·4호기의 계속운전 심의가 지연되어 해당 호기들의 재가동 시점이 내년으로 미뤄질 예정입니다.\n   • <b>왜 중요:</b> 고리 3·4호기 계속운전 심의 지연은 해당 발전소의 재가동 시점을 내년으로 연기시키는 중대한 사안입니다. 이는 한수원(KHNP)의 발전 계획 및 수익성에 직접적인 영향을 미치며, 국가 전력 수급 안정성에도 중요한 함의를 가집니다.\n   • <b>💰 투자 관점:</b> 계속운전 심의 지연으로 발전소 가동 중단 기간이 길어져 전력 판매 수익 감소 및 유지보수 비용 증가 — 발전사업자 수혜 / utility 부담 (계속운전·단기)\n   • <b>🇰🇷 한수원 시사점:</b> 고리 3·4호기 운영 계획에 차질이 발생하며, 전력 수급 및 한수원(KHNP) 수익성에 영향을 미칠 수 있습니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTE5VNzQwNzMzdHdNX0YwdEdKblVNWUlPUHZGMFJTSlQyUGZnbzQtMzlVRVZoMEtwWlpYUkgxbUlyU3kxZ1VucEFEUzg3d1hSOHJYVzQtaHBfRE9Ic25RQm42RW1YUkxxbjgzNFBGRHRn?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 2. 블루 에너지, 콘스텔레이션 테크놀로지 벤처스로부터 전략적 지분 투자 유치</b>\n   • <b>무슨 일:</b> 블루 에너지가 콘스텔레이션의 벤처 투자 부문인 콘스텔레이션 테크놀로지 벤처스로부터 전략적 지분 투자를 유치했다.\n   • <b>💰 투자 관점:</b> SMR 개발사에 대한 전략적 지분 투자는 기술 개발 자금 조달을 용이하게 하여 상용화 일정을 앞당길 수 있음 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> SMR 개발사인 블루 에너지의 투자 유치는 SMR 시장의 성장 잠재력과 기술 개발에 대한 투자자들의 관심을 보여줍니다.\n   🔗 <a href=\"https://www.prnewswire.com/news-releases/blue-energy-receives-strategic-investment-from-constellation-to-accelerate-commercialization-of-novel-shipyard-manufacturing-and-project-financing-model-for-new-nuclear-302827725.html\">출처</a> · <code>prnewswire.com</code>\n\n<b>📌 3. 알로 아토믹스, 알로-X 시험용 원자로 제어 플랫폼 공급사로 로크웰 오토메이션 선정</b>\n   • <b>무슨 일:</b> 알로 아토믹스가 자사의 알로-X 시험용 원자로 제어 플랫폼 공급사로 로크웰 오토메이션을 선정했다.\n   • <b>💰 투자 관점:</b> 시험용 원자로 제어 플랫폼 공급사 선정은 SMR 개발 프로젝트의 구체적인 진전을 의미하며, 향후 대규모 장비 수주 기회 창출 — 전력기기 수혜 (SMR·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 알로 아토믹스의 제어 플랫폼 선정은 SMR 시험용 원자로 개발의 구체적인 진전을 의미하며, 기술 상용화에 한 걸음 더 다가섰음을 보여줍니다.\n   🔗 <a href=\"https://www.prnewswire.com/news-releases/rockwell-automation-selected-by-aalo-atomics-to-power-control-systems-for-aalo-x-critical-test-reactor-302827652.html\">출처</a> · <code>prnewswire.com</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
       "keyboard": {
         "inline_keyboard": [
           [
             {
               "text": "1 👍",
-              "callback_data": "fb:4113d294:important"
+              "callback_data": "fb:09d27916:important"
             },
             {
               "text": "1 👎",
-              "callback_data": "fb:4113d294:noise"
+              "callback_data": "fb:09d27916:noise"
             },
             {
               "text": "1 💰",
-              "callback_data": "fb:4113d294:invest"
+              "callback_data": "fb:09d27916:invest"
             },
             {
               "text": "1 📌",
-              "callback_data": "fb:4113d294:report"
+              "callback_data": "fb:09d27916:report"
             }
           ],
           [
             {
               "text": "2 👍",
-              "callback_data": "fb:3bc25133:important"
+              "callback_data": "fb:683e9e71:important"
             },
             {
               "text": "2 👎",
-              "callback_data": "fb:3bc25133:noise"
+              "callback_data": "fb:683e9e71:noise"
             },
             {
               "text": "2 💰",
-              "callback_data": "fb:3bc25133:invest"
+              "callback_data": "fb:683e9e71:invest"
             },
             {
               "text": "2 📌",
-              "callback_data": "fb:3bc25133:report"
+              "callback_data": "fb:683e9e71:report"
             }
           ],
           [
             {
               "text": "3 👍",
-              "callback_data": "fb:d2d6214a:important"
+              "callback_data": "fb:57378b68:important"
             },
             {
               "text": "3 👎",
-              "callback_data": "fb:d2d6214a:noise"
+              "callback_data": "fb:57378b68:noise"
             },
             {
               "text": "3 💰",
-              "callback_data": "fb:d2d6214a:invest"
+              "callback_data": "fb:57378b68:invest"
             },
             {
               "text": "3 📌",
-              "callback_data": "fb:d2d6214a:report"
+              "callback_data": "fb:57378b68:report"
             }
           ]
         ]
       },
-      "status": "sent",
-      "sent_at": "2026-07-18T23:15:19.561976+00:00"
+      "status": "pending"
     },
     {
       "name": "해외",
-      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-18)</b>\n\n<b>📌 1. Constellation, 소형 모듈형 원자로(SMR) 개발사 Blue Energy에 전략적 지분 투자</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> Constellation의 벤처 투자 부문이 조립식 원전 개발사 Blue Energy에 전략적 지분 투자를 단행했습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 주요 원전 운영사의 SMR 개발사 투자는 SMR 시장의 성장 잠재력과 기술 상용화에 대한 기대를 반영합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/constellation-invests-in-blue-energy\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 2. 인도 칼파캄에 원자력 기반 수소 생산 시설 개소</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 인도 칼파캄의 인디라 간디 원자력 연구 센터에서 원자력 에너지를 활용한 수소 생산 시설이 문을 열었습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 원자력 기반 수소 생산 시설의 가동은 청정 수소 경제 전환에 있어 원자력의 역할 확대 가능성을 시사합니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-17/article-8212/nuclearassisted-hydrogen-production-facility-opens-in-kalpakkam-india/\">출처</a> · <code>ans.org</code>\n\n<b>📌 3. 남아공 원자력규제기관, 코에베르그 원전 내부 오염 사건 환경 누출 없음 확인</b>  ✅ AP\n   • <b>무슨 일:</b> 남아프리카공화국 원자력규제기관이 코에베르그 원전 내부 오염 사건 발생에도 불구하고 방사성 물질의 환경 누출은 없었다고 밝혔다.\n   • <b>🇰🇷 한수원 시사점:</b> 남아공 규제기관의 발표는 원전 내부 오염 사건 발생 시에도 환경 안전이 유지되었음을 확인하며, 안전 관리의 중요성을 시사합니다.\n   🔗 <a href=\"https://apnews.com/article/nuclear-reactor-south-africa-contamination-regulator-866adfe2fb7dab78878ae551843a5bd5\">출처</a> · <code>apnews.com</code>\n\n<b>📌 4. 브루스 파워, 의료용 동위원소 생산 위한 핫셀 시설 완공</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 브루스 파워가 암 치료용 의료 동위원소 루테튬-177 생산을 위한 핫셀 시설 건설을 완료했습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 의료용 동위원소 생산 인프라 확충은 핵의학 분야의 기술 발전에 기여하며, 원자력의 비발전 활용 확대 동향을 보여줍니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/bruce-power-completes-on-site-hot-cell\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 5. 차세대 원전 인허가 및 운영의 인적 요인 중요성 논의</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국원자력학회(ANS)가 차세대 원전의 인허가 및 운영 과정에서 인적 요인의 중요성을 다루는 논의를 진행했습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 차세대 원전의 안전하고 효율적인 운영을 위해 인적 요인에 대한 심층적 고려가 필요함을 시사합니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-17/article-8161/the-human-factor-in-licensing-and-operating-the-next-generation-of-nuclear-plants/\">출처</a> · <code>ans.org</code>\n\n<b>📌 6. OECD/NEA 조사 실험 시스템, MITR 배치 준비 완료</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> OECD/NEA 프로젝트의 일환으로 새로운 노내 실시간 구조 재료 기계 시험용 조사 실험 시스템이 MITR에 배치될 준비를 마쳤습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 국제 협력을 통한 원자력 재료 기술 개발은 미래 원전 안전성 및 효율성 향상에 기여할 것입니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-16/article-8208/nea-irradiation-system-ready-to-deploy-at-mitr/\">출처</a> · <code>ans.org</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
-      "keyboard": {
-        "inline_keyboard": [
-          [
-            {
-              "text": "1 👍",
-              "callback_data": "fb:d7e6c73c:important"
-            },
-            {
-              "text": "1 👎",
-              "callback_data": "fb:d7e6c73c:noise"
-            },
-            {
-              "text": "1 💰",
-              "callback_data": "fb:d7e6c73c:invest"
-            },
-            {
-              "text": "1 📌",
-              "callback_data": "fb:d7e6c73c:report"
-            }
-          ],
-          [
-            {
-              "text": "2 👍",
-              "callback_data": "fb:6b8718f2:important"
-            },
-            {
-              "text": "2 👎",
-              "callback_data": "fb:6b8718f2:noise"
-            },
-            {
-              "text": "2 💰",
-              "callback_data": "fb:6b8718f2:invest"
-            },
-            {
-              "text": "2 📌",
-              "callback_data": "fb:6b8718f2:report"
-            }
-          ],
-          [
-            {
-              "text": "3 👍",
-              "callback_data": "fb:47813b60:important"
-            },
-            {
-              "text": "3 👎",
-              "callback_data": "fb:47813b60:noise"
-            },
-            {
-              "text": "3 💰",
-              "callback_data": "fb:47813b60:invest"
-            },
-            {
-              "text": "3 📌",
-              "callback_data": "fb:47813b60:report"
-            }
-          ],
-          [
-            {
-              "text": "4 👍",
-              "callback_data": "fb:093ff0dc:important"
-            },
-            {
-              "text": "4 👎",
-              "callback_data": "fb:093ff0dc:noise"
-            },
-            {
-              "text": "4 💰",
-              "callback_data": "fb:093ff0dc:invest"
-            },
-            {
-              "text": "4 📌",
-              "callback_data": "fb:093ff0dc:report"
-            }
-          ],
-          [
-            {
-              "text": "5 👍",
-              "callback_data": "fb:52a29030:important"
-            },
-            {
-              "text": "5 👎",
-              "callback_data": "fb:52a29030:noise"
-            },
-            {
-              "text": "5 💰",
-              "callback_data": "fb:52a29030:invest"
-            },
-            {
-              "text": "5 📌",
-              "callback_data": "fb:52a29030:report"
-            }
-          ],
-          [
-            {
-              "text": "6 👍",
-              "callback_data": "fb:b48c05dd:important"
-            },
-            {
-              "text": "6 👎",
-              "callback_data": "fb:b48c05dd:noise"
-            },
-            {
-              "text": "6 💰",
-              "callback_data": "fb:b48c05dd:invest"
-            },
-            {
-              "text": "6 📌",
-              "callback_data": "fb:b48c05dd:report"
-            }
-          ]
-        ]
-      },
-      "status": "sent",
-      "sent_at": "2026-07-18T23:15:19.561976+00:00"
+      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-20)</b>\n\n<i>오늘은 별도로 잡힌 해외 동향이 없습니다.</i>",
+      "keyboard": null,
+      "status": "pending"
     }
   ],
   "items": [
     {
-      "hash": "4113d294aea75ee0",
-      "title_kr": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "hash": "09d2791626624247",
+      "title_kr": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
       "region": "국내",
-      "section": "domestic",
+      "section": "khnp",
       "domain": "news.google.co.kr",
-      "theme": "",
-      "score": 19.52,
+      "theme": "life_extension",
+      "score": 25.236,
       "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
+        "importance": 10.0,
+        "event:regulatory_action": 5.0,
         "korea_relevance": 3.6,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "novelty": 1.6,
-        "evidence_strength": 0.8,
-        "time_decay": -0.48
-      }
-    },
-    {
-      "hash": "3bc2513330afcbbb",
-      "title_kr": "스페인 최고령 원전, 퇴출 위기 극복하고 운영 지속 결정",
-      "region": "국내",
-      "section": "international",
-      "domain": "news.google.co.kr",
-      "theme": "",
-      "score": 16.838,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
+        "market_materiality": 2.0,
         "policy_materiality": 2.0,
         "novelty": 1.6,
         "evidence_strength": 1.6,
-        "time_decay": -1.56
+        "time_decay": -0.56
       }
     },
     {
-      "hash": "d2d6214a79979e89",
-      "title_kr": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
+      "hash": "683e9e71ce70271a",
+      "title_kr": "블루 에너지, 콘스텔레이션 테크놀로지 벤처스로부터 전략적 지분 투자 유치",
       "region": "국내",
       "section": "smr",
-      "domain": "news.google.co.kr",
-      "theme": "",
-      "score": 16.134,
-      "breakdown": {
-        "importance": 5.0,
-        "event:corporate_move": 3.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 1.0,
-        "novelty": 0.8,
-        "evidence_strength": 0.8,
-        "time_decay": -0.07
-      }
-    },
-    {
-      "hash": "d7e6c73c3151fe00",
-      "title_kr": "Constellation, 소형 모듈형 원자로(SMR) 개발사 Blue Energy에 전략적 지분 투자",
-      "region": "해외",
-      "section": "smr",
-      "domain": "world-nuclear-news.org",
-      "theme": "",
-      "score": 16.973,
+      "domain": "prnewswire.com",
+      "theme": "smr",
+      "score": 13.045,
       "breakdown": {
         "importance": 5.0,
         "event:corporate_move": 3.0,
@@ -261,129 +116,51 @@
         "policy_materiality": 1.0,
         "novelty": 1.6,
         "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -1.43
+        "time_decay": -2.36
       }
     },
     {
-      "hash": "6b8718f28a4a85d4",
-      "title_kr": "인도 칼파캄에 원자력 기반 수소 생산 시설 개소",
-      "region": "해외",
-      "section": "international",
-      "domain": "ans.org",
-      "theme": "",
-      "score": 16.973,
-      "breakdown": {
-        "importance": 5.0,
-        "event:project_milestone": 4.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -1.43
-      }
-    },
-    {
-      "hash": "47813b606ddf5d65",
-      "title_kr": "남아공 원자력규제기관, 코에베르그 원전 내부 오염 사건 환경 누출 없음 확인",
-      "region": "해외",
-      "section": "international",
-      "domain": "apnews.com",
-      "theme": "",
-      "score": 16.146,
-      "breakdown": {
-        "importance": 5.0,
-        "event:incident_safety": 6.0,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
-        "evidence_strength": 2.4,
-        "source_tier2": 1.5,
-        "time_decay": -1.35
-      }
-    },
-    {
-      "hash": "093ff0dc5f492950",
-      "title_kr": "브루스 파워, 의료용 동위원소 생산 위한 핫셀 시설 완공",
-      "region": "해외",
-      "section": "international",
-      "domain": "world-nuclear-news.org",
-      "theme": "",
-      "score": 16.074,
-      "breakdown": {
-        "importance": 5.0,
-        "event:project_milestone": 4.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -2.33
-      }
-    },
-    {
-      "hash": "52a290304fefba37",
-      "title_kr": "차세대 원전 인허가 및 운영의 인적 요인 중요성 논의",
-      "region": "해외",
+      "hash": "57378b685cd5d6bc",
+      "title_kr": "알로 아토믹스, 알로-X 시험용 원자로 제어 플랫폼 공급사로 로크웰 오토메이션 선정",
+      "region": "국내",
       "section": "smr",
-      "domain": "ans.org",
-      "theme": "",
-      "score": 13.535,
+      "domain": "prnewswire.com",
+      "theme": "smr",
+      "score": 12.045,
       "breakdown": {
         "importance": 5.0,
-        "event:research_report": 2.0,
-        "korea_relevance": 1.2,
-        "policy_materiality": 1.0,
-        "novelty": 0.8,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -1.07
-      }
-    },
-    {
-      "hash": "b48c05dd5c2a378d",
-      "title_kr": "OECD/NEA 조사 실험 시스템, MITR 배치 준비 완료",
-      "region": "해외",
-      "section": "international",
-      "domain": "ans.org",
-      "theme": "",
-      "score": 15.984,
-      "breakdown": {
-        "importance": 5.0,
-        "event:project_milestone": 4.0,
+        "event:corporate_move": 3.0,
         "korea_relevance": 1.2,
         "market_materiality": 1.0,
         "policy_materiality": 1.0,
         "novelty": 1.6,
         "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -2.42
+        "time_decay": -2.36
       }
     }
   ],
   "report_diag": {
-    "candidates": [],
-    "recommended": []
+    "candidates": [
+      "09d27916"
+    ],
+    "recommended": [
+      {
+        "hash": "09d27916",
+        "topic": "고리 3·4호기 계속운전 심의 지연 및 재가동 연기"
+      }
+    ]
   },
   "dropped_duplicates": [
     {
-      "hash": "bfa46d91713f8ac6",
-      "dup_of": "4113d294aea75ee0",
-      "title": "정부, 호남 반도체 클러스터 전력 공급 위해 원전 추진 검토 중"
+      "hash": "ce27941580491d0a",
+      "dup_of": "2115693ef391a35c",
+      "title": "‘탈원전’ 프레임 넘어 ‘전력 주권’ 확보 통한 에너지 안보 강조"
     }
   ],
   "prune_hashes": [
-    "093ff0dc5f492950",
-    "3bc2513330afcbbb",
-    "4113d294aea75ee0",
-    "47813b606ddf5d65",
-    "52a290304fefba37",
-    "6b8718f28a4a85d4",
-    "b48c05dd5c2a378d",
-    "bfa46d91713f8ac6",
-    "d2d6214a79979e89",
-    "d7e6c73c3151fe00"
+    "09d2791626624247",
+    "57378b685cd5d6bc",
+    "683e9e71ce70271a",
+    "d3fa83c0ccaa2ae3"
   ]
 }
