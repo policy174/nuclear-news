@@ -9939,5 +9939,90 @@
     "feed": "정책",
     "domain": "world-nuclear-news.org",
     "matched": "WNN"
+  },
+  "cb01e84344688fa0": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 2,
+      "evidence_strength": 3,
+      "report_worthiness": 1
+    },
+    "importance": "must_read",
+    "section": "smr",
+    "category": "시장",
+    "title_kr": "체코 산업통상부, CEZ, 롤스로이스 SMR 2개 추가 부지 개발 MOU 체결",
+    "summary": "체코 산업통상부, CEZ, 롤스로이스 SMR이 2개 추가 부지에 소형모듈원자로(SMR) 프로젝트 준비 활동을 시작하기 위한 양해각서(MOU)를 체결했습니다.",
+    "implication": "체코의 SMR 도입 의지가 구체화되며, 롤스로이스 SMR의 유럽 시장 확대 가능성을 시사합니다.",
+    "why_important": "체코 정부와 주요 전력사가 롤스로이스 SMR 도입을 위한 구체적인 준비 단계에 착수했다는 점에서 유럽 내 SMR 시장 확대 동향을 파악하는 데 중요합니다. 이는 향후 SMR 경쟁 구도에 영향을 미칠 수 있습니다.",
+    "watch_next": "",
+    "tags": [
+      "#체코SMR",
+      "#롤스로이스SMR",
+      "#SMR시장"
+    ],
+    "related_reports": [],
+    "cached_at": "2026-07-21T16:13:18.734473+00:00",
+    "title": "Two more Czech sites lined up for Rolls-Royce SMRs",
+    "link": "https://www.world-nuclear-news.org//articles/two-more-czech-sites-lined-up-for-rolls-royce-smrs",
+    "feed": "SMR",
+    "domain": "world-nuclear-news.org",
+    "matched": "WNN"
+  },
+  "94ff8adcee15747c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 2,
+      "evidence_strength": 2,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "category": "기술",
+    "title_kr": "아멘텀, 사바나강 AI 프로젝트 사업자로 선정",
+    "summary": "미국 에너지부(DOE) 산하 핵안보청(NNSA)이 아멘텀을 2GWe 전력 공급 AI 데이터센터 개발을 위한 단계별 임대 협상 대상자로 선정했습니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "cached_at": "2026-07-21T16:13:18.734473+00:00",
+    "title": "Amentum selected for Savannah River AI project",
+    "link": "https://www.world-nuclear-news.org//articles/amentum-selected-for-savannah-river-ai-project",
+    "feed": "정책",
+    "domain": "world-nuclear-news.org",
+    "matched": "WNN"
+  },
+  "197291b60649f82b": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 1,
+      "evidence_strength": 2,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "category": "규제",
+    "title_kr": "미국 원자력규제위원회 원자로안전자문위원회(ACRS) 신규 위원 모집",
+    "summary": "미국 원자력규제위원회(NRC) 산하 원자로안전자문위원회(ACRS)가 신규 위원 모집 공고를 냈습니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "cached_at": "2026-07-21T16:13:18.734473+00:00",
+    "title": "ACRS seeking new committee member",
+    "link": "https://www.ans.org/news/2026-07-21/article-8228/acrs-seeking-new-committee-member/",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
   }
 }
