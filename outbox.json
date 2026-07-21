@@ -1,298 +1,362 @@
 {
   "schema_version": 1,
-  "date": "2026-07-21",
-  "created_at": "2026-07-20T23:27:10.927938+00:00",
-  "status": "sent",
+  "date": "2026-07-22",
+  "created_at": "2026-07-21T23:15:40.244951+00:00",
+  "status": "pending",
   "briefs": [
     {
+      "name": "보고서추천",
+      "text": "<b>📝 보고서 검토 추천 (2026-07-22)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 미국 Constellation Ginna 원전 계속운전 신청서 접수 및 시사점 분석</b>\n   • <b>왜:</b> 미국 NRC의 Ginna 원전 계속운전 신청서 접수는 미국 노후 원전의 장기 운영 정책이 구체적인 규제 절차로 진입했음을 의미합니다. 이는 국내 계속운전 정책 수립 및 규제 환경 변화에 대한 전략적 대응 방안 모색에 중요한 참고 사례가 될 것입니다.\n   • <b>추천 각도:</b> 미국 NRC의 계속운전 심사 절차 및 주요 쟁점 분석 / Ginna 원전 계속운전 신청서의 기술적·안전성 평가 주요 내용 / 미국 계속운전 사례가 국내 원전 계속운전 정책 및 규제에 미치는 영향",
+      "keyboard": null,
+      "status": "pending"
+    },
+    {
       "name": "국내",
-      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-20)</b>\n\n<b>📌 1. 나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표</b>\n   • <b>무슨 일:</b> 나노 뉴클리어(Nano Nuclear)가 기술 개발사, 유틸리티, 대학 등이 참여하는 버지니아 원자력 에너지 컨소시엄에 합류했다.\n   • <b>💰 투자 관점:</b> SMR 개발 협력 강화로 기술 개발 및 상용화 일정이 단축될 수 있음 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> SMR 개발사의 산업 생태계 참여 및 협력 동향을 파악하여 시장 경쟁 구도를 이해하는 데 참고할 수 있습니다.\n   🔗 <a href=\"https://nanonuclearenergy.com/nano-nuclear-energy-joins-virginia-nuclear-energy-consortium-to-advance-nuclear-innovation-and-support-the-commonwealths-growing-energy-requirements/\">출처</a> · <code>nanonuclearenergy.com</code>\n\n<b>📌 2. 원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구</b>\n   • <b>무슨 일:</b> 한국원자력학회가 AI 메가프로젝트 성공을 위해 제12차 전력수급기본계획에 신규 원전 건설을 반영할 것을 정부에 촉구했습니다.\n   • <b>💰 투자 관점:</b> AI 전력 수요 증가로 신규 원전 건설 필요성이 제기되어 향후 정부의 자본 지출 계획에 영향을 줄 수 있음 — 원자로 공급사 수혜 / 가스 피크발전 부담 (전력수요·중기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> AI 전력 수요 증가에 대한 원자력 발전의 역할론이 부각되며, 향후 제12차 전기본 수립 과정에서 신규 원전 도입 논의가 활발해질 수 있음을 시\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMixwRBVV95cUxPb3piZDZxOEVaektqLXNFc0xhVGh0cXRzSnBkWkJJWmpCRkJWc0dxeFdudkh5b2VsREk4NmcyX0xmWkxYdjRBeEIxTmRJSVk3Z25OVTZYQUl6SE9rdVM2SV82NmNTbWMzOHFFNG5HelgwNFZlVkEyRnQ4bVpPRngyQ2NGMUswNlgzYVB6RjlJckNDV0ZIcW95Q3pwYzAyLU9DaWFhcVFzTHVPcDh3ZW1XVmltVlFmUkhCdm81NEdfcVl2djNhU0I5VFZQUlRfb0RIM2lLZmVqUUN5M2g5LXlxNWdxWExHZzcyTlhHa2RkLVJsamFyT2lVTnM2dmZ6YjBhcmdZVXhScW5tYVZJU04zVzg4U0JseTlsTFRyYTNyTjNsNjVtUTZtWDFCOUlNNi1DU25FZ1VhOW9NUTgxM1UxdEY5RUpHN09VdGpyWlVhLUY5dEhWa0lUcnlKLTA1LUpmUmJ4MVJJZE9oZnQ3SmU2TmRzVE5mTy1DcUNXR2xPM19FS1JSRkF3Qm5vN09qYmx3UDV3TVcwYWJBVVAwR3RkVEstMVBkTU80S3FyaExQVXJzdnN1TTd4OHV1YWY3dGU3bUZFQU1EeWJFVDNvZU95eGxSX25WLUU5Q2Y2VnNrQjY5elpOcWMyVzE5T3JVdmZlZnh2THJTQzJNUWk4QW1ZbmE1a3dIRUZaNTcyZ1JNdkpaOE9ac3o0MVllczd2WWx3YTJaZUdCeWpLMHdkOHlFSExrME9VRmtfajB3MVlTUVZfRFlRMkg4?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 3. 기자수첩: 탈탈원전 정책 전환의 흐름과 시사점</b>\n   • <b>무슨 일:</b> 기자수첩을 통해 탈원전 정책에서 벗어나 원전 활용을 강조하는 현 정부의 기조를 분석합니다.\n   • <b>💰 투자 관점:</b> 정부 정책 기조 변화로 원전 건설 및 운영 관련 규제 완화 및 지원이 예상되어 프로젝트 추진에 긍정적 영향을 줄 수 있음 — 발전사업자 수혜 (규제·중기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 정부의 탈원전 정책 전환 기조가 언론에서도 주요하게 다뤄지고 있음을 보여줍니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE1pV21ZSzBBYVlzSnh3M0dzMVN3TDZrLWUycDlPM1ZvRzRkZmgyNzNkMndpTXBRZUxNeUNyZVBVeDA3X0pKZFZMMnhLZ0pFbXNsQXIw?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
+      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-21)</b>\n\n<b>📌 1. K원전 인력 4년 만에 증가, 수출 호조 및 대규모 프로젝트 영향</b>\n   • <b>무슨 일:</b> 국내 원전 산업 인력이 수출 호조와 대규모 프로젝트 영향으로 4년 만에 증가세를 보였습니다.\n   • <b>💰 투자 관점:</b> 수출 및 대규모 프로젝트 증가로 인력 수요가 늘어나 관련 기업의 사업 확장 기반이 강화되고 매출 증대 기회가 생깁니다 — 원자로 공급사 수혜 (수출·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 국내 원전 산업의 인력 기반 강화는 향후 사업 확장 및 경쟁력 유지에 긍정적 신호입니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiVEFVX3lxTE9FR1BDVjdOUGtzSjVLaXBKajIzcTZuTkpRT2t6SERncllHRGJKVG82Vk14X2tadjdINUw1dVRBMVdQR2dLRzdnRzdJS0VyRzh3VGRtUw?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 2. 대구시, 차세대 SMR 유치 경쟁 본격화…군위 내륙형 2호기 목표</b>\n   • <b>무슨 일:</b> 대구시가 군위군을 내륙형 SMR 부지로 제안하며 차세대 SMR 유치 경쟁에 본격적으로 뛰어들었습니다.\n   • <b>💰 투자 관점:</b> 지자체 간 SMR 유치 경쟁은 부지 선정 및 인허가 절차에 영향을 미쳐 프로젝트 비용과 일정을 좌우합니다 — SMR 개발사 수혜 (SMR·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 지자체의 SMR 유치 경쟁 심화는 향후 SMR 부지 선정 및 사업 추진에 중요한 변수가 될 수 있습니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiYkFVX3lxTE9CUjNLdF9GcU5pb2V0UHhySWt5U2Qta291NkhsVmhUZ0k0b0tTdEhnWUFPdkFZSVdZaEh4dHktRU5IaFR6WjJXUUREa3Y5ckRqRXFteldCaTRuN0dKck5hWkVn?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 3. 국내 원전 산업 인력, 4년 만에 증가세 전환</b>\n   • <b>무슨 일:</b> 국내 원전 산업 인력이 4년 만에 증가세로 전환되며 K-원전 부활의 긍정적 신호로 해석됩니다.\n   • <b>💰 투자 관점:</b> 원전 산업 인력 증가는 국내외 프로젝트 수행 역량을 강화하여 수주 경쟁력 및 사업 확장 기회를 증대시킵니다 — 원자로 공급사 수혜 (공급망·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 국내 원전 산업의 인력 기반 강화는 향후 사업 확장 및 경쟁력 제고에 긍정적 영향을 미칠 것으로 판단됩니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE1XVzhnREhlV2NZRWt5UzdlWHMxbkJ2dkFqaDFhb0ZuNW5SSXJJX3dvbWxHU1M2YTRsQ1RHdm5CaExXYkg2RXczZjMzaV91V1dkd3Y0?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
       "keyboard": {
         "inline_keyboard": [
           [
             {
               "text": "1 👍",
-              "callback_data": "fb:2b442f96:important"
+              "callback_data": "fb:5550c8a8:important"
             },
             {
               "text": "1 👎",
-              "callback_data": "fb:2b442f96:noise"
+              "callback_data": "fb:5550c8a8:noise"
             },
             {
               "text": "1 💰",
-              "callback_data": "fb:2b442f96:invest"
+              "callback_data": "fb:5550c8a8:invest"
             },
             {
               "text": "1 📌",
-              "callback_data": "fb:2b442f96:report"
+              "callback_data": "fb:5550c8a8:report"
             }
           ],
           [
             {
               "text": "2 👍",
-              "callback_data": "fb:6260c079:important"
+              "callback_data": "fb:5d1cf0b4:important"
             },
             {
               "text": "2 👎",
-              "callback_data": "fb:6260c079:noise"
+              "callback_data": "fb:5d1cf0b4:noise"
             },
             {
               "text": "2 💰",
-              "callback_data": "fb:6260c079:invest"
+              "callback_data": "fb:5d1cf0b4:invest"
             },
             {
               "text": "2 📌",
-              "callback_data": "fb:6260c079:report"
+              "callback_data": "fb:5d1cf0b4:report"
             }
           ],
           [
             {
               "text": "3 👍",
-              "callback_data": "fb:eea0eca0:important"
+              "callback_data": "fb:97e7c36d:important"
             },
             {
               "text": "3 👎",
-              "callback_data": "fb:eea0eca0:noise"
+              "callback_data": "fb:97e7c36d:noise"
             },
             {
               "text": "3 💰",
-              "callback_data": "fb:eea0eca0:invest"
+              "callback_data": "fb:97e7c36d:invest"
             },
             {
               "text": "3 📌",
-              "callback_data": "fb:eea0eca0:report"
+              "callback_data": "fb:97e7c36d:report"
             }
           ]
         ]
       },
-      "status": "sent",
-      "sent_at": "2026-07-20T23:27:24.684841+00:00"
+      "status": "pending"
     },
     {
       "name": "해외",
-      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-20)</b>\n\n<b>📌 1. 세르비아 정부, 국가 원자력 에너지 개발 로드맵 발표</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 세르비아 의회가 2024년 원자력 에너지 개발의 중요한 이정표를 달성하며 국가 원자력 로드맵을 제시했습니다.\n   • <b>💰 투자 관점:</b> 세르비아의 원자력 로드맵 발표로 신규 원전 프로젝트 발주 가능성이 높아져 관련 기업의 수주 기회가 증가할 수 있음 — 원자로 공급사 수혜 (수출·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 세르비아의 원자력 에너지 도입 및 개발 계획이 구체화되어 향후 시장 동향에 영향을 미칠 수 있습니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-20/article-8224/serbian-officials-lay-out-nuclear-energy-timeline/\">출처</a> · <code>ans.org</code>\n\n<b>📌 2. 불가리아 AP1000 신규 원전 건설, 양국 간 &#x27;전략적 우선순위&#x27;로 강조</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 불가리아와 미국 고위 관계자들이 코즐로두이 원전의 AP1000 신규 2개 호기 건설 프로젝트를 &#x27;전략적 양자 우선순위&#x27;로 강조했습니다.\n   • <b>💰 투자 관점:</b> 불가리아 신규 원전 건설이 전략적 우선순위로 강조되어 프로젝트 추진 속도가 빨라지고 관련 기업의 수주가 가시화될 수 있음 — 원자로 공급사 수혜 (수출·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 불가리아의 신규 원전 사업이 미국과의 전략적 협력 하에 추진되고 있음을 보여주며, AP1000 노형의 유럽 시장 확산 가능성을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/bulgarias-planned-ap1000s-strategic-bilateral-priority\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 3. 미국 인디애나주, 원자력 준비 태세 지정 시스템 도입</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국 인디애나주가 원자력 발전 준비 태세를 평가하고 지정하는 새로운 시스템을 도입했다.\n   • <b>💰 투자 관점:</b> 주정부의 원자력 발전 지원 시스템 도입으로 신규 원전 프로젝트 추진의 행정적 장애물이 감소하고 자본 지출이 촉진될 수 있음 — 발전사업자 수혜 (규제·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 주정부 차원의 원자력 발전 지원 및 확산 정책 동향을 파악하는 데 참고할 수 있습니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-20/article-8216/indiana-launches-nuclear-readiness-designation-system/\">출처</a> · <code>ans.org</code>\n\n<b>📌 4. IAEA, 해양 플라스틱 오염 감시 플랫폼 &#x27;NUTEC 플라스틱스&#x27; 출범</b>  ✅ IAEA\n   • <b>무슨 일:</b> 국제원자력기구(IAEA)가 해양 플라스틱 오염 감시를 위한 새로운 글로벌 플랫폼 &#x27;NUTEC 플라스틱스&#x27;를 공식 출범시켰습니다.\n   • <b>🇰🇷 한수원 시사점:</b> IAEA의 해양 환경 보호 노력 일환으로, 플라스틱 오염 문제 해결에 원자력 기술 활용 가능성을 모색하는 동향을 시사합니다.\n   🔗 <a href=\"http://www.iaea.org/newscenter/news/iaea-launches-new-nutec-plastics-global-marine-monitoring-platform\">출처</a> · <code>iaea.org</code>\n\n<b>📌 5. 뉴클레오(Newcleo), 프랑스 MOX 연료 시설 인허가 절차 진전</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 프랑스 원자력안전규제기관이 뉴클레오(Newcleo)의 프랑스 MOX 연료 시설 계획에 대한 안전성 평가 의견을 발표했습니다.\n   • <b>💰 투자 관점:</b> MOX 연료 시설 인허가 절차 진전으로 차세대 연료 생산 및 재활용 기술 상용화 일정이 앞당겨져 관련 기업의 연료 공급 비용 절감 및 수익 증대가 예상됨 — 핵연료 공급사 수혜 (핵연료주기·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 차세대 원자로 연료인 MOX 연료 기술 개발 및 상용화를 위한 규제 당국의 검토가 진행되고 있음을 보여주며, 핵연료 주기 기술 동향을 파악하는\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/newcleo-advances-mox-fuel-licensing-in-france\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 6. 슬로바키아 모호체 4호기, 물리적 시운전 시험 준비 완료</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 슬로바키아 모호체 4호기가 원자로 조립 및 밀봉을 완료하고 물리적 시운전 시험 단계로 진입할 준비를 마쳤습니다.\n   • <b>💰 투자 관점:</b> 신규 원전의 물리적 시운전 준비 완료는 프로젝트 일정 준수를 의미하며, 이는 건설 비용 예측 가능성을 높이고 향후 전력 생산에 기여할 것임 — 발전사업자 수혜 (신규건설·단기)\n   • <b>🇰🇷 한수원 시사점:</b> 유럽 내 신규 원전 건설 프로젝트의 진척 상황을 보여주며, 원전 건설 및 시운전 기술의 안정적인 이행을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/mochovce-4-reactor-assembly-completed\">출처</a> · <code>world-nuclear-news.org</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
+      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-21)</b>\n\n<b>📌 1. 미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국 상무부 경제개발청(EDA)이 인터마운틴-웨스트 원자력 에너지 회랑(INEC) 기술 허브에 3,100만 달러를 투자할 계획임을 발표했습니다.\n   • <b>왜 중요:</b> 미국 상무부가 신규 원자력 개발을 위한 대규모 투자를 공식 발표한 것으로, 이는 미국 정부의 원자력 에너지 확대 정책 의지를 명확히 보여주는 사례입니다. 향후 미국 내 원자력 산업 생태계 조성 및 기술 개발 가속화에 중요한 전환점이 될 수 있습니다.\n   • <b>💰 투자 관점:</b> 미국 정부의 신규 원자력 기술 허브 투자는 관련 기술 개발 및 상용화를 가속화하여 미래 시장 선점 기회를 창출합니다 — SMR 개발사 수혜 (자금조달·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 정부의 신규 원자력 개발 지원 의지가 재확인되었으며, 이는 향후 미국 내 원자력 산업 성장에 긍정적 영향을 미칠 것으로 예상됩니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-21/article-8233/40m-investment-to-spur-new-nuclear-developments-in-idaho-and-wyoming/\">출처</a> · <code>ans.org</code>\n\n<b>📌 2. 미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국 원자력규제위원회(NRC)가 Constellation사의 Ginna 원전 20년 계속운전 신청서를 접수했습니다.\n   • <b>왜 중요:</b> 미국 NRC가 Ginna 원전의 계속운전 신청서를 접수함에 따라, 노후 원전의 장기 운영을 위한 규제 절차가 공식적으로 개시되었습니다. 이는 미국 내 원전 수명 연장 정책의 지속적인 추진을 시사하며, 국내 계속운전 정책 수립에도 참고할 수 있는 사례입니다.\n   • <b>💰 투자 관점:</b> 노후 원전의 계속운전 신청서 접수는 발전소 운영 기간 연장을 통해 전력 판매 수익과 운영 이익을 증대시킵니다 — 발전사업자 수혜 (계속운전·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 원전의 계속운전 절차가 진행 중이며, 이는 노후 원전의 장기 운영 정책 기조를 보여줍니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-21/article-8230/nrc-accepts-ginna-slr-application-as-constellation-seeks-20year-extension/\">출처</a> · <code>ans.org</code>\n\n<b>📌 3. 체코 산업통상부, CEZ, 롤스로이스 SMR 2개 추가 부지 개발 MOU 체결</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 체코 산업통상부, CEZ, 롤스로이스 SMR이 2개 추가 부지에 소형모듈원자로(SMR) 프로젝트 준비 활동을 시작하기 위한 양해각서(MOU)를 체결했습니다.\n   • <b>왜 중요:</b> 체코 정부와 주요 전력사가 롤스로이스 SMR 도입을 위한 구체적인 준비 단계에 착수했다는 점에서 유럽 내 SMR 시장 확대 동향을 파악하는 데 중요합니다. 이는 향후 SMR 경쟁 구도에 영향을 미칠 수 있습니다.\n   • <b>💰 투자 관점:</b> 체코의 SMR 부지 개발 MOU는 롤스로이스 SMR의 잠재적 수주 기회를 확대하고 유럽 내 SMR 시장 확대를 가속화합니다 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 체코의 SMR 도입 의지가 구체화되며, 롤스로이스 SMR의 유럽 시장 확대 가능성을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/two-more-czech-sites-lined-up-for-rolls-royce-smrs\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 4. 프랑스 Stellaria, MSR 기반 통합 에너지 허브 개발 MOU 체결</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 프랑스 용융염원자로(MSR) 개발사 Stellaria가 통합 에너지 허브 개발을 위한 양해각서(MOU)를 체결했습니다.\n   • <b>💰 투자 관점:</b> MSR 기반 에너지 허브 개발 MOU는 차세대 원자로 기술의 상업적 적용 가능성을 탐색하여 미래 에너지 시장의 새로운 수요를 창출합니다 — SMR 개발사 수혜 (SMR·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 프랑스에서 MSR 기술을 활용한 에너지 허브 개발이 추진되며, 이는 SMR의 다양한 활용 가능성을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/multiple-msrs-proposed-for-french-industrial-park\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 5. 영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 미국 엔지니어링 그룹 제이콥스(Jacobs)가 영국 SMR 프로젝트의 기획 및 인허가 서비스를 제공할 기업으로 선정되었습니다.\n   • <b>💰 투자 관점:</b> 영국 SMR 프로젝트의 기획 및 인허가 서비스 수주는 전문 엔지니어링 기업의 매출을 증대시키고 향후 SMR 시장 참여 기회를 확대합니다 — EPC 수혜 (SMR·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 영국 SMR 프로젝트 추진이 구체화되는 과정에서 전문 엔지니어링 기업의 역할이 중요해지고 있음을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org//articles/jacobs-to-assist-in-planning-of-uk-smr-projects\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 6. 뉴욕주, 원자력 발전 용량 확대 방안 모색 중</b>\n   • <b>무슨 일:</b> 뉴욕주가 원자력 발전 용량 확대를 검토 중이며, 콘스텔레이션 등 이해관계자들이 의견을 제시했다.\n   • <b>💰 투자 관점:</b> 뉴욕주의 원자력 발전 용량 확대 검토는 향후 신규 원전 건설 또는 기존 원전의 계속운전 가능성을 높여 관련 기업의 사업 기회를 창출합니다 — 발전사업자 수혜 (전력수요·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 뉴욕주의 원자력 발전 확대 논의 동향을 파악하여 향후 정책 변화 가능성을 주시할 필요가 있습니다.\n   🔗 <a href=\"https://cnycentral.com/news/local/nine-mile-point-eyed-for-expansion-as-ny-weighs-returning-to-new-nuclear-power\">출처</a> · <code>cnycentral.com</code>\n\n🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감",
       "keyboard": {
         "inline_keyboard": [
           [
             {
               "text": "1 👍",
-              "callback_data": "fb:bdd164e5:important"
+              "callback_data": "fb:a8c1cdc2:important"
             },
             {
               "text": "1 👎",
-              "callback_data": "fb:bdd164e5:noise"
+              "callback_data": "fb:a8c1cdc2:noise"
             },
             {
               "text": "1 💰",
-              "callback_data": "fb:bdd164e5:invest"
+              "callback_data": "fb:a8c1cdc2:invest"
             },
             {
               "text": "1 📌",
-              "callback_data": "fb:bdd164e5:report"
+              "callback_data": "fb:a8c1cdc2:report"
             }
           ],
           [
             {
               "text": "2 👍",
-              "callback_data": "fb:78b0e1f0:important"
+              "callback_data": "fb:937708a7:important"
             },
             {
               "text": "2 👎",
-              "callback_data": "fb:78b0e1f0:noise"
+              "callback_data": "fb:937708a7:noise"
             },
             {
               "text": "2 💰",
-              "callback_data": "fb:78b0e1f0:invest"
+              "callback_data": "fb:937708a7:invest"
             },
             {
               "text": "2 📌",
-              "callback_data": "fb:78b0e1f0:report"
+              "callback_data": "fb:937708a7:report"
             }
           ],
           [
             {
               "text": "3 👍",
-              "callback_data": "fb:db88cff1:important"
+              "callback_data": "fb:cb01e843:important"
             },
             {
               "text": "3 👎",
-              "callback_data": "fb:db88cff1:noise"
+              "callback_data": "fb:cb01e843:noise"
             },
             {
               "text": "3 💰",
-              "callback_data": "fb:db88cff1:invest"
+              "callback_data": "fb:cb01e843:invest"
             },
             {
               "text": "3 📌",
-              "callback_data": "fb:db88cff1:report"
+              "callback_data": "fb:cb01e843:report"
             }
           ],
           [
             {
               "text": "4 👍",
-              "callback_data": "fb:3bf6e43a:important"
+              "callback_data": "fb:938ccbde:important"
             },
             {
               "text": "4 👎",
-              "callback_data": "fb:3bf6e43a:noise"
+              "callback_data": "fb:938ccbde:noise"
             },
             {
               "text": "4 💰",
-              "callback_data": "fb:3bf6e43a:invest"
+              "callback_data": "fb:938ccbde:invest"
             },
             {
               "text": "4 📌",
-              "callback_data": "fb:3bf6e43a:report"
+              "callback_data": "fb:938ccbde:report"
             }
           ],
           [
             {
               "text": "5 👍",
-              "callback_data": "fb:9408dcd5:important"
+              "callback_data": "fb:337a9ffb:important"
             },
             {
               "text": "5 👎",
-              "callback_data": "fb:9408dcd5:noise"
+              "callback_data": "fb:337a9ffb:noise"
             },
             {
               "text": "5 💰",
-              "callback_data": "fb:9408dcd5:invest"
+              "callback_data": "fb:337a9ffb:invest"
             },
             {
               "text": "5 📌",
-              "callback_data": "fb:9408dcd5:report"
+              "callback_data": "fb:337a9ffb:report"
             }
           ],
           [
             {
               "text": "6 👍",
-              "callback_data": "fb:26953827:important"
+              "callback_data": "fb:24e4cd76:important"
             },
             {
               "text": "6 👎",
-              "callback_data": "fb:26953827:noise"
+              "callback_data": "fb:24e4cd76:noise"
             },
             {
               "text": "6 💰",
-              "callback_data": "fb:26953827:invest"
+              "callback_data": "fb:24e4cd76:invest"
             },
             {
               "text": "6 📌",
-              "callback_data": "fb:26953827:report"
+              "callback_data": "fb:24e4cd76:report"
             }
           ]
         ]
       },
-      "status": "sent",
-      "sent_at": "2026-07-20T23:27:24.684841+00:00"
+      "status": "pending"
     }
   ],
   "items": [
     {
-      "hash": "2b442f968d18a90b",
-      "title_kr": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
+      "hash": "5550c8a8d7845204",
+      "title_kr": "K원전 인력 4년 만에 증가, 수출 호조 및 대규모 프로젝트 영향",
+      "region": "국내",
+      "section": "domestic",
+      "domain": "news.google.co.kr",
+      "theme": "export",
+      "score": 16.651,
+      "breakdown": {
+        "importance": 5.0,
+        "event:corporate_move": 3.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 1.0,
+        "novelty": 1.6,
+        "evidence_strength": 0.8,
+        "time_decay": -0.35
+      }
+    },
+    {
+      "hash": "5d1cf0b4c7f1c44a",
+      "title_kr": "대구시, 차세대 SMR 유치 경쟁 본격화…군위 내륙형 2호기 목표",
       "region": "국내",
       "section": "smr",
-      "domain": "nanonuclearenergy.com",
+      "domain": "news.google.co.kr",
       "theme": "smr",
-      "score": 14.795,
+      "score": 16.342,
+      "breakdown": {
+        "importance": 5.0,
+        "event:corporate_move": 3.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 1.0,
+        "novelty": 1.6,
+        "evidence_strength": 0.8,
+        "time_decay": -0.66
+      }
+    },
+    {
+      "hash": "97e7c36d2ed5091a",
+      "title_kr": "국내 원전 산업 인력, 4년 만에 증가세 전환",
+      "region": "국내",
+      "section": "domestic",
+      "domain": "news.google.co.kr",
+      "theme": "supply_chain",
+      "score": 15.456,
+      "breakdown": {
+        "importance": 5.0,
+        "event:market_signal": 2.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 1.0,
+        "novelty": 1.6,
+        "evidence_strength": 0.8,
+        "time_decay": -0.54
+      }
+    },
+    {
+      "hash": "a8c1cdc2ca53d72f",
+      "title_kr": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
+      "region": "해외",
+      "section": "international",
+      "domain": "ans.org",
+      "theme": "financing",
+      "score": 28.342,
+      "breakdown": {
+        "importance": 10.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.06
+      }
+    },
+    {
+      "hash": "937708a71d17b0a2",
+      "title_kr": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "region": "해외",
+      "section": "international",
+      "domain": "ans.org",
+      "theme": "life_extension",
+      "score": 28.051,
+      "breakdown": {
+        "importance": 10.0,
+        "event:regulatory_action": 5.0,
+        "korea_relevance": 2.4,
+        "market_materiality": 1.0,
+        "policy_materiality": 3.0,
+        "novelty": 1.6,
+        "evidence_strength": 2.4,
+        "source_tier1": 3.0,
+        "time_decay": -0.35
+      }
+    },
+    {
+      "hash": "cb01e84344688fa0",
+      "title_kr": "체코 산업통상부, CEZ, 롤스로이스 SMR 2개 추가 부지 개발 MOU 체결",
+      "region": "해외",
+      "section": "smr",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 27.907,
+      "breakdown": {
+        "importance": 10.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 2.0,
+        "novelty": 1.6,
+        "evidence_strength": 2.4,
+        "source_tier1": 3.0,
+        "time_decay": -0.29
+      }
+    },
+    {
+      "hash": "938ccbdeeccd6e39",
+      "title_kr": "프랑스 Stellaria, MSR 기반 통합 에너지 허브 개발 MOU 체결",
+      "region": "해외",
+      "section": "smr",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 18.051,
       "breakdown": {
         "importance": 5.0,
         "event:corporate_move": 3.0,
         "korea_relevance": 1.2,
-        "market_materiality": 1.0,
+        "market_materiality": 2.0,
         "policy_materiality": 1.0,
         "novelty": 1.6,
-        "evidence_strength": 2.4,
-        "time_decay": -0.4
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.35
       }
     },
     {
-      "hash": "6260c0799db78ac9",
-      "title_kr": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
-      "region": "국내",
-      "section": "domestic",
-      "domain": "news.google.co.kr",
+      "hash": "337a9ffbe7eef399",
+      "title_kr": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
+      "region": "해외",
+      "section": "smr",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 17.943,
+      "breakdown": {
+        "importance": 5.0,
+        "event:corporate_move": 3.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 1.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.46
+      }
+    },
+    {
+      "hash": "24e4cd768164cbf1",
+      "title_kr": "뉴욕주, 원자력 발전 용량 확대 방안 모색 중",
+      "region": "해외",
+      "section": "international",
+      "domain": "cnycentral.com",
       "theme": "grid_demand",
-      "score": 13.678,
-      "breakdown": {
-        "importance": 5.0,
-        "event:opinion": 0.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "novelty": 1.6,
-        "evidence_strength": 0.8,
-        "time_decay": -0.32
-      }
-    },
-    {
-      "hash": "eea0eca0f85129ad",
-      "title_kr": "기자수첩: 탈탈원전 정책 전환의 흐름과 시사점",
-      "region": "국내",
-      "section": "domestic",
-      "domain": "news.google.co.kr",
-      "theme": "regulation",
-      "score": 10.427,
-      "breakdown": {
-        "importance": 5.0,
-        "event:opinion": 0.0,
-        "korea_relevance": 2.4,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "novelty": 0.8,
-        "evidence_strength": 0.8,
-        "time_decay": -1.57
-      }
-    },
-    {
-      "hash": "bdd164e591b5109d",
-      "title_kr": "세르비아 정부, 국가 원자력 에너지 개발 로드맵 발표",
-      "region": "해외",
-      "section": "international",
-      "domain": "ans.org",
-      "theme": "export",
-      "score": 22.23,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 2.0,
-        "policy_materiality": 2.0,
-        "novelty": 1.6,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -0.17
-      }
-    },
-    {
-      "hash": "78b0e1f04036be7f",
-      "title_kr": "불가리아 AP1000 신규 원전 건설, 양국 간 '전략적 우선순위'로 강조",
-      "region": "해외",
-      "section": "international",
-      "domain": "world-nuclear-news.org",
-      "theme": "export",
-      "score": 22.078,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 2.0,
-        "policy_materiality": 2.0,
-        "novelty": 1.6,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -0.32
-      }
-    },
-    {
-      "hash": "db88cff11d029f91",
-      "title_kr": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
-      "region": "해외",
-      "section": "international",
-      "domain": "ans.org",
-      "theme": "regulation",
-      "score": 21.795,
+      "score": 17.003,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
@@ -300,76 +364,28 @@
         "market_materiality": 1.0,
         "policy_materiality": 2.0,
         "novelty": 1.6,
-        "evidence_strength": 2.4,
-        "source_tier1": 3.0,
-        "time_decay": -0.4
-      }
-    },
-    {
-      "hash": "3bf6e43a8a2421d0",
-      "title_kr": "IAEA, 해양 플라스틱 오염 감시 플랫폼 'NUTEC 플라스틱스' 출범",
-      "region": "해외",
-      "section": "international",
-      "domain": "iaea.org",
-      "theme": "none",
-      "score": 19.878,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "korea_relevance": 1.2,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
-        "evidence_strength": 2.4,
-        "source_tier1": 3.0,
-        "time_decay": -0.32
-      }
-    },
-    {
-      "hash": "9408dcd56e1630ae",
-      "title_kr": "뉴클레오(Newcleo), 프랑스 MOX 연료 시설 인허가 절차 진전",
-      "region": "해외",
-      "section": "international",
-      "domain": "world-nuclear-news.org",
-      "theme": "fuel_cycle",
-      "score": 19.078,
-      "breakdown": {
-        "importance": 5.0,
-        "event:regulatory_action": 5.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
         "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -0.32
-      }
-    },
-    {
-      "hash": "269538276bb6a27b",
-      "title_kr": "슬로바키아 모호체 4호기, 물리적 시운전 시험 준비 완료",
-      "region": "해외",
-      "section": "international",
-      "domain": "world-nuclear-news.org",
-      "theme": "construction",
-      "score": 18.078,
-      "breakdown": {
-        "importance": 5.0,
-        "event:project_milestone": 4.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 1.0,
-        "novelty": 1.6,
-        "evidence_strength": 1.6,
-        "source_tier1": 3.0,
-        "time_decay": -0.32
+        "time_decay": -1.4
       }
     }
   ],
   "report_diag": {
-    "candidates": [],
-    "recommended": []
+    "candidates": [
+      "937708a7"
+    ],
+    "recommended": [
+      {
+        "hash": "937708a7",
+        "topic": "미국 Constellation Ginna 원전 계속운전 신청서 접수 및 시사점 분석"
+      }
+    ]
   },
   "dropped_duplicates": [
+    {
+      "hash": "35f421f8c8f8618f",
+      "dup_of": "5550c8a8d7845204",
+      "title": "수출 및 대규모 프로젝트 영향으로 국내 원전 인력 4년 만에 증가"
+    },
     {
       "hash": "ce27941580491d0a",
       "dup_of": "2115693ef391a35c",
@@ -377,15 +393,16 @@
     }
   ],
   "prune_hashes": [
-    "269538276bb6a27b",
-    "2b442f968d18a90b",
-    "3bf6e43a8a2421d0",
-    "6260c0799db78ac9",
-    "78b0e1f04036be7f",
-    "9408dcd56e1630ae",
-    "ab8f319952504537",
-    "bdd164e591b5109d",
-    "db88cff11d029f91",
-    "eea0eca0f85129ad"
+    "1607453f589069a5",
+    "24e4cd768164cbf1",
+    "337a9ffbe7eef399",
+    "35f421f8c8f8618f",
+    "5550c8a8d7845204",
+    "5d1cf0b4c7f1c44a",
+    "937708a71d17b0a2",
+    "938ccbdeeccd6e39",
+    "97e7c36d2ed5091a",
+    "a8c1cdc2ca53d72f",
+    "cb01e84344688fa0"
   ]
 }
