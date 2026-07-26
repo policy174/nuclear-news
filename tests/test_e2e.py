@@ -2,7 +2,7 @@
 
 fixture 큐 → 랭킹 feature 계산 → 국내/해외 top-k → 투자 관점(모의 Gemini) →
 보고서 추천 → 카드 렌더링(키보드 포함) → outbox claim → 발송(모의 텔레그램) →
-delivery_log → 피드백 수신 → 피드백이 다음날 랭킹에 반영 → weekly 집계.
+delivery_log → weekly 집계.
 """
 import json
 import sys
@@ -18,7 +18,6 @@ import _fake_tg  # noqa: E402 — 공용 fake telegram_send 선등록
 fake_tg = _fake_tg.installed
 
 import daily_brief as db  # noqa: E402
-import feedback_ingest as fi  # noqa: E402
 import ranking  # noqa: E402
 import weekly_bot  # noqa: E402
 
@@ -157,25 +156,20 @@ class TestE2E(unittest.TestCase):
         self.tmp = TemporaryDirectory()
         p = Path(self.tmp.name)
         self._orig = (db.QUEUE_FILE, db.OUTBOX_FILE, db.OUTBOX_RESULT_FILE,
-                      db.DELIVERY_LOG_FILE, ranking.FEEDBACK_DIR,
-                      ranking.DELIVERY_LOG_FILE, db.call_json, db.is_available,
-                      fi.STATE_FILE, fi.FEEDBACK_DIR)
+                      db.DELIVERY_LOG_FILE,
+                      ranking.DELIVERY_LOG_FILE, db.call_json, db.is_available)
         db.QUEUE_FILE = p / "digest_queue.json"
         db.OUTBOX_FILE = p / "outbox.json"
         db.OUTBOX_RESULT_FILE = p / "outbox_result.json"
         db.DELIVERY_LOG_FILE = p / "delivery_log.jsonl"
-        ranking.FEEDBACK_DIR = p / "feedback"
         ranking.DELIVERY_LOG_FILE = p / "delivery_log.jsonl"
-        fi.STATE_FILE = p / "feedback_state.json"
-        fi.FEEDBACK_DIR = p / "feedback"
         db.call_json = mock_call_json
         db.is_available = lambda: True
         fake_tg.sent_messages = []
 
     def tearDown(self):
         (db.QUEUE_FILE, db.OUTBOX_FILE, db.OUTBOX_RESULT_FILE, db.DELIVERY_LOG_FILE,
-         ranking.FEEDBACK_DIR, ranking.DELIVERY_LOG_FILE, db.call_json,
-         db.is_available, fi.STATE_FILE, fi.FEEDBACK_DIR) = self._orig
+         ranking.DELIVERY_LOG_FILE, db.call_json, db.is_available) = self._orig
         self.tmp.cleanup()
 
     def test_full_pipeline(self):
@@ -208,8 +202,8 @@ class TestE2E(unittest.TestCase):
         self.assertIn("두코바니", dom_msg["text"])
         self.assertIn("💰 투자 관점", dom_msg["text"])   # confidence 2 → 표기
         self.assertIn("원자로 공급사 수혜", dom_msg["text"])
-        kb = dom_msg["reply_markup"]["inline_keyboard"]
-        self.assertEqual(len(kb[0]), 4)  # 👍👎💰📌
+        # 피드백 버튼 비활성(2026-07-15 사용자 결정) — 키보드 미부착
+        self.assertIsNone(dom_msg["reply_markup"])
         # 근거 약한 항목(마지막 idx=legacy)의 투자 줄은 생략됨
         forn_msg = next(m for m in fake_tg.sent_messages if "해외 브리핑" in m["text"])
         self.assertIn("확신 낮음", forn_msg["text"])  # confidence 1 헤지 표기
@@ -227,31 +221,6 @@ class TestE2E(unittest.TestCase):
         db.cmd_plan()
         db.cmd_send()
         self.assertEqual(len(fake_tg.sent_messages), n)
-
-        # ── ④ 피드백 수신 (reuters=중요 ×5 → prior 형성) ──
-        updates = [{"update_id": 1000 + i,
-                    "callback_query": {"id": f"c{i}", "from": {"id": 900 + i},
-                                       "data": "fb:f5f5f5f5:important"}}
-                   for i in range(5)]
-        events, _, _ = fi.extract_events(updates, set(), set(),
-                                         datetime.now(timezone.utc).isoformat())
-        self.assertEqual(len(events), 5)  # 유저가 달라 5건 모두 기록
-        ranking.FEEDBACK_DIR.mkdir(exist_ok=True)
-        with (ranking.FEEDBACK_DIR / "2026-07.jsonl").open("a", encoding="utf-8") as fp:
-            for ev in events:
-                fp.write(json.dumps(ev) + "\n")
-
-        # ── ⑤ 피드백이 랭킹에 반영 (도메인 prior) ──
-        priors = ranking.build_feedback_priors(
-            ranking.load_feedback_events(), ranking.load_delivery_index(),
-            ranking.load_config())
-        self.assertGreater(priors["domain"].get("reuters.com", 0), 0)
-        test_item = {"hash": "z1", "importance": "nice_to_know", "domain": "reuters.com",
-                     "link": "https://reuters.com/z", "title": "t", "title_kr": "t",
-                     "features": feat(), "queued_at": NOW.isoformat(),
-                     "section": "international", "related_reports": []}
-        s_with, b = ranking.score_item(test_item, ranking.load_config(), priors)
-        self.assertIn("feedback_prior", b)
 
         # ── ⑥ weekly 집계 (curated 모의) ──
         curated = {a["hash"]: {**a, "cached_at": NOW.isoformat()}

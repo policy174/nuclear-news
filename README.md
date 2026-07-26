@@ -9,7 +9,6 @@
 ```
 crawl (매시간)          news_bot.py    RSS·Naver·이메일 수집 → dedup → Gemini batch
                                        큐레이션(+랭킹 feature) → digest_queue.json 적재
-                        feedback_ingest.py  카드 버튼(👍👎💰📌) 응답 수거 → feedback/*.jsonl
 daily-brief (07:25 KST) daily_brief.py --plan/--send/--confirm
                                        랭킹(ranking.py) → 카드 브리핑 발송 (outbox 원자성)
 weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강약·watchlist)
@@ -22,7 +21,6 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 | `news_bot.py` | 수집·dedup·batch 큐레이션 (Gemini 1회/10건, feature 추출 포함) |
 | `daily_brief.py` | 일일 브리핑: 랭킹→투자 관점(구조화)→보고서 추천→발송 |
 | `weekly_bot.py` | 주간 판세 리포트 (Gemini 주 1회 1호출) |
-| `feedback_ingest.py` | 텔레그램 inline 버튼 피드백 수거 (getUpdates, 매시간) |
 | `ranking.py` + `ranking_config.json` | 설명 가능한 점수식 — **가중치는 JSON 만 편집** |
 | `metrics.py` | 오프라인 품질 지표 (`python metrics.py`) — 표본 부족 시 insufficient_data |
 | `gemini_client.py` | Gemini REST wrapper (429 백오프) |
@@ -42,7 +40,6 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 | `digest_queue.json` | 발송 대기 큐 (발송분만 hash 단위 제거, 3일 자동 정리) |
 | `outbox.json` | 오늘의 발송 계획·상태 (pending/sent/failed) — 중복 발송 방지 핵심 |
 | `delivery_log.jsonl` | 발송 이력 + 점수 내역(breakdown) — "왜 이 기사가 올라왔나" |
-| `feedback_state.json` / `feedback/YYYY-MM.jsonl` | 텔레그램 버튼 피드백 offset·이벤트 |
 
 ## 발송 원자성 (outbox 패턴)
 
@@ -56,8 +53,7 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 1. `ranking_config.json` 열기 — 모든 가중치에 한국어 설명 주석이 있다.
 2. 숫자 수정 → commit → 다음 브리핑부터 적용. 코드 수정 불필요.
 3. "왜 이 기사가 뽑혔지?" → `delivery_log.jsonl` 의 `breakdown` 확인.
-4. 피드백 버튼 데이터가 도메인/테마별로 5건 이상 쌓이면 자동으로 순위에 반영된다
-   (그 전엔 무시 — 성급한 학습 방지). 지표는 `python metrics.py`.
+4. 지표는 `python metrics.py`. (피드백 버튼 기능은 2026-07-16 완전 삭제 — git 히스토리 참조.)
 
 ## Secrets (GitHub Actions)
 

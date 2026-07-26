@@ -30,7 +30,6 @@ from sources import credibility
 
 ROOT = Path(__file__).parent
 CONFIG_FILE = ROOT / "ranking_config.json"
-FEEDBACK_DIR = ROOT / "feedback"
 DELIVERY_LOG_FILE = ROOT / "delivery_log.jsonl"
 
 KST = timezone(timedelta(hours=9))
@@ -59,7 +58,6 @@ _DEFAULT_CONFIG = {
     "time_decay": {"per_12h": 0.5, "max": 3.0},
     "diversity": {"max_per_topic": 2, "penalty": 2.5},
     "duplicate_similarity": 0.82,
-    "feedback": {"min_samples": 5, "cap": 2.0, "halflife_days": 45},
 }
 
 
@@ -98,13 +96,8 @@ def sanitize_features(raw) -> dict | None:
     return out
 
 
-# ---- 피드백 사전확률 (도메인/theme 단위) --------------------------------------
-#
-# feedback/YYYY-MM.jsonl 의 이벤트를 delivery_log.jsonl 로 기사 속성(domain·theme)에
-# 조인. 표본이 min_samples 미만이면 0 (희소 데이터가 순위를 흔들지 않게),
-# 보정폭은 ±cap, halflife_days 지수 감쇠.
+# (피드백 사전확률 기능은 2026-07-16 삭제 — 이벤트 0건, 사용자 결정. 히스토리 참조.)
 
-_FEEDBACK_VALUE = {"important": 1.0, "noise": -1.0, "invest": 0.5, "report": 0.5}
 
 
 def _load_jsonl(path: Path) -> list[dict]:
@@ -125,82 +118,6 @@ def _load_jsonl(path: Path) -> list[dict]:
     except OSError:
         return []
     return out
-
-
-def load_feedback_events(feedback_dir: Path | None = None) -> list[dict]:
-    feedback_dir = feedback_dir or FEEDBACK_DIR
-    events: list[dict] = []
-    if not feedback_dir.exists():
-        return events
-    for p in sorted(feedback_dir.glob("*.jsonl")):
-        events.extend(_load_jsonl(p))
-    return events
-
-
-def load_delivery_index(log_file: Path | None = None) -> dict[str, dict]:
-    """hash8 → {domain, theme, section} (피드백 조인용)."""
-    log_file = log_file or DELIVERY_LOG_FILE
-    idx: dict[str, dict] = {}
-    for rec in _load_jsonl(log_file):
-        h8 = (rec.get("hash") or "")[:8]
-        if h8:
-            idx[h8] = {"domain": rec.get("domain") or "",
-                       "theme": rec.get("theme") or "",
-                       "section": rec.get("section") or ""}
-    return idx
-
-
-def build_feedback_priors(events: list[dict], delivery_idx: dict[str, dict],
-                          cfg: dict, now: datetime | None = None) -> dict:
-    """{'domain': {dom: prior}, 'theme': {theme: prior}} — 각 prior ∈ [-cap, +cap]."""
-    fb_cfg = cfg.get("feedback") or {}
-    min_n = int(fb_cfg.get("min_samples", 5))
-    cap = float(fb_cfg.get("cap", 2.0))
-    halflife = float(fb_cfg.get("halflife_days", 45))
-    now = now or datetime.now(timezone.utc)
-
-    acc: dict[str, dict[str, list[float]]] = {"domain": {}, "theme": {}}
-    for ev in events:
-        h8 = (ev.get("hash") or "")[:8]
-        label = ev.get("label") or ""
-        val = _FEEDBACK_VALUE.get(label)
-        meta = delivery_idx.get(h8)
-        if val is None or not meta:
-            continue
-        try:
-            ts = datetime.fromisoformat(ev.get("ts", ""))
-            if ts.tzinfo is None:
-                ts = ts.replace(tzinfo=timezone.utc)
-            age_days = max(0.0, (now - ts).total_seconds() / 86400)
-        except (ValueError, TypeError):
-            age_days = 0.0
-        decay = 0.5 ** (age_days / halflife) if halflife > 0 else 1.0
-        for dim in ("domain", "theme"):
-            key = meta.get(dim) or ""
-            if key:
-                acc[dim].setdefault(key, []).append(val * decay)
-
-    priors: dict = {"domain": {}, "theme": {}}
-    for dim, table in acc.items():
-        for key, vals in table.items():
-            if len(vals) < min_n:
-                continue  # 표본 부족 → 미적용
-            mean = sum(vals) / len(vals)  # ∈ [-1, 1]
-            priors[dim][key] = max(-cap, min(cap, mean * cap))
-    return priors
-
-
-def feedback_prior_for(item: dict, priors: dict) -> float:
-    parts = []
-    dom_p = (priors.get("domain") or {}).get((item.get("domain") or "").lower())
-    theme = ((item.get("investment_struct") or {}).get("theme")
-             or (item.get("features") or {}).get("theme") or "")
-    theme_p = (priors.get("theme") or {}).get(theme)
-    if dom_p is not None:
-        parts.append(dom_p)
-    if theme_p is not None:
-        parts.append(theme_p)
-    return sum(parts) / len(parts) if parts else 0.0
 
 
 # ---- 점수화 -------------------------------------------------------------------
@@ -242,7 +159,7 @@ def _time_decay(item: dict, cfg: dict, now: datetime) -> float:
     return min(cap, per_12h * (age_h / 12.0))
 
 
-def score_item(item: dict, cfg: dict, priors: dict | None = None,
+def score_item(item: dict, cfg: dict,
                now: datetime | None = None) -> tuple[float, dict]:
     """항목 1개 점수 + 설명 내역. features 없으면 legacy 공식."""
     now = now or datetime.now(timezone.utc)
@@ -291,11 +208,6 @@ def score_item(item: dict, cfg: dict, priors: dict | None = None,
         score -= decay
         breakdown["time_decay"] = round(-decay, 2)
 
-    if priors:
-        p = feedback_prior_for(item, priors)
-        if p:
-            score += p
-            breakdown["feedback_prior"] = round(p, 2)
 
     return round(score, 3), breakdown
 
@@ -411,8 +323,7 @@ def select_diverse(items: list[dict], scores: dict[str, float], k: int,
 # ---- 종합 파이프라인 (daily_brief 에서 호출) ------------------------------------
 
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
-                    now: datetime | None = None,
-                    use_feedback: bool = True) -> tuple[list[dict], dict]:
+                    now: datetime | None = None) -> tuple[list[dict], dict]:
     """점수화 → 중복 클러스터 → 다양성 top-k.
 
     Returns:
@@ -420,17 +331,12 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
     """
     cfg = cfg or load_config()
     now = now or datetime.now(timezone.utc)
-    priors = None
-    if use_feedback:
-        events = load_feedback_events()
-        if events:
-            priors = build_feedback_priors(events, load_delivery_index(), cfg, now)
 
     scores: dict[str, float] = {}
     breakdowns: dict[str, dict] = {}
     for a in items:
         h = a.get("hash", "")
-        s, b = score_item(a, cfg, priors, now)
+        s, b = score_item(a, cfg, now)
         scores[h] = s
         breakdowns[h] = b
 

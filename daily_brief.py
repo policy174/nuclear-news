@@ -18,7 +18,6 @@
         --send    outbox 의 pending 브리핑만 발송, 결과를 outbox_result.json 에 기록
         --confirm outbox 에 발송 결과 병합 + delivery_log.jsonl 적재 (멱등)
       같은 날 재실행 시 이미 sent 인 브리핑은 재발송하지 않는다.
-    - 피드백: 카드별 inline keyboard (fb:<hash8>:<label>) → feedback_ingest.py 가 수거.
 
 가드레일:
     stdlib + gemini_client(REST) + ranking + sources + telegram_send.
@@ -433,25 +432,8 @@ def item_to_card(art: dict, investment: str | None) -> dict:
     }
 
 
-# ---- 피드백 inline keyboard ----------------------------------------------------
-
-FEEDBACK_LEGEND = "🗳 피드백: 👍중요 · 👎노이즈 · 💰투자 유용 · 📌보고서감"
-_FB_BUTTONS = (("👍", "important"), ("👎", "noise"), ("💰", "invest"), ("📌", "report"))
-
-
-def build_feedback_keyboard(items: list[dict]) -> dict | None:
-    """카드 목록 → inline keyboard. 행 = 카드 1개(번호 + 라벨 4개).
-
-    callback_data: fb:<hash8>:<label> (Telegram 한도 64B 이내, 최대 ~20B).
-    """
-    rows = []
-    for n, art in enumerate(items, 1):
-        h8 = (art.get("hash") or "")[:8]
-        if not h8:
-            continue
-        rows.append([{"text": f"{n} {emoji}", "callback_data": f"fb:{h8}:{label}"}
-                     for emoji, label in _FB_BUTTONS])
-    return {"inline_keyboard": rows} if rows else None
+# (피드백 inline keyboard 기능은 2026-07-16 사용자 결정으로 완전 삭제 — 브리핑을
+#  어지럽혔고 수집된 이벤트도 0건. 재도입 시 git 히스토리의 feedback_ingest.py 참조.)
 
 
 # ---- 소셜 수집 (원자력정책실 동향봇 통합, 수동 실행 전용) ----------------------
@@ -545,13 +527,11 @@ def plan_briefs(queue: list[dict],
     briefs: list[dict] = []
     # 국내·해외 둘 다 항상 발송 — 사용자가 같은 시간에 둘 다 기대. 없으면 안내 메시지.
     if dom_cards:
-        dom_msg = (format_cards_message(dom_cards, header="🇰🇷 원자력 국내 브리핑")
-                   + "\n" + FEEDBACK_LEGEND)
+        dom_msg = format_cards_message(dom_cards, header="🇰🇷 원자력 국내 브리핑")
     else:
         dom_msg = (f"<b>📰 🇰🇷 원자력 국내 브리핑 ({today})</b>\n\n"
                    "<i>오늘은 별도로 잡힌 국내 동향이 없습니다.</i>")
-    briefs.append({"name": "국내", "text": dom_msg,
-                   "keyboard": build_feedback_keyboard(dom), "status": "pending"})
+    briefs.append({"name": "국내", "text": dom_msg, "status": "pending"})
 
     forn_msg = (format_cards_message(forn_cards, header="🌐 원자력 해외 브리핑")
                 if forn_cards else "")
@@ -562,19 +542,15 @@ def plan_briefs(queue: list[dict],
                 social_cards, header="━━ 🔥 소셜 화제 (Reddit·X) ━━", show_header=False)
             forn_msg = (forn_msg + "\n" + sec) if forn_msg else sec
             print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 (해외 브리핑에 추가)")
-    if forn_msg:
-        forn_msg += "\n" + FEEDBACK_LEGEND
-    else:
+    if not forn_msg:
         forn_msg = (f"<b>📰 🌐 원자력 해외 브리핑 ({today})</b>\n\n"
                     "<i>오늘은 별도로 잡힌 해외 동향이 없습니다.</i>")
-    briefs.append({"name": "해외", "text": forn_msg,
-                   "keyboard": build_feedback_keyboard(forn), "status": "pending"})
+    briefs.append({"name": "해외", "text": forn_msg, "status": "pending"})
 
     # 보고서 검토 추천 — Python 게이트 통과 후보 있을 때만 LLM (없으면 미발송)
     rec, report_diag = build_report_recs(allsel)
     if rec:
-        briefs.insert(0, {"name": "보고서추천", "text": rec, "keyboard": None,
-                          "status": "pending"})
+        briefs.insert(0, {"name": "보고서추천", "text": rec, "status": "pending"})
 
     # delivery_log 용 항목 메타 (점수 내역 = '왜 이 기사가 올라왔나' 증거)
     def _item_meta(a: dict, reg: str, diag: dict) -> dict:
@@ -649,8 +625,7 @@ def send_outbox(outbox: dict, now: datetime | None = None) -> list[dict]:
             time.sleep(2)  # 텔레그램 rate limit
         first_send = False
         try:
-            resp = send_long_text(brief["text"], parse_mode="HTML",
-                                  reply_markup=brief.get("keyboard"))
+            resp = send_long_text(brief["text"], parse_mode="HTML")
             ok = sum(1 for r in resp if r.get("ok"))
             success = ok == len(resp) and ok > 0
         except Exception as e:  # noqa: BLE001 — 브리핑 1개 실패가 나머지를 막지 않게

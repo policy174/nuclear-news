@@ -172,13 +172,11 @@ class OutboxBase(unittest.TestCase):
         self.tmp = TemporaryDirectory()
         p = Path(self.tmp.name)
         self._orig = (db.QUEUE_FILE, db.OUTBOX_FILE, db.OUTBOX_RESULT_FILE,
-                      db.DELIVERY_LOG_FILE, ranking.FEEDBACK_DIR,
-                      ranking.DELIVERY_LOG_FILE)
+                      db.DELIVERY_LOG_FILE, ranking.DELIVERY_LOG_FILE)
         db.QUEUE_FILE = p / "digest_queue.json"
         db.OUTBOX_FILE = p / "outbox.json"
         db.OUTBOX_RESULT_FILE = p / "outbox_result.json"
         db.DELIVERY_LOG_FILE = p / "delivery_log.jsonl"
-        ranking.FEEDBACK_DIR = p / "feedback"
         ranking.DELIVERY_LOG_FILE = p / "delivery_log.jsonl"
         # Gemini 차단 (호출 0)
         self._avail = db.is_available
@@ -188,8 +186,7 @@ class OutboxBase(unittest.TestCase):
 
     def tearDown(self):
         (db.QUEUE_FILE, db.OUTBOX_FILE, db.OUTBOX_RESULT_FILE,
-         db.DELIVERY_LOG_FILE, ranking.FEEDBACK_DIR,
-         ranking.DELIVERY_LOG_FILE) = self._orig
+         db.DELIVERY_LOG_FILE, ranking.DELIVERY_LOG_FILE) = self._orig
         db.is_available = self._avail
         self.tmp.cleanup()
 
@@ -307,18 +304,6 @@ class TestOutboxFlow(OutboxBase):
         rec = json.loads(db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines()[0])
         self.assertIn("breakdown", rec)  # 점수 내역이 남는다
 
-    def test_feedback_keyboard_attached(self):
-        self.seed_queue(self._queue())
-        db.cmd_plan()
-        db.cmd_send()
-        with_kb = [m for m in fake_tg.sent_messages if m["reply_markup"]]
-        self.assertTrue(with_kb)
-        btn = with_kb[0]["reply_markup"]["inline_keyboard"][0][0]
-        self.assertTrue(btn["callback_data"].startswith("fb:"))
-        self.assertLessEqual(len(btn["callback_data"].encode()), 64)
-
-
-class TestBackwardCompat(OutboxBase):
     def test_old_queue_schema_loads_and_plans(self):
         """features/why_important 없는 기존 큐 JSON — 그대로 계획·발송 가능해야 함."""
         old_item = {"hash": "old1", "title": "Old article", "title_kr": "옛 기사",

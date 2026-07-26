@@ -173,41 +173,6 @@ class TestDiversity(unittest.TestCase):
         self.assertEqual(sel1[0]["hash"], sel2[0]["hash"])  # 입력 순서 무관
 
 
-class TestFeedbackPriors(unittest.TestCase):
-    def _events(self, n, label, h="abcd1234", days_ago=0):
-        ts = (NOW - timedelta(days=days_ago)).isoformat()
-        return [{"ts": ts, "update_id": i, "hash": h, "label": label, "from": 1}
-                for i in range(n)]
-
-    def test_min_samples_gate(self):
-        idx = {"abcd1234": {"domain": "spam.com", "theme": "", "section": ""}}
-        pri = ranking.build_feedback_priors(self._events(4, "noise"), idx, CFG, NOW)
-        self.assertEqual(pri["domain"], {})  # 4 < min 5 → 미적용
-        pri = ranking.build_feedback_priors(self._events(5, "noise"), idx, CFG, NOW)
-        self.assertIn("spam.com", pri["domain"])
-
-    def test_cap(self):
-        idx = {"abcd1234": {"domain": "spam.com", "theme": "", "section": ""}}
-        pri = ranking.build_feedback_priors(self._events(50, "noise"), idx, CFG, NOW)
-        self.assertGreaterEqual(pri["domain"]["spam.com"], -CFG["feedback"]["cap"])
-
-    def test_decay_weakens_old_feedback(self):
-        idx = {"abcd1234": {"domain": "d.com", "theme": "", "section": ""}}
-        fresh = ranking.build_feedback_priors(self._events(10, "important", days_ago=0),
-                                              idx, CFG, NOW)
-        old = ranking.build_feedback_priors(self._events(10, "important", days_ago=90),
-                                            idx, CFG, NOW)
-        self.assertLess(old["domain"]["d.com"], fresh["domain"]["d.com"])
-
-    def test_prior_applied_to_score(self):
-        priors = {"domain": {"spam.com": -2.0}, "theme": {}}
-        a = item(domain="spam.com", features=feat(), queued_hours_ago=0)
-        s_with, b = ranking.score_item(a, CFG, priors=priors, now=NOW)
-        s_without, _ = ranking.score_item(a, CFG, priors=None, now=NOW)
-        self.assertEqual(s_with, s_without - 2.0)
-        self.assertEqual(b["feedback_prior"], -2.0)
-
-
 class TestConfig(unittest.TestCase):
     def test_missing_config_falls_back(self):
         cfg = ranking.load_config(Path("no_such_file.json"))

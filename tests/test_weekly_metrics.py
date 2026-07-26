@@ -1,4 +1,4 @@
-"""feedback_ingest / weekly_bot / metrics / gemini_client 단위 테스트."""
+"""weekly_bot / metrics / gemini_client 단위 테스트."""
 import json
 import os
 import sys
@@ -9,7 +9,6 @@ from tempfile import TemporaryDirectory
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import feedback_ingest as fi
 import gemini_client
 import metrics
 import weekly_bot
@@ -21,38 +20,6 @@ def _update(uid, data="fb:abcd1234:important", from_id=7):
     return {"update_id": uid,
             "callback_query": {"id": f"cq{uid}", "from": {"id": from_id},
                                "data": data}}
-
-
-class TestFeedbackIngest(unittest.TestCase):
-    def test_parse_callback(self):
-        self.assertEqual(fi.parse_callback("fb:abcd1234:noise"), ("abcd1234", "noise"))
-        self.assertIsNone(fi.parse_callback("fb:abcd1234:buy_now"))  # 미정의 라벨
-        self.assertIsNone(fi.parse_callback("hello"))
-        self.assertIsNone(fi.parse_callback("fb::important"))
-
-    def test_duplicate_update_id_skipped(self):
-        seen_ids, seen_triples = {100}, set()
-        events, _, max_id = fi.extract_events(
-            [_update(100), _update(101)], seen_ids, seen_triples, NOW_ISO)
-        self.assertEqual(len(events), 1)
-        self.assertEqual(events[0]["update_id"], 101)
-        self.assertEqual(max_id, 101)
-
-    def test_offset_rollback_recovery(self):
-        """state push 실패로 offset 이 과거로 → 월 파일 update_id 검사가 중복 차단."""
-        month_ids = {200, 201}
-        events, _, _ = fi.extract_events(
-            [_update(200), _update(201), _update(202)], set(month_ids), set(), NOW_ISO)
-        self.assertEqual([e["update_id"] for e in events], [202])
-
-    def test_same_user_same_button_twice_recorded_once(self):
-        events, _, _ = fi.extract_events(
-            [_update(300), _update(301)], set(), set(), NOW_ISO)  # 같은 data·같은 유저
-        self.assertEqual(len(events), 1)
-
-    def test_answers_collected_even_for_duplicates(self):
-        _, answers, _ = fi.extract_events([_update(1), _update(2)], set(), set(), NOW_ISO)
-        self.assertEqual(len(answers), 2)  # 스피너 해제는 중복이어도 응답
 
 
 class TestWeekly(unittest.TestCase):
@@ -131,30 +98,18 @@ class TestWeekly(unittest.TestCase):
 
 class TestMetrics(unittest.TestCase):
     def test_insufficient_data(self):
-        m = metrics.compute_metrics([], [], 30)
-        self.assertEqual(m["positive_rate"], "insufficient_data")
-        self.assertEqual(m["ndcg_at_k"], "insufficient_data")
+        m = metrics.compute_metrics([], 30)
+        self.assertEqual(m["source_diversity"], "insufficient_data")
+        self.assertEqual(m["invest_omission_rate"], "insufficient_data")
 
     def test_computed_when_enough(self):
         delivered = [{"date": "2026-07-10", "hash": f"h{i:02d}" + "x" * 6,
                       "region": "해외", "domain": f"d{i}.com", "theme": "smr",
-                      "section": "smr"} for i in range(10)]
-        feedback = ([{"ts": NOW_ISO, "hash": f"h{i:02d}" + "x" * 6, "label": "important"}
-                     for i in range(10)]
-                    + [{"ts": NOW_ISO, "hash": f"h{i:02d}" + "x" * 6, "label": "noise"}
-                       for i in range(10)])
-        m = metrics.compute_metrics(delivered, feedback, 30)
-        self.assertEqual(m["positive_rate"], 0.5)
-        self.assertEqual(m["noise_rate"], 0.5)
-        self.assertIsInstance(m["precision_at_k"], float)
+                      "section": "smr"} for i in range(20)]
+        m = metrics.compute_metrics(delivered, 30)
         self.assertEqual(m["invest_omission_rate"], 0.0)
-
-    def test_ndcg_perfect_ranking(self):
-        fb = {"aaaa1111": {"important"}}
-        day = [{"hash": "aaaa1111"}, {"hash": "bbbb2222"}]
-        self.assertEqual(metrics._ndcg_for_day(day, fb), 1.0)
-        day_bad = [{"hash": "bbbb2222"}, {"hash": "aaaa1111"}]
-        self.assertLess(metrics._ndcg_for_day(day_bad, fb), 1.0)
+        self.assertIsInstance(m["source_diversity"], float)
+        self.assertEqual(m["report_rec_count"], 0)
 
 
 class TestGeminiSalvage(unittest.TestCase):
