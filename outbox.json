@@ -1,137 +1,232 @@
 {
   "schema_version": 1,
-  "date": "2026-07-27",
-  "created_at": "2026-07-26T23:16:23.206183+00:00",
-  "status": "sent",
+  "date": "2026-07-28",
+  "created_at": "2026-07-27T23:30:10.919223+00:00",
+  "status": "pending",
   "briefs": [
     {
+      "name": "보고서추천",
+      "text": "<b>📝 보고서 검토 추천 (2026-07-28)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 정부의 원전 안전기준 최신화 추진에 따른 한수원 영향 분석</b>\n   • <b>왜:</b> 정부의 원전 안전기준 개정 추진은 한수원의 안전 관리 체계, 운영 절차 및 비용에 직접적인 영향을 미치므로, 선제적 대응 전략 수립을 위한 심층 분석이 필수적입니다.\n   • <b>추천 각도:</b> 개정될 안전등급, 가동중검사, 품질보증 규정의 구체적 내용 및 한수원 운영에 미칠 영향 / 규제 준수 강화를 위한 한수원의 기술적·재정적 준비 및 대응 방안 / 국내 원전 안전성 향상 및 대국민 신뢰도 제고에 기여할 정책적 함의",
+      "status": "pending"
+    },
+    {
       "name": "국내",
-      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-26)</b>\n\n<b>📌 1. 원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기</b>\n   • <b>무슨 일:</b> 국내 원전 9기의 계속운전 심사가 인력난으로 지연되어 전력 공백 우려가 커지고 있다는 보도가 나왔습니다.\n   • <b>💰 투자 관점:</b> 계속운전 심사 지연으로 기존 원전의 발전량 감소 및 운영 비용 증가가 예상된다 — 발전사업자 수혜 / utility 부담 (계속운전·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 계속운전 심사 지연은 국내 원전 운영 계획 및 전력 수급 안정성에 중대한 영향을 미칠 수 있습니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE1qbEFKNVpQR29MZzZOLXJlbzJSbDNfNkNybzhmQXdyY1V2UVNhcklWNlpHOGRxc3R2d0I4ZWUxZ3dHNWNDbG52YUtUY2htQWxGUUd5NG9nQ1dCa0hDMU16bktyRFpacGEwTVZr?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 2. 나노 뉴클리어, 포르틸과 크로노스 MMR 연료 취급·저장 시스템 설계 협력</b>\n   • <b>무슨 일:</b> 나노 뉴클리어(Nano Nuclear)가 엔지니어링 컨설팅 기업 포르틸(Fortil)과 크로노스 MMR 연료 취급 및 저장 시스템 설계를 위해 협력한다고 발표했습니다.\n   • <b>💰 투자 관점:</b> SMR 연료 취급 및 저장 시스템 설계 협력으로 SMR 상용화에 필요한 기술적 진전이 가속화된다 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> SMR 개발사의 핵심 기술 확보 동향으로, 향후 SMR 상용화에 필요한 기술적 진전을 보여줍니다.\n   🔗 <a href=\"https://www.globenewswire.com/news-release/2026/07/22/3331276/0/en/nano-nuclear-and-fortil-advance-engineering-collaboration-for-the-kronos-mmr-fuel-handling-storage-system.html\">출처</a> · <code>globenewswire.com</code>\n\n<b>📌 3. 기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급</b>\n   • <b>무슨 일:</b> 기후장관이 호남 반도체 클러스터 전력 공급에 한빛원전과 재생에너지로 충분하다고 언급하며 에너지 믹스 방향을 제시했습니다.\n   • <b>💰 투자 관점:</b> 주요 산업단지 전력 수요 증가에 기존 원전 활용이 강조되어 원전 발전량 유지 및 수익성 개선에 기여한다 — 발전사업자 수혜 (전력수요·중기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 정부의 주요 산업단지 전력 공급 계획에서 기존 원전의 역할이 강조되는 정책적 시그널로 해석됩니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMicEFVX3lxTFBLUmR1Y0lnZVB2ekxYU21GdW1OWUpBV1RhUGpGclFyVk1MbFdHV29qWGVROExNNDZrUXQyZnFxMGliRDFwYWloLTRYcG9EX0pCNmNVcG4wZ3RFcnJNdXpuQUJaOUQ1T3hWb1pVVUN0cUHSAXBBVV95cUxQS1JkdWNJZ2VQdnpMWFNtRnVtTllKQVdUYVBqRnJRclZNTGxXR1dvalhlUThMTTQ2a1F0MmZxcTBpYkQxcGFpaC00WHBvRF9KQjZjVXBuMGd0RXJyTXV6bkFCWjlENU94Vm9aVVVDdHFB?oc=5\">출처</a> · <code>news.google.co.kr</code>\n",
-      "status": "sent",
-      "sent_at": "2026-07-26T23:16:33.930467+00:00"
+      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-07-27)</b>\n\n<b>📌 1. 원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정</b>\n   • <b>무슨 일:</b> 정부가 원전 안전등급, 가동중검사, 품질보증 규정 등 안전기준 최신화를 추진한다.\n   • <b>왜 중요:</b> 정부의 원전 안전기준 최신화 추진은 원전 운영사의 규제 준수 의무를 강화하고, 안전 관리 체계 전반에 걸쳐 변화를 요구합니다. 이는 한수원의 운영 비용 및 절차에 직접적인 영향을 미칠 중대한 사안입니다.\n   • <b>💰 투자 관점:</b> 원전 운영사의 규제 준수 의무 강화로 운영 비용 및 절차가 증가한다 / utility 부담 (규제·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 한수원(한국수력원자력)은 개정될 안전기준에 맞춰 원전 운영 및 관리 체계를 재정비해야 할 것입니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMickFVX3lxTE9UdTNLMlJlOVd5bHFKc21jNFlPa1lRSGt2TkNjTlBEYW5lanFrdHFIeUNQbGRxaER2NlZpSjhfamxiNUdDXzU4ekpjaEx3WV9Dd3NodC12U3NQUlVZb0xvckVTZHAxdzZHYUhvM3lJa2E5UQ?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 2. 정부, 원전 확대 기조 속 LNG 수요 감축 및 AI 전력 수요 변수 논의</b>\n   • <b>무슨 일:</b> 정부가 원전 확대를 통해 액화천연가스(LNG) 수요를 줄이는 방안을 검토하며, 인공지능(AI) 전력 수요 증가를 주요 변수로 고려하고 있습니다.\n   • <b>💰 투자 관점:</b> AI 전력 수요 증가로 전력 생산 능력 확충 필요성이 증대되고, 원전 확대 기조가 강화된다 — 발전사업자 수혜 (전력수요·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 정부의 에너지 믹스 정책 방향과 미래 전력 수요 전망에 대한 이해가 필요합니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMic0FVX3lxTFBjbWxBVFQ2V2tYWGlEcWV1cDdUbE5GMlZGSGVOQWxPejdaTnM2SmVPMko4RzdMREFZOHVDTzVaVGQ0d3RWT2RHZHZiVjhqTTZua2FBNktyMC1PNEFOeHdtb0JXS3J4V3E1ekhEOVJBTFQyQUk?oc=5\">출처</a> · <code>news.google.co.kr</code>\n\n<b>📌 3. 정부, 천연가스 발전수요 감소에도 저장시설·배관 확충 계획</b>\n   • <b>무슨 일:</b> 정부가 천연가스 발전수요 감소에도 불구하고 저장시설 및 배관 확충 계획을 추진합니다.\n   • <b>🇰🇷 한수원 시사점:</b> 에너지 믹스 변화에 대응하여 가스 인프라를 선제적으로 확보하려는 정부의 장기 에너지 정책 방향을 시사합니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTE5XR21VSnBLX3liNTI5Vmp1Zkx1Tkl1V1dHVzdBWU5SV2VmalhPZGFPR2ZKV2NuNldSRjM3VHFqTWQyRGFOM0tISGJYamJpM2JYNHdmQzQ0TTVFSk0yN090R1dIUEUtYTFXbTdvLWZn?oc=5\">출처</a> · <code>news.google.co.kr</code>\n",
+      "status": "pending"
     },
     {
       "name": "해외",
-      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-26)</b>\n\n<b>📌 1. 상용 핵융합 발전 기술의 상용화 동향</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 상용 핵융합 발전 기술의 상용화가 점차 현실화되고 있다는 분석이 제기되었습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 핵융합 발전 기술의 상용화 동향은 장기적인 에너지 기술 포트폴리오 전략 수립에 참고할 수 있습니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-24/article-8162/in-transition-commercializing-fusion-power/\">출처</a> · <code>ans.org</code>\n\n<b>📌 2. 콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구</b>\n   • <b>무슨 일:</b> 콜로라도 광산대학이 미국 에너지부(DOE)의 제네시스 미션(Genesis Mission) 지원을 받아 AI를 활용한 핵연료 재활용 및 핵심 광물 탐사 연구를 수행할 예정입니다.\n   • <b>💰 투자 관점:</b> AI 기술을 활용한 핵연료 재활용 연구로 핵연료 주기 효율성 향상 및 자원 확보 비용 절감이 기대된다 — 핵연료 공급사 수혜 (핵연료주기·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> AI 기술이 핵연료 주기 효율성 및 자원 확보에 활용되는 최신 연구 동향을 보여주며, 미래 기술 개발 방향을 시사합니다.\n   🔗 <a href=\"https://www.minesnewsroom.com/news/mines-selected-2-genesis-mission-projects-apply-ai-critical-mineral-exploration-nuclear-energy\">출처</a> · <code>minesnewsroom.com</code>\n",
-      "status": "sent",
-      "sent_at": "2026-07-26T23:16:33.930467+00:00"
+      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-07-27)</b>\n\n<b>📌 1. 미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국 원자력규제위원회(NRC)가 해안경비대 및 해양광물청과 협력 양해각서(MOU)를 체결하여 해양 분야 협력을 강화합니다.\n   • <b>왜 중요:</b> 미국 원자력규제위원회(NRC)가 해양 관련 기관과 공식적인 협력 협정을 체결한 것은 해상 원자력 및 해양 SMR 등 신규 원자력 기술의 규제 환경 변화를 시사합니다. 이는 향후 관련 기술 개발 및 사업 추진 시 규제 당국의 접근 방식에 대한 중요한 선례가 될 수 있습니다.\n   • <b>💰 투자 관점:</b> 해양 SMR 개발 및 사업 추진을 위한 규제 환경이 조성되어 시장 진입 장벽이 낮아진다 — SMR 개발사 수혜 (SMR·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 NRC의 해양 분야 규제 협력 강화는 향후 해상 원자력 및 해양 SMR 개발 동향에 영향을 미칠 수 있습니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-27/article-8247/nrc-cooperating-with-coast-guard-marine-minerals-administration/\">출처</a> · <code>ans.org</code>\n\n<b>📌 2. 미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 미국 에너지부(DOE)가 NASA의 우주 원자로와 래디언트 인더스트리(Radiant Industries)의 마이크로 원자로에 고농축 저농축 우라늄(HALEU)을 공급하기로 조건부 약속했습니다.\n   • <b>💰 투자 관점:</b> HALEU 공급 약속으로 차세대 원자로 및 우주 원자력 개발의 핵연료 확보 불확실성이 해소된다 — SMR 개발사 수혜 (핵연료주기·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 정부의 HALEU 공급 결정은 차세대 원자로 개발 및 우주 원자력 분야의 핵연료 확보에 중요한 진전을 의미합니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-27/article-8246/nasa-and-radiant-selected-to-receive-haleu/\">출처</a> · <code>ans.org</code>\n\n<b>📌 3. 아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 아이다호 국립연구소(Idaho National Laboratory)가 주도하는 프로메테우스 프로젝트가 인공지능(AI)을 활용한 원자력 에너지 배포 가속화를 위해 6천만 달러의 연방 지원에 선정되었습니다.\n   • <b>💰 투자 관점:</b> AI 기반 원자력 기술 개발에 대한 정부 지원으로 차세대 원전 기술 혁신 및 배포가 가속화된다 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 정부의 AI 기반 원자력 기술 개발 지원은 차세대 원전 기술 혁신 및 배포 가속화에 중요한 동력이 될 것입니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/prometheus-project-selected-for-federal-support\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 4. 미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 미국 롱비치항이 해양 SMR 개발을 위한 미 교통부 해양청과의 협력 양해각서에 서명한 첫 항구가 되었습니다.\n   • <b>💰 투자 관점:</b> 해양 SMR 개발을 위한 민관 협력 확대는 SMR의 새로운 적용 분야를 창출한다 — SMR 개발사 수혜 (SMR·중기)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 정부가 해양 SMR 개발을 위한 민관 협력을 확대하고 있으며, 이는 SMR의 새로운 적용 분야 확장을 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/first-port-signs-up-to-us-initiative-on-maritime-smrs\">출처</a> · <code>world-nuclear-news.org</code>\n\n<b>📌 5. 일리노이주, 신규 원자력 시설 유치 관심 표명에 9개 지역사회 응답</b>  ✅ American Nuclear Society\n   • <b>무슨 일:</b> 일리노이주가 신규 원자력 시설 유치에 대한 관심 표명(NOI)에 9개 지역사회로부터 응답을 받았습니다.\n   • <b>💰 투자 관점:</b> 신규 원자력 시설 유치에 대한 지역사회 관심은 향후 원전 건설 프로젝트의 잠재적 입지를 확대한다 — 원자로 공급사 수혜 (신규건설·장기·확신 낮음)\n   • <b>🇰🇷 한수원 시사점:</b> 미국 일리노이주 내 신규 원자력 발전소 건설에 대한 지역사회 관심이 확인되었으며, 이는 향후 원전 확대 가능성을 시사합니다.\n   🔗 <a href=\"https://www.ans.org/news/2026-07-27/article-8244/illinois-communities-respond-to-noi-on-new-nuclear-facilities-interest/\">출처</a> · <code>ans.org</code>\n\n<b>📌 6. 영국 스타트업 뉴클리어 터빈스, 신형 원자로 개념 공개 및 1,500만 파운드 투자 유치</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 영국 스타트업 뉴클리어 터빈스(Nuclear Turbines)가 고온 터빈 기술과 결합된 신형 원자로 설계를 공개하고 1,500만 파운드 투자를 유치했습니다.\n   • <b>💰 투자 관점:</b> 신형 원자로 및 고온 터빈 기술 개발에 대한 투자 유치로 차세대 원전 시장의 기술 경쟁이 심화된다 — SMR 개발사 수혜 (SMR·장기)\n   • <b>🇰🇷 한수원 시사점:</b> 영국 신생 기업의 혁신적인 원자로 및 터빈 기술 개발은 차세대 원전 시장의 기술 경쟁 심화를 시사합니다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/uk-start-up-nuclear-turbines-unveils-novel-reactor-concept\">출처</a> · <code>world-nuclear-news.org</code>\n",
+      "status": "pending"
     }
   ],
   "items": [
     {
-      "hash": "fd17939220b56c39",
-      "title_kr": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "hash": "e2e42584280401fc",
+      "title_kr": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
       "region": "국내",
       "section": "domestic",
       "domain": "news.google.co.kr",
-      "theme": "life_extension",
-      "score": 12.643,
+      "theme": "regulation",
+      "score": 24.896,
       "breakdown": {
-        "importance": 5.0,
-        "event:opinion": 0.0,
+        "importance": 10.0,
+        "event:regulatory_action": 5.0,
         "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 2.0,
+        "market_materiality": 1.0,
+        "policy_materiality": 3.0,
         "novelty": 1.6,
-        "evidence_strength": 0.8,
-        "time_decay": -2.36
+        "evidence_strength": 1.6,
+        "time_decay": -0.9
       }
     },
     {
-      "hash": "4eb98cc6028338d9",
-      "title_kr": "나노 뉴클리어, 포르틸과 크로노스 MMR 연료 취급·저장 시스템 설계 협력",
+      "hash": "f21b533b19aadf89",
+      "title_kr": "정부, 원전 확대 기조 속 LNG 수요 감축 및 AI 전력 수요 변수 논의",
       "region": "국내",
-      "section": "smr",
-      "domain": "globenewswire.com",
+      "section": "domestic",
+      "domain": "news.google.co.kr",
+      "theme": "grid_demand",
+      "score": 22.213,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "time_decay": -0.59
+      }
+    },
+    {
+      "hash": "c78583cd53a37034",
+      "title_kr": "정부, 천연가스 발전수요 감소에도 저장시설·배관 확충 계획",
+      "region": "국내",
+      "section": "domestic",
+      "domain": "news.google.co.kr",
+      "theme": "none",
+      "score": 19.554,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "novelty": 1.6,
+        "evidence_strength": 0.8,
+        "time_decay": -0.45
+      }
+    },
+    {
+      "hash": "0f67fdfe143a9591",
+      "title_kr": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "region": "해외",
+      "section": "international",
+      "domain": "ans.org",
       "theme": "smr",
-      "score": 12.342,
+      "score": 26.096,
+      "breakdown": {
+        "importance": 10.0,
+        "event:regulatory_action": 5.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "novelty": 1.6,
+        "evidence_strength": 2.4,
+        "source_tier1": 3.0,
+        "time_decay": -0.1
+      }
+    },
+    {
+      "hash": "3b00d0a5a0199c0b",
+      "title_kr": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "region": "해외",
+      "section": "international",
+      "domain": "ans.org",
+      "theme": "fuel_cycle",
+      "score": 22.148,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 2.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.25
+      }
+    },
+    {
+      "hash": "cd798dfa8457d15c",
+      "title_kr": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
+      "region": "해외",
+      "section": "international",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 21.148,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.25
+      }
+    },
+    {
+      "hash": "0b5218c29cbb0084",
+      "title_kr": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
+      "region": "해외",
+      "section": "smr",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 17.954,
       "breakdown": {
         "importance": 5.0,
         "event:corporate_move": 3.0,
         "korea_relevance": 1.2,
         "market_materiality": 1.0,
-        "policy_materiality": 1.0,
+        "policy_materiality": 2.0,
         "novelty": 1.6,
         "evidence_strength": 1.6,
-        "time_decay": -2.06
+        "source_tier1": 3.0,
+        "time_decay": -0.45
       }
     },
     {
-      "hash": "571c41d8d5a745d5",
-      "title_kr": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
-      "region": "국내",
-      "section": "domestic",
-      "domain": "news.google.co.kr",
-      "theme": "grid_demand",
-      "score": 11.45,
-      "breakdown": {
-        "importance": 5.0,
-        "event:opinion": 0.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "novelty": 0.8,
-        "evidence_strength": 1.6,
-        "time_decay": -2.55
-      }
-    },
-    {
-      "hash": "5f77125a9ea8f953",
-      "title_kr": "상용 핵융합 발전 기술의 상용화 동향",
+      "hash": "12104e779b334dd1",
+      "title_kr": "일리노이주, 신규 원자력 시설 유치 관심 표명에 9개 지역사회 응답",
       "region": "해외",
       "section": "international",
       "domain": "ans.org",
-      "theme": "none",
-      "score": 12.67,
+      "theme": "construction",
+      "score": 17.954,
       "breakdown": {
         "importance": 5.0,
-        "event:research_report": 2.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 1.0,
-        "novelty": 0.8,
-        "evidence_strength": 0.8,
-        "source_tier1": 3.0,
-        "time_decay": -2.13
-      }
-    },
-    {
-      "hash": "62dc161cb51f2498",
-      "title_kr": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
-      "region": "해외",
-      "section": "international",
-      "domain": "minesnewsroom.com",
-      "theme": "fuel_cycle",
-      "score": 11.043,
-      "breakdown": {
-        "importance": 5.0,
-        "event:research_report": 2.0,
+        "event:project_milestone": 4.0,
         "korea_relevance": 1.2,
         "market_materiality": 1.0,
         "policy_materiality": 1.0,
         "novelty": 1.6,
         "evidence_strength": 1.6,
-        "time_decay": -2.36
+        "source_tier1": 3.0,
+        "time_decay": -0.45
+      }
+    },
+    {
+      "hash": "2275c1caa1bcad23",
+      "title_kr": "영국 스타트업 뉴클리어 터빈스, 신형 원자로 개념 공개 및 1,500만 파운드 투자 유치",
+      "region": "해외",
+      "section": "international",
+      "domain": "world-nuclear-news.org",
+      "theme": "smr",
+      "score": 16.148,
+      "breakdown": {
+        "importance": 5.0,
+        "event:corporate_move": 3.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 1.0,
+        "novelty": 1.6,
+        "evidence_strength": 1.6,
+        "source_tier1": 3.0,
+        "time_decay": -0.25
       }
     }
   ],
   "report_diag": {
-    "candidates": [],
-    "recommended": []
+    "candidates": [
+      "e2e42584"
+    ],
+    "recommended": [
+      {
+        "hash": "e2e42584",
+        "topic": "정부의 원전 안전기준 최신화 추진에 따른 한수원 영향 분석"
+      }
+    ]
   },
   "dropped_duplicates": [
     {
-      "hash": "e89a9b397945c6a1",
-      "dup_of": "4eb98cc6028338d9",
-      "title": "나노 뉴클리어, 포르틸과 크로노스 MMR 연료 취급·저장 시스템 설계 협력 발표"
+      "hash": "3fa02a15ff2c8bca",
+      "dup_of": "f21b533b19aadf89",
+      "title": "정부, 원전 확대 기조 속 LNG 수요 감축 추진…AI 전력수요는 변수"
     }
   ],
   "prune_hashes": [
-    "4eb98cc6028338d9",
-    "571c41d8d5a745d5",
-    "5f77125a9ea8f953",
-    "62dc161cb51f2498",
-    "e89a9b397945c6a1",
-    "fd17939220b56c39"
+    "0b5218c29cbb0084",
+    "0f67fdfe143a9591",
+    "12104e779b334dd1",
+    "2275c1caa1bcad23",
+    "3b00d0a5a0199c0b",
+    "3fa02a15ff2c8bca",
+    "7914f4f267f62480",
+    "c78583cd53a37034",
+    "cd798dfa8457d15c",
+    "e2e42584280401fc",
+    "f21b533b19aadf89"
   ]
 }
