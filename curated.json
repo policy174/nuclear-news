@@ -1,31 +1,4 @@
 {
-  "668d584c1929c9e8": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 3,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "khnp",
-    "category": "정책",
-    "title_kr": "제공된 기사 내용 없음",
-    "summary": "기사 제목과 요약이 한국수력원자력 웹사이트 주소로만 확인되어 분석이 불가합니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-15T22:45:48.435941+00:00",
-    "title": "- khnp.co.kr",
-    "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOcTQzb2Z1dTJ4d1pEMjJvYVp6RFF5MTdKaHl0NGN6Q3hDcnVaQ1E4MEF4NWVreUFRWUo5Mk5relpPdDdIekZaLWNJYXR0RXNKcmp0aFhvTk9BN2FxTEU5aTRzckxZTTkzMjYwclJoWTJTY2djbHVaNi1vRjJjVzRRM1JJMA?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
   "08439894458961d5": {
     "features": {
       "event_type": "other",
@@ -13072,5 +13045,59 @@
     "feed": "정책",
     "domain": "ans.org",
     "matched": "ANS Nuclear Newswire"
+  },
+  "ef4e74e821c4680d": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 1,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "category": "정책",
+    "title_kr": "호남 반도체 산업 전력 공급 위한 원전 수명 연장 필요성 제기",
+    "summary": "호남 반도체 산업 육성을 위해 원전 수명 연장을 서둘러야 한다는 의견이 제기되었습니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "cached_at": "2026-07-29T22:45:38.282472+00:00",
+    "title": "“원전 멈춰서는데 호남 반도체?…수명 연장부터 서둘러야” - 중앙일보",
+    "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBUWk90VEJ1RGZVRG9zTGxQN2phZzE2NkhSTURDaS1mU0N1cTJyc05rcjhnbjJuWVVreldWSGRnZ0kyZkRrdFMwdWh3V2k1ZkhjR3Vhbk5R?oc=5",
+    "feed": "정책",
+    "domain": "news.google.co.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "7752e3cdaa236d77": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "category": "정책",
+    "title_kr": "한수원 웹사이트 일반 정보",
+    "summary": "한수원 웹사이트에서 특정 내용 없이 기관명만 언급되었습니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "cached_at": "2026-07-29T22:45:38.282472+00:00",
+    "title": "- KHNP",
+    "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPSy1seTRYVnFiMmFPU2NINV9pWGs5LWJIR29LVHZJb1l1Q0tiYWw3TzNnLVdscDBMU2t6WUk4ZExEX21vQzZxVmo3LWRiRG1rU3h5N0EyTnQ0RWZqY2ttTEcwb2plZUNGNi0xRXhXOUxXQmIxSk5ma0Z5RUpFQ2RzSTR3?oc=5",
+    "feed": "정책",
+    "domain": "khnp.co.kr",
+    "matched": "한수원 보도자료"
   }
 }
