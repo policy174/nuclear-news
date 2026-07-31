@@ -45,7 +45,9 @@ async function loadJSON(name) {
 }
 
 async function loadRootJSON(name, optional = false) {
-  const response = await fetch(`data/${name}`, { cache: "no-store" });
+  // 항상 캐시버스터 — 엣지가 낡은 manifest(200)를 변형 캐시로 계속 서빙해
+  // 죽은 generations 경로로 유도하던 실사고(2026-08-01). 파일이 작아 비용 무시 가능.
+  const response = await fetch(`data/${name}?t=${Date.now()}`, { cache: "no-store" });
   if (!response.ok) {
     if (optional) return null;
     throw new Error(`${name} ${response.status}`);
@@ -59,6 +61,14 @@ async function loadRootJSON(name, optional = false) {
 }
 
 async function initializeDataBase() {
+  if (initRetryCount > 0) {
+    // 재시도 = 직전 초기화가 실패했다는 뜻. manifest가 가리킨 경로가 죽었을 가능성이
+    // 크므로 flat(루트 data/)으로 강제 전환해 복구 경로를 보장한다.
+    state.manifest = null;
+    state.dataBase = "data";
+    state.systemStatus = await loadRootJSON("status.json", true);
+    return;
+  }
   const manifest = await loadRootJSON("manifest.json", true);
   const basePath = String(manifest?.base_path || "");
   if (manifest && /^generations\/[0-9A-Za-z-]+$/.test(basePath)) {
