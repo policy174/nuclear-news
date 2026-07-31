@@ -42,6 +42,11 @@ async function loadRootJSON(name, optional = false) {
     if (optional) return null;
     throw new Error(`${name} ${response.status}`);
   }
+  if (optional) {
+    // Pages SPA 폴백이 없는 파일에 200+HTML 을 돌려줄 수 있음 — optional 파일은
+    // 파싱 실패를 "없음"으로 취급 (manifest 없는 flat 배포에서 전체 초기화가 죽던 버그)
+    try { return await response.json(); } catch { return null; }
+  }
   return response.json();
 }
 
@@ -73,9 +78,8 @@ function renderSystemStatus() {
   panel.className = "system-status";
   panel.hidden = true;
   if (!state.manifest) {
-    panel.textContent = "자동 갱신 세대가 아직 준비되지 않아 기존 데이터를 표시하고 있습니다.";
-    panel.classList.add("warning");
-    panel.hidden = false;
+    // flat 배포(CI — manifest 없음)는 정상 상태: 데이터 자체가 배포 시점 최신이다.
+    // 경고를 띄우면 "오래된 데이터"로 오독됨. 갱신 시각은 헤더 meta 라인이 이미 표시.
     return;
   }
   if (status?.state === "error") {
