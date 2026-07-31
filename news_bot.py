@@ -55,11 +55,17 @@ DOMAIN_SCORE = {
 DEFAULT_SCORE = 4
 MIN_SCORE = 4
 
+# 1차 소스 — 정부·규제기관·국제기구·원자력 전문 통신/학회.
+# 큐레이션 프롬프트의 (TIER1) 표시 기준. 일반 언론(연합·조선·Reuters 등)은
+# 여기 넣지 않는다 — 넣으면 평범한 기사가 must_read 로 격상된다.
 TIER1_DOMAINS = {
     "nssc.go.kr", "motie.go.kr", "msit.go.kr", "korea.kr",
     "khnp.co.kr", "kaeri.re.kr", "kins.re.kr", "korad.or.kr",
     "iaea.org", "world-nuclear.org", "world-nuclear-news.org",
     "oecd-nea.org", "nrc.gov", "ans.org",
+    # 2026-07-31 추가 피드 — 이전엔 'RSS 경로 = score 10' 으로 자동 TIER1 이었으나
+    # 판정이 도메인 기준으로 바뀌면서 명시 등록 필요해짐
+    "energy.gov", "nucnet.org", "sfen.org",
 }
 
 # 기관 site: 검색도 Google News '관련도순' 문제 동일 (2026-07-10 게토차:
@@ -81,6 +87,33 @@ RSS_SOURCES = [
      "name": "원자력연구원 보도자료", "domain_label": "kaeri.re.kr"},
 ]
 
+# ---- 해외 Tier 1 추가 (2026-07-31) ------------------------------------------
+# 사내 카톡방 7개월 큐레이션 분석(nuclear-news-web/research/)의 실측 빈도 상위 출처.
+# 전용 RSS가 검증된 곳은 직접, 없는 곳은 검증된 Google News site:+when: 패턴으로 우회.
+# 보류: NHK(구글 인덱싱 부실·일반 피드 노이즈 과다), NRC 직접 피드(403), 電気新聞·FT(페이월).
+RSS_SOURCES += [
+    # 원자력 전문 통신 — 카톡방 최다 출처(7개월 402회). 공개 피드 검증 완료(15건/pub 정상)
+    {"url": "https://www.nucnet.org/feed", "name": "NucNet",
+     "domain_label": "nucnet.org"},
+    # 프랑스 원자력학회 — EPR2·SMR·프랑스 정책 (프랑스어 → Gemini가 한국어 요약)
+    {"url": "https://www.sfen.org/feed/", "name": "SFEN",
+     "domain_label": "sfen.org"},
+    # 미 에너지부 공식 — 전 에너지원 피드라 비원자력 포함, 큐레이션 noise 필터가 거름
+    {"url": "https://www.energy.gov/rss.xml", "name": "DOE",
+     "domain_label": "energy.gov"},
+]
+# Reuters는 공개 RSS 폐지, La Tribune은 섹션 피드 없음 → Google News 우회 (실측 12~18건/일)
+_REUTERS_Q = quote_plus('site:reuters.com ("nuclear power" OR reactor OR SMR OR uranium) when:1d')
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_REUTERS_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "Reuters 원자력", "domain_label": "reuters.com",
+})
+_LATRIBUNE_Q = quote_plus("site:latribune.fr (nucléaire OR EDF OR EPR) when:2d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_LATRIBUNE_Q}&hl=fr&gl=FR&ceid=FR:fr",
+    "name": "La Tribune 원자력", "domain_label": "latribune.fr",
+})
+
 # 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
 # 타깃 키워드(기관·정책·사업명)로 좁혀 노이즈 최소화. 일반 '원자력' 단독은 의도적으로
 # 제외(원자력병원·원자력시계 등 무관 잡음 방지). 들어온 뒤엔 기존 curation·노이즈 필터로 한 번 더 거름.
@@ -93,10 +126,13 @@ _KR_AFFAIRS_Q = quote_plus(
 )
 RSS_SOURCES.append({
     "url": f"https://news.google.com/rss/search?q={_KR_AFFAIRS_Q}&hl=ko&gl=KR&ceid=KR:ko",
-    # domain_label에 .kr 포함 → 큐레이션 실패 시 default_section 이 국내로 추정.
-    # 단 '한국 매체'가 곧 '국내 뉴스'는 아니다 — 국내 언론의 해외 원전 기사는
+    # resolve_publisher: 이 피드는 여러 매체가 섞이므로 RSS <source> 에서 실제
+    # 매체 도메인(전기신문=electimes.com 등)을 복원한다. domain_label 은 복원
+    # 실패 시 폴백.
+    # 주의: '한국 매체'가 곧 '국내 뉴스'는 아니다 — 국내 언론의 해외 원전 기사는
     # scope=overseas 로 판정돼 해외 브리핑으로 간다 (daily_brief.region 참조).
     "name": "국내 원자력 보도", "domain_label": "news.google.co.kr",
+    "resolve_publisher": True,
 })
 
 SMR_HINTS = ("smr", "small modular", "i-smr", "advanced reactor")
@@ -255,6 +291,20 @@ def domain_score(url: str) -> int:
 
 def is_tier1(url: str) -> bool:
     return get_domain(url) in TIER1_DOMAINS
+
+
+def is_tier1_source(art: dict) -> bool:
+    """기사가 정부·규제기관·국제기구 등 1차 소스인가.
+
+    링크만 보면 안 된다 — 기관 보도자료도 Google News 검색 경유면 링크가
+    news.google.com 이다. 수집 시 확정한 출처 도메인을 먼저 본다.
+    (예전엔 'RSS 경로면 score=10' 이라 국내 일반 언론 기사까지 1차 소스로
+    프롬프트에 들어가 must_read 로 격상됐다.)
+    """
+    dom = (art.get("domain") or "").lower()
+    if dom in TIER1_DOMAINS:
+        return True
+    return is_tier1(art.get("link", ""))
 
 
 def is_promotional(title: str, description: str) -> bool:
@@ -600,17 +650,21 @@ VALID_ARTICLE_TYPES = {
 
 # 한국 출처 도메인 (이외는 해외로 간주)
 _KR_DOMAIN_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
+_HANGUL_RE = re.compile(r"[가-힣]")
 
 
-def default_section(domain: str) -> str:
-    """LLM이 section을 못 줄 때 도메인으로 추정.
+def default_section(domain: str, title: str = "") -> str:
+    """LLM이 section을 못 줄 때 도메인·제목으로 추정.
 
     미국·글로벌 기사가 '국내(domestic)'로 오분류되는 것 방지 — 기본값은 '해외'.
-    한국 도메인만 domestic(khnp.co.kr이면 khnp)으로.
+    한국 도메인(khnp.co.kr이면 khnp) 또는 한글 제목이면 domestic.
+    (국내 매체 상당수가 .com 이라 도메인만으론 못 걸러진다: electimes.com 등)
     """
     d = (domain or "").lower()
     if any(h in d for h in _KR_DOMAIN_HINTS):
         return "khnp" if "khnp" in d else "domestic"
+    if _HANGUL_RE.search(title or ""):
+        return "domestic"
     return "international"
 
 
@@ -648,7 +702,7 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
     """LLM 호출. 실패 시 안전한 fallback 반환."""
     fallback = {
         "importance": "must_read" if force_must_read else "nice_to_know",
-        "section": default_section(domain),
+        "section": default_section(domain, title),
         "category": "정책",
         "title_kr": title,
         "summary": "",
@@ -693,12 +747,12 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
             return fallback
         importance = result.get("importance", "nice_to_know")
         # Tier 1이라도 LLM이 noise/market/nice_to_know로 분류하면 그대로 존중 (강제 must_read 안 함)
-        section = result.get("section") or default_section(domain)
+        section = result.get("section") or default_section(domain, title)
         category = result.get("category", "정책")
         title_kr = (result.get("title_kr") or "").strip() or title
         return {
             "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
-            "section": section if section in VALID_SECTIONS else default_section(domain),
+            "section": section if section in VALID_SECTIONS else default_section(domain, title),
             "scope": norm_scope(result.get("scope")),
             "category": category if category in VALID_CATEGORIES else "정책",
             "topics": norm_topics(result.get("topics")),
@@ -784,10 +838,10 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         chunk = articles[start:start + BATCH_CHUNK]
         blocks = []
         for i, art in enumerate(chunk):
-            t1 = " (TIER1)" if (is_tier1(art["link"]) or art["score"] >= 10) else ""
+            t1 = " (TIER1)" if is_tier1_source(art) else ""
             lines = [f"[{i}]{t1} {art['title'][:150]}",
                      f"요약: {(art.get('description') or '')[:200]}",
-                     f"출처: {art.get('domain','')}"]
+                     f"출처: {art.get('publisher') or art.get('domain','')}"]
             relevant = find_relevant_reports(art["title"], art.get("description", ""), reports_kb)
             if relevant:
                 titles = " / ".join(r.get("title", "")[:40] for r in relevant[:2])
@@ -816,14 +870,14 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                 continue
             art = chunk[idx]
             importance = item.get("importance", "nice_to_know")
-            section = item.get("section") or default_section(art.get("domain", ""))
+            section = item.get("section") or default_section(art.get("domain", ""), art.get("title", ""))
             category = item.get("category", "정책")
             title_kr = (item.get("title_kr") or "").strip() or art["title"]
             out[art["hash"]] = {
                 # 랭킹 feature — 범위 밖/누락은 ranking.sanitize_features 가 클램프
                 "features": sanitize_features(item.get("features")),
                 "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
-                "section": section if section in VALID_SECTIONS else default_section(art.get("domain", "")),
+                "section": section if section in VALID_SECTIONS else default_section(art.get("domain", ""), art.get("title", "")),
                 "scope": norm_scope(item.get("scope")),
                 "category": category if category in VALID_CATEGORIES else "정책",
                 "topics": norm_topics(item.get("topics")),
@@ -844,6 +898,45 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
     return out
 
 
+def resolve_rss_domain(src: dict, item: dict) -> str:
+    """RSS 항목의 출처 도메인.
+
+    기관 site: 피드는 domain_label 이 이미 정확하므로 그대로 쓰고,
+    매체가 섞이는 키워드 검색 피드(resolve_publisher=True)만 <source> 의
+    실제 매체 도메인으로 복원한다 — 전건이 news.google.co.kr 로 뭉개지면
+    카드에 매체명이 안 보이고 신뢰도 점수도 매길 수 없다.
+    """
+    if src.get("resolve_publisher") and item.get("publisher_domain"):
+        return item["publisher_domain"]
+    return src.get("domain_label") or get_domain(item["link"])
+
+
+def publisher_of(entry) -> tuple[str, str]:
+    """RSS <source> 에서 발행 매체명·도메인 추출. (Google News 검색 피드용)
+
+    Google News 검색 RSS 의 link 는 news.google.com 리다이렉트라 실제 매체를 알 수
+    없다. 대신 각 entry 의 <source url="https://www.electimes.com">전기신문</source>
+    에 원 매체가 그대로 들어 있다.
+    """
+    src = entry.get("source") or {}
+    try:
+        name = (src.get("title") or "").strip()
+        href = (src.get("href") or "").strip()
+    except AttributeError:      # feedparser 가 dict 아닌 값을 준 경우
+        return "", ""
+    return name, get_domain(href) if href else ""
+
+
+def strip_title_suffix(title: str, publisher: str) -> str:
+    """제목 끝의 ' - 매체명' 반복 제거 (Google News 표기 습관)."""
+    if not publisher:
+        return title
+    suffix = f" - {publisher}"
+    while title.endswith(suffix):
+        title = title[: -len(suffix)].rstrip()
+    return title or publisher
+
+
 def fetch_rss(url: str) -> list[dict]:
     try:
         feed = feedparser.parse(url, agent="nuclear-news-bot/1.0")
@@ -859,11 +952,16 @@ def fetch_rss(url: str) -> list[dict]:
                 pub = datetime(*entry.updated_parsed[:6], tzinfo=timezone.utc)
             if not link or not title or not pub:
                 continue
+            pub_name, pub_domain = publisher_of(entry)
             out.append({
                 "link": link,
-                "title": strip_html(title),
+                # Google News 는 제목 끝에 " - 매체명" 을 붙인다 (때로 두 번) → 제거.
+                # 큐레이션·중복판정에 매체명이 섞여 들어가는 것을 막는다.
+                "title": strip_title_suffix(strip_html(title), pub_name),
                 "description": strip_html(description),
                 "pub": pub,
+                "publisher": pub_name,
+                "publisher_domain": pub_domain,
             })
         return out
     except Exception as e:
@@ -896,6 +994,7 @@ def collect_rss_articles(state: dict) -> list[dict]:
             if not norm or norm in by_title:
                 continue
 
+            domain = resolve_rss_domain(src, item)
             by_title[norm] = {
                 "hash": h,
                 "title": item["title"],
@@ -903,8 +1002,12 @@ def collect_rss_articles(state: dict) -> list[dict]:
                 "link": item["link"],
                 "pub": item["pub"],
                 "matched": src["name"],
-                "score": 10,
-                "domain": src.get("domain_label") or get_domain(item["link"]),
+                # 출처 신뢰도 점수. 기관·전문지(TIER1)만 10, 일반 매체는 도메인 점수.
+                # 예전엔 RSS 경로 전건이 10이라 일반 언론 기사까지 '1차 소스'로
+                # 취급돼 must_read 로 격상되던 문제가 있었다.
+                "score": 10 if domain in TIER1_DOMAINS else DOMAIN_SCORE.get(domain, DEFAULT_SCORE),
+                "domain": domain,
+                "publisher": item.get("publisher", ""),
                 "feed": assign_feed_from_title(item["title"]),
             }
 
@@ -1105,10 +1208,10 @@ def main() -> None:
             if cur is None:
                 # batch 실패분 — 도메인 기반 안전 fallback.
                 # 건별 재호출로 되돌아가지 않음 (quota 보호가 목적).
-                force_t1 = is_tier1(article["link"]) or article["score"] >= 10
+                force_t1 = is_tier1_source(article)
                 cur = {
                     "importance": "must_read" if force_t1 else "nice_to_know",
-                    "section": default_section(article["domain"]),
+                    "section": default_section(article["domain"], article["title"]),
                     "category": "정책",
                     "title_kr": article["title"],
                     "summary": "",
@@ -1141,11 +1244,13 @@ def main() -> None:
             "title_kr": cur.get("title_kr") or article["title"],
             "link": article["link"],
             "domain": article["domain"],
+            # 카드에 표기할 매체명 (전기신문 등). RSS <source> 에서만 얻어지므로 없을 수 있음
+            "publisher": article.get("publisher", ""),
             "feed": article["feed"],
             "matched": article["matched"],
             "importance": importance,
-            # 기본값을 domestic 으로 두면 큐레이션 실패 기사가 국내로 섞임 → 도메인 추정
-            "section": cur.get("section") or default_section(article["domain"]),
+            # 기본값을 domestic 으로 두면 큐레이션 실패 기사가 국내로 섞임 → 도메인·제목 추정
+            "section": cur.get("section") or default_section(article["domain"], article["title"]),
             "scope": norm_scope(cur.get("scope")),
             "category": cur.get("category", "정책"),
             "summary": cur.get("summary", ""),

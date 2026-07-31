@@ -14,10 +14,12 @@
     { "domain": "nrc.gov", "name": "US NRC", "aliases": ["@NRCgov"] },
     { "domain": "energy.gov", "name": "US DOE", "aliases": ["Department of Energy", "@ENERGY", "@energydotgov", "@DOEnuclear"] },
     { "domain": "iea.org", "name": "IEA", "aliases": ["International Energy Agency", "@IEA"] },
-    { "domain": "nei.org", "name": "Nuclear Energy Institute", "aliases": ["Nuclear Energy Institute", "@NEI"] }
+    { "domain": "nei.org", "name": "Nuclear Energy Institute", "aliases": ["Nuclear Energy Institute", "@NEI"] },
+    { "domain": "sfen.org", "name": "SFEN", "aliases": ["SFEN", "Société Française d'Énergie Nucléaire", "Revue Générale Nucléaire"] }
   ],
   "tier2": [
     { "domain": "reuters.com", "name": "Reuters", "aliases": ["Reuters", "@reuters"] },
+    { "domain": "latribune.fr", "name": "La Tribune", "aliases": ["La Tribune"] },
     { "domain": "bloomberg.com", "name": "Bloomberg", "aliases": ["Bloomberg", "@BloombergNRG"] },
     { "domain": "ft.com", "name": "Financial Times", "aliases": ["Financial Times", "@FT_Energy"] },
     { "domain": "politico.eu", "name": "Politico EU", "aliases": ["Politico", "@PoliticoEU"] },
