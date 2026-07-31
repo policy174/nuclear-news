@@ -39,7 +39,11 @@ jobs:
 
       - name: Sync recent archive to policy web
         continue-on-error: true
-        run: python policy_web_sync.py --lookback-days 7
+        # policy_web_sync.py 는 별도 트랙(Supabase 웹)에서 준비 중 — 파일이 커밋되면
+        # 자동 활성화. 없을 땐 스킵해 매시간 에러 표시로 진짜 장애가 묻히는 것을 방지.
+        run: |
+          if [ ! -f policy_web_sync.py ]; then echo "policy_web_sync.py 없음 — 스킵"; exit 0; fi
+          python policy_web_sync.py --lookback-days 7
         env:
           POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
           POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
