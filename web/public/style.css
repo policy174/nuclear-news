@@ -685,3 +685,16 @@ button:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visib
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* 데이터 로딩 실패 시 수동 재시도 버튼 (재시도 3회 초과 후 표시) */
+.retry-btn {
+  margin-left: 8px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #0b62c4;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.retry-btn:hover { opacity: 0.85; }

@@ -137,3 +137,10 @@ jobs:
           git fetch origin main && git reset --hard origin/main
           python web/build_data.py
           npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
+          # 배포 후 라이브 스모크 (crawl.yml과 동일 기준)
+          sleep 15
+          base="https://nuclens.pages.dev"; cb=$(date +%s)
+          count=$(curl -sf --max-time 30 "$base/data/news.json?cb=$cb" | python -c "import json,sys; print(len(json.load(sys.stdin)))") \
+            || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
+          [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
+          echo "스모크 OK — 기사 ${count}건"

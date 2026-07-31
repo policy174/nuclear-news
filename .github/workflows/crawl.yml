@@ -69,3 +69,20 @@ jobs:
           if [ $(( $(date -u +%H) % 2 )) -ne 0 ]; then echo "홀수 UTC시 — 배포 스킵 (2시간 간격)"; exit 0; fi
           python web/build_data.py
           npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
+
+      # 배포 후 라이브 스모크 — "데이터는 올라갔는데 화면이 죽는" 사고(2026-08-01) 재발 감지.
+      # 홀수시·시크릿 미설정으로 배포를 스킵한 경우엔 직전 배포본을 검사하게 되므로 무해.
+      - name: Smoke test live site
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "배포 미사용 — 스모크 스킵"; exit 0; fi
+          sleep 15
+          base="https://nuclens.pages.dev"; cb=$(date +%s)
+          count=$(curl -sf --max-time 30 "$base/data/news.json?cb=$cb" | python -c "import json,sys; print(len(json.load(sys.stdin)))") \
+            || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
+          [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$base/data/__missing__.json?cb=$cb")
+          [ "$code" = "404" ] || { echo "::error::스모크 실패 — SPA 폴백 재발 의심 (미존재 파일이 $code 응답)"; exit 1; }
+          echo "스모크 OK — 기사 ${count}건, 미존재 경로 404 정상"

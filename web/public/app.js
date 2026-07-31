@@ -28,11 +28,15 @@ let eventsBound = false;
 let appReady = false;
 let initLoading = false;
 let initRetryTimer = 0;
+let initRetryCount = 0;
 let generationTimer = 0;
 
 async function loadJSON(name) {
   const response = await fetch(`${state.dataBase}/${name}?v=${Date.now()}`);
   if (!response.ok) throw new Error(`${name} ${response.status}`);
+  // SPA 폴백·오배포로 HTML이 200으로 오는 경우를 파싱 전에 명확한 에러로 변환
+  const ctype = response.headers.get("content-type") || "";
+  if (!ctype.includes("json")) throw new Error(`${name} 응답이 JSON이 아님 (${ctype.split(";")[0] || "unknown"})`);
   return response.json();
 }
 
@@ -843,16 +847,30 @@ async function init() {
     ]);
   } catch (error) {
     initLoading = false;
-    document.getElementById("metaLine").textContent =
-      `데이터 연결 실패 · 5초 후 자동 재시도 (${error.message})`;
-    document.getElementById("issueList").innerHTML =
-      '<p class="empty large">데이터 연결을 복구하는 중입니다. 잠시만 기다려주세요.</p>';
+    initRetryCount += 1;
     window.clearTimeout(initRetryTimer);
-    initRetryTimer = window.setTimeout(init, 5000);
+    if (initRetryCount <= 3) {
+      // 일시 장애 대비 3회까지만 자동 재시도 — 무한 5초 폴링은 실패를 가리고 트래픽만 만든다
+      document.getElementById("metaLine").textContent =
+        `데이터 연결 실패 · 5초 후 자동 재시도 (${initRetryCount}/3) — ${error.message}`;
+      document.getElementById("issueList").innerHTML =
+        '<p class="empty large">데이터 연결을 복구하는 중입니다. 잠시만 기다려주세요.</p>';
+      initRetryTimer = window.setTimeout(init, 5000);
+    } else {
+      document.getElementById("metaLine").textContent = `데이터 연결 실패 — ${error.message}`;
+      document.getElementById("issueList").innerHTML =
+        '<p class="empty large">데이터를 불러오지 못했습니다. ' +
+        '<button type="button" id="retryInit" class="retry-btn">다시 시도</button></p>';
+      document.getElementById("retryInit")?.addEventListener("click", () => {
+        initRetryCount = 0;
+        init();
+      });
+    }
     return;
   }
 
   window.clearTimeout(initRetryTimer);
+  initRetryCount = 0;
 
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
   restoreUrlState();
