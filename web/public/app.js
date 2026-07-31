@@ -859,12 +859,12 @@ async function init() {
     initLoading = false;
     initRetryCount += 1;
     window.clearTimeout(initRetryTimer);
-    if (initRetryCount <= 3) {
-      // 3회 백오프(5→20→40초) — 배포 교체 순간의 짧은 404 공백(실측 ~1분)을 타넘는다.
-      // 무한 폴링은 실패를 가리고 트래픽만 만들므로 상한 유지.
-      const delay = [5000, 20000, 40000][initRetryCount - 1] || 40000;
+    if (initRetryCount <= 5) {
+      // 5회 백오프(5→20→40→60→90초, 총 ~3.5분) — 배포 전파·엣지 흔들림 창(실측 1~4분)을
+      // 타넘는다. 무한 폴링은 실패를 가리고 트래픽만 만들므로 상한 유지.
+      const delay = [5000, 20000, 40000, 60000, 90000][initRetryCount - 1] || 90000;
       document.getElementById("metaLine").textContent =
-        `데이터 연결 실패 · ${delay / 1000}초 후 자동 재시도 (${initRetryCount}/3) — ${error.message}`;
+        `데이터 연결 실패 · ${delay / 1000}초 후 자동 재시도 (${initRetryCount}/5) — ${error.message}`;
       document.getElementById("issueList").innerHTML =
         '<p class="empty large">데이터 연결을 복구하는 중입니다. 잠시만 기다려주세요.</p>';
       initRetryTimer = window.setTimeout(init, delay);
