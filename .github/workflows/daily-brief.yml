@@ -101,3 +101,26 @@ jobs:
           done
           echo "!! confirm push 5회 실패 — 발송 상태 미기록. 36h 창 안 재실행 시 중복 발송 가능성 (수동 확인 권장)"
           exit 1
+
+      # 웹 트렌드 '흐름 해석' 생성 — 하루 1회, Gemini 호출 +1. 실패해도 브리핑엔 비치명.
+      - name: Trend insights (웹 트렌드 흐름 해석)
+        if: always() && steps.claim.conclusion == 'success'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python trend_insights.py
+            git add trend_insights.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: trend insights"
+            if git push origin HEAD:main; then echo "insights push 성공"; exit 0; fi
+            echo "push 충돌 — 재시도 $i/3"
+            sleep $((RANDOM % 8 + 4))
+          done
+          echo "insights push 실패 — 비치명, 다음날 재시도"
+          exit 0
