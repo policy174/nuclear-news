@@ -431,11 +431,14 @@ def _korean_or_none(s: str | None) -> str | None:
 def item_to_card(art: dict, investment: str | None) -> dict:
     """curated 항목을 synthesize.format_cards_message 호환 카드로."""
     link = art.get("link", "")
+    # 매체명(전기신문)이 있으면 도메인보다 우선 — Google News 경유 기사는 도메인만
+    # 보면 news.google.co.kr 이라 어느 매체인지 알 수 없다.
+    label = art.get("publisher") or art.get("domain") or art.get("feed") or "RSS"
     cluster = {
         "url": link,
-        "sources": [art.get("domain") or art.get("feed") or "RSS"],
+        "sources": [label],
         "title": art.get("title", ""),
-        "meta": art.get("domain", ""),
+        "meta": label,
     }
     return {
         "topic": art.get("section", ""),
