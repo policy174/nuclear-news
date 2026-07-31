@@ -37,6 +37,13 @@ jobs:
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
 
+      - name: Sync recent archive to policy web
+        continue-on-error: true
+        run: python policy_web_sync.py --lookback-days 7
+        env:
+          POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
+          POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
+
       - name: Commit state
         run: |
           git config user.name "github-actions[bot]"
@@ -44,3 +51,17 @@ jobs:
           git add sent.json curated.json digest_queue.json archive/
           git diff --cached --quiet || git commit -m "chore: update bot state"
           git push
+
+      # nuclens.pages.dev 갱신 — 2시간 간격(짝수 UTC시)만 배포.
+      # Pages 무료 티어 월 500회 제한: 매시간(720회/월)은 초과 → 짝수시(~360회/월)로 제한.
+      # 시크릿 미설정이면 조용히 스킵 (크롤 본연 기능에 비치명).
+      - name: Deploy web to Cloudflare Pages
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
+          if [ $(( $(date -u +%H) % 2 )) -ne 0 ]; then echo "홀수 UTC시 — 배포 스킵 (2시간 간격)"; exit 0; fi
+          python web/build_data.py
+          npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
