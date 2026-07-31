@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -64,32 +65,48 @@ RESEND_WINDOW_H = 36
 
 _KR_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
 
-# 명백한 외국 뉴스 도메인 — 429 분류실패로 domestic 태그가 붙어도 해외로 교정
-_FOREIGN_NEWS = ("world-nuclear-news", "ans.org", "iaea.org", "nrc.gov",
-                 "energy.gov", "oecd-nea", "neimagazine", "reuters",
-                 "bloomberg", "powermag", "utilitydive", "spectrum.ieee")
+# 명백한 외국 출처 — 429 분류실패로 domestic 태그가 붙어도 해외로 교정.
+# 해외 보도자료 와이어(prnewswire 등)도 포함 — 해외 SMR 기업 발표가 이 경로로 들어온다.
+_FOREIGN_NEWS = ("world-nuclear-news", "world-nuclear.org", "ans.org", "iaea.org",
+                 "nrc.gov", "energy.gov", "oecd-nea", "nucnet", "neimagazine",
+                 "reuters", "bloomberg", "powermag", "utilitydive", "spectrum.ieee",
+                 "prnewswire", "globenewswire", "businesswire", "accesswire",
+                 "newswire.ca")
+
+
+_HANGUL = re.compile(r"[가-힣]")
 
 
 def region(art: dict) -> str:
-    """기사를 국내/해외로 분류 (키워드 피드·오분류 모두 견고).
+    """기사를 국내/해외 브리핑으로 분류. 기준은 '기사가 다루는 대상'(매체 국적 아님).
 
-    1) section='khnp'(한수원이 주체) → 출처 불문 국내 (체코 수주 등)
-    2) 명백한 외국 뉴스 도메인 → 해외 (429 오분류도 교정)
-    3) 한국 도메인(.kr) → 국내
-    4) section='international' → 해외
-    5) 그 외(국내 키워드 피드 등 도메인 불명확) → 국내
+    1) scope('kr'|'overseas') — 큐레이션 LLM이 직접 판정한 값이 있으면 최우선
+    2) section='khnp'(한수원이 주체) → 출처 불문 국내 (체코 수주 등)
+    3) section='international' → 해외 (한국 매체가 쓴 해외 기사도 해외)
+    4) section='domestic' → 국내. 단 명백한 외국 뉴스 도메인이면 오분류로 보고 해외 교정
+    5) 지역 신호 없는 section(smr 등) → 도메인·제목 언어로 판단
+    6) 아무 신호 없으면 해외 — 기본값을 국내로 두면 미국 SMR 기사가 국내로 섞임
     """
+    scope = (art.get("scope") or "").lower()
+    if scope == "kr":
+        return "국내"
+    if scope == "overseas":
+        return "해외"
+
     dom = (art.get("domain") or "").lower()
     sec = art.get("section") or ""
+    foreign_dom = any(f in dom for f in _FOREIGN_NEWS)
     if sec == "khnp":
-        return "국내"
-    if any(f in dom for f in _FOREIGN_NEWS):
-        return "해외"
-    if any(h in dom for h in _KR_HINTS):
         return "국내"
     if sec == "international":
         return "해외"
-    return "국내"
+    if sec == "domestic":
+        return "해외" if foreign_dom else "국내"
+    if foreign_dom:
+        return "해외"
+    if any(h in dom for h in _KR_HINTS) or _HANGUL.search(art.get("title") or ""):
+        return "국내"
+    return "해외"
 
 
 # ---- 큐/상태 입출력 -----------------------------------------------------------
@@ -560,6 +577,8 @@ def plan_briefs(queue: list[dict],
             "title_kr": (a.get("title_kr") or a.get("title") or "")[:100],
             "region": reg,
             "section": a.get("section", ""),
+            # LLM 판정 scope (없으면 region()이 휴리스틱으로 결정한 것 — 오분류 추적용)
+            "scope": a.get("scope", ""),
             "domain": a.get("domain", ""),
             "theme": (a.get("investment_struct") or {}).get("theme", ""),
             "score": diag["scores"].get(h),

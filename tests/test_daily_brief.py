@@ -41,14 +41,49 @@ class TestRegion(unittest.TestCase):
     def test_us_article_misclassified_domestic_corrected(self):
         self.assertEqual(db.region({"section": "domestic", "domain": "ans.org"}), "해외")
 
-    def test_kr_domain(self):
-        self.assertEqual(db.region({"section": "international", "domain": "yna.co.kr"}), "국내")
-
     def test_international(self):
         self.assertEqual(db.region({"section": "international", "domain": "unknown.io"}), "해외")
 
     def test_google_kr_feed(self):
         self.assertEqual(db.region({"section": "domestic", "domain": "news.google.co.kr"}), "국내")
+
+    # --- scope (LLM 직접 판정) 최우선 ---
+
+    def test_scope_overrides_domain(self):
+        # 한국 매체 도메인이지만 주제가 해외 → 해외
+        self.assertEqual(
+            db.region({"scope": "overseas", "section": "domestic", "domain": "yna.co.kr"}), "해외")
+
+    def test_scope_kr_overrides_foreign_domain(self):
+        # 해외 매체가 보도한 한국 주제(체코 수주 등) → 국내
+        self.assertEqual(
+            db.region({"scope": "kr", "section": "international", "domain": "reuters.com"}), "국내")
+
+    # --- scope 없는 과거 큐 항목: section·도메인·제목 언어 휴리스틱 ---
+
+    def test_korean_media_foreign_topic_goes_overseas(self):
+        # 국내 매체의 해외 기사 — section=international 이면 매체 국적과 무관하게 해외
+        self.assertEqual(
+            db.region({"section": "international", "domain": "news.google.co.kr"}), "해외")
+
+    def test_foreign_smr_not_domestic(self):
+        # 지역 신호 없는 section='smr' + 외국 도메인 + 영문 제목 → 해외
+        # (기존 기본값이 '국내'여서 미국 SMR 기사가 국내 브리핑에 섞이던 버그)
+        self.assertEqual(db.region(
+            {"section": "smr", "domain": "terrapower.com",
+             "title": "TerraPower announces reactor milestone"}), "해외")
+        self.assertEqual(db.region(
+            {"section": "smr", "domain": "prnewswire.com",
+             "title": "Blue Energy secures strategic investment"}), "해외")
+
+    def test_korean_smr_domestic(self):
+        self.assertEqual(db.region(
+            {"section": "smr", "domain": "news.google.co.kr",
+             "title": "두산에너빌리티, i-SMR 주기기 수주"}), "국내")
+
+    def test_unknown_domain_defaults_overseas(self):
+        self.assertEqual(db.region({"section": "", "domain": "county17.com",
+                                    "title": "BWXT plans fuel hub"}), "해외")
 
 
 class TestInvestment(unittest.TestCase):

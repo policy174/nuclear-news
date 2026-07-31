@@ -16,6 +16,7 @@ import requests
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
 from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
 from ranking import sanitize_features
+import news_archive
 
 NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
 NAVER_CLIENT_SECRET = os.environ["NAVER_CLIENT_SECRET"]
@@ -92,8 +93,9 @@ _KR_AFFAIRS_Q = quote_plus(
 )
 RSS_SOURCES.append({
     "url": f"https://news.google.com/rss/search?q={_KR_AFFAIRS_Q}&hl=ko&gl=KR&ceid=KR:ko",
-    # domain_label에 .kr 포함 → default_section·region()이 국내로 인식 (해외 오분류 방지).
-    # 이 피드는 한국어 원자력 업무 키워드라 정의상 국내 뉴스.
+    # domain_label에 .kr 포함 → 큐레이션 실패 시 default_section 이 국내로 추정.
+    # 단 '한국 매체'가 곧 '국내 뉴스'는 아니다 — 국내 언론의 해외 원전 기사는
+    # scope=overseas 로 판정돼 해외 브리핑으로 간다 (daily_brief.region 참조).
     "name": "국내 원자력 보도", "domain_label": "news.google.co.kr",
 })
 
@@ -154,17 +156,42 @@ B. section (주제 영역) - 어느 섹션에 들어갈지
 
 ** 우선순위: SMR > 한수원 > 국내 > 해외. 같은 기사가 SMR이면서 한수원이면 SMR. **
 
+B-2. scope (기사가 다루는 지역) - 국내/해외 브리핑 분리 발송용. section과 별개로 반드시 판정.
+- kr: 한국이 주체이거나 무대인 기사. 한수원·한국 정부·규제기관·국내 기업의 활동, 한국 내 원전·정책·규제, 한국의 해외 수주(체코·폴란드 APR1400 등), 국내 SMR(i-SMR·두산에너빌리티·현대건설).
+- overseas: 그 외 전부. 해외 정부·규제기관·기업·국제기구 동향, 해외 SMR 기업(NuScale·TerraPower·X-energy·Oklo·Holtec 등).
+
+** 판단 기준은 '기사를 쓴 매체'가 아니라 '기사가 다루는 대상'. 한국 매체가 한국어로 쓴
+기사라도 주제가 해외면 overseas (예: 국내 언론의 '미국 원전 80년 장기운전 승인' 보도 → overseas).
+한국이 등장하지만 단순 비교·언급 수준이면 overseas. **
+
 C. category (세부 카테고리) - 4가지 중 하나
 - 정책: 정부·국가 단위 의사결정, 외교, 다자기구 정책 결정 (IAEA, OECD/NEA 등)
 - 기술: 노형·핵연료주기·안전기술·R&D·표준설계
 - 시장: 신규 발주·EPC 계약·인수합병·자본·발전사업자 동향
 - 규제: 인허가·안전기준·환경평가·NRC·NSSC 의결
 
+D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 값만 사용 (목록 밖 값 금지).**
+
+- topics (0~3개): 기사가 다루는 주제.
+  smr(소형모듈원자로) / newbuild(신규 원전 건설) / restart_lto(계속운전·재가동) /
+  fuel_cycle(핵연료주기: 우라늄·농축·HALEU) / waste(사용후핵연료·방사성폐기물) /
+  finance(원전 금융·투자·자금조달) / regulation(규제·인허가) /
+  power_market(전력시장·요금·전력망) / datacenter_ai(데이터센터·AI 전력수요) /
+  fusion(핵융합) / security_trade(에너지 안보·통상·수출통제) / fukushima(후쿠시마·처리수)
+  ** 해당 주제가 없으면 빈 리스트. 억지로 채우지 말 것. **
+
+- countries (0~2개): 기사의 무대가 되는 국가·지역.
+  KR / US / FR / EU / UK / JP / RU / CN / EU_ETC(스웨덴·폴란드·체코·벨기에·네덜란드 등 개별 EU국) / OTHER
+
+- article_type (1개): 기사 유형.
+  policy(정책·공식발표) / official_doc(공식문서·전문 원문) / corporate(기업 발표·실적) /
+  analysis(심층분석·해설) / opinion(칼럼·기고·인터뷰) / report(보고서·통계 소개) / news(그 외 일반 보도)
+
 [필드별 출력 - 모든 텍스트 필드는 한국어로 작성. 원문이 영문이어도 한국어로 옮길 것.]
 
 - title_kr: 한국어 제목 (30~60자). 원문이 영문이면 자연스러운 한국어로 번역. 원문이 한국어면 핵심을 살린 정확한 한국어 제목. 인명·기관명 첫 등장 시 한글(원문) 병기.
 
-- summary: '무슨 일'을 한국어 1문장으로 (80자 이내). **모든 항목 작성.** 무슨 일이 일어났는지 사실 중심으로 압축. 절대 영문 제목을 그대로 두지 말 것 — 반드시 한국어.
+- summary: '무슨 일'을 한국어 1문장으로 (80자 이내). **모든 항목 작성.** 무슨 일이 일어났는지 사실 중심으로 압축. 절대 영문 제목을 그대로 두지 말 것 — 반드시 한국어. **원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 요약에서 빼지 말고 보존할 것.**
 
 - implication: 시사점 1문장 (60자 이내). nice_to_know·must_read만 작성. 핵심 함의만 압축.
 
@@ -190,6 +217,7 @@ C. category (세부 카테고리) - 4가지 중 하나
 {
   "importance": "must_read|nice_to_know|market|noise",
   "section": "smr|khnp|domestic|international",
+  "scope": "kr|overseas",
   "category": "정책|기술|시장|규제",
   "title_kr": "...",
   "summary": "...",
@@ -197,6 +225,9 @@ C. category (세부 카테고리) - 4가지 중 하나
   "why_important": "...",
   "watch_next": "...",
   "tags": ["#태그1", "#태그2"],
+  "topics": ["smr"],
+  "countries": ["US"],
+  "article_type": "policy",
   "related_reports": ["보고서 제목 1", "..."]
 }
 """
@@ -554,6 +585,18 @@ def safe_json_parse(text: str) -> dict | None:
 VALID_IMPORTANCE = {"must_read", "nice_to_know", "market", "noise"}
 VALID_SECTIONS = {"smr", "khnp", "domestic", "international"}
 VALID_CATEGORIES = {"정책", "기술", "시장", "규제"}
+VALID_SCOPES = {"kr", "overseas"}
+
+# 통제 태그 (웹 트렌드 집계용 — 프롬프트 D 섹션과 반드시 일치)
+VALID_TOPICS = {
+    "smr", "newbuild", "restart_lto", "fuel_cycle", "waste", "finance",
+    "regulation", "power_market", "datacenter_ai", "fusion",
+    "security_trade", "fukushima",
+}
+VALID_COUNTRIES = {"KR", "US", "FR", "EU", "UK", "JP", "RU", "CN", "EU_ETC", "OTHER"}
+VALID_ARTICLE_TYPES = {
+    "policy", "official_doc", "corporate", "analysis", "opinion", "report", "news",
+}
 
 # 한국 출처 도메인 (이외는 해외로 간주)
 _KR_DOMAIN_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
@@ -569,6 +612,36 @@ def default_section(domain: str) -> str:
     if any(h in d for h in _KR_DOMAIN_HINTS):
         return "khnp" if "khnp" in d else "domestic"
     return "international"
+
+
+def norm_scope(value) -> str:
+    """LLM의 scope 값을 정규화. 유효하지 않으면 빈 문자열.
+
+    추정하지 않는다 — 값이 없으면 daily_brief.region() 이 section·도메인·제목
+    언어로 판단한다 (같은 추정 로직을 두 곳에 두지 않기 위함).
+    """
+    v = (value or "").strip().lower() if isinstance(value, str) else ""
+    return v if v in VALID_SCOPES else ""
+
+
+def norm_topics(value) -> list[str]:
+    """통제 태그 topics 정규화 — 목록 밖 값은 버린다 (트렌드 축 오염 방지)."""
+    if not isinstance(value, list):
+        return []
+    out = [t.strip().lower() for t in value if isinstance(t, str)]
+    return [t for t in out if t in VALID_TOPICS][:3]
+
+
+def norm_countries(value) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    out = [c.strip().upper() for c in value if isinstance(c, str)]
+    return [c for c in out if c in VALID_COUNTRIES][:2]
+
+
+def norm_article_type(value) -> str:
+    v = (value or "").strip().lower() if isinstance(value, str) else ""
+    return v if v in VALID_ARTICLE_TYPES else "news"
 
 
 def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
@@ -626,7 +699,11 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         return {
             "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
             "section": section if section in VALID_SECTIONS else default_section(domain),
+            "scope": norm_scope(result.get("scope")),
             "category": category if category in VALID_CATEGORIES else "정책",
+            "topics": norm_topics(result.get("topics")),
+            "countries": norm_countries(result.get("countries")),
+            "article_type": norm_article_type(result.get("article_type")),
             "title_kr": title_kr[:120],
             "summary": (result.get("summary") or "")[:120],
             "implication": (result.get("implication") or "")[:80],
@@ -659,7 +736,7 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -747,7 +824,11 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                 "features": sanitize_features(item.get("features")),
                 "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
                 "section": section if section in VALID_SECTIONS else default_section(art.get("domain", "")),
+                "scope": norm_scope(item.get("scope")),
                 "category": category if category in VALID_CATEGORIES else "정책",
+                "topics": norm_topics(item.get("topics")),
+                "countries": norm_countries(item.get("countries")),
+                "article_type": norm_article_type(item.get("article_type")),
                 "title_kr": title_kr[:120],
                 "summary": (item.get("summary") or "")[:120],
                 "implication": (item.get("implication") or "")[:80],
@@ -1063,7 +1144,9 @@ def main() -> None:
             "feed": article["feed"],
             "matched": article["matched"],
             "importance": importance,
-            "section": cur.get("section", "domestic"),
+            # 기본값을 domestic 으로 두면 큐레이션 실패 기사가 국내로 섞임 → 도메인 추정
+            "section": cur.get("section") or default_section(article["domain"]),
+            "scope": norm_scope(cur.get("scope")),
             "category": cur.get("category", "정책"),
             "summary": cur.get("summary", ""),
             "implication": cur.get("implication", ""),
@@ -1077,6 +1160,21 @@ def main() -> None:
         })
         state["sent"][h] = now_iso
         queued += 1
+
+    # ---- 영구 아카이브 적재 (웹 확장용 — 실패해도 크롤·발송은 계속) ----------
+    # curated.json 은 14일 만료라 트렌드 재료가 안 쌓임 → noise 포함 전부 별도 적재.
+    try:
+        already = news_archive.load_recent_hashes()
+        records = [
+            news_archive.make_record(a, curated[a["hash"]], now_iso)
+            for a in final_articles
+            if a["hash"] in curated and a["hash"] not in already
+        ]
+        n_archived = news_archive.append_records(records)
+        if n_archived:
+            print(f"Archive: {n_archived}건 적재")
+    except Exception as e:
+        print(f"[archive] 적재 실패 (크롤은 계속): {type(e).__name__}: {e}")
 
     save_state(state)
     save_curated(curated)
