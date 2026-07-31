@@ -79,10 +79,30 @@ jobs:
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "배포 미사용 — 스모크 스킵"; exit 0; fi
           sleep 15
-          base="https://nuclens.pages.dev"; cb=$(date +%s)
-          count=$(curl -sf --max-time 30 "$base/data/news.json?cb=$cb" | python -c "import json,sys; print(len(json.load(sys.stdin)))") \
-            || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
-          [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
-          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$base/data/__missing__.json?cb=$cb")
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://nuclens.pages.dev/data/__missing__.json?cb=$(date +%s)")
           [ "$code" = "404" ] || { echo "::error::스모크 실패 — SPA 폴백 재발 의심 (미존재 파일이 $code 응답)"; exit 1; }
-          echo "스모크 OK — 기사 ${count}건, 미존재 경로 404 정상"
+          python - <<'EOF'
+          import json, sys, time, urllib.request
+          base = "https://nuclens.pages.dev/data/"
+          cb = f"?cb={int(time.time())}"
+          names = ["news.json", "briefings.json", "issues.json", "trend.json", "meta.json", "insights.json"]
+          fails, data = [], {}
+          for n in names:
+              try:
+                  r = urllib.request.urlopen(base + n + cb, timeout=30)
+                  ct = r.headers.get("Content-Type", "")
+                  if "json" not in ct:
+                      fails.append(f"{n}: Content-Type={ct}")
+                  data[n] = json.load(r)
+              except Exception as e:
+                  fails.append(f"{n}: {type(e).__name__}")
+          if not data.get("news.json"):
+              fails.append("news.json 0건")
+          m = data.get("meta.json") or {}
+          b = data.get("briefings.json") or []
+          if b and m and b[0].get("date") != m.get("latest_briefing_date"):
+              fails.append(f"briefings[0].date({b[0].get('date')}) != meta({m.get('latest_briefing_date')})")
+          if fails:
+              print("::error::스모크 실패 — " + " | ".join(fails)); sys.exit(1)
+          print(f"스모크 OK — 기사 {len(data['news.json'])}건, 최신 브리핑 {m.get('latest_briefing_date')}, JSON 6종 정상")
+          EOF

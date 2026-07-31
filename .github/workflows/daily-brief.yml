@@ -144,3 +144,17 @@ jobs:
             || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
           [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
           echo "스모크 OK — 기사 ${count}건"
+
+      # 하루 1회 실제 브라우저 렌더링 검증 — API 정상인데 app.js 오류로 화면만
+      # 깨지는 경우(2026-08-01 빈 화면 사고 유형)를 잡는다. 브라우저 설치 비용
+      # 때문에 hourly crawl이 아닌 여기서만 실행.
+      - name: Render smoke (라이브 화면 검증)
+        if: always() && steps.claim.conclusion == 'success'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "배포 미사용 — 렌더링 스모크 스킵"; exit 0; fi
+          npm install --no-save playwright@1
+          npx playwright install --with-deps chromium
+          node web/tests/render_smoke.mjs

@@ -1,0 +1,15 @@
+# Cloudflare Pages 응답 헤더 — 캐시·최신성 계약
+# no-cache = 엣지·브라우저가 매번 ETag 재검증 (변경 없으면 304, 있으면 즉시 최신).
+# 이 파일 덕에 app.js 의 ?v= 캐시버스터가 불필요해짐.
+
+/data/*
+  Cache-Control: no-cache
+
+/*.html
+  Cache-Control: no-cache
+
+/app.js
+  Cache-Control: no-cache
+
+/style.css
+  Cache-Control: no-cache

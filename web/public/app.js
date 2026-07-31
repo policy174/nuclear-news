@@ -32,7 +32,11 @@ let initRetryCount = 0;
 let generationTimer = 0;
 
 async function loadJSON(name) {
-  const response = await fetch(`${state.dataBase}/${name}?v=${Date.now()}`);
+  // 평상시: 깨끗한 URL + no-cache 재검증(_headers) — 304로 싸게 최신 보장.
+  // 재시도: 배포 전파 공백에 엣지가 404를 캐시하는 경우가 있어(404엔 _headers 미적용)
+  //         캐시버스터로 우회해야 복구된다 (2026-08-01 실측).
+  const bust = initRetryCount > 0 ? `?r=${Date.now()}` : "";
+  const response = await fetch(`${state.dataBase}/${name}${bust}`, { cache: "no-cache" });
   if (!response.ok) throw new Error(`${name} ${response.status}`);
   // SPA 폴백·오배포로 HTML이 200으로 오는 경우를 파싱 전에 명확한 에러로 변환
   const ctype = response.headers.get("content-type") || "";
@@ -41,7 +45,7 @@ async function loadJSON(name) {
 }
 
 async function loadRootJSON(name, optional = false) {
-  const response = await fetch(`data/${name}?v=${Date.now()}`, { cache: "no-store" });
+  const response = await fetch(`data/${name}`, { cache: "no-store" });
   if (!response.ok) {
     if (optional) return null;
     throw new Error(`${name} ${response.status}`);
@@ -106,17 +110,23 @@ function renderSystemStatus() {
 }
 
 async function checkForNewGeneration() {
+  // flat 배포(CI) 기준: 갱신 감지는 manifest 가 아니라 meta.generated_at 로 판단.
+  // 새 배포가 올라오면 열린 탭이 1분 안에 스스로 새로고침된다.
   try {
-    const [manifest, status] = await Promise.all([
-      loadRootJSON("manifest.json", true), loadRootJSON("status.json", true),
-    ]);
-    state.systemStatus = status;
-    renderSystemStatus();
-    if (manifest?.generation_id && manifest.generation_id !== state.manifest?.generation_id) {
+    const meta = await loadRootJSON("meta.json", true);
+    const current = state.meta?.generated_at || "";
+    if (meta?.generated_at && current && meta.generated_at > current) {
+      location.reload();
+      return;
+    }
+    // (구형 워처 배포 호환) manifest 세대 변경도 계속 감지
+    const manifest = await loadRootJSON("manifest.json", true);
+    if (manifest?.generation_id && state.manifest?.generation_id &&
+        manifest.generation_id !== state.manifest.generation_id) {
       location.reload();
     }
   } catch {
-    // 일시적인 로컬 파일 교체나 연결 오류는 다음 확인 주기에서 다시 시도한다.
+    // 일시적인 연결 오류는 다음 확인 주기에서 다시 시도한다.
   }
 }
 
@@ -850,12 +860,14 @@ async function init() {
     initRetryCount += 1;
     window.clearTimeout(initRetryTimer);
     if (initRetryCount <= 3) {
-      // 일시 장애 대비 3회까지만 자동 재시도 — 무한 5초 폴링은 실패를 가리고 트래픽만 만든다
+      // 3회 백오프(5→20→40초) — 배포 교체 순간의 짧은 404 공백(실측 ~1분)을 타넘는다.
+      // 무한 폴링은 실패를 가리고 트래픽만 만들므로 상한 유지.
+      const delay = [5000, 20000, 40000][initRetryCount - 1] || 40000;
       document.getElementById("metaLine").textContent =
-        `데이터 연결 실패 · 5초 후 자동 재시도 (${initRetryCount}/3) — ${error.message}`;
+        `데이터 연결 실패 · ${delay / 1000}초 후 자동 재시도 (${initRetryCount}/3) — ${error.message}`;
       document.getElementById("issueList").innerHTML =
         '<p class="empty large">데이터 연결을 복구하는 중입니다. 잠시만 기다려주세요.</p>';
-      initRetryTimer = window.setTimeout(init, 5000);
+      initRetryTimer = window.setTimeout(init, delay);
     } else {
       document.getElementById("metaLine").textContent = `데이터 연결 실패 — ${error.message}`;
       document.getElementById("issueList").innerHTML =
