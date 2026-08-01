@@ -226,8 +226,12 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   fusion(핵융합) / security_trade(에너지 안보·통상·수출통제) / fukushima(후쿠시마·처리수)
   ** 해당 주제가 없으면 빈 리스트. 억지로 채우지 말 것. **
 
-- countries (0~2개): 기사의 무대가 되는 국가·지역.
-  KR / US / FR / EU / UK / JP / RU / CN / EU_ETC(스웨덴·폴란드·체코·벨기에·네덜란드 등 개별 EU국) / OTHER
+- countries (0~2개): 기사의 실제 정책 관할·사업 부지·사건 무대가 되는 국가·지역.
+  국가는 ISO 3166-1 alpha-2 코드 사용 (예: KR / US / FR / GB / DE / CA).
+  EU는 유럽연합 기관·EU 공동 정책이 직접 주체일 때만 사용한다.
+  EUROPE는 3개 이상 유럽 국가에 걸친 범지역 이슈, GLOBAL은 특정 국가가 없는 국제 이슈,
+  UNSPECIFIED는 근거만으로 국가·지역을 정할 수 없을 때만 사용한다.
+  기업 본사 소재지만으로 국가를 붙이지 말고 EU_ETC / OTHER는 사용하지 않는다.
 
 - article_type (1개): 기사 유형.
   policy(정책·공식발표) / official_doc(공식문서·전문 원문) / corporate(기업 발표·실적) /
@@ -660,7 +664,29 @@ VALID_TOPICS = {
     "regulation", "power_market", "datacenter_ai", "fusion",
     "security_trade", "fukushima",
 }
-VALID_COUNTRIES = {"KR", "US", "FR", "EU", "UK", "JP", "RU", "CN", "EU_ETC", "OTHER"}
+# 국가는 임의의 화이트리스트가 아니라 ISO 3166-1 alpha-2 전체를 허용한다.
+# EU/EUROPE/GLOBAL/UNSPECIFIED는 국가 코드와 섞이지 않도록 의미가 고정된 범위 코드다.
+ISO_ALPHA2_COUNTRIES = frozenset("""
+AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ
+BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ
+CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ
+DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR
+GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY
+HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP
+KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY
+MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ
+NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY
+QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ
+TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ
+VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW
+""".split())
+COUNTRY_SCOPE_CODES = {"EU", "EUROPE", "GLOBAL", "UNSPECIFIED"}
+VALID_COUNTRIES = ISO_ALPHA2_COUNTRIES | COUNTRY_SCOPE_CODES
+COUNTRY_ALIASES = {
+    "UK": "GB",             # 관용 코드 → ISO 코드
+    "EU_ETC": "UNSPECIFIED",  # 폐기된 묶음 코드
+    "OTHER": "UNSPECIFIED",   # 폐기된 모호 코드
+}
 VALID_ARTICLE_TYPES = {
     "policy", "official_doc", "corporate", "analysis", "opinion", "report", "news",
 }
@@ -706,8 +732,14 @@ def norm_topics(value) -> list[str]:
 def norm_countries(value) -> list[str]:
     if not isinstance(value, list):
         return []
-    out = [c.strip().upper() for c in value if isinstance(c, str)]
-    return [c for c in out if c in VALID_COUNTRIES][:2]
+    out = []
+    for country in value:
+        if not isinstance(country, str):
+            continue
+        code = COUNTRY_ALIASES.get(country.strip().upper(), country.strip().upper())
+        if code in VALID_COUNTRIES and code not in out:
+            out.append(code)
+    return out[:2]
 
 
 def norm_article_type(value) -> str:

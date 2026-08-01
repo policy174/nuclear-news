@@ -127,6 +127,9 @@ class TestControlledTagNorm(unittest.TestCase):
 
     def test_countries_whitelist(self):
         self.assertEqual(news_bot.norm_countries(["us", "fr", "jp"]), ["US", "FR"])
+        self.assertEqual(news_bot.norm_countries(["uk", "de"]), ["GB", "DE"])
+        self.assertEqual(news_bot.norm_countries(["EU_ETC", "OTHER"]), ["UNSPECIFIED"])
+        self.assertEqual(news_bot.norm_countries(["ca", "rs"]), ["CA", "RS"])
         self.assertEqual(news_bot.norm_countries(["KOREA"]), [])
 
     def test_article_type_fallback(self):
