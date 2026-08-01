@@ -104,15 +104,19 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertIn("outline: 2px solid var(--c-focus);", css)
         self.assertIn("box-shadow: var(--fo-ring);", css)
 
-    def test_n_lettermark_is_restored_without_lens_asset(self):
+    def test_n_lettermark_is_restored_without_lens_geometry(self):
         favicon = (ROOT / "public" / "favicon.svg").read_text(encoding="utf-8")
+        logo_mark = (ROOT / "public" / "logo-mark.svg").read_text(encoding="utf-8")
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertIn('class="brand-mark" aria-hidden="true">N</span>', html)
         self.assertIn('aria-label="Nuclens"', favicon)
         self.assertIn("<path", favicon)
         self.assertNotIn('id="favicon-lens"', favicon)
         self.assertNotIn("<clipPath", favicon)
-        self.assertFalse((ROOT / "public" / "logo-mark.svg").exists())
+        self.assertIn('aria-label="Nuclens N"', logo_mark)
+        self.assertIn("<path", logo_mark)
+        self.assertNotIn("<clipPath", logo_mark)
+        self.assertNotIn("nuclens-lens", logo_mark)
 
 
 class SelectionReasonTests(unittest.TestCase):
@@ -669,7 +673,7 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn(f'property="{property_name}"', html)
         for name in ("favicon.svg", "robots.txt"):
             self.assertTrue((ROOT / "public" / name).exists(), name)
-        self.assertFalse((ROOT / "public" / "logo-mark.svg").exists())
+        self.assertTrue((ROOT / "public" / "logo-mark.svg").exists())
         self.assertFalse((ROOT / "public" / "sitemap.xml").exists())
         self.assertIn("Disallow: /", (ROOT / "public" / "robots.txt").read_text(encoding="utf-8"))
 
