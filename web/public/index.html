@@ -3,9 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="description" content="원자력 정책·규제·산업 뉴스를 이슈 단위로 연결해 매일 브리핑하고 주간 흐름을 보여주는 NUCLENS입니다.">
   <meta name="color-scheme" content="light dark">
-  <title>원자력 인텔리전스 브리핑</title>
+  <meta name="theme-color" content="#102f3f">
+  <link rel="canonical" href="https://nuclens.pages.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="NUCLENS">
+  <meta property="og:title" content="NUCLENS | 원자력 정책·산업 이슈 브리핑">
+  <meta property="og:description" content="원자력 뉴스를 기사 목록이 아닌 이어지는 이슈와 흐름으로 읽습니다.">
+  <meta property="og:url" content="https://nuclens.pages.dev/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NUCLENS | 원자력 정책·산업 이슈 브리핑">
+  <meta name="twitter:description" content="원자력 정책·규제·산업 이슈를 매일 추적합니다.">
+  <title>NUCLENS | 원자력 정책·산업 이슈 브리핑</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,14 +28,15 @@
   <div class="wrap topbar-inner">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">N</span>
-      <div>
-        <h1>원자력 인텔리전스</h1>
+      <div class="brand-copy">
+        <h1>NUCLENS</h1>
+        <p>원자력 정책·산업 이슈 브리핑</p>
       </div>
     </div>
     <nav class="main-tabs" id="mainTabs" aria-label="주요 화면">
-      <button class="main-tab active" data-view="news" aria-pressed="true">브리핑</button>
-      <button class="main-tab" data-view="search" aria-pressed="false">전체 검색</button>
-      <button class="main-tab" data-view="trend" aria-pressed="false">흐름 읽기</button>
+      <button class="main-tab active" data-view="news" aria-pressed="true">오늘 브리핑</button>
+      <button class="main-tab" data-view="search" aria-pressed="false">이슈 찾기</button>
+      <button class="main-tab" data-view="trend" aria-pressed="false">주간 흐름</button>
     </nav>
     <p class="update-line" id="metaLine">데이터를 불러오는 중입니다</p>
   </div>
@@ -172,7 +186,7 @@
 </dialog>
 
 <footer class="wrap foot">
-  <p>원문 저작권은 각 언론사와 기관에 있습니다. 본 프로토타입은 제목·AI 요약·출처 링크만 제공합니다.</p>
+  <p>원문 저작권은 각 언론사와 기관에 있습니다. NUCLENS는 제목·AI 요약·출처 링크만 제공합니다.</p>
 </footer>
 
 <script src="app.js"></script>

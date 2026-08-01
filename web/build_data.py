@@ -177,14 +177,42 @@ def load_deliveries() -> dict[str, dict]:
     return out
 
 
-def region_of(record: dict) -> str:
+def infer_region(record: dict, countries: list[str] | None = None) -> tuple[str, str]:
+    """기사의 대상 지역을 수집 경로가 아니라 기사 내용 기준으로 정규화한다.
+
+    명시적인 scope가 있으면 우선 사용한다. 그 외에는 국가 태그를 우선하고,
+    국가를 특정하지 못한 경우에만 section과 domain을 보조 신호로 사용한다.
+    Google News 한국 도메인에 실린 해외 기사까지 국내로 잡히던 오류를 막는다.
+    """
     scope = (record.get("scope") or "").lower()
     if scope == "kr":
-        return "국내"
+        return "국내", "scope"
     if scope == "overseas":
-        return "해외"
+        return "해외", "scope"
+
+    confident_countries = {
+        str(country).strip().upper()
+        for country in (countries or [])
+        if str(country).strip().upper() not in {"", "OTHER"}
+    }
+    if confident_countries:
+        return ("국내" if "KR" in confident_countries else "해외"), "countries"
+
+    section = (record.get("section") or "").lower()
+    if section in {"domestic", "khnp"}:
+        return "국내", "section"
+    if section in {"international", "overseas", "global"}:
+        return "해외", "section"
+
     domain = (record.get("domain") or "").lower()
-    return "국내" if any(hint in domain for hint in _KR_DOMAIN_HINTS) else "해외"
+    return (
+        "국내" if any(hint in domain for hint in _KR_DOMAIN_HINTS) else "해외",
+        "domain",
+    )
+
+
+def region_of(record: dict, countries: list[str] | None = None) -> str:
+    return infer_region(record, countries)[0]
 
 
 def date_of(record: dict) -> str:
@@ -798,6 +826,7 @@ def build() -> None:
         delivery = deliveries.get(record.get("hash", ""))
         topics, topic_source = infer_topics(record)
         countries, country_source = infer_countries(record)
+        region, region_source = infer_region(record, countries)
         canonical_tags = list(dict.fromkeys(
             _canonical_tag(tag) for tag in (record.get("tags") or []) if _canonical_tag(tag)
         ))
@@ -806,7 +835,8 @@ def build() -> None:
             "date": article_date,
             "article_date": article_date,
             "briefing_date": delivery.get("date") if delivery else None,
-            "region": region_of(record),
+            "region": region,
+            "region_source": region_source,
             "importance": importance,
             "section": record.get("section", ""),
             "category": record.get("category", ""),
@@ -908,6 +938,16 @@ def build() -> None:
     country_coverage = (sum(1 for item in news_items if item["countries"]) / len(news_items)) if news_items else 0
     heuristic_topic_count = sum(1 for item in news_items if item["topic_source"] == "heuristic-v1")
     heuristic_country_count = sum(1 for item in news_items if item["country_source"] == "heuristic-v1")
+    region_source_counts = Counter(item.get("region_source", "unknown") for item in news_items)
+    region_country_mismatch_count = sum(
+        1
+        for item in news_items
+        if (set(item.get("countries") or []) - {"OTHER"})
+        and (
+            ("KR" in set(item.get("countries") or []) and item.get("region") != "국내")
+            or ("KR" not in set(item.get("countries") or []) and item.get("region") != "해외")
+        )
+    )
     selected_items = [item for item in news_items if item.get("briefing_date")]
     embedded_selected_count = sum(1 for item in selected_items if item["hash"] in embeddings)
     match_methods = Counter(
@@ -935,6 +975,9 @@ def build() -> None:
         "taxonomy_version": "prototype-heuristic-v1",
         "heuristic_topic_count": heuristic_topic_count,
         "heuristic_country_count": heuristic_country_count,
+        "region_classification_version": "country-first-v1",
+        "region_source_counts": dict(region_source_counts),
+        "region_country_mismatch_count": region_country_mismatch_count,
         "trend_ready": topic_coverage >= 0.8 and country_coverage >= 0.8 and len(weeks) >= 2,
         "issue_matching_version": "hybrid-guarded-v2",
         "issue_window_days": ISSUE_WINDOW_DAYS,

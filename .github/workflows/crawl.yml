@@ -25,6 +25,16 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # news_bot이 계산한 임베딩을 다음 실행과 웹 이슈 클러스터링에서 재사용한다.
+      # 캐시는 immutable이므로 run_id별로 저장하고 최신 prefix를 복원한다.
+      - name: Restore embeddings cache
+        uses: actions/cache/restore@v4
+        with:
+          path: embeddings.json
+          key: ${{ runner.os }}-nuclear-embeddings-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-nuclear-embeddings-
+
       - run: python news_bot.py
         env:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
@@ -36,6 +46,25 @@ jobs:
           # 이메일 뉴스레터 수집 (선택 — 미설정 시 자동 스킵)
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+
+      - name: Check embeddings cache
+        id: embeddings-cache
+        run: |
+          if [ -s embeddings.json ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            count=$(python -c "import json; print(len(json.load(open('embeddings.json', encoding='utf-8'))))")
+            echo "임베딩 캐시 ${count}건"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "임베딩 캐시 없음 — 제목·태그 fallback 사용"
+          fi
+
+      - name: Save embeddings cache
+        if: steps.embeddings-cache.outputs.available == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: embeddings.json
+          key: ${{ runner.os }}-nuclear-embeddings-${{ github.run_id }}
 
       - name: Sync recent archive to policy web
         continue-on-error: true
@@ -60,7 +89,6 @@ jobs:
       # Pages 무료 티어 월 500회 제한: 매시간(720회/월)은 초과 → 짝수시(~360회/월)로 제한.
       # 시크릿 미설정이면 조용히 스킵 (크롤 본연 기능에 비치명).
       - name: Deploy web to Cloudflare Pages
-        continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -73,7 +101,6 @@ jobs:
       # 배포 후 라이브 스모크 — "데이터는 올라갔는데 화면이 죽는" 사고(2026-08-01) 재발 감지.
       # 홀수시·시크릿 미설정으로 배포를 스킵한 경우엔 직전 배포본을 검사하게 되므로 무해.
       - name: Smoke test live site
-        continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |

@@ -39,6 +39,29 @@ class SelectionReasonTests(unittest.TestCase):
         self.assertEqual(reasons, ["브리핑 우선순위"])
 
 
+class RegionClassificationTests(unittest.TestCase):
+    def test_google_korea_domain_does_not_turn_us_story_domestic(self):
+        record = {
+            "title_kr": "미국 원전의 80년 장기운전 및 민간 금융 동향",
+            "summary": "미국 원전 정책을 분석한다.",
+            "domain": "news.google.co.kr",
+            "section": "international",
+        }
+        countries, _ = build_data.infer_countries(record)
+        self.assertIn("US", countries)
+        self.assertEqual(build_data.region_of(record, countries), "해외")
+
+    def test_korean_project_with_foreign_counterpart_stays_domestic(self):
+        record = {
+            "title_kr": "한국 SMR 선박, 미국선급협회 기본승인 획득",
+            "domain": "world-nuclear-news.org",
+            "section": "smr",
+        }
+        countries, _ = build_data.infer_countries(record)
+        self.assertIn("KR", countries)
+        self.assertEqual(build_data.region_of(record, countries), "국내")
+
+
 class IssueSimilarityTests(unittest.TestCase):
     def test_paraphrased_12th_plan_articles_are_one_issue(self):
         news = json.loads((DATA_DIR / "news.json").read_text(encoding="utf-8"))
@@ -294,7 +317,9 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_initial_data_connection_recovers_without_manual_reload(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn("window.setTimeout(init, 5000)", script)
+        self.assertIn("initRetryCount <= 5", script)
+        self.assertIn("window.setTimeout(init, delay)", script)
+        self.assertIn('id="retryInit"', script)
         self.assertIn('window.addEventListener("online"', script)
         self.assertIn("if (appReady || initLoading) return", script)
         self.assertIn("function renderSystemStatus", script)
@@ -326,6 +351,36 @@ class GeneratedDataTests(unittest.TestCase):
             for left, right in combinations(members, 2):
                 self.assertFalse(build_data._country_conflict(left, right))
                 self.assertFalse(build_data._facility_conflict(left, right))
+
+    def test_region_matches_confident_country_tags(self):
+        self.assertEqual(self.meta["region_classification_version"], "country-first-v1")
+        self.assertEqual(self.meta["region_country_mismatch_count"], 0)
+        for article in self.news:
+            countries = set(article.get("countries") or []) - {"OTHER"}
+            if not countries:
+                continue
+            expected = "국내" if "KR" in countries else "해외"
+            self.assertEqual(article["region"], expected, article["title_kr"])
+
+    def test_public_brand_and_indexing_metadata_are_complete(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("NUCLENS", html)
+        self.assertNotIn('content="noindex"', html)
+        self.assertIn('name="description"', html)
+        self.assertIn('rel="canonical"', html)
+        self.assertIn('property="og:title"', html)
+        for name in ("favicon.svg", "robots.txt", "sitemap.xml"):
+            self.assertTrue((ROOT / "public" / name).exists(), name)
+
+    def test_ci_persists_embeddings_and_fails_on_web_smoke_errors(self):
+        repo_root = ROOT.parent
+        crawl = (repo_root / ".github" / "workflows" / "crawl.yml").read_text(encoding="utf-8")
+        daily = (repo_root / ".github" / "workflows" / "daily-brief.yml").read_text(encoding="utf-8")
+        self.assertIn("actions/cache/restore@v4", crawl)
+        self.assertIn("actions/cache/save@v4", crawl)
+        self.assertIn("Restore embeddings cache", daily)
+        self.assertNotIn("- name: Smoke test live site\n        continue-on-error: true", crawl)
+        self.assertNotIn("- name: Render smoke (라이브 화면 검증)\n        if: always() && steps.claim.conclusion == 'success'\n        continue-on-error: true", daily)
 
 
 if __name__ == "__main__":

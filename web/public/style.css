@@ -75,7 +75,9 @@ a { color: inherit; }
   font-size: 20px;
   font-weight: 700;
 }
-.brand h1 { margin: 0; font-size: 17px; line-height: 1.25; letter-spacing: -.02em; }
+.brand-copy { min-width: 0; }
+.brand h1 { margin: 0; font-size: 16px; line-height: 1.1; letter-spacing: .08em; }
+.brand p { margin: 4px 0 0; color: var(--muted); font-size: 10.5px; line-height: 1.15; white-space: nowrap; }
 .update-line { justify-self: end; margin: 0; color: var(--muted); font-size: 11.5px; text-align: right; }
 
 .main-tabs { display: flex; align-self: stretch; }
@@ -638,6 +640,7 @@ button:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visib
   .wrap { width: min(100% - 24px, 1080px); }
   .topbar-inner { min-height: 68px; }
   .brand-mark { width: 34px; height: 34px; }
+  .brand p { display: none; }
   .main-tab { padding-inline: 10px; font-size: 12.5px; }
   .main-tab::after { left: 8px; right: 8px; }
   .page-shell { padding-top: 18px; }
@@ -673,10 +676,19 @@ button:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visib
   .readiness-panel { align-items: flex-start; flex-direction: column; }
   .trend-grid { grid-template-columns: 1fr; }
   .data-card.wide { grid-column: auto; }
+  .search-field > span, .topic-field > span,
+  .flow-label, .event-block > strong { font-size: 11px; }
+  .issue-meta, .dialog-meta, .news-meta,
+  .flow-head span, .flow-range small, .coverage span,
+  .bar-name, .rise-row, .evidence > summary, .evidence li,
+  .notice { font-size: 12px; }
+  .issue-status, .topic, .reason, .tag-row span,
+  .flow-region, .dialog-meaning strong, .dialog-section-head span,
+  .timeline-date small, .timeline-copy small { font-size: 11px; }
 }
 
 @media (max-width: 440px) {
-  .brand h1 { display: none; }
+  .brand-copy { display: none; }
   .topbar-inner { gap: 8px; }
   .main-tab { padding-inline: 8px; font-size: 11.5px; }
   .main-tab::after { left: 6px; right: 6px; }
