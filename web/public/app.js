@@ -789,7 +789,7 @@ function renderTopicChart(trend) {
     return `<polyline points="${points}" fill="none" stroke="${colors[topicIndex % colors.length]}" stroke-width="3"/>`;
   }).join("");
   const labels = trend.weeks.map((week, index) => (
-    `<text x="${x(index)}" y="${height - 8}" font-size="11" fill="currentColor" opacity=".65" text-anchor="middle">${esc(week.slice(5))}</text>`
+    `<text x="${x(index)}" y="${height - 8}" font-size="12.5" fill="currentColor" opacity=".65" text-anchor="middle">${esc(week.slice(5))}</text>`
   )).join("");
   box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="주제별 주간 기사 수 추이">${lines}${labels}</svg>`;
   legend.innerHTML = topics.map((topic, index) => (

@@ -40,6 +40,21 @@ class BrandAccessibilityTests(unittest.TestCase):
         contrast = (lighter + 0.05) / (darker + 0.05)
         self.assertGreaterEqual(contrast, 4.5)
 
+    def test_rendered_text_has_12_5px_minimum(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        css_sizes = [
+            float(value)
+            for value in re.findall(r"font-size:\s*(\d+(?:\.\d+)?)px", css)
+        ]
+        inline_svg_sizes = [
+            float(value)
+            for value in re.findall(r'font-size="(\d+(?:\.\d+)?)"', app)
+        ]
+        too_small = [size for size in css_sizes + inline_svg_sizes if size < 12.5]
+        self.assertEqual(too_small, [])
+        self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
+
 
 class SelectionReasonTests(unittest.TestCase):
     def test_breakdown_becomes_two_human_reasons(self):
