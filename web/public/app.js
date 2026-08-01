@@ -184,6 +184,7 @@ function currentBriefing() {
   return state.briefings.find(briefing => briefing.date === state.briefingDate) || null;
 }
 
+const VERIFICATION_ORDER = ["official", "corroborated", "partial", "unverified"];
 const VERIFICATION_VIEW = {
   official: { mark: "✓", label: "공식 확인", detail: "규제기관 또는 사업자 공식 문서로 확인된 내용입니다" },
   corroborated: { mark: "✓", label: "복수 출처 확인", detail: "재인용 관계를 제외한 독립 출처 2곳 이상이 일치합니다" },
@@ -478,8 +479,9 @@ function issueMatchesFilters(issue) {
 
 function issueStatusText(issue, archive = false) {
   if (archive && issue.lifecycle === "quiet") return `종결 · ${dateLabel(issue.last_seen)}`;
-  if (issue.importance === "must_read") return "주요";
   const tracked = issue.tracked_briefings || issue.briefing_count || 1;
+  // 중요도가 추적 이력을 덮으면 '달라진 이슈'인데 무엇이 이어지는지 안 보인다.
+  if (issue.importance === "must_read") return tracked > 1 ? `주요 · ${tracked}회 추적` : "주요";
   if (tracked > 1) return `업데이트 · ${tracked}회 추적`;
   // 검증 상태는 배지가 단독으로 책임진다. 여기서 다시 말하면 같은 줄에 두 번 뜬다.
   return "새 이슈";
@@ -532,15 +534,18 @@ function issueCard(issue, index, archive = false) {
 }
 
 function renderBriefingSidebar(briefing) {
-  document.getElementById("sideStats").innerHTML = `
-    <span><strong>${briefing.issue_count || 0}</strong><small>연결 이슈</small></span>
-    <span><strong>${briefing.article_count || 0}</strong><small>원문 기사</small></span>
-    <span><strong>${briefing.primary_source_count ?? 0}</strong><small>1차 출처</small></span>
-    <span><strong>${briefing.tracked_issue_count ?? 0}</strong><small>이어지는 이슈</small></span>`;
-  const tracked = briefing.issues.filter(issue => (issue.tracked_briefings || 1) > 1).slice(0, 4);
-  document.getElementById("sideTracked").innerHTML = tracked.length
-    ? tracked.map(issue => `<li><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button><small>${issue.tracked_briefings}회 추적</small></li>`).join("")
-    : "<li class=\"empty\">오늘 이어지는 이슈가 없습니다.</li>";
+  // 히어로가 이미 지표를 보여준다. 사이드에는 히어로에 없는 검증 분포를 둔다.
+  const verified = new Map(VERIFICATION_ORDER.map(status => [status, 0]));
+  briefing.issues.forEach(issue => {
+    const { status } = verificationState(issue);
+    verified.set(status, (verified.get(status) || 0) + 1);
+  });
+  document.getElementById("sideVerification").innerHTML = VERIFICATION_ORDER
+    .filter(status => verified.get(status) > 0)
+    .map(status => `<div class="v-row v-${status}">
+      <span>${VERIFICATION_VIEW[status].mark} ${esc(VERIFICATION_VIEW[status].label)}</span><strong>${verified.get(status)}</strong>
+    </div>`).join("")
+    || '<p class="empty">오늘 판정할 이슈가 없습니다.</p>';
   const weekly = (state.insights?.featured_items || state.insights?.items || []).slice(0, 3);
   document.getElementById("sideWeekly").innerHTML = weekly.length
     ? weekly.map(item => `<li><strong>${esc(item.keyword)}</strong><small>이번 주 ${item.count_now}회 · ${item.count_now - item.count_prev >= 0 ? "+" : ""}${item.count_now - item.count_prev}</small></li>`).join("")
@@ -551,11 +556,30 @@ function renderBriefingSidebar(briefing) {
     .map(([topic]) => `<button type="button" data-quick-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}</button>`).join("");
 }
 
+// 이전 브리핑 이후 상태가 실제로 움직인 이슈 — 히어로 아래 첫 구역의 재료다.
+function changedIssues(briefing) {
+  return briefing.issues
+    .filter(issue => issue.status === "ongoing" || (issue.previous_article_count || 0) > 0)
+    .slice(0, 5);
+}
+
+function renderBriefingStatus(briefing) {
+  const official = briefing.primary_source_count
+    ?? briefing.issues.reduce((sum, issue) => sum + officialSourceCount(issue), 0);
+  const checkedAt = briefing.issues[0]?.verification?.checked_at || state.meta?.generated_at || "";
+  document.getElementById("briefingStatus").innerHTML = `
+    <div><dt>마지막 확인</dt><dd>${checkedAt ? esc(timeLabel(checkedAt)) : "–"}</dd></div>
+    <div><dt>연결 이슈</dt><dd>${briefing.issue_count ?? 0}<small>개</small></dd></div>
+    <div><dt>원문 기사</dt><dd>${briefing.article_count ?? 0}<small>건</small></dd></div>
+    <div><dt>공식 출처</dt><dd>${official}<small>건</small></dd></div>`;
+}
+
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
   issueList.classList.remove("skeleton-list");
   if (!briefing) {
+    document.getElementById("changedIssues").hidden = true;
     document.getElementById("briefingTitle").textContent = "오늘은 새로 연결된 이슈가 없습니다";
     issueList.innerHTML = '<div class="empty-state"><strong>오늘은 새로 연결된 이슈가 없습니다</strong><p>가장 최근 브리핑을 확인해 보세요.</p></div>';
     return;
@@ -564,21 +588,29 @@ function renderBriefing() {
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
   }
-  document.getElementById("briefingTitle").textContent = briefing.headline || briefing.issues[0]?.summary || briefing.issues[0]?.title || "오늘의 핵심";
+  document.getElementById("briefingTitle").textContent = briefing.headline || briefing.issues[0]?.title || "오늘의 핵심";
+  // 오버라인은 h1이 실제로 무엇인지 따라간다. 변화 문장이 아닌데 '달라졌는가'라고
+  // 쓰면 제목이 거짓말이 된다.
+  document.getElementById("briefingKicker").textContent =
+    briefing.headline_kind === "change" ? "오늘, 무엇이 달라졌는가" : "오늘의 핵심 이슈";
   document.getElementById("briefingDateLabel").textContent = `· ${dateWeekdayLabel(briefing.date)}`;
-  document.getElementById("briefingStats").innerHTML = `
-    <span><strong>${briefing.issue_count}</strong><small>이슈</small></span>
-    <span><strong>${briefing.article_count}</strong><small>기사</small></span>
-    <span><strong>${briefing.primary_source_count ?? briefing.issues.reduce((sum, issue) => sum + officialSourceCount(issue), 0)}</strong><small>1차 출처</small></span>
-    <span><strong>${briefing.tracked_issue_count ?? briefing.issues.filter(issue => (issue.tracked_briefings || 1) > 1).length}</strong><small>이어지는 이슈</small></span>`;
-  const highlights = briefing.highlight_issues || briefing.issues.slice(0, 3);
-  document.getElementById("briefingHighlights").innerHTML = highlights.length
-    ? highlights.slice(0, 3).map((item, index) => `<li><button type="button" data-issue-id="${esc(item.issue_id || briefing.issues[index]?.issue_id)}"><span>${index + 1}</span>${esc(item.title || item)}</button></li>`).join("")
-    : "<li>오늘 새로 확인된 근거 이슈가 없습니다.</li>";
-  document.getElementById("issueCount").textContent = `${issues.length}개 이슈`;
+  renderBriefingStatus(briefing);
+
+  const changed = changedIssues(briefing);
+  const changedIds = new Set(changed.map(issue => issue.issue_id));
+  const rest = issues.filter(issue => !changedIds.has(issue.issue_id));
+  const changedSection = document.getElementById("changedIssues");
+  const visibleChanged = changed.filter(issueMatchesFilters);
+  changedSection.hidden = visibleChanged.length === 0;
+  document.getElementById("changedCount").textContent = `${visibleChanged.length}개 이슈`;
+  document.getElementById("changedList").innerHTML =
+    visibleChanged.map((issue, index) => issueCard(issue, index)).join("");
+  document.getElementById("showChangedIssues").hidden = visibleChanged.length === 0;
+
+  document.getElementById("issueCount").textContent = `${rest.length}개 이슈`;
   issueList.classList.toggle("list-view", state.issueView === "list");
-  issueList.innerHTML = issues.length
-    ? issues.map((issue, index) => issueCard(issue, index)).join("")
+  issueList.innerHTML = rest.length
+    ? rest.map((issue, index) => issueCard(issue, index)).join("")
     : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>';
   const activeFilters = [];
   if (state.region !== "전체") activeFilters.push(state.region);
@@ -662,9 +694,11 @@ function renderArchiveSearch(resetLimit = false) {
     state.archiveTopic !== "전체" ? TOPIC_LABELS[state.archiveTopic] || state.archiveTopic : "",
     state.archiveVerification === "verified" ? "공식·복수 출처 확인" : state.archiveVerification === "unverified" ? "일부·확인 중" : "",
   ].filter(Boolean);
+  const matchedArticles = matches.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
+  const scale = `${matches.length}개 이슈 · ${matchedArticles}개 원문`;
   document.getElementById("archiveSummary").textContent = activeFilters.length
-    ? `${activeFilters.join(" · ")} — ${matches.length}개 이슈`
-    : `${matches.length}개 이슈`;
+    ? `${activeFilters.join(" · ")} — ${scale}`
+    : scale;
   document.getElementById("archiveQueryDisplay").textContent = state.archiveQuery ? `검색어 · ${state.archiveQuery}` : "검색어 없음";
   document.getElementById("archiveIssueList").innerHTML = visible.length
     ? visible.map((issue, index) => issueCard(issue, index, true)).join("")
@@ -820,8 +854,8 @@ function renderInsights() {
     return `<article class="flow-item">
       <div class="flow-rank">${String(index + 1).padStart(2, "0")}</div>
       <div class="flow-copy">
-        <div class="flow-head"><h3>${esc(item.keyword)}</h3><span>이번 주 ${item.count_now}회 · 전주 대비 ${delta >= 0 ? "+" : "−"}${Math.abs(delta)}</span></div>
-        <p class="flow-takeaway">${esc(takeaway)}</p>
+        <div class="flow-head"><h3>${esc(takeaway)}</h3><span>이번 주 ${item.count_now}회 · 전주 대비 ${delta >= 0 ? "+" : "−"}${Math.abs(delta)}</span></div>
+        <p class="flow-keyword"><span>${esc(item.keyword)}</span></p>
         ${eventBullets ? `<div class="event-block"><strong>구성 사건</strong><ul>${eventBullets}</ul></div>` : ""}
         <details class="evidence"><summary>전체 해석과 근거 보기</summary><p>${esc(fullDirection)}</p>${evidence ? `<ul class="evidence-links">${evidence}</ul>` : ""}</details>
       </div>
@@ -1055,11 +1089,14 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  ["issueList", "archiveIssueList", "savedIssueList", "briefingHighlights", "sideTracked", "issueDialog"].forEach(id => {
+  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 
-  document.getElementById("showAllIssues").addEventListener("click", () => document.getElementById("todayIssues").scrollIntoView({ behavior: "smooth" }));
+  document.getElementById("showChangedIssues").addEventListener("click", () => {
+    const section = document.getElementById("changedIssues");
+    (section.hidden ? document.getElementById("todayIssues") : section).scrollIntoView({ behavior: "smooth" });
+  });
   document.getElementById("regionTabs").addEventListener("click", event => {
     const button = event.target.closest("[data-region]");
     if (!button) return;
@@ -1206,7 +1243,10 @@ async function init() {
   setPressed(document.getElementById("regionTabs"), document.querySelector(`#regionTabs [data-region="${state.region}"]`));
   setPressed(document.getElementById("archivePeriod"), document.querySelector(`#archivePeriod [data-period="${state.archivePeriod}"]`));
   const firstIssueDate = state.issues.reduce((oldest, issue) => !oldest || issue.first_seen < oldest ? issue.first_seen : oldest, "");
-  document.getElementById("archiveCatalogMeta").textContent = `${dateLabel(firstIssueDate)}–${dateLabel(state.meta.latest_briefing_date)} · ${state.issues.length}개 이슈`;
+  // 이슈 수와 원문 수는 다른 단위다. 한 숫자로 뭉치면 규모를 오해한다.
+  const catalogArticles = state.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
+  document.getElementById("archiveCatalogMeta").textContent =
+    `${state.issues.length}개 이슈 · ${catalogArticles}개 원문 · ${dateLabel(firstIssueDate)}–${dateLabel(state.meta.latest_briefing_date)}`;
   renderDateSelect();
   renderBriefing();
   renderArchiveSearch();

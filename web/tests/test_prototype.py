@@ -260,6 +260,27 @@ class DailyHeadlineTests(unittest.TestCase):
         self.assertLessEqual(len(headline), build_data.HEADLINE_LIMIT)
         self.assertNotIn("→", headline)
 
+    def test_change_headline_is_labelled_as_a_change(self):
+        rows = [
+            {"status": "new", "latest_change": "", "title": "새 이슈", "summary": ""},
+            {
+                "status": "ongoing",
+                "latest_change": "심사가 시작됐다 → 원안위가 신한울 3호기 건설 허가를 의결했다.",
+                "title": "원안위, 신한울 3호기 허가",
+                "summary": "",
+            },
+        ]
+        lead = build_data.daily_lead(rows)
+        self.assertEqual(lead["kind"], "change")
+        self.assertNotIn("→", lead["headline"])
+        self.assertIn("의결", lead["headline"])
+
+    def test_headline_without_a_change_is_not_labelled_as_one(self):
+        rows = [{"status": "new", "latest_change": "", "title": "한수원, 체코 본계약 서명", "summary": ""}]
+        lead = build_data.daily_lead(rows)
+        self.assertEqual(lead["kind"], "issue")
+        self.assertEqual(lead["headline"], "한수원, 체코 본계약 서명")
+
     def test_empty_briefing_has_a_stable_headline(self):
         self.assertEqual(
             build_data.daily_headline([]), "오늘 새로 연결된 원자력 이슈가 없습니다"
@@ -637,7 +658,9 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('id="globalSearchOpen"', html)
         self.assertIn('id="globalSearchDialog"', html)
         self.assertIn('id="topicSel"', html)
-        self.assertIn('class="flow-takeaway"', script)
+        # 흐름 카드의 제목은 키워드가 아니라 해석 문장이다.
+        self.assertIn("<h3>${esc(takeaway)}</h3>", script)
+        self.assertIn('class="flow-keyword"', script)
         self.assertIn('class="event-block"', script)
         self.assertIn('event.key === "/"', script)
 
@@ -671,8 +694,9 @@ class GeneratedDataTests(unittest.TestCase):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn("기관, 호기, 주제로 검색", html)
-        self.assertIn("<small>1차 출처</small>", script)
-        self.assertIn("<small>이어지는 이슈</small>", script)
+        # 히어로는 이제 지표를 정의 목록(데이터 상태)으로 보여준다.
+        self.assertIn("<dt>공식 출처</dt>", script)
+        self.assertIn("<dt>마지막 확인</dt>", script)
 
     def test_p1_copy_overlines_and_card_hierarchy(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -901,6 +925,24 @@ class GeneratedDataTests(unittest.TestCase):
             for issue in briefing["issues"]:
                 if issue["latest_change"]:
                     self.assertNotEqual(issue["latest_change"].rstrip(".!?"), issue["summary"].rstrip(".!?"))
+
+    def test_p4_home_splits_changed_issues_from_the_rest(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        for element_id in ("changedIssues", "changedList", "changedCount", "briefingKicker", "briefingStatus"):
+            self.assertIn(f'id="{element_id}"', html)
+        # 히어로가 아래 카드 목록을 그대로 반복하던 블록은 데이터 상태로 교체했다.
+        self.assertNotIn('id="briefingHighlights"', html)
+        self.assertNotIn('id="sideStats"', html)
+        self.assertIn("function changedIssues", script)
+        self.assertIn("function renderBriefingStatus", script)
+
+    def test_p4_briefings_declare_what_the_headline_is(self):
+        for briefing in self.briefings:
+            self.assertIn(briefing["headline_kind"], {"change", "issue", "empty"})
+            self.assertIn("changed_issue_count", briefing)
+            if briefing["headline_kind"] == "change":
+                self.assertGreater(briefing["changed_issue_count"], 0)
 
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")

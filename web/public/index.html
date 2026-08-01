@@ -68,33 +68,43 @@
       </div>
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="hero-kicker">오늘, 무엇이 달라졌는가</p>
+          <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
           <h1 id="briefingTitle">오늘의 핵심을 정리하고 있습니다</h1>
           <div class="hero-actions">
-            <button id="showAllIssues" type="button">오늘 이슈 전체 보기 <span aria-hidden="true">→</span></button>
+            <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
             <button type="button" data-go-view="trend">주간 흐름 <span aria-hidden="true">→</span></button>
           </div>
         </div>
-        <div class="hero-evidence">
-          <p>판단 근거</p>
-          <ol id="briefingHighlights"><li>근거 이슈를 연결하고 있습니다</li></ol>
+        <div class="hero-status">
+          <p>데이터 상태</p>
+          <dl id="briefingStatus">
+            <div><dt>마지막 확인</dt><dd>–</dd></div>
+            <div><dt>연결 이슈</dt><dd>–</dd></div>
+            <div><dt>원문 기사</dt><dd>–</dd></div>
+            <div><dt>공식 출처</dt><dd>–</dd></div>
+          </dl>
         </div>
-      </div>
-      <div class="hero-stats" id="briefingStats" aria-label="오늘 브리핑 지표">
-        <span><strong>–</strong><small>이슈</small></span>
-        <span><strong>–</strong><small>기사</small></span>
-        <span><strong>–</strong><small>1차 출처</small></span>
-        <span><strong>–</strong><small>이어지는 이슈</small></span>
       </div>
     </section>
 
     <div class="briefing-content-grid">
       <div class="briefing-main">
+        <section id="changedIssues" class="issues-section changed-section" aria-labelledby="changedIssuesTitle" hidden>
+          <div class="section-heading">
+            <div>
+              <h2 id="changedIssuesTitle">지금 달라진 이슈</h2>
+              <p>이전 브리핑 이후 상태가 움직인 이슈입니다.</p>
+            </div>
+            <p id="changedCount" class="section-count"></p>
+          </div>
+          <div id="changedList" class="issue-list"></div>
+        </section>
+
         <section id="todayIssues" class="issues-section" aria-labelledby="todayIssuesTitle">
           <div class="section-heading issue-section-heading">
             <div>
               <p class="eyebrow dark">TODAY</p>
-              <h2 id="todayIssuesTitle">오늘의 이슈</h2>
+              <h2 id="todayIssuesTitle">오늘 확인된 이슈</h2>
               <p>기사가 아니라 연결된 이슈 단위입니다.</p>
             </div>
             <div class="issue-section-tools">
@@ -141,8 +151,7 @@
       </div>
 
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
-        <section class="side-panel"><h2>오늘의 지표</h2><div id="sideStats" class="side-stats"></div></section>
-        <section class="side-panel"><h2>이어지는 이슈</h2><ol id="sideTracked"></ol></section>
+        <section class="side-panel"><h2>오늘의 검증 상태</h2><div id="sideVerification" class="side-verification"></div></section>
         <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">주간 흐름 전체 보기 →</button></section>
         <section class="side-panel"><h2>자주 찾는 주제</h2><div id="quickTopics" class="quick-topics"></div></section>
       </aside>

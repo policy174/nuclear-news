@@ -1181,19 +1181,11 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
     }
 
 
-def daily_headline(issue_rows: list[dict]) -> str:
-    """최상위 이슈의 확인된 사실을 오늘의 한 문장으로 사용한다."""
-    if not issue_rows:
-        return "오늘 새로 연결된 원자력 이슈가 없습니다"
-    lead = issue_rows[0]
-    candidates: list[str] = []
-    if lead.get("status") == "ongoing":
-        # latest_change는 "이전 상태 → 현재 상태"일 수 있다. 헤드라인에는 현재
-        # 사실만 쓴다. 두 상태를 모두 넣으면 같은 사건을 두 번 읽히고 길어진다.
-        candidates.append(str(lead.get("latest_change") or "").split("→")[-1])
-    candidates.append(str(lead.get("title") or ""))
-    candidates.append(str(lead.get("summary") or ""))
+EMPTY_HEADLINE = "오늘 새로 연결된 원자력 이슈가 없습니다"
 
+
+def _fit_headline(candidates: list[object]) -> str:
+    """후보 문장 중 히어로 한 줄에 들어가는 첫 문장을 고른다."""
     fallback = ""
     for candidate in candidates:
         headline = flow_takeaway(candidate, limit=HEADLINE_LIMIT).strip().rstrip(".!?")
@@ -1203,10 +1195,37 @@ def daily_headline(issue_rows: list[dict]) -> str:
             return headline
         fallback = fallback or headline
     if not fallback:
-        return "오늘 새로 연결된 원자력 이슈가 없습니다"
+        return ""
     # flow_takeaway가 안전하게 종결하지 못한 문장은 원문을 지키느라 길이를 넘긴다.
     # 히어로 h1이 문단으로 번지지 않도록 마지막 단계에서만 말줄임한다.
     return f"{fallback[:HEADLINE_LIMIT - 1].rstrip()}…"
+
+
+def daily_lead(issue_rows: list[dict]) -> dict:
+    """히어로 문장과 그 문장의 성격(kind)을 함께 만든다.
+
+    kind가 오버라인 문구를 정한다. 변화 문장이 없는데 '무엇이 달라졌는가'라고
+    쓰면 제목이 거짓말이 되므로, 실제로 상태가 움직인 이슈가 있을 때만
+    change로 표시한다.
+    """
+    if not issue_rows:
+        return {"headline": EMPTY_HEADLINE, "kind": "empty"}
+
+    # latest_change의 화살표는 '이전 상태 → 현재 상태'가 실제로 갈렸다는 뜻이다.
+    changed = [row for row in issue_rows if "→" in str(row.get("latest_change") or "")]
+    if changed:
+        after = str(changed[0]["latest_change"]).split("→")[-1]
+        headline = _fit_headline([after])
+        if headline:
+            return {"headline": headline, "kind": "change"}
+
+    lead = issue_rows[0]
+    headline = _fit_headline([lead.get("title"), lead.get("summary")])
+    return {"headline": headline or EMPTY_HEADLINE, "kind": "issue" if headline else "empty"}
+
+
+def daily_headline(issue_rows: list[dict]) -> str:
+    return daily_lead(issue_rows)["headline"]
 
 
 def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "") -> list[dict]:
@@ -1272,6 +1291,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
         for row in issue_rows:
             row.pop("sort_score", None)
 
+        lead = daily_lead(issue_rows)
         briefings.append({
             "date": briefing_date,
             "article_count": len(current_articles),
@@ -1284,7 +1304,11 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 1 for row in issue_rows
                 if row["verification"]["status"] in {"official", "corroborated"}
             ),
-            "headline": daily_headline(issue_rows),
+            "headline": lead["headline"],
+            "headline_kind": lead["kind"],
+            "changed_issue_count": sum(
+                1 for row in issue_rows if "→" in str(row.get("latest_change") or "")
+            ),
             "highlights": [row["title"] for row in issue_rows[:3]],
             "highlight_issues": [
                 {"issue_id": row["issue_id"], "title": row["title"]}
