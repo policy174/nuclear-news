@@ -169,7 +169,42 @@ function sourceLabel(article) {
 
 function isOfficial(article) {
   const domain = String(article.domain || "").toLowerCase();
-  return article.article_type === "official_doc" || OFFICIAL_HINTS.some(hint => domain.includes(hint));
+  return article.evidence_role === "primary"
+    || article.source_tier === 1
+    || article.article_type === "official_doc"
+    || OFFICIAL_HINTS.some(hint => domain.includes(hint));
+}
+
+function officialSourceCount(issue) {
+  return (issue.related_articles || []).filter(isOfficial).length;
+}
+
+function issueToneClass(issue) {
+  if (issue.importance === "must_read") return "importance-high";
+  if (issue.status === "ongoing" || (issue.tracked_briefings || issue.briefing_count || 1) > 1) {
+    return "importance-updated";
+  }
+  return "importance-standard";
+}
+
+function primaryTopicLabel(issue) {
+  const topic = (issue.topics || [])[0];
+  return topic ? TOPIC_LABELS[topic] || topic : "";
+}
+
+function verificationBadge(issue) {
+  const verified = officialSourceCount(issue) > 0;
+  const label = verified ? "✓ 1차 출처" : "○ 확인 중";
+  const detail = verified
+    ? "규제기관 또는 사업자 공식 발표로 확인된 내용입니다"
+    : "1차 출처를 추가로 확인하고 있습니다";
+  return `<span class="verification-badge ${verified ? "verified" : "unverified"}" title="${detail}">${label}</span>`;
+}
+
+function issueEvidenceText(issue) {
+  const articleCount = issue.article_count || (issue.related_articles || []).length;
+  const confirmedAt = issue.last_seen || issue.representative_article?.article_date || "";
+  return `근거 ${articleCount}건 · 1차 출처 ${officialSourceCount(issue)}건 · ${dateLabel(confirmedAt)} 확인`;
 }
 
 function dateLabel(value) {
@@ -270,29 +305,22 @@ function archiveIssueMatches(issue) {
 
 function archiveIssueCard(issue, index) {
   const lifecycleText = issue.lifecycle === "active" ? "최근 갱신" : "기록 이슈";
-  const lifecycleClass = issue.lifecycle === "active" ? "ongoing" : "quiet";
-  const topicBadges = (issue.topics || []).slice(0, 2).map(topic => (
-    `<span class="topic-chip">${esc(TOPIC_LABELS[topic] || topic)}</span>`
-  )).join("");
-  const reasons = (issue.selection_reasons || []).map(reason => (
-    `<span class="reason ${reasonClass(reason)}">${esc(reason)}</span>`
-  )).join("");
+  const topic = primaryTopicLabel(issue);
   const representativeUrl = safeUrl(issue.representative_article?.url);
-  return `<article class="issue-card archive-card ${issue.importance === "must_read" ? "must" : ""}">
+  return `<article class="issue-card archive-card ${issueToneClass(issue)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
     <div class="issue-body">
       <div class="issue-meta">
-        <span class="issue-status ${lifecycleClass}">${lifecycleText}</span>
+        <span class="issue-state">${lifecycleText}</span>
         <span>${esc(issue.region)}</span>
-        <span>${esc(dateLabel(issue.last_seen))} 갱신</span>
-        <span>${issue.briefing_count}회 브리핑 · ${issue.article_count}건</span>
+        ${topic ? `<span>${esc(topic)}</span>` : ""}
+        ${verificationBadge(issue)}
       </div>
       <h3>${esc(issue.title)}</h3>
       ${issue.summary ? `<p class="issue-summary">${esc(issue.summary)}</p>` : ""}
       ${issue.latest_change ? `<p class="issue-change"><strong>이번 브리핑에서 새로 확인된 것</strong>${esc(issue.latest_change)}</p>` : ""}
       ${issue.implication ? `<p class="issue-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
-      ${topicBadges ? `<div class="topic-row">${topicBadges}</div>` : ""}
-      ${reasons ? `<div class="reason-row">${reasons}</div>` : ""}
+      <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       <div class="issue-actions">
         <button class="issue-detail-button" type="button" data-issue-id="${esc(issue.issue_id)}">이슈 흐름 보기 <span>${issue.article_count}건</span></button>
         <button class="copy-report-button" type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button>
@@ -316,11 +344,13 @@ function renderArchiveSearch(resetLimit = false) {
     : `최근순 ${matches.length}개 이슈`;
   document.getElementById("archiveIssueList").innerHTML = visible.length
     ? visible.map(archiveIssueCard).join("")
-    : '<p class="empty large">조건에 맞는 이슈가 없습니다.</p>';
+    : '<p class="empty large">조건에 맞는 이슈가 없습니다. 기간을 넓히거나 필터를 해제해 보세요.</p>';
   const more = document.getElementById("archiveMore");
   more.hidden = visible.length >= matches.length;
   more.textContent = more.hidden ? "더 보기" : `더 보기 · ${matches.length - visible.length}개 남음`;
-  document.getElementById("archiveClear").hidden = activeFilters.length === 0;
+  const clear = document.getElementById("archiveClear");
+  clear.hidden = activeFilters.length === 0;
+  clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
 }
 
 function syncUrl(mode = "replace") {
@@ -380,13 +410,6 @@ function renderDateSelect() {
   document.getElementById("nextDay").disabled = index <= 0;
 }
 
-function reasonClass(reason) {
-  if (/안전/.test(reason)) return "risk";
-  if (/정책|규제/.test(reason)) return "policy";
-  if (/1차/.test(reason)) return "source";
-  return "neutral";
-}
-
 function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑") {
   const url = safeUrl(article.url);
   const title = esc(article.title_kr);
@@ -403,23 +426,12 @@ function articleTimelineRow(article, briefingDate, currentStage = "이번 브리
 }
 
 function issueCard(issue, index, briefingDate) {
-  const reasons = (issue.selection_reasons || []).map(reason => (
-    `<span class="reason ${reasonClass(reason)}">${esc(reason)}</span>`
-  )).join("");
   const statusText = issue.status === "ongoing"
     ? `이어지는 이슈 · ${issue.tracked_briefings || 2}회 추적`
     : "새 이슈";
-  const statusClass = issue.status === "ongoing" ? "ongoing" : "new";
   const articles = issue.related_articles || [];
-  const topicBadges = (issue.topics || []).slice(0, 2).map(topic => (
-    `<span class="topic-chip">${esc(TOPIC_LABELS[topic] || topic)}</span>`
-  )).join("");
+  const topic = primaryTopicLabel(issue);
   const representativeUrl = safeUrl(issue.representative_article?.url);
-  const articleCountText = issue.status === "ongoing"
-    ? `이번 브리핑 ${issue.current_article_count}건 · 누적 ${issue.article_count}건`
-    : issue.article_count > 1
-      ? `관련 기사 ${issue.article_count}건`
-    : `${relativeArticleDate(issue.representative_article?.article_date, briefingDate)} · ${sourceLabel(issue.representative_article || {})}`;
 
   const sourceArea = `<div class="issue-actions">
     <button class="issue-detail-button" type="button" data-issue-id="${esc(issue.issue_id)}">
@@ -431,20 +443,20 @@ function issueCard(issue, index, briefingDate) {
       : ""}
   </div>`;
 
-  return `<article class="issue-card ${issue.importance === "must_read" ? "must" : ""}">
+  return `<article class="issue-card ${issueToneClass(issue)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
     <div class="issue-body">
       <div class="issue-meta">
-        <span class="issue-status ${statusClass}">${statusText}</span>
+        <span class="issue-state">${statusText}</span>
         <span>${esc(issue.region)}</span>
-        <span>${esc(articleCountText)}</span>
+        ${topic ? `<span>${esc(topic)}</span>` : ""}
+        ${verificationBadge(issue)}
       </div>
       <h3>${esc(issue.title)}</h3>
       ${issue.summary ? `<p class="issue-summary">${esc(issue.summary)}</p>` : ""}
       ${issue.latest_change ? `<p class="issue-change"><strong>이번 브리핑에서 새로 확인된 것</strong>${esc(issue.latest_change)}</p>` : ""}
       ${issue.implication ? `<p class="issue-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
-      ${topicBadges ? `<div class="topic-row">${topicBadges}</div>` : ""}
-      ${reasons ? `<div class="reason-row">${reasons}</div>` : ""}
+      <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       ${sourceArea}
     </div>
   </article>`;
@@ -516,7 +528,6 @@ function openIssueDialog(issueId, updateUrl = true) {
   const updateTitle = archiveView ? "최근 업데이트의 핵심" : "현재 브리핑의 핵심";
   const currentLabel = archiveView ? "최근 브리핑" : "이번 브리핑";
   document.getElementById("issueDialogContent").innerHTML = `
-    <p class="dialog-kicker">ISSUE TIMELINE</p>
     <h2 id="issueDialogTitle">${esc(issue.title)}</h2>
     <div class="dialog-meta">
       <span>${esc(status)}</span>
@@ -575,13 +586,15 @@ function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
   if (!briefing) {
-    document.getElementById("briefingTitle").textContent = "브리핑 데이터가 없습니다";
+    document.getElementById("briefingTitle").textContent = "오늘의 핵심";
+    document.getElementById("briefingDateLabel").textContent = "";
     issueList.innerHTML = '<p class="empty">표시할 브리핑이 없습니다.</p>';
     return;
   }
 
   const issues = briefing.issues.filter(issueMatchesFilters);
-  document.getElementById("briefingTitle").textContent = `${dateLabel(briefing.date)} 브리핑`;
+  document.getElementById("briefingTitle").textContent = "오늘의 핵심";
+  document.getElementById("briefingDateLabel").textContent = `· ${dateLabel(briefing.date)}`;
   document.getElementById("briefingStats").innerHTML = `
     <span><strong>${briefing.issue_count}</strong><small>이슈</small></span>
     <span><strong>${briefing.article_count}</strong><small>기사</small></span>
@@ -597,7 +610,7 @@ function renderBriefing() {
     state.region === "전체" ? `${issues.length}개 이슈` : `${state.region} ${issues.length}개 이슈`;
   issueList.innerHTML = issues.length
     ? issues.map((issue, index) => issueCard(issue, index, briefing.date)).join("")
-    : '<p class="empty large">선택한 지역에 해당하는 브리핑 이슈가 없습니다.</p>';
+    : '<p class="empty large">조건에 맞는 이슈가 없습니다. 주제나 지역 필터를 해제해 보세요.</p>';
 
   const activeFilters = [];
   if (state.region !== "전체") activeFilters.push(state.region);
@@ -606,7 +619,9 @@ function renderBriefing() {
   document.getElementById("filterSummary").textContent = activeFilters.length
     ? `${activeFilters.join(" · ")} — ${issues.length}개 이슈`
     : "";
-  document.getElementById("clearFilters").hidden = activeFilters.length === 0;
+  const clear = document.getElementById("clearFilters");
+  clear.hidden = activeFilters.length === 0;
+  clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
 
   renderNewsFeed();
 }
@@ -647,8 +662,8 @@ function renderNewsFeed() {
       sourceLabel(article), ...(article.canonical_tags || []),
     ].join(" ")).includes(state.query))
   ));
-  document.getElementById("feedTitle").textContent =
-    `${dateLabel(state.briefingDate)} 발행 · ${articles.length}건`;
+  document.getElementById("feedLabel").textContent = `오늘 수집한 원문 ${articles.length}건`;
+  document.getElementById("feedTitle").textContent = `${dateLabel(state.briefingDate)} 발행`;
   document.getElementById("newsList").innerHTML = articles.length
     ? articles.map(articleCard).join("")
     : '<p class="empty">이 날짜에 발행된 수집 기사가 없습니다.</p>';
@@ -730,18 +745,27 @@ function renderTrendReadiness() {
   const ready = Boolean(state.meta?.trend_ready);
   const topicCoverage = Math.round((state.meta?.topic_coverage || 0) * 100);
   const countryCoverage = Math.round((state.meta?.country_coverage || 0) * 100);
+  const days = Number(state.period) || 7;
+  const end = state.meta?.date_max || state.meta?.latest_briefing_date || "";
+  const parsedEnd = new Date(`${end}T00:00:00+09:00`);
+  const requestedStart = new Date(parsedEnd.getTime() - (days - 1) * 86400000).toISOString().slice(0, 10);
+  const start = state.meta?.date_min && state.meta.date_min > requestedStart ? state.meta.date_min : requestedStart;
+  const articleCount = state.news.filter(article => article.article_date >= start && article.article_date <= end).length;
+  const issueCount = state.issues.filter(issue => (
+    (issue.related_articles || []).some(article => article.article_date >= start && article.article_date <= end)
+  )).length;
   const panel = document.getElementById("trendReadiness");
   document.getElementById("trendData").hidden = !ready;
   if (ready) {
-    panel.innerHTML = `<div><strong>프로토타입 통계 사용 가능</strong><p>원본을 바꾸지 않고 기존 제목·태그에서 통제 주제를 로컬 백필했습니다.</p></div>
+    panel.innerHTML = `<div><strong>분석 기간 ${dateLabel(start)}–${dateLabel(end)}</strong><p>중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개</p></div>
       <div class="coverage"><span>주제 분류 <strong>${topicCoverage}%</strong></span><span>국가 분류 <strong>${countryCoverage}%</strong></span></div>`;
     panel.classList.add("ready");
     return;
   }
   panel.classList.remove("ready");
   panel.innerHTML = `<div>
-      <strong>정량 차트는 아직 준비 중입니다</strong>
-      <p>불완전한 집계를 사실처럼 보이지 않도록 통제 태그 백필 전까지 차트를 숨겼습니다.</p>
+      <strong>분류 기준을 확인하고 있습니다</strong>
+      <p>분류가 완료되면 분석 기간과 근거 데이터를 함께 표시합니다.</p>
     </div>
     <div class="coverage">
       <span>주제 분류 <strong>${topicCoverage}%</strong></span>
@@ -763,10 +787,10 @@ function renderTrend() {
 
   document.getElementById("risingTags").innerHTML = trend.rising?.length
     ? trend.rising.map(row => `<div class="rise-row"><span>${esc(row.tag)}</span><strong>+${row.now - row.prev}</strong><small>${row.prev}→${row.now}</small></div>`).join("")
-    : '<p class="empty">급상승 키워드가 없습니다.</p>';
+    : '<p class="empty">이번 주 늘어난 키워드가 없습니다.</p>';
   document.getElementById("newTags").innerHTML = trend.new_tags?.length
     ? trend.new_tags.map(row => `<div class="rise-row"><span>${esc(row.tag)}</span><strong>${row.count}</strong><small>회</small></div>`).join("")
-    : '<p class="empty">새 키워드가 없습니다.</p>';
+    : '<p class="empty">이번 주 처음 나온 키워드가 없습니다.</p>';
   renderTopicChart(trend);
 }
 
@@ -779,7 +803,8 @@ function renderTopicChart(trend) {
     legend.innerHTML = "";
     return;
   }
-  const colors = ["#135d8f", "#b7503b", "#37806b", "#9b7328", "#76528f", "#bb6c2c"];
+  const rootStyle = getComputedStyle(document.documentElement);
+  const colors = [1, 2, 3, 4].map(index => rootStyle.getPropertyValue(`--c-chart-${index}`).trim());
   const width = 800, height = 220, padding = 32;
   const maxValue = Math.max(1, ...topics.flatMap(topic => trend.topic_series[topic]));
   const x = index => padding + index * (width - 2 * padding) / (trend.weeks.length - 1);

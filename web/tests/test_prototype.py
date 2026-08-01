@@ -60,7 +60,7 @@ class BrandAccessibilityTests(unittest.TestCase):
             return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
 
         lighter, darker = sorted(
-            (luminance(tokens["muted"]), luminance(tokens["paper"])),
+            (luminance(tokens["c-text-muted"]), luminance(tokens["c-bg"])),
             reverse=True,
         )
         contrast = (lighter + 0.05) / (darker + 0.05)
@@ -80,6 +80,38 @@ class BrandAccessibilityTests(unittest.TestCase):
         too_small = [size for size in css_sizes + inline_svg_sizes if size < 12.5]
         self.assertEqual(too_small, [])
         self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
+
+    def test_p1_design_tokens_replace_legacy_palette(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        for token in (
+            "c-primary", "c-secondary", "c-accent", "c-bg", "c-surface",
+            "c-surface-sunken", "c-border", "c-text", "c-text-secondary",
+            "c-text-muted", "c-positive", "c-warning", "c-critical",
+            "c-verified", "c-unverified", "c-focus",
+        ):
+            self.assertRegex(css, rf"--{token}:\s*#[0-9a-f]{{6}}")
+        for legacy in (
+            "ink", "ink-soft", "muted", "paper", "panel", "line",
+            "line-strong", "navy", "blue", "blue-soft", "sand", "orange",
+            "green", "shadow",
+        ):
+            self.assertNotRegex(css, rf"--{legacy}\s*:")
+
+    def test_focus_ring_covers_all_interactive_controls(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        selector = ":where(a, button, input, select, textarea, summary, [tabindex]):focus-visible"
+        self.assertIn(selector, css)
+        self.assertIn("outline: 2px solid var(--c-focus);", css)
+        self.assertIn("box-shadow: var(--fo-ring);", css)
+
+    def test_lens_symbol_replaces_lettermark_assets(self):
+        favicon = (ROOT / "public" / "favicon.svg").read_text(encoding="utf-8")
+        logo = (ROOT / "public" / "logo-mark.svg").read_text(encoding="utf-8")
+        self.assertIn('id="favicon-lens"', favicon)
+        self.assertIn('id="nuclens-lens"', logo)
+        self.assertGreaterEqual(favicon.count("<circle"), 2)
+        self.assertGreaterEqual(logo.count("<circle"), 4)
+        self.assertNotIn(">N<", favicon + logo)
 
 
 class SelectionReasonTests(unittest.TestCase):
@@ -470,9 +502,41 @@ class GeneratedDataTests(unittest.TestCase):
     def test_search_scope_and_balanced_region_stats_are_explicit(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn("이 브리핑에서 기관·시설·주제 검색", html)
+        self.assertIn("기관, 호기, 주제로 검색", html)
         self.assertIn("<small>국내</small>", script)
         self.assertIn("<small>해외</small>", script)
+
+    def test_p1_copy_overlines_and_card_hierarchy(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        combined = html + script
+
+        for phrase in (
+            "프로토타입", "DAILY ISSUE BRIEF", "ISSUE TRACKER", "ISSUE ARCHIVE",
+            "WEEKLY SIGNALS", "TOP 3", "ISSUE TIMELINE", "필터 초기화",
+        ):
+            self.assertNotIn(phrase, combined)
+        overlines = {
+            label.strip()
+            for label in re.findall(r'<p class="eyebrow(?: dark)?">([A-Z ]+)', html)
+        }
+        self.assertEqual(overlines, {"TODAY", "THIS WEEK"})
+        self.assertIn("원자력 정책·산업 이슈 트래커", html)
+        self.assertIn("이번 주 이어지는 흐름", html)
+        self.assertIn("Nuclens는 제목·요약·출처 링크만 제공합니다.", html)
+        self.assertIn("분석 기간 ${dateLabel(start)}–${dateLabel(end)}", script)
+        self.assertIn("중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개", script)
+
+        issue_card = script.split("function issueCard", 1)[1].split("function currentIssueById", 1)[0]
+        archive_card = script.split("function archiveIssueCard", 1)[1].split("function renderArchiveSearch", 1)[0]
+        for card in (issue_card, archive_card):
+            self.assertIn("verificationBadge(issue)", card)
+            self.assertIn("issueEvidenceText(issue)", card)
+            self.assertNotIn('class="topic-row"', card)
+            self.assertNotIn('class="reason-row"', card)
+        for tone in ("importance-high", "importance-updated", "importance-standard"):
+            self.assertIn(f".issue-card.{tone}", style)
 
     def test_issue_detail_dialog_and_url_state_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -587,15 +651,16 @@ class GeneratedDataTests(unittest.TestCase):
             expected = "국내" if "KR" in countries else "해외"
             self.assertEqual(article["region"], expected, article["title_kr"])
 
-    def test_brand_is_kept_private_until_access_control_decision(self):
+    def test_brand_remains_private_with_open_graph_metadata(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertIn("NUCLENS", html)
         self.assertIn('content="noindex,nofollow"', html)
         self.assertIn('name="color-scheme" content="light"', html)
         self.assertIn('name="description"', html)
         self.assertNotIn('rel="canonical"', html)
-        self.assertNotIn('property="og:title"', html)
-        for name in ("favicon.svg", "robots.txt"):
+        for property_name in ("og:type", "og:site_name", "og:title", "og:description", "og:url"):
+            self.assertIn(f'property="{property_name}"', html)
+        for name in ("favicon.svg", "logo-mark.svg", "robots.txt"):
             self.assertTrue((ROOT / "public" / name).exists(), name)
         self.assertFalse((ROOT / "public" / "sitemap.xml").exists())
         self.assertIn("Disallow: /", (ROOT / "public" / "robots.txt").read_text(encoding="utf-8"))

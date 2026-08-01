@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NUCLENS">
-  <rect width="64" height="64" rx="16" fill="#102f3f"/>
-  <circle cx="32" cy="32" r="22" fill="none" stroke="#79b8d8" stroke-width="2" opacity=".7"/>
-  <path d="M20 45V19h5l14 18V19h5v26h-5L25 27v18z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Nuclens">
+  <title>Nuclens</title>
+  <defs>
+    <clipPath id="favicon-lens">
+      <circle cx="13.5" cy="20" r="13"/>
+    </clipPath>
+  </defs>
+  <rect width="40" height="40" fill="#0e2a3c"/>
+  <g clip-path="url(#favicon-lens)">
+    <circle cx="26.5" cy="20" r="13" fill="#fff"/>
+  </g>
 </svg>
