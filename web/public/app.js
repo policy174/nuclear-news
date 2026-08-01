@@ -228,6 +228,12 @@ function verificationBadge(issue, { always = false } = {}) {
   return `<span class="verification-badge v-${esc(state.status)}" title="${esc(view.detail)}">${view.mark} ${esc(view.label)}</span>`;
 }
 
+// 선정 이유는 빌드가 랭킹 점수 내역에서 뽑아 둔다. 화면에 내보내지 않으면
+// '왜 이게 위에 있나'에 답할 수 없다.
+function issueReasonText(issue) {
+  return (issue.selection_reasons || []).filter(Boolean).join(" · ");
+}
+
 function issueEvidenceText(issue) {
   const state = verificationState(issue);
   const articleCount = issue.article_count || (issue.related_articles || []).length;
@@ -512,6 +518,7 @@ function trackingPeriod(issue) {
 function issueCard(issue, index, archive = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
+  const reason = issueReasonText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
   const summary = archive ? markMatch(issue.summary, state.archiveQuery) : esc(issue.summary);
   const visibleMatch = normalizedSearch(`${issue.title || ""} ${issue.summary || ""}`).includes(state.archiveQuery);
@@ -532,6 +539,7 @@ function issueCard(issue, index, archive = false) {
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${archive ? trackingPeriod(issue) : ""}
+      ${reason ? `<p class="issue-why"><strong>선정 이유</strong><span>${esc(reason)}</span></p>` : ""}
       <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       ${issueActions(issue)}
     </div>
@@ -802,6 +810,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
+      ${issueReasonText(issue) ? `<p class="dialog-why"><strong>이 이슈가 위에 있는 이유</strong>${esc(issueReasonText(issue))}</p>` : ""}
       ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
@@ -974,18 +983,30 @@ function renderSlopeGraph() {
     top.push({ topic: "other", prev: topics.slice(4).reduce((sum, row) => sum + row.prev, 0), now: topics.slice(4).reduce((sum, row) => sum + row.now, 0) });
   }
   const rootStyle = getComputedStyle(document.documentElement);
-  const colors = [1, 2, 3, 4].map(index => rootStyle.getPropertyValue(`--c-chart-${index}`).trim());
-  const width = 760, height = 300, left = 110, right = 610, topPad = 28, bottom = 42;
+  const palette = [1, 2, 3, 4].map(index => rootStyle.getPropertyValue(`--c-chart-${index}`).trim());
+  const mutedColor = rootStyle.getPropertyValue("--c-text-muted").trim();
+  // '기타'는 나머지 주제의 합계다. 색을 돌려쓰면 상위 주제와 같은 색이 나와
+  // 선이 구분되지 않으므로 회색으로 따로 뗀다.
+  const colorFor = (row, index) => (row.topic === "other" ? mutedColor : palette[index % palette.length]);
+  // 주제명을 선 오른쪽에 붙이면 가장 긴 라벨이 그래프 최소 폭을 정해버려서 좁은
+  // 화면이 가로 스크롤된다. 이름은 아래 범례로 빼고 그래프는 값만 그린다.
+  const width = 560, height = 260, left = 74, right = 486, topPad = 26, bottom = 40;
   const maxValue = Math.max(1, ...top.flatMap(row => [row.prev, row.now]));
   const y = value => height - bottom - (value / maxValue) * (height - topPad - bottom);
   const ticks = [...new Set([0, Math.ceil(maxValue / 2), maxValue])].sort((a, b) => a - b);
   const grid = ticks.map(value => `<g><line x1="${left}" x2="${right}" y1="${y(value)}" y2="${y(value)}"/><text x="${left - 16}" y="${y(value) + 4}" text-anchor="end">${value}</text></g>`).join("");
   const lines = top.map((row, index) => {
-    const color = colors[index % colors.length];
+    const color = colorFor(row, index);
     const label = row.topic === "other" ? "기타" : TOPIC_LABELS[row.topic] || row.topic;
-    return `<g class="slope-series"><line x1="${left}" y1="${y(row.prev)}" x2="${right}" y2="${y(row.now)}" style="stroke:${color}"/><circle cx="${left}" cy="${y(row.prev)}" r="5" style="fill:${color}"/><circle cx="${right}" cy="${y(row.now)}" r="5" style="fill:${color}"/><text x="${left - 10}" y="${y(row.prev) - 9}" text-anchor="end">${row.prev}</text><text x="${right + 10}" y="${y(row.now) + 4}" style="fill:${color}">${esc(label)} ${row.now}</text></g>`;
+    return `<g class="slope-series"><line x1="${left}" y1="${y(row.prev)}" x2="${right}" y2="${y(row.now)}" style="stroke:${color}"/><circle cx="${left}" cy="${y(row.prev)}" r="5" style="fill:${color}"/><circle cx="${right}" cy="${y(row.now)}" r="5" style="fill:${color}"/><text x="${left - 10}" y="${y(row.prev) - 9}" text-anchor="end">${row.prev}</text><text x="${right + 10}" y="${y(row.now) + 4}" style="fill:${color}">${row.now}</text><title>${esc(label)} · 전주 ${row.prev}건 → 이번 주 ${row.now}건</title></g>`;
   }).join("");
-  box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="전주와 이번 주의 주제별 이슈 수 비교"><g class="slope-grid">${grid}</g>${lines}<text class="axis-label" x="${left}" y="${height - 10}" text-anchor="middle">전주</text><text class="axis-label" x="${right}" y="${height - 10}" text-anchor="middle">이번 주</text></svg>`;
+  const legend = top.map((row, index) => {
+    const color = colorFor(row, index);
+    const label = row.topic === "other" ? "기타" : TOPIC_LABELS[row.topic] || row.topic;
+    return `<li><i style="background:${color}"></i><span>${esc(label)}</span><small>${row.prev} → ${row.now}</small></li>`;
+  }).join("");
+  box.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="전주와 이번 주의 주제별 이슈 수 비교"><g class="slope-grid">${grid}</g>${lines}<text class="axis-label" x="${left}" y="${height - 10}" text-anchor="middle">전주</text><text class="axis-label" x="${right}" y="${height - 10}" text-anchor="middle">이번 주</text></svg>
+    <ul class="slope-legend">${legend}</ul>`;
   const strongest = [...top].sort((a, b) => Math.abs(b.now - b.prev) - Math.abs(a.now - a.prev))[0];
   const label = strongest.topic === "other" ? "기타 주제" : TOPIC_LABELS[strongest.topic] || strongest.topic;
   const delta = strongest.now - strongest.prev;

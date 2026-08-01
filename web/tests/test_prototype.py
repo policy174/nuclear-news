@@ -967,6 +967,25 @@ class GeneratedDataTests(unittest.TestCase):
             for issue in briefing["issues"]:
                 self.assertNotEqual(issue["verification"]["label"], "일부 확인")
 
+    def test_selection_reasons_reach_the_screen(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        # 빌드가 뽑아 둔 선정 이유가 화면에 안 나오면 '왜 이게 위인가'에 답할 수 없다.
+        self.assertIn("function issueReasonText", script)
+        self.assertIn('class="issue-why"', script)
+        self.assertIn("이 이슈가 위에 있는 이유", script)
+        for briefing in self.briefings:
+            self.assertTrue(any(issue["selection_reasons"] for issue in briefing["issues"]))
+
+    def test_weekly_charts_do_not_force_horizontal_scroll(self):
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        # 좁은 화면에서 표·그래프를 옆으로 밀지 않는다.
+        self.assertIn("#topicChart svg { width: 100%; min-width: 0;", style)
+        self.assertIn(".keyword-table { overflow-x: visible; }", style)
+        self.assertIn('class="slope-legend"', script)
+        # 주제명을 선 옆에 붙이면 가장 긴 라벨이 최소 폭을 정해버린다.
+        self.assertNotIn("${esc(label)} ${row.now}", script)
+
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
