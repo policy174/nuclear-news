@@ -531,8 +531,21 @@ kbd {
   font-size: 12.5px;
   font-weight: 700;
 }
-.verification-badge.verified { color: var(--c-verified); }
-.verification-badge.unverified { color: var(--c-unverified); }
+/* 4단계 검증 상태 — 색만으로 구분하지 않도록 배지 문구에 기호를 함께 넣는다. */
+.verification-badge.v-official { color: var(--c-verified); }
+.verification-badge.v-corroborated { color: var(--c-secondary); }
+.verification-badge.v-partial { color: var(--c-warning); }
+.verification-badge.v-unverified { color: var(--c-unverified); }
+.dialog-verification {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.dialog-verification .verification-badge { margin-left: 0; }
 .issue-card h3 { margin: 8px 0 7px; font-size: 18px; font-weight: 700; line-height: 1.45; }
 .issue-card h3 mark { padding: 0 2px; background: color-mix(in srgb, var(--c-warning) 24%, transparent); color: inherit; }
 .search-match { margin: 8px 0 0; color: var(--c-text-muted); font-size: 12.5px; }

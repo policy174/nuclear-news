@@ -85,7 +85,8 @@ class BrandAccessibilityTests(unittest.TestCase):
     def test_issue_cards_do_not_use_dashed_verification_border(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertNotIn(".issue-card.state-unverified { border-left-style: dashed; }", css)
-        self.assertIn(".verification-badge.unverified", css)
+        for status in build_data.VERIFICATION_LABELS:
+            self.assertIn(f".verification-badge.v-{status}", css)
 
     def test_p1_design_tokens_replace_legacy_palette(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
@@ -185,6 +186,136 @@ class DataQualityGateTests(unittest.TestCase):
         record["summary"] = "정부가 신규 원전 계획을 발표"
         with self.assertRaisesRegex(ValueError, "summary:incomplete"):
             build_data.validate_archive_records([record])
+
+
+class ChangeLineTests(unittest.TestCase):
+    """변화 문장이 같은 사실을 두 번 말하거나 문단으로 번지지 않는지."""
+
+    @staticmethod
+    def _member(summary, briefing_date="2026-07-30", article_date="2026-07-30", hash_value="h1"):
+        return {
+            "hash": hash_value,
+            "briefing_date": briefing_date,
+            "article_date": article_date,
+            "title_kr": summary,
+            "summary": summary,
+        }
+
+    def test_restated_fact_does_not_become_a_change_arrow(self):
+        previous = self._member(
+            "미국 에너지부(DOE)가 원자력 라이프사이클 혁신 캠퍼스 유치를 위한 잠재적 후보지로"
+            " 유타, 테네시, 오클라호마, 루이지애나, 아이다호 5개 주를 선정했습니다.",
+            briefing_date="2026-07-29",
+            article_date="2026-07-29",
+            hash_value="h0",
+        )
+        current = self._member(
+            "미국 에너지부(DOE)가 원자력 수명 주기 혁신 캠퍼스 유치 최종 후보지로"
+            " 아이다호, 루이지애나, 오클라호마, 테네시, 유타 5개 주를 선정했다.",
+        )
+        change = build_data.latest_change_line([current], [previous])
+        self.assertNotIn("→", change)
+        self.assertLessEqual(len(change), build_data.CHANGE_LINE_LIMIT)
+
+    def test_card_change_block_is_empty_when_it_repeats_the_summary(self):
+        summary = "독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 목표로 3개의 국가 허브 계획을 발표했다."
+        current = self._member(summary)
+        self.assertEqual(build_data.change_line_for_card([current], [], summary), "")
+
+    def test_card_change_block_survives_when_the_state_actually_moved(self):
+        previous = self._member(
+            "다뉴브강 수위가 역대 최저치를 기록했습니다.",
+            briefing_date="2026-07-29",
+            article_date="2026-07-29",
+            hash_value="h0",
+        )
+        summary = "헝가리 총리가 다뉴브강의 낮은 수위로 원자력 발전소 가동이 중단될 수 있다고 경고했다."
+        current = self._member(summary)
+        self.assertIn("→", build_data.change_line_for_card([current], [previous], summary))
+
+    def test_genuinely_new_fact_keeps_the_change_arrow(self):
+        previous = self._member(
+            "원안위가 신한울 3호기 건설 허가 심사를 시작했다.",
+            briefing_date="2026-07-29",
+            article_date="2026-07-29",
+            hash_value="h0",
+        )
+        current = self._member("한수원이 체코 두코바니 신규 원전 본계약에 서명했다.")
+        self.assertIn("→", build_data.latest_change_line([current], [previous]))
+
+
+class DailyHeadlineTests(unittest.TestCase):
+    def test_headline_never_exceeds_the_hero_limit(self):
+        row = {
+            "status": "ongoing",
+            "latest_change": (
+                "미국 에너지부가 후보지 5곳을 선정했다 → 미국 에너지부가 원자력 라이프사이클 혁신"
+                " 캠퍼스 유치를 위한 잠재적 후보지로 유타, 테네시, 오클라호마, 루이지애나,"
+                " 아이다호 5개 주를 선정했으며 후속 절차를 예고했습니다"
+            ),
+            "title": "미국 에너지부, 혁신 캠퍼스 후보지 5개 주 선정",
+            "summary": "",
+        }
+        headline = build_data.daily_headline([row])
+        self.assertLessEqual(len(headline), build_data.HEADLINE_LIMIT)
+        self.assertNotIn("→", headline)
+
+    def test_empty_briefing_has_a_stable_headline(self):
+        self.assertEqual(
+            build_data.daily_headline([]), "오늘 새로 연결된 원자력 이슈가 없습니다"
+        )
+
+
+class VerificationStateTests(unittest.TestCase):
+    """P3 검증 모델 — 재인용은 독립 출처로 세지 않는다."""
+
+    @staticmethod
+    def _article(hash_value, publisher, evidence_role="independent", source_type="general_media"):
+        return {
+            "hash": hash_value,
+            "publisher": publisher,
+            "domain": "news.google.co.kr",
+            "evidence_role": evidence_role,
+            "source_type": source_type,
+        }
+
+    def test_official_document_wins(self):
+        state = build_data.verification_state([
+            self._article("h1", "IAEA", evidence_role="primary", source_type="official"),
+            self._article("h2", "로이터"),
+        ], checked_at="2026-08-01T09:00:00+09:00")
+        self.assertEqual(state["status"], "official")
+        self.assertEqual(state["label"], "공식 확인")
+        self.assertEqual(state["official_source_count"], 1)
+        self.assertEqual(state["checked_at"], "2026-08-01T09:00:00+09:00")
+
+    def test_two_independent_publishers_are_corroborated(self):
+        state = build_data.verification_state([
+            self._article("h1", "로이터"), self._article("h2", "연합뉴스"),
+        ])
+        self.assertEqual(state["status"], "corroborated")
+        self.assertEqual(state["independent_source_count"], 2)
+
+    def test_same_publisher_twice_is_still_one_source(self):
+        state = build_data.verification_state([
+            self._article("h1", "로이터"), self._article("h2", " 로이터 "),
+        ])
+        self.assertEqual(state["status"], "partial")
+        self.assertEqual(state["independent_source_count"], 1)
+
+    def test_distributed_claims_only_stay_unverified(self):
+        state = build_data.verification_state([
+            self._article("h1", "PR뉴스와이어", evidence_role="distributed_claim", source_type="press_release"),
+            self._article("h2", "글로브뉴스와이어", evidence_role="distributed_claim", source_type="press_release"),
+        ])
+        self.assertEqual(state["status"], "unverified")
+        self.assertEqual(state["independent_source_count"], 0)
+        self.assertEqual(state["source_count"], 2)
+
+    def test_no_evidence_does_not_invent_a_status(self):
+        state = build_data.verification_state([])
+        self.assertEqual(state["status"], "unverified")
+        self.assertEqual(state["source_count"], 0)
 
 
 class RegionClassificationTests(unittest.TestCase):
@@ -446,6 +577,30 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertCountEqual(catalog_hashes, delivered_hashes)
         self.assertEqual(len(catalog_hashes), len(set(catalog_hashes)))
 
+    def test_every_issue_card_carries_a_verification_state(self):
+        for rows in [issue for briefing in self.briefings for issue in briefing["issues"]], self.issue_catalog:
+            for issue in rows:
+                state = issue["verification"]
+                self.assertIn(state["status"], build_data.VERIFICATION_LABELS)
+                self.assertEqual(state["label"], build_data.VERIFICATION_LABELS[state["status"]])
+                self.assertTrue(state["checked_at"])
+                self.assertLessEqual(
+                    state["official_source_count"] + state["independent_source_count"],
+                    state["source_count"],
+                )
+                if state["status"] == "corroborated":
+                    self.assertGreaterEqual(state["independent_source_count"], 2)
+                if state["status"] == "unverified":
+                    self.assertEqual(state["official_source_count"], 0)
+                    self.assertEqual(state["independent_source_count"], 0)
+
+    def test_headlines_and_change_lines_stay_within_limits(self):
+        for briefing in self.briefings:
+            self.assertLessEqual(len(briefing["headline"]), build_data.HEADLINE_LIMIT)
+            self.assertNotIn("→", briefing["headline"])
+            for issue in briefing["issues"]:
+                self.assertLessEqual(len(issue["latest_change"]), build_data.CHANGE_LINE_LIMIT + 1)
+
     def test_latest_briefing_keeps_previous_day_articles(self):
         latest = self.briefings[0]
         articles = [
@@ -630,8 +785,11 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertTrue(ongoing)
         self.assertTrue(all(issue["tracked_briefings"] >= 2 for issue in ongoing))
         self.assertTrue(all(issue["previous_article_count"] >= 1 for issue in ongoing))
-        self.assertTrue(all(issue["latest_change"] for issue in ongoing))
-        self.assertTrue(all(issue["latest_change"].endswith((".", "!", "?")) for issue in ongoing))
+        # 변화 문장은 요약을 되풀이할 때 비워진다. 남아 있으면 완결문이어야 한다.
+        self.assertTrue(any(issue["latest_change"] for issue in ongoing))
+        self.assertTrue(
+            all(issue["latest_change"].endswith((".", "!", "?")) for issue in ongoing if issue["latest_change"])
+        )
 
     def test_issue_detail_timeline_contains_every_linked_article(self):
         for briefing in self.briefings:
@@ -739,7 +897,10 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("primary_source_count", briefing)
             self.assertIn("tracked_issue_count", briefing)
             self.assertEqual(len(briefing["highlight_issues"]), min(3, briefing["issue_count"]))
-            self.assertTrue(all(issue["latest_change"] for issue in briefing["issues"]))
+            # 요약과 같은 문장이면 변화 블록을 비운다(카드에 같은 문단 두 번 방지).
+            for issue in briefing["issues"]:
+                if issue["latest_change"]:
+                    self.assertNotEqual(issue["latest_change"].rstrip(".!?"), issue["summary"].rstrip(".!?"))
 
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")

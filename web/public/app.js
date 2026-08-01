@@ -184,10 +184,32 @@ function currentBriefing() {
   return state.briefings.find(briefing => briefing.date === state.briefingDate) || null;
 }
 
+const VERIFICATION_VIEW = {
+  official: { mark: "✓", label: "공식 확인", detail: "규제기관 또는 사업자 공식 문서로 확인된 내용입니다" },
+  corroborated: { mark: "✓", label: "복수 출처 확인", detail: "재인용 관계를 제외한 독립 출처 2곳 이상이 일치합니다" },
+  partial: { mark: "△", label: "일부 확인", detail: "독립 출처 1곳만 확인됐습니다" },
+  unverified: { mark: "○", label: "확인 중", detail: "아직 독립·공식 근거가 확인되지 않았습니다" },
+};
+
+// 검증 상태는 빌드가 판정한다. 값이 없는 구버전 데이터에서는 문장을 지어내지 않고
+// 공식 출처 유무만으로 보수적으로 폴백한다.
+function verificationState(issue) {
+  const state = issue.verification;
+  if (state && VERIFICATION_VIEW[state.status]) return state;
+  const official = officialSourceCount(issue);
+  return {
+    status: official > 0 ? "official" : "unverified",
+    source_count: (issue.related_articles || []).length,
+    independent_source_count: 0,
+    official_source_count: official,
+    checked_at: "",
+  };
+}
+
 function issueToneClass(issue) {
   const classes = [];
   if (issue.lifecycle === "quiet") classes.push("state-quiet");
-  if (officialSourceCount(issue) === 0) classes.push("state-unverified");
+  if (verificationState(issue).status === "unverified") classes.push("state-unverified");
   if (issue.importance === "must_read") classes.push("importance-high");
   else if (issue.status === "ongoing" || (issue.tracked_briefings || issue.briefing_count || 1) > 1) classes.push("importance-updated");
   else classes.push("importance-standard");
@@ -195,24 +217,28 @@ function issueToneClass(issue) {
 }
 
 function verificationBadge(issue) {
-  const verified = officialSourceCount(issue) > 0;
-  const label = verified ? "✓ 1차 출처" : "○ 확인 중";
-  const detail = verified
-    ? "규제기관 또는 사업자 공식 발표로 확인된 내용입니다"
-    : "1차 출처를 추가로 확인하고 있습니다";
-  return `<span class="verification-badge ${verified ? "verified" : "unverified"}" title="${detail}">${label}</span>`;
+  const state = verificationState(issue);
+  const view = VERIFICATION_VIEW[state.status] || VERIFICATION_VIEW.unverified;
+  return `<span class="verification-badge v-${esc(state.status)}" title="${esc(view.detail)}">${view.mark} ${esc(view.label)}</span>`;
 }
 
 function issueEvidenceText(issue) {
+  const state = verificationState(issue);
   const articleCount = issue.article_count || (issue.related_articles || []).length;
-  const confirmedAt = issue.last_seen || issue.representative_article?.article_date || "";
-  return `근거 ${articleCount}건 · 1차 출처 ${officialSourceCount(issue)}건 · ${dateLabel(confirmedAt)} 확인`;
+  const parts = [`근거 ${articleCount}건`];
+  if (state.independent_source_count > 0) parts.push(`독립 출처 ${state.independent_source_count}곳`);
+  if (state.official_source_count > 0) parts.push(`공식 출처 ${state.official_source_count}건`);
+  const checkedAt = state.checked_at
+    ? `${dateLabel(String(state.checked_at).slice(0, 10))} ${timeLabel(state.checked_at)} 확인`
+    : `${dateLabel(issue.last_seen || issue.representative_article?.article_date || "")} 확인`;
+  parts.push(checkedAt);
+  return parts.join(" · ");
 }
 
+// 요약을 그대로 되풀이하는 변화 문장은 빌드가 비운다. 빈 값이면 블록을 그리지
+// 않는다 — 요약이 이미 같은 사실을 말하고 있으므로 '없다'는 안내도 붙이지 않는다.
 function issueChangeText(issue) {
-  if (issue.latest_change) return issue.latest_change;
-  if (issue.status === "new") return issue.summary || "오늘 처음 포착한 이슈입니다.";
-  return "이번 브리핑에서 추가로 확인된 내용이 없습니다.";
+  return issue.latest_change || "";
 }
 
 function setPressed(container, activeButton) {
@@ -455,7 +481,8 @@ function issueStatusText(issue, archive = false) {
   if (issue.importance === "must_read") return "주요";
   const tracked = issue.tracked_briefings || issue.briefing_count || 1;
   if (tracked > 1) return `업데이트 · ${tracked}회 추적`;
-  return officialSourceCount(issue) ? "새 이슈" : "확인 중";
+  // 검증 상태는 배지가 단독으로 책임진다. 여기서 다시 말하면 같은 줄에 두 번 뜬다.
+  return "새 이슈";
 }
 
 function issueActions(issue) {
@@ -477,6 +504,7 @@ function trackingPeriod(issue) {
 
 function issueCard(issue, index, archive = false) {
   const topic = primaryTopicLabel(issue);
+  const change = issueChangeText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
   const summary = archive ? markMatch(issue.summary, state.archiveQuery) : esc(issue.summary);
   const visibleMatch = normalizedSearch(`${issue.title || ""} ${issue.summary || ""}`).includes(state.archiveQuery);
@@ -495,7 +523,7 @@ function issueCard(issue, index, archive = false) {
       <h3>${title}</h3>
       ${issue.summary ? `<p class="issue-summary">${summary}</p>` : ""}
       ${matchContext}
-      <p class="issue-change"><strong>변화</strong><span>${esc(issueChangeText(issue))}</span></p>
+      ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${archive ? trackingPeriod(issue) : ""}
       <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       ${issueActions(issue)}
@@ -590,8 +618,9 @@ function renderNewsFeed() {
 function archiveIssueMatches(issue) {
   if (state.archiveRegion !== "전체" && !(issue.regions || []).includes(state.archiveRegion)) return false;
   if (state.archiveTopic !== "전체" && !(issue.topics || []).includes(state.archiveTopic)) return false;
-  if (state.archiveVerification === "verified" && officialSourceCount(issue) === 0) return false;
-  if (state.archiveVerification === "unverified" && officialSourceCount(issue) > 0) return false;
+  const confirmed = ["official", "corroborated"].includes(verificationState(issue).status);
+  if (state.archiveVerification === "verified" && !confirmed) return false;
+  if (state.archiveVerification === "unverified" && confirmed) return false;
   if (state.archivePeriod !== "all") {
     const latest = new Date(`${state.meta.latest_briefing_date}T00:00:00+09:00`);
     const updated = new Date(`${issue.last_seen}T00:00:00+09:00`);
@@ -631,7 +660,7 @@ function renderArchiveSearch(resetLimit = false) {
     state.archivePeriod !== "all" ? `최근 ${state.archivePeriod}일` : "",
     state.archiveRegion !== "전체" ? state.archiveRegion : "",
     state.archiveTopic !== "전체" ? TOPIC_LABELS[state.archiveTopic] || state.archiveTopic : "",
-    state.archiveVerification === "verified" ? "1차 출처 있음" : state.archiveVerification === "unverified" ? "확인 중" : "",
+    state.archiveVerification === "verified" ? "공식·복수 출처 확인" : state.archiveVerification === "unverified" ? "일부·확인 중" : "",
   ].filter(Boolean);
   document.getElementById("archiveSummary").textContent = activeFilters.length
     ? `${activeFilters.join(" · ")} — ${matches.length}개 이슈`
@@ -678,8 +707,9 @@ function issueReportText(issue) {
   return [
     `• 이슈: ${issue.title || ""}`,
     issue.summary ? `• 핵심: ${issue.summary}` : "",
-    `• 변화: ${issueChangeText(issue)}`,
+    issueChangeText(issue) ? `• 변화: ${issueChangeText(issue)}` : "",
     issue.implication ? `• 의미(AI 해석): ${issue.implication}` : "",
+    `• 검증: ${(VERIFICATION_VIEW[verificationState(issue).status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`,
     source ? `• 근거: ${source}` : "",
   ].filter(Boolean).join("\n");
 }
@@ -712,7 +742,8 @@ function openIssueDialog(issueId, updateUrl = true) {
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">현재 상태</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
-      <p class="dialog-change"><strong>변화</strong>${esc(issueChangeText(issue))}</p>
+      ${issueChangeText(issue) ? `<p class="dialog-change"><strong>변화</strong>${esc(issueChangeText(issue))}</p>` : ""}
+      <p class="dialog-verification">${verificationBadge(issue)}<span>${esc(issueEvidenceText(issue))}</span></p>
       ${issue.implication ? `<p class="dialog-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>

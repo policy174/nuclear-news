@@ -72,6 +72,18 @@ MATCH_OVERRIDES_FILE = BOT_DIR / "issue_match_overrides.json"
 SITE_URL = os.environ.get("SITE_URL", "https://nuclens.pages.dev").rstrip("/")
 KST = timezone(timedelta(hours=9))
 
+# 히어로 h1과 변화 문장의 하드 상한. 넘기면 카드가 아니라 문단이 된다.
+# 70자는 1280px 히어로에서 두 줄. 요약이 이보다 길면 이슈 제목으로 넘어간다.
+HEADLINE_LIMIT = 70
+CHANGE_LINE_LIMIT = 140
+
+VERIFICATION_LABELS = {
+    "official": "공식 확인",
+    "corroborated": "복수 출처 확인",
+    "partial": "일부 확인",
+    "unverified": "확인 중",
+}
+
 _KR_DOMAIN_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
 _TOKEN_RE = re.compile(r"[0-9A-Za-z가-힣]+")
 _NORM_RE = re.compile(r"[^0-9a-z가-힣]")
@@ -544,6 +556,27 @@ def _jaccard(left: set[str], right: set[str]) -> float:
     if not left or not right:
         return 0.0
     return len(left & right) / len(left | right)
+
+
+def _text_tokens(text: object) -> set[str]:
+    return {token.lower()[:8] for token in _TOKEN_RE.findall(str(text or "")) if len(token) >= 2}
+
+
+def _is_restatement(before: object, after: object, threshold: float = 0.45) -> bool:
+    """두 문장이 같은 사실을 다시 쓴 것인지 판단한다.
+
+    후속 보도의 요약과 직전 브리핑의 요약이 표현만 다른 같은 사실인 경우가 잦다.
+    이때 '이전 → 현재'로 이어 붙이면 같은 내용을 두 번 읽히므로 변화로 취급하지
+    않는다. 임계값 0.45는 봇의 패러프레이즈 dedup과 같은 기준이다.
+    """
+    left = _text_tokens(before)
+    right = _text_tokens(after)
+    if not left or not right:
+        return True
+    if _jaccard(left, right) >= threshold:
+        return True
+    shorter, longer = (left, right) if len(left) <= len(right) else (right, left)
+    return len(shorter & longer) / len(shorter) >= 0.8
 
 
 def load_embeddings_cache() -> dict[str, list[float]]:
@@ -1064,15 +1097,88 @@ def latest_change_line(current: list[dict], history: list[dict]) -> str:
     previous_text = previous.get("summary") or previous.get("title_kr") or previous.get("title") or ""
     before = flow_takeaway(previous_text, limit=48).strip().rstrip(".!?")
     after = change.rstrip(".!?")
-    if before and after and before.lower() != after.lower():
-        change = f"{before} → {after}"
+    if before and after and not _is_restatement(before, after):
+        combined = f"{before} → {after}"
+        if len(combined) <= CHANGE_LINE_LIMIT:
+            change = combined
     if change and not change.endswith((".", "!", "?")):
         change += "."
     return change
 
 
+def change_line_for_card(current: list[dict], history: list[dict], summary: str) -> str:
+    """요약을 그대로 되풀이하는 변화 문장은 비운다.
+
+    단독 기사 이슈는 '변화'가 요약과 같은 문장일 수밖에 없다. 이때 변화 블록을
+    남기면 같은 문단이 카드에 두 번 뜬다. 화살표가 있는 문장은 이전 상태 대비
+    새 정보이므로 그대로 둔다.
+    """
+    change = latest_change_line(current, history)
+    if not change or "→" in change:
+        return change
+    return "" if _is_restatement(summary, change) else change
+
+
 def _is_primary_source(article: dict) -> bool:
     return article.get("evidence_role") == "primary" or article.get("source_tier") == 1
+
+
+def _source_identity(article: dict) -> str:
+    """같은 매체가 쓴 여러 기사를 하나의 출처로 묶는 키."""
+    publisher = _NORM_RE.sub("", str(article.get("publisher") or "").lower())
+    if publisher:
+        return f"pub:{publisher}"
+    domain = str(article.get("domain") or "").lower()
+    # 구글 뉴스는 집계 도메인이라 매체를 식별하지 못한다. 매체명이 비어 있으면
+    # 서로 다른 출처로 합치지 않고 기사 단위로 남긴다(과대 계상 방지).
+    if not domain or "news.google." in domain:
+        return f"hash:{article.get('hash') or id(article)}"
+    return f"dom:{domain}"
+
+
+def _is_official_source(article: dict) -> bool:
+    """규제기관·사업자의 공식 문서인지."""
+    return article.get("evidence_role") == "primary" or article.get("source_type") == "official"
+
+
+def _is_independent_source(article: dict) -> bool:
+    """독립 취재 보도인지. 보도자료 전재(distributed_claim)는 재인용으로 제외한다."""
+    return article.get("evidence_role") == "independent"
+
+
+def verification_state(articles: list[dict], checked_at: str = "") -> dict:
+    """이슈 근거를 4단계 검증 상태로 요약한다.
+
+    - official: 규제기관·사업자 공식 문서로 확인
+    - corroborated: 재인용 관계를 제거한 독립 출처 2곳 이상이 일치
+    - partial: 독립 출처 1곳만 확인
+    - unverified: 배포 자료 재인용뿐이거나 근거가 부족
+
+    근거가 없으면 문장을 지어내지 않고 unverified로 남긴다.
+    """
+    official = {_source_identity(article) for article in articles if _is_official_source(article)}
+    independent = {
+        _source_identity(article) for article in articles if _is_independent_source(article)
+    } - official
+    all_sources = {_source_identity(article) for article in articles}
+
+    if official:
+        status = "official"
+    elif len(independent) >= 2:
+        status = "corroborated"
+    elif len(independent) == 1:
+        status = "partial"
+    else:
+        status = "unverified"
+
+    return {
+        "status": status,
+        "label": VERIFICATION_LABELS[status],
+        "source_count": len(all_sources),
+        "independent_source_count": len(independent),
+        "official_source_count": len(official),
+        "checked_at": checked_at,
+    }
 
 
 def daily_headline(issue_rows: list[dict]) -> str:
@@ -1080,16 +1186,30 @@ def daily_headline(issue_rows: list[dict]) -> str:
     if not issue_rows:
         return "오늘 새로 연결된 원자력 이슈가 없습니다"
     lead = issue_rows[0]
-    source = (
-        lead.get("latest_change")
-        if lead.get("status") == "ongoing"
-        else lead.get("title")
-    ) or lead.get("summary") or ""
-    headline = flow_takeaway(source, limit=88).strip()
-    return headline.rstrip(".!?")
+    candidates: list[str] = []
+    if lead.get("status") == "ongoing":
+        # latest_change는 "이전 상태 → 현재 상태"일 수 있다. 헤드라인에는 현재
+        # 사실만 쓴다. 두 상태를 모두 넣으면 같은 사건을 두 번 읽히고 길어진다.
+        candidates.append(str(lead.get("latest_change") or "").split("→")[-1])
+    candidates.append(str(lead.get("title") or ""))
+    candidates.append(str(lead.get("summary") or ""))
+
+    fallback = ""
+    for candidate in candidates:
+        headline = flow_takeaway(candidate, limit=HEADLINE_LIMIT).strip().rstrip(".!?")
+        if not headline:
+            continue
+        if len(headline) <= HEADLINE_LIMIT:
+            return headline
+        fallback = fallback or headline
+    if not fallback:
+        return "오늘 새로 연결된 원자력 이슈가 없습니다"
+    # flow_takeaway가 안전하게 종결하지 못한 문장은 원문을 지키느라 길이를 넘긴다.
+    # 히어로 h1이 문단으로 번지지 않도록 마지막 단계에서만 말줄임한다.
+    return f"{fallback[:HEADLINE_LIMIT - 1].rstrip()}…"
 
 
-def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
+def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "") -> list[dict]:
     dates = sorted({item["briefing_date"] for item in news_items if item.get("briefing_date")}, reverse=True)
     briefings = []
 
@@ -1127,7 +1247,10 @@ def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
                 "implication": representative.get("implication") or representative.get("why_important") or "",
-                "latest_change": latest_change_line(current, history),
+                "latest_change": change_line_for_card(
+                    current, history, representative.get("summary", "")
+                ),
+                "verification": verification_state(timeline, checked_at),
                 "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
                 "importance": representative.get("importance", ""),
                 "selection_reasons": list(dict.fromkeys(reasons))[:2],
@@ -1157,6 +1280,10 @@ def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
             "overseas_count": sum(1 for item in current_articles if item.get("region") == "해외"),
             "primary_source_count": sum(1 for item in current_articles if _is_primary_source(item)),
             "tracked_issue_count": sum(1 for row in issue_rows if row.get("previous_article_count", 0) > 0),
+            "verified_issue_count": sum(
+                1 for row in issue_rows
+                if row["verification"]["status"] in {"official", "corroborated"}
+            ),
             "headline": daily_headline(issue_rows),
             "highlights": [row["title"] for row in issue_rows[:3]],
             "highlight_issues": [
@@ -1168,7 +1295,7 @@ def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
     return briefings
 
 
-def build_issue_catalog(issues: list[dict], latest_briefing_date: str) -> list[dict]:
+def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_at: str = "") -> list[dict]:
     latest_day = _parse_day(latest_briefing_date)
     rows = []
     for issue in issues:
@@ -1205,7 +1332,10 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str) -> list[d
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
             "implication": representative.get("implication") or representative.get("why_important") or "",
-            "latest_change": latest_change_line(current, history),
+            "latest_change": change_line_for_card(
+                current, history, representative.get("summary", "")
+            ),
+            "verification": verification_state(timeline, checked_at),
             "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
             "regions": sorted(regions),
             "importance": representative.get("importance", ""),
@@ -1415,10 +1545,12 @@ def build() -> None:
         key=lambda row: (row.get("candidate_score") or 0, row.get("right_date") or ""),
         reverse=True,
     )
-    briefings = build_briefings(news_items, issues)
+    checked_at = now.isoformat()
+    briefings = build_briefings(news_items, issues, checked_at)
     issue_catalog = build_issue_catalog(
         issues,
         briefings[0]["date"] if briefings else "",
+        checked_at,
     )
 
     # 트렌드는 기존 집계를 유지하되 커버리지가 낮으면 프론트에서 숨길 수 있게 메타를 제공한다.
