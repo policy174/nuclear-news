@@ -722,7 +722,9 @@ class GeneratedDataTests(unittest.TestCase):
 
         issue_card = script.split("function issueCard", 1)[1].split("function renderBriefingSidebar", 1)[0]
         self.assertIn("verificationBadge(issue)", issue_card)
-        self.assertIn("issueEvidenceText(issue)", issue_card)
+        # 근거 줄은 '타임라인 N' 버튼과 같은 숫자를 반복해 제거했다. 출처 구성은
+        # 상세에만 남는다.
+        self.assertNotIn("issueEvidenceText(issue)", issue_card)
         self.assertIn('class="issue-change"', issue_card)
         self.assertNotIn('class="issue-meaning"', issue_card)
         self.assertNotIn('class="topic-row"', issue_card)

@@ -598,7 +598,6 @@ kbd {
   line-height: 1.55;
 }
 .issue-change strong { color: var(--c-accent-text); font-size: 12.5px; }
-.issue-evidence { margin: 11px 0 0; color: var(--c-text-muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .issue-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 14px; margin-top: 10px; }
 .issue-actions button,
 .issue-actions a {
@@ -1044,7 +1043,6 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
   .issue-card h3 { margin-top: 7px; font-size: 17px; line-height: 1.45; }
   .issue-summary { font-size: 15.5px; line-height: 1.65; }
   .issue-change { grid-template-columns: 40px 1fr; max-height: 70px; overflow: hidden; font-size: 13.5px; }
-  .issue-evidence { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   /* 모바일 하단 액션은 저장·공유·원문 셋으로 제한한다. 상세는 제목으로 연다. */
   .issue-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 8px; }
   .issue-actions .issue-detail-button { display: none; }

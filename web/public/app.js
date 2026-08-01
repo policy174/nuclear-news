@@ -234,10 +234,8 @@ function issueEvidenceText(issue) {
   const parts = [`근거 ${articleCount}건`];
   if (state.independent_source_count > 0) parts.push(`독립 출처 ${state.independent_source_count}곳`);
   if (state.official_source_count > 0) parts.push(`공식 출처 ${state.official_source_count}건`);
-  const checkedAt = state.checked_at
-    ? `${dateLabel(String(state.checked_at).slice(0, 10))} ${timeLabel(state.checked_at)} 확인`
-    : `${dateLabel(issue.last_seen || issue.representative_article?.article_date || "")} 확인`;
-  parts.push(checkedAt);
+  // 확인 시각은 빌드 시각이라 모든 카드가 같은 값이다. 상단 상태줄이 이미
+  // 같은 정보를 보여주므로 여기서는 빼고 출처 구성만 남긴다.
   return parts.join(" · ");
 }
 
@@ -532,7 +530,6 @@ function issueCard(issue, index, archive = false) {
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${archive ? trackingPeriod(issue) : ""}
-      <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       ${issueActions(issue)}
     </div>
   </article>`;
