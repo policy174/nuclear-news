@@ -11,8 +11,15 @@ const TOPIC_LABELS = {
 };
 
 const COUNTRY_LABELS = {
-  KR: "한국", US: "미국", FR: "프랑스", EU: "EU", UK: "영국",
-  JP: "일본", RU: "러시아", CN: "중국", EU_ETC: "기타 EU", OTHER: "기타",
+  KR: "한국", US: "미국", CA: "캐나다", FR: "프랑스", GB: "영국",
+  DE: "독일", ES: "스페인", RS: "세르비아", HU: "헝가리", RO: "루마니아",
+  CZ: "체코", PL: "폴란드", SE: "스웨덴", NL: "네덜란드", FI: "핀란드",
+  SK: "슬로바키아", BG: "불가리아", UA: "우크라이나", BE: "벨기에",
+  IT: "이탈리아", PT: "포르투갈", CH: "스위스", NO: "노르웨이",
+  DK: "덴마크", JP: "일본", RU: "러시아", CN: "중국", AR: "아르헨티나",
+  IN: "인도", AU: "호주", BR: "브라질", ZA: "남아공", SA: "사우디아라비아",
+  AE: "아랍에미리트", TR: "튀르키예", KZ: "카자흐스탄", UZ: "우즈베키스탄",
+  EU: "EU(유럽연합)", EUROPE: "유럽", GLOBAL: "글로벌", UNSPECIFIED: "미분류",
 };
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];

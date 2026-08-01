@@ -103,6 +103,61 @@ class RegionClassificationTests(unittest.TestCase):
         self.assertIn("KR", countries)
         self.assertEqual(build_data.region_of(record, countries), "국내")
 
+    def test_legacy_eu_bucket_is_refined_to_actual_country(self):
+        record = {
+            "title_kr": "독일, 국가 핵융합 허브와 연구개발 지원 계획 발표",
+            "summary": "독일 정부가 핵융합 연구개발 지원 계획을 발표했다.",
+            "countries": ["EU_ETC"],
+            "section": "international",
+        }
+        countries, source = build_data.infer_countries(record)
+        self.assertEqual(countries, ["DE"])
+        self.assertEqual(source, "legacy-refined-v2")
+
+    def test_serbia_is_a_country_not_eu(self):
+        record = {
+            "title_kr": "세르비아 정부, 신규 원자력 프로그램 검토",
+            "section": "international",
+        }
+        countries, _ = build_data.infer_countries(record)
+        self.assertEqual(countries, ["RS"])
+
+    def test_us_agency_token_uses_word_boundary(self):
+        countries, _ = build_data.infer_countries({
+            "title_kr": "NRC, 오이스터크릭 인허가 종료계획 승인",
+            "section": "international",
+        })
+        self.assertEqual(countries, ["US"])
+
+    def test_eu_and_geographic_europe_are_distinct(self):
+        eu, _ = build_data.infer_countries({
+            "title_kr": "EU 집행위원회, 원자력 공동투자 기준 발표",
+            "countries": ["EU"],
+        })
+        europe, source = build_data.infer_countries({
+            "title_kr": "유럽 강 수위 저하로 전력 생산 차질",
+            "countries": ["EU"],
+        })
+        self.assertEqual(eu, ["EU"])
+        self.assertEqual(europe, ["EUROPE"])
+        self.assertEqual(source, "eu-refined-v2")
+
+    def test_country_trend_counts_distinct_issues_not_articles(self):
+        issues = [
+            {"members": [
+                {"article_date": "2026-07-20", "countries": ["DE"]},
+                {"article_date": "2026-07-21", "countries": ["DE"]},
+            ]},
+            {"members": [
+                {"article_date": "2026-07-22", "countries": ["DE", "FR"]},
+            ]},
+            {"members": [
+                {"article_date": "2026-06-01", "countries": ["FR"]},
+            ]},
+        ]
+        counts = build_data.count_country_issues(issues, "2026-07-01")
+        self.assertEqual(counts, {"DE": 2, "FR": 1})
+
 
 class IssueSimilarityTests(unittest.TestCase):
     def test_paraphrased_12th_plan_articles_are_one_issue(self):
@@ -301,7 +356,7 @@ class GeneratedDataTests(unittest.TestCase):
                 self.assertLessEqual(len(issue["selection_reasons"]), 2)
 
     def test_local_taxonomy_enables_prototype_trend(self):
-        self.assertEqual(self.meta["taxonomy_version"], "prototype-heuristic-v1")
+        self.assertEqual(self.meta["taxonomy_version"], "topic-v1-country-scope-v2")
         self.assertGreaterEqual(self.meta["topic_coverage"], 0.9)
         self.assertGreaterEqual(self.meta["country_coverage"], 0.9)
         self.assertTrue(self.meta["trend_ready"])
@@ -442,10 +497,21 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_generated_issue_clusters_have_no_country_or_facility_conflicts(self):
         by_hash = {article["hash"]: article for article in self.news}
+        non_country_scopes = {"OTHER", "UNSPECIFIED", "GLOBAL", "EUROPE", "EU"}
         for cluster in self.issue_audit["clusters"]:
             members = [by_hash[member["hash"]] for member in cluster["members"]]
             for left, right in combinations(members, 2):
-                self.assertFalse(build_data._country_conflict(left, right))
+                left_countries = set(left.get("countries") or []) - non_country_scopes
+                right_countries = set(right.get("countries") or []) - non_country_scopes
+                if left_countries and right_countries and left_countries.isdisjoint(right_countries):
+                    # 국경을 넘는 하나의 사건은 양국을 함께 명시한 중간 기사로 연결될
+                    # 수 있다. 과거 EU_ETC 묶음 없이도 그 연결 근거가 있어야 한다.
+                    has_cross_border_bridge = any(
+                        left_countries & (set(member.get("countries") or []) - non_country_scopes)
+                        and right_countries & (set(member.get("countries") or []) - non_country_scopes)
+                        for member in members
+                    )
+                    self.assertTrue(has_cross_border_bridge)
                 self.assertFalse(build_data._facility_conflict(left, right))
 
     def test_region_matches_confident_country_tags(self):

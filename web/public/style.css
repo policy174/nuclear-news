@@ -635,6 +635,9 @@ a { color: inherit; }
 .data-card { padding: 20px; background: var(--panel); border: 1px solid var(--line); }
 .data-card.wide { grid-column: 1 / -1; }
 .data-card h3 { margin: 0 0 16px; font-size: 14px; }
+.data-card h3 + .data-note { margin-top: -9px; }
+.data-note { margin: 10px 0; color: var(--muted); font-size: 10.5px; line-height: 1.45; }
+.country-rule { padding-top: 8px; border-top: 1px solid var(--line); }
 .bar-row { display: grid; grid-template-columns: 100px 1fr 28px; align-items: center; gap: 9px; padding: 4px 0; }
 .bar-name { overflow: hidden; color: var(--ink-soft); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .bar-track { height: 7px; overflow: hidden; background: #edf0f1; border-radius: 999px; }

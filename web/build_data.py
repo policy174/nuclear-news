@@ -143,21 +143,72 @@ _TOPIC_RULES = {
     "applications": ("원자력수소", "원자력 기반 수소", "동위원소", "방사선 활용", "핵 과학 활용"),
 }
 
+# 국가 코드는 ISO 3166-1 alpha-2를 쓴다. 기업 국적이 아니라 실제 정책 관할,
+# 사업 부지, 사건 무대가 텍스트에 드러나는 경우만 추론한다.
 _COUNTRY_RULES = {
     "KR": ("한국", "대한민국", "한수원", "khnp", "원안위", "고리", "월성", "한울", "신한울", "새울", "영덕", "경주"),
-    "US": ("미국", "u.s.", "usa", "nrc", "doe", "백악관", "nasa", "로스앨러모스", "롱비치", "미 공군"),
-    "FR": ("프랑스", "edf", "framatome", "오라노", "orano"),
-    "UK": ("영국", "rolls-royce", "롤스로이스"),
-    "JP": ("일본", "후쿠시마", "alps", "도쿄전력", "tepco"),
-    "RU": ("러시아", "rosatom", "로사톰"),
-    "CN": ("중국", "cnnc", "cgtn"),
-    "EU": ("유럽연합", "european union", "eu 집행위", "유럽위원회"),
-    "EU_ETC": (
-        "독일", "스페인", "세르비아", "헝가리", "루마니아", "체코", "폴란드", "스웨덴",
-        "네덜란드", "핀란드", "슬로바키아", "불가리아", "우크라이나", "벨기에", "이탈리아",
+    "US": (
+        "미국", "u.s.", "united states", "미 에너지부", "미 원자력규제위원회", "백악관",
+        "로스앨러모스", "패듀카", "사바나강", "오이스터크릭", "화이트메사", "샌디아",
+        "텍사스", "버지니아", "아이다호",
     ),
-    "OTHER": ("캐나다", "아르헨티나", "인도", "호주", "브라질", "남아공", "사우디", "uae", "튀르키예"),
+    "CA": ("캐나다", "온타리오", "서스캐처원", "브루스 파워", "달링턴"),
+    "FR": ("프랑스", "플라망빌", "팔리", "마르쿨", "카다라슈"),
+    "GB": ("영국", "united kingdom", "잉글랜드", "스코틀랜드", "웨일스", "사이즈웰", "힝클리", "헤이샴", "하틀풀"),
+    "DE": ("독일", "germany", "도이칠란트", "막스 플랑크", "벤델슈타인"),
+    "ES": ("스페인", "spain"),
+    "RS": ("세르비아", "serbia"),
+    "HU": ("헝가리", "hungary", "팍스 원전"),
+    "RO": ("루마니아", "romania", "체르나보다"),
+    "CZ": ("체코", "czech", "두코바니", "테멜린"),
+    "PL": ("폴란드", "poland"),
+    "SE": ("스웨덴", "sweden"),
+    "NL": ("네덜란드", "netherlands", "보르셀레"),
+    "FI": ("핀란드", "finland", "올킬루오토"),
+    "SK": ("슬로바키아", "slovakia", "모호프체"),
+    "BG": ("불가리아", "bulgaria", "코즐로두이"),
+    "UA": ("우크라이나", "ukraine", "자포리자"),
+    "BE": ("벨기에", "belgium"),
+    "IT": ("이탈리아", "italy"),
+    "PT": ("포르투갈", "portugal"),
+    "CH": ("스위스", "switzerland"),
+    "NO": ("노르웨이", "norway"),
+    "DK": ("덴마크", "denmark"),
+    "JP": ("일본", "후쿠시마", "도쿄전력", "tepco"),
+    "RU": ("러시아", "russia"),
+    "CN": ("중국", "china"),
+    "AR": ("아르헨티나", "argentina", "아투차"),
+    "IN": ("인도", "india"),
+    "AU": ("호주", "australia"),
+    "BR": ("브라질", "brazil"),
+    "ZA": ("남아공", "남아프리카공화국", "south africa"),
+    "SA": ("사우디", "saudi arabia"),
+    "AE": ("아랍에미리트", "uae", "바라카"),
+    "TR": ("튀르키예", "터키", "turkey", "아쿠유"),
+    "KZ": ("카자흐스탄", "kazakhstan"),
+    "UZ": ("우즈베키스탄", "uzbekistan"),
 }
+_EU_INSTITUTION_RULES = (
+    "유럽연합", "european union", "eu 집행위", "eu 집행위원회", "유럽위원회",
+    "유럽의회", "european commission", "european parliament", "euratom",
+)
+_EUROPE_REGION_RULES = ("유럽", "범유럽", "europe-wide", "pan-european")
+_GLOBAL_RULES = (
+    "글로벌", "전 세계", "세계 원자력", "세계원자력", "국제원자력기구", "iaea",
+    "world nuclear association", "세계은행", "oecd/nea",
+)
+_EUROPEAN_COUNTRY_CODES = {
+    "AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE",
+    "FI", "FR", "DE", "GR", "HU", "IS", "IE", "IT", "LV", "LI", "LT", "LU",
+    "MT", "MD", "MC", "ME", "NL", "MK", "NO", "PL", "PT", "RO", "RS", "SK",
+    "SI", "ES", "SE", "CH", "UA", "GB",
+}
+_COUNTRY_ALIASES = {"UK": "GB"}
+_LEGACY_COUNTRY_BUCKETS = {"EU_ETC", "OTHER"}
+_COUNTRY_TOKEN_RULES = {
+    "US": ("nrc", "doe", "pjm", "inl", "llnl", "inpo"),
+}
+_GLOBAL_TOKEN_RULES = ("iter",)
 
 
 def _normalize_archive_record(record: dict) -> dict:
@@ -384,16 +435,90 @@ def infer_topics(record: dict) -> tuple[list[str], str]:
     return topics[:3], "heuristic-v1" if topics else "unclassified"
 
 
-def infer_countries(record: dict) -> tuple[list[str], str]:
-    native = [str(country) for country in (record.get("countries") or []) if str(country).strip()]
-    if native:
-        return list(dict.fromkeys(native)), "native"
+def _country_scopes_from_text(text: str) -> list[str]:
+    """텍스트에서 국가와 명시적 지역 범위를 서로 다른 축으로 판정한다."""
+    concrete = [
+        country
+        for country, needles in _COUNTRY_RULES.items()
+        if any(needle in text for needle in needles)
+        or any(
+            re.search(rf"(?<![a-z0-9]){re.escape(token)}(?![a-z0-9])", text)
+            for token in _COUNTRY_TOKEN_RULES.get(country, ())
+        )
+    ]
+    if len(concrete) > 2:
+        # 0~2개 스키마에서 임의의 두 국가만 남기지 않는다. 유럽 국가만으로 된
+        # 다국가 기사면 지리적 유럽, 그 밖의 다국가 기사면 글로벌로 올린다.
+        scopes = [
+            "EUROPE" if set(concrete).issubset(_EUROPEAN_COUNTRY_CODES) else "GLOBAL"
+        ]
+    else:
+        scopes = concrete
 
+    if any(needle in text for needle in _EU_INSTITUTION_RULES):
+        scopes.append("EU")
+    if scopes:
+        return list(dict.fromkeys(scopes))[:2]
+    if any(needle in text for needle in _EUROPE_REGION_RULES):
+        return ["EUROPE"]
+    if any(needle in text for needle in _GLOBAL_RULES) or any(
+        re.search(rf"(?<![a-z0-9]){re.escape(token)}(?![a-z0-9])", text)
+        for token in _GLOBAL_TOKEN_RULES
+    ):
+        return ["GLOBAL"]
+    return []
+
+
+def infer_countries(record: dict) -> tuple[list[str], str]:
     text = _taxonomy_text(record)
-    countries = [country for country, needles in _COUNTRY_RULES.items() if any(needle in text for needle in needles)]
+    raw_native = [
+        str(country).strip().upper()
+        for country in (record.get("countries") or [])
+        if str(country).strip()
+    ]
+    if raw_native:
+        has_legacy_bucket = bool(set(raw_native) & _LEGACY_COUNTRY_BUCKETS)
+        normalized = [_COUNTRY_ALIASES.get(country, country) for country in raw_native]
+
+        # EU_ETC/OTHER는 과거의 모호한 묶음이다. 기존 동반 태그까지 신뢰하지 않고
+        # 제목·요약의 실제 관할/부지를 기준으로 전체 범위를 다시 판정한다.
+        if has_legacy_bucket:
+            refined = _country_scopes_from_text(text)
+            return (refined or ["UNSPECIFIED"]), "legacy-refined-v2"
+
+        # 과거 EU 태그가 단순한 '유럽' 기사에도 쓰였다. EU 기관·공동정책이
+        # 명시되지 않으면 국가 또는 지리적 EUROPE 범위로 바로잡는다.
+        if "EU" in normalized and not any(needle in text for needle in _EU_INSTITUTION_RULES):
+            concrete_native = [country for country in normalized if country != "EU"]
+            refined = list(dict.fromkeys(concrete_native + _country_scopes_from_text(text)))[:2]
+            return (refined or ["UNSPECIFIED"]), "eu-refined-v2"
+
+        deduped = list(dict.fromkeys(normalized))[:2]
+        source = "native-normalized-v2" if deduped != list(dict.fromkeys(raw_native))[:2] else "native"
+        return deduped, source
+
+    countries = _country_scopes_from_text(text)
     if not countries:
-        countries = ["KR"] if region_of(record) == "국내" else ["OTHER"]
-    return countries, "heuristic-v1"
+        countries = ["KR"] if region_of(record) == "국내" else ["UNSPECIFIED"]
+    return countries, "heuristic-v2"
+
+
+def count_country_issues(issues: list[dict], since_date: str) -> Counter:
+    """기간 내 연결 이슈를 국가·지역별로 중복 없이 센다.
+
+    같은 이슈의 기사가 여러 번 보도돼도 한 국가에는 1건만 더한다. 한 이슈가
+    복수 국가에 걸치면 해당 국가마다 1건씩 집계하므로 전체 합은 이슈 수보다 클 수 있다.
+    """
+    counts = Counter()
+    for issue in issues:
+        scopes = {
+            country
+            for member in issue.get("members", [])
+            if (member.get("article_date") or "") >= since_date
+            for country in (member.get("countries") or [])
+        }
+        counts.update(scopes)
+    return counts
 
 
 def _strong_tags(article: dict) -> set[str]:
@@ -1197,7 +1322,6 @@ def build() -> None:
 
     tags_7, tags_prev7, tags_30, tags_all_before7 = Counter(), Counter(), Counter(), Counter()
     topic_by_week: dict[str, Counter] = defaultdict(Counter)
-    country_30 = Counter()
     for record in trend_pool:
         record_date = record.get("article_date", "")
         if not record_date:
@@ -1210,7 +1334,6 @@ def build() -> None:
             tags_prev7.update(tags)
         if record_date >= day30:
             tags_30.update(tags)
-            country_30.update(record.get("countries") or [])
         if record_date < day7:
             tags_all_before7.update(tags)
         iso = datetime.strptime(record_date, "%Y-%m-%d").isocalendar()
@@ -1239,21 +1362,37 @@ def build() -> None:
         topic: [topic_by_week[week].get(topic, 0) for week in weeks]
         for topic, _ in topic_totals.most_common(6)
     }
+    country_issue_30 = count_country_issues(issues, day30)
 
     trend = {
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],
         "rising": rising[:10],
         "new_tags": new_tags[:10],
-        "countries_30d": [{"country": country, "count": count} for country, count in country_30.most_common(10)],
+        "countries_30d": [
+            {"country": country, "count": count}
+            for country, count in country_issue_30.most_common(10)
+        ],
+        "countries_30d_unit": "issue",
+        "countries_30d_counting": "distinct_issue_per_country",
         "weeks": weeks,
         "topic_series": topic_series,
     }
 
     topic_coverage = (sum(1 for item in news_items if item["topics"]) / len(news_items)) if news_items else 0
-    country_coverage = (sum(1 for item in news_items if item["countries"]) / len(news_items)) if news_items else 0
+    country_coverage = (
+        sum(
+            1 for item in news_items
+            if set(item["countries"]) - {"UNSPECIFIED"}
+        ) / len(news_items)
+    ) if news_items else 0
+    country_unspecified_count = sum(
+        1 for item in news_items if "UNSPECIFIED" in set(item["countries"])
+    )
     heuristic_topic_count = sum(1 for item in news_items if item["topic_source"] == "heuristic-v1")
-    heuristic_country_count = sum(1 for item in news_items if item["country_source"] == "heuristic-v1")
+    heuristic_country_count = sum(
+        1 for item in news_items if not item["country_source"].startswith("native")
+    )
     region_source_counts = Counter(item.get("region_source", "unknown") for item in news_items)
     region_country_mismatch_count = sum(
         1
@@ -1304,9 +1443,10 @@ def build() -> None:
         ) if records else 0,
         "topic_coverage": round(topic_coverage, 4),
         "country_coverage": round(country_coverage, 4),
-        "taxonomy_version": "prototype-heuristic-v1",
+        "taxonomy_version": "topic-v1-country-scope-v2",
         "heuristic_topic_count": heuristic_topic_count,
         "heuristic_country_count": heuristic_country_count,
+        "country_unspecified_count": country_unspecified_count,
         "region_classification_version": "country-first-v1",
         "region_source_counts": dict(region_source_counts),
         "region_country_mismatch_count": region_country_mismatch_count,
