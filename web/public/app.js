@@ -30,13 +30,11 @@ let initLoading = false;
 let initRetryTimer = 0;
 let initRetryCount = 0;
 let generationTimer = 0;
+let issueHistoryOwned = false;
 
 async function loadJSON(name) {
-  // 평상시: 깨끗한 URL + no-cache 재검증(_headers) — 304로 싸게 최신 보장.
-  // 재시도: 배포 전파 공백에 엣지가 404를 캐시하는 경우가 있어(404엔 _headers 미적용)
-  //         캐시버스터로 우회해야 복구된다 (2026-08-01 실측).
-  const bust = initRetryCount > 0 ? `?r=${Date.now()}` : "";
-  const response = await fetch(`${state.dataBase}/${name}${bust}`, { cache: "no-cache" });
+  // 정적 JSON은 쿼리 없는 경로로만 요청하고 no-cache로 매번 재검증한다.
+  const response = await fetch(`${state.dataBase}/${name}`, { cache: "no-cache" });
   if (!response.ok) throw new Error(`${name} ${response.status}`);
   // SPA 폴백·오배포로 HTML이 200으로 오는 경우를 파싱 전에 명확한 에러로 변환
   const ctype = response.headers.get("content-type") || "";
@@ -45,9 +43,9 @@ async function loadJSON(name) {
 }
 
 async function loadRootJSON(name, optional = false) {
-  // 항상 캐시버스터 — 엣지가 낡은 manifest(200)를 변형 캐시로 계속 서빙해
-  // 죽은 generations 경로로 유도하던 실사고(2026-08-01). 파일이 작아 비용 무시 가능.
-  const response = await fetch(`data/${name}?t=${Date.now()}`, { cache: "no-store" });
+  // Cloudflare Pages에서 정적 JSON의 쿼리 변형이 404가 된 운영 사례가 있어 깨끗한
+  // 경로만 요청한다. _headers의 no-cache와 브라우저 재검증으로 최신성을 보장한다.
+  const response = await fetch(`data/${name}`, { cache: "no-cache" });
   if (!response.ok) {
     if (optional) return null;
     throw new Error(`${name} ${response.status}`);
@@ -74,6 +72,9 @@ async function initializeDataBase() {
   if (manifest && /^generations\/[0-9A-Za-z-]+$/.test(basePath)) {
     state.manifest = manifest;
     state.dataBase = `data/${basePath}`;
+  } else if (manifest?.generation_id && !basePath) {
+    state.manifest = manifest;
+    state.dataBase = "data";
   } else {
     state.manifest = null;
     state.dataBase = "data";
@@ -281,11 +282,13 @@ function archiveIssueCard(issue, index) {
       </div>
       <h3>${esc(issue.title)}</h3>
       ${issue.summary ? `<p class="issue-summary">${esc(issue.summary)}</p>` : ""}
-      ${issue.implication ? `<p class="issue-meaning"><strong>의미</strong>${esc(issue.implication)}</p>` : ""}
+      ${issue.latest_change ? `<p class="issue-change"><strong>이번 브리핑에서 새로 확인된 것</strong>${esc(issue.latest_change)}</p>` : ""}
+      ${issue.implication ? `<p class="issue-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topicBadges ? `<div class="topic-row">${topicBadges}</div>` : ""}
       ${reasons ? `<div class="reason-row">${reasons}</div>` : ""}
       <div class="issue-actions">
         <button class="issue-detail-button" type="button" data-issue-id="${esc(issue.issue_id)}">이슈 흐름 보기 <span>${issue.article_count}건</span></button>
+        <button class="copy-report-button" type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button>
         ${representativeUrl ? `<a class="source-link" href="${esc(representativeUrl)}" target="_blank" rel="noopener noreferrer">최근 원문 <span aria-hidden="true">↗</span></a>` : ""}
       </div>
     </div>
@@ -313,19 +316,22 @@ function renderArchiveSearch(resetLimit = false) {
   document.getElementById("archiveClear").hidden = activeFilters.length === 0;
 }
 
-function syncUrl() {
+function syncUrl(mode = "replace") {
   const params = new URLSearchParams();
   if (state.briefingDate) params.set("date", state.briefingDate);
   if (state.region !== "전체") params.set("region", state.region);
   if (state.topic !== "전체") params.set("topic", state.topic);
   if (state.query) params.set("q", state.query);
   if (state.view !== "news") params.set("view", state.view);
-  if (state.archiveQuery) params.set("aq", state.archiveQuery);
-  if (state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
-  if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
+  if (state.view === "search" && state.archiveQuery) params.set("aq", state.archiveQuery);
+  if (state.view === "search" && state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
+  if (state.view === "search" && state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
   if (state.issueId && state.view !== "trend") params.set("issue", state.issueId);
   const query = params.toString();
-  history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}`);
+  const url = `${location.pathname}${query ? `?${query}` : ""}`;
+  const historyState = { ...(history.state || {}), nuclensIssue: state.issueId || null };
+  if (mode === "push") history.pushState(historyState, "", url);
+  else history.replaceState(historyState, "", url);
 }
 
 function restoreUrlState() {
@@ -338,9 +344,20 @@ function restoreUrlState() {
   state.topic = params.get("topic") || "전체";
   state.view = ["news", "search", "trend"].includes(params.get("view")) ? params.get("view") : "news";
   state.issueId = params.get("issue") || "";
-  state.archiveQuery = normalizedSearch(params.get("aq"));
+  state.archiveQuery = state.view === "search" ? normalizedSearch(params.get("aq")) : "";
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
+}
+
+function restoreIssueFromHistory() {
+  const requestedIssue = new URLSearchParams(location.search).get("issue") || "";
+  if (requestedIssue && state.view !== "trend") {
+    issueHistoryOwned = true;
+    openIssueDialog(requestedIssue, false);
+  } else {
+    issueHistoryOwned = false;
+    dismissIssueDialog();
+  }
 }
 
 function renderDateSelect() {
@@ -401,6 +418,7 @@ function issueCard(issue, index, briefingDate) {
     <button class="issue-detail-button" type="button" data-issue-id="${esc(issue.issue_id)}">
       이슈 흐름 보기 <span>${articles.length}건</span>
     </button>
+    <button class="copy-report-button" type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button>
     ${representativeUrl
       ? `<a class="source-link" href="${esc(representativeUrl)}" target="_blank" rel="noopener noreferrer">대표 원문 <span aria-hidden="true">↗</span></a>`
       : ""}
@@ -416,7 +434,8 @@ function issueCard(issue, index, briefingDate) {
       </div>
       <h3>${esc(issue.title)}</h3>
       ${issue.summary ? `<p class="issue-summary">${esc(issue.summary)}</p>` : ""}
-      ${issue.implication ? `<p class="issue-meaning"><strong>의미</strong>${esc(issue.implication)}</p>` : ""}
+      ${issue.latest_change ? `<p class="issue-change"><strong>이번 브리핑에서 새로 확인된 것</strong>${esc(issue.latest_change)}</p>` : ""}
+      ${issue.implication ? `<p class="issue-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topicBadges ? `<div class="topic-row">${topicBadges}</div>` : ""}
       ${reasons ? `<div class="reason-row">${reasons}</div>` : ""}
       ${sourceArea}
@@ -429,6 +448,45 @@ function currentIssueById(issueId) {
     return state.issues.find(issue => issue.issue_id === issueId) || null;
   }
   return currentBriefing()?.issues.find(issue => issue.issue_id === issueId) || null;
+}
+
+function issueReportText(issue) {
+  const representative = issue.representative_article || {};
+  const source = [sourceLabel(representative), safeUrl(representative.url)].filter(Boolean).join(" · ");
+  return [
+    `• 이슈: ${issue.title || ""}`,
+    issue.summary ? `• 핵심: ${issue.summary}` : "",
+    issue.latest_change ? `• 이번 브리핑에서 새로 확인된 것: ${issue.latest_change}` : "",
+    issue.implication ? `• 의미(AI 해석): ${issue.implication}` : "",
+    source ? `• 근거: ${source}` : "",
+  ].filter(Boolean).join("\n");
+}
+
+async function copyIssueReport(button, issueId) {
+  const issue = currentIssueById(issueId);
+  if (!issue) return;
+  const report = issueReportText(issue);
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(report);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = report;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+    const original = button.textContent;
+    button.textContent = "복사됨";
+    window.setTimeout(() => { button.textContent = original; }, 1600);
+  } catch (error) {
+    button.textContent = "복사 실패";
+    window.setTimeout(() => { button.textContent = "보고서용 복사"; }, 1600);
+  }
 }
 
 function openIssueDialog(issueId, updateUrl = true) {
@@ -461,7 +519,8 @@ function openIssueDialog(issueId, updateUrl = true) {
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">${updateTitle}</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
-      ${issue.implication ? `<p class="dialog-meaning"><strong>의미</strong>${esc(issue.implication)}</p>` : ""}
+      ${issue.latest_change ? `<p class="dialog-change"><strong>이번 브리핑에서 새로 확인된 것</strong>${esc(issue.latest_change)}</p>` : ""}
+      ${issue.implication ? `<p class="dialog-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
     </section>
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
@@ -476,17 +535,33 @@ function openIssueDialog(issueId, updateUrl = true) {
     if (typeof dialog.showModal === "function") dialog.showModal();
     else dialog.setAttribute("open", "");
   }
-  if (updateUrl) syncUrl();
+  if (updateUrl) {
+    const currentIssue = new URLSearchParams(location.search).get("issue") || "";
+    if (currentIssue !== issueId) {
+      issueHistoryOwned = true;
+      syncUrl("push");
+    } else {
+      syncUrl();
+    }
+  }
 }
 
-function closeIssueDialog() {
+function dismissIssueDialog() {
   const dialog = document.getElementById("issueDialog");
+  state.issueId = "";
   if (dialog.open && typeof dialog.close === "function") dialog.close();
-  else {
-    dialog.removeAttribute("open");
-    state.issueId = "";
-    syncUrl();
+  else dialog.removeAttribute("open");
+}
+
+function closeIssueDialog(useHistory = true) {
+  if (useHistory && issueHistoryOwned) {
+    issueHistoryOwned = false;
+    history.back();
+    return;
   }
+  issueHistoryOwned = false;
+  dismissIssueDialog();
+  syncUrl();
 }
 
 function renderBriefing() {
@@ -546,7 +621,7 @@ function articleCard(article) {
     ${article.summary ? `<p class="news-summary">${esc(article.summary)}</p>` : ""}
     <details class="article-details">
       <summary>상세 정보</summary>
-      ${article.implication ? `<p><strong>의미</strong>${esc(article.implication)}</p>` : ""}
+      ${article.implication ? `<p><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(article.implication)}</p>` : ""}
       ${article.why_important ? `<p><strong>왜 중요한가</strong>${esc(article.why_important)}</p>` : ""}
       ${tags.length ? `<div class="tag-row">${tags.map(tag => `<span>${esc(tag)}</span>`).join("")}</div>` : ""}
       ${article.title && article.title !== article.title_kr ? `<p class="original-title"><strong>원문 제목</strong>${esc(article.title)}</p>` : ""}
@@ -723,11 +798,21 @@ function setPressed(container, activeButton) {
   });
 }
 
+function scrollToPageTop() {
+  const root = document.documentElement;
+  const previousBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  root.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
+  root.style.scrollBehavior = previousBehavior;
+}
+
 function stepBriefing(direction) {
   const dates = briefingDates();
   const nextIndex = dates.indexOf(state.briefingDate) + direction;
   if (nextIndex < 0 || nextIndex >= dates.length) return;
-  if (state.issueId) closeIssueDialog();
+  if (state.issueId) closeIssueDialog(false);
   state.briefingDate = dates[nextIndex];
   renderDateSelect();
   renderBriefing();
@@ -738,7 +823,7 @@ function bind() {
   document.getElementById("mainTabs").addEventListener("click", event => {
     const button = event.target.closest("button[data-view]");
     if (!button) return;
-    if (button.dataset.view !== state.view && state.issueId) closeIssueDialog();
+    if (button.dataset.view !== state.view && state.issueId) closeIssueDialog(false);
     setPressed(event.currentTarget, button);
     state.view = button.dataset.view;
     document.getElementById("view-news").hidden = button.dataset.view !== "news";
@@ -746,6 +831,7 @@ function bind() {
     document.getElementById("view-trend").hidden = button.dataset.view !== "trend";
     if (state.view === "search") renderArchiveSearch();
     syncUrl();
+    scrollToPageTop();
   });
 
   document.getElementById("regionTabs").addEventListener("click", event => {
@@ -766,7 +852,7 @@ function bind() {
   });
 
   document.getElementById("dateSel").addEventListener("change", event => {
-    if (state.issueId) closeIssueDialog();
+    if (state.issueId) closeIssueDialog(false);
     state.briefingDate = event.target.value;
     renderDateSelect();
     renderBriefing();
@@ -797,11 +883,21 @@ function bind() {
   });
 
   document.getElementById("issueList").addEventListener("click", event => {
+    const copyButton = event.target.closest("button[data-copy-issue]");
+    if (copyButton) {
+      copyIssueReport(copyButton, copyButton.dataset.copyIssue);
+      return;
+    }
     const button = event.target.closest("button[data-issue-id]");
     if (!button) return;
     openIssueDialog(button.dataset.issueId);
   });
   document.getElementById("archiveIssueList").addEventListener("click", event => {
+    const copyButton = event.target.closest("button[data-copy-issue]");
+    if (copyButton) {
+      copyIssueReport(copyButton, copyButton.dataset.copyIssue);
+      return;
+    }
     const button = event.target.closest("button[data-issue-id]");
     if (!button) return;
     openIssueDialog(button.dataset.issueId);
@@ -855,6 +951,9 @@ async function init() {
     eventsBound = true;
     window.addEventListener("online", () => {
       if (!appReady) init();
+    });
+    window.addEventListener("popstate", () => {
+      if (appReady) restoreIssueFromHistory();
     });
   }
   if (appReady || initLoading) return;

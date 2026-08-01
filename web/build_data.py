@@ -19,13 +19,33 @@
 from __future__ import annotations
 
 import difflib
+import hashlib
 import json
+import math
 import os
 import re
 import sys
 from collections import Counter, defaultdict
 from datetime import date, datetime, timedelta, timezone
+from email.utils import format_datetime
 from pathlib import Path
+from urllib.parse import urlencode
+from xml.etree import ElementTree as ET
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from data_quality import (  # noqa: E402
+    curation_errors,
+    invalid_url_reason,
+    normalize_event_date_fields,
+    normalize_url,
+    source_profile,
+    split_title_publisher,
+    title_key,
+)
+from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -42,7 +62,12 @@ GENERATION_ID = os.environ.get("GENERATION_ID", "")
 SHOW_MARKET = False
 NEWS_WINDOW_DAYS = 60
 ISSUE_WINDOW_DAYS = 21
-ISSUE_EMBEDDING_THRESHOLD = 0.84
+ISSUE_EMBEDDING_THRESHOLD = 0.82
+ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
+LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
+LOCAL_EMBEDDING_DIMENSION = 1024
+MATCH_OVERRIDES_FILE = BOT_DIR / "issue_match_overrides.json"
+SITE_URL = os.environ.get("SITE_URL", "https://nuclens.pages.dev").rstrip("/")
 KST = timezone(timedelta(hours=9))
 
 _KR_DOMAIN_HINTS = (".kr", "khnp", "nssc", "motie", "kaeri", "kins", "korad", "yna", "korea")
@@ -135,8 +160,68 @@ _COUNTRY_RULES = {
 }
 
 
+def _normalize_archive_record(record: dict) -> dict:
+    """구버전 레코드를 웹 빌드의 현재 출처·사건일 계약으로 읽는다."""
+    normalized = dict(record)
+    normalized["url"] = normalize_url(record.get("url"))
+    title = record.get("title") or ""
+    publisher = record.get("publisher") or ""
+    domain = record.get("domain") or ""
+    if ("news.google." in domain or "news.google." in normalized["url"]) and not publisher:
+        title, publisher = split_title_publisher(title)
+    profile = source_profile(domain, publisher)
+    normalized.update({
+        "title": title,
+        "publisher": publisher or profile["publisher"],
+        "source_type": record.get("source_type") or profile["source_type"],
+        "evidence_role": record.get("evidence_role") or profile["evidence_role"],
+        "source_tier": record.get("source_tier") or profile["source_tier"],
+    })
+    normalized.update(normalize_event_date_fields(record))
+    return normalized
+
+
+def validate_archive_records(records: list[dict]) -> None:
+    """중복·오류 URL·불완전 문장이 있으면 배포 빌드를 중단한다."""
+    errors: list[str] = []
+    seen_urls: dict[str, str] = {}
+    seen_titles: dict[str, str] = {}
+    for record in records:
+        article_hash = record.get("hash") or "(no-hash)"
+        url = record.get("url") or ""
+        url_error = invalid_url_reason(url)
+        if url_error:
+            errors.append(f"{article_hash}:url:{url_error}")
+        elif url in seen_urls:
+            errors.append(f"{article_hash}:duplicate_url:{seen_urls[url]}")
+        else:
+            seen_urls[url] = article_hash
+
+        normalized_title = title_key(record.get("title"))
+        if normalized_title and normalized_title in seen_titles:
+            errors.append(f"{article_hash}:duplicate_title:{seen_titles[normalized_title]}")
+        elif normalized_title:
+            seen_titles[normalized_title] = article_hash
+
+        if record.get("source_tier") not in {1, 2, 3}:
+            errors.append(f"{article_hash}:source_tier:missing")
+        if not record.get("publisher"):
+            errors.append(f"{article_hash}:publisher:missing")
+        if record.get("importance") != "noise":
+            # v1 아카이브의 완결문은 최대 120자를 허용하되 신규 생성기는 80자
+            # 게이트를 적용한다. 과거 문장을 잘라 맞추는 데이터 훼손을 피한다.
+            errors.extend(
+                f"{article_hash}:{error}"
+                for error in curation_errors(record, summary_limit=120)
+            )
+
+    if errors:
+        preview = " | ".join(errors[:20])
+        raise ValueError(f"data quality gate failed ({len(errors)}): {preview}")
+
+
 def load_archive() -> list[dict]:
-    records, seen = [], set()
+    records = []
     archive_dir = BOT_DIR / "archive"
     for path in sorted(archive_dir.glob("*.jsonl")):
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -148,10 +233,9 @@ def load_archive() -> list[dict]:
             except json.JSONDecodeError:
                 continue
             article_hash = record.get("hash")
-            if not article_hash or article_hash in seen:
+            if not article_hash:
                 continue
-            seen.add(article_hash)
-            records.append(record)
+            records.append(_normalize_archive_record(record))
     return records
 
 
@@ -225,7 +309,7 @@ def date_of(record: dict) -> str:
     return ""
 
 
-def selection_reasons(delivery: dict | None) -> list[str]:
+def selection_reasons(delivery: dict | None, source: dict | None = None) -> list[str]:
     """내부 점수 내역을 카드용 설명 배지 최대 2개로 바꾼다."""
     if not delivery:
         return []
@@ -243,8 +327,12 @@ def selection_reasons(delivery: dict | None) -> list[str]:
     if event_rows:
         reasons.append(max(event_rows)[1])
 
-    if float(breakdown.get("source_tier1") or 0) > 0:
-        reasons.append("1차 출처")
+    if source and source.get("evidence_role") == "primary":
+        reasons.append("공식 원문")
+    elif source and source.get("source_type") == "specialist_media" and float(
+        breakdown.get("source_tier1") or 0
+    ) > 0:
+        reasons.append("전문 매체")
     elif float(breakdown.get("korea_relevance") or 0) >= 2.4:
         reasons.append("국내 관련성 높음")
     elif float(breakdown.get("policy_materiality") or 0) >= 2:
@@ -332,11 +420,7 @@ def _jaccard(left: set[str], right: set[str]) -> float:
 
 
 def load_embeddings_cache() -> dict[str, list[float]]:
-    """원본 봇의 임베딩 캐시를 읽기 전용으로 정규화한다.
-
-    캐시가 없거나 손상됐으면 빈 사전을 반환한다. 프로토타입은 임베딩을 새로
-    생성하지 않으므로 API 비용이나 원본 파일 변경이 발생하지 않는다.
-    """
+    """현행 Gemini 모델의 임베딩 캐시만 읽기 전용으로 정규화한다."""
     path = Path(os.environ.get("EMBEDDINGS_FILE", BOT_DIR / "embeddings.json"))
     try:
         raw = json.loads(path.read_text(encoding="utf-8"))
@@ -344,10 +428,80 @@ def load_embeddings_cache() -> dict[str, list[float]]:
         return {}
     embeddings: dict[str, list[float]] = {}
     for article_hash, payload in raw.items():
-        vector = payload.get("vec") if isinstance(payload, dict) else payload
-        if isinstance(vector, list) and vector and all(isinstance(value, (int, float)) for value in vector):
-            embeddings[str(article_hash)] = [float(value) for value in vector]
+        vector = cached_vector(payload, model=EMBEDDING_MODEL)
+        if vector:
+            embeddings[str(article_hash)] = vector
     return embeddings
+
+
+def _local_embedding_features(article: dict) -> Counter:
+    """API 장애 때도 후보 탐색을 계속할 수 있는 언어 독립 특징 벡터."""
+    features = Counter()
+    title = _title_norm(article)
+    summary = _NORM_RE.sub("", str(article.get("summary") or "").lower())
+    for ngram_size, weight in ((2, 1.6), (3, 2.2), (4, 1.2)):
+        for index in range(max(0, len(title) - ngram_size + 1)):
+            features[f"t{ngram_size}:{title[index:index + ngram_size]}"] += weight
+    for index in range(max(0, len(summary) - 3 + 1)):
+        features[f"s3:{summary[index:index + 3]}"] += 0.45
+    for token in _tokens(article):
+        features[f"w:{token}"] += 1.0
+    for tag in _strong_tags(article):
+        features[f"tag:{tag}"] += 4.0
+    for topic in article.get("topics") or []:
+        features[f"topic:{topic}"] += 2.2
+    return features
+
+
+def build_local_embeddings(articles: list[dict]) -> dict[str, list[float]]:
+    """문자 n-gram TF-IDF를 feature hashing해 21일 후보 탐색 벡터를 만든다.
+
+    Gemini 벡터와 다른 공간이므로 둘을 섞지 않는다. 이 로컬 벡터는 낮은 임계값
+    후보를 만드는 데만 쓰고, 자동 병합은 기존 보수 규칙/Gemini가 담당한다.
+    """
+    feature_rows = {
+        str(article.get("hash") or ""): _local_embedding_features(article)
+        for article in articles if article.get("hash")
+    }
+    document_frequency = Counter()
+    for features in feature_rows.values():
+        document_frequency.update(features.keys())
+    total = max(1, len(feature_rows))
+    embeddings = {}
+    for article_hash, features in feature_rows.items():
+        vector = [0.0] * LOCAL_EMBEDDING_DIMENSION
+        for feature, term_weight in features.items():
+            digest = hashlib.blake2b(feature.encode("utf-8"), digest_size=8).digest()
+            index = int.from_bytes(digest, "big") % LOCAL_EMBEDDING_DIMENSION
+            inverse_frequency = math.log((1 + total) / (1 + document_frequency[feature])) + 1.0
+            vector[index] += float(term_weight) * inverse_frequency
+        norm = math.sqrt(sum(value * value for value in vector))
+        if norm:
+            embeddings[article_hash] = [value / norm for value in vector]
+    return embeddings
+
+
+def _pair_id(left_hash: object, right_hash: object) -> str:
+    left, right = sorted((str(left_hash or ""), str(right_hash or "")))
+    return f"{left}--{right}"
+
+
+def load_match_overrides(path: Path = MATCH_OVERRIDES_FILE) -> dict[str, set[str]]:
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        raw = {}
+
+    def keys(name: str) -> set[str]:
+        result = set()
+        for row in raw.get(name) or []:
+            if isinstance(row, str) and "--" in row:
+                result.add(row)
+            elif isinstance(row, dict):
+                result.add(_pair_id(row.get("left_hash"), row.get("right_hash")))
+        return {value for value in result if not value.startswith("--") and not value.endswith("--")}
+
+    return {"approved": keys("approved"), "rejected": keys("rejected")}
 
 
 def cosine_similarity(left: list[float] | None, right: list[float] | None) -> float | None:
@@ -402,6 +556,7 @@ def issue_similarity(
     left: dict,
     right: dict,
     embeddings: dict[str, list[float]] | None = None,
+    local_embeddings: dict[str, list[float]] | None = None,
 ) -> tuple[bool, float, dict]:
     """두 기사가 같은 이슈인지 보수적으로 판정한다.
 
@@ -423,6 +578,10 @@ def issue_similarity(
     embedding_similarity = cosine_similarity(
         (embeddings or {}).get(str(left.get("hash") or "")),
         (embeddings or {}).get(str(right.get("hash") or "")),
+    )
+    local_embedding_similarity = cosine_similarity(
+        (local_embeddings or {}).get(str(left.get("hash") or "")),
+        (local_embeddings or {}).get(str(right.get("hash") or "")),
     )
     country_conflict = _country_conflict(left, right)
     facility_conflict = _facility_conflict(left, right)
@@ -464,11 +623,49 @@ def issue_similarity(
         "tag_shared": tag_shared,
         "topic_shared": topic_shared,
         "embedding_similarity": round(embedding_similarity, 4) if embedding_similarity is not None else None,
+        "local_embedding_similarity": (
+            round(local_embedding_similarity, 4)
+            if local_embedding_similarity is not None else None
+        ),
         "method": method,
         "blocked_by": blocked_by,
         "left_facilities": sorted(left_units or left_plants),
         "right_facilities": sorted(right_units or right_plants),
     }
+
+
+def is_review_candidate(diagnostics: dict) -> tuple[bool, str, float]:
+    """자동 병합 아래 구간을 사람 확인 큐로 보낸다."""
+    if diagnostics.get("blocked_by"):
+        return False, "", 0.0
+    remote = diagnostics.get("embedding_similarity")
+    local = diagnostics.get("local_embedding_similarity")
+    title_ratio = float(diagnostics.get("title_ratio") or 0)
+    token_ratio = float(diagnostics.get("token_ratio") or 0)
+    contextual = bool(
+        diagnostics.get("tag_shared")
+        or diagnostics.get("topic_shared")
+        or title_ratio >= 0.28
+        or token_ratio >= 0.16
+    )
+    if not contextual:
+        return False, "", 0.0
+    if remote is not None and remote >= ISSUE_EMBEDDING_CANDIDATE_THRESHOLD:
+        return True, "gemini_candidate", float(remote)
+    if (
+        local is not None
+        and local >= LOCAL_EMBEDDING_CANDIDATE_THRESHOLD
+        and (
+            (diagnostics.get("tag_shared") and title_ratio >= 0.20)
+            or (
+                diagnostics.get("topic_shared")
+                and (title_ratio >= 0.25 or token_ratio >= 0.12)
+            )
+            or title_ratio >= 0.45
+        )
+    ):
+        return True, "local_candidate", float(local)
+    return False, "", 0.0
 
 
 def _parse_day(value: str) -> date | None:
@@ -575,8 +772,12 @@ def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
             article_hash = raw_evidence.get("hash")
             if not article_hash or article_hash in seen:
                 continue
+            article = by_hash.get(article_hash)
+            # 아카이브 품질 마이그레이션에서 삭제·병합된 기사는 더 이상
+            # 공개 근거가 아니다. 빈 메타로 남기지 말고 인사이트에서도 제거한다.
+            if article is None:
+                continue
             seen.add(article_hash)
-            article = by_hash.get(article_hash) or {}
             evidence.append({
                 **raw_evidence,
                 "region": article.get("region", ""),
@@ -608,6 +809,9 @@ def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
 def cluster_selected_articles(
     news_items: list[dict],
     embeddings: dict[str, list[float]] | None = None,
+    local_embeddings: dict[str, list[float]] | None = None,
+    match_overrides: dict[str, set[str]] | None = None,
+    review_candidates: list[dict] | None = None,
 ) -> list[dict]:
     """발송된 기사들을 최근 이슈 묶음으로 연결한다.
 
@@ -617,6 +821,9 @@ def cluster_selected_articles(
     selected = [item for item in news_items if item.get("briefing_date")]
     selected.sort(key=lambda item: (item["briefing_date"], item["article_date"], item["hash"]))
     issues: list[dict] = []
+    overrides = match_overrides or {"approved": set(), "rejected": set()}
+    candidate_rows = review_candidates if review_candidates is not None else []
+    seen_candidates = {_pair_id(row.get("left_hash"), row.get("right_hash")) for row in candidate_rows}
 
     for article in selected:
         article_day = _parse_day(article.get("briefing_date", ""))
@@ -631,7 +838,32 @@ def cluster_selected_articles(
             # 대표 기사 한 건만 보면 표현이 단계적으로 바뀌는 A→B→C 후속 보도가
             # 끊길 수 있다. 최근 기사 3건 중 가장 가까운 연결을 사용한다.
             for reference in issue["members"][-3:]:
-                matched, score, diag = issue_similarity(article, reference, embeddings)
+                pair_id = _pair_id(article["hash"], reference["hash"])
+                matched, score, diag = issue_similarity(
+                    article, reference, embeddings, local_embeddings
+                )
+                if pair_id in overrides.get("rejected", set()):
+                    continue
+                if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
+                    matched, score = True, max(score, 1.0)
+                    diag = {**diag, "method": "manual_approved"}
+                elif not matched:
+                    is_candidate, candidate_method, candidate_score = is_review_candidate(diag)
+                    if is_candidate and pair_id not in seen_candidates:
+                        seen_candidates.add(pair_id)
+                        candidate_rows.append({
+                            "candidate_id": pair_id,
+                            "left_hash": reference["hash"],
+                            "right_hash": article["hash"],
+                            "left_date": reference.get("briefing_date"),
+                            "right_date": article.get("briefing_date"),
+                            "left_title": reference.get("title_kr") or reference.get("title"),
+                            "right_title": article.get("title_kr") or article.get("title"),
+                            "candidate_method": candidate_method,
+                            "candidate_score": round(candidate_score, 4),
+                            "diagnostics": diag,
+                            "review_state": "pending",
+                        })
                 if matched and score > best_score:
                     best_issue, best_score = issue, score
                     best_diag = {**diag, "reference_hash": reference["hash"]}
@@ -669,12 +901,32 @@ def _article_view(article: dict) -> dict:
         "summary": article.get("summary", ""),
         "domain": article.get("domain", ""),
         "publisher": article.get("publisher", ""),
+        "source_type": article.get("source_type", "unknown"),
+        "evidence_role": article.get("evidence_role", "unknown"),
+        "source_tier": article.get("source_tier", 3),
+        "event_date": article.get("event_date"),
+        "event_date_type": article.get("event_date_type", "unknown"),
         "region": article.get("region", ""),
         "countries": article.get("countries") or [],
         "topics": article.get("topics") or [],
         "url": article.get("url", ""),
         "importance": article.get("importance", ""),
     }
+
+
+def latest_change_line(current: list[dict], history: list[dict]) -> str:
+    """추적 이슈의 이번 브리핑 신규 사실을 완결된 한 문장으로 만든다."""
+    if not current or not history:
+        return ""
+    newest = max(
+        current,
+        key=lambda member: (member.get("article_date") or "", _representative_key(member)),
+    )
+    text = newest.get("summary") or newest.get("title_kr") or newest.get("title") or ""
+    change = flow_takeaway(text, limit=140).strip()
+    if change and not change.endswith((".", "!", "?")):
+        change += "."
+    return change
 
 
 def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
@@ -715,6 +967,7 @@ def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
                 "implication": representative.get("implication") or representative.get("why_important") or "",
+                "latest_change": latest_change_line(current, history),
                 "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
                 "importance": representative.get("importance", ""),
                 "selection_reasons": list(dict.fromkeys(reasons))[:2],
@@ -785,6 +1038,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str) -> list[d
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
             "implication": representative.get("implication") or representative.get("why_important") or "",
+            "latest_change": latest_change_line(current, history),
             "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
             "regions": sorted(regions),
             "importance": representative.get("importance", ""),
@@ -809,10 +1063,53 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str) -> list[d
     return rows
 
 
+def build_rss(briefings: list[dict], generated_at: datetime) -> bytes:
+    """최신 이슈 카드를 보고서형 RSS 2.0으로 직렬화한다."""
+    ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
+    rss = ET.Element("rss", {"version": "2.0"})
+    channel = ET.SubElement(rss, "channel")
+    ET.SubElement(channel, "title").text = "nuclens 원자력 정책 브리핑"
+    ET.SubElement(channel, "link").text = SITE_URL
+    ET.SubElement(channel, "description").text = "이슈 단위로 추적하는 원자력 정책 브리핑"
+    ET.SubElement(channel, "language").text = "ko"
+    ET.SubElement(channel, "lastBuildDate").text = format_datetime(generated_at)
+    ET.SubElement(
+        channel,
+        "{http://www.w3.org/2005/Atom}link",
+        {"href": f"{SITE_URL}/rss.xml", "rel": "self", "type": "application/rss+xml"},
+    )
+
+    for briefing in briefings[:14]:
+        briefing_date = briefing.get("date") or ""
+        try:
+            published = datetime.combine(date.fromisoformat(briefing_date), datetime.min.time(), KST)
+        except ValueError:
+            published = generated_at
+        for issue in briefing.get("issues", [])[:20]:
+            issue_id = str(issue.get("issue_id") or "")
+            link = f"{SITE_URL}/?{urlencode({'date': briefing_date, 'issue': issue_id})}"
+            item = ET.SubElement(channel, "item")
+            ET.SubElement(item, "title").text = str(issue.get("title") or "")
+            ET.SubElement(item, "link").text = link
+            ET.SubElement(item, "guid", {"isPermaLink": "false"}).text = f"{issue_id}:{briefing_date}"
+            ET.SubElement(item, "pubDate").text = format_datetime(published)
+            description = []
+            if issue.get("summary"):
+                description.append(f"핵심: {issue['summary']}")
+            if issue.get("latest_change"):
+                description.append(f"새로 확인: {issue['latest_change']}")
+            if issue.get("implication"):
+                description.append(f"의미(AI 해석): {issue['implication']}")
+            ET.SubElement(item, "description").text = "\n".join(description)
+    return ET.tostring(rss, encoding="utf-8", xml_declaration=True)
+
+
 def build() -> None:
     records = load_archive()
+    validate_archive_records(records)
     deliveries = load_deliveries()
     now = datetime.now(KST)
+    generation_id = GENERATION_ID or now.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     cutoff_news = (now - timedelta(days=NEWS_WINDOW_DAYS)).strftime("%Y-%m-%d")
 
     visible = []
@@ -857,8 +1154,14 @@ def build() -> None:
             "domain": record.get("domain", ""),
             "publisher": record.get("publisher", ""),
             "source_tier": record.get("source_tier"),
+            "source_type": record.get("source_type", "unknown"),
+            "evidence_role": record.get("evidence_role", "unknown"),
+            "event_date": record.get("event_date"),
+            "event_date_type": record.get("event_date_type", "unknown"),
+            "event_date_precision": record.get("event_date_precision", "unknown"),
+            "event_date_source": record.get("event_date_source", "unknown"),
             "selection_score": delivery.get("score") if delivery else None,
-            "selection_reasons": selection_reasons(delivery),
+            "selection_reasons": selection_reasons(delivery, record),
             # 기존 프론트와의 호환용. 새 화면은 briefing_date를 사용한다.
             "promoted": delivery.get("date") if delivery else None,
         })
@@ -866,7 +1169,20 @@ def build() -> None:
     news_items = [item for item in visible if item["article_date"] >= cutoff_news]
 
     embeddings = load_embeddings_cache()
-    issues = cluster_selected_articles(news_items, embeddings)
+    local_embeddings = build_local_embeddings(news_items)
+    match_overrides = load_match_overrides()
+    review_candidates: list[dict] = []
+    issues = cluster_selected_articles(
+        news_items,
+        embeddings,
+        local_embeddings,
+        match_overrides,
+        review_candidates,
+    )
+    review_candidates.sort(
+        key=lambda row: (row.get("candidate_score") or 0, row.get("right_date") or ""),
+        reverse=True,
+    )
     briefings = build_briefings(news_items, issues)
     issue_catalog = build_issue_catalog(
         issues,
@@ -949,7 +1265,12 @@ def build() -> None:
         )
     )
     selected_items = [item for item in news_items if item.get("briefing_date")]
-    embedded_selected_count = sum(1 for item in selected_items if item["hash"] in embeddings)
+    remote_embedded_selected_count = sum(
+        1 for item in selected_items if item["hash"] in embeddings
+    )
+    embedded_selected_count = sum(
+        1 for item in selected_items if item["hash"] in local_embeddings
+    )
     match_methods = Counter(
         diag.get("method", "none")
         for issue in issues
@@ -959,8 +1280,14 @@ def build() -> None:
         1 for issue in issues
         if len({member["briefing_date"] for member in issue["members"]}) > 1
     )
+    latest_briefing = briefings[0] if briefings else {"issues": []}
+    latest_tracked_issue_count = sum(
+        1 for issue in latest_briefing.get("issues", [])
+        if issue.get("previous_article_count", 0) > 0
+    )
+    latest_issue_count = len(latest_briefing.get("issues", []))
     meta = {
-        "generation_id": GENERATION_ID,
+        "generation_id": generation_id,
         "generated_at": now.isoformat(),
         "archive_total": len(records),
         "visible_total": len(news_items),
@@ -970,6 +1297,11 @@ def build() -> None:
         "date_min": min((item["article_date"] for item in visible), default=""),
         "date_max": max((item["article_date"] for item in visible), default=""),
         "importance_counts": dict(Counter(record.get("importance", "") for record in records)),
+        "source_type_counts": dict(Counter(record.get("source_type", "unknown") for record in records)),
+        "evidence_role_counts": dict(Counter(record.get("evidence_role", "unknown") for record in records)),
+        "publisher_coverage": round(
+            sum(1 for record in records if record.get("publisher")) / len(records), 4
+        ) if records else 0,
         "topic_coverage": round(topic_coverage, 4),
         "country_coverage": round(country_coverage, 4),
         "taxonomy_version": "prototype-heuristic-v1",
@@ -979,15 +1311,26 @@ def build() -> None:
         "region_source_counts": dict(region_source_counts),
         "region_country_mismatch_count": region_country_mismatch_count,
         "trend_ready": topic_coverage >= 0.8 and country_coverage >= 0.8 and len(weeks) >= 2,
-        "issue_matching_version": "hybrid-guarded-v2",
+        "issue_matching_version": "hybrid-review-v3",
         "issue_window_days": ISSUE_WINDOW_DAYS,
+        "embedding_model": EMBEDDING_MODEL,
         "embedding_cache_entries": len(embeddings),
+        "remote_embedding_selected_count": remote_embedded_selected_count,
+        "local_embedding_selected_count": embedded_selected_count,
         "embedding_selected_count": embedded_selected_count,
         "embedding_selected_coverage": round(
             embedded_selected_count / len(selected_items), 4
         ) if selected_items else 0,
         "issue_match_methods": dict(match_methods),
         "cross_date_issue_count": cross_date_issue_count,
+        "latest_briefing_issue_count": latest_issue_count,
+        "latest_briefing_tracked_issue_count": latest_tracked_issue_count,
+        "latest_briefing_tracking_rate": round(
+            latest_tracked_issue_count / latest_issue_count, 4
+        ) if latest_issue_count else 0,
+        "issue_review_candidate_count": len(review_candidates),
+        "issue_match_approved_count": len(match_overrides["approved"]),
+        "issue_match_rejected_count": len(match_overrides["rejected"]),
     }
 
     insights_path = BOT_DIR / "trend_insights.json"
@@ -999,9 +1342,20 @@ def build() -> None:
 
     issue_audit = {
         "generated_at": now.isoformat(),
-        "matching_version": "hybrid-guarded-v2",
+        "matching_version": "hybrid-review-v3",
+        "issue_window_days": ISSUE_WINDOW_DAYS,
+        "embedding_model": EMBEDDING_MODEL,
         "embedding_threshold": ISSUE_EMBEDDING_THRESHOLD,
+        "embedding_candidate_threshold": ISSUE_EMBEDDING_CANDIDATE_THRESHOLD,
+        "local_embedding_candidate_threshold": LOCAL_EMBEDDING_CANDIDATE_THRESHOLD,
         "embedding_cache_entries": len(embeddings),
+        "embedding_selected_count": embedded_selected_count,
+        "remote_embedding_selected_count": remote_embedded_selected_count,
+        "review_candidates": review_candidates,
+        "overrides": {
+            "approved": sorted(match_overrides["approved"]),
+            "rejected": sorted(match_overrides["rejected"]),
+        },
         "clusters": [
             {
                 "issue_id": issue["issue_id"],
@@ -1025,6 +1379,21 @@ def build() -> None:
         ],
     }
 
+    # Cloudflare Pages의 flat 배포도 manifest/status를 항상 제공한다. 프론트가
+    # 존재하지 않는 선택 파일을 매번 요청해 404를 남기지 않도록 하는 계약이다.
+    manifest = {
+        "generation_id": generation_id,
+        "generated_at": now.isoformat(),
+        "base_path": "",
+    }
+    status = {
+        "state": "ok",
+        "generation_id": generation_id,
+        "last_success_at": now.isoformat(),
+        "watcher_running": True,
+        "message": "",
+    }
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     outputs = (
         ("news.json", news_items),
@@ -1034,12 +1403,15 @@ def build() -> None:
         ("meta.json", meta),
         ("insights.json", insights),
         ("issue_audit.json", issue_audit),
+        ("manifest.json", manifest),
+        ("status.json", status),
     )
     for name, payload in outputs:
         (OUT_DIR / name).write_text(
             json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",
         )
+    (SITE_DIR / "public" / "rss.xml").write_bytes(build_rss(briefings, now))
 
     selected_count = sum(briefing["article_count"] for briefing in briefings)
     issue_count = sum(briefing["issue_count"] for briefing in briefings)

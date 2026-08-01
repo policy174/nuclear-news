@@ -14,6 +14,7 @@ embeddings.json
 
 # 웹 빌드 산출물 (CI가 매번 재생성해 Cloudflare Pages로 배포 — 커밋 불필요)
 web/public/data/
+web/public/rss.xml
 
 # Python
 __pycache__/

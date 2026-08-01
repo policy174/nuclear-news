@@ -345,6 +345,22 @@ a { color: inherit; }
 .issue-status.ongoing { background: #eef3e7; color: #4f7038; }
 .issue-card h3 { margin: 9px 0 9px; font-size: 19px; line-height: 1.48; letter-spacing: -.025em; }
 .issue-summary { margin: 0; color: var(--ink-soft); font-size: 15px; }
+.issue-change {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid #71924e;
+  background: #f5f8f1;
+  color: var(--ink-soft);
+  border-radius: 0 5px 5px 0;
+  font-size: 13.5px;
+}
+.issue-change strong, .dialog-change strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #4f7038;
+  font-size: 10.5px;
+  letter-spacing: .03em;
+}
 .issue-meaning {
   margin: 14px 0 0;
   padding: 12px 14px;
@@ -409,6 +425,18 @@ a { color: inherit; }
 .issue-detail-button::after { content: " →"; }
 .issue-detail-button span { margin-left: 4px; color: var(--muted); font-weight: 500; }
 .issue-detail-button:hover { text-decoration: underline; }
+.copy-report-button {
+  border: 1px solid var(--line-strong);
+  padding: 5px 9px;
+  background: #fff;
+  color: var(--ink-soft);
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.copy-report-button:hover { border-color: var(--blue); color: var(--blue); }
 .timeline-details, .article-details { margin-top: 16px; }
 .timeline-details > summary, .article-details > summary {
   width: fit-content;
@@ -472,6 +500,7 @@ a { color: inherit; }
 .dialog-update { margin-top: 26px; padding: 20px 22px; background: var(--sand); }
 .dialog-update h3, .dialog-history h3 { margin: 0; font-size: 14px; }
 .dialog-update > p { margin: 10px 0 0; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
+.dialog-update .dialog-change { padding: 12px 14px; background: #f5f8f1; }
 .dialog-update .dialog-meaning { padding-top: 12px; border-top: 1px solid var(--line); }
 .dialog-meaning strong { margin-right: 9px; color: var(--blue); font-size: 10.5px; letter-spacing: .05em; }
 .dialog-history { margin-top: 28px; }
@@ -685,6 +714,19 @@ button:focus-visible, select:focus-visible, summary:focus-visible, a:focus-visib
   .issue-status, .topic, .reason, .tag-row span,
   .flow-region, .dialog-meaning strong, .dialog-section-head span,
   .timeline-date small, .timeline-copy small { font-size: 11px; }
+}
+.ai-badge {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 5px;
+  border: 1px solid #a8bbc5;
+  border-radius: 999px;
+  color: #55717f;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0;
+  line-height: 1.35;
+  vertical-align: 1px;
 }
 
 @media (max-width: 440px) {

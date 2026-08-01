@@ -3,6 +3,7 @@ import sys
 import unittest
 from itertools import combinations
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,6 +39,47 @@ class SelectionReasonTests(unittest.TestCase):
         reasons = build_data.selection_reasons({"score": 5, "breakdown": {"time_decay": -1}})
         self.assertEqual(reasons, ["브리핑 우선순위"])
 
+    def test_official_and_specialist_labels_are_distinct(self):
+        delivery = {"score": 5, "breakdown": {"source_tier1": 4}}
+        self.assertEqual(
+            build_data.selection_reasons(delivery, {"evidence_role": "primary"}),
+            ["공식 원문"],
+        )
+        self.assertEqual(
+            build_data.selection_reasons(
+                delivery, {"evidence_role": "independent", "source_type": "specialist_media"}
+            ),
+            ["전문 매체"],
+        )
+
+
+class DataQualityGateTests(unittest.TestCase):
+    @staticmethod
+    def _record(hash_value="h1", url="https://example.com/a", title="원전 계획 발표"):
+        return {
+            "hash": hash_value,
+            "url": url,
+            "title": title,
+            "publisher": "테스트 매체",
+            "source_tier": 3,
+            "importance": "nice_to_know",
+            "summary": "정부가 신규 원전 계획을 발표했다.",
+            "implication": "",
+            "why_important": "",
+        }
+
+    def test_duplicate_url_fails_build_gate(self):
+        with self.assertRaisesRegex(ValueError, "duplicate_url"):
+            build_data.validate_archive_records([
+                self._record(), self._record("h2", title="다른 제목")
+            ])
+
+    def test_incomplete_summary_fails_build_gate(self):
+        record = self._record()
+        record["summary"] = "정부가 신규 원전 계획을 발표"
+        with self.assertRaisesRegex(ValueError, "summary:incomplete"):
+            build_data.validate_archive_records([record])
+
 
 class RegionClassificationTests(unittest.TestCase):
     def test_google_korea_domain_does_not_turn_us_story_domestic(self):
@@ -64,13 +106,39 @@ class RegionClassificationTests(unittest.TestCase):
 
 class IssueSimilarityTests(unittest.TestCase):
     def test_paraphrased_12th_plan_articles_are_one_issue(self):
-        news = json.loads((DATA_DIR / "news.json").read_text(encoding="utf-8"))
-        by_hash = {article["hash"]: article for article in news}
-        left = by_hash["9846193b68301679"]
-        right = by_hash["d4658d844ee27556"]
+        # 생성 데이터의 특정 해시에 결합하지 않고, 같은 사건의 두 표현을 고정
+        # 회귀 표본으로 둔다. 품질 마이그레이션으로 중복 기사가 삭제돼도 유효하다.
+        left = {
+            "title_kr": "12차 전기본, 원전 반영 여부 두고 정부 부처 간 정책 혼선",
+            "summary": "12차 전력수급기본계획의 원전 반영 여부를 두고 정부 내 입장이 엇갈렸습니다.",
+            "tags": ["#12차전기본", "#원전정책", "#정부정책"],
+            "countries": ["KR"],
+        }
+        right = {
+            "title_kr": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
+            "summary": "12차 전력수급기본계획 수립 과정에서 원전 반영을 두고 부처 간 이견이 보도됐습니다.",
+            "tags": ["#12차전기본", "#에너지정책", "#정부이견"],
+            "countries": ["KR"],
+        }
         matched, _, diagnostics = build_data.issue_similarity(left, right)
         self.assertTrue(matched)
         self.assertEqual(diagnostics["tag_shared"], 1)
+
+    def test_prepare_insights_drops_evidence_missing_from_public_news(self):
+        insights = {
+            "items": [{
+                "keyword": "원전 정책",
+                "direction": "원전 정책 논의가 이어졌습니다.",
+                "evidence": [{"hash": "kept"}, {"hash": "removed"}],
+            }],
+        }
+        news = [{
+            "hash": "kept", "region": "국내", "countries": ["KR"],
+            "topics": ["정책"], "publisher": "산업통상자원부", "domain": "motie.go.kr",
+        }]
+        prepared = build_data.prepare_insights(insights, news)
+        self.assertEqual([row["hash"] for row in prepared["items"][0]["evidence"]], ["kept"])
+        self.assertEqual(prepared["items"][0]["region_scope"], "국내")
 
     def test_unrelated_safety_events_stay_separate(self):
         left = {
@@ -314,6 +382,12 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('id="systemStatus"', html)
         self.assertIn("async function initializeDataBase", script)
         self.assertIn('loadRootJSON("manifest.json", true)', script)
+        manifest = json.loads((DATA_ROOT / "manifest.json").read_text(encoding="utf-8"))
+        status = json.loads((DATA_ROOT / "status.json").read_text(encoding="utf-8"))
+        meta = json.loads((DATA_ROOT / "meta.json").read_text(encoding="utf-8"))
+        self.assertTrue(manifest["generation_id"])
+        self.assertEqual(manifest["generation_id"], status["generation_id"])
+        self.assertEqual(manifest["generation_id"], meta["generation_id"])
 
     def test_initial_data_connection_recovers_without_manual_reload(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
@@ -331,6 +405,8 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertTrue(ongoing)
         self.assertTrue(all(issue["tracked_briefings"] >= 2 for issue in ongoing))
         self.assertTrue(all(issue["previous_article_count"] >= 1 for issue in ongoing))
+        self.assertTrue(all(issue["latest_change"] for issue in ongoing))
+        self.assertTrue(all(issue["latest_change"].endswith((".", "!", "?")) for issue in ongoing))
 
     def test_issue_detail_timeline_contains_every_linked_article(self):
         for briefing in self.briefings:
@@ -338,11 +414,31 @@ class GeneratedDataTests(unittest.TestCase):
                 self.assertEqual(len(issue["related_articles"]), issue["article_count"])
 
     def test_issue_matching_audit_is_generated(self):
-        self.assertEqual(self.meta["issue_matching_version"], "hybrid-guarded-v2")
+        self.assertEqual(self.meta["issue_matching_version"], "hybrid-review-v3")
         self.assertIn("embedding_cache_entries", self.meta)
-        self.assertEqual(self.issue_audit["matching_version"], "hybrid-guarded-v2")
+        self.assertGreater(self.meta["embedding_selected_count"], 0)
+        self.assertGreaterEqual(self.meta["embedding_selected_coverage"], 0.95)
+        self.assertIn("remote_embedding_selected_count", self.meta)
+        self.assertEqual(self.issue_audit["matching_version"], "hybrid-review-v3")
+        self.assertTrue(self.issue_audit["review_candidates"])
+        self.assertTrue(all(row["review_state"] == "pending" for row in self.issue_audit["review_candidates"]))
+        self.assertGreaterEqual(self.meta["latest_briefing_tracking_rate"], 0.20)
         self.assertTrue(self.issue_audit["clusters"])
         self.assertTrue(all(cluster["matches"] for cluster in self.issue_audit["clusters"]))
+
+    def test_manual_merge_overrides_are_auditable(self):
+        approved = set(self.issue_audit["overrides"]["approved"])
+        rejected = set(self.issue_audit["overrides"]["rejected"])
+        pending = {row["candidate_id"] for row in self.issue_audit["review_candidates"]}
+        self.assertTrue(approved)
+        self.assertTrue(rejected)
+        self.assertTrue(approved.isdisjoint(rejected | pending))
+        methods = {
+            match["method"]
+            for cluster in self.issue_audit["clusters"]
+            for match in cluster["matches"]
+        }
+        self.assertIn("manual_approved", methods)
 
     def test_generated_issue_clusters_have_no_country_or_facility_conflicts(self):
         by_hash = {article["hash"]: article for article in self.news}
@@ -362,15 +458,42 @@ class GeneratedDataTests(unittest.TestCase):
             expected = "국내" if "KR" in countries else "해외"
             self.assertEqual(article["region"], expected, article["title_kr"])
 
-    def test_public_brand_and_indexing_metadata_are_complete(self):
+    def test_brand_is_kept_private_until_access_control_decision(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertIn("NUCLENS", html)
-        self.assertNotIn('content="noindex"', html)
+        self.assertIn('content="noindex,nofollow"', html)
+        self.assertIn('name="color-scheme" content="light"', html)
         self.assertIn('name="description"', html)
-        self.assertIn('rel="canonical"', html)
-        self.assertIn('property="og:title"', html)
-        for name in ("favicon.svg", "robots.txt", "sitemap.xml"):
+        self.assertNotIn('rel="canonical"', html)
+        self.assertNotIn('property="og:title"', html)
+        for name in ("favicon.svg", "robots.txt"):
             self.assertTrue((ROOT / "public" / name).exists(), name)
+        self.assertFalse((ROOT / "public" / "sitemap.xml").exists())
+        self.assertIn("Disallow: /", (ROOT / "public" / "robots.txt").read_text(encoding="utf-8"))
+
+    def test_stage_two_navigation_and_ai_disclosure(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn('data/${name}?t=', script)
+        self.assertIn("window.scrollTo(0, 0)", script)
+        self.assertIn('state.view === "search" && state.archiveQuery', script)
+        self.assertIn('syncUrl("push")', script)
+        self.assertIn('window.addEventListener("popstate"', script)
+        self.assertGreaterEqual(script.count('class="ai-badge"'), 4)
+        self.assertIn(".ai-badge", style)
+
+    def test_rss_and_report_copy_are_generated(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        rss_path = ROOT / "public" / "rss.xml"
+        self.assertIn('type="application/rss+xml"', html)
+        self.assertTrue(rss_path.exists())
+        channel = ET.parse(rss_path).getroot().find("channel")
+        self.assertIsNotNone(channel)
+        self.assertTrue(channel.findall("item"))
+        self.assertIn("function issueReportText", script)
+        self.assertIn("• 이번 브리핑에서 새로 확인된 것:", script)
+        self.assertIn('data-copy-issue="${esc(issue.issue_id)}"', script)
 
     def test_ci_persists_embeddings_and_fails_on_web_smoke_errors(self):
         repo_root = ROOT.parent
@@ -379,6 +502,9 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("actions/cache/restore@v4", crawl)
         self.assertIn("actions/cache/save@v4", crawl)
         self.assertIn("Restore embeddings cache", daily)
+        self.assertIn("gemini-embedding-2", crawl)
+        self.assertIn("--window-days 21", crawl)
+        self.assertIn("--require-nonzero", daily)
         self.assertNotIn("- name: Smoke test live site\n        continue-on-error: true", crawl)
         self.assertNotIn("- name: Render smoke (라이브 화면 검증)\n        if: always() && steps.claim.conclusion == 'success'\n        continue-on-error: true", daily)
 

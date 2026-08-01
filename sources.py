@@ -51,24 +51,27 @@ TIER1_BONUS = int(_CFG.get("tier1_bonus", 40))
 TIER2_BONUS = int(_CFG.get("tier2_bonus", 20))
 
 
-def _build_indexes(cfg: dict) -> tuple[dict[str, tuple[int, str]], list[tuple[str, int, str]]]:
+def _build_indexes(cfg: dict) -> tuple[dict[str, tuple[int, str, str, str]], list[tuple[str, int, str, str, str]]]:
     """설정 → (도메인 인덱스, alias 인덱스).
 
     도메인 인덱스: {등록도메인: (tier, name)}
     alias 인덱스:  [(소문자 alias, tier, name)]  — 텍스트 부분일치용, 긴 것 우선
     """
-    domain_idx: dict[str, tuple[int, str]] = {}
-    alias_idx: list[tuple[str, int, str]] = []
-    for tier, key in ((1, "tier1"), (2, "tier2")):
+    domain_idx: dict[str, tuple[int, str, str, str]] = {}
+    alias_idx: list[tuple[str, int, str, str, str]] = []
+    for legacy_tier, key in ((1, "tier1"), (2, "tier2"), (3, "tier3")):
         for entry in cfg.get(key, []):
+            tier = int(entry.get("rank_tier") or legacy_tier)
             dom = (entry.get("domain") or "").lower().strip()
             name = entry.get("name") or dom
+            source_type = entry.get("source_type") or "unknown"
+            evidence_role = entry.get("evidence_role") or "unknown"
             if dom:
-                domain_idx[dom] = (tier, name)
+                domain_idx[dom] = (tier, name, source_type, evidence_role)
             for a in entry.get("aliases", []):
                 a = (a or "").strip().lower()
                 if a:
-                    alias_idx.append((a, tier, name))
+                    alias_idx.append((a, tier, name, source_type, evidence_role))
     # 긴 alias 먼저 매칭 (예: "@NEI" 보다 "Nuclear Energy Institute" 우선)
     alias_idx.sort(key=lambda x: len(x[0]), reverse=True)
     return domain_idx, alias_idx
@@ -100,7 +103,7 @@ def registered_domain(url: str | None) -> str:
     return netloc
 
 
-def _match_domain(url: str | None) -> tuple[int, str] | None:
+def _match_domain(url: str | None) -> tuple[int, str, str, str] | None:
     """URL 도메인이 화이트리스트에 있으면 (tier, name). suffix 매칭으로 서브도메인 허용."""
     host = registered_domain(url)
     if not host:
@@ -114,16 +117,16 @@ def _match_domain(url: str | None) -> tuple[int, str] | None:
     return None
 
 
-def _match_alias(text: str) -> tuple[int, str] | None:
+def _match_alias(text: str) -> tuple[int, str, str, str] | None:
     """제목·메타 텍스트에서 매체명/핸들 alias 부분일치. 가장 신뢰도 높은(tier 작은) 것."""
     if not text:
         return None
     low = text.lower()
-    best: tuple[int, str] | None = None
-    for alias, tier, name in _ALIAS_IDX:
+    best: tuple[int, str, str, str] | None = None
+    for alias, tier, name, source_type, evidence_role in _ALIAS_IDX:
         if alias in low:
             if best is None or tier < best[0]:
-                best = (tier, name)
+                best = (tier, name, source_type, evidence_role)
     return best
 
 
@@ -148,11 +151,17 @@ def credibility(cluster: dict) -> dict:
         via = "mention"
 
     if hit is None:
-        return {"bonus": 0, "tier": None, "name": None, "via": None}
+        return {
+            "bonus": 0, "tier": None, "name": None, "via": None,
+            "source_type": "unknown", "evidence_role": "unknown",
+        }
 
-    tier, name = hit
-    bonus = TIER1_BONUS if tier == 1 else TIER2_BONUS
-    return {"bonus": bonus, "tier": tier, "name": name, "via": via}
+    tier, name, source_type, evidence_role = hit
+    bonus = TIER1_BONUS if tier == 1 else TIER2_BONUS if tier == 2 else 0
+    return {
+        "bonus": bonus, "tier": tier, "name": name, "via": via,
+        "source_type": source_type, "evidence_role": evidence_role,
+    }
 
 
 def credibility_bonus(cluster: dict) -> int:

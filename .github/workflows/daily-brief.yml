@@ -54,6 +54,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuclear-embeddings-
 
+      - name: Backfill 21-day briefing embeddings
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_EMBEDDING_MODEL: gemini-embedding-2
+        run: python embedding_pipeline.py --window-days 21 --max-new 150 --require-nonzero
+
       - name: Plan (선별 → outbox 작성 → 큐 정리)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -140,6 +147,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           git fetch origin main && git reset --hard origin/main

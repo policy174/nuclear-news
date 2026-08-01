@@ -19,6 +19,10 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 | 파일 | 역할 |
 |---|---|
 | `news_bot.py` | 수집·dedup·batch 큐레이션 (Gemini 1회/10건, feature 추출 포함) |
+| `data_quality.py` | URL·발행처·출처 역할·완결문·사건일 공통 품질 계약 |
+| `embedding_pipeline.py` | Gemini 임베딩 모델·35일 캐시·최근 21일 브리핑 백필 계약 |
+| `news_archive.py` | v2 아카이브 적재·중복 차단·품질 이관 |
+| `archive_repairs.json` | 과거 깨진 레코드의 고정 회귀 수선·제외 근거 |
 | `daily_brief.py` | 일일 브리핑: 랭킹→투자 관점(구조화)→보고서 추천→발송 |
 | `weekly_bot.py` | 주간 판세 리포트 (Gemini 주 1회 1호출) |
 | `ranking.py` + `ranking_config.json` | 설명 가능한 점수식 — **가중치는 JSON 만 편집** |
@@ -70,9 +74,29 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 
 ```bash
 python daily_brief.py --dry-run        # 발송 없이 브리핑+점수 내역 출력
+python embedding_pipeline.py --window-days 21 --max-new 150  # 이슈 매칭 캐시 백필
 python -m unittest discover tests -v   # 테스트 (외부 호출 0)
 python metrics.py                      # 품질 지표
 ```
+
+## 데이터 품질 게이트
+
+- Google News RSS의 `source`를 우선하고, 없으면 제목의 `- 매체명` 꼬리에서 발행처를 복원한다.
+- URL은 추적 파라미터와 이중 슬래시만 정규화하며 기사 식별용 일반 쿼리는 유지한다.
+- `/Error/` 경로, 정규화 URL 중복, 제목 완전일치 중복은 저장 전에 차단한다.
+- 요약은 80자 이내 완결문이어야 하며 실패 항목만 한 번 재생성한다. 재실패 항목은 격리한다.
+- `source_type`과 `evidence_role`을 분리해 전문언론을 공식 원문으로 표시하지 않는다.
+- 이슈 임베딩은 `gemini-embedding-2`로 생성하고 모델·차원·입력 지문이 다른 구형 캐시는 폐기한다.
+- 신규 큐레이션은 `event_date`와 날짜 의미·정밀도·근거 필드를 함께 기록한다.
+
+과거 아카이브 이관 미리보기와 적용:
+
+```bash
+python news_archive.py --migrate-quality
+python news_archive.py --migrate-quality --apply
+```
+
+웹 빌드는 위 조건을 다시 검사하고 위반이 있으면 배포 전에 실패한다.
 
 ## 롤백
 

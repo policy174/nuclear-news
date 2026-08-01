@@ -1,5 +1,4 @@
 import difflib
-import hashlib
 import html
 import json
 import os
@@ -10,13 +9,29 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import urlparse, quote_plus
 
-import feedparser
-import requests
-
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
 from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
 from ranking import sanitize_features
 import news_archive
+from data_quality import (
+    clean_text,
+    curation_errors,
+    first_complete_sentence,
+    invalid_url_reason,
+    legacy_url_hash,
+    normalize_event_date_fields,
+    normalize_url,
+    source_profile,
+    split_title_publisher,
+    title_key,
+    url_hash as canonical_url_hash,
+)
+from embedding_pipeline import (
+    DEFAULT_CACHE_FILE as EMBEDDINGS_CACHE_FILE,
+    get_or_compute_embedding as pipeline_get_or_compute_embedding,
+    load_cache as load_embedding_store,
+    save_cache as save_embedding_store,
+)
 
 NAVER_CLIENT_ID = os.environ["NAVER_CLIENT_ID"]
 NAVER_CLIENT_SECRET = os.environ["NAVER_CLIENT_SECRET"]
@@ -30,7 +45,6 @@ DEDUP_RETENTION_DAYS = 14
 STATE_FILE = Path("sent.json")
 KEYWORDS_FILE = Path("keywords.json")
 REPORTS_KB_FILE = Path("reports_kb.json")
-EMBEDDINGS_CACHE_FILE = Path("embeddings.json")
 SEMANTIC_DEDUP_THRESHOLD = 0.85
 CURATED_CACHE_FILE = Path("curated.json")
 DIGEST_QUEUE_FILE = Path("digest_queue.json")
@@ -55,17 +69,13 @@ DOMAIN_SCORE = {
 DEFAULT_SCORE = 4
 MIN_SCORE = 4
 
-# 1차 소스 — 정부·규제기관·국제기구·원자력 전문 통신/학회.
-# 큐레이션 프롬프트의 (TIER1) 표시 기준. 일반 언론(연합·조선·Reuters 등)은
-# 여기 넣지 않는다 — 넣으면 평범한 기사가 must_read 로 격상된다.
+# 공식 원문을 제공하는 정부·규제기관·국제기구·사업자.
+# 전문언론(WNN·NucNet·ANS)은 신뢰도는 높아도 원발표처가 아니므로 포함하지 않는다.
 TIER1_DOMAINS = {
     "nssc.go.kr", "motie.go.kr", "msit.go.kr", "korea.kr",
     "khnp.co.kr", "kaeri.re.kr", "kins.re.kr", "korad.or.kr",
-    "iaea.org", "world-nuclear.org", "world-nuclear-news.org",
-    "oecd-nea.org", "nrc.gov", "ans.org",
-    # 2026-07-31 추가 피드 — 이전엔 'RSS 경로 = score 10' 으로 자동 TIER1 이었으나
-    # 판정이 도메인 기준으로 바뀌면서 명시 등록 필요해짐
-    "energy.gov", "nucnet.org", "sfen.org",
+    "iaea.org", "world-nuclear.org", "oecd-nea.org", "nrc.gov",
+    "energy.gov", "iea.org", "nei.org",
 }
 
 # 기관 site: 검색도 Google News '관련도순' 문제 동일 (2026-07-10 게토차:
@@ -227,11 +237,17 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 
 - title_kr: 한국어 제목 (30~60자). 원문이 영문이면 자연스러운 한국어로 번역. 원문이 한국어면 핵심을 살린 정확한 한국어 제목. 인명·기관명 첫 등장 시 한글(원문) 병기.
 
-- summary: '무슨 일'을 한국어 1문장으로 (80자 이내). **모든 항목 작성.** 무슨 일이 일어났는지 사실 중심으로 압축. 절대 영문 제목을 그대로 두지 말 것 — 반드시 한국어. **원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 요약에서 빼지 말고 보존할 것.**
+- summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 이내). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
+- summary 사실성 제약: 원문에 없는 전망·평가·인과관계를 추가하지 말 것. 계획·예정·전망·검토를 완료된 사실처럼 바꾸지 말고 원문의 시제를 그대로 보존할 것.
 
-- implication: 시사점 1문장 (60자 이내). nice_to_know·must_read만 작성. 핵심 함의만 압축.
+- implication: AI 해석인 시사점 1문장(60자 이내). nice_to_know·must_read만 작성. 완결형 서술문으로 쓰고 문자열을 자르지 말 것.
 
-- why_important: must_read만 작성. **1~2문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰지 말 것.
+- why_important: must_read만 작성. **1~2개의 완결형 문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰거나 문자열을 자르지 말 것.
+
+- event_date: 기사에 명시된 사건 발생·발표·시행·예정일을 YYYY-MM-DD로 작성. 기사 게시일을 사건일로 추정하지 말 것. 일자를 확정할 수 없으면 null.
+- event_date_type: announcement(발표) / occurrence(발생) / effective(시행) / deadline(기한) / scheduled(예정) / unknown.
+- event_date_precision: day / month / year / unknown. YYYY-MM-DD로 확정한 경우 day.
+- event_date_source: title / description / article_text / unknown. 현재 입력에 실제로 존재하는 근거만 선택.
 
 - watch_next: 빈 문자열 (사용 안 함).
 
@@ -264,6 +280,10 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   "topics": ["smr"],
   "countries": ["US"],
   "article_type": "policy",
+  "event_date": "2026-08-01|null",
+  "event_date_type": "announcement|occurrence|effective|deadline|scheduled|unknown",
+  "event_date_precision": "day|month|year|unknown",
+  "event_date_source": "title|description|article_text|unknown",
   "related_reports": ["보고서 제목 1", "..."]
 }
 """
@@ -294,17 +314,15 @@ def is_tier1(url: str) -> bool:
 
 
 def is_tier1_source(art: dict) -> bool:
-    """기사가 정부·규제기관·국제기구 등 1차 소스인가.
+    """기사가 정부·규제기관·국제기구 등 공식 원발표처인가.
 
     링크만 보면 안 된다 — 기관 보도자료도 Google News 검색 경유면 링크가
     news.google.com 이다. 수집 시 확정한 출처 도메인을 먼저 본다.
-    (예전엔 'RSS 경로면 score=10' 이라 국내 일반 언론 기사까지 1차 소스로
-    프롬프트에 들어가 must_read 로 격상됐다.)
+    전문언론은 신뢰도와 무관하게 ``independent``이므로 여기서 제외한다.
     """
-    dom = (art.get("domain") or "").lower()
-    if dom in TIER1_DOMAINS:
-        return True
-    return is_tier1(art.get("link", ""))
+    domain = art.get("domain") or get_domain(art.get("link", ""))
+    profile = source_profile(domain, art.get("publisher", ""))
+    return profile["evidence_role"] == "primary"
 
 
 def is_promotional(title: str, description: str) -> bool:
@@ -330,7 +348,24 @@ def strip_html(text: str) -> str:
 
 
 def url_hash(url: str) -> str:
-    return hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
+    """신규 상태 키는 정규화 URL 해시를 사용한다."""
+    return canonical_url_hash(url)
+
+
+def article_seen(state: dict, url: str) -> bool:
+    """정규화 해시 전환 중에도 기존 sent.json을 다시 수집하지 않는다."""
+    sent = state.get("sent") or {}
+    return url_hash(url) in sent or legacy_url_hash(url) in sent
+
+
+def source_score(domain: str, publisher: str = "") -> int:
+    """출처 모델을 반영한 수집 우선순위 점수."""
+    tier = source_profile(domain, publisher)["source_tier"]
+    if tier == 1:
+        return 10
+    if tier == 2:
+        return max(8, DOMAIN_SCORE.get(domain, DEFAULT_SCORE))
+    return DOMAIN_SCORE.get(domain, DEFAULT_SCORE)
 
 
 def load_json(path: Path, default):
@@ -393,20 +428,11 @@ def find_relevant_reports(title: str, description: str, kb: list[dict], top_k: i
 
 
 def load_embeddings_cache() -> dict:
-    if EMBEDDINGS_CACHE_FILE.exists():
-        try:
-            return json.loads(EMBEDDINGS_CACHE_FILE.read_text(encoding="utf-8"))
-        except Exception:
-            return {}
-    return {}
+    return load_embedding_store(EMBEDDINGS_CACHE_FILE)
 
 
 def save_embeddings_cache(cache: dict) -> None:
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=DEDUP_RETENTION_DAYS)).isoformat()
-    cache = {k: v for k, v in cache.items() if v.get("cached_at", "") > cutoff}
-    EMBEDDINGS_CACHE_FILE.write_text(
-        json.dumps(cache, ensure_ascii=False), encoding="utf-8"
-    )
+    save_embedding_store(cache, EMBEDDINGS_CACHE_FILE)
 
 
 def cosine_sim(a: list[float], b: list[float]) -> float:
@@ -421,31 +447,18 @@ def cosine_sim(a: list[float], b: list[float]) -> float:
     return dot / (na * nb)
 
 
-def get_or_compute_embedding(text: str, cache_key: str, cache: dict) -> list[float] | None:
-    if cache_key in cache and cache[cache_key].get("vec"):
-        return cache[cache_key]["vec"]
+def get_or_compute_embedding(article: dict, cache_key: str, cache: dict) -> list[float] | None:
     client = get_gemini()
-    if not client:
-        return None
     try:
-        result = client.models.embed_content(
-            model="text-embedding-004",
-            contents=text,
-        )
-        if not result.embeddings:
-            return None
-        vec = list(result.embeddings[0].values)
-        cache[cache_key] = {
-            "vec": vec,
-            "cached_at": datetime.now(timezone.utc).isoformat(),
-        }
-        return vec
+        vector, _ = pipeline_get_or_compute_embedding(client, article, cache_key, cache)
+        return vector
     except Exception as e:
         msg = str(e)
         if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
             print(f"  ! embedding quota exceeded")
         else:
-            print(f"  ! embedding failed for '{text[:40]}': {type(e).__name__}")
+            title = article.get("title_kr") or article.get("title") or ""
+            print(f"  ! embedding failed for '{title[:40]}': {type(e).__name__}")
         return None
 
 
@@ -456,7 +469,7 @@ def semantic_dedup(articles: list[dict], emb_cache: dict, threshold: float = SEM
 
     enriched: list[tuple[dict, list[float] | None]] = []
     for art in articles:
-        emb = get_or_compute_embedding(art["title"], art["hash"], emb_cache)
+        emb = get_or_compute_embedding(art, art["hash"], emb_cache)
         enriched.append((art, emb))
         time.sleep(0.3)
 
@@ -562,6 +575,8 @@ def save_queue(queue: list) -> None:
 
 
 def search_naver(query: str, negative_terms: str = "", display: int = 30) -> list[dict]:
+    import requests
+
     full_query = f"{query} {negative_terms}".strip() if negative_terms else query
     headers = {
         "X-Naver-Client-Id": NAVER_CLIENT_ID,
@@ -574,6 +589,8 @@ def search_naver(query: str, negative_terms: str = "", display: int = 30) -> lis
 
 
 def send_telegram(text: str) -> bool:
+    import requests
+
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": text,
@@ -698,6 +715,39 @@ def norm_article_type(value) -> str:
     return v if v in VALID_ARTICLE_TYPES else "news"
 
 
+def normalize_curation_item(item: dict, article: dict) -> dict:
+    """LLM 결과를 손실 없이 스키마에 맞춘다. 문장 중간 slicing은 하지 않는다."""
+    importance = item.get("importance", "nice_to_know")
+    section = item.get("section") or default_section(
+        article.get("domain", ""), article.get("title", "")
+    )
+    category = item.get("category", "정책")
+    title_kr = clean_text(item.get("title_kr")) or article.get("title", "")
+    normalized = {
+        "features": sanitize_features(item.get("features")),
+        "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
+        "section": section if section in VALID_SECTIONS else default_section(
+            article.get("domain", ""), article.get("title", "")
+        ),
+        "scope": norm_scope(item.get("scope")),
+        "category": category if category in VALID_CATEGORIES else "정책",
+        "topics": norm_topics(item.get("topics")),
+        "countries": norm_countries(item.get("countries")),
+        "article_type": norm_article_type(item.get("article_type")),
+        "title_kr": title_kr,
+        "summary": clean_text(item.get("summary")),
+        "implication": clean_text(item.get("implication")),
+        "why_important": clean_text(item.get("why_important")),
+        "watch_next": "",
+        "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
+        "related_reports": [
+            report for report in (item.get("related_reports") or []) if isinstance(report, str)
+        ][:2],
+    }
+    normalized.update(normalize_event_date_fields(item))
+    return normalized
+
+
 def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
     """LLM 호출. 실패 시 안전한 fallback 반환."""
     fallback = {
@@ -711,6 +761,10 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         "watch_next": "",
         "tags": [],
         "related_reports": [],
+        "event_date": None,
+        "event_date_type": "unknown",
+        "event_date_precision": "unknown",
+        "event_date_source": "unknown",
     }
     client = get_gemini()
     if not client:
@@ -745,27 +799,12 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
         if not result:
             print(f"  ! curate JSON parse failed for '{title[:30]}'")
             return fallback
-        importance = result.get("importance", "nice_to_know")
-        # Tier 1이라도 LLM이 noise/market/nice_to_know로 분류하면 그대로 존중 (강제 must_read 안 함)
-        section = result.get("section") or default_section(domain, title)
-        category = result.get("category", "정책")
-        title_kr = (result.get("title_kr") or "").strip() or title
-        return {
-            "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
-            "section": section if section in VALID_SECTIONS else default_section(domain, title),
-            "scope": norm_scope(result.get("scope")),
-            "category": category if category in VALID_CATEGORIES else "정책",
-            "topics": norm_topics(result.get("topics")),
-            "countries": norm_countries(result.get("countries")),
-            "article_type": norm_article_type(result.get("article_type")),
-            "title_kr": title_kr[:120],
-            "summary": (result.get("summary") or "")[:120],
-            "implication": (result.get("implication") or "")[:80],
-            "why_important": (result.get("why_important") or "")[:180],
-            "watch_next": "",
-            "related_reports": [r for r in (result.get("related_reports") or []) if isinstance(r, str)][:2],
-            "tags": [t for t in result.get("tags", []) if isinstance(t, str)][:3],
-        }
+        normalized = normalize_curation_item(result, {"title": title, "domain": domain})
+        errors = curation_errors(normalized)
+        if errors:
+            print(f"  ! curate 품질 게이트 실패 '{title[:30]}': {', '.join(errors)}")
+            return fallback
+        return normalized
     except Exception as e:
         msg = str(e)
         if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
@@ -790,7 +829,7 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -807,13 +846,13 @@ BATCH_SUFFIX = """
 - 확인 불가능하면 낮은 쪽으로. 지어내지 말 것.
 
 - 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
-- 제목 앞에 (TIER1) 표시가 있으면 정부·규제기관·국제기구 1차 소스입니다:
+- 제목 앞에 (OFFICIAL) 표시가 있으면 정부·규제기관·국제기구의 공식 원문입니다:
   본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의가 있는 경우만 must_read,
   채용·일반 행정·공지·축사·시상 등은 noise.
 - 각주처럼 붙은 `관련보고서:` 줄이 있으면 해당 기사 분석에 활용 (실제 참조 시만 related_reports).
 
 입력 형식: 각 기사가
-[idx] (TIER1)? 제목
+[idx] (OFFICIAL)? 제목
 요약: ...
 출처: 도메인
 (선택) 관련보고서: 제목1 / 제목2"""
@@ -822,8 +861,8 @@ BATCH_SUFFIX = """
 def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
     """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
 
-    실패한 chunk 의 기사는 결과에서 빠짐 → 호출측이 fallback 처리.
-    (건별 재시도로 되돌아가지 않음 — quota 보호가 목적이므로)
+    문장 완결성·길이 게이트를 통과하지 못한 항목만 한 번 재생성한다. 재생성에도
+    실패하면 결과에서 제외하여 잘린 문장이 아카이브나 브리핑으로 넘어가지 않는다.
     """
     if not articles:
         return {}
@@ -831,66 +870,90 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         print("  ! GEMINI_API_KEY 없음 → batch 큐레이션 건너뜀 (전건 fallback)")
         return {}
 
-    out: dict[str, dict] = {}
     system_prompt = CURATION_SYSTEM_PROMPT + BATCH_SUFFIX
 
-    for start in range(0, len(articles), BATCH_CHUNK):
-        chunk = articles[start:start + BATCH_CHUNK]
+    def run_chunk(chunk: list[dict], error_notes: dict[str, list[str]] | None = None):
         blocks = []
         for i, art in enumerate(chunk):
-            t1 = " (TIER1)" if is_tier1_source(art) else ""
-            lines = [f"[{i}]{t1} {art['title'][:150]}",
+            official = " (OFFICIAL)" if is_tier1_source(art) else ""
+            lines = [f"[{i}]{official} {art['title'][:150]}",
                      f"요약: {(art.get('description') or '')[:200]}",
                      f"출처: {art.get('publisher') or art.get('domain','')}"]
             relevant = find_relevant_reports(art["title"], art.get("description", ""), reports_kb)
             if relevant:
                 titles = " / ".join(r.get("title", "")[:40] for r in relevant[:2])
                 lines.append(f"관련보고서: {titles}")
+            if error_notes and art["hash"] in error_notes:
+                lines.append("이전 출력 오류: " + ", ".join(error_notes[art["hash"]]))
             blocks.append("\n".join(lines))
 
         try:
             result = gemini_call_json(
-                system_prompt, "\n\n---\n\n".join(blocks),
+                system_prompt + (
+                    "\n\n[재생성] 이전 출력의 오류가 표시된 항목입니다. 사실·시제를 유지하면서 "
+                    "제한 안에서 완결형 문장으로 전부 다시 작성하세요."
+                    if error_notes else ""
+                ),
+                "\n\n---\n\n".join(blocks),
                 temperature=0.2, max_output_tokens=8192, timeout=150.0,
             )
         except GeminiError as e:
-            print(f"  ! batch 큐레이션 실패 (chunk {start//BATCH_CHUNK+1}): {str(e)[:150]}")
-            continue
+            return {}, {art["hash"]: [f"request:{str(e)[:80]}"] for art in chunk}
 
         items = result.get("items")
         if not isinstance(items, list):
-            print(f"  ! batch 응답에 items 없음 (chunk {start//BATCH_CHUNK+1})")
-            continue
+            return {}, {art["hash"]: ["response:items_missing"] for art in chunk}
 
+        valid: dict[str, dict] = {}
+        failures: dict[str, list[str]] = {}
+        seen_indexes: set[int] = set()
         for item in items:
             if not isinstance(item, dict):
                 continue
             idx = item.get("idx")
             if not isinstance(idx, int) or not (0 <= idx < len(chunk)):
                 continue
+            if idx in seen_indexes:
+                failures[chunk[idx]["hash"]] = ["response:duplicate_idx"]
+                valid.pop(chunk[idx]["hash"], None)
+                continue
+            seen_indexes.add(idx)
             art = chunk[idx]
-            importance = item.get("importance", "nice_to_know")
-            section = item.get("section") or default_section(art.get("domain", ""), art.get("title", ""))
-            category = item.get("category", "정책")
-            title_kr = (item.get("title_kr") or "").strip() or art["title"]
-            out[art["hash"]] = {
-                # 랭킹 feature — 범위 밖/누락은 ranking.sanitize_features 가 클램프
-                "features": sanitize_features(item.get("features")),
-                "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
-                "section": section if section in VALID_SECTIONS else default_section(art.get("domain", ""), art.get("title", "")),
-                "scope": norm_scope(item.get("scope")),
-                "category": category if category in VALID_CATEGORIES else "정책",
-                "topics": norm_topics(item.get("topics")),
-                "countries": norm_countries(item.get("countries")),
-                "article_type": norm_article_type(item.get("article_type")),
-                "title_kr": title_kr[:120],
-                "summary": (item.get("summary") or "")[:120],
-                "implication": (item.get("implication") or "")[:80],
-                "why_important": (item.get("why_important") or "")[:180],
-                "watch_next": "",
-                "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
-                "related_reports": [r for r in (item.get("related_reports") or []) if isinstance(r, str)][:2],
-            }
+            normalized = normalize_curation_item(item, art)
+            errors = curation_errors(normalized)
+            if errors:
+                failures[art["hash"]] = errors
+            else:
+                valid[art["hash"]] = normalized
+
+        for idx, art in enumerate(chunk):
+            if idx not in seen_indexes:
+                failures[art["hash"]] = ["response:idx_missing"]
+        return valid, failures
+
+    out: dict[str, dict] = {}
+    for start in range(0, len(articles), BATCH_CHUNK):
+        chunk = articles[start:start + BATCH_CHUNK]
+        valid, failures = run_chunk(chunk)
+        out.update(valid)
+        retryable = [
+            art for art in chunk
+            if art["hash"] in failures
+            and not failures[art["hash"]][0].startswith("request:")
+        ]
+        if retryable:
+            print(f"  ! 품질 게이트 재생성: {len(retryable)}건")
+            repaired, remaining = run_chunk(retryable, failures)
+            out.update(repaired)
+            for art in retryable:
+                if art["hash"] in remaining:
+                    print(
+                        f"  ! 큐레이션 격리 '{art['title'][:35]}': "
+                        + ", ".join(remaining[art["hash"]])
+                    )
+        elif failures:
+            print(f"  ! batch 큐레이션 실패 (chunk {start//BATCH_CHUNK+1})")
+
         # 무료 티어 분당 한도 배려 — chunk 사이 짧은 대기
         if start + BATCH_CHUNK < len(articles):
             time.sleep(3)
@@ -931,13 +994,12 @@ def strip_title_suffix(title: str, publisher: str) -> str:
     """제목 끝의 ' - 매체명' 반복 제거 (Google News 표기 습관)."""
     if not publisher:
         return title
-    suffix = f" - {publisher}"
-    while title.endswith(suffix):
-        title = title[: -len(suffix)].rstrip()
-    return title or publisher
+    return split_title_publisher(title, publisher)[0]
 
 
 def fetch_rss(url: str) -> list[dict]:
+    import feedparser
+
     try:
         feed = feedparser.parse(url, agent="nuclear-news-bot/1.0")
         out = []
@@ -953,11 +1015,21 @@ def fetch_rss(url: str) -> list[dict]:
             if not link or not title or not pub:
                 continue
             pub_name, pub_domain = publisher_of(entry)
+            raw_title = strip_html(title)
+            host = (urlparse(link).hostname or "").lower()
+            if host.endswith("news.google.com"):
+                clean_title, inferred_publisher = split_title_publisher(raw_title, pub_name)
+                pub_name = pub_name or inferred_publisher
+            else:
+                clean_title = strip_title_suffix(raw_title, pub_name)
+            if pub_name and not pub_domain:
+                pub_domain = source_profile("", pub_name).get("domain", "")
             out.append({
-                "link": link,
+                "link": normalize_url(link),
+                "raw_link": link,
                 # Google News 는 제목 끝에 " - 매체명" 을 붙인다 (때로 두 번) → 제거.
                 # 큐레이션·중복판정에 매체명이 섞여 들어가는 것을 막는다.
-                "title": strip_title_suffix(strip_html(title), pub_name),
+                "title": clean_title,
                 "description": strip_html(description),
                 "pub": pub,
                 "publisher": pub_name,
@@ -984,8 +1056,10 @@ def collect_rss_articles(state: dict) -> list[dict]:
         for item in items:
             if item["pub"] < cutoff:
                 continue
+            if invalid_url_reason(item["link"]):
+                continue
             h = url_hash(item["link"])
-            if h in state["sent"]:
+            if article_seen(state, item.get("raw_link") or item["link"]):
                 continue
             if is_promotional(item["title"], item["description"]):
                 continue
@@ -1005,7 +1079,7 @@ def collect_rss_articles(state: dict) -> list[dict]:
                 # 출처 신뢰도 점수. 기관·전문지(TIER1)만 10, 일반 매체는 도메인 점수.
                 # 예전엔 RSS 경로 전건이 10이라 일반 언론 기사까지 '1차 소스'로
                 # 취급돼 must_read 로 격상되던 문제가 있었다.
-                "score": 10 if domain in TIER1_DOMAINS else DOMAIN_SCORE.get(domain, DEFAULT_SCORE),
+                "score": source_score(domain, item.get("publisher", "")),
                 "domain": domain,
                 "publisher": item.get("publisher", ""),
                 "feed": assign_feed_from_title(item["title"]),
@@ -1026,8 +1100,11 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             continue
 
         for item in items:
-            link = item.get("originallink") or item.get("link")
-            if not link:
+            raw_link = item.get("originallink") or item.get("link")
+            if not raw_link:
+                continue
+            link = normalize_url(raw_link)
+            if invalid_url_reason(link):
                 continue
 
             try:
@@ -1038,7 +1115,7 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
                 continue
 
             h = url_hash(link)
-            if h in state["sent"]:
+            if article_seen(state, raw_link):
                 continue
 
             title = strip_html(item.get("title", ""))
@@ -1051,7 +1128,9 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             if not passes_anchor_filter(title, desc, anchors):
                 continue
 
-            score = domain_score(link)
+            domain = get_domain(link)
+            profile = source_profile(domain)
+            score = source_score(domain, profile.get("publisher", ""))
             if score < MIN_SCORE:
                 continue
 
@@ -1071,12 +1150,38 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
                 "pub": pub,
                 "matched": kw,
                 "score": score,
-                "domain": get_domain(link),
+                "domain": domain,
+                "publisher": profile.get("publisher", ""),
                 "feed": feed_name,
             }
         time.sleep(0.1)
 
     return sorted(by_title.values(), key=lambda x: x["pub"])
+
+
+def dedup_exact_candidates(articles: list[dict]) -> list[dict]:
+    """URL 정규화 1차, 제목 완전일치 2차로 수집 후보를 결정적으로 줄인다."""
+    by_url: dict[str, dict] = {}
+    for article in articles:
+        normalized = normalize_url(article.get("link"))
+        if invalid_url_reason(normalized):
+            continue
+        candidate = dict(article)
+        candidate["link"] = normalized
+        candidate["hash"] = url_hash(normalized)
+        existing = by_url.get(normalized)
+        if existing is None or candidate.get("score", 0) > existing.get("score", 0):
+            by_url[normalized] = candidate
+
+    by_title: dict[str, dict] = {}
+    for article in by_url.values():
+        key = title_key(article.get("title"))
+        if not key:
+            continue
+        existing = by_title.get(key)
+        if existing is None or article.get("score", 0) > existing.get("score", 0):
+            by_title[key] = article
+    return list(by_title.values())
 
 
 SECTION_LABEL = {
@@ -1155,18 +1260,10 @@ def main() -> None:
     print(f"[RSS] {len(rss_articles)} candidates")
     all_candidates.extend(rss_articles)
 
-    deduped: dict[str, dict] = {}
-    for art in all_candidates:
-        norm = normalize_title(art["title"])
-        if not norm:
-            continue
-        existing = deduped.get(norm)
-        if existing and existing["score"] >= art["score"]:
-            continue
-        deduped[norm] = art
+    exact_kept = dedup_exact_candidates(all_candidates)
 
     # Fuzzy dedup — 우라까이·받아쓰기 catch
-    sorted_by_score = sorted(deduped.values(), key=lambda x: x["score"], reverse=True)
+    sorted_by_score = sorted(exact_kept, key=lambda x: x["score"], reverse=True)
     fuzzy_kept: list[dict] = []
     fuzzy_norms: list[str] = []
     for art in sorted_by_score:
@@ -1180,7 +1277,10 @@ def main() -> None:
             fuzzy_kept.append(art)
             fuzzy_norms.append(norm)
 
-    print(f"After dedup: {len(deduped)} unique titles → {len(fuzzy_kept)} after fuzzy dedup")
+    print(
+        f"After dedup: {len(all_candidates)} candidates → {len(exact_kept)} URL/title unique "
+        f"→ {len(fuzzy_kept)} after fuzzy dedup"
+    )
 
     emb_cache = load_embeddings_cache()
     semantically_unique = semantic_dedup(fuzzy_kept, emb_cache)
@@ -1192,7 +1292,10 @@ def main() -> None:
     # ---- batch 큐레이션: 새 기사만 모아 N건 → 1회 호출 (무료 티어 quota 보호) ----
     # 기존: 기사당 judge 1회 + 큐레이션 1회 (+각 5초 대기) → 한도 소진이 실패의 근본 원인.
     # judge 의 노이즈 컷은 큐레이션의 importance=noise 로 흡수 (별도 호출 제거).
-    new_articles = [a for a in final_articles if a["hash"] not in curated]
+    new_articles = [
+        article for article in final_articles
+        if article["hash"] not in curated or curation_errors(curated[article["hash"]])
+    ]
     if new_articles:
         n_calls = (len(new_articles) + BATCH_CHUNK - 1) // BATCH_CHUNK
         print(f"Batch curation: 새 기사 {len(new_articles)}건 → Gemini {n_calls}회 호출")
@@ -1201,25 +1304,33 @@ def main() -> None:
     for article in final_articles:
         h = article["hash"]
 
-        if h in curated:
+        if h in curated and not curation_errors(curated[h]):
             cur = curated[h]
         else:
             cur = batch_results.get(h)
             if cur is None:
-                # batch 실패분 — 도메인 기반 안전 fallback.
-                # 건별 재호출로 되돌아가지 않음 (quota 보호가 목적).
+                # batch 실패분은 원문 스니펫의 완결문만 사용한다. 안전하게 뽑을
+                # 문장이 없으면 이번 실행에서 격리하고 다음 crawl에서 재시도한다.
+                fallback_summary = first_complete_sentence(article.get("description"), 80)
+                if not fallback_summary:
+                    print(f"  ! 품질 격리(완결 요약 없음): {article['title'][:60]}")
+                    continue
                 force_t1 = is_tier1_source(article)
                 cur = {
                     "importance": "must_read" if force_t1 else "nice_to_know",
                     "section": default_section(article["domain"], article["title"]),
                     "category": "정책",
                     "title_kr": article["title"],
-                    "summary": "",
+                    "summary": fallback_summary,
                     "implication": "",
                     "why_important": "",
                     "watch_next": "",
                     "tags": [],
                     "related_reports": [],
+                    "event_date": None,
+                    "event_date_type": "unknown",
+                    "event_date_precision": "unknown",
+                    "event_date_source": "unknown",
                 }
             cur["cached_at"] = now_iso
             cur["title"] = article["title"]
@@ -1238,6 +1349,7 @@ def main() -> None:
 
         # must_read 포함 모든 비-noise 항목을 큐에 적재 — 즉시 개별 발송 폐지,
         # 일일 브리핑(daily_brief)으로 통합. must_read 는 rank가 높아 브리핑 상단 노출.
+        profile = source_profile(article.get("domain", ""), article.get("publisher", ""))
         queue.append({
             "hash": h,
             "title": article["title"],
@@ -1245,7 +1357,10 @@ def main() -> None:
             "link": article["link"],
             "domain": article["domain"],
             # 카드에 표기할 매체명 (전기신문 등). RSS <source> 에서만 얻어지므로 없을 수 있음
-            "publisher": article.get("publisher", ""),
+            "publisher": article.get("publisher") or profile["publisher"],
+            "source_type": profile["source_type"],
+            "evidence_role": profile["evidence_role"],
+            "source_tier": profile["source_tier"],
             "feed": article["feed"],
             "matched": article["matched"],
             "importance": importance,
@@ -1261,6 +1376,10 @@ def main() -> None:
             "tags": cur.get("tags", []),
             "related_reports": cur.get("related_reports") or [],
             "features": cur.get("features"),  # 랭킹용 (batch 실패분은 None)
+            "event_date": cur.get("event_date"),
+            "event_date_type": cur.get("event_date_type", "unknown"),
+            "event_date_precision": cur.get("event_date_precision", "unknown"),
+            "event_date_source": cur.get("event_date_source", "unknown"),
             "queued_at": now_iso,
         })
         state["sent"][h] = now_iso
@@ -1269,11 +1388,15 @@ def main() -> None:
     # ---- 영구 아카이브 적재 (웹 확장용 — 실패해도 크롤·발송은 계속) ----------
     # curated.json 은 14일 만료라 트렌드 재료가 안 쌓임 → noise 포함 전부 별도 적재.
     try:
-        already = news_archive.load_recent_hashes()
+        identities = news_archive.load_recent_identities()
         records = [
             news_archive.make_record(a, curated[a["hash"]], now_iso)
             for a in final_articles
-            if a["hash"] in curated and a["hash"] not in already
+            if a["hash"] in curated
+            and not curation_errors(curated[a["hash"]])
+            and a["hash"] not in identities["hashes"]
+            and normalize_url(a.get("link")) not in identities["urls"]
+            and title_key(a.get("title")) not in identities["titles"]
         ]
         n_archived = news_archive.append_records(records)
         if n_archived:

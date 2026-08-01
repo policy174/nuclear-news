@@ -56,7 +56,10 @@ class TestMakeRecord(unittest.TestCase):
         self.assertEqual(r["topics"], ["regulation"])
         self.assertEqual(r["countries"], ["US"])
         self.assertEqual(r["article_type"], "policy")
-        self.assertIn(r["source_tier"], (1, 2, None))
+        self.assertIn(r["source_tier"], (1, 2, 3))
+        self.assertEqual(r["publisher"], "World Nuclear News")
+        self.assertEqual(r["source_type"], "specialist_media")
+        self.assertIsNone(r["event_date"])
         self.assertNotIn("description", r)  # 원문 본문 미저장 (저작권)
 
     def test_missing_fields_safe(self):
@@ -69,7 +72,9 @@ class TestMakeRecord(unittest.TestCase):
 class TestAppendDedup(ArchiveDirMixin):
     def test_append_and_hash_load(self):
         now = _now_iso()
-        recs = [news_archive.make_record({"hash": f"h{i}", "link": "", "title": ""}, {}, now)
+        recs = [news_archive.make_record({
+                    "hash": f"h{i}", "link": f"https://example.com/{i}", "title": f"기사 {i}"
+                }, {}, now)
                 for i in range(3)]
         self.assertEqual(news_archive.append_records(recs), 3)
         hashes = news_archive.load_recent_hashes()
@@ -80,7 +85,9 @@ class TestAppendDedup(ArchiveDirMixin):
 
     def test_month_file_routing(self):
         now = datetime.now(timezone.utc)
-        rec = news_archive.make_record({"hash": "hx", "link": "", "title": ""}, {}, now.isoformat())
+        rec = news_archive.make_record({
+            "hash": "hx", "link": "https://example.com/month", "title": "월 라우팅 기사"
+        }, {}, now.isoformat())
         news_archive.append_records([rec])
         expected = Path(self._tmp.name) / f"{now.strftime('%Y-%m')}.jsonl"
         self.assertTrue(expected.exists())
@@ -98,7 +105,9 @@ class TestBackfill(ArchiveDirMixin):
     def test_backfill_skips_existing(self):
         now = _now_iso()
         news_archive.append_records(
-            [news_archive.make_record({"hash": "old1", "link": "", "title": ""}, {}, now)])
+            [news_archive.make_record({
+                "hash": "old1", "link": "https://example.com/old", "title": "기존 기사"
+            }, {}, now)])
         curated = {
             "old1": {"title": "이미 있음", "link": "", "cached_at": now},
             "new1": {"title": "새 항목", "link": "https://ex.com/a", "domain": "ex.com",

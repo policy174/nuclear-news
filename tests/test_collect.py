@@ -10,6 +10,7 @@ import os
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -81,10 +82,14 @@ class TestTier1Source(unittest.TestCase):
         self.assertFalse(nb.is_tier1_source(
             {"domain": "reuters.com", "link": "https://www.reuters.com/x"}))
 
-    def test_registered_specialist_feeds_stay_tier1(self):
-        for dom in ("energy.gov", "nucnet.org", "sfen.org", "world-nuclear-news.org"):
-            self.assertTrue(nb.is_tier1_source({"domain": dom, "link": f"https://{dom}/a"}),
-                            f"{dom} 이 1차 소스에서 빠짐")
+    def test_specialist_media_is_ranked_but_not_called_primary(self):
+        self.assertTrue(nb.is_tier1_source(
+            {"domain": "energy.gov", "link": "https://energy.gov/a"}
+        ))
+        for dom in ("nucnet.org", "sfen.org", "world-nuclear-news.org", "ans.org"):
+            article = {"domain": dom, "link": f"https://{dom}/a"}
+            self.assertFalse(nb.is_tier1_source(article), f"{dom} 이 공식 원문으로 오표시됨")
+            self.assertGreaterEqual(nb.source_score(dom), 8)
 
 
 class TestDefaultSection(unittest.TestCase):
@@ -97,6 +102,58 @@ class TestDefaultSection(unittest.TestCase):
 
     def test_khnp_domain(self):
         self.assertEqual(nb.default_section("khnp.co.kr", "보도자료"), "khnp")
+
+
+class TestExactDedup(unittest.TestCase):
+    def test_normalized_url_then_exact_title(self):
+        articles = [
+            {"title": "같은 기사", "link": "https://example.com//story?utm_source=a", "score": 5},
+            {"title": "다른 제목", "link": "https://example.com/story", "score": 9},
+            {"title": "다른 제목", "link": "https://other.example/story", "score": 4},
+            {"title": "오류", "link": "https://example.com/Error/retry", "score": 10},
+        ]
+        kept = nb.dedup_exact_candidates(articles)
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(kept[0]["score"], 9)
+        self.assertEqual(kept[0]["link"], "https://example.com/story")
+
+
+class TestCurationQualityGate(unittest.TestCase):
+    def _article(self):
+        return {
+            "hash": "h1", "title": "정부가 신규 원전 계획을 발표",
+            "description": "정부가 신규 원전 계획을 발표했다.",
+            "domain": "energy.gov", "publisher": "US DOE",
+        }
+
+    @staticmethod
+    def _response(summary):
+        return {"items": [{
+            "idx": 0, "importance": "nice_to_know", "section": "international",
+            "scope": "overseas", "category": "정책", "title_kr": "정부, 신규 원전 계획 발표",
+            "summary": summary, "implication": "", "why_important": "", "tags": [],
+            "topics": ["newbuild"], "countries": ["US"], "article_type": "policy",
+            "event_date": "2026-08-01", "event_date_type": "announcement",
+            "event_date_precision": "day", "event_date_source": "description",
+            "related_reports": [], "features": {},
+        }]}
+
+    def test_incomplete_summary_is_regenerated_once(self):
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json",
+            side_effect=[self._response("정부가 신규 원전 계획을 발표"), self._response("정부가 신규 원전 계획을 발표했다.")],
+        ) as call:
+            result = nb.curate_batch([self._article()], [])
+        self.assertEqual(call.call_count, 2)
+        self.assertEqual(result["h1"]["summary"], "정부가 신규 원전 계획을 발표했다.")
+        self.assertEqual(result["h1"]["event_date"], "2026-08-01")
+
+    def test_persistently_broken_summary_is_quarantined(self):
+        bad = self._response("정부가 신규 원전 계획을 발표")
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", side_effect=[bad, bad]
+        ):
+            self.assertEqual(nb.curate_batch([self._article()], []), {})
 
 
 if __name__ == "__main__":

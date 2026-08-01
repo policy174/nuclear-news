@@ -47,16 +47,25 @@ jobs:
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
 
+      # 수집 후보가 아니라 실제 최근 브리핑 기사 기준으로 21일 캐시를 백필한다.
+      # API 장애 시 크롤 본체는 계속하고 웹은 로컬 후보 벡터로 안전하게 폴백한다.
+      - name: Backfill 21-day briefing embeddings
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_EMBEDDING_MODEL: gemini-embedding-2
+        run: python embedding_pipeline.py --window-days 21 --max-new 150 --require-nonzero
+
       - name: Check embeddings cache
         id: embeddings-cache
         run: |
-          if [ -s embeddings.json ]; then
+          count=$(python -c "import json; from embedding_pipeline import cached_vector; p='embeddings.json'; d=json.load(open(p, encoding='utf-8')) if __import__('os').path.exists(p) else {}; print(sum(cached_vector(v) is not None for v in d.values()))")
+          if [ "$count" -gt 0 ]; then
             echo "available=true" >> "$GITHUB_OUTPUT"
-            count=$(python -c "import json; print(len(json.load(open('embeddings.json', encoding='utf-8'))))")
             echo "임베딩 캐시 ${count}건"
           else
             echo "available=false" >> "$GITHUB_OUTPUT"
-            echo "임베딩 캐시 없음 — 제목·태그 fallback 사용"
+            echo "임베딩 캐시 0건 — 로컬 후보 벡터 + 제목·태그 fallback 사용"
           fi
 
       - name: Save embeddings cache
