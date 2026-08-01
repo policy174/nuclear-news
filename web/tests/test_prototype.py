@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 import unittest
 from itertools import combinations
@@ -17,6 +18,27 @@ except (OSError, KeyError, json.JSONDecodeError):
     DATA_DIR = DATA_ROOT
 
 import build_data  # noqa: E402
+
+
+class BrandAccessibilityTests(unittest.TestCase):
+    def test_muted_text_meets_wcag_aa_on_paper(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        tokens = dict(re.findall(r"--([\w-]+):\s*(#[0-9a-fA-F]{6})", css))
+
+        def luminance(hex_color: str) -> float:
+            channels = [int(hex_color[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+            linear = [
+                value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+                for value in channels
+            ]
+            return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+        lighter, darker = sorted(
+            (luminance(tokens["muted"]), luminance(tokens["paper"])),
+            reverse=True,
+        )
+        contrast = (lighter + 0.05) / (darker + 0.05)
+        self.assertGreaterEqual(contrast, 4.5)
 
 
 class SelectionReasonTests(unittest.TestCase):
