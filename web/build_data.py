@@ -24,12 +24,14 @@ import json
 import math
 import os
 import re
+import shutil
 import sys
 from collections import Counter, defaultdict
 from datetime import date, datetime, timedelta, timezone
 from email.utils import format_datetime
+from html import escape as html_escape
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import quote
 from xml.etree import ElementTree as ET
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -1228,6 +1230,71 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str) -> list[d
     return rows
 
 
+def _issue_meta_description(issue: dict) -> str:
+    description = " ".join(
+        str(issue.get("summary") or issue.get("latest_change") or "원자력 정책·산업 이슈의 변화와 근거를 추적합니다.").split()
+    )
+    return description if len(description) <= 170 else f"{description[:167].rstrip()}…"
+
+
+def build_issue_pages(issue_catalog: list[dict]) -> int:
+    """이슈별 OG 메타데이터를 가진 정적 진입 페이지를 생성한다."""
+    public_dir = (SITE_DIR / "public").resolve()
+    issue_dir = (public_dir / "issue").resolve()
+    if issue_dir.parent != public_dir or issue_dir.name != "issue":
+        raise RuntimeError(f"unsafe issue page directory: {issue_dir}")
+    if issue_dir.exists():
+        shutil.rmtree(issue_dir)
+    issue_dir.mkdir(parents=True)
+
+    template = (public_dir / "index.html").read_text(encoding="utf-8")
+    generated = 0
+    for issue in issue_catalog:
+        issue_id = str(issue.get("issue_id") or "")
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", issue_id):
+            continue
+        title = str(issue.get("title") or "Nuclens 이슈")
+        description = _issue_meta_description(issue)
+        issue_url = f"{SITE_URL}/issue/{quote(issue_id, safe='-_')}"
+        page = template
+        replacements = {
+            '<meta name="description" content="Nuclens는 원자력 정책·산업 뉴스를 이슈 단위로 연결하고 중요한 변화를 근거와 함께 추적합니다.">':
+                f'<meta name="description" content="{html_escape(description, quote=True)}">',
+            '<meta property="og:type" content="website">': '<meta property="og:type" content="article">',
+            '<meta property="og:title" content="Nuclens · 원자력 정책·산업 이슈 트래커">':
+                f'<meta property="og:title" content="{html_escape(title, quote=True)} | Nuclens">',
+            '<meta property="og:description" content="원자력 이슈를 연결하고, 변화를 추적합니다.">':
+                f'<meta property="og:description" content="{html_escape(description, quote=True)}">',
+            '<meta property="og:url" content="https://nuclens.pages.dev/">':
+                f'<meta property="og:url" content="{html_escape(issue_url, quote=True)}">',
+            '<link rel="canonical" href="https://nuclens.pages.dev/">':
+                f'<link rel="canonical" href="{html_escape(issue_url, quote=True)}">',
+            '<title>Nuclens · 원자력 정책·산업 이슈 트래커</title>':
+                f'<title>{html_escape(title)} | Nuclens</title>',
+        }
+        for old, new in replacements.items():
+            if old not in page:
+                raise RuntimeError(f"issue page metadata template is missing: {old}")
+            page = page.replace(old, new, 1)
+        structured_data = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": title,
+            "description": description,
+            "datePublished": issue.get("first_seen") or "",
+            "dateModified": issue.get("last_seen") or "",
+            "mainEntityOfPage": issue_url,
+            "publisher": {"@type": "Organization", "name": "Nuclens", "url": SITE_URL},
+        }
+        json_ld = json.dumps(structured_data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        page = page.replace("</head>", f'  <script type="application/ld+json">{json_ld}</script>\n</head>', 1)
+        page_dir = issue_dir / issue_id
+        page_dir.mkdir()
+        (page_dir / "index.html").write_text(page, encoding="utf-8")
+        generated += 1
+    return generated
+
+
 def build_rss(briefings: list[dict], generated_at: datetime) -> bytes:
     """최신 이슈 카드를 보고서형 RSS 2.0으로 직렬화한다."""
     ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
@@ -1252,7 +1319,7 @@ def build_rss(briefings: list[dict], generated_at: datetime) -> bytes:
             published = generated_at
         for issue in briefing.get("issues", [])[:20]:
             issue_id = str(issue.get("issue_id") or "")
-            link = f"{SITE_URL}/?{urlencode({'date': briefing_date, 'issue': issue_id})}"
+            link = f"{SITE_URL}/issue/{quote(issue_id, safe='-_')}"
             item = ET.SubElement(channel, "item")
             ET.SubElement(item, "title").text = str(issue.get("title") or "")
             ET.SubElement(item, "link").text = link
@@ -1591,13 +1658,14 @@ def build() -> None:
             json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",
         )
+    issue_page_count = build_issue_pages(issue_catalog)
     (SITE_DIR / "public" / "rss.xml").write_bytes(build_rss(briefings, now))
 
     selected_count = sum(briefing["article_count"] for briefing in briefings)
     issue_count = sum(briefing["issue_count"] for briefing in briefings)
     print(
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
-        f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 → {OUT_DIR}"
+        f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
     )
 
 

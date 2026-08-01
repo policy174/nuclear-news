@@ -2,6 +2,7 @@ import json
 import re
 import sys
 import unittest
+from html import escape as html_escape
 from itertools import combinations
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -556,10 +557,36 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('id="issueDialog"', html)
         self.assertIn('id="issueDialogContent"', html)
         self.assertIn("function openIssueDialog", script)
-        self.assertIn('params.set("issue", state.issueId)', script)
+        self.assertIn("const ISSUE_ROUTE", script)
+        self.assertIn("function issuePath", script)
+        self.assertIn('return `/issue/${encodeURIComponent(issueId)}`;', script)
+        self.assertNotIn('params.set("issue", state.issueId)', script)
         self.assertIn('class="issue-detail-button"', script)
         self.assertIn('id="issueDialogTitle" tabindex="-1"', script)
         self.assertIn('class="dialog-meaning"', script)
+
+    def test_p3_issue_pages_have_unique_open_graph_metadata(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        root_html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        issues = json.loads((DATA_DIR / "issues.json").read_text(encoding="utf-8"))
+        issue_root = ROOT / "public" / "issue"
+        pages = list(issue_root.glob("*/index.html"))
+        self.assertEqual(len(pages), len(issues))
+        self.assertIn('href="/style.css"', root_html)
+        self.assertIn('src="/app.js"', root_html)
+        self.assertIn('dataBase: "/data"', script)
+        self.assertIn('fetch(`/data/${name}`', script)
+        self.assertIn("new URL(issuePath(issueId), location.origin)", script)
+        for issue in issues:
+            page = issue_root / issue["issue_id"] / "index.html"
+            self.assertTrue(page.exists(), issue["issue_id"])
+            page_html = page.read_text(encoding="utf-8")
+            issue_url = f'https://nuclens.pages.dev/issue/{issue["issue_id"]}'
+            self.assertIn(f'<link rel="canonical" href="{issue_url}">', page_html)
+            self.assertIn(f'<meta property="og:url" content="{issue_url}">', page_html)
+            self.assertIn('<meta property="og:type" content="article">', page_html)
+            self.assertIn(f'<title>{html_escape(issue["title"])} | Nuclens</title>', page_html)
+            self.assertIn('type="application/ld+json"', page_html)
 
     def test_global_issue_search_view_and_url_filters_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -673,7 +700,7 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('content="noindex,nofollow"', html)
         self.assertIn('name="color-scheme" content="light dark"', html)
         self.assertIn('name="description"', html)
-        self.assertNotIn('rel="canonical"', html)
+        self.assertIn('<link rel="canonical" href="https://nuclens.pages.dev/">', html)
         for property_name in ("og:type", "og:site_name", "og:title", "og:description", "og:url"):
             self.assertIn(f'property="{property_name}"', html)
         for name in ("favicon.svg", "robots.txt"):

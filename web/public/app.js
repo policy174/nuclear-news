@@ -24,10 +24,11 @@ const COUNTRY_LABELS = {
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
 const VIEW_IDS = ["news", "search", "trend", "saved"];
+const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
 
 const state = {
   news: [], briefings: [], issues: [], trend: null, insights: null, meta: null,
-  manifest: null, systemStatus: null, dataBase: "data",
+  manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "",
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
@@ -45,6 +46,16 @@ let generationTimer = 0;
 let issueHistoryOwned = false;
 let toastTimer = 0;
 
+function issueIdFromLocation() {
+  const match = location.pathname.match(ISSUE_ROUTE);
+  if (!match) return "";
+  try { return decodeURIComponent(match[1]); } catch { return ""; }
+}
+
+function issuePath(issueId) {
+  return `/issue/${encodeURIComponent(issueId)}`;
+}
+
 async function loadJSON(name) {
   const response = await fetch(`${state.dataBase}/${name}`, { cache: "no-cache" });
   if (!response.ok) throw new Error(`${name} ${response.status}`);
@@ -54,7 +65,7 @@ async function loadJSON(name) {
 }
 
 async function loadRootJSON(name, optional = false) {
-  const response = await fetch(`data/${name}`, { cache: "no-cache" });
+  const response = await fetch(`/data/${name}`, { cache: "no-cache" });
   if (!response.ok) {
     if (optional) return null;
     throw new Error(`${name} ${response.status}`);
@@ -68,7 +79,7 @@ async function loadRootJSON(name, optional = false) {
 async function initializeDataBase() {
   if (initRetryCount > 0) {
     state.manifest = null;
-    state.dataBase = "data";
+    state.dataBase = "/data";
     state.systemStatus = await loadRootJSON("status.json", true);
     return;
   }
@@ -76,10 +87,10 @@ async function initializeDataBase() {
   const basePath = String(manifest?.base_path || "");
   if (manifest && /^generations\/[0-9A-Za-z-]+$/.test(basePath)) {
     state.manifest = manifest;
-    state.dataBase = `data/${basePath}`;
+    state.dataBase = `/data/${basePath}`;
   } else {
     state.manifest = manifest?.generation_id ? manifest : null;
-    state.dataBase = "data";
+    state.dataBase = "/data";
   }
   state.systemStatus = await loadRootJSON("status.json", true);
 }
@@ -284,8 +295,7 @@ async function shareIssue(issueId) {
   const issue = state.issues.find(item => item.issue_id === issueId)
     || currentBriefing()?.issues.find(item => item.issue_id === issueId);
   if (!issue) return;
-  const url = new URL(location.href);
-  url.search = new URLSearchParams({ view: "search", issue: issueId }).toString();
+  const url = new URL(issuePath(issueId), location.origin);
   try {
     if (navigator.share) await navigator.share({ title: issue.title, text: issue.title, url: url.href });
     else {
@@ -372,9 +382,9 @@ function syncUrl(mode = "replace") {
   if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
   if (state.archivePeriod !== "all") params.set("ap", state.archivePeriod);
   if (state.archiveVerification !== "전체") params.set("av", state.archiveVerification);
-  if (state.issueId && state.view !== "trend") params.set("issue", state.issueId);
   const query = params.toString();
-  const url = `${location.pathname}${query ? `?${query}` : ""}`;
+  const path = state.issueId && state.view !== "trend" ? issuePath(state.issueId) : "/";
+  const url = `${path}${query ? `?${query}` : ""}`;
   const historyState = { ...(history.state || {}), nuclensIssue: state.issueId || null };
   if (mode === "push") history.pushState(historyState, "", url);
   else history.replaceState(historyState, "", url);
@@ -388,7 +398,7 @@ function restoreUrlState() {
   if (["전체", "국내", "해외"].includes(requestedRegion)) state.region = requestedRegion;
   state.topic = params.get("topic") || "전체";
   state.view = VIEW_IDS.includes(params.get("view")) ? params.get("view") : "news";
-  state.issueId = params.get("issue") || "";
+  state.issueId = issueIdFromLocation() || params.get("issue") || "";
   state.archiveQuery = normalizedSearch(params.get("q") || params.get("aq"));
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
@@ -715,7 +725,7 @@ function openIssueDialog(issueId, updateUrl = true) {
   if (!dialog.open) dialog.showModal();
   requestAnimationFrame(() => document.getElementById("issueDialogTitle")?.focus());
   if (updateUrl) {
-    const currentIssue = new URLSearchParams(location.search).get("issue") || "";
+    const currentIssue = issueIdFromLocation() || new URLSearchParams(location.search).get("issue") || "";
     if (currentIssue !== issueId) {
       issueHistoryOwned = true;
       syncUrl("push");
@@ -741,7 +751,7 @@ function closeIssueDialog(useHistory = true) {
 }
 
 function restoreIssueFromHistory() {
-  const requestedIssue = new URLSearchParams(location.search).get("issue") || "";
+  const requestedIssue = issueIdFromLocation() || new URLSearchParams(location.search).get("issue") || "";
   if (requestedIssue && state.view !== "trend") {
     issueHistoryOwned = true;
     openIssueDialog(requestedIssue, false);
