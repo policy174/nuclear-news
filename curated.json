@@ -1,62 +1,4 @@
 {
-  "d2d6214a79979e89": {
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 1,
-      "evidence_strength": 1,
-      "report_worthiness": 0
-    },
-    "importance": "nice_to_know",
-    "section": "smr",
-    "category": "시장",
-    "title_kr": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
-    "summary": "경상북도와 경주시가 '실용' SMR 유치에 실패한 후 '상용' SMR 유치에 재도전할 계획이다.",
-    "implication": "경북도와 경주시의 SMR 유치 재도전은 국내 SMR 생태계 조성 및 지역 경제 활성화 노력의 일환으로 평가됩니다.",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [
-      "#SMR유치",
-      "#경북도",
-      "#경주시"
-    ],
-    "related_reports": [],
-    "cached_at": "2026-07-18T21:38:41.586552+00:00",
-    "title": "'실용' SMR 유치 실패 경북도·경주시, '상용'에 재도전 - 뉴시스",
-    "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5kdTlVZm1RdTV6RVBGTXFweFZQR2h3cms4NVZJQ3FfYUlJR1Rzdl9CV2g1bWhHMUttRDZwVWNleE9ycFpCeTlOa01PQU1aYzlnQlJLN0Y1MW1OZ1pnY2tFY0dmMUNoQjRWbjdDQl85cE5veVFBOE9UOdIBeEFVX3lxTE5kdTlVZm1RdTV6RVBGTXFweFZQR2h3cms4NVZJQ3FfYUlJR1Rzdl9CV2g1bWhHMUttRDZwVWNleE9ycFpCeTlOa01PQU1aYzlnQlJLN0Y1MW1OZ1pnY2tFY0dmMUNoQjRWbjdDQl85cE5veVFBOE9UOQ?oc=5",
-    "feed": "SMR",
-    "domain": "news.google.co.kr",
-    "matched": "국내 원자력 보도"
-  },
-  "86dc40fd4d16763a": {
-    "features": {
-      "event_type": "opinion",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 1,
-      "evidence_strength": 2,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "domestic",
-    "category": "정책",
-    "title_kr": "고동진 의원, '호남 반도체의 허구와 실상' 정책 토론회 성료",
-    "summary": "고동진 의원이 '호남 반도체의 허구와 실상'을 주제로 정책 토론회를 개최하여 정부 계획을 검증했다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-18T21:38:41.586552+00:00",
-    "title": "고동진 의원, '호남 반도체의 허구와 실상' 정책 토론회 성료, 정부 계획 집중 검증! - 뉴스데일리",
-    "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE45WU5tSzg1SHk5cUROdXdITF9fdjdPa2dsM09ERjY0Qmtzc3lmamk1NHdQZGdKSGplQXRFeHU2NTBfUExxNEtWNG1fR3hIT05zSHp5ZVNhd0l6SFVwVFF3QXhHTDBsRmRLY3Zz?oc=5",
-    "feed": "정책",
-    "domain": "news.google.co.kr",
-    "matched": "국내 원자력 보도"
-  },
   "a739a9344b272a3d": {
     "features": {
       "event_type": "opinion",
@@ -19459,5 +19401,42 @@
     "feed": "정책",
     "domain": "reuters.com",
     "matched": "Reuters 원자력"
+  },
+  "e849648735ee7c9f": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "FR"
+    ],
+    "article_type": "news",
+    "title_kr": "프랑스, 전기차 및 중국 브랜드 판매량 급증",
+    "summary": "프랑스에서 전기차 판매량과 중국 자동차 브랜드의 시장 점유율이 크게 증가했다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-01T21:42:22.671623+00:00",
+    "title": "Automobile : percée des ventes de voitures électriques et des marques chinoises en France",
+    "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOM082SEN3a0dGTkxpS05uSnB3TFZENHktdDNibkFjUG9wbjFJRUtxaFJBbHZULU1FZUdBNFhoZEhxUjB4ZVR0LXJTTFN2dVlMSF85dl9hWHU4QklMNk9aRFptamhMMU1vMW5UZWcxNWtMbjhubWM2d21vaV9heV9JMUNpZmRSWXVfek1CeVhYenFyRWFuQmNiQWxwdzBWc2Z5RnJ2NHhEX3NlS0NpZjBkQmdfcWRZemwtTlp1cU0zdVdVTE84c05qN3Y2THM2aXZyZnVpa0VTUGJHUmtuYS1jT0hzU0Vxc2ZUZERmQS13?oc=5",
+    "feed": "정책",
+    "domain": "latribune.fr",
+    "matched": "La Tribune 원자력"
   }
 }
