@@ -613,9 +613,13 @@ function renderBriefing() {
 
   document.getElementById("issueCount").textContent = `${rest.length}개 이슈`;
   issueList.classList.toggle("list-view", state.issueView === "list");
+  // 위 '지금 달라진 이슈'에 결과가 남아 있는데 아래에서 '없습니다'라고 하면
+  // 한 화면이 스스로를 부정한다. 두 구역을 합쳐 0건일 때만 빈 상태를 보인다.
   issueList.innerHTML = rest.length
     ? rest.map((issue, index) => issueCard(issue, index)).join("")
-    : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>';
+    : (visibleChanged.length
+      ? '<p class="section-note">필터에 맞는 이슈는 위 <strong>지금 달라진 이슈</strong>에 있습니다.</p>'
+      : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>');
   const activeFilters = [];
   if (state.region !== "전체") activeFilters.push(state.region);
   if (state.topic !== "전체") activeFilters.push(TOPIC_LABELS[state.topic] || state.topic);

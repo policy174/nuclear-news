@@ -1036,6 +1036,20 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertEqual(built[0]["headline_kind"], "synthesis")
         self.assertIn("계속운전", built[0]["headline"])
 
+    def test_empty_state_does_not_contradict_the_changed_section(self):
+        """필터 결과가 위 구역에만 있을 때 아래에서 '없습니다'라고 하면 안 된다.
+
+        실측: topic=fusion 이면 '지금 달라진 이슈'에 독일 핵융합 카드가 남는데
+        '오늘 확인된 이슈'는 빈 상태를 띄워 한 화면이 스스로를 부정했다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("visibleChanged.length", render)
+        self.assertIn("section-note", render)
+        empty_index = render.index("조건에 맞는 이슈가 없습니다")
+        guard_index = render.index("visibleChanged.length\n      ?")
+        self.assertLess(guard_index, empty_index)
+
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

@@ -374,6 +374,15 @@ kbd {
 /* 홈은 두 구역이다: 상태가 움직인 이슈가 먼저, 나머지가 아래. */
 .changed-section { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--c-border); }
 .changed-section .issue-list { margin-top: 18px; }
+.section-note {
+  margin: 0;
+  padding: 18px 16px;
+  border: 1px dashed var(--c-border-strong);
+  border-radius: var(--r-2);
+  color: var(--c-text-secondary);
+  font-size: 13.5px;
+}
+.section-note strong { color: var(--c-text); }
 .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .section-heading h2 { margin: 0; font-size: 22px; line-height: 1.35; }
 .section-heading p:not(.eyebrow):not(.section-count) { margin: 4px 0 0; color: var(--c-text-muted); font-size: 13.5px; }
