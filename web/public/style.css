@@ -499,7 +499,6 @@ kbd {
 .issue-card.importance-high { border-left-color: var(--c-primary); }
 .issue-card.importance-updated { border-left-color: var(--c-accent); }
 .issue-card.importance-standard { border-left-color: var(--c-border-strong); }
-.issue-card.state-unverified { border-left-style: dashed; }
 .issue-card.state-quiet { opacity: .76; border-left-width: 2px; }
 .issue-index {
   padding-top: 19px;

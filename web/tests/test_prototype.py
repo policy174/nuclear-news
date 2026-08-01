@@ -81,6 +81,11 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertEqual(too_small, [])
         self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
 
+    def test_issue_cards_do_not_use_dashed_verification_border(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn(".issue-card.state-unverified { border-left-style: dashed; }", css)
+        self.assertIn(".verification-badge.unverified", css)
+
     def test_p1_design_tokens_replace_legacy_palette(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         for token in (
