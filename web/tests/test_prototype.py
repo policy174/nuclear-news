@@ -21,6 +21,32 @@ import build_data  # noqa: E402
 
 
 class BrandAccessibilityTests(unittest.TestCase):
+    def test_pretendard_variable_is_self_hosted(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        font = (
+            ROOT
+            / "public"
+            / "fonts"
+            / "pretendard"
+            / "v1.3.9"
+            / "PretendardVariable.woff2"
+        )
+        license_file = font.with_name("OFL.txt")
+
+        self.assertIn('@font-face', css)
+        self.assertIn('font-family: "Pretendard Variable";', css)
+        self.assertIn('font-weight: 45 920;', css)
+        self.assertIn('font-display: swap;', css)
+        self.assertIn(
+            'url("fonts/pretendard/v1.3.9/PretendardVariable.woff2")',
+            css,
+        )
+        self.assertEqual(font.read_bytes()[:4], b"wOF2")
+        self.assertIn(
+            "SIL OPEN FONT LICENSE Version 1.1",
+            license_file.read_text(encoding="utf-8"),
+        )
+
     def test_muted_text_meets_wcag_aa_on_paper(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         tokens = dict(re.findall(r"--([\w-]+):\s*(#[0-9a-fA-F]{6})", css))

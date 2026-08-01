@@ -1,3 +1,12 @@
+/* Pretendard v1.3.9 — SIL Open Font License 1.1 */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("fonts/pretendard/v1.3.9/PretendardVariable.woff2") format("woff2-variations");
+}
+
 :root {
   color-scheme: light;
   --ink: #17232c;
@@ -22,7 +31,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Pretendard", "SUIT", "Noto Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", "SUIT", "Noto Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 15.5px;
   line-height: 1.68;
   text-rendering: optimizeLegibility;
