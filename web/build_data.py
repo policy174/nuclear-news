@@ -1029,6 +1029,7 @@ def _article_view(article: dict) -> dict:
         "source_type": article.get("source_type", "unknown"),
         "evidence_role": article.get("evidence_role", "unknown"),
         "source_tier": article.get("source_tier", 3),
+        "article_type": article.get("article_type", ""),
         "event_date": article.get("event_date"),
         "event_date_type": article.get("event_date_type", "unknown"),
         "region": article.get("region", ""),
@@ -1041,17 +1042,49 @@ def _article_view(article: dict) -> dict:
 
 def latest_change_line(current: list[dict], history: list[dict]) -> str:
     """추적 이슈의 이번 브리핑 신규 사실을 완결된 한 문장으로 만든다."""
-    if not current or not history:
+    if not current:
         return ""
     newest = max(
         current,
         key=lambda member: (member.get("article_date") or "", _representative_key(member)),
     )
     text = newest.get("summary") or newest.get("title_kr") or newest.get("title") or ""
-    change = flow_takeaway(text, limit=140).strip()
+    change = flow_takeaway(text, limit=112).strip()
+    if not history:
+        if change and not change.endswith((".", "!", "?")):
+            change += "."
+        return change
+
+    previous = max(
+        history,
+        key=lambda member: (member.get("briefing_date") or "", member.get("article_date") or "", _representative_key(member)),
+    )
+    previous_text = previous.get("summary") or previous.get("title_kr") or previous.get("title") or ""
+    before = flow_takeaway(previous_text, limit=48).strip().rstrip(".!?")
+    after = change.rstrip(".!?")
+    if before and after and before.lower() != after.lower():
+        change = f"{before} → {after}"
     if change and not change.endswith((".", "!", "?")):
         change += "."
     return change
+
+
+def _is_primary_source(article: dict) -> bool:
+    return article.get("evidence_role") == "primary" or article.get("source_tier") == 1
+
+
+def daily_headline(issue_rows: list[dict]) -> str:
+    """최상위 이슈의 확인된 사실을 오늘의 한 문장으로 사용한다."""
+    if not issue_rows:
+        return "오늘 새로 연결된 원자력 이슈가 없습니다"
+    lead = issue_rows[0]
+    source = (
+        lead.get("latest_change")
+        if lead.get("status") == "ongoing"
+        else lead.get("title")
+    ) or lead.get("summary") or ""
+    headline = flow_takeaway(source, limit=88).strip()
+    return headline.rstrip(".!?")
 
 
 def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
@@ -1120,7 +1153,14 @@ def build_briefings(news_items: list[dict], issues: list[dict]) -> list[dict]:
             "issue_count": len(issue_rows),
             "domestic_count": sum(1 for item in current_articles if item.get("region") == "국내"),
             "overseas_count": sum(1 for item in current_articles if item.get("region") == "해외"),
+            "primary_source_count": sum(1 for item in current_articles if _is_primary_source(item)),
+            "tracked_issue_count": sum(1 for row in issue_rows if row.get("previous_article_count", 0) > 0),
+            "headline": daily_headline(issue_rows),
             "highlights": [row["title"] for row in issue_rows[:3]],
+            "highlight_issues": [
+                {"issue_id": row["issue_id"], "title": row["title"]}
+                for row in issue_rows[:3]
+            ],
             "issues": issue_rows,
         })
     return briefings

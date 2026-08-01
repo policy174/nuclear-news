@@ -104,14 +104,15 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertIn("outline: 2px solid var(--c-focus);", css)
         self.assertIn("box-shadow: var(--fo-ring);", css)
 
-    def test_lens_symbol_replaces_lettermark_assets(self):
+    def test_n_lettermark_is_restored_without_lens_asset(self):
         favicon = (ROOT / "public" / "favicon.svg").read_text(encoding="utf-8")
-        logo = (ROOT / "public" / "logo-mark.svg").read_text(encoding="utf-8")
-        self.assertIn('id="favicon-lens"', favicon)
-        self.assertIn('id="nuclens-lens"', logo)
-        self.assertGreaterEqual(favicon.count("<circle"), 2)
-        self.assertGreaterEqual(logo.count("<circle"), 4)
-        self.assertNotIn(">N<", favicon + logo)
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('class="brand-mark" aria-hidden="true">N</span>', html)
+        self.assertIn('aria-label="Nuclens"', favicon)
+        self.assertIn("<path", favicon)
+        self.assertNotIn('id="favicon-lens"', favicon)
+        self.assertNotIn("<clipPath", favicon)
+        self.assertFalse((ROOT / "public" / "logo-mark.svg").exists())
 
 
 class SelectionReasonTests(unittest.TestCase):
@@ -468,10 +469,12 @@ class GeneratedDataTests(unittest.TestCase):
     def test_compact_flow_and_search_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('id="issueSearch"', html)
+        self.assertIn('id="globalSearchOpen"', html)
+        self.assertIn('id="globalSearchDialog"', html)
         self.assertIn('id="topicSel"', html)
         self.assertIn('class="flow-takeaway"', script)
         self.assertIn('class="event-block"', script)
+        self.assertIn('event.key === "/"', script)
 
     def test_flow_takeaways_are_complete_sentences(self):
         takeaways = [item.get("takeaway", "") for item in self.insights.get("items", [])]
@@ -503,8 +506,8 @@ class GeneratedDataTests(unittest.TestCase):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn("기관, 호기, 주제로 검색", html)
-        self.assertIn("<small>국내</small>", script)
-        self.assertIn("<small>해외</small>", script)
+        self.assertIn("<small>1차 출처</small>", script)
+        self.assertIn("<small>이어지는 이슈</small>", script)
 
     def test_p1_copy_overlines_and_card_hierarchy(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -528,13 +531,13 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("분석 기간 ${dateLabel(start)}–${dateLabel(end)}", script)
         self.assertIn("중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개", script)
 
-        issue_card = script.split("function issueCard", 1)[1].split("function currentIssueById", 1)[0]
-        archive_card = script.split("function archiveIssueCard", 1)[1].split("function renderArchiveSearch", 1)[0]
-        for card in (issue_card, archive_card):
-            self.assertIn("verificationBadge(issue)", card)
-            self.assertIn("issueEvidenceText(issue)", card)
-            self.assertNotIn('class="topic-row"', card)
-            self.assertNotIn('class="reason-row"', card)
+        issue_card = script.split("function issueCard", 1)[1].split("function renderBriefingSidebar", 1)[0]
+        self.assertIn("verificationBadge(issue)", issue_card)
+        self.assertIn("issueEvidenceText(issue)", issue_card)
+        self.assertIn('class="issue-change"', issue_card)
+        self.assertNotIn('class="issue-meaning"', issue_card)
+        self.assertNotIn('class="topic-row"', issue_card)
+        self.assertNotIn('class="reason-row"', issue_card)
         for tone in ("importance-high", "importance-updated", "importance-standard"):
             self.assertIn(f".issue-card.{tone}", style)
 
@@ -546,16 +549,20 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("function openIssueDialog", script)
         self.assertIn('params.set("issue", state.issueId)', script)
         self.assertIn('class="issue-detail-button"', script)
-        self.assertIn('class="flow-region ${scopeClass}"', script)
+        self.assertIn('id="issueDialogTitle" tabindex="-1"', script)
+        self.assertIn('class="dialog-meaning"', script)
 
     def test_global_issue_search_view_and_url_filters_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        for element_id in ("view-search", "archiveSearch", "archiveRegion", "archiveTopic", "archiveIssueList", "archiveMore"):
+        for element_id in (
+            "view-search", "globalSearch", "archiveRegion", "archiveTopic",
+            "archiveVerification", "archiveIssueList", "archiveMore",
+        ):
             self.assertIn(f'id="{element_id}"', html)
         self.assertIn('data-view="search"', html)
         self.assertIn("function renderArchiveSearch", script)
-        self.assertIn('params.set("aq", state.archiveQuery)', script)
+        self.assertIn('params.set("q", state.archiveQuery)', script)
         self.assertIn('loadJSON("issues.json")', script)
 
     def test_manifest_loading_and_operation_status_ui_exist(self):
@@ -655,13 +662,14 @@ class GeneratedDataTests(unittest.TestCase):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertIn("NUCLENS", html)
         self.assertIn('content="noindex,nofollow"', html)
-        self.assertIn('name="color-scheme" content="light"', html)
+        self.assertIn('name="color-scheme" content="light dark"', html)
         self.assertIn('name="description"', html)
         self.assertNotIn('rel="canonical"', html)
         for property_name in ("og:type", "og:site_name", "og:title", "og:description", "og:url"):
             self.assertIn(f'property="{property_name}"', html)
-        for name in ("favicon.svg", "logo-mark.svg", "robots.txt"):
+        for name in ("favicon.svg", "robots.txt"):
             self.assertTrue((ROOT / "public" / name).exists(), name)
+        self.assertFalse((ROOT / "public" / "logo-mark.svg").exists())
         self.assertFalse((ROOT / "public" / "sitemap.xml").exists())
         self.assertIn("Disallow: /", (ROOT / "public" / "robots.txt").read_text(encoding="utf-8"))
 
@@ -670,10 +678,10 @@ class GeneratedDataTests(unittest.TestCase):
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertNotIn('data/${name}?t=', script)
         self.assertIn("window.scrollTo(0, 0)", script)
-        self.assertIn('state.view === "search" && state.archiveQuery', script)
+        self.assertIn('if (state.archiveQuery) params.set("q", state.archiveQuery)', script)
         self.assertIn('syncUrl("push")', script)
         self.assertIn('window.addEventListener("popstate"', script)
-        self.assertGreaterEqual(script.count('class="ai-badge"'), 4)
+        self.assertEqual(script.count('class="ai-badge"'), 1)
         self.assertIn(".ai-badge", style)
 
     def test_rss_and_report_copy_are_generated(self):
@@ -686,8 +694,66 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIsNotNone(channel)
         self.assertTrue(channel.findall("item"))
         self.assertIn("function issueReportText", script)
-        self.assertIn("• 이번 브리핑에서 새로 확인된 것:", script)
+        self.assertIn("• 변화:", script)
         self.assertIn('data-copy-issue="${esc(issue.issue_id)}"', script)
+
+    def test_p2_daily_briefing_fields_are_generated(self):
+        for briefing in self.briefings:
+            self.assertTrue(briefing["headline"])
+            self.assertIn("primary_source_count", briefing)
+            self.assertIn("tracked_issue_count", briefing)
+            self.assertEqual(len(briefing["highlight_issues"]), min(3, briefing["issue_count"]))
+            self.assertTrue(all(issue["latest_change"] for issue in briefing["issues"]))
+
+    def test_p2_structure_status_search_and_responsive_controls_exist(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        for element_id in (
+            "systemStatus", "headerStatus", "globalSearchDialog", "briefingFilters",
+            "issueSort", "issueViewToggle", "mobileTabs", "themeToggle", "view-saved",
+        ):
+            self.assertIn(f'id="{element_id}"', html)
+        self.assertIn("function renderSystemStatus", script)
+        self.assertIn("function switchView", script)
+        self.assertIn("nuclens-saved-issues", script)
+        self.assertIn(':root[data-theme="dark"]', style)
+        self.assertIn("@media (min-width: 1200px)", style)
+        self.assertIn("@media (max-width: 767px)", style)
+        self.assertIn(".mobile-tabs", style)
+
+    def test_p2_keyword_table_slope_graph_and_chart_evidence_exist(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        for element_id in (
+            "keywordSort", "keywordTable", "keywordInterpretation", "keywordEvidence",
+            "countryInterpretation", "topicChart", "topicInterpretation", "topicEvidence",
+        ):
+            self.assertIn(f'id="{element_id}"', html)
+        for legacy_id in ("topTags", "risingTags", "newTags", "topicLegend"):
+            self.assertNotIn(f'id="{legacy_id}"', html)
+        self.assertIn("function renderKeywordTable", script)
+        self.assertIn("function renderSlopeGraph", script)
+        self.assertIn('class="slope-series"', script)
+
+    def test_p2_archive_tracking_sort_filters_and_highlight_exist(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        for element_id in ("archivePeriod", "archiveVerification", "archiveSort"):
+            self.assertIn(f'id="{element_id}"', html)
+        self.assertIn('class="tracking-period"', script)
+        self.assertIn("function markMatch", script)
+        self.assertIn("<mark>", script)
+
+    def test_p2_loading_empty_and_error_states_exist(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("skeleton-card", html)
+        self.assertIn('class="empty-state"', script)
+        self.assertIn('class="error-state"', script)
+        self.assertIn("다시 시도", script)
+        self.assertIn("@keyframes skeleton-pulse", style)
 
     def test_ci_persists_embeddings_and_fails_on_web_smoke_errors(self):
         repo_root = ROOT.parent
