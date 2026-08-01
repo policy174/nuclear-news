@@ -188,9 +188,13 @@ const VERIFICATION_ORDER = ["official", "corroborated", "partial", "unverified"]
 const VERIFICATION_VIEW = {
   official: { mark: "✓", label: "공식 확인", detail: "규제기관 또는 사업자 공식 문서로 확인된 내용입니다" },
   corroborated: { mark: "✓", label: "복수 출처 확인", detail: "재인용 관계를 제외한 독립 출처 2곳 이상이 일치합니다" },
-  partial: { mark: "△", label: "일부 확인", detail: "독립 출처 1곳만 확인됐습니다" },
+  partial: { mark: "·", label: "단일 출처", detail: "독립 출처 1곳이 보도했습니다" },
   unverified: { mark: "○", label: "확인 중", detail: "아직 독립·공식 근거가 확인되지 않았습니다" },
 };
+// 배지는 예외를 표시할 때만 정보가 된다. 단일 출처는 전체의 대다수라(실측 84%)
+// 배지로 달면 신호가 죽고 사이트 전체가 미심쩍어 보인다. 근거 줄의 '독립 출처
+// 1곳' 표기가 같은 사실을 이미 전달한다.
+const BADGE_STATUSES = new Set(["official", "corroborated", "unverified"]);
 
 // 검증 상태는 빌드가 판정한다. 값이 없는 구버전 데이터에서는 문장을 지어내지 않고
 // 공식 출처 유무만으로 보수적으로 폴백한다.
@@ -217,8 +221,9 @@ function issueToneClass(issue) {
   return classes.join(" ");
 }
 
-function verificationBadge(issue) {
+function verificationBadge(issue, { always = false } = {}) {
   const state = verificationState(issue);
+  if (!always && !BADGE_STATUSES.has(state.status)) return "";
   const view = VERIFICATION_VIEW[state.status] || VERIFICATION_VIEW.unverified;
   return `<span class="verification-badge v-${esc(state.status)}" title="${esc(view.detail)}">${view.mark} ${esc(view.label)}</span>`;
 }
@@ -522,7 +527,7 @@ function issueCard(issue, index, archive = false) {
         ${topic ? `<span class="issue-topic">${esc(topic)}</span>` : ""}
         ${verificationBadge(issue)}
       </div>
-      <h3>${title}</h3>
+      <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
       ${issue.summary ? `<p class="issue-summary">${summary}</p>` : ""}
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
@@ -692,7 +697,7 @@ function renderArchiveSearch(resetLimit = false) {
     state.archivePeriod !== "all" ? `최근 ${state.archivePeriod}일` : "",
     state.archiveRegion !== "전체" ? state.archiveRegion : "",
     state.archiveTopic !== "전체" ? TOPIC_LABELS[state.archiveTopic] || state.archiveTopic : "",
-    state.archiveVerification === "verified" ? "공식·복수 출처 확인" : state.archiveVerification === "unverified" ? "일부·확인 중" : "",
+    state.archiveVerification === "verified" ? "공식·복수 출처 확인" : state.archiveVerification === "unverified" ? "단일 출처·확인 중" : "",
   ].filter(Boolean);
   const matchedArticles = matches.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
   const scale = `${matches.length}개 이슈 · ${matchedArticles}개 원문`;
@@ -735,6 +740,24 @@ function currentIssueById(issueId) {
   return state.issues.find(issue => issue.issue_id === issueId) || null;
 }
 
+// 같은 주제·태그를 공유하는 다른 이슈. 상세를 막다른 길로 두지 않기 위한 출구다.
+function relatedIssues(issue, limit = 3) {
+  const topics = new Set(issue.topics || []);
+  const tags = new Set(issue.tags || []);
+  if (!topics.size && !tags.size) return [];
+  return state.issues
+    .filter(other => other.issue_id !== issue.issue_id)
+    .map(other => {
+      const topicHits = (other.topics || []).filter(topic => topics.has(topic)).length;
+      const tagHits = (other.tags || []).filter(tag => tags.has(tag)).length;
+      return { issue: other, score: topicHits * 2 + tagHits };
+    })
+    .filter(row => row.score > 0)
+    .sort((a, b) => b.score - a.score || String(b.issue.last_seen).localeCompare(String(a.issue.last_seen)))
+    .slice(0, limit)
+    .map(row => row.issue);
+}
+
 function issueReportText(issue) {
   const representative = issue.representative_article || {};
   const source = [sourceLabel(representative), safeUrl(representative.url)].filter(Boolean).join(" · ");
@@ -770,22 +793,30 @@ function openIssueDialog(issueId, updateUrl = true) {
   const articles = [...(issue.related_articles || [])].sort((a, b) => (
     Number(isOfficial(b)) - Number(isOfficial(a)) || String(b.article_date).localeCompare(String(a.article_date))
   ));
+  const related = relatedIssues(issue);
   document.getElementById("issueDialogContent").innerHTML = `
     <h2 id="issueDialogTitle" tabindex="-1">${esc(issue.title)}</h2>
     <div class="dialog-meta"><span>${esc(issueStatusText(issue, state.view !== "news"))}</span><span>${dateLabel(issue.first_seen)} 시작</span><span>누적 ${issue.article_count}건</span></div>
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
-      <h3 id="issueUpdateTitle">현재 상태</h3>
+      <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
-      ${issueChangeText(issue) ? `<p class="dialog-change"><strong>변화</strong>${esc(issueChangeText(issue))}</p>` : ""}
-      <p class="dialog-verification">${verificationBadge(issue)}<span>${esc(issueEvidenceText(issue))}</span></p>
-      ${issue.implication ? `<p class="dialog-meaning"><strong>의미 <span class="ai-badge">AI 해석</span></strong>${esc(issue.implication)}</p>` : ""}
+      ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
+      <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
+      ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
     </section>
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
-      <div class="dialog-section-head"><h3 id="issueHistoryTitle">기사 타임라인</h3><span>1차 출처를 먼저 표시합니다</span></div>
+      <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3><span>공식 출처를 먼저 표시합니다</span></div>
       <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑")).join("")}</ol>
-    </section>`;
+    </section>
+    ${related.length ? `<section class="dialog-related" aria-labelledby="issueRelatedTitle">
+      <div class="dialog-section-head"><h3 id="issueRelatedTitle">관련 이슈</h3><span>같은 주제로 연결된 이슈입니다</span></div>
+      <ul>${related.map(item => `<li>
+        <button type="button" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button>
+        <small>${esc(dateLabel(item.last_seen))} · 근거 ${item.article_count || 0}건</small>
+      </li>`).join("")}</ul>
+    </section>` : ""}`;
   state.issueId = issueId;
   if (!dialog.open) dialog.showModal();
   requestAnimationFrame(() => document.getElementById("issueDialogTitle")?.focus());
@@ -1095,7 +1126,10 @@ function bind() {
 
   document.getElementById("showChangedIssues").addEventListener("click", () => {
     const section = document.getElementById("changedIssues");
-    (section.hidden ? document.getElementById("todayIssues") : section).scrollIntoView({ behavior: "smooth" });
+    // CSS의 prefers-reduced-motion은 JS scrollIntoView에 적용되지 않는다.
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    (section.hidden ? document.getElementById("todayIssues") : section)
+      .scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   });
   document.getElementById("regionTabs").addEventListener("click", event => {
     const button = event.target.closest("[data-region]");

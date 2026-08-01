@@ -944,6 +944,29 @@ class GeneratedDataTests(unittest.TestCase):
             if briefing["headline_kind"] == "change":
                 self.assertGreater(briefing["changed_issue_count"], 0)
 
+    def test_p5_detail_order_related_issues_and_mobile_actions(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        for heading in ("한 줄 결론", "이번에 달라진 점", "Nuclens 해석", "사건 타임라인과 근거 원문", "관련 이슈"):
+            self.assertIn(heading, script)
+        self.assertIn("function relatedIssues", script)
+        # 제목이 상세 진입점이므로 좁은 화면에서 타임라인 버튼을 숨겨도 길이 남는다.
+        self.assertIn("issue-title-button", script)
+        self.assertIn(".issue-actions .issue-detail-button { display: none; }", style)
+        # JS 스크롤은 CSS의 모션 감소 설정을 자동으로 따르지 않는다.
+        self.assertIn('matchMedia("(prefers-reduced-motion: reduce)")', script)
+
+    def test_p5_single_source_is_stated_not_judged(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        # 단일 출처는 전체의 대다수라 경고로 표시하면 신호가 죽는다.
+        self.assertEqual(build_data.VERIFICATION_LABELS["partial"], "단일 출처")
+        self.assertNotIn("일부 확인", script + html)
+        self.assertIn("const BADGE_STATUSES", script)
+        for briefing in self.briefings:
+            for issue in briefing["issues"]:
+                self.assertNotEqual(issue["verification"]["label"], "일부 확인")
+
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

@@ -77,10 +77,12 @@ KST = timezone(timedelta(hours=9))
 HEADLINE_LIMIT = 70
 CHANGE_LINE_LIMIT = 140
 
+# 라벨은 판정이 아니라 사실 진술이다. 단일 출처 보도는 결함이 아니라 흔한 정상
+# 상태(실측 84%)라서 '일부 확인' 같은 부정 프레이밍을 쓰지 않는다.
 VERIFICATION_LABELS = {
     "official": "공식 확인",
     "corroborated": "복수 출처 확인",
-    "partial": "일부 확인",
+    "partial": "단일 출처",
     "unverified": "확인 중",
 }
 

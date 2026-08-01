@@ -528,7 +528,7 @@ kbd {
 /* 4단계 검증 상태 — 색만으로 구분하지 않도록 배지 문구에 기호를 함께 넣는다. */
 .verification-badge.v-official { color: var(--c-verified); }
 .verification-badge.v-corroborated { color: var(--c-secondary); }
-.verification-badge.v-partial { color: var(--c-warning); }
+.verification-badge.v-partial { color: var(--c-text-muted); }
 .verification-badge.v-unverified { color: var(--c-unverified); }
 .dialog-verification {
   display: flex;
@@ -540,7 +540,37 @@ kbd {
   font-variant-numeric: tabular-nums;
 }
 .dialog-verification .verification-badge { margin-left: 0; }
+.dialog-related { margin-top: 24px; }
+.dialog-related ul { margin: 12px 0 0; padding: 0; list-style: none; }
+.dialog-related li { padding: 10px 0; border-top: 1px solid var(--c-border); }
+.dialog-related li:first-child { border-top: 0; }
+.dialog-related button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.45;
+  text-align: left;
+}
+.dialog-related button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.dialog-related small { display: block; margin-top: 3px; color: var(--c-text-muted); font-size: 12.5px; }
 .issue-card h3 { margin: 8px 0 7px; font-size: 18px; font-weight: 700; line-height: 1.45; }
+/* 제목이 곧 상세 진입점이다. 좁은 화면에서 '타임라인' 버튼을 지워도 길이 남는다. */
+.issue-title-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.issue-title-button:hover { text-decoration: underline; text-underline-offset: 3px; }
 .issue-card h3 mark { padding: 0 2px; background: color-mix(in srgb, var(--c-warning) 24%, transparent); color: inherit; }
 .search-match { margin: 8px 0 0; color: var(--c-text-muted); font-size: 12.5px; }
 .search-match mark { padding: 1px 3px; background: color-mix(in srgb, var(--c-warning) 24%, transparent); color: inherit; }
@@ -666,7 +696,7 @@ kbd {
 .side-verification strong { font-size: 16px; font-variant-numeric: tabular-nums; }
 .side-verification .v-official { color: var(--c-verified); }
 .side-verification .v-corroborated { color: var(--c-secondary); }
-.side-verification .v-partial { color: var(--c-warning); }
+.side-verification .v-partial { color: var(--c-text-muted); }
 .side-verification .v-unverified { color: var(--c-unverified); }
 .side-verification .empty { margin: 0; color: var(--c-text-muted); font-size: 13.5px; }
 .quick-topics { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -1004,7 +1034,9 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
   .issue-summary { font-size: 15.5px; line-height: 1.65; }
   .issue-change { grid-template-columns: 40px 1fr; max-height: 70px; overflow: hidden; font-size: 13.5px; }
   .issue-evidence { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .issue-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 8px; }
+  /* 모바일 하단 액션은 저장·공유·원문 셋으로 제한한다. 상세는 제목으로 연다. */
+  .issue-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 8px; }
+  .issue-actions .issue-detail-button { display: none; }
   .issue-actions button,
   .issue-actions a { justify-content: center; min-height: 44px; font-size: 12.5px; }
   .tracking-period { grid-template-columns: auto minmax(20px, 1fr) auto; }
