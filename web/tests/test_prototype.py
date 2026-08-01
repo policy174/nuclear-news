@@ -988,6 +988,54 @@ class GeneratedDataTests(unittest.TestCase):
         # 주제명을 선 옆에 붙이면 가장 긴 라벨이 최소 폭을 정해버린다.
         self.assertNotIn("${esc(label)} ${row.now}", script)
 
+    def test_domestic_issues_are_not_pushed_to_the_bottom(self):
+        """봇이 국내·해외를 따로 뽑으므로 웹도 두 갈래를 유지해야 한다.
+
+        raw 점수 하나로 합쳐 정렬하면 출처 등급 보너스가 없는 국내 이슈가
+        통째로 하위권으로 밀린다(실측 8/1 브리핑에서 국내 3건이 6·8·9위).
+        """
+        for briefing in self.briefings:
+            regions = [issue["region"] for issue in briefing["issues"]]
+            if "국내" not in regions or len(regions) < 3:
+                continue
+            first_domestic = regions.index("국내")
+            self.assertLessEqual(
+                first_domestic, 2,
+                f"{briefing['date']}: 국내 첫 이슈가 {first_domestic + 1}번째",
+            )
+
+    def test_interleave_keeps_each_region_in_its_own_order(self):
+        rows = [
+            {"region": "해외", "importance": "must_read", "sort_score": 9.0, "last_seen": "2026-08-01"},
+            {"region": "해외", "importance": "nice_to_know", "sort_score": 8.0, "last_seen": "2026-08-01"},
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 3.0, "last_seen": "2026-08-01"},
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 1.0, "last_seen": "2026-08-01"},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual([r["region"] for r in rows], ["해외", "국내", "해외", "국내"])
+        # 지역 안에서의 상대 순서는 그대로다
+        self.assertEqual(rows[1]["region"], "국내")
+        self.assertNotIn("sort_score", rows[0])
+
+    def test_daily_lead_replaces_the_hero_sentence_when_present(self):
+        issues = [{
+            "issue_id": "i1", "status": "new", "latest_change": "", "title": "이슈 제목",
+            "summary": "", "importance": "must_read", "region": "국내",
+            "verification": {"status": "partial"}, "previous_article_count": 0,
+        }]
+        news = [{"briefing_date": "2026-08-01", "region": "국내"}]
+        clusters = [{
+            "issue_id": "i1", "first_seen": "2026-08-01",
+            "members": [{
+                "hash": "h1", "briefing_date": "2026-08-01", "article_date": "2026-08-01",
+                "title_kr": "이슈 제목", "summary": "요약입니다.", "region": "국내",
+            }],
+        }]
+        leads = {"2026-08-01": {"lead": "국내에서는 계속운전 논의가 진행됐습니다."}}
+        built = build_data.build_briefings(news, clusters, "", leads)
+        self.assertEqual(built[0]["headline_kind"], "synthesis")
+        self.assertIn("계속운전", built[0]["headline"])
+
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

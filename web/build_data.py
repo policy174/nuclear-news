@@ -1230,7 +1230,47 @@ def daily_headline(issue_rows: list[dict]) -> str:
     return daily_lead(issue_rows)["headline"]
 
 
-def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "") -> list[dict]:
+def order_issue_rows(issue_rows: list[dict]) -> None:
+    """브리핑 이슈를 국내·해외 순위를 번갈아 가며 배열한다 (제자리 정렬).
+
+    봇은 국내와 해외를 **별도 풀에서 각자 캡으로** 뽑는다(국내 3 / 해외 6).
+    그런데 웹이 이걸 raw 점수 하나로 다시 줄 세우면서 문제가 생겼다 — 출처 등급
+    보너스(tier1 +3.0)가 국제 전문지 전용이라 국내 매체는 구조적으로 0점이고,
+    그 결과 국내 이슈가 통째로 하위권으로 밀렸다(실측 8/1 브리핑에서 국내 3건이
+    6·8·9위). 점수를 손대 공신력 등급을 왜곡하는 대신, 봇이 이미 만든 두 갈래
+    구조를 화면에서도 유지한다: 각 지역 안의 순위(1위끼리, 2위끼리)를 맞물린다.
+    """
+    def within_region(row: dict) -> tuple:
+        return (row["importance"] == "must_read", row["sort_score"], row["last_seen"])
+
+    domestic = sorted((r for r in issue_rows if r["region"] == "국내"),
+                      key=within_region, reverse=True)
+    overseas = sorted((r for r in issue_rows if r["region"] != "국내"),
+                      key=within_region, reverse=True)
+    rank = {id(row): index for group in (domestic, overseas)
+            for index, row in enumerate(group)}
+
+    issue_rows.sort(key=lambda row: (
+        rank[id(row)],
+        0 if row["importance"] == "must_read" else 1,
+        -row["sort_score"],
+    ))
+    for row in issue_rows:
+        row.pop("sort_score", None)
+
+
+def load_daily_leads() -> dict[str, dict]:
+    """봇이 하루 1회 생성한 '오늘의 한 문장'. 없으면 빈 dict (히어로가 폴백)."""
+    try:
+        raw = json.loads((BOT_DIR / "daily_leads.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    leads = raw.get("leads")
+    return leads if isinstance(leads, dict) else {}
+
+
+def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "",
+                    daily_leads: dict | None = None) -> list[dict]:
     dates = sorted({item["briefing_date"] for item in news_items if item.get("briefing_date")}, reverse=True)
     briefings = []
 
@@ -1286,14 +1326,15 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "sort_score": float(representative.get("selection_score") or 0),
             })
 
-        issue_rows.sort(
-            key=lambda row: (row["importance"] == "must_read", row["sort_score"], row["last_seen"]),
-            reverse=True,
-        )
-        for row in issue_rows:
-            row.pop("sort_score", None)
+        order_issue_rows(issue_rows)
 
         lead = daily_lead(issue_rows)
+        # 봇이 그날 이슈 전체를 보고 만든 종합 문장이 있으면 그것이 히어로가 된다.
+        # 이슈 한 건의 문장으로는 '오늘 무엇이 달라졌는가'에 답할 수 없다.
+        stored_lead = (daily_leads or {}).get(briefing_date) or {}
+        synthesis = str(stored_lead.get("lead") or "").strip()
+        if synthesis:
+            lead = {"headline": synthesis.rstrip(".!?"), "kind": "synthesis"}
         briefings.append({
             "date": briefing_date,
             "article_count": len(current_articles),
@@ -1572,7 +1613,7 @@ def build() -> None:
         reverse=True,
     )
     checked_at = now.isoformat()
-    briefings = build_briefings(news_items, issues, checked_at)
+    briefings = build_briefings(news_items, issues, checked_at, load_daily_leads())
     issue_catalog = build_issue_catalog(
         issues,
         briefings[0]["date"] if briefings else "",

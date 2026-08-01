@@ -594,7 +594,9 @@ function renderBriefing() {
   // 오버라인은 h1이 실제로 무엇인지 따라간다. 변화 문장이 아닌데 '달라졌는가'라고
   // 쓰면 제목이 거짓말이 된다.
   document.getElementById("briefingKicker").textContent =
-    briefing.headline_kind === "change" ? "오늘, 무엇이 달라졌는가" : "오늘의 핵심 이슈";
+    ["synthesis", "change"].includes(briefing.headline_kind)
+      ? "오늘, 무엇이 달라졌는가"
+      : "오늘의 핵심 이슈";
   document.getElementById("briefingDateLabel").textContent = `· ${dateWeekdayLabel(briefing.date)}`;
   renderBriefingStatus(briefing);
 
