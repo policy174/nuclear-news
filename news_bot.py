@@ -124,6 +124,45 @@ RSS_SOURCES.append({
     "name": "La Tribune 원자력", "domain_label": "latribune.fr",
 })
 
+# ---- 사내 큐레이션 코퍼스 격차 보완 (2026-08-01) ------------------------------
+# 동료 큐레이션 1,874건(nuclear-news-web/research/evernote-details.json)에 나오지만
+# 봇이 걷지 않던 매체. 후보를 전부 실측한 뒤 통과한 것만 넣는다.
+#
+# 넣지 않은 것과 이유 (재시도 전에 이 목록부터 볼 것):
+#   NHK(코퍼스 74건)  구글이 site:nhk.or.jp 에 원자력 쿼리를 못 태운다. 실측 6건이
+#                     전부 지역방송 편성표. 직접 피드(cat0)는 일반 뉴스라 노이즈 과다.
+#   KBA Europe(43건)  직접 RSS 500, 구글 인덱싱 0건. 접근 경로 자체가 없다.
+#   電気新聞(31건)     페이월. site: 쿼리로 100건 나오지만 지진·정전 등 일반 전력
+#                     기사고 원자력 필터가 먹지 않는다.
+#   National Interest(21건) 잠수함·지정학 기사 위주로 주제가 어긋난다.
+#   Le Figaro(9건)    site: 쿼리가 키워드를 못 거른다(화재·풍력·Fed 혼입).
+RSS_SOURCES += [
+    # 전력 전문지 — 실측 10건 중 8건이 원자력. 코퍼스 21건.
+    {"url": "https://www.powermag.com/feed/", "name": "POWER Magazine",
+     "domain_label": "powermag.com"},
+    # 에너지 섹션 피드 — 비원자력이 섞이지만 DOE 피드와 같이 큐레이션 noise 필터가
+    # 거른다. 코퍼스 27건.
+    {"url": "https://www.lemonde.fr/energies/rss_full.xml", "name": "Le Monde 에너지",
+     "domain_label": "lemonde.fr"},
+]
+# FT·Les Échos·E&E News는 공개 RSS가 없거나 403 → 검증된 Google News site: 패턴.
+# FT는 페이월이라 본문이 없다. 제목·헤드라인 수준의 추적용으로만 쓴다.
+_FT_Q = quote_plus('site:ft.com ("nuclear power" OR reactor OR SMR OR uranium) when:2d')
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_FT_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "FT 원자력", "domain_label": "ft.com",
+})
+_LESECHOS_Q = quote_plus("site:lesechos.fr (nucléaire OR EDF OR EPR) when:2d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_LESECHOS_Q}&hl=fr&gl=FR&ceid=FR:fr",
+    "name": "Les Échos 원자력", "domain_label": "lesechos.fr",
+})
+_EENEWS_Q = quote_plus("site:eenews.net (nuclear OR reactor OR uranium) when:3d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_EENEWS_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "E&E News 원자력", "domain_label": "eenews.net",
+})
+
 # 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
 # 타깃 키워드(기관·정책·사업명)로 좁혀 노이즈 최소화. 일반 '원자력' 단독은 의도적으로
 # 제외(원자력병원·원자력시계 등 무관 잡음 방지). 들어온 뒤엔 기존 curation·노이즈 필터로 한 번 더 거름.
