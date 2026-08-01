@@ -967,12 +967,12 @@ class GeneratedDataTests(unittest.TestCase):
             for issue in briefing["issues"]:
                 self.assertNotEqual(issue["verification"]["label"], "일부 확인")
 
-    def test_selection_reasons_reach_the_screen(self):
+    def test_selection_reasons_are_not_shown_yet(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        # 빌드가 뽑아 둔 선정 이유가 화면에 안 나오면 '왜 이게 위인가'에 답할 수 없다.
-        self.assertIn("function issueReasonText", script)
-        self.assertIn('class="issue-why"', script)
-        self.assertIn("이 이슈가 위에 있는 이유", script)
+        # 이유 문구가 사건 유형의 되풀이라 정보가 되지 않는다. 랭킹을 다시 설계할
+        # 때까지 데이터로만 보관하고 화면에는 내보내지 않는다.
+        self.assertNotIn('class="issue-why"', script)
+        self.assertNotIn("이 이슈가 위에 있는 이유", script)
         for briefing in self.briefings:
             self.assertTrue(any(issue["selection_reasons"] for issue in briefing["issues"]))
 

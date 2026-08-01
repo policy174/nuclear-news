@@ -228,12 +228,6 @@ function verificationBadge(issue, { always = false } = {}) {
   return `<span class="verification-badge v-${esc(state.status)}" title="${esc(view.detail)}">${view.mark} ${esc(view.label)}</span>`;
 }
 
-// 선정 이유는 빌드가 랭킹 점수 내역에서 뽑아 둔다. 화면에 내보내지 않으면
-// '왜 이게 위에 있나'에 답할 수 없다.
-function issueReasonText(issue) {
-  return (issue.selection_reasons || []).filter(Boolean).join(" · ");
-}
-
 function issueEvidenceText(issue) {
   const state = verificationState(issue);
   const articleCount = issue.article_count || (issue.related_articles || []).length;
@@ -518,7 +512,6 @@ function trackingPeriod(issue) {
 function issueCard(issue, index, archive = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
-  const reason = issueReasonText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
   const summary = archive ? markMatch(issue.summary, state.archiveQuery) : esc(issue.summary);
   const visibleMatch = normalizedSearch(`${issue.title || ""} ${issue.summary || ""}`).includes(state.archiveQuery);
@@ -539,7 +532,6 @@ function issueCard(issue, index, archive = false) {
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${archive ? trackingPeriod(issue) : ""}
-      ${reason ? `<p class="issue-why"><strong>선정 이유</strong><span>${esc(reason)}</span></p>` : ""}
       <p class="issue-evidence">${esc(issueEvidenceText(issue))}</p>
       ${issueActions(issue)}
     </div>
@@ -810,7 +802,6 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
-      ${issueReasonText(issue) ? `<p class="dialog-why"><strong>이 이슈가 위에 있는 이유</strong>${esc(issueReasonText(issue))}</p>` : ""}
       ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>

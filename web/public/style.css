@@ -598,11 +598,7 @@ kbd {
   line-height: 1.55;
 }
 .issue-change strong { color: var(--c-accent-text); font-size: 12.5px; }
-/* 선정 이유 — 순서가 어떻게 정해졌는지 카드에서 바로 읽히게 한다. */
-.issue-why { display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 11px 0 0; font-size: 12.5px; }
-.issue-why strong { color: var(--c-text-muted); font-weight: 600; }
-.issue-why span { color: var(--c-text-secondary); font-weight: 650; }
-.issue-evidence { margin: 5px 0 0; color: var(--c-text-muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.issue-evidence { margin: 11px 0 0; color: var(--c-text-muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .issue-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 14px; margin-top: 10px; }
 .issue-actions button,
 .issue-actions a {
@@ -893,9 +889,7 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
 .dialog-update > p { color: var(--c-text-secondary); }
 .dialog-change { padding: 11px 12px; border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 6%, var(--c-surface)); }
 .dialog-change strong,
-.dialog-why strong,
 .dialog-meaning strong { display: block; margin-bottom: 3px; color: var(--c-text); font-size: 12.5px; }
-.dialog-why { padding: 11px 12px; border-radius: var(--r-1); background: var(--c-surface-sunken); color: var(--c-text-secondary); }
 .dialog-meaning { padding: 11px 12px; border-radius: var(--r-1); background: var(--c-surface-sunken); }
 .ai-badge { color: var(--c-text-muted); font-size: 12.5px; font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
