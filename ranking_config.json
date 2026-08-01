@@ -8,9 +8,9 @@
     "nice_to_know": 5
   },
   "event_weights": {
-    "_comment": "사건 유형별 가점. 확정된 사실(계약·의결·인허가·사고)이 전망·의견보다 높게.",
+    "_comment": "사건 유형별 가점. 확정된 사실(계약·의결·인허가·사고)이 전망·의견보다 높게. regulatory_action 은 2026-08-01 에 5→6 (사내 큐레이션 1,874건에서 '규제·인허가'가 978건으로 주제 1위).",
     "policy_decision": 6,
-    "regulatory_action": 5,
+    "regulatory_action": 6,
     "contract_award": 6,
     "incident_safety": 6,
     "project_milestone": 4,
@@ -21,12 +21,12 @@
     "other": 1
   },
   "feature_weights": {
-    "_comment": "각 feature(0~3)에 곱하는 배수. korea_relevance 1.2 = 한국 관련성 3점이면 +3.6점.",
+    "_comment": "각 feature(0~3)에 곱하는 배수. korea_relevance 1.2 = 한국 관련성 3점이면 +3.6점. evidence_strength 는 LLM 이 아니라 ranking.py 가 표현·수치로 판정한 값에 곱한다. novelty 는 0 — 수집 단계 4중 dedup 을 통과한 기사는 정의상 대부분 새 사건이라 판정할 것이 없다(실측 157건 중 137건이 3점). 후속 보도 신호는 tracking 가점이 대신한다(2026-08-01).",
     "korea_relevance": 1.2,
     "market_materiality": 1.0,
     "policy_materiality": 1.0,
-    "novelty": 0.8,
-    "evidence_strength": 0.8
+    "novelty": 0.0,
+    "evidence_strength": 1.0
   },
   "source_bonus": {
     "_comment": "출처 공신력(sources.json tier 매칭). LLM이 아니라 로컬 도메인 매칭으로 결정.",
@@ -34,6 +34,11 @@
     "tier2": 1.5
   },
   "related_reports_bonus": 1.0,
+  "tracking": {
+    "_comment": "추적 중인 이슈가 다시 움직였을 때의 가점. 점수가 기사 단위라 '며칠째 이어지는 이슈'가 순위에 안 들어가던 것을 보완. follow_up 은 최근 1~2회 다룬 사건, repeat 은 3회 초과.",
+    "follow_up": 1.5,
+    "repeat": 0.5
+  },
   "time_decay": {
     "_comment": "큐 적재 후 12시간마다 감점. 오래된 기사가 새 기사에 밀리게.",
     "per_12h": 0.5,

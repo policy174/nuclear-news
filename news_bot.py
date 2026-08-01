@@ -11,7 +11,7 @@ from urllib.parse import urlparse, quote_plus
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
 from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
-from ranking import sanitize_features
+from ranking import prior_coverage_count, sanitize_features
 import news_archive
 from data_quality import (
     clean_text,
@@ -900,7 +900,7 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -909,11 +909,13 @@ BATCH_SUFFIX = """
   incident_safety(사고·안전 이슈) / corporate_move(기업 전략·투자·조직) /
   market_signal(시장·가격·수급 신호) / research_report(연구·보고서 발간) /
   opinion(칼럼·의견·전망) / other
-- 아래 6개는 0~3 정수. 0=무관/없음, 1=약함, 2=유의미, 3=강함:
+- 아래 4개는 0~3 정수. 0=무관/없음, 1=약함, 2=유의미, 3=강함:
   korea_relevance(한국·한수원 직접 관련성), market_materiality(시장·투자 영향),
-  policy_materiality(정책·규제 영향), novelty(새 사실인가 — 후속·반복 보도면 0~1),
-  evidence_strength(확정 사실=3, 공식 발표=2, 관계자 인용=1, 추측·전망=0),
+  policy_materiality(정책·규제 영향),
   report_worthiness(부서 보고서로 다룰 가치 — 매우 엄격, 대부분 0)
+- novelty·evidence_strength 는 묻지 않는다. 비교 대상 없이 절대 점수를 매기면
+  대부분 중간값으로 몰려 변별이 안 되므로 ranking.py 가 아카이브 이력과 표현으로
+  직접 판정한다 (2026-08-01).
 - 확인 불가능하면 낮은 쪽으로. 지어내지 말 것.
 
 - 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
@@ -1372,6 +1374,14 @@ def main() -> None:
         print(f"Batch curation: 새 기사 {len(new_articles)}건 → Gemini {n_calls}회 호출")
     batch_results = curate_batch(new_articles, reports_kb)
 
+    # 후속·반복 보도 판정 재료. 아카이브를 못 읽어도 크롤은 계속한다(빈 목록이면
+    # prior_coverage 0 → 전부 신규 취급).
+    try:
+        prior_titles = news_archive.load_recent_titles()
+    except OSError as exc:
+        print(f"[rank] 아카이브 제목 로딩 실패 — prior_coverage 생략: {exc}")
+        prior_titles = []
+
     for article in final_articles:
         h = article["hash"]
 
@@ -1447,6 +1457,11 @@ def main() -> None:
             "tags": cur.get("tags", []),
             "related_reports": cur.get("related_reports") or [],
             "features": cur.get("features"),  # 랭킹용 (batch 실패분은 None)
+            # 최근 21일 아카이브에서 같은 사건을 몇 번 다뤘는지. ranking.py 가
+            # novelty 와 추적 가점을 여기서 판정한다 (LLM 절대평가 대체).
+            "prior_coverage": prior_coverage_count(
+                cur.get("title_kr") or article["title"], prior_titles
+            ),
             "event_date": cur.get("event_date"),
             "event_date_type": cur.get("event_date_type", "unknown"),
             "event_date_precision": cur.get("event_date_precision", "unknown"),

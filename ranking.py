@@ -43,6 +43,27 @@ EVENT_TYPES = {
 SCALE_FEATURES = ("korea_relevance", "market_materiality", "policy_materiality",
                   "novelty", "evidence_strength", "report_worthiness")
 
+# novelty·evidence_strength 는 LLM 에서 회수해 여기서 계산한다 (2026-08-01).
+#
+# 근거: delivery_log 157건 실측에서 novelty 는 151건 중 122건(81%)이 정확히 2점,
+# evidence_strength 는 85%가 2~3점이었다. 비교 대상 없이 0~3 절대평가를 시키면
+# 중앙값으로 수렴해 변별력이 사라진다(기여 표준편차 0.46 / 0.62 로 최하위).
+# 둘 다 코드가 이미 아는 정보로 판정할 수 있다 —
+#   novelty          : 같은 사건을 최근에 이미 다뤘는가 (prior_coverage)
+#   evidence_strength: 확정 표현인가 전망인가 + 수치가 붙어 있는가
+CODE_DERIVED_FEATURES = ("novelty", "evidence_strength")
+
+_CONFIRMED_RE = re.compile(
+    r"(했다|됐다|되었다|한다|밝혔다|발표|체결|의결|승인|인가|착공|준공|완료|"
+    r"서명|확정|선정|가동|중단|취소|합의|출범|제출|통과)"
+)
+_SPECULATION_RE = re.compile(
+    r"(전망|예상|검토|추진할|추진한다|계획이|가능성|관측|기대|우려|것으로 보인다|할 방침)"
+)
+_QUANTITY_RE = re.compile(
+    r"\d[\d,.]*\s*(기|호기|GW|MW|㎿|kW|억|조|만|%|퍼센트|달러|유로|원|년|개월|주|일)"
+)
+
 # 기존 daily_brief.rank_item 의 1차 출처 목록 (legacy 경로 하위 호환용 — 수정 금지)
 _LEGACY_PRIMARY_DOMAINS = ("iaea.org", "world-nuclear-news", "khnp.co.kr",
                            "nssc.go.kr", "motie.go.kr", "nrc.gov")
@@ -56,6 +77,7 @@ _DEFAULT_CONFIG = {
     "source_bonus": {"tier1": 3.0, "tier2": 1.5},
     "related_reports_bonus": 1.0,
     "time_decay": {"per_12h": 0.5, "max": 3.0},
+    "tracking": {"follow_up": 1.5, "repeat": 0.5},
     "diversity": {"max_per_topic": 2, "penalty": 2.5},
     "duplicate_similarity": 0.82,
 }
@@ -145,6 +167,87 @@ def _legacy_score(item: dict) -> tuple[float, dict]:
     return base, breakdown
 
 
+def prior_coverage_count(title: str, prior_titles: list[str]) -> int:
+    """같은 사건을 최근 아카이브에서 몇 건이나 다뤘는지 센다.
+
+    후속·반복 보도 판정용이라 클러스터링만큼 엄밀할 필요는 없다. 발송 직전
+    중복 제거와 같은 제목 유사도 기준(_same_event)을 재사용한다.
+    """
+    probe = {"title_kr": title}
+    norm = _norm_title(probe)
+    toks = _title_tokens(probe)
+    if not norm and not toks:
+        return 0
+    count = 0
+    for other in prior_titles:
+        other_probe = {"title_kr": other}
+        if _same_event(norm, toks, _norm_title(other_probe), _title_tokens(other_probe),
+                       _DEFAULT_CONFIG["duplicate_similarity"]):
+            count += 1
+    return count
+
+
+def _item_text(item: dict) -> str:
+    return " ".join(str(item.get(key) or "") for key in ("title_kr", "title", "summary"))
+
+
+def derive_evidence_strength(item: dict) -> int:
+    """확정 표현·수치 유무로 근거 강도를 판정한다 (LLM 추측 대체).
+
+    확정 사실 3 / 판단 유보 2 / 전망·검토 1. 수치가 하나도 없으면 한 단계 낮춘다.
+    """
+    text = _item_text(item)
+    if not text.strip():
+        return 0
+    if _SPECULATION_RE.search(text):
+        base = 1
+    elif _CONFIRMED_RE.search(text):
+        base = 3
+    else:
+        base = 2
+    if not _QUANTITY_RE.search(text):
+        base -= 1
+    return max(0, min(3, base))
+
+
+def derive_novelty(item: dict) -> int:
+    """최근 아카이브에서 같은 사건을 몇 번 다뤘는지로 새 사실 여부를 판정한다.
+
+    prior_coverage 는 news_bot 이 큐 적재 시 계산해 넣는다. 값이 없으면(구 큐
+    항목) 판단하지 않고 중립값 2 를 쓴다.
+    """
+    prior = item.get("prior_coverage")
+    if prior is None:
+        return 2
+    try:
+        prior = int(prior)
+    except (TypeError, ValueError):
+        return 2
+    if prior <= 0:
+        return 3
+    return 2 if prior <= 2 else 1
+
+
+def _tracking_bonus(item: dict, cfg: dict) -> tuple[float, str]:
+    """추적 중인 이슈가 다시 움직였을 때의 가점.
+
+    점수가 기사 단위라 '이 이슈가 며칠째 이어지는 중'이 순위에 안 들어가고 있었다.
+    추적이 이 서비스의 차별점이므로 후속 보도를 완전 신규보다 살짝 위에 둔다.
+    반복만 되는 이슈(3회 초과)는 가점을 거의 주지 않는다.
+    """
+    prior = item.get("prior_coverage")
+    if not prior:
+        return 0.0, ""
+    tracking = cfg.get("tracking") or {}
+    try:
+        prior = int(prior)
+    except (TypeError, ValueError):
+        return 0.0, ""
+    if prior <= 2:
+        return float(tracking.get("follow_up", 1.5)), "tracking:follow_up"
+    return float(tracking.get("repeat", 0.5)), "tracking:repeat"
+
+
 def _time_decay(item: dict, cfg: dict, now: datetime) -> float:
     td = cfg.get("time_decay") or {}
     per_12h = float(td.get("per_12h", 0.5))
@@ -168,6 +271,10 @@ def score_item(item: dict, cfg: dict,
     if feats is None:
         score, breakdown = _legacy_score(item)
     else:
+        # LLM 값이 남아 있어도 코드 판정으로 덮는다. 두 항목은 더 이상 프롬프트에
+        # 없지만 옛 큐 항목에는 값이 실려 있다.
+        feats["novelty"] = derive_novelty(item)
+        feats["evidence_strength"] = derive_evidence_strength(item)
         breakdown = {}
         imp_base = cfg.get("importance_base") or {}
         score = float(imp_base.get(_get_importance(item), imp_base.get("nice_to_know", 5)))
@@ -202,6 +309,11 @@ def score_item(item: dict, cfg: dict,
             b = float(cfg.get("related_reports_bonus", 1.0))
             score += b
             breakdown["related_reports"] = b
+
+        track, track_key = _tracking_bonus(item, cfg)
+        if track:
+            score += track
+            breakdown[track_key] = track
 
     decay = _time_decay(item, cfg, now)
     if decay:

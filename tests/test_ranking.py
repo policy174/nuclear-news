@@ -113,6 +113,76 @@ class TestNewScore(unittest.TestCase):
         self.assertGreaterEqual(b["time_decay"], -CFG["time_decay"]["max"])
 
 
+class TestCodeDerivedFeatures(unittest.TestCase):
+    """novelty·evidence_strength 는 LLM 이 아니라 코드가 판정한다."""
+
+    def test_confirmed_fact_with_numbers_scores_highest(self):
+        a = {"title_kr": "한수원, 체코 두코바니 원전 2기 본계약 체결",
+             "summary": "한수원이 24조 원 규모의 두코바니 원전 2기 건설 본계약을 체결했다."}
+        self.assertEqual(ranking.derive_evidence_strength(a), 3)
+
+    def test_speculation_scores_low(self):
+        a = {"title_kr": "정부, 신규 원전 추가 검토 전망",
+             "summary": "정부가 신규 원전 건설을 추가로 검토할 것으로 예상된다."}
+        self.assertLessEqual(ranking.derive_evidence_strength(a), 1)
+
+    def test_confirmed_without_numbers_drops_one_step(self):
+        withnum = {"title_kr": "원안위, 한울 4호기 임계 허용",
+                   "summary": "원안위가 한울 4호기의 임계를 허용했다."}
+        without = {"title_kr": "원안위, 임계 허용",
+                   "summary": "원안위가 임계를 허용했다."}
+        self.assertGreater(ranking.derive_evidence_strength(withnum),
+                           ranking.derive_evidence_strength(without))
+
+    def test_novelty_follows_prior_coverage(self):
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 0}), 3)
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 2}), 2)
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 5}), 1)
+        # 구 큐 항목은 값이 없다 — 지어내지 않고 중립값
+        self.assertEqual(ranking.derive_novelty({}), 2)
+
+    def test_llm_values_are_overridden(self):
+        a = item(features=feat(novelty=3, evidence_strength=3), queued_hours_ago=0)
+        a.update({"title_kr": "정부, 원전 확대 검토 전망", "summary": "검토할 것으로 예상된다.",
+                  "prior_coverage": 4})
+        _, b = ranking.score_item(a, CFG, now=NOW)
+        # novelty 가중치는 0 이므로 breakdown 에 남지 않는다
+        self.assertNotIn("novelty", b)
+        # LLM 이 3점을 줬어도 전망 표현이라 코드는 0점 → 기여 0 이라 항목이 사라진다
+        self.assertEqual(ranking.derive_evidence_strength(a), 0)
+        self.assertNotIn("evidence_strength", b)
+
+    def test_prior_coverage_counts_same_event_only(self):
+        prior = ["한수원, 체코 두코바니 원전 본계약 체결", "미국 NRC, SMR 인허가 절차 개편"]
+        self.assertEqual(
+            ranking.prior_coverage_count("한수원 체코 두코바니 원전 본계약 체결", prior), 1)
+        self.assertEqual(
+            ranking.prior_coverage_count("프랑스 EDF, 플라망빌 3호기 출력 상승", prior), 0)
+
+
+class TestTrackingBonus(unittest.TestCase):
+    def test_follow_up_outranks_brand_new(self):
+        base = dict(features=feat(korea_relevance=1), queued_hours_ago=0)
+        new = item(h="a", **base)
+        new.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                    "prior_coverage": 0})
+        follow = item(h="b", **base)
+        follow.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                       "prior_coverage": 1})
+        s_new, _ = ranking.score_item(new, CFG, now=NOW)
+        s_follow, b = ranking.score_item(follow, CFG, now=NOW)
+        self.assertGreater(s_follow, s_new)
+        self.assertIn("tracking:follow_up", b)
+
+    def test_repeated_issue_gets_almost_nothing(self):
+        repeat = item(features=feat(), queued_hours_ago=0)
+        repeat.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                       "prior_coverage": 6})
+        _, b = ranking.score_item(repeat, CFG, now=NOW)
+        self.assertIn("tracking:repeat", b)
+        self.assertLess(b["tracking:repeat"], CFG["tracking"]["follow_up"])
+
+
 class TestDuplicates(unittest.TestCase):
     def test_same_and_followup_titles_clustered(self):
         a = item(h="a", title="한수원, 체코 두코바니 원전 본계약 체결")

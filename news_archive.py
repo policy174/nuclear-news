@@ -112,6 +112,30 @@ def load_recent_identities() -> dict[str, set[str]]:
     return identities
 
 
+def load_recent_titles(days: int = 21) -> list[str]:
+    """최근 아카이브의 한국어 제목 목록. 랭킹의 prior_coverage 계산용.
+
+    같은 사건을 이미 몇 번 다뤘는지 세는 데만 쓰므로 제목만 있으면 된다.
+    """
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
+    titles = []
+    for path in _month_files_recent():
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            stamp = str(record.get("archived_at") or record.get("pub") or "")[:10]
+            if stamp and stamp < cutoff:
+                continue
+            title = record.get("title_kr") or record.get("title")
+            if title:
+                titles.append(title)
+    return titles
+
+
 def make_record(article: dict, cur: dict, archived_at: str) -> dict:
     """기사 원본(article) + 큐레이션 결과(cur) → 아카이브 레코드.
 
