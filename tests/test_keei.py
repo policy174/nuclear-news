@@ -94,6 +94,35 @@ class KeeiFetchTests(unittest.TestCase):
         items = pubs_fetch.fetch_keei(state)
         self.assertEqual([item["date"] for item in items], ["2026-07-24"])
 
+    def test_backlog_larger_than_detail_cap_is_never_lost(self):
+        """워터마크는 최댓값으로 올라가므로 항목을 자르면 영구 유실된다.
+
+        실측(2026-08-02): 6호가 한꺼번에 올라온 상황에서 상세 상한 4에 맞춰
+        항목까지 자르는 바람에 2호가 다음 실행에서 '신규'가 아니게 되어 사라졌다.
+        상세(추가 요청)만 제한하고 항목은 전부 내보내야 한다.
+        """
+        backlog = "\n".join(
+            f'<a href="?act=view&list_no={no}">[격주간] 세계 원전시장 인사이트(2026.0{i}.10.)</a>'
+            for i, no in enumerate(range(128001, 128007), start=1))
+        detail_calls = []
+
+        def fake(url):
+            if "act=view" in url:
+                detail_calls.append(url)
+                return DETAIL_HTML
+            return backlog
+        pubs_fetch._http_get = fake
+
+        state = {"keei_max_list_no": 128000}
+        items = pubs_fetch.fetch_keei(state)
+        self.assertEqual(len(items), 6, "상세 상한 때문에 호가 유실되면 안 된다")
+        self.assertEqual(len(detail_calls), pubs_fetch.KEEI_MAX_DETAIL,
+                         "상세 요청은 상한을 지켜야 한다")
+        self.assertEqual(sum(1 for item in items if item.get("toc")),
+                         pubs_fetch.KEEI_MAX_DETAIL)
+        # 다음 실행에 남는 것이 없어야 정상(전부 이미 내보냈으므로)
+        self.assertEqual(pubs_fetch.fetch_keei(state), [])
+
     def test_toc_failure_does_not_drop_the_item(self):
         def flaky(url):
             if "act=view" in url:

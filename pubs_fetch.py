@@ -311,13 +311,18 @@ def fetch_keei(state: dict) -> list[dict]:
     else:
         fresh = sorted(rows, reverse=True)[:KEEI_BOOTSTRAP_LIMIT]
     items = []
-    for list_no in fresh[:KEEI_MAX_DETAIL]:
+    for index, list_no in enumerate(fresh):
         title = rows[list_no]
         toc = {}
-        try:
-            toc = keei_parse_toc(_http_get(KEEI_VIEW_URL.format(no=list_no)))
-        except Exception as exc:  # 목차 실패는 항목 자체를 버릴 이유가 아니다
-            print(f"[pubs] keei 목차 추출 실패(list_no={list_no}): {type(exc).__name__}")
+        # 상세(목차)는 호마다 요청이 하나씩 더 붙으므로 최신 몇 호만 가져온다.
+        # 다만 **항목 자체는 전부 내보낸다** — 여기서 자르면 워터마크는 최댓값으로
+        # 올라가는데 잘린 호는 다음 실행에서 '신규'가 아니라서 영구 유실된다
+        # (실측: 6호가 한꺼번에 올라온 상황에서 2호가 사라졌다).
+        if index < KEEI_MAX_DETAIL:
+            try:
+                toc = keei_parse_toc(_http_get(KEEI_VIEW_URL.format(no=list_no)))
+            except Exception as exc:  # 목차 실패는 항목 자체를 버릴 이유가 아니다
+                print(f"[pubs] keei 목차 추출 실패(list_no={list_no}): {type(exc).__name__}")
         item = _make_item(
             "KEEI", "에너지경제연구원", "keei_insight", title,
             KEEI_VIEW_URL.format(no=list_no), _keei_date(title),
