@@ -748,9 +748,10 @@ class GeneratedDataTests(unittest.TestCase):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn("기관, 호기, 주제로 검색", html)
-        # 히어로는 이제 지표를 정의 목록(데이터 상태)으로 보여준다.
-        self.assertIn("<dt>공식 출처</dt>", script)
-        self.assertIn("<dt>마지막 확인</dt>", script)
+        # 수집 규모·신선도 지표는 상태 스트립 한 곳에서만 말한다
+        # (히어로의 '데이터 상태' 정의 목록은 같은 값을 되풀이해 제거했다).
+        self.assertIn("마지막 수집", script)
+        self.assertIn("1차 출처", script)
 
     def test_p1_copy_overlines_and_card_hierarchy(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -989,13 +990,30 @@ class GeneratedDataTests(unittest.TestCase):
     def test_p4_home_splits_changed_issues_from_the_rest(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        for element_id in ("changedIssues", "changedList", "changedCount", "briefingKicker", "briefingStatus"):
+        for element_id in ("changedIssues", "changedList", "changedCount", "briefingKicker"):
             self.assertIn(f'id="{element_id}"', html)
-        # 히어로가 아래 카드 목록을 그대로 반복하던 블록은 데이터 상태로 교체했다.
+        # 히어로가 아래 카드 목록을 그대로 반복하던 블록은 제거했다.
         self.assertNotIn('id="briefingHighlights"', html)
         self.assertNotIn('id="sideStats"', html)
         self.assertIn("function changedIssues", script)
-        self.assertIn("function renderBriefingStatus", script)
+
+    def test_hero_does_not_repeat_the_status_strip(self):
+        """히어로 '데이터 상태'는 상태 스트립과 같은 숫자 넷을 되풀이했다.
+
+        실측(1440×900): 히어로 329px 중 213px를 중복 표시가 차지해 첫 화면에
+        이슈 카드가 1장만 들어왔다. 스트립이 마지막 수집·수집 기사·연결 이슈·
+        1차 출처를 이미 한 줄로 말한다 — 중복 표시는 정보가 아니다.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn('id="briefingStatus"', html)
+        self.assertNotIn("hero-status", html)
+        self.assertNotIn("renderBriefingStatus", script)
+        self.assertNotIn(".hero-status", style)
+        # 같은 숫자를 말하는 곳은 스트립 하나로 남는다
+        self.assertIn("오늘 수집 기사", script)
+        self.assertIn("연결된 이슈", script)
 
     def test_p4_briefings_declare_what_the_headline_is(self):
         for briefing in self.briefings:

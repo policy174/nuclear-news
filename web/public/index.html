@@ -87,16 +87,11 @@
             <button type="button" data-go-view="trend">주간 흐름 <span aria-hidden="true">→</span></button>
           </div>
         </div>
-        <div class="hero-status">
-          <p>데이터 상태</p>
-          <dl id="briefingStatus">
-            <div><dt>마지막 확인</dt><dd>–</dd></div>
-            <div><dt>연결 이슈</dt><dd>–</dd></div>
-            <div><dt>원문 기사</dt><dd>–</dd></div>
-            <div><dt>공식 출처</dt><dd>–</dd></div>
-          </dl>
-        </div>
       </div>
+      <!-- '데이터 상태' 블록은 제거했다. 바로 위 상태 스트립이 같은 숫자 넷을
+           이미 한 줄로 말한다(마지막 수집·수집 기사·연결 이슈·1차 출처).
+           실측: 히어로 329px 중 213px를 중복 표시에 쓰면서 1440×900 첫 화면에
+           이슈 카드가 1장만 보였다. 중복 표시는 정보가 아니다. -->
     </section>
 
     <div class="briefing-content-grid">

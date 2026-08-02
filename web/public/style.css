@@ -315,13 +315,11 @@ kbd {
 .date-nav button { width: 36px; border-radius: var(--r-1); }
 .date-nav select { min-width: 145px; padding: 0 30px 0 10px; border-radius: var(--r-1); }
 .date-nav option { background: var(--c-primary); }
+/* 우측 '데이터 상태' 열을 제거해 1단이 됐다 — 히어로 높이를 정하던 것이
+   그 열(213px)이었고, 그 때문에 첫 화면에 이슈 카드가 1장만 들어왔다. */
 .hero-grid {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(300px, .75fr);
-  gap: 56px;
-  align-items: end;
   margin-top: 20px;
 }
 .hero-kicker { margin: 0 0 8px; color: #8fd1ce; font-size: 12.5px; font-weight: 650; }
@@ -375,29 +373,6 @@ kbd {
 .hero-evidence-chip:hover { background: rgb(255 255 255 / 16%); }
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */
-.hero-status {
-  padding-left: 22px;
-  border-left: 1px solid rgb(255 255 255 / 16%);
-}
-.hero-status > p { margin: 0 0 10px; color: #8fd1ce; font-size: 12.5px; font-weight: 650; }
-.hero-status dl { display: grid; gap: 0; margin: 0; }
-.hero-status dl > div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 0;
-}
-.hero-status dl > div + div { border-top: 1px solid rgb(255 255 255 / 10%); }
-.hero-status dt { color: rgb(255 255 255 / 62%); font-size: 12.5px; }
-.hero-status dd {
-  margin: 0;
-  color: #fff;
-  font-size: 17px;
-  font-weight: 650;
-  font-variant-numeric: tabular-nums;
-}
-.hero-status dd small { margin-left: 2px; color: rgb(255 255 255 / 62%); font-size: 12.5px; font-weight: 500; }
 
 .briefing-content-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 44px; }
 /* 홈은 두 구역이다: 상태가 움직인 이슈가 먼저, 나머지가 아래. */
@@ -1053,8 +1028,6 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
   .global-search-trigger span,
   .global-search-trigger kbd { display: none; }
   .global-search-trigger { justify-content: center; width: 40px; padding: 0; }
-  .hero-grid { grid-template-columns: 1fr; gap: 24px; }
-  .hero-status { padding: 14px 0 0; border-top: 1px solid rgb(255 255 255 / 15%); border-left: 0; }
   .trend-grid { grid-template-columns: 1fr; }
   .archive-layout { grid-template-columns: 1fr; }
   .archive-filters { position: static; grid-template-columns: repeat(2, 1fr); }
@@ -1093,9 +1066,6 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
   /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
   .hero-evidence-chip { min-height: 44px; }
   .pubs-filters button { min-height: 44px; padding-inline: 14px; }
-  .hero-status dl { grid-template-columns: 1fr 1fr; column-gap: 18px; }
-  .hero-status dl > div:nth-child(2) { border-top: 0; }
-  .hero-status dd { font-size: 16px; }
   .briefing-content-grid { margin-top: 28px; }
   .issue-section-heading { align-items: flex-start; }
   .issue-section-heading > div:first-child { min-width: 0; }
@@ -1231,8 +1201,6 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
 @media (max-width: 390px) {
   .brand-copy strong { letter-spacing: .06em; }
   .header-tools { gap: 4px; }
-  .hero-status dl { grid-template-columns: 1fr; }
-  .hero-status dl > div:nth-child(2) { border-top: 1px solid rgb(255 255 255 / 10%); }
   .issue-section-heading { display: grid; }
   .issue-section-tools { justify-items: start; }
   .section-count { justify-self: start; }

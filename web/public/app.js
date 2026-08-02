@@ -604,17 +604,6 @@ function changedIssues(briefing) {
     .slice(0, 5);
 }
 
-function renderBriefingStatus(briefing) {
-  const official = briefing.primary_source_count
-    ?? briefing.issues.reduce((sum, issue) => sum + officialSourceCount(issue), 0);
-  const checkedAt = briefing.issues[0]?.verification?.checked_at || state.meta?.generated_at || "";
-  document.getElementById("briefingStatus").innerHTML = `
-    <div><dt>마지막 확인</dt><dd>${checkedAt ? esc(timeLabel(checkedAt)) : "–"}</dd></div>
-    <div><dt>연결 이슈</dt><dd>${briefing.issue_count ?? 0}<small>개</small></dd></div>
-    <div><dt>원문 기사</dt><dd>${briefing.article_count ?? 0}<small>건</small></dd></div>
-    <div><dt>공식 출처</dt><dd>${official}<small>건</small></dd></div>`;
-}
-
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
@@ -654,7 +643,6 @@ function renderBriefing() {
       ).join("")
       : "";
   }
-  renderBriefingStatus(briefing);
 
   const changed = changedIssues(briefing);
   const changedIds = new Set(changed.map(issue => issue.issue_id));
