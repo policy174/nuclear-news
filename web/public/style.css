@@ -750,6 +750,43 @@ kbd {
 .source-link { font-size: 12.5px; font-weight: 650; }
 .notice { margin: 16px 0 0; color: var(--c-text-muted); font-size: 12.5px; }
 
+/* 발간물 탭 — 뉴스 흐름과 별개인 기관 보고서·간행물 리스트 */
+.pubs-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+.pubs-filters button {
+  padding: 5px 12px;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--c-text-secondary);
+  font-size: 12.5px;
+}
+.pubs-filters button.active {
+  border-color: var(--c-accent);
+  background: var(--c-accent);
+  color: #fff;
+  font-weight: 650;
+}
+.pubs-list { display: grid; gap: 12px; margin-top: 16px; }
+.pub-item {
+  padding: 16px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+}
+.pub-item h3 { margin: 6px 0 4px; font-size: 15px; line-height: 1.45; }
+.pub-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-text-muted); font-size: 12.5px; }
+.pub-org { color: var(--c-text-secondary); font-weight: 650; }
+.pub-new {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.pub-toc { margin: 0 0 6px; color: var(--c-text-secondary); font-size: 13px; }
+
 .archive-intro,
 .trend-intro {
   display: flex;
@@ -1140,7 +1177,7 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     min-height: 64px;
     padding-bottom: env(safe-area-inset-bottom);
     border-top: 1px solid var(--c-border);

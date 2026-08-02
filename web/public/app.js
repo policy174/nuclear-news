@@ -23,11 +23,12 @@ const COUNTRY_LABELS = {
 };
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
-const VIEW_IDS = ["news", "search", "trend", "saved"];
+const VIEW_IDS = ["news", "search", "trend", "saved", "pubs"];
 const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
 
 const state = {
   news: [], briefings: [], issues: [], trend: null, insights: null, meta: null,
+  pubs: null, pubsOrg: "전체",
   manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "",
@@ -740,6 +741,52 @@ function renderSaved() {
     : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">이슈 아카이브 보기</button></div>';
 }
 
+const PUB_KIND_LABELS = {
+  publication: "간행물", report: "보고서", analysis: "분석", press: "보도자료",
+  news_or_report: "소식·보고서", keei_insight: "정기간행물",
+};
+
+function pubRow(item) {
+  const url = safeUrl(item.url);
+  const pdfUrl = safeUrl(item.pdf_url || "");
+  const kindLabel = PUB_KIND_LABELS[item.kind] || "";
+  const tocIssue = item.toc && item.toc.issue_title ? item.toc.issue_title : "";
+  return `<article class="pub-item">
+    <div class="pub-meta">
+      <span class="pub-org">${esc(item.org_kr || item.org)}</span>
+      ${kindLabel ? `<span>${esc(kindLabel)}</span>` : ""}
+      ${item.date ? `<span>${esc(dateLabel(item.date))}</span>` : ""}
+      ${item.is_new ? '<span class="pub-new">NEW</span>' : ""}
+    </div>
+    <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a>` : esc(item.title)}</h3>
+    ${tocIssue ? `<p class="pub-toc">현안이슈: ${esc(tocIssue)}</p>` : ""}
+    ${pdfUrl ? `<a class="source-link" href="${esc(pdfUrl)}" target="_blank" rel="noopener noreferrer">PDF 원문 <span aria-hidden="true">↗</span></a>` : ""}
+  </article>`;
+}
+
+function renderPubs() {
+  const listBox = document.getElementById("pubsList");
+  const filterBox = document.getElementById("pubsFilters");
+  if (!listBox || !filterBox) return;
+  const items = (state.pubs && Array.isArray(state.pubs.items)) ? state.pubs.items : [];
+  if (!items.length) {
+    filterBox.innerHTML = "";
+    listBox.innerHTML = '<div class="empty-state"><strong>아직 수집된 발간물이 없습니다</strong><p>매일 새벽 IAEA·OECD NEA·IEA·EIA의 신규 발간물을 확인합니다.</p></div>';
+    return;
+  }
+  const orgs = ["전체", ...new Set(items.map(item => item.org_kr || item.org).filter(Boolean))];
+  if (!orgs.includes(state.pubsOrg)) state.pubsOrg = "전체";
+  filterBox.innerHTML = orgs.map(org =>
+    `<button type="button" data-pubs-org="${esc(org)}" class="${org === state.pubsOrg ? "active" : ""}" aria-pressed="${org === state.pubsOrg}">${esc(org)}</button>`
+  ).join("");
+  const visible = state.pubsOrg === "전체"
+    ? items
+    : items.filter(item => (item.org_kr || item.org) === state.pubsOrg);
+  listBox.innerHTML = visible.length
+    ? visible.map(pubRow).join("")
+    : '<div class="empty-state"><strong>이 기관의 발간물이 아직 없습니다</strong><p>다른 기관을 선택해 보세요.</p></div>';
+}
+
 function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑") {
   const url = safeUrl(article.url);
   const stage = article.briefing_date === briefingDate ? currentStage : "이전 흐름";
@@ -1075,6 +1122,7 @@ function switchView(view, updateUrl = true) {
   if (view === "search") renderArchiveSearch();
   if (view === "trend") renderTrend();
   if (view === "saved") renderSaved();
+  if (view === "pubs") renderPubs();
   if (updateUrl) syncUrl();
   scrollToPageTop();
 }
@@ -1134,6 +1182,8 @@ function bind() {
   document.body.addEventListener("click", event => {
     const go = event.target.closest("[data-go-view]");
     if (go) switchView(go.dataset.goView);
+    const pubsOrg = event.target.closest("[data-pubs-org]");
+    if (pubsOrg) { state.pubsOrg = pubsOrg.dataset.pubsOrg; renderPubs(); }
     const quick = event.target.closest("[data-quick-topic]");
     if (quick) {
       state.archiveTopic = quick.dataset.quickTopic;
@@ -1281,9 +1331,11 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
+      // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
+      loadJSON("publications.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;

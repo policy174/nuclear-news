@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
+    inputs:
+      fetch_publications:
+        description: "발간물 수집 강제 실행 (시간 게이트 무시)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -86,11 +91,23 @@ jobs:
           POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
           POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
 
+      # 국제기구 발간물 수집 — 하루 1회(20 UTC = 05 KST). zero-LLM, 요청 소스당 1회.
+      # 20시 크롤이 커밋하면 22 UTC 짝수시 배포·22:25 daily-brief 배포에 자연 반영 —
+      # Pages 배포 예산 +0. 실패해도 크롤 본연 기능에 비치명.
+      - name: Fetch publications (1일 1회)
+        continue-on-error: true
+        run: |
+          if [ "$(date -u +%H)" != "20" ] && [ "${{ inputs.fetch_publications }}" != "true" ]; then
+            echo "발간물 수집 시간 아님 — 스킵 (매일 20 UTC, dispatch 강제 가능)"; exit 0
+          fi
+          python pubs_fetch.py
+
       - name: Commit state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent.json curated.json digest_queue.json archive/
+          if [ -f publications.json ]; then git add publications.json; fi
           git diff --cached --quiet || git commit -m "chore: update bot state"
           git push
 
@@ -147,7 +164,7 @@ jobs:
           # 같은 URL 이 curl 로는 200 인데 이 블록만 6종 전부 HTTPError 로 죽어
           # 스모크가 상시 실패하고 있었다(2026-08-02 규명). UA 를 명시한다.
           UA = {"User-Agent": "nuclens-smoke/1.0"}
-          names = ["news.json", "briefings.json", "issues.json", "trend.json", "meta.json", "insights.json"]
+          names = ["news.json", "briefings.json", "issues.json", "trend.json", "meta.json", "insights.json", "publications.json"]
           fails, data = [], {}
           for n in names:
               try:

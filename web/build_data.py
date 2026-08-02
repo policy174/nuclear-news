@@ -1319,6 +1319,54 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
         row.pop("sort_score", None)
 
 
+PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
+
+
+def load_publications(now: datetime | None = None) -> dict:
+    """pubs_fetch.py 가 커밋한 발간물 상태 파일 → 웹 표시용 뷰.
+
+    파일이 없거나 깨져도 빈 구조를 반환한다 — 발간물 부재가 사이트를 죽이면
+    안 된다 (빈 배열이라도 publications.json 은 항상 생성되는 계약).
+    """
+    empty = {"generated_at": "", "items": [], "sources": {}}
+    try:
+        raw = json.loads((BOT_DIR / "publications.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return empty
+    if not isinstance(raw, dict):
+        return empty
+    now = now or datetime.now(KST)
+    new_cutoff = (now - timedelta(days=PUBLICATION_NEW_DAYS)).strftime("%Y-%m-%d")
+    items = []
+    for item in raw.get("items") or []:
+        if not isinstance(item, dict):
+            continue
+        title = str(item.get("title") or "").strip()
+        url = str(item.get("url") or "").strip()
+        if not title or not url:
+            continue
+        display_date = str(item.get("date") or item.get("fetched_at") or "")
+        view = {
+            "id": item.get("id") or "",
+            "org": item.get("org") or "",
+            "org_kr": item.get("org_kr") or "",
+            "kind": item.get("kind") or "",
+            "title": title,
+            "url": url,
+            "date": display_date,
+            "is_new": bool(display_date and display_date >= new_cutoff),
+        }
+        for optional in ("pdf_url", "toc"):
+            if item.get(optional):
+                view[optional] = item[optional]
+        items.append(view)
+    return {
+        "generated_at": now.isoformat(),
+        "items": items,
+        "sources": raw.get("last_checked") or {},
+    }
+
+
 def load_daily_leads() -> dict[str, dict]:
     """봇이 하루 1회 생성한 '오늘의 한 문장'. 없으면 빈 dict (히어로가 폴백)."""
     try:
@@ -1936,6 +1984,7 @@ def build() -> None:
         ("trend.json", trend),
         ("meta.json", meta),
         ("insights.json", insights),
+        ("publications.json", load_publications(now)),
         ("issue_audit.json", issue_audit),
         ("manifest.json", manifest),
         ("status.json", status),

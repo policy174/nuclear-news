@@ -28,6 +28,19 @@ try {
     const label = `${parseInt(d.slice(5, 7), 10)}월 ${parseInt(d.slice(8, 10), 10)}일`;
     if (!bodyText.includes(label)) failures.push(`최신 브리핑 날짜(${label}) 미표시`);
   }
+
+  // 발간물 탭 — 데이터가 0건이어도 빈 상태가 렌더돼야 한다(탭 자체가 죽으면 실패)
+  const pubsTab = page.locator('#mainTabs [data-view="pubs"]');
+  if (await pubsTab.count()) {
+    await pubsTab.click();
+    await page.waitForTimeout(800);
+    const pubsVisible = await page.locator("#view-pubs").isVisible();
+    if (!pubsVisible) failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음");
+    const pubsText = (await page.textContent("#view-pubs").catch(() => "")) || "";
+    if (!pubsText.trim()) failures.push("발간물 화면이 비어 있음 (빈 상태 문구조차 없음)");
+  } else {
+    failures.push("발간물 탭 버튼이 없음");
+  }
 } finally {
   await browser.close();
 }

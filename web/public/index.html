@@ -35,6 +35,7 @@
       <button class="main-tab active" data-view="news" aria-pressed="true">오늘 브리핑</button>
       <button class="main-tab" data-view="search" aria-pressed="false">이슈 아카이브</button>
       <button class="main-tab" data-view="trend" aria-pressed="false">주간 흐름</button>
+      <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
     </nav>
     <div class="header-tools">
       <button id="globalSearchOpen" class="global-search-trigger" type="button" aria-haspopup="dialog">
@@ -253,6 +254,17 @@
     <div class="archive-intro"><div><h1 id="savedTitle">저장한 이슈</h1><p>이 브라우저에 저장한 이슈입니다.</p></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>
+
+  <section id="view-pubs" hidden aria-labelledby="pubsTitle">
+    <div class="archive-intro">
+      <div>
+        <h1 id="pubsTitle">국제기구 발간물</h1>
+        <p>IAEA·OECD NEA·IEA·EIA 등 공식 기관의 보고서·발간물 발행을 추적합니다. 제목과 원문 링크만 제공합니다.</p>
+      </div>
+    </div>
+    <div class="pubs-filters" id="pubsFilters" role="group" aria-label="기관 필터"></div>
+    <div id="pubsList" class="pubs-list"></div>
+  </section>
 </main>
 
 <dialog id="globalSearchDialog" class="search-dialog" aria-labelledby="globalSearchTitle">
@@ -275,6 +287,7 @@
   <button class="active" type="button" data-view="news" aria-pressed="true"><span>오늘</span></button>
   <button type="button" data-view="search" aria-pressed="false"><span>아카이브</span></button>
   <button type="button" data-view="trend" aria-pressed="false"><span>주간</span></button>
+  <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
   <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount">0</small></button>
 </nav>
 

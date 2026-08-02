@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+import tempfile
 import unittest
 from html import escape as html_escape
 from itertools import combinations
@@ -578,6 +579,7 @@ class GeneratedDataTests(unittest.TestCase):
         cls.issue_audit = json.loads((data_dir / "issue_audit.json").read_text(encoding="utf-8"))
         cls.insights = json.loads((data_dir / "insights.json").read_text(encoding="utf-8"))
         cls.issue_catalog = json.loads((data_dir / "issues.json").read_text(encoding="utf-8"))
+        cls.publications = json.loads((data_dir / "publications.json").read_text(encoding="utf-8"))
 
     def test_every_delivered_article_is_represented_once_in_its_briefing(self):
         for briefing in self.briefings:
@@ -1114,6 +1116,60 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("@media (min-width: 1200px)", style)
         self.assertIn("@media (max-width: 767px)", style)
         self.assertIn(".mobile-tabs", style)
+
+    def test_publications_view_is_always_generated(self):
+        """발간물 파일은 0건이어도 항상 존재해야 한다.
+
+        app.js 가 없는 JSON 을 만나면 전 화면이 죽는다(8/1 빈 화면 사고). 그래서
+        수집 결과와 무관하게 build 가 빈 구조라도 반드시 써야 한다.
+        """
+        self.assertIsInstance(self.publications, dict)
+        self.assertIsInstance(self.publications["items"], list)
+        for item in self.publications["items"]:
+            self.assertTrue(item["title"])
+            self.assertTrue(item["url"].startswith("http"))
+            self.assertIn("org_kr", item)
+            self.assertIsInstance(item["is_new"], bool)
+
+    def test_publications_loader_survives_missing_and_broken_files(self):
+        original = build_data.BOT_DIR
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build_data.BOT_DIR = Path(tmp)
+                self.assertEqual(build_data.load_publications()["items"], [])
+                (Path(tmp) / "publications.json").write_text("{깨진 JSON", encoding="utf-8")
+                self.assertEqual(build_data.load_publications()["items"], [])
+                (Path(tmp) / "publications.json").write_text(
+                    json.dumps({"items": [
+                        {"title": "정상 보고서", "url": "https://iaea.org/p/1", "date": "2099-01-01",
+                         "org": "IAEA", "org_kr": "국제원자력기구", "kind": "publication"},
+                        {"title": "", "url": "https://iaea.org/p/2"},
+                        {"title": "URL 없음", "url": ""},
+                    ]}, ensure_ascii=False), encoding="utf-8")
+                view = build_data.load_publications()
+                self.assertEqual([item["title"] for item in view["items"]], ["정상 보고서"])
+                self.assertTrue(view["items"][0]["is_new"])
+        finally:
+            build_data.BOT_DIR = original
+
+    def test_publications_tab_is_wired_and_failure_tolerant(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('data-view="pubs"', html)
+        self.assertIn('id="view-pubs"', html)
+        self.assertIn('"pubs"', script)
+        self.assertIn("function renderPubs", script)
+        # 발간물 로드 실패가 사이트 전체를 죽이면 안 된다
+        self.assertIn('loadJSON("publications.json").catch(', script)
+        # 모바일에서도 도달 가능해야 한다 — 데스크톱 전용이면 폰에서는 기능이
+        # 아예 없는 것과 같다. 탭 수와 grid 열 수는 함께 움직여야 한다(실측
+        # 360px에서 5열 72px, 라벨 잘림 0).
+        mobile_nav = html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertIn('data-view="pubs"', mobile_nav)
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertEqual(mobile_nav.count("<button"),
+                         5, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
+        self.assertIn("grid-template-columns: repeat(5, 1fr)", style)
 
     def test_p2_keyword_table_slope_graph_and_chart_evidence_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
