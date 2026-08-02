@@ -1180,6 +1180,11 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("function renderPubs", script)
         # 발간물 로드 실패가 사이트 전체를 죽이면 안 된다
         self.assertIn('loadJSON("publications.json").catch(', script)
+        # 렌더러는 데이터를 신뢰하지 않는다 — 배열에 null 이 섞이면 item.org_kr
+        # 에서 TypeError 가 나고 탭이 멈춘다(2026-08-02 셀프 검증에서 실측).
+        render = script.split("function renderPubs(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('typeof item === "object"', render)
+        self.assertIn("item.title && item.url", render)
         # 모바일에서도 도달 가능해야 한다 — 데스크톱 전용이면 폰에서는 기능이
         # 아예 없는 것과 같다. 탭 수와 grid 열 수는 함께 움직여야 한다(실측
         # 360px에서 5열 72px, 라벨 잘림 0).

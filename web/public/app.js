@@ -804,7 +804,11 @@ function renderPubs() {
   const listBox = document.getElementById("pubsList");
   const filterBox = document.getElementById("pubsFilters");
   if (!listBox || !filterBox) return;
-  const items = (state.pubs && Array.isArray(state.pubs.items)) ? state.pubs.items : [];
+  // 렌더러는 데이터를 신뢰하지 않는다. 배열 안에 null·문자열이 섞이면
+  // item.org_kr 에서 TypeError 가 나고 탭이 통째로 멈춘다(실측). 빌드가
+  // 걸러 주더라도 여기서 한 번 더 막는다 — 화면이 죽는 사고의 단골 경로다.
+  const raw = (state.pubs && Array.isArray(state.pubs.items)) ? state.pubs.items : [];
+  const items = raw.filter(item => item && typeof item === "object" && item.title && item.url);
   if (!items.length) {
     filterBox.innerHTML = "";
     listBox.innerHTML = '<div class="empty-state"><strong>아직 수집된 발간물이 없습니다</strong><p>매일 새벽 IAEA·OECD NEA·IEA·EIA의 신규 발간물을 확인합니다.</p></div>';
