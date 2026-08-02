@@ -48,6 +48,7 @@ from data_quality import (  # noqa: E402
     title_key,
 )
 from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
+import issue_review  # noqa: E402
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -64,7 +65,7 @@ GENERATION_ID = os.environ.get("GENERATION_ID", "")
 SHOW_MARKET = False
 NEWS_WINDOW_DAYS = 60
 ISSUE_WINDOW_DAYS = 21
-ISSUE_EMBEDDING_THRESHOLD = 0.82
+ISSUE_EMBEDDING_THRESHOLD = 0.92
 ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
 LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
 LOCAL_EMBEDDING_DIMENSION = 1024
@@ -766,10 +767,16 @@ def issue_similarity(
         # "12차 전력수급기본계획 … 정부 부처 간 혼선".
         elif tag_shared >= 1 and title_ratio >= 0.55:
             matched, method = True, "title_tags"
+        # 보조 조건(tag/topic/title)은 게이트 역할을 못 했다. topics 가 통제 어휘
+        # 12개라 원자력 기사 둘이면 topic_shared>=1 이 사실상 항상 참이었고,
+        # 실측 자동 병합 60건 중 38건이 그 조건만으로 통과했다. 남는 판정이
+        # 코사인 하나뿐이었는데 0.82 는 한국어 원자력 요약문에서
+        # "같은 사건"이 아니라 "같은 분야"를 잡는 높이다(오병합 쌍의 코사인
+        # 중앙값 0.856, 제목 유사도 중앙값 0.24). 게이트를 걷어내고 코사인만
+        # 0.92 로 올린다 — 0.92 미만은 사람/LLM 검수 큐로 보낸다.
         elif (
             embedding_similarity is not None
             and embedding_similarity >= ISSUE_EMBEDDING_THRESHOLD
-            and (tag_shared >= 1 or topic_shared >= 1 or title_ratio >= 0.30)
         ):
             matched, method = True, "embedding"
             score = max(score, embedding_similarity)
@@ -1009,6 +1016,12 @@ def cluster_selected_articles(
                 if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
                     matched, score = True, max(score, 1.0)
                     diag = {**diag, "method": "manual_approved"}
+                # 회색지대(0.88~0.92)를 LLM 이 같은 사건으로 판정한 쌍. 사람 승인과
+                # 구분해 audit 에 남긴다. 사람 승인(1.0)보다 낮은 점수를 줘서
+                # 같은 기사가 양쪽에 붙을 때 사람 판정이 이기게 한다.
+                elif pair_id in overrides.get("llm_approved", set()) and not diag.get("blocked_by"):
+                    matched, score = True, max(score, 0.99)
+                    diag = {**diag, "method": "llm_approved"}
                 elif not matched:
                     is_candidate, candidate_method, candidate_score = is_review_candidate(diag)
                     if is_candidate and pair_id not in seen_candidates:
@@ -1608,6 +1621,27 @@ def build() -> None:
         match_overrides,
         review_candidates,
     )
+
+    # 1차 묶음에서 나온 회색지대 쌍을 LLM 에 한 번 물어보고, 같은 사건으로
+    # 판정된 것만 오버라이드로 넣어 다시 묶는다. 클러스터링은 순수 계산이라
+    # 두 번 돌려도 비용이 없다. 판정이 0건이면 2차 실행 자체를 건너뛴다.
+    llm_verdicts, llm_stats = issue_review.review_pairs(review_candidates)
+    llm_approved = {pair_id for pair_id, same in llm_verdicts.items() if same}
+    if llm_approved:
+        match_overrides = {**match_overrides, "llm_approved": llm_approved}
+        review_candidates = []
+        issues = cluster_selected_articles(
+            news_items,
+            embeddings,
+            local_embeddings,
+            match_overrides,
+            review_candidates,
+        )
+    print(f"[build_data] 이슈 병합 LLM 검수: 후보 {llm_stats['candidates']}쌍 "
+          f"(캐시 {llm_stats['from_cache']} / 신규 {llm_stats['asked']} / "
+          f"호출 {llm_stats['calls']}회) → 병합 {llm_stats['approved']} "
+          f"분리 {llm_stats['rejected']} 실패 {llm_stats['failed']} [{llm_stats['status']}]")
+
     review_candidates.sort(
         key=lambda row: (row.get("candidate_score") or 0, row.get("right_date") or ""),
         reverse=True,
@@ -1788,7 +1822,7 @@ def build() -> None:
 
     issue_audit = {
         "generated_at": now.isoformat(),
-        "matching_version": "hybrid-review-v3",
+        "matching_version": "hybrid-review-v4",
         "issue_window_days": ISSUE_WINDOW_DAYS,
         "embedding_model": EMBEDDING_MODEL,
         "embedding_threshold": ISSUE_EMBEDDING_THRESHOLD,
@@ -1797,6 +1831,8 @@ def build() -> None:
         "embedding_cache_entries": len(embeddings),
         "embedding_selected_count": embedded_selected_count,
         "remote_embedding_selected_count": remote_embedded_selected_count,
+        "llm_review": llm_stats,
+        "llm_approved": sorted(llm_approved),
         "review_candidates": review_candidates,
         "overrides": {
             "approved": sorted(match_overrides["approved"]),
