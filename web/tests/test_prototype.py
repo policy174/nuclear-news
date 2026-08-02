@@ -1247,6 +1247,22 @@ class GeneratedDataTests(unittest.TestCase):
         finally:
             build_data.keei_match.match_pairs = original
 
+    def test_material_pack_copy_gathers_report_source_material(self):
+        """'보고서용 복사'는 카드 한 장 요약, '자료 팩 복사'는 초안 원재료다.
+
+        동향분석 보고서를 쓰려면 타임라인·출처·수치가 필요한데 기존 복사는
+        6줄 요약뿐이라 결국 화면을 다시 뒤져야 했다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function issueMaterialPack", script)
+        self.assertIn("data-pack-issue", script)
+        self.assertIn("function copyIssuePack", script)
+        pack = script.split("function issueMaterialPack(", 1)[1].split("\nasync function", 1)[0]
+        for section in ("사건 타임라인", "수치·일정", "검증 상태", "관련 발간물"):
+            self.assertIn(section, pack, f"자료 팩에 '{section}' 이 없다")
+        # AI 해석은 근거가 아니라 해석이므로 원재료에 섞지 않는다
+        self.assertNotIn("implication", pack)
+
     def test_keei_refs_render_in_card_and_detail(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn("function keeiRefLine", script)

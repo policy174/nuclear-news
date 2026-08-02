@@ -871,17 +871,87 @@ function issueReportText(issue) {
   ].filter(Boolean).join("\n");
 }
 
-async function copyIssueReport(button, issueId) {
-  const issue = currentIssueById(issueId);
-  if (!issue) return;
+// 동향분석 보고서 초안을 쓸 때 필요한 재료를 한 번에 옮긴다. '보고서용 복사'가
+// 카드 한 장짜리 요약이라면 이건 타임라인·출처·수치까지 담은 원재료다.
+// AI 해석은 넣지 않는다 — 초안은 사람이 쓰고, 근거만 가져간다.
+const NUMBER_RE = /\d/;
+
+function issueMaterialPack(issue) {
+  const lines = [`# ${issue.title || ""}`, ""];
+  const meta = [
+    issue.region ? `지역: ${issue.region}` : "",
+    issue.first_seen ? `최초 확인: ${dateLabel(issue.first_seen)}` : "",
+    issue.last_seen ? `최근 확인: ${dateLabel(issue.last_seen)}` : "",
+    `근거 기사: ${issue.article_count || 0}건`,
+  ].filter(Boolean);
+  lines.push(meta.join(" · "), "");
+
+  if (issue.summary) lines.push("## 한 줄 결론", issue.summary, "");
+  if (issueChangeText(issue)) lines.push("## 이번에 달라진 점", issueChangeText(issue), "");
+
+  const state = verificationState(issue);
+  lines.push("## 검증 상태",
+    `${(VERIFICATION_VIEW[state.status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`, "");
+
+  const articles = [...(issue.related_articles || [])].sort((a, b) =>
+    String(a.article_date).localeCompare(String(b.article_date)));
+  if (articles.length) {
+    lines.push("## 사건 타임라인");
+    articles.forEach(article => {
+      const marks = [sourceLabel(article), isOfficial(article) ? "1차 출처" : ""].filter(Boolean).join(" · ");
+      lines.push(`- ${dateLabel(article.article_date)} · ${article.title_kr || ""} (${marks})`);
+      const url = safeUrl(article.url);
+      if (url) lines.push(`  ${url}`);
+    });
+    lines.push("");
+  }
+
+  // 수치가 든 문장만 따로 모은다 — 보고서에서 가장 먼저 필요한 재료다
+  const figures = [];
+  articles.forEach(article => {
+    String(article.summary || "").split(/(?<=[.!?])\s+/).forEach(sentence => {
+      const text = sentence.trim();
+      if (text && NUMBER_RE.test(text) && !figures.includes(text)) figures.push(text);
+    });
+  });
+  if (figures.length) {
+    lines.push("## 수치·일정", ...figures.slice(0, 12).map(text => `- ${text}`), "");
+  }
+
+  const refs = (issue.keei_refs || []).filter(ref => ref && ref.url);
+  if (refs.length) {
+    lines.push("## 관련 발간물");
+    refs.forEach(ref => {
+      lines.push(`- ${ref.org_kr || ""} ${ref.title || ""}${ref.item ? ` — ${ref.item}` : ""}`);
+      lines.push(`  ${safeUrl(ref.url)}`);
+    });
+    lines.push("");
+  }
+  lines.push(`출처: Nuclens ${location.origin}${issuePath(issue.issue_id)}`);
+  return lines.join("\n");
+}
+
+async function copyToClipboard(button, text, failMessage) {
   try {
-    await navigator.clipboard.writeText(issueReportText(issue));
+    await navigator.clipboard.writeText(text);
     const original = button.textContent;
     button.textContent = "복사됨";
     window.setTimeout(() => { button.textContent = original; }, 1600);
   } catch {
-    showToast("보고서용 텍스트를 복사하지 못했습니다");
+    showToast(failMessage);
   }
+}
+
+async function copyIssueReport(button, issueId) {
+  const issue = currentIssueById(issueId);
+  if (!issue) return;
+  await copyToClipboard(button, issueReportText(issue), "보고서용 텍스트를 복사하지 못했습니다");
+}
+
+async function copyIssuePack(button, issueId) {
+  const issue = currentIssueById(issueId);
+  if (!issue) return;
+  await copyToClipboard(button, issueMaterialPack(issue), "자료 팩을 복사하지 못했습니다");
 }
 
 function openIssueDialog(issueId, updateUrl = true) {
@@ -904,7 +974,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
       ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
-      <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
+      <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
     </section>
     ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
@@ -1200,6 +1270,8 @@ function stepBriefing(direction) {
 function handleIssueAction(event) {
   const copy = event.target.closest("[data-copy-issue]");
   if (copy) { copyIssueReport(copy, copy.dataset.copyIssue); return true; }
+  const pack = event.target.closest("[data-pack-issue]");
+  if (pack) { copyIssuePack(pack, pack.dataset.packIssue); return true; }
   const save = event.target.closest("[data-save-issue]");
   if (save) { toggleSaved(save.dataset.saveIssue); return true; }
   const share = event.target.closest("[data-share-issue]");
