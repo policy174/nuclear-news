@@ -1,0 +1,126 @@
+{
+  "_comment": "이슈 병합 회색지대 LLM 판정 캐시. 사람이 고쳐도 된다.",
+  "prompt_version": 1,
+  "reviews": {
+    "09ac4f943ed7ad61--4bdd65d0c09aaf72": {
+      "embedding_similarity": 0.8868,
+      "left_title": "헝가리 총리, 다뉴브강 수위 저하로 원전 가동 중단 가능성 경고",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "가동 중단 가능성→실제 발표",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "same_event": true
+    },
+    "09d2791626624247--549b832e2069fa6a": {
+      "embedding_similarity": 0.8956,
+      "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "한쪽이 개별, 다른 쪽이 일반",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "same_event": false
+    },
+    "09d2791626624247--562a6126b2b20d7b": {
+      "embedding_similarity": 0.8913,
+      "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "한쪽이 개별, 다른 쪽이 일반",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "수명 만료 원전 4기, 계속운전 인허가 절차 지연 지속",
+      "same_event": false
+    },
+    "27e417353612169a--4e6a1d2c0301a4d0": {
+      "embedding_similarity": 0.8966,
+      "left_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 규정 제안",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "27e417353612169a--6b93ed7e22e9bb4b": {
+      "embedding_similarity": 0.9193,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "같은 규정 제안 공청회",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": true
+    },
+    "398fa0e5ecf0d24a--89a559f17ff440e3": {
+      "embedding_similarity": 0.8908,
+      "left_title": "미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "same_event": false
+    },
+    "4113d294aea75ee0--571c41d8d5a745d5": {
+      "embedding_similarity": 0.8927,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "신규 vs 기존 원전 활용",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "same_event": false
+    },
+    "4e6a1d2c0301a4d0--6b93ed7e22e9bb4b": {
+      "embedding_similarity": 0.9026,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "같은 규정 제안 공청회",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "same_event": true
+    },
+    "549b832e2069fa6a--fd17939220b56c39": {
+      "embedding_similarity": 0.899,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전 개수가 다름",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "same_event": false
+    },
+    "562a6126b2b20d7b--fd17939220b56c39": {
+      "embedding_similarity": 0.898,
+      "left_title": "수명 만료 원전 4기, 계속운전 인허가 절차 지연 지속",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전 개수가 다름",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "same_event": false
+    },
+    "5976e83faefed3d5--6260c0799db78ac9": {
+      "embedding_similarity": 0.8941,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 신규원전 논의",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "same_event": true
+    },
+    "6f43d6ced821513e--d675dcf3f120c2fb": {
+      "embedding_similarity": 0.8835,
+      "left_title": "EDF, 테크닙 에너지스와 EPR2 원자로 건설 및 인도 협력 전략적 협약 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 협력/계약",
+      "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
+      "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "same_event": false
+    }
+  }
+}
