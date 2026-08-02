@@ -158,12 +158,26 @@ def _clause_cut(text: str) -> str:
 
 
 def _load_leads() -> dict:
+    """기존 leads 를 읽는다. 손상된 파일은 지우기 전에 옆에 남긴다.
+
+    이 함수의 결과를 finally 에서 그대로 다시 쓰기 때문에, 손상 시 {} 를
+    돌려주면 90일치 leads 가 빈 값으로 덮이고 워크플로가 곧바로 커밋한다.
+    git 이력으로 되찾을 수는 있지만 아무 신호도 남지 않는다.
+    """
+    if not OUT_FILE.exists():
+        return {}
     try:
         stored = json.loads(OUT_FILE.read_text(encoding="utf-8"))
-        leads = stored.get("leads") if isinstance(stored, dict) else None
-        return leads if isinstance(leads, dict) else {}
-    except (OSError, json.JSONDecodeError):
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        backup = OUT_FILE.with_suffix(".json.corrupt")
+        try:
+            backup.write_bytes(OUT_FILE.read_bytes())
+            print(f"[lead] 기존 파일 손상({type(exc).__name__}) — {backup.name} 로 보존")
+        except OSError:
+            print(f"[lead] 기존 파일 손상({type(exc).__name__}) — 백업도 실패")
         return {}
+    leads = stored.get("leads") if isinstance(stored, dict) else None
+    return leads if isinstance(leads, dict) else {}
 
 
 def _save_leads(leads: dict) -> None:

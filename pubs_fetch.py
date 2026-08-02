@@ -213,14 +213,23 @@ def fetch_nea(state: dict) -> list[dict]:
 
 
 def fetch_iea() -> list[dict]:
+    """IEA 보고서 목록 1페이지. 같은 경로가 카드·제목 앵커로 여러 번 나온다.
+
+    카드 앵커에는 제목 뒤에 부속물이 딸려 온다(실측: "World Energy Outlook 2025
+    Read more Flagship report — 12 November 2025"). NEA 와 같은 원칙으로 경로당
+    최단 텍스트를 제목으로 쓴다.
+    """
     html = _http_get("https://www.iea.org/analysis?type=report")
-    items, seen_paths = [], set()
+    by_path: dict[str, str] = {}
     for path, link_html in _IEA_LINK_RE.findall(html):
-        if path in seen_paths:
+        text = _dedouble(_strip_tags(link_html))
+        if not text or text.lower() in _NEA_BUTTON_TEXTS:
             continue
-        seen_paths.add(path)
-        title = _strip_tags(link_html)
-        if not title or not _passes_keyword_gate(title):
+        if path not in by_path or len(text) < len(by_path[path]):
+            by_path[path] = text
+    items = []
+    for path, title in by_path.items():
+        if not _passes_keyword_gate(title):
             continue
         item = _make_item("IEA", "국제에너지기구", "report",
                           title, f"https://www.iea.org{path}", "")
@@ -310,9 +319,19 @@ def fetch_keei(state: dict) -> list[dict]:
         fresh = sorted((no for no in rows if no > max_seen), reverse=True)
     else:
         fresh = sorted(rows, reverse=True)[:KEEI_BOOTSTRAP_LIMIT]
-    items = []
+    # 지난 실행에서 상세 상한에 걸려 목차를 못 채운 호를 먼저 처리한다.
+    # 워터마크는 최댓값으로 오르므로 여기서 챙기지 않으면 그 호들은 다시는
+    # '신규'가 아니게 되어 목차를 영영 못 얻고, 목차가 없으면 keei_entries()
+    # 가 건너뛰어 이슈 매칭에도 들어가지 못한다.
+    pending = [no for no in (state.get("keei_pending_toc") or []) if isinstance(no, int)]
+    fresh = sorted(set(fresh) | set(pending), reverse=True)
+    items, still_pending = [], []
     for index, list_no in enumerate(fresh):
-        title = rows[list_no]
+        title = rows.get(list_no)
+        if not title:
+            # 목록 1페이지에서 밀려난 호 — 10건이면 격주간 기준 약 5개월치라
+            # 여기 걸리면 그만큼 오래 멈춰 있었다는 뜻. 제목을 못 얻으므로 포기한다.
+            continue
         toc = {}
         # 상세(목차)는 호마다 요청이 하나씩 더 붙으므로 최신 몇 호만 가져온다.
         # 다만 **항목 자체는 전부 내보낸다** — 여기서 자르면 워터마크는 최댓값으로
@@ -323,15 +342,19 @@ def fetch_keei(state: dict) -> list[dict]:
                 toc = keei_parse_toc(_http_get(KEEI_VIEW_URL.format(no=list_no)))
             except Exception as exc:  # 목차 실패는 항목 자체를 버릴 이유가 아니다
                 print(f"[pubs] keei 목차 추출 실패(list_no={list_no}): {type(exc).__name__}")
+        has_toc = bool(toc.get("issue_title") or toc.get("briefs"))
+        if not has_toc:
+            still_pending.append(list_no)
         item = _make_item(
             "KEEI", "에너지경제연구원", "keei_insight", title,
             KEEI_VIEW_URL.format(no=list_no), _keei_date(title),
             pdf_url=KEEI_PDF_URL.format(no=list_no),
-            toc=toc if (toc.get("issue_title") or toc.get("briefs")) else None,
+            toc=toc if has_toc else None,
         )
         if item:
             items.append(item)
     state["keei_max_list_no"] = max(max(rows), max_seen)
+    state["keei_pending_toc"] = still_pending[:KEEI_BOOTSTRAP_LIMIT * 4]
     return items
 
 
@@ -388,8 +411,29 @@ def prune(items: list[dict]) -> list[dict]:
     return kept[:MAX_ITEMS]
 
 
-def run(sources: list[dict] | None = None) -> bool:
+def collected_today(store: dict, today: str | None = None) -> bool:
+    """오늘 이미 성공적으로 수집했는지.
+
+    워크플로에서 `date -u +%H` 로 시간을 재면 cron 지연에 그날 수집이 통째로
+    빠진다(GitHub cron 은 상시 밀린다. 20:00 스케줄이 21:0x 에 이 스텝에
+    도달하면 스킵되고, 21:00 실행도 스킵). IAEA·EIA 는 RSS 최신 40건만
+    노출하고 워터마크가 없어서 며칠 밀리면 그 사이 발간물이 영구 유실된다.
+    그래서 시각이 아니라 '오늘 했는가'로 판단한다.
+    """
+    today = today or datetime.now(KST).strftime("%Y-%m-%d")
+    for entry in (store.get("last_checked") or {}).values():
+        if not isinstance(entry, dict) or not entry.get("ok"):
+            continue
+        if str(entry.get("at") or "").startswith(today):
+            return True
+    return False
+
+
+def run(sources: list[dict] | None = None, *, once_per_day: bool = False) -> bool:
     store = load_store()
+    if once_per_day and collected_today(store):
+        print("[pubs] 오늘 이미 수집함 — 스킵")
+        return False
     seen_urls = {item.get("url") for item in store["items"]}
     now = datetime.now(KST).isoformat(timespec="seconds")
     total_new = 0
@@ -403,14 +447,29 @@ def run(sources: list[dict] | None = None) -> bool:
             }
             print(f"[pubs] {source_id} 실패 — 격리: {type(exc).__name__}: {exc}")
             continue
-        new_items = [item for item in fetched if item["url"] not in seen_urls]
-        for item in new_items:
-            seen_urls.add(item["url"])
+        by_url = {item.get("url"): item for item in store["items"]}
+        new_items, enriched = [], 0
+        for item in fetched:
+            existing = by_url.get(item["url"])
+            if existing is None:
+                new_items.append(item)
+                seen_urls.add(item["url"])
+                continue
+            # 이미 있는 항목이라도 이번에 새로 얻은 필드(주로 목차)는 채워 준다.
+            # URL 만 보고 통째로 버리면 나중에 붙인 목차가 영영 반영되지 않는다.
+            for key in ("toc", "pdf_url", "date"):
+                if item.get(key) and not existing.get(key):
+                    existing[key] = item[key]
+                    enriched += 1
         store["items"].extend(new_items)
         store["last_checked"][source_id] = {
             "at": now, "ok": True, "new": len(new_items),
+            # "0건 신규"와 "파서가 죽어 아무것도 못 읽음"을 구분하는 신호.
+            # regex-over-HTML 소스는 사이트 개편 한 번에 조용히 죽는다.
+            "parsed": len(fetched),
         }
-        print(f"[pubs] {source_id}: 수집 {len(fetched)}건 중 신규 {len(new_items)}건")
+        print(f"[pubs] {source_id}: 수집 {len(fetched)}건 중 신규 {len(new_items)}건"
+              f"{f', 보강 {enriched}건' if enriched else ''}")
         total_new += len(new_items)
     store["items"] = prune(store["items"])
     save_store(store)
@@ -419,4 +478,4 @@ def run(sources: list[dict] | None = None) -> bool:
 
 
 if __name__ == "__main__":
-    run()
+    run(once_per_day="--once-per-day" in sys.argv)

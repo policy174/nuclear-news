@@ -143,7 +143,7 @@ def match_pairs(candidates: list[dict], *,
         import gemini_client as client  # 지연 import — 테스트에서 대역 주입 가능
 
     cache = load_cache(cache_path)
-    cached_count = len(cache)
+    cache_dirty = False
     verdicts: dict[str, bool] = {}
     todo: list[dict] = []
     for row in candidates:
@@ -183,6 +183,7 @@ def match_pairs(candidates: list[dict], *,
                 continue
             same_event, reason = verdict
             verdicts[row["pair_id"]] = same_event
+            cache_dirty = True
             cache[row["pair_id"]] = {
                 "same_event": same_event,
                 "reason": reason,
@@ -193,8 +194,12 @@ def match_pairs(candidates: list[dict], *,
 
     stats["approved"] = sum(1 for value in verdicts.values() if value)
     stats["rejected"] = sum(1 for value in verdicts.values() if not value)
-    # 새 판정이 실제로 생겼을 때만 쓴다. 호출이 전부 실패했는데 파일을 쓰면
-    # 빈 캐시가 생겨 실패를 성공처럼 남긴다.
-    if len(cache) > cached_count:
+    # 판정이 하나라도 새로 생겼을 때만 쓴다.
+    #   - 호출이 전부 실패했는데 쓰면 빈 캐시가 실패를 성공처럼 남긴다.
+    #   - 크기 비교(len 증가)로 판정하면 **덮어쓰기만 하는 경우를 놓친다**:
+    #     PROMPT_VERSION 을 올리면 기존 key 를 같은 key 로 다시 채우므로 크기가
+    #     그대로라 저장이 안 되고, 다음 빌드도 똑같이 재질의한다(빌드 13회/일
+    #     × 7 = 91 calls/일이 무기한, 로그엔 이상 없음). 실측 재현함.
+    if cache_dirty:
         save_cache(cache, cache_path)
     return verdicts, stats

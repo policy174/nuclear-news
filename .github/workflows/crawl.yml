@@ -91,16 +91,20 @@ jobs:
           POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
           POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
 
-      # 국제기구 발간물 수집 — 하루 1회(20 UTC = 05 KST). zero-LLM, 요청 소스당 1회.
-      # 20시 크롤이 커밋하면 22 UTC 짝수시 배포·22:25 daily-brief 배포에 자연 반영 —
-      # Pages 배포 예산 +0. 실패해도 크롤 본연 기능에 비치명.
+      # 국제기구 발간물 수집 — 하루 1회. zero-LLM, 요청 소스당 1회.
+      # "몇 시인가"가 아니라 "오늘 했는가"로 판단한다(--once-per-day). cron 지연으로
+      # 특정 시각을 놓치면 그날 수집이 통째로 빠지는데, IAEA·EIA 는 RSS 최신
+      # 40건만 노출하고 워터마크가 없어 그 사이 발간물이 영구 유실된다.
+      # 이미 수집한 날은 즉시 리턴하므로 매시간 돌아도 HTTP 요청 0.
+      # Pages 배포 예산 +0 — 다음 짝수시 배포·daily-brief 배포에 자연 반영.
       - name: Fetch publications (1일 1회)
         continue-on-error: true
         run: |
-          if [ "$(date -u +%H)" != "20" ] && [ "${{ inputs.fetch_publications }}" != "true" ]; then
-            echo "발간물 수집 시간 아님 — 스킵 (매일 20 UTC, dispatch 강제 가능)"; exit 0
+          if [ "${{ inputs.fetch_publications }}" = "true" ]; then
+            echo "dispatch 강제 실행"; python pubs_fetch.py
+          else
+            python pubs_fetch.py --once-per-day
           fi
-          python pubs_fetch.py
 
       - name: Commit state
         run: |

@@ -354,38 +354,45 @@
  ],
  "state": {
   "nea_max_id": 120785,
-  "keei_max_list_no": 127887
+  "keei_max_list_no": 127887,
+  "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 15
+   "new": 15,
+   "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 1
+   "new": 1,
+   "parsed": 1
   },
   "eia_press": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 0
+   "new": 0,
+   "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 10
+   "new": 10,
+   "parsed": 10
   },
   "iea_reports": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 0
+   "new": 0,
+   "parsed": 0
   },
   "keei_insight": {
-   "at": "2026-08-02T12:01:36+09:00",
+   "at": "2026-08-02T14:45:52+09:00",
    "ok": true,
-   "new": 3
+   "new": 3,
+   "parsed": 3
   }
  }
 }

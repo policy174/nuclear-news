@@ -1083,6 +1083,9 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
   .hero-copy h1 { font-size: 26px; line-height: 1.28; }
   .hero-actions { gap: 14px; margin-top: 18px; }
   .hero-actions button { min-height: 44px; font-size: 12.5px; }
+  /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
+  .hero-evidence-chip { min-height: 44px; }
+  .pubs-filters button { min-height: 44px; padding-inline: 14px; }
   .hero-status dl { grid-template-columns: 1fr 1fr; column-gap: 18px; }
   .hero-status dl > div:nth-child(2) { border-top: 0; }
   .hero-status dd { font-size: 16px; }

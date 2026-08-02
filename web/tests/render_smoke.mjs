@@ -29,15 +29,27 @@ try {
     if (!bodyText.includes(label)) failures.push(`최신 브리핑 날짜(${label}) 미표시`);
   }
 
-  // 발간물 탭 — 데이터가 0건이어도 빈 상태가 렌더돼야 한다(탭 자체가 죽으면 실패)
+  // 발간물 탭 — 데이터가 0건이어도 빈 상태가 렌더돼야 한다(탭 자체가 죽으면 실패).
+  // 반드시 #pubsList(=renderPubs 의 출력)를 본다. #view-pubs 는 index.html 에
+  // 정적으로 박힌 h1·안내문을 갖고 있어서, renderPubs 가 통째로 죽어도
+  // textContent 가 비지 않는다 — 그걸 검사하면 아무것도 못 잡는다.
   const pubsTab = page.locator('#mainTabs [data-view="pubs"]');
   if (await pubsTab.count()) {
     await pubsTab.click();
     await page.waitForTimeout(800);
-    const pubsVisible = await page.locator("#view-pubs").isVisible();
-    if (!pubsVisible) failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음");
-    const pubsText = (await page.textContent("#view-pubs").catch(() => "")) || "";
-    if (!pubsText.trim()) failures.push("발간물 화면이 비어 있음 (빈 상태 문구조차 없음)");
+    if (!(await page.locator("#view-pubs").isVisible())) {
+      failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음");
+    }
+    const listHtml = (await page.innerHTML("#pubsList").catch(() => "")) || "";
+    if (!listHtml.trim()) {
+      failures.push("renderPubs 가 아무것도 그리지 않음 (#pubsList 비어 있음)");
+    }
+    // 발간물이 있는 날은 카드가, 없는 날은 빈 상태가 나와야 한다. 둘 다 아니면 렌더 실패다.
+    const cards = await page.locator("#pubsList .pub-item").count();
+    const empty = await page.locator("#pubsList .empty-state").count();
+    if (cards === 0 && empty === 0) {
+      failures.push("발간물 목록이 카드도 빈 상태도 아님 — 렌더 실패 의심");
+    }
   } else {
     failures.push("발간물 탭 버튼이 없음");
   }

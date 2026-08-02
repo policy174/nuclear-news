@@ -515,9 +515,11 @@ function keeiRefLine(issue) {
   if (!refs.length) return "";
   const links = refs.map(ref => {
     const url = safeUrl(ref.url);
-    const label = ref.date ? dateLabel(ref.date) : ref.title;
+    // 날짜가 있으면 "6월 26일호", 없으면 제목 그대로. 제목에 '호'를 붙이면
+    // "…인사이트호" 같은 문장이 나온다.
+    const label = ref.date ? `${dateLabel(ref.date)}호` : ref.title;
     return url
-      ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}호</a>`
+      ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`
       : esc(label);
   }).join(" · ");
   return `<p class="issue-keei"><strong>KEEI 인사이트</strong><span>${links}</span></p>`;
@@ -620,6 +622,9 @@ function renderBriefing() {
   if (!briefing) {
     document.getElementById("changedIssues").hidden = true;
     document.getElementById("briefingTitle").textContent = "오늘은 새로 연결된 이슈가 없습니다";
+    // 근거 칩도 함께 지운다 — 안 그러면 직전 브리핑의 근거가 남아 없는 문장을 가리킨다
+    const staleEvidence = document.getElementById("headlineEvidence");
+    if (staleEvidence) { staleEvidence.hidden = true; staleEvidence.innerHTML = ""; }
     issueList.innerHTML = '<div class="empty-state"><strong>오늘은 새로 연결된 이슈가 없습니다</strong><p>가장 최근 브리핑을 확인해 보세요.</p></div>';
     return;
   }
@@ -808,7 +813,10 @@ function renderPubs() {
   // item.org_kr 에서 TypeError 가 나고 탭이 통째로 멈춘다(실측). 빌드가
   // 걸러 주더라도 여기서 한 번 더 막는다 — 화면이 죽는 사고의 단골 경로다.
   const raw = (state.pubs && Array.isArray(state.pubs.items)) ? state.pubs.items : [];
-  const items = raw.filter(item => item && typeof item === "object" && item.title && item.url);
+  const items = raw
+    .filter(item => item && typeof item === "object" && item.title && item.url)
+    // date 가 숫자면 dateLabel 의 value.split 에서 죽는다 — 타입도 신뢰하지 않는다
+    .map(item => (typeof item.date === "string" ? item : { ...item, date: String(item.date ?? "") }));
   if (!items.length) {
     filterBox.innerHTML = "";
     listBox.innerHTML = '<div class="empty-state"><strong>아직 수집된 발간물이 없습니다</strong><p>매일 새벽 IAEA·OECD NEA·IEA·EIA의 신규 발간물을 확인합니다.</p></div>';
@@ -816,9 +824,20 @@ function renderPubs() {
   }
   const orgs = ["전체", ...new Set(items.map(item => item.org_kr || item.org).filter(Boolean))];
   if (!orgs.includes(state.pubsOrg)) state.pubsOrg = "전체";
-  filterBox.innerHTML = orgs.map(org =>
-    `<button type="button" data-pubs-org="${esc(org)}" class="${org === state.pubsOrg ? "active" : ""}" aria-pressed="${org === state.pubsOrg}">${esc(org)}</button>`
-  ).join("");
+  // 목록이 그대로면 버튼 DOM 을 다시 만들지 않는다. innerHTML 로 갈아끼우면
+  // 방금 누른 버튼이 사라져 포커스가 <body> 로 날아가고, 키보드·스크린리더
+  // 사용자는 필터를 고를 때마다 페이지 맨 위로 되돌아간다. 다른 필터 그룹은
+  // 모두 setPressed 로 class/aria 만 갱신한다 — 같은 방식으로 맞춘다.
+  const rendered = [...filterBox.querySelectorAll("button")].map(button => button.dataset.pubsOrg);
+  if (rendered.join(" ") !== orgs.join(" ")) {
+    filterBox.innerHTML = orgs.map(org =>
+      `<button type="button" data-pubs-org="${esc(org)}">${esc(org)}</button>`
+    ).join("");
+  }
+  // 기관명은 스크레이핑 데이터라 따옴표가 섞일 수 있다 — 셀렉터 문자열 대신 순회로 찾는다
+  const activeButton = [...filterBox.querySelectorAll("button")]
+    .find(button => button.dataset.pubsOrg === state.pubsOrg);
+  setPressed(filterBox, activeButton);
   const visible = state.pubsOrg === "전체"
     ? items
     : items.filter(item => (item.org_kr || item.org) === state.pubsOrg);
@@ -927,7 +946,8 @@ function issueMaterialPack(issue) {
     lines.push("## 관련 발간물");
     refs.forEach(ref => {
       lines.push(`- ${ref.org_kr || ""} ${ref.title || ""}${ref.item ? ` — ${ref.item}` : ""}`);
-      lines.push(`  ${safeUrl(ref.url)}`);
+      const url = safeUrl(ref.url);
+      if (url) lines.push(`  ${url}`);  // 거부된 URL 이면 공백뿐인 줄이 남는다
     });
     lines.push("");
   }

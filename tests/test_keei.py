@@ -120,7 +120,16 @@ class KeeiFetchTests(unittest.TestCase):
                          "상세 요청은 상한을 지켜야 한다")
         self.assertEqual(sum(1 for item in items if item.get("toc")),
                          pubs_fetch.KEEI_MAX_DETAIL)
-        # 다음 실행에 남는 것이 없어야 정상(전부 이미 내보냈으므로)
+        # 목차를 못 채운 호는 다음 실행에서 다시 가져와 채운다. 워터마크는 이미
+        # 최댓값이라 여기서 챙기지 않으면 그 호들은 영영 목차를 못 얻고,
+        # 목차가 없으면 이슈 매칭 대상에도 들어가지 못한다.
+        self.assertEqual(state["keei_pending_toc"], [128002, 128001])
+        second = pubs_fetch.fetch_keei(state)
+        self.assertEqual(len(second), 2)
+        self.assertTrue(all(item.get("toc") for item in second),
+                        "재방문에서는 목차가 채워져야 한다")
+        self.assertEqual(state["keei_pending_toc"], [])
+        # 전부 채운 뒤에는 더 가져올 것이 없다
         self.assertEqual(pubs_fetch.fetch_keei(state), [])
 
     def test_toc_failure_does_not_drop_the_item(self):
@@ -211,6 +220,19 @@ class KeeiMatchTests(unittest.TestCase):
                 [candidate(0)], cache_path=self.cache, client=fresh)
             self.assertEqual(stats["from_cache"], 0)
             self.assertEqual(verdicts["issue0--abc0"], False)
+
+            # 재판정 결과가 **디스크에** 반영돼야 한다. 크기 비교로 저장 여부를
+            # 정하면 덮어쓰기는 크기가 그대로라 영영 저장되지 않고, 매 빌드
+            # 같은 쌍을 다시 묻게 된다(비용 폭주, 로그엔 이상 없음).
+            stored = json.loads(self.cache.read_text(encoding="utf-8"))
+            self.assertEqual(stored["prompt_version"], original + 1)
+            self.assertEqual(stored["matches"]["issue0--abc0"]["same_event"], False)
+
+            again = FakeClient()
+            _, stats2 = keei_match.match_pairs(
+                [candidate(0)], cache_path=self.cache, client=again)
+            self.assertEqual(again.calls, [], "버전 bump 뒤 재실행이 또 물어보면 안 된다")
+            self.assertEqual(stats2["from_cache"], 1)
         finally:
             keei_match.PROMPT_VERSION = original
 
