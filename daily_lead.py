@@ -12,7 +12,11 @@
 가드레일 (trend_insights 와 동일 원칙):
   - 근거에 없는 내용 금지. 예측·전망·권고·평가 금지.
   - 근거 hash 저장 — 웹에서 원문으로 검증 가능.
-  - Gemini 키 없거나 실패 시: 기존 파일 유지, 봇 본연 동작에 영향 0.
+  - Gemini 키 없거나 실패 시: 기존 leads 를 보존한 채 파일만 다시 쓴다.
+
+파일은 어떤 경로로 끝나든 반드시 존재해야 한다 — daily-brief.yml 이
+daily_leads.json 을 git add 하는데, 파일이 없으면 pathspec 실패로 스텝이
+죽고 trend_insights 커밋까지 동반 사망한다 (2026-08-02 실사고).
 """
 
 from __future__ import annotations
@@ -127,69 +131,129 @@ def build_user_message(items: list[dict], summaries: dict[str, dict]) -> str:
     return "\n".join(lines)
 
 
-def _trim(text: str) -> str:
-    text = " ".join(str(text or "").split()).strip()
-    if not text:
-        return ""
-    if len(text) > LEAD_LIMIT:
-        return ""
-    if not text.endswith((".", "!", "?")):
+CLAUSE_BOUNDARIES = ("며, ", "고, ", "지만 ", "으나 ", ", ")
+
+
+def _normalize(text: str) -> str:
+    return " ".join(str(text or "").split()).strip()
+
+
+def _finish(text: str) -> str:
+    if text and not text.endswith((".", "!", "?", "…")):
         text += "."
     return text
 
 
-def generate() -> bool:
-    if not is_available():
-        print("[lead] GEMINI_API_KEY 없음 — 스킵 (기존 파일 유지)")
-        return False
-    rows = _load_jsonl(DELIVERY_LOG)
-    date, items = collect_today(rows)
-    if not items:
-        print("[lead] 발송 기록 없음 — 스킵")
-        return False
+def _clause_cut(text: str) -> str:
+    """LEAD_LIMIT 초과 문장을 절 경계에서 자른다. 경계가 없으면 말줄임."""
+    window = text[:LEAD_LIMIT]
+    best = -1
+    for sep in CLAUSE_BOUNDARIES:
+        pos = window.rfind(sep)
+        if pos > best:
+            best = pos + len(sep.rstrip())
+    if best > 20:  # 너무 앞에서 잘리면 문장이 앙상해진다
+        return _finish(window[:best].rstrip().rstrip(","))
+    return window[: LEAD_LIMIT - 1].rstrip() + "…"
 
-    summaries = _archive_summaries()
-    try:
-        result = call_json(SYSTEM_PROMPT, build_user_message(items, summaries),
-                           temperature=0.2, max_output_tokens=8192)
-    except GeminiError as exc:
-        print(f"[lead] Gemini 실패 — 기존 파일 유지: {exc}")
-        return False
 
-    lead = _trim(result.get("lead"))
-    if not lead:
-        print(f"[lead] {date} 종합 문장 없음 (근거 부족 또는 길이 초과) — 저장 안 함")
-        return False
-
-    idxs = [i for i in (result.get("evidence_idx") or [])
-            if isinstance(i, int) and 0 <= i < len(items)]
-    evidence = [{
-        "hash": items[i].get("hash", ""),
-        "title_kr": items[i].get("title_kr", ""),
-    } for i in idxs]
-
+def _load_leads() -> dict:
     try:
         stored = json.loads(OUT_FILE.read_text(encoding="utf-8"))
         leads = stored.get("leads") if isinstance(stored, dict) else None
-        leads = leads if isinstance(leads, dict) else {}
+        return leads if isinstance(leads, dict) else {}
     except (OSError, json.JSONDecodeError):
-        leads = {}
+        return {}
 
-    leads[date] = {
-        "lead": lead,
-        "evidence": evidence,
-        "issue_count": len(items),
-        "generated_at": datetime.now(KST).isoformat(),
-    }
-    cutoff = (datetime.now(KST) - timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
-    leads = {day: value for day, value in leads.items() if day >= cutoff}
 
-    OUT_FILE.write_text(
+def _save_leads(leads: dict) -> None:
+    """원자적 기록. 실패 경로에서도 호출된다 — 파일은 항상 존재해야 한다."""
+    tmp = OUT_FILE.with_suffix(".json.tmp")
+    tmp.write_text(
         json.dumps({"leads": leads}, ensure_ascii=False, indent=1),
         encoding="utf-8",
     )
-    print(f"[lead] {date} 종합 문장 저장 (근거 {len(evidence)}건) → {OUT_FILE.name}")
-    return True
+    tmp.replace(OUT_FILE)
+
+
+def _call_lead(items: list[dict], summaries: dict[str, dict]) -> dict:
+    """1차 호출 + 길이 초과 시 압축 재호출 1회 + 최후 절 경계 절단."""
+    user_message = build_user_message(items, summaries)
+    result = call_json(SYSTEM_PROMPT, user_message,
+                       temperature=0.2, max_output_tokens=8192)
+    lead = _normalize(result.get("lead"))
+    if not lead or len(lead) <= LEAD_LIMIT:
+        return {"lead": _finish(lead), "result": result, "truncated": False}
+
+    # 재시도 사다리 2단: 이전 출력을 보여주고 더 짧게 압축시킨다 (+1 호출, 초과일에만)
+    retry_message = (
+        f"{user_message}\n\n"
+        f"[재요청] 방금 작성한 문장이 {len(lead)}자로 상한을 넘었습니다:\n"
+        f"{lead}\n"
+        "같은 내용을 70자 이내 한 문장으로 다시 압축하세요. 근거 밖 내용 추가 금지."
+    )
+    try:
+        retry = call_json(SYSTEM_PROMPT, retry_message,
+                          temperature=0.2, max_output_tokens=8192)
+        short = _normalize(retry.get("lead"))
+        if short and len(short) <= LEAD_LIMIT:
+            return {"lead": _finish(short), "result": retry, "truncated": False}
+    except GeminiError:
+        pass  # 재시도 실패는 절단 폴백으로
+
+    # 사다리 3단: 절 경계 절단 — silent drop 금지 (예전엔 여기서 "" 를 돌려
+    # 파일이 안 쓰였고, 그 부재가 워크플로 git add 를 죽였다)
+    return {"lead": _clause_cut(lead), "result": result, "truncated": True}
+
+
+def generate() -> bool:
+    leads = _load_leads()
+    try:
+        if not is_available():
+            print("[lead] GEMINI_API_KEY 없음 — 기존 leads 유지")
+            return False
+        rows = _load_jsonl(DELIVERY_LOG)
+        date, items = collect_today(rows)
+        if not items:
+            print("[lead] 발송 기록 없음 — 기존 leads 유지")
+            return False
+
+        summaries = _archive_summaries()
+        try:
+            outcome = _call_lead(items, summaries)
+        except GeminiError as exc:
+            print(f"[lead] Gemini 실패 — 기존 leads 유지: {exc}")
+            return False
+
+        lead = outcome["lead"]
+        if not lead:
+            print(f"[lead] {date} 종합 문장 없음 (근거 부족) — 기존 leads 유지")
+            return False
+
+        result = outcome["result"]
+        idxs = [i for i in (result.get("evidence_idx") or [])
+                if isinstance(i, int) and 0 <= i < len(items)]
+        evidence = [{
+            "hash": items[i].get("hash", ""),
+            "title_kr": items[i].get("title_kr", ""),
+        } for i in idxs]
+
+        entry = {
+            "lead": lead,
+            "evidence": evidence,
+            "issue_count": len(items),
+            "generated_at": datetime.now(KST).isoformat(),
+        }
+        if outcome["truncated"]:
+            entry["truncated"] = True
+        leads[date] = entry
+        cutoff = (datetime.now(KST) - timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
+        leads = {day: value for day, value in leads.items() if day >= cutoff}
+        print(f"[lead] {date} 종합 문장 저장 (근거 {len(evidence)}건"
+              f"{', 절단' if outcome['truncated'] else ''}) → {OUT_FILE.name}")
+        return True
+    finally:
+        _save_leads(leads)
 
 
 if __name__ == "__main__":

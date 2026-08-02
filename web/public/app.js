@@ -598,6 +598,20 @@ function renderBriefing() {
       ? "오늘, 무엇이 달라졌는가"
       : "오늘의 핵심 이슈";
   document.getElementById("briefingDateLabel").textContent = `· ${dateWeekdayLabel(briefing.date)}`;
+  // 종합 문장(synthesis)일 때만 근거 이슈 칩을 보인다 — 문장이 어디서 왔는지
+  // 클릭 한 번으로 검증할 수 있게. 필드가 없으면 조용히 숨긴다.
+  const evidenceBox = document.getElementById("headlineEvidence");
+  if (evidenceBox) {
+    const evidence = briefing.headline_kind === "synthesis"
+      ? (briefing.headline_evidence || []).filter(item => item && item.issue_id && item.title)
+      : [];
+    evidenceBox.hidden = evidence.length === 0;
+    evidenceBox.innerHTML = evidence.length
+      ? `<span class="hero-evidence-label">근거 이슈</span>` + evidence.map(item =>
+        `<button type="button" class="hero-evidence-chip" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button>`
+      ).join("")
+      : "";
+  }
   renderBriefingStatus(briefing);
 
   const changed = changedIssues(briefing);
@@ -1135,7 +1149,7 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog"].forEach(id => {
+  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog", "headlineEvidence"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 

@@ -344,6 +344,35 @@ kbd {
   font-size: 13.5px;
   font-weight: 600;
 }
+/* 종합 문장의 근거 이슈 칩 — 히어로 문장이 어디서 왔는지 클릭으로 검증 */
+.hero-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.hero-evidence-label {
+  color: rgb(255 255 255 / 62%);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.hero-evidence-chip {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 5px 12px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 8%);
+  color: #fff;
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hero-evidence-chip:hover { background: rgb(255 255 255 / 16%); }
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */
 .hero-status {

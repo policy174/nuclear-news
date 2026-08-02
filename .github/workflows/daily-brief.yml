@@ -131,8 +131,11 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python trend_insights.py
-            python daily_lead.py
-            git add trend_insights.json daily_leads.json
+            # daily_lead 실패는 비치명 — trend insights 커밋을 같이 죽이면 안 된다
+            # (2026-08-02 실사고: 파일 부재 → git add pathspec 실패 → 스텝 사망)
+            python daily_lead.py || echo "[lead] daily_lead 실패 — 비치명, 계속"
+            git add trend_insights.json
+            if [ -f daily_leads.json ]; then git add daily_leads.json; fi
             if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
             git commit -m "chore: trend insights"
             if git push origin HEAD:main; then echo "insights push 성공"; exit 0; fi

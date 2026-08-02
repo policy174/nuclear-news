@@ -1216,6 +1216,53 @@ def _fit_headline(candidates: list[object]) -> str:
     return f"{fallback[:HEADLINE_LIMIT - 1].rstrip()}…"
 
 
+SYNTHESIS_LIMIT = 90  # 봇 종합 문장 상한 — daily_lead.LEAD_LIMIT와 동일 계약
+_CLAUSE_BOUNDARIES = ("며, ", "고, ", "지만 ", "으나 ", ", ")
+
+
+def _fit_synthesis(text: str) -> str:
+    """봇이 만든 종합 문장을 빌드 단계에서 한 번 더 길이 검증한다.
+
+    생성 단계(daily_lead.py)가 90자를 지키지만, 계약 위반 데이터가 와도
+    히어로 h1이 문단으로 번지지 않도록 절 경계에서 자른다.
+    """
+    text = " ".join(str(text or "").split()).strip()
+    if not text or len(text) <= SYNTHESIS_LIMIT:
+        return text
+    window = text[:SYNTHESIS_LIMIT]
+    best = -1
+    for sep in _CLAUSE_BOUNDARIES:
+        pos = window.rfind(sep)
+        if pos > best:
+            best = pos + len(sep.rstrip())
+    if best > 20:
+        return window[:best].rstrip().rstrip(",")
+    return window[: SYNTHESIS_LIMIT - 1].rstrip() + "…"
+
+
+def _evidence_chips(evidence: list, issue_rows: list[dict]) -> list[dict]:
+    """종합 문장의 근거 기사 hash를 그날 이슈 카드로 연결한다 (최대 3개)."""
+    hash_to_issue: dict[str, dict] = {}
+    for row in issue_rows:
+        for article in row.get("related_articles") or []:
+            article_hash = article.get("hash")
+            if article_hash and article_hash not in hash_to_issue:
+                hash_to_issue[article_hash] = row
+    chips: list[dict] = []
+    seen_issues: set[str] = set()
+    for item in evidence:
+        if not isinstance(item, dict):
+            continue
+        row = hash_to_issue.get(item.get("hash") or "")
+        if not row or row["issue_id"] in seen_issues:
+            continue
+        seen_issues.add(row["issue_id"])
+        chips.append({"issue_id": row["issue_id"], "title": row["title"]})
+        if len(chips) >= 3:
+            break
+    return chips
+
+
 def daily_lead(issue_rows: list[dict]) -> dict:
     """히어로 문장과 그 문장의 성격(kind)을 함께 만든다.
 
@@ -1344,10 +1391,14 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
         lead = daily_lead(issue_rows)
         # 봇이 그날 이슈 전체를 보고 만든 종합 문장이 있으면 그것이 히어로가 된다.
         # 이슈 한 건의 문장으로는 '오늘 무엇이 달라졌는가'에 답할 수 없다.
+        headline_evidence: list[dict] = []
         stored_lead = (daily_leads or {}).get(briefing_date) or {}
-        synthesis = str(stored_lead.get("lead") or "").strip()
+        synthesis = _fit_synthesis(stored_lead.get("lead"))
         if synthesis:
             lead = {"headline": synthesis.rstrip(".!?"), "kind": "synthesis"}
+            headline_evidence = _evidence_chips(
+                stored_lead.get("evidence") or [], issue_rows
+            )
         briefings.append({
             "date": briefing_date,
             "article_count": len(current_articles),
@@ -1362,6 +1413,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             ),
             "headline": lead["headline"],
             "headline_kind": lead["kind"],
+            "headline_evidence": headline_evidence,
             "changed_issue_count": sum(
                 1 for row in issue_rows if "→" in str(row.get("latest_change") or "")
             ),
@@ -1791,7 +1843,7 @@ def build() -> None:
         "region_source_counts": dict(region_source_counts),
         "region_country_mismatch_count": region_country_mismatch_count,
         "trend_ready": topic_coverage >= 0.8 and country_coverage >= 0.8 and len(weeks) >= 2,
-        "issue_matching_version": "hybrid-review-v3",
+        "issue_matching_version": "hybrid-review-v4",
         "issue_window_days": ISSUE_WINDOW_DAYS,
         "embedding_model": EMBEDDING_MODEL,
         "embedding_cache_entries": len(embeddings),
