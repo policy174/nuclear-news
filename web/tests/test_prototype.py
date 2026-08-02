@@ -126,6 +126,25 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertNotIn("<clipPath", logo_mark)
         self.assertNotIn("nuclens-lens", logo_mark)
 
+    def test_link_preview_image_exists_and_matches_the_deployed_mark(self):
+        """공유 카드 이미지는 화면과 같은 심벌이어야 한다.
+
+        브랜드 개편안의 Overlap Lens 는 7bc99b2 에서 N 마크로 되돌렸다.
+        og:image 만 렌즈로 두면 공유 카드와 사이트가 다른 브랜드가 된다.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        image = ROOT / "public" / "og-image.png"
+        self.assertTrue(image.exists(), "og-image.png 가 없다")
+        self.assertGreater(image.stat().st_size, 1000)
+        self.assertTrue(image.read_bytes().startswith(b"\x89PNG"), "PNG 헤더가 아니다")
+        self.assertIn('property="og:image"', html)
+        self.assertIn('name="twitter:card" content="summary_large_image"', html)
+        self.assertIn('property="og:image:width" content="1200"', html)
+        # 손으로 만든 바이너리가 아니라 재현 가능한 산출물이어야 한다
+        self.assertTrue((ROOT / "tools" / "make_og_image.py").exists())
+        generator = (ROOT / "tools" / "make_og_image.py").read_text(encoding="utf-8")
+        self.assertNotIn("LENS_R", generator, "og 이미지가 되돌린 렌즈 심벌을 쓰고 있다")
+
 
 class SelectionReasonTests(unittest.TestCase):
     def test_breakdown_becomes_two_human_reasons(self):

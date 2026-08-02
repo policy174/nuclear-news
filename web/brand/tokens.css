@@ -1,0 +1,239 @@
+/* ============================================================
+   NUCLENS Design Tokens v1.0
+   원자력 정책·산업 이슈 트래커
+   ------------------------------------------------------------
+   기존 style.css의 :root 블록을 이 파일로 대체한다.
+   대비값은 전부 WCAG 2.2 AA(4.5:1) 이상으로 검증됨.
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- 브랜드 ---------- */
+  --c-primary:          #0E2A3C;  /* 워드마크, 헤더, 히어로 표면 */
+  --c-primary-strong:   #08202F;
+  --c-secondary:        #1466A0;  /* 상호작용 전용: 링크·활성탭·포커스 */
+  --c-secondary-weak:   #E9F1F7;
+  --c-accent:           #0E8C86;  /* "변화" 전용. 화면당 3회 이하 */
+  --c-accent-text:      #0A6B66;  /* 6.09:1 */
+
+  /* ---------- 표면 ---------- */
+  --c-bg:               #FAFAF8;
+  --c-surface:          #FFFFFF;
+  --c-surface-raised:   #FFFFFF;
+  --c-surface-sunken:   #F2F4F6;  /* 구 --sand 대체 */
+  --c-border:           #DDE3E7;
+  --c-border-strong:    #C3CCD2;
+
+  /* ---------- 텍스트 ---------- */
+  --c-text:             #101E28;  /* 14.90:1 */
+  --c-text-secondary:   #4B5B66;  /*  6.75:1 */
+  --c-text-muted:       #61707A;  /*  4.88:1  (구 #71808a = 3.90:1 실패) */
+
+  /* ---------- 상태 ---------- */
+  --c-positive:         #1E7A5A;  /* 5.04:1 */
+  --c-warning:          #A8600F;  /* 4.63:1 */
+  --c-critical:         #B0402C;  /* 5.57:1 */
+  --c-info:             #1466A0;  /* Secondary와 의도적으로 동일 */
+
+  /* ---------- 검증 ---------- */
+  --c-verified:         #0A6B66;
+  --c-unverified:       #61707A;  /* 회색. 경고색 아님 */
+
+  /* ---------- 차트 (최대 4계열) ---------- */
+  --c-chart-1:          #1466A0;
+  --c-chart-2:          #0E8C86;
+  --c-chart-3:          #4B5B66;
+  --c-chart-4:          #A8600F;
+
+  /* ---------- 포커스 ---------- */
+  --c-focus:            #1466A0;
+  --fo-ring: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-focus);
+
+  /* ---------- 타이포그래피 ---------- */
+  --ff-base: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo",
+             "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --ff-latin: "Inter Tight", var(--ff-base);
+
+  --t-display-size: 40px;   --t-display-lh: 1.20; --t-display-ls: -0.022em; --t-display-fw: 700;
+  --t-h1-size:      30px;   --t-h1-lh:      1.25; --t-h1-ls:      -0.016em; --t-h1-fw:      700;
+  --t-h2-size:      22px;   --t-h2-lh:      1.35; --t-h2-ls:      -0.010em; --t-h2-fw:      700;
+  --t-h3-size:      18px;   --t-h3-lh:      1.45; --t-h3-ls:      -0.005em; --t-h3-fw:      650;
+  --t-body-l-size:  16px;   --t-body-l-lh:  1.70;
+  --t-body-size:    15px;   --t-body-lh:    1.70;
+  --t-body-s-size:  13.5px; --t-body-s-lh:  1.60;
+  --t-caption-size: 12.5px; --t-caption-lh: 1.50;
+  --t-label-size:   12px;   --t-label-lh:   1.40; --t-label-ls: 0.005em; --t-label-fw: 600;
+  --t-overline-size:11px;   --t-overline-lh:1.20; --t-overline-ls: 0.14em; --t-overline-fw: 700;
+
+  /* ---------- 간격 (4px base) ---------- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+  --sp-14: 56px; --sp-18: 72px; --sp-24: 96px;
+
+  /* ---------- 반경 ---------- */
+  --r-0: 0;      --r-1: 4px;    --r-2: 6px;
+  --r-3: 10px;   --r-4: 14px;   --r-full: 9999px;
+
+  /* ---------- 테두리 ---------- */
+  --bd-hair:   1px solid var(--c-border);
+  --bd-field:  1px solid var(--c-border-strong);
+  --bd-accent: 3px;              /* 카드 좌측 바 두께 */
+
+  /* ---------- 그림자 ---------- */
+  --sh-0: none;                                   /* 카드 기본 */
+  --sh-1: 0 1px 2px rgba(14, 42, 60, .06);        /* 호버, sticky */
+  --sh-2: 0 4px 16px rgba(14, 42, 60, .08);       /* 드롭다운, 토스트 */
+  --sh-3: 0 16px 48px rgba(14, 42, 60, .16);      /* 모달 */
+
+  /* ---------- 레이아웃 ---------- */
+  --w-content: 1120px;
+  --w-read:     720px;
+  --w-data:    1280px;
+  --w-modal:    720px;
+
+  /* ---------- 모션 ---------- */
+  --mo-fast: 120ms;
+  --mo-base: 180ms;
+  --mo-slow: 240ms;
+  --mo-ease: cubic-bezier(.2, 0, 0, 1);
+
+  /* ---------- z-index ---------- */
+  --z-header: 20; --z-dropdown: 40; --z-sheet: 60; --z-modal: 80; --z-toast: 100;
+}
+
+/* ============================================================
+   다크 모드 — 라이트의 반전이 아니라 별도 팔레트
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-primary:        #14313F;   /* 배경과 8% 이상 명도차 확보 */
+    --c-primary-strong: #0E2A3C;
+    --c-secondary:      #5FA9DC;
+    --c-secondary-weak: #16303F;
+    --c-accent:         #37B5AE;
+    --c-accent-text:    #5FD1CA;
+
+    --c-bg:             #0C1519;   /* 순흑 금지 */
+    --c-surface:        #131F26;
+    --c-surface-raised: #1A2831;
+    --c-surface-sunken: #0F1A20;
+    --c-border:         #24343E;
+    --c-border-strong:  #33454F;
+
+    --c-text:           #E8EEF1;
+    --c-text-secondary: #A9B8C1;
+    --c-text-muted:     #8494A0;   /* 5.99:1 */
+
+    --c-positive:       #45B389;
+    --c-warning:        #D99A3E;
+    --c-critical:       #E0705A;
+    --c-info:           #5FA9DC;
+
+    --c-verified:       #37B5AE;
+    --c-unverified:     #8494A0;
+
+    --c-chart-1:        #5FA9DC;
+    --c-chart-2:        #37B5AE;
+    --c-chart-3:        #A9B8C1;
+    --c-chart-4:        #D99A3E;
+
+    --c-focus:          #5FA9DC;
+
+    /* 다크에서 그림자는 작동하지 않는다 → border + 표면 밝기로 위계 */
+    --sh-1: none;
+    --sh-2: 0 4px 16px rgba(0, 0, 0, .40);
+    --sh-3: 0 16px 48px rgba(0, 0, 0, .56);
+  }
+}
+
+/* 수동 토글 (localStorage로 data-theme 지정) */
+:root[data-theme="dark"] {
+  --c-primary: #14313F;      --c-primary-strong: #0E2A3C;
+  --c-secondary: #5FA9DC;    --c-secondary-weak: #16303F;
+  --c-accent: #37B5AE;       --c-accent-text: #5FD1CA;
+  --c-bg: #0C1519;           --c-surface: #131F26;
+  --c-surface-raised: #1A2831; --c-surface-sunken: #0F1A20;
+  --c-border: #24343E;       --c-border-strong: #33454F;
+  --c-text: #E8EEF1;         --c-text-secondary: #A9B8C1;
+  --c-text-muted: #8494A0;
+  --c-positive: #45B389;     --c-warning: #D99A3E;
+  --c-critical: #E0705A;     --c-info: #5FA9DC;
+  --c-verified: #37B5AE;     --c-unverified: #8494A0;
+  --c-chart-1: #5FA9DC;      --c-chart-2: #37B5AE;
+  --c-chart-3: #A9B8C1;      --c-chart-4: #D99A3E;
+  --c-focus: #5FA9DC;
+  --sh-1: none;
+  --sh-2: 0 4px 16px rgba(0, 0, 0, .40);
+  --sh-3: 0 16px 48px rgba(0, 0, 0, .56);
+}
+
+/* ============================================================
+   모바일 타입 스케일 (< 768px) — 11px 미만 금지
+   ============================================================ */
+@media (max-width: 767px) {
+  :root {
+    --t-display-size: 26px;  --t-display-lh: 1.25;
+    --t-h1-size:      22px;  --t-h1-lh:      1.30;
+    --t-h2-size:      19px;
+    --t-h3-size:      17px;
+    --t-body-l-lh:    1.65;
+    --t-body-size:    15.5px; --t-body-lh:   1.65;
+    --t-body-s-lh:    1.55;
+    --t-caption-lh:   1.45;
+    --sp-page-x:      20px;
+  }
+}
+
+/* ============================================================
+   접근성
+   ============================================================ */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--fo-ring);
+  border-radius: var(--r-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   숫자 정렬 — 개수·시각·증감은 전부 tabular
+   ============================================================ */
+.num, .stat-value, .card-index, .metric, time, td.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ============================================================
+   타이포 유틸리티
+   ============================================================ */
+.t-display  { font: var(--t-display-fw) var(--t-display-size)/var(--t-display-lh) var(--ff-base); letter-spacing: var(--t-display-ls); }
+.t-h1       { font: var(--t-h1-fw) var(--t-h1-size)/var(--t-h1-lh) var(--ff-base); letter-spacing: var(--t-h1-ls); }
+.t-h2       { font: var(--t-h2-fw) var(--t-h2-size)/var(--t-h2-lh) var(--ff-base); letter-spacing: var(--t-h2-ls); }
+.t-h3       { font: var(--t-h3-fw) var(--t-h3-size)/var(--t-h3-lh) var(--ff-base); letter-spacing: var(--t-h3-ls); }
+.t-body-l   { font: 400 var(--t-body-l-size)/var(--t-body-l-lh) var(--ff-base); }
+.t-body     { font: 400 var(--t-body-size)/var(--t-body-lh) var(--ff-base); }
+.t-body-s   { font: 400 var(--t-body-s-size)/var(--t-body-s-lh) var(--ff-base); }
+.t-caption  { font: 400 var(--t-caption-size)/var(--t-caption-lh) var(--ff-base); color: var(--c-text-muted); }
+.t-label    { font: var(--t-label-fw) var(--t-label-size)/var(--t-label-lh) var(--ff-base); letter-spacing: var(--t-label-ls); }
+.t-overline { font: var(--t-overline-fw) var(--t-overline-size)/var(--t-overline-lh) var(--ff-latin);
+              letter-spacing: var(--t-overline-ls); text-transform: uppercase; color: var(--c-text-muted); }
+
+/* ============================================================
+   Pretendard self-host — 현재 배포본은 선언만 있고 로드가 없어
+   Malgun Gothic으로 렌더된다. 아래 파일을 public/fonts/에 배치할 것.
+   ============================================================ */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+}
