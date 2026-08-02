@@ -1,58 +1,4 @@
 {
-  "1fc7290aaa5a4e53": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "khnp",
-    "category": "기술",
-    "title_kr": "한국수력원자력 웹사이트 일반 정보",
-    "summary": "한국수력원자력(KHNP) 웹사이트에서 제공되는 일반적인 정보입니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-19T15:43:37.773221+00:00",
-    "title": "- khnp.co.kr",
-    "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPZ0FmdEZlOXJEemtGRllGak9PbGRRRkt0a2J1a1RrNE1Ca3ZramVHNWx2cUVuTEl0UEVqbVBtTGRycWNkd2pla1lLN1hXQVlSXzlFQzBYcEtyNHhaM0hqUVRIYXBqTHN2N19DSFNETFBYODhfb3cyTjdSM2RqUjNWTnl4RQ?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
-  "f8fe99fe194451e6": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "khnp",
-    "category": "규제",
-    "title_kr": "한국수력원자력 열린원전운영정보 포털",
-    "summary": "한국수력원자력(KHNP)의 열린원전운영정보 포털에 대한 내용입니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-19T15:43:37.773221+00:00",
-    "title": "- 열린원전운영정보",
-    "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPT3BFV0tmb3NYcGd4bzI0c1FTUnJBeFlzVlB6VGdKNXNQYzY0UUE5RHdOeWs4eXBZaEZnckpiM2FrSE16TWNEaFM0V0pLd1VRUDVtLW5rdU8tdFVlZVFSRjBPbGFDbmMxMklEc1ZacHdMNkM5TW9lSW8zQ2tsTmV4NGlPQ1VaLVNZdFdHRUZncE5IcHdhaC1rQVlpUUlfMlozcWM2NXpwb1lPNFFW?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
   "d0d3a06c1df016cc": {
     "features": {
       "event_type": "other",
@@ -21854,5 +21800,84 @@
     "feed": "정책",
     "domain": "latribune.fr",
     "matched": "La Tribune 원자력"
+  },
+  "cd9437511e6a71cb": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [],
+    "article_type": "news",
+    "title_kr": "월요일 경제 의제: PMI, Bonduelle, 보잉",
+    "summary": "월요일 경제 의제를 다루는 기사로, PMI, Bonduelle, 보잉 등 주요 기업 동향을 언급합니다.",
+    "implication": "",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-02T15:51:09.428389+00:00",
+    "title": "PMI, Bonduelle et Boeing : l’agenda éco du lundi",
+    "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPY05HRTJkY0JWbHl6SWZfamoxWlJUSTczUWQ2d0ZzUlZIZzZEUUdUT2poOTlhdml3b3M2Y3VBMnBLMHl4Njk5cC1yVmlscWYwN2FHMjVnOXFlN0hyVWRGUlBMMko2X3Axa3E5S19DTlZkM0paQngwQVhNczAxZWVfbnB0eVNXRWxpSUJCLTN0NTVBSHRBUDNiZnBVd1BkdzVZUkxjSw?oc=5",
+    "feed": "정책",
+    "domain": "latribune.fr",
+    "matched": "La Tribune 원자력"
+  },
+  "d8d8563b838a399d": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR",
+      "DE"
+    ],
+    "article_type": "analysis",
+    "title_kr": "8년 전 탈핵 부교재 서울대 팩트체크, 한독 에너지 현실로 입증",
+    "summary": "8년 전 발간된 탈핵 부교재에 대한 서울대학교의 팩트체크 결과가 한국과 독일의 현재 에너지 현실로 입증되었다는 내용입니다.",
+    "implication": "과거 탈핵 정책 주장의 현실적 타당성을 재검토하는 계기가 될 수 있습니다.",
+    "why_important": "",
+    "watch_next": "",
+    "tags": [
+      "#탈원전정책",
+      "#에너지정책",
+      "#한독비교"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-02T15:51:09.428389+00:00",
+    "title": "8년 전 탈핵 부교재의 서울대 팩트체크, 한국·독일 에너지 현실로 입증",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE90MFB0RGdjYjliQXR3RTVfZnBKUVlNVlBPLWgzeFIxNHNYOTBlbF9OTXlqTmxDdHBXNG52cFNTZVlBT3VfMlYzY0V4alpxZEtoTWljN0E0OHdOUm85VV85TmE4bUQ?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
   }
 }
