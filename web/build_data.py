@@ -49,6 +49,7 @@ from data_quality import (  # noqa: E402
 )
 from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
 import issue_review  # noqa: E402
+import keei_match  # noqa: E402
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -1321,6 +1322,157 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
 
 PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
 
+# KEEI 인사이트 목차 ↔ 이슈 매칭.
+#
+# 점수만으로는 판정할 수 없다는 것이 실측으로 확인됐다(2026-08-02): 로컬 n-gram
+# 코사인 상위권을 벤더명만 같은 오매칭이 차지했고(Rolls-Royce 0.323 > 진짜 같은
+# 사건인 EIB·체르나보다 0.239), IDF 가중 토큰 중복도 3위부터 다른 규칙·다른
+# 발전소가 섞였다. 발표·계획·건설 같은 흔한 토큰이 점수를 지배한다.
+# 그래서 파이썬은 후보만 좁히고 판정은 keei_match(LLM)에 맡긴다.
+KEEI_CANDIDATE_MIN_SHARED = 2      # 의미 토큰 공유 최소 개수
+KEEI_CANDIDATES_PER_ISSUE = 2      # 이슈당 LLM 에 물어볼 최대 후보
+# 총 상한은 품질 필터가 아니라 폭주 방지선이다. 점수는 진짜 매칭을 상위로
+# 올리지 못한다(실측: 진짜 쌍이 134개 중 82위) — 상한을 낮게 잡으면 그냥
+# 진짜 매칭을 버리는 셈이다. 판정은 캐시되고 KEEI 는 격주간이라 첫 빌드
+# 이후 증분은 새 호 몫뿐이다.
+KEEI_CANDIDATE_CAP = 150
+KEEI_REFS_PER_ISSUE = 2
+
+
+def _keei_match_tokens(text: str) -> set[str]:
+    """매칭 판정에 쓸 의미 토큰 — 일반어는 버린다."""
+    return {token for token in _text_tokens(text) if token not in _GENERIC_TAGS}
+
+
+def _keei_shared(left: set[str], right: set[str]) -> set[str]:
+    """공유 토큰 — 한국어 조사가 붙어 갈라진 같은 낱말을 접두 일치로 흡수한다.
+
+    실측: '영덕군과' 와 '영덕군' 이 다른 토큰이 되어 같은 사건이 후보에서
+    탈락할 뻔했다. 조사 목록을 두는 대신(원자'로' 처럼 낱말 끝과 구분이 안 됨)
+    한쪽이 다른 쪽의 접두인 경우를 같은 낱말로 본다. 후보 생성 단계라
+    과대 매칭은 LLM 이 걸러 주므로 재현율을 택한다.
+    """
+    shared = set()
+    for token in left:
+        if token in right:
+            shared.add(token)
+            continue
+        for other in right:
+            if len(token) >= 2 and len(other) >= 2 and (
+                    token.startswith(other) or other.startswith(token)):
+                shared.add(min(token, other, key=len))
+                break
+    return shared
+
+
+def keei_entries(publications: dict) -> list[dict]:
+    """발간물에서 KEEI 목차 항목을 펼친다. 제목 줄만 — 본문은 저장하지 않는다."""
+    entries = []
+    for publication in publications.get("items") or []:
+        toc = publication.get("toc")
+        if not isinstance(toc, dict):
+            continue
+        for text in [toc.get("issue_title") or ""] + list(toc.get("briefs") or []):
+            text = str(text or "").strip()
+            if text:
+                entries.append({"text": text, "publication": publication})
+    return entries
+
+
+def keei_candidates(issue_rows: list[dict], entries: list[dict]) -> list[dict]:
+    """IDF 가중 토큰 중복으로 LLM 에 물어볼 후보만 좁힌다.
+
+    이 점수는 순위를 매기는 용도일 뿐 판정이 아니다 — 최종 판정은 LLM 이 한다.
+    """
+    if not issue_rows or not entries:
+        return []
+    issue_tokens = [
+        (row, _keei_match_tokens(f"{row['title']} {row.get('summary', '')}"))
+        for row in issue_rows
+    ]
+    entry_tokens = [(entry, _keei_match_tokens(entry["text"])) for entry in entries]
+
+    document_frequency = Counter()
+    for _, tokens in issue_tokens + entry_tokens:
+        document_frequency.update(tokens)
+    total = len(issue_tokens) + len(entry_tokens)
+
+    def inverse_frequency(token: str) -> float:
+        return math.log((1 + total) / (1 + document_frequency[token])) + 1.0
+
+    candidates = []
+    for row, tokens in issue_tokens:
+        scored = []
+        for entry, other in entry_tokens:
+            shared = _keei_shared(tokens, other)
+            if len(shared) < KEEI_CANDIDATE_MIN_SHARED:
+                continue
+            weight = sum(inverse_frequency(token) for token in shared)
+            scored.append((weight / max(1.0, math.sqrt(len(other))), entry))
+        scored.sort(key=lambda item: -item[0])
+        for weight, entry in scored[:KEEI_CANDIDATES_PER_ISSUE]:
+            candidates.append({
+                "score": weight,
+                "pair_id": f"{row['issue_id']}--{hashlib.sha1(entry['text'].encode('utf-8')).hexdigest()[:10]}",
+                "issue_id": row["issue_id"],
+                "issue_title": row["title"],
+                "keei_item": entry["text"],
+                "publication": entry["publication"],
+            })
+    # 상한에 걸릴 때만 점수를 쓴다 — 없는 것보다는 나은 순서일 뿐이다.
+    candidates.sort(key=lambda row: (-row["score"], row["pair_id"]))
+    kept = candidates[:KEEI_CANDIDATE_CAP]
+    kept.sort(key=lambda row: row["pair_id"])  # 결정적 순서 — 캐시·배치 안정
+    return kept
+
+
+def attach_keei_refs(issue_rows: list[dict], publications: dict) -> dict:
+    """같은 사건을 다루는 이슈 카드에 KEEI 인사이트 참조를 붙인다.
+
+    LLM 이 same_event 로 판정한 것만 붙인다. 키가 없거나 호출이 실패하면 아무
+    것도 붙이지 않는다 — 틀린 연결은 누락보다 해롭다.
+    """
+    entries = keei_entries(publications)
+    candidates = keei_candidates(issue_rows, entries)
+    if not candidates:
+        return {"candidates": 0, "attached": 0, "status": "no_candidates"}
+
+    verdicts, stats = keei_match.match_pairs([
+        {"pair_id": row["pair_id"], "issue_title": row["issue_title"],
+         "keei_item": row["keei_item"]}
+        for row in candidates
+    ])
+
+    by_issue: dict[str, list[dict]] = defaultdict(list)
+    for row in candidates:
+        if verdicts.get(row["pair_id"]):
+            by_issue[row["issue_id"]].append(row)
+
+    attached = 0
+    for row in issue_rows:
+        matches = by_issue.get(row["issue_id"])
+        if not matches:
+            continue
+        refs, seen = [], set()
+        for match in matches:
+            publication = match["publication"]
+            if publication["url"] in seen:
+                continue
+            seen.add(publication["url"])
+            refs.append({
+                "title": publication.get("title", ""),
+                "url": publication.get("url", ""),
+                "date": publication.get("date", ""),
+                "org_kr": publication.get("org_kr", ""),
+                "item": match["keei_item"],
+            })
+            if len(refs) >= KEEI_REFS_PER_ISSUE:
+                break
+        row["keei_refs"] = refs
+        attached += 1
+    stats["attached"] = attached
+    return stats
+
 
 def load_publications(now: datetime | None = None) -> dict:
     """pubs_fetch.py 가 커밋한 발간물 상태 파일 → 웹 표시용 뷰.
@@ -1753,6 +1905,21 @@ def build() -> None:
         briefings[0]["date"] if briefings else "",
         checked_at,
     )
+    publications = load_publications(now)
+    keei_stats = attach_keei_refs(issue_catalog, publications)
+    print(f"[build_data] KEEI 매칭: 후보 {keei_stats.get('candidates', 0)}쌍 "
+          f"(캐시 {keei_stats.get('from_cache', 0)} / 질의 {keei_stats.get('asked', 0)} / "
+          f"호출 {keei_stats.get('calls', 0)}회) → 연결 {keei_stats.get('attached', 0)}건 "
+          f"[{keei_stats.get('status', '')}]")
+    keei_by_issue = {
+        row["issue_id"]: row["keei_refs"]
+        for row in issue_catalog if row.get("keei_refs")
+    }
+    for briefing in briefings:
+        for row in briefing["issues"]:
+            refs = keei_by_issue.get(row["issue_id"])
+            if refs:
+                row["keei_refs"] = refs
 
     # 트렌드는 기존 집계를 유지하되 커버리지가 낮으면 프론트에서 숨길 수 있게 메타를 제공한다.
     trend_pool = news_items
@@ -1984,7 +2151,7 @@ def build() -> None:
         ("trend.json", trend),
         ("meta.json", meta),
         ("insights.json", insights),
-        ("publications.json", load_publications(now)),
+        ("publications.json", publications),
         ("issue_audit.json", issue_audit),
         ("manifest.json", manifest),
         ("status.json", status),

@@ -229,6 +229,107 @@ def fetch_iea() -> list[dict]:
     return items
 
 
+KEEI_LIST_URL = ("https://www.keei.re.kr/board.es"
+                 "?mid=a10102050000&bid=0002&cg_code=C04")
+KEEI_VIEW_URL = ("https://www.keei.re.kr/board.es"
+                 "?mid=a10102050000&bid=0002&act=view&list_no={no}")
+KEEI_PDF_URL = "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no={no}&seq=1"
+KEEI_BOOTSTRAP_LIMIT = 3   # 첫 실행에 최근 몇 호까지 가져올지
+KEEI_MAX_DETAIL = 4        # 한 번에 상세(목차) 요청할 최대 호수
+
+# 제목 안의 발행일 — 표기가 흔들린다: (2026.07.24.) / (2026.05.15) / (2025.6.20)
+_KEEI_DATE_RE = re.compile(r"\((\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?\)")
+_KEEI_ROW_RE = re.compile(r"list_no=(\d+)[^>]*>(.{0,300}?)</a>", re.DOTALL)
+_KEEI_TITLE_HINT = "세계 원전시장 인사이트"
+_PARA_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.DOTALL)
+_KEEI_SECTION_RE = re.compile(r"^□\s*(현안이슈|주요단신)")
+_KEEI_BULLET_RE = re.compile(r"^[•·]\s*(.+)")
+
+
+def _keei_date(title: str) -> str:
+    match = _KEEI_DATE_RE.search(title)
+    if not match:
+        return ""
+    year, month, day = (int(part) for part in match.groups())
+    return f"{year:04d}-{month:02d}-{day:02d}"
+
+
+def keei_parse_toc(html: str) -> dict:
+    """상세 페이지에서 목차만 뽑는다 — 제목 줄만, 본문 저장 금지(저작권).
+
+    구조: `□ 현안이슈` → `• 심층 주제` / `□ 주요단신` → `• 국가별 항목`.
+    현안이슈 아래의 `1. 들어가며` 같은 소절 번호는 버린다(원문 목차 재현이
+    아니라 이슈 매칭용 신호만 필요하다).
+    """
+    lines = []
+    for para in _PARA_RE.findall(html):
+        text = clean_text(_TAG_RE.sub("", para)).replace("\xa0", " ").strip()
+        if text:
+            lines.append(text)
+    toc: dict = {"issue_title": "", "briefs": []}
+    section = ""
+    for line in lines:
+        heading = _KEEI_SECTION_RE.match(line.replace(" ", "", 1) if line.startswith("□") else line)
+        if heading:
+            section = heading.group(1)
+            continue
+        bullet = _KEEI_BULLET_RE.match(line)
+        if not bullet or not section:
+            continue
+        text = clean_text(bullet.group(1))
+        if not text or text.startswith("기타 단신"):
+            continue
+        if section == "현안이슈":
+            if not toc["issue_title"]:
+                toc["issue_title"] = text
+        elif len(toc["briefs"]) < 30:
+            toc["briefs"].append(text)
+    return toc
+
+
+def fetch_keei(state: dict) -> list[dict]:
+    """에너지경제연구원 세계 원전시장 인사이트 — 격주간, list_no 로 신규 판별.
+
+    list_no 는 게시판 전체 공용 단조증가 시퀀스라 "저장된 최대값 초과 = 신규"가
+    항상 성립한다. 발행이 21일 벌어지는 경우가 있어 고정 주기 스케줄 대신
+    상태 비교로 감지한다.
+    """
+    html = _http_get(KEEI_LIST_URL)
+    max_seen = int(state.get("keei_max_list_no") or 0)
+    rows: dict[int, str] = {}
+    for raw_no, link_html in _KEEI_ROW_RE.findall(html):
+        title = clean_text(_TAG_RE.sub(" ", link_html))
+        if _KEEI_TITLE_HINT not in title:
+            continue
+        list_no = int(raw_no)
+        if list_no not in rows or len(title) > len(rows[list_no]):
+            rows[list_no] = title
+    if not rows:
+        return []
+    if max_seen:
+        fresh = sorted((no for no in rows if no > max_seen), reverse=True)
+    else:
+        fresh = sorted(rows, reverse=True)[:KEEI_BOOTSTRAP_LIMIT]
+    items = []
+    for list_no in fresh[:KEEI_MAX_DETAIL]:
+        title = rows[list_no]
+        toc = {}
+        try:
+            toc = keei_parse_toc(_http_get(KEEI_VIEW_URL.format(no=list_no)))
+        except Exception as exc:  # 목차 실패는 항목 자체를 버릴 이유가 아니다
+            print(f"[pubs] keei 목차 추출 실패(list_no={list_no}): {type(exc).__name__}")
+        item = _make_item(
+            "KEEI", "에너지경제연구원", "keei_insight", title,
+            KEEI_VIEW_URL.format(no=list_no), _keei_date(title),
+            pdf_url=KEEI_PDF_URL.format(no=list_no),
+            toc=toc if (toc.get("issue_title") or toc.get("briefs")) else None,
+        )
+        if item:
+            items.append(item)
+    state["keei_max_list_no"] = max(max(rows), max_seen)
+    return items
+
+
 SOURCES = [
     {"id": "iaea_publications",
      "fetch": lambda state: fetch_rss(
@@ -244,6 +345,7 @@ SOURCES = [
          "EIA", "미국 에너지정보청", "press", keyword_gate=True)},
     {"id": "nea_news", "fetch": fetch_nea},
     {"id": "iea_reports", "fetch": lambda state: fetch_iea()},
+    {"id": "keei_insight", "fetch": fetch_keei},
 ]
 
 

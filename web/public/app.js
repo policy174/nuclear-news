@@ -508,6 +508,41 @@ function trackingPeriod(issue) {
   </div>`;
 }
 
+// 같은 사건을 KEEI 세계 원전시장 인사이트가 다뤘다면 그 호로 연결한다.
+// 이건 예외적으로 붙는 표시라 정보가 된다 — 대다수가 다는 배지는 신호를 죽인다.
+function keeiRefLine(issue) {
+  const refs = (issue.keei_refs || []).filter(ref => ref && ref.url && ref.title);
+  if (!refs.length) return "";
+  const links = refs.map(ref => {
+    const url = safeUrl(ref.url);
+    const label = ref.date ? dateLabel(ref.date) : ref.title;
+    return url
+      ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}호</a>`
+      : esc(label);
+  }).join(" · ");
+  return `<p class="issue-keei"><strong>KEEI 인사이트</strong><span>${links}</span></p>`;
+}
+
+// 상세에서는 KEEI 가 이 사건을 어떤 목차 항목으로 다뤘는지까지 보여준다.
+// 목차 제목 줄과 원문 링크만 — 본문은 싣지 않는다(저작권).
+function keeiDialogSection(issue) {
+  const refs = (issue.keei_refs || []).filter(ref => ref && ref.url && ref.title);
+  if (!refs.length) return "";
+  const rows = refs.map(ref => {
+    const url = safeUrl(ref.url);
+    const pubLabel = `${ref.org_kr || "에너지경제연구원"}${ref.date ? ` · ${dateLabel(ref.date)}` : ""}`;
+    return `<li>
+      ${ref.item ? `<span class="keei-item">${esc(ref.item)}</span>` : ""}
+      ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} <span aria-hidden="true">↗</span></a>` : `<span>${esc(ref.title)}</span>`}
+      <small>${esc(pubLabel)}</small>
+    </li>`;
+  }).join("");
+  return `<section class="dialog-keei" aria-labelledby="issueKeeiTitle">
+    <div class="dialog-section-head"><h3 id="issueKeeiTitle">KEEI 인사이트가 다룬 사건</h3><span>목차와 원문 링크만 제공합니다</span></div>
+    <ul>${rows}</ul>
+  </section>`;
+}
+
 function issueCard(issue, index, archive = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
@@ -530,6 +565,7 @@ function issueCard(issue, index, archive = false) {
       ${issue.summary ? `<p class="issue-summary">${summary}</p>` : ""}
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
+      ${keeiRefLine(issue)}
       ${archive ? trackingPeriod(issue) : ""}
       ${issueActions(issue)}
     </div>
@@ -870,6 +906,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
     </section>
+    ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
       <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3><span>공식 출처를 먼저 표시합니다</span></div>
       <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑")).join("")}</ol>

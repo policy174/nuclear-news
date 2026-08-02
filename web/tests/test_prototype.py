@@ -1171,6 +1171,71 @@ class GeneratedDataTests(unittest.TestCase):
                          5, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
         self.assertIn("grid-template-columns: repeat(5, 1fr)", style)
 
+    def test_keei_candidates_narrow_but_never_decide(self):
+        """점수는 후보만 좁힌다 — 판정은 LLM 몫이다.
+
+        실측(2026-08-02): 코사인·IDF 점수 상위권을 벤더명만 같은 오매칭이
+        차지했다. 점수로 자동 연결하면 틀린 연결이 카드에 박힌다.
+        """
+        issue_rows = [
+            {"issue_id": "i1", "title": "한수원, 영덕군과 신규 원전 건설 협력 합의", "summary": ""},
+            {"issue_id": "i2", "title": "미국 NRC, 환경영향평가 규정 개정 공청회", "summary": ""},
+        ]
+        publications = {"items": [{
+            "url": "https://keei.re.kr/x", "title": "인사이트(2026.06.26.)",
+            "date": "2026-06-26", "org_kr": "에너지경제연구원",
+            "toc": {"issue_title": "전 세계 원전 현황",
+                    "briefs": ["한수원, 신규 대형원전 부지로 경북 영덕군 선정",
+                               "완전히 무관한 항목"]},
+        }]}
+        candidates = build_data.keei_candidates(issue_rows, build_data.keei_entries(publications))
+        pairs = {(row["issue_id"], row["keei_item"]) for row in candidates}
+        # 조사가 붙어 갈라진 '영덕군과'/'영덕군'을 접두 일치로 흡수해야 후보가 된다
+        self.assertIn(("i1", "한수원, 신규 대형원전 부지로 경북 영덕군 선정"), pairs)
+        self.assertTrue(all(row["pair_id"] for row in candidates))
+        self.assertLessEqual(len(candidates), build_data.KEEI_CANDIDATE_CAP)
+
+    def test_keei_shared_absorbs_korean_particles(self):
+        shared = build_data._keei_shared({"영덕군과", "신규"}, {"영덕군", "신규", "선정"})
+        self.assertEqual(shared, {"영덕군", "신규"})
+        # 짧은 토큰까지 접두로 묶으면 아무 낱말이나 붙는다
+        self.assertEqual(build_data._keei_shared({"가"}, {"가스"}), set())
+
+    def test_keei_refs_attach_only_what_the_llm_approved(self):
+        issue_rows = [{"issue_id": "i1",
+                       "title": "한수원, 영덕군과 신규 원전 건설 협력 합의", "summary": ""}]
+        publications = {"items": [{
+            "url": "https://keei.re.kr/x", "title": "인사이트(2026.06.26.)",
+            "date": "2026-06-26", "org_kr": "에너지경제연구원",
+            "toc": {"issue_title": "",
+                    "briefs": ["한수원, 신규 대형원전 부지로 경북 영덕군 선정"]},
+        }]}
+        original = build_data.keei_match.match_pairs
+        try:
+            # 판정이 없으면(키 없음·실패) 아무 것도 붙이지 않는다
+            build_data.keei_match.match_pairs = lambda c, **kw: ({}, {"status": "no_api_key"})
+            build_data.attach_keei_refs(issue_rows, publications)
+            self.assertNotIn("keei_refs", issue_rows[0])
+
+            # 승인된 것만 붙는다
+            build_data.keei_match.match_pairs = lambda c, **kw: (
+                {row["pair_id"]: True for row in c}, {"status": "ok"})
+            stats = build_data.attach_keei_refs(issue_rows, publications)
+            self.assertEqual(stats["attached"], 1)
+            ref = issue_rows[0]["keei_refs"][0]
+            self.assertEqual(ref["url"], "https://keei.re.kr/x")
+            self.assertEqual(ref["item"], "한수원, 신규 대형원전 부지로 경북 영덕군 선정")
+        finally:
+            build_data.keei_match.match_pairs = original
+
+    def test_keei_refs_render_in_card_and_detail(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function keeiRefLine", script)
+        self.assertIn("function keeiDialogSection", script)
+        self.assertIn("keei_refs", script)
+        # 목차 제목과 링크만 — 본문을 싣지 않는다(저작권)
+        self.assertIn("목차와 원문 링크만 제공합니다", script)
+
     def test_p2_keyword_table_slope_graph_and_chart_evidence_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
