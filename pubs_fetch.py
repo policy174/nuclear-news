@@ -346,7 +346,7 @@ def fetch_keei(state: dict) -> list[dict]:
         if not has_toc:
             still_pending.append(list_no)
         item = _make_item(
-            "KEEI", "에너지경제연구원", "keei_insight", title,
+            "KEEI", "에경연", "keei_insight", title,
             KEEI_VIEW_URL.format(no=list_no), _keei_date(title),
             pdf_url=KEEI_PDF_URL.format(no=list_no),
             toc=toc if has_toc else None,
@@ -472,6 +472,15 @@ def run(sources: list[dict] | None = None, *, once_per_day: bool = False) -> boo
               f"{f', 보강 {enriched}건' if enriched else ''}")
         total_new += len(new_items)
     store["items"] = prune(store["items"])
+    # 영문 제목만으로는 무슨 문서인지 알 수 없다는 피드백(2026-08-02) → 한국어
+    # 제목·한 줄 설명을 붙인다. 신규분만 대상이고, 실패하면 원문 제목으로 뜬다.
+    try:
+        import pubs_translate
+        result = pubs_translate.translate(store["items"])
+        print(f"[pubs] 한국어 해석: 대상 {result['candidates']}건 / "
+              f"번역 {result['translated']}건 / 호출 {result['calls']}회 [{result['status']}]")
+    except Exception as exc:
+        print(f"[pubs] 한국어 해석 스킵 — {type(exc).__name__}: {exc}")
     save_store(store)
     print(f"[pubs] 신규 {total_new}건, 보관 {len(store['items'])}건 → {OUT_FILE.name}")
     return True

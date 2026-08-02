@@ -1264,27 +1264,46 @@ def _evidence_chips(evidence: list, issue_rows: list[dict]) -> list[dict]:
     return chips
 
 
-def daily_lead(issue_rows: list[dict]) -> dict:
+_REPEAT_SHARED_TOKENS = 3  # 어제 헤드라인과 이만큼 겹치면 같은 사건으로 본다
+
+
+def _is_repeat_of(title: str, previous_headline: str) -> bool:
+    """어제 히어로가 말한 것과 같은 사건인지."""
+    previous = _keei_match_tokens(previous_headline)
+    if not previous:
+        return False
+    return len(_keei_shared(_keei_match_tokens(title), previous)) >= _REPEAT_SHARED_TOKENS
+
+
+def daily_lead(issue_rows: list[dict], previous_headline: str = "") -> dict:
     """히어로 문장과 그 문장의 성격(kind)을 함께 만든다.
 
-    kind가 오버라인 문구를 정한다. 변화 문장이 없는데 '무엇이 달라졌는가'라고
-    쓰면 제목이 거짓말이 되므로, 실제로 상태가 움직인 이슈가 있을 때만
-    change로 표시한다.
+    kind가 오버라인 문구를 정한다. 실제로 이어지는 이슈일 때만 change로 표시한다.
+
+    설계 근거 (라이브 실측 2026-08-02):
+      - 예전에는 `latest_change` 화살표 뒤쪽을 헤드라인으로 썼는데, 그건 **생성
+        문장**이라 "…발표했습니다", "…경고했다" 같은 기사체가 그대로 h1 에
+        올라왔다. 반면 이슈 **제목**은 이미 개조식이라 훨씬 헤드라인답다
+        (실측 비교: change 경로 8/1·8/2 vs issue 경로 7/31).
+      - 어제와 같은 이슈가 오늘도 1위면 이틀 연속 같은 문장이 떴다(헝가리 원전
+        가동 중단이 8/1·8/2 연속). '무엇이 달라졌는가'라고 묻고 어제와 같은
+        답을 하면 제목이 거짓말이 된다 → 전날 헤드라인과 겹치는 이슈는 건너뛴다.
     """
     if not issue_rows:
         return {"headline": EMPTY_HEADLINE, "kind": "empty"}
 
-    # latest_change의 화살표는 '이전 상태 → 현재 상태'가 실제로 갈렸다는 뜻이다.
-    changed = [row for row in issue_rows if "→" in str(row.get("latest_change") or "")]
-    if changed:
-        after = str(changed[0]["latest_change"]).split("→")[-1]
-        headline = _fit_headline([after])
-        if headline:
-            return {"headline": headline, "kind": "change"}
+    fresh = [row for row in issue_rows
+             if not _is_repeat_of(str(row.get("title") or ""), previous_headline)]
+    if not fresh:  # 전부 어제와 겹치면 순위를 그대로 따른다(억지로 비우지 않는다)
+        fresh = issue_rows
 
-    lead = issue_rows[0]
+    lead = fresh[0]
     headline = _fit_headline([lead.get("title"), lead.get("summary")])
-    return {"headline": headline or EMPTY_HEADLINE, "kind": "issue" if headline else "empty"}
+    if not headline:
+        return {"headline": EMPTY_HEADLINE, "kind": "empty"}
+    # 이어지는 이슈면 '무엇이 달라졌는가', 처음 잡힌 이슈면 '오늘의 핵심 이슈'
+    kind = "change" if lead.get("previous_article_count") else "issue"
+    return {"headline": headline, "kind": kind}
 
 
 def daily_headline(issue_rows: list[dict]) -> str:
@@ -1321,6 +1340,12 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
 
 
 PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
+
+# 기관 표기는 화면에서 정규화한다. 수집 시점 라벨이 그대로 굳으면 이름을 바꿔도
+# 과거 항목은 옛 이름으로 남아 필터에 같은 기관이 두 개로 갈린다.
+PUBLICATION_ORG_ALIASES = {
+    "에너지경제연구원": "에경연",
+}
 
 # KEEI 인사이트 목차 ↔ 이슈 매칭.
 #
@@ -1498,17 +1523,18 @@ def load_publications(now: datetime | None = None) -> dict:
         if not title or not url:
             continue
         display_date = str(item.get("date") or item.get("fetched_at") or "")
+        org_kr = str(item.get("org_kr") or "")
         view = {
             "id": item.get("id") or "",
             "org": item.get("org") or "",
-            "org_kr": item.get("org_kr") or "",
+            "org_kr": PUBLICATION_ORG_ALIASES.get(org_kr, org_kr),
             "kind": item.get("kind") or "",
             "title": title,
             "url": url,
             "date": display_date,
             "is_new": bool(display_date and display_date >= new_cutoff),
         }
-        for optional in ("pdf_url", "toc"):
+        for optional in ("pdf_url", "toc", "title_kr", "gist"):
             if item.get(optional):
                 view[optional] = item[optional]
         items.append(view)
@@ -1531,8 +1557,12 @@ def load_daily_leads() -> dict[str, dict]:
 
 def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "",
                     daily_leads: dict | None = None) -> list[dict]:
-    dates = sorted({item["briefing_date"] for item in news_items if item.get("briefing_date")}, reverse=True)
+    # 오래된 날부터 돈다 — 히어로가 '어제 무엇을 말했는지' 알아야 같은 사건을
+    # 이틀 연속 올리지 않는다. 반환 직전에 최신순으로 뒤집는다(briefings[0] 이
+    # 최신이라는 계약은 스모크·앱이 함께 의존한다).
+    dates = sorted({item["briefing_date"] for item in news_items if item.get("briefing_date")})
     briefings = []
+    previous_headline = ""
 
     for briefing_date in dates:
         current_articles = [item for item in news_items if item.get("briefing_date") == briefing_date]
@@ -1588,7 +1618,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
 
         order_issue_rows(issue_rows)
 
-        lead = daily_lead(issue_rows)
+        lead = daily_lead(issue_rows, previous_headline)
         # 봇이 그날 이슈 전체를 보고 만든 종합 문장이 있으면 그것이 히어로가 된다.
         # 이슈 한 건의 문장으로는 '오늘 무엇이 달라졌는가'에 답할 수 없다.
         headline_evidence: list[dict] = []
@@ -1599,6 +1629,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             headline_evidence = _evidence_chips(
                 stored_lead.get("evidence") or [], issue_rows
             )
+        previous_headline = lead["headline"]
         briefings.append({
             "date": briefing_date,
             "article_count": len(current_articles),
@@ -1624,6 +1655,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             ],
             "issues": issue_rows,
         })
+    briefings.reverse()  # 최신순 — briefings[0] 이 최신이라는 계약
     return briefings
 
 

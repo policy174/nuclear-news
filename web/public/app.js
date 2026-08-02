@@ -522,7 +522,7 @@ function keeiRefLine(issue) {
       ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`
       : esc(label);
   }).join(" · ");
-  return `<p class="issue-keei"><strong>KEEI 인사이트</strong><span>${links}</span></p>`;
+  return `<p class="issue-keei"><strong>에경연 인사이트</strong><span>${links}</span></p>`;
 }
 
 // 상세에서는 KEEI 가 이 사건을 어떤 목차 항목으로 다뤘는지까지 보여준다.
@@ -532,7 +532,7 @@ function keeiDialogSection(issue) {
   if (!refs.length) return "";
   const rows = refs.map(ref => {
     const url = safeUrl(ref.url);
-    const pubLabel = `${ref.org_kr || "에너지경제연구원"}${ref.date ? ` · ${dateLabel(ref.date)}` : ""}`;
+    const pubLabel = `${ref.org_kr || "에경연"}${ref.date ? ` · ${dateLabel(ref.date)}` : ""}`;
     return `<li>
       ${ref.item ? `<span class="keei-item">${esc(ref.item)}</span>` : ""}
       ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(ref.title)} <span aria-hidden="true">↗</span></a>` : `<span>${esc(ref.title)}</span>`}
@@ -540,7 +540,7 @@ function keeiDialogSection(issue) {
     </li>`;
   }).join("");
   return `<section class="dialog-keei" aria-labelledby="issueKeeiTitle">
-    <div class="dialog-section-head"><h3 id="issueKeeiTitle">KEEI 인사이트가 다룬 사건</h3><span>목차와 원문 링크만 제공합니다</span></div>
+    <div class="dialog-section-head"><h3 id="issueKeeiTitle">에경연 인사이트가 다룬 사건</h3><span>목차와 원문 링크만 제공합니다</span></div>
     <ul>${rows}</ul>
   </section>`;
 }
@@ -792,6 +792,10 @@ function pubRow(item) {
   const pdfUrl = safeUrl(item.pdf_url || "");
   const kindLabel = PUB_KIND_LABELS[item.kind] || "";
   const tocIssue = item.toc && item.toc.issue_title ? item.toc.issue_title : "";
+  // 한국어 제목이 있으면 그것이 표제다. 영문 원제는 아래에 작게 남겨
+  // 원문을 찾을 때 대조할 수 있게 한다.
+  const heading = item.title_kr || item.title;
+  const original = item.title_kr && item.title_kr !== item.title ? item.title : "";
   return `<article class="pub-item">
     <div class="pub-meta">
       <span class="pub-org">${esc(item.org_kr || item.org)}</span>
@@ -799,7 +803,9 @@ function pubRow(item) {
       ${item.date ? `<span>${esc(dateLabel(item.date))}</span>` : ""}
       ${item.is_new ? '<span class="pub-new">NEW</span>' : ""}
     </div>
-    <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a>` : esc(item.title)}</h3>
+    <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(heading)}</a>` : esc(heading)}</h3>
+    ${item.gist ? `<p class="pub-gist">${esc(item.gist)}</p>` : ""}
+    ${original ? `<p class="pub-original" lang="en">${esc(original)}</p>` : ""}
     ${tocIssue ? `<p class="pub-toc">현안이슈: ${esc(tocIssue)}</p>` : ""}
     ${pdfUrl ? `<a class="source-link" href="${esc(pdfUrl)}" target="_blank" rel="noopener noreferrer">PDF 원문 <span aria-hidden="true">↗</span></a>` : ""}
   </article>`;

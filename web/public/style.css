@@ -785,6 +785,13 @@ kbd {
   font-weight: 700;
   letter-spacing: .02em;
 }
+.pub-gist { margin: 0 0 6px; color: var(--c-text-secondary); font-size: 13.5px; }
+.pub-original {
+  margin: 0 0 6px;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
 .pub-toc { margin: 0 0 6px; color: var(--c-text-secondary); font-size: 13px; }
 
 /* KEEI 인사이트 참조 — 예외적으로만 붙는 표시라 정보가 된다 */

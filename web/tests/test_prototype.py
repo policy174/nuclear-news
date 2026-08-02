@@ -280,20 +280,53 @@ class DailyHeadlineTests(unittest.TestCase):
         self.assertLessEqual(len(headline), build_data.HEADLINE_LIMIT)
         self.assertNotIn("→", headline)
 
-    def test_change_headline_is_labelled_as_a_change(self):
+    def test_headline_follows_the_ranking_not_the_first_tracked_issue(self):
+        """추적 이슈가 있다고 순위를 건너뛰면 안 된다.
+
+        실측(2026-08-02 라이브): 옛 코드가 '화살표 있는 첫 이슈'를 집는 바람에
+        하위권 헝가리 갈수기 뉴스가 1위였던 한국 우라늄 농축 이슈를 밀어냈다.
+        """
         rows = [
-            {"status": "new", "latest_change": "", "title": "새 이슈", "summary": ""},
-            {
-                "status": "ongoing",
-                "latest_change": "심사가 시작됐다 → 원안위가 신한울 3호기 건설 허가를 의결했다.",
-                "title": "원안위, 신한울 3호기 허가",
-                "summary": "",
-            },
+            {"status": "new", "latest_change": "", "previous_article_count": 0,
+             "title": "사우디에 이어 한국도 미국에 우라늄 농축권한 요청", "summary": ""},
+            {"status": "ongoing", "previous_article_count": 2,
+             "latest_change": "가동 우려 → 헝가리 총리가 원전 가동을 중단할 것이라고 발표했습니다.",
+             "title": "헝가리 총리, 팍스 원전 가동 중단 발표", "summary": ""},
         ]
         lead = build_data.daily_lead(rows)
-        self.assertEqual(lead["kind"], "change")
-        self.assertNotIn("→", lead["headline"])
-        self.assertIn("의결", lead["headline"])
+        self.assertIn("우라늄", lead["headline"])
+        self.assertEqual(lead["kind"], "issue")
+
+    def test_headline_uses_the_title_not_the_generated_change_sentence(self):
+        """제목은 개조식인데 변화 문장은 기사체다 — h1 에는 제목을 쓴다."""
+        rows = [{
+            "status": "ongoing", "previous_article_count": 3,
+            "latest_change": "심사 착수 → 원안위가 신한울 3호기 건설 허가를 의결했습니다.",
+            "title": "원안위, 신한울 3호기 건설 허가 의결", "summary": "",
+        }]
+        lead = build_data.daily_lead(rows)
+        self.assertEqual(lead["headline"], "원안위, 신한울 3호기 건설 허가 의결")
+        self.assertEqual(lead["kind"], "change")  # 이어지는 이슈라 '달라졌는가'
+        self.assertNotIn("의결했습니다", lead["headline"])
+
+    def test_headline_skips_an_issue_the_previous_day_already_led_with(self):
+        """이틀 연속 같은 사건을 '무엇이 달라졌는가'로 내걸면 거짓말이 된다."""
+        rows = [
+            {"status": "ongoing", "previous_article_count": 2,
+             "title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표", "summary": ""},
+            {"status": "new", "previous_article_count": 0,
+             "title": "한수원, 영덕군과 신규 원전 건설 협력 합의", "summary": ""},
+        ]
+        yesterday = "헝가리 총리, 다뉴브강 수위 저하로 팍스 원전 가동 중단 경고"
+        self.assertIn("영덕", build_data.daily_lead(rows, yesterday)["headline"])
+        # 전날 정보가 없으면 순위를 그대로 따른다
+        self.assertIn("헝가리", build_data.daily_lead(rows)["headline"])
+
+    def test_all_issues_repeating_still_produces_a_headline(self):
+        rows = [{"status": "ongoing", "previous_article_count": 1,
+                 "title": "헝가리 총리, 팍스 원전 가동 중단 발표", "summary": ""}]
+        lead = build_data.daily_lead(rows, "헝가리 총리, 팍스 원전 가동 중단 경고")
+        self.assertIn("헝가리", lead["headline"])  # 억지로 비우지 않는다
 
     def test_headline_without_a_change_is_not_labelled_as_one(self):
         rows = [{"status": "new", "latest_change": "", "title": "한수원, 체코 본계약 서명", "summary": ""}]
@@ -966,10 +999,14 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_p4_briefings_declare_what_the_headline_is(self):
         for briefing in self.briefings:
-            self.assertIn(briefing["headline_kind"], {"change", "issue", "empty"})
+            self.assertIn(briefing["headline_kind"],
+                          {"change", "issue", "empty", "synthesis"})
             self.assertIn("changed_issue_count", briefing)
+            # '무엇이 달라졌는가'는 헤드라인 이슈가 실제로 **이어지는** 이슈일 때만
+            # 내건다. 예전에는 화살표(latest_change) 유무로 판정했는데, 화살표는
+            # 요약 되풀이면 지워지므로 이어지는 이슈인데도 0이 될 수 있다.
             if briefing["headline_kind"] == "change":
-                self.assertGreater(briefing["changed_issue_count"], 0)
+                self.assertGreater(briefing["tracked_issue_count"], 0)
 
     def test_p5_detail_order_related_issues_and_mobile_actions(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

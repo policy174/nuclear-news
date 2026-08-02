@@ -99,6 +99,10 @@ jobs:
       # Pages 배포 예산 +0 — 다음 짝수시 배포·daily-brief 배포에 자연 반영.
       - name: Fetch publications (1일 1회)
         continue-on-error: true
+        env:
+          # 영문 제목의 한국어 해석용(배치 1회). 없으면 원문 제목으로 뜬다.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
         run: |
           if [ "${{ inputs.fetch_publications }}" = "true" ]; then
             echo "dispatch 강제 실행"; python pubs_fetch.py
