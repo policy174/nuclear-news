@@ -284,12 +284,31 @@ class TestSelectionFloor(unittest.TestCase):
                                        {"nice_to_know": 14.0})
         self.assertFalse(ok2)
 
-    def test_must_read_always_exempt(self):
+    def test_must_read_is_not_exempt_by_grade(self):
+        """등급 면제는 제거했다 — 등급이 점수를 무조건 이기면 하한이 무의미해진다.
+
+        must_read 의 상당수가 LLM 판정이 아니라 큐레이션 실패 폴백이 붙인 값이었다.
+        등급을 점수 위에 두려면 등급을 믿을 수 있어야 한다.
+        근거: docs/AS_IS.md C1′.
+        """
         weak = item(h="mr", importance="must_read", features=feat(event_type="opinion"))
-        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"nice_to_know": 14.0,
-                                                               "must_read": 99.0})
+        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"must_read": 99.0})
+        self.assertFalse(ok)
+        self.assertEqual(reason, "below_floor")
+
+    def test_must_read_passes_when_no_limit_configured(self):
+        """운영 설정에는 must_read 하한이 없다 — 등급별 하한을 안 걸면 통과한다."""
+        weak = item(h="mr", importance="must_read", features=feat(event_type="opinion"))
+        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"nice_to_know": 14.0})
         self.assertTrue(ok)
-        self.assertEqual(reason, "exempt_grade")
+        self.assertEqual(reason, "no_limit_for_grade")
+
+    def test_missing_features_exempt_even_for_graded_floor(self):
+        """결손 면제는 등급 하한보다 먼저 걸린다 — 데이터 결손을 중요도로 읽지 않는다."""
+        legacy = item(h="mr", importance="must_read")  # features 키 자체가 없음
+        ok, reason = ranking.floor_verdict(legacy, {"mr": 1.0}, {"must_read": 99.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "exempt_no_features")
 
     def test_missing_features_exempt(self):
         """features 결손은 데이터 문제이지 중요도 문제가 아니다."""

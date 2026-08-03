@@ -445,9 +445,15 @@ def select_diverse(items: list[dict], scores: dict[str, float], k: int,
 # 청신호'(11.6, must_read) 같은 국내 핵심 뉴스가 탈락했다.
 # 근거: docs/2026-08-03-selection-floor-backtest.md
 #
-# 그래서 하한은 등급별로 걸고, 면제 2종을 둔다.
-
-FLOOR_EXEMPT_GRADE = "must_read"   # 등급 자체가 중요도 판정 — 점수로 다시 거르지 않는다
+# 그래서 하한에는 **면제 1종**을 둔다 — features 결손.
+#
+# 등급 면제(must_read 무조건 통과)는 2026-08-03 에 제거했다. 20회차 표본에서 한 번도
+# 발동하지 않는 조항이었고(features 있는 must_read 중 하한 미만 0건 — 결손 면제가 이미
+# 같은 항목을 전부 통과시킨다), 결손이 고쳐지면 "must_read 는 점수와 무관하게 전량
+# 통과"만 남아 명세 P1(채우지 않는다)을 그 등급 전체에 대해 무효화한다.
+# 등급을 점수 위에 두려면 등급을 믿을 수 있어야 하는데, must_read 의 상당수는 LLM
+# 판정이 아니라 큐레이션 실패 폴백이 붙인 값이었다(S1 에서 차단).
+# 근거: docs/score_distribution.md §7-2, docs/AS_IS.md C1′.
 
 
 def floor_verdict(item: dict, scores: dict[str, float],
@@ -455,14 +461,12 @@ def floor_verdict(item: dict, scores: dict[str, float],
     """하한 통과 여부와 사유. floor 는 {등급: 하한} dict (또는 None=미적용)."""
     if not floor:
         return True, "no_floor"
-    grade = _get_importance(item)
-    if grade == FLOOR_EXEMPT_GRADE:
-        return True, "exempt_grade"
     # features 가 없으면 점수가 등급 기본값에 고정된다(_legacy_score). 데이터 결손을
-    # 중요도로 오독하지 않도록 하한 판정에서 빼고 통과시킨다.
+    # 중요도로 오독하지 않도록 하한 판정에서 빼고 통과시킨다. 이 면제가 없으면
+    # 하한이 "중요하지 않은 기사"가 아니라 "큐레이션이 실패한 기사"를 자른다.
     if sanitize_features(item.get("features")) is None:
         return True, "exempt_no_features"
-    limit = floor.get(grade)
+    limit = floor.get(_get_importance(item))
     if limit is None:
         return True, "no_limit_for_grade"
     return scores.get(item.get("hash", ""), 0.0) >= float(limit), "below_floor"
