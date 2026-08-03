@@ -40,6 +40,12 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:  # gemini_client 없이도 import 가능해야 한다 (테스트는 대역 클라이언트를 넣는다)
+    from gemini_client import GeminiTruncated
+except ImportError:  # pragma: no cover
+    class GeminiTruncated(Exception):  # type: ignore[no-redef]
+        """gemini_client 부재 시 자리표시자 — 아무것도 여기 걸리지 않는다."""
+
 ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "issue_llm_reviews.json"
 
@@ -55,6 +61,20 @@ PROMPT_VERSION = 1
 # 한 번에 묻는 쌍 수. 한국어 판정 한 줄이 40~60 토큰이라 20쌍이면 출력이
 # 1,500 토큰 안쪽이다. thinking 토큰이 출력 예산을 먹으므로 여유를 크게 둔다.
 BATCH_SIZE = 20
+
+# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다. 8192 로는
+# **본문이 1,500 토큰이어도** thinking 이 예산을 다 쓰면 잘린다 —
+# gemini_client.GeminiTruncated 가 이 파일을 그 함정의 사례로 지목하고 있고,
+# news_bot 은 같은 이유로 8192 → 16384 로 올렸다(BATCH_MAX_OUTPUT_TOKENS).
+# 2026-08-04 02:49 실측: 밴드를 0.84 로 넓힌 뒤 첫 실호출 40쌍이 전건
+# calls=0 / failed=40 으로 죽었다. 과금·지연은 실사용 토큰 기준이라 천장만 높인다.
+MAX_OUTPUT_TOKENS = 16384
+
+# 잘림은 입력을 줄이면 사라진다. 같은 예산으로 다시 불러도 같은 자리에서 잘리므로
+# 재시도가 아니라 분할이 답이다(news_bot.SPLITTABLE_FAILURES 와 같은 판단).
+# 분할 예산을 묶어두는 이유는 20 → 1 까지 쪼개면 한 회차에 호출이 폭증하기 때문이다.
+SPLIT_BUDGET = 4
+MIN_SPLIT_SIZE = 2
 
 # 한 빌드에서 **새로** 묻는 쌍의 상한. 하한을 0.84 로 내린 첫 빌드에는 밀려 있던
 # 후보가 146건(실측) 한꺼번에 들어온다. 그걸 한 번에 물으면 8회 호출이 한 빌드에
@@ -185,6 +205,35 @@ def _parse_response(payload: dict, count: int) -> dict[int, tuple[bool, str]]:
     return out
 
 
+def classify_failure(exc: Exception) -> str:
+    """호출 실패를 '다시 부를 가치가 있는가'로 나눈다.
+
+    ``news_bot.classify_request_failure`` 와 같은 판단이다. 여기 따로 두는 이유는
+    이 모듈이 build_data 를 import 하지 않는다는 가드레일 때문이다(순환 방지).
+    """
+    msg = str(exc)
+    if "RESOURCE_EXHAUSTED" in msg or "HTTP 429" in msg:
+        return "quota"
+    if "timed out" in msg.lower() or "TimeoutError" in msg:
+        return "timeout"
+    return "other"
+
+
+def _record_failure(stats: dict, chunk: list[dict], label: str,
+                    exc: Exception | None = None) -> None:
+    """실패를 사유별로 남긴다.
+
+    예전에는 ``except Exception`` 이 사유를 통째로 지웠다. 그래서 2026-08-04 02:49
+    빌드가 ``calls=0 / failed=40`` 으로 죽었을 때 **한도 소진인지 잘림인지 알 수
+    없었고**, 대응이 정반대인 두 경우를 구분하려고 또 두 시간을 기다려야 했다.
+    """
+    stats["failed"] += len(chunk)
+    stats["status"] = "partial_failure"
+    stats["failure_reasons"][label] = stats["failure_reasons"].get(label, 0) + len(chunk)
+    if exc is not None and not stats.get("failure_detail"):
+        stats["failure_detail"] = f"{type(exc).__name__}: {str(exc)[:160]}"
+
+
 def _ask_priority(row: dict) -> tuple:
     """새로 물어볼 쌍의 우선순위. 큰 것부터 묻는다.
 
@@ -225,6 +274,8 @@ def review_pairs(review_candidates: list[dict], *,
         "rejected": 0,
         "failed": 0,
         "deferred": 0,
+        "splits": 0,
+        "failure_reasons": {},
         "status": "ok",
     }
     if not pairs:
@@ -259,27 +310,43 @@ def review_pairs(review_candidates: list[dict], *,
         if client is None or not client.is_available():
             stats["status"] = "no_api_key"
             stats["failed"] = len(todo)
+            stats["failure_reasons"]["no_api_key"] = len(todo)
             todo = []
 
     now = datetime.now(timezone.utc).isoformat()
-    for start in range(0, len(todo), batch_size):
-        chunk = todo[start:start + batch_size]
+    split_budget = SPLIT_BUDGET
+
+    def ask(chunk: list[dict]) -> None:
+        """chunk 하나를 판정한다. 잘림이면 절반으로 쪼개 다시 부른다."""
+        nonlocal split_budget
         try:
             payload = client.call_json(
                 SYSTEM_PROMPT,
                 build_user_message(chunk),
                 temperature=0.0,
-                max_output_tokens=8192,
+                max_output_tokens=MAX_OUTPUT_TOKENS,
             )
-        except Exception:  # noqa: BLE001 — 실패는 '병합 안 함'으로 흡수
-            stats["failed"] += len(chunk)
-            stats["status"] = "partial_failure"
-            continue
+        except GeminiTruncated as exc:
+            # 같은 예산으로 다시 부르면 같은 자리에서 잘린다 — 입력을 줄여야 한다.
+            if len(chunk) >= MIN_SPLIT_SIZE * 2 and split_budget > 0:
+                split_budget -= 1
+                stats["splits"] += 1
+                mid = len(chunk) // 2
+                ask(chunk[:mid])
+                ask(chunk[mid:])
+                return
+            _record_failure(stats, chunk, "truncated", exc)
+            return
+        except Exception as exc:  # noqa: BLE001 — 실패는 '병합 안 함'으로 흡수
+            _record_failure(stats, chunk, classify_failure(exc), exc)
+            return
         stats["calls"] += 1
         parsed = _parse_response(payload, len(chunk))
         for idx, row in enumerate(chunk):
             if idx not in parsed:
                 stats["failed"] += 1
+                stats["failure_reasons"]["unparsed"] = \
+                    stats["failure_reasons"].get("unparsed", 0) + 1
                 continue
             verdict, reason = parsed[idx]
             verdicts[row["candidate_id"]] = verdict
@@ -294,6 +361,9 @@ def review_pairs(review_candidates: list[dict], *,
                 "model": getattr(client, "MODEL", ""),
                 "reviewed_at": now,
             }
+
+    for start in range(0, len(todo), batch_size):
+        ask(todo[start:start + batch_size])
 
     if stats["asked"]:
         save_cache(cache, cache_path)

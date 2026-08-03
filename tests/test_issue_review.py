@@ -36,14 +36,17 @@ class FakeClient:
         self._available = available
         self.raises = raises
         self.calls = []
+        self.kwargs = []
 
     def is_available(self):
         return self._available
 
     def call_json(self, system_prompt, user_message, **kwargs):
         self.calls.append(user_message)
+        self.kwargs.append(kwargs)
         if self.raises:
-            raise RuntimeError("429 rate limited")
+            raise self.raises if isinstance(self.raises, BaseException) \
+                else RuntimeError("429 rate limited")
         return self.responses.pop(0) if self.responses else {"items": []}
 
 
@@ -146,6 +149,66 @@ class ReviewTests(unittest.TestCase):
         self.assertEqual(stats["status"], "partial_failure")
         self.assertEqual(stats["failed"], 1)
         self.assertFalse(self.cache_path.exists())
+
+    def test_failure_reason_is_recorded_not_erased(self):
+        """2026-08-04 02:49 회귀 — calls=0/failed=40 인데 원인을 알 수 없었다.
+
+        한도 소진과 잘림은 대응이 정반대다(전자는 재시도 금지, 후자는 분할).
+        사유를 안 남기면 두 시간짜리 왕복을 한 번 더 해야 한다.
+        """
+        client = FakeClient(raises=RuntimeError("HTTP 429 RESOURCE_EXHAUSTED"))
+        _verdicts, stats = self.review([candidate("p1"), candidate("p2")], client)
+        self.assertEqual(stats["failure_reasons"], {"quota": 2})
+        self.assertIn("RESOURCE_EXHAUSTED", stats["failure_detail"])
+
+    def test_timeout_and_other_are_labelled_apart(self):
+        for exc, label in ((RuntimeError("socket timed out"), "timeout"),
+                           (RuntimeError("무언가 이상함"), "other")):
+            with self.subTest(label=label):
+                _v, stats = self.review([candidate("p1")], FakeClient(raises=exc))
+                self.assertEqual(stats["failure_reasons"], {label: 1})
+
+    def test_truncation_splits_instead_of_giving_up(self):
+        """잘림은 같은 예산으로 다시 불러도 같은 자리에서 잘린다 — 쪼개야 산다."""
+        calls = {"n": 0}
+
+        class Splitting(FakeClient):
+            def call_json(self, system_prompt, user_message, **kwargs):
+                self.calls.append(user_message)
+                calls["n"] += 1
+                if user_message.count("[") > 2:     # 3쌍 이상이면 잘린다
+                    raise issue_review.GeminiTruncated("MAX_TOKENS 출력 예산 소진")
+                n = user_message.count("[")
+                return {"items": [{"idx": i, "same_event": True, "reason": "ok"}
+                                  for i in range(n)]}
+
+        rows = [candidate(f"p{i}") for i in range(4)]
+        verdicts, stats = self.review(rows, Splitting(), batch_size=4)
+        self.assertEqual(len(verdicts), 4)          # 전건 살아났다
+        self.assertGreaterEqual(stats["splits"], 1)
+        self.assertEqual(stats["failed"], 0)
+
+    def test_split_budget_stops_runaway_halving(self):
+        """20 → 1 까지 쪼개면 한 회차에 호출이 폭증한다. 예산이 소진되면 포기한다."""
+        class AlwaysTruncated(FakeClient):
+            def call_json(self, system_prompt, user_message, **kwargs):
+                self.calls.append(user_message)
+                raise issue_review.GeminiTruncated("MAX_TOKENS")
+
+        client = AlwaysTruncated()
+        rows = [candidate(f"p{i}") for i in range(16)]
+        verdicts, stats = self.review(rows, client, batch_size=16)
+        self.assertEqual(verdicts, {})
+        self.assertEqual(stats["failure_reasons"].get("truncated"), 16)
+        self.assertLessEqual(stats["splits"], issue_review.SPLIT_BUDGET)
+
+    def test_output_ceiling_is_raised_for_the_thinking_budget(self):
+        """8192 로 되돌리면 밴드 확장 첫 호출이 다시 전건 죽는다."""
+        self.assertGreaterEqual(issue_review.MAX_OUTPUT_TOKENS, 16384)
+        client = FakeClient([verdict_response(1)])
+        self.review([candidate("p1")], client)
+        self.assertEqual(client.kwargs[0]["max_output_tokens"],
+                         issue_review.MAX_OUTPUT_TOKENS)
 
     def test_malformed_response_drops_only_the_bad_pair(self):
         client = FakeClient([{"items": [
