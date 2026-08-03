@@ -823,24 +823,50 @@ _EXPLICIT_UNCERTAINTY = (
 )
 
 
-def norm_open_question(item: dict, importance: str, event_type: str = "") -> tuple[str, str]:
-    """(open_question, open_question_source). 근거를 못 대면 빈 값."""
+def open_question_reject_reason(item: dict, importance: str,
+                                event_type: str = "") -> str:
+    """게이트에서 걸린 사유. 통과하면 빈 문자열.
+
+    ``norm_open_question`` 은 다섯 갈래를 전부 ``("", "unknown")`` 하나로 돌려준다.
+    그래서 **아카이브 51건 must_read 가 전건 0인데도 원인을 못 짚었다**(2026-08-03
+    실측). LLM 이 애초에 안 쓴 것과 게이트가 먹은 것은 대응이 정반대다 — 전자면
+    프롬프트를, 후자면 게이트를 봐야 한다. 그 둘을 가르려고 사유를 따로 뽑았다.
+
+    판정 로직의 단일 출처다. ``norm_open_question`` 이 이 함수를 쓰므로 둘이 어긋날
+    수 없다. 조건을 고치면 여기만 고친다.
+    """
     if importance != "must_read":
-        return "", "unknown"
+        return "not_must_read"
     text = clean_text(item.get("open_question"))
+    if not text:
+        # LLM 이 아예 안 썼다(null 또는 빈 문자열). 게이트 문제가 아니다.
+        return "llm_null"
     source = (item.get("open_question_source") or "").strip().lower()
-    if not text or source not in OPEN_QUESTION_SOURCES:
+    if source not in OPEN_QUESTION_SOURCES:
         # 근거 위치를 지목하지 못했으면 문장 자체를 버린다. 그럴듯한 문장이
         # 근거 없이 남는 것이 정보가 없는 것보다 나쁘다.
-        return "", "unknown"
-    if len(text) > OPEN_QUESTION_LIMIT or text.rstrip().endswith("?"):
-        return "", "unknown"
+        return "no_source"
+    if len(text) > OPEN_QUESTION_LIMIT:
+        return "too_long"
+    if text.rstrip().endswith("?"):
+        return "is_question"
     if any(pattern in text for pattern in _FORECAST_PATTERNS):
-        return "", "unknown"
+        return "forecast"
     if event_type == "incident_safety" and not any(
             marker in text for marker in _EXPLICIT_UNCERTAINTY):
+        return "incident_no_uncertainty"
+    return ""
+
+
+def norm_open_question(item: dict, importance: str, event_type: str = "") -> tuple[str, str]:
+    """(open_question, open_question_source). 근거를 못 대면 빈 값.
+
+    판정은 ``open_question_reject_reason`` 이 한다 — 사유별 계측과 같은 코드를 쓴다.
+    """
+    if open_question_reject_reason(item, importance, event_type):
         return "", "unknown"
-    return text, source
+    return (clean_text(item.get("open_question")),
+            (item.get("open_question_source") or "").strip().lower())
 
 
 def normalize_curation_item(item: dict, article: dict) -> dict:
@@ -1041,6 +1067,58 @@ def append_curation_failure(lost: dict[str, str], articles: list[dict],
     return True
 
 
+def append_open_question_stats(verdicts: dict[str, dict],
+                               path: Path | None = None,
+                               now: datetime | None = None) -> bool:
+    """must_read 가 ``open_question`` 게이트의 **어느 조건**에서 걸렸는지 남긴다.
+
+    왜 필요한가: 2026-08-03 기준 아카이브 must_read 51건의 ``open_question`` 이
+    전건 비어 있는데, 원인을 짚을 수 없었다. 게이트가 다섯 사유를 하나로 뭉개고
+    아무 기록도 남기지 않기 때문이다. 이 값이 0인 한 웹의 이슈 지도(Atlas)에서
+    '남은 질문' 노드를 만들 수 없다 — 그래서 원인 규명이 선행 조건이다.
+
+    **생성률을 KPI 로 삼지 말 것.** 게이트를 풀면 AI 가 미확정 사항을 지어낸다.
+    이 기록은 *어디서 막히는가* 를 보기 위한 것이지 *몇 건 나왔나* 를 올리기 위한
+    것이 아니다. 특히 ``llm_null`` 이 대부분이면 게이트는 무죄고 프롬프트를 봐야 한다.
+
+    ``record_type`` 이 붙은 줄은 기존 리더가 전부 건너뛴다
+    (``daily_lead.collect_today`` · ``metrics.load_data`` · ``build_data``).
+    """
+    if not verdicts:
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+    reasons: dict[str, int] = {}
+    for row in verdicts.values():
+        label = row.get("reason") or "accepted"
+        reasons[label] = reasons.get(label, 0) + 1
+    rec = {
+        "record_type": "open_question_gate",
+        "date": now.astimezone(KST).date().isoformat(),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "must_read": len(verdicts),
+        "accepted": reasons.get("accepted", 0),
+        "reasons": reasons,
+        # 걸린 원문을 몇 건 남긴다. "게이트가 먹었다"까지는 집계로 알 수 있지만
+        # **무엇을 먹었는지**는 문장을 봐야 판단이 선다(예: 전부 물음표로 끝나면
+        # 프롬프트의 '완결형 서술문' 지시가 안 먹히는 것이다).
+        "samples": [
+            {"hash": h, "reason": row.get("reason", ""),
+             "text": (row.get("text") or "")[:120],
+             "source": row.get("source", "")}
+            for h, row in list(verdicts.items())
+            if row.get("reason") not in ("", "accepted")
+        ][:10],
+    }
+    try:
+        with path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        print(f"  ! open_question 게이트 기록 실패: {exc}")
+        return False
+    return True
+
+
 def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
     """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
 
@@ -1111,6 +1189,16 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             seen_indexes.add(idx)
             art = chunk[idx]
             normalized = normalize_curation_item(item, art)
+            # open_question 게이트 계측. hash 로 덮어쓰므로 분할 재시도가 같은 기사를
+            # 두 번 세지 않는다(마지막 판정이 남는다). 판정 자체는 바꾸지 않는다.
+            if normalized.get("importance") == "must_read":
+                oq_verdicts[art["hash"]] = {
+                    "reason": open_question_reject_reason(
+                        item, "must_read",
+                        (normalized.get("features") or {}).get("event_type", "")),
+                    "text": clean_text(item.get("open_question")),
+                    "source": (item.get("open_question_source") or "").strip().lower(),
+                }
             # ★ 결손을 막는 실효 지점. 프롬프트가 features 를 요구하므로 빠진 응답은
             # 재생성 대상이다. 여기서 안 잡으면 결손인 채 캐시·큐에 들어가고, 큐에
             # 들어간 기사는 sent 로 마킹돼 다시 수집되지 않으므로 고칠 기회가 없다.
@@ -1129,6 +1217,7 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
 
     out: dict[str, dict] = {}
     lost: dict[str, str] = {}          # hash → 최종 실패 사유 (유실 기록용)
+    oq_verdicts: dict[str, dict] = {}  # hash → open_question 게이트 판정 (계측용)
     split_budget = BATCH_SPLIT_BUDGET
 
     def process(chunk: list[dict], label: str) -> None:
@@ -1186,6 +1275,15 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         print(f"  ! 큐레이션 유실 {len(lost)}/{len(articles)}건 — "
               f"delivery_log.jsonl 에 기록 (fallback 큐레이션으로 넘어감)")
         append_curation_failure(lost, articles)
+
+    if oq_verdicts:
+        blocked: dict[str, int] = {}
+        for row in oq_verdicts.values():
+            blocked[row.get("reason") or "accepted"] = \
+                blocked.get(row.get("reason") or "accepted", 0) + 1
+        print(f"  · open_question 게이트: must_read {len(oq_verdicts)}건 → "
+              + " / ".join(f"{k} {v}" for k, v in sorted(blocked.items())))
+        append_open_question_stats(oq_verdicts)
 
     return out
 

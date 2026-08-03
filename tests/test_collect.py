@@ -390,6 +390,51 @@ class TestOpenQuestionGate(unittest.TestCase):
             nb.norm_open_question(self.GOOD, "must_read", "contract_award")[0],
             self.GOOD["open_question"])
 
+    def test_reject_reason_separates_llm_null_from_gate(self):
+        """계측의 존재 이유. 이 둘이 갈리지 않으면 대응을 정할 수 없다.
+
+        LLM 이 안 쓴 것이면 프롬프트를, 게이트가 먹은 것이면 조건을 봐야 한다.
+        2026-08-03 실측에서 must_read 51건이 전건 0인데 어느 쪽인지 몰랐다.
+        """
+        reason = nb.open_question_reject_reason
+        self.assertEqual(reason({"open_question": None}, "must_read"), "llm_null")
+        self.assertEqual(reason({"open_question": "   "}, "must_read"), "llm_null")
+        self.assertEqual(
+            reason({"open_question": "계약 시점은 미정이다."}, "must_read"), "no_source")
+
+    def test_reject_reason_labels_every_branch(self):
+        reason = nb.open_question_reject_reason
+        self.assertEqual(reason(self.GOOD, "must_read"), "")          # 통과
+        self.assertEqual(reason(self.GOOD, "nice_to_know"), "not_must_read")
+        self.assertEqual(reason({"open_question": "가" * (nb.OPEN_QUESTION_LIMIT + 1),
+                                 "open_question_source": "title"}, "must_read"), "too_long")
+        self.assertEqual(reason({"open_question": "최종 계약은 언제 체결될까?",
+                                 "open_question_source": "title"}, "must_read"), "is_question")
+        self.assertEqual(reason({"open_question": "연내 착공에 들어갈 것으로 보인다.",
+                                 "open_question_source": "title"}, "must_read"), "forecast")
+        self.assertEqual(reason({"open_question": "향후 대응 방향에 관심이 쏠린다.",
+                                 "open_question_source": "article_text"},
+                                "must_read", "incident_safety"), "incident_no_uncertainty")
+
+    def test_reject_reason_is_the_single_source_of_truth(self):
+        """norm_open_question 이 사유 판정과 어긋나면 계측이 거짓말을 한다."""
+        cases = [
+            (self.GOOD, "must_read", ""),
+            (self.GOOD, "nice_to_know", ""),
+            ({"open_question": "가" * 99, "open_question_source": "title"}, "must_read", ""),
+            ({"open_question": "언제 될까?", "open_question_source": "title"}, "must_read", ""),
+            ({"open_question": "조사 중이다.", "open_question_source": "title"},
+             "must_read", "incident_safety"),
+            ({"open_question": "관심이 쏠린다.", "open_question_source": "title"},
+             "must_read", "incident_safety"),
+        ]
+        for item, grade, event_type in cases:
+            with self.subTest(item=item, grade=grade):
+                rejected = bool(nb.open_question_reject_reason(item, grade, event_type))
+                dropped = nb.norm_open_question(item, grade, event_type) == ("", "unknown")
+                self.assertEqual(rejected, dropped)
+
+
     def test_normalize_curation_item_wires_the_gate(self):
         item = {"importance": "must_read", "summary": "정부가 계획을 발표했다.",
                 "features": {"event_type": "incident_safety", "korea_relevance": 0,
@@ -412,6 +457,45 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(record["open_question"], self.GOOD["open_question"])
         self.assertEqual(record["open_question_source"], "article_text")
 
+
+class TestOpenQuestionStats(unittest.TestCase):
+    """게이트 계측 기록 — 값이 0인 원인을 재현 없이 답할 수 있어야 한다."""
+
+    def _write(self, verdicts):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "delivery_log.jsonl"
+            ok = nb.append_open_question_stats(verdicts, path=path)
+            rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines()] \
+                if path.exists() else []
+            return ok, rows
+
+    def test_counts_by_reason_and_keeps_samples(self):
+        ok, rows = self._write({
+            "h1": {"reason": "", "text": "계약 시점 미정이다.", "source": "title"},
+            "h2": {"reason": "llm_null", "text": "", "source": ""},
+            "h3": {"reason": "is_question", "text": "언제 될까?", "source": "title"},
+        })
+        self.assertTrue(ok)
+        self.assertEqual(len(rows), 1)
+        rec = rows[0]
+        self.assertEqual(rec["record_type"], "open_question_gate")
+        self.assertEqual(rec["must_read"], 3)
+        self.assertEqual(rec["accepted"], 1)
+        self.assertEqual(rec["reasons"], {"accepted": 1, "llm_null": 1, "is_question": 1})
+        # 통과분은 샘플에 안 담는다 — 보려는 건 '무엇이 걸렸나'다.
+        self.assertEqual({s["reason"] for s in rec["samples"]}, {"llm_null", "is_question"})
+
+    def test_empty_verdicts_write_nothing(self):
+        ok, rows = self._write({})
+        self.assertFalse(ok)
+        self.assertEqual(rows, [])
+
+    def test_record_type_lines_are_skipped_by_existing_readers(self):
+        """기사 집계를 오염시키면 안 된다 — 기존 리더는 전부 truthy 검사다."""
+        _ok, rows = self._write({"h1": {"reason": "llm_null", "text": "", "source": ""}})
+        self.assertTrue(rows[0].get("record_type"))
+        self.assertIsNone(rows[0].get("hash"))
+        self.assertIsNone(rows[0].get("importance"))
 
 class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
     """배치 출력 예시에 구체적 빈 값을 박으면 모델이 그 값을 그대로 베낀다.
