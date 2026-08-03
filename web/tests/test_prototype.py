@@ -635,6 +635,60 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertEqual(len(issues), 1)
         self.assertEqual([member["hash"] for member in issues[0]["members"]], ["a", "b", "c"])
 
+    def _nrc_rulemaking_articles(self):
+        """일반 제목 1건 + 서로 다른 규정 2건. 라이브 사고의 최소 재현."""
+        return [
+            {
+                "hash": "a", "briefing_date": "2026-08-01", "article_date": "2026-08-01",
+                "title_kr": "미국 원자력규제위원회, 공청회서 신규 규정 제안 내용 공개",
+                "tags": ["#NRC", "#규정제안"], "countries": ["US"],
+            },
+            {
+                "hash": "b", "briefing_date": "2026-08-02", "article_date": "2026-08-02",
+                "title_kr": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+                "tags": ["#NRC", "#환경영향평가"], "countries": ["US"],
+            },
+            {
+                "hash": "c", "briefing_date": "2026-08-03", "article_date": "2026-08-03",
+                "title_kr": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+                "tags": ["#NRC", "#방사성물질운송"], "countries": ["US"],
+            },
+        ]
+
+    def test_rejected_pair_vetoes_the_whole_cluster_not_just_one_reference(self):
+        """쌍 판정은 전이적이지 않다 — A=B, A=C 를 승인해도 B≠C 면 갈라야 한다.
+
+        2026-08-03 라이브(issue-6b93ed7e22e9bb4b)에서 서로 다른 NRC 규정 제정
+        2건이 일반적 제목을 경유해 한 이슈로 합쳐졌다. LLM 은 그 둘을 "서로 다른
+        규정 제안"으로 이미 기각한 상태였는데도, 멤버 하나만 맞으면 합류시키는
+        탐욕적 매칭이 기각을 우회했다.
+        """
+        articles = self._nrc_rulemaking_articles()
+        pair = build_data._pair_id
+        overrides = {
+            "approved": set(), "rejected": set(),
+            "llm_approved": {pair("a", "b"), pair("a", "c")},
+            "llm_rejected": {pair("b", "c")},
+        }
+        issues = build_data.cluster_selected_articles(articles, None, None, overrides, [])
+        members = {issue["issue_id"]: [m["hash"] for m in issue["members"]] for issue in issues}
+        same_cluster = [hashes for hashes in members.values() if "b" in hashes and "c" in hashes]
+        self.assertEqual(
+            same_cluster, [],
+            f"'다른 사건'으로 기각된 b·c 가 한 묶음에 있다: {members}")
+
+    def test_veto_does_not_fire_without_a_rejection(self):
+        """거부권이 없을 땐 기존 병합 동작이 그대로여야 한다(과교정 방지)."""
+        articles = self._nrc_rulemaking_articles()
+        pair = build_data._pair_id
+        overrides = {
+            "approved": set(), "rejected": set(),
+            "llm_approved": {pair("a", "b"), pair("a", "c")},
+            "llm_rejected": set(),
+        }
+        issues = build_data.cluster_selected_articles(articles, None, None, overrides, [])
+        self.assertEqual(len(issues), 1, "기각이 없는데 묶음이 갈렸다")
+
 
 class GeneratedDataTests(unittest.TestCase):
     @classmethod

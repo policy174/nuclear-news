@@ -1345,6 +1345,8 @@ def cluster_selected_articles(
     selected.sort(key=lambda item: (item["briefing_date"], item["article_date"], item["hash"]))
     issues: list[dict] = []
     overrides = match_overrides or {"approved": set(), "rejected": set()}
+    # '다른 사건'으로 이미 판정된 쌍. 사람 판정과 LLM 판정을 같이 본다.
+    veto_pairs = set(overrides.get("rejected") or ()) | set(overrides.get("llm_rejected") or ())
     candidate_rows = review_candidates if review_candidates is not None else []
     seen_candidates = {_pair_id(row.get("left_hash"), row.get("right_hash")) for row in candidate_rows}
 
@@ -1357,6 +1359,22 @@ def cluster_selected_articles(
         for issue in issues:
             last_day = _parse_day(issue["last_seen"])
             if article_day and last_day and (article_day - last_day).days > ISSUE_WINDOW_DAYS:
+                continue
+            # 클러스터 전체 거부권 — 쌍 단위 판정은 전이적이지 않다.
+            #
+            # A=B 와 A=C 를 각각 승인해도 B≠C 라면 셋을 한 묶음으로 만들면 안 된다.
+            # 아래 매칭은 멤버 하나만 맞으면 합류시키는 탐욕적 구조라, 거부된 짝이
+            # 같은 이슈 안에 있어도 다른 멤버를 통해 들어올 수 있다.
+            #
+            # 실제 사고(2026-08-03 라이브, issue-6b93ed7e22e9bb4b): 서로 다른 NRC
+            # 규정 제정 2건(환경영향평가 / 방사성 물질 운송)이 '공청회서 신규 규정
+            # 제안'이라는 일반적 제목을 경유해 한 이슈로 합쳐졌다. LLM 은 그 둘을
+            # "서로 다른 규정 제안"으로 **정확히 기각한 상태였다** — 판정기가 아니라
+            # 판정을 이어붙이는 이 지점이 문제였다.
+            if veto_pairs and any(
+                _pair_id(article["hash"], member["hash"]) in veto_pairs
+                for member in issue["members"]
+            ):
                 continue
             # 대표 기사 한 건만 보면 표현이 단계적으로 바뀌는 A→B→C 후속 보도가
             # 끊길 수 있다. 최근 기사 3건 중 가장 가까운 연결을 사용한다.
@@ -2497,8 +2515,16 @@ def build() -> None:
     # 두 번 돌려도 비용이 없다. 판정이 0건이면 2차 실행 자체를 건너뛴다.
     llm_verdicts, llm_stats = issue_review.review_pairs(review_candidates)
     llm_approved = {pair_id for pair_id, same in llm_verdicts.items() if same}
-    if llm_approved:
-        match_overrides = {**match_overrides, "llm_approved": llm_approved}
+    # 기각도 2차 묶음에 반영한다. 승인만 넘기면 "다른 사건"이라는 판정이 버려져,
+    # 유사도만으로 붙는 경로가 그대로 살아 과병합이 난다(위 거부권 주석 참고).
+    # ``same`` 이 None 인 실패 건은 어느 쪽으로도 쓰지 않는다.
+    llm_rejected = {pair_id for pair_id, same in llm_verdicts.items() if same is False}
+    if llm_approved or llm_rejected:
+        match_overrides = {
+            **match_overrides,
+            "llm_approved": llm_approved,
+            "llm_rejected": llm_rejected,
+        }
         review_candidates = []
         issues = cluster_selected_articles(
             news_items,
@@ -2728,6 +2754,8 @@ def build() -> None:
         "remote_embedding_selected_count": remote_embedded_selected_count,
         "llm_review": llm_stats,
         "llm_approved": sorted(llm_approved),
+        # 기각도 남긴다 — 거부권이 실제로 걸렸는지 audit 만 보고 확인할 수 있어야 한다.
+        "llm_rejected": sorted(llm_rejected),
         "review_candidates": review_candidates,
         "overrides": {
             "approved": sorted(match_overrides["approved"]),
