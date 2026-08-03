@@ -22,6 +22,7 @@ daily_leads.json 을 git add 하는데, 파일이 없으면 pathspec 실패로 �
 from __future__ import annotations
 
 import json
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -55,7 +56,17 @@ SYSTEM_PROMPT = """당신은 한국수력원자력 정책부서의 시니어 정
   가동 차질이 함께 진행됐습니다."
 - 이슈가 한 건뿐이면 그 사실만 한 문장으로 적을 것. 억지로 묶지 말 것.
 - 한국어 자연문 한 문장, 90자 이내, 마침표로 끝낼 것.
-- 묶을 만한 공통점이 없으면 lead 를 빈 문자열로 둘 것. 억지로 쓰지 말 것.
+
+[가장 중요 — 추상화 금지]
+- **고유명사(국가·기관·설비명) 또는 수치를 최소 하나 반드시 포함할 것.**
+- "다양한 논의", "상황 변화", "여러 동향" 같은 뭉뚱그린 표현 금지. 무엇이
+  움직였는지 이름을 대야 한다.
+  나쁜 예: "국내외에서 원자력 정책과 현실에 대한 다양한 논의가 있었습니다"
+  좋은 예: "중국이 신규 원전 8기를 승인한 가운데 헝가리는 가뭄으로 가동을
+           중단했습니다"
+- 이슈들에 공통점이 없으면 **가장 큰 두 건만 골라** 이름을 대고 이어 붙일 것.
+  전부를 아우르려다 아무 말도 못 하는 문장이 되면 실패다.
+- 그래도 쓸 수 없으면 lead 를 빈 문자열로 둘 것. 억지로 쓰지 말 것.
 
 [출력 — JSON 한 객체만]
 {"lead": "...", "evidence_idx": [0, 3]}
@@ -147,6 +158,36 @@ def _finish(text: str) -> str:
     return text
 
 
+_WORD_RE = re.compile(r"[0-9A-Za-z가-힣]{2,}")
+# 이 낱말만으로 이루어진 문장은 아무 것도 말하지 않은 것이다.
+_VAGUE_WORDS = {
+    "국내", "해외", "국내외", "원자력", "원전", "에너지", "정책", "현실", "동향",
+    "다양", "다양한", "여러", "각종", "전반", "관련", "논의", "상황", "변화",
+    "진행", "확인", "이슈", "사안", "분야", "부문", "있었습니다", "있었다",
+    "이어졌습니다", "나타났습니다", "및", "대한", "대해", "함께",
+}
+
+
+def is_substantive(lead: str, items: list[dict], summaries: dict) -> bool:
+    """문장이 실제 사실을 담았는지 — 근거 항목의 낱말을 실제로 쓰는가.
+
+    하루 이슈에 공통 주제가 없으면 모델이 '비워 두라'는 지시를 어기고 최대한
+    일반적인 문장으로 뭉갠다(실측 2026-08-03: "국내외에서 … 다양한 논의와
+    상황 변화가 있었습니다" — 근거 제목과 공유 낱말 0개).
+    """
+    words = {w for w in _WORD_RE.findall(lead) if w not in _VAGUE_WORDS}
+    if not words:
+        return False
+    source = []
+    for row in items:
+        record = summaries.get(row.get("hash") or "") or {}
+        source.append(str(row.get("title_kr") or record.get("title_kr")
+                          or record.get("title") or ""))
+    source_words = {w for w in _WORD_RE.findall(" ".join(source))
+                    if w not in _VAGUE_WORDS}
+    return len(words & source_words) >= 2
+
+
 def _clause_cut(text: str) -> str:
     """LEAD_LIMIT 초과 문장을 절 경계에서 자른다. 경계가 없으면 말줄임."""
     window = text[:LEAD_LIMIT]
@@ -194,11 +235,34 @@ def _save_leads(leads: dict) -> None:
 
 
 def _call_lead(items: list[dict], summaries: dict[str, dict]) -> dict:
-    """1차 호출 + 길이 초과 시 압축 재호출 1회 + 최후 절 경계 절단."""
+    """1차 호출 → 공허하면 재호출 → 길이 초과면 압축 재호출 → 최후 절단."""
     user_message = build_user_message(items, summaries)
     result = call_json(SYSTEM_PROMPT, user_message,
                        temperature=0.2, max_output_tokens=8192)
     lead = _normalize(result.get("lead"))
+
+    # 공허한 문장은 구체적인 이슈 제목보다 못하다. 이름을 대라고 다시 시킨다.
+    if lead and not is_substantive(lead, items, summaries):
+        print(f"[lead] 종합 문장이 구체성 없음 — 재요청: {lead[:50]}")
+        vague_message = (
+            f"{user_message}\n\n"
+            f"[재요청] 방금 작성한 문장이 아무 사실도 담지 못했습니다:\n{lead}\n"
+            "위 이슈 중 **가장 큰 두 건**을 골라 국가·기관·설비 이름과 수치를 "
+            "그대로 넣어 한 문장으로 다시 쓰세요. '다양한', '상황 변화' 같은 "
+            "뭉뚱그린 표현을 쓰면 실패입니다."
+        )
+        try:
+            retry = call_json(SYSTEM_PROMPT, vague_message,
+                              temperature=0.2, max_output_tokens=8192)
+            better = _normalize(retry.get("lead"))
+            if better and is_substantive(better, items, summaries):
+                lead, result = better, retry
+            else:
+                # 두 번 시도해도 안 되면 쓰지 않는다 — 웹이 제목 폴백을 쓴다
+                return {"lead": "", "result": result, "truncated": False}
+        except GeminiError:
+            return {"lead": "", "result": result, "truncated": False}
+
     if not lead or len(lead) <= LEAD_LIMIT:
         return {"lead": _finish(lead), "result": result, "truncated": False}
 

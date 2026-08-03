@@ -1465,6 +1465,13 @@ def _fit_headline(candidates: list[object]) -> str:
 
 
 SYNTHESIS_LIMIT = 90  # 봇 종합 문장 상한 — daily_lead.LEAD_LIMIT와 동일 계약
+# 종합 문장이 그날 이슈 제목과 공유해야 하는 최소 의미 토큰 수.
+# 하루 이슈에 공통 주제가 없으면 모델이 "비워 두라"는 지시를 어기고 최대한
+# 일반적인 문장으로 뭉갠다. 실측(2026-08-03 라이브):
+#   "국내외에서 원자력 및 에너지 정책과 현실에 대한 다양한 논의와 상황 변화가
+#    있었습니다" → 이슈 제목과 공유 토큰 0개
+# 같은 날 구체적 문장이라면 6~7개가 겹친다. 0~1개면 아무 말도 안 한 것이다.
+SYNTHESIS_MIN_SHARED = 2
 _CLAUSE_BOUNDARIES = ("며, ", "고, ", "지만 ", "으나 ", ", ")
 
 
@@ -1486,6 +1493,19 @@ def _fit_synthesis(text: str) -> str:
     if best > 20:
         return window[:best].rstrip().rstrip(",")
     return window[: SYNTHESIS_LIMIT - 1].rstrip() + "…"
+
+
+def synthesis_is_substantive(lead: str, issue_rows: list[dict]) -> bool:
+    """종합 문장이 실제로 무언가를 말하는지.
+
+    그날 이슈 제목과 의미 토큰을 나눠 갖지 못하면 구체적인 사실을 하나도
+    담지 못한 문장이다. 그런 문장은 제목 폴백(구체적 이슈 제목)보다 못하다.
+    """
+    if not lead:
+        return False
+    titles = " ".join(str(row.get("title") or "") for row in issue_rows)
+    shared = _keei_shared(_keei_match_tokens(lead), _keei_match_tokens(titles))
+    return len(shared) >= SYNTHESIS_MIN_SHARED
 
 
 def _evidence_chips(evidence: list, issue_rows: list[dict]) -> list[dict]:
@@ -2040,7 +2060,8 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
         headline_evidence: list[dict] = []
         stored_lead = (daily_leads or {}).get(briefing_date) or {}
         synthesis = _fit_synthesis(stored_lead.get("lead"))
-        if synthesis:
+        # 공허한 종합 문장은 쓰지 않는다 — 구체적인 이슈 제목보다 못하다.
+        if synthesis and synthesis_is_substantive(synthesis, issue_rows):
             lead = {"headline": synthesis.rstrip(".!?"), "kind": "synthesis"}
             headline_evidence = _evidence_chips(
                 stored_lead.get("evidence") or [], issue_rows

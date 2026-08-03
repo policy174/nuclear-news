@@ -1098,8 +1098,11 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertNotIn("sort_score", rows[0])
 
     def test_daily_lead_replaces_the_hero_sentence_when_present(self):
+        # 제목이 "이슈 제목" 같은 형식이면 어떤 종합 문장도 구체성 검사를
+        # 통과할 수 없다(공유할 낱말이 없다) — 실제와 비슷한 제목을 쓴다.
         issues = [{
-            "issue_id": "i1", "status": "new", "latest_change": "", "title": "이슈 제목",
+            "issue_id": "i1", "status": "new", "latest_change": "",
+            "title": "원안위, 고리 2호기 계속운전 심사 재개",
             "summary": "", "importance": "must_read", "region": "국내",
             "verification": {"status": "partial"}, "previous_article_count": 0,
         }]
@@ -1108,13 +1111,47 @@ class GeneratedDataTests(unittest.TestCase):
             "issue_id": "i1", "first_seen": "2026-08-01",
             "members": [{
                 "hash": "h1", "briefing_date": "2026-08-01", "article_date": "2026-08-01",
-                "title_kr": "이슈 제목", "summary": "요약입니다.", "region": "국내",
+                "title_kr": "원안위, 고리 2호기 계속운전 심사 재개",
+                "summary": "원안위가 심사를 재개했다.", "region": "국내",
             }],
         }]
-        leads = {"2026-08-01": {"lead": "국내에서는 계속운전 논의가 진행됐습니다."}}
+        leads = {"2026-08-01": {"lead": "원안위가 고리 2호기 계속운전 심사를 재개했습니다."}}
         built = build_data.build_briefings(news, clusters, "", leads)
         self.assertEqual(built[0]["headline_kind"], "synthesis")
         self.assertIn("계속운전", built[0]["headline"])
+
+    def test_vacuous_synthesis_is_rejected_in_favour_of_a_concrete_title(self):
+        """아무 사실도 담지 못한 종합 문장은 구체적인 제목보다 못하다.
+
+        실측(2026-08-03 라이브): 그날 이슈에 공통 주제가 없자 모델이 '비워
+        두라'는 지시를 어기고 "국내외에서 원자력 및 에너지 정책과 현실에 대한
+        다양한 논의와 상황 변화가 있었습니다"를 내놨다 — 이슈 제목과 공유하는
+        의미 토큰이 0개다(같은 날 구체적 문장이라면 6~7개).
+        """
+        issue_rows = [
+            {"issue_id": "i1", "previous_article_count": 0,
+             "title": "중국 정부, 신규 원전 8기 건설 승인", "summary": ""},
+            {"issue_id": "i2", "previous_article_count": 0,
+             "title": "헝가리 원전, 가뭄으로 가동 중단", "summary": ""},
+        ]
+        vacuous = "국내외에서 원자력 및 에너지 정책과 현실에 대한 다양한 논의와 상황 변화가 있었습니다"
+        concrete = "중국이 신규 원전 8기를 승인한 가운데 헝가리는 가뭄으로 가동을 중단했습니다"
+        self.assertFalse(build_data.synthesis_is_substantive(vacuous, issue_rows))
+        self.assertTrue(build_data.synthesis_is_substantive(concrete, issue_rows))
+        self.assertFalse(build_data.synthesis_is_substantive("", issue_rows))
+
+        news = [{"briefing_date": "2026-08-03", "region": "해외"}]
+        clusters = [{
+            "issue_id": "i1", "first_seen": "2026-08-03",
+            "members": [{"hash": "h1", "briefing_date": "2026-08-03",
+                         "article_date": "2026-08-03", "region": "해외",
+                         "title_kr": "중국 정부, 신규 원전 8기 건설 승인",
+                         "summary": "중국이 신규 원전 8기를 승인했다."}],
+        }]
+        built = build_data.build_briefings(
+            news, clusters, "", {"2026-08-03": {"lead": vacuous}})
+        self.assertNotEqual(built[0]["headline_kind"], "synthesis")
+        self.assertIn("중국", built[0]["headline"])
 
     def test_overlength_synthesis_is_clamped_at_build_time(self):
         """생성 단계가 90자를 지키지만, 계약 위반 데이터가 와도 h1이 문단으로

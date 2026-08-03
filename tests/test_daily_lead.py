@@ -22,11 +22,21 @@ LONG_LEAD = (
 )
 
 
+# 제목은 실제와 비슷해야 한다 — "이슈 0" 같은 제목으로는 어떤 종합 문장도
+# 구체성 검사를 통과할 수 없어(공유할 낱말이 없다) 테스트가 게이트를 잘못 잡는다.
+_TITLES = [
+    "한수원, 영덕군과 신규 원전 건설 협력 합의",
+    "헝가리 원전, 가뭄으로 가동 중단",
+    "중국 정부, 신규 원전 8기 건설 승인",
+    "미국 NRC, 환경심사 규정 개정안 발표",
+]
+
+
 def delivery_row(idx=0, date="2026-08-02"):
     return {
         "date": date,
         "hash": f"hash{idx}",
-        "title_kr": f"이슈 {idx}",
+        "title_kr": _TITLES[idx % len(_TITLES)],
         "score": 10 - idx,
         "region": "국내" if idx % 2 == 0 else "해외",
     }
@@ -108,10 +118,10 @@ class DailyLeadTestCase(unittest.TestCase):
 
     def test_success_saves_lead_with_evidence(self):
         self.write_log([delivery_row(0), delivery_row(1)])
-        self.responses = [{"lead": "국내와 해외 이슈가 함께 움직였습니다", "evidence_idx": [0, 1, 99]}]
+        self.responses = [{"lead": "한수원이 영덕군과 신규 원전 건설에 합의한 가운데 헝가리는 가뭄으로 가동을 중단했습니다", "evidence_idx": [0, 1, 99]}]
         self.assertTrue(daily_lead.generate())
         entry = self.read_leads()["2026-08-02"]
-        self.assertEqual(entry["lead"], "국내와 해외 이슈가 함께 움직였습니다.")
+        self.assertIn("영덕군", entry["lead"])
         self.assertEqual([e["hash"] for e in entry["evidence"]], ["hash0", "hash1"])
         self.assertNotIn("truncated", entry)
 
@@ -121,7 +131,7 @@ class DailyLeadTestCase(unittest.TestCase):
             encoding="utf-8",
         )
         self.write_log([delivery_row(0)])
-        self.responses = [{"lead": "오늘 문장", "evidence_idx": [0]}]
+        self.responses = [{"lead": "한수원이 영덕군과 신규 원전 건설에 합의했습니다", "evidence_idx": [0]}]
         self.assertTrue(daily_lead.generate())
         self.assertNotIn("2020-01-01", self.read_leads())
 
@@ -130,10 +140,10 @@ class DailyLeadTestCase(unittest.TestCase):
     def test_overlength_retries_once_and_uses_short(self):
         self.write_log([delivery_row(0)])
         self.responses = [{"lead": LONG_LEAD, "evidence_idx": [0]},
-                          {"lead": "짧게 압축된 문장", "evidence_idx": [0]}]
+                          {"lead": "한수원이 영덕군과 신규 원전 건설에 합의했습니다", "evidence_idx": [0]}]
         self.assertTrue(daily_lead.generate())
         entry = self.read_leads()["2026-08-02"]
-        self.assertEqual(entry["lead"], "짧게 압축된 문장.")
+        self.assertIn("영덕군", entry["lead"])
         self.assertEqual(len(self.calls), 2)
         self.assertNotIn("truncated", entry)
 
@@ -146,6 +156,33 @@ class DailyLeadTestCase(unittest.TestCase):
         self.assertTrue(entry.get("truncated"))
         self.assertLessEqual(len(entry["lead"]), daily_lead.LEAD_LIMIT + 1)
         self.assertTrue(entry["lead"])
+
+    # ── 공허한 종합 문장 차단 ─────────────────────────────────
+
+    def test_vacuous_lead_is_detected(self):
+        items = [{"hash": "a", "title_kr": "중국 정부, 신규 원전 8기 건설 승인"},
+                 {"hash": "b", "title_kr": "헝가리 원전, 가뭄으로 가동 중단"}]
+        vacuous = "국내외에서 원자력 및 에너지 정책과 현실에 대한 다양한 논의와 상황 변화가 있었습니다."
+        concrete = "중국이 신규 원전 8기를 승인한 가운데 헝가리는 가뭄으로 가동을 중단했습니다."
+        self.assertFalse(daily_lead.is_substantive(vacuous, items, {}))
+        self.assertTrue(daily_lead.is_substantive(concrete, items, {}))
+
+    def test_vacuous_first_answer_triggers_a_retry(self):
+        self.write_log([delivery_row(0), delivery_row(1)])
+        vacuous = "국내외에서 다양한 논의와 상황 변화가 있었습니다"
+        self.responses = [{"lead": vacuous, "evidence_idx": [0]},
+                          {"lead": "한수원이 영덕군과 신규 원전 건설에 합의했습니다", "evidence_idx": [0]}]
+        self.assertTrue(daily_lead.generate())
+        self.assertEqual(len(self.calls), 2, "공허하면 한 번 더 물어야 한다")
+        self.assertIn("영덕군", self.read_leads()["2026-08-02"]["lead"])
+
+    def test_twice_vacuous_saves_nothing_so_web_uses_the_title(self):
+        self.write_log([delivery_row(0)])
+        vacuous = "국내외에서 다양한 논의와 상황 변화가 있었습니다"
+        self.responses = [{"lead": vacuous, "evidence_idx": [0]},
+                          {"lead": vacuous, "evidence_idx": [0]}]
+        self.assertFalse(daily_lead.generate())
+        self.assertNotIn("2026-08-02", self.read_leads())
 
     def test_clause_cut_prefers_boundary(self):
         cut = daily_lead._clause_cut(LONG_LEAD)
