@@ -1,11 +1,14 @@
 """weekly_bot / metrics / gemini_client 단위 테스트."""
+import io
 import json
 import os
 import sys
 import unittest
+import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -126,6 +129,80 @@ class TestGeminiSalvage(unittest.TestCase):
     def test_hopeless_raises(self):
         with self.assertRaises(Exception):
             gemini_client._salvage_json("완전 깨진 응답")
+
+
+class TestGeminiTruncationIsTyped(unittest.TestCase):
+    """출력 예산 소진(MAX_TOKENS)은 일반 실패와 대응이 정반대다.
+
+    회귀 방지 (2026-08-03): 2.5-flash 의 thinking 토큰이 maxOutputTokens 를 먹어
+    chunk 가 통째로 날아가던 경로. 예전엔 두 모양 다 뭉뚱그린 GeminiError 라
+    호출자가 '쪼개서 다시'와 '건드리지 말 것'을 구분할 수 없었다.
+    """
+
+    @staticmethod
+    def _payload(parts, finish="MAX_TOKENS"):
+        content = {"role": "model"}
+        if parts is not None:
+            content["parts"] = [{"text": parts}]
+        return {
+            "candidates": [{"content": content, "finishReason": finish}],
+            "usageMetadata": {"thoughtsTokenCount": 8192,
+                              "candidatesTokenCount": 0, "totalTokenCount": 11592},
+        }
+
+    def _drive(self, payload):
+        """실제 call_json 을 HTTP 층만 갈아끼워 돌린다. 호출 횟수도 센다."""
+        calls = []
+
+        class _Resp(io.BytesIO):
+            def __enter__(self_inner):
+                return self_inner
+
+            def __exit__(self_inner, *a):
+                return False
+
+        def fake_urlopen(req, timeout=None):
+            calls.append(1)
+            return _Resp(json.dumps(payload).encode("utf-8"))
+
+        with patch.object(gemini_client, "API_KEY", "test-key"), \
+                patch.object(urllib.request, "urlopen", fake_urlopen), \
+                patch.object(gemini_client.time, "sleep", lambda *a, **k: None):
+            try:
+                return gemini_client.call_json("sys", "user"), None, len(calls)
+            except Exception as e:      # noqa: BLE001 — 타입까지 검사 대상
+                return None, e, len(calls)
+
+    def test_thinking_ate_budget_raises_truncated(self):
+        """parts 자체가 없는 모양 — 생각만 하다 예산이 끝난 경우."""
+        _, err, _ = self._drive(self._payload(None))
+        self.assertIsInstance(err, gemini_client.GeminiTruncated)
+        self.assertIn("MAX_TOKENS", str(err))
+        self.assertIn("thoughts=8192", str(err))
+
+    def test_truncated_json_raises_truncated_without_wasting_retries(self):
+        """같은 예산으로 3번 더 불러봐야 같은 자리에서 잘린다 — 한도만 태운다."""
+        _, err, n_calls = self._drive(self._payload('{"items": [{"idx": 0, "sum'))
+        self.assertIsInstance(err, gemini_client.GeminiTruncated)
+        self.assertEqual(n_calls, 1)
+
+    def test_truncation_detail_stays_legible_when_log_truncates(self):
+        """사유가 앞쪽에 있어야 로그가 잘려도 원인이 남는다."""
+        _, err, _ = self._drive(self._payload(None))
+        self.assertIn("MAX_TOKENS", str(err)[:80])
+
+    def test_malformed_without_max_tokens_is_still_generic_error(self):
+        """잘림이 아닌 구조 이상은 기존대로 — 잘못 분류하면 엉뚱하게 쪼갠다."""
+        _, err, _ = self._drive({"candidates": [{"content": {"role": "model"}},
+                                                ]})
+        self.assertIsInstance(err, gemini_client.GeminiError)
+        self.assertNotIsInstance(err, gemini_client.GeminiTruncated)
+
+    def test_parseable_response_still_returns_even_if_max_tokens(self):
+        """운 좋게 딱 맞게 끝났으면 통과시킨다 — 항목 결손은 호출자가 idx 로 잡는다."""
+        out, err, _ = self._drive(self._payload('{"items": []}'))
+        self.assertIsNone(err)
+        self.assertEqual(out, {"items": []})
 
 
 class TestWeeklyReportStore(unittest.TestCase):

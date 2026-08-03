@@ -63,6 +63,18 @@ class GeminiError(RuntimeError):
     """Gemini 호출 실패."""
 
 
+class GeminiTruncated(GeminiError):
+    """출력 토큰 예산 소진으로 응답이 잘렸다 (finishReason=MAX_TOKENS).
+
+    2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다. 예산이 바닥나면
+    parts 가 통째로 비거나(생각만 하다 끝남) JSON 이 중간에서 잘려 나온다.
+
+    **같은 예산으로 다시 불러도 같은 자리에서 잘린다.** 그래서 이건 재시도 신호가
+    아니라 *입력을 줄이라는* 신호다. 호출자가 이 둘을 구분할 수 있도록 따로 뽑았다
+    — 429(한도 소진, 재시도 유해)와 섞이면 대응이 정반대가 된다.
+    """
+
+
 def is_available() -> bool:
     """키가 설정되어 있고 호출 가능한지."""
     return bool(API_KEY)
@@ -88,6 +100,31 @@ def _salvage_json(text: str) -> dict:
     except json.JSONDecodeError:
         # 문자열 값 안의 raw 줄바꿈을 공백으로 (이스케이프된 \\n 은 건드리지 않음)
         return json.loads(s.replace("\r", " ").replace("\n", " "))
+
+
+def _finish_reason(payload: object) -> str:
+    """candidates[0].finishReason. 구조가 예상과 다르면 빈 문자열."""
+    try:
+        return payload["candidates"][0].get("finishReason") or ""   # type: ignore[index]
+    except (KeyError, IndexError, TypeError, AttributeError):
+        return ""
+
+
+def _truncation_detail(payload: object) -> str:
+    """잘림 사유 한 줄 요약.
+
+    payload 전체를 그대로 붙이면 로그에서 앞부분만 남을 때 정작 원인(MAX_TOKENS)이
+    잘려 나간다. 사후에 '왜 잘렸나'를 재현 없이 답할 수 있도록 토큰 내역만 짧게 남긴다.
+    """
+    usage = payload.get("usageMetadata") if isinstance(payload, dict) else None
+    if not isinstance(usage, dict):
+        usage = {}
+    return (
+        "MAX_TOKENS 출력 예산 소진 — "
+        f"thoughts={usage.get('thoughtsTokenCount', '?')} "
+        f"output={usage.get('candidatesTokenCount', '?')} "
+        f"total={usage.get('totalTokenCount', '?')}"
+    )
 
 
 def call_json(
@@ -133,12 +170,25 @@ def call_json(
             try:
                 text = payload["candidates"][0]["content"]["parts"][0]["text"]
             except (KeyError, IndexError) as e:
+                # parts 가 통째로 없는 가장 흔한 원인은 thinking 이 출력 예산을 다 쓴
+                # 것이다. payload 를 그대로 실어 보내면 원인이 로그 뒤로 밀리므로
+                # 잘림은 따로 구분해 짧은 사유로 올린다.
+                if _finish_reason(payload) == "MAX_TOKENS":
+                    raise GeminiTruncated(_truncation_detail(payload)) from e
                 raise GeminiError(f"응답 구조 비정상: {payload}") from e
             try:
                 return json.loads(text)
             except json.JSONDecodeError:
-                # 깨진 응답 복구 시도 (펜스·잡텍스트·문자열 내 줄바꿈)
-                return _salvage_json(text)
+                try:
+                    # 깨진 응답 복구 시도 (펜스·잡텍스트·문자열 내 줄바꿈)
+                    return _salvage_json(text)
+                except json.JSONDecodeError:
+                    # 예산 초과로 잘린 것이면 아래 재시도 절로 흘려보내지 않는다 —
+                    # 같은 maxOutputTokens 로 3번 더 불러도 같은 자리에서 잘리고
+                    # 무료 티어 한도만 4배로 태운다.
+                    if _finish_reason(payload) == "MAX_TOKENS":
+                        raise GeminiTruncated(_truncation_detail(payload)) from None
+                    raise
         except urllib.error.HTTPError as e:
             body_text = e.read().decode("utf-8", errors="replace")
             last_err = GeminiError(f"HTTP {e.code}: {body_text[:300]}")

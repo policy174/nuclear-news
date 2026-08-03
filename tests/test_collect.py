@@ -6,10 +6,13 @@
   프롬프트에 들어가 must_read 로 격상되던 문제
 """
 
+import json
 import os
+import re
 import sys
 import unittest
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -17,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 for _k in ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
     os.environ.setdefault(_k, "test-dummy")
 import news_bot as nb  # noqa: E402
+from gemini_client import GeminiError, GeminiTruncated  # noqa: E402
 
 
 class _Entry(dict):
@@ -154,6 +158,175 @@ class TestCurationQualityGate(unittest.TestCase):
             nb, "gemini_call_json", side_effect=[bad, bad]
         ):
             self.assertEqual(nb.curate_batch([self._article()], []), {})
+
+
+class TestChunkLossIsRecoveredOrRecorded(unittest.TestCase):
+    """호출이 통째로 실패한 chunk 를 조용히 버리지 않는다.
+
+    회귀 방지 (2026-08-03, 프로덕션 run 30772996756): 새 기사 5건이 담긴 chunk 가
+    ``request:`` 실패로 날아갔고, 재시도 대상에서 ``request:`` 를 제외하는 규칙 때문에
+    두 번째 기회도 없었다. 유실 흔적은 콘솔 한 줄뿐이었다.
+
+    유실이 치명적인 이유: 그 기사들은 fallback 큐레이션(영문 제목·implication 공란·
+    features 없음)으로 큐에 들어가고, 큐 적재 순간 ``sent`` 로 마킹돼 재수집이
+    막히므로 영영 복구되지 않는다.
+    """
+
+    def setUp(self):
+        self._tmp = TemporaryDirectory()
+        self.log = Path(self._tmp.name) / "delivery_log.jsonl"
+        self.addCleanup(self._tmp.cleanup)
+
+    @staticmethod
+    def _articles(n):
+        return [{"hash": f"h{i}", "title": f"원전 정책 발표 {i}",
+                 "description": "정부가 신규 원전 계획을 발표했다.",
+                 "link": f"https://example.com/{i}",
+                 "domain": "energy.gov", "publisher": "US DOE"} for i in range(n)]
+
+    @staticmethod
+    def _ok_items(user_message):
+        """프롬프트에 실린 [idx] 개수만큼 정상 항목을 만들어 응답한다."""
+        n = len(re.findall(r"^\[(\d+)\]", user_message, re.M))
+        return {"items": [{
+            "idx": i, "importance": "nice_to_know", "section": "international",
+            "scope": "overseas", "category": "정책", "title_kr": f"신규 원전 계획 {i}",
+            "summary": "정부가 신규 원전 계획을 발표했다.", "implication": "",
+            "why_important": "", "tags": [], "topics": ["newbuild"],
+            "countries": ["US"], "article_type": "policy",
+            "event_date": "2026-08-01", "event_date_type": "announcement",
+            "event_date_precision": "day", "event_date_source": "description",
+            "related_reports": [], "features": {},
+        } for i in range(n)]}
+
+    def _run(self, failures, n=4, chunk=4, budget=6):
+        """failures: 호출 순번(0-based) → 던질 예외. 나머지는 정상 응답."""
+        calls = []
+
+        def fake(system, user, **kw):
+            calls.append(len(re.findall(r"^\[(\d+)\]", user, re.M)))
+            exc = failures.get(len(calls) - 1)
+            if exc:
+                raise exc
+            return self._ok_items(user)
+
+        with patch.object(nb, "gemini_rest_available", return_value=True), \
+                patch.object(nb, "gemini_call_json", side_effect=fake), \
+                patch.object(nb, "BATCH_CHUNK", chunk), \
+                patch.object(nb, "BATCH_SPLIT_BUDGET", budget), \
+                patch.object(nb, "DELIVERY_LOG_FILE", self.log), \
+                patch.object(nb.time, "sleep", lambda *a, **k: None):
+            result = nb.curate_batch(self._articles(n), [])
+        return result, calls
+
+    def _records(self):
+        if not self.log.exists():
+            return []
+        return [json.loads(l) for l in self.log.read_text(encoding="utf-8").splitlines() if l]
+
+    def test_truncated_chunk_is_split_and_fully_recovered(self):
+        result, calls = self._run({0: GeminiTruncated("MAX_TOKENS 출력 예산 소진 — thoughts=8192")})
+        self.assertEqual(set(result), {"h0", "h1", "h2", "h3"},
+                         "잘림은 입력을 줄이면 사라진다 — 한 건도 잃을 이유가 없다")
+        self.assertEqual(calls, [4, 2, 2], "4건 실패 → 2/2 로 쪼개 재시도")
+        self.assertEqual(self._records(), [], "복구했으면 유실 기록도 없어야 한다")
+
+    def test_split_recurses_until_the_bad_article_is_isolated(self):
+        """한 건이 문제여도 나머지는 살린다."""
+        result, _ = self._run(
+            {0: GeminiTruncated("MAX_TOKENS"), 1: GeminiTruncated("MAX_TOKENS")})
+        self.assertEqual(set(result), {"h0", "h1", "h2", "h3"})
+
+    def test_quota_failure_is_not_retried(self):
+        """429 는 쪼개도 그대로다. 다시 부르면 남은 한도만 태운다 (기존 판단 유지)."""
+        result, calls = self._run({0: GeminiError("HTTP 429: RESOURCE_EXHAUSTED")})
+        self.assertEqual(result, {})
+        self.assertEqual(calls, [4], "한도 소진에 추가 호출 금지")
+
+    def test_quota_loss_still_leaves_a_durable_record(self):
+        self._run({0: GeminiError("HTTP 429: RESOURCE_EXHAUSTED")})
+        recs = self._records()
+        self.assertEqual(len(recs), 1)
+        rec = recs[0]
+        self.assertEqual(rec["record_type"], "curation_failure")
+        self.assertEqual(rec["lost"], 4)
+        self.assertEqual(rec["candidates"], 4)
+        self.assertEqual(rec["reasons"], {"quota": 4})
+        self.assertEqual({i["hash"] for i in rec["items"]},
+                         {"h0", "h1", "h2", "h3"})
+        self.assertTrue(all(i["title"] and i["link"] for i in rec["items"]),
+                        "사후에 '어떤 기사였나'를 되짚을 수 있어야 한다")
+
+    def test_unknown_failure_is_not_retried_but_is_recorded(self):
+        """원인 불명은 기존대로 재시도 안 함 — 다만 조용히 사라지지는 않는다."""
+        result, calls = self._run({0: GeminiError("응답 구조 비정상: {...}")})
+        self.assertEqual(result, {})
+        self.assertEqual(calls, [4])
+        self.assertEqual(self._records()[0]["reasons"], {"other": 4})
+
+    def test_split_budget_exhaustion_records_the_loss(self):
+        """예산이 없으면 버리되, 버렸다는 사실은 남긴다."""
+        result, calls = self._run(
+            {0: GeminiTruncated("MAX_TOKENS")}, budget=0)
+        self.assertEqual(result, {})
+        self.assertEqual(calls, [4])
+        self.assertEqual(self._records()[0]["reasons"], {"truncated": 4})
+
+    def test_failure_record_is_skipped_by_delivery_log_readers(self):
+        """새 record_type 이 기사 집계를 오염시키면 안 된다."""
+        self._run({0: GeminiError("HTTP 429: RESOURCE_EXHAUSTED")})
+        rows = self._records()
+        self.assertTrue(all(r.get("record_type") for r in rows))
+        # daily_lead·metrics·build_data 는 전부 truthy record_type 을 건너뛴다.
+        self.assertEqual([r for r in rows if not r.get("record_type")], [])
+
+    def test_partial_chunk_failure_does_not_lose_the_good_ones(self):
+        """뒤 chunk 만 실패해도 앞 chunk 결과는 유지된다."""
+        result, _ = self._run(
+            {1: GeminiError("HTTP 429: RESOURCE_EXHAUSTED")}, n=4, chunk=2)
+        self.assertEqual(set(result), {"h0", "h1"})
+        self.assertEqual(self._records()[0]["lost"], 2)
+
+
+class TestRequestFailureClassification(unittest.TestCase):
+    """대응이 정반대인 실패를 한 라벨로 묶으면 둘 중 하나는 반드시 틀린다."""
+
+    def test_quota_labels(self):
+        self.assertEqual(nb.classify_request_failure(
+            GeminiError("HTTP 429: rate limit")), "quota")
+        self.assertEqual(nb.classify_request_failure(
+            GeminiError("RESOURCE_EXHAUSTED")), "quota")
+
+    def test_timeout_labels(self):
+        self.assertEqual(nb.classify_request_failure(
+            GeminiError("TimeoutError: ")), "timeout")
+        self.assertEqual(nb.classify_request_failure(
+            GeminiError("URLError: <urlopen error timed out>")), "timeout")
+
+    def test_unknown_defaults_to_other(self):
+        self.assertEqual(nb.classify_request_failure(
+            GeminiError("응답 구조 비정상")), "other")
+
+    def test_only_size_shaped_failures_are_splittable(self):
+        self.assertEqual(nb.SPLITTABLE_FAILURES, {"truncated", "timeout"})
+
+    def test_mixed_or_partial_failures_are_not_request_level(self):
+        """품질 게이트 실패가 섞이면 분할이 아니라 기존 재생성 경로로 가야 한다."""
+        chunk = [{"hash": "a"}, {"hash": "b"}]
+        self.assertEqual(nb.request_failure_reason(
+            {"a": ["request:quota:x"], "b": ["summary:incomplete"]}, chunk), "")
+        self.assertEqual(nb.request_failure_reason(
+            {"a": ["request:quota:x"]}, chunk), "", "일부만 실패면 호출 실패가 아니다")
+        self.assertEqual(nb.request_failure_reason(
+            {"a": ["request:truncated:x"], "b": ["request:truncated:y"]}, chunk),
+            "truncated")
+
+    def test_duplicate_hash_in_chunk_still_counts_as_request_failure(self):
+        """건수로 판정하면 중복 hash 인 chunk 가 재생성·기록 어디에도 안 걸려
+        조용히 사라진다 — 고치려던 그 버그가 그대로 재현된다."""
+        chunk = [{"hash": "a"}, {"hash": "a"}]
+        self.assertEqual(nb.request_failure_reason(
+            {"a": ["request:truncated:x"]}, chunk), "truncated")
 
 
 class TestOpenQuestionGate(unittest.TestCase):
