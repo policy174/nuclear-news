@@ -131,7 +131,30 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
-          if [ $(( $(date -u +%H) % 2 )) -ne 0 ]; then echo "홀수 UTC시 — 배포 스킵 (2시간 간격)"; exit 0; fi
+          # 배포 간격은 '지금 몇 시인가'가 아니라 '마지막 배포 이후 얼마나
+          # 지났나'로 잰다. 짝수시 판정은 cron 지연에 취약하다 — GitHub cron 은
+          # 상시 밀리는데, 짝수시에 예약된 실행이 이 스텝에 홀수시로 도달하면
+          # 건너뛰고, 그 다음 홀수시 실행도 건너뛴다. 그러면 배포가 통째로
+          # 사라진다(2026-08-03 실측: 23:17 UTC 이후 4시간 배포 0회).
+          # 라이브 meta.json 의 생성 시각을 보고 판단하므로 상태 파일이 필요 없다.
+          MIN_GAP_MIN=105
+          age=$(python - <<'PY'
+          import json, time, urllib.request
+          from datetime import datetime
+          try:
+              req = urllib.request.Request(
+                  f"https://nuclens.pages.dev/data/meta.json?cb={int(time.time())}",
+                  headers={"User-Agent": "nuclens-deploy-gate/1.0"})
+              built = json.load(urllib.request.urlopen(req, timeout=20))["generated_at"]
+              age = (datetime.now(datetime.fromisoformat(built).tzinfo)
+                     - datetime.fromisoformat(built)).total_seconds() / 60
+              print(int(age))
+          except Exception:
+              print(99999)  # 확인 실패 시엔 배포한다 — 낡은 사이트가 더 나쁘다
+          PY
+          )
+          echo "마지막 배포로부터 ${age}분 경과 (최소 간격 ${MIN_GAP_MIN}분)"
+          if [ "$age" -lt "$MIN_GAP_MIN" ]; then echo "간격 미달 — 배포 스킵"; exit 0; fi
           python web/build_data.py
           npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
 
