@@ -173,6 +173,10 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         # 여기 화이트리스트에 없으면 아카이브에 안 남고 웹에서도 영영 못 본다.
         "open_question": cur.get("open_question", ""),
         "open_question_source": cur.get("open_question_source", "unknown"),
+        # 빈 값이면 통과, 아니면 게이트에서 걸린 사유(llm_null·no_source·forecast…).
+        # must_read 에만 채워진다. 이게 없으면 "LLM 이 안 썼다"와 "게이트가 먹었다"를
+        # 사후에 가를 수 없다 — 둘은 대응이 정반대다(프롬프트 vs 게이트).
+        "open_question_reject": cur.get("open_question_reject", ""),
         "importance": cur.get("importance", ""),
         "section": cur.get("section", ""),
         "scope": cur.get("scope", ""),

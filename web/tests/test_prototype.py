@@ -1416,14 +1416,69 @@ class GeneratedDataTests(unittest.TestCase):
 
         실측: topic=fusion 이면 '지금 달라진 이슈'에 독일 핵융합 카드가 남는데
         '오늘 확인된 이슈'는 빈 상태를 띄워 한 화면이 스스로를 부정했다.
+
+        가드에 조건이 더 붙을 수 있으므로(선두 카드로 옮겨간 경우 등) 줄바꿈까지
+        문자열로 고정하지 않는다 — 지켜야 할 것은 서식이 아니라 '빈 상태보다
+        먼저 다른 구역을 확인한다'는 순서다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("visibleChanged.length", render)
         self.assertIn("section-note", render)
         empty_index = render.index("조건에 맞는 이슈가 없습니다")
-        guard_index = render.index("visibleChanged.length\n      ?")
-        self.assertLess(guard_index, empty_index)
+        guard = re.search(r"visibleChanged\.length[^\n]*\n\s*\?", render)
+        self.assertIsNotNone(guard, "빈 상태 앞에 visibleChanged 를 확인하는 가드가 없다")
+        self.assertLess(guard.start(), empty_index)
+
+    def test_lead_card_is_wired_and_not_duplicated_below(self):
+        """선두 이슈는 자기 자리에 서고, 아래 두 목록에서는 빠져야 한다.
+
+        같은 이슈가 한 화면에 두 번 서면 '8개 이슈' 개수 표시가 실제 카드 수와
+        어긋난다. 그리고 새 컨테이너를 만들면 handleIssueAction 위임 목록에
+        id 를 넣어야 카드 안의 버튼(타임라인·저장·공유)이 산다.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('id="leadIssue"', html)
+        self.assertIn('id="leadCard"', html)
+        self.assertIn("function leadCard(", script)
+        delegation = script.split("handleIssueAction);", 1)[0]
+        self.assertIn('"leadCard"', delegation)
+        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("issue.issue_id !== leadId", render)
+        # 선두는 편집 판단이라 정렬 토글보다 먼저 정해진다 — '최신순'으로 바꿨다고
+        # 가장 먼저 볼 이슈가 달라지면 그건 판단이 아니라 정렬 결과다.
+        self.assertLess(render.index("const lead = issues[0]"),
+                        render.index('state.issueSort === "latest"'))
+
+    def test_lead_card_skips_blocks_that_have_no_data(self):
+        """빈 블록은 세우지 않는다.
+
+        latest_change 는 실측 6%, open_question 은 0% 다. '변화 없음' 같은 줄을
+        매일 세우면 그 자리가 신호가 아니라 배경이 된다 — 카드에서 선정 이유·
+        단일 출처 배지를 뺀 것과 같은 원칙이다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn(".filter(Boolean)", lead)
+        for field in ("issue.summary ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
+            self.assertIn(field, lead)
+        # 라벨을 새로 짓지 않는다. issueDetailModel 이 근거일에 따라 '오늘의 변화'
+        # 와 '최근 변화'를 갈라 주는데, 여기서 '어제와 달라진 점'이라고 이름
+        # 붙이면 데이터가 보장하지 않는 것을 말하게 된다.
+        self.assertIn("model.change.label", lead)
+        # 주석에서는 이 표현을 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("어제와 달라진", code)
+
+    def test_lead_card_type_stays_above_the_minimum(self):
+        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다."""
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        lead_rules = re.findall(r"\.lead-[^{]*\{[^}]*\}", style)
+        self.assertTrue(lead_rules, ".lead-* 규칙이 없다")
+        sizes = [float(size) for rule in lead_rules
+                 for size in re.findall(r"font-size:\s*([\d.]+)px", rule)]
+        self.assertTrue(sizes)
+        self.assertGreaterEqual(min(sizes), 12.5)
 
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")

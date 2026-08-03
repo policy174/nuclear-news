@@ -385,6 +385,7 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(nb.norm_open_question(vague, "must_read", "incident_safety"),
                          ("", "unknown"))
 
+
     def test_non_incident_does_not_need_the_marker(self):
         self.assertEqual(
             nb.norm_open_question(self.GOOD, "must_read", "contract_award")[0],
@@ -456,6 +457,35 @@ class TestOpenQuestionGate(unittest.TestCase):
             "2026-08-03T00:00:00+00:00")
         self.assertEqual(record["open_question"], self.GOOD["open_question"])
         self.assertEqual(record["open_question_source"], "article_text")
+
+    def test_reject_reason_rides_on_the_record(self):
+        """사유가 레코드에 실려야 사후에 원인을 짚을 수 있다.
+
+        ``append_open_question_stats`` 가 delivery_log 에 집계를 남기지만 **크롤
+        잡이 그 파일을 커밋하지 않아 러너와 함께 사라진다**(2026-08-04 실측:
+        커밋된 173건이 전부 발송 기록, record_type 붙은 줄 0건). 아카이브는
+        커밋되므로, 사유가 여기 없으면 다음에도 재현부터 해야 한다.
+        """
+        art = {"hash": "h1", "title": "t", "domain": "example.com"}
+        gate_hit = nb.normalize_curation_item(
+            {"importance": "must_read", "open_question": "최종 계약은 언제 체결될까?",
+             "open_question_source": "article_text"}, art)
+        self.assertEqual(gate_hit["open_question"], "")
+        self.assertEqual(gate_hit["open_question_reject"], "is_question")
+        # LLM 이 안 쓴 것과 게이트가 먹은 것은 대응이 정반대다 — 레코드만 보고
+        # 갈릴 수 있어야 한다.
+        llm_null = nb.normalize_curation_item(
+            {"importance": "must_read", "open_question": None}, art)
+        self.assertEqual(llm_null["open_question_reject"], "llm_null")
+        accepted = nb.normalize_curation_item({"importance": "must_read", **self.GOOD}, art)
+        self.assertEqual(accepted["open_question_reject"], "")
+
+    def test_non_must_read_is_left_blank_not_labelled(self):
+        """후보가 아닌 626건에 'not_must_read' 를 붙여도 정보가 없다."""
+        out = nb.normalize_curation_item(
+            {"importance": "nice_to_know", **self.GOOD},
+            {"hash": "h1", "title": "t", "domain": "example.com"})
+        self.assertEqual(out["open_question_reject"], "")
 
 
 class TestOpenQuestionStats(unittest.TestCase):
@@ -637,6 +667,39 @@ class TestFallbackCuration(unittest.TestCase):
     def test_fallback_record_is_recuration_candidate(self):
         record = nb.fallback_curation(self._article())
         self.assertTrue(nb.needs_recuration(record))
+
+
+class TestCrawlWorkflowKeepsDiagnostics(unittest.TestCase):
+    """크롤이 남기는 진단 기록이 커밋돼야 한다.
+
+    2026-08-04 실측: 커밋된 delivery_log.jsonl 173건이 **전부 발송 기록**이고
+    record_type 이 붙은 줄은 0건이었다. 크롤 잡의 git add 목록에 이 파일이 없어
+    큐레이션 유실 기록(7b28329)과 open_question 게이트 계측(871388c)이 도입
+    이후 한 줄도 남지 않았다. 둘 다 "다음에 또 나면 재현부터 하지 말자"고 만든
+    기능이라, 커밋되지 않으면 존재 이유가 없다.
+    """
+
+    ROOT = Path(__file__).parent.parent
+
+    def test_crawl_commits_the_delivery_log(self):
+        yml = (self.ROOT / ".github" / "workflows" / "crawl.yml").read_text(encoding="utf-8")
+        self.assertIn("delivery_log.jsonl", yml)
+        # 없는 파일 하나가 스텝 전체를 죽이면 안 된다(weekly.yml 과 같은 관행).
+        self.assertIn("[ -f delivery_log.jsonl ]", yml)
+        # 단순 push 는 daily-brief 와 겹치는 시각에 실패하고, 크롤은 이미 Gemini
+        # 호출을 마친 뒤라 그 시각 수집이 통째로 사라진다.
+        self.assertIn("git rebase origin/main", yml)
+
+    def test_append_only_logs_merge_by_union(self):
+        """rebase 가 붙으려면 append 충돌이 자동 해소돼야 한다.
+
+        crawl 과 daily-brief 가 같은 파일 끝에 각자 줄을 붙이므로 기본 병합기는
+        멈춘다. union 은 양쪽에서 추가된 줄을 둘 다 남긴다 — 줄 하나가 레코드
+        하나인 JSONL 에 맞는 동작이고, 실측으로 확인했다(중복 없이 3줄 보존).
+        """
+        attrs = (self.ROOT / ".gitattributes").read_text(encoding="utf-8")
+        self.assertIn("delivery_log.jsonl merge=union", attrs)
+        self.assertIn("archive/*.jsonl merge=union", attrs)
 
 
 if __name__ == "__main__":
