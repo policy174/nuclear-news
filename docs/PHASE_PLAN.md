@@ -68,30 +68,37 @@ Phase 0 문서 3개. 명세 12장의 *"Phase별 브랜치 분리 / Phase 2는 �
 
 ### 작업
 
-1. **결손이 영구화되는 진짜 원인 수정** ← 확인 완료, 한 줄짜리다
+1. **큐에 들어가기 전에 잡는다** ← 실효 지점 (구현 완료, `aa3315d`)
 
-   `curation_errors()`(`data_quality.py:278`)는 **`features`를 검사하지 않는다**(실측:
-   `features` 없는 payload를 넣어도 `[]` 반환). 그런데 재큐레이션 대상 선정이 이걸 쓴다:
+   `curation_errors()`(`data_quality.py:278`)가 **`features`를 검사하지 않아**(실측: 결손
+   payload도 `[]` 반환) 결손 응답이 완결된 것으로 통과했다.
 
-   ```python
-   news_bot.py:1435   if article["hash"] not in curated or curation_errors(curated[...])
-   news_bot.py:1453   if h in curated and not curation_errors(curated[h]):   # 캐시 그대로 사용
-   ```
+   **되돌릴 수 없게 되는 지점은 큐 적재다.** 기사는 큐에 들어가는 순간 `state["sent"]`에
+   마킹되고 `article_seen()`(`news_bot.py:408`)이 재수집을 막는다 — 실측으로 결손 캐시
+   20건 전부가 `sent`에 있다. 그 뒤에는 어떤 재큐레이션 경로로도 도달하지 못한다.
 
-   → **한 번 결손으로 캐시되면 영원히 재시도되지 않는다.** `score_distribution.md` §4에서
-   7/27~29와 7/31~8/1에 *같은 10건*이 반복 등장하는 이유가 이것이다. 며칠씩 큐에 남아
-   `time_decay`만 깎이다 사라진다.
+   **수정**: `curation_errors()`에 `require_features` 플래그 신설 → `curate_batch()`
+   응답 검증에서만 켠다. 결손 응답은 재생성 대상이 된다.
+   플래그를 기본값 False로 둔 이유: 아카이브 적재·배포 게이트는 '게시 자격' 판정이라
+   features 없이도 통과해야 한다. 켜면 결손 기사가 아카이브에서 통째로 빠져
+   트렌드·`prior_coverage` 재료가 사라진다.
 
-   **수정**: `curation_errors()`에 `features:missing` 검사 추가 → 재큐레이션이 자동으로 걸린다.
-   `require_features` 플래그로 기존 호출부(`:939` `:1061` 검증 게이트)와 분리할지는 구현 시 판단.
+   > 초판에서 "재큐레이션이 안 걸려 같은 10건이 매 회차 재등장한다"고 썼는데 **틀렸다.**
+   > 반복 등장은 **큐 3일 보존**(`news_bot.py:1366`) 때문이다.
 
-2. **폴백의 등급 자동 승격 중단** — `news_bot.py:1464`
-   - 현재: batch 실패 + `is_tier1_source()` → `must_read` 자동 부여, `features` 없음
-   - 변경: 등급을 올리지 않는다. 위 1번으로 다음 crawl에서 재큐레이션되므로 잃는 것이 없다
-3. **결손률 로깅** — 지금은 흔적이 0이다.
+2. **폴백의 등급 자동 승격 중단** — 구현 완료 (`fallback_curation()`)
+   - 기존: batch 실패 + `is_tier1_source()` → `must_read` 자동 부여, `features` 없음
+   - 변경: 등급을 올리지 않는다. 이 레코드는 곧바로 `_legacy_score()`로 빠지므로
+     승격은 "큐레이션이 실패한 1차 출처"를 `must_read`에 섞는 경로였다
+
+3. **2차 방어선** — `needs_recuration()` 구현 완료
+   `features` 결손도 재큐레이션 대상으로 본다. 위 `sent` 마킹 때문에 큐에 못 들어간
+   격리분·`sent` 만료(14일)분에만 도달하는 보조 장치다. `FEATURES_RETRY_LIMIT=2`로
+   무한 재질의를 막는다. **현재 캐시 697건 기준 재큐레이션 대상 순증 0건 — 추가 비용 없음.**
+4. **결손률 로깅** — 지금은 흔적이 0이다.
    - crawl 로그 1줄 + `selection_stats`에 `features_missing` 필드 추가
    - 이게 없으면 고쳐졌는지 판단할 방법이 없다
-4. **관찰 2주** — 신규 수집분 결손률 **5% 미만** 유지
+5. **관찰 2주** — 신규 수집분 결손률 **5% 미만** 유지
 
 ### 수용 기준
 
