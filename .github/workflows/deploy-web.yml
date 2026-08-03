@@ -63,7 +63,13 @@ jobs:
       - name: Check app.js parses
         run: node --check web/public/app.js
 
+      # 데이터 지표 게이트는 끈다. 추적률은 "오늘 뉴스가 어떻게 묶였나"의 결과지
+      # 화면 코드의 성질이 아니다 — 켜 두면 뉴스가 한산한 날 CSS 오타 수정도
+      # 배포가 막힌다(2026-08-03 실측: 추적률 0.125 로 이 워크플로 첫 실행이 실패).
+      # 그 게이트는 crawl.yml·로컬에서 계속 켜져 있다.
       - name: Run web tests
+        env:
+          NUCLENS_SKIP_DATA_GATES: "1"
         run: cd web && python -m unittest discover -s tests
 
       - name: Deploy to Cloudflare Pages

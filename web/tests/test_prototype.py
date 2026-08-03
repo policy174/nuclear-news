@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import sys
 import tempfile
@@ -20,6 +21,20 @@ except (OSError, KeyError, json.JSONDecodeError):
     DATA_DIR = DATA_ROOT
 
 import build_data  # noqa: E402
+
+# 데이터 지표 게이트(추적률 등)를 건너뛴다. 배포 워크플로 전용이다.
+#
+# 왜 필요한가: 추적률은 "오늘 뉴스가 어떻게 묶였나"의 결과지 화면 코드의 성질이
+# 아니다. 이걸 배포 경로에서 게이트로 쓰면 뉴스가 한산한 날에는 CSS 오타 수정도
+# 배포가 막힌다(실측 2026-08-03: 0.125 로 deploy-web.yml 이 통째로 실패).
+#
+# 값을 낮춰 통과시키지 않는 이유: 0.20 은 한때 실제로 달성했던 수치이고
+# (메모리 28.57%), 지금 0.125 인 건 Phase 0-B 병합 판정기가 미완이라는 신호다.
+# 골대를 옮기면 그 신호가 사라진다. 게이트는 그대로 두고 **어디서 켜는지**만 나눈다.
+#
+#   crawl.yml · 로컬       → 켠다 (데이터 품질을 보는 자리)
+#   deploy-web.yml         → 끈다 (화면 코드를 배포하는 자리)
+SKIP_DATA_GATES = os.environ.get("NUCLENS_SKIP_DATA_GATES") == "1"
 
 
 class BrandAccessibilityTests(unittest.TestCase):
@@ -972,13 +987,24 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertEqual(self.issue_audit["matching_version"], "hybrid-review-v4")
         self.assertTrue(self.issue_audit["review_candidates"])
         self.assertTrue(all(row["review_state"] == "pending" for row in self.issue_audit["review_candidates"]))
-        # 추적률 기준은 원격 Gemini 임베딩이 있는 빌드(CI)에만 적용한다.
-        # 로컬 빌드는 폴백 벡터라 병합이 보수적이어서 구조적으로 기준 미달
-        # (실측 0.125 — 코드 결함이 아니라 환경 차이).
-        if self.meta.get("remote_embedding_selected_count", 0):
-            self.assertGreaterEqual(self.meta["latest_briefing_tracking_rate"], 0.20)
         self.assertTrue(self.issue_audit["clusters"])
         self.assertTrue(all(cluster["matches"] for cluster in self.issue_audit["clusters"]))
+
+    @unittest.skipIf(SKIP_DATA_GATES, "배포 경로에서는 데이터 지표를 게이트로 쓰지 않는다")
+    def test_latest_briefing_tracking_rate_meets_target(self):
+        """이슈 추적률 게이트. **배포가 아니라 데이터 품질을 보는 자리다.**
+
+        원격 Gemini 임베딩이 있는 빌드에만 적용한다 — 로컬 폴백 벡터는 병합이
+        보수적이라 구조적으로 낮게 나온다(환경 차이지 코드 결함이 아니다).
+
+        2026-08-03 실측 0.125. 한때 0.2857 이었고(사람 검토 큐 도입 직후),
+        계획서 §3-C 가 "현행 12.5% 대비 개선"을 Phase 0 목표로 적어둔 그 숫자다.
+        **이 테스트가 빨간 것은 Phase 0-B(병합 판정기)가 미완이라는 뜻이다.**
+        임계값을 내려 통과시키지 말 것 — 그러면 신호가 사라진다.
+        """
+        if not self.meta.get("remote_embedding_selected_count", 0):
+            self.skipTest("로컬 폴백 벡터 빌드 — 추적률 기준 적용 대상이 아니다")
+        self.assertGreaterEqual(self.meta["latest_briefing_tracking_rate"], 0.20)
 
     def test_manual_merge_overrides_are_auditable(self):
         approved = set(self.issue_audit["overrides"]["approved"])
