@@ -854,8 +854,6 @@ kbd {
 .side-verification .v-partial { color: var(--c-text-muted); }
 .side-verification .v-unverified { color: var(--c-unverified); }
 .side-verification .empty { margin: 0; color: var(--c-text-muted); font-size: 13.5px; }
-.quick-topics { display: flex; flex-wrap: wrap; gap: 6px; }
-.quick-topics button { padding: 4px 8px; border: 1px solid var(--c-border); border-radius: 999px; background: transparent; color: var(--c-text-secondary); font-size: 12.5px; }
 
 .feed-drawer { margin-top: 22px; border: 1px solid var(--c-border); border-radius: var(--r-2); background: var(--c-surface); }
 .feed-drawer summary { display: flex; justify-content: space-between; align-items: center; min-height: 52px; padding: 0 16px; color: var(--c-text-secondary); font-weight: 650; cursor: pointer; }

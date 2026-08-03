@@ -638,10 +638,6 @@ function renderBriefingSidebar(briefing) {
   document.getElementById("sideWeekly").innerHTML = weekly.length
     ? weekly.map(item => `<li><strong>${esc(item.keyword)}</strong><small>이번 주 ${item.count_now}회 · ${item.count_now - item.count_prev >= 0 ? "+" : ""}${item.count_now - item.count_prev}</small></li>`).join("")
     : "<li class=\"empty\">주간 흐름을 준비하고 있습니다.</li>";
-  const counts = new Map();
-  state.issues.forEach(issue => (issue.topics || []).forEach(topic => counts.set(topic, (counts.get(topic) || 0) + 1)));
-  document.getElementById("quickTopics").innerHTML = [...counts].sort((a, b) => b[1] - a[1]).slice(0, 8)
-    .map(([topic]) => `<button type="button" data-quick-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}</button>`).join("");
 }
 
 // 이전 브리핑 이후 상태가 실제로 움직인 이슈 — 히어로 아래 첫 구역의 재료다.
@@ -1560,12 +1556,6 @@ function bind() {
     if (go) switchView(go.dataset.goView);
     const pubsOrg = event.target.closest("[data-pubs-org]");
     if (pubsOrg) { state.pubsOrg = pubsOrg.dataset.pubsOrg; renderPubs(); }
-    const quick = event.target.closest("[data-quick-topic]");
-    if (quick) {
-      state.archiveTopic = quick.dataset.quickTopic;
-      document.getElementById("archiveTopic").value = state.archiveTopic;
-      switchView("search");
-    }
     const keyword = event.target.closest("[data-keyword]");
     if (keyword) {
       state.archiveQuery = normalizedSearch(keyword.dataset.keyword);
