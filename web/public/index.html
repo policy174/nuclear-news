@@ -99,6 +99,18 @@
 
     <div class="briefing-content-grid">
       <div class="briefing-main">
+        <!-- 상위 1건은 표의 한 행이 아니라 판단을 펼치는 자리다. 아래 두 목록이
+             '무엇이 있었나'를 담당한다면 여기는 '무엇부터 봐야 하나'를 담당한다. -->
+        <section id="leadIssue" class="issues-section lead-section" aria-labelledby="leadIssueTitle" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow dark">TODAY</p>
+              <h2 id="leadIssueTitle">가장 먼저 볼 이슈</h2>
+            </div>
+          </div>
+          <div id="leadCard"></div>
+        </section>
+
         <section id="changedIssues" class="issues-section changed-section" aria-labelledby="changedIssuesTitle" hidden>
           <div class="section-heading">
             <div>

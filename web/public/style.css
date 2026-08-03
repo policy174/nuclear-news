@@ -758,6 +758,74 @@ kbd {
 .issue-list.list-view .issue-card h3 { margin-bottom: 0; font-size: 18px; }
 .issue-list.list-view .issue-index { font-size: 18px; }
 
+/* 선두 이슈 — 아래 목록이 4열 표라면 여기는 한 단이다. 열 그리드를 쓰지 않아야
+   블록마다 문장이 끝까지 서고, 그래야 '요약 두 줄'이 아닌 판단으로 읽힌다.
+   상자·그림자 대신 위쪽 굵은 선 하나로 구획한다(표와 같은 어법). */
+.lead-section { margin-bottom: 44px; }
+.lead-card { padding: 0 0 22px; border-top: 2px solid var(--c-primary); }
+.lead-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 16px 0 0;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.lead-card h3 {
+  margin: 12px 0 0;
+  font-size: clamp(25px, 3.1vw, 33px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.034em;
+}
+.lead-blocks { margin: 22px 0 0; }
+/* 라벨 열은 고정폭이라 네 블록의 본문 시작선이 맞는다 — 눈이 한 줄로 훑는다. */
+.lead-block {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--c-border);
+}
+.lead-block:first-child { border-top: 0; padding-top: 0; }
+.lead-block dt {
+  margin: 0;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.75;
+}
+.lead-block dd { margin: 0; color: var(--c-text-secondary); font-size: 16px; line-height: 1.7; }
+/* 사실(무슨 일·영향)과 나머지 두 축을 라벨 색으로만 가른다. 본문 색을 바꾸면
+   같은 카드 안에서 읽기 무게가 달라진다. --c-warning 은 이 파일에서 텍스트로
+   쓰인 적이 없어(대비 미검증) 검증된 --c-secondary 를 쓴다. */
+.lead-block.tone-change dt { color: var(--c-accent-text); }
+.lead-block.tone-open dt { color: var(--c-secondary); }
+/* .issue-actions 는 표 4열째용이라 오른쪽 정렬 세로 스택이다. 한 단 카드에서는
+   가로 한 줄로 눕힌다. */
+.lead-card .issue-actions {
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  min-width: 0;
+  margin-top: 20px;
+  text-align: left;
+}
+.lead-card .issue-actions button,
+.lead-card .issue-actions a { min-height: 44px; }
+.lead-card .issue-keei { margin-top: 16px; }
+@media (max-width: 720px) {
+  .lead-block { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .lead-block dt { line-height: 1.5; }
+  .lead-block dd { font-size: 15.5px; }
+  .lead-card h3 { font-size: 24px; }
+  .lead-section { margin-bottom: 32px; }
+}
+
 .skeleton-card { min-height: 230px; padding: 24px; grid-template-columns: 1fr; pointer-events: none; }
 .skeleton-card i {
   display: block;

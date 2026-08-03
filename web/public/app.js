@@ -620,11 +620,52 @@ function issueCard(issue, index, archive = false) {
   </article>`;
 }
 
-function renderBriefingSidebar(briefing) {
+// 상위 1건만 받는 편집 카드. 표의 한 행이 요약 두 줄로 끝나는 데 반해 여기서는
+// 무슨 일 / 왜 중요 / 무엇이 달라졌나 / 무엇이 아직 미확정인가를 각각 세운다.
+// 라벨은 새로 짓지 않고 상세와 같은 것을 쓴다 — issueDetailModel 이 '오늘의 변화'
+// 와 '최근 변화'를 근거일로 갈라 주므로, 여기서 "어제와 달라진 점"이라고 이름
+// 붙이면 데이터가 보장하지 않는 것을 말하게 된다.
+// 빈 블록은 세우지 않는다. '변화 없음'을 매일 한 줄 차지하게 두면 그 자리가
+// 신호가 아니라 배경이 된다(카드에서 뺀 것들과 같은 원칙).
+function leadCard(issue, briefing) {
+  const model = issueDetailModel(issue, briefing.date);
+  const topic = primaryTopicLabel(issue);
+  // 히어로 h1 이 이미 이 이슈 제목이면(headline_kind="issue") 바로 아래에서
+  // 되풀이하지 않는다. 종합 문장일 때는 서로 다른 문장이라 제목이 선다.
+  const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
+  const blocks = [
+    issue.summary ? { label: "무슨 일", text: issue.summary } : null,
+    model.impact ? { label: model.impact.label, text: model.impact.text } : null,
+    model.change ? { label: model.change.label, text: model.change.text, tone: "change" } : null,
+    model.openQuestion ? { label: "아직 확정되지 않은 것", text: model.openQuestion, tone: "open" } : null,
+  ].filter(Boolean);
+  return `<article class="lead-card ${issueToneClass(issue)}">
+    <div class="lead-meta">
+      <span class="issue-state">${esc(issueStatusText(issue))}</span>
+      <span>${esc(issue.region)}</span>
+      ${topic ? `<span>${esc(topic)}</span>` : ""}
+      ${verificationBadge(issue)}
+    </div>
+    ${sameAsHeadline ? "" : `<h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>`}
+    <dl class="lead-blocks">${blocks.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
+      <dt>${esc(block.label)}</dt><dd>${esc(block.text)}</dd>
+    </div>`).join("")}</dl>
+    ${keeiRefLine(issue)}
+    ${issueActions(issue)}
+  </article>`;
+}
+
+function renderBriefingSidebar(briefing, leadId = "") {
   // 근거 패널의 기본 선택 — 비워두면 사이드 첫 칸이 빈 채로 시작한다.
   // 선택이 이번 브리핑에 없는 이슈를 가리키면(날짜 이동 등) 다시 잡는다.
+  // 선두 카드가 그 이슈의 영향·근거를 이미 펼쳐 놓았으므로 기본값은 그다음
+  // 이슈로 잡는다 — 안 그러면 한 화면에 같은 문장이 두 번 선다. 사용자가 선두
+  // 카드를 직접 누르면 handleIssueAction 이 패널을 그리로 옮긴다.
   const inBriefing = briefing.issues.some(issue => issue.issue_id === state.railIssueId);
-  if (!inBriefing) state.railIssueId = briefing.issues[0]?.issue_id || "";
+  if (!inBriefing || state.railIssueId === leadId) {
+    const next = briefing.issues.find(issue => issue.issue_id !== leadId) || briefing.issues[0];
+    state.railIssueId = next?.issue_id || "";
+  }
   renderEvidenceRail();
   // 히어로가 이미 지표를 보여준다. 사이드에는 히어로에 없는 검증 분포를 둔다.
   const verified = new Map(VERIFICATION_ORDER.map(status => [status, 0]));
@@ -726,6 +767,13 @@ function renderBriefing() {
     return;
   }
   let issues = briefing.issues.filter(issueMatchesFilters);
+  // 선두는 편집 판단이라 목록 정렬 토글을 따르지 않는다 — '최신순'으로 바꿨다고
+  // 가장 먼저 볼 이슈가 달라지지는 않는다. 필터는 따른다(안 보이는 이슈를 선두로
+  // 세울 수는 없다).
+  const lead = issues[0] || null;
+  const leadId = lead ? lead.issue_id : "";
+  document.getElementById("leadIssue").hidden = !lead;
+  document.getElementById("leadCard").innerHTML = lead ? leadCard(lead, briefing) : "";
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
   }
@@ -754,9 +802,11 @@ function renderBriefing() {
 
   const changed = changedIssues(briefing);
   const changedIds = new Set(changed.map(issue => issue.issue_id));
-  const rest = issues.filter(issue => !changedIds.has(issue.issue_id));
+  // 선두로 올린 이슈는 아래 두 목록에서 뺀다 — 같은 이슈가 한 화면에 두 번 서면
+  // 개수 표시("8개 이슈")도 실제 카드 수와 어긋난다.
+  const rest = issues.filter(issue => !changedIds.has(issue.issue_id) && issue.issue_id !== leadId);
   const changedSection = document.getElementById("changedIssues");
-  const visibleChanged = changed.filter(issueMatchesFilters);
+  const visibleChanged = changed.filter(issue => issueMatchesFilters(issue) && issue.issue_id !== leadId);
   changedSection.hidden = visibleChanged.length === 0;
   document.getElementById("changedCount").textContent = `${visibleChanged.length}개 이슈`;
   document.getElementById("changedList").innerHTML =
@@ -767,21 +817,22 @@ function renderBriefing() {
   issueList.classList.toggle("list-view", state.issueView === "list");
   // 위 '지금 달라진 이슈'에 결과가 남아 있는데 아래에서 '없습니다'라고 하면
   // 한 화면이 스스로를 부정한다. 두 구역을 합쳐 0건일 때만 빈 상태를 보인다.
+  const elsewhere = visibleChanged.length ? "지금 달라진 이슈" : "가장 먼저 볼 이슈";
   issueList.innerHTML = rest.length
     ? rest.map((issue, index) => issueCard(issue, index)).join("")
-    : (visibleChanged.length
-      ? '<p class="section-note">필터에 맞는 이슈는 위 <strong>지금 달라진 이슈</strong>에 있습니다.</p>'
+    : (visibleChanged.length || lead
+      ? `<p class="section-note">필터에 맞는 이슈는 위 <strong>${elsewhere}</strong>에 있습니다.</p>`
       : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>');
   const activeFilters = [];
   if (state.region !== "전체") activeFilters.push(state.region);
   if (state.topic !== "전체") activeFilters.push(TOPIC_LABELS[state.topic] || state.topic);
   document.getElementById("filterSummary").innerHTML = activeFilters.map(item => `<span>${esc(item)}</span>`).join("");
   document.getElementById("filterCount").textContent = activeFilters.length ? `(${activeFilters.length})` : "";
-  document.getElementById("filterSheetCount").textContent = `${visibleChanged.length + rest.length}개 이슈`;
+  document.getElementById("filterSheetCount").textContent = `${visibleChanged.length + rest.length + (lead ? 1 : 0)}개 이슈`;
   const clear = document.getElementById("clearFilters");
   clear.hidden = activeFilters.length === 0;
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
-  renderBriefingSidebar(briefing);
+  renderBriefingSidebar(briefing, leadId);
   renderNewsFeed();
 }
 
@@ -1636,7 +1687,7 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog",
+  ["issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "issueDialog",
    "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
