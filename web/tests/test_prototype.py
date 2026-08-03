@@ -1029,6 +1029,43 @@ class GeneratedDataTests(unittest.TestCase):
             ),
         )
 
+    def test_atlas_readiness_is_measured_not_asserted(self):
+        """이슈 지도 착수 조건을 계기판으로 싣는다.
+
+        **값을 게이트로 걸지 않는다.** 오늘(2026-08-03) 추적률을 배포 게이트로 썼다가
+        뉴스가 한산한 날 CSS 오타 수정까지 막힌 일이 있었다. 여기서 검사하는 것은
+        '배관이 붙어 있는가'지 '수치가 목표에 닿았는가'가 아니다 — 후자는
+        meta.atlas_readiness 를 사람이 읽고 판단한다.
+        """
+        atlas = self.meta["atlas_readiness"]
+        self.assertEqual(atlas["issue_total"], self.meta["issue_catalog_total"])
+        self.assertEqual(
+            set(atlas["node_counts"]),
+            {name for name, _ in build_data.ATLAS_NODES},
+        )
+        self.assertEqual(set(atlas["node_rates"]), set(atlas["node_counts"]))
+        for name, count in atlas["node_counts"].items():
+            self.assertLessEqual(count, atlas["issue_total"], name)
+        self.assertLessEqual(atlas["full_path_issues"], atlas["three_plus_issues"])
+        # ready 는 blocking_nodes 의 반대말이어야 한다 — 둘이 어긋나면 계기판이 거짓말
+        self.assertEqual(atlas["ready"], not atlas["blocking_nodes"])
+
+    def test_atlas_blocking_nodes_match_the_documented_thresholds(self):
+        """문턱을 조용히 낮춰서 '착수 가능'을 만들지 못하게 잠근다.
+
+        PHASE_PLAN §S4 가 착수 판단을 open_question·related_articles 두 값으로
+        못박았다. 여기 숫자를 고치려면 그 문서도 같이 고쳐야 한다.
+        """
+        self.assertGreaterEqual(build_data.ATLAS_MIN_OPEN_QUESTION, 1)
+        self.assertGreaterEqual(build_data.ATLAS_MIN_RELATED_RATE, 0.20)
+        atlas = self.meta["atlas_readiness"]
+        expected = []
+        if atlas["node_counts"]["open_question"] < build_data.ATLAS_MIN_OPEN_QUESTION:
+            expected.append("open_question")
+        if atlas["node_rates"]["related_articles"] < build_data.ATLAS_MIN_RELATED_RATE:
+            expected.append("related_articles")
+        self.assertEqual(atlas["blocking_nodes"], expected)
+
     def test_manual_merge_overrides_are_auditable(self):
         approved = set(self.issue_audit["overrides"]["approved"])
         rejected = set(self.issue_audit["overrides"]["rejected"])

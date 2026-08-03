@@ -2426,6 +2426,56 @@ def _issue_meta_description(issue: dict) -> str:
     return description if len(description) <= 170 else f"{description[:167].rstrip()}…"
 
 
+# 이슈 지도(Atlas)가 그리려는 5단계 경로. 각 노드가 어느 필드에 걸려 있는지.
+# 시안의 경로이고, 착수 판단의 유일한 근거다 — 산문으로 적어두면 매 세션이 다시 잰다.
+ATLAS_NODES = (
+    ("latest_change", lambda row: bool(row.get("latest_change"))),
+    ("open_question", lambda row: bool(row.get("open_question"))),
+    ("implication", lambda row: bool(row.get("implication"))),
+    ("related_articles", lambda row: (row.get("article_count") or 0) >= 2),
+    ("official_source", lambda row: ((row.get("verification") or {})
+                                     .get("official_source_count") or 0) > 0),
+)
+
+# 착수 문턱. `open_question` 이 0 인 한 '남은 질문' 노드를 만들 수 없고,
+# `related_articles` 가 20% 아래면 '관련 보도' 노드가 대부분 숨는다 — 두 값만 본다
+# (docs/PHASE_PLAN.md §S4). 나머지 셋은 이 둘이 풀리면 같이 오르거나(병합기 공통 뿌리)
+# 구조적 상한이 있다(공식 출처는 출처 구성의 성질이다).
+ATLAS_MIN_OPEN_QUESTION = 1        # 건수 — 0 이면 노드 자체가 성립 안 한다
+ATLAS_MIN_RELATED_RATE = 0.20
+
+
+def atlas_readiness(issue_catalog: list[dict]) -> dict:
+    """이슈 지도를 지금 그릴 수 있는지, 못 그리면 어느 노드가 비었는지.
+
+    **게이트가 아니라 계기판이다.** 오늘(2026-08-03) 추적률을 배포 게이트로 썼다가
+    뉴스가 한산한 날 CSS 오타 수정까지 막힌 일이 있었다 — 데이터 지표는 빌드를
+    세우는 데 쓰지 않는다. 이 값은 meta.json 에 실려 "언제 착수 가능한가"를
+    사람이 재지 않고 볼 수 있게만 한다.
+    """
+    total = len(issue_catalog)
+    counts = {name: sum(1 for row in issue_catalog if test(row))
+              for name, test in ATLAS_NODES}
+    rates = {name: round(count / total, 4) if total else 0.0
+             for name, count in counts.items()}
+    filled_per_issue = [sum(1 for _, test in ATLAS_NODES if test(row))
+                        for row in issue_catalog]
+    blocking = []
+    if counts["open_question"] < ATLAS_MIN_OPEN_QUESTION:
+        blocking.append("open_question")
+    if rates["related_articles"] < ATLAS_MIN_RELATED_RATE:
+        blocking.append("related_articles")
+    return {
+        "issue_total": total,
+        "node_counts": counts,
+        "node_rates": rates,
+        "full_path_issues": sum(1 for n in filled_per_issue if n == len(ATLAS_NODES)),
+        "three_plus_issues": sum(1 for n in filled_per_issue if n >= 3),
+        "blocking_nodes": blocking,
+        "ready": not blocking,
+    }
+
+
 def build_issue_pages(issue_catalog: list[dict]) -> int:
     """이슈별 OG 메타데이터를 가진 정적 진입 페이지를 생성한다."""
     public_dir = (SITE_DIR / "public").resolve()
@@ -2803,6 +2853,7 @@ def build() -> None:
         "visible_total": len(news_items),
         "briefing_total": len(briefings),
         "issue_catalog_total": len(issue_catalog),
+        "atlas_readiness": atlas_readiness(issue_catalog),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
         "date_min": min((item["article_date"] for item in visible), default=""),
         "date_max": max((item["article_date"] for item in visible), default=""),
@@ -2936,6 +2987,16 @@ def build() -> None:
     print(
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
         f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
+    )
+    atlas = meta["atlas_readiness"]
+    print(
+        "[build_data:atlas] "
+        + " / ".join(f"{name} {atlas['node_counts'][name]}"
+                     f"({atlas['node_rates'][name] * 100:.0f}%)"
+                     for name, _ in ATLAS_NODES)
+        + f" | 5칸 {atlas['full_path_issues']} · 3칸+ {atlas['three_plus_issues']} → "
+        + ("착수 가능" if atlas["ready"]
+           else "대기: " + ", ".join(atlas["blocking_nodes"]))
     )
 
 
