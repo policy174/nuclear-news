@@ -181,10 +181,21 @@ curl -s "https://nuclens.pages.dev/data/publications.json?cb=$(date +%s)" \
 - 남은 오탐 1건: "Mixed Contaminants and Residues in Foods". `contaminant`/`residue` 를
   규칙에 넣으면 원전 오염 문서를 잡을 위험이 커서 LLM 에 맡겼다
 
-### D. S4 잔여 3건
+### D. S4 잔여 — 사용자 결정은 0건이 됐다 (2026-08-03 18시 갱신)
 
-`자주 찾는 주제` 제거 / 주간 판세 블록 위치 / `open_question`↔`next_checkpoint` 중복.
-판단 근거는 [`PHASE_PLAN.md` §S4](PHASE_PLAN.md) 에 적어뒀다.
+| 항목 | 결과 |
+|---|---|
+| `자주 찾는 주제` 제거 | ✅ `c9b5656` — 아카이브 주제 필터와 완전 중복이었다 |
+| 주간 판세 블록 위치 | ✅ **현 위치(주간 흐름 탭) 유지로 확정** — 3안 실측 대조, 코드 변경 없음 |
+| `open_question`↔`next_checkpoint` 중복 | ⏸ 값 0건이라 판단 불가 — B 가 풀려야 한다 |
+
+판단 근거·실측 표는 [`PHASE_PLAN.md` §S4](PHASE_PLAN.md).
+
+**대신 새 차단 요인이 하나 나왔다 — 주간 판세는 3개월간 한 번도 생성된 적이 없다.**
+`weekly_reports.json` 이 전 브랜치 git 이력에 0건이고 `chore: weekly report` 커밋도
+0건인데, 로컬에서 `weekly_bot.py` 경로를 끝까지 돌리면 파일은 정상 생성된다. 코드가
+아니라 워크플로 실행 쪽이다. **GitHub → Actions → "Weekly report" 이력 확인이 다음
+할 일** (private repo 라 저장소 밖에서는 못 본다). 상세는 `PHASE_PLAN.md` §S4.
 
 ### E. `feat/atlas-p0-data` — 남은 건 커밋 하나
 
