@@ -1081,14 +1081,10 @@ async function copyIssuePack(button, issueId) {
   await copyToClipboard(button, issueMaterialPack(issue), "자료 팩을 복사하지 못했습니다");
 }
 
-// 검증 상태를 그대로 문장으로 옮긴다. LLM 을 새로 부르지 않는다 — 단일 출처
-// 96/108 인 코퍼스에서 '한계'는 만들어낼 것이 아니라 이미 아는 사실이다.
-const LIMIT_TEXT = {
-  official: "공식 기관 문서로 확인된 내용입니다. 후속 결정은 별도 문서가 필요합니다.",
-  corroborated: "독립된 복수 출처가 같은 사실을 전합니다. 세부 수치는 원문에서 확인하세요.",
-  partial: "단일 출처입니다. 아직 교차 확인되지 않았습니다.",
-  unverified: "출처 확인이 충분하지 않습니다. 확정된 사실로 읽지 마세요.",
-};
+// '해석과 한계' 문장은 지웠다. 검증 상태를 산문으로 되풀이할 뿐이라 바로 위
+// 배지("단일 출처"·"공식 확인")와 같은 말이었고, 뒤에 붙던 "확정된 사실로 읽지
+// 마세요" 같은 훈수는 화면이 할 말이 아니다. 배지가 상태를 말하고, 근거 목록이
+// 출처를 보여준다 — 그 사이에 설명문이 낄 자리는 없다.
 
 function renderEvidenceRail() {
   const rail = document.getElementById("evidenceRail");
@@ -1096,9 +1092,18 @@ function renderEvidenceRail() {
   const issue = state.railIssueId ? currentIssueById(state.railIssueId) : null;
   if (!issue) { rail.hidden = true; rail.innerHTML = ""; return; }
   const model = issueDetailModel(issue, state.briefingDate);
-  const limit = LIMIT_TEXT[model.verification.status] || LIMIT_TEXT.unverified;
   const sourceArticle = model.source.article;
   const sourceUrl = sourceArticle ? safeUrl(sourceArticle.url) : "";
+  // 블록이 조건부라 번호를 하드코딩하면 01 다음에 03 이 온다. 남은 것만 세어 붙인다.
+  let railNo = 0;
+  const no = () => String(++railNo).padStart(2, "0");
+  const readingBlock = model.impact || model.openQuestion
+    ? `<section class="rail-block">
+        <p class="rail-no">${no()} / 읽을 때</p>
+        ${model.impact ? `<p class="rail-impact"><strong>${esc(model.impact.label)} <span class="ai-badge">AI</span></strong>${esc(model.impact.text)}</p>` : ""}
+        ${model.openQuestion ? `<p class="rail-open"><strong>아직 확정되지 않은 것</strong>${esc(model.openQuestion)}</p>` : ""}
+      </section>`
+    : "";
   rail.hidden = false;
   rail.innerHTML = `
     <div class="rail-head">
@@ -1108,17 +1113,12 @@ function renderEvidenceRail() {
     </div>
     <div class="rail-body">
       ${model.change ? `<section class="rail-block">
-        <p class="rail-no">01 / ${esc(model.change.label)}</p>
+        <p class="rail-no">${no()} / ${esc(model.change.label)}</p>
         <p>${esc(model.change.text)}</p>
       </section>` : ""}
+      ${readingBlock}
       <section class="rail-block">
-        <p class="rail-no">${model.change ? "02" : "01"} / 해석과 한계</p>
-        <p>${esc(limit)}</p>
-        ${model.impact ? `<p class="rail-impact"><strong>${esc(model.impact.label)} <span class="ai-badge">AI</span></strong>${esc(model.impact.text)}</p>` : ""}
-        ${model.openQuestion ? `<p class="rail-open"><strong>아직 확정되지 않은 것</strong>${esc(model.openQuestion)}</p>` : ""}
-      </section>
-      <section class="rail-block">
-        <p class="rail-no">${model.change ? "03" : "02"} / 핵심 근거</p>
+        <p class="rail-no">${no()} / 핵심 근거</p>
         <ol class="rail-sources">${model.articles.slice(0, 4).map(article => {
           const url = safeUrl(article.url);
           return `<li>
@@ -1161,7 +1161,7 @@ function openIssueDialog(issueId, updateUrl = true) {
     </section>
     ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
-      <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3><span>공식 출처를 먼저 표시합니다</span></div>
+      <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3></div>
       <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑")).join("")}</ol>
     </section>
     ${related.length ? `<section class="dialog-related" aria-labelledby="issueRelatedTitle">

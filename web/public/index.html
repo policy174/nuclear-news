@@ -100,7 +100,6 @@
           <div class="section-heading">
             <div>
               <h2 id="changedIssuesTitle">지금 달라진 이슈</h2>
-              <p>이전 브리핑 이후 상태가 움직인 이슈입니다.</p>
             </div>
             <p id="changedCount" class="section-count"></p>
           </div>
@@ -112,7 +111,6 @@
             <div>
               <p class="eyebrow dark">TODAY</p>
               <h2 id="todayIssuesTitle">오늘 확인된 이슈</h2>
-              <p>기사가 아니라 연결된 이슈 단위입니다.</p>
             </div>
             <div class="issue-section-tools">
               <p id="issueCount" class="section-count"></p>
@@ -154,7 +152,7 @@
           <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>
           <div id="newsList" class="news-list"></div>
         </details>
-        <p class="notice">요약은 읽는 시간을 줄이기 위한 것입니다. 날짜·수치·기관명은 원문에서 확인하세요.</p>
+        <p class="notice">날짜·수치·기관명은 원문에서 확인하세요.</p>
       </div>
 
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
@@ -199,7 +197,6 @@
         </div>
         <div id="archiveIssueList" class="issue-list archive-issue-list"></div>
         <button id="archiveMore" class="archive-more" type="button" hidden>더 보기</button>
-        <p class="notice">검색 결과는 개별 기사가 아니라 연결된 이슈를 기준으로 표시합니다.</p>
       </div>
     </div>
   </section>
@@ -208,7 +205,6 @@
     <div class="trend-intro">
       <p class="eyebrow dark">THIS WEEK</p>
       <h1 id="trendTitle">주간 흐름</h1>
-      <p>언급량 자체보다 어떤 사건이 같은 방향으로 이어지는지 확인합니다.</p>
     </div>
     <!-- 금요일 주간 판세 리포트. 고정 코너 5개로 매주 같은 자리에서 같은 질문에
          답한다 — 반복되는 편집 형식이 서비스의 목소리를 만든다. 리포트가 없는
@@ -237,7 +233,7 @@
       </div>
       <div class="trend-stack">
         <section class="data-card keyword-panel">
-          <div class="data-card-head"><div><h2>키워드 비교</h2><p>이번 주와 전주를 같은 기준으로 비교합니다.</p></div>
+          <div class="data-card-head"><div><h2>키워드 비교</h2></div>
             <div class="segmented" id="keywordSort">
               <button class="active" type="button" data-sort="mentions" aria-pressed="true">언급순</button>
               <button type="button" data-sort="change" aria-pressed="false">변화순</button>
@@ -270,7 +266,7 @@
   </section>
 
   <section id="view-saved" hidden aria-labelledby="savedTitle">
-    <div class="archive-intro"><div><h1 id="savedTitle">저장한 이슈</h1><p>이 브라우저에 저장한 이슈입니다.</p></div></div>
+    <div class="archive-intro"><div><h1 id="savedTitle">저장한 이슈</h1></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>
 
@@ -278,7 +274,7 @@
     <div class="archive-intro">
       <div>
         <h1 id="pubsTitle">국제기구 발간물</h1>
-        <p>IAEA·OECD NEA·IEA·EIA 등 공식 기관의 보고서·발간물 발행을 추적합니다. 제목과 원문 링크만 제공합니다.</p>
+        <p>IAEA · OECD NEA · IEA · EIA — 제목과 원문 링크만 제공합니다.</p>
       </div>
     </div>
     <div class="pubs-filters" id="pubsFilters" role="group" aria-label="기관 필터"></div>
@@ -290,7 +286,7 @@
   <form id="globalSearchForm" method="dialog">
     <div class="search-dialog-head"><h2 id="globalSearchTitle">통합 검색</h2><button id="globalSearchClose" type="button" aria-label="검색 닫기">×</button></div>
     <label class="global-search-field"><span class="sr-only">검색어</span><input id="globalSearch" type="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off"><kbd>Enter</kbd></label>
-    <p>검색 결과는 이슈 아카이브에서 확인합니다. <span id="globalSearchHint">검색어를 입력하세요.</span></p>
+    <p><span id="globalSearchHint">검색어를 입력하세요.</span></p>
   </form>
 </dialog>
 

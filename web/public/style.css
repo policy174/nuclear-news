@@ -695,7 +695,9 @@ kbd {
 }
 .issue-change strong { color: var(--c-accent-text); font-size: 12.5px; }
 /* 4열 '근거'. 시안은 이 열을 오른쪽 정렬 모노 스택으로 세운다. */
-/* 4열 '근거'. 시안은 이 열을 오른쪽 정렬 모노 스택(line-height 1.75)으로 세운다. */
+/* 4열 '근거'. 시안은 모노지만 여기 라벨은 한글이다 — 모노 스택에 한글 글리프가
+   없어 시스템 폰트로 떨어지면서 본문과 다른 얼굴이 된다. 본문 서체를 쓰고
+   숫자만 tabular 로 맞춘다. */
 .issue-actions {
   display: flex;
   align-items: flex-end;
@@ -704,7 +706,7 @@ kbd {
   gap: 1px;
   min-width: 84px;
   margin-top: 0;
-  font-family: var(--ff-mono);
+  font-variant-numeric: tabular-nums;
   line-height: 1.75;
   text-align: right;
 }
