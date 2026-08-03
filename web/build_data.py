@@ -1196,6 +1196,75 @@ def dedupe_insights(items: list[dict]) -> list[dict]:
     return sorted(kept, key=lambda item: order.get(id(item), 0))
 
 
+WEEKLY_MOVER_COUNT = 4
+
+
+def build_weekly_movers(issue_catalog: list[dict], end_date: str,
+                        days: int = 7) -> list[dict]:
+    """이번 주 가장 크게 움직인 이슈.
+
+    흐름 해석을 **키워드 단위**로 만들던 것을 이슈(사건) 단위로 바꾼다.
+    키워드 단위에서는 한 사건이 달고 있는 키워드 수만큼 같은 이야기가 재포장됐다
+    (실측 2026-08-03: 헝가리 가뭄 원전 중단 하나가 기후변화·원전운영·전력시장·
+    에너지안보 네 흐름에 동시 등장). 이슈는 이미 사건 단위로 묶여 있으므로
+    중복이 구조적으로 생기지 않는다.
+
+    '움직임'은 이번 주에 실제로 쌓인 양으로 잰다 — 이번 주 원문 수, 며칠에 걸쳐
+    보도됐는지, 서로 다른 매체가 몇 곳인지. 해석 문장을 붙이지 않는다.
+    """
+    end = _parse_day(end_date)
+    if not end:
+        return []
+    start = (end - timedelta(days=days - 1)).isoformat()
+
+    movers = []
+    for issue in issue_catalog:
+        in_week = [
+            article for article in issue.get("related_articles") or []
+            if str(article.get("briefing_date") or "") >= start
+        ]
+        if not in_week:
+            continue
+        publishers = {
+            (article.get("publisher") or article.get("domain") or "").strip()
+            for article in in_week
+        }
+        publishers.discard("")
+        days_covered = len({article.get("briefing_date") for article in in_week})
+        movers.append({
+            "issue_id": issue["issue_id"],
+            "title": issue["title"],
+            "summary": issue.get("summary", ""),
+            "region": issue.get("region", ""),
+            "topics": issue.get("topics") or [],
+            "week_article_count": len(in_week),
+            "week_days": days_covered,
+            "publisher_count": len(publishers),
+            "total_article_count": issue.get("article_count", len(in_week)),
+            "is_continuing": bool(issue.get("first_seen", "") < start),
+            "first_seen": issue.get("first_seen", ""),
+            "last_seen": issue.get("last_seen", ""),
+            "verification": issue.get("verification") or {},
+            # 이 이슈가 이번 주에 실제로 무엇으로 구성됐는지 — 해석 대신 사실
+            "events": [
+                {"date": article.get("article_date", ""),
+                 "title": article.get("title_kr", ""),
+                 "publisher": article.get("publisher") or article.get("domain") or "",
+                 "url": article.get("url", "")}
+                for article in sorted(
+                    in_week, key=lambda a: str(a.get("article_date") or ""), reverse=True)[:4]
+            ],
+        })
+
+    # 많이·여러 날·여러 매체에서 다뤄진 순. 국내 이슈는 업무 관련성이 높아
+    # 동률일 때 앞세운다.
+    movers.sort(key=lambda row: (
+        row["week_article_count"], row["week_days"], row["publisher_count"],
+        row["region"] == "국내",
+    ), reverse=True)
+    return movers[:WEEKLY_MOVER_COUNT]
+
+
 def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
     """흐름 근거에 지역 메타를 붙이고 다양화된 대표 3개를 만든다."""
     by_hash = {item["hash"]: item for item in news_items}
@@ -2511,6 +2580,9 @@ def build() -> None:
         # 금요일 주간 판세 리포트. 없으면 None → 프론트가 기존 정량 트렌드만 그린다
         # (목요일에 빈 탭이 되지 않게 하는 폴백).
         "weekly_report": load_weekly_report(issue_catalog),
+        # 이번 주 움직인 이슈 — 키워드 단위 흐름 해석을 대체한다(중복 제거)
+        "weekly_movers": build_weekly_movers(
+            issue_catalog, briefings[0]["date"] if briefings else ""),
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],

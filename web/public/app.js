@@ -1109,40 +1109,42 @@ function restoreIssueFromHistory() {
   }
 }
 
+// 이번 주 움직인 이슈. 예전에는 **키워드마다** 흐름 해석을 한 편씩 만들었는데,
+// 한 사건이 키워드를 여럿 달고 있으면 같은 이야기가 그 수만큼 재포장됐다
+// (실측: 헝가리 가뭄 원전 중단 하나가 기후변화·원전운영·전력시장·에너지안보
+// 네 흐름에 동시 등장). 이슈는 이미 사건 단위라 중복이 생기지 않는다.
 function renderInsights() {
   const box = document.getElementById("insightList");
-  const featured = state.insights?.featured_items || [];
-  const items = (featured.length ? featured : state.insights?.items || []).filter(item => item.direction).slice(0, 3);
-  if (!items.length) {
-    box.innerHTML = '<div class="empty-state"><strong>이번 주 흐름을 준비하고 있습니다</strong><p>분류가 완료되면 근거와 함께 표시합니다.</p></div>';
+  const movers = (state.trend?.weekly_movers || []).filter(item => item && item.title);
+  if (!movers.length) {
+    box.innerHTML = '<div class="empty-state"><strong>이번 주 움직인 이슈를 준비하고 있습니다</strong><p>보도가 쌓이면 근거와 함께 표시합니다.</p></div>';
     return;
   }
-  box.innerHTML = items.map((item, index) => {
-    const delta = item.count_now - item.count_prev;
-    const uniqueEvidence = [];
-    const seen = new Set();
-    (item.evidence || []).forEach(article => {
-      const key = normalizedSearch(article.title_kr).replace(/[^0-9a-z가-힣]/g, "");
-      if (!key || seen.has(key)) return;
-      seen.add(key);
-      uniqueEvidence.push(article);
-    });
-    const evidence = uniqueEvidence.map(article => {
-      const url = safeUrl(article.url);
-      return `<li>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>` : esc(article.title_kr)}<small>${esc(dateLabel(article.date))}</small></li>`;
+  box.innerHTML = movers.map((item, index) => {
+    const scale = [
+      `원문 ${item.week_article_count}건`,
+      item.week_days > 1 ? `${item.week_days}일간 보도` : "하루 보도",
+      item.publisher_count > 1 ? `매체 ${item.publisher_count}곳` : "단일 매체",
+    ].join(" · ");
+    const topics = (item.topics || []).slice(0, 3)
+      .map(topic => `<span>${esc(TOPIC_LABELS[topic] || topic)}</span>`).join("");
+    const events = (item.events || []).map(event => {
+      const url = safeUrl(event.url);
+      const title = url
+        ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(event.title)}</a>`
+        : esc(event.title);
+      return `<li><time>${esc(dateLabel(event.date))}</time><span>${title}</span></li>`;
     }).join("");
-    const fullDirection = String(item.direction || "").trim();
-    const takeaway = String(item.takeaway || fullDirection.split(/(?<=[.!?])\s+/)[0] || fullDirection).trim();
-    const eventBullets = uniqueEvidence.slice(0, 3).map(article => `<li><time>${esc(dateLabel(article.date))}</time><span>${esc(article.title_kr)}</span></li>`).join("");
     return `<article class="flow-item">
       <div class="flow-rank">${String(index + 1).padStart(2, "0")}</div>
       <div class="flow-copy">
-        <div class="flow-head"><h3>${esc(takeaway)}</h3><span>이번 주 ${item.count_now}회 · 전주 대비 ${delta >= 0 ? "+" : "−"}${Math.abs(delta)}</span></div>
-        <p class="flow-keyword"><span>${esc(item.keyword)}</span>${
-          (item.merged_keywords || []).map(k => `<span>${esc(k)}</span>`).join("")
-        }</p>
-        ${eventBullets ? `<div class="event-block"><strong>구성 사건</strong><ul>${eventBullets}</ul></div>` : ""}
-        <details class="evidence"><summary>전체 해석과 근거 보기</summary><p>${esc(fullDirection)}</p>${evidence ? `<ul class="evidence-links">${evidence}</ul>` : ""}</details>
+        <div class="flow-head">
+          <h3><button type="button" class="issue-title-button" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button></h3>
+          <span>${esc(scale)}</span>
+        </div>
+        <p class="flow-keyword"><span>${esc(item.region || "지역 미분류")}</span><span>${item.is_continuing ? "이어지는 이슈" : "이번 주 신규"}</span>${topics}</p>
+        ${item.summary ? `<p class="flow-summary">${esc(item.summary)}</p>` : ""}
+        ${events ? `<div class="event-block"><strong>구성 사건</strong><ul>${events}</ul></div>` : ""}
       </div>
     </article>`;
   }).join("");
@@ -1451,7 +1453,7 @@ function bind() {
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
   ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog",
-   "headlineEvidence", "weeklyReportBody"].forEach(id => {
+   "headlineEvidence", "weeklyReportBody", "insightList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 

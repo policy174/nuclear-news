@@ -712,8 +712,10 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('id="globalSearchOpen"', html)
         self.assertIn('id="globalSearchDialog"', html)
         self.assertIn('id="topicSel"', html)
-        # 흐름 카드의 제목은 키워드가 아니라 해석 문장이다.
-        self.assertIn("<h3>${esc(takeaway)}</h3>", script)
+        # 흐름 카드의 제목은 이슈(사건) 제목이고, 클릭하면 상세로 간다.
+        # 키워드 단위 해석 문장을 쓰면 한 사건이 키워드 수만큼 반복된다.
+        self.assertIn('data-issue-id="${esc(item.issue_id)}"', script)
+        self.assertIn("weekly_movers", script)
         self.assertIn('class="flow-keyword"', script)
         self.assertIn('class="event-block"', script)
         self.assertIn('event.key === "/"', script)
@@ -1891,7 +1893,7 @@ class WeeklyRenderTests(unittest.TestCase):
 
     def test_chips_are_clickable(self):
         """칩이 상세로 연결되려면 컨테이너가 위임 목록에 있어야 한다."""
-        self.assertIn('"weeklyReportBody"].forEach', self.script)
+        self.assertIn('"weeklyReportBody", "insightList"].forEach', self.script)
 
     def test_chip_is_readable_on_light_panel(self):
         """히어로 칩은 어두운 배경 전용(흰 글자)이라 그대로 쓰면 안 보인다."""

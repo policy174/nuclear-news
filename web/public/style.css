@@ -841,7 +841,8 @@ kbd {
 /* 제목은 해석 문장이다. 키워드는 분류 라벨로 강등한다 — 언급량 자체는 결론이 아니다. */
 .flow-head h3 { margin: 0; max-width: 74ch; font-size: 18px; line-height: 1.45; }
 .flow-head > span { color: var(--c-text-muted); font-size: 12.5px; white-space: nowrap; }
-.flow-keyword { margin: 8px 0 0; }
+.flow-keyword { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+.flow-summary { margin: 10px 0 0; color: var(--c-text-secondary); font-size: 13.5px; }
 .flow-keyword span {
   display: inline-block;
   padding: 2px 9px;
