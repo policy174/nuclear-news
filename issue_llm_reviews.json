@@ -2,6 +2,16 @@
   "_comment": "이슈 병합 회색지대 LLM 판정 캐시. 사람이 고쳐도 된다.",
   "prompt_version": 1,
   "reviews": {
+    "02a4ae90b447d0fb--dc1568d26b7a3c04": {
+      "embedding_similarity": 0.8406,
+      "left_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 국가의 개별 협정/요청",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "사우디에 이어 한국도 미국에 우라늄 농축권한 요청",
+      "same_event": false
+    },
     "09ac4f943ed7ad61--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8868,
       "left_title": "헝가리 총리, 다뉴브강 수위 저하로 원전 가동 중단 가능성 경고",
@@ -32,6 +42,136 @@
       "right_title": "수명 만료 원전 4기, 계속운전 인허가 절차 지연 지속",
       "same_event": false
     },
+    "0f67fdfe143a9591--27cf26ee5365bab5": {
+      "embedding_similarity": 0.8419,
+      "left_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "12ec710dcc1a738a--42f55252997bbbc3": {
+      "embedding_similarity": 0.867,
+      "left_title": "로사톰, 러시아 내 18개 원전 건설 프로젝트 진행 중 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "러시아 원전 건설 진행 상황",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
+      "same_event": true
+    },
+    "195a5cc0f97befa7--4bdd65d0c09aaf72": {
+      "embedding_similarity": 0.8513,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
+      "same_event": true
+    },
+    "2449e0ab8d45461b--349e783fd4decdfa": {
+      "embedding_similarity": 0.8558,
+      "left_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 프로젝트/이니셔티브",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
+      "same_event": false
+    },
+    "2449e0ab8d45461b--a8c1cdc2ca53d72f": {
+      "embedding_similarity": 0.8519,
+      "left_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 부처의 개별 프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
+      "same_event": false
+    },
+    "2449e0ab8d45461b--b63eab8bc4b1467a": {
+      "embedding_similarity": 0.8549,
+      "left_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 프로젝트/이니셔티브",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--27e417353612169a": {
+      "embedding_similarity": 0.8541,
+      "left_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 규정/안건",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--4e6a1d2c0301a4d0": {
+      "embedding_similarity": 0.8486,
+      "left_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 규정/안건",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--6b93ed7e22e9bb4b": {
+      "embedding_similarity": 0.8552,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "일반 규정 제안과 개별 원전 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--937708a71d17b0a2": {
+      "embedding_similarity": 0.8745,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 원전의 개별 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--db88cff11d029f91": {
+      "embedding_similarity": 0.847,
+      "left_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체/사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27cf26ee5365bab5--f33f228a288946ee": {
+      "embedding_similarity": 0.8556,
+      "left_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주제의 개별 논의",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "same_event": false
+    },
+    "27e417353612169a--398fa0e5ecf0d24a": {
+      "embedding_similarity": 0.8508,
+      "left_title": "미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
     "27e417353612169a--4e6a1d2c0301a4d0": {
       "embedding_similarity": 0.8966,
       "left_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
@@ -52,6 +192,46 @@
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
       "same_event": true
     },
+    "27e417353612169a--937708a71d17b0a2": {
+      "embedding_similarity": 0.8762,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 원전 vs 일반 규정",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "27e417353612169a--f33f228a288946ee": {
+      "embedding_similarity": 0.8565,
+      "left_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "2b442f968d18a90b--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8563,
+      "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사/파트너십",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "337a9ffbe7eef399--6833a35dd8fc11fe": {
+      "embedding_similarity": 0.8722,
+      "left_title": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 국가/프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "same_event": false
+    },
     "398fa0e5ecf0d24a--89a559f17ff440e3": {
       "embedding_similarity": 0.8908,
       "left_title": "미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결",
@@ -60,6 +240,36 @@
       "reason": "주체와 안건이 다름",
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "same_event": false
+    },
+    "3c3560063b344488--b3adbd243878a3c3": {
+      "embedding_similarity": 0.851,
+      "left_title": "KEPIC, AIㆍSMR 시대 맞춰 기준체계 확장",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "기준 확장과 일반 정책 강조",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "same_event": false
+    },
+    "3c3560063b344488--d2d6214a79979e89": {
+      "embedding_similarity": 0.8514,
+      "left_title": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "지역 유치와 일반 정책 강조",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "same_event": false
+    },
+    "3c3560063b344488--e2e42584280401fc": {
+      "embedding_similarity": 0.8532,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 규정 개정과 일반 정책",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
       "same_event": false
     },
     "4113d294aea75ee0--571c41d8d5a745d5": {
@@ -72,6 +282,16 @@
       "right_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
       "same_event": false
     },
+    "4113d294aea75ee0--5976e83faefed3d5": {
+      "embedding_similarity": 0.8512,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "신규 원전 계획 관련",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "same_event": true
+    },
     "4113d294aea75ee0--8c6eb5250550b959": {
       "embedding_similarity": 0.8816,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -81,6 +301,16 @@
       "reviewed_at": "2026-08-03T07:27:10.373117+00:00",
       "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
       "same_event": false
+    },
+    "4bdd65d0c09aaf72--5190f5f0f0d050de": {
+      "embedding_similarity": 0.861,
+      "left_title": "다뉴브강 수위 최저치 기록, 헝가리·루마니아 원전 가동 중단",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "same_event": true
     },
     "4bdd65d0c09aaf72--d217422a62af77e2": {
       "embedding_similarity": 0.8832,
@@ -102,6 +332,46 @@
       "right_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
       "same_event": true
     },
+    "4e6a1d2c0301a4d0--81f953a60f1d554b": {
+      "embedding_similarity": 0.849,
+      "left_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체/사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국원자력학회(ANS), OMB에 핵 연구 교류 저해 우려 표명",
+      "same_event": false
+    },
+    "5190f5f0f0d050de--7702cb1efa54b619": {
+      "embedding_similarity": 0.8488,
+      "left_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "다뉴브강 수위 최저치 기록, 헝가리·루마니아 원전 가동 중단",
+      "same_event": false
+    },
+    "5190f5f0f0d050de--d217422a62af77e2": {
+      "embedding_similarity": 0.842,
+      "left_title": "다뉴브강 수위 최저치 기록, 헝가리·루마니아 원전 가동 중단",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "헝가리 원전 가동 중단 경고",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "헝가리 총리, 임박한 원전 폐쇄로 \"중대한\" 시기 경고",
+      "same_event": true
+    },
+    "538c53ac4627ea3f--a4723d13eaa57660": {
+      "embedding_similarity": 0.8454,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 원전 건설과 정책 승인",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "중국 정부, 신규 원전 8기 건설 승인하며 대규모 확장 지속",
+      "same_event": false
+    },
     "549b832e2069fa6a--fd17939220b56c39": {
       "embedding_similarity": 0.899,
       "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
@@ -122,6 +392,16 @@
       "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
     },
+    "571c41d8d5a745d5--8c6eb5250550b959": {
+      "embedding_similarity": 0.8661,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력 공급 이슈",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "same_event": true
+    },
     "5976e83faefed3d5--6260c0799db78ac9": {
       "embedding_similarity": 0.8941,
       "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
@@ -132,6 +412,66 @@
       "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
       "same_event": true
     },
+    "5976e83faefed3d5--76ffb07f2b6ccb8d": {
+      "embedding_similarity": 0.8575,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 방향 논의",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "same_event": true
+    },
+    "5976e83faefed3d5--d4658d844ee27556": {
+      "embedding_similarity": 0.851,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전력계획 관련",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
+      "same_event": true
+    },
+    "5f50f27e3d506043--b63eab8bc4b1467a": {
+      "embedding_similarity": 0.866,
+      "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "same_event": false
+    },
+    "6260c0799db78ac9--76ffb07f2b6ccb8d": {
+      "embedding_similarity": 0.8628,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 방향 논의",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "same_event": true
+    },
+    "6833a35dd8fc11fe--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8562,
+      "left_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사/프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "6833a35dd8fc11fe--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.869,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사/프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "same_event": false
+    },
     "6f43d6ced821513e--d675dcf3f120c2fb": {
       "embedding_similarity": 0.8835,
       "left_title": "EDF, 테크닙 에너지스와 EPR2 원자로 건설 및 인도 협력 전략적 협약 체결",
@@ -140,6 +480,66 @@
       "reason": "서로 다른 협력/계약",
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "same_event": false
+    },
+    "76ffb07f2b6ccb8d--8c6eb5250550b959": {
+      "embedding_similarity": 0.8554,
+      "left_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 전력 정책/지역 이슈",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "same_event": false
+    },
+    "89a559f17ff440e3--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8529,
+      "left_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사/프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "a8c1cdc2ca53d72f--b63eab8bc4b1467a": {
+      "embedding_similarity": 0.8671,
+      "left_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 부처/프로그램",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "same_event": false
+    },
+    "b63eab8bc4b1467a--e166e0749a04c6dd": {
+      "embedding_similarity": 0.8502,
+      "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "same_event": false
+    },
+    "bdd164e591b5109d--d675dcf3f120c2fb": {
+      "embedding_similarity": 0.8681,
+      "left_title": "세르비아 정부, 국가 원자력 에너지 개발 로드맵 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "세르비아 원자력 개발 협력",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "same_event": true
+    },
+    "ca69ce47dc1e639d--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.851,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사/프로젝트",
+      "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
+      "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
       "same_event": false
     }
   }
