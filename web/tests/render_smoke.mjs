@@ -15,10 +15,14 @@ try {
   await page.waitForTimeout(3000);
 
   const bodyText = (await page.textContent("body")) || "";
-  const metaLine = (await page.textContent("#metaLine").catch(() => "")) || "";
+  // renderSystemStatus() 의 출력 노드. 예전 #metaLine 이 #headerStatus 로 개명됐는데
+  // 여기만 옛 id 로 남아 있었다 — .catch(()=>"") 가 없는 요소를 빈 문자열로 삼키고
+  // 아래 정규식이 그 빈 문자열에서 실패해, 2026-08 내내 daily-brief 가 상시 빨갰다.
+  // 빈 컨테이너가 아니라 렌더러가 채우는 노드를 봐야 한다는 이 파일의 원칙 그대로다.
+  const headerStatus = (await page.textContent("#headerStatus").catch(() => "")) || "";
 
   if (/데이터 연결 실패/.test(bodyText)) failures.push("'데이터 연결 실패' 문구가 화면에 있음");
-  if (!/이슈\s*\d+/.test(metaLine)) failures.push(`메타 라인 비정상: "${metaLine}"`);
+  if (!/이슈\s*\d+/.test(headerStatus)) failures.push(`헤더 상태 비정상: "${headerStatus}"`);
 
   // 선정 하한 도입 뒤로 이슈 0건은 정상 상태다(News Minimalist 식 — 조용한 날은
   // 피드가 짧아지는 게 설계 의도). 그래서 "카드가 1개 이상"을 요구하면 멀쩡한

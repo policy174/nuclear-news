@@ -739,6 +739,21 @@ class GeneratedDataTests(unittest.TestCase):
             for item in featured
         ))
 
+    def test_render_smoke_selectors_exist_in_the_page(self):
+        """스모크가 없는 id 를 보면 조용히 실패한다 — 라이브가 멀쩡해도 CI 가 빨개진다.
+
+        실제 사고: `#metaLine` 이 `#headerStatus` 로 개명됐는데 스모크만 옛 id 로
+        남았다. `page.textContent(...).catch(() => "")` 가 없는 요소를 빈 문자열로
+        삼키고 그 다음 정규식이 실패해, 2026-08 daily-brief 가 매일 실패했다.
+        상시 빨간 워크플로는 진짜 장애와 구분되지 않는다.
+        """
+        smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        page_ids = set(re.findall(r'id="([^"]+)"', html))
+        referenced = set(re.findall(r'["\'`]#([A-Za-z][\w-]*)["\'\s\[]', smoke))
+        missing = sorted(referenced - page_ids)
+        self.assertEqual(missing, [], f"render_smoke.mjs 가 없는 id 를 참조한다: {missing}")
+
     def test_explanatory_copy_is_removed(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
