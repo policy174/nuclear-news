@@ -197,20 +197,28 @@ curl -s "https://nuclens.pages.dev/data/publications.json?cb=$(date +%s)" \
 아니라 워크플로 실행 쪽이다. **GitHub → Actions → "Weekly report" 이력 확인이 다음
 할 일** (private repo 라 저장소 밖에서는 못 본다). 상세는 `PHASE_PLAN.md` §S4.
 
-### E. `feat/atlas-p0-data` — 남은 건 커밋 하나
+### E. [해소됨 2026-08-03 19:50] `feat/atlas-p0-data` 전량 병합
 
-patch-id 로 확인(ancestry 로 보면 4커밋 미병합으로 보이지만 내용 기준):
+`git cherry -v origin/main feat/atlas-p0-data` → **미병합 0건.**
 
-| 커밋 | main 에 |
+| 커밋 | 처리 |
 |---|---|
-| `243f84e` 레이아웃 | ✔ (`26c1d3e` 로 cherry-pick) |
-| `85c8aea` 들여쓰기 | ✔ (`7ee41d7`) |
-| `709d662` 설명문·서체 | ✔ (`76b3382`) |
-| `7eb952e` `curate_with_llm` 잔해 제거 | ✘ **유일한 미병합** |
+| `243f84e` 레이아웃 / `85c8aea` 들여쓰기 / `709d662` 설명문·서체 | 이미 main (`26c1d3e` `7ee41d7` `76b3382`) |
+| `7eb952e` `curate_with_llm` 잔해 제거 | ✅ `1848679` 로 cherry-pick |
+| batch 잘림 수리 (다른 세션 미커밋분) | ✅ `ae9a3e0` 로 커밋 → `7b28329` 로 cherry-pick |
 
-`7eb952e` 는 `news_bot.py` 를 건드리는데, 같은 워크트리(`my-projects/nuclens-upgrade`)에
-**다른 세션의 미커밋 작업**(batch 잘림 수리 — `BATCH_MAX_OUTPUT_TOKENS 16384`, 분할
-재시도)이 얹혀 있다. 그 작업의 주인이 끝낸 뒤 함께 병합할 것.
+막고 있던 것은 `my-projects/nuclens-upgrade` 워크트리의 **다른 세션 미커밋 작업**이었다.
+4시간 36분 멈춰 있었고(마지막 파일 수정 15:03), 테스트 242개가 전부 통과하는 완성
+상태여서 **사용자 승인 후 그대로 인수해 커밋**했다. 코드 내용은 손대지 않았다.
+
+그 작업이 고친 것: 2.5-flash 의 thinking 토큰이 출력 예산을 잠식해 batch 응답이 잘리면
+chunk 가 통째로 버려졌고, 버려진 기사는 fallback 큐레이션으로 큐에 들어가면서
+`sent` 마킹돼 **영영 복구되지 않았다.** 이제 `GeminiTruncated` 를 따로 잡아 분할
+재시도하고, 그래도 유실되면 `delivery_log.jsonl` 에 `record_type=curation_failure`
+로 남긴다.
+
+**이로써 B(`open_question` 게이트 계측)의 파일 충돌이 풀렸다** — `news_bot.py` 를
+이제 자유롭게 건드릴 수 있다.
 
 ---
 
