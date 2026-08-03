@@ -702,6 +702,49 @@ kbd {
   background: var(--c-surface);
 }
 .side-panel + .side-panel { margin-top: 10px; }
+
+/* 선택한 이슈의 근거 패널. 통합 시안의 Evidence Layer — 어두운 머리말 + 번호
+ * 붙은 구역. 데이터가 100%인 '해석과 한계'·'핵심 근거'만 항상 나오고, 변화
+ * 문장(6%)·미해결 질문(0%)은 있을 때만 켜진다. */
+.evidence-rail {
+  margin-bottom: 10px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+  overflow: hidden;
+}
+.rail-head { padding: 17px; background: var(--c-primary); color: #fff; }
+/* 라임은 딥 포레스트 위에서만 안전하다(11.78:1). 밝은 배경에서 재사용 금지. */
+.rail-kicker { margin: 0 0 8px; color: var(--c-signal); font-size: 12.5px; font-weight: 650; letter-spacing: .04em; }
+.rail-head h2 { margin: 0 0 11px; color: #fff; font-size: 17px; line-height: 1.4; }
+.rail-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0; font-size: 12.5px; }
+.rail-badges > span:last-child { color: rgb(255 255 255 / 78%); }
+.rail-body { padding: 0 17px 17px; }
+.rail-block { padding: 15px 0; border-bottom: 1px solid var(--c-border); }
+.rail-block:last-of-type { border-bottom: 0; }
+.rail-block > p { margin: 0; font-size: 13px; line-height: 1.65; }
+.rail-no { margin: 0 0 7px !important; color: var(--c-accent-text); font-size: 12.5px; font-weight: 700; letter-spacing: .04em; }
+.rail-impact, .rail-open { margin-top: 11px !important; color: var(--c-text-secondary); }
+.rail-impact strong, .rail-open strong { display: block; margin-bottom: 3px; color: var(--c-text); font-size: 12.5px; }
+.rail-sources { margin: 0; padding: 0; list-style: none; }
+.rail-sources li { display: grid; gap: 2px; padding-block: 8px; border-top: 1px solid var(--c-border); }
+.rail-sources li:first-child { border-top: 0; }
+.rail-sources a, .rail-sources span { font-size: 13px; line-height: 1.5; }
+.rail-sources small { color: var(--c-text-muted); font-size: 12.5px; }
+.rail-primary { margin-top: 11px !important; font-size: 12.5px; }
+.rail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+.rail-actions button {
+  min-height: 44px;
+  padding: 0 11px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-1);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-size: 13px;
+  font-weight: 650;
+}
+.rail-actions button:first-child { border-color: var(--c-primary); background: var(--c-primary); color: #fff; }
+.rail-actions button:hover { border-color: var(--c-text); }
 .side-panel h2 { margin: 0 0 11px; font-size: 15px; }
 .side-panel ol { margin: 0; padding: 0; list-style: none; }
 .side-panel li { display: grid; gap: 1px; padding-block: 8px; border-top: 1px solid var(--c-border); }

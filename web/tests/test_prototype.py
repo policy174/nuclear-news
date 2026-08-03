@@ -1046,7 +1046,12 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('if (state.archiveQuery) params.set("q", state.archiveQuery)', script)
         self.assertIn('syncUrl("push")', script)
         self.assertIn('window.addEventListener("popstate"', script)
-        self.assertEqual(script.count('class="ai-badge"'), 1)
+        # AI 생성 문장에는 반드시 표시가 붙는다. 개수를 1로 고정하면 렌더 지점이
+        # 늘어나는 것 자체를 막을 뿐이라(다이얼로그 + 근거 패널), 지점마다 배지가
+        # 붙어 있는지를 본다.
+        self.assertGreaterEqual(script.count('class="ai-badge"'), 1)
+        self.assertIn('Nuclens 해석 <span class="ai-badge">AI</span>', script)
+        self.assertIn('${esc(model.impact.label)} <span class="ai-badge">AI</span>', script)
         self.assertIn(".ai-badge", style)
 
     def test_rss_and_report_copy_are_generated(self):
@@ -1976,8 +1981,14 @@ class WeeklyRenderTests(unittest.TestCase):
                         trend_fn.index("renderKeywordTable()"))
 
     def test_chips_are_clickable(self):
-        """칩이 상세로 연결되려면 컨테이너가 위임 목록에 있어야 한다."""
-        self.assertIn('"weeklyReportBody", "insightList"].forEach', self.script)
+        """칩이 상세로 연결되려면 컨테이너가 위임 목록에 있어야 한다.
+
+        목록 끝을 통째로 문자열 비교하면 컨테이너를 하나 추가할 때마다 깨진다.
+        필요한 것은 '이 id 들이 위임돼 있는가'이므로 개별로 확인한다.
+        """
+        block = self.script.split("].forEach(id => {")[0].rsplit("[", 1)[-1]
+        for container in ("weeklyReportBody", "insightList", "issueList", "evidenceRail"):
+            self.assertIn(f'"{container}"', block, f"{container} 가 위임 목록에 없다")
 
     def test_chip_is_readable_on_light_panel(self):
         """히어로 칩은 어두운 배경 전용(흰 글자)이라 그대로 쓰면 안 보인다."""

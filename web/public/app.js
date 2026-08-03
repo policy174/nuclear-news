@@ -31,7 +31,7 @@ const state = {
   pubs: null, pubsOrg: "전체",
   manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
-  issueSort: "importance", issueView: "card", issueId: "",
+  issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   period: "7", keywordSort: "mentions", savedIds: new Set(),
@@ -244,6 +244,44 @@ function issueEvidenceText(issue) {
 // 않는다 — 요약이 이미 같은 사실을 말하고 있으므로 '없다'는 안내도 붙이지 않는다.
 function issueChangeText(issue) {
   return issue.latest_change || "";
+}
+
+// 근거 패널과 이슈 다이얼로그가 같은 내용을 보이게 하는 단일 조립 지점.
+// 두 화면을 따로 만들면 금방 갈라진다 — 컨테이너만 다르고 데이터는 여기서만 만든다.
+//
+// 라벨은 값에 따라 바뀐다. 고정 라벨을 쓰면 데이터가 뒷받침하지 못하는 주장을
+// 하게 된다: 공식 출처가 없는데 "공식 출처"라 부르거나, 기사 1건짜리에
+// "관련 보도"를 켜서 교차 확인된 것처럼 보이게 만든다.
+function issueDetailModel(issue, contextDate) {
+  const verification = verificationState(issue);
+  const articles = [...(issue.related_articles || [])].sort((a, b) => (
+    Number(isOfficial(b)) - Number(isOfficial(a)) || String(b.article_date).localeCompare(String(a.article_date))
+  ));
+  const officialArticles = articles.filter(isOfficial);
+  const articleCount = issue.article_count || articles.length;
+  const changeText = issueChangeText(issue);
+  return {
+    issue,
+    articles,
+    verification,
+    evidenceText: issueEvidenceText(issue),
+    // 라벨만 바꾸면 안 된다 — 공식이라 부르면 실제 공식 문서를 가리켜야 한다.
+    source: officialArticles.length
+      ? { label: "공식 출처", official: true, article: officialArticles[0] }
+      : { label: "대표 출처", official: false, article: issue.representative_article || articles[0] || null },
+    // 1건짜리는 노드를 아예 숨긴다. 켜두면 여러 출처가 교차 확인됐다는 오해를 만든다.
+    media: articleCount >= 2 ? { label: `관련 보도 ${articleCount}건`, count: articleCount } : null,
+    // implication(산업 영향)과 why_important(왜 중요한가)는 다른 축이다.
+    impact: issue.implication
+      ? { label: "산업 영향", text: issue.implication }
+      : (issue.why_important ? { label: "왜 중요한가", text: issue.why_important } : null),
+    // latest_change 는 최신 기사와 과거 기사의 요약을 즉석 비교해 만든다 — 그 변화가
+    // '오늘' 생겼다는 보장이 없다. 근거일을 확인할 수 없으면 '최근'으로 둔다.
+    change: changeText
+      ? { label: contextDate && issue.last_seen === contextDate ? "오늘의 변화" : "최근 변화", text: changeText }
+      : null,
+    openQuestion: (issue.open_question || "").trim() || null,
+  };
 }
 
 function setPressed(container, activeButton) {
@@ -575,6 +613,11 @@ function issueCard(issue, index, archive = false) {
 }
 
 function renderBriefingSidebar(briefing) {
+  // 근거 패널의 기본 선택 — 비워두면 사이드 첫 칸이 빈 채로 시작한다.
+  // 선택이 이번 브리핑에 없는 이슈를 가리키면(날짜 이동 등) 다시 잡는다.
+  const inBriefing = briefing.issues.some(issue => issue.issue_id === state.railIssueId);
+  if (!inBriefing) state.railIssueId = briefing.issues[0]?.issue_id || "";
+  renderEvidenceRail();
   // 히어로가 이미 지표를 보여준다. 사이드에는 히어로에 없는 검증 분포를 둔다.
   const verified = new Map(VERIFICATION_ORDER.map(status => [status, 0]));
   briefing.issues.forEach(issue => {
@@ -1034,6 +1077,61 @@ async function copyIssuePack(button, issueId) {
   await copyToClipboard(button, issueMaterialPack(issue), "자료 팩을 복사하지 못했습니다");
 }
 
+// 검증 상태를 그대로 문장으로 옮긴다. LLM 을 새로 부르지 않는다 — 단일 출처
+// 96/108 인 코퍼스에서 '한계'는 만들어낼 것이 아니라 이미 아는 사실이다.
+const LIMIT_TEXT = {
+  official: "공식 기관 문서로 확인된 내용입니다. 후속 결정은 별도 문서가 필요합니다.",
+  corroborated: "독립된 복수 출처가 같은 사실을 전합니다. 세부 수치는 원문에서 확인하세요.",
+  partial: "단일 출처입니다. 아직 교차 확인되지 않았습니다.",
+  unverified: "출처 확인이 충분하지 않습니다. 확정된 사실로 읽지 마세요.",
+};
+
+function renderEvidenceRail() {
+  const rail = document.getElementById("evidenceRail");
+  if (!rail) return;
+  const issue = state.railIssueId ? currentIssueById(state.railIssueId) : null;
+  if (!issue) { rail.hidden = true; rail.innerHTML = ""; return; }
+  const model = issueDetailModel(issue, state.briefingDate);
+  const limit = LIMIT_TEXT[model.verification.status] || LIMIT_TEXT.unverified;
+  const sourceArticle = model.source.article;
+  const sourceUrl = sourceArticle ? safeUrl(sourceArticle.url) : "";
+  rail.hidden = false;
+  rail.innerHTML = `
+    <div class="rail-head">
+      <p class="rail-kicker">${esc(model.source.label)}${model.media ? ` · ${esc(model.media.label)}` : ""}</p>
+      <h2>${esc(issue.title)}</h2>
+      <p class="rail-badges">${verificationBadge(issue, { always: true })}<span>${esc(model.evidenceText)}</span></p>
+    </div>
+    <div class="rail-body">
+      ${model.change ? `<section class="rail-block">
+        <p class="rail-no">01 / ${esc(model.change.label)}</p>
+        <p>${esc(model.change.text)}</p>
+      </section>` : ""}
+      <section class="rail-block">
+        <p class="rail-no">${model.change ? "02" : "01"} / 해석과 한계</p>
+        <p>${esc(limit)}</p>
+        ${model.impact ? `<p class="rail-impact"><strong>${esc(model.impact.label)} <span class="ai-badge">AI</span></strong>${esc(model.impact.text)}</p>` : ""}
+        ${model.openQuestion ? `<p class="rail-open"><strong>아직 확정되지 않은 것</strong>${esc(model.openQuestion)}</p>` : ""}
+      </section>
+      <section class="rail-block">
+        <p class="rail-no">${model.change ? "03" : "02"} / 핵심 근거</p>
+        <ol class="rail-sources">${model.articles.slice(0, 4).map(article => {
+          const url = safeUrl(article.url);
+          return `<li>
+            ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>`
+                  : `<span>${esc(article.title_kr)}</span>`}
+            <small>${esc(sourceLabel(article))}${isOfficial(article) ? " · 1차 출처" : ""}</small>
+          </li>`;
+        }).join("")}</ol>
+        ${sourceUrl && model.source.official ? `<p class="rail-primary"><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">공식 문서 열기 ↗</a></p>` : ""}
+      </section>
+      <div class="rail-actions">
+        <button type="button" data-issue-id="${esc(issue.issue_id)}" data-force-dialog="1">전체 상세</button>
+        <button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button>
+      </div>
+    </div>`;
+}
+
 function openIssueDialog(issueId, updateUrl = true) {
   const issue = currentIssueById(issueId);
   if (!issue) return;
@@ -1421,8 +1519,29 @@ function handleIssueAction(event) {
   const share = event.target.closest("[data-share-issue]");
   if (share) { shareIssue(share.dataset.shareIssue); return true; }
   const detail = event.target.closest("[data-issue-id]");
-  if (detail) { openIssueDialog(detail.dataset.issueId); return true; }
+  if (detail) {
+    // 데스크톱 오늘 브리핑에서는 모달 대신 우측 근거 패널을 갈아끼운다.
+    // 모바일·딥링크·아카이브는 그대로 다이얼로그 — /issue/<id>/ 정적 페이지
+    // 113개가 부팅 시 openIssueDialog 를 부르므로 그 경로는 살아 있어야 한다.
+    // 패널 안의 '전체 상세'(data-force-dialog)는 언제나 다이얼로그를 연다.
+    if (!detail.dataset.forceDialog && state.view === "news" && railIsActive()) {
+      state.railIssueId = detail.dataset.issueId;
+      renderEvidenceRail();
+      document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      return true;
+    }
+    openIssueDialog(detail.dataset.issueId);
+    return true;
+  }
   return false;
+}
+
+// 패널은 사이드바가 실제로 보이는 폭에서만 쓴다. style.css 의
+// `.briefing-sidebar { display: none }` 가 좁은 화면에서 사이드바를 숨기므로,
+// 폭을 숫자로 다시 적지 않고 렌더 결과를 직접 본다 — 값이 두 곳에 있으면 갈라진다.
+function railIsActive() {
+  const sidebar = document.querySelector(".briefing-sidebar");
+  return !!sidebar && getComputedStyle(sidebar).display !== "none";
 }
 
 function bind() {
@@ -1453,7 +1572,7 @@ function bind() {
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
   ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog",
-   "headlineEvidence", "weeklyReportBody", "insightList"].forEach(id => {
+   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 
