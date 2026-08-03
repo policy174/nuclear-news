@@ -501,11 +501,19 @@ def empty_reason(diag: dict) -> str:
     return "오늘 새로 확인된 브리핑 이슈가 없습니다."
 
 
-def region_stats(diag: dict, selected: list[dict]) -> dict:
+def region_stats(diag: dict, selected: list[dict], pool: list[dict] | None = None) -> dict:
+    """그날 그 지역의 선정 통계.
+
+    features 결손은 하한 판정에서 면제되므로(ranking.floor_verdict) 컷오프 수치만
+    봐서는 보이지 않는다. 결손이 줄고 있는지를 회차 단위로 남긴다 —
+    수집 로그(news_bot)는 전체 큐 기준이고 이건 그날 후보 풀 기준이다.
+    """
     return {
         "candidate_count": int(diag.get("candidate_count") or 0),
         "selected_count": len(selected),
         "below_floor_count": len(diag.get("dropped_below_floor") or []),
+        "features_missing": sum(
+            1 for a in (pool or []) if not isinstance(a.get("features"), dict)),
     }
 
 
@@ -533,7 +541,8 @@ def plan_briefs(queue: list[dict],
     if not queue and not social_pairs:
         # 파이프라인은 정상적으로 돌았고 후보가 없었을 뿐이다 — 웹이 이걸
         # '데이터 갱신 실패'와 구분할 수 있도록 0 통계를 남긴다.
-        zero = {"candidate_count": 0, "selected_count": 0, "below_floor_count": 0}
+        zero = {"candidate_count": 0, "selected_count": 0, "below_floor_count": 0,
+                "features_missing": 0}
         return {**base, "status": "empty", "briefs": [], "items": [],
                 "selection_stats": {"domestic": dict(zero), "overseas": dict(zero)},
                 "prune_hashes": []}
@@ -626,8 +635,8 @@ def plan_briefs(queue: list[dict],
     return {**base, "status": "pending", "briefs": briefs, "items": out_items,
             "report_diag": report_diag,
             "selection_stats": {
-                "domestic": region_stats(dom_diag, dom),
-                "overseas": region_stats(forn_diag, forn),
+                "domestic": region_stats(dom_diag, dom, dom_pool),
+                "overseas": region_stats(forn_diag, forn, forn_pool),
             },
             "dropped_duplicates": dom_diag["dropped_duplicates"] + forn_diag["dropped_duplicates"],
             "prune_hashes": prune}

@@ -619,6 +619,69 @@ def save_curated(curated: dict) -> None:
     save_json(CURATED_CACHE_FILE, curated)
 
 
+# features 만 없는 항목을 몇 번까지 다시 물어볼 것인가. 상한이 없으면 LLM 이 끝내
+# 주지 않는 항목을 매시간(크롤마다) 다시 묻게 되고 무료 티어가 그대로 녹는다.
+FEATURES_RETRY_LIMIT = 2
+
+
+def fallback_curation(article: dict) -> dict | None:
+    """batch 큐레이션이 실패한 기사의 최소 레코드. 안전한 문장이 없으면 None.
+
+    원문 스니펫의 **완결문만** 쓴다 — 자르면 문장 중간에서 끊긴다.
+
+    ⚠️ 여기서 등급을 올리지 않는다. 예전에는 1차 출처(`is_tier1_source`)면
+    ``must_read`` 로 승격했는데, 이 레코드에는 features 가 없어 ranking 이
+    ``_legacy_score()`` 로 빠진다(event_weights·feature 가중치 전부 무시).
+    그 결과 ``must_read`` 의 40%(회차 관측치 기준)가 "LLM 이 중요하다고 본
+    기사"가 아니라 "큐레이션이 실패한 1차 출처"가 돼 있었다.
+    등급은 큐레이션이 판단할 몫이고, 이 항목은 ``needs_recuration()`` 이
+    다음 crawl 에서 다시 물어본다.
+    근거: docs/AS_IS.md §2, docs/score_distribution.md §4·§7.
+    """
+    summary = first_complete_sentence(article.get("description"), 80)
+    if not summary:
+        return None
+    return {
+        "importance": "nice_to_know",
+        "section": default_section(article.get("domain", ""), article.get("title", "")),
+        "category": "정책",
+        "title_kr": article.get("title", ""),
+        "summary": summary,
+        "implication": "",
+        "why_important": "",
+        "watch_next": "",
+        "tags": [],
+        "related_reports": [],
+        "event_date": None,
+        "event_date_type": "unknown",
+        "event_date_precision": "unknown",
+        "event_date_source": "unknown",
+    }
+
+
+def needs_recuration(cached: dict) -> bool:
+    """캐시된 큐레이션을 Gemini 에 다시 물어봐야 하는가.
+
+    features 결손을 재큐레이션 대상에 포함시키는 것이 이 함수의 존재 이유다.
+    ``curation_errors()`` 만 보면 summary 가 멀쩡한 결손 항목은 완결된 것으로
+    취급돼 그대로 캐시된다.
+
+    ⚠️ **이건 2차 방어선이다.** 기사는 큐에 적재되는 순간 ``state["sent"]`` 로
+    마킹되고 ``article_seen()`` 이 재수집을 막으므로, 이 판정은 아직 큐에 못 들어간
+    항목(품질 격리분)이나 ``sent`` 가 만료(14일)돼 다시 잡힌 항목에만 도달한다.
+    **결손을 실제로 막는 곳은 ``curate_batch()`` 의 응답 검증**이다.
+
+    features 만 없는 경우는 재시도 상한을 둔다 — 다른 필드까지 깨진 항목은 상한
+    없이 고치되, "LLM 이 이 기사엔 features 를 안 준다"는 상태에 갇히지 않게 한다.
+    """
+    errors = curation_errors(cached, require_features=True)
+    if not errors:
+        return False
+    if errors == ["features:missing"]:
+        return int(cached.get("features_attempts") or 0) < FEATURES_RETRY_LIMIT
+    return True
+
+
 def load_queue() -> list:
     return load_json(DIGEST_QUEUE_FILE, [])
 
@@ -936,7 +999,7 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
             print(f"  ! curate JSON parse failed for '{title[:30]}'")
             return fallback
         normalized = normalize_curation_item(result, {"title": title, "domain": domain})
-        errors = curation_errors(normalized)
+        errors = curation_errors(normalized, require_features=True)
         if errors:
             print(f"  ! curate 품질 게이트 실패 '{title[:30]}': {', '.join(errors)}")
             return fallback
@@ -1058,7 +1121,12 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             seen_indexes.add(idx)
             art = chunk[idx]
             normalized = normalize_curation_item(item, art)
-            errors = curation_errors(normalized)
+            # ★ 결손을 막는 실효 지점. 프롬프트가 features 를 요구하므로 빠진 응답은
+            # 재생성 대상이다. 여기서 안 잡으면 결손인 채 캐시·큐에 들어가고, 큐에
+            # 들어간 기사는 sent 로 마킹돼 다시 수집되지 않으므로 고칠 기회가 없다.
+            # 그 상태로 남으면 ranking 이 _legacy_score() 를 타 event_weights 도
+            # feature 가중치도 반영되지 않는다. 근거: docs/AS_IS.md §2.
+            errors = curation_errors(normalized, require_features=True)
             if errors:
                 failures[art["hash"]] = errors
             else:
@@ -1374,6 +1442,11 @@ def main() -> None:
     sent_immediate = 0
     queued = 0
     dropped = 0
+    # 큐에 들어간 항목 중 features 없는 건수. 결손은 로그에 아무 흔적을 남기지
+    # 않아서, must_read 의 상당수가 랭킹에서 사실상 빠져 있다는 사실이 몇 달간
+    # 보이지 않았다. 큐에 들어가면 sent 마킹으로 되돌릴 수 없으므로 이 값이 0 에
+    # 수렴하는지가 S1 의 성패다. 근거: docs/score_distribution.md §4.
+    features_missing = 0
     now_iso = datetime.now(timezone.utc).isoformat()
 
     all_candidates: list[dict] = []
@@ -1432,7 +1505,7 @@ def main() -> None:
     # judge 의 노이즈 컷은 큐레이션의 importance=noise 로 흡수 (별도 호출 제거).
     new_articles = [
         article for article in final_articles
-        if article["hash"] not in curated or curation_errors(curated[article["hash"]])
+        if article["hash"] not in curated or needs_recuration(curated[article["hash"]])
     ]
     if new_articles:
         n_calls = (len(new_articles) + BATCH_CHUNK - 1) // BATCH_CHUNK
@@ -1450,40 +1523,29 @@ def main() -> None:
     for article in final_articles:
         h = article["hash"]
 
-        if h in curated and not curation_errors(curated[h]):
+        if h in curated and not needs_recuration(curated[h]):
             cur = curated[h]
         else:
+            previous = curated.get(h) or {}
             cur = batch_results.get(h)
             if cur is None:
-                # batch 실패분은 원문 스니펫의 완결문만 사용한다. 안전하게 뽑을
-                # 문장이 없으면 이번 실행에서 격리하고 다음 crawl에서 재시도한다.
-                fallback_summary = first_complete_sentence(article.get("description"), 80)
-                if not fallback_summary:
+                cur = fallback_curation(article)
+                if cur is None:
                     print(f"  ! 품질 격리(완결 요약 없음): {article['title'][:60]}")
                     continue
-                force_t1 = is_tier1_source(article)
-                cur = {
-                    "importance": "must_read" if force_t1 else "nice_to_know",
-                    "section": default_section(article["domain"], article["title"]),
-                    "category": "정책",
-                    "title_kr": article["title"],
-                    "summary": fallback_summary,
-                    "implication": "",
-                    "why_important": "",
-                    "watch_next": "",
-                    "tags": [],
-                    "related_reports": [],
-                    "event_date": None,
-                    "event_date_type": "unknown",
-                    "event_date_precision": "unknown",
-                    "event_date_source": "unknown",
-                }
             cur["cached_at"] = now_iso
             cur["title"] = article["title"]
             cur["link"] = article["link"]
             cur["feed"] = article["feed"]
             cur["domain"] = article["domain"]
             cur["matched"] = article["matched"]
+            # features 를 끝내 못 받았으면 시도 횟수를 누적한다. needs_recuration()
+            # 이 이 값으로 재질의를 멈춘다. 받아냈으면 카운터를 지운다 — 나중에 다른
+            # 이유로 결손이 재발했을 때 상한에 이미 걸려 있으면 안 된다.
+            if isinstance(cur.get("features"), dict):
+                cur.pop("features_attempts", None)
+            else:
+                cur["features_attempts"] = int(previous.get("features_attempts") or 0) + 1
             curated[h] = cur
 
         importance = cur.get("importance", "nice_to_know")
@@ -1492,6 +1554,9 @@ def main() -> None:
             state["sent"][h] = now_iso
             dropped += 1
             continue
+
+        if not isinstance(cur.get("features"), dict):
+            features_missing += 1
 
         # must_read 포함 모든 비-noise 항목을 큐에 적재 — 즉시 개별 발송 폐지,
         # 일일 브리핑(daily_brief)으로 통합. must_read 는 rank가 높아 브리핑 상단 노출.
@@ -1560,7 +1625,9 @@ def main() -> None:
     save_state(state)
     save_curated(curated)
     save_queue(queue)
-    print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped}")
+    rate = f"{features_missing / queued * 100:.1f}%" if queued else "—"
+    print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped} "
+          f"features_missing={features_missing} ({rate})")
 
 
 if __name__ == "__main__":
