@@ -4,22 +4,38 @@
 계획서는 `~/.claude/plans/a-issue-atlas-cozy-lagoon.md` (rev.2), 이 문서가 그 뒤에
 실제로 일어난 일이다.
 
-기준선: **`origin/main = cb5b7bf`** · 테스트 봇 223 / 웹 174 · 라이브 반영 완료.
+기준선: **`origin/main = f9a1eb5`** · 테스트 봇 223 / 웹 174 · 라이브 반영 완료.
 
 ---
 
-## 1. 끝난 것
+## 1. 계획서 단계별 현황
 
-| 시안 요소 | 상태 | 커밋 |
+계획서의 단계는 Phase -1 / 0 / 1 / 2 다. **계획서에 레이아웃·타이포그래피 단계가
+없다** — 오늘 한 작업의 절반이 계획 밖이었다(§5 마지막 항목 참조).
+
+| 단계 | 항목 | 상태 |
 |---|---|---|
-| 딥 포레스트 팔레트 | 배포됨 | `d6621aa` |
-| 레이아웃·타이포그래피 | 배포됨 | `26c1d3e` |
-| 본문 들여쓰기 제거 | 배포됨 | `7ee41d7` |
-| 설명문 제거 · 서체 | 배포됨 | `76b3382` |
-| 발간물 제외·기관명·요약 | 배포됨 | `32528c4` |
-| 화면 변경 시 즉시 배포 | 배포됨 | `cb5b7bf` |
-| 우측 상시 근거 패널 | `feat/atlas-p0-data` 에 있음, **미병합** | `4063caa` |
-| 이슈 지도 (Atlas) | **미착수 — 데이터 부족** | — |
+| **Phase -1** | 브랜치 스택 병합 | ✅ (8/3 오전 patch-id 로 이미 반영 확인) |
+| | origin/main 기준 워크트리 | ✅ |
+| | 테스트 기준선 기록 | ✅ 봇 223 / 웹 174 |
+| | 라이브 지표 스냅샷 | ⚠️ 문서화 안 함 — 세션 대화에만 있음 |
+| **Phase 0** | 0-A `open_question` 실행 | ❌ **0/119.** 템플릿은 고쳤으나(`c82a09f`) 검증 못 함 |
+| | 0-B 병합 판정기 복구 | ⚠️ **한 번 살았다가 되돌아감** (아래 §2) |
+| | 0-C 게이트 지표 표 채우기 | ❌ 미착수 |
+| **Phase 1** | 토큰 값 교체 | ✅ `d6621aa` |
+| | 색 용도 제한 (표면/텍스트 분리) | ✅ CSS 주석으로 고정 |
+| | 12.5px 하한 + `font:` 축약형 구멍 | ✅ 테스트 확장, 예외 0 |
+| | 다크 파생 | ✅ `data-theme="dark"` 6블록 |
+| | og-image 재생성 | ✅ `d6621aa` |
+| | "하지 않을 것" 준수 | ✅ tokens.css 미채택 / 렌즈 미재론 / SUIT·IBM Plex 미추가 |
+| **Phase 2** | 우측 상시 근거 패널 | ✅ `4063caa` (main 에 있음) |
+| | 이슈 지도 (Atlas) | ❌ **미착수 — 데이터 부족** |
+| **계획 밖** | 레이아웃·타이포그래피 | ✅ `26c1d3e` `7ee41d7` `76b3382` |
+| | 발간물 정리 | ✅ `32528c4` |
+| | 배포 자동화 | ⚠️ `cb5b7bf` — **작동 미검증** (아래 §2) |
+
+정리하면 **Phase 1 은 완료, Phase 0 은 미완, Phase 2 는 근거 패널만.**
+사용자 체감으로 크게 바뀐 부분(표 레이아웃·타이포)은 계획서에 없던 항목이다.
 
 ### 레이아웃에서 실제로 바뀐 것
 
@@ -33,17 +49,75 @@
 
 ---
 
-## 2. 다음에 할 것 (우선순위)
+## 2. 지금 깨져 있는 것 — 먼저 볼 것
 
-### A. `feat/atlas-p0-data` 정리 — 병합 여부 판단
+### 2-1. 병합 판정기가 다시 죽었다 (내가 만든 회귀)
 
-`4063caa`(근거 패널)와 `7eb952e`(큐레이션 잔해 제거)가 미푸시 브랜치에 남아 있고,
-같은 워크트리(`my-projects/nuclens-upgrade`)에 **다른 세션의 미커밋 작업**
-(`news_bot.py`·`gemini_client.py` batch 잘림 수리)이 얹혀 있다.
+라이브 `issue_audit.json` 실측 (17:18 KST):
 
-근거 패널은 이미 라이브에서 보인다 — `26c1d3e` 가 `feat/atlas-p0-data` 위에서
-cherry-pick 된 것이라 패널 CSS·마크업이 같이 넘어왔기 때문이다. **브랜치의 남은
-차이는 `news_bot.py` 쪽 뿐**이므로, 그 작업의 주인 세션이 끝낸 뒤 별도로 병합한다.
+```
+remote_embedding_selected_count : 0     ← 오늘 낮에는 132 였다
+embedding_cache_entries         : 0     ← 오늘 낮에는 332 였다
+llm_review.status               : no_candidates (calls 0)
+review_candidates               : 40건 전부 pending / similarity=null
+이슈 수                          : 108 → 119 (클러스터링이 나빠져 잘게 쪼개짐)
+article_count>=2                : 18 → 8
+```
+
+**원인은 데이터가 아니라 내 배포 방식이다.** `embeddings.json` 은 git 이 아니라
+Actions 캐시에 사는데, 로컬에서 `wrangler pages deploy` 로 올리면서 캐시 없이
+빌드한 산출물이 CI 가 만든 정상 빌드를 덮었다(빌드 로그에 `exists: false`).
+
+**자가 치유된다** — 다음 CI 빌드(crawl 짝수 UTC시, 또는 `deploy-web.yml`)가
+캐시를 복원해 다시 만든다. 확인:
+
+```bash
+curl -s "https://nuclens.pages.dev/data/issue_audit.json?cb=$(date +%s)" \
+  | python -c "import json,sys;d=json.load(sys.stdin);print(d['embedding_cache_entries'], d['llm_review'])"
+```
+
+`embedding_cache_entries` 가 300 대로 돌아오면 회복. **교훈: 로컬 수동 배포는
+데이터까지 같이 덮는다. 화면만 보고 싶으면 로컬 서버를 쓸 것(§4).**
+
+### 2-2. `deploy-web.yml` 이 실제로 돌았다는 증거가 없다
+
+`cb5b7bf`(17:09:28)가 `paths` 에 걸리는 파일을 건드렸으므로 배포가 돌았어야
+하는데, 라이브 빌드는 **16:55:40**(내 수동 배포) 그대로다. 9분 넘게 변화 없음.
+같은 시간대 `08:00 UTC` crawl 도 흔적이 없다(`chore: update bot state` 커밋 없음).
+
+이 세션에서는 Actions 를 볼 수 없었다(repo 가 private, `gh` 미설치). 다음 세션이
+**가장 먼저 확인할 것**:
+
+```
+https://github.com/policy174/nuclear-news/actions
+```
+
+- 실행 자체가 없으면 → Actions 가 멈춘 것. 메모리에 같은 관찰 있음
+  ("매시간 cron 인데 3시간 가까이 실행 0회")
+- 실행됐는데 실패면 → 로그에서 어느 스텝인지 확인. 의심 순서:
+  `pip install` → `build_data.py`(embeddings 없이도 돌아야 함) → 웹 테스트 174개
+  → `wrangler`(시크릿)
+- Actions 탭에서 `Deploy web` → `Run workflow` 로 수동 실행해 보면 즉시 갈린다
+
+---
+
+## 3. 다음에 할 것 (우선순위)
+
+### A. `feat/atlas-p0-data` — 남은 건 커밋 하나뿐
+
+**patch-id 로 확인한 결과**(ancestry 로 보면 4커밋 미병합으로 보이지만 내용 기준):
+
+| 커밋 | main 에 |
+|---|---|
+| `243f84e` 레이아웃 | ✔ 있음 (`26c1d3e` 로 cherry-pick) |
+| `85c8aea` 들여쓰기 | ✔ 있음 (`7ee41d7`) |
+| `709d662` 설명문·서체 | ✔ 있음 (`76b3382`) |
+| `7eb952e` `curate_with_llm` 잔해 제거 | ✘ **없음 — 유일한 미병합** |
+
+근거 패널(`4063caa`)은 다른 세션이 이미 main 에 올려놨다. 남은 `7eb952e` 는
+`news_bot.py` 를 건드리는데, 같은 워크트리(`my-projects/nuclens-upgrade`)에
+**그 세션의 미커밋 작업**(batch 잘림 수리 — `BATCH_MAX_OUTPUT_TOKENS 16384`,
+분할 재시도)이 얹혀 있다. 그 작업의 주인이 끝낸 뒤 함께 병합할 것.
 
 ### B. 발간물 요약 v2 확인 — 다음 pubs CI 실행 직후
 
@@ -62,17 +136,19 @@ curl -s "https://nuclens.pages.dev/data/publications.json?cb=$(date +%s)" \
 
 ### C. 이슈 지도 (Atlas) — 데이터가 오면
 
-시안의 5단계 경로 중 **2칸이 비어 있어 착수하지 않았다.** 실측(108건 기준):
+시안의 5단계 경로 중 **2칸이 비어 있어 착수하지 않았다.** 두 시점 실측:
 
-| 노드 | 필드 | 보유율 |
-|---|---|---|
-| 오늘의 변화 | `latest_change` | 7/108 (6%) |
-| 남은 질문 | `open_question` | **0/108 (0%)** |
-| 산업 영향 | `implication` | 68/108 (62%) |
-| 관련 보도 N건 | `article_count >= 2` | 18/108 (17%) |
-| 공식 출처 | `official_source_count > 0` | 7/108 (6%) |
+| 노드 | 필드 | 정상 빌드(108건) | 현재 회귀 상태(119건) |
+|---|---|---|---|
+| 오늘의 변화 | `latest_change` | 7 (6%) | 4 (3%) |
+| 남은 질문 | `open_question` | **0 (0%)** | **0 (0%)** |
+| 산업 영향 | `implication` | 68 (62%) | 72 (61%) |
+| 관련 보도 N건 | `article_count >= 2` | 18 (17%) | 8 (7%) |
+| 공식 출처 | `official_source_count > 0` | 7 (6%) | 7 (6%) |
 
 **5칸이 전부 채워지는 이슈 0건.** 지금 그리면 100% 빈칸 그래프다.
+오른쪽 열은 §2-1 의 embeddings 회귀 때문에 더 나쁘다 — **판단은 왼쪽 열로 하고,
+회복 후 다시 재보고 착수 여부를 정할 것.**
 
 `open_question` 은 `c82a09f`(배치 템플릿 수리) 이후 크롤이 여러 번 돌았지만
 **신규 기사 중 must_read 가 0건**이라 게이트를 탈 기사가 안 들어왔다 — 수리가
@@ -92,7 +168,7 @@ must_read 가 몇 건 쌓였는데도 `open_question` 이 0이면 템플릿이 �
 
 ---
 
-## 3. 배포 — 이제 자동이다
+## 4. 배포 — 자동화했으나 미검증
 
 ```
 화면 코드(web/**) 를 main 에 병합  →  deploy-web.yml 즉시 배포 (1~2분)
@@ -111,7 +187,7 @@ python -m http.server 8790 --bind 127.0.0.1 --directory <worktree>/web/public
 
 ---
 
-## 4. 이번에 데인 것
+## 5. 이번에 데인 것
 
 - **`display: contents` 로 4열 표를 만들면 제목과 요약이 벌어진다.** 자식들이 서로 다른
   그리드 행으로 갈라져 옆 열(근거, 98px) 높이가 그 사이로 배분된다(실측 42px).
