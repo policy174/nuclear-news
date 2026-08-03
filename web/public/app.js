@@ -399,7 +399,10 @@ function renderSystemStatus() {
   const refreshedAt = state.systemStatus?.last_success_at || state.manifest?.generated_at || state.meta?.generated_at;
   let status = "ok";
   let lead = "정상";
-  let message = `마지막 수집 ${timeLabel(refreshedAt)} · 오늘 수집 기사 ${briefing.article_count || 0}건 · 연결된 이슈 ${briefing.issue_count || 0}개 · 1차 출처 ${briefing.primary_source_count ?? 0}건 · 다음 갱신 2시간 이내`;
+  // 정상일 때의 문구에서 뺀 둘: '1차 출처 0건' 은 값이 0 인 날이 대부분이라
+  // 처음 온 사람에게 '출처 없는 사이트'로 읽혔고, '다음 갱신 2시간 이내' 는
+  // 읽는 사람이 할 일이 없는 운영 일정이다. 둘 다 상태 다이얼로그에 남는다.
+  let message = `마지막 수집 ${timeLabel(refreshedAt)} · 오늘 기사 ${briefing.article_count || 0}건 · 이슈 ${briefing.issue_count || 0}건`;
 
   if (state.offline) {
     status = "warning";
@@ -427,15 +430,21 @@ function renderSystemStatus() {
   strip.innerHTML = `<div class="wrap status-strip-inner"><span class="status-lead"><span class="status-dot" aria-hidden="true"></span><strong>${lead}</strong></span>${items}</div>`;
   header.className = `header-status ${status}`;
   header.innerHTML = `<i aria-hidden="true"></i><span>${timeLabel(refreshedAt)} · 이슈 ${state.issues.length}</span>`;
+  // 좁은 화면에서는 위 span 이 숨겨져 이 버튼에 읽을 이름이 남지 않는다.
+  header.setAttribute("aria-label", `데이터 상태 ${lead} · 마지막 수집 ${timeLabel(refreshedAt)}`);
   footer.textContent = `서비스 상태 ${lead} · 마지막 갱신 ${dateTimeLabel(refreshedAt)}`;
+  // 정부·기관이 낸 원문은 0 건인 날이 대부분이다. 0 을 띄우면 결함으로 읽히므로
+  // 있는 날에만 줄을 만든다 — 이 저장소가 검증 배지에 쓰는 규칙과 같다.
+  const primaryCount = briefing.primary_source_count ?? 0;
   document.getElementById("statusDialogContent").innerHTML = `
     <dl class="status-details">
       <div><dt>상태</dt><dd>${esc(lead)}</dd></div>
       <div><dt>마지막 수집</dt><dd>${esc(dateTimeLabel(refreshedAt))}</dd></div>
       <div><dt>오늘 원문</dt><dd>${briefing.article_count || 0}건</dd></div>
       <div><dt>연결 이슈</dt><dd>${briefing.issue_count || 0}개</dd></div>
-      <div><dt>1차 출처</dt><dd>${briefing.primary_source_count ?? 0}건</dd></div>
-    </dl><p>${esc(message)}</p>`;
+      ${primaryCount ? `<div><dt>정부·기관 원문</dt><dd>${primaryCount}건</dd></div>` : ""}
+      <div><dt>다음 갱신</dt><dd>2시간 이내</dd></div>
+    </dl>${status === "ok" ? "" : `<p>${esc(message)}</p>`}`;
 }
 
 async function checkForNewGeneration() {
@@ -606,8 +615,21 @@ function issueCard(issue, index, archive = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
-  const summary = archive ? markMatch(issue.summary, state.archiveQuery) : esc(issue.summary);
-  const visibleMatch = normalizedSearch(`${issue.title || ""} ${issue.summary || ""}`).includes(state.archiveQuery);
+  // 카드의 두 번째 줄은 '무엇'이 아니라 '왜'다. summary 는 제목을 어순만 바꿔
+  // 다시 쓴 문장이 대부분이라(8/3 브리핑 실측 8건 중 5건) 두 번 읽게 만들 뿐
+  // 정보를 더하지 않는다. implication(= 상세의 '시사점')은 이미 만들어 두고도
+  // 두 탭 아래에만 두던 문장이다. 그 자리를 바꾼다.
+  //
+  // **why_important 는 여기 쓰지 않는다.** 2026-08-04 에 두 해석이 갈라졌지만
+  // 카드에 맞는 건 짧은 쪽뿐이다 — 실측 중앙값 implication 53자 / why_important
+  // 124자인데 이 줄은 2줄(모바일 3줄)에서 잘린다. 잘린 분석문은 완결된 요약보다
+  // 나쁘다. 대신 must_read 인데 implication 이 빈 17건은 summary 로 물러난다 —
+  // 화면이 아니라 큐레이션 프롬프트에서 채울 구멍이다.
+  const why = (issue.implication || "").trim();
+  const leadText = why || issue.summary || "";
+  const lead = archive ? markMatch(leadText, state.archiveQuery) : esc(leadText);
+  // 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 해야 한다.
+  const visibleMatch = normalizedSearch(`${issue.title || ""} ${leadText}`).includes(state.archiveQuery);
   const matchContext = archive && state.archiveQuery && !visibleMatch
     ? `<p class="search-match">검색 조건 <mark>${esc(state.archiveQuery)}</mark>과 연결된 이슈입니다.</p>`
     : "";
@@ -626,7 +648,7 @@ function issueCard(issue, index, archive = false) {
     </div>
     <div class="issue-body">
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
-      ${issue.summary ? `<p class="issue-summary">${summary}</p>` : ""}
+      ${leadText ? `<p class="issue-summary${why ? " issue-why" : ""}">${why ? `<span class="ai-badge">AI</span>` : ""}${lead}</p>` : ""}
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${keeiRefLine(issue)}
@@ -795,13 +817,39 @@ function renderBriefing() {
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
   }
-  document.getElementById("briefingTitle").textContent = briefing.headline || briefing.issues[0]?.title || "오늘의 핵심";
   // 오버라인은 h1이 실제로 무엇인지 따라간다. 변화 문장이 아닌데 '달라졌는가'라고
   // 쓰면 제목이 거짓말이 된다.
+  const isSynthesisLead = ["synthesis", "change"].includes(briefing.headline_kind);
+  // 헤드라인이 어느 이슈에서 왔는지 제목으로 되짚는다. 못 찾으면 첫 이슈.
+  const leadIssue = briefing.issues.find(issue => issue.title === briefing.headline) || briefing.issues[0];
+  const headlineText = briefing.headline || briefing.issues[0]?.title || "오늘의 핵심";
+  // 활자 크기와 아래 '왜' 줄은 headline_kind 라벨이 아니라 문장의 실체를 따른다.
+  // 실측(17일): synthesis 는 0일이고, kind='change' 인 3일(7/28·29·30)도 headline
+  // 이 issues[0].title 과 글자까지 같았다. 라벨만 믿으면 그 3일은 기사 제목이
+  // 큰 활자로 뜨고 '왜'도 붙지 않는다 — 고치려던 문제가 그대로 남는다.
+  const headlineIsIssueTitle = !!leadIssue && leadIssue.title === briefing.headline;
+  // 기사 제목을 얹은 날의 h1 은 특정 이슈 하나를 가리킨다. 화면에서 가장 크고
+  // 가장 먼저 보이는 요소인데 눌리지 않으면, 사용자는 한 번은 누르고 아무 일도
+  // 일어나지 않는 것을 본다. 종합 문장인 날은 대응하는 이슈가 없으므로 그대로
+  // 두고, 아래 근거 칩(headlineEvidence)이 출처로 가는 길을 맡는다.
+  document.getElementById("briefingTitle").innerHTML =
+    headlineIsIssueTitle
+      ? `<button type="button" class="issue-title-button" data-issue-id="${esc(leadIssue.issue_id)}">${esc(headlineText)}</button>`
+      : esc(headlineText);
   document.getElementById("briefingKicker").textContent =
-    ["synthesis", "change"].includes(briefing.headline_kind)
-      ? "오늘, 무엇이 달라졌는가"
-      : "오늘의 핵심 이슈";
+    isSynthesisLead ? "오늘, 무엇이 달라졌는가" : "오늘의 핵심 이슈";
+
+  // 히어로의 활자 크기는 문장이 종합인지 기사 제목인지를 따라간다.
+  // 종합 문장(daily_lead)은 이 브리핑에만 있는 문장이라 크게 쓸 값이 있지만,
+  // 기사 제목을 얹은 날의 h1 은 issues[0].title 복사본이라 같은 페이지에 여섯 번
+  // 나온다. 같은 무게로 두면 모바일 첫 화면 844px 중 382px(45%)를 중복에 쓴다.
+  // 이 커밋(8551f68, 8/3)은 줄인 자리에 '왜' 한 줄(hero-lead-meta)을 넣었다.
+  // 그 사이 선두 카드가 들어왔고(PR #3), 카드가 같은 문장을 '시사점' 블록으로
+  // 바로 아래에 세운다 — 모바일 첫 화면에서 같은 문장을 두 번 읽히게 된다.
+  // 이 커밋이 고치려던 바로 그 증상이라 히어로 쪽을 걷었다. 히어로는 이제
+  // 킥커 + 제목까지만 맡고, '왜'는 선두 카드 하나가 책임진다.
+  const hero = document.getElementById("briefingHero");
+  if (hero) hero.classList.toggle("lead-issue", headlineIsIssueTitle);
   document.getElementById("briefingDateLabel").textContent = `· ${dateWeekdayLabel(briefing.date)}`;
   // 종합 문장(synthesis)일 때만 근거 이슈 칩을 보인다 — 문장이 어디서 왔는지
   // 클릭 한 번으로 검증할 수 있게. 필드가 없으면 조용히 숨긴다.
@@ -846,7 +894,12 @@ function renderBriefing() {
   if (state.topic !== "전체") activeFilters.push(TOPIC_LABELS[state.topic] || state.topic);
   document.getElementById("filterSummary").innerHTML = activeFilters.map(item => `<span>${esc(item)}</span>`).join("");
   document.getElementById("filterCount").textContent = activeFilters.length ? `(${activeFilters.length})` : "";
-  document.getElementById("filterSheetCount").textContent = `${visibleChanged.length + rest.length + (lead ? 1 : 0)}개 이슈`;
+  // 이 숫자는 세 자리(선두 카드 + 이어지는 이슈 + 오늘의 이슈)의 합계다. 바로 아래
+  // 섹션이 '7건'이라고 쓰는데 여기가 '8건'이면 한 화면이 스스로와 어긋나 보인다 —
+  // 무엇을 더한 값인지 말해 주면 어긋남이 아니라 내역이 된다.
+  // 선두 카드는 이 커밋(8551f68) 이후에 생겼다. 문구는 그때 것을 쓰되 셈은
+  // 선두 1건을 포함해야 한다 — 안 그러면 화면에 보이는 카드 수보다 하나 적다.
+  document.getElementById("filterSheetCount").textContent = `필터 결과 전체 ${visibleChanged.length + rest.length + (lead ? 1 : 0)}건`;
   const clear = document.getElementById("clearFilters");
   clear.hidden = activeFilters.length === 0;
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
@@ -1708,8 +1761,10 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
+  // briefingTitle: 기사 제목을 얹은 날의 h1 은 안에 상세 진입 버튼을 품는다.
+  // leadCard: 선두 카드 안의 버튼(타임라인·저장·공유)도 같은 위임을 탄다.
   ["issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "issueDialog",
-   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail"].forEach(id => {
+   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 

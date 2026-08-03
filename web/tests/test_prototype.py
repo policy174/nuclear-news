@@ -1194,9 +1194,20 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertNotIn("hero-status", html)
         self.assertNotIn("renderBriefingStatus", script)
         self.assertNotIn(".hero-status", style)
-        # 같은 숫자를 말하는 곳은 스트립 하나로 남는다
-        self.assertIn("오늘 수집 기사", script)
-        self.assertIn("연결된 이슈", script)
+        # 같은 숫자를 말하는 곳은 한 곳으로 남는다
+        self.assertIn("마지막 수집", script)
+        self.assertIn("오늘 기사", script)
+        # 정상인 날의 스트립은 걷는다. 상태값은 거의 매일 ok 인데 화면 최상단
+        # 54px(390px 기준 2줄)를 늘 켜 두면 사용자가 처음 보는 것이 파이프라인
+        # 계측값이 된다 — 이 저장소가 검증 배지에 세운 규칙과 같다.
+        self.assertIn(".status-strip.ok { display: none; }", style)
+        # 걷힌 자리를 메우도록 헤더 상태 버튼은 이름을 따로 갖는다(좁은 화면에서
+        # 라벨 span 이 접혀 접근 가능한 이름이 사라지던 것).
+        self.assertIn('aria-label="데이터 상태"', html)
+        # 정상일 때의 문구에서 뺀 둘 — 0 건인 날이 대부분이라 결함처럼 읽혔고,
+        # 갱신 일정은 읽는 사람이 할 일이 없다. 상태 다이얼로그에는 남는다.
+        self.assertNotIn("1차 출처 ${", script)
+        self.assertNotIn("다음 갱신 2시간 이내`", script)
 
     def test_p4_briefings_declare_what_the_headline_is(self):
         for briefing in self.briefings:
@@ -1218,9 +1229,81 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("function relatedIssues", script)
         # 제목이 상세 진입점이므로 좁은 화면에서 타임라인 버튼을 숨겨도 길이 남는다.
         self.assertIn("issue-title-button", script)
-        self.assertIn(".issue-actions .issue-detail-button { display: none; }", style)
+        self.assertRegex(style, r"\.issue-actions \.issue-detail-button[^{]*\{\s*display: none;")
         # JS 스크롤은 CSS의 모션 감소 설정을 자동으로 따르지 않는다.
         self.assertIn('matchMedia("(prefers-reduced-motion: reduce)")', script)
+
+    def test_card_lead_is_the_implication_not_a_restated_title(self):
+        """카드의 두 번째 줄은 '무엇'이 아니라 '왜'다.
+
+        summary 는 제목을 어순만 바꿔 다시 쓴 문장이 대부분이라(8/3 브리핑 실측
+        8건 중 5건: '그리스 산불…가동 중단' → '그리스는 산불과 싸우고 있으며…
+        가동이 중단되었습니다') 같은 문장을 두 번 읽게 만들 뿐 정보를 더하지
+        않는다. implication — 상세 모달의 'Nuclens 해석' — 은 이미 만들어 두고도
+        두 탭 아래에만 두던 문장이다(110개 중 68개 보유).
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn('const why = (issue.implication || "").trim();', script)
+        # implication 이 없는 이슈에서만 summary 로 물러난다 — 정보 손실 0
+        self.assertIn("const leadText = why || issue.summary", script)
+        # 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 한다
+        self.assertIn("${issue.title || \"\"} ${leadText}", script)
+        self.assertIn("issue-why", script)
+        self.assertIn(".issue-why {", style)
+        # AI 가 쓴 문장을 목록으로 올렸으면 목록에도 표시가 따라와야 한다.
+        # 배지 규칙('예외만 표시')과 달리 이건 고지라서 전 카드에 붙는다.
+        self.assertIn('${why ? `<span class="ai-badge">AI</span>` : ""}', script)
+
+    def test_hero_headline_opens_the_issue_it_came_from(self):
+        """화면에서 가장 크고 먼저 보이는 요소가 눌리지 않으면 고장으로 읽힌다.
+
+        기사 제목을 얹은 날의 h1 은 특정 이슈 하나를 가리키므로 그리로 갈 수
+        있어야 한다. 종합 문장인 날은 대응 이슈가 없으므로 그대로 두고 근거 칩이
+        출처로 가는 길을 맡는다.
+
+        판정은 headline_kind 라벨이 아니라 문장 실체로 한다. 실측(17일):
+        synthesis 는 0일이고 kind='change' 인 3일(7/28·29·30)도 headline 이
+        issues[0].title 과 글자까지 같았다 — 라벨을 믿으면 그 3일은 기사 제목이
+        큰 활자로 뜨고 '왜'도 안 붙어 고치려던 문제가 그대로 남는다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('getElementById("briefingTitle").innerHTML', script)
+        self.assertIn("const headlineIsIssueTitle = !!leadIssue && leadIssue.title === briefing.headline;", script)
+        # 크기와 상세 진입이 같은 판정을 쓴다
+        self.assertIn('hero.classList.toggle("lead-issue", headlineIsIssueTitle)', script)
+        # 위임 대상에 id 를 넣지 않으면 버튼은 그려지되 클릭이 죽는다
+        self.assertIn('"evidenceRail", "briefingTitle"', script)
+
+    def test_hero_does_not_repeat_what_the_lead_card_already_says(self):
+        """'왜'는 한 화면에 한 번만 선다.
+
+        이 브랜치의 원본(8551f68, 8/3)은 히어로를 줄인 자리에 implication 한 줄
+        (hero-lead-meta)을 넣었다. 그 뒤 선두 카드가 들어와(PR #3) 같은 문장을
+        '시사점' 블록으로 바로 아래에 세운다 — 모바일 첫 화면에서 같은 문장을 두
+        번 읽히게 되고, 그건 이 작업이 고치려던 바로 그 증상이다. 히어로는 킥커와
+        제목까지만 맡는다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertNotIn("heroLeadMeta", html)
+        self.assertNotIn(".hero-lead-why", style)
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("hero-lead-meta", code)
+        # 히어로 축소(3ff0907)를 되돌리는 크기 재지정이 없어야 한다
+        self.assertNotIn("clamp(23px, 6vw, 30px)", style)
+
+    def test_list_actions_drop_share_and_keep_source(self):
+        """카드 8장마다 같은 액션 줄이 반복되면 훑는 눈에 내용보다 먼저 걸린다.
+
+        상세를 열어 보지도 않은 이슈를 공유하는 행동은 드물다(공유는 상세 모달에
+        그대로 있다). 원문은 남긴다 — 이 서비스의 마지막 행동이라 목록에서 끊으면
+        흐름이 끊긴다.
+        """
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".issue-actions [data-share-issue] { display: none; }", style)
+        self.assertIn(".issue-actions { display: grid; grid-template-columns: repeat(2, 1fr)", style)
 
     def test_p5_single_source_is_stated_not_judged(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
