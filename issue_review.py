@@ -62,12 +62,15 @@ PROMPT_VERSION = 1
 # 1,500 토큰 안쪽이다. thinking 토큰이 출력 예산을 먹으므로 여유를 크게 둔다.
 BATCH_SIZE = 20
 
-# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다. 8192 로는
-# **본문이 1,500 토큰이어도** thinking 이 예산을 다 쓰면 잘린다 —
-# gemini_client.GeminiTruncated 가 이 파일을 그 함정의 사례로 지목하고 있고,
-# news_bot 은 같은 이유로 8192 → 16384 로 올렸다(BATCH_MAX_OUTPUT_TOKENS).
-# 2026-08-04 02:49 실측: 밴드를 0.84 로 넓힌 뒤 첫 실호출 40쌍이 전건
-# calls=0 / failed=40 으로 죽었다. 과금·지연은 실사용 토큰 기준이라 천장만 높인다.
+# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다(news_bot 은 같은
+# 이유로 BATCH_MAX_OUTPUT_TOKENS 를 16384 로 올렸다). 여기서도 천장을 맞춰 둔다 —
+# 과금·지연은 실사용 토큰 기준이라 천장만 높이는 것은 비용이 아니다.
+#
+# **단, 이 값이 실제 사고를 고쳤다는 근거는 없다.** 2026-08-04 02:49 빌드가
+# calls=0 / failed=40 으로 죽어서 잘림으로 추정했는데, **같은 8192 코드가 05:54
+# 빌드에서 asked=40 / failed=0 으로 정상 통과했다.** 그 실패는 일시적이었다
+# (한도 또는 타임아웃). 아래 분할 경로도 아직 실측으로 발동한 적이 없다.
+# 원인을 실제로 말해주는 것은 stats.failure_reasons 다 — 다음에 죽으면 그걸 볼 것.
 MAX_OUTPUT_TOKENS = 16384
 
 # 잘림은 입력을 줄이면 사라진다. 같은 예산으로 다시 불러도 같은 자리에서 잘리므로
