@@ -68,7 +68,10 @@
 
 <main id="main" class="wrap page-shell">
   <section id="view-news" aria-labelledby="briefingTitle">
-    <section class="briefing-hero" aria-live="polite">
+    <!-- 히어로 전체가 aria-live 였다. 안에 칩·버튼이 다 들어 있어 날짜를 한 칸
+         옮길 때마다 스크린리더가 블록 전체를 다시 읽었다. 바뀌는 것은 헤드라인
+         하나뿐이므로 라이브 영역도 그 하나로 좁힌다. -->
+    <section class="briefing-hero">
       <div class="hero-topline">
         <p class="eyebrow">TODAY <span id="briefingDateLabel"></span></p>
         <div class="date-nav" aria-label="브리핑 날짜 선택">
@@ -80,7 +83,7 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
-          <h1 id="briefingTitle">오늘의 핵심을 정리하고 있습니다</h1>
+          <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
           <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
           <div class="hero-actions">
             <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
@@ -124,10 +127,12 @@
                 <button class="active" type="button" data-issue-view="card" aria-pressed="true">카드</button>
                 <button type="button" data-issue-view="list" aria-pressed="false">목록</button>
               </div>
-              <details id="briefingFilters" class="briefing-filters">
+              <details id="briefingFilters" class="briefing-filters filter-drawer">
                 <summary>필터 <span id="filterCount"></span></summary>
                 <div class="filter-sheet">
-                  <div class="filter-sheet-head"><strong>오늘 이슈 필터</strong><button id="closeFilters" type="button">닫기</button></div>
+                  <!-- 바텀시트가 결과를 덮으므로 적용 결과를 시트 안에서 읽을 수
+                       있어야 한다. 닫았다 열었다 하며 확인하게 두지 않는다. -->
+                  <div class="filter-sheet-head"><strong>오늘 이슈 필터</strong><span id="filterSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeFilters" type="button">닫기</button></div>
                   <nav class="filter-tabs" id="regionTabs" aria-label="지역 필터">
                     <button class="filter-tab active" data-region="전체" aria-pressed="true">전체</button>
                     <button class="filter-tab" data-region="국내" aria-pressed="false">국내</button>
@@ -140,7 +145,9 @@
             </div>
           </div>
           <div id="filterSummary" class="active-filter-row" aria-live="polite"></div>
-          <div id="issueList" class="issue-list skeleton-list" aria-live="polite">
+          <!-- 목록 자체는 라이브가 아니다. 카드 8장이 통째로 낭독되면 그 안의
+               '몇 건이 남았나'가 묻힌다. 개수 변화는 위 #filterSummary 가 말한다. -->
+          <div id="issueList" class="issue-list skeleton-list">
             <article class="issue-card skeleton-card" aria-label="브리핑을 불러오는 중">
               <i></i><i></i><i></i><i></i>
             </article>
@@ -169,20 +176,27 @@
       <button id="archiveSearchOpen" type="button" class="secondary-button">아카이브 검색 <span aria-hidden="true">/</span></button>
     </div>
     <div class="archive-layout">
-      <aside class="archive-filters" aria-label="아카이브 필터">
-        <div class="archive-query" id="archiveQueryDisplay">검색어 없음</div>
-        <fieldset><legend>기간</legend>
-          <div class="segmented" id="archivePeriod">
-            <button class="active" type="button" data-period="all" aria-pressed="true">전체</button>
-            <button type="button" data-period="30" aria-pressed="false">30일</button>
-            <button type="button" data-period="7" aria-pressed="false">7일</button>
-          </div>
-        </fieldset>
-        <label><span>지역</span><select id="archiveRegion"><option value="전체">전체 지역</option><option value="국내">국내</option><option value="해외">해외</option></select></label>
-        <label><span>주제</span><select id="archiveTopic"><option value="전체">전체 주제</option></select></label>
-        <label><span>검증 상태</span><select id="archiveVerification"><option value="전체">전체 상태</option><option value="verified">공식·복수 출처 확인</option><option value="unverified">단일 출처·확인 중</option></select></label>
-        <button id="archiveClear" class="clear-filters" type="button" hidden>필터 해제</button>
-      </aside>
+      <!-- 좁은 화면에서 이 패널은 접힌다. 펼친 채로 두면 select 4개가 첫 화면
+           520px 를 먹고 결과 110건이 통째로 폴드 아래로 내려간다(실측 360×800).
+           데스크톱에서는 app.js 가 open 을 켜 기존 사이드바 그대로 쓴다. -->
+      <details id="archiveFilterDrawer" class="archive-filter-drawer filter-drawer">
+        <summary>필터 <span id="archiveFilterCount"></span></summary>
+        <div class="archive-filters" aria-label="아카이브 필터">
+          <div class="filter-sheet-head"><strong>아카이브 필터</strong><span id="archiveSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeArchiveFilters" type="button">닫기</button></div>
+          <div class="archive-query" id="archiveQueryDisplay">검색어 없음</div>
+          <fieldset><legend>기간</legend>
+            <div class="segmented" id="archivePeriod">
+              <button class="active" type="button" data-period="all" aria-pressed="true">전체</button>
+              <button type="button" data-period="30" aria-pressed="false">30일</button>
+              <button type="button" data-period="7" aria-pressed="false">7일</button>
+            </div>
+          </fieldset>
+          <label><span>지역</span><select id="archiveRegion"><option value="전체">전체 지역</option><option value="국내">국내</option><option value="해외">해외</option></select></label>
+          <label><span>주제</span><select id="archiveTopic"><option value="전체">전체 주제</option></select></label>
+          <label><span>검증 상태</span><select id="archiveVerification"><option value="전체">전체 상태</option><option value="verified">공식·복수 출처 확인</option><option value="unverified">단일 출처·확인 중</option></select></label>
+          <button id="archiveClear" class="clear-filters" type="button" hidden>필터 해제</button>
+        </div>
+      </details>
       <div class="archive-results">
         <div class="archive-result-head">
           <div><h2>검색 결과</h2><p id="archiveSummary" aria-live="polite"></p></div>
@@ -284,7 +298,8 @@
 <dialog id="globalSearchDialog" class="search-dialog" aria-labelledby="globalSearchTitle">
   <form id="globalSearchForm" method="dialog">
     <div class="search-dialog-head"><h2 id="globalSearchTitle">통합 검색</h2><button id="globalSearchClose" type="button" aria-label="검색 닫기">×</button></div>
-    <label class="global-search-field"><span class="sr-only">검색어</span><input id="globalSearch" type="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off"><kbd>Enter</kbd></label>
+    <label class="global-search-label" for="globalSearch">검색어</label>
+    <div class="global-search-field"><input id="globalSearch" type="search" inputmode="search" enterkeyhint="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off"><kbd>Enter</kbd></div>
     <p><span id="globalSearchHint">검색어를 입력하세요.</span></p>
   </form>
 </dialog>

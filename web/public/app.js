@@ -405,7 +405,11 @@ function renderSystemStatus() {
   }
 
   strip.className = `status-strip ${status}`;
-  strip.innerHTML = `<div class="wrap status-strip-inner"><span class="status-dot" aria-hidden="true"></span><strong>${lead}</strong><span>·</span><span>${esc(message)}</span></div>`;
+  // 한 줄 nowrap 이라 390px 에서 714px 중 절반이 잘렸고 스크롤 힌트도 없었다.
+  // 항목마다 span 을 주면 좁은 화면에서 항목 단위로 접힌다 — '오늘 수집 기/사
+  // 8건' 처럼 낱말이 갈라지지 않는다. 구분자 '·' 는 CSS ::before 가 그린다.
+  const items = String(message).split(" · ").map(part => `<span class="status-item">${esc(part)}</span>`).join("");
+  strip.innerHTML = `<div class="wrap status-strip-inner"><span class="status-lead"><span class="status-dot" aria-hidden="true"></span><strong>${lead}</strong></span>${items}</div>`;
   header.className = `header-status ${status}`;
   header.innerHTML = `<i aria-hidden="true"></i><span>${timeLabel(refreshedAt)} · 이슈 ${state.issues.length}</span>`;
   footer.textContent = `서비스 상태 ${lead} · 마지막 갱신 ${dateTimeLabel(refreshedAt)}`;
@@ -773,6 +777,7 @@ function renderBriefing() {
   if (state.topic !== "전체") activeFilters.push(TOPIC_LABELS[state.topic] || state.topic);
   document.getElementById("filterSummary").innerHTML = activeFilters.map(item => `<span>${esc(item)}</span>`).join("");
   document.getElementById("filterCount").textContent = activeFilters.length ? `(${activeFilters.length})` : "";
+  document.getElementById("filterSheetCount").textContent = `${visibleChanged.length + rest.length}개 이슈`;
   const clear = document.getElementById("clearFilters");
   clear.hidden = activeFilters.length === 0;
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
@@ -865,6 +870,15 @@ function renderArchiveSearch(resetLimit = false) {
   const clear = document.getElementById("archiveClear");
   clear.hidden = activeFilters.length === 0;
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
+  document.getElementById("archiveSheetCount").textContent = `${matches.length}개 이슈`;
+  // 접힌 서랍 안에 무엇이 걸려 있는지 열지 않고도 알아야 한다.
+  const count = document.getElementById("archiveFilterCount");
+  if (count) {
+    count.textContent = activeFilters.length ? String(activeFilters.length) : "";
+    count.hidden = activeFilters.length === 0;
+  }
+  const summary = document.querySelector("#archiveFilterDrawer > summary");
+  if (summary) summary.setAttribute("aria-label", activeFilters.length ? `아카이브 필터 ${activeFilters.length}개 적용됨` : "아카이브 필터");
 }
 
 function renderSaved() {
@@ -1476,6 +1490,63 @@ function switchView(view, updateUrl = true) {
   scrollToPageTop();
 }
 
+/* 필터 서랍 — 좁은 화면에서는 바텀시트, 넓은 화면에서는 기존 드롭다운·사이드바.
+   <details> 는 ESC·바깥 탭·포커스 복귀를 스스로 해 주지 않는다. 바텀시트 모양을
+   하고 있으면 사용자는 그 셋을 기대하므로 여기서 직접 붙인다. */
+const narrowScreen = matchMedia("(max-width: 767px)");
+
+function filterDrawers() {
+  return [document.getElementById("briefingFilters"), document.getElementById("archiveFilterDrawer")].filter(Boolean);
+}
+
+function syncSheetLock() {
+  const locked = narrowScreen.matches && filterDrawers().some(drawer => drawer.open);
+  document.documentElement.classList.toggle("sheet-open", locked);
+}
+
+function closeFilterDrawer(drawer, returnFocus = true) {
+  if (!drawer || !drawer.open) return;
+  drawer.open = false;
+  syncSheetLock();
+  if (returnFocus) drawer.querySelector("summary")?.focus();
+}
+
+// 넓은 화면의 아카이브 필터는 접히지 않는 사이드바다. summary 를 숨기는 것만으로는
+// 내용이 사라지므로 open 을 켜 둔다.
+function syncArchiveDrawer() {
+  const drawer = document.getElementById("archiveFilterDrawer");
+  if (!drawer) return;
+  if (!narrowScreen.matches) drawer.open = true;
+  else if (drawer.dataset.userOpened !== "1") drawer.open = false;
+  syncSheetLock();
+}
+
+function initFilterDrawers() {
+  filterDrawers().forEach(drawer => {
+    drawer.addEventListener("toggle", () => {
+      if (drawer.id === "archiveFilterDrawer") drawer.dataset.userOpened = drawer.open && narrowScreen.matches ? "1" : "";
+      syncSheetLock();
+    });
+  });
+  // 스크림은 details 의 ::before 라 클릭 target 이 details 자신으로 잡힌다.
+  document.addEventListener("click", event => {
+    filterDrawers().forEach(drawer => {
+      if (!drawer.open) return;
+      if (drawer.id === "archiveFilterDrawer" && !narrowScreen.matches) return;
+      if (event.target === drawer || !drawer.contains(event.target)) closeFilterDrawer(drawer, false);
+    });
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Escape") return;
+    const open = filterDrawers().find(drawer => drawer.open && (drawer.id !== "archiveFilterDrawer" || narrowScreen.matches));
+    if (!open) return;
+    event.preventDefault();
+    closeFilterDrawer(open);
+  });
+  narrowScreen.addEventListener("change", syncArchiveDrawer);
+  syncArchiveDrawer();
+}
+
 function openGlobalSearch() {
   const dialog = document.getElementById("globalSearchDialog");
   const input = document.getElementById("globalSearch");
@@ -1591,7 +1662,9 @@ function bind() {
     syncUrl();
   });
   document.getElementById("clearFilters").addEventListener("click", clearBriefingFilters);
-  document.getElementById("closeFilters").addEventListener("click", () => { document.getElementById("briefingFilters").open = false; });
+  document.getElementById("closeFilters").addEventListener("click", () => closeFilterDrawer(document.getElementById("briefingFilters")));
+  document.getElementById("closeArchiveFilters").addEventListener("click", () => closeFilterDrawer(document.getElementById("archiveFilterDrawer")));
+  initFilterDrawers();
   document.getElementById("issueSort").addEventListener("change", event => { state.issueSort = event.target.value; renderBriefing(); });
   document.getElementById("issueViewToggle").addEventListener("click", event => {
     const button = event.target.closest("[data-issue-view]");
