@@ -699,17 +699,33 @@ def _is_restatement(before: object, after: object, threshold: float = 0.45) -> b
 
 
 def load_embeddings_cache() -> dict[str, list[float]]:
-    """현행 Gemini 모델의 임베딩 캐시만 읽기 전용으로 정규화한다."""
+    """현행 Gemini 모델의 임베딩 캐시만 읽기 전용으로 정규화한다.
+
+    진단 한 줄을 반드시 남긴다. 파이프라인이 coverage 1.0 을 보고하는데도
+    ``embedding_cache_entries`` 가 0 으로 나오는 상태를 2026-08-03 에 만났고,
+    경로·모델명·파일 존재 중 무엇이 어긋났는지 로그가 없어 가릴 수 없었다.
+    빈 dict 는 '파일이 없다'와 '전부 모델 불일치로 탈락했다'를 구분하지 못한다.
+    """
     path = Path(os.environ.get("EMBEDDINGS_FILE", BOT_DIR / "embeddings.json"))
+    diag: dict[str, object] = {"path": str(path), "exists": path.exists(),
+                               "model_wanted": EMBEDDING_MODEL}
     try:
         raw = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except (OSError, json.JSONDecodeError) as exc:
+        diag["error"] = f"{type(exc).__name__}: {exc}"
+        print("[build_data:embeddings] " + json.dumps(diag, ensure_ascii=False))
         return {}
     embeddings: dict[str, list[float]] = {}
+    models_seen: Counter = Counter()
     for article_hash, payload in raw.items():
+        if isinstance(payload, dict):
+            models_seen[str(payload.get("model"))] += 1
         vector = cached_vector(payload, model=EMBEDDING_MODEL)
         if vector:
             embeddings[str(article_hash)] = vector
+    diag.update(raw_entries=len(raw), accepted=len(embeddings),
+                models_seen=dict(models_seen.most_common(5)))
+    print("[build_data:embeddings] " + json.dumps(diag, ensure_ascii=False))
     return embeddings
 
 
