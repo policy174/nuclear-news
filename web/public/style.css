@@ -955,8 +955,12 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
 .dialog-update > p { color: var(--c-text-secondary); }
 .dialog-change { padding: 11px 12px; border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 6%, var(--c-surface)); }
 .dialog-change strong,
+.dialog-open strong,
 .dialog-meaning strong { display: block; margin-bottom: 3px; color: var(--c-text); font-size: 12.5px; }
 .dialog-meaning { padding: 11px 12px; border-radius: var(--r-1); background: var(--c-surface-sunken); }
+/* 미확정 사항은 해석과 구분되게 — 점선 테두리로 '아직 채워지지 않은 칸'을 뜻한다.
+   해석(dialog-meaning)의 채운 배경과 달리 배경을 두지 않는다. */
+.dialog-open { padding: 11px 12px; border: 1px dashed var(--c-border); border-radius: var(--r-1); color: var(--c-text-secondary); }
 .ai-badge { color: var(--c-text-muted); font-size: 12.5px; font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .topic-chip { padding: 3px 8px; border: 1px solid var(--c-border); border-radius: 999px; color: var(--c-text-muted); font-size: 12.5px; }

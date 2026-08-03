@@ -944,6 +944,7 @@ function issueReportText(issue) {
     issue.summary ? `• 핵심: ${issue.summary}` : "",
     issueChangeText(issue) ? `• 변화: ${issueChangeText(issue)}` : "",
     issue.implication ? `• 의미(AI 해석): ${issue.implication}` : "",
+    issue.open_question ? `• 미확정: ${issue.open_question}` : "",
     `• 검증: ${(VERIFICATION_VIEW[verificationState(issue).status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`,
     source ? `• 근거: ${source}` : "",
   ].filter(Boolean).join("\n");
@@ -1052,6 +1053,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
       ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
+      ${issue.open_question ? `<p class="dialog-open"><strong>아직 확정되지 않은 것</strong>${esc(issue.open_question)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
     </section>

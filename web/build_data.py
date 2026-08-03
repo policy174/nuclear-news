@@ -1386,6 +1386,29 @@ def _is_independent_source(article: dict) -> bool:
     return article.get("evidence_role") == "independent"
 
 
+def pick_open_question(members: list[dict]) -> str:
+    """이슈에 붙일 '아직 확정되지 않은 것' 한 문장.
+
+    대표 기사 필드를 그대로 복사하면 안 된다 — 미확정 내용이 대표 기사에는 없고
+    같은 이슈의 다른 공식 기사에만 있는 경우가 흔하다. 공식 → tier1 → 최신 순으로
+    비어 있지 않은 첫 문장을 고른다.
+    """
+    def latest_first(rows: list[dict]) -> list[dict]:
+        return sorted(rows, key=_representative_key, reverse=True)
+
+    filled = [m for m in members if str(m.get("open_question") or "").strip()]
+    if not filled:
+        return ""
+    for group in (
+        [m for m in filled if _is_official_source(m)],
+        [m for m in filled if m.get("source_tier") == 1],
+        filled,
+    ):
+        for member in latest_first(group):
+            return str(member["open_question"]).strip()
+    return ""
+
+
 def verification_state(articles: list[dict], checked_at: str = "") -> dict:
     """이슈 근거를 4단계 검증 상태로 요약한다.
 
@@ -1888,6 +1911,9 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
                 "implication": representative.get("implication") or representative.get("why_important") or "",
+                # 대표 기사가 아니라 이슈 전체에서 고른다 — 미확정 내용은 공식
+                # 기사에만 있고 대표 기사에는 없는 경우가 흔하다.
+                "open_question": pick_open_question(timeline),
                 "latest_change": change_line_for_card(
                     current, history, representative.get("summary", "")
                 ),
@@ -2006,6 +2032,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
             "implication": representative.get("implication") or representative.get("why_important") or "",
+            "open_question": pick_open_question(timeline),
             "latest_change": change_line_for_card(
                 current, history, representative.get("summary", "")
             ),
@@ -2178,6 +2205,7 @@ def build() -> None:
             "summary": record.get("summary", ""),
             "implication": record.get("implication", ""),
             "why_important": record.get("why_important", ""),
+            "open_question": record.get("open_question", ""),
             "tags": record.get("tags") or [],
             "canonical_tags": canonical_tags,
             "topics": topics,

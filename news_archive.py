@@ -169,6 +169,10 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "summary": cur.get("summary", ""),
         "implication": cur.get("implication", ""),
         "why_important": cur.get("why_important", ""),
+        # '아직 확정되지 않은 것' — 사실도 해석도 아닌 세 번째 축.
+        # 여기 화이트리스트에 없으면 아카이브에 안 남고 웹에서도 영영 못 본다.
+        "open_question": cur.get("open_question", ""),
+        "open_question_source": cur.get("open_question_source", "unknown"),
         "importance": cur.get("importance", ""),
         "section": cur.get("section", ""),
         "scope": cur.get("scope", ""),
@@ -249,7 +253,8 @@ def _upgrade_record(record: dict) -> dict:
         if repair.get("drop"):
             upgraded["quality_drop"] = True
             upgraded["quality_drop_reason"] = repair.get("reason", "manual_quality_gate")
-        for field in ("title_kr", "summary", "implication", "why_important"):
+        for field in ("title_kr", "summary", "implication", "why_important",
+                      "open_question"):
             if field in repair:
                 upgraded[field] = clean_text(repair[field])
 

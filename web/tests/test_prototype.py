@@ -1622,6 +1622,74 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertEqual(rows[0]["article_count"], 2)
 
 
+class OpenQuestionTests(unittest.TestCase):
+    """이슈에 붙일 '아직 확정되지 않은 것'은 대표 기사가 아니라 이슈에서 고른다."""
+
+    @staticmethod
+    def _member(hash_, question, **kw):
+        row = {"hash": hash_, "open_question": question, "briefing_date": "2026-08-03",
+               "article_date": "2026-08-03", "source_type": "media",
+               "evidence_role": "original"}
+        row.update(kw)
+        return row
+
+    def test_none_when_no_member_has_one(self):
+        members = [self._member("a", ""), self._member("b", None)]
+        self.assertEqual(build_data.pick_open_question(members), "")
+
+    def test_official_source_wins_over_representative(self):
+        """미확정 내용은 대표 기사엔 없고 공식 기사에만 있는 경우가 흔하다."""
+        members = [
+            self._member("a", "언론이 쓴 미확정 문장"),
+            self._member("b", "규제기관이 밝힌 미확정 문장", source_type="official"),
+        ]
+        self.assertEqual(build_data.pick_open_question(members),
+                         "규제기관이 밝힌 미확정 문장")
+
+    def test_tier1_wins_when_no_official(self):
+        members = [
+            self._member("a", "일반 매체 문장"),
+            self._member("b", "전문지 문장", source_tier=1),
+        ]
+        self.assertEqual(build_data.pick_open_question(members), "전문지 문장")
+
+    def test_falls_back_to_latest_filled(self):
+        members = [
+            self._member("a", "오래된 문장", article_date="2026-08-01"),
+            self._member("b", "최신 문장", article_date="2026-08-03"),
+        ]
+        self.assertEqual(build_data.pick_open_question(members), "최신 문장")
+
+    def test_whitespace_only_is_not_a_value(self):
+        self.assertEqual(build_data.pick_open_question([self._member("a", "   ")]), "")
+
+    def test_records_without_the_field_load_fine(self):
+        """기존 아카이브 400여 건은 전부 이 필드가 없다."""
+        self.assertEqual(build_data.pick_open_question([{"hash": "a"}]), "")
+
+
+class OpenQuestionRenderTests(unittest.TestCase):
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_detail_only_not_card(self):
+        """카드는 이미 3줄이고, 목록은 예외만 표시한다."""
+        self.assertIn("아직 확정되지 않은 것", self.script)
+        card_fn = self.script.split("function issueCard(")[1].split("\nfunction ")[0]
+        self.assertNotIn("open_question", card_fn)
+
+    def test_hidden_when_empty_and_escaped(self):
+        self.assertIn("${issue.open_question ? `<p class=\"dialog-open\">", self.script)
+        self.assertIn("esc(issue.open_question)", self.script)
+
+    def test_report_pack_includes_it(self):
+        self.assertIn("• 미확정: ${issue.open_question}", self.script)
+
+    def test_style_exists(self):
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".dialog-open", style)
+
+
 class SystemStatusTests(unittest.TestCase):
     """수집기 heartbeat 와 브리핑 heartbeat 는 별개 신호다.
 

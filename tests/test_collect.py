@@ -156,5 +156,89 @@ class TestCurationQualityGate(unittest.TestCase):
             self.assertEqual(nb.curate_batch([self._article()], []), {})
 
 
+class TestOpenQuestionGate(unittest.TestCase):
+    """'아직 확정되지 않은 것' — 위험은 불확실성 표시가 아니라 추측 생성이다."""
+
+    GOOD = {"open_question": "최종 계약 체결 시점은 아직 확정되지 않았다.",
+            "open_question_source": "article_text"}
+
+    def test_must_read_with_evidence_passes(self):
+        self.assertEqual(nb.norm_open_question(self.GOOD, "must_read"),
+                         (self.GOOD["open_question"], "article_text"))
+
+    def test_nice_to_know_always_null(self):
+        self.assertEqual(nb.norm_open_question(self.GOOD, "nice_to_know"), ("", "unknown"))
+
+    def test_unknown_source_is_dropped(self):
+        """근거 위치를 못 대면 버린다 — 근거 없는 그럴듯한 문장이 가장 나쁘다."""
+        item = {**self.GOOD, "open_question_source": "unknown"}
+        self.assertEqual(nb.norm_open_question(item, "must_read"), ("", "unknown"))
+
+    def test_missing_source_is_dropped(self):
+        self.assertEqual(
+            nb.norm_open_question({"open_question": self.GOOD["open_question"]}, "must_read"),
+            ("", "unknown"))
+
+    def test_forecast_sentence_is_rejected(self):
+        """'~할 것으로 보인다'는 미확정 사항이 아니라 예측이다."""
+        item = {"open_question": "연내 착공에 들어갈 것으로 보인다.",
+                "open_question_source": "article_text"}
+        self.assertEqual(nb.norm_open_question(item, "must_read"), ("", "unknown"))
+
+    def test_question_form_is_rejected(self):
+        item = {"open_question": "최종 계약은 언제 체결될까?",
+                "open_question_source": "article_text"}
+        self.assertEqual(nb.norm_open_question(item, "must_read"), ("", "unknown"))
+
+    def test_overlong_is_rejected_not_truncated(self):
+        item = {"open_question": "가" * (nb.OPEN_QUESTION_LIMIT + 1),
+                "open_question_source": "title"}
+        self.assertEqual(nb.norm_open_question(item, "must_read"), ("", "unknown"))
+
+    def test_incident_safety_needs_explicit_uncertainty(self):
+        """사고·안전은 전면 금지가 아니라 강화 게이트.
+
+        명시적 미확정 표현이 있으면 통과한다 — 숨기면 확정된 사건으로 오해된다.
+        """
+        explicit = {"open_question": "사고 원인과 설비 손상 범위는 아직 조사 중이다.",
+                    "open_question_source": "article_text"}
+        self.assertEqual(
+            nb.norm_open_question(explicit, "must_read", "incident_safety")[0],
+            explicit["open_question"])
+
+    def test_incident_safety_without_marker_is_dropped(self):
+        vague = {"open_question": "향후 대응 방향에 관심이 쏠린다.",
+                 "open_question_source": "article_text"}
+        self.assertEqual(nb.norm_open_question(vague, "must_read", "incident_safety"),
+                         ("", "unknown"))
+
+    def test_non_incident_does_not_need_the_marker(self):
+        self.assertEqual(
+            nb.norm_open_question(self.GOOD, "must_read", "contract_award")[0],
+            self.GOOD["open_question"])
+
+    def test_normalize_curation_item_wires_the_gate(self):
+        item = {"importance": "must_read", "summary": "정부가 계획을 발표했다.",
+                "features": {"event_type": "incident_safety", "korea_relevance": 0,
+                             "market_materiality": 0, "policy_materiality": 0,
+                             "novelty": 0, "evidence_strength": 0},
+                **self.GOOD}
+        out = nb.normalize_curation_item(item, {"title": "t", "domain": "example.com"})
+        # incident_safety + 명시적 표현 없음 → 버려진다
+        self.assertEqual(out["open_question"], "")
+        self.assertEqual(out["open_question_source"], "unknown")
+
+    def test_archive_record_carries_the_field(self):
+        """화이트리스트에 없으면 아카이브에 안 남고 웹에서 영영 못 본다."""
+        import news_archive
+        record = news_archive.make_record(
+            {"hash": "h1", "title": "T", "link": "https://example.com/a",
+             "domain": "example.com"},
+            {"importance": "must_read", **self.GOOD},
+            "2026-08-03T00:00:00+00:00")
+        self.assertEqual(record["open_question"], self.GOOD["open_question"])
+        self.assertEqual(record["open_question_source"], "article_text")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -287,6 +287,14 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 
 - why_important: must_read만 작성. **1~2개의 완결형 문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰거나 문자열을 자르지 말 것.
 
+- open_question: must_read만 작성. **원문에서 아직 확정되지 않은 것**을 50자 이내 완결형 서술문 1개로. 없으면 null.
+  · 질문형이 아니라 선언형으로 쓸 것. (O) "최종 계약 체결 시점은 아직 확정되지 않았다" / (X) "최종 계약은 언제 체결될까?"
+  · **원문에 명시적으로 미정·조사 중·검토 중·협의 중·기한 미정으로 남아 있는 것만 쓴다.** 원문에 없는 미확정 사항을 추론해 만들지 말 것.
+  · 예상·가능성·전망을 서술하지 말 것. "~할 것으로 보인다"는 미확정 사항이 아니라 예측이다.
+  · 근거 문장을 원문에서 지목할 수 없으면 반드시 null.
+  · 자주 해당하는 것: 계약 규모는 발표됐으나 금융조달 미정 / 우선협상대상자만 선정되고 최종 계약 시점 미정 / 정책 방향은 나왔으나 시행령·예산 미정 / 조사 진행 중이라 원인 미확정.
+- open_question_source: open_question 의 근거가 실제로 있는 위치. title / description / article_text 중 하나. open_question 이 null 이거나 근거를 지목할 수 없으면 unknown.
+
 - event_date: 기사에 명시된 사건 발생·발표·시행·예정일을 YYYY-MM-DD로 작성. 기사 게시일을 사건일로 추정하지 말 것. 일자를 확정할 수 없으면 null.
 - event_date_type: announcement(발표) / occurrence(발생) / effective(시행) / deadline(기한) / scheduled(예정) / unknown.
 - event_date_precision: day / month / year / unknown. YYYY-MM-DD로 확정한 경우 day.
@@ -318,6 +326,8 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   "summary": "...",
   "implication": "...",
   "why_important": "...",
+  "open_question": "...|null",
+  "open_question_source": "title|description|article_text|unknown",
   "watch_next": "...",
   "tags": ["#태그1", "#태그2"],
   "topics": ["smr"],
@@ -786,6 +796,54 @@ def norm_article_type(value) -> str:
     return v if v in VALID_ARTICLE_TYPES else "news"
 
 
+# ---- open_question 게이트 -----------------------------------------------------
+#
+# '아직 확정되지 않은 것'은 사실도 해석도 아닌 세 번째 축이다. 정책·수출·사업
+# 기사에서 가장 자주 누락되는 정보다(계약 규모는 발표됐으나 금융조달 미정,
+# 우선협상대상자만 정해지고 최종 계약 시점 미정 등).
+#
+# 위험은 불확실성을 보여주는 것이 아니라 **LLM 이 미확정 사항을 추측으로 만들어
+# 내는 것**이다. 그래서 프롬프트로 한 번, 여기서 한 번 더 거른다.
+OPEN_QUESTION_LIMIT = 60
+OPEN_QUESTION_SOURCES = {"title", "description", "article_text"}
+
+# 예측·전망은 미확정 사항이 아니다. "~할 것으로 보인다"는 원문에 없는 추론이다.
+_FORECAST_PATTERNS = (
+    "것으로 보인다", "것으로 예상", "전망이다", "전망된다", "가능성이 있다",
+    "우려된다", "관측된다", "분석된다", "기대된다",
+)
+
+
+# 사고·안전 이슈는 전면 금지가 아니라 강화 게이트다. 사고 원인이 조사 중인지,
+# 방출 여부가 확인됐는지, 재가동 시점이 미정인지는 **숨기면 확정된 사건으로
+# 오해된다.** 다만 이 영역에서 추측 문장이 나가면 피해가 크므로, 명시적인
+# 미확정 표현이 문장 안에 실제로 있을 때만 통과시킨다.
+_EXPLICIT_UNCERTAINTY = (
+    "조사 중", "조사중", "확인되지 않", "확인 중", "확인중", "결정되지 않",
+    "정해지지 않", "밝혀지지 않", "미정", "발표되지 않", "공개되지 않",
+)
+
+
+def norm_open_question(item: dict, importance: str, event_type: str = "") -> tuple[str, str]:
+    """(open_question, open_question_source). 근거를 못 대면 빈 값."""
+    if importance != "must_read":
+        return "", "unknown"
+    text = clean_text(item.get("open_question"))
+    source = (item.get("open_question_source") or "").strip().lower()
+    if not text or source not in OPEN_QUESTION_SOURCES:
+        # 근거 위치를 지목하지 못했으면 문장 자체를 버린다. 그럴듯한 문장이
+        # 근거 없이 남는 것이 정보가 없는 것보다 나쁘다.
+        return "", "unknown"
+    if len(text) > OPEN_QUESTION_LIMIT or text.rstrip().endswith("?"):
+        return "", "unknown"
+    if any(pattern in text for pattern in _FORECAST_PATTERNS):
+        return "", "unknown"
+    if event_type == "incident_safety" and not any(
+            marker in text for marker in _EXPLICIT_UNCERTAINTY):
+        return "", "unknown"
+    return text, source
+
+
 def normalize_curation_item(item: dict, article: dict) -> dict:
     """LLM 결과를 손실 없이 스키마에 맞춘다. 문장 중간 slicing은 하지 않는다."""
     importance = item.get("importance", "nice_to_know")
@@ -794,9 +852,14 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
     )
     category = item.get("category", "정책")
     title_kr = clean_text(item.get("title_kr")) or article.get("title", "")
+    grade = importance if importance in VALID_IMPORTANCE else "nice_to_know"
+    features = sanitize_features(item.get("features"))
+    open_question, open_question_source = norm_open_question(
+        item, grade, (features or {}).get("event_type", "")
+    )
     normalized = {
-        "features": sanitize_features(item.get("features")),
-        "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
+        "features": features,
+        "importance": grade,
         "section": section if section in VALID_SECTIONS else default_section(
             article.get("domain", ""), article.get("title", "")
         ),
@@ -809,6 +872,8 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "summary": clean_text(item.get("summary")),
         "implication": clean_text(item.get("implication")),
         "why_important": clean_text(item.get("why_important")),
+        "open_question": open_question,
+        "open_question_source": open_question_source,
         "watch_next": "",
         "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
         "related_reports": [
@@ -900,7 +965,7 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "open_question": null, "open_question_source": "unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -1453,6 +1518,8 @@ def main() -> None:
             "implication": cur.get("implication", ""),
             # must_read 의 '왜 중요' — 기존 큐 스키마에 빠져 있어 카드에서 유실되던 필드
             "why_important": cur.get("why_important", ""),
+            "open_question": cur.get("open_question", ""),
+            "open_question_source": cur.get("open_question_source", "unknown"),
             "watch_next": cur.get("watch_next", ""),
             "tags": cur.get("tags", []),
             "related_reports": cur.get("related_reports") or [],
