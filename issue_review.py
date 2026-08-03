@@ -10,6 +10,18 @@
     사람 검토 큐(issue_match_overrides.json)는 이미 있지만 138건이 전부 pending
     이라 실질 검수가 되지 않는다. 이 구간만 LLM 에게 묻는다.
 
+    2026-08-03 재측정 — **"0.88 미만은 거의 전부 다른 사건"은 틀렸다.** 사람 검토
+    큐가 544건까지 불어나는 동안 LLM 이 본 것은 14쌍뿐이었고(5 승인 / 9 기각),
+    나머지 530건은 아무도 판정하지 않은 채 쌓였다. 그 안에 진짜 후속 보도가 있다:
+
+        0.8513  "헝가리 총리, 팍스 원전 일요일 가동 중단 발표"(08-02)
+              ↔ "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단"(08-03)
+
+    같은 사건인데 밴드 밖이라 영영 갈라진 채로 있었다. 하한을 0.84 로 내려 이
+    구간을 LLM 에게 넘긴다. 0.82 까지 더 내리는 것은 보류했다 — 실측 표본에서
+    0.82~0.84 는 "[시론] 호남 반도체 …" 대 전기본 기사처럼 **분야만 같은** 쌍이
+    대부분이라 비용 대비 얻는 게 없다.
+
 설계:
     - 회색지대 쌍만 모아 배치 1회 호출. 실측 하루 0.33쌍이라 보통 호출 0~1회.
     - 판정은 issue_llm_reviews.json 에 캐시한다. 웹 빌드는 하루 12회 이상 돌기
@@ -31,9 +43,10 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "issue_llm_reviews.json"
 
-# 자동 병합(>=0.92)과 자동 분리(<0.88) 사이. build_data.ISSUE_EMBEDDING_THRESHOLD
+# 자동 병합(>=0.92)과 자동 분리(<0.84) 사이. build_data.ISSUE_EMBEDDING_THRESHOLD
 # 를 올리면 REVIEW_BAND_HIGH 도 같이 올려야 한다.
-REVIEW_BAND_LOW = 0.88
+# 하한 0.88 → 0.84 (2026-08-03, 근거는 모듈 docstring).
+REVIEW_BAND_LOW = 0.84
 REVIEW_BAND_HIGH = 0.92
 
 # 프롬프트를 고치면 올린다. 캐시된 옛 판정이 자동으로 무효가 된다.
@@ -42,6 +55,12 @@ PROMPT_VERSION = 1
 # 한 번에 묻는 쌍 수. 한국어 판정 한 줄이 40~60 토큰이라 20쌍이면 출력이
 # 1,500 토큰 안쪽이다. thinking 토큰이 출력 예산을 먹으므로 여유를 크게 둔다.
 BATCH_SIZE = 20
+
+# 한 빌드에서 **새로** 묻는 쌍의 상한. 하한을 0.84 로 내린 첫 빌드에는 밀려 있던
+# 후보가 146건(실측) 한꺼번에 들어온다. 그걸 한 번에 물으면 8회 호출이 한 빌드에
+# 몰리는데, 웹 빌드는 하루 12회 이상 돌고 같은 키를 크롤·브리핑이 나눠 쓴다.
+# 판정은 캐시되므로 밀린 것은 몇 회차에 걸쳐 저절로 빠진다 — 급할 이유가 없다.
+MAX_NEW_PAIRS_PER_RUN = 40
 
 SYSTEM_PROMPT = """너는 원자력 산업 뉴스를 정리하는 편집자다.
 두 기사가 **같은 사건**을 다루는지 판정한다.
@@ -166,10 +185,26 @@ def _parse_response(payload: dict, count: int) -> dict[int, tuple[bool, str]]:
     return out
 
 
+def _ask_priority(row: dict) -> tuple:
+    """새로 물어볼 쌍의 우선순위. 큰 것부터 묻는다.
+
+    최신 날짜가 먼저인 이유는 두 가지다. 추적률이 **최신 브리핑**에서만 측정되고,
+    21일 창 밖으로 밀려날 쌍에 호출을 쓰면 판정이 쓰이기 전에 버려진다.
+    """
+    diagnostics = row.get("diagnostics") or {}
+    try:
+        similarity = float(diagnostics.get("embedding_similarity") or 0.0)
+    except (TypeError, ValueError):
+        similarity = 0.0
+    newest = max(str(row.get("left_date") or ""), str(row.get("right_date") or ""))
+    return (newest, similarity)
+
+
 def review_pairs(review_candidates: list[dict], *,
                  cache_path: Path = CACHE_FILE,
                  client=None,
                  batch_size: int = BATCH_SIZE,
+                 max_new_pairs: int = MAX_NEW_PAIRS_PER_RUN,
                  low: float = REVIEW_BAND_LOW,
                  high: float = REVIEW_BAND_HIGH) -> tuple[dict[str, bool], dict]:
     """회색지대 쌍을 판정한다.
@@ -189,6 +224,7 @@ def review_pairs(review_candidates: list[dict], *,
         "approved": 0,
         "rejected": 0,
         "failed": 0,
+        "deferred": 0,
         "status": "ok",
     }
     if not pairs:
@@ -205,6 +241,14 @@ def review_pairs(review_candidates: list[dict], *,
         else:
             verdicts[row["candidate_id"]] = hit
             stats["from_cache"] += 1
+
+    # 상한을 넘긴 몫은 버리는 게 아니라 미룬다. 판정이 없는 쌍은 병합되지 않으므로
+    # (verdicts 에 안 들어간다) 결과는 "이번 회차엔 아직 모름"이지 "다른 사건"이 아니다.
+    if max_new_pairs is not None and len(todo) > max_new_pairs:
+        todo.sort(key=_ask_priority, reverse=True)
+        stats["deferred"] = len(todo) - max_new_pairs
+        stats["status"] = "throttled"
+        todo = todo[:max_new_pairs]
 
     if todo:
         if client is None:

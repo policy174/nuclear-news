@@ -1388,7 +1388,7 @@ def cluster_selected_articles(
                 if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
                     matched, score = True, max(score, 1.0)
                     diag = {**diag, "method": "manual_approved"}
-                # 회색지대(0.88~0.92)를 LLM 이 같은 사건으로 판정한 쌍. 사람 승인과
+                # 회색지대(0.84~0.92)를 LLM 이 같은 사건으로 판정한 쌍. 사람 승인과
                 # 구분해 audit 에 남긴다. 사람 승인(1.0)보다 낮은 점수를 줘서
                 # 같은 기사가 양쪽에 붙을 때 사람 판정이 이기게 한다.
                 elif pair_id in overrides.get("llm_approved", set()) and not diag.get("blocked_by"):
