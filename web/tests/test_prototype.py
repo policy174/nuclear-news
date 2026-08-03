@@ -991,20 +991,43 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertTrue(all(cluster["matches"] for cluster in self.issue_audit["clusters"]))
 
     @unittest.skipIf(SKIP_DATA_GATES, "배포 경로에서는 데이터 지표를 게이트로 쓰지 않는다")
-    def test_latest_briefing_tracking_rate_meets_target(self):
+    def test_tracking_rate_meets_target(self):
         """이슈 추적률 게이트. **배포가 아니라 데이터 품질을 보는 자리다.**
 
         원격 Gemini 임베딩이 있는 빌드에만 적용한다 — 로컬 폴백 벡터는 병합이
         보수적이라 구조적으로 낮게 나온다(환경 차이지 코드 결함이 아니다).
 
-        2026-08-03 실측 0.125. 한때 0.2857 이었고(사람 검토 큐 도입 직후),
-        계획서 §3-C 가 "현행 12.5% 대비 개선"을 Phase 0 목표로 적어둔 그 숫자다.
-        **이 테스트가 빨간 것은 Phase 0-B(병합 판정기)가 미완이라는 뜻이다.**
-        임계값을 내려 통과시키지 말 것 — 그러면 신호가 사라진다.
+        **최신 브리핑 하나가 아니라 최근 7회차 누적으로 잰다.** 2026-08-03 에
+        하루치로 재던 이 게이트가 0.125 로 죽었는데, 같은 날 17일 전부를 재보니
+        8일이 0.000 이고 ≥0.20 은 10일(59%)에서 실패했다. 분모가 이슈 8개라
+        1건 차이로 0.125 씩 튄다 — 그 값은 병합기가 아니라 **그날 뉴스가 한산했나**
+        를 말한다. 누적 7일 0.193 / 14일 0.120 이 병합기의 실제 성질이다.
+
+        임계값 0.20 은 그대로다. 내려 통과시키지 말 것 — 그러면 신호가 사라진다.
+        올려야 할 것은 지표지 기준선이 아니다.
         """
         if not self.meta.get("remote_embedding_selected_count", 0):
             self.skipTest("로컬 폴백 벡터 빌드 — 추적률 기준 적용 대상이 아니다")
-        self.assertGreaterEqual(self.meta["latest_briefing_tracking_rate"], 0.20)
+        if self.meta.get("tracking_window_briefings", 0) < build_data.TRACKING_WINDOW_BRIEFINGS:
+            self.skipTest("브리핑 회차가 창보다 적다 — 누적 분모가 안 만들어진다")
+        self.assertGreaterEqual(self.meta["tracking_window_rate"], 0.20)
+
+    def test_tracking_window_is_wide_enough_to_be_a_signal(self):
+        """게이트가 다시 하루치로 좁아지지 않게 잠근다.
+
+        분모가 작으면 이 지표는 병합기가 아니라 그날 뉴스량을 재게 된다.
+        """
+        self.assertGreaterEqual(build_data.TRACKING_WINDOW_BRIEFINGS, 7)
+        if self.meta.get("tracking_window_briefings", 0) < build_data.TRACKING_WINDOW_BRIEFINGS:
+            self.skipTest("브리핑 회차가 창보다 적다")
+        self.assertGreaterEqual(self.meta["tracking_window_issue_count"], 30)
+        self.assertEqual(
+            self.meta["tracking_window_rate"],
+            round(
+                self.meta["tracking_window_tracked_issue_count"]
+                / self.meta["tracking_window_issue_count"], 4
+            ),
+        )
 
     def test_manual_merge_overrides_are_auditable(self):
         approved = set(self.issue_audit["overrides"]["approved"])

@@ -66,6 +66,13 @@ GENERATION_ID = os.environ.get("GENERATION_ID", "")
 SHOW_MARKET = False
 NEWS_WINDOW_DAYS = 60
 ISSUE_WINDOW_DAYS = 21
+
+# 추적률을 재는 회차 수. **하루치로 재면 안 된다** — 한 회차의 분모가 이슈 8개
+# 안팎이라 1건이 붙고 떨어질 때마다 지표가 0.125 씩 튄다. 2026-08-03 실측 17일에서
+# 8일이 0.000 이었고, ≥0.20 기준은 10일(59%)에서 실패했다. 병합기 품질과 무관하게
+# **뉴스가 한산한 날이 그대로 빨간불**이 된다. 7회차를 함께 보면 분모가 55~60 이라
+# 지표가 병합기의 성질을 말하게 된다(같은 실측에서 7일 누적 0.193 / 14일 0.120).
+TRACKING_WINDOW_BRIEFINGS = 7
 ISSUE_EMBEDDING_THRESHOLD = 0.92
 ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
 LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
@@ -2778,6 +2785,17 @@ def build() -> None:
         if issue.get("previous_article_count", 0) > 0
     )
     latest_issue_count = len(latest_briefing.get("issues", []))
+    # 게이트가 보는 값은 아래 누적치다. 위 latest_* 는 관측용으로 남긴다.
+    tracking_window = briefings[:TRACKING_WINDOW_BRIEFINGS]
+    tracking_window_issue_count = sum(
+        len(briefing.get("issues", [])) for briefing in tracking_window
+    )
+    tracking_window_tracked_issue_count = sum(
+        1
+        for briefing in tracking_window
+        for issue in briefing.get("issues", [])
+        if issue.get("previous_article_count", 0) > 0
+    )
     meta = {
         "generation_id": generation_id,
         "generated_at": now.isoformat(),
@@ -2821,6 +2839,12 @@ def build() -> None:
         "latest_briefing_tracking_rate": round(
             latest_tracked_issue_count / latest_issue_count, 4
         ) if latest_issue_count else 0,
+        "tracking_window_briefings": len(tracking_window),
+        "tracking_window_issue_count": tracking_window_issue_count,
+        "tracking_window_tracked_issue_count": tracking_window_tracked_issue_count,
+        "tracking_window_rate": round(
+            tracking_window_tracked_issue_count / tracking_window_issue_count, 4
+        ) if tracking_window_issue_count else 0,
         "issue_review_candidate_count": len(review_candidates),
         "issue_match_approved_count": len(match_overrides["approved"]),
         "issue_match_rejected_count": len(match_overrides["rejected"]),
