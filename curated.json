@@ -1,89 +1,4 @@
 {
-  "1079c69aa41110d2": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "international",
-    "category": "기술",
-    "title_kr": "내용 불명확: khnp.co.kr",
-    "summary": "제공된 정보가 없어 기사 내용을 파악할 수 없습니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-20T20:58:40.587436+00:00",
-    "title": "- khnp.co.kr",
-    "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPT0FoM1FIWXY1M0s2RXdWSjBubTh2czZxQlNnRUs2b0Nqd2hpeGNQUlJqX3Bvd1lXQjhGam9kSVQ5NVFueVVNQXdleFVVYWtlZ1FoNmF3TGRZdjZfMFZldTRWR0ZUekhkdkZYSEQ0N0lEdW5xQlN6ZW1OWkJjMUhYNFB5elZidw?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
-  "74b5cd8a567dc291": {
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 1,
-      "novelty": 1,
-      "evidence_strength": 2,
-      "report_worthiness": 0
-    },
-    "importance": "nice_to_know",
-    "section": "international",
-    "category": "기술",
-    "title_kr": "IAEA, 라틴 아메리카 무지개송어 양식업자 지원에 핵 과학 활용",
-    "summary": "국제원자력기구(IAEA)가 기술 협력 프로젝트를 통해 핵 과학을 적용하여 라틴 아메리카 무지개송어 개체군 강화에 기여하고 있습니다.",
-    "implication": "IAEA의 핵 과학 기술 활용 범위 확대를 통해 원자력의 다양한 사회 기여 가능성을 확인할 수 있습니다.",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [
-      "#IAEA",
-      "#핵과학",
-      "#기술협력"
-    ],
-    "related_reports": [],
-    "cached_at": "2026-07-20T20:58:40.587436+00:00",
-    "title": "IAEA scientists help rainbow trout farmers in Latin America",
-    "link": "https://www.ans.org/news/2026-07-20/article-8229/iaea-scientists-help-rainbow-trout-farmers-in-latin-america/",
-    "feed": "정책",
-    "domain": "ans.org",
-    "matched": "ANS Nuclear Newswire"
-  },
-  "9ac0b2ba7dcc0d79": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "khnp",
-    "category": "정책",
-    "title_kr": "한국수력원자력 웹사이트 정보 확인",
-    "summary": "한국수력원자력(KHNP) 웹사이트에서 제공된 정보에 대한 내용입니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-20T21:58:05.371835+00:00",
-    "title": "- khnp.co.kr",
-    "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNSDZpX0dVeEQ2amJyMDR6Ni1nczFyamRqZ3FJRkxGTkV1Z0FNTDZqV001R2dMUWR5S01wdVRQZ1EzZWRPY2lJUUIzZkoyMWVFeXN2eXAtQkdmUE53TTA4RmI1c1Q3cE9TaEExbWY2YU02bm1mN0tYeUlUdnN1dnZjY2VJcnJKUQ?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
   "1e7b2b120163c86f": {
     "features": {
       "event_type": "other",
@@ -25956,5 +25871,91 @@
     "feed": "정책",
     "domain": "powermag.com",
     "matched": "POWER Magazine"
+  },
+  "52742ebb90a724e5": {
+    "features": {
+      "event_type": "incident_safety",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "regulation"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "월성 2호기 중수 누설 '은폐' 논란, 기술 검토 vs 의도적 축소",
+    "summary": "월성 2호기 중수 누설 사건의 은폐 논란에 대해 기술 검토와 의도적 축소 여부를 파악 중이다.",
+    "implication": "월성 2호기 중수 누설 논란은 원전 안전 신뢰도와 투명성 확보에 영향을 미칠 수 있습니다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#월성2호기",
+      "#중수누설",
+      "#안전규제"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-03T21:56:41.898891+00:00",
+    "title": "월성 2호기 중수 누설 '은폐' 논란의 실체…기술 검토인가, 의도적 축소인가",
+    "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBRaWFYanFQZ1V0UkpMUEpWOW0zMHRLalhQdWVHaVRQOVdBMmRJbkpoenZxMGx3U1pnVVVneUlPWEtqZzFkSHdIU2xqMA?oc=5",
+    "feed": "정책",
+    "domain": "daum.net",
+    "matched": "국내 원자력 보도"
+  },
+  "bc69bdb0cb8e082c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "corporate",
+    "title_kr": "BWXT, 의료 사업 부문 노르딕 캐피탈에 최대 8억 달러 규모 매각",
+    "summary": "BWXT가 의료 사업 부문을 노르딕 캐피탈에 최대 8억 달러 규모로 매각하는 거래를 진행한다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-03T21:56:41.898891+00:00",
+    "title": "BWXT Selling Medical Business to Nordic Capital in Transaction Valued at up to $800 Million",
+    "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOekppZXVHVGFURjN1NWwzUC12SmIzWWFfV2EwWGM4YUxsMml6d19JSlVuc0pJMXprQmxnUlVZRlFpWEVDb2wxTVk4bEVhNzZUOEFvZWwxOV9NZUZPMkhKZEtTTUtURG1nNFVPSXREU3NHSTNBMHNXc1pBOGVlWlRheE9yQTRPYW5LMlQ1UjlDYkpLUmJWcWZHdA?oc=5",
+    "feed": "정책",
+    "domain": "ft.com",
+    "matched": "FT 원자력"
   }
 }
