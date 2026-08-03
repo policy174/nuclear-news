@@ -432,14 +432,78 @@ def select_diverse(items: list[dict], scores: dict[str, float], k: int,
     return selected
 
 
+# ---- 선정 하한 ----------------------------------------------------------------
+#
+# 캡(국내 3 / 해외 6)은 상한이어야 하는데 하한처럼 작동해 왔다 — 조용한 날에도
+# 자리를 채우느라 nice_to_know 가 올라갔다(실측: 국내 must_read 는 19일 중 11일이
+# 0건인데 매일 3건이 나갔다).
+#
+# 다만 **절대 점수 하한은 쓸 수 없다.** must_read 의 37%가 features 결손으로
+# _legacy_score() 경로를 타 등급 기본값(10점)에 고정되기 때문이다. 하한을 10 이상으로
+# 걸면 "중요하지 않은 기사"가 아니라 "큐레이션이 실패한 기사"를 자르게 되고, 그 실패는
+# 로그에 아무 흔적을 남기지 않는다. 실측으로 floor=12 에서 '한빛 1·2호기 계속운전
+# 청신호'(11.6, must_read) 같은 국내 핵심 뉴스가 탈락했다.
+# 근거: docs/2026-08-03-selection-floor-backtest.md
+#
+# 그래서 하한은 등급별로 걸고, 면제 2종을 둔다.
+
+FLOOR_EXEMPT_GRADE = "must_read"   # 등급 자체가 중요도 판정 — 점수로 다시 거르지 않는다
+
+
+def floor_verdict(item: dict, scores: dict[str, float],
+                  floor: dict | None) -> tuple[bool, str]:
+    """하한 통과 여부와 사유. floor 는 {등급: 하한} dict (또는 None=미적용)."""
+    if not floor:
+        return True, "no_floor"
+    grade = _get_importance(item)
+    if grade == FLOOR_EXEMPT_GRADE:
+        return True, "exempt_grade"
+    # features 가 없으면 점수가 등급 기본값에 고정된다(_legacy_score). 데이터 결손을
+    # 중요도로 오독하지 않도록 하한 판정에서 빼고 통과시킨다.
+    if sanitize_features(item.get("features")) is None:
+        return True, "exempt_no_features"
+    limit = floor.get(grade)
+    if limit is None:
+        return True, "no_limit_for_grade"
+    return scores.get(item.get("hash", ""), 0.0) >= float(limit), "below_floor"
+
+
+def resolve_floor(cfg: dict, region_key: str) -> dict | None:
+    """ranking_config 의 selection_floor 를 {등급: 하한} 으로 편다.
+
+    설정 형태: {"nice_to_know": {"domestic": 14.0, "overseas": 14.0}}
+    region_key 는 "domestic" | "overseas".
+    """
+    raw = cfg.get("selection_floor")
+    if not isinstance(raw, dict):
+        return None
+    out: dict[str, float] = {}
+    for grade, value in raw.items():
+        if grade.startswith("_"):
+            continue
+        if isinstance(value, dict):
+            value = value.get(region_key)
+        if isinstance(value, (int, float)):
+            out[grade] = float(value)
+    return out or None
+
+
 # ---- 종합 파이프라인 (daily_brief 에서 호출) ------------------------------------
 
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
-                    now: datetime | None = None) -> tuple[list[dict], dict]:
-    """점수화 → 중복 클러스터 → 다양성 top-k.
+                    now: datetime | None = None,
+                    floor: dict | None = None) -> tuple[list[dict], dict]:
+    """점수화 → 중복 클러스터 → (하한) → 다양성 top-k.
+
+    하한은 **다양성 선별 앞에서** 건다. 뒤에 걸면 같은 topic 이 겹쳐 받은 페널티가
+    하한 판정에 섞여 들어가 '중요도가 낮아서'가 아니라 '주제가 겹쳐서' 잘린다.
+
+    Args:
+        floor: {등급: 하한 점수}. None 이면 기존 동작 그대로 (하위 호환).
 
     Returns:
-        (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates)
+        (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates/
+         dropped_below_floor/candidate_count)
     """
     cfg = cfg or load_config()
     now = now or datetime.now(timezone.utc)
@@ -454,10 +518,29 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
 
     kept, dropped = cluster_duplicates(items, scores,
                                        float(cfg.get("duplicate_similarity", 0.82)))
+
+    below: list[dict] = []
+    if floor:
+        passing = []
+        for a in kept:
+            ok, _reason = floor_verdict(a, scores, floor)
+            if ok:
+                passing.append(a)
+            else:
+                below.append({
+                    "hash": a.get("hash", ""),
+                    "grade": _get_importance(a),
+                    "score": round(scores.get(a.get("hash", ""), 0.0), 2),
+                    "title": (a.get("title_kr") or a.get("title") or "")[:80],
+                })
+        kept = passing
+
     selected = select_diverse(kept, scores, k, cfg)
     diag = {
         "scores": scores,
         "breakdowns": breakdowns,
+        "candidate_count": len(items),
+        "dropped_below_floor": below,
         "dropped_duplicates": [{"hash": d.get("hash", ""),
                                 "dup_of": d.get("dup_of", ""),
                                 "title": (d.get("title_kr") or d.get("title") or "")[:80]}

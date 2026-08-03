@@ -16,15 +16,32 @@ try {
 
   const bodyText = (await page.textContent("body")) || "";
   const metaLine = (await page.textContent("#metaLine").catch(() => "")) || "";
-  const articles = await page.locator("article").count();
 
   if (/데이터 연결 실패/.test(bodyText)) failures.push("'데이터 연결 실패' 문구가 화면에 있음");
-  if (articles < 1) failures.push(`이슈 카드 0개 (article 요소 ${articles})`);
   if (!/이슈\s*\d+/.test(metaLine)) failures.push(`메타 라인 비정상: "${metaLine}"`);
+
+  // 선정 하한 도입 뒤로 이슈 0건은 정상 상태다(News Minimalist 식 — 조용한 날은
+  // 피드가 짧아지는 게 설계 의도). 그래서 "카드가 1개 이상"을 요구하면 멀쩡한
+  // 날에 CI 가 빨개진다. 대신 **렌더러가 무언가를 그렸는가**를 본다:
+  // 카드 아니면 빈 상태, 둘 다 없으면 그때가 진짜 렌더 실패다.
+  const listHtml = (await page.innerHTML("#issueList").catch(() => "")) || "";
+  if (!listHtml.trim()) failures.push("renderBriefing 이 아무것도 그리지 않음 (#issueList 비어 있음)");
+  const cards = await page.locator("#issueList article").count();
+  const emptyStates = await page.locator("#issueList .empty-state").count();
+  const changedCards = await page.locator("#changedList article").count();
+  if (cards === 0 && changedCards === 0 && emptyStates === 0) {
+    failures.push("이슈 목록이 카드도 빈 상태도 아님 — 렌더 실패 의심");
+  }
+  // 빈 상태라면 아는 세 갈래 중 하나여야 한다. 정체불명의 빈 화면은 실패로 본다.
+  if (cards === 0 && changedCards === 0) {
+    const known = /(브리핑 기준을 넘는 이슈가 없습니다|새로 확인된 브리핑 이슈가 없습니다|아직 갱신되지 않았습니다|새로 연결된 이슈가 없습니다)/;
+    if (!known.test(bodyText)) failures.push("이슈 0건인데 사유 문구가 없음");
+    console.log("주의: 이슈 카드 0건 — 빈 상태로 렌더됨(정상 가능)");
+  }
 
   // 최신 브리핑 날짜가 화면에 반영됐는가 — "2026-07-31" → "7월 31일" 표기로 확인
   const d = meta.latest_briefing_date || "";
-  if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(d) && (cards > 0 || changedCards > 0)) {
     const label = `${parseInt(d.slice(5, 7), 10)}월 ${parseInt(d.slice(8, 10), 10)}일`;
     if (!bodyText.includes(label)) failures.push(`최신 브리핑 날짜(${label}) 미표시`);
   }

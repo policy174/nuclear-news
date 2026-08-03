@@ -604,17 +604,78 @@ function changedIssues(briefing) {
     .slice(0, 5);
 }
 
+// 이슈 0건은 세 가지 서로 다른 상태다. 하나로 뭉뚱그리면 파이프라인 장애가
+// '조용한 날'로 위장된다.
+//   A 기준 미달  — 파이프라인 정상 + 하한에서 걸린 후보가 있음
+//   B 후보 없음  — 파이프라인 정상 + 애초에 후보가 0건
+//   C 지연·실패  — 파이프라인이 안 돌았거나 실패
+// 판정 근거는 봇이 delivery_log 에 남긴 selection_stats 다. 그게 없는 구간(기능
+// 도입 이전 날짜)에서는 단정하지 않고 중립 문구로 내려간다.
+function pipelineTrouble() {
+  const status = state.systemStatus;
+  if (!status) return null;
+  if (status.state === "error" || status.watcher_running === false) return status;
+  return null;
+}
+
+function emptyBriefingState(briefing) {
+  const trouble = pipelineTrouble();
+  if (trouble) {
+    const stamp = trouble.last_success_at ? dateTimeLabel(trouble.last_success_at) : "";
+    return {
+      title: "브리핑 데이터가 아직 갱신되지 않았습니다",
+      detail: `${esc(trouble.message || "자동 수집 상태를 확인하고 있습니다")}`
+        + `${stamp ? ` · 마지막 정상 확인 ${esc(stamp)}` : ""}`,
+    };
+  }
+  const below = briefing && Number(briefing.below_floor_count);
+  if (Number.isFinite(below) && below > 0) {
+    return {
+      title: "오늘은 브리핑 기준을 넘는 이슈가 없습니다",
+      detail: `검토한 후보 ${below}건은 기준에 미치지 못했습니다. `
+        + `<button type="button" data-go-view="search">이슈 아카이브에서 보기</button>`,
+    };
+  }
+  if (briefing && briefing.candidate_count === 0) {
+    return {
+      title: "오늘 새로 확인된 브리핑 이슈가 없습니다",
+      detail: '진행 중인 이슈는 <button type="button" data-go-view="search">이슈 아카이브</button>에서 확인할 수 있습니다.',
+    };
+  }
+  return {
+    title: "오늘은 새로 연결된 이슈가 없습니다",
+    detail: "가장 최근 브리핑을 확인해 보세요.",
+  };
+}
+
+function renderEmptyBriefing(briefing, issueList) {
+  const view = emptyBriefingState(briefing);
+  document.getElementById("changedIssues").hidden = true;
+  document.getElementById("briefingTitle").textContent = view.title;
+  document.getElementById("briefingKicker").textContent = "오늘의 브리핑";
+  // 히어로가 이미 사유를 말했으므로 목록에서 같은 문장을 되풀이하지 않는다.
+  // 목록은 '그래서 어디로 가면 되는가'만 담당한다.
+  document.getElementById("showChangedIssues").hidden = true;
+  // 근거 칩도 함께 지운다 — 안 그러면 직전 브리핑의 근거가 남아 없는 문장을 가리킨다
+  const staleEvidence = document.getElementById("headlineEvidence");
+  if (staleEvidence) { staleEvidence.hidden = true; staleEvidence.innerHTML = ""; }
+  issueList.innerHTML = `<div class="empty-state"><p>${view.detail}</p></div>`;
+}
+
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
   issueList.classList.remove("skeleton-list");
   if (!briefing) {
-    document.getElementById("changedIssues").hidden = true;
-    document.getElementById("briefingTitle").textContent = "오늘은 새로 연결된 이슈가 없습니다";
-    // 근거 칩도 함께 지운다 — 안 그러면 직전 브리핑의 근거가 남아 없는 문장을 가리킨다
-    const staleEvidence = document.getElementById("headlineEvidence");
-    if (staleEvidence) { staleEvidence.hidden = true; staleEvidence.innerHTML = ""; }
-    issueList.innerHTML = '<div class="empty-state"><strong>오늘은 새로 연결된 이슈가 없습니다</strong><p>가장 최근 브리핑을 확인해 보세요.</p></div>';
+    renderEmptyBriefing(null, issueList);
+    return;
+  }
+  // 필터 때문에 비어 보이는 것과 그날 실제로 이슈가 0건인 것은 다르다.
+  if (!briefing.issues.length) {
+    renderEmptyBriefing(briefing, issueList);
+    document.getElementById("issueCount").textContent = "0개 이슈";
+    renderBriefingSidebar(briefing);
+    renderNewsFeed();
     return;
   }
   let issues = briefing.issues.filter(issueMatchesFilters);

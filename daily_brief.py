@@ -492,6 +492,23 @@ def collect_social(saved_raw: list[Path] | None = None,
 
 # ---- 계획 수립 (선별 → 브리핑 텍스트 → outbox dict) ----------------------------
 
+def empty_reason(diag: dict) -> str:
+    """선정 0건일 때의 사유 문장. '수집이 없었다'와 '기준 미달'은 다른 상태다."""
+    below = len(diag.get("dropped_below_floor") or [])
+    if below:
+        return (f"오늘은 브리핑 기준을 넘는 이슈가 없습니다. "
+                f"검토한 후보 {below}건은 웹 아카이브에서 확인할 수 있습니다.")
+    return "오늘 새로 확인된 브리핑 이슈가 없습니다."
+
+
+def region_stats(diag: dict, selected: list[dict]) -> dict:
+    return {
+        "candidate_count": int(diag.get("candidate_count") or 0),
+        "selected_count": len(selected),
+        "below_floor_count": len(diag.get("dropped_below_floor") or []),
+    }
+
+
 def plan_briefs(queue: list[dict],
                 social_pairs: list[tuple[str, dict]] | None = None,
                 now: datetime | None = None) -> dict:
@@ -514,7 +531,11 @@ def plan_briefs(queue: list[dict],
     }
 
     if not queue and not social_pairs:
+        # 파이프라인은 정상적으로 돌았고 후보가 없었을 뿐이다 — 웹이 이걸
+        # '데이터 갱신 실패'와 구분할 수 있도록 0 통계를 남긴다.
+        zero = {"candidate_count": 0, "selected_count": 0, "below_floor_count": 0}
         return {**base, "status": "empty", "briefs": [], "items": [],
+                "selection_stats": {"domestic": dict(zero), "overseas": dict(zero)},
                 "prune_hashes": []}
 
     cfg = ranking.load_config()
@@ -524,10 +545,13 @@ def plan_briefs(queue: list[dict],
 
     dom_pool = [a for a in items if region(a) == "국내"]
     forn_pool = [a for a in items if region(a) == "해외"]
-    dom, dom_diag = ranking.rank_and_select(dom_pool, DOMESTIC_CAP, cfg, now)
-    forn, forn_diag = ranking.rank_and_select(forn_pool, FOREIGN_CAP, cfg, now)
+    dom, dom_diag = ranking.rank_and_select(
+        dom_pool, DOMESTIC_CAP, cfg, now, ranking.resolve_floor(cfg, "domestic"))
+    forn, forn_diag = ranking.rank_and_select(
+        forn_pool, FOREIGN_CAP, cfg, now, ranking.resolve_floor(cfg, "overseas"))
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별 "
-          f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건)")
+          f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건, "
+          f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건)")
 
     # 투자 보강 — 양쪽 선별분 한 번에 (무료 티어 호출 절감)
     allsel = dom + forn
@@ -550,7 +574,7 @@ def plan_briefs(queue: list[dict],
         dom_msg = format_cards_message(dom_cards, header="🇰🇷 원자력 국내 브리핑")
     else:
         dom_msg = (f"<b>📰 🇰🇷 원자력 국내 브리핑 ({today})</b>\n\n"
-                   "<i>오늘은 별도로 잡힌 국내 동향이 없습니다.</i>")
+                   f"<i>{empty_reason(dom_diag)}</i>")
     briefs.append({"name": "국내", "text": dom_msg, "status": "pending"})
 
     forn_msg = (format_cards_message(forn_cards, header="🌐 원자력 해외 브리핑")
@@ -564,7 +588,7 @@ def plan_briefs(queue: list[dict],
             print(f"[daily_brief] 소셜 카드 {len(social_cards)}개 (해외 브리핑에 추가)")
     if not forn_msg:
         forn_msg = (f"<b>📰 🌐 원자력 해외 브리핑 ({today})</b>\n\n"
-                    "<i>오늘은 별도로 잡힌 해외 동향이 없습니다.</i>")
+                    f"<i>{empty_reason(forn_diag)}</i>")
     briefs.append({"name": "해외", "text": forn_msg, "status": "pending"})
 
     # 보고서 검토 추천 — Python 게이트 통과 후보 있을 때만 LLM (없으면 미발송)
@@ -601,6 +625,10 @@ def plan_briefs(queue: list[dict],
 
     return {**base, "status": "pending", "briefs": briefs, "items": out_items,
             "report_diag": report_diag,
+            "selection_stats": {
+                "domestic": region_stats(dom_diag, dom),
+                "overseas": region_stats(forn_diag, forn),
+            },
             "dropped_duplicates": dom_diag["dropped_duplicates"] + forn_diag["dropped_duplicates"],
             "prune_hashes": prune}
 
@@ -686,6 +714,36 @@ def apply_send_results(outbox: dict, results: list[dict]) -> dict:
                 briefs[idx]["sent_at"] = r["sent_at"]
     _update_overall_status(outbox)
     return outbox
+
+
+def append_selection_stats(outbox: dict, path: Path | None = None,
+                           now: datetime | None = None) -> bool:
+    """그날의 선정 통계를 delivery_log.jsonl 에 한 줄 남긴다.
+
+    웹이 '오늘 0건'을 안전하게 렌더하려면 후보가 몇 건이었고 하한에서 몇 건이
+    빠졌는지 알아야 하는데, rank_and_select 의 진단은 런타임 값이라 나중에 도는
+    build_data 가 알 방법이 없다. 그래서 여기서 계약으로 남긴다.
+
+    기사 레코드와 달리 hash 가 없어 (date, hash) 멱등이 안 걸린다. 재실행하면
+    줄이 늘어나는데, 로그는 지우지 않고 **읽는 쪽이** generated_at 최신 +
+    pipeline_status 우선순위로 고른다(build_data.pick_selection_stats).
+    """
+    stats = outbox.get("selection_stats")
+    if not isinstance(stats, dict):
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+    failed = any(b.get("status") == "failed" for b in outbox.get("briefs", []))
+    rec = {
+        "record_type": "selection_stats",
+        "date": outbox.get("date", ""),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "pipeline_status": "partial" if failed else "ok",
+        **{k: v for k, v in stats.items()},
+    }
+    with path.open("a", encoding="utf-8") as fp:
+        fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return True
 
 
 def append_delivery_log(outbox: dict, path: Path | None = None) -> int:
@@ -796,6 +854,9 @@ def cmd_confirm() -> int:
         except (OSError, json.JSONDecodeError):
             print("[daily_brief] outbox_result 파싱 실패 → outbox 자체 상태 사용")
     n = append_delivery_log(outbox)
+    # 발송이 전부 실패해도 통계는 남긴다 — 웹이 '조용한 날'과 '파이프라인 실패'를
+    # 구분하려면 오늘 파이프라인이 돌았다는 사실 자체가 필요하다.
+    append_selection_stats(outbox)
     save_outbox(outbox)
     print(f"[daily_brief] confirm — 상태 {outbox.get('status')}, delivery_log +{n}건")
     return 0
@@ -869,6 +930,7 @@ def main() -> int:
 
     send_outbox(outbox)
     append_delivery_log(outbox)
+    append_selection_stats(outbox)
     if not args.from_curated and not args.keep_queue:
         pruned = prune_queue(queue, set(outbox["prune_hashes"]))
         save_queue(pruned)

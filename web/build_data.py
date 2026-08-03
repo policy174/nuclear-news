@@ -323,11 +323,126 @@ def load_deliveries() -> dict[str, dict]:
             delivery = json.loads(line)
         except json.JSONDecodeError:
             continue
+        # record_type 이 붙은 줄은 기사가 아니라 부가 레코드(selection_stats).
+        if delivery.get("record_type"):
+            continue
         article_hash = delivery.get("hash")
         briefing_date = delivery.get("date")
         if article_hash and briefing_date:
             out[article_hash] = delivery
     return out
+
+
+# 선정 통계는 hash 가 없어 (date, hash) 멱등이 안 걸린다. 워크플로 재실행이 같은
+# 날짜에 여러 줄을 남기므로 읽는 쪽에서 하나를 고른다.
+#   ① pipeline_status 가 좋은 것 우선 (실패한 재실행이 정상 기록을 덮지 않게)
+#   ② 같은 등급이면 generated_at 이 늦은 것
+_PIPELINE_RANK = {"ok": 3, "partial": 2, "error": 1}
+
+
+def pick_selection_stats(rows: list[dict]) -> dict[str, dict]:
+    """날짜 → 그날의 대표 selection_stats 레코드."""
+    best: dict[str, dict] = {}
+    for row in rows:
+        if row.get("record_type") != "selection_stats":
+            continue
+        day = row.get("date") or ""
+        if not day:
+            continue
+        current = best.get(day)
+        if current is None or _stats_key(row) > _stats_key(current):
+            best[day] = row
+    return best
+
+
+def _stats_key(row: dict) -> tuple:
+    return (_PIPELINE_RANK.get(row.get("pipeline_status") or "", 0),
+            row.get("generated_at") or "")
+
+
+# 상태 판정은 두 개의 독립 heartbeat 로 한다.
+#
+#   수집기      = 아카이브 최신 archived_at (crawl 이 매시간 append — 선정과 무관)
+#   브리핑 파이프라인 = selection_stats.generated_at + pipeline_status
+#
+# "최신 기사 날짜"만 보고 판정하면 안 된다. 선정 하한을 도입한 뒤에는 며칠간 새
+# 브리핑 항목이 없는 게 정상일 수 있고, 그걸 장애로 표시하면 컷오프 도입의 취지가
+# 무너진다. **콘텐츠가 없는 것과 프로세스가 안 돈 것은 별개다.**
+COLLECTOR_STALE_HOURS = 6      # crawl 은 매시간 — 6시간이면 확실히 멈춘 것
+BRIEFING_STALE_HOURS = 36      # daily-brief 는 하루 1회 — 36시간이면 한 회차를 건너뛴 것
+
+
+def _latest_archive_stamp(records: list[dict]) -> str:
+    stamps = [str(r.get("archived_at") or "") for r in records if r.get("archived_at")]
+    return max(stamps) if stamps else ""
+
+
+def _hours_since(stamp: str, now: datetime) -> float | None:
+    if not stamp:
+        return None
+    try:
+        parsed = datetime.fromisoformat(stamp)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return (now - parsed).total_seconds() / 3600.0
+
+
+def system_status(records: list[dict], selection_stats: dict, now: datetime) -> dict:
+    """status.json 본문. app.js renderSystemStatus 가 이 계약을 이미 렌더한다."""
+    ok_days = {day: row for day, row in selection_stats.items()
+               if row.get("pipeline_status") == "ok"}
+    last_ok = max((row.get("generated_at") or "" for row in ok_days.values()),
+                  default="")
+    latest_brief = max(selection_stats) if selection_stats else ""
+    latest_row = selection_stats.get(latest_brief) or {}
+
+    collector_age = _hours_since(_latest_archive_stamp(records), now)
+    briefing_age = _hours_since(latest_row.get("generated_at") or "", now)
+
+    state, message, watcher = "ok", "", True
+
+    if collector_age is not None and collector_age > COLLECTOR_STALE_HOURS:
+        state, watcher = "error", False
+        message = f"수집이 {collector_age:.0f}시간째 멈춰 있습니다"
+    elif latest_row.get("pipeline_status") == "error":
+        state = "error"
+        message = "브리핑 선정이 실패했습니다"
+    elif briefing_age is None and selection_stats:
+        watcher = False
+        message = "브리핑 실행 기록을 찾지 못했습니다"
+    elif briefing_age is not None and briefing_age > BRIEFING_STALE_HOURS:
+        watcher = False
+        message = f"브리핑이 {briefing_age / 24:.0f}일째 갱신되지 않았습니다"
+    elif latest_row.get("pipeline_status") == "partial":
+        message = "브리핑 일부가 발송되지 않았습니다"
+
+    return {
+        "state": state,
+        # 마지막 '정상 브리핑' 시각. 빌드 시각이 아니다 — 빌드는 실패한 날에도 돈다.
+        # 통계가 아직 없는 구간(기능 도입 직후)에서는 수집 시각으로 내려간다.
+        "last_success_at": last_ok or _latest_archive_stamp(records) or now.isoformat(),
+        "watcher_running": watcher,
+        "message": message,
+        "collector_stamp": _latest_archive_stamp(records),
+        "briefing_date": latest_brief,
+    }
+
+
+def load_selection_stats() -> dict[str, dict]:
+    path = BOT_DIR / "delivery_log.jsonl"
+    if not path.exists():
+        return {}
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(row, dict):
+            rows.append(row)
+    return pick_selection_stats(rows)
 
 
 def infer_region(record: dict, countries: list[str] | None = None) -> tuple[str, str]:
@@ -1555,8 +1670,60 @@ def load_daily_leads() -> dict[str, dict]:
     return leads if isinstance(leads, dict) else {}
 
 
+def selection_view(stats: dict | None) -> dict:
+    """봇이 남긴 선정 통계를 브리핑 행에 실을 형태로.
+
+    이슈 0건일 때 '기준 미달'·'후보 없음'·'파이프라인 실패'를 화면에서 가르려면
+    이 값이 필요하다. 통계가 없는 날(기능 도입 이전)은 None 으로 둬서 프론트가
+    단정하지 않게 한다 — 0 으로 채우면 '후보가 없었다'는 거짓 진술이 된다.
+    """
+    if not stats:
+        return {"candidate_count": None, "below_floor_count": None,
+                "pipeline_status": None, "pipeline_ran_at": None}
+
+    def total(key: str) -> int:
+        return sum(int((stats.get(region) or {}).get(key) or 0)
+                   for region in ("domestic", "overseas"))
+
+    return {
+        "candidate_count": total("candidate_count"),
+        "below_floor_count": total("below_floor_count"),
+        "pipeline_status": stats.get("pipeline_status"),
+        "pipeline_ran_at": stats.get("generated_at"),
+    }
+
+
+def empty_briefing_row(briefing_date: str, stats: dict | None) -> dict:
+    """선정이 통째로 0건인 날의 브리핑 행.
+
+    브리핑 날짜는 '발송된 기사'에서만 나오기 때문에(dates = news_items 의
+    briefing_date), 하한에 전부 걸린 날은 briefings 에 행 자체가 생기지 않는다.
+    그러면 화면이 below_floor_count 를 볼 수 없어 '기준 미달' 상태가 영영 안 뜬다.
+    후보가 있었다는 기록이 있으면 빈 행이라도 남긴다.
+    """
+    return {
+        "date": briefing_date,
+        "article_count": 0,
+        "issue_count": 0,
+        **selection_view(stats),
+        "domestic_count": 0,
+        "overseas_count": 0,
+        "primary_source_count": 0,
+        "tracked_issue_count": 0,
+        "verified_issue_count": 0,
+        "headline": "",
+        "headline_kind": "empty",
+        "headline_evidence": [],
+        "changed_issue_count": 0,
+        "highlights": [],
+        "highlight_issues": [],
+        "issues": [],
+    }
+
+
 def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "",
-                    daily_leads: dict | None = None) -> list[dict]:
+                    daily_leads: dict | None = None,
+                    selection_stats: dict | None = None) -> list[dict]:
     # 오래된 날부터 돈다 — 히어로가 '어제 무엇을 말했는지' 알아야 같은 사건을
     # 이틀 연속 올리지 않는다. 반환 직전에 최신순으로 뒤집는다(briefings[0] 이
     # 최신이라는 계약은 스모크·앱이 함께 의존한다).
@@ -1634,6 +1801,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             "date": briefing_date,
             "article_count": len(current_articles),
             "issue_count": len(issue_rows),
+            **selection_view((selection_stats or {}).get(briefing_date)),
             "domestic_count": sum(1 for item in current_articles if item.get("region") == "국내"),
             "overseas_count": sum(1 for item in current_articles if item.get("region") == "해외"),
             "primary_source_count": sum(1 for item in current_articles if _is_primary_source(item)),
@@ -1655,6 +1823,16 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             ],
             "issues": issue_rows,
         })
+    # 하한에 전부 걸려 발송이 0건인 날은 위 루프가 못 만든다(날짜 자체가 기사에서
+    # 나오므로). 통계에만 남은 날을 빈 행으로 채워 화면이 사유를 말할 수 있게 한다.
+    # 기사가 하나도 없던 날짜 범위 밖까지 거슬러 올라가지는 않는다.
+    if selection_stats and dates:
+        floor_date = min(dates)
+        for day, stats in selection_stats.items():
+            if day in dates or day < floor_date:
+                continue
+            briefings.append(empty_briefing_row(day, stats))
+        briefings.sort(key=lambda row: row["date"])
     briefings.reverse()  # 최신순 — briefings[0] 이 최신이라는 계약
     return briefings
 
@@ -1931,7 +2109,9 @@ def build() -> None:
         reverse=True,
     )
     checked_at = now.isoformat()
-    briefings = build_briefings(news_items, issues, checked_at, load_daily_leads())
+    selection_stats = load_selection_stats()
+    briefings = build_briefings(news_items, issues, checked_at, load_daily_leads(),
+                                selection_stats)
     issue_catalog = build_issue_catalog(
         issues,
         briefings[0]["date"] if briefings else "",
@@ -2167,13 +2347,8 @@ def build() -> None:
         "generated_at": now.isoformat(),
         "base_path": "",
     }
-    status = {
-        "state": "ok",
-        "generation_id": generation_id,
-        "last_success_at": now.isoformat(),
-        "watcher_running": True,
-        "message": "",
-    }
+    status = {**system_status(records, selection_stats, now),
+              "generation_id": generation_id}
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     outputs = (

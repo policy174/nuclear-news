@@ -109,6 +109,9 @@ def _archive_summaries() -> dict[str, dict]:
 
 def collect_today(delivery_rows: list[dict]) -> tuple[str, list[dict]]:
     """가장 최근 발송일과 그날 항목을 점수 내림차순으로 돌려준다."""
+    # record_type 이 붙은 줄은 기사가 아니라 부가 레코드(selection_stats 등).
+    # 걸러내지 않으면 제목·요약이 빈 항목이 프롬프트에 섞여 들어간다.
+    delivery_rows = [row for row in delivery_rows if not row.get("record_type")]
     dates = [row.get("date") for row in delivery_rows if row.get("date")]
     if not dates:
         return "", []

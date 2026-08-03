@@ -243,6 +243,95 @@ class TestDiversity(unittest.TestCase):
         self.assertEqual(sel1[0]["hash"], sel2[0]["hash"])  # 입력 순서 무관
 
 
+class TestSelectionFloor(unittest.TestCase):
+    """캡은 상한이지 하한이 아니다 — 기준 미달이면 자리를 비운다.
+
+    다만 절대 점수 하한은 쓸 수 없다. must_read 의 37%가 features 결손으로
+    _legacy_score 경로를 타 등급 기본값에 고정되기 때문(실측, docs 참조).
+    """
+
+    def setUp(self):
+        # 하한 14 를 확실히 넘는/못 넘는 항목
+        self.high = item(h="high", features=feat(event_type="policy_decision",
+                                                 policy_materiality=3,
+                                                 korea_relevance=3),
+                         title="High scoring item")
+        self.low = item(h="low", features=feat(event_type="opinion"),
+                        title="Low scoring item")
+        self.floor = {"nice_to_know": 14.0}
+
+    def test_floor_none_is_backward_compatible(self):
+        items = [self.high, self.low]
+        base, _ = ranking.rank_and_select(items, 5, CFG, NOW)
+        with_none, _ = ranking.rank_and_select(items, 5, CFG, NOW, None)
+        self.assertEqual([a["hash"] for a in base], [a["hash"] for a in with_none])
+        self.assertEqual(len(base), 2)
+
+    def test_below_floor_dropped(self):
+        sel, diag = ranking.rank_and_select([self.high, self.low], 5, CFG, NOW,
+                                            self.floor)
+        self.assertEqual([a["hash"] for a in sel], ["high"])
+        self.assertEqual([d["hash"] for d in diag["dropped_below_floor"]], ["low"])
+        self.assertEqual(diag["candidate_count"], 2)
+
+    def test_score_equal_to_floor_is_kept(self):
+        """경계는 포함. >= 로 고정한다."""
+        scores = {"x": 14.0}
+        ok, _ = ranking.floor_verdict(item(h="x", features=feat()), scores,
+                                      {"nice_to_know": 14.0})
+        self.assertTrue(ok)
+        ok2, _ = ranking.floor_verdict(item(h="x", features=feat()), {"x": 13.99},
+                                       {"nice_to_know": 14.0})
+        self.assertFalse(ok2)
+
+    def test_must_read_always_exempt(self):
+        weak = item(h="mr", importance="must_read", features=feat(event_type="opinion"))
+        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"nice_to_know": 14.0,
+                                                               "must_read": 99.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "exempt_grade")
+
+    def test_missing_features_exempt(self):
+        """features 결손은 데이터 문제이지 중요도 문제가 아니다."""
+        legacy = item(h="lg")  # features 키 자체가 없음
+        self.assertIsNone(ranking.sanitize_features(legacy.get("features")))
+        ok, reason = ranking.floor_verdict(legacy, {"lg": 5.0}, {"nice_to_know": 14.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "exempt_no_features")
+
+    def test_floor_applied_before_diversity_penalty(self):
+        """다양성 페널티가 하한 판정에 섞이면 '주제가 겹쳐서' 잘리게 된다."""
+        strong = feat(event_type="policy_decision", policy_materiality=3,
+                      korea_relevance=3)
+        # 제목이 서로 안 닮아야 중복 클러스터에 안 걸린다(임계 0.82)
+        titles = ["체코 두코바니 본계약 체결",
+                  "미국 NRC 인허가 규정 개정 의결",
+                  "프랑스 EDF 연료 재처리 계약 갱신"]
+        trio = [item(h=f"t{i}", section="smr", features=strong, title=t)
+                for i, t in enumerate(titles)]
+        sel, diag = ranking.rank_and_select(trio, 3, CFG, NOW, self.floor)
+        # 셋 다 하한을 넘으므로 페널티를 받아도 하한에서 탈락하지 않는다
+        self.assertEqual(diag["dropped_below_floor"], [])
+        self.assertEqual(len(sel), 3)
+
+    def test_resolve_floor_reads_region(self):
+        cfg = {"selection_floor": {"_comment": "무시",
+                                   "nice_to_know": {"domestic": 12.0, "overseas": 15.0}}}
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"), {"nice_to_know": 12.0})
+        self.assertEqual(ranking.resolve_floor(cfg, "overseas"), {"nice_to_know": 15.0})
+        self.assertIsNone(ranking.resolve_floor({}, "domestic"))
+
+    def test_resolve_floor_accepts_flat_number(self):
+        cfg = {"selection_floor": {"nice_to_know": 13.0}}
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"), {"nice_to_know": 13.0})
+
+    def test_repo_config_floor_is_region_symmetric(self):
+        """국내가 불리하다는 1차 가설은 실측 분포로 기각됐다 — 같은 값을 유지한다."""
+        cfg = ranking.load_config()
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"),
+                         ranking.resolve_floor(cfg, "overseas"))
+
+
 class TestConfig(unittest.TestCase):
     def test_missing_config_falls_back(self):
         cfg = ranking.load_config(Path("no_such_file.json"))

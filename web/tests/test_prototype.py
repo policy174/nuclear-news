@@ -1378,5 +1378,191 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertNotIn("- name: Render smoke (라이브 화면 검증)\n        if: always() && steps.claim.conclusion == 'success'\n        continue-on-error: true", daily)
 
 
+class SelectionStatsTests(unittest.TestCase):
+    """통계 레코드는 hash 가 없어 append 로 쌓인다 — 읽는 쪽이 하나를 고른다."""
+
+    @staticmethod
+    def _row(day, status, stamp, below=0):
+        return {"record_type": "selection_stats", "date": day,
+                "pipeline_status": status, "generated_at": stamp,
+                "domestic": {"candidate_count": 3, "selected_count": 1,
+                             "below_floor_count": below},
+                "overseas": {"candidate_count": 5, "selected_count": 2,
+                             "below_floor_count": 0}}
+
+    def test_latest_generated_at_wins(self):
+        rows = [self._row("2026-08-03", "ok", "2026-08-03T07:00:00+09:00"),
+                self._row("2026-08-03", "ok", "2026-08-03T07:40:00+09:00", below=4)]
+        picked = build_data.pick_selection_stats(rows)["2026-08-03"]
+        self.assertEqual(picked["domestic"]["below_floor_count"], 4)
+
+    def test_failed_rerun_does_not_override_ok(self):
+        """실패한 재실행이 정상 기록을 덮으면 사이트가 멀쩡한 날을 장애로 표시한다."""
+        rows = [self._row("2026-08-03", "ok", "2026-08-03T07:00:00+09:00"),
+                self._row("2026-08-03", "error", "2026-08-03T09:00:00+09:00")]
+        self.assertEqual(
+            build_data.pick_selection_stats(rows)["2026-08-03"]["pipeline_status"], "ok")
+
+    def test_ok_after_error_is_taken(self):
+        rows = [self._row("2026-08-03", "error", "2026-08-03T07:00:00+09:00"),
+                self._row("2026-08-03", "ok", "2026-08-03T09:00:00+09:00")]
+        self.assertEqual(
+            build_data.pick_selection_stats(rows)["2026-08-03"]["pipeline_status"], "ok")
+
+    def test_article_rows_ignored(self):
+        rows = [{"date": "2026-08-03", "hash": "abc", "score": 12.0}]
+        self.assertEqual(build_data.pick_selection_stats(rows), {})
+
+
+class EmptyBriefingRowTests(unittest.TestCase):
+    """하한에 전부 걸린 날은 브리핑 행 자체가 안 생긴다 — 그러면 화면이 사유를 못 말한다.
+
+    브리핑 날짜는 '발송된 기사'에서 나오므로(dates = news_items 의 briefing_date),
+    선정이 0건이면 briefings 에 행이 없다. 통계만 있는 날을 빈 행으로 채운다.
+    """
+
+    def _news(self, day):
+        return [{
+            "hash": f"h{day}", "briefing_date": day, "article_date": day,
+            "region": "해외", "title_kr": "제목", "summary": "요약",
+            "topics": [], "canonical_tags": [], "source_type": "media",
+            "evidence_role": "original", "url": "https://example.com/a",
+            "publisher": "Example", "domain": "example.com",
+        }]
+
+    def _stats(self, day, below, candidates):
+        half = {"candidate_count": candidates // 2, "selected_count": 0,
+                "below_floor_count": below // 2}
+        return {"date": day, "pipeline_status": "ok",
+                "generated_at": f"{day}T07:30:00+09:00",
+                "domestic": dict(half), "overseas": dict(half)}
+
+    def test_all_cut_day_still_gets_a_row(self):
+        stats = {"2026-08-01": self._stats("2026-08-01", 0, 2),
+                 "2026-08-02": self._stats("2026-08-02", 6, 6)}
+        rows = build_data.build_briefings(self._news("2026-08-01"), [], "", {}, stats)
+        by_date = {row["date"]: row for row in rows}
+        self.assertIn("2026-08-02", by_date)
+        cut = by_date["2026-08-02"]
+        self.assertEqual(cut["issue_count"], 0)
+        self.assertEqual(cut["below_floor_count"], 6)
+        self.assertEqual(cut["issues"], [])
+        self.assertEqual(rows[0]["date"], "2026-08-02")  # briefings[0] 이 최신
+
+    def test_does_not_backfill_before_the_data_window(self):
+        stats = {"2026-05-01": self._stats("2026-05-01", 4, 4),
+                 "2026-08-01": self._stats("2026-08-01", 0, 2)}
+        rows = build_data.build_briefings(self._news("2026-08-01"), [], "", {}, stats)
+        self.assertNotIn("2026-05-01", {row["date"] for row in rows})
+
+    def test_selection_view_is_none_without_stats(self):
+        """0 으로 채우면 '후보가 없었다'는 거짓 진술이 된다."""
+        view = build_data.selection_view(None)
+        self.assertIsNone(view["candidate_count"])
+        self.assertIsNone(view["below_floor_count"])
+        self.assertIsNone(view["pipeline_status"])
+
+    def test_selection_view_sums_regions(self):
+        view = build_data.selection_view(self._stats("2026-08-02", 6, 10))
+        self.assertEqual(view["candidate_count"], 10)
+        self.assertEqual(view["below_floor_count"], 6)
+        self.assertEqual(view["pipeline_status"], "ok")
+
+
+class SystemStatusTests(unittest.TestCase):
+    """수집기 heartbeat 와 브리핑 heartbeat 는 별개 신호다.
+
+    '최신 기사 날짜'만으로 판정하면, 선정 하한 때문에 정상적으로 조용한 날을
+    장애로 오판한다. 콘텐츠가 없는 것과 프로세스가 안 돈 것은 다르다.
+    """
+
+    NOW = build_data.datetime(2026, 8, 3, 22, 0, tzinfo=build_data.timezone.utc)
+
+    def _records(self, hours_ago):
+        stamp = (self.NOW - build_data.timedelta(hours=hours_ago)).isoformat()
+        return [{"archived_at": stamp}]
+
+    def _stats(self, hours_ago, status="ok"):
+        stamp = (self.NOW - build_data.timedelta(hours=hours_ago)).isoformat()
+        return {"2026-08-03": {"date": "2026-08-03", "pipeline_status": status,
+                               "generated_at": stamp}}
+
+    def test_healthy(self):
+        out = build_data.system_status(self._records(1), self._stats(2), self.NOW)
+        self.assertEqual(out["state"], "ok")
+        self.assertTrue(out["watcher_running"])
+        self.assertEqual(out["message"], "")
+
+    def test_quiet_day_is_not_an_outage(self):
+        """며칠째 새 기사가 없어도 브리핑이 돌았으면 정상이다."""
+        out = build_data.system_status([], self._stats(2), self.NOW)
+        self.assertEqual(out["state"], "ok")
+        self.assertTrue(out["watcher_running"])
+
+    def test_collector_stalled(self):
+        out = build_data.system_status(self._records(12), self._stats(2), self.NOW)
+        self.assertEqual(out["state"], "error")
+        self.assertFalse(out["watcher_running"])
+
+    def test_briefing_stalled_while_collector_alive(self):
+        """수집은 도는데 브리핑만 멈춘 조합 — 가장 놓치기 쉬운 장애."""
+        out = build_data.system_status(self._records(1), self._stats(50), self.NOW)
+        self.assertEqual(out["state"], "ok")
+        self.assertFalse(out["watcher_running"])
+        self.assertIn("브리핑", out["message"])
+
+    def test_pipeline_error_surfaces(self):
+        out = build_data.system_status(self._records(1), self._stats(2, "error"),
+                                       self.NOW)
+        self.assertEqual(out["state"], "error")
+
+    def test_last_success_is_last_ok_briefing_not_build_time(self):
+        stats = {
+            "2026-08-02": {"pipeline_status": "ok",
+                           "generated_at": "2026-08-02T07:30:00+09:00"},
+            "2026-08-03": {"pipeline_status": "error",
+                           "generated_at": "2026-08-03T07:30:00+09:00"},
+        }
+        out = build_data.system_status(self._records(1), stats, self.NOW)
+        self.assertEqual(out["last_success_at"], "2026-08-02T07:30:00+09:00")
+
+    def test_no_stats_yet_does_not_claim_outage(self):
+        """기능 도입 직후 — 통계가 아직 없다고 장애라고 하면 안 된다."""
+        out = build_data.system_status(self._records(1), {}, self.NOW)
+        self.assertEqual(out["state"], "ok")
+        self.assertTrue(out["watcher_running"])
+
+
+class EmptyBriefingStateTests(unittest.TestCase):
+    """이슈 0건의 세 갈래가 app.js 에 실제로 들어 있는지 고정."""
+
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_three_states_present(self):
+        self.assertIn("브리핑 데이터가 아직 갱신되지 않았습니다", self.script)
+        self.assertIn("오늘은 브리핑 기준을 넘는 이슈가 없습니다", self.script)
+        self.assertIn("오늘 새로 확인된 브리핑 이슈가 없습니다", self.script)
+
+    def test_hero_and_list_do_not_repeat_the_same_sentence(self):
+        """히어로 h1 이 사유를 말하므로 목록은 '어디로 가면 되는가'만 담당한다."""
+        self.assertIn('<div class="empty-state"><p>${view.detail}</p></div>', self.script)
+        self.assertIn('document.getElementById("showChangedIssues").hidden = true;',
+                      self.script)
+
+    def test_below_floor_wording_is_candidate_not_collected(self):
+        """below_floor_count 는 전체 수집 건수가 아니다 — '수집된 N건'은 거짓."""
+        self.assertIn("검토한 후보 ${below}건", self.script)
+        self.assertNotIn("수집된 ${below}건", self.script)
+
+    def test_status_checked_before_declaring_quiet_day(self):
+        self.assertIn("function pipelineTrouble()", self.script)
+        self.assertIn("const trouble = pipelineTrouble();", self.script)
+
+    def test_reuses_existing_view_switch_attribute(self):
+        self.assertIn('data-go-view="search"', self.script)
+        self.assertNotIn("data-goto-view", self.script)
+
+
 if __name__ == "__main__":
     unittest.main()

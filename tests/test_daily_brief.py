@@ -327,17 +327,39 @@ class TestOutboxFlow(OutboxBase):
         db.cmd_plan()
         self.assertEqual(db.load_outbox()["date"], "2026-07-11")  # 덮어쓰지 않음
 
+    def _log_rows(self, record_type=None):
+        rows = [json.loads(line) for line
+                in db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines()]
+        return [r for r in rows if r.get("record_type") == record_type]
+
     def test_delivery_log_idempotent(self):
         self.seed_queue(self._queue())
         db.cmd_plan()
         db.cmd_send()
         self.assertEqual(db.cmd_confirm(), 0)
-        n1 = len(db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines())
+        n1 = len(self._log_rows())
         self.assertEqual(db.cmd_confirm(), 0)  # 두 번 confirm(재시도 모의)
-        n2 = len(db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines())
+        n2 = len(self._log_rows())
         self.assertEqual(n1, n2)
-        rec = json.loads(db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines()[0])
+        rec = self._log_rows()[0]
         self.assertIn("breakdown", rec)  # 점수 내역이 남는다
+
+    def test_selection_stats_appended_and_deduped_by_reader(self):
+        """통계 레코드는 hash 가 없어 append 로 쌓인다 — 읽는 쪽이 하나를 고른다."""
+        self.seed_queue(self._queue())
+        db.cmd_plan()
+        db.cmd_send()
+        db.cmd_confirm()
+        db.cmd_confirm()  # 재실행 → 통계 줄이 늘어난다(설계상 정상)
+        stats = self._log_rows("selection_stats")
+        self.assertEqual(len(stats), 2)
+        for row in stats:
+            self.assertIn("generated_at", row)
+            self.assertEqual(row["pipeline_status"], "ok")
+            self.assertIn("candidate_count", row["domestic"])
+        # 기사 레코드는 통계에 오염되지 않는다
+        for row in self._log_rows():
+            self.assertNotIn("record_type", row)
 
     def test_old_queue_schema_loads_and_plans(self):
         """features/why_important 없는 기존 큐 JSON — 그대로 계획·발송 가능해야 함."""
