@@ -69,18 +69,33 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertGreaterEqual(contrast, 4.5)
 
     def test_rendered_text_has_12_5px_minimum(self):
+        """12.5px 하한. 예외는 두지 않는다.
+
+        ``font-size:`` 만 보면 ``font: 11px var(--ff-base)`` 축약형이 통째로
+        빠져나간다 — 통합 시안이 정체성을 9~11px 모노 오버라인에 걸어둔 탓에
+        이 구멍으로 40건 중 17건이 검사를 우회할 수 있었다. 오버라인은 크기가
+        아니라 굵기·자간·색으로 구분한다.
+        """
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         css_sizes = [
             float(value)
             for value in re.findall(r"font-size:\s*(\d+(?:\.\d+)?)px", css)
         ]
+        # font 축약형의 크기 자리 — `font: [style] [weight] <size>[/line-height] <family>`
+        shorthand_sizes = [
+            float(value)
+            for value in re.findall(r"\bfont:\s*[^;}]*?(\d+(?:\.\d+)?)px", css)
+        ]
         inline_svg_sizes = [
             float(value)
             for value in re.findall(r'font-size="(\d+(?:\.\d+)?)"', app)
         ]
-        too_small = [size for size in css_sizes + inline_svg_sizes if size < 12.5]
-        self.assertEqual(too_small, [])
+        too_small = [
+            size for size in css_sizes + shorthand_sizes + inline_svg_sizes
+            if size < 12.5
+        ]
+        self.assertEqual(too_small, [], f"12.5px 미만 글자 크기: {too_small}")
         self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
 
     def test_issue_cards_do_not_use_dashed_verification_border(self):

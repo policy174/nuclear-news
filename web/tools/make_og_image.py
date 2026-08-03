@@ -21,7 +21,9 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parents[1] / "public" / "og-image.png"
 
 WIDTH, HEIGHT = 1200, 630
-BG = (0x0E, 0x2A, 0x3C)
+# style.css 의 --c-primary 와 같은 값으로 유지한다 — 공유 카드가 사이트와 따로 놀면
+# 브랜드가 두 개로 보인다. 팔레트를 바꾸면 이 상수도 함께 바꾸고 재생성할 것.
+BG = (0x12, 0x25, 0x1E)
 WHITE = (0xFF, 0xFF, 0xFF)
 
 # N 마크 — public/logo-mark.svg 와 같은 구성(원판 + 흰 N).

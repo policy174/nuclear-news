@@ -1389,7 +1389,7 @@ function openGlobalSearch() {
 function applyTheme(theme, persist = false) {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
-  document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#0c1519" : "#0e2a3c";
+  document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#0d1613" : "#12251e";
   const button = document.getElementById("themeToggle");
   button.setAttribute("aria-label", theme === "dark" ? "라이트 모드 켜기" : "다크 모드 켜기");
   if (persist) localStorage.setItem("nuclens-theme", theme);

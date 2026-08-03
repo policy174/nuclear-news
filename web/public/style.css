@@ -6,36 +6,45 @@
   font-display: swap;
 }
 
+/* 딥 포레스트 · 미네랄 화이트 · 라임.
+ *
+ * 색은 값만으로 부족하다 — 용도가 함께 정해져 있다. 아래 "표면 전용" 표시가
+ * 붙은 색은 밝은 배경 위 본문 텍스트로 쓰면 WCAG AA(4.5:1)에 미달한다.
+ * 텍스트가 필요하면 짝이 되는 *-text 토큰을 쓸 것. 실측 대비는 각 줄에 적었다.
+ */
 :root {
-  --c-primary: #0e2a3c;
-  --c-primary-strong: #08202f;
-  --c-secondary: #1466a0;
-  --c-secondary-weak: #e9f1f7;
-  --c-accent: #0e8c86;
-  --c-accent-text: #0a6b66;
-  --c-bg: #fafaf8;
-  --c-surface: #fff;
+  --c-primary: #12251e;
+  --c-primary-strong: #0b1713;
+  --c-secondary: #1d725a;
+  --c-secondary-weak: #e2efe8;
+  --c-accent: #668d1d;       /* 표면 전용 3.78:1 — 텍스트는 --c-accent-text */
+  --c-accent-text: #4f7315;  /* 5.38:1 */
+  --c-bg: #f0f4f1;
+  --c-surface: #fbfcfa;
   --c-surface-raised: #fff;
-  --c-surface-sunken: #f2f4f6;
-  --c-border: #dde3e7;
-  --c-border-strong: #c3ccd2;
-  --c-text: #101e28;
-  --c-text-secondary: #4b5b66;
-  --c-text-muted: #61707a;
+  --c-surface-sunken: #e9efeb;
+  --c-border: #cbd6cf;
+  --c-border-strong: #8fa197;
+  --c-text: #12251e;
+  --c-text-secondary: #273b33;
+  --c-text-muted: #58675f;   /* 5.37:1 on --c-bg */
   --c-positive: #1e7a5a;
-  --c-warning: #a8600f;
-  --c-critical: #b0402c;
-  --c-verified: #0a6b66;
-  --c-unverified: #61707a;
-  --c-focus: #1466a0;
-  --c-chart-1: #1466a0;
-  --c-chart-2: #0e8c86;
-  --c-chart-3: #8064a2;
-  --c-chart-4: #a8600f;
+  --c-warning: #96620f;      /* 시안의 #a86f16 은 4.12:1 로 현행보다 나빠 어둡게 조정 */
+  --c-critical: #df6c50;     /* 표면 전용 3.19:1 — 텍스트는 --c-critical-text.
+                                배경으로 쓸 땐 흰 글자(3.28:1) 금지, --c-primary(4.89:1) */
+  --c-critical-text: #a84230;/* 5.85:1 */
+  --c-signal: #cce969;       /* 라임. 배경·강조 전용 — 밝은 배경 위 텍스트로 쓰지 말 것 */
+  --c-verified: #1d725a;
+  --c-unverified: #58675f;
+  --c-focus: #7379dc;        /* 포커스링 전용 3.44:1 — 작은 링크 텍스트 금지 */
+  --c-chart-1: #1d725a;
+  --c-chart-2: #668d1d;
+  --c-chart-3: #7379dc;
+  --c-chart-4: #a86f16;
   --ff-base: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
-  --sh-1: 0 2px 8px rgb(16 30 40 / 8%);
-  --sh-2: 0 12px 32px rgb(16 30 40 / 14%);
-  --sh-3: 0 24px 64px rgb(8 24 34 / 22%);
+  --sh-1: 0 2px 8px rgb(18 37 30 / 8%);
+  --sh-2: 0 12px 32px rgb(18 37 30 / 14%);
+  --sh-3: 0 24px 64px rgb(11 23 19 / 22%);
   --r-1: 6px;
   --r-2: 10px;
   --r-3: 14px;
@@ -44,31 +53,37 @@
   color-scheme: light;
 }
 
+/* 다크는 시안에 없다(시안은 라이트 단일). 같은 색상군에서 파생했고, OS 자동
+ * 감지는 도입하지 않는다 — 라이브가 의도적으로 data-theme 토글만 쓴다.
+ * 주의: test_muted_text_meets_wcag_aa_on_paper 의 dict() 는 나중 값이 앞을
+ * 덮어쓰므로 실제로 검사하는 쌍은 여기 --c-text-muted / --c-bg 다. */
 :root[data-theme="dark"] {
-  --c-primary: #14313f;
-  --c-primary-strong: #0e2a3c;
-  --c-secondary: #5fa9dc;
-  --c-secondary-weak: #18364a;
-  --c-accent: #37b5ae;
-  --c-accent-text: #62d1ca;
-  --c-bg: #0c1519;
-  --c-surface: #131f26;
-  --c-surface-raised: #1a2831;
-  --c-surface-sunken: #0f1a20;
-  --c-border: #24343e;
-  --c-border-strong: #33454f;
-  --c-text: #e8eef1;
-  --c-text-secondary: #a9b8c1;
-  --c-text-muted: #8494a0;
-  --c-positive: #45b389;
+  --c-primary: #1a3329;
+  --c-primary-strong: #12251e;
+  --c-secondary: #6cc0a2;
+  --c-secondary-weak: #1b3a2e;
+  --c-accent: #9fc74a;
+  --c-accent-text: #bcdc78;  /* 10.91:1 */
+  --c-bg: #0d1613;
+  --c-surface: #14201a;
+  --c-surface-raised: #1c2a23;
+  --c-surface-sunken: #101a15;
+  --c-border: #26362d;
+  --c-border-strong: #3a4d41;
+  --c-text: #e7efe9;
+  --c-text-secondary: #b3c3b8;
+  --c-text-muted: #93a398;   /* 6.95:1 on --c-bg */
+  --c-positive: #4fbb93;
   --c-warning: #d99a3e;
   --c-critical: #e0705a;
-  --c-verified: #37b5ae;
-  --c-unverified: #8494a0;
-  --c-focus: #5fa9dc;
-  --c-chart-1: #5fa9dc;
-  --c-chart-2: #37b5ae;
-  --c-chart-3: #b49bd4;
+  --c-critical-text: #f0937f;/* 7.34:1 */
+  --c-signal: #cce969;       /* 어두운 배경 위에서는 텍스트로도 안전(11.78:1 대 primary) */
+  --c-verified: #6cc0a2;
+  --c-unverified: #93a398;
+  --c-focus: #9aa0e8;
+  --c-chart-1: #6cc0a2;
+  --c-chart-2: #9fc74a;
+  --c-chart-3: #9aa0e8;
   --c-chart-4: #d99a3e;
   --sh-1: none;
   --sh-2: none;
@@ -322,7 +337,8 @@ kbd {
   z-index: 1;
   margin-top: 20px;
 }
-.hero-kicker { margin: 0 0 8px; color: #8fd1ce; font-size: 12.5px; font-weight: 650; }
+/* 어두운 히어로 전용. 라임은 딥 포레스트 위에서만 안전하다(11.78:1). */
+.hero-kicker { margin: 0 0 8px; color: var(--c-signal); font-size: 12.5px; font-weight: 650; }
 .hero-copy h1 {
   max-width: 850px;
   margin: 0;
@@ -938,7 +954,7 @@ dialog {
   color: var(--c-text);
   box-shadow: var(--sh-3);
 }
-dialog::backdrop { background: rgb(16 30 40 / 48%); }
+dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .search-dialog { width: min(680px, calc(100% - 32px)); }
 .search-dialog form,
 .status-dialog > div { padding: 22px; }
@@ -1104,7 +1120,7 @@ dialog::backdrop { background: rgb(16 30 40 / 48%); }
     position: fixed;
     z-index: 119;
     inset: 0;
-    background: rgb(16 30 40 / 48%);
+    background: rgb(18 37 30 / 48%);
     content: "";
   }
   .briefing-filters[open] .filter-sheet {
