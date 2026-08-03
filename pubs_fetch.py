@@ -205,7 +205,7 @@ def fetch_nea(state: dict) -> list[dict]:
     items = []
     for pl_id in sorted(fresh_ids, reverse=True):
         title, path = titles[pl_id]
-        item = _make_item("OECD-NEA", "OECD 원자력기구", "news_or_report",
+        item = _make_item("OECD-NEA", "OECD 원자력기구(NEA)", "news_or_report",
                           title, f"https://www.oecd-nea.org/{path}", "")
         if item:
             items.append(item)
@@ -231,7 +231,7 @@ def fetch_iea() -> list[dict]:
     for path, title in by_path.items():
         if not _passes_keyword_gate(title):
             continue
-        item = _make_item("IEA", "국제에너지기구", "report",
+        item = _make_item("IEA", "국제에너지기구(IEA)", "report",
                           title, f"https://www.iea.org{path}", "")
         if item:
             items.append(item)
@@ -346,7 +346,7 @@ def fetch_keei(state: dict) -> list[dict]:
         if not has_toc:
             still_pending.append(list_no)
         item = _make_item(
-            "KEEI", "에경연", "keei_insight", title,
+            "KEEI", "에너지경제연구원(KEEI)", "keei_insight", title,
             KEEI_VIEW_URL.format(no=list_no), _keei_date(title),
             pdf_url=KEEI_PDF_URL.format(no=list_no),
             toc=toc if has_toc else None,
@@ -362,15 +362,15 @@ SOURCES = [
     {"id": "iaea_publications",
      "fetch": lambda state: fetch_rss(
          "https://www.iaea.org/feeds/publications",
-         "IAEA", "국제원자력기구", "publication")},
+         "IAEA", "국제원자력기구(IAEA)", "publication")},
     {"id": "eia_today",
      "fetch": lambda state: fetch_rss(
          "https://www.eia.gov/rss/todayinenergy.xml",
-         "EIA", "미국 에너지정보청", "analysis", keyword_gate=True)},
+         "EIA", "미국 에너지정보청(EIA)", "analysis", keyword_gate=True)},
     {"id": "eia_press",
      "fetch": lambda state: fetch_rss(
          "https://www.eia.gov/rss/press_rss.xml",
-         "EIA", "미국 에너지정보청", "press", keyword_gate=True)},
+         "EIA", "미국 에너지정보청(EIA)", "press", keyword_gate=True)},
     {"id": "nea_news", "fetch": fetch_nea},
     {"id": "iea_reports", "fetch": lambda state: fetch_iea()},
     {"id": "keei_insight", "fetch": fetch_keei},

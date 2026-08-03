@@ -1391,6 +1391,52 @@ class GeneratedDataTests(unittest.TestCase):
         finally:
             build_data.BOT_DIR = original
 
+    def test_publications_drop_events_and_nonpower_but_llm_verdict_wins(self):
+        """발간물 탭은 '보고서로 쓸 만한가'를 판단하는 자리다.
+
+        실측(2026-08-03): 29건 중 11건이 행사·교육 소식이거나 FAO 공동 프로그램
+        (농업·식품·수자원) 뉴스레터였다. 제목 규칙으로 거르되, 규칙은 낱말만 보므로
+        LLM 판정이 있는 항목에서는 규칙을 태우지 않는다 — 'Workshop on Regulatory
+        Harmonisation' 같은 진짜 정책 문서를 규칙이 되돌려 지우면 안 된다.
+        """
+        drop = build_data.publication_drop_reason
+        self.assertEqual(drop({"title": "Inaugural NextGen Nuclear Leaders Summer School held"}), "event")
+        self.assertEqual(drop({"title": "TCOFF-2 project members meet in Tokyo to review progress"}), "event")
+        self.assertEqual(drop({"title": "Insect Pest Control Newsletter No. 106"}), "nonpower")
+        self.assertEqual(drop({"title": "Cooperative Approaches to the Back End of the Nuclear Fuel Cycle"}), "")
+
+        # LLM 이 관련 있다고 판정하면 제목에 workshop 이 있어도 남는다
+        self.assertEqual(drop({"title": "Workshop on Regulatory Harmonisation", "off_topic": False}), "")
+        # 반대로 제목 규칙에 안 걸려도 LLM 이 걸러내면 제외된다
+        self.assertEqual(
+            drop({"title": "Nuclear Knowledge Fair 2026", "off_topic": True,
+                  "off_topic_reason": "행사 소식"}),
+            "행사 소식")
+
+    def test_publication_gist_is_hidden_when_it_only_echoes_the_title(self):
+        """같은 말을 두 줄 쓰면 목록만 길어진다 — 실측 15건 중 10건이 제목 재진술."""
+        echo = build_data.gist_adds_nothing
+        self.assertTrue(echo("원자력 안전 핵심 실험 데이터세트 보존",
+                             "원자력 안전을 위한 핵심 실험 데이터세트 보존"))
+        self.assertTrue(echo("임계 안전성 과제 및 발전 논의", "임계 안전성 과제 및 발전 논의"))
+        # 문서 성격·범위를 더하면 남긴다
+        self.assertFalse(echo("SMR 배치를 앞당기기 위한 규제·공급망 과제 정리",
+                              "SMR(소형모듈원자로) 가속화"))
+        # 한쪽이 비면 판정하지 않는다 (없는 것을 지웠다고 세지 않게)
+        self.assertFalse(echo("", "제목"))
+        self.assertFalse(echo("요약", ""))
+
+    def test_publication_org_labels_carry_the_english_acronym(self):
+        """약자만 아는 사람과 한글 명칭만 아는 사람이 갈린다 — 둘 다 적는다."""
+        aliases = build_data.PUBLICATION_ORG_ALIASES
+        self.assertEqual(aliases["에경연"], "에너지경제연구원(KEEI)")
+        self.assertEqual(aliases["에너지경제연구원"], "에너지경제연구원(KEEI)")
+        for org_kr in ("OECD 원자력기구", "국제원자력기구", "국제에너지기구", "미국 에너지정보청"):
+            self.assertRegex(aliases[org_kr], r"\([A-Z\-]+\)$")
+        # 이미 수집된 항목도 빌드 시점에 교정된다
+        for item in self.publications["items"]:
+            self.assertNotEqual(item["org_kr"], "에경연")
+
     def test_publications_tab_is_wired_and_failure_tolerant(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

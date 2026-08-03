@@ -1761,9 +1761,86 @@ PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
 
 # 기관 표기는 화면에서 정규화한다. 수집 시점 라벨이 그대로 굳으면 이름을 바꿔도
 # 과거 항목은 옛 이름으로 남아 필터에 같은 기관이 두 개로 갈린다.
+# 기관명은 정식 명칭 + 영문 약자로 통일한다. 약자만 아는 사람과 한글 명칭만 아는
+# 사람이 갈리는데, 발간물 목록은 원문을 찾아가는 통로라 양쪽 다 필요하다.
+# 빌드 시점에 매핑하므로 이미 수집된 항목도 함께 교정된다.
 PUBLICATION_ORG_ALIASES = {
-    "에너지경제연구원": "에경연",
+    "에경연": "에너지경제연구원(KEEI)",
+    "에너지경제연구원": "에너지경제연구원(KEEI)",
+    "OECD 원자력기구": "OECD 원자력기구(NEA)",
+    "국제원자력기구": "국제원자력기구(IAEA)",
+    "국제에너지기구": "국제에너지기구(IEA)",
+    "미국 에너지정보청": "미국 에너지정보청(EIA)",
 }
+
+# 발간물 탭은 "보고서로 쓸 만한 문서인가"를 판단하는 자리다. 기관 피드에는 그
+# 판단에 쓸 수 없는 종류가 섞여 들어온다 — 실측 29건 중 12건(41%)이었다.
+#
+# 두 갈래로 나눠 거른다. 갈래를 합치지 않는 이유는 오탐이 났을 때 어느 규칙이
+# 잡았는지 로그로 바로 알기 위해서다.
+#
+#   EVENT   행사·교육·인사 소식. 문서가 아니라 일정이다.
+#           (Joshikai 10주년, NextGen 여름학교, TCOFF-2 진행상황 회의…)
+#   NONPOWER  IAEA 발간물의 절반은 FAO 공동 프로그램(농업·식품·수자원·축산)이다.
+#           원자력 기술을 쓰지만 발전·정책과 접점이 없다.
+#           (Plant Breeding / Insect Pest Control / Soils / Food Safety 뉴스레터…)
+#
+# 제목 규칙이라 완벽하지 않다. 정확한 판정은 pubs_translate 가 번역과 같은 배치
+# 호출에서 매기는 `off_topic` 이고(추가 호출 0회), 그 값이 있으면 우선한다.
+# 규칙은 이미 수집된 항목을 즉시 교정하는 폴백이다.
+PUBLICATION_EVENT_RE = re.compile(
+    r"(summer school|winter school|training course|workshop|webinar|symposium"
+    r"|joshikai|mentoring|mentorship|stem leaders|diversity|internship|scholarship"
+    r"|award|prize|anniversary|celebrat|members meet|meet in \w+ to review"
+    r"|kicks? off|welcomes? new|appoint|obituary|in memoriam)",
+    re.IGNORECASE,
+)
+PUBLICATION_NONPOWER_RE = re.compile(
+    r"(plant breeding|insect pest|soils newsletter|animal production"
+    r"|food safety|food irradiation|crop |livestock|fertili[sz]er"
+    r"|freshwater|groundwater|nitrate|zoonot|veterinar)",
+    re.IGNORECASE,
+)
+
+
+def gist_adds_nothing(gist: str, title_kr: str) -> bool:
+    """gist 가 한국어 제목을 되풀이하기만 하면 참.
+
+    v1 프롬프트가 "제목에서 읽어낼 수 있는 범위만"을 너무 곧이곧대로 받아 제목을
+    한국어로 다시 쓴 것을 gist 로 냈다(실측: "원자력 안전을 위한 핵심 실험
+    데이터세트 보존" → "원자력 안전 핵심 실험 데이터세트 보존"). 같은 말을 두 줄
+    쓰면 목록만 길어지고 판단에는 보탬이 없다.
+
+    v2 프롬프트가 문서 성격·범위를 쓰도록 바뀌었지만, 이미 캐시된 v1 gist 는
+    다음 번역까지 남는다 — 그동안 화면에서 가린다.
+    """
+    gist, title_kr = (gist or "").strip(), (title_kr or "").strip()
+    if not gist or not title_kr:
+        return False
+    squeeze = lambda text: "".join(text.split())
+    a, b = squeeze(gist), squeeze(title_kr)
+    if a in b or b in a:
+        return True
+    return difflib.SequenceMatcher(None, a, b).ratio() >= 0.7
+
+
+def publication_drop_reason(item: dict) -> str:
+    """제외 사유. 빈 문자열이면 표시한다."""
+    verdict = item.get("off_topic")
+    if verdict is True:
+        return str(item.get("off_topic_reason") or "off_topic")
+    if verdict is False:
+        # LLM 이 "관련 있음"으로 봤다면 제목 규칙으로 뒤집지 않는다. 규칙은
+        # 제목 낱말만 보므로 'Workshop on Regulatory Harmonisation' 같은 것을
+        # 잘못 잡는다 — 판정이 있는 항목에서는 규칙을 아예 태우지 않는다.
+        return ""
+    # 판정이 없는 항목(v1 캐시·번역 실패·한국어 원문)만 제목 규칙으로 거른다.
+    title = str(item.get("title") or "")
+    if PUBLICATION_EVENT_RE.search(title):
+        return "event"
+    if PUBLICATION_NONPOWER_RE.search(title):
+        return "nonpower"
+    return ""
 
 # KEEI 인사이트 목차 ↔ 이슈 매칭.
 #
@@ -1933,12 +2010,18 @@ def load_publications(now: datetime | None = None) -> dict:
     now = now or datetime.now(KST)
     new_cutoff = (now - timedelta(days=PUBLICATION_NEW_DAYS)).strftime("%Y-%m-%d")
     items = []
+    dropped: dict[str, int] = {}
+    echoed = 0
     for item in raw.get("items") or []:
         if not isinstance(item, dict):
             continue
         title = str(item.get("title") or "").strip()
         url = str(item.get("url") or "").strip()
         if not title or not url:
+            continue
+        reason = publication_drop_reason(item)
+        if reason:
+            dropped[reason] = dropped.get(reason, 0) + 1
             continue
         display_date = str(item.get("date") or item.get("fetched_at") or "")
         org_kr = str(item.get("org_kr") or "")
@@ -1955,7 +2038,16 @@ def load_publications(now: datetime | None = None) -> dict:
         for optional in ("pdf_url", "toc", "title_kr", "gist"):
             if item.get(optional):
                 view[optional] = item[optional]
+        if gist_adds_nothing(view.get("gist", ""), view.get("title_kr", "")):
+            view.pop("gist", None)
+            echoed += 1
         items.append(view)
+    # 조용히 자르지 않는다 — 규칙이 과하게 잡으면 이 줄에서 먼저 티가 난다.
+    if dropped:
+        detail = " / ".join(f"{key} {count}건" for key, count in sorted(dropped.items()))
+        print(f"[build_data] 발간물 제외 {sum(dropped.values())}건 ({detail})")
+    if echoed:
+        print(f"[build_data] 발간물 gist 숨김 {echoed}건 (제목 재진술)")
     return {
         "generated_at": now.isoformat(),
         "items": items,
