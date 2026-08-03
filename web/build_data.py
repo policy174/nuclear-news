@@ -783,6 +783,115 @@ def load_match_overrides(path: Path = MATCH_OVERRIDES_FILE) -> dict[str, set[str
     return {"approved": keys("approved"), "rejected": keys("rejected")}
 
 
+# ---- 편집 override -------------------------------------------------------------
+#
+# 알고리즘 결과에 사람이 최종 판단을 얹는 자리. 텔레그램 브리핑은 07:25 무인
+# 발송이라 개입할 창이 없지만, 웹은 발송 뒤에도 고칠 수 있다 — 잘못 올라온 카드를
+# 내리고 놓친 이슈를 올리는 게 실제로 가능한 유일한 지점이다.
+#
+# 적용은 반드시 2단계다.
+#   ① 클러스터링 전 — promote 대상에 briefing_date 를 주입한다. 브리핑 이슈는
+#      '발송된 기사'에서만 나오므로(delivery_log 조인), 이걸 안 하면 미발송 기사는
+#      배열에 없어서 정렬로는 절대 올릴 수 없다.
+#   ② 클러스터링 후 — hash 가 속한 **이슈 클러스터 전체**에 적용한다. 기사 하나만
+#      건드리면 같은 클러스터의 다른 멤버가 briefing_date 를 갖고 있어 카드가 그대로
+#      남는다. 사용자에게 보이는 단위가 이슈 카드이므로 판정 단위도 이슈여야 한다.
+SELECTION_OVERRIDES_FILE = BOT_DIR / "selection_overrides.json"
+
+HIDE_ACTION = "hide_from_today"
+DEMOTE_ACTIONS = {HIDE_ACTION, "demote_only"}
+
+
+def _short_hash(value: object) -> str:
+    return str(value or "").strip().lower()[:8]
+
+
+def load_selection_overrides(path: Path = SELECTION_OVERRIDES_FILE) -> dict:
+    """{'promote': {(hash8, date): reason}, 'demote': {(hash8, date): action}}.
+
+    date 는 필수다. 없으면 한 번 승격한 이슈가 몇 달 뒤에도 맨 위에 남는다.
+    """
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        raw = {}
+    promote: dict[tuple[str, str], str] = {}
+    demote: dict[tuple[str, str], str] = {}
+    skipped = 0
+    for name, sink in (("promote", promote), ("demote", demote)):
+        for row in raw.get(name) or []:
+            if not isinstance(row, dict):
+                skipped += 1
+                continue
+            key = _short_hash(row.get("hash8") or row.get("hash"))
+            day = str(row.get("date") or "").strip()
+            if len(key) < 8 or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day):
+                skipped += 1
+                continue
+            if name == "demote":
+                action = str(row.get("action") or HIDE_ACTION)
+                sink[(key, day)] = action if action in DEMOTE_ACTIONS else HIDE_ACTION
+            else:
+                sink[(key, day)] = str(row.get("reason") or "")
+    # 같은 hash 가 양쪽에 있으면 demote 가 이긴다 — 실수로 내리는 쪽이
+    # 실수로 올리는 쪽보다 안전하다.
+    conflicts = set(promote) & set(demote)
+    for key in conflicts:
+        promote.pop(key, None)
+    if skipped or conflicts:
+        print(f"[overrides] 무시 {skipped}건 (hash8/date 누락) / "
+              f"promote·demote 충돌 {len(conflicts)}건 → demote 우선")
+    return {"promote": promote, "demote": demote, "matched": set()}
+
+
+def apply_promotions(visible: list[dict], overrides: dict) -> int:
+    """1단계 — promote 대상을 그날 브리핑 후보로 끌어올린다(클러스터링 전)."""
+    promote = overrides.get("promote") or {}
+    if not promote:
+        return 0
+    by_hash: dict[str, list[dict]] = defaultdict(list)
+    for item in visible:
+        by_hash[_short_hash(item.get("hash"))].append(item)
+    count = 0
+    for (key, day), _reason in promote.items():
+        for item in by_hash.get(key, []):
+            if item.get("briefing_date") != day:
+                item["briefing_date"] = day
+                item["promoted_by_editor"] = True
+            overrides["matched"].add((key, day))
+            count += 1
+    return count
+
+
+def override_verdict(members: list[dict], briefing_date: str, overrides: dict) -> str:
+    """2단계 — 이슈 클러스터 단위 판정. '' | 'promote' | 'hide' | 'demote'.
+
+    한 클러스터에 promote 와 demote 가 섞이면 demote 가 이긴다(로더와 같은 원칙).
+    """
+    keys = {(_short_hash(m.get("hash")), briefing_date) for m in members}
+    demote = overrides.get("demote") or {}
+    promote = overrides.get("promote") or {}
+    hit_demote = [demote[k] for k in keys if k in demote]
+    hit_promote = [k for k in keys if k in promote]
+    for key in keys:
+        if key in demote or key in promote:
+            overrides["matched"].add(key)
+    if hit_demote:
+        if hit_promote:
+            print(f"[overrides] {briefing_date} 한 이슈에 promote·demote 공존 → demote 적용")
+        return "hide" if HIDE_ACTION in hit_demote else "demote"
+    return "promote" if hit_promote else ""
+
+
+def report_unmatched_overrides(overrides: dict) -> None:
+    """없는 hash 는 조용히 무시하되 흔적은 남긴다 — 오타를 영영 모르면 안 된다."""
+    everything = set(overrides.get("promote") or {}) | set(overrides.get("demote") or {})
+    missing = sorted(everything - (overrides.get("matched") or set()))
+    if missing:
+        preview = ", ".join(f"{h}@{d}" for h, d in missing[:5])
+        print(f"[overrides] 해당 날짜 데이터에 없는 항목 {len(missing)}건 무시: {preview}")
+
+
 def cosine_similarity(left: list[float] | None, right: list[float] | None) -> float | None:
     if not left or not right or len(left) != len(right):
         return None
@@ -1436,7 +1545,10 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
     구조를 화면에서도 유지한다: 각 지역 안의 순위(1위끼리, 2위끼리)를 맞물린다.
     """
     def within_region(row: dict) -> tuple:
-        return (row["importance"] == "must_read", row["sort_score"], row["last_seen"])
+        # 편집 고정(editor_pin)은 **자기 지역 안에서만** 작동한다. 지역 맞물림
+        # 구조를 넘어 끌어올리면 해외 이슈가 국내 자리를 먹는다.
+        return (row.get("editor_pin", 0), row["importance"] == "must_read",
+                row["sort_score"], row["last_seen"])
 
     domestic = sorted((r for r in issue_rows if r["region"] == "국내"),
                       key=within_region, reverse=True)
@@ -1452,6 +1564,7 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
     ))
     for row in issue_rows:
         row.pop("sort_score", None)
+        row.pop("editor_pin", None)   # 정렬 전용 — 화면에 편집 흔적을 남기지 않는다
 
 
 PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
@@ -1723,7 +1836,8 @@ def empty_briefing_row(briefing_date: str, stats: dict | None) -> dict:
 
 def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str = "",
                     daily_leads: dict | None = None,
-                    selection_stats: dict | None = None) -> list[dict]:
+                    selection_stats: dict | None = None,
+                    selection_overrides: dict | None = None) -> list[dict]:
     # 오래된 날부터 돈다 — 히어로가 '어제 무엇을 말했는지' 알아야 같은 사건을
     # 이틀 연속 올리지 않는다. 반환 직전에 최신순으로 뒤집는다(briefings[0] 이
     # 최신이라는 계약은 스모크·앱이 함께 의존한다).
@@ -1734,9 +1848,18 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
     for briefing_date in dates:
         current_articles = [item for item in news_items if item.get("briefing_date") == briefing_date]
         issue_rows = []
+        hidden_hashes: set[str] = set()
         for issue in issues:
             current = [member for member in issue["members"] if member["briefing_date"] == briefing_date]
             if not current:
+                continue
+            # 편집 override ② — 판정 단위는 기사가 아니라 **이슈 클러스터**다.
+            # 기사 하나만 지우면 같은 클러스터의 다른 멤버가 briefing_date 를 갖고
+            # 있어 카드가 그대로 남는다. 이슈 병합은 LLM 검수까지 거친 2차 결과이므로
+            # 여기(=최종 클러스터)에서 적용해야 올바른 묶음에 걸린다.
+            verdict = override_verdict(current, briefing_date, selection_overrides or {})
+            if verdict == "hide":
+                hidden_hashes.update(str(member.get("hash") or "") for member in current)
                 continue
             history = [member for member in issue["members"] if member["briefing_date"] < briefing_date]
             representative = max(current, key=_representative_key)
@@ -1781,7 +1904,16 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "representative_article": _article_view(representative),
                 "related_articles": [_article_view(member) for member in timeline],
                 "sort_score": float(representative.get("selection_score") or 0),
+                # 사람이 고정한 순위. 화면에는 표시하지 않는다 — 편집 사유는
+                # 대외 공개용 문장이 아니다.
+                "editor_pin": {"promote": 1, "demote": -1}.get(verdict, 0),
             })
+
+        # 숨긴 이슈의 기사는 그날 집계에서도 빠져야 한다 — 카드는 사라졌는데
+        # '오늘 수집 기사 N건'만 그대로면 화면이 스스로를 부정한다.
+        if hidden_hashes:
+            current_articles = [item for item in current_articles
+                                if str(item.get("hash") or "") not in hidden_hashes]
 
         order_issue_rows(issue_rows)
 
@@ -2069,6 +2201,13 @@ def build() -> None:
             # 기존 프론트와의 호환용. 새 화면은 briefing_date를 사용한다.
             "promoted": delivery.get("date") if delivery else None,
         })
+    # 편집 override ① — 클러스터링 전에 promote 대상을 그날 후보로 올린다.
+    # 정렬 단계에서 하면 늦다: 미발송 기사는 briefing_date 가 없어 배열에 아예 없다.
+    selection_overrides = load_selection_overrides()
+    promoted = apply_promotions(visible, selection_overrides)
+    if promoted:
+        print(f"[overrides] 편집 승격 {promoted}건")
+
     visible.sort(key=lambda item: (item["article_date"], item.get("briefing_date") or ""), reverse=True)
     news_items = [item for item in visible if item["article_date"] >= cutoff_news]
 
@@ -2111,7 +2250,8 @@ def build() -> None:
     checked_at = now.isoformat()
     selection_stats = load_selection_stats()
     briefings = build_briefings(news_items, issues, checked_at, load_daily_leads(),
-                                selection_stats)
+                                selection_stats, selection_overrides)
+    report_unmatched_overrides(selection_overrides)
     issue_catalog = build_issue_catalog(
         issues,
         briefings[0]["date"] if briefings else "",

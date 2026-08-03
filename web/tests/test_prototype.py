@@ -1469,6 +1469,159 @@ class EmptyBriefingRowTests(unittest.TestCase):
         self.assertEqual(view["pipeline_status"], "ok")
 
 
+class SelectionOverrideTests(unittest.TestCase):
+    """알고리즘 결과에 사람이 얹는 최종 판단. 적용 단위는 기사가 아니라 이슈다."""
+
+    def _write(self, payload) -> Path:
+        tmp = Path(tempfile.mkdtemp()) / "selection_overrides.json"
+        tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        return tmp
+
+    def _load(self, payload):
+        return build_data.load_selection_overrides(self._write(payload))
+
+    def test_missing_date_is_ignored(self):
+        """날짜가 없으면 한 번 승격한 이슈가 몇 달 뒤에도 맨 위에 남는다."""
+        over = self._load({"promote": [{"hash8": "abcd1234"}]})
+        self.assertEqual(over["promote"], {})
+
+    def test_malformed_date_is_ignored(self):
+        over = self._load({"promote": [{"hash8": "abcd1234", "date": "2026-8-3"}]})
+        self.assertEqual(over["promote"], {})
+
+    def test_demote_beats_promote_on_same_hash(self):
+        over = self._load({
+            "promote": [{"hash8": "abcd1234", "date": "2026-08-03"}],
+            "demote": [{"hash8": "abcd1234", "date": "2026-08-03"}],
+        })
+        self.assertEqual(over["promote"], {})
+        self.assertIn(("abcd1234", "2026-08-03"), over["demote"])
+
+    def test_default_demote_action_is_hide(self):
+        over = self._load({"demote": [{"hash8": "abcd1234", "date": "2026-08-03"}]})
+        self.assertEqual(over["demote"][("abcd1234", "2026-08-03")], "hide_from_today")
+
+    def test_unknown_action_falls_back_to_hide(self):
+        over = self._load({"demote": [{"hash8": "abcd1234", "date": "2026-08-03",
+                                       "action": "explode"}]})
+        self.assertEqual(over["demote"][("abcd1234", "2026-08-03")], "hide_from_today")
+
+    def test_promotion_injects_briefing_date(self):
+        """미발송 기사는 briefing_date 가 없어 배열에 아예 없다 — 정렬로는 못 올린다."""
+        over = self._load({"promote": [{"hash8": "abcd1234", "date": "2026-08-03"}]})
+        visible = [{"hash": "abcd1234ffff", "briefing_date": None}]
+        self.assertEqual(build_data.apply_promotions(visible, over), 1)
+        self.assertEqual(visible[0]["briefing_date"], "2026-08-03")
+        self.assertTrue(visible[0]["promoted_by_editor"])
+
+    def test_promotion_of_unknown_hash_is_reported_not_fatal(self):
+        over = self._load({"promote": [{"hash8": "nosuch01", "date": "2026-08-03"}]})
+        visible = [{"hash": "abcd1234ffff", "briefing_date": None}]
+        self.assertEqual(build_data.apply_promotions(visible, over), 0)
+        self.assertEqual(visible[0]["briefing_date"], None)
+        build_data.report_unmatched_overrides(over)  # 죽지 않는다
+
+    def test_hide_applies_to_the_whole_cluster(self):
+        """클러스터의 다른 멤버가 살아 있어도 이슈 카드가 사라져야 한다."""
+        over = self._load({"demote": [{"hash8": "aaaa1111", "date": "2026-08-03",
+                                       "action": "hide_from_today"}]})
+        members = [{"hash": "aaaa1111zzzz"}, {"hash": "bbbb2222zzzz"}]
+        self.assertEqual(build_data.override_verdict(members, "2026-08-03", over), "hide")
+
+    def test_verdict_is_scoped_to_the_date(self):
+        over = self._load({"demote": [{"hash8": "aaaa1111", "date": "2026-08-03"}]})
+        members = [{"hash": "aaaa1111zzzz"}]
+        self.assertEqual(build_data.override_verdict(members, "2026-08-02", over), "")
+
+    def test_demote_only_keeps_the_issue(self):
+        over = self._load({"demote": [{"hash8": "aaaa1111", "date": "2026-08-03",
+                                       "action": "demote_only"}]})
+        self.assertEqual(
+            build_data.override_verdict([{"hash": "aaaa1111zz"}], "2026-08-03", over),
+            "demote")
+
+    def test_cluster_with_both_verdicts_demotes(self):
+        over = self._load({
+            "promote": [{"hash8": "aaaa1111", "date": "2026-08-03"}],
+            "demote": [{"hash8": "bbbb2222", "date": "2026-08-03",
+                        "action": "demote_only"}],
+        })
+        members = [{"hash": "aaaa1111zz"}, {"hash": "bbbb2222zz"}]
+        self.assertEqual(build_data.override_verdict(members, "2026-08-03", over),
+                         "demote")
+
+    def test_pin_does_not_cross_regions(self):
+        """해외 이슈를 올려도 국내 자리를 먹으면 안 된다."""
+        rows = [
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 20.0,
+             "last_seen": "2026-08-03", "editor_pin": 0, "title": "국내1"},
+            {"region": "해외", "importance": "nice_to_know", "sort_score": 1.0,
+             "last_seen": "2026-08-03", "editor_pin": 1, "title": "승격 해외"},
+            {"region": "해외", "importance": "must_read", "sort_score": 30.0,
+             "last_seen": "2026-08-03", "editor_pin": 0, "title": "해외 강자"},
+        ]
+        build_data.order_issue_rows(rows)
+        overseas = [row["title"] for row in rows if row["region"] == "해외"]
+        self.assertEqual(overseas[0], "승격 해외")   # 자기 지역 안에서는 최상단
+        self.assertEqual(rows[0]["region"], "국내")  # 지역 맞물림은 그대로
+
+    def test_pin_is_stripped_from_output(self):
+        rows = [{"region": "국내", "importance": "must_read", "sort_score": 1.0,
+                 "last_seen": "2026-08-03", "editor_pin": 1}]
+        build_data.order_issue_rows(rows)
+        self.assertNotIn("editor_pin", rows[0])
+        self.assertNotIn("sort_score", rows[0])
+
+    def test_repo_template_is_valid_and_empty(self):
+        over = build_data.load_selection_overrides()
+        self.assertEqual(over["promote"], {})
+        self.assertEqual(over["demote"], {})
+
+    # ---- build_briefings 통합 — 클러스터 누수 회귀 방지 --------------------
+
+    @staticmethod
+    def _member(article_hash, day, title):
+        return {
+            "hash": article_hash, "briefing_date": day, "article_date": day,
+            "region": "해외", "title_kr": title, "title": title, "summary": "요약",
+            "implication": "", "why_important": "", "importance": "nice_to_know",
+            "topics": [], "canonical_tags": [], "tags": [],
+            "source_type": "media", "evidence_role": "original",
+            "url": "https://example.com/a", "publisher": "Example",
+            "domain": "example.com", "selection_score": 10.0,
+        }
+
+    def _two_member_issue(self, day):
+        members = [self._member("aaaa1111zzzz", day, "묶인 기사 하나"),
+                   self._member("bbbb2222zzzz", day, "묶인 기사 둘")]
+        return members, [{"issue_id": "issue-x", "first_seen": day, "members": members}]
+
+    def test_hiding_one_member_removes_the_whole_issue_card(self):
+        """멤버 하나만 지우면 다른 멤버가 briefing_date 를 갖고 있어 카드가 남는다."""
+        day = "2026-08-03"
+        members, issues = self._two_member_issue(day)
+        over = self._load({"demote": [{"hash8": "aaaa1111", "date": day,
+                                       "action": "hide_from_today"}]})
+        rows = build_data.build_briefings(members, issues, "", {}, None, over)
+        self.assertEqual(rows[0]["issue_count"], 0)
+        self.assertEqual(rows[0]["issues"], [])
+
+    def test_hidden_issue_articles_drop_from_counts(self):
+        """카드는 사라졌는데 '오늘 수집 기사 N건'만 그대로면 화면이 자기모순."""
+        day = "2026-08-03"
+        members, issues = self._two_member_issue(day)
+        over = self._load({"demote": [{"hash8": "aaaa1111", "date": day}]})
+        rows = build_data.build_briefings(members, issues, "", {}, None, over)
+        self.assertEqual(rows[0]["article_count"], 0)
+
+    def test_without_override_the_issue_survives(self):
+        day = "2026-08-03"
+        members, issues = self._two_member_issue(day)
+        rows = build_data.build_briefings(members, issues, "", {}, None, None)
+        self.assertEqual(rows[0]["issue_count"], 1)
+        self.assertEqual(rows[0]["article_count"], 2)
+
+
 class SystemStatusTests(unittest.TestCase):
     """수집기 heartbeat 와 브리핑 heartbeat 는 별개 신호다.
 
