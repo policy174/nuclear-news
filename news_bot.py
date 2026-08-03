@@ -10,7 +10,12 @@ from pathlib import Path
 from urllib.parse import urlparse, quote_plus
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
-from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
+from gemini_client import (
+    GeminiError,
+    GeminiTruncated,
+    call_json as gemini_call_json,
+    is_available as gemini_rest_available,
+)
 from ranking import prior_coverage_count, sanitize_features
 import news_archive
 from data_quality import (
@@ -48,6 +53,9 @@ REPORTS_KB_FILE = Path("reports_kb.json")
 SEMANTIC_DEDUP_THRESHOLD = 0.85
 CURATED_CACHE_FILE = Path("curated.json")
 DIGEST_QUEUE_FILE = Path("digest_queue.json")
+# 브리핑 발송 기록과 같은 파일을 쓴다. 크롤 단계의 큐레이션 유실도 결국 '그날 무엇이
+# 브리핑에 못 올라갔나'의 일부라 같은 타임라인에 있어야 대조가 된다.
+DELIVERY_LOG_FILE = Path("delivery_log.jsonl")
 
 NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -884,6 +892,18 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
 
 BATCH_CHUNK = 10  # 1회 호출당 기사 수 (출력 토큰 여유 고려)
 
+# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다 (trend_insights.py:138,
+# issue_review.py:43 에도 같은 함정이 박제돼 있다). 실측: curated.json 의 완결 항목
+# 하나가 JSON 으로 508자(p50)·633자(p90) → 10건이면 본문만 3~4천 토큰이다. 8192 로는
+# thinking 이 4천만 넘겨도 잘렸고, 그게 chunk 통째 유실의 원인이었다.
+# 상한을 올려도 과금·지연은 실사용 토큰 기준이라 늘지 않는다 — 천장만 높이는 것.
+BATCH_MAX_OUTPUT_TOKENS = 16384
+
+# 잘림·타임아웃으로 chunk 가 통째로 실패하면 절반으로 쪼개 다시 부른다. 무료 티어
+# 한도를 지키려고 run 당 추가 호출 수를 묶어둔다 (10건 chunk 를 1건까지 쪼개면
+# 최악 15회 — 그건 한도를 태운다).
+BATCH_SPLIT_BUDGET = 6
+
 BATCH_SUFFIX = """
 
 [배치 모드 — 출력 형식 오버라이드]
@@ -921,11 +941,116 @@ BATCH_SUFFIX = """
 (선택) 관련보고서: 제목1 / 제목2"""
 
 
+def classify_request_failure(exc: Exception) -> str:
+    """호출 자체가 실패했을 때 '다시 부를 가치가 있는가'로 라벨을 나눈다.
+
+    라벨을 나누는 이유는 대응이 정반대라서다.
+
+      - ``quota``   한도 소진. ``call_json`` 이 이미 429 를 백오프로 3회 재시도한
+                    뒤에 올라온 것이므로, 여기서 또 부르면 남은 한도만 태우고
+                    같은 실패를 반복한다 → 재시도 금지 (기존 판단 유지).
+      - ``timeout`` 응답이 느렸을 뿐. 입력을 줄이면 짧아지므로 분할 재시도 대상.
+      - ``other``   원인 불명. 함부로 다시 부르지 않는다 (기존 기본값 유지).
+
+    ``truncated`` 는 예외 타입(``GeminiTruncated``)으로 이미 갈라지므로 여기 없다.
+    """
+    msg = str(exc)
+    if "RESOURCE_EXHAUSTED" in msg or "HTTP 429" in msg:
+        return "quota"
+    if "TimeoutError" in msg or "timed out" in msg.lower():
+        return "timeout"
+    return "other"
+
+
+# 입력을 줄이면 사라지는 실패만 분할 재시도한다. quota·other 는 쪼개도 그대로다.
+SPLITTABLE_FAILURES = {"truncated", "timeout"}
+
+
+def request_failure_reason(failures: dict[str, list[str]], chunk: list[dict]) -> str:
+    """chunk 가 '호출 자체 실패'로 전건 날아갔으면 그 사유 라벨, 아니면 빈 문자열.
+
+    호출 실패는 chunk 전건에 같은 사유가 찍히므로(부분 실패가 아니다) 전건 여부로
+    판정한다 — 일부만 request 인 상태는 만들어지지 않는다.
+
+    건수가 아니라 **hash 전건 존재**로 판정한다. 같은 hash 가 chunk 안에 두 번 들어와
+    건수가 어긋나면, 건수 비교로는 '호출 실패가 아님'으로 새어 나가고 그 chunk 는
+    재생성 대상도 유실 기록 대상도 아닌 채 조용히 사라진다 — 고치려던 그 버그다.
+    """
+    if not chunk:
+        return ""
+    reasons = set()
+    for art in chunk:
+        parts = (failures.get(art["hash"]) or [""])[0].split(":")
+        if len(parts) < 2 or parts[0] != "request":
+            return ""
+        reasons.add(parts[1])
+    return reasons.pop() if len(reasons) == 1 else "other"
+
+
+def append_curation_failure(lost: dict[str, str], articles: list[dict],
+                            path: Path | None = None,
+                            now: datetime | None = None) -> bool:
+    """호출 실패로 유실된 기사를 ``delivery_log.jsonl`` 에 한 줄 남긴다.
+
+    콘솔 한 줄(``! batch 큐레이션 실패``)은 워크플로 로그가 만료되면 같이 사라진다.
+    유실은 '무슨 기사가 브리핑에 아예 안 올라왔나'라서 사후 감사 대상이고, 그래서
+    지속 기록이 필요하다. 기록이 없으면 다음에 같은 일이 나도 또 재현부터 해야 한다.
+
+    ``record_type`` 이 붙은 줄은 기존 리더가 전부 건너뛴다 —
+    daily_lead.collect_today · metrics.load_data · build_data 모두 truthy 검사라
+    새 타입을 추가해도 기사 집계가 오염되지 않는다.
+
+    품질 게이트 격리(``summary:incomplete`` 등)는 여기 담지 않는다. 그쪽은 기사별로
+    제목까지 찍히므로 이미 보이고, 재생성 기회도 한 번 받는다. 조용히 사라지는 건
+    호출 실패뿐이다.
+    """
+    if not lost:
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+    by_hash = {art["hash"]: art for art in articles}
+    reasons: dict[str, int] = {}
+    for detail in lost.values():
+        parts = detail.split(":")
+        label = parts[1] if len(parts) > 1 else "other"
+        reasons[label] = reasons.get(label, 0) + 1
+    rec = {
+        "record_type": "curation_failure",
+        "date": now.astimezone(KST).date().isoformat(),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "lost": len(lost),
+        "candidates": len(articles),
+        "reasons": reasons,
+        # 사후에 '어떤 기사였나'를 되짚을 수 있어야 한다. 한 run 의 유실은 chunk 몇
+        # 개 규모라 통째로 담아도 로그가 부풀지 않는다 (상한만 걸어둔다).
+        "items": [
+            {"hash": h,
+             "title": (by_hash.get(h, {}).get("title") or "")[:120],
+             "link": by_hash.get(h, {}).get("link", ""),
+             "reason": detail[:200]}
+            for h, detail in list(lost.items())[:20]
+        ],
+    }
+    try:
+        with path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        # 기록 실패로 크롤을 죽이지 않는다 — 유실 기록은 부가 정보다.
+        print(f"  ! 큐레이션 유실 기록 실패: {exc}")
+        return False
+    return True
+
+
 def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
     """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
 
     문장 완결성·길이 게이트를 통과하지 못한 항목만 한 번 재생성한다. 재생성에도
     실패하면 결과에서 제외하여 잘린 문장이 아카이브나 브리핑으로 넘어가지 않는다.
+
+    호출 자체가 실패하면(잘림·타임아웃) chunk 를 절반으로 쪼개 다시 부른다. 예전엔
+    통째로 버려서 그 기사들이 fallback 큐레이션(영문 제목·implication 공란·features
+    없음)으로 큐에 들어갔고, 큐에 들어가는 순간 ``sent`` 로 마킹돼 재수집이 막히므로
+    영영 복구되지 않았다.
     """
     if not articles:
         return {}
@@ -958,10 +1083,13 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                     if error_notes else ""
                 ),
                 "\n\n---\n\n".join(blocks),
-                temperature=0.2, max_output_tokens=8192, timeout=150.0,
+                temperature=0.2, max_output_tokens=BATCH_MAX_OUTPUT_TOKENS, timeout=150.0,
             )
+        except GeminiTruncated as e:
+            return {}, {art["hash"]: [f"request:truncated:{e}"] for art in chunk}
         except GeminiError as e:
-            return {}, {art["hash"]: [f"request:{str(e)[:80]}"] for art in chunk}
+            return {}, {art["hash"]: [f"request:{classify_request_failure(e)}:{e}"]
+                        for art in chunk}
 
         items = result.get("items")
         if not isinstance(items, list):
@@ -1000,10 +1128,36 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         return valid, failures
 
     out: dict[str, dict] = {}
-    for start in range(0, len(articles), BATCH_CHUNK):
-        chunk = articles[start:start + BATCH_CHUNK]
+    lost: dict[str, str] = {}          # hash → 최종 실패 사유 (유실 기록용)
+    split_budget = BATCH_SPLIT_BUDGET
+
+    def process(chunk: list[dict], label: str) -> None:
+        """chunk 하나를 큐레이션해 out/lost 를 채운다."""
+        nonlocal split_budget
         valid, failures = run_chunk(chunk)
         out.update(valid)
+
+        reason = request_failure_reason(failures, chunk)
+        if reason:
+            detail = failures[chunk[0]["hash"]][0]
+            # 입력을 줄이면 사라지는 실패는 쪼개서 되살린다. 통째로 버리면 이 기사들은
+            # fallback 로 큐에 들어가 sent 마킹되고 다시는 큐레이션되지 않는다.
+            if reason in SPLITTABLE_FAILURES and len(chunk) > 1 and split_budget > 0:
+                split_budget -= 1
+                mid = len(chunk) // 2
+                print(f"  ! {label} 호출 실패({reason}) → "
+                      f"{len(chunk)}건을 {mid}/{len(chunk) - mid} 로 분할 재시도")
+                process(chunk[:mid], f"{label}a")
+                time.sleep(1)
+                process(chunk[mid:], f"{label}b")
+                return
+            for art in chunk:
+                lost[art["hash"]] = detail
+            capped = " (분할 예산 소진)" if reason in SPLITTABLE_FAILURES else ""
+            print(f"  ! batch 큐레이션 실패 ({label}) — {len(chunk)}건 유실{capped}: "
+                  f"{detail[:160]}")
+            return
+
         retryable = [
             art for art in chunk
             if art["hash"] in failures
@@ -1019,12 +1173,19 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                         f"  ! 큐레이션 격리 '{art['title'][:35]}': "
                         + ", ".join(remaining[art["hash"]])
                     )
-        elif failures:
-            print(f"  ! batch 큐레이션 실패 (chunk {start//BATCH_CHUNK+1})")
+
+    for start in range(0, len(articles), BATCH_CHUNK):
+        process(articles[start:start + BATCH_CHUNK],
+                f"chunk {start // BATCH_CHUNK + 1}")
 
         # 무료 티어 분당 한도 배려 — chunk 사이 짧은 대기
         if start + BATCH_CHUNK < len(articles):
             time.sleep(3)
+
+    if lost:
+        print(f"  ! 큐레이션 유실 {len(lost)}/{len(articles)}건 — "
+              f"delivery_log.jsonl 에 기록 (fallback 큐레이션으로 넘어감)")
+        append_curation_failure(lost, articles)
 
     return out
 
