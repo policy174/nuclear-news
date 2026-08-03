@@ -1154,6 +1154,48 @@ def select_featured_insights(items: list[dict], limit: int = 3) -> list[dict]:
     return selected
 
 
+# 두 흐름이 근거를 이만큼 공유하면 같은 사건을 키워드만 바꿔 되풀이한 것이다.
+# 흐름 해석은 키워드마다 하나씩 만들어지는데, 한 사건이 여러 키워드를 달고
+# 있으면 같은 이야기가 그 수만큼 재포장된다.
+# 실측(2026-08-03 라이브): '기후변화'와 '원전운영'이 근거 7건 중 4건(57%)을
+# 공유했다 — 둘 다 헝가리 가뭄으로 인한 원전 가동 중단 이야기였다.
+# 나머지 쌍은 1건(7~17%)이라 경계가 뚜렷하다.
+INSIGHT_DUPLICATE_RATIO = 0.4
+
+
+def dedupe_insights(items: list[dict]) -> list[dict]:
+    """근거가 크게 겹치는 흐름을 접는다. 근거가 많은 쪽을 남긴다."""
+    ordered = sorted(
+        items,
+        key=lambda item: (len(item.get("evidence") or []), item.get("signal_score") or 0),
+        reverse=True,
+    )
+    kept: list[dict] = []
+    for item in ordered:
+        hashes = {row.get("hash") for row in item.get("evidence") or [] if row.get("hash")}
+        if not hashes:
+            kept.append(item)
+            continue
+        duplicate_of = None
+        for other in kept:
+            other_hashes = {row.get("hash") for row in other.get("evidence") or [] if row.get("hash")}
+            shared = hashes & other_hashes
+            if shared and len(shared) / min(len(hashes), len(other_hashes)) >= INSIGHT_DUPLICATE_RATIO:
+                duplicate_of = other
+                break
+        if duplicate_of is None:
+            kept.append(item)
+        else:
+            # 접힌 키워드는 남은 흐름에 함께 표기한다 — 정보를 버리지 않는다
+            merged = duplicate_of.setdefault("merged_keywords", [])
+            keyword = item.get("keyword")
+            if keyword and keyword not in merged:
+                merged.append(keyword)
+    # 원래 순서(입력 순)를 유지해 화면 배치가 흔들리지 않게 한다
+    order = {id(item): index for index, item in enumerate(items)}
+    return sorted(kept, key=lambda item: order.get(id(item), 0))
+
+
 def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
     """흐름 근거에 지역 메타를 붙이고 다양화된 대표 3개를 만든다."""
     by_hash = {item["hash"]: item for item in news_items}
@@ -1193,10 +1235,12 @@ def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
         item["signal_score"] = round(_insight_signal_score(item), 3)
         items.append(item)
 
+    items = dedupe_insights(items)
+
     prepared = dict(insights)
     prepared["items"] = items
     prepared["featured_items"] = select_featured_insights(items)
-    prepared["selection_method"] = "signal-region-evidence-diversity-v1"
+    prepared["selection_method"] = "signal-region-evidence-diversity-v2-deduped"
     return prepared
 
 

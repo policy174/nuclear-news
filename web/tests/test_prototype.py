@@ -726,7 +726,7 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_featured_flows_cover_domestic_and_overseas_without_blind_top_three(self):
         featured = self.insights.get("featured_items", [])
-        self.assertEqual(self.insights["selection_method"], "signal-region-evidence-diversity-v1")
+        self.assertEqual(self.insights["selection_method"], "signal-region-evidence-diversity-v2-deduped")
         self.assertEqual(len(featured), 3)
         regions = {region for item in featured for region in item.get("evidence_regions", [])}
         self.assertIn("국내", regions)
@@ -1119,6 +1119,43 @@ class GeneratedDataTests(unittest.TestCase):
         built = build_data.build_briefings(news, clusters, "", leads)
         self.assertEqual(built[0]["headline_kind"], "synthesis")
         self.assertIn("계속운전", built[0]["headline"])
+
+    def test_weekly_flows_sharing_evidence_are_folded_together(self):
+        """흐름 해석은 키워드마다 하나씩 나오므로 한 사건이 여러 번 재포장된다.
+
+        실측(2026-08-03 라이브): '기후변화'와 '원전운영'이 근거 7건 중 4건을
+        공유했다 — 둘 다 헝가리 가뭄으로 인한 원전 가동 중단 이야기였다.
+        나머지 쌍은 1건(7~17%)이라 임계 0.4가 둘을 깨끗이 가른다.
+        """
+        def insight(keyword, hashes):
+            return {"keyword": keyword, "direction": f"{keyword} 흐름",
+                    "evidence": [{"hash": h} for h in hashes]}
+
+        items = [
+            insight("기후변화", ["a", "b", "c", "d", "e", "f", "g"]),
+            insight("원전운영", ["a", "b", "c", "d", "x", "y", "z"]),   # 4/7 공유
+            insight("전력시장", ["a", "p", "q", "r", "s", "t", "u"]),   # 1/7 공유
+        ]
+        kept = build_data.dedupe_insights(items)
+        keywords = [row["keyword"] for row in kept]
+        self.assertNotIn("원전운영", keywords, "같은 사건은 접혀야 한다")
+        self.assertIn("전력시장", keywords, "1건 공유는 다른 흐름이다")
+        folded = next(row for row in kept if row["keyword"] == "기후변화")
+        self.assertEqual(folded["merged_keywords"], ["원전운영"],
+                         "접힌 키워드는 표기해 정보를 버리지 않는다")
+
+    def test_dedupe_keeps_the_flow_with_more_evidence(self):
+        thin = {"keyword": "얇은", "evidence": [{"hash": "a"}, {"hash": "b"}]}
+        thick = {"keyword": "두꺼운",
+                 "evidence": [{"hash": h} for h in ("a", "b", "c", "d", "e")]}
+        kept = build_data.dedupe_insights([thin, thick])
+        self.assertEqual([row["keyword"] for row in kept], ["두꺼운"])
+
+    def test_dedupe_leaves_unrelated_flows_alone(self):
+        items = [{"keyword": "가", "evidence": [{"hash": "a"}]},
+                 {"keyword": "나", "evidence": [{"hash": "b"}]},
+                 {"keyword": "다", "evidence": []}]
+        self.assertEqual(len(build_data.dedupe_insights(items)), 3)
 
     def test_vacuous_synthesis_is_rejected_in_favour_of_a_concrete_title(self):
         """아무 사실도 담지 못한 종합 문장은 구체적인 제목보다 못하다.

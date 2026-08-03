@@ -1138,7 +1138,9 @@ function renderInsights() {
       <div class="flow-rank">${String(index + 1).padStart(2, "0")}</div>
       <div class="flow-copy">
         <div class="flow-head"><h3>${esc(takeaway)}</h3><span>이번 주 ${item.count_now}회 · 전주 대비 ${delta >= 0 ? "+" : "−"}${Math.abs(delta)}</span></div>
-        <p class="flow-keyword"><span>${esc(item.keyword)}</span></p>
+        <p class="flow-keyword"><span>${esc(item.keyword)}</span>${
+          (item.merged_keywords || []).map(k => `<span>${esc(k)}</span>`).join("")
+        }</p>
         ${eventBullets ? `<div class="event-block"><strong>구성 사건</strong><ul>${eventBullets}</ul></div>` : ""}
         <details class="evidence"><summary>전체 해석과 근거 보기</summary><p>${esc(fullDirection)}</p>${evidence ? `<ul class="evidence-links">${evidence}</ul>` : ""}</details>
       </div>
