@@ -592,23 +592,27 @@ function issueCard(issue, index, archive = false) {
   const matchContext = archive && state.archiveQuery && !visibleMatch
     ? `<p class="search-match">검색 조건 <mark>${esc(state.archiveQuery)}</mark>과 연결된 이슈입니다.</p>`
     : "";
+  // 시안의 목록은 표다 — 순서 / 변화 / 이슈 / 근거 네 열. 그래서 '변화'와 '근거'는
+  // .issue-body 밖으로 나와 각자 열이 된다. 이 둘을 body 안에 두고 CSS
+  // display:contents 로 흩으면 제목과 요약이 서로 다른 그리드 행으로 갈라져,
+  // 근거 열 높이(98px)가 그 사이 여백으로 배분된다(실측 42px). 열은 열로 나눈다.
   return `<article class="issue-card ${archive ? "archive-card" : ""} ${issueToneClass(issue)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
+    <div class="issue-meta">
+      <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
+      <span>${esc(issue.region)}</span>
+      ${topic ? `<span class="issue-topic">${esc(topic)}</span>` : ""}
+      ${verificationBadge(issue)}
+    </div>
     <div class="issue-body">
-      <div class="issue-meta">
-        <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
-        <span>${esc(issue.region)}</span>
-        ${topic ? `<span class="issue-topic">${esc(topic)}</span>` : ""}
-        ${verificationBadge(issue)}
-      </div>
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
       ${issue.summary ? `<p class="issue-summary">${summary}</p>` : ""}
       ${matchContext}
       ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${keeiRefLine(issue)}
       ${archive ? trackingPeriod(issue) : ""}
-      ${issueActions(issue)}
     </div>
+    ${issueActions(issue)}
   </article>`;
 }
 
