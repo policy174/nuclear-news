@@ -240,5 +240,109 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(record["open_question_source"], "article_text")
 
 
+class TestFeaturesRecuration(unittest.TestCase):
+    """features 결손이 재큐레이션 대상에 들어가는가 — 실패하면 조용히 영구화된다.
+
+    features 가 없으면 ranking 이 _legacy_score() 로 빠져 event_weights 도
+    feature 가중치도 반영되지 않는다. 그런데 curation_errors() 가 features 를
+    안 봐서, 한 번 결손으로 캐시되면 다시 물어보지 않았다 — 같은 10건이 큐
+    만료(3일)까지 매 회차 재등장했다. 근거: docs/score_distribution.md §4.
+    """
+
+    CACHED = {
+        "summary": "정부가 신규 원전 계획을 발표했다.",
+        "importance": "must_read",
+        "section": "domestic",
+        "category": "정책",
+    }
+
+    def test_complete_record_is_not_requeried(self):
+        good = {**self.CACHED, "features": {"event_type": "policy_decision"}}
+        self.assertFalse(nb.needs_recuration(good))
+
+    def test_missing_features_triggers_recuration(self):
+        self.assertTrue(nb.needs_recuration(dict(self.CACHED)))
+
+    def test_retry_stops_at_limit(self):
+        # LLM 이 끝내 features 를 주지 않는 항목을 매시간 다시 묻지 않는다.
+        for attempts in range(nb.FEATURES_RETRY_LIMIT):
+            with self.subTest(attempts=attempts):
+                self.assertTrue(nb.needs_recuration(
+                    {**self.CACHED, "features_attempts": attempts}))
+        self.assertFalse(nb.needs_recuration(
+            {**self.CACHED, "features_attempts": nb.FEATURES_RETRY_LIMIT}))
+        self.assertFalse(nb.needs_recuration(
+            {**self.CACHED, "features_attempts": nb.FEATURES_RETRY_LIMIT + 5}))
+
+    def test_other_errors_are_not_capped_by_the_features_limit(self):
+        # 요약이 깨진 항목은 시도 상한과 무관하게 계속 고쳐야 한다.
+        broken = {**self.CACHED, "summary": "",
+                  "features_attempts": nb.FEATURES_RETRY_LIMIT + 3}
+        self.assertTrue(nb.needs_recuration(broken))
+
+    def test_batch_response_without_features_is_regenerated(self):
+        article = {
+            "hash": "h1", "title": "정부가 신규 원전 계획을 발표",
+            "description": "정부가 신규 원전 계획을 발표했다.",
+            "domain": "energy.gov", "publisher": "US DOE",
+        }
+
+        def response(features):
+            item = {
+                "idx": 0, "importance": "nice_to_know", "section": "international",
+                "scope": "overseas", "category": "정책",
+                "title_kr": "정부, 신규 원전 계획 발표",
+                "summary": "정부가 신규 원전 계획을 발표했다.",
+                "implication": "", "why_important": "", "tags": [],
+                "topics": ["newbuild"], "countries": ["US"], "article_type": "policy",
+                "event_date": None, "event_date_type": "unknown",
+                "event_date_precision": "unknown", "event_date_source": "unknown",
+                "related_reports": [],
+            }
+            if features is not None:
+                item["features"] = features
+            return {"items": [item]}
+
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json",
+            side_effect=[response(None), response({"event_type": "policy_decision"})],
+        ) as call:
+            result = nb.curate_batch([article], [])
+        self.assertEqual(call.call_count, 2)
+        self.assertIsInstance(result["h1"]["features"], dict)
+
+
+class TestFallbackCuration(unittest.TestCase):
+    """batch 실패분에 등급을 얹지 않는다 — 이 승격이 must_read 오염의 원인이었다."""
+
+    def _article(self, domain="khnp.co.kr"):
+        return {
+            "hash": "h1", "title": "한수원, 신규 계약 체결",
+            "description": "한수원이 신규 계약을 체결했다.",
+            "domain": domain, "publisher": "한수원",
+        }
+
+    def test_primary_source_is_not_promoted_to_must_read(self):
+        article = self._article()
+        # 이 도메인이 실제로 1차 출처로 분류되는지 먼저 확인 — 아니면 이 테스트는
+        # 아무것도 검증하지 않는다.
+        self.assertTrue(nb.is_tier1_source(article))
+        record = nb.fallback_curation(article)
+        self.assertEqual(record["importance"], "nice_to_know")
+
+    def test_fallback_carries_no_features(self):
+        # features 가 있는 척하면 ranking 이 결손을 못 알아채고, 재큐레이션도
+        # 안 걸린다. 없는 것을 없다고 두는 게 계약이다.
+        self.assertNotIn("features", nb.fallback_curation(self._article()))
+
+    def test_incomplete_snippet_is_quarantined(self):
+        article = {**self._article(), "description": "한수원이 신규 계약을"}
+        self.assertIsNone(nb.fallback_curation(article))
+
+    def test_fallback_record_is_recuration_candidate(self):
+        record = nb.fallback_curation(self._article())
+        self.assertTrue(nb.needs_recuration(record))
+
+
 if __name__ == "__main__":
     unittest.main()

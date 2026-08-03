@@ -114,5 +114,53 @@ class TextAndEventDateTests(unittest.TestCase):
         })
 
 
+class FeaturesGateTests(unittest.TestCase):
+    """features 결손을 '게시 자격'과 '큐레이션 완결성'으로 분리해 다룬다.
+
+    분리가 없던 동안 결손 항목이 재큐레이션 대상에서 영구히 빠졌다.
+    근거: docs/score_distribution.md §4.
+    """
+
+    BASE = {
+        "summary": "한빛 1·2호기 계속운전 심사가 재개됐다.",
+        "importance": "must_read",
+        "section": "khnp",
+        "category": "정책",
+    }
+
+    def test_publishing_gate_ignores_features_by_default(self):
+        # 아카이브 적재·배포 게이트는 features 가 없어도 통과해야 한다.
+        # 제목·요약·링크는 멀쩡하므로 내보낼 수 있고, 여기서 막으면
+        # 트렌드·prior_coverage 재료가 통째로 사라진다.
+        self.assertEqual(curation_errors(dict(self.BASE)), [])
+        self.assertEqual(curation_errors({**self.BASE, "features": None}), [])
+
+    def test_curation_completeness_flags_missing_features(self):
+        self.assertEqual(
+            curation_errors(dict(self.BASE), require_features=True),
+            ["features:missing"],
+        )
+
+    def test_non_dict_features_are_treated_as_missing(self):
+        for bad in (None, [], "", 0, "policy_decision"):
+            with self.subTest(features=bad):
+                self.assertIn(
+                    "features:missing",
+                    curation_errors({**self.BASE, "features": bad},
+                                    require_features=True),
+                )
+
+    def test_present_features_pass(self):
+        payload = {**self.BASE, "features": {"event_type": "policy_decision",
+                                             "korea_relevance": 3}}
+        self.assertEqual(curation_errors(payload, require_features=True), [])
+
+    def test_features_error_does_not_mask_other_errors(self):
+        payload = {"summary": "", "features": None}
+        errors = curation_errors(payload, require_features=True)
+        self.assertIn("summary:missing", errors)
+        self.assertIn("features:missing", errors)
+
+
 if __name__ == "__main__":
     unittest.main()
