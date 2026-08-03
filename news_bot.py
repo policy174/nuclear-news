@@ -546,59 +546,6 @@ def semantic_dedup(articles: list[dict], emb_cache: dict, threshold: float = SEM
     return [art for art, _ in kept]
 
 
-JUDGE_SYSTEM_PROMPT = """당신은 한국수력원자력 정책개발부 큐레이터입니다.
-다음 기사가 정책분석관에게 업무상 의미 있는지 1차 판단하세요.
-
-[유용함 (useful=1)]
-- 원자력 정책·외교·기술·시장·규제 관련 실질 내용
-- 정부·규제기관 의결·고시·법안·행정명령
-- 한수원·KHNP 사업 동향, 글로벌 SMR·수주 시장
-- 한미·미영·EU 양자/다자 협력
-- 사용후핵연료·고준위방폐장·계속운전 등
-
-[유용하지 않음 (useful=0)]
-- 채용·인사 발령·동정·축사·기념식·시상
-- 정치 일반 (대선·총선·정쟁·여야 공방)
-- 원자력이 부수적으로만 언급되고 본질은 다른 주제 (산업 일반·외교 일반·거시경제)
-- 단순 행사 스케치, 보도자료 단순 PR
-- 학회 일반 (정책 함의 없는 학술 발표)
-- 지역 동향 (지역 행사·민원·동호회·시민단체 일반)
-- 채용공고, 청사 이전 등 일반 행정
-
-[출력] JSON 하나만:
-{"useful": 0 또는 1, "reason": "10자 이내"}"""
-
-
-def llm_judge(title: str, description: str) -> tuple[bool, str]:
-    """경량 사전 필터. 실패하면 보수적으로 통과(True) 반환."""
-    client = get_gemini()
-    if not client:
-        return True, ""
-    try:
-        from google.genai import types
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=f"제목: {title}\n요약: {description[:300]}",
-            config=types.GenerateContentConfig(
-                system_instruction=JUDGE_SYSTEM_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.1,
-                max_output_tokens=80,
-            ),
-        )
-        result = safe_json_parse(response.text or "")
-        if not result:
-            return True, ""
-        useful = bool(int(result.get("useful", 1)))
-        reason = (result.get("reason") or "")[:30]
-        return useful, reason
-    except Exception as e:
-        msg = str(e)
-        if "RESOURCE_EXHAUSTED" not in msg and "429" not in msg:
-            print(f"  ! judge failed for '{title[:30]}': {type(e).__name__}")
-        return True, ""
-
-
 def load_state() -> dict:
     return load_json(STATE_FILE, {"sent": {}})
 
@@ -743,25 +690,6 @@ def get_gemini():
         return _gemini_client
     except Exception as e:
         print(f"  ! Gemini init failed: {e}")
-        return None
-
-
-def safe_json_parse(text: str) -> dict | None:
-    if not text:
-        return None
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    try:
-        return json.loads(text)
-    except Exception:
-        m = re.search(r"\{.*\}", text, re.DOTALL)
-        if m:
-            try:
-                return json.loads(m.group(0))
-            except Exception:
-                return None
         return None
 
 
@@ -945,72 +873,6 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
     }
     normalized.update(normalize_event_date_fields(item))
     return normalized
-
-
-def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
-    """LLM 호출. 실패 시 안전한 fallback 반환."""
-    fallback = {
-        "importance": "must_read" if force_must_read else "nice_to_know",
-        "section": default_section(domain, title),
-        "category": "정책",
-        "title_kr": title,
-        "summary": "",
-        "implication": "",
-        "why_important": "",
-        "watch_next": "",
-        "tags": [],
-        "related_reports": [],
-        "event_date": None,
-        "event_date_type": "unknown",
-        "event_date_precision": "unknown",
-        "event_date_source": "unknown",
-    }
-    client = get_gemini()
-    if not client:
-        return fallback
-
-    user_text = f"제목: {title}\n요약: {description}\n출처: {domain}"
-    if force_must_read:
-        user_text += "\n\n참고: 이 기사는 정부·규제기관·국제기구 1차 소스입니다. **본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의 있는 경우만 must_read**. 채용·일반 행정·공지·축사·시상 등은 noise로 분류하세요."
-
-    if relevant_reports:
-        user_text += "\n\n[관련 사내 보고서]\n"
-        for r in relevant_reports:
-            title_r = r.get("title", "")
-            date_r = r.get("date", "")
-            summary_r = (r.get("summary") or "")[:250]
-            date_suffix = f" ({date_r})" if date_r else ""
-            user_text += f"- 「{title_r}」{date_suffix}: {summary_r}\n"
-
-    try:
-        from google.genai import types
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=user_text,
-            config=types.GenerateContentConfig(
-                system_instruction=CURATION_SYSTEM_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.2,
-                max_output_tokens=3000,
-            ),
-        )
-        result = safe_json_parse(response.text or "")
-        if not result:
-            print(f"  ! curate JSON parse failed for '{title[:30]}'")
-            return fallback
-        normalized = normalize_curation_item(result, {"title": title, "domain": domain})
-        errors = curation_errors(normalized, require_features=True)
-        if errors:
-            print(f"  ! curate 품질 게이트 실패 '{title[:30]}': {', '.join(errors)}")
-            return fallback
-        return normalized
-    except Exception as e:
-        msg = str(e)
-        if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
-            print(f"  ! curate quota exceeded — skipping rest of articles")
-        else:
-            print(f"  ! curate failed for '{title[:30]}': {type(e).__name__}: {msg[:200]}")
-        return fallback
 
 
 # ---- batch 큐레이션 (기사 N건 → Gemini 1회 호출) -----------------------------

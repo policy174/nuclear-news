@@ -243,7 +243,7 @@ class TestOpenQuestionGate(unittest.TestCase):
 class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
     """배치 출력 예시에 구체적 빈 값을 박으면 모델이 그 값을 그대로 베낀다.
 
-    프로덕션은 ``curate_batch`` 만 탄다(``curate_with_llm`` 은 호출자가 없다).
+    프로덕션 큐레이션 경로는 ``curate_batch`` 하나뿐이다.
     그래서 ``BATCH_SUFFIX`` 의 예시 JSON이 실질 스키마 지시문이다. 다른 필드가
     ``"..."`` 플레이스홀더인데 특정 필드만 ``null`` 이면 그 필드는 항상 비어서
     돌아온다 — open_question 이 배선 완료 후에도 0건이던 경로다.
@@ -265,8 +265,9 @@ class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
                 self.assertNotIn(f'"{field}": null', example)
                 self.assertNotIn(f'"{field}": "unknown"', example)
 
-    def test_optional_fields_offer_the_same_choices_as_the_single_call_prompt(self):
-        """단일 호출 프롬프트와 형태가 갈리면 배치만 조용히 다른 스키마가 된다."""
+    def test_optional_fields_offer_the_same_choices_as_the_base_prompt(self):
+        """베이스 프롬프트(``CURATION_SYSTEM_PROMPT``)와 형태가 갈리면
+        배치만 조용히 다른 스키마가 된다."""
         example = self._batch_example()
         for field in self.OPTIONAL_FIELDS:
             with self.subTest(field=field):
