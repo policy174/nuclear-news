@@ -879,9 +879,15 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
     title_kr = clean_text(item.get("title_kr")) or article.get("title", "")
     grade = importance if importance in VALID_IMPORTANCE else "nice_to_know"
     features = sanitize_features(item.get("features"))
-    open_question, open_question_source = norm_open_question(
-        item, grade, (features or {}).get("event_type", "")
-    )
+    event_type = (features or {}).get("event_type", "")
+    open_question, open_question_source = norm_open_question(item, grade, event_type)
+    # 게이트 사유를 레코드에 함께 싣는다. delivery_log 에도 집계를 남기지만
+    # **크롤 잡은 delivery_log.jsonl 을 커밋하지 않아 그 기록은 러너와 함께
+    # 사라진다**(crawl.yml 의 git add 목록에 없음, 2026-08-04 규명). 아카이브는
+    # 커밋되므로 여기 실어야 사후에 원인을 짚을 수 있다.
+    # must_read 만 채운다 — 나머지는 애초에 후보가 아니라 'not_must_read' 가
+    # 626건에 붙어도 정보가 없다. 빈 값이면 통과(importance 로 구분된다).
+    oq_reject = open_question_reject_reason(item, grade, event_type) if grade == "must_read" else ""
     normalized = {
         "features": features,
         "importance": grade,
@@ -899,6 +905,7 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "why_important": clean_text(item.get("why_important")),
         "open_question": open_question,
         "open_question_source": open_question_source,
+        "open_question_reject": oq_reject,
         "watch_next": "",
         "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
         "related_reports": [
