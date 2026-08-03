@@ -1690,6 +1690,144 @@ class OpenQuestionRenderTests(unittest.TestCase):
         self.assertIn(".dialog-open", style)
 
 
+class WeeklyReportTests(unittest.TestCase):
+    """주간 판세 — 문장마다 근거를 붙인다. 전역 목록만으로는 같은 칩이 반복된다."""
+
+    ROWS = [
+        {"issue_id": "issue-1", "title": "체코 두코바니 본계약", "last_seen": "2026-08-01",
+         "related_articles": [{"hash": "aaaaaaaa1111"}]},
+        {"issue_id": "issue-2", "title": "미국 NRC 규정 개정", "last_seen": "2026-07-30",
+         "related_articles": [{"hash": "bbbbbbbb2222"}]},
+        {"issue_id": "issue-3", "title": "지난달 이슈", "last_seen": "2026-07-01",
+         "related_articles": [{"hash": "cccccccc3333"}]},
+    ]
+
+    def _store(self, tmp: Path, **overrides):
+        report = {"week_id": "2026-W31", "week_start": "2026-07-27",
+                  "week_end": "2026-08-02", "source_issue_count": 99,
+                  "weekly_intro": "흐름",
+                  "policy_shifts": [{"what": "변화", "so_what": "함의",
+                                     "evidence_hashes": ["aaaaaaaa", "deadbeef"]}],
+                  "theme_moves": [], "khnp_direct": "", "watchpoints": ["다음 주"],
+                  "key_events": []}
+        report.update(overrides)
+        (tmp / "weekly_reports.json").write_text(
+            json.dumps({"schema_version": 1, "reports": {"2026-W31": report}},
+                       ensure_ascii=False), encoding="utf-8")
+
+    def _load(self, tmp: Path, rows=None):
+        original = build_data.BOT_DIR
+        build_data.BOT_DIR = tmp
+        try:
+            return build_data.load_weekly_report(self.ROWS if rows is None else rows)
+        finally:
+            build_data.BOT_DIR = original
+
+    def test_missing_file_returns_none(self):
+        """리포트 없는 주(목요일 이전)에는 기존 정량 트렌드만 그린다."""
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertIsNone(self._load(Path(tmp)))
+
+    def test_short_hash_resolves_to_issue_chip(self):
+        """봇은 hash 앞 8자리만 남긴다 — 전체 hash 색인으로는 하나도 안 걸린다."""
+        with tempfile.TemporaryDirectory() as tmp:
+            self._store(Path(tmp))
+            report = self._load(Path(tmp))
+            chips = report["policy_shifts"][0]["evidence"]
+            self.assertEqual([c["issue_id"] for c in chips], ["issue-1"])
+            self.assertNotIn("evidence_hashes", report["policy_shifts"][0])
+
+    def test_unknown_hash_only_empties_the_chip(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self._store(Path(tmp), policy_shifts=[
+                {"what": "변화", "evidence_hashes": ["deadbeef"]}])
+            report = self._load(Path(tmp))
+            self.assertEqual(report["policy_shifts"][0]["evidence"], [])
+            self.assertEqual(report["policy_shifts"][0]["what"], "변화")
+
+    def test_issue_count_recomputed_from_real_merges(self):
+        """봇은 제목 정규화로 어림잡을 수밖에 없지만 웹에는 실제 병합 결과가 있다."""
+        with tempfile.TemporaryDirectory() as tmp:
+            self._store(Path(tmp))
+            report = self._load(Path(tmp))
+            self.assertEqual(report["source_issue_count"], 2)  # 지난달 이슈는 제외
+
+    def test_corrupt_file_does_not_break_the_build(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / "weekly_reports.json").write_text("{ 깨진", encoding="utf-8")
+            self.assertIsNone(self._load(Path(tmp)))
+
+
+class OpenQuestionRollupTests(unittest.TestCase):
+    """'아직 결론 나지 않은 것' — 이슈 단위로 한 번씩, 최신순, 최대 5개."""
+
+    @staticmethod
+    def _row(issue_id, question, last_seen="2026-08-01", importance="nice_to_know"):
+        return {"issue_id": issue_id, "title": f"제목 {issue_id}",
+                "open_question": question, "last_seen": last_seen,
+                "importance": importance}
+
+    def test_deduped_by_text(self):
+        rows = [self._row("a", "같은 문장"), self._row("b", "같은 문장"),
+                self._row("c", "다른 문장")]
+        out = build_data.collect_open_questions(rows)
+        self.assertEqual([row["text"] for row in out], ["같은 문장", "다른 문장"])
+
+    def test_capped(self):
+        rows = [self._row(str(i), f"문장 {i}") for i in range(9)]
+        self.assertEqual(len(build_data.collect_open_questions(rows)), 5)
+
+    def test_latest_first(self):
+        rows = [self._row("old", "옛 문장", "2026-07-01"),
+                self._row("new", "새 문장", "2026-08-03")]
+        self.assertEqual(build_data.collect_open_questions(rows)[0]["text"], "새 문장")
+
+    def test_empty_when_no_questions(self):
+        self.assertEqual(build_data.collect_open_questions([self._row("a", "")]), [])
+
+    def test_each_item_carries_its_evidence(self):
+        out = build_data.collect_open_questions([self._row("a", "문장")])
+        self.assertEqual(out[0]["evidence"][0]["issue_id"], "a")
+
+
+class WeeklyRenderTests(unittest.TestCase):
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_five_fixed_sections(self):
+        for title in ("이번 주 판을 바꾼 것", "조용하지만 놓치면 안 되는 것",
+                      "한수원에 직접 닿는 변화", "다음 주 하나만 본다면",
+                      "아직 결론 나지 않은 것"):
+            self.assertIn(title, self.script)
+
+    def test_panel_hidden_without_data(self):
+        self.assertIn("if (!report && !questions.length) { panel.hidden = true; return; }",
+                      self.script)
+        self.assertIn('id="weeklyReport"', self.html)
+
+    def test_renders_before_existing_trend_charts(self):
+        """기존 키워드·slope 는 아래로 — 리포트가 먼저 온다."""
+        self.assertLess(self.html.index('id="weeklyReport"'),
+                        self.html.index('id="keywordTable"'))
+        trend_fn = self.script.split("function renderTrend()")[1]
+        self.assertLess(trend_fn.index("renderWeeklyReport()"),
+                        trend_fn.index("renderKeywordTable()"))
+
+    def test_chips_are_clickable(self):
+        """칩이 상세로 연결되려면 컨테이너가 위임 목록에 있어야 한다."""
+        self.assertIn('"weeklyReportBody"].forEach', self.script)
+
+    def test_chip_is_readable_on_light_panel(self):
+        """히어로 칩은 어두운 배경 전용(흰 글자)이라 그대로 쓰면 안 보인다."""
+        self.assertIn(".weekly-evidence .hero-evidence-chip", self.style)
+
+    def test_chip_meets_mobile_tap_target(self):
+        block = self.style.split(".weekly-evidence .hero-evidence-chip")[1].split("}")[0]
+        self.assertIn("min-height: 44px", block)
+
+
 class SystemStatusTests(unittest.TestCase):
     """수집기 heartbeat 와 브리핑 heartbeat 는 별개 신호다.
 

@@ -1260,7 +1260,66 @@ function renderSlopeGraph() {
   }).join("");
 }
 
+// 주간 판세 — 고정 코너 5개. 매주 같은 자리에서 같은 질문에 답하는 편집 형식이
+// 서비스의 목소리를 만든다. 근거 칩은 문장별 evidence 로만 붙인다(전역 key_events
+// 를 모든 문장에 붙이면 같은 칩이 반복돼 의미가 사라진다).
+function evidenceChips(evidence) {
+  const rows = (evidence || []).filter(item => item && item.issue_id && item.title);
+  if (!rows.length) return "";
+  return `<div class="weekly-evidence">` + rows.map(item =>
+    `<button type="button" class="hero-evidence-chip" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button>`
+  ).join("") + `</div>`;
+}
+
+function weeklySection(title, note, body) {
+  if (!body) return "";
+  return `<section class="weekly-block"><h3>${esc(title)}</h3>`
+    + (note ? `<p class="data-note">${esc(note)}</p>` : "") + body + `</section>`;
+}
+
+function renderWeeklyReport() {
+  const panel = document.getElementById("weeklyReport");
+  const report = state.trend?.weekly_report;
+  const questions = state.trend?.open_questions || [];
+  // 리포트가 없는 주(금요일 이전)에는 통째로 숨긴다 — 빈 탭이 되면 안 되므로
+  // 아래 정량 트렌드가 그대로 남는다.
+  if (!report && !questions.length) { panel.hidden = true; return; }
+  panel.hidden = false;
+
+  document.getElementById("weeklyReportMeta").textContent = report
+    ? `${dateLabel(report.week_start)}–${dateLabel(report.week_end)} · 이슈 ${report.source_issue_count ?? 0}건`
+    : "";
+
+  const shifts = (report?.policy_shifts || []).filter(row => row && row.what);
+  const themes = (report?.theme_moves || []).filter(row => row && row.theme);
+  const watch = report?.watchpoints || [];
+  const arrow = { "강화": "▲", "약화": "▼", "유지": "―" };
+
+  document.getElementById("weeklyReportBody").innerHTML = [
+    weeklySection("이번 주 판을 바꾼 것", "",
+      [report?.weekly_intro ? `<p class="weekly-intro">${esc(report.weekly_intro)}</p>` : "",
+       shifts.map(row =>
+         `<div class="weekly-item"><p><strong>${esc(row.what)}</strong></p>`
+         + (row.so_what ? `<p>${esc(row.so_what)}</p>` : "")
+         + evidenceChips(row.evidence) + `</div>`).join("")].join("")),
+    weeklySection("조용하지만 놓치면 안 되는 것", "투자 테마 강약",
+      themes.map(row =>
+        `<div class="weekly-item"><p><strong>${esc(arrow[row.direction] || "―")} ${esc(row.theme)}</strong>`
+        + (row.why ? ` — ${esc(row.why)}` : "") + `</p>`
+        + evidenceChips(row.evidence) + `</div>`).join("")),
+    weeklySection("한수원에 직접 닿는 변화", "",
+      report?.khnp_direct ? `<p>${esc(report.khnp_direct)}</p>` : ""),
+    weeklySection("다음 주 하나만 본다면", "",
+      watch.length ? `<ul class="weekly-list">${watch.map(row => `<li>${esc(row)}</li>`).join("")}</ul>` : ""),
+    weeklySection("아직 결론 나지 않은 것", "이슈당 한 번만 · 최신순",
+      questions.length ? questions.map(row =>
+        `<div class="weekly-item"><p>${esc(row.text)}</p>${evidenceChips(row.evidence)}</div>`
+      ).join("") : ""),
+  ].join("");
+}
+
 function renderTrend() {
+  renderWeeklyReport();
   renderInsights();
   renderTrendReadiness();
   if (!state.meta?.trend_ready) return;
@@ -1389,7 +1448,8 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog", "headlineEvidence"].forEach(id => {
+  ["issueList", "changedList", "archiveIssueList", "savedIssueList", "issueDialog",
+   "headlineEvidence", "weeklyReportBody"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
 

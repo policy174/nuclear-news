@@ -1806,6 +1806,97 @@ def load_daily_leads() -> dict[str, dict]:
     return leads if isinstance(leads, dict) else {}
 
 
+def load_weekly_report(issue_rows: list[dict]) -> dict | None:
+    """봇이 금요일에 저장한 주간 판세 리포트 → 화면용.
+
+    문장마다 evidence_hashes 를 이슈 상세 링크로 바꾼다. 전역 key_events 만으로는
+    어떤 근거가 어느 문장 것인지 알 수 없어 모든 문장에 같은 칩이 붙는다.
+    """
+    try:
+        raw = json.loads((BOT_DIR / "weekly_reports.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    reports = raw.get("reports")
+    if not isinstance(reports, dict) or not reports:
+        return None
+    report = dict(reports[max(reports)])
+
+    # 봇은 hash 앞 8자리만 남긴다(프롬프트 토큰 절약). 이슈 카탈로그는 전체
+    # hash 로 색인돼 있어 _evidence_chips 를 그대로 쓰면 하나도 안 걸린다.
+    by_short: dict[str, dict] = {}
+    for row in issue_rows:
+        for article in row.get("related_articles") or []:
+            short = str(article.get("hash") or "")[:8]
+            if short and short not in by_short:
+                by_short[short] = row
+
+    def chips(short_hashes) -> list[dict]:
+        # 매핑 실패는 칩만 비우고 넘어간다 — 화면 전체가 깨지면 안 된다.
+        out, seen = [], set()
+        for short in short_hashes or []:
+            row = by_short.get(str(short)[:8])
+            if not row or row["issue_id"] in seen:
+                continue
+            seen.add(row["issue_id"])
+            out.append({"issue_id": row["issue_id"], "title": row["title"]})
+        return out[:2]
+
+    for key in ("policy_shifts", "theme_moves"):
+        rows = [r for r in (report.get(key) or []) if isinstance(r, dict)]
+        for row in rows:
+            row["evidence"] = chips(row.get("evidence_hashes"))
+            row.pop("evidence_hashes", None)
+        report[key] = rows
+    report["key_events"] = [r for r in (report.get("key_events") or [])
+                            if isinstance(r, dict)]
+    report["watchpoints"] = [str(w) for w in (report.get("watchpoints") or []) if w]
+    # 이슈 수는 여기서 다시 센다. 봇은 제목 정규화로 어림잡을 수밖에 없지만
+    # (임베딩·LLM 병합 결과가 없다) 웹에는 실제 병합 결과가 있다.
+    merged = merged_issue_count(issue_rows, report.get("week_start"), report.get("week_end"))
+    if merged is not None:
+        report["source_issue_count"] = merged
+    return report
+
+
+def merged_issue_count(issue_rows: list[dict], start: object, end: object) -> int | None:
+    """그 주에 움직인 고유 이슈 수. 기사 수를 쓰면 후속 보도가 많은 주가
+    실제보다 풍성해 보인다."""
+    if not isinstance(start, str) or not isinstance(end, str):
+        return None
+    count = 0
+    for row in issue_rows:
+        last_seen = str(row.get("last_seen") or "")
+        if start <= last_seen <= end:
+            count += 1
+    return count
+
+
+def collect_open_questions(issue_rows: list[dict], limit: int = 5) -> list[dict]:
+    """그 주의 '아직 확정되지 않은 것' 모음.
+
+    그냥 모으면 같은 내용이 여러 기사에서 중복된다. 이슈 단위로 한 번씩만 세고,
+    최신·중요도순 상위 몇 개만 남긴다.
+    """
+    seen: set[str] = set()
+    out: list[dict] = []
+    ordered = sorted(
+        issue_rows,
+        key=lambda row: (row.get("last_seen") or "",
+                         row.get("importance") == "must_read"),
+        reverse=True,
+    )
+    for row in ordered:
+        text = str(row.get("open_question") or "").strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        out.append({"text": text,
+                    "evidence": [{"issue_id": row["issue_id"], "title": row["title"]}]})
+        if len(out) >= limit:
+            break
+    return out
+
+
 def selection_view(stats: dict | None) -> dict:
     """봇이 남긴 선정 통계를 브리핑 행에 실을 형태로.
 
@@ -2352,6 +2443,10 @@ def build() -> None:
     country_issue_30 = count_country_issues(issues, day30)
 
     trend = {
+        # 금요일 주간 판세 리포트. 없으면 None → 프론트가 기존 정량 트렌드만 그린다
+        # (목요일에 빈 탭이 되지 않게 하는 폴백).
+        "weekly_report": load_weekly_report(issue_catalog),
+        "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],
         "rising": rising[:10],

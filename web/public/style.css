@@ -812,6 +812,27 @@ kbd {
 .archive-more { display: block; margin: 16px auto 0; }
 
 .flow-panel { margin-bottom: 20px; padding: 22px; border: 1px solid var(--c-border); border-radius: var(--r-3); background: var(--c-surface); }
+/* 주간 판세 — 고정 코너 5개. 매주 같은 자리에서 같은 질문에 답한다. */
+.weekly-report { margin-bottom: 20px; padding: 22px; border: 1px solid var(--c-border); border-radius: var(--r-3); background: var(--c-surface); }
+.weekly-block { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--c-border); }
+.weekly-block:first-child { margin-top: 6px; padding-top: 0; border-top: 0; }
+.weekly-block h3 { margin: 0 0 6px; font-size: 16px; }
+.weekly-intro { margin: 0 0 12px; color: var(--c-text-secondary); }
+.weekly-item { margin-top: 10px; }
+.weekly-item p { margin: 0 0 2px; color: var(--c-text-secondary); }
+.weekly-item strong { color: var(--c-text); }
+.weekly-list { margin: 6px 0 0; padding-left: 18px; color: var(--c-text-secondary); }
+.weekly-list li { margin-bottom: 4px; }
+.weekly-evidence { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+/* 히어로 칩은 어두운 배경 전용(흰 글자)이라 밝은 패널에서는 안 보인다.
+   같은 클래스를 쓰되 이 패널 안에서만 라이트 톤으로 덮는다. */
+.weekly-evidence .hero-evidence-chip {
+  min-height: 44px;
+  border-color: var(--c-border);
+  background: var(--c-surface-sunken);
+  color: var(--c-text-secondary);
+}
+.weekly-evidence .hero-evidence-chip:hover { background: var(--c-border); }
 .section-heading.compact { margin-bottom: 6px; }
 .flow-item { display: grid; grid-template-columns: 42px 1fr; gap: 10px; padding: 18px 0; border-top: 1px solid var(--c-border); }
 .flow-item:first-child { border-top: 0; }
