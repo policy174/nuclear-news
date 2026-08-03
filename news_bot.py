@@ -1028,7 +1028,7 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "open_question": null, "open_question_source": "unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "open_question": "...|null", "open_question_source": "title|description|article_text|unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": "2026-08-01|null", "event_date_type": "announcement|occurrence|effective|deadline|scheduled|unknown", "event_date_precision": "day|month|year|unknown", "event_date_source": "title|description|article_text|unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):

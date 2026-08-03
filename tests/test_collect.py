@@ -240,6 +240,43 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(record["open_question_source"], "article_text")
 
 
+class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
+    """배치 출력 예시에 구체적 빈 값을 박으면 모델이 그 값을 그대로 베낀다.
+
+    프로덕션은 ``curate_batch`` 만 탄다(``curate_with_llm`` 은 호출자가 없다).
+    그래서 ``BATCH_SUFFIX`` 의 예시 JSON이 실질 스키마 지시문이다. 다른 필드가
+    ``"..."`` 플레이스홀더인데 특정 필드만 ``null`` 이면 그 필드는 항상 비어서
+    돌아온다 — open_question 이 배선 완료 후에도 0건이던 경로다.
+    """
+
+    OPTIONAL_FIELDS = ("open_question", "open_question_source", "event_date",
+                       "event_date_type", "event_date_precision", "event_date_source")
+
+    def _batch_example(self) -> str:
+        for line in nb.BATCH_SUFFIX.splitlines():
+            if line.startswith('{"items"'):
+                return line
+        self.fail("BATCH_SUFFIX 에서 출력 예시 JSON 줄을 찾지 못했다")
+
+    def test_no_field_is_primed_with_a_concrete_empty_value(self):
+        example = self._batch_example()
+        for field in self.OPTIONAL_FIELDS:
+            with self.subTest(field=field):
+                self.assertNotIn(f'"{field}": null', example)
+                self.assertNotIn(f'"{field}": "unknown"', example)
+
+    def test_optional_fields_offer_the_same_choices_as_the_single_call_prompt(self):
+        """단일 호출 프롬프트와 형태가 갈리면 배치만 조용히 다른 스키마가 된다."""
+        example = self._batch_example()
+        for field in self.OPTIONAL_FIELDS:
+            with self.subTest(field=field):
+                self.assertIn(f'"{field}"', example)
+                self.assertIn(f'"{field}"', nb.CURATION_SYSTEM_PROMPT)
+                # 값 자리에 선택지를 보여주는가 ("a|b" 또는 "...|null")
+                value = example.split(f'"{field}": ', 1)[1].split(", ")[0]
+                self.assertIn("|", value, f"{field} 예시값이 선택지를 제시하지 않는다: {value}")
+
+
 class TestFeaturesRecuration(unittest.TestCase):
     """features 결손이 재큐레이션 대상에 들어가는가 — 실패하면 조용히 영구화된다.
 
