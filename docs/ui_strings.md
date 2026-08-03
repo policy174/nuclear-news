@@ -1,6 +1,10 @@
 # UI 문자열 전수 목록 (Phase 0 부록)
 
-`NUCLENS_SPEC.md` Phase 0 조사항목 4. Phase 2 문자열 외부화의 작업 대상 목록이다.
+`NUCLENS_SPEC.md` Phase 0 조사항목 4. **S3(문구 교체)** 의 작업 대상 목록이다.
+
+> ⚠️ **`NUCLENS_SPEC.md` 는 존재하지 않는다**(2026-08-03 확인 — git 전 이력 0건).
+> 정본은 [`PHASE_PLAN.md`](PHASE_PLAN.md) 다. 여기서 말하는 "Phase 2"는 그 문서의
+> **S3** 를 가리킨다.
 
 추출: `scratchpad/extract_strings.py` → `build_string_doc.py`.
 따옴표 안 한글 리터럴(`app.js`·`build_data.py`) + 태그 텍스트·속성값(`index.html`).
