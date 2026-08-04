@@ -7,7 +7,7 @@
 
 | 경로 | 역할 |
 |---|---|
-| `build_data.py` | 아카이브·발송기록 → 화면용 JSON 9종 + 이슈 상세 페이지 + RSS |
+| `build_data.py` | 아카이브·발송기록 → 화면용 JSON 10종 + 이슈 상세 페이지 + RSS |
 | `public/index.html`·`app.js`·`style.css` | 단일 페이지 앱 (의존성 0) |
 | `public/data/` | 빌드 산출물 (gitignore — CI 가 매번 생성) |
 | `brand/` | 브랜드 개편안·토큰·로고 원본 (배포 대상 아님) |
@@ -51,8 +51,16 @@ KEEI 세계 원전시장 인사이트 목차와 이슈를 잇는 판정도 같�
 BOT_DIR=/path/to/nuclear-news-bot python web/build_data.py
 ```
 
-`BOT_DIR` 를 생략하면 저장소 루트를 쓴다. CI 는 `crawl.yml`(짝수 UTC시)과
-`daily-brief.yml`(하루 1회)에서 빌드 후 `wrangler pages deploy web/public` 한다.
+`BOT_DIR` 를 생략하면 저장소 루트를 쓴다. CI 배포 경로는 세 갈래다.
+
+- `deploy-web.yml` — `web/**` 가 main 에 병합되면 즉시(1~2분) 빌드·배포. 화면 작업의 기본 경로.
+- `crawl.yml` — 매시 cron. 라이브 `meta.json` 의 나이가 105분을 넘을 때만 재배포
+  (Pages 무료 500회/월 예산. "짝수 UTC시" 게이트는 cron 지연으로 배포가 통째로
+  빠지는 문제 때문에 폐기됐다).
+- `daily-brief.yml` — 하루 1회 브리핑 후 배포 + Playwright 렌더 스모크.
+
+수동 `wrangler pages deploy` 는 금지 — `embeddings.json` 이 Actions 캐시에만 있어
+로컬 빌드는 클러스터링이 다르게 나오고, 라이브 데이터를 덮어쓴다.
 
 ## 로컬 실행
 
@@ -80,6 +88,15 @@ node --check web/public/app.js
 ```bash
 node web/tests/render_smoke.mjs
 ```
+
+## localStorage 키
+
+브라우저에만 저장되며 서버로 가지 않는다.
+
+| 키 | 내용 |
+|---|---|
+| `nuclens-saved-issues` | 저장한 이슈 id 배열 |
+| `nuclens-theme` | `light` \| `dark` |
 
 ## 링크 미리보기 이미지
 
