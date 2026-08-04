@@ -2535,9 +2535,18 @@ class WeeklyRenderTests(unittest.TestCase):
                       "아직 결론 나지 않은 것"):
             self.assertIn(title, self.script)
 
-    def test_panel_hidden_without_data(self):
-        self.assertIn("if (!report && !questions.length) { panel.hidden = true; return; }",
-                      self.script)
+    def test_panel_hidden_without_the_weekly_report(self):
+        """'주간 판세'는 주간 리포트가 실제로 있을 때만 뜬다.
+
+        원래 가드는 `!report && !questions.length` 였다. 그런데
+        weekly_reports.json 이 3개월째 생성된 적이 없어(weekly.yml 미가동)
+        실제로는 5칸 중 '아직 결론 나지 않은 것' 한 칸만 '주간 판세' 제목을
+        달고 떠 있었다 — 제목이 약속한 것의 1/5. 그 한 칸의 문장도 근거 이슈
+        제목의 서술문 전환에 가깝고(실측 유사도 0.32·0.48), 같은
+        open_question 이 선두 카드와 상세 모달에 이미 나온다.
+        """
+        self.assertIn("if (!report) { panel.hidden = true; return; }", self.script)
+        self.assertNotIn("if (!report && !questions.length)", self.script)
         self.assertIn('id="weeklyReport"', self.html)
 
     def test_renders_before_existing_trend_charts(self):

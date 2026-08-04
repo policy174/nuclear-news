@@ -1844,9 +1844,19 @@ function renderWeeklyReport() {
   const panel = document.getElementById("weeklyReport");
   const report = state.trend?.weekly_report;
   const questions = state.trend?.open_questions || [];
-  // 리포트가 없는 주(금요일 이전)에는 통째로 숨긴다 — 빈 탭이 되면 안 되므로
-  // 아래 정량 트렌드가 그대로 남는다.
-  if (!report && !questions.length) { panel.hidden = true; return; }
+  // 리포트가 없으면 통째로 숨긴다 — 빈 탭이 되면 안 되므로 아래 정량 트렌드가
+  // 그대로 남는다.
+  //
+  // 원래는 `!report && !questions.length` 였다. 그런데 weekly_reports.json 이
+  // 3개월째 한 번도 생성된 적이 없어(weekly.yml 미가동) 실제로는 '아직 결론
+  // 나지 않은 것' 한 코너만 '주간 판세' 라는 제목을 달고 떠 있었다. 5칸 중
+  // 4칸이 빈 채로 제목이 판세를 약속하는 셈이다.
+  // 게다가 그 한 코너의 문장은 근거 이슈 제목의 서술문 전환에 가깝고(실측
+  // 2건: 유사도 0.32·0.48 — 어순·어미만 바꾸면 문자열 유사도로는 못 거른다),
+  // 같은 open_question 은 이미 선두 카드와 상세 모달에 '아직 확정되지 않은
+  // 것'으로 나온다. 세 번째 노출을 위해 제목을 빌려 쓰지 않는다.
+  // 진짜 주간 리포트가 생기면 5칸이 함께 돌아온다.
+  if (!report) { panel.hidden = true; return; }
   panel.hidden = false;
 
   document.getElementById("weeklyReportMeta").textContent = report
