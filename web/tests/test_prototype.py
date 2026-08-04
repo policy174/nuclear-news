@@ -2813,6 +2813,57 @@ class PubShelfTests(unittest.TestCase):
         self.assertIn("에너지경제연구원 — 제목과 원문 링크만 제공합니다.", self.html)
 
 
+class SavedFollowTests(unittest.TestCase):
+    """저장 탭 접근성·톰스톤·엔티티 팔로우의 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_desktop_tab_reaches_saved_view(self):
+        # 768~1199px 는 하단 탭도 사이드바도 없어 저장 뷰가 도달 불가였다.
+        main_tabs = self.html.split('id="mainTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertIn('data-view="saved"', main_tabs)
+        # 모바일 탭은 5개 그대로(잠금과 함께 움직인다).
+        mobile_nav = self.html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertEqual(mobile_nav.count("<button"), 5)
+
+    def test_saved_meta_snapshot_and_tombstone(self):
+        self.assertIn("nuclens-saved-meta", self.script)
+        self.assertIn("function savedTombstone", self.script)
+        self.assertIn("재구성되어 현재 목록에 없습니다", self.script)
+        self.assertIn("data-requery", self.script)
+
+    def test_follow_is_entity_only_with_per_entity_seen(self):
+        self.assertIn("nuclens-follows", self.script)
+        self.assertIn("nuclens-follow-seen", self.script)
+        self.assertIn("function toggleFollow", self.script)
+        self.assertIn("function entityNewIssueCount", self.script)
+        # 배지 셈: 이슈 포착일(last_seen) > 사용자 확인일 — 사전순 날짜 비교.
+        self.assertIn("issue.last_seen > seen", self.script)
+
+    def test_saved_view_entry_does_not_mark_all_seen(self):
+        # 저장 화면 진입만으로 전체 확인 처리 금지 — renderSaved/renderFollowPanel
+        # 경로에 markEntitySeen 이 없어야 한다.
+        for name in ("function renderSaved", "function renderFollowPanel"):
+            body = self.script[self.script.index(name):]
+            body = body[:body.index("\nfunction ")]
+            self.assertNotIn("markEntitySeen", body, f"{name} 가 확인 처리를 한다")
+
+    def test_entity_page_view_marks_seen_only_on_search_view(self):
+        body = self.script[self.script.index("function renderEntityHeader"):]
+        body = body[:body.index("function renderArchiveSearch")]
+        self.assertIn('state.view === "search"', body)
+        self.assertIn("markEntitySeen", body)
+
+    def test_follow_toggle_does_not_reset_filters(self):
+        body = self.script[self.script.index("function handleHubAction"):]
+        head = body[:body.index("state.archiveQuery")]
+        self.assertIn("data-follow-toggle", head)
+        self.assertIn("return;", head)
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""

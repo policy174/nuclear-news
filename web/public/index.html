@@ -54,6 +54,9 @@
       <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
       <button class="main-tab" data-view="trend" aria-pressed="false">흐름</button>
       <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
+      <!-- 768~1199px 는 하단 탭도 사이드바도 없다 — 저장 뷰가 이 대역에서
+           도달 불가였다(감사 확인). 배지는 0이면 숨긴다. -->
+      <button class="main-tab" data-view="saved" aria-pressed="false">저장 <small class="tab-badge" data-saved-count="desktop" hidden>0</small></button>
     </nav>
     <div class="header-tools">
       <!-- 좁은 화면에서는 아래 span·kbd 가 CSS 로 접혀 아이콘만 남는다. 그러면
@@ -334,7 +337,11 @@
   </section>
 
   <section id="view-saved" hidden aria-labelledby="savedTitle">
-    <div class="archive-intro"><div><h1 id="savedTitle">저장한 이슈</h1></div></div>
+    <div class="archive-intro"><div><h1 id="savedTitle">저장·팔로우</h1></div></div>
+    <!-- 팔로우한 대상 — 이 화면에 들어왔다고 확인 처리하지 않는다. 확인 시각은
+         해당 엔티티 페이지를 실제로 열었을 때만 갱신된다(배지 일괄 소멸 방지). -->
+    <section id="followPanel" class="follow-panel" aria-label="팔로우한 대상"></section>
+    <div class="section-heading compact saved-heading"><div><h2>저장한 이슈</h2></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>
 
@@ -375,7 +382,7 @@
   <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
   <button type="button" data-view="trend" aria-pressed="false"><span>흐름</span></button>
   <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
-  <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount">0</small></button>
+  <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount" data-saved-count="mobile">0</small></button>
 </nav>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>

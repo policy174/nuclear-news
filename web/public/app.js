@@ -45,7 +45,7 @@ const state = {
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   archiveEntity: "", entities: null,
-  period: "7", keywordSort: "mentions", savedIds: new Set(),
+  period: "7", keywordSort: "mentions", savedIds: new Set(), savedMeta: {}, follows: new Set(), followSeen: {},
   offline: !navigator.onLine, pendingGeneration: "",
 };
 
@@ -362,17 +362,145 @@ function loadSaved() {
   } catch {
     state.savedIds = new Set();
   }
+  // 저장 시점 스냅샷(제목·날짜) — issue_id 는 클러스터 재계산에서 깨질 수 있는
+  // 파생 키다(알려진 결함). 스냅샷이 있으면 깨진 저장을 톰스톤으로 보여주고
+  // 제목 검색으로 다시 찾게 한다 — 조용한 소실 대신 비파괴 안내.
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-saved-meta") || "{}");
+    state.savedMeta = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  } catch {
+    state.savedMeta = {};
+  }
   renderSavedCount();
 }
 
 function persistSaved() {
-  localStorage.setItem("nuclens-saved-issues", JSON.stringify([...state.savedIds]));
+  try {
+    localStorage.setItem("nuclens-saved-issues", JSON.stringify([...state.savedIds]));
+    const meta = {};
+    state.savedIds.forEach(id => {
+      const issue = state.issues.find(item => item.issue_id === id);
+      meta[id] = issue
+        ? { title: issue.title || "", last_seen: issue.last_seen || "" }
+        : state.savedMeta?.[id] || { title: "", last_seen: "" };
+    });
+    state.savedMeta = meta;
+    localStorage.setItem("nuclens-saved-meta", JSON.stringify(meta));
+  } catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
   renderSavedCount();
 }
 
 function renderSavedCount() {
-  const count = document.getElementById("savedCount");
-  if (count) count.textContent = String(state.savedIds.size);
+  // 데스크톱 탭·모바일 탭 배지를 함께 갱신한다. 0이면 데스크톱 배지는 숨긴다
+  // (숫자 0 배지는 정보가 아니라 소음이다 — 모바일 탭은 자리 유지를 위해 남긴다).
+  document.querySelectorAll("[data-saved-count]").forEach(badge => {
+    badge.textContent = String(state.savedIds.size);
+    if (badge.dataset.savedCount === "desktop") badge.hidden = state.savedIds.size === 0;
+  });
+}
+
+/* ── 엔티티 팔로우 ──────────────────────────────────────────────────
+   이번 범위의 팔로우는 **엔티티 한정**이다(주제·국가는 필터로 충분 — 후속).
+   확인 시각은 엔티티별 개별 저장(nuclens-follow-seen) — 단일 last-visit 는
+   저장 화면에 들어오기만 해도 모든 배지가 꺼지는 구조라 쓰지 않는다.
+   갱신 시점: ①해당 엔티티 페이지를 실제로 열었을 때 ②팔로우 시작 시(보고
+   있는 화면이 곧 그 페이지다). 저장 화면 진입은 갱신하지 않는다. */
+function loadFollows() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-follows") || "[]");
+    state.follows = new Set(Array.isArray(raw) ? raw.filter(id => typeof id === "string") : []);
+  } catch {
+    state.follows = new Set();
+  }
+  try {
+    const seen = JSON.parse(localStorage.getItem("nuclens-follow-seen") || "{}");
+    state.followSeen = seen && typeof seen === "object" && !Array.isArray(seen) ? seen : {};
+  } catch {
+    state.followSeen = {};
+  }
+}
+
+function persistFollows() {
+  try {
+    localStorage.setItem("nuclens-follows", JSON.stringify([...state.follows]));
+    localStorage.setItem("nuclens-follow-seen", JSON.stringify(state.followSeen));
+  } catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
+}
+
+function markEntitySeen(entityId) {
+  const stamp = state.meta?.latest_briefing_date || "";
+  if (!entityId || !stamp) return;
+  if (state.followSeen[entityId] === stamp) return;
+  state.followSeen[entityId] = stamp;
+  persistFollows();
+}
+
+function toggleFollow(entityId) {
+  if (!entityId) return;
+  if (state.follows.has(entityId)) {
+    state.follows.delete(entityId);
+    delete state.followSeen[entityId];
+    showToast("팔로우를 해제했습니다");
+  } else {
+    state.follows.add(entityId);
+    // 시작 시점 = 확인 시점 — 지금 보고 있는 것까지가 '본 것'이고,
+    // 배지는 이후 도착분만 센다.
+    state.followSeen[entityId] = state.meta?.latest_briefing_date || "";
+    showToast("대상을 팔로우합니다 — 새 이슈가 저장 탭에 표시됩니다");
+  }
+  persistFollows();
+  renderEntityHeader();
+  if (state.view === "saved") renderSaved();
+}
+
+function entityNewIssueCount(entityId) {
+  const seen = state.followSeen?.[entityId] || "";
+  return state.issues.filter(issue =>
+    (issue.entity_ids || []).includes(entityId)
+    && issue.last_seen && issue.last_seen > seen).length;
+}
+
+function renderFollowPanel() {
+  const panel = document.getElementById("followPanel");
+  if (!panel) return;
+  const followed = [...state.follows]
+    .map(id => entityById(id))
+    .filter(Boolean)
+    .sort((a, b) => entityNewIssueCount(b.id) - entityNewIssueCount(a.id)
+      || String(b.latest_issue_date).localeCompare(String(a.latest_issue_date)));
+  if (!followed.length) {
+    panel.innerHTML = `<p class="follow-empty">탐색에서 원전·기업·기관을 팔로우하면 새 이슈를 여기서 셉니다.
+      <button type="button" data-go-view="search">탐색 열기</button></p>`;
+    return;
+  }
+  panel.innerHTML = `<div class="section-heading compact"><div><h2>팔로우한 대상</h2></div></div>`
+    + followed.map(entity => {
+      const fresh = entityNewIssueCount(entity.id);
+      return `<div class="follow-row">
+        <button type="button" class="follow-open" data-follow-open="${esc(entity.id)}">
+          <small>${esc(ENTITY_TYPE_LABELS[entity.type] || "")}</small>
+          <strong>${esc(entity.name_kr)}</strong>
+          ${fresh ? `<span class="follow-fresh">새 이슈 ${fresh}</span>` : `<span class="follow-quiet">새 이슈 없음</span>`}
+        </button>
+        <button type="button" class="text-action" data-unfollow="${esc(entity.id)}" aria-label="${esc(entity.name_kr)} 팔로우 해제">해제</button>
+      </div>`;
+    }).join("");
+}
+
+// 재클러스터로 목록에서 사라진 저장 이슈 — 스냅샷으로 세운 묘비 카드.
+function savedTombstone(issueId, meta) {
+  const title = meta?.title || "제목을 알 수 없는 이슈";
+  const date = meta?.last_seen ? `${dateLabel(meta.last_seen)} 저장 당시` : "";
+  return `<article class="issue-card tombstone-card">
+    <div class="issue-body">
+      <h3>${esc(title)}</h3>
+      <p class="tombstone-note">이 이슈는 재구성되어 현재 목록에 없습니다.${date ? ` (${esc(date)})` : ""}</p>
+    </div>
+    <div class="issue-actions">
+      ${meta?.title ? `<button class="text-action" type="button" data-requery="${esc(meta.title)}">제목으로 다시 찾기</button>` : ""}
+      <button class="text-action" type="button" data-save-issue="${esc(issueId)}">저장 해제</button>
+    </div>
+  </article>`;
 }
 
 function toggleSaved(issueId) {
@@ -1064,7 +1192,7 @@ function renderExploreHub() {
   const box = document.getElementById("exploreHub");
   if (!box) return;
   const entityChips = (state.entities?.entities || [])
-    .filter(entity => entity.issue_count > 0)
+    .filter(entity => entity.issue_count > 0 || state.follows.has(entity.id))
     .slice(0, 12)
     .map(entity => `<button type="button" class="hub-chip" data-hub-ent="${esc(entity.id)}">
       <small>${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}</small>${esc(entity.name_kr)}<b>${entity.issue_count}</b>
@@ -1131,12 +1259,19 @@ function renderEntityHeader() {
   const countries = (entity.countries || [])
     .map(code => COUNTRY_LABELS[code] || code).join(" · ");
   const latest = entity.latest_issue_date ? ` · ${STRINGS.recentCapture} ${dateLabel(entity.latest_issue_date)}` : "";
+  const following = state.follows.has(entity.id);
   box.innerHTML = `
     <p class="entity-kind">${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}${countries ? ` · ${esc(countries)}` : ""}</p>
     <h2 class="entity-name">${esc(entity.name_kr)}${entity.name_en ? ` <span lang="en">${esc(entity.name_en)}</span>` : ""}</h2>
     <p class="entity-stats">이슈 ${connected.length}건 · 근거 기사 ${entity.article_count}건${latest}</p>
     ${topicLine}
-    <button type="button" class="text-action" data-clear-entity>${esc(STRINGS.entityClear)}</button>`;
+    <div class="entity-actions">
+      <button type="button" class="follow-button ${following ? "following" : ""}" data-follow-toggle="${esc(entity.id)}" aria-pressed="${following}">${following ? "팔로우 중" : "팔로우"}</button>
+      <button type="button" class="text-action" data-clear-entity>${esc(STRINGS.entityClear)}</button>
+    </div>`;
+  // 이 페이지를 실제로 보고 있을 때만 확인 처리한다 — renderArchiveSearch 는
+  // 다른 화면 갱신에도 불려서, 화면 조건 없이 찍으면 배지가 몰래 꺼진다.
+  if (following && state.view === "search") markEntitySeen(entity.id);
 }
 
 function renderArchiveSearch(resetLimit = false) {
@@ -1190,9 +1325,16 @@ function renderArchiveSearch(resetLimit = false) {
 }
 
 function renderSaved() {
+  renderFollowPanel();
   const issues = state.issues.filter(issue => state.savedIds.has(issue.issue_id));
-  document.getElementById("savedIssueList").innerHTML = issues.length
-    ? issues.map((issue, index) => issueCard(issue, index, true)).join("")
+  const liveIds = new Set(issues.map(issue => issue.issue_id));
+  // 재클러스터로 사라진 저장 — 스냅샷 묘비로 남긴다(조용한 소실 금지).
+  const tombstones = [...state.savedIds]
+    .filter(id => !liveIds.has(id))
+    .map(id => savedTombstone(id, state.savedMeta?.[id]));
+  const cards = issues.map((issue, index) => issueCard(issue, index, true)).concat(tombstones);
+  document.getElementById("savedIssueList").innerHTML = cards.length
+    ? cards.join("")
     : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">탐색에서 보기</button></div>';
 }
 
@@ -1833,6 +1975,9 @@ function clearArchiveFilters() {
 // 위임 목록에 넣지 않고 따로 받는다. 규칙: 허브에서 무엇을 고르면 **그 필터
 // 하나만 선 깨끗한 결과**에서 시작한다(교집합은 그 뒤 사용자가 쌓는 것).
 function handleHubAction(event) {
+  // 팔로우 토글은 필터 조작이 아니다 — 리셋 없이 처리하고 끝낸다.
+  const followToggle = event.target.closest("[data-follow-toggle]");
+  if (followToggle) { toggleFollow(followToggle.dataset.followToggle); return; }
   const entityChip = event.target.closest("[data-hub-ent]");
   const topicChip = event.target.closest("[data-hub-topic]");
   const queryChip = event.target.closest("[data-hub-q]");
@@ -2269,6 +2414,15 @@ function bind() {
   document.body.addEventListener("click", event => {
     const go = event.target.closest("[data-go-view]");
     if (go) switchView(go.dataset.goView);
+    // 톰스톤의 '제목으로 다시 찾기' — 저장 당시 제목을 검색어로 탐색에 넘긴다.
+    const requery = event.target.closest("[data-requery]");
+    if (requery) {
+      state.archiveQuery = normalizedSearch(requery.dataset.requery);
+      state.archiveEntity = "";
+      switchView("search");
+      renderArchiveSearch(true);
+      syncUrl("push");
+    }
     const pubsOrg = event.target.closest("[data-pubs-org]");
     if (pubsOrg) { state.pubsOrg = pubsOrg.dataset.pubsOrg; renderPubs(); }
     const keyword = event.target.closest("[data-keyword]");
@@ -2289,6 +2443,24 @@ function bind() {
   // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
   ["exploreHub", "entityHeader"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleHubAction);
+  });
+  // 팔로우 패널 — 대상 열기(그 시점에 확인 처리)·해제. 저장 화면 진입만으로는
+  // 확인 처리하지 않는다(주석 계약은 index.html 의 followPanel 에).
+  document.getElementById("followPanel").addEventListener("click", event => {
+    const unfollow = event.target.closest("[data-unfollow]");
+    if (unfollow) { toggleFollow(unfollow.dataset.unfollow); return; }
+    const open = event.target.closest("[data-follow-open]");
+    if (!open) return;
+    markEntitySeen(open.dataset.followOpen);
+    state.archiveQuery = "";
+    state.archiveEntity = open.dataset.followOpen;
+    state.archiveRegion = "전체";
+    state.archiveTopic = "전체";
+    state.archivePeriod = "all";
+    state.archiveVerification = "전체";
+    switchView("search");
+    renderArchiveSearch(true);
+    syncUrl("push");
   });
   // 지난 브리핑 행 — 그 날짜의 오늘 화면으로 점프(dateSel 변경과 같은 경로).
   document.getElementById("briefingTimelineList").addEventListener("click", event => {
@@ -2510,6 +2682,7 @@ async function init() {
   window.clearTimeout(initRetryTimer);
   initRetryCount = 0;
   loadSaved();
+  loadFollows();
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
   restoreUrlState();
   renderTopicSelects();

@@ -1262,6 +1262,68 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
 .entity-topics > span { color: var(--c-text-muted); font-size: var(--t-min); }
 .entity-header .text-action { margin-top: var(--sp-3); }
 .entity-unknown { display: flex; align-items: center; gap: var(--sp-3); margin: 0; color: var(--c-text-secondary); }
+/* ── 팔로우 패널(저장 탭) + 엔티티 팔로우 버튼 ── */
+.follow-panel { margin-bottom: var(--sp-10); }
+.follow-empty { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-3); margin: 0; padding: var(--sp-4) 0; border-top: 1px solid var(--c-border); color: var(--c-text-secondary); font-size: var(--t-caption); }
+.follow-empty button { min-height: 44px; padding: 0 var(--sp-3); border: 1px solid var(--c-border); background: var(--c-surface); }
+.follow-row { display: flex; align-items: center; gap: var(--sp-3); border-top: 1px solid var(--c-border); }
+.follow-row:first-of-type { border-top: 2px solid var(--c-primary); }
+.follow-open {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px var(--sp-3);
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--sp-3) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  transition: background var(--mo-1);
+}
+.follow-open:hover { background: var(--c-surface-sunken); }
+.follow-open small { color: var(--c-text-muted); font-size: var(--t-min); }
+.follow-open strong { font-size: var(--t-body-lg); font-weight: 700; }
+.follow-fresh {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--c-secondary-weak);
+  color: var(--c-secondary);
+  font-size: var(--t-min);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-theme="dark"] .follow-fresh { color: var(--c-text); }
+.follow-quiet { color: var(--c-text-muted); font-size: var(--t-min); }
+.entity-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-3); }
+.follow-button {
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--c-primary);
+  background: var(--c-primary);
+  color: var(--c-signal);
+  font-weight: 700;
+  transition: background var(--mo-1);
+}
+.follow-button.following { border-color: var(--c-border-strong); background: var(--c-surface); color: var(--c-text-secondary); font-weight: 600; }
+.saved-heading { margin-top: var(--sp-6); }
+
+/* 데스크톱 저장 탭 배지 + 톰스톤(재클러스터로 사라진 저장 이슈) */
+.tab-badge {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--c-secondary-weak);
+  color: var(--c-secondary);
+  font-size: var(--t-min);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-theme="dark"] .tab-badge { color: var(--c-text); }
+.tombstone-card { grid-template-columns: minmax(0, 1fr) auto; opacity: .76; }
+.tombstone-card h3 { margin: 0; font-size: var(--t-body-lg); }
+.tombstone-note { margin: 4px 0 0; color: var(--c-text-muted); font-size: var(--t-caption); }
+
 /* ── 지난 브리핑(흐름 탭 시간 축) — 점·세로선 없는 괘선 행 ── */
 .briefing-timeline { margin-top: var(--sp-12); }
 .briefing-timeline ol { margin: var(--sp-3) 0 0; padding: 0; list-style: none; }
