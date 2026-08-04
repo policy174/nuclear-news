@@ -136,6 +136,7 @@ def call_json(
     timeout: float = 60.0,
     retries: int = 3,
     thinking_budget: int | None = None,
+    model: str | None = None,
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
 
@@ -147,6 +148,10 @@ def call_json(
       (2026-08-04 실측: 대본 생성이 thoughts=7863/8192 로 output 315에서 잘림.
       로컬은 통과했는데 CI 에서 잘렸다 — thinking 길이는 비결정적이라
       "로컬에서 됐다"가 예산 충분의 근거가 못 된다).
+    - model 을 주면 기본 MODEL 대신 그 모델을 부른다. 무료 티어 쿼터는 모델별
+      버킷이다 — 하루 1회짜리 호출을 상시 파이프라인(크롤 큐레이션)과 같은
+      버킷에 두면 저녁마다 굶는다 (2026-08-04 실측: 같은 시각 프로브는
+      성공하는데 브리핑 체인 끝의 호출만 3연속 429).
     """
     if not API_KEY:
         raise GeminiError("GEMINI_API_KEY 미설정. .env 또는 GitHub Secrets에 등록 필요.")
@@ -159,7 +164,7 @@ def call_json(
     if thinking_budget is not None:
         generation_config["thinkingConfig"] = {"thinkingBudget": thinking_budget}
 
-    url = _ENDPOINT.format(model=MODEL) + f"?key={API_KEY}"
+    url = _ENDPOINT.format(model=model or MODEL) + f"?key={API_KEY}"
     body = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_message}]}],
