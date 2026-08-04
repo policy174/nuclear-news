@@ -382,6 +382,16 @@
       "right_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
       "same_event": false
     },
+    "24e4cd768164cbf1--6b93ed7e22e9bb4b": {
+      "embedding_similarity": 0.8447,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "뉴욕주, 원자력 발전 용량 확대 방안 모색 중",
+      "same_event": false
+    },
     "27009ea4489faffc--2b442f968d18a90b": {
       "embedding_similarity": 0.8696,
       "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
@@ -570,6 +580,16 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "2b442f968d18a90b--337a9ffbe7eef399": {
+      "embedding_similarity": 0.8445,
+      "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 프로젝트",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
       "same_event": false
     },
     "2b442f968d18a90b--6833a35dd8fc11fe": {
@@ -962,6 +982,16 @@
       "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
       "same_event": true
     },
+    "4113d294aea75ee0--6260c0799db78ac9": {
+      "embedding_similarity": 0.8437,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "same_event": false
+    },
     "4113d294aea75ee0--8c6eb5250550b959": {
       "embedding_similarity": 0.8816,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -1262,6 +1292,16 @@
       "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
       "same_event": false
     },
+    "5d1cf0b4c7f1c44a--d2d6214a79979e89": {
+      "embedding_similarity": 0.8639,
+      "left_title": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 지자체, 다른 유치 목표",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "대구시, 차세대 SMR 유치 경쟁 본격화…군위 내륙형 2호기 목표",
+      "same_event": false
+    },
     "5f508326eb5801f7--9ff80dab9059f991": {
       "embedding_similarity": 0.842,
       "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
@@ -1452,6 +1492,26 @@
       "right_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
       "same_event": false
     },
+    "6b93ed7e22e9bb4b--937708a71d17b0a2": {
+      "embedding_similarity": 0.871,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "같은 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "same_event": false
+    },
+    "6b93ed7e22e9bb4b--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8426,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "same_event": false
+    },
     "6b93ed7e22e9bb4b--f33f228a288946ee": {
       "embedding_similarity": 0.865,
       "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
@@ -1562,6 +1622,16 @@
       "right_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
       "same_event": false
     },
+    "937708a71d17b0a2--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8414,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "same_event": false
+    },
     "937708a71d17b0a2--f33f228a288946ee": {
       "embedding_similarity": 0.842,
       "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
@@ -1620,6 +1690,16 @@
       "reason": "다른 부처/프로그램",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "same_event": false
+    },
+    "a8c1cdc2ca53d72f--db88cff11d029f91": {
+      "embedding_similarity": 0.8414,
+      "left_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
+      "right_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
       "same_event": false
     },
     "b63eab8bc4b1467a--db88cff11d029f91": {
