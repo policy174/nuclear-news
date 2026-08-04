@@ -640,6 +640,21 @@ kbd {
 .verification-badge.v-corroborated { color: var(--c-secondary); }
 .verification-badge.v-partial { color: var(--c-text-muted); }
 .verification-badge.v-unverified { color: var(--c-unverified); }
+/* 보고서 검토 추천 — 검증 배지와 같은 모양(1px 테두리)이고 색으로만 갈린다.
+   검증은 '이 사실이 얼마나 확인됐나', 이건 '부서가 다룰 만한가' 라 축이 다르지만
+   둘 다 카드 한 줄에 나란히 서므로 모양까지 다르면 그 줄이 소란스러워진다. */
+.report-pick-badge {
+  align-self: start;
+  margin-top: 4px;
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: var(--r-1);
+  color: var(--c-accent-text);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.issue-meta > .report-pick-badge { flex: 0 0 auto; }
 .dialog-verification {
   display: flex;
   align-items: center;
@@ -892,6 +907,9 @@ kbd {
 .rail-head h2 { margin: 0 0 11px; color: #fff; font-size: 17px; line-height: 1.4; }
 .rail-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0; font-size: 12.5px; }
 .rail-badges > span:last-child { color: rgb(255 255 255 / 78%); }
+/* 근거 패널 머리는 딥 포레스트 배경이라 --c-accent-text(밝은 배경용)가 묻힌다.
+   라임은 이 배경 위에서만 안전하다(11.78:1) — 여기서만 갈아 끼운다. */
+.rail-badges .report-pick-badge { margin-top: 0; color: var(--c-signal); }
 .rail-body { padding: 0 17px 17px; }
 .rail-block { padding: 15px 0; border-bottom: 1px solid var(--c-border); }
 .rail-block:last-of-type { border-bottom: 0; }

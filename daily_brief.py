@@ -414,7 +414,10 @@ def build_report_recs(items: list[dict]) -> tuple[str, dict]:
         if angles:
             out.append(f"   • <b>추천 각도:</b> {escape(' / '.join(angles[:3]))}")
         out.append("")
-        diag["recommended"].append({"hash": candidates[idx].get("hash", "")[:8],
+        # hash 는 자르지 않는다 — 이 목록은 사람이 읽는 진단이자 웹이 기사에
+        # 배지를 다는 조인 키다(plan_briefs → delivery_log → build_data).
+        # candidates 쪽은 눈으로 훑는 용도라 8자로 둔다.
+        diag["recommended"].append({"hash": candidates[idx].get("hash", ""),
                                     "topic": str(r["topic"])[:80]})
     print(f"[daily_brief] 보고서 추천 {len(reports)}건 (후보 {len(candidates)}건 중)")
     return "\n".join(out).strip(), diag
@@ -604,11 +607,15 @@ def plan_briefs(queue: list[dict],
     rec, report_diag = build_report_recs(allsel)
     if rec:
         briefs.insert(0, {"name": "보고서추천", "text": rec, "status": "pending"})
+    # 추천 결과를 기사 메타에 실어 delivery_log 로 흘려보낸다. 웹이 배지를 다는
+    # 유일한 경로다 — outbox.json 은 매일 덮어써서 어제 추천을 알 방법이 없다.
+    report_picks = {r["hash"]: r["topic"]
+                    for r in report_diag.get("recommended", []) if r.get("hash")}
 
     # delivery_log 용 항목 메타 (점수 내역 = '왜 이 기사가 올라왔나' 증거)
     def _item_meta(a: dict, reg: str, diag: dict) -> dict:
         h = a.get("hash", "")
-        return {
+        meta = {
             "hash": h,
             "title_kr": (a.get("title_kr") or a.get("title") or "")[:100],
             "region": reg,
@@ -620,6 +627,11 @@ def plan_briefs(queue: list[dict],
             "score": diag["scores"].get(h),
             "breakdown": diag["breakdowns"].get(h),
         }
+        # 빈 값은 넣지 않는다 — 하루 0~2건짜리 표식이라 나머지 전 줄에
+        # report_pick:"" 이 붙으면 로그가 그만큼 읽기 어려워진다.
+        if report_picks.get(h):
+            meta["report_pick"] = report_picks[h]
+        return meta
 
     out_items = ([_item_meta(a, "국내", dom_diag) for a in dom]
                  + [_item_meta(a, "해외", forn_diag) for a in forn])

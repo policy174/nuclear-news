@@ -229,6 +229,18 @@ function verificationBadge(issue, { always = false } = {}) {
   return `<span class="verification-badge v-${esc(state.status)}" title="${esc(view.detail)}">${view.mark} ${esc(view.label)}</span>`;
 }
 
+// 부서 보고서로 다룰 만하다고 판정된 이슈에 붙는 표식. 판정은 화면이 아니라
+// 발송 파이프라인이 한다(daily_brief.build_report_recs) — 여기서는 그 결과만 옮긴다.
+//
+// 라벨 하나로 끝낸다. 텔레그램은 '왜'와 '추천 각도'까지 펼치지만 그건 개인
+// 브리핑의 판단이고, 웹은 동료가 함께 보는 화면이다. 무엇이 후보인지는 공유할
+// 수 있어도 어떻게 쓰라는 조언까지 화면이 대신 말할 자리는 아니다.
+function reportPickBadge(issue) {
+  const topic = (issue.report_pick || "").trim();
+  if (!topic) return "";
+  return `<span class="report-pick-badge" title="${esc(topic)}">📝 보고서 검토 추천</span>`;
+}
+
 function issueEvidenceText(issue) {
   const state = verificationState(issue);
   const articleCount = issue.article_count || (issue.related_articles || []).length;
@@ -271,10 +283,13 @@ function issueDetailModel(issue, contextDate) {
       : { label: "대표 출처", official: false, article: issue.representative_article || articles[0] || null },
     // 1건짜리는 노드를 아예 숨긴다. 켜두면 여러 출처가 교차 확인됐다는 오해를 만든다.
     media: articleCount >= 2 ? { label: `관련 보도 ${articleCount}건`, count: articleCount } : null,
-    // implication(산업 영향)과 why_important(왜 중요한가)는 다른 축이다.
-    impact: issue.implication
-      ? { label: "산업 영향", text: issue.implication }
-      : (issue.why_important ? { label: "왜 중요한가", text: issue.why_important } : null),
+    // implication(시사점)과 why_important(왜 중요한가)는 다른 축이고, 이제 각자
+    // 선다. 예전에는 둘 중 하나를 골라 '산업 영향'이라는 제3의 이름으로 내보냈다 —
+    // 텔레그램이 같은 문장을 '시사점'이라 부르는데 웹만 다른 이름이었고, 그 라벨이
+    // 서비스의 정체성을 지웠다(docs/2026-08-04-gap-review.md).
+    // 겹치는 날 한 줄을 비우는 판단은 빌드(split_interpretation)가 이미 했다.
+    why: issue.why_important ? { label: "왜 중요한가", text: issue.why_important } : null,
+    impact: issue.implication ? { label: "시사점", text: issue.implication } : null,
     // latest_change 는 최신 기사와 과거 기사의 요약을 즉석 비교해 만든다 — 그 변화가
     // '오늘' 생겼다는 보장이 없다. 근거일을 확인할 수 없으면 '최근'으로 둔다.
     change: changeText
@@ -607,6 +622,7 @@ function issueCard(issue, index, archive = false) {
       <span>${esc(issue.region)}</span>
       ${topic ? `<span class="issue-topic">${esc(topic)}</span>` : ""}
       ${verificationBadge(issue)}
+      ${reportPickBadge(issue)}
     </div>
     <div class="issue-body">
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
@@ -635,6 +651,7 @@ function leadCard(issue, briefing) {
   const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
   const blocks = [
     issue.summary ? { label: "무슨 일", text: issue.summary } : null,
+    model.why ? { label: model.why.label, text: model.why.text } : null,
     model.impact ? { label: model.impact.label, text: model.impact.text } : null,
     model.change ? { label: model.change.label, text: model.change.text, tone: "change" } : null,
     model.openQuestion ? { label: "아직 확정되지 않은 것", text: model.openQuestion, tone: "open" } : null,
@@ -645,6 +662,7 @@ function leadCard(issue, briefing) {
       <span>${esc(issue.region)}</span>
       ${topic ? `<span>${esc(topic)}</span>` : ""}
       ${verificationBadge(issue)}
+      ${reportPickBadge(issue)}
     </div>
     ${sameAsHeadline ? "" : `<h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>`}
     <dl class="lead-blocks">${blocks.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
@@ -877,7 +895,7 @@ function archiveIssueMatches(issue) {
   const countryText = (issue.related_articles || []).flatMap(article => article.countries || [])
     .map(country => COUNTRY_LABELS[country] || country).join(" ");
   return normalizedSearch([
-    issue.title, issue.summary, issue.implication, issue.region,
+    issue.title, issue.summary, issue.implication, issue.why_important, issue.region,
     ...(issue.tags || []), ...(issue.topics || []).map(topic => TOPIC_LABELS[topic] || topic),
     articleText, countryText,
   ].join(" ")).includes(state.archiveQuery);
@@ -1051,7 +1069,8 @@ function issueReportText(issue) {
     `• 이슈: ${issue.title || ""}`,
     issue.summary ? `• 핵심: ${issue.summary}` : "",
     issueChangeText(issue) ? `• 변화: ${issueChangeText(issue)}` : "",
-    issue.implication ? `• 의미(AI 해석): ${issue.implication}` : "",
+    issue.why_important ? `• 왜 중요(AI 해석): ${issue.why_important}` : "",
+    issue.implication ? `• 시사점(AI 해석): ${issue.implication}` : "",
     issue.open_question ? `• 미확정: ${issue.open_question}` : "",
     `• 검증: ${(VERIFICATION_VIEW[verificationState(issue).status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`,
     source ? `• 근거: ${source}` : "",
@@ -1158,9 +1177,10 @@ function renderEvidenceRail() {
   // 블록이 조건부라 번호를 하드코딩하면 01 다음에 03 이 온다. 남은 것만 세어 붙인다.
   let railNo = 0;
   const no = () => String(++railNo).padStart(2, "0");
-  const readingBlock = model.impact || model.openQuestion
+  const readingBlock = model.why || model.impact || model.openQuestion
     ? `<section class="rail-block">
         <p class="rail-no">${no()} / 읽을 때</p>
+        ${model.why ? `<p class="rail-impact"><strong>${esc(model.why.label)} <span class="ai-badge">AI</span></strong>${esc(model.why.text)}</p>` : ""}
         ${model.impact ? `<p class="rail-impact"><strong>${esc(model.impact.label)} <span class="ai-badge">AI</span></strong>${esc(model.impact.text)}</p>` : ""}
         ${model.openQuestion ? `<p class="rail-open"><strong>아직 확정되지 않은 것</strong>${esc(model.openQuestion)}</p>` : ""}
       </section>`
@@ -1170,7 +1190,7 @@ function renderEvidenceRail() {
     <div class="rail-head">
       <p class="rail-kicker">${esc(model.source.label)}${model.media ? ` · ${esc(model.media.label)}` : ""}</p>
       <h2>${esc(issue.title)}</h2>
-      <p class="rail-badges">${verificationBadge(issue, { always: true })}<span>${esc(model.evidenceText)}</span></p>
+      <p class="rail-badges">${verificationBadge(issue, { always: true })}${reportPickBadge(issue)}<span>${esc(model.evidenceText)}</span></p>
     </div>
     <div class="rail-body">
       ${model.change ? `<section class="rail-block">
@@ -1214,8 +1234,9 @@ function openIssueDialog(issueId, updateUrl = true) {
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
-      <p class="dialog-verification">${verificationBadge(issue, { always: true })}<span>${esc(issueEvidenceText(issue))}</span></p>
-      ${issue.implication ? `<p class="dialog-meaning"><strong>Nuclens 해석 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
+      <p class="dialog-verification">${verificationBadge(issue, { always: true })}${reportPickBadge(issue)}<span>${esc(issueEvidenceText(issue))}</span></p>
+      ${issue.why_important ? `<p class="dialog-meaning"><strong>왜 중요한가 <span class="ai-badge">AI</span></strong>${esc(issue.why_important)}</p>` : ""}
+      ${issue.implication ? `<p class="dialog-meaning"><strong>시사점 <span class="ai-badge">AI</span></strong>${esc(issue.implication)}</p>` : ""}
       ${issue.open_question ? `<p class="dialog-open"><strong>아직 확정되지 않은 것</strong>${esc(issue.open_question)}</p>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>

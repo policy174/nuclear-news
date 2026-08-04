@@ -705,6 +705,42 @@ def _is_restatement(before: object, after: object, threshold: float = 0.45) -> b
     return len(shorter & longer) / len(shorter) >= 0.8
 
 
+def split_interpretation(record: dict) -> tuple[str, str]:
+    """AI 해석 두 줄을 각자의 축으로 내보낸다 → (implication, why_important).
+
+    `implication`(시사점, 60자, 전 등급)과 `why_important`(왜 중요, 150자,
+    must_read 전용)는 큐레이션 프롬프트가 서로 다른 축으로 만든 문장이다. 그런데
+    이 빌드가 `implication or why_important` 로 둘을 하나로 뭉개고 있었다.
+    아카이브 실측(2026-08-04, must_read 55건): 둘 다 있는 22건은 긴 쪽이 통째로
+    버려졌고, why_important 만 있는 19건은 그 문장이 시사점 라벨을 달고 나갔다.
+    정상은 55건 중 1건이었다 (docs/2026-08-04-gap-review.md).
+
+    둘이 같은 사실을 다시 쓴 날은 한 줄만 남긴다 — 블록이 둘로 늘면 읽을 거리가
+    늘었다는 신호인데 같은 문단이면 그 신호가 거짓이 된다. 남기는 쪽은 **긴
+    쪽**이다. 짧은 쪽을 남기면 지금 고치려는 그 손실이 그대로 남는다.
+    """
+    implication = str(record.get("implication") or "").strip()
+    why_important = str(record.get("why_important") or "").strip()
+    if implication and why_important and _is_restatement(implication, why_important):
+        if len(implication) >= len(why_important):
+            return implication, ""
+        return "", why_important
+    return implication, why_important
+
+
+def pick_report_topic(members: list[dict]) -> str:
+    """이 이슈의 기사 중 '보고서 검토 추천'을 받은 것이 있으면 그 주제.
+
+    추천은 기사 단위로 붙는데 화면은 이슈 단위다. 한 이슈에 추천 기사가 둘일
+    일은 거의 없지만(하루 최대 2건) 있으면 최신 기사 쪽을 쓴다.
+    """
+    for member in sorted(members, key=lambda m: str(m.get("article_date") or ""), reverse=True):
+        topic = str(member.get("report_pick") or "").strip()
+        if topic:
+            return topic
+    return ""
+
+
 def load_embeddings_cache() -> dict[str, list[float]]:
     """현행 Gemini 모델의 임베딩 캐시만 읽기 전용으로 정규화한다.
 
@@ -2260,6 +2296,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                               key=lambda member: (member["article_date"], member["briefing_date"], member["hash"]),
                               reverse=True)
             tracked_briefings = len({member["briefing_date"] for member in timeline})
+            implication, why_important = split_interpretation(representative)
             issue_rows.append({
                 "issue_id": issue["issue_id"],
                 "status": "ongoing" if history else "new",
@@ -2267,7 +2304,11 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "last_seen": briefing_date,
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
-                "implication": representative.get("implication") or representative.get("why_important") or "",
+                "implication": implication,
+                "why_important": why_important,
+                # 그날 보고서 검토 추천을 받은 기사가 이 이슈에 있으면 그 주제.
+                # 추천은 그날의 판단이라 이번 브리핑분(current)에서만 본다.
+                "report_pick": pick_report_topic(current),
                 # 대표 기사가 아니라 이슈 전체에서 고른다 — 미확정 내용은 공식
                 # 기사에만 있고 대표 기사에는 없는 경우가 흔하다.
                 "open_question": pick_open_question(timeline),
@@ -2380,6 +2421,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
         days_since_update = (
             (latest_day - last_day).days if latest_day and last_day else None
         )
+        implication, why_important = split_interpretation(representative)
         rows.append({
             "issue_id": issue["issue_id"],
             "status": "ongoing" if len(briefing_dates) > 1 else "new",
@@ -2389,7 +2431,11 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "last_seen": last_seen,
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
-            "implication": representative.get("implication") or representative.get("why_important") or "",
+            "implication": implication,
+            "why_important": why_important,
+            # 아카이브 행은 그 이슈가 **언젠가** 보고서감이었는지를 남긴다 —
+            # 브리핑 행과 달리 '오늘'이라는 기준일이 없다.
+            "report_pick": pick_report_topic(timeline),
             "open_question": pick_open_question(timeline),
             "latest_change": change_line_for_card(
                 current, history, representative.get("summary", "")
@@ -2431,7 +2477,10 @@ def _issue_meta_description(issue: dict) -> str:
 ATLAS_NODES = (
     ("latest_change", lambda row: bool(row.get("latest_change"))),
     ("open_question", lambda row: bool(row.get("open_question"))),
-    ("implication", lambda row: bool(row.get("implication"))),
+    # 라벨은 시사점·왜 중요 둘로 갈라졌지만(2026-08-04) 이 노드가 묻는 건
+    # 'AI 해석 문장이 하나라도 있는가' 하나다. 한쪽만 세면 분리 작업이
+    # 데이터 후퇴로 잘못 읽힌다 — 실제로는 같은 문장이 제 이름을 찾았을 뿐이다.
+    ("implication", lambda row: bool(row.get("implication") or row.get("why_important"))),
     ("related_articles", lambda row: (row.get("article_count") or 0) >= 2),
     ("official_source", lambda row: ((row.get("verification") or {})
                                      .get("official_source_count") or 0) > 0),
@@ -2569,8 +2618,10 @@ def build_rss(briefings: list[dict], generated_at: datetime) -> bytes:
                 description.append(f"핵심: {issue['summary']}")
             if issue.get("latest_change"):
                 description.append(f"새로 확인: {issue['latest_change']}")
+            if issue.get("why_important"):
+                description.append(f"왜 중요(AI 해석): {issue['why_important']}")
             if issue.get("implication"):
-                description.append(f"의미(AI 해석): {issue['implication']}")
+                description.append(f"시사점(AI 해석): {issue['implication']}")
             ET.SubElement(item, "description").text = "\n".join(description)
     return ET.tostring(rss, encoding="utf-8", xml_declaration=True)
 
@@ -2634,6 +2685,9 @@ def build() -> None:
             "event_date_source": record.get("event_date_source", "unknown"),
             "selection_score": delivery.get("score") if delivery else None,
             "selection_reasons": selection_reasons(delivery, record),
+            # 보고서 검토 추천은 발송 시점의 판단이라 아카이브 레코드가 아니라
+            # delivery_log 에 실려 온다 (daily_brief.plan_briefs).
+            "report_pick": delivery.get("report_pick", "") if delivery else "",
             # 기존 프론트와의 호환용. 새 화면은 briefing_date를 사용한다.
             "promoted": delivery.get("date") if delivery else None,
         })

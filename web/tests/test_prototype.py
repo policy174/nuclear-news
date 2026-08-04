@@ -1136,8 +1136,14 @@ class GeneratedDataTests(unittest.TestCase):
         # 늘어나는 것 자체를 막을 뿐이라(다이얼로그 + 근거 패널), 지점마다 배지가
         # 붙어 있는지를 본다.
         self.assertGreaterEqual(script.count('class="ai-badge"'), 1)
-        self.assertIn('Nuclens 해석 <span class="ai-badge">AI</span>', script)
-        self.assertIn('${esc(model.impact.label)} <span class="ai-badge">AI</span>', script)
+        # 라벨이 '산업 영향'→'시사점'으로 바뀌고 '왜 중요한가'가 갈라져 나왔다
+        # (2026-08-04). 이름표가 부서 업무에 가까워질수록 이 배지가 더 중요하다 —
+        # 라벨만 바꾸고 배지를 놓치면 AI 해석이 공식 견해로 읽힌다.
+        for marked in ('왜 중요한가 <span class="ai-badge">AI</span>',
+                       '시사점 <span class="ai-badge">AI</span>',
+                       '${esc(model.why.label)} <span class="ai-badge">AI</span>',
+                       '${esc(model.impact.label)} <span class="ai-badge">AI</span>'):
+            self.assertIn(marked, script)
         self.assertIn(".ai-badge", style)
 
     def test_rss_and_report_copy_are_generated(self):
@@ -1206,7 +1212,8 @@ class GeneratedDataTests(unittest.TestCase):
     def test_p5_detail_order_related_issues_and_mobile_actions(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
-        for heading in ("한 줄 결론", "이번에 달라진 점", "Nuclens 해석", "사건 타임라인과 근거 원문", "관련 이슈"):
+        for heading in ("한 줄 결론", "이번에 달라진 점", "왜 중요한가", "시사점",
+                        "사건 타임라인과 근거 원문", "관련 이슈"):
             self.assertIn(heading, script)
         self.assertIn("function relatedIssues", script)
         # 제목이 상세 진입점이므로 좁은 화면에서 타임라인 버튼을 숨겨도 길이 남는다.
@@ -2040,6 +2047,104 @@ class OpenQuestionRenderTests(unittest.TestCase):
     def test_style_exists(self):
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertIn(".dialog-open", style)
+
+
+class InterpretationSplitTests(unittest.TestCase):
+    """AI 해석 두 줄은 각자의 축으로 선다.
+
+    2026-08-04 이전에는 빌드가 `implication or why_important` 로 둘을 뭉갰고,
+    화면은 그 결과를 '산업 영향'이라는 제3의 이름으로 내보냈다. must_read 55건
+    중 정상은 1건이었다 — 22건은 긴 쪽이 버려졌고 19건은 왜 중요가 시사점
+    라벨을 달았다 (docs/2026-08-04-gap-review.md).
+    """
+
+    def test_two_axes_survive_as_two_fields(self):
+        row = build_data.split_interpretation({
+            "implication": "체코의 SMR 도입 의지가 구체화되며 유럽 시장 확대가 예상됩니다.",
+            "why_important": "두코바니 후속 사업의 발주 방식이 한국형 노형의 유럽 재진입 조건을 좌우한다.",
+        })
+        self.assertEqual(len([value for value in row if value]), 2)
+
+    def test_why_important_alone_is_not_relabelled_as_implication(self):
+        """예전 폴백의 실제 피해 — 19건이 남의 이름표를 달고 나갔다."""
+        implication, why_important = build_data.split_interpretation(
+            {"implication": "", "why_important": "장기 운영 허가의 선례가 된다."})
+        self.assertEqual(implication, "")
+        self.assertEqual(why_important, "장기 운영 허가의 선례가 된다.")
+
+    def test_restated_pair_keeps_the_longer_line(self):
+        """같은 말이면 한 줄만. 남기는 쪽은 긴 쪽 — 짧은 쪽을 남기면 원래 손실 그대로다."""
+        long_line = "미국 에너지부의 시험용 원자로 가동 승인은 차세대 원자로 기술 개발의 중요한 이정표이며, 향후 상용화에 긍정적입니다."
+        short_line = "미국 에너지부의 시험용 원자로 가동 승인은 차세대 원자로 기술 개발의 이정표입니다."
+        implication, why_important = build_data.split_interpretation(
+            {"implication": short_line, "why_important": long_line})
+        self.assertEqual(why_important, long_line)
+        self.assertEqual(implication, "")
+
+    def test_atlas_counts_either_field_so_the_split_is_not_read_as_a_drop(self):
+        """노드가 묻는 건 'AI 해석이 있는가' 하나다. 한쪽만 세면 분리가 후퇴로 보인다."""
+        node = dict((name, test) for name, test in build_data.ATLAS_NODES)["implication"]
+        self.assertTrue(node({"why_important": "왜 중요한지의 설명", "implication": ""}))
+        self.assertTrue(node({"implication": "시사점 한 줄", "why_important": ""}))
+        self.assertFalse(node({"implication": "", "why_important": ""}))
+
+    def test_the_web_calls_the_line_what_telegram_calls_it(self):
+        """같은 문장을 텔레그램은 '시사점', 웹은 '산업 영향'이라 부르던 것을 끝낸다."""
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("산업 영향", code)
+        # 한 필드에 이름이 셋이면(산업 영향·Nuclens 해석·시사점) 화면마다 다른
+        # 것으로 읽힌다. 다이얼로그도 같은 이름을 쓴다.
+        self.assertNotIn("Nuclens 해석", code)
+        self.assertIn('label: "시사점"', script)
+
+    def test_both_lines_get_their_own_block_on_the_lead_card_and_rail(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        for field in ("model.why ?", "model.impact ?"):
+            self.assertIn(field, lead, f"선두 카드에 {field} 블록이 없다")
+        rail = script.split("function renderEvidenceRail(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("model.why ?", rail)
+        self.assertIn("model.impact ?", rail)
+        # AI 해석이라는 표시는 라벨이 바뀌어도 남아야 한다 — 회사 화면에서 이
+        # 문장이 공식 견해로 읽히면 라벨을 고친 의미가 없다.
+        self.assertEqual(rail.count('class="ai-badge"'), 2)
+
+
+class ReportPickTests(unittest.TestCase):
+    """보고서 검토 추천 — 텔레그램에만 있던 것을 웹에 라벨 하나로 옮겼다.
+
+    섹션이 아니라 라벨인 것은 사용자 결정이다(2026-08-04). 웹은 동료가 함께
+    보는 화면이라 '무엇이 후보인가'는 공유하되 '왜·어떤 각도로 쓰라'는 개인
+    브리핑에 남긴다.
+    """
+
+    def test_topic_comes_from_the_articles_not_the_screen(self):
+        picked = build_data.pick_report_topic([
+            {"article_date": "2026-08-01", "report_pick": ""},
+            {"article_date": "2026-08-03", "report_pick": "중국 신규 원전 8기 승인의 정책 함의"},
+        ])
+        self.assertEqual(picked, "중국 신규 원전 8기 승인의 정책 함의")
+
+    def test_no_pick_is_an_empty_string_not_a_placeholder(self):
+        self.assertEqual(build_data.pick_report_topic([{"article_date": "2026-08-03"}]), "")
+
+    def test_badge_renders_the_label_and_hides_the_angles(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function reportPickBadge", script)
+        self.assertIn("보고서 검토 추천", script)
+        # 텔레그램 카드의 하위 항목까지 옮기면 라벨이 아니라 섹션이 된다.
+        # 주석에서는 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("추천 각도", code)
+        badge = script.split("function reportPickBadge(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("esc(topic)", badge, "추천 주제는 title 속성으로도 이스케이프해야 한다")
+
+    def test_badge_is_legible_on_the_dark_evidence_rail(self):
+        """근거 패널 머리는 딥 포레스트 배경이다 — 밝은 배경용 색을 그대로 쓰면 묻힌다."""
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".report-pick-badge", style)
+        self.assertIn(".rail-badges .report-pick-badge", style)
 
 
 class WeeklyReportTests(unittest.TestCase):
