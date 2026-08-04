@@ -151,6 +151,14 @@ class AudioBriefTestCase(unittest.TestCase):
         audio_brief.generate_script("재료")
         self.assertEqual(self.call_kwargs[0].get("thinking_budget"), 0)
 
+    def test_generate_script_uses_isolated_quota_bucket(self):
+        """대본은 기본 MODEL(크롤·브리핑 체인 공용 버킷)이 아니라 별도 모델
+        버킷을 쓴다 — 공용 버킷은 저녁이면 고갈돼 3연속 429 실사고(2026-08-04)."""
+        self.responses = [{"script": GOOD_SCRIPT}]
+        audio_brief.generate_script("재료")
+        self.assertEqual(self.call_kwargs[0].get("model"),
+                         audio_brief.SCRIPT_MODEL_DEFAULT)
+
     def test_generate_script_retries_once_on_bad_format(self):
         self.responses = [{"script": "그냥 낭독문입니다."}, {"script": GOOD_SCRIPT}]
         script = audio_brief.generate_script("재료")

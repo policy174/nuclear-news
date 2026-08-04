@@ -51,6 +51,15 @@ KST = timezone(timedelta(hours=9))
 TTS_MODELS = ["gemini-3.1-flash-tts-preview", "gemini-2.5-flash-preview-tts"]
 VOICES = {"HOST": "Kore", "ANALYST": "Charon"}
 
+# 대본 생성은 기본 MODEL(2.5-flash)이 아니라 별도 무료 버킷을 쓴다 — 크롤
+# 큐레이션·브리핑 체인이 쓰는 버킷은 저녁이면 고갈돼 하루 1회짜리 이 호출이
+# 3연속 429 로 굶었다(2026-08-04 실측: 같은 시각 단독 프로브는 성공).
+SCRIPT_MODEL_DEFAULT = "gemini-2.5-flash-lite"
+
+
+def _script_model() -> str:
+    return gemini_client._resolve("GEMINI_SCRIPT_MODEL", SCRIPT_MODEL_DEFAULT)
+
 SPEAKER_RE = re.compile(r"^(HOST|ANALYST):\s*(.+)$")
 MIN_LINES = 8          # 이보다 짧으면 대담이 아니라 낭독이다
 MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초). TTS 1요청 안전 범위
@@ -169,7 +178,8 @@ def generate_script(material: str) -> str:
     (2026-08-04 CI 실사고: thoughts=7863, output=315).
     """
     result = call_json(SYSTEM_PROMPT, material, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0, thinking_budget=0)
+                       max_output_tokens=8192, timeout=120.0, thinking_budget=0,
+                       model=_script_model())
     try:
         script, spoken = validate_script(result.get("script"))
         if spoken <= MAX_SPOKEN:
@@ -184,7 +194,8 @@ def generate_script(material: str) -> str:
         "대본 전체를 다시 쓰세요."
     )
     result = call_json(SYSTEM_PROMPT, retry_message, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0, thinking_budget=0)
+                       max_output_tokens=8192, timeout=120.0, thinking_budget=0,
+                       model=_script_model())
     script, spoken = validate_script(result.get("script"))
     if spoken > MAX_SPOKEN:
         raise ValueError(f"재시도 후에도 {spoken}자 — 포기")
