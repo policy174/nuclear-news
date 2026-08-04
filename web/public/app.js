@@ -26,6 +26,16 @@ const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc
 const VIEW_IDS = ["news", "search", "trend", "saved", "pubs"];
 const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
 
+const ENTITY_TYPE_LABELS = { plant: "원전", company: "기업", org: "기관", project: "프로젝트" };
+// 리디자인에서 새로 들어오는 문구는 여기로 모은다 — 화면 하드코딩 786건(S3 부채)을
+// 더 키우지 않기 위한 봉쇄선. 기존 문구는 옮기지 않는다(그건 S3 의 일).
+const STRINGS = {
+  entityUnknown: "등록되지 않은 대상입니다",
+  entityClear: "탐색으로 돌아가기",
+  recentCapture: "최근 포착",
+  hubEmptyEntities: "아직 연결된 대상이 없습니다 — 데이터가 쌓이면 채워집니다.",
+};
+
 const state = {
   news: [], briefings: [], issues: [], trend: null, insights: null, meta: null,
   pubs: null, pubsOrg: "전체",
@@ -34,6 +44,7 @@ const state = {
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
+  archiveEntity: "", entities: null,
   period: "7", keywordSort: "mentions", savedIds: new Set(),
   offline: !navigator.onLine, pendingGeneration: "",
 };
@@ -475,6 +486,7 @@ function syncUrl(mode = "replace") {
   if (state.topic !== "전체") params.set("topic", state.topic);
   if (state.view !== "news") params.set("view", state.view);
   if (state.archiveQuery) params.set("q", state.archiveQuery);
+  if (state.archiveEntity) params.set("ent", state.archiveEntity);
   if (state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
   if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
   if (state.archivePeriod !== "all") params.set("ap", state.archivePeriod);
@@ -497,6 +509,9 @@ function restoreUrlState() {
   state.view = VIEW_IDS.includes(params.get("view")) ? params.get("view") : "news";
   state.issueId = issueIdFromLocation() || params.get("issue") || "";
   state.archiveQuery = normalizedSearch(params.get("q") || params.get("aq"));
+  // ent 딥링크는 탐색 화면을 전제한다 — view 파라미터가 따로 없으면 그리로 간다.
+  state.archiveEntity = params.get("ent") || "";
+  if (state.archiveEntity && !params.get("view")) state.view = "search";
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
   state.archivePeriod = ["7", "30", "all"].includes(params.get("ap")) ? params.get("ap") : "all";
@@ -767,13 +782,13 @@ function emptyBriefingState(briefing) {
     return {
       title: "오늘은 브리핑 기준을 넘는 이슈가 없습니다",
       detail: `검토한 후보 ${below}건은 기준에 미치지 못했습니다. `
-        + `<button type="button" data-go-view="search">이슈 아카이브에서 보기</button>`,
+        + `<button type="button" data-go-view="search">탐색에서 보기</button>`,
     };
   }
   if (briefing && briefing.candidate_count === 0) {
     return {
       title: "오늘 새로 확인된 브리핑 이슈가 없습니다",
-      detail: '진행 중인 이슈는 <button type="button" data-go-view="search">이슈 아카이브</button>에서 확인할 수 있습니다.',
+      detail: '진행 중인 이슈는 <button type="button" data-go-view="search">탐색</button>에서 확인할 수 있습니다.',
     };
   }
   return {
@@ -1000,6 +1015,9 @@ function renderNewsFeed() {
 }
 
 function archiveIssueMatches(issue) {
+  // 엔티티 필터가 맨 앞 — 엔티티 페이지는 "이 대상의 이슈"가 전제고,
+  // 나머지 필터(주제·기간·검색어)는 그 안에서의 교집합이다.
+  if (state.archiveEntity && !(issue.entity_ids || []).includes(state.archiveEntity)) return false;
   if (state.archiveRegion !== "전체" && !(issue.regions || []).includes(state.archiveRegion)) return false;
   if (state.archiveTopic !== "전체" && !(issue.topics || []).includes(state.archiveTopic)) return false;
   const confirmed = ["official", "corroborated"].includes(verificationState(issue).status);
@@ -1035,11 +1053,110 @@ function sortArchiveIssues(issues) {
   return rows;
 }
 
+function entityById(entityId) {
+  return (state.entities?.entities || []).find(entity => entity.id === entityId) || null;
+}
+
+// 탐색이 '검색 결과 화면'에서 '발견을 시작하는 화면'이 되도록, 랜딩(검색어·
+// 필터·엔티티가 전부 기본값)에서만 시작점을 깐다. 순서는 엔티티 → 주제 →
+// 국가 → 출처(접힘) — 이 화면의 새 용도(대상 추적)가 앞에 선다.
+function renderExploreHub() {
+  const box = document.getElementById("exploreHub");
+  if (!box) return;
+  const entityChips = (state.entities?.entities || [])
+    .filter(entity => entity.issue_count > 0)
+    .slice(0, 12)
+    .map(entity => `<button type="button" class="hub-chip" data-hub-ent="${esc(entity.id)}">
+      <small>${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}</small>${esc(entity.name_kr)}<b>${entity.issue_count}</b>
+    </button>`).join("");
+  document.getElementById("hubEntities").innerHTML =
+    entityChips || `<p class="empty">${esc(STRINGS.hubEmptyEntities)}</p>`;
+  const topicCounts = new Map();
+  state.issues.forEach(issue => (issue.topics || []).forEach(topic => {
+    topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
+  }));
+  document.getElementById("hubTopics").innerHTML = [...topicCounts]
+    .sort((a, b) => b[1] - a[1])
+    .map(([topic, count]) => `<button type="button" class="hub-chip" data-hub-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}<b>${count}</b></button>`)
+    .join("");
+  // 국가는 이슈 단위로 센다(같은 이슈의 기사 5건이 전부 미국이어도 1) —
+  // trend 의 countries_30d 와 같은 셈법이라 화면끼리 숫자가 어긋나지 않는다.
+  const countryCounts = new Map();
+  state.issues.forEach(issue => {
+    const codes = new Set((issue.related_articles || []).flatMap(article => article.countries || []));
+    codes.forEach(code => countryCounts.set(code, (countryCounts.get(code) || 0) + 1));
+  });
+  document.getElementById("hubCountries").innerHTML = [...countryCounts]
+    .filter(([code]) => code !== "UNSPECIFIED")
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([code, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(COUNTRY_LABELS[code] || code)}">${esc(COUNTRY_LABELS[code] || code)}<b>${count}</b></button>`)
+    .join("");
+  const publisherCounts = new Map();
+  state.issues.forEach(issue => {
+    const names = new Set((issue.related_articles || []).map(article => article.publisher).filter(Boolean));
+    names.forEach(name => publisherCounts.set(name, (publisherCounts.get(name) || 0) + 1));
+  });
+  document.getElementById("hubSources").innerHTML = [...publisherCounts]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([name, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(name)}">${esc(name)}<b>${count}</b></button>`)
+    .join("");
+}
+
+function renderEntityHeader() {
+  const box = document.getElementById("entityHeader");
+  if (!box) return;
+  if (!state.archiveEntity) { box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false;
+  const entity = entityById(state.archiveEntity);
+  if (!entity) {
+    box.innerHTML = `<p class="entity-unknown">${esc(STRINGS.entityUnknown)}
+      <button type="button" data-clear-entity>${esc(STRINGS.entityClear)}</button></p>`;
+    return;
+  }
+  const connected = state.issues.filter(issue => (issue.entity_ids || []).includes(entity.id));
+  // '자주 함께 등장한 주제'는 표본이 3건은 되어야 말할 수 있다 — 1건짜리
+  // 엔티티에 주제 셋을 붙이면 그 이슈의 주제를 되풀이하는 장식이 된다.
+  let topicLine = "";
+  if (connected.length >= 3) {
+    const together = new Map();
+    connected.forEach(issue => (issue.topics || []).forEach(topic => {
+      together.set(topic, (together.get(topic) || 0) + 1);
+    }));
+    const top = [...together].sort((a, b) => b[1] - a[1]).slice(0, 3)
+      .map(([topic]) => `<button type="button" class="hub-chip" data-hub-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}</button>`);
+    if (top.length) topicLine = `<div class="entity-topics"><span>자주 함께 등장한 주제</span>${top.join("")}</div>`;
+  }
+  const countries = (entity.countries || [])
+    .map(code => COUNTRY_LABELS[code] || code).join(" · ");
+  const latest = entity.latest_issue_date ? ` · ${STRINGS.recentCapture} ${dateLabel(entity.latest_issue_date)}` : "";
+  box.innerHTML = `
+    <p class="entity-kind">${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}${countries ? ` · ${esc(countries)}` : ""}</p>
+    <h2 class="entity-name">${esc(entity.name_kr)}${entity.name_en ? ` <span lang="en">${esc(entity.name_en)}</span>` : ""}</h2>
+    <p class="entity-stats">이슈 ${connected.length}건 · 근거 기사 ${entity.article_count}건${latest}</p>
+    ${topicLine}
+    <button type="button" class="text-action" data-clear-entity>${esc(STRINGS.entityClear)}</button>`;
+}
+
 function renderArchiveSearch(resetLimit = false) {
   if (resetLimit) state.archiveLimit = 20;
   const matches = sortArchiveIssues(state.issues.filter(archiveIssueMatches));
   const visible = matches.slice(0, state.archiveLimit);
+  // 랜딩(모든 조건이 기본값)에서만 발견 허브를 깐다. 조건이 하나라도 서면
+  // 이 화면은 결과 화면이고, 허브는 소음이다.
+  const isLanding = !state.archiveQuery && !state.archiveEntity
+    && state.archiveRegion === "전체" && state.archiveTopic === "전체"
+    && state.archivePeriod === "all" && state.archiveVerification === "전체";
+  const hub = document.getElementById("exploreHub");
+  if (hub) {
+    hub.hidden = !isLanding;
+    if (isLanding) renderExploreHub();
+  }
+  renderEntityHeader();
+  const entityName = state.archiveEntity ? (entityById(state.archiveEntity)?.name_kr || state.archiveEntity) : "";
   const activeFilters = [
+    entityName,
     state.archiveQuery ? `“${state.archiveQuery}”` : "",
     state.archivePeriod !== "all" ? `최근 ${state.archivePeriod}일` : "",
     state.archiveRegion !== "전체" ? state.archiveRegion : "",
@@ -1069,14 +1186,14 @@ function renderArchiveSearch(resetLimit = false) {
     count.hidden = activeFilters.length === 0;
   }
   const summary = document.querySelector("#archiveFilterDrawer > summary");
-  if (summary) summary.setAttribute("aria-label", activeFilters.length ? `아카이브 필터 ${activeFilters.length}개 적용됨` : "아카이브 필터");
+  if (summary) summary.setAttribute("aria-label", activeFilters.length ? `탐색 필터 ${activeFilters.length}개 적용됨` : "탐색 필터");
 }
 
 function renderSaved() {
   const issues = state.issues.filter(issue => state.savedIds.has(issue.issue_id));
   document.getElementById("savedIssueList").innerHTML = issues.length
     ? issues.map((issue, index) => issueCard(issue, index, true)).join("")
-    : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">이슈 아카이브 보기</button></div>';
+    : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">탐색에서 보기</button></div>';
 }
 
 const PUB_KIND_LABELS = {
@@ -1653,6 +1770,7 @@ function clearBriefingFilters() {
 
 function clearArchiveFilters() {
   state.archiveQuery = "";
+  state.archiveEntity = "";
   state.archiveRegion = "전체";
   state.archiveTopic = "전체";
   state.archivePeriod = "all";
@@ -1664,6 +1782,37 @@ function clearArchiveFilters() {
   setPressed(document.getElementById("archivePeriod"), document.querySelector('#archivePeriod [data-period="all"]'));
   renderArchiveSearch(true);
   syncUrl();
+}
+
+// 허브·엔티티 헤더의 클릭은 필터 조작이지 이슈 액션이 아니다 — handleIssueAction
+// 위임 목록에 넣지 않고 따로 받는다. 규칙: 허브에서 무엇을 고르면 **그 필터
+// 하나만 선 깨끗한 결과**에서 시작한다(교집합은 그 뒤 사용자가 쌓는 것).
+function handleHubAction(event) {
+  const entityChip = event.target.closest("[data-hub-ent]");
+  const topicChip = event.target.closest("[data-hub-topic]");
+  const queryChip = event.target.closest("[data-hub-q]");
+  const clearEntity = event.target.closest("[data-clear-entity]");
+  if (!entityChip && !topicChip && !queryChip && !clearEntity) return;
+  state.archiveQuery = "";
+  state.archiveEntity = "";
+  state.archiveRegion = "전체";
+  state.archiveTopic = "전체";
+  state.archivePeriod = "all";
+  state.archiveVerification = "전체";
+  document.getElementById("globalSearch").value = "";
+  document.getElementById("archiveRegion").value = "전체";
+  document.getElementById("archiveTopic").value = "전체";
+  document.getElementById("archiveVerification").value = "전체";
+  setPressed(document.getElementById("archivePeriod"), document.querySelector('#archivePeriod [data-period="all"]'));
+  if (entityChip) state.archiveEntity = entityChip.dataset.hubEnt;
+  if (topicChip) {
+    state.archiveTopic = topicChip.dataset.hubTopic;
+    document.getElementById("archiveTopic").value = state.archiveTopic;
+  }
+  if (queryChip) state.archiveQuery = normalizedSearch(queryChip.dataset.hubQ);
+  renderArchiveSearch(true);
+  syncUrl("push");
+  scrollToPageTop();
 }
 
 function switchView(view, updateUrl = true) {
@@ -1836,6 +1985,10 @@ function bind() {
    "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
+  // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
+  ["exploreHub", "entityHeader"].forEach(id => {
+    document.getElementById(id).addEventListener("click", handleHubAction);
+  });
 
   document.getElementById("showChangedIssues").addEventListener("click", () => {
     const section = document.getElementById("changedIssues");
@@ -1996,7 +2149,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -2004,6 +2157,8 @@ async function init() {
       // 오디오는 세대 폴더가 아니라 data/ 루트에 산다(daily-brief 가 하루 1회 생성).
       // 없거나 깨져도 플레이어만 숨는다 — 같은 비치명 계약.
       loadRootJSON("audio/audio.json", true).catch(() => null),
+      // 엔티티 사전도 부가 데이터 — 없으면 허브의 대상 그룹만 비고 나머지는 산다.
+      loadJSON("entities.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;

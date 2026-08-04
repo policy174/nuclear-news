@@ -1187,6 +1187,46 @@ kbd {
 .trend-intro h1 { margin: 0; font-size: var(--t-title); line-height: 1.25; }
 .archive-intro p,
 .trend-intro > p:not(.eyebrow) { margin: 7px 0 0; color: var(--c-text-muted); }
+/* ── 발견 허브 · 엔티티 헤더 ─────────────────────────────────────────
+   탐색 랜딩의 시작점. 괘선 어법(2px primary / 1px border)은 선두 카드·표와
+   같다 — 박스·배경 없이 선과 타이포로만 위계를 세운다. */
+.explore-hub { display: grid; gap: var(--sp-6); margin-bottom: var(--sp-10); }
+.hub-group { padding-top: var(--sp-4); border-top: 1px solid var(--c-border); }
+.hub-group > h2, .hub-group > summary {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-caption);
+  font-weight: 700;
+  color: var(--c-text-secondary);
+}
+.hub-sources > summary { cursor: pointer; list-style: none; min-height: 44px; display: flex; align-items: center; }
+.hub-sources > summary::before { content: "▸ "; color: var(--c-text-muted); }
+.hub-sources[open] > summary::before { content: "▾ "; }
+.hub-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.hub-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-1);
+  background: var(--c-surface);
+  font-size: var(--t-caption);
+  transition: background var(--mo-1), border-color var(--mo-1);
+}
+.hub-chip:hover { border-color: var(--c-border-strong); background: var(--c-surface-sunken); }
+.hub-chip small { color: var(--c-text-muted); font-size: var(--t-min); }
+.hub-chip b { color: var(--c-text-muted); font-weight: 600; font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.hub-chips .empty { margin: 0; color: var(--c-text-muted); font-size: var(--t-caption); }
+.entity-header { margin-bottom: var(--sp-8); padding-top: var(--sp-4); border-top: 2px solid var(--c-primary); }
+.entity-kind { margin: 0; color: var(--c-text-muted); font-size: var(--t-min); font-family: var(--ff-mono); letter-spacing: .04em; }
+.entity-name { margin: 6px 0 0; font-size: var(--t-title); line-height: 1.2; letter-spacing: -.03em; }
+.entity-name span { color: var(--c-text-muted); font-size: var(--t-body); font-weight: 500; letter-spacing: 0; }
+.entity-stats { margin: 8px 0 0; color: var(--c-text-secondary); font-size: var(--t-caption); font-variant-numeric: tabular-nums; }
+.entity-topics { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+.entity-topics > span { color: var(--c-text-muted); font-size: var(--t-min); }
+.entity-header .text-action { margin-top: var(--sp-3); }
+.entity-unknown { display: flex; align-items: center; gap: var(--sp-3); margin: 0; color: var(--c-text-secondary); }
 .archive-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 28px; align-items: start; }
 /* 넓은 화면에서 서랍은 보이지 않는다 — app.js 가 open 을 켜 두고 손잡이만 숨긴다.
    좁은 화면 규칙은 max-width:767px 블록에 있다. */

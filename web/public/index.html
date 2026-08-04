@@ -50,8 +50,8 @@
       </span>
     </a>
     <nav class="main-tabs" id="mainTabs" aria-label="주요 화면">
-      <button class="main-tab active" data-view="news" aria-pressed="true">오늘 브리핑</button>
-      <button class="main-tab" data-view="search" aria-pressed="false">이슈 아카이브</button>
+      <button class="main-tab active" data-view="news" aria-pressed="true">오늘</button>
+      <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
       <button class="main-tab" data-view="trend" aria-pressed="false">주간 흐름</button>
       <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
     </nav>
@@ -204,9 +204,23 @@
 
   <section id="view-search" hidden aria-labelledby="archiveTitle">
     <div class="archive-intro">
-      <div><h1 id="archiveTitle">이슈 아카이브</h1><p id="archiveCatalogMeta"></p></div>
-      <button id="archiveSearchOpen" type="button" class="secondary-button">아카이브 검색 <span aria-hidden="true">/</span></button>
+      <div><h1 id="archiveTitle">탐색</h1><p id="archiveCatalogMeta"></p></div>
+      <button id="archiveSearchOpen" type="button" class="secondary-button">검색 <span aria-hidden="true">/</span></button>
     </div>
+    <!-- 발견 허브 — 검색어·필터가 없는 랜딩에서만 보인다. 이 화면의 두 번째
+         용도(대상을 찾아 추적)를 위해 시작점을 깔아 준다: 엔티티 → 주제 →
+         국가, 출처는 접힘. issue_count 0 엔티티는 여기 안 나온다(검색에는
+         나온다) — 빈 항목이 가득한 허브는 제품이 비어 보이게 만든다. -->
+    <section id="exploreHub" class="explore-hub" aria-label="탐색 시작점" hidden>
+      <div class="hub-group"><h2>지금 많이 등장하는 대상</h2><div class="hub-chips" id="hubEntities"></div></div>
+      <div class="hub-group"><h2>주제</h2><div class="hub-chips" id="hubTopics"></div></div>
+      <div class="hub-group"><h2>국가·지역</h2><div class="hub-chips" id="hubCountries"></div></div>
+      <details class="hub-group hub-sources"><summary>출처로 찾기</summary><div class="hub-chips" id="hubSources"></div></details>
+    </section>
+    <!-- ent 딥링크의 엔티티 페이지 머리 — 이름·유형·국가·집계와 연결 이슈가
+         아래 결과 목록으로 이어진다. '최근 포착'이라 쓴다: 사건 발생일이 아니라
+         보도가 마지막으로 잡힌 날이다(event_date 는 사실상 빈 필드). -->
+    <section id="entityHeader" class="entity-header" hidden></section>
     <div class="archive-layout">
       <!-- 좁은 화면에서 이 패널은 접힌다. 펼친 채로 두면 select 4개가 첫 화면
            520px 를 먹고 결과 110건이 통째로 폴드 아래로 내려간다(실측 360×800).
@@ -214,7 +228,7 @@
       <details id="archiveFilterDrawer" class="archive-filter-drawer filter-drawer">
         <summary>필터 <span id="archiveFilterCount"></span></summary>
         <div class="archive-filters" aria-label="아카이브 필터">
-          <div class="filter-sheet-head"><strong>아카이브 필터</strong><span id="archiveSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeArchiveFilters" type="button">닫기</button></div>
+          <div class="filter-sheet-head"><strong>탐색 필터</strong><span id="archiveSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeArchiveFilters" type="button">닫기</button></div>
           <div class="archive-query" id="archiveQueryDisplay">검색어 없음</div>
           <fieldset><legend>기간</legend>
             <div class="segmented" id="archivePeriod">
@@ -346,7 +360,7 @@
 
 <nav id="mobileTabs" class="mobile-tabs" aria-label="모바일 주요 화면">
   <button class="active" type="button" data-view="news" aria-pressed="true"><span>오늘</span></button>
-  <button type="button" data-view="search" aria-pressed="false"><span>아카이브</span></button>
+  <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
   <button type="button" data-view="trend" aria-pressed="false"><span>주간</span></button>
   <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
   <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount">0</small></button>

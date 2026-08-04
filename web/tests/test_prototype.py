@@ -2616,6 +2616,72 @@ class EmptyBriefingStateTests(unittest.TestCase):
         self.assertNotIn("data-goto-view", self.script)
 
 
+class ExploreHubTests(unittest.TestCase):
+    """탐색 발견 허브 + ent 딥링크 엔티티 페이지의 배선 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_hub_and_entity_header_exist_and_are_wired(self):
+        for element_id in ("exploreHub", "entityHeader", "hubEntities", "hubTopics",
+                          "hubCountries", "hubSources"):
+            self.assertIn(f'id="{element_id}"', self.html)
+        self.assertIn("function renderExploreHub", self.script)
+        self.assertIn("function renderEntityHeader", self.script)
+        self.assertIn("function handleHubAction", self.script)
+        # 허브는 이슈 액션 위임(allowlist)이 아니라 전용 리스너를 쓴다.
+        self.assertIn('["exploreHub", "entityHeader"].forEach', self.script)
+        self.assertNotIn('"exploreHub", "entityHeader", "issueList"', self.script)
+
+    def test_entities_json_is_loaded_with_catch(self):
+        # 새 JSON fetch 는 반드시 .catch() — 8/1 빈 화면 사고 계약.
+        self.assertIn('loadJSON("entities.json").catch(() => null)', self.script)
+
+    def test_ent_param_round_trips(self):
+        self.assertIn('params.set("ent", state.archiveEntity)', self.script)
+        self.assertIn('params.get("ent")', self.script)
+        # 잠금 라인은 바이트 그대로 남는다.
+        self.assertIn('if (state.archiveQuery) params.set("q", state.archiveQuery);', self.script)
+
+    def test_entity_filter_is_first_and_clears_with_the_rest(self):
+        script = self.script
+        matches = script.index("function archiveIssueMatches")
+        self.assertIn("state.archiveEntity && !(issue.entity_ids || []).includes(state.archiveEntity)",
+                      script[matches:matches + 600])
+        clear = script.index("function clearArchiveFilters")
+        self.assertIn('state.archiveEntity = "";', script[clear:clear + 400])
+
+    def test_zero_count_entities_stay_out_of_the_hub(self):
+        self.assertIn("entity.issue_count > 0", self.script)
+
+    def test_recent_capture_wording_not_last_confirmed(self):
+        # '마지막 확인'은 사용자 확인 시각으로 오독된다 — 보도 포착일은 '최근 포착'.
+        self.assertIn("최근 포착", self.script)
+        render = self.script[self.script.index("function renderEntityHeader"):]
+        render = render[:render.index("function renderArchiveSearch")]
+        self.assertNotIn("마지막 확인", render)
+
+    def test_together_topics_need_three_issues(self):
+        self.assertIn("connected.length >= 3", self.script)
+
+    def test_new_copy_is_centralized(self):
+        self.assertIn("const STRINGS = {", self.script)
+        self.assertIn("ENTITY_TYPE_LABELS", self.script)
+
+    def test_hub_chips_meet_touch_target(self):
+        chip = self.style[self.style.index(".hub-chip {"):]
+        chip = chip[:chip.index("}")]
+        self.assertIn("min-height: 44px", chip)
+
+    def test_tab_labels_renamed(self):
+        self.assertIn(">탐색</button>", self.html)
+        self.assertIn(">오늘</button>", self.html)
+        self.assertNotIn(">이슈 아카이브<", self.html)
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""
