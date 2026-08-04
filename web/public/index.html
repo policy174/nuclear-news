@@ -27,6 +27,10 @@
   <link rel="alternate" type="application/rss+xml" title="Nuclens 원자력 정책·산업 이슈 트래커" href="/rss.xml">
   <title>Nuclens · 원자력 정책·산업 이슈 트래커</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- 2MB 가변 폰트 — /fonts/* 는 1년 immutable 캐시라 첫 방문 1회만 비용.
+       font-display: swap 의 무스타일 구간을 줄이려는 preload 다. 저속 회선
+       waterfall 에서 주요 리소스를 밀어내면 이 한 줄을 제거하는 게 맞다. -->
+  <link rel="preload" href="/fonts/pretendard/v1.3.9/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
