@@ -1549,6 +1549,31 @@ def change_line_for_card(current: list[dict], history: list[dict], summary: str)
     return "" if _is_restatement(summary, change) else change
 
 
+def card_change_display(change: str, title: str, implication: str, summary: str) -> str:
+    """카드에 실을 변화 문장 — 화면에 이미 보이는 문장의 재진술을 걷어낸다.
+
+    화살표 문장의 뒤쪽(B)은 현재 요약으로 만들어지므로 구조적으로 카드와
+    겹친다(2026-08-04 실측: 오늘 브리핑 8건 중 2건이 summary 포함률 1.00 —
+    카드가 제목·요약·변화로 같은 말을 세 번 했다). 오늘 상태는 제목과 둘째
+    줄이 이미 말하고 있으니, 화면에 없는 정보는 앞쪽(직전 상태)뿐이다 —
+    그쪽만 '직전 브리핑:' 라벨로 남긴다.
+
+    `latest_change` 원본은 그대로 둔다 — changed_issue_count 의 화살표 집계와
+    RSS·og 설명이 그 필드를 세고 있다. 이 함수는 표시 전용 필드를 만든다.
+    """
+    change = str(change or "").strip()
+    if not change or "→" not in change:
+        return change
+    before, _, after = change.partition("→")
+    before = before.strip().rstrip(",")
+    visible = f"{title or ''} {implication or ''} {summary or ''}"
+    if not _is_restatement(visible, after.strip()):
+        return change
+    if not before or _is_restatement(visible, before):
+        return ""
+    return f"직전 브리핑: {before}"
+
+
 def _is_primary_source(article: dict) -> bool:
     return article.get("evidence_role") == "primary" or article.get("source_tier") == 1
 
@@ -2297,6 +2322,9 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                               reverse=True)
             tracked_briefings = len({member["briefing_date"] for member in timeline})
             implication, why_important = split_interpretation(representative)
+            change_line = change_line_for_card(
+                current, history, representative.get("summary", "")
+            )
             issue_rows.append({
                 "issue_id": issue["issue_id"],
                 "status": "ongoing" if history else "new",
@@ -2312,8 +2340,10 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 # 대표 기사가 아니라 이슈 전체에서 고른다 — 미확정 내용은 공식
                 # 기사에만 있고 대표 기사에는 없는 경우가 흔하다.
                 "open_question": pick_open_question(timeline),
-                "latest_change": change_line_for_card(
-                    current, history, representative.get("summary", "")
+                "latest_change": change_line,
+                "change_display": card_change_display(
+                    change_line, representative["title_kr"],
+                    implication, representative.get("summary", "")
                 ),
                 "verification": verification_state(timeline, checked_at),
                 "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
@@ -2642,6 +2672,9 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             (latest_day - last_day).days if latest_day and last_day else None
         )
         implication, why_important = split_interpretation(representative)
+        archive_change_line = change_line_for_card(
+            current, history, representative.get("summary", "")
+        )
         # 엔티티 매칭은 여기(원 멤버)에서만 가능하다 — _article_view 가
         # canonical_tags 를 싣지 않으므로 직렬화 이후엔 재료가 없다.
         entity_ids: list[str] = []
@@ -2665,8 +2698,10 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             # 브리핑 행과 달리 '오늘'이라는 기준일이 없다.
             "report_pick": pick_report_topic(timeline),
             "open_question": pick_open_question(timeline),
-            "latest_change": change_line_for_card(
-                current, history, representative.get("summary", "")
+            "latest_change": archive_change_line,
+            "change_display": card_change_display(
+                archive_change_line, representative["title_kr"],
+                implication, representative.get("summary", "")
             ),
             "verification": verification_state(timeline, checked_at),
             "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),

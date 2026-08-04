@@ -401,6 +401,43 @@ class ChangeLineTests(unittest.TestCase):
         current = self._member("한수원이 체코 두코바니 신규 원전 본계약에 서명했다.")
         self.assertIn("→", build_data.latest_change_line([current], [previous]))
 
+    # ── change_display: 카드 표시 전용 필드 (2026-08-04) ──────────────
+    # 화살표 문장의 뒤쪽(B)은 현재 요약으로 만들어져 카드의 제목·둘째 줄과
+    # 구조적으로 겹친다(실측: 8/4 브리핑 8건 중 2건 summary 포함률 1.00).
+    # latest_change 원본은 changed_issue_count·RSS 가 세므로 그대로 두고,
+    # 카드는 이 필드를 쓴다.
+
+    def test_card_display_folds_arrow_tail_that_restates_the_summary(self):
+        summary = "헝가리 총리가 다뉴브강의 낮은 수위로 원자력 발전소 가동이 중단될 수 있다고 경고했다."
+        change = f"다뉴브강 수위가 역대 최저치를 기록했습니다. → {summary}"
+        shown = build_data.card_change_display(
+            change, "헝가리, 가뭄으로 팍스 원전 가동 중단 위기", "", summary)
+        self.assertNotIn("→", shown)
+        self.assertTrue(shown.startswith("직전 브리핑: "))
+        self.assertIn("역대 최저치", shown)
+
+    def test_card_display_empties_when_both_sides_restate(self):
+        summary = ("독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 "
+                   "목표로 3개의 국가 허브 계획을 발표했다.")
+        before = ("독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 "
+                  "목표로 계획을 발표했다")
+        shown = build_data.card_change_display(
+            f"{before} → {summary}", "독일 핵융합 국가 허브", "", summary)
+        self.assertEqual(shown, "")
+
+    def test_card_display_keeps_arrow_with_genuinely_new_tail(self):
+        change = "원안위가 심사를 시작했다. → 한수원이 체코 두코바니 신규 원전 본계약에 서명했다."
+        shown = build_data.card_change_display(
+            change, "신한울 3호기 인허가", "국내 인허가 일정의 분수령이다",
+            "원안위가 신한울 3호기 건설 허가 심사를 진행 중이다.")
+        self.assertEqual(shown, change)
+
+    def test_card_display_passes_non_arrow_lines_through(self):
+        self.assertEqual(build_data.card_change_display("", "t", "i", "s"), "")
+        self.assertEqual(
+            build_data.card_change_display("새 부지 조사가 시작됐다.", "t", "i", "s"),
+            "새 부지 조사가 시작됐다.")
+
 
 class DailyHeadlineTests(unittest.TestCase):
     def test_headline_never_exceeds_the_hero_limit(self):
@@ -1032,6 +1069,15 @@ class GeneratedDataTests(unittest.TestCase):
         # 모바일이 본 무대 — hero-actions 처럼 숨기지 말고 44px 터치 타깃
         self.assertIn(".hero-audio button { min-height: 44px; }", style)
         self.assertNotIn(".hero-audio { display: none", style)
+
+    def test_card_change_display_is_wired_over_latest_change(self):
+        """카드·상세·복사의 단일 접점(issueChangeText)이 표시 전용 필드를 우선한다.
+
+        undefined/"" 구분 필수 — 빌드가 의도적으로 비운 변화 문장이
+        latest_change 폴백으로 되살아나면 재진술 게이트가 무효가 된다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("issue.change_display !== undefined", script)
 
     def test_p3_issue_pages_have_unique_open_graph_metadata(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

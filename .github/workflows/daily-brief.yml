@@ -173,6 +173,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
           GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL || 'gemini-3.1-flash-tts-preview' }}
+          # 오디오 브리핑 텔레그램 발송용 (audio_brief.send_telegram_audio)
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           git fetch origin main && git reset --hard origin/main

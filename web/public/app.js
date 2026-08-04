@@ -271,7 +271,11 @@ function issueEvidenceText(issue) {
 
 // 요약을 그대로 되풀이하는 변화 문장은 빌드가 비운다. 빈 값이면 블록을 그리지
 // 않는다 — 요약이 이미 같은 사실을 말하고 있으므로 '없다'는 안내도 붙이지 않는다.
+// change_display 는 화살표 문장의 뒤쪽(=현재 요약 재진술)을 걷어낸 표시 전용
+// 필드다. 필드 자체가 없으면(구세대 데이터) latest_change 로 물러난다 —
+// undefined 와 "" 를 구분해야 "의도적으로 비움"이 폴백으로 되살아나지 않는다.
 function issueChangeText(issue) {
+  if (issue.change_display !== undefined) return issue.change_display || "";
   return issue.latest_change || "";
 }
 
