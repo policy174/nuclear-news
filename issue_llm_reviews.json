@@ -62,6 +62,36 @@
       "right_title": "수명 만료 원전 4기, 계속운전 인허가 절차 지연 지속",
       "same_event": false
     },
+    "09d2791626624247--fd17939220b56c39": {
+      "embedding_similarity": 0.8647,
+      "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "계속운전 심의 지연 관련",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "same_event": true
+    },
+    "0abd318976122879--27009ea4489faffc": {
+      "embedding_similarity": 0.8459,
+      "left_title": "Natura Resources, 용융염 원자로 핵 안전 설계 협약 DOE 승인 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
+      "same_event": false
+    },
+    "0abd318976122879--5841f6b7706c0048": {
+      "embedding_similarity": 0.8519,
+      "left_title": "Natura Resources, 용융염 원자로 핵 안전 설계 협약 DOE 승인 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 결정",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
     "0abd318976122879--5f508326eb5801f7": {
       "embedding_similarity": 0.8452,
       "left_title": "Natura Resources, 용융염 원자로 핵 안전 설계 협약 DOE 승인 발표",
@@ -72,6 +102,26 @@
       "right_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
       "same_event": false
     },
+    "0b5218c29cbb0084--5841f6b7706c0048": {
+      "embedding_similarity": 0.844,
+      "left_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "0b5218c29cbb0084--64e9af97c5aec46c": {
+      "embedding_similarity": 0.8698,
+      "left_title": "한국 SMR 동력 컨테이너선 개념 설계, 미국선급협회(ABS)로부터 기본승인(AIP) 획득",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
+      "same_event": false
+    },
     "0b5218c29cbb0084--9ff80dab9059f991": {
       "embedding_similarity": 0.841,
       "left_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
@@ -80,6 +130,36 @@
       "reason": "다른 주체, 다른 SMR 프로젝트",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "same_event": false
+    },
+    "0b5218c29cbb0084--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8567,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
+      "same_event": false
+    },
+    "0b5218c29cbb0084--c1dc07ee6de3f998": {
+      "embedding_similarity": 0.8452,
+      "left_title": "한국원자력연구원(KAERI), 용융염원자로(MSR) 선박 개념설계 미국선급협회(ABS) AIP 획득",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
+      "same_event": false
+    },
+    "0b5218c29cbb0084--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.8739,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
       "same_event": false
     },
     "0f67fdfe143a9591--27cf26ee5365bab5": {
@@ -102,6 +182,26 @@
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
       "same_event": false
     },
+    "0f67fdfe143a9591--4e6a1d2c0301a4d0": {
+      "embedding_similarity": 0.8511,
+      "left_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC의 다른 활동",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "same_event": false
+    },
+    "0f67fdfe143a9591--6b93ed7e22e9bb4b": {
+      "embedding_similarity": 0.846,
+      "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC의 다른 활동",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "same_event": false
+    },
     "0f67fdfe143a9591--89a559f17ff440e3": {
       "embedding_similarity": 0.8764,
       "left_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
@@ -110,6 +210,26 @@
       "reason": "다른 주체, 다른 협력",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "same_event": false
+    },
+    "0f67fdfe143a9591--937708a71d17b0a2": {
+      "embedding_similarity": 0.847,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC의 다른 활동",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "same_event": false
+    },
+    "0f67fdfe143a9591--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8458,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
       "same_event": false
     },
     "12ec710dcc1a738a--42f55252997bbbc3": {
@@ -122,6 +242,16 @@
       "right_title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
       "same_event": true
     },
+    "132131d1ecd3871d--4eb98cc6028338d9": {
+      "embedding_similarity": 0.8462,
+      "left_title": "스탠다드 뉴클리어, 2026년 TRISO 핵연료 생산 시설 가동 계획 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 연료",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "나노 뉴클리어, 포르틸과 크로노스 MMR 연료 취급·저장 시스템 설계 협력",
+      "same_event": false
+    },
     "195a5cc0f97befa7--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8513,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -131,6 +261,16 @@
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
       "same_event": true
+    },
+    "2373d90047ca2464--7702cb1efa54b619": {
+      "embedding_similarity": 0.8552,
+      "left_title": "유럽투자은행, 루마니아 체르나보다 원전 1호기 설비개선에 8억 유로 지원 확정",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
+      "same_event": false
     },
     "2449e0ab8d45461b--349e783fd4decdfa": {
       "embedding_similarity": 0.8558,
@@ -172,6 +312,26 @@
       "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
       "same_event": false
     },
+    "27009ea4489faffc--337a9ffbe7eef399": {
+      "embedding_similarity": 0.8414,
+      "left_title": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 국가가 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
+      "same_event": false
+    },
+    "27009ea4489faffc--5841f6b7706c0048": {
+      "embedding_similarity": 0.8534,
+      "left_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
     "27009ea4489faffc--5f508326eb5801f7": {
       "embedding_similarity": 0.8585,
       "left_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
@@ -182,6 +342,16 @@
       "right_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
       "same_event": false
     },
+    "27009ea4489faffc--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8518,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
+      "same_event": false
+    },
     "27009ea4489faffc--ca69ce47dc1e639d": {
       "embedding_similarity": 0.8447,
       "left_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
@@ -190,6 +360,16 @@
       "reason": "다른 회사, 다른 원자로",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "27009ea4489faffc--e53a1ba2dfe73d05": {
+      "embedding_similarity": 0.845,
+      "left_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
       "same_event": false
     },
     "27cf26ee5365bab5--27e417353612169a": {
@@ -382,6 +562,16 @@
       "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
       "same_event": false
     },
+    "349e783fd4decdfa--5f50f27e3d506043": {
+      "embedding_similarity": 0.8627,
+      "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 프로젝트",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
+      "same_event": false
+    },
     "349e783fd4decdfa--a8c1cdc2ca53d72f": {
       "embedding_similarity": 0.8641,
       "left_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
@@ -389,6 +579,26 @@
       "prompt_version": 1,
       "reason": "다른 부처, 다른 안건",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
+      "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
+      "same_event": false
+    },
+    "349e783fd4decdfa--db88cff11d029f91": {
+      "embedding_similarity": 0.8431,
+      "left_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
+      "same_event": false
+    },
+    "349e783fd4decdfa--e166e0749a04c6dd": {
+      "embedding_similarity": 0.8542,
+      "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 프로젝트",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
       "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
       "same_event": false
     },
@@ -420,6 +630,76 @@
       "reason": "주체와 안건이 다름",
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "same_event": false
+    },
+    "3b00d0a5a0199c0b--3c21a6c659220e5f": {
+      "embedding_similarity": 0.8448,
+      "left_title": "텍사스 A&M 대학, 우라늄 전환 연구 유치 및 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "same_event": false
+    },
+    "3b00d0a5a0199c0b--61fefa0bf9e0db2c": {
+      "embedding_similarity": 0.8473,
+      "left_title": "SuperCritical Materials, 해수 우라늄 추출 기술 라이선스 확보",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "same_event": false
+    },
+    "3b00d0a5a0199c0b--62dc161cb51f2498": {
+      "embedding_similarity": 0.84,
+      "left_title": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "same_event": false
+    },
+    "3b00d0a5a0199c0b--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8757,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 결정",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "same_event": false
+    },
+    "3b00d0a5a0199c0b--cd798dfa8457d15c": {
+      "embedding_similarity": 0.8561,
+      "left_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
+      "same_event": false
+    },
+    "3c21a6c659220e5f--5841f6b7706c0048": {
+      "embedding_similarity": 0.8423,
+      "left_title": "텍사스 A&M 대학, 우라늄 전환 연구 유치 및 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "3c21a6c659220e5f--62dc161cb51f2498": {
+      "embedding_similarity": 0.8565,
+      "left_title": "텍사스 A&M 대학, 우라늄 전환 연구 유치 및 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 연구 주체와 내용",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
       "same_event": false
     },
     "3c3560063b344488--b3adbd243878a3c3": {
@@ -480,6 +760,16 @@
       "reason": "A는 특정 원전 추진 검토, B는 전력 공급의 일반적 중요성 강조",
       "reviewed_at": "2026-08-03T07:27:10.373117+00:00",
       "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "same_event": false
+    },
+    "4113d294aea75ee0--fd17939220b56c39": {
+      "embedding_similarity": 0.8405,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 안건",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
     },
     "431840aff0e21ddb--a4723d13eaa57660": {
@@ -612,6 +902,26 @@
       "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
       "same_event": true
     },
+    "5841f6b7706c0048--61fefa0bf9e0db2c": {
+      "embedding_similarity": 0.8487,
+      "left_title": "SuperCritical Materials, 해수 우라늄 추출 기술 라이선스 확보",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "5841f6b7706c0048--62dc161cb51f2498": {
+      "embedding_similarity": 0.8402,
+      "left_title": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
     "5841f6b7706c0048--bf6d688ab21e07ed": {
       "embedding_similarity": 0.8798,
       "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
@@ -619,6 +929,36 @@
       "prompt_version": 1,
       "reason": "DOE의 다른 안건",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "5841f6b7706c0048--db88cff11d029f91": {
+      "embedding_similarity": 0.8492,
+      "left_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "5841f6b7706c0048--e166e0749a04c6dd": {
+      "embedding_similarity": 0.8547,
+      "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 DOE 결정",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
+      "same_event": false
+    },
+    "5841f6b7706c0048--e53a1ba2dfe73d05": {
+      "embedding_similarity": 0.8458,
+      "left_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
       "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
       "same_event": false
     },
@@ -702,6 +1042,16 @@
       "right_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
       "same_event": false
     },
+    "5f50f27e3d506043--62dc161cb51f2498": {
+      "embedding_similarity": 0.85,
+      "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
+      "same_event": false
+    },
     "5f50f27e3d506043--b63eab8bc4b1467a": {
       "embedding_similarity": 0.866,
       "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
@@ -710,6 +1060,16 @@
       "reason": "다른 프로젝트",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "same_event": false
+    },
+    "5f50f27e3d506043--cd798dfa8457d15c": {
+      "embedding_similarity": 0.8489,
+      "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 프로젝트",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
       "same_event": false
     },
     "6260c0799db78ac9--76ffb07f2b6ccb8d": {
@@ -721,6 +1081,26 @@
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
       "same_event": true
+    },
+    "6260c0799db78ac9--fd17939220b56c39": {
+      "embedding_similarity": 0.8423,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 안건",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "same_event": false
+    },
+    "62dc161cb51f2498--cd798dfa8457d15c": {
+      "embedding_similarity": 0.8649,
+      "left_title": "콜로라도 광산대학, AI 활용 핵연료 재활용 및 핵심 광물 탐사 연구",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 연구 주체와 내용",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
+      "same_event": false
     },
     "64e9af97c5aec46c--89a559f17ff440e3": {
       "embedding_similarity": 0.8739,
@@ -810,6 +1190,26 @@
       "reason": "다른 주체, 다른 SMR 프로젝트",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "same_event": false
+    },
+    "89a559f17ff440e3--bf6d688ab21e07ed": {
+      "embedding_similarity": 0.8539,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
+      "same_event": false
+    },
+    "89a559f17ff440e3--c1dc07ee6de3f998": {
+      "embedding_similarity": 0.8605,
+      "left_title": "한국원자력연구원(KAERI), 용융염원자로(MSR) 선박 개념설계 미국선급협회(ABS) AIP 획득",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
+      "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
       "same_event": false
     },
     "89a559f17ff440e3--ca69ce47dc1e639d": {
