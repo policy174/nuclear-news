@@ -9,20 +9,61 @@ const failures = [];
 const meta = await (await fetch(new URL(`data/meta.json?cb=${Date.now()}`, BASE))).json();
 
 const browser = await chromium.launch();
+const page = await browser.newPage();
+
+// 실패했을 때 "왜"를 CI 로그에서 바로 읽으려고 모아 둔다. 라이브 검증은 로컬
+// 재현이 안 되는 일이 잦아서(러너 환경 전용 실패), 증거를 남기지 않으면
+// 다음 세션이 또 처음부터 추측한다.
+const inflight = new Map();
+const failed = [];
+const pageErrors = [];
+page.on("request", (request) => inflight.set(request, Date.now()));
+page.on("requestfinished", (request) => inflight.delete(request));
+page.on("requestfailed", (request) => {
+  inflight.delete(request);
+  failed.push(`${request.url()} :: ${request.failure()?.errorText || "unknown"}`);
+});
+page.on("pageerror", (error) => pageErrors.push(String(error).slice(0, 300)));
+
+function diagnostics() {
+  const lines = [];
+  const now = Date.now();
+  for (const [request, started] of inflight) {
+    lines.push(`  미완료 요청 (${now - started}ms): ${request.url()}`);
+  }
+  for (const line of failed) lines.push(`  실패 요청: ${line}`);
+  for (const line of pageErrors) lines.push(`  JS 오류: ${line}`);
+  return lines;
+}
+
 try {
-  const page = await browser.newPage();
-  await page.goto(BASE, { waitUntil: "networkidle", timeout: 60000 });
-  await page.waitForTimeout(3000);
+  // waitUntil 로 "networkidle" 을 쓰면 안 된다. 이 앱은 60초 주기로 meta.json 을
+  // 폴링하고(checkForNewGeneration), 오디오·폰트·404 부가 요청이 물려 있어
+  // 네트워크가 조용해지는 순간이 보장되지 않는다 — 2026-08-04 CI 에서 실제로
+  // 60초 타임아웃으로 워크플로가 죽었다(라이브는 멀쩡했다). 로드 완료 신호는
+  // 네트워크가 아니라 **렌더러 출력**으로 판정한다.
+  await page.goto(BASE, { waitUntil: "domcontentloaded", timeout: 60000 });
+
+  // #issueList 는 index.html 에 스켈레톤 카드가 박혀 있어서 렌더러가 죽어도
+  // article 이 잡힌다. renderBriefing 이 맨 처음 하는 일이 skeleton-list 클래스
+  // 제거이므로, 그 클래스가 사라졌는지가 "렌더러가 실제로 돌았는가"의 신호다.
+  // #headerStatus 는 renderSystemStatus 의 출력 — 둘 다 서면 초기화가 끝난 것.
+  try {
+    await page.waitForFunction(() => {
+      const list = document.querySelector("#issueList");
+      const header = document.querySelector("#headerStatus");
+      return !!list && !list.classList.contains("skeleton-list")
+        && !!header && /이슈\s*\d+/.test(header.textContent || "");
+    }, null, { timeout: 45000 });
+  } catch {
+    const headerStatus = (await page.textContent("#headerStatus").catch(() => "")) || "";
+    const skeleton = await page.locator("#issueList.skeleton-list").count();
+    failures.push(`초기 렌더 미완료 (45초) — 헤더 "${headerStatus.trim()}", 스켈레톤 ${skeleton ? "잔존" : "제거됨"}`);
+    for (const line of diagnostics()) failures.push(line.trim());
+  }
 
   const bodyText = (await page.textContent("body")) || "";
-  // renderSystemStatus() 의 출력 노드. 예전 #metaLine 이 #headerStatus 로 개명됐는데
-  // 여기만 옛 id 로 남아 있었다 — .catch(()=>"") 가 없는 요소를 빈 문자열로 삼키고
-  // 아래 정규식이 그 빈 문자열에서 실패해, 2026-08 내내 daily-brief 가 상시 빨갰다.
-  // 빈 컨테이너가 아니라 렌더러가 채우는 노드를 봐야 한다는 이 파일의 원칙 그대로다.
-  const headerStatus = (await page.textContent("#headerStatus").catch(() => "")) || "";
-
   if (/데이터 연결 실패/.test(bodyText)) failures.push("'데이터 연결 실패' 문구가 화면에 있음");
-  if (!/이슈\s*\d+/.test(headerStatus)) failures.push(`헤더 상태 비정상: "${headerStatus}"`);
 
   // 선정 하한 도입 뒤로 이슈 0건은 정상 상태다(News Minimalist 식 — 조용한 날은
   // 피드가 짧아지는 게 설계 의도). 그래서 "카드가 1개 이상"을 요구하면 멀쩡한
@@ -30,7 +71,8 @@ try {
   // 카드 아니면 빈 상태, 둘 다 없으면 그때가 진짜 렌더 실패다.
   const listHtml = (await page.innerHTML("#issueList").catch(() => "")) || "";
   if (!listHtml.trim()) failures.push("renderBriefing 이 아무것도 그리지 않음 (#issueList 비어 있음)");
-  const cards = await page.locator("#issueList article").count();
+  // 스켈레톤 카드는 정적 마크업이라 세면 안 된다 — 렌더러가 죽어도 잡힌다.
+  const cards = await page.locator("#issueList article:not(.skeleton-card)").count();
   const emptyStates = await page.locator("#issueList .empty-state").count();
   const changedCards = await page.locator("#changedList article").count();
   if (cards === 0 && changedCards === 0 && emptyStates === 0) {
@@ -57,10 +99,8 @@ try {
   const pubsTab = page.locator('#mainTabs [data-view="pubs"]');
   if (await pubsTab.count()) {
     await pubsTab.click();
-    await page.waitForTimeout(800);
-    if (!(await page.locator("#view-pubs").isVisible())) {
-      failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음");
-    }
+    await page.locator("#view-pubs").waitFor({ state: "visible", timeout: 10000 })
+      .catch(() => failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음"));
     const listHtml = (await page.innerHTML("#pubsList").catch(() => "")) || "";
     if (!listHtml.trim()) {
       failures.push("renderPubs 가 아무것도 그리지 않음 (#pubsList 비어 있음)");
@@ -74,6 +114,11 @@ try {
   } else {
     failures.push("발간물 탭 버튼이 없음");
   }
+
+  if (failures.length) for (const line of diagnostics()) failures.push(line.trim());
+} catch (error) {
+  failures.push(`스모크 실행 중 예외: ${String(error).split("\n")[0]}`);
+  for (const line of diagnostics()) failures.push(line.trim());
 } finally {
   await browser.close();
 }

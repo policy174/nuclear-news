@@ -850,6 +850,58 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertEqual(len(issues), 1, "기각이 없는데 묶음이 갈렸다")
 
 
+class RenderSmokeContractTests(unittest.TestCase):
+    """렌더 스모크 자체의 계약 — 빌드 산출물 없이도 도는 정적 검사.
+
+    스모크가 조용히 무의미해지는 실패(없는 id 참조, 오지 않는 networkidle 대기,
+    스켈레톤 오검출)는 라이브가 멀쩡해도 CI 를 상시 빨갛게 만들거나 반대로
+    깨진 화면을 통과시킨다. 그래서 데이터와 무관하게 항상 검사한다.
+    """
+
+    def test_render_smoke_selectors_exist_in_the_page(self):
+        """스모크가 없는 id 를 보면 조용히 실패한다 — 라이브가 멀쩡해도 CI 가 빨개진다.
+
+        실제 사고: `#metaLine` 이 `#headerStatus` 로 개명됐는데 스모크만 옛 id 로
+        남았다. `page.textContent(...).catch(() => "")` 가 없는 요소를 빈 문자열로
+        삼키고 그 다음 정규식이 실패해, 2026-08 daily-brief 가 매일 실패했다.
+        상시 빨간 워크플로는 진짜 장애와 구분되지 않는다.
+        """
+        smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        page_ids = set(re.findall(r'id="([^"]+)"', html))
+        referenced = set(re.findall(r'["\'`]#([A-Za-z][\w-]*)["\'\s\[]', smoke))
+        missing = sorted(referenced - page_ids)
+        self.assertEqual(missing, [], f"render_smoke.mjs 가 없는 id 를 참조한다: {missing}")
+
+    def test_render_smoke_does_not_wait_for_network_idle(self):
+        """`networkidle` 은 이 앱에서 오지 않을 수 있다 — 기다리면 CI 가 죽는다.
+
+        앱은 60초 주기로 meta.json 을 폴링하고(checkForNewGeneration) 폰트·오디오
+        등 부가 요청이 물려 있어 "네트워크가 조용해지는 순간"이 보장되지 않는다.
+        2026-08-04 daily-brief 가 page.goto(waitUntil:"networkidle") 60초 타임아웃으로
+        연속 실패했다(라이브 화면은 멀쩡했다). 로드 완료는 네트워크가 아니라
+        렌더러 출력 노드로 판정한다.
+        """
+        smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
+        # 주석에는 "networkidle 을 쓰지 마라"가 적혀 있어야 하므로 코드만 검사한다.
+        code = "\n".join(re.sub(r"//.*", "", line) for line in smoke.splitlines())
+        self.assertNotIn("networkidle", code)
+        self.assertIn('waitUntil: "domcontentloaded"', code)
+        self.assertIn("waitForFunction", code)
+        self.assertIn("skeleton-list", code)
+
+    def test_render_smoke_ignores_skeleton_cards(self):
+        """#issueList 에는 index.html 이 박아 둔 스켈레톤 카드가 있다.
+
+        그대로 세면 renderBriefing 이 죽어도 article 이 잡혀 스모크가 통과한다 —
+        '정적 마크업이 든 컨테이너를 검사하면 공허하다'는 이 파일의 원칙 그대로다.
+        """
+        smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("skeleton-card", html)
+        self.assertIn("#issueList article:not(.skeleton-card)", smoke)
+
+
 class GeneratedDataTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -967,21 +1019,6 @@ class GeneratedDataTests(unittest.TestCase):
             all(evidence.get("region") in {"국내", "해외"} for evidence in item.get("evidence", []))
             for item in featured
         ))
-
-    def test_render_smoke_selectors_exist_in_the_page(self):
-        """스모크가 없는 id 를 보면 조용히 실패한다 — 라이브가 멀쩡해도 CI 가 빨개진다.
-
-        실제 사고: `#metaLine` 이 `#headerStatus` 로 개명됐는데 스모크만 옛 id 로
-        남았다. `page.textContent(...).catch(() => "")` 가 없는 요소를 빈 문자열로
-        삼키고 그 다음 정규식이 실패해, 2026-08 daily-brief 가 매일 실패했다.
-        상시 빨간 워크플로는 진짜 장애와 구분되지 않는다.
-        """
-        smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        page_ids = set(re.findall(r'id="([^"]+)"', html))
-        referenced = set(re.findall(r'["\'`]#([A-Za-z][\w-]*)["\'\s\[]', smoke))
-        missing = sorted(referenced - page_ids)
-        self.assertEqual(missing, [], f"render_smoke.mjs 가 없는 id 를 참조한다: {missing}")
 
     def test_explanatory_copy_is_removed(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
