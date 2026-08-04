@@ -1262,6 +1262,13 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
 .entity-topics > span { color: var(--c-text-muted); font-size: var(--t-min); }
 .entity-header .text-action { margin-top: var(--sp-3); }
 .entity-unknown { display: flex; align-items: center; gap: var(--sp-3); margin: 0; color: var(--c-text-secondary); }
+/* 뷰 전환 진입 — 6px 상승 + 페이드 한 번. 콘텐츠 접근을 막지 않는 길이(--mo-2).
+   reduced-motion 은 전역 오버라이드가 animation-duration 을 죽여 함께 꺼진다. */
+.view-in { animation: view-in var(--mo-2) var(--mo-ease-out); }
+@keyframes view-in { from { opacity: 0; transform: translateY(6px); } }
+dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(4px); } }
+
 /* ── 팔로우 패널(저장 탭) + 엔티티 팔로우 버튼 ── */
 .follow-panel { margin-bottom: var(--sp-10); }
 .follow-empty { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-3); margin: 0; padding: var(--sp-4) 0; border-top: 1px solid var(--c-border); color: var(--c-text-secondary); font-size: var(--t-caption); }

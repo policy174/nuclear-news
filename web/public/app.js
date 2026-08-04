@@ -122,6 +122,12 @@ function safeUrl(value) {
   }
 }
 
+// CSS의 prefers-reduced-motion 전역 오버라이드는 JS 주도 스크롤·모션에는
+// 적용되지 않는다 — JS 쪽 모션은 전부 이 헬퍼를 거친다.
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 function normalizedSearch(value) {
   return String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
 }
@@ -2009,7 +2015,17 @@ function switchView(view, updateUrl = true) {
   if (!VIEW_IDS.includes(view)) return;
   if (view !== state.view && state.issueId) closeIssueDialog(false);
   state.view = view;
-  VIEW_IDS.forEach(id => { document.getElementById(`view-${id}`).hidden = id !== view; });
+  VIEW_IDS.forEach(id => {
+    const section = document.getElementById(`view-${id}`);
+    const entering = id === view && section.hidden;
+    section.hidden = id !== view;
+    // 진입 모션 — 토큰(--mo-2) 경유라 reduced-motion 전역 오버라이드가 함께 끈다.
+    if (entering && !prefersReducedMotion()) {
+      section.classList.remove("view-in");
+      void section.offsetWidth;
+      section.classList.add("view-in");
+    }
+  });
   document.querySelectorAll("[data-view]").forEach(button => {
     const active = button.dataset.view === view;
     button.classList.toggle("active", active);
@@ -2387,7 +2403,7 @@ function handleIssueAction(event) {
     if (!detail.dataset.forceDialog && state.view === "news" && railIsActive()) {
       state.railIssueId = detail.dataset.issueId;
       renderEvidenceRail();
-      document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" });
       return true;
     }
     openIssueDialog(detail.dataset.issueId);
@@ -2475,10 +2491,8 @@ function bind() {
 
   document.getElementById("showChangedIssues").addEventListener("click", () => {
     const section = document.getElementById("changedIssues");
-    // CSS의 prefers-reduced-motion은 JS scrollIntoView에 적용되지 않는다.
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     (section.hidden ? document.getElementById("todayIssues") : section)
-      .scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      .scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
   });
   const briefAudio = document.getElementById("audioEl");
   document.getElementById("audioToggle").addEventListener("click", () => {

@@ -2864,6 +2864,35 @@ class SavedFollowTests(unittest.TestCase):
         self.assertIn("return;", head)
 
 
+class MotionTests(unittest.TestCase):
+    """모션은 토큰 경유 + reduced-motion 일괄 무력화 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_js_motion_goes_through_the_helper(self):
+        self.assertIn("function prefersReducedMotion", self.script)
+        # 원시 smooth 리터럴 소멸 — 모든 JS 스크롤이 헬퍼의 삼항을 거친다.
+        self.assertNotIn('behavior: "smooth"', self.script)
+        self.assertIn('matchMedia("(prefers-reduced-motion: reduce)")', self.script)
+
+    def test_view_and_dialog_motion_use_tokens(self):
+        self.assertIn(".view-in { animation: view-in var(--mo-2)", self.style)
+        self.assertIn("dialog[open] { animation: dialog-in var(--mo-2)", self.style)
+        self.assertIn("@keyframes view-in", self.style)
+
+    def test_local_storage_reads_are_hardened(self):
+        # JSON 을 읽는 모든 지점이 try/catch 아래에 있어야 한다 — 깨진 저장값이
+        # 앱을 죽이면 안 된다. (theme 은 문자열 그대로라 파싱이 없다.)
+        for key in ("nuclens-saved-issues", "nuclens-saved-meta",
+                    "nuclens-follows", "nuclens-follow-seen", "nuclens-recent-searches"):
+            index = self.script.index(f'localStorage.getItem("{key}"')
+            self.assertIn("try {", self.script[max(0, index - 240):index],
+                          f"{key} 읽기가 try 밖에 있다")
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""
