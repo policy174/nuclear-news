@@ -36,6 +36,13 @@
   --c-signal: #cce969;       /* 라임. 배경·강조 전용 — 밝은 배경 위 텍스트로 쓰지 말 것 */
   --c-verified: #1d725a;
   --c-unverified: #58675f;
+  /* 어두운 표면(--c-primary) 위 검증 배지 전용. --c-primary 는 두 테마 모두 딥
+     포레스트라(#12251e / #1a3329) 밝은 배경용 --c-verified(2.76:1)·
+     --c-unverified(2.69:1)가 그대로 오면 AA 에 못 미친다. 다크 팔레트의 같은
+     역할 색을 테마 무관 고정값으로 올린 것이라 다크에서는 렌더가 그대로다 —
+     그래서 아래 data-theme="dark" 블록에 짝이 없다. */
+  --c-verified-on-primary: #6cc0a2;   /* 7.41:1 on #12251e · 6.26:1 on #1a3329 */
+  --c-unverified-on-primary: #93a398; /* 6.06:1 on #12251e · 5.12:1 on #1a3329 */
   --c-focus: #7379dc;        /* 포커스링 전용 3.44:1 — 작은 링크 텍스트 금지 */
   --c-chart-1: #1d725a;
   --c-chart-2: #668d1d;
@@ -803,6 +810,18 @@ kbd {
 .rail-head h2 { margin: 0 0 11px; color: #fff; font-size: 17px; line-height: 1.4; }
 .rail-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0; font-size: 12.5px; }
 .rail-badges > span:last-child { color: rgb(255 255 255 / 78%); }
+/* 검증 배지는 밝은 배경을 전제로 색이 정해져 있다 — 그대로 이 어두운 머리말로
+   넘어오면 네 상태 모두 AA 미달이다(공식 확인 2.76:1, 확인 중 2.69:1). 팔레트를
+   건드리는 대신 rail 안에서만 갈아 끼운다. 기호(✓ · ○)와 문구는 손대지 않으므로
+   4단계 구분은 색과 무관하게 남는다. */
+/* 배지의 margin-top:4px 는 카드의 4열 격자에서 첫 줄에 물리려던 값이다. 여기는
+   한 줄짜리 flex(align-items: center)라 그 4px 이 그대로 남아 옆 문구보다 2px
+   내려앉는다. .report-pick-badge 와 같은 처리. */
+.rail-badges .verification-badge { margin-top: 0; }
+.rail-badges .verification-badge.v-official,
+.rail-badges .verification-badge.v-corroborated { color: var(--c-verified-on-primary); }
+.rail-badges .verification-badge.v-partial,
+.rail-badges .verification-badge.v-unverified { color: var(--c-unverified-on-primary); }
 .rail-body { padding: 0 17px 17px; }
 .rail-block { padding: 15px 0; border-bottom: 1px solid var(--c-border); }
 .rail-block:last-of-type { border-bottom: 0; }
