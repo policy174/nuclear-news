@@ -26,7 +26,13 @@
 from __future__ import annotations
 
 import sys
+from datetime import datetime, timedelta, timezone
 from html import escape
+
+# 브리핑은 GitHub Actions(UTC)에서 도는데 발송 시각이 08:30 KST 안팎 =
+# 전날 23:30 UTC 다. tz 없는 date.today() 를 쓰면 헤더 날짜가 늘 하루 전으로
+# 찍힌다(2026-08-04 실사고). 날짜는 반드시 KST 로 계산할 것.
+KST = timezone(timedelta(hours=9))
 
 # Windows 콘솔 UTF-8 강제 (다른 모듈과 동일)
 try:
@@ -292,9 +298,9 @@ def build_cards(pairs: list[tuple[str, dict]], *, self_check: bool = True) -> li
 def format_cards_message(cards: list[dict], *, header: str = "오늘의 원자력 브리핑",
                          show_header: bool = True) -> str:
     """카드 리스트 → 텔레그램 HTML 메시지. show_header=False면 섹션용(날짜 헤더 생략)."""
-    from datetime import date
     if show_header:
-        lines = [f"<b>📰 {escape(header)} ({date.today().isoformat()})</b>", ""]
+        today = datetime.now(KST).date().isoformat()
+        lines = [f"<b>📰 {escape(header)} ({today})</b>", ""]
     else:
         lines = [f"<b>{escape(header)}</b>", ""]
 

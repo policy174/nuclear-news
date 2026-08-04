@@ -23,9 +23,13 @@ import re
 import subprocess
 import sys
 import time
-from datetime import date
+from datetime import datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
+
+# tz 없는 date.today() 는 UTC runner 에서 하루 전 날짜를 준다 — synthesize.KST 와
+# 같은 이유(2026-08-04 브리핑 헤더 실사고). 날짜는 KST 로만 계산할 것.
+KST = timezone(timedelta(hours=9))
 
 # Windows 콘솔 UTF-8 강제 (이모지 출력 시 cp949 인코딩 에러 방지)
 try:
@@ -158,7 +162,7 @@ def run_research(topic_label: str, subqueries: list[str], subreddits: str) -> Pa
     """last30days 실행 후 저장된 raw 파일 경로 반환."""
     plan = build_plan(subqueries)
     primary_topic = subqueries[0]
-    suffix = f"auto-{date.today().isoformat()}"
+    suffix = f"auto-{datetime.now(KST).date().isoformat()}"
     expected = SAVE_DIR / f"{slugify(primary_topic)}-raw-{suffix}.md"
 
     cmd = [
@@ -338,7 +342,7 @@ def filter_and_rank(clusters: list[dict], limit: int) -> tuple[list[dict], list[
 
 def format_message(topic_label: str, primary_topic: str, clusters: list[dict],
                     stats: dict[str, int], raw_path: Path) -> str:
-    today = date.today().isoformat()
+    today = datetime.now(KST).date().isoformat()
     emoji = {"Reddit": "🟠", "X": "🔵", "Youtube": "🔴",
              "Hacker News": "🟡", "Polymarket": "🟣"}
 
@@ -397,7 +401,7 @@ def filter_topics_by_schedule(topics: list[dict], include_biweekly: bool) -> lis
         return [t for t in topics if t.get("schedule") == "weekly"]
 
     # 격주 판단: ISO week number의 홀짝
-    week = date.today().isocalendar()[1]
+    week = datetime.now(KST).date().isocalendar()[1]
     is_odd_week = (week % 2 == 1)
 
     selected = []
