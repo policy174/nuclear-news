@@ -155,6 +155,15 @@ jobs:
           echo "insights push 실패 — 비치명, 다음날 재시도"
           exit 0
 
+      # GitHub ubuntu 러너에 ffmpeg 가 없다 (2026-08-04 실측 — 로컬엔 있어서
+      # 로컬 검증이 못 잡았다). 오디오 mp3 변환 전용. 실패해도 비치명 —
+      # audio_brief 가 ffmpeg 부재를 감지하고 스스로 스킵한다.
+      - name: Install ffmpeg (오디오 브리핑용)
+        if: always() && steps.claim.conclusion == 'success'
+        run: |
+          sudo apt-get update -qq >/dev/null 2>&1 || true
+          sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1 || echo "ffmpeg 설치 실패 — 오디오 스킵 (비치명)"
+
       # 아침 브리핑·흐름 해석을 nuclens.pages.dev에 즉시 반영 (하루 1회 확정 배포)
       - name: Deploy web to Cloudflare Pages
         if: always() && steps.claim.conclusion == 'success'
