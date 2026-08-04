@@ -2679,7 +2679,8 @@ class ExploreHubTests(unittest.TestCase):
         self.assertIn("function renderEntityHeader", self.script)
         self.assertIn("function handleHubAction", self.script)
         # 허브는 이슈 액션 위임(allowlist)이 아니라 전용 리스너를 쓴다.
-        self.assertIn('["exploreHub", "entityHeader"].forEach', self.script)
+        # homeTrack(홈 04 추적)의 엔티티 칩도 같은 전용 리스너를 탄다.
+        self.assertIn('["exploreHub", "entityHeader", "homeTrack"].forEach', self.script)
         self.assertNotIn('"exploreHub", "entityHeader", "issueList"', self.script)
 
     def test_entities_json_is_loaded_with_catch(self):
@@ -2965,12 +2966,23 @@ class TokenSystemTests(unittest.TestCase):
                 f"--sp-{name} 는 {int(name) * 4}px 여야 한다 (현재 {value}px)",
             )
 
-    def test_hero_token_keeps_the_shrunken_decision(self):
-        """--t-hero 는 3ff0907(히어로 축소)의 실측 결정을 박제한 값이다.
-        58px 디스플레이 크기로 되돌리려면 이 테스트와 그 커밋 메시지를 먼저 읽을 것."""
+    def test_hero_display_premise(self):
+        """--t-hero 디스플레이 크기(≤58px)의 전제 — 히어로·선두 카드 통합.
+
+        3ff0907 의 23~30px 축소는 "h1 이 선두 카드 제목의 복사본이라 같은
+        문장이 반복된다"는 전제였다. 2026-08-05 홈 개편이 두 블록을 Section
+        01 한 유닛(todayBand)으로 합쳐 중복을 없앴고, 그래서 디스플레이
+        크기가 다시 정당하다(docs/2026-08-05-home-redesign-direction.md).
+        이 테스트는 그 전제를 함께 잠근다 — leadIssue 가 todayBand 밖으로
+        나가면(중복 구조 복귀) 크기 결정도 다시 검토할 것."""
         match = re.search(r"--t-hero:\s*clamp\(\s*[\d.]+px,\s*[^,]+,\s*([\d.]+)px\s*\)", self.style)
         self.assertIsNotNone(match, "--t-hero clamp 정의가 없다")
-        self.assertLessEqual(float(match.group(1)), 30)
+        self.assertLessEqual(float(match.group(1)), 58)
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        band = html.split('id="todayBand"', 1)
+        self.assertEqual(len(band), 2, "todayBand(01 유닛)가 없다")
+        self.assertIn('id="leadIssue"', band[1].split("briefing-content-grid", 1)[0],
+                      "leadIssue 가 todayBand 유닛 밖에 있다 — h1 중복 전제가 되살아난다")
 
     def test_locked_foundations_survive_tokenization(self):
         self.assertIn("@media (prefers-reduced-motion: reduce)", self.style)

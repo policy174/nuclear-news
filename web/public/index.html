@@ -78,76 +78,100 @@
 
 <main id="main" class="wrap page-shell">
   <section id="view-news" aria-labelledby="briefingTitle">
-    <!-- 히어로 전체가 aria-live 였다. 안에 칩·버튼이 다 들어 있어 날짜를 한 칸
-         옮길 때마다 스크린리더가 블록 전체를 다시 읽었다. 바뀌는 것은 헤드라인
-         하나뿐이므로 라이브 영역도 그 하나로 좁힌다. -->
-    <section class="briefing-hero" id="briefingHero">
-      <div class="hero-topline">
-        <p class="eyebrow">TODAY <span id="briefingDateLabel"></span></p>
-        <div class="date-nav" aria-label="브리핑 날짜 선택">
-          <button id="prevDay" type="button" aria-label="이전 브리핑">←</button>
-          <select id="dateSel" aria-label="브리핑 날짜"></select>
-          <button id="nextDay" type="button" aria-label="다음 브리핑">→</button>
-        </div>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
-          <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
-          <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
-          <!-- 오디오 브리핑 — 출근길·이동 중 화면을 못 보는 시간대용. 파일이 있는
-               날짜에서만 보인다(audio/audio.json 의 date 와 대조). 버튼을 정적으로
-               두고 텍스트만 갱신한다 — innerHTML 재생성은 포커스를 날린다. -->
-          <div class="hero-audio" id="audioBrief" hidden>
-            <button id="audioToggle" type="button" aria-pressed="false">▶ 오디오 브리핑</button>
-            <span class="hero-audio-time" id="audioTime" aria-hidden="true"></span>
-            <button id="audioRate" type="button" aria-label="재생 속도 변경">1×</button>
-            <audio id="audioEl" preload="none"></audio>
+    <!-- ── 01 · TODAY ─────────────────────────────────────────────────
+         마스트헤드(초대형 날짜)·헤드라인·선두 이슈가 한 밴드에 선다.
+         h1 축소(3ff0907)의 전제는 "h1 이 선두 카드 제목의 복사본이라 같은
+         문장이 화면에 반복된다"였다. 여기서는 히어로와 선두 카드를 하나의
+         에디토리얼 유닛으로 합쳐 중복 자체를 없앴다 — 제목이 한 번만 서므로
+         디스플레이 크기(--t-display)가 다시 정당하다. 근거: docs/2026-08-05-
+         home-redesign-direction.md. 초대형 날짜는 장식이 아니라 "언제의
+         브리핑인가"라는 콘텐츠다(날짜 이동 시 함께 바뀐다). -->
+    <div class="home-band today-band" id="todayBand">
+      <!-- 히어로 전체가 aria-live 였다. 안에 칩·버튼이 다 들어 있어 날짜를 한 칸
+           옮길 때마다 스크린리더가 블록 전체를 다시 읽었다. 바뀌는 것은 헤드라인
+           하나뿐이므로 라이브 영역도 그 하나로 좁힌다. -->
+      <section class="briefing-hero" id="briefingHero">
+        <div class="hero-topline">
+          <!-- 번호는 eyebrow 밖 형제로 둔다 — 오버라인 어휘 잠금 테스트가
+               eyebrow 여는 태그 바로 뒤 대문자만 읽는다(주석 속 태그 리터럴도
+               잡으므로 여기서도 태그를 그대로 쓰지 말 것). -->
+          <div class="topline-label">
+            <span class="sec-no" aria-hidden="true">01</span>
+            <p class="eyebrow">TODAY <span id="briefingDateLabel"></span></p>
           </div>
-          <!-- headline_kind 가 synthesis/change 가 아닌 날(17일 중 14일)의 h1 은
-               issues[0].title 을 그대로 복사한 것이다 — 같은 문장이 아래 카드와
-               사이드바에 다섯 번 더 나온다. 그 날은 h1 을 줄이는 대신 이 줄에
-               implication(왜 중요한가)과 출처 수를 붙여 히어로가 제 몫을 하게 한다. -->
-          <div class="hero-actions">
-            <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
-            <button type="button" data-go-view="trend">흐름 <span aria-hidden="true">→</span></button>
+          <div class="date-nav" aria-label="브리핑 날짜 선택">
+            <button id="prevDay" type="button" aria-label="이전 브리핑">←</button>
+            <select id="dateSel" aria-label="브리핑 날짜"></select>
+            <button id="nextDay" type="button" aria-label="다음 브리핑">→</button>
           </div>
         </div>
-      </div>
-      <!-- '데이터 상태' 블록은 제거했다. 실측: 히어로 329px 중 213px를 중복
-           표시에 쓰면서 1440×900 첫 화면에 이슈 카드가 1장만 보였다. 같은
-           숫자는 헤더 상태 버튼과 그 다이얼로그가 맡는다 — 정상인 날의 상태
-           스트립은 이제 걷힌다(style.css `.status-strip.ok`). -->
-    </section>
+        <div class="masthead">
+          <!-- 날짜 숫자는 dateLabel 과 같은 정보라 보조기기에는 숨긴다 —
+               위 eyebrow 의 briefingDateLabel 이 읽을 수 있는 원본이다. -->
+          <p class="masthead-date" id="mastheadDate" aria-hidden="true"></p>
+          <div class="masthead-side">
+            <!-- 첫 화면에서 즉시 보이는 검색 진입 — 다이얼로그(globalSearch)를
+                 그대로 연다. 입력창처럼 생겼지만 버튼이다(포커스 이동 1회). -->
+            <button class="masthead-search" type="button" data-open-search aria-haspopup="dialog" aria-label="통합 검색 열기">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <span>원전·기업·정책 추적</span><kbd>/</kbd>
+            </button>
+            <p class="masthead-note" id="mastheadNote"></p>
+          </div>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
+            <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
+            <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
+            <!-- 오디오 브리핑 — 출근길·이동 중 화면을 못 보는 시간대용. 파일이 있는
+                 날짜에서만 보인다(audio/audio.json 의 date 와 대조). 버튼을 정적으로
+                 두고 텍스트만 갱신한다 — innerHTML 재생성은 포커스를 날린다. -->
+            <div class="hero-audio" id="audioBrief" hidden>
+              <button id="audioToggle" type="button" aria-pressed="false">▶ 오디오 브리핑</button>
+              <span class="hero-audio-time" id="audioTime" aria-hidden="true"></span>
+              <button id="audioRate" type="button" aria-label="재생 속도 변경">1×</button>
+              <audio id="audioEl" preload="none"></audio>
+            </div>
+            <div class="hero-actions">
+              <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
+              <button type="button" data-go-view="trend">흐름 <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+        <!-- '데이터 상태' 블록은 제거했다. 실측: 히어로 329px 중 213px를 중복
+             표시에 쓰면서 1440×900 첫 화면에 이슈 카드가 1장만 보였다. 같은
+             숫자는 헤더 상태 버튼과 그 다이얼로그가 맡는다 — 정상인 날의 상태
+             스트립은 이제 걷힌다(style.css `.status-strip.ok`). -->
+      </section>
+
+      <!-- 상위 1건은 표의 한 행이 아니라 판단을 펼치는 자리다. 히어로 h1 이
+           이 이슈의 제목을 이미 맡은 날은 leadCard 가 제목 없이 판단 블록만
+           세운다(app.js sameAsHeadline) — 그래서 이 섹션이 히어로와 한 밴드에
+           있어야 제목과 본문이 한 기사처럼 읽힌다. -->
+      <section id="leadIssue" class="issues-section lead-section" aria-labelledby="leadIssueTitle" hidden>
+        <h2 id="leadIssueTitle" class="lead-label">가장 먼저 볼 이슈</h2>
+        <div id="leadCard"></div>
+      </section>
+    </div>
 
     <div class="briefing-content-grid">
       <div class="briefing-main">
-        <!-- 상위 1건은 표의 한 행이 아니라 판단을 펼치는 자리다. 아래 두 목록이
-             '무엇이 있었나'를 담당한다면 여기는 '무엇부터 봐야 하나'를 담당한다. -->
-        <section id="leadIssue" class="issues-section lead-section" aria-labelledby="leadIssueTitle" hidden>
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow dark">TODAY</p>
-              <h2 id="leadIssueTitle">가장 먼저 볼 이슈</h2>
-            </div>
-          </div>
-          <div id="leadCard"></div>
-        </section>
-
         <section id="changedIssues" class="issues-section changed-section" aria-labelledby="changedIssuesTitle" hidden>
           <div class="section-heading">
             <div>
+              <span class="sec-no" aria-hidden="true">02</span>
               <h2 id="changedIssuesTitle">지금 달라진 이슈</h2>
             </div>
             <p id="changedCount" class="section-count"></p>
           </div>
-          <div id="changedList" class="issue-list"></div>
+          <div id="changedList" class="issue-list changed-editorial"></div>
         </section>
 
         <section id="todayIssues" class="issues-section" aria-labelledby="todayIssuesTitle">
           <div class="section-heading issue-section-heading">
             <div>
-              <p class="eyebrow dark">TODAY</p>
+              <span class="sec-no" aria-hidden="true">03</span>
               <h2 id="todayIssuesTitle">오늘 확인된 이슈</h2>
             </div>
             <div class="issue-section-tools">
@@ -197,12 +221,65 @@
         <p class="notice">날짜·수치·기관명은 원문에서 확인하세요.</p>
       </div>
 
+      <!-- 사이드바는 이제 근거 패널 하나만 맡는다. 검증 분포와 이번 주
+           흐름은 아래 05 신호 밴드로 내려갔다 — 1200px 미만에서 사이드바와
+           함께 소멸하던 해석 레이어(8/3 모바일 감사 P0)가 모든 뷰포트에 선다. -->
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
         <section id="evidenceRail" class="evidence-rail" aria-label="선택한 이슈의 근거" aria-live="polite" hidden></section>
-        <section class="side-panel"><h2>오늘의 검증 상태</h2><div id="sideVerification" class="side-verification"></div></section>
-        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">흐름 전체 보기 →</button></section>
       </aside>
     </div>
+
+    <!-- ── 04 · 추적 ──────────────────────────────────────────────────
+         탐색 허브의 첫 그룹(지금 많이 등장하는 대상)을 홈에도 세운다 —
+         "원하는 대상을 어디에서 검색하나"가 홈 첫 스크롤 안에서 답해져야
+         한다. 칩은 탐색 허브와 같은 data-hub-ent 위임을 탄다(누르면 탐색
+         화면의 그 엔티티 페이지로 이동). -->
+    <section id="homeTrack" class="home-track" aria-labelledby="homeTrackTitle">
+      <div class="section-heading">
+        <div>
+          <span class="sec-no" aria-hidden="true">04</span>
+          <h2 id="homeTrackTitle">무엇이든 추적</h2>
+        </div>
+        <p class="section-count">기업 · 원전 · 국가 · 정책</p>
+      </div>
+      <button class="track-search" type="button" data-open-search aria-haspopup="dialog" aria-label="통합 검색 열기">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+        <span>기관, 호기, 주제로 검색</span><kbd>/</kbd>
+      </button>
+      <div class="hub-chips" id="homeTrackEntities"></div>
+    </section>
+
+    <!-- ── 05 · 신호 ──────────────────────────────────────────────────
+         다크 잉크 밴드. 검증 분포·이번 주 흐름(구 사이드바)과 발간물 서가
+         미리보기. 어두운 표면 위 텍스트는 *-on-primary 토큰 대비 규칙을
+         따른다(style.css 팔레트 주석). -->
+    <section id="homeSignals" class="home-signals" aria-labelledby="homeSignalsTitle">
+      <div class="signals-inner">
+        <div class="section-heading">
+          <div>
+            <span class="sec-no" aria-hidden="true">05</span>
+            <h2 id="homeSignalsTitle">신호</h2>
+          </div>
+          <p class="section-count">검증 · 흐름 · 발간물</p>
+        </div>
+        <div class="signals-grid">
+          <section class="signal-panel" aria-labelledby="sideVerificationTitle">
+            <h3 id="sideVerificationTitle">오늘의 검증 상태</h3>
+            <div id="sideVerification" class="side-verification"></div>
+          </section>
+          <section class="signal-panel" aria-labelledby="sideWeeklyTitle">
+            <h3 id="sideWeeklyTitle">이번 주 이어지는 흐름</h3>
+            <ol id="sideWeekly"></ol>
+            <button type="button" data-go-view="trend">흐름 전체 보기 →</button>
+          </section>
+          <section class="signal-panel signal-pubs" aria-labelledby="homePubsTitle">
+            <h3 id="homePubsTitle">최근 발간물</h3>
+            <div id="homePubsShelf" class="home-pubs-shelf"></div>
+            <button type="button" data-go-view="pubs">발간물 전체 보기 →</button>
+          </section>
+        </div>
+      </div>
+    </section>
   </section>
 
   <section id="view-search" hidden aria-labelledby="archiveTitle">

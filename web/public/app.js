@@ -949,12 +949,31 @@ function renderEmptyBriefing(briefing, issueList) {
   issueList.innerHTML = `<div class="empty-state"><p>${view.detail}</p></div>`;
 }
 
+// 마스트헤드 — 초대형 날짜는 "언제의 브리핑인가"라는 콘텐츠다. 날짜 이동과
+// 함께 바뀌므로 renderBriefing 모든 경로에서 판정한다. 보조 노트는 브리핑
+// 단위 수치(이슈·근거 원문)만 담는다 — 헤더 상태 칩의 아카이브 전체 수치와
+// 다른 숫자라 중복 표시 금지 원칙에 걸리지 않는다.
+function renderMasthead(briefing) {
+  const dateBox = document.getElementById("mastheadDate");
+  const note = document.getElementById("mastheadNote");
+  if (!dateBox || !note) return;
+  const iso = String(briefing?.date || state.briefingDate || "");
+  const [, month, day] = iso.split("-");
+  dateBox.textContent = month && day ? `${month}.${day}` : "";
+  const count = briefing?.issues?.length || 0;
+  const articles = (briefing?.issues || []).reduce((sum, issue) => sum + (issue.article_count || 0), 0);
+  note.textContent = count
+    ? `브리핑 이슈 ${count}건 · 근거 원문 ${articles}건`
+    : "오늘 선정된 브리핑 이슈가 없습니다";
+}
+
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
   issueList.classList.remove("skeleton-list");
   // 모든 반환 경로(브리핑 없음·0건·정상)에서 한 번씩 판정되도록 맨 앞에서 부른다.
   renderAudioBrief(briefing);
+  renderMasthead(briefing);
   if (!briefing) {
     renderEmptyBriefing(null, issueList);
     return;
@@ -1240,6 +1259,75 @@ function renderExploreHub() {
     .slice(0, 8)
     .map(([name, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(name)}">${esc(name)}<b>${count}</b></button>`)
     .join("");
+}
+
+// 홈 04 추적 — 탐색 허브의 첫 그룹과 같은 재료(entities.json)·같은 위임
+// (data-hub-ent). 정렬은 issue_count 내림차순: "지금 많이 등장하는 대상"이
+// 곧 추적 시작점이다. 데이터는 로드 시 한 번 그리면 충분하다(날짜 무관).
+function renderHomeTrack() {
+  const box = document.getElementById("homeTrackEntities");
+  if (!box) return;
+  const chips = (state.entities?.entities || [])
+    .filter(entity => entity.issue_count > 0)
+    .sort((a, b) => b.issue_count - a.issue_count)
+    .slice(0, 10)
+    .map(entity => `<button type="button" class="hub-chip" data-hub-ent="${esc(entity.id)}">
+      <small>${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}</small>${esc(entity.name_kr)}<b>${entity.issue_count}</b>
+    </button>`).join("");
+  box.innerHTML = chips || `<p class="empty">${esc(STRINGS.hubEmptyEntities)}</p>`;
+}
+
+// 홈 05 발간물 미리보기 — 발간물 탭 서가의 축약(최근 4권). 기관 색 어법
+// (PUB_ORG_CLASS)은 재사용하되 마크업은 기관·표제·날짜만 — 서가 전체의
+// gist·PDF 링크까지 홈에 세우면 미리보기가 아니라 복제가 된다.
+function renderHomePubs() {
+  const box = document.getElementById("homePubsShelf");
+  if (!box) return;
+  const pool = (state.pubs && Array.isArray(state.pubs.items) ? state.pubs.items : [])
+    .filter(item => item && typeof item === "object" && item.title && item.url)
+    .map(item => (typeof item.date === "string" ? item : { ...item, date: String(item.date ?? "") }))
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  // 기관당 1권 우선 — 최신순만 따르면 한 기관 연쇄 발행이 네 칸을 다 먹는다
+  // (실측: NEA 4권). 남는 칸은 다시 최신순으로 채운다.
+  const seenOrg = new Set();
+  const items = pool.filter(item => {
+    if (seenOrg.has(item.org)) return false;
+    seenOrg.add(item.org);
+    return true;
+  }).slice(0, 4);
+  for (const item of pool) {
+    if (items.length >= 4) break;
+    if (!items.includes(item)) items.push(item);
+  }
+  if (!items.length) {
+    box.innerHTML = '<p class="empty">아직 수집된 발간물이 없습니다.</p>';
+    return;
+  }
+  box.innerHTML = items.map(item => {
+    const orgClass = PUB_ORG_CLASS[item.org] || "org-etc";
+    const validDate = /^\d{4}-\d{2}-\d{2}/.test(item.date);
+    return `<a class="mini-cover ${orgClass}" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+      <small>${esc(item.org_kr || item.org)}</small>
+      <strong>${esc(item.title_kr || item.title)}</strong>
+      ${validDate ? `<time datetime="${esc(item.date)}">${esc(dateLabel(item.date))}</time>` : ""}
+    </a>`;
+  }).join("");
+}
+
+// 홈 섹션 등장 모션 — JS 가 arm 클래스를 붙인 뒤에만 초기 상태(투명·14px 아래)
+// 가 적용된다. reduced-motion·IO 미지원이면 arm 자체를 안 하므로 모든 정보가
+// 즉시 보인다(모션이 콘텐츠를 숨기면 안 된다는 계약).
+function bindHomeReveal() {
+  if (prefersReducedMotion() || !("IntersectionObserver" in window)) return;
+  const targets = document.querySelectorAll(
+    "#changedIssues, #todayIssues, #homeTrack, #homeSignals"
+  );
+  const io = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("sec-in");
+    io.unobserve(entry.target);
+  }), { rootMargin: "0px 0px -8% 0px" });
+  targets.forEach(el => { el.classList.add("reveal-armed"); io.observe(el); });
 }
 
 function renderEntityHeader() {
@@ -2010,6 +2098,8 @@ function handleHubAction(event) {
     document.getElementById("archiveTopic").value = state.archiveTopic;
   }
   if (queryChip) state.archiveQuery = normalizedSearch(queryChip.dataset.hubQ);
+  // 홈(04 추적)에서 칩을 눌렀을 때 — 필터만 세우면 화면이 안 바뀐다.
+  if (state.view !== "search") switchView("search");
   renderArchiveSearch(true);
   syncUrl("push");
   scrollToPageTop();
@@ -2434,6 +2524,8 @@ function bind() {
   document.body.addEventListener("click", event => {
     const go = event.target.closest("[data-go-view]");
     if (go) switchView(go.dataset.goView);
+    // 홈 마스트헤드·추적 섹션의 검색 진입 — 헤더 검색 버튼과 같은 다이얼로그.
+    if (event.target.closest("[data-open-search]")) openGlobalSearch();
     // 톰스톤의 '제목으로 다시 찾기' — 저장 당시 제목을 검색어로 탐색에 넘긴다.
     const requery = event.target.closest("[data-requery]");
     if (requery) {
@@ -2461,7 +2553,9 @@ function bind() {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
   // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
-  ["exploreHub", "entityHeader"].forEach(id => {
+  // homeTrack: 홈 04 추적 섹션의 엔티티 칩도 같은 위임을 탄다(홈에서 누르면
+  // handleHubAction 이 탐색 화면으로 넘긴다).
+  ["exploreHub", "entityHeader", "homeTrack"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleHubAction);
   });
   // 팔로우 패널 — 대상 열기(그 시점에 확인 처리)·해제. 저장 화면 진입만으로는
@@ -2718,6 +2812,9 @@ async function init() {
     `${state.issues.length}개 이슈 · ${catalogArticles}개 원문 · ${dateLabel(firstIssueDate)}–${dateLabel(state.meta.latest_briefing_date)}`;
   renderDateSelect();
   renderBriefing();
+  renderHomeTrack();
+  renderHomePubs();
+  bindHomeReveal();
   renderArchiveSearch();
   renderTrend();
   renderSaved();
