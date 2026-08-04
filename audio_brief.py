@@ -162,9 +162,14 @@ def validate_script(text: str) -> tuple[str, int]:
 
 
 def generate_script(material: str) -> str:
-    """대본 생성 + 재시도 사다리 1단 (daily_lead 패턴)."""
+    """대본 생성 + 재시도 사다리 1단 (daily_lead 패턴).
+
+    thinking_budget=0 필수 — 대담 대본은 사고가 필요 없는 창작 출력인데
+    thinking 을 켜 두면 예산(8192)을 thinking 이 먹고 대본이 잘린다
+    (2026-08-04 CI 실사고: thoughts=7863, output=315).
+    """
     result = call_json(SYSTEM_PROMPT, material, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0)
+                       max_output_tokens=8192, timeout=120.0, thinking_budget=0)
     try:
         script, spoken = validate_script(result.get("script"))
         if spoken <= MAX_SPOKEN:
@@ -179,7 +184,7 @@ def generate_script(material: str) -> str:
         "대본 전체를 다시 쓰세요."
     )
     result = call_json(SYSTEM_PROMPT, retry_message, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0)
+                       max_output_tokens=8192, timeout=120.0, thinking_budget=0)
     script, spoken = validate_script(result.get("script"))
     if spoken > MAX_SPOKEN:
         raise ValueError(f"재시도 후에도 {spoken}자 — 포기")

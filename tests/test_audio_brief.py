@@ -59,6 +59,7 @@ class AudioBriefTestCase(unittest.TestCase):
                           audio_brief.call_tts, audio_brief.to_mp3)
         self.addCleanup(self._restore)
         self.calls = []
+        self.call_kwargs = []
         self.responses = []
         self.tts_calls = []
         audio_brief.is_available = lambda: True
@@ -73,6 +74,7 @@ class AudioBriefTestCase(unittest.TestCase):
 
     def _fake_call(self, system_prompt, user_message, **kwargs):
         self.calls.append(user_message)
+        self.call_kwargs.append(kwargs)
         if not self.responses:
             raise GeminiError("429")
         return self.responses.pop(0)
@@ -132,6 +134,13 @@ class AudioBriefTestCase(unittest.TestCase):
     def test_validate_script_rejects_too_few_lines(self):
         with self.assertRaises(ValueError):
             audio_brief.validate_script("HOST: 안녕하세요.\nANALYST: 네.")
+
+    def test_generate_script_disables_thinking(self):
+        """thinking 토큰이 출력 예산을 잠식해 대본이 잘린 CI 실사고(2026-08-04,
+        thoughts=7863/8192) 재발 방지 — 대본 호출은 반드시 thinking_budget=0."""
+        self.responses = [{"script": GOOD_SCRIPT}]
+        audio_brief.generate_script("재료")
+        self.assertEqual(self.call_kwargs[0].get("thinking_budget"), 0)
 
     def test_generate_script_retries_once_on_bad_format(self):
         self.responses = [{"script": "그냥 낭독문입니다."}, {"script": GOOD_SCRIPT}]

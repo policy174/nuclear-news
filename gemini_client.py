@@ -135,25 +135,35 @@ def call_json(
     max_output_tokens: int = 4096,
     timeout: float = 60.0,
     retries: int = 3,
+    thinking_budget: int | None = None,
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
 
     - response_mime_type=application/json 으로 펜스·머리말 없는 순수 JSON 강제.
     - 429/일시 오류는 지수 백오프로 retries 만큼 재시도.
     - 파싱 실패 시 GeminiError 발생.
+    - thinking_budget=0 은 thinking 을 끈다. 사고가 필요 없는 정형·창작 출력은
+      꺼야 한다 — thinking 토큰이 출력 예산을 잠식해 MAX_TOKENS 로 잘린다
+      (2026-08-04 실측: 대본 생성이 thoughts=7863/8192 로 output 315에서 잘림.
+      로컬은 통과했는데 CI 에서 잘렸다 — thinking 길이는 비결정적이라
+      "로컬에서 됐다"가 예산 충분의 근거가 못 된다).
     """
     if not API_KEY:
         raise GeminiError("GEMINI_API_KEY 미설정. .env 또는 GitHub Secrets에 등록 필요.")
+
+    generation_config: dict = {
+        "temperature": temperature,
+        "maxOutputTokens": max_output_tokens,
+        "responseMimeType": "application/json",
+    }
+    if thinking_budget is not None:
+        generation_config["thinkingConfig"] = {"thinkingBudget": thinking_budget}
 
     url = _ENDPOINT.format(model=MODEL) + f"?key={API_KEY}"
     body = {
         "system_instruction": {"parts": [{"text": system_prompt}]},
         "contents": [{"role": "user", "parts": [{"text": user_message}]}],
-        "generationConfig": {
-            "temperature": temperature,
-            "maxOutputTokens": max_output_tokens,
-            "responseMimeType": "application/json",
-        },
+        "generationConfig": generation_config,
     }
 
     last_err: Exception | None = None
