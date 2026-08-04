@@ -178,6 +178,10 @@ class BrandAccessibilityTests(unittest.TestCase):
         빠져나간다 — 통합 시안이 정체성을 9~11px 모노 오버라인에 걸어둔 탓에
         이 구멍으로 40건 중 17건이 검사를 우회할 수 있었다. 오버라인은 크기가
         아니라 굵기·자간·색으로 구분한다.
+
+        타입 토큰(--t-*) 도입 후에는 리터럴만 봐서는 안 된다 — 크기가
+        ``var(--t-*)`` 로 우회하면 리터럴 검사가 공허해진다. 토큰 정의값의
+        px 와 clamp() 최소값까지 같은 하한으로 검사한다.
         """
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
@@ -194,11 +198,27 @@ class BrandAccessibilityTests(unittest.TestCase):
             float(value)
             for value in re.findall(r'font-size="(\d+(?:\.\d+)?)"', app)
         ]
+        # 타입 토큰 정의값 — 고정 px 와 clamp 최소값(첫 인자) 둘 다.
+        token_px_sizes = [
+            float(value)
+            for value in re.findall(r"--t-[\w-]+:\s*(\d+(?:\.\d+)?)px\s*;", css)
+        ]
+        token_clamp_min_sizes = [
+            float(value)
+            for value in re.findall(
+                r"--t-[\w-]+:\s*clamp\(\s*(\d+(?:\.\d+)?)px", css
+            )
+        ]
+        self.assertTrue(token_px_sizes, "--t-* px 토큰 정의가 없다")
+        self.assertTrue(token_clamp_min_sizes, "--t-* clamp 토큰 정의가 없다")
         too_small = [
-            size for size in css_sizes + shorthand_sizes + inline_svg_sizes
+            size
+            for size in css_sizes + shorthand_sizes + inline_svg_sizes
+            + token_px_sizes + token_clamp_min_sizes
             if size < 12.5
         ]
         self.assertEqual(too_small, [], f"12.5px 미만 글자 크기: {too_small}")
+        self.assertIn("--t-min: 12.5px", css)
         self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
 
     def test_issue_cards_do_not_use_dashed_verification_border(self):
@@ -1718,12 +1738,28 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertNotIn("어제와 달라진", code)
 
     def test_lead_card_type_stays_above_the_minimum(self):
-        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다."""
+        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다.
+
+        토큰 도입 후 .lead-* 의 크기가 var(--t-*) 로 적힐 수 있다 —
+        :root 정의를 해석해 실제 px 로 풀어서 검사한다(clamp 는 최소값).
+        """
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        tokens = dict(re.findall(r"(--t-[\w-]+):\s*([^;]+);", style))
+
+        def resolve(rule_body):
+            sizes = [float(s) for s in re.findall(r"font-size:\s*([\d.]+)px", rule_body)]
+            for name in re.findall(r"font-size:\s*var\((--t-[\w-]+)\)", rule_body):
+                value = tokens.get(name, "")
+                match = re.search(r"clamp\(\s*([\d.]+)px", value) or re.search(
+                    r"([\d.]+)px", value
+                )
+                self.assertIsNotNone(match, f"{name} 토큰을 px 로 풀 수 없다")
+                sizes.append(float(match.group(1)))
+            return sizes
+
         lead_rules = re.findall(r"\.lead-[^{]*\{[^}]*\}", style)
         self.assertTrue(lead_rules, ".lead-* 규칙이 없다")
-        sizes = [float(size) for rule in lead_rules
-                 for size in re.findall(r"font-size:\s*([\d.]+)px", rule)]
+        sizes = [size for rule in lead_rules for size in resolve(rule)]
         self.assertTrue(sizes)
         self.assertGreaterEqual(min(sizes), 12.5)
 
@@ -2624,6 +2660,325 @@ class EmptyBriefingStateTests(unittest.TestCase):
     def test_reuses_existing_view_switch_attribute(self):
         self.assertIn('data-go-view="search"', self.script)
         self.assertNotIn("data-goto-view", self.script)
+
+
+class ExploreHubTests(unittest.TestCase):
+    """탐색 발견 허브 + ent 딥링크 엔티티 페이지의 배선 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_hub_and_entity_header_exist_and_are_wired(self):
+        for element_id in ("exploreHub", "entityHeader", "hubEntities", "hubTopics",
+                          "hubCountries", "hubSources"):
+            self.assertIn(f'id="{element_id}"', self.html)
+        self.assertIn("function renderExploreHub", self.script)
+        self.assertIn("function renderEntityHeader", self.script)
+        self.assertIn("function handleHubAction", self.script)
+        # 허브는 이슈 액션 위임(allowlist)이 아니라 전용 리스너를 쓴다.
+        self.assertIn('["exploreHub", "entityHeader"].forEach', self.script)
+        self.assertNotIn('"exploreHub", "entityHeader", "issueList"', self.script)
+
+    def test_entities_json_is_loaded_with_catch(self):
+        # 새 JSON fetch 는 반드시 .catch() — 8/1 빈 화면 사고 계약.
+        self.assertIn('loadJSON("entities.json").catch(() => null)', self.script)
+
+    def test_ent_param_round_trips(self):
+        self.assertIn('params.set("ent", state.archiveEntity)', self.script)
+        self.assertIn('params.get("ent")', self.script)
+        # 잠금 라인은 바이트 그대로 남는다.
+        self.assertIn('if (state.archiveQuery) params.set("q", state.archiveQuery);', self.script)
+
+    def test_entity_filter_is_first_and_clears_with_the_rest(self):
+        script = self.script
+        matches = script.index("function archiveIssueMatches")
+        self.assertIn("state.archiveEntity && !(issue.entity_ids || []).includes(state.archiveEntity)",
+                      script[matches:matches + 600])
+        clear = script.index("function clearArchiveFilters")
+        self.assertIn('state.archiveEntity = "";', script[clear:clear + 400])
+
+    def test_zero_count_entities_stay_out_of_the_hub(self):
+        self.assertIn("entity.issue_count > 0", self.script)
+
+    def test_recent_capture_wording_not_last_confirmed(self):
+        # '마지막 확인'은 사용자 확인 시각으로 오독된다 — 보도 포착일은 '최근 포착'.
+        self.assertIn("최근 포착", self.script)
+        render = self.script[self.script.index("function renderEntityHeader"):]
+        render = render[:render.index("function renderArchiveSearch")]
+        self.assertNotIn("마지막 확인", render)
+
+    def test_together_topics_need_three_issues(self):
+        self.assertIn("connected.length >= 3", self.script)
+
+    def test_new_copy_is_centralized(self):
+        self.assertIn("const STRINGS = {", self.script)
+        self.assertIn("ENTITY_TYPE_LABELS", self.script)
+
+    def test_hub_chips_meet_touch_target(self):
+        chip = self.style[self.style.index(".hub-chip {"):]
+        chip = chip[:chip.index("}")]
+        self.assertIn("min-height: 44px", chip)
+
+    def test_tab_labels_renamed(self):
+        self.assertIn(">탐색</button>", self.html)
+        self.assertIn(">오늘</button>", self.html)
+        self.assertNotIn(">이슈 아카이브<", self.html)
+
+
+class SearchDialogTests(unittest.TestCase):
+    """통합 검색의 즉시 결과·키보드·최근 검색 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_results_listbox_is_wired(self):
+        self.assertIn('id="globalSearchResults"', self.html)
+        self.assertIn('role="listbox"', self.html)
+        self.assertIn('aria-controls="globalSearchResults"', self.html)
+        self.assertIn("function renderSearchResults", self.script)
+        self.assertIn('"ArrowDown"', self.script)
+        self.assertIn("aria-activedescendant", self.script)
+
+    def test_scores_are_constants_not_judgement(self):
+        self.assertIn("const SEARCH_SCORE = {", self.script)
+        self.assertIn("issueTitleExact: 100", self.script)
+        self.assertIn("entityAliasExact: 85", self.script)
+
+    def test_submit_path_is_untouched_when_nothing_selected(self):
+        # 무선택 Enter 는 기존 경로 그대로 — 이 넷은 한 덩어리로 남아야 한다.
+        self.assertIn('state.archiveQuery = normalizedSearch(document.getElementById("globalSearch").value);', self.script)
+        self.assertIn('placeholder="기관, 호기, 주제로 검색"', self.html)
+
+    def test_recent_searches_are_editable_and_bounded(self):
+        self.assertIn("nuclens-recent-searches", self.script)
+        self.assertIn("data-recent-remove", self.script)
+        self.assertIn("data-recent-clear", self.script)
+        # 1글자·공백 미저장, MRU 8
+        self.assertIn("value.length < 2", self.script)
+        self.assertIn(".slice(0, 8)", self.script)
+
+    def test_pub_search_reads_toc_briefs_with_single_snippet(self):
+        self.assertIn("item.toc?.briefs", self.script)
+        self.assertIn(".find(line => searchHit(line, variants))", self.script)
+
+    def test_unit_suffix_query_falls_back_to_plant_name(self):
+        self.assertIn("호기$", self.script)
+
+    def test_reopen_makes_no_fetch(self):
+        # 검색 렌더 경로에는 fetch 가 없어야 한다 — 재오픈 네트워크 0 계약.
+        search_block = self.script[self.script.index("const SEARCH_SCORE"):self.script.index("function openGlobalSearch")]
+        self.assertNotIn("fetch(", search_block)
+        self.assertNotIn("loadJSON", search_block)
+
+
+class BriefingTimelineTests(unittest.TestCase):
+    """흐름 탭 '지난 브리핑' 목록의 배선 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_timeline_exists_after_trend_charts(self):
+        self.assertIn('id="briefingTimeline"', self.html)
+        self.assertIn('id="briefingTimelineList"', self.html)
+        # DOM 순서: weeklyReport → keywordTable → briefingTimeline (잠금 순서 뒤 append)
+        self.assertLess(self.html.index('id="weeklyReport"'), self.html.index('id="keywordTable"'))
+        self.assertLess(self.html.index('id="keywordTable"'), self.html.index('id="briefingTimeline"'))
+
+    def test_renders_regardless_of_trend_ready(self):
+        body = self.script[self.script.index("function renderTrend()"):]
+        body = body[:body.index("\n}")]
+        # 이른 return(trend_ready) 앞에서 그린다 — 조용한 날에도 시간 축은 남는다.
+        self.assertLess(body.index("renderBriefingTimeline()"), body.index("trend_ready"))
+        # 잠금 호출 순서는 그대로.
+        self.assertLess(body.index("renderWeeklyReport()"), body.index("renderKeywordTable()"))
+
+    def test_rows_jump_to_that_days_briefing(self):
+        self.assertIn('data-go-date="${esc(briefing.date)}"', self.script)
+        self.assertIn('briefingTimelineList").addEventListener', self.script)
+
+    def test_empty_rows_state_only_what_data_says(self):
+        block = self.script[self.script.index("function renderBriefingTimeline"):]
+        block = block[:block.index("function renderTrend")]
+        self.assertIn("생성된 브리핑이 없습니다", block)
+        self.assertIn("below_floor_count", block)
+        self.assertIn("pipeline_status", block)
+
+    def test_tab_renamed_to_flow(self):
+        self.assertIn(">흐름</button>", self.html)
+        self.assertNotIn("주간 흐름", self.html)
+
+
+class PubShelfTests(unittest.TestCase):
+    """발간물 표지 서가의 계약 — CSS-only, 스파인은 장식(의미 없음)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+
+    def test_cover_object_keeps_smoke_class(self):
+        # render_smoke 가 #pubsList .pub-item 을 센다 — 클래스는 남는다.
+        self.assertIn('class="pub-item pub-cover', self.script)
+        self.assertIn("aspect-ratio: 1 / 1.35", self.style)
+
+    def test_spine_colors_reuse_locked_palette_only(self):
+        spines = re.findall(r"--spine:\s*([^;]+);", self.style)
+        self.assertTrue(spines)
+        for value in spines:
+            self.assertRegex(value.strip(), r"^var\(--c-", f"스파인에 팔레트 밖 색: {value}")
+        self.assertIn("const PUB_ORG_CLASS", self.script)
+        for org in ("IAEA", "OECD-NEA", "KEEI", "EIA", "IEA"):
+            self.assertIn(f'"{org}"', self.script)
+
+    def test_dark_mode_uses_border_not_lift(self):
+        self.assertIn(':root[data-theme="dark"] a.cover-face:hover { transform: none;', self.style)
+
+    def test_reduced_motion_kills_the_lift(self):
+        reduced = self.style[self.style.index("@media (prefers-reduced-motion: reduce)"):]
+        self.assertIn("a.cover-face:hover { transform: none;", reduced)
+
+    def test_mobile_is_single_column_shelf_list(self):
+        mobile = self.style[self.style.index("@media (max-width: 767px)"):]
+        self.assertIn(".pubs-list { grid-template-columns: 1fr;", mobile)
+        self.assertIn(".pub-cover .cover-face { aspect-ratio: auto; }", mobile)
+
+    def test_new_marker_is_dot_plus_text(self):
+        # 점만 있는 신규 표시는 의미를 설명하지 않는다 — 텍스트 병기 + 접근명.
+        self.assertIn('aria-label="최근 14일 이내 발간"', self.script)
+        self.assertIn("최근 발간", self.script)
+
+    def test_intro_names_keei_in_full(self):
+        self.assertIn("에너지경제연구원 — 제목과 원문 링크만 제공합니다.", self.html)
+
+
+class SavedFollowTests(unittest.TestCase):
+    """저장 탭 접근성·톰스톤·엔티티 팔로우의 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_desktop_tab_reaches_saved_view(self):
+        # 768~1199px 는 하단 탭도 사이드바도 없어 저장 뷰가 도달 불가였다.
+        main_tabs = self.html.split('id="mainTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertIn('data-view="saved"', main_tabs)
+        # 모바일 탭은 5개 그대로(잠금과 함께 움직인다).
+        mobile_nav = self.html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertEqual(mobile_nav.count("<button"), 5)
+
+    def test_saved_meta_snapshot_and_tombstone(self):
+        self.assertIn("nuclens-saved-meta", self.script)
+        self.assertIn("function savedTombstone", self.script)
+        self.assertIn("재구성되어 현재 목록에 없습니다", self.script)
+        self.assertIn("data-requery", self.script)
+
+    def test_follow_is_entity_only_with_per_entity_seen(self):
+        self.assertIn("nuclens-follows", self.script)
+        self.assertIn("nuclens-follow-seen", self.script)
+        self.assertIn("function toggleFollow", self.script)
+        self.assertIn("function entityNewIssueCount", self.script)
+        # 배지 셈: 이슈 포착일(last_seen) > 사용자 확인일 — 사전순 날짜 비교.
+        self.assertIn("issue.last_seen > seen", self.script)
+
+    def test_saved_view_entry_does_not_mark_all_seen(self):
+        # 저장 화면 진입만으로 전체 확인 처리 금지 — renderSaved/renderFollowPanel
+        # 경로에 markEntitySeen 이 없어야 한다.
+        for name in ("function renderSaved", "function renderFollowPanel"):
+            body = self.script[self.script.index(name):]
+            body = body[:body.index("\nfunction ")]
+            self.assertNotIn("markEntitySeen", body, f"{name} 가 확인 처리를 한다")
+
+    def test_entity_page_view_marks_seen_only_on_search_view(self):
+        body = self.script[self.script.index("function renderEntityHeader"):]
+        body = body[:body.index("function renderArchiveSearch")]
+        self.assertIn('state.view === "search"', body)
+        self.assertIn("markEntitySeen", body)
+
+    def test_follow_toggle_does_not_reset_filters(self):
+        body = self.script[self.script.index("function handleHubAction"):]
+        head = body[:body.index("state.archiveQuery")]
+        self.assertIn("data-follow-toggle", head)
+        self.assertIn("return;", head)
+
+
+class MotionTests(unittest.TestCase):
+    """모션은 토큰 경유 + reduced-motion 일괄 무력화 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_js_motion_goes_through_the_helper(self):
+        self.assertIn("function prefersReducedMotion", self.script)
+        # 원시 smooth 리터럴 소멸 — 모든 JS 스크롤이 헬퍼의 삼항을 거친다.
+        self.assertNotIn('behavior: "smooth"', self.script)
+        self.assertIn('matchMedia("(prefers-reduced-motion: reduce)")', self.script)
+
+    def test_view_and_dialog_motion_use_tokens(self):
+        self.assertIn(".view-in { animation: view-in var(--mo-2)", self.style)
+        self.assertIn("dialog[open] { animation: dialog-in var(--mo-2)", self.style)
+        self.assertIn("@keyframes view-in", self.style)
+
+    def test_local_storage_reads_are_hardened(self):
+        # JSON 을 읽는 모든 지점이 try/catch 아래에 있어야 한다 — 깨진 저장값이
+        # 앱을 죽이면 안 된다. (theme 은 문자열 그대로라 파싱이 없다.)
+        for key in ("nuclens-saved-issues", "nuclens-saved-meta",
+                    "nuclens-follows", "nuclens-follow-seen", "nuclens-recent-searches"):
+            index = self.script.index(f'localStorage.getItem("{key}"')
+            self.assertIn("try {", self.script[max(0, index - 240):index],
+                          f"{key} 읽기가 try 밖에 있다")
+
+
+class TokenSystemTests(unittest.TestCase):
+    """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
+    건드리지 않았음을 함께 검사한다."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_token_scales_exist(self):
+        for token in (
+            "--sp-1:", "--sp-4:", "--sp-6:", "--sp-8:", "--sp-14:", "--sp-20:",
+            "--t-min:", "--t-caption:", "--t-body:", "--t-card:",
+            "--t-title:", "--t-lead:", "--t-hero:",
+            "--mo-1:", "--mo-2:", "--mo-3:", "--mo-ease:", "--mo-ease-out:",
+            "--z-pop:", "--z-topbar:", "--z-tabs:", "--z-scrim:",
+            "--z-sheet:", "--z-toast:", "--z-skip:",
+        ):
+            self.assertIn(token, self.style, f"{token} 토큰이 없다")
+
+    def test_spacing_scale_is_4px_multiples(self):
+        for name, value in re.findall(r"--sp-(\d+):\s*(\d+)px", self.style):
+            self.assertEqual(
+                int(value), int(name) * 4,
+                f"--sp-{name} 는 {int(name) * 4}px 여야 한다 (현재 {value}px)",
+            )
+
+    def test_hero_token_keeps_the_shrunken_decision(self):
+        """--t-hero 는 3ff0907(히어로 축소)의 실측 결정을 박제한 값이다.
+        58px 디스플레이 크기로 되돌리려면 이 테스트와 그 커밋 메시지를 먼저 읽을 것."""
+        match = re.search(r"--t-hero:\s*clamp\(\s*[\d.]+px,\s*[^,]+,\s*([\d.]+)px\s*\)", self.style)
+        self.assertIsNotNone(match, "--t-hero clamp 정의가 없다")
+        self.assertLessEqual(float(match.group(1)), 30)
+
+    def test_locked_foundations_survive_tokenization(self):
+        self.assertIn("@media (prefers-reduced-motion: reduce)", self.style)
+        self.assertIn("@media (min-width: 1200px)", self.style)
+        self.assertIn("@media (max-width: 767px)", self.style)
+        self.assertIn("--r-1: 0", self.style)
+        self.assertIn("outline: 2px solid var(--c-focus);", self.style)
+        self.assertIn("box-shadow: var(--fo-ring);", self.style)
 
 
 if __name__ == "__main__":

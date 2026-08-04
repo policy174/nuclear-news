@@ -27,6 +27,10 @@
   <link rel="alternate" type="application/rss+xml" title="Nuclens 원자력 정책·산업 이슈 트래커" href="/rss.xml">
   <title>Nuclens · 원자력 정책·산업 이슈 트래커</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- 2MB 가변 폰트 — /fonts/* 는 1년 immutable 캐시라 첫 방문 1회만 비용.
+       font-display: swap 의 무스타일 구간을 줄이려는 preload 다. 저속 회선
+       waterfall 에서 주요 리소스를 밀어내면 이 한 줄을 제거하는 게 맞다. -->
+  <link rel="preload" href="/fonts/pretendard/v1.3.9/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -46,10 +50,13 @@
       </span>
     </a>
     <nav class="main-tabs" id="mainTabs" aria-label="주요 화면">
-      <button class="main-tab active" data-view="news" aria-pressed="true">오늘 브리핑</button>
-      <button class="main-tab" data-view="search" aria-pressed="false">이슈 아카이브</button>
-      <button class="main-tab" data-view="trend" aria-pressed="false">주간 흐름</button>
+      <button class="main-tab active" data-view="news" aria-pressed="true">오늘</button>
+      <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
+      <button class="main-tab" data-view="trend" aria-pressed="false">흐름</button>
       <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
+      <!-- 768~1199px 는 하단 탭도 사이드바도 없다 — 저장 뷰가 이 대역에서
+           도달 불가였다(감사 확인). 배지는 0이면 숨긴다. -->
+      <button class="main-tab" data-view="saved" aria-pressed="false">저장 <small class="tab-badge" data-saved-count="desktop" hidden>0</small></button>
     </nav>
     <div class="header-tools">
       <!-- 좁은 화면에서는 아래 span·kbd 가 CSS 로 접혀 아이콘만 남는다. 그러면
@@ -103,7 +110,7 @@
                implication(왜 중요한가)과 출처 수를 붙여 히어로가 제 몫을 하게 한다. -->
           <div class="hero-actions">
             <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
-            <button type="button" data-go-view="trend">주간 흐름 <span aria-hidden="true">→</span></button>
+            <button type="button" data-go-view="trend">흐름 <span aria-hidden="true">→</span></button>
           </div>
         </div>
       </div>
@@ -193,16 +200,30 @@
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
         <section id="evidenceRail" class="evidence-rail" aria-label="선택한 이슈의 근거" aria-live="polite" hidden></section>
         <section class="side-panel"><h2>오늘의 검증 상태</h2><div id="sideVerification" class="side-verification"></div></section>
-        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">주간 흐름 전체 보기 →</button></section>
+        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">흐름 전체 보기 →</button></section>
       </aside>
     </div>
   </section>
 
   <section id="view-search" hidden aria-labelledby="archiveTitle">
     <div class="archive-intro">
-      <div><h1 id="archiveTitle">이슈 아카이브</h1><p id="archiveCatalogMeta"></p></div>
-      <button id="archiveSearchOpen" type="button" class="secondary-button">아카이브 검색 <span aria-hidden="true">/</span></button>
+      <div><h1 id="archiveTitle">탐색</h1><p id="archiveCatalogMeta"></p></div>
+      <button id="archiveSearchOpen" type="button" class="secondary-button">검색 <span aria-hidden="true">/</span></button>
     </div>
+    <!-- 발견 허브 — 검색어·필터가 없는 랜딩에서만 보인다. 이 화면의 두 번째
+         용도(대상을 찾아 추적)를 위해 시작점을 깔아 준다: 엔티티 → 주제 →
+         국가, 출처는 접힘. issue_count 0 엔티티는 여기 안 나온다(검색에는
+         나온다) — 빈 항목이 가득한 허브는 제품이 비어 보이게 만든다. -->
+    <section id="exploreHub" class="explore-hub" aria-label="탐색 시작점" hidden>
+      <div class="hub-group"><h2>지금 많이 등장하는 대상</h2><div class="hub-chips" id="hubEntities"></div></div>
+      <div class="hub-group"><h2>주제</h2><div class="hub-chips" id="hubTopics"></div></div>
+      <div class="hub-group"><h2>국가·지역</h2><div class="hub-chips" id="hubCountries"></div></div>
+      <details class="hub-group hub-sources"><summary>출처로 찾기</summary><div class="hub-chips" id="hubSources"></div></details>
+    </section>
+    <!-- ent 딥링크의 엔티티 페이지 머리 — 이름·유형·국가·집계와 연결 이슈가
+         아래 결과 목록으로 이어진다. '최근 포착'이라 쓴다: 사건 발생일이 아니라
+         보도가 마지막으로 잡힌 날이다(event_date 는 사실상 빈 필드). -->
+    <section id="entityHeader" class="entity-header" hidden></section>
     <div class="archive-layout">
       <!-- 좁은 화면에서 이 패널은 접힌다. 펼친 채로 두면 select 4개가 첫 화면
            520px 를 먹고 결과 110건이 통째로 폴드 아래로 내려간다(실측 360×800).
@@ -210,7 +231,7 @@
       <details id="archiveFilterDrawer" class="archive-filter-drawer filter-drawer">
         <summary>필터 <span id="archiveFilterCount"></span></summary>
         <div class="archive-filters" aria-label="아카이브 필터">
-          <div class="filter-sheet-head"><strong>아카이브 필터</strong><span id="archiveSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeArchiveFilters" type="button">닫기</button></div>
+          <div class="filter-sheet-head"><strong>탐색 필터</strong><span id="archiveSheetCount" class="sheet-count" role="status" aria-live="polite"></span><button id="closeArchiveFilters" type="button">닫기</button></div>
           <div class="archive-query" id="archiveQueryDisplay">검색어 없음</div>
           <fieldset><legend>기간</legend>
             <div class="segmented" id="archivePeriod">
@@ -245,7 +266,7 @@
   <section id="view-trend" hidden aria-labelledby="trendTitle">
     <div class="trend-intro">
       <p class="eyebrow dark">THIS WEEK</p>
-      <h1 id="trendTitle">주간 흐름</h1>
+      <h1 id="trendTitle">흐름</h1>
     </div>
     <!-- 금요일 주간 판세 리포트. 고정 코너 5개로 매주 같은 자리에서 같은 질문에
          답한다 — 반복되는 편집 형식이 서비스의 목소리를 만든다. 리포트가 없는
@@ -303,11 +324,24 @@
         </div>
       </div>
     </section>
+    <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
+         쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
+    <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
+      <div class="section-heading compact">
+        <div><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
+        <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
+      </div>
+      <ol id="briefingTimelineList"></ol>
+    </section>
     <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
   </section>
 
   <section id="view-saved" hidden aria-labelledby="savedTitle">
-    <div class="archive-intro"><div><h1 id="savedTitle">저장한 이슈</h1></div></div>
+    <div class="archive-intro"><div><h1 id="savedTitle">저장·팔로우</h1></div></div>
+    <!-- 팔로우한 대상 — 이 화면에 들어왔다고 확인 처리하지 않는다. 확인 시각은
+         해당 엔티티 페이지를 실제로 열었을 때만 갱신된다(배지 일괄 소멸 방지). -->
+    <section id="followPanel" class="follow-panel" aria-label="팔로우한 대상"></section>
+    <div class="section-heading compact saved-heading"><div><h2>저장한 이슈</h2></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>
 
@@ -315,7 +349,7 @@
     <div class="archive-intro">
       <div>
         <h1 id="pubsTitle">국제기구 발간물</h1>
-        <p>IAEA · OECD NEA · IEA · EIA — 제목과 원문 링크만 제공합니다.</p>
+        <p>IAEA · OECD NEA · IEA · EIA · 에너지경제연구원 — 제목과 원문 링크만 제공합니다.</p>
       </div>
     </div>
     <div class="pubs-filters" id="pubsFilters" role="group" aria-label="기관 필터"></div>
@@ -327,8 +361,11 @@
   <form id="globalSearchForm" method="dialog">
     <div class="search-dialog-head"><h2 id="globalSearchTitle">통합 검색</h2><button id="globalSearchClose" type="button" aria-label="검색 닫기">×</button></div>
     <label class="global-search-label" for="globalSearch">검색어</label>
-    <div class="global-search-field"><input id="globalSearch" type="search" inputmode="search" enterkeyhint="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off"><kbd>Enter</kbd></div>
+    <div class="global-search-field"><input id="globalSearch" type="search" inputmode="search" enterkeyhint="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="globalSearchResults" aria-autocomplete="list"><kbd>Enter</kbd></div>
     <p><span id="globalSearchHint">검색어를 입력하세요.</span></p>
+    <!-- 입력 즉시 그룹 결과 — 이슈·대상·주제·국가·발간물. 전부 초기 로드된
+         JSON 위에서 돌므로 다이얼로그를 다시 열어도 네트워크 요청이 없다. -->
+    <div id="globalSearchResults" class="search-results" role="listbox" aria-label="검색 제안"></div>
   </form>
 </dialog>
 
@@ -342,10 +379,10 @@
 
 <nav id="mobileTabs" class="mobile-tabs" aria-label="모바일 주요 화면">
   <button class="active" type="button" data-view="news" aria-pressed="true"><span>오늘</span></button>
-  <button type="button" data-view="search" aria-pressed="false"><span>아카이브</span></button>
-  <button type="button" data-view="trend" aria-pressed="false"><span>주간</span></button>
+  <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
+  <button type="button" data-view="trend" aria-pressed="false"><span>흐름</span></button>
   <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
-  <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount">0</small></button>
+  <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount" data-saved-count="mobile">0</small></button>
 </nav>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>

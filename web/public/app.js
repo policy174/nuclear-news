@@ -26,6 +26,16 @@ const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc
 const VIEW_IDS = ["news", "search", "trend", "saved", "pubs"];
 const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
 
+const ENTITY_TYPE_LABELS = { plant: "원전", company: "기업", org: "기관", project: "프로젝트" };
+// 리디자인에서 새로 들어오는 문구는 여기로 모은다 — 화면 하드코딩 786건(S3 부채)을
+// 더 키우지 않기 위한 봉쇄선. 기존 문구는 옮기지 않는다(그건 S3 의 일).
+const STRINGS = {
+  entityUnknown: "등록되지 않은 대상입니다",
+  entityClear: "탐색으로 돌아가기",
+  recentCapture: "최근 포착",
+  hubEmptyEntities: "아직 연결된 대상이 없습니다 — 데이터가 쌓이면 채워집니다.",
+};
+
 const state = {
   news: [], briefings: [], issues: [], trend: null, insights: null, meta: null,
   pubs: null, pubsOrg: "전체",
@@ -34,7 +44,8 @@ const state = {
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
-  period: "7", keywordSort: "mentions", savedIds: new Set(),
+  archiveEntity: "", entities: null,
+  period: "7", keywordSort: "mentions", savedIds: new Set(), savedMeta: {}, follows: new Set(), followSeen: {},
   offline: !navigator.onLine, pendingGeneration: "",
 };
 
@@ -109,6 +120,12 @@ function safeUrl(value) {
   } catch {
     return "";
   }
+}
+
+// CSS의 prefers-reduced-motion 전역 오버라이드는 JS 주도 스크롤·모션에는
+// 적용되지 않는다 — JS 쪽 모션은 전부 이 헬퍼를 거친다.
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 function normalizedSearch(value) {
@@ -355,17 +372,145 @@ function loadSaved() {
   } catch {
     state.savedIds = new Set();
   }
+  // 저장 시점 스냅샷(제목·날짜) — issue_id 는 클러스터 재계산에서 깨질 수 있는
+  // 파생 키다(알려진 결함). 스냅샷이 있으면 깨진 저장을 톰스톤으로 보여주고
+  // 제목 검색으로 다시 찾게 한다 — 조용한 소실 대신 비파괴 안내.
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-saved-meta") || "{}");
+    state.savedMeta = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  } catch {
+    state.savedMeta = {};
+  }
   renderSavedCount();
 }
 
 function persistSaved() {
-  localStorage.setItem("nuclens-saved-issues", JSON.stringify([...state.savedIds]));
+  try {
+    localStorage.setItem("nuclens-saved-issues", JSON.stringify([...state.savedIds]));
+    const meta = {};
+    state.savedIds.forEach(id => {
+      const issue = state.issues.find(item => item.issue_id === id);
+      meta[id] = issue
+        ? { title: issue.title || "", last_seen: issue.last_seen || "" }
+        : state.savedMeta?.[id] || { title: "", last_seen: "" };
+    });
+    state.savedMeta = meta;
+    localStorage.setItem("nuclens-saved-meta", JSON.stringify(meta));
+  } catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
   renderSavedCount();
 }
 
 function renderSavedCount() {
-  const count = document.getElementById("savedCount");
-  if (count) count.textContent = String(state.savedIds.size);
+  // 데스크톱 탭·모바일 탭 배지를 함께 갱신한다. 0이면 데스크톱 배지는 숨긴다
+  // (숫자 0 배지는 정보가 아니라 소음이다 — 모바일 탭은 자리 유지를 위해 남긴다).
+  document.querySelectorAll("[data-saved-count]").forEach(badge => {
+    badge.textContent = String(state.savedIds.size);
+    if (badge.dataset.savedCount === "desktop") badge.hidden = state.savedIds.size === 0;
+  });
+}
+
+/* ── 엔티티 팔로우 ──────────────────────────────────────────────────
+   이번 범위의 팔로우는 **엔티티 한정**이다(주제·국가는 필터로 충분 — 후속).
+   확인 시각은 엔티티별 개별 저장(nuclens-follow-seen) — 단일 last-visit 는
+   저장 화면에 들어오기만 해도 모든 배지가 꺼지는 구조라 쓰지 않는다.
+   갱신 시점: ①해당 엔티티 페이지를 실제로 열었을 때 ②팔로우 시작 시(보고
+   있는 화면이 곧 그 페이지다). 저장 화면 진입은 갱신하지 않는다. */
+function loadFollows() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-follows") || "[]");
+    state.follows = new Set(Array.isArray(raw) ? raw.filter(id => typeof id === "string") : []);
+  } catch {
+    state.follows = new Set();
+  }
+  try {
+    const seen = JSON.parse(localStorage.getItem("nuclens-follow-seen") || "{}");
+    state.followSeen = seen && typeof seen === "object" && !Array.isArray(seen) ? seen : {};
+  } catch {
+    state.followSeen = {};
+  }
+}
+
+function persistFollows() {
+  try {
+    localStorage.setItem("nuclens-follows", JSON.stringify([...state.follows]));
+    localStorage.setItem("nuclens-follow-seen", JSON.stringify(state.followSeen));
+  } catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
+}
+
+function markEntitySeen(entityId) {
+  const stamp = state.meta?.latest_briefing_date || "";
+  if (!entityId || !stamp) return;
+  if (state.followSeen[entityId] === stamp) return;
+  state.followSeen[entityId] = stamp;
+  persistFollows();
+}
+
+function toggleFollow(entityId) {
+  if (!entityId) return;
+  if (state.follows.has(entityId)) {
+    state.follows.delete(entityId);
+    delete state.followSeen[entityId];
+    showToast("팔로우를 해제했습니다");
+  } else {
+    state.follows.add(entityId);
+    // 시작 시점 = 확인 시점 — 지금 보고 있는 것까지가 '본 것'이고,
+    // 배지는 이후 도착분만 센다.
+    state.followSeen[entityId] = state.meta?.latest_briefing_date || "";
+    showToast("대상을 팔로우합니다 — 새 이슈가 저장 탭에 표시됩니다");
+  }
+  persistFollows();
+  renderEntityHeader();
+  if (state.view === "saved") renderSaved();
+}
+
+function entityNewIssueCount(entityId) {
+  const seen = state.followSeen?.[entityId] || "";
+  return state.issues.filter(issue =>
+    (issue.entity_ids || []).includes(entityId)
+    && issue.last_seen && issue.last_seen > seen).length;
+}
+
+function renderFollowPanel() {
+  const panel = document.getElementById("followPanel");
+  if (!panel) return;
+  const followed = [...state.follows]
+    .map(id => entityById(id))
+    .filter(Boolean)
+    .sort((a, b) => entityNewIssueCount(b.id) - entityNewIssueCount(a.id)
+      || String(b.latest_issue_date).localeCompare(String(a.latest_issue_date)));
+  if (!followed.length) {
+    panel.innerHTML = `<p class="follow-empty">탐색에서 원전·기업·기관을 팔로우하면 새 이슈를 여기서 셉니다.
+      <button type="button" data-go-view="search">탐색 열기</button></p>`;
+    return;
+  }
+  panel.innerHTML = `<div class="section-heading compact"><div><h2>팔로우한 대상</h2></div></div>`
+    + followed.map(entity => {
+      const fresh = entityNewIssueCount(entity.id);
+      return `<div class="follow-row">
+        <button type="button" class="follow-open" data-follow-open="${esc(entity.id)}">
+          <small>${esc(ENTITY_TYPE_LABELS[entity.type] || "")}</small>
+          <strong>${esc(entity.name_kr)}</strong>
+          ${fresh ? `<span class="follow-fresh">새 이슈 ${fresh}</span>` : `<span class="follow-quiet">새 이슈 없음</span>`}
+        </button>
+        <button type="button" class="text-action" data-unfollow="${esc(entity.id)}" aria-label="${esc(entity.name_kr)} 팔로우 해제">해제</button>
+      </div>`;
+    }).join("");
+}
+
+// 재클러스터로 목록에서 사라진 저장 이슈 — 스냅샷으로 세운 묘비 카드.
+function savedTombstone(issueId, meta) {
+  const title = meta?.title || "제목을 알 수 없는 이슈";
+  const date = meta?.last_seen ? `${dateLabel(meta.last_seen)} 저장 당시` : "";
+  return `<article class="issue-card tombstone-card">
+    <div class="issue-body">
+      <h3>${esc(title)}</h3>
+      <p class="tombstone-note">이 이슈는 재구성되어 현재 목록에 없습니다.${date ? ` (${esc(date)})` : ""}</p>
+    </div>
+    <div class="issue-actions">
+      ${meta?.title ? `<button class="text-action" type="button" data-requery="${esc(meta.title)}">제목으로 다시 찾기</button>` : ""}
+      <button class="text-action" type="button" data-save-issue="${esc(issueId)}">저장 해제</button>
+    </div>
+  </article>`;
 }
 
 function toggleSaved(issueId) {
@@ -479,6 +624,7 @@ function syncUrl(mode = "replace") {
   if (state.topic !== "전체") params.set("topic", state.topic);
   if (state.view !== "news") params.set("view", state.view);
   if (state.archiveQuery) params.set("q", state.archiveQuery);
+  if (state.archiveEntity) params.set("ent", state.archiveEntity);
   if (state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
   if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
   if (state.archivePeriod !== "all") params.set("ap", state.archivePeriod);
@@ -501,6 +647,9 @@ function restoreUrlState() {
   state.view = VIEW_IDS.includes(params.get("view")) ? params.get("view") : "news";
   state.issueId = issueIdFromLocation() || params.get("issue") || "";
   state.archiveQuery = normalizedSearch(params.get("q") || params.get("aq"));
+  // ent 딥링크는 탐색 화면을 전제한다 — view 파라미터가 따로 없으면 그리로 간다.
+  state.archiveEntity = params.get("ent") || "";
+  if (state.archiveEntity && !params.get("view")) state.view = "search";
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
   state.archivePeriod = ["7", "30", "all"].includes(params.get("ap")) ? params.get("ap") : "all";
@@ -615,7 +764,7 @@ function keeiDialogSection(issue) {
   </section>`;
 }
 
-function issueCard(issue, index, archive = false) {
+function issueCard(issue, index, archive = false, front = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
@@ -641,7 +790,7 @@ function issueCard(issue, index, archive = false) {
   // .issue-body 밖으로 나와 각자 열이 된다. 이 둘을 body 안에 두고 CSS
   // display:contents 로 흩으면 제목과 요약이 서로 다른 그리드 행으로 갈라져,
   // 근거 열 높이(98px)가 그 사이 여백으로 배분된다(실측 42px). 열은 열로 나눈다.
-  return `<article class="issue-card ${archive ? "archive-card" : ""} ${issueToneClass(issue)}">
+  return `<article class="issue-card ${archive ? "archive-card" : ""} ${front ? "front" : ""} ${issueToneClass(issue)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
     <div class="issue-meta">
       <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
@@ -672,6 +821,11 @@ function issueCard(issue, index, archive = false) {
 function leadCard(issue, briefing) {
   const model = issueDetailModel(issue, briefing.date);
   const topic = primaryTopicLabel(issue);
+  // 국가는 대표 기사에서 온다 — 이슈 행(4열 표)에는 지역(국내/해외)만 있지만
+  // 선두 카드는 판단을 펼치는 자리라 어느 나라 이야기인지까지 세운다.
+  const countryChips = (issue.representative_article?.countries || [])
+    .map(code => COUNTRY_LABELS[code] || code)
+    .filter(label => label && label !== issue.region);
   // 히어로 h1 이 이미 이 이슈 제목이면(headline_kind="issue") 바로 아래에서
   // 되풀이하지 않는다. 종합 문장일 때는 서로 다른 문장이라 제목이 선다.
   const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
@@ -686,6 +840,7 @@ function leadCard(issue, briefing) {
     <div class="lead-meta">
       <span class="issue-state">${esc(issueStatusText(issue))}</span>
       <span>${esc(issue.region)}</span>
+      ${countryChips.map(label => `<span>${esc(label)}</span>`).join("")}
       ${topic ? `<span>${esc(topic)}</span>` : ""}
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
@@ -765,13 +920,13 @@ function emptyBriefingState(briefing) {
     return {
       title: "오늘은 브리핑 기준을 넘는 이슈가 없습니다",
       detail: `검토한 후보 ${below}건은 기준에 미치지 못했습니다. `
-        + `<button type="button" data-go-view="search">이슈 아카이브에서 보기</button>`,
+        + `<button type="button" data-go-view="search">탐색에서 보기</button>`,
     };
   }
   if (briefing && briefing.candidate_count === 0) {
     return {
       title: "오늘 새로 확인된 브리핑 이슈가 없습니다",
-      detail: '진행 중인 이슈는 <button type="button" data-go-view="search">이슈 아카이브</button>에서 확인할 수 있습니다.',
+      detail: '진행 중인 이슈는 <button type="button" data-go-view="search">탐색</button>에서 확인할 수 있습니다.',
     };
   }
   return {
@@ -883,15 +1038,28 @@ function renderBriefing() {
   document.getElementById("changedCount").textContent = `${visibleChanged.length}개 이슈`;
   document.getElementById("changedList").innerHTML =
     visibleChanged.map((issue, index) => issueCard(issue, index)).join("");
-  document.getElementById("showChangedIssues").hidden = visibleChanged.length === 0;
+  const changedButton = document.getElementById("showChangedIssues");
+  changedButton.hidden = visibleChanged.length === 0;
+  // 몇 건이 달라졌는지는 버튼이 말한다 — 히어로에 지표 블록을 새로 세우면
+  // 헤더 상태 칩·상태 스트립과 같은 숫자를 되풀이하게 된다(중복 표시 금지 원칙).
+  if (visibleChanged.length) {
+    changedButton.innerHTML = `달라진 이슈 ${visibleChanged.length}건 보기 <span aria-hidden="true">→</span>`;
+  }
 
   document.getElementById("issueCount").textContent = `${rest.length}개 이슈`;
   issueList.classList.toggle("list-view", state.issueView === "list");
+  // front 강조는 '기본 화면'에서만 — 최신 브리핑 + 필터·정렬이 기본값일 때.
+  // 편집 판단이 아니라 기존 순서의 상위 2건을 조판만 다르게 세우는 것이므로,
+  // 조건이 하나라도 어긋나면(과거 날짜·필터·최신순) 강조를 접는다. 개수는
+  // 정확히 2건 — "2~3건" 같은 재량 표현이 남으면 화면마다 다르게 구현된다.
+  const frontActive = briefing.date === state.briefings?.[0]?.date
+    && state.region === "전체" && state.topic === "전체"
+    && state.issueSort === "importance" && state.issueView === "card";
   // 위 '지금 달라진 이슈'에 결과가 남아 있는데 아래에서 '없습니다'라고 하면
   // 한 화면이 스스로를 부정한다. 두 구역을 합쳐 0건일 때만 빈 상태를 보인다.
   const elsewhere = visibleChanged.length ? "지금 달라진 이슈" : "가장 먼저 볼 이슈";
   issueList.innerHTML = rest.length
-    ? rest.map((issue, index) => issueCard(issue, index)).join("")
+    ? rest.map((issue, index) => issueCard(issue, index, false, frontActive && index < 2)).join("")
     : (visibleChanged.length || lead
       ? `<p class="section-note">필터에 맞는 이슈는 위 <strong>${elsewhere}</strong>에 있습니다.</p>`
       : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>');
@@ -985,6 +1153,9 @@ function renderNewsFeed() {
 }
 
 function archiveIssueMatches(issue) {
+  // 엔티티 필터가 맨 앞 — 엔티티 페이지는 "이 대상의 이슈"가 전제고,
+  // 나머지 필터(주제·기간·검색어)는 그 안에서의 교집합이다.
+  if (state.archiveEntity && !(issue.entity_ids || []).includes(state.archiveEntity)) return false;
   if (state.archiveRegion !== "전체" && !(issue.regions || []).includes(state.archiveRegion)) return false;
   if (state.archiveTopic !== "전체" && !(issue.topics || []).includes(state.archiveTopic)) return false;
   const confirmed = ["official", "corroborated"].includes(verificationState(issue).status);
@@ -1020,11 +1191,117 @@ function sortArchiveIssues(issues) {
   return rows;
 }
 
+function entityById(entityId) {
+  return (state.entities?.entities || []).find(entity => entity.id === entityId) || null;
+}
+
+// 탐색이 '검색 결과 화면'에서 '발견을 시작하는 화면'이 되도록, 랜딩(검색어·
+// 필터·엔티티가 전부 기본값)에서만 시작점을 깐다. 순서는 엔티티 → 주제 →
+// 국가 → 출처(접힘) — 이 화면의 새 용도(대상 추적)가 앞에 선다.
+function renderExploreHub() {
+  const box = document.getElementById("exploreHub");
+  if (!box) return;
+  const entityChips = (state.entities?.entities || [])
+    .filter(entity => entity.issue_count > 0 || state.follows.has(entity.id))
+    .slice(0, 12)
+    .map(entity => `<button type="button" class="hub-chip" data-hub-ent="${esc(entity.id)}">
+      <small>${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}</small>${esc(entity.name_kr)}<b>${entity.issue_count}</b>
+    </button>`).join("");
+  document.getElementById("hubEntities").innerHTML =
+    entityChips || `<p class="empty">${esc(STRINGS.hubEmptyEntities)}</p>`;
+  const topicCounts = new Map();
+  state.issues.forEach(issue => (issue.topics || []).forEach(topic => {
+    topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
+  }));
+  document.getElementById("hubTopics").innerHTML = [...topicCounts]
+    .sort((a, b) => b[1] - a[1])
+    .map(([topic, count]) => `<button type="button" class="hub-chip" data-hub-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}<b>${count}</b></button>`)
+    .join("");
+  // 국가는 이슈 단위로 센다(같은 이슈의 기사 5건이 전부 미국이어도 1) —
+  // trend 의 countries_30d 와 같은 셈법이라 화면끼리 숫자가 어긋나지 않는다.
+  const countryCounts = new Map();
+  state.issues.forEach(issue => {
+    const codes = new Set((issue.related_articles || []).flatMap(article => article.countries || []));
+    codes.forEach(code => countryCounts.set(code, (countryCounts.get(code) || 0) + 1));
+  });
+  document.getElementById("hubCountries").innerHTML = [...countryCounts]
+    .filter(([code]) => code !== "UNSPECIFIED")
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([code, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(COUNTRY_LABELS[code] || code)}">${esc(COUNTRY_LABELS[code] || code)}<b>${count}</b></button>`)
+    .join("");
+  const publisherCounts = new Map();
+  state.issues.forEach(issue => {
+    const names = new Set((issue.related_articles || []).map(article => article.publisher).filter(Boolean));
+    names.forEach(name => publisherCounts.set(name, (publisherCounts.get(name) || 0) + 1));
+  });
+  document.getElementById("hubSources").innerHTML = [...publisherCounts]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([name, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(name)}">${esc(name)}<b>${count}</b></button>`)
+    .join("");
+}
+
+function renderEntityHeader() {
+  const box = document.getElementById("entityHeader");
+  if (!box) return;
+  if (!state.archiveEntity) { box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false;
+  const entity = entityById(state.archiveEntity);
+  if (!entity) {
+    box.innerHTML = `<p class="entity-unknown">${esc(STRINGS.entityUnknown)}
+      <button type="button" data-clear-entity>${esc(STRINGS.entityClear)}</button></p>`;
+    return;
+  }
+  const connected = state.issues.filter(issue => (issue.entity_ids || []).includes(entity.id));
+  // '자주 함께 등장한 주제'는 표본이 3건은 되어야 말할 수 있다 — 1건짜리
+  // 엔티티에 주제 셋을 붙이면 그 이슈의 주제를 되풀이하는 장식이 된다.
+  let topicLine = "";
+  if (connected.length >= 3) {
+    const together = new Map();
+    connected.forEach(issue => (issue.topics || []).forEach(topic => {
+      together.set(topic, (together.get(topic) || 0) + 1);
+    }));
+    const top = [...together].sort((a, b) => b[1] - a[1]).slice(0, 3)
+      .map(([topic]) => `<button type="button" class="hub-chip" data-hub-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}</button>`);
+    if (top.length) topicLine = `<div class="entity-topics"><span>자주 함께 등장한 주제</span>${top.join("")}</div>`;
+  }
+  const countries = (entity.countries || [])
+    .map(code => COUNTRY_LABELS[code] || code).join(" · ");
+  const latest = entity.latest_issue_date ? ` · ${STRINGS.recentCapture} ${dateLabel(entity.latest_issue_date)}` : "";
+  const following = state.follows.has(entity.id);
+  box.innerHTML = `
+    <p class="entity-kind">${esc(ENTITY_TYPE_LABELS[entity.type] || entity.type)}${countries ? ` · ${esc(countries)}` : ""}</p>
+    <h2 class="entity-name">${esc(entity.name_kr)}${entity.name_en ? ` <span lang="en">${esc(entity.name_en)}</span>` : ""}</h2>
+    <p class="entity-stats">이슈 ${connected.length}건 · 근거 기사 ${entity.article_count}건${latest}</p>
+    ${topicLine}
+    <div class="entity-actions">
+      <button type="button" class="follow-button ${following ? "following" : ""}" data-follow-toggle="${esc(entity.id)}" aria-pressed="${following}">${following ? "팔로우 중" : "팔로우"}</button>
+      <button type="button" class="text-action" data-clear-entity>${esc(STRINGS.entityClear)}</button>
+    </div>`;
+  // 이 페이지를 실제로 보고 있을 때만 확인 처리한다 — renderArchiveSearch 는
+  // 다른 화면 갱신에도 불려서, 화면 조건 없이 찍으면 배지가 몰래 꺼진다.
+  if (following && state.view === "search") markEntitySeen(entity.id);
+}
+
 function renderArchiveSearch(resetLimit = false) {
   if (resetLimit) state.archiveLimit = 20;
   const matches = sortArchiveIssues(state.issues.filter(archiveIssueMatches));
   const visible = matches.slice(0, state.archiveLimit);
+  // 랜딩(모든 조건이 기본값)에서만 발견 허브를 깐다. 조건이 하나라도 서면
+  // 이 화면은 결과 화면이고, 허브는 소음이다.
+  const isLanding = !state.archiveQuery && !state.archiveEntity
+    && state.archiveRegion === "전체" && state.archiveTopic === "전체"
+    && state.archivePeriod === "all" && state.archiveVerification === "전체";
+  const hub = document.getElementById("exploreHub");
+  if (hub) {
+    hub.hidden = !isLanding;
+    if (isLanding) renderExploreHub();
+  }
+  renderEntityHeader();
+  const entityName = state.archiveEntity ? (entityById(state.archiveEntity)?.name_kr || state.archiveEntity) : "";
   const activeFilters = [
+    entityName,
     state.archiveQuery ? `“${state.archiveQuery}”` : "",
     state.archivePeriod !== "all" ? `최근 ${state.archivePeriod}일` : "",
     state.archiveRegion !== "전체" ? state.archiveRegion : "",
@@ -1054,14 +1331,21 @@ function renderArchiveSearch(resetLimit = false) {
     count.hidden = activeFilters.length === 0;
   }
   const summary = document.querySelector("#archiveFilterDrawer > summary");
-  if (summary) summary.setAttribute("aria-label", activeFilters.length ? `아카이브 필터 ${activeFilters.length}개 적용됨` : "아카이브 필터");
+  if (summary) summary.setAttribute("aria-label", activeFilters.length ? `탐색 필터 ${activeFilters.length}개 적용됨` : "탐색 필터");
 }
 
 function renderSaved() {
+  renderFollowPanel();
   const issues = state.issues.filter(issue => state.savedIds.has(issue.issue_id));
-  document.getElementById("savedIssueList").innerHTML = issues.length
-    ? issues.map((issue, index) => issueCard(issue, index, true)).join("")
-    : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">이슈 아카이브 보기</button></div>';
+  const liveIds = new Set(issues.map(issue => issue.issue_id));
+  // 재클러스터로 사라진 저장 — 스냅샷 묘비로 남긴다(조용한 소실 금지).
+  const tombstones = [...state.savedIds]
+    .filter(id => !liveIds.has(id))
+    .map(id => savedTombstone(id, state.savedMeta?.[id]));
+  const cards = issues.map((issue, index) => issueCard(issue, index, true)).concat(tombstones);
+  document.getElementById("savedIssueList").innerHTML = cards.length
+    ? cards.join("")
+    : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">탐색에서 보기</button></div>';
 }
 
 const PUB_KIND_LABELS = {
@@ -1069,6 +1353,16 @@ const PUB_KIND_LABELS = {
   news_or_report: "소식·보고서", keei_insight: "정기간행물",
 };
 
+// 기관별 표지 스파인 클래스. 색은 잠금 팔레트의 차트 토큰만 재사용한다 —
+// **장식이지 의미 체계가 아니다**(범례 없음). 기관을 외워 읽으라는 색이 아니라
+// 서가에서 같은 기관 발간물이 한 무리로 보이게 하는 색이다.
+const PUB_ORG_CLASS = {
+  "IAEA": "org-iaea", "OECD-NEA": "org-nea", "OECD NEA": "org-nea",
+  "KEEI": "org-keei", "EIA": "org-eia", "IEA": "org-iea",
+};
+
+// 표지 오브젝트 — 이미지 없는 발간물을 타이포그래피 표지로 세운다(CSS-only,
+// WebGL·이미지 0). .pub-item 클래스는 렌더 스모크가 세므로 유지한다.
 function pubRow(item) {
   const url = safeUrl(item.url);
   const pdfUrl = safeUrl(item.pdf_url || "");
@@ -1078,15 +1372,20 @@ function pubRow(item) {
   // 원문을 찾을 때 대조할 수 있게 한다.
   const heading = item.title_kr || item.title;
   const original = item.title_kr && item.title_kr !== item.title ? item.title : "";
-  return `<article class="pub-item">
-    <div class="pub-meta">
-      <span class="pub-org">${esc(item.org_kr || item.org)}</span>
+  const orgClass = PUB_ORG_CLASS[item.org] || "org-etc";
+  const face = `
+    <p class="cover-org">${esc(item.org_kr || item.org)}</p>
+    <h3>${esc(heading)}</h3>
+    ${item.gist ? `<p class="cover-gist">${esc(item.gist)}</p>` : ""}
+    <p class="cover-foot">
       ${kindLabel ? `<span>${esc(kindLabel)}</span>` : ""}
       ${item.date ? `<span>${esc(dateLabel(item.date))}</span>` : ""}
-      ${item.is_new ? '<span class="pub-new">NEW</span>' : ""}
-    </div>
-    <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(heading)}</a>` : esc(heading)}</h3>
-    ${item.gist ? `<p class="pub-gist">${esc(item.gist)}</p>` : ""}
+      ${item.is_new ? `<span class="cover-new" aria-label="최근 14일 이내 발간"><i aria-hidden="true"></i>최근 발간</span>` : ""}
+    </p>`;
+  return `<article class="pub-item pub-cover ${orgClass}">
+    ${url
+      ? `<a class="cover-face" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${face}</a>`
+      : `<div class="cover-face">${face}</div>`}
     ${original ? `<p class="pub-original" lang="en">${esc(original)}</p>` : ""}
     ${tocIssue ? `<p class="pub-toc">현안이슈: ${esc(tocIssue)}</p>` : ""}
     ${pdfUrl ? `<a class="source-link" href="${esc(pdfUrl)}" target="_blank" rel="noopener noreferrer">PDF 원문 <span aria-hidden="true">↗</span></a>` : ""}
@@ -1613,10 +1912,40 @@ function renderWeeklyReport() {
   ].join("");
 }
 
+// 지난 브리핑 — 흐름 탭의 시간 축. briefings.json 은 이미 클라이언트에 있다
+// (빌드 변경 0). 빈 날의 사유는 데이터가 말할 때만 쓴다 — 추정 금지.
+function renderBriefingTimeline() {
+  const list = document.getElementById("briefingTimelineList");
+  if (!list) return;
+  list.innerHTML = state.briefings.map(briefing => {
+    const issueCount = Number(briefing.issue_count || 0);
+    const changed = Number(briefing.changed_issue_count || 0);
+    let counts;
+    if (issueCount) {
+      counts = `이슈 ${issueCount}${changed ? ` · 변화 ${changed}` : ""}`;
+    } else if (briefing.pipeline_status && briefing.pipeline_status !== "ok") {
+      counts = "지연·확인 중";
+    } else if (Number(briefing.below_floor_count || 0) > 0) {
+      counts = `기준 미달 ${briefing.below_floor_count}건`;
+    } else {
+      counts = "생성된 브리핑이 없습니다";
+    }
+    return `<li class="${issueCount ? "" : "bt-quiet"}">
+      <button type="button" data-go-date="${esc(briefing.date)}">
+        <span class="bt-date">${esc(dateLabel(briefing.date))}</span>
+        <span class="bt-headline">${esc(briefing.headline || "")}</span>
+        <span class="bt-counts">${esc(counts)}</span>
+      </button>
+    </li>`;
+  }).join("");
+}
+
 function renderTrend() {
   renderWeeklyReport();
   renderInsights();
   renderTrendReadiness();
+  // 지난 브리핑은 트렌드 집계 준비 여부와 무관하다 — 이른 return 앞에서 그린다.
+  renderBriefingTimeline();
   if (!state.meta?.trend_ready) return;
   renderKeywordTable();
   bars(document.getElementById("countryBars"), state.trend.countries_30d, row => COUNTRY_LABELS[row.country] || row.country);
@@ -1638,6 +1967,7 @@ function clearBriefingFilters() {
 
 function clearArchiveFilters() {
   state.archiveQuery = "";
+  state.archiveEntity = "";
   state.archiveRegion = "전체";
   state.archiveTopic = "전체";
   state.archivePeriod = "all";
@@ -1651,11 +1981,55 @@ function clearArchiveFilters() {
   syncUrl();
 }
 
+// 허브·엔티티 헤더의 클릭은 필터 조작이지 이슈 액션이 아니다 — handleIssueAction
+// 위임 목록에 넣지 않고 따로 받는다. 규칙: 허브에서 무엇을 고르면 **그 필터
+// 하나만 선 깨끗한 결과**에서 시작한다(교집합은 그 뒤 사용자가 쌓는 것).
+function handleHubAction(event) {
+  // 팔로우 토글은 필터 조작이 아니다 — 리셋 없이 처리하고 끝낸다.
+  const followToggle = event.target.closest("[data-follow-toggle]");
+  if (followToggle) { toggleFollow(followToggle.dataset.followToggle); return; }
+  const entityChip = event.target.closest("[data-hub-ent]");
+  const topicChip = event.target.closest("[data-hub-topic]");
+  const queryChip = event.target.closest("[data-hub-q]");
+  const clearEntity = event.target.closest("[data-clear-entity]");
+  if (!entityChip && !topicChip && !queryChip && !clearEntity) return;
+  state.archiveQuery = "";
+  state.archiveEntity = "";
+  state.archiveRegion = "전체";
+  state.archiveTopic = "전체";
+  state.archivePeriod = "all";
+  state.archiveVerification = "전체";
+  document.getElementById("globalSearch").value = "";
+  document.getElementById("archiveRegion").value = "전체";
+  document.getElementById("archiveTopic").value = "전체";
+  document.getElementById("archiveVerification").value = "전체";
+  setPressed(document.getElementById("archivePeriod"), document.querySelector('#archivePeriod [data-period="all"]'));
+  if (entityChip) state.archiveEntity = entityChip.dataset.hubEnt;
+  if (topicChip) {
+    state.archiveTopic = topicChip.dataset.hubTopic;
+    document.getElementById("archiveTopic").value = state.archiveTopic;
+  }
+  if (queryChip) state.archiveQuery = normalizedSearch(queryChip.dataset.hubQ);
+  renderArchiveSearch(true);
+  syncUrl("push");
+  scrollToPageTop();
+}
+
 function switchView(view, updateUrl = true) {
   if (!VIEW_IDS.includes(view)) return;
   if (view !== state.view && state.issueId) closeIssueDialog(false);
   state.view = view;
-  VIEW_IDS.forEach(id => { document.getElementById(`view-${id}`).hidden = id !== view; });
+  VIEW_IDS.forEach(id => {
+    const section = document.getElementById(`view-${id}`);
+    const entering = id === view && section.hidden;
+    section.hidden = id !== view;
+    // 진입 모션 — 토큰(--mo-2) 경유라 reduced-motion 전역 오버라이드가 함께 끈다.
+    if (entering && !prefersReducedMotion()) {
+      section.classList.remove("view-in");
+      void section.offsetWidth;
+      section.classList.add("view-in");
+    }
+  });
   document.querySelectorAll("[data-view]").forEach(button => {
     const active = button.dataset.view === view;
     button.classList.toggle("active", active);
@@ -1726,11 +2100,267 @@ function initFilterDrawers() {
   syncArchiveDrawer();
 }
 
+/* ── 통합 검색: 입력 즉시 그룹 결과 ─────────────────────────────────
+   전부 초기 로드된 JSON 위에서 도는 클라이언트 검색이다 — 다이얼로그를 다시
+   열어도 네트워크 요청 0. 점수는 상수로 박아 재량을 없앤다. 결과 그룹 순서는
+   이슈 → 대상 → 주제 → 국가 → 발간물. */
+const SEARCH_SCORE = {
+  issueTitleExact: 100, issueTitleStart: 70, issueTitleHas: 50, issueTagHas: 35, issueSummaryHas: 15,
+  entityNameExact: 100, entityEnExact: 90, entityAliasExact: 85, entityPrefix: 60, entityHas: 30,
+  pubTitleHas: 60, pubOrgHas: 40, pubGistHas: 20, pubBriefHas: 10,
+};
+// 검색어·대상 텍스트 공통 정규화 — 소문자화 + 하이픈·중점·슬래시·점 제거.
+// 'X-energy'와 'xenergy', '1 호기'와 '1호기'가 같은 것으로 읽히게 한다.
+function searchNormalize(value) {
+  return String(value || "").toLowerCase().replace(/[\s\-–—·./]+/g, "");
+}
+// 도메인 동의어 — 어느 쪽으로 검색해도 짝을 함께 찾는다. 엔티티 동의어는
+// 레지스트리 aliases 가 담당하므로 여기는 주제어만 둔다.
+const SEARCH_SYNONYMS = [["smr", "소형모듈원자로"], ["사용후핵연료", "방사성폐기물"]];
+function searchVariants(query) {
+  const norm = searchNormalize(query);
+  const variants = new Set([norm]);
+  // '고리 1호기'처럼 호기까지 쓴 질의 — 데이터에 그 호기가 아직 없어도
+  // 발전소 이름으로는 찾아져야 한다. 원형('고리1호기')이 먼저 매칭되므로
+  // 호기 데이터가 생기면 자연히 그쪽이 이긴다.
+  const unit = norm.match(/^(.+?)\d+호기$/);
+  if (unit && unit[1].length >= 2) variants.add(unit[1]);
+  SEARCH_SYNONYMS.forEach(pair => {
+    pair.forEach((word, index) => {
+      if (norm.includes(word)) variants.add(norm.replace(word, pair[1 - index]));
+    });
+  });
+  return [...variants].filter(Boolean);
+}
+function searchHit(text, variants) {
+  const norm = searchNormalize(text);
+  return variants.some(variant => norm.includes(variant));
+}
+
+function searchIssuesQuick(variants, limit) {
+  const scored = [];
+  state.issues.forEach(issue => {
+    const title = searchNormalize(issue.title);
+    let score = 0;
+    if (variants.some(v => title === v)) score = SEARCH_SCORE.issueTitleExact;
+    else if (variants.some(v => title.startsWith(v))) score = SEARCH_SCORE.issueTitleStart;
+    else if (variants.some(v => title.includes(v))) score = SEARCH_SCORE.issueTitleHas;
+    else if ((issue.tags || []).some(tag => searchHit(tag, variants))) score = SEARCH_SCORE.issueTagHas;
+    else if (searchHit(issue.summary, variants) || searchHit(issue.implication, variants)) score = SEARCH_SCORE.issueSummaryHas;
+    if (score) scored.push({ score, issue });
+  });
+  scored.sort((a, b) => b.score - a.score || String(b.issue.last_seen).localeCompare(String(a.issue.last_seen)));
+  return scored.slice(0, limit);
+}
+
+function searchEntitiesQuick(variants, limit) {
+  const scored = [];
+  (state.entities?.entities || []).forEach(entity => {
+    const kr = searchNormalize(entity.name_kr);
+    const en = searchNormalize(entity.name_en);
+    const aliases = (entity.aliases || []).map(searchNormalize);
+    let score = 0;
+    if (variants.some(v => kr === v)) score = SEARCH_SCORE.entityNameExact;
+    else if (en && variants.some(v => en === v)) score = SEARCH_SCORE.entityEnExact;
+    else if (variants.some(v => aliases.includes(v))) score = SEARCH_SCORE.entityAliasExact;
+    else if (variants.some(v => kr.startsWith(v) || aliases.some(alias => alias.startsWith(v)))) score = SEARCH_SCORE.entityPrefix;
+    else if (variants.some(v => kr.includes(v) || en.includes(v))) score = SEARCH_SCORE.entityHas;
+    if (!score) return;
+    // 0건 대상: 정확 명칭 일치는 상단 그대로(찾은 게 맞으니), 포함 일치는
+    // 이슈 보정 없이 하위로 — '관련 이슈 없음'을 함께 말한다.
+    const bonus = Math.min(entity.issue_count || 0, 10);
+    scored.push({ score: score + bonus, entity });
+  });
+  scored.sort((a, b) => b.score - a.score || (b.entity.issue_count || 0) - (a.entity.issue_count || 0));
+  return scored.slice(0, limit);
+}
+
+function searchPubsQuick(variants, limit) {
+  const scored = [];
+  (state.pubs?.items || []).forEach(item => {
+    if (!item || typeof item !== "object" || !item.url) return;
+    let score = 0;
+    let brief = "";
+    if (searchHit(item.title_kr, variants) || searchHit(item.title, variants)) score = SEARCH_SCORE.pubTitleHas;
+    else if (searchHit(item.org_kr, variants) || searchHit(item.org, variants)) score = SEARCH_SCORE.pubOrgHas;
+    else if (searchHit(item.gist, variants)) score = SEARCH_SCORE.pubGistHas;
+    else {
+      // toc.briefs 는 데이터셋에서 가장 밀도 높은 문장들 — 단, 스니펫은 일치한
+      // 한 문장만 보여준다(다 펼치면 검색 결과가 목차 사본이 된다).
+      brief = (item.toc?.briefs || []).find(line => searchHit(line, variants)) || "";
+      if (brief) score = SEARCH_SCORE.pubBriefHas;
+    }
+    if (score) scored.push({ score, item, brief });
+  });
+  scored.sort((a, b) => b.score - a.score || String(b.item.date || "").localeCompare(String(a.item.date || "")));
+  return scored.slice(0, limit);
+}
+
+function searchLabelChips(variants, labels, limit) {
+  return Object.entries(labels)
+    .filter(([, label]) => searchHit(label, variants))
+    .slice(0, limit);
+}
+
+function loadRecentSearches() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-recent-searches") || "[]");
+    return Array.isArray(raw) ? raw.filter(item => typeof item === "string").slice(0, 8) : [];
+  } catch { return []; }
+}
+function saveRecentSearch(query) {
+  const value = normalizedSearch(query);
+  if (value.length < 2) return;   // 1글자·공백은 저장하지 않는다
+  const rest = loadRecentSearches().filter(item => item !== value);
+  try { localStorage.setItem("nuclens-recent-searches", JSON.stringify([value, ...rest].slice(0, 8))); }
+  catch { /* 저장 실패는 검색을 막지 않는다 */ }
+}
+function removeRecentSearch(query) {
+  try {
+    localStorage.setItem("nuclens-recent-searches",
+      JSON.stringify(loadRecentSearches().filter(item => item !== query)));
+  } catch { /* 동일 */ }
+}
+
+let searchActiveIndex = -1;
+function searchOptionRow(id, body, dataset) {
+  const attrs = Object.entries(dataset).map(([key, value]) => `data-${key}="${esc(value)}"`).join(" ");
+  return `<div class="search-option" role="option" id="${id}" aria-selected="false" ${attrs}>${body}</div>`;
+}
+
+function renderSearchResults() {
+  const box = document.getElementById("globalSearchResults");
+  const input = document.getElementById("globalSearch");
+  if (!box || !input) return;
+  searchActiveIndex = -1;
+  input.setAttribute("aria-activedescendant", "");
+  const query = normalizedSearch(input.value);
+  if (!query) {
+    const recent = loadRecentSearches();
+    box.innerHTML = recent.length
+      ? `<div class="search-group"><h3>최근 검색<button type="button" class="search-clear-recent" data-recent-clear>전체 삭제</button></h3>`
+        + recent.map((item, index) => searchOptionRow(`sr-${index}`,
+          `<span>${esc(item)}</span><button type="button" class="search-remove" data-recent-remove="${esc(item)}" aria-label="‘${esc(item)}’ 삭제">×</button>`,
+          { "search-query": item })).join("")
+        + "</div>"
+      : "";
+    input.setAttribute("aria-expanded", String(recent.length > 0));
+    return;
+  }
+  const variants = searchVariants(query);
+  const perGroup = narrowScreen.matches ? 3 : 5;
+  let optionIndex = 0;
+  const groups = [];
+  const issues = searchIssuesQuick(variants, perGroup);
+  if (issues.length) {
+    groups.push(`<div class="search-group"><h3>이슈</h3>${issues.map(({ issue }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span>${esc(issue.title)}</span><small>${esc(dateLabel(issue.last_seen))} · ${esc(issue.region || "")}</small>`,
+      { "search-issue": issue.issue_id })).join("")}</div>`);
+  }
+  const entities = searchEntitiesQuick(variants, narrowScreen.matches ? 3 : 4);
+  if (entities.length) {
+    groups.push(`<div class="search-group"><h3>대상</h3>${entities.map(({ entity }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span><small>${esc(ENTITY_TYPE_LABELS[entity.type] || "")}</small> ${esc(entity.name_kr)}</span>`
+      + `<small>${entity.issue_count ? `이슈 ${entity.issue_count}건` : "관련 이슈 없음"}</small>`,
+      { "search-entity": entity.id })).join("")}</div>`);
+  }
+  const topics = searchLabelChips(variants, TOPIC_LABELS, narrowScreen.matches ? 3 : 4);
+  if (topics.length) {
+    groups.push(`<div class="search-group"><h3>주제</h3>${topics.map(([key, label]) => searchOptionRow(
+      `sr-${optionIndex++}`, `<span>${esc(label)}</span>`, { "search-topic": key })).join("")}</div>`);
+  }
+  const countries = searchLabelChips(variants, COUNTRY_LABELS, narrowScreen.matches ? 3 : 4);
+  if (countries.length) {
+    groups.push(`<div class="search-group"><h3>국가</h3>${countries.map(([, label]) => searchOptionRow(
+      `sr-${optionIndex++}`, `<span>${esc(label)}</span>`, { "search-country": label })).join("")}</div>`);
+  }
+  const pubs = searchPubsQuick(variants, narrowScreen.matches ? 3 : 4);
+  if (pubs.length) {
+    groups.push(`<div class="search-group"><h3>발간물</h3>${pubs.map(({ item, brief }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span>${esc(item.title_kr || item.title)}</span>`
+      + `<small>${esc(item.org_kr || item.org || "")}${item.date ? ` · ${esc(dateLabel(item.date))}` : ""}</small>`
+      + (brief ? `<em class="search-brief">${esc(brief)}</em>` : ""),
+      { "search-pub": item.url })).join("")}</div>`);
+  }
+  box.innerHTML = groups.length ? groups.join("") : `<div class="search-empty">
+    <p>조건에 맞는 결과가 없습니다 — 주제나 국가명으로 시작해 보세요.</p>
+    <div class="hub-chips">${["SMR", "계속운전", "미국"].map(word =>
+    `<button type="button" class="hub-chip" data-search-starter="${esc(word)}">${esc(word)}</button>`).join("")}</div>
+  </div>`;
+  input.setAttribute("aria-expanded", String(groups.length > 0));
+}
+
+function searchOptions() {
+  return [...document.querySelectorAll("#globalSearchResults [role=\"option\"]")];
+}
+function moveSearchActive(delta) {
+  const options = searchOptions();
+  if (!options.length) return;
+  searchActiveIndex = (searchActiveIndex + delta + options.length) % options.length;
+  options.forEach((option, index) => {
+    option.classList.toggle("active", index === searchActiveIndex);
+    option.setAttribute("aria-selected", String(index === searchActiveIndex));
+  });
+  const active = options[searchActiveIndex];
+  document.getElementById("globalSearch").setAttribute("aria-activedescendant", active.id);
+  active.scrollIntoView({ block: "nearest" });
+}
+
+// 결과 선택 — 종류마다 목적지가 다르다. 공통 규칙: 필터는 깨끗한 상태에서
+// 그 하나만 세운다(허브와 같은 계약).
+function applySearchResult(option) {
+  const dialog = document.getElementById("globalSearchDialog");
+  const data = option.dataset;
+  if (data.recentClear !== undefined) return;   // 별도 처리
+  if (data.searchQuery) {
+    document.getElementById("globalSearch").value = data.searchQuery;
+    renderSearchResults();
+    return;
+  }
+  if (data.searchStarter) {
+    document.getElementById("globalSearch").value = data.searchStarter;
+    renderSearchResults();
+    return;
+  }
+  saveRecentSearch(document.getElementById("globalSearch").value);
+  if (data.searchIssue) {
+    dialog.close();
+    openIssueDialog(data.searchIssue);
+    return;
+  }
+  if (data.searchPub) {
+    const url = safeUrl(data.searchPub);
+    if (url) window.open(url, "_blank", "noopener");
+    return;
+  }
+  const reset = () => {
+    state.archiveQuery = "";
+    state.archiveEntity = "";
+    state.archiveRegion = "전체";
+    state.archiveTopic = "전체";
+    state.archivePeriod = "all";
+    state.archiveVerification = "전체";
+  };
+  if (data.searchEntity) { reset(); state.archiveEntity = data.searchEntity; }
+  else if (data.searchTopic) { reset(); state.archiveTopic = data.searchTopic; }
+  else if (data.searchCountry) { reset(); state.archiveQuery = normalizedSearch(data.searchCountry); }
+  else return;
+  dialog.close();
+  document.getElementById("globalSearch").value = "";
+  switchView("search");
+  renderArchiveSearch(true);
+  syncUrl("push");
+}
+
 function openGlobalSearch() {
   const dialog = document.getElementById("globalSearchDialog");
   const input = document.getElementById("globalSearch");
   input.value = state.archiveQuery;
   if (!dialog.open) dialog.showModal();
+  renderSearchResults();
   requestAnimationFrame(() => { input.focus(); input.select(); });
 }
 
@@ -1777,7 +2407,7 @@ function handleIssueAction(event) {
     if (!detail.dataset.forceDialog && state.view === "news" && railIsActive()) {
       state.railIssueId = detail.dataset.issueId;
       renderEvidenceRail();
-      document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" });
       return true;
     }
     openIssueDialog(detail.dataset.issueId);
@@ -1804,6 +2434,15 @@ function bind() {
   document.body.addEventListener("click", event => {
     const go = event.target.closest("[data-go-view]");
     if (go) switchView(go.dataset.goView);
+    // 톰스톤의 '제목으로 다시 찾기' — 저장 당시 제목을 검색어로 탐색에 넘긴다.
+    const requery = event.target.closest("[data-requery]");
+    if (requery) {
+      state.archiveQuery = normalizedSearch(requery.dataset.requery);
+      state.archiveEntity = "";
+      switchView("search");
+      renderArchiveSearch(true);
+      syncUrl("push");
+    }
     const pubsOrg = event.target.closest("[data-pubs-org]");
     if (pubsOrg) { state.pubsOrg = pubsOrg.dataset.pubsOrg; renderPubs(); }
     const keyword = event.target.closest("[data-keyword]");
@@ -1821,13 +2460,43 @@ function bind() {
    "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
+  // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
+  ["exploreHub", "entityHeader"].forEach(id => {
+    document.getElementById(id).addEventListener("click", handleHubAction);
+  });
+  // 팔로우 패널 — 대상 열기(그 시점에 확인 처리)·해제. 저장 화면 진입만으로는
+  // 확인 처리하지 않는다(주석 계약은 index.html 의 followPanel 에).
+  document.getElementById("followPanel").addEventListener("click", event => {
+    const unfollow = event.target.closest("[data-unfollow]");
+    if (unfollow) { toggleFollow(unfollow.dataset.unfollow); return; }
+    const open = event.target.closest("[data-follow-open]");
+    if (!open) return;
+    markEntitySeen(open.dataset.followOpen);
+    state.archiveQuery = "";
+    state.archiveEntity = open.dataset.followOpen;
+    state.archiveRegion = "전체";
+    state.archiveTopic = "전체";
+    state.archivePeriod = "all";
+    state.archiveVerification = "전체";
+    switchView("search");
+    renderArchiveSearch(true);
+    syncUrl("push");
+  });
+  // 지난 브리핑 행 — 그 날짜의 오늘 화면으로 점프(dateSel 변경과 같은 경로).
+  document.getElementById("briefingTimelineList").addEventListener("click", event => {
+    const row = event.target.closest("[data-go-date]");
+    if (!row || !briefingDates().includes(row.dataset.goDate)) return;
+    state.briefingDate = row.dataset.goDate;
+    renderDateSelect();
+    renderBriefing();
+    renderSystemStatus();
+    switchView("news");
+  });
 
   document.getElementById("showChangedIssues").addEventListener("click", () => {
     const section = document.getElementById("changedIssues");
-    // CSS의 prefers-reduced-motion은 JS scrollIntoView에 적용되지 않는다.
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     (section.hidden ? document.getElementById("todayIssues") : section)
-      .scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      .scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
   });
   const briefAudio = document.getElementById("audioEl");
   document.getElementById("audioToggle").addEventListener("click", () => {
@@ -1928,14 +2597,43 @@ function bind() {
   document.getElementById("globalSearchClose").addEventListener("click", () => document.getElementById("globalSearchDialog").close());
   document.getElementById("globalSearchForm").addEventListener("submit", event => {
     event.preventDefault();
+    // 화살표로 고른 결과가 있으면 Enter 는 그 결과를 연다. 없으면 기존 경로 —
+    // 검색어를 들고 탐색 화면으로 간다(이 경로의 동작·문구는 잠금).
+    const active = searchOptions()[searchActiveIndex];
+    if (active) { applySearchResult(active); return; }
+    saveRecentSearch(document.getElementById("globalSearch").value);
     state.archiveQuery = normalizedSearch(document.getElementById("globalSearch").value);
     document.getElementById("globalSearchDialog").close();
     switchView("search");
     renderArchiveSearch(true);
   });
+  let searchDebounce = 0;
   document.getElementById("globalSearch").addEventListener("input", event => {
     const query = normalizedSearch(event.target.value);
     document.getElementById("globalSearchHint").textContent = query ? `“${query}” 검색` : "검색어를 입력하세요.";
+    window.clearTimeout(searchDebounce);
+    searchDebounce = window.setTimeout(renderSearchResults, 120);
+  });
+  document.getElementById("globalSearch").addEventListener("keydown", event => {
+    if (event.key === "ArrowDown") { event.preventDefault(); moveSearchActive(1); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); moveSearchActive(-1); }
+  });
+  document.getElementById("globalSearchResults").addEventListener("click", event => {
+    const removeButton = event.target.closest("[data-recent-remove]");
+    if (removeButton) {
+      removeRecentSearch(removeButton.dataset.recentRemove);
+      renderSearchResults();
+      return;
+    }
+    if (event.target.closest("[data-recent-clear]")) {
+      try { localStorage.removeItem("nuclens-recent-searches"); } catch { /* 무해 */ }
+      renderSearchResults();
+      return;
+    }
+    const starter = event.target.closest("[data-search-starter]");
+    if (starter) { applySearchResult(starter); return; }
+    const option = event.target.closest('[role="option"]');
+    if (option) applySearchResult(option);
   });
   document.addEventListener("keydown", event => {
     const tag = event.target.tagName;
@@ -1981,7 +2679,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -1989,6 +2687,8 @@ async function init() {
       // 오디오는 세대 폴더가 아니라 data/ 루트에 산다(daily-brief 가 하루 1회 생성).
       // 없거나 깨져도 플레이어만 숨는다 — 같은 비치명 계약.
       loadRootJSON("audio/audio.json", true).catch(() => null),
+      // 엔티티 사전도 부가 데이터 — 없으면 허브의 대상 그룹만 비고 나머지는 산다.
+      loadJSON("entities.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;
@@ -2000,6 +2700,7 @@ async function init() {
   window.clearTimeout(initRetryTimer);
   initRetryCount = 0;
   loadSaved();
+  loadFollows();
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
   restoreUrlState();
   renderTopicSelects();
