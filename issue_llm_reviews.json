@@ -1532,6 +1532,16 @@
       "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
       "same_event": false
     },
+    "71301f3f0739bc0b--da9a4893cdd4761d": {
+      "embedding_similarity": 0.8412,
+      "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "A는 일반적 문제, B는 특정 심의",
+      "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+      "same_event": false
+    },
     "76ffb07f2b6ccb8d--8c6eb5250550b959": {
       "embedding_similarity": 0.8554,
       "left_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
@@ -1640,6 +1650,16 @@
       "reason": "특정 원전 신청과 일반 전망 논의",
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
+      "same_event": false
+    },
+    "9a7b23e4ae5be6f3--da9a4893cdd4761d": {
+      "embedding_similarity": 0.8752,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "A는 심사 정책, B는 특정 심의",
+      "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
       "same_event": false
     },
     "9ff80dab9059f991--bf6d688ab21e07ed": {
@@ -1820,6 +1840,16 @@
       "reason": "일반 논의 vs 특정 파트너십",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "da9a4893cdd4761d--e2e42584280401fc": {
+      "embedding_similarity": 0.8409,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "A는 안전기준 개정, B는 특정 심의",
+      "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
       "same_event": false
     }
   }
