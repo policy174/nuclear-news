@@ -215,10 +215,11 @@
          국가, 출처는 접힘. issue_count 0 엔티티는 여기 안 나온다(검색에는
          나온다) — 빈 항목이 가득한 허브는 제품이 비어 보이게 만든다. -->
     <section id="exploreHub" class="explore-hub" aria-label="탐색 시작점" hidden>
+      <!-- 대상 칩만 남긴다. 주제·국가·출처 칩은 각각 아래 주제 필터 셀렉트와
+           통합 검색이 이미 하는 일이었고, 칩을 한 번 누르면 허브가 통째로
+           숨으니 중복을 한 번 보여주려고 첫 화면을 쓴 셈이었다. 원전·기업·
+           기관은 검색 말고 둘러볼 경로가 없어 이 그룹만 남는다. -->
       <div class="hub-group"><h2>지금 많이 등장하는 대상</h2><div class="hub-chips" id="hubEntities"></div></div>
-      <div class="hub-group"><h2>주제</h2><div class="hub-chips" id="hubTopics"></div></div>
-      <div class="hub-group"><h2>국가·지역</h2><div class="hub-chips" id="hubCountries"></div></div>
-      <details class="hub-group hub-sources"><summary>출처로 찾기</summary><div class="hub-chips" id="hubSources"></div></details>
     </section>
     <!-- ent 딥링크의 엔티티 페이지 머리 — 이름·유형·국가·집계와 연결 이슈가
          아래 결과 목록으로 이어진다. '최근 포착'이라 쓴다: 사건 발생일이 아니라

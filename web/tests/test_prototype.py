@@ -2672,8 +2672,7 @@ class ExploreHubTests(unittest.TestCase):
         cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
 
     def test_hub_and_entity_header_exist_and_are_wired(self):
-        for element_id in ("exploreHub", "entityHeader", "hubEntities", "hubTopics",
-                          "hubCountries", "hubSources"):
+        for element_id in ("exploreHub", "entityHeader", "hubEntities"):
             self.assertIn(f'id="{element_id}"', self.html)
         self.assertIn("function renderExploreHub", self.script)
         self.assertIn("function renderEntityHeader", self.script)
@@ -2702,6 +2701,26 @@ class ExploreHubTests(unittest.TestCase):
 
     def test_zero_count_entities_stay_out_of_the_hub(self):
         self.assertIn("entity.issue_count > 0", self.script)
+
+    def test_hub_offers_only_what_nothing_else_offers(self):
+        """허브에 남는 그룹은 '대상' 하나다.
+
+        주제 칩은 바로 아래 주제 필터 셀렉트와, 국가·출처 칩은 통합 검색과
+        같은 일을 했다. 칩을 한 번 누르면 필터가 걸려 허브가 통째로 숨으므로,
+        중복 경로를 한 번 보여주려고 첫 화면을 쓴 셈이었다(8/3 '자주 찾는
+        주제' 제거와 같은 판단). 원전·기업·기관만 검색 말고 둘러볼 경로가 없다.
+        """
+        for element_id in ("hubTopics", "hubCountries", "hubSources"):
+            self.assertNotIn(element_id, self.html)
+            self.assertNotIn(element_id, self.script)
+        # 허브가 만드는 칩은 대상 하나뿐 — 죽은 분기(data-hub-q)도 남기지 않는다.
+        hub = self.script[self.script.index("function renderExploreHub"):]
+        hub = hub[:hub.index("function renderEntityHeader")]
+        self.assertIn("data-hub-ent", hub)
+        self.assertNotIn("data-hub-topic", hub)
+        self.assertNotIn("data-hub-q", self.script)
+        # 엔티티 헤더의 '자주 함께 등장한 주제'는 계속 주제 칩을 쓴다.
+        self.assertIn("data-hub-topic", self.script)
 
     def test_recent_capture_wording_not_last_confirmed(self):
         # '마지막 확인'은 사용자 확인 시각으로 오독된다 — 보도 포착일은 '최근 포착'.

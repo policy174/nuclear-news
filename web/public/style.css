@@ -1227,15 +1227,12 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
    같다 — 박스·배경 없이 선과 타이포로만 위계를 세운다. */
 .explore-hub { display: grid; gap: var(--sp-6); margin-bottom: var(--sp-10); }
 .hub-group { padding-top: var(--sp-4); border-top: 1px solid var(--c-border); }
-.hub-group > h2, .hub-group > summary {
+.hub-group > h2 {
   margin: 0 0 var(--sp-3);
   font-size: var(--t-caption);
   font-weight: 700;
   color: var(--c-text-secondary);
 }
-.hub-sources > summary { cursor: pointer; list-style: none; min-height: 44px; display: flex; align-items: center; }
-.hub-sources > summary::before { content: "▸ "; color: var(--c-text-muted); }
-.hub-sources[open] > summary::before { content: "▾ "; }
 .hub-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .hub-chip {
   display: inline-flex;
