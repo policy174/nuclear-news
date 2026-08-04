@@ -1209,37 +1209,6 @@ function renderExploreHub() {
     </button>`).join("");
   document.getElementById("hubEntities").innerHTML =
     entityChips || `<p class="empty">${esc(STRINGS.hubEmptyEntities)}</p>`;
-  const topicCounts = new Map();
-  state.issues.forEach(issue => (issue.topics || []).forEach(topic => {
-    topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
-  }));
-  document.getElementById("hubTopics").innerHTML = [...topicCounts]
-    .sort((a, b) => b[1] - a[1])
-    .map(([topic, count]) => `<button type="button" class="hub-chip" data-hub-topic="${esc(topic)}">${esc(TOPIC_LABELS[topic] || topic)}<b>${count}</b></button>`)
-    .join("");
-  // 국가는 이슈 단위로 센다(같은 이슈의 기사 5건이 전부 미국이어도 1) —
-  // trend 의 countries_30d 와 같은 셈법이라 화면끼리 숫자가 어긋나지 않는다.
-  const countryCounts = new Map();
-  state.issues.forEach(issue => {
-    const codes = new Set((issue.related_articles || []).flatMap(article => article.countries || []));
-    codes.forEach(code => countryCounts.set(code, (countryCounts.get(code) || 0) + 1));
-  });
-  document.getElementById("hubCountries").innerHTML = [...countryCounts]
-    .filter(([code]) => code !== "UNSPECIFIED")
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
-    .map(([code, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(COUNTRY_LABELS[code] || code)}">${esc(COUNTRY_LABELS[code] || code)}<b>${count}</b></button>`)
-    .join("");
-  const publisherCounts = new Map();
-  state.issues.forEach(issue => {
-    const names = new Set((issue.related_articles || []).map(article => article.publisher).filter(Boolean));
-    names.forEach(name => publisherCounts.set(name, (publisherCounts.get(name) || 0) + 1));
-  });
-  document.getElementById("hubSources").innerHTML = [...publisherCounts]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8)
-    .map(([name, count]) => `<button type="button" class="hub-chip" data-hub-q="${esc(name)}">${esc(name)}<b>${count}</b></button>`)
-    .join("");
 }
 
 function renderEntityHeader() {
@@ -1989,10 +1958,10 @@ function handleHubAction(event) {
   const followToggle = event.target.closest("[data-follow-toggle]");
   if (followToggle) { toggleFollow(followToggle.dataset.followToggle); return; }
   const entityChip = event.target.closest("[data-hub-ent]");
+  // 주제 칩은 허브에서 뺐지만 엔티티 헤더의 '자주 함께 등장한 주제'가 계속 쓴다.
   const topicChip = event.target.closest("[data-hub-topic]");
-  const queryChip = event.target.closest("[data-hub-q]");
   const clearEntity = event.target.closest("[data-clear-entity]");
-  if (!entityChip && !topicChip && !queryChip && !clearEntity) return;
+  if (!entityChip && !topicChip && !clearEntity) return;
   state.archiveQuery = "";
   state.archiveEntity = "";
   state.archiveRegion = "전체";
@@ -2009,7 +1978,6 @@ function handleHubAction(event) {
     state.archiveTopic = topicChip.dataset.hubTopic;
     document.getElementById("archiveTopic").value = state.archiveTopic;
   }
-  if (queryChip) state.archiveQuery = normalizedSearch(queryChip.dataset.hubQ);
   renderArchiveSearch(true);
   syncUrl("push");
   scrollToPageTop();
