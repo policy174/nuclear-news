@@ -28,7 +28,10 @@ concurrency:
 jobs:
   brief:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # 2026-08-03 정기 실행이 15분 벽에 걸려 취소됐다 — 스텝은 전부 성공한 뒤
+    # 마지막 스모크가 끝나는 순간(15분 09초)이었다. Plan·trend·배포(TTS 포함)가
+    # 각각 3~7분이라 15분은 여유가 없다.
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repo
