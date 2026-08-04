@@ -1010,6 +1010,29 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('id="issueDialogTitle" tabindex="-1"', script)
         self.assertIn('class="dialog-meaning"', script)
 
+    def test_audio_brief_player_is_wired(self):
+        """오디오 브리핑 — 마크업·배속·비치명 로드·날짜 대조가 맞물려 있는지.
+
+        음원은 1.0x 원본 하나뿐이고 배속은 playbackRate 가 맡는다(2026-08-04
+        박제: 출근길 청취). audio/audio.json 이 없으면 플레이어만 숨어야 한다
+        — publications 와 같은 비치명 계약.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        for element_id in ("audioBrief", "audioToggle", "audioRate", "audioTime", "audioEl"):
+            self.assertIn(f'id="{element_id}"', html)
+        self.assertIn('loadRootJSON("audio/audio.json", true)', script)
+        self.assertIn("const AUDIO_RATES = [1, 1.25, 1.5, 2]", script)
+        self.assertIn("nuclens-audio-rate", script)
+        self.assertIn("playbackRate", script)
+        # 날짜가 다른 브리핑에서는 숨는다 — renderBriefing 모든 경로에서 판정
+        self.assertIn("renderAudioBrief(briefing)", script)
+        self.assertIn("meta.date === briefing.date", script)
+        # 모바일이 본 무대 — hero-actions 처럼 숨기지 말고 44px 터치 타깃
+        self.assertIn(".hero-audio button { min-height: 44px; }", style)
+        self.assertNotIn(".hero-audio { display: none", style)
+
     def test_p3_issue_pages_have_unique_open_graph_metadata(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         root_html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")

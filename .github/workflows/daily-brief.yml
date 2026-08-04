@@ -54,6 +54,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuclear-embeddings-
 
+      # 오디오 브리핑 mp3 는 git 이 아니라 Actions 캐시에 산다 (embeddings 패턴).
+      # 이전 산출물이 있어야 같은 날짜 재실행이 TTS 를 다시 부르지 않는다.
+      - name: Restore audio cache
+        uses: actions/cache/restore@v4
+        with:
+          path: web/public/data/audio
+          key: ${{ runner.os }}-nuclens-audio-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-nuclens-audio-
+
       - name: Backfill 21-day briefing embeddings
         continue-on-error: true
         env:
@@ -152,10 +162,15 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL || 'gemini-3.1-flash-tts-preview' }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           git fetch origin main && git reset --hard origin/main
           python web/build_data.py
+          # 오디오 브리핑 — build_data 산출물을 재료로 쓰므로 반드시 그 뒤,
+          # 배포 전. 실패해도 배포는 계속한다 (오디오는 부가 기능).
+          python audio_brief.py || echo "[audio] 오디오 브리핑 실패 — 비치명, 배포 계속"
           npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
           # 배포 후 라이브 스모크 (crawl.yml과 동일 기준)
           sleep 15
@@ -164,6 +179,25 @@ jobs:
             || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
           [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
           echo "스모크 OK — 기사 ${count}건"
+
+      # 오디오 산출물을 다음 배포(짝수시 crawl·deploy-web)가 복원할 수 있게 저장.
+      # audio.json 이 있어야 저장한다 — 빈 디렉터리 저장은 경고만 남긴다.
+      - name: Check audio cache
+        if: always()
+        id: audio-cache
+        run: |
+          if [ -f web/public/data/audio/audio.json ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Save audio cache
+        if: always() && steps.audio-cache.outputs.available == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: web/public/data/audio
+          key: ${{ runner.os }}-nuclens-audio-${{ github.run_id }}
 
       # 이슈 병합·KEEI 매칭 LLM 판정 캐시. 위 배포 스텝의 git reset --hard 뒤에
       # build_data 가 쓰기 때문에 여기서 따로 커밋해야 살아남는다.

@@ -800,6 +800,8 @@ function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
   issueList.classList.remove("skeleton-list");
+  // 모든 반환 경로(브리핑 없음·0건·정상)에서 한 번씩 판정되도록 맨 앞에서 부른다.
+  renderAudioBrief(briefing);
   if (!briefing) {
     renderEmptyBriefing(null, issueList);
     return;
@@ -924,6 +926,54 @@ function renderBriefing() {
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
   renderBriefingSidebar(briefing, leadId);
   renderNewsFeed();
+}
+
+// ── 오디오 브리핑 플레이어 ──────────────────────────────────
+// 음원은 1.0x 원본 하나뿐이고 배속은 여기 playbackRate 가 맡는다.
+// audio/audio.json 은 부가 데이터 — 없으면 플레이어가 통째로 숨는다.
+const AUDIO_RATES = [1, 1.25, 1.5, 2];
+
+function audioRate() {
+  const saved = Number(localStorage.getItem("nuclens-audio-rate"));
+  return AUDIO_RATES.includes(saved) ? saved : 1;
+}
+
+function fmtClock(value) {
+  if (!Number.isFinite(value) || value < 0) return "0:00";
+  return `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, "0")}`;
+}
+
+function updateAudioToggle(playing) {
+  const button = document.getElementById("audioToggle");
+  if (!button) return;
+  button.setAttribute("aria-pressed", playing ? "true" : "false");
+  button.textContent = playing ? "⏸ 일시정지" : "▶ 오디오 브리핑";
+}
+
+function renderAudioBrief(briefing) {
+  const box = document.getElementById("audioBrief");
+  if (!box) return;
+  const audio = document.getElementById("audioEl");
+  const meta = state.audio;
+  const show = !!(meta && meta.file && briefing && meta.date === briefing.date);
+  box.hidden = !show;
+  if (!show) {
+    // 다른 날짜로 넘어가면 그 날짜에 없는 오디오가 계속 재생되면 안 된다
+    if (audio && !audio.paused) audio.pause();
+    return;
+  }
+  // 파일명이 날짜를 품지만(briefing-<date>.mp3) 같은 날 재생성도 있어
+  // generated_at 으로 캐시를 가른다 — manifest 구버전 캐시 사고(8/1)의 교훈.
+  const src = `/data/audio/${encodeURIComponent(meta.file)}?v=${encodeURIComponent(meta.generated_at || meta.date)}`;
+  if (audio.dataset.src !== src) {
+    if (!audio.paused) audio.pause();
+    audio.dataset.src = src;
+    audio.src = src;
+    updateAudioToggle(false);
+    document.getElementById("audioTime").textContent =
+      `0:00 / ${fmtClock(meta.duration_sec)}`;
+  }
+  document.getElementById("audioRate").textContent = `${audioRate()}×`;
 }
 
 function articleCard(article) {
@@ -1794,6 +1844,35 @@ function bind() {
     (section.hidden ? document.getElementById("todayIssues") : section)
       .scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   });
+  const briefAudio = document.getElementById("audioEl");
+  document.getElementById("audioToggle").addEventListener("click", () => {
+    if (briefAudio.paused) briefAudio.play().catch(() => {});
+    else briefAudio.pause();
+  });
+  document.getElementById("audioRate").addEventListener("click", () => {
+    const next = AUDIO_RATES[(AUDIO_RATES.indexOf(audioRate()) + 1) % AUDIO_RATES.length];
+    localStorage.setItem("nuclens-audio-rate", String(next));
+    briefAudio.playbackRate = next;
+    document.getElementById("audioRate").textContent = `${next}×`;
+  });
+  // playbackRate 는 src 교체 때 1.0 으로 돌아온다 — 재생 시작마다 다시 얹는다.
+  briefAudio.addEventListener("play", () => {
+    briefAudio.playbackRate = audioRate();
+    updateAudioToggle(true);
+  });
+  briefAudio.addEventListener("pause", () => updateAudioToggle(false));
+  briefAudio.addEventListener("ended", () => updateAudioToggle(false));
+  briefAudio.addEventListener("timeupdate", () => {
+    const total = Number.isFinite(briefAudio.duration) && briefAudio.duration > 0
+      ? briefAudio.duration : state.audio?.duration_sec;
+    document.getElementById("audioTime").textContent =
+      `${fmtClock(briefAudio.currentTime)} / ${fmtClock(total)}`;
+  });
+  // 캐시 유실 등으로 mp3 가 404 면 죽은 버튼을 남기지 않는다
+  briefAudio.addEventListener("error", () => {
+    document.getElementById("audioBrief").hidden = true;
+  });
+
   document.getElementById("regionTabs").addEventListener("click", event => {
     const button = event.target.closest("[data-region]");
     if (!button) return;
@@ -1917,11 +1996,14 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
       loadJSON("publications.json").catch(() => null),
+      // 오디오는 세대 폴더가 아니라 data/ 루트에 산다(daily-brief 가 하루 1회 생성).
+      // 없거나 깨져도 플레이어만 숨는다 — 같은 비치명 계약.
+      loadRootJSON("audio/audio.json", true).catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;
