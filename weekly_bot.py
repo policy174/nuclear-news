@@ -47,8 +47,8 @@ WEEKLY_PROMPT = """당신은 한국수력원자력 전략경영단 정책개발�
 [출력 형식] - 반드시 JSON 한 객체만. 다른 텍스트·펜스 금지. 문자열 값 안 줄바꿈 금지.
 {
   "weekly_intro": "이번 주 핵심 흐름 3~4문장 (400자 이내, 분석관 보고 톤)",
-  "policy_shifts": [{"what": "정책 변화 1문장", "so_what": "함의 1문장"}],
-  "theme_moves": [{"theme": "투자 테마명", "direction": "강화|약화|유지", "why": "근거 1문장"}],
+  "policy_shifts": [{"what": "정책 변화 1문장", "so_what": "함의 1문장", "evidence_hashes": ["hash8"]}],
+  "theme_moves": [{"theme": "투자 테마명", "direction": "강화|약화|유지", "why": "근거 1문장", "evidence_hashes": ["hash8"]}],
   "khnp_direct": "한국·한수원 직접 영향 종합 1~3문장 (없으면 빈 문자열)",
   "watchpoints": ["다음 주 모니터링 포인트 (각 1문장, 3~5개)"],
   "report_candidates": [{"topic": "보고서 주제", "basis": "누적 근거 1문장"}],
@@ -57,6 +57,7 @@ WEEKLY_PROMPT = """당신은 한국수력원자력 전략경영단 정책개발�
 
 [규칙]
 - policy_shifts 2~4개, theme_moves 2~4개, report_candidates 0~3개 (없으면 빈 배열 — 억지 금지).
+- **evidence_hashes**: 그 문장의 근거가 된 기사 hash. 입력 목록에 **실제로 있는 hash 만** 1~2개. 근거를 지목할 수 없으면 빈 배열. 지어내지 말 것.
 - key_events 는 **최대 5건** — 주간 판세를 대표하는 사건만. 일일 브리핑 재탕 금지.
 - 같은 사건의 후속 보도는 1건으로 취급.
 - 원문·집계에 없는 정보 추가 금지 (환각 금지). 격식체(~다) 분석관 톤.
@@ -199,7 +200,31 @@ def batch_synthesize(items: list[dict], agg: dict) -> dict:
             out[key] = str(v or "")
     out["key_events"] = out["key_events"][:5]
     out["report_candidates"] = out["report_candidates"][:3]
+    prune_evidence_hashes(out, items)
     return out
+
+
+def prune_evidence_hashes(synthesis: dict, items: list[dict]) -> None:
+    """근거 hash 를 이번 주 입력에 실제로 있는 것만 남긴다.
+
+    전역 key_events 만으로는 어떤 hash 가 어느 문장의 근거인지 알 수 없어 모든
+    문장에 같은 칩이 붙는다. 문장별 evidence_hashes 를 받되, LLM 이 지어낸 hash 는
+    화면에서 죽은 칩이 되므로 여기서 잘라낸다.
+    """
+    known = {str(item["hash"])[:8] for item in items if item.get("hash")}
+    for key in ("policy_shifts", "theme_moves"):
+        for row in synthesis.get(key) or []:
+            if not isinstance(row, dict):
+                continue
+            raw = row.get("evidence_hashes")
+            # 순서를 보존하며 중복 제거한다. set 으로 걸러 내면 순서가 실행마다
+            # 달라져 dirty 판정이 항상 참이 되고, 같은 리포트를 무한히 다시 쓴다.
+            kept: list[str] = []
+            for value in raw if isinstance(raw, list) else []:
+                short = str(value)[:8]
+                if short in known and short not in kept:
+                    kept.append(short)
+            row["evidence_hashes"] = kept[:2]
 
 
 def article_by_hash8(items: list[dict], h8: str) -> dict | None:
@@ -209,11 +234,95 @@ def article_by_hash8(items: list[dict], h8: str) -> dict | None:
     return None
 
 
-def format_weekly(items: list[dict]) -> str:
+# ---- 웹용 주간 리포트 저장 -----------------------------------------------------
+#
+# 지금까지 주간 리포트는 텔레그램 텍스트로만 나가고 사라졌다. 웹 '주간 흐름'
+# 탭은 키워드·slope 같은 정량 관찰뿐이라, 정책 변화와 한수원 직접 영향을 해석하는
+# 문단이 붙으면 뉴스 사이트에서 정책 브리핑 도구로 넘어간다.
+# batch_synthesize 결과를 그대로 재사용하므로 Gemini 호출은 늘지 않는다.
+WEEKLY_REPORTS_FILE = ROOT / "weekly_reports.json"
+
+
+def week_id(day: datetime) -> str:
+    """Asia/Seoul 기준 ISO 주차. UTC 로 계산하면 연말·주말 경계가 엇갈린다."""
+    year, week, _ = day.astimezone(KST).isocalendar()
+    return f"{year}-W{week:02d}"
+
+
+def load_weekly_reports(path: Path | None = None) -> dict:
+    path = path or WEEKLY_REPORTS_FILE
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"schema_version": 1, "reports": {}}
+    reports = raw.get("reports")
+    return {"schema_version": 1,
+            "reports": reports if isinstance(reports, dict) else {}}
+
+
+def save_weekly_report(synthesis: dict, agg: dict, items: list[dict],
+                       now: datetime | None = None,
+                       path: Path | None = None) -> bool:
+    """이번 주 리포트를 저장. 저장했으면 True.
+
+    저장 여부를 len(reports) 증가로 판정하면 안 된다 — 같은 주차 덮어쓰기는
+    크기가 그대로라 영영 저장 안 된 것처럼 보인다. 명시적 dirty 플래그를 쓴다.
+    """
+    now = (now or datetime.now(KST)).astimezone(KST)
+    path = path or WEEKLY_REPORTS_FILE
+    store = load_weekly_reports(path)
+    key = week_id(now)
+    start = now - timedelta(days=6)
+    entry = {
+        "week_id": key,
+        "week_start": start.date().isoformat(),
+        "week_end": now.date().isoformat(),
+        "generated_at": now.isoformat(),
+        "timezone": "Asia/Seoul",
+        "schema_version": 1,
+        # 기사 수가 아니라 병합된 고유 이슈 수. 기사 수를 쓰면 후속 보도가 많은
+        # 주가 실제보다 풍성해 보인다.
+        "source_issue_count": count_unique_issues(items),
+        "article_count": agg.get("total", len(items)),
+        **{key_name: synthesis.get(key_name) for key_name in (
+            "weekly_intro", "policy_shifts", "theme_moves", "khnp_direct",
+            "watchpoints", "report_candidates", "key_events")},
+    }
+    # 내용 비교에서 generated_at 은 뺀다 — 매 실행마다 달라지므로 포함하면
+    # dirty 가 항상 참이 되고 같은 리포트를 무한히 다시 쓴다.
+    def content(row: dict | None) -> dict:
+        return {k: v for k, v in (row or {}).items() if k != "generated_at"}
+
+    if content(store["reports"].get(key)) == content(entry):
+        print(f"[weekly] {key} 리포트 변경 없음")
+        return False
+    store["reports"][key] = entry
+    # 최근 26주만 보관 — 반년치면 화면·빌드에 충분하다.
+    for stale in sorted(store["reports"])[:-26]:
+        store["reports"].pop(stale, None)
+    path.write_text(json.dumps(store, ensure_ascii=False, indent=2) + "\n",
+                    encoding="utf-8")
+    print(f"[weekly] {key} 리포트 저장 (이슈 {entry['source_issue_count']}건)")
+    return True
+
+
+def count_unique_issues(items: list[dict]) -> int:
+    """제목 정규화로 같은 사건을 하나로 센다. 웹의 이슈 병합만큼 정교하진 않지만
+    '후속 보도가 많은 주 = 풍성한 주'라는 착시는 막는다."""
+    seen = set()
+    for item in items:
+        title = (item.get("title_kr") or item.get("title") or "").strip().lower()
+        key = "".join(ch for ch in title if ch.isalnum())
+        if key:
+            seen.add(key[:40])
+    return len(seen)
+
+
+def format_weekly(items: list[dict], synthesis: dict | None = None) -> str:
     today = datetime.now(KST)
     start = today - timedelta(days=6)
     agg = build_aggregates(items)
-    synthesis = batch_synthesize(items, agg)
+    synthesis = synthesis if synthesis is not None else batch_synthesize(items, agg)
 
     parts: list[str] = []
     parts.append(f"📅 <b>{start.month}/{start.day}-{today.month}/{today.day} "
@@ -306,7 +415,11 @@ def main() -> None:
         return
 
     print(f"Weekly report: {len(items)} articles from past {WEEK_DAYS} days")
-    message = format_weekly(items)
+    # 합성을 한 번만 돌려 텔레그램과 웹이 같은 결과를 쓴다 (Gemini 호출 +0).
+    agg = build_aggregates(items)
+    synthesis = batch_synthesize(items, agg)
+    message = format_weekly(items, synthesis)
+    save_weekly_report(synthesis, agg, items)
 
     from telegram_send import send_long_text  # lazy — 토큰 없는 로컬 테스트 대비
     results = send_long_text(message, parse_mode="HTML", disable_preview=True)

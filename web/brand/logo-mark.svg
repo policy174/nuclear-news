@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Nuclens">
+  <title>Nuclens — Overlap Lens</title>
+  <!--
+    콘셉트 C "Overlap Lens" (확정안)
+    서로 다른 두 출처가 겹치는 지점에만 사실이 있다.
+    교집합(vesica)이 세로로 선 렌즈를 만든다.
+
+    원1 (14.5, 20) r 9.5 · 원2 (25.5, 20) r 9.5 · d = 11 · d/r = 1.158
+    렌즈 8.0 × 15.5 · 전체 폭 30 × 높이 19
+
+    중심 도트는 넣지 않는다. 시안 검증 결과 어느 크기에서든
+    눈(eye)으로 읽혀 감시 이미지를 만든다.
+  -->
+  <defs>
+    <clipPath id="nl-lens">
+      <circle cx="14.5" cy="20" r="9.5"/>
+    </clipPath>
+  </defs>
+
+  <!-- 1) 윤곽선: Primary 55% -->
+  <g fill="none" stroke="#0E2A3C" stroke-opacity=".55" stroke-width="2">
+    <circle cx="14.5" cy="20" r="9.5"/>
+    <circle cx="25.5" cy="20" r="9.5"/>
+  </g>
+
+  <!-- 2) 교집합 면: Primary 100% -->
+  <g clip-path="url(#nl-lens)">
+    <circle cx="25.5" cy="20" r="9.5" fill="#0E2A3C"/>
+  </g>
+</svg>

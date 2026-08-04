@@ -112,6 +112,30 @@ def load_recent_identities() -> dict[str, set[str]]:
     return identities
 
 
+def load_recent_titles(days: int = 21) -> list[str]:
+    """최근 아카이브의 한국어 제목 목록. 랭킹의 prior_coverage 계산용.
+
+    같은 사건을 이미 몇 번 다뤘는지 세는 데만 쓰므로 제목만 있으면 된다.
+    """
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%d")
+    titles = []
+    for path in _month_files_recent():
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            stamp = str(record.get("archived_at") or record.get("pub") or "")[:10]
+            if stamp and stamp < cutoff:
+                continue
+            title = record.get("title_kr") or record.get("title")
+            if title:
+                titles.append(title)
+    return titles
+
+
 def make_record(article: dict, cur: dict, archived_at: str) -> dict:
     """기사 원본(article) + 큐레이션 결과(cur) → 아카이브 레코드.
 
@@ -145,6 +169,14 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "summary": cur.get("summary", ""),
         "implication": cur.get("implication", ""),
         "why_important": cur.get("why_important", ""),
+        # '아직 확정되지 않은 것' — 사실도 해석도 아닌 세 번째 축.
+        # 여기 화이트리스트에 없으면 아카이브에 안 남고 웹에서도 영영 못 본다.
+        "open_question": cur.get("open_question", ""),
+        "open_question_source": cur.get("open_question_source", "unknown"),
+        # 빈 값이면 통과, 아니면 게이트에서 걸린 사유(llm_null·no_source·forecast…).
+        # must_read 에만 채워진다. 이게 없으면 "LLM 이 안 썼다"와 "게이트가 먹었다"를
+        # 사후에 가를 수 없다 — 둘은 대응이 정반대다(프롬프트 vs 게이트).
+        "open_question_reject": cur.get("open_question_reject", ""),
         "importance": cur.get("importance", ""),
         "section": cur.get("section", ""),
         "scope": cur.get("scope", ""),
@@ -225,7 +257,8 @@ def _upgrade_record(record: dict) -> dict:
         if repair.get("drop"):
             upgraded["quality_drop"] = True
             upgraded["quality_drop_reason"] = repair.get("reason", "manual_quality_gate")
-        for field in ("title_kr", "summary", "implication", "why_important"):
+        for field in ("title_kr", "summary", "implication", "why_important",
+                      "open_question"):
             if field in repair:
                 upgraded[field] = clean_text(repair[field])
 

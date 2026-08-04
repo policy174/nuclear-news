@@ -131,7 +131,11 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python trend_insights.py
+            # daily_lead 실패는 비치명 — trend insights 커밋을 같이 죽이면 안 된다
+            # (2026-08-02 실사고: 파일 부재 → git add pathspec 실패 → 스텝 사망)
+            python daily_lead.py || echo "[lead] daily_lead 실패 — 비치명, 계속"
             git add trend_insights.json
+            if [ -f daily_leads.json ]; then git add daily_leads.json; fi
             if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
             git commit -m "chore: trend insights"
             if git push origin HEAD:main; then echo "insights push 성공"; exit 0; fi
@@ -160,6 +164,29 @@ jobs:
             || { echo "::error::스모크 실패 — news.json이 JSON이 아니거나 접근 불가"; exit 1; }
           [ "$count" -gt 0 ] || { echo "::error::스모크 실패 — 기사 0건"; exit 1; }
           echo "스모크 OK — 기사 ${count}건"
+
+      # 이슈 병합·KEEI 매칭 LLM 판정 캐시. 위 배포 스텝의 git reset --hard 뒤에
+      # build_data 가 쓰기 때문에 여기서 따로 커밋해야 살아남는다.
+      # 캐시가 없으면 빌드마다 같은 쌍을 다시 묻고(KEEI 는 최대 150쌍) 판정이
+      # 흔들린다.
+      - name: Commit issue review cache
+        if: always()
+        run: |
+          # 파일별로 가드한다 — 한 파일이 없어서 git add 가 실패하면 나머지
+          # 파일의 커밋까지 같이 죽는다(daily_leads.json 데드락과 같은 함정).
+          for f in issue_llm_reviews.json keei_llm_matches.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: issue review cache"
+          for i in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            git fetch origin main || exit 0
+            git rebase origin/main || { git rebase --abort || true; exit 0; }
+          done
+          echo "캐시 push 실패 — 비치명, 다음 빌드에서 재시도"
 
       # 하루 1회 실제 브라우저 렌더링 검증 — API 정상인데 app.js 오류로 화면만
       # 깨지는 경우(2026-08-01 빈 화면 사고 유형)를 잡는다. 브라우저 설치 비용

@@ -279,9 +279,25 @@ def curation_errors(
     payload: dict,
     *,
     require_summary: bool = True,
+    require_features: bool = False,
     summary_limit: int = 80,
 ) -> list[str]:
-    """공개 가능한 큐레이션 결과가 아니면 필드별 오류를 반환한다."""
+    """공개 가능한 큐레이션 결과가 아니면 필드별 오류를 반환한다.
+
+    ``require_features`` 는 기본값이 꺼져 있다. 이 함수는 성격이 다른 두 곳에서
+    쓰이기 때문이다.
+
+      - **게시 자격** (아카이브 적재·배포 게이트·품질 점수): features 가 없어도
+        제목·요약·링크는 멀쩡하므로 내보내도 된다. 끄고 쓴다.
+      - **큐레이션 완결성** (batch 응답 검증·재큐레이션 판정): features 가 없으면
+        ranking 이 ``_legacy_score()`` 로 빠져 event_weights 도 feature 가중치도
+        전혀 반영되지 않는다. 켜고 쓴다.
+
+    실효 지점은 **batch 응답 검증**이다. 기사는 큐에 적재되는 순간 ``sent`` 로
+    마킹돼 다시 수집되지 않으므로, 결손인 채 큐에 들어가면 그 뒤에는 고칠 기회가
+    없다. 캐시·큐에 들어가기 전에 재생성시켜야 한다.
+    근거: docs/score_distribution.md §4.
+    """
     errors: list[str] = []
     summary = clean_text(payload.get("summary"))
     implication = clean_text(payload.get("implication"))
@@ -295,6 +311,9 @@ def curation_errors(
         errors.append("implication:incomplete_or_over_60")
     if why_important and (len(why_important) > 150 or not is_complete_sentence(why_important)):
         errors.append("why_important:incomplete_or_over_150")
+
+    if require_features and not isinstance(payload.get("features"), dict):
+        errors.append("features:missing")
 
     normalized_event = normalize_event_date_fields(payload)
     if payload.get("event_date") and not normalized_event["event_date"]:

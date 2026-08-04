@@ -43,6 +43,27 @@ EVENT_TYPES = {
 SCALE_FEATURES = ("korea_relevance", "market_materiality", "policy_materiality",
                   "novelty", "evidence_strength", "report_worthiness")
 
+# novelty·evidence_strength 는 LLM 에서 회수해 여기서 계산한다 (2026-08-01).
+#
+# 근거: delivery_log 157건 실측에서 novelty 는 151건 중 122건(81%)이 정확히 2점,
+# evidence_strength 는 85%가 2~3점이었다. 비교 대상 없이 0~3 절대평가를 시키면
+# 중앙값으로 수렴해 변별력이 사라진다(기여 표준편차 0.46 / 0.62 로 최하위).
+# 둘 다 코드가 이미 아는 정보로 판정할 수 있다 —
+#   novelty          : 같은 사건을 최근에 이미 다뤘는가 (prior_coverage)
+#   evidence_strength: 확정 표현인가 전망인가 + 수치가 붙어 있는가
+CODE_DERIVED_FEATURES = ("novelty", "evidence_strength")
+
+_CONFIRMED_RE = re.compile(
+    r"(했다|됐다|되었다|한다|밝혔다|발표|체결|의결|승인|인가|착공|준공|완료|"
+    r"서명|확정|선정|가동|중단|취소|합의|출범|제출|통과)"
+)
+_SPECULATION_RE = re.compile(
+    r"(전망|예상|검토|추진할|추진한다|계획이|가능성|관측|기대|우려|것으로 보인다|할 방침)"
+)
+_QUANTITY_RE = re.compile(
+    r"\d[\d,.]*\s*(기|호기|GW|MW|㎿|kW|억|조|만|%|퍼센트|달러|유로|원|년|개월|주|일)"
+)
+
 # 기존 daily_brief.rank_item 의 1차 출처 목록 (legacy 경로 하위 호환용 — 수정 금지)
 _LEGACY_PRIMARY_DOMAINS = ("iaea.org", "world-nuclear-news", "khnp.co.kr",
                            "nssc.go.kr", "motie.go.kr", "nrc.gov")
@@ -56,6 +77,7 @@ _DEFAULT_CONFIG = {
     "source_bonus": {"tier1": 3.0, "tier2": 1.5},
     "related_reports_bonus": 1.0,
     "time_decay": {"per_12h": 0.5, "max": 3.0},
+    "tracking": {"follow_up": 1.5, "repeat": 0.5},
     "diversity": {"max_per_topic": 2, "penalty": 2.5},
     "duplicate_similarity": 0.82,
 }
@@ -145,6 +167,87 @@ def _legacy_score(item: dict) -> tuple[float, dict]:
     return base, breakdown
 
 
+def prior_coverage_count(title: str, prior_titles: list[str]) -> int:
+    """같은 사건을 최근 아카이브에서 몇 건이나 다뤘는지 센다.
+
+    후속·반복 보도 판정용이라 클러스터링만큼 엄밀할 필요는 없다. 발송 직전
+    중복 제거와 같은 제목 유사도 기준(_same_event)을 재사용한다.
+    """
+    probe = {"title_kr": title}
+    norm = _norm_title(probe)
+    toks = _title_tokens(probe)
+    if not norm and not toks:
+        return 0
+    count = 0
+    for other in prior_titles:
+        other_probe = {"title_kr": other}
+        if _same_event(norm, toks, _norm_title(other_probe), _title_tokens(other_probe),
+                       _DEFAULT_CONFIG["duplicate_similarity"]):
+            count += 1
+    return count
+
+
+def _item_text(item: dict) -> str:
+    return " ".join(str(item.get(key) or "") for key in ("title_kr", "title", "summary"))
+
+
+def derive_evidence_strength(item: dict) -> int:
+    """확정 표현·수치 유무로 근거 강도를 판정한다 (LLM 추측 대체).
+
+    확정 사실 3 / 판단 유보 2 / 전망·검토 1. 수치가 하나도 없으면 한 단계 낮춘다.
+    """
+    text = _item_text(item)
+    if not text.strip():
+        return 0
+    if _SPECULATION_RE.search(text):
+        base = 1
+    elif _CONFIRMED_RE.search(text):
+        base = 3
+    else:
+        base = 2
+    if not _QUANTITY_RE.search(text):
+        base -= 1
+    return max(0, min(3, base))
+
+
+def derive_novelty(item: dict) -> int:
+    """최근 아카이브에서 같은 사건을 몇 번 다뤘는지로 새 사실 여부를 판정한다.
+
+    prior_coverage 는 news_bot 이 큐 적재 시 계산해 넣는다. 값이 없으면(구 큐
+    항목) 판단하지 않고 중립값 2 를 쓴다.
+    """
+    prior = item.get("prior_coverage")
+    if prior is None:
+        return 2
+    try:
+        prior = int(prior)
+    except (TypeError, ValueError):
+        return 2
+    if prior <= 0:
+        return 3
+    return 2 if prior <= 2 else 1
+
+
+def _tracking_bonus(item: dict, cfg: dict) -> tuple[float, str]:
+    """추적 중인 이슈가 다시 움직였을 때의 가점.
+
+    점수가 기사 단위라 '이 이슈가 며칠째 이어지는 중'이 순위에 안 들어가고 있었다.
+    추적이 이 서비스의 차별점이므로 후속 보도를 완전 신규보다 살짝 위에 둔다.
+    반복만 되는 이슈(3회 초과)는 가점을 거의 주지 않는다.
+    """
+    prior = item.get("prior_coverage")
+    if not prior:
+        return 0.0, ""
+    tracking = cfg.get("tracking") or {}
+    try:
+        prior = int(prior)
+    except (TypeError, ValueError):
+        return 0.0, ""
+    if prior <= 2:
+        return float(tracking.get("follow_up", 1.5)), "tracking:follow_up"
+    return float(tracking.get("repeat", 0.5)), "tracking:repeat"
+
+
 def _time_decay(item: dict, cfg: dict, now: datetime) -> float:
     td = cfg.get("time_decay") or {}
     per_12h = float(td.get("per_12h", 0.5))
@@ -168,6 +271,10 @@ def score_item(item: dict, cfg: dict,
     if feats is None:
         score, breakdown = _legacy_score(item)
     else:
+        # LLM 값이 남아 있어도 코드 판정으로 덮는다. 두 항목은 더 이상 프롬프트에
+        # 없지만 옛 큐 항목에는 값이 실려 있다.
+        feats["novelty"] = derive_novelty(item)
+        feats["evidence_strength"] = derive_evidence_strength(item)
         breakdown = {}
         imp_base = cfg.get("importance_base") or {}
         score = float(imp_base.get(_get_importance(item), imp_base.get("nice_to_know", 5)))
@@ -202,6 +309,11 @@ def score_item(item: dict, cfg: dict,
             b = float(cfg.get("related_reports_bonus", 1.0))
             score += b
             breakdown["related_reports"] = b
+
+        track, track_key = _tracking_bonus(item, cfg)
+        if track:
+            score += track
+            breakdown[track_key] = track
 
     decay = _time_decay(item, cfg, now)
     if decay:
@@ -320,14 +432,82 @@ def select_diverse(items: list[dict], scores: dict[str, float], k: int,
     return selected
 
 
+# ---- 선정 하한 ----------------------------------------------------------------
+#
+# 캡(국내 3 / 해외 6)은 상한이어야 하는데 하한처럼 작동해 왔다 — 조용한 날에도
+# 자리를 채우느라 nice_to_know 가 올라갔다(실측: 국내 must_read 는 19일 중 11일이
+# 0건인데 매일 3건이 나갔다).
+#
+# 다만 **절대 점수 하한은 쓸 수 없다.** must_read 의 37%가 features 결손으로
+# _legacy_score() 경로를 타 등급 기본값(10점)에 고정되기 때문이다. 하한을 10 이상으로
+# 걸면 "중요하지 않은 기사"가 아니라 "큐레이션이 실패한 기사"를 자르게 되고, 그 실패는
+# 로그에 아무 흔적을 남기지 않는다. 실측으로 floor=12 에서 '한빛 1·2호기 계속운전
+# 청신호'(11.6, must_read) 같은 국내 핵심 뉴스가 탈락했다.
+# 근거: docs/2026-08-03-selection-floor-backtest.md
+#
+# 그래서 하한에는 **면제 1종**을 둔다 — features 결손.
+#
+# 등급 면제(must_read 무조건 통과)는 2026-08-03 에 제거했다. 20회차 표본에서 한 번도
+# 발동하지 않는 조항이었고(features 있는 must_read 중 하한 미만 0건 — 결손 면제가 이미
+# 같은 항목을 전부 통과시킨다), 결손이 고쳐지면 "must_read 는 점수와 무관하게 전량
+# 통과"만 남아 명세 P1(채우지 않는다)을 그 등급 전체에 대해 무효화한다.
+# 등급을 점수 위에 두려면 등급을 믿을 수 있어야 하는데, must_read 의 상당수는 LLM
+# 판정이 아니라 큐레이션 실패 폴백이 붙인 값이었다(S1 에서 차단).
+# 근거: docs/score_distribution.md §7-2, docs/AS_IS.md C1′.
+
+
+def floor_verdict(item: dict, scores: dict[str, float],
+                  floor: dict | None) -> tuple[bool, str]:
+    """하한 통과 여부와 사유. floor 는 {등급: 하한} dict (또는 None=미적용)."""
+    if not floor:
+        return True, "no_floor"
+    # features 가 없으면 점수가 등급 기본값에 고정된다(_legacy_score). 데이터 결손을
+    # 중요도로 오독하지 않도록 하한 판정에서 빼고 통과시킨다. 이 면제가 없으면
+    # 하한이 "중요하지 않은 기사"가 아니라 "큐레이션이 실패한 기사"를 자른다.
+    if sanitize_features(item.get("features")) is None:
+        return True, "exempt_no_features"
+    limit = floor.get(_get_importance(item))
+    if limit is None:
+        return True, "no_limit_for_grade"
+    return scores.get(item.get("hash", ""), 0.0) >= float(limit), "below_floor"
+
+
+def resolve_floor(cfg: dict, region_key: str) -> dict | None:
+    """ranking_config 의 selection_floor 를 {등급: 하한} 으로 편다.
+
+    설정 형태: {"nice_to_know": {"domestic": 14.0, "overseas": 14.0}}
+    region_key 는 "domestic" | "overseas".
+    """
+    raw = cfg.get("selection_floor")
+    if not isinstance(raw, dict):
+        return None
+    out: dict[str, float] = {}
+    for grade, value in raw.items():
+        if grade.startswith("_"):
+            continue
+        if isinstance(value, dict):
+            value = value.get(region_key)
+        if isinstance(value, (int, float)):
+            out[grade] = float(value)
+    return out or None
+
+
 # ---- 종합 파이프라인 (daily_brief 에서 호출) ------------------------------------
 
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
-                    now: datetime | None = None) -> tuple[list[dict], dict]:
-    """점수화 → 중복 클러스터 → 다양성 top-k.
+                    now: datetime | None = None,
+                    floor: dict | None = None) -> tuple[list[dict], dict]:
+    """점수화 → 중복 클러스터 → (하한) → 다양성 top-k.
+
+    하한은 **다양성 선별 앞에서** 건다. 뒤에 걸면 같은 topic 이 겹쳐 받은 페널티가
+    하한 판정에 섞여 들어가 '중요도가 낮아서'가 아니라 '주제가 겹쳐서' 잘린다.
+
+    Args:
+        floor: {등급: 하한 점수}. None 이면 기존 동작 그대로 (하위 호환).
 
     Returns:
-        (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates)
+        (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates/
+         dropped_below_floor/candidate_count)
     """
     cfg = cfg or load_config()
     now = now or datetime.now(timezone.utc)
@@ -342,10 +522,29 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
 
     kept, dropped = cluster_duplicates(items, scores,
                                        float(cfg.get("duplicate_similarity", 0.82)))
+
+    below: list[dict] = []
+    if floor:
+        passing = []
+        for a in kept:
+            ok, _reason = floor_verdict(a, scores, floor)
+            if ok:
+                passing.append(a)
+            else:
+                below.append({
+                    "hash": a.get("hash", ""),
+                    "grade": _get_importance(a),
+                    "score": round(scores.get(a.get("hash", ""), 0.0), 2),
+                    "title": (a.get("title_kr") or a.get("title") or "")[:80],
+                })
+        kept = passing
+
     selected = select_diverse(kept, scores, k, cfg)
     diag = {
         "scores": scores,
         "breakdowns": breakdowns,
+        "candidate_count": len(items),
+        "dropped_below_floor": below,
         "dropped_duplicates": [{"hash": d.get("hash", ""),
                                 "dup_of": d.get("dup_of", ""),
                                 "title": (d.get("title_kr") or d.get("title") or "")[:80]}

@@ -10,8 +10,13 @@ from pathlib import Path
 from urllib.parse import urlparse, quote_plus
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
-from gemini_client import GeminiError, call_json as gemini_call_json, is_available as gemini_rest_available
-from ranking import sanitize_features
+from gemini_client import (
+    GeminiError,
+    GeminiTruncated,
+    call_json as gemini_call_json,
+    is_available as gemini_rest_available,
+)
+from ranking import prior_coverage_count, sanitize_features
 import news_archive
 from data_quality import (
     clean_text,
@@ -48,6 +53,9 @@ REPORTS_KB_FILE = Path("reports_kb.json")
 SEMANTIC_DEDUP_THRESHOLD = 0.85
 CURATED_CACHE_FILE = Path("curated.json")
 DIGEST_QUEUE_FILE = Path("digest_queue.json")
+# 브리핑 발송 기록과 같은 파일을 쓴다. 크롤 단계의 큐레이션 유실도 결국 '그날 무엇이
+# 브리핑에 못 올라갔나'의 일부라 같은 타임라인에 있어야 대조가 된다.
+DELIVERY_LOG_FILE = Path("delivery_log.jsonl")
 
 NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -122,6 +130,45 @@ _LATRIBUNE_Q = quote_plus("site:latribune.fr (nucléaire OR EDF OR EPR) when:2d"
 RSS_SOURCES.append({
     "url": f"https://news.google.com/rss/search?q={_LATRIBUNE_Q}&hl=fr&gl=FR&ceid=FR:fr",
     "name": "La Tribune 원자력", "domain_label": "latribune.fr",
+})
+
+# ---- 사내 큐레이션 코퍼스 격차 보완 (2026-08-01) ------------------------------
+# 동료 큐레이션 1,874건(nuclear-news-web/research/evernote-details.json)에 나오지만
+# 봇이 걷지 않던 매체. 후보를 전부 실측한 뒤 통과한 것만 넣는다.
+#
+# 넣지 않은 것과 이유 (재시도 전에 이 목록부터 볼 것):
+#   NHK(코퍼스 74건)  구글이 site:nhk.or.jp 에 원자력 쿼리를 못 태운다. 실측 6건이
+#                     전부 지역방송 편성표. 직접 피드(cat0)는 일반 뉴스라 노이즈 과다.
+#   KBA Europe(43건)  직접 RSS 500, 구글 인덱싱 0건. 접근 경로 자체가 없다.
+#   電気新聞(31건)     페이월. site: 쿼리로 100건 나오지만 지진·정전 등 일반 전력
+#                     기사고 원자력 필터가 먹지 않는다.
+#   National Interest(21건) 잠수함·지정학 기사 위주로 주제가 어긋난다.
+#   Le Figaro(9건)    site: 쿼리가 키워드를 못 거른다(화재·풍력·Fed 혼입).
+RSS_SOURCES += [
+    # 전력 전문지 — 실측 10건 중 8건이 원자력. 코퍼스 21건.
+    {"url": "https://www.powermag.com/feed/", "name": "POWER Magazine",
+     "domain_label": "powermag.com"},
+    # 에너지 섹션 피드 — 비원자력이 섞이지만 DOE 피드와 같이 큐레이션 noise 필터가
+    # 거른다. 코퍼스 27건.
+    {"url": "https://www.lemonde.fr/energies/rss_full.xml", "name": "Le Monde 에너지",
+     "domain_label": "lemonde.fr"},
+]
+# FT·Les Échos·E&E News는 공개 RSS가 없거나 403 → 검증된 Google News site: 패턴.
+# FT는 페이월이라 본문이 없다. 제목·헤드라인 수준의 추적용으로만 쓴다.
+_FT_Q = quote_plus('site:ft.com ("nuclear power" OR reactor OR SMR OR uranium) when:2d')
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_FT_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "FT 원자력", "domain_label": "ft.com",
+})
+_LESECHOS_Q = quote_plus("site:lesechos.fr (nucléaire OR EDF OR EPR) when:2d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_LESECHOS_Q}&hl=fr&gl=FR&ceid=FR:fr",
+    "name": "Les Échos 원자력", "domain_label": "lesechos.fr",
+})
+_EENEWS_Q = quote_plus("site:eenews.net (nuclear OR reactor OR uranium) when:3d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_EENEWS_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "E&E News 원자력", "domain_label": "eenews.net",
 })
 
 # 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
@@ -248,6 +295,14 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 
 - why_important: must_read만 작성. **1~2개의 완결형 문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰거나 문자열을 자르지 말 것.
 
+- open_question: must_read만 작성. **원문에서 아직 확정되지 않은 것**을 50자 이내 완결형 서술문 1개로. 없으면 null.
+  · 질문형이 아니라 선언형으로 쓸 것. (O) "최종 계약 체결 시점은 아직 확정되지 않았다" / (X) "최종 계약은 언제 체결될까?"
+  · **원문에 명시적으로 미정·조사 중·검토 중·협의 중·기한 미정으로 남아 있는 것만 쓴다.** 원문에 없는 미확정 사항을 추론해 만들지 말 것.
+  · 예상·가능성·전망을 서술하지 말 것. "~할 것으로 보인다"는 미확정 사항이 아니라 예측이다.
+  · 근거 문장을 원문에서 지목할 수 없으면 반드시 null.
+  · 자주 해당하는 것: 계약 규모는 발표됐으나 금융조달 미정 / 우선협상대상자만 선정되고 최종 계약 시점 미정 / 정책 방향은 나왔으나 시행령·예산 미정 / 조사 진행 중이라 원인 미확정.
+- open_question_source: open_question 의 근거가 실제로 있는 위치. title / description / article_text 중 하나. open_question 이 null 이거나 근거를 지목할 수 없으면 unknown.
+
 - event_date: 기사에 명시된 사건 발생·발표·시행·예정일을 YYYY-MM-DD로 작성. 기사 게시일을 사건일로 추정하지 말 것. 일자를 확정할 수 없으면 null.
 - event_date_type: announcement(발표) / occurrence(발생) / effective(시행) / deadline(기한) / scheduled(예정) / unknown.
 - event_date_precision: day / month / year / unknown. YYYY-MM-DD로 확정한 경우 day.
@@ -279,6 +334,8 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   "summary": "...",
   "implication": "...",
   "why_important": "...",
+  "open_question": "...|null",
+  "open_question_source": "title|description|article_text|unknown",
   "watch_next": "...",
   "tags": ["#태그1", "#태그2"],
   "topics": ["smr"],
@@ -497,59 +554,6 @@ def semantic_dedup(articles: list[dict], emb_cache: dict, threshold: float = SEM
     return [art for art, _ in kept]
 
 
-JUDGE_SYSTEM_PROMPT = """당신은 한국수력원자력 정책개발부 큐레이터입니다.
-다음 기사가 정책분석관에게 업무상 의미 있는지 1차 판단하세요.
-
-[유용함 (useful=1)]
-- 원자력 정책·외교·기술·시장·규제 관련 실질 내용
-- 정부·규제기관 의결·고시·법안·행정명령
-- 한수원·KHNP 사업 동향, 글로벌 SMR·수주 시장
-- 한미·미영·EU 양자/다자 협력
-- 사용후핵연료·고준위방폐장·계속운전 등
-
-[유용하지 않음 (useful=0)]
-- 채용·인사 발령·동정·축사·기념식·시상
-- 정치 일반 (대선·총선·정쟁·여야 공방)
-- 원자력이 부수적으로만 언급되고 본질은 다른 주제 (산업 일반·외교 일반·거시경제)
-- 단순 행사 스케치, 보도자료 단순 PR
-- 학회 일반 (정책 함의 없는 학술 발표)
-- 지역 동향 (지역 행사·민원·동호회·시민단체 일반)
-- 채용공고, 청사 이전 등 일반 행정
-
-[출력] JSON 하나만:
-{"useful": 0 또는 1, "reason": "10자 이내"}"""
-
-
-def llm_judge(title: str, description: str) -> tuple[bool, str]:
-    """경량 사전 필터. 실패하면 보수적으로 통과(True) 반환."""
-    client = get_gemini()
-    if not client:
-        return True, ""
-    try:
-        from google.genai import types
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=f"제목: {title}\n요약: {description[:300]}",
-            config=types.GenerateContentConfig(
-                system_instruction=JUDGE_SYSTEM_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.1,
-                max_output_tokens=80,
-            ),
-        )
-        result = safe_json_parse(response.text or "")
-        if not result:
-            return True, ""
-        useful = bool(int(result.get("useful", 1)))
-        reason = (result.get("reason") or "")[:30]
-        return useful, reason
-    except Exception as e:
-        msg = str(e)
-        if "RESOURCE_EXHAUSTED" not in msg and "429" not in msg:
-            print(f"  ! judge failed for '{title[:30]}': {type(e).__name__}")
-        return True, ""
-
-
 def load_state() -> dict:
     return load_json(STATE_FILE, {"sent": {}})
 
@@ -568,6 +572,69 @@ def save_curated(curated: dict) -> None:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=DEDUP_RETENTION_DAYS)).isoformat()
     curated = {k: v for k, v in curated.items() if v.get("cached_at", "") > cutoff}
     save_json(CURATED_CACHE_FILE, curated)
+
+
+# features 만 없는 항목을 몇 번까지 다시 물어볼 것인가. 상한이 없으면 LLM 이 끝내
+# 주지 않는 항목을 매시간(크롤마다) 다시 묻게 되고 무료 티어가 그대로 녹는다.
+FEATURES_RETRY_LIMIT = 2
+
+
+def fallback_curation(article: dict) -> dict | None:
+    """batch 큐레이션이 실패한 기사의 최소 레코드. 안전한 문장이 없으면 None.
+
+    원문 스니펫의 **완결문만** 쓴다 — 자르면 문장 중간에서 끊긴다.
+
+    ⚠️ 여기서 등급을 올리지 않는다. 예전에는 1차 출처(`is_tier1_source`)면
+    ``must_read`` 로 승격했는데, 이 레코드에는 features 가 없어 ranking 이
+    ``_legacy_score()`` 로 빠진다(event_weights·feature 가중치 전부 무시).
+    그 결과 ``must_read`` 의 40%(회차 관측치 기준)가 "LLM 이 중요하다고 본
+    기사"가 아니라 "큐레이션이 실패한 1차 출처"가 돼 있었다.
+    등급은 큐레이션이 판단할 몫이고, 이 항목은 ``needs_recuration()`` 이
+    다음 crawl 에서 다시 물어본다.
+    근거: docs/AS_IS.md §2, docs/score_distribution.md §4·§7.
+    """
+    summary = first_complete_sentence(article.get("description"), 80)
+    if not summary:
+        return None
+    return {
+        "importance": "nice_to_know",
+        "section": default_section(article.get("domain", ""), article.get("title", "")),
+        "category": "정책",
+        "title_kr": article.get("title", ""),
+        "summary": summary,
+        "implication": "",
+        "why_important": "",
+        "watch_next": "",
+        "tags": [],
+        "related_reports": [],
+        "event_date": None,
+        "event_date_type": "unknown",
+        "event_date_precision": "unknown",
+        "event_date_source": "unknown",
+    }
+
+
+def needs_recuration(cached: dict) -> bool:
+    """캐시된 큐레이션을 Gemini 에 다시 물어봐야 하는가.
+
+    features 결손을 재큐레이션 대상에 포함시키는 것이 이 함수의 존재 이유다.
+    ``curation_errors()`` 만 보면 summary 가 멀쩡한 결손 항목은 완결된 것으로
+    취급돼 그대로 캐시된다.
+
+    ⚠️ **이건 2차 방어선이다.** 기사는 큐에 적재되는 순간 ``state["sent"]`` 로
+    마킹되고 ``article_seen()`` 이 재수집을 막으므로, 이 판정은 아직 큐에 못 들어간
+    항목(품질 격리분)이나 ``sent`` 가 만료(14일)돼 다시 잡힌 항목에만 도달한다.
+    **결손을 실제로 막는 곳은 ``curate_batch()`` 의 응답 검증**이다.
+
+    features 만 없는 경우는 재시도 상한을 둔다 — 다른 필드까지 깨진 항목은 상한
+    없이 고치되, "LLM 이 이 기사엔 features 를 안 준다"는 상태에 갇히지 않게 한다.
+    """
+    errors = curation_errors(cached, require_features=True)
+    if not errors:
+        return False
+    if errors == ["features:missing"]:
+        return int(cached.get("features_attempts") or 0) < FEATURES_RETRY_LIMIT
+    return True
 
 
 def load_queue() -> list:
@@ -631,25 +698,6 @@ def get_gemini():
         return _gemini_client
     except Exception as e:
         print(f"  ! Gemini init failed: {e}")
-        return None
-
-
-def safe_json_parse(text: str) -> dict | None:
-    if not text:
-        return None
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    try:
-        return json.loads(text)
-    except Exception:
-        m = re.search(r"\{.*\}", text, re.DOTALL)
-        if m:
-            try:
-                return json.loads(m.group(0))
-            except Exception:
-                return None
         return None
 
 
@@ -747,6 +795,80 @@ def norm_article_type(value) -> str:
     return v if v in VALID_ARTICLE_TYPES else "news"
 
 
+# ---- open_question 게이트 -----------------------------------------------------
+#
+# '아직 확정되지 않은 것'은 사실도 해석도 아닌 세 번째 축이다. 정책·수출·사업
+# 기사에서 가장 자주 누락되는 정보다(계약 규모는 발표됐으나 금융조달 미정,
+# 우선협상대상자만 정해지고 최종 계약 시점 미정 등).
+#
+# 위험은 불확실성을 보여주는 것이 아니라 **LLM 이 미확정 사항을 추측으로 만들어
+# 내는 것**이다. 그래서 프롬프트로 한 번, 여기서 한 번 더 거른다.
+OPEN_QUESTION_LIMIT = 60
+OPEN_QUESTION_SOURCES = {"title", "description", "article_text"}
+
+# 예측·전망은 미확정 사항이 아니다. "~할 것으로 보인다"는 원문에 없는 추론이다.
+_FORECAST_PATTERNS = (
+    "것으로 보인다", "것으로 예상", "전망이다", "전망된다", "가능성이 있다",
+    "우려된다", "관측된다", "분석된다", "기대된다",
+)
+
+
+# 사고·안전 이슈는 전면 금지가 아니라 강화 게이트다. 사고 원인이 조사 중인지,
+# 방출 여부가 확인됐는지, 재가동 시점이 미정인지는 **숨기면 확정된 사건으로
+# 오해된다.** 다만 이 영역에서 추측 문장이 나가면 피해가 크므로, 명시적인
+# 미확정 표현이 문장 안에 실제로 있을 때만 통과시킨다.
+_EXPLICIT_UNCERTAINTY = (
+    "조사 중", "조사중", "확인되지 않", "확인 중", "확인중", "결정되지 않",
+    "정해지지 않", "밝혀지지 않", "미정", "발표되지 않", "공개되지 않",
+)
+
+
+def open_question_reject_reason(item: dict, importance: str,
+                                event_type: str = "") -> str:
+    """게이트에서 걸린 사유. 통과하면 빈 문자열.
+
+    ``norm_open_question`` 은 다섯 갈래를 전부 ``("", "unknown")`` 하나로 돌려준다.
+    그래서 **아카이브 51건 must_read 가 전건 0인데도 원인을 못 짚었다**(2026-08-03
+    실측). LLM 이 애초에 안 쓴 것과 게이트가 먹은 것은 대응이 정반대다 — 전자면
+    프롬프트를, 후자면 게이트를 봐야 한다. 그 둘을 가르려고 사유를 따로 뽑았다.
+
+    판정 로직의 단일 출처다. ``norm_open_question`` 이 이 함수를 쓰므로 둘이 어긋날
+    수 없다. 조건을 고치면 여기만 고친다.
+    """
+    if importance != "must_read":
+        return "not_must_read"
+    text = clean_text(item.get("open_question"))
+    if not text:
+        # LLM 이 아예 안 썼다(null 또는 빈 문자열). 게이트 문제가 아니다.
+        return "llm_null"
+    source = (item.get("open_question_source") or "").strip().lower()
+    if source not in OPEN_QUESTION_SOURCES:
+        # 근거 위치를 지목하지 못했으면 문장 자체를 버린다. 그럴듯한 문장이
+        # 근거 없이 남는 것이 정보가 없는 것보다 나쁘다.
+        return "no_source"
+    if len(text) > OPEN_QUESTION_LIMIT:
+        return "too_long"
+    if text.rstrip().endswith("?"):
+        return "is_question"
+    if any(pattern in text for pattern in _FORECAST_PATTERNS):
+        return "forecast"
+    if event_type == "incident_safety" and not any(
+            marker in text for marker in _EXPLICIT_UNCERTAINTY):
+        return "incident_no_uncertainty"
+    return ""
+
+
+def norm_open_question(item: dict, importance: str, event_type: str = "") -> tuple[str, str]:
+    """(open_question, open_question_source). 근거를 못 대면 빈 값.
+
+    판정은 ``open_question_reject_reason`` 이 한다 — 사유별 계측과 같은 코드를 쓴다.
+    """
+    if open_question_reject_reason(item, importance, event_type):
+        return "", "unknown"
+    return (clean_text(item.get("open_question")),
+            (item.get("open_question_source") or "").strip().lower())
+
+
 def normalize_curation_item(item: dict, article: dict) -> dict:
     """LLM 결과를 손실 없이 스키마에 맞춘다. 문장 중간 slicing은 하지 않는다."""
     importance = item.get("importance", "nice_to_know")
@@ -755,9 +877,20 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
     )
     category = item.get("category", "정책")
     title_kr = clean_text(item.get("title_kr")) or article.get("title", "")
+    grade = importance if importance in VALID_IMPORTANCE else "nice_to_know"
+    features = sanitize_features(item.get("features"))
+    event_type = (features or {}).get("event_type", "")
+    open_question, open_question_source = norm_open_question(item, grade, event_type)
+    # 게이트 사유를 레코드에 함께 싣는다. delivery_log 에도 집계를 남기지만
+    # **크롤 잡은 delivery_log.jsonl 을 커밋하지 않아 그 기록은 러너와 함께
+    # 사라진다**(crawl.yml 의 git add 목록에 없음, 2026-08-04 규명). 아카이브는
+    # 커밋되므로 여기 실어야 사후에 원인을 짚을 수 있다.
+    # must_read 만 채운다 — 나머지는 애초에 후보가 아니라 'not_must_read' 가
+    # 626건에 붙어도 정보가 없다. 빈 값이면 통과(importance 로 구분된다).
+    oq_reject = open_question_reject_reason(item, grade, event_type) if grade == "must_read" else ""
     normalized = {
-        "features": sanitize_features(item.get("features")),
-        "importance": importance if importance in VALID_IMPORTANCE else "nice_to_know",
+        "features": features,
+        "importance": grade,
         "section": section if section in VALID_SECTIONS else default_section(
             article.get("domain", ""), article.get("title", "")
         ),
@@ -770,6 +903,9 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "summary": clean_text(item.get("summary")),
         "implication": clean_text(item.get("implication")),
         "why_important": clean_text(item.get("why_important")),
+        "open_question": open_question,
+        "open_question_source": open_question_source,
+        "open_question_reject": oq_reject,
         "watch_next": "",
         "tags": [t for t in (item.get("tags") or []) if isinstance(t, str)][:3],
         "related_reports": [
@@ -778,72 +914,6 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
     }
     normalized.update(normalize_event_date_fields(item))
     return normalized
-
-
-def curate_with_llm(title: str, description: str, domain: str, force_must_read: bool = False, relevant_reports: list[dict] | None = None) -> dict:
-    """LLM 호출. 실패 시 안전한 fallback 반환."""
-    fallback = {
-        "importance": "must_read" if force_must_read else "nice_to_know",
-        "section": default_section(domain, title),
-        "category": "정책",
-        "title_kr": title,
-        "summary": "",
-        "implication": "",
-        "why_important": "",
-        "watch_next": "",
-        "tags": [],
-        "related_reports": [],
-        "event_date": None,
-        "event_date_type": "unknown",
-        "event_date_precision": "unknown",
-        "event_date_source": "unknown",
-    }
-    client = get_gemini()
-    if not client:
-        return fallback
-
-    user_text = f"제목: {title}\n요약: {description}\n출처: {domain}"
-    if force_must_read:
-        user_text += "\n\n참고: 이 기사는 정부·규제기관·국제기구 1차 소스입니다. **본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의 있는 경우만 must_read**. 채용·일반 행정·공지·축사·시상 등은 noise로 분류하세요."
-
-    if relevant_reports:
-        user_text += "\n\n[관련 사내 보고서]\n"
-        for r in relevant_reports:
-            title_r = r.get("title", "")
-            date_r = r.get("date", "")
-            summary_r = (r.get("summary") or "")[:250]
-            date_suffix = f" ({date_r})" if date_r else ""
-            user_text += f"- 「{title_r}」{date_suffix}: {summary_r}\n"
-
-    try:
-        from google.genai import types
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=user_text,
-            config=types.GenerateContentConfig(
-                system_instruction=CURATION_SYSTEM_PROMPT,
-                response_mime_type="application/json",
-                temperature=0.2,
-                max_output_tokens=3000,
-            ),
-        )
-        result = safe_json_parse(response.text or "")
-        if not result:
-            print(f"  ! curate JSON parse failed for '{title[:30]}'")
-            return fallback
-        normalized = normalize_curation_item(result, {"title": title, "domain": domain})
-        errors = curation_errors(normalized)
-        if errors:
-            print(f"  ! curate 품질 게이트 실패 '{title[:30]}': {', '.join(errors)}")
-            return fallback
-        return normalized
-    except Exception as e:
-        msg = str(e)
-        if "RESOURCE_EXHAUSTED" in msg or "429" in msg:
-            print(f"  ! curate quota exceeded — skipping rest of articles")
-        else:
-            print(f"  ! curate failed for '{title[:30]}': {type(e).__name__}: {msg[:200]}")
-        return fallback
 
 
 # ---- batch 큐레이션 (기사 N건 → Gemini 1회 호출) -----------------------------
@@ -855,13 +925,25 @@ def curate_with_llm(title: str, description: str, domain: str, force_must_read: 
 
 BATCH_CHUNK = 10  # 1회 호출당 기사 수 (출력 토큰 여유 고려)
 
+# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다 (trend_insights.py:138,
+# issue_review.py:43 에도 같은 함정이 박제돼 있다). 실측: curated.json 의 완결 항목
+# 하나가 JSON 으로 508자(p50)·633자(p90) → 10건이면 본문만 3~4천 토큰이다. 8192 로는
+# thinking 이 4천만 넘겨도 잘렸고, 그게 chunk 통째 유실의 원인이었다.
+# 상한을 올려도 과금·지연은 실사용 토큰 기준이라 늘지 않는다 — 천장만 높이는 것.
+BATCH_MAX_OUTPUT_TOKENS = 16384
+
+# 잘림·타임아웃으로 chunk 가 통째로 실패하면 절반으로 쪼개 다시 부른다. 무료 티어
+# 한도를 지키려고 run 당 추가 호출 수를 묶어둔다 (10건 chunk 를 1건까지 쪼개면
+# 최악 15회 — 그건 한도를 태운다).
+BATCH_SPLIT_BUDGET = 6
+
 BATCH_SUFFIX = """
 
 [배치 모드 — 출력 형식 오버라이드]
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": null, "event_date_type": "unknown", "event_date_precision": "unknown", "event_date_source": "unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "novelty": 0, "evidence_strength": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "open_question": "...|null", "open_question_source": "title|description|article_text|unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": "2026-08-01|null", "event_date_type": "announcement|occurrence|effective|deadline|scheduled|unknown", "event_date_precision": "day|month|year|unknown", "event_date_source": "title|description|article_text|unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -870,11 +952,13 @@ BATCH_SUFFIX = """
   incident_safety(사고·안전 이슈) / corporate_move(기업 전략·투자·조직) /
   market_signal(시장·가격·수급 신호) / research_report(연구·보고서 발간) /
   opinion(칼럼·의견·전망) / other
-- 아래 6개는 0~3 정수. 0=무관/없음, 1=약함, 2=유의미, 3=강함:
+- 아래 4개는 0~3 정수. 0=무관/없음, 1=약함, 2=유의미, 3=강함:
   korea_relevance(한국·한수원 직접 관련성), market_materiality(시장·투자 영향),
-  policy_materiality(정책·규제 영향), novelty(새 사실인가 — 후속·반복 보도면 0~1),
-  evidence_strength(확정 사실=3, 공식 발표=2, 관계자 인용=1, 추측·전망=0),
+  policy_materiality(정책·규제 영향),
   report_worthiness(부서 보고서로 다룰 가치 — 매우 엄격, 대부분 0)
+- novelty·evidence_strength 는 묻지 않는다. 비교 대상 없이 절대 점수를 매기면
+  대부분 중간값으로 몰려 변별이 안 되므로 ranking.py 가 아카이브 이력과 표현으로
+  직접 판정한다 (2026-08-01).
 - 확인 불가능하면 낮은 쪽으로. 지어내지 말 것.
 
 - 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
@@ -890,11 +974,168 @@ BATCH_SUFFIX = """
 (선택) 관련보고서: 제목1 / 제목2"""
 
 
+def classify_request_failure(exc: Exception) -> str:
+    """호출 자체가 실패했을 때 '다시 부를 가치가 있는가'로 라벨을 나눈다.
+
+    라벨을 나누는 이유는 대응이 정반대라서다.
+
+      - ``quota``   한도 소진. ``call_json`` 이 이미 429 를 백오프로 3회 재시도한
+                    뒤에 올라온 것이므로, 여기서 또 부르면 남은 한도만 태우고
+                    같은 실패를 반복한다 → 재시도 금지 (기존 판단 유지).
+      - ``timeout`` 응답이 느렸을 뿐. 입력을 줄이면 짧아지므로 분할 재시도 대상.
+      - ``other``   원인 불명. 함부로 다시 부르지 않는다 (기존 기본값 유지).
+
+    ``truncated`` 는 예외 타입(``GeminiTruncated``)으로 이미 갈라지므로 여기 없다.
+    """
+    msg = str(exc)
+    if "RESOURCE_EXHAUSTED" in msg or "HTTP 429" in msg:
+        return "quota"
+    if "TimeoutError" in msg or "timed out" in msg.lower():
+        return "timeout"
+    return "other"
+
+
+# 입력을 줄이면 사라지는 실패만 분할 재시도한다. quota·other 는 쪼개도 그대로다.
+SPLITTABLE_FAILURES = {"truncated", "timeout"}
+
+
+def request_failure_reason(failures: dict[str, list[str]], chunk: list[dict]) -> str:
+    """chunk 가 '호출 자체 실패'로 전건 날아갔으면 그 사유 라벨, 아니면 빈 문자열.
+
+    호출 실패는 chunk 전건에 같은 사유가 찍히므로(부분 실패가 아니다) 전건 여부로
+    판정한다 — 일부만 request 인 상태는 만들어지지 않는다.
+
+    건수가 아니라 **hash 전건 존재**로 판정한다. 같은 hash 가 chunk 안에 두 번 들어와
+    건수가 어긋나면, 건수 비교로는 '호출 실패가 아님'으로 새어 나가고 그 chunk 는
+    재생성 대상도 유실 기록 대상도 아닌 채 조용히 사라진다 — 고치려던 그 버그다.
+    """
+    if not chunk:
+        return ""
+    reasons = set()
+    for art in chunk:
+        parts = (failures.get(art["hash"]) or [""])[0].split(":")
+        if len(parts) < 2 or parts[0] != "request":
+            return ""
+        reasons.add(parts[1])
+    return reasons.pop() if len(reasons) == 1 else "other"
+
+
+def append_curation_failure(lost: dict[str, str], articles: list[dict],
+                            path: Path | None = None,
+                            now: datetime | None = None) -> bool:
+    """호출 실패로 유실된 기사를 ``delivery_log.jsonl`` 에 한 줄 남긴다.
+
+    콘솔 한 줄(``! batch 큐레이션 실패``)은 워크플로 로그가 만료되면 같이 사라진다.
+    유실은 '무슨 기사가 브리핑에 아예 안 올라왔나'라서 사후 감사 대상이고, 그래서
+    지속 기록이 필요하다. 기록이 없으면 다음에 같은 일이 나도 또 재현부터 해야 한다.
+
+    ``record_type`` 이 붙은 줄은 기존 리더가 전부 건너뛴다 —
+    daily_lead.collect_today · metrics.load_data · build_data 모두 truthy 검사라
+    새 타입을 추가해도 기사 집계가 오염되지 않는다.
+
+    품질 게이트 격리(``summary:incomplete`` 등)는 여기 담지 않는다. 그쪽은 기사별로
+    제목까지 찍히므로 이미 보이고, 재생성 기회도 한 번 받는다. 조용히 사라지는 건
+    호출 실패뿐이다.
+    """
+    if not lost:
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+    by_hash = {art["hash"]: art for art in articles}
+    reasons: dict[str, int] = {}
+    for detail in lost.values():
+        parts = detail.split(":")
+        label = parts[1] if len(parts) > 1 else "other"
+        reasons[label] = reasons.get(label, 0) + 1
+    rec = {
+        "record_type": "curation_failure",
+        "date": now.astimezone(KST).date().isoformat(),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "lost": len(lost),
+        "candidates": len(articles),
+        "reasons": reasons,
+        # 사후에 '어떤 기사였나'를 되짚을 수 있어야 한다. 한 run 의 유실은 chunk 몇
+        # 개 규모라 통째로 담아도 로그가 부풀지 않는다 (상한만 걸어둔다).
+        "items": [
+            {"hash": h,
+             "title": (by_hash.get(h, {}).get("title") or "")[:120],
+             "link": by_hash.get(h, {}).get("link", ""),
+             "reason": detail[:200]}
+            for h, detail in list(lost.items())[:20]
+        ],
+    }
+    try:
+        with path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        # 기록 실패로 크롤을 죽이지 않는다 — 유실 기록은 부가 정보다.
+        print(f"  ! 큐레이션 유실 기록 실패: {exc}")
+        return False
+    return True
+
+
+def append_open_question_stats(verdicts: dict[str, dict],
+                               path: Path | None = None,
+                               now: datetime | None = None) -> bool:
+    """must_read 가 ``open_question`` 게이트의 **어느 조건**에서 걸렸는지 남긴다.
+
+    왜 필요한가: 2026-08-03 기준 아카이브 must_read 51건의 ``open_question`` 이
+    전건 비어 있는데, 원인을 짚을 수 없었다. 게이트가 다섯 사유를 하나로 뭉개고
+    아무 기록도 남기지 않기 때문이다. 이 값이 0인 한 웹의 이슈 지도(Atlas)에서
+    '남은 질문' 노드를 만들 수 없다 — 그래서 원인 규명이 선행 조건이다.
+
+    **생성률을 KPI 로 삼지 말 것.** 게이트를 풀면 AI 가 미확정 사항을 지어낸다.
+    이 기록은 *어디서 막히는가* 를 보기 위한 것이지 *몇 건 나왔나* 를 올리기 위한
+    것이 아니다. 특히 ``llm_null`` 이 대부분이면 게이트는 무죄고 프롬프트를 봐야 한다.
+
+    ``record_type`` 이 붙은 줄은 기존 리더가 전부 건너뛴다
+    (``daily_lead.collect_today`` · ``metrics.load_data`` · ``build_data``).
+    """
+    if not verdicts:
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+    reasons: dict[str, int] = {}
+    for row in verdicts.values():
+        label = row.get("reason") or "accepted"
+        reasons[label] = reasons.get(label, 0) + 1
+    rec = {
+        "record_type": "open_question_gate",
+        "date": now.astimezone(KST).date().isoformat(),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "must_read": len(verdicts),
+        "accepted": reasons.get("accepted", 0),
+        "reasons": reasons,
+        # 걸린 원문을 몇 건 남긴다. "게이트가 먹었다"까지는 집계로 알 수 있지만
+        # **무엇을 먹었는지**는 문장을 봐야 판단이 선다(예: 전부 물음표로 끝나면
+        # 프롬프트의 '완결형 서술문' 지시가 안 먹히는 것이다).
+        "samples": [
+            {"hash": h, "reason": row.get("reason", ""),
+             "text": (row.get("text") or "")[:120],
+             "source": row.get("source", "")}
+            for h, row in list(verdicts.items())
+            if row.get("reason") not in ("", "accepted")
+        ][:10],
+    }
+    try:
+        with path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        print(f"  ! open_question 게이트 기록 실패: {exc}")
+        return False
+    return True
+
+
 def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
     """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
 
     문장 완결성·길이 게이트를 통과하지 못한 항목만 한 번 재생성한다. 재생성에도
     실패하면 결과에서 제외하여 잘린 문장이 아카이브나 브리핑으로 넘어가지 않는다.
+
+    호출 자체가 실패하면(잘림·타임아웃) chunk 를 절반으로 쪼개 다시 부른다. 예전엔
+    통째로 버려서 그 기사들이 fallback 큐레이션(영문 제목·implication 공란·features
+    없음)으로 큐에 들어갔고, 큐에 들어가는 순간 ``sent`` 로 마킹돼 재수집이 막히므로
+    영영 복구되지 않았다.
     """
     if not articles:
         return {}
@@ -927,10 +1168,13 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                     if error_notes else ""
                 ),
                 "\n\n---\n\n".join(blocks),
-                temperature=0.2, max_output_tokens=8192, timeout=150.0,
+                temperature=0.2, max_output_tokens=BATCH_MAX_OUTPUT_TOKENS, timeout=150.0,
             )
+        except GeminiTruncated as e:
+            return {}, {art["hash"]: [f"request:truncated:{e}"] for art in chunk}
         except GeminiError as e:
-            return {}, {art["hash"]: [f"request:{str(e)[:80]}"] for art in chunk}
+            return {}, {art["hash"]: [f"request:{classify_request_failure(e)}:{e}"]
+                        for art in chunk}
 
         items = result.get("items")
         if not isinstance(items, list):
@@ -952,7 +1196,22 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             seen_indexes.add(idx)
             art = chunk[idx]
             normalized = normalize_curation_item(item, art)
-            errors = curation_errors(normalized)
+            # open_question 게이트 계측. hash 로 덮어쓰므로 분할 재시도가 같은 기사를
+            # 두 번 세지 않는다(마지막 판정이 남는다). 판정 자체는 바꾸지 않는다.
+            if normalized.get("importance") == "must_read":
+                oq_verdicts[art["hash"]] = {
+                    "reason": open_question_reject_reason(
+                        item, "must_read",
+                        (normalized.get("features") or {}).get("event_type", "")),
+                    "text": clean_text(item.get("open_question")),
+                    "source": (item.get("open_question_source") or "").strip().lower(),
+                }
+            # ★ 결손을 막는 실효 지점. 프롬프트가 features 를 요구하므로 빠진 응답은
+            # 재생성 대상이다. 여기서 안 잡으면 결손인 채 캐시·큐에 들어가고, 큐에
+            # 들어간 기사는 sent 로 마킹돼 다시 수집되지 않으므로 고칠 기회가 없다.
+            # 그 상태로 남으면 ranking 이 _legacy_score() 를 타 event_weights 도
+            # feature 가중치도 반영되지 않는다. 근거: docs/AS_IS.md §2.
+            errors = curation_errors(normalized, require_features=True)
             if errors:
                 failures[art["hash"]] = errors
             else:
@@ -964,10 +1223,37 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         return valid, failures
 
     out: dict[str, dict] = {}
-    for start in range(0, len(articles), BATCH_CHUNK):
-        chunk = articles[start:start + BATCH_CHUNK]
+    lost: dict[str, str] = {}          # hash → 최종 실패 사유 (유실 기록용)
+    oq_verdicts: dict[str, dict] = {}  # hash → open_question 게이트 판정 (계측용)
+    split_budget = BATCH_SPLIT_BUDGET
+
+    def process(chunk: list[dict], label: str) -> None:
+        """chunk 하나를 큐레이션해 out/lost 를 채운다."""
+        nonlocal split_budget
         valid, failures = run_chunk(chunk)
         out.update(valid)
+
+        reason = request_failure_reason(failures, chunk)
+        if reason:
+            detail = failures[chunk[0]["hash"]][0]
+            # 입력을 줄이면 사라지는 실패는 쪼개서 되살린다. 통째로 버리면 이 기사들은
+            # fallback 로 큐에 들어가 sent 마킹되고 다시는 큐레이션되지 않는다.
+            if reason in SPLITTABLE_FAILURES and len(chunk) > 1 and split_budget > 0:
+                split_budget -= 1
+                mid = len(chunk) // 2
+                print(f"  ! {label} 호출 실패({reason}) → "
+                      f"{len(chunk)}건을 {mid}/{len(chunk) - mid} 로 분할 재시도")
+                process(chunk[:mid], f"{label}a")
+                time.sleep(1)
+                process(chunk[mid:], f"{label}b")
+                return
+            for art in chunk:
+                lost[art["hash"]] = detail
+            capped = " (분할 예산 소진)" if reason in SPLITTABLE_FAILURES else ""
+            print(f"  ! batch 큐레이션 실패 ({label}) — {len(chunk)}건 유실{capped}: "
+                  f"{detail[:160]}")
+            return
+
         retryable = [
             art for art in chunk
             if art["hash"] in failures
@@ -983,12 +1269,28 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                         f"  ! 큐레이션 격리 '{art['title'][:35]}': "
                         + ", ".join(remaining[art["hash"]])
                     )
-        elif failures:
-            print(f"  ! batch 큐레이션 실패 (chunk {start//BATCH_CHUNK+1})")
+
+    for start in range(0, len(articles), BATCH_CHUNK):
+        process(articles[start:start + BATCH_CHUNK],
+                f"chunk {start // BATCH_CHUNK + 1}")
 
         # 무료 티어 분당 한도 배려 — chunk 사이 짧은 대기
         if start + BATCH_CHUNK < len(articles):
             time.sleep(3)
+
+    if lost:
+        print(f"  ! 큐레이션 유실 {len(lost)}/{len(articles)}건 — "
+              f"delivery_log.jsonl 에 기록 (fallback 큐레이션으로 넘어감)")
+        append_curation_failure(lost, articles)
+
+    if oq_verdicts:
+        blocked: dict[str, int] = {}
+        for row in oq_verdicts.values():
+            blocked[row.get("reason") or "accepted"] = \
+                blocked.get(row.get("reason") or "accepted", 0) + 1
+        print(f"  · open_question 게이트: must_read {len(oq_verdicts)}건 → "
+              + " / ".join(f"{k} {v}" for k, v in sorted(blocked.items())))
+        append_open_question_stats(oq_verdicts)
 
     return out
 
@@ -1268,6 +1570,11 @@ def main() -> None:
     sent_immediate = 0
     queued = 0
     dropped = 0
+    # 큐에 들어간 항목 중 features 없는 건수. 결손은 로그에 아무 흔적을 남기지
+    # 않아서, must_read 의 상당수가 랭킹에서 사실상 빠져 있다는 사실이 몇 달간
+    # 보이지 않았다. 큐에 들어가면 sent 마킹으로 되돌릴 수 없으므로 이 값이 0 에
+    # 수렴하는지가 S1 의 성패다. 근거: docs/score_distribution.md §4.
+    features_missing = 0
     now_iso = datetime.now(timezone.utc).isoformat()
 
     all_candidates: list[dict] = []
@@ -1326,50 +1633,47 @@ def main() -> None:
     # judge 의 노이즈 컷은 큐레이션의 importance=noise 로 흡수 (별도 호출 제거).
     new_articles = [
         article for article in final_articles
-        if article["hash"] not in curated or curation_errors(curated[article["hash"]])
+        if article["hash"] not in curated or needs_recuration(curated[article["hash"]])
     ]
     if new_articles:
         n_calls = (len(new_articles) + BATCH_CHUNK - 1) // BATCH_CHUNK
         print(f"Batch curation: 새 기사 {len(new_articles)}건 → Gemini {n_calls}회 호출")
     batch_results = curate_batch(new_articles, reports_kb)
 
+    # 후속·반복 보도 판정 재료. 아카이브를 못 읽어도 크롤은 계속한다(빈 목록이면
+    # prior_coverage 0 → 전부 신규 취급).
+    try:
+        prior_titles = news_archive.load_recent_titles()
+    except OSError as exc:
+        print(f"[rank] 아카이브 제목 로딩 실패 — prior_coverage 생략: {exc}")
+        prior_titles = []
+
     for article in final_articles:
         h = article["hash"]
 
-        if h in curated and not curation_errors(curated[h]):
+        if h in curated and not needs_recuration(curated[h]):
             cur = curated[h]
         else:
+            previous = curated.get(h) or {}
             cur = batch_results.get(h)
             if cur is None:
-                # batch 실패분은 원문 스니펫의 완결문만 사용한다. 안전하게 뽑을
-                # 문장이 없으면 이번 실행에서 격리하고 다음 crawl에서 재시도한다.
-                fallback_summary = first_complete_sentence(article.get("description"), 80)
-                if not fallback_summary:
+                cur = fallback_curation(article)
+                if cur is None:
                     print(f"  ! 품질 격리(완결 요약 없음): {article['title'][:60]}")
                     continue
-                force_t1 = is_tier1_source(article)
-                cur = {
-                    "importance": "must_read" if force_t1 else "nice_to_know",
-                    "section": default_section(article["domain"], article["title"]),
-                    "category": "정책",
-                    "title_kr": article["title"],
-                    "summary": fallback_summary,
-                    "implication": "",
-                    "why_important": "",
-                    "watch_next": "",
-                    "tags": [],
-                    "related_reports": [],
-                    "event_date": None,
-                    "event_date_type": "unknown",
-                    "event_date_precision": "unknown",
-                    "event_date_source": "unknown",
-                }
             cur["cached_at"] = now_iso
             cur["title"] = article["title"]
             cur["link"] = article["link"]
             cur["feed"] = article["feed"]
             cur["domain"] = article["domain"]
             cur["matched"] = article["matched"]
+            # features 를 끝내 못 받았으면 시도 횟수를 누적한다. needs_recuration()
+            # 이 이 값으로 재질의를 멈춘다. 받아냈으면 카운터를 지운다 — 나중에 다른
+            # 이유로 결손이 재발했을 때 상한에 이미 걸려 있으면 안 된다.
+            if isinstance(cur.get("features"), dict):
+                cur.pop("features_attempts", None)
+            else:
+                cur["features_attempts"] = int(previous.get("features_attempts") or 0) + 1
             curated[h] = cur
 
         importance = cur.get("importance", "nice_to_know")
@@ -1378,6 +1682,9 @@ def main() -> None:
             state["sent"][h] = now_iso
             dropped += 1
             continue
+
+        if not isinstance(cur.get("features"), dict):
+            features_missing += 1
 
         # must_read 포함 모든 비-noise 항목을 큐에 적재 — 즉시 개별 발송 폐지,
         # 일일 브리핑(daily_brief)으로 통합. must_read 는 rank가 높아 브리핑 상단 노출.
@@ -1404,10 +1711,17 @@ def main() -> None:
             "implication": cur.get("implication", ""),
             # must_read 의 '왜 중요' — 기존 큐 스키마에 빠져 있어 카드에서 유실되던 필드
             "why_important": cur.get("why_important", ""),
+            "open_question": cur.get("open_question", ""),
+            "open_question_source": cur.get("open_question_source", "unknown"),
             "watch_next": cur.get("watch_next", ""),
             "tags": cur.get("tags", []),
             "related_reports": cur.get("related_reports") or [],
             "features": cur.get("features"),  # 랭킹용 (batch 실패분은 None)
+            # 최근 21일 아카이브에서 같은 사건을 몇 번 다뤘는지. ranking.py 가
+            # novelty 와 추적 가점을 여기서 판정한다 (LLM 절대평가 대체).
+            "prior_coverage": prior_coverage_count(
+                cur.get("title_kr") or article["title"], prior_titles
+            ),
             "event_date": cur.get("event_date"),
             "event_date_type": cur.get("event_date_type", "unknown"),
             "event_date_precision": cur.get("event_date_precision", "unknown"),
@@ -1439,7 +1753,9 @@ def main() -> None:
     save_state(state)
     save_curated(curated)
     save_queue(queue)
-    print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped}")
+    rate = f"{features_missing / queued * 100:.1f}%" if queued else "—"
+    print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped} "
+          f"features_missing={features_missing} ({rate})")
 
 
 if __name__ == "__main__":

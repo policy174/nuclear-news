@@ -1,0 +1,13 @@
+# append-only 로그는 union 병합.
+#
+# crawl(매시간)과 daily-brief(07:25 KST)가 같은 파일 끝에 각자 줄을 붙인다.
+# 기본 병합기는 그걸 충돌로 보고 멈추므로, 겹치는 시각에는 push 가 실패하고
+# 그 시각 수집이 통째로 유실된다. union 은 양쪽에서 **추가된 줄을 둘 다** 남긴다
+# — 줄 하나가 곧 레코드 하나인 JSONL 에 맞는 동작이다.
+#
+# 안전한 이유: 두 워크플로가 같은 줄을 쓰지 않는다(발송 기록 vs 진단 기록).
+# 같은 줄이 두 번 들어가는 경우는 재실행뿐이고, 소비자는 이미 hash·date 로
+# 중복을 흡수한다(daily_lead.collect_today · metrics.load_data · build_data 는
+# record_type 이 붙은 줄을 건너뛰고, selection_stats 는 pipeline_status 로 고른다).
+delivery_log.jsonl merge=union
+archive/*.jsonl merge=union

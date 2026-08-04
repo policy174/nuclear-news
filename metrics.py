@@ -62,8 +62,10 @@ def _load_jsonl(path: Path) -> list[dict]:
 def load_data(days: int, now: datetime | None = None) -> list[dict]:
     now = now or datetime.now(timezone.utc)
     cutoff_date = (now - timedelta(days=days)).date().isoformat()
+    # record_type 이 있는 줄은 기사가 아니라 부가 레코드(selection_stats 등)다.
+    # 날짜만 보고 거르면 delivered_total 이 하루 1건씩 부풀어 오른다.
     return [r for r in _load_jsonl(DELIVERY_LOG_FILE)
-            if r.get("date", "") >= cutoff_date]
+            if not r.get("record_type") and r.get("date", "") >= cutoff_date]
 
 
 def compute_metrics(delivered: list[dict], days: int) -> dict:

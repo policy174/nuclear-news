@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Nuclens">
+  <title>Nuclens</title>
+  <!--
+    파비콘 사양 (16–32px): 윤곽선 제거, 렌즈만 확대해 흰색 단색.
+    배경은 라운드 없이 정사각 Primary 풀블리드.
+    원1 (13.5,20) r13 · 원2 (26.5,20) r13 · d 13 · 렌즈 13 × 22.5
+  -->
+  <defs>
+    <clipPath id="fv-lens">
+      <circle cx="13.5" cy="20" r="13"/>
+    </clipPath>
+  </defs>
+
+  <rect width="40" height="40" fill="#0E2A3C"/>
+  <g clip-path="url(#fv-lens)">
+    <circle cx="26.5" cy="20" r="13" fill="#FFFFFF"/>
+  </g>
+</svg>

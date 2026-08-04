@@ -62,11 +62,24 @@ class TestMakeRecord(unittest.TestCase):
         self.assertIsNone(r["event_date"])
         self.assertNotIn("description", r)  # 원문 본문 미저장 (저작권)
 
+    def test_open_question_reject_survives_into_the_archive(self):
+        """게이트 사유는 아카이브 화이트리스트에 있어야 남는다.
+
+        make_record 는 지정한 키만 옮긴다. 여기 없으면 크롤이 사유를 계산해도
+        커밋되는 곳이 한 군데도 없어(delivery_log 는 크롤 잡이 커밋 안 함)
+        "왜 0건인가"를 다음에도 재현부터 해야 한다.
+        """
+        cur = {"importance": "must_read", "open_question": "",
+               "open_question_source": "unknown", "open_question_reject": "llm_null"}
+        r = news_archive.make_record({"hash": "h1"}, cur, _now_iso())
+        self.assertEqual(r["open_question_reject"], "llm_null")
+
     def test_missing_fields_safe(self):
         r = news_archive.make_record({"hash": "h1"}, {}, _now_iso())
         self.assertEqual(r["topics"], [])
         self.assertEqual(r["tags"], [])
         self.assertEqual(r["pub"], "")
+        self.assertEqual(r["open_question_reject"], "")
 
 
 class TestAppendDedup(ArchiveDirMixin):

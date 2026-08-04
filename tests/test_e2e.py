@@ -213,8 +213,15 @@ class TestE2E(unittest.TestCase):
         # ── ③ confirm: delivery_log ──
         self.assertEqual(db.cmd_confirm(), 0)
         self.assertEqual(db.load_outbox()["status"], "sent")
-        log_lines = db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines()
-        self.assertEqual(len(log_lines), len(outbox["items"]))
+        log_rows = [json.loads(line) for line
+                    in db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines()]
+        articles = [r for r in log_rows if not r.get("record_type")]
+        self.assertEqual(len(articles), len(outbox["items"]))
+        # 선정 통계 1줄이 함께 남는다 — 웹이 '조용한 날'을 판정하는 근거
+        stats = [r for r in log_rows if r.get("record_type") == "selection_stats"]
+        self.assertEqual(len(stats), 1)
+        self.assertEqual(stats[0]["pipeline_status"], "ok")
+        self.assertGreater(stats[0]["overseas"]["candidate_count"], 0)
 
         # 재실행 → 중복 발송 없음
         n = len(fake_tg.sent_messages)

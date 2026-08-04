@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # weekly_reports.json 커밋 (웹 '주간 흐름' 탭 재료)
 
 concurrency:
   group: weekly
@@ -30,3 +30,24 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      # 주간 리포트를 웹이 쓸 수 있게 커밋. 발송이 실패해도 여기까지는 온다.
+      - name: Commit weekly report
+        if: always()
+        run: |
+          # 파일별 가드 — 한 파일이 없어서 git add 가 실패하면 스텝 전체가 죽는다
+          # (daily_leads.json 데드락과 같은 함정).
+          [ -f weekly_reports.json ] || { echo "리포트 파일 없음 — 스킵"; exit 0; }
+          git add weekly_reports.json
+          git diff --cached --quiet && { echo "변경 없음"; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: weekly report"
+          # 단순 push 반복은 다른 워크플로가 먼저 커밋했으면 3번 다 실패한다.
+          # fetch + rebase 로 위에 얹은 뒤 다시 민다.
+          for i in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            git fetch origin main || exit 0
+            git rebase origin/main || { git rebase --abort || true; exit 0; }
+          done
+          echo "리포트 push 실패 — 비치명, 다음 주 재시도"

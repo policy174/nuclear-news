@@ -1,0 +1,98 @@
+name: Deploy web (화면 코드 변경 시 즉시 배포)
+
+# 왜 있는가
+#
+# crawl.yml 도 배포하지만 그건 **데이터 갱신용**이라 짝수 UTC시에만 돈다
+# (Pages 무료 500회/월). 그래서 화면 코드를 main 에 병합해도 최대 2시간 동안
+# 라이브가 옛 화면이고, 그 사이 "왜 반영이 안 되지"를 매번 다시 확인하게 된다.
+#
+# 이 워크플로는 **화면 파일이 바뀔 때만** 돈다. 수집·큐레이션·LLM 호출이 전혀
+# 없어서 1~2분이면 끝나고, 배포 횟수도 화면을 고친 날에만 늘어난다
+# (실측: 화면 커밋은 많아야 하루 몇 건 → 월 20~30회 추가).
+#
+# crawl.yml 의 배포 단계는 그대로 둔다. 둘은 트리거가 다르다:
+#   crawl.yml   데이터가 바뀌었다  → 짝수시
+#   이 파일     화면 코드가 바뀌었다 → 병합 즉시
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/deploy-web.yml"
+  workflow_dispatch:      # 데이터는 그대로 두고 화면만 다시 올리고 싶을 때
+
+permissions:
+  contents: read          # 상태를 커밋하지 않는다 — 배포만 한다
+
+concurrency:
+  # crawl 과 같은 그룹에 두면 매시 크롤이 이 배포를 취소한다. 별도 그룹이되
+  # 이 워크플로끼리는 최신 것만 남긴다(연속 커밋 시 중간 배포는 의미 없음).
+  group: deploy-web
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # embeddings.json 은 git 이 아니라 Actions 캐시에 산다. 없이 빌드하면
+      # 이슈 병합이 로컬 폴백으로 떨어져 crawl 이 만든 것과 클러스터가 달라진다.
+      # 읽기만 하고 저장하지 않는다 — 캐시의 주인은 crawl.yml 이다.
+      - name: Restore embeddings cache
+        uses: actions/cache/restore@v4
+        with:
+          path: embeddings.json
+          key: ${{ runner.os }}-nuclear-embeddings-never-matches
+          restore-keys: |
+            ${{ runner.os }}-nuclear-embeddings-
+
+      - name: Build site data
+        run: python web/build_data.py
+
+      # app.js 파스 에러는 콘솔에 안 잡히고 화면만 "불러오고 있습니다"에서 얼어
+      # 데이터 문제로 오진하게 만든다(2026-08-01 실사고). 배포 전에 막는다.
+      - name: Check app.js parses
+        run: node --check web/public/app.js
+
+      # 데이터 지표 게이트는 끈다. 추적률은 "오늘 뉴스가 어떻게 묶였나"의 결과지
+      # 화면 코드의 성질이 아니다 — 켜 두면 뉴스가 한산한 날 CSS 오타 수정도
+      # 배포가 막힌다(2026-08-03 실측: 추적률 0.125 로 이 워크플로 첫 실행이 실패).
+      # 그 게이트는 crawl.yml·로컬에서 계속 켜져 있다.
+      - name: Run web tests
+        env:
+          NUCLENS_SKIP_DATA_GATES: "1"
+        run: cd web && python -m unittest discover -s tests
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN 미설정 — 배포할 수 없다"
+            exit 1
+          fi
+          npx --yes wrangler@4 pages deploy web/public \
+            --project-name=nuclens --branch=main --commit-dirty=true
+
+      # "데이터는 올라갔는데 화면이 죽는" 사고 재발 감지. curl 만으로는 부족하다는
+      # 것이 실측됐지만(변형별 엣지 캐시), SPA 폴백 재발은 이걸로 잡힌다.
+      - name: Smoke test live site
+        run: |
+          sleep 15
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 \
+            "https://nuclens.pages.dev/data/__missing__.json?cb=$(date +%s)")
+          [ "$code" = "404" ] || {
+            echo "::error::스모크 실패 — SPA 폴백 재발 의심 (미존재 파일이 $code 응답)"
+            exit 1
+          }
+          echo "스모크 통과 — 미존재 경로가 404"

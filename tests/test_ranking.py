@@ -113,6 +113,76 @@ class TestNewScore(unittest.TestCase):
         self.assertGreaterEqual(b["time_decay"], -CFG["time_decay"]["max"])
 
 
+class TestCodeDerivedFeatures(unittest.TestCase):
+    """novelty·evidence_strength 는 LLM 이 아니라 코드가 판정한다."""
+
+    def test_confirmed_fact_with_numbers_scores_highest(self):
+        a = {"title_kr": "한수원, 체코 두코바니 원전 2기 본계약 체결",
+             "summary": "한수원이 24조 원 규모의 두코바니 원전 2기 건설 본계약을 체결했다."}
+        self.assertEqual(ranking.derive_evidence_strength(a), 3)
+
+    def test_speculation_scores_low(self):
+        a = {"title_kr": "정부, 신규 원전 추가 검토 전망",
+             "summary": "정부가 신규 원전 건설을 추가로 검토할 것으로 예상된다."}
+        self.assertLessEqual(ranking.derive_evidence_strength(a), 1)
+
+    def test_confirmed_without_numbers_drops_one_step(self):
+        withnum = {"title_kr": "원안위, 한울 4호기 임계 허용",
+                   "summary": "원안위가 한울 4호기의 임계를 허용했다."}
+        without = {"title_kr": "원안위, 임계 허용",
+                   "summary": "원안위가 임계를 허용했다."}
+        self.assertGreater(ranking.derive_evidence_strength(withnum),
+                           ranking.derive_evidence_strength(without))
+
+    def test_novelty_follows_prior_coverage(self):
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 0}), 3)
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 2}), 2)
+        self.assertEqual(ranking.derive_novelty({"prior_coverage": 5}), 1)
+        # 구 큐 항목은 값이 없다 — 지어내지 않고 중립값
+        self.assertEqual(ranking.derive_novelty({}), 2)
+
+    def test_llm_values_are_overridden(self):
+        a = item(features=feat(novelty=3, evidence_strength=3), queued_hours_ago=0)
+        a.update({"title_kr": "정부, 원전 확대 검토 전망", "summary": "검토할 것으로 예상된다.",
+                  "prior_coverage": 4})
+        _, b = ranking.score_item(a, CFG, now=NOW)
+        # novelty 가중치는 0 이므로 breakdown 에 남지 않는다
+        self.assertNotIn("novelty", b)
+        # LLM 이 3점을 줬어도 전망 표현이라 코드는 0점 → 기여 0 이라 항목이 사라진다
+        self.assertEqual(ranking.derive_evidence_strength(a), 0)
+        self.assertNotIn("evidence_strength", b)
+
+    def test_prior_coverage_counts_same_event_only(self):
+        prior = ["한수원, 체코 두코바니 원전 본계약 체결", "미국 NRC, SMR 인허가 절차 개편"]
+        self.assertEqual(
+            ranking.prior_coverage_count("한수원 체코 두코바니 원전 본계약 체결", prior), 1)
+        self.assertEqual(
+            ranking.prior_coverage_count("프랑스 EDF, 플라망빌 3호기 출력 상승", prior), 0)
+
+
+class TestTrackingBonus(unittest.TestCase):
+    def test_follow_up_outranks_brand_new(self):
+        base = dict(features=feat(korea_relevance=1), queued_hours_ago=0)
+        new = item(h="a", **base)
+        new.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                    "prior_coverage": 0})
+        follow = item(h="b", **base)
+        follow.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                       "prior_coverage": 1})
+        s_new, _ = ranking.score_item(new, CFG, now=NOW)
+        s_follow, b = ranking.score_item(follow, CFG, now=NOW)
+        self.assertGreater(s_follow, s_new)
+        self.assertIn("tracking:follow_up", b)
+
+    def test_repeated_issue_gets_almost_nothing(self):
+        repeat = item(features=feat(), queued_hours_ago=0)
+        repeat.update({"title_kr": "원안위, 한울 4호기 임계 허용", "summary": "허용했다.",
+                       "prior_coverage": 6})
+        _, b = ranking.score_item(repeat, CFG, now=NOW)
+        self.assertIn("tracking:repeat", b)
+        self.assertLess(b["tracking:repeat"], CFG["tracking"]["follow_up"])
+
+
 class TestDuplicates(unittest.TestCase):
     def test_same_and_followup_titles_clustered(self):
         a = item(h="a", title="한수원, 체코 두코바니 원전 본계약 체결")
@@ -171,6 +241,114 @@ class TestDiversity(unittest.TestCase):
         sel1 = ranking.select_diverse([a, b], scores, 1, CFG)
         sel2 = ranking.select_diverse([b, a], scores, 1, CFG)
         self.assertEqual(sel1[0]["hash"], sel2[0]["hash"])  # 입력 순서 무관
+
+
+class TestSelectionFloor(unittest.TestCase):
+    """캡은 상한이지 하한이 아니다 — 기준 미달이면 자리를 비운다.
+
+    다만 절대 점수 하한은 쓸 수 없다. must_read 의 37%가 features 결손으로
+    _legacy_score 경로를 타 등급 기본값에 고정되기 때문(실측, docs 참조).
+    """
+
+    def setUp(self):
+        # 하한 14 를 확실히 넘는/못 넘는 항목
+        self.high = item(h="high", features=feat(event_type="policy_decision",
+                                                 policy_materiality=3,
+                                                 korea_relevance=3),
+                         title="High scoring item")
+        self.low = item(h="low", features=feat(event_type="opinion"),
+                        title="Low scoring item")
+        self.floor = {"nice_to_know": 14.0}
+
+    def test_floor_none_is_backward_compatible(self):
+        items = [self.high, self.low]
+        base, _ = ranking.rank_and_select(items, 5, CFG, NOW)
+        with_none, _ = ranking.rank_and_select(items, 5, CFG, NOW, None)
+        self.assertEqual([a["hash"] for a in base], [a["hash"] for a in with_none])
+        self.assertEqual(len(base), 2)
+
+    def test_below_floor_dropped(self):
+        sel, diag = ranking.rank_and_select([self.high, self.low], 5, CFG, NOW,
+                                            self.floor)
+        self.assertEqual([a["hash"] for a in sel], ["high"])
+        self.assertEqual([d["hash"] for d in diag["dropped_below_floor"]], ["low"])
+        self.assertEqual(diag["candidate_count"], 2)
+
+    def test_score_equal_to_floor_is_kept(self):
+        """경계는 포함. >= 로 고정한다."""
+        scores = {"x": 14.0}
+        ok, _ = ranking.floor_verdict(item(h="x", features=feat()), scores,
+                                      {"nice_to_know": 14.0})
+        self.assertTrue(ok)
+        ok2, _ = ranking.floor_verdict(item(h="x", features=feat()), {"x": 13.99},
+                                       {"nice_to_know": 14.0})
+        self.assertFalse(ok2)
+
+    def test_must_read_is_not_exempt_by_grade(self):
+        """등급 면제는 제거했다 — 등급이 점수를 무조건 이기면 하한이 무의미해진다.
+
+        must_read 의 상당수가 LLM 판정이 아니라 큐레이션 실패 폴백이 붙인 값이었다.
+        등급을 점수 위에 두려면 등급을 믿을 수 있어야 한다.
+        근거: docs/AS_IS.md C1′.
+        """
+        weak = item(h="mr", importance="must_read", features=feat(event_type="opinion"))
+        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"must_read": 99.0})
+        self.assertFalse(ok)
+        self.assertEqual(reason, "below_floor")
+
+    def test_must_read_passes_when_no_limit_configured(self):
+        """운영 설정에는 must_read 하한이 없다 — 등급별 하한을 안 걸면 통과한다."""
+        weak = item(h="mr", importance="must_read", features=feat(event_type="opinion"))
+        ok, reason = ranking.floor_verdict(weak, {"mr": 1.0}, {"nice_to_know": 14.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "no_limit_for_grade")
+
+    def test_missing_features_exempt_even_for_graded_floor(self):
+        """결손 면제는 등급 하한보다 먼저 걸린다 — 데이터 결손을 중요도로 읽지 않는다."""
+        legacy = item(h="mr", importance="must_read")  # features 키 자체가 없음
+        ok, reason = ranking.floor_verdict(legacy, {"mr": 1.0}, {"must_read": 99.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "exempt_no_features")
+
+    def test_missing_features_exempt(self):
+        """features 결손은 데이터 문제이지 중요도 문제가 아니다."""
+        legacy = item(h="lg")  # features 키 자체가 없음
+        self.assertIsNone(ranking.sanitize_features(legacy.get("features")))
+        ok, reason = ranking.floor_verdict(legacy, {"lg": 5.0}, {"nice_to_know": 14.0})
+        self.assertTrue(ok)
+        self.assertEqual(reason, "exempt_no_features")
+
+    def test_floor_applied_before_diversity_penalty(self):
+        """다양성 페널티가 하한 판정에 섞이면 '주제가 겹쳐서' 잘리게 된다."""
+        strong = feat(event_type="policy_decision", policy_materiality=3,
+                      korea_relevance=3)
+        # 제목이 서로 안 닮아야 중복 클러스터에 안 걸린다(임계 0.82)
+        titles = ["체코 두코바니 본계약 체결",
+                  "미국 NRC 인허가 규정 개정 의결",
+                  "프랑스 EDF 연료 재처리 계약 갱신"]
+        trio = [item(h=f"t{i}", section="smr", features=strong, title=t)
+                for i, t in enumerate(titles)]
+        sel, diag = ranking.rank_and_select(trio, 3, CFG, NOW, self.floor)
+        # 셋 다 하한을 넘으므로 페널티를 받아도 하한에서 탈락하지 않는다
+        self.assertEqual(diag["dropped_below_floor"], [])
+        self.assertEqual(len(sel), 3)
+
+    def test_resolve_floor_reads_region(self):
+        cfg = {"selection_floor": {"_comment": "무시",
+                                   "nice_to_know": {"domestic": 12.0, "overseas": 15.0}}}
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"), {"nice_to_know": 12.0})
+        self.assertEqual(ranking.resolve_floor(cfg, "overseas"), {"nice_to_know": 15.0})
+        self.assertIsNone(ranking.resolve_floor({}, "domestic"))
+
+    def test_resolve_floor_accepts_flat_number(self):
+        cfg = {"selection_floor": {"nice_to_know": 13.0}}
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"), {"nice_to_know": 13.0})
+
+    def test_repo_config_floor_is_region_symmetric(self):
+        """국내가 불리하다는 1차 가설은 실측 분포로 기각됐다 — 같은 값을 유지한다."""
+        cfg = ranking.load_config()
+        self.assertEqual(ranking.resolve_floor(cfg, "domestic"),
+                         ranking.resolve_floor(cfg, "overseas"))
 
 
 class TestConfig(unittest.TestCase):
