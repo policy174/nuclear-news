@@ -72,6 +72,16 @@
       "right_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
       "same_event": false
     },
+    "09d2791626624247--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8592,
+      "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 원전 지연 vs 일반 정책",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "same_event": false
+    },
     "09d2791626624247--fd17939220b56c39": {
       "embedding_similarity": 0.8647,
       "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
@@ -290,6 +300,36 @@
       "reason": "다른 주체, 다른 사안",
       "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
       "right_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "same_event": false
+    },
+    "0fe72c91dc24354b--9ff80dab9059f991": {
+      "embedding_similarity": 0.8575,
+      "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
+      "same_event": false
+    },
+    "0fe72c91dc24354b--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8806,
+      "left_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
+      "same_event": false
+    },
+    "0fe72c91dc24354b--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.8585,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
       "same_event": false
     },
     "12ec710dcc1a738a--24264cf1e2c21525": {
@@ -642,6 +682,16 @@
       "right_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
       "same_event": false
     },
+    "2b442f968d18a90b--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8427,
+      "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 안건",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "same_event": false
+    },
     "2b442f968d18a90b--f33f228a288946ee": {
       "embedding_similarity": 0.8481,
       "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
@@ -710,6 +760,16 @@
       "reason": "국가, 주체, 대상 모두 다름",
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "same_event": false
+    },
+    "337a9ffbe7eef399--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8606,
+      "left_title": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "349e783fd4decdfa--5f50f27e3d506043": {
@@ -1152,6 +1212,26 @@
       "right_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
       "same_event": false
     },
+    "549b832e2069fa6a--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8602,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "일반적 지연 vs 일반 정책",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "same_event": false
+    },
+    "549b832e2069fa6a--da9a4893cdd4761d": {
+      "embedding_similarity": 0.8572,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "일반적 지연 vs 특정 심의",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+      "same_event": false
+    },
     "549b832e2069fa6a--fd17939220b56c39": {
       "embedding_similarity": 0.899,
       "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
@@ -1452,6 +1532,16 @@
       "right_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
       "same_event": false
     },
+    "658e7fc2f563ff54--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8414,
+      "left_title": "미국 원자력 기업 웨스팅하우스, 기업공개(IPO) 신청",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 재무 vs 사업 협력",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "same_event": false
+    },
     "6833a35dd8fc11fe--89a559f17ff440e3": {
       "embedding_similarity": 0.8413,
       "left_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
@@ -1490,6 +1580,16 @@
       "reason": "다른 회사/프로젝트",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "same_event": false
+    },
+    "6833a35dd8fc11fe--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8542,
+      "left_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "6b93ed7e22e9bb4b--937708a71d17b0a2": {
@@ -1550,6 +1650,16 @@
       "reason": "다른 전력 정책/지역 이슈",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "same_event": false
+    },
+    "78b0e1f04036be7f--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8414,
+      "left_title": "불가리아 AP1000 신규 원전 건설, 양국 간 '전략적 우선순위'로 강조",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 프로젝트 vs 일반 협력",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "89a559f17ff440e3--9ff80dab9059f991": {
@@ -1652,6 +1762,16 @@
       "right_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
       "same_event": false
     },
+    "9a7b23e4ae5be6f3--c79d38874a299d89": {
+      "embedding_similarity": 0.8453,
+      "left_title": "허성무 의원, '원전비리방지법' 개정안 발의로 순환보직 삭제 및 재취업 규제 완화 추진",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 법안, 다른 주제",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "same_event": false
+    },
     "9a7b23e4ae5be6f3--da9a4893cdd4761d": {
       "embedding_similarity": 0.8752,
       "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
@@ -1660,6 +1780,26 @@
       "reason": "A는 심사 정책, B는 특정 심의",
       "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+      "same_event": false
+    },
+    "9a7b23e4ae5be6f3--e2e42584280401fc": {
+      "embedding_similarity": 0.8778,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 규정 개정 vs 일반 정책",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "same_event": false
+    },
+    "9a7b23e4ae5be6f3--fd17939220b56c39": {
+      "embedding_similarity": 0.8591,
+      "left_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "일반적 지연 vs 일반 정책",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
       "same_event": false
     },
     "9ff80dab9059f991--bf6d688ab21e07ed": {
@@ -1680,6 +1820,16 @@
       "reason": "다른 회사, 다른 SMR 프로젝트",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "same_event": false
+    },
+    "9ff80dab9059f991--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8822,
+      "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "9ff80dab9059f991--f33f228a288946ee": {
@@ -1752,6 +1902,26 @@
       "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
       "same_event": true
     },
+    "bf5ea0f3606646e1--d217422a62af77e2": {
+      "embedding_similarity": 0.8865,
+      "left_title": "헝가리 총리, 임박한 원전 폐쇄로 \"중대한\" 시기 경고",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "미래 폐쇄 경고 vs 현재 가동",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표",
+      "same_event": false
+    },
+    "bf5ea0f3606646e1--f16584c2bb3535cb": {
+      "embedding_similarity": 0.8716,
+      "left_title": "헝가리, 가뭄으로 팍스 원전 가동 중단 위기 직면",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "팍스 원전 운영 현황",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표",
+      "same_event": true
+    },
     "bf6d688ab21e07ed--c1dc07ee6de3f998": {
       "embedding_similarity": 0.864,
       "left_title": "한국원자력연구원(KAERI), 용융염원자로(MSR) 선박 개념설계 미국선급협회(ABS) AIP 획득",
@@ -1780,6 +1950,16 @@
       "reason": "주체, 대상, 기술 모두 다름",
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "same_event": false
+    },
+    "bf6d688ab21e07ed--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.847,
+      "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 원자로",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "bf6d688ab21e07ed--dc1568d26b7a3c04": {
@@ -1832,6 +2012,16 @@
       "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
       "same_event": false
     },
+    "ca69ce47dc1e639d--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8773,
+      "left_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "same_event": false
+    },
     "ca69ce47dc1e639d--f33f228a288946ee": {
       "embedding_similarity": 0.8415,
       "left_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
@@ -1840,6 +2030,16 @@
       "reason": "일반 논의 vs 특정 파트너십",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "same_event": false
+    },
+    "cad8f7d2c2d3c640--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8627,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash",
+      "prompt_version": 1,
+      "reason": "다른 회사, 다른 SMR",
+      "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
+      "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
     "da9a4893cdd4761d--e2e42584280401fc": {
