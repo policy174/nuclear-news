@@ -37,6 +37,38 @@ import build_data  # noqa: E402
 SKIP_DATA_GATES = os.environ.get("NUCLENS_SKIP_DATA_GATES") == "1"
 
 
+def _luminance(hex_color: str) -> float:
+    channels = [int(hex_color[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+    linear = [
+        value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+        for value in channels
+    ]
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def _contrast(foreground: str, background: str) -> float:
+    lighter, darker = sorted(
+        (_luminance(foreground), _luminance(background)), reverse=True
+    )
+    return (lighter + 0.05) / (darker + 0.05)
+
+
+def _theme_tokens(css: str) -> dict[str, dict[str, str]]:
+    """``:root`` 와 다크 블록의 색 토큰을 테마별로 갈라 읽는다.
+
+    ``test_muted_text_meets_wcag_aa_on_paper`` 처럼 파일 전체를 ``dict()`` 로
+    말면 나중 값이 앞을 덮어써 라이트 팔레트가 사라진다. 어두운 표면 위 대비는
+    두 테마에서 서로 다른 배경을 쓰므로 양쪽 값이 다 필요하다.
+    """
+    blocks = {}
+    for name, selector in (("light", ":root {"), ("dark", ':root[data-theme="dark"] {')):
+        start = css.index(selector) + len(selector)
+        body = css[start:css.index("}", start)]
+        blocks[name] = dict(re.findall(r"--([\w-]+):\s*(#[0-9a-fA-F]{6})", body))
+    # 다크는 라이트를 부분 덮어쓴다 — 짝이 없는 토큰은 라이트 값을 그대로 물려받는다.
+    return {"light": blocks["light"], "dark": {**blocks["light"], **blocks["dark"]}}
+
+
 class BrandAccessibilityTests(unittest.TestCase):
     def test_pretendard_variable_is_self_hosted(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
@@ -82,6 +114,62 @@ class BrandAccessibilityTests(unittest.TestCase):
         )
         contrast = (lighter + 0.05) / (darker + 0.05)
         self.assertGreaterEqual(contrast, 4.5)
+
+    def test_verification_badges_meet_wcag_aa_on_rail_head(self):
+        """근거 패널 머리말은 두 테마 모두 --c-primary(딥 포레스트)다.
+
+        배지 색은 밝은 배경을 전제로 정해져 있어 그대로 넘어오면 네 상태가
+        모두 AA 에 못 미쳤다(공식 확인 2.76:1, 확인 중 2.69:1). 위 종이 대비
+        검사는 --c-text-muted / --c-bg 한 쌍만 보므로 이 조합은 걸리지 않는다.
+        네 상태 × 두 테마 여덟 조합을 전부 센다.
+        """
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        themes = _theme_tokens(css)
+
+        for status in build_data.VERIFICATION_LABELS:
+            rule = re.search(
+                rf"\.rail-badges\s+\.verification-badge\.v-{status}\b[^{{}}]*\{{([^}}]*)\}}",
+                css,
+            )
+            self.assertIsNotNone(rule, f"rail 전용 오버라이드 없음: .v-{status}")
+            color = re.search(r"color:\s*(?:var\(--([\w-]+)\)|(#[0-9a-fA-F]{6}))", rule.group(1))
+            self.assertIsNotNone(color, f"rail .v-{status} 규칙에 color 선언 없음")
+
+            for theme, tokens in themes.items():
+                token, literal = color.groups()
+                foreground = literal or tokens.get(token)
+                self.assertIsNotNone(foreground, f"{theme}: 미정의 토큰 --{token}")
+                ratio = _contrast(foreground, tokens["c-primary"])
+                self.assertGreaterEqual(
+                    ratio, 4.5,
+                    f"{theme} rail .v-{status}: {foreground} on {tokens['c-primary']}"
+                    f" = {ratio:.2f}:1",
+                )
+
+    def test_verification_states_stay_distinct_without_color(self):
+        """색을 걷어내도 4단계가 남아야 한다(WCAG 1.4.1).
+
+        rail 에서는 네 상태가 색 두 가지로 묶이므로(확인 계열 / 미확인 계열)
+        구분을 지는 것은 기호와 문구다. 배지 마크업이 둘을 함께 싣는지 본다.
+        """
+        app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        views = dict(
+            re.findall(r"(\w+):\s*\{\s*mark:\s*\"([^\"]+)\"", app)
+        )
+
+        for status, label in build_data.VERIFICATION_LABELS.items():
+            self.assertTrue(views.get(status), f"VERIFICATION_VIEW.{status} 에 mark 없음")
+            self.assertIn(f'label: "{label}"', app)
+
+        # 기호는 겹칠 수 있다(공식·복수 출처 모두 ✓). 그때 구분을 지는 건 문구다.
+        self.assertEqual(
+            len(set(build_data.VERIFICATION_LABELS.values())),
+            len(build_data.VERIFICATION_LABELS),
+        )
+        self.assertRegex(
+            app, r'class="verification-badge v-\$\{esc\(state\.status\)\}"[^`]*'
+                 r'\$\{view\.mark\}\s\$\{esc\(view\.label\)\}',
+        )
 
     def test_rendered_text_has_12_5px_minimum(self):
         """12.5px 하한. 예외는 두지 않는다.
