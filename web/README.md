@@ -7,20 +7,20 @@
 
 | 경로 | 역할 |
 |---|---|
-| `build_data.py` | 아카이브·발송기록 → 화면용 JSON 10종 + 이슈 상세 페이지 + RSS |
+| `build_data.py` | 아카이브·발송기록 → 화면용 JSON 11종 + 이슈 상세 페이지 + RSS |
 | `public/index.html`·`app.js`·`style.css` | 단일 페이지 앱 (의존성 0) |
 | `public/data/` | 빌드 산출물 (gitignore — CI 가 매번 생성) |
 | `brand/` | 브랜드 개편안·토큰·로고 원본 (배포 대상 아님) |
 | `tools/make_og_image.py` | 링크 미리보기 이미지 생성 (stdlib) |
 | `tests/` | 단위·데이터 검증 테스트 |
 
-화면은 5개 — 오늘 브리핑 / 이슈 아카이브 / 주간 흐름 / 발간물 / 저장.
+화면은 5개 — 오늘 / 탐색 / 흐름 / 발간물 / 저장·팔로우.
 
 ## 데이터 계약
 
 - 빌드는 `news.json`·`briefings.json`·`issues.json`·`trend.json`·`meta.json`·
-  `insights.json`·`publications.json`·`issue_audit.json`·`manifest.json`·`status.json`
-  을 **항상** 쓴다. 수집 결과가 0건이어도 빈 구조로 쓴다 — 앱이 없는 JSON 을
+  `insights.json`·`publications.json`·`entities.json`·`issue_audit.json`·
+  `manifest.json`·`status.json` 을 **항상** 쓴다. 수집 결과가 0건이어도 빈 구조로 쓴다 — 앱이 없는 JSON 을
   만나면 화면 전체가 죽는다(2026-08-01 실사고).
 - `app.js` 에서 새 JSON 을 불러올 때는 반드시 `.catch()` 로 감싼다.
 - `validate_archive_records()` 가 URL 중복·출처 등급·요약 완결성을 검사하고,
@@ -96,6 +96,11 @@ node web/tests/render_smoke.mjs
 | 키 | 내용 |
 |---|---|
 | `nuclens-saved-issues` | 저장한 이슈 id 배열 |
+| `nuclens-saved-meta` | 저장 시점 제목·날짜 스냅샷(재클러스터 톰스톤용) |
+| `nuclens-follows` | 팔로우한 엔티티 id 배열 |
+| `nuclens-follow-seen` | 엔티티별 확인일 — 새 이슈 배지의 기준 |
+| `nuclens-recent-searches` | 통합 검색 최근 검색어(MRU 8) |
+| `nuclens-audio-rate` | 오디오 브리핑 재생 배속 |
 | `nuclens-theme` | `light` \| `dark` |
 
 ## 링크 미리보기 이미지
