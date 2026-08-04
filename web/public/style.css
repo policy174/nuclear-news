@@ -106,7 +106,9 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* 스티키 헤더와 고정 하단 탭이 스크롤로 옮겨진 포커스를 덮지 않게 한다.
+   앵커·딥링크·Tab 이동 모두 이 여백을 쓴다. */
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
   margin: 0;
   background: var(--c-bg);
@@ -151,7 +153,10 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   z-index: 1000;
   top: 8px;
   left: 8px;
-  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
   border-radius: var(--r-1);
   background: var(--c-primary);
   color: #fff;
@@ -244,12 +249,14 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   content: "";
 }
 .header-tools { display: flex; justify-content: flex-end; align-items: center; min-width: 0; gap: 8px; }
+/* 44px. 40px 이면 엄지로 눌렀을 때 옆 버튼이 같이 잡힌다 — 헤더 도구 셋이
+   8px 간격으로 붙어 있어 이 3px 이 실제 오조작 차이를 만든다. */
 .global-search-trigger,
 .header-status,
 .icon-button {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   border: 1px solid var(--c-border-strong);
   border-radius: var(--r-1);
   background: var(--c-surface);
@@ -288,7 +295,7 @@ kbd {
 }
 .header-status.warning i { background: var(--c-warning); }
 .header-status.error i { background: var(--c-critical); }
-.icon-button { justify-content: center; width: 40px; padding: 0; }
+.icon-button { justify-content: center; width: 44px; padding: 0; }
 
 /* 시안의 최상단 모노 상태바. 새로 만들지 않고 기존 status-strip 을 그 모습으로
    바꿔 헤더 위로 올렸다 — 같은 숫자를 두 줄에 쓰면 그건 정보가 아니라 중복이다.
@@ -306,12 +313,13 @@ kbd {
   display: flex;
   align-items: center;
   min-height: 34px;
-  gap: 8px;
-  overflow-x: auto;
+  gap: 0 8px;
   white-space: nowrap;
-  scrollbar-width: none;
 }
-.status-strip-inner::-webkit-scrollbar { display: none; }
+.status-lead { display: inline-flex; align-items: center; gap: 8px; }
+/* 구분자를 마크업이 아니라 CSS 로 그리면, 줄이 바뀌는 자리에서 '·' 가 홀로
+   남지 않는다. 첫 항목 앞에도 붙지 않는다. */
+.status-item::before { margin-right: 8px; content: "·"; }
 .status-strip strong { color: var(--c-signal); font-weight: 700; }
 .status-strip .status-dot { border-radius: 50%; }
 .status-strip.loading .status-dot,
@@ -347,14 +355,16 @@ kbd {
 }
 .hero-topline { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
 .date-nav { display: flex; align-items: center; gap: 4px; }
+/* 날짜 이동은 이 화면에서 가장 자주 눌리는 컨트롤이다. 36px 짜리 화살표 두 개를
+   4px 간격으로 붙여 놓으면 엄지로는 정확히 못 누른다. */
 .date-nav button,
 .date-nav select {
-  height: 36px;
+  height: 44px;
   border: 1px solid var(--c-border-strong);
   background: var(--c-surface);
   color: var(--c-text);
 }
-.date-nav button { width: 36px; border-radius: var(--r-1); }
+.date-nav button { width: 44px; border-radius: var(--r-1); }
 .date-nav select { min-width: 145px; padding: 0 30px 0 10px; border-radius: var(--r-1); }
 .date-nav option { background: var(--c-surface); }
 /* 우측 '데이터 상태' 열을 제거해 1단이 됐다 — 히어로 높이를 정하던 것이
@@ -379,14 +389,24 @@ kbd {
 /* 시안 헤드라인은 "신호는 3개입니다" 급의 짧은 문장이라 82px 가 두 줄에 앉는다.
    여기 h1 은 daily_lead 종합 문장이라 최대 70자(HEADLINE_LIMIT)다 — 같은 크기로
    두면 히어로가 다섯 줄이 된다. 폭을 넓히고 상한을 58px 로 잡아 두 줄에 맞췄다. */
+/* 히어로 제목은 원래 '그날을 종합한 한 문장'(headline_kind=synthesis) 자리라
+   디스플레이 크기(58px)를 줬다. 그런데 실측 17일 전부 synthesis 가 0건이고
+   1위 이슈 제목이 글자 그대로 올라온다 — 종합 문장이 생성돼도 내용이 없으면
+   synthesis_is_substantive() 가 걸러 제목으로 폴백하기 때문이다(그 판단은 옳다).
+   그 결과 히어로는 매일 바로 아래 선두 카드의 제목을 58px 로 되풀이한다.
+   선두 카드가 '무엇부터 봐야 하나'를 구조로 답하게 된 이상 이 자리는 큰 제목이
+   아니라 작은 리드다. 실측: 데스크톱 히어로 369px·모바일 382px 를 쓰면서
+   모바일에서 선두 카드가 첫 화면의 64% 지점에서야 시작했다.
+   되돌리려면 이 블록의 세 값(크기·굵기·자간)만 원복하면 된다. */
 .hero-copy h1 {
   max-width: min(100%, 1040px);
   margin: 0;
   color: var(--c-text);
-  font-size: clamp(32px, 4vw, 58px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -.05em;
+  font-size: clamp(23px, 2vw, 30px);
+  font-weight: 750;
+  /* 디스플레이용 -.05em·1.08 은 이 크기에서 글자가 붙고 줄이 눌린다. */
+  line-height: 1.32;
+  letter-spacing: -.028em;
 }
 .hero-actions { display: flex; gap: 20px; margin-top: 28px; }
 .hero-actions button {
@@ -520,7 +540,8 @@ kbd {
   background: var(--c-surface-raised);
   box-shadow: var(--sh-2);
 }
-.filter-sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.filter-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.filter-sheet-head .sheet-count { margin-right: auto; color: var(--c-text-muted); font-size: 12.5px; }
 .filter-sheet-head button { border: 0; background: transparent; color: var(--c-secondary); font-size: 12.5px; }
 .filter-sheet .filter-tabs { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-bottom: 12px; }
 .filter-sheet .filter-tab { border: 1px solid var(--c-border); }
@@ -626,6 +647,21 @@ kbd {
 .verification-badge.v-corroborated { color: var(--c-secondary); }
 .verification-badge.v-partial { color: var(--c-text-muted); }
 .verification-badge.v-unverified { color: var(--c-unverified); }
+/* 보고서 검토 추천 — 검증 배지와 같은 모양(1px 테두리)이고 색으로만 갈린다.
+   검증은 '이 사실이 얼마나 확인됐나', 이건 '부서가 다룰 만한가' 라 축이 다르지만
+   둘 다 카드 한 줄에 나란히 서므로 모양까지 다르면 그 줄이 소란스러워진다. */
+.report-pick-badge {
+  align-self: start;
+  margin-top: 4px;
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: var(--r-1);
+  color: var(--c-accent-text);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.issue-meta > .report-pick-badge { flex: 0 0 auto; }
 .dialog-verification {
   display: flex;
   align-items: center;
@@ -689,7 +725,7 @@ kbd {
 }
 .issue-change {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 44px minmax(0, 1fr);
   gap: 10px;
   margin: 13px 0 0;
   padding: 10px 12px;
@@ -754,6 +790,74 @@ kbd {
 .issue-list.list-view .issue-card h3 { margin-bottom: 0; font-size: 18px; }
 .issue-list.list-view .issue-index { font-size: 18px; }
 
+/* 선두 이슈 — 아래 목록이 4열 표라면 여기는 한 단이다. 열 그리드를 쓰지 않아야
+   블록마다 문장이 끝까지 서고, 그래야 '요약 두 줄'이 아닌 판단으로 읽힌다.
+   상자·그림자 대신 위쪽 굵은 선 하나로 구획한다(표와 같은 어법). */
+.lead-section { margin-bottom: 44px; }
+.lead-card { padding: 0 0 22px; border-top: 2px solid var(--c-primary); }
+.lead-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 16px 0 0;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.lead-card h3 {
+  margin: 12px 0 0;
+  font-size: clamp(25px, 3.1vw, 33px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.034em;
+}
+.lead-blocks { margin: 22px 0 0; }
+/* 라벨 열은 고정폭이라 네 블록의 본문 시작선이 맞는다 — 눈이 한 줄로 훑는다. */
+.lead-block {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--c-border);
+}
+.lead-block:first-child { border-top: 0; padding-top: 0; }
+.lead-block dt {
+  margin: 0;
+  color: var(--c-text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.75;
+}
+.lead-block dd { margin: 0; color: var(--c-text-secondary); font-size: 16px; line-height: 1.7; }
+/* 사실(무슨 일·영향)과 나머지 두 축을 라벨 색으로만 가른다. 본문 색을 바꾸면
+   같은 카드 안에서 읽기 무게가 달라진다. --c-warning 은 이 파일에서 텍스트로
+   쓰인 적이 없어(대비 미검증) 검증된 --c-secondary 를 쓴다. */
+.lead-block.tone-change dt { color: var(--c-accent-text); }
+.lead-block.tone-open dt { color: var(--c-secondary); }
+/* .issue-actions 는 표 4열째용이라 오른쪽 정렬 세로 스택이다. 한 단 카드에서는
+   가로 한 줄로 눕힌다. */
+.lead-card .issue-actions {
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  min-width: 0;
+  margin-top: 20px;
+  text-align: left;
+}
+.lead-card .issue-actions button,
+.lead-card .issue-actions a { min-height: 44px; }
+.lead-card .issue-keei { margin-top: 16px; }
+@media (max-width: 720px) {
+  .lead-block { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .lead-block dt { line-height: 1.5; }
+  .lead-block dd { font-size: 15.5px; }
+  .lead-card h3 { font-size: 24px; }
+  .lead-section { margin-bottom: 32px; }
+}
+
 .skeleton-card { min-height: 230px; padding: 24px; grid-template-columns: 1fr; pointer-events: none; }
 .skeleton-card i {
   display: block;
@@ -810,19 +914,23 @@ kbd {
 .rail-head h2 { margin: 0 0 11px; color: #fff; font-size: 17px; line-height: 1.4; }
 .rail-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0; font-size: 12.5px; }
 .rail-badges > span:last-child { color: rgb(255 255 255 / 78%); }
-/* 검증 배지는 밝은 배경을 전제로 색이 정해져 있다 — 그대로 이 어두운 머리말로
-   넘어오면 네 상태 모두 AA 미달이다(공식 확인 2.76:1, 확인 중 2.69:1). 팔레트를
-   건드리는 대신 rail 안에서만 갈아 끼운다. 기호(✓ · ○)와 문구는 손대지 않으므로
-   4단계 구분은 색과 무관하게 남는다.
+/* 근거 패널 머리는 딥 포레스트 배경이라 밝은 배경용 색이 묻힌다. 여기 서는 배지
+   둘 다 이 자리에서만 색을 갈아 끼운다.
 
-   같은 .rail-badges 안에 .report-pick-badge 의 라임(--c-signal)이 함께 서게 되는데,
-   통일하지 않는다. 두 배지는 다른 축이다 — 라임은 '우리가 고른 것'(편집 판단),
+   1. 보고서 검토 추천. --c-accent-text 가 묻혀 라임으로 — 라임은 이 배경 위에서만
+      안전하다(11.78:1).
+   2. 검증 배지. 밝은 배경용 색이 그대로 오면 네 상태 모두 AA 미달이다(공식 확인
+      2.76:1, 확인 중 2.69:1). 기호(✓ · ○)와 문구는 손대지 않으므로 4단계 구분은
+      색과 무관하게 남는다.
+
+   두 색은 통일하지 않는다. 다른 축이다 — 라임은 '우리가 고른 것'(편집 판단),
    민트·세이지는 '사실 상태'(검증). 색상환으로 85도 떨어져 있고 채도가 74% 대
    40%·8% 라 시끄러운 쪽이 편집, 조용한 쪽이 사실로 읽힌다. 한 색으로 묶으면 그
-   구분이 사라진다. */
-/* 배지의 margin-top:4px 는 카드의 4열 격자에서 첫 줄에 물리려던 값이다. 여기는
-   한 줄짜리 flex(align-items: center)라 그 4px 이 그대로 남아 옆 문구보다 2px
-   내려앉는다. .report-pick-badge 와 같은 처리. */
+   구분이 사라진다.
+
+   margin-top:4px 는 카드의 4열 격자에서 첫 줄에 물리려던 값이다. 여기는 한 줄짜리
+   flex(align-items: center)라 그 4px 이 남아 옆 문구보다 2px 내려앉는다 — 둘 다 0. */
+.rail-badges .report-pick-badge { margin-top: 0; color: var(--c-signal); }
 .rail-badges .verification-badge { margin-top: 0; }
 .rail-badges .verification-badge.v-official,
 .rail-badges .verification-badge.v-corroborated { color: var(--c-verified-on-primary); }
@@ -879,8 +987,6 @@ kbd {
 .side-verification .v-partial { color: var(--c-text-muted); }
 .side-verification .v-unverified { color: var(--c-unverified); }
 .side-verification .empty { margin: 0; color: var(--c-text-muted); font-size: 13.5px; }
-.quick-topics { display: flex; flex-wrap: wrap; gap: 6px; }
-.quick-topics button { padding: 4px 8px; border: 1px solid var(--c-border); border-radius: 999px; background: transparent; color: var(--c-text-secondary); font-size: 12.5px; }
 
 .feed-drawer { margin-top: 22px; border: 1px solid var(--c-border); border-radius: var(--r-2); background: var(--c-surface); }
 .feed-drawer summary { display: flex; justify-content: space-between; align-items: center; min-height: 52px; padding: 0 16px; color: var(--c-text-secondary); font-weight: 650; cursor: pointer; }
@@ -889,8 +995,16 @@ kbd {
 .news-item { padding: 15px; background: var(--c-surface); }
 .news-item h3 { margin: 5px 0; font-size: 15px; }
 .news-meta { display: flex; flex-wrap: wrap; gap: 8px; color: var(--c-text-muted); font-size: 12.5px; }
-.news-summary { margin: 0 0 8px; color: var(--c-text-secondary); font-size: 13.5px; }
-.source-link { font-size: 12.5px; font-weight: 650; }
+.news-summary { margin: 0 0 8px; color: var(--c-text-secondary); font-size: 15px; }
+/* 실측 61×15px 이었다. WCAG 2.2 SC 2.5.8 최소 24×24 미달이고, 원문 링크는
+   이 서비스가 제공하는 마지막 행동이라 놓치면 흐름이 끊긴다. */
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-size: 12.5px;
+  font-weight: 650;
+}
 .notice { margin: 16px 0 0; color: var(--c-text-muted); font-size: 12.5px; }
 
 /* 발간물 탭 — 뉴스 흐름과 별개인 기관 보고서·간행물 리스트 */
@@ -960,6 +1074,10 @@ kbd {
 .archive-intro p,
 .trend-intro > p:not(.eyebrow) { margin: 7px 0 0; color: var(--c-text-muted); }
 .archive-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 28px; align-items: start; }
+/* 넓은 화면에서 서랍은 보이지 않는다 — app.js 가 open 을 켜 두고 손잡이만 숨긴다.
+   좁은 화면 규칙은 max-width:767px 블록에 있다. */
+.archive-filter-drawer > summary { display: none; }
+.archive-filter-drawer .filter-sheet-head { display: none; }
 .archive-filters {
   position: sticky;
   top: 126px;
@@ -1116,15 +1234,17 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .dialog-close {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 50%;
   background: transparent;
   color: var(--c-text-muted);
   font-size: 24px;
 }
-.global-search-field { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; margin-top: 18px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-2); background: var(--c-surface); }
+/* placeholder 는 입력을 시작하면 사라진다. 무엇을 넣는 칸인지 남는 라벨을 둔다. */
+.global-search-label { display: block; margin-top: 18px; color: var(--c-text-muted); font-size: 12.5px; }
+.global-search-field { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; margin-top: 6px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-2); background: var(--c-surface); }
 .global-search-field input { width: 100%; height: 54px; border: 0; outline: 0; background: transparent; font-size: 18px; }
 .search-dialog form > p { margin: 10px 0 0; color: var(--c-text-muted); font-size: 12.5px; }
 .status-dialog { width: min(520px, calc(100% - 32px)); }
@@ -1133,7 +1253,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .status-details dt { color: var(--c-text-muted); font-size: 12.5px; }
 .status-details dd { margin: 2px 0 0; font-weight: 650; }
 .status-dialog p { margin: 14px 0 0; color: var(--c-text-secondary); font-size: 12.5px; }
-.issue-dialog { width: min(720px, calc(100% - 32px)); max-height: calc(100vh - 48px); }
+/* 100vh 는 모바일 주소창이 접힌 상태를 기준으로 잡혀 모달이 화면보다 커진다.
+   dvh 를 지원하지 않는 브라우저는 위 줄로 떨어진다. */
+.issue-dialog { width: min(720px, calc(100% - 32px)); max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); }
 .issue-dialog-shell { position: relative; padding: 26px; }
 .dialog-close { position: sticky; z-index: 2; top: 0; float: right; margin: -10px -10px 0 10px; background: var(--c-surface-raised); }
 .issue-dialog h2 { margin: 0; padding-right: 28px; font-size: 24px; line-height: 1.35; }
@@ -1154,8 +1276,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .ai-badge { color: var(--c-text-muted); font-size: 12.5px; font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .topic-chip { padding: 3px 8px; border: 1px solid var(--c-border); border-radius: 999px; color: var(--c-text-muted); font-size: 12.5px; }
-.dialog-actions { display: flex; gap: 8px; margin-top: 12px; }
-.dialog-actions button { min-height: 38px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-1); background: var(--c-surface); color: var(--c-secondary); font-size: 12.5px; }
+.dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.dialog-actions button { min-height: 38px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-1); background: var(--c-surface); color: var(--c-secondary); font-size: 12.5px; white-space: nowrap; }
 .dialog-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .dialog-section-head span { color: var(--c-text-muted); font-size: 12.5px; }
 .timeline { margin: 12px 0 0; padding: 0; list-style: none; }
@@ -1234,23 +1356,32 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 }
 
 @media (max-width: 767px) {
-  body { padding-bottom: 68px; font-size: 15.5px; }
+  /* 본문 16px. 15.5px 은 국문 15자/줄 근처에서 줄이 자주 끊겨 요약이 세 줄로
+     늘어졌다. 크기를 올리고 클램프를 함께 푸는 편이 실제로 덜 빽빽하다. */
+  body { padding-bottom: 68px; font-size: 16px; }
+  html { scroll-padding-top: 68px; scroll-padding-bottom: 80px; }
   .wrap { width: min(calc(100% - 24px), var(--wrap)); }
+  /* 바텀시트가 열려 있는 동안 뒤 배경이 같이 스크롤되면 위치를 잃는다. */
+  .sheet-open, .sheet-open body { overflow: hidden; }
   .topbar { height: 56px; }
   .topbar-inner { display: flex; gap: 8px; }
-  .brand { min-width: 0; gap: 7px; }
+  .brand { min-width: 0; min-height: 44px; gap: 7px; }
   .brand-mark { width: 34px; height: 34px; font-size: 18px; }
   .brand-copy strong { font-size: 13px; }
   .brand-copy small { display: none; }
   .main-tabs { display: none; }
   .header-tools { margin-left: auto; }
-  .header-status { display: inline-flex; justify-content: center; width: 40px; padding: 0; }
+  .header-status { display: inline-flex; justify-content: center; width: 44px; padding: 0; }
   .header-status span { display: none; }
   .global-search-trigger,
-  .icon-button { min-height: 40px; }
-  .status-strip { top: 56px; overflow-x: auto; scrollbar-width: none; }
-  .status-strip::-webkit-scrollbar { display: none; }
-  .status-strip-inner { width: max-content; min-width: calc(100% - 24px); }
+  .icon-button { min-height: 44px; }
+  /* 가로 스크롤 스트립을 걷어냈다. 실측 714px 짜리 한 줄이 390px 안에서 잘렸고
+     스크롤 힌트가 없어 뒤쪽 절반('1차 출처'·'다음 갱신')은 존재조차 몰랐다.
+     항목 단위로 접으면 정보 손실 0 이고 높이만 34→2~3줄로 늘어난다. */
+  .status-strip { padding-block: 5px; letter-spacing: 0; }
+  .status-strip-inner { flex-wrap: wrap; gap: 0 6px; white-space: normal; }
+  .status-item { display: inline-block; }
+  .status-item::before { margin-right: 6px; }
   .page-shell { padding-block: 18px 52px; }
   .briefing-hero { padding: 26px 0 24px; background: var(--c-bg); }
   .briefing-hero::after { display: none; }
@@ -1261,9 +1392,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .hero-kicker { font-size: 12.5px; }
   /* 시안 모바일도 헤드라인을 줄이지 않는다(clamp(44px,12vw,66px)). 390px 에서
      12vw = 47px. 한글 자간을 조금 되돌려 뭉침을 막는다. */
-  .hero-copy h1 { max-width: none; font-size: clamp(34px, 11.5vw, 46px); line-height: 1.08; letter-spacing: -.045em; }
+  .hero-copy h1 { max-width: none; font-size: clamp(21px, 6.2vw, 26px); line-height: 1.32; letter-spacing: -.026em; }
   .hero-actions { gap: 14px; margin-top: 18px; }
-  .hero-actions button { min-height: 44px; font-size: 12.5px; }
+  .hero-actions button { min-height: 44px; font-size: 13.5px; }
   /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
   .hero-evidence-chip { min-height: 44px; }
   .pubs-filters button { min-height: 44px; padding-inline: 14px; }
@@ -1271,10 +1402,16 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .issue-section-heading { align-items: flex-start; }
   .issue-section-heading > div:first-child { min-width: 0; }
   .section-heading h2 { font-size: 19px; }
-  .issue-section-tools { display: grid; grid-template-columns: auto auto; justify-items: end; }
-  .section-count { grid-column: 1 / -1; justify-self: end; }
+  /* 제목과 보조 설명이 한 줄에 나란히 서면 폭이 모자라 제목이 낱말 중간에서
+     끊긴다(실측 '이번 주 움직인 이 / 슈'). 좁은 화면에서는 위아래로 쌓는다. */
+  .section-heading { display: grid; align-items: start; gap: 6px; }
+  .section-heading .data-note { font-size: 12.5px; }
+  .issue-section-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .issue-section-tools .section-count { flex-basis: 100%; }
   .view-toggle { display: none; }
   .briefing-filters { position: static; }
+  .briefing-filters summary,
+  .compact-select select { min-height: 44px; }
   .briefing-filters[open]::before {
     position: fixed;
     z-index: 119;
@@ -1291,6 +1428,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     left: 0;
     width: 100%;
     max-height: 78vh;
+    max-height: 78dvh;
     padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
     overflow-y: auto;
     border-radius: 16px 16px 0 0;
@@ -1307,30 +1445,86 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .issue-meta {
     grid-column: 2;
     grid-row: 1;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0 10px;
+    gap: 3px 10px;
     min-height: 23px;
   }
   .issue-meta > span { flex: 0 0 auto; }
-  .issue-meta .issue-topic { display: none; }
+  /* 주제는 필터의 기준 축이다. 카드에서 지워 두면 '주제로 걸러 놓고 무슨 주제인지
+     모르는' 상태가 된다. 숨기는 대신 줄바꿈을 허용한다. */
   .verification-badge { margin-top: 0; margin-left: auto; padding-inline: 6px; }
   .issue-body,
   .issue-actions { grid-column: 2; }
   .issue-card h3 { margin-top: 7px; font-size: 18px; line-height: 1.45; letter-spacing: -.028em; }
-  .issue-summary { font-size: 15.5px; line-height: 1.65; }
-  .issue-change { grid-template-columns: 40px 1fr; max-height: 70px; overflow: hidden; font-size: 13.5px; }
+  .issue-summary { font-size: 16px; line-height: 1.65; -webkit-line-clamp: 3; }
+  /* max-height:70px + overflow:hidden 이 '무엇이 달라졌는가'를 문장 중간에서
+     잘라 놓고 있었다. 잘린 뒷부분을 볼 방법이 화면에 없었다 — 모바일에서만
+     생기는 정보 손실이라 데스크톱 테스트로는 안 잡힌다. */
+  .issue-change { grid-template-columns: 40px minmax(0, 1fr); font-size: 15px; }
   /* 모바일 하단 액션은 저장·공유·원문 셋으로 제한한다. 상세는 제목으로 연다. */
   .issue-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; min-width: 0; margin-top: 8px; text-align: center; }
   .issue-actions .issue-detail-button { display: none; }
   .issue-actions button,
-  .issue-actions a { justify-content: center; min-height: 44px; font-size: 12.5px; }
+  .issue-actions a { justify-content: center; min-height: 44px; font-size: 13.5px; }
+  .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .dialog-actions button { min-height: 44px; font-size: 13.5px; }
   .tracking-period { grid-template-columns: auto minmax(20px, 1fr) auto; }
   .tracking-period strong { grid-column: 1 / -1; }
   .feed-drawer summary { min-height: 52px; }
+  .feed-drawer .source-link { min-height: 44px; }
+  /* 390px 이하에서만 grid 였다 — 391~767px 에서는 여전히 space-between 이라
+     h1 '주간 흐름'이 오버라인과 떨어져 오른쪽 끝에 홀로 섰다. */
   .archive-intro,
-  .trend-intro { align-items: flex-start; margin-bottom: 20px; }
+  .trend-intro { display: grid; align-items: start; gap: 12px; margin-bottom: 20px; }
   .archive-intro h1,
   .trend-intro h1 { font-size: 22px; }
+  .archive-intro .secondary-button { justify-self: start; min-height: 44px; }
+  /* '/' 는 키보드 단축키 힌트다. 터치에서는 의미가 없으니 지운다. */
+  .archive-intro .secondary-button span[aria-hidden] { display: none; }
+
+  /* 아카이브 필터 — 브리핑 필터와 같은 바텀시트로 통일한다. 항상 펼친 사이드바가
+     결과 110건을 통째로 폴드 아래로 밀고 있었다(실측 첫 화면 520px 점유). */
+  .archive-filter-drawer > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--r-1);
+    background: var(--c-surface);
+    color: var(--c-text-secondary);
+    font-size: 13.5px;
+    font-weight: 650;
+    list-style: none;
+    cursor: pointer;
+  }
+  .archive-filter-drawer > summary::-webkit-details-marker { display: none; }
+  .archive-filter-drawer[open] > summary { border-color: var(--c-secondary); background: var(--c-secondary-weak); color: var(--c-secondary); }
+  #archiveFilterCount { min-width: 20px; padding: 1px 6px; border-radius: 999px; background: var(--c-secondary); color: #fff; font-size: 12.5px; }
+  .archive-filter-drawer[open]::before {
+    position: fixed;
+    z-index: 119;
+    inset: 0;
+    background: rgb(18 37 30 / 48%);
+    content: "";
+  }
+  .archive-filter-drawer .filter-sheet-head { display: flex; }
+  .archive-filter-drawer[open] .archive-filters {
+    position: fixed;
+    z-index: 120;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: auto;
+    grid-template-columns: 1fr;
+    max-height: 78vh;
+    max-height: 78dvh;
+    padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+  }
   .archive-filters { grid-template-columns: 1fr; padding: 13px; }
   .archive-query, .archive-filters fieldset, .archive-filters .clear-filters { grid-column: auto; }
   .archive-filters select,
@@ -1403,20 +1597,34 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .foot { margin-bottom: -68px; }
   .foot-grid { grid-template-columns: 1fr; gap: 16px; }
   .foot-bottom { display: grid; }
-  .issue-dialog { max-height: calc(100vh - 24px); }
+  .issue-dialog { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); }
   .issue-dialog-shell { padding: 20px; }
   .issue-dialog h2 { font-size: 21px; }
-  .timeline li { grid-template-columns: 86px 1fr; gap: 10px; }
+  .timeline li { grid-template-columns: 86px minmax(0, 1fr); gap: 10px; }
+  /* 검색 모달은 화면 한가운데 뜬다(실측 y=304). 키보드가 올라오면 입력창과 힌트가
+     그 아래로 숨는다. 좁은 화면에서는 위로 붙여 키보드 위에 남게 한다. */
+  .search-dialog { margin-top: 12px; margin-bottom: auto; width: calc(100% - 24px); }
+  .search-dialog form { padding: 18px; }
+}
+
+/* 가로 모드 — 세로 360px 에 64px 짜리 고정 탭바는 화면의 18% 다. 라벨은 그대로
+   두고 높이만 줄인다(아이콘만 남기면 무슨 탭인지 알 수 없다). */
+@media (max-width: 767px) and (orientation: landscape) {
+  body { padding-bottom: 54px; }
+  .foot { margin-bottom: -54px; }
+  .mobile-tabs { min-height: 50px; }
+  .mobile-tabs button { min-height: 44px; }
+  .briefing-filters[open] .filter-sheet,
+  .archive-filter-drawer[open] .archive-filters { max-height: 88dvh; }
+  .hero-copy h1 { font-size: clamp(20px, 3.4vw, 24px); }
 }
 
 @media (max-width: 390px) {
   .brand-copy strong { letter-spacing: .06em; }
   .header-tools { gap: 4px; }
-  .issue-section-heading { display: grid; }
-  .issue-section-tools { justify-items: start; }
-  .section-count { justify-self: start; }
-  .archive-intro { display: grid; }
-  .archive-result-head { display: grid; }
+  /* 767px 블록에서 .section-heading·.archive-intro 가 이미 grid 다. 여기 남은
+     것은 결과 머리줄뿐 — 정렬 select 가 제목 옆에서 밀려 잘리던 자리다. */
+  .archive-result-head { display: grid; gap: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

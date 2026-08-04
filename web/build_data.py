@@ -66,6 +66,13 @@ GENERATION_ID = os.environ.get("GENERATION_ID", "")
 SHOW_MARKET = False
 NEWS_WINDOW_DAYS = 60
 ISSUE_WINDOW_DAYS = 21
+
+# 추적률을 재는 회차 수. **하루치로 재면 안 된다** — 한 회차의 분모가 이슈 8개
+# 안팎이라 1건이 붙고 떨어질 때마다 지표가 0.125 씩 튄다. 2026-08-03 실측 17일에서
+# 8일이 0.000 이었고, ≥0.20 기준은 10일(59%)에서 실패했다. 병합기 품질과 무관하게
+# **뉴스가 한산한 날이 그대로 빨간불**이 된다. 7회차를 함께 보면 분모가 55~60 이라
+# 지표가 병합기의 성질을 말하게 된다(같은 실측에서 7일 누적 0.193 / 14일 0.120).
+TRACKING_WINDOW_BRIEFINGS = 7
 ISSUE_EMBEDDING_THRESHOLD = 0.92
 ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
 LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
@@ -696,6 +703,42 @@ def _is_restatement(before: object, after: object, threshold: float = 0.45) -> b
         return True
     shorter, longer = (left, right) if len(left) <= len(right) else (right, left)
     return len(shorter & longer) / len(shorter) >= 0.8
+
+
+def split_interpretation(record: dict) -> tuple[str, str]:
+    """AI 해석 두 줄을 각자의 축으로 내보낸다 → (implication, why_important).
+
+    `implication`(시사점, 60자, 전 등급)과 `why_important`(왜 중요, 150자,
+    must_read 전용)는 큐레이션 프롬프트가 서로 다른 축으로 만든 문장이다. 그런데
+    이 빌드가 `implication or why_important` 로 둘을 하나로 뭉개고 있었다.
+    아카이브 실측(2026-08-04, must_read 55건): 둘 다 있는 22건은 긴 쪽이 통째로
+    버려졌고, why_important 만 있는 19건은 그 문장이 시사점 라벨을 달고 나갔다.
+    정상은 55건 중 1건이었다 (docs/2026-08-04-gap-review.md).
+
+    둘이 같은 사실을 다시 쓴 날은 한 줄만 남긴다 — 블록이 둘로 늘면 읽을 거리가
+    늘었다는 신호인데 같은 문단이면 그 신호가 거짓이 된다. 남기는 쪽은 **긴
+    쪽**이다. 짧은 쪽을 남기면 지금 고치려는 그 손실이 그대로 남는다.
+    """
+    implication = str(record.get("implication") or "").strip()
+    why_important = str(record.get("why_important") or "").strip()
+    if implication and why_important and _is_restatement(implication, why_important):
+        if len(implication) >= len(why_important):
+            return implication, ""
+        return "", why_important
+    return implication, why_important
+
+
+def pick_report_topic(members: list[dict]) -> str:
+    """이 이슈의 기사 중 '보고서 검토 추천'을 받은 것이 있으면 그 주제.
+
+    추천은 기사 단위로 붙는데 화면은 이슈 단위다. 한 이슈에 추천 기사가 둘일
+    일은 거의 없지만(하루 최대 2건) 있으면 최신 기사 쪽을 쓴다.
+    """
+    for member in sorted(members, key=lambda m: str(m.get("article_date") or ""), reverse=True):
+        topic = str(member.get("report_pick") or "").strip()
+        if topic:
+            return topic
+    return ""
 
 
 def load_embeddings_cache() -> dict[str, list[float]]:
@@ -1388,7 +1431,7 @@ def cluster_selected_articles(
                 if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
                     matched, score = True, max(score, 1.0)
                     diag = {**diag, "method": "manual_approved"}
-                # 회색지대(0.88~0.92)를 LLM 이 같은 사건으로 판정한 쌍. 사람 승인과
+                # 회색지대(0.84~0.92)를 LLM 이 같은 사건으로 판정한 쌍. 사람 승인과
                 # 구분해 audit 에 남긴다. 사람 승인(1.0)보다 낮은 점수를 줘서
                 # 같은 기사가 양쪽에 붙을 때 사람 판정이 이기게 한다.
                 elif pair_id in overrides.get("llm_approved", set()) and not diag.get("blocked_by"):
@@ -1761,9 +1804,86 @@ PUBLICATION_NEW_DAYS = 14  # 이 기간 안의 발간물에 NEW 뱃지
 
 # 기관 표기는 화면에서 정규화한다. 수집 시점 라벨이 그대로 굳으면 이름을 바꿔도
 # 과거 항목은 옛 이름으로 남아 필터에 같은 기관이 두 개로 갈린다.
+# 기관명은 정식 명칭 + 영문 약자로 통일한다. 약자만 아는 사람과 한글 명칭만 아는
+# 사람이 갈리는데, 발간물 목록은 원문을 찾아가는 통로라 양쪽 다 필요하다.
+# 빌드 시점에 매핑하므로 이미 수집된 항목도 함께 교정된다.
 PUBLICATION_ORG_ALIASES = {
-    "에너지경제연구원": "에경연",
+    "에경연": "에너지경제연구원(KEEI)",
+    "에너지경제연구원": "에너지경제연구원(KEEI)",
+    "OECD 원자력기구": "OECD 원자력기구(NEA)",
+    "국제원자력기구": "국제원자력기구(IAEA)",
+    "국제에너지기구": "국제에너지기구(IEA)",
+    "미국 에너지정보청": "미국 에너지정보청(EIA)",
 }
+
+# 발간물 탭은 "보고서로 쓸 만한 문서인가"를 판단하는 자리다. 기관 피드에는 그
+# 판단에 쓸 수 없는 종류가 섞여 들어온다 — 실측 29건 중 12건(41%)이었다.
+#
+# 두 갈래로 나눠 거른다. 갈래를 합치지 않는 이유는 오탐이 났을 때 어느 규칙이
+# 잡았는지 로그로 바로 알기 위해서다.
+#
+#   EVENT   행사·교육·인사 소식. 문서가 아니라 일정이다.
+#           (Joshikai 10주년, NextGen 여름학교, TCOFF-2 진행상황 회의…)
+#   NONPOWER  IAEA 발간물의 절반은 FAO 공동 프로그램(농업·식품·수자원·축산)이다.
+#           원자력 기술을 쓰지만 발전·정책과 접점이 없다.
+#           (Plant Breeding / Insect Pest Control / Soils / Food Safety 뉴스레터…)
+#
+# 제목 규칙이라 완벽하지 않다. 정확한 판정은 pubs_translate 가 번역과 같은 배치
+# 호출에서 매기는 `off_topic` 이고(추가 호출 0회), 그 값이 있으면 우선한다.
+# 규칙은 이미 수집된 항목을 즉시 교정하는 폴백이다.
+PUBLICATION_EVENT_RE = re.compile(
+    r"(summer school|winter school|training course|workshop|webinar|symposium"
+    r"|joshikai|mentoring|mentorship|stem leaders|diversity|internship|scholarship"
+    r"|award|prize|anniversary|celebrat|members meet|meet in \w+ to review"
+    r"|kicks? off|welcomes? new|appoint|obituary|in memoriam)",
+    re.IGNORECASE,
+)
+PUBLICATION_NONPOWER_RE = re.compile(
+    r"(plant breeding|insect pest|soils newsletter|animal production"
+    r"|food safety|food irradiation|crop |livestock|fertili[sz]er"
+    r"|freshwater|groundwater|nitrate|zoonot|veterinar)",
+    re.IGNORECASE,
+)
+
+
+def gist_adds_nothing(gist: str, title_kr: str) -> bool:
+    """gist 가 한국어 제목을 되풀이하기만 하면 참.
+
+    v1 프롬프트가 "제목에서 읽어낼 수 있는 범위만"을 너무 곧이곧대로 받아 제목을
+    한국어로 다시 쓴 것을 gist 로 냈다(실측: "원자력 안전을 위한 핵심 실험
+    데이터세트 보존" → "원자력 안전 핵심 실험 데이터세트 보존"). 같은 말을 두 줄
+    쓰면 목록만 길어지고 판단에는 보탬이 없다.
+
+    v2 프롬프트가 문서 성격·범위를 쓰도록 바뀌었지만, 이미 캐시된 v1 gist 는
+    다음 번역까지 남는다 — 그동안 화면에서 가린다.
+    """
+    gist, title_kr = (gist or "").strip(), (title_kr or "").strip()
+    if not gist or not title_kr:
+        return False
+    squeeze = lambda text: "".join(text.split())
+    a, b = squeeze(gist), squeeze(title_kr)
+    if a in b or b in a:
+        return True
+    return difflib.SequenceMatcher(None, a, b).ratio() >= 0.7
+
+
+def publication_drop_reason(item: dict) -> str:
+    """제외 사유. 빈 문자열이면 표시한다."""
+    verdict = item.get("off_topic")
+    if verdict is True:
+        return str(item.get("off_topic_reason") or "off_topic")
+    if verdict is False:
+        # LLM 이 "관련 있음"으로 봤다면 제목 규칙으로 뒤집지 않는다. 규칙은
+        # 제목 낱말만 보므로 'Workshop on Regulatory Harmonisation' 같은 것을
+        # 잘못 잡는다 — 판정이 있는 항목에서는 규칙을 아예 태우지 않는다.
+        return ""
+    # 판정이 없는 항목(v1 캐시·번역 실패·한국어 원문)만 제목 규칙으로 거른다.
+    title = str(item.get("title") or "")
+    if PUBLICATION_EVENT_RE.search(title):
+        return "event"
+    if PUBLICATION_NONPOWER_RE.search(title):
+        return "nonpower"
+    return ""
 
 # KEEI 인사이트 목차 ↔ 이슈 매칭.
 #
@@ -1933,12 +2053,18 @@ def load_publications(now: datetime | None = None) -> dict:
     now = now or datetime.now(KST)
     new_cutoff = (now - timedelta(days=PUBLICATION_NEW_DAYS)).strftime("%Y-%m-%d")
     items = []
+    dropped: dict[str, int] = {}
+    echoed = 0
     for item in raw.get("items") or []:
         if not isinstance(item, dict):
             continue
         title = str(item.get("title") or "").strip()
         url = str(item.get("url") or "").strip()
         if not title or not url:
+            continue
+        reason = publication_drop_reason(item)
+        if reason:
+            dropped[reason] = dropped.get(reason, 0) + 1
             continue
         display_date = str(item.get("date") or item.get("fetched_at") or "")
         org_kr = str(item.get("org_kr") or "")
@@ -1955,7 +2081,16 @@ def load_publications(now: datetime | None = None) -> dict:
         for optional in ("pdf_url", "toc", "title_kr", "gist"):
             if item.get(optional):
                 view[optional] = item[optional]
+        if gist_adds_nothing(view.get("gist", ""), view.get("title_kr", "")):
+            view.pop("gist", None)
+            echoed += 1
         items.append(view)
+    # 조용히 자르지 않는다 — 규칙이 과하게 잡으면 이 줄에서 먼저 티가 난다.
+    if dropped:
+        detail = " / ".join(f"{key} {count}건" for key, count in sorted(dropped.items()))
+        print(f"[build_data] 발간물 제외 {sum(dropped.values())}건 ({detail})")
+    if echoed:
+        print(f"[build_data] 발간물 gist 숨김 {echoed}건 (제목 재진술)")
     return {
         "generated_at": now.isoformat(),
         "items": items,
@@ -2161,6 +2296,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                               key=lambda member: (member["article_date"], member["briefing_date"], member["hash"]),
                               reverse=True)
             tracked_briefings = len({member["briefing_date"] for member in timeline})
+            implication, why_important = split_interpretation(representative)
             issue_rows.append({
                 "issue_id": issue["issue_id"],
                 "status": "ongoing" if history else "new",
@@ -2168,7 +2304,11 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "last_seen": briefing_date,
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
-                "implication": representative.get("implication") or representative.get("why_important") or "",
+                "implication": implication,
+                "why_important": why_important,
+                # 그날 보고서 검토 추천을 받은 기사가 이 이슈에 있으면 그 주제.
+                # 추천은 그날의 판단이라 이번 브리핑분(current)에서만 본다.
+                "report_pick": pick_report_topic(current),
                 # 대표 기사가 아니라 이슈 전체에서 고른다 — 미확정 내용은 공식
                 # 기사에만 있고 대표 기사에는 없는 경우가 흔하다.
                 "open_question": pick_open_question(timeline),
@@ -2281,6 +2421,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
         days_since_update = (
             (latest_day - last_day).days if latest_day and last_day else None
         )
+        implication, why_important = split_interpretation(representative)
         rows.append({
             "issue_id": issue["issue_id"],
             "status": "ongoing" if len(briefing_dates) > 1 else "new",
@@ -2290,7 +2431,11 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "last_seen": last_seen,
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
-            "implication": representative.get("implication") or representative.get("why_important") or "",
+            "implication": implication,
+            "why_important": why_important,
+            # 아카이브 행은 그 이슈가 **언젠가** 보고서감이었는지를 남긴다 —
+            # 브리핑 행과 달리 '오늘'이라는 기준일이 없다.
+            "report_pick": pick_report_topic(timeline),
             "open_question": pick_open_question(timeline),
             "latest_change": change_line_for_card(
                 current, history, representative.get("summary", "")
@@ -2325,6 +2470,59 @@ def _issue_meta_description(issue: dict) -> str:
         str(issue.get("summary") or issue.get("latest_change") or "원자력 정책·산업 이슈의 변화와 근거를 추적합니다.").split()
     )
     return description if len(description) <= 170 else f"{description[:167].rstrip()}…"
+
+
+# 이슈 지도(Atlas)가 그리려는 5단계 경로. 각 노드가 어느 필드에 걸려 있는지.
+# 시안의 경로이고, 착수 판단의 유일한 근거다 — 산문으로 적어두면 매 세션이 다시 잰다.
+ATLAS_NODES = (
+    ("latest_change", lambda row: bool(row.get("latest_change"))),
+    ("open_question", lambda row: bool(row.get("open_question"))),
+    # 라벨은 시사점·왜 중요 둘로 갈라졌지만(2026-08-04) 이 노드가 묻는 건
+    # 'AI 해석 문장이 하나라도 있는가' 하나다. 한쪽만 세면 분리 작업이
+    # 데이터 후퇴로 잘못 읽힌다 — 실제로는 같은 문장이 제 이름을 찾았을 뿐이다.
+    ("implication", lambda row: bool(row.get("implication") or row.get("why_important"))),
+    ("related_articles", lambda row: (row.get("article_count") or 0) >= 2),
+    ("official_source", lambda row: ((row.get("verification") or {})
+                                     .get("official_source_count") or 0) > 0),
+)
+
+# 착수 문턱. `open_question` 이 0 인 한 '남은 질문' 노드를 만들 수 없고,
+# `related_articles` 가 20% 아래면 '관련 보도' 노드가 대부분 숨는다 — 두 값만 본다
+# (docs/PHASE_PLAN.md §S4). 나머지 셋은 이 둘이 풀리면 같이 오르거나(병합기 공통 뿌리)
+# 구조적 상한이 있다(공식 출처는 출처 구성의 성질이다).
+ATLAS_MIN_OPEN_QUESTION = 1        # 건수 — 0 이면 노드 자체가 성립 안 한다
+ATLAS_MIN_RELATED_RATE = 0.20
+
+
+def atlas_readiness(issue_catalog: list[dict]) -> dict:
+    """이슈 지도를 지금 그릴 수 있는지, 못 그리면 어느 노드가 비었는지.
+
+    **게이트가 아니라 계기판이다.** 오늘(2026-08-03) 추적률을 배포 게이트로 썼다가
+    뉴스가 한산한 날 CSS 오타 수정까지 막힌 일이 있었다 — 데이터 지표는 빌드를
+    세우는 데 쓰지 않는다. 이 값은 meta.json 에 실려 "언제 착수 가능한가"를
+    사람이 재지 않고 볼 수 있게만 한다.
+    """
+    total = len(issue_catalog)
+    counts = {name: sum(1 for row in issue_catalog if test(row))
+              for name, test in ATLAS_NODES}
+    rates = {name: round(count / total, 4) if total else 0.0
+             for name, count in counts.items()}
+    filled_per_issue = [sum(1 for _, test in ATLAS_NODES if test(row))
+                        for row in issue_catalog]
+    blocking = []
+    if counts["open_question"] < ATLAS_MIN_OPEN_QUESTION:
+        blocking.append("open_question")
+    if rates["related_articles"] < ATLAS_MIN_RELATED_RATE:
+        blocking.append("related_articles")
+    return {
+        "issue_total": total,
+        "node_counts": counts,
+        "node_rates": rates,
+        "full_path_issues": sum(1 for n in filled_per_issue if n == len(ATLAS_NODES)),
+        "three_plus_issues": sum(1 for n in filled_per_issue if n >= 3),
+        "blocking_nodes": blocking,
+        "ready": not blocking,
+    }
 
 
 def build_issue_pages(issue_catalog: list[dict]) -> int:
@@ -2420,8 +2618,10 @@ def build_rss(briefings: list[dict], generated_at: datetime) -> bytes:
                 description.append(f"핵심: {issue['summary']}")
             if issue.get("latest_change"):
                 description.append(f"새로 확인: {issue['latest_change']}")
+            if issue.get("why_important"):
+                description.append(f"왜 중요(AI 해석): {issue['why_important']}")
             if issue.get("implication"):
-                description.append(f"의미(AI 해석): {issue['implication']}")
+                description.append(f"시사점(AI 해석): {issue['implication']}")
             ET.SubElement(item, "description").text = "\n".join(description)
     return ET.tostring(rss, encoding="utf-8", xml_declaration=True)
 
@@ -2485,6 +2685,9 @@ def build() -> None:
             "event_date_source": record.get("event_date_source", "unknown"),
             "selection_score": delivery.get("score") if delivery else None,
             "selection_reasons": selection_reasons(delivery, record),
+            # 보고서 검토 추천은 발송 시점의 판단이라 아카이브 레코드가 아니라
+            # delivery_log 에 실려 온다 (daily_brief.plan_briefs).
+            "report_pick": delivery.get("report_pick", "") if delivery else "",
             # 기존 프론트와의 호환용. 새 화면은 briefing_date를 사용한다.
             "promoted": delivery.get("date") if delivery else None,
         })
@@ -2686,6 +2889,17 @@ def build() -> None:
         if issue.get("previous_article_count", 0) > 0
     )
     latest_issue_count = len(latest_briefing.get("issues", []))
+    # 게이트가 보는 값은 아래 누적치다. 위 latest_* 는 관측용으로 남긴다.
+    tracking_window = briefings[:TRACKING_WINDOW_BRIEFINGS]
+    tracking_window_issue_count = sum(
+        len(briefing.get("issues", [])) for briefing in tracking_window
+    )
+    tracking_window_tracked_issue_count = sum(
+        1
+        for briefing in tracking_window
+        for issue in briefing.get("issues", [])
+        if issue.get("previous_article_count", 0) > 0
+    )
     meta = {
         "generation_id": generation_id,
         "generated_at": now.isoformat(),
@@ -2693,6 +2907,7 @@ def build() -> None:
         "visible_total": len(news_items),
         "briefing_total": len(briefings),
         "issue_catalog_total": len(issue_catalog),
+        "atlas_readiness": atlas_readiness(issue_catalog),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
         "date_min": min((item["article_date"] for item in visible), default=""),
         "date_max": max((item["article_date"] for item in visible), default=""),
@@ -2729,6 +2944,12 @@ def build() -> None:
         "latest_briefing_tracking_rate": round(
             latest_tracked_issue_count / latest_issue_count, 4
         ) if latest_issue_count else 0,
+        "tracking_window_briefings": len(tracking_window),
+        "tracking_window_issue_count": tracking_window_issue_count,
+        "tracking_window_tracked_issue_count": tracking_window_tracked_issue_count,
+        "tracking_window_rate": round(
+            tracking_window_tracked_issue_count / tracking_window_issue_count, 4
+        ) if tracking_window_issue_count else 0,
         "issue_review_candidate_count": len(review_candidates),
         "issue_match_approved_count": len(match_overrides["approved"]),
         "issue_match_rejected_count": len(match_overrides["rejected"]),
@@ -2820,6 +3041,16 @@ def build() -> None:
     print(
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
         f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
+    )
+    atlas = meta["atlas_readiness"]
+    print(
+        "[build_data:atlas] "
+        + " / ".join(f"{name} {atlas['node_counts'][name]}"
+                     f"({atlas['node_rates'][name] * 100:.0f}%)"
+                     for name, _ in ATLAS_NODES)
+        + f" | 5칸 {atlas['full_path_issues']} · 3칸+ {atlas['three_plus_issues']} → "
+        + ("착수 가능" if atlas["ready"]
+           else "대기: " + ", ".join(atlas["blocking_nodes"]))
     )
 
 

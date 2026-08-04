@@ -199,6 +199,20 @@ class TestReportGate(unittest.TestCase):
         self.assertNotIn("T2", msg)
         self.assertNotIn("무효", msg)
 
+    def test_recommended_hash_is_not_truncated(self):
+        """웹이 기사에 배지를 다는 조인 키다 — 8자로 자르면 delivery_log 와 안 붙는다."""
+        full = "538c53ac9b1d2e4f"
+        cands = [qitem(h=full, importance="must_read",
+                       features=self.feat(report_worthiness=3, policy_materiality=3))]
+        orig_call, orig_avail = db.call_json, db.is_available
+        db.is_available = lambda: True
+        db.call_json = lambda *a, **k: {"reports": [{"idx": 0, "topic": "T", "why": "w"}]}
+        try:
+            _, diag = db.build_report_recs(cands)
+        finally:
+            db.call_json, db.is_available = orig_call, orig_avail
+        self.assertEqual(diag["recommended"][0]["hash"], full)
+
 
 class OutboxBase(unittest.TestCase):
     """tmpdir 로 상태 파일 경로를 돌려서 실제 파일 흐름 검증."""
@@ -375,6 +389,57 @@ class TestOutboxFlow(OutboxBase):
         self.assertEqual(outbox["status"], "pending")
         self.assertEqual(outbox["items"][0]["hash"], "old1")
         self.assertEqual(db.cmd_send(), 0)
+
+
+class TestReportPickReachesTheWeb(OutboxBase):
+    """보고서 검토 추천이 outbox 텍스트에서 끝나면 웹은 그걸 알 수 없다.
+
+    outbox.json 은 매일 덮어쓰고, 웹 빌드는 나중에 따로 돈다. 추천을 화면까지
+    옮기는 유일한 경로는 **커밋되는** delivery_log 의 기사 메타다
+    (docs/2026-08-04-gap-review.md P1).
+    """
+
+    PICKED = "538c53ac9b1d2e4f"
+
+    def _plan_with_recommendation(self):
+        db.is_available = lambda: True
+        orig_call = db.call_json
+        db.call_json = lambda *a, **k: {"reports": [
+            {"idx": 0, "topic": "중국 신규 원전 8기 승인의 정책 함의", "why": "w",
+             "angles": ["기술 자립도", "수출 경쟁력"]}]}
+        try:
+            self.seed_queue([
+                qitem(h=self.PICKED, section="khnp", domain="khnp.co.kr",
+                      importance="must_read", title="한수원 체코 본계약"),
+                qitem(h="f1", section="international", title="NRC approves NuScale design"),
+            ])
+            self.assertEqual(db.cmd_plan(), 0)
+            return db.load_outbox()
+        finally:
+            db.call_json = orig_call
+
+    def test_picked_article_carries_the_topic_and_others_stay_clean(self):
+        outbox = self._plan_with_recommendation()
+        self.assertEqual(outbox["briefs"][0]["name"], "보고서추천")
+        picked = [item for item in outbox["items"] if item.get("report_pick")]
+        self.assertEqual([item["hash"] for item in picked], [self.PICKED])
+        self.assertEqual(picked[0]["report_pick"], "중국 신규 원전 8기 승인의 정책 함의")
+        # 하루 0~2건짜리 표식이다. 나머지 전 줄에 빈 값이 붙으면 로그가 그만큼
+        # 읽기 어려워진다 — 키 자체가 없어야 한다.
+        others = [item for item in outbox["items"] if item["hash"] != self.PICKED]
+        self.assertTrue(others)
+        for item in others:
+            self.assertNotIn("report_pick", item)
+
+    def test_topic_survives_the_send_confirm_round_trip(self):
+        """웹이 실제로 읽는 것은 outbox 가 아니라 delivery_log 다."""
+        self._plan_with_recommendation()
+        self.assertEqual(db.cmd_send(), 0)
+        self.assertEqual(db.cmd_confirm(), 0)
+        logged = [json.loads(line) for line
+                  in db.DELIVERY_LOG_FILE.read_text(encoding="utf-8").splitlines() if line.strip()]
+        picked = [row for row in logged if row.get("report_pick")]
+        self.assertEqual([row["hash"] for row in picked], [self.PICKED])
 
 
 if __name__ == "__main__":

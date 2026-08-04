@@ -15,6 +15,13 @@
       "reason": "주체와 사안이 다름",
       "same_event": false
     },
+    "issue-0412d08712c9a60e--54df950745": {
+      "issue_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
+      "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 주체",
+      "same_event": false
+    },
     "issue-0412d08712c9a60e--841ceedbf0": {
       "issue_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -78,6 +85,13 @@
       "reason": "지역과 사안이 다름",
       "same_event": false
     },
+    "issue-12ec710dcc1a738a--0b3993f90d": {
+      "issue_title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
+      "keei_item": "폴란드 SGE, 영국 내 BWRX-300 14기 건설 위한 신청서 제출",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 프로젝트",
+      "same_event": false
+    },
     "issue-12ec710dcc1a738a--54df950745": {
       "issue_title": "로사톰, 러시아 내 18개 원전 건설 프로젝트 진행 중 발표",
       "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
@@ -92,11 +106,25 @@
       "reason": "국가와 주체가 다름",
       "same_event": false
     },
+    "issue-12ec710dcc1a738a--add41ecabd": {
+      "issue_title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
+      "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 기술",
+      "same_event": false
+    },
     "issue-132131d1ecd3871d--6debc28b1b": {
       "issue_title": "스탠다드 뉴클리어, 2026년 TRISO 핵연료 생산 시설 가동 계획 발표",
       "keei_item": "아르헨티나, 민간투자 기반 ACR-300 건설 계획 발표",
       "prompt_version": 1,
       "reason": "주체와 사안이 다름",
+      "same_event": false
+    },
+    "issue-132131d1ecd3871d--841ceedbf0": {
+      "issue_title": "스탠다드 뉴클리어, 2026년 TRISO 핵연료 생산 시설 가동 계획 발표",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "개별 기업 vs 국가 전략",
       "same_event": false
     },
     "issue-132131d1ecd3871d--f797174d9b": {
@@ -162,6 +190,20 @@
       "reason": "개별 원전 vs 국가 동향",
       "same_event": false
     },
+    "issue-27e417353612169a--0330b81e50": {
+      "issue_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "안건의 초점이 다름",
+      "same_event": false
+    },
+    "issue-27e417353612169a--b6aec252c7": {
+      "issue_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
+      "prompt_version": 1,
+      "reason": "같은 규정 개정 절차",
+      "same_event": true
+    },
     "issue-2b442f968d18a90b--0e615713ea": {
       "issue_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
       "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
@@ -202,6 +244,20 @@
       "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 안건",
+      "same_event": false
+    },
+    "issue-31b3d4a649669513--6445d0b3c3": {
+      "issue_title": "도미니언 에너지, 노스 애나 신규 원전 부지 허가 유지",
+      "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
+      "prompt_version": 1,
+      "reason": "개별 원전 vs 주 법안",
+      "same_event": false
+    },
+    "issue-31b3d4a649669513--d65bac9c4d": {
+      "issue_title": "도미니언 에너지, 노스 애나 신규 원전 부지 허가 유지",
+      "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 프로젝트",
       "same_event": false
     },
     "issue-337a9ffbe7eef399--249f1333d0": {
@@ -330,11 +386,25 @@
       "reason": "다른 국가의 다른 사건",
       "same_event": false
     },
+    "issue-538c53ac4627ea3f--d4863d270a": {
+      "issue_title": "중국, 신규 원자로 8기 건설 승인",
+      "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
     "issue-5550c8a8d7845204--8b6d0658ea": {
       "issue_title": "K원전 인력 4년 만에 증가, 수출 호조 및 대규모 프로젝트 영향",
       "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
       "prompt_version": 1,
       "reason": "국가·사안이 다름",
+      "same_event": false
+    },
+    "issue-562a6126b2b20d7b--0330b81e50": {
+      "issue_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "국가 및 주체가 다름",
       "same_event": false
     },
     "issue-57378b685cd5d6bc--88604b2e8c": {
@@ -364,6 +434,13 @@
       "prompt_version": 1,
       "reason": "주체·대상·단계가 다름",
       "same_event": false
+    },
+    "issue-5f508326eb5801f7--835e580735": {
+      "issue_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "개별 사건이 전체 목표 달성",
+      "same_event": true
     },
     "issue-5f50f27e3d506043--0e615713ea": {
       "issue_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
@@ -398,6 +475,13 @@
       "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
       "prompt_version": 1,
       "reason": "한쪽은 기업 기술, 다른 쪽은 국가 생산량",
+      "same_event": false
+    },
+    "issue-6260c0799db78ac9--23a6f604ae": {
+      "issue_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 정책",
       "same_event": false
     },
     "issue-6260c0799db78ac9--6445d0b3c3": {
@@ -447,6 +531,20 @@
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
       "prompt_version": 1,
       "reason": "다른 규정 개정 사안",
+      "same_event": false
+    },
+    "issue-6b93ed7e22e9bb4b--08db51ddba": {
+      "issue_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "keei_item": "미 NRC, 원전 인허가 및 방사선 방호 규정 현대화 규정안 발표",
+      "prompt_version": 1,
+      "reason": "규정의 범위가 다름",
+      "same_event": false
+    },
+    "issue-6b93ed7e22e9bb4b--249f1333d0": {
+      "issue_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-6b93ed7e22e9bb4b--b6aec252c7": {
@@ -631,6 +729,20 @@
       "reason": "국가, 주체, 기술 모두 다름",
       "same_event": false
     },
+    "issue-bdd164e591b5109d--6445d0b3c3": {
+      "issue_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
+    "issue-bdd164e591b5109d--bc52b67e71": {
+      "issue_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "keei_item": "Holtec과 EDF, 영국에 SMR-300 최대 4기 도입 위한 제안서 제출",
+      "prompt_version": 1,
+      "reason": "EDF 참여하나 대상 다름",
+      "same_event": false
+    },
     "issue-bdd164e591b5109d--de0fd4314f": {
       "issue_title": "세르비아 정부, 국가 원자력 에너지 개발 로드맵 발표",
       "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
@@ -652,6 +764,13 @@
       "reason": "하나는 개별 설계, 다른 하나는 제도 도입",
       "same_event": false
     },
+    "issue-c76e8785efc2694e--4fe7b05f50": {
+      "issue_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기",
+      "same_event": false
+    },
     "issue-c79d38874a299d89--0330b81e50": {
       "issue_title": "허성무 의원, '원전비리방지법' 개정안 발의로 순환보직 삭제 및 재취업 규제 완화 추진",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
@@ -664,6 +783,13 @@
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
       "reason": "하나는 개별 기업, 다른 하나는 국제 협력",
+      "same_event": false
+    },
+    "issue-ca69ce47dc1e639d--54df950745": {
+      "issue_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 프로젝트",
       "same_event": false
     },
     "issue-cad8f7d2c2d3c640--249f1333d0": {

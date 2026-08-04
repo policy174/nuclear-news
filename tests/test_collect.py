@@ -385,10 +385,56 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(nb.norm_open_question(vague, "must_read", "incident_safety"),
                          ("", "unknown"))
 
+
     def test_non_incident_does_not_need_the_marker(self):
         self.assertEqual(
             nb.norm_open_question(self.GOOD, "must_read", "contract_award")[0],
             self.GOOD["open_question"])
+
+    def test_reject_reason_separates_llm_null_from_gate(self):
+        """계측의 존재 이유. 이 둘이 갈리지 않으면 대응을 정할 수 없다.
+
+        LLM 이 안 쓴 것이면 프롬프트를, 게이트가 먹은 것이면 조건을 봐야 한다.
+        2026-08-03 실측에서 must_read 51건이 전건 0인데 어느 쪽인지 몰랐다.
+        """
+        reason = nb.open_question_reject_reason
+        self.assertEqual(reason({"open_question": None}, "must_read"), "llm_null")
+        self.assertEqual(reason({"open_question": "   "}, "must_read"), "llm_null")
+        self.assertEqual(
+            reason({"open_question": "계약 시점은 미정이다."}, "must_read"), "no_source")
+
+    def test_reject_reason_labels_every_branch(self):
+        reason = nb.open_question_reject_reason
+        self.assertEqual(reason(self.GOOD, "must_read"), "")          # 통과
+        self.assertEqual(reason(self.GOOD, "nice_to_know"), "not_must_read")
+        self.assertEqual(reason({"open_question": "가" * (nb.OPEN_QUESTION_LIMIT + 1),
+                                 "open_question_source": "title"}, "must_read"), "too_long")
+        self.assertEqual(reason({"open_question": "최종 계약은 언제 체결될까?",
+                                 "open_question_source": "title"}, "must_read"), "is_question")
+        self.assertEqual(reason({"open_question": "연내 착공에 들어갈 것으로 보인다.",
+                                 "open_question_source": "title"}, "must_read"), "forecast")
+        self.assertEqual(reason({"open_question": "향후 대응 방향에 관심이 쏠린다.",
+                                 "open_question_source": "article_text"},
+                                "must_read", "incident_safety"), "incident_no_uncertainty")
+
+    def test_reject_reason_is_the_single_source_of_truth(self):
+        """norm_open_question 이 사유 판정과 어긋나면 계측이 거짓말을 한다."""
+        cases = [
+            (self.GOOD, "must_read", ""),
+            (self.GOOD, "nice_to_know", ""),
+            ({"open_question": "가" * 99, "open_question_source": "title"}, "must_read", ""),
+            ({"open_question": "언제 될까?", "open_question_source": "title"}, "must_read", ""),
+            ({"open_question": "조사 중이다.", "open_question_source": "title"},
+             "must_read", "incident_safety"),
+            ({"open_question": "관심이 쏠린다.", "open_question_source": "title"},
+             "must_read", "incident_safety"),
+        ]
+        for item, grade, event_type in cases:
+            with self.subTest(item=item, grade=grade):
+                rejected = bool(nb.open_question_reject_reason(item, grade, event_type))
+                dropped = nb.norm_open_question(item, grade, event_type) == ("", "unknown")
+                self.assertEqual(rejected, dropped)
+
 
     def test_normalize_curation_item_wires_the_gate(self):
         item = {"importance": "must_read", "summary": "정부가 계획을 발표했다.",
@@ -412,6 +458,74 @@ class TestOpenQuestionGate(unittest.TestCase):
         self.assertEqual(record["open_question"], self.GOOD["open_question"])
         self.assertEqual(record["open_question_source"], "article_text")
 
+    def test_reject_reason_rides_on_the_record(self):
+        """사유가 레코드에 실려야 사후에 원인을 짚을 수 있다.
+
+        ``append_open_question_stats`` 가 delivery_log 에 집계를 남기지만 **크롤
+        잡이 그 파일을 커밋하지 않아 러너와 함께 사라진다**(2026-08-04 실측:
+        커밋된 173건이 전부 발송 기록, record_type 붙은 줄 0건). 아카이브는
+        커밋되므로, 사유가 여기 없으면 다음에도 재현부터 해야 한다.
+        """
+        art = {"hash": "h1", "title": "t", "domain": "example.com"}
+        gate_hit = nb.normalize_curation_item(
+            {"importance": "must_read", "open_question": "최종 계약은 언제 체결될까?",
+             "open_question_source": "article_text"}, art)
+        self.assertEqual(gate_hit["open_question"], "")
+        self.assertEqual(gate_hit["open_question_reject"], "is_question")
+        # LLM 이 안 쓴 것과 게이트가 먹은 것은 대응이 정반대다 — 레코드만 보고
+        # 갈릴 수 있어야 한다.
+        llm_null = nb.normalize_curation_item(
+            {"importance": "must_read", "open_question": None}, art)
+        self.assertEqual(llm_null["open_question_reject"], "llm_null")
+        accepted = nb.normalize_curation_item({"importance": "must_read", **self.GOOD}, art)
+        self.assertEqual(accepted["open_question_reject"], "")
+
+    def test_non_must_read_is_left_blank_not_labelled(self):
+        """후보가 아닌 626건에 'not_must_read' 를 붙여도 정보가 없다."""
+        out = nb.normalize_curation_item(
+            {"importance": "nice_to_know", **self.GOOD},
+            {"hash": "h1", "title": "t", "domain": "example.com"})
+        self.assertEqual(out["open_question_reject"], "")
+
+
+class TestOpenQuestionStats(unittest.TestCase):
+    """게이트 계측 기록 — 값이 0인 원인을 재현 없이 답할 수 있어야 한다."""
+
+    def _write(self, verdicts):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "delivery_log.jsonl"
+            ok = nb.append_open_question_stats(verdicts, path=path)
+            rows = [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines()] \
+                if path.exists() else []
+            return ok, rows
+
+    def test_counts_by_reason_and_keeps_samples(self):
+        ok, rows = self._write({
+            "h1": {"reason": "", "text": "계약 시점 미정이다.", "source": "title"},
+            "h2": {"reason": "llm_null", "text": "", "source": ""},
+            "h3": {"reason": "is_question", "text": "언제 될까?", "source": "title"},
+        })
+        self.assertTrue(ok)
+        self.assertEqual(len(rows), 1)
+        rec = rows[0]
+        self.assertEqual(rec["record_type"], "open_question_gate")
+        self.assertEqual(rec["must_read"], 3)
+        self.assertEqual(rec["accepted"], 1)
+        self.assertEqual(rec["reasons"], {"accepted": 1, "llm_null": 1, "is_question": 1})
+        # 통과분은 샘플에 안 담는다 — 보려는 건 '무엇이 걸렸나'다.
+        self.assertEqual({s["reason"] for s in rec["samples"]}, {"llm_null", "is_question"})
+
+    def test_empty_verdicts_write_nothing(self):
+        ok, rows = self._write({})
+        self.assertFalse(ok)
+        self.assertEqual(rows, [])
+
+    def test_record_type_lines_are_skipped_by_existing_readers(self):
+        """기사 집계를 오염시키면 안 된다 — 기존 리더는 전부 truthy 검사다."""
+        _ok, rows = self._write({"h1": {"reason": "llm_null", "text": "", "source": ""}})
+        self.assertTrue(rows[0].get("record_type"))
+        self.assertIsNone(rows[0].get("hash"))
+        self.assertIsNone(rows[0].get("importance"))
 
 class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
     """배치 출력 예시에 구체적 빈 값을 박으면 모델이 그 값을 그대로 베낀다.
@@ -553,6 +667,39 @@ class TestFallbackCuration(unittest.TestCase):
     def test_fallback_record_is_recuration_candidate(self):
         record = nb.fallback_curation(self._article())
         self.assertTrue(nb.needs_recuration(record))
+
+
+class TestCrawlWorkflowKeepsDiagnostics(unittest.TestCase):
+    """크롤이 남기는 진단 기록이 커밋돼야 한다.
+
+    2026-08-04 실측: 커밋된 delivery_log.jsonl 173건이 **전부 발송 기록**이고
+    record_type 이 붙은 줄은 0건이었다. 크롤 잡의 git add 목록에 이 파일이 없어
+    큐레이션 유실 기록(7b28329)과 open_question 게이트 계측(871388c)이 도입
+    이후 한 줄도 남지 않았다. 둘 다 "다음에 또 나면 재현부터 하지 말자"고 만든
+    기능이라, 커밋되지 않으면 존재 이유가 없다.
+    """
+
+    ROOT = Path(__file__).parent.parent
+
+    def test_crawl_commits_the_delivery_log(self):
+        yml = (self.ROOT / ".github" / "workflows" / "crawl.yml").read_text(encoding="utf-8")
+        self.assertIn("delivery_log.jsonl", yml)
+        # 없는 파일 하나가 스텝 전체를 죽이면 안 된다(weekly.yml 과 같은 관행).
+        self.assertIn("[ -f delivery_log.jsonl ]", yml)
+        # 단순 push 는 daily-brief 와 겹치는 시각에 실패하고, 크롤은 이미 Gemini
+        # 호출을 마친 뒤라 그 시각 수집이 통째로 사라진다.
+        self.assertIn("git rebase origin/main", yml)
+
+    def test_append_only_logs_merge_by_union(self):
+        """rebase 가 붙으려면 append 충돌이 자동 해소돼야 한다.
+
+        crawl 과 daily-brief 가 같은 파일 끝에 각자 줄을 붙이므로 기본 병합기는
+        멈춘다. union 은 양쪽에서 추가된 줄을 둘 다 남긴다 — 줄 하나가 레코드
+        하나인 JSONL 에 맞는 동작이고, 실측으로 확인했다(중복 없이 3줄 보존).
+        """
+        attrs = (self.ROOT / ".gitattributes").read_text(encoding="utf-8")
+        self.assertIn("delivery_log.jsonl merge=union", attrs)
+        self.assertIn("archive/*.jsonl merge=union", attrs)
 
 
 if __name__ == "__main__":

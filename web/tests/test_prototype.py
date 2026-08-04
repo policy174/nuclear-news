@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import sys
 import tempfile
@@ -20,6 +21,20 @@ except (OSError, KeyError, json.JSONDecodeError):
     DATA_DIR = DATA_ROOT
 
 import build_data  # noqa: E402
+
+# 데이터 지표 게이트(추적률 등)를 건너뛴다. 배포 워크플로 전용이다.
+#
+# 왜 필요한가: 추적률은 "오늘 뉴스가 어떻게 묶였나"의 결과지 화면 코드의 성질이
+# 아니다. 이걸 배포 경로에서 게이트로 쓰면 뉴스가 한산한 날에는 CSS 오타 수정도
+# 배포가 막힌다(실측 2026-08-03: 0.125 로 deploy-web.yml 이 통째로 실패).
+#
+# 값을 낮춰 통과시키지 않는 이유: 0.20 은 한때 실제로 달성했던 수치이고
+# (메모리 28.57%), 지금 0.125 인 건 Phase 0-B 병합 판정기가 미완이라는 신호다.
+# 골대를 옮기면 그 신호가 사라진다. 게이트는 그대로 두고 **어디서 켜는지**만 나눈다.
+#
+#   crawl.yml · 로컬       → 켠다 (데이터 품질을 보는 자리)
+#   deploy-web.yml         → 끈다 (화면 코드를 배포하는 자리)
+SKIP_DATA_GATES = os.environ.get("NUCLENS_SKIP_DATA_GATES") == "1"
 
 
 def _luminance(hex_color: str) -> float:
@@ -1060,13 +1075,84 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertEqual(self.issue_audit["matching_version"], "hybrid-review-v4")
         self.assertTrue(self.issue_audit["review_candidates"])
         self.assertTrue(all(row["review_state"] == "pending" for row in self.issue_audit["review_candidates"]))
-        # 추적률 기준은 원격 Gemini 임베딩이 있는 빌드(CI)에만 적용한다.
-        # 로컬 빌드는 폴백 벡터라 병합이 보수적이어서 구조적으로 기준 미달
-        # (실측 0.125 — 코드 결함이 아니라 환경 차이).
-        if self.meta.get("remote_embedding_selected_count", 0):
-            self.assertGreaterEqual(self.meta["latest_briefing_tracking_rate"], 0.20)
         self.assertTrue(self.issue_audit["clusters"])
         self.assertTrue(all(cluster["matches"] for cluster in self.issue_audit["clusters"]))
+
+    @unittest.skipIf(SKIP_DATA_GATES, "배포 경로에서는 데이터 지표를 게이트로 쓰지 않는다")
+    def test_tracking_rate_meets_target(self):
+        """이슈 추적률 게이트. **배포가 아니라 데이터 품질을 보는 자리다.**
+
+        원격 Gemini 임베딩이 있는 빌드에만 적용한다 — 로컬 폴백 벡터는 병합이
+        보수적이라 구조적으로 낮게 나온다(환경 차이지 코드 결함이 아니다).
+
+        **최신 브리핑 하나가 아니라 최근 7회차 누적으로 잰다.** 2026-08-03 에
+        하루치로 재던 이 게이트가 0.125 로 죽었는데, 같은 날 17일 전부를 재보니
+        8일이 0.000 이고 ≥0.20 은 10일(59%)에서 실패했다. 분모가 이슈 8개라
+        1건 차이로 0.125 씩 튄다 — 그 값은 병합기가 아니라 **그날 뉴스가 한산했나**
+        를 말한다. 누적 7일 0.193 / 14일 0.120 이 병합기의 실제 성질이다.
+
+        임계값 0.20 은 그대로다. 내려 통과시키지 말 것 — 그러면 신호가 사라진다.
+        올려야 할 것은 지표지 기준선이 아니다.
+        """
+        if not self.meta.get("remote_embedding_selected_count", 0):
+            self.skipTest("로컬 폴백 벡터 빌드 — 추적률 기준 적용 대상이 아니다")
+        if self.meta.get("tracking_window_briefings", 0) < build_data.TRACKING_WINDOW_BRIEFINGS:
+            self.skipTest("브리핑 회차가 창보다 적다 — 누적 분모가 안 만들어진다")
+        self.assertGreaterEqual(self.meta["tracking_window_rate"], 0.20)
+
+    def test_tracking_window_is_wide_enough_to_be_a_signal(self):
+        """게이트가 다시 하루치로 좁아지지 않게 잠근다.
+
+        분모가 작으면 이 지표는 병합기가 아니라 그날 뉴스량을 재게 된다.
+        """
+        self.assertGreaterEqual(build_data.TRACKING_WINDOW_BRIEFINGS, 7)
+        if self.meta.get("tracking_window_briefings", 0) < build_data.TRACKING_WINDOW_BRIEFINGS:
+            self.skipTest("브리핑 회차가 창보다 적다")
+        self.assertGreaterEqual(self.meta["tracking_window_issue_count"], 30)
+        self.assertEqual(
+            self.meta["tracking_window_rate"],
+            round(
+                self.meta["tracking_window_tracked_issue_count"]
+                / self.meta["tracking_window_issue_count"], 4
+            ),
+        )
+
+    def test_atlas_readiness_is_measured_not_asserted(self):
+        """이슈 지도 착수 조건을 계기판으로 싣는다.
+
+        **값을 게이트로 걸지 않는다.** 오늘(2026-08-03) 추적률을 배포 게이트로 썼다가
+        뉴스가 한산한 날 CSS 오타 수정까지 막힌 일이 있었다. 여기서 검사하는 것은
+        '배관이 붙어 있는가'지 '수치가 목표에 닿았는가'가 아니다 — 후자는
+        meta.atlas_readiness 를 사람이 읽고 판단한다.
+        """
+        atlas = self.meta["atlas_readiness"]
+        self.assertEqual(atlas["issue_total"], self.meta["issue_catalog_total"])
+        self.assertEqual(
+            set(atlas["node_counts"]),
+            {name for name, _ in build_data.ATLAS_NODES},
+        )
+        self.assertEqual(set(atlas["node_rates"]), set(atlas["node_counts"]))
+        for name, count in atlas["node_counts"].items():
+            self.assertLessEqual(count, atlas["issue_total"], name)
+        self.assertLessEqual(atlas["full_path_issues"], atlas["three_plus_issues"])
+        # ready 는 blocking_nodes 의 반대말이어야 한다 — 둘이 어긋나면 계기판이 거짓말
+        self.assertEqual(atlas["ready"], not atlas["blocking_nodes"])
+
+    def test_atlas_blocking_nodes_match_the_documented_thresholds(self):
+        """문턱을 조용히 낮춰서 '착수 가능'을 만들지 못하게 잠근다.
+
+        PHASE_PLAN §S4 가 착수 판단을 open_question·related_articles 두 값으로
+        못박았다. 여기 숫자를 고치려면 그 문서도 같이 고쳐야 한다.
+        """
+        self.assertGreaterEqual(build_data.ATLAS_MIN_OPEN_QUESTION, 1)
+        self.assertGreaterEqual(build_data.ATLAS_MIN_RELATED_RATE, 0.20)
+        atlas = self.meta["atlas_readiness"]
+        expected = []
+        if atlas["node_counts"]["open_question"] < build_data.ATLAS_MIN_OPEN_QUESTION:
+            expected.append("open_question")
+        if atlas["node_rates"]["related_articles"] < build_data.ATLAS_MIN_RELATED_RATE:
+            expected.append("related_articles")
+        self.assertEqual(atlas["blocking_nodes"], expected)
 
     def test_manual_merge_overrides_are_auditable(self):
         approved = set(self.issue_audit["overrides"]["approved"])
@@ -1138,8 +1224,14 @@ class GeneratedDataTests(unittest.TestCase):
         # 늘어나는 것 자체를 막을 뿐이라(다이얼로그 + 근거 패널), 지점마다 배지가
         # 붙어 있는지를 본다.
         self.assertGreaterEqual(script.count('class="ai-badge"'), 1)
-        self.assertIn('Nuclens 해석 <span class="ai-badge">AI</span>', script)
-        self.assertIn('${esc(model.impact.label)} <span class="ai-badge">AI</span>', script)
+        # 라벨이 '산업 영향'→'시사점'으로 바뀌고 '왜 중요한가'가 갈라져 나왔다
+        # (2026-08-04). 이름표가 부서 업무에 가까워질수록 이 배지가 더 중요하다 —
+        # 라벨만 바꾸고 배지를 놓치면 AI 해석이 공식 견해로 읽힌다.
+        for marked in ('왜 중요한가 <span class="ai-badge">AI</span>',
+                       '시사점 <span class="ai-badge">AI</span>',
+                       '${esc(model.why.label)} <span class="ai-badge">AI</span>',
+                       '${esc(model.impact.label)} <span class="ai-badge">AI</span>'):
+            self.assertIn(marked, script)
         self.assertIn(".ai-badge", style)
 
     def test_rss_and_report_copy_are_generated(self):
@@ -1208,7 +1300,8 @@ class GeneratedDataTests(unittest.TestCase):
     def test_p5_detail_order_related_issues_and_mobile_actions(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
-        for heading in ("한 줄 결론", "이번에 달라진 점", "Nuclens 해석", "사건 타임라인과 근거 원문", "관련 이슈"):
+        for heading in ("한 줄 결론", "이번에 달라진 점", "왜 중요한가", "시사점",
+                        "사건 타임라인과 근거 원문", "관련 이슈"):
             self.assertIn(heading, script)
         self.assertIn("function relatedIssues", script)
         # 제목이 상세 진입점이므로 좁은 화면에서 타임라인 버튼을 숨겨도 길이 남는다.
@@ -1418,14 +1511,69 @@ class GeneratedDataTests(unittest.TestCase):
 
         실측: topic=fusion 이면 '지금 달라진 이슈'에 독일 핵융합 카드가 남는데
         '오늘 확인된 이슈'는 빈 상태를 띄워 한 화면이 스스로를 부정했다.
+
+        가드에 조건이 더 붙을 수 있으므로(선두 카드로 옮겨간 경우 등) 줄바꿈까지
+        문자열로 고정하지 않는다 — 지켜야 할 것은 서식이 아니라 '빈 상태보다
+        먼저 다른 구역을 확인한다'는 순서다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("visibleChanged.length", render)
         self.assertIn("section-note", render)
         empty_index = render.index("조건에 맞는 이슈가 없습니다")
-        guard_index = render.index("visibleChanged.length\n      ?")
-        self.assertLess(guard_index, empty_index)
+        guard = re.search(r"visibleChanged\.length[^\n]*\n\s*\?", render)
+        self.assertIsNotNone(guard, "빈 상태 앞에 visibleChanged 를 확인하는 가드가 없다")
+        self.assertLess(guard.start(), empty_index)
+
+    def test_lead_card_is_wired_and_not_duplicated_below(self):
+        """선두 이슈는 자기 자리에 서고, 아래 두 목록에서는 빠져야 한다.
+
+        같은 이슈가 한 화면에 두 번 서면 '8개 이슈' 개수 표시가 실제 카드 수와
+        어긋난다. 그리고 새 컨테이너를 만들면 handleIssueAction 위임 목록에
+        id 를 넣어야 카드 안의 버튼(타임라인·저장·공유)이 산다.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('id="leadIssue"', html)
+        self.assertIn('id="leadCard"', html)
+        self.assertIn("function leadCard(", script)
+        delegation = script.split("handleIssueAction);", 1)[0]
+        self.assertIn('"leadCard"', delegation)
+        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("issue.issue_id !== leadId", render)
+        # 선두는 편집 판단이라 정렬 토글보다 먼저 정해진다 — '최신순'으로 바꿨다고
+        # 가장 먼저 볼 이슈가 달라지면 그건 판단이 아니라 정렬 결과다.
+        self.assertLess(render.index("const lead = issues[0]"),
+                        render.index('state.issueSort === "latest"'))
+
+    def test_lead_card_skips_blocks_that_have_no_data(self):
+        """빈 블록은 세우지 않는다.
+
+        latest_change 는 실측 6%, open_question 은 0% 다. '변화 없음' 같은 줄을
+        매일 세우면 그 자리가 신호가 아니라 배경이 된다 — 카드에서 선정 이유·
+        단일 출처 배지를 뺀 것과 같은 원칙이다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn(".filter(Boolean)", lead)
+        for field in ("issue.summary ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
+            self.assertIn(field, lead)
+        # 라벨을 새로 짓지 않는다. issueDetailModel 이 근거일에 따라 '오늘의 변화'
+        # 와 '최근 변화'를 갈라 주는데, 여기서 '어제와 달라진 점'이라고 이름
+        # 붙이면 데이터가 보장하지 않는 것을 말하게 된다.
+        self.assertIn("model.change.label", lead)
+        # 주석에서는 이 표현을 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("어제와 달라진", code)
+
+    def test_lead_card_type_stays_above_the_minimum(self):
+        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다."""
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        lead_rules = re.findall(r"\.lead-[^{]*\{[^}]*\}", style)
+        self.assertTrue(lead_rules, ".lead-* 규칙이 없다")
+        sizes = [float(size) for rule in lead_rules
+                 for size in re.findall(r"font-size:\s*([\d.]+)px", rule)]
+        self.assertTrue(sizes)
+        self.assertGreaterEqual(min(sizes), 12.5)
 
     def test_p2_structure_status_search_and_responsive_controls_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -1478,6 +1626,52 @@ class GeneratedDataTests(unittest.TestCase):
                 self.assertTrue(view["items"][0]["is_new"])
         finally:
             build_data.BOT_DIR = original
+
+    def test_publications_drop_events_and_nonpower_but_llm_verdict_wins(self):
+        """발간물 탭은 '보고서로 쓸 만한가'를 판단하는 자리다.
+
+        실측(2026-08-03): 29건 중 11건이 행사·교육 소식이거나 FAO 공동 프로그램
+        (농업·식품·수자원) 뉴스레터였다. 제목 규칙으로 거르되, 규칙은 낱말만 보므로
+        LLM 판정이 있는 항목에서는 규칙을 태우지 않는다 — 'Workshop on Regulatory
+        Harmonisation' 같은 진짜 정책 문서를 규칙이 되돌려 지우면 안 된다.
+        """
+        drop = build_data.publication_drop_reason
+        self.assertEqual(drop({"title": "Inaugural NextGen Nuclear Leaders Summer School held"}), "event")
+        self.assertEqual(drop({"title": "TCOFF-2 project members meet in Tokyo to review progress"}), "event")
+        self.assertEqual(drop({"title": "Insect Pest Control Newsletter No. 106"}), "nonpower")
+        self.assertEqual(drop({"title": "Cooperative Approaches to the Back End of the Nuclear Fuel Cycle"}), "")
+
+        # LLM 이 관련 있다고 판정하면 제목에 workshop 이 있어도 남는다
+        self.assertEqual(drop({"title": "Workshop on Regulatory Harmonisation", "off_topic": False}), "")
+        # 반대로 제목 규칙에 안 걸려도 LLM 이 걸러내면 제외된다
+        self.assertEqual(
+            drop({"title": "Nuclear Knowledge Fair 2026", "off_topic": True,
+                  "off_topic_reason": "행사 소식"}),
+            "행사 소식")
+
+    def test_publication_gist_is_hidden_when_it_only_echoes_the_title(self):
+        """같은 말을 두 줄 쓰면 목록만 길어진다 — 실측 15건 중 10건이 제목 재진술."""
+        echo = build_data.gist_adds_nothing
+        self.assertTrue(echo("원자력 안전 핵심 실험 데이터세트 보존",
+                             "원자력 안전을 위한 핵심 실험 데이터세트 보존"))
+        self.assertTrue(echo("임계 안전성 과제 및 발전 논의", "임계 안전성 과제 및 발전 논의"))
+        # 문서 성격·범위를 더하면 남긴다
+        self.assertFalse(echo("SMR 배치를 앞당기기 위한 규제·공급망 과제 정리",
+                              "SMR(소형모듈원자로) 가속화"))
+        # 한쪽이 비면 판정하지 않는다 (없는 것을 지웠다고 세지 않게)
+        self.assertFalse(echo("", "제목"))
+        self.assertFalse(echo("요약", ""))
+
+    def test_publication_org_labels_carry_the_english_acronym(self):
+        """약자만 아는 사람과 한글 명칭만 아는 사람이 갈린다 — 둘 다 적는다."""
+        aliases = build_data.PUBLICATION_ORG_ALIASES
+        self.assertEqual(aliases["에경연"], "에너지경제연구원(KEEI)")
+        self.assertEqual(aliases["에너지경제연구원"], "에너지경제연구원(KEEI)")
+        for org_kr in ("OECD 원자력기구", "국제원자력기구", "국제에너지기구", "미국 에너지정보청"):
+            self.assertRegex(aliases[org_kr], r"\([A-Z\-]+\)$")
+        # 이미 수집된 항목도 빌드 시점에 교정된다
+        for item in self.publications["items"]:
+            self.assertNotEqual(item["org_kr"], "에경연")
 
     def test_publications_tab_is_wired_and_failure_tolerant(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -1941,6 +2135,104 @@ class OpenQuestionRenderTests(unittest.TestCase):
     def test_style_exists(self):
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertIn(".dialog-open", style)
+
+
+class InterpretationSplitTests(unittest.TestCase):
+    """AI 해석 두 줄은 각자의 축으로 선다.
+
+    2026-08-04 이전에는 빌드가 `implication or why_important` 로 둘을 뭉갰고,
+    화면은 그 결과를 '산업 영향'이라는 제3의 이름으로 내보냈다. must_read 55건
+    중 정상은 1건이었다 — 22건은 긴 쪽이 버려졌고 19건은 왜 중요가 시사점
+    라벨을 달았다 (docs/2026-08-04-gap-review.md).
+    """
+
+    def test_two_axes_survive_as_two_fields(self):
+        row = build_data.split_interpretation({
+            "implication": "체코의 SMR 도입 의지가 구체화되며 유럽 시장 확대가 예상됩니다.",
+            "why_important": "두코바니 후속 사업의 발주 방식이 한국형 노형의 유럽 재진입 조건을 좌우한다.",
+        })
+        self.assertEqual(len([value for value in row if value]), 2)
+
+    def test_why_important_alone_is_not_relabelled_as_implication(self):
+        """예전 폴백의 실제 피해 — 19건이 남의 이름표를 달고 나갔다."""
+        implication, why_important = build_data.split_interpretation(
+            {"implication": "", "why_important": "장기 운영 허가의 선례가 된다."})
+        self.assertEqual(implication, "")
+        self.assertEqual(why_important, "장기 운영 허가의 선례가 된다.")
+
+    def test_restated_pair_keeps_the_longer_line(self):
+        """같은 말이면 한 줄만. 남기는 쪽은 긴 쪽 — 짧은 쪽을 남기면 원래 손실 그대로다."""
+        long_line = "미국 에너지부의 시험용 원자로 가동 승인은 차세대 원자로 기술 개발의 중요한 이정표이며, 향후 상용화에 긍정적입니다."
+        short_line = "미국 에너지부의 시험용 원자로 가동 승인은 차세대 원자로 기술 개발의 이정표입니다."
+        implication, why_important = build_data.split_interpretation(
+            {"implication": short_line, "why_important": long_line})
+        self.assertEqual(why_important, long_line)
+        self.assertEqual(implication, "")
+
+    def test_atlas_counts_either_field_so_the_split_is_not_read_as_a_drop(self):
+        """노드가 묻는 건 'AI 해석이 있는가' 하나다. 한쪽만 세면 분리가 후퇴로 보인다."""
+        node = dict((name, test) for name, test in build_data.ATLAS_NODES)["implication"]
+        self.assertTrue(node({"why_important": "왜 중요한지의 설명", "implication": ""}))
+        self.assertTrue(node({"implication": "시사점 한 줄", "why_important": ""}))
+        self.assertFalse(node({"implication": "", "why_important": ""}))
+
+    def test_the_web_calls_the_line_what_telegram_calls_it(self):
+        """같은 문장을 텔레그램은 '시사점', 웹은 '산업 영향'이라 부르던 것을 끝낸다."""
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("산업 영향", code)
+        # 한 필드에 이름이 셋이면(산업 영향·Nuclens 해석·시사점) 화면마다 다른
+        # 것으로 읽힌다. 다이얼로그도 같은 이름을 쓴다.
+        self.assertNotIn("Nuclens 해석", code)
+        self.assertIn('label: "시사점"', script)
+
+    def test_both_lines_get_their_own_block_on_the_lead_card_and_rail(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        for field in ("model.why ?", "model.impact ?"):
+            self.assertIn(field, lead, f"선두 카드에 {field} 블록이 없다")
+        rail = script.split("function renderEvidenceRail(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("model.why ?", rail)
+        self.assertIn("model.impact ?", rail)
+        # AI 해석이라는 표시는 라벨이 바뀌어도 남아야 한다 — 회사 화면에서 이
+        # 문장이 공식 견해로 읽히면 라벨을 고친 의미가 없다.
+        self.assertEqual(rail.count('class="ai-badge"'), 2)
+
+
+class ReportPickTests(unittest.TestCase):
+    """보고서 검토 추천 — 텔레그램에만 있던 것을 웹에 라벨 하나로 옮겼다.
+
+    섹션이 아니라 라벨인 것은 사용자 결정이다(2026-08-04). 웹은 동료가 함께
+    보는 화면이라 '무엇이 후보인가'는 공유하되 '왜·어떤 각도로 쓰라'는 개인
+    브리핑에 남긴다.
+    """
+
+    def test_topic_comes_from_the_articles_not_the_screen(self):
+        picked = build_data.pick_report_topic([
+            {"article_date": "2026-08-01", "report_pick": ""},
+            {"article_date": "2026-08-03", "report_pick": "중국 신규 원전 8기 승인의 정책 함의"},
+        ])
+        self.assertEqual(picked, "중국 신규 원전 8기 승인의 정책 함의")
+
+    def test_no_pick_is_an_empty_string_not_a_placeholder(self):
+        self.assertEqual(build_data.pick_report_topic([{"article_date": "2026-08-03"}]), "")
+
+    def test_badge_renders_the_label_and_hides_the_angles(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function reportPickBadge", script)
+        self.assertIn("보고서 검토 추천", script)
+        # 텔레그램 카드의 하위 항목까지 옮기면 라벨이 아니라 섹션이 된다.
+        # 주석에서는 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("추천 각도", code)
+        badge = script.split("function reportPickBadge(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("esc(topic)", badge, "추천 주제는 title 속성으로도 이스케이프해야 한다")
+
+    def test_badge_is_legible_on_the_dark_evidence_rail(self):
+        """근거 패널 머리는 딥 포레스트 배경이다 — 밝은 배경용 색을 그대로 쓰면 묻힌다."""
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".report-pick-badge", style)
+        self.assertIn(".rail-badges .report-pick-badge", style)
 
 
 class WeeklyReportTests(unittest.TestCase):

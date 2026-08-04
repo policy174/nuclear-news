@@ -2,6 +2,10 @@
 
 `NUCLENS_SPEC.md` Phase 0 산출물. **코드 변경 없음.**
 
+> ⚠️ **`NUCLENS_SPEC.md` 는 존재하지 않는다**(2026-08-03 확인 — git 전 이력 0건).
+> 정본은 [`PHASE_PLAN.md`](PHASE_PLAN.md) 다. 이 문서 안의 "명세 N장" 참조는
+> 복원 불가이므로 근거로 쓰지 말 것.
+
 ## 이 문서가 말하는 "현재"는 세 개다 — 섞어 읽지 말 것
 
 | 표시 | 의미 | 이 문서 기준 |
@@ -176,7 +180,7 @@ Phase 5의 델타는 `archive/YYYY-MM.jsonl`(만료 없음) + `delivery_log.json
     ├ load_selection_stats()  :433   record_type=selection_stats (`9918e9c` 신설)
     ├ cluster_selected_articles() :1203  이슈 묶기
     │   issue_similarity():943 — 임베딩 코사인 0.92 + 시설·국가 충돌 차단
-    │   is_review_candidate():1031 → issue_review.py 배치 LLM 검수 (0.88~0.92 회색지대)
+    │   is_review_candidate():1031 → issue_review.py 배치 LLM 검수 (0.84~0.92 회색지대)
     ├ verification_state()    :1412  4단계 검증 상태
     ├ daily_lead():1525 / daily_headline():1556 / order_issue_rows():1560
     ├ attach_keei_refs()      :1705  KEEI 인사이트 LLM 매칭

@@ -29,9 +29,14 @@
 ## 이슈 병합
 
 임계값 하나로는 "같은 사건"과 "같은 분야"가 갈리지 않는다. 코사인 0.92 이상만
-자동 병합하고, 0.88~0.92 회색지대는 `issue_review.py` 가 LLM 배치 1회로 판정한다.
+자동 병합하고, 0.84~0.92 회색지대는 `issue_review.py` 가 LLM 배치로 판정한다.
 판정 실패·키 부재는 **병합하지 않는다** — 잘못된 병합은 누락보다 해롭고,
 검증 배지("복수 출처 확인")까지 위조한다.
+
+하한은 0.88 이었다. 0.84 로 내린 근거는 `issue_review.py` 모듈 docstring 에 있다
+— 사람 검토 큐 544건이 아무도 안 보는 채 쌓이는 동안 그 안에 진짜 후속 보도가
+섞여 있었다. 한 빌드에서 새로 묻는 쌍은 `MAX_NEW_PAIRS_PER_RUN` 으로 묶여 있고,
+미룬 몫은 `llm_review.deferred` 로 audit 에 남는다.
 
 사람 검토가 필요한 쌍은 `public/data/issue_audit.json` 의 `review_candidates` 에
 남는다. 판단한 쌍은 `issue_match_overrides.json` 의 `approved`/`rejected` 에 두

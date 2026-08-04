@@ -10,6 +10,18 @@
     사람 검토 큐(issue_match_overrides.json)는 이미 있지만 138건이 전부 pending
     이라 실질 검수가 되지 않는다. 이 구간만 LLM 에게 묻는다.
 
+    2026-08-03 재측정 — **"0.88 미만은 거의 전부 다른 사건"은 틀렸다.** 사람 검토
+    큐가 544건까지 불어나는 동안 LLM 이 본 것은 14쌍뿐이었고(5 승인 / 9 기각),
+    나머지 530건은 아무도 판정하지 않은 채 쌓였다. 그 안에 진짜 후속 보도가 있다:
+
+        0.8513  "헝가리 총리, 팍스 원전 일요일 가동 중단 발표"(08-02)
+              ↔ "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단"(08-03)
+
+    같은 사건인데 밴드 밖이라 영영 갈라진 채로 있었다. 하한을 0.84 로 내려 이
+    구간을 LLM 에게 넘긴다. 0.82 까지 더 내리는 것은 보류했다 — 실측 표본에서
+    0.82~0.84 는 "[시론] 호남 반도체 …" 대 전기본 기사처럼 **분야만 같은** 쌍이
+    대부분이라 비용 대비 얻는 게 없다.
+
 설계:
     - 회색지대 쌍만 모아 배치 1회 호출. 실측 하루 0.33쌍이라 보통 호출 0~1회.
     - 판정은 issue_llm_reviews.json 에 캐시한다. 웹 빌드는 하루 12회 이상 돌기
@@ -28,12 +40,19 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:  # gemini_client 없이도 import 가능해야 한다 (테스트는 대역 클라이언트를 넣는다)
+    from gemini_client import GeminiTruncated
+except ImportError:  # pragma: no cover
+    class GeminiTruncated(Exception):  # type: ignore[no-redef]
+        """gemini_client 부재 시 자리표시자 — 아무것도 여기 걸리지 않는다."""
+
 ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "issue_llm_reviews.json"
 
-# 자동 병합(>=0.92)과 자동 분리(<0.88) 사이. build_data.ISSUE_EMBEDDING_THRESHOLD
+# 자동 병합(>=0.92)과 자동 분리(<0.84) 사이. build_data.ISSUE_EMBEDDING_THRESHOLD
 # 를 올리면 REVIEW_BAND_HIGH 도 같이 올려야 한다.
-REVIEW_BAND_LOW = 0.88
+# 하한 0.88 → 0.84 (2026-08-03, 근거는 모듈 docstring).
+REVIEW_BAND_LOW = 0.84
 REVIEW_BAND_HIGH = 0.92
 
 # 프롬프트를 고치면 올린다. 캐시된 옛 판정이 자동으로 무효가 된다.
@@ -42,6 +61,29 @@ PROMPT_VERSION = 1
 # 한 번에 묻는 쌍 수. 한국어 판정 한 줄이 40~60 토큰이라 20쌍이면 출력이
 # 1,500 토큰 안쪽이다. thinking 토큰이 출력 예산을 먹으므로 여유를 크게 둔다.
 BATCH_SIZE = 20
+
+# 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다(news_bot 은 같은
+# 이유로 BATCH_MAX_OUTPUT_TOKENS 를 16384 로 올렸다). 여기서도 천장을 맞춰 둔다 —
+# 과금·지연은 실사용 토큰 기준이라 천장만 높이는 것은 비용이 아니다.
+#
+# **단, 이 값이 실제 사고를 고쳤다는 근거는 없다.** 2026-08-04 02:49 빌드가
+# calls=0 / failed=40 으로 죽어서 잘림으로 추정했는데, **같은 8192 코드가 05:54
+# 빌드에서 asked=40 / failed=0 으로 정상 통과했다.** 그 실패는 일시적이었다
+# (한도 또는 타임아웃). 아래 분할 경로도 아직 실측으로 발동한 적이 없다.
+# 원인을 실제로 말해주는 것은 stats.failure_reasons 다 — 다음에 죽으면 그걸 볼 것.
+MAX_OUTPUT_TOKENS = 16384
+
+# 잘림은 입력을 줄이면 사라진다. 같은 예산으로 다시 불러도 같은 자리에서 잘리므로
+# 재시도가 아니라 분할이 답이다(news_bot.SPLITTABLE_FAILURES 와 같은 판단).
+# 분할 예산을 묶어두는 이유는 20 → 1 까지 쪼개면 한 회차에 호출이 폭증하기 때문이다.
+SPLIT_BUDGET = 4
+MIN_SPLIT_SIZE = 2
+
+# 한 빌드에서 **새로** 묻는 쌍의 상한. 하한을 0.84 로 내린 첫 빌드에는 밀려 있던
+# 후보가 146건(실측) 한꺼번에 들어온다. 그걸 한 번에 물으면 8회 호출이 한 빌드에
+# 몰리는데, 웹 빌드는 하루 12회 이상 돌고 같은 키를 크롤·브리핑이 나눠 쓴다.
+# 판정은 캐시되므로 밀린 것은 몇 회차에 걸쳐 저절로 빠진다 — 급할 이유가 없다.
+MAX_NEW_PAIRS_PER_RUN = 40
 
 SYSTEM_PROMPT = """너는 원자력 산업 뉴스를 정리하는 편집자다.
 두 기사가 **같은 사건**을 다루는지 판정한다.
@@ -166,10 +208,55 @@ def _parse_response(payload: dict, count: int) -> dict[int, tuple[bool, str]]:
     return out
 
 
+def classify_failure(exc: Exception) -> str:
+    """호출 실패를 '다시 부를 가치가 있는가'로 나눈다.
+
+    ``news_bot.classify_request_failure`` 와 같은 판단이다. 여기 따로 두는 이유는
+    이 모듈이 build_data 를 import 하지 않는다는 가드레일 때문이다(순환 방지).
+    """
+    msg = str(exc)
+    if "RESOURCE_EXHAUSTED" in msg or "HTTP 429" in msg:
+        return "quota"
+    if "timed out" in msg.lower() or "TimeoutError" in msg:
+        return "timeout"
+    return "other"
+
+
+def _record_failure(stats: dict, chunk: list[dict], label: str,
+                    exc: Exception | None = None) -> None:
+    """실패를 사유별로 남긴다.
+
+    예전에는 ``except Exception`` 이 사유를 통째로 지웠다. 그래서 2026-08-04 02:49
+    빌드가 ``calls=0 / failed=40`` 으로 죽었을 때 **한도 소진인지 잘림인지 알 수
+    없었고**, 대응이 정반대인 두 경우를 구분하려고 또 두 시간을 기다려야 했다.
+    """
+    stats["failed"] += len(chunk)
+    stats["status"] = "partial_failure"
+    stats["failure_reasons"][label] = stats["failure_reasons"].get(label, 0) + len(chunk)
+    if exc is not None and not stats.get("failure_detail"):
+        stats["failure_detail"] = f"{type(exc).__name__}: {str(exc)[:160]}"
+
+
+def _ask_priority(row: dict) -> tuple:
+    """새로 물어볼 쌍의 우선순위. 큰 것부터 묻는다.
+
+    최신 날짜가 먼저인 이유는 두 가지다. 추적률이 **최신 브리핑**에서만 측정되고,
+    21일 창 밖으로 밀려날 쌍에 호출을 쓰면 판정이 쓰이기 전에 버려진다.
+    """
+    diagnostics = row.get("diagnostics") or {}
+    try:
+        similarity = float(diagnostics.get("embedding_similarity") or 0.0)
+    except (TypeError, ValueError):
+        similarity = 0.0
+    newest = max(str(row.get("left_date") or ""), str(row.get("right_date") or ""))
+    return (newest, similarity)
+
+
 def review_pairs(review_candidates: list[dict], *,
                  cache_path: Path = CACHE_FILE,
                  client=None,
                  batch_size: int = BATCH_SIZE,
+                 max_new_pairs: int = MAX_NEW_PAIRS_PER_RUN,
                  low: float = REVIEW_BAND_LOW,
                  high: float = REVIEW_BAND_HIGH) -> tuple[dict[str, bool], dict]:
     """회색지대 쌍을 판정한다.
@@ -189,6 +276,9 @@ def review_pairs(review_candidates: list[dict], *,
         "approved": 0,
         "rejected": 0,
         "failed": 0,
+        "deferred": 0,
+        "splits": 0,
+        "failure_reasons": {},
         "status": "ok",
     }
     if not pairs:
@@ -206,6 +296,14 @@ def review_pairs(review_candidates: list[dict], *,
             verdicts[row["candidate_id"]] = hit
             stats["from_cache"] += 1
 
+    # 상한을 넘긴 몫은 버리는 게 아니라 미룬다. 판정이 없는 쌍은 병합되지 않으므로
+    # (verdicts 에 안 들어간다) 결과는 "이번 회차엔 아직 모름"이지 "다른 사건"이 아니다.
+    if max_new_pairs is not None and len(todo) > max_new_pairs:
+        todo.sort(key=_ask_priority, reverse=True)
+        stats["deferred"] = len(todo) - max_new_pairs
+        stats["status"] = "throttled"
+        todo = todo[:max_new_pairs]
+
     if todo:
         if client is None:
             try:
@@ -215,27 +313,43 @@ def review_pairs(review_candidates: list[dict], *,
         if client is None or not client.is_available():
             stats["status"] = "no_api_key"
             stats["failed"] = len(todo)
+            stats["failure_reasons"]["no_api_key"] = len(todo)
             todo = []
 
     now = datetime.now(timezone.utc).isoformat()
-    for start in range(0, len(todo), batch_size):
-        chunk = todo[start:start + batch_size]
+    split_budget = SPLIT_BUDGET
+
+    def ask(chunk: list[dict]) -> None:
+        """chunk 하나를 판정한다. 잘림이면 절반으로 쪼개 다시 부른다."""
+        nonlocal split_budget
         try:
             payload = client.call_json(
                 SYSTEM_PROMPT,
                 build_user_message(chunk),
                 temperature=0.0,
-                max_output_tokens=8192,
+                max_output_tokens=MAX_OUTPUT_TOKENS,
             )
-        except Exception:  # noqa: BLE001 — 실패는 '병합 안 함'으로 흡수
-            stats["failed"] += len(chunk)
-            stats["status"] = "partial_failure"
-            continue
+        except GeminiTruncated as exc:
+            # 같은 예산으로 다시 부르면 같은 자리에서 잘린다 — 입력을 줄여야 한다.
+            if len(chunk) >= MIN_SPLIT_SIZE * 2 and split_budget > 0:
+                split_budget -= 1
+                stats["splits"] += 1
+                mid = len(chunk) // 2
+                ask(chunk[:mid])
+                ask(chunk[mid:])
+                return
+            _record_failure(stats, chunk, "truncated", exc)
+            return
+        except Exception as exc:  # noqa: BLE001 — 실패는 '병합 안 함'으로 흡수
+            _record_failure(stats, chunk, classify_failure(exc), exc)
+            return
         stats["calls"] += 1
         parsed = _parse_response(payload, len(chunk))
         for idx, row in enumerate(chunk):
             if idx not in parsed:
                 stats["failed"] += 1
+                stats["failure_reasons"]["unparsed"] = \
+                    stats["failure_reasons"].get("unparsed", 0) + 1
                 continue
             verdict, reason = parsed[idx]
             verdicts[row["candidate_id"]] = verdict
@@ -250,6 +364,9 @@ def review_pairs(review_candidates: list[dict], *,
                 "model": getattr(client, "MODEL", ""),
                 "reviewed_at": now,
             }
+
+    for start in range(0, len(todo), batch_size):
+        ask(todo[start:start + batch_size])
 
     if stats["asked"]:
         save_cache(cache, cache_path)

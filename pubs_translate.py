@@ -25,25 +25,47 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 
 BATCH_SIZE = 15
-PROMPT_VERSION = 1
+# v2: gist 가 제목을 한국어로 되풀이하기만 했다("미래 STEM 리더 멘토링 행사 개최").
+#     읽는 사람은 "이걸 우리가 검토해서 보고서로 쓸 만한가"를 여기서 판단해야
+#     하는데, 제목 재진술로는 그 판단이 안 선다. 동시에 off_topic 판정을 같은
+#     배치에 얹었다 — 추가 호출 0회.
+PROMPT_VERSION = 2
 
-SYSTEM_PROMPT = """너는 원자력·에너지 분야 국제기구 발간물을 한국 정책 담당자에게
-소개하는 편집자다. 영문 제목을 받아 두 가지를 만든다.
+SYSTEM_PROMPT = """너는 한국 원자력 정책 담당자에게 국제기구 발간물을 골라 주는
+편집자다. 읽는 사람은 한국수력원자력 정책 부서에서 원전 정책·산업 동향을 본다.
+목록에서 제목과 네 한 줄만 보고 "이 문서를 열어서 검토할 가치가 있는가"를
+판단할 수 있어야 한다.
+
+영문 제목을 받아 세 가지를 만든다.
 
 1) title_kr — 제목의 한국어 번역
    - 원문 제목의 뜻만 옮긴다. 없는 말을 붙이지 않는다.
-   - 기관명·고유명사는 통용 표기를 쓰고 필요하면 영문 병기
-     (예: Nuclear Energy Outlook → 원자력 에너지 전망)
+   - 기관명·고유명사는 통용 표기 + 영문 약자 병기
+     (International Atomic Energy Agency → 국제원자력기구(IAEA))
    - 문서 종류가 제목에 있으면 살린다 (보고서·지침·회의·통계 등)
 
-2) gist — 이 문서가 무엇에 관한 것인지 한국어 한 줄 (35자 이내)
-   - 제목에서 읽어낼 수 있는 범위만 쓴다. 내용을 추측해 요약하지 않는다.
-   - 개조식 명사형으로 끝낸다 (…현황, …지침, …전망, …회의 결과)
-   - 제목이 이미 자명하면 gist 를 빈 문자열로 둔다. 억지로 채우지 않는다.
-   - 평가·전망·권고·투자 판단 금지.
+2) gist — 이 문서가 무엇을 다루는지 한국어 한 줄 (45자 이내)
+   - 제목을 한국어로 되풀이하지 않는다. 제목이 "무엇"이면 gist 는
+     **문서의 성격과 다루는 범위**를 말한다.
+       나쁨: "SMR 가속화" (제목 재진술)
+       좋음: "SMR 배치를 앞당기기 위한 규제·공급망 과제 정리"
+   - 다음이 제목에서 읽히면 반드시 넣는다: 대상 국가·지역, 제도·규제 이름,
+     노형, 문서 성격(지침/현황/통계/사례연구/기술보고).
+   - 개조식 명사형으로 끝낸다.
+   - 제목에 없는 수치·결론·기관을 지어내지 않는다. 평가·전망·권고·투자 판단 금지.
+   - 제목만으로 성격을 알 수 없으면 빈 문자열로 둔다. 억지로 채우지 않는다.
+
+3) off_topic — 원전 정책·산업 동향 파악에 쓸 수 없는 문서면 true
+   - true 로 둘 것: 교육·행사·워크숍·여름학교·멘토링·시상·인사·기념 소식,
+     프로젝트 내부 진행상황 회의, 원자력 기술을 쓰지만 발전과 무관한 분야
+     (농업·식품·축산·수자원·의료 응용 뉴스레터).
+   - false 로 둘 것: 정책·규제·인허가·시장·공급망·안전기준·기술보고서·통계.
+   - 애매하면 false. 놓치는 것보다 지우는 것이 해롭다.
+   - true 일 때만 off_topic_reason 에 한국어로 짧은 사유를 적는다.
 
 출력은 JSON 하나:
-{"items": [{"idx": 0, "title_kr": "...", "gist": "..."}]}
+{"items": [{"idx": 0, "title_kr": "...", "gist": "...", "off_topic": false,
+            "off_topic_reason": ""}]}
 입력에 준 idx 를 모두 포함한다."""
 
 
@@ -65,8 +87,8 @@ def build_user_message(items: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def _parse(payload: object, count: int) -> dict[int, tuple[str, str]]:
-    out: dict[int, tuple[str, str]] = {}
+def _parse(payload: object, count: int) -> dict[int, dict]:
+    out: dict[int, dict] = {}
     rows = payload.get("items") if isinstance(payload, dict) else None
     for row in rows or []:
         if not isinstance(row, dict):
@@ -79,14 +101,21 @@ def _parse(payload: object, count: int) -> dict[int, tuple[str, str]]:
             continue
         title_kr = " ".join(str(row.get("title_kr") or "").split()).strip()
         gist = " ".join(str(row.get("gist") or "").split()).strip()
+        reason = " ".join(str(row.get("off_topic_reason") or "").split()).strip()
         if title_kr:
-            out[idx] = (title_kr[:160], gist[:60])
+            out[idx] = {
+                "title_kr": title_kr[:160],
+                "gist": gist[:80],
+                # 문자열 "false" 가 참으로 읽히지 않게 명시적으로 판정한다
+                "off_topic": row.get("off_topic") is True,
+                "off_topic_reason": reason[:60],
+            }
     return out
 
 
 def translate(items: list[dict], *, client=None, batch_size: int = BATCH_SIZE) -> dict:
     """items 를 제자리에서 갱신한다. 반환값은 통계."""
-    stats = {"candidates": 0, "translated": 0, "calls": 0, "status": "ok"}
+    stats = {"candidates": 0, "translated": 0, "calls": 0, "off_topic": 0, "status": "ok"}
     todo = [item for item in items if needs_translation(item)]
     stats["candidates"] = len(todo)
     if not todo:
@@ -109,10 +138,19 @@ def translate(items: list[dict], *, client=None, batch_size: int = BATCH_SIZE) -
         except Exception as exc:  # 번역 실패는 비치명 — 원문 제목으로 뜬다
             stats["status"] = f"error: {type(exc).__name__}"
             continue
-        for idx, (title_kr, gist) in _parse(payload, len(chunk)).items():
-            chunk[idx]["title_kr"] = title_kr
-            if gist:
-                chunk[idx]["gist"] = gist
+        for idx, row in _parse(payload, len(chunk)).items():
+            chunk[idx]["title_kr"] = row["title_kr"]
+            if row["gist"]:
+                chunk[idx]["gist"] = row["gist"]
+            # off_topic 은 False 도 눌러 담는다 — 키가 없으면 build_data 가
+            # 제목 규칙으로 되돌아가고, LLM 이 "관련 있음"이라 판정한 것을
+            # 규칙이 다시 지운다.
+            chunk[idx]["off_topic"] = row["off_topic"]
+            if row["off_topic"]:
+                chunk[idx]["off_topic_reason"] = row["off_topic_reason"]
+                stats["off_topic"] += 1
+            else:
+                chunk[idx].pop("off_topic_reason", None)
             chunk[idx]["translated_version"] = PROMPT_VERSION
             stats["translated"] += 1
     return stats
