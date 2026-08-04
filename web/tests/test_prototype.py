@@ -2769,6 +2769,50 @@ class BriefingTimelineTests(unittest.TestCase):
         self.assertNotIn("주간 흐름", self.html)
 
 
+class PubShelfTests(unittest.TestCase):
+    """발간물 표지 서가의 계약 — CSS-only, 스파인은 장식(의미 없음)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+
+    def test_cover_object_keeps_smoke_class(self):
+        # render_smoke 가 #pubsList .pub-item 을 센다 — 클래스는 남는다.
+        self.assertIn('class="pub-item pub-cover', self.script)
+        self.assertIn("aspect-ratio: 1 / 1.35", self.style)
+
+    def test_spine_colors_reuse_locked_palette_only(self):
+        spines = re.findall(r"--spine:\s*([^;]+);", self.style)
+        self.assertTrue(spines)
+        for value in spines:
+            self.assertRegex(value.strip(), r"^var\(--c-", f"스파인에 팔레트 밖 색: {value}")
+        self.assertIn("const PUB_ORG_CLASS", self.script)
+        for org in ("IAEA", "OECD-NEA", "KEEI", "EIA", "IEA"):
+            self.assertIn(f'"{org}"', self.script)
+
+    def test_dark_mode_uses_border_not_lift(self):
+        self.assertIn(':root[data-theme="dark"] a.cover-face:hover { transform: none;', self.style)
+
+    def test_reduced_motion_kills_the_lift(self):
+        reduced = self.style[self.style.index("@media (prefers-reduced-motion: reduce)"):]
+        self.assertIn("a.cover-face:hover { transform: none;", reduced)
+
+    def test_mobile_is_single_column_shelf_list(self):
+        mobile = self.style[self.style.index("@media (max-width: 767px)"):]
+        self.assertIn(".pubs-list { grid-template-columns: 1fr;", mobile)
+        self.assertIn(".pub-cover .cover-face { aspect-ratio: auto; }", mobile)
+
+    def test_new_marker_is_dot_plus_text(self):
+        # 점만 있는 신규 표시는 의미를 설명하지 않는다 — 텍스트 병기 + 접근명.
+        self.assertIn('aria-label="최근 14일 이내 발간"', self.script)
+        self.assertIn("최근 발간", self.script)
+
+    def test_intro_names_keei_in_full(self):
+        self.assertIn("에너지경제연구원 — 제목과 원문 링크만 제공합니다.", self.html)
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""

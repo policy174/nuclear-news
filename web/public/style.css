@@ -1137,33 +1137,68 @@ kbd {
   color: #fff;
   font-weight: 650;
 }
-.pubs-list { display: grid; gap: 12px; margin-top: 16px; }
-.pub-item {
-  padding: 16px;
+/* ── 발간물 서가 — CSS 타이포그래피 표지 ────────────────────────────
+   이미지 없는 발간물을 개별 표지를 가진 오브젝트로 세운다. 스파인(상단 6px)
+   색은 기관별로 다르지만 **장식이다 — 의미 체계·범례 없음**, 잠금 팔레트의
+   차트 토큰만 재사용한다. 데스크톱은 표지 그리드, 모바일은 1열 서가형
+   목록(표지 감성을 억지로 2열에 욱여넣지 않는다). */
+.pubs-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: var(--sp-6); margin-top: var(--sp-4); align-items: start; }
+.pub-cover { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.pub-cover .cover-face {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  aspect-ratio: 1 / 1.35;
+  padding: var(--sp-4);
+  overflow: hidden;
   border: 1px solid var(--c-border);
+  border-top: 6px solid var(--spine, var(--c-border-strong));
   border-radius: var(--r-2);
-  background: var(--c-surface);
+  background: var(--c-surface-raised);
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--mo-2) var(--mo-ease), box-shadow var(--mo-2) var(--mo-ease), border-color var(--mo-2);
 }
-.pub-item h3 { margin: 6px 0 4px; font-size: var(--t-body); line-height: 1.45; }
-.pub-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-text-muted); font-size: var(--t-min); }
-.pub-org { color: var(--c-text-secondary); font-weight: 650; }
-.pub-new {
-  padding: 1px 7px;
-  border-radius: 999px;
-  background: var(--c-accent);
-  color: #fff;
-  font-size: var(--t-min);
+a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-decoration: none; }
+/* 다크는 그림자가 없다(--sh-* : none) — 들리는 대신 보더가 밝아진다. */
+:root[data-theme="dark"] a.cover-face:hover { transform: none; border-color: var(--c-border-strong); }
+.org-iaea { --spine: var(--c-chart-1); }
+.org-nea { --spine: var(--c-chart-3); }
+.org-keei { --spine: var(--c-chart-4); }
+.org-eia { --spine: var(--c-chart-2); }
+.org-iea { --spine: var(--c-secondary); }
+.org-etc { --spine: var(--c-border-strong); }
+.cover-org { margin: 0; color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); letter-spacing: .02em; }
+.pub-cover h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  margin: 0;
+  font-size: var(--t-body);
   font-weight: 700;
-  letter-spacing: .02em;
+  line-height: 1.4;
+  letter-spacing: -.02em;
 }
-.pub-gist { margin: 0 0 6px; color: var(--c-text-secondary); font-size: var(--t-caption); }
+.cover-gist {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  margin: 0;
+  color: var(--c-text-secondary);
+  font-size: var(--t-caption);
+}
+.cover-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-2); margin: auto 0 0; padding-top: var(--sp-2); color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.cover-new { display: inline-flex; align-items: center; gap: 4px; color: var(--c-accent-text); font-weight: 650; }
+.cover-new i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent); }
 .pub-original {
-  margin: 0 0 6px;
+  margin: 0;
   color: var(--c-text-muted);
   font-size: var(--t-min);
   line-height: 1.5;
 }
-.pub-toc { margin: 0 0 6px; color: var(--c-text-secondary); font-size: 13px; }
+.pub-toc { margin: 0; color: var(--c-text-secondary); font-size: 13px; }
 
 /* KEEI 인사이트 참조 — 예외적으로만 붙는 표시라 정보가 된다 */
 .issue-keei { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; font-size: var(--t-min); }
@@ -1575,7 +1610,17 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  /* 전역 오버라이드가 transition 을 죽이지만 transform 결과값 자체도 끈다 —
+     표지가 커서 아래에서 들리는 것 자체가 모션이다. */
+  a.cover-face:hover { transform: none; box-shadow: var(--sh-1); }
+}
+
 @media (max-width: 767px) {
+  /* 발간물 — 모바일은 1열 서가형 목록. 표지 비율을 풀고(aspect auto) 스파인
+     달린 목록 카드로 강등한다. 2열 표지는 제목 5줄+gist 에서 세로로 무너진다. */
+  .pubs-list { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .pub-cover .cover-face { aspect-ratio: auto; }
   /* 지난 브리핑 — 날짜·건수 한 줄, 헤드라인 최대 2줄. 행 전체가 버튼이다. */
   .briefing-timeline button { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
   .briefing-timeline .bt-headline { grid-column: 1 / -1; -webkit-line-clamp: 2; }

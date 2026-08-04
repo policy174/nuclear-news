@@ -1201,6 +1201,16 @@ const PUB_KIND_LABELS = {
   news_or_report: "소식·보고서", keei_insight: "정기간행물",
 };
 
+// 기관별 표지 스파인 클래스. 색은 잠금 팔레트의 차트 토큰만 재사용한다 —
+// **장식이지 의미 체계가 아니다**(범례 없음). 기관을 외워 읽으라는 색이 아니라
+// 서가에서 같은 기관 발간물이 한 무리로 보이게 하는 색이다.
+const PUB_ORG_CLASS = {
+  "IAEA": "org-iaea", "OECD-NEA": "org-nea", "OECD NEA": "org-nea",
+  "KEEI": "org-keei", "EIA": "org-eia", "IEA": "org-iea",
+};
+
+// 표지 오브젝트 — 이미지 없는 발간물을 타이포그래피 표지로 세운다(CSS-only,
+// WebGL·이미지 0). .pub-item 클래스는 렌더 스모크가 세므로 유지한다.
 function pubRow(item) {
   const url = safeUrl(item.url);
   const pdfUrl = safeUrl(item.pdf_url || "");
@@ -1210,15 +1220,20 @@ function pubRow(item) {
   // 원문을 찾을 때 대조할 수 있게 한다.
   const heading = item.title_kr || item.title;
   const original = item.title_kr && item.title_kr !== item.title ? item.title : "";
-  return `<article class="pub-item">
-    <div class="pub-meta">
-      <span class="pub-org">${esc(item.org_kr || item.org)}</span>
+  const orgClass = PUB_ORG_CLASS[item.org] || "org-etc";
+  const face = `
+    <p class="cover-org">${esc(item.org_kr || item.org)}</p>
+    <h3>${esc(heading)}</h3>
+    ${item.gist ? `<p class="cover-gist">${esc(item.gist)}</p>` : ""}
+    <p class="cover-foot">
       ${kindLabel ? `<span>${esc(kindLabel)}</span>` : ""}
       ${item.date ? `<span>${esc(dateLabel(item.date))}</span>` : ""}
-      ${item.is_new ? '<span class="pub-new">NEW</span>' : ""}
-    </div>
-    <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(heading)}</a>` : esc(heading)}</h3>
-    ${item.gist ? `<p class="pub-gist">${esc(item.gist)}</p>` : ""}
+      ${item.is_new ? `<span class="cover-new" aria-label="최근 14일 이내 발간"><i aria-hidden="true"></i>최근 발간</span>` : ""}
+    </p>`;
+  return `<article class="pub-item pub-cover ${orgClass}">
+    ${url
+      ? `<a class="cover-face" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${face}</a>`
+      : `<div class="cover-face">${face}</div>`}
     ${original ? `<p class="pub-original" lang="en">${esc(original)}</p>` : ""}
     ${tocIssue ? `<p class="pub-toc">현안이슈: ${esc(tocIssue)}</p>` : ""}
     ${pdfUrl ? `<a class="source-link" href="${esc(pdfUrl)}" target="_blank" rel="noopener noreferrer">PDF 원문 <span aria-hidden="true">↗</span></a>` : ""}
