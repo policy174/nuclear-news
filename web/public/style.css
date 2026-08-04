@@ -474,6 +474,34 @@ kbd {
   white-space: nowrap;
 }
 .hero-evidence-chip:hover { background: var(--c-surface-sunken); }
+/* 오디오 브리핑 — 출근길 청취용. 배속은 음원이 아니라 playbackRate 로 조절한다.
+   버튼 문법은 .hero-actions(밑줄 텍스트 버튼), 시간 표시는 모노 라벨을 따른다. */
+.hero-audio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+.hero-audio button {
+  min-height: 40px;
+  padding: 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--c-border-strong);
+  background: transparent;
+  color: var(--c-text);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.hero-audio button:hover { border-bottom-color: var(--c-text); }
+.hero-audio-time {
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+}
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */
 
@@ -1456,6 +1484,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .hero-actions button { min-height: 44px; font-size: 13.5px; }
   /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
   .hero-evidence-chip { min-height: 44px; }
+  /* 오디오는 출근길(모바일)이 본 무대다 — hero-actions 와 달리 숨기지 않는다 */
+  .hero-audio { gap: 12px; margin-top: 14px; }
+  .hero-audio button { min-height: 44px; }
   .pubs-filters button { min-height: 44px; padding-inline: 14px; }
   .briefing-content-grid { margin-top: 28px; }
   .issue-section-heading { align-items: flex-start; }

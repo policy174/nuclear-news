@@ -55,6 +55,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuclear-embeddings-
 
+      # 오디오 브리핑 mp3 도 캐시에만 산다 — 없이 배포하면 라이브에서 사라진다.
+      # 역시 읽기만 한다 (주인은 daily-brief.yml).
+      - name: Restore audio cache
+        uses: actions/cache/restore@v4
+        with:
+          path: web/public/data/audio
+          key: ${{ runner.os }}-nuclens-audio-never-matches
+          restore-keys: |
+            ${{ runner.os }}-nuclens-audio-
+
       - name: Build site data
         run: python web/build_data.py
 

@@ -137,6 +137,17 @@ jobs:
           echo "!! push 5회 실패 — 이번 시각 상태 미커밋"
           exit 1
 
+      # 오디오 브리핑 mp3 — daily-brief 가 만들고 Actions 캐시로만 산다. 복원
+      # 없이 배포하면 오디오 없는 스냅샷이 라이브를 덮어 플레이어가 404 를 문다.
+      # 읽기만 한다 — 캐시의 주인은 daily-brief.yml 이다 (embeddings 와 동일 규칙).
+      - name: Restore audio cache
+        uses: actions/cache/restore@v4
+        with:
+          path: web/public/data/audio
+          key: ${{ runner.os }}-nuclens-audio-never-matches
+          restore-keys: |
+            ${{ runner.os }}-nuclens-audio-
+
       # nuclens.pages.dev 갱신 — 2시간 간격(짝수 UTC시)만 배포.
       # Pages 무료 티어 월 500회 제한: 매시간(720회/월)은 초과 → 짝수시(~360회/월)로 제한.
       # 시크릿 미설정이면 조용히 스킵 (크롤 본연 기능에 비치명).
