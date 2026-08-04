@@ -273,6 +273,54 @@ def _write_meta(meta: dict) -> None:
     tmp.replace(target)
 
 
+def send_telegram_audio(mp3_path: Path, meta: dict) -> bool:
+    """오디오를 텔레그램 브리핑 채널로 발송. 실패해도 비치명 — 다음 실행이 재시도.
+
+    telegram_send.py 는 import 시점에 토큰이 없으면 sys.exit 하므로(모듈 상단
+    가드) 여기서는 sendAudio 를 직접 부른다. requests 는 이미 requirements 에
+    있다. 텔레그램 오디오 플레이어는 자체 배속(1/1.5/2×)을 제공한다.
+    """
+    token = gemini_client._resolve("TELEGRAM_BOT_TOKEN")
+    chat_id = gemini_client._resolve("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        print("[audio] 텔레그램 미설정 — 발송 스킵")
+        return False
+    minutes, seconds = divmod(int(meta.get("duration_sec") or 0), 60)
+    caption = (
+        f"🎧 {meta.get('date', '')} 오디오 브리핑 ({minutes}분 {seconds:02d}초)\n"
+        "하이라이트 대담 + 나머지 헤드라인 · nuclens.pages.dev"
+    )
+    import requests
+    try:
+        response = requests.post(
+            f"https://api.telegram.org/bot{token}/sendAudio",
+            data={
+                "chat_id": chat_id,
+                "caption": caption,
+                "title": f"Nuclens 브리핑 {meta.get('date', '')}",
+                "performer": "Nuclens",
+                "duration": int(meta.get("duration_sec") or 0),
+            },
+            files={"audio": (mp3_path.name, mp3_path.read_bytes(), "audio/mpeg")},
+            timeout=120,
+        )
+        payload = response.json()
+        if not (response.ok and payload.get("ok")):
+            print(f"[audio] 텔레그램 발송 실패 — HTTP {response.status_code}: "
+                  f"{str(payload)[:200]}")
+            return False
+    except Exception as exc:  # noqa: BLE001 — 발송은 부가 기능, 어떤 예외도 비치명
+        print(f"[audio] 텔레그램 발송 실패 — {type(exc).__name__}: {exc}")
+        return False
+    print(f"[audio] 텔레그램 발송 완료 ({mp3_path.name})")
+    return True
+
+
+def _mark_sent(meta: dict) -> None:
+    meta["telegram_sent_at"] = datetime.now(KST).isoformat()
+    _write_meta(meta)
+
+
 def generate(force: bool = False) -> bool:
     if not is_available():
         print("[audio] GEMINI_API_KEY 없음 — 스킵")
@@ -287,7 +335,12 @@ def generate(force: bool = False) -> bool:
 
     existing = _load_json(AUDIO_DIR / META_FILE_NAME) or {}
     if not force and existing.get("date") == date and mp3_path.exists():
-        print(f"[audio] {date} 이미 생성됨 ({file_name}) — 스킵")
+        # 생성은 됐는데 발송이 안 된 채 끝난 실행(429 등)을 여기서 회수한다.
+        if not existing.get("telegram_sent_at"):
+            if send_telegram_audio(mp3_path, existing):
+                _mark_sent(existing)
+        else:
+            print(f"[audio] {date} 이미 생성·발송됨 ({file_name}) — 스킵")
         return True
 
     material = build_material(briefing, by_id)
@@ -315,14 +368,15 @@ def generate(force: bool = False) -> bool:
         return False
 
     duration = int(len(pcm) / 2 / rate)
-    _write_meta({
+    meta = {
         "date": date,
         "file": file_name,
         "duration_sec": duration,
         "generated_at": datetime.now(KST).isoformat(),
         "script_chars": sum(len(line.split(":", 1)[1]) for line in script.splitlines()),
         "voices": VOICES,
-    })
+    }
+    _write_meta(meta)
     # 대본을 함께 남긴다 — 프롬프트 적중 여부를 라이브 산출물로 검증하는
     # 진단 요령(issue_audit.json 패턴). 화면은 이 파일을 쓰지 않는다.
     (AUDIO_DIR / f"script-{date}.txt").write_text(script, encoding="utf-8")
@@ -335,6 +389,8 @@ def generate(force: bool = False) -> bool:
             old.unlink(missing_ok=True)
     print(f"[audio] {date} 완료 — {file_name} "
           f"({mp3_path.stat().st_size / 1024:.0f} KB, {duration}초)")
+    if send_telegram_audio(mp3_path, meta):
+        _mark_sent(meta)
     return True
 
 

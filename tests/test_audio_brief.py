@@ -56,21 +56,30 @@ class AudioBriefTestCase(unittest.TestCase):
         audio_brief.AUDIO_DIR = base / "data" / "audio"
         audio_brief.WEB_DATA.mkdir(parents=True)
         self._orig_fns = (audio_brief.is_available, audio_brief.call_json,
-                          audio_brief.call_tts, audio_brief.to_mp3)
+                          audio_brief.call_tts, audio_brief.to_mp3,
+                          audio_brief.send_telegram_audio)
         self.addCleanup(self._restore)
         self.calls = []
         self.call_kwargs = []
         self.responses = []
         self.tts_calls = []
+        self.sent = []
+        self.send_ok = True
         audio_brief.is_available = lambda: True
         audio_brief.call_json = self._fake_call
         audio_brief.call_tts = self._fake_tts
         audio_brief.to_mp3 = self._fake_mp3
+        audio_brief.send_telegram_audio = self._fake_send
 
     def _restore(self):
         audio_brief.WEB_DATA, audio_brief.AUDIO_DIR = self._orig
         (audio_brief.is_available, audio_brief.call_json,
-         audio_brief.call_tts, audio_brief.to_mp3) = self._orig_fns
+         audio_brief.call_tts, audio_brief.to_mp3,
+         audio_brief.send_telegram_audio) = self._orig_fns
+
+    def _fake_send(self, mp3_path, meta):
+        self.sent.append((mp3_path.name, dict(meta)))
+        return self.send_ok
 
     def _fake_call(self, system_prompt, user_message, **kwargs):
         self.calls.append(user_message)
@@ -203,10 +212,56 @@ class AudioBriefTestCase(unittest.TestCase):
         self.write_data()
         audio_brief.AUDIO_DIR.mkdir(parents=True)
         (audio_brief.AUDIO_DIR / "briefing-2026-08-04.mp3").write_bytes(b"mp3")
-        audio_brief._write_meta({"date": "2026-08-04", "file": "briefing-2026-08-04.mp3"})
+        audio_brief._write_meta({"date": "2026-08-04", "file": "briefing-2026-08-04.mp3",
+                                 "telegram_sent_at": "2026-08-04T07:30:00+09:00"})
         self.assertTrue(audio_brief.generate())
         self.assertEqual(self.calls, [])      # Gemini 호출 0
         self.assertEqual(self.tts_calls, [])  # TTS 호출 0
+        self.assertEqual(self.sent, [])       # 재발송 0
+
+    # ── 텔레그램 발송 계약 ───────────────────────────────────
+
+    def test_generate_sends_telegram_and_marks_meta(self):
+        self.write_data()
+        self.responses = [{"script": GOOD_SCRIPT}]
+        self.assertTrue(audio_brief.generate())
+        self.assertEqual(len(self.sent), 1)
+        self.assertEqual(self.sent[0][0], "briefing-2026-08-04.mp3")
+        meta = json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+        self.assertIn("telegram_sent_at", meta)
+
+    def test_skip_path_recovers_unsent_audio(self):
+        """생성은 됐는데 발송 전에 죽은 실행(429 등)을 다음 실행이 회수한다."""
+        self.write_data()
+        audio_brief.AUDIO_DIR.mkdir(parents=True)
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-04.mp3").write_bytes(b"mp3")
+        audio_brief._write_meta({"date": "2026-08-04", "file": "briefing-2026-08-04.mp3"})
+        self.assertTrue(audio_brief.generate())
+        self.assertEqual(len(self.sent), 1)   # 발송만 재시도
+        self.assertEqual(self.tts_calls, [])  # TTS 재호출 0
+        meta = json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+        self.assertIn("telegram_sent_at", meta)
+
+    def test_send_failure_leaves_meta_unmarked(self):
+        self.write_data()
+        self.responses = [{"script": GOOD_SCRIPT}]
+        self.send_ok = False
+        self.assertTrue(audio_brief.generate())  # 발송 실패는 생성 성공을 못 뒤집는다
+        meta = json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+        self.assertNotIn("telegram_sent_at", meta)
+
+    def test_send_telegram_audio_skips_without_env(self):
+        mp3 = audio_brief.WEB_DATA / "x.mp3"
+        mp3.write_bytes(b"mp3")
+        original = audio_brief.gemini_client._resolve
+        audio_brief.gemini_client._resolve = lambda key, default=None: None
+        try:
+            self.assertFalse(self._orig_fns[4](mp3, {"date": "2026-08-04"}))
+        finally:
+            audio_brief.gemini_client._resolve = original
 
     def test_generate_force_regenerates(self):
         self.write_data()
