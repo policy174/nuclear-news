@@ -178,6 +178,10 @@ class BrandAccessibilityTests(unittest.TestCase):
         빠져나간다 — 통합 시안이 정체성을 9~11px 모노 오버라인에 걸어둔 탓에
         이 구멍으로 40건 중 17건이 검사를 우회할 수 있었다. 오버라인은 크기가
         아니라 굵기·자간·색으로 구분한다.
+
+        타입 토큰(--t-*) 도입 후에는 리터럴만 봐서는 안 된다 — 크기가
+        ``var(--t-*)`` 로 우회하면 리터럴 검사가 공허해진다. 토큰 정의값의
+        px 와 clamp() 최소값까지 같은 하한으로 검사한다.
         """
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
@@ -194,11 +198,27 @@ class BrandAccessibilityTests(unittest.TestCase):
             float(value)
             for value in re.findall(r'font-size="(\d+(?:\.\d+)?)"', app)
         ]
+        # 타입 토큰 정의값 — 고정 px 와 clamp 최소값(첫 인자) 둘 다.
+        token_px_sizes = [
+            float(value)
+            for value in re.findall(r"--t-[\w-]+:\s*(\d+(?:\.\d+)?)px\s*;", css)
+        ]
+        token_clamp_min_sizes = [
+            float(value)
+            for value in re.findall(
+                r"--t-[\w-]+:\s*clamp\(\s*(\d+(?:\.\d+)?)px", css
+            )
+        ]
+        self.assertTrue(token_px_sizes, "--t-* px 토큰 정의가 없다")
+        self.assertTrue(token_clamp_min_sizes, "--t-* clamp 토큰 정의가 없다")
         too_small = [
-            size for size in css_sizes + shorthand_sizes + inline_svg_sizes
+            size
+            for size in css_sizes + shorthand_sizes + inline_svg_sizes
+            + token_px_sizes + token_clamp_min_sizes
             if size < 12.5
         ]
         self.assertEqual(too_small, [], f"12.5px 미만 글자 크기: {too_small}")
+        self.assertIn("--t-min: 12.5px", css)
         self.assertRegex(css, r"small\s*{\s*font-size:\s*inherit;\s*}")
 
     def test_issue_cards_do_not_use_dashed_verification_border(self):
@@ -1649,12 +1669,28 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertNotIn("어제와 달라진", code)
 
     def test_lead_card_type_stays_above_the_minimum(self):
-        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다."""
+        """12.5px 미만 금지는 선두 카드에도 그대로 적용된다.
+
+        토큰 도입 후 .lead-* 의 크기가 var(--t-*) 로 적힐 수 있다 —
+        :root 정의를 해석해 실제 px 로 풀어서 검사한다(clamp 는 최소값).
+        """
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        tokens = dict(re.findall(r"(--t-[\w-]+):\s*([^;]+);", style))
+
+        def resolve(rule_body):
+            sizes = [float(s) for s in re.findall(r"font-size:\s*([\d.]+)px", rule_body)]
+            for name in re.findall(r"font-size:\s*var\((--t-[\w-]+)\)", rule_body):
+                value = tokens.get(name, "")
+                match = re.search(r"clamp\(\s*([\d.]+)px", value) or re.search(
+                    r"([\d.]+)px", value
+                )
+                self.assertIsNotNone(match, f"{name} 토큰을 px 로 풀 수 없다")
+                sizes.append(float(match.group(1)))
+            return sizes
+
         lead_rules = re.findall(r"\.lead-[^{]*\{[^}]*\}", style)
         self.assertTrue(lead_rules, ".lead-* 규칙이 없다")
-        sizes = [float(size) for rule in lead_rules
-                 for size in re.findall(r"font-size:\s*([\d.]+)px", rule)]
+        sizes = [size for rule in lead_rules for size in resolve(rule)]
         self.assertTrue(sizes)
         self.assertGreaterEqual(min(sizes), 12.5)
 
@@ -2555,6 +2591,48 @@ class EmptyBriefingStateTests(unittest.TestCase):
     def test_reuses_existing_view_switch_attribute(self):
         self.assertIn('data-go-view="search"', self.script)
         self.assertNotIn("data-goto-view", self.script)
+
+
+class TokenSystemTests(unittest.TestCase):
+    """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
+    건드리지 않았음을 함께 검사한다."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_token_scales_exist(self):
+        for token in (
+            "--sp-1:", "--sp-4:", "--sp-6:", "--sp-8:", "--sp-14:", "--sp-20:",
+            "--t-min:", "--t-caption:", "--t-body:", "--t-card:",
+            "--t-title:", "--t-lead:", "--t-hero:",
+            "--mo-1:", "--mo-2:", "--mo-3:", "--mo-ease:", "--mo-ease-out:",
+            "--z-pop:", "--z-topbar:", "--z-tabs:", "--z-scrim:",
+            "--z-sheet:", "--z-toast:", "--z-skip:",
+        ):
+            self.assertIn(token, self.style, f"{token} 토큰이 없다")
+
+    def test_spacing_scale_is_4px_multiples(self):
+        for name, value in re.findall(r"--sp-(\d+):\s*(\d+)px", self.style):
+            self.assertEqual(
+                int(value), int(name) * 4,
+                f"--sp-{name} 는 {int(name) * 4}px 여야 한다 (현재 {value}px)",
+            )
+
+    def test_hero_token_keeps_the_shrunken_decision(self):
+        """--t-hero 는 3ff0907(히어로 축소)의 실측 결정을 박제한 값이다.
+        58px 디스플레이 크기로 되돌리려면 이 테스트와 그 커밋 메시지를 먼저 읽을 것."""
+        match = re.search(r"--t-hero:\s*clamp\(\s*[\d.]+px,\s*[^,]+,\s*([\d.]+)px\s*\)", self.style)
+        self.assertIsNotNone(match, "--t-hero clamp 정의가 없다")
+        self.assertLessEqual(float(match.group(1)), 30)
+
+    def test_locked_foundations_survive_tokenization(self):
+        self.assertIn("@media (prefers-reduced-motion: reduce)", self.style)
+        self.assertIn("@media (min-width: 1200px)", self.style)
+        self.assertIn("@media (max-width: 767px)", self.style)
+        self.assertIn("--r-1: 0", self.style)
+        self.assertIn("outline: 2px solid var(--c-focus);", self.style)
+        self.assertIn("box-shadow: var(--fo-ring);", self.style)
 
 
 if __name__ == "__main__":
