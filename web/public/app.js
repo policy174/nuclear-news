@@ -611,7 +611,7 @@ function keeiDialogSection(issue) {
   </section>`;
 }
 
-function issueCard(issue, index, archive = false) {
+function issueCard(issue, index, archive = false, front = false) {
   const topic = primaryTopicLabel(issue);
   const change = issueChangeText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
@@ -637,7 +637,7 @@ function issueCard(issue, index, archive = false) {
   // .issue-body 밖으로 나와 각자 열이 된다. 이 둘을 body 안에 두고 CSS
   // display:contents 로 흩으면 제목과 요약이 서로 다른 그리드 행으로 갈라져,
   // 근거 열 높이(98px)가 그 사이 여백으로 배분된다(실측 42px). 열은 열로 나눈다.
-  return `<article class="issue-card ${archive ? "archive-card" : ""} ${issueToneClass(issue)}">
+  return `<article class="issue-card ${archive ? "archive-card" : ""} ${front ? "front" : ""} ${issueToneClass(issue)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
     <div class="issue-meta">
       <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
@@ -668,6 +668,11 @@ function issueCard(issue, index, archive = false) {
 function leadCard(issue, briefing) {
   const model = issueDetailModel(issue, briefing.date);
   const topic = primaryTopicLabel(issue);
+  // 국가는 대표 기사에서 온다 — 이슈 행(4열 표)에는 지역(국내/해외)만 있지만
+  // 선두 카드는 판단을 펼치는 자리라 어느 나라 이야기인지까지 세운다.
+  const countryChips = (issue.representative_article?.countries || [])
+    .map(code => COUNTRY_LABELS[code] || code)
+    .filter(label => label && label !== issue.region);
   // 히어로 h1 이 이미 이 이슈 제목이면(headline_kind="issue") 바로 아래에서
   // 되풀이하지 않는다. 종합 문장일 때는 서로 다른 문장이라 제목이 선다.
   const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
@@ -682,6 +687,7 @@ function leadCard(issue, briefing) {
     <div class="lead-meta">
       <span class="issue-state">${esc(issueStatusText(issue))}</span>
       <span>${esc(issue.region)}</span>
+      ${countryChips.map(label => `<span>${esc(label)}</span>`).join("")}
       ${topic ? `<span>${esc(topic)}</span>` : ""}
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
@@ -877,15 +883,28 @@ function renderBriefing() {
   document.getElementById("changedCount").textContent = `${visibleChanged.length}개 이슈`;
   document.getElementById("changedList").innerHTML =
     visibleChanged.map((issue, index) => issueCard(issue, index)).join("");
-  document.getElementById("showChangedIssues").hidden = visibleChanged.length === 0;
+  const changedButton = document.getElementById("showChangedIssues");
+  changedButton.hidden = visibleChanged.length === 0;
+  // 몇 건이 달라졌는지는 버튼이 말한다 — 히어로에 지표 블록을 새로 세우면
+  // 헤더 상태 칩·상태 스트립과 같은 숫자를 되풀이하게 된다(중복 표시 금지 원칙).
+  if (visibleChanged.length) {
+    changedButton.innerHTML = `달라진 이슈 ${visibleChanged.length}건 보기 <span aria-hidden="true">→</span>`;
+  }
 
   document.getElementById("issueCount").textContent = `${rest.length}개 이슈`;
   issueList.classList.toggle("list-view", state.issueView === "list");
+  // front 강조는 '기본 화면'에서만 — 최신 브리핑 + 필터·정렬이 기본값일 때.
+  // 편집 판단이 아니라 기존 순서의 상위 2건을 조판만 다르게 세우는 것이므로,
+  // 조건이 하나라도 어긋나면(과거 날짜·필터·최신순) 강조를 접는다. 개수는
+  // 정확히 2건 — "2~3건" 같은 재량 표현이 남으면 화면마다 다르게 구현된다.
+  const frontActive = briefing.date === state.briefings?.[0]?.date
+    && state.region === "전체" && state.topic === "전체"
+    && state.issueSort === "importance" && state.issueView === "card";
   // 위 '지금 달라진 이슈'에 결과가 남아 있는데 아래에서 '없습니다'라고 하면
   // 한 화면이 스스로를 부정한다. 두 구역을 합쳐 0건일 때만 빈 상태를 보인다.
   const elsewhere = visibleChanged.length ? "지금 달라진 이슈" : "가장 먼저 볼 이슈";
   issueList.innerHTML = rest.length
-    ? rest.map((issue, index) => issueCard(issue, index)).join("")
+    ? rest.map((issue, index) => issueCard(issue, index, false, frontActive && index < 2)).join("")
     : (visibleChanged.length || lead
       ? `<p class="section-note">필터에 맞는 이슈는 위 <strong>${elsewhere}</strong>에 있습니다.</p>`
       : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>');
