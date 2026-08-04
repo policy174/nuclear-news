@@ -1380,6 +1380,42 @@ dialog {
 }
 dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .search-dialog { width: min(680px, calc(100% - 32px)); }
+/* 즉시 결과 — 그룹 라벨은 모노 소문자 어법(오버라인과 같은 목소리), 행은
+   44px 터치 타깃. 키보드 활성은 배경으로 표시한다(색만으로 구분하지 않음 —
+   aria-selected 가 같은 상태를 말한다). */
+.search-results { max-height: min(50dvh, 420px); margin-top: var(--sp-3); overflow-y: auto; }
+.search-group { padding-top: var(--sp-2); }
+.search-group h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 2px;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+.search-clear-recent { border: 0; background: none; color: var(--c-text-muted); font-size: var(--t-min); text-decoration: underline; }
+.search-option {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px var(--sp-3);
+  min-height: 44px;
+  padding: var(--sp-2) var(--sp-2);
+  border-top: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: background var(--mo-1);
+}
+.search-option:hover, .search-option.active { background: var(--c-surface-sunken); }
+.search-option > span { font-size: var(--t-body); font-weight: 600; }
+.search-option > span small { color: var(--c-text-muted); font-weight: 500; font-size: var(--t-min); }
+.search-option > small { color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.search-option .search-brief { flex-basis: 100%; margin: 0; color: var(--c-text-secondary); font-size: var(--t-min); font-style: normal; }
+.search-remove { margin-left: auto; border: 0; background: none; color: var(--c-text-muted); font-size: var(--t-body-lg); line-height: 1; padding: 0 var(--sp-2); }
+.search-empty { padding: var(--sp-4) 0 0; color: var(--c-text-secondary); font-size: var(--t-caption); }
+.search-empty .hub-chips { margin-top: var(--sp-2); }
 .search-dialog form,
 .status-dialog > div { padding: 22px; }
 .search-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }

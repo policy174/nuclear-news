@@ -345,8 +345,11 @@
   <form id="globalSearchForm" method="dialog">
     <div class="search-dialog-head"><h2 id="globalSearchTitle">통합 검색</h2><button id="globalSearchClose" type="button" aria-label="검색 닫기">×</button></div>
     <label class="global-search-label" for="globalSearch">검색어</label>
-    <div class="global-search-field"><input id="globalSearch" type="search" inputmode="search" enterkeyhint="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off"><kbd>Enter</kbd></div>
+    <div class="global-search-field"><input id="globalSearch" type="search" inputmode="search" enterkeyhint="search" placeholder="기관, 호기, 주제로 검색" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="globalSearchResults" aria-autocomplete="list"><kbd>Enter</kbd></div>
     <p><span id="globalSearchHint">검색어를 입력하세요.</span></p>
+    <!-- 입력 즉시 그룹 결과 — 이슈·대상·주제·국가·발간물. 전부 초기 로드된
+         JSON 위에서 돌므로 다이얼로그를 다시 열어도 네트워크 요청이 없다. -->
+    <div id="globalSearchResults" class="search-results" role="listbox" aria-label="검색 제안"></div>
   </form>
 </dialog>
 

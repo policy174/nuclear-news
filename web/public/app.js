@@ -1890,11 +1890,267 @@ function initFilterDrawers() {
   syncArchiveDrawer();
 }
 
+/* ── 통합 검색: 입력 즉시 그룹 결과 ─────────────────────────────────
+   전부 초기 로드된 JSON 위에서 도는 클라이언트 검색이다 — 다이얼로그를 다시
+   열어도 네트워크 요청 0. 점수는 상수로 박아 재량을 없앤다. 결과 그룹 순서는
+   이슈 → 대상 → 주제 → 국가 → 발간물. */
+const SEARCH_SCORE = {
+  issueTitleExact: 100, issueTitleStart: 70, issueTitleHas: 50, issueTagHas: 35, issueSummaryHas: 15,
+  entityNameExact: 100, entityEnExact: 90, entityAliasExact: 85, entityPrefix: 60, entityHas: 30,
+  pubTitleHas: 60, pubOrgHas: 40, pubGistHas: 20, pubBriefHas: 10,
+};
+// 검색어·대상 텍스트 공통 정규화 — 소문자화 + 하이픈·중점·슬래시·점 제거.
+// 'X-energy'와 'xenergy', '1 호기'와 '1호기'가 같은 것으로 읽히게 한다.
+function searchNormalize(value) {
+  return String(value || "").toLowerCase().replace(/[\s\-–—·./]+/g, "");
+}
+// 도메인 동의어 — 어느 쪽으로 검색해도 짝을 함께 찾는다. 엔티티 동의어는
+// 레지스트리 aliases 가 담당하므로 여기는 주제어만 둔다.
+const SEARCH_SYNONYMS = [["smr", "소형모듈원자로"], ["사용후핵연료", "방사성폐기물"]];
+function searchVariants(query) {
+  const norm = searchNormalize(query);
+  const variants = new Set([norm]);
+  // '고리 1호기'처럼 호기까지 쓴 질의 — 데이터에 그 호기가 아직 없어도
+  // 발전소 이름으로는 찾아져야 한다. 원형('고리1호기')이 먼저 매칭되므로
+  // 호기 데이터가 생기면 자연히 그쪽이 이긴다.
+  const unit = norm.match(/^(.+?)\d+호기$/);
+  if (unit && unit[1].length >= 2) variants.add(unit[1]);
+  SEARCH_SYNONYMS.forEach(pair => {
+    pair.forEach((word, index) => {
+      if (norm.includes(word)) variants.add(norm.replace(word, pair[1 - index]));
+    });
+  });
+  return [...variants].filter(Boolean);
+}
+function searchHit(text, variants) {
+  const norm = searchNormalize(text);
+  return variants.some(variant => norm.includes(variant));
+}
+
+function searchIssuesQuick(variants, limit) {
+  const scored = [];
+  state.issues.forEach(issue => {
+    const title = searchNormalize(issue.title);
+    let score = 0;
+    if (variants.some(v => title === v)) score = SEARCH_SCORE.issueTitleExact;
+    else if (variants.some(v => title.startsWith(v))) score = SEARCH_SCORE.issueTitleStart;
+    else if (variants.some(v => title.includes(v))) score = SEARCH_SCORE.issueTitleHas;
+    else if ((issue.tags || []).some(tag => searchHit(tag, variants))) score = SEARCH_SCORE.issueTagHas;
+    else if (searchHit(issue.summary, variants) || searchHit(issue.implication, variants)) score = SEARCH_SCORE.issueSummaryHas;
+    if (score) scored.push({ score, issue });
+  });
+  scored.sort((a, b) => b.score - a.score || String(b.issue.last_seen).localeCompare(String(a.issue.last_seen)));
+  return scored.slice(0, limit);
+}
+
+function searchEntitiesQuick(variants, limit) {
+  const scored = [];
+  (state.entities?.entities || []).forEach(entity => {
+    const kr = searchNormalize(entity.name_kr);
+    const en = searchNormalize(entity.name_en);
+    const aliases = (entity.aliases || []).map(searchNormalize);
+    let score = 0;
+    if (variants.some(v => kr === v)) score = SEARCH_SCORE.entityNameExact;
+    else if (en && variants.some(v => en === v)) score = SEARCH_SCORE.entityEnExact;
+    else if (variants.some(v => aliases.includes(v))) score = SEARCH_SCORE.entityAliasExact;
+    else if (variants.some(v => kr.startsWith(v) || aliases.some(alias => alias.startsWith(v)))) score = SEARCH_SCORE.entityPrefix;
+    else if (variants.some(v => kr.includes(v) || en.includes(v))) score = SEARCH_SCORE.entityHas;
+    if (!score) return;
+    // 0건 대상: 정확 명칭 일치는 상단 그대로(찾은 게 맞으니), 포함 일치는
+    // 이슈 보정 없이 하위로 — '관련 이슈 없음'을 함께 말한다.
+    const bonus = Math.min(entity.issue_count || 0, 10);
+    scored.push({ score: score + bonus, entity });
+  });
+  scored.sort((a, b) => b.score - a.score || (b.entity.issue_count || 0) - (a.entity.issue_count || 0));
+  return scored.slice(0, limit);
+}
+
+function searchPubsQuick(variants, limit) {
+  const scored = [];
+  (state.pubs?.items || []).forEach(item => {
+    if (!item || typeof item !== "object" || !item.url) return;
+    let score = 0;
+    let brief = "";
+    if (searchHit(item.title_kr, variants) || searchHit(item.title, variants)) score = SEARCH_SCORE.pubTitleHas;
+    else if (searchHit(item.org_kr, variants) || searchHit(item.org, variants)) score = SEARCH_SCORE.pubOrgHas;
+    else if (searchHit(item.gist, variants)) score = SEARCH_SCORE.pubGistHas;
+    else {
+      // toc.briefs 는 데이터셋에서 가장 밀도 높은 문장들 — 단, 스니펫은 일치한
+      // 한 문장만 보여준다(다 펼치면 검색 결과가 목차 사본이 된다).
+      brief = (item.toc?.briefs || []).find(line => searchHit(line, variants)) || "";
+      if (brief) score = SEARCH_SCORE.pubBriefHas;
+    }
+    if (score) scored.push({ score, item, brief });
+  });
+  scored.sort((a, b) => b.score - a.score || String(b.item.date || "").localeCompare(String(a.item.date || "")));
+  return scored.slice(0, limit);
+}
+
+function searchLabelChips(variants, labels, limit) {
+  return Object.entries(labels)
+    .filter(([, label]) => searchHit(label, variants))
+    .slice(0, limit);
+}
+
+function loadRecentSearches() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-recent-searches") || "[]");
+    return Array.isArray(raw) ? raw.filter(item => typeof item === "string").slice(0, 8) : [];
+  } catch { return []; }
+}
+function saveRecentSearch(query) {
+  const value = normalizedSearch(query);
+  if (value.length < 2) return;   // 1글자·공백은 저장하지 않는다
+  const rest = loadRecentSearches().filter(item => item !== value);
+  try { localStorage.setItem("nuclens-recent-searches", JSON.stringify([value, ...rest].slice(0, 8))); }
+  catch { /* 저장 실패는 검색을 막지 않는다 */ }
+}
+function removeRecentSearch(query) {
+  try {
+    localStorage.setItem("nuclens-recent-searches",
+      JSON.stringify(loadRecentSearches().filter(item => item !== query)));
+  } catch { /* 동일 */ }
+}
+
+let searchActiveIndex = -1;
+function searchOptionRow(id, body, dataset) {
+  const attrs = Object.entries(dataset).map(([key, value]) => `data-${key}="${esc(value)}"`).join(" ");
+  return `<div class="search-option" role="option" id="${id}" aria-selected="false" ${attrs}>${body}</div>`;
+}
+
+function renderSearchResults() {
+  const box = document.getElementById("globalSearchResults");
+  const input = document.getElementById("globalSearch");
+  if (!box || !input) return;
+  searchActiveIndex = -1;
+  input.setAttribute("aria-activedescendant", "");
+  const query = normalizedSearch(input.value);
+  if (!query) {
+    const recent = loadRecentSearches();
+    box.innerHTML = recent.length
+      ? `<div class="search-group"><h3>최근 검색<button type="button" class="search-clear-recent" data-recent-clear>전체 삭제</button></h3>`
+        + recent.map((item, index) => searchOptionRow(`sr-${index}`,
+          `<span>${esc(item)}</span><button type="button" class="search-remove" data-recent-remove="${esc(item)}" aria-label="‘${esc(item)}’ 삭제">×</button>`,
+          { "search-query": item })).join("")
+        + "</div>"
+      : "";
+    input.setAttribute("aria-expanded", String(recent.length > 0));
+    return;
+  }
+  const variants = searchVariants(query);
+  const perGroup = narrowScreen.matches ? 3 : 5;
+  let optionIndex = 0;
+  const groups = [];
+  const issues = searchIssuesQuick(variants, perGroup);
+  if (issues.length) {
+    groups.push(`<div class="search-group"><h3>이슈</h3>${issues.map(({ issue }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span>${esc(issue.title)}</span><small>${esc(dateLabel(issue.last_seen))} · ${esc(issue.region || "")}</small>`,
+      { "search-issue": issue.issue_id })).join("")}</div>`);
+  }
+  const entities = searchEntitiesQuick(variants, narrowScreen.matches ? 3 : 4);
+  if (entities.length) {
+    groups.push(`<div class="search-group"><h3>대상</h3>${entities.map(({ entity }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span><small>${esc(ENTITY_TYPE_LABELS[entity.type] || "")}</small> ${esc(entity.name_kr)}</span>`
+      + `<small>${entity.issue_count ? `이슈 ${entity.issue_count}건` : "관련 이슈 없음"}</small>`,
+      { "search-entity": entity.id })).join("")}</div>`);
+  }
+  const topics = searchLabelChips(variants, TOPIC_LABELS, narrowScreen.matches ? 3 : 4);
+  if (topics.length) {
+    groups.push(`<div class="search-group"><h3>주제</h3>${topics.map(([key, label]) => searchOptionRow(
+      `sr-${optionIndex++}`, `<span>${esc(label)}</span>`, { "search-topic": key })).join("")}</div>`);
+  }
+  const countries = searchLabelChips(variants, COUNTRY_LABELS, narrowScreen.matches ? 3 : 4);
+  if (countries.length) {
+    groups.push(`<div class="search-group"><h3>국가</h3>${countries.map(([, label]) => searchOptionRow(
+      `sr-${optionIndex++}`, `<span>${esc(label)}</span>`, { "search-country": label })).join("")}</div>`);
+  }
+  const pubs = searchPubsQuick(variants, narrowScreen.matches ? 3 : 4);
+  if (pubs.length) {
+    groups.push(`<div class="search-group"><h3>발간물</h3>${pubs.map(({ item, brief }) => searchOptionRow(
+      `sr-${optionIndex++}`,
+      `<span>${esc(item.title_kr || item.title)}</span>`
+      + `<small>${esc(item.org_kr || item.org || "")}${item.date ? ` · ${esc(dateLabel(item.date))}` : ""}</small>`
+      + (brief ? `<em class="search-brief">${esc(brief)}</em>` : ""),
+      { "search-pub": item.url })).join("")}</div>`);
+  }
+  box.innerHTML = groups.length ? groups.join("") : `<div class="search-empty">
+    <p>조건에 맞는 결과가 없습니다 — 주제나 국가명으로 시작해 보세요.</p>
+    <div class="hub-chips">${["SMR", "계속운전", "미국"].map(word =>
+    `<button type="button" class="hub-chip" data-search-starter="${esc(word)}">${esc(word)}</button>`).join("")}</div>
+  </div>`;
+  input.setAttribute("aria-expanded", String(groups.length > 0));
+}
+
+function searchOptions() {
+  return [...document.querySelectorAll("#globalSearchResults [role=\"option\"]")];
+}
+function moveSearchActive(delta) {
+  const options = searchOptions();
+  if (!options.length) return;
+  searchActiveIndex = (searchActiveIndex + delta + options.length) % options.length;
+  options.forEach((option, index) => {
+    option.classList.toggle("active", index === searchActiveIndex);
+    option.setAttribute("aria-selected", String(index === searchActiveIndex));
+  });
+  const active = options[searchActiveIndex];
+  document.getElementById("globalSearch").setAttribute("aria-activedescendant", active.id);
+  active.scrollIntoView({ block: "nearest" });
+}
+
+// 결과 선택 — 종류마다 목적지가 다르다. 공통 규칙: 필터는 깨끗한 상태에서
+// 그 하나만 세운다(허브와 같은 계약).
+function applySearchResult(option) {
+  const dialog = document.getElementById("globalSearchDialog");
+  const data = option.dataset;
+  if (data.recentClear !== undefined) return;   // 별도 처리
+  if (data.searchQuery) {
+    document.getElementById("globalSearch").value = data.searchQuery;
+    renderSearchResults();
+    return;
+  }
+  if (data.searchStarter) {
+    document.getElementById("globalSearch").value = data.searchStarter;
+    renderSearchResults();
+    return;
+  }
+  saveRecentSearch(document.getElementById("globalSearch").value);
+  if (data.searchIssue) {
+    dialog.close();
+    openIssueDialog(data.searchIssue);
+    return;
+  }
+  if (data.searchPub) {
+    const url = safeUrl(data.searchPub);
+    if (url) window.open(url, "_blank", "noopener");
+    return;
+  }
+  const reset = () => {
+    state.archiveQuery = "";
+    state.archiveEntity = "";
+    state.archiveRegion = "전체";
+    state.archiveTopic = "전체";
+    state.archivePeriod = "all";
+    state.archiveVerification = "전체";
+  };
+  if (data.searchEntity) { reset(); state.archiveEntity = data.searchEntity; }
+  else if (data.searchTopic) { reset(); state.archiveTopic = data.searchTopic; }
+  else if (data.searchCountry) { reset(); state.archiveQuery = normalizedSearch(data.searchCountry); }
+  else return;
+  dialog.close();
+  document.getElementById("globalSearch").value = "";
+  switchView("search");
+  renderArchiveSearch(true);
+  syncUrl("push");
+}
+
 function openGlobalSearch() {
   const dialog = document.getElementById("globalSearchDialog");
   const input = document.getElementById("globalSearch");
   input.value = state.archiveQuery;
   if (!dialog.open) dialog.showModal();
+  renderSearchResults();
   requestAnimationFrame(() => { input.focus(); input.select(); });
 }
 
@@ -2096,14 +2352,43 @@ function bind() {
   document.getElementById("globalSearchClose").addEventListener("click", () => document.getElementById("globalSearchDialog").close());
   document.getElementById("globalSearchForm").addEventListener("submit", event => {
     event.preventDefault();
+    // 화살표로 고른 결과가 있으면 Enter 는 그 결과를 연다. 없으면 기존 경로 —
+    // 검색어를 들고 탐색 화면으로 간다(이 경로의 동작·문구는 잠금).
+    const active = searchOptions()[searchActiveIndex];
+    if (active) { applySearchResult(active); return; }
+    saveRecentSearch(document.getElementById("globalSearch").value);
     state.archiveQuery = normalizedSearch(document.getElementById("globalSearch").value);
     document.getElementById("globalSearchDialog").close();
     switchView("search");
     renderArchiveSearch(true);
   });
+  let searchDebounce = 0;
   document.getElementById("globalSearch").addEventListener("input", event => {
     const query = normalizedSearch(event.target.value);
     document.getElementById("globalSearchHint").textContent = query ? `“${query}” 검색` : "검색어를 입력하세요.";
+    window.clearTimeout(searchDebounce);
+    searchDebounce = window.setTimeout(renderSearchResults, 120);
+  });
+  document.getElementById("globalSearch").addEventListener("keydown", event => {
+    if (event.key === "ArrowDown") { event.preventDefault(); moveSearchActive(1); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); moveSearchActive(-1); }
+  });
+  document.getElementById("globalSearchResults").addEventListener("click", event => {
+    const removeButton = event.target.closest("[data-recent-remove]");
+    if (removeButton) {
+      removeRecentSearch(removeButton.dataset.recentRemove);
+      renderSearchResults();
+      return;
+    }
+    if (event.target.closest("[data-recent-clear]")) {
+      try { localStorage.removeItem("nuclens-recent-searches"); } catch { /* 무해 */ }
+      renderSearchResults();
+      return;
+    }
+    const starter = event.target.closest("[data-search-starter]");
+    if (starter) { applySearchResult(starter); return; }
+    const option = event.target.closest('[role="option"]');
+    if (option) applySearchResult(option);
   });
   document.addEventListener("keydown", event => {
     const tag = event.target.tagName;

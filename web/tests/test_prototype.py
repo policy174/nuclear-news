@@ -2682,6 +2682,54 @@ class ExploreHubTests(unittest.TestCase):
         self.assertNotIn(">이슈 아카이브<", self.html)
 
 
+class SearchDialogTests(unittest.TestCase):
+    """통합 검색의 즉시 결과·키보드·최근 검색 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_results_listbox_is_wired(self):
+        self.assertIn('id="globalSearchResults"', self.html)
+        self.assertIn('role="listbox"', self.html)
+        self.assertIn('aria-controls="globalSearchResults"', self.html)
+        self.assertIn("function renderSearchResults", self.script)
+        self.assertIn('"ArrowDown"', self.script)
+        self.assertIn("aria-activedescendant", self.script)
+
+    def test_scores_are_constants_not_judgement(self):
+        self.assertIn("const SEARCH_SCORE = {", self.script)
+        self.assertIn("issueTitleExact: 100", self.script)
+        self.assertIn("entityAliasExact: 85", self.script)
+
+    def test_submit_path_is_untouched_when_nothing_selected(self):
+        # 무선택 Enter 는 기존 경로 그대로 — 이 넷은 한 덩어리로 남아야 한다.
+        self.assertIn('state.archiveQuery = normalizedSearch(document.getElementById("globalSearch").value);', self.script)
+        self.assertIn('placeholder="기관, 호기, 주제로 검색"', self.html)
+
+    def test_recent_searches_are_editable_and_bounded(self):
+        self.assertIn("nuclens-recent-searches", self.script)
+        self.assertIn("data-recent-remove", self.script)
+        self.assertIn("data-recent-clear", self.script)
+        # 1글자·공백 미저장, MRU 8
+        self.assertIn("value.length < 2", self.script)
+        self.assertIn(".slice(0, 8)", self.script)
+
+    def test_pub_search_reads_toc_briefs_with_single_snippet(self):
+        self.assertIn("item.toc?.briefs", self.script)
+        self.assertIn(".find(line => searchHit(line, variants))", self.script)
+
+    def test_unit_suffix_query_falls_back_to_plant_name(self):
+        self.assertIn("호기$", self.script)
+
+    def test_reopen_makes_no_fetch(self):
+        # 검색 렌더 경로에는 fetch 가 없어야 한다 — 재오픈 네트워크 0 계약.
+        search_block = self.script[self.script.index("const SEARCH_SCORE"):self.script.index("function openGlobalSearch")]
+        self.assertNotIn("fetch(", search_block)
+        self.assertNotIn("loadJSON", search_block)
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""
