@@ -1094,12 +1094,16 @@ class GeneratedDataTests(unittest.TestCase):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
-        for element_id in ("audioBrief", "audioToggle", "audioRate", "audioTime", "audioEl"):
+        for element_id in ("audioBrief", "audioToggle", "audioRates", "audioTime", "audioEl"):
             self.assertIn(f'id="{element_id}"', html)
         self.assertIn('loadRootJSON("audio/audio.json", true)', script)
         self.assertIn("const AUDIO_RATES = [1, 1.25, 1.5, 2]", script)
         self.assertIn("nuclens-audio-rate", script)
         self.assertIn("playbackRate", script)
+        # 배속은 순환 버튼이 아니라 선택지 전부 펼친 세그먼트(사용자 피드백 8/5)
+        for rate in ("1", "1.25", "1.5", "2"):
+            self.assertIn(f'data-rate="{rate}"', html)
+        self.assertIn("syncAudioRateButtons", script)
         # 날짜가 다른 브리핑에서는 숨는다 — renderBriefing 모든 경로에서 판정
         self.assertIn("renderAudioBrief(briefing)", script)
         self.assertIn("meta.date === briefing.date", script)
