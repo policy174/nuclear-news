@@ -88,8 +88,10 @@
   --t-card: 21px;
   --t-title: clamp(24px, 2.6vw, 32px);
   --t-lead: clamp(25px, 3.1vw, 34px);
-  --t-hero: clamp(30px, 4.2vw, 56px);
-  --t-masthead: clamp(64px, 12vw, 148px);
+  /* 2026-08-05 사용자 피드백: 날짜·표제가 너무 커서 핵심이 안 읽힘 — 한 단계
+     하향. 대비의 뼈대(날짜 > 표제 > 본문)는 유지한다. */
+  --t-hero: clamp(25px, 2.6vw, 40px);
+  --t-masthead: clamp(40px, 5.5vw, 80px);
   /* ── 모션 ── 지속시간·이징. prefers-reduced-motion 전역 오버라이드가
      이 토큰을 쓰는 모든 전환을 함께 무력화한다. */
   --mo-1: 120ms;
@@ -508,6 +510,16 @@ kbd {
    Section 01 유닛의 표제이기 때문. 종합 문장(synthesis)과의 차이는 크기가
    아니라 킥커 문구(app.js)와 근거 칩 유무가 말한다. */
 .briefing-hero.lead-issue .hero-kicker { color: var(--c-text-muted); }
+/* 덱 — 종합 문장(daily_lead)의 새 자리. h1(선두 이슈 제목)의 보조 문장이라
+   본문보다 한 단계만 크게, 회색이 아닌 보조 텍스트 색으로. */
+.hero-deck {
+  max-width: 72ch;
+  margin: 12px 0 0;
+  color: var(--c-text-secondary);
+  font-size: var(--t-body-lg);
+  line-height: 1.6;
+  word-break: keep-all;
+}
 .hero-actions { display: flex; gap: 20px; margin-top: 28px; }
 .hero-actions button {
   min-height: 40px;
@@ -1775,9 +1787,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   /* '달라진 이슈 보기'는 바로 다음 섹션으로 스크롤하고, '주간 흐름'은 하단 탭에
      이미 있다. 모바일에서 이 줄은 64px 짜리 중복이다. 데스크톱에는 남긴다. */
   .briefing-hero.lead-issue .hero-actions { display: none; }
-  /* 디스플레이 헤드라인의 모바일 몫 — 390px 에서 7.4vw = 29px. 한 글자씩
-     끊기는 과대 크기를 피하되 본문(16px)의 두 배 가까운 대비는 지킨다. */
-  .hero-copy h1 { max-width: none; font-size: clamp(24px, 7.4vw, 32px); line-height: 1.22; letter-spacing: -.032em; }
+  /* 디스플레이 헤드라인의 모바일 몫 — 390px 에서 6.2vw = 24px. 한 글자씩
+     끊기는 과대 크기를 피하되 본문(16px)과의 대비는 지킨다. */
+  .hero-copy h1 { max-width: none; font-size: clamp(22px, 6.2vw, 28px); line-height: 1.26; letter-spacing: -.028em; }
   .hero-actions { gap: 14px; margin-top: 18px; }
   .hero-actions button { min-height: 44px; font-size: var(--t-caption); }
   /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
@@ -2071,18 +2083,20 @@ html { overflow-x: clip; }
 
 /* 홈 섹션 표제는 본문(15px)의 두 배 이상 — 목록 지면과 표제의 대비가 이
    개편의 뼈대다. 다른 화면(탐색·흐름)의 section-heading 은 건드리지 않는다. */
-#view-news .section-heading h2 { font-size: clamp(24px, 2.5vw, 34px); letter-spacing: -.025em; line-height: 1.2; }
+#view-news .section-heading h2 { font-size: clamp(21px, 1.9vw, 26px); letter-spacing: -.02em; line-height: 1.25; }
 #view-news .issues-section { padding-top: var(--sp-4); border-top: 2px solid var(--c-primary); }
 #view-news .today-band .issues-section { border-top: 0; }
 
 /* ── 01 · 선두 이슈 — 히어로와 한 유닛. 라벨은 표제가 아니라 꼬리표다. */
+/* h1 이 항상 선두 이슈 제목을 맡게 되면서(2026-08-05) 이 라벨은 화면에서
+   중복 신호가 됐다 — 보조기기용 구획 이름으로만 남긴다. */
 .lead-label {
-  margin: 0 0 10px;
-  color: var(--c-text-muted);
-  font-family: var(--ff-mono);
-  font-size: var(--t-min);
-  font-weight: 600;
-  letter-spacing: .08em;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .today-band .lead-section { margin-top: var(--sp-8); margin-bottom: 0; }
 .today-band .lead-card { border-top: 1px solid var(--c-border-strong); }
@@ -2090,7 +2104,7 @@ html { overflow-x: clip; }
 /* ── 02 · 달라진 이슈 — 신문 편집면의 크기 대비. 첫 항목은 리드 기사,
    나머지는 압축 행. 크기 차이가 곧 편집 판단이다. */
 .changed-editorial .issue-card:first-child { padding-block: var(--sp-6) var(--sp-8); }
-.changed-editorial .issue-card:first-child h3 { font-size: clamp(24px, 2.7vw, 38px); line-height: 1.2; letter-spacing: -.03em; }
+.changed-editorial .issue-card:first-child h3 { font-size: clamp(22px, 2vw, 29px); line-height: 1.22; letter-spacing: -.025em; }
 .changed-editorial .issue-card:first-child .issue-summary { max-width: 74ch; font-size: var(--t-body-lg); }
 
 /* ── 04 · 추적 ── */

@@ -123,6 +123,9 @@
           <div class="hero-copy">
             <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
             <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
+            <!-- 덱 — 종합 문장(daily_lead)의 자리. h1(선두 이슈 제목)을 보완하는
+                 보조 문장이라 본문 크기로 내려간다(2026-08-05 사용자 결정). -->
+            <p class="hero-deck" id="heroDeck" hidden></p>
             <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
             <!-- 오디오 브리핑 — 출근길·이동 중 화면을 못 보는 시간대용. 파일이 있는
                  날짜에서만 보인다(audio/audio.json 의 date 와 대조). 버튼을 정적으로

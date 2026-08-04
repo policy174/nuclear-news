@@ -826,9 +826,8 @@ function leadCard(issue, briefing) {
   const countryChips = (issue.representative_article?.countries || [])
     .map(code => COUNTRY_LABELS[code] || code)
     .filter(label => label && label !== issue.region);
-  // 히어로 h1 이 이미 이 이슈 제목이면(headline_kind="issue") 바로 아래에서
-  // 되풀이하지 않는다. 종합 문장일 때는 서로 다른 문장이라 제목이 선다.
-  const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
+  // 히어로 h1 이 항상 이 이슈의 제목을 맡는다(2026-08-05) — 카드에서 제목을
+  // 되풀이하지 않는다. 종합 문장은 h1 아래 덱(heroDeck)이 맡는다.
   const blocks = [
     issue.summary ? { label: "무슨 일", text: issue.summary } : null,
     model.why ? { label: model.why.label, text: model.why.text } : null,
@@ -845,7 +844,6 @@ function leadCard(issue, briefing) {
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
     </div>
-    ${sameAsHeadline ? "" : `<h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>`}
     <dl class="lead-blocks">${blocks.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
       <dt>${esc(block.label)}</dt><dd>${esc(block.text)}</dd>
     </div>`).join("")}</dl>
@@ -1002,22 +1000,26 @@ function renderBriefing() {
   const isSynthesisLead = ["synthesis", "change"].includes(briefing.headline_kind);
   // 헤드라인이 어느 이슈에서 왔는지 제목으로 되짚는다. 못 찾으면 첫 이슈.
   const leadIssue = briefing.issues.find(issue => issue.title === briefing.headline) || briefing.issues[0];
-  const headlineText = briefing.headline || briefing.issues[0]?.title || "오늘의 핵심";
-  // 활자 크기와 아래 '왜' 줄은 headline_kind 라벨이 아니라 문장의 실체를 따른다.
-  // 실측(17일): synthesis 는 0일이고, kind='change' 인 3일(7/28·29·30)도 headline
-  // 이 issues[0].title 과 글자까지 같았다. 라벨만 믿으면 그 3일은 기사 제목이
-  // 큰 활자로 뜨고 '왜'도 붙지 않는다 — 고치려던 문제가 그대로 남는다.
   const headlineIsIssueTitle = !!leadIssue && leadIssue.title === briefing.headline;
-  // 기사 제목을 얹은 날의 h1 은 특정 이슈 하나를 가리킨다. 화면에서 가장 크고
-  // 가장 먼저 보이는 요소인데 눌리지 않으면, 사용자는 한 번은 누르고 아무 일도
-  // 일어나지 않는 것을 본다. 종합 문장인 날은 대응하는 이슈가 없으므로 그대로
-  // 두고, 아래 근거 칩(headlineEvidence)이 출처로 가는 길을 맡는다.
-  document.getElementById("briefingTitle").innerHTML =
-    headlineIsIssueTitle
-      ? `<button type="button" class="issue-title-button" data-issue-id="${esc(leadIssue.issue_id)}">${esc(headlineText)}</button>`
-      : esc(headlineText);
-  document.getElementById("briefingKicker").textContent =
-    isSynthesisLead ? "오늘, 무엇이 달라졌는가" : "오늘의 핵심 이슈";
+  // h1 은 항상 선두 이슈의 제목이다(2026-08-05 사용자 결정). 종합 문장은 이슈
+  // 두 개를 접속사로 이은 목차 문장이라 헤드라인 감이 아니다 — h1 아래 덱
+  // (heroDeck)으로 강등한다. '무엇이 달라졌는가'라는 질문은 아래 '지금 달라진
+  // 이슈' 구역이 구조로 답하므로 킥커도 사실형 한 종으로 줄인다.
+  const heroIssue = lead || leadIssue;
+  const headlineText = heroIssue?.title || briefing.headline || "오늘의 핵심";
+  document.getElementById("briefingTitle").innerHTML = heroIssue
+    ? `<button type="button" class="issue-title-button" data-issue-id="${esc(heroIssue.issue_id)}">${esc(headlineText)}</button>`
+    : esc(headlineText);
+  document.getElementById("briefingKicker").textContent = "오늘의 핵심 이슈";
+  const deck = document.getElementById("heroDeck");
+  if (deck) {
+    const deckText = isSynthesisLead && briefing.headline
+      && briefing.headline.trim() !== String(heroIssue?.title || "").trim()
+      ? briefing.headline
+      : "";
+    deck.hidden = !deckText;
+    deck.textContent = deckText;
+  }
 
   // 히어로의 활자 크기는 문장이 종합인지 기사 제목인지를 따라간다.
   // 종합 문장(daily_lead)은 이 브리핑에만 있는 문장이라 크게 쓸 값이 있지만,
@@ -1035,8 +1037,10 @@ function renderBriefing() {
   // 클릭 한 번으로 검증할 수 있게. 필드가 없으면 조용히 숨긴다.
   const evidenceBox = document.getElementById("headlineEvidence");
   if (evidenceBox) {
+    // h1 이 선두 이슈 제목을 맡으므로 그 이슈를 가리키는 칩은 중복이라 뺀다.
     const evidence = briefing.headline_kind === "synthesis"
-      ? (briefing.headline_evidence || []).filter(item => item && item.issue_id && item.title)
+      ? (briefing.headline_evidence || []).filter(item => item && item.issue_id && item.title
+          && item.issue_id !== heroIssue?.issue_id)
       : [];
     evidenceBox.hidden = evidence.length === 0;
     evidenceBox.innerHTML = evidence.length
