@@ -2730,6 +2730,45 @@ class SearchDialogTests(unittest.TestCase):
         self.assertNotIn("loadJSON", search_block)
 
 
+class BriefingTimelineTests(unittest.TestCase):
+    """흐름 탭 '지난 브리핑' 목록의 배선 계약."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_timeline_exists_after_trend_charts(self):
+        self.assertIn('id="briefingTimeline"', self.html)
+        self.assertIn('id="briefingTimelineList"', self.html)
+        # DOM 순서: weeklyReport → keywordTable → briefingTimeline (잠금 순서 뒤 append)
+        self.assertLess(self.html.index('id="weeklyReport"'), self.html.index('id="keywordTable"'))
+        self.assertLess(self.html.index('id="keywordTable"'), self.html.index('id="briefingTimeline"'))
+
+    def test_renders_regardless_of_trend_ready(self):
+        body = self.script[self.script.index("function renderTrend()"):]
+        body = body[:body.index("\n}")]
+        # 이른 return(trend_ready) 앞에서 그린다 — 조용한 날에도 시간 축은 남는다.
+        self.assertLess(body.index("renderBriefingTimeline()"), body.index("trend_ready"))
+        # 잠금 호출 순서는 그대로.
+        self.assertLess(body.index("renderWeeklyReport()"), body.index("renderKeywordTable()"))
+
+    def test_rows_jump_to_that_days_briefing(self):
+        self.assertIn('data-go-date="${esc(briefing.date)}"', self.script)
+        self.assertIn('briefingTimelineList").addEventListener', self.script)
+
+    def test_empty_rows_state_only_what_data_says(self):
+        block = self.script[self.script.index("function renderBriefingTimeline"):]
+        block = block[:block.index("function renderTrend")]
+        self.assertIn("생성된 브리핑이 없습니다", block)
+        self.assertIn("below_floor_count", block)
+        self.assertIn("pipeline_status", block)
+
+    def test_tab_renamed_to_flow(self):
+        self.assertIn(">흐름</button>", self.html)
+        self.assertNotIn("주간 흐름", self.html)
+
+
 class TokenSystemTests(unittest.TestCase):
     """디자인 토큰 4계(간격·타입·모션·z)의 존재와, 토큰 도입이 기존 잠금을
     건드리지 않았음을 함께 검사한다."""

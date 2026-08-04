@@ -52,7 +52,7 @@
     <nav class="main-tabs" id="mainTabs" aria-label="주요 화면">
       <button class="main-tab active" data-view="news" aria-pressed="true">오늘</button>
       <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
-      <button class="main-tab" data-view="trend" aria-pressed="false">주간 흐름</button>
+      <button class="main-tab" data-view="trend" aria-pressed="false">흐름</button>
       <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
     </nav>
     <div class="header-tools">
@@ -107,7 +107,7 @@
                implication(왜 중요한가)과 출처 수를 붙여 히어로가 제 몫을 하게 한다. -->
           <div class="hero-actions">
             <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
-            <button type="button" data-go-view="trend">주간 흐름 <span aria-hidden="true">→</span></button>
+            <button type="button" data-go-view="trend">흐름 <span aria-hidden="true">→</span></button>
           </div>
         </div>
       </div>
@@ -197,7 +197,7 @@
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
         <section id="evidenceRail" class="evidence-rail" aria-label="선택한 이슈의 근거" aria-live="polite" hidden></section>
         <section class="side-panel"><h2>오늘의 검증 상태</h2><div id="sideVerification" class="side-verification"></div></section>
-        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">주간 흐름 전체 보기 →</button></section>
+        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">흐름 전체 보기 →</button></section>
       </aside>
     </div>
   </section>
@@ -263,7 +263,7 @@
   <section id="view-trend" hidden aria-labelledby="trendTitle">
     <div class="trend-intro">
       <p class="eyebrow dark">THIS WEEK</p>
-      <h1 id="trendTitle">주간 흐름</h1>
+      <h1 id="trendTitle">흐름</h1>
     </div>
     <!-- 금요일 주간 판세 리포트. 고정 코너 5개로 매주 같은 자리에서 같은 질문에
          답한다 — 반복되는 편집 형식이 서비스의 목소리를 만든다. 리포트가 없는
@@ -321,6 +321,15 @@
         </div>
       </div>
     </section>
+    <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
+         쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
+    <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
+      <div class="section-heading compact">
+        <div><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
+        <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
+      </div>
+      <ol id="briefingTimelineList"></ol>
+    </section>
     <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
   </section>
 
@@ -364,7 +373,7 @@
 <nav id="mobileTabs" class="mobile-tabs" aria-label="모바일 주요 화면">
   <button class="active" type="button" data-view="news" aria-pressed="true"><span>오늘</span></button>
   <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
-  <button type="button" data-view="trend" aria-pressed="false"><span>주간</span></button>
+  <button type="button" data-view="trend" aria-pressed="false"><span>흐름</span></button>
   <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
   <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount">0</small></button>
 </nav>

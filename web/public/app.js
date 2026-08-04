@@ -1745,10 +1745,40 @@ function renderWeeklyReport() {
   ].join("");
 }
 
+// 지난 브리핑 — 흐름 탭의 시간 축. briefings.json 은 이미 클라이언트에 있다
+// (빌드 변경 0). 빈 날의 사유는 데이터가 말할 때만 쓴다 — 추정 금지.
+function renderBriefingTimeline() {
+  const list = document.getElementById("briefingTimelineList");
+  if (!list) return;
+  list.innerHTML = state.briefings.map(briefing => {
+    const issueCount = Number(briefing.issue_count || 0);
+    const changed = Number(briefing.changed_issue_count || 0);
+    let counts;
+    if (issueCount) {
+      counts = `이슈 ${issueCount}${changed ? ` · 변화 ${changed}` : ""}`;
+    } else if (briefing.pipeline_status && briefing.pipeline_status !== "ok") {
+      counts = "지연·확인 중";
+    } else if (Number(briefing.below_floor_count || 0) > 0) {
+      counts = `기준 미달 ${briefing.below_floor_count}건`;
+    } else {
+      counts = "생성된 브리핑이 없습니다";
+    }
+    return `<li class="${issueCount ? "" : "bt-quiet"}">
+      <button type="button" data-go-date="${esc(briefing.date)}">
+        <span class="bt-date">${esc(dateLabel(briefing.date))}</span>
+        <span class="bt-headline">${esc(briefing.headline || "")}</span>
+        <span class="bt-counts">${esc(counts)}</span>
+      </button>
+    </li>`;
+  }).join("");
+}
+
 function renderTrend() {
   renderWeeklyReport();
   renderInsights();
   renderTrendReadiness();
+  // 지난 브리핑은 트렌드 집계 준비 여부와 무관하다 — 이른 return 앞에서 그린다.
+  renderBriefingTimeline();
   if (!state.meta?.trend_ready) return;
   renderKeywordTable();
   bars(document.getElementById("countryBars"), state.trend.countries_30d, row => COUNTRY_LABELS[row.country] || row.country);
@@ -2244,6 +2274,16 @@ function bind() {
   // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
   ["exploreHub", "entityHeader"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleHubAction);
+  });
+  // 지난 브리핑 행 — 그 날짜의 오늘 화면으로 점프(dateSel 변경과 같은 경로).
+  document.getElementById("briefingTimelineList").addEventListener("click", event => {
+    const row = event.target.closest("[data-go-date]");
+    if (!row || !briefingDates().includes(row.dataset.goDate)) return;
+    state.briefingDate = row.dataset.goDate;
+    renderDateSelect();
+    renderBriefing();
+    renderSystemStatus();
+    switchView("news");
   });
 
   document.getElementById("showChangedIssues").addEventListener("click", () => {

@@ -1227,6 +1227,36 @@ kbd {
 .entity-topics > span { color: var(--c-text-muted); font-size: var(--t-min); }
 .entity-header .text-action { margin-top: var(--sp-3); }
 .entity-unknown { display: flex; align-items: center; gap: var(--sp-3); margin: 0; color: var(--c-text-secondary); }
+/* ── 지난 브리핑(흐름 탭 시간 축) — 점·세로선 없는 괘선 행 ── */
+.briefing-timeline { margin-top: var(--sp-12); }
+.briefing-timeline ol { margin: var(--sp-3) 0 0; padding: 0; list-style: none; }
+.briefing-timeline li { border-top: 1px solid var(--c-border); }
+.briefing-timeline li:first-child { border-top: 2px solid var(--c-primary); }
+.briefing-timeline button {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) auto;
+  gap: var(--sp-4);
+  align-items: baseline;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--sp-3) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  transition: background var(--mo-1);
+}
+.briefing-timeline button:hover { background: var(--c-surface-sunken); }
+.bt-date { color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.bt-headline {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: var(--t-body);
+  font-weight: 600;
+}
+.bt-counts { color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bt-quiet .bt-headline { color: var(--c-text-muted); font-weight: 500; }
 .archive-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 28px; align-items: start; }
 /* 넓은 화면에서 서랍은 보이지 않는다 — app.js 가 open 을 켜 두고 손잡이만 숨긴다.
    좁은 화면 규칙은 max-width:767px 블록에 있다. */
@@ -1546,6 +1576,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 }
 
 @media (max-width: 767px) {
+  /* 지난 브리핑 — 날짜·건수 한 줄, 헤드라인 최대 2줄. 행 전체가 버튼이다. */
+  .briefing-timeline button { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
+  .briefing-timeline .bt-headline { grid-column: 1 / -1; -webkit-line-clamp: 2; }
   /* 본문 16px. 15.5px 은 국문 15자/줄 근처에서 줄이 자주 끊겨 요약이 세 줄로
      늘어졌다. 크기를 올리고 클램프를 함께 푸는 편이 실제로 덜 빽빽하다. */
   body { padding-bottom: 68px; font-size: var(--t-body-lg); }
