@@ -28,6 +28,7 @@ import imaplib
 import os
 import re
 import sys
+import textwrap
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -56,11 +57,40 @@ _BLOCK_SPLIT_RE = re.compile(r"</(?:p|li|td|div|h[1-6])>", re.IGNORECASE)
 _HREF_RE = re.compile(r"<a\s[^>]*href=[\"']([^\"']+)[\"']", re.IGNORECASE)
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
+# 영문 문장 경계. data_quality.first_complete_sentence 는 한국어 종결어미
+# (다·요·음·함·됨·임)로 판정하므로 영문 뉴스레터에는 쓸 수 없다.
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+
+# 제목 자리에 쓸 최대 길이. 뉴스레터 요약문 한 문장이 대체로 이 안에 들어간다.
+HEADLINE_LIMIT = 160
 
 
 def _strip_tags(s: str) -> str:
     import html as _html
     return _WS_RE.sub(" ", _TAG_RE.sub(" ", _html.unescape(s))).strip()
+
+
+def _headline(text: str, limit: int = HEADLINE_LIMIT) -> str:
+    """뉴스레터 요약 문단에서 제목 자리에 쓸 문장.
+
+    예전에는 ``text[:120]`` 을 그대로 제목으로 썼다. 이건 **단어 중간에서 끊긴
+    파편**이지 제목이 아니다 (실측: "...showing the potential for",
+    "...during three rec", "...inside fusion machines that w").
+
+    그 파편이 큐레이션 프롬프트의 제목 자리에 들어가면 판단 재료가 통째로 나빠진다.
+    2026-07~08 아카이브 실측으로 뉴스레터 경유분은 다른 경로보다 결손이 뚜렷했다:
+    implication 65% vs 38%, features 22% vs 2%.
+
+    첫 문장을 쓰되, 첫 문장이 지나치게 길면 **단어 경계**에서 줄인다
+    (``textwrap.shorten``). 다시 단어 중간에서 자르지 않기 위한 것이다.
+    """
+    text = _WS_RE.sub(" ", (text or "")).strip()
+    if not text:
+        return ""
+    first = _SENTENCE_SPLIT_RE.split(text, 1)[0].strip()
+    if first and len(first) <= limit:
+        return first
+    return textwrap.shorten(text, width=limit, placeholder="…")
 
 
 def _unwrap(url: str, timeout: float = 10.0) -> str:
@@ -161,7 +191,9 @@ def fetch_newsletter_articles(state_sent: dict) -> list[dict]:
                 h = url_hash(final)
                 if h in state_sent:
                     continue
-                title = text[:120]
+                title = _headline(text)
+                if not title:
+                    continue
                 if is_promotional(title, text):
                     continue
 
