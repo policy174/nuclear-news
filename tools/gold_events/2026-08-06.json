@@ -1,0 +1,117 @@
+{
+  "briefing_date": "2026-08-06",
+  "_readme": "재현율 정답지. 이 파일의 '창'은 브리핑 하나가 볼 수 있었던 기사 범위다 — 브리핑은 전날 07:00 KST 부터 당일 07:00 KST 까지 수집분으로 만들어지므로, 그 밖에서 나온 기사를 누락으로 세면 안 된다(2026-08-05 저녁 기사를 08-05 07:23 브리핑과 대조한 실수가 있었다). 수집 경로는 네이버 뉴스 API 최신순 + 사람 확인. required=true 는 '이 날 국내 원자력 브리핑이라면 반드시 있어야 한다'는 판단이고, false 는 있으면 좋은 것.",
+  "window": {
+    "article_from": "2026-08-05T07:00:00+09:00",
+    "article_to": "2026-08-06T07:00:00+09:00"
+  },
+  "events": [
+    {
+      "event_id": "khnp-aboitiz-mou",
+      "required": true,
+      "label": "한수원–필리핀 아보이티즈 파워 원전 협력 MOU",
+      "region": "국내",
+      "why": "원전 수출·동남아 신규 시장. 국내 다출처(부산일보·에너지신문·컨슈머타임스·웹이코노미·비즈트리뷴) + WNN 해외 보도까지 붙은 다출처 이벤트.",
+      "match": {"all": ["한수원"], "any": ["아보이티즈", "필리핀"]},
+      "source_urls": [
+        "https://www.busan.com/view/busan/view.php?code=2026080522185705313",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=227260",
+        "https://www.cstimes.com/news/articleView.html?idxno=715861",
+        "https://www.webeconomy.co.kr/news/articleView.html?idxno=2257373"
+      ]
+    },
+    {
+      "event_id": "hanbit-12-lifetime-extension",
+      "required": true,
+      "label": "한빛 1·2호기 수명연장 안건, 내년 상반기 원안위 상정",
+      "region": "국내",
+      "why": "원안위 청와대 업무보고에서 나온 일정. 계속운전 장기 이슈의 핵심 후속이고 사용후핵연료 건식저장(2028) 일정까지 붙어 있다.",
+      "match": {"all": ["한빛"], "any": ["계속운전", "수명연장", "상정"]},
+      "source_urls": [
+        "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8629692&ref=A",
+        "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8629479&ref=A"
+      ]
+    },
+    {
+      "event_id": "smr-national-strategic-tech",
+      "required": true,
+      "label": "SMR 국가전략기술 지정(세제개편) 및 창원 원자력산업 육성",
+      "region": "국내",
+      "why": "산업정책·세제. 두산에너빌리티 등 원전 주기기 공급망 150개사가 걸린 결정.",
+      "match": {"any": ["국가전략기술", "창원"], "all": ["SMR"]},
+      "source_urls": [
+        "http://www.gndomin.com/news/articleView.html?idxno=484532",
+        "http://www.gndomin.com/news/articleView.html?idxno=484545",
+        "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0300&key=20260806.22004001397"
+      ]
+    },
+    {
+      "event_id": "regional-power-tariff",
+      "required": true,
+      "label": "지역별 차등 전기요금 시행과 원전 소재지 혜택 논쟁",
+      "region": "국내",
+      "why": "전력시장 + 지역 수용성이 겹치는 정책. 부산·경남·경북 지역지와 KBS 가 동시 보도했고 '원전을 지고 산 대가' 프레임이 사설로까지 올라왔다.",
+      "match": {"any": ["차등 요금", "차등요금", "차등 전기요금", "전기요금 차등"]},
+      "source_urls": [
+        "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8629645&ref=A",
+        "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=1700&key=20260806.22019001195",
+        "https://www.knnews.co.kr/news/articleView.php?idxno=1548072"
+      ]
+    },
+    {
+      "event_id": "gochang-dry-storage-petition",
+      "required": true,
+      "label": "고창군 한빛원전 범군민대책위, 고준위 건식저장 정책 건의",
+      "region": "국내",
+      "why": "지역 단독(전북 sjbnews) 이지만 사용후핵연료 저장조 2030 포화라는 확정 일정에 대한 주민 대응이다. 지역지에만 나오는 수용성 이벤트를 잡는지 보는 지표.",
+      "match": {"any": ["범군민", "대책위", "건식저장"], "all": []},
+      "source_urls": ["https://sjbnews.com/news/news.php?number=884620"]
+    },
+    {
+      "event_id": "kpx-hanbit-summer-inspection",
+      "required": true,
+      "label": "전력거래소, 폭염 대비 한빛원전 현장 점검",
+      "region": "국내",
+      "why": "전력수급. 한빛 1·2호기 계속운전 추진 현황과 새울 3·4호기 건설 현안을 함께 점검해 두 장기 이슈의 후속이기도 하다.",
+      "match": {"all": ["전력거래소"], "any": ["한빛", "점검"]},
+      "source_urls": [
+        "https://www.etnews.com/20260805000385",
+        "https://www.newsis.com/view/NISX20260805_0003738023",
+        "https://www.businesskorea.co.kr/news/articleView.html?idxno=274239"
+      ]
+    },
+    {
+      "event_id": "paks-shutdown",
+      "required": true,
+      "label": "헝가리 팍스 원전, 가뭄·냉각수 부족으로 44년 만에 가동 중단",
+      "region": "해외",
+      "why": "상태 반전 후속. 사이트는 08-05 브리핑에 '마지막 터빈 안전하게 가동 중'을 노출했는데 같은 날 헝가리는 중단을 발표했다. 이 이벤트를 잡아 기존 팍스 클러스터에 붙이는지가 discovery 의 존재 이유다.",
+      "match": {"all": ["팍스"], "any": ["중단", "정지"]},
+      "source_urls": [
+        "https://www.newsis.com/view/NISI20260805_0002205356",
+        "https://news.jtbc.co.kr/article/NB12311874"
+      ]
+    },
+    {
+      "event_id": "honam-semiconductor-power",
+      "required": false,
+      "label": "호남 반도체 산단 전력·용수, 한빛원전 연계 공급 계획",
+      "region": "국내",
+      "why": "데이터센터·반도체 전력수요와 원전 연계. 6.3GW 라는 구체 수치가 있다.",
+      "match": {"any": ["반도체"], "all": ["한빛"]},
+      "source_urls": [
+        "http://www.jndn.com/article.php?aid=1785920709437310001",
+        "https://www.mk.co.kr/article/12117972"
+      ]
+    },
+    {
+      "event_id": "iter-korea-director-retire",
+      "required": false,
+      "label": "정기정 ITER 한국사업단장 20년 만에 퇴임",
+      "region": "국내",
+      "why": "핵융합 국제협력 인물. 중요도는 낮지만 '인사'로 오분류돼 버려지는지 보는 지표.",
+      "match": {"all": ["ITER"], "any": ["퇴임", "단장"]},
+      "source_urls": ["http://www.hellodd.com/news/articleView.html?idxno=112727"]
+    }
+  ]
+}
