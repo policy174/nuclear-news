@@ -872,3 +872,69 @@ class TestRejectedTitles(unittest.TestCase):
         self.assertEqual(["주가", "채용"], nb.parse_negative_terms("-주가 -채용"))
         self.assertEqual([], nb.parse_negative_terms(""))
         self.assertEqual([], nb.parse_negative_terms("   "))
+
+
+class TestHomonymAnchor(unittest.TestCase):
+    """'원전' 앵커에 걸리는 동음이의를 앵커 단계에서 지운다.
+
+    2026-08-05 '원전' 최신순 실측에 「기원전 8세기 서사시」·「호메로스를 원전으로
+    한 각색」이 섞였다. 제외어 수리로 네이버 유입이 늘면 이런 기사도 같이 늘고,
+    전부 LLM 큐레이션까지 가면 무료 쿼터를 태운다.
+    """
+
+    ANCHORS = ["원자력", "원전", "원자로", "한빛", "전력수급"]
+
+    def test_historical_bce_is_not_a_nuclear_anchor(self):
+        self.assertFalse(nb.passes_anchor_filter(
+            "학자는 혹평 vs 관객은 열광…해외서 핫한 '오디세이' 논쟁",
+            "기원전 8세기 무렵의 서사시를 현대적으로 각색한 작품", self.ANCHORS))
+
+    def test_source_text_homonym_is_not_a_nuclear_anchor(self):
+        self.assertFalse(nb.passes_anchor_filter(
+            "놀란의 메시지는 '전쟁 속죄'",
+            "호메로스의 '오디세이아'를 원전(原典)으로 한 작품이다", self.ANCHORS))
+
+    def test_real_nuclear_articles_still_pass(self):
+        self.assertTrue(nb.passes_anchor_filter(
+            "전력거래소, 여름철 전력수급 대비 한빛원전 발전설비 현장 점검",
+            "김성진 이사장은 한빛원전 1·2호기 계속운전 사업을 점검했다", self.ANCHORS))
+
+    def test_homonym_plus_real_mention_still_passes(self):
+        # 동음이의를 지워도 진짜 언급이 남아 있으면 통과해야 한다.
+        self.assertTrue(nb.passes_anchor_filter(
+            "기원전부터 이어진 에너지의 역사, 그리고 원자력",
+            "원자력 발전의 미래를 묻는다", self.ANCHORS))
+
+
+class TestKeywordCoverage(unittest.TestCase):
+    """2026-08-06 정답지에서 '수집조차 안 됐다'로 잡힌 주제를 키워드가 담는가.
+
+    근거: docs/2026-08-06-recall-baseline.md — 수집 실패 4건 중 3건이 국내이고
+    전부 전력시장·지역 수용성·산업정책이었다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        raw = json.loads((Path(nb.__file__).parent / "keywords.json").read_text(encoding="utf-8"))
+        cls.policy = " ".join(raw["정책"]["keywords"])
+
+    def test_power_market_topics_are_covered(self):
+        for term in ("차등 전기요금", "전력수급", "송전망", "데이터센터"):
+            with self.subTest(term=term):
+                self.assertIn(term, self.policy)
+
+    def test_local_acceptance_topics_are_covered(self):
+        for term in ("주민설명회", "공청회", "수용성", "대책위"):
+            with self.subTest(term=term):
+                self.assertIn(term, self.policy)
+
+    def test_spent_fuel_storage_is_covered(self):
+        for term in ("건식저장", "저장조"):
+            with self.subTest(term=term):
+                self.assertIn(term, self.policy)
+
+    def test_unit_level_continued_operation_is_covered(self):
+        # '원전 계속운전' 하나로는 개별 호기 일정 보도가 안 걸린다.
+        for term in ("한빛 계속운전", "고리 계속운전"):
+            with self.subTest(term=term):
+                self.assertIn(term, self.policy)
