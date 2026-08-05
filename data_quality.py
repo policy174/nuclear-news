@@ -325,24 +325,35 @@ def implication_is_hollow(implication: object) -> bool:
         return False
     return not _QUANTITY_RE.search(text)
 
+# implication 을 요구하는 등급. market·noise 는 카드에 해석을 싣지 않으므로 제외한다
+# (noise 는 애초에 발송되지 않고, market 은 시세·실적 나열이라 해석할 사건이 없다).
+IMPLICATION_REQUIRED_GRADES = ("must_read", "nice_to_know")
+
 
 def curation_errors(
     payload: dict,
     *,
     require_summary: bool = True,
     require_features: bool = False,
+    require_implication: bool = False,
     summary_limit: int = 80,
 ) -> list[str]:
     """공개 가능한 큐레이션 결과가 아니면 필드별 오류를 반환한다.
 
-    ``require_features`` 는 기본값이 꺼져 있다. 이 함수는 성격이 다른 두 곳에서
-    쓰이기 때문이다.
+    ``require_features``·``require_implication`` 은 기본값이 꺼져 있다. 이 함수는
+    성격이 다른 두 곳에서 쓰이기 때문이다.
 
-      - **게시 자격** (아카이브 적재·배포 게이트·품질 점수): features 가 없어도
-        제목·요약·링크는 멀쩡하므로 내보내도 된다. 끄고 쓴다.
-      - **큐레이션 완결성** (batch 응답 검증·재큐레이션 판정): features 가 없으면
-        ranking 이 ``_legacy_score()`` 로 빠져 event_weights 도 feature 가중치도
-        전혀 반영되지 않는다. 켜고 쓴다.
+      - **게시 자격** (아카이브 적재·배포 게이트·품질 점수): features 나 implication 이
+        없어도 제목·요약·링크는 멀쩡하므로 내보내도 된다. 끄고 쓴다. **여기서 켜면
+        이미 쌓인 결손 레코드가 아카이브에서 통째로 탈락해 웹 데이터가 조용히
+        줄어든다** — 결손을 고치려다 데이터를 지우는 셈이라 절대 켜지 않는다.
+      - **큐레이션 완결성** (batch 응답 검증·재큐레이션 판정): 결손이면 다시 물어봐야
+        하는 자리. 켜고 쓴다.
+
+    features 가 없으면 ranking 이 ``_legacy_score()`` 로 빠져 event_weights 도 feature
+    가중치도 반영되지 않는다. implication 이 없으면 카드 둘째 줄이 ``summary`` 로
+    물러나는데, summary 는 제목을 어순만 바꾼 문장이 대부분이라(2026-08-03 브리핑
+    실측 8건 중 5건) 화면에 정보가 한 줄 사라진다. 근거: web/public/app.js issueCard.
 
     실효 지점은 **batch 응답 검증**이다. 기사는 큐에 적재되는 순간 ``sent`` 로
     마킹돼 다시 수집되지 않으므로, 결손인 채 큐에 들어가면 그 뒤에는 고칠 기회가
@@ -361,6 +372,9 @@ def curation_errors(
     if implication and (len(implication) > IMPLICATION_LIMIT
                         or not is_complete_sentence(implication)):
         errors.append(f"implication:incomplete_or_over_{IMPLICATION_LIMIT}")
+    elif (require_implication and not implication
+            and payload.get("importance") in IMPLICATION_REQUIRED_GRADES):
+        errors.append("implication:missing")
     if why_important and (len(why_important) > 150 or not is_complete_sentence(why_important)):
         errors.append("why_important:incomplete_or_over_150")
 

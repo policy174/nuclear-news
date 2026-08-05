@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 for _k in ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
     os.environ.setdefault(_k, "test-dummy")
+import data_quality as dq  # noqa: E402
 import news_bot as nb  # noqa: E402
 from gemini_client import GeminiError, GeminiTruncated  # noqa: E402
 
@@ -135,7 +136,8 @@ class TestCurationQualityGate(unittest.TestCase):
         return {"items": [{
             "idx": 0, "importance": "nice_to_know", "section": "international",
             "scope": "overseas", "category": "정책", "title_kr": "정부, 신규 원전 계획 발표",
-            "summary": summary, "implication": "", "why_important": "", "tags": [],
+            "summary": summary, "implication": "미국의 원전 확대 기조가 재확인된다.",
+            "why_important": "", "tags": [],
             "topics": ["newbuild"], "countries": ["US"], "article_type": "policy",
             "event_date": "2026-08-01", "event_date_type": "announcement",
             "event_date_precision": "day", "event_date_source": "description",
@@ -191,7 +193,8 @@ class TestChunkLossIsRecoveredOrRecorded(unittest.TestCase):
         return {"items": [{
             "idx": i, "importance": "nice_to_know", "section": "international",
             "scope": "overseas", "category": "정책", "title_kr": f"신규 원전 계획 {i}",
-            "summary": "정부가 신규 원전 계획을 발표했다.", "implication": "",
+            "summary": "정부가 신규 원전 계획을 발표했다.",
+            "implication": "미국의 원전 확대 기조가 재확인된다.",
             "why_important": "", "tags": [], "topics": ["newbuild"],
             "countries": ["US"], "article_type": "policy",
             "event_date": "2026-08-01", "event_date_type": "announcement",
@@ -565,6 +568,275 @@ class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
                 self.assertIn("|", value, f"{field} 예시값이 선택지를 제시하지 않는다: {value}")
 
 
+class TestImplicationIsRequired(unittest.TestCase):
+    """must_read·nice_to_know 의 implication 결손을 큐레이션 단계에서 막는가.
+
+    화면에서 대신 채울 수 없는 구멍이다. implication 이 비면 카드 둘째 줄이
+    ``summary`` 로 물러나는데, summary 는 제목을 어순만 바꾼 문장이 대부분이라
+    (2026-08-03 브리핑 실측 8건 중 5건) 정보가 한 줄 사라진다.
+    근거: web/public/app.js issueCard 주석(2026-08-04), 2026-08-04 브리핑의
+    중국 창장 3호기 항목.
+    """
+
+    BASE = {
+        "summary": "정부가 신규 원전 계획을 발표했다.",
+        "features": {"event_type": "policy_decision"},
+    }
+
+    def test_missing_implication_is_a_completeness_error(self):
+        for grade in ("must_read", "nice_to_know"):
+            with self.subTest(grade=grade):
+                errors = dq.curation_errors(
+                    {**self.BASE, "importance": grade},
+                    require_features=True, require_implication=True)
+                self.assertIn("implication:missing", errors)
+
+    def test_market_and_noise_are_exempt(self):
+        # 이 등급은 카드에 해석을 싣지 않는다. 요구하면 없는 시사점을 지어내게 된다.
+        for grade in ("market", "noise"):
+            with self.subTest(grade=grade):
+                self.assertEqual([], dq.curation_errors(
+                    {**self.BASE, "importance": grade},
+                    require_features=True, require_implication=True))
+
+    def test_publish_eligibility_is_unchanged(self):
+        """게시 자격 모드는 건드리지 않는다 — 켜면 이미 쌓인 결손 레코드가
+        아카이브 적재(``news_archive.append_records``)에서 통째로 탈락해 웹
+        데이터가 조용히 줄어든다. 결손을 고치려다 데이터를 지우는 셈이다."""
+        record = {**self.BASE, "importance": "must_read"}
+        self.assertEqual([], dq.curation_errors(record))
+        self.assertEqual([], dq.curation_errors(record, require_features=True))
+
+    def test_length_gate_still_applies_to_filled_values(self):
+        # 한도는 dq 상수를 따라간다 — 2026-08-05 에 60→90 으로 바뀌었고, 숫자를
+        # 테스트에 박으면 정책이 움직일 때마다 무관한 실패가 난다.
+        limit = dq.IMPLICATION_LIMIT
+        over = {**self.BASE, "importance": "must_read",
+                "implication": "가" * (limit + 1) + "다."}
+        self.assertEqual(
+            [f"implication:incomplete_or_over_{limit}"],
+            dq.curation_errors(over, require_features=True, require_implication=True))
+
+    def test_batch_response_without_implication_is_regenerated(self):
+        """실효 지점은 batch 응답 검증이다 — 큐에 들어가면 sent 마킹으로 되돌릴 수 없다."""
+        article = {
+            "hash": "h1", "title": "중국 창장 3호기 원전 상업운전 개시",
+            "description": "중국 하이난성 창장 원전 3호기가 전력망에 연결됐다.",
+            "domain": "nucnet.org", "publisher": "NucNet",
+        }
+
+        def response(implication):
+            return {"items": [{
+                "idx": 0, "importance": "must_read", "section": "international",
+                "scope": "overseas", "category": "정책",
+                "title_kr": "중국 창장 3호기 원전, 상업 운전 개시",
+                "summary": "중국 하이난성 창장 원전 3호기가 전력망에 연결됐다.",
+                "implication": implication,
+                "why_important": "중국의 원전 준공 속도가 확인됐다.",
+                "tags": [], "topics": ["newbuild"], "countries": ["CN"],
+                "article_type": "news", "event_date": None,
+                "event_date_type": "unknown", "event_date_precision": "unknown",
+                "event_date_source": "unknown", "related_reports": [],
+                "features": {"event_type": "project_milestone"},
+            }]}
+
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json",
+            side_effect=[response(""), response("중국의 준공 속도가 한국 수출 경쟁을 압박한다.")],
+        ) as call:
+            result = nb.curate_batch([article], [])
+        self.assertEqual(call.call_count, 2)
+        self.assertTrue(result["h1"]["implication"])
+
+    def test_persistently_missing_implication_keeps_the_record(self):
+        """두 번 요구해도 안 채우면 레코드는 살리고 결손만 남긴다.
+
+        격리하면 fallback 큐레이션으로 떨어져 영문 제목 + nice_to_know 강등 +
+        features·why_important·event_date 유실이다. 한 줄 때문에 멀쩡한 must_read 를
+        그렇게 버리면 고치려던 것보다 손실이 크다. 게이트는 모델에게 두 번 요구하는
+        장치이지 레코드 파기 장치가 아니다.
+        """
+        article = {
+            "hash": "h1", "title": "중국 창장 3호기 원전 상업운전 개시",
+            "description": "중국 하이난성 창장 원전 3호기가 전력망에 연결됐다.",
+            "domain": "nucnet.org", "publisher": "NucNet",
+        }
+        empty = {"items": [{
+            "idx": 0, "importance": "must_read", "section": "international",
+            "scope": "overseas", "category": "정책",
+            "title_kr": "중국 창장 3호기 원전, 상업 운전 개시",
+            "summary": "중국 하이난성 창장 원전 3호기가 전력망에 연결됐다.",
+            "implication": "", "why_important": "중국의 원전 준공 속도가 확인됐다.",
+            "tags": [], "topics": ["newbuild"], "countries": ["CN"],
+            "article_type": "news", "event_date": None,
+            "event_date_type": "unknown", "event_date_precision": "unknown",
+            "event_date_source": "unknown", "related_reports": [],
+            "features": {"event_type": "project_milestone"},
+        }]}
+
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", side_effect=[empty, empty]
+        ) as call:
+            result = nb.curate_batch([article], [])
+        self.assertEqual(call.call_count, 2)
+        record = result.get("h1")
+        self.assertIsNotNone(record, "implication 하나 때문에 레코드를 버리면 안 된다")
+        self.assertEqual(record["importance"], "must_read")
+        self.assertEqual(record["implication"], "")
+        self.assertIsInstance(record["features"], dict)
+        self.assertTrue(record["why_important"])
+
+    def test_other_defects_are_still_quarantined(self):
+        """살리는 건 implication 단독 결손뿐이다 — 요약이 깨진 건 그대로 격리한다."""
+        article = {
+            "hash": "h1", "title": "정부가 신규 원전 계획을 발표",
+            "description": "정부가 신규 원전 계획을 발표했다.",
+            "domain": "energy.gov", "publisher": "US DOE",
+        }
+        broken = {"items": [{
+            "idx": 0, "importance": "must_read", "section": "international",
+            "scope": "overseas", "category": "정책", "title_kr": "정부, 신규 원전 계획 발표",
+            "summary": "정부가 신규 원전 계획을 발표",  # 완결되지 않은 문장
+            "implication": "", "why_important": "", "tags": [],
+            "topics": ["newbuild"], "countries": ["US"], "article_type": "policy",
+            "event_date": None, "event_date_type": "unknown",
+            "event_date_precision": "unknown", "event_date_source": "unknown",
+            "related_reports": [], "features": {"event_type": "policy_decision"},
+        }]}
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", side_effect=[broken, broken]
+        ):
+            self.assertEqual(nb.curate_batch([article], []), {})
+
+    def test_prompt_requires_it_without_priming_an_empty_value(self):
+        """빈값 프라이밍 게토차 — 예시에 null·"" 을 박으면 모델이 그대로 베낀다.
+
+        ``TestBatchTemplateDoesNotPrimeEmptyValues`` 와 같은 함정이고,
+        open_question 이 배선 완료 후에도 0건이던 경로가 이것이었다.
+        """
+        for source in (nb.BATCH_SUFFIX, nb.CURATION_SYSTEM_PROMPT):
+            with self.subTest(source=source[:20]):
+                self.assertNotIn('"implication": null', source)
+                self.assertNotIn('"implication": ""', source)
+        # ⚠️ 이 작업이 만들어진 뒤 정책이 뒤집혔다. 2026-08-05 에 실측(라이브 64건 중
+        # 42건이 "…을 시사한다" 류로 정보량 0)을 근거로 CURATION_SYSTEM_PROMPT 가
+        # "담을 사실이 없으면 빈 문자열로 둔다"로 바뀌었고, 빈칸은 issue_insight.py 가
+        # 이슈 타임라인으로 채운다. 따라서 "반드시 작성" 을 요구하던 단언은 폐기한다.
+        # 남은 계약은 두 가지뿐이다: 빈값 프라이밍 금지(위) + 빈칸 허용의 명시.
+        self.assertIn("빈 문자열", nb.CURATION_SYSTEM_PROMPT)
+
+
+class TestImplicationRecurationCap(unittest.TestCase):
+    """LLM 이 끝내 implication 을 주지 않는 항목에 갇히지 않는가.
+
+    상한이 없으면 크롤마다 같은 기사를 다시 물어 무료 티어를 태운다.
+    """
+
+    CACHED = {
+        "summary": "정부가 신규 원전 계획을 발표했다.",
+        "importance": "must_read",
+        "section": "domestic",
+        "category": "정책",
+        "features": {"event_type": "policy_decision"},
+    }
+
+    def test_missing_implication_triggers_recuration(self):
+        self.assertTrue(nb.needs_recuration(dict(self.CACHED)))
+
+    def test_complete_record_is_not_requeried(self):
+        good = {**self.CACHED, "implication": "수출 경쟁 환경이 압박된다."}
+        self.assertFalse(nb.needs_recuration(good))
+
+    def test_retry_stops_at_limit(self):
+        for attempts in range(nb.IMPLICATION_RETRY_LIMIT):
+            with self.subTest(attempts=attempts):
+                self.assertTrue(nb.needs_recuration(
+                    {**self.CACHED, "implication_attempts": attempts}))
+        self.assertFalse(nb.needs_recuration(
+            {**self.CACHED, "implication_attempts": nb.IMPLICATION_RETRY_LIMIT}))
+
+    def test_other_errors_are_not_capped(self):
+        broken = {**self.CACHED, "summary": "",
+                  "implication_attempts": nb.IMPLICATION_RETRY_LIMIT + 3}
+        self.assertTrue(nb.needs_recuration(broken))
+
+    def test_budget_left_on_either_field_still_requeries(self):
+        """한 번의 호출이 두 필드를 함께 고치므로, 예산이 남은 쪽에 맞춘다."""
+        both = {k: v for k, v in self.CACHED.items() if k != "features"}
+        capped_implication = {**both,
+                              "implication_attempts": nb.IMPLICATION_RETRY_LIMIT,
+                              "features_attempts": 0}
+        self.assertTrue(nb.needs_recuration(capped_implication))
+        exhausted = {**both,
+                     "implication_attempts": nb.IMPLICATION_RETRY_LIMIT,
+                     "features_attempts": nb.FEATURES_RETRY_LIMIT}
+        self.assertFalse(nb.needs_recuration(exhausted))
+
+    def test_attempts_counter_clears_once_the_field_arrives(self):
+        # 지우지 않으면 나중에 같은 필드가 다시 비었을 때 재질의 기회 없이 영구화된다.
+        cur = {**self.CACHED, "implication": "수출 경쟁 환경이 압박된다."}
+        nb.bump_recuration_attempts(cur, {"implication_attempts": 2, "features_attempts": 1})
+        self.assertNotIn("implication_attempts", cur)
+        self.assertNotIn("features_attempts", cur)
+
+    def test_attempts_counter_accumulates_while_missing(self):
+        cur = dict(self.CACHED)
+        nb.bump_recuration_attempts(cur, {"implication_attempts": 1})
+        self.assertEqual(cur["implication_attempts"], 2)
+        self.assertNotIn("features_attempts", cur)
+
+
+class TestCurationGapRecord(unittest.TestCase):
+    """결손율 전후 비교의 근거를 남기는가.
+
+    ``delivery_log`` 의 기사 줄은 outbox 항목을 그대로 옮긴 것이라 랭킹 필드만 있고
+    implication·features 자체가 없다 — 기존 로그로는 전후 비교가 원리적으로 불가능해
+    집계 줄을 따로 남긴다.
+    """
+
+    QUEUE = [
+        {"hash": "h1", "importance": "must_read", "implication": "",
+         "domain": "nucnet.org", "title_kr": "중국 창장 3호기 상업운전 개시"},
+        {"hash": "h2", "importance": "must_read", "implication": "수출 경쟁이 압박된다.",
+         "features": {"event_type": "x"}, "domain": "a.com"},
+        {"hash": "h3", "importance": "nice_to_know", "implication": "의미가 있다.",
+         "features": {"event_type": "y"}, "domain": "b.com"},
+        {"hash": "h4", "importance": "noise", "implication": "", "domain": "c.com"},
+    ]
+
+    def _write(self, queue):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "delivery_log.jsonl"
+            ok = nb.append_curation_gap(queue, path=path)
+            rows = [json.loads(line)
+                    for line in path.read_text(encoding="utf-8").splitlines()
+                    if line.strip()] if path.exists() else []
+            return ok, rows
+
+    def test_counts_by_grade_and_keeps_missing_samples(self):
+        ok, rows = self._write(self.QUEUE)
+        self.assertTrue(ok)
+        rec = rows[0]
+        self.assertEqual(rec["record_type"], "curation_gap")
+        # noise 는 implication 을 요구하지 않으므로 분모에서 빠진다.
+        self.assertEqual(rec["queued"], 3)
+        self.assertEqual(rec["grades"]["must_read"]["implication_missing"], 1)
+        self.assertEqual(rec["grades"]["must_read"]["features_missing"], 1)
+        self.assertEqual(rec["grades"]["nice_to_know"]["implication_missing"], 0)
+        self.assertEqual([s["hash"] for s in rec["missing_samples"]], ["h1"])
+
+    def test_no_graded_items_writes_nothing(self):
+        ok, rows = self._write([{"hash": "h4", "importance": "noise"}])
+        self.assertFalse(ok)
+        self.assertEqual(rows, [])
+
+    def test_record_type_lines_are_skipped_by_existing_readers(self):
+        _ok, rows = self._write(self.QUEUE)
+        self.assertTrue(rows[0].get("record_type"))
+        self.assertIsNone(rows[0].get("hash"))
+        self.assertIsNone(rows[0].get("importance"))
+
+
 class TestFeaturesRecuration(unittest.TestCase):
     """features 결손이 재큐레이션 대상에 들어가는가 — 실패하면 조용히 영구화된다.
 
@@ -574,8 +846,11 @@ class TestFeaturesRecuration(unittest.TestCase):
     만료(3일)까지 매 회차 재등장했다. 근거: docs/score_distribution.md §4.
     """
 
+    # implication 을 채워 둔다 — 이 클래스가 보려는 건 features 결손 하나뿐이고,
+    # 비워 두면 implication:missing 이 섞여 무엇이 재질의를 유발했는지 흐려진다.
     CACHED = {
         "summary": "정부가 신규 원전 계획을 발표했다.",
+        "implication": "국내 원전 정책 방향이 재확인된다.",
         "importance": "must_read",
         "section": "domestic",
         "category": "정책",
@@ -618,7 +893,8 @@ class TestFeaturesRecuration(unittest.TestCase):
                 "scope": "overseas", "category": "정책",
                 "title_kr": "정부, 신규 원전 계획 발표",
                 "summary": "정부가 신규 원전 계획을 발표했다.",
-                "implication": "", "why_important": "", "tags": [],
+                "implication": "미국의 원전 확대 기조가 재확인된다.",
+                "why_important": "", "tags": [],
                 "topics": ["newbuild"], "countries": ["US"], "article_type": "policy",
                 "event_date": None, "event_date_type": "unknown",
                 "event_date_precision": "unknown", "event_date_source": "unknown",

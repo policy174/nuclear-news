@@ -23,6 +23,7 @@ from data_quality import (
     curation_errors,
     first_complete_sentence,
     implication_is_hollow,
+    IMPLICATION_REQUIRED_GRADES,
     invalid_url_reason,
     legacy_url_hash,
     normalize_event_date_fields,
@@ -620,9 +621,18 @@ def save_curated(curated: dict) -> None:
     save_json(CURATED_CACHE_FILE, curated)
 
 
-# features 만 없는 항목을 몇 번까지 다시 물어볼 것인가. 상한이 없으면 LLM 이 끝내
+# 구조 필드만 없는 항목을 몇 번까지 다시 물어볼 것인가. 상한이 없으면 LLM 이 끝내
 # 주지 않는 항목을 매시간(크롤마다) 다시 묻게 되고 무료 티어가 그대로 녹는다.
 FEATURES_RETRY_LIMIT = 2
+IMPLICATION_RETRY_LIMIT = 2
+
+# 상한을 두는 결손 오류 → (시도 횟수를 세는 캐시 키, 상한).
+# 여기 없는 오류(요약이 깨졌다든지)는 상한 없이 계속 고친다 — 그건 "LLM 이 안 주는
+# 필드"가 아니라 "출력이 망가진 것"이라 다시 부르면 고쳐질 여지가 있다.
+CAPPED_RECURATION_ERRORS = {
+    "features:missing": ("features_attempts", FEATURES_RETRY_LIMIT),
+    "implication:missing": ("implication_attempts", IMPLICATION_RETRY_LIMIT),
+}
 
 
 def fallback_curation(article: dict) -> dict | None:
@@ -663,24 +673,44 @@ def fallback_curation(article: dict) -> dict | None:
 def needs_recuration(cached: dict) -> bool:
     """캐시된 큐레이션을 Gemini 에 다시 물어봐야 하는가.
 
-    features 결손을 재큐레이션 대상에 포함시키는 것이 이 함수의 존재 이유다.
-    ``curation_errors()`` 만 보면 summary 가 멀쩡한 결손 항목은 완결된 것으로
-    취급돼 그대로 캐시된다.
+    구조 필드(features·implication) 결손을 재큐레이션 대상에 포함시키는 것이 이
+    함수의 존재 이유다. ``curation_errors()`` 를 기본값으로만 보면 summary 가 멀쩡한
+    결손 항목은 완결된 것으로 취급돼 그대로 캐시된다.
 
     ⚠️ **이건 2차 방어선이다.** 기사는 큐에 적재되는 순간 ``state["sent"]`` 로
     마킹되고 ``article_seen()`` 이 재수집을 막으므로, 이 판정은 아직 큐에 못 들어간
     항목(품질 격리분)이나 ``sent`` 가 만료(14일)돼 다시 잡힌 항목에만 도달한다.
     **결손을 실제로 막는 곳은 ``curate_batch()`` 의 응답 검증**이다.
 
-    features 만 없는 경우는 재시도 상한을 둔다 — 다른 필드까지 깨진 항목은 상한
-    없이 고치되, "LLM 이 이 기사엔 features 를 안 준다"는 상태에 갇히지 않게 한다.
+    구조 필드만 없는 경우는 재시도 상한을 둔다 — 다른 필드까지 깨진 항목은 상한
+    없이 고치되, "LLM 이 이 기사엔 그 필드를 안 준다"는 상태에 갇히지 않게 한다.
+    상한이 남은 필드가 하나라도 있으면 다시 묻는다. 어차피 한 번의 호출이 두 필드를
+    함께 고치므로, 예산이 남은 쪽에 맞추는 편이 결손을 덜 남긴다.
     """
-    errors = curation_errors(cached, require_features=True)
+    errors = curation_errors(cached, require_features=True, require_implication=True)
     if not errors:
         return False
-    if errors == ["features:missing"]:
-        return int(cached.get("features_attempts") or 0) < FEATURES_RETRY_LIMIT
-    return True
+    if any(error not in CAPPED_RECURATION_ERRORS for error in errors):
+        return True
+    return any(
+        int(cached.get(CAPPED_RECURATION_ERRORS[error][0]) or 0)
+        < CAPPED_RECURATION_ERRORS[error][1]
+        for error in errors
+    )
+
+
+def bump_recuration_attempts(cur: dict, previous: dict) -> None:
+    """구조 필드 재질의 시도 횟수를 누적한다. 받아낸 필드의 카운터는 지운다.
+
+    카운터를 지우는 쪽이 중요하다 — 나중에 다른 이유로 같은 필드가 다시 비었을 때
+    이미 상한에 걸려 있으면 재질의 기회 없이 결손이 영구화된다.
+    """
+    errors = set(curation_errors(cur, require_features=True, require_implication=True))
+    for error, (key, _limit) in CAPPED_RECURATION_ERRORS.items():
+        if error in errors:
+            cur[key] = int(previous.get(key) or 0) + 1
+        else:
+            cur.pop(key, None)
 
 
 def load_queue() -> list:
@@ -1031,6 +1061,9 @@ BATCH_SUFFIX = """
 - 확인 불가능하면 낮은 쪽으로. 지어내지 말 것.
 
 - 모든 idx 가 정확히 한 번씩 등장. 빠지거나 중복 금지.
+- **importance 가 must_read 또는 nice_to_know 인 항목은 implication 을 반드시 채운다.**
+  배치라고 생략하지 말 것 — 비워 둔 항목은 그대로 반려돼 다시 작성하게 된다.
+  implication 은 제목·summary 를 바꿔 쓴 문장이 아니라 '그래서 무엇을 뜻하는가'다.
 - 제목 앞에 (OFFICIAL) 표시가 있으면 정부·규제기관·국제기구의 공식 원문입니다:
   본문이 의결·정책 발표·중대 결정·인허가 등 정책 함의가 있는 경우만 must_read,
   채용·일반 행정·공지·축사·시상 등은 noise.
@@ -1143,6 +1176,67 @@ def append_curation_failure(lost: dict[str, str], articles: list[dict],
     return True
 
 
+def append_curation_gap(queued: list[dict],
+                        path: Path | None = None,
+                        now: datetime | None = None) -> bool:
+    """이번 크롤이 **큐에 넣은** 항목의 등급별 결손율을 ``delivery_log.jsonl`` 에 남긴다.
+
+    왜 큐 적재 시점인가: 여기가 결손이 확정되는 자리다. batch 결과든 fallback 이든
+    이 시점의 레코드가 브리핑·웹 카드에 그대로 실리고, 기사는 곧바로 ``sent`` 로
+    마킹돼 다시 큐레이션되지 않는다.
+
+    왜 별도 줄이 필요한가: ``delivery_log`` 의 기사 줄은 outbox 항목을 그대로 옮긴
+    것이라 랭킹 필드(score·breakdown·theme)만 있고 **implication·features 자체가
+    없다**. 즉 기존 로그로는 결손율 전후 비교가 원리적으로 불가능하다. 발송 기록을
+    바꾸는 대신 집계 줄을 따로 남긴다 — 기존 리더는 ``record_type`` 줄을 건너뛴다.
+
+    분모는 큐에 들어간 must_read·nice_to_know 다. market·noise 는 implication 을
+    요구하지 않으므로(``IMPLICATION_REQUIRED_GRADES``) 결손율에 섞지 않는다.
+    """
+    graded = [item for item in queued
+              if item.get("importance") in IMPLICATION_REQUIRED_GRADES]
+    if not graded:
+        return False
+    path = path or DELIVERY_LOG_FILE
+    now = now or datetime.now(timezone.utc)
+
+    grades: dict[str, dict] = {}
+    for grade in IMPLICATION_REQUIRED_GRADES:
+        items = [item for item in graded if item.get("importance") == grade]
+        if not items:
+            continue
+        grades[grade] = {
+            "queued": len(items),
+            "implication_missing": sum(
+                1 for item in items if not clean_text(item.get("implication"))),
+            "features_missing": sum(
+                1 for item in items if not isinstance(item.get("features"), dict)),
+        }
+    rec = {
+        "record_type": "curation_gap",
+        "date": now.astimezone(KST).date().isoformat(),
+        "generated_at": now.astimezone(KST).isoformat(),
+        "queued": len(graded),
+        "grades": grades,
+        # 어떤 기사가 비었는지까지 남긴다. 비율만 보면 '왜 이 기사엔 해석이 안
+        # 붙었나'를 다시 재현해야 한다.
+        "missing_samples": [
+            {"hash": item.get("hash", ""),
+             "importance": item.get("importance", ""),
+             "domain": item.get("domain", ""),
+             "title": (item.get("title_kr") or item.get("title") or "")[:80]}
+            for item in graded if not clean_text(item.get("implication"))
+        ][:10],
+    }
+    try:
+        with path.open("a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        print(f"  ! 큐레이션 결손 기록 실패: {exc}")
+        return False
+    return True
+
+
 def append_open_question_stats(verdicts: dict[str, dict],
                                path: Path | None = None,
                                now: datetime | None = None) -> bool:
@@ -1240,17 +1334,18 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                 temperature=0.2, max_output_tokens=BATCH_MAX_OUTPUT_TOKENS, timeout=150.0,
             )
         except GeminiTruncated as e:
-            return {}, {art["hash"]: [f"request:truncated:{e}"] for art in chunk}
+            return {}, {art["hash"]: [f"request:truncated:{e}"] for art in chunk}, {}
         except GeminiError as e:
             return {}, {art["hash"]: [f"request:{classify_request_failure(e)}:{e}"]
-                        for art in chunk}
+                        for art in chunk}, {}
 
         items = result.get("items")
         if not isinstance(items, list):
-            return {}, {art["hash"]: ["response:items_missing"] for art in chunk}
+            return {}, {art["hash"]: ["response:items_missing"] for art in chunk}, {}
 
         valid: dict[str, dict] = {}
         failures: dict[str, list[str]] = {}
+        rejected: dict[str, dict] = {}
         seen_indexes: set[int] = set()
         for item in items:
             if not isinstance(item, dict):
@@ -1280,16 +1375,22 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             # 들어간 기사는 sent 로 마킹돼 다시 수집되지 않으므로 고칠 기회가 없다.
             # 그 상태로 남으면 ranking 이 _legacy_score() 를 타 event_weights 도
             # feature 가중치도 반영되지 않는다. 근거: docs/AS_IS.md §2.
-            errors = curation_errors(normalized, require_features=True)
+            # implication 도 같은 이유로 여기서 잡는다 — 비면 카드 둘째 줄이 제목을
+            # 어순만 바꾼 summary 로 물러난다(web/public/app.js issueCard, 2026-08-04).
+            errors = curation_errors(normalized, require_features=True,
+                                     require_implication=True)
             if errors:
                 failures[art["hash"]] = errors
+                # 반려한 레코드도 들고 나간다. 재생성까지 실패했을 때 무엇을 살릴 수
+                # 있는지는 그 레코드를 봐야 판단이 선다 (아래 salvage 참고).
+                rejected[art["hash"]] = normalized
             else:
                 valid[art["hash"]] = normalized
 
         for idx, art in enumerate(chunk):
             if idx not in seen_indexes:
                 failures[art["hash"]] = ["response:idx_missing"]
-        return valid, failures
+        return valid, failures, rejected
 
     out: dict[str, dict] = {}
     lost: dict[str, str] = {}          # hash → 최종 실패 사유 (유실 기록용)
@@ -1299,7 +1400,7 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
     def process(chunk: list[dict], label: str) -> None:
         """chunk 하나를 큐레이션해 out/lost 를 채운다."""
         nonlocal split_budget
-        valid, failures = run_chunk(chunk)
+        valid, failures, _rejected = run_chunk(chunk)
         out.update(valid)
 
         reason = request_failure_reason(failures, chunk)
@@ -1330,14 +1431,30 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
         ]
         if retryable:
             print(f"  ! 품질 게이트 재생성: {len(retryable)}건")
-            repaired, remaining = run_chunk(retryable, failures)
+            repaired, remaining, rejected = run_chunk(retryable, failures)
             out.update(repaired)
             for art in retryable:
-                if art["hash"] in remaining:
-                    print(
-                        f"  ! 큐레이션 격리 '{art['title'][:35]}': "
-                        + ", ".join(remaining[art["hash"]])
-                    )
+                h = art["hash"]
+                if h not in remaining:
+                    continue
+                # 남은 결손이 implication 하나뿐이면 레코드를 살린다.
+                #
+                # 격리는 이 기사를 fallback 큐레이션으로 떨어뜨린다 — 영문 제목,
+                # nice_to_know 로 강등, features·why_important·event_date 전부 유실.
+                # 등급과 나머지가 멀쩡한 레코드를 한 줄 때문에 그렇게 버리면 고치려던
+                # 것보다 큰 손실이다. 게이트의 목적은 모델에게 두 번 요구하는 것이지
+                # 멀쩡한 레코드를 파기하는 것이 아니다.
+                #
+                # 살린 레코드의 카드 둘째 줄은 오늘과 똑같이 summary 로 물러난다
+                # (= 회귀 아님). 결손은 delivery_log 의 curation_gap 줄에 남는다.
+                if remaining[h] == ["implication:missing"] and h in rejected:
+                    out[h] = rejected[h]
+                    print(f"  · implication 미충족(2회) — 레코드 보존: {art['title'][:35]}")
+                    continue
+                print(
+                    f"  ! 큐레이션 격리 '{art['title'][:35]}': "
+                    + ", ".join(remaining[h])
+                )
 
     for start in range(0, len(articles), BATCH_CHUNK):
         process(articles[start:start + BATCH_CHUNK],
@@ -1673,6 +1790,9 @@ def main() -> None:
     # 보이지 않았다. 큐에 들어가면 sent 마킹으로 되돌릴 수 없으므로 이 값이 0 에
     # 수렴하는지가 S1 의 성패다. 근거: docs/score_distribution.md §4.
     features_missing = 0
+    # 같은 이유의 implication 판. 비면 카드 둘째 줄이 제목을 어순만 바꾼 summary 로
+    # 물러난다 (web/public/app.js issueCard, 2026-08-04).
+    implication_missing = 0
     now_iso = datetime.now(timezone.utc).isoformat()
 
     all_candidates: list[dict] = []
@@ -1746,6 +1866,10 @@ def main() -> None:
         print(f"[rank] 아카이브 제목 로딩 실패 — prior_coverage 생략: {exc}")
         prior_titles = []
 
+    # 이번 run 이 새로 적재한 구간만 결손율 계측 대상이다. 큐에는 아직 발송되지 않은
+    # 지난 회차 항목이 남아 있어, 전체를 세면 같은 기사가 회차마다 다시 집계된다.
+    queued_from = len(queue)
+
     for article in final_articles:
         h = article["hash"]
 
@@ -1765,13 +1889,9 @@ def main() -> None:
             cur["feed"] = article["feed"]
             cur["domain"] = article["domain"]
             cur["matched"] = article["matched"]
-            # features 를 끝내 못 받았으면 시도 횟수를 누적한다. needs_recuration()
-            # 이 이 값으로 재질의를 멈춘다. 받아냈으면 카운터를 지운다 — 나중에 다른
-            # 이유로 결손이 재발했을 때 상한에 이미 걸려 있으면 안 된다.
-            if isinstance(cur.get("features"), dict):
-                cur.pop("features_attempts", None)
-            else:
-                cur["features_attempts"] = int(previous.get("features_attempts") or 0) + 1
+            # 구조 필드를 끝내 못 받았으면 시도 횟수를 누적한다. needs_recuration()
+            # 이 이 값으로 재질의를 멈춘다.
+            bump_recuration_attempts(cur, previous)
             curated[h] = cur
 
         importance = cur.get("importance", "nice_to_know")
@@ -1783,6 +1903,9 @@ def main() -> None:
 
         if not isinstance(cur.get("features"), dict):
             features_missing += 1
+        if (importance in IMPLICATION_REQUIRED_GRADES
+                and not clean_text(cur.get("implication"))):
+            implication_missing += 1
 
         # must_read 포함 모든 비-noise 항목을 큐에 적재 — 즉시 개별 발송 폐지,
         # 일일 브리핑(daily_brief)으로 통합. must_read 는 rank가 높아 브리핑 상단 노출.
@@ -1851,9 +1974,11 @@ def main() -> None:
     save_state(state)
     save_curated(curated)
     save_queue(queue)
+    append_curation_gap(queue[queued_from:])
     rate = f"{features_missing / queued * 100:.1f}%" if queued else "—"
     print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped} "
-          f"features_missing={features_missing} ({rate})")
+          f"features_missing={features_missing} ({rate}) "
+          f"implication_missing={implication_missing}")
 
 
 if __name__ == "__main__":
