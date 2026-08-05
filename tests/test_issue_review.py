@@ -363,3 +363,23 @@ class TestFacilityEntityPriority(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)
+
+
+class TestBandLowerBoundIsDeliberate(unittest.TestCase):
+    """하한 0.84 는 두 번 검토해 유지한 값이다 — 낮추기 전에 근거를 다시 볼 것.
+
+    2026-08-06 실측: 미판정 후보 581쌍이 코사인 0.7163~0.8668(중앙값 0.8063)로
+    밴드 **바로 아래**에 몰려 있다. 그래서 "하한만 내리면 많이 잡힌다"로 보이지만,
+    [0.82,0.84) 상위 18쌍 중 같은 사건은 1쌍뿐이고 나머지는 'NRC Ginna 계속운전 ↔
+    일리노이 지역사회 응답'처럼 분야만 같다. 현재 밴드 승인률이 12%(26/219)인데
+    이 구간은 1~2% 수준이다.
+
+    분포가 밴드에 가깝다는 것은 병합할 값어치가 있다는 증거가 아니다.
+    """
+
+    def test_band_is_unchanged(self):
+        self.assertEqual(0.84, issue_review.REVIEW_BAND_LOW)
+        self.assertEqual(0.92, issue_review.REVIEW_BAND_HIGH)
+
+    def test_reasoning_is_recorded_in_the_module(self):
+        self.assertIn("다시 제안하지 말 것", issue_review.__doc__)
