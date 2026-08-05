@@ -771,3 +771,104 @@ class TestReferenceSiteCoverage(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestNaverQueryHasNoExclusionOperator(unittest.TestCase):
+    """🔴 네이버 검색 API 는 '-' 를 제외 연산자로 처리하지 않는다.
+
+    추가 검색어로 AND 결합해 버리므로 negative_terms 를 쿼리에 붙이면 결과가
+    붕괴한다. 실측(2026-08-06, openapi.naver.com/v1/search/news.json):
+
+        '계속운전'                                     total 360,614
+        '계속운전 -주가 -채용 … -기념식'(프로덕션 9개)  total **0**
+        '원자력 정책'                                  total 299,455 · 최신 당일
+        '원자력 정책 -인사 -부고'                       total 82 · 최신 5개월 전
+
+    국내 수집이 네이버가 아니라 Google News 국내 피드 하나로 연명하던 원인이다.
+    다시 붙이면 조용히 같은 상태로 돌아가므로 쿼리 문자열을 직접 검사한다.
+    """
+
+    def _captured_query(self, keyword):
+        seen = {}
+
+        class _Resp:
+            @staticmethod
+            def raise_for_status():
+                return None
+
+            @staticmethod
+            def json():
+                return {"items": []}
+
+        def fake_get(url, headers=None, params=None, timeout=None):
+            seen.update(params or {})
+            return _Resp()
+
+        with patch.dict(sys.modules):
+            import requests
+            with patch.object(requests, "get", fake_get):
+                nb.search_naver(keyword)
+        return seen.get("query", "")
+
+    def test_query_is_the_keyword_verbatim(self):
+        self.assertEqual("계속운전", self._captured_query("계속운전"))
+
+    def test_search_naver_takes_no_negative_terms_argument(self):
+        # 시그니처에 남겨 두면 호출부가 다시 넘긴다.
+        with self.assertRaises(TypeError):
+            nb.search_naver("계속운전", negative_terms="-주가")
+
+    def test_keywords_json_negatives_never_reach_a_query(self):
+        raw = json.loads((Path(nb.__file__).parent / "keywords.json").read_text(encoding="utf-8"))
+        feeds = raw if isinstance(raw, list) else raw.get("feeds", raw.get("keywords", []))
+        for feed in feeds:
+            for kw in feed.get("keywords", []):
+                self.assertNotIn("-", self._captured_query(kw),
+                                 msg=f"'{kw}' 쿼리에 제외 연산자가 섞였다")
+
+
+class TestRejectedTitles(unittest.TestCase):
+    """검색 단계에서 못 거른 것을 수집 후에 결정적으로 거른다."""
+
+    NEG = ["주가", "채용", "배당", "공모", "병원", "동호회", "부고", "인사발령", "기념식"]
+
+    def test_personnel_list_titles_are_dropped(self):
+        # 실측: '원자력 정책' 최신순 30건 중 20건 이상이 이 꼴이었다.
+        for title in ("[인사] 경북도 (과장급)", "[인사]경북도",
+                      "[8월 5일 인사종합] 신한투자증권 외",
+                      "[오늘의 인사 및 동정] 8월 5일",
+                      "【인사】경북도(과장급)", "[人事] 산업통상자원부"):
+            with self.subTest(title=title):
+                self.assertTrue(nb.is_rejected_title(title, self.NEG))
+
+    def test_leading_keyword_without_brackets_is_kept(self):
+        # 대괄호를 선택으로 두면 이런 정상 기사가 통째로 잘린다.
+        self.assertFalse(nb.is_rejected_title("인사 정책 개편으로 원전 인력 확충", self.NEG))
+
+    def test_unrelated_bracket_prefix_is_kept(self):
+        self.assertFalse(nb.is_rejected_title("[증권소식] 금융위, 발행어음 인가", self.NEG))
+
+    def test_real_nuclear_headlines_survive(self):
+        for title in ("원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+                      "한수원, 필리핀 아보이티즈 파워와 원전사업 협력 확대",
+                      "고창군 한빛원전 범군민대책위, 고준위 건식저장정책 건의",
+                      "전력거래소, 여름철 전력수급 대비 한빛원전 현장 점검"):
+            with self.subTest(title=title):
+                self.assertFalse(nb.is_rejected_title(title, self.NEG))
+
+    def test_negative_vocabulary_still_applies_to_titles(self):
+        # keywords.json 의 어휘를 버리지 않고 제목 제외로 재사용한다.
+        for title in ("한수원 2026년 상반기 신입사원 채용 공고",
+                      "두산에너빌리티 주가 급등", "원자력병원장에 임일한 박사"):
+            with self.subTest(title=title):
+                self.assertTrue(nb.is_rejected_title(title, self.NEG))
+
+    def test_only_the_title_is_inspected(self):
+        # 본문까지 보면 "…채용 확대에 따른 원전 인력" 같은 맥락 언급으로 정상 기사가 날아간다.
+        self.assertFalse(nb.is_rejected_title(
+            "원안위, 신규 원전 안전기준 개정", self.NEG))
+
+    def test_parse_negative_terms(self):
+        self.assertEqual(["주가", "채용"], nb.parse_negative_terms("-주가 -채용"))
+        self.assertEqual([], nb.parse_negative_terms(""))
+        self.assertEqual([], nb.parse_negative_terms("   "))

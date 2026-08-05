@@ -691,15 +691,28 @@ def save_queue(queue: list) -> None:
     save_json(DIGEST_QUEUE_FILE, queue)
 
 
-def search_naver(query: str, negative_terms: str = "", display: int = 30) -> list[dict]:
+def search_naver(query: str, display: int = 30) -> list[dict]:
+    """네이버 뉴스 API 검색.
+
+    🔴 negative_terms 를 쿼리에 붙이지 말 것. 네이버 검색 API 는 '-' 를 제외
+    연산자로 처리하지 않고 **추가 검색어로 AND 결합**한다. 실측(2026-08-06):
+
+        '계속운전'                                    → total 360,614
+        '계속운전 -주가 -채용 … -기념식'(프로덕션 9개) → total 0
+        '원자력 정책'                                 → total 299,455, 최신 당일
+        '원자력 정책 -인사 -부고'                      → total 82, 최신 5개월 전
+
+    즉 제외하려던 것이 아니라 쿼리 자체가 죽는다. 국내 수집이 네이버가 아니라
+    Google News 국내 피드 하나로 연명하던 원인이 이것이다.
+    제외는 ``is_rejected_title()`` 이 수집 후에 한다.
+    """
     import requests
 
-    full_query = f"{query} {negative_terms}".strip() if negative_terms else query
     headers = {
         "X-Naver-Client-Id": NAVER_CLIENT_ID,
         "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
     }
-    params = {"query": full_query, "display": display, "sort": "date"}
+    params = {"query": query, "display": display, "sort": "date"}
     r = requests.get(NAVER_URL, headers=headers, params=params, timeout=10)
     r.raise_for_status()
     return r.json().get("items", [])
@@ -727,6 +740,47 @@ def passes_anchor_filter(title: str, description: str, anchors: list[str]) -> bo
         return True
     haystack = (title + " " + description).lower()
     return any(a.lower() in haystack for a in anchors)
+
+
+# 제목이 이 꼴로 **시작**하면 기사가 아니라 명단이다. 실측(2026-08-05 '원자력 정책'
+# 최신순 30건)에서 20건 이상이 「[인사] 경북도」 형태였다 — 원자력산업안전과장이
+# 명단에 들어 있어 키워드에는 걸리는데 원자력 뉴스는 아니다.
+#
+# 왜 접두인가: 본문 포함으로 자르면 "원전 인사 정책", "부고를 계기로 한 안전 논의"
+# 같은 정상 기사를 잃는다. 명단 기사는 제목이 예외 없이 이 표지로 시작한다.
+#
+# 왜 대괄호가 필수인가: 대괄호를 선택으로 두면 "인사 정책 개편으로 원전 인력 확충"
+# 처럼 '인사'로 시작하는 정상 기사가 통째로 잘린다. 명단 기사는 「[인사] 경북도」·
+# 「[8월 5일 인사종합]」·「[오늘의 인사 및 동정]」처럼 항상 머리 대괄호를 단다.
+_TITLE_PREFIX_REJECT = re.compile(
+    r"^\s*[\[\【(][^\]\】)]{0,20}(?:인사|부고|동정|人事)[^\]\】)]{0,10}[\]\】)]"
+)
+
+
+def parse_negative_terms(negative_terms: str) -> list[str]:
+    """'-주가 -채용' → ['주가', '채용'].
+
+    keywords.json 의 이 필드는 원래 검색 쿼리에 붙었으나 네이버가 '-' 를 제외로
+    처리하지 않아 쿼리를 죽이고 있었다(``search_naver`` 주석). 어휘 자체는
+    사람이 고른 쓸모 있는 목록이므로 버리지 않고 **제목 제외 목록**으로 쓴다.
+    """
+    return [t.lstrip("-").strip().lower()
+            for t in (negative_terms or "").split() if t.lstrip("-").strip()]
+
+
+def is_rejected_title(title: str, negative_terms: list[str]) -> bool:
+    """수집 후 결정적 제외 — 검색 단계에서 못 하는 일을 여기서 한다.
+
+    ⚠️ 제목만 본다. 본문·요약까지 보면 "원자력 안전 채용 확대에 따른 …" 같은
+    맥락 언급으로 정상 기사가 날아간다.
+    """
+    text = (title or "").strip()
+    if not text:
+        return False
+    if _TITLE_PREFIX_REJECT.match(text):
+        return True
+    lowered = text.lower()
+    return any(term in lowered for term in negative_terms)
 
 
 _gemini_client = None
@@ -1523,10 +1577,12 @@ def collect_rss_articles(state: dict) -> list[dict]:
 def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], state: dict, negative_terms: str = "") -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS)
     by_title: dict[str, dict] = {}
+    # 쿼리에 붙이지 않고 수집 후 제목 제외에 쓴다 — search_naver 주석 참고.
+    negatives = parse_negative_terms(negative_terms)
 
     for kw in keywords:
         try:
-            items = search_naver(kw, negative_terms=negative_terms)
+            items = search_naver(kw)
         except Exception as e:
             print(f"  ! [{feed_name}] '{kw}' search failed: {e}")
             continue
@@ -1553,6 +1609,8 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
             title = strip_html(item.get("title", ""))
             desc = strip_html(item.get("description", ""))
 
+            if is_rejected_title(title, negatives):
+                continue
             if is_promotional(title, desc):
                 continue
             if is_stub(desc):
