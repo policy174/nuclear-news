@@ -227,7 +227,7 @@ jobs:
         run: |
           # 파일별로 가드한다 — 한 파일이 없어서 git add 가 실패하면 나머지
           # 파일의 커밋까지 같이 죽는다(daily_leads.json 데드락과 같은 함정).
-          for f in issue_llm_reviews.json keei_llm_matches.json; do
+          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet && exit 0

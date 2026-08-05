@@ -766,8 +766,12 @@ function keeiDialogSection(issue) {
 
 function issueCard(issue, index, archive = false, front = false) {
   const topic = primaryTopicLabel(issue);
-  const change = issueChangeText(issue);
   const title = archive ? markMatch(issue.title, state.archiveQuery) : esc(issue.title);
+  // '변화' 줄(= 직전 브리핑 문장)은 카드에서 뺐다. 사용자 지적(2026-08-05):
+  // "직전 브리핑 내용이 왜 들어가, 그럴거면 그 전꺼를 보겠지 당연히." 맞는 말이다 —
+  // 카드가 답해야 하는 것은 '이 뉴스가 무슨 뜻인가'이지 '어제 뭐라고 했나'가
+  // 아니다. 상태는 이미 메타 줄('업데이트 · N회 추적')이 말하고, 지난 문장은
+  // 상세의 사건 타임라인에 그대로 있다. 카드에서 뺀 것들과 같은 원칙.
   // 카드의 두 번째 줄은 '무엇'이 아니라 '왜'다. summary 는 제목을 어순만 바꿔
   // 다시 쓴 문장이 대부분이라(8/3 브리핑 실측 8건 중 5건) 두 번 읽게 만들 뿐
   // 정보를 더하지 않는다. implication(= 상세의 '시사점')은 이미 만들어 두고도
@@ -803,7 +807,6 @@ function issueCard(issue, index, archive = false, front = false) {
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
       ${leadText ? `<p class="issue-summary${why ? " issue-why" : ""}">${why ? `<span class="ai-badge">AI</span>` : ""}${lead}</p>` : ""}
       ${matchContext}
-      ${change ? `<p class="issue-change"><strong>변화</strong><span>${esc(change)}</span></p>` : ""}
       ${keeiRefLine(issue)}
       ${archive ? trackingPeriod(issue) : ""}
     </div>

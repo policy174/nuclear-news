@@ -1063,7 +1063,11 @@ class GeneratedDataTests(unittest.TestCase):
         # 근거 줄은 '타임라인 N' 버튼과 같은 숫자를 반복해 제거했다. 출처 구성은
         # 상세에만 남는다.
         self.assertNotIn("issueEvidenceText(issue)", issue_card)
-        self.assertIn('class="issue-change"', issue_card)
+        # '변화' 줄(= 직전 브리핑 문장)도 뺐다. 사용자 지적(2026-08-05):
+        # "직전 브리핑 내용이 왜 들어가, 그럴거면 그 전꺼를 보겠지 당연히."
+        # 카드가 답할 것은 '이 뉴스가 무슨 뜻인가'다 — 그 자리는 issue_insight 가
+        # 이슈 타임라인으로 채운다. 지난 문장은 상세의 사건 타임라인에 그대로 있다.
+        self.assertNotIn('class="issue-change"', issue_card)
         self.assertNotIn('class="issue-meaning"', issue_card)
         self.assertNotIn('class="topic-row"', issue_card)
         self.assertNotIn('class="reason-row"', issue_card)

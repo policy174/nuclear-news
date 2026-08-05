@@ -690,6 +690,19 @@ class TestCrawlWorkflowKeepsDiagnostics(unittest.TestCase):
         # 호출을 마친 뒤라 그 시각 수집이 통째로 사라진다.
         self.assertIn("git rebase origin/main", yml)
 
+    def test_llm_caches_are_committed(self):
+        """캐시가 커밋되지 않으면 같은 것을 매 빌드(하루 12회+)마다 다시 묻는다.
+
+        크롤 잡의 산출물은 러너와 함께 사라진다 — git add 목록에 없으면 캐시가
+        없는 것과 같고, 무료 쿼터를 태워 429 를 부른다(issue_review 가 실제로
+        그렇게 죽었다).
+        """
+        for name in ("crawl.yml", "daily-brief.yml"):
+            yml = (self.ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+            for cache in ("issue_llm_reviews.json", "keei_llm_matches.json",
+                          "issue_insights.json"):
+                self.assertIn(cache, yml, f"{name} 에 {cache} 커밋이 빠졌다")
+
     def test_append_only_logs_merge_by_union(self):
         """rebase 가 붙으려면 append 충돌이 자동 해소돼야 한다.
 

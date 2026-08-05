@@ -1,0 +1,62 @@
+{
+  "_comment": "이슈 단위 카드 해석 캐시. 키는 issue_id, digest 가 다르면 다시 묻는다.",
+  "prompt_version": 2,
+  "insights": {
+    "issue-4bdd65d0c09aaf72": {
+      "digest": "be46957c831c8216",
+      "insight": "다뉴브강 수위 저하로 냉각수 취수가 막혀 예고됐던 전면 정지를 피한 것이다.",
+      "title": "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-527a6bd0d4f4a288": {
+      "digest": "f940183c7f3ddc37",
+      "insight": "한국수력원자력이 1조 7,508억 원 규모의 포천양수발전소 본공사에 착수했다.",
+      "title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-ebf7dd57b9741653": {
+      "digest": "2c8aa1469822c3b8",
+      "insight": "",
+      "title": "IAEA 사무총장, 우크라이나 상황 관련 성명 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-0d29e5a153e4d297": {
+      "digest": "62c9e36f4c44fda1",
+      "insight": "",
+      "title": "독일, 2040년대 유럽 최초 핵융합로 목표로 국가 허브 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-349e783fd4decdfa": {
+      "digest": "42571708e5da6b99",
+      "insight": "",
+      "title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-0abd318976122879": {
+      "digest": "a61f8cbfc6a5e5b0",
+      "insight": "",
+      "title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    },
+    "issue-858f887a11d713e9": {
+      "digest": "ccb94e952d372394",
+      "insight": "스페인 원자력안전위원회가 알마라즈 원전 운영 허가 갱신에 대한 긍정적 보고서를 발표했다.",
+      "title": "스페인 최고령 원전, 퇴출 위기 극복하고 운영 지속 결정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+    }
+  }
+}

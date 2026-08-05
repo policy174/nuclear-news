@@ -49,6 +49,7 @@ from data_quality import (  # noqa: E402
     title_key,
 )
 from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
+import issue_insight  # noqa: E402
 import issue_review  # noqa: E402
 import keei_match  # noqa: E402
 
@@ -3139,6 +3140,19 @@ def build() -> None:
         entity_registry=entity_registry,
         entity_evidence_out=entity_match_evidence,
     )
+    # 카드 두 번째 줄을 이슈 타임라인으로 채운다. 기사 하나만 보는 큐레이션
+    # 프롬프트로는 원리상 못 만드는 문장이다 — 로이터 헤드라인에는 가뭄이 없지만
+    # 그 기사가 속한 클러스터에는 다뉴브강 수위 저하부터 다 들어 있다.
+    # 생성은 카탈로그 행에서만 한다(전체 타임라인). 브리핑 행은 같은 이슈의
+    # 날짜별 부분집합이라 거기서 또 물으면 같은 이슈를 날짜 수만큼 중복 질의한다.
+    insights, insight_stats = issue_insight.generate(issue_catalog)
+    applied = issue_insight.apply(issue_catalog, insights)
+    for briefing in briefings:
+        applied += issue_insight.apply(briefing.get("issues") or [], insights)
+    print(f"[build_data] 이슈 해석: 후보 {insight_stats['candidates']}건 "
+          f"(캐시 {insight_stats['from_cache']} / 신규 {insight_stats['asked']} / "
+          f"호출 {insight_stats['calls']}회) → 적용 {applied}건 "
+          f"[{insight_stats['status']}]")
     entities_view = build_entities_view(issue_catalog, entity_registry, now.isoformat())
     report_entity_stats(entity_registry, issue_catalog)
     publications = load_publications(now)
