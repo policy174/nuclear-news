@@ -23,6 +23,8 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 | `embedding_pipeline.py` | Gemini 임베딩 모델·35일 캐시·최근 21일 브리핑 백필 계약 |
 | `news_archive.py` | v2 아카이브 적재·중복 차단·품질 이관 |
 | `archive_repairs.json` | 과거 깨진 레코드의 고정 회귀 수선·제외 근거 |
+| `policy_web_sync.py` | 최근 뉴스 JSONL을 정책 웹에 멱등 upsert (`--all` 최초 이관) |
+| `policy_monitor.py` | 공식 HTML/PDF 해시 변경 감지 → 검토 후보 등록 |
 | `daily_brief.py` | 일일 브리핑: 랭킹→투자 관점(구조화)→보고서 추천→발송 |
 | `weekly_bot.py` | 주간 판세 리포트 (Gemini 주 1회 1호출) |
 | `ranking.py` + `ranking_config.json` | 설명 가능한 점수식 — **가중치는 JSON 만 편집** |
@@ -67,8 +69,16 @@ weekly (금 17:00 KST)   weekly_bot.py  주간 판세 (정책 변화·테마 강
 | `NAVER_CLIENT_ID` / `NAVER_CLIENT_SECRET` | ✅ | 국내 뉴스 검색 |
 | `GEMINI_API_KEY` | ⭕ | 없으면 큐레이션·투자관점 생략(fallback 발송) |
 | `IMAP_USER` / `IMAP_PASSWORD` | ⭕ | ANS 뉴스레터 수집 (Gmail 앱 비밀번호, 공백 제거) |
+| `POLICY_INGEST_TOKEN` | ⭕ | 정책 웹 연계 Bearer token. 미설정 시 뉴스 동기화만 스킵 |
 
-`GEMINI_MODEL` 은 Repository **Variable** (기본 `gemini-2.5-flash`).
+`GEMINI_MODEL`(기본 `gemini-2.5-flash`)과 `POLICY_WEB_URL`은 Repository **Variable**입니다.
+
+## 정책 웹 연계
+
+- 시간별 crawl 뒤 최근 7일을 재전송한다. 정책 웹 장애는 `continue-on-error`라 기존 뉴스·텔레그램 운영에 전파되지 않는다.
+- `.github/workflows/policy-monitor.yml`은 매일 뉴스 신호 대상, 매주 전체 활성 소스를 확인한다.
+- 공식 본문 해시가 달라진 경우에만 Gemini를 호출한다. 결과는 항상 검토 후보이며 승인 정책값을 직접 수정하지 않는다.
+- 최초 이관: `python policy_web_sync.py --all`
 
 ## 로컬 테스트
 

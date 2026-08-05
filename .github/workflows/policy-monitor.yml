@@ -1,0 +1,75 @@
+name: Policy source monitor
+
+on:
+  schedule:
+    - cron: "20 21 * * *"
+    - cron: "40 21 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "signals 또는 weekly"
+        required: false
+        default: "weekly"
+        type: choice
+        options:
+          - weekly
+          - signals
+
+permissions:
+  contents: read
+
+concurrency:
+  group: policy-monitor
+  cancel-in-progress: false
+
+jobs:
+  signals:
+    if: github.event_name == 'schedule' && github.event.schedule == '20 21 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python policy_monitor.py --mode signals
+        env:
+          POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
+          POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+
+  weekly:
+    if: github.event_name == 'schedule' && github.event.schedule == '40 21 * * 0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python policy_monitor.py --mode weekly
+        env:
+          POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
+          POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+
+  manual:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python policy_monitor.py --mode "${{ inputs.mode }}"
+        env:
+          POLICY_WEB_URL: ${{ vars.POLICY_WEB_URL }}
+          POLICY_INGEST_TOKEN: ${{ secrets.POLICY_INGEST_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
