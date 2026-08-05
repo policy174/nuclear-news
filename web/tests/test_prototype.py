@@ -2372,8 +2372,11 @@ class InterpretationSplitTests(unittest.TestCase):
     """
 
     def test_two_axes_survive_as_two_fields(self):
+        # implication 예시는 구체적인 사실을 담은 문장이어야 한다. 예전 예시
+        # ("…유럽 시장 확대가 예상됩니다")는 빈껍데기 게이트에 걸려 이 테스트가
+        # 두 축 보존이 아니라 게이트 동작을 재는 테스트로 바뀌어 버렸다.
         row = build_data.split_interpretation({
-            "implication": "체코의 SMR 도입 의지가 구체화되며 유럽 시장 확대가 예상됩니다.",
+            "implication": "체코 정부가 추가 2기 부지를 지정하며 발주 일정이 내년 상반기로 앞당겨졌다.",
             "why_important": "두코바니 후속 사업의 발주 방식이 한국형 노형의 유럽 재진입 조건을 좌우한다.",
         })
         self.assertEqual(len([value for value in row if value]), 2)
@@ -3044,6 +3047,134 @@ class TokenSystemTests(unittest.TestCase):
         self.assertIn("--r-1: 0", self.style)
         self.assertIn("outline: 2px solid var(--c-focus);", self.style)
         self.assertIn("box-shadow: var(--fo-ring);", self.style)
+
+
+class FacilityEntitySignalTests(unittest.TestCase):
+    """설비·프로젝트 엔티티 공유는 LLM 검수 우선순위 신호다(병합 판정은 아니다).
+
+    재현 사건(2026-08-05 라이브): 팍스 원전 가뭄 클러스터와 그 후속 보도가 코사인
+    0.8716 로 검수 밴드[0.84, 0.92] 안에 있었는데, 그날 검수 20쌍이 전부 429 로
+    죽어 판정이 없었고 후속이 신규 이슈로 갈라졌다. 사용자 지적 "팔로잉이 안 된다".
+
+    실측 근거(판정 완료 185쌍): 설비·프로젝트 공유 3건 전부 같은 사건·오탐 0.
+    기관·기업까지 넣으면 40건 중 3건이라 판별력이 사라진다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        registry = build_data.load_entity_registry()
+        cls.aliases = build_data.facility_alias_entries(registry)
+
+    def _article(self, article_hash, title, countries):
+        return {"hash": article_hash, "title_kr": title, "summary": "",
+                "topics": [], "tags": [], "countries": countries}
+
+    def test_registry_narrows_to_plants_and_projects(self):
+        registry = build_data.load_entity_registry()
+        narrowed = [e for e in registry if e["type"] in build_data.FOLLOW_UP_ENTITY_TYPES]
+        self.assertTrue(narrowed)
+        self.assertLess(len(narrowed), len(registry), "기관·기업이 걸러지지 않았다")
+
+    def test_paks_follow_up_pair_shares_a_facility(self):
+        left = self._article("h1", "헝가리, 가뭄으로 팍스 원전 가동 중단 위기 직면", ["HU"])
+        right = self._article("h2", "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표", ["HU"])
+        entities = build_data.facility_entities_by_hash([left, right], self.aliases)
+        _matched, _score, diagnostics = build_data.issue_similarity(
+            left, right, None, None, entities)
+        self.assertEqual(diagnostics["shared_facility_entities"], ["paks"])
+
+    def test_shared_regulator_is_not_a_facility_signal(self):
+        """NRC 를 신호로 쓰면 미국 규제 기사가 전부 한 이슈로 묶인다(실측 오탐 40건)."""
+        left = self._article("h3", "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴", ["US"])
+        right = self._article("h4", "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최", ["US"])
+        entities = build_data.facility_entities_by_hash([left, right], self.aliases)
+        _matched, _score, diagnostics = build_data.issue_similarity(
+            left, right, None, None, entities)
+        self.assertEqual(diagnostics["shared_facility_entities"], [])
+
+    def test_facility_share_alone_does_not_merge(self):
+        """표본 3건짜리 신호로 병합하면 같은 발전소의 다른 사건이 합쳐진다."""
+        left = self._article("h5", "팍스 원전 2호기 계획예방정비 착수", ["HU"])
+        right = self._article("h6", "팍스 원전 신규 부지 환경영향평가 공청회", ["HU"])
+        entities = build_data.facility_entities_by_hash([left, right], self.aliases)
+        matched, _score, diagnostics = build_data.issue_similarity(
+            left, right, None, None, entities)
+        self.assertEqual(diagnostics["shared_facility_entities"], ["paks"])
+        self.assertFalse(matched, "설비 공유만으로 병합되면 안 된다")
+
+    def test_signal_is_optional(self):
+        """facility_entities 를 안 주는 기존 호출부가 깨지면 안 된다."""
+        left = self._article("h7", "팍스 원전 가동 중단", ["HU"])
+        right = self._article("h8", "팍스 원전 재가동", ["HU"])
+        _matched, _score, diagnostics = build_data.issue_similarity(left, right)
+        self.assertEqual(diagnostics["shared_facility_entities"], [])
+
+
+class PublicationRelevanceTests(unittest.TestCase):
+    """발간물을 정책·시장 / 기술문서로 갈라 기술문서만 접는다.
+
+    실측 2026-08-05 라이브: off_topic 게이트(행사·농업)를 통과한 19건 중 12건이
+    전산유체역학 코드 검증·붕괴열 시뮬레이션·흑연 조사 크리프·계측제어 요구공학
+    같은 **연구·설계 실무자용** 문서였고, 그것이 서가 앞줄을 차지해 정책 자료가
+    묻혔다. 원자력 문서가 맞으니 지울 수는 없다 — 접는다.
+    """
+
+    def test_llm_verdict_wins_over_the_title_rule(self):
+        """규칙이 LLM 판정을 뒤집으면 안 된다(off_topic 과 같은 계약)."""
+        item = {"title": "Decay heat simulation benchmark", "relevance": "policy"}
+        self.assertEqual(build_data.publication_relevance(item), "policy")
+
+    def test_title_rule_is_the_fallback_when_no_verdict(self):
+        """v2 캐시가 남아 있는 동안 화면이 먼저 정리되게 하는 폴백."""
+        item = {"title_kr": "원자로 안전 문제에 대한 전산유체역학(CFD) 코드 검증"}
+        self.assertEqual(build_data.publication_relevance(item), "technical")
+
+    def test_unknown_verdict_falls_back_rather_than_crashing(self):
+        item = {"title": "SMR deployment", "relevance": "완전히 모르는 값"}
+        self.assertEqual(build_data.publication_relevance(item), "policy")
+
+    def test_ambiguous_items_are_not_folded(self):
+        """잘못 접는 쪽이 해롭다 — 판단이 안 서면 앞줄에 남긴다."""
+        item = {"title": "Nuclear Law Institute opens applications"}
+        self.assertEqual(build_data.publication_relevance(item), "policy")
+
+    def test_policy_titles_are_not_folded_by_the_rule(self):
+        for title in ("소형모듈원자로(SMR) 가속화",
+                      "중국의 원자력 발전 용량, 2016년 이후 거의 두 배 증가",
+                      "[격주간] 세계 원전시장 인사이트(2026.07.24.)"):
+            self.assertEqual(build_data.publication_relevance({"title_kr": title}),
+                             "policy", title)
+
+    def test_generated_publications_carry_relevance(self):
+        data = json.loads((DATA_DIR / "publications.json").read_text(encoding="utf-8"))
+        self.assertIn("relevance_counts", data)
+        for item in data["items"]:
+            self.assertIn(item.get("relevance"), build_data.PUBLICATION_RELEVANCE_VALUES)
+
+
+class PublicationFoldRenderTests(unittest.TestCase):
+    """접힘 UI 계약 — 렌더러·CSS 양쪽."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_renderer_folds_only_technical(self):
+        self.assertIn('item.relevance === "technical"', self.app)
+        self.assertIn("pub-technical-shelf", self.app)
+
+    def test_fold_spans_the_shelf_grid(self):
+        """서가 그리드의 자식이라 열을 넘기지 않으면 한 칸에 찌그러진다."""
+        self.assertIn(".pub-technical { grid-column: 1 / -1", self.style)
+
+    def test_summary_draws_its_own_marker(self):
+        """display:flex 가 기본 펼침 마커를 지운다 — 실측으로 잡은 회귀."""
+        self.assertIn(".pub-technical > summary::before", self.style)
+        self.assertIn(".pub-technical[open] > summary::before", self.style)
+
+    def test_summary_meets_the_mobile_touch_target(self):
+        self.assertIn("min-height: 44px", self.style.split(".pub-technical > summary")[1][:400])
 
 
 if __name__ == "__main__":

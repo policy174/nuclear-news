@@ -22,6 +22,7 @@ from data_quality import (
     clean_text,
     curation_errors,
     first_complete_sentence,
+    implication_is_hollow,
     invalid_url_reason,
     legacy_url_hash,
     normalize_event_date_fields,
@@ -171,6 +172,40 @@ RSS_SOURCES.append({
     "name": "E&E News 원자력", "domain_label": "eenews.net",
 })
 
+# ---- 사내 참조 사이트 목록 보완 (2026-08-05) --------------------------------
+# 부서 「세계원전시장 인사이트」 업무 절차서의 '주요 기사 검색 사이트' 대조.
+# 이미 걷고 있던 것: WNN·NucNet·ANS(Nuclear Newswire)·POWER Magazine·IAEA.
+#
+# 넣지 않은 것과 이유 (재시도 전에 이 목록부터 볼 것, 실측 2026-08-05):
+#   UxC              uxc.com RSS 404. 헤드라인 뉴스·UxWeekly 전부 구독 제품이다.
+#   BNEF             구독 전용. 공개 피드 없음.
+#   IAEA PRIS        발전소 제원·이용률 통계 DB. 뉴스 피드가 아니라 조회 대상이라
+#                    수집원이 아니다(기사 작성 시 수치 확인용).
+#   Nuclear Asia     nuclearasia.com 직접 429, 구글 인덱싱 0건. 접근 경로 없음.
+#   World Nuclear Association  구글 18건 중 절반이 'Contact Us' 류 상시 페이지고
+#                    나머지는 뉴스가 아닌 보고서·행사다. 발간물 경로가 맞아
+#                    뉴스 수집원으로는 넣지 않는다.
+NUCLEAR_TITLE_KEYWORDS = (
+    "nuclear", "reactor", "smr", "uranium", "atomic", "enrich",
+    "radioactive", "fusion", "nucléaire", "원전", "원자력",
+)
+# 원자력 전문지 — 실측 8건 전부 원자력(2026-08-05). 직접 RSS(neimagazine.com/feed)는
+# 403 이거나 5개월 전 항목을 돌려주는 캐시라 Google News 경로를 쓴다.
+_NEI_Q = quote_plus("site:neimagazine.com when:3d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_NEI_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "Nuclear Engineering International", "domain_label": "neimagazine.com",
+})
+# EU 정책 전문지 — EU 차원 규제·지침·역내 전력망 논의가 다른 출처에 잘 안 잡힌다.
+# 직접 RSS 는 Cloudflare 403(브라우저 UA 로도 동일). Google News 는 이 도메인에서
+# 괄호 키워드를 무시하므로 require_keywords 로 수집 단계에서 거른다.
+_EURACTIV_Q = quote_plus("site:euractiv.com (nuclear OR reactor OR SMR OR uranium) when:3d")
+RSS_SOURCES.append({
+    "url": f"https://news.google.com/rss/search?q={_EURACTIV_Q}&hl=en-US&gl=US&ceid=US:en",
+    "name": "Euractiv 원자력", "domain_label": "euractiv.com",
+    "require_keywords": NUCLEAR_TITLE_KEYWORDS,
+})
+
 # 국내 언론의 원자력 '업무' 보도 — 보도자료(site:)만으론 국내가 비어 추가.
 # 타깃 키워드(기관·정책·사업명)로 좁혀 노이즈 최소화. 일반 '원자력' 단독은 의도적으로
 # 제외(원자력병원·원자력시계 등 무관 잡음 방지). 들어온 뒤엔 기존 curation·노이즈 필터로 한 번 더 거름.
@@ -291,7 +326,18 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 - summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 이내). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
 - summary 사실성 제약: 원문에 없는 전망·평가·인과관계를 추가하지 말 것. 계획·예정·전망·검토를 완료된 사실처럼 바꾸지 말고 원문의 시제를 그대로 보존할 것.
 
-- implication: AI 해석인 시사점 1문장(60자 이내). nice_to_know·must_read만 작성. 완결형 서술문으로 쓰고 문자열을 자르지 말 것.
+- implication: AI 해석 1문장(90자 이내). nice_to_know·must_read만 작성. 완결형 서술문으로 쓰고 문자열을 자르지 말 것.
+  **제목·요약에 없는 사실을 하나는 담아야 한다.** 다음 중 최소 하나를 명시할 것:
+  ①이 일이 벌어진 원인·배경(무엇 때문인가) ②이어질 다음 절차·일정 ③걸린 수치·규모
+  ④이 결정으로 영향받는 대상.
+  담을 사실이 기사에 없으면 **빈 문자열로 둔다.** 억지로 채우지 말 것 — 빈칸이 빈껍데기보다 낫다.
+  아래 어미로 끝내는 문장은 금지다(실측 64건 중 31건이 이 꼴이었고 전부 정보량 0이었다):
+  "…을 시사한다 / …을 보여준다 / …이 기대된다 / …이 전망된다 / …에 기여할 것이다 /
+   …이 중요하다 / …이 필요하다 / …을 주목할 필요가 있다".
+    나쁨: "헝가리 정부의 원전 운영에 대한 긍정적 입장을 시사한다." (제목을 바꿔 말했을 뿐)
+    좋음: "다뉴브강 수위가 회복되며 냉각수 취수 제한이 풀린 결과로, 앞서 예고된 전면 정지는 피했다."
+    나쁨: "미국 SMR 상용화 가속화에 기여할 것입니다."
+    좋음: "INL 부지 사용 협약으로 2028년 착공 목표의 인허가 전 단계가 열렸다."
 
 - why_important: must_read만 작성. **1~2개의 완결형 문장, 150자 이내**. 분석관 톤. 격식체. 핵심 시사점만 압축. 절대 길게 풀어쓰거나 문자열을 자르지 말 것.
 
@@ -759,6 +805,26 @@ def default_section(domain: str, title: str = "") -> str:
     return "international"
 
 
+# 버린 해석 건수. 한 번의 크롤이 끝날 때 한 줄로 찍는다 — 조용히 지우면
+# 프롬프트가 망가진 것을 아무도 모른다.
+HOLLOW_IMPLICATION_DROPS: list[str] = []
+
+
+def drop_hollow_implication(value, title: str = "") -> str:
+    """정보량 0인 해석은 빈 문자열로 만든다.
+
+    사용자 지적(2026-08-05): "AI 헝가리 정부의 원전 운영에 대한 긍정적 입장을
+    시사한다 >> 이거 보면 내용이 너무 없어." 카드 두 번째 줄이 제목을 바꿔 말하기만
+    하면 읽는 사람이 얻는 게 없다. 프롬프트를 고쳐 원인·다음 절차·수치를 요구하되,
+    그래도 상투적 문장이 나오면 화면에 안 내보낸다.
+    """
+    text = clean_text(value)
+    if text and implication_is_hollow(text):
+        HOLLOW_IMPLICATION_DROPS.append(f"{title[:40]} | {text[:60]}")
+        return ""
+    return text
+
+
 def norm_scope(value) -> str:
     """LLM의 scope 값을 정규화. 유효하지 않으면 빈 문자열.
 
@@ -901,7 +967,10 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "article_type": norm_article_type(item.get("article_type")),
         "title_kr": title_kr,
         "summary": clean_text(item.get("summary")),
-        "implication": clean_text(item.get("implication")),
+        # 빈껍데기 해석은 화면에 내보내지 않는다. 재생성시키지 않고 그냥 버린다 —
+        # 문체 위반으로 기사를 격리하면 영문 제목 폴백으로 떨어져 더 나쁘다.
+        "implication": drop_hollow_implication(item.get("implication"),
+                                               article.get("title", "")),
         "why_important": clean_text(item.get("why_important")),
         "open_question": open_question,
         "open_question_source": open_question_source,
@@ -1283,6 +1352,16 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
               f"delivery_log.jsonl 에 기록 (fallback 큐레이션으로 넘어감)")
         append_curation_failure(lost, articles)
 
+    # 조용히 지우면 프롬프트가 망가진 것을 아무도 모른다. 실측 기준선: 옛 프롬프트에서
+    # implication 의 48%(64건 중 31건)가 여기 걸렸다. 새 프롬프트로 이 비율이
+    # 떨어지지 않으면 프롬프트가 안 먹은 것이다.
+    if HOLLOW_IMPLICATION_DROPS:
+        print(f"  ! 빈껍데기 해석 {len(HOLLOW_IMPLICATION_DROPS)}/{len(articles)}건 폐기 "
+              f"(재생성 안 함 — 빈칸이 낫다)")
+        for line in HOLLOW_IMPLICATION_DROPS[:5]:
+            print(f"      · {line}")
+        HOLLOW_IMPLICATION_DROPS.clear()
+
     if oq_verdicts:
         blocked: dict[str, int] = {}
         for row in oq_verdicts.values():
@@ -1380,6 +1459,23 @@ def assign_feed_from_title(title: str) -> str:
     return "SMR" if any(h in t for h in SMR_HINTS) else "정책"
 
 
+def passes_source_keyword_gate(src: dict, item: dict) -> bool:
+    """`require_keywords` 를 단 출처만 제목·요약에서 키워드를 확인한다.
+
+    Google News 는 매체에 따라 `site:` 쿼리에 붙인 괄호 키워드를 통째로 무시한다
+    (실측 2026-08-05 Euractiv: `site:euractiv.com (nuclear OR reactor OR SMR OR
+    uranium) when:2d` 23건 중 원자력 기사 3건. 나머지는 양모·Ozempic·셍겐).
+    같은 실패로 Le Figaro·電気新聞이 후보에서 탈락한 전례가 있다. 피드를 버리는
+    대신 수집 단계에서 한 번 거른다 — 큐레이션 LLM 에 넣기 전에 잘라야 토큰이
+    안 샌다.
+    """
+    keywords = src.get("require_keywords")
+    if not keywords:
+        return True
+    haystack = f"{item.get('title', '')} {item.get('description', '')}".lower()
+    return any(keyword in haystack for keyword in keywords)
+
+
 def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
     by_title: dict[str, dict] = {}
@@ -1396,6 +1492,8 @@ def collect_rss_articles(state: dict) -> list[dict]:
             if article_seen(state, item.get("raw_link") or item["link"]):
                 continue
             if is_promotional(item["title"], item["description"]):
+                continue
+            if not passes_source_keyword_gate(src, item):
                 continue
 
             norm = normalize_title(item["title"])

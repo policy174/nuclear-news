@@ -1397,9 +1397,25 @@ function renderPubs() {
   const visible = state.pubsOrg === "전체"
     ? items
     : items.filter(item => (item.org_kr || item.org) === state.pubsOrg);
-  listBox.innerHTML = visible.length
-    ? visible.map(pubRow).join("")
-    : '<div class="empty-state"><strong>이 기관의 발간물이 아직 없습니다</strong><p>다른 기관을 선택해 보세요.</p></div>';
+  if (!visible.length) {
+    listBox.innerHTML = '<div class="empty-state"><strong>이 기관의 발간물이 아직 없습니다</strong><p>다른 기관을 선택해 보세요.</p></div>';
+    return;
+  }
+  // 정책·시장 자료를 먼저 세우고 연구 실무자용 기술문서는 접는다. 실측
+  // 2026-08-05: off_topic 을 통과한 19건 중 12건이 전산유체역학 코드 검증·붕괴열
+  // 시뮬레이션·흑연 조사 크리프 같은 기술문서였고, 그것이 서가 앞줄을 차지해
+  // 정책 자료가 안 보였다. 지우지는 않는다 — 원자력 문서가 맞고, 찾는 사람이 있다.
+  const technical = visible.filter(item => item.relevance === "technical");
+  const primary = visible.filter(item => item.relevance !== "technical");
+  const shelf = primary.length
+    ? primary.map(pubRow).join("")
+    : '<div class="empty-state"><strong>이 기관의 정책·시장 자료가 아직 없습니다</strong><p>아래 기술문서를 펼쳐 보세요.</p></div>';
+  listBox.innerHTML = shelf + (technical.length
+    ? `<details class="pub-technical">
+         <summary>기술문서 ${technical.length}건 — 연구·설계 실무용</summary>
+         <div class="pub-technical-shelf">${technical.map(pubRow).join("")}</div>
+       </details>`
+    : "");
 }
 
 function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑") {

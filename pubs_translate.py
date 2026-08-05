@@ -29,7 +29,15 @@ BATCH_SIZE = 15
 #     읽는 사람은 "이걸 우리가 검토해서 보고서로 쓸 만한가"를 여기서 판단해야
 #     하는데, 제목 재진술로는 그 판단이 안 선다. 동시에 off_topic 판정을 같은
 #     배치에 얹었다 — 추가 호출 0회.
-PROMPT_VERSION = 2
+# v3: off_topic 을 통과한 뒤에도 목록이 안 읽혔다. 실측 2026-08-05 라이브 19건 중
+#     12건이 전산유체역학 코드 검증·붕괴열 시뮬레이션·흑연 조사 크리프·계측제어
+#     요구공학·외부 선량 측정 같은 **연구 실무자용 기술문서**다. off_topic 규칙은
+#     행사·농업만 겨냥하므로 이것들을 잡지 못한다. 지우면 안 되는 문서라(원자력과
+#     무관한 게 아니다) 버리는 대신 relevance 축을 하나 더 얹어 화면에서 접는다.
+PROMPT_VERSION = 3
+
+RELEVANCE_VALUES = ("policy", "market", "technical")
+RELEVANCE_DEFAULT = "policy"
 
 SYSTEM_PROMPT = """너는 한국 원자력 정책 담당자에게 국제기구 발간물을 골라 주는
 편집자다. 읽는 사람은 한국수력원자력 정책 부서에서 원전 정책·산업 동향을 본다.
@@ -63,9 +71,22 @@ SYSTEM_PROMPT = """너는 한국 원자력 정책 담당자에게 국제기구 �
    - 애매하면 false. 놓치는 것보다 지우는 것이 해롭다.
    - true 일 때만 off_topic_reason 에 한국어로 짧은 사유를 적는다.
 
+4) relevance — 원자력 **정책** 담당자 기준으로 이 문서의 쓰임을 하나 고른다
+   - "policy"    정책·제도·규제·인허가·국가 전략·국제 협력·안전 기준 체계·
+                 사회적 수용성. 정책실이 보고서에 인용하거나 제도 변화를 읽는 자료.
+   - "market"    시장·수요 전망·발전 용량·설비 통계·공급망·핵연료·투자·비용·
+                 인력 수급. 산업 동향 숫자가 들어 있는 자료.
+   - "technical" 공학·해석·실험·재료·계측·해석코드 검증·방사선 측정 방법론처럼
+                 **연구·설계 실무자용** 문서. 정책 판단에 바로 쓰이지 않는다.
+                 예: 전산유체역학 코드 검증, 붕괴열 시뮬레이션 데이터, 흑연 조사
+                 크리프 거동, 계측제어 요구사항 공학, 외부 선량 측정량 보고서.
+   - 정책·제도 얘기가 조금이라도 주된 축이면 technical 이 아니라 policy 다.
+     예: "SMR 배치 가속화"는 규제·공급망 과제를 다루므로 policy.
+   - 판단이 안 서면 "policy". 기술문서는 화면에서 접히므로, 잘못 접는 쪽이 해롭다.
+
 출력은 JSON 하나:
 {"items": [{"idx": 0, "title_kr": "...", "gist": "...", "off_topic": false,
-            "off_topic_reason": ""}]}
+            "off_topic_reason": "", "relevance": "policy"}]}
 입력에 준 idx 를 모두 포함한다."""
 
 
@@ -102,6 +123,10 @@ def _parse(payload: object, count: int) -> dict[int, dict]:
         title_kr = " ".join(str(row.get("title_kr") or "").split()).strip()
         gist = " ".join(str(row.get("gist") or "").split()).strip()
         reason = " ".join(str(row.get("off_topic_reason") or "").split()).strip()
+        relevance = str(row.get("relevance") or "").strip().lower()
+        if relevance not in RELEVANCE_VALUES:
+            # 모르는 값은 접지 않는다 — 잘못 접는 쪽이 해롭다(프롬프트와 같은 방향).
+            relevance = RELEVANCE_DEFAULT
         if title_kr:
             out[idx] = {
                 "title_kr": title_kr[:160],
@@ -109,6 +134,7 @@ def _parse(payload: object, count: int) -> dict[int, dict]:
                 # 문자열 "false" 가 참으로 읽히지 않게 명시적으로 판정한다
                 "off_topic": row.get("off_topic") is True,
                 "off_topic_reason": reason[:60],
+                "relevance": relevance,
             }
     return out
 
@@ -151,6 +177,10 @@ def translate(items: list[dict], *, client=None, batch_size: int = BATCH_SIZE) -
                 stats["off_topic"] += 1
             else:
                 chunk[idx].pop("off_topic_reason", None)
+            chunk[idx]["relevance"] = row["relevance"]
+            stats.setdefault("relevance", {})
+            stats["relevance"][row["relevance"]] = \
+                stats["relevance"].get(row["relevance"], 0) + 1
             chunk[idx]["translated_version"] = PROMPT_VERSION
             stats["translated"] += 1
     return stats

@@ -702,5 +702,59 @@ class TestCrawlWorkflowKeepsDiagnostics(unittest.TestCase):
         self.assertIn("archive/*.jsonl merge=union", attrs)
 
 
+class TestSourceKeywordGate(unittest.TestCase):
+    """Google News 가 괄호 키워드를 무시하는 매체를 위한 수집 단계 게이트.
+
+    실측 2026-08-05: `site:euractiv.com (nuclear OR reactor OR SMR OR uranium)
+    when:2d` 가 23건을 돌려주는데 원자력 기사는 3건뿐이었다(양모·Ozempic·셍겐
+    혼입). 같은 실패로 Le Figaro·電気新聞이 후보에서 탈락한 전례가 있어, 피드를
+    버리는 대신 제목·요약에서 한 번 더 거른다.
+    """
+
+    def test_gate_is_opt_in(self):
+        """require_keywords 가 없는 출처는 전건 통과해야 한다(기존 19개 출처)."""
+        self.assertTrue(nb.passes_source_keyword_gate({}, {"title": "anything", "description": ""}))
+
+    def test_gate_keeps_nuclear_and_drops_noise(self):
+        src = {"require_keywords": nb.NUCLEAR_TITLE_KEYWORDS}
+        keep = "Hungary avoids nuclear shutdown by 'millimetres' as Danube rises"
+        drop = "Can wool help beat fast fashion? Farmers say EU rules stand in the way"
+        self.assertTrue(nb.passes_source_keyword_gate(src, {"title": keep, "description": ""}))
+        self.assertFalse(nb.passes_source_keyword_gate(src, {"title": drop, "description": ""}))
+
+    def test_gate_reads_the_description_too(self):
+        """제목이 짧은 뉴스레터 형식('The Brief – …')은 본문에 키워드가 있다."""
+        src = {"require_keywords": nb.NUCLEAR_TITLE_KEYWORDS}
+        item = {"title": "The Brief", "description": "Europe's parched reactor fleet"}
+        self.assertTrue(nb.passes_source_keyword_gate(src, item))
+
+
+class TestReferenceSiteCoverage(unittest.TestCase):
+    """부서 「세계원전시장 인사이트」 절차서의 주요 기사 검색 사이트 대조.
+
+    빠져 있던 Euractiv·NEI Magazine 을 넣은 뒤 다시 빠지지 않게 잠근다.
+    UxC·BNEF·PRIS·Nuclear Asia 는 접근 경로가 없어 의도적 제외 — 사유는
+    news_bot.py 의 주석에 있다.
+    """
+
+    def test_reference_sites_are_collected(self):
+        urls = " ".join(source["url"] for source in nb.RSS_SOURCES)
+        for domain in ("world-nuclear-news.org", "nucnet.org", "ans.org",
+                       "powermag.com", "neimagazine.com", "euractiv.com"):
+            self.assertIn(domain, urls, f"{domain} 수집원이 빠졌다")
+
+    def test_euractiv_carries_a_keyword_gate(self):
+        """게이트 없이 넣으면 원자력 무관 기사 20건이 매 크롤마다 큐레이션에 들어간다."""
+        euractiv = [s for s in nb.RSS_SOURCES if "euractiv.com" in s["url"]]
+        self.assertEqual(len(euractiv), 1)
+        self.assertTrue(euractiv[0].get("require_keywords"))
+
+    def test_new_sources_are_registered_in_sources_json(self):
+        raw = json.loads((Path(nb.__file__).parent / "sources.json").read_text(encoding="utf-8"))
+        domains = {entry["domain"] for group in ("tier1", "tier2", "tier3") for entry in raw[group]}
+        self.assertIn("euractiv.com", domains)
+        self.assertIn("neimagazine.com", domains)
+
+
 if __name__ == "__main__":
     unittest.main()

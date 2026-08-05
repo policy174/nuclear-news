@@ -275,6 +275,57 @@ def normalize_event_date_fields(payload: dict) -> dict:
     }
 
 
+# 원인·다음 절차·수치를 담으려면 60자로는 모자란다. 늘리되 카드 두 번째 줄이
+# 감당하는 길이 안에서(실측 카드 폭 기준 90자가 두 줄).
+IMPLICATION_LIMIT = 90
+
+# 정보량 0인 해석 문장의 종결부. 실측 2026-08-05 라이브 issues.json: implication 이
+# 있는 64건 중 **31건(48%)**이 이 꼴로 끝났고, 사용자가 직접 지적한 문장
+# ("헝가리 정부의 원전 운영에 대한 긍정적 입장을 시사한다.")도 여기 걸린다.
+#
+# 이 판정은 **재생성 사유가 아니다.** curation_errors 에 넣으면 재생성 1회 뒤에도
+# 남을 때 기사가 통째로 격리돼(→ 영문 제목 폴백 큐레이션) 문체 문제로 기사를 잃는다.
+# 대신 해석만 버린다 — 빈칸이 빈껍데기보다 낫다는 사이트 원칙("예외만 표시한다")과
+# 같은 방향이고 추가 LLM 호출이 0이다.
+_HOLLOW_IMPLICATION_RE = re.compile(
+    r"(?:"
+    r"시사(?:한다|합니다|해\s*준다|하고\s*있다)"
+    r"|보여\s*(?:준다|줍니다|주고\s*있다)"
+    r"|기대(?:된다|됩니다|를\s*모은다)"
+    r"|전망(?:된다|됩니다|이다|입니다)"
+    r"|예상(?:된다|됩니다)"
+    r"|기여할\s*것(?:이다|입니다|으로\s*(?:보인다|전망된다|예상된다))"
+    r"|중요(?:하다|합니다|성이\s*(?:크다|부각된다|증대된다))"
+    r"|필요(?:하다|합니다|가\s*있다|가\s*있습니다|성이\s*(?:크다|제기된다))"
+    # '…할 필요가 있다/있습니다' 는 주목·주시·검토 어느 동사에도 붙는다 —
+    # 동사마다 어미 조합을 나열하면 하나씩 빠진다(실측: 주시할 필요가 '있습니다').
+    r"|(?:주목|주시|점검|검토|모니터링)(?:이|을|를|해야|할)?\s*"
+    r"(?:필요(?:가\s*)?(?:하다|합니다|있다|있습니다)|된다|됩니다|한다|합니다)"
+    r"|참고(?:할\s*수\s*)?(?:있다|있습니다|해야\s*한다|해야\s*합니다)"
+    r"|파악(?:할\s*수\s*)?(?:있다|있습니다)"
+    r"|요구(?:된다|됩니다)"
+    r")\s*[.。]?\s*$"
+)
+
+# 상투적 어미로 끝나도 **수량·시점**이 실려 있으면 살린다 — "언제·얼마"는 정보다.
+# 맨 숫자를 보면 안 된다: 'AP1000', 'AP300', '고리 3·4호기' 같은 노형·호기 이름이
+# 전부 통과해 버린다(실측으로 잡은 오탐). 단위·시점 표지가 붙은 숫자만 센다.
+_QUANTITY_RE = re.compile(
+    r"\d\s*(?:년|월|일|분기|%|퍼센트|억|조|만|천|배|MW|GW|kW|TWh|MWh"
+    r"|기|개|건|차|호기|명|달러|원|유로)"
+)
+
+
+def implication_is_hollow(implication: object) -> bool:
+    """해석 문장이 상투적 종결부로 끝나 정보를 더하지 않으면 참."""
+    text = clean_text(implication)
+    if not text:
+        return False
+    if not _HOLLOW_IMPLICATION_RE.search(text):
+        return False
+    return not _QUANTITY_RE.search(text)
+
+
 def curation_errors(
     payload: dict,
     *,
@@ -307,8 +358,9 @@ def curation_errors(
         errors.append("summary:missing")
     elif summary and (len(summary) > summary_limit or not is_complete_sentence(summary)):
         errors.append(f"summary:incomplete_or_over_{summary_limit}")
-    if implication and (len(implication) > 60 or not is_complete_sentence(implication)):
-        errors.append("implication:incomplete_or_over_60")
+    if implication and (len(implication) > IMPLICATION_LIMIT
+                        or not is_complete_sentence(implication)):
+        errors.append(f"implication:incomplete_or_over_{IMPLICATION_LIMIT}")
     if why_important and (len(why_important) > 150 or not is_complete_sentence(why_important)):
         errors.append("why_important:incomplete_or_over_150")
 

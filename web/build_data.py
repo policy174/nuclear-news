@@ -40,6 +40,7 @@ if str(ROOT_DIR) not in sys.path:
 
 from data_quality import (  # noqa: E402
     curation_errors,
+    implication_is_hollow,
     invalid_url_reason,
     normalize_event_date_fields,
     normalize_url,
@@ -688,6 +689,11 @@ def _text_tokens(text: object) -> set[str]:
     return {token.lower()[:8] for token in _TOKEN_RE.findall(str(text or "")) if len(token) >= 2}
 
 
+# 이번 빌드에서 뺀 빈껍데기 해석. 조용히 지우면 큐레이션 프롬프트가 망가진 것을
+# 아무도 모른다 — 빌드 끝에 건수를 찍는다.
+_HOLLOW_IMPLICATIONS: list[str] = []
+
+
 def _is_restatement(before: object, after: object, threshold: float = 0.45) -> bool:
     """두 문장이 같은 사실을 다시 쓴 것인지 판단한다.
 
@@ -721,6 +727,14 @@ def split_interpretation(record: dict) -> tuple[str, str]:
     """
     implication = str(record.get("implication") or "").strip()
     why_important = str(record.get("why_important") or "").strip()
+    # 빈껍데기 해석은 화면에서 뺀다. 봇의 큐레이션 단계에서도 같은 게이트가 돌지만
+    # (news_bot.drop_hollow_implication) 아카이브에 이미 쌓인 옛 문장은 그 게이트를
+    # 거치지 않았다 — 여기서 한 번 더 걸러야 다음 빌드에 바로 정리된다.
+    # 카드는 implication 이 비면 summary 로 물러나므로(app.js issueCard) 빈칸이
+    # 되는 것이 아니라 'AI' 배지가 붙은 무정보 문장이 사라지는 것이다.
+    if implication_is_hollow(implication):
+        _HOLLOW_IMPLICATIONS.append(implication)
+        implication = ""
     if implication and why_important and _is_restatement(implication, why_important):
         if len(implication) >= len(why_important):
             return implication, ""
@@ -999,11 +1013,45 @@ def _country_conflict(left: dict, right: dict) -> bool:
     return bool(left_countries and right_countries and left_countries.isdisjoint(right_countries))
 
 
+# 같은 **설비·프로젝트**를 다루는 쌍은 후속 보도일 가능성이 높다. 기관·기업까지
+# 넣으면 신호가 죽는다 — 실측(2026-08-05, 판정 완료 185쌍):
+#
+#     공유 엔티티 범위        같은 사건    다른 사건
+#     전체(기관·기업 포함)         3          40   ← NRC·DOE·한수원이 나라마다 매 기사에
+#     설비·프로젝트만              3           0      나오므로 판별력이 없다
+#
+# 표본이 3건뿐이라 **자동 병합 근거로는 약하다**. 그래서 병합 판정에는 쓰지 않고
+# LLM 검수 큐의 우선순위에만 쓴다(판정 결과를 바꾸지 않으므로 오병합 위험 0).
+# 한 빌드에서 새로 묻는 쌍은 40개로 묶여 있는데 밀린 후보가 519건이라, 어느 쌍을
+# 먼저 묻느냐가 실제로 추적률을 정한다.
+FOLLOW_UP_ENTITY_TYPES = ("plant", "project")
+
+
+def facility_alias_entries(registry: list[dict]) -> list[tuple[str, bool, dict]]:
+    """설비·프로젝트 엔티티만 추린 별칭 표."""
+    return _entity_alias_entries(
+        [entity for entity in registry if entity.get("type") in FOLLOW_UP_ENTITY_TYPES]
+    )
+
+
+def facility_entities_by_hash(articles: list[dict], alias_entries) -> dict[str, set[str]]:
+    """기사 hash → 설비·프로젝트 엔티티 id 집합. 클러스터링 루프 밖에서 한 번만 돈다."""
+    if not alias_entries:
+        return {}
+    out: dict[str, set[str]] = {}
+    for article in articles:
+        entity_ids, _ = entity_ids_for_members([article], alias_entries)
+        if entity_ids:
+            out[str(article.get("hash") or "")] = set(entity_ids)
+    return out
+
+
 def issue_similarity(
     left: dict,
     right: dict,
     embeddings: dict[str, list[float]] | None = None,
     local_embeddings: dict[str, list[float]] | None = None,
+    facility_entities: dict[str, set[str]] | None = None,
 ) -> tuple[bool, float, dict]:
     """두 기사가 같은 이슈인지 보수적으로 판정한다.
 
@@ -1029,6 +1077,10 @@ def issue_similarity(
     local_embedding_similarity = cosine_similarity(
         (local_embeddings or {}).get(str(left.get("hash") or "")),
         (local_embeddings or {}).get(str(right.get("hash") or "")),
+    )
+    shared_facility_entities = sorted(
+        (facility_entities or {}).get(str(left.get("hash") or ""), set())
+        & (facility_entities or {}).get(str(right.get("hash") or ""), set())
     )
     country_conflict = _country_conflict(left, right)
     facility_conflict = _facility_conflict(left, right)
@@ -1082,6 +1134,7 @@ def issue_similarity(
         ),
         "method": method,
         "blocked_by": blocked_by,
+        "shared_facility_entities": shared_facility_entities,
         "left_facilities": sorted(left_units or left_plants),
         "right_facilities": sorted(right_units or right_plants),
     }
@@ -1378,6 +1431,7 @@ def cluster_selected_articles(
     local_embeddings: dict[str, list[float]] | None = None,
     match_overrides: dict[str, set[str]] | None = None,
     review_candidates: list[dict] | None = None,
+    facility_entities: dict[str, set[str]] | None = None,
 ) -> list[dict]:
     """발송된 기사들을 최근 이슈 묶음으로 연결한다.
 
@@ -1424,7 +1478,7 @@ def cluster_selected_articles(
             for reference in issue["members"][-3:]:
                 pair_id = _pair_id(article["hash"], reference["hash"])
                 matched, score, diag = issue_similarity(
-                    article, reference, embeddings, local_embeddings
+                    article, reference, embeddings, local_embeddings, facility_entities
                 )
                 if pair_id in overrides.get("rejected", set()):
                     continue
@@ -1451,6 +1505,9 @@ def cluster_selected_articles(
                             "right_title": article.get("title_kr") or article.get("title"),
                             "candidate_method": candidate_method,
                             "candidate_score": round(candidate_score, 4),
+                            # issue_review 는 build_data 를 import 하지 않는다
+                            # (순환 방지) — 우선순위 판단 재료를 행에 실어 보낸다.
+                            "shared_facility_entities": diag.get("shared_facility_entities") or [],
                             "diagnostics": diag,
                             "review_state": "pending",
                         })
@@ -1871,6 +1928,40 @@ PUBLICATION_NONPOWER_RE = re.compile(
 )
 
 
+# off_topic 을 통과한 뒤에도 목록이 안 읽히는 두 번째 이유. 실측 2026-08-05 라이브
+# 19건 중 12건이 **연구·설계 실무자용 기술문서**다 — 전산유체역학 코드 검증, 붕괴열
+# 시뮬레이션 검증 데이터, 흑연 조사 크리프, 계측제어 요구사항 공학, 외부 선량 측정량.
+# 원자력과 무관한 게 아니라서 off_topic 으로 지울 수 없고, 지워서도 안 된다.
+# 대신 화면에서 접는다(relevance=technical).
+#
+# 정확한 판정은 pubs_translate v3 가 번역과 같은 배치에서 매기는 `relevance` 이고
+# (추가 호출 0회), 그 값이 있으면 규칙을 아예 태우지 않는다 — off_topic 과 같은
+# 3분기 계약(값 있음 / 값 없음). 규칙은 v2 캐시가 남아 있는 동안의 폴백이다.
+PUBLICATION_TECHNICAL_RE = re.compile(
+    r"(전산유체역학|다상유체|열수력|붕괴열|핵종 재고|크리프|중성자 조사"
+    r"|계측제어|요구사항 공학|선량|시뮬레이션 검증|벤치마크|해석 코드|코드 검증"
+    r"|임계 안전|모델링 프레임워크|실험 데이터|방사선단위|방사선 노출"
+    r"|thermal.?hydraulic|computational fluid|multiphase|decay heat|creep"
+    r"|dosimet|neutronic|benchmark|code validation|instrumentation and control"
+    r"|requirements engineering|criticality safety)",
+    re.IGNORECASE,
+)
+PUBLICATION_RELEVANCE_VALUES = ("policy", "market", "technical")
+
+
+def publication_relevance(item: dict) -> str:
+    """정책 담당자 기준 쓰임. 'technical' 만 화면에서 접힌다."""
+    verdict = str(item.get("relevance") or "").strip().lower()
+    if verdict in PUBLICATION_RELEVANCE_VALUES:
+        return verdict
+    # 판정이 없는 항목(v2 캐시·번역 실패·한국어 원문)만 제목 규칙으로 본다.
+    haystack = f"{item.get('title_kr') or ''} {item.get('title') or ''}"
+    if PUBLICATION_TECHNICAL_RE.search(haystack):
+        return "technical"
+    # 애매하면 접지 않는다 — 잘못 접는 쪽이 해롭다.
+    return "policy"
+
+
 def gist_adds_nothing(gist: str, title_kr: str) -> bool:
     """gist 가 한국어 제목을 되풀이하기만 하면 참.
 
@@ -2102,6 +2193,7 @@ def load_publications(now: datetime | None = None) -> dict:
             "url": url,
             "date": display_date,
             "is_new": bool(display_date and display_date >= new_cutoff),
+            "relevance": publication_relevance(item),
         }
         for optional in ("pdf_url", "toc", "title_kr", "gist"):
             if item.get(optional):
@@ -2116,10 +2208,20 @@ def load_publications(now: datetime | None = None) -> dict:
         print(f"[build_data] 발간물 제외 {sum(dropped.values())}건 ({detail})")
     if echoed:
         print(f"[build_data] 발간물 gist 숨김 {echoed}건 (제목 재진술)")
+    relevance_counts: dict[str, int] = {}
+    for view in items:
+        key = view["relevance"]
+        relevance_counts[key] = relevance_counts.get(key, 0) + 1
+    if items:
+        detail = " / ".join(f"{key} {count}건"
+                            for key, count in sorted(relevance_counts.items()))
+        print(f"[build_data] 발간물 관련성 {len(items)}건 ({detail}) "
+              f"— technical 은 기본 접힘")
     return {
         "generated_at": now.isoformat(),
         "items": items,
         "sources": raw.get("last_checked") or {},
+        "relevance_counts": relevance_counts,
     }
 
 
@@ -2968,6 +3070,10 @@ def build() -> None:
     embeddings = load_embeddings_cache()
     local_embeddings = build_local_embeddings(news_items)
     match_overrides = load_match_overrides()
+    entity_registry = load_entity_registry()
+    facility_entities = facility_entities_by_hash(
+        news_items, facility_alias_entries(entity_registry)
+    )
     review_candidates: list[dict] = []
     issues = cluster_selected_articles(
         news_items,
@@ -2975,6 +3081,7 @@ def build() -> None:
         local_embeddings,
         match_overrides,
         review_candidates,
+        facility_entities,
     )
 
     # 1차 묶음에서 나온 회색지대 쌍을 LLM 에 한 번 물어보고, 같은 사건으로
@@ -2999,11 +3106,20 @@ def build() -> None:
             local_embeddings,
             match_overrides,
             review_candidates,
+            facility_entities,
         )
     print(f"[build_data] 이슈 병합 LLM 검수: 후보 {llm_stats['candidates']}쌍 "
           f"(캐시 {llm_stats['from_cache']} / 신규 {llm_stats['asked']} / "
           f"호출 {llm_stats['calls']}회) → 병합 {llm_stats['approved']} "
           f"분리 {llm_stats['rejected']} 실패 {llm_stats['failed']} [{llm_stats['status']}]")
+    # 쿼터로 죽으면 '병합 안 함'으로 조용히 흡수돼 후속 보도가 신규 이슈로 갈라진다.
+    # 실측 2026-08-05: quota 20건 → 팍스 원전 후속(코사인 0.8716, 밴드 안)이 분리됐다.
+    # 실패 통계는 issue_audit.json 에 남지만 아무도 안 보므로 로그에 크게 찍는다.
+    quota_failures = (llm_stats.get("failure_reasons") or {}).get("quota", 0)
+    if quota_failures:
+        print(f"  !! 이슈 병합 검수 {quota_failures}쌍이 쿼터(429)로 미판정 — "
+              f"모델 {llm_stats.get('model', '?')}. 후속 보도가 신규 이슈로 갈라진다. "
+              f"GEMINI_REVIEW_MODEL 로 버킷을 옮길 것.")
 
     review_candidates.sort(
         key=lambda row: (row.get("candidate_score") or 0, row.get("right_date") or ""),
@@ -3014,7 +3130,7 @@ def build() -> None:
     briefings = build_briefings(news_items, issues, checked_at, load_daily_leads(),
                                 selection_stats, selection_overrides)
     report_unmatched_overrides(selection_overrides)
-    entity_registry = load_entity_registry()
+    # entity_registry 는 클러스터링 앞에서 이미 읽었다(설비 엔티티 우선순위용).
     entity_match_evidence: list[dict] = []
     issue_catalog = build_issue_catalog(
         issues,
@@ -3316,6 +3432,11 @@ def build() -> None:
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
         f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
     )
+    # 조용히 지우면 큐레이션 프롬프트가 망가진 것을 아무도 모른다. 기준선(옛 프롬프트):
+    # implication 이 있는 64건 중 40건(62%). 새 프롬프트로 재큐레이션되면 내려가야 한다.
+    if _HOLLOW_IMPLICATIONS:
+        print(f"[build_data] 빈껍데기 해석 {len(_HOLLOW_IMPLICATIONS)}건 미표시 "
+              f"(카드는 요약으로 물러남) — 예: {_HOLLOW_IMPLICATIONS[0][:52]}")
     atlas = meta["atlas_readiness"]
     print(
         "[build_data:atlas] "

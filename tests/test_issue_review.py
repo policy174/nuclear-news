@@ -284,5 +284,82 @@ class ReviewTests(unittest.TestCase):
         self.assertIn("D제목", message)
 
 
+class TestQuotaBucketSeparation(unittest.TestCase):
+    """검수 호출은 크롤·트렌드와 다른 모델 버킷을 써야 한다.
+
+    실측 2026-08-05 라이브: candidates 205 · asked 0 · failed 20 ·
+    failure_reasons {"quota": 20}. 판정이 없으면 병합하지 않으므로 밴드 안에 있던
+    팍스 원전 후속(코사인 0.8716)이 신규 이슈로 갈라졌다.
+    """
+
+    def test_default_model_is_not_the_shared_flash_bucket(self):
+        self.assertNotEqual(issue_review.REVIEW_MODEL_DEFAULT, "gemini-2.5-flash")
+
+    def test_call_passes_the_review_model(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            client = FakeClient([verdict_response(1)])
+            issue_review.review_pairs(
+                [candidate("p0")],
+                cache_path=Path(tmp) / "cache.json",
+                client=client,
+            )
+        self.assertTrue(client.kwargs, "호출이 없었다")
+        self.assertEqual(client.kwargs[-1].get("model"), issue_review._review_model())
+
+    def test_stats_report_the_model_used(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _verdicts, stats = issue_review.review_pairs(
+                [candidate("p0")],
+                cache_path=Path(tmp) / "cache.json",
+                client=FakeClient([verdict_response(1)]),
+            )
+        self.assertEqual(stats["model"], issue_review._review_model())
+
+
+class TestFacilityEntityPriority(unittest.TestCase):
+    """같은 설비·프로젝트를 다루는 쌍을 먼저 묻는다.
+
+    실측 2026-08-05(판정 완료 185쌍): 설비·프로젝트 엔티티를 공유한 쌍은 3건이
+    전부 같은 사건이고 오탐 0. 기관·기업까지 넣으면 40건 중 3건이라 판별력이
+    없다. 표본이 작아 자동 병합에는 쓰지 않고 **묻는 순서**에만 쓴다 — 한 회차
+    상한 40쌍에 밀린 후보가 519건이라 순서가 곧 추적률이다.
+    """
+
+    def test_facility_pair_outranks_a_newer_pair_without_one(self):
+        older_with_facility = candidate(
+            "paks", similarity=0.8716,
+            left="헝가리, 가뭄으로 팍스 원전 가동 중단 위기 직면",
+            right="헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표",
+            left_date="2026-08-04", right_date="2026-08-05")
+        older_with_facility["shared_facility_entities"] = ["paks"]
+        newer_without = candidate("other", similarity=0.8865,
+                                  left_date="2026-08-06", right_date="2026-08-06")
+        ranked = sorted([newer_without, older_with_facility],
+                        key=issue_review._ask_priority, reverse=True)
+        self.assertEqual(ranked[0]["candidate_id"], "paks")
+
+    def test_priority_reads_the_diagnostics_copy_too(self):
+        row = candidate("p0")
+        row["diagnostics"]["shared_facility_entities"] = ["wolsong"]
+        self.assertTrue(issue_review._ask_priority(row)[0])
+
+    def test_absent_field_does_not_crash_or_promote(self):
+        self.assertFalse(issue_review._ask_priority(candidate("p0"))[0])
+
+    def test_throttled_run_asks_the_facility_pair_first(self):
+        """상한에 걸린 회차에서 설비 쌍이 잘려나가면 안 된다."""
+        rows = [candidate(f"p{i}", left_date="2026-08-09", right_date="2026-08-09")
+                for i in range(5)]
+        rows[4]["candidate_id"] = "facility-pair"
+        rows[4]["shared_facility_entities"] = ["paks"]
+        rows[4]["left_date"] = rows[4]["right_date"] = "2026-08-01"  # 가장 오래된 쌍
+        client = FakeClient([verdict_response(1)])
+        with tempfile.TemporaryDirectory() as tmp:
+            verdicts, stats = issue_review.review_pairs(
+                rows, cache_path=Path(tmp) / "cache.json", client=client, max_new_pairs=1)
+        self.assertEqual(stats["deferred"], 4)
+        self.assertIn("facility-pair", verdicts)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)

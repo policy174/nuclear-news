@@ -37,6 +37,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -84,6 +85,27 @@ MIN_SPLIT_SIZE = 2
 # 몰리는데, 웹 빌드는 하루 12회 이상 돌고 같은 키를 크롤·브리핑이 나눠 쓴다.
 # 판정은 캐시되므로 밀린 것은 몇 회차에 걸쳐 저절로 빠진다 — 급할 이유가 없다.
 MAX_NEW_PAIRS_PER_RUN = 40
+
+# 무료 티어 쿼터는 **모델별 버킷**이다. 기본 2.5-flash 버킷은 크롤 큐레이션(매시간)
+# ·트렌드·리드가 나눠 쓰기 때문에 체인 끝에 붙은 이 호출만 굶는다.
+#
+# 실측 2026-08-05 라이브 issue_audit.json:
+#     candidates 205 · from_cache 185 · asked 0 · calls 0 · failed 20
+#     failure_reasons {"quota": 20} · status "partial_failure"
+# 판정이 없으면 병합하지 않으므로, 밴드 안에 있던 팍스 원전 후속 보도
+# ("헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표" ↔ 가뭄 클러스터,
+# 코사인 0.8716)가 신규 이슈로 갈라졌다. 사용자가 "팔로잉이 안 된다"고 지적한
+# 그 증상이다. audio_brief.GEMINI_SCRIPT_MODEL 과 같은 처방 — 버킷을 분리한다.
+REVIEW_MODEL_DEFAULT = "gemini-2.5-flash-lite"
+
+
+def _review_model() -> str:
+    try:
+        import gemini_client  # noqa: PLC0415
+    except ImportError:
+        return os.environ.get("GEMINI_REVIEW_MODEL") or REVIEW_MODEL_DEFAULT
+    return gemini_client._resolve("GEMINI_REVIEW_MODEL", REVIEW_MODEL_DEFAULT)
+
 
 SYSTEM_PROMPT = """너는 원자력 산업 뉴스를 정리하는 편집자다.
 두 기사가 **같은 사건**을 다루는지 판정한다.
@@ -240,7 +262,14 @@ def _record_failure(stats: dict, chunk: list[dict], label: str,
 def _ask_priority(row: dict) -> tuple:
     """새로 물어볼 쌍의 우선순위. 큰 것부터 묻는다.
 
-    최신 날짜가 먼저인 이유는 두 가지다. 추적률이 **최신 브리핑**에서만 측정되고,
+    같은 **설비·프로젝트**를 다루는 쌍이 맨 앞이다. 실측(2026-08-05, 판정 완료
+    185쌍)에서 설비·프로젝트 엔티티를 공유한 쌍은 3건 전부 같은 사건이었고 오탐이
+    0건이었다(기관·기업까지 넣으면 40건 중 3건으로 판별력이 사라진다). 표본이
+    작아 자동 병합에는 못 쓰지만, **어느 쌍을 먼저 물을지**에는 충분한 신호다 —
+    한 회차에 새로 묻는 몫이 40쌍인데 밀린 후보가 519건이라(라이브 실측) 순서가
+    곧 추적률이다.
+
+    그 다음이 최신 날짜인 이유는 두 가지다. 추적률이 **최신 브리핑**에서만 측정되고,
     21일 창 밖으로 밀려날 쌍에 호출을 쓰면 판정이 쓰이기 전에 버려진다.
     """
     diagnostics = row.get("diagnostics") or {}
@@ -248,8 +277,12 @@ def _ask_priority(row: dict) -> tuple:
         similarity = float(diagnostics.get("embedding_similarity") or 0.0)
     except (TypeError, ValueError):
         similarity = 0.0
+    shared_facility = bool(
+        row.get("shared_facility_entities")
+        or diagnostics.get("shared_facility_entities")
+    )
     newest = max(str(row.get("left_date") or ""), str(row.get("right_date") or ""))
-    return (newest, similarity)
+    return (shared_facility, newest, similarity)
 
 
 def review_pairs(review_candidates: list[dict], *,
@@ -318,6 +351,8 @@ def review_pairs(review_candidates: list[dict], *,
 
     now = datetime.now(timezone.utc).isoformat()
     split_budget = SPLIT_BUDGET
+    review_model = _review_model()
+    stats["model"] = review_model
 
     def ask(chunk: list[dict]) -> None:
         """chunk 하나를 판정한다. 잘림이면 절반으로 쪼개 다시 부른다."""
@@ -328,6 +363,7 @@ def review_pairs(review_candidates: list[dict], *,
                 build_user_message(chunk),
                 temperature=0.0,
                 max_output_tokens=MAX_OUTPUT_TOKENS,
+                model=review_model,
             )
         except GeminiTruncated as exc:
             # 같은 예산으로 다시 부르면 같은 자리에서 잘린다 — 입력을 줄여야 한다.
@@ -361,7 +397,7 @@ def review_pairs(review_candidates: list[dict], *,
                 "right_title": row.get("right_title"),
                 "embedding_similarity": (row.get("diagnostics") or {}).get("embedding_similarity"),
                 "prompt_version": PROMPT_VERSION,
-                "model": getattr(client, "MODEL", ""),
+                "model": review_model,
                 "reviewed_at": now,
             }
 

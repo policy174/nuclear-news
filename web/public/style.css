@@ -1143,6 +1143,44 @@ kbd {
    차트 토큰만 재사용한다. 데스크톱은 표지 그리드, 모바일은 1열 서가형
    목록(표지 감성을 억지로 2열에 욱여넣지 않는다). */
 .pubs-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: var(--sp-6); margin-top: var(--sp-4); align-items: start; }
+/* 기술문서 접기 — 연구·설계 실무용 문서가 서가 앞줄을 차지해 정책 자료를
+   가리던 문제(실측 2026-08-05: 19건 중 12건). 지우지 않고 접는다. 서가 그리드의
+   자식이므로 전체 폭을 차지하도록 열을 넘긴다. */
+.pub-technical { grid-column: 1 / -1; border-top: 1px solid var(--c-border); padding-top: var(--sp-4); }
+.pub-technical > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--c-text-secondary);
+  font-size: var(--t-caption);
+}
+/* display:flex 는 기본 펼침 마커를 지운다 — 실측으로 잡았다(화살표가 없으니
+   클릭할 수 있는 줄로 안 읽힌다). 직접 그린다. */
+.pub-technical > summary::-webkit-details-marker { display: none; }
+.pub-technical > summary::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--mo-fast, 120ms) ease;
+}
+.pub-technical[open] > summary::before { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) {
+  .pub-technical > summary::before { transition: none; }
+}
+.pub-technical > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.pub-technical-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-4);
+  align-items: start;
+}
 .pub-cover { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
 .pub-cover .cover-face {
   display: flex;

@@ -2,6 +2,8 @@
 
 import unittest
 
+import data_quality
+
 from data_quality import (
     curation_errors,
     invalid_url_reason,
@@ -92,8 +94,10 @@ class TextAndEventDateTests(unittest.TestCase):
             "summary:incomplete_or_over_80",
             curation_errors({"summary": "정부가 계획을 발표"}),
         )
+        # 한도는 60 → 90 (2026-08-05). 원인·다음 절차·수치를 담으라고 프롬프트를
+        # 바꿨는데 60자로는 그게 안 들어간다. 잘림 검사 자체는 그대로다.
         self.assertIn(
-            "implication:incomplete_or_over_60",
+            "implication:incomplete_or_over_90",
             curation_errors({"summary": "정부가 계획을 발표했다.", "implication": "시장 영향 확대 가능"}),
         )
 
@@ -160,6 +164,72 @@ class FeaturesGateTests(unittest.TestCase):
         errors = curation_errors(payload, require_features=True)
         self.assertIn("summary:missing", errors)
         self.assertIn("features:missing", errors)
+
+
+class TestHollowImplication(unittest.TestCase):
+    """정보량 0인 AI 해석을 걸러낸다.
+
+    사용자 지적(2026-08-05): "AI 헝가리 정부의 원전 운영에 대한 긍정적 입장을
+    시사한다 >> 이거 보면 내용이 너무 없어." 카드 두 번째 줄이 제목을 바꿔 말하기만
+    하면 읽는 사람이 얻는 게 없다.
+
+    실측 라이브 issues.json: implication 이 있는 64건 중 40건(62%)이 상투적
+    종결부로 끝났다. **재생성 사유로 쓰지 않는다** — curation_errors 에 넣으면
+    재생성 1회 뒤에도 남을 때 기사가 격리돼 영문 제목 폴백으로 떨어진다.
+    """
+
+    def test_the_reported_sentence_is_caught(self):
+        self.assertTrue(data_quality.implication_is_hollow(
+            "헝가리 정부의 원자력 발전 운영에 대한 긍정적 입장을 시사한다."))
+
+    def test_common_hollow_shapes(self):
+        for text in (
+            "미국 SMR 상용화 및 기술 실증 가속화에 기여할 것입니다.",
+            "선진원자로 기술의 상업화 및 운영 표준화에 중요한 이정표가 될 것으로 예상됩니다.",
+            "정부의 탈원전 정책 전환 기조가 언론에서도 주요하게 다뤄지고 있음을 보여줍니다.",
+            "향후 원자력 안전 관련 법규 및 행정 절차 변경 가능성을 주시할 필요가 있습니다.",
+        ):
+            self.assertTrue(data_quality.implication_is_hollow(text), text)
+
+    def test_concrete_causes_survive(self):
+        """원인·다음 절차가 들어 있으면 살린다 — 이것이 우리가 원하는 문장이다."""
+        for text in (
+            "다뉴브강 수위가 회복되며 냉각수 취수 제한이 풀린 결과로, 앞서 예고된 전면 정지는 피했다.",
+            "미국 내 신규 원전 건설 가능성을 열어두는 전략적 움직임입니다.",
+            "EIB의 대출 승인은 루마니아 원전 개보수 사업의 재정적 안정성을 확보한다.",
+        ):
+            self.assertFalse(data_quality.implication_is_hollow(text), text)
+
+    def test_quantities_and_dates_rescue_a_cliche_ending(self):
+        """'언제·얼마'가 실려 있으면 어미가 상투적이어도 정보는 있다."""
+        self.assertFalse(data_quality.implication_is_hollow(
+            "2028년 착공을 목표로 인허가 절차가 이어질 전망이다."))
+        self.assertFalse(data_quality.implication_is_hollow(
+            "설비용량 1,400MW 증설분이 계통에 들어올 것으로 예상됩니다."))
+
+    def test_model_numbers_do_not_rescue(self):
+        """'AP1000'·'3·4호기'의 숫자를 수량으로 세면 게이트가 사문화된다(실측 오탐)."""
+        self.assertTrue(data_quality.implication_is_hollow(
+            "주요 원전 공급사 간 협력으로 AP1000 및 AP300 SMR의 시장 확산 가속화를 시사합니다."))
+
+    def test_empty_is_not_hollow(self):
+        """빈 값은 '빈껍데기'가 아니다 — 폐기 집계를 부풀리면 안 된다."""
+        self.assertFalse(data_quality.implication_is_hollow(""))
+        self.assertFalse(data_quality.implication_is_hollow(None))
+
+    def test_hollow_is_not_a_regeneration_error(self):
+        """curation_errors 에 들어가면 문체 위반으로 기사가 격리된다."""
+        payload = {"summary": "헝가리 총리가 팍스 원전 가동 상황을 발표했다.",
+                   "implication": "헝가리 정부의 긍정적 입장을 시사한다."}
+        self.assertEqual(data_quality.curation_errors(payload), [])
+
+    def test_implication_limit_allows_a_cause_clause(self):
+        """60자로는 원인·다음 절차를 못 담는다 — 한도를 90자로 올렸다."""
+        self.assertEqual(data_quality.IMPLICATION_LIMIT, 90)
+        payload = {"summary": "요약 문장이다.",
+                   "implication": "다뉴브강 수위가 회복되며 냉각수 취수 제한이 풀린 결과로, "
+                                  "앞서 예고된 전면 정지는 피했다."}
+        self.assertEqual(data_quality.curation_errors(payload), [])
 
 
 if __name__ == "__main__":
