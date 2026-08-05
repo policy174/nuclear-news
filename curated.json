@@ -1,31 +1,4 @@
 {
-  "de50fbc0119d994f": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "domestic",
-    "category": "정책",
-    "title_kr": "산업통상부",
-    "summary": "산업통상부 관련 정보가 불충분하여 특정 정책, 기술, 시장, 규제 동향을 파악하기 어렵습니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-22T21:54:35.359181+00:00",
-    "title": "- 산업통상부",
-    "link": "https://news.google.com/rss/articles/CBMiogNBVV95cUxNNWIwWDZRODhUNDVmTzJEU3lFbHRHdnZEeTU1NWxnV2xUS2E3dnB0elZsN2RSZElmSVNvNnpUOV9UMGdFN1lzTTc3YzR3eWxRaXZYemhmaldWVGkycHp2LUpINnVYRnJKQVVRQjdmN1p6QWpjLTQ5bzE1YjhkZUdXcnV1U3UyN1U0dFliWUY2dHR0ZDQ0aVhiMEx0blZkRnQ5UVkxN1VFa3F0UGlVRjVoMmN2YmhCZUZJMXRONnB3WGttQTItcklvdE9ROHRaLWsyWjM1eTR4TWV4ZjVjRHpISE9jM3k2bGdLWXlXU0c0SWJ2QTlESVZrT0ZuN2RjdFQ2dnltd3p6UWhpejlzWHRKSEZWMVM1TkQ4WlNBNGJLUVFQUVJxMlhMNU95VWhibjRUZmdKN3dzOU5sUmRBemdPTWhNVXk2bExJWElWYkNHakxfRm9JaDJmSUdrTEJiODdod25ESHhfbi1UcmhjeTVqcDVRX1hZa0hkUENuUFZWd05jSTdQMlFVTEJ2VEhONERHN1dLWDlmQU0zVzdWazBzYWVB?oc=5",
-    "feed": "정책",
-    "domain": "motie.go.kr",
-    "matched": "산업부 보도자료"
-  },
   "98cb252a85c8daf0": {
     "features": {
       "event_type": "other",
@@ -33493,5 +33466,171 @@
     "feed": "정책",
     "domain": "sfen.org",
     "matched": "SFEN"
+  },
+  "f66bda24aa77b9a9": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "smr",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "smr",
+      "newbuild"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "오이스터 크릭, SMR 활용 원전 부지 재활용 검토",
+    "summary": "미국 오이스터 크릭 원전 부지에서 소형모듈원자로(SMR)를 활용한 재활용 방안을 검토 중이다.",
+    "implication": "폐쇄된 원전 부지를 SMR 건설에 활용하여 기존 송전망 등 인프라를 재활용하는 방안을 모색하는 동향이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#부지활용"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-05T22:04:00.194567+00:00",
+    "title": "Oyster Creek eyes SMR revival",
+    "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9YektyaGp2Mm9MRC0wSXJXYmhmamVkZjgzelRfT0c3NVJnaF9acGZ5b2wyZjNJT0p1ck9XbmpSczk1SmZJcmhXVXUyeTE4cnlCbWwyWjBHNzNzeDRiVW8yc2RwZFdpeEVYbW1KbC1fNEQ?oc=5",
+    "feed": "SMR",
+    "domain": "neimagazine.com",
+    "matched": "Nuclear Engineering International"
+  },
+  "1496c995f6b5139f": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "FR"
+    ],
+    "article_type": "news",
+    "title_kr": "프랑스, 자동차 환경세로 올해 10억 유로 이상 세수 예상",
+    "summary": "프랑스 정부는 자동차 환경세(Malus écologique)를 통해 올해 10억 유로 이상의 세수를 거둘 것으로 예상된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-05T22:04:00.194567+00:00",
+    "title": "Malus écologique : la fiscalité sur l'automobile pourrait rapporter plus d'un milliard d'euros cette année",
+    "link": "https://news.google.com/rss/articles/CBMigwJBVV95cUxNcU5PZlZydk1kM3RlbFVXM1ZsZFZTMkZQWVFHTUhYWkVzdzZ0RVpaekdRZzYtcG9Fbm1ZRnpyRElhSVQwMHVReG1EZXJyYkZvSUJxb1NUb201al93SU93VVZnX0lvTEZRZmZJUUllQ2ZhWDQwbXNVUXNnRjUyZWVQRnNydVVzbkgzbXdTcjhIUHlQZlE5T0F4aFhLVElKX1lGWmJnYnFjc3JhNUdFNXhuT2F5aUlnUFdHWFh0M0xULVhzSVViVmRNS0lRUmRGdVVtVXJPeEVPUklhLTlKa3Z1Nkp6VmpPSWFwUzV5YW01T1Z1UzZPc0ZQVTVjZGo2bDVNZXpZ?oc=5",
+    "feed": "정책",
+    "domain": "latribune.fr",
+    "matched": "La Tribune 원자력"
+  },
+  "e4ac98c228937222": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 원전, 직원 임금 억제 소송에서 승소",
+    "summary": "미국 원자력 발전소들이 직원들의 임금 억제 관련 소송에서 승소했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-05T22:04:00.194567+00:00",
+    "title": "US nuclear power plants defeat employees' wage suppression lawsuit",
+    "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPUjF2TlJwcVI1S0NPNjY2SjRTTGw5TEZ6bWN5d0V1b1pTOG02T3FOMXpMelZMaXh2aWlGZUtOYzR4YzF1VnlfWHR3Z2dGbjdBUXVnSW5DSTFGMXpCd3JGX2x6WjJlSTZVVzh0SEc5N0h4M3dmWXZ0MU9yeU5jN1FwV1RNWlZxOVBHWkFESHBxWnBfa1BrNDlnTVRmcFpVNldhbGowSEk4TXNZdE12NEhYdTdaRE1FNkhzaWc?oc=5",
+    "feed": "정책",
+    "domain": "reuters.com",
+    "matched": "Reuters 원자력"
+  },
+  "3e5402572e71d9b8": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "바이엘, 72.5억 달러 규모 라운드업 합의 청문회 연기 요청",
+    "summary": "바이엘(Bayer)이 72억 5천만 달러 규모의 라운드업(Roundup) 합의 청문회에 대한 단기 연기를 요청했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-05T22:04:00.194567+00:00",
+    "title": "Bayer seeks short delay to $7.25 billion Roundup settlement hearing",
+    "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQUzNldEJpU1FBWmw2M2dmUlVjbFBqRWh1X1dtLTJyRlo1MC1qM1BfZlg2OTdwcTVZZFpPcTZuN0F5d0t6VGVXZTZYWFY1ZUJORF9ndkxNRnZMLWxpcmFDZEdtRmZIV2ozeXNHNHVDalhwazFxNGthVWh2bnllY0c3dEVFQWNFRGlaTDVNZlJpRXJoSU9LVFJsSlVYQmYzUnM0UHFEWXdTb252OU5UU3lpdmVqR21aQQ?oc=5",
+    "feed": "정책",
+    "domain": "reuters.com",
+    "matched": "Reuters 원자력"
   }
 }
