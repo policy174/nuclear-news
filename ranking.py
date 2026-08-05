@@ -364,6 +364,46 @@ def _same_event(norm_a: str, toks_a: set[str], norm_b: str, toks_b: set[str],
     return False
 
 
+# 같은 사건 판정 보조 ② — 지목한 호기.
+#
+# 위 두 기준은 제목을 통째로 비교한다. 매체마다 같은 발표에 서로 다른 곁가지를
+# 붙이면(2026-08-06 원안위 발표를 매일일보는 '처벌법 개정', 전기신문은 'SMR 규제',
+# YTN 은 '한빛 1·2호기' 와 묶어 실었다) 곁가지가 제목을 늘려 문자열 ratio 와 토큰
+# 자카드를 동시에 끌어내린다. 실측 3건 상호 0.33~0.44 로 전부 미달 → 국내 3칸이
+# 한 사건으로 채워졌다. 기준을 그 밑으로 내리는 건 답이 아니다: 0.50 에서 이미
+# '러시아 드론 공격' 과 '자포리자 공격' 이 붙는다(아카이브 실측).
+#
+# 곁가지 길이와 무관한 신호로 판정한다 — 같은 호기를 같은 태그로 다루면 같은 사건.
+# 태그까지 요구하는 이유는 하루 안에 같은 호기가 다른 맥락으로 등장할 때
+# (계속운전 심사 ↔ 인근 주민 반대) 붙지 않게 하기 위함.
+# 아카이브 740건/19일 재생: 신규 병합 3쌍, 전부 같은 원안위 발표. 오탐 0.
+
+# 긴 이름을 먼저 둔다 — '신고리 5호기' 가 '고리5' 로 잡히면 다른 호기와 충돌한다.
+_PLANT_NAMES = "신고리|신월성|신한울|새울|고리|월성|한빛|한울|영광|울진"
+_FACILITY_RE = re.compile(rf"({_PLANT_NAMES})\s*([0-9][0-9,·~\-\s]*)\s*호기")
+
+
+def _title_facilities(item: dict) -> frozenset[str]:
+    """제목이 지목한 호기 집합. '고리 3·4호기' → {고리3, 고리4}."""
+    title = item.get("title_kr") or item.get("title") or ""
+    out: set[str] = set()
+    for plant, nums in _FACILITY_RE.findall(title):
+        out.update(f"{plant}{n}" for n in re.findall(r"[0-9]+", nums))
+    return frozenset(out)
+
+
+def _norm_tags(item: dict) -> frozenset[str]:
+    """'#계속운전' → '계속운전'. 매체마다 태그 표기가 갈려 앞의 # 만 벗긴다."""
+    return frozenset(str(t).lstrip("#").strip().lower()
+                     for t in (item.get("tags") or []) if str(t).strip())
+
+
+def _same_facility_event(fac_a: frozenset[str], tags_a: frozenset[str],
+                         fac_b: frozenset[str], tags_b: frozenset[str]) -> bool:
+    """같은 호기 + 같은 태그. 한쪽이라도 비면 판정하지 않는다(보수적)."""
+    return bool(fac_a & fac_b) and bool(tags_a & tags_b)
+
+
 def cluster_duplicates(items: list[dict], scores: dict[str, float],
                        threshold: float = 0.82) -> tuple[list[dict], list[dict]]:
     """제목 유사도(문자열 ratio + 토큰 자카드)로 같은 사건을 묶고 점수 최고 1건만 유지.
@@ -374,14 +414,18 @@ def cluster_duplicates(items: list[dict], scores: dict[str, float],
     """
     ordered = sorted(items, key=lambda a: scores.get(a.get("hash", ""), 0), reverse=True)
     kept: list[dict] = []
-    kept_sig: list[tuple[str, set[str], str]] = []  # (norm, tokens, hash)
+    # (norm, tokens, facilities, tags, hash)
+    kept_sig: list[tuple[str, set[str], frozenset[str], frozenset[str], str]] = []
     dropped: list[dict] = []
     for art in ordered:
         norm = _norm_title(art)
         toks = _title_tokens(art)
+        facs = _title_facilities(art)
+        tags = _norm_tags(art)
         rep_hash = None
-        for kn, kt, kh in kept_sig:
-            if _same_event(norm, toks, kn, kt, threshold):
+        for kn, kt, kf, kg, kh in kept_sig:
+            if _same_event(norm, toks, kn, kt, threshold) or \
+                    _same_facility_event(facs, tags, kf, kg):
                 rep_hash = kh
                 break
         if rep_hash is not None:
@@ -391,7 +435,7 @@ def cluster_duplicates(items: list[dict], scores: dict[str, float],
             continue
         kept.append(art)
         if norm or toks:
-            kept_sig.append((norm, toks, art.get("hash", "")))
+            kept_sig.append((norm, toks, facs, tags, art.get("hash", "")))
     return kept, dropped
 
 

@@ -216,6 +216,63 @@ class TestDuplicates(unittest.TestCase):
         self.assertEqual(len(kept), 2)
 
 
+class TestFacilityDuplicates(unittest.TestCase):
+    """호기 지목 기반 판정 — 매체별 곁가지가 달라 제목 유사도가 무너지는 경우."""
+
+    def test_facility_parsing(self):
+        f = ranking._title_facilities
+        self.assertEqual(f({"title_kr": "고리 3·4호기 계속운전"}), {"고리3", "고리4"})
+        self.assertEqual(f({"title_kr": "고리2호기 영구정지"}), {"고리2"})
+        self.assertEqual(f({"title_kr": "한빛 1, 2호기 심사"}), {"한빛1", "한빛2"})
+        # '신고리 5호기' 가 '고리5' 로 잡히면 다른 호기와 붙는다
+        self.assertEqual(f({"title_kr": "신고리 5호기 준공"}), {"신고리5"})
+        self.assertEqual(f({"title_kr": "체코 두코바니 본계약"}), frozenset())
+
+    def test_2026_08_06_same_announcement_three_outlets(self):
+        """실전 사례: 원안위 한 발표를 세 매체가 각기 다른 곁가지와 함께 실었다.
+
+        상호 포함계수 0.33~0.44 로 제목 유사도 기준은 전부 미달한다.
+        """
+        common = {"tags": ["#계속운전"]}
+        a = item(h="a", title="원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진",
+                 **common)
+        b = item(h="b", title="원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+                 **common)
+        c = item(h="c", title="고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
+                 **common)
+        # 전제: 기존 제목 유사도로는 셋 다 서로 남남이다
+        for x, y in ((a, b), (a, c), (b, c)):
+            self.assertFalse(ranking._same_event(
+                ranking._norm_title(x), ranking._title_tokens(x),
+                ranking._norm_title(y), ranking._title_tokens(y), 0.82))
+        kept, dropped = ranking.cluster_duplicates([a, b, c], {"a": 9, "b": 8, "c": 7})
+        self.assertEqual([x["hash"] for x in kept], ["a"])
+        self.assertEqual({x["dup_of"] for x in dropped}, {"a"})
+
+    def test_same_facility_without_shared_tag_kept(self):
+        """같은 호기라도 맥락이 다르면(공통 태그 없음) 붙이지 않는다."""
+        a = item(h="a", title="원안위, 고리 3·4호기 계속운전 심사 상정",
+                 tags=["#계속운전"])
+        b = item(h="b", title="고리 3·4호기 앞 해상 어업권 보상 협상 결렬",
+                 tags=["#지역수용성"])
+        kept, dropped = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+        self.assertEqual(dropped, [])
+
+    def test_different_facility_same_tag_kept(self):
+        a = item(h="a", title="원안위, 고리 3·4호기 계속운전 심사 상정", tags=["#계속운전"])
+        b = item(h="b", title="한빛 1·2호기 계속운전 신청서 제출", tags=["#계속운전"])
+        kept, _ = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+
+    def test_missing_tags_falls_back_to_title_similarity(self):
+        """태그가 없으면 호기 판정은 쉬고 기존 동작 그대로."""
+        a = item(h="a", title="원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진")
+        b = item(h="b", title="원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화")
+        kept, _ = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+
+
 class TestDiversity(unittest.TestCase):
     def test_topic_overexposure_penalized(self):
         # smr 이 이미 2건(cap) 선정된 뒤엔 3번째 smr 에 penalty(2.5) →
