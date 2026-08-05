@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>원자력 뉴스봇 소개</title>
+<meta name="description" content="원자력 뉴스 텔레그램 봇 — 석 달의 운영기와 시행착오">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="stage" id="app">
+  <div class="progress"><div class="progress__bar" id="progress"></div></div>
+
+  <div class="term">
+    <div class="term__bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="term__title" id="win-title">nuclear-news-bot</div>
+      <div class="term__count" id="counter">01 / 16</div>
+    </div>
+    <main class="term__body" id="stage" tabindex="-1" aria-live="polite">
+      <!-- 슬라이드는 app.js 가 slides.js 데이터로 생성 -->
+    </main>
+  </div>
+
+  <nav class="nav" aria-label="발표 조작">
+    <button class="arrow" id="btn-prev" type="button">‹ <span class="label">이전</span></button>
+    <div class="indicator" id="dots-nav"></div>
+    <button class="arrow" id="btn-next" type="button"><span class="label">다음</span> ›</button>
+  </nav>
+</div>
+
+<div id="notes" aria-label="발표자 노트"></div>
+
+<div id="toc" role="dialog" aria-modal="true" aria-label="목차">
+  <div id="toc-inner">
+    <h2>목차</h2>
+    <p class="toc-hint">이동 ← → · 노트 N · 전체화면 F · 인쇄 Ctrl+P · 닫기 Esc</p>
+    <div class="toc-list" id="toc-list"></div>
+    <p><button class="arrow" type="button" id="toc-close">닫기 (Esc)</button></p>
+  </div>
+</div>
+
+<script src="slides.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
