@@ -1325,6 +1325,14 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertEqual(self.meta["region_classification_version"], "country-first-v1")
         self.assertEqual(self.meta["region_country_mismatch_count"], 0)
         for article in self.news:
+            # 국가 태그로 판정된 기사에만 이 규칙이 적용된다. infer_region 은
+            # 명시적 scope 를 국가보다 먼저 보므로(scope → countries → section →
+            # domain), scope 로 판정된 기사를 여기서 검사하면 **더 정확한 판단을
+            # 오류로 센다**. 실측: "엔터지, 홀텍 SMR-300 배치 검토 위해 현대건설과
+            # 협력"(countries=[KR, US], scope=overseas) — 미국 배치 기사에
+            # 현대건설이 참여하는 것이라 해외가 맞다.
+            if article.get("region_source") != "countries":
+                continue
             countries = set(article.get("countries") or []) - {"OTHER"}
             if not countries:
                 continue

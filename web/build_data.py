@@ -3258,10 +3258,22 @@ def build() -> None:
         1 for item in news_items if not item["country_source"].startswith("native")
     )
     region_source_counts = Counter(item.get("region_source", "unknown") for item in news_items)
+    # 국가 태그로 판정된 기사만 센다. `infer_region` 은 **명시적 scope 를 국가보다
+    # 먼저** 본다(scope → countries → section → domain). 그래서 큐레이션이
+    # scope 를 명시한 기사는 이 규칙의 적용 대상이 아니다.
+    #
+    # 실측 사고(2026-08-05, 배포 차단): "엔터지, 홀텍 SMR-300 배치 검토 위해
+    # 현대건설과 협력" 은 countries=[KR, US] 인데 region=해외였다. 엔터지·홀텍의
+    # **미국** 배치 검토에 현대건설이 참여하는 기사라 큐레이션이 scope=overseas 로
+    # 명시했고, 그 판단이 국가 태그보다 정확하다("한국이 등장한다"와 "국내 뉴스다"는
+    # 다르다 — news_bot 프롬프트의 scope 규칙과 같은 판단).
+    # 지표가 scope 경로까지 위반으로 세면서 **분류가 아니라 지표가 틀린 채로**
+    # deploy-web 이 빨갛게 죽었다.
     region_country_mismatch_count = sum(
         1
         for item in news_items
-        if (set(item.get("countries") or []) - {"OTHER"})
+        if item.get("region_source") == "countries"
+        and (set(item.get("countries") or []) - {"OTHER"})
         and (
             ("KR" in set(item.get("countries") or []) and item.get("region") != "국내")
             or ("KR" not in set(item.get("countries") or []) and item.get("region") != "해외")
