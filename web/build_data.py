@@ -1469,6 +1469,16 @@ def cluster_selected_articles(
             # 제안'이라는 일반적 제목을 경유해 한 이슈로 합쳐졌다. LLM 은 그 둘을
             # "서로 다른 규정 제안"으로 **정확히 기각한 상태였다** — 판정기가 아니라
             # 판정을 이어붙이는 이 지점이 문제였다.
+            #
+            # 승인이 함께 있어도 거부권이 이긴다 — 완화해 보고 되돌렸다(2026-08-05).
+            # 사용자가 지적한 팍스 건은 구조가 위 NRC 사고와 **똑같다**:
+            #   팍스: 터빈 ↔ 가뭄 대표 승인 / 터빈 ↔ '중대한 시기 경고' 기각
+            #   NRC : a↔b 승인 / a↔c 승인 / b↔c 기각
+            # 둘 다 "승인 하나 + 기각 하나"이고, 팍스에선 기각이 틀렸고 NRC 에선
+            # 옳았다. **그 차이는 코드가 볼 수 없다.** 승인을 우선하도록 풀면
+            # test_rejected_pair_vetoes_the_whole_cluster... 가 바로 깨진다.
+            # 틀린 판정은 판정을 고쳐야 한다 — issue_match_overrides.json 의 사람
+            # 승인으로 뒤집는다(그 목적으로 만들어진 파일이다).
             if veto_pairs and any(
                 _pair_id(article["hash"], member["hash"]) in veto_pairs
                 for member in issue["members"]
@@ -1481,7 +1491,7 @@ def cluster_selected_articles(
                 matched, score, diag = issue_similarity(
                     article, reference, embeddings, local_embeddings, facility_entities
                 )
-                if pair_id in overrides.get("rejected", set()):
+                if pair_id in veto_pairs:
                     continue
                 if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
                     matched, score = True, max(score, 1.0)
