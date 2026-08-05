@@ -521,7 +521,7 @@ kbd {
   gap: 14px;
   margin-top: 16px;
 }
-.hero-audio button {
+.hero-audio > button {
   min-height: 40px;
   padding: 0 2px;
   border: 0;
@@ -531,14 +531,36 @@ kbd {
   font-size: 13.5px;
   font-weight: 650;
 }
-.hero-audio button:hover { border-bottom-color: var(--c-text); }
-.hero-audio-time {
+.hero-audio > button:hover { border-bottom-color: var(--c-text); }
+.hero-audio-time,
+.hero-audio-label {
   color: var(--c-text-muted);
   font-family: var(--ff-mono);
   font-size: 12.5px;
   font-weight: 600;
   letter-spacing: .02em;
   font-variant-numeric: tabular-nums;
+}
+/* 배속은 선택지를 전부 펼친 세그먼트 — 현재 값만 반전. 순환 버튼 하나로는
+   조절 가능하다는 게 안 읽혔다(사용자 피드백 8/5). */
+.hero-audio-rates { display: inline-flex; gap: 6px; }
+.hero-audio-rates button {
+  min-height: 32px;
+  padding: 2px 10px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--ff-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.hero-audio-rates button:hover { background: var(--c-surface-sunken); }
+.hero-audio-rates button[aria-pressed="true"] {
+  border-color: var(--c-text);
+  background: var(--c-text);
+  color: var(--c-bg);
 }
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */

@@ -101,7 +101,16 @@
           <div class="hero-audio" id="audioBrief" hidden>
             <button id="audioToggle" type="button" aria-pressed="false">▶ 오디오 브리핑</button>
             <span class="hero-audio-time" id="audioTime" aria-hidden="true"></span>
-            <button id="audioRate" type="button" aria-label="재생 속도 변경">1×</button>
+            <!-- 순환 버튼 하나("2×")로는 조절 가능하다는 게 안 읽힌다(사용자
+                 피드백 8/5). 선택지를 전부 펼치고 현재 값을 누른 상태로 표시 —
+                 regionTabs 와 같은 aria-pressed 세그먼트 문법. -->
+            <span class="hero-audio-label" aria-hidden="true">배속</span>
+            <div class="hero-audio-rates" id="audioRates" role="group" aria-label="재생 속도">
+              <button type="button" data-rate="1" aria-pressed="true">1×</button>
+              <button type="button" data-rate="1.25" aria-pressed="false">1.25×</button>
+              <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
+              <button type="button" data-rate="2" aria-pressed="false">2×</button>
+            </div>
             <audio id="audioEl" preload="none"></audio>
           </div>
           <!-- headline_kind 가 synthesis/change 가 아닌 날(17일 중 14일)의 h1 은

@@ -1094,6 +1094,15 @@ function audioRate() {
   return AUDIO_RATES.includes(saved) ? saved : 1;
 }
 
+// 선택지 4개를 전부 펼치고 현재 값만 누른 상태로 — 순환 버튼 하나는
+// "조절되는 것"이라는 게 안 읽혔다(사용자 피드백 8/5).
+function syncAudioRateButtons() {
+  const current = audioRate();
+  document.querySelectorAll("#audioRates [data-rate]").forEach(button => {
+    button.setAttribute("aria-pressed", Number(button.dataset.rate) === current ? "true" : "false");
+  });
+}
+
 function fmtClock(value) {
   if (!Number.isFinite(value) || value < 0) return "0:00";
   return `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, "0")}`;
@@ -1129,7 +1138,7 @@ function renderAudioBrief(briefing) {
     document.getElementById("audioTime").textContent =
       `0:00 / ${fmtClock(meta.duration_sec)}`;
   }
-  document.getElementById("audioRate").textContent = `${audioRate()}×`;
+  syncAudioRateButtons();
 }
 
 function articleCard(article) {
@@ -2500,11 +2509,14 @@ function bind() {
     if (briefAudio.paused) briefAudio.play().catch(() => {});
     else briefAudio.pause();
   });
-  document.getElementById("audioRate").addEventListener("click", () => {
-    const next = AUDIO_RATES[(AUDIO_RATES.indexOf(audioRate()) + 1) % AUDIO_RATES.length];
-    localStorage.setItem("nuclens-audio-rate", String(next));
-    briefAudio.playbackRate = next;
-    document.getElementById("audioRate").textContent = `${next}×`;
+  document.getElementById("audioRates").addEventListener("click", event => {
+    const button = event.target.closest("[data-rate]");
+    if (!button) return;
+    const rate = Number(button.dataset.rate);
+    if (!AUDIO_RATES.includes(rate)) return;
+    localStorage.setItem("nuclens-audio-rate", String(rate));
+    briefAudio.playbackRate = rate;
+    syncAudioRateButtons();
   });
   // playbackRate 는 src 교체 때 1.0 으로 돌아온다 — 재생 시작마다 다시 얹는다.
   briefAudio.addEventListener("play", () => {
