@@ -703,6 +703,12 @@ class TestCrawlWorkflowKeepsDiagnostics(unittest.TestCase):
                           "issue_insights.json"):
                 self.assertIn(cache, yml, f"{name} 에 {cache} 커밋이 빠졌다")
 
+    def test_discovery_state_is_committed(self):
+        """discovery 상태도 같은 함정에 걸린다 — 커밋 안 하면 매 시각 같은 쿼리를
+        다시 던지고, 헛도는 조합을 영영 못 재운다(zero_yield_streak 이 늘 0)."""
+        yml = (self.ROOT / ".github" / "workflows" / "crawl.yml").read_text(encoding="utf-8")
+        self.assertIn("discovery_state.json", yml)
+
     def test_append_only_logs_merge_by_union(self):
         """rebase 가 붙으려면 append 충돌이 자동 해소돼야 한다.
 
@@ -938,3 +944,122 @@ class TestKeywordCoverage(unittest.TestCase):
         for term in ("한빛 계속운전", "고리 계속운전"):
             with self.subTest(term=term):
                 self.assertIn(term, self.policy)
+
+
+class TestDiscoveryPlanning(unittest.TestCase):
+    """후속 발굴 쿼리 생성 — 결정적, LLM 0회, 네트워크 0회.
+
+    존재 이유: 2026-08-05 브리핑이 팍스 원전을 '마지막 터빈 안전하게 가동 중'으로
+    노출한 그날, 헝가리는 44년 만에 그 원전을 세웠다. 국내 보도(뉴시스·JTBC)가
+    있었지만 고정 피드 어디에도 안 걸렸다. '팍스 원전 가동 중단' 을 실제로 던지면
+    그 기사들이 전부 나온다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import discovery
+        import entity_match
+        cls.d = discovery
+        cls.registry = entity_match.load_entity_registry()
+
+    def _rows(self, *specs):
+        base = "2026-08-05T22:00:00+00:00"
+        return [{"archived_at": spec.get("at", base),
+                 "title_kr": spec["title"],
+                 "summary": spec.get("summary", ""),
+                 "canonical_tags": spec.get("tags", []),
+                 "importance": spec.get("importance", "nice_to_know")} for spec in specs]
+
+    @property
+    def now(self):
+        from datetime import datetime, timezone
+        return datetime(2026, 8, 6, 7, 0, tzinfo=timezone.utc)
+
+    def _plan(self, rows, state=None, budget=None):
+        kwargs = {} if budget is None else {"budget": budget}
+        return self.d.plan_queries(rows, self.registry,
+                                   state or {"version": 1, "queries": {}},
+                                   now=self.now, **kwargs)
+
+    def test_state_change_wording_makes_an_entity_a_seed(self):
+        rows = self._rows({"title": "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표"})
+        queries, _ = self._plan(rows)
+        self.assertIn("팍스 원전 가동 중단", [q["query"] for q in queries])
+
+    def test_budget_is_never_exceeded(self):
+        rows = self._rows(*[{"title": f"팍스 원전 {i}호기 가동 중"} for i in range(50)])
+        queries, _ = self._plan(rows, budget=7)
+        self.assertLessEqual(len(queries), 7)
+
+    def test_one_entity_cannot_eat_the_whole_budget(self):
+        """깊이 우선이면 홀텍 16 · 원안위 10 으로 예산이 말라 팍스를 못 물었다."""
+        rows = self._rows(
+            {"title": "홀텍, 오이스터 크릭 해체 승인", "importance": "must_read"},
+            {"title": "원자력안전위원회, 계속운전 심사 착수", "importance": "must_read"},
+            {"title": "헝가리 팍스 원전 가동 중 발표"},
+        )
+        queries, _ = self._plan(rows, budget=12)
+        counts = {}
+        for q in queries:
+            counts[q["entity_id"]] = counts.get(q["entity_id"], 0) + 1
+        self.assertLessEqual(max(counts.values()), self.d.MAX_QUERIES_PER_ENTITY)
+        self.assertIn("paks", counts)
+
+    def test_generic_names_are_asked_by_full_name(self):
+        """고리·월성은 match_policy 가 자유문 매칭을 막아 둔 이름이다 — 별칭('고리')
+        으로 물으면 밧줄·고리 같은 일반명사 기사가 쏟아진다."""
+        rows = self._rows({"title": "고리 3·4호기 계속운전 심의 예정",
+                           "tags": ["고리원전"]})
+        queries, _ = self._plan(rows)
+        kori = [q["query"] for q in queries if q["entity_id"] == "kori"]
+        self.assertTrue(kori)
+        for query in kori:
+            self.assertTrue(query.startswith("고리 원전"), query)
+
+    def test_event_terms_are_limited_by_entity_type(self):
+        # 기관에 '재가동'을, 원전에 '수주'를 묻는 건 헛방이다.
+        rows = self._rows({"title": "원자력안전위원회 전체회의 개최"})
+        queries, _ = self._plan(rows)
+        for q in (q for q in queries if q["entity_id"] == "nssc"):
+            self.assertNotIn("가동 중단", q["query"])
+
+    def test_zero_yield_streak_cools_a_query_down(self):
+        rows = self._rows({"title": "헝가리 팍스 원전 가동 중"})
+        state = {"version": 1, "queries": {}}
+        queries, state = self._plan(rows, state)
+        target = queries[0]
+        for _ in range(self.d.ZERO_YIELD_LIMIT):
+            state = self.d.record_results(
+                state, [{**target, "result_count": 3, "new_article_count": 0}], now=self.now)
+        again, _ = self._plan(rows, state)
+        self.assertNotIn(target["fingerprint"], [q["fingerprint"] for q in again])
+
+    def test_a_yielding_query_is_not_cooled(self):
+        rows = self._rows({"title": "헝가리 팍스 원전 가동 중"})
+        state = {"version": 1, "queries": {}}
+        queries, state = self._plan(rows, state)
+        target = queries[0]
+        state = self.d.record_results(
+            state, [{**target, "result_count": 3, "new_article_count": 2}], now=self.now)
+        self.assertNotIn("next_eligible_at", state["queries"][target["fingerprint"]])
+        again, _ = self._plan(rows, state)
+        self.assertIn(target["fingerprint"], [q["fingerprint"] for q in again])
+
+    def test_empty_archive_is_not_an_error(self):
+        queries, _ = self._plan([])
+        self.assertEqual([], queries)
+
+    def test_planning_is_deterministic(self):
+        rows = self._rows({"title": "헝가리 팍스 원전 가동 중"},
+                          {"title": "체르나보다 원전 냉각수 부족"})
+        first, _ = self._plan(rows)
+        second, _ = self._plan(rows)
+        self.assertEqual([q["query"] for q in first], [q["query"] for q in second])
+
+    def test_state_pruning_keeps_the_file_bounded(self):
+        from datetime import timedelta
+        old = (self.now - timedelta(days=90)).isoformat()
+        state = {"version": 1, "queries": {"a": {"last_run": old},
+                                           "b": {"last_run": self.now.isoformat()}}}
+        pruned = self.d.prune_state(state, now=self.now)
+        self.assertEqual({"b"}, set(pruned["queries"]))

@@ -17,6 +17,7 @@ from gemini_client import (
     is_available as gemini_rest_available,
 )
 from ranking import prior_coverage_count, sanitize_features
+import entity_match
 import news_archive
 from data_quality import (
     clean_text,
@@ -1547,6 +1548,48 @@ def passes_source_keyword_gate(src: dict, item: dict) -> bool:
     return any(keyword in haystack for keyword in keywords)
 
 
+def collect_discovery(state: dict, anchors: list[str], negative_terms: str = "") -> list[dict]:
+    """discovery 가 세운 쿼리를 네이버로 던지고 성과를 기록한다.
+
+    쿼리 생성은 discovery.py 가 결정적으로 하고(LLM 0회), 여기서는 실행과 상태
+    기록만 한다. 쿼리마다 따로 도는 이유는 **성과를 쿼리 단위로 남기기 위해서**다
+    — 합쳐 돌리면 어느 조합이 헛도는지 알 수 없어 냉각을 걸 수 없다.
+    네트워크 호출 수는 합쳐 돌 때와 같다.
+    """
+    import discovery
+
+    rows = discovery.load_recent_archive_rows()
+    if not rows:
+        print("[discovery] 아카이브 비어 있음 → 건너뜀")
+        return []
+    registry = entity_match.load_entity_registry()
+    dstate = discovery.load_state()
+    queries, dstate = discovery.plan_queries(rows, registry, dstate)
+    if not queries:
+        print("[discovery] 쿼리 0건(전부 냉각 중이거나 씨앗 없음)")
+        return []
+
+    out: list[dict] = []
+    results: list[dict] = []
+    for spec in queries:
+        found = collect_articles(f"discovery:{spec['entity_id']}", [spec["query"]],
+                                 anchors, state, negative_terms=negative_terms)
+        for article in found:
+            article["discovery_entity"] = spec["entity_id"]
+        out.extend(found)
+        # collect_articles 는 article_seen 으로 이미 본 URL 을 걸러 내므로
+        # 여기 남은 것은 정의상 전부 신규다.
+        results.append({**spec, "result_count": len(found), "new_article_count": len(found)})
+
+    dstate = discovery.record_results(dstate, results)
+    dstate = discovery.prune_state(dstate)
+    discovery.save_state(dstate)
+    yielded = sum(1 for r in results if r["new_article_count"])
+    print(f"[discovery] 쿼리 {len(queries)}건 → 신규 {len(out)}건 "
+          f"(성과 있는 쿼리 {yielded}건, 엔티티 {len({q['entity_id'] for q in queries})}개)")
+    return out
+
+
 def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
     by_title: dict[str, dict] = {}
@@ -1760,6 +1803,17 @@ def main() -> None:
         articles = collect_articles(feed_name, kw_list, anchors, state, negative_terms=negative_terms)
         print(f"[{feed_name}] {len(articles)} candidates from Naver")
         all_candidates.extend(articles)
+
+    # 후속 발굴 — 고정 키워드가 못 잡는 '상태가 뒤집힌 사건'을 물으러 간다.
+    # 비치명: 실패해도 크롤 본체는 계속 돈다.
+    try:
+        policy_cfg = config.get("정책") or next(iter(config.values()), {})
+        disc = collect_discovery(state,
+                                 policy_cfg.get("anchors", []),
+                                 policy_cfg.get("negative_terms", ""))
+        all_candidates.extend(disc)
+    except Exception as e:  # noqa: BLE001
+        print(f"[discovery] 실패 → 건너뜀: {type(e).__name__}: {e}")
 
     rss_articles = collect_rss_articles(state)
 
