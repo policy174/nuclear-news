@@ -75,6 +75,21 @@ class GeminiTruncated(GeminiError):
     """
 
 
+# 429 는 두 종류다. 분당 한도(RPM)는 기다리면 풀리지만 일일 한도(RPD)는 오늘 안
+# 풀리지 않는다. 응답 details 의 QuotaFailure.violations[].quotaId 에 한도 종류가
+# 들어 있다(예: GenerateRequestsPerDayPerProjectPerModel).
+_DAILY_QUOTA_MARKERS = ("PerDay", "per_day", "PerDayPerProject", "RequestsPerDay")
+
+
+def _is_daily_quota(body_text: str) -> bool:
+    """429 본문이 일일 한도 소진을 가리키는가.
+
+    판정 불가면 False — 분당 한도로 보고 재시도한다. 재시도 가능한 것을 못 하는
+    쪽이, 오늘 안 풀릴 것을 붙잡고 늘어지는 쪽보다 낫다.
+    """
+    return any(marker in body_text for marker in _DAILY_QUOTA_MARKERS)
+
+
 def is_available() -> bool:
     """키가 설정되어 있고 호출 가능한지."""
     return bool(API_KEY)
@@ -206,11 +221,19 @@ def call_json(
                     raise
         except urllib.error.HTTPError as e:
             body_text = e.read().decode("utf-8", errors="replace")
-            last_err = GeminiError(f"HTTP {e.code}: {body_text[:300]}")
+            last_err = GeminiError(f"HTTP {e.code}: {body_text[:600]}")
             # 429/5xx만 재시도
             if e.code not in (429, 500, 502, 503, 504) or attempt == retries:
                 raise last_err from e
-            # 429(무료 티어 분당 한도)는 분당 리셋 → 길게 대기. 5xx는 짧게.
+            if e.code == 429 and _is_daily_quota(body_text):
+                # 일일 한도는 재시도해도 오늘 안에 안 풀린다. 기다린 뒤 또 태우면
+                # 한 번 실패한 호출이 쿼터를 4배로 먹고 잡 시간까지 잡아먹는다.
+                # 실측 2026-08-06: 6 chunk 가 전부 이 경로로 20+40+60초씩 자면서
+                # 크롤이 3분에서 16분으로 늘었고, 재시도분까지 한도를 더 깎았다.
+                # GeminiTruncated 와 같은 판단이다 — 같은 조건으로 다시 부르면
+                # 같은 결과가 나오는 실패는 재시도 신호가 아니다.
+                raise last_err from e
+            # 분당 한도는 분당 리셋 → 길게 대기. 5xx는 짧게.
             time.sleep(20 * (attempt + 1) if e.code == 429 else 2 ** attempt)
             continue
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
