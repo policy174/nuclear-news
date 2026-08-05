@@ -1064,7 +1064,29 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
 # 해결: CHUNK 건을 한 번에 분류. 호출 수 ~1/20. judge의 노이즈 컷은 큐레이션의
 # importance=noise 가 흡수하므로 별도 judge 호출도 제거.
 
-BATCH_CHUNK = 10  # 1회 호출당 기사 수 (출력 토큰 여유 고려)
+# 1회 호출당 기사 수. 이 값이 곧 하루 큐레이션 호출 수를 정한다 — 크롤이 매시간
+# 돌기 때문에 chunk 하나가 호출 하나다.
+#
+# 10 → 15 (2026-08-06). 근거: 같은 날 크롤에서 6 chunk 전부 429 를 맞았는데
+# **chunk 1 부터** 실패했다. 즉 그 실행이 쿼터를 태운 게 아니라 시작 시점에 이미
+# 일일 한도가 비어 있었다(gemini-2.5-flash 공용 버킷). 네이버 수리로 유입이 늘면
+# 소진이 더 앞당겨지므로 호출 수 자체를 줄인다: 54건 기준 6회 → 4회.
+#
+# 20 이 아니라 15 인 이유: 잘리면 SPLIT 경로가 오히려 호출을 더 쓴다.
+# 첫 주 로그에 분할 재시도가 0 이면 20 으로 올릴 것.
+BATCH_CHUNK = 15
+
+# 한 크롤에서 큐레이션에 보낼 새 기사 상한 = 안전 밸브.
+#
+# 2026-08-06 네이버 쿼리를 수리하자 그동안 0건을 뱉던 키워드 78개가 한꺼번에
+# 살아났고, 그 첫 크롤이 평소 3~8분에서 30분+ 로 늘어났다. 상한이 없으면 유입이
+# 튀는 날마다 큐레이션이 무제한으로 늘어 무료 티어를 태우고 다음 크롤까지 막는다
+# (concurrency: cancel-in-progress: false 라 뒤에 줄을 선다).
+#
+# 잘라도 유실되지 않는다 — state["sent"] 마킹은 큐레이션 **뒤**에 일어나므로
+# 남은 기사는 다음 크롤에서 다시 후보가 된다. final_articles 가 pub 오름차순이라
+# 앞에서 자르면 오래된 것부터 빠져 굶는 항목이 생기지 않는다(FIFO).
+MAX_CURATION_PER_RUN = int(os.environ.get("MAX_CURATION_PER_RUN", "80"))
 
 # 2.5-flash 는 thinking 토큰이 maxOutputTokens 를 함께 잠식한다 (trend_insights.py:138,
 # issue_review.py:43 에도 같은 함정이 박제돼 있다). 실측: curated.json 의 완결 항목
@@ -1391,8 +1413,12 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             for art in chunk:
                 lost[art["hash"]] = detail
             capped = " (분할 예산 소진)" if reason in SPLITTABLE_FAILURES else ""
+            # 160자로 자르면 429 의 quotaId·quotaValue 가 잘려 **분당 한도인지
+            # 일일 한도인지 판정할 수 없다**(2026-08-06 실측: 6 chunk 전부 429 인데
+            # 어느 쪽인지 로그로 못 가렸다). 처방이 다르므로 넉넉히 남긴다 —
+            # 분당이면 chunk 간 대기, 일일이면 호출 수 자체를 줄여야 한다.
             print(f"  ! batch 큐레이션 실패 ({label}) — {len(chunk)}건 유실{capped}: "
-                  f"{detail[:160]}")
+                  f"{detail[:600]}")
             return
 
         retryable = [
@@ -1862,9 +1888,18 @@ def main() -> None:
         article for article in final_articles
         if article["hash"] not in curated or needs_recuration(curated[article["hash"]])
     ]
+    deferred = 0
+    if len(new_articles) > MAX_CURATION_PER_RUN:
+        deferred = len(new_articles) - MAX_CURATION_PER_RUN
+        # pub 오름차순이므로 앞에서 자른다 — 오래된 것부터 처리(FIFO).
+        new_articles = new_articles[:MAX_CURATION_PER_RUN]
     if new_articles:
         n_calls = (len(new_articles) + BATCH_CHUNK - 1) // BATCH_CHUNK
         print(f"Batch curation: 새 기사 {len(new_articles)}건 → Gemini {n_calls}회 호출")
+    if deferred:
+        # 조용히 자르면 '수집이 줄었다'로 오독한다. 다음 크롤에서 다시 온다.
+        print(f"Batch curation: 상한 {MAX_CURATION_PER_RUN} 초과분 {deferred}건은 "
+              f"다음 크롤로 이월 (seen 마킹 전이라 유실 아님)")
     batch_results = curate_batch(new_articles, reports_kb)
 
     # 후속·반복 보도 판정 재료. 아카이브를 못 읽어도 크롤은 계속한다(빈 목록이면
