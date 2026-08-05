@@ -216,6 +216,84 @@ class TestDuplicates(unittest.TestCase):
         self.assertEqual(len(kept), 2)
 
 
+class TestContainmentDuplicates(unittest.TestCase):
+    """포함 비율 판정 — 한쪽이 금액·부제를 덧붙여 자카드가 무너지는 경우."""
+
+    def test_long_headline_absorbs_reworded_twin(self):
+        """실전 사례(2026-07-17): 같은 EIB 대출을 두 매체가 다른 어휘로 썼다.
+
+        공유 6 토큰인데 자카드 0.43 으로 0.45 를 놓친다. 짧은 쪽을 분모로 두면 0.60.
+        """
+        a = item(h="a", title="유럽투자은행(EIB), 체르나보다 원전 1호기 개보수 사업에 8억 유로 대출 승인")
+        b = item(h="b", title="유럽투자은행, 루마니아 체르나보다 원전 1호기 설비개선에 8억 유로 지원 확정")
+        ta, tb = ranking._title_tokens(a), ranking._title_tokens(b)
+        self.assertLess(len(ta & tb) / len(ta | tb), ranking._TOKEN_JACCARD_THRESHOLD)
+        kept, dropped = ranking.cluster_duplicates([a, b], {"a": 6, "b": 5})
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(dropped[0]["dup_of"], "a")
+
+    def test_boilerplate_only_overlap_kept(self):
+        """상투어만 겹치면 붙이지 않는다 — 0.57 로 내렸을 때 실제로 붙던 쌍.
+
+        공유 토큰이 미국·원자·협력·체결 뿐인데 포함비율은 0.571 이다. 같은 값에
+        실제 중복(포천양수발전소 2건)도 있어 기준값으로는 못 가른다 → 0.60 을 지킨다.
+        """
+        a = item(h="a", title="미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결")
+        b = item(h="b", title="미국-사우디아라비아, 민간 원자력 협력 협정 체결")
+        kept, dropped = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+        self.assertEqual(dropped, [])
+
+    def test_pocheon_pair_is_a_known_miss(self):
+        """0.60 을 지키는 대가 — 이 실제 중복은 놓친다(0.571).
+
+        놓치는 걸 알고 남긴다. 잡으려면 공유 토큰의 고유명사 여부를 봐야 한다.
+        """
+        a = item(h="a", title="한수원, 포천양수발전소 본공사 착수…2033년 준공 목표")
+        b = item(h="b", title="한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수")
+        ta, tb = ranking._title_tokens(a), ranking._title_tokens(b)
+        cov = len(ta & tb) / min(len(ta), len(tb))
+        self.assertLess(cov, ranking._TOKEN_CONTAIN_THRESHOLD)
+        self.assertEqual(len(ranking.cluster_duplicates([a, b], {"a": 6, "b": 5})[0]), 2)
+
+    def test_shared_actor_different_events_kept(self):
+        """0.55 이하로 내리면 붙던 쌍 — 0.60 에서는 갈라져 있어야 한다."""
+        a = item(h="a", title="러시아, 우크라이나 드론 공격으로 민간인 7명 사망 주장")
+        b = item(h="b", title="우크라이나 자포리자 지역 러시아 공격으로 1명 사망, 31명 부상")
+        kept, dropped = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+        self.assertEqual(dropped, [])
+
+    def test_three_shared_tokens_left_uncaught_on_purpose(self):
+        """공유 3 토큰 구간은 일부러 안 잡는다.
+
+        2026-07-20 김현주 한빛본부장 취임을 네 매체가 쓴 건 실제 중복이라 여기서 놓친다.
+        그래도 3 토큰까지 내리면 '원안·계속·심사' 같은 상투어만으로 별개 사건이 붙는다
+        (고리2호기 ↔ 한빛1호기가 정확히 0.600). 재현율보다 정확도를 택한 자리다.
+        """
+        a = item(h="a", title="김현주 한빛원자력본부장 취임, 안전 최우선 및 지역 상생 강조")
+        b = item(h="b", title="김현주 신임 한빛원자력본부장 취임")
+        self.assertEqual(len(ranking._title_tokens(a) & ranking._title_tokens(b)), 3)
+        kept, _ = ranking.cluster_duplicates([a, b], {"a": 6, "b": 5})
+        self.assertEqual(len(kept), 2)
+
+    def test_facility_conflict_vetoes_similar_titles(self):
+        """서식만 같고 호기가 다르면 유사도가 높아도 붙이지 않는다."""
+        a = item(h="a", title="원안위, 고리2호기 계속운전 심사 착수")
+        b = item(h="b", title="원안위, 한빛1호기 계속운전 심사 착수")
+        self.assertTrue(ranking._facility_conflict(
+            ranking._title_facilities(a), ranking._title_facilities(b)))
+        kept, _ = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+
+    def test_containment_needs_minimum_shared_tokens(self):
+        """짧은 제목 둘이 우연히 두 어절 겹친 것만으로 붙지 않는다."""
+        a = item(h="a", title="원전 수출 확대")
+        b = item(h="b", title="원전 수출 전략 재검토와 신규 부지 선정 절차 착수")
+        kept, _ = ranking.cluster_duplicates([a, b], {"a": 5, "b": 4})
+        self.assertEqual(len(kept), 2)
+
+
 class TestFacilityDuplicates(unittest.TestCase):
     """호기 지목 기반 판정 — 매체별 곁가지가 달라 제목 유사도가 무너지는 경우."""
 

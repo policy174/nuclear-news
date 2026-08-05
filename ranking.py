@@ -339,6 +339,24 @@ _token_re = re.compile(r"[\w가-힣]+")
 _TOKEN_JACCARD_THRESHOLD = 0.45
 _TOKEN_MIN_SHARED = 4
 
+# 포함 비율 보조 판정 — 한쪽이 덧붙인 말을 분모에서 뺀다.
+#
+# 자카드는 합집합이 분모다. 같은 사건인데 한 매체가 금액·부제를 덧붙이면 공유 토큰은
+# 그대로인 채 분모만 커져 점수가 떨어진다. 짧은 쪽을 분모로 두면 덧붙인 말과 무관해진다.
+# 아카이브 891건/20일 재생: 0.60 에서 16쌍 추가 병합, 오탐 0.
+#
+# 0.57 까지 내려선 안 된다. 그 구간에서 '해양광물관리국 NRC 해상원자력 MOU' 와
+# '미국-사우디 민간원자력 협정' 이 붙는다 — 공유 토큰이 미국·원자·협력·체결 로 전부
+# 상투어인데 포함비율만 0.571 이다. 같은 값에 실제 중복(2026-08-04 발송분 국내 2칸을
+# 채운 '포천양수발전소 본공사 착수' 2건)도 걸려 있어, 기준값으로는 둘을 가를 수 없다.
+# 포천 유형을 잡으려면 공유 토큰의 고유명사 여부를 봐야 한다 — 여기서는 하지 않는다.
+#
+# 공유 4 토큰을 요구하는 이유: 3 토큰 구간은 '원안·계속·심사' 같은 상투어만으로도
+# 0.60 이 나온다. '고리2호기 계속운전 심사 착수' 와 '한빛1호기 계속운전 심사 결과
+# 발표' 가 정확히 0.600 이다 — 호기가 다른 별개 사건인데.
+_TOKEN_CONTAIN_THRESHOLD = 0.60
+_CONTAIN_MIN_SHARED = 4
+
 
 def _norm_title(item: dict) -> str:
     t = item.get("title_kr") or item.get("title") or ""
@@ -360,6 +378,9 @@ def _same_event(norm_a: str, toks_a: set[str], norm_b: str, toks_b: set[str],
         inter = toks_a & toks_b
         union = toks_a | toks_b
         if len(inter) >= _TOKEN_MIN_SHARED and len(inter) / len(union) >= _TOKEN_JACCARD_THRESHOLD:
+            return True
+        if len(inter) >= _CONTAIN_MIN_SHARED and \
+                len(inter) / min(len(toks_a), len(toks_b)) >= _TOKEN_CONTAIN_THRESHOLD:
             return True
     return False
 
@@ -404,6 +425,16 @@ def _same_facility_event(fac_a: frozenset[str], tags_a: frozenset[str],
     return bool(fac_a & fac_b) and bool(tags_a & tags_b)
 
 
+def _facility_conflict(fac_a: frozenset[str], fac_b: frozenset[str]) -> bool:
+    """둘 다 호기를 지목했는데 겹치는 게 없으면 같은 사건일 수 없다.
+
+    제목 유사도보다 우선하는 거부권이다. '고리2호기 계속운전 심사 착수' 와
+    '한빛1호기 계속운전 심사 결과 발표' 처럼 서식만 같고 대상이 다른 쌍이
+    상투어 공유만으로 붙는 것을 막는다.
+    """
+    return bool(fac_a) and bool(fac_b) and not (fac_a & fac_b)
+
+
 def cluster_duplicates(items: list[dict], scores: dict[str, float],
                        threshold: float = 0.82) -> tuple[list[dict], list[dict]]:
     """제목 유사도(문자열 ratio + 토큰 자카드)로 같은 사건을 묶고 점수 최고 1건만 유지.
@@ -424,6 +455,8 @@ def cluster_duplicates(items: list[dict], scores: dict[str, float],
         tags = _norm_tags(art)
         rep_hash = None
         for kn, kt, kf, kg, kh in kept_sig:
+            if _facility_conflict(facs, kf):
+                continue
             if _same_event(norm, toks, kn, kt, threshold) or \
                     _same_facility_event(facs, tags, kf, kg):
                 rep_hash = kh
