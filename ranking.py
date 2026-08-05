@@ -494,9 +494,68 @@ def resolve_floor(cfg: dict, region_key: str) -> dict | None:
 
 # ---- 종합 파이프라인 (daily_brief 에서 호출) ------------------------------------
 
+DEFAULT_CAPS = {"domestic": {"base": 3, "max": 8}, "overseas": {"base": 6, "max": 12}}
+
+
+def resolve_caps(cfg: dict, region_key: str) -> dict | None:
+    """ranking_config 의 selection_caps 를 그 지역 몫으로 편다.
+
+    설정이 없으면 None 을 내고 호출부의 기존 상수(국내3/해외6)가 그대로 쓰인다 —
+    설정 파일이 없거나 깨져도 어제와 같이 동작해야 한다.
+    """
+    raw = cfg.get("selection_caps")
+    if not isinstance(raw, dict):
+        return None
+    spec = raw.get(region_key)
+    if not isinstance(spec, dict):
+        return None
+    base = int(spec.get("base", DEFAULT_CAPS.get(region_key, {}).get("base", 3)))
+    return {
+        "base": base,
+        "max": int(spec.get("max", base)),
+        "must_read_bonus_per": int(spec.get("must_read_bonus_per", 1)),
+        "must_read_bonus_max": int(spec.get("must_read_bonus_max", 2)),
+    }
+
+
+def decide_cap(spec: dict, eligible: int, must_read: int, surge_bonus: int = 0) -> tuple[int, dict]:
+    """그날 몇 건까지 내보낼지. 계단형 규칙이 아니라 가산형이다.
+
+    캡이 상한이 아니라 **하한처럼** 작동하고 있었다. 국내3/해외6 이 상수라 보도량과
+    무관하게 매일 같은 양이 나갔다 — 실측 2026-07-25~08-06 12일 연속 7~9건, 그중
+    8/6 은 후보 94건 중 38건이 하한 미달이고도 적격 56건에서 9건만 나갔다.
+
+    계단형(eligible>=4 면 4, must_read>=2 면 5 …)도 생각했으나 경계값이 자의적이고
+    한 번 정하면 근거 없이 굳는다. 가산형은 각 항의 기여가 그대로 보여 사후 조정이
+    쉽다. surge_bonus 는 R7 에서 붙는다 — 지금은 항상 0 이라, 캡 확대의 원인이
+    'must_read 가 많아서'로만 설명된다(원인이 둘이면 어느 쪽인지 못 가른다).
+    """
+    base = int(spec.get("base", 3))
+    max_cap = int(spec.get("max", base))
+    mr_bonus = min(int(spec.get("must_read_bonus_max", 2)),
+                   must_read * int(spec.get("must_read_bonus_per", 1)))
+    # 보도량 항 — must_read 만으로는 캡이 거의 안 움직인다. 실측 백테스트(2026-08-06
+    # 큐 82건): 하한을 넘긴 적격이 국내 16 · 해외 13 인데 must_read 는 1 과 0 이라
+    # 가산이 +1/+0 에 그쳤다. must_read 는 드물게 붙는 등급이라(19일 중 11일 0건)
+    # 그것만 보면 '오늘 실제로 얼마나 많은 일이 있었나'를 못 센다.
+    # 기준선을 넘긴 후보가 쌓인 만큼만 늘린다 — 조용한 날은 min(eligible) 이 막는다.
+    step = int(spec.get("eligible_bonus_step", 5))
+    eb_max = int(spec.get("eligible_bonus_max", 3))
+    el_bonus = min(eb_max, max(0, eligible - base) // step) if step > 0 else 0
+    raw = base + mr_bonus + el_bonus + surge_bonus
+    cap = max(0, min(raw, eligible, max_cap))
+    return cap, {
+        "base": base, "max": max_cap, "eligible": eligible, "must_read": must_read,
+        "must_read_bonus": mr_bonus, "eligible_bonus": el_bonus, "surge_bonus": surge_bonus,
+        "cap_before_limits": raw, "cap_applied": cap,
+    }
+
+
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                     now: datetime | None = None,
-                    floor: dict | None = None) -> tuple[list[dict], dict]:
+                    floor: dict | None = None,
+                    cap_spec: dict | None = None,
+                    surge_bonus: int = 0) -> tuple[list[dict], dict]:
     """점수화 → 중복 클러스터 → (하한) → 다양성 top-k.
 
     하한은 **다양성 선별 앞에서** 건다. 뒤에 걸면 같은 topic 이 겹쳐 받은 페널티가
@@ -539,10 +598,18 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                 })
         kept = passing
 
+    # 캡은 **하한 통과 뒤** 결정한다. 앞에서 정하면 하한에 걸려 사라질 후보까지
+    # 세어 캡이 부풀고, 정작 내보낼 것이 없는 날에 자리만 비운다.
+    cap_detail = None
+    if cap_spec:
+        must_read = sum(1 for a in kept if _get_importance(a) == "must_read")
+        k, cap_detail = decide_cap(cap_spec, len(kept), must_read, surge_bonus)
+
     selected = select_diverse(kept, scores, k, cfg)
     diag = {
         "scores": scores,
         "breakdowns": breakdowns,
+        "cap": cap_detail,
         "candidate_count": len(items),
         "dropped_below_floor": below,
         "dropped_duplicates": [{"hash": d.get("hash", ""),

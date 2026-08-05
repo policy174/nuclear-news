@@ -511,13 +511,18 @@ def region_stats(diag: dict, selected: list[dict], pool: list[dict] | None = Non
     봐서는 보이지 않는다. 결손이 줄고 있는지를 회차 단위로 남긴다 —
     수집 로그(news_bot)는 전체 큐 기준이고 이건 그날 후보 풀 기준이다.
     """
-    return {
+    stats = {
         "candidate_count": int(diag.get("candidate_count") or 0),
         "selected_count": len(selected),
         "below_floor_count": len(diag.get("dropped_below_floor") or []),
         "features_missing": sum(
             1 for a in (pool or []) if not isinstance(a.get("features"), dict)),
     }
+    # 캡 내역은 사유 문자열이 아니라 구조로 남긴다 — "캡에 걸림" 한 줄로는 base 를
+    # 올릴지 max 를 올릴지 수집을 늘릴지 사후에 못 가른다.
+    if diag.get("cap"):
+        stats["cap"] = diag["cap"]
+    return stats
 
 
 def plan_briefs(queue: list[dict],
@@ -557,10 +562,14 @@ def plan_briefs(queue: list[dict],
 
     dom_pool = [a for a in items if region(a) == "국내"]
     forn_pool = [a for a in items if region(a) == "해외"]
+    # 캡은 ranking_config.json 의 selection_caps 가 정한다. 설정이 없으면
+    # 아래 상수(국내3/해외6)로 돌아간다 — 설정 파일이 깨져도 어제처럼 동작해야 한다.
     dom, dom_diag = ranking.rank_and_select(
-        dom_pool, DOMESTIC_CAP, cfg, now, ranking.resolve_floor(cfg, "domestic"))
+        dom_pool, DOMESTIC_CAP, cfg, now, ranking.resolve_floor(cfg, "domestic"),
+        cap_spec=ranking.resolve_caps(cfg, "domestic"))
     forn, forn_diag = ranking.rank_and_select(
-        forn_pool, FOREIGN_CAP, cfg, now, ranking.resolve_floor(cfg, "overseas"))
+        forn_pool, FOREIGN_CAP, cfg, now, ranking.resolve_floor(cfg, "overseas"),
+        cap_spec=ranking.resolve_caps(cfg, "overseas"))
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별 "
           f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건, "
           f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건)")

@@ -36,7 +36,30 @@
   "selection_floor": {
     "_comment": "캡(국내3/해외6)은 상한이지 하한이 아니다 — 이 값에 못 미치면 자리를 비운다. 면제는 features 결손 1종뿐이다: _legacy_score 경로라 점수가 등급 기본값에 고정돼, 하한을 걸면 중요도가 아니라 큐레이션 실패를 자르게 된다. 등급 면제(must_read 무조건 통과)는 2026-08-03 제거 — 표본에서 한 번도 발동하지 않았고, 결손이 고쳐지면 must_read 전체가 하한을 우회하게 된다. 근거는 docs/score_distribution.md §7-2.",
     "_tuning": "0건인 날이 주 3일 이상이면 높은 것이고, 한 번도 0건이 아니면 무의미한 것이다. 14.0 은 19일 표본에서 국내 3일·해외 2일이 0건, 총 선정 163→131건.",
-    "nice_to_know": {"domestic": 14.0, "overseas": 14.0}
+    "nice_to_know": {
+      "domestic": 14.0,
+      "overseas": 14.0
+    }
+  },
+  "selection_caps": {
+    "_comment": "그날 몇 건까지 내보낼지. 이전에는 daily_brief 의 상수(국내3/해외6)였는데, 상한이 아니라 하한처럼 작동했다 — 보도량과 무관하게 12일 연속 7~9건이 나갔다. 결정은 가산형이다: base + must_read 가산 + 적격 가산 + surge_bonus, 그 뒤 eligible 과 max 로 자른다. 적격 가산이 필요한 이유는 must_read 가 드물어서다(19일 중 11일 0건) — 실측 2026-08-06 큐에서 must_read 만 쓰면 국내 3→4, 해외 6→6 으로 거의 안 움직였다. surge_bonus 는 아직 항상 0 이다(R7) — 확대 원인이 둘이면 어느 쪽인지 못 가른다. 이 절이 없거나 깨지면 기존 3/6 으로 돌아간다.",
+    "_tuning": "max 를 올리기 전에 delivery_log 의 selection_stats.cap 을 볼 것 — cap_before_limits 가 max 에 닿지 않는다면 병목은 캡이 아니라 하한이나 수집이다.",
+    "domestic": {
+      "base": 3,
+      "max": 8,
+      "must_read_bonus_per": 1,
+      "must_read_bonus_max": 2,
+      "eligible_bonus_step": 5,
+      "eligible_bonus_max": 3
+    },
+    "overseas": {
+      "base": 6,
+      "max": 12,
+      "must_read_bonus_per": 1,
+      "must_read_bonus_max": 2,
+      "eligible_bonus_step": 5,
+      "eligible_bonus_max": 3
+    }
   },
   "related_reports_bonus": 1.0,
   "tracking": {

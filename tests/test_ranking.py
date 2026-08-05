@@ -363,3 +363,91 @@ class TestConfig(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestAdaptiveCap(unittest.TestCase):
+    """캡이 상한이 아니라 하한처럼 작동하던 것을 고친 뒤의 계약.
+
+    실측: 2026-07-25~08-06 12일 연속 노출이 7~9건으로 고정됐다. 08-06 큐(82건)에서
+    하한을 넘긴 적격이 국내 16 · 해외 13 인데 나간 것은 3 과 6 이었다.
+    """
+
+    SPEC = {"base": 3, "max": 8, "must_read_bonus_per": 1, "must_read_bonus_max": 2,
+            "eligible_bonus_step": 5, "eligible_bonus_max": 3}
+
+    def test_quiet_day_never_exceeds_what_exists(self):
+        cap, detail = ranking.decide_cap(self.SPEC, eligible=2, must_read=0)
+        self.assertEqual(2, cap)
+        self.assertEqual(2, detail["eligible"])
+
+    def test_zero_eligible_is_zero(self):
+        self.assertEqual(0, ranking.decide_cap(self.SPEC, eligible=0, must_read=0)[0])
+
+    def test_busy_day_never_exceeds_max(self):
+        cap, _ = ranking.decide_cap(self.SPEC, eligible=200, must_read=50)
+        self.assertEqual(self.SPEC["max"], cap)
+
+    def test_must_read_bonus_is_capped(self):
+        _, detail = ranking.decide_cap(self.SPEC, eligible=100, must_read=9)
+        self.assertEqual(self.SPEC["must_read_bonus_max"], detail["must_read_bonus"])
+
+    def test_volume_alone_can_widen_the_cap(self):
+        """must_read 는 19일 중 11일이 0건이다 — 그것만 보면 캡이 영영 안 움직인다."""
+        cap, detail = ranking.decide_cap(self.SPEC, eligible=16, must_read=0)
+        self.assertGreater(cap, self.SPEC["base"])
+        self.assertEqual(0, detail["must_read_bonus"])
+        self.assertGreater(detail["eligible_bonus"], 0)
+
+    def test_volume_bonus_is_capped(self):
+        _, detail = ranking.decide_cap(self.SPEC, eligible=500, must_read=0)
+        self.assertEqual(self.SPEC["eligible_bonus_max"], detail["eligible_bonus"])
+
+    def test_surge_bonus_is_off_until_r7(self):
+        # 확대 원인이 둘이면 어느 쪽인지 못 가른다 — surge 는 별도 릴리스에서 켠다.
+        _, detail = ranking.decide_cap(self.SPEC, eligible=16, must_read=1)
+        self.assertEqual(0, detail["surge_bonus"])
+
+    def test_detail_is_structured_not_a_sentence(self):
+        """'캡에 걸림' 한 줄로는 base 를 올릴지 max 를 올릴지 수집을 늘릴지 못 가른다."""
+        _, detail = ranking.decide_cap(self.SPEC, eligible=16, must_read=1)
+        for key in ("base", "max", "eligible", "must_read", "must_read_bonus",
+                    "eligible_bonus", "surge_bonus", "cap_before_limits", "cap_applied"):
+            self.assertIn(key, detail)
+
+    def test_missing_config_falls_back_to_the_old_constants(self):
+        self.assertIsNone(ranking.resolve_caps({}, "domestic"))
+        self.assertIsNone(ranking.resolve_caps({"selection_caps": "쓰레기"}, "domestic"))
+        self.assertIsNone(ranking.resolve_caps({"selection_caps": {}}, "domestic"))
+
+    def test_shipped_config_keeps_both_regions(self):
+        for region, base in (("domestic", 3), ("overseas", 6)):
+            spec = ranking.resolve_caps(CFG, region)
+            self.assertIsNotNone(spec, f"{region} 캡 설정이 없다")
+            self.assertEqual(base, spec["base"])
+            self.assertGreaterEqual(spec["max"], spec["base"])
+
+    def test_cap_is_decided_after_the_floor(self):
+        """앞에서 정하면 하한에 걸려 사라질 후보까지 세어 캡이 부푼다.
+
+        features 를 채워야 하한이 실제로 걸린다 — 결손 레코드는 floor_verdict 가
+        면제한다(큐레이션 실패를 중요도로 오독하지 않으려고).
+        """
+        feats = {"event_type": "other", "korea_relevance": 0,
+                 "market_materiality": 0, "policy_materiality": 0,
+                 "report_worthiness": 0}
+        low = [item(h=f"low{i}", importance="nice_to_know",
+                    title=f"서로 다른 제목 {i}", features=dict(feats)) for i in range(20)]
+        selected, diag = ranking.rank_and_select(
+            low, 3, CFG, NOW, {"nice_to_know": 999.0}, cap_spec=self.SPEC)
+        self.assertEqual([], selected)
+        self.assertEqual(0, diag["cap"]["eligible"])
+        self.assertEqual(0, diag["cap"]["cap_applied"])
+
+    def test_eligible_counts_survivors_not_raw_candidates(self):
+        feats = {"event_type": "other", "korea_relevance": 0,
+                 "market_materiality": 0, "policy_materiality": 0,
+                 "report_worthiness": 0}
+        pool = [item(h=f"x{i}", importance="nice_to_know",
+                     title=f"서로 다른 제목 {i}", features=dict(feats)) for i in range(20)]
+        _, diag = ranking.rank_and_select(pool, 3, CFG, NOW, None, cap_spec=self.SPEC)
+        self.assertLessEqual(diag["cap"]["eligible"], len(pool))
