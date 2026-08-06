@@ -1063,3 +1063,34 @@ class TestDiscoveryPlanning(unittest.TestCase):
                                            "b": {"last_run": self.now.isoformat()}}}
         pruned = self.d.prune_state(state, now=self.now)
         self.assertEqual({"b"}, set(pruned["queries"]))
+
+
+class TestDailyQuotaDoesNotDegradeArticles(unittest.TestCase):
+    """일일 한도 소진 중에는 fallback 강등으로 큐에 넣지 않는다.
+
+    fallback_curation 은 importance=nice_to_know + features 없음을 만든다. 그러면
+    ①비원자력 기사가 noise 판정을 못 받고 들어오고(노이즈 필터가 곧 LLM 이다)
+    ②features 결손이라 ranking.floor_verdict 의 면제로 하한을 우회하며
+    ③sent 마킹 14일 + 아카이브 hash 스킵 때문에 영영 다시 큐레이션되지 않는다.
+
+    실측 2026-08-06: 한 크롤에서 54/54건이 이 경로로 강등됐고 그중 16건이 사람이
+    골라내야 하는 잡음이었다(비트코인·메모리·강남 부자 노인).
+    분당 한도는 다음 시각에 풀리므로 fallback 이 맞다 — 일일 한도만 다르다.
+    """
+
+    def test_flag_starts_false(self):
+        self.assertFalse(nb.DAILY_QUOTA_EXHAUSTED)
+
+    def test_daily_quota_body_is_recognised(self):
+        import gemini_client as gc
+        self.assertTrue(gc._is_daily_quota(
+            '{"quotaId":"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}'))
+        self.assertFalse(gc._is_daily_quota(
+            '{"quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier"}'))
+
+    def test_fallback_still_exists_for_non_quota_failures(self):
+        # 한도와 무관한 실패(잘림·타임아웃)까지 버리면 조용한 날 브리핑이 빈다.
+        article = {"title": "원안위, 고리 3·4호기 계속운전 심의 예정",
+                   "description": "원자력안전위원회가 고리 3·4호기 계속운전 심의를 하반기에 진행한다.",
+                   "domain": "yna.co.kr", "publisher": "연합뉴스"}
+        self.assertIsNotNone(nb.fallback_curation(article))

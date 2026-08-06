@@ -10,6 +10,7 @@ from pathlib import Path
 from urllib.parse import urlparse, quote_plus
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
+import gemini_client
 from gemini_client import (
     GeminiError,
     GeminiTruncated,
@@ -1161,6 +1162,19 @@ def classify_request_failure(exc: Exception) -> str:
 # 입력을 줄이면 사라지는 실패만 분할 재시도한다. quota·other 는 쪼개도 그대로다.
 SPLITTABLE_FAILURES = {"truncated", "timeout"}
 
+# 이번 실행에서 일일 한도 소진을 만났는가. curate_batch 가 세우고 큐 적재 루프가 읽는다.
+#
+# 왜 필요한가: 큐레이션 실패분은 fallback_curation() 이 받아 **importance=nice_to_know
+# + features 없음**으로 큐에 넣고 sent 마킹까지 한다. 그러면 ①비원자력 기사가 noise
+# 판정을 못 받고 그대로 들어오고(노이즈 필터가 곧 LLM 이다) ②features 결손이라
+# ranking.floor_verdict 의 면제에 걸려 하한을 우회하며 ③sent 마킹 14일 + 아카이브
+# hash 스킵 때문에 **영영 제대로 큐레이션되지 않는다.**
+#
+# 분당 한도면 다음 시각에 풀리므로 fallback 이 합리적이지만, 일일 한도는 리셋까지
+# 몇 시간이 남아 그 사이 수집분 전체가 영구 강등된다. 실측 2026-08-06: 한 크롤에서
+# 54/54 건이 이 경로로 강등됐고 그중 16건이 사람이 골라내야 하는 잡음이었다.
+DAILY_QUOTA_EXHAUSTED = False
+
 
 def request_failure_reason(failures: dict[str, list[str]], chunk: list[dict]) -> str:
     """chunk 가 '호출 자체 실패'로 전건 날아갔으면 그 사유 라벨, 아니면 빈 문자열.
@@ -1410,6 +1424,9 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                 time.sleep(1)
                 process(chunk[mid:], f"{label}b")
                 return
+            global DAILY_QUOTA_EXHAUSTED
+            if gemini_client._is_daily_quota(str(detail)):
+                DAILY_QUOTA_EXHAUSTED = True
             for art in chunk:
                 lost[art["hash"]] = detail
             capped = " (분할 예산 소진)" if reason in SPLITTABLE_FAILURES else ""
@@ -1817,6 +1834,10 @@ def main() -> None:
     # 보이지 않았다. 큐에 들어가면 sent 마킹으로 되돌릴 수 없으므로 이 값이 0 에
     # 수렴하는지가 S1 의 성패다. 근거: docs/score_distribution.md §4.
     features_missing = 0
+    skipped_quota = 0
+    # 모듈 전역이라 한 프로세스에서 두 번 돌면 이전 실행의 판정이 남는다.
+    global DAILY_QUOTA_EXHAUSTED
+    DAILY_QUOTA_EXHAUSTED = False
     now_iso = datetime.now(timezone.utc).isoformat()
 
     all_candidates: list[dict] = []
@@ -1918,6 +1939,13 @@ def main() -> None:
         else:
             previous = curated.get(h) or {}
             cur = batch_results.get(h)
+            if cur is None and DAILY_QUOTA_EXHAUSTED:
+                # 일일 한도 소진 중에는 fallback 으로 강등해 큐에 넣지 않는다.
+                # sent 마킹을 하지 않으므로 한도가 리셋된 뒤 다음 크롤이 다시 수집해
+                # 제대로 큐레이션한다. LOOKBACK(6h) 밖으로 밀려난 기사는 놓치지만,
+                # 전량을 영구 강등시키는 것보다 낫다 — 강등분은 되돌릴 방법이 없다.
+                skipped_quota += 1
+                continue
             if cur is None:
                 cur = fallback_curation(article)
                 if cur is None:
@@ -2018,6 +2046,11 @@ def main() -> None:
     rate = f"{features_missing / queued * 100:.1f}%" if queued else "—"
     print(f"Done. immediate={sent_immediate} queued={queued} dropped={dropped} "
           f"features_missing={features_missing} ({rate})")
+    if skipped_quota:
+        # 조용히 지나가면 '수집이 줄었다'로 오독한다. sent 마킹을 안 했으므로
+        # 한도가 리셋된 뒤 다음 크롤이 다시 가져간다.
+        print(f"[queue] 일일 한도 소진으로 {skipped_quota}건 적재 보류 "
+              f"(fallback 강등 회피 — 리셋 후 재수집)")
 
 
 if __name__ == "__main__":
