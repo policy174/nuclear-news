@@ -834,9 +834,16 @@ class TestNaverQueryHasNoExclusionOperator(unittest.TestCase):
 
 
 class TestRejectedTitles(unittest.TestCase):
-    """검색 단계에서 못 거른 것을 수집 후에 결정적으로 거른다."""
+    """검색 단계에서 못 거른 것을 수집 후에 결정적으로 거른다.
 
-    NEG = ["주가", "채용", "배당", "공모", "병원", "동호회", "부고", "인사발령", "기념식"]
+    ⚠️ 어휘를 손으로 베끼지 말 것. **프로덕션 keywords.json 에서 읽는다.**
+    예전에는 여기 목록이 하드코딩이라 keywords.json 에 무엇이 들어 있든 테스트가
+    통과했다. 그 사이 '공모'가 방폐장 부지공모 기사를 통째로 죽이고 있었다.
+    """
+
+    NEG = nb.parse_negative_terms(
+        json.loads((Path(nb.__file__).parent / "keywords.json")
+                   .read_text(encoding="utf-8"))["정책"]["negative_terms"])
 
     def test_personnel_list_titles_are_dropped(self):
         # 실측: '원자력 정책' 최신순 30건 중 20건 이상이 이 꼴이었다.
@@ -865,9 +872,55 @@ class TestRejectedTitles(unittest.TestCase):
     def test_negative_vocabulary_still_applies_to_titles(self):
         # keywords.json 의 어휘를 버리지 않고 제목 제외로 재사용한다.
         for title in ("한수원 2026년 상반기 신입사원 채용 공고",
-                      "두산에너빌리티 주가 급등", "원자력병원장에 임일한 박사"):
+                      "두산에너빌리티 주가 급등", "[부고] 前 한수원 사장 모친상"):
             with self.subTest(title=title):
                 self.assertTrue(nb.is_rejected_title(title, self.NEG))
+
+    def test_site_selection_open_call_is_never_rejected(self):
+        """'공모'는 이 도메인에서 방폐장 부지공모다. 제외어에 넣으면 안 된다.
+
+        2026-08-06 실측 — 네이버 쿼리를 수리하면서 negative_terms 를 제목 제외어로
+        재활용했는데, 그 목록의 '공모'(의도는 공모주)가 아래를 전부 죽이고 있었다.
+        고준위 방폐장 부지 선정은 이 브리핑의 핵심 사안이다.
+        """
+        for title in ('"공모 탈락해도 비용 보전"… 지자체 부담 줄여 방폐장 후보지 발굴 속도',
+                      "방폐장 부지 공모, 참여만해도 30억내외 지급",
+                      "[단독]고준위 방폐장 공모만 해도 '수십억'…파격 착수금 검토",
+                      "고리원자력본부, 지역상생 사업 공모 첫날 설명회",
+                      "SMR 실증단지 공모 추진"):
+            with self.subTest(title=title):
+                self.assertFalse(nb.is_rejected_title(title, self.NEG))
+
+    def test_share_offering_is_still_rejected(self):
+        """'공모' 대신 '공모주'로 좁혔으므로 원래 의도는 살아 있어야 한다."""
+        self.assertTrue(nb.is_rejected_title("두산에너빌리티 공모주 청약 경쟁률 급등", self.NEG))
+
+    def test_nuclear_hospital_survives(self):
+        """'병원'도 같은 오작동이었다 — 원자력의학원·원자력병원은 이 도메인 기관이다."""
+        self.assertFalse(nb.is_rejected_title("원자력병원, 중입자 치료 임상 착수", self.NEG))
+
+    def test_public_deliberation_keywords_are_registered(self):
+        """신규 원전 공론화는 12차 전기본의 핵심 절차다 — 키워드가 있어야 한다.
+
+        2026-08-06 실측: 8월 아카이브 571건 중 '공론' 포함 0건, '전기본' 0건.
+        8/4 대통령 업무보고(신규 원전 공론화 방식 확정)가 통째로 빠져 있었다.
+        """
+        raw = json.loads((Path(nb.__file__).parent / "keywords.json")
+                         .read_text(encoding="utf-8"))
+        joined = " ".join(raw["정책"]["keywords"])
+        for term in ("공론화", "12차 전기본"):
+            with self.subTest(term=term):
+                self.assertIn(term, joined)
+
+    def test_deliberation_headlines_pass_the_anchor_filter(self):
+        """공론화 기사는 '원전' 앵커로 이미 걸린다 — 앵커를 넓힐 필요가 없다."""
+        anchors = json.loads((Path(nb.__file__).parent / "keywords.json")
+                             .read_text(encoding="utf-8"))["정책"]["anchors"]
+        for title in ("“신규 원전 공론화 착수하고 산업용 전기 차등 인하할 것”",
+                      '김성환 기후장관 "12차 전기본에 원전·SMR 추가 포함 여부, 이달 공론화"'):
+            with self.subTest(title=title):
+                self.assertFalse(nb.is_rejected_title(title, self.NEG))
+                self.assertTrue(nb.passes_anchor_filter(title, "", anchors))
 
     def test_only_the_title_is_inspected(self):
         # 본문까지 보면 "…채용 확대에 따른 원전 인력" 같은 맥락 언급으로 정상 기사가 날아간다.
