@@ -979,6 +979,25 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertGreaterEqual(self.meta["country_coverage"], 0.9)
         self.assertTrue(self.meta["trend_ready"])
 
+    def test_topic_coverage_measures_curated_articles_only(self):
+        """분류율은 큐레이션을 받은 기사에 대해서만 잰다.
+
+        2026-08-06: 429(RPM)로 한 배치가 통째로 미큐레이션 상태로 들어와 표시
+        393건 중 무분류 41건이 됐고 topic_coverage 0.8957 로 배포가 막혔다.
+        그런데 41건 중 37건은 큐레이션을 아예 못 받은 fallback 껍데기였고 진짜
+        분류 실패는 4건이었다. 분모에 섞으면 큐레이션 장애가 분류기 버그로 읽힌다.
+        """
+        curated = [item for item in self.news if item.get("curated")]
+        self.assertTrue(curated, "큐레이션된 기사가 하나도 없다")
+        expected = sum(1 for item in curated if item["topics"]) / len(curated)
+        self.assertAlmostEqual(self.meta["topic_coverage"], round(expected, 4), places=4)
+
+    def test_uncurated_articles_are_counted_not_hidden(self):
+        """미큐레이션은 분모에서 빼되 **센다**. 안 세면 조용히 사라진다."""
+        self.assertIn("uncurated_count", self.meta)
+        actual = sum(1 for item in self.news if not item.get("curated"))
+        self.assertEqual(self.meta["uncurated_count"], actual)
+
     def test_issue_rows_expose_topics_for_filtering(self):
         classified = [
             issue

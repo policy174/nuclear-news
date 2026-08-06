@@ -2919,6 +2919,12 @@ def build() -> None:
             "event_date_type": record.get("event_date_type", "unknown"),
             "event_date_precision": record.get("event_date_precision", "unknown"),
             "event_date_source": record.get("event_date_source", "unknown"),
+            # 이 기사가 큐레이션을 실제로 받았는가. 429(RPM)로 큐레이션이 실패하면
+            # fallback 이 한 배치를 통째로 nice_to_know 로 찍어 넣는데, 그 레코드는
+            # features 가 null 이고 topics·tags·implication 이 전부 빈다.
+            # 아래 features 필드는 투영 과정에서 {} 로 채워져 구별이 사라지므로
+            # 원본 레코드를 보고 여기서 못박는다.
+            "curated": record.get("features") is not None,
             "selection_score": delivery.get("score") if delivery else None,
             "selection_reasons": selection_reasons(delivery, record),
             # 보고서 검토 추천은 발송 시점의 판단이라 아카이브 레코드가 아니라
@@ -3113,7 +3119,21 @@ def build() -> None:
         "topic_series": topic_series,
     }
 
-    topic_coverage = (sum(1 for item in news_items if item["topics"]) / len(news_items)) if news_items else 0
+    # 분류율은 **큐레이션을 받은 기사**에 대해서만 잰다.
+    #
+    # 이 지표의 이름이 말하는 것은 택소노미가 작동하는가이지 큐레이션이 돌았는가가
+    # 아니다. 429(RPM)로 한 배치가 통째로 미큐레이션 상태로 들어오면 분모만 커져
+    # **분류기 버그처럼 보인다.** 실측 2026-08-06: 표시 393건 중 무분류 41건이라
+    # 0.8957 로 배포 게이트(>=0.9)가 막혔는데, 41건을 뜯어보니 37건은 큐레이션을
+    # 아예 못 받은 fallback 껍데기였고 진짜 분류 실패는 4건뿐이었다.
+    #
+    # 미큐레이션은 지우는 게 아니라 **따로 센다**(uncurated_count). 분모에서 빼되
+    # 눈에 보이게 두지 않으면 큐레이션 장애가 조용히 사라진다.
+    curated_items = [item for item in news_items if item.get("curated")]
+    uncurated_count = len(news_items) - len(curated_items)
+    topic_coverage = (
+        sum(1 for item in curated_items if item["topics"]) / len(curated_items)
+    ) if curated_items else 0
     country_coverage = (
         sum(
             1 for item in news_items
@@ -3201,6 +3221,10 @@ def build() -> None:
         ) if records else 0,
         "topic_coverage": round(topic_coverage, 4),
         "country_coverage": round(country_coverage, 4),
+        # 큐레이션을 못 받은 기사 수(분류율 분모에서 빠진 몫). 0 이 아니면 그 회차에
+        # 큐레이션이 실패했다는 뜻이다 — topic_coverage 에 섞이면 '분류기 버그'로
+        # 오독되므로 따로 센다.
+        "uncurated_count": uncurated_count,
         "taxonomy_version": "topic-v1-country-scope-v2",
         "heuristic_topic_count": heuristic_topic_count,
         "heuristic_country_count": heuristic_country_count,
