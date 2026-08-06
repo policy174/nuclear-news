@@ -85,7 +85,9 @@
   --t-body-lg: 16px;
   --t-card: 21px;
   --t-title: clamp(24px, 2.6vw, 32px);
-  --t-lead: clamp(25px, 3.1vw, 34px);
+  /* 선두 제목. 34px 은 두 줄에 85px 을 써서 카드 하나가 첫 화면을 다 먹는
+     원인의 한 축이었다 — 판단을 펼치는 자리라는 성격은 유지하되 크기를 내린다. */
+  --t-lead: clamp(24px, 2.4vw, 29px);
   --t-hero: clamp(23px, 2vw, 30px);
   /* ── 모션 ── 지속시간·이징. prefers-reduced-motion 전역 오버라이드가
      이 토큰을 쓰는 모든 전환을 함께 무력화한다. */
@@ -1112,25 +1114,25 @@ kbd {
    상자·그림자 대신 위쪽 굵은 선 하나로 구획한다(표와 같은 어법). */
 .lead-section { margin-bottom: var(--sp-12); }
 /* 구역 머리가 잉크 괘선을 맡는다 — 여기서 또 그으면 제목이 굵은 선 둘 사이에 낀다. */
-.lead-card { padding: 0 0 22px; border-top: 1px solid var(--c-border); }
+.lead-card { padding: 0 0 var(--sp-4); border-top: 1px solid var(--c-border); }
 .lead-meta {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 6px 16px;
-  margin: 16px 0 0;
+  margin: var(--sp-3) 0 0;
   color: var(--c-text-muted);
   font-size: var(--t-min);
   line-height: 1.5;
 }
 .lead-card h3 {
-  margin: 12px 0 0;
+  margin: var(--sp-2) 0 0;
   font-size: var(--t-lead);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -.034em;
 }
-.lead-blocks { margin: var(--sp-4) 0 0; }
+.lead-blocks { margin: var(--sp-3) 0 0; }
 /* 라벨 열은 고정폭이라 네 블록의 본문 시작선이 맞는다 — 눈이 한 줄로 훑는다. */
 .lead-block {
   display: grid;
@@ -1162,7 +1164,7 @@ kbd {
   flex-wrap: wrap;
   gap: 0 20px;
   min-width: 0;
-  margin-top: 20px;
+  margin-top: var(--sp-4);
   text-align: left;
 }
 .lead-card .issue-actions button,
@@ -1386,11 +1388,16 @@ kbd {
   align-items: start;
 }
 .pub-cover { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+/* 높이는 내용이 정한다. 1 / 1.35 로 못 박아 두니 표지마다 아래쪽에 설명 없는
+   빈칸이 남았다 — 실측 67~182px, 표지 높이의 21~57% 다. 제목이 한 줄인 발간물과
+   다섯 줄인 발간물을 같은 상자에 넣으면 짧은 쪽은 절반이 공백이 된다.
+   비율을 풀면 서가의 책들이 저마다 두께를 갖는다(그리드는 align-items:start).
+   목록형으로 바꾸는 안은 실측으로 기각했다: 19건 단일 열이 약 1710px 로
+   현재 격자(1323px)보다 오히려 길어진다. */
 .pub-cover .cover-face {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  aspect-ratio: 1 / 1.35;
   padding: var(--sp-4);
   overflow: hidden;
   border: 1px solid var(--c-border);
@@ -1415,7 +1422,7 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   margin: 0;
   font-size: var(--t-body);
   font-weight: 700;
@@ -1431,7 +1438,7 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
   color: var(--c-text-secondary);
   font-size: var(--t-caption);
 }
-.cover-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-2); margin: auto 0 0; padding-top: var(--sp-2); color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.cover-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-2); margin: var(--sp-2) 0 0; padding-top: var(--sp-2); border-top: 1px solid var(--c-border); color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
 .cover-new { display: inline-flex; align-items: center; gap: 4px; color: var(--c-accent-text); font-weight: 650; }
 .cover-new i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent); }
 .pub-original {
@@ -2011,7 +2018,6 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   /* 발간물 — 모바일은 1열 서가형 목록. 표지 비율을 풀고(aspect auto) 스파인
      달린 목록 카드로 강등한다. 2열 표지는 제목 5줄+gist 에서 세로로 무너진다. */
   .pubs-list { grid-template-columns: 1fr; gap: var(--sp-4); }
-  .pub-cover .cover-face { aspect-ratio: auto; }
   /* 지난 브리핑 — 날짜·건수 한 줄, 헤드라인 최대 2줄. 행 전체가 버튼이다. */
   .briefing-timeline button { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
   .briefing-timeline .bt-headline { grid-column: 1 / -1; -webkit-line-clamp: 2; }

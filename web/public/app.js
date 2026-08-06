@@ -919,13 +919,19 @@ function leadCard(issue, briefing) {
   // 접었는데, h1 이 sr 전용 날짜 라벨이 된 뒤로 그 전제가 죽어 선두 이슈의
   // 제목이 화면 어디에도 없었다(실측 8/6 — 첫 화면이 '무슨 일' 본문으로 시작).
   // 이제 이 h3 가 이 문장이 페이지에 서는 유일한 자리다.
+  // group 은 축을 가른다: fact = 무슨 일이 있었나, read = 그걸 어떻게 읽나.
+  // 근거 패널이 이 이슈를 맡는 폭(≥1200px)에서는 read 를 여기서 되풀이하지
+  // 않는다 — 같은 문장이 30cm 떨어져 두 번 서는 대신, 카드는 사실로 짧게 끝나고
+  // 해석은 패널이 번호를 붙여 전개한다. 패널이 없는 폭에서는 전부 여기 선다
+  // (모바일에서 해석 레이어가 잘리던 2026-08-03 감사의 재발 방지).
   const blocks = [
-    issue.summary ? { label: "무슨 일", text: issue.summary } : null,
-    model.why ? { label: model.why.label, text: model.why.text } : null,
-    model.impact ? { label: model.impact.label, text: model.impact.text } : null,
-    model.change ? { label: model.change.label, text: model.change.text, tone: "change" } : null,
-    model.openQuestion ? { label: "아직 확정되지 않은 것", text: model.openQuestion, tone: "open" } : null,
+    issue.summary ? { label: "무슨 일", text: issue.summary, group: "fact" } : null,
+    model.why ? { label: model.why.label, text: model.why.text, group: "read" } : null,
+    model.impact ? { label: model.impact.label, text: model.impact.text, group: "read" } : null,
+    model.change ? { label: model.change.label, text: model.change.text, tone: "change", group: "fact" } : null,
+    model.openQuestion ? { label: "아직 확정되지 않은 것", text: model.openQuestion, tone: "open", group: "read" } : null,
   ].filter(Boolean);
+  const shown = railIsActive() ? blocks.filter(block => block.group === "fact") : blocks;
   return `<article class="lead-card ${issueToneClass(issue)}">
     <div class="lead-meta">
       <span class="issue-state">${esc(issueStatusText(issue))}</span>
@@ -936,7 +942,7 @@ function leadCard(issue, briefing) {
       ${reportPickBadge(issue)}
     </div>
     <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>
-    <dl class="lead-blocks">${blocks.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
+    <dl class="lead-blocks">${shown.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
       <dt>${esc(block.label)}</dt><dd>${esc(block.text)}</dd>
     </div>`).join("")}</dl>
     ${keeiRefLine(issue)}
@@ -945,16 +951,21 @@ function leadCard(issue, briefing) {
 }
 
 function renderBriefingSidebar(briefing, leadId = "") {
-  // 근거 패널의 기본 선택 — 비워두면 사이드 첫 칸이 빈 채로 시작한다.
+  // 근거 패널의 기본 선택 = **선두 이슈**.
+  //
+  // 예전에는 그다음 이슈를 잡았다. 선두 카드가 이미 해석을 펼쳐 놓았으니 같은
+  // 문장을 두 번 세우지 않겠다는 뜻이었는데, 결과가 둘 다 나빴다. ①페이지가
+  // 머리로 내세운 이슈와 바로 옆 패널이 말하는 이슈가 달라 "이 패널은 왜 다른
+  // 이야기를 하나"가 된다 ②중복을 피하려고 선두 카드가 해석 5블록을 통째로
+  // 들고 있어야 했고, 그 카드 하나가 1440×900 첫 화면을 다 먹어 목록이 한 행도
+  // 안 보였다(실측 0행).
+  //
+  // 규칙을 뒤집는다: 패널이 선두 이슈의 해석을 맡고, 카드는 사실만 남긴다
+  // (leadCard 의 railIsActive 분기). 중복 금지는 그대로 지켜지고, 두 요소가
+  // 같은 이슈를 가리키므로 화면이 한 이야기를 한다.
   // 선택이 이번 브리핑에 없는 이슈를 가리키면(날짜 이동 등) 다시 잡는다.
-  // 선두 카드가 그 이슈의 영향·근거를 이미 펼쳐 놓았으므로 기본값은 그다음
-  // 이슈로 잡는다 — 안 그러면 한 화면에 같은 문장이 두 번 선다. 사용자가 선두
-  // 카드를 직접 누르면 handleIssueAction 이 패널을 그리로 옮긴다.
   const inBriefing = briefing.issues.some(issue => issue.issue_id === state.railIssueId);
-  if (!inBriefing || state.railIssueId === leadId) {
-    const next = briefing.issues.find(issue => issue.issue_id !== leadId) || briefing.issues[0];
-    state.railIssueId = next?.issue_id || "";
-  }
+  if (!inBriefing) state.railIssueId = leadId || briefing.issues[0]?.issue_id || "";
   renderEvidenceRail();
   // 히어로가 이미 지표를 보여준다. 사이드에는 히어로에 없는 검증 분포를 둔다.
   const verified = new Map(VERIFICATION_ORDER.map(status => [status, 0]));
@@ -2156,6 +2167,11 @@ function switchView(view, updateUrl = true) {
    <details> 는 ESC·바깥 탭·포커스 복귀를 스스로 해 주지 않는다. 바텀시트 모양을
    하고 있으면 사용자는 그 셋을 기대하므로 여기서 직접 붙인다. */
 const narrowScreen = matchMedia("(max-width: 767px)");
+/* 근거 패널이 실제로 보이는 폭(style.css 의 .briefing-sidebar 미디어쿼리와 같은
+   값). 이 경계를 넘나들면 선두 카드가 해석을 들고 있어야 하는지가 바뀌므로 —
+   패널이 사라졌는데 카드가 사실만 들고 있으면 해석이 화면에서 통째로 증발한다 —
+   경계에서 한 번 다시 그린다. */
+const railScreen = matchMedia("(min-width: 1200px)");
 
 function filterDrawers() {
   return [document.getElementById("briefingFilters"), document.getElementById("archiveFilterDrawer")].filter(Boolean);
@@ -2206,6 +2222,7 @@ function initFilterDrawers() {
     closeFilterDrawer(open);
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
+  railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();
 }
 

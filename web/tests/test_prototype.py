@@ -2958,7 +2958,19 @@ class PubShelfTests(unittest.TestCase):
     def test_cover_object_keeps_smoke_class(self):
         # render_smoke 가 #pubsList .pub-item 을 센다 — 클래스는 남는다.
         self.assertIn('class="pub-item pub-cover', self.script)
-        self.assertIn("aspect-ratio: 1 / 1.35", self.style)
+
+    def test_cover_height_follows_content(self):
+        """표지 높이를 비율로 못 박지 않는다.
+
+        1 / 1.35 고정은 제목 한 줄짜리와 다섯 줄짜리를 같은 상자에 넣어, 짧은
+        쪽 표지의 21~57%(실측 67~182px)를 설명 없는 빈칸으로 남겼다. 서가의
+        책은 저마다 두께가 다르다 — 높이는 내용이 정한다.
+        되돌리려면 그 빈칸을 무엇으로 채울지부터 정할 것.
+        """
+        self.assertNotIn("aspect-ratio", self.style.split(".pub-cover .cover-face")[1][:400])
+        # 바닥으로 밀던 auto 여백도 함께 사라져야 의미가 있다(밀 바닥이 없다).
+        foot = self.style.split(".cover-foot {")[1][:260]
+        self.assertNotIn("margin: auto", foot)
 
     def test_spine_colors_reuse_locked_palette_only(self):
         spines = re.findall(r"--spine:\s*([^;]+);", self.style)
@@ -2979,7 +2991,8 @@ class PubShelfTests(unittest.TestCase):
     def test_mobile_is_single_column_shelf_list(self):
         mobile = self.style[self.style.index("@media (max-width: 767px)"):]
         self.assertIn(".pubs-list { grid-template-columns: 1fr;", mobile)
-        self.assertIn(".pub-cover .cover-face { aspect-ratio: auto; }", mobile)
+        # 비율을 풀어 주던 모바일 예외는 이제 필요 없다 — 기본이 그렇다.
+        self.assertNotIn("aspect-ratio", mobile)
 
     def test_new_marker_is_dot_plus_text(self):
         # 점만 있는 신규 표시는 의미를 설명하지 않는다 — 텍스트 병기 + 접근명.
@@ -3356,6 +3369,47 @@ class RevisitPathTests(unittest.TestCase):
         # 오버라인과 h1 이 화면 양끝으로 갈라진다(1440px 실측 사고).
         intro = self.html.split('class="trend-intro"', 1)[1].split("</h1>", 1)[0]
         self.assertIn("<div>", intro)
+
+
+class FirstScreenDensityTests(unittest.TestCase):
+    """첫 화면에 목록이 보여야 한다.
+
+    실측(1440×900): 선두 카드가 564px 이라 이슈 행이 **0개** 보였다. 원인은
+    카드가 해석 5블록을 통째로 들고 있었기 때문이고, 그렇게 된 이유는 근거
+    패널이 (중복을 피하려고) 다른 이슈를 보여주고 있었기 때문이다.
+    패널이 선두 이슈를 맡으면 카드는 사실만 남기면 된다 → 290px, 2행 노출.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_rail_defaults_to_the_lead_issue(self):
+        sidebar = self.script.split("function renderBriefingSidebar(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("state.railIssueId = leadId", sidebar)
+        # 예전 규칙(선두를 피해 그다음 이슈를 잡는다)이 돌아오면 안 된다.
+        self.assertNotIn("issue.issue_id !== leadId", sidebar)
+
+    def test_lead_card_drops_interpretation_only_where_the_rail_shows_it(self):
+        lead = self.script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('group: "fact"', lead)
+        self.assertIn('group: "read"', lead)
+        # 접는 조건은 폭이 아니라 '패널이 실제로 보이는가' 다 — 값이 두 곳에
+        # 있으면 갈라진다(railIsActive 는 렌더 결과를 직접 본다).
+        self.assertIn("railIsActive()", lead)
+        self.assertIn('block.group === "fact"', lead)
+
+    def test_narrow_widths_keep_every_block(self):
+        """패널이 없는 폭에서 해석이 사라지면 2026-08-03 모바일 감사의 재발이다.
+
+        조건이 railIsActive() 하나이므로 패널이 없으면 자동으로 전부 선다.
+        경계를 넘을 때 다시 그리지 않으면 리사이즈한 사용자만 해석을 잃는다.
+        """
+        self.assertIn('matchMedia("(min-width: 1200px)")', self.script)
+        self.assertIn("railScreen.addEventListener", self.script)
+        # CSS 쪽 경계값과 같은 숫자를 쓰는지 — 어긋나면 해석이 증발하는 구간이 생긴다.
+        self.assertIn("@media (min-width: 1200px)", self.style)
 
 
 class VisualSystemTests(unittest.TestCase):
