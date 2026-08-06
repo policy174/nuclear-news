@@ -981,53 +981,34 @@ function renderBriefing() {
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
   }
-  // 오버라인은 h1이 실제로 무엇인지 따라간다. 변화 문장이 아닌데 '달라졌는가'라고
-  // 쓰면 제목이 거짓말이 된다.
-  const isSynthesisLead = ["synthesis", "change"].includes(briefing.headline_kind);
-  // 헤드라인이 어느 이슈에서 왔는지 제목으로 되짚는다. 못 찾으면 첫 이슈.
-  const leadIssue = briefing.issues.find(issue => issue.title === briefing.headline) || briefing.issues[0];
-  const headlineText = briefing.headline || briefing.issues[0]?.title || "오늘의 핵심";
-  // 활자 크기와 아래 '왜' 줄은 headline_kind 라벨이 아니라 문장의 실체를 따른다.
-  // 실측(17일): synthesis 는 0일이고, kind='change' 인 3일(7/28·29·30)도 headline
-  // 이 issues[0].title 과 글자까지 같았다. 라벨만 믿으면 그 3일은 기사 제목이
-  // 큰 활자로 뜨고 '왜'도 붙지 않는다 — 고치려던 문제가 그대로 남는다.
-  const headlineIsIssueTitle = !!leadIssue && leadIssue.title === briefing.headline;
-  // 기사 제목을 얹은 날의 h1 은 특정 이슈 하나를 가리킨다. 화면에서 가장 크고
-  // 가장 먼저 보이는 요소인데 눌리지 않으면, 사용자는 한 번은 누르고 아무 일도
-  // 일어나지 않는 것을 본다. 종합 문장인 날은 대응하는 이슈가 없으므로 그대로
-  // 두고, 아래 근거 칩(headlineEvidence)이 출처로 가는 길을 맡는다.
-  document.getElementById("briefingTitle").innerHTML =
-    headlineIsIssueTitle
-      ? `<button type="button" class="issue-title-button" data-issue-id="${esc(leadIssue.issue_id)}">${esc(headlineText)}</button>`
-      : esc(headlineText);
-  document.getElementById("briefingKicker").textContent =
-    isSynthesisLead ? "오늘, 무엇이 달라졌는가" : "오늘의 핵심 이슈";
+  // 히어로는 문장을 내지 않는다.
+  //
+  // 여기 있던 h1 은 17일 내내 issues[0].title 이었다 — 같은 페이지에 여섯 번 나오는
+  // 문자열을 모바일 첫 화면의 45% 에 45px 로 얹고 있었다. daily_lead 가 나중에
+  // 실제 문장을 만들기 시작했지만 두 이슈 제목을 '가운데' 로 이은 것이라 새 정보는
+  // 그 한 단어뿐이었다. topics 로 '오늘의 축'을 뽑아 짧은 딱지를 다는 안도 만들어
+  // 20일치로 재봤는데, 축이 잡히는 5일 중 1일이 '중국 신규건설 + 그리스 가뭄' 처럼
+  // 넓은 태그 하나로 묶인 남남이었다. 20일에 한 번 없는 통찰을 있다고 주장하느니
+  // 매일 아무 말도 안 하는 편이 낫다.
+  //
+  // h1 을 DOM 에서 지우지는 않는다: view-news 가 aria-labelledby 로 이 id 를
+  // 가리키고 있어 없애면 섹션이 이름을 잃는다. 날짜 제목으로 바꿔 sr-only 로 둔다.
+  document.getElementById("briefingTitle").textContent =
+    `${dateWeekdayLabel(briefing.date)} 브리핑`;
 
-  // 히어로의 활자 크기는 문장이 종합인지 기사 제목인지를 따라간다.
-  // 종합 문장(daily_lead)은 이 브리핑에만 있는 문장이라 크게 쓸 값이 있지만,
-  // 기사 제목을 얹은 날의 h1 은 issues[0].title 복사본이라 같은 페이지에 여섯 번
-  // 나온다. 같은 무게로 두면 모바일 첫 화면 844px 중 382px(45%)를 중복에 쓴다.
-  // 이 커밋(8551f68, 8/3)은 줄인 자리에 '왜' 한 줄(hero-lead-meta)을 넣었다.
-  // 그 사이 선두 카드가 들어왔고(PR #3), 카드가 같은 문장을 '시사점' 블록으로
-  // 바로 아래에 세운다 — 모바일 첫 화면에서 같은 문장을 두 번 읽히게 된다.
-  // 이 커밋이 고치려던 바로 그 증상이라 히어로 쪽을 걷었다. 히어로는 이제
-  // 킥커 + 제목까지만 맡고, '왜'는 선두 카드 하나가 책임진다.
+  // 두 클래스 모두 항상 붙는다 — 히어로에 문장이 없으니 압축 상태가 곧 유일한
+  // 상태다. lead-issue 는 모바일에서 날짜 라벨·액션 줄을 걷어 106px 를 만들고,
+  // no-lead 는 킥커·h1·근거 칩을 걷는다. 오디오 브리핑은 둘 다 건드리지 않는다 —
+  // 그날 음원이 있으면 그대로 나온다.
   const hero = document.getElementById("briefingHero");
-  if (hero) hero.classList.toggle("lead-issue", headlineIsIssueTitle);
+  if (hero) hero.classList.add("lead-issue", "no-lead");
   document.getElementById("briefingDateLabel").textContent = `· ${dateWeekdayLabel(briefing.date)}`;
-  // 종합 문장(synthesis)일 때만 근거 이슈 칩을 보인다 — 문장이 어디서 왔는지
-  // 클릭 한 번으로 검증할 수 있게. 필드가 없으면 조용히 숨긴다.
+  // 근거 칩은 히어로가 문장을 낼 때 그 문장이 어디서 왔는지 보이려고 있었다.
+  // 낼 문장이 없으니 칩도 없다. 컨테이너는 남긴다 — index.html 이 참조한다.
   const evidenceBox = document.getElementById("headlineEvidence");
   if (evidenceBox) {
-    const evidence = briefing.headline_kind === "synthesis"
-      ? (briefing.headline_evidence || []).filter(item => item && item.issue_id && item.title)
-      : [];
-    evidenceBox.hidden = evidence.length === 0;
-    evidenceBox.innerHTML = evidence.length
-      ? `<span class="hero-evidence-label">근거 이슈</span>` + evidence.map(item =>
-        `<button type="button" class="hero-evidence-chip" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button>`
-      ).join("")
-      : "";
+    evidenceBox.hidden = true;
+    evidenceBox.innerHTML = "";
   }
 
   const changed = changedIssues(briefing);

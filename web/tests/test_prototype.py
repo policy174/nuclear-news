@@ -4,6 +4,7 @@ import re
 import sys
 import tempfile
 import unittest
+from collections import Counter
 from html import escape as html_escape
 from itertools import combinations
 from pathlib import Path
@@ -1444,6 +1445,8 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn(briefing["headline_kind"],
                           {"change", "issue", "empty", "synthesis"})
             self.assertIn("changed_issue_count", briefing)
+            # headline 은 아카이브 목록과 RSS 가 쓰므로 계속 채운다. 히어로만 안 쓴다.
+            self.assertTrue(briefing["headline"])
             # '무엇이 달라졌는가'는 헤드라인 이슈가 실제로 **이어지는** 이슈일 때만
             # 내건다. 예전에는 화살표(latest_change) 유무로 판정했는데, 화살표는
             # 요약 되풀이면 지워지므로 이어지는 이슈인데도 0이 될 수 있다.
@@ -1485,25 +1488,24 @@ class GeneratedDataTests(unittest.TestCase):
         # 배지 규칙('예외만 표시')과 달리 이건 고지라서 전 카드에 붙는다.
         self.assertIn('${why ? `<span class="ai-badge">AI</span>` : ""}', script)
 
-    def test_hero_headline_opens_the_issue_it_came_from(self):
-        """화면에서 가장 크고 먼저 보이는 요소가 눌리지 않으면 고장으로 읽힌다.
+    def test_hero_h1_is_a_screen_reader_label_not_a_headline(self):
+        """h1 은 더 이상 기사 제목을 싣지 않는다.
 
-        기사 제목을 얹은 날의 h1 은 특정 이슈 하나를 가리키므로 그리로 갈 수
-        있어야 한다. 종합 문장인 날은 대응 이슈가 없으므로 그대로 두고 근거 칩이
-        출처로 가는 길을 맡는다.
+        여기 있던 h1 은 17일 내내 issues[0].title 이었다 — 같은 페이지에 여섯 번
+        나오는 문자열이 모바일 첫 화면의 45% 를 차지했다. 지금은 날짜 제목으로
+        바꿔 sr-only 로 두고, '무엇/왜'는 선두 카드 하나가 책임진다.
 
-        판정은 headline_kind 라벨이 아니라 문장 실체로 한다. 실측(17일):
-        synthesis 는 0일이고 kind='change' 인 3일(7/28·29·30)도 headline 이
-        issues[0].title 과 글자까지 같았다 — 라벨을 믿으면 그 3일은 기사 제목이
-        큰 활자로 뜨고 '왜'도 안 붙어 고치려던 문제가 그대로 남는다.
+        DOM 에서 지우지는 않는다: view-news 가 aria-labelledby 로 이 id 를 가리킨다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('getElementById("briefingTitle").innerHTML', script)
-        self.assertIn("const headlineIsIssueTitle = !!leadIssue && leadIssue.title === briefing.headline;", script)
-        # 크기와 상세 진입이 같은 판정을 쓴다
-        self.assertIn('hero.classList.toggle("lead-issue", headlineIsIssueTitle)', script)
-        # 위임 대상에 id 를 넣지 않으면 버튼은 그려지되 클릭이 죽는다
-        self.assertIn('"evidenceRail", "briefingTitle"', script)
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('getElementById("briefingTitle").textContent', render)
+        self.assertIn("dateWeekdayLabel(briefing.date)} 브리핑", render)
+        # h1 이 기사 제목을 다시 싣지 않는지 — innerHTML 로 되돌아오면 잡는다
+        self.assertNotIn('getElementById("briefingTitle").innerHTML', render)
+        # 화면에서만 걷는다. clip 으로 눌러 두되 DOM 에는 남는다.
+        self.assertRegex(css, r"\.briefing-hero\.no-lead #briefingTitle \{[^}]*clip:")
 
     def test_hero_does_not_repeat_what_the_lead_card_already_says(self):
         """'왜'는 한 화면에 한 번만 선다.
@@ -1594,10 +1596,14 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertEqual(rows[1]["region"], "국내")
         self.assertNotIn("sort_score", rows[0])
 
-    def test_daily_lead_replaces_the_hero_sentence_when_present(self):
-        # 제목이 "이슈 제목" 같은 형식이면 어떤 종합 문장도 구체성 검사를
-        # 통과할 수 없다(공유할 낱말이 없다) — 실제와 비슷한 제목을 쓴다.
-        issues = [{
+    def test_stored_daily_lead_no_longer_becomes_the_hero_sentence(self):
+        """히어로 문장은 더 이상 LLM 종합 문장(daily_leads.json)에서 오지 않는다.
+
+        실측(8/4·8/5): 모델은 하루 이슈에 공통점이 없어도 반드시 한 문장을 써야
+        해서 관계없는 두 건을 '가운데'로 이어 붙였다. 지금 히어로는 아무 말도
+        하지 않는다 — headline 은 아카이브 목록과 RSS 를 위해 계속 채운다.
+        """
+        issues_day = [{
             "issue_id": "i1", "status": "new", "latest_change": "",
             "title": "원안위, 고리 2호기 계속운전 심사 재개",
             "summary": "", "importance": "must_read", "region": "국내",
@@ -1614,8 +1620,10 @@ class GeneratedDataTests(unittest.TestCase):
         }]
         leads = {"2026-08-01": {"lead": "원안위가 고리 2호기 계속운전 심사를 재개했습니다."}}
         built = build_data.build_briefings(news, clusters, "", leads)
-        self.assertEqual(built[0]["headline_kind"], "synthesis")
+        self.assertNotEqual(built[0]["headline_kind"], "synthesis")
+        # headline 자체는 계속 채운다 — 아카이브 목록(bt-headline)이 쓴다.
         self.assertIn("계속운전", built[0]["headline"])
+        del issues_day
 
     def test_weekly_flows_sharing_evidence_are_folded_together(self):
         """흐름 해석은 키워드마다 하나씩 나오므로 한 사건이 여러 번 재포장된다.
@@ -1720,16 +1728,36 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("headline_evidence", briefing)
             self.assertIsInstance(briefing["headline_evidence"], list)
 
-    def test_hero_evidence_chips_render_only_for_synthesis(self):
+    def test_hero_evidence_chips_are_not_rendered(self):
+        """근거 칩은 히어로가 문장을 낼 때 그 출처를 보이려던 것이다.
+
+        낼 문장이 없으니 칩도 없다. 컨테이너는 index.html 이 참조하므로 남긴다.
+        """
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn('id="headlineEvidence"', html)
         render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        # synthesis 가 아닐 때 칩을 보이면 근거 없는 문장에 근거가 달린다
-        self.assertIn('briefing.headline_kind === "synthesis"', render)
-        self.assertIn("headline_evidence", render)
-        # 칩 클릭이 이슈 dialog 로 연결되도록 위임 대상에 등록돼야 한다
-        self.assertIn('"headlineEvidence"', script)
+        self.assertIn("evidenceBox.hidden = true;", render)
+        self.assertNotIn("hero-evidence-chip", render)
+
+    def test_hero_says_nothing_and_keeps_the_audio_brief(self):
+        """히어로는 매일 아무 말도 하지 않는다.
+
+        h1 은 DOM 에 남긴다 — view-news 가 aria-labelledby 로 가리키고 있어
+        지우면 섹션이 이름을 잃는다. 화면에서만 걷는다(no-lead).
+        오디오 브리핑은 히어로 안에 있지만 이 걷어내기의 대상이 아니다.
+        """
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn('aria-labelledby="briefingTitle"', html)
+        # 두 클래스가 조건 없이 붙는다 — 압축 상태가 곧 유일한 상태다.
+        self.assertIn('hero.classList.add("lead-issue", "no-lead")', script)
+        self.assertIn(".briefing-hero.no-lead", css)
+        # no-lead / lead-issue 어느 쪽도 오디오를 걷어내면 안 된다.
+        self.assertNotIn(".briefing-hero.no-lead .hero-audio", css)
+        self.assertNotIn(".briefing-hero.lead-issue .hero-audio", css)
+        self.assertIn("audioBrief", script)
 
     def test_empty_state_does_not_contradict_the_changed_section(self):
         """필터 결과가 위 구역에만 있을 때 아래에서 '없습니다'라고 하면 안 된다.

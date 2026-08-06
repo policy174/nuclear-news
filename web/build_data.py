@@ -2484,18 +2484,12 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
 
         order_issue_rows(issue_rows)
 
+        # headline 은 아카이브 목록(bt-headline)과 날짜 이동에도 쓰이므로 항상
+        # 채운다. 히어로가 그 문장을 띄울지는 headline_kind 가 정한다.
         lead = daily_lead(issue_rows, previous_headline)
-        # 봇이 그날 이슈 전체를 보고 만든 종합 문장이 있으면 그것이 히어로가 된다.
-        # 이슈 한 건의 문장으로는 '오늘 무엇이 달라졌는가'에 답할 수 없다.
+        # headline 은 계속 채운다 — 아카이브 목록과 RSS 가 이 값을 쓴다. 히어로만
+        # 이 문장을 더 이상 화면에 올리지 않는다(app.js).
         headline_evidence: list[dict] = []
-        stored_lead = (daily_leads or {}).get(briefing_date) or {}
-        synthesis = _fit_synthesis(stored_lead.get("lead"))
-        # 공허한 종합 문장은 쓰지 않는다 — 구체적인 이슈 제목보다 못하다.
-        if synthesis and synthesis_is_substantive(synthesis, issue_rows):
-            lead = {"headline": synthesis.rstrip(".!?"), "kind": "synthesis"}
-            headline_evidence = _evidence_chips(
-                stored_lead.get("evidence") or [], issue_rows
-            )
         previous_headline = lead["headline"]
         briefings.append({
             "date": briefing_date,
