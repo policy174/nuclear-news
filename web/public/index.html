@@ -141,8 +141,8 @@
              '무엇이 있었나'를 담당한다면 여기는 '무엇부터 봐야 하나'를 담당한다. -->
         <section id="leadIssue" class="issues-section lead-section" aria-labelledby="leadIssueTitle" hidden>
           <div class="section-heading">
-            <div>
-              <p class="eyebrow dark">TODAY</p>
+            <div class="section-title">
+              <span class="sec-no" aria-hidden="true">01</span>
               <h2 id="leadIssueTitle">가장 먼저 볼 이슈</h2>
             </div>
           </div>
@@ -151,7 +151,8 @@
 
         <section id="changedIssues" class="issues-section changed-section" aria-labelledby="changedIssuesTitle" hidden>
           <div class="section-heading">
-            <div>
+            <div class="section-title">
+              <span class="sec-no" aria-hidden="true">02</span>
               <h2 id="changedIssuesTitle">지금 달라진 이슈</h2>
             </div>
             <p id="changedCount" class="section-count"></p>
@@ -161,8 +162,8 @@
 
         <section id="todayIssues" class="issues-section" aria-labelledby="todayIssuesTitle">
           <div class="section-heading issue-section-heading">
-            <div>
-              <p class="eyebrow dark">TODAY</p>
+            <div class="section-title">
+              <span class="sec-no" aria-hidden="true">03</span>
               <h2 id="todayIssuesTitle">오늘 확인된 이슈</h2>
             </div>
             <div class="issue-section-tools">
@@ -296,12 +297,14 @@
       <!-- 오버라인 없음. 영문 오버라인은 TODAY·THIS WEEK 두 종으로 줄인 결정이
            있고, 바로 아래 '이번 주 이어지는 흐름'이 이미 THIS WEEK 을 쓴다.
            같은 시간 범위에 라벨을 두 번 다는 건 신호가 아니라 잡음이다. -->
-      <div class="section-heading compact"><div><h2 id="weeklyReportHeading">주간 판세</h2></div><span id="weeklyReportMeta" class="data-note"></span></div>
+      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="weeklyReportHeading">주간 판세</h2></div><span id="weeklyReportMeta" class="data-note"></span></div>
       <div id="weeklyReportBody"></div>
     </section>
     <section class="flow-panel" aria-labelledby="flowHeading">
+      <!-- 오버라인은 위 트렌드 머리(THIS WEEK)가 이미 달았다. 같은 시간 범위에
+           두 번 붙이면 라벨이 아니라 배경이 된다 — 여기서는 구역 번호로 가른다. -->
       <div class="section-heading compact">
-        <div><p class="eyebrow dark">THIS WEEK</p><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
+        <div class="section-title"><span class="sec-no" aria-hidden="true">02</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
         <span class="data-note">보도량·보도 일수·매체 수 기준</span>
       </div>
       <div id="insightList"></div>
@@ -349,7 +352,7 @@
          쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
     <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
       <div class="section-heading compact">
-        <div><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
+        <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
         <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
       </div>
       <ol id="briefingTimelineList"></ol>

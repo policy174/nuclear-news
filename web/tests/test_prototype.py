@@ -3358,5 +3358,81 @@ class RevisitPathTests(unittest.TestCase):
         self.assertIn("<div>", intro)
 
 
+class VisualSystemTests(unittest.TestCase):
+    """2026-08-06 시각 개편 — 잉크 크롬 · 대비 사다리 · 구역 번호 · 목록 밀도.
+
+    이 저장소는 리디자인이 "체감 안 됨"으로 두 번 되돌아왔다(8/3 `243f84e`,
+    8/5 `3c6d828`). 원인은 매번 같았다: 기능은 늘었는데 화면의 뼈대(팔레트·
+    크롬·밀도)가 그대로였다. 그래서 여기서는 **눈에 보이는 값**을 잠근다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+
+    def _rule(self, selector):
+        """선택자 하나의 선언 블록을 문자열로 꺼낸다(첫 번째 정의 기준)."""
+        index = self.style.index(selector + " {")
+        return self.style[index:self.style.index("}", index)]
+
+    def test_chrome_is_ink_not_page_tinted(self):
+        """상단바·하단 탭은 지면이 아니라 크롬이다 — 배경과 같은 톤에 blur 만
+        얹으면 스크롤할 때 도구와 내용의 경계가 사라진다."""
+        topbar = self._rule(".topbar")
+        self.assertIn("background: var(--c-primary)", topbar)
+        self.assertNotIn("backdrop-filter", topbar)
+        mobile = self.style.split("@media (max-width: 767px)", 1)[1]
+        tabs = mobile[mobile.index(".mobile-tabs {"):]
+        self.assertIn("background: var(--c-primary)", tabs[:tabs.index("}")])
+
+    def test_focus_ring_survives_on_ink_chrome(self):
+        """포커스 링 안쪽 고리는 배경색으로 링을 띄운다. 잉크 크롬 위에서
+        밝은 --c-bg 가 그대로 오면 흰 테가 둘러쳐진다."""
+        self.assertIn(".topbar :focus-visible", self.style)
+        self.assertIn(".mobile-tabs :focus-visible", self.style)
+        index = self.style.index(".mobile-tabs :focus-visible")
+        self.assertIn("var(--c-primary)", self.style[index:index + 160])
+
+    def test_paper_and_surface_are_separated(self):
+        """종이(--c-bg)와 표면(--c-surface)이 붙어 있으면 패널·입력·표지가
+        배경에서 떨어지지 않는다. 예전 값은 명도차가 4% 안이었다."""
+        def token(name):
+            return re.search(rf"--{name}:\s*(#[0-9a-f]{{3,6}})", self.style).group(1)
+        gap = _luminance("#ffffff" if token("c-surface") == "#fff" else token("c-surface")) \
+            - _luminance(token("c-bg"))
+        self.assertGreater(gap, 0.08, "표면이 종이에서 충분히 떨어지지 않는다")
+
+    def test_sections_are_numbered_not_repeated_overlines(self):
+        """같은 오버라인 세 벌 대신 모노 번호로 구역을 가른다.
+
+        오버라인 어휘 자체는 TODAY·THIS WEEK 두 종으로 잠겨 있고(별도 테스트),
+        여기서는 '한 화면에서 되풀이하지 않는다'를 지킨다.
+        """
+        self.assertEqual(self.html.count('class="eyebrow">TODAY'), 1)
+        self.assertGreaterEqual(self.html.count('class="sec-no"'), 5)
+        self.assertIn("font-family: var(--ff-mono)", self._rule(".sec-no"))
+        # 구역 머리는 잉크 괘선으로 시작한다 — 번호만 붙이면 목록의 일부로 읽힌다.
+        self.assertIn("border-top: 2px solid var(--c-primary)",
+                      self._rule(".section-heading:not(.compact)"))
+
+    def test_issue_rows_are_dense_and_react_as_one(self):
+        """행 높이를 정하던 두 값(세로 액션 스택·32px 패딩)을 되돌리지 않는다."""
+        card = self._rule(".issue-card")
+        self.assertIn("padding: var(--sp-5)", card, "행 패딩이 다시 벌어졌다")
+        actions = self._rule(".issue-list .issue-card .issue-actions")
+        self.assertIn("flex-direction: row", actions, "액션이 다시 세로로 쌓인다")
+        # hover 는 세 값이 함께 움직인다 — 하나만 변하면 '켜졌나' 싶다.
+        self.assertIn("border-top-color: var(--c-primary)", self._rule(".issue-card:hover"))
+        self.assertIn(".issue-card:hover .issue-index", self.style)
+
+    def test_tab_underline_animates_without_layout_shift(self):
+        """활성 표시는 나타났다 사라지는 요소가 아니라 열고 닫는 선이다."""
+        base = self._rule(".main-tab::after")
+        self.assertIn("transform: scaleX(0)", base)
+        self.assertIn("transition: transform var(--mo-2)", base)
+        self.assertIn(".main-tab.active::after { transform: scaleX(1); }", self.style)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -19,15 +19,19 @@
   --c-secondary-weak: #e2efe8;
   --c-accent: #668d1d;       /* 표면 전용 3.78:1 — 텍스트는 --c-accent-text */
   --c-accent-text: #4f7315;  /* 5.38:1 */
-  --c-bg: #f0f4f1;
-  --c-surface: #fbfcfa;
+  /* 종이와 표면을 벌린다. 이전 값(bg #f0f4f1 / surface #fbfcfa / border #cbd6cf)은
+     셋이 4% 명도 안에 몰려 있어 패널·입력·괘선이 배경에서 떨어지지 않았다 —
+     "차분함"이 아니라 흐림으로 읽혔다. 표면을 순백으로 올리고 괘선을 한 단
+     어둡게 내려 도형/바탕을 만든다. 대비 계산은 아래 각 줄에. */
+  --c-bg: #eef1ee;
+  --c-surface: #fff;
   --c-surface-raised: #fff;
-  --c-surface-sunken: #e9efeb;
-  --c-border: #cbd6cf;
-  --c-border-strong: #8fa197;
+  --c-surface-sunken: #e3e8e4;
+  --c-border: #c3cec7;
+  --c-border-strong: #7d8f85;
   --c-text: #12251e;
   --c-text-secondary: #273b33;
-  --c-text-muted: #58675f;   /* 5.37:1 on --c-bg */
+  --c-text-muted: #55645c;   /* 5.49:1 on --c-bg */
   --c-positive: #1e7a5a;
   --c-warning: #96620f;      /* 시안의 #a86f16 은 4.12:1 로 현행보다 나빠 어둡게 조정 */
   --c-critical: #df6c50;     /* 표면 전용 3.19:1 — 텍스트는 --c-critical-text.
@@ -112,12 +116,13 @@
   --c-secondary-weak: #1b3a2e;
   --c-accent: #9fc74a;
   --c-accent-text: #bcdc78;  /* 10.91:1 */
-  --c-bg: #0d1613;
-  --c-surface: #14201a;
-  --c-surface-raised: #1c2a23;
+  /* 라이트와 같은 벌림 — 바탕은 더 내리고 표면은 더 올린다. */
+  --c-bg: #0b1310;
+  --c-surface: #16221c;
+  --c-surface-raised: #1e2c25;
   --c-surface-sunken: #101a15;
-  --c-border: #26362d;
-  --c-border-strong: #3a4d41;
+  --c-border: #2b3c34;
+  --c-border-strong: #46594e;
   --c-text: #e7efe9;
   --c-text-secondary: #b3c3b8;
   --c-text-muted: #93a398;   /* 6.95:1 on --c-bg */
@@ -170,6 +175,11 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   outline-offset: 2px;
   box-shadow: var(--fo-ring);
 }
+/* 포커스 링 안쪽 고리는 배경색으로 링을 띄우는 장치다. 상단바·하단 탭은 잉크라
+   밝은 --c-bg 가 그대로 오면 흰 테가 둘러쳐진다 — 그 자리의 실제 배경으로 갈아
+   끼운다. 링 자체(--c-focus)와 두께는 그대로다. */
+.topbar :focus-visible,
+.mobile-tabs :focus-visible { box-shadow: 0 0 0 2px var(--c-primary), 0 0 0 4px var(--c-focus); }
 
 .wrap { width: min(calc(100% - 40px), var(--wrap)); margin-inline: auto; }
 .sr-only {
@@ -212,14 +222,19 @@ button:disabled { cursor: not-allowed; opacity: .42; }
 .eyebrow.dark { color: var(--c-text-muted); }
 .empty { color: var(--c-text-muted); }
 
+/* 상단바는 지면이 아니라 계기판이다 — 딥 포레스트 잉크로 눌러 콘텐츠와 크롬을
+   갈라 놓는다. 예전에는 배경과 같은 톤에 blur 만 얹어서, 스크롤하면 헤더가
+   본문에 녹아 어디까지가 도구이고 어디부터가 내용인지 경계가 없었다.
+   상태 스트립(정상인 날은 걷힘)도 같은 잉크라 둘이 붙으면 한 덩어리로 읽힌다.
+   `--c-primary` 는 두 테마 모두 딥 포레스트라 다크에서도 그대로 성립한다. */
 .topbar {
   position: sticky;
   z-index: var(--z-topbar);
   top: 0;
-  height: 64px;
-  border-bottom: 1px solid var(--c-border);
-  background: color-mix(in srgb, var(--c-bg) 94%, transparent);
-  backdrop-filter: blur(14px);
+  height: 60px;
+  border-bottom: 1px solid var(--c-primary-strong);
+  background: var(--c-primary);
+  color: #fff;
 }
 .topbar-inner {
   display: grid;
@@ -234,55 +249,64 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   width: fit-content;
   min-width: 0;
   gap: 10px;
-  color: var(--c-text);
+  color: #fff;
 }
 .brand:hover { text-decoration: none; }
 /* 시안의 심벌은 각진 사각형이다. 글리프는 그대로 N — 렌즈 마크는 8/1 에
    되돌리고 테스트로 잠근 결정이라 건드리지 않는다. */
+/* 잉크 상단바에서는 마크가 반전된다 — 라임 바탕에 잉크 글리프. 글리프는 그대로
+   N 이다(렌즈 마크는 8/1 에 되돌리고 테스트로 잠근 결정). */
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   flex: 0 0 auto;
   border-radius: 0;
-  background: var(--c-primary);
-  color: var(--c-signal);
+  background: var(--c-signal);
+  color: var(--c-primary);
   font-family: var(--ff-base);
-  font-size: var(--t-card);
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: -.06em;
   line-height: 1;
 }
 .brand-copy { display: grid; min-width: 0; line-height: 1.15; }
-.brand-copy strong { letter-spacing: -.03em; font-size: 18px; font-weight: 800; }
+.brand-copy strong { letter-spacing: .01em; font-size: 16px; font-weight: 750; }
 .brand-copy small {
-  margin-top: 4px;
-  color: var(--c-text-muted);
+  margin-top: 3px;
+  color: rgb(255 255 255 / 62%);
   font-size: var(--t-min);
   white-space: nowrap;
 }
-.main-tabs { display: flex; align-self: stretch; gap: 24px; }
+.main-tabs { display: flex; align-self: stretch; gap: 22px; }
 .main-tab {
   position: relative;
   border: 0;
   background: transparent;
-  color: var(--c-text-muted);
+  color: rgb(255 255 255 / 66%);
   font-size: 14px;
   font-weight: 650;
   white-space: nowrap;
+  transition: color var(--mo-1);
 }
-.main-tab:hover { color: var(--c-text); }
-.main-tab.active { color: var(--c-text); }
-.main-tab.active::after {
+.main-tab:hover { color: #fff; }
+.main-tab.active { color: #fff; }
+/* 밑줄은 항상 그려 두고 가로로만 열고 닫는다 — 나타났다 사라지는 요소는
+   레이아웃을 흔들지만 scaleX 는 합성 단계에서 끝난다. reduced-motion 전역
+   오버라이드가 transition-duration 을 죽이면 즉시 전환된다. */
+.main-tab::after {
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   height: 2px;
-  background: var(--c-secondary);
+  background: var(--c-signal);
+  transform: scaleX(0);
+  transition: transform var(--mo-2) var(--mo-ease);
   content: "";
 }
+.main-tab.active::after { transform: scaleX(1); }
 .header-tools { display: flex; justify-content: flex-end; align-items: center; min-width: 0; gap: 8px; }
 /* 44px. 40px 이면 엄지로 눌렀을 때 옆 버튼이 같이 잡힌다 — 헤더 도구 셋이
    8px 간격으로 붙어 있어 이 3px 이 실제 오조작 차이를 만든다. */
@@ -291,12 +315,16 @@ button:disabled { cursor: not-allowed; opacity: .42; }
 .icon-button {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  border: 1px solid var(--c-border-strong);
+  min-height: 40px;
+  border: 1px solid rgb(255 255 255 / 22%);
   border-radius: var(--r-1);
-  background: var(--c-surface);
-  color: var(--c-text-secondary);
+  background: rgb(255 255 255 / 7%);
+  color: rgb(255 255 255 / 82%);
+  transition: background var(--mo-1), border-color var(--mo-1);
 }
+.global-search-trigger:hover,
+.header-status:hover,
+.icon-button:hover { border-color: rgb(255 255 255 / 42%); background: rgb(255 255 255 / 13%); }
 .global-search-trigger { width: 220px; justify-content: flex-start; gap: 8px; padding: 0 10px; }
 .global-search-trigger svg, .icon-button svg {
   width: 20px;
@@ -319,18 +347,30 @@ kbd {
   font-size: var(--t-min);
   text-align: center;
 }
-.header-status { max-width: 150px; gap: 7px; padding: 0 10px; font-size: var(--t-min); white-space: nowrap; }
+/* 상단바 안의 kbd 는 잉크 위에 앉는다 — 밝은 배경용 값이 그대로 오면 묻힌다. */
+.topbar kbd { border-color: rgb(255 255 255 / 22%); background: rgb(255 255 255 / 10%); color: rgb(255 255 255 / 70%); }
+/* 계기값이라 자릿수가 흔들리면 안 된다 — tabular 로 세운다. 모노 서체는 쓰지
+   않는다: 라벨에 한글('이슈')이 섞여 있어 모노 스택에 글리프가 없으면 그 낱말만
+   시스템 폰트로 떨어져 한 줄 안에 두 얼굴이 선다(이 저장소의 기존 판단). */
+.header-status {
+  max-width: 168px;
+  gap: 7px;
+  padding: 0 10px;
+  font-size: var(--t-min);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 .header-status i,
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--c-positive);
+  background: var(--c-signal);
 }
 .header-status.warning i { background: var(--c-warning); }
 .header-status.error i { background: var(--c-critical); }
-.icon-button { justify-content: center; width: 44px; padding: 0; }
+.icon-button { justify-content: center; width: 40px; padding: 0; }
 
 /* 시안의 최상단 모노 상태바. 새로 만들지 않고 기존 status-strip 을 그 모습으로
    바꿔 헤더 위로 올렸다 — 같은 숫자를 두 줄에 쓰면 그건 정보가 아니라 중복이다.
@@ -476,8 +516,12 @@ kbd {
 .briefing-hero.no-lead { padding-bottom: 18px; }
 .briefing-hero.no-lead .hero-grid { margin-top: 0; }
 .briefing-hero.no-lead::after { display: none; }
-.briefing-hero.lead-issue { padding: 20px 0 18px; }
-.briefing-hero.lead-issue .hero-grid { margin-top: 12px; }
+/* 히어로는 문장을 내지 않는다(b9d3227). 그러면 이 밴드에 남는 것은 날짜 줄과
+   이동 링크뿐인데, 예전 여백값이 그대로 남아 1440×900 첫 화면의 28% 를 빈
+   띠가 먹고 있었다 — 첫 콘텐츠(선두 이슈)가 폴드 근처까지 밀렸다.
+   말이 없어진 자리는 여백이 아니라 없어져야 한다. */
+.briefing-hero.lead-issue { padding: 14px 0 12px; }
+.briefing-hero.lead-issue .hero-grid { margin-top: 0; }
 /* 오버라인의 '· 8월 6일 (목)'과 오른쪽 select 가 같은 날짜를 두 번 말한다.
    모바일에서만 걷던 중복인데 데스크톱도 같은 한 줄 안의 중복이다 — 전 폭에서
    걷는다(정보 손실 0, select 가 날짜를 계속 말한다). */
@@ -491,7 +535,24 @@ kbd {
    다시 clamp 를 주면 6vw 라 500px 이상에서 오히려 커져 그 축소를 되돌린다 —
    폭만 좁혀 읽는 길이를 줄인다. */
 .briefing-hero.lead-issue .hero-copy h1 { max-width: min(100%, 720px); }
-.briefing-hero.lead-issue .hero-actions { margin-top: 20px; }
+/* 이동 링크와 오디오 플레이어는 각자 한 줄을 쓰던 두 개의 도구 줄이었다.
+   히어로가 말을 그만둔 지금 그 둘만 남았으므로 한 줄로 눕혀 도구 바 하나로
+   만든다 — 마크업 순서(액션 → 오디오)는 그대로다. '지난 확인 이후'는 도구가
+   아니라 읽을 문장이라 제 줄을 지킨다. */
+.briefing-hero.lead-issue .hero-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px var(--sp-6);
+}
+/* 간격은 자식의 margin 이 아니라 컨테이너 gap 이 갖는다. 오디오 블록을 이름으로
+   지목하는 선택자는 쓰지 않는다 — 히어로 스코프에서 그 블록을 겨냥한 규칙은
+   test_hero_says_nothing_and_keeps_the_audio_brief 가 문자열로 막아 둔 형태이고
+   (걷어내기 방지 가드), 가드를 푸는 것보다 자식 무관하게 쓰는 편이 안전하다.
+   주의: 그 선택자 문자열은 주석에도 쓰면 안 된다. 검사는 파일 전체 부분문자열
+   대조라 주석 안의 리터럴도 그대로 걸린다(이 저장소의 알려진 함정). */
+.briefing-hero.lead-issue .hero-copy > * { margin-top: 0; }
+.briefing-hero.lead-issue .return-note { flex-basis: 100%; }
 /* 지난 확인 이후 요약 — 히어로가 문장을 그만둔 뒤 남은 자리에 방문 간격을
    잇는 정보를 둔다. 괘선·본문 활자만 쓰고 배너처럼 칠하지 않는다(공지가
    아니라 이어 읽기의 시작점이다). */
@@ -614,7 +675,7 @@ kbd {
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */
 
-.briefing-content-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 44px; }
+.briefing-content-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: var(--sp-6); }
 /* 홈은 두 구역이다: 상태가 움직인 이슈가 먼저, 나머지가 아래. */
 .changed-section { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--c-border); }
 .changed-section .issue-list { margin-top: 18px; }
@@ -627,10 +688,26 @@ kbd {
   font-size: var(--t-caption);
 }
 .section-note strong { color: var(--c-text); }
+/* ── 섹션 머리 ────────────────────────────────────────────────────
+   같은 오버라인('TODAY')과 같은 크기 제목이 한 화면에 세 번 반복되던 자리다.
+   반복은 위계가 아니라 배경이 된다 — 오버라인은 하루에 한 번만 쓰고, 구역은
+   모노 번호(01·02·03)와 잉크 괘선으로 가른다. 번호는 장식이 아니라 이 지면의
+   순서이고, 훑는 눈이 되돌아올 지점을 만든다. */
 .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.section-heading h2 { margin: 0; font-size: 22px; line-height: 1.35; }
+.section-heading:not(.compact) { padding-top: var(--sp-3); border-top: 2px solid var(--c-primary); }
+.section-title { display: flex; align-items: baseline; gap: var(--sp-3); min-width: 0; }
+.sec-no {
+  flex: 0 0 auto;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .08em;
+}
+.section-heading h2 { margin: 0; font-size: 20px; line-height: 1.35; letter-spacing: -.022em; }
 .section-heading p:not(.eyebrow):not(.section-count) { margin: 4px 0 0; color: var(--c-text-muted); font-size: var(--t-caption); }
-.issue-section-heading { align-items: flex-end; padding-bottom: var(--sp-4); border-bottom: 1px solid var(--c-border); }
+.issue-section-heading { align-items: flex-end; padding-bottom: var(--sp-3); }
 .issue-section-tools { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
 .section-count { margin: 0 6px 0 0; color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
 .compact-select {
@@ -735,16 +812,22 @@ kbd {
 
 /* 시안의 목록은 카드가 아니라 표다 — 순서 / 변화 / 이슈 / 근거 4열, 구분은
    테두리 상자가 아니라 행 사이 선 하나. 네 열은 app.js 에서 형제 요소로 나온다. */
-.issue-list { display: grid; gap: 0; margin-top: 14px; }
+.issue-list { display: grid; gap: 0; margin-top: var(--sp-2); }
+/* 행 높이를 32px 패딩에서 20px 로 조인다. 1440×900 첫 화면에 카드가 두 장
+   들어가던 것이 네 장이 된다 — 훑어 비교하는 화면에서 밀도는 장식이 아니라
+   기능이다. 4열 비율도 함께 좁혀 가운데 죽은 공간을 줄인다. */
 .issue-card {
   display: grid;
-  grid-template-columns: 56px 124px minmax(0, 1fr) minmax(0, auto);
-  column-gap: var(--sp-6);
-  padding: var(--sp-8) 14px var(--sp-8) 0;
+  grid-template-columns: 40px 112px minmax(0, 1fr) minmax(0, auto);
+  column-gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-3) var(--sp-5) var(--sp-3);
   border: 0;
   border-top: 1px solid var(--c-border);
   background: transparent;
-  transition: background var(--mo-1);
+  /* 배경만 바뀌던 hover 를 세 값이 함께 움직이게 한다(배경·윗괘선·번호) —
+     한 값만 변하면 '켜졌나' 싶고, 셋이 같이 변하면 행이 선택된 것으로 읽힌다.
+     전부 합성 가능한 속성이라 레이아웃은 흔들리지 않는다. */
+  transition: background var(--mo-1), border-color var(--mo-1);
 }
 /* 첫 행의 2px 진한 괘선 — 선두 카드(.lead-card)와 같은 어법. 표가 시작되는
    지점을 선 하나로 선언한다(박스·배경 없이). */
@@ -754,36 +837,44 @@ kbd {
 .issue-card.front h3 { font-size: 24px; line-height: 1.3; }
 .issue-card.front .issue-summary { font-size: var(--t-body-lg); }
 .issue-card.front .issue-index { color: var(--c-text); }
-.issue-card:hover { background: var(--c-surface-sunken); }
+.issue-card:hover { border-top-color: var(--c-primary); background: var(--c-surface); }
+.issue-card:hover .issue-index { color: var(--c-text); }
 /* 행 hover 가 배경을 바꾸는데 클릭 지점은 제목뿐이었다 — 어포던스와 실제가
    어긋난다. 이슈를 품은 행(data-issue-card)은 행 전체가 상세 진입점이다.
    버튼·링크·드래그 선택은 JS 위임에서 먼저 걸러진다. */
 .issue-card[data-issue-card] { cursor: pointer; }
 .issue-card.state-quiet { opacity: .76; }
+/* 28px 짜리 큰 숫자는 제목과 무게를 다퉜다. 순서는 위계가 아니라 좌표다 —
+   작게 세우고 hover 때만 잉크로 올라온다. */
 .issue-index {
   padding: 0;
   color: var(--c-text-muted);
   font-family: var(--ff-mono);
-  font-size: 28px;
+  font-size: 15px;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -.05em;
-  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.6;
   text-align: right;
+  transition: color var(--mo-1);
 }
 .issue-body { min-width: 0; }
 /* 2열 '변화' — 시안처럼 상태를 세로로 세우고 색 사각형으로 등급을 표시한다.
    카드 왼쪽 3px 테두리가 하던 일을 이 사각형이 대신한다. */
+/* 값 넷을 한 줄씩 세워 두면 이 열이 행 높이를 정한다(실측 4줄 ≈ 100px, 본문은
+   두 줄인데 행은 166px). 열은 유지하되 값은 흐르게 둔다 — 상태 문구만 제 줄을
+   쓰고 지역·주제는 한 줄에 앉는다. */
 .issue-meta {
   display: flex;
   align-content: start;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 4px 0;
+  gap: 3px var(--sp-2);
   color: var(--c-text-muted);
   font-size: var(--t-min);
-  line-height: 1.5;
+  line-height: 1.45;
 }
-.issue-meta > span { flex: 0 0 100%; }
+.issue-meta > .issue-state { flex: 0 0 100%; }
 /* 배지는 내용 폭이어야 테두리가 글자에 붙는다. 100% 를 물려받으면 열 전체가 상자가 된다. */
 .issue-meta > .verification-badge { flex: 0 0 auto; }
 .issue-state::before {
@@ -957,6 +1048,22 @@ kbd {
 .issue-actions button:hover,
 .issue-actions a:hover { text-decoration: underline; }
 .issue-actions .saved { color: var(--c-accent-text); }
+/* 4열의 세로 스택이 행 높이를 정하고 있었다 — 본문은 두 줄인데 액션 넷이
+   line-height 1.75 로 쌓여 행이 180px 였다(실측). 가로로 눕히면 68px 다.
+   '공유'는 목록에서 뺀다: 여덟 행마다 같은 낱말이 반복되면 훑는 눈에 내용보다
+   패턴이 먼저 걸리고, 상세를 열어 보지도 않은 이슈를 공유하는 행동은 드물다.
+   모바일이 이미 같은 이유로 같은 결정을 했고(767px 블록), 공유는 선두 카드와
+   상세 모달에 그대로 있다. */
+.issue-list .issue-card .issue-actions {
+  align-items: baseline;
+  align-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0 var(--sp-4);
+  min-width: 0;
+}
+.issue-list .issue-card [data-share-issue] { display: none; }
 .issue-detail-button span { margin-left: 4px; color: var(--c-text-muted); }
 .tracking-period {
   display: grid;
@@ -2087,6 +2194,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .keyword-row > span:nth-child(3)::before { color: var(--c-text-muted); content: "전주 "; }
   .keyword-row > span:nth-child(4)::before { color: var(--c-text-muted); content: "변화 "; }
   .keyword-row button { grid-area: link; justify-self: end; min-height: 44px; }
+  /* 상단바와 같은 잉크. 위아래 크롬이 같은 재질이어야 그 사이가 지면으로 읽힌다 —
+     한쪽만 밝으면 하단 탭이 콘텐츠의 일부처럼 떠 보인다. */
   .mobile-tabs {
     position: fixed;
     z-index: var(--z-tabs);
@@ -2095,11 +2204,10 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     left: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    min-height: 64px;
+    min-height: 60px;
     padding-bottom: env(safe-area-inset-bottom);
-    border-top: 1px solid var(--c-border);
-    background: color-mix(in srgb, var(--c-bg) 96%, transparent);
-    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--c-primary-strong);
+    background: var(--c-primary);
   }
   .mobile-tabs button {
     position: relative;
@@ -2108,13 +2216,14 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     min-height: 56px;
     border: 0;
     background: transparent;
-    color: var(--c-text-muted);
+    color: rgb(255 255 255 / 62%);
     font-size: var(--t-min);
     font-weight: 650;
+    transition: color var(--mo-1);
   }
-  .mobile-tabs button.active { color: var(--c-secondary); }
-  .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: 2px; background: var(--c-secondary); content: ""; }
-  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: 999px; background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
+  .mobile-tabs button.active { color: #fff; }
+  .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: 2px; background: var(--c-signal); content: ""; }
+  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: 999px; background: var(--c-signal); color: var(--c-primary); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   .foot { margin-bottom: -68px; }
   .foot-grid { grid-template-columns: 1fr; gap: 16px; }
