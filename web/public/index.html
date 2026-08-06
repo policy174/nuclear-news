@@ -361,7 +361,7 @@
   </section>
 
   <section id="view-saved" hidden aria-labelledby="savedTitle">
-    <div class="archive-intro"><div><h1 id="savedTitle">저장·팔로우</h1></div></div>
+    <div class="archive-intro"><div><h1 id="savedTitle">저장·팔로우</h1><p>이 브라우저에만 저장됩니다 — 서버로 가지 않습니다.</p></div></div>
     <!-- 팔로우한 대상 — 이 화면에 들어왔다고 확인 처리하지 않는다. 확인 시각은
          해당 엔티티 페이지를 실제로 열었을 때만 갱신된다(배지 일괄 소멸 방지). -->
     <section id="followPanel" class="follow-panel" aria-label="팔로우한 대상"></section>
@@ -369,10 +369,10 @@
          그 이슈"를 검색 없이 되찾는 경로다. 목록에 없는 이슈(재클러스터)는
          조용히 떨어진다 — 저장이 아니라 흔적이므로 톰스톤을 세우지 않는다. -->
     <section id="recentPanel" class="recent-panel" aria-label="최근 본 이슈" hidden>
-      <div class="section-heading compact"><div><h2>최근 본 이슈</h2></div><button id="clearRecentIssues" type="button">비우기</button></div>
+      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">02</span><h2>최근 본 이슈</h2></div><button id="clearRecentIssues" type="button">비우기</button></div>
       <ol id="recentIssueList"></ol>
     </section>
-    <div class="section-heading compact saved-heading"><div><h2>저장한 이슈</h2></div></div>
+    <div class="section-heading compact saved-heading"><div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2>저장한 이슈</h2></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>
 

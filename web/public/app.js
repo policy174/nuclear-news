@@ -478,12 +478,15 @@ function renderFollowPanel() {
     .filter(Boolean)
     .sort((a, b) => entityNewIssueCount(b.id) - entityNewIssueCount(a.id)
       || String(b.latest_issue_date).localeCompare(String(a.latest_issue_date)));
+  // 머리는 두 상태 모두에서 선다. 빈 상태일 때만 생략하면 이 화면의 구역
+  // 번호가 01 없이 02 부터 시작해 빠진 칸처럼 읽힌다(실측).
+  const heading = `<div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2>팔로우한 대상</h2></div></div>`;
   if (!followed.length) {
-    panel.innerHTML = `<p class="follow-empty">탐색에서 원전·기업·기관을 팔로우하면 새 이슈를 여기서 셉니다.
+    panel.innerHTML = heading + `<p class="follow-empty">탐색에서 원전·기업·기관을 팔로우하면 새 이슈를 여기서 셉니다.
       <button type="button" data-go-view="search">탐색 열기</button></p>`;
     return;
   }
-  panel.innerHTML = `<div class="section-heading compact"><div><h2>팔로우한 대상</h2></div></div>`
+  panel.innerHTML = heading
     + followed.map(entity => {
       const fresh = entityNewIssueCount(entity.id);
       return `<div class="follow-row">

@@ -175,6 +175,11 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   outline-offset: 2px;
   box-shadow: var(--fo-ring);
 }
+/* 프로그램이 옮긴 포커스에는 링을 그리지 않는다. tabindex="-1" 은 탭 순서에
+   없어 사용자가 스스로 도착할 수 없다 — 모달을 열 때 제목으로 포커스를 옮기는
+   것은 스크린리더를 위한 장치인데, 그 결과 시각 사용자에게는 제목 둘레에
+   파란 상자가 떠 오류처럼 보였다. 실제 조작 대상의 링은 그대로 둔다. */
+:where([tabindex="-1"]):focus-visible { outline: 0; box-shadow: none; }
 /* 포커스 링 안쪽 고리는 배경색으로 링을 띄우는 장치다. 상단바·하단 탭은 잉크라
    밝은 --c-bg 가 그대로 오면 흰 테가 둘러쳐진다 — 그 자리의 실제 배경으로 갈아
    끼운다. 링 자체(--c-focus)와 두께는 그대로다. */
@@ -808,7 +813,7 @@ kbd {
 }
 .filter-sheet .clear-filters { width: 100%; margin-top: 12px; }
 .active-filter-row { display: flex; min-height: 12px; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.active-filter-row span { padding: 3px 8px; border: 1px solid var(--c-secondary); border-radius: 999px; background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
+.active-filter-row span { padding: 3px 8px; border: 1px solid var(--c-secondary); border-radius: var(--r-1); background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
 
 /* 시안의 목록은 카드가 아니라 표다 — 순서 / 변화 / 이슈 / 근거 4열, 구분은
    테두리 상자가 아니라 행 사이 선 하나. 네 열은 app.js 에서 형제 요소로 나온다. */
@@ -1308,7 +1313,7 @@ kbd {
 .pubs-filters button {
   padding: 5px 12px;
   border: 1px solid var(--c-border);
-  border-radius: 999px;
+  border-radius: var(--r-1);
   background: transparent;
   color: var(--c-text-secondary);
   font-size: var(--t-min);
@@ -1430,18 +1435,24 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
 .dialog-keei a { font-size: 13px; }
 .dialog-keei small { color: var(--c-text-muted); font-size: var(--t-min); }
 
+/* ── 화면 머리 ────────────────────────────────────────────────────
+   탭마다 제목 크기·여백·마감이 제각각이었다(어떤 화면은 h1 뒤에 바로 내용,
+   어떤 화면은 설명문, 어떤 화면은 아무것도 없음). 네 화면이 같은 머리로
+   시작하고 같은 괘선으로 닫히면, 탭을 옮겨도 같은 제품 안에 있다는 게 읽힌다. */
 .archive-intro,
 .trend-intro {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 28px;
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--c-border-strong);
 }
 .archive-intro h1,
-.trend-intro h1 { margin: 0; font-size: var(--t-title); line-height: 1.25; }
+.trend-intro h1 { margin: 0; font-size: var(--t-title); line-height: 1.25; letter-spacing: -.028em; }
 .archive-intro p,
-.trend-intro > p:not(.eyebrow) { margin: 7px 0 0; color: var(--c-text-muted); }
+.trend-intro > p:not(.eyebrow) { margin: 6px 0 0; color: var(--c-text-muted); font-size: var(--t-caption); }
 /* ── 발견 허브 · 엔티티 헤더 ─────────────────────────────────────────
    탐색 랜딩의 시작점. 괘선 어법(2px primary / 1px border)은 선두 카드·표와
    같다 — 박스·배경 없이 선과 타이포로만 위계를 세운다. */
@@ -1511,7 +1522,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .follow-open strong { font-size: var(--t-body-lg); font-weight: 700; }
 .follow-fresh {
   padding: 1px 8px;
-  border-radius: 999px;
+  border-radius: var(--r-1);
   background: var(--c-secondary-weak);
   color: var(--c-secondary);
   font-size: var(--t-min);
@@ -1569,7 +1580,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 /* 데스크톱 저장 탭 배지 + 톰스톤(재클러스터로 사라진 저장 이슈) */
 .tab-badge {
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: var(--r-1);
   background: var(--c-secondary-weak);
   color: var(--c-secondary);
   font-size: var(--t-min);
@@ -1630,14 +1641,20 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .archive-filters fieldset { margin: 0; padding: 0; border: 0; }
 .archive-filters legend { margin-bottom: 6px; color: var(--c-text-muted); font-size: var(--t-min); }
 .archive-filters .segmented { display: grid; grid-template-columns: repeat(3, 1fr); }
-.archive-result-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--c-border); }
-.archive-result-head h2 { margin: 0; font-size: 20px; }
+/* 결과 머리도 구역 머리다 — 홈·흐름과 같은 2px 잉크 괘선으로 연다. */
+.archive-result-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-top: var(--sp-3); padding-bottom: var(--sp-3); border-top: 2px solid var(--c-primary); }
+.archive-result-head h2 { margin: 0; font-size: 20px; letter-spacing: -.022em; }
 .archive-result-head p { margin: 3px 0 0; color: var(--c-text-muted); font-size: var(--t-min); }
 .archive-more { display: block; margin: 16px auto 0; }
 
-.flow-panel { margin-bottom: 20px; padding: 22px; border: 1px solid var(--c-border); border-radius: var(--r-3); background: var(--c-surface); }
+/* 목록은 괘선, 차트만 카드. 홈이 상자 없이 선으로만 위계를 세우는데 흐름 탭만
+   같은 성격의 목록(주간 판세·움직인 이슈)을 흰 상자에 담고 있었다 — 탭을
+   옮기면 다른 제품처럼 읽힌다. 상자를 걷고 구역 머리(2px 잉크)에 맡긴다.
+   차트(.data-card)는 상자를 유지한다: 그래프·해석·근거를 한 덩어리로 묶는
+   목적이 분명하다. */
+.flow-panel { margin-bottom: var(--sp-8); padding: 0; border: 0; background: none; }
 /* 주간 판세 — 고정 코너 5개. 매주 같은 자리에서 같은 질문에 답한다. */
-.weekly-report { margin-bottom: 20px; padding: 22px; border: 1px solid var(--c-border); border-radius: var(--r-3); background: var(--c-surface); }
+.weekly-report { margin-bottom: var(--sp-8); padding: 0; border: 0; background: none; }
 .weekly-block { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--c-border); }
 .weekly-block:first-child { margin-top: 6px; padding-top: 0; border-top: 0; }
 .weekly-block h3 { margin: 0 0 6px; font-size: var(--t-body-lg); }
@@ -1670,14 +1687,16 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .flow-keyword span {
   display: inline-block;
   padding: 2px 9px;
-  border-radius: 999px;
+  border-radius: var(--r-1);
   background: var(--c-surface-sunken);
   color: var(--c-text-muted);
   font-size: var(--t-min);
   font-weight: 650;
 }
-.event-block { margin-top: 10px; padding: 11px 13px; border-radius: var(--r-1); background: var(--c-surface-sunken); }
-.event-block > strong { font-size: var(--t-min); }
+/* 구성 사건은 이 흐름의 근거 목록이다 — 채운 상자 대신 헤어라인으로 붙인다
+   (상세의 사건 타임라인과 같은 성격, 같은 어법). */
+.event-block { margin-top: 12px; padding: 10px 0 0; border-top: 1px solid var(--c-border); background: none; }
+.event-block > strong { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 700; }
 .event-block ul { margin: 5px 0 0; padding: 0; list-style: none; }
 .event-block li { display: grid; grid-template-columns: 64px 1fr; gap: 8px; color: var(--c-text-secondary); font-size: var(--t-min); }
 .event-block time { color: var(--c-text-muted); font-variant-numeric: tabular-nums; }
@@ -1729,7 +1748,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .keyword-row .negative { color: var(--c-critical); font-weight: 700; }
 .bar-row { display: grid; grid-template-columns: minmax(90px, .8fr) minmax(80px, 1.5fr) 28px; align-items: center; gap: 8px; min-height: 31px; font-size: var(--t-min); }
 .bar-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bar-track { height: 8px; overflow: hidden; border-radius: 999px; background: var(--c-surface-sunken); }
+.bar-track { height: 8px; overflow: hidden; border-radius: var(--r-1); background: var(--c-surface-sunken); }
 .bar-track span { display: block; height: 100%; border-radius: inherit; background: var(--c-secondary); }
 .bar-value { color: var(--c-text-muted); text-align: right; font-variant-numeric: tabular-nums; }
 .chart-interpretation { margin: 14px 0 0; padding: 10px 12px; border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 6%, var(--c-surface)); color: var(--c-text-secondary); font-size: var(--t-min); }
@@ -1804,6 +1823,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .status-dialog > div { padding: 22px; }
 .search-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .search-dialog-head h2 { margin: 0; font-size: 20px; }
+/* 이 사이트에서 둥근 것은 상태 점(LED)뿐이다 — 알약 배지 9곳을 각지게 돌린
+   김에 유일하게 남아 있던 원형 버튼도 맞춘다. */
 .search-dialog-head button,
 .dialog-close {
   display: grid;
@@ -1811,11 +1832,14 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   width: 44px;
   height: 44px;
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--r-1);
   background: transparent;
   color: var(--c-text-muted);
   font-size: 24px;
+  transition: background var(--mo-1), color var(--mo-1);
 }
+.search-dialog-head button:hover,
+.dialog-close:hover { background: var(--c-surface-sunken); color: var(--c-text); }
 /* placeholder 는 입력을 시작하면 사라진다. 무엇을 넣는 칸인지 남는 라벨을 둔다. */
 .global-search-label { display: block; margin-top: 18px; color: var(--c-text-muted); font-size: var(--t-min); }
 .global-search-field { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; margin-top: 6px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-2); background: var(--c-surface); }
@@ -1839,17 +1863,48 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .dialog-update h3,
 .dialog-history h3 { margin: 0 0 8px; font-size: 17px; }
 .dialog-update > p { color: var(--c-text-secondary); }
-.dialog-change { padding: 11px 12px; border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 6%, var(--c-surface)); }
+/* ── 상세의 해석 블록 = 홈 선두 카드와 같은 어법 ───────────────────────
+   같은 축(무슨 일 / 왜 중요한가 / 시사점 / 변화 / 미확정)을 홈은 라벨 열 dl 로
+   세우는데 상세만 회색 상자·점선 상자·좌측 색막대 셋으로 따로 그리고 있었다.
+   한 사건을 두 화면이 다른 문법으로 말하면 같은 것으로 안 읽힌다.
+   상자를 걷고 라벨 열 + 헤어라인으로 통일한다 — 클래스·마크업은 그대로 두고
+   보이는 것만 맞춘다(라벨 색으로만 축을 가르는 것도 선두 카드와 같다). */
+.dialog-change,
+.dialog-meaning,
+.dialog-open {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: var(--sp-5);
+  padding: var(--sp-3) 0;
+  border: 0;
+  border-top: 1px solid var(--c-border);
+  border-radius: 0;
+  background: none;
+  color: var(--c-text-secondary);
+}
 .dialog-change strong,
 .dialog-open strong,
-.dialog-meaning strong { display: block; margin-bottom: 3px; color: var(--c-text); font-size: var(--t-min); }
-.dialog-meaning { padding: 11px 12px; border-radius: var(--r-1); background: var(--c-surface-sunken); }
-/* 미확정 사항은 해석과 구분되게 — 점선 테두리로 '아직 채워지지 않은 칸'을 뜻한다.
-   해석(dialog-meaning)의 채운 배경과 달리 배경을 두지 않는다. */
-.dialog-open { padding: 11px 12px; border: 1px dashed var(--c-border); border-radius: var(--r-1); color: var(--c-text-secondary); }
+.dialog-meaning strong {
+  display: block;
+  margin-bottom: 0;
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  font-weight: 700;
+  line-height: 1.75;
+}
+.dialog-change strong { color: var(--c-accent-text); }
+.dialog-open strong { color: var(--c-secondary); }
+@media (max-width: 720px) {
+  .dialog-change,
+  .dialog-meaning,
+  .dialog-open { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .dialog-change strong,
+  .dialog-meaning strong,
+  .dialog-open strong { line-height: 1.5; }
+}
 .ai-badge { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.topic-chip { padding: 3px 8px; border: 1px solid var(--c-border); border-radius: 999px; color: var(--c-text-muted); font-size: var(--t-min); }
+.topic-chip { padding: 3px 8px; border: 1px solid var(--c-border); border-radius: var(--r-1); color: var(--c-text-muted); font-size: var(--t-min); }
 .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .dialog-actions button { min-height: 38px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-1); background: var(--c-surface); color: var(--c-secondary); font-size: var(--t-min); white-space: nowrap; }
 .dialog-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
@@ -2131,7 +2186,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   }
   .archive-filter-drawer > summary::-webkit-details-marker { display: none; }
   .archive-filter-drawer[open] > summary { border-color: var(--c-secondary); background: var(--c-secondary-weak); color: var(--c-secondary); }
-  #archiveFilterCount { min-width: 20px; padding: 1px 6px; border-radius: 999px; background: var(--c-secondary); color: #fff; font-size: var(--t-min); }
+  #archiveFilterCount { min-width: 20px; padding: 1px 6px; border-radius: var(--r-1); background: var(--c-secondary); color: #fff; font-size: var(--t-min); }
   .archive-filter-drawer[open]::before {
     position: fixed;
     z-index: var(--z-scrim);
@@ -2223,7 +2278,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   }
   .mobile-tabs button.active { color: #fff; }
   .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: 2px; background: var(--c-signal); content: ""; }
-  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: 999px; background: var(--c-signal); color: var(--c-primary); font-size: var(--t-min); font-weight: 700; }
+  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-primary); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   .foot { margin-bottom: -68px; }
   .foot-grid { grid-template-columns: 1fr; gap: 16px; }
