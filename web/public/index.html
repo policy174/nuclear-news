@@ -95,6 +95,11 @@
           <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
           <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
           <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
+          <!-- 지난 확인 이후 무엇이 쌓였는지 — 방문 간격을 잇는 한 줄.
+               localStorage(nuclens-last-visit) 기준이라 첫 방문·같은 날
+               재방문에는 뜨지 않는다. 저장은 renderReturnNote 가 한다.
+               액션 줄보다 위: '무엇이 쌓였나'를 읽고 '어디로 갈까'를 고른다. -->
+          <div class="return-note" id="returnNote" hidden></div>
           <div class="hero-actions">
             <button id="showChangedIssues" type="button">달라진 이슈 보기 <span aria-hidden="true">→</span></button>
             <button type="button" data-go-view="trend">흐름 <span aria-hidden="true">→</span></button>
@@ -275,9 +280,14 @@
   </section>
 
   <section id="view-trend" hidden aria-labelledby="trendTitle">
+    <!-- 오버라인과 h1 을 한 덩어리로 묶는다 — .trend-intro 는 flex
+         space-between 이라 래퍼 없이 두 형제를 두면 오버라인은 왼쪽,
+         제목은 오른쪽 끝으로 갈라진다(1440px 실측 확인). -->
     <div class="trend-intro">
-      <p class="eyebrow dark">THIS WEEK</p>
-      <h1 id="trendTitle">흐름</h1>
+      <div>
+        <p class="eyebrow dark">THIS WEEK</p>
+        <h1 id="trendTitle">흐름</h1>
+      </div>
     </div>
     <!-- 금요일 주간 판세 리포트. 고정 코너 5개로 매주 같은 자리에서 같은 질문에
          답한다 — 반복되는 편집 형식이 서비스의 목소리를 만든다. 리포트가 없는
@@ -352,6 +362,13 @@
     <!-- 팔로우한 대상 — 이 화면에 들어왔다고 확인 처리하지 않는다. 확인 시각은
          해당 엔티티 페이지를 실제로 열었을 때만 갱신된다(배지 일괄 소멸 방지). -->
     <section id="followPanel" class="follow-panel" aria-label="팔로우한 대상"></section>
+    <!-- 최근 본 이슈 — 상세를 연 이슈의 발자취(localStorage, MRU 8). "어제 봤던
+         그 이슈"를 검색 없이 되찾는 경로다. 목록에 없는 이슈(재클러스터)는
+         조용히 떨어진다 — 저장이 아니라 흔적이므로 톰스톤을 세우지 않는다. -->
+    <section id="recentPanel" class="recent-panel" aria-label="최근 본 이슈" hidden>
+      <div class="section-heading compact"><div><h2>최근 본 이슈</h2></div><button id="clearRecentIssues" type="button">비우기</button></div>
+      <ol id="recentIssueList"></ol>
+    </section>
     <div class="section-heading compact saved-heading"><div><h2>저장한 이슈</h2></div></div>
     <div id="savedIssueList" class="issue-list"></div>
   </section>

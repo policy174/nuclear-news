@@ -497,6 +497,77 @@ function renderFollowPanel() {
     }).join("");
 }
 
+/* ── 최근 본 이슈 ──────────────────────────────────────────────────
+   상세(다이얼로그·근거 패널)를 연 이슈의 흔적, MRU 8. 저장과 다른 축이다 —
+   저장은 의도, 이건 발자취. 그래서 재클러스터로 사라진 id 는 톰스톤 없이
+   조용히 떨어진다(발자취는 복구 대상이 아니다). */
+function loadRecentIssues() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-recent-issues") || "[]");
+    return Array.isArray(raw) ? raw.filter(id => typeof id === "string").slice(0, 8) : [];
+  } catch { return []; }
+}
+
+function recordRecentIssue(issueId) {
+  if (!issueId) return;
+  const rest = loadRecentIssues().filter(id => id !== issueId);
+  try { localStorage.setItem("nuclens-recent-issues", JSON.stringify([issueId, ...rest].slice(0, 8))); }
+  catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
+}
+
+function renderRecentIssues() {
+  const panel = document.getElementById("recentPanel");
+  if (!panel) return;
+  const rows = loadRecentIssues()
+    .map(id => state.issues.find(issue => issue.issue_id === id))
+    .filter(Boolean);
+  panel.hidden = rows.length === 0;
+  document.getElementById("recentIssueList").innerHTML = rows.map(issue => `<li>
+    <button type="button" class="recent-open" data-issue-id="${esc(issue.issue_id)}">
+      <strong>${esc(issue.title)}</strong>
+      <small>${esc(dateLabel(issue.last_seen))} · 근거 ${issue.article_count || 0}건</small>
+    </button>
+  </li>`).join("");
+}
+
+/* ── 지난 확인 이후 ────────────────────────────────────────────────
+   방문 간격을 잇는 한 줄. 기준점은 '마지막으로 본 브리핑 날짜'(nuclens-last-visit)
+   하나다 — 팔로우 배지처럼 엔티티별로 가르지 않는 건, 여기서 말하는 것이
+   특정 대상이 아니라 지면 전체이기 때문이다. 렌더 즉시 기준점을 오늘로 옮기므로
+   한 방문에 한 번만 뜬다. 숫자는 전부 로컬 데이터에서 센다(추정 0). */
+function loadLastVisit() {
+  try {
+    const raw = JSON.parse(localStorage.getItem("nuclens-last-visit") || "null");
+    return raw && typeof raw === "object" && typeof raw.date === "string" ? raw : null;
+  } catch { return null; }
+}
+
+function renderReturnNote() {
+  const box = document.getElementById("returnNote");
+  if (!box) return;
+  const latest = state.meta?.latest_briefing_date || "";
+  const since = loadLastVisit()?.date || "";
+  try { localStorage.setItem("nuclens-last-visit", JSON.stringify({ date: latest })); }
+  catch { /* 저장 실패가 화면을 죽이면 안 된다 */ }
+  if (!latest || !since || since >= latest) { box.hidden = true; return; }
+  const missed = state.briefings
+    .filter(briefing => briefing.date > since && (briefing.issues || []).length)
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const fresh = state.issues.filter(issue => (issue.first_seen || "") > since).length;
+  const moved = state.issues.filter(issue =>
+    (issue.first_seen || "") <= since && (issue.last_seen || "") > since).length;
+  if (!missed.length && !fresh && !moved) { box.hidden = true; return; }
+  const parts = [];
+  if (missed.length) parts.push(`브리핑 <strong>${missed.length}건</strong>`);
+  if (fresh) parts.push(`새 이슈 <strong>${fresh}</strong>`);
+  if (moved) parts.push(`이어진 이슈 <strong>${moved}</strong>`);
+  box.hidden = false;
+  box.innerHTML = `<span>지난 확인 ${esc(dateLabel(since))} 이후 — ${parts.join(" · ")}</span>`
+    + (missed.length > 1
+      ? `<button type="button" data-return-date="${esc(missed[0].date)}">놓친 브리핑부터 보기 <span aria-hidden="true">→</span></button>`
+      : "");
+}
+
 // 재클러스터로 목록에서 사라진 저장 이슈 — 스냅샷으로 세운 묘비 카드.
 function savedTombstone(issueId, meta) {
   const title = meta?.title || "제목을 알 수 없는 이슈";
@@ -803,7 +874,10 @@ function issueCard(issue, index, archive = false, front = false) {
   // .issue-body 밖으로 나와 각자 열이 된다. 이 둘을 body 안에 두고 CSS
   // display:contents 로 흩으면 제목과 요약이 서로 다른 그리드 행으로 갈라져,
   // 근거 열 높이(98px)가 그 사이 여백으로 배분된다(실측 42px). 열은 열로 나눈다.
-  return `<article class="issue-card ${archive ? "archive-card" : ""} ${front ? "front" : ""} ${issueToneClass(issue)}">
+  // data-issue-card: 행 전체를 상세 진입점으로 만드는 위임 표식. hover 가
+  // 행 배경을 바꾸면서 클릭은 제목만 받던 어긋남을 접는다. 접근성 경로는
+  // 그대로 제목 버튼이다 — 행에 tabindex 를 주면 탭 정지만 두 배가 된다.
+  return `<article class="issue-card ${archive ? "archive-card" : ""} ${front ? "front" : ""} ${issueToneClass(issue)}" data-issue-card="${esc(issue.issue_id)}">
     <div class="issue-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
     <div class="issue-meta">
       <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
@@ -1339,6 +1413,7 @@ function renderArchiveSearch(resetLimit = false) {
 
 function renderSaved() {
   renderFollowPanel();
+  renderRecentIssues();
   const issues = state.issues.filter(issue => state.savedIds.has(issue.issue_id));
   const liveIds = new Set(issues.map(issue => issue.issue_id));
   // 재클러스터로 사라진 저장 — 스냅샷 묘비로 남긴다(조용한 소실 금지).
@@ -1645,6 +1720,7 @@ function renderEvidenceRail() {
 function openIssueDialog(issueId, updateUrl = true) {
   const issue = currentIssueById(issueId);
   if (!issue) return;
+  recordRecentIssue(issueId);
   const dialog = document.getElementById("issueDialog");
   const topics = (issue.topics || []).map(topic => `<span class="topic-chip">${esc(TOPIC_LABELS[topic] || topic)}</span>`).join("");
   const contextDate = state.view === "news" ? state.briefingDate : issue.last_seen;
@@ -1793,7 +1869,9 @@ function keywordRows() {
     const now = top.get(tag) ?? rise?.now ?? 0;
     const prev = rise?.prev ?? (newTags.has(tag) ? 0 : now);
     return { tag, now, prev, delta: now - prev, isNew: newTags.has(tag) || (now > 0 && prev === 0) };
-  });
+    // 0·0 행은 표에 앉을 자격이 없다 — 실측: 수집 키워드가 new_tags 에 올라오고
+    // 언급이 0이면 '한수원 0 0 0 신규' 같은 행이 근거 0건 버튼까지 달고 섰다.
+  }).filter(row => row.now > 0 || row.prev > 0);
 }
 
 function renderKeywordTable() {
@@ -2265,14 +2343,30 @@ function renderSearchResults() {
   const query = normalizedSearch(input.value);
   if (!query) {
     const recent = loadRecentSearches();
-    box.innerHTML = recent.length
-      ? `<div class="search-group"><h3>최근 검색<button type="button" class="search-clear-recent" data-recent-clear>전체 삭제</button></h3>`
+    const groups = [];
+    if (recent.length) {
+      groups.push(`<div class="search-group"><h3>최근 검색<button type="button" class="search-clear-recent" data-recent-clear>전체 삭제</button></h3>`
         + recent.map((item, index) => searchOptionRow(`sr-${index}`,
           `<span>${esc(item)}</span><button type="button" class="search-remove" data-recent-remove="${esc(item)}" aria-label="‘${esc(item)}’ 삭제">×</button>`,
           { "search-query": item })).join("")
-        + "</div>"
-      : "";
-    input.setAttribute("aria-expanded", String(recent.length > 0));
+        + "</div>");
+    }
+    // 검색어를 아직 안 친 화면이 빈 상자면 안 된다 — 탐색 허브와 같은 대상
+    // 목록을 시작점으로 깐다(데이터도 경로도 재사용, data-search-entity 는
+    // applySearchResult 가 이미 처리한다). 결과가 아니라 시작점이므로 최근
+    // 검색 아래에 선다.
+    const starters = (state.entities?.entities || [])
+      .filter(entity => entity.issue_count > 0)
+      .slice(0, 6);
+    if (starters.length) {
+      groups.push(`<div class="search-group"><h3>지금 많이 등장하는 대상</h3>`
+        + starters.map(entity => searchOptionRow(`sr-e${entity.id}`,
+          `<span><small>${esc(ENTITY_TYPE_LABELS[entity.type] || "")}</small> ${esc(entity.name_kr)}</span><small>이슈 ${entity.issue_count}건</small>`,
+          { "search-entity": entity.id })).join("")
+        + "</div>");
+    }
+    box.innerHTML = groups.join("");
+    input.setAttribute("aria-expanded", String(groups.length > 0));
     return;
   }
   const variants = searchVariants(query);
@@ -2433,6 +2527,7 @@ function handleIssueAction(event) {
     // 113개가 부팅 시 openIssueDialog 를 부르므로 그 경로는 살아 있어야 한다.
     // 패널 안의 '전체 상세'(data-force-dialog)는 언제나 다이얼로그를 연다.
     if (!detail.dataset.forceDialog && state.view === "news" && railIsActive()) {
+      recordRecentIssue(detail.dataset.issueId);
       state.railIssueId = detail.dataset.issueId;
       renderEvidenceRail();
       document.getElementById("evidenceRail")?.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" });
@@ -2440,6 +2535,15 @@ function handleIssueAction(event) {
     }
     openIssueDialog(detail.dataset.issueId);
     return true;
+  }
+  // 행 전체 클릭 — hover 가 행을 켜는데 제목만 눌리던 어긋남을 접는다.
+  // 버튼·링크는 위에서 이미 걸렀고, 텍스트를 긁는 중(드래그 선택)이면 열지
+  // 않는다. 동작은 제목 클릭과 완전히 같아야 하므로 새 경로를 만들지 않고
+  // 제목 버튼에 위임한다.
+  const row = event.target.closest("[data-issue-card]");
+  if (row && !event.target.closest("a, button") && window.getSelection().isCollapsed) {
+    const title = row.querySelector(".issue-title-button");
+    if (title) { title.click(); return true; }
   }
   return false;
 }
@@ -2485,8 +2589,24 @@ function bind() {
   // briefingTitle: 기사 제목을 얹은 날의 h1 은 안에 상세 진입 버튼을 품는다.
   // leadCard: 선두 카드 안의 버튼(타임라인·저장·공유)도 같은 위임을 탄다.
   ["issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "issueDialog",
-   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle"].forEach(id => {
+   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle",
+   "recentIssueList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
+  });
+  document.getElementById("clearRecentIssues")?.addEventListener("click", () => {
+    try { localStorage.removeItem("nuclens-recent-issues"); } catch { /* 무해 */ }
+    renderRecentIssues();
+  });
+  // '놓친 브리핑부터 보기' — 지난 브리핑 행(data-go-date)과 같은 경로.
+  document.getElementById("returnNote")?.addEventListener("click", event => {
+    const jump = event.target.closest("[data-return-date]");
+    if (!jump || !briefingDates().includes(jump.dataset.returnDate)) return;
+    state.briefingDate = jump.dataset.returnDate;
+    renderDateSelect();
+    renderBriefing();
+    renderSystemStatus();
+    syncUrl();
+    document.getElementById("leadIssue")?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
   });
   // 발견 허브·엔티티 헤더는 필터 조작 전용 — 이슈 액션 위임과 분리해 받는다.
   ["exploreHub", "entityHeader"].forEach(id => {
@@ -2801,6 +2921,7 @@ async function init() {
   renderTrend();
   renderSaved();
   renderSystemStatus();
+  renderReturnNote();
   switchView(state.view, false);
   if (state.issueId && state.view !== "trend") openIssueDialog(state.issueId, false);
   syncUrl();

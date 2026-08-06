@@ -100,6 +100,8 @@ node web/tests/render_smoke.mjs
 | `nuclens-follows` | 팔로우한 엔티티 id 배열 |
 | `nuclens-follow-seen` | 엔티티별 확인일 — 새 이슈 배지의 기준 |
 | `nuclens-recent-searches` | 통합 검색 최근 검색어(MRU 8) |
+| `nuclens-recent-issues` | 상세를 연 이슈 id(MRU 8) — 저장 탭 '최근 본 이슈' |
+| `nuclens-last-visit` | 마지막으로 본 브리핑 날짜 — 히어로 '지난 확인 이후' 기준점 |
 | `nuclens-audio-rate` | 오디오 브리핑 재생 배속 |
 | `nuclens-theme` | `light` \| `dark` |
 

@@ -3064,7 +3064,8 @@ class MotionTests(unittest.TestCase):
         # JSON 을 읽는 모든 지점이 try/catch 아래에 있어야 한다 — 깨진 저장값이
         # 앱을 죽이면 안 된다. (theme 은 문자열 그대로라 파싱이 없다.)
         for key in ("nuclens-saved-issues", "nuclens-saved-meta",
-                    "nuclens-follows", "nuclens-follow-seen", "nuclens-recent-searches"):
+                    "nuclens-follows", "nuclens-follow-seen", "nuclens-recent-searches",
+                    "nuclens-recent-issues", "nuclens-last-visit"):
             index = self.script.index(f'localStorage.getItem("{key}"')
             self.assertIn("try {", self.script[max(0, index - 240):index],
                           f"{key} 읽기가 try 밖에 있다")
@@ -3293,6 +3294,68 @@ class FirstScreenContentFirstTests(unittest.TestCase):
         mobile = self.style.split("@media (max-width: 767px)", 1)[1]
         brand_small = mobile.split(".brand-copy small {", 1)[1].split("}", 1)[0]
         self.assertIn("display: block", brand_small)
+
+
+class RevisitPathTests(unittest.TestCase):
+    """재방문 가치 — 최근 본 이슈 · '지난 확인 이후' 요약 · 행 전체 클릭.
+
+    셋 다 클라이언트 전용(localStorage)이라 빌드 산출물 없이 소스만 검사한다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        cls.readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+    def test_recent_issue_trail_is_wired(self):
+        # 기록: 다이얼로그·근거 패널 두 열람 경로 모두에서 남는다.
+        dialog = self.script.split("function openIssueDialog(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("recordRecentIssue(", dialog)
+        action = self.script.split("function handleIssueAction(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("recordRecentIssue(", action)
+        # 표시: 저장 탭에서 그리고, 클릭 위임 목록에 컨테이너가 올라 있어야
+        # 산다(위임 목록 누락은 이 저장소의 단골 사고 경로다).
+        self.assertIn('"recentIssueList"', self.script)
+        self.assertIn('id="recentPanel"', self.html)
+        # 발자취는 저장이 아니다 — 사라진 id 는 톰스톤 없이 떨어진다.
+        render = self.script.split("function renderRecentIssues(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn(".filter(Boolean)", render)
+        # 새 키는 README 표에 문서화한다(기존 키들과 같은 계약).
+        self.assertIn("nuclens-recent-issues", self.readme)
+        self.assertIn("nuclens-last-visit", self.readme)
+
+    def test_return_note_shows_once_per_visit(self):
+        render = self.script.split("function renderReturnNote(", 1)[1].split("\nfunction ", 1)[0]
+        # 판정보다 먼저 기준점을 오늘로 옮긴다 — 그래야 한 방문에 한 번만 뜬다.
+        self.assertLess(render.index('setItem("nuclens-last-visit"'), render.index("box.hidden"))
+        # 셀 것이 하나도 없으면 조용히 사라진다. 빈 배너는 공지가 아니라 소음이다.
+        self.assertIn("box.hidden = true", render)
+        # 이동 버튼은 실제 놓친 브리핑이 있을 때만 선다(죽은 컨트롤 금지).
+        self.assertIn("missed.length > 1", render)
+
+    def test_issue_row_click_defers_to_title_button(self):
+        # 행 전체 클릭은 제목 버튼에 위임한다 — 경로가 갈라지면 rail/다이얼로그
+        # 분기가 두 곳에 복제된다.
+        action = self.script.split("function handleIssueAction(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('closest("[data-issue-card]")', action)
+        self.assertIn('closest("a, button")', action)
+        self.assertIn("isCollapsed", action, "드래그 선택을 클릭으로 오인하면 안 된다")
+        # 커서는 실제로 클릭되는 행에만 준다.
+        self.assertIn(".issue-card[data-issue-card] { cursor: pointer; }", self.style)
+
+    def test_keyword_table_drops_zero_rows(self):
+        # 실측: '한수원 0 0 0 신규 근거 0건' — 언급 0·전주 0 행이 신규 배지와
+        # 근거 버튼까지 달고 표에 섰다. 0·0 행은 정보가 아니다.
+        rows = self.script.split("function keywordRows(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("row.now > 0 || row.prev > 0", rows)
+
+    def test_trend_intro_wraps_overline_and_title(self):
+        # .trend-intro 는 flex space-between — 래퍼 없이 두 형제를 두면
+        # 오버라인과 h1 이 화면 양끝으로 갈라진다(1440px 실측 사고).
+        intro = self.html.split('class="trend-intro"', 1)[1].split("</h1>", 1)[0]
+        self.assertIn("<div>", intro)
 
 
 if __name__ == "__main__":
