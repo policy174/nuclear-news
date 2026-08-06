@@ -773,6 +773,23 @@ _TITLE_PREFIX_REJECT = re.compile(
 )
 
 
+# 제목 제외어로 절대 쓰면 안 되는 말 — 이 도메인의 핵심 어휘다.
+#
+# 왜 필요한가: 2026-08-06 에 네이버 쿼리를 수리하면서 negative_terms 를 제목
+# 제외어로 **용도 변경**했는데, 그 목록에 있던 '공모'(의도는 공모주)가 고준위
+# 방폐장 부지공모 기사를 통째로 죽였다. 이름이 그대로라 무엇이 바뀌었는지
+# 안 보였고, 테스트는 하드코딩 목록을 쓰고 있어 잡지 못했다.
+#
+# 주석만으로는 다음 사람을 못 막는다. 값이 들어오면 **버리고 로그에 찍는다** —
+# 예외를 올리면 keywords.json 오타 하나가 시간당 크롤을 세운다.
+_PROTECTED_TITLE_WORDS = {
+    "공모",      # 방폐장 부지공모 · 지역상생 사업공모 (공모주만 자르려면 '공모주')
+    "병원",      # 원자력병원 · 원자력의학원
+    "부지", "공청회", "주민", "설명회", "수용성",  # 입지·수용성 보도의 핵심어
+    "원전", "원자력", "핵연료", "방폐",            # 도메인 그 자체
+}
+
+
 def parse_negative_terms(negative_terms: str) -> list[str]:
     """'-주가 -채용' → ['주가', '채용'].
 
@@ -782,9 +799,19 @@ def parse_negative_terms(negative_terms: str) -> list[str]:
 
     부고·인사·채용·주가처럼 제목에 이 말이 들어가면 그 기사가 정말 그 기사다.
     원자력 브리핑에서 필요 없는 것들이므로 제목 부분일치로 자르는 게 맞다.
+
+    ⚠️ ``_PROTECTED_TITLE_WORDS`` 에 든 말은 걸러낸다. 용도가 바뀐 설정에
+    도메인 핵심어가 남아 있으면 정상 기사가 통째로 사라진다.
     """
-    return [t.lstrip("-").strip().lower()
-            for t in (negative_terms or "").split() if t.lstrip("-").strip()]
+    terms = [t.lstrip("-").strip().lower()
+             for t in (negative_terms or "").split() if t.lstrip("-").strip()]
+    kept, blocked = [], []
+    for term in terms:
+        (blocked if term in _PROTECTED_TITLE_WORDS else kept).append(term)
+    if blocked:
+        print(f"  ! 제목 제외어에서 도메인 핵심어 제거: {', '.join(blocked)} "
+              f"(keywords.json 을 고칠 것 — 이 말이 든 제목은 대개 정상 기사다)")
+    return kept
 
 
 def is_rejected_title(title: str, negative_terms: list[str]) -> bool:

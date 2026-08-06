@@ -927,6 +927,23 @@ class TestRejectedTitles(unittest.TestCase):
         self.assertFalse(nb.is_rejected_title(
             "원안위, 신규 원전 안전기준 개정", self.NEG))
 
+    def test_domain_core_words_are_refused_as_reject_terms(self):
+        """설정에 도메인 핵심어가 들어오면 버린다 — 주석은 다음 사람을 못 막는다.
+
+        2026-08-06: negative_terms 를 제목 제외어로 용도 변경하면서 '공모'(의도는
+        공모주)가 남아 고준위 방폐장 부지공모 기사를 통째로 죽였다.
+        """
+        terms = nb.parse_negative_terms("-주가 -공모 -병원 -부지 -채용")
+        self.assertEqual(terms, ["주가", "채용"])
+
+    def test_protected_words_do_not_break_the_crawl(self):
+        """예외를 올리면 keywords.json 오타 하나가 시간당 크롤을 세운다."""
+        self.assertEqual(nb.parse_negative_terms("-원전 -원자력"), [])
+
+    def test_narrowed_variants_still_pass(self):
+        """'공모'는 막고 '공모주'는 통과 — 원래 의도(IPO 제외)는 살아 있어야 한다."""
+        self.assertIn("공모주", nb.parse_negative_terms("-공모주"))
+
     def test_parse_negative_terms(self):
         self.assertEqual(["주가", "채용"], nb.parse_negative_terms("-주가 -채용"))
         self.assertEqual([], nb.parse_negative_terms(""))
