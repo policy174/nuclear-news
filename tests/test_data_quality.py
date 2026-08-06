@@ -234,3 +234,48 @@ class TestHollowImplication(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestPortalRelaysAreNotIndependent(unittest.TestCase):
+    """포털 중계는 독립 출처가 아니다.
+
+    원 매체 기사를 그대로 실어 나르므로, 원문과 포털 사본이 같은 이슈 클러스터에
+    들어가면 build_data._is_independent_source 가 둘 다 세어 '복수 출처 확인'
+    배지를 위조한다. 실측 2026-08-06: 아카이브 970건 중 23건이 포털 중계였고
+    **전부 independent 로 잡혀 있었다**(네이트 12 · v.daum.net 6 · MSN 5).
+
+    대부분 Google News 피드의 <source> 가 포털로 찍혀 들어오므로 domain 은
+    news.google.co.kr 이다 — 별칭(publisher) 매칭이 살아 있어야 잡힌다.
+    """
+
+    PORTALS = ("네이트", "v.daum.net", "MSN", "다음", "네이버")
+
+    def test_portal_publisher_is_a_relay(self):
+        for publisher in self.PORTALS:
+            with self.subTest(publisher=publisher):
+                profile = source_profile("news.google.co.kr", publisher)
+                self.assertEqual("distributed_claim", profile["evidence_role"])
+
+    def test_portal_domain_is_a_relay(self):
+        for domain in ("daum.net", "v.daum.net", "n.news.naver.com",
+                       "news.nate.com", "msn.com"):
+            with self.subTest(domain=domain):
+                self.assertEqual("distributed_claim",
+                                 source_profile(domain, "")["evidence_role"])
+
+    def test_real_outlets_stay_independent(self):
+        # 포털을 거른다고 진짜 매체까지 걸리면 검증이 통째로 죽는다.
+        for domain, publisher in (("yna.co.kr", "연합뉴스"),
+                                  ("news.google.co.kr", "전기신문"),
+                                  ("chosun.com", "조선일보"),
+                                  ("kbs.co.kr", "KBS 뉴스")):
+            with self.subTest(publisher=publisher):
+                self.assertEqual("independent",
+                                 source_profile(domain, publisher)["evidence_role"])
+
+    def test_official_sources_are_unaffected(self):
+        self.assertEqual("primary", source_profile("nssc.go.kr", "")["evidence_role"])
+
+    def test_ranking_tier_is_unchanged(self):
+        # 랭킹 점수는 건드리지 않는다 — 등록 전에도 tier3 기본값이었다.
+        self.assertEqual(3, source_profile("news.google.co.kr", "네이트")["source_tier"])

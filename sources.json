@@ -4,59 +4,614 @@
   "tier1_bonus": 40,
   "tier2_bonus": 20,
   "tier1": [
-    { "domain": "iaea.org", "name": "IAEA", "aliases": ["IAEA", "국제원자력기구", "@IAEAorg"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "oecd-nea.org", "name": "OECD NEA", "aliases": ["OECD NEA", "Nuclear Energy Agency", "@OECD_NEA"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "nrc.gov", "name": "US NRC", "aliases": ["US NRC", "미국 원자력규제위원회", "@NRCgov"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "energy.gov", "name": "US DOE", "aliases": ["US DOE", "Department of Energy", "미국 에너지부", "@ENERGY", "@energydotgov", "@DOEnuclear"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "nssc.go.kr", "name": "원자력안전위원회", "aliases": ["원안위", "원자력안전위원회"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "motie.go.kr", "name": "산업통상자원부", "aliases": ["산업부", "산업통상자원부"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "khnp.co.kr", "name": "한국수력원자력", "aliases": ["한수원", "한국수력원자력", "KHNP"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "kaeri.re.kr", "name": "한국원자력연구원", "aliases": ["원자력연구원", "한국원자력연구원", "KAERI"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "kins.re.kr", "name": "한국원자력안전기술원", "aliases": ["원자력안전기술원", "KINS"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "korad.or.kr", "name": "한국원자력환경공단", "aliases": ["원자력환경공단", "KORAD"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "world-nuclear-news.org", "name": "World Nuclear News", "aliases": ["World Nuclear News", "WNN", "@WNN_Updates"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "nucnet.org", "name": "NucNet", "aliases": ["NucNet", "@NucNet"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "neimagazine.com", "name": "Nuclear Engineering International", "aliases": ["Nuclear Engineering International", "NEI Magazine"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "ans.org", "name": "ANS Nuclear Newswire", "aliases": ["American Nuclear Society", "Nuclear Newswire", "ANS Nuclear Newswire", "@ans_org"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "world-nuclear.org", "name": "World Nuclear Association", "aliases": ["World Nuclear Association", "WNA", "@World_Nuclear"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "iea.org", "name": "IEA", "aliases": ["International Energy Agency", "IEA", "@IEA"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "nei.org", "name": "Nuclear Energy Institute", "aliases": ["Nuclear Energy Institute", "@NEI"], "source_type": "official", "evidence_role": "primary", "rank_tier": 1 },
-    { "domain": "sfen.org", "name": "SFEN", "aliases": ["SFEN", "Société Française d'Énergie Nucléaire", "Revue Générale Nucléaire"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 }
+    {
+      "domain": "iaea.org",
+      "name": "IAEA",
+      "aliases": [
+        "IAEA",
+        "국제원자력기구",
+        "@IAEAorg"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "oecd-nea.org",
+      "name": "OECD NEA",
+      "aliases": [
+        "OECD NEA",
+        "Nuclear Energy Agency",
+        "@OECD_NEA"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "nrc.gov",
+      "name": "US NRC",
+      "aliases": [
+        "US NRC",
+        "미국 원자력규제위원회",
+        "@NRCgov"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "energy.gov",
+      "name": "US DOE",
+      "aliases": [
+        "US DOE",
+        "Department of Energy",
+        "미국 에너지부",
+        "@ENERGY",
+        "@energydotgov",
+        "@DOEnuclear"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "nssc.go.kr",
+      "name": "원자력안전위원회",
+      "aliases": [
+        "원안위",
+        "원자력안전위원회"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "motie.go.kr",
+      "name": "산업통상자원부",
+      "aliases": [
+        "산업부",
+        "산업통상자원부"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "khnp.co.kr",
+      "name": "한국수력원자력",
+      "aliases": [
+        "한수원",
+        "한국수력원자력",
+        "KHNP"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "kaeri.re.kr",
+      "name": "한국원자력연구원",
+      "aliases": [
+        "원자력연구원",
+        "한국원자력연구원",
+        "KAERI"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "kins.re.kr",
+      "name": "한국원자력안전기술원",
+      "aliases": [
+        "원자력안전기술원",
+        "KINS"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "korad.or.kr",
+      "name": "한국원자력환경공단",
+      "aliases": [
+        "원자력환경공단",
+        "KORAD"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "world-nuclear-news.org",
+      "name": "World Nuclear News",
+      "aliases": [
+        "World Nuclear News",
+        "WNN",
+        "@WNN_Updates"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "nucnet.org",
+      "name": "NucNet",
+      "aliases": [
+        "NucNet",
+        "@NucNet"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "neimagazine.com",
+      "name": "Nuclear Engineering International",
+      "aliases": [
+        "Nuclear Engineering International",
+        "NEI Magazine"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "ans.org",
+      "name": "ANS Nuclear Newswire",
+      "aliases": [
+        "American Nuclear Society",
+        "Nuclear Newswire",
+        "ANS Nuclear Newswire",
+        "@ans_org"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "world-nuclear.org",
+      "name": "World Nuclear Association",
+      "aliases": [
+        "World Nuclear Association",
+        "WNA",
+        "@World_Nuclear"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "iea.org",
+      "name": "IEA",
+      "aliases": [
+        "International Energy Agency",
+        "IEA",
+        "@IEA"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "nei.org",
+      "name": "Nuclear Energy Institute",
+      "aliases": [
+        "Nuclear Energy Institute",
+        "@NEI"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
+    },
+    {
+      "domain": "sfen.org",
+      "name": "SFEN",
+      "aliases": [
+        "SFEN",
+        "Société Française d'Énergie Nucléaire",
+        "Revue Générale Nucléaire"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    }
   ],
   "tier2": [
-    { "domain": "reuters.com", "name": "Reuters", "aliases": ["Reuters", "로이터", "@reuters"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "latribune.fr", "name": "La Tribune", "aliases": ["La Tribune"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "bloomberg.com", "name": "Bloomberg", "aliases": ["Bloomberg", "블룸버그", "@BloombergNRG"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "ft.com", "name": "Financial Times", "aliases": ["Financial Times", "파이낸셜타임스", "@FT_Energy"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "politico.eu", "name": "Politico EU", "aliases": ["Politico EU"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "euractiv.com", "name": "Euractiv", "aliases": ["Euractiv", "EURACTIV", "유락티브"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "politico.com", "name": "Politico", "aliases": ["Politico"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "axios.com", "name": "Axios", "aliases": ["Axios", "@axios"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "powermag.com", "name": "POWER Magazine", "aliases": ["POWER Magazine", "@PowerMag"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "lesechos.fr", "name": "Les Échos", "aliases": ["Les Echos", "Les Échos"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "lemonde.fr", "name": "Le Monde", "aliases": ["Le Monde", "르몽드"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "eenews.net", "name": "E&E News", "aliases": ["E&E News", "Energywire", "Climatewire"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "utilitydive.com", "name": "Utility Dive", "aliases": ["Utility Dive"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "spectrum.ieee.org", "name": "IEEE Spectrum", "aliases": ["IEEE Spectrum"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "apnews.com", "name": "AP", "aliases": ["Associated Press", "AP통신"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "cnbc.com", "name": "CNBC", "aliases": ["CNBC"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "koreaherald.com", "name": "Korea Herald", "aliases": ["Korea Herald", "코리아헤럴드"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "koreatimes.co.kr", "name": "Korea Times", "aliases": ["Korea Times", "코리아타임스"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "yna.co.kr", "name": "연합뉴스", "aliases": ["Yonhap", "연합뉴스", "연합뉴스TV"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "electimes.com", "name": "전기신문", "aliases": ["전기신문"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 },
-    { "domain": "thebulletin.org", "name": "Bulletin of the Atomic Scientists", "aliases": ["Bulletin of the Atomic Scientists"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 2 }
+    {
+      "domain": "reuters.com",
+      "name": "Reuters",
+      "aliases": [
+        "Reuters",
+        "로이터",
+        "@reuters"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "latribune.fr",
+      "name": "La Tribune",
+      "aliases": [
+        "La Tribune"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "bloomberg.com",
+      "name": "Bloomberg",
+      "aliases": [
+        "Bloomberg",
+        "블룸버그",
+        "@BloombergNRG"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "ft.com",
+      "name": "Financial Times",
+      "aliases": [
+        "Financial Times",
+        "파이낸셜타임스",
+        "@FT_Energy"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "politico.eu",
+      "name": "Politico EU",
+      "aliases": [
+        "Politico EU"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "euractiv.com",
+      "name": "Euractiv",
+      "aliases": [
+        "Euractiv",
+        "EURACTIV",
+        "유락티브"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "politico.com",
+      "name": "Politico",
+      "aliases": [
+        "Politico"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "axios.com",
+      "name": "Axios",
+      "aliases": [
+        "Axios",
+        "@axios"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "powermag.com",
+      "name": "POWER Magazine",
+      "aliases": [
+        "POWER Magazine",
+        "@PowerMag"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "lesechos.fr",
+      "name": "Les Échos",
+      "aliases": [
+        "Les Echos",
+        "Les Échos"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "lemonde.fr",
+      "name": "Le Monde",
+      "aliases": [
+        "Le Monde",
+        "르몽드"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "eenews.net",
+      "name": "E&E News",
+      "aliases": [
+        "E&E News",
+        "Energywire",
+        "Climatewire"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "utilitydive.com",
+      "name": "Utility Dive",
+      "aliases": [
+        "Utility Dive"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "spectrum.ieee.org",
+      "name": "IEEE Spectrum",
+      "aliases": [
+        "IEEE Spectrum"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "apnews.com",
+      "name": "AP",
+      "aliases": [
+        "Associated Press",
+        "AP통신"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "cnbc.com",
+      "name": "CNBC",
+      "aliases": [
+        "CNBC"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "koreaherald.com",
+      "name": "Korea Herald",
+      "aliases": [
+        "Korea Herald",
+        "코리아헤럴드"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "koreatimes.co.kr",
+      "name": "Korea Times",
+      "aliases": [
+        "Korea Times",
+        "코리아타임스"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "yna.co.kr",
+      "name": "연합뉴스",
+      "aliases": [
+        "Yonhap",
+        "연합뉴스",
+        "연합뉴스TV"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "electimes.com",
+      "name": "전기신문",
+      "aliases": [
+        "전기신문"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "thebulletin.org",
+      "name": "Bulletin of the Atomic Scientists",
+      "aliases": [
+        "Bulletin of the Atomic Scientists"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 2
+    }
   ],
   "tier3": [
-    { "domain": "globenewswire.com", "name": "GlobeNewswire", "aliases": ["GlobeNewswire"], "source_type": "press_release", "evidence_role": "distributed_claim", "rank_tier": 3 },
-    { "domain": "prnewswire.com", "name": "PR Newswire", "aliases": ["PR Newswire"], "source_type": "press_release", "evidence_role": "distributed_claim", "rank_tier": 3 },
-    { "domain": "businesswire.com", "name": "Business Wire", "aliases": ["Business Wire"], "source_type": "press_release", "evidence_role": "distributed_claim", "rank_tier": 3 },
-    { "domain": "kbs.co.kr", "name": "KBS 뉴스", "aliases": ["KBS 뉴스", "KBS뉴스"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "news1.kr", "name": "뉴스1", "aliases": ["뉴스1"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "newsis.com", "name": "뉴시스", "aliases": ["뉴시스"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "mt.co.kr", "name": "머니투데이", "aliases": ["머니투데이"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "sedaily.com", "name": "서울경제", "aliases": ["서울경제", "서울경제신문"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "etnews.com", "name": "전자신문", "aliases": ["전자신문"], "source_type": "general_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "energy-news.co.kr", "name": "에너지신문", "aliases": ["에너지신문"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 3 },
-    { "domain": "ekn.kr", "name": "에너지경제", "aliases": ["에너지경제", "에너지경제신문"], "source_type": "specialist_media", "evidence_role": "independent", "rank_tier": 3 }
-  ]
+    {
+      "domain": "globenewswire.com",
+      "name": "GlobeNewswire",
+      "aliases": [
+        "GlobeNewswire"
+      ],
+      "source_type": "press_release",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "prnewswire.com",
+      "name": "PR Newswire",
+      "aliases": [
+        "PR Newswire"
+      ],
+      "source_type": "press_release",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "businesswire.com",
+      "name": "Business Wire",
+      "aliases": [
+        "Business Wire"
+      ],
+      "source_type": "press_release",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "kbs.co.kr",
+      "name": "KBS 뉴스",
+      "aliases": [
+        "KBS 뉴스",
+        "KBS뉴스"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "news1.kr",
+      "name": "뉴스1",
+      "aliases": [
+        "뉴스1"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "newsis.com",
+      "name": "뉴시스",
+      "aliases": [
+        "뉴시스"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "mt.co.kr",
+      "name": "머니투데이",
+      "aliases": [
+        "머니투데이"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "sedaily.com",
+      "name": "서울경제",
+      "aliases": [
+        "서울경제",
+        "서울경제신문"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "etnews.com",
+      "name": "전자신문",
+      "aliases": [
+        "전자신문"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "energy-news.co.kr",
+      "name": "에너지신문",
+      "aliases": [
+        "에너지신문"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "ekn.kr",
+      "name": "에너지경제",
+      "aliases": [
+        "에너지경제",
+        "에너지경제신문"
+      ],
+      "source_type": "specialist_media",
+      "evidence_role": "independent",
+      "rank_tier": 3
+    },
+    {
+      "domain": "nate.com",
+      "name": "네이트",
+      "aliases": [
+        "네이트",
+        "Nate",
+        "news.nate.com"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "daum.net",
+      "name": "다음",
+      "aliases": [
+        "다음",
+        "Daum",
+        "v.daum.net",
+        "news.daum.net"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "msn.com",
+      "name": "MSN",
+      "aliases": [
+        "MSN",
+        "msn.com"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    },
+    {
+      "domain": "naver.com",
+      "name": "네이버 뉴스",
+      "aliases": [
+        "네이버",
+        "Naver",
+        "n.news.naver.com",
+        "news.naver.com"
+      ],
+      "source_type": "general_media",
+      "evidence_role": "distributed_claim",
+      "rank_tier": 3
+    }
+  ],
+  "_comment_portals": "포털 중계(네이트·다음·MSN·네이버)는 evidence_role=distributed_claim 이다. 원 매체의 기사를 그대로 실어 나르므로 **독립 출처가 아니다** — 원문과 포털 사본이 같은 이슈 클러스터에 들어가면 _is_independent_source 가 둘 다 세어 '복수 출처 확인' 배지를 위조한다. 실측 2026-08-06 아카이브 970건 중 23건이 이 꼴이었고 전부 independent 로 잡혀 있었다(네이트 12·v.daum.net 6·MSN 5). 대부분 Google News 피드에서 <source> 가 포털로 찍혀 들어온다 — 원 언론사 복원은 리다이렉트를 따라가야 해서 별건이고, 그 전까지는 재인용으로 다룬다. 랭킹 점수는 바뀌지 않는다(둘 다 tier3 기본값)."
 }
