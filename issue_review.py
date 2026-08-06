@@ -38,10 +38,22 @@
     아카이브에 안 들어오는 것**이었다. 국내 네이버 쿼리가 제외 연산자로 죽어 있어
     (2026-08-06 수리) 전력거래소 한빛 점검 같은 5개 매체 사건이 1건만 들어왔다.
 
+    2026-08-06 — **밴드가 아니라 캐시가 중복을 만들고 있었다.** 그날 브리핑에
+    must_read 두 장이 같은 사건이었다("원안위, 고리 3·4호기 계속운전 올해 하반기
+    결정" ↔ "… 연내 결론"). 8/2 판정은 "한쪽이 개별, 다른 쪽이 일반"이었고 **당시엔
+    옳았다**("고리 3·4호기 심의 지연" ↔ "수명 만료 원전 4기 인허가 지연"). 이후
+    일반 쪽이 기사를 흡수하며 개별로 수렴했는데, 캐시 키가 이슈 해시 쌍뿐이라
+    판정이 영구히 남았다. 더 심한 쌍도 있었다 — 두 이슈의 제목이 글자까지
+    같아졌는데도("중국, 신규 원자로 8기 건설 승인") 갈라진 채였다.
+    → REASK_OVERLAP_RISE 참조.
+
 설계:
     - 회색지대 쌍만 모아 배치 1회 호출. 실측 하루 0.33쌍이라 보통 호출 0~1회.
     - 판정은 issue_llm_reviews.json 에 캐시한다. 웹 빌드는 하루 12회 이상 돌기
       때문에 캐시가 없으면 같은 쌍을 하루에 열두 번 묻게 된다.
+    - **캐시는 영구가 아니다.** 거부 판정은 두 이슈가 서로 가까워지면 무효가 된다
+      (REASK_OVERLAP_RISE). 판정은 그 시점의 내용에 대한 것이지 이슈 쌍에 대한
+      영구 사실이 아니다.
     - 키가 없거나 호출이 실패하면 **병합하지 않는다**. false merge 가 누락보다
       해롭다는 issue_similarity 의 원칙을 그대로 따른다. 판정 실패는 캐시하지
       않으므로 다음 빌드에서 다시 시도한다.
@@ -54,6 +66,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -74,6 +87,34 @@ REVIEW_BAND_HIGH = 0.92
 
 # 프롬프트를 고치면 올린다. 캐시된 옛 판정이 자동으로 무효가 된다.
 PROMPT_VERSION = 1
+
+# 거부 판정을 다시 묻는 문턱 — 두 이슈 제목의 어휘 겹침이 판정 당시보다 이만큼
+# 올랐을 때.
+#
+# 왜 필요한가: 캐시 키가 이슈 해시 쌍뿐이라 **판정 근거였던 내용이 바뀌어도 판정이
+# 영구히 남는다.** 이슈 제목은 클러스터가 기사를 흡수할 때마다 다시 생성되므로,
+# 하루면 "다른 사건"이던 두 쌍이 같은 사건으로 수렴할 수 있다. 실측(2026-08-06
+# 라이브, 캐시 236건 중 두 이슈가 모두 살아있는 95건):
+#
+#     +0.833  당시 "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료" ↔ "중국 정부, 신규 원전 8기 승인"
+#             현재 "중국, 신규 원자로 8기 건설 승인" ↔ "중국, 신규 원자로 8기 건설 승인"
+#     +0.204  당시 "고리 3·4호기 계속운전 심의 지연" ↔ "수명 만료 원전 4기, 인허가 지연"
+#             현재 "원안위, 고리 3·4호기 계속운전 연내 결론" ↔ "원안위, 고리 3·4호기 … 하반기 결정"
+#
+# 앞의 것은 **제목이 글자까지 같아졌는데** 8/2 판정("한쪽이 개별, 다른 쪽이 일반")이
+# 그대로 살아 두 이슈로 갈라져 있었다. 뒤의 것은 그날 브리핑에 must_read 두 장으로
+# 중복 노출됐다.
+#
+# 왜 '제목이 바뀌면 재질의'가 아니라 겹침 상승인가: 같은 실측에서 제목 드리프트는
+# 95건 중 47건(49%)인데 대부분 무해한 재표현이다("Natura Resources, 용융염 원자로
+# 협약 DOE 승인" → "미국 에너지부, Natura Resources 안전설계협약 승인"). 상대가
+# 그대로면 다시 물어도 답이 같다. 겹침 상승으로 거르면 46건 중 3건만 남고 그중
+# 2건이 진짜 병합 대상이다.
+#
+# 왜 코사인 유사도가 아닌가: embeddings.json 은 커밋되지 않아 판정 시점 값과
+# 현재 값을 대조할 방법이 빌드 밖에 없다. 어휘 겹침은 캐시에 이미 저장된
+# left_title/right_title 만으로 오프라인 검증이 된다.
+REASK_OVERLAP_RISE = 0.10
 
 # 한 번에 묻는 쌍 수. 한국어 판정 한 줄이 40~60 토큰이라 20쌍이면 출력이
 # 1,500 토큰 안쪽이다. thinking 토큰이 출력 예산을 먹으므로 여유를 크게 둔다.
@@ -208,14 +249,59 @@ def save_cache(cache: dict, path: Path = CACHE_FILE) -> None:
         pass
 
 
-def cached_verdict(cache: dict, pair_id: str) -> bool | None:
+_TITLE_TOKEN = re.compile(r"[0-9A-Za-z가-힣·]+")
+
+
+def _title_tokens(text: object) -> set[str]:
+    """제목을 어휘 집합으로. 한 글자는 버린다 — '및'·'의' 가 겹침을 부풀린다."""
+    return {w for w in _TITLE_TOKEN.findall(str(text or "").lower()) if len(w) > 1}
+
+
+def title_overlap(left: object, right: object) -> float:
+    """두 제목의 자카드 겹침. 0.0 ~ 1.0, 대칭이다.
+
+    ⚠️ 대칭이어야 한다. candidate_id 의 좌우 순서와 캐시에 저장된 left/right 순서가
+    항상 같지는 않다(라이브 실측에서 뒤집힌 쌍이 있다).
+    """
+    a, b = _title_tokens(left), _title_tokens(right)
+    union = a | b
+    return len(a & b) / len(union) if union else 0.0
+
+
+def should_reask(entry: dict, left_title: object, right_title: object,
+                 rise: float = REASK_OVERLAP_RISE) -> bool:
+    """거부 판정을 다시 물어야 하는가 — 두 이슈가 판정 이후 서로 가까워졌는가.
+
+    승인 판정은 대상이 아니다. 승인되면 두 이슈가 병합되므로 다시 후보로 오지 않고,
+    설령 온다 해도 '더 가까워졌으니 다시 물어라'가 뒤집을 것이 없다.
+    """
+    if entry.get("same_event") is not False:
+        return False
+    before = title_overlap(entry.get("left_title"), entry.get("right_title"))
+    after = title_overlap(left_title, right_title)
+    return after - before >= rise
+
+
+def cached_verdict(cache: dict, pair_id: str,
+                   left_title: object = None,
+                   right_title: object = None) -> bool | None:
+    """캐시된 판정. 없거나 무효면 None(= 이번 회차에 다시 묻는다).
+
+    제목을 넘기지 않으면 재질의 판단을 건너뛴다 — 호출부가 아직 제목을 모르는
+    경우(테스트·도구)에 기존 동작을 그대로 둔다.
+    """
     entry = cache.get(pair_id)
     if not isinstance(entry, dict):
         return None
     if entry.get("prompt_version") != PROMPT_VERSION:
         return None
     verdict = entry.get("same_event")
-    return verdict if isinstance(verdict, bool) else None
+    if not isinstance(verdict, bool):
+        return None
+    if (left_title is not None or right_title is not None) and \
+            should_reask(entry, left_title, right_title):
+        return None
+    return verdict
 
 
 def build_user_message(pairs: list[dict]) -> str:
@@ -298,7 +384,14 @@ def _ask_priority(row: dict) -> tuple:
         or diagnostics.get("shared_facility_entities")
     )
     newest = max(str(row.get("left_date") or ""), str(row.get("right_date") or ""))
-    return (shared_facility, newest, similarity)
+    # 재질의가 맨 앞이다. 두 이슈가 판정 이후 실제로 가까워졌다는 증거가 있는 쌍이라
+    # 아직 아무 근거가 없는 새 쌍보다 병합될 확률이 높다.
+    return (bool(row.get("_reask")), shared_facility, newest, similarity)
+
+
+# _ask_priority 튜플의 자리. 테스트가 위치로 읽으므로 순서를 바꾸면 여기도 고친다.
+PRIORITY_REASK = 0
+PRIORITY_FACILITY = 1
 
 
 def review_pairs(review_candidates: list[dict], *,
@@ -320,6 +413,7 @@ def review_pairs(review_candidates: list[dict], *,
         "prompt_version": PROMPT_VERSION,
         "candidates": len(pairs),
         "from_cache": 0,
+        "reasked": 0,
         "asked": 0,
         "calls": 0,
         "approved": 0,
@@ -338,8 +432,14 @@ def review_pairs(review_candidates: list[dict], *,
     verdicts: dict[str, bool] = {}
     todo: list[dict] = []
     for row in pairs:
-        hit = cached_verdict(cache, row["candidate_id"])
+        hit = cached_verdict(cache, row["candidate_id"],
+                             row.get("left_title"), row.get("right_title"))
         if hit is None:
+            # 캐시에 거부가 있는데도 여기로 왔다면 두 이슈가 서로 가까워진 것이다.
+            # 새 쌍보다 먼저 묻는다(_ask_priority) — 증거가 실제로 움직인 쌍이다.
+            if row["candidate_id"] in cache:
+                row["_reask"] = True
+                stats["reasked"] += 1
             todo.append(row)
         else:
             verdicts[row["candidate_id"]] = hit

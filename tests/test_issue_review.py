@@ -129,6 +129,80 @@ class ReviewTests(unittest.TestCase):
         _verdicts, stats = self.review([candidate("p1")], client)
         self.assertEqual(stats["calls"], 1)
 
+    def test_converged_titles_reopen_a_rejection(self):
+        """거부 판정 뒤 두 이슈가 같은 사건으로 수렴하면 다시 묻는다.
+
+        2026-08-06 라이브 실측: 8/2 에 "한쪽이 개별, 다른 쪽이 일반"으로 거부된
+        고리 3·4호기 쌍이 이후 양쪽 다 "원안위, 고리 3·4호기 계속운전 …" 으로
+        바뀌었는데도 판정이 살아 있어 must_read 두 장으로 중복 노출됐다.
+        """
+        first = candidate("p1", left="고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
+                          right="수명 만료 원전 4기, 계속운전 인허가 절차 지연 지속")
+        self.review([first], FakeClient([verdict_response(1, same=False)]))
+
+        converged = candidate("p1",
+                              left="원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+                              right="원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진")
+        client = FakeClient([verdict_response(1, same=True)])
+        verdicts, stats = self.review([converged], client)
+        self.assertEqual(verdicts, {"p1": True})
+        self.assertEqual((stats["calls"], stats["reasked"], stats["from_cache"]), (1, 1, 0))
+        cached = json.loads(self.cache_path.read_text(encoding="utf-8"))["reviews"]["p1"]
+        self.assertTrue(cached["same_event"])
+        self.assertIn("원안위", cached["left_title"])
+
+    def test_cosmetic_rephrasing_does_not_reopen(self):
+        """제목이 바뀌어도 상대가 그대로면 다시 묻지 않는다.
+
+        같은 실측에서 제목 드리프트 47건 중 대부분이 이 모양이었다 —
+        "Natura Resources, 용융염 원자로 협약 DOE 승인" →
+        "미국 에너지부, Natura Resources 안전설계협약 승인". 다시 물어도 답이 같다.
+        """
+        first = candidate("p1", left="Natura Resources, 용융염 원자로 핵 안전 설계 협약 DOE 승인 발표",
+                          right="LANL, ZiaCore 마이크로원자로 임계 도달 발표")
+        self.review([first], FakeClient([verdict_response(1, same=False)]))
+
+        rephrased = candidate("p1", left="미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+                              right="LANL, ZiaCore 마이크로원자로 임계 도달 발표")
+        client = FakeClient([verdict_response(1, same=True)])
+        verdicts, stats = self.review([rephrased], client)
+        self.assertEqual(verdicts, {"p1": False})
+        self.assertEqual(client.calls, [])
+        self.assertEqual((stats["calls"], stats["reasked"], stats["from_cache"]), (0, 0, 1))
+
+    def test_approval_is_never_reopened(self):
+        """승인 판정은 수렴해도 다시 묻지 않는다 — 뒤집을 것이 없다."""
+        first = candidate("p1", left="중국 뤼펑 2호기 슈퍼 모듈 설치 완료",
+                          right="중국 정부, 신규 원전 8기 건설 승인")
+        self.review([first], FakeClient([verdict_response(1, same=True)]))
+        same_title = candidate("p1", left="중국, 신규 원자로 8기 건설 승인",
+                               right="중국, 신규 원자로 8기 건설 승인")
+        client = FakeClient([verdict_response(1, same=False)])
+        verdicts, stats = self.review([same_title], client)
+        self.assertEqual(verdicts, {"p1": True})
+        self.assertEqual((client.calls, stats["reasked"]), ([], 0))
+
+    def test_title_overlap_is_symmetric(self):
+        """candidate_id 좌우 순서와 캐시의 left/right 순서가 뒤집힌 쌍이 실제로 있다."""
+        a, b = "원안위, 고리 3·4호기 계속운전", "고리 3·4호기 계속운전 원안위 결정"
+        self.assertAlmostEqual(issue_review.title_overlap(a, b),
+                               issue_review.title_overlap(b, a))
+
+    def test_reask_outranks_new_pairs_when_throttled(self):
+        """상한에 걸리면 재질의가 새 쌍보다 먼저다 — 증거가 움직인 쪽이 우선."""
+        old = candidate("p1", left="고리 3·4호기 계속운전 심의 지연",
+                        right="수명 만료 원전 4기 인허가 절차 지연", right_date="2026-07-01")
+        self.review([old], FakeClient([verdict_response(1, same=False)]))
+        converged = candidate("p1", left="원안위, 고리 3·4호기 계속운전 연내 결론",
+                              right="원안위, 고리 3·4호기 계속운전 하반기 결정",
+                              right_date="2026-07-01")
+        fresh = candidate("p2", left="전혀 다른 새 쌍 A", right="전혀 다른 새 쌍 B",
+                          right_date="2026-08-06")
+        client = FakeClient([verdict_response(1, same=True)])
+        _verdicts, stats = self.review([converged, fresh], client, max_new_pairs=1)
+        self.assertEqual(stats["deferred"], 1)
+        self.assertIn("원안위", client.calls[0])
+
     def test_rejected_pair_is_not_merged(self):
         client = FakeClient([verdict_response(1, same=False)])
         verdicts, stats = self.review([candidate("p1")], client)
@@ -341,10 +415,11 @@ class TestFacilityEntityPriority(unittest.TestCase):
     def test_priority_reads_the_diagnostics_copy_too(self):
         row = candidate("p0")
         row["diagnostics"]["shared_facility_entities"] = ["wolsong"]
-        self.assertTrue(issue_review._ask_priority(row)[0])
+        self.assertTrue(issue_review._ask_priority(row)[issue_review.PRIORITY_FACILITY])
 
     def test_absent_field_does_not_crash_or_promote(self):
-        self.assertFalse(issue_review._ask_priority(candidate("p0"))[0])
+        self.assertFalse(
+            issue_review._ask_priority(candidate("p0"))[issue_review.PRIORITY_FACILITY])
 
     def test_throttled_run_asks_the_facility_pair_first(self):
         """상한에 걸린 회차에서 설비 쌍이 잘려나가면 안 된다."""

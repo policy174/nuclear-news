@@ -2980,6 +2980,7 @@ def build() -> None:
         )
     print(f"[build_data] 이슈 병합 LLM 검수: 후보 {llm_stats['candidates']}쌍 "
           f"(캐시 {llm_stats['from_cache']} / 신규 {llm_stats['asked']} / "
+          f"재질의 {llm_stats.get('reasked', 0)} / "
           f"호출 {llm_stats['calls']}회) → 병합 {llm_stats['approved']} "
           f"분리 {llm_stats['rejected']} 실패 {llm_stats['failed']} [{llm_stats['status']}]")
     # 쿼터로 죽으면 '병합 안 함'으로 조용히 흡수돼 후속 보도가 신규 이슈로 갈라진다.
