@@ -569,6 +569,14 @@ function renderSystemStatus() {
     status = "warning";
     lead = "수집 지연";
     message = `자동 수집이 중지돼 있습니다 · 마지막 정상 수집 ${dateTimeLabel(state.systemStatus.last_success_at)}`;
+  } else if (briefingStaleDays() > 0) {
+    // 수집기가 돌고 status.json 이 ok 인데도 새 브리핑이 안 나오는 날이 있다.
+    // 그때 '정상'이라고 쓰면 사용자는 오늘 것을 보고 있다고 믿는다 — 가장 나쁜
+    // 실패다. 오류가 아니라 **기준 시각**을 말해 준다.
+    const days = briefingStaleDays();
+    status = "warning";
+    lead = "업데이트 지연";
+    message = `${days}일 전(${dateLabel(state.meta.latest_briefing_date)}) 브리핑을 보고 있습니다 · 마지막 수집 ${timeLabel(refreshedAt)}`;
   }
 
   strip.className = `status-strip ${status}`;
@@ -589,6 +597,7 @@ function renderSystemStatus() {
     <dl class="status-details">
       <div><dt>상태</dt><dd>${esc(lead)}</dd></div>
       <div><dt>마지막 수집</dt><dd>${esc(dateTimeLabel(refreshedAt))}</dd></div>
+      <div><dt>보고 있는 브리핑</dt><dd>${esc(dateLabel(state.meta?.latest_briefing_date) || "—")}</dd></div>
       <div><dt>오늘 원문</dt><dd>${briefing.article_count || 0}건</dd></div>
       <div><dt>연결 이슈</dt><dd>${briefing.issue_count || 0}개</dd></div>
       ${primaryCount ? `<div><dt>정부·기관 원문</dt><dd>${primaryCount}건</dd></div>` : ""}
@@ -906,6 +915,34 @@ function pipelineTrouble() {
   if (!status) return null;
   if (status.state === "error" || status.watcher_running === false) return status;
   return null;
+}
+
+// 오늘(KST). 브라우저 시간대가 무엇이든 서울 기준으로 읽는다 — 이 사이트의
+// 하루는 브리핑 생성 시각(07:25 KST)을 기준으로 끊긴다.
+function todayKST() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
+}
+
+function hourKST() {
+  return Number(new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Seoul", hour: "2-digit", hour12: false,
+  }).format(new Date()));
+}
+
+// 브리핑은 매일 07:25 KST 에 생성된다. 그 전까지 최신 브리핑이 어제 것인 건
+// **정상**이므로 지연으로 부르면 매일 아침 거짓 경보가 뜬다. 유예를 09:00 까지
+// 둔다(GitHub cron 지연이 실측 50~66분).
+const STALE_GRACE_HOUR = 9;
+
+function briefingStaleDays() {
+  const latest = state.meta?.latest_briefing_date;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(latest || ""))) return 0;
+  const today = todayKST();
+  if (latest >= today) return 0;
+  const days = Math.round(
+    (new Date(`${today}T00:00:00+09:00`) - new Date(`${latest}T00:00:00+09:00`)) / 86400000);
+  if (days === 1 && hourKST() < STALE_GRACE_HOUR) return 0;
+  return days;
 }
 
 function emptyBriefingState(briefing) {
@@ -2646,15 +2683,55 @@ function bind() {
   document.getElementById("issueDialog").addEventListener("close", () => { state.issueId = ""; syncUrl(); });
 }
 
+// 화면이 여러 곳에서 서로 다른 말을 하면 사용자는 무엇을 믿을지 정해야 한다.
+// 실패했을 때 히어로만 "오늘의 핵심을 정리하고 있습니다"로 남아 있으면, 아래
+// 오류 카드와 정면으로 모순된다 — 미완성인지 고장인지 알 수 없는 상태가 된다.
+// 여기서 히어로·푸터·헤더·상태띠를 한 문장으로 맞춘다.
+function renderFailureCopy(lead, headline) {
+  const kicker = document.getElementById("briefingKicker");
+  const title = document.getElementById("briefingTitle");
+  const header = document.getElementById("headerStatus");
+  const footer = document.getElementById("footerStatus");
+  if (kicker) kicker.textContent = lead;
+  if (title) title.textContent = headline;
+  if (header) {
+    header.className = "header-status error";
+    header.innerHTML = `<i aria-hidden="true"></i><span>${esc(lead)}</span>`;
+    header.setAttribute("aria-label", `데이터 상태 ${lead}`);
+  }
+  // "서비스 상태 확인 중" 은 index.html 의 초기값이다. 실패해도 그대로 남아
+  // 있으면 영원히 확인만 하는 것처럼 읽힌다.
+  if (footer) footer.textContent = `서비스 상태 ${lead}`;
+  // 데이터가 없으면 눌러서 갈 곳도 없다. 남겨두면 죽은 컨트롤이 된다 —
+  // renderEmptyBriefing 이 이슈 0건에 하는 처리와 같은 계약.
+  for (const id of ["audioBrief", "headlineEvidence", "changedIssues", "showChangedIssues"]) {
+    document.getElementById(id)?.setAttribute("hidden", "");
+  }
+  // 날짜 선택기는 목록이 비어 있어 빈 상자로 남는다. 이전·다음도 갈 데가 없다.
+  for (const id of ["dateSel", "prevDay", "nextDay"]) {
+    document.getElementById(id)?.setAttribute("disabled", "");
+  }
+}
+
 function renderLoadError(error) {
   const strip = document.getElementById("systemStatus");
-  strip.className = "status-strip error";
-  strip.innerHTML = '<div class="wrap status-strip-inner"><span class="status-dot"></span><strong>데이터 연결 실패</strong><span>·</span><span>마지막 정상 데이터를 불러오지 못했습니다</span></div>';
+  const willRetry = initRetryCount <= 5;
   const delay = [5000, 20000, 40000, 60000, 90000][Math.max(0, initRetryCount - 1)] || 90000;
+  const lead = willRetry ? "연결 실패" : "연결 실패 — 자동 재시도 중단";
+  strip.className = "status-strip error";
+  strip.innerHTML = `<div class="wrap status-strip-inner"><span class="status-lead"><span class="status-dot" aria-hidden="true"></span><strong>${esc(lead)}</strong></span><span class="status-item">${
+    willRetry ? `${Math.round(delay / 1000)}초 뒤 다시 시도합니다` : "'다시 시도'를 눌러 주세요"
+  }</span></div>`;
+  renderFailureCopy(lead, "브리핑을 불러오지 못했습니다");
   document.getElementById("issueList").classList.remove("skeleton-list");
-  document.getElementById("issueList").innerHTML = `<div class="error-state"><strong>데이터를 불러오지 못했습니다</strong><p>잠시 후 다시 시도해 주세요. 문제가 계속되면 알려주세요.</p><small>${esc(error.message)}</small><div><button type="button" id="retryInit">다시 시도</button><a href="mailto:policy174@naver.com">문의</a></div></div>`;
+  // 재시도가 끝났는데도 "잠시 후 다시 시도해 주세요"라고 하면 거짓말이 된다 —
+  // 그 시점부터는 아무도 다시 시도하지 않는다.
+  const guidance = willRetry
+    ? `${Math.round(delay / 1000)}초 뒤 자동으로 다시 시도합니다.`
+    : "자동 재시도를 5회 모두 실패했습니다. 아래 버튼으로 다시 시도해 주세요.";
+  document.getElementById("issueList").innerHTML = `<div class="error-state"><strong>데이터를 불러오지 못했습니다</strong><p>${guidance}</p><small>${esc(error.message)}</small><div><button type="button" id="retryInit">다시 시도</button><a href="mailto:policy174@naver.com">문의</a></div></div>`;
   document.getElementById("retryInit")?.addEventListener("click", () => { initRetryCount = 0; init(); });
-  if (initRetryCount <= 5) initRetryTimer = window.setTimeout(init, delay);
+  if (willRetry) initRetryTimer = window.setTimeout(init, delay);
 }
 
 async function init() {
@@ -2689,6 +2766,11 @@ async function init() {
   }
   window.clearTimeout(initRetryTimer);
   initRetryCount = 0;
+  // 재시도로 살아났을 때 실패 화면이 잠가둔 것을 되돌린다. 안 풀면 데이터가
+  // 정상인데도 날짜 이동이 죽은 채로 남는다.
+  for (const id of ["dateSel", "prevDay", "nextDay"]) {
+    document.getElementById(id)?.removeAttribute("disabled");
+  }
   loadSaved();
   loadFollows();
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
