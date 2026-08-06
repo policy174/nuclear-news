@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -73,6 +74,36 @@ class GeminiTruncated(GeminiError):
     아니라 *입력을 줄이라는* 신호다. 호출자가 이 둘을 구분할 수 있도록 따로 뽑았다
     — 429(한도 소진, 재시도 유해)와 섞이면 대응이 정반대가 된다.
     """
+
+
+# 429 응답은 **얼마나 기다려야 하는지를 서버가 알려준다.** 두 군데에 들어 있다:
+#   details[] 의 google.rpc.RetryInfo.retryDelay ("42s")
+#   message 끝의 "Please retry in 42.364493284s."
+# 이걸 무시하고 고정 사다리(20/40/60초)를 쓰면 **첫 두 번의 재시도는 실패가
+# 보장돼 있고 각각 요청을 하나씩 더 태운다** — 분당 한도를 맞고 있는 와중에.
+# 실측 2026-08-06 크롤: limit 20/min 인데 서버가 42초를 요구했고 사다리는 20초에
+# 첫 재시도를 냈다.
+_RETRY_DELAY_RE = re.compile(r"retry in\s+([0-9]+(?:\.[0-9]+)?)\s*s", re.IGNORECASE)
+_RETRY_DELAY_FIELD_RE = re.compile(r'"retryDelay"\s*:\s*"([0-9]+(?:\.[0-9]+)?)s"')
+
+# 서버가 말도 안 되게 긴 값을 주면(또는 파싱이 어긋나면) 잡을 통째로 잡아먹는다.
+RETRY_DELAY_MAX = 75.0
+RETRY_DELAY_BUFFER = 1.0   # 값이 정확해서 딱 맞춰 자면 경계에서 또 튕긴다
+
+
+def _retry_delay_seconds(body_text: str) -> float | None:
+    """429 본문이 알려주는 대기 시간(초). 못 찾으면 None — 호출자가 사다리를 쓴다."""
+    for pattern in (_RETRY_DELAY_FIELD_RE, _RETRY_DELAY_RE):
+        found = pattern.search(body_text or "")
+        if found:
+            try:
+                seconds = float(found.group(1))
+            except ValueError:
+                continue
+            if seconds <= 0:
+                continue
+            return min(seconds + RETRY_DELAY_BUFFER, RETRY_DELAY_MAX)
+    return None
 
 
 # 429 는 두 종류다. 분당 한도(RPM)는 기다리면 풀리지만 일일 한도(RPD)는 오늘 안
@@ -228,13 +259,16 @@ def call_json(
             if e.code == 429 and _is_daily_quota(body_text):
                 # 일일 한도는 재시도해도 오늘 안에 안 풀린다. 기다린 뒤 또 태우면
                 # 한 번 실패한 호출이 쿼터를 4배로 먹고 잡 시간까지 잡아먹는다.
-                # 실측 2026-08-06: 6 chunk 가 전부 이 경로로 20+40+60초씩 자면서
-                # 크롤이 3분에서 16분으로 늘었고, 재시도분까지 한도를 더 깎았다.
                 # GeminiTruncated 와 같은 판단이다 — 같은 조건으로 다시 부르면
                 # 같은 결과가 나오는 실패는 재시도 신호가 아니다.
                 raise last_err from e
-            # 분당 한도는 분당 리셋 → 길게 대기. 5xx는 짧게.
-            time.sleep(20 * (attempt + 1) if e.code == 429 else 2 ** attempt)
+            if e.code == 429:
+                # 분당 한도. 서버가 알려주는 값을 그대로 쓴다 — 고정 사다리는
+                # 서버 요구(실측 42초)보다 이른 20초에 첫 재시도를 내보내 실패가
+                # 보장된 요청으로 한도를 더 깎는다.
+                time.sleep(_retry_delay_seconds(body_text) or 20 * (attempt + 1))
+            else:
+                time.sleep(2 ** attempt)
             continue
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
             last_err = GeminiError(f"{type(e).__name__}: {e}")
