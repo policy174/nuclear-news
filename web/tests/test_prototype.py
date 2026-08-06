@@ -3240,5 +3240,60 @@ class PublicationFoldRenderTests(unittest.TestCase):
         self.assertIn("min-height: 44px", self.style.split(".pub-technical > summary")[1][:400])
 
 
+class FirstScreenContentFirstTests(unittest.TestCase):
+    """첫 화면은 도구(플레이어)가 아니라 콘텐츠(선두 이슈)로 시작한다 (2026-08-06).
+
+    실측: 날짜 바로 아래에 오디오 플레이어 두 줄이 첫 콘텐츠로 섰고, 선두
+    이슈의 제목은 화면 어디에도 없었다(h1 이 sr 전용 날짜가 되면서 leadCard 의
+    제목 억제 전제가 죽은 코드로 남은 탓). 읽을 것이 먼저, 들을지는 그다음 선택.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        cls.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_lead_card_always_carries_its_title(self):
+        """선두 카드의 h3 는 조건 없이 선다.
+
+        예전 억제 조건(sameAsHeadline)은 히어로 h1 이 이슈 제목을 싣던 시절의
+        것이다. h1 이 날짜 라벨이 된 지금 이 h3 가 제목이 서는 유일한 자리다 —
+        조건이 돌아오면 headline_kind="issue" 인 날(대부분) 제목이 또 사라진다.
+        """
+        lead = self.script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('issue-title-button', lead)
+        self.assertNotIn("sameAsHeadline", self.script)
+        title_line = next(line for line in lead.splitlines() if "issue-title-button" in line)
+        self.assertNotIn("? ", title_line.split("<h3>")[0], "제목 렌더에 조건이 다시 붙었다")
+
+    def test_audio_sits_below_the_hero_actions(self):
+        """플레이어는 히어로의 마지막 줄이다 — 날짜와 콘텐츠 사이에 끼지 않는다."""
+        self.assertLess(self.html.index('class="hero-actions"'),
+                        self.html.index('id="audioBrief"'))
+
+    def test_audio_rates_stay_folded_until_playback_on_mobile(self):
+        """좁은 화면의 배속 세그먼트는 재생 시작 후에만 펼쳐진다.
+
+        재생 전 두 줄 ~130px 는 첫 화면의 첫 콘텐츠가 플레이어라는 뜻이다.
+        세그먼트 마크업 자체는 그대로다(8/5 피드백: 순환 버튼 금지) — 접는 건
+        노출 시점뿐. 날짜를 옮기면 새 음원이므로 접힌 상태로 되돌린다.
+        """
+        self.assertIn(".hero-audio:not(.started) .hero-audio-rates { display: none; }",
+                      self.style)
+        self.assertIn('classList.add("started")', self.script)
+        self.assertIn('classList.remove("started")', self.script)
+
+    def test_mobile_topbar_keeps_the_site_descriptor(self):
+        """모바일 상단바에도 '무슨 사이트인가' 한 줄이 선다.
+
+        처음 링크를 받아 여는 화면이 모바일인데 정체성 문장이 데스크톱에만
+        있었다. 태블릿(≤1100px)은 탭과 폭을 다투니 접힌 채 둔다.
+        """
+        mobile = self.style.split("@media (max-width: 767px)", 1)[1]
+        brand_small = mobile.split(".brand-copy small {", 1)[1].split("}", 1)[0]
+        self.assertIn("display: block", brand_small)
+
+
 if __name__ == "__main__":
     unittest.main()

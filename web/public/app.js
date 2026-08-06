@@ -838,9 +838,10 @@ function leadCard(issue, briefing) {
   const countryChips = (issue.representative_article?.countries || [])
     .map(code => COUNTRY_LABELS[code] || code)
     .filter(label => label && label !== issue.region);
-  // 히어로 h1 이 이미 이 이슈 제목이면(headline_kind="issue") 바로 아래에서
-  // 되풀이하지 않는다. 종합 문장일 때는 서로 다른 문장이라 제목이 선다.
-  const sameAsHeadline = String(briefing.headline || "").trim() === String(issue.title || "").trim();
+  // 제목은 항상 세운다. 원래는 히어로 h1 과 겹치는 날(headline_kind="issue")
+  // 접었는데, h1 이 sr 전용 날짜 라벨이 된 뒤로 그 전제가 죽어 선두 이슈의
+  // 제목이 화면 어디에도 없었다(실측 8/6 — 첫 화면이 '무슨 일' 본문으로 시작).
+  // 이제 이 h3 가 이 문장이 페이지에 서는 유일한 자리다.
   const blocks = [
     issue.summary ? { label: "무슨 일", text: issue.summary } : null,
     model.why ? { label: model.why.label, text: model.why.text } : null,
@@ -857,7 +858,7 @@ function leadCard(issue, briefing) {
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
     </div>
-    ${sameAsHeadline ? "" : `<h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>`}
+    <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>
     <dl class="lead-blocks">${blocks.map(block => `<div class="lead-block${block.tone ? ` tone-${block.tone}` : ""}">
       <dt>${esc(block.label)}</dt><dd>${esc(block.text)}</dd>
     </div>`).join("")}</dl>
@@ -1130,7 +1131,7 @@ function updateAudioToggle(playing) {
   const button = document.getElementById("audioToggle");
   if (!button) return;
   button.setAttribute("aria-pressed", playing ? "true" : "false");
-  button.textContent = playing ? "⏸ 일시정지" : "▶ 오디오 브리핑";
+  button.textContent = playing ? "⏸ 일시정지" : "▶ 브리핑 듣기";
 }
 
 function renderAudioBrief(briefing) {
@@ -1153,6 +1154,9 @@ function renderAudioBrief(briefing) {
     audio.dataset.src = src;
     audio.src = src;
     updateAudioToggle(false);
+    // 배속 세그먼트는 재생을 시작해야 펼쳐진다(좁은 화면) — 날짜를 옮기면
+    // 새 음원이므로 접힌 상태로 되돌린다.
+    box.classList.remove("started");
     document.getElementById("audioTime").textContent =
       `0:00 / ${fmtClock(meta.duration_sec)}`;
   }
@@ -2540,6 +2544,9 @@ function bind() {
   briefAudio.addEventListener("play", () => {
     briefAudio.playbackRate = audioRate();
     updateAudioToggle(true);
+    // 좁은 화면에서 접혀 있던 배속 세그먼트를 이때 펼친다 — 듣기 시작한
+    // 사용자에게만 의미 있는 조절이라 그 전에는 첫 화면 공간을 안 쓴다.
+    document.getElementById("audioBrief").classList.add("started");
   });
   briefAudio.addEventListener("pause", () => updateAudioToggle(false));
   briefAudio.addEventListener("ended", () => updateAudioToggle(false));

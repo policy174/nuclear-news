@@ -1782,7 +1782,15 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .brand { min-width: 0; min-height: 44px; gap: 7px; }
   .brand-mark { width: 34px; height: 34px; font-size: 18px; }
   .brand-copy strong { font-size: 13px; }
-  .brand-copy small { display: none; }
+  /* 처음 링크를 받아 여는 화면이 모바일이다 — 이 사이트가 무엇인지 말하는
+     문장은 여기서도 서야 한다. 태블릿(≤1100px)은 탭 5개와 폭을 다투니 접지만,
+     모바일은 탭이 하단으로 내려가 자리가 있다. 넘치면 말줄임. */
+  .brand-copy small {
+    display: block;
+    overflow: hidden;
+    margin-top: 2px;
+    text-overflow: ellipsis;
+  }
   .main-tabs { display: none; }
   .header-tools { margin-left: auto; }
   .header-status { display: inline-flex; justify-content: center; width: 44px; padding: 0; }
@@ -1829,9 +1837,14 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .hero-actions button { min-height: 44px; font-size: var(--t-caption); }
   /* 모바일 터치 타깃 44px — 이 코드베이스의 다른 버튼과 같은 기준 */
   .hero-evidence-chip { min-height: 44px; }
-  /* 오디오는 출근길(모바일)이 본 무대다 — hero-actions 와 달리 숨기지 않는다 */
+  /* 오디오는 출근길(모바일)이 본 무대다 — hero-actions 와 달리 숨기지 않는다.
+     단, 재생 전에는 한 줄(듣기 버튼 + 길이)로 접는다: 배속 세그먼트까지 펼치면
+     두 줄 ~130px 가 첫 화면의 첫 콘텐츠가 된다(실측 8/6). 배속은 듣는 중에만
+     의미 있는 조절이라 재생 시작(.started) 후 펼친다. */
   .hero-audio { gap: 12px; margin-top: 14px; }
   .hero-audio button { min-height: 44px; }
+  .hero-audio:not(.started) .hero-audio-label,
+  .hero-audio:not(.started) .hero-audio-rates { display: none; }
   .pubs-filters button { min-height: 44px; padding-inline: 14px; }
   .briefing-content-grid { margin-top: 28px; }
   .issue-section-heading { align-items: flex-start; }
