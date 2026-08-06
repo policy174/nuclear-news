@@ -22,6 +22,16 @@
       "right_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
       "same_event": false
     },
+    "0412d08712c9a60e--65bc735c35edf37c": {
+      "embedding_similarity": 0.8684,
+      "left_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "국내 신규 원전 vs 필리핀 원자력 협력",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
+      "same_event": false
+    },
     "0412d08712c9a60e--7c527ed375648d8f": {
       "embedding_similarity": 0.8462,
       "left_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
@@ -30,6 +40,16 @@
       "reason": "다른 발전소, 다른 사업",
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수",
+      "same_event": false
+    },
+    "0412d08712c9a60e--a5e21a02762fb9b6": {
+      "embedding_similarity": 0.8525,
+      "left_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사업",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 MOU 체결",
       "same_event": false
     },
     "09465180cdc8f102--911526189a05bdad": {
@@ -382,6 +402,16 @@
       "right_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
       "same_event": false
     },
+    "0fe72c91dc24354b--f993fc196107ef89": {
+      "embedding_similarity": 0.8994,
+      "left_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 플랫폼 개발 파트너십 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
+      "same_event": true
+    },
     "12ec710dcc1a738a--24264cf1e2c21525": {
       "embedding_similarity": 0.8505,
       "left_title": "로사톰, 러시아 내 18개 원전 건설 프로젝트 진행 중 발표",
@@ -422,6 +452,16 @@
       "right_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
       "same_event": false
     },
+    "195a5cc0f97befa7--3e00af0212edae79": {
+      "embedding_similarity": 0.8451,
+      "left_title": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "그리스 산불 vs 유럽 팍시 원전 가동 중단",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "유럽 팍시 원전, 냉각수 수위 회복으로 가동 중단 위기 모면",
+      "same_event": false
+    },
     "195a5cc0f97befa7--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8513,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -431,6 +471,96 @@
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
       "same_event": true
+    },
+    "1e53d0f81cb14594--571c41d8d5a745d5": {
+      "embedding_similarity": 0.8817,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터 전력 공급 vs 송전망 구축 지시",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--8c6eb5250550b959": {
+      "embedding_similarity": 0.8847,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력 공급 중요성 vs 송전망 구축 지시",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "same_event": false
+    },
+    "2159831fad1ddf60--457aa2e1b508d72c": {
+      "embedding_similarity": 0.8659,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전성 확인 발표 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "2159831fad1ddf60--756c2e6e80bbd36e": {
+      "embedding_similarity": 0.8457,
+      "left_title": "고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "2159831fad1ddf60--8087dd0c3497cc5f": {
+      "embedding_similarity": 0.8697,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "2159831fad1ddf60--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8755,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 가속화 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "2159831fad1ddf60--b7041a996c04f630": {
+      "embedding_similarity": 0.8518,
+      "left_title": "한울 4호기, 원자력안전위원회(NSSC) 정기검사 중 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정기검사 중 임계 허용 및 시행규칙 개정 추진",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": true
+    },
+    "2159831fad1ddf60--beff8f802cca43be": {
+      "embedding_similarity": 0.8626,
+      "left_title": "원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "2159831fad1ddf60--e2e42584280401fc": {
+      "embedding_similarity": 0.8707,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 최신화 vs 정기검사 허용 시행규칙 개정",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
     },
     "2373d90047ca2464--7702cb1efa54b619": {
       "embedding_similarity": 0.8552,
@@ -1192,6 +1322,56 @@
       "right_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
       "same_event": false
     },
+    "457aa2e1b508d72c--756c2e6e80bbd36e": {
+      "embedding_similarity": 0.8407,
+      "left_title": "고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 상정 예정 및 안전성 확인 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": true
+    },
+    "457aa2e1b508d72c--8087dd0c3497cc5f": {
+      "embedding_similarity": 0.863,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 및 규제 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": true
+    },
+    "457aa2e1b508d72c--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8429,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 가속화 및 처벌 강화 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": true
+    },
+    "457aa2e1b508d72c--beff8f802cca43be": {
+      "embedding_similarity": 0.8425,
+      "left_title": "원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 및 처벌법 개정 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": true
+    },
+    "457aa2e1b508d72c--e2e42584280401fc": {
+      "embedding_similarity": 0.8445,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 최신화 vs 안전성 확인 발표",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": false
+    },
     "4bdd65d0c09aaf72--5190f5f0f0d050de": {
       "embedding_similarity": 0.861,
       "left_title": "다뉴브강 수위 최저치 기록, 헝가리·루마니아 원전 가동 중단",
@@ -1202,6 +1382,16 @@
       "right_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
       "same_event": true
     },
+    "4bdd65d0c09aaf72--55986de1f4a3ad29": {
+      "embedding_similarity": 0.8619,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단 및 차질 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
+      "same_event": true
+    },
     "4bdd65d0c09aaf72--d217422a62af77e2": {
       "embedding_similarity": 0.8832,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -1210,6 +1400,16 @@
       "reason": "총리의 팍스 원전 가동 중단 발표 및 경고",
       "reviewed_at": "2026-08-02T23:17:12.037007+00:00",
       "right_title": "헝가리 총리, 임박한 원전 폐쇄로 \"중대한\" 시기 경고",
+      "same_event": true
+    },
+    "4bdd65d0c09aaf72--e86ceaef07092ccd": {
+      "embedding_similarity": 0.8432,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 사건",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
       "same_event": true
     },
     "4e6a1d2c0301a4d0--6b93ed7e22e9bb4b": {
@@ -1391,6 +1591,16 @@
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
+    },
+    "55986de1f4a3ad29--bf5ea0f3606646e1": {
+      "embedding_similarity": 0.8484,
+      "left_title": "헝가리 총리, 팍스 원전 마지막 터빈 '안전하게 가동 중' 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단 및 차질 관련 보도",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
+      "same_event": true
     },
     "562a6126b2b20d7b--fd17939220b56c39": {
       "embedding_similarity": 0.898,
@@ -1892,6 +2102,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
       "same_event": false
     },
+    "8087dd0c3497cc5f--bccf5f15f321ec1b": {
+      "embedding_similarity": 0.8751,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 안건, 다른 주체",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
+      "same_event": false
+    },
     "8087dd0c3497cc5f--e2e42584280401fc": {
       "embedding_similarity": 0.8639,
       "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
@@ -2350,6 +2570,16 @@
       "reason": "다른 회사, 다른 SMR",
       "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
       "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "same_event": false
+    },
+    "cad8f7d2c2d3c640--f993fc196107ef89": {
+      "embedding_similarity": 0.8476,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 플랫폼 vs 원전 엔지니어링 플랫폼",
+      "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
+      "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
       "same_event": false
     },
     "da9a4893cdd4761d--e2e42584280401fc": {
