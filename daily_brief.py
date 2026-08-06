@@ -262,6 +262,7 @@ def enrich_investment(items: list[dict]) -> dict[int, dict]:
         result = call_json(
             INVEST_SYSTEM_PROMPT, "\n".join(lines),
             temperature=0.2, max_output_tokens=4096, timeout=120.0,
+            label="daily_brief",
         )
     except GeminiError as e:
         print(f"[daily_brief] 투자 보강 실패 → 투자 줄 없이 발송: {e}")
@@ -385,7 +386,9 @@ def build_report_recs(items: list[dict]) -> tuple[str, dict]:
 
     try:
         result = call_json(REPORT_SYSTEM_PROMPT, "\n".join(lines),
-                           temperature=0.2, max_output_tokens=4096, timeout=90.0)
+                           temperature=0.2, max_output_tokens=4096, timeout=90.0,
+            label="daily_brief",
+        )
     except GeminiError as e:
         print(f"[daily_brief] 보고서 추천 실패 → 섹션 생략: {e}")
         return "", diag

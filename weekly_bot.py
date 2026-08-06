@@ -186,7 +186,9 @@ def batch_synthesize(items: list[dict], agg: dict) -> dict:
     try:
         from gemini_client import call_json
         result = call_json(WEEKLY_PROMPT, user_text,
-                           temperature=0.3, max_output_tokens=10000, timeout=120.0)
+                           temperature=0.3, max_output_tokens=10000, timeout=120.0,
+            label="weekly_bot",
+        )
     except Exception as e:  # noqa: BLE001
         print(f"  ! weekly synthesis failed: {type(e).__name__}: {e}")
         return fallback

@@ -159,6 +159,7 @@ def _synthesize(clusters: list[dict]) -> dict[int, dict]:
             temperature=0.2,
             max_output_tokens=4096,
             timeout=120.0,
+            label="synthesize",
         )
     except GeminiError as e:
         print(f"[synthesize] Gemini 실패 → 카드 합성 스킵: {e}")
@@ -222,6 +223,7 @@ def _self_check(clusters: list[dict], cards: dict[int, dict]) -> int:
             temperature=0.0,
             max_output_tokens=4096,
             timeout=90.0,
+            label="synthesize",
         )
     except GeminiError as e:
         print(f"⚠️ [synthesize] self-check 실패 → 카드가 미검증 상태로 통과합니다(원본 유지): {e}")

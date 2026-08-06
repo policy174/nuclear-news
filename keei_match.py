@@ -169,6 +169,7 @@ def match_pairs(candidates: list[dict], *,
             payload = client.call_json(
                 SYSTEM_PROMPT, build_user_message(chunk),
                 temperature=0.0, max_output_tokens=8192,
+                label="keei_match",
             )
             stats["calls"] += 1
         except Exception as exc:  # 실패는 캐시하지 않는다 — 다음 빌드에서 재시도

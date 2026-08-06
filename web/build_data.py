@@ -3352,6 +3352,14 @@ def build() -> None:
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
         f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
     )
+    # 이 프로세스가 쓴 Gemini 호출을 센다. crawl.yml 은 news_bot 과 build_data 를
+    # **한 잡 안에서 이어서** 돌리므로 둘이 같은 분에 겹칠 수 있다 — 429(분당 20회)의
+    # 범인을 가리려면 양쪽 다 찍혀야 한다.
+    try:
+        import gemini_client as _gc  # noqa: PLC0415
+        print(_gc.format_call_stats())
+    except Exception as exc:  # 계측이 빌드를 죽이면 안 된다
+        print(f"[gemini] 호출 통계 실패: {exc}")
     # 조용히 지우면 큐레이션 프롬프트가 망가진 것을 아무도 모른다. 기준선(옛 프롬프트):
     # implication 이 있는 64건 중 40건(62%). 새 프롬프트로 재큐레이션되면 내려가야 한다.
     if _HOLLOW_IMPLICATIONS:

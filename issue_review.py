@@ -480,6 +480,7 @@ def review_pairs(review_candidates: list[dict], *,
                 temperature=0.0,
                 max_output_tokens=MAX_OUTPUT_TOKENS,
                 model=review_model,
+                label="issue_review",
             )
         except GeminiTruncated as exc:
             # 같은 예산으로 다시 부르면 같은 자리에서 잘린다 — 입력을 줄여야 한다.

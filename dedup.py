@@ -142,6 +142,7 @@ def _llm_semantic_groups(clusters: list[dict]) -> list[list[int]]:
             temperature=0.05,
             max_output_tokens=4096,
             timeout=90.0,
+            label="dedup",
         )
     except GeminiError as e:
         print(f"[dedup] Gemini 실패 → 단독 그룹 fallback: {e}")

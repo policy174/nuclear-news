@@ -109,6 +109,68 @@ def _retry_delay_seconds(body_text: str) -> float | None:
 # 429 는 두 종류다. 분당 한도(RPM)는 기다리면 풀리지만 일일 한도(RPD)는 오늘 안
 # 풀리지 않는다. 응답 details 의 QuotaFailure.violations[].quotaId 에 한도 종류가
 # 들어 있다(예: GenerateRequestsPerDayPerProjectPerModel).
+# ── 호출 계측 ──────────────────────────────────────────────────────────────
+#
+# 왜 필요한가: 2026-08-06 크롤이 429 를 6번 맞았는데 **전부 분당 20회(RPM)** 였다
+# (`limit: 20, model: gemini-2.5-flash`, PerDay 표지 0건). 그런데 그 1분에 누가
+# 몇 번 불렀는지가 로그에 없어서 원인을 두 번 잘못 짚었다 —
+#   ① "일일 한도 소진" (틀림, RPM 이었다)
+#   ② "격리 항목 개별 재시도" (틀림, 품질 게이트 재생성은 배치 1회다)
+# 세 번째 추측 대신 센다. 처방이 갈리기 때문이다: 재시도가 범인이면 재시도를
+# 줄이고, 동시 호출자가 범인이면 중앙 예산이 필요하다.
+#
+# 호출 지점이 call_json 하나뿐이라 여기만 잡으면 모든 호출자가 세진다.
+_CALL_LOG: list[tuple[float, str, str]] = []   # (시각, 모델, 라벨)
+CALL_LOG_LIMIT = 5000   # 폭주해도 메모리를 먹지 않게 — 넘으면 그냥 안 쌓는다
+
+
+def _record_call(model: str, label: str) -> None:
+    if len(_CALL_LOG) < CALL_LOG_LIMIT:
+        _CALL_LOG.append((time.monotonic(), model, label))
+
+
+def reset_call_log() -> None:
+    _CALL_LOG.clear()
+
+
+def call_stats() -> dict:
+    """모델별 호출 수, 라벨별 내역, **최대 분당 호출 수**.
+
+    최대 분당이 핵심이다. 총 호출이 27회여도 60초 창에 21회가 몰렸으면 RPM 20 을
+    넘는다. 슬라이딩 윈도로 재야 '시:분' 경계로 나누는 것과 달리 실제 한도와
+    같은 방식이 된다.
+    """
+    per_model: dict[str, int] = {}
+    per_label: dict[str, int] = {}
+    for _stamp, model, label in _CALL_LOG:
+        per_model[model] = per_model.get(model, 0) + 1
+        per_label[label] = per_label.get(label, 0) + 1
+
+    peak: dict[str, int] = {}
+    for model in per_model:
+        stamps = [s for s, m, _ in _CALL_LOG if m == model]
+        best = 0
+        for i, start in enumerate(stamps):
+            count = sum(1 for s in stamps[i:] if s - start < 60.0)
+            best = max(best, count)
+        peak[model] = best
+    return {"total": len(_CALL_LOG), "per_model": per_model,
+            "per_label": per_label, "peak_per_minute": peak}
+
+
+def format_call_stats() -> str:
+    stats = call_stats()
+    if not stats["total"]:
+        return "[gemini] 호출 0회"
+    parts = []
+    for model, count in sorted(stats["per_model"].items(), key=lambda kv: -kv[1]):
+        parts.append(f"{model} {count}회(최대 분당 {stats['peak_per_minute'][model]})")
+    breakdown = " / ".join(f"{label} {count}"
+                           for label, count in sorted(stats["per_label"].items(),
+                                                      key=lambda kv: -kv[1]))
+    return f"[gemini] 호출 {stats['total']}회 · " + " · ".join(parts) + f" · [{breakdown}]"
+
+
 _DAILY_QUOTA_MARKERS = ("PerDay", "per_day", "PerDayPerProject", "RequestsPerDay")
 
 
@@ -183,6 +245,7 @@ def call_json(
     retries: int = 3,
     thinking_budget: int | None = None,
     model: str | None = None,
+    label: str = "unlabeled",
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
 
@@ -219,6 +282,9 @@ def call_json(
 
     last_err: Exception | None = None
     for attempt in range(retries + 1):
+        # 재시도도 한 번의 호출이고 한도를 그만큼 깎는다. attempt 를 라벨에 실어야
+        # "chunk 4회"가 실제로는 12회였다는 것이 보인다.
+        _record_call(model or MODEL, label if attempt == 0 else f"{label}:retry")
         try:
             req = urllib.request.Request(
                 url,

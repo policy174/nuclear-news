@@ -159,7 +159,9 @@ def translate(items: list[dict], *, client=None, batch_size: int = BATCH_SIZE) -
         chunk = todo[start:start + batch_size]
         try:
             payload = client.call_json(SYSTEM_PROMPT, build_user_message(chunk),
-                                       temperature=0.1, max_output_tokens=8192)
+                                       temperature=0.1, max_output_tokens=8192,
+                label="pubs_translate",
+            )
             stats["calls"] += 1
         except Exception as exc:  # 번역 실패는 비치명 — 원문 제목으로 뜬다
             stats["status"] = f"error: {type(exc).__name__}"

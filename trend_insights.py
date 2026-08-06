@@ -137,7 +137,9 @@ def generate() -> bool:
     try:
         # 2.5-flash 는 thinking 토큰이 출력 예산을 잠식 → 2048이면 JSON이 중간에 끊김 (실측)
         result = call_json(SYSTEM_PROMPT, build_user_message(keywords),
-                           temperature=0.2, max_output_tokens=8192)
+                           temperature=0.2, max_output_tokens=8192,
+            label="trend_insights",
+        )
     except GeminiError as e:
         print(f"[insights] Gemini 실패 — 기존 파일 유지: {e}")
         return False

@@ -179,7 +179,9 @@ def generate_script(material: str) -> str:
     """
     result = call_json(SYSTEM_PROMPT, material, temperature=0.4,
                        max_output_tokens=8192, timeout=120.0, thinking_budget=0,
-                       model=_script_model())
+                       model=_script_model(),
+        label="audio_brief",
+    )
     try:
         script, spoken = validate_script(result.get("script"))
         if spoken <= MAX_SPOKEN:
@@ -195,7 +197,9 @@ def generate_script(material: str) -> str:
     )
     result = call_json(SYSTEM_PROMPT, retry_message, temperature=0.4,
                        max_output_tokens=8192, timeout=120.0, thinking_budget=0,
-                       model=_script_model())
+                       model=_script_model(),
+        label="audio_brief",
+    )
     script, spoken = validate_script(result.get("script"))
     if spoken > MAX_SPOKEN:
         raise ValueError(f"재시도 후에도 {spoken}자 — 포기")

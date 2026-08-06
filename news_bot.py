@@ -1346,6 +1346,9 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
                 ),
                 "\n\n---\n\n".join(blocks),
                 temperature=0.2, max_output_tokens=BATCH_MAX_OUTPUT_TOKENS, timeout=150.0,
+                # 재생성인지 최초 호출인지를 갈라서 센다. 429 가 분당 한도였는데
+                # 그 1분에 누가 몇 번 불렀는지 몰라 원인을 두 번 잘못 짚었다.
+                label="curation:재생성" if error_notes else "curation",
             )
         except GeminiTruncated as e:
             return {}, {art["hash"]: [f"request:truncated:{e}"] for art in chunk}
@@ -2051,6 +2054,13 @@ def main() -> None:
         # 한도가 리셋된 뒤 다음 크롤이 다시 가져간다.
         print(f"[queue] 일일 한도 소진으로 {skipped_quota}건 적재 보류 "
               f"(fallback 강등 회피 — 리셋 후 재수집)")
+    # 429 는 분당 20회였는데(2026-08-06 실측) 그 1분에 누가 몇 번 불렀는지가
+    # 로그에 없어 원인을 두 번 잘못 짚었다. 이제 센다 — **최대 분당**이 20 을
+    # 넘는지가 처방을 가른다(재시도를 줄일지, 호출자 사이를 벌릴지).
+    try:
+        print(gemini_client.format_call_stats())
+    except Exception as exc:  # 계측이 본 작업을 죽이면 안 된다
+        print(f"[gemini] 호출 통계 실패: {exc}")
 
 
 if __name__ == "__main__":

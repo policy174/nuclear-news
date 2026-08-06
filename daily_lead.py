@@ -238,7 +238,9 @@ def _call_lead(items: list[dict], summaries: dict[str, dict]) -> dict:
     """1차 호출 → 공허하면 재호출 → 길이 초과면 압축 재호출 → 최후 절단."""
     user_message = build_user_message(items, summaries)
     result = call_json(SYSTEM_PROMPT, user_message,
-                       temperature=0.2, max_output_tokens=8192)
+                       temperature=0.2, max_output_tokens=8192,
+        label="daily_lead",
+    )
     lead = _normalize(result.get("lead"))
 
     # 공허한 문장은 구체적인 이슈 제목보다 못하다. 이름을 대라고 다시 시킨다.
@@ -253,7 +255,9 @@ def _call_lead(items: list[dict], summaries: dict[str, dict]) -> dict:
         )
         try:
             retry = call_json(SYSTEM_PROMPT, vague_message,
-                              temperature=0.2, max_output_tokens=8192)
+                              temperature=0.2, max_output_tokens=8192,
+                label="daily_lead",
+            )
             better = _normalize(retry.get("lead"))
             if better and is_substantive(better, items, summaries):
                 lead, result = better, retry
@@ -275,7 +279,9 @@ def _call_lead(items: list[dict], summaries: dict[str, dict]) -> dict:
     )
     try:
         retry = call_json(SYSTEM_PROMPT, retry_message,
-                          temperature=0.2, max_output_tokens=8192)
+                          temperature=0.2, max_output_tokens=8192,
+            label="daily_lead",
+        )
         short = _normalize(retry.get("lead"))
         if short and len(short) <= LEAD_LIMIT:
             return {"lead": _finish(short), "result": retry, "truncated": False}

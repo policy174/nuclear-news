@@ -93,6 +93,7 @@ def _call_gemini(clusters: list[dict]) -> dict[int, dict]:
             temperature=0.1,
             max_output_tokens=4096,
             timeout=90.0,
+            label="scorer",
         )
     except GeminiError as e:
         print(f"[scorer] Gemini 실패 → 점수 단계 스킵 (필터 미적용): {e}")

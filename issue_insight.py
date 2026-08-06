@@ -317,6 +317,7 @@ def generate(rows: list[dict], *, client=None, cache_path: Path = CACHE_FILE,
                 temperature=0.1,
                 max_output_tokens=MAX_OUTPUT_TOKENS,
                 model=model,
+                label="issue_insight",
             )
         except Exception as exc:  # noqa: BLE001 — 해석 부재는 비치명
             stats["failed"] += len(chunk)
