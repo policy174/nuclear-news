@@ -20,8 +20,9 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
+
+import llm_cache
 
 ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "keei_llm_matches.json"
@@ -61,30 +62,17 @@ A(뉴스 이슈 제목)와 B(에너지경제연구원 '세계 원전시장 인�
 입력에 준 idx 를 모두 포함한다."""
 
 
+CACHE_KEY = "matches"
+CACHE_COMMENT = "KEEI 인사이트 ↔ 이슈 매칭 LLM 판정 캐시. 사람이 고쳐도 된다."
+
+
 def load_cache(path: Path = CACHE_FILE) -> dict:
-    try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return {}
-    if not isinstance(raw, dict):
-        return {}
-    entries = raw.get("matches")
-    return entries if isinstance(entries, dict) else {}
+    return llm_cache.load(path, CACHE_KEY)
 
 
 def save_cache(cache: dict, path: Path = CACHE_FILE) -> None:
-    payload = {
-        "_comment": "KEEI 인사이트 ↔ 이슈 매칭 LLM 판정 캐시. 사람이 고쳐도 된다.",
-        "prompt_version": PROMPT_VERSION,
-        "matches": cache,
-    }
-    try:
-        path.write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-    except OSError:
-        pass
+    llm_cache.save(cache, path, key=CACHE_KEY, prompt_version=PROMPT_VERSION,
+                   comment=CACHE_COMMENT)
 
 
 def cached_verdict(cache: dict, pair_id: str,

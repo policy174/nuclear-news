@@ -34,11 +34,12 @@ from __future__ import annotations
 
 import difflib
 import hashlib
-import json
 import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+
+import llm_cache
 
 from data_quality import clean_text, implication_is_hollow
 
@@ -153,23 +154,20 @@ def timeline_digest(members: list[dict]) -> str:
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
 
 
+CACHE_KEY = "insights"
+CACHE_COMMENT = "이슈 단위 카드 해석 캐시. 키는 issue_id, digest 가 다르면 다시 묻는다."
+
+
 def load_cache(path: Path = CACHE_FILE) -> dict:
-    try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return {}
-    entries = raw.get("insights") if isinstance(raw, dict) else None
-    return entries if isinstance(entries, dict) else {}
+    return llm_cache.load(path, CACHE_KEY)
 
 
 def save_cache(cache: dict, path: Path = CACHE_FILE) -> None:
-    payload = {
-        "_comment": "이슈 단위 카드 해석 캐시. 키는 issue_id, digest 가 다르면 다시 묻는다.",
-        "prompt_version": PROMPT_VERSION,
-        "insights": cache,
-    }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-                    encoding="utf-8")
+    # sort_keys·쓰기 실패 처리가 다른 둘과 다르다. 정리하면서 몰래 바꾸지 않는다 —
+    # sort_keys 를 켜면 issue_insights.json 전체가 한 번 재정렬돼 큰 diff 가 나고,
+    # 쓰기 실패를 삼키면 디스크 문제가 조용히 묻힌다. 필요하면 따로 판단할 일이다.
+    llm_cache.save(cache, path, key=CACHE_KEY, prompt_version=PROMPT_VERSION,
+                   comment=CACHE_COMMENT, sort_keys=False, swallow_errors=False)
 
 
 def needs_insight(row: dict) -> bool:

@@ -64,11 +64,12 @@
 
 from __future__ import annotations
 
-import json
 import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+
+import llm_cache
 
 try:  # gemini_client 없이도 import 가능해야 한다 (테스트는 대역 클라이언트를 넣는다)
     from gemini_client import GeminiTruncated
@@ -223,30 +224,17 @@ def select_pairs(review_candidates: list[dict],
     return picked
 
 
+CACHE_KEY = "reviews"
+CACHE_COMMENT = "이슈 병합 회색지대 LLM 판정 캐시. 사람이 고쳐도 된다."
+
+
 def load_cache(path: Path = CACHE_FILE) -> dict:
-    try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return {}
-    if not isinstance(raw, dict):
-        return {}
-    entries = raw.get("reviews")
-    return entries if isinstance(entries, dict) else {}
+    return llm_cache.load(path, CACHE_KEY)
 
 
 def save_cache(cache: dict, path: Path = CACHE_FILE) -> None:
-    payload = {
-        "_comment": "이슈 병합 회색지대 LLM 판정 캐시. 사람이 고쳐도 된다.",
-        "prompt_version": PROMPT_VERSION,
-        "reviews": cache,
-    }
-    try:
-        path.write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-    except OSError:
-        pass
+    llm_cache.save(cache, path, key=CACHE_KEY, prompt_version=PROMPT_VERSION,
+                   comment=CACHE_COMMENT)
 
 
 _TITLE_TOKEN = re.compile(r"[0-9A-Za-z가-힣·]+")
