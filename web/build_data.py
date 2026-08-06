@@ -3033,8 +3033,15 @@ def build() -> None:
     report_entity_stats(entity_registry, issue_catalog)
     publications = load_publications(now)
     keei_stats = attach_keei_refs(issue_catalog, publications)
+    # 재질의는 '이슈 제목이 바뀌어 옛 거부 판정이 무효가 된' 몫이다. 0 이 아니면
+    # 그만큼 다시 물었다는 뜻이고, 미룸이 붙으면 상한에 걸려 다음 빌드로 넘겼다는 뜻.
+    keei_deferred = keei_stats.get("reask_deferred", 0)
+    keei_reask = f"재질의 {keei_stats.get('reasked', 0)}"
+    if keei_deferred:
+        keei_reask += f"+미룸 {keei_deferred}"
     print(f"[build_data] KEEI 매칭: 후보 {keei_stats.get('candidates', 0)}쌍 "
           f"(캐시 {keei_stats.get('from_cache', 0)} / 질의 {keei_stats.get('asked', 0)} / "
+          f"{keei_reask} / "
           f"호출 {keei_stats.get('calls', 0)}회) → 연결 {keei_stats.get('attached', 0)}건 "
           f"[{keei_stats.get('status', '')}]")
     keei_by_issue = {

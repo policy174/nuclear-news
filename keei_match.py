@@ -31,6 +31,14 @@ PROMPT_VERSION = 1
 
 BATCH_SIZE = 20
 
+# 한 회차에 **다시** 물을 쌍의 상한. 거부 판정은 이슈 제목이 바뀌면 무효가
+# 되는데(cached_verdict), 제목은 클러스터가 기사를 흡수할 때마다 다시 생성되므로
+# 요동치는 날에는 무효화가 몰린다. 이 모듈은 기본 모델(gemini-2.5-flash)을 쓰고
+# 그 버킷은 크롤 큐레이션과 공유한다 — 2026-08-06 에 분당 20회를 여섯 번 넘긴
+# 바로 그 버킷이다. 밀린 몫은 버리는 게 아니라 다음 빌드로 미룬다(판정이 없으면
+# 연결하지 않으므로 결과는 '아직 모름'이지 '다른 사건'이 아니다).
+MAX_REASK_PER_RUN = 10
+
 SYSTEM_PROMPT = """너는 원자력 산업 뉴스를 정리하는 편집자다.
 A(뉴스 이슈 제목)와 B(에너지경제연구원 '세계 원전시장 인사이트' 목차 항목)가
 **같은 사건**을 가리키는지 판정한다.
@@ -79,14 +87,45 @@ def save_cache(cache: dict, path: Path = CACHE_FILE) -> None:
         pass
 
 
-def cached_verdict(cache: dict, pair_id: str) -> bool | None:
+def cached_verdict(cache: dict, pair_id: str,
+                   issue_title: object = None) -> bool | None:
+    """캐시된 판정. 없거나 무효면 None(= 다시 묻는다).
+
+    **거부 판정은 이슈 제목이 바뀌면 무효가 된다.** 판정은 그때의 제목에 대한
+    것이지 이 쌍에 대한 영구 사실이 아니다. 이슈 제목은 클러스터가 기사를
+    흡수할 때마다 다시 생성되므로 어제 "다른 사건"이던 쌍이 오늘 같은 사건으로
+    수렴할 수 있다 — issue_review 가 같은 결함으로 브리핑에 중복 카드를 냈다.
+
+    실측 2026-08-06 (캐시 169건, 이슈가 살아있는 쌍 147건):
+        제목 드리프트 25건 / 그중 거부 24건
+        놓치고 있던 진짜 매칭:
+            현재 이슈  "중국 타이핑링 2호기 원자력발전소 상업운전 개시"
+            KEEI      "중국 Taipingling 원전 2호기, 최초 계통연결 완료"
+
+    ⚠️ issue_review 는 '두 제목의 어휘 겹침 상승'으로 무효화하는데, **여기서는
+    그 신호를 쓰면 안 된다.** 위 쌍의 겹침 상승은 +0.039 라 issue_review 의
+    문턱(+0.10)에 한참 못 미친다 — KEEI 목차는 로마자(Taipingling), 이슈는
+    한글(타이핑링)이라 어휘가 겹치지 않기 때문이다. 이 모듈이 애초에 LLM 을
+    쓰는 이유가 그것이다(docstring 의 n-gram 코사인 실패 기록).
+
+    KEEI 항목은 **발간된 목차라 바뀌지 않는다.** 변하는 쪽이 이슈 제목뿐이므로
+    "제목이 바뀌었나"가 여기서는 정확한 신호다.
+    """
     entry = cache.get(pair_id)
     if not isinstance(entry, dict):
         return None
     if entry.get("prompt_version") != PROMPT_VERSION:
         return None
     verdict = entry.get("same_event")
-    return verdict if isinstance(verdict, bool) else None
+    if not isinstance(verdict, bool):
+        return None
+    if verdict is False and issue_title is not None:
+        stored = str(entry.get("issue_title") or "").strip()
+        # 캐시는 제목을 120자로 잘라 저장한다. 현재 제목도 같게 잘라 비교하지
+        # 않으면 긴 제목이 매번 '바뀌었다'로 잡혀 무한 재질의가 된다.
+        if stored and stored != str(issue_title or "").strip()[:120]:
+            return None
+    return verdict
 
 
 def build_user_message(pairs: list[dict]) -> str:
@@ -132,6 +171,7 @@ def match_pairs(candidates: list[dict], *,
         "prompt_version": PROMPT_VERSION,
         "candidates": len(candidates or []),
         "from_cache": 0, "asked": 0, "calls": 0,
+        "reasked": 0, "reask_deferred": 0,
         "approved": 0, "rejected": 0, "failed": 0,
         "status": "ok",
     }
@@ -146,16 +186,27 @@ def match_pairs(candidates: list[dict], *,
     cache_dirty = False
     verdicts: dict[str, bool] = {}
     todo: list[dict] = []
+    reask: list[dict] = []
     for row in candidates:
         pair_id = row.get("pair_id")
         if not pair_id:
             continue
-        hit = cached_verdict(cache, pair_id)
+        hit = cached_verdict(cache, pair_id, row.get("issue_title"))
         if hit is None:
-            todo.append(row)
+            # 캐시에 있는데 여기로 왔으면 제목이 바뀌어 판정이 무효가 된 것이다.
+            # 새 쌍과 섞지 않고 따로 담아 상한을 건다 — 제목은 이슈가 기사를
+            # 흡수할 때마다 다시 생성되므로, 요동치는 날 재질의가 폭주하면
+            # 큐레이션과 같은 분당 버킷을 두고 다툰다.
+            (reask if pair_id in cache else todo).append(row)
         else:
             verdicts[pair_id] = hit
             stats["from_cache"] += 1
+
+    if len(reask) > MAX_REASK_PER_RUN:
+        stats["reask_deferred"] = len(reask) - MAX_REASK_PER_RUN
+        reask = reask[:MAX_REASK_PER_RUN]
+    stats["reasked"] = len(reask)
+    todo = reask + todo
 
     if todo and not client.is_available():
         stats["status"] = "no_api_key"

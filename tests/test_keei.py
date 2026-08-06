@@ -209,6 +209,61 @@ class KeeiMatchTests(unittest.TestCase):
         self.assertEqual(stats2["from_cache"], 2)
         self.assertEqual(again.calls, [], "캐시가 있으면 다시 묻지 않는다")
 
+    def test_rejection_reopens_when_the_issue_title_changes(self):
+        """거부 판정은 그때의 제목에 대한 것이다 — 제목이 바뀌면 다시 묻는다.
+
+        실측 2026-08-06 (캐시 169건 중 이슈가 살아있는 쌍 147건, 제목 드리프트 25건):
+            현재 이슈  "중국 타이핑링 2호기 원자력발전소 상업운전 개시"
+            KEEI      "중국 Taipingling 원전 2호기, 최초 계통연결 완료"
+        같은 호기인데 판정 당시 제목이 "중국 창장 3호기"라 거부돼 있었다.
+        """
+        first = FakeClient([{"items": [{"idx": 0, "same_event": False, "reason": "다른 호기"}]}])
+        old = dict(candidate(0), issue_title="중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시")
+        keei_match.match_pairs([old], cache_path=self.cache, client=first)
+
+        moved = dict(candidate(0), issue_title="중국 타이핑링 2호기 원자력발전소 상업운전 개시")
+        second = FakeClient([{"items": [{"idx": 0, "same_event": True, "reason": "같은 호기"}]}])
+        verdicts, stats = keei_match.match_pairs(
+            [moved], cache_path=self.cache, client=second)
+        self.assertEqual(verdicts["issue0--abc0"], True)
+        self.assertEqual((stats["from_cache"], stats["reasked"]), (0, 1))
+        stored = json.loads(self.cache.read_text(encoding="utf-8"))["matches"]["issue0--abc0"]
+        self.assertIn("타이핑링", stored["issue_title"])
+
+    def test_unchanged_title_still_uses_the_cache(self):
+        client = FakeClient([{"items": [{"idx": 0, "same_event": False, "reason": "다름"}]}])
+        keei_match.match_pairs([candidate(0)], cache_path=self.cache, client=client)
+        again = FakeClient()
+        verdicts, stats = keei_match.match_pairs(
+            [candidate(0)], cache_path=self.cache, client=again)
+        self.assertEqual(verdicts["issue0--abc0"], False)
+        self.assertEqual((again.calls, stats["reasked"]), ([], 0))
+
+    def test_approval_is_never_reopened(self):
+        """승인은 이미 연결됐다 — 제목이 바뀌어도 되돌릴 것이 없다."""
+        client = FakeClient([{"items": [{"idx": 0, "same_event": True, "reason": "같음"}]}])
+        keei_match.match_pairs([candidate(0)], cache_path=self.cache, client=client)
+        moved = dict(candidate(0), issue_title="완전히 다른 제목으로 바뀜")
+        again = FakeClient()
+        verdicts, stats = keei_match.match_pairs(
+            [moved], cache_path=self.cache, client=again)
+        self.assertEqual(verdicts["issue0--abc0"], True)
+        self.assertEqual((again.calls, stats["reasked"]), ([], 0))
+
+    def test_reask_is_capped_and_deferred_not_dropped(self):
+        """제목이 요동치는 날 재질의가 폭주하면 큐레이션과 같은 버킷을 두고 다툰다."""
+        rows = [candidate(i) for i in range(15)]
+        seed = FakeClient([{"items": [{"idx": i, "same_event": False, "reason": "x"}
+                                      for i in range(15)]}])
+        keei_match.match_pairs(rows, cache_path=self.cache, client=seed)
+        moved = [dict(row, issue_title=f"바뀐 제목 {i}") for i, row in enumerate(rows)]
+        again = FakeClient([{"items": [{"idx": i, "same_event": False, "reason": "y"}
+                                       for i in range(10)]}])
+        _verdicts, stats = keei_match.match_pairs(
+            moved, cache_path=self.cache, client=again)
+        self.assertEqual(stats["reasked"], keei_match.MAX_REASK_PER_RUN)
+        self.assertEqual(stats["reask_deferred"], 15 - keei_match.MAX_REASK_PER_RUN)
+
     def test_prompt_version_bump_invalidates_cache(self):
         client = FakeClient([{"items": [{"idx": 0, "same_event": True, "reason": "x"}]}])
         keei_match.match_pairs([candidate(0)], cache_path=self.cache, client=client)
