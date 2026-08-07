@@ -3186,6 +3186,30 @@ class HardEdgeSystemTests(unittest.TestCase):
             "라임 슬래브 위 글자가 AA 에 못 미친다",
         )
 
+    def test_ink_on_signal_is_pinned_not_inherited_from_the_theme(self):
+        """라임 위에 글자를 얹는 규칙은 --c-signal-ink 를 써야 한다.
+
+        --c-signal 은 두 테마에서 같은 #cce969 인데 --c-primary 는 테마마다
+        갈라진다(#12251e / #1a3329). 라임 칩의 글자색으로 --c-primary 를 쓰면
+        라이트에서는 우연히 --c-signal-ink 와 같은 값이라 통과하고, 다크에서만
+        조용히 달라진다. 배경이 고정이면 글자도 고정이라야 한다 —
+        --c-verified-on-primary 를 만든 것과 같은 이유다.
+
+        글자가 없는 라임(탭 밑줄, 상태 LED, 모바일 활성 바)은 채움이지 슬래브가
+        아니라 color 를 안 쓴다 — 여기서 걸러낸다. 경계선으로서의 라임은
+        test_signal_is_never_a_bare_boundary 가 따로 막는다.
+        """
+        pattern = re.compile(r"([^{}]+)\{([^}]*background:\s*var\(--c-signal\)[^}]*)\}")
+        blocks = pattern.findall(self.style)
+        self.assertTrue(blocks, "라임 슬래브가 하나도 없다 — 라임이 구조색이 아니다")
+        texted = [(sel, body) for sel, body in blocks if re.search(r"[^-]color:", body)]
+        self.assertTrue(texted, "글자를 얹은 라임 블록이 하나도 없다")
+        for selector, body in texted:
+            self.assertRegex(
+                body, r"[^-]color:\s*var\(--c-signal-ink\)",
+                f"{selector.strip().splitlines()[-1].strip()} 의 라임 위 글자색이 고정되지 않았다",
+            )
+
     def test_no_selector_list_dangles_into_an_at_rule(self):
         """쉼표로 끝난 선택자 목록은 바로 뒤의 @media 를 통째로 삼킨다.
 
@@ -3566,8 +3590,21 @@ class VisualSystemTests(unittest.TestCase):
         self.assertGreaterEqual(self.html.count('class="sec-no"'), 5)
         self.assertIn("font-family: var(--ff-mono)", self._rule(".sec-no"))
         # 구역 머리는 잉크 괘선으로 시작한다 — 번호만 붙이면 목록의 일부로 읽힌다.
-        self.assertIn("border-top: 2px solid var(--c-primary)",
-                      self._rule(".section-heading:not(.compact)"))
+        #
+        # 폭은 --bd-* 로 풀어서 재고, 색은 잉크 계열이면 통과시킨다. 예전에는
+        # "border-top: 2px solid var(--c-primary)" 를 문자열로 붙잡았는데,
+        # 그러면 토큰 이름 한 번 바뀔 때마다 지키려던 것과 무관하게 빨개진다.
+        # 지키려는 것은 '구역이 잉크 괘선으로 열린다', 그것뿐이다.
+        widths = dict(re.findall(r"--bd-(\d):\s*(\d+)px", self.style))
+        rule = self._rule(".section-heading:not(.compact)")
+        match = re.search(
+            r"border-top:\s*(?:var\(--bd-(\d)\)|(\d+)px)\s+solid\s+var\(--c-([\w-]+)\)",
+            rule,
+        )
+        self.assertIsNotNone(match, f"구역 머리에 잉크 괘선이 없다: {rule}")
+        width = int(widths[match.group(1)]) if match.group(1) else int(match.group(2))
+        self.assertGreaterEqual(width, 2, "구역 괘선이 헤어라인으로 내려앉으면 목록과 안 갈린다")
+        self.assertIn(match.group(3), {"primary", "primary-strong", "edge"})
 
     def test_issue_rows_are_dense_and_react_as_one(self):
         """행 높이를 정하던 두 값(세로 액션 스택·32px 패딩)을 되돌리지 않는다."""

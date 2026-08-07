@@ -247,16 +247,22 @@ button:disabled { cursor: not-allowed; opacity: .42; }
 .skip-link:focus { transform: translateY(0); }
 /* 시안의 오버라인은 9~11px 모노다. 12.5px 하한은 낮추지 않으므로 크기 대신
    모노 서체·자간·색으로 구분한다(계획서 §4 "크기가 아니라 다른 축으로"). */
+/* 라임 슬래브. 라임을 강조색에서 구조색으로 올린다 — 잉크 글자를 얹은 블록으로만
+   쓰고 경계선으로는 절대 쓰지 않는다(종이 위 1.20:1, HardEdgeSystemTests 가 막는다).
+   한 화면에 슬래브 셋이 예산이다: 상단바 마크 · TODAY · 구역 번호. 넷째가 붙는
+   순간 라임이 위계가 아니라 형광펜이 되고, 훑는 눈이 이슈 대신 디자인을 본다. */
 .eyebrow {
+  display: inline-block;
   margin: 0 0 7px;
-  color: var(--c-text-muted);
+  padding: 3px var(--sp-2);
+  background: var(--c-signal);
+  color: var(--c-signal-ink);
   font-family: var(--ff-mono);
   font-size: var(--t-min);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .1em;
   line-height: 1.25;
 }
-.eyebrow.dark { color: var(--c-text-muted); }
 .empty { color: var(--c-text-muted); }
 
 /* 상단바는 지면이 아니라 계기판이다 — 딥 포레스트 잉크로 눌러 콘텐츠와 크롬을
@@ -301,7 +307,7 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   flex: 0 0 auto;
   border-radius: 0;
   background: var(--c-signal);
-  color: var(--c-primary);
+  color: var(--c-signal-ink);
   font-family: var(--ff-base);
   font-size: 19px;
   font-weight: 800;
@@ -738,11 +744,18 @@ kbd {
    선이 둘 그어지고 제목이 그 사이에 끼어 칸이 어긋나 보인다(실측: 위 12px /
    아래 0px 비대칭 + 이중 괘선).
    위아래 여백도 같은 값으로 맞춘다: 선 → 12 → 제목 → 12 → 내용. */
-.section-heading:not(.compact) { padding-block: var(--sp-3); border-top: 2px solid var(--c-primary); }
-.section-title { display: flex; align-items: baseline; gap: var(--sp-3); min-width: 0; }
+.section-heading:not(.compact) { padding-block: var(--sp-3); border-top: var(--bd-3) solid var(--c-edge); }
+/* baseline 이 아니라 flex-end 다. 슬래브 밑변과 제목 밑변을 맞추면 번호가 제목
+   베이스라인보다 한 단 내려앉아 둘이 어긋난다 — 의도한 어긋남이라야 슬래브가
+   제목의 접두사가 아니라 별개의 좌표로 읽힌다. */
+.section-title { display: flex; align-items: flex-end; gap: var(--sp-3); min-width: 0; }
+/* 번호도 슬래브다 — 이 지면의 순서를 말하는 자리라 오버라인과 같은 목소리로 둔다.
+   음소거된 회색 12.5px 은 제목의 부속으로 읽혔다. */
 .sec-no {
   flex: 0 0 auto;
-  color: var(--c-text-muted);
+  padding: 2px var(--sp-2);
+  background: var(--c-signal);
+  color: var(--c-signal-ink);
   font-family: var(--ff-mono);
   font-size: var(--t-min);
   font-weight: 700;
@@ -1563,7 +1576,7 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
 .hub-chip small { color: var(--c-text-muted); font-size: var(--t-min); }
 .hub-chip b { color: var(--c-text-muted); font-weight: 600; font-size: var(--t-min); font-variant-numeric: tabular-nums; }
 .hub-chips .empty { margin: 0; color: var(--c-text-muted); font-size: var(--t-caption); }
-.entity-header { margin-bottom: var(--sp-8); padding-top: var(--sp-4); border-top: 2px solid var(--c-primary); }
+.entity-header { margin-bottom: var(--sp-8); padding-top: var(--sp-4); border-top: var(--bd-3) solid var(--c-edge); }
 .entity-kind { margin: 0; color: var(--c-text-muted); font-size: var(--t-min); font-family: var(--ff-mono); letter-spacing: .04em; }
 .entity-name { margin: 6px 0 0; font-size: var(--t-title); line-height: 1.2; letter-spacing: -.03em; }
 .entity-name span { color: var(--c-text-muted); font-size: var(--t-body); font-weight: 500; letter-spacing: 0; }
@@ -1724,7 +1737,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .archive-filters legend { margin-bottom: 6px; color: var(--c-text-muted); font-size: var(--t-min); }
 .archive-filters .segmented { display: grid; grid-template-columns: repeat(3, 1fr); }
 /* 결과 머리도 구역 머리다 — 홈·흐름과 같은 2px 잉크 괘선으로 연다. */
-.archive-result-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-top: var(--sp-3); padding-bottom: var(--sp-3); border-top: 2px solid var(--c-primary); }
+.archive-result-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-top: var(--sp-3); padding-bottom: var(--sp-3); border-top: var(--bd-3) solid var(--c-edge); }
 .archive-result-head h2 { margin: 0; font-size: 20px; letter-spacing: -.022em; }
 .archive-result-head p { margin: 3px 0 0; color: var(--c-text-muted); font-size: var(--t-min); }
 .archive-more { display: block; margin: 16px auto 0; }
@@ -2390,7 +2403,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   }
   .mobile-tabs button.active { color: #fff; }
   .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: 2px; background: var(--c-signal); content: ""; }
-  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-primary); font-size: var(--t-min); font-weight: 700; }
+  .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-signal-ink); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   .foot { margin-bottom: -68px; }
   .foot-grid { grid-template-columns: 1fr; gap: 16px; }
