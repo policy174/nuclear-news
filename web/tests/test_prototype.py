@@ -2981,8 +2981,24 @@ class PubShelfTests(unittest.TestCase):
         for org in ("IAEA", "OECD-NEA", "KEEI", "EIA", "IEA"):
             self.assertIn(f'"{org}"', self.script)
 
-    def test_dark_mode_uses_border_not_lift(self):
-        self.assertIn(':root[data-theme="dark"] a.cover-face:hover { transform: none;', self.style)
+    def test_cover_hover_answers_in_both_themes(self):
+        """표지 hover 는 두 테마 모두에서 눈에 보이게 응답한다.
+
+        원래는 ':root[data-theme="dark"] a.cover-face:hover { transform: none;'
+        를 문자열로 잠갔다. 전제는 "다크는 --sh-* 가 none 이라 들려도 안 보이니
+        보더를 밝혀 대신한다"였는데, 하드 오프셋 전환으로 그 전제가 거짓이 됐다 —
+        --sh-* 가 --c-edge 를 따라가고 다크는 그것을 밝은 값으로 뒤집는다.
+        지키려던 것은 폴백 규칙 자체가 아니라 '다크에서 hover 가 죽지 않는다'다.
+        """
+        hover = re.search(r"a\.cover-face:hover \{([^}]*)\}", self.style).group(1)
+        self.assertIn("box-shadow: var(--sh-", hover)
+        self.assertIn("transform:", hover)
+        # 다크가 --sh-* 를 none 으로 되돌리면 들림이 통째로 사라진다.
+        # 주석에도 토큰 이름이 나오므로 선언만 본다.
+        dark = self.style.split(':root[data-theme="dark"] {', 1)[1].split("}", 1)[0]
+        dark = re.sub(r"/\*.*?\*/", "", dark, flags=re.S)
+        self.assertNotRegex(dark, r"--sh-\d:", "다크가 그림자 토큰을 다시 덮어쓰면 hover 가 죽는다")
+        self.assertIn("--c-edge:", dark)
 
     def test_reduced_motion_kills_the_lift(self):
         reduced = self.style[self.style.index("@media (prefers-reduced-motion: reduce)"):]
