@@ -1,6 +1,6 @@
 {
   "_comment": "이슈 단위 카드 해석 캐시. 키는 issue_id, digest 가 다르면 다시 묻는다.",
-  "prompt_version": 2,
+  "prompt_version": 3,
   "insights": {
     "issue-4bdd65d0c09aaf72": {
       "digest": "be46957c831c8216",
@@ -11,36 +11,36 @@
       "generated_at": "2026-08-05T13:05:35.263810+00:00"
     },
     "issue-527a6bd0d4f4a288": {
-      "digest": "f940183c7f3ddc37",
-      "insight": "한국수력원자력이 1조 7,508억 원 규모의 포천양수발전소 본공사에 착수했다.",
+      "digest": "d71212e8787f38a6",
+      "insight": "",
       "title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-ebf7dd57b9741653": {
-      "digest": "2c8aa1469822c3b8",
+      "digest": "616aed7dd8922f7a",
       "insight": "",
       "title": "IAEA 사무총장, 우크라이나 상황 관련 성명 발표",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-0d29e5a153e4d297": {
-      "digest": "62c9e36f4c44fda1",
+      "digest": "3ed063dd51b66801",
       "insight": "",
       "title": "독일, 2040년대 유럽 최초 핵융합로 목표로 국가 허브 발표",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-349e783fd4decdfa": {
-      "digest": "42571708e5da6b99",
+      "digest": "9bc32ab289d6bbef",
       "insight": "",
       "title": "미국 에너지부, 원자력 혁신 캠퍼스 유치 후보지 5개 주 선정 발표",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T13:05:35.263810+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-0abd318976122879": {
       "digest": "a61f8cbfc6a5e5b0",
@@ -75,52 +75,52 @@
       "generated_at": "2026-08-05T17:20:54.457021+00:00"
     },
     "issue-ca69ce47dc1e639d": {
-      "digest": "4ba09efa2c6881c1",
-      "insight": "ARC 클린 테크놀로지가 아이다호 국립연구소와 협력하여 ARC-100 SMR 최초 배치를 추진한다.",
+      "digest": "e514573eefa6bf1a",
+      "insight": "",
       "title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T17:20:54.457021+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-12ec710dcc1a738a": {
-      "digest": "3f1d6bf0fcf210a0",
-      "insight": "러시아 규제기관의 부지 인허가 후 콜라 II 원전 건설을 위한 부지 준비 작업이 시작되었다.",
+      "digest": "096689855310be0f",
+      "insight": "",
       "title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T17:20:54.457021+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-6260c0799db78ac9": {
-      "digest": "98b2bb358a3e0d15",
-      "insight": "AI 전력 수요 증가에 따른 신규 원전 반영을 두고 원자력학회가 촉구하는 가운데, 정부 부처 간 의견 불일치가 12차 전력수급기본계획 수립에 혼선을 주고 있다.",
+      "digest": "4376b567dfb41c1c",
+      "insight": "",
       "title": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-06T01:26:37.743241+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-4113d294aea75ee0": {
-      "digest": "a389efa468c30e3e",
+      "digest": "c8c254197602beb0",
       "insight": "",
       "title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-06T01:26:37.743241+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-7702cb1efa54b619": {
-      "digest": "ddb1e38be19fc04e",
-      "insight": "아르헨티나와 루마니아가 노후 원전의 안전한 계속운전을 위한 수명연장 협력을 추진한다.",
+      "digest": "b0f3d532a9289160",
+      "insight": "",
       "title": "아르헨티나 Nucleoeléctrica, 루마니아 원전 수명 연장 프로젝트 MoU 체결",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T17:20:54.457021+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-3b00d0a5a0199c0b": {
-      "digest": "729dba1dac7e6509",
+      "digest": "fe3179ccbf6f2904",
       "insight": "",
       "title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T17:20:54.457021+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-0b5218c29cbb0084": {
       "digest": "b8fd41854d03483a",
@@ -187,20 +187,20 @@
       "generated_at": "2026-08-06T01:26:37.743241+00:00"
     },
     "issue-c76e8785efc2694e": {
-      "digest": "8718e732bbefffe5",
-      "insight": "",
+      "digest": "f455c6447c608df8",
+      "insight": "중국광핵(CGN)이 발표한 타이핑링 2호기 상업운전 개시는 중국의 원전 확대 정책을 보여준다.",
       "title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-05T22:38:54.531836+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-3e00af0212edae79": {
-      "digest": "64a7b9f576fb1775",
-      "insight": "다뉴브강 수위 회복으로 냉각수 취수 한계 위기를 넘겨 가동 중단을 피했다.",
+      "digest": "c85fb544224e0d52",
+      "insight": "",
       "title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
-      "prompt_version": 2,
+      "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-06T22:54:42.014982+00:00"
+      "generated_at": "2026-08-07T14:09:45.764111+00:00"
     }
   }
 }
