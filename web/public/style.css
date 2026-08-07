@@ -6,11 +6,25 @@
   font-display: swap;
 }
 
-/* 딥 포레스트 · 미네랄 화이트 · 라임.
+/* 딥 포레스트 · 미네랄 화이트 · 라임 — 네오브루탈리즘.
  *
  * 색은 값만으로 부족하다 — 용도가 함께 정해져 있다. 아래 "표면 전용" 표시가
  * 붙은 색은 밝은 배경 위 본문 텍스트로 쓰면 WCAG AA(4.5:1)에 미달한다.
  * 텍스트가 필요하면 짝이 되는 *-text 토큰을 쓸 것. 실측 대비는 각 줄에 적었다.
+ *
+ * ── 전환 규칙 넷 ─────────────────────────────────────────────────
+ * 1. 라임은 블록이지 선이 아니다. 종이 위 경계선은 1.20:1 이라 안 보이고
+ *    1.4.11 위반이다. 잉크 글자(--c-signal-ink)나 잉크 테두리를 반드시 동반한다.
+ * 2. 라임 슬래브는 지면 평면에 셋까지. 크롬 평면(N 마크·탭 밑줄·상태 LED)은
+ *    다른 평면이라 따로 센다. 넷째가 붙으면 위계가 아니라 형광펜이 된다.
+ * 3. 하드 오프셋 그림자는 **떠 있는 것**에만: dialog · .filter-sheet · .toast ·
+ *    선두 카드. 지면에 박힌 패널은 3px 프레임만 — 반복 요소에 그림자를 얹으면
+ *    형제를 덮어 스캔 목록이 스티커 시트가 된다.
+ * 4. 잉크 크롬 안(.topbar · .mobile-tabs · .status-strip · .rail-head)에서는
+ *    --sh-* 금지. --c-edge 는 --c-primary 위에서 1.4:1 이라 아무것도 안 보인다.
+ *
+ * 굵기가 곧 위계다: --bd-1 헤어라인(표 내부·메타) / --bd-2 구조선(구역 머리·
+ * 행 구분) / --bd-3 프레임(상자를 두르거나 구역을 연다). 3 은 아껴 쓴다.
  */
 :root {
   --c-primary: #12251e;
@@ -1930,7 +1944,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .status-dialog > div { padding: 22px; }
 .search-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .search-dialog-head h2 { margin: 0; font-size: 20px; }
-/* 이 사이트에서 둥근 것은 상태 점(LED)뿐이다 — 알약 배지 9곳을 각지게 돌린
+/* 이 사이트에서 둥근 것은 상태 점(LED)뿐이다(이제 사실이다 — 리터럴 라운드
+   6건을 정리하고 test_radius_escapes_are_closed 로 잠갔다) — 알약 배지 9곳을 각지게 돌린
    김에 유일하게 남아 있던 원형 버튼도 맞춘다. */
 .search-dialog-head button,
 .dialog-close {
