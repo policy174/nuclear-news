@@ -308,6 +308,9 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   border-radius: 0;
   background: var(--c-signal);
   color: var(--c-signal-ink);
+  /* 하드 그림자를 붙이지 않는다 — --c-edge(#0b1713)는 상단바의 --c-primary
+     (#12251e) 위에서 1.4:1 이라 아무것도 안 보인다. 잉크 크롬 안(.topbar ·
+     .mobile-tabs · .status-strip · .rail-head)에서는 --sh-* 를 쓰지 말 것. */
   font-family: var(--ff-base);
   font-size: 19px;
   font-weight: 800;
@@ -343,7 +346,7 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   right: 0;
   bottom: 0;
   left: 0;
-  height: 2px;
+  height: var(--bd-3);
   background: var(--c-signal);
   transform: scaleX(0);
   transition: transform var(--mo-2) var(--mo-ease);
@@ -438,7 +441,15 @@ kbd {
 /* 구분자를 마크업이 아니라 CSS 로 그리면, 줄이 바뀌는 자리에서 '·' 가 홀로
    남지 않는다. 첫 항목 앞에도 붙지 않는다. */
 .status-item::before { margin-right: 8px; content: "·"; }
-.status-strip strong { color: var(--c-signal); font-weight: 700; }
+/* 상태 스트립은 정상인 날 걷힌다(.ok { display: none }) — 떠 있다는 것 자체가
+   신호다. 강조를 슬래브로 올려 훑는 눈에 먼저 걸리게 한다. */
+.status-strip strong {
+  display: inline-block;
+  padding: 0 var(--sp-1);
+  background: var(--c-signal);
+  color: var(--c-signal-ink);
+  font-weight: 700;
+}
 .status-strip .status-dot { border-radius: 50%; }
 .status-strip.loading .status-dot,
 .status-strip.refreshing .status-dot { background: var(--c-secondary); }
@@ -2422,7 +2433,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     transition: color var(--mo-1);
   }
   .mobile-tabs button.active { color: #fff; }
-  .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: 2px; background: var(--c-signal); content: ""; }
+  .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: var(--bd-3); background: var(--c-signal); content: ""; }
   .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-signal-ink); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   .foot { margin-bottom: -68px; }
