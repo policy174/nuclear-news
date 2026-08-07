@@ -3126,6 +3126,105 @@ class TokenSystemTests(unittest.TestCase):
         self.assertIn("box-shadow: var(--fo-ring);", self.style)
 
 
+class HardEdgeSystemTests(unittest.TestCase):
+    """네오브루탈리즘 전환 — 눈에 보이는 것의 전부가 이 값들이다.
+
+    문자열이 아니라 관계를 잠근다. 이 파일의 디자인 테스트가 두 번 깨진 이유는
+    (`"padding: var(--sp-5)"` 같은) 리터럴을 붙잡아서였다 — 토큰 이름이 한 번
+    바뀌면 지키려던 것과 무관하게 빨개진다. 여기서는 대비·blur·존재만 본다.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+
+    def test_border_and_shadow_tokens_exist_in_both_themes(self):
+        for token in ("--bd-1:", "--bd-2:", "--bd-3:", "--c-edge:", "--c-signal-ink:"):
+            self.assertIn(token, self.style, f"{token} 토큰이 없다")
+        # 다크가 --c-edge 를 뒤집지 않으면 하드 그림자가 어두운 종이에 묻혀 사라진다.
+        dark = self.style.split(':root[data-theme="dark"] {', 1)[1].split("}", 1)[0]
+        self.assertIn("--c-edge:", dark, "다크 블록에 --c-edge 재정의가 없다")
+
+    def test_shadows_are_hard_offsets_with_zero_blur(self):
+        for step in (1, 2, 3):
+            match = re.search(rf"--sh-{step}:\s*([^;]+);", self.style)
+            self.assertIsNotNone(match, f"--sh-{step} 정의가 없다")
+            self.assertRegex(
+                match.group(1).strip(),
+                r"^\d+px \d+px 0 var\(--c-edge\)$",
+                f"--sh-{step} 는 blur 0 인 --c-edge 오프셋이어야 한다",
+            )
+        # 다크의 `--sh-*: none` 세 줄이 돌아오면 다크에서 상자 위계가 통째로 죽는다.
+        self.assertNotIn("--sh-1: none", self.style)
+
+    def test_edge_ink_clears_aa_in_both_themes(self):
+        for theme, tokens in _theme_tokens(self.style).items():
+            self.assertGreaterEqual(
+                _contrast(tokens["c-edge"], tokens["c-bg"]), 7.0,
+                f"{theme}: --c-edge 가 종이에서 떨어지지 않는다",
+            )
+
+    def test_signal_is_never_a_bare_boundary(self):
+        """라임은 종이 위 1.20:1 이다 — 테두리·아웃라인으로 쓰면 경계가 안 보인다.
+
+        블록으로만 쓰고 잉크 글자나 잉크 테두리를 반드시 동반한다(WCAG 1.4.11).
+        느낌상 맞고 다크 스크린샷에서는 멀쩡해 보이기 때문에 사람 눈으로는 못 막는다.
+        """
+        for prop in (
+            "border", "border-top", "border-right", "border-bottom",
+            "border-left", "border-color", "outline",
+        ):
+            self.assertNotRegex(
+                self.style, rf"[^-]{prop}:[^;]*var\(--c-signal\)",
+                f"{prop} 에 --c-signal 을 썼다 — 라임은 경계선이 될 수 없다",
+            )
+
+    def test_ink_on_signal_clears_aa(self):
+        tokens = _theme_tokens(self.style)["light"]
+        self.assertGreaterEqual(
+            _contrast(tokens["c-signal-ink"], tokens["c-signal"]), 4.5,
+            "라임 슬래브 위 글자가 AA 에 못 미친다",
+        )
+
+    def test_no_selector_list_dangles_into_an_at_rule(self):
+        """쉼표로 끝난 선택자 목록은 바로 뒤의 @media 를 통째로 삼킨다.
+
+        실제 사건(C1 작업 중): 쉼표 목록의 **마지막** 항목이던
+        `:root[data-theme="dark"] .filter-tab.active { box-shadow: none; }` 를
+        규칙째 지우면서 앞 줄의 쉼표가 남았다. 파서는 다음 토큰인
+        `@media (min-width: 1200px)` 를 선택자의 일부로 먹었고, 그 블록이
+        CSSOM 에서 사라져 사이드바가 1440px 에서 숨었다. railIsActive() 가
+        사이드바 computed display 를 읽으므로 선두 카드가 해석 블록을 다시
+        펼쳤고 첫 행이 82px 아래로 밀렸다.
+
+        브레이스도 주석도 균형이 맞아 눈으로도 린트로도 안 걸린다.
+        """
+        stripped = re.sub(r"/\*.*?\*/", "", self.style, flags=re.S)
+        self.assertNotRegex(
+            stripped, r",\s*@",
+            "선택자 목록이 쉼표로 끝난 채 at-rule 을 만난다 — 그 블록이 통째로 죽는다",
+        )
+        self.assertNotRegex(
+            stripped, r",\s*}",
+            "선택자 목록이 쉼표로 끝난 채 블록이 닫힌다",
+        )
+
+    def test_the_page_has_exactly_one_box(self):
+        """상자는 선두 카드 하나뿐이다.
+
+        상자가 하나면 위계지만 둘이 되는 순간 배경이 된다. 목록 행·배지가
+        그림자를 얻으면 스캔 목록이 스티커 시트가 되고, 그게 이 방향이 실패하는
+        가장 흔한 방식이다. 행은 형제끼리 border-top 으로만 갈린다.
+        """
+        for selector in (".issue-card", ".verification-badge", ".report-pick-badge"):
+            match = re.search(rf"^\{selector} \{{([^}}]*)\}}", self.style, re.M)
+            self.assertIsNotNone(match, f"{selector} 규칙을 못 찾았다")
+            self.assertNotIn(
+                "box-shadow", match.group(1),
+                f"{selector} 에 그림자가 붙었다 — 반복 요소는 형제를 덮는다",
+            )
+
+
 class FacilityEntitySignalTests(unittest.TestCase):
     """설비·프로젝트 엔티티 공유는 LLM 검수 우선순위 신호다(병합 판정은 아니다).
 
