@@ -3249,6 +3249,34 @@ class HardEdgeSystemTests(unittest.TestCase):
             "선택자 목록이 쉼표로 끝난 채 블록이 닫힌다",
         )
 
+    def test_no_color_hex_hides_inside_a_media_query_root(self):
+        """미디어쿼리 :root 안에 --c-* hex 를 두면 대비 테스트가 조용히 뒤집힌다.
+
+        test_muted_text_meets_wcag_aa_on_paper 는
+        `dict(re.findall(r"--([\\w-]+):\\s*(#[0-9a-fA-F]{6})", css))` 를 **파일
+        전체**에 돌린다 — 나중 값이 앞을 덮어쓰므로, 모바일 블록에 색 hex 를 하나
+        두면 그 테스트가 재는 배경이 바뀌어 버린다. 실패하지도 않고, 다른 쌍을
+        재기 시작할 뿐이다.
+
+        모바일에서 토큰을 강등하는 것 자체는 옳다(--bd-3 3 → 2px, 그림자 축소).
+        단위 없는/px 토큰만 두면 정규식이 못 보므로 안전하다.
+        """
+        for match in re.finditer(r"@media[^{]*\{", self.style):
+            start = match.end()
+            depth, index = 1, start
+            while depth and index < len(self.style):
+                if self.style[index] == "{":
+                    depth += 1
+                elif self.style[index] == "}":
+                    depth -= 1
+                index += 1
+            body = self.style[start:index]
+            for root in re.finditer(r":root\s*\{([^}]*)\}", body):
+                self.assertNotRegex(
+                    root.group(1), r"--[\w-]+:\s*#[0-9a-fA-F]{6}",
+                    "미디어쿼리 :root 에 색 hex 가 있다 — 대비 테스트가 이걸 마지막 값으로 읽는다",
+                )
+
     def test_radius_escapes_are_closed(self):
         """--r-* 를 0 으로 잠가놓고 리터럴 라운드가 여섯 군데 살아 있었다.
 

@@ -2129,6 +2129,20 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 }
 
 @media (max-width: 767px) {
+  /* 테두리·그림자를 토큰 층에서 한 번에 내린다 — 선택자마다 손대면 빠뜨린다.
+     390px 에서 3px 사면 프레임은 12px, 내부 폭의 3% 를 먹는다. --bd-1/--bd-2 는
+     그대로 둔다: 행 구분선이 2px 라 모바일 목록이 표로 읽히고, 비용은 행당 1px 다.
+
+     주의 — 이 :root 안에 --c-* hex 를 절대 넣지 말 것.
+     test_muted_text_meets_wcag_aa_on_paper 는 --([\w-]+):\s*(#[0-9a-fA-F]{6})
+     를 파일 전체에 돌려 dict() 로 만든다. 나중 값이 앞을 덮어쓰므로 여기 hex 를
+     두면 그 테스트가 재는 대비 쌍이 조용히 바뀐다. 단위 없는/px 토큰만 둔다. */
+  :root {
+    --bd-3: 2px;
+    --sh-1: 2px 2px 0 var(--c-edge);
+    --sh-2: 3px 3px 0 var(--c-edge);
+    --sh-3: 4px 4px 0 var(--c-edge);
+  }
   /* 발간물 — 모바일은 1열 서가형 목록. 표지 비율을 풀고(aspect auto) 스파인
      달린 목록 카드로 강등한다. 2열 표지는 제목 5줄+gist 에서 세로로 무너진다. */
   .pubs-list { grid-template-columns: 1fr; gap: var(--sp-4); }
@@ -2360,7 +2374,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .event-block li { grid-template-columns: 58px 1fr; }
   .readiness-panel { display: grid; gap: 8px; }
   .coverage { justify-content: space-between; }
-  .data-card { padding: 14px; }
+  .data-card { padding: 11px; }
   .data-card-head { display: grid; }
   /* 좁은 화면에서 표를 옆으로 밀지 않는다. 행을 두 줄로 접고 숫자마다 라벨을
      붙여 헤더 없이도 읽히게 한다. */
@@ -2440,7 +2454,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .mobile-tabs button { min-height: 44px; }
   .briefing-filters[open] .filter-sheet,
   .archive-filter-drawer[open] .archive-filters { max-height: 88dvh; }
-  .hero-copy h1 { font-size: clamp(20px, 3.4vw, 24px); }
+  .hero-copy h1 { font-size: clamp(22px, 3.6vw, 26px); }
 }
 
 @media (max-width: 390px) {
