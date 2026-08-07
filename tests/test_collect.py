@@ -565,6 +565,32 @@ class TestBatchTemplateDoesNotPrimeEmptyValues(unittest.TestCase):
                 self.assertIn("|", value, f"{field} 예시값이 선택지를 제시하지 않는다: {value}")
 
 
+class TestWeaponsScopeRule(unittest.TestCase):
+    """타국 핵무기 프로그램은 원자력 발전 뉴스가 아니다 — 다만 한국은 예외다.
+
+    2026-08-06 브리핑 해외 1번이 '이란 혁명수비대 핵 개발 경고'였다. 프롬프트에
+    핵무기·비확산 관련 지시가 한 줄도 없어서 LLM 이 '정책 결정'으로 읽고
+    must_read 를 줬다(점수 21.56 = importance 10 + event:policy_decision 6 + ...).
+
+    규칙 추가 후 실측(각 3회): 이란 nice_to_know 3/3 → noise 3/3 으로 뒤집혔고,
+    '한국도 미국에 우라늄 농축권한 요청'은 nice_to_know 3/3 으로 살아남았다.
+    예외 문구가 빠지면 후자가 같이 죽는다 — 한미원자력협정·핵연료주기는
+    정책개발부 핵심 사안이라 그게 더 큰 손실이다.
+    """
+
+    def test_prompt_excludes_foreign_weapons_programs(self):
+        for token in ("핵무기", "비확산"):
+            self.assertIn(token, nb.CURATION_SYSTEM_PROMPT)
+        self.assertIn("한국이 당사자가 아니면 noise", nb.CURATION_SYSTEM_PROMPT)
+
+    def test_prompt_keeps_the_korean_fuel_cycle_exception(self):
+        """일괄 차단으로 바뀌면 우라늄 농축권한 기사가 같이 죽는다."""
+        prompt = nb.CURATION_SYSTEM_PROMPT
+        self.assertIn("한국이 당사자면 예외", prompt)
+        for token in ("한미원자력협정", "농축", "재처리"):
+            self.assertIn(token, prompt)
+
+
 class TestFeaturesRecuration(unittest.TestCase):
     """features 결손이 재큐레이션 대상에 들어가는가 — 실패하면 조용히 영구화된다.
 
