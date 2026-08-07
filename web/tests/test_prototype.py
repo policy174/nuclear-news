@@ -3490,3 +3490,53 @@ class VisualSystemTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ArticleDetailSurfacesTests(unittest.TestCase):
+    """원문 요지(detail)가 수집에서 화면까지 살아서 도착하는가.
+
+    사용자 요구(2026-08-07): "실제 기사들이 영문으로 되어있는 경우가 많아서 실제를
+    들어가서 보기 어려운 경우가 많거든." 그래서 원문에 안 들어가도 되는 분량을
+    만들었는데, **화면까지 배선되지 않으면 데이터에만 있고 아무도 못 본다** —
+    이 저장소에서 selection_reasons 가 실제로 그랬다(생성만 되고 한 번도 노출 안 됨).
+    """
+
+    def test_pick_detail_prefers_the_representative_then_the_newest(self):
+        old = {"article_date": "2026-08-01", "title_kr": "옛 기사",
+               "detail": "옛 상태를 설명하는 요지다."}
+        new = {"article_date": "2026-08-06", "title_kr": "새 기사",
+               "detail": "지금 상태를 설명하는 요지다."}
+        representative = {"title_kr": "대표", "detail": "대표 기사의 요지다."}
+
+        detail, source = build_data.pick_detail([old, new], representative)
+        self.assertEqual(detail, "대표 기사의 요지다.")
+        # 대표 기사면 출처를 적지 않는다 — 그 제목이 바로 위 h2 다.
+        self.assertEqual(source, "")
+
+        # 대표에 요지가 없으면 **가장 최신** 기사에서 가져온다. 오래된 멤버를
+        # 쓰면 제목은 새 사건인데 내용은 옛 상태인 조합이 나온다.
+        detail, source = build_data.pick_detail([old, new], {"title_kr": "대표"})
+        self.assertEqual(detail, "지금 상태를 설명하는 요지다.")
+        self.assertEqual(source, "새 기사")
+
+    def test_missing_detail_is_not_an_error(self):
+        # 2026-08-07 이전 아카이브에는 detail 이 없다. 빈 값이 정상이다.
+        self.assertEqual(build_data.pick_detail([{"article_date": "2026-08-01"}], {}),
+                         ("", ""))
+
+    def test_article_view_carries_detail_into_the_timeline(self):
+        view = build_data._article_view({
+            "hash": "h1", "article_date": "2026-08-06", "title_kr": "제목",
+            "detail": "본문에서 뽑은 요지다.",
+        })
+        self.assertEqual(view["detail"], "본문에서 뽑은 요지다.")
+
+    def test_the_dialog_actually_renders_it(self):
+        app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("dialog-detail", app)
+        self.assertIn("기사 내용", app)
+        self.assertIn(".dialog-detail", css)
+        # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
+        self.assertIn("timeline-detail", app)
+        self.assertIn(".timeline-detail", css)

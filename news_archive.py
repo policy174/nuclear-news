@@ -167,6 +167,9 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "title": title,
         "title_kr": cur.get("title_kr", ""),
         "summary": cur.get("summary", ""),
+        # 원문(대개 영문)에 들어가지 않고도 읽을 수 있는 3~5문장 요지.
+        # **원문 본문 자체는 여기 넣지 않는다** — 저장하는 것은 한국어 요약뿐이다.
+        "detail": cur.get("detail", ""),
         "implication": cur.get("implication", ""),
         "why_important": cur.get("why_important", ""),
         # '아직 확정되지 않은 것' — 사실도 해석도 아닌 세 번째 축.

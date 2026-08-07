@@ -47,7 +47,9 @@ ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "issue_insights.json"
 
 # 프롬프트를 고치면 올린다. 캐시된 옛 문장이 자동으로 무효가 된다.
-PROMPT_VERSION = 2
+# v3 (2026-08-07): 경과를 최신순으로 표시 + 본문 요지 투입 + 모순·복사 금지.
+# 올리지 않으면 이미 캐시된 모순 문장("가동 중단을 피했다")이 그대로 남는다.
+PROMPT_VERSION = 3
 
 # 카드 두 번째 줄은 2줄(모바일 3줄)에서 잘린다. 잘린 분석문은 완결된 요약보다
 # 나쁘다는 것이 이 저장소의 기존 판단이다(app.js issueCard 주석).
@@ -81,6 +83,15 @@ SYSTEM_PROMPT = """너는 한국수력원자력 정책 부서에 원자력 뉴�
     좋음: 다뉴브강 수위 저하로 냉각수 취수가 막혀 예고됐던 전면 정지를 피한 것이다.
           (경과에 있는 원인을 끌어와 제목이 왜 뉴스인지 설명한다)
 - **경과에 적힌 사실만 쓴다.** 경과에 없는 원인·수치·기관·날짜를 지어내지 말 것.
+- **제목과 어긋나는 상태를 쓰지 말 것.** 경과는 최신순이고 맨 위가 현재 상태다.
+  옛 기사나 상충하는 보도의 서술을 현재처럼 옮기면 화면에서 제목과 정면으로
+  모순된다. 실제로 그런 사고가 있었다:
+    제목: 헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단
+    나쁨: 다뉴브강 수위 회복으로 냉각수 취수 한계 위기를 넘겨 가동 중단을 피했다.
+          (경과의 다른 기사 문장을 그대로 옮겨 제목과 반대되는 말을 했다)
+  경과 안에서 사실이 엇갈려 어느 쪽이 현재인지 정할 수 없으면 **빈 문자열**로 둔다.
+- **경과에 있는 문장을 그대로 옮겨 쓰지 말 것.** 그 문장은 화면의 타임라인에 이미
+  그대로 있다. insight 는 여러 기사를 이어야만 나오는 말이어야 한다.
 - 예측·권고·투자 판단 금지. "주목해야 한다", "기대된다", "시사한다" 같은
   맺음말로 끝내지 말 것 — 그렇게 끝나는 문장은 대개 내용이 없다.
 - 경과가 제목과 같은 말의 반복뿐이어서 더 보탤 사실이 없으면 **빈 문자열**로 둔다.
@@ -131,6 +142,31 @@ def _restates_title(insight: str, title: str) -> bool:
         return False
     title_quantities = set(_QUANTITY_RE.findall(title))
     return not (set(_QUANTITY_RE.findall(insight)) - title_quantities)
+
+
+# 경과 문장 베끼기 판정. 제목 재진술(_restates_title)과는 다른 실패 모드다 —
+# 제목과는 안 겹치면서 **다른 기사 한 건의 요약을 그대로** 옮기는 경우가 있고,
+# 그때 그 기사가 최신 상태가 아니면 카드가 제목과 정면으로 모순된다(2026-08-07
+# 사용자 지적: 제목 '3기 가동 중단' / 해석 '가동 중단을 피했다').
+#
+# 유사도 판정이 여기서는 통한다. 제목 재진술은 바꿔 쓴 문장이라 겹침이 낮게도
+# 나오지만(0.42 사례), 이건 **복사**라 실측 겹침이 0.85 를 넘는다.
+_MEMBER_COPY_RATIO = 0.75
+
+
+def _copies_member(insight: str, members: list[dict]) -> bool:
+    """경과 기사 한 건의 요약을 사실상 그대로 옮겼으면 참."""
+    left = _NON_WORD_RE.sub("", insight)
+    if not left:
+        return False
+    for member in members:
+        for field in ("summary", "title_kr", "title"):
+            right = _NON_WORD_RE.sub("", str(member.get(field) or ""))
+            if not right:
+                continue
+            if difflib.SequenceMatcher(None, left, right).ratio() >= _MEMBER_COPY_RATIO:
+                return True
+    return False
 
 
 def _resolve_model() -> str:
@@ -203,6 +239,16 @@ def apply(rows: list[dict], insights: dict[str, str]) -> int:
     return applied
 
 
+def _sorted_timeline(row: dict) -> list[dict]:
+    """최신 기사가 앞. 어느 기사가 현재 상태인지 모델이 알아야 한다."""
+    return sorted(
+        issue_timeline(row),
+        key=lambda member: str(member.get("article_date")
+                               or member.get("briefing_date") or ""),
+        reverse=True,
+    )
+
+
 def build_user_message(rows: list[dict]) -> str:
     blocks = []
     for index, row in enumerate(rows):
@@ -210,21 +256,29 @@ def build_user_message(rows: list[dict]) -> str:
         summary = clean_text(row.get("summary"))
         if summary:
             lines.append(f"    요약: {summary}")
-        lines.append("    경과:")
-        for member in issue_timeline(row):
+        lines.append("    경과 (최신순):")
+        timeline = _sorted_timeline(row)
+        for position, member in enumerate(timeline):
             date = member.get("article_date") or member.get("briefing_date") or ""
             title = clean_text(member.get("title_kr") or member.get("title"))
             member_summary = clean_text(member.get("summary"))
-            lines.append(f"      {date} {title}")
+            marker = " ← 최신" if position == 0 else ""
+            lines.append(f"      {date} {title}{marker}")
             if member_summary and member_summary != title:
                 lines.append(f"        {member_summary}")
+            # 원문 본문에서 뽑은 요지가 있으면 그것이 가장 좋은 재료다. 제목 한 줄로는
+            # '어느 쪽이 지금 상태인가'를 판정할 근거가 프롬프트 안에 아예 없었다 —
+            # 그래서 제목이 '3기 가동 중단'인데 해석이 '가동 중단을 피했다'로 붙었다.
+            member_detail = clean_text(member.get("detail"))
+            if member_detail:
+                lines.append(f"        본문 요지: {member_detail}")
         blocks.append("\n".join(lines))
     return "\n\n---\n\n".join(blocks)
 
 
 def _parse(payload: object, rows: list[dict]) -> tuple[dict[int, str], dict[str, int]]:
     out: dict[int, str] = {}
-    rejected = {"too_long": 0, "hollow": 0, "restates_title": 0}
+    rejected = {"too_long": 0, "hollow": 0, "restates_title": 0, "copies_member": 0}
     items = payload.get("items") if isinstance(payload, dict) else None
     for item in items or []:
         if not isinstance(item, dict):
@@ -248,6 +302,11 @@ def _parse(payload: object, rows: list[dict]) -> tuple[dict[int, str], dict[str,
             continue
         if _restates_title(insight, str(rows[idx].get("title") or "")):
             rejected["restates_title"] += 1
+            continue
+        if _copies_member(insight, issue_timeline(rows[idx])):
+            # 경과 한 건을 베낀 문장. 그 기사가 최신이 아니면 제목과 모순되고,
+            # 최신이더라도 타임라인에 이미 있는 문장이라 새 정보가 아니다.
+            rejected["copies_member"] += 1
             continue
         out[idx] = insight
     return out, rejected

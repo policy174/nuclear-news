@@ -187,7 +187,7 @@ class TestChunkLossIsRecoveredOrRecorded(unittest.TestCase):
     @staticmethod
     def _ok_items(user_message):
         """프롬프트에 실린 [idx] 개수만큼 정상 항목을 만들어 응답한다."""
-        n = len(re.findall(r"^\[(\d+)\]", user_message, re.M))
+        n = len(re.findall(r"^\[(\d+)\|", user_message, re.M))
         return {"items": [{
             "idx": i, "importance": "nice_to_know", "section": "international",
             "scope": "overseas", "category": "정책", "title_kr": f"신규 원전 계획 {i}",
@@ -204,7 +204,7 @@ class TestChunkLossIsRecoveredOrRecorded(unittest.TestCase):
         calls = []
 
         def fake(system, user, **kw):
-            calls.append(len(re.findall(r"^\[(\d+)\]", user, re.M)))
+            calls.append(len(re.findall(r"^\[(\d+)\|", user, re.M)))
             exc = failures.get(len(calls) - 1)
             if exc:
                 raise exc
@@ -1190,3 +1190,73 @@ class TestDailyQuotaDoesNotDegradeArticles(unittest.TestCase):
                    "description": "원자력안전위원회가 고리 3·4호기 계속운전 심의를 하반기에 진행한다.",
                    "domain": "yna.co.kr", "publisher": "연합뉴스"}
         self.assertIsNotNone(nb.fallback_curation(article))
+
+
+class TestBatchIdentityIsNotPositional(unittest.TestCase):
+    """모델이 항목을 빼고 번호를 다시 매겨도 요약이 옆 기사에 붙지 않는다.
+
+    회귀 방지 (2026-08-07 실측): 8건을 넣었더니 모델이 한 건(지역 소식 묶음)을
+    응답에서 빼고 **남은 것의 idx 를 앞당겨** 적었다. 그 결과 2~6번 다섯 기사의
+    요약·해석이 통째로 옆 기사에 저장됐고, 검출된 것은 마지막 idx 하나의
+    '누락'뿐이었다. **잘못된 짝은 빈 요약보다 나쁘다** — 화면에서 제목과 내용이
+    다른 사건을 말한다. 그래서 짝짓기는 위치가 아니라 머리 표식으로 한다.
+    """
+
+    def _articles(self):
+        return [
+            {"hash": "aaaaaaaa11", "title": "정부가 신규 원전 계획을 발표",
+             "description": "", "domain": "energy.gov", "publisher": "US DOE"},
+            {"hash": "bbbbbbbb22", "title": "지역 소식 묶음",
+             "description": "", "domain": "local.kr", "publisher": "지역신문"},
+            {"hash": "cccccccc33", "title": "원안위, 계속운전 심의 착수",
+             "description": "", "domain": "nssc.go.kr", "publisher": "원안위"},
+        ]
+
+    @staticmethod
+    def _item(idx, tag, title, summary):
+        return {"idx": idx, "id": tag, "importance": "nice_to_know",
+                "section": "domestic", "scope": "kr", "category": "정책",
+                "title_kr": title, "summary": summary, "implication": "",
+                "why_important": "", "tags": [], "topics": [], "countries": ["KR"],
+                "article_type": "policy", "event_date": None,
+                "event_date_type": "unknown", "event_date_precision": "unknown",
+                "event_date_source": "unknown", "related_reports": [],
+                "features": {"event_type": "policy_decision", "korea_relevance": 2,
+                             "market_materiality": 1, "policy_materiality": 2,
+                             "report_worthiness": 0}}
+
+    def test_prompt_carries_a_tag_for_every_article(self):
+        articles = self._articles()
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", return_value={"items": []}
+        ) as call:
+            nb.curate_batch(articles, [])
+        message = call.call_args[0][1]
+        for article in articles:
+            self.assertIn(f"|{article['hash'][:8]}]", message)
+
+    def test_renumbered_response_is_matched_by_tag_not_position(self):
+        articles = self._articles()
+        # 모델이 1번(지역 소식)을 빼고 2번을 idx 1 로 앞당겨 적은 응답.
+        response = {"items": [
+            self._item(0, "aaaaaaaa", "정부, 신규 원전 계획 발표",
+                       "정부가 신규 원전 계획을 발표했다."),
+            self._item(1, "cccccccc", "원안위, 계속운전 심의 착수",
+                       "원자력안전위원회가 계속운전 심의에 착수했다."),
+        ]}
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", return_value=response
+        ):
+            result = nb.curate_batch(articles, [])
+        # idx 로 짝지으면 '원안위' 요약이 '지역 소식 묶음' 에 붙는다.
+        self.assertNotIn("bbbbbbbb22", result)
+        self.assertEqual(result["cccccccc33"]["title_kr"], "원안위, 계속운전 심의 착수")
+
+    def test_body_is_offered_to_the_model_when_available(self):
+        articles = self._articles()
+        with patch.object(nb, "gemini_rest_available", return_value=True), patch.object(
+            nb, "gemini_call_json", return_value={"items": []}
+        ) as call:
+            nb.curate_batch(articles, [], {"aaaaaaaa11": "다뉴브강 수위가 취수 기준선 아래로 내려갔다."})
+        message = call.call_args[0][1]
+        self.assertIn("본문: 다뉴브강 수위가 취수 기준선 아래로 내려갔다.", message)

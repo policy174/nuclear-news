@@ -126,7 +126,38 @@ class TestGenerate(unittest.TestCase):
         """경과가 안 들어가면 이 모듈이 존재할 이유가 없다."""
         (_insights, _stats), client = self.run_one("")
         self.assertIn("다뉴브강 수위 최저치 기록", client.messages[0])
-        self.assertIn("경과:", client.messages[0])
+        self.assertIn("경과", client.messages[0])
+
+    def test_timeline_is_newest_first_and_marked(self):
+        """어느 기사가 현재 상태인지 표시하지 않으면 옛 상태가 해석으로 올라온다.
+
+        2026-08-07 사용자 지적: 제목이 '3기 가동 중단'인데 해석은 '가동 중단을
+        피했다'였다. 프롬프트 안에 '지금은 어느 쪽인가'를 가릴 근거가 없었다.
+        """
+        (_insights, _stats), client = self.run_one("")
+        message = client.messages[0]
+        newest = message.index("마지막 터빈")   # 2026-08-05
+        oldest = message.index("다뉴브강 수위 최저치")  # 2026-07-31
+        self.assertLess(newest, oldest, "경과가 최신순이 아니다")
+        self.assertIn("← 최신", message)
+
+    def test_article_detail_is_material_for_the_insight(self):
+        """본문 요지가 있으면 프롬프트에 실려야 한다 — 제목 한 줄보다 좋은 재료다."""
+        timeline = [dict(member) for member in PAKS_TIMELINE]
+        timeline[-1]["detail"] = "다뉴브강 수위가 취수 기준선 아래로 내려갔다. 4기 중 3기가 멈췄다."
+        (_insights, _stats), client = self.run_one("", rows=[row(related_articles=timeline)])
+        self.assertIn("본문 요지: 다뉴브강 수위가 취수 기준선", client.messages[0])
+
+    def test_copying_one_timeline_member_is_discarded(self):
+        """경과 한 건을 그대로 옮긴 문장은 버린다.
+
+        그 기사가 최신이 아니면 카드가 제목과 정면으로 모순되고(2026-08-07 실사고),
+        최신이더라도 같은 문장이 바로 아래 타임라인에 이미 있다.
+        """
+        (insights, stats), _client = self.run_one(
+            "다뉴브강 수위가 최저치를 기록하며 냉각수 취수가 제한된 것이다.")
+        self.assertEqual(insights, {})
+        self.assertEqual(stats["rejected"].get("copies_member"), 1)
 
     def test_good_insight_is_returned(self):
         (insights, stats), _client = self.run_one(

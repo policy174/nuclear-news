@@ -1894,6 +1894,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
    상자를 걷고 라벨 열 + 헤어라인으로 통일한다 — 클래스·마크업은 그대로 두고
    보이는 것만 맞춘다(라벨 색으로만 축을 가르는 것도 선두 카드와 같다). */
 .dialog-change,
+.dialog-detail,
 .dialog-meaning,
 .dialog-open {
   display: grid;
@@ -1906,7 +1907,13 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   background: none;
   color: var(--c-text-secondary);
 }
+/* 기사 요지는 해석이 아니라 원문 내용이다 — 사용자가 원문(대개 영문)에 들어가지
+   않으려고 읽는 문단이므로 본문 색·본문 크기로 세운다. 옆 라벨 열은 그대로 두어
+   같은 어법을 유지한다. */
+.dialog-detail > p { margin: 0; color: var(--c-text); font-size: var(--t-body); line-height: 1.75; }
+.dialog-detail > small { grid-column: 2; color: var(--c-text-muted); font-size: var(--t-min); }
 .dialog-change strong,
+.dialog-detail strong,
 .dialog-open strong,
 .dialog-meaning strong {
   display: block;
@@ -1920,11 +1927,34 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .dialog-open strong { color: var(--c-secondary); }
 @media (max-width: 720px) {
   .dialog-change,
+  .dialog-detail,
   .dialog-meaning,
   .dialog-open { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .dialog-change strong,
+  .dialog-detail strong,
   .dialog-meaning strong,
   .dialog-open strong { line-height: 1.5; }
+  .dialog-detail > small { grid-column: 1; }
+}
+/* 타임라인 각 기사의 원문 내용. 기본은 접어 둔다 — 근거가 7건인 이슈에서 전부
+   펼치면 타임라인이 사라진다. 여는 손잡이는 모바일 최소 터치 높이를 지킨다. */
+.timeline-detail { margin-top: var(--sp-2); }
+.timeline-detail > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  cursor: pointer;
+}
+.timeline-detail[open] > summary { color: var(--c-secondary); }
+.timeline-detail > p {
+  margin: var(--sp-1) 0 0;
+  padding-left: var(--sp-3);
+  border-left: 2px solid var(--c-border);
+  color: var(--c-text-secondary);
+  font-size: var(--t-body);
+  line-height: 1.7;
 }
 .ai-badge { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }

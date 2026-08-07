@@ -1557,6 +1557,7 @@ def _article_view(article: dict) -> dict:
         "briefing_date": article.get("briefing_date"),
         "title_kr": article["title_kr"],
         "summary": article.get("summary", ""),
+        "detail": article.get("detail", ""),
         "domain": article.get("domain", ""),
         "publisher": article.get("publisher", ""),
         "source_type": article.get("source_type", "unknown"),
@@ -1690,6 +1691,33 @@ def pick_open_question(members: list[dict]) -> str:
         for member in latest_first(group):
             return str(member["open_question"]).strip()
     return ""
+
+
+def pick_detail(members: list[dict], representative: dict) -> tuple[str, str]:
+    """이슈 상세에 실을 기사 요지와 그 출처 기사 제목.
+
+    대표 기사만 보면 안 된다 — 본문 수집은 매체마다 성패가 갈려서(실측 성공률 85%,
+    Reuters·FT 는 봇 차단으로 0%) 대표 기사에만 요지가 없는 경우가 흔하다.
+    **가장 최신 기사부터** 찾는다. 오래된 멤버의 요지를 쓰면 제목은 새 사건인데
+    본문은 옛 상태인 조합이 나온다 — 사용자가 지적한 그 모순이다.
+    """
+    # 출처 표기는 **대표 기사가 아닐 때만** 의미가 있다. 대표 기사면 그 제목이
+    # 바로 위 h2 라서 같은 문장을 두 번 쓰는 꼴이 된다("대다수가 다는 표시는
+    # 신호가 아니다"는 이 저장소의 기존 원칙).
+    representative_detail = str(representative.get("detail") or "").strip()
+    if representative_detail:
+        return representative_detail, ""
+
+    def newest_first(member: dict) -> tuple:
+        # _representative_key 는 중요도·점수가 앞이라 날짜가 뒤로 밀린다. 여기서
+        # 필요한 정렬은 '최신'이므로 날짜를 앞에 둔다.
+        return (str(member.get("article_date") or ""), _representative_key(member))
+
+    for member in sorted(members, key=newest_first, reverse=True):
+        detail = str(member.get("detail") or "").strip()
+        if detail:
+            return detail, str(member.get("title_kr") or member.get("title") or "")
+    return "", ""
 
 
 def verification_state(articles: list[dict], checked_at: str = "") -> dict:
@@ -2438,6 +2466,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             change_line = change_line_for_card(
                 current, history, representative.get("summary", "")
             )
+            issue_detail, issue_detail_source = pick_detail(timeline, representative)
             issue_rows.append({
                 "issue_id": issue["issue_id"],
                 "status": "ongoing" if history else "new",
@@ -2445,6 +2474,8 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "last_seen": briefing_date,
                 "title": representative["title_kr"],
                 "summary": representative.get("summary", ""),
+                "detail": issue_detail,
+                "detail_source": issue_detail_source,
                 "implication": implication,
                 "why_important": why_important,
                 # 그날 보고서 검토 추천을 받은 기사가 이 이슈에 있으면 그 주제.
@@ -2655,6 +2686,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             if entity_evidence_out is not None:
                 for record in entity_evidence:
                     entity_evidence_out.append({"issue_id": issue["issue_id"], **record})
+        archive_detail, archive_detail_source = pick_detail(timeline, representative)
         rows.append({
             "issue_id": issue["issue_id"],
             "status": "ongoing" if len(briefing_dates) > 1 else "new",
@@ -2664,6 +2696,8 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "last_seen": last_seen,
             "title": representative["title_kr"],
             "summary": representative.get("summary", ""),
+            "detail": archive_detail,
+            "detail_source": archive_detail_source,
             "implication": implication,
             "why_important": why_important,
             # 아카이브 행은 그 이슈가 **언젠가** 보고서감이었는지를 남긴다 —
@@ -2898,6 +2932,9 @@ def build() -> None:
             "title_kr": record.get("title_kr") or record.get("title", ""),
             "title": record.get("title", ""),
             "summary": record.get("summary", ""),
+            # 원문 대신 읽는 기사 요지(3~5문장). 2026-08-07 이전 아카이브에는 없다 —
+            # 화면은 빈 값을 정상으로 다뤄야 한다.
+            "detail": record.get("detail", ""),
             "implication": record.get("implication", ""),
             "why_important": record.get("why_important", ""),
             "open_question": record.get("open_question", ""),

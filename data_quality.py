@@ -326,12 +326,69 @@ def implication_is_hollow(implication: object) -> bool:
     return not _QUANTITY_RE.search(text)
 
 
+# ---------------------------------------------------------------------------
+# detail — 원문을 대신 읽어 주는 '기사 요지'
+# ---------------------------------------------------------------------------
+# 사용자 요구(2026-08-07): "실제 기사들이 영문으로 되어있는 경우가 많아서 실제를
+# 들어가서 보기 어려운 경우가 많거든." 즉 카드 한 줄이 아니라 **원문에 안 들어가도
+# 되는 분량**이 필요하다. summary(80자)는 목록 스캔용이라 그대로 두고, 상세 화면이
+# 쓸 필드를 따로 만든다.
+#
+# **본문을 실제로 받아온 기사에만 만든다.** 제목만 있는 기사에 3~5문장을 요구하면
+# 모델은 제목을 늘려 쓴다 — 이 저장소가 세 번 겪은 실패다(implication 빈껍데기,
+# pubs_translate v1 제목 재진술, issue_insight 첫 실행). 재료 없이 분량을 요구하면
+# 분량만 나온다.
+DETAIL_LIMIT = 600
+DETAIL_MIN = 80
+
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?…。！？])\s+")
+
+
+def sanitize_detail(value: object, *, limit: int = DETAIL_LIMIT,
+                    minimum: int = DETAIL_MIN) -> str:
+    """요지를 문장 경계에서만 다듬는다. 기준 미달이면 빈 문자열.
+
+    문자열을 글자 수로 자르지 않는다 — 잘린 마지막 절은 모델이 아니라 우리가
+    만든 오정보가 된다(카드 요약에서 같은 이유로 게이트를 둔다).
+    """
+    text = clean_text(value)
+    if not text:
+        return ""
+    sentences = [s.strip() for s in _SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    kept: list[str] = []
+    length = 0
+    for sentence in sentences:
+        if not is_complete_sentence(sentence):
+            # 완결되지 않은 문장이 나오면 거기서 끊는다(대개 마지막 잘림).
+            break
+        extra = len(sentence) + (1 if kept else 0)
+        if length + extra > limit:
+            break
+        kept.append(sentence)
+        length += extra
+    joined = " ".join(kept).strip()
+    return joined if len(joined) >= minimum else ""
+
+
+# 요약 길이 상한. 80 → 100 (2026-08-07).
+#
+# 이 게이트가 막아야 하는 것은 **잘린 문장**이지 긴 문장이 아니다. 길이는 화면
+# 문제이고 카드는 이미 줄 수로 자른다. 그런데 벌칙은 기사 격리 — 재생성 한 번
+# 뒤에도 걸리면 영문 제목 폴백으로 떨어져 기사를 통째로 잃는다(implication 을
+# curation_errors 에 넣지 않기로 한 것과 같은 판단).
+#
+# 원문 본문을 프롬프트에 넣기 시작하자 요약에 실리는 사실이 늘어 길이가 함께
+# 올라갔다(실측 8건 중 3건이 81~99자, 이전에는 중앙값 55자). 80 을 그대로 두면
+# **내용이 좋아진 기사부터** 버려진다. 완결성 검사는 그대로 둔다.
+SUMMARY_LIMIT = 100
+
+
 def curation_errors(
     payload: dict,
     *,
     require_summary: bool = True,
     require_features: bool = False,
-    summary_limit: int = 80,
+    summary_limit: int = SUMMARY_LIMIT,
 ) -> list[str]:
     """공개 가능한 큐레이션 결과가 아니면 필드별 오류를 반환한다.
 

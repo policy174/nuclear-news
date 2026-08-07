@@ -5,8 +5,10 @@ import unittest
 import data_quality
 
 from data_quality import (
+    DETAIL_LIMIT,
     curation_errors,
     invalid_url_reason,
+    sanitize_detail,
     is_complete_sentence,
     legacy_url_hash,
     normalize_event_date_fields,
@@ -90,9 +92,17 @@ class TextAndEventDateTests(unittest.TestCase):
 
     def test_curation_limits_do_not_allow_mid_sentence_slicing(self):
         self.assertEqual(curation_errors({"summary": "정부가 계획을 발표했다."}), [])
+        # 한도는 80 → 100 (2026-08-07). 원문 본문을 프롬프트에 넣자 요약에 실리는
+        # 사실이 늘어 길이가 함께 올라갔고, 80 을 그대로 두면 **내용이 좋아진
+        # 기사부터** 격리된다. 이 게이트가 막는 것은 길이가 아니라 잘림이다.
         self.assertIn(
-            "summary:incomplete_or_over_80",
+            "summary:incomplete_or_over_100",
             curation_errors({"summary": "정부가 계획을 발표"}),
+        )
+        self.assertEqual(curation_errors({"summary": "가" * 97 + "다."}), [])
+        self.assertIn(
+            "summary:incomplete_or_over_100",
+            curation_errors({"summary": "가" * 120 + "다."}),
         )
         # 한도는 60 → 90 (2026-08-05). 원인·다음 절차·수치를 담으라고 프롬프트를
         # 바꿨는데 60자로는 그게 안 들어간다. 잘림 검사 자체는 그대로다.
@@ -279,3 +289,36 @@ class TestPortalRelaysAreNotIndependent(unittest.TestCase):
     def test_ranking_tier_is_unchanged(self):
         # 랭킹 점수는 건드리지 않는다 — 등록 전에도 tier3 기본값이었다.
         self.assertEqual(3, source_profile("news.google.co.kr", "네이트")["source_tier"])
+
+
+class DetailSanitizerTests(unittest.TestCase):
+    """기사 요지(detail) — 원문 대신 읽는 문단.
+
+    사용자 요구(2026-08-07): "실제 기사들이 영문으로 되어있는 경우가 많아서 실제를
+    들어가서 보기 어려운 경우가 많거든." summary(카드 한 줄)로는 그 요구를 못 받는다.
+    """
+
+    def test_complete_sentences_are_kept(self):
+        text = ("헝가리 팍스 원전 4기 중 3기가 8월 6일 가동을 멈췄다. "
+                "다뉴브강 수위가 취수 기준선 아래로 내려가 냉각수 확보가 불가능해졌다. "
+                "나머지 1기도 출력을 절반으로 낮춰 운전 중이다.")
+        self.assertEqual(sanitize_detail(text), text)
+
+    def test_trailing_incomplete_sentence_is_dropped_not_kept(self):
+        """잘린 마지막 절을 남기면 모델이 아니라 우리가 만든 오정보가 된다."""
+        good = ("헝가리 팍스 원전 4기 중 3기가 8월 6일 가동을 멈췄다. "
+                "다뉴브강 수위가 취수 기준선 아래로 내려가 냉각수 확보가 불가능해졌다. "
+                "나머지 1기도 출력을 절반으로 낮춰 운전 중이다.")
+        self.assertEqual(sanitize_detail(good + " 헝가리 정부는 전력 수급 대"), good)
+
+    def test_short_output_is_treated_as_absent(self):
+        # 본문을 못 받아온 기사에서 모델이 제목을 늘려 쓴 한 줄. 요지가 아니다.
+        self.assertEqual(sanitize_detail("가동이 중단됐다."), "")
+        self.assertEqual(sanitize_detail(""), "")
+        self.assertEqual(sanitize_detail(None), "")
+
+    def test_length_is_capped_at_a_sentence_boundary(self):
+        sentence = "다뉴브강 수위가 취수 기준선 아래로 내려가 냉각수 확보가 불가능해졌다. "
+        capped = sanitize_detail(sentence * 20)
+        self.assertLessEqual(len(capped), DETAIL_LIMIT)
+        self.assertTrue(capped.endswith("다."), capped[-20:])

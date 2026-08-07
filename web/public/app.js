@@ -1541,14 +1541,21 @@ function renderPubs() {
     : "");
 }
 
-function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑") {
+function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑", shownDetail = "") {
   const url = safeUrl(article.url);
   const stage = article.briefing_date === briefingDate ? currentStage : "이전 흐름";
+  // 원문 대신 읽는 기사 내용. 위 '기사 내용' 블록이 이미 보여 준 문장은 건너뛴다 —
+  // 같은 문단을 한 화면에 두 번 두면 정보가 아니라 소음이다.
+  const detail = String(article.detail || "").trim();
+  const body = detail && detail !== shownDetail
+    ? `<details class="timeline-detail"><summary>내용 보기</summary><p>${esc(detail)}</p></details>`
+    : "";
   return `<li>
     <div class="timeline-date"><span>${esc(dateLabel(article.article_date))}</span><small>${esc(relativeArticleDate(article.article_date, briefingDate))}</small><em>${stage}</em></div>
     <div class="timeline-copy">
       ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>` : `<span>${esc(article.title_kr)}</span>`}
       <small>${esc(sourceLabel(article))}${isOfficial(article) ? " · 1차 출처" : ""}</small>
+      ${body}
     </div>
   </li>`;
 }
@@ -1742,12 +1749,16 @@ function openIssueDialog(issueId, updateUrl = true) {
     Number(isOfficial(b)) - Number(isOfficial(a)) || String(b.article_date).localeCompare(String(a.article_date))
   ));
   const related = relatedIssues(issue);
+  // 원문(대개 영문)에 들어가지 않고도 읽히도록 만든 기사 요지. 2026-08-07 이전
+  // 아카이브에는 없으므로 빈 값이 정상이고, 그때는 이 블록이 통째로 빠진다.
+  const issueDetail = String(issue.detail || "").trim();
   document.getElementById("issueDialogContent").innerHTML = `
     <h2 id="issueDialogTitle" tabindex="-1">${esc(issue.title)}</h2>
     <div class="dialog-meta"><span>${esc(issueStatusText(issue, state.view !== "news"))}</span><span>${dateLabel(issue.first_seen)} 시작</span><span>누적 ${issue.article_count}건</span></div>
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
+      ${issueDetail ? `<div class="dialog-detail"><strong>기사 내용</strong><p>${esc(issueDetail)}</p>${issue.detail_source ? `<small>${esc(issue.detail_source)} 기준</small>` : ""}</div>` : ""}
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}${reportPickBadge(issue)}<span>${esc(issueEvidenceText(issue))}</span></p>
       ${issue.why_important ? `<p class="dialog-meaning"><strong>왜 중요한가 <span class="ai-badge">AI</span></strong>${esc(issue.why_important)}</p>` : ""}
@@ -1759,7 +1770,7 @@ function openIssueDialog(issueId, updateUrl = true) {
     ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
       <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3></div>
-      <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑")).join("")}</ol>
+      <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑", issueDetail)).join("")}</ol>
     </section>
     ${related.length ? `<section class="dialog-related" aria-labelledby="issueRelatedTitle">
       <div class="dialog-section-head"><h3 id="issueRelatedTitle">관련 이슈</h3><span>같은 주제로 연결된 이슈입니다</span></div>

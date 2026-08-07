@@ -18,12 +18,14 @@ from gemini_client import (
     is_available as gemini_rest_available,
 )
 from ranking import prior_coverage_count, sanitize_features
+import article_body
 import entity_match
 import news_archive
 from data_quality import (
     clean_text,
     curation_errors,
     first_complete_sentence,
+    sanitize_detail,
     implication_is_hollow,
     invalid_url_reason,
     legacy_url_hash,
@@ -338,8 +340,23 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 
 - title_kr: 한국어 제목 (30~60자). 원문이 영문이면 자연스러운 한국어로 번역. 원문이 한국어면 핵심을 살린 정확한 한국어 제목. 인명·기관명 첫 등장 시 한글(원문) 병기.
 
-- summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 이내). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
+- summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 목표·100자 절대 상한). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
 - summary 사실성 제약: 원문에 없는 전망·평가·인과관계를 추가하지 말 것. 계획·예정·전망·검토를 완료된 사실처럼 바꾸지 말고 원문의 시제를 그대로 보존할 것.
+- **summary 는 제목을 바꿔 쓴 문장이 아니다.** 입력에 `본문:` 이 있으면 제목에 없는 사실(수치·주체·일정·원인 중 하나 이상)을 반드시 담을 것.
+- **길이는 80자를 목표로 하고 100자를 절대 넘기지 않는다.** 본문이 풍부해도 summary 는
+  목록 한 줄이므로 늘리지 말 것. 넣고 싶은 내용이 남으면 summary 를 늘리지 말고
+  **detail 에 쓴다.** 사실 하나만 골라 담고 나머지는 detail 로 넘길 것.
+  (상한을 넘기면 그 기사는 통째로 버려진다.)
+
+- detail: **`본문:` 이 주어진 기사에만 작성.** 본문이 없으면 빈 문자열 "" (제목만으로 지어내지 말 것 — 억지 분량은 정보가 아니다).
+  · 읽는 사람이 **원문(대개 영문)에 들어가지 않아도 되도록** 기사 내용을 한국어로 옮긴 3~5개 문장, 공백 포함 550자 이내.
+  · 사실만. 본문에 있는 **수치·날짜·기관명·인명·직함·발언 주체**를 그대로 살릴 것. 이것이 이 필드의 존재 이유다.
+  · 순서: ①무슨 일이 있었나 ②숫자·규모·일정 ③원인·배경 ④상대방·이해관계자 반응이나 다음 절차. 본문에 없는 항목은 건너뛴다.
+  · 문장을 중간에 자르지 말 것. 완결형 서술문으로만 끝낼 것.
+  · summary·implication 을 그대로 늘려 쓰지 말 것. 겹치는 문장이 있으면 본문의 다른 사실로 대체.
+  · 사설·해설 기사면 '누가 무엇을 주장했는가'로 쓰고 그 주장을 사실로 서술하지 말 것.
+    나쁨: "헝가리 팍스 원전의 가동이 중단되었다. 이는 원전 운영에 영향을 미친다." (본문을 안 읽고 제목을 늘렸다)
+    좋음: "헝가리 팍스 원전 4기 중 3기가 8월 6일 가동을 멈췄다. 다뉴브강 수위가 취수 기준선 아래로 내려가 냉각수 확보가 불가능해졌기 때문이다. 나머지 1기도 출력을 50%로 낮춰 운전 중이다. 팍스 원전은 헝가리 전력의 약 40%를 공급해 왔다."
 
 - implication: AI 해석 1문장(90자 이내). nice_to_know·must_read만 작성. 완결형 서술문으로 쓰고 문자열을 자르지 말 것.
   **제목·요약에 없는 사실을 하나는 담아야 한다.** 다음 중 최소 하나를 명시할 것:
@@ -393,6 +410,7 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   "category": "정책|기술|시장|규제",
   "title_kr": "...",
   "summary": "...",
+  "detail": "...",
   "implication": "...",
   "why_important": "...",
   "open_question": "...|null",
@@ -1072,6 +1090,11 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "article_type": norm_article_type(item.get("article_type")),
         "title_kr": title_kr,
         "summary": clean_text(item.get("summary")),
+        # 원문 대신 읽는 '기사 요지'. 본문을 못 받아온 기사에서는 빈 문자열이고,
+        # 그 상태가 정상이다 — 재료 없이 채우면 제목을 늘려 쓴 문장이 된다.
+        # curation_errors 에 넣지 않는다: 요지 하나 때문에 기사를 격리하면
+        # 영문 제목 폴백으로 떨어져 지금보다 나쁘다(implication 게이트와 같은 판단).
+        "detail": sanitize_detail(item.get("detail")),
         # 빈껍데기 해석은 화면에 내보내지 않는다. 재생성시키지 않고 그냥 버린다 —
         # 문체 위반으로 기사를 격리하면 영문 제목 폴백으로 떨어져 더 나쁘다.
         "implication": drop_hollow_implication(item.get("implication"),
@@ -1139,7 +1162,22 @@ BATCH_SUFFIX = """
 이번에는 기사 여러 건을 한 번에 받습니다. 위의 모든 분류 규칙·필드 정의를 각 기사에
 동일하게 적용하되, 출력은 아래 JSON 한 객체만 (다른 텍스트·펜스 금지):
 
-{"items": [{"idx": 0, "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "implication": "...", "why_important": "...", "open_question": "...|null", "open_question_source": "title|description|article_text|unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": "2026-08-01|null", "event_date_type": "announcement|occurrence|effective|deadline|scheduled|unknown", "event_date_precision": "day|month|year|unknown", "event_date_source": "title|description|article_text|unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
+{"items": [{"idx": 0, "id": "머리표식", "importance": "...", "section": "...", "scope": "kr|overseas", "category": "...", "title_kr": "...", "summary": "...", "detail": "...", "implication": "...", "why_important": "...", "open_question": "...|null", "open_question_source": "title|description|article_text|unknown", "tags": [], "topics": [], "countries": [], "article_type": "...", "event_date": "2026-08-01|null", "event_date_type": "announcement|occurrence|effective|deadline|scheduled|unknown", "event_date_precision": "day|month|year|unknown", "event_date_source": "title|description|article_text|unknown", "related_reports": [], "features": {"event_type": "...", "korea_relevance": 0, "market_materiality": 0, "policy_materiality": 0, "report_worthiness": 0}}]}
+
+[★ id — 기사를 되찾는 표식. 틀리면 요약이 다른 기사에 붙는다]
+각 기사 머리는 `[번호|표식]` 형식이다. 예: `[3|a1b2c3d4] 제목…`
+- `id` 에 그 기사의 **표식을 그대로** 옮겨 적는다 (위 예에서는 "a1b2c3d4").
+- `idx` 에는 그 기사의 번호를 적는다.
+- **번호를 다시 매기지 말 것.** 어떤 기사를 빼고 싶어도 빼지 말고(noise 로 분류하면 된다)
+  받은 번호와 표식을 그대로 쓴다. 실제로 항목을 하나 빼고 나머지 번호를 앞당겨
+  적은 응답 때문에 다섯 기사의 요약이 옆 기사에 붙은 사고가 있었다.
+
+[입력에 `본문:` 이 붙은 기사]
+- 그 기사는 **본문을 실제로 받아온 것**이다. 제목이 아니라 본문을 근거로 판단·작성할 것.
+- 제목과 본문이 어긋나면 **본문이 우선**이다(제목은 매체가 축약·과장한 것일 수 있다).
+- summary·implication·detail·event_date 의 수치와 시제는 본문에서 가져올 것.
+- 본문은 앞부분만 잘라 준 것이다. 없는 뒷부분을 추측해 채우지 말 것.
+- `본문:` 이 없는 기사는 지금까지처럼 제목·요약만으로 판단하고 **detail 은 빈 문자열**로 둔다.
 
 [features — 랭킹용 구조화 지표. 제목·요약에서 확인되는 것만 근거로 매김]
 - event_type: 다음 중 하나 (사건의 성격):
@@ -1335,7 +1373,8 @@ def append_open_question_stats(verdicts: dict[str, dict],
     return True
 
 
-def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict]:
+def curate_batch(articles: list[dict], reports_kb: list[dict],
+                 bodies: dict[str, str] | None = None) -> dict[str, dict]:
     """새 기사 목록을 chunk 단위 배치 호출로 큐레이션. {hash: cur_dict} 반환.
 
     문장 완결성·길이 게이트를 통과하지 못한 항목만 한 번 재생성한다. 재생성에도
@@ -1356,11 +1395,22 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
 
     def run_chunk(chunk: list[dict], error_notes: dict[str, list[str]] | None = None):
         blocks = []
+        # 위치가 아니라 **표식**으로 되찾는다. 실측(2026-08-07): 8건을 넣었더니
+        # 모델이 한 건(로컬 소식 묶음)을 빼고 **남은 것의 idx 를 다시 매겨서**
+        # 2~6번의 요약이 통째로 옆 기사에 붙었다. idx 만 믿으면 이 사고를
+        # 검출할 수 없다 — 마지막 idx 하나만 '누락'으로 잡히고 나머지는 조용히
+        # 잘못된 짝으로 저장된다. 잘못된 짝은 빈 요약보다 나쁘다.
+        tags = {art["hash"][:8]: art for art in chunk}
         for i, art in enumerate(chunk):
             official = " (OFFICIAL)" if is_tier1_source(art) else ""
-            lines = [f"[{i}]{official} {art['title'][:150]}",
+            lines = [f"[{i}|{art['hash'][:8]}]{official} {art['title'][:150]}",
                      f"요약: {(art.get('description') or '')[:200]}",
                      f"출처: {art.get('publisher') or art.get('domain','')}"]
+            # 원문 본문. 있으면 이것이 판단 근거이고, 없으면 예전 그대로 돈다.
+            # 저장하지 않고 이 프롬프트에서만 쓴다(저작권 판단 유지).
+            body = (bodies or {}).get(art.get("hash", ""))
+            if body:
+                lines.append(f"본문: {body}")
             relevant = find_relevant_reports(art["title"], art.get("description", ""), reports_kb)
             if relevant:
                 titles = " / ".join(r.get("title", "")[:40] for r in relevant[:2])
@@ -1394,19 +1444,31 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
 
         valid: dict[str, dict] = {}
         failures: dict[str, list[str]] = {}
-        seen_indexes: set[int] = set()
+        seen_hashes: set[str] = set()
         for item in items:
             if not isinstance(item, dict):
                 continue
-            idx = item.get("idx")
-            if not isinstance(idx, int) or not (0 <= idx < len(chunk)):
+            # 표식이 있으면 그것이 정답이다. idx 는 모델이 항목을 빼면서 다시
+            # 매길 수 있고(실측), 그때 idx 로 짝을 지으면 남의 요약을 저장한다.
+            # **표식이 있는데 이 chunk 에 없는 값이면 버린다** — 분할 재시도에서
+            # 남의 chunk 표식이 넘어오는 일이 있고, 그때 idx 로 물러나면 정확히
+            # 막으려던 그 사고(엉뚱한 짝)가 뒷문으로 들어온다.
+            tag = str(item.get("id") or "").strip()
+            if tag:
+                art = tags.get(tag)
+                if art is None:
+                    continue
+            else:
+                # 표식이 아예 없는 응답(옛 모델·잘린 출력)은 예전처럼 위치로.
+                idx = item.get("idx")
+                if not isinstance(idx, int) or not (0 <= idx < len(chunk)):
+                    continue
+                art = chunk[idx]
+            if art["hash"] in seen_hashes:
+                failures[art["hash"]] = ["response:duplicate_idx"]
+                valid.pop(art["hash"], None)
                 continue
-            if idx in seen_indexes:
-                failures[chunk[idx]["hash"]] = ["response:duplicate_idx"]
-                valid.pop(chunk[idx]["hash"], None)
-                continue
-            seen_indexes.add(idx)
-            art = chunk[idx]
+            seen_hashes.add(art["hash"])
             normalized = normalize_curation_item(item, art)
             # open_question 게이트 계측. hash 로 덮어쓰므로 분할 재시도가 같은 기사를
             # 두 번 세지 않는다(마지막 판정이 남는다). 판정 자체는 바꾸지 않는다.
@@ -1429,8 +1491,8 @@ def curate_batch(articles: list[dict], reports_kb: list[dict]) -> dict[str, dict
             else:
                 valid[art["hash"]] = normalized
 
-        for idx, art in enumerate(chunk):
-            if idx not in seen_indexes:
+        for art in chunk:
+            if art["hash"] not in seen_hashes:
                 failures[art["hash"]] = ["response:idx_missing"]
         return valid, failures
 
@@ -1956,7 +2018,21 @@ def main() -> None:
         # 조용히 자르면 '수집이 줄었다'로 오독한다. 다음 크롤에서 다시 온다.
         print(f"Batch curation: 상한 {MAX_CURATION_PER_RUN} 초과분 {deferred}건은 "
               f"다음 크롤로 이월 (seen 마킹 전이라 유실 아님)")
-    batch_results = curate_batch(new_articles, reports_kb)
+    # ---- 원문 본문 수집 (큐레이션 직전, 저장 없음) --------------------------
+    # 2026-08-07 이전에는 모델이 제목 150자 + RSS 요약 200자만 봤다. Google News
+    # 경유 기사(전체의 51%)는 그 요약마저 제목의 재탕이라, 아카이브 1,007건에서
+    # 요약의 57%가 제목 재진술이고 제목에 없는 수치를 담은 요약은 12%뿐이었다.
+    # 본문이 붙으면 Gemini 호출 수는 그대로고 chunk 입력만 늘어난다.
+    bodies: dict[str, str] = {}
+    if new_articles:
+        try:
+            bodies, body_stats = article_body.fetch_bodies(new_articles)
+            print(article_body.format_stats(body_stats))
+        except Exception as exc:  # noqa: BLE001 — 본문 부재는 비치명
+            print(f"[body] 본문 수집 실패 (제목·요약만으로 계속): "
+                  f"{type(exc).__name__}: {exc}")
+
+    batch_results = curate_batch(new_articles, reports_kb, bodies)
 
     # 후속·반복 보도 판정 재료. 아카이브를 못 읽어도 크롤은 계속한다(빈 목록이면
     # prior_coverage 0 → 전부 신규 취급).
@@ -2033,6 +2109,9 @@ def main() -> None:
             "scope": norm_scope(cur.get("scope")),
             "category": cur.get("category", "정책"),
             "summary": cur.get("summary", ""),
+            # 상세 화면이 쓰는 기사 요지. 큐 스키마에 없으면 브리핑·웹 어디에도
+            # 안 실린다(why_important 가 같은 이유로 유실됐던 전례).
+            "detail": cur.get("detail", ""),
             "implication": cur.get("implication", ""),
             # must_read 의 '왜 중요' — 기존 큐 스키마에 빠져 있어 카드에서 유실되던 필드
             "why_important": cur.get("why_important", ""),
