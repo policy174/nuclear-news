@@ -23,6 +23,7 @@ import difflib
 import json
 import math
 import re
+from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -628,18 +629,33 @@ def decide_cap(spec: dict, eligible: int, must_read: int, surge_bonus: int = 0) 
     }
 
 
+# 의미 dedup 을 태울 상위 몇 건까지 볼 것인가 (캡의 배수).
+# 풀 전체(국내 119건)를 LLM 에 보내면 프롬프트가 커지고 인덱스 분할이 깨지기 쉽다.
+# 중복이 아프게 보이는 곳은 실제로 뽑히는 자리뿐이라 상위만 본다.
+SEMANTIC_HEAD_MULTIPLIER = 3
+SEMANTIC_HEAD_MIN = 12
+
+
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                     now: datetime | None = None,
                     floor: dict | None = None,
                     cap_spec: dict | None = None,
-                    surge_bonus: int = 0) -> tuple[list[dict], dict]:
-    """점수화 → 중복 클러스터 → (하한) → 다양성 top-k.
+                    surge_bonus: int = 0,
+                    semantic_dedup: Callable[
+                        [list[dict], dict[str, float]],
+                        tuple[list[dict], list[dict]]] | None = None,
+                    ) -> tuple[list[dict], dict]:
+    """점수화 → 중복 클러스터 → (의미 dedup) → (하한) → 다양성 top-k.
 
     하한은 **다양성 선별 앞에서** 건다. 뒤에 걸면 같은 topic 이 겹쳐 받은 페널티가
     하한 판정에 섞여 들어가 '중요도가 낮아서'가 아니라 '주제가 겹쳐서' 잘린다.
 
     Args:
         floor: {등급: 하한 점수}. None 이면 기존 동작 그대로 (하위 호환).
+        semantic_dedup: (기사들, 점수) → (남길 것, 버릴 것) 콜러블. 제목 유사도가
+            못 넘는 표기 요동('어멘텀'/'아멘텀', '팍스'/'팍시')을 잡는 자리다.
+            **주입식으로 받는다** — 이 모듈은 LLM 을 모른 채로 남아야 테스트가
+            네트워크 없이 돈다. None 이면 이 단계를 건너뛴다.
 
     Returns:
         (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates/
@@ -658,6 +674,19 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
 
     kept, dropped = cluster_duplicates(items, scores,
                                        float(cfg.get("duplicate_similarity", 0.82)))
+
+    # 글자로 잡히는 건 위에서 이미 걷혔다. 남은 상위 후보만 의미로 한 번 더 본다.
+    if semantic_dedup is not None and len(kept) > 1:
+        limit = max(k * SEMANTIC_HEAD_MULTIPLIER, SEMANTIC_HEAD_MIN)
+        ordered = sorted(kept, key=lambda a: scores.get(a.get("hash", ""), 0.0),
+                         reverse=True)
+        head, tail = ordered[:limit], ordered[limit:]
+        head_kept, head_dropped = semantic_dedup(head, scores)
+        # hash 가 아니라 객체 동일성으로 거른다 — hash 결손 항목이 서로를 지우지
+        # 않게. 콜러블이 무엇을 돌려주든 원래 순서를 지킨다(뒤 단계가 순서를 읽는다).
+        alive = {id(a) for a in head_kept} | {id(a) for a in tail}
+        kept = [a for a in ordered if id(a) in alive]
+        dropped = dropped + head_dropped
 
     below: list[dict] = []
     if floor:

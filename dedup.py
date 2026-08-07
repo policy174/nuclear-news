@@ -238,6 +238,83 @@ def dedup_clusters(
     return kept_pairs, dropped
 
 
+# ---- 일일 브리핑용: 기사 목록 그대로 받는 얼굴 -----------------------------
+#
+# 왜 필요한가 — 제목 유사도로는 못 넘는 벽이 실측으로 확정됐다.
+#   2026-08-06 웨스팅하우스 한 파트너십이 두 칸: 공유 토큰이 '웨스' 하나(포함 0.143).
+#              같은 회사인데 한쪽은 '어멘텀', 다른 쪽은 '아멘텀'이었다.
+#   2026-08-07 한수원 필리핀 MOU 두 칸(포함 0.500), 다뉴브강 가뭄 한 사건이 네 칸
+#              (포함 0.400~0.444) — 여기도 '팍스'와 '팍시'로 표기가 갈렸다.
+# 기준을 그 아래로 내리는 건 답이 아니다: 0.57 에서 이미 '미국-사우디 민간원자력
+# 협정'과 '해양광물관리국 NRC MOU'가 붙는다(공유 토큰이 미국·원자·협력·체결 뿐).
+# 표기 요동은 글자로 못 넘는다 → 의미로 판정한다.
+#
+# 계약을 ranking.cluster_duplicates 와 맞춘다 (kept, dropped) + dropped[i]["dup_of"].
+# 호출부가 둘을 같은 방식으로 다루고, 큐 정리(prune_hashes)도 그대로 동작한다.
+
+def _article_line(idx: int, article: dict) -> str:
+    title = (article.get("title_kr") or article.get("title") or "").replace("\n", " ").strip()[:180]
+    meta = str(article.get("publisher") or article.get("domain") or "").strip()[:60]
+    return f"[{idx}] {title} | {meta}"
+
+
+def dedup_articles(articles: list[dict],
+                   scores: dict[str, float]) -> tuple[list[dict], list[dict]]:
+    """같은 사건을 의미로 묶고 점수 최고 1건만 남긴다.
+
+    Gemini 가 없거나 실패하면 **전량 유지**로 물러난다 — 중복이 남는 건 오늘까지의
+    동작이고, 잘못 지우는 것보다 낫다.
+    """
+    if len(articles) < 2:
+        return list(articles), []
+
+    lines = [_article_line(i, a) for i, a in enumerate(articles)]
+    if not is_available():
+        print("[dedup] GEMINI_API_KEY 없음 → 의미 dedup 건너뜀")
+        return list(articles), []
+
+    try:
+        result = call_json(DEDUP_SYSTEM_PROMPT, "\n".join(lines),
+                           temperature=0.05, max_output_tokens=4096, timeout=90.0)
+    except GeminiError as e:
+        print(f"[dedup] Gemini 실패 → 전량 유지: {e}")
+        return list(articles), []
+
+    groups = result.get("groups")
+    if not isinstance(groups, list):
+        print(f"[dedup] 응답에 groups 없음 → 전량 유지: {str(result)[:120]}")
+        return list(articles), []
+
+    # 검증: 인덱스가 정확히 한 번씩. 빠진 것은 단독 그룹으로 보충한다.
+    seen: set[int] = set()
+    cleaned: list[list[int]] = []
+    for g in groups:
+        if not isinstance(g, list):
+            continue
+        valid = [i for i in g
+                 if isinstance(i, int) and 0 <= i < len(articles) and i not in seen]
+        if valid:
+            cleaned.append(valid)
+            seen.update(valid)
+    cleaned.extend([i] for i in range(len(articles)) if i not in seen)
+
+    def score_of(i: int) -> float:
+        return scores.get(articles[i].get("hash", ""), 0.0)
+
+    kept: list[dict] = []
+    dropped: list[dict] = []
+    for group in cleaned:
+        win = max(group, key=score_of)
+        kept.append(articles[win])
+        for i in group:
+            if i == win:
+                continue
+            d = dict(articles[i])
+            d["dup_of"] = articles[win].get("hash", "")
+            dropped.append(d)
+    return kept, dropped
+
+
 # ---- CLI 자가진단 ----------------------------------------------------------
 
 if __name__ == "__main__":

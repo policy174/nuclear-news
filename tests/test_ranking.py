@@ -294,6 +294,75 @@ class TestContainmentDuplicates(unittest.TestCase):
         self.assertEqual(len(kept), 2)
 
 
+class TestSemanticDedupHook(unittest.TestCase):
+    """의미 dedup 은 주입식이다 — ranking 은 LLM 을 모른 채 남는다.
+
+    실측으로 확정된 벽: 2026-08-06 웨스팅하우스 한 파트너십이 두 칸을 썼는데 공유
+    토큰이 '웨스' 하나였다('어멘텀' vs '아멘텀'). 2026-08-07 에는 다뉴브강 가뭄 한
+    사건이 네 칸('팍스' vs '팍시'). 표기가 갈리면 어떤 문자열 기준도 못 넘는다.
+    """
+
+    # 제목이 서로 닮으면 기존 문자열 dedup 이 먼저 먹어 후크가 볼 게 남지 않는다.
+    DISTINCT = [
+        "체코 두코바니 본계약 체결", "폴란드 신규 부지 확정", "우라늄 현물가 급등",
+        "프랑스 플라망빌 출력 상승", "일본 가시와자키 재가동 승인",
+        "영국 사이즈웰 최종투자결정", "캐나다 다링턴 SMR 착공",
+        "인도 쿠단쿨람 6호기 임계", "브라질 앙그라 3호기 공사 재개",
+        "스웨덴 신규 원전 금융 지원", "핀란드 올킬루오토 정기 정비",
+        "네덜란드 보르셀러 수명 연장", "벨기에 티앙주 영구 정지",
+        "스위스 베즈나우 냉각계통 점검", "이집트 엘다바 격납건물 타설",
+        "튀르키예 아쿠유 시운전 착수", "아르헨티나 아투차 국산화 확대",
+        "멕시코 라구나베르데 출력 증강", "남아공 쿠버그 계속운전 허가",
+        "베트남 닌투언 사업 재개 검토",
+    ]
+
+    def test_hook_absent_keeps_old_behaviour(self):
+        rows = [item(h=f"h{i}", title=t) for i, t in enumerate(self.DISTINCT[:5])]
+        sel, diag = ranking.rank_and_select(rows, 3, CFG, now=NOW)
+        self.assertEqual(len(sel), 3)
+        self.assertEqual(diag["dropped_duplicates"], [])
+
+    def test_hook_drops_are_recorded_with_dup_of(self):
+        """큐 정리(prune_hashes)가 dup_of 로 돌아간다 — 안 붙으면 중복이 내일 재등장."""
+        rows = [item(h="a", title="웨스팅하우스, 어멘텀과 원전 공통 플랫폼 협력"),
+                item(h="b", title="웨스팅하우스, AP1000 잠재력·아멘텀 파트너십 발표"),
+                item(h="c", title="폴란드 신규 원전 부지 확정")]
+        # 문자열 기준으로는 안 잡히는 것이 전제다
+        self.assertEqual(len(ranking.cluster_duplicates(rows, {"a": 9, "b": 8, "c": 7})[1]), 0)
+
+        def fake(articles, scores):
+            keep = [a for a in articles if a["hash"] != "b"]
+            gone = [dict(a, dup_of="a") for a in articles if a["hash"] == "b"]
+            return keep, gone
+
+        sel, diag = ranking.rank_and_select(rows, 3, CFG, now=NOW, semantic_dedup=fake)
+        self.assertEqual({a["hash"] for a in sel}, {"a", "c"})
+        self.assertEqual([d["hash"] for d in diag["dropped_duplicates"]], ["b"])
+        self.assertEqual(diag["dropped_duplicates"][0]["dup_of"], "a")
+
+    def test_hook_only_sees_the_head(self):
+        """풀 전체를 LLM 에 보내면 프롬프트가 커지고 인덱스 분할이 깨진다."""
+        rows = [item(h=f"h{i}", title=t) for i, t in enumerate(self.DISTINCT)]
+        limit = max(3 * ranking.SEMANTIC_HEAD_MULTIPLIER, ranking.SEMANTIC_HEAD_MIN)
+        self.assertGreater(len(rows), limit, "상한이 실제로 걸리는 표본이어야 한다")
+        seen: list[int] = []
+
+        def fake(articles, scores):
+            seen.append(len(articles))
+            return list(articles), []
+
+        ranking.rank_and_select(rows, 3, CFG, now=NOW, semantic_dedup=fake)
+        self.assertEqual(seen, [limit])
+
+    def test_hook_failure_keeps_everything(self):
+        """Gemini 가 죽어도 브리핑은 나가야 한다 — 중복이 남는 게 빈 브리핑보다 낫다."""
+        rows = [item(h=f"h{i}", title=t) for i, t in enumerate(self.DISTINCT[:5])]
+        sel, diag = ranking.rank_and_select(
+            rows, 3, CFG, now=NOW, semantic_dedup=lambda arts, sc: (list(arts), []))
+        self.assertEqual(len(sel), 3)
+        self.assertEqual(diag["dropped_duplicates"], [])
+
+
 class TestFacilityDuplicates(unittest.TestCase):
     """호기 지목 기반 판정 — 매체별 곁가지가 달라 제목 유사도가 무너지는 경우."""
 

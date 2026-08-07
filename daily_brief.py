@@ -567,12 +567,18 @@ def plan_briefs(queue: list[dict],
     forn_pool = [a for a in items if region(a) == "해외"]
     # 캡은 ranking_config.json 의 selection_caps 가 정한다. 설정이 없으면
     # 아래 상수(국내3/해외6)로 돌아간다 — 설정 파일이 깨져도 어제처럼 동작해야 한다.
+    # 제목 유사도가 못 넘는 표기 요동을 의미로 잡는다 — 국내·해외 각 1회, 하루 2회.
+    # 국내와 해외를 한 번에 보내지 않는 이유: 지역이 다른 기사가 한 사건으로 묶이면
+    # 한쪽 브리핑이 통째로 비는 사고가 난다.
+    from dedup import dedup_articles
     dom, dom_diag = ranking.rank_and_select(
         dom_pool, DOMESTIC_CAP, cfg, now, ranking.resolve_floor(cfg, "domestic"),
-        cap_spec=ranking.resolve_caps(cfg, "domestic"))
+        cap_spec=ranking.resolve_caps(cfg, "domestic"),
+        semantic_dedup=dedup_articles)
     forn, forn_diag = ranking.rank_and_select(
         forn_pool, FOREIGN_CAP, cfg, now, ranking.resolve_floor(cfg, "overseas"),
-        cap_spec=ranking.resolve_caps(cfg, "overseas"))
+        cap_spec=ranking.resolve_caps(cfg, "overseas"),
+        semantic_dedup=dedup_articles)
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별 "
           f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건, "
           f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건)")
