@@ -3607,13 +3607,58 @@ class VisualSystemTests(unittest.TestCase):
         self.assertIn(match.group(3), {"primary", "primary-strong", "edge"})
 
     def test_issue_rows_are_dense_and_react_as_one(self):
-        """행 높이를 정하던 두 값(세로 액션 스택·32px 패딩)을 되돌리지 않는다."""
+        """행 높이를 정하던 두 값(세로 액션 스택·32px 패딩)을 되돌리지 않는다.
+
+        예전에는 `"padding: var(--sp-5)"` 를 문자열로 붙잡았다. 그러면 토큰
+        이름이 한 번 바뀔 때마다 지키려던 것과 무관하게 빨개진다. 지키려는 건
+        숫자 20 이 아니라 **행 높이 예산**이다 — 1440×900 에서 목록 영역이 받는
+        높이가 약 285px 이라, 표준 행(제목 한 줄 + 요약 두 줄)이 130px 을 넘으면
+        두 번째 행이 폴드 아래로 내려간다. 그래서 계산으로 잠근다.
+        """
+        tokens = {
+            name: int(value)
+            for name, value in re.findall(r"--sp-(\d+):\s*(\d+)px", self.style)
+        }
+        tokens.update({
+            f"bd{name}": int(value)
+            for name, value in re.findall(r"--bd-(\d):\s*(\d+)px", self.style)
+        })
+
+        def px(raw):
+            raw = raw.strip()
+            token = re.fullmatch(r"var\(--sp-(\d+)\)", raw)
+            if token:
+                return tokens[token.group(1)]
+            token = re.fullmatch(r"var\(--bd-(\d)\)", raw)
+            if token:
+                return tokens[f"bd{token.group(1)}"]
+            return int(re.fullmatch(r"(\d+)px", raw).group(1))
+
         card = self._rule(".issue-card")
-        self.assertIn("padding: var(--sp-5)", card, "행 패딩이 다시 벌어졌다")
+        pad = px(re.search(r"padding:\s*([^\s;]+)", card).group(1))
+        border = px(re.search(r"border-top:\s*([^\s;]+)\s+solid", card).group(1))
+        title_size = px(re.search(r"--t-card:\s*([\d.]+px)", self.style).group(1))
+        h3 = self._rule(".issue-card h3")
+        gap = px(re.search(r"margin:\s*0 0 (\d+px)", h3).group(1))
+        title_lh = float(re.search(r"line-height:\s*([\d.]+)", h3).group(1))
+        # _rule 은 부분 문자열로 찾으므로 ".issue-card.front .issue-summary {" 가
+        # 먼저 걸린다 — 요약 본체 규칙은 줄 시작에 앵커해서 꺼낸다.
+        summary = re.search(r"^\.issue-summary \{([^}]*)\}", self.style, re.M).group(1)
+        body_lh = float(re.search(r"line-height:\s*([\d.]+)", summary).group(1))
+        body_size = px(re.search(r"--t-body:\s*([\d.]+px)", self.style).group(1))
+
+        height = pad * 2 + border + title_size * title_lh + gap + body_size * body_lh * 2
+        self.assertLessEqual(
+            height, 130,
+            f"표준 행이 {height:.0f}px — 130px 을 넘으면 폴드에 두 번째 행이 안 들어온다",
+        )
+
         actions = self._rule(".issue-list .issue-card .issue-actions")
         self.assertIn("flex-direction: row", actions, "액션이 다시 세로로 쌓인다")
         # hover 는 세 값이 함께 움직인다 — 하나만 변하면 '켜졌나' 싶다.
-        self.assertIn("border-top-color: var(--c-primary)", self._rule(".issue-card:hover"))
+        hover = self._rule(".issue-card:hover")
+        self.assertRegex(hover, r"border-top-color:\s*var\(--c-(primary|edge)\)")
+        self.assertIn("background:", hover)
         self.assertIn(".issue-card:hover .issue-index", self.style)
 
     def test_tab_underline_animates_without_layout_shift(self):

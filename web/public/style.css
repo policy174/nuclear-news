@@ -105,7 +105,7 @@
   --t-caption: 13.5px;
   --t-body: 15px;
   --t-body-lg: 16px;
-  --t-card: 21px;
+  --t-card: 23px;
   --t-title: clamp(24px, 2.6vw, 32px);
   /* 선두 제목. 34px 은 두 줄에 85px 을 써서 카드 하나가 첫 화면을 다 먹는
      원인의 한 축이었다 — 판단을 펼치는 자리라는 성격은 유지하되 크기를 내린다.
@@ -886,11 +886,13 @@ kbd {
    기능이다. 4열 비율도 함께 좁혀 가운데 죽은 공간을 줄인다. */
 .issue-card {
   display: grid;
-  grid-template-columns: 40px 112px minmax(0, 1fr) minmax(0, auto);
-  column-gap: var(--sp-5);
+  /* 40+112, gap 20 → 52+104, gap 16. 번호 열이 30px 숫자를 받게 넓히고 그만큼
+     변화 열에서 뺀다 — 앞 두 열의 가로 합은 172px 로 그대로다. */
+  grid-template-columns: 52px 104px minmax(0, 1fr) minmax(0, auto);
+  column-gap: var(--sp-4);
   padding: var(--sp-5) var(--sp-3) var(--sp-5) var(--sp-3);
   border: 0;
-  border-top: 1px solid var(--c-border);
+  border-top: var(--bd-2) solid var(--c-border);
   background: transparent;
   /* 배경만 바뀌던 hover 를 세 값이 함께 움직이게 한다(배경·윗괘선·번호) —
      한 값만 변하면 '켜졌나' 싶고, 셋이 같이 변하면 행이 선택된 것으로 읽힌다.
@@ -899,34 +901,41 @@ kbd {
 }
 /* 첫 행의 2px 진한 괘선 — 선두 카드(.lead-card)와 같은 어법. 표가 시작되는
    지점을 선 하나로 선언한다(박스·배경 없이). */
-.issue-list > .issue-card:first-child { border-top: 2px solid var(--c-primary); }
+.issue-list > .issue-card:first-child { border-top: var(--bd-3) solid var(--c-edge); }
 /* 구역 머리가 이미 잉크 괘선으로 열었으면 첫 행은 보통 행처럼 얇게 긋는다.
    머리가 없는 목록(저장·최근 본·팔로우)은 위 규칙의 2px 이 그대로 문을 연다. */
 .issues-section .issue-list > .issue-card:first-child,
-.archive-results .issue-list > .issue-card:first-child { border-top: 1px solid var(--c-border); }
+.archive-results .issue-list > .issue-card:first-child { border-top: var(--bd-2) solid var(--c-border); }
 /* front — 기본 화면의 상위 2건. 편집 판단(선두 카드)과 일반 행 사이의 중간
    위계다. 제목 활자만 한 단 키우고 구조는 표 그대로 둔다. */
-.issue-card.front h3 { font-size: 24px; line-height: 1.3; }
+.issue-card.front h3 { font-size: 28px; line-height: 1.3; }
 .issue-card.front .issue-summary { font-size: var(--t-body-lg); }
 .issue-card.front .issue-index { color: var(--c-text); }
-.issue-card:hover { border-top-color: var(--c-primary); background: var(--c-surface); }
+.issue-card:hover { border-top-color: var(--c-edge); background: var(--c-surface); }
 .issue-card:hover .issue-index { color: var(--c-text); }
 /* 행 hover 가 배경을 바꾸는데 클릭 지점은 제목뿐이었다 — 어포던스와 실제가
    어긋난다. 이슈를 품은 행(data-issue-card)은 행 전체가 상세 진입점이다.
    버튼·링크·드래그 선택은 JS 위임에서 먼저 걸러진다. */
 .issue-card[data-issue-card] { cursor: pointer; }
 .issue-card.state-quiet { opacity: .76; }
-/* 28px 짜리 큰 숫자는 제목과 무게를 다퉜다. 순서는 위계가 아니라 좌표다 —
-   작게 세우고 hover 때만 잉크로 올라온다. */
+/* 28px 로 키웠다가 되돌린 적이 있다 — 그때 실패한 이유는 크기가 아니라 무게였다
+   (잉크색 큰 숫자가 제목과 다퉜다). 순서는 위계가 아니라 좌표라는 판단은 그대로
+   두고, 크기만 30px 로 올린다: 음소거 색과 모노가 무게를 억누르므로 굵은 한글
+   제목 옆에서 배경 눈금처럼 앉는다. hover 때만 잉크로 올라오는 것도 그대로.
+
+   세로 비용 0 — 이 열은 align-self: start 이고 31.5px 박스가 87~115px 짜리
+   .issue-body 옆에 서므로 행 높이를 정하지 않는다.
+   굵기는 700 을 넘기지 않는다. --ff-mono 는 시스템 스택이라 900 마스터가 없는
+   플랫폼에서 브라우저가 가짜 볼드를 합성해 숫자가 번진다. */
 .issue-index {
   padding: 0;
   color: var(--c-text-muted);
   font-family: var(--ff-mono);
-  font-size: 15px;
+  font-size: 30px;
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.05;
   text-align: right;
   transition: color var(--mo-1);
 }
@@ -949,18 +958,25 @@ kbd {
 .issue-meta > .issue-state { flex: 0 0 100%; }
 /* 배지는 내용 폭이어야 테두리가 글자에 붙는다. 100% 를 물려받으면 열 전체가 상자가 된다. */
 .issue-meta > .verification-badge { flex: 0 0 auto; }
+/* 8 → 12px + 2px 잉크 테두리. 테두리가 등급색을 종이에서 떼어놓는다 — 그래야
+   .importance-updated 가 라임을 쓸 수 있다(라임은 종이 위 1.20:1 이라 테두리
+   없이는 사각형이 안 보인다). 색만으로 구분하지 않는다는 원칙은 그대로,
+   라벨 글자 무게가 여전히 세 상태를 가른다. */
 .issue-state::before {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   margin-right: 8px;
+  border: var(--bd-2) solid var(--c-edge);
   background: var(--c-border-strong);
   content: "";
 }
 /* 등급 표시는 카드 왼쪽 3px 테두리에서 이 사각형으로 옮겼다 — 상자를 없앴으니
    테두리에 얹을 곳이 없다. 색만으로 구분하지 않도록 '변화' 문구가 함께 선다. */
 .issue-card.importance-high .issue-state::before { background: var(--c-primary); }
-.issue-card.importance-updated .issue-state::before { background: var(--c-accent); }
+/* 유일하게 .issue-card 안으로 들어가는 라임이다(슬래브 예산 밖 — 12px 마커).
+   '이번에 달라졌다'는 지면에서 라임이 말하는 것과 같은 뜻이라 여기만 허용한다. */
+.issue-card.importance-updated .issue-state::before { background: var(--c-signal); }
 .issue-card.importance-standard .issue-state::before { background: var(--c-border-strong); }
 /* 네 열 모두 위 정렬 — 행 하나뿐이라 어느 열도 다른 열의 높이를 밀지 않는다. */
 .issue-card > * { align-self: start; }
@@ -1032,7 +1048,9 @@ kbd {
 .dialog-related small { display: block; margin-top: 3px; color: var(--c-text-muted); font-size: var(--t-min); }
 /* 표 행에서는 제목이 위계의 기둥이다. 시안 23px / -.037em 을 그대로 쓴다. */
 .issue-card h3 {
-  margin: 0 0 9px;
+  /* 9 → 6px. 2px 괘선이 행마다 1px 씩 더 먹는 값을 여기서 갚는다 — 제목과
+     자기 요약 사이 간격이 지면에서 제일 싼 3px 다. */
+  margin: 0 0 6px;
   font-size: var(--t-card);
   font-weight: 700;
   line-height: 1.34;
@@ -1156,7 +1174,7 @@ kbd {
 .issue-list.list-view .issue-change { margin-top: 8px; padding-block: 7px; }
 .issue-list.list-view .issue-card { padding-block: 15px; }
 .issue-list.list-view .issue-card h3 { margin-bottom: 0; font-size: 18px; }
-.issue-list.list-view .issue-index { font-size: 18px; }
+.issue-list.list-view .issue-index { font-size: 22px; }
 
 /* 선두 이슈 — 아래 목록이 4열 표라면 여기는 한 단이다. 열 그리드를 쓰지 않아야
    블록마다 문장이 끝까지 서고, 그래야 '요약 두 줄'이 아닌 판단으로 읽힌다.
@@ -2244,7 +2262,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
      한 열로 접는다 — '변화'는 다시 가로 한 줄. */
   .issue-list { gap: 0; }
   .issue-card { grid-template-columns: 32px minmax(0, 1fr); column-gap: 11px; padding: 18px 0; }
-  .issue-index { grid-row: 1; font-size: 17px; }
+  .issue-index { grid-row: 1; font-size: 24px; }
   .issue-meta {
     grid-column: 2;
     grid-row: 1;
