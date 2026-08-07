@@ -473,20 +473,8 @@ kbd {
   padding: var(--sp-12) 0 var(--sp-8);
   border: 0;
   border-bottom: 1px solid var(--c-border);
-  background: linear-gradient(112deg, var(--c-bg) 0 72%, var(--c-surface-sunken) 72%);
+  background: var(--c-bg);
   color: var(--c-text-secondary);
-}
-.briefing-hero::after {
-  position: absolute;
-  top: -170px;
-  right: -110px;
-  width: 340px;
-  height: 340px;
-  border: 1px solid color-mix(in srgb, var(--c-text) 12%, transparent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 54px color-mix(in srgb, var(--c-text) 2.5%, transparent);
-  content: "";
-  pointer-events: none;
 }
 /* 마스트헤드 — 상단줄이 지면의 머리 노릇을 한다. 발행일·이동 컨트롤을 담고
    헤어라인으로 아래 헤드라인과 구분한다. 지표 블록은 세우지 않는다(헤더 상태
@@ -569,7 +557,6 @@ kbd {
 }
 .briefing-hero.no-lead { padding-bottom: 18px; }
 .briefing-hero.no-lead .hero-grid { margin-top: 0; }
-.briefing-hero.no-lead::after { display: none; }
 /* 히어로는 문장을 내지 않는다(b9d3227). 그러면 이 밴드에 남는 것은 날짜 줄과
    이동 링크뿐인데, 예전 여백값이 그대로 남아 1440×900 첫 화면의 28% 를 빈
    띠가 먹고 있었다 — 첫 콘텐츠(선두 이슈)가 폴드 근처까지 밀렸다.
@@ -581,10 +568,6 @@ kbd {
    걷는다(정보 손실 0, select 가 날짜를 계속 말한다). */
 .briefing-hero.lead-issue #briefingDateLabel { display: none; }
 .briefing-hero.lead-issue .hero-kicker { margin-bottom: 6px; }
-/* 장식용 원형 그래픽과 우측 28% 그라디언트는 헤드라인이 58px 일 때 균형을 잡던
-   것이다. 23~30px 로 내려온 문장 옆에서는 그냥 빈 패널로 남는다. */
-.briefing-hero.lead-issue { background: var(--c-bg); }
-.briefing-hero.lead-issue::after { display: none; }
 /* 크기는 위 .hero-copy h1 이 이미 모든 날 23~30px 로 잡는다(3ff0907). 여기서
    다시 clamp 를 주면 6vw 라 500px 이상에서 오히려 커져 그 축소를 되돌린다 —
    폭만 좁혀 읽는 길이를 줄인다. */
@@ -2188,7 +2171,6 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .status-item::before { margin-right: 6px; }
   .page-shell { padding-block: 18px 52px; }
   .briefing-hero { padding: 26px 0 24px; background: var(--c-bg); }
-  .briefing-hero::after { display: none; }
   .hero-topline { display: grid; gap: 10px; }
   .date-nav { width: 100%; }
   .date-nav select { flex: 1; min-width: 0; }
