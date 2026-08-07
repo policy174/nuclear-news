@@ -3730,9 +3730,6 @@ class VisualSystemTests(unittest.TestCase):
         self.assertIn(".main-tab.active::after { transform: scaleX(1); }", self.style)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class ArticleDetailSurfacesTests(unittest.TestCase):
     """원문 요지(detail)가 수집에서 화면까지 살아서 도착하는가.
@@ -3782,3 +3779,7 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
         self.assertIn("timeline-detail", app)
         self.assertIn(".timeline-detail", css)
+
+
+if __name__ == "__main__":
+    unittest.main()
