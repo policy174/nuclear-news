@@ -3233,6 +3233,23 @@ class HardEdgeSystemTests(unittest.TestCase):
             "선택자 목록이 쉼표로 끝난 채 블록이 닫힌다",
         )
 
+    def test_radius_escapes_are_closed(self):
+        """--r-* 를 0 으로 잠가놓고 리터럴 라운드가 여섯 군데 살아 있었다.
+
+        4px ×3(세그먼티드 버튼·kbd·스켈레톤), 2px ×1(차트 범례), 16px ×2(모바일
+        바텀시트). 파일 주석은 "이 사이트에서 둥근 것은 상태 점(LED)뿐"이라고
+        적어놨지만 사실이 아니었다 — 토큰만 잠그면 리터럴로 새는 걸 못 막는다.
+
+        허용: var(--r-*) · 0 · 50%(LED·아바타 같은 진짜 원) · inherit.
+        """
+        allowed = re.compile(r"^(0|50%|inherit|(var\(--r-\d\)|0)( (var\(--r-\d\)|0)){0,3})$")
+        for value in re.findall(r"border-radius:\s*([^;]+);", self.style):
+            value = value.strip()
+            self.assertRegex(
+                value, allowed,
+                f"토큰 밖 라운드: border-radius: {value}",
+            )
+
     def test_the_page_has_exactly_one_box(self):
         """상자는 선두 카드 하나뿐이다.
 

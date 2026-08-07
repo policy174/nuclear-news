@@ -382,8 +382,8 @@ button:disabled { cursor: not-allowed; opacity: .42; }
 kbd {
   min-width: 24px;
   padding: 1px 5px;
-  border: 1px solid var(--c-border);
-  border-radius: 4px;
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-1);
   background: var(--c-surface-sunken);
   color: var(--c-text-muted);
   font: inherit;
@@ -788,14 +788,14 @@ kbd {
 .segmented,
 .filter-tabs { display: inline-flex; gap: 2px; }
 .view-toggle,
-.segmented { padding: 2px; border: 1px solid var(--c-border); border-radius: var(--r-1); background: var(--c-surface-sunken); }
+.segmented { padding: 2px; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1); background: var(--c-surface-sunken); }
 .view-toggle button,
 .segmented button,
 .filter-tab {
   min-height: 32px;
   padding: 0 10px;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--r-1);
   background: transparent;
   color: var(--c-text-muted);
   font-size: var(--t-min);
@@ -874,7 +874,7 @@ kbd {
 /* 필터가 없는 날이 대부분인데 min-height 12px + margin 10px 가 늘 자리를 잡아,
    구역 머리와 첫 행 사이에 설명 없는 22px 이 생겼다. 내용이 없으면 접는다. */
 .active-filter-row:empty { display: none; }
-.active-filter-row span { padding: 3px 8px; border: 1px solid var(--c-secondary); border-radius: var(--r-1); background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
+.active-filter-row span { padding: 3px 8px; border: var(--bd-1) solid var(--c-secondary); border-radius: var(--r-1); background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
 
 /* 시안의 목록은 카드가 아니라 표다 — 순서 / 변화 / 이슈 / 근거 4열, 구분은
    테두리 상자가 아니라 행 사이 선 하나. 네 열은 app.js 에서 형제 요소로 나온다. */
@@ -993,7 +993,7 @@ kbd {
   align-self: start;
   margin-top: 4px;
   padding: 3px 7px;
-  border: 1px solid currentColor;
+  border: var(--bd-2) solid currentColor;
   border-radius: var(--r-1);
   font-size: var(--t-min);
   font-weight: 700;
@@ -1010,7 +1010,7 @@ kbd {
   align-self: start;
   margin-top: 4px;
   padding: 3px 7px;
-  border: 1px solid currentColor;
+  border: var(--bd-2) solid currentColor;
   border-radius: var(--r-1);
   color: var(--c-accent-text);
   font-size: var(--t-min);
@@ -1272,7 +1272,7 @@ kbd {
   display: block;
   height: 14px;
   margin: 12px 0;
-  border-radius: 4px;
+  border-radius: var(--r-1);
   background: var(--c-surface-sunken);
   animation: skeleton-pulse 1.6s ease-in-out infinite;
 }
@@ -1584,7 +1584,7 @@ a.cover-face:hover { transform: translateY(-4px); box-shadow: var(--sh-2); text-
   gap: 6px;
   min-height: 44px;
   padding: 0 var(--sp-3);
-  border: 1px solid var(--c-border);
+  border: var(--bd-1) solid var(--c-border);
   border-radius: var(--r-1);
   background: var(--c-surface);
   font-size: var(--t-caption);
@@ -1878,7 +1878,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
   list-style: none;
 }
 .slope-legend li { display: flex; align-items: center; gap: 6px; font-size: var(--t-min); }
-.slope-legend i { width: 10px; height: 10px; border-radius: 2px; }
+.slope-legend i { width: 10px; height: 10px; border-radius: var(--r-1); }
 .slope-legend small { color: var(--c-text-muted); font-variant-numeric: tabular-nums; }
 .slope-grid line { stroke: var(--c-border); stroke-width: 1; }
 .slope-grid text,
@@ -2047,7 +2047,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 }
 .ai-badge { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.topic-chip { padding: 3px 8px; border: 1px solid var(--c-border); border-radius: var(--r-1); color: var(--c-text-muted); font-size: var(--t-min); }
+.topic-chip { padding: 3px 8px; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1); color: var(--c-text-muted); font-size: var(--t-min); }
 .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .dialog-actions button { min-height: 38px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-1); background: var(--c-surface); color: var(--c-secondary); font-size: var(--t-min); white-space: nowrap; }
 .dialog-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
@@ -2252,7 +2252,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     max-height: 78dvh;
     padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
     overflow-y: auto;
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--r-1);
+    border-top: var(--bd-3) solid var(--c-edge);
   }
   .filter-sheet-head button,
   .filter-sheet select,
@@ -2350,7 +2351,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     max-height: 78dvh;
     padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
     overflow-y: auto;
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--r-1);
+    border-top: var(--bd-3) solid var(--c-edge);
   }
   .archive-filters { grid-template-columns: 1fr; padding: 13px; }
   .archive-query, .archive-filters fieldset, .archive-filters .clear-filters { grid-column: auto; }
