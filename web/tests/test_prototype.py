@@ -2986,6 +2986,24 @@ class TopicWeekAggregationTests(unittest.TestCase):
         self.assertEqual(weeks, ["2026-W30", "2026-W31"])
         self.assertEqual(series["smr"], [1, 1])
 
+    def test_fallback_buckets_are_excluded(self):
+        """잔여 버킷의 증감은 분류기 정확도지 보도량이 아니다.
+
+        `policy_general`·`research` 는 다른 주제가 하나도 안 붙었을 때만 달린다.
+        실측 2026-08-08 라이브: '원자력 정책 ▼ 16% → 1%' — 정책 보도가 사라진 게
+        아니라 구체 주제로 더 잘 붙은 것이었다.
+        """
+        rows = [self._issue(["policy_general"], "2026-07-20", "2026-07-20"),
+                self._issue(["research"], "2026-07-20", "2026-07-20"),
+                self._issue(["smr"], "2026-07-20", "2026-07-20")]
+        _, series = build_data.build_topic_weeks(rows, self.FULL_WEEK)
+        self.assertEqual(list(series), ["smr"])
+        # 폴백인 이유가 코드에 남아 있어야 한다 — 규칙이 바뀌면 제외 목록도 바뀐다.
+        source = (ROOT / "build_data.py").read_text(encoding="utf-8")
+        for topic in build_data.TOPIC_TREND_EXCLUDED:
+            self.assertIn(f'not topics:\n        topics.append("{topic}")', source,
+                          f"{topic} 은 더 이상 폴백이 아니다 — 제외 목록에서 빼라")
+
     def test_untagged_issues_are_skipped_not_counted_as_zero_topic(self):
         rows = [self._issue([], "2026-07-20", "2026-07-20"),
                 self._issue(["smr"], "2026-07-20", "2026-07-20")]

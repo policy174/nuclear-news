@@ -649,6 +649,13 @@ def infer_countries(record: dict) -> tuple[list[str], str]:
 # 모수가 작아서 화살표가 보도량이 아니라 달력을 말한다.
 TOPIC_WEEK_MIN_BRIEFING_DAYS = 6
 
+# 잔여 버킷은 추이에서 뺀다. 둘 다 `classify_topics` 에서 **다른 주제가 하나도
+# 안 붙었을 때만** 달리는 폴백이다(`if ... and not topics`). 그래서 이 둘의
+# 증감은 그 주제가 늘고 줄었다는 뜻이 아니라 분류기가 얼마나 못 맞췄나를 말한다.
+# 실측 2026-08-08 라이브: '원자력 정책 ▼ 16% → 1%' — 정책 보도가 사라진 게
+# 아니라 구체 주제로 더 잘 붙은 것뿐이었다.
+TOPIC_TREND_EXCLUDED = {"policy_general", "research"}
+
 
 def _iso_week(date_str: str) -> str:
     year, week, _ = datetime.strptime(date_str, "%Y-%m-%d").isocalendar()
@@ -682,7 +689,8 @@ def build_topic_weeks(
 
     by_week: dict[str, Counter] = defaultdict(Counter)
     for issue in issue_catalog:
-        topics = [topic for topic in (issue.get("topics") or []) if topic]
+        topics = [topic for topic in (issue.get("topics") or [])
+                  if topic and topic not in TOPIC_TREND_EXCLUDED]
         first, last = issue.get("first_seen") or "", issue.get("last_seen") or ""
         if not topics or not first or not last:
             continue
