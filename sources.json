@@ -87,7 +87,8 @@
       ],
       "source_type": "official",
       "evidence_role": "primary",
-      "rank_tier": 1
+      "rank_tier": 2,
+      "_rank_tier_note": "사업자는 근거로는 1차 출처지만 헤드라인 권위는 아니다. tier1(+3.0)이면 '한수원'이 제목에 있다는 사실만으로 규제기관과 동급 가점을 받는다 — alias 언급 경로라 매체 불문이다. 2026-08-08 히어로가 '통합 원전정비원자격제도 인정 획득'(자격제도 인정, 정책 신호 없음)이 된 경로가 이것. tier2(+1.5)로 내려도 수집은 그대로다(source_score 10→8, MIN_SCORE 4). 규제기관·부처(원안위·산업부·NRC)는 tier1 유지."
     },
     {
       "domain": "kaeri.re.kr",
