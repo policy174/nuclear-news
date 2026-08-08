@@ -36,6 +36,13 @@
       "reason": "같은 주체의 같은 부지 선정 관련 사안",
       "same_event": true
     },
+    "issue-07ef074eb438fd8a--dcf5909f44": {
+      "issue_title": "노스 애나 원전, 부지 조기 허가(ESP) 갱신 신청",
+      "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
+      "prompt_version": 1,
+      "reason": "대상 원전과 허가 종류 다름",
+      "same_event": false
+    },
     "issue-09d2791626624247--841ceedbf0": {
       "issue_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -44,17 +51,17 @@
       "same_event": false
     },
     "issue-0abd318976122879--d4863d270a": {
-      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
+      "issue_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
-      "reason": "주체와 안건이 다름",
+      "reason": "국가·주체·사안 모두 다름",
       "same_event": false
     },
     "issue-0abd318976122879--dcf5909f44": {
-      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
+      "issue_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
       "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
       "prompt_version": 1,
-      "reason": "주체, 대상, 안건이 다름",
+      "reason": "주체·원자로·사안 모두 다름",
       "same_event": false
     },
     "issue-0b5218c29cbb0084--249f1333d0": {
@@ -114,10 +121,10 @@
       "same_event": false
     },
     "issue-0fe72c91dc24354b--249f1333d0": {
-      "issue_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "issue_title": "웨스팅하우스-아멘텀, APX SMR 플릿 배치 역량 확대를 위한 파트너십 체결",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "주체, 대상, 사안 다름",
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-0fe72c91dc24354b--54df950745": {
@@ -210,6 +217,13 @@
       "prompt_version": 1,
       "reason": "국가와 주체가 다름",
       "same_event": false
+    },
+    "issue-2159831fad1ddf60--dc799316ad": {
+      "issue_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "원안위의 정기검사 법령 개정",
+      "same_event": true
     },
     "issue-2275c1caa1bcad23--d4863d270a": {
       "issue_title": "영국 스타트업 뉴클리어 터빈스, 신형 원자로 개념 공개 및 1,500만 파운드 투자 유치",
@@ -429,10 +443,10 @@
       "same_event": false
     },
     "issue-398fa0e5ecf0d24a--249f1333d0": {
-      "issue_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
+      "issue_title": "미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 안건",
+      "reason": "주체, 대상, 안건이 다름",
       "same_event": false
     },
     "issue-398fa0e5ecf0d24a--54df950745": {
@@ -496,6 +510,13 @@
       "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
       "prompt_version": 1,
       "reason": "국가·기술·사안 모두 다름",
+      "same_event": false
+    },
+    "issue-457aa2e1b508d72c--841ceedbf0": {
+      "issue_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "국가와 안건이 다름",
       "same_event": false
     },
     "issue-4ab0b75736a22046--0073017cf6": {
@@ -765,10 +786,17 @@
       "same_event": false
     },
     "issue-65bc735c35edf37c--249f1333d0": {
-      "issue_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 MOU 체결",
+      "issue_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "주체와 내용이 다름",
+      "reason": "주체와 대상 국가가 다름",
+      "same_event": false
+    },
+    "issue-65bc735c35edf37c--841ceedbf0": {
+      "issue_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "국가와 안건이 다름",
       "same_event": false
     },
     "issue-65bc735c35edf37c--ee30e34bc3": {
@@ -800,11 +828,11 @@
       "same_event": false
     },
     "issue-6b93ed7e22e9bb4b--0330b81e50": {
-      "issue_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "issue_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
       "prompt_version": 1,
-      "reason": "다른 규정 개정 사안",
-      "same_event": false
+      "reason": "NRC의 규제 절차 개편",
+      "same_event": true
     },
     "issue-6b93ed7e22e9bb4b--08db51ddba": {
       "issue_title": "미국 NRC, 방사성 물질 운송 규정 현대화 제안 및 의견 수렴",
@@ -839,6 +867,13 @@
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 주체, 다른 안건",
+      "same_event": false
+    },
+    "issue-737df86cf04543b5--23a6f604ae": {
+      "issue_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "국가와 안건이 다름",
       "same_event": false
     },
     "issue-76ffb07f2b6ccb8d--23a6f604ae": {
@@ -981,6 +1016,13 @@
       "reason": "국가 및 안건이 다름",
       "same_event": false
     },
+    "issue-99fb7b94934451e5--249f1333d0": {
+      "issue_title": "정부, 소형모듈원전(SMR) 기술 국가전략기술로 지정 및 지원 확대",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
     "issue-9ff80dab9059f991--249f1333d0": {
       "issue_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -1003,10 +1045,10 @@
       "same_event": false
     },
     "issue-a4723d13eaa57660--841ceedbf0": {
-      "issue_title": "중국, 신규 원자로 8기 건설 승인",
+      "issue_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
       "prompt_version": 1,
-      "reason": "다른 국가, 다른 사건",
+      "reason": "국가와 안건이 다름",
       "same_event": false
     },
     "issue-a4723d13eaa57660--d4863d270a": {
@@ -1042,6 +1084,20 @@
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "주체, 지역, 내용 모두 다름",
+      "same_event": false
+    },
+    "issue-aafd59741b95cafa--d4863d270a": {
+      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
+      "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
+      "prompt_version": 1,
+      "reason": "국가와 안건이 다름",
+      "same_event": false
+    },
+    "issue-aafd59741b95cafa--dcf5909f44": {
+      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
+      "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
+      "prompt_version": 1,
+      "reason": "주체와 대상 원전이 다름",
       "same_event": false
     },
     "issue-b1e1072288426172--0330b81e50": {
@@ -1084,6 +1140,20 @@
       "keei_item": "아르헨티나, 민간투자 기반 ACR-300 건설 계획 발표",
       "prompt_version": 1,
       "reason": "대상 국가, 사안 다름",
+      "same_event": false
+    },
+    "issue-bb65e11c8f33af62--835e580735": {
+      "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "Oklo 임계 달성이 목표에 포함",
+      "same_event": true
+    },
+    "issue-bb65e11c8f33af62--a9ffef226f": {
+      "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
+      "prompt_version": 1,
+      "reason": "안건이 다름",
       "same_event": false
     },
     "issue-bccf5f15f321ec1b--0330b81e50": {
@@ -1164,10 +1234,10 @@
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--249f1333d0": {
-      "issue_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "issue_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 협력 사안",
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--54df950745": {
@@ -1296,6 +1366,13 @@
       "reason": "주체, 안건, 국가가 다름",
       "same_event": false
     },
+    "issue-da9a4893cdd4761d--dc799316ad": {
+      "issue_title": "원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "다른 규제 안건",
+      "same_event": false
+    },
     "issue-db88cff11d029f91--249f1333d0": {
       "issue_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -1367,10 +1444,10 @@
       "same_event": true
     },
     "issue-e166e0749a04c6dd--a9ffef226f": {
-      "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "issue_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
       "prompt_version": 1,
-      "reason": "같은 기업의 다른 사안",
+      "reason": "Oklo 관련 다른 사안",
       "same_event": false
     },
     "issue-e2e42584280401fc--b6aec252c7": {

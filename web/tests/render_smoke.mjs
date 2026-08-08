@@ -93,14 +93,14 @@ try {
   }
 
   // 발간물 탭 — 데이터가 0건이어도 빈 상태가 렌더돼야 한다(탭 자체가 죽으면 실패).
-  // 반드시 #pubsList(=renderPubs 의 출력)를 본다. #view-pubs 는 index.html 에
+  // 반드시 #pubsList(=renderPubs 의 출력)를 본다. #view-report 는 index.html 에
   // 정적으로 박힌 h1·안내문을 갖고 있어서, renderPubs 가 통째로 죽어도
   // textContent 가 비지 않는다 — 그걸 검사하면 아무것도 못 잡는다.
-  const pubsTab = page.locator('#mainTabs [data-view="pubs"]');
+  const pubsTab = page.locator('#mainTabs [data-view="report"]');
   if (await pubsTab.count()) {
     await pubsTab.click();
-    await page.locator("#view-pubs").waitFor({ state: "visible", timeout: 10000 })
-      .catch(() => failures.push("발간물 탭 클릭 후 #view-pubs 가 보이지 않음"));
+    await page.locator("#view-report").waitFor({ state: "visible", timeout: 10000 })
+      .catch(() => failures.push("보고서 탭 클릭 후 #view-report 가 보이지 않음"));
     const listHtml = (await page.innerHTML("#pubsList").catch(() => "")) || "";
     if (!listHtml.trim()) {
       failures.push("renderPubs 가 아무것도 그리지 않음 (#pubsList 비어 있음)");

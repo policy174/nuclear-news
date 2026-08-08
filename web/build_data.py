@@ -690,6 +690,40 @@ def _text_tokens(text: object) -> set[str]:
     return {token.lower()[:8] for token in _TOKEN_RE.findall(str(text or "")) if len(token) >= 2}
 
 
+_EVENT_STAGE_PATTERNS = {
+    "mou": r"(?:mou|moa|양해각서)",
+    "agreement": r"(?:협약|합의|계약|서명)",
+    "approval": r"(?:승인|허가|인가|의결)",
+    "review": r"(?:검토|심사|심의|평가)",
+    "construction": r"(?:착공|건설\s*(?:시작|개시))",
+    "grid": r"(?:전력망|계통).{0,8}(?:연결|접속)",
+    "criticality": r"(?:첫\s*)?임계",
+    "operation": r"(?:상업\s*운전|가동\s*(?:개시|시작))",
+    "shutdown": r"(?:가동|운전).{0,8}(?:중단|정지)",
+    "launch": r"(?:출범|설립)",
+    "declaration": r"(?:선포|공표)",
+}
+_TENTATIVE_RE = re.compile(r"(?:검토|예정|계획|전망|가능성|수\s*있)", re.I)
+_FINAL_RE = re.compile(r"(?:최종|공식|결정|의결|체결|서명|달성|개시|시작|선포)", re.I)
+
+
+def _event_stage_signature(text: object) -> tuple[frozenset[str], str]:
+    raw = str(text or "").lower()
+    stages = {
+        name for name, pattern in _EVENT_STAGE_PATTERNS.items()
+        if re.search(pattern, raw, re.I)
+    }
+    certainty = "tentative" if _TENTATIVE_RE.search(raw) and not _FINAL_RE.search(raw) else "final"
+    return frozenset(stages), certainty
+
+
+def _normalized_sentence(text: object) -> str:
+    normalized = str(text or "").lower()
+    normalized = re.sub(r"양해각서", "mou", normalized)
+    normalized = re.sub(r"\s+", "", normalized)
+    return _NORM_RE.sub("", normalized)
+
+
 # 이번 빌드에서 뺀 빈껍데기 해석. 조용히 지우면 큐레이션 프롬프트가 망가진 것을
 # 아무도 모른다 — 빌드 끝에 건수를 찍는다.
 _HOLLOW_IMPLICATIONS: list[str] = []
@@ -706,10 +740,28 @@ def _is_restatement(before: object, after: object, threshold: float = 0.45) -> b
     right = _text_tokens(after)
     if not left or not right:
         return True
+    before_stage, before_certainty = _event_stage_signature(before)
+    after_stage, after_certainty = _event_stage_signature(after)
+    if before_stage and after_stage and (
+        before_stage != after_stage or before_certainty != after_certainty
+    ):
+        return False
     if _jaccard(left, right) >= threshold:
         return True
     shorter, longer = (left, right) if len(left) <= len(right) else (right, left)
-    return len(shorter & longer) / len(shorter) >= 0.8
+    if len(shorter & longer) / len(shorter) >= 0.8:
+        return True
+
+    # 같은 이슈 안에서 MOU·승인·임계처럼 사건 단계가 동일하고 문장 골격도
+    # 겹치면 후속 기사로 표현만 바뀐 재진술이다. 반대로 검토/예정에서
+    # 의결/착공/가동으로 넘어간 경우에는 certainty나 stage가 달라져 보존된다.
+    if before_stage and before_stage == after_stage and before_certainty == after_certainty:
+        left_sentence = _normalized_sentence(before)
+        right_sentence = _normalized_sentence(after)
+        similarity = difflib.SequenceMatcher(None, left_sentence, right_sentence).ratio()
+        token_overlap = len(shorter & longer) / len(shorter)
+        return similarity >= 0.4 or token_overlap >= 0.35
+    return False
 
 
 def split_interpretation(record: dict) -> tuple[str, str]:
@@ -754,6 +806,21 @@ def pick_report_topic(members: list[dict]) -> str:
         if topic:
             return topic
     return ""
+
+
+def pick_report_metadata(members: list[dict]) -> tuple[str, str, list[str]]:
+    """최신 보고서 추천의 주제·선정 이유·분석 각도를 함께 보존한다."""
+    for member in sorted(members, key=lambda m: str(m.get("article_date") or ""), reverse=True):
+        topic = str(member.get("report_pick") or "").strip()
+        if not topic:
+            continue
+        why = str(member.get("report_pick_why") or "").strip()
+        angles = [
+            str(angle).strip() for angle in (member.get("report_pick_angles") or [])
+            if str(angle).strip()
+        ][:3]
+        return topic, why, angles
+    return "", "", []
 
 
 def load_embeddings_cache() -> dict[str, list[float]]:
@@ -1334,7 +1401,8 @@ def build_weekly_movers(issue_catalog: list[dict], end_date: str,
     for issue in issue_catalog:
         in_week = [
             article for article in issue.get("related_articles") or []
-            if str(article.get("briefing_date") or "") >= start
+            if article.get("member_role", "card") == "card"
+            and str(article.get("briefing_date") or "") >= start
         ]
         if not in_week:
             continue
@@ -1550,7 +1618,143 @@ def cluster_selected_articles(
     return issues
 
 
-def _article_view(article: dict) -> dict:
+def attach_evidence_articles(
+    news_items: list[dict],
+    issues: list[dict],
+    embeddings: dict[str, list[float]] | None = None,
+    local_embeddings: dict[str, list[float]] | None = None,
+    match_overrides: dict[str, set[str]] | None = None,
+    review_candidates: list[dict] | None = None,
+    facility_entities: dict[str, set[str]] | None = None,
+) -> int:
+    """미발송 기사를 이미 고정된 카드 이슈에 근거로만 부착한다.
+
+    근거 기사는 새 이슈를 만들지 않고 다른 근거 기사의 연결 기준도 되지 않는다.
+    따라서 수집 분모를 넓혀도 카드 소속·대표 제목·정렬이 바뀌지 않는다.
+    """
+    if not issues:
+        return 0
+    latest_card_day = max(
+        (_parse_day(issue.get("last_seen", "")) for issue in issues),
+        default=None,
+    )
+    if not latest_card_day:
+        return 0
+    cutoff = latest_card_day - timedelta(days=ISSUE_WINDOW_DAYS)
+    evidence = [
+        item for item in news_items
+        if not item.get("briefing_date")
+        and item.get("importance") != "noise"
+        and (_parse_day(item.get("article_date", "")) or cutoff) >= cutoff
+    ]
+    evidence.sort(key=lambda item: (item.get("article_date") or "", item["hash"]))
+    overrides = match_overrides or {"approved": set(), "rejected": set()}
+    veto_pairs = set(overrides.get("rejected") or ()) | set(overrides.get("llm_rejected") or ())
+    candidate_rows = review_candidates if review_candidates is not None else []
+    seen_candidates = {_pair_id(row.get("left_hash"), row.get("right_hash")) for row in candidate_rows}
+    attached = 0
+
+    for article in evidence:
+        article_day = _parse_day(article.get("article_date", ""))
+        best_issue = None
+        best_score = -1.0
+        best_diag = None
+        for issue in issues:
+            card_members = issue["members"]
+            card_days = [
+                _parse_day(member.get("article_date") or member.get("briefing_date") or "")
+                for member in card_members
+            ]
+            if article_day and card_days and all(
+                card_day and abs((article_day - card_day).days) > ISSUE_WINDOW_DAYS
+                for card_day in card_days
+            ):
+                continue
+            if veto_pairs and any(
+                _pair_id(article["hash"], member["hash"]) in veto_pairs
+                for member in card_members
+            ):
+                continue
+            # 근거끼리 chaining 되지 않도록 카드 멤버만 앵커로 사용한다.
+            for reference in card_members[-3:]:
+                pair_id = _pair_id(article["hash"], reference["hash"])
+                matched, score, diag = issue_similarity(
+                    article, reference, embeddings, local_embeddings, facility_entities
+                )
+                if pair_id in veto_pairs:
+                    continue
+                if pair_id in overrides.get("approved", set()) and not diag.get("blocked_by"):
+                    matched, score = True, max(score, 1.0)
+                    diag = {**diag, "method": "manual_approved"}
+                elif pair_id in overrides.get("llm_approved", set()) and not diag.get("blocked_by"):
+                    matched, score = True, max(score, 0.99)
+                    diag = {**diag, "method": "llm_approved"}
+                elif not matched:
+                    is_candidate, candidate_method, candidate_score = is_review_candidate(diag)
+                    if is_candidate and pair_id not in seen_candidates:
+                        seen_candidates.add(pair_id)
+                        candidate_rows.append({
+                            "candidate_id": pair_id,
+                            "left_hash": reference["hash"],
+                            "right_hash": article["hash"],
+                            "left_date": reference.get("briefing_date") or reference.get("article_date"),
+                            "right_date": article.get("article_date"),
+                            "left_title": reference.get("title_kr") or reference.get("title"),
+                            "right_title": article.get("title_kr") or article.get("title"),
+                            "candidate_method": candidate_method,
+                            "candidate_score": round(candidate_score, 4),
+                            "shared_facility_entities": diag.get("shared_facility_entities") or [],
+                            "diagnostics": diag,
+                            "review_state": "pending",
+                            "member_role": "evidence",
+                        })
+                if matched and score > best_score:
+                    best_issue, best_score = issue, score
+                    best_diag = {**diag, "reference_hash": reference["hash"]}
+        if best_issue is None:
+            continue
+        best_issue.setdefault("evidence_members", []).append(article)
+        best_issue["match_diagnostics"].append({
+            "hash": article["hash"],
+            "score": best_score,
+            "member_role": "evidence",
+            **(best_diag or {}),
+        })
+        attached += 1
+    return attached
+
+
+def card_cluster_snapshot(issues: list[dict]) -> list[dict]:
+    """Capture the card-only order, membership, and representative before P1 evidence attachment."""
+    return [
+        {
+            "representative_hash": str((issue.get("representative") or {}).get("hash") or ""),
+            "representative_title": str(
+                (issue.get("representative") or {}).get("title_kr")
+                or (issue.get("representative") or {}).get("title")
+                or ""
+            ),
+            "card_hashes": [str(member.get("hash") or "") for member in issue.get("members") or []],
+        }
+        for issue in issues
+    ]
+
+
+def assert_card_clusters_unchanged(before: list[dict], issues: list[dict]) -> dict:
+    """Fail the build if P1 evidence attachment changes card order, membership, or title."""
+    after = card_cluster_snapshot(issues)
+    if after != before:
+        raise ValueError("p1_card_cluster_regression")
+    encoded = json.dumps(after, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    return {
+        "passed": True,
+        "definition_version": "same-run-card-cluster-v1",
+        "card_count": len(after),
+        "signature": hashlib.sha256(encoded).hexdigest()[:16],
+    }
+
+
+def _article_view(article: dict, member_role: str = "card") -> dict:
     return {
         "hash": article["hash"],
         "article_date": article["article_date"],
@@ -1571,6 +1775,7 @@ def _article_view(article: dict) -> dict:
         "topics": article.get("topics") or [],
         "url": article.get("url", ""),
         "importance": article.get("importance", ""),
+        "member_role": member_role,
     }
 
 
@@ -1584,13 +1789,17 @@ def latest_change_line(current: list[dict], history: list[dict]) -> str:
     )
     text = newest.get("summary") or newest.get("title_kr") or newest.get("title") or ""
     change = flow_takeaway(text, limit=112).strip()
-    if not history:
+    previous_candidates = [
+        member for member in history
+        if (member.get("article_date") or "") < (newest.get("article_date") or "")
+    ]
+    if not previous_candidates:
         if change and not change.endswith((".", "!", "?")):
             change += "."
         return change
 
     previous = max(
-        history,
+        previous_candidates,
         key=lambda member: (member.get("briefing_date") or "", member.get("article_date") or "", _representative_key(member)),
     )
     previous_text = previous.get("summary") or previous.get("title_kr") or previous.get("title") or ""
@@ -1745,6 +1954,12 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
     else:
         status = "unverified"
 
+    official_article = next((article for article in articles if _is_official_source(article)), None)
+    independent_labels = list(dict.fromkeys(
+        (article.get("publisher") or article.get("domain") or "").strip()
+        for article in articles if _is_independent_source(article)
+        and (article.get("publisher") or article.get("domain"))
+    ))
     return {
         "status": status,
         "label": VERIFICATION_LABELS[status],
@@ -1752,6 +1967,22 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
         "independent_source_count": len(independent),
         "official_source_count": len(official),
         "checked_at": checked_at,
+        "checks": [
+            {
+                "kind": "official",
+                "passed": bool(official),
+                "label": "공식 원문 확인",
+                "detail": ((official_article or {}).get("publisher")
+                           or (official_article or {}).get("domain") or ""),
+                "url": (official_article or {}).get("url", ""),
+            },
+            {
+                "kind": "multi",
+                "passed": len(independent) >= 2,
+                "label": "복수 독립 출처 확인",
+                "detail": " · ".join(independent_labels[:3]),
+            },
+        ],
     }
 
 
@@ -2467,6 +2698,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 current, history, representative.get("summary", "")
             )
             issue_detail, issue_detail_source = pick_detail(timeline, representative)
+            report_topic, report_why, report_angles = pick_report_metadata(current)
             issue_rows.append({
                 "issue_id": issue["issue_id"],
                 "status": "ongoing" if history else "new",
@@ -2480,7 +2712,9 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "why_important": why_important,
                 # 그날 보고서 검토 추천을 받은 기사가 이 이슈에 있으면 그 주제.
                 # 추천은 그날의 판단이라 이번 브리핑분(current)에서만 본다.
-                "report_pick": pick_report_topic(current),
+                "report_pick": report_topic,
+                "report_pick_why": report_why,
+                "report_pick_angles": report_angles,
                 # 대표 기사가 아니라 이슈 전체에서 고른다 — 미확정 내용은 공식
                 # 기사에만 있고 대표 기사에는 없는 경우가 흔하다.
                 "open_question": pick_open_question(timeline),
@@ -2651,24 +2885,34 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
     alias_entries = _entity_alias_entries(entity_registry) if entity_registry else []
     rows = []
     for issue in issues:
-        timeline = sorted(
+        card_timeline = sorted(
             issue["members"],
-            key=lambda member: (member["article_date"], member["briefing_date"], member["hash"]),
+            key=lambda member: (member["article_date"], member.get("briefing_date") or "", member["hash"]),
             reverse=True,
         )
-        briefing_dates = sorted({member["briefing_date"] for member in timeline})
+        evidence_timeline = sorted(
+            issue.get("evidence_members") or [],
+            key=lambda member: (member.get("article_date") or "", member["hash"]),
+            reverse=True,
+        )
+        all_timeline = sorted(
+            card_timeline + evidence_timeline,
+            key=lambda member: (member.get("article_date") or "", member.get("briefing_date") or "", member["hash"]),
+            reverse=True,
+        )
+        briefing_dates = sorted({member["briefing_date"] for member in card_timeline})
         last_seen = max(briefing_dates)
-        current = [member for member in timeline if member["briefing_date"] == last_seen]
-        history = [member for member in timeline if member["briefing_date"] < last_seen]
+        current = [member for member in card_timeline if member["briefing_date"] == last_seen]
+        history = [member for member in card_timeline if member["briefing_date"] < last_seen]
         representative = max(current, key=_representative_key)
-        regions = {member.get("region") for member in timeline if member.get("region")}
-        topic_counts = Counter(topic for member in timeline for topic in (member.get("topics") or []))
+        regions = {member.get("region") for member in card_timeline if member.get("region")}
+        topic_counts = Counter(topic for member in card_timeline for topic in (member.get("topics") or []))
         tag_counts = Counter(
-            tag for member in timeline for tag in (member.get("canonical_tags") or [])
+            tag for member in card_timeline for tag in (member.get("canonical_tags") or [])
             if tag not in _GENERIC_TAGS
         )
         reasons = []
-        for member in sorted(timeline, key=_representative_key, reverse=True):
+        for member in sorted(card_timeline, key=_representative_key, reverse=True):
             reasons.extend(member.get("selection_reasons") or [])
         last_day = _parse_day(last_seen)
         days_since_update = (
@@ -2676,17 +2920,18 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
         )
         implication, why_important = split_interpretation(representative)
         archive_change_line = change_line_for_card(
-            current, history, representative.get("summary", "")
+            current, history + evidence_timeline, representative.get("summary", "")
         )
         # 엔티티 매칭은 여기(원 멤버)에서만 가능하다 — _article_view 가
         # canonical_tags 를 싣지 않으므로 직렬화 이후엔 재료가 없다.
         entity_ids: list[str] = []
         if alias_entries:
-            entity_ids, entity_evidence = entity_ids_for_members(timeline, alias_entries)
+            entity_ids, entity_evidence = entity_ids_for_members(card_timeline, alias_entries)
             if entity_evidence_out is not None:
                 for record in entity_evidence:
                     entity_evidence_out.append({"issue_id": issue["issue_id"], **record})
-        archive_detail, archive_detail_source = pick_detail(timeline, representative)
+        archive_detail, archive_detail_source = pick_detail(all_timeline, representative)
+        report_topic, report_why, report_angles = pick_report_metadata(card_timeline)
         rows.append({
             "issue_id": issue["issue_id"],
             "status": "ongoing" if len(briefing_dates) > 1 else "new",
@@ -2702,14 +2947,16 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "why_important": why_important,
             # 아카이브 행은 그 이슈가 **언젠가** 보고서감이었는지를 남긴다 —
             # 브리핑 행과 달리 '오늘'이라는 기준일이 없다.
-            "report_pick": pick_report_topic(timeline),
-            "open_question": pick_open_question(timeline),
+            "report_pick": report_topic,
+            "report_pick_why": report_why,
+            "report_pick_angles": report_angles,
+            "open_question": pick_open_question(card_timeline),
             "latest_change": archive_change_line,
             "change_display": card_change_display(
                 archive_change_line, representative["title_kr"],
                 implication, representative.get("summary", "")
             ),
-            "verification": verification_state(timeline, checked_at),
+            "verification": verification_state(all_timeline, checked_at),
             "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
             "regions": sorted(regions),
             "importance": representative.get("importance", ""),
@@ -2721,13 +2968,18 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "previous_article_count": len(history),
             "tracked_briefings": len(briefing_dates),
             "briefing_count": len(briefing_dates),
-            "article_count": len(timeline),
-            "representative_article": _article_view(representative),
-            "related_articles": [_article_view(member) for member in timeline],
+            "card_article_count": len(card_timeline),
+            "evidence_article_count": len(evidence_timeline),
+            "article_count": len(all_timeline),
+            "representative_article": _article_view(representative, "card"),
+            "related_articles": (
+                [_article_view(member, "card") for member in card_timeline]
+                + [_article_view(member, "evidence") for member in evidence_timeline]
+            ),
             "sort_score": float(representative.get("selection_score") or 0),
         })
     rows.sort(
-        key=lambda row: (row["last_seen"], row["importance"] == "must_read", row["sort_score"], row["article_count"]),
+        key=lambda row: (row["last_seen"], row["importance"] == "must_read", row["sort_score"], row["card_article_count"]),
         reverse=True,
     )
     for row in rows:
@@ -2779,17 +3031,51 @@ def atlas_readiness(issue_catalog: list[dict]) -> dict:
              for name, count in counts.items()}
     filled_per_issue = [sum(1 for _, test in ATLAS_NODES if test(row))
                         for row in issue_catalog]
+    articles = [
+        article for row in issue_catalog for article in (row.get("related_articles") or [])
+    ]
+    canonical = [
+        article for article in articles
+        if "news.google." not in str(article.get("url") or "").lower()
+    ]
+    verification_mix = Counter(
+        (row.get("verification") or {}).get("status", "unverified")
+        for row in issue_catalog
+    )
     blocking = []
     if counts["open_question"] < ATLAS_MIN_OPEN_QUESTION:
         blocking.append("open_question")
     if rates["related_articles"] < ATLAS_MIN_RELATED_RATE:
         blocking.append("related_articles")
     return {
+        "definition_version": "card-evidence-v2",
+        "metric_basis": {
+            "state_sort_briefing_count": "card_members",
+            "related_articles_verification": "card_plus_evidence_members",
+        },
         "issue_total": total,
         "node_counts": counts,
         "node_rates": rates,
         "full_path_issues": sum(1 for n in filled_per_issue if n == len(ATLAS_NODES)),
         "three_plus_issues": sum(1 for n in filled_per_issue if n >= 3),
+        "multi_card_article_rate": round(
+            sum(1 for row in issue_catalog if (row.get("card_article_count") or 0) >= 2) / total, 4
+        ) if total else 0.0,
+        "multi_evidence_article_rate": round(
+            sum(1 for row in issue_catalog if (row.get("article_count") or 0) >= 2) / total, 4
+        ) if total else 0.0,
+        "verification_mix": {
+            key: round(verification_mix.get(key, 0) / total, 4) if total else 0.0
+            for key in ("official", "corroborated", "partial", "unverified")
+        },
+        "canonical_url_rate": round(len(canonical) / len(articles), 4) if articles else 0.0,
+        "change_rate": round(
+            sum(1 for row in issue_catalog if row.get("latest_change")) / total, 4
+        ) if total else 0.0,
+        "cluster_input_count": sum(
+            (row.get("card_article_count") or 0) + (row.get("evidence_article_count") or 0)
+            for row in issue_catalog
+        ),
         "blocking_nodes": blocking,
         "ready": not blocking,
     }
@@ -2847,6 +3133,67 @@ def build_issue_pages(issue_catalog: list[dict]) -> int:
         json_ld = json.dumps(structured_data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
         page = page.replace("</head>", f'  <script type="application/ld+json">{json_ld}</script>\n</head>', 1)
         page_dir = issue_dir / issue_id
+        page_dir.mkdir()
+        (page_dir / "index.html").write_text(page, encoding="utf-8")
+        generated += 1
+    return generated
+
+
+def build_brief_pages(briefings: list[dict]) -> int:
+    """날짜별 오늘 화면을 OG·canonical·JSON-LD가 있는 정적 진입점으로 만든다."""
+    public_dir = (SITE_DIR / "public").resolve()
+    brief_dir = (public_dir / "brief").resolve()
+    if brief_dir.parent != public_dir or brief_dir.name != "brief":
+        raise RuntimeError(f"unsafe brief page directory: {brief_dir}")
+    if brief_dir.exists():
+        shutil.rmtree(brief_dir)
+    brief_dir.mkdir(parents=True)
+
+    template = (public_dir / "index.html").read_text(encoding="utf-8")
+    generated = 0
+    for briefing in briefings:
+        briefing_date = str(briefing.get("date") or "")
+        try:
+            date.fromisoformat(briefing_date)
+        except ValueError:
+            continue
+        issues = briefing.get("issues") or []
+        headline = str(briefing.get("headline") or "이번 주 원자력, 무엇이 달라졌나")
+        title = f"{briefing_date} 원자력 브리프"
+        description = str((issues[0] if issues else {}).get("summary") or headline)[:180]
+        brief_url = f"{SITE_URL}/brief/{briefing_date}"
+        page = template
+        replacements = {
+            '<meta name="description" content="Nuclens는 원자력 정책·산업 뉴스를 이슈 단위로 연결하고 중요한 변화를 근거와 함께 추적합니다.">':
+                f'<meta name="description" content="{html_escape(description, quote=True)}">',
+            '<meta property="og:type" content="website">': '<meta property="og:type" content="article">',
+            '<meta property="og:title" content="Nuclens · 원자력 정책·산업 이슈 트래커">':
+                f'<meta property="og:title" content="{html_escape(title, quote=True)} | Nuclens">',
+            '<meta property="og:description" content="원자력 이슈를 연결하고, 변화를 추적합니다.">':
+                f'<meta property="og:description" content="{html_escape(description, quote=True)}">',
+            '<meta property="og:url" content="https://nuclens.pages.dev/">':
+                f'<meta property="og:url" content="{html_escape(brief_url, quote=True)}">',
+            '<link rel="canonical" href="https://nuclens.pages.dev/">':
+                f'<link rel="canonical" href="{html_escape(brief_url, quote=True)}">',
+            '<title>Nuclens · 원자력 정책·산업 이슈 트래커</title>':
+                f'<title>{html_escape(title)} | Nuclens</title>',
+        }
+        for old, new in replacements.items():
+            if old not in page:
+                raise RuntimeError(f"brief page metadata template is missing: {old}")
+            page = page.replace(old, new, 1)
+        structured_data = {
+            "@context": "https://schema.org",
+            "@type": "Report",
+            "name": title,
+            "description": description,
+            "datePublished": briefing_date,
+            "mainEntityOfPage": brief_url,
+            "publisher": {"@type": "Organization", "name": "Nuclens", "url": SITE_URL},
+        }
+        json_ld = json.dumps(structured_data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        page = page.replace("</head>", f'  <script type="application/ld+json">{json_ld}</script>\n</head>', 1)
+        page_dir = brief_dir / briefing_date
         page_dir.mkdir()
         (page_dir / "index.html").write_text(page, encoding="utf-8")
         generated += 1
@@ -2967,6 +3314,8 @@ def build() -> None:
             # 보고서 검토 추천은 발송 시점의 판단이라 아카이브 레코드가 아니라
             # delivery_log 에 실려 온다 (daily_brief.plan_briefs).
             "report_pick": delivery.get("report_pick", "") if delivery else "",
+            "report_pick_why": delivery.get("report_pick_why", "") if delivery else "",
+            "report_pick_angles": delivery.get("report_pick_angles", []) if delivery else [],
             # 기존 프론트와의 호환용. 새 화면은 briefing_date를 사용한다.
             "promoted": delivery.get("date") if delivery else None,
         })
@@ -2996,6 +3345,17 @@ def build() -> None:
         review_candidates,
         facility_entities,
     )
+    p0_card_snapshot = card_cluster_snapshot(issues)
+    evidence_attached = attach_evidence_articles(
+        news_items,
+        issues,
+        embeddings,
+        local_embeddings,
+        match_overrides,
+        review_candidates,
+        facility_entities,
+    )
+    p1_regression = assert_card_clusters_unchanged(p0_card_snapshot, issues)
 
     # 1차 묶음에서 나온 회색지대 쌍을 LLM 에 한 번 물어보고, 같은 사건으로
     # 판정된 것만 오버라이드로 넣어 다시 묶는다. 클러스터링은 순수 계산이라
@@ -3021,11 +3381,24 @@ def build() -> None:
             review_candidates,
             facility_entities,
         )
+        p0_card_snapshot = card_cluster_snapshot(issues)
+        evidence_attached = attach_evidence_articles(
+            news_items,
+            issues,
+            embeddings,
+            local_embeddings,
+            match_overrides,
+            review_candidates,
+            facility_entities,
+        )
+        p1_regression = assert_card_clusters_unchanged(p0_card_snapshot, issues)
     print(f"[build_data] 이슈 병합 LLM 검수: 후보 {llm_stats['candidates']}쌍 "
           f"(캐시 {llm_stats['from_cache']} / 신규 {llm_stats['asked']} / "
           f"재질의 {llm_stats.get('reasked', 0)} / "
           f"호출 {llm_stats['calls']}회) → 병합 {llm_stats['approved']} "
           f"분리 {llm_stats['rejected']} 실패 {llm_stats['failed']} [{llm_stats['status']}]")
+    print(f"[build_data] 미발송 근거 기사 부착: {evidence_attached}건 "
+          f"(카드 클러스터 {len(issues)}개 고정)")
     # 쿼터로 죽으면 '병합 안 함'으로 조용히 흡수돼 후속 보도가 신규 이슈로 갈라진다.
     # 실측 2026-08-05: quota 20건 → 팍스 원전 후속(코사인 0.8716, 밴드 안)이 분리됐다.
     # 실패 통계는 issue_audit.json 에 남지만 아무도 안 보므로 로그에 크게 찍는다.
@@ -3253,6 +3626,7 @@ def build() -> None:
         "visible_total": len(news_items),
         "briefing_total": len(briefings),
         "issue_catalog_total": len(issue_catalog),
+        "p1_regression": p1_regression,
         "atlas_readiness": atlas_readiness(issue_catalog),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
         "date_min": min((item["article_date"] for item in visible), default=""),
@@ -3388,13 +3762,15 @@ def build() -> None:
             encoding="utf-8",
         )
     issue_page_count = build_issue_pages(issue_catalog)
+    brief_page_count = build_brief_pages(briefings)
     (SITE_DIR / "public" / "rss.xml").write_bytes(build_rss(briefings, now))
 
     selected_count = sum(briefing["article_count"] for briefing in briefings)
     issue_count = sum(briefing["issue_count"] for briefing in briefings)
     print(
         f"[build] 아카이브 {len(records)}건 → 표시 {len(news_items)}건 → "
-        f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / 상세 페이지 {issue_page_count}개 → {OUT_DIR}"
+        f"브리핑 기사 {selected_count}건 / 이슈 카드 {issue_count}개 / "
+        f"상세 페이지 {issue_page_count}개 / 날짜 브리프 {brief_page_count}개 → {OUT_DIR}"
     )
     # 이 프로세스가 쓴 Gemini 호출을 센다. crawl.yml 은 news_bot 과 build_data 를
     # **한 잡 안에서 이어서** 돌리므로 둘이 같은 분에 겹칠 수 있다 — 429(분당 20회)의

@@ -51,12 +51,9 @@
     </a>
     <nav class="main-tabs" id="mainTabs" aria-label="주요 화면">
       <button class="main-tab active" data-view="news" aria-pressed="true">오늘</button>
-      <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
       <button class="main-tab" data-view="trend" aria-pressed="false">흐름</button>
-      <button class="main-tab" data-view="pubs" aria-pressed="false">발간물</button>
-      <!-- 768~1199px 는 하단 탭도 사이드바도 없다 — 저장 뷰가 이 대역에서
-           도달 불가였다(감사 확인). 배지는 0이면 숨긴다. -->
-      <button class="main-tab" data-view="saved" aria-pressed="false">저장 <small class="tab-badge" data-saved-count="desktop" hidden>0</small></button>
+      <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
+      <button class="main-tab" data-view="report" aria-pressed="false">보고서</button>
     </nav>
     <div class="header-tools">
       <!-- 좁은 화면에서는 아래 span·kbd 가 CSS 로 접혀 아이콘만 남는다. 그러면
@@ -68,6 +65,9 @@
       </button>
       <button id="headerStatus" class="header-status" type="button" aria-haspopup="dialog" aria-label="데이터 상태">
         <i aria-hidden="true"></i><span>상태 확인</span>
+      </button>
+      <button id="headerSaved" class="icon-button" type="button" data-go-saved aria-label="저장한 이슈 보기">
+        <span aria-hidden="true">☆</span><small class="tab-badge" data-saved-count="desktop" hidden>0</small>
       </button>
       <button id="themeToggle" class="icon-button" type="button" aria-label="다크 모드 켜기">
         <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>
@@ -83,7 +83,7 @@
          하나뿐이므로 라이브 영역도 그 하나로 좁힌다. -->
     <section class="briefing-hero" id="briefingHero">
       <div class="hero-topline">
-        <p class="eyebrow">TODAY <span id="briefingDateLabel"></span></p>
+        <div class="hero-stamp"><p class="eyebrow">THIS WEEK</p><span id="briefingDateLabel"></span></div>
         <div class="date-nav" aria-label="브리핑 날짜 선택">
           <button id="prevDay" type="button" aria-label="이전 브리핑">←</button>
           <select id="dateSel" aria-label="브리핑 날짜"></select>
@@ -92,8 +92,9 @@
       </div>
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="hero-kicker" id="briefingKicker">오늘의 핵심</p>
-          <h1 id="briefingTitle" aria-live="polite">오늘의 핵심을 정리하고 있습니다</h1>
+          <p class="hero-kicker" id="briefingKicker">주간 원자력 인텔리전스</p>
+          <h1 id="briefingTitle">이번 주 원자력, 무엇이 달라졌나</h1>
+          <p id="heroMetrics" class="hero-metrics" hidden></p>
           <div class="hero-evidence" id="headlineEvidence" hidden role="group" aria-label="이 문장의 근거 이슈"></div>
           <!-- 지난 확인 이후 무엇이 쌓였는지 — 방문 간격을 잇는 한 줄.
                localStorage(nuclens-last-visit) 기준이라 첫 방문·같은 날
@@ -135,6 +136,11 @@
            스트립은 이제 걷힌다(style.css `.status-strip.ok`). -->
     </section>
 
+    <nav id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
+      <div class="agenda-head"><strong id="todayAgendaTitle">오늘 3분</strong><span id="todayAgendaMeta"></span></div>
+      <ol id="todayAgendaList"></ol>
+    </nav>
+
     <div class="briefing-content-grid">
       <div class="briefing-main">
         <!-- 상위 1건은 표의 한 행이 아니라 판단을 펼치는 자리다. 아래 두 목록이
@@ -161,6 +167,7 @@
         </section>
 
         <section id="todayIssues" class="issues-section" aria-labelledby="todayIssuesTitle">
+          <p class="eyebrow">TODAY</p>
           <div class="section-heading issue-section-heading">
             <div class="section-title">
               <span class="sec-no" aria-hidden="true">03</span>
@@ -206,6 +213,22 @@
           </div>
         </section>
 
+        <section id="homeTopicFlow" class="home-intelligence" aria-labelledby="homeTopicFlowTitle" hidden>
+          <div class="section-heading">
+            <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="homeTopicFlowTitle">지금 세계 원자력은 어디로 가고 있나</h2></div>
+            <span class="data-note">최근 4주 · 주간 내 비중</span>
+          </div>
+          <div id="homeTopicFlowRows" class="home-topic-flow"></div>
+        </section>
+
+        <section id="homeWeeklyStory" class="home-intelligence" aria-labelledby="homeWeeklyStoryTitle" hidden>
+          <div class="section-heading">
+            <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="homeWeeklyStoryTitle">3분이면 이해되는 이번 주 원자력</h2></div>
+          </div>
+          <div id="homeWeeklyStoryBody"></div>
+          <button type="button" class="secondary-button" data-go-view="trend">전체 흐름 보기</button>
+        </section>
+
         <details class="feed-drawer">
           <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>
           <div id="newsList" class="news-list"></div>
@@ -216,7 +239,6 @@
       <aside class="briefing-sidebar" aria-label="오늘 브리핑 보조 정보">
         <section id="evidenceRail" class="evidence-rail" aria-label="선택한 이슈의 근거" aria-live="polite" hidden></section>
         <section class="side-panel"><h2>오늘의 검증 상태</h2><div id="sideVerification" class="side-verification"></div></section>
-        <section class="side-panel"><h2>이번 주 이어지는 흐름</h2><ol id="sideWeekly"></ol><button type="button" data-go-view="trend">흐름 전체 보기 →</button></section>
       </aside>
     </div>
   </section>
@@ -360,7 +382,7 @@
     <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
   </section>
 
-  <section id="view-saved" hidden aria-labelledby="savedTitle">
+  <section id="search-saved" hidden aria-labelledby="savedTitle">
     <div class="archive-intro"><div><h1 id="savedTitle">저장·팔로우</h1><p>이 브라우저에만 저장됩니다 — 서버로 가지 않습니다.</p></div></div>
     <!-- 팔로우한 대상 — 이 화면에 들어왔다고 확인 처리하지 않는다. 확인 시각은
          해당 엔티티 페이지를 실제로 열었을 때만 갱신된다(배지 일괄 소멸 방지). -->
@@ -376,15 +398,23 @@
     <div id="savedIssueList" class="issue-list"></div>
   </section>
 
-  <section id="view-pubs" hidden aria-labelledby="pubsTitle">
+  <section id="view-report" hidden aria-labelledby="reportTitle">
     <div class="archive-intro">
       <div>
-        <h1 id="pubsTitle">국제기구 발간물</h1>
-        <p>IAEA · OECD NEA · IEA · EIA · 에너지경제연구원 — 제목과 원문 링크만 제공합니다.</p>
+        <h1 id="reportTitle">보고서</h1>
+        <p>보고 후보와 근거 자료를 한곳에서 확인하고 자료팩을 복사하세요.</p>
       </div>
     </div>
+    <section class="report-candidates" aria-labelledby="reportCandidatesTitle">
+      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="reportCandidatesTitle">이번 주 보고 후보</h2></div></div>
+      <div id="reportCandidateList"></div>
+    </section>
+    <section class="report-publications" aria-labelledby="pubsTitle">
+    <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">02</span><h2 id="pubsTitle">참고 발간물</h2></div></div>
+    <p>IAEA · OECD NEA · IEA · EIA · 에너지경제연구원 — 제목과 원문 링크만 제공합니다.</p>
     <div class="pubs-filters" id="pubsFilters" role="group" aria-label="기관 필터"></div>
     <div id="pubsList" class="pubs-list"></div>
+    </section>
   </section>
 </main>
 
@@ -410,10 +440,9 @@
 
 <nav id="mobileTabs" class="mobile-tabs" aria-label="모바일 주요 화면">
   <button class="active" type="button" data-view="news" aria-pressed="true"><span>오늘</span></button>
-  <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
   <button type="button" data-view="trend" aria-pressed="false"><span>흐름</span></button>
-  <button type="button" data-view="pubs" aria-pressed="false"><span>발간물</span></button>
-  <button type="button" data-view="saved" aria-pressed="false"><span>저장</span><small id="savedCount" data-saved-count="mobile">0</small></button>
+  <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
+  <button type="button" data-view="report" aria-pressed="false"><span>보고서</span></button>
 </nav>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>

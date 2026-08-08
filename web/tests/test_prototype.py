@@ -22,6 +22,9 @@ except (OSError, KeyError, json.JSONDecodeError):
     DATA_DIR = DATA_ROOT
 
 import build_data  # noqa: E402
+for _key in ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
+    os.environ.setdefault(_key, "test")
+import news_bot  # noqa: E402
 
 # 데이터 지표 게이트(추적률 등)를 건너뛴다. 배포 워크플로 전용이다.
 #
@@ -319,6 +322,61 @@ class SelectionReasonTests(unittest.TestCase):
         )
 
 
+class OfficialDirectSourceTests(unittest.TestCase):
+    def test_khnp_board_fixture_uses_the_official_detail_url(self):
+        page = '''<li class="p-media"><a href="./selectBbsNttView.do?key=2289&amp;bbsNo=71&amp;nttNo=7">
+          <em class="p-media__heading-text title"><span>보도</span> 한수원 공식 발표</em>
+          <p class="txt">발표 본문</p><time>2026-08-07</time></a></li>'''
+        rows = news_bot.parse_khnp_board(page)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["title"], "한수원 공식 발표")
+        self.assertIn("khnp.co.kr/main/selectBbsNttView.do", rows[0]["link"])
+        self.assertEqual(rows[0]["publisher_domain"], "khnp.co.kr")
+
+    def test_kaeri_board_fixture_uses_the_official_detail_url(self):
+        page = '''<li class="item"><a href="/board/view?linkId=9&amp;menuId=MENU00326">
+          <strong>원자력연 공식 발표</strong><span class="desc">발표 본문</span></a>
+          <dl><dd>2026.08.06</dd></dl></li>'''
+        rows = news_bot.parse_kaeri_board(page)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["title"], "원자력연 공식 발표")
+        self.assertIn("kaeri.re.kr/board/view", rows[0]["link"])
+
+    def test_nssc_json_fixture_is_primary_and_has_a_stable_view_url(self):
+        rows = news_bot.parse_nssc_rows([{
+            "BBS_SEQ": 47015, "SUBJECT": "원안위원장, 원전 현장 점검",
+            "CONTENTS": "<p>점검 내용</p>", "WRITE_DATE": "2026.08.06",
+        }])
+        self.assertEqual(len(rows), 1)
+        self.assertIn("BBS_SEQ=47015", rows[0]["link"])
+        self.assertEqual(rows[0]["publisher"], "원자력안전위원회")
+        self.assertTrue(news_bot.is_tier1_source({
+            "domain": rows[0]["publisher_domain"], "publisher": rows[0]["publisher"]
+        }))
+
+    def test_all_four_domestic_official_sources_bypass_google_news(self):
+        self.assertEqual(len(news_bot.OFFICIAL_DIRECT_SOURCES), 4)
+        self.assertTrue(all("news.google." not in source["url"] for source in news_bot.OFFICIAL_DIRECT_SOURCES))
+        self.assertEqual(
+            {source["domain_label"] for source in news_bot.OFFICIAL_DIRECT_SOURCES},
+            {"khnp.co.kr", "nssc.go.kr", "motir.go.kr", "kaeri.re.kr"},
+        )
+
+    def test_google_link_replacement_requires_title_publisher_and_domain(self):
+        google = {
+            "link": "https://news.google.com/rss/articles/x", "title": "원전 계획 발표",
+            "publisher": "원자력안전위원회", "domain": "nssc.go.kr",
+        }
+        direct = {
+            "link": "https://www.nssc.go.kr/ko/cms/FR_BBS_CON/BoardView.do?BBS_SEQ=1",
+            "title": "원전 계획 발표", "publisher": "원자력안전위원회", "domain": "nssc.go.kr",
+        }
+        self.assertTrue(news_bot.canonical_replacement_allowed(google, direct))
+        for field, value in (("title", "다른 발표"), ("publisher", "다른 기관"), ("domain", "example.com")):
+            changed = {**direct, field: value}
+            self.assertFalse(news_bot.canonical_replacement_allowed(google, changed), field)
+
+
 class DataQualityGateTests(unittest.TestCase):
     @staticmethod
     def _record(hash_value="h1", url="https://example.com/a", title="원전 계획 발표"):
@@ -345,6 +403,19 @@ class DataQualityGateTests(unittest.TestCase):
         record["summary"] = "정부가 신규 원전 계획을 발표"
         with self.assertRaisesRegex(ValueError, "summary:incomplete"):
             build_data.validate_archive_records([record])
+
+
+class TodayAgendaContractTests(unittest.TestCase):
+    def test_today_agenda_uses_real_issue_hash_anchors(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('<li><a href="#issue-card-${esc(issue.issue_id)}"', script)
+        self.assertIn('data-agenda-issue="${esc(issue.issue_id)}"', script)
+
+    def test_standard_card_title_is_one_line_on_desktop(self):
+        style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".issue-card:not(.front) .issue-title-button", style)
+        self.assertIn("text-overflow: ellipsis", style)
+        self.assertIn("white-space: nowrap", style)
 
 
 class ChangeLineTests(unittest.TestCase):
@@ -375,6 +446,31 @@ class ChangeLineTests(unittest.TestCase):
         change = build_data.latest_change_line([current], [previous])
         self.assertNotIn("→", change)
         self.assertLessEqual(len(change), build_data.CHANGE_LINE_LIMIT)
+
+    def test_same_mou_rewording_is_a_restatement(self):
+        before = "한수원이 필리핀 아보이티즈파워와 원자력 기술 협력을 위한 양해각서(MOU)를 체결했다."
+        after = "한국수력원자력은 아보이티즈 파워와 원전 사업 협력을 위한 MOU를 체결했다."
+        self.assertTrue(build_data._is_restatement(before, after))
+
+    def test_same_reactor_approval_rewording_is_a_restatement(self):
+        before = "중국 정부가 화룽1호 6기와 궈허1호 2기 등 총 8기 원자로 건설을 승인했다."
+        after = "중국 정부가 신규 원자로 8기 건설을 공식 승인했다."
+        self.assertTrue(build_data._is_restatement(before, after))
+
+    def test_same_criticality_event_rewording_is_a_restatement(self):
+        before = "오클로의 그로브스 동위원소 시험로가 원자로 파일럿 프로그램에서 5번째로 임계에 도달했다."
+        after = "오클로가 그로브스 동위원소 시험로에서 첫 임계를 달성했다고 발표했다."
+        self.assertTrue(build_data._is_restatement(before, after))
+
+    def test_same_scheduled_review_rewording_is_a_restatement(self):
+        before = "원안위가 고리 3·4호기 계속운전 심의를 올해 하반기에 진행할 예정이다."
+        after = "고리 3·4호기는 올해 원안위 계속운전 심사에 상정될 예정이다."
+        self.assertTrue(build_data._is_restatement(before, after))
+
+    def test_tentative_to_final_decision_is_not_a_restatement(self):
+        before = "원안위가 신규 원전 건설 허가를 검토할 예정이다."
+        after = "원안위가 신규 원전 건설 허가를 최종 의결했다."
+        self.assertFalse(build_data._is_restatement(before, after))
 
     def test_card_change_block_is_empty_when_it_repeats_the_summary(self):
         summary = "독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 목표로 3개의 국가 허브 계획을 발표했다."
@@ -538,6 +634,8 @@ class VerificationStateTests(unittest.TestCase):
         self.assertEqual(state["label"], "공식 확인")
         self.assertEqual(state["official_source_count"], 1)
         self.assertEqual(state["checked_at"], "2026-08-01T09:00:00+09:00")
+        self.assertEqual(state["checks"][0]["kind"], "official")
+        self.assertTrue(state["checks"][0]["passed"])
 
     def test_two_independent_publishers_are_corroborated(self):
         state = build_data.verification_state([
@@ -545,6 +643,8 @@ class VerificationStateTests(unittest.TestCase):
         ])
         self.assertEqual(state["status"], "corroborated")
         self.assertEqual(state["independent_source_count"], 2)
+        self.assertEqual(state["checks"][1]["kind"], "multi")
+        self.assertTrue(state["checks"][1]["passed"])
 
     def test_same_publisher_twice_is_still_one_source(self):
         state = build_data.verification_state([
@@ -850,6 +950,92 @@ class IssueSimilarityTests(unittest.TestCase):
         issues = build_data.cluster_selected_articles(articles, None, None, overrides, [])
         self.assertEqual(len(issues), 1, "기각이 없는데 묶음이 갈렸다")
 
+    def test_unselected_article_attaches_as_evidence_without_creating_a_card_issue(self):
+        cards = [
+            {
+                "hash": "card-a", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "한수원 체코 원전 본계약 후속 절차 착수",
+                "summary": "한수원이 체코 원전 본계약 후속 절차에 착수했다.",
+                "tags": ["#체코원전"], "topics": ["newbuild"], "countries": ["KR", "CZ"],
+            },
+            {
+                "hash": "card-b", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "미국 NRC 신규 규제 지침 공개",
+                "summary": "미국 NRC가 신규 규제 지침을 공개했다.",
+                "tags": ["#NRC"], "topics": ["regulation"], "countries": ["US"],
+            },
+        ]
+        evidence = {
+            "hash": "evidence-a", "article_date": "2026-08-07",
+            "title_kr": "체코 원전 본계약 후속 일정 발표",
+            "summary": "체코 원전 본계약의 후속 일정이 발표됐다.",
+            "tags": ["#체코원전"], "topics": ["newbuild"], "countries": ["KR", "CZ"],
+            "importance": "standard",
+        }
+        embeddings = {
+            "card-a": [1.0, 0.0], "card-b": [0.0, 1.0], "evidence-a": [0.99, 0.01],
+        }
+        issues = build_data.cluster_selected_articles(cards, embeddings)
+        p0_snapshot = build_data.card_cluster_snapshot(issues)
+        before = [[m["hash"] for m in issue["members"]] for issue in issues]
+        attached = build_data.attach_evidence_articles(cards + [evidence], issues, embeddings)
+        self.assertEqual(attached, 1)
+        self.assertEqual([[m["hash"] for m in issue["members"]] for issue in issues], before)
+        guard = build_data.assert_card_clusters_unchanged(p0_snapshot, issues)
+        self.assertTrue(guard["passed"])
+        self.assertEqual(guard["card_count"], 2)
+        self.assertEqual(len(issues), 2)
+        target = next(issue for issue in issues if issue["issue_id"] == "issue-card-a")
+        self.assertEqual([m["hash"] for m in target["evidence_members"]], ["evidence-a"])
+
+    def test_same_run_guard_fails_if_card_membership_changes(self):
+        cards = [
+            {
+                "hash": "card-a", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "원전 A 건설 승인", "tags": ["#원전A"],
+                "topics": ["newbuild"], "countries": ["KR"],
+            },
+            {
+                "hash": "card-b", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "원전 B 운영 허가", "tags": ["#원전B"],
+                "topics": ["regulation"], "countries": ["US"],
+            },
+        ]
+        issues = build_data.cluster_selected_articles(cards)
+        p0_snapshot = build_data.card_cluster_snapshot(issues)
+        issues[0]["members"].append(issues[1]["members"][0])
+        with self.assertRaisesRegex(ValueError, "p1_card_cluster_regression"):
+            build_data.assert_card_clusters_unchanged(p0_snapshot, issues)
+
+    def test_evidence_article_cannot_bridge_two_card_clusters(self):
+        cards = [
+            {
+                "hash": "left", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "원전 금융 지원 제도 A", "tags": ["#금융A"],
+                "topics": ["finance"], "countries": ["US"],
+            },
+            {
+                "hash": "right", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+                "title_kr": "원전 금융 지원 제도 B", "tags": ["#금융B"],
+                "topics": ["finance"], "countries": ["FR"],
+            },
+        ]
+        bridge = {
+            "hash": "bridge", "article_date": "2026-08-07",
+            "title_kr": "원전 금융 지원 제도 후속", "tags": ["#금융A", "#금융B"],
+            "topics": ["finance"], "countries": ["US"], "importance": "standard",
+        }
+        pair = build_data._pair_id
+        overrides = {
+            "approved": {pair("left", "bridge"), pair("right", "bridge")},
+            "rejected": set(), "llm_approved": set(), "llm_rejected": set(),
+        }
+        issues = build_data.cluster_selected_articles(cards)
+        build_data.attach_evidence_articles(cards + [bridge], issues, None, None, overrides)
+        self.assertEqual(len(issues), 2)
+        self.assertEqual(sorted(len(issue["members"]) for issue in issues), [1, 1])
+        self.assertEqual(sum(len(issue.get("evidence_members") or []) for issue in issues), 1)
+
 
 class RenderSmokeContractTests(unittest.TestCase):
     """렌더 스모크 자체의 계약 — 빌드 산출물 없이도 도는 정적 검사.
@@ -928,11 +1114,34 @@ class GeneratedDataTests(unittest.TestCase):
             article["hash"]
             for issue in self.issue_catalog
             for article in issue["related_articles"]
+            if article.get("member_role") == "card"
+        ]
+        evidence_hashes = [
+            article["hash"]
+            for issue in self.issue_catalog
+            for article in issue["related_articles"]
+            if article.get("member_role") == "evidence"
         ]
         self.assertEqual(len(self.issue_catalog), self.meta["issue_catalog_total"])
         self.assertEqual(len({issue["issue_id"] for issue in self.issue_catalog}), len(self.issue_catalog))
         self.assertCountEqual(catalog_hashes, delivered_hashes)
         self.assertEqual(len(catalog_hashes), len(set(catalog_hashes)))
+        self.assertTrue(evidence_hashes)
+        self.assertFalse(set(evidence_hashes) & set(delivered_hashes))
+        self.assertEqual(len(evidence_hashes), len(set(evidence_hashes)))
+
+    def test_p1_keeps_the_p0_latest_briefing_and_weekly_order(self):
+        baseline = json.loads((ROOT / "tests" / "p0_baseline_2026-08-08.json").read_text(encoding="utf-8"))
+        # 날짜별 파일은 사람이 검토한 P0 감사 기록이다. 자동 회귀 가드는 매 빌드에서
+        # P1 직전·직후 스냅샷을 직접 비교하므로 수집 데이터가 갱신되어도 같은 입력
+        # 세대의 카드 순서·소속·대표 제목 변경을 놓치지 않는다.
+        for key in ("date", "issue_ids", "cards", "weekly_mover_ids"):
+            self.assertIn(key, baseline)
+        guard = self.meta["p1_regression"]
+        self.assertTrue(guard["passed"])
+        self.assertEqual(guard["definition_version"], "same-run-card-cluster-v1")
+        self.assertEqual(guard["card_count"], self.meta["issue_catalog_total"])
+        self.assertRegex(guard["signature"], r"^[0-9a-f]{16}$")
 
     def test_every_issue_card_carries_a_verification_state(self):
         for rows in [issue for briefing in self.briefings for issue in briefing["issues"]], self.issue_catalog:
@@ -1073,7 +1282,8 @@ class GeneratedDataTests(unittest.TestCase):
         }
         self.assertEqual(overlines, {"TODAY", "THIS WEEK"})
         self.assertIn("원자력 정책·산업 이슈 트래커", html)
-        self.assertIn("이번 주 이어지는 흐름", html)
+        self.assertIn('id="homeTopicFlow"', html)
+        self.assertIn('id="homeTopicFlowRows"', html)
         self.assertIn("Nuclens는 제목·요약·출처 링크만 제공합니다.", html)
         self.assertIn("분석 기간 ${dateLabel(start)}–${dateLabel(end)}", script)
         self.assertIn("중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개", script)
@@ -1166,6 +1376,26 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn('<meta property="og:type" content="article">', page_html)
             self.assertIn(f'<title>{html_escape(issue["title"])} | Nuclens</title>', page_html)
             self.assertIn('type="application/ld+json"', page_html)
+
+    def test_p4_brief_pages_have_unique_open_graph_metadata_and_boot_date(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        briefings = json.loads((DATA_DIR / "briefings.json").read_text(encoding="utf-8"))
+        brief_root = ROOT / "public" / "brief"
+        pages = list(brief_root.glob("*/index.html"))
+        self.assertEqual(len(pages), len(briefings))
+        self.assertIn("const BRIEF_ROUTE", script)
+        self.assertIn("briefDateFromLocation() || params.get(\"date\")", script)
+        for briefing in briefings:
+            day = briefing["date"]
+            page = brief_root / day / "index.html"
+            self.assertTrue(page.exists(), day)
+            page_html = page.read_text(encoding="utf-8")
+            brief_url = f"https://nuclens.pages.dev/brief/{day}"
+            self.assertIn(f'<link rel="canonical" href="{brief_url}">', page_html)
+            self.assertIn(f'<meta property="og:url" content="{brief_url}">', page_html)
+            self.assertIn('<meta property="og:type" content="article">', page_html)
+            self.assertIn('"@type":"Report"', page_html)
+            self.assertIn('content="noindex,nofollow"', page_html)
 
     def test_global_issue_search_view_and_url_filters_exist(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -1280,6 +1510,11 @@ class GeneratedDataTests(unittest.TestCase):
         meta.atlas_readiness 를 사람이 읽고 판단한다.
         """
         atlas = self.meta["atlas_readiness"]
+        self.assertEqual(atlas["definition_version"], "card-evidence-v2")
+        self.assertEqual(atlas["metric_basis"]["state_sort_briefing_count"], "card_members")
+        self.assertEqual(atlas["metric_basis"]["related_articles_verification"], "card_plus_evidence_members")
+        self.assertIn("multi_card_article_rate", atlas)
+        self.assertIn("multi_evidence_article_rate", atlas)
         self.assertEqual(atlas["issue_total"], self.meta["issue_catalog_total"])
         self.assertEqual(
             set(atlas["node_counts"]),
@@ -1507,24 +1742,16 @@ class GeneratedDataTests(unittest.TestCase):
         # 배지 규칙('예외만 표시')과 달리 이건 고지라서 전 카드에 붙는다.
         self.assertIn('${why ? `<span class="ai-badge">AI</span>` : ""}', script)
 
-    def test_hero_h1_is_a_screen_reader_label_not_a_headline(self):
-        """h1 은 더 이상 기사 제목을 싣지 않는다.
-
-        여기 있던 h1 은 17일 내내 issues[0].title 이었다 — 같은 페이지에 여섯 번
-        나오는 문자열이 모바일 첫 화면의 45% 를 차지했다. 지금은 날짜 제목으로
-        바꿔 sr-only 로 두고, '무엇/왜'는 선두 카드 하나가 책임진다.
-
-        DOM 에서 지우지는 않는다: view-news 가 aria-labelledby 로 이 id 를 가리킨다.
-        """
+    def test_hero_h1_is_the_fixed_weekly_product_promise(self):
+        """h1 은 일별 기사 제목이나 daily_lead 가 아니라 고정 제품 문구다."""
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn('getElementById("briefingTitle").textContent', render)
-        self.assertIn("dateWeekdayLabel(briefing.date)} 브리핑", render)
-        # h1 이 기사 제목을 다시 싣지 않는지 — innerHTML 로 되돌아오면 잡는다
+        self.assertIn('id="briefingTitle">이번 주 원자력, 무엇이 달라졌나</h1>', html)
+        self.assertIn('textContent = "이번 주 원자력, 무엇이 달라졌나"', render)
         self.assertNotIn('getElementById("briefingTitle").innerHTML', render)
-        # 화면에서만 걷는다. clip 으로 눌러 두되 DOM 에는 남는다.
-        self.assertRegex(css, r"\.briefing-hero\.no-lead #briefingTitle \{[^}]*clip:")
+        render_code = "\n".join(re.sub(r"//.*$", "", line) for line in render.splitlines())
+        self.assertNotIn("daily_lead", render_code)
 
     def test_hero_does_not_repeat_what_the_lead_card_already_says(self):
         """'왜'는 한 화면에 한 번만 선다.
@@ -1759,20 +1986,15 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn("evidenceBox.hidden = true;", render)
         self.assertNotIn("hero-evidence-chip", render)
 
-    def test_hero_says_nothing_and_keeps_the_audio_brief(self):
-        """히어로는 매일 아무 말도 하지 않는다.
-
-        h1 은 DOM 에 남긴다 — view-news 가 aria-labelledby 로 가리키고 있어
-        지우면 섹션이 이름을 잃는다. 화면에서만 걷는다(no-lead).
-        오디오 브리핑은 히어로 안에 있지만 이 걷어내기의 대상이 아니다.
-        """
+    def test_weekly_hero_is_visible_and_keeps_the_audio_brief(self):
+        """주간 고정 HERO를 보이되 daily_lead 문장과 오디오는 건드리지 않는다."""
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertIn('aria-labelledby="briefingTitle"', html)
-        # 두 클래스가 조건 없이 붙는다 — 압축 상태가 곧 유일한 상태다.
-        self.assertIn('hero.classList.add("lead-issue", "no-lead")', script)
-        self.assertIn(".briefing-hero.no-lead", css)
+        self.assertIn('hero.classList.add("lead-issue", "weekly-hero")', script)
+        self.assertIn('hero.classList.remove("no-lead")', script)
+        self.assertIn(".briefing-hero.weekly-hero", css)
         # no-lead / lead-issue 어느 쪽도 오디오를 걷어내면 안 된다.
         self.assertNotIn(".briefing-hero.no-lead .hero-audio", css)
         self.assertNotIn(".briefing-hero.lead-issue .hero-audio", css)
@@ -1869,7 +2091,7 @@ class GeneratedDataTests(unittest.TestCase):
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         for element_id in (
             "systemStatus", "headerStatus", "globalSearchDialog", "briefingFilters",
-            "issueSort", "issueViewToggle", "mobileTabs", "themeToggle", "view-saved",
+            "issueSort", "issueViewToggle", "mobileTabs", "themeToggle", "search-saved",
         ):
             self.assertIn(f'id="{element_id}"', html)
         self.assertIn("function renderSystemStatus", script)
@@ -1964,9 +2186,9 @@ class GeneratedDataTests(unittest.TestCase):
     def test_publications_tab_is_wired_and_failure_tolerant(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('data-view="pubs"', html)
-        self.assertIn('id="view-pubs"', html)
-        self.assertIn('"pubs"', script)
+        self.assertIn('data-view="report"', html)
+        self.assertIn('id="view-report"', html)
+        self.assertIn('"report"', script)
         self.assertIn("function renderPubs", script)
         # 발간물 로드 실패가 사이트 전체를 죽이면 안 된다
         self.assertIn('loadJSON("publications.json").catch(', script)
@@ -1979,11 +2201,11 @@ class GeneratedDataTests(unittest.TestCase):
         # 아예 없는 것과 같다. 탭 수와 grid 열 수는 함께 움직여야 한다(실측
         # 360px에서 5열 72px, 라벨 잘림 0).
         mobile_nav = html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
-        self.assertIn('data-view="pubs"', mobile_nav)
+        self.assertIn('data-view="report"', mobile_nav)
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertEqual(mobile_nav.count("<button"),
-                         5, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
-        self.assertIn("grid-template-columns: repeat(5, 1fr)", style)
+                         4, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
+        self.assertIn("grid-template-columns: repeat(4, 1fr)", style)
 
     def test_keei_candidates_narrow_but_never_decide(self):
         """점수는 후보만 좁힌다 — 판정은 LLM 몫이다.
@@ -2491,12 +2713,7 @@ class InterpretationSplitTests(unittest.TestCase):
 
 
 class ReportPickTests(unittest.TestCase):
-    """보고서 검토 추천 — 텔레그램에만 있던 것을 웹에 라벨 하나로 옮겼다.
-
-    섹션이 아니라 라벨인 것은 사용자 결정이다(2026-08-04). 웹은 동료가 함께
-    보는 화면이라 '무엇이 후보인가'는 공유하되 '왜·어떤 각도로 쓰라'는 개인
-    브리핑에 남긴다.
-    """
+    """보고서 추천의 주제·이유·각도를 빌드와 보고서 탭까지 보존한다."""
 
     def test_topic_comes_from_the_articles_not_the_screen(self):
         picked = build_data.pick_report_topic([
@@ -2508,16 +2725,25 @@ class ReportPickTests(unittest.TestCase):
     def test_no_pick_is_an_empty_string_not_a_placeholder(self):
         self.assertEqual(build_data.pick_report_topic([{"article_date": "2026-08-03"}]), "")
 
-    def test_badge_renders_the_label_and_hides_the_angles(self):
+    def test_report_metadata_comes_from_the_same_latest_article(self):
+        picked = build_data.pick_report_metadata([
+            {"article_date": "2026-08-01", "report_pick": "옛 후보", "report_pick_why": "옛 이유"},
+            {"article_date": "2026-08-03", "report_pick": "새 후보", "report_pick_why": "새 이유",
+             "report_pick_angles": ["정책", "산업", ""]},
+        ])
+        self.assertEqual(picked, ("새 후보", "새 이유", ["정책", "산업"]))
+
+    def test_badge_stays_compact_while_report_view_shows_angles(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn("function reportPickBadge", script)
         self.assertIn("보고서 검토 추천", script)
-        # 텔레그램 카드의 하위 항목까지 옮기면 라벨이 아니라 섹션이 된다.
-        # 주석에서는 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
-        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
-        self.assertNotIn("추천 각도", code)
         badge = script.split("function reportPickBadge(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("esc(topic)", badge, "추천 주제는 title 속성으로도 이스케이프해야 한다")
+        self.assertNotIn("report_pick_angles", badge)
+        report = script.split("function renderReportCandidates(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("report_pick_why", report)
+        self.assertIn("report_pick_angles", report)
+        self.assertIn("보고서 자료팩 복사", report)
 
     def test_badge_is_legible_on_the_dark_evidence_rail(self):
         """근거 패널 머리는 딥 포레스트 배경이다 — 밝은 배경용 색을 그대로 쓰면 묻힌다."""
@@ -3029,11 +3255,12 @@ class SavedFollowTests(unittest.TestCase):
 
     def test_desktop_tab_reaches_saved_view(self):
         # 768~1199px 는 하단 탭도 사이드바도 없어 저장 뷰가 도달 불가였다.
-        main_tabs = self.html.split('id="mainTabs"', 1)[1].split("</nav>", 1)[0]
-        self.assertIn('data-view="saved"', main_tabs)
-        # 모바일 탭은 5개 그대로(잠금과 함께 움직인다).
+        self.assertIn('id="headerSaved"', self.html)
+        self.assertIn('data-go-saved', self.html)
+        self.assertIn('id="search-saved"', self.html)
+        # 저장은 탐색 안으로 합쳐졌고 모바일 탭은 4개다.
         mobile_nav = self.html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
-        self.assertEqual(mobile_nav.count("<button"), 5)
+        self.assertEqual(mobile_nav.count("<button"), 4)
 
     def test_saved_meta_snapshot_and_tombstone(self):
         self.assertIn("nuclens-saved-meta", self.script)
@@ -3673,7 +3900,7 @@ class VisualSystemTests(unittest.TestCase):
         예전에는 `"padding: var(--sp-5)"` 를 문자열로 붙잡았다. 그러면 토큰
         이름이 한 번 바뀔 때마다 지키려던 것과 무관하게 빨개진다. 지키려는 건
         숫자 20 이 아니라 **행 높이 예산**이다 — 1440×900 에서 목록 영역이 받는
-        높이가 약 285px 이라, 표준 행(제목 한 줄 + 요약 두 줄)이 130px 을 넘으면
+        높이가 약 285px 이라, 표준 행(제목 한 줄 + 요약 한 줄 + 사유 칩)이 130px 을 넘으면
         두 번째 행이 폴드 아래로 내려간다. 그래서 계산으로 잠근다.
         """
         tokens = {
@@ -3707,8 +3934,18 @@ class VisualSystemTests(unittest.TestCase):
         summary = re.search(r"^\.issue-summary \{([^}]*)\}", self.style, re.M).group(1)
         body_lh = float(re.search(r"line-height:\s*([\d.]+)", summary).group(1))
         body_size = px(re.search(r"--t-body:\s*([\d.]+px)", self.style).group(1))
+        topic_chip = self._rule(".topic-chip")
+        reason_chip = self._rule(".issue-reason-chip.topic-chip")
+        min_size = float(re.search(r"--t-min:\s*([\d.]+)px", self.style).group(1))
+        chip_lh = float(re.search(r"line-height:\s*([\d.]+)", reason_chip).group(1))
+        chip_pad = float(re.search(r"padding:\s*([\d.]+)px", topic_chip).group(1))
+        chip_border = px(re.search(r"border:\s*([^\s;]+)\s+solid", topic_chip).group(1))
+        chip_height = min_size * chip_lh + chip_pad * 2 + chip_border * 2
+        self.assertLessEqual(chip_height, 26, "사유 칩이 26px 밀도 계약을 넘는다")
+        self.assertIn("margin: 0", reason_chip)
+        self.assertNotIn("topic-row", self._rule(".issue-reason-row"))
 
-        height = pad * 2 + border + title_size * title_lh + gap + body_size * body_lh * 2
+        height = pad * 2 + border + title_size * title_lh + gap + body_size * body_lh + chip_height
         self.assertLessEqual(
             height, 130,
             f"표준 행이 {height:.0f}px — 130px 을 넘으면 폴드에 두 번째 행이 안 들어온다",

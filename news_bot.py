@@ -7,7 +7,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import urlparse, quote_plus, urljoin
 
 # batch 큐레이션용 REST 클라이언트 (429 백오프 재시도 내장 — SDK 무재시도 문제 회피)
 import gemini_client
@@ -85,7 +85,7 @@ MIN_SCORE = 4
 # 공식 원문을 제공하는 정부·규제기관·국제기구·사업자.
 # 전문언론(WNN·NucNet·ANS)은 신뢰도는 높아도 원발표처가 아니므로 포함하지 않는다.
 TIER1_DOMAINS = {
-    "nssc.go.kr", "motie.go.kr", "msit.go.kr", "korea.kr",
+    "nssc.go.kr", "motie.go.kr", "motir.go.kr", "msit.go.kr", "korea.kr",
     "khnp.co.kr", "kaeri.re.kr", "kins.re.kr", "korad.or.kr",
     "iaea.org", "world-nuclear.org", "oecd-nea.org", "nrc.gov",
     "energy.gov", "iea.org", "nei.org",
@@ -100,14 +100,20 @@ RSS_SOURCES = [
      "domain_label": "world-nuclear-news.org"},
     {"url": "https://www.ans.org/news/feed/", "name": "ANS Nuclear Newswire",
      "domain_label": "ans.org"},
-    {"url": "https://news.google.com/rss/search?q=site:khnp.co.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
-     "name": "한수원 보도자료", "domain_label": "khnp.co.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:nssc.go.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
-     "name": "원안위 보도자료", "domain_label": "nssc.go.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:motie.go.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
-     "name": "산업부 보도자료", "domain_label": "motie.go.kr"},
-    {"url": "https://news.google.com/rss/search?q=site:kaeri.re.kr%20when:2d&hl=ko&gl=KR&ceid=KR:ko",
-     "name": "원자력연구원 보도자료", "domain_label": "kaeri.re.kr"},
+]
+
+# 국내 공식기관은 Google News 인덱스를 거치지 않는다. 카드가 먼저 고정된 뒤 이
+# 원문들이 같은 이슈의 근거로 붙어야 verification_state 가 실제 공식 확인을 센다.
+# 기관 게시판 개편은 fixture 파서 테스트가 잡고, 한 기관 실패는 나머지를 막지 않는다.
+OFFICIAL_DIRECT_SOURCES = [
+    {"kind": "khnp_html", "url": "https://www.khnp.co.kr/main/selectBbsNttList.do?bbsNo=71&key=2289",
+     "name": "한수원 보도자료", "publisher": "한국수력원자력", "domain_label": "khnp.co.kr"},
+    {"kind": "nssc_json", "url": "https://www.nssc.go.kr/ajaxf/FR_BBS_SVC/BBSViewList.do",
+     "name": "원안위 보도자료", "publisher": "원자력안전위원회", "domain_label": "nssc.go.kr"},
+    {"kind": "motir_rss_post", "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/rss",
+     "name": "산업부 보도자료", "publisher": "산업통상부", "domain_label": "motir.go.kr"},
+    {"kind": "kaeri_html", "url": "https://www.kaeri.re.kr/board?menuId=MENU00326",
+     "name": "원자력연구원 보도자료", "publisher": "한국원자력연구원", "domain_label": "kaeri.re.kr"},
 ]
 
 # ---- 해외 Tier 1 추가 (2026-07-31) ------------------------------------------
@@ -1677,6 +1683,136 @@ def fetch_rss(url: str) -> list[dict]:
         return []
 
 
+def _board_datetime(value: str) -> datetime | None:
+    normalized = str(value or "").strip().replace(".", "-")[:10]
+    try:
+        return datetime.strptime(normalized, "%Y-%m-%d").replace(tzinfo=KST)
+    except ValueError:
+        return None
+
+
+def _official_board_item(base_url: str, href: str, title: str, description: str,
+                         published: str, publisher: str, domain: str) -> dict | None:
+    pub = _board_datetime(published)
+    clean_title = re.sub(r"^(?:\[?(?:보도|설명|참고자료)\]?\s*)+", "", strip_html(title)).strip()
+    link = normalize_url(urljoin(base_url, html.unescape(href)))
+    if not pub or not clean_title or invalid_url_reason(link):
+        return None
+    return {
+        "link": link,
+        "raw_link": link,
+        "title": clean_title,
+        "description": strip_html(description),
+        "pub": pub,
+        "publisher": publisher,
+        "publisher_domain": domain,
+    }
+
+
+def parse_khnp_board(page: str, *, publisher: str = "한국수력원자력",
+                     domain: str = "khnp.co.kr") -> list[dict]:
+    """한수원 보도자료 목록 fixture를 직접 원문 URL로 변환한다."""
+    out = []
+    for block in re.findall(r'<li class="p-media">([\s\S]*?)</li>', page, re.I):
+        href = re.search(r'<a href="([^"]*selectBbsNttView\.do[^"]*)"', block, re.I)
+        title = re.search(r'<em class="p-media__heading-text title">([\s\S]*?)</em>', block, re.I)
+        desc = re.search(r'<p class="txt">([\s\S]*?)</p>', block, re.I)
+        day = re.search(r'<time>([^<]+)</time>', block, re.I)
+        if not (href and title and day):
+            continue
+        item = _official_board_item(
+            "https://www.khnp.co.kr/main/", href.group(1), title.group(1),
+            desc.group(1) if desc else "", day.group(1), publisher, domain,
+        )
+        if item:
+            out.append(item)
+    return out
+
+
+def parse_kaeri_board(page: str, *, publisher: str = "한국원자력연구원",
+                      domain: str = "kaeri.re.kr") -> list[dict]:
+    """KAERI 보도자료 목록 fixture를 직접 원문 URL로 변환한다."""
+    out = []
+    for block in re.findall(r'<li class="item">([\s\S]*?)</li>', page, re.I):
+        href = re.search(r'<a href="([^"]*/board/view[^"]*)"', block, re.I)
+        title = re.search(r'<strong>([\s\S]*?)</strong>', block, re.I)
+        desc = re.search(r'<span class="desc">([\s\S]*?)</span>', block, re.I)
+        day = re.search(r'<dd>\s*(\d{4}[.-]\d{2}[.-]\d{2})\s*</dd>', block, re.I)
+        if not (href and title and day):
+            continue
+        item = _official_board_item(
+            "https://www.kaeri.re.kr/", href.group(1), title.group(1),
+            desc.group(1) if desc else "", day.group(1), publisher, domain,
+        )
+        if item:
+            out.append(item)
+    return out
+
+
+def parse_nssc_rows(rows: list[dict], *, publisher: str = "원자력안전위원회",
+                    domain: str = "nssc.go.kr") -> list[dict]:
+    """원안위 JSON 목록을 공식 BoardView 링크로 변환한다."""
+    out = []
+    for row in rows:
+        if not isinstance(row, dict) or not row.get("BBS_SEQ"):
+            continue
+        href = (
+            "/ko/cms/FR_BBS_CON/BoardView.do?"
+            f"BBS_SEQ={row['BBS_SEQ']}&BOARD_SEQ=5&CONTENTS_NO=1&MENU_ID=190&SITE_NO=2"
+        )
+        item = _official_board_item(
+            "https://www.nssc.go.kr/", href, row.get("SUBJECT", ""),
+            row.get("CONTENTS", ""), row.get("WRITE_DATE", ""), publisher, domain,
+        )
+        if item:
+            out.append(item)
+    return out
+
+
+def fetch_official_direct(src: dict) -> list[dict]:
+    """국내 공식기관 게시판을 직접 읽는다. 한 기관 실패는 빈 목록으로 격리한다."""
+    import requests
+
+    try:
+        headers = {"User-Agent": "nuclear-news-bot/1.0"}
+        if src["kind"] == "motir_rss_post":
+            import feedparser
+            response = requests.post(src["url"], headers=headers, timeout=20)
+            response.raise_for_status()
+            feed = feedparser.parse(response.content)
+            out = []
+            for entry in feed.entries:
+                item = _official_board_item(
+                    "https://www.motir.go.kr/", entry.get("link", ""),
+                    entry.get("title", ""), entry.get("description", ""),
+                    entry.get("published", ""), src["publisher"], src["domain_label"],
+                )
+                if item:
+                    out.append(item)
+            return out
+        if src["kind"] == "nssc_json":
+            payload = {
+                "pageNo": "1", "pagePerCnt": "15", "MENU_ID": "190",
+                "CONTENTS_NO": "", "SITE_NO": "2", "BOARD_SEQ": "5",
+                "BBS_SEQ": "", "CATE_SEQ": "", "SEARCH_FLD": "", "SEARCH": "",
+            }
+            response = requests.post(src["url"], data=payload, headers=headers, timeout=20)
+            response.raise_for_status()
+            rows = ((response.json().get("data") or {}).get("list") or [])
+            return parse_nssc_rows(rows, publisher=src["publisher"], domain=src["domain_label"])
+        response = requests.get(src["url"], headers=headers, timeout=20)
+        response.raise_for_status()
+        response.encoding = response.apparent_encoding or response.encoding
+        if src["kind"] == "khnp_html":
+            return parse_khnp_board(response.text, publisher=src["publisher"], domain=src["domain_label"])
+        if src["kind"] == "kaeri_html":
+            return parse_kaeri_board(response.text, publisher=src["publisher"], domain=src["domain_label"])
+        return []
+    except Exception as exc:
+        print(f"  ! 공식기관 직접 수집 실패 [{src.get('name')}]: {exc}")
+        return []
+
+
 def assign_feed_from_title(title: str) -> str:
     t = title.lower()
     return "SMR" if any(h in t for h in SMR_HINTS) else "정책"
@@ -1697,6 +1833,23 @@ def passes_source_keyword_gate(src: dict, item: dict) -> bool:
         return True
     haystack = f"{item.get('title', '')} {item.get('description', '')}".lower()
     return any(keyword in haystack for keyword in keywords)
+
+
+def canonical_replacement_allowed(existing: dict, candidate: dict) -> bool:
+    """Google News 링크는 제목·매체·목표 도메인이 모두 같을 때만 원문으로 바꾼다."""
+    existing_host = (urlparse(existing.get("link", "")).hostname or "").lower()
+    candidate_host = (urlparse(candidate.get("link", "")).hostname or "").lower()
+    if not existing_host.endswith("news.google.com") or candidate_host.endswith("news.google.com"):
+        return False
+    same_title = normalize_title(existing.get("title", "")) == normalize_title(candidate.get("title", ""))
+    same_publisher = normalized_search_key(existing.get("publisher", "")) == normalized_search_key(candidate.get("publisher", ""))
+    existing_domain = existing.get("domain") or existing.get("publisher_domain") or ""
+    candidate_domain = candidate.get("domain") or candidate.get("publisher_domain") or get_domain(candidate.get("link", ""))
+    return bool(same_title and same_publisher and existing_domain and existing_domain == candidate_domain)
+
+
+def normalized_search_key(value: str) -> str:
+    return re.sub(r"[^0-9a-z가-힣]+", "", str(value or "").casefold())
 
 
 def collect_discovery(state: dict, anchors: list[str], negative_terms: str = "") -> list[dict]:
@@ -1745,9 +1898,12 @@ def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
     by_title: dict[str, dict] = {}
 
-    for src in RSS_SOURCES:
-        items = fetch_rss(src["url"])
-        print(f"[RSS] {src['name']}: {len(items)} entries")
+    # 공식기관을 먼저 넣는다. 같은 제목이 Google News 경유 피드에도 있으면 직접
+    # 원문이 by_title 을 선점해 canonical URL과 primary 분류가 보존된다.
+    for src in OFFICIAL_DIRECT_SOURCES + RSS_SOURCES:
+        items = fetch_official_direct(src) if src.get("kind") else fetch_rss(src["url"])
+        channel = "OFFICIAL" if src.get("kind") else "RSS"
+        print(f"[{channel}] {src['name']}: {len(items)} entries")
         for item in items:
             if item["pub"] < cutoff:
                 continue
@@ -1762,11 +1918,11 @@ def collect_rss_articles(state: dict) -> list[dict]:
                 continue
 
             norm = normalize_title(item["title"])
-            if not norm or norm in by_title:
+            if not norm:
                 continue
 
             domain = resolve_rss_domain(src, item)
-            by_title[norm] = {
+            candidate = {
                 "hash": h,
                 "title": item["title"],
                 "description": item["description"],
@@ -1781,6 +1937,11 @@ def collect_rss_articles(state: dict) -> list[dict]:
                 "publisher": item.get("publisher", ""),
                 "feed": assign_feed_from_title(item["title"]),
             }
+            if norm in by_title:
+                if canonical_replacement_allowed(by_title[norm], candidate):
+                    by_title[norm] = candidate
+                continue
+            by_title[norm] = candidate
 
     return list(by_title.values())
 

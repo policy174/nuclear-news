@@ -596,6 +596,53 @@ kbd {
   align-items: center;
   gap: 4px var(--sp-6);
 }
+.briefing-hero.weekly-hero { padding: 24px 0 22px; }
+.briefing-hero.weekly-hero .hero-grid { margin-top: var(--sp-4); }
+.briefing-hero.weekly-hero .hero-copy { display: block; }
+.briefing-hero.weekly-hero #briefingDateLabel {
+  display: block;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+  font-variant-numeric: tabular-nums;
+}
+.briefing-hero.weekly-hero .hero-kicker { margin: 0 0 var(--sp-2); }
+.briefing-hero.weekly-hero .hero-actions { margin-top: var(--sp-5); }
+.hero-stamp { display: flex; align-items: baseline; gap: var(--sp-3); }
+
+.today-agenda {
+  margin: var(--sp-5) 0 var(--sp-7);
+  border-top: var(--bd-3) solid var(--c-edge);
+  border-bottom: var(--bd-2) solid var(--c-border);
+}
+.agenda-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--sp-3) 0;
+}
+.agenda-head strong { font-size: var(--t-body-lg); }
+.agenda-head span { color: var(--c-text-muted); font-size: var(--t-min); }
+.today-agenda ol { display: grid; margin: 0; padding: 0; list-style: none; }
+.today-agenda li { border-top: var(--bd-1) solid var(--c-border); }
+.today-agenda a {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3) 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  text-decoration: none;
+  text-align: left;
+}
+.today-agenda a:hover { background: var(--c-surface); }
+.today-agenda a span { color: var(--c-text-muted); font-family: var(--ff-mono); font-weight: 700; }
+.today-agenda a strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.issue-card[id], .lead-card[id] { scroll-margin-top: 92px; }
+.agenda-target { animation: agenda-pulse var(--mo-2) ease-out; }
+@keyframes agenda-pulse { 0%, 100% { background: transparent; } 35% { background: var(--c-surface-sunken); } }
 /* 간격은 자식의 margin 이 아니라 컨테이너 gap 이 갖는다. 오디오 블록을 이름으로
    지목하는 선택자는 쓰지 않는다 — 히어로 스코프에서 그 블록을 겨냥한 규칙은
    test_hero_says_nothing_and_keeps_the_audio_brief 가 문자열로 막아 둔 형태이고
@@ -727,6 +774,29 @@ kbd {
    중복이라 제거했다. */
 
 .briefing-content-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: var(--sp-6); }
+.home-intelligence { margin-top: var(--sp-8); }
+.home-topic-flow { border-top: var(--bd-1) solid var(--c-border); }
+.home-topic-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1.2fr) minmax(120px, 1fr) 104px 72px;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: 54px;
+  border-bottom: var(--bd-1) solid var(--c-border);
+  font-size: var(--t-caption);
+}
+.topic-spark { display: flex; align-items: end; height: 28px; gap: 4px; }
+.topic-spark i { flex: 1; min-width: 5px; background: var(--c-secondary); opacity: .72; }
+.topic-direction { font-size: var(--t-min); font-weight: 700; white-space: nowrap; }
+.topic-direction.up { color: var(--c-positive); }
+.topic-direction.down { color: var(--c-critical); }
+.topic-direction.flat,
+.home-topic-row small { color: var(--c-text-muted); }
+#homeWeeklyStoryBody { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.home-weekly-intro { grid-column: 1 / -1; margin: 0; color: var(--c-text-secondary); font-size: var(--t-body-lg); line-height: 1.65; }
+#homeWeeklyStoryBody article { padding: var(--sp-4); border-top: var(--bd-1) solid var(--c-border); background: var(--c-surface-sunken); }
+#homeWeeklyStoryBody article p { margin: var(--sp-2) 0 0; color: var(--c-text-secondary); line-height: 1.65; }
+.home-intelligence > .secondary-button { margin-top: var(--sp-4); }
 /* 홈은 두 구역이다: 상태가 움직인 이슈가 먼저, 나머지가 아래. */
 .changed-section { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--c-border); }
 /* 구역 머리의 아래 여백(12px)이 이 간격을 맡는다 — 여기서 18px 을 더하면
@@ -896,7 +966,7 @@ kbd {
   display: grid;
   /* 40+112, gap 20 → 52+104, gap 16. 번호 열이 30px 숫자를 받게 넓히고 그만큼
      변화 열에서 뺀다 — 앞 두 열의 가로 합은 172px 로 그대로다. */
-  grid-template-columns: 52px 104px minmax(0, 1fr) minmax(0, auto);
+  grid-template-columns: 52px 120px minmax(0, 1fr) minmax(0, auto);
   column-gap: var(--sp-4);
   padding: var(--sp-5) var(--sp-3) var(--sp-5) var(--sp-3);
   border: 0;
@@ -1064,6 +1134,14 @@ kbd {
   line-height: 1.34;
   letter-spacing: -.032em;
 }
+@media (min-width: 768px) {
+  .issue-card:not(.front) h3,
+  .issue-card:not(.front) .issue-title-button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 /* 제목이 곧 상세 진입점이다. 좁은 화면에서 '타임라인' 버튼을 지워도 길이 남는다. */
 .issue-title-button {
   display: block;
@@ -1087,7 +1165,7 @@ kbd {
   font-size: var(--t-body);
   line-height: 1.65;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 /* 해석(implication)이 들어온 줄은 요약과 성격이 다르다 — 사건의 재진술이 아니라
    '왜 중요한가'다. 훑는 사람이 그 차이를 읽기 전에 알아야 값을 한다. 얇은 좌측
@@ -1446,6 +1524,16 @@ kbd {
    차트 토큰만 재사용한다. 데스크톱은 표지 그리드, 모바일은 1열 서가형
    목록(표지 감성을 억지로 2열에 욱여넣지 않는다). */
 .pubs-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: var(--sp-6); margin-top: var(--sp-4); align-items: start; }
+.report-candidates { margin-bottom: var(--sp-8); }
+#reportCandidateList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+.report-candidate { display: grid; align-content: start; gap: var(--sp-3); padding: var(--sp-5); border: var(--bd-1) solid var(--c-border); background: var(--c-surface); }
+.report-candidate-topic { margin: 0; color: var(--c-primary-strong); font-size: var(--t-min); font-weight: 750; }
+.report-candidate h3,
+.report-candidate > p { margin: 0; }
+.report-candidate h3 button { padding: 0; border: 0; background: transparent; color: var(--c-text); font: inherit; text-align: left; cursor: pointer; }
+.report-candidate > p:not(.report-candidate-topic) { color: var(--c-text-secondary); line-height: 1.65; }
+.report-angle-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.report-candidate .secondary-button { justify-self: start; }
 /* 기술문서 접기 — 연구·설계 실무용 문서가 서가 앞줄을 차지해 정책 자료를
    가리던 문제(실측 2026-08-05: 19건 중 12건). 지우지 않고 접는다. 서가 그리드의
    자식이므로 전체 폭을 차지하도록 열을 넘긴다. */
@@ -2057,6 +2145,20 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .ai-badge { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .topic-chip { padding: 3px 8px; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1); color: var(--c-text-muted); font-size: var(--t-min); }
+.issue-reason-row {
+  display: flex;
+  max-height: 26px;
+  margin: 0;
+  overflow: hidden;
+}
+.issue-reason-chip.topic-chip {
+  display: inline-flex;
+  margin: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.rail-reasons,
+.dialog-reasons { margin-top: var(--sp-2); }
 .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .dialog-actions button { min-height: 38px; padding: 0 12px; border: 1px solid var(--c-border-strong); border-radius: var(--r-1); background: var(--c-surface); color: var(--c-secondary); font-size: var(--t-min); white-space: nowrap; }
 .dialog-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
@@ -2135,6 +2237,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .archive-filters { position: static; grid-template-columns: repeat(2, 1fr); }
   .archive-query, .archive-filters fieldset, .archive-filters .clear-filters { grid-column: 1 / -1; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
+  .home-topic-row { grid-template-columns: minmax(120px, 1fr) 100px 92px; }
+  .home-topic-row small { display: none; }
+  #reportCandidateList { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2425,7 +2530,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     min-height: 60px;
     padding-bottom: env(safe-area-inset-bottom);
     border-top: 1px solid var(--c-primary-strong);
@@ -2445,6 +2550,11 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   }
   .mobile-tabs button.active { color: #fff; }
   .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: var(--bd-3); background: var(--c-signal); content: ""; }
+  .home-topic-row { grid-template-columns: minmax(0, 1fr) 82px; gap: var(--sp-3); padding: var(--sp-2) 0; }
+  .topic-spark { grid-column: 1 / -1; grid-row: 2; height: 22px; }
+  .topic-direction { justify-self: end; }
+  #homeWeeklyStoryBody { grid-template-columns: 1fr; }
+  .home-weekly-intro { grid-column: 1; }
   .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-signal-ink); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   .foot { margin-bottom: -68px; }
