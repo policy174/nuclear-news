@@ -51,6 +51,10 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 KST = timezone(timedelta(hours=9))
 LOOKBACK_HOURS = 6
+# 공식기관 게시판 전용 수집 창. 날짜만 있는 출처라 24시간 창으로는 당일 게시물만
+# 잡힌다(OFFICIAL_DIRECT_SOURCES 주석 참조). article_seen 이 중복을 막으므로 창을
+# 넓혀도 첫 실행 이후 하루 유입은 0~3건이다.
+OFFICIAL_LOOKBACK_DAYS = 7
 DEDUP_RETENTION_DAYS = 14
 STATE_FILE = Path("sent.json")
 KEYWORDS_FILE = Path("keywords.json")
@@ -1902,6 +1906,11 @@ def collect_discovery(state: dict, anchors: list[str], negative_terms: str = "")
 
 def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
+    # 게시판은 날짜만 준다. _board_datetime 이 자정(KST)으로 박으므로 어제 자
+    # 보도자료가 24시간 창 앞에서 이미 21.5시간 과거다 — 실측(2026-08-08) 게시판
+    # 4곳이 45건을 정상 반환하고도 통과 0건이었다. 공식 원문은 카드에 근거로 붙는
+    # 게 목적이고 P1 부착 창이 21일이라, 수집 창만 좁을 이유가 없다.
+    official_cutoff = datetime.now(timezone.utc) - timedelta(days=OFFICIAL_LOOKBACK_DAYS)
     by_title: dict[str, dict] = {}
     OFFICIAL_FETCH_ERRORS.clear()
     counts: dict[str, int] = {}
@@ -1916,8 +1925,9 @@ def collect_rss_articles(state: dict) -> list[dict]:
         # 오늘 새 글이 없어서 0인 것과 파서가 죽어서 0인 것을 굳이 안 섞는다.
         counts[src["name"]] = len(items)
         print(f"[{channel}] {src['name']}: {len(items)} entries")
+        src_cutoff = official_cutoff if src.get("kind") else cutoff
         for item in items:
-            if item["pub"] < cutoff:
+            if item["pub"] < src_cutoff:
                 continue
             if invalid_url_reason(item["link"]):
                 continue

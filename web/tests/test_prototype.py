@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from collections import Counter
+from datetime import datetime, timedelta, timezone
 from unittest import mock
 from html import escape as html_escape
 from itertools import combinations
@@ -399,6 +400,29 @@ class OfficialDirectSourceTests(unittest.TestCase):
         self.assertIn("::warning title=공식기관 직접 수집 0건", buffer.getvalue())
         for source in news_bot.OFFICIAL_DIRECT_SOURCES:
             self.assertIn(source["name"], buffer.getvalue())
+
+    def test_official_boards_use_a_wider_cutoff_than_rss(self):
+        """게시판은 날짜만 준다. RSS 와 같은 24시간 창을 쓰면 당일 게시물만 잡힌다."""
+        self.assertGreater(news_bot.OFFICIAL_LOOKBACK_DAYS * 24, news_bot.LOOKBACK_HOURS * 4)
+
+        three_days_ago = datetime.now(timezone.utc) - timedelta(days=3)
+        board_item = {
+            "title": "원안위, 원전 정기검사 결과 공개",
+            "description": "검사 결과 본문",
+            "link": "https://www.nssc.go.kr/ko/cms/FR_BBS_CON/BoardView.do?BBS_SEQ=1",
+            "pub": three_days_ago,
+            "publisher": "원자력안전위원회",
+            "publisher_domain": "nssc.go.kr",
+        }
+        state = {"sent": {}}
+        with mock.patch.object(news_bot, "RSS_SOURCES", []), \
+             mock.patch.object(news_bot, "fetch_official_direct", return_value=[board_item]), \
+             contextlib.redirect_stdout(io.StringIO()):
+            articles = news_bot.collect_rss_articles(state)
+
+        self.assertTrue(articles, "3일 전 공식 보도자료가 cutoff 에서 떨어졌다")
+        self.assertEqual(articles[0]["link"], board_item["link"])
+        self.assertEqual(set(state["source_yield"]["kept"].values()), {1})
 
 
 class DataQualityGateTests(unittest.TestCase):
