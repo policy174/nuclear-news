@@ -3797,6 +3797,31 @@ class HardEdgeSystemTests(unittest.TestCase):
                     "미디어쿼리 :root 에 색 hex 가 있다 — 대비 테스트가 이걸 마지막 값으로 읽는다",
                 )
 
+    def test_mobile_block_is_the_only_one_and_comes_first(self):
+        """모바일 규칙은 블록 하나에 모은다 — 테스트 셋이 위치로 잘라 읽는다.
+
+        test_chrome_is_ink_not_page_tinted · test_mobile_topbar_keeps_the_site_descriptor ·
+        test_mobile_is_single_column_shelf_list 는 전부
+        ``style.index("@media (max-width: 767px)")`` 또는 ``split(..., 1)[1]`` 로
+        **처음 나오는 위치**부터를 모바일 규칙 전체로 본다. 그 앞에 두 번째
+        모바일 블록을 만들거나, 심지어 그 문자열을 주석에 적기만 해도 세 테스트가
+        엉뚱한 구간을 검사하고 한꺼번에 실패한다 — 실제로 흐름 탭 작업에서 이렇게
+        4건이 동시에 깨졌고, 원인이 '그 함정을 경고하려고 쓴 주석'이었다.
+
+        가로모드 변형(``and (orientation: landscape)``)은 조건이 더 붙어 뒤에
+        오므로 여는 괄호 직전 문자열로 구분한다.
+        """
+        opener = "@media (max-width: 767px) {"
+        self.assertEqual(
+            self.style.count(opener), 1,
+            "모바일 블록이 하나가 아니다 — 규칙은 기존 블록 안에 넣어야 한다",
+        )
+        # 주석에 문자열만 적어도 앞자리를 뺏는다. 처음 나온 자리가 곧 블록이어야 한다.
+        self.assertEqual(
+            self.style.index("@media (max-width: 767px)"), self.style.index(opener),
+            "여는 블록보다 앞에 같은 문자열이 있다(주석 포함) — 슬라이스가 어긋난다",
+        )
+
     def test_radius_escapes_are_closed(self):
         """--r-* 를 0 으로 잠가놓고 리터럴 라운드가 여섯 군데 살아 있었다.
 
