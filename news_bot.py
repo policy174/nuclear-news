@@ -352,7 +352,7 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   · 읽는 사람이 **원문(대개 영문)에 들어가지 않아도 되도록** 기사 내용을 한국어로 옮긴 3~5개 문장, 공백 포함 550자 이내.
   · 사실만. 본문에 있는 **수치·날짜·기관명·인명·직함·발언 주체**를 그대로 살릴 것. 이것이 이 필드의 존재 이유다.
   · 순서: ①무슨 일이 있었나 ②숫자·규모·일정 ③원인·배경 ④상대방·이해관계자 반응이나 다음 절차. 본문에 없는 항목은 건너뛴다.
-  · 문장을 중간에 자르지 말 것. 완결형 서술문으로만 끝낼 것.
+  · 문장을 중간에 자르지 말 것. **평서체(–다)로만** 끝낼 것. 존댓말(–입니다/–합니다/–ㅂ니다) 금지 — 사이트의 다른 문장은 전부 평서체다.
   · summary·implication 을 그대로 늘려 쓰지 말 것. 겹치는 문장이 있으면 본문의 다른 사실로 대체.
   · 사설·해설 기사면 '누가 무엇을 주장했는가'로 쓰고 그 주장을 사실로 서술하지 말 것.
     나쁨: "헝가리 팍스 원전의 가동이 중단되었다. 이는 원전 운영에 영향을 미친다." (본문을 안 읽고 제목을 늘렸다)
@@ -1245,10 +1245,16 @@ SPLITTABLE_FAILURES = {"truncated", "timeout"}
 # ranking.floor_verdict 의 면제에 걸려 하한을 우회하며 ③sent 마킹 14일 + 아카이브
 # hash 스킵 때문에 **영영 제대로 큐레이션되지 않는다.**
 #
-# 분당 한도면 다음 시각에 풀리므로 fallback 이 합리적이지만, 일일 한도는 리셋까지
-# 몇 시간이 남아 그 사이 수집분 전체가 영구 강등된다. 실측 2026-08-06: 한 크롤에서
-# 54/54 건이 이 경로로 강등됐고 그중 16건이 사람이 골라내야 하는 잡음이었다.
-DAILY_QUOTA_EXHAUSTED = False
+# 처음엔 일일 한도에만 이 보류를 걸었다. "분당 한도면 다음 시각에 풀리므로
+# fallback 이 합리적"이라고 봤는데 **틀렸다** — 강등의 피해는 한도가 언제 풀리느냐가
+# 아니라 sent 마킹이 영구라는 데서 온다. 분당이든 일일이든 강등된 기사는 똑같이
+# 영영 다시 큐레이션되지 않는다.
+#
+# 실측 2026-08-07: 크롤이 호출을 1회밖에 안 했는데 429(RPM 20)로 14/14건 유실.
+# 08:22 KST 라 아침 브리핑 체인이 같은 모델 버킷을 비워 놓은 분에 들어간 것이다.
+# 41초 대기 재시도 3회로도 못 뚫었다. 보류하면 그 대가가 '한 시간 지연'이지만
+# 강등하면 '영구 열화'다.
+QUOTA_EXHAUSTED = False
 
 
 def request_failure_reason(failures: dict[str, list[str]], chunk: list[dict]) -> str:
@@ -1526,9 +1532,9 @@ def curate_batch(articles: list[dict], reports_kb: list[dict],
                 time.sleep(1)
                 process(chunk[mid:], f"{label}b")
                 return
-            global DAILY_QUOTA_EXHAUSTED
-            if gemini_client._is_daily_quota(str(detail)):
-                DAILY_QUOTA_EXHAUSTED = True
+            global QUOTA_EXHAUSTED
+            if reason == "quota":
+                QUOTA_EXHAUSTED = True
             for art in chunk:
                 lost[art["hash"]] = detail
             capped = " (분할 예산 소진)" if reason in SPLITTABLE_FAILURES else ""
@@ -1938,8 +1944,8 @@ def main() -> None:
     features_missing = 0
     skipped_quota = 0
     # 모듈 전역이라 한 프로세스에서 두 번 돌면 이전 실행의 판정이 남는다.
-    global DAILY_QUOTA_EXHAUSTED
-    DAILY_QUOTA_EXHAUSTED = False
+    global QUOTA_EXHAUSTED
+    QUOTA_EXHAUSTED = False
     now_iso = datetime.now(timezone.utc).isoformat()
 
     all_candidates: list[dict] = []
@@ -2055,9 +2061,9 @@ def main() -> None:
         else:
             previous = curated.get(h) or {}
             cur = batch_results.get(h)
-            if cur is None and DAILY_QUOTA_EXHAUSTED:
-                # 일일 한도 소진 중에는 fallback 으로 강등해 큐에 넣지 않는다.
-                # sent 마킹을 하지 않으므로 한도가 리셋된 뒤 다음 크롤이 다시 수집해
+            if cur is None and QUOTA_EXHAUSTED:
+                # 한도 소진 중에는 fallback 으로 강등해 큐에 넣지 않는다.
+                # sent 마킹을 하지 않으므로 한도가 풀린 뒤 다음 크롤이 다시 수집해
                 # 제대로 큐레이션한다. LOOKBACK(6h) 밖으로 밀려난 기사는 놓치지만,
                 # 전량을 영구 강등시키는 것보다 낫다 — 강등분은 되돌릴 방법이 없다.
                 skipped_quota += 1
@@ -2168,8 +2174,8 @@ def main() -> None:
     if skipped_quota:
         # 조용히 지나가면 '수집이 줄었다'로 오독한다. sent 마킹을 안 했으므로
         # 한도가 리셋된 뒤 다음 크롤이 다시 가져간다.
-        print(f"[queue] 일일 한도 소진으로 {skipped_quota}건 적재 보류 "
-              f"(fallback 강등 회피 — 리셋 후 재수집)")
+        print(f"[queue] Gemini 한도 소진으로 {skipped_quota}건 적재 보류 "
+              f"(fallback 강등 회피 — 한도 회복 후 재수집)")
     # 429 는 분당 20회였는데(2026-08-06 실측) 그 1분에 누가 몇 번 불렀는지가
     # 로그에 없어 원인을 두 번 잘못 짚었다. 이제 센다 — **최대 분당**이 20 을
     # 넘는지가 처방을 가른다(재시도를 줄일지, 호출자 사이를 벌릴지).

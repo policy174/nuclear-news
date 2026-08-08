@@ -215,7 +215,10 @@ class TestChunkLossIsRecoveredOrRecorded(unittest.TestCase):
                 patch.object(nb, "BATCH_CHUNK", chunk), \
                 patch.object(nb, "BATCH_SPLIT_BUDGET", budget), \
                 patch.object(nb, "DELIVERY_LOG_FILE", self.log), \
+                patch.object(nb, "QUOTA_EXHAUSTED", False), \
                 patch.object(nb.time, "sleep", lambda *a, **k: None):
+            # QUOTA_EXHAUSTED 는 모듈 전역이라 429 케이스가 다음 테스트로 샌다.
+            # patch 가 블록을 나갈 때 되돌린다 — main() 도 실행 시작에 리셋한다.
             result = nb.curate_batch(self._articles(n), [])
         return result, calls
 
@@ -1171,11 +1174,22 @@ class TestDailyQuotaDoesNotDegradeArticles(unittest.TestCase):
 
     실측 2026-08-06: 한 크롤에서 54/54건이 이 경로로 강등됐고 그중 16건이 사람이
     골라내야 하는 잡음이었다(비트코인·메모리·강남 부자 노인).
-    분당 한도는 다음 시각에 풀리므로 fallback 이 맞다 — 일일 한도만 다르다.
+
+    처음엔 일일 한도에만 걸었다("분당은 다음 시각에 풀리니 fallback 이 맞다"). 그
+    판단이 틀렸다는 것이 2026-08-07 에 드러났다 — 강등의 피해는 한도가 언제
+    풀리느냐가 아니라 **sent 마킹이 영구**라는 데서 온다. 크롤이 호출을 1회만 했는데
+    분당 한도(RPM 20)에 걸려 14/14건이 강등됐다. 아침 브리핑 체인이 같은 모델
+    버킷을 쓰던 분에 들어간 것이라 크롤 쪽에서 줄일 호출도 없었다.
     """
 
     def test_flag_starts_false(self):
-        self.assertFalse(nb.DAILY_QUOTA_EXHAUSTED)
+        self.assertFalse(nb.QUOTA_EXHAUSTED)
+
+    def test_minute_quota_also_defers_instead_of_degrading(self):
+        """분당 한도도 보류 대상이다 — 일일 한도만 걸면 14/14 강등이 재발한다."""
+        self.assertEqual("quota", nb.classify_request_failure(
+            Exception('HTTP 429: {"error": {"message": "Quota exceeded for metric: '
+                      'generate_content_free_tier_requests, limit: 20"}}')))
 
     def test_daily_quota_body_is_recognised(self):
         import gemini_client as gc
