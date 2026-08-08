@@ -22,6 +22,16 @@
       "right_title": "미국, 원전 기자재 조달에 24조원 대출…韓 기업 기회",
       "same_event": false
     },
+    "01d97e5a989b4f96--3e00af0212edae79": {
+      "embedding_similarity": 0.9194,
+      "left_title": "유럽 팍시 원전, 냉각수 수위 회복으로 가동 중단 위기 모면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두 기사 모두 팍스 원전 냉각수 문제",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": true
+    },
     "01d97e5a989b4f96--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8558,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -110,6 +120,16 @@
       "reason": "주체와 대상이 다름",
       "reviewed_at": "2026-08-08T00:48:16.491398+00:00",
       "right_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
+      "same_event": false
+    },
+    "09465180cdc8f102--63a06abb8b827166": {
+      "embedding_similarity": 0.8611,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 원전 건설, B는 에너지 안보",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다층화된 중국 에너지 안보 전략, 국제유가 완충 효과",
       "same_event": false
     },
     "09465180cdc8f102--911526189a05bdad": {
@@ -412,6 +432,16 @@
       "right_title": "미국, 2026년 IAEA 해상 원자력 기술 ATLAS 이니셔티브 출범 주최",
       "same_event": false
     },
+    "0c9c758818ef14de--525b21a811f83076": {
+      "embedding_similarity": 0.8599,
+      "left_title": "중국, 네이멍구에 대규모 AI 데이터센터 가동 및 추가 건설 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 AI 데이터센터, B는 AI 데이터센터",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "중국, '제로 탄소 단지'로 EU 규제 돌파…AI 데이터센터 유치",
+      "same_event": false
+    },
     "0f67fdfe143a9591--27cf26ee5365bab5": {
       "embedding_similarity": 0.8419,
       "left_title": "미국 원자력규제위원회(NRC), 해안경비대 및 해양광물청과 협력 MOU 체결",
@@ -612,6 +642,16 @@
       "right_title": "전력거래소, 한빛원전 발전설비 현장 점검 실시",
       "same_event": true
     },
+    "1e53d0f81cb14594--20dd978c521bf5e6": {
+      "embedding_similarity": 0.8778,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력 공급 vs 지역 활력",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "대통령, 해남 청정에너지 사업이 반도체·AI 산업 동력 및 지역 활력 될 것 강조",
+      "same_event": false
+    },
     "1e53d0f81cb14594--571c41d8d5a745d5": {
       "embedding_similarity": 0.8817,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -642,6 +682,16 @@
       "right_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
       "same_event": false
     },
+    "1e53d0f81cb14594--71fb2cce97eae0f9": {
+      "embedding_similarity": 0.8408,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력 공급 지시, B는 태양광 발전 사업",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
+      "same_event": false
+    },
     "1e53d0f81cb14594--8c6eb5250550b959": {
       "embedding_similarity": 0.8847,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -650,6 +700,26 @@
       "reason": "전력 공급 중요성 vs 송전망 구축 지시",
       "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
       "right_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--9180fc31d0039678": {
+      "embedding_similarity": 0.8428,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력 공급 지시, B는 송전선로 경로",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "용인 반도체클러스터 345㎸ 송전선로, 여주 점동면 통과 유력",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--9a142ffd33198c93": {
+      "embedding_similarity": 0.8633,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력 공급 vs 양산 목표",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "호남 AI 클러스터, 2030년 6월 양산 목표로 속도전",
       "same_event": false
     },
     "1e53d0f81cb14594--afefc17d290a9361": {
@@ -672,6 +742,36 @@
       "right_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
       "same_event": false
     },
+    "1e53d0f81cb14594--d0daccb7f563e5af": {
+      "embedding_similarity": 0.8695,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력 공급 vs 발전 설비 확충",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "반도체 클러스터 전력 공급 위해 인근 발전 설비 확충 필요성 제기",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--e510a3f760f56966": {
+      "embedding_similarity": 0.8789,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 전력 공급 vs 원전 건설 발언",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--f4ff4cc404a5ce2f": {
+      "embedding_similarity": 0.84,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력 공급 지시, B는 원전 현황 점검",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
+      "same_event": false
+    },
     "1fb3e2352f613211--737df86cf04543b5": {
       "embedding_similarity": 0.8468,
       "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -681,6 +781,26 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "사설: AI·반도체 산업 전력 확보, 국가 경쟁력 직결 강조",
       "same_event": false
+    },
+    "1fb3e2352f613211--8c6eb5250550b959": {
+      "embedding_similarity": 0.8743,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력 확보 vs 국가 경쟁력",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "사설: AI·반도체 산업 전력 확보, 국가 경쟁력 직결 강조",
+      "same_event": false
+    },
+    "1fcce8b0f8b7f34b--457aa2e1b508d72c": {
+      "embedding_similarity": 0.8657,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 원전 안전성 확인 및 SMR 규제",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
+      "same_event": true
     },
     "2159831fad1ddf60--457aa2e1b508d72c": {
       "embedding_similarity": 0.8659,
@@ -771,6 +891,16 @@
       "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
       "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
       "same_event": false
+    },
+    "221683642ba2197a--55986de1f4a3ad29": {
+      "embedding_similarity": 0.8731,
+      "left_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 냉각수 부족",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "그리스 산불 발생, 헝가리 가뭄으로 원전 가동 중단",
+      "same_event": true
     },
     "221683642ba2197a--f1b7e28af992975c": {
       "embedding_similarity": 0.8617,
@@ -1052,6 +1182,16 @@
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
       "same_event": false
     },
+    "29f431cb0cf9670f--65bc735c35edf37c": {
+      "embedding_similarity": 0.9019,
+      "left_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "필리핀 원전 사업 협력 MOU",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
+      "same_event": true
+    },
     "2b442f968d18a90b--337a9ffbe7eef399": {
       "embedding_similarity": 0.8445,
       "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
@@ -1141,6 +1281,36 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "서남권 해상풍력 컨소시엄, 사업 세부사항 11월 재공시 예정",
       "same_event": false
+    },
+    "2cf78843f6ea5720--3e00af0212edae79": {
+      "embedding_similarity": 0.8695,
+      "left_title": "유럽 팍시 원전, 냉각수 수위 회복으로 가동 중단 위기 모면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 수위 회복 원전 가동 위기 모면",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": true
+    },
+    "2cf78843f6ea5720--e6cef644d033b341": {
+      "embedding_similarity": 0.9053,
+      "left_title": "루마니아, 원전 가동 중단 위기 속 다뉴브강 물 전환 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두 기사 모두 루마니아·헝가리 원전 가동 위기",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": true
+    },
+    "2cf78843f6ea5720--e86ceaef07092ccd": {
+      "embedding_similarity": 0.8715,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 수위 하락 원전 가동 위기",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": true
     },
     "2cf78843f6ea5720--f1b7e28af992975c": {
       "embedding_similarity": 0.8746,
@@ -1662,6 +1832,16 @@
       "right_title": "데이터센터 전력 수요 급증, 송전망 구축 지역 갈등 확산",
       "same_event": false
     },
+    "3daa09ef0de9e494--fd89bc58da35f7d3": {
+      "embedding_similarity": 0.878,
+      "left_title": "현대건설, 美 홀텍·엔터지와 SMR-300 도입 가능성 검토",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설, 美 SMR 도입 검토",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
+      "same_event": true
+    },
     "3e00af0212edae79--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8482,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -1802,6 +1982,16 @@
       "right_title": "후쿠시마 원전, 최근 오염수 방류 시작",
       "same_event": true
     },
+    "431840aff0e21ddb--63a06abb8b827166": {
+      "embedding_similarity": 0.8574,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 원전 건설, B는 에너지 안보",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다층화된 중국 에너지 안보 전략, 국제유가 완충 효과",
+      "same_event": false
+    },
     "431840aff0e21ddb--911526189a05bdad": {
       "embedding_similarity": 0.859,
       "left_title": "중국, 신규 원자로 8기 건설 승인",
@@ -1862,6 +2052,26 @@
       "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
       "same_event": true
     },
+    "457aa2e1b508d72c--9d74faab6adb99a1": {
+      "embedding_similarity": 0.8681,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 원전 안전성 확인 및 심사",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "K-원자력안전, 계속운전 및 SMR 심사 원칙 준수 가속화",
+      "same_event": true
+    },
+    "457aa2e1b508d72c--ad6ee254489e5bc3": {
+      "embedding_similarity": 0.8698,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 원전 안전성 확인 및 심사",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
+      "same_event": true
+    },
     "457aa2e1b508d72c--b7041a996c04f630": {
       "embedding_similarity": 0.8551,
       "left_title": "한울 4호기, 원자력안전위원회(NSSC) 정기검사 중 임계 허용",
@@ -1902,6 +2112,16 @@
       "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
       "same_event": false
     },
+    "457aa2e1b508d72c--ecd5fb9fb7af8e72": {
+      "embedding_similarity": 0.8704,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 원전 안전성 확인",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "가동 원전 계속운전, 철저한 안전성 확인으로 적기 추진",
+      "same_event": true
+    },
     "457aa2e1b508d72c--f4ff4cc404a5ce2f": {
       "embedding_similarity": 0.8467,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -1911,6 +2131,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
       "same_event": false
+    },
+    "457aa2e1b508d72c--fd2a58a50ffbb997": {
+      "embedding_similarity": 0.8677,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 원전 안전성 확인 및 규제",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "원안위원장, 계속운전 원전 신규 수준 심사 및 SMR 규제 체계 구축 천명",
+      "same_event": true
     },
     "462922938027d990--70d1f81f9e374d0f": {
       "embedding_similarity": 0.8468,
@@ -1990,6 +2220,16 @@
       "reason": "다른 원료 공급 계약 및 공급망 확보",
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "X-에너지, 흑연 공급망 확보",
+      "same_event": false
+    },
+    "4dd2920f69b7ea54--881443a425897686": {
+      "embedding_similarity": 0.874,
+      "left_title": "텍사스 주지사, 데이터센터 전력망 연결 대기열 전면 감사 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "텍사스 데이터센터 전력망 감사 vs 프로젝트 지연",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "텍사스 데이터센터 부하 감사, 49.8GW 프로젝트 지연 가능성",
       "same_event": false
     },
     "4e6a1d2c0301a4d0--6b93ed7e22e9bb4b": {
@@ -2102,6 +2342,16 @@
       "right_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
       "same_event": false
     },
+    "538c53ac4627ea3f--63a06abb8b827166": {
+      "embedding_similarity": 0.8656,
+      "left_title": "중국 정부, 신규 원전 8기 건설 승인하며 대규모 확장 지속",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 원전 건설, B는 에너지 안보",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "다층화된 중국 에너지 안보 전략, 국제유가 완충 효과",
+      "same_event": false
+    },
     "538c53ac4627ea3f--911526189a05bdad": {
       "embedding_similarity": 0.8475,
       "left_title": "중국 정부, 신규 원전 8기 건설 승인하며 대규모 확장 지속",
@@ -2200,6 +2450,16 @@
       "reason": "같은 원전, 같은 강 수위 문제",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "헝가리, 다뉴브강 수위 상승 예상에도 원전 출력 제한 지속",
+      "same_event": true
+    },
+    "55986de1f4a3ad29--8153189c9e875d05": {
+      "embedding_similarity": 0.8689,
+      "left_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 냉각수 부족",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "헝가리, 극심한 가뭄으로 전력난 직면",
       "same_event": true
     },
     "55986de1f4a3ad29--bf5ea0f3606646e1": {
@@ -2722,6 +2982,16 @@
       "right_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
       "same_event": false
     },
+    "6260c0799db78ac9--f4ff4cc404a5ce2f": {
+      "embedding_similarity": 0.8429,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 신규 원전 촉구, B는 원전 현황 점검",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
+      "same_event": false
+    },
     "6260c0799db78ac9--fc54058806753267": {
       "embedding_similarity": 0.8447,
       "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
@@ -2761,6 +3031,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "전기안전공사, 전력수요 증가 대응 검사체계 개편 방안 모색",
       "same_event": true
+    },
+    "637c02157bc625a4--e35ba84675a81735": {
+      "embedding_similarity": 0.8408,
+      "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력수요 대비, B는 검사체계 개편",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "전기안전공사, 전력수요 증가 대응 검사체계 개편 방안 모색",
+      "same_event": false
     },
     "64e9af97c5aec46c--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8496,
@@ -2892,6 +3172,16 @@
       "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
+    "68a618ee5af3e486--737df86cf04543b5": {
+      "embedding_similarity": 0.8422,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력산업 재편, B는 AI 데이터센터 착공",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "국내 최초 상업용 AI 데이터센터, 포항서 착공…원전 전력 활용",
+      "same_event": false
+    },
     "68a618ee5af3e486--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8443,
       "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
@@ -3012,6 +3302,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
       "same_event": false
     },
+    "71fb2cce97eae0f9--8c6eb5250550b959": {
+      "embedding_similarity": 0.8416,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력 공급 중요성, B는 태양광 발전 사업",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
+      "same_event": false
+    },
     "71fb2cce97eae0f9--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8914,
       "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
@@ -3031,6 +3331,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "한국전기안전공사, AI·재생에너지 확산에 따른 검사체계 개편 추진",
       "same_event": true
+    },
+    "737df86cf04543b5--7d3e0c165f9ddd4d": {
+      "embedding_similarity": 0.8422,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력산업 재편, B는 K-전력기기 수혜",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
+      "same_event": false
     },
     "737df86cf04543b5--7f3bcd995216c495": {
       "embedding_similarity": 0.8791,
@@ -3072,6 +3382,16 @@
       "right_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
       "same_event": false
     },
+    "737df86cf04543b5--d38a1931a073ff67": {
+      "embedding_similarity": 0.8426,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력산업 재편, B는 에너지 전환 전망",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "[시론] 에너지 전환에 ‘메가프로젝트’ 성패 달려",
+      "same_event": false
+    },
     "737df86cf04543b5--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.8801,
       "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -3092,6 +3412,16 @@
       "right_title": "[AI+]전시장·사옥도 AI 데이터센터로…서울 도심에도?",
       "same_event": false
     },
+    "737df86cf04543b5--e41ef7fe503447b9": {
+      "embedding_similarity": 0.8419,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력산업 재편, B는 북미 전력망 투자",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "美 전력수요 5배 급증…북미 전력망 투자에 K전력기기 '반사이익'",
+      "same_event": false
+    },
     "737df86cf04543b5--e54ef364f6982c54": {
       "embedding_similarity": 0.9124,
       "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -3101,6 +3431,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "전력산업 구조개편 해법으로 '통합적 공공 거버넌스' 공감대 형성",
       "same_event": true
+    },
+    "737df86cf04543b5--fc54058806753267": {
+      "embedding_similarity": 0.8426,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 전력산업 재편, B는 AI 투자 확대",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "AI 확산으로 전력 인프라 투자 급증, 은행 기업금융 기회 확대",
+      "same_event": false
     },
     "756c2e6e80bbd36e--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8916,
@@ -3281,6 +3621,16 @@
       "reviewed_at": "2026-08-06T01:26:30.685534+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
       "same_event": true
+    },
+    "8153189c9e875d05--e86ceaef07092ccd": {
+      "embedding_similarity": 0.8729,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "팍스 원전 가동 중단 vs 헝가리 전력난",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "헝가리, 극심한 가뭄으로 전력난 직면",
+      "same_event": false
     },
     "89a559f17ff440e3--9ff80dab9059f991": {
       "embedding_similarity": 0.8459,
@@ -3470,6 +3820,16 @@
       "reason": "원전 계속운전 신청 vs 원전 수명 연장",
       "reviewed_at": "2026-08-08T00:48:16.491398+00:00",
       "right_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
+      "same_event": false
+    },
+    "937708a71d17b0a2--e36af93d31a69547": {
+      "embedding_similarity": 0.8415,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 계속운전 신청, B는 NRC 위원회 변화",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "미국 원자력규제위원회(NRC)의 변화: 50년간의 위원들",
       "same_event": false
     },
     "937708a71d17b0a2--f33f228a288946ee": {
@@ -3682,6 +4042,16 @@
       "right_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
       "same_event": false
     },
+    "a5c1d15ea92ccb4f--a5e21a02762fb9b6": {
+      "embedding_similarity": 0.8993,
+      "left_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "필리핀 원전 사업 협력 MOU",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "한수원, 필리핀 에너지 대기업과 원전 협력 양해각서 체결",
+      "same_event": true
+    },
     "a863ec8998cdef3b--e35ba84675a81735": {
       "embedding_similarity": 0.8669,
       "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
@@ -3860,6 +4230,16 @@
       "reason": "동일 주체, 동일 원자로",
       "reviewed_at": "2026-08-07T22:05:21.741410+00:00",
       "right_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "same_event": true
+    },
+    "bc120f7b15017ad6--d5f14a4cd0093d3c": {
+      "embedding_similarity": 0.868,
+      "left_title": "핀란드 규제기관, 세계 최초 사용후핵연료 처분장 운영 허가 요건 충족 결정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핀란드 사용후핵연료 처분장 허가",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "핀란드 포시바 방사성폐기물 처분장 안전성 검토 통과",
       "same_event": true
     },
     "bccf5f15f321ec1b--e2e42584280401fc": {
@@ -4092,6 +4472,16 @@
       "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
       "same_event": false
     },
+    "cdd5f9ed8f148233--d0daccb7f563e5af": {
+      "embedding_similarity": 0.8414,
+      "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 에너지 강조, B는 발전 설비 확충",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "반도체 클러스터 전력 공급 위해 인근 발전 설비 확충 필요성 제기",
+      "same_event": false
+    },
     "d5488ec8773bdc1a--e53a1ba2dfe73d05": {
       "embedding_similarity": 0.8763,
       "left_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
@@ -4191,6 +4581,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 일시 가동 중단 예정",
       "same_event": true
+    },
+    "f4ff4cc404a5ce2f--fd17939220b56c39": {
+      "embedding_similarity": 0.8424,
+      "left_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 계속운전 지연, B는 원전 현황 점검",
+      "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
+      "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
+      "same_event": false
     }
   }
 }
