@@ -394,6 +394,7 @@ class OfficialDirectSourceTests(unittest.TestCase):
             {source["name"] for source in news_bot.OFFICIAL_DIRECT_SOURCES},
         )
         self.assertEqual(set(yields["counts"].values()), {0})
+        self.assertEqual(yields["kept"], {})
         self.assertTrue(yields["at"])
         self.assertIn("::warning title=공식기관 직접 수집 0건", buffer.getvalue())
         for source in news_bot.OFFICIAL_DIRECT_SOURCES:

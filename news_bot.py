@@ -1905,6 +1905,7 @@ def collect_rss_articles(state: dict) -> list[dict]:
     by_title: dict[str, dict] = {}
     OFFICIAL_FETCH_ERRORS.clear()
     counts: dict[str, int] = {}
+    kept: dict[str, int] = {}
 
     # 공식기관을 먼저 넣는다. 같은 제목이 Google News 경유 피드에도 있으면 직접
     # 원문이 by_title 을 선점해 canonical URL과 primary 분류가 보존된다.
@@ -1931,6 +1932,7 @@ def collect_rss_articles(state: dict) -> list[dict]:
             norm = normalize_title(item["title"])
             if not norm:
                 continue
+            kept[src["name"]] = kept.get(src["name"], 0) + 1
 
             domain = resolve_rss_domain(src, item)
             candidate = {
@@ -1955,9 +1957,14 @@ def collect_rss_articles(state: dict) -> list[dict]:
             by_title[norm] = candidate
 
     # sent.json 은 매 run 커밋되므로 이 블록이 곧 소스별 수집 실적 시계열이 된다.
+    #
+    # counts 만으로는 부족하다 — 실측(2026-08-08) 게시판은 10·15·10·10 건으로 멀쩡한데
+    # cutoff 에서 전건이 떨어져 유입은 0이었다. 게시판 도달(counts)과 필터 통과(kept)를
+    # 갈라놔야 "파서가 죽었다"와 "닿긴 했는데 안 들어온다"를 구분할 수 있다.
     state["source_yield"] = {
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "counts": counts,
+        "kept": kept,
         "errors": dict(OFFICIAL_FETCH_ERRORS),
     }
     dead = [src["name"] for src in OFFICIAL_DIRECT_SOURCES if not counts.get(src["name"])]
