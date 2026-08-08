@@ -44,17 +44,17 @@
       "same_event": false
     },
     "issue-0abd318976122879--d4863d270a": {
-      "issue_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
-      "reason": "국가와 사안이 다름",
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-0abd318976122879--dcf5909f44": {
-      "issue_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
+      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
       "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
       "prompt_version": 1,
-      "reason": "다른 원자로 설계 승인",
+      "reason": "주체, 대상, 안건이 다름",
       "same_event": false
     },
     "issue-0b5218c29cbb0084--249f1333d0": {
@@ -344,6 +344,13 @@
       "reason": "다른 국가, 다른 프로젝트",
       "same_event": false
     },
+    "issue-31b3d4a649669513--dcf5909f44": {
+      "issue_title": "노스 애나 원전, 부지 조기 허가(ESP) 갱신 신청",
+      "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
+      "prompt_version": 1,
+      "reason": "대상 원전과 안건이 다름",
+      "same_event": false
+    },
     "issue-320c30e555c0cd76--f797174d9b": {
       "issue_title": "이란 혁명수비대, 미·이스라엘 핵 보유 시 핵 개발 지속 경고",
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
@@ -617,6 +624,20 @@
       "reason": "주체·사안·범위가 다름",
       "same_event": false
     },
+    "issue-579ba98f1a05deae--249f1333d0": {
+      "issue_title": "싱가포르 국무장관, 한국과 SMR 협력 및 아세안 파워그리드 구축 제안",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
+    "issue-579ba98f1a05deae--bc52b67e71": {
+      "issue_title": "싱가포르 국무장관, 한국과 SMR 협력 및 아세안 파워그리드 구축 제안",
+      "keei_item": "Holtec과 EDF, 영국에 SMR-300 최대 4기 도입 위한 제안서 제출",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 국가가 다름",
+      "same_event": false
+    },
     "issue-5841f6b7706c0048--a9ffef226f": {
       "issue_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
@@ -769,6 +790,13 @@
       "keei_item": "스웨덴 Videberg Kraft, SMR 공급사로 Rolls-Royce SMR 최종 선정",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 주체",
+      "same_event": false
+    },
+    "issue-6a25f94bf83612cd--23a6f604ae": {
+      "issue_title": "김주영 의원, AI 시대 전력산업 구조개편 국회 심포지엄 개최",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-6b93ed7e22e9bb4b--0330b81e50": {
@@ -1205,6 +1233,13 @@
       "reason": "국가, 주체, 안건 모두 다름",
       "same_event": false
     },
+    "issue-cdd5f9ed8f148233--23a6f604ae": {
+      "issue_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
     "issue-d2d6214a79979e89--d65bac9c4d": {
       "issue_title": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
@@ -1227,10 +1262,10 @@
       "same_event": false
     },
     "issue-d621a4293eb89200--249f1333d0": {
-      "issue_title": "2026년 세제개편안, SMR·MMR 기술 국가전략기술 포함",
+      "issue_title": "정부, 소형모듈원전(SMR) 기술 국가전략기술로 지정 및 지원 확대",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "다른 국가의 다른 사안",
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-d675dcf3f120c2fb--6445d0b3c3": {
@@ -1289,6 +1324,34 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-dcb975d82d845013--6445d0b3c3": {
+      "issue_title": "아이소에너지와 DISA, 미국 우라늄 신규 합작사 설립 합의",
+      "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
+      "prompt_version": 1,
+      "reason": "안건이 다름",
+      "same_event": false
+    },
+    "issue-dcb975d82d845013--8b6d0658ea": {
+      "issue_title": "아이소에너지와 DISA, 미국 우라늄 신규 합작사 설립 합의",
+      "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
+      "prompt_version": 1,
+      "reason": "개별 사건과 동향/전망",
+      "same_event": false
+    },
+    "issue-ddd8072c258528d9--0e615713ea": {
+      "issue_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
+      "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
+      "prompt_version": 1,
+      "reason": "같은 주체의 다른 안건",
+      "same_event": false
+    },
+    "issue-ddd8072c258528d9--835e580735": {
+      "issue_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "안건이 다름",
+      "same_event": false
+    },
     "issue-e166e0749a04c6dd--0e615713ea": {
       "issue_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
       "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
@@ -1296,11 +1359,18 @@
       "reason": "다른 기술 분야",
       "same_event": false
     },
+    "issue-e166e0749a04c6dd--835e580735": {
+      "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "Oklo 임계가 3번째 달성",
+      "same_event": true
+    },
     "issue-e166e0749a04c6dd--a9ffef226f": {
-      "issue_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
+      "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 안건",
+      "reason": "같은 기업의 다른 사안",
       "same_event": false
     },
     "issue-e2e42584280401fc--b6aec252c7": {
@@ -1308,6 +1378,13 @@
       "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
       "prompt_version": 1,
       "reason": "다른 규제기관, 다른 규정",
+      "same_event": false
+    },
+    "issue-e35ba84675a81735--8b6d0658ea": {
+      "issue_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
+      "prompt_version": 1,
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-e3bff0056142abce--5ea831d148": {
