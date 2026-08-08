@@ -62,8 +62,10 @@ def _script_model() -> str:
 
 SPEAKER_RE = re.compile(r"^(HOST|ANALYST):\s*(.+)$")
 MIN_LINES = 8          # 이보다 짧으면 대담이 아니라 낭독이다
-MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초). TTS 1요청 안전 범위
+MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초)
 DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
+CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
+CHUNK_GAP_SEC = 0.33   # 청크 사이에 넣는 무음
 
 _TTS_ENDPOINT = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
@@ -206,17 +208,65 @@ def generate_script(material: str) -> str:
     return script
 
 
+def speakers_in(script: str) -> list[str]:
+    """대본에 실제로 등장하는 화자를 등장 순서대로."""
+    out: list[str] = []
+    for line in script.splitlines():
+        match = SPEAKER_RE.match(line)
+        if match and match.group(1) not in out:
+            out.append(match.group(1))
+    return out
+
+
+def split_script(script: str, limit: int = CHUNK_SPOKEN) -> list[str]:
+    """대본을 화자 줄 경계에서 청크로 나눈다.
+
+    4분치를 TTS 1요청으로 합성하면 뒤로 갈수록 소리가 먹고 작아진다
+    (2026-08-08 배포분 실측: 첫 30초 평균 -17.6 dB / 3kHz 이상 -32.9 dB →
+    마지막 30초 -40.2 dB / -68.8 dB. mp3 는 64k CBR 이라 변환 탓이 아니고
+    소스 PCM 이 그렇다). 요청을 나누면 청크마다 새로 시작한다.
+    """
+    chunks: list[str] = []
+    current: list[str] = []
+    size = 0
+    for line in script.splitlines():
+        match = SPEAKER_RE.match(line)
+        spoken = len(match.group(2)) if match else len(line)
+        if current and size + spoken > limit:
+            chunks.append("\n".join(current))
+            current, size = [], 0
+        current.append(line)
+        size += spoken
+    if current:
+        chunks.append("\n".join(current))
+    return chunks
+
+
 def tts_payload(script: str) -> dict:
-    """TTS 요청 본문 — 화자 라벨과 voice 배정은 대본 형식과 맞물려야 한다."""
+    """TTS 요청 본문 — 화자 라벨과 voice 배정은 대본 형식과 맞물려야 한다.
+
+    화자가 하나뿐인 청크(끝부분 헤드라인 훑기)는 단일 화자 모드로 보내고
+    'HOST: ' 접두어를 뗀다 — 멀티스피커 모드가 아니면 라벨을 그대로 읽는다.
+    """
+    speakers = speakers_in(script)
+    if len(speakers) == 1:
+        text = "\n".join(match.group(2) for match in
+                         (SPEAKER_RE.match(line) for line in script.splitlines())
+                         if match)
+        speech = {"voiceConfig": {
+            "prebuiltVoiceConfig": {"voiceName": VOICES[speakers[0]]}}}
+    else:
+        text = script
+        speech = {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
+            {"speaker": speaker,
+             "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": VOICES[speaker]}}}
+            for speaker in (speakers or list(VOICES))
+        ]}}
     return {
-        "contents": [{"parts": [{"text": STYLE_INSTRUCTION + script}]}],
+        "contents": [{"parts": [{"text": STYLE_INSTRUCTION + text}]}],
         "generationConfig": {
             "responseModalities": ["AUDIO"],
-            "speechConfig": {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
-                {"speaker": speaker,
-                 "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}}
-                for speaker, voice in VOICES.items()
-            ]}},
+            "speechConfig": speech,
         },
     }
 
@@ -263,8 +313,35 @@ def call_tts(script: str) -> tuple[bytes, int]:
     raise last_err or GeminiError("TTS 모델 전부 실패")
 
 
+def synthesize(script: str) -> tuple[bytes, int]:
+    """대본을 청크로 나눠 합성하고 PCM 을 이어붙인다.
+
+    청크 PCM 은 전부 같은 포맷(s16le mono, 같은 rate)이라 바이트 연결로 충분하다.
+    레이트가 섞이면 이어붙인 결과가 배속으로 재생되므로 그때는 실패시킨다.
+    """
+    chunks = split_script(script)
+    print(f"[audio] 대본 {len(script)}자 → TTS 청크 {len(chunks)}개")
+    pieces: list[bytes] = []
+    rate = 0
+    for index, chunk in enumerate(chunks, 1):
+        pcm, chunk_rate = call_tts(chunk)
+        if rate and chunk_rate != rate:
+            raise GeminiError(
+                f"청크 {index} 샘플레이트 불일치: {chunk_rate} != {rate}")
+        rate = chunk_rate
+        if pieces:
+            pieces.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
+        pieces.append(pcm)
+    return b"".join(pieces), rate
+
+
 def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
-    """PCM s16le mono → MP3 64k. ffmpeg 는 GitHub 러너·로컬 모두 존재."""
+    """PCM s16le mono → MP3 64k. ffmpeg 는 GitHub 러너·로컬 모두 존재.
+
+    dynaudnorm 은 청크 사이 레벨 차를 평탄화한다 — 요청이 나뉘면 청크마다
+    시작 음량이 조금씩 다르다. 감쇠 자체를 여기서 되살릴 수는 없다(실측:
+    -40 dB 까지 죽은 꼬리는 정규화해도 고역이 안 돌아온다). 그건 split_script 몫.
+    """
     if not shutil.which("ffmpeg"):
         raise RuntimeError("ffmpeg 없음 — mp3 변환 불가")
     raw = out_path.with_suffix(".pcm")
@@ -273,6 +350,7 @@ def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error", "-f", "s16le",
              "-ar", str(rate), "-ac", "1", "-i", str(raw),
+             "-af", "dynaudnorm=f=250:g=15:p=0.9:m=6",
              "-b:a", "64k", str(out_path)],
             check=True,
         )
@@ -370,7 +448,7 @@ def generate(force: bool = False) -> bool:
         return False
 
     try:
-        pcm, rate = call_tts(script)
+        pcm, rate = synthesize(script)
     except GeminiError as exc:
         print(f"[audio] TTS 실패 — 기존 오디오 유지: {exc}")
         return False

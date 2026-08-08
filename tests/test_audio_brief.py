@@ -185,6 +185,58 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(speakers, {"HOST", "ANALYST"})
         self.assertEqual(speakers, set(audio_brief.VOICES))
 
+    def test_split_script_chunks_at_speaker_lines(self):
+        """긴 대본은 여러 요청으로 나눈다 — 4분을 1요청으로 뽑으면 뒤쪽이
+        먹고 작아진다(2026-08-08 실측: 마지막 30초 -40.2 dB vs 첫 30초 -17.6)."""
+        long_script = "\n".join(
+            [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
+             for i in range(10)])
+        chunks = audio_brief.split_script(long_script)
+        self.assertGreater(len(chunks), 1)
+        self.assertEqual("\n".join(chunks).splitlines(), long_script.splitlines())
+        for chunk in chunks:
+            self.assertTrue(all(audio_brief.SPEAKER_RE.match(line)
+                                for line in chunk.splitlines()))
+        self.assertTrue(all(
+            sum(len(audio_brief.SPEAKER_RE.match(line).group(2))
+                for line in chunk.splitlines()) <= audio_brief.CHUNK_SPOKEN
+            for chunk in chunks[:-1]))
+
+    def test_split_script_keeps_short_script_whole(self):
+        self.assertEqual(audio_brief.split_script(GOOD_SCRIPT), [GOOD_SCRIPT])
+
+    def test_tts_payload_single_speaker_chunk_drops_labels(self):
+        """끝부분 헤드라인 훑기는 HOST 단독 청크가 된다. 멀티스피커 모드가
+        아니면 'HOST:' 라벨을 그대로 읽어버리므로 접두어를 떼고 보낸다."""
+        payload = audio_brief.tts_payload("HOST: 첫 소식입니다.\nHOST: 다음 소식입니다.")
+        speech = payload["generationConfig"]["speechConfig"]
+        self.assertNotIn("multiSpeakerVoiceConfig", speech)
+        self.assertEqual(
+            speech["voiceConfig"]["prebuiltVoiceConfig"]["voiceName"],
+            audio_brief.VOICES["HOST"])
+        self.assertNotIn("HOST:", payload["contents"][0]["parts"][0]["text"])
+
+    def test_synthesize_concatenates_chunks(self):
+        long_script = "\n".join(
+            [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
+             for i in range(10)])
+        pcm, rate = audio_brief.synthesize(long_script)
+        expected = len(audio_brief.split_script(long_script))
+        self.assertEqual(len(self.tts_calls), expected)
+        self.assertEqual(rate, 24000)
+        gap = int(rate * audio_brief.CHUNK_GAP_SEC) * 2
+        self.assertEqual(len(pcm), expected * 48000 + (expected - 1) * gap)
+
+    def test_synthesize_rejects_rate_mismatch(self):
+        """레이트가 섞인 채 이어붙이면 뒷부분이 배속으로 재생된다."""
+        rates = iter([24000, 16000])
+        audio_brief.call_tts = lambda chunk: (b"\x00" * 100, next(rates))
+        long_script = "\n".join(
+            [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
+             for i in range(10)])
+        with self.assertRaises(GeminiError):
+            audio_brief.synthesize(long_script)
+
     def test_tts_model_env_override_goes_first(self):
         os.environ["GEMINI_TTS_MODEL"] = "gemini-test-tts"
         self.addCleanup(os.environ.pop, "GEMINI_TTS_MODEL", None)
