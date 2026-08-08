@@ -22,6 +22,24 @@ const COUNTRY_LABELS = {
   EU: "EU(유럽연합)", EUROPE: "유럽", GLOBAL: "글로벌", UNSPECIFIED: "미분류",
 };
 
+// 타일 그리드 지도의 칸 좌표 [col, row], 18×9. 실제 투영이 아니라 대륙 덩어리만
+// 맞춘 근사 배치다 — 국경 SVG 를 들이지 않고도 '어디서'를 한눈에 주는 게 목적이고,
+// 칸이 전부 같은 크기라 작은 나라도 안 사라진다.
+// COUNTRY_LABELS 의 EU·EUROPE·GLOBAL·UNSPECIFIED 는 지리 좌표가 없어 여기 없다.
+// 여기 없는 코드는 지도에서 빠지고, 빠진 건수는 지도 아래에 적힌다.
+const COUNTRY_GRID = {
+  CA: [1, 0], US: [1, 2], MX: [1, 4], BR: [3, 6], AR: [2, 8],
+  GB: [5, 1], NO: [6, 0], SE: [7, 0], FI: [8, 0], DK: [6, 1],
+  BE: [5, 2], NL: [6, 2], DE: [7, 2], CZ: [8, 2], PL: [9, 1],
+  FR: [5, 3], CH: [6, 3], AT: [7, 3], SK: [8, 3], HU: [9, 3],
+  PT: [4, 4], ES: [5, 4], IT: [7, 4], RS: [8, 4], RO: [10, 4],
+  UA: [10, 2], BG: [9, 5], TR: [10, 5], RU: [12, 0], KZ: [12, 2],
+  UZ: [12, 3], SA: [11, 6], AE: [12, 6], IN: [13, 5], CN: [14, 3],
+  KR: [16, 3], JP: [17, 2], AU: [16, 8], ZA: [7, 8],
+};
+const COUNTRY_MAP_COLS = 18;
+const COUNTRY_MAP_ROWS = 9;
+
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
 const VIEW_IDS = ["news", "trend", "search", "report"];
 const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
@@ -2019,9 +2037,56 @@ function restoreIssueFromHistory() {
 // 한 사건이 키워드를 여럿 달고 있으면 같은 이야기가 그 수만큼 재포장됐다
 // (실측: 헝가리 가뭄 원전 중단 하나가 기후변화·원전운영·전력시장·에너지안보
 // 네 흐름에 동시 등장). 이슈는 이미 사건 단위라 중복이 생기지 않는다.
+// 수명 축의 공유 범위. meta 의 수집 구간을 그대로 쓴다 — 축을 이슈들의 최소·최대로
+// 잡으면 날마다 축이 늘었다 줄었다 해서 어제와 오늘의 막대 길이를 못 비겨 본다.
+function flowSpanRange() {
+  const start = state.meta?.date_min || "";
+  const end = state.meta?.date_max || state.meta?.latest_briefing_date || "";
+  if (!start || !end || start >= end) return null;
+  // 축 계산은 전부 UTC 자정으로 파싱한다. 여기서 쓰는 값은 차이와 비율뿐이라
+  // 기준시가 무엇이든 결과가 같고, KST(+09:00)로 파싱해 두면 눈금을 찍을 때
+  // getUTC* 가 9시간 앞선 날짜를 돌려줘 라벨이 하루씩 밀린다(실측: 7/17 → 7/16).
+  const startMs = Date.parse(`${start}T00:00:00Z`);
+  const endMs = Date.parse(`${end}T00:00:00Z`);
+  if (!Number.isFinite(startMs) || !Number.isFinite(endMs) || endMs <= startMs) return null;
+  return { start, end, startMs, span: endMs - startMs };
+}
+
+function flowSpanTrack(item, range) {
+  if (!range || !item.first_seen) return "";
+  const firstMs = Date.parse(`${item.first_seen}T00:00:00Z`);
+  const lastMs = Date.parse(`${item.last_seen || item.first_seen}T00:00:00Z`);
+  if (!Number.isFinite(firstMs) || !Number.isFinite(lastMs)) return "";
+  const clamp = value => Math.max(0, Math.min(100, value));
+  const left = clamp((firstMs - range.startMs) / range.span * 100);
+  const right = clamp((Math.max(lastMs, firstMs) - range.startMs) / range.span * 100);
+  const days = Math.round((Math.max(lastMs, firstMs) - firstMs) / 86400000) + 1;
+  // 하루짜리는 폭이 0 이라 선이 안 보인다 — 점으로 그려 '오늘 처음'을 형태로 구분한다.
+  const seed = days <= 1;
+  const width = seed ? 0 : right - left;
+  return `<div class="flow-span"><span class="flow-span-track"><i class="${seed ? "seed" : ""}"
+    style="left:${left.toFixed(2)}%;width:${width.toFixed(2)}%"></i></span><span class="flow-span-age">${
+    seed ? "오늘 시작" : `${days}일째`}</span></div>`;
+}
+
+function renderFlowAxis(range) {
+  const axis = document.getElementById("flowAxis");
+  if (!axis) return;
+  axis.hidden = !range;
+  if (!range) return;
+  const ticks = [0, 0.5, 1].map(fraction => {
+    const at = new Date(range.startMs + range.span * fraction);
+    const label = `${at.getUTCMonth() + 1}/${at.getUTCDate()}`;
+    return `<span style="left:${(fraction * 100).toFixed(2)}%">${esc(label)}</span>`;
+  }).join("");
+  axis.innerHTML = `<span class="flow-axis-label">추적 구간</span><span class="flow-axis-scale">${ticks}</span>`;
+}
+
 function renderInsights() {
   const box = document.getElementById("insightList");
   const movers = (state.trend?.weekly_movers || []).filter(item => item && item.title);
+  const range = flowSpanRange();
+  renderFlowAxis(movers.length ? range : null);
   if (!movers.length) {
     box.innerHTML = '<div class="empty-state"><strong>이번 주 움직인 이슈를 준비하고 있습니다</strong><p>보도가 쌓이면 근거와 함께 표시합니다.</p></div>';
     return;
@@ -2048,6 +2113,7 @@ function renderInsights() {
           <h3><button type="button" class="issue-title-button" data-issue-id="${esc(item.issue_id)}">${esc(item.title)}</button></h3>
           <span>${esc(scale)}</span>
         </div>
+        ${flowSpanTrack(item, range)}
         <p class="flow-keyword"><span>${esc(item.region || "지역 미분류")}</span><span>${item.is_continuing ? "이어지는 이슈" : "이번 주 신규"}</span>${topics}</p>
         ${item.summary ? `<p class="flow-summary">${esc(item.summary)}</p>` : ""}
         ${events ? `<div class="event-block"><strong>구성 사건</strong><ul>${events}</ul></div>` : ""}
@@ -2120,6 +2186,41 @@ function bars(element, rows, labelFn) {
   }
   const max = Math.max(...rows.map(row => row.count));
   element.innerHTML = rows.map(row => `<div class="bar-row"><span class="bar-name">${esc(labelFn(row))}</span><div class="bar-track"><span style="width:${Math.max(3, Math.round(row.count / max * 100))}%"></span></div><span class="bar-value">${row.count}</span></div>`).join("");
+}
+
+// 국가 타일 지도. 막대와 같은 countries_30d 를 쓰되 지리로 배치한다.
+// 농도 4단은 절대 건수가 아니라 최댓값 대비 비율로 끊는다 — 하루 2건인 날과
+// 53건인 날에 같은 임계값을 쓰면 조용한 주에는 지도가 통째로 비어 보인다.
+function renderCountryMap() {
+  const box = document.getElementById("countryMap");
+  const note = document.getElementById("countryMapNote");
+  if (!box) return;
+  const rows = state.trend?.countries_30d || [];
+  const counts = new Map(rows.map(row => [row.country, row.count]));
+  const max = Math.max(1, ...rows.filter(row => COUNTRY_GRID[row.country]).map(row => row.count));
+  box.style.setProperty("--map-cols", COUNTRY_MAP_COLS);
+  box.style.setProperty("--map-rows", COUNTRY_MAP_ROWS);
+  box.innerHTML = Object.entries(COUNTRY_GRID).map(([code, [col, row]]) => {
+    const count = counts.get(code) || 0;
+    const ratio = count / max;
+    const level = count === 0 ? 0 : (ratio <= 0.08 ? 1 : (ratio <= 0.3 ? 2 : (ratio <= 0.7 ? 3 : 4)));
+    // 칸에 글자를 넣지 않는다. 이 카드는 폭이 절반이라 18칸이면 칸당 ~19px 인데
+    // 이 저장소의 글자 하한은 12.5px 이고 예외를 두지 않기로 되어 있다(그 하한을
+    // 낮추면 --ff-mono 시스템 폴백이 안 읽힌다). 지도는 형태와 농도만 맡고
+    // 나라 이름과 수치는 title 과 바로 아래 막대가 전부 가진다.
+    return `<div class="country-tile level-${level}" style="grid-column:${col + 1};grid-row:${row + 1}"
+      title="${esc(COUNTRY_LABELS[code] || code)} ${count}건"></div>`;
+  }).join("");
+  // 지도에 못 올린 몫을 밝힌다. 조용한 누락은 '전부 담았다'로 읽힌다.
+  const offMap = rows.filter(row => !COUNTRY_GRID[row.country]);
+  const offCount = offMap.reduce((sum, row) => sum + row.count, 0);
+  if (note) {
+    note.hidden = !offCount;
+    if (offCount) {
+      const names = offMap.slice(0, 4).map(row => COUNTRY_LABELS[row.country] || row.country).join(" · ");
+      note.textContent = `지도 밖 ${offCount}건 — ${names}${offMap.length > 4 ? " 외" : ""}. 아래 막대에는 모두 포함됩니다.`;
+    }
+  }
 }
 
 function renderSlopeGraph() {
@@ -2316,6 +2417,7 @@ function renderTrend() {
   renumberSections("view-trend");
   if (!state.meta?.trend_ready) return;
   renderKeywordTable();
+  renderCountryMap();
   bars(document.getElementById("countryBars"), state.trend.countries_30d, row => COUNTRY_LABELS[row.country] || row.country);
   const topCountry = state.trend.countries_30d?.[0];
   document.getElementById("countryInterpretation").textContent = topCountry

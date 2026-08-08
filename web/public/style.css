@@ -1960,6 +1960,27 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 /* 제목은 해석 문장이다. 키워드는 분류 라벨로 강등한다 — 언급량 자체는 결론이 아니다. */
 .flow-head h3 { margin: 0; max-width: 74ch; font-size: 18px; line-height: 1.45; }
 .flow-head > span { color: var(--c-text-muted); font-size: var(--t-min); white-space: nowrap; }
+/* 수명 축. .flow-item 이 42px + 10px gap 이라 축 눈금도 같은 52px 만큼 들여써야
+   행의 막대와 세로로 맞는다. 오른쪽 74px 은 각 행의 경과 라벨(64px)과 그 gap(10px)
+   자리 — 이걸 빼먹으면 눈금이 막대보다 길어져 마지막 날짜가 어긋난다. */
+.flow-axis { display: flex; align-items: center; gap: 10px; padding-left: 52px; margin: 2px 0 6px; }
+.flow-axis-label { flex: none; color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); }
+.flow-axis-scale { position: relative; flex: 1; height: 13px; margin-right: 74px; }
+.flow-axis-scale span { position: absolute; bottom: 0; transform: translateX(-50%); color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); }
+.flow-axis-scale span:first-child { transform: none; }
+.flow-axis-scale span:last-child { transform: translateX(-100%); }
+.flow-span { display: grid; grid-template-columns: 1fr 64px; align-items: center; gap: 10px; margin: 9px 0 0; }
+.flow-span-track { position: relative; height: 9px; border-radius: var(--r-1); background: var(--c-surface-sunken); }
+.flow-span-track i { position: absolute; top: 0; bottom: 0; border-radius: inherit; background: var(--c-secondary); }
+/* 하루짜리 이슈는 폭이 0 이라 선으로는 안 보인다 — 점으로 바꿔 '오늘 시작'을
+   길이가 아니라 형태로 읽게 한다. margin-left 로 중심을 축 위치에 맞춘다. */
+.flow-span-track i.seed { width: 9px; margin-left: -4px; border-radius: 50%; }
+.flow-span-age { color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); text-align: right; font-variant-numeric: tabular-nums; }
+/* 이 컴포넌트의 모바일 규칙은 파일 아래쪽 767px 블록 안에 있다. 새 모바일 블록을
+   만들지 말 것 — 테스트 세 개가 그 미디어쿼리 문자열이 파일에서 처음 나오는
+   위치부터 끝까지를 모바일 규칙 전체로 보기 때문에, 앞에 블록이 하나라도
+   끼어들면 엉뚱한 구간을 검사하고 조용히 실패한다(실측: 4건 동시 실패).
+   같은 이유로 이 주석도 그 문자열을 그대로 쓰지 않는다. */
 .flow-keyword { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
 .flow-summary { margin: 10px 0 0; color: var(--c-text-secondary); font-size: var(--t-caption); }
 .flow-keyword span {
@@ -2029,6 +2050,20 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .bar-track { height: 8px; overflow: hidden; border-radius: var(--r-1); background: var(--c-surface-sunken); }
 .bar-track span { display: block; height: 100%; border-radius: inherit; background: var(--c-secondary); }
 .bar-value { color: var(--c-text-muted); text-align: right; font-variant-numeric: tabular-nums; }
+/* 국가 타일 지도. 막대와 같은 --c-secondary 계열로 칠해 둘이 같은 데이터임을
+   색으로 묶는다. 반복 요소이므로 오프셋 그림자는 붙이지 않는다(스티커 시트 금지).
+   aspect-ratio 로 칸을 정사각에 가깝게 유지 — 칸마다 크기가 다르면 면적이
+   건수로 오독된다. */
+.country-map { display: grid; grid-template-columns: repeat(var(--map-cols, 18), 1fr); grid-auto-rows: minmax(0, 1fr); gap: 2px; aspect-ratio: var(--map-cols, 18) / var(--map-rows, 9); margin: 4px 0 10px; }
+/* level-0 은 '자료 없음'이다 — 칠하지 않고 윤곽만 남겨 세계 모양만 잡아 준다.
+   실측: 이걸 --c-surface-sunken 으로 칠했더니 건수 1~4건인 level-1 과 눈으로
+   구분이 안 됐다. 자료 없음과 조금 있음은 다른 사실이므로 다르게 보여야 한다. */
+.country-tile { display: flex; align-items: center; justify-content: center; overflow: hidden; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1); background: transparent; line-height: 1; }
+.country-tile.level-1 { background: color-mix(in srgb, var(--c-secondary) 22%, var(--c-surface)); }
+.country-tile.level-2 { background: color-mix(in srgb, var(--c-secondary) 42%, var(--c-surface)); }
+.country-tile.level-3 { background: color-mix(in srgb, var(--c-secondary) 66%, var(--c-surface)); }
+.country-tile.level-4 { border-color: var(--c-secondary); background: var(--c-secondary); }
+.country-map-note { margin: 0 0 10px; }
 .chart-interpretation { margin: 14px 0 0; padding: 10px 12px; border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-accent) 6%, var(--c-surface)); color: var(--c-text-secondary); font-size: var(--t-min); }
 .data-evidence { margin-top: 10px; font-size: var(--t-min); }
 .data-evidence p { margin: 6px 0; color: var(--c-text-muted); }
@@ -2566,6 +2601,13 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .archive-result-head h2 { font-size: 18px; }
   .flow-panel { padding: 16px; }
   .flow-item { grid-template-columns: 30px 1fr; }
+  /* 순번 칸이 42 → 30px 로 줄었으니 수명 축 들여쓰기도 30 + gap 10 = 40px 로
+     같이 줄인다. 안 줄이면 눈금이 막대보다 12px 오른쪽으로 밀린다. */
+  .flow-axis { padding-left: 40px; }
+  .flow-axis-scale { margin-right: 62px; }
+  .flow-span { grid-template-columns: 1fr 52px; }
+  /* 390px 에서 칸당 ~20px — 칸 사이 간격을 1px 로 줄여야 형태가 뭉개지지 않는다. */
+  .country-map { gap: 1px; }
   .flow-head { display: grid; gap: 2px; }
   .flow-head > span { white-space: normal; }
   .event-block li { grid-template-columns: 58px 1fr; }

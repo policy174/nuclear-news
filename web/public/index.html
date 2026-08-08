@@ -349,6 +349,10 @@
         <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
         <span class="data-note">보도량·보도 일수·매체 수 기준</span>
       </div>
+      <!-- 수명 축. 눈금은 여기 한 번만 그리고 각 이슈 행이 같은 축을 나눠 쓴다 —
+           행마다 자기 축을 가지면 길이가 서로 비교되지 않아 '며칠째'가 안 보인다.
+           기간·건수는 각 행이 글자로도 말하므로 축은 스크린리더에서 감춘다. -->
+      <div id="flowAxis" class="flow-axis" aria-hidden="true" hidden></div>
       <div id="insightList"></div>
     </section>
     <section id="trendReadiness" class="readiness-panel"></section>
@@ -376,6 +380,13 @@
           <section class="data-card">
             <h2>국가·지역별 이슈 수</h2>
             <p class="data-note">최근 30일 연결 이슈 기준 · 복수 국가는 각각 1건</p>
+            <!-- 지도는 아래 막대와 같은 데이터의 그림 판이다 — 막대가 '얼마나'를,
+                 지도가 '어디서'를 준다. 위치는 실제 좌표가 아니라 근사 배치이고
+                 EU·유럽·글로벌·미분류처럼 지도에 올릴 수 없는 코드는 빠지므로,
+                 빠진 몫은 지도 아래 주석에 건수로 적는다(조용히 버리지 않는다).
+                 스크린리더에는 막대가 이미 완전한 목록을 주므로 지도는 감춘다. -->
+            <div id="countryMap" class="country-map" aria-hidden="true"></div>
+            <p id="countryMapNote" class="data-note country-map-note" hidden></p>
             <div id="countryBars"></div>
             <p id="countryInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>
