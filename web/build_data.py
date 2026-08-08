@@ -645,6 +645,66 @@ def infer_countries(record: dict) -> tuple[list[str], str]:
     return countries, "heuristic-v2"
 
 
+# 브리핑이 이만큼 있는 주만 주제 추이에 쓴다. 시작 주(2일)와 진행 중인 주는
+# 모수가 작아서 화살표가 보도량이 아니라 달력을 말한다.
+TOPIC_WEEK_MIN_BRIEFING_DAYS = 6
+
+
+def _iso_week(date_str: str) -> str:
+    year, week, _ = datetime.strptime(date_str, "%Y-%m-%d").isocalendar()
+    return f"{year}-W{week:02d}"
+
+
+def build_topic_weeks(
+    issue_catalog: list[dict],
+    briefing_dates: list[str],
+    limit: int = 6,
+    window: int = 8,
+) -> tuple[list[str], dict[str, list[int]]]:
+    """주제별 주간 **이슈** 수. 커버리지가 온전한 주만 남긴다.
+
+    원래는 archive 레코드의 (기사 × 주제) 쌍을 셌다. 실측 2026-08-08 주별 합계
+    22 / 59 / 86 / 580 — 그 주 실제 이슈는 73건인데 한 주제가 185건으로 떴다.
+    아카이브가 최근 2주만 밀도 있고 `topics` 필드도 분류기 도입 이후 레코드에만
+    붙어 있어서, 화살표가 원자력 보도량이 아니라 수집량 변화를 말하고 있었다.
+
+    이슈 단위로 다시 세면 14 / 51 / 52 / 58 이 되고, 남는 왜곡은 부분 주뿐이라
+    브리핑 6일 미만인 주를 버리면 51 / 52 / 58 만 남는다. 한 이슈는 살아 있던
+    주마다 1건으로 세고, 주제가 여럿이면 주제별로 1건씩 — 합계는 이슈 수보다
+    클 수 있다(`countries_30d` 와 같은 규칙).
+    """
+    days: Counter = Counter()
+    for date_str in briefing_dates:
+        if date_str:
+            days[_iso_week(date_str)] += 1
+    full = {week for week, count in days.items()
+            if count >= TOPIC_WEEK_MIN_BRIEFING_DAYS}
+
+    by_week: dict[str, Counter] = defaultdict(Counter)
+    for issue in issue_catalog:
+        topics = [topic for topic in (issue.get("topics") or []) if topic]
+        first, last = issue.get("first_seen") or "", issue.get("last_seen") or ""
+        if not topics or not first or not last:
+            continue
+        day, end = datetime.strptime(first, "%Y-%m-%d"), datetime.strptime(last, "%Y-%m-%d")
+        alive = set()
+        while day <= end:
+            alive.add(_iso_week(day.strftime("%Y-%m-%d")))
+            day += timedelta(days=1)
+        for week in alive & full:
+            by_week[week].update(topics)
+
+    weeks = sorted(by_week)[-window:]
+    totals: Counter = Counter()
+    for week in weeks:
+        totals.update(by_week[week])
+    series = {
+        topic: [by_week[week].get(topic, 0) for week in weeks]
+        for topic, _ in totals.most_common(limit)
+    }
+    return weeks, series
+
+
 def count_country_issues(issues: list[dict], since_date: str) -> Counter:
     """기간 내 연결 이슈를 국가·지역별로 중복 없이 센다.
 
@@ -3528,7 +3588,6 @@ def build() -> None:
     day30 = (now - timedelta(days=30)).strftime("%Y-%m-%d")
 
     tags_7, tags_prev7, tags_30, tags_all_before7 = Counter(), Counter(), Counter(), Counter()
-    topic_by_week: dict[str, Counter] = defaultdict(Counter)
     for record in trend_pool:
         record_date = record.get("article_date", "")
         if not record_date:
@@ -3543,10 +3602,6 @@ def build() -> None:
             tags_30.update(tags)
         if record_date < day7:
             tags_all_before7.update(tags)
-        iso = datetime.strptime(record_date, "%Y-%m-%d").isocalendar()
-        week = f"{iso[0]}-W{iso[1]:02d}"
-        for topic in record.get("topics") or []:
-            topic_by_week[week][topic] += 1
 
     rising = []
     for tag, count in tags_7.items():
@@ -3561,14 +3616,11 @@ def build() -> None:
         if tag not in tags_all_before7 and count >= 2
     ]
 
-    weeks = sorted(topic_by_week.keys())[-8:]
-    topic_totals = Counter()
-    for week in weeks:
-        topic_totals.update(topic_by_week[week])
-    topic_series = {
-        topic: [topic_by_week[week].get(topic, 0) for week in weeks]
-        for topic, _ in topic_totals.most_common(6)
-    }
+    weeks, topic_series = build_topic_weeks(
+        issue_catalog, [briefing["date"] for briefing in briefings])
+    print(f"[build_data] 주제 추이: 온전한 주 {len(weeks)}개 "
+          f"({', '.join(weeks) or '없음'}) · 주별 합계 "
+          f"{[sum(series[i] for series in topic_series.values()) for i in range(len(weeks))]}")
     country_issue_30 = count_country_issues(issues, day30)
 
     trend = {
@@ -3591,6 +3643,9 @@ def build() -> None:
         "countries_30d_counting": "distinct_issue_per_country",
         "weeks": weeks,
         "topic_series": topic_series,
+        # 단위를 데이터가 말한다 — 화면 문구가 집계와 갈라지면 이슈 총수보다 큰
+        # '건수'가 다시 뜬다.
+        "topic_series_unit": "issue",
     }
 
     # 분류율은 **큐레이션을 받은 기사**에 대해서만 잰다.

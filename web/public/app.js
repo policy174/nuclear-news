@@ -1119,13 +1119,12 @@ function weeklyChangedIssues(briefing) {
     .slice(0, 5);
 }
 
-// 주간 표본이 서로 비교 가능한가. topic_series 는 기사×주제 쌍을 세는데, 그 모수가
-// 주마다 다르면 방향 판단이 '원자력 이슈가 늘었다'가 아니라 '데이터가 늘었다'가 된다.
+// 주간 표본이 서로 비교 가능한가 — 모수가 주마다 다르면 방향 판단이 '원자력
+// 이슈가 늘었다'가 아니라 '데이터가 늘었다'가 된다.
 //
-// 실측 2026-08-08: 주별 합계 22 / 59 / 86 / 580. 아카이브가 최근 2주만 밀도 있고
-// (W31 284기사 → 86쌍, W32 1113기사 → 758쌍) `topics` 필드도 분류기 도입 이후
-// 레코드에만 붙어 있다. 이 위에서 계산한 4주 변화 폭·표본 수·▲▼ 는 전부 무효였다.
-// 모수가 2배 안으로 들어오면 저절로 다시 뜬다.
+// 원인은 빌드에서 고쳤다(build_topic_weeks: 기사×주제 쌍 → 이슈, 부분 주 제외).
+// 실측 2026-08-08 주별 합계 22/59/86/580 → 80/85/102. 이 게이트는 그래도 남긴다 —
+// 수집이 다시 기울면 화면이 먼저 입을 다무는 쪽이 낫다.
 const TOPIC_WEEK_SAMPLE_RATIO = 2;
 
 function topicWeeksComparable(totals) {
@@ -1134,21 +1133,35 @@ function topicWeeksComparable(totals) {
   return low > 0 && high / low <= TOPIC_WEEK_SAMPLE_RATIO;
 }
 
-// 4주 주제 변화. 흐름 탭이 이 표의 주인이다 — 오늘 화면은 '오늘·이번 주'를,
-// 흐름은 '4주간 어느 방향으로'를 맡는다.
+// 주제 변화. 흐름 탭이 이 표의 주인이다 — 오늘 화면은 '오늘·이번 주'를,
+// 흐름은 '몇 주간 어느 방향으로'를 맡는다.
+//
+// 폭은 고정 4주가 아니라 빌드가 넘겨준 '온전한 주'의 수다. 브리핑 6일 미만인
+// 주는 빌드에서 이미 빠졌으므로(build_topic_weeks) 여기 오는 주는 전부 셀 수 있다.
+// 3주 미만이면 방향이라 부를 게 없어서 표 자체를 내린다.
+const TOPIC_FLOW_MIN_WEEKS = 3;
+const TOPIC_FLOW_MAX_WEEKS = 4;
+
+function topicFlowSpan() {
+  const weeks = (state.trend?.weeks || []).length;
+  return weeks < TOPIC_FLOW_MIN_WEEKS ? 0 : Math.min(TOPIC_FLOW_MAX_WEEKS, weeks);
+}
+
 function topicFlowRows() {
+  const span = topicFlowSpan();
+  if (!span) return [];
   const series = state.trend?.topic_series || {};
-  const entries = Object.entries(series).filter(([, values]) => Array.isArray(values) && values.length >= 4);
-  if (!entries.length || (state.trend?.weeks || []).length < 4) return [];
-  const recent = entries.map(([topic, values]) => ({ topic, values: values.slice(-4).map(Number) }));
-  const totals = [0, 1, 2, 3].map(index => recent.reduce((sum, row) => sum + (row.values[index] || 0), 0));
+  const entries = Object.entries(series).filter(([, values]) => Array.isArray(values) && values.length >= span);
+  if (!entries.length) return [];
+  const recent = entries.map(([topic, values]) => ({ topic, values: values.slice(-span).map(Number) }));
+  const totals = recent[0].values.map((_, index) => recent.reduce((sum, row) => sum + (row.values[index] || 0), 0));
   if (!topicWeeksComparable(totals)) return [];
   return recent.map(row => {
     const shares = row.values.map((value, index) => totals[index] ? value / totals[index] * 100 : 0);
-    const delta = shares[3] - shares[0];
+    const delta = shares.at(-1) - shares[0];
     const sample = row.values.reduce((sum, value) => sum + value, 0);
     // 표본이 작으면 방향을 말하지 않는다. 8pp 는 주 단위 잡음을 넘는 폭.
-    return { ...row, shares, delta, sample, directional: Math.abs(delta) >= 8 && sample >= 8 };
+    return { ...row, span, shares, delta, sample, directional: Math.abs(delta) >= 8 && sample >= 8 };
   });
 }
 
@@ -1157,13 +1170,16 @@ function topicFlowRow(row) {
   const maxShare = Math.max(1, ...row.shares);
   return `<div class="home-topic-row">
     <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
-    <span class="topic-spark" aria-label="최근 4주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
+    <span class="topic-spark" aria-label="최근 ${row.span}주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
     <span class="topic-direction ${row.directional ? (row.delta > 0 ? "up" : "down") : "flat"}">${direction}</span>
     <small class="topic-figures">
-      <span class="topic-compare">지난주 ${Math.round(row.shares[2])}% → 이번 주 ${Math.round(row.shares[3])}%</span>
-      <span class="topic-delta">4주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
-      <!-- 단위는 기사×주제 쌍이다. '이슈'라고 쓰면 이슈 총수보다 큰 숫자가 나온다. -->
-      <span class="topic-sample">표본 ${row.sample}개(기사·주제)</span>
+      <!-- 화살표는 span 주 전체의 변화다. 옆 숫자를 '지난주 → 이번 주'로 두면
+           ▼ 옆에 오르는 두 수가 붙는다(실측: SMR ▼ / 18% → 19%). 같은 구간을 쓴다. -->
+      <span class="topic-compare">${row.span}주 전 ${Math.round(row.shares[0])}% → 이번 주 ${Math.round(row.shares.at(-1))}%</span>
+      <span class="topic-delta">${row.span}주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
+      <!-- 이슈 단위다(build_topic_weeks). 한 이슈가 주제 둘이면 둘 다에 1건씩
+           가므로 합계는 이슈 총수보다 클 수 있다. -->
+      <span class="topic-sample">표본 이슈 ${row.sample}건</span>
     </small>
   </div>`;
 }
@@ -2116,9 +2132,8 @@ function renderSlopeGraph() {
     box.innerHTML = '<p class="empty">주간 데이터가 더 필요합니다.</p>';
     return;
   }
-  // 위 4주 표와 같은 재료를 쓴다 — 모수가 주마다 다르면 이 기울기도 보도량 변화가
-  // 아니라 수집량 변화다. 실측 2026-08-08: 전주 86 → 이번 주 580 에서 '전력시장·요금
-  // 27 → 185건'이 나왔는데, 그 주 전체 이슈는 73건이었다.
+  // 위 주제 변화 표와 같은 재료(이슈 단위)를 쓴다. 게이트도 같다 — 수집이 다시
+  // 기울면 두 화면이 같이 입을 다물어야 한다.
   const weekTotals = [
     topics.reduce((sum, row) => sum + row.prev, 0),
     topics.reduce((sum, row) => sum + row.now, 0),
@@ -2198,25 +2213,20 @@ function renderTrendTopicFlow() {
   const rows = topicFlowRows();
   section.hidden = rows.length === 0;
   if (section.hidden) return;
+  // 제목이 기간을 말한다. 온전한 주가 3개뿐인데 '4주'라고 써 두면 표가 못 채운
+  // 한 주를 독자가 채워 읽는다.
+  document.getElementById("trendTopicFlowTitle").textContent =
+    `최근 ${rows[0].span}주 동안 어디로 움직였나`;
   document.getElementById("trendTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
 }
 
 function renderWeeklyReport() {
   const panel = document.getElementById("weeklyReport");
   const report = state.trend?.weekly_report;
-  const questions = state.trend?.open_questions || [];
   // 리포트가 없으면 통째로 숨긴다 — 빈 탭이 되면 안 되므로 아래 정량 트렌드가
-  // 그대로 남는다.
-  //
-  // 원래는 `!report && !questions.length` 였다. 그런데 weekly_reports.json 이
-  // 3개월째 한 번도 생성된 적이 없어(weekly.yml 미가동) 실제로는 '아직 결론
-  // 나지 않은 것' 한 코너만 '주간 판세' 라는 제목을 달고 떠 있었다. 5칸 중
-  // 4칸이 빈 채로 제목이 판세를 약속하는 셈이다.
-  // 게다가 그 한 코너의 문장은 근거 이슈 제목의 서술문 전환에 가깝고(실측
-  // 2건: 유사도 0.32·0.48 — 어순·어미만 바꾸면 문자열 유사도로는 못 거른다),
-  // 같은 open_question 은 이미 선두 카드와 상세 모달에 '아직 확정되지 않은
-  // 것'으로 나온다. 세 번째 노출을 위해 제목을 빌려 쓰지 않는다.
-  // 진짜 주간 리포트가 생기면 5칸이 함께 돌아온다.
+  // 그대로 남는다. 원래 가드는 `!report && !questions.length` 였는데,
+  // weekly_reports.json 이 3개월째 생성된 적이 없어(weekly.yml 미가동) 실제로는
+  // open_questions 한 코너만 '주간 판세' 제목을 달고 떠 있었다.
   if (!report) { panel.hidden = true; return; }
   panel.hidden = false;
 
@@ -2246,10 +2256,9 @@ function renderWeeklyReport() {
         + evidenceChips(row.evidence) + `</div></div>`).join("")),
     weeklySection("한수원에 직접 닿는 변화", "",
       report?.khnp_direct ? `<p>${esc(report.khnp_direct)}</p>` : ""),
-    weeklySection("아직 결론 나지 않은 것", "이슈당 한 번만 · 최신순",
-      questions.length ? questions.map(row =>
-        `<div class="weekly-item"><p>${esc(row.text)}</p>${evidenceChips(row.evidence)}</div>`
-      ).join("") : ""),
+    // '아직 결론 나지 않은 것'(open_questions)도 뺐다. 같은 문장이 선두 카드의
+    // '다음 확인' 칸과 상세 모달에 이미 나온다 — 세 번째 노출이다. 게다가 채움률
+    // 6/168 이라 코너 자체가 대개 비어 있었다.
   ].join("");
 }
 

@@ -325,15 +325,16 @@
          크기를 먼저 알아볼 수 있어야 한다. -->
     <section id="trendTopicFlow" class="home-intelligence" aria-labelledby="trendTopicFlowTitle" hidden>
       <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="trendTopicFlowTitle">4주 동안 어디로 움직였나</h2></div>
+        <!-- 제목의 주 수는 렌더 시점에 실제 온전한 주 수로 덮어쓴다. -->
+        <div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="trendTopicFlowTitle">최근 몇 주, 어디로 움직였나</h2></div>
         <span class="data-note">주간 내 비중 · 8pp 이상·표본 8건 이상일 때만 방향 표시</span>
       </div>
       <div id="trendTopicFlowRows" class="home-topic-flow"></div>
     </section>
     <!-- 주간 판세. 오늘 탭이 담당하는 것(이번 주 결론 = policy_shifts.what,
          해설 = weekly_intro·so_what, 다음 확인 = watchpoints)은 여기서 내지
-         않는다. 흐름이 담당하는 것은 4주 관점 — 테마 강약, 한수원 직접 영향,
-         아직 결론 나지 않은 것. 리포트가 없는 주에는 통째로 숨긴다. -->
+         않는다. 흐름이 담당하는 것은 4주 관점 — 테마 강약, 한수원 직접 영향
+         둘뿐이다. 리포트가 없는 주에는 통째로 숨긴다. -->
     <section id="weeklyReport" class="weekly-report" aria-labelledby="weeklyReportHeading" hidden>
       <!-- 오버라인 없음. 영문 오버라인은 TODAY·THIS WEEK 두 종으로 줄인 결정이
            있고, 바로 아래 '이번 주 이어지는 흐름'이 이미 THIS WEEK 을 쓴다.
@@ -381,9 +382,9 @@
           </section>
           <section class="data-card slope-card">
             <h2>주제별 주간 변화</h2>
-            <!-- '연결 이슈 기준'이 아니다. topic_series 는 기사×주제 쌍을 센다 —
-                 그렇게 써 놓으니 이슈 총수(168)보다 큰 185건이 화면에 떴다. -->
-            <p class="data-note">상위 4개 주제와 기타 합계 · 기사·주제 쌍 기준</p>
+            <!-- 단위는 이슈다(build_topic_weeks). 한 이슈가 주제 둘이면 둘 다에
+                 1건씩 가므로 합계는 이슈 총수보다 클 수 있다. -->
+            <p class="data-note">상위 4개 주제와 기타 합계 · 완료된 주의 이슈 수</p>
             <div id="topicChart"></div>
             <p id="topicInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="topicEvidence"></div></details>

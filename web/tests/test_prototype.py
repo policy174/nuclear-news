@@ -2943,8 +2943,78 @@ class WeeklyReportTests(unittest.TestCase):
             self.assertIsNone(self._load(Path(tmp)))
 
 
+class TopicWeekAggregationTests(unittest.TestCase):
+    """주제별 주간 추이는 이슈를 센다. 기사×주제 쌍이 아니다.
+
+    실측 2026-08-08: 쌍 기준 주별 합계 22 / 59 / 86 / 580 — 그 주 실제 이슈는
+    73건인데 한 주제가 185건으로 떴다. 아카이브가 최근 2주만 밀도 있어서 화살표가
+    보도량이 아니라 수집량을 말하고 있었다. 이슈 기준으로는 80 / 85 / 102.
+    """
+
+    FULL_WEEK = ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23",
+                 "2026-07-24", "2026-07-25", "2026-07-26"]
+
+    @staticmethod
+    def _issue(topics, first, last):
+        return {"topics": topics, "first_seen": first, "last_seen": last}
+
+    def test_one_issue_counts_once_per_week_no_matter_how_many_articles(self):
+        rows = [self._issue(["smr"], "2026-07-20", "2026-07-24")]
+        weeks, series = build_data.build_topic_weeks(rows, self.FULL_WEEK)
+        self.assertEqual(weeks, ["2026-W30"])
+        self.assertEqual(series["smr"], [1])
+
+    def test_multi_topic_issue_lands_in_each_topic(self):
+        rows = [self._issue(["smr", "newbuild"], "2026-07-20", "2026-07-20")]
+        _, series = build_data.build_topic_weeks(rows, self.FULL_WEEK)
+        self.assertEqual(series["smr"], [1])
+        self.assertEqual(series["newbuild"], [1])
+
+    def test_partial_weeks_are_dropped(self):
+        """브리핑 2일짜리 주는 화살표가 보도량이 아니라 달력을 말한다."""
+        dates = ["2026-07-18", "2026-07-19"] + self.FULL_WEEK
+        rows = [self._issue(["smr"], "2026-07-18", "2026-07-24")]
+        weeks, series = build_data.build_topic_weeks(rows, dates)
+        self.assertEqual(weeks, ["2026-W30"], "W29 는 브리핑 2일뿐인데 남았다")
+        self.assertEqual(series["smr"], [1])
+
+    def test_issue_spanning_two_full_weeks_counts_in_both(self):
+        dates = self.FULL_WEEK + ["2026-07-27", "2026-07-28", "2026-07-29",
+                                  "2026-07-30", "2026-07-31", "2026-08-01"]
+        rows = [self._issue(["smr"], "2026-07-24", "2026-07-28")]
+        weeks, series = build_data.build_topic_weeks(rows, dates)
+        self.assertEqual(weeks, ["2026-W30", "2026-W31"])
+        self.assertEqual(series["smr"], [1, 1])
+
+    def test_untagged_issues_are_skipped_not_counted_as_zero_topic(self):
+        rows = [self._issue([], "2026-07-20", "2026-07-20"),
+                self._issue(["smr"], "2026-07-20", "2026-07-20")]
+        _, series = build_data.build_topic_weeks(rows, self.FULL_WEEK)
+        self.assertEqual(list(series), ["smr"])
+
+    def test_live_data_weeks_are_within_the_front_end_gate(self):
+        """실데이터에서 주별 합계가 2배 안에 들어와야 화면이 방향을 말한다."""
+        catalog = json.loads((ROOT / "public" / "data" / "issues.json").read_text(encoding="utf-8"))
+        briefings = json.loads((ROOT / "public" / "data" / "briefings.json").read_text(encoding="utf-8"))
+        weeks, series = build_data.build_topic_weeks(
+            catalog, [row["date"] for row in briefings])
+        if len(weeks) < 2:
+            self.skipTest("온전한 주가 2개 미만")
+        totals = [sum(values[i] for values in series.values()) for i in range(len(weeks))]
+        self.assertLessEqual(max(totals) / min(totals), 2,
+                             f"주별 합계 {totals} — 모수가 기울어 방향을 말할 수 없다")
+        # 이슈 단위이므로 한 주의 합계가 카탈로그 전체 이슈 수를 넘을 수 없다
+        # (한 이슈가 주제 여럿에 가더라도 주제 상위 6개만 남기므로).
+        self.assertLess(max(totals), len(catalog))
+
+
 class OpenQuestionRollupTests(unittest.TestCase):
-    """'아직 결론 나지 않은 것' — 이슈 단위로 한 번씩, 최신순, 최대 5개."""
+    """trend.json 의 `open_questions` — 이슈 단위로 한 번씩, 최신순, 최대 5개.
+
+    화면에서는 내렸다(주간 판세 코너 제거, 2026-08-08). 같은 문장이 카드의
+    '다음 확인' 칸에 이미 있다. 데이터는 계속 굽는다 — 채움률이 올라오면
+    쓸 데가 생긴다.
+    """
 
     @staticmethod
     def _row(issue_id, question, last_seen="2026-08-01", importance="nice_to_know"):
@@ -2981,25 +3051,30 @@ class WeeklyRenderTests(unittest.TestCase):
         self.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
 
-    def test_weekly_report_only_owns_the_four_week_corners(self):
+    def test_weekly_report_only_owns_the_two_week_corners(self):
         """주간 판세는 오늘 화면이 담당하는 문장을 다시 내지 않는다.
 
-        고정 코너는 다섯이었다. 그중 '이번 주 판을 바꾼 것'(weekly_intro +
+        고정 코너는 다섯이었다. '이번 주 판을 바꾼 것'(weekly_intro +
         policy_shifts)과 '다음 주 하나만 본다면'(watchpoints)은 오늘 화면의
         '이번 주 결론'·'이번 주 해설'·'다음 확인'과 같은 재료다 — 실측
         2026-08-08: 흐름 첫 화면 산문 여섯 문단 중 일곱 문장이 오늘 탭과 글자
         그대로 동일했다. 탭을 옮겼는데 같은 글이 다시 나오면 깊이가 아니라 반복이다.
+        '아직 결론 나지 않은 것'(open_questions)도 같은 이유로 뺐다 — 같은 문장이
+        선두 카드의 '다음 확인' 칸과 상세 모달에 이미 나오고, 채움률은 6/168 이다.
+        남는 것은 테마 강약과 한수원 직접 영향 둘뿐이다.
         """
         weekly = self.script.split("function renderWeeklyReport(", 1)[1].split("\nfunction ", 1)[0]
         # 왜 뺐는지는 주석에 남아 있어야 한다. 검사 대상은 실행되는 코드뿐이다.
         code = "\n".join(re.sub(r"//.*$", "", line) for line in weekly.splitlines())
-        for title in ("조용하지만 놓치면 안 되는 것", "한수원에 직접 닿는 변화",
-                      "아직 결론 나지 않은 것"):
+        for title in ("조용하지만 놓치면 안 되는 것", "한수원에 직접 닿는 변화"):
             self.assertIn(f'weeklySection("{title}"', code)
-        for title in ("이번 주 판을 바꾼 것", "다음 주 하나만 본다면"):
+        self.assertEqual(code.count("weeklySection("), 2,
+                         "주간 판세 고정 코너는 둘이다")
+        for title in ("이번 주 판을 바꾼 것", "다음 주 하나만 본다면",
+                      "아직 결론 나지 않은 것"):
             self.assertNotIn(f'weeklySection("{title}"', code,
                              f"'{title}' 이 오늘 화면과 겹친 채로 돌아왔다")
-        for field in ("weekly_intro", "policy_shifts", "watchpoints"):
+        for field in ("weekly_intro", "policy_shifts", "watchpoints", "open_questions"):
             self.assertNotIn(field, code, f"{field} 은 오늘 화면 소유다")
 
     def test_flow_tab_opens_with_indicators_not_prose(self):
@@ -3019,10 +3094,9 @@ class WeeklyRenderTests(unittest.TestCase):
     def test_topic_direction_is_gated_on_comparable_week_samples(self):
         """모수가 주마다 다르면 ▲▼ 는 보도량이 아니라 수집량 변화를 말한다.
 
-        실측 2026-08-08: topic_series 주별 합계 22 / 59 / 86 / 580. 아카이브가
-        최근 2주만 밀도 있고 `topics` 필드도 분류기 도입 이후 레코드에만 붙어
-        있다. 그 위에서 슬로프 그래프는 '전력시장·요금 27 → 185건'이라고 했는데
-        그 주 전체 이슈는 73건이었다 — 이슈 총수보다 큰 '건수'가 화면에 떴다.
+        실측 2026-08-08: topic_series 주별 합계 22 / 59 / 86 / 580. 원인은
+        빌드에서 고쳤지만(build_topic_weeks) 게이트는 남긴다 — 수집이 다시
+        기울면 화면이 먼저 입을 다무는 쪽이 낫다.
         """
         self.assertIn("function topicWeeksComparable(", self.script)
         flow = self.script.split("function topicFlowRows()", 1)[1].split("\nfunction ", 1)[0]
@@ -3030,8 +3104,40 @@ class WeeklyRenderTests(unittest.TestCase):
         # 같은 재료를 쓰는 슬로프 그래프도 같은 게이트를 지난다.
         slope = self.script.split("function renderSlopeGraph()", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("topicWeeksComparable(weekTotals)", slope)
-        # 단위를 '이슈'라고 쓰지 않는다.
-        self.assertNotIn("연결 이슈 기준</p>", self.html.split('id="topicChart"', 1)[0][-400:])
+
+    def test_topic_span_follows_the_weeks_the_build_shipped(self):
+        """제목·pp 폭이 '4주'로 굳어 있으면 3주치를 4주라고 읽게 된다.
+
+        빌드가 부분 주를 버리므로(브리핑 6일 미만) 온전한 주는 3개일 수도 4개일
+        수도 있다. 화면은 받은 만큼만 말한다.
+        """
+        self.assertIn("function topicFlowSpan()", self.script)
+        flow = self.script.split("function topicFlowRows()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("const span = topicFlowSpan();", flow)
+        self.assertNotIn("values.length >= 4", flow, "폭이 4주로 굳어 있다")
+        render = self.script.split("function renderTrendTopicFlow()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("trendTopicFlowTitle", render, "제목이 실제 주 수를 말해야 한다")
+
+    def test_topic_unit_on_screen_matches_the_build(self):
+        """화면 문구와 집계 단위가 갈라지면 이슈 총수보다 큰 '건수'가 다시 뜬다."""
+        self.assertIn('"topic_series_unit": "issue"', (ROOT / "build_data.py").read_text(encoding="utf-8"))
+        note = self.html.split('id="topicChart"', 1)[0][-400:]
+        self.assertIn("이슈 수", note)
+        row = self.script.split("function topicFlowRow(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("표본 이슈 ${row.sample}건", row)
+        self.assertNotIn("기사·주제", row)
+
+    def test_arrow_and_numbers_describe_the_same_span(self):
+        """▼ 옆에 오르는 두 수가 붙으면 안 된다.
+
+        실측 2026-08-08: 화살표는 3주 변화(-10pp)인데 옆 문구는 '지난주 18% →
+        이번 주 19%' 였다. 한 줄에 서로 다른 두 비교가 있으면 독자가 어느 쪽을
+        믿어야 할지 모른다.
+        """
+        row = self.script.split("function topicFlowRow(", 1)[1].split("\nfunction ", 1)[0]
+        code = "\n".join(line for line in row.splitlines() if "<!--" not in line and "-->" not in line)
+        self.assertIn("row.shares[0]", code, "비교 시작점이 span 시작이 아니다")
+        self.assertNotIn("row.shares.at(-2)", code, "지난주 기준 비교가 돌아왔다")
 
     def test_panel_hidden_without_the_weekly_report(self):
         """'주간 판세'는 주간 리포트가 실제로 있을 때만 뜬다.
