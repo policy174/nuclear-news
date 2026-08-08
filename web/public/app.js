@@ -879,11 +879,23 @@ function issueCard(issue, index, archive = false, front = false) {
   // 124자인데 이 줄은 2줄(모바일 3줄)에서 잘린다. 잘린 분석문은 완결된 요약보다
   // 나쁘다. 대신 must_read 인데 implication 이 빈 17건은 summary 로 물러난다 —
   // 화면이 아니라 큐레이션 프롬프트에서 채울 구멍이다.
-  const why = (issue.implication || "").trim();
-  const leadText = why || issue.summary || "";
-  const lead = archive ? markMatch(leadText, state.archiveQuery) : esc(leadText);
+  //
+  // 2026-08-08: 카드를 문단 하나에서 라벨 붙은 세 칸으로 바꿨다. 장문 summary 는
+  // 카드에서 완전히 내려가 상세로만 간다 — 무엇을 읽을지 고르는 화면에서 문단을
+  // 읽게 만들면 스캔이 안 된다. 세 칸의 역할 분리(사실 / 영향 / 앞으로)는
+  // build_data.finalize_card_fields 가 확정해 둔다. 여기서 or 폴백을 쌓으면
+  // 그 계약이 두 곳으로 흩어진다.
+  const changeText = issueChangeText(issue);
+  const whyText = String(issue.card_why ?? (issue.implication || issue.why_important || "")).trim();
+  const nextText = String(issue.open_question || "").trim();
+  const mark = text => (archive ? markMatch(text, state.archiveQuery) : esc(text));
+  const cardRow = (label, text, extra = "") => (text
+    ? `<p class="issue-line"><span class="issue-line-label">${label}</span>${extra}<span class="issue-line-text">${mark(text)}</span></p>`
+    : "");
   // 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 해야 한다.
-  const visibleMatch = normalizedSearch(`${issue.title || ""} ${leadText}`).includes(state.archiveQuery);
+  const visibleMatch = normalizedSearch(
+    `${issue.title || ""} ${changeText} ${whyText} ${nextText}`
+  ).includes(state.archiveQuery);
   const matchContext = archive && state.archiveQuery && !visibleMatch
     ? `<p class="search-match">검색 조건 <mark>${esc(state.archiveQuery)}</mark>과 연결된 이슈입니다.</p>`
     : "";
@@ -905,7 +917,9 @@ function issueCard(issue, index, archive = false, front = false) {
     </div>
     <div class="issue-body">
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
-      ${leadText ? `<p class="issue-summary${why ? " issue-why" : ""}">${why ? `<span class="ai-badge">AI</span>` : ""}${lead}</p>` : ""}
+      ${cardRow("달라진 것", changeText)}
+      ${cardRow("왜 중요해요", whyText, `<span class="ai-badge">AI</span>`)}
+      ${cardRow("다음 확인", nextText)}
       ${selectionReason ? `<div class="issue-reason-row"><span class="issue-reason-chip topic-chip">${esc(selectionReason)}</span></div>` : ""}
       ${matchContext}
       ${archive ? trackingPeriod(issue) : ""}
@@ -938,12 +952,15 @@ function leadCard(issue, briefing) {
   // 않는다 — 같은 문장이 30cm 떨어져 두 번 서는 대신, 카드는 사실로 짧게 끝나고
   // 해석은 패널이 번호를 붙여 전개한다. 패널이 없는 폭에서는 전부 여기 선다
   // (모바일에서 해석 레이어가 잘리던 2026-08-03 감사의 재발 방지).
+  // '무슨 일'(= summary) 은 세우지 않는다. 변화 문장이 그 요약의 첫 문장으로
+  // 만들어지므로 두 블록이 구조적으로 같은 말이었다(실측 2026-08-08: 선두 카드
+  // '무슨 일' 과 근거 패널 '오늘의 변화' 가 20자 넘게 동일). 사실은 제목과
+  // '달라진 것' 이 말하고, 요약 전문은 상세에 그대로 있다.
   const blocks = [
-    issue.summary ? { label: "무슨 일", text: issue.summary, group: "fact" } : null,
+    model.change ? { label: "달라진 것", text: model.change.text, tone: "change", group: "fact" } : null,
     model.why ? { label: model.why.label, text: model.why.text, group: "read" } : null,
     model.impact ? { label: model.impact.label, text: model.impact.text, group: "read" } : null,
-    model.change ? { label: model.change.label, text: model.change.text, tone: "change", group: "fact" } : null,
-    model.openQuestion ? { label: "아직 확정되지 않은 것", text: model.openQuestion, tone: "open", group: "read" } : null,
+    model.openQuestion ? { label: "다음 확인", text: model.openQuestion, tone: "open", group: "read" } : null,
   ].filter(Boolean);
   const shown = railIsActive() ? blocks.filter(block => block.group === "fact") : blocks;
   return `<article id="issue-card-${esc(issue.issue_id)}" class="lead-card ${issueToneClass(issue)}">
@@ -1132,33 +1149,77 @@ function renderHomeIntelligence(briefing) {
         <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
         <span class="topic-spark" aria-label="최근 4주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
         <span class="topic-direction ${row.directional ? (row.delta > 0 ? "up" : "down") : "flat"}">${direction}</span>
-        <small>${Math.round(row.shares[0])}% → ${Math.round(row.shares[3])}%</small>
+        <small class="topic-figures">
+          <span class="topic-compare">지난주 ${Math.round(row.shares[2])}% → 이번 주 ${Math.round(row.shares[3])}%</span>
+          <span class="topic-delta">4주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
+          <span class="topic-sample">표본 ${row.sample}건</span>
+        </small>
       </div>`;
     }).join("");
   }
 
+  // 이번 주 해설이 담당하는 것은 '카드에 없는 연결·원인·파급'뿐이다.
+  //   · policy_shifts[].what  → 오늘 3분의 '이번 주 결론' 소유 (여기서 다시 안 낸다)
+  //   · theme_moves           → 바로 위 '주제 변화' 소유 (4주 방향)
+  //   · 남는 것 = weekly_intro(사건 간 연결) + so_what(파급효과)
+  // 셋을 다 내던 예전 구성은 한 화면에서 같은 문장을 세 번 보게 만들었다.
   const report = state.trend?.weekly_report;
   const story = document.getElementById("homeWeeklyStory");
-  story.hidden = !report;
-  if (report) {
-    const shifts = (report.policy_shifts || []).filter(row => row?.what).slice(0, 2);
-    const themes = (report.theme_moves || []).filter(row => row?.theme).slice(0, 2);
+  const intro = dropTextsAlreadyOnCards([report?.weekly_intro], briefing);
+  const soWhat = dropTextsAlreadyOnCards(
+    (report?.policy_shifts || []).map(row => row?.so_what), briefing
+  ).slice(0, 3);
+  // 새 관점이 하나도 없으면 억지로 채우지 않고 숨긴다.
+  story.hidden = intro.length === 0 && soWhat.length === 0;
+  if (!story.hidden) {
     document.getElementById("homeWeeklyStoryBody").innerHTML = `
-      ${report.weekly_intro ? `<p class="home-weekly-intro">${esc(report.weekly_intro)}</p>` : ""}
-      ${shifts.map(row => `<article><strong>${esc(row.what)}</strong>${row.so_what ? `<p>${esc(row.so_what)}</p>` : ""}</article>`).join("")}
-      ${themes.map(row => `<article><strong>${esc(row.theme)}</strong>${row.why ? `<p>${esc(row.why)}</p>` : ""}</article>`).join("")}`;
+      ${intro.map(text => `<p class="home-weekly-intro">${esc(text)}</p>`).join("")}
+      ${soWhat.map(text => `<article><p>${esc(text)}</p></article>`).join("")}`;
   }
+}
+
+// 카드가 이미 화면에 낸 문장은 오늘 3분에서 다시 내지 않는다. 정확히 같은 문장만
+// 막는다 — 어순·어미만 바꾼 재진술은 문자열로 못 잡고(app.js 아래 주석 참조),
+// 잘못 지우면 유일한 결론이 사라진다. 의미 중복은 fixture 와 수동 검토 몫이다.
+function dropTextsAlreadyOnCards(lines, briefing) {
+  const onScreen = new Set();
+  for (const issue of (briefing?.issues || [])) {
+    for (const text of [issue.title, issueChangeText(issue), issue.card_why, issue.open_question]) {
+      const clean = String(text || "").trim();
+      if (clean) onScreen.add(clean);
+    }
+  }
+  const seen = new Set();
+  return lines
+    .map(line => String(line || "").trim())
+    .filter(line => line && !onScreen.has(line) && !seen.has(line) && seen.add(line));
 }
 
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
-  const rows = (briefing?.issues || []).slice(0, 5);
-  agenda.hidden = rows.length === 0;
-  document.getElementById("todayAgendaMeta").textContent = rows.length ? `${rows.length}개 핵심 이슈` : "";
-  document.getElementById("todayAgendaList").innerHTML = rows.map((issue, index) => `
-    <li><a href="#issue-card-${esc(issue.issue_id)}" data-agenda-issue="${esc(issue.issue_id)}">
-      <span>${String(index + 1).padStart(2, "0")}</span><strong>${esc(issue.title)}</strong>
-    </a></li>`).join("");
+  const report = state.trend?.weekly_report;
+  // 이번 주 결론 = 판이 바뀐 것. theme_moves 는 4주 방향이라 '주제 변화'의 몫이고,
+  // 여기서 같이 내면 두 섹션이 같은 답을 한다.
+  const conclusions = dropTextsAlreadyOnCards(
+    (report?.policy_shifts || []).map(row => row?.what), briefing
+  ).slice(0, 3);
+  // 다음 확인은 카드의 open_question 이 사실상 비어 있어(실측 19건 중 0건) 주간
+  // watchpoints 가 화면에서 이 질문에 답하는 유일한 자리다.
+  const watch = dropTextsAlreadyOnCards(report?.watchpoints || [], briefing).slice(0, 3);
+
+  const conclusionBlock = document.getElementById("agendaConclusions");
+  conclusionBlock.hidden = conclusions.length === 0;
+  document.getElementById("agendaConclusionList").innerHTML =
+    conclusions.map(text => `<li>${esc(text)}</li>`).join("");
+
+  const watchBlock = document.getElementById("agendaWatch");
+  watchBlock.hidden = watch.length === 0;
+  document.getElementById("agendaWatchList").innerHTML =
+    watch.map(text => `<li>${esc(text)}</li>`).join("");
+
+  agenda.hidden = conclusions.length === 0 && watch.length === 0;
+  document.getElementById("todayAgendaMeta").textContent =
+    agenda.hidden ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
 function renderBriefing() {
@@ -1777,6 +1838,9 @@ async function copyIssuePack(button, issueId) {
 // 배지("단일 출처"·"공식 확인")와 같은 말이었고, 뒤에 붙던 "확정된 사실로 읽지
 // 마세요" 같은 훈수는 화면이 할 말이 아니다. 배지가 상태를 말하고, 근거 목록이
 // 출처를 보여준다 — 그 사이에 설명문이 낄 자리는 없다.
+//
+// '변화' 블록도 같은 이유로 뺐다(2026-08-08). 카드가 '달라진 것' 을 이미 세우고
+// 있어서 같은 문장이 30cm 떨어져 두 번 섰다. 패널이 담당하는 것은 근거·검증·출처다.
 
 function renderEvidenceRail() {
   const rail = document.getElementById("evidenceRail");
@@ -1809,10 +1873,6 @@ function renderEvidenceRail() {
       ${selectionReasons ? `<div class="topic-row rail-reasons">${selectionReasons}</div>` : ""}
     </div>
     <div class="rail-body">
-      ${model.change ? `<section class="rail-block">
-        <p class="rail-no">${no()} / ${esc(model.change.label)}</p>
-        <p>${esc(model.change.text)}</p>
-      </section>` : ""}
       ${readingBlock}
       <section class="rail-block">
         <p class="rail-no">${no()} / 핵심 근거</p>

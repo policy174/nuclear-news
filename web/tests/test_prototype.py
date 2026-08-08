@@ -454,16 +454,33 @@ class DataQualityGateTests(unittest.TestCase):
 
 
 class TodayAgendaContractTests(unittest.TestCase):
-    def test_today_agenda_uses_real_issue_hash_anchors(self):
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('<li><a href="#issue-card-${esc(issue.issue_id)}"', script)
-        self.assertIn('data-agenda-issue="${esc(issue.issue_id)}"', script)
+    def test_today_agenda_is_a_decision_screen_not_a_title_index(self):
+        """오늘 3분은 결론과 다음 확인만 담는다.
 
-    def test_standard_card_title_is_one_line_on_desktop(self):
+        제목 목차였을 때 두 가지가 깨졌다. ① 같은 제목이 목차와 카드에 두 번
+        나갔다. ② 목차는 필터·정렬 이전의 briefing.issues 를 슬라이스하는데 카드는
+        그 뒤에 걸러지고 다시 정렬돼서, 필터가 걸리면 목차 03 과 카드 03 이 서로
+        다른 이슈였고 앵커가 DOM 에 없는 카드를 가리키기도 했다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        agenda = script.split("function renderTodayAgenda(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertNotIn("issue-card-${esc(issue.issue_id)}", agenda, "목차 앵커가 돌아왔다")
+        self.assertNotIn("issue.title", agenda, "카드 제목을 다시 나열한다")
+        self.assertIn("policy_shifts", agenda)
+        self.assertIn("watchpoints", agenda)
+        # 카드에 이미 있는 문장은 걸러서 낸다.
+        self.assertIn("dropTextsAlreadyOnCards", agenda)
+        for element_id in ("agendaConclusions", "agendaConclusionList", "agendaWatch", "agendaWatchList"):
+            self.assertIn(f'id="{element_id}"', html)
+
+    def test_standard_card_title_is_two_lines_on_desktop(self):
+        """제목이 유일한 '무슨 일'이 된 뒤로 한 줄 말줄임은 사건을 지운다."""
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertIn(".issue-card:not(.front) .issue-title-button", style)
-        self.assertIn("text-overflow: ellipsis", style)
-        self.assertIn("white-space: nowrap", style)
+        rule = style.split(".issue-card:not(.front) .issue-title-button", 1)[1].split("}", 1)[0]
+        self.assertIn("-webkit-line-clamp: 2", rule)
+        self.assertNotIn("white-space: nowrap", rule)
 
 
 class ChangeLineTests(unittest.TestCase):
@@ -1149,6 +1166,42 @@ class GeneratedDataTests(unittest.TestCase):
         cls.issue_catalog = json.loads((data_dir / "issues.json").read_text(encoding="utf-8"))
         cls.publications = json.loads((data_dir / "publications.json").read_text(encoding="utf-8"))
 
+    def test_card_slots_never_repeat_the_same_sentence(self):
+        """제목 · 달라진 것 · 왜 중요해요 · 다음 확인은 서로 다른 말을 해야 한다.
+
+        의미 중복은 문자열로 못 잡는다(어순·어미만 바꾸면 유사도가 0.32까지
+        떨어진다). 여기서 막는 것은 **정확히 같은 문장**뿐이다 — 스펙의
+        '먼저 정확히 동일한 문장을 차단하고, 의미 중복은 수동 검토' 그대로다.
+        """
+        for briefing in self.briefings:
+            for issue in briefing.get("issues") or []:
+                slots = {
+                    "title": issue.get("title"),
+                    "change_display": issue.get("change_display"),
+                    "card_why": issue.get("card_why"),
+                    "open_question": issue.get("open_question"),
+                }
+                seen: dict[str, str] = {}
+                for name, text in slots.items():
+                    text = str(text or "").strip()
+                    if len(text) < 20:
+                        continue
+                    self.assertNotIn(
+                        text, seen,
+                        f"{briefing['date']} {issue.get('issue_id')}: "
+                        f"{seen.get(text)} 와 {name} 이 같은 문장이다",
+                    )
+                    seen[text] = name
+
+    def test_card_why_is_a_single_build_owned_field(self):
+        """화면이 or 폴백을 쌓으면 역할 분리 계약이 두 곳으로 흩어진다."""
+        rows = [row for briefing in self.briefings for row in (briefing.get("issues") or [])]
+        rows += self.issue_catalog
+        self.assertTrue(rows)
+        for row in rows:
+            self.assertIn("card_why", row, f"{row.get('issue_id')} 에 card_why 가 없다")
+            self.assertIn("change_display", row)
+
     def test_every_delivered_article_is_represented_once_in_its_briefing(self):
         for briefing in self.briefings:
             expected = sum(1 for article in self.news if article.get("briefing_date") == briefing["date"])
@@ -1698,10 +1751,15 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("primary_source_count", briefing)
             self.assertIn("tracked_issue_count", briefing)
             self.assertEqual(len(briefing["highlight_issues"]), min(3, briefing["issue_count"]))
-            # 요약과 같은 문장이면 변화 블록을 비운다(카드에 같은 문단 두 번 방지).
+            # 카드에 보이는 문장과 같으면 변화 블록을 비운다. 기준선이 summary 에서
+            # 제목·card_why 로 바뀌었다(2026-08-08) — summary 는 이제 카드에 없으므로
+            # 그걸 기준으로 지우면 카드의 유일한 사실 문장을 지우게 된다.
             for issue in briefing["issues"]:
-                if issue["latest_change"]:
-                    self.assertNotEqual(issue["latest_change"].rstrip(".!?"), issue["summary"].rstrip(".!?"))
+                display = str(issue.get("change_display") or "").strip().rstrip(".!?")
+                if not display:
+                    continue
+                self.assertNotEqual(display, str(issue["title"]).strip().rstrip(".!?"))
+                self.assertNotEqual(display, str(issue.get("card_why") or "").strip().rstrip(".!?"))
 
     def test_p4_home_splits_changed_issues_from_the_rest(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -1768,27 +1826,32 @@ class GeneratedDataTests(unittest.TestCase):
         # JS 스크롤은 CSS의 모션 감소 설정을 자동으로 따르지 않는다.
         self.assertIn('matchMedia("(prefers-reduced-motion: reduce)")', script)
 
-    def test_card_lead_is_the_implication_not_a_restated_title(self):
-        """카드의 두 번째 줄은 '무엇'이 아니라 '왜'다.
+    def test_card_body_is_three_labelled_slots_not_a_paragraph(self):
+        """카드는 문단 하나가 아니라 라벨 붙은 세 칸이다.
 
-        summary 는 제목을 어순만 바꿔 다시 쓴 문장이 대부분이라(8/3 브리핑 실측
-        8건 중 5건: '그리스 산불…가동 중단' → '그리스는 산불과 싸우고 있으며…
-        가동이 중단되었습니다') 같은 문장을 두 번 읽게 만들 뿐 정보를 더하지
-        않는다. implication — 상세 모달의 'Nuclens 해석' — 은 이미 만들어 두고도
-        두 탭 아래에만 두던 문장이다(110개 중 68개 보유).
+        전신 계약은 '두 번째 줄은 무엇이 아니라 왜'(implication 한 줄, summary
+        폴백)였다. 그 줄 하나로는 훑는 사람이 '무엇이 달라졌나 / 왜 중요한가 /
+        다음에 뭘 보나' 세 질문에 답할 수 없어서, 2026-08-08 개편에서 칸을 갈랐다.
+        summary 는 카드에서 완전히 내려갔다 — 제목을 어순만 바꿔 다시 쓴 문장이
+        대부분(8/3 실측 8건 중 5건)이라는 판단은 그대로 유효하고, 이제 그 문장은
+        상세에만 있다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
-        self.assertIn('const why = (issue.implication || "").trim();', script)
-        # implication 이 없는 이슈에서만 summary 로 물러난다 — 정보 손실 0
-        self.assertIn("const leadText = why || issue.summary", script)
+        card = script.split("function issueCard(", 1)[1].split("\nfunction ", 1)[0]
+        for label in ("달라진 것", "왜 중요해요", "다음 확인"):
+            self.assertIn(f'cardRow("{label}"', card, f"카드에 '{label}' 칸이 없다")
+        # 역할 분리는 build_data.finalize_card_fields 가 확정한다. 화면에서 or 로
+        # 다시 고르면 계약이 두 곳으로 흩어진다 — 스테일 데이터 대비 ?? 하나만 둔다.
+        self.assertIn("issue.card_why ??", card)
+        self.assertNotIn("issue.summary", card, "장문 summary 가 카드로 돌아왔다")
+        self.assertIn(".issue-line {", style)
+        self.assertIn(".issue-line-label {", style)
         # 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 한다
-        self.assertIn("${issue.title || \"\"} ${leadText}", script)
-        self.assertIn("issue-why", script)
-        self.assertIn(".issue-why {", style)
-        # AI 가 쓴 문장을 목록으로 올렸으면 목록에도 표시가 따라와야 한다.
-        # 배지 규칙('예외만 표시')과 달리 이건 고지라서 전 카드에 붙는다.
-        self.assertIn('${why ? `<span class="ai-badge">AI</span>` : ""}', script)
+        self.assertIn("${changeText} ${whyText} ${nextText}", card)
+        # AI 가 쓴 문장에는 고지가 따라붙는다. 배지 규칙('예외만 표시')과 달리
+        # 이건 신호가 아니라 고지라서 전 카드에 붙는다.
+        self.assertIn('<span class="ai-badge">AI</span>', card)
 
     def test_hero_h1_is_the_fixed_weekly_product_promise(self):
         """h1 은 일별 기사 제목이나 daily_lead 가 아니라 고정 제품 문구다."""
@@ -2097,12 +2160,13 @@ class GeneratedDataTests(unittest.TestCase):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn(".filter(Boolean)", lead)
-        for field in ("issue.summary ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
+        for field in ("model.why ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
             self.assertIn(field, lead)
-        # 라벨을 새로 짓지 않는다. issueDetailModel 이 근거일에 따라 '오늘의 변화'
-        # 와 '최근 변화'를 갈라 주는데, 여기서 '어제와 달라진 점'이라고 이름
-        # 붙이면 데이터가 보장하지 않는 것을 말하게 된다.
-        self.assertIn("model.change.label", lead)
+        # summary('무슨 일')는 뺐다 — 변화 문장이 그 요약으로 만들어지므로 두 블록이
+        # 구조적으로 같은 말이었다(2026-08-08 실측: 선두 카드와 근거 패널이 20자
+        # 넘게 동일). 라벨은 표준 카드와 같은 것을 쓴다.
+        self.assertNotIn('label: "무슨 일"', lead)
+        self.assertIn('label: "달라진 것"', lead)
         # 주석에서는 이 표현을 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
         code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
         self.assertNotIn("어제와 달라진", code)
@@ -2677,11 +2741,20 @@ class OpenQuestionRenderTests(unittest.TestCase):
     def setUp(self):
         self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
 
-    def test_detail_only_not_card(self):
-        """카드는 이미 3줄이고, 목록은 예외만 표시한다."""
+    def test_card_shows_it_as_the_next_check_slot(self):
+        """'다음 확인'은 카드의 세 번째 칸이다.
+
+        예전 계약은 '상세 전용, 카드에는 안 낸다'였다. 카드가 요약 한 줄이던
+        구조에서는 맞았지만, 2026-08-08 개편의 카드는 '다음에 뭘 확인하나'에
+        답하는 것이 세 칸 중 하나다. 채움률이 낮아(실측 168건 중 6건) 대부분
+        숨겨지는데, 그건 화면이 아니라 큐레이션에서 채울 구멍이다.
+        """
         self.assertIn("아직 확정되지 않은 것", self.script)
         card_fn = self.script.split("function issueCard(")[1].split("\nfunction ")[0]
-        self.assertNotIn("open_question", card_fn)
+        self.assertIn("issue.open_question", card_fn)
+        self.assertIn('cardRow("다음 확인", nextText)', card_fn)
+        # 값이 없으면 칸 자체가 안 선다 — 빈 라벨은 신호가 아니라 배경이 된다.
+        self.assertIn("text\n    ? `<p class=\"issue-line\">", self.script)
 
     def test_hidden_when_empty_and_escaped(self):
         self.assertIn("${issue.open_question ? `<p class=\"dialog-open\">", self.script)
@@ -3977,10 +4050,11 @@ class VisualSystemTests(unittest.TestCase):
         h3 = self._rule(".issue-card h3")
         gap = px(re.search(r"margin:\s*0 0 (\d+px)", h3).group(1))
         title_lh = float(re.search(r"line-height:\s*([\d.]+)", h3).group(1))
-        # _rule 은 부분 문자열로 찾으므로 ".issue-card.front .issue-summary {" 가
-        # 먼저 걸린다 — 요약 본체 규칙은 줄 시작에 앵커해서 꺼낸다.
-        summary = re.search(r"^\.issue-summary \{([^}]*)\}", self.style, re.M).group(1)
-        body_lh = float(re.search(r"line-height:\s*([\d.]+)", summary).group(1))
+        # 카드 본문은 라벨 붙은 세 칸(.issue-line)이다. 예전엔 요약 한 줄이라
+        # .issue-summary 를 읽었는데, 그 규칙은 이제 카드에 안 쓰인다.
+        line_rule = re.search(r"^\.issue-line \{([^}]*)\}", self.style, re.M).group(1)
+        body_lh = float(re.search(r"line-height:\s*([\d.]+)", line_rule).group(1))
+        line_gap = px(re.search(r"margin:\s*0 0 (\d+px)", line_rule).group(1))
         body_size = px(re.search(r"--t-body:\s*([\d.]+px)", self.style).group(1))
         topic_chip = self._rule(".topic-chip")
         reason_chip = self._rule(".issue-reason-chip.topic-chip")
@@ -3993,11 +4067,21 @@ class VisualSystemTests(unittest.TestCase):
         self.assertIn("margin: 0", reason_chip)
         self.assertNotIn("topic-row", self._rule(".issue-reason-row"))
 
-        height = pad * 2 + border + title_size * title_lh + gap + body_size * body_lh + chip_height
+        # 130px 계약은 카드가 요약 한 줄이던 시절의 것이다. 2026-08-08 개편으로
+        # 카드는 제목 2줄 + 라벨 붙은 세 칸 + 사유 칩이 됐고, 그 구조에서 130px 은
+        # 산술적으로 불가능하다. 계약을 완화한 게 아니라 새 구조로 다시 계산했다 —
+        # 상한을 지우면 다음 사람이 네 번째 칸을 얹는다.
+        title_lines, body_lines = 2, 3
+        height = (pad * 2 + border + title_size * title_lh * title_lines + gap
+                  + (body_size * body_lh + line_gap) * body_lines + chip_height)
         self.assertLessEqual(
-            height, 130,
-            f"표준 행이 {height:.0f}px — 130px 을 넘으면 폴드에 두 번째 행이 안 들어온다",
+            height, 220,
+            f"세 칸이 다 찬 카드가 {height:.0f}px — 220px 을 넘으면 폴드에 두 장이 안 들어온다",
         )
+        # 라벨 열이 접히면 역할 구분이 사라진다.
+        self.assertIn("white-space: nowrap", self._rule(".issue-line-label"))
+        # 각 칸은 정확히 한 줄. 문단 두 개가 연달아 서는 것을 CSS 에서 막는다.
+        self.assertIn("-webkit-line-clamp: 1", self._rule(".issue-line-text"))
 
         actions = self._rule(".issue-list .issue-card .issue-actions")
         self.assertIn("flex-direction: row", actions, "액션이 다시 세로로 쌓인다")

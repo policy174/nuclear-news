@@ -136,9 +136,20 @@
            스트립은 이제 걷힌다(style.css `.status-strip.ok`). -->
     </section>
 
+    <!-- 오늘 3분은 기사 목차가 아니라 의사결정용 스캔 화면이다. 제목 나열은
+         카드가 이미 하고 있어서 같은 문장을 두 번 내보내던 자리였고, 필터·정렬이
+         걸리면 목차 번호와 카드 번호가 어긋나기까지 했다. 이제 결론과 다음 확인만
+         담는다 — 새로 달라진 사실과 확인할 것이 이 영역의 소유 범위다. -->
     <nav id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
       <div class="agenda-head"><strong id="todayAgendaTitle">오늘 3분</strong><span id="todayAgendaMeta"></span></div>
-      <ol id="todayAgendaList"></ol>
+      <div class="agenda-block" id="agendaConclusions" hidden>
+        <span class="agenda-label">이번 주 결론</span>
+        <ol id="agendaConclusionList"></ol>
+      </div>
+      <div class="agenda-block" id="agendaWatch" hidden>
+        <span class="agenda-label">다음 확인</span>
+        <ul id="agendaWatchList"></ul>
+      </div>
     </nav>
 
     <div class="briefing-content-grid">

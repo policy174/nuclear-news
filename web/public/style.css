@@ -276,6 +276,9 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   font-weight: 700;
   letter-spacing: .1em;
   line-height: 1.25;
+  /* 375px 에서 날짜 내비와 같은 행에 놓이면 'TH IS WE EK' 로 네 줄이 됐다.
+     라벨은 접히면 라벨이 아니다. */
+  white-space: nowrap;
 }
 .empty { color: var(--c-text-muted); }
 
@@ -623,23 +626,33 @@ kbd {
 }
 .agenda-head strong { font-size: var(--t-body-lg); }
 .agenda-head span { color: var(--c-text-muted); font-size: var(--t-min); }
-.today-agenda ol { display: grid; margin: 0; padding: 0; list-style: none; }
-.today-agenda li { border-top: var(--bd-1) solid var(--c-border); }
-.today-agenda a {
+/* 결론과 다음 확인은 성격이 다르다 — 라벨 열을 왼쪽에 고정해 역할을 먼저 읽히게
+   하고, 굵기로 계층을 만들지 않는다. 목차였을 때의 링크 스타일은 버렸다. */
+.agenda-block {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: 84px minmax(0, 1fr);
   gap: var(--sp-3);
-  width: 100%;
   padding: var(--sp-3) 0;
-  border: 0;
-  background: transparent;
-  color: var(--c-text);
-  text-decoration: none;
-  text-align: left;
+  border-top: var(--bd-1) solid var(--c-border);
 }
-.today-agenda a:hover { background: var(--c-surface); }
-.today-agenda a span { color: var(--c-text-muted); font-family: var(--ff-mono); font-weight: 700; }
-.today-agenda a strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.agenda-label {
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.today-agenda ol,
+.today-agenda ul { display: grid; gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
+.today-agenda li { font-size: var(--t-body); line-height: 1.5; }
+.today-agenda ol li { counter-increment: agenda; }
+.today-agenda ol { counter-reset: agenda; }
+.today-agenda ol li::before {
+  content: counter(agenda, decimal-leading-zero) " ";
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-weight: 700;
+}
+.today-agenda ul li::before { content: "· "; color: var(--c-text-muted); }
 .issue-card[id], .lead-card[id] { scroll-margin-top: 92px; }
 .agenda-target { animation: agenda-pulse var(--mo-2) ease-out; }
 @keyframes agenda-pulse { 0%, 100% { background: transparent; } 35% { background: var(--c-surface-sunken); } }
@@ -778,7 +791,9 @@ kbd {
 .home-topic-flow { border-top: var(--bd-1) solid var(--c-border); }
 .home-topic-row {
   display: grid;
-  grid-template-columns: minmax(150px, 1.2fr) minmax(120px, 1fr) 104px 72px;
+  /* 마지막 열은 지난주→이번 주·4주 변화 폭·표본 세 조각을 받는다. 72px 이던
+     시절엔 한 조각이 세 줄로 접혀 숫자를 못 읽었다. */
+  grid-template-columns: minmax(150px, 1.2fr) minmax(120px, 1fr) 104px minmax(150px, auto);
   align-items: center;
   gap: var(--sp-4);
   min-height: 54px;
@@ -792,6 +807,10 @@ kbd {
 .topic-direction.down { color: var(--c-critical); }
 .topic-direction.flat,
 .home-topic-row small { color: var(--c-text-muted); }
+/* 방향만으로는 '얼마나'를 모른다. 지난주→이번 주 비교, 4주 변화 폭, 표본 수를
+   같이 낸다 — 표본이 작으면 방향 판단을 믿지 않아야 하기 때문이다. */
+.topic-figures { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--t-min); }
+.topic-sample { opacity: .75; }
 #homeWeeklyStoryBody { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 .home-weekly-intro { grid-column: 1 / -1; margin: 0; color: var(--c-text-secondary); font-size: var(--t-body-lg); line-height: 1.65; }
 #homeWeeklyStoryBody article { padding: var(--sp-4); border-top: var(--bd-1) solid var(--c-border); background: var(--c-surface-sunken); }
@@ -1135,11 +1154,14 @@ kbd {
   letter-spacing: -.032em;
 }
 @media (min-width: 768px) {
+  /* 제목은 최대 2줄. 한 줄 말줄임은 카드가 요약 한 문단을 달고 있을 때는 맞았지만,
+     세 칸으로 갈라진 뒤로는 제목이 유일한 '무슨 일'이라 자르면 사건을 알 수 없다. */
   .issue-card:not(.front) h3,
   .issue-card:not(.front) .issue-title-button {
+    display: -webkit-box;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
 /* 제목이 곧 상세 진입점이다. 좁은 화면에서 '타임라인' 버튼을 지워도 길이 남는다. */
@@ -1167,6 +1189,38 @@ kbd {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
+/* 카드의 세 칸. 역할은 라벨 열이 말한다 — 굵기를 늘려 계층을 만들지 않는다.
+   각 칸은 정확히 한 줄로 잘린다. 잘린 분석문이 완결된 요약보다 나쁘다는 건
+   여전히 맞지만, 그건 문단을 한 줄에 밀어 넣을 때 얘기다. 여기서는 문장 자체가
+   한 줄짜리로 만들어져 들어온다(build_data.finalize_card_fields). */
+.issue-line {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--sp-2);
+  margin: 0 0 4px;
+  font-size: var(--t-body);
+  line-height: 1.5;
+}
+.issue-line-label {
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  font-weight: 700;
+  line-height: 1.9;
+  white-space: nowrap;
+}
+.issue-line-text {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--c-text-secondary);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.issue-line .ai-badge { grid-column: 1; justify-self: start; line-height: 1.9; }
+/* AI 배지가 붙는 줄은 라벨 열을 배지와 나눠 쓴다 — 배지 때문에 본문이 밀리면
+   세 칸의 왼쪽 정렬선이 깨진다. */
+.issue-line:has(.ai-badge) { grid-template-columns: 72px auto minmax(0, 1fr); }
+.issue-line:has(.ai-badge) .ai-badge { grid-column: 2; }
+
 /* 해석(implication)이 들어온 줄은 요약과 성격이 다르다 — 사건의 재진술이 아니라
    '왜 중요한가'다. 훑는 사람이 그 차이를 읽기 전에 알아야 값을 한다. 얇은 좌측
    선 하나로만 구분한다(색 블록을 쓰면 아래 '변화' 블록과 경쟁한다). */
@@ -1256,7 +1310,8 @@ kbd {
 .tracking-period strong { color: var(--c-text-secondary); font-size: var(--t-min); }
 /* 목록 보기 = 같은 표에서 행 높이만 줄인 것. `.issue-body` 는 display:contents 라
    더 이상 여백을 갖지 않으므로 행 자체(.issue-card)의 padding 을 줄인다. */
-.issue-list.list-view .issue-summary { display: none; }
+.issue-list.list-view .issue-summary,
+.issue-list.list-view .issue-line { display: none; }
 .issue-list.list-view .issue-change { margin-top: 8px; padding-block: 7px; }
 .issue-list.list-view .issue-card { padding-block: 15px; }
 .issue-list.list-view .issue-card h3 { margin-bottom: 0; font-size: 18px; }
@@ -2320,7 +2375,12 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    /* 375px 에서 날짜 네비가 268px 을 가져가면 남는 폭으로는 '8월 8일 (토) ·
+       제22호'가 네 줄로 접혔다. 한 줄에 못 들어가면 네비를 아래로 내린다. */
+    flex-wrap: wrap;
   }
+  .briefing-hero.lead-issue .hero-stamp { flex: 1 1 auto; min-width: 0; }
+  .briefing-hero.lead-issue .hero-stamp span { white-space: nowrap; }
   .briefing-hero.lead-issue .date-nav { width: auto; flex: 1; max-width: 268px; }
   /* '달라진 이슈 보기'는 바로 다음 섹션으로 스크롤하고, '주간 흐름'은 하단 탭에
      이미 있다. 모바일에서 이 줄은 64px 짜리 중복이다. 데스크톱에는 남긴다. */

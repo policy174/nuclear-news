@@ -1814,20 +1814,31 @@ def latest_change_line(current: list[dict], history: list[dict]) -> str:
     return change
 
 
-def change_line_for_card(current: list[dict], history: list[dict], summary: str) -> str:
-    """요약을 그대로 되풀이하는 변화 문장은 비운다.
+def card_visible_text(title: str, implication: str, why_important: str) -> str:
+    """카드에 실제로 노출되는 문장들. 중복 판정의 유일한 기준선이다.
 
-    단독 기사 이슈는 '변화'가 요약과 같은 문장일 수밖에 없다. 이때 변화 블록을
-    남기면 같은 문단이 카드에 두 번 뜬다. 화살표가 있는 문장은 이전 상태 대비
-    새 정보이므로 그대로 둔다.
+    장문 summary 는 카드에서 내려가 상세로만 간다(2026-08-08 UX 개편). 예전에는
+    summary 를 기준으로 재진술을 걸렀는데, '달라진 것'은 대표 기사 요약으로
+    만들어지므로 summary 와 겹치는 게 당연했고 그 결과 168건 중 12건만 살아남아
+    변화 행이 사실상 비어 있었다(오늘 브리핑 19건 중 0건). 카드에 안 보이는
+    문장과 비교해 카드의 정보를 지우고 있었던 셈이다.
+    """
+    return f"{title or ''} {implication or why_important or ''}".strip()
+
+
+def change_line_for_card(current: list[dict], history: list[dict], visible: str) -> str:
+    """카드에 이미 보이는 문장을 그대로 되풀이하는 변화 문장은 비운다.
+
+    `visible` 은 `card_visible_text` 가 만든 제목+영향 한 덩어리다. 화살표가 있는
+    문장은 이전 상태 대비 새 정보이므로 그대로 둔다.
     """
     change = latest_change_line(current, history)
     if not change or "→" in change:
         return change
-    return "" if _is_restatement(summary, change) else change
+    return "" if _is_restatement(visible, change) else change
 
 
-def card_change_display(change: str, title: str, implication: str, summary: str) -> str:
+def card_change_display(change: str, title: str, implication: str, why_important: str) -> str:
     """카드에 실을 변화 문장 — 화면에 이미 보이는 문장의 재진술을 걷어낸다.
 
     화살표 문장의 뒤쪽(B)은 현재 요약으로 만들어지므로 구조적으로 카드와
@@ -1835,6 +1846,8 @@ def card_change_display(change: str, title: str, implication: str, summary: str)
     카드가 제목·요약·변화로 같은 말을 세 번 했다). 오늘 상태는 제목과 둘째
     줄이 이미 말하고 있으니, 화면에 없는 정보는 앞쪽(직전 상태)뿐이다 —
     그쪽만 '직전 브리핑:' 라벨로 남긴다.
+
+    비교 기준은 `card_visible_text` 하나뿐이다 — summary 는 더 이상 카드에 없다.
 
     `latest_change` 원본은 그대로 둔다 — changed_issue_count 의 화살표 집계와
     RSS·og 설명이 그 필드를 세고 있다. 이 함수는 표시 전용 필드를 만든다.
@@ -1844,12 +1857,51 @@ def card_change_display(change: str, title: str, implication: str, summary: str)
         return change
     before, _, after = change.partition("→")
     before = before.strip().rstrip(",")
-    visible = f"{title or ''} {implication or ''} {summary or ''}"
+    visible = card_visible_text(title, implication, why_important)
     if not _is_restatement(visible, after.strip()):
         return change
     if not before or _is_restatement(visible, before):
         return ""
     return f"직전 브리핑: {before}"
+
+
+def finalize_card_fields(rows: list[dict]) -> None:
+    """카드 3칸의 역할 분리를 마지막에 한 번 강제한다.
+
+    행을 만들 때 한 번 걸렀는데도 중복이 통과하던 이유는 순서였다 —
+    `issue_insight.apply` 가 행 생성 **뒤에** `implication` 을 덮어쓰기 때문에,
+    변화 문장은 덮어쓰기 전(대개 빈) 해석과 비교되고 있었다. 실측(2026-08-08
+    issue-aeda14d4): 비교 시점 `implication=''` → 통과 → 나중에 채워진 해석이
+    변화 문장과 같은 말이 됨.
+
+    그래서 모든 해석 단계가 끝난 뒤 여기서 한 번만 정한다. 우선순위는 스펙 순서
+    그대로 — 관찰 가능한 사실(`달라진 것`)이 영향(`왜 중요해요`)보다 앞이고,
+    겹치면 뒤쪽을 버린다.
+
+    `latest_change` 원본은 손대지 않는다. changed_issue_count·atlas·RSS 가 이미
+    그 필드로 집계를 끝냈고, 여기서 만드는 건 표시 전용 두 필드다.
+    """
+    for row in rows:
+        title = str(row.get("title") or "")
+        # visible 에 빈 문자열을 넘겨 제목만 기준으로 삼는다 — 해석은 아직 안 골랐다.
+        display = card_change_display(str(row.get("latest_change") or ""), title, "", "")
+        if display and _is_restatement(title, display):
+            display = ""
+
+        why = ""
+        for candidate in (row.get("implication"), row.get("why_important")):
+            candidate = str(candidate or "").strip()
+            if not candidate or _is_restatement(title, candidate):
+                continue
+            if display and _is_restatement(display, candidate):
+                continue
+            why = candidate
+            break
+
+        row["change_display"] = display
+        # 카드가 읽는 유일한 '왜 중요해요' 필드. 화면에서 or 폴백을 하면 이 계약이
+        # 두 곳에 흩어져 드리프트한다.
+        row["card_why"] = why
 
 
 def _is_primary_source(article: dict) -> bool:
@@ -2695,7 +2747,8 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             tracked_briefings = len({member["briefing_date"] for member in timeline})
             implication, why_important = split_interpretation(representative)
             change_line = change_line_for_card(
-                current, history, representative.get("summary", "")
+                current, history,
+                card_visible_text(representative["title_kr"], implication, why_important),
             )
             issue_detail, issue_detail_source = pick_detail(timeline, representative)
             report_topic, report_why, report_angles = pick_report_metadata(current)
@@ -2720,8 +2773,7 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "open_question": pick_open_question(timeline),
                 "latest_change": change_line,
                 "change_display": card_change_display(
-                    change_line, representative["title_kr"],
-                    implication, representative.get("summary", "")
+                    change_line, representative["title_kr"], implication, why_important
                 ),
                 "verification": verification_state(timeline, checked_at),
                 "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
@@ -2920,7 +2972,8 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
         )
         implication, why_important = split_interpretation(representative)
         archive_change_line = change_line_for_card(
-            current, history + evidence_timeline, representative.get("summary", "")
+            current, history + evidence_timeline,
+            card_visible_text(representative["title_kr"], implication, why_important),
         )
         # 엔티티 매칭은 여기(원 멤버)에서만 가능하다 — _article_view 가
         # canonical_tags 를 싣지 않으므로 직렬화 이후엔 재료가 없다.
@@ -2953,8 +3006,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "open_question": pick_open_question(card_timeline),
             "latest_change": archive_change_line,
             "change_display": card_change_display(
-                archive_change_line, representative["title_kr"],
-                implication, representative.get("summary", "")
+                archive_change_line, representative["title_kr"], implication, why_important
             ),
             "verification": verification_state(all_timeline, checked_at),
             "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
@@ -3435,6 +3487,11 @@ def build() -> None:
     applied = issue_insight.apply(issue_catalog, insights)
     for briefing in briefings:
         applied += issue_insight.apply(briefing.get("issues") or [], insights)
+    # 해석이 다 자리를 잡은 뒤에 카드 3칸의 역할 분리를 확정한다. 이 순서를 지켜야
+    # 나중에 덮어쓴 해석이 변화 문장과 같은 말이 되는 것을 잡는다.
+    finalize_card_fields(issue_catalog)
+    for briefing in briefings:
+        finalize_card_fields(briefing.get("issues") or [])
     print(f"[build_data] 이슈 해석: 후보 {insight_stats['candidates']}건 "
           f"(캐시 {insight_stats['from_cache']} / 신규 {insight_stats['asked']} / "
           f"호출 {insight_stats['calls']}회) → 적용 {applied}건 "
