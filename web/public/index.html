@@ -224,17 +224,13 @@
           </div>
         </section>
 
-        <section id="homeTopicFlow" class="home-intelligence" aria-labelledby="homeTopicFlowTitle" hidden>
-          <div class="section-heading">
-            <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="homeTopicFlowTitle">지금 세계 원자력은 어디로 가고 있나</h2></div>
-            <span class="data-note">최근 4주 · 주간 내 비중</span>
-          </div>
-          <div id="homeTopicFlowRows" class="home-topic-flow"></div>
-        </section>
+        <!-- 4주 주제 변화는 흐름 탭이 주인이다. 여기 같은 표를 또 두면 오늘 화면이
+             '오늘·이번 주'가 아니라 4주 추세까지 떠안고, 같은 숫자가 두 탭에 뜬다.
+             탭 이름이 이미 질문을 갈라놨다 — 오늘은 무슨 일, 흐름은 어느 방향. -->
 
         <section id="homeWeeklyStory" class="home-intelligence" aria-labelledby="homeWeeklyStoryTitle" hidden>
           <div class="section-heading">
-            <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="homeWeeklyStoryTitle">3분이면 이해되는 이번 주 원자력</h2></div>
+            <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="homeWeeklyStoryTitle">3분이면 이해되는 이번 주 원자력</h2></div>
           </div>
           <div id="homeWeeklyStoryBody"></div>
           <button type="button" class="secondary-button" data-go-view="trend">전체 흐름 보기</button>
@@ -385,7 +381,9 @@
           </section>
           <section class="data-card slope-card">
             <h2>주제별 주간 변화</h2>
-            <p class="data-note">상위 4개 주제와 기타 합계 · 연결 이슈 기준</p>
+            <!-- '연결 이슈 기준'이 아니다. topic_series 는 기사×주제 쌍을 센다 —
+                 그렇게 써 놓으니 이슈 총수(168)보다 큰 185건이 화면에 떴다. -->
+            <p class="data-note">상위 4개 주제와 기타 합계 · 기사·주제 쌍 기준</p>
             <div id="topicChart"></div>
             <p id="topicInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="topicEvidence"></div></details>

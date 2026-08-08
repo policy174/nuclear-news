@@ -1383,8 +1383,10 @@ class GeneratedDataTests(unittest.TestCase):
         }
         self.assertEqual(overlines, {"TODAY", "THIS WEEK"})
         self.assertIn("원자력 정책·산업 이슈 트래커", html)
-        self.assertIn('id="homeTopicFlow"', html)
-        self.assertIn('id="homeTopicFlowRows"', html)
+        # 4주 주제 변화는 흐름 탭이 주인이다 — 오늘 화면에 같은 표를 두면 같은
+        # 숫자가 두 탭에 뜬다. 오늘은 '무슨 일', 흐름은 '어느 방향'.
+        self.assertNotIn('id="homeTopicFlow"', html)
+        self.assertIn('id="trendTopicFlowRows"', html)
         self.assertIn("Nuclens는 제목·요약·출처 링크만 제공합니다.", html)
         self.assertIn("분석 기간 ${dateLabel(start)}–${dateLabel(end)}", script)
         self.assertIn("중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개", script)
@@ -3010,12 +3012,26 @@ class WeeklyRenderTests(unittest.TestCase):
         # 오늘 화면과 흐름 탭이 같은 계산을 쓴다 — 임계값이 갈라지면 같은 표가
         # 서로 다른 판단을 낸다.
         self.assertIn("function topicFlowRows()", self.script)
-        home = self.script.split("function renderHomeIntelligence(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("topicFlowRows()", home)
-        self.assertIn("topicFlowRow", home)
         # 방향 판단에는 표본이 따라붙는다 — 표본 없이 화살표만 보면 잡음을 추세로 읽는다.
         self.assertIn("topic-sample", self.script)
         self.assertIn("topic-delta", self.script)
+
+    def test_topic_direction_is_gated_on_comparable_week_samples(self):
+        """모수가 주마다 다르면 ▲▼ 는 보도량이 아니라 수집량 변화를 말한다.
+
+        실측 2026-08-08: topic_series 주별 합계 22 / 59 / 86 / 580. 아카이브가
+        최근 2주만 밀도 있고 `topics` 필드도 분류기 도입 이후 레코드에만 붙어
+        있다. 그 위에서 슬로프 그래프는 '전력시장·요금 27 → 185건'이라고 했는데
+        그 주 전체 이슈는 73건이었다 — 이슈 총수보다 큰 '건수'가 화면에 떴다.
+        """
+        self.assertIn("function topicWeeksComparable(", self.script)
+        flow = self.script.split("function topicFlowRows()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("if (!topicWeeksComparable(totals)) return [];", flow)
+        # 같은 재료를 쓰는 슬로프 그래프도 같은 게이트를 지난다.
+        slope = self.script.split("function renderSlopeGraph()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("topicWeeksComparable(weekTotals)", slope)
+        # 단위를 '이슈'라고 쓰지 않는다.
+        self.assertNotIn("연결 이슈 기준</p>", self.html.split('id="topicChart"', 1)[0][-400:])
 
     def test_panel_hidden_without_the_weekly_report(self):
         """'주간 판세'는 주간 리포트가 실제로 있을 때만 뜬다.

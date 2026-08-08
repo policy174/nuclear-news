@@ -1926,6 +1926,20 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .weekly-item { margin-top: 10px; }
 .weekly-item p { margin: 0 0 2px; color: var(--c-text-secondary); }
 .weekly-item strong { color: var(--c-text); }
+/* 테마 강약은 라벨 열로 뗀다 — 화살표·테마·설명이 한 문장이면 훑는 눈이 걸릴
+   데가 없다. 카드의 세 칸과 같은 원칙이고, 방향 색은 주제 변화 표와 같은 어휘다. */
+.theme-move {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-top: var(--bd-1) solid var(--c-border);
+}
+.theme-move:first-of-type { border-top: 0; }
+.theme-name { margin: 0; color: var(--c-text); font-weight: 700; white-space: nowrap; }
+.theme-name.up { color: var(--c-positive); }
+.theme-name.down { color: var(--c-critical); }
+.theme-body p { margin: 0 0 6px; }
 .weekly-list { margin: 6px 0 0; padding-left: 18px; color: var(--c-text-secondary); }
 .weekly-list li { margin-bottom: 4px; }
 .weekly-evidence { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
@@ -2617,6 +2631,8 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .topic-spark { grid-column: 1 / -1; grid-row: 2; height: 22px; }
   .home-topic-row small { grid-column: 1 / -1; grid-row: 3; }
   .topic-direction { justify-self: end; }
+  /* 132px 라벨 열은 좁은 화면에서 본문을 반으로 자른다 — 테마명을 윗줄로 올린다. */
+  .theme-move { grid-template-columns: minmax(0, 1fr); gap: var(--sp-1); }
   #homeWeeklyStoryBody { grid-template-columns: 1fr; }
   .home-weekly-intro { grid-column: 1; }
   .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-signal-ink); font-size: var(--t-min); font-weight: 700; }

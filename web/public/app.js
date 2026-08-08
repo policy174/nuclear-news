@@ -1119,14 +1119,30 @@ function weeklyChangedIssues(briefing) {
     .slice(0, 5);
 }
 
-// 4주 주제 변화. 오늘 화면과 흐름 탭이 같은 계산·같은 행을 쓴다 — 두 곳에서
-// 따로 계산하면 임계값(8pp·표본 8)이 갈라지고, 같은 표가 서로 다른 판단을 낸다.
+// 주간 표본이 서로 비교 가능한가. topic_series 는 기사×주제 쌍을 세는데, 그 모수가
+// 주마다 다르면 방향 판단이 '원자력 이슈가 늘었다'가 아니라 '데이터가 늘었다'가 된다.
+//
+// 실측 2026-08-08: 주별 합계 22 / 59 / 86 / 580. 아카이브가 최근 2주만 밀도 있고
+// (W31 284기사 → 86쌍, W32 1113기사 → 758쌍) `topics` 필드도 분류기 도입 이후
+// 레코드에만 붙어 있다. 이 위에서 계산한 4주 변화 폭·표본 수·▲▼ 는 전부 무효였다.
+// 모수가 2배 안으로 들어오면 저절로 다시 뜬다.
+const TOPIC_WEEK_SAMPLE_RATIO = 2;
+
+function topicWeeksComparable(totals) {
+  const low = Math.min(...totals);
+  const high = Math.max(...totals);
+  return low > 0 && high / low <= TOPIC_WEEK_SAMPLE_RATIO;
+}
+
+// 4주 주제 변화. 흐름 탭이 이 표의 주인이다 — 오늘 화면은 '오늘·이번 주'를,
+// 흐름은 '4주간 어느 방향으로'를 맡는다.
 function topicFlowRows() {
   const series = state.trend?.topic_series || {};
   const entries = Object.entries(series).filter(([, values]) => Array.isArray(values) && values.length >= 4);
   if (!entries.length || (state.trend?.weeks || []).length < 4) return [];
   const recent = entries.map(([topic, values]) => ({ topic, values: values.slice(-4).map(Number) }));
   const totals = [0, 1, 2, 3].map(index => recent.reduce((sum, row) => sum + (row.values[index] || 0), 0));
+  if (!topicWeeksComparable(totals)) return [];
   return recent.map(row => {
     const shares = row.values.map((value, index) => totals[index] ? value / totals[index] * 100 : 0);
     const delta = shares[3] - shares[0];
@@ -1146,7 +1162,8 @@ function topicFlowRow(row) {
     <small class="topic-figures">
       <span class="topic-compare">지난주 ${Math.round(row.shares[2])}% → 이번 주 ${Math.round(row.shares[3])}%</span>
       <span class="topic-delta">4주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
-      <span class="topic-sample">표본 ${row.sample}건</span>
+      <!-- 단위는 기사×주제 쌍이다. '이슈'라고 쓰면 이슈 총수보다 큰 숫자가 나온다. -->
+      <span class="topic-sample">표본 ${row.sample}개(기사·주제)</span>
     </small>
   </div>`;
 }
@@ -1160,12 +1177,6 @@ function renderHomeIntelligence(briefing) {
   metrics.hidden = confirmedRate < 0.5;
   metrics.textContent = metrics.hidden ? "" : `근거 확인 ${confirmed.length}건 · 주간 이슈 ${weeklyIssues.length}건`;
 
-  const topicSection = document.getElementById("homeTopicFlow");
-  const rows = topicFlowRows();
-  topicSection.hidden = rows.length === 0;
-  if (!topicSection.hidden) {
-    document.getElementById("homeTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
-  }
 
   // 이번 주 해설이 담당하는 것은 '카드에 없는 연결·원인·파급'뿐이다.
   //   · policy_shifts[].what  → 오늘 3분의 '이번 주 결론' 소유 (여기서 다시 안 낸다)
@@ -1333,6 +1344,7 @@ function renderBriefing() {
   clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
   renderBriefingSidebar(briefing, leadId);
   renderNewsFeed();
+  renumberSections("view-news");
 }
 
 // ── 오디오 브리핑 플레이어 ──────────────────────────────────
@@ -2104,6 +2116,19 @@ function renderSlopeGraph() {
     box.innerHTML = '<p class="empty">주간 데이터가 더 필요합니다.</p>';
     return;
   }
+  // 위 4주 표와 같은 재료를 쓴다 — 모수가 주마다 다르면 이 기울기도 보도량 변화가
+  // 아니라 수집량 변화다. 실측 2026-08-08: 전주 86 → 이번 주 580 에서 '전력시장·요금
+  // 27 → 185건'이 나왔는데, 그 주 전체 이슈는 73건이었다.
+  const weekTotals = [
+    topics.reduce((sum, row) => sum + row.prev, 0),
+    topics.reduce((sum, row) => sum + row.now, 0),
+  ];
+  if (!topicWeeksComparable(weekTotals)) {
+    box.innerHTML = '<p class="empty">두 주의 수집량 차이가 커서 아직 비교할 수 없습니다.</p>';
+    document.getElementById("topicInterpretation").textContent = "";
+    document.getElementById("topicEvidence").innerHTML = "";
+    return;
+  }
   topics.sort((a, b) => Math.max(b.prev, b.now) - Math.max(a.prev, a.now));
   const top = topics.slice(0, 4);
   if (topics.length > 4) {
@@ -2201,6 +2226,8 @@ function renderWeeklyReport() {
 
   const themes = (report?.theme_moves || []).filter(row => row && row.theme);
   const arrow = { "강화": "▲", "약화": "▼", "유지": "―" };
+  // 방향 색은 주제 변화 표(.topic-direction)와 같은 어휘를 쓴다.
+  const DIRECTION_TONE = { "강화": "up", "약화": "down", "유지": "flat" };
 
   // '이번 주 판을 바꾼 것'(weekly_intro + policy_shifts)과 '다음 주 하나만
   // 본다면'(watchpoints)은 뺐다. 오늘 화면의 '이번 주 결론'·'다음 확인'·'이번 주
@@ -2208,11 +2235,15 @@ function renderWeeklyReport() {
   // 문단 중 일곱 문장이 오늘 탭과 글자 그대로 동일. 탭을 옮겼는데 같은 글이
   // 다시 나오면 그건 깊이가 아니라 반복이다.
   document.getElementById("weeklyReportBody").innerHTML = [
+    // 테마명을 라벨 열로 뗀다. 화살표·테마·설명이 한 문장으로 이어져 있으면
+    // 훑는 눈이 걸릴 데가 없다 — 카드의 세 칸과 같은 원칙이다.
     weeklySection("조용하지만 놓치면 안 되는 것", "투자 테마 강약",
       themes.map(row =>
-        `<div class="weekly-item"><p><strong>${esc(arrow[row.direction] || "―")} ${esc(row.theme)}</strong>`
-        + (row.why ? ` — ${esc(row.why)}` : "") + `</p>`
-        + evidenceChips(row.evidence) + `</div>`).join("")),
+        `<div class="weekly-item theme-move">`
+        + `<p class="theme-name ${DIRECTION_TONE[row.direction] || "flat"}">`
+        + `${esc(arrow[row.direction] || "―")} ${esc(row.theme)}</p>`
+        + `<div class="theme-body">${row.why ? `<p>${esc(row.why)}</p>` : ""}`
+        + evidenceChips(row.evidence) + `</div></div>`).join("")),
     weeklySection("한수원에 직접 닿는 변화", "",
       report?.khnp_direct ? `<p>${esc(report.khnp_direct)}</p>` : ""),
     weeklySection("아직 결론 나지 않은 것", "이슈당 한 번만 · 최신순",
@@ -2250,6 +2281,20 @@ function renderBriefingTimeline() {
   }).join("");
 }
 
+// 구역 번호는 화면에 실제로 선 구역을 센다. 조건부 구역이 늘면서 01 이 숨은 날
+// 흐름 탭이 02 부터 시작했다 — 번호가 있는데 앞이 비면 뭔가 빠졌다고 읽힌다.
+// HTML 의 숫자는 편집 순서를 적어 두는 용도로 남기고, 표시값만 여기서 고친다.
+function renumberSections(viewId) {
+  const view = document.getElementById(viewId);
+  if (!view) return;
+  let index = 0;
+  for (const marker of view.querySelectorAll(".sec-no")) {
+    const host = marker.closest("section");
+    if (host && host.hidden) continue;
+    marker.textContent = String(++index).padStart(2, "0");
+  }
+}
+
 function renderTrend() {
   renderTrendTopicFlow();
   renderWeeklyReport();
@@ -2257,6 +2302,9 @@ function renderTrend() {
   renderTrendReadiness();
   // 지난 브리핑은 트렌드 집계 준비 여부와 무관하다 — 이른 return 앞에서 그린다.
   renderBriefingTimeline();
+  // 번호가 붙은 구역은 전부 위에서 결정됐다 — 아래 정량 블록에는 sec-no 가 없으므로
+  // trend_ready 조기 return 앞에서 매긴다.
+  renumberSections("view-trend");
   if (!state.meta?.trend_ready) return;
   renderKeywordTable();
   bars(document.getElementById("countryBars"), state.trend.countries_30d, row => COUNTRY_LABELS[row.country] || row.country);
