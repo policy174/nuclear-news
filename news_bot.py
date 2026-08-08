@@ -116,6 +116,11 @@ OFFICIAL_DIRECT_SOURCES = [
      "name": "원자력연구원 보도자료", "publisher": "한국원자력연구원", "domain_label": "kaeri.re.kr"},
 ]
 
+# 게시판 개편·차단·403 은 예외 없이 0건으로 조용히 지나간다. 실패 사유를 run 단위로
+# 들고 있다가 state 에 같이 적어야 "언제부터 죽었나"를 git 히스토리에서 되짚을 수
+# 있다 — stdout print 는 Actions 로그 보존기간이 끝나면 사라진다.
+OFFICIAL_FETCH_ERRORS: dict[str, str] = {}
+
 # ---- 해외 Tier 1 추가 (2026-07-31) ------------------------------------------
 # 사내 카톡방 7개월 큐레이션 분석(nuclear-news-web/research/)의 실측 빈도 상위 출처.
 # 전용 RSS가 검증된 곳은 직접, 없는 곳은 검증된 Google News site:+when: 패턴으로 우회.
@@ -1809,6 +1814,7 @@ def fetch_official_direct(src: dict) -> list[dict]:
             return parse_kaeri_board(response.text, publisher=src["publisher"], domain=src["domain_label"])
         return []
     except Exception as exc:
+        OFFICIAL_FETCH_ERRORS[src.get("name", "?")] = f"{type(exc).__name__}: {exc}"[:160]
         print(f"  ! 공식기관 직접 수집 실패 [{src.get('name')}]: {exc}")
         return []
 
@@ -1897,12 +1903,17 @@ def collect_discovery(state: dict, anchors: list[str], negative_terms: str = "")
 def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
     by_title: dict[str, dict] = {}
+    OFFICIAL_FETCH_ERRORS.clear()
+    counts: dict[str, int] = {}
 
     # 공식기관을 먼저 넣는다. 같은 제목이 Google News 경유 피드에도 있으면 직접
     # 원문이 by_title 을 선점해 canonical URL과 primary 분류가 보존된다.
     for src in OFFICIAL_DIRECT_SOURCES + RSS_SOURCES:
         items = fetch_official_direct(src) if src.get("kind") else fetch_rss(src["url"])
         channel = "OFFICIAL" if src.get("kind") else "RSS"
+        # cutoff·중복 필터 이전 값이다. 게시판에 닿았느냐 자체가 신호라서,
+        # 오늘 새 글이 없어서 0인 것과 파서가 죽어서 0인 것을 굳이 안 섞는다.
+        counts[src["name"]] = len(items)
         print(f"[{channel}] {src['name']}: {len(items)} entries")
         for item in items:
             if item["pub"] < cutoff:
@@ -1942,6 +1953,17 @@ def collect_rss_articles(state: dict) -> list[dict]:
                     by_title[norm] = candidate
                 continue
             by_title[norm] = candidate
+
+    # sent.json 은 매 run 커밋되므로 이 블록이 곧 소스별 수집 실적 시계열이 된다.
+    state["source_yield"] = {
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "counts": counts,
+        "errors": dict(OFFICIAL_FETCH_ERRORS),
+    }
+    dead = [src["name"] for src in OFFICIAL_DIRECT_SOURCES if not counts.get(src["name"])]
+    if dead:
+        # 빌드를 깨지 않는다. 외부 게시판 하나 때문에 시간당 수집 전체를 멈추는 건 과하다.
+        print(f"::warning title=공식기관 직접 수집 0건::{', '.join(dead)}")
 
     return list(by_title.values())
 

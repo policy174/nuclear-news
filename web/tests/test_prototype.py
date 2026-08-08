@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import os
 import re
@@ -5,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from collections import Counter
+from unittest import mock
 from html import escape as html_escape
 from itertools import combinations
 from pathlib import Path
@@ -375,6 +378,26 @@ class OfficialDirectSourceTests(unittest.TestCase):
         for field, value in (("title", "다른 발표"), ("publisher", "다른 기관"), ("domain", "example.com")):
             changed = {**direct, field: value}
             self.assertFalse(news_bot.canonical_replacement_allowed(google, changed), field)
+
+    def test_zero_yield_official_sources_are_recorded_in_state_and_warned(self):
+        """게시판이 죽으면 예외 없이 0건이 된다. state 기록과 경고가 유일한 신호다."""
+        state = {"sent": {}}
+        buffer = io.StringIO()
+        with mock.patch.object(news_bot, "RSS_SOURCES", []), \
+             mock.patch.object(news_bot, "fetch_official_direct", return_value=[]), \
+             contextlib.redirect_stdout(buffer):
+            news_bot.collect_rss_articles(state)
+
+        yields = state["source_yield"]
+        self.assertEqual(
+            set(yields["counts"]),
+            {source["name"] for source in news_bot.OFFICIAL_DIRECT_SOURCES},
+        )
+        self.assertEqual(set(yields["counts"].values()), {0})
+        self.assertTrue(yields["at"])
+        self.assertIn("::warning title=공식기관 직접 수집 0건", buffer.getvalue())
+        for source in news_bot.OFFICIAL_DIRECT_SOURCES:
+            self.assertIn(source["name"], buffer.getvalue())
 
 
 class DataQualityGateTests(unittest.TestCase):
