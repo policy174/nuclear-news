@@ -1,31 +1,4 @@
 {
-  "d354761b0ebd6dc2": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 3,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "domestic",
-    "category": "정책",
-    "title_kr": "산업통상부 관련 정보 미상",
-    "summary": "산업통상부",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-25T16:42:48.961455+00:00",
-    "title": "- 산업통상부",
-    "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxOUF9SWVpqejlSTlhUQ0xWS2dmdkJrUzl4RWkyR3Vxd1JPTENSM05KaWdzMTFIb1JWbGl5UXlvdjRTZHdGSk5HX2sxeVNIcTY2bWt3MW1iblFnTEh1cndCbzl3Q2ZxMDFYaVh6SEJxRjBDRDV4RGUyVC05TTg4NDlJR0owUEkxdkdiNGRZam9NVmdwUlFNMGhUbGlzUjFDQ0FYa2lPam1UV2hsanZ3aWxpLW5PRW10eDJhQ0Q1MGpDdWlBM3Q1THFWQXhsRExFcHphTXRsVG11Wjk4cDQ5ZW1RSWVfX2RYX1JURUloOWUzQzF1ZGtEREVzX3p4ZnpqLVd3NFp1RHI3TmlvaWVzM1daRFdYNGUwZG5fTGN0b0NwMlg5S1Q0VzBxd0VkT3FKc2tKZ2s0dDdOLUE0OS1jTjlESUlB?oc=5",
-    "feed": "정책",
-    "domain": "motie.go.kr",
-    "matched": "산업부 보도자료"
-  },
   "07a1e14981e64af7": {
     "features": {
       "event_type": "other",
@@ -63358,5 +63331,94 @@
     "feed": "정책",
     "domain": "theguru.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "cc9b596effa64c1d": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "regulation"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "원안위, 원자력이용시설 폭염 대응 현황 점검",
+    "summary": "원자력안전위원회(원안위)가 전국적인 폭염 지속에 따라 원자력이용시설의 안전성 및 대응 상황을 긴급 점검하고 철저한 모니터링과 신속 대응을 요구했다.",
+    "detail": "",
+    "implication": "원안위의 이번 점검은 여름철 폭염으로 인한 원자력시설의 잠재적 운영 리스크를 선제적으로 관리하고 안전성을 확보하기 위한 조치이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-08T17:19:16.761101+00:00",
+    "title": "원안위, 원자력이용시설 폭염 대응 현황 점검",
+    "link": "https://www.nssc.go.kr/ko/cms/FR_BBS_CON/BoardView.do?BBS_SEQ=47014&BOARD_SEQ=5&CONTENTS_NO=1&MENU_ID=190&SITE_NO=2",
+    "feed": "정책",
+    "domain": "nssc.go.kr",
+    "matched": "원안위 보도자료"
+  },
+  "db6cd6e0f8a8f003": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "regulation"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한수원, 통합 원전정비원자격제도 정부인정 획득으로 정비 신뢰도 제고",
+    "summary": "한국수력원자력(한수원)이 기존 협력사별로 운영되던 원전 정비 자격제도를 통합한 '통합 원전정비원자격제도'가 고용노동부 산하 한국산업인력공단으로부터 정부인정을 받았다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#인력양성",
+      "#원전정비"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-08T17:19:16.761101+00:00",
+    "title": "\"원전 정비 자격 하나로 묶었다\"…한수원, 정부인정 자격제도 결실",
+    "link": "https://www.gukjenews.com/news/articleView.html?idxno=3659470",
+    "feed": "정책",
+    "domain": "gukjenews.com",
+    "matched": "한국수력원자력"
   }
 }
