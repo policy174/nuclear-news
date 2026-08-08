@@ -2292,8 +2292,11 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .archive-filters { position: static; grid-template-columns: repeat(2, 1fr); }
   .archive-query, .archive-filters fieldset, .archive-filters .clear-filters { grid-column: 1 / -1; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
+  /* 수치는 좁은 화면에서도 남긴다. 예전엔 통째로 display:none 이라 화살표만
+     남았는데, 표본 없이 방향만 보면 잡음을 추세로 읽는다. 열을 줄이는 대신
+     아래 줄로 내린다. */
   .home-topic-row { grid-template-columns: minmax(120px, 1fr) 100px 92px; }
-  .home-topic-row small { display: none; }
+  .home-topic-row small { grid-column: 1 / -1; grid-row: 2; }
   #reportCandidateList { grid-template-columns: 1fr; }
 }
 
@@ -2610,8 +2613,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   }
   .mobile-tabs button.active { color: #fff; }
   .mobile-tabs button.active::before { position: absolute; top: 0; right: 20%; left: 20%; height: var(--bd-3); background: var(--c-signal); content: ""; }
-  .home-topic-row { grid-template-columns: minmax(0, 1fr) 82px; gap: var(--sp-3); padding: var(--sp-2) 0; }
+  .home-topic-row { grid-template-columns: minmax(0, 1fr) 82px; gap: var(--sp-2) var(--sp-3); padding: var(--sp-2) 0; }
   .topic-spark { grid-column: 1 / -1; grid-row: 2; height: 22px; }
+  .home-topic-row small { grid-column: 1 / -1; grid-row: 3; }
   .topic-direction { justify-self: end; }
   #homeWeeklyStoryBody { grid-template-columns: 1fr; }
   .home-weekly-intro { grid-column: 1; }

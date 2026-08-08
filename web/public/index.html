@@ -323,21 +323,33 @@
         <h1 id="trendTitle">흐름</h1>
       </div>
     </div>
-    <!-- 금요일 주간 판세 리포트. 고정 코너 5개로 매주 같은 자리에서 같은 질문에
-         답한다 — 반복되는 편집 형식이 서비스의 목소리를 만든다. 리포트가 없는
-         주(목요일 이전)에는 통째로 숨기고 아래 정량 트렌드만 보인다. -->
+    <!-- 흐름 탭은 지표로 시작한다. 예전 첫 화면은 산문 여섯 문단이었고 그중
+         일곱 문장이 오늘 탭이 이미 낸 것과 글자 그대로 같았다 — 탭을 눌러
+         들어와서 방금 본 것을 다시 읽는 화면이었다. 설명문을 읽기 전에 방향과
+         크기를 먼저 알아볼 수 있어야 한다. -->
+    <section id="trendTopicFlow" class="home-intelligence" aria-labelledby="trendTopicFlowTitle" hidden>
+      <div class="section-heading compact">
+        <div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="trendTopicFlowTitle">4주 동안 어디로 움직였나</h2></div>
+        <span class="data-note">주간 내 비중 · 8pp 이상·표본 8건 이상일 때만 방향 표시</span>
+      </div>
+      <div id="trendTopicFlowRows" class="home-topic-flow"></div>
+    </section>
+    <!-- 주간 판세. 오늘 탭이 담당하는 것(이번 주 결론 = policy_shifts.what,
+         해설 = weekly_intro·so_what, 다음 확인 = watchpoints)은 여기서 내지
+         않는다. 흐름이 담당하는 것은 4주 관점 — 테마 강약, 한수원 직접 영향,
+         아직 결론 나지 않은 것. 리포트가 없는 주에는 통째로 숨긴다. -->
     <section id="weeklyReport" class="weekly-report" aria-labelledby="weeklyReportHeading" hidden>
       <!-- 오버라인 없음. 영문 오버라인은 TODAY·THIS WEEK 두 종으로 줄인 결정이
            있고, 바로 아래 '이번 주 이어지는 흐름'이 이미 THIS WEEK 을 쓴다.
            같은 시간 범위에 라벨을 두 번 다는 건 신호가 아니라 잡음이다. -->
-      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="weeklyReportHeading">주간 판세</h2></div><span id="weeklyReportMeta" class="data-note"></span></div>
+      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">02</span><h2 id="weeklyReportHeading">주간 판세</h2></div><span id="weeklyReportMeta" class="data-note"></span></div>
       <div id="weeklyReportBody"></div>
     </section>
     <section class="flow-panel" aria-labelledby="flowHeading">
       <!-- 오버라인은 위 트렌드 머리(THIS WEEK)가 이미 달았다. 같은 시간 범위에
            두 번 붙이면 라벨이 아니라 배경이 된다 — 여기서는 구역 번호로 가른다. -->
       <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">02</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
+        <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
         <span class="data-note">보도량·보도 일수·매체 수 기준</span>
       </div>
       <div id="insightList"></div>
@@ -385,7 +397,7 @@
          쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
     <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
       <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
+        <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
         <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
       </div>
       <ol id="briefingTimelineList"></ol>

@@ -2979,11 +2979,43 @@ class WeeklyRenderTests(unittest.TestCase):
         self.html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
 
-    def test_five_fixed_sections(self):
-        for title in ("이번 주 판을 바꾼 것", "조용하지만 놓치면 안 되는 것",
-                      "한수원에 직접 닿는 변화", "다음 주 하나만 본다면",
+    def test_weekly_report_only_owns_the_four_week_corners(self):
+        """주간 판세는 오늘 화면이 담당하는 문장을 다시 내지 않는다.
+
+        고정 코너는 다섯이었다. 그중 '이번 주 판을 바꾼 것'(weekly_intro +
+        policy_shifts)과 '다음 주 하나만 본다면'(watchpoints)은 오늘 화면의
+        '이번 주 결론'·'이번 주 해설'·'다음 확인'과 같은 재료다 — 실측
+        2026-08-08: 흐름 첫 화면 산문 여섯 문단 중 일곱 문장이 오늘 탭과 글자
+        그대로 동일했다. 탭을 옮겼는데 같은 글이 다시 나오면 깊이가 아니라 반복이다.
+        """
+        weekly = self.script.split("function renderWeeklyReport(", 1)[1].split("\nfunction ", 1)[0]
+        # 왜 뺐는지는 주석에 남아 있어야 한다. 검사 대상은 실행되는 코드뿐이다.
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in weekly.splitlines())
+        for title in ("조용하지만 놓치면 안 되는 것", "한수원에 직접 닿는 변화",
                       "아직 결론 나지 않은 것"):
-            self.assertIn(title, self.script)
+            self.assertIn(f'weeklySection("{title}"', code)
+        for title in ("이번 주 판을 바꾼 것", "다음 주 하나만 본다면"):
+            self.assertNotIn(f'weeklySection("{title}"', code,
+                             f"'{title}' 이 오늘 화면과 겹친 채로 돌아왔다")
+        for field in ("weekly_intro", "policy_shifts", "watchpoints"):
+            self.assertNotIn(field, code, f"{field} 은 오늘 화면 소유다")
+
+    def test_flow_tab_opens_with_indicators_not_prose(self):
+        """설명문을 읽기 전에 방향과 크기를 알아볼 수 있어야 한다."""
+        self.assertIn('id="trendTopicFlow"', self.html)
+        self.assertLess(self.html.index('id="trendTopicFlow"'),
+                        self.html.index('id="weeklyReport"'))
+        trend_fn = self.script.split("function renderTrend()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertLess(trend_fn.index("renderTrendTopicFlow"), trend_fn.index("renderWeeklyReport"))
+        # 오늘 화면과 흐름 탭이 같은 계산을 쓴다 — 임계값이 갈라지면 같은 표가
+        # 서로 다른 판단을 낸다.
+        self.assertIn("function topicFlowRows()", self.script)
+        home = self.script.split("function renderHomeIntelligence(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("topicFlowRows()", home)
+        self.assertIn("topicFlowRow", home)
+        # 방향 판단에는 표본이 따라붙는다 — 표본 없이 화살표만 보면 잡음을 추세로 읽는다.
+        self.assertIn("topic-sample", self.script)
+        self.assertIn("topic-delta", self.script)
 
     def test_panel_hidden_without_the_weekly_report(self):
         """'주간 판세'는 주간 리포트가 실제로 있을 때만 뜬다.

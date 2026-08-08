@@ -1119,6 +1119,38 @@ function weeklyChangedIssues(briefing) {
     .slice(0, 5);
 }
 
+// 4주 주제 변화. 오늘 화면과 흐름 탭이 같은 계산·같은 행을 쓴다 — 두 곳에서
+// 따로 계산하면 임계값(8pp·표본 8)이 갈라지고, 같은 표가 서로 다른 판단을 낸다.
+function topicFlowRows() {
+  const series = state.trend?.topic_series || {};
+  const entries = Object.entries(series).filter(([, values]) => Array.isArray(values) && values.length >= 4);
+  if (!entries.length || (state.trend?.weeks || []).length < 4) return [];
+  const recent = entries.map(([topic, values]) => ({ topic, values: values.slice(-4).map(Number) }));
+  const totals = [0, 1, 2, 3].map(index => recent.reduce((sum, row) => sum + (row.values[index] || 0), 0));
+  return recent.map(row => {
+    const shares = row.values.map((value, index) => totals[index] ? value / totals[index] * 100 : 0);
+    const delta = shares[3] - shares[0];
+    const sample = row.values.reduce((sum, value) => sum + value, 0);
+    // 표본이 작으면 방향을 말하지 않는다. 8pp 는 주 단위 잡음을 넘는 폭.
+    return { ...row, shares, delta, sample, directional: Math.abs(delta) >= 8 && sample >= 8 };
+  });
+}
+
+function topicFlowRow(row) {
+  const direction = !row.directional ? "= 변화 없음" : row.delta > 0 ? "▲ 늘고 있음" : "▼ 줄고 있음";
+  const maxShare = Math.max(1, ...row.shares);
+  return `<div class="home-topic-row">
+    <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
+    <span class="topic-spark" aria-label="최근 4주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
+    <span class="topic-direction ${row.directional ? (row.delta > 0 ? "up" : "down") : "flat"}">${direction}</span>
+    <small class="topic-figures">
+      <span class="topic-compare">지난주 ${Math.round(row.shares[2])}% → 이번 주 ${Math.round(row.shares[3])}%</span>
+      <span class="topic-delta">4주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
+      <span class="topic-sample">표본 ${row.sample}건</span>
+    </small>
+  </div>`;
+}
+
 function renderHomeIntelligence(briefing) {
   const { start, end } = weekRange(briefing.date);
   const weeklyIssues = state.issues.filter(issue => issue.last_seen >= start && issue.last_seen <= end);
@@ -1128,34 +1160,11 @@ function renderHomeIntelligence(briefing) {
   metrics.hidden = confirmedRate < 0.5;
   metrics.textContent = metrics.hidden ? "" : `근거 확인 ${confirmed.length}건 · 주간 이슈 ${weeklyIssues.length}건`;
 
-  const series = state.trend?.topic_series || {};
-  const entries = Object.entries(series).filter(([, values]) => Array.isArray(values) && values.length >= 4);
   const topicSection = document.getElementById("homeTopicFlow");
-  topicSection.hidden = entries.length === 0 || (state.trend?.weeks || []).length < 4;
+  const rows = topicFlowRows();
+  topicSection.hidden = rows.length === 0;
   if (!topicSection.hidden) {
-    const recent = entries.map(([topic, values]) => ({ topic, values: values.slice(-4).map(Number) }));
-    const totals = [0, 1, 2, 3].map(index => recent.reduce((sum, row) => sum + (row.values[index] || 0), 0));
-    const rows = recent.map(row => {
-      const shares = row.values.map((value, index) => totals[index] ? value / totals[index] * 100 : 0);
-      const delta = shares[3] - shares[0];
-      const sample = row.values.reduce((sum, value) => sum + value, 0);
-      const directional = Math.abs(delta) >= 8 && sample >= 8;
-      return { ...row, shares, delta, sample, directional };
-    });
-    document.getElementById("homeTopicFlowRows").innerHTML = rows.map(row => {
-      const direction = !row.directional ? "= 변화 없음" : row.delta > 0 ? "▲ 늘고 있음" : "▼ 줄고 있음";
-      const maxShare = Math.max(1, ...row.shares);
-      return `<div class="home-topic-row">
-        <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
-        <span class="topic-spark" aria-label="최근 4주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
-        <span class="topic-direction ${row.directional ? (row.delta > 0 ? "up" : "down") : "flat"}">${direction}</span>
-        <small class="topic-figures">
-          <span class="topic-compare">지난주 ${Math.round(row.shares[2])}% → 이번 주 ${Math.round(row.shares[3])}%</span>
-          <span class="topic-delta">4주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
-          <span class="topic-sample">표본 ${row.sample}건</span>
-        </small>
-      </div>`;
-    }).join("");
+    document.getElementById("homeTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
   }
 
   // 이번 주 해설이 담당하는 것은 '카드에 없는 연결·원인·파급'뿐이다.
@@ -2152,6 +2161,21 @@ function weeklySection(title, note, body) {
     + (note ? `<p class="data-note">${esc(note)}</p>` : "") + body + `</section>`;
 }
 
+// 흐름 탭의 첫 블록 — 설명문보다 방향과 크기가 먼저 온다.
+//
+// theme_moves 의 해설을 각 행에 접어 붙이려다 말았다. 테마는 LLM 자유 서술이고
+// 주제는 고정 분류라 라벨 공간이 다르다(실측 2026-08-08: 4건 중 SMR·핵융합
+// 2건만 일치). 붙이면 맞는 두 줄만 접히고 그 문장은 바로 아래 '조용하지만
+// 놓치면 안 되는 것'에도 그대로 있어 새 중복이 된다. 해설은 그 코너가 맡는다.
+function renderTrendTopicFlow() {
+  const section = document.getElementById("trendTopicFlow");
+  if (!section) return;
+  const rows = topicFlowRows();
+  section.hidden = rows.length === 0;
+  if (section.hidden) return;
+  document.getElementById("trendTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
+}
+
 function renderWeeklyReport() {
   const panel = document.getElementById("weeklyReport");
   const report = state.trend?.weekly_report;
@@ -2175,18 +2199,15 @@ function renderWeeklyReport() {
     ? `${dateLabel(report.week_start)}–${dateLabel(report.week_end)} · 이슈 ${report.source_issue_count ?? 0}건`
     : "";
 
-  const shifts = (report?.policy_shifts || []).filter(row => row && row.what);
   const themes = (report?.theme_moves || []).filter(row => row && row.theme);
-  const watch = report?.watchpoints || [];
   const arrow = { "강화": "▲", "약화": "▼", "유지": "―" };
 
+  // '이번 주 판을 바꾼 것'(weekly_intro + policy_shifts)과 '다음 주 하나만
+  // 본다면'(watchpoints)은 뺐다. 오늘 화면의 '이번 주 결론'·'다음 확인'·'이번 주
+  // 해설'이 같은 문장을 이미 낸다 — 실측 2026-08-08: 흐름 첫 화면 산문 여섯
+  // 문단 중 일곱 문장이 오늘 탭과 글자 그대로 동일. 탭을 옮겼는데 같은 글이
+  // 다시 나오면 그건 깊이가 아니라 반복이다.
   document.getElementById("weeklyReportBody").innerHTML = [
-    weeklySection("이번 주 판을 바꾼 것", "",
-      [report?.weekly_intro ? `<p class="weekly-intro">${esc(report.weekly_intro)}</p>` : "",
-       shifts.map(row =>
-         `<div class="weekly-item"><p><strong>${esc(row.what)}</strong></p>`
-         + (row.so_what ? `<p>${esc(row.so_what)}</p>` : "")
-         + evidenceChips(row.evidence) + `</div>`).join("")].join("")),
     weeklySection("조용하지만 놓치면 안 되는 것", "투자 테마 강약",
       themes.map(row =>
         `<div class="weekly-item"><p><strong>${esc(arrow[row.direction] || "―")} ${esc(row.theme)}</strong>`
@@ -2194,8 +2215,6 @@ function renderWeeklyReport() {
         + evidenceChips(row.evidence) + `</div>`).join("")),
     weeklySection("한수원에 직접 닿는 변화", "",
       report?.khnp_direct ? `<p>${esc(report.khnp_direct)}</p>` : ""),
-    weeklySection("다음 주 하나만 본다면", "",
-      watch.length ? `<ul class="weekly-list">${watch.map(row => `<li>${esc(row)}</li>`).join("")}</ul>` : ""),
     weeklySection("아직 결론 나지 않은 것", "이슈당 한 번만 · 최신순",
       questions.length ? questions.map(row =>
         `<div class="weekly-item"><p>${esc(row.text)}</p>${evidenceChips(row.evidence)}</div>`
@@ -2232,6 +2251,7 @@ function renderBriefingTimeline() {
 }
 
 function renderTrend() {
+  renderTrendTopicFlow();
   renderWeeklyReport();
   renderInsights();
   renderTrendReadiness();
