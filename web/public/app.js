@@ -61,6 +61,17 @@ const COUNTRY_REGION = {
 // 표시 순서 고정. 건수순으로 정렬하면 '이번 달 0건'인 대륙이 목록 끝으로
 // 밀리거나 사라져서, 지도가 가진 유일한 특기(부재를 보여주는 것)를 잃는다.
 const COUNTRY_REGION_ORDER = ["북미", "아시아", "유럽·러시아", "중동", "남미", "아프리카", "중앙아시아", "오세아니아"];
+// 지도 위 대륙 라벨. 등면적 타일은 정확한 대신 한눈에 세계지도로 안 읽힌다 —
+// "이게 뭐지"가 먼저 오면 인코딩이 맞아도 소용없어서 덩어리마다 이름을 붙인다.
+// 좌표는 COUNTRY_GRID 에 **국가가 배정된 적 없는 칸**만 고른다. 그래야 어느 날
+// 브라질이나 사우디가 켜져도 라벨과 타일이 겹칠 수 없다(빈 칸을 골랐다가
+// 데이터가 바뀌면 겹치는 게 이런 오버레이의 흔한 실패다).
+// 이름은 옆 '대륙별 합계' 목록과 글자까지 같게 둔다 — 눈으로 이어져야 한다.
+const COUNTRY_MAP_LABELS = [
+  { text: "북미", col: 2.8, row: 3.0 },
+  { text: "유럽·러시아", col: 4.0, row: 0.2 },
+  { text: "아시아", col: 15.5, row: 4.2 },
+];
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
 const VIEW_IDS = ["news", "trend", "search", "report"];
@@ -2232,7 +2243,9 @@ function renderCountryMap() {
     const label = count ? `<span>${esc(code)}</span><b>${count}</b>` : "";
     return `<div class="country-tile level-${level}" style="grid-column:${col + 1};grid-row:${row + 1}"
       title="${esc(COUNTRY_LABELS[code] || code)} ${count}건">${label}</div>`;
-  }).join("");
+  }).join("") + COUNTRY_MAP_LABELS.map(item => `<span class="country-map-label"
+    style="left:${((item.col + 0.5) / COUNTRY_MAP_COLS * 100).toFixed(2)}%;top:${((item.row + 0.5) / COUNTRY_MAP_ROWS * 100).toFixed(2)}%"
+    >${esc(item.text)}</span>`).join("");
   renderCountryMapLegend(max);
   renderCountryRegions(rows);
   // 지도에 못 올린 몫을 밝힌다. 조용한 누락은 '전부 담았다'로 읽힌다.
