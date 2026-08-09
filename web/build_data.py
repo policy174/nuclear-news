@@ -1847,24 +1847,39 @@ def _article_view(article: dict, member_role: str = "card") -> dict:
     }
 
 
+def _clip(text: str, limit: int) -> str:
+    """예산을 못 맞출 때만 쓰는 마지막 수단. 잘렸다는 사실을 …로 남긴다."""
+    text = text.strip()
+    return text if len(text) <= limit else text[:max(1, limit - 1)].rstrip() + "…"
+
+
 def latest_change_line(current: list[dict], history: list[dict]) -> str:
-    """추적 이슈의 이번 브리핑 신규 사실을 완결된 한 문장으로 만든다."""
+    """추적 이슈의 '이전 상태 → 현재 상태' 한 문장. 이전이 없으면 빈 문자열.
+
+    예전에는 비교 대상이 없거나 재진술이면 최신 기사 요약을 그대로 돌려줬다.
+    그 결과 카드의 `이번에 달라진 점` 자리에 변화가 아니라 기사 요약이 앉았다 —
+    2026-08-09 감사에서 무작위 20건 중 19건이 그랬고(화살표 보유 10/127),
+    `change_rate` 75.6% 는 재료가 늘어서가 아니라 이 fallback 이 만든 숫자였다.
+    실무자가 그 줄을 '달라진 점'으로 읽고 보고서에 인용하면 그대로 사고다.
+
+    변화 문장은 정의상 이전 상태가 있어야 성립한다. 못 만들면 만들지 않는다 —
+    빈 자리는 클러스터 입력을 넓혀 history 를 채워서 메울 일이지(로드맵 P1-1)
+    요약으로 덮을 일이 아니다. 8/8 에 재진술 기준을 summary → 제목+시사점으로
+    바꾼 것도 같은 착시였다: 변화 행이 비는 진짜 원인은 판정 기준이 아니라
+    history 가 비어 있는 것이었다.
+    """
     if not current:
         return ""
     newest = max(
         current,
         key=lambda member: (member.get("article_date") or "", _representative_key(member)),
     )
-    text = newest.get("summary") or newest.get("title_kr") or newest.get("title") or ""
-    change = flow_takeaway(text, limit=112).strip()
     previous_candidates = [
         member for member in history
         if (member.get("article_date") or "") < (newest.get("article_date") or "")
     ]
     if not previous_candidates:
-        if change and not change.endswith((".", "!", "?")):
-            change += "."
-        return change
+        return ""
 
     previous = max(
         previous_candidates,
@@ -1872,14 +1887,27 @@ def latest_change_line(current: list[dict], history: list[dict]) -> str:
     )
     previous_text = previous.get("summary") or previous.get("title_kr") or previous.get("title") or ""
     before = flow_takeaway(previous_text, limit=48).strip().rstrip(".!?")
-    after = change.rstrip(".!?")
-    if before and after and not _is_restatement(before, after):
-        combined = f"{before} → {after}"
-        if len(combined) <= CHANGE_LINE_LIMIT:
-            change = combined
-    if change and not change.endswith((".", "!", "?")):
-        change += "."
-    return change
+    if not before:
+        return ""
+    text = newest.get("summary") or newest.get("title_kr") or newest.get("title") or ""
+    after = flow_takeaway(text, limit=112).strip().rstrip(".!?")
+    if not after or _is_restatement(before, after):
+        return ""
+    # flow_takeaway 의 limit 은 상한이 아니다 — 안전하게 종결할 수 없으면 첫 문장을
+    # 그대로 돌려준다(설계). 그래서 한쪽만으로 140 을 넘기는 쌍이 나온다(실측 15건 중 6).
+    # 예전에는 그 초과분이 요약 fallback 으로 새어나가 상한이 지켜지는 것처럼 보였다 —
+    # 상한을 지키던 코드가 곧 이 함수를 망가뜨린 코드였던 셈이다. fallback 을 걷은 이상
+    # 예산은 여기서 직접 맞춘다. 진짜 변화를 글자 수 때문에 버리지는 않는다.
+    #
+    # 깎는 순서는 앞쪽(직전 상태)부터다. 뒤쪽(현재 상태)은 카드의 제목·요약이 이미
+    # 말하고 있어 잘려도 복구되지만, 앞쪽은 화면 어디에도 없는 유일한 정보라
+    # 30자 아래로는 내리지 않는다 — 그 밑으로 가면 비교 자체가 성립하지 않는다.
+    room = CHANGE_LINE_LIMIT - len(" → ") - len(".")
+    if len(before) + len(after) > room:
+        before = _clip(before, max(30, room - len(after)))
+    if len(before) + len(after) > room:
+        after = _clip(after, room - len(before))
+    return f"{before} → {after}."
 
 
 def card_visible_text(title: str, implication: str, why_important: str) -> str:
