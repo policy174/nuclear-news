@@ -52,6 +52,16 @@
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": true
     },
+    "01d97e5a989b4f96--ca20b30862dbeec1": {
+      "embedding_similarity": 0.8734,
+      "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 가동 차질",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": true
+    },
     "01d97e5a989b4f96--f1b7e28af992975c": {
       "embedding_similarity": 0.8925,
       "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
@@ -162,6 +172,16 @@
       "right_title": "한수원노조 25주년, '한국원자력공사 설립' 비전 제시",
       "same_event": false
     },
+    "043720d41a25c4a3--55842b037eb69172": {
+      "embedding_similarity": 0.8723,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력망 확충으로 수주 급증",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "효성, 미국 전력시장 및 AI 인프라 사업 확장으로 실적 개선",
+      "same_event": true
+    },
     "04453110c8631fda--2159831fad1ddf60": {
       "embedding_similarity": 0.8417,
       "left_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
@@ -222,6 +242,16 @@
       "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
       "same_event": true
     },
+    "0799408181a9cab4--0d65034147a0c1c1": {
+      "embedding_similarity": 0.888,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "same_event": false
+    },
     "0799408181a9cab4--1e53d0f81cb14594": {
       "embedding_similarity": 0.8901,
       "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
@@ -230,6 +260,16 @@
       "reason": "대통령, 호남 반도체 클러스터 전력 공급 지시",
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "same_event": true
+    },
+    "0799408181a9cab4--20dd978c521bf5e6": {
+      "embedding_similarity": 0.8725,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "대통령, 청정에너지와 첨단산업 연계 강조",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "대통령, 해남 청정에너지 사업이 반도체·AI 산업 동력 및 지역 활력 될 것 강조",
       "same_event": true
     },
     "0799408181a9cab4--33b53bc5a243a876": {
@@ -252,6 +292,36 @@
       "right_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
       "same_event": false
     },
+    "0799408181a9cab4--48f657e3767cc26c": {
+      "embedding_similarity": 0.883,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "3대 메가프로젝트 점검",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
+      "same_event": true
+    },
+    "0799408181a9cab4--4b68debb28e09f14": {
+      "embedding_similarity": 0.8648,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 점검과 시론",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "[시론] 3대 메가프로젝트 출발점은 '온사이트 LNG열병합발전소'",
+      "same_event": false
+    },
+    "0799408181a9cab4--79e904ad0db5c408": {
+      "embedding_similarity": 0.9143,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 메가프로젝트 논의",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
+      "same_event": false
+    },
     "0799408181a9cab4--afefc17d290a9361": {
       "embedding_similarity": 0.8683,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -261,6 +331,16 @@
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
       "same_event": true
+    },
+    "0799408181a9cab4--b4a6a52b7238e792": {
+      "embedding_similarity": 0.8693,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트와 국가산단 조성",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
     },
     "0799408181a9cab4--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8812,
@@ -712,6 +792,16 @@
       "right_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
       "same_event": false
     },
+    "0d65034147a0c1c1--3ab6bbbbf1e45c98": {
+      "embedding_similarity": 0.8654,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 착공, 첨단산업 연계",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "전남 해남에 국내 최대 400MW 태양광단지 조성, SK하이닉스에 전력 공급",
+      "same_event": true
+    },
     "0d65034147a0c1c1--4113d294aea75ee0": {
       "embedding_similarity": 0.8705,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -732,6 +822,36 @@
       "right_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
       "same_event": false
     },
+    "0d65034147a0c1c1--71fb2cce97eae0f9": {
+      "embedding_similarity": 0.8643,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 착공, 첨단산업 연계",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
+      "same_event": true
+    },
+    "0d65034147a0c1c1--79e904ad0db5c408": {
+      "embedding_similarity": 0.8697,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "청정에너지와 첨단산업 연계, 메가프로젝트",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
+      "same_event": true
+    },
+    "0d65034147a0c1c1--822992630e346a5d": {
+      "embedding_similarity": 0.8693,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 착공, 첨단산업 연계",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "해남 400㎿ 태양광 발전사업 착공, SK하이닉스에 전력 공급",
+      "same_event": true
+    },
     "0d65034147a0c1c1--8c6eb5250550b959": {
       "embedding_similarity": 0.865,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -740,6 +860,56 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "same_event": false
+    },
+    "0d65034147a0c1c1--ae09b6f7c584fcd6": {
+      "embedding_similarity": 0.8728,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 발전 사업",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "전남광주통합특별시, 해남서 국내 최대 400MW 태양광발전사업 착공",
+      "same_event": true
+    },
+    "0d65034147a0c1c1--b4a6a52b7238e792": {
+      "embedding_similarity": 0.8662,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "청정에너지와 국가산단 조성",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
+    },
+    "0d65034147a0c1c1--d0daccb7f563e5af": {
+      "embedding_similarity": 0.8645,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "청정에너지와 발전 설비 확충",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "반도체 클러스터 전력 공급 위해 인근 발전 설비 확충 필요성 제기",
+      "same_event": false
+    },
+    "0d65034147a0c1c1--d88bca84b1e42fc5": {
+      "embedding_similarity": 0.8775,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 메가 클러스터 조성 추진…AI 시대 전력 수요 대응",
+      "same_event": false
+    },
+    "0d65034147a0c1c1--e510a3f760f56966": {
+      "embedding_similarity": 0.868,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "청정에너지와 원전 건설",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
       "same_event": false
     },
     "0f67fdfe143a9591--27cf26ee5365bab5": {
@@ -1350,6 +1520,16 @@
       "reason": "호남 반도체 클러스터 전력 공급 및 전기요금",
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "same_event": true
+    },
+    "1e53d0f81cb14594--79e904ad0db5c408": {
+      "embedding_similarity": 0.8657,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 메가프로젝트 전력 공급",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
       "same_event": true
     },
     "1e53d0f81cb14594--8c6eb5250550b959": {
@@ -2211,6 +2391,16 @@
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
       "same_event": false
+    },
+    "29ad721a16c702fb--726ce5e20cdd473d": {
+      "embedding_similarity": 0.8711,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 추진",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "국민의힘 부산시당, 지역별 전기요금 차등제 '부산형 설계' 요구",
+      "same_event": true
     },
     "29f431cb0cf9670f--65bc735c35edf37c": {
       "embedding_similarity": 0.9019,
@@ -3092,6 +3282,16 @@
       "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
       "same_event": false
     },
+    "381afffc4b89e8e0--726ce5e20cdd473d": {
+      "embedding_similarity": 0.8669,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제와 전력 수요",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
+      "same_event": false
+    },
     "381afffc4b89e8e0--8c6eb5250550b959": {
       "embedding_similarity": 0.8602,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -3121,6 +3321,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "휴가 후 공장 가동 시 전력수급 비상 우려, 정전 발생",
       "same_event": false
+    },
+    "394773a9e9dfe69f--9ec7d0fb22c44034": {
+      "embedding_similarity": 0.8664,
+      "left_title": "아마존, 데이터센터 전력 확보 위해 텍사스 화석연료 발전소에 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "아마존 데이터센터 전력 확보",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "아마존, 美 텍사스에 7.65GW 규모 최대 가스발전소 건설 추진",
+      "same_event": true
     },
     "398fa0e5ecf0d24a--4e6a1d2c0301a4d0": {
       "embedding_similarity": 0.8474,
@@ -3720,6 +3930,16 @@
       "reason": "원전 추진 검토 vs 전기요금 차등제",
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "same_event": false
+    },
+    "4113d294aea75ee0--79e904ad0db5c408": {
+      "embedding_similarity": 0.8735,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
       "same_event": false
     },
     "4113d294aea75ee0--8c6eb5250550b959": {
@@ -4612,6 +4832,56 @@
       "right_title": "메가프로젝트 성공 조건: 안정적 전력 공급 위한 원전 활용 강조",
       "same_event": false
     },
+    "55842b037eb69172--7d3e0c165f9ddd4d": {
+      "embedding_similarity": 0.8834,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "북미 AI 데이터센터 전력망 투자",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
+      "same_event": true
+    },
+    "55842b037eb69172--c8dc33caf9734812": {
+      "embedding_similarity": 0.8661,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력기기업체 수주와 철강 수출",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "한국 철강 대미 수출 11년 만에 월 50만 톤 돌파, AI 데이터센터 건설 영향",
+      "same_event": false
+    },
+    "55842b037eb69172--cddcf21240d26f1c": {
+      "embedding_similarity": 0.8875,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "북미 전력기기 시장 확대",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "국내 전력기기 3사, 북미 생산시설 증설로 시장 확대",
+      "same_event": true
+    },
+    "55842b037eb69172--d28bfa9cdcca95f1": {
+      "embedding_similarity": 0.8797,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "북미 전력망 투자와 한국 수출",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "美 1.4조 달러 전력망 투자, 韓 전력기자재 수출 확대 기회",
+      "same_event": true
+    },
+    "55842b037eb69172--e41ef7fe503447b9": {
+      "embedding_similarity": 0.9079,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "북미 AI 데이터센터 전력망 투자",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "美 전력수요 5배 급증…북미 전력망 투자에 K전력기기 '반사이익'",
+      "same_event": true
+    },
     "55986de1f4a3ad29--772d30a3308e46cd": {
       "embedding_similarity": 0.8575,
       "left_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
@@ -4652,6 +4922,16 @@
       "right_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
       "same_event": true
     },
+    "55986de1f4a3ad29--ca20b30862dbeec1": {
+      "embedding_similarity": 0.8676,
+      "left_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 가동 차질",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "same_event": true
+    },
     "55986de1f4a3ad29--f1b7e28af992975c": {
       "embedding_similarity": 0.906,
       "left_title": "유럽 폭염으로 헝가리 팍스 원전 냉각수 부족, 가동 차질 발생",
@@ -4671,6 +4951,16 @@
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
+    },
+    "57175db7ebab8eb7--c4d66de0858818f1": {
+      "embedding_similarity": 0.9184,
+      "left_title": "그리스, SMR 도입 타당성 검토 위한 국가 전담 연구그룹 신설",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "그리스의 SMR 도입 검토",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "그리스 장관들, 원자력 에너지 옵션 검토 착수",
+      "same_event": true
     },
     "571c41d8d5a745d5--6e874ad37df15b2c": {
       "embedding_similarity": 0.845,
@@ -6002,6 +6292,16 @@
       "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
       "same_event": true
     },
+    "726ce5e20cdd473d--8ab2bc451c253e3e": {
+      "embedding_similarity": 0.8911,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "국민의힘 “차등 전기요금, 부산 기여 반영해야”",
+      "same_event": true
+    },
     "726ce5e20cdd473d--8c6eb5250550b959": {
       "embedding_similarity": 0.8838,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -6011,6 +6311,86 @@
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
       "same_event": true
+    },
+    "726ce5e20cdd473d--909b0e296db8e9c4": {
+      "embedding_similarity": 0.8739,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "불황 터널 갇힌 ‘철의 도시’ 포항…“지역별 전기요금제 서둘러야”",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--9a142ffd33198c93": {
+      "embedding_similarity": 0.867,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제와 AI 클러스터 조성",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "호남 AI 클러스터, 2030년 6월 양산 목표로 속도전",
+      "same_event": false
+    },
+    "726ce5e20cdd473d--b8be889cd009faae": {
+      "embedding_similarity": 0.884,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "지역별 차등 전기요금제, 송전 비용·원전 위험 반영이 핵심",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--d31557a5ab424790": {
+      "embedding_similarity": 0.8775,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "기후부, 지역별 차등 전기요금제 4개 등급으로 개편 추진",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--d88bca84b1e42fc5": {
+      "embedding_similarity": 0.862,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제와 AI 클러스터 조성",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "정부, 호남 반도체 메가 클러스터 조성 추진…AI 시대 전력 수요 대응",
+      "same_event": false
+    },
+    "726ce5e20cdd473d--e510a3f760f56966": {
+      "embedding_similarity": 0.8796,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--e6d8f799d2157f74": {
+      "embedding_similarity": 0.8745,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "경북, 전기요금 차등제 도입 시 수혜 기대…포항 철강업계 주목",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--f48f2bc14f0043ad": {
+      "embedding_similarity": 0.8635,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제와 원전 소재지",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "부산시, 원전 소재지 전기요금 차등제 재검토 촉구",
+      "same_event": false
     },
     "731c8719f8bb5c21--737df86cf04543b5": {
       "embedding_similarity": 0.8656,
@@ -6470,6 +6850,16 @@
       "reason": "한전 지주사 체제 및 발전 5사 통합 제안",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "국회, 한전 지주사 체제 등 전력산업 구조개편 방향 제안",
+      "same_event": true
+    },
+    "7fa3982a8264ce13--dc1e6a30e09ccefd": {
+      "embedding_similarity": 0.9103,
+      "left_title": "김주영 의원, 한전 홀딩스 체제 및 발전 5사 재통합 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한전 지주회사 체제 개편",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "김주영 의원, 한전 지주회사 체제 개편 제안",
       "same_event": true
     },
     "802dfa7b61fe4992--a3e13685ce3cf3f9": {
@@ -7381,6 +7771,16 @@
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "오클로 그로브스 시험로, DOE 파일럿 중 5번째 임계 달성",
       "same_event": true
+    },
+    "a2a4d5064714fb3c--f73a97b0f28780fb": {
+      "embedding_similarity": 0.9069,
+      "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 투자 대상",
+      "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
+      "right_title": "엔비디아, 스타게이트 개발사에 최대 30억 달러 투자",
+      "same_event": false
     },
     "a3e13685ce3cf3f9--d4658d844ee27556": {
       "embedding_similarity": 0.8468,
