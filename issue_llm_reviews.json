@@ -372,6 +372,26 @@
       "right_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
       "same_event": true
     },
+    "09bcec88cb8346ea--549b832e2069fa6a": {
+      "embedding_similarity": 0.8587,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 절차 지연 및 상정",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가안, 하반기 상정 결정",
+      "same_event": true
+    },
+    "09bcec88cb8346ea--71301f3f0739bc0b": {
+      "embedding_similarity": 0.8437,
+      "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 절차 지연 및 상정",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가안, 하반기 상정 결정",
+      "same_event": true
+    },
     "09bcec88cb8346ea--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8991,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -1622,6 +1642,16 @@
       "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
       "same_event": true
     },
+    "1fcce8b0f8b7f34b--e2e42584280401fc": {
+      "embedding_similarity": 0.8505,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 개정과 규제 강화 계획",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
+      "same_event": false
+    },
     "20dd978c521bf5e6--571c41d8d5a745d5": {
       "embedding_similarity": 0.8432,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -1910,6 +1940,16 @@
       "reason": "다른 주체, 다른 안건",
       "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
       "right_title": "뉴욕주, 원자력 발전 용량 확대 방안 모색 중",
+      "same_event": false
+    },
+    "261ad77a6bc48a62--60fa264cf574b73f": {
+      "embedding_similarity": 0.8407,
+      "left_title": "인도, 지연된 재생에너지 사업에 송전 요금 감면 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지와 원자력은 다른 분야",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "인도 7월 재생에너지 발전량 역대 최고, 석탄 비중 1년 최저치 기록",
       "same_event": false
     },
     "261ebf4ce2d6bf77--55986de1f4a3ad29": {
@@ -2359,6 +2399,16 @@
       "prompt_version": 1,
       "reason": "심사 가속화 vs 규제 제약",
       "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위의 엄격한 안전 규제, 원전산업 성장에 제약될 우려",
+      "same_event": false
+    },
+    "2e1a5ee355098b0b--e2e42584280401fc": {
+      "embedding_similarity": 0.8421,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 개정과 규제 우려",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
       "right_title": "원안위의 엄격한 안전 규제, 원전산업 성장에 제약될 우려",
       "same_event": false
     },
@@ -4082,6 +4132,26 @@
       "right_title": "한빛 1·2호기 계속운전, 내년 상반기 심의 상정 예정",
       "same_event": false
     },
+    "4930aa86ed350432--71301f3f0739bc0b": {
+      "embedding_similarity": 0.8402,
+      "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 절차 지연 및 상정",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "한빛 1·2호기 계속운전, 내년 상반기 심의 상정 예정",
+      "same_event": true
+    },
+    "4930aa86ed350432--8c6eb5250550b959": {
+      "embedding_similarity": 0.8572,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 전력 공급과 원전 계속운전",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "한빛 1·2호기 계속운전, 내년 상반기 심의 상정 예정",
+      "same_event": false
+    },
     "49324f145082c76f--afefc17d290a9361": {
       "embedding_similarity": 0.8531,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -4141,6 +4211,16 @@
       "reviewed_at": "2026-08-02T23:17:12.037007+00:00",
       "right_title": "헝가리 총리, 임박한 원전 폐쇄로 \"중대한\" 시기 경고",
       "same_event": true
+    },
+    "4bdd65d0c09aaf72--e7818e375328e46c": {
+      "embedding_similarity": 0.8597,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 상황",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "헝가리 원전, 다뉴브강 수위 저하로 인한 가동 중단 유예",
+      "same_event": false
     },
     "4bdd65d0c09aaf72--e86ceaef07092ccd": {
       "embedding_similarity": 0.8432,
@@ -5212,6 +5292,16 @@
       "right_title": "센트러스 에너지, X-에너지에 LEU 및 HALEU 농축 서비스 제공 확정 계약 체결",
       "same_event": false
     },
+    "61797c04492442d5--e27f6338be0a6fc5": {
+      "embedding_similarity": 0.8724,
+      "left_title": "이탈리아, 원자력 부활 위한 기반 마련 착수, 젊은 세대 지지 기대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "이탈리아의 원자력 부활 추진",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "이탈리아 멜로니 총리, 원자력 발전 부활에 큰 기대",
+      "same_event": true
+    },
     "61fefa0bf9e0db2c--bf6d688ab21e07ed": {
       "embedding_similarity": 0.8507,
       "left_title": "미국 에너지부, Natura Resources 용융염 원자로 안전설계협약 승인",
@@ -5522,6 +5612,16 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": false
     },
+    "658e7fc2f563ff54--bd056baecd83243c": {
+      "embedding_similarity": 0.8812,
+      "left_title": "미국 원자력 기업 웨스팅하우스, 기업공개(IPO) 신청",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스의 IPO 추진",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "웨스팅하우스, 원자력 사업 재도약 위해 증시 복귀 준비",
+      "same_event": true
+    },
     "658e7fc2f563ff54--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8414,
       "left_title": "미국 원자력 기업 웨스팅하우스, 기업공개(IPO) 신청",
@@ -5659,6 +5759,16 @@
       "prompt_version": 1,
       "reason": "중국 타이핑링 2호기 상업운전",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
+      "right_title": "중국 신규 원자로, 가동 이정표 달성",
+      "same_event": true
+    },
+    "6b0f4d492346398a--a4723d13eaa57660": {
+      "embedding_similarity": 0.8576,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 뤼펑 2호기 건설 이정표",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
       "right_title": "중국 신규 원자로, 가동 이정표 달성",
       "same_event": true
     },
@@ -6612,6 +6722,16 @@
       "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
       "same_event": false
     },
+    "8ac009be109a2b37--937708a71d17b0a2": {
+      "embedding_similarity": 0.8559,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 내용",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "미국 최장수 원전의 57년 운영 경험, 한국 원전 정책에 주는 시사점",
+      "same_event": false
+    },
     "8ac009be109a2b37--ddd8072c258528d9": {
       "embedding_similarity": 0.8538,
       "left_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
@@ -6791,6 +6911,26 @@
       "reviewed_at": "2026-08-09T03:02:58.722745+00:00",
       "right_title": "AI, 미국 경제 재편하며 데이터센터 전력 생산 확대 등 인프라 투자 견인",
       "same_event": false
+    },
+    "91f419fabe102ea0--b1e1072288426172": {
+      "embedding_similarity": 0.8585,
+      "left_title": "KEPIC-Week에서 사용후핵연료 인수기술기준(안) 공청회 최초 개최 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "KEPIC 행사와 사용후핵연료 기준",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "원전 표준에서 미래 에너지 표준으로··· KEPIC 새로운 30년을 준비하다",
+      "same_event": false
+    },
+    "91f419fabe102ea0--b3adbd243878a3c3": {
+      "embedding_similarity": 0.9006,
+      "left_title": "KEPIC, AIㆍSMR 시대 맞춰 기준체계 확장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "KEPIC 기준체계 확장",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
+      "right_title": "원전 표준에서 미래 에너지 표준으로··· KEPIC 새로운 30년을 준비하다",
+      "same_event": true
     },
     "92e555a3c19fdcb7--937708a71d17b0a2": {
       "embedding_similarity": 0.852,
@@ -7119,6 +7259,16 @@
       "prompt_version": 1,
       "reason": "SMR 규제 vs 계속운전 및 SMR 심사",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
+      "right_title": "K-원자력안전, 계속운전 및 SMR 심사 원칙 준수 가속화",
+      "same_event": false
+    },
+    "9d74faab6adb99a1--e2e42584280401fc": {
+      "embedding_similarity": 0.8502,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 개정과 심사 원칙 준수",
+      "reviewed_at": "2026-08-09T18:25:10.505893+00:00",
       "right_title": "K-원자력안전, 계속운전 및 SMR 심사 원칙 준수 가속화",
       "same_event": false
     },
