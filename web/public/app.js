@@ -2262,7 +2262,9 @@ function renderCountryMap() {
     note.hidden = !offCount;
     if (offCount) {
       const names = offMap.slice(0, 4).map(row => COUNTRY_LABELS[row.country] || row.country).join(" · ");
-      note.textContent = `지도 밖 ${offCount}건 — ${names}${offMap.length > 4 ? " 외" : ""}. 아래 막대에는 포함됩니다.`;
+      // '지도 밖'이라고 쓰지 않는다 — 모바일에서는 지도를 접으므로 그때 말이 안 된다.
+      // 어차피 이 몫은 대륙 합계에서도 빠지므로 '대륙 분류 밖'이 두 화면 모두에 맞다.
+      note.textContent = `대륙 분류 밖 ${offCount}건 — ${names}${offMap.length > 4 ? " 외" : ""}. 아래 막대에는 포함됩니다.`;
     }
   }
 }

@@ -384,7 +384,8 @@
              그림만 두면 '미국·한국이 많다'는 막대의 열등한 복사본이 된다. -->
         <section class="data-card country-map-card">
           <h2>이슈가 어디서 났나</h2>
-          <p class="data-note">최근 30일 연결 이슈 기준 · 칸 위치는 실제 좌표가 아니라 근사 배치</p>
+          <!-- 뒷문장은 지도에 대한 설명이라 지도를 접는 모바일에서는 같이 접는다. -->
+          <p class="data-note">최근 30일 연결 이슈 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
           <div class="country-map-layout">
             <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
             <div id="countryMap" class="country-map" aria-hidden="true"></div>

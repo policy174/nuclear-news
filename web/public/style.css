@@ -2647,12 +2647,12 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
      옆칸은 아래로 내린다(268px 을 세로로 두면 지도가 100px 로 찌부러진다). */
   .country-map { gap: 1px; }
   .country-map-layout { grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
-  /* 390px 에서 칸당 ~19px — 12.5px 라벨이 안 들어간다. 지도는 형태와 농도만
-     맡고, 나라별 수치는 바로 밑 대륙 합계와 국가 막대가 전부 가진다.
-     대륙 이름도 접는다: '유럽·러시아'가 75px 이라 네 칸을 넘어 옆 타일을
-     덮는다(데스크톱 44px 칸에서는 배정 없는 칸 안에 들어간다). 대륙 구분은
-     바로 아래 '대륙별 합계' 목록이 그대로 준다. */
-  .country-tile span, .country-tile b, .country-map-label { display: none; }
+  /* 지도를 통째로 접는다. 390px 에서는 칸이 ~19px 이라 국가 코드도 대륙 이름도
+     12.5px 하한에 걸려 못 들어가는데, 라벨 없는 색 블록은 '미국·한국 두 곳이
+     진하다'는 인상만 주고 그건 바로 아래 대륙 합계가 이름과 숫자까지 붙여
+     더 정확하게 말한다. 정보 손실 없이 세로 170px 을 돌려받는다.
+     범례와 '근사 배치' 단서도 지도를 설명하는 것이라 같이 접는다. */
+  .country-map, .country-map-legend, .country-map-only { display: none; }
   .flow-head { display: grid; gap: 2px; }
   .flow-head > span { white-space: normal; }
   .event-block li { grid-template-columns: 58px 1fr; }
