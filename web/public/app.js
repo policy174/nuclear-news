@@ -39,6 +39,28 @@ const COUNTRY_GRID = {
 };
 const COUNTRY_MAP_COLS = 18;
 const COUNTRY_MAP_ROWS = 9;
+// 대륙 묶음. 지도가 막대와 다른 말을 하는 지점이 여기다 — 막대는 건수순이라
+// 유럽 국가들이 4~5건씩 흩어져 캐나다 6건보다 아래에 깔리지만 합치면 3배다.
+// 러시아는 묶음 이름에 같이 적는다: 원자력 보도에서 유럽으로 뭉뚱그리면
+// 로사톰 몫이 유럽 정책 흐름으로 오독된다.
+const COUNTRY_REGION = {
+  US: "북미", CA: "북미", MX: "북미",
+  BR: "남미", AR: "남미",
+  GB: "유럽·러시아", FR: "유럽·러시아", DE: "유럽·러시아", IT: "유럽·러시아",
+  ES: "유럽·러시아", PT: "유럽·러시아", NL: "유럽·러시아", BE: "유럽·러시아",
+  CH: "유럽·러시아", AT: "유럽·러시아", NO: "유럽·러시아", SE: "유럽·러시아",
+  DK: "유럽·러시아", FI: "유럽·러시아", PL: "유럽·러시아", CZ: "유럽·러시아",
+  SK: "유럽·러시아", HU: "유럽·러시아", RO: "유럽·러시아", BG: "유럽·러시아",
+  RS: "유럽·러시아", UA: "유럽·러시아", RU: "유럽·러시아",
+  KR: "아시아", JP: "아시아", CN: "아시아", IN: "아시아",
+  SA: "중동", AE: "중동", TR: "중동",
+  ZA: "아프리카",
+  AU: "오세아니아",
+  KZ: "중앙아시아", UZ: "중앙아시아",
+};
+// 표시 순서 고정. 건수순으로 정렬하면 '이번 달 0건'인 대륙이 목록 끝으로
+// 밀리거나 사라져서, 지도가 가진 유일한 특기(부재를 보여주는 것)를 잃는다.
+const COUNTRY_REGION_ORDER = ["북미", "아시아", "유럽·러시아", "중동", "남미", "아프리카", "중앙아시아", "오세아니아"];
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
 const VIEW_IDS = ["news", "trend", "search", "report"];
@@ -2204,13 +2226,15 @@ function renderCountryMap() {
     const count = counts.get(code) || 0;
     const ratio = count / max;
     const level = count === 0 ? 0 : (ratio <= 0.08 ? 1 : (ratio <= 0.3 ? 2 : (ratio <= 0.7 ? 3 : 4)));
-    // 칸에 글자를 넣지 않는다. 이 카드는 폭이 절반이라 18칸이면 칸당 ~19px 인데
-    // 이 저장소의 글자 하한은 12.5px 이고 예외를 두지 않기로 되어 있다(그 하한을
-    // 낮추면 --ff-mono 시스템 폴백이 안 읽힌다). 지도는 형태와 농도만 맡고
-    // 나라 이름과 수치는 title 과 바로 아래 막대가 전부 가진다.
+    // 라벨은 자료가 있는 칸에만. 39칸에 코드를 다 적으면 켜진 9칸이 묻히고,
+    // 빈 칸에는 애초에 할 말이 없다. 카드를 전체 폭으로 올려 칸이 ~52px 이
+    // 되면서 12.5px 하한 안에서 코드와 건수가 둘 다 들어간다.
+    const label = count ? `<span>${esc(code)}</span><b>${count}</b>` : "";
     return `<div class="country-tile level-${level}" style="grid-column:${col + 1};grid-row:${row + 1}"
-      title="${esc(COUNTRY_LABELS[code] || code)} ${count}건"></div>`;
+      title="${esc(COUNTRY_LABELS[code] || code)} ${count}건">${label}</div>`;
   }).join("");
+  renderCountryMapLegend(max);
+  renderCountryRegions(rows);
   // 지도에 못 올린 몫을 밝힌다. 조용한 누락은 '전부 담았다'로 읽힌다.
   const offMap = rows.filter(row => !COUNTRY_GRID[row.country]);
   const offCount = offMap.reduce((sum, row) => sum + row.count, 0);
@@ -2218,9 +2242,63 @@ function renderCountryMap() {
     note.hidden = !offCount;
     if (offCount) {
       const names = offMap.slice(0, 4).map(row => COUNTRY_LABELS[row.country] || row.country).join(" · ");
-      note.textContent = `지도 밖 ${offCount}건 — ${names}${offMap.length > 4 ? " 외" : ""}. 아래 막대에는 모두 포함됩니다.`;
+      note.textContent = `지도 밖 ${offCount}건 — ${names}${offMap.length > 4 ? " 외" : ""}. 아래 막대에는 포함됩니다.`;
     }
   }
+}
+
+// 범례. 농도가 최댓값 대비 비율이라 눈금도 그날의 최댓값으로 적는다 — 고정
+// 숫자를 적어두면 조용한 달에 거짓말이 된다.
+function renderCountryMapLegend(max) {
+  const box = document.getElementById("countryMapLegend");
+  if (!box) return;
+  const swatches = [0, 1, 2, 3, 4].map(level => `<i class="level-${level}"></i>`).join("");
+  box.innerHTML = `<span>0</span>${swatches}<span>${max}건</span>`;
+}
+
+// 대륙 합계. 지도의 존재 이유를 숫자로 확인시키는 자리다 — 0건인 대륙도
+// 순서대로 남겨 '이번 달 중동 0건'이라는 사실이 보이게 한다.
+function renderCountryRegions(rows) {
+  const box = document.getElementById("countryRegions");
+  const line = document.getElementById("countryMapInterpretation");
+  if (!box) return;
+  const totals = new Map(COUNTRY_REGION_ORDER.map(name => [name, 0]));
+  let mapped = 0;
+  for (const row of rows) {
+    const region = COUNTRY_REGION[row.country];
+    if (!region) continue;
+    totals.set(region, (totals.get(region) || 0) + row.count);
+    mapped += row.count;
+  }
+  box.innerHTML = COUNTRY_REGION_ORDER.map(name => {
+    const count = totals.get(name) || 0;
+    const share = mapped ? Math.round(count / mapped * 100) : 0;
+    return `<li class="${count ? "" : "is-zero"}"><span>${esc(name)}</span>
+      <span class="country-region-bar"><i style="width:${share}%"></i></span>
+      <b>${count}</b></li>`;
+  }).join("");
+  if (!line) return;
+  if (!mapped) {
+    line.textContent = "국가로 분류된 이슈가 아직 없습니다.";
+    return;
+  }
+  // 해석은 막대가 못 하는 두 가지만 말한다: 흩어진 것을 합치면 얼마인지, 그리고 없는 곳.
+  const ranked = COUNTRY_REGION_ORDER
+    .map(name => ({ name, count: totals.get(name) || 0 }))
+    .filter(item => item.count)
+    .sort((a, b) => b.count - a.count);
+  const lead = ranked[0];
+  const empty = COUNTRY_REGION_ORDER.filter(name => !totals.get(name));
+  const spread = ranked.find(item => item.name === "유럽·러시아");
+  const spreadCount = spread
+    ? rows.filter(row => COUNTRY_REGION[row.country] === "유럽·러시아").length
+    : 0;
+  const parts = [`최근 30일은 ${lead.name}가 ${lead.count}건으로 가장 많았습니다`];
+  if (spread && spreadCount > 1) {
+    parts.push(`유럽·러시아는 ${spreadCount}개국에 ${spread.count}건이 흩어져 있어 나라별로는 작아 보입니다`);
+  }
+  if (empty.length) parts.push(`${empty.join(" · ")}는 이슈가 없었습니다`);
+  line.textContent = `${parts.join(". ")}.`;
 }
 
 function renderSlopeGraph() {

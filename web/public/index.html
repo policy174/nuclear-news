@@ -376,17 +376,31 @@
           <p id="keywordInterpretation" class="chart-interpretation"></p>
           <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="keywordEvidence"></div></details>
         </section>
+        <!-- 지도는 막대와 다른 말을 해야 존재 이유가 있다. 막대는 건수순이라
+             유럽 5개국이 4~5건씩 흩어져 캐나다 6건보다 아래에 깔리지만, 실제
+             유럽 합계는 캐나다의 3배다 — 군집은 지도만 보여준다. 없는 지역
+             (중동·아프리카·남미)도 막대에는 아예 나타나지 않는다.
+             그래서 지도는 전체 폭으로 세우고, 대륙 합계와 해석 문장을 붙인다.
+             그림만 두면 '미국·한국이 많다'는 막대의 열등한 복사본이 된다. -->
+        <section class="data-card country-map-card">
+          <h2>이슈가 어디서 났나</h2>
+          <p class="data-note">최근 30일 연결 이슈 기준 · 칸 위치는 실제 좌표가 아니라 근사 배치</p>
+          <div class="country-map-layout">
+            <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
+            <div id="countryMap" class="country-map" aria-hidden="true"></div>
+            <div class="country-map-side">
+              <div id="countryMapLegend" class="country-map-legend" aria-hidden="true"></div>
+              <h3 class="country-region-title">대륙별 합계</h3>
+              <ul id="countryRegions" class="country-regions"></ul>
+              <p id="countryMapNote" class="data-note country-map-note" hidden></p>
+            </div>
+          </div>
+          <p id="countryMapInterpretation" class="chart-interpretation"></p>
+        </section>
         <div class="trend-grid">
           <section class="data-card">
             <h2>국가·지역별 이슈 수</h2>
             <p class="data-note">최근 30일 연결 이슈 기준 · 복수 국가는 각각 1건</p>
-            <!-- 지도는 아래 막대와 같은 데이터의 그림 판이다 — 막대가 '얼마나'를,
-                 지도가 '어디서'를 준다. 위치는 실제 좌표가 아니라 근사 배치이고
-                 EU·유럽·글로벌·미분류처럼 지도에 올릴 수 없는 코드는 빠지므로,
-                 빠진 몫은 지도 아래 주석에 건수로 적는다(조용히 버리지 않는다).
-                 스크린리더에는 막대가 이미 완전한 목록을 주므로 지도는 감춘다. -->
-            <div id="countryMap" class="country-map" aria-hidden="true"></div>
-            <p id="countryMapNote" class="data-note country-map-note" hidden></p>
             <div id="countryBars"></div>
             <p id="countryInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>
