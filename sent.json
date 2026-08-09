@@ -1890,10 +1890,18 @@
     "3de0fc9de9b91f30": "2026-08-09T13:39:50.829612+00:00",
     "49326250247c7b95": "2026-08-09T13:39:50.829612+00:00",
     "b4a6a52b7238e792": "2026-08-09T13:39:50.829612+00:00",
-    "f56fc64132522e82": "2026-08-09T13:39:50.829612+00:00"
+    "f56fc64132522e82": "2026-08-09T13:39:50.829612+00:00",
+    "d595366fd06ca7e4": "2026-08-09T14:23:00.065569+00:00",
+    "c8b1c0a5cb6235dd": "2026-08-09T14:23:00.065569+00:00",
+    "bd17274743ea490b": "2026-08-09T14:23:00.065569+00:00",
+    "9f44c8839ffeea61": "2026-08-09T14:23:00.065569+00:00",
+    "6000bc95faaab436": "2026-08-09T14:23:00.065569+00:00",
+    "4355a09e720fdfd5": "2026-08-09T14:23:00.065569+00:00",
+    "707d4d0196ffc638": "2026-08-09T14:23:00.065569+00:00",
+    "1b3ac8f33ba6b06f": "2026-08-09T14:23:00.065569+00:00"
   },
   "source_yield": {
-    "at": "2026-08-09T13:44:58+00:00",
+    "at": "2026-08-09T14:27:06+00:00",
     "counts": {
       "한수원 보도자료": 10,
       "원안위 보도자료": 0,
@@ -1905,18 +1913,21 @@
       "NucNet": 15,
       "SFEN": 0,
       "DOE": 10,
-      "Reuters 원자력": 0,
-      "La Tribune 원자력": 0,
+      "Reuters 원자력": 2,
+      "La Tribune 원자력": 8,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 0,
-      "Les Échos 원자력": 0,
+      "FT 원자력": 5,
+      "Les Échos 원자력": 6,
       "E&E News 원자력": 0,
-      "Nuclear Engineering International": 0,
-      "Euractiv 원자력": 0,
-      "국내 원자력 보도": 0
+      "Nuclear Engineering International": 7,
+      "Euractiv 원자력": 62,
+      "국내 원자력 보도": 5
     },
-    "kept": {},
+    "kept": {
+      "Le Monde 에너지": 1,
+      "국내 원자력 보도": 1
+    },
     "errors": {
       "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
       "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
