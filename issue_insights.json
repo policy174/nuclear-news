@@ -195,12 +195,12 @@
       "generated_at": "2026-08-07T14:09:45.764111+00:00"
     },
     "issue-3e00af0212edae79": {
-      "digest": "b17f8692a1768149",
-      "insight": "가뭄으로 인한 다뉴브강 수위 하락이 헝가리 원전의 냉각수 확보에 차질을 빚어 가동 중단으로 이어졌다.",
+      "digest": "6ace77b1610cada7",
+      "insight": "다뉴브강 수위 하락으로 냉각수 부족을 겪으며 3기 가동이 중단되었으나, 수위 회복으로 위기를 모면했다.",
       "title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
       "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-08-09T00:56:54.363195+00:00"
+      "generated_at": "2026-08-09T03:03:50.467843+00:00"
     },
     "issue-aeda14d4dfd8adf5": {
       "digest": "f9eedc3d453daa59",
@@ -353,6 +353,14 @@
       "prompt_version": 3,
       "model": "gemini-2.5-flash-lite",
       "generated_at": "2026-08-08T21:56:26.203591+00:00"
+    },
+    "issue-4dd2920f69b7ea54": {
+      "digest": "aea86aaddd7fc1bd",
+      "insight": "신규 데이터센터의 전력망 연결 요청이 474GW에 달하자 주지사가 전면 감사에 착수했다.",
+      "title": "텍사스 주지사, 데이터센터 전력망 연결 대기열 전면 감사 지시",
+      "prompt_version": 3,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-08-09T03:03:50.467843+00:00"
     }
   }
 }
