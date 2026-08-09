@@ -382,6 +382,16 @@
       "right_title": "고리 3·4호기 계속운전 허가안, 하반기 상정 결정",
       "same_event": true
     },
+    "09bcec88cb8346ea--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.843,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 가속화 및 상정",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가안, 하반기 상정 결정",
+      "same_event": true
+    },
     "09d2791626624247--549b832e2069fa6a": {
       "embedding_similarity": 0.8956,
       "left_title": "고리 3·4호기 계속운전 심의 지연으로 재가동 내년으로 연기",
@@ -952,6 +962,16 @@
       "right_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
       "same_event": false
     },
+    "1440fd7c3cd7cdb5--5f50f27e3d506043": {
+      "embedding_similarity": 0.8595,
+      "left_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미 에너지부 제네시스 미션 프로젝트 선정",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "퓨전 기업 샤인, 미 에너지부 제네시스 미션 프로젝트 선정",
+      "same_event": true
+    },
     "150fc96cb29ea3e7--756c2e6e80bbd36e": {
       "embedding_similarity": 0.8422,
       "left_title": "고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
@@ -982,6 +1002,56 @@
       "right_title": "전력거래소 이사장, 한빛·새울 원전 점검 및 전력수급 대응 강화",
       "same_event": true
     },
+    "1622812f76d391ad--6833a35dd8fc11fe": {
+      "embedding_similarity": 0.8465,
+      "left_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 프로젝트 협력",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
+    "1622812f76d391ad--9ff80dab9059f991": {
+      "embedding_similarity": 0.847,
+      "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 파트너십",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
+    "1622812f76d391ad--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8474,
+      "left_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 파트너십",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
+    "1622812f76d391ad--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.8551,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 플랫폼 개발 vs SMR 배치 평가",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
+    "1622812f76d391ad--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8463,
+      "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 기술 협력",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
     "1622812f76d391ad--f993fc196107ef89": {
       "embedding_similarity": 0.8407,
       "left_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
@@ -990,6 +1060,36 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "홀텍, 엔터지, 현대건설, SMR-300 배치 평가 전략적 협력",
+      "same_event": false
+    },
+    "17340e3de91c5663--6833a35dd8fc11fe": {
+      "embedding_similarity": 0.8531,
+      "left_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 프로젝트 지원 vs SMR 배치 검토",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "엔터지, 홀텍 SMR-300 배치 검토 위해 현대건설과 협력",
+      "same_event": false
+    },
+    "17340e3de91c5663--9ff80dab9059f991": {
+      "embedding_similarity": 0.8545,
+      "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 배치 협력 vs SMR 배치 검토",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "엔터지, 홀텍 SMR-300 배치 검토 위해 현대건설과 협력",
+      "same_event": false
+    },
+    "17340e3de91c5663--ca69ce47dc1e639d": {
+      "embedding_similarity": 0.8451,
+      "left_title": "ARC Clean Technology, Battelle Energy Alliance와 ARC-100 SMR 배치 지원 전략적 파트너십 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 파트너십",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "엔터지, 홀텍 SMR-300 배치 검토 위해 현대건설과 협력",
       "same_event": false
     },
     "17340e3de91c5663--cad8f7d2c2d3c640": {
@@ -1452,6 +1552,16 @@
       "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
       "same_event": false
     },
+    "1fcce8b0f8b7f34b--3c3560063b344488": {
+      "embedding_similarity": 0.8643,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신기술 상용화 vs 규제 강화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
+      "same_event": false
+    },
     "1fcce8b0f8b7f34b--457aa2e1b508d72c": {
       "embedding_similarity": 0.8657,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -1479,6 +1589,16 @@
       "prompt_version": 1,
       "reason": "안전 업무보고와 규제 강화 계획은 다른 사건",
       "reviewed_at": "2026-08-08T21:55:37.895086+00:00",
+      "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
+      "same_event": false
+    },
+    "1fcce8b0f8b7f34b--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8492,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "심사 가속화 vs 규제 강화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
       "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
       "same_event": false
     },
@@ -1922,6 +2042,16 @@
       "right_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
       "same_event": false
     },
+    "27cf26ee5365bab5--5ab2c01d59fda82e": {
+      "embedding_similarity": 0.8475,
+      "left_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "비상 대비 vs 환경 평가",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "미국 NRC, 듀안 아놀드 원전 재가동 환경 평가 초안 발행",
+      "same_event": false
+    },
     "27cf26ee5365bab5--6b93ed7e22e9bb4b": {
       "embedding_similarity": 0.8552,
       "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
@@ -1980,6 +2110,16 @@
       "reason": "서로 다른 규정 제안",
       "reviewed_at": "2026-08-02T08:03:28.730248+00:00",
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "27e417353612169a--5ab2c01d59fda82e": {
+      "embedding_similarity": 0.8475,
+      "left_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "규정 개정 vs 환경 평가",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "미국 NRC, 듀안 아놀드 원전 재가동 환경 평가 초안 발행",
       "same_event": false
     },
     "27e417353612169a--6b93ed7e22e9bb4b": {
@@ -2212,6 +2352,16 @@
       "right_title": "원안위의 엄격한 안전 규제, 원전산업 성장에 제약될 우려",
       "same_event": false
     },
+    "2e1a5ee355098b0b--9a7b23e4ae5be6f3": {
+      "embedding_similarity": 0.8407,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "심사 가속화 vs 규제 제약",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위의 엄격한 안전 규제, 원전산업 성장에 제약될 우려",
+      "same_event": false
+    },
     "2e499818c015666a--3c3560063b344488": {
       "embedding_similarity": 0.8726,
       "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
@@ -2259,6 +2409,16 @@
       "prompt_version": 1,
       "reason": "SMR 규제와 원자력 안전 강화",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
+      "right_title": "정부, 노후 원전부터 SMR까지 원자력 안전 전방위 강화 추진",
+      "same_event": false
+    },
+    "2e499818c015666a--e2e42584280401fc": {
+      "embedding_similarity": 0.8547,
+      "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안전기준 최신화 vs 안전 전방위 강화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
       "right_title": "정부, 노후 원전부터 SMR까지 원자력 안전 전방위 강화 추진",
       "same_event": false
     },
@@ -2432,6 +2592,16 @@
       "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
       "same_event": true
     },
+    "33b53bc5a243a876--49324f145082c76f": {
+      "embedding_similarity": 0.8652,
+      "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 생태계 육성 vs AI 데이터센터 유치",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "삼척시, AI 데이터센터 유치 위해 맞춤형 행정지원 및 신속 인허가 추진",
+      "same_event": false
+    },
     "33b53bc5a243a876--4b68debb28e09f14": {
       "embedding_similarity": 0.8639,
       "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
@@ -2532,6 +2702,16 @@
       "right_title": "제주도, 40㎿급 AI 데이터센터 구축 추진",
       "same_event": false
     },
+    "33b53bc5a243a876--9e1b5658e5e6cbdb": {
+      "embedding_similarity": 0.8447,
+      "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 생태계 육성 vs AI 데이터센터 투자",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "국내 통신 3사, AI 데이터센터 투자 확대 및 전력 수요 급증",
+      "same_event": false
+    },
     "33b53bc5a243a876--c04c343c333ca921": {
       "embedding_similarity": 0.8488,
       "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
@@ -2620,6 +2800,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-08T21:55:37.895086+00:00",
       "right_title": "전력산업 구조개편 해법으로 '통합적 공공 거버넌스' 공감대 형성",
+      "same_event": false
+    },
+    "33b53bc5a243a876--f01abad68b4ec595": {
+      "embedding_similarity": 0.8556,
+      "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 생태계 육성 vs 보험업계 대응",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "AI 데이터센터 확산으로 전력 인프라 리스크 증가, 보험업계 대응 모색",
       "same_event": false
     },
     "33b53bc5a243a876--fc54058806753267": {
@@ -3182,6 +3372,16 @@
       "right_title": "정부, 소형모듈원전(SMR) 기술 국가전략기술로 지정 및 지원 확대",
       "same_event": false
     },
+    "3c3560063b344488--9d74faab6adb99a1": {
+      "embedding_similarity": 0.8791,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신기술 상용화 vs 심사 원칙 준수",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "K-원자력안전, 계속운전 및 SMR 심사 원칙 준수 가속화",
+      "same_event": false
+    },
     "3c3560063b344488--b35b56a594fc63cd": {
       "embedding_similarity": 0.8416,
       "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
@@ -3240,6 +3440,16 @@
       "reason": "개별 규정 개정과 일반 정책",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "same_event": false
+    },
+    "3c3560063b344488--fd2a58a50ffbb997": {
+      "embedding_similarity": 0.8602,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신기술 상용화 vs 규제 구축",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위원장, 계속운전 원전 신규 수준 심사 및 SMR 규제 체계 구축 천명",
       "same_event": false
     },
     "3d12549f69848ebd--5976e83faefed3d5": {
@@ -3381,6 +3591,16 @@
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
       "same_event": true
+    },
+    "4113d294aea75ee0--4930aa86ed350432": {
+      "embedding_similarity": 0.873,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 추진 검토 vs 계속운전 심사",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "한빛 1·2호기 계속운전, 내년 상반기 심의 상정 예정",
+      "same_event": false
     },
     "4113d294aea75ee0--571c41d8d5a745d5": {
       "embedding_similarity": 0.8927,
@@ -3852,6 +4072,26 @@
       "right_title": "한수원, 원전 정비 표준화 기반 마련…정비원 자격제도 정부인정 획득",
       "same_event": false
     },
+    "4930aa86ed350432--571c41d8d5a745d5": {
+      "embedding_similarity": 0.8759,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력 공급 언급 vs 계속운전 심사",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "한빛 1·2호기 계속운전, 내년 상반기 심의 상정 예정",
+      "same_event": false
+    },
+    "49324f145082c76f--afefc17d290a9361": {
+      "embedding_similarity": 0.8531,
+      "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 에너지 동력 vs AI 데이터센터 유치",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "삼척시, AI 데이터센터 유치 위해 맞춤형 행정지원 및 신속 인허가 추진",
+      "same_event": false
+    },
     "4bdd65d0c09aaf72--5190f5f0f0d050de": {
       "embedding_similarity": 0.861,
       "left_title": "다뉴브강 수위 최저치 기록, 헝가리·루마니아 원전 가동 중단",
@@ -3880,6 +4120,16 @@
       "reason": "헝가리 원전 가동 중단",
       "reviewed_at": "2026-08-09T10:25:33.192811+00:00",
       "right_title": "헝가리 원전 전력 부족, 시장 자유화 촉진 가능성",
+      "same_event": true
+    },
+    "4bdd65d0c09aaf72--9f4cef5d2ac5abed": {
+      "embedding_similarity": 0.8503,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 가동 중단 및 위기 모면",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "헝가리 원전, 다뉴브강 수위 상승으로 가동 중단 위기 모면",
       "same_event": true
     },
     "4bdd65d0c09aaf72--d217422a62af77e2": {
@@ -4192,6 +4442,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
       "same_event": true
     },
+    "549b832e2069fa6a--80ab9984fd458758": {
+      "embedding_similarity": 0.858,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 절차 지연",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "고리 3·4호기, 운영 40년 만에 하반기 계속운전 허가안 상정 예정",
+      "same_event": true
+    },
     "549b832e2069fa6a--9a7b23e4ae5be6f3": {
       "embedding_similarity": 0.8602,
       "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
@@ -4201,6 +4461,26 @@
       "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
       "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
       "same_event": false
+    },
+    "549b832e2069fa6a--ad6ee254489e5bc3": {
+      "embedding_similarity": 0.8565,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 심사 지연 및 가속화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
+      "same_event": true
+    },
+    "549b832e2069fa6a--b0b8888b76ca4065": {
+      "embedding_similarity": 0.8507,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 절차 지연 및 상정 예정",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위, 계속운전 절차 효율화로 고리 3,4호기 하반기 상정 예정",
+      "same_event": true
     },
     "549b832e2069fa6a--beff8f802cca43be": {
       "embedding_similarity": 0.8508,
@@ -4592,6 +4872,16 @@
       "right_title": "정부, 재생에너지 100GW 및 원전 운영 병행 '전기국가' 비전 제시",
       "same_event": true
     },
+    "5976e83faefed3d5--70f095da458fcd71": {
+      "embedding_similarity": 0.8517,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수요 급증 및 점검",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "폭염으로 전력수요 급증, 덕커브 현상 심화 우려",
+      "same_event": true
+    },
     "5976e83faefed3d5--71301f3f0739bc0b": {
       "embedding_similarity": 0.8471,
       "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
@@ -4611,6 +4901,16 @@
       "reviewed_at": "2026-08-07T22:05:21.741410+00:00",
       "right_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
       "same_event": false
+    },
+    "5976e83faefed3d5--756d9e176f2e43d9": {
+      "embedding_similarity": 0.8402,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수급 상황 점검",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "김성환 장관, 폭염 속 여름철 전력수급 상황 점검",
+      "same_event": true
     },
     "5976e83faefed3d5--76ffb07f2b6ccb8d": {
       "embedding_similarity": 0.8575,
@@ -4700,6 +5000,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "3대 메가프로젝트 전력공급 방안과 무탄소 전원 확대",
+      "same_event": false
+    },
+    "5ab2c01d59fda82e--937708a71d17b0a2": {
+      "embedding_similarity": 0.8478,
+      "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 계속운전 신청",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "미국 NRC, 듀안 아놀드 원전 재가동 환경 평가 초안 발행",
       "same_event": false
     },
     "5d1cf0b4c7f1c44a--d2d6214a79979e89": {
@@ -5060,6 +5370,16 @@
       "reason": "신규 원전 반영 촉구 vs 전력산업 구조개편",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
       "right_title": "전력산업 구조개편 해법으로 '통합적 공공 거버넌스' 공감대 형성",
+      "same_event": false
+    },
+    "6260c0799db78ac9--f01abad68b4ec595": {
+      "embedding_similarity": 0.8406,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 반영 촉구 vs 보험업계 대응",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "AI 데이터센터 확산으로 전력 인프라 리스크 증가, 보험업계 대응 모색",
       "same_event": false
     },
     "6260c0799db78ac9--f4ff4cc404a5ce2f": {
@@ -5452,6 +5772,16 @@
       "right_title": "X-에너지, 센트러스와 HALEU 공급 계약 체결",
       "same_event": false
     },
+    "70f095da458fcd71--e35ba84675a81735": {
+      "embedding_similarity": 0.8654,
+      "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수요 급증 및 점검",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "폭염으로 전력수요 급증, 덕커브 현상 심화 우려",
+      "same_event": true
+    },
     "70f85437262d5d78--911526189a05bdad": {
       "embedding_similarity": 0.8513,
       "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
@@ -5482,6 +5812,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
       "same_event": true
     },
+    "71301f3f0739bc0b--80ab9984fd458758": {
+      "embedding_similarity": 0.8527,
+      "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 절차 지연",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "고리 3·4호기, 운영 40년 만에 하반기 계속운전 허가안 상정 예정",
+      "same_event": true
+    },
     "71301f3f0739bc0b--854c94fa63a4a54d": {
       "embedding_similarity": 0.8402,
       "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
@@ -5491,6 +5831,16 @@
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "전기는 남았는데 불은 꺼졌다",
       "same_event": false
+    },
+    "71301f3f0739bc0b--ad6ee254489e5bc3": {
+      "embedding_similarity": 0.8492,
+      "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 절차 미착수 및 가속화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
+      "same_event": true
     },
     "71301f3f0739bc0b--da9a4893cdd4761d": {
       "embedding_similarity": 0.8412,
@@ -5692,6 +6042,16 @@
       "right_title": "전력산업 구조개편 해법으로 '통합적 공공 거버넌스' 공감대 형성",
       "same_event": true
     },
+    "737df86cf04543b5--f01abad68b4ec595": {
+      "embedding_similarity": 0.8573,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력산업 재편 vs 보험업계 대응",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "AI 데이터센터 확산으로 전력 인프라 리스크 증가, 보험업계 대응 모색",
+      "same_event": false
+    },
     "737df86cf04543b5--fc54058806753267": {
       "embedding_similarity": 0.8426,
       "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -5790,6 +6150,16 @@
       "reason": "계속운전 심사 및 전력공급 현황 점검",
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
+      "same_event": true
+    },
+    "756d9e176f2e43d9--e35ba84675a81735": {
+      "embedding_similarity": 0.9145,
+      "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수급 상황 점검",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "김성환 장관, 폭염 속 여름철 전력수급 상황 점검",
       "same_event": true
     },
     "76ffb07f2b6ccb8d--8c6eb5250550b959": {
@@ -6662,6 +7032,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
       "same_event": true
     },
+    "9a7b23e4ae5be6f3--b0b8888b76ca4065": {
+      "embedding_similarity": 0.8473,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "심사 가속화 vs 규제 강화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "원안위, 계속운전 절차 효율화로 고리 3,4호기 하반기 상정 예정",
+      "same_event": false
+    },
     "9a7b23e4ae5be6f3--bccf5f15f321ec1b": {
       "embedding_similarity": 0.8477,
       "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
@@ -6711,6 +7091,16 @@
       "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
       "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
       "same_event": false
+    },
+    "9a7b23e4ae5be6f3--ecd5fb9fb7af8e72": {
+      "embedding_similarity": 0.8529,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 심사 및 안전",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
+      "right_title": "가동 원전 계속운전, 철저한 안전성 확인으로 적기 추진",
+      "same_event": true
     },
     "9a7b23e4ae5be6f3--fd17939220b56c39": {
       "embedding_similarity": 0.8591,
@@ -7079,6 +7469,16 @@
       "prompt_version": 1,
       "reason": "고리 3·4호기 계속운전 심사",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
+      "same_event": true
+    },
+    "ad6ee254489e5bc3--fd17939220b56c39": {
+      "embedding_similarity": 0.8575,
+      "left_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 심사 지연 및 가속화",
+      "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 심사 하반기 가속화 추진",
       "same_event": true
     },
