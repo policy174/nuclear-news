@@ -72,6 +72,36 @@
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": false
     },
+    "01e83e81854f1daf--0d65034147a0c1c1": {
+      "embedding_similarity": 0.9033,
+      "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 발전소와 반도체 클러스터 연계",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "국내 최대 해남 태양광 착공, AI 데이터센터·반도체 산단 전력 공급 구상",
+      "same_event": true
+    },
+    "01e83e81854f1daf--afefc17d290a9361": {
+      "embedding_similarity": 0.9092,
+      "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 발전소와 반도체 클러스터 연계",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "국내 최대 해남 태양광 착공, AI 데이터센터·반도체 산단 전력 공급 구상",
+      "same_event": true
+    },
+    "01e83e81854f1daf--cdd5f9ed8f148233": {
+      "embedding_similarity": 0.8891,
+      "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해남 태양광 발전소와 반도체 클러스터 연계",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "국내 최대 해남 태양광 착공, AI 데이터센터·반도체 산단 전력 공급 구상",
+      "same_event": true
+    },
     "02a4ae90b447d0fb--d0d2eb7c05b74930": {
       "embedding_similarity": 0.8448,
       "left_title": "사우디에 이어 한국도 미국에 우라늄 농축권한 요청",
@@ -1481,6 +1511,16 @@
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
       "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
       "same_event": true
+    },
+    "1595e9adabb7dc2d--b55e201374267ece": {
+      "embedding_similarity": 0.8423,
+      "left_title": "IAEA, SMR 추진선·부유식 SMR 국제 규제 표준화 첫 논의 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "IAEA의 SMR 국제 규제 표준화 vs 원안위의 고준위폐기물 논의",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": false
     },
     "1595e9adabb7dc2d--bccf5f15f321ec1b": {
       "embedding_similarity": 0.8617,
@@ -3922,6 +3962,16 @@
       "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
       "same_event": false
     },
+    "34d296121651d3c6--3c3560063b344488": {
+      "embedding_similarity": 0.8419,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 상용화 노력 vs 스웨덴과 SMR 안전규제 논의",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
+      "same_event": false
+    },
     "34d296121651d3c6--7f066d5dce3f0910": {
       "embedding_similarity": 0.8639,
       "left_title": "원자력안전위원회, 2026년 하반기 K-원자력 안전 업무보고",
@@ -5652,6 +5702,16 @@
       "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
       "same_event": false
     },
+    "527a6bd0d4f4a288--95d7cc3edc33f899": {
+      "embedding_similarity": 0.8826,
+      "left_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "포천양수발전소 본공사 및 지원사업",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모 착수",
+      "same_event": true
+    },
     "527a6bd0d4f4a288--aa165fa0824b87d8": {
       "embedding_similarity": 0.85,
       "left_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
@@ -6212,6 +6272,16 @@
       "right_title": "그리스 장관들, 원자력 에너지 옵션 검토 착수",
       "same_event": true
     },
+    "571c41d8d5a745d5--5ea017e458781684": {
+      "embedding_similarity": 0.8409,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 방안",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
+      "same_event": true
+    },
     "571c41d8d5a745d5--6e874ad37df15b2c": {
       "embedding_similarity": 0.845,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -6311,6 +6381,16 @@
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
       "same_event": false
+    },
+    "571c41d8d5a745d5--bf2c47cd7e2a9765": {
+      "embedding_similarity": 0.8427,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 산단 전력 공급 방안",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "정부, 반도체 산단 전력 공급 가속화 및 주민수용성 확보 방안 추진",
+      "same_event": true
     },
     "571c41d8d5a745d5--c249d789a2ee1649": {
       "embedding_similarity": 0.8717,
@@ -6772,6 +6852,16 @@
       "right_title": "미국 NRC, 듀안 아놀드 원전 재가동 환경 평가 초안 발행",
       "same_event": false
     },
+    "5cefca895e246495--78b0e1f04036be7f": {
+      "embedding_similarity": 0.8419,
+      "left_title": "불가리아 AP1000 신규 원전 건설, 양국 간 '전략적 우선순위'로 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 건설 vs 원전 해체 작업",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "불가리아 코즐로두이 원전 해체 작업 진전",
+      "same_event": false
+    },
     "5cefca895e246495--f60dc4f395c063ea": {
       "embedding_similarity": 0.8856,
       "left_title": "불가리아 코즐로두이 3·4호기, 10년 해체 면허 발급",
@@ -7130,6 +7220,16 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "국가 AI 인프라 구축, 전력망·기술 확보 과제 직면",
+      "same_event": false
+    },
+    "6260c0799db78ac9--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8407,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 반영 촉구 vs 반도체 클러스터 전력 공급 언급",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
       "same_event": false
     },
     "6260c0799db78ac9--c4f1d803b2afc913": {
@@ -7852,6 +7952,16 @@
       "right_title": "지역별 차등 전기요금제, 송전 비용·원전 위험 반영이 핵심",
       "same_event": true
     },
+    "726ce5e20cdd473d--ba7061dec7bad6ed": {
+      "embedding_similarity": 0.8414,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 논의",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "지역별 차등 전기요금제 윤곽, 원전도시 부산 혜택 논의",
+      "same_event": true
+    },
     "726ce5e20cdd473d--c4f1d803b2afc913": {
       "embedding_similarity": 0.8997,
       "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
@@ -8330,6 +8440,16 @@
       "reason": "호남 반도체 메가프로젝트",
       "reviewed_at": "2026-08-10T00:56:50.761610+00:00",
       "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
+      "same_event": true
+    },
+    "7c527ed375648d8f--95d7cc3edc33f899": {
+      "embedding_similarity": 0.8854,
+      "left_title": "한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "포천양수발전소 본공사 및 지원사업",
+      "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
+      "right_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모 착수",
       "same_event": true
     },
     "7c527ed375648d8f--aa165fa0824b87d8": {
