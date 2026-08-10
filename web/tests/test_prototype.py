@@ -4401,6 +4401,45 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertIn(".timeline-detail", css)
 
 
+class CountryLabelTests(unittest.TestCase):
+    """나라를 말하는 표가 셋이고, 어긋나면 내부 코드가 그대로 화면이 된다.
+
+    2026-08-11 라이브: 지도 타일 툴팁이 `MX 0건`·`AT 0건` 이었다. 나머지 37개는
+    `브라질 0건` 처럼 한국어인데 둘만 코드였다 — COUNTRY_GRID·COUNTRY_REGION 에는
+    넣고 COUNTRY_LABELS 에 안 넣어서다. 화면 코드가 `COUNTRY_LABELS[c] || c` 로
+    물러나므로 **조용히** 코드가 나간다. 나라를 하나 더할 때마다 재발할 자리라
+    값이 아니라 계약을 잠근다.
+    """
+
+    @staticmethod
+    def _keys(script: str, name: str) -> set:
+        block = re.search(name + r"\s*=\s*\{(.*?)\n\};", script, re.S)
+        assert block, f"{name} 를 못 찾았다"
+        return set(re.findall(r"([A-Z_]{2,})\s*:", block.group(1)))
+
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_every_mapped_country_has_a_korean_name(self):
+        labels = self._keys(self.script, "COUNTRY_LABELS")
+        for name in ("COUNTRY_GRID", "COUNTRY_REGION"):
+            missing = self._keys(self.script, name) - labels
+            self.assertEqual(missing, set(),
+                             f"{name} 에만 있고 이름이 없는 코드: {sorted(missing)}")
+
+    def test_the_grid_and_the_continent_buckets_cover_the_same_countries(self):
+        grid = self._keys(self.script, "COUNTRY_GRID")
+        region = self._keys(self.script, "COUNTRY_REGION")
+        self.assertEqual(grid, region,
+                         "지도에 서는 나라와 대륙 합계에 세는 나라가 다르면 "
+                         "타일 합과 막대 합이 어긋난다")
+
+    def test_the_label_only_entries_are_the_documented_non_geographic_ones(self):
+        # EU·유럽·글로벌·미분류는 좌표가 없어 격자에 없다 — 주석이 그렇게 적어 뒀다.
+        extra = self._keys(self.script, "COUNTRY_LABELS") - self._keys(self.script, "COUNTRY_GRID")
+        self.assertEqual(extra, {"EU", "EUROPE", "GLOBAL", "UNSPECIFIED"})
+
+
 class PublicationTitleTests(unittest.TestCase):
     """발간물 목록은 "이 문서를 열어 볼 값어치가 있나"를 고르는 자리다.
 
