@@ -1,6 +1,10 @@
+/* 한글 음절을 KS X 1001 2,350자로 줄인 판본(web/tools/subset_font.py 로 생성).
+   원본은 2,057,688 바이트로 첫 로드 전송량의 77% 였다 — woff2 라 엣지 압축도 안 먹는다.
+   24일치 지면이 쓴 서로 다른 음절은 896자이고 전부 이 안에 있다(2.6배 여유).
+   Pretendard 를 올릴 때는 원본을 갈아 끼우고 스크립트를 다시 돌린다. */
 @font-face {
   font-family: "Pretendard Variable";
-  src: url("fonts/pretendard/v1.3.9/PretendardVariable.woff2") format("woff2-variations");
+  src: url("fonts/pretendard/v1.3.9/PretendardVariable.subset.woff2") format("woff2-variations");
   font-weight: 45 920;
   font-style: normal;
   font-display: swap;
