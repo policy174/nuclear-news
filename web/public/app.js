@@ -347,6 +347,15 @@ function issueChangeText(issue) {
   return issue.latest_change || "";
 }
 
+// 그 문장이 '지금 달라진 것'인지 '직전 상태'인지에 따라 라벨이 달라진다.
+// 빌드가 화살표 문장의 뒤쪽(현재 상태)을 걷어내면 남는 것은 **바뀌기 전** 상태뿐인데,
+// 예전에는 그 줄에도 '달라진 것' 이 붙어 있었다(라이브 실측 10/160) — 라벨은 변화를
+// 묻는데 문장은 옛 상태를 답하는 꼴이라, 훑어보는 사람이 옛 상태를 오늘 일로 읽는다.
+// 지금 상태는 바로 위 제목이 말한다. change_kind 가 없는 구세대 데이터는 종전대로.
+function issueChangeLabel(issue, fallback) {
+  return issue.change_kind === "previous" ? "직전까지" : fallback;
+}
+
 // 근거 패널과 이슈 다이얼로그가 같은 내용을 보이게 하는 단일 조립 지점.
 // 두 화면을 따로 만들면 금방 갈라진다 — 컨테이너만 다르고 데이터는 여기서만 만든다.
 //
@@ -382,7 +391,12 @@ function issueDetailModel(issue, contextDate) {
     // latest_change 는 최신 기사와 과거 기사의 요약을 즉석 비교해 만든다 — 그 변화가
     // '오늘' 생겼다는 보장이 없다. 근거일을 확인할 수 없으면 '최근'으로 둔다.
     change: changeText
-      ? { label: contextDate && issue.last_seen === contextDate ? "오늘의 변화" : "최근 변화", text: changeText }
+      ? {
+          label: issueChangeLabel(
+            issue,
+            contextDate && issue.last_seen === contextDate ? "오늘의 변화" : "최근 변화"),
+          text: changeText,
+        }
       : null,
     openQuestion: (issue.open_question || "").trim() || null,
   };
@@ -975,7 +989,7 @@ function issueCard(issue, index, archive = false, front = false) {
     </div>
     <div class="issue-body">
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
-      ${cardRow("달라진 것", changeText)}
+      ${cardRow(issueChangeLabel(issue, "달라진 것"), changeText)}
       ${cardRow("왜 중요해요", whyText, `<span class="ai-badge">AI</span>`)}
       ${cardRow("다음 확인", nextText)}
       ${selectionReason ? `<div class="issue-reason-row"><span class="issue-reason-chip topic-chip">${esc(selectionReason)}</span></div>` : ""}
@@ -1015,7 +1029,7 @@ function leadCard(issue, briefing) {
   // '무슨 일' 과 근거 패널 '오늘의 변화' 가 20자 넘게 동일). 사실은 제목과
   // '달라진 것' 이 말하고, 요약 전문은 상세에 그대로 있다.
   const blocks = [
-    model.change ? { label: "달라진 것", text: model.change.text, tone: "change", group: "fact" } : null,
+    model.change ? { label: issueChangeLabel(issue, "달라진 것"), text: model.change.text, tone: "change", group: "fact" } : null,
     model.why ? { label: model.why.label, text: model.why.text, group: "read" } : null,
     model.impact ? { label: model.impact.label, text: model.impact.text, group: "read" } : null,
     model.openQuestion ? { label: "다음 확인", text: model.openQuestion, tone: "open", group: "read" } : null,
@@ -2011,7 +2025,7 @@ function openIssueDialog(issueId, updateUrl = true) {
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
-      ${issueDetail ? `<div class="dialog-detail"><strong>기사 내용</strong><p>${esc(issueDetail)}</p>${issue.detail_source ? `<small>${esc(issue.detail_source)} 기준</small>` : ""}</div>` : ""}
+      ${issueDetail ? `<div class="dialog-detail"><strong>${issue.detail_source ? "관련 기사 내용" : "기사 내용"}</strong>${issue.detail_source ? `<small>이 이슈의 다른 기사 「${esc(issue.detail_source)}」에서</small>` : ""}<p>${esc(issueDetail)}</p></div>` : ""}
       ${issueChangeText(issue) ? `<p class="dialog-change"><strong>이번에 달라진 점</strong>${esc(issueChangeText(issue))}</p>` : ""}
       <p class="dialog-verification">${verificationBadge(issue, { always: true })}${reportPickBadge(issue)}<span>${esc(issueEvidenceText(issue))}</span></p>
       ${issue.why_important ? `<p class="dialog-meaning"><strong>왜 중요한가 <span class="ai-badge">AI</span></strong>${esc(issue.why_important)}</p>` : ""}

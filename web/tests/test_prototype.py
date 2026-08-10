@@ -80,13 +80,15 @@ def _theme_tokens(css: str) -> dict[str, dict[str, str]]:
 class BrandAccessibilityTests(unittest.TestCase):
     def test_pretendard_variable_is_self_hosted(self):
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        # 배포되는 것은 부분집합이다(2026-08-10) — 원본은 재생성용으로만 남는다.
+        # 자체 호스팅·라이선스 동봉이라는 이 테스트의 목적은 그대로다.
         font = (
             ROOT
             / "public"
             / "fonts"
             / "pretendard"
             / "v1.3.9"
-            / "PretendardVariable.woff2"
+            / "PretendardVariable.subset.woff2"
         )
         license_file = font.with_name("OFL.txt")
 
@@ -95,7 +97,7 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertIn('font-weight: 45 920;', css)
         self.assertIn('font-display: swap;', css)
         self.assertIn(
-            'url("fonts/pretendard/v1.3.9/PretendardVariable.woff2")',
+            'url("fonts/pretendard/v1.3.9/PretendardVariable.subset.woff2")',
             css,
         )
         self.assertEqual(font.read_bytes()[:4], b"wOF2")
@@ -575,8 +577,35 @@ class ChangeLineTests(unittest.TestCase):
         shown = build_data.card_change_display(
             change, "헝가리, 가뭄으로 팍스 원전 가동 중단 위기", "", summary)
         self.assertNotIn("→", shown)
-        self.assertTrue(shown.startswith("직전 브리핑: "))
+        # 라벨은 문장에 섞지 않는다 — 화면이 change_kind 를 보고 고른다.
+        self.assertNotIn("직전 브리핑", shown)
         self.assertIn("역대 최저치", shown)
+
+    def test_a_previous_state_line_is_labelled_as_one(self):
+        """라이브 실측(2026-08-10) 10/160: '달라진 것' 라벨 아래 **바뀌기 전** 상태만
+        서 있었다. 훑어보는 사람이 옛 상태를 오늘 일로 읽는다. 문장이 어느 쪽인지를
+        데이터가 말해야 화면이 라벨을 고를 수 있다.
+        """
+        summary = "그리스 정부가 SMR 도입 타당성 검토를 위한 국가 전담 연구그룹을 신설했다."
+        rows = [{
+            "title": "그리스, SMR 도입 타당성 검토 위한 국가 전담 연구그룹 신설",
+            "latest_change": f"그리스 국무회의는 SMR 잠재력 탐색을 위한 범부처 위원회를 구성했다 → {summary}",
+        }]
+        build_data.finalize_card_fields(rows)
+        self.assertEqual(rows[0]["change_kind"], "previous")
+        self.assertIn("범부처 위원회", rows[0]["change_display"])
+
+        # 화살표가 통째로 남는 날은 그대로 '달라진 것'이다.
+        rows = [{"title": "관련 없는 제목",
+                 "latest_change": "가동을 멈췄다 → 재가동을 승인받았다"}]
+        build_data.finalize_card_fields(rows)
+        self.assertEqual(rows[0]["change_kind"], "change")
+
+    def test_the_front_end_picks_the_label_from_change_kind(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('issue.change_kind === "previous" ? "직전까지"', script)
+        # 라벨을 세우는 세 자리가 전부 이 헬퍼를 거쳐야 한 곳만 고쳐도 안 갈라진다.
+        self.assertEqual(script.count("issueChangeLabel(issue,"), 3)
 
     def test_card_display_empties_when_both_sides_restate(self):
         summary = ("독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 "
@@ -1841,7 +1870,11 @@ class GeneratedDataTests(unittest.TestCase):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         card = script.split("function issueCard(", 1)[1].split("\nfunction ", 1)[0]
-        for label in ("달라진 것", "왜 중요해요", "다음 확인"):
+        # 변화 칸의 라벨은 change_kind 에 따라 갈린다(직전 상태면 '직전까지') —
+        # 기본값이 '달라진 것' 이라는 것까지가 계약이다.
+        self.assertIn('cardRow(issueChangeLabel(issue, "달라진 것")', card,
+                      "카드에 '달라진 것' 칸이 없다")
+        for label in ("왜 중요해요", "다음 확인"):
             self.assertIn(f'cardRow("{label}"', card, f"카드에 '{label}' 칸이 없다")
         # 역할 분리는 build_data.finalize_card_fields 가 확정한다. 화면에서 or 로
         # 다시 고르면 계약이 두 곳으로 흩어진다 — 스테일 데이터 대비 ?? 하나만 둔다.
@@ -2168,7 +2201,7 @@ class GeneratedDataTests(unittest.TestCase):
         # 구조적으로 같은 말이었다(2026-08-08 실측: 선두 카드와 근거 패널이 20자
         # 넘게 동일). 라벨은 표준 카드와 같은 것을 쓴다.
         self.assertNotIn('label: "무슨 일"', lead)
-        self.assertIn('label: "달라진 것"', lead)
+        self.assertIn('label: issueChangeLabel(issue, "달라진 것")', lead)
         # 주석에서는 이 표현을 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
         code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
         self.assertNotIn("어제와 달라진", code)
@@ -4307,22 +4340,26 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
     """
 
     def test_pick_detail_prefers_the_representative_then_the_newest(self):
-        old = {"article_date": "2026-08-01", "title_kr": "옛 기사",
-               "detail": "옛 상태를 설명하는 요지다."}
-        new = {"article_date": "2026-08-06", "title_kr": "새 기사",
-               "detail": "지금 상태를 설명하는 요지다."}
-        representative = {"title_kr": "대표", "detail": "대표 기사의 요지다."}
+        # 요지는 제 기사 제목과 겹쳐야 통과한다(usable_detail) — 픽스처도
+        # 실제 기사처럼 어휘를 공유하게 둔다.
+        old = {"article_date": "2026-08-01", "title_kr": "옛 기사 팍스 원전 점검",
+               "detail": "옛 기사 팍스 원전 점검이 시작됐다는 요지다."}
+        new = {"article_date": "2026-08-06", "title_kr": "새 기사 팍스 원전 재가동",
+               "detail": "새 기사 팍스 원전 재가동이 확정됐다는 요지다."}
+        representative = {"title_kr": "대표 팍스 원전 기사",
+                          "detail": "대표 팍스 원전 기사의 요지다."}
 
         detail, source = build_data.pick_detail([old, new], representative)
-        self.assertEqual(detail, "대표 기사의 요지다.")
+        self.assertEqual(detail, "대표 팍스 원전 기사의 요지다.")
         # 대표 기사면 출처를 적지 않는다 — 그 제목이 바로 위 h2 다.
         self.assertEqual(source, "")
 
         # 대표에 요지가 없으면 **가장 최신** 기사에서 가져온다. 오래된 멤버를
         # 쓰면 제목은 새 사건인데 내용은 옛 상태인 조합이 나온다.
-        detail, source = build_data.pick_detail([old, new], {"title_kr": "대표"})
-        self.assertEqual(detail, "지금 상태를 설명하는 요지다.")
-        self.assertEqual(source, "새 기사")
+        detail, source = build_data.pick_detail([old, new],
+                                                {"title_kr": "대표 팍스 원전 기사"})
+        self.assertEqual(detail, "새 기사 팍스 원전 재가동이 확정됐다는 요지다.")
+        self.assertEqual(source, "새 기사 팍스 원전 재가동")
 
     def test_missing_detail_is_not_an_error(self):
         # 2026-08-07 이전 아카이브에는 detail 이 없다. 빈 값이 정상이다.
@@ -4331,10 +4368,27 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
 
     def test_article_view_carries_detail_into_the_timeline(self):
         view = build_data._article_view({
-            "hash": "h1", "article_date": "2026-08-06", "title_kr": "제목",
-            "detail": "본문에서 뽑은 요지다.",
+            "hash": "h1", "article_date": "2026-08-06", "title_kr": "팍스 원전 재가동",
+            "detail": "팍스 원전 재가동이 확정됐다는 본문에서 뽑은 요지다.",
         })
-        self.assertEqual(view["detail"], "본문에서 뽑은 요지다.")
+        self.assertEqual(view["detail"],
+                         "팍스 원전 재가동이 확정됐다는 본문에서 뽑은 요지다.")
+
+    def test_a_detail_about_a_different_article_is_dropped(self):
+        """2026-08-10 라이브: '한수원, 신규 대형 원전 및 SMR 부지 후보지 선정'
+        이슈의 '기사 내용'이 해외건설 수주 이야기였다. 수집 판정을 고쳐도
+        아카이브에 남은 기록은 안 고쳐지므로 화면으로 나가는 자리에서 막는다.
+        """
+        wrong = {
+            "hash": "h2", "article_date": "2026-08-10",
+            "title_kr": "한수원, 신규 대형 원전 및 SMR 부지 후보지 선정",
+            "detail": ("국내 건설사들이 올해 해외건설 수주 500억 달러 목표 달성을 위해 "
+                       "대형 프로젝트 확보에 나서고 있으며, 상반기 수주액이 크게 감소했다."),
+        }
+        self.assertEqual(build_data.usable_detail(wrong), "")
+        self.assertEqual(build_data._article_view(wrong)["detail"], "")
+        # 이슈 상세에도 실리지 않는다.
+        self.assertEqual(build_data.pick_detail([wrong], wrong), ("", ""))
 
     def test_the_dialog_actually_renders_it(self):
         app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
@@ -4345,6 +4399,58 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
         self.assertIn("timeline-detail", app)
         self.assertIn(".timeline-detail", css)
+
+
+class WebFontWeightTests(unittest.TestCase):
+    """폰트 한 벌이 첫 로드 전송량의 77% 였다(2026-08-10 실측 2,057,688 바이트).
+
+    woff2 는 이미 압축돼 있어 엣지 gzip/br 이 더 줄여 주지 않는다 — 파일을 줄이는
+    수밖에 없다. 지면이 24일 동안 쓴 서로 다른 한글 음절은 896자이고 전부
+    KS X 1001 안에 있어서, 2,350자만 남겨도 2.6배 여유다.
+    """
+
+    FONT_DIR = ROOT / "public" / "fonts" / "pretendard" / "v1.3.9"
+    SUBSET = FONT_DIR / "PretendardVariable.subset.woff2"
+
+    def test_the_stylesheet_loads_the_subset_not_the_full_font(self):
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("PretendardVariable.subset.woff2", css)
+        # 원본은 재생성용으로만 저장소에 남는다. @font-face 가 그걸 가리키면
+        # 감축이 조용히 되돌아간다.
+        self.assertNotIn('url("fonts/pretendard/v1.3.9/PretendardVariable.woff2")', css)
+
+    def test_the_preload_points_at_the_same_file_as_font_face(self):
+        """실사고(2026-08-10): @font-face 만 바꾸고 index.html 의 preload 를 두니
+        브라우저가 **원본 2MB 를 그대로 받고** 쓰지도 않았다(콘솔 경고로 발각).
+        preload 와 @font-face 가 어긋나면 감축이 통째로 무효다.
+        """
+        head = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("PretendardVariable.subset.woff2", head)
+        self.assertNotIn('href="/fonts/pretendard/v1.3.9/PretendardVariable.woff2"', head)
+
+    def test_the_subset_is_committed_and_stays_small(self):
+        self.assertTrue(self.SUBSET.exists(),
+                        "web/tools/subset_font.py 로 생성해 커밋할 것")
+        size = self.SUBSET.stat().st_size
+        # 여유를 크게 둔 상한 — 원본(2.0MB)으로 되돌아가는 것만 잡으면 된다.
+        self.assertLess(size, 1_100_000, f"부분집합이 {size:,} 바이트로 불었다")
+
+    def test_the_subset_still_covers_ks_x_1001(self):
+        try:
+            from fontTools.ttLib import TTFont
+        except ImportError:                      # CI 는 fontTools 를 안 넣는다
+            self.skipTest("fontTools 없음 — 계약 검사만 수행")
+        sys.path.insert(0, str(ROOT / "tools"))
+        import subset_font
+
+        cmap = set(TTFont(self.SUBSET).getBestCmap())
+        missing = subset_font.ksx1001_syllables() - cmap
+        self.assertEqual(missing, set(), "KS X 1001 음절이 빠졌다")
+        # 지면 크롬(한글 라벨)도 전부 있어야 한다.
+        chrome = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        chrome += (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        lost = {c for c in chrome if 0xAC00 <= ord(c) <= 0xD7A3 and ord(c) not in cmap}
+        self.assertEqual(lost, set(), f"화면 문구가 빠졌다: {sorted(lost)[:20]}")
 
 
 if __name__ == "__main__":

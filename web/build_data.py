@@ -1822,6 +1822,43 @@ def assert_card_clusters_unchanged(before: list[dict], issues: list[dict]) -> di
     }
 
 
+_DETAIL_TOKEN_RE = re.compile(r"[가-힣]{2,}|[A-Za-z]{3,}|\d{2,}")
+# 요지가 제 기사 제목과 이만큼도 안 겹치면 다른 기사의 본문이다.
+_DETAIL_MIN_OVERLAP = 0.30
+
+
+def usable_detail(article: dict) -> str:
+    """그 기사의 요지가 맞을 때만 돌려준다. 아니면 빈 문자열.
+
+    수집 단계(`article_body.matches_title`)가 걸러야 할 일이지만 그 판정이
+    느슨했던 기간의 기록이 아카이브에 남아 있다 — 2026-08-10 라이브에서
+    '한수원, 신규 대형 원전 및 SMR 부지 후보지 선정' 이슈의 '기사 내용'이
+    **해외건설 수주** 이야기였다. 수집기를 고쳐도 이미 쌓인 것은 안 고쳐지므로
+    화면에 내보내는 이 자리에서 한 번 더 본다(빌드마다 아카이브 전체를 다시
+    지나가므로 과거분까지 즉시 걷힌다).
+
+    실측(아카이브 요지 237건): 중앙값 0.80, 0.30 미만은 5건(2.1%)이고 그 안에
+    위 오탐 사례가 들어 있다. 해외 기사 65건은 0.30 미만이 0건 — 번역 제목이라
+    불리하지 않다. 버리면 요지 없이 제목·요약으로 돌아갈 뿐이지만, 남기면
+    다른 사건의 본문이 '이 기사의 내용'으로 전문가에게 제시된다.
+    """
+    detail = str(article.get("detail") or "").strip()
+    title = str(article.get("title_kr") or article.get("title") or "")
+    if not detail or not title:
+        return detail
+    tokens = set(_DETAIL_TOKEN_RE.findall(title))
+    if not tokens:
+        return detail
+    haystack = detail.lower()
+    hits = 0
+    for token in tokens:
+        needle = token.lower()
+        # 조사 한 글자를 떼고도 본다('원전이' → '원전') — keei_match 와 같은 이유.
+        if needle in haystack or (len(needle) > 2 and needle[:-1] in haystack):
+            hits += 1
+    return detail if hits / len(tokens) >= _DETAIL_MIN_OVERLAP else ""
+
+
 def _article_view(article: dict, member_role: str = "card") -> dict:
     return {
         "hash": article["hash"],
@@ -1829,7 +1866,7 @@ def _article_view(article: dict, member_role: str = "card") -> dict:
         "briefing_date": article.get("briefing_date"),
         "title_kr": article["title_kr"],
         "summary": article.get("summary", ""),
-        "detail": article.get("detail", ""),
+        "detail": usable_detail(article),
         "domain": article.get("domain", ""),
         "publisher": article.get("publisher", ""),
         "source_type": article.get("source_type", "unknown"),
@@ -1947,6 +1984,13 @@ def card_change_display(change: str, title: str, implication: str, why_important
 
     `latest_change` 원본은 그대로 둔다 — changed_issue_count 의 화살표 집계와
     RSS·og 설명이 그 필드를 세고 있다. 이 함수는 표시 전용 필드를 만든다.
+
+    **라벨은 여기서 붙이지 않는다**(2026-08-10). 예전에는 `직전 브리핑: ` 을
+    문장 앞에 이어 붙였는데, 화면은 그 줄에 다시 `달라진 것` 라벨을 세운다 —
+    "달라진 것 / 직전 브리핑: 그리스 국무회의는 …위원회를 구성했다" 처럼
+    **바뀐 것을 묻는 라벨 아래 바뀌기 전 상태만** 남는다(라이브 실측 10/160).
+    문장은 사실만 담고, 무슨 자리인지는 `change_kind` 로 알려 화면이 라벨을
+    고르게 한다.
     """
     change = str(change or "").strip()
     if not change or "→" not in change:
@@ -1958,7 +2002,7 @@ def card_change_display(change: str, title: str, implication: str, why_important
         return change
     if not before or _is_restatement(visible, before):
         return ""
-    return f"직전 브리핑: {before}"
+    return before
 
 
 def finalize_card_fields(rows: list[dict]) -> None:
@@ -1995,6 +2039,16 @@ def finalize_card_fields(rows: list[dict]) -> None:
             break
 
         row["change_display"] = display
+        # 그 문장이 '지금 달라진 것'인지 '직전 상태'인지. 화면이 라벨을 고르는
+        # 근거이며, 이것이 없으면 바뀌기 전 상태가 '달라진 것' 이라는 이름으로
+        # 나간다. 화살표가 있었는데 앞쪽만 남았으면 그건 직전 상태다.
+        source = str(row.get("latest_change") or "").strip()
+        if not display:
+            row["change_kind"] = ""
+        elif "→" in source and display != source:
+            row["change_kind"] = "previous"
+        else:
+            row["change_kind"] = "change"
         # 카드가 읽는 유일한 '왜 중요해요' 필드. 화면에서 or 폴백을 하면 이 계약이
         # 두 곳에 흩어져 드리프트한다.
         row["card_why"] = why
@@ -2061,7 +2115,7 @@ def pick_detail(members: list[dict], representative: dict) -> tuple[str, str]:
     # 출처 표기는 **대표 기사가 아닐 때만** 의미가 있다. 대표 기사면 그 제목이
     # 바로 위 h2 라서 같은 문장을 두 번 쓰는 꼴이 된다("대다수가 다는 표시는
     # 신호가 아니다"는 이 저장소의 기존 원칙).
-    representative_detail = str(representative.get("detail") or "").strip()
+    representative_detail = usable_detail(representative)
     if representative_detail:
         return representative_detail, ""
 
@@ -2071,7 +2125,7 @@ def pick_detail(members: list[dict], representative: dict) -> tuple[str, str]:
         return (str(member.get("article_date") or ""), _representative_key(member))
 
     for member in sorted(members, key=newest_first, reverse=True):
-        detail = str(member.get("detail") or "").strip()
+        detail = usable_detail(member)
         if detail:
             return detail, str(member.get("title_kr") or member.get("title") or "")
     return "", ""
@@ -3428,8 +3482,9 @@ def build() -> None:
             "title": record.get("title", ""),
             "summary": record.get("summary", ""),
             # 원문 대신 읽는 기사 요지(3~5문장). 2026-08-07 이전 아카이브에는 없다 —
-            # 화면은 빈 값을 정상으로 다뤄야 한다.
-            "detail": record.get("detail", ""),
+            # 화면은 빈 값을 정상으로 다뤄야 한다. 제 기사 제목과 안 맞는 요지는
+            # 다른 기사의 본문이므로 여기서 걷힌다(usable_detail).
+            "detail": usable_detail(record),
             "implication": record.get("implication", ""),
             "why_important": record.get("why_important", ""),
             "open_question": record.get("open_question", ""),
