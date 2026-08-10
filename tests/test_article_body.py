@@ -105,6 +105,21 @@ class TitleMatchTests(unittest.TestCase):
     def test_no_title_is_not_a_rejection(self):
         self.assertTrue(ab.matches_title("아무 본문", ""))
 
+    def test_generic_nuclear_vocabulary_alone_does_not_pass(self):
+        """2026-08-10 라이브 실사고. 폴리뉴스 기사 하나가 **해외건설 수주** 본문을
+        받아 그대로 이슈 상세의 '기사 내용'이 돼 있었다. 겹친 낱말은 '원전'·'대형'
+        둘뿐 — 원자력 기사면 어디에나 있는 낱말이다. 짧은 제목에서 옛 기준
+        (round(8*0.30)=2, 하한 2)이 딱 맞물려 통과했다.
+
+        아래 본문은 그날 실제로 받아온 것을 줄인 것이다.
+        """
+        body = ("국내 건설사들이 올해 해외건설 수주 500억달러 목표 달성을 위해 "
+                "대형 프로젝트 확보에 나서고 있다. 상반기 수주액이 지난해보다 크게 "
+                "감소한 데다 중동 플랜트 발주에도 변수가 커지면서 원전과 발전·전력 "
+                "인프라 등으로 수주 분야를 넓히는 모습이다.")
+        self.assertFalse(ab.matches_title(
+            body, "한수원, 신규 대형 원전 및 SMR 부지 후보지 선정"))
+
 
 class FetchTests(unittest.TestCase):
     class FakeResponse:
