@@ -542,6 +542,16 @@
       "right_title": "다층화된 중국 에너지 안보 전략, 국제유가 완충 효과",
       "same_event": false
     },
+    "09465180cdc8f102--6d955c9c606cfc8a": {
+      "embedding_similarity": 0.8433,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 호기",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국 창장 4호기 주제어실 가동 개시, 2027년 초 상업운전 목표",
+      "same_event": false
+    },
     "09465180cdc8f102--911526189a05bdad": {
       "embedding_similarity": 0.8445,
       "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
@@ -570,6 +580,16 @@
       "reason": "중국 원전 건설 승인 및 상업 운전 개시",
       "reviewed_at": "2026-08-06T01:26:30.685534+00:00",
       "right_title": "중국, 신규 원자로 8기 건설 승인",
+      "same_event": true
+    },
+    "09465180cdc8f102--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8719,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 신규 원자로 건설 승인",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
       "same_event": true
     },
     "09ac4f943ed7ad61--4bdd65d0c09aaf72": {
@@ -930,6 +950,16 @@
       "reason": "중국 AI 데이터센터 유치 vs 네이멍구 허브 부상",
       "reviewed_at": "2026-08-10T00:56:50.761610+00:00",
       "right_title": "중국 네이멍구, 세계 최대 AI 컴퓨팅 시설 준공으로 AI 인프라 허브 부상",
+      "same_event": false
+    },
+    "0c9c758818ef14de--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8522,
+      "left_title": "중국, '제로 탄소 단지'로 EU 규제 돌파…AI 데이터센터 유치",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
       "same_event": false
     },
     "0c9c758818ef14de--d45ab07435536e87": {
@@ -1422,6 +1452,46 @@
       "right_title": "전력거래소 이사장, 한빛·새울 원전 점검 및 전력수급 대응 강화",
       "same_event": true
     },
+    "1595e9adabb7dc2d--2159831fad1ddf60": {
+      "embedding_similarity": 0.8438,
+      "left_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": false
+    },
+    "1595e9adabb7dc2d--7f066d5dce3f0910": {
+      "embedding_similarity": 0.8639,
+      "left_title": "원자력안전위원회, 2026년 하반기 K-원자력 안전 업무보고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위, 고준위폐기물·SMR 규제 논의",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": true
+    },
+    "1595e9adabb7dc2d--8087dd0c3497cc5f": {
+      "embedding_similarity": 0.8716,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위, 고리 3·4호기 계속운전 및 SMR 규제",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": true
+    },
+    "1595e9adabb7dc2d--bccf5f15f321ec1b": {
+      "embedding_similarity": 0.8617,
+      "left_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위, SMR 규제 논의",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": true
+    },
     "1622812f76d391ad--6833a35dd8fc11fe": {
       "embedding_similarity": 0.8465,
       "left_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
@@ -1632,6 +1702,66 @@
       "right_title": "전력 다소비 기업 유치 기대 속 고리 3·4호기 계속운전 연내 결정 전망",
       "same_event": true
     },
+    "1c8c8bfb834618c5--33b53bc5a243a876": {
+      "embedding_similarity": 0.8503,
+      "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
+    "1c8c8bfb834618c5--55842b037eb69172": {
+      "embedding_similarity": 0.8758,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 협약 내용",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
+    "1c8c8bfb834618c5--5976e83faefed3d5": {
+      "embedding_similarity": 0.8427,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
+    "1c8c8bfb834618c5--6260c0799db78ac9": {
+      "embedding_similarity": 0.8626,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 협약 내용",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
+    "1c8c8bfb834618c5--737df86cf04543b5": {
+      "embedding_similarity": 0.8651,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 협약 내용",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
+    "1c8c8bfb834618c5--afefc17d290a9361": {
+      "embedding_similarity": 0.8431,
+      "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "GS건설·LS일렉트릭, AI 데이터센터 전력기기 공급망 구축 협약",
+      "same_event": false
+    },
     "1d0b4c73aaaf1061--756c2e6e80bbd36e": {
       "embedding_similarity": 0.8448,
       "left_title": "고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
@@ -1762,6 +1892,16 @@
       "right_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
       "same_event": false
     },
+    "1e53d0f81cb14594--5ea017e458781684": {
+      "embedding_similarity": 0.8536,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
+      "same_event": false
+    },
     "1e53d0f81cb14594--6260c0799db78ac9": {
       "embedding_similarity": 0.848,
       "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
@@ -1880,6 +2020,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
+    },
+    "1e53d0f81cb14594--bf2c47cd7e2a9765": {
+      "embedding_similarity": 0.8474,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "정부, 반도체 산단 전력 공급 가속화 및 주민수용성 확보 방안 추진",
       "same_event": false
     },
     "1e53d0f81cb14594--cdd5f9ed8f148233": {
@@ -2522,6 +2672,16 @@
       "right_title": "미국 정부·IAEA, SMR 추진선·FSMR 국제 규제 표준화 논의 착수",
       "same_event": false
     },
+    "269538276bb6a27b--9cfe538a3c4d1592": {
+      "embedding_similarity": 0.9099,
+      "left_title": "슬로바키아 모호체 4호기, 물리적 시운전 시험 준비 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "모호체 4호기 시운전 및 임계 달성",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "슬로바키아 모호체 4호기, 최초 임계 달성",
+      "same_event": true
+    },
     "27009ea4489faffc--2b442f968d18a90b": {
       "embedding_similarity": 0.8696,
       "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
@@ -2760,6 +2920,26 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
+      "same_event": false
+    },
+    "28701fe13aa7e45b--5976e83faefed3d5": {
+      "embedding_similarity": 0.8533,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "폭염 속 전력수급 동향: 태양광 역할과 '구름 낀 피크' 우려",
+      "same_event": false
+    },
+    "28701fe13aa7e45b--e35ba84675a81735": {
+      "embedding_similarity": 0.8579,
+      "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, 다른 내용",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "폭염 속 전력수급 동향: 태양광 역할과 '구름 낀 피크' 우려",
       "same_event": false
     },
     "28e1874f707e0a7d--5976e83faefed3d5": {
@@ -3742,6 +3922,46 @@
       "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
       "same_event": false
     },
+    "34d296121651d3c6--7f066d5dce3f0910": {
+      "embedding_similarity": 0.8639,
+      "left_title": "원자력안전위원회, 2026년 하반기 K-원자력 안전 업무보고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위, 스웨덴과 SMR 규제 논의",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
+      "same_event": true
+    },
+    "34d296121651d3c6--8087dd0c3497cc5f": {
+      "embedding_similarity": 0.8698,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위, 스웨덴과 SMR 규제 논의",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
+      "same_event": true
+    },
+    "34d296121651d3c6--b55e201374267ece": {
+      "embedding_similarity": 0.8493,
+      "left_title": "IAEA, SMR 추진선·부유식 SMR 국제 규제 표준화 첫 논의 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
+      "same_event": false
+    },
+    "34d296121651d3c6--bccf5f15f321ec1b": {
+      "embedding_similarity": 0.8531,
+      "left_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
+      "same_event": false
+    },
     "3590184774ef2006--e3bff0056142abce": {
       "embedding_similarity": 0.8444,
       "left_title": "캐나다 정부, 마이크로 원자로 기술 개발에 450만 달러 지원",
@@ -3770,6 +3990,16 @@
       "reason": "냉각수 리스크와 전력난은 다른 사건",
       "reviewed_at": "2026-08-08T21:55:37.895086+00:00",
       "right_title": "유럽 전력난 심화, 냉각수 고갈로 에너지 위기 재발 우려",
+      "same_event": false
+    },
+    "369408f8b35681b8--55842b037eb69172": {
+      "embedding_similarity": 0.8467,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "HD현대중공업, 미 코반에너지에 9560억 규모 발전설비 공급 계약 체결",
       "same_event": false
     },
     "37c2b999dd059ef7--7f066d5dce3f0910": {
@@ -4512,6 +4742,16 @@
       "right_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
       "same_event": true
     },
+    "4113d294aea75ee0--5ea017e458781684": {
+      "embedding_similarity": 0.8624,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, 다른 주체",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
+      "same_event": false
+    },
     "4113d294aea75ee0--6260c0799db78ac9": {
       "embedding_similarity": 0.8437,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -4632,6 +4872,16 @@
       "right_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
       "same_event": false
     },
+    "4113d294aea75ee0--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8516,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": false
+    },
     "4113d294aea75ee0--b4a6a52b7238e792": {
       "embedding_similarity": 0.8695,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -4640,6 +4890,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
+    },
+    "4113d294aea75ee0--bf2c47cd7e2a9765": {
+      "embedding_similarity": 0.8472,
+      "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "정부, 반도체 산단 전력 공급 가속화 및 주민수용성 확보 방안 추진",
       "same_event": false
     },
     "4113d294aea75ee0--c661d42607b48d7c": {
@@ -4771,6 +5031,16 @@
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
       "same_event": false
+    },
+    "431840aff0e21ddb--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8578,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 신규 원자로 건설 승인",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": true
     },
     "45510ce6eb51954b--571c41d8d5a745d5": {
       "embedding_similarity": 0.863,
@@ -5372,6 +5642,16 @@
       "right_title": "김주영 의원, '발전5사 완전통합, 한전지주사 체제' 제안",
       "same_event": true
     },
+    "525b21a811f83076--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.847,
+      "left_title": "중국, 네이멍구에 대규모 AI 데이터센터 가동 및 추가 건설 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": false
+    },
     "527a6bd0d4f4a288--aa165fa0824b87d8": {
       "embedding_similarity": 0.85,
       "left_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
@@ -5471,6 +5751,16 @@
       "reviewed_at": "2026-08-04T02:05:14.754257+00:00",
       "right_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
       "same_event": false
+    },
+    "538c53ac4627ea3f--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8666,
+      "left_title": "중국 정부, 신규 원전 8기 건설 승인하며 대규모 확장 지속",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 신규 원자로 건설 승인",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": true
     },
     "549b832e2069fa6a--756c2e6e80bbd36e": {
       "embedding_similarity": 0.8601,
@@ -5982,6 +6272,16 @@
       "right_title": "호남 AI 클러스터, 2030년 6월 양산 목표로 속도전",
       "same_event": true
     },
+    "571c41d8d5a745d5--aec7051f7ec2dcb2": {
+      "embedding_similarity": 0.8841,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기후장관, 원전·재생에너지 활용 언급",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": true
+    },
     "571c41d8d5a745d5--afefc17d290a9361": {
       "embedding_similarity": 0.8608,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -5991,6 +6291,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
       "same_event": false
+    },
+    "571c41d8d5a745d5--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8628,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기후장관, 반도체 클러스터 전력 공급",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": true
     },
     "571c41d8d5a745d5--b4a6a52b7238e792": {
       "embedding_similarity": 0.8408,
@@ -6382,6 +6692,26 @@
       "right_title": "11차 전기본 신규 양수발전 1.25GW 입찰, 발전사 수주 경쟁 심화",
       "same_event": false
     },
+    "5976e83faefed3d5--aec7051f7ec2dcb2": {
+      "embedding_similarity": 0.8438,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": false
+    },
+    "5976e83faefed3d5--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8534,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": false
+    },
     "5976e83faefed3d5--d4658d844ee27556": {
       "embedding_similarity": 0.851,
       "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
@@ -6441,6 +6771,16 @@
       "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
       "right_title": "미국 NRC, 듀안 아놀드 원전 재가동 환경 평가 초안 발행",
       "same_event": false
+    },
+    "5cefca895e246495--f60dc4f395c063ea": {
+      "embedding_similarity": 0.8856,
+      "left_title": "불가리아 코즐로두이 3·4호기, 10년 해체 면허 발급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "코즐로두이 3·4호기 해체 면허",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "불가리아 코즐로두이 원전 해체 작업 진전",
+      "same_event": true
     },
     "5d1cf0b4c7f1c44a--d2d6214a79979e89": {
       "embedding_similarity": 0.8639,
@@ -6790,6 +7130,16 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "국가 AI 인프라 구축, 전력망·기술 확보 과제 직면",
+      "same_event": false
+    },
+    "6260c0799db78ac9--c4f1d803b2afc913": {
+      "embedding_similarity": 0.8565,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "경북 지역, 원전 집적지 전기요금 차등제 도입으로 혜택 기대",
       "same_event": false
     },
     "6260c0799db78ac9--ceab781d5c528e5c": {
@@ -7202,6 +7552,26 @@
       "right_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
       "same_event": false
     },
+    "6d955c9c606cfc8a--911526189a05bdad": {
+      "embedding_similarity": 0.8554,
+      "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 호기",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국 창장 4호기 주제어실 가동 개시, 2027년 초 상업운전 목표",
+      "same_event": false
+    },
+    "6d955c9c606cfc8a--c76e8785efc2694e": {
+      "embedding_similarity": 0.8728,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 호기, 다른 시점의 상업운전",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "중국 창장 4호기 주제어실 가동 개시, 2027년 초 상업운전 목표",
+      "same_event": false
+    },
     "6e874ad37df15b2c--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8402,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -7480,6 +7850,16 @@
       "reason": "산업용 전기요금 지역별 차등제",
       "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
       "right_title": "지역별 차등 전기요금제, 송전 비용·원전 위험 반영이 핵심",
+      "same_event": true
+    },
+    "726ce5e20cdd473d--c4f1d803b2afc913": {
+      "embedding_similarity": 0.8997,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "경북 지역, 원전 집적지 전기요금 차등제 도입으로 혜택 기대",
       "same_event": true
     },
     "726ce5e20cdd473d--d31557a5ab424790": {
@@ -8401,6 +8781,16 @@
       "reviewed_at": "2026-08-09T00:56:00.347603+00:00",
       "right_title": "국내 최대 규모 400MW 태양광단지 착공…RE100 전력 연간 529GWh 공급",
       "same_event": false
+    },
+    "847628d41db4bfcc--d5f14a4cd0093d3c": {
+      "embedding_similarity": 0.8821,
+      "left_title": "핀란드 규제기관, 세계 최초 사용후핵연료 처분장 운영 허가 요건 충족 결정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핀란드 사용후핵연료 처분장 허가",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "핀란드 온칼로 사용후핵연료 처분장, 안전성 평가 통과",
+      "same_event": true
     },
     "854c94fa63a4a54d--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8498,
@@ -9570,6 +9960,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "전남광주통합특별시, 해남서 국내 최대 400MW 태양광발전사업 착공",
+      "same_event": false
+    },
+    "aec7051f7ec2dcb2--bfc67ce932263d19": {
+      "embedding_similarity": 0.8455,
+      "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
       "same_event": false
     },
     "af90ffd9ff1d6dc1--bf6d688ab21e07ed": {
