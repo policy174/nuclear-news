@@ -160,7 +160,11 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "url": link,
         "domain": domain,
         "feed": article.get("feed") or cur.get("feed") or "",
-        "publisher": publisher or profile["publisher"],
+        # profile 은 **원래** publisher 로 이미 계산됐다 — 표시 이름을 바꿔도
+        # 등급·유형 판정은 흔들리지 않는다.
+        "publisher": display_publisher(publisher or profile["publisher"],
+                                       article.get("site_name") or ""),
+        "site_name": clean_text(article.get("site_name")),
         "source_type": profile["source_type"],
         "evidence_role": profile["evidence_role"],
         "source_tier": profile["source_tier"],
@@ -230,6 +234,31 @@ def append_records(records: list[dict]) -> int:
     return len(accepted)
 
 
+def looks_like_hostname(publisher: str) -> bool:
+    """매체명 자리에 도메인이 들어와 있는가.
+
+    아카이브 1,017건 실측(2026-08-10)에서 601건(59%)이 `hankyung.com` 처럼
+    도메인 그대로였다. 한국 독자에게 `hidomin.com` 은 매체명이 아니다.
+    """
+    publisher = (publisher or "").strip()
+    return bool(publisher) and "." in publisher and " " not in publisher
+
+
+def display_publisher(publisher: str, site_name: str) -> str:
+    """도메인뿐이면 페이지가 스스로 말한 이름(og:site_name)으로 바꾼다.
+
+    도메인→이름 표를 손으로 만들지 않는 이유: 꼬리가 251개 도메인이라 유지가
+    안 되고, **표가 틀리기도 한다** — `chosun.com` 의 실제 매체가 조선비즈인
+    기사가 있었다. 이미 본문 때문에 받은 페이지에 정답이 들어 있다.
+
+    이름을 못 얻은 기사는 종전 표기를 그대로 둔다(실측 표본 29건 중 4건).
+    """
+    site_name = (site_name or "").strip()
+    if site_name and (not publisher or looks_like_hostname(publisher)):
+        return site_name
+    return publisher
+
+
 def _upgrade_record(record: dict) -> dict:
     """v1 레코드에 출처·사건일 계약을 채우고 안전한 URL/제목으로 올린다."""
     upgraded = dict(record)
@@ -244,7 +273,8 @@ def _upgrade_record(record: dict) -> dict:
         "v": RECORD_VERSION,
         "url": url,
         "title": title,
-        "publisher": publisher or profile["publisher"],
+        "publisher": display_publisher(publisher or profile["publisher"],
+                                       clean_text(record.get("site_name"))),
         "source_type": profile["source_type"],
         "evidence_role": profile["evidence_role"],
         "source_tier": profile["source_tier"],

@@ -151,5 +151,38 @@ class TestControlledTagNorm(unittest.TestCase):
         self.assertEqual(news_bot.norm_article_type(None), "news")
 
 
+class DisplayPublisherTests(unittest.TestCase):
+    """한국 독자에게 `hidomin.com` 은 매체명이 아니다.
+
+    아카이브 1,017건 실측(2026-08-10) 601건(59%)이 도메인 그대로였다. 도메인→이름
+    표를 손으로 만들지 않는 이유는 유지비만이 아니다 — 표가 **틀린다**.
+    `chosun.com` 의 실제 매체가 조선비즈인 기사가 있었다. 본문 때문에 어차피 받는
+    페이지의 og:site_name 이 표보다 정확하다(표본 29건 중 25건 확보).
+    """
+
+    def test_a_hostname_is_replaced_by_the_name_the_page_gives(self):
+        self.assertEqual(
+            news_archive.display_publisher("v.daum.net", "노컷뉴스"), "노컷뉴스")
+        self.assertEqual(
+            news_archive.display_publisher("chosun.com", "조선비즈"), "조선비즈")
+
+    def test_a_real_name_is_never_overwritten(self):
+        # Google News <source> 가 준 이름이 이미 맞다. 페이지 이름으로 덮으면
+        # 포털 미러의 이름이 원 매체를 지울 수 있다.
+        self.assertEqual(
+            news_archive.display_publisher("전기신문", "노컷뉴스"), "전기신문")
+
+    def test_no_name_means_no_change(self):
+        self.assertEqual(
+            news_archive.display_publisher("edaily.co.kr", ""), "edaily.co.kr")
+
+    def test_hostname_detection(self):
+        self.assertTrue(news_archive.looks_like_hostname("hankyung.com"))
+        self.assertTrue(news_archive.looks_like_hostname("v.daum.net"))
+        self.assertFalse(news_archive.looks_like_hostname("World Nuclear News"))
+        self.assertFalse(news_archive.looks_like_hostname("전기신문"))
+        self.assertFalse(news_archive.looks_like_hostname(""))
+
+
 if __name__ == "__main__":
     unittest.main()

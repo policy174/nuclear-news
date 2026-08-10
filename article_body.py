@@ -290,8 +290,47 @@ def matches_title(body: str, title: str) -> bool:
     return hits >= max(_RELEVANCE_MIN_HITS, round(unique * _RELEVANCE_RATIO))
 
 
-def fetch_one(url: str, session, title: str = "") -> tuple[str, str]:
-    """(본문, 상태). 상태는 통계·진단용이며 호출자는 본문만 보면 된다."""
+_SITE_NAME_RE = re.compile(
+    r"""(?is)<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']{1,80})["']""")
+_SITE_NAME_REV_RE = re.compile(
+    r"""(?is)<meta[^>]+content=["']([^"']{1,80})["'][^>]+property=["']og:site_name["']""")
+# 포털이 자기 이름을 앞에 붙인다: `Daum | 노컷뉴스`, `NAVER | 연합뉴스`.
+_PORTAL_PREFIX_RE = re.compile(r"^(?:daum|naver|네이버|다음)\s*[|·>-]\s*", re.I)
+
+
+def extract_site_name(page_html: str) -> str:
+    """og:site_name 에서 매체명. 못 얻으면 빈 문자열.
+
+    본문 때문에 어차피 페이지를 받고 있으므로 이건 공짜다. 아카이브의 매체명
+    59%가 `hankyung.com` 처럼 도메인 그대로인데(2026-08-10 실측 1,017건 중 601건),
+    도메인→이름 표를 손으로 만들면 꼬리가 251개라 유지가 안 되고 **틀리기도 한다** —
+    `chosun.com` 의 실제 매체는 조선일보가 아니라 조선비즈인 기사가 있었다.
+    페이지가 스스로 말하는 이름이 표보다 정확하다.
+
+    표본 30건 실측: 29건이 받아졌고 그중 25건에서 이름을 얻었다(중앙일보·국민일보·
+    이데일리·아시아경제·조선비즈·대한경제·강원도민일보…). 못 얻은 4건은 태그가
+    없는 매체이고 그때는 종전 표기를 그대로 둔다.
+    """
+    match = _SITE_NAME_RE.search(page_html) or _SITE_NAME_REV_RE.search(page_html)
+    if not match:
+        return ""
+    name = _PORTAL_PREFIX_RE.sub("", match.group(1)).strip()
+    # 도메인·URL 을 site_name 에 넣어 둔 매체가 있다 — 그건 지금 값과 다를 게 없다.
+    if not name or " " in name and len(name) > 40:
+        return ""
+    if name.lower().startswith(("http", "www.")) or ("." in name and " " not in name):
+        return ""
+    return name
+
+
+def fetch_one(url: str, session, title: str = "",
+              meta: dict | None = None) -> tuple[str, str]:
+    """(본문, 상태). 상태는 통계·진단용이며 호출자는 본문만 보면 된다.
+
+    `meta` 를 주면 페이지에서 곁다리로 알아낸 것을 담아 준다(`site_name`·`url`).
+    본문 판정과 매체명은 갈라 두는 게 맞다 — 본문이 제목과 안 맞아 버려지는
+    기사도 매체명은 멀쩡하다.
+    """
     if not url:
         return "", "no_url"
     if is_google_news(url):
@@ -299,6 +338,8 @@ def fetch_one(url: str, session, title: str = "") -> tuple[str, str]:
         if not resolved:
             return "", "google_unresolved"
         url = resolved
+    if meta is not None:
+        meta["url"] = url
     if is_blocked(url):
         return "", "blocked_domain"
     try:
@@ -314,6 +355,10 @@ def fetch_one(url: str, session, title: str = "") -> tuple[str, str]:
     # 인코딩 추정 실패로 한글이 깨지면 본문이 통째로 쓰레기가 된다.
     if not resp.encoding or resp.encoding.lower() == "iso-8859-1":
         resp.encoding = resp.apparent_encoding or "utf-8"
+    if meta is not None:
+        # 본문 판정보다 **먼저** 담는다. 제목과 안 맞아 본문을 버리는 기사도
+        # 매체명은 멀쩡하고, 그 기사도 카드에는 실린다.
+        meta["site_name"] = extract_site_name(resp.text)
     body = extract_text(resp.text)
     if not body:
         return "", "thin"
@@ -324,7 +369,11 @@ def fetch_one(url: str, session, title: str = "") -> tuple[str, str]:
 
 def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
                  workers: int = WORKERS, session_factory=None) -> tuple[dict[str, str], dict]:
-    """{hash: 본문} 과 통계. 실패한 기사는 키가 없다(호출자는 그냥 건너뛴다)."""
+    """{hash: 본문} 과 통계. 실패한 기사는 키가 없다(호출자는 그냥 건너뛴다).
+
+    매체명을 알아내면 기사 dict 의 `site_name` 에 직접 적어 둔다 — 본문은
+    저장하지 않는 계약이지만(저작권) 매체명은 표시용 사실이라 아카이브에 남는다.
+    """
     stats = {"attempted": 0, "ok": 0, "chars": 0, "reasons": {}}
     if not articles or requests is None:
         return {}, stats
@@ -345,8 +394,11 @@ def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
         return got
 
     def work(article: dict) -> tuple[str, str, str]:
+        meta: dict = {}
         body, status = fetch_one(article.get("link") or "", session_for_thread(),
-                                 str(article.get("title") or ""))
+                                 str(article.get("title") or ""), meta)
+        if meta.get("site_name"):
+            article["site_name"] = meta["site_name"]
         return article.get("hash", ""), body, status
 
     bodies: dict[str, str] = {}

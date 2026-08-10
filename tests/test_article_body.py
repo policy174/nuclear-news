@@ -121,6 +121,58 @@ class TitleMatchTests(unittest.TestCase):
             body, "한수원, 신규 대형 원전 및 SMR 부지 후보지 선정"))
 
 
+class SiteNameTests(unittest.TestCase):
+    """본문 때문에 이미 받은 페이지에서 매체명은 공짜로 나온다."""
+
+    def test_it_reads_og_site_name(self):
+        self.assertEqual(
+            ab.extract_site_name('<meta property="og:site_name" content="이데일리">'),
+            "이데일리")
+
+    def test_attribute_order_does_not_matter(self):
+        self.assertEqual(
+            ab.extract_site_name('<meta content="중앙일보" property="og:site_name">'),
+            "중앙일보")
+
+    def test_a_portal_prefix_is_removed(self):
+        # 포털 미러는 자기 이름을 앞에 붙인다: `Daum | 노컷뉴스`.
+        self.assertEqual(
+            ab.extract_site_name('<meta property="og:site_name" content="Daum | 노컷뉴스">'),
+            "노컷뉴스")
+
+    def test_a_domain_shaped_value_is_no_better_than_what_we_have(self):
+        self.assertEqual(
+            ab.extract_site_name('<meta property="og:site_name" content="www.example.com">'),
+            "")
+        self.assertEqual(
+            ab.extract_site_name('<meta property="og:site_name" content="kwnews.co.kr">'),
+            "")
+
+    def test_no_tag_is_not_an_error(self):
+        self.assertEqual(ab.extract_site_name("<html><body>본문</body></html>"), "")
+
+    def test_the_name_survives_a_rejected_body(self):
+        """제목과 안 맞아 본문을 버리는 기사도 카드에는 실린다 — 매체명은 살려야 한다."""
+        page = ('<meta property="og:site_name" content="이데일리">'
+                '<p>전혀 다른 사건에 대한 긴 본문이다. ' + "다른 이야기. " * 30 + '</p>')
+
+        class FakeResponse:
+            status_code = 200
+            encoding = "utf-8"
+            text = page
+
+        class FakeSession:
+            def get(self, *a, **k):
+                return FakeResponse()
+
+        meta: dict = {}
+        body, status = ab.fetch_one("https://example.com/a", FakeSession(),
+                                    "헝가리 팍스 원전 다뉴브강 수위 하락 가동 중단", meta)
+        self.assertEqual(status, "title_mismatch")
+        self.assertEqual(body, "")
+        self.assertEqual(meta["site_name"], "이데일리")
+
+
 class FetchTests(unittest.TestCase):
     class FakeResponse:
         def __init__(self, text="", status=200):
