@@ -107,6 +107,20 @@ def url_hash(url: str | None) -> str:
     return hashlib.sha1(normalized.encode("utf-8")).hexdigest()[:16] if normalized else ""
 
 
+def source_url(record: dict) -> str:
+    """화면·보고서가 링크할 주소. 실주소를 알면 그것, 아니면 원래 주소.
+
+    이슈 160개 중 38개(24%)의 원문 링크가 `news.google.com/rss/articles/…` 였다
+    (2026-08-10 실측). 브라우저에서 실제 매체로 넘어가긴 하지만 **클릭 전에
+    어디로 가는지 알 수 없고**, Google News 주소는 시간이 지나면 만료된다 —
+    "나중에 다시 찾아본다"가 업무인 사람에게 그건 인용이 끊긴다는 뜻이다.
+
+    `url` 은 절대 안 바꾼다. 그게 dedup 키(url_hash)라 바꾸면 같은 기사가
+    새 기사로 다시 들어온다. 표시용 주소만 따로 둔다.
+    """
+    return str(record.get("resolved_url") or "").strip() or str(record.get("url") or "")
+
+
 def invalid_url_reason(url: str | None) -> str:
     """공개 데이터에 넣을 수 없는 URL이면 이유를 반환한다."""
     normalized = normalize_url(url)

@@ -165,6 +165,9 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "publisher": display_publisher(publisher or profile["publisher"],
                                        article.get("site_name") or ""),
         "site_name": clean_text(article.get("site_name")),
+        # Google News 리다이렉트를 푼 실주소. `url` 은 dedup 키라 손대지 않고
+        # 화면이 읽을 주소만 따로 남긴다(source_url()).
+        "resolved_url": normalize_url(article.get("resolved_url") or ""),
         "source_type": profile["source_type"],
         "evidence_role": profile["evidence_role"],
         "source_tier": profile["source_tier"],

@@ -399,6 +399,11 @@ def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
                                  str(article.get("title") or ""), meta)
         if meta.get("site_name"):
             article["site_name"] = meta["site_name"]
+        # Google News 리다이렉트를 푼 실주소. 원래 link 는 그대로 둔다 —
+        # 그게 dedup 키(url_hash)라 바꾸면 같은 기사가 새 기사로 들어온다.
+        resolved = meta.get("url") or ""
+        if resolved and resolved != (article.get("link") or ""):
+            article["resolved_url"] = resolved
         return article.get("hash", ""), body, status
 
     bodies: dict[str, str] = {}

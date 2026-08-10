@@ -45,6 +45,7 @@ from data_quality import (  # noqa: E402
     normalize_event_date_fields,
     normalize_url,
     source_profile,
+    source_url,
     split_title_publisher,
     title_key,
 )
@@ -1499,7 +1500,7 @@ def build_weekly_movers(issue_catalog: list[dict], end_date: str,
                 {"date": article.get("article_date", ""),
                  "title": article.get("title_kr", ""),
                  "publisher": article.get("publisher") or article.get("domain") or "",
-                 "url": article.get("url", "")}
+                 "url": source_url(article)}
                 for article in sorted(
                     in_week, key=lambda a: str(a.get("article_date") or ""), reverse=True)[:4]
             ],
@@ -1878,7 +1879,7 @@ def _article_view(article: dict, member_role: str = "card") -> dict:
         "region": article.get("region", ""),
         "countries": article.get("countries") or [],
         "topics": article.get("topics") or [],
-        "url": article.get("url", ""),
+        "url": source_url(article),
         "importance": article.get("importance", ""),
         "member_role": member_role,
     }
@@ -2176,7 +2177,7 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
                 "label": "공식 원문 확인",
                 "detail": ((official_article or {}).get("publisher")
                            or (official_article or {}).get("domain") or ""),
-                "url": (official_article or {}).get("url", ""),
+                "url": source_url(official_article or {}),
             },
             {
                 "kind": "multi",
@@ -3536,7 +3537,7 @@ def build() -> None:
             "country_source": country_source,
             "features": record.get("features") or {},
             "article_type": record.get("article_type", ""),
-            "url": record.get("url", ""),
+            "url": source_url(record),
             "domain": record.get("domain", ""),
             "publisher": record.get("publisher", ""),
             "source_tier": record.get("source_tier"),

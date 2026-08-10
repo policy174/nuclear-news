@@ -16,6 +16,7 @@ import news_archive
 for _k in ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
     os.environ.setdefault(_k, "test-dummy")
 import news_bot  # noqa: E402
+import data_quality  # noqa: E402
 
 
 def _now_iso() -> str:
@@ -149,6 +150,41 @@ class TestControlledTagNorm(unittest.TestCase):
         self.assertEqual(news_bot.norm_article_type("policy"), "policy")
         self.assertEqual(news_bot.norm_article_type("속보"), "news")
         self.assertEqual(news_bot.norm_article_type(None), "news")
+
+
+class SourceUrlTests(unittest.TestCase):
+    """이슈 160개 중 38개(24%)의 원문 링크가 Google News 리다이렉트였다.
+
+    브라우저에선 실제 매체로 넘어가지만 클릭 전에 목적지를 알 수 없고, Google News
+    주소는 시간이 지나면 만료된다 — "나중에 다시 찾는다"가 업무인 사람에겐 인용이
+    끊긴다는 뜻이다.
+    """
+
+    def test_the_resolved_address_wins_when_we_have_it(self):
+        record = {"url": "https://news.google.com/rss/articles/CBMi123",
+                  "resolved_url": "https://www.yna.co.kr/view/AKR2026"}
+        self.assertEqual(data_quality.source_url(record),
+                         "https://www.yna.co.kr/view/AKR2026")
+
+    def test_without_it_nothing_changes(self):
+        record = {"url": "https://www.edaily.co.kr/news/1"}
+        self.assertEqual(data_quality.source_url(record),
+                         "https://www.edaily.co.kr/news/1")
+        self.assertEqual(data_quality.source_url({"url": "https://a/b",
+                                                  "resolved_url": ""}),
+                         "https://a/b")
+
+    def test_the_dedup_key_is_never_touched(self):
+        """`url` 을 실주소로 바꾸면 같은 기사가 새 기사로 다시 들어온다 —
+        url_hash 가 그 위에 서 있다. 표시용 주소만 따로 둔다.
+        """
+        article = {"hash": "h1", "link": "https://news.google.com/rss/articles/CBMi9",
+                   "title": "제목", "resolved_url": "https://www.yna.co.kr/view/AKR9"}
+        record = news_archive.make_record(article, {}, "2026-08-11T00:00:00Z")
+        self.assertEqual(record["url"], "https://news.google.com/rss/articles/CBMi9")
+        self.assertEqual(record["resolved_url"], "https://www.yna.co.kr/view/AKR9")
+        self.assertEqual(data_quality.source_url(record),
+                         "https://www.yna.co.kr/view/AKR9")
 
 
 class DisplayPublisherTests(unittest.TestCase):
