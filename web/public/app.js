@@ -1334,6 +1334,30 @@ function renderTodayAgenda(briefing) {
     agenda.hidden ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
+// 좁은 화면에서는 이 블록이 오늘의 선두 이슈 **아래**로 간다.
+//
+// 실측(2026-08-11) — 블록 높이 / 선두 이슈 위치:
+//   1440×900  296px / 733px      768×1024  408px / 838px
+//   375×812   700px / 1,105px  ← 1.36 화면
+// 모바일만 이상치다. 글이 좁은 폭에서 접히며 블록이 두 배 넘게 불어 첫 화면이
+// 통째로 '이번 주' 요약이 된다 — 그런데 탭 이름은 '오늘'이고, 안쪽 라벨은
+// 요일과 무관하게 매일 `이번 주 결론`이다(8/5·8/7 동일).
+//
+// 내용은 하나도 안 숨긴다. 주간 watchpoints 는 카드의 open_question 이 실측
+// 19건 중 0건이라 화면에서 그 질문에 답하는 유일한 자리다 — 접으면 모바일
+// 사용자에게선 사실상 사라진다. 순서만 바꾼다.
+function placeTodayAgenda() {
+  const agenda = document.getElementById("todayAgenda");
+  const lead = document.getElementById("leadIssue");
+  const grid = document.querySelector(".briefing-content-grid");
+  if (!agenda || !lead || !grid) return;
+  if (narrowScreen.matches && !lead.hidden) {
+    if (agenda.previousElementSibling !== lead) lead.after(agenda);
+  } else if (agenda.nextElementSibling !== grid) {
+    grid.before(agenda);          // 원래 자리 — 히어로 바로 다음
+  }
+}
+
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
@@ -1361,6 +1385,9 @@ function renderBriefing() {
   const lead = issues[0] || null;
   const leadId = lead ? lead.issue_id : "";
   document.getElementById("leadIssue").hidden = !lead;
+  // 선두 이슈의 표시 여부가 정해진 **뒤에** 자리를 잡는다 — 앞에서 부르면
+  // 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다.
+  placeTodayAgenda();
   document.getElementById("leadCard").innerHTML = lead ? leadCard(lead, briefing) : "";
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
@@ -2466,7 +2493,11 @@ function renderWeeklyReport() {
   document.getElementById("weeklyReportBody").innerHTML = [
     // 테마명을 라벨 열로 뗀다. 화살표·테마·설명이 한 문장으로 이어져 있으면
     // 훑는 눈이 걸릴 데가 없다 — 카드의 세 칸과 같은 원칙이다.
-    weeklySection("조용하지만 놓치면 안 되는 것", "투자 테마 강약",
+    // 라벨을 '투자 테마 강약'에서 중화했다(2026-08-11 사용자 결정). 한수원
+    // 임직원용 서비스가 투자 시그널을 주는 모양새는 기획 단계부터 걸려 있던
+    // 우려다. 담는 내용(theme_moves)은 그대로 — 실제로 뜨는 이름은 SMR·계속운전·
+    // 전력수요처럼 주제어이지 종목이 아니다. 바꾼 것은 프레이밍뿐이다.
+    weeklySection("조용하지만 놓치면 안 되는 것", "주제별 강약",
       themes.map(row =>
         `<div class="weekly-item theme-move">`
         + `<p class="theme-name ${DIRECTION_TONE[row.direction] || "flat"}">`
@@ -2691,6 +2722,8 @@ function initFilterDrawers() {
     closeFilterDrawer(open);
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
+  // 경계를 넘나들면 자리도 따라와야 한다 — 안 하면 리사이즈한 사람만 어긋난 채 본다.
+  narrowScreen.addEventListener("change", placeTodayAgenda);
   railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();
 }

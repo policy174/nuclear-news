@@ -4401,6 +4401,53 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertIn(".timeline-detail", css)
 
 
+class TodayAgendaPlacementTests(unittest.TestCase):
+    """좁은 화면에서 '오늘 3분'은 오늘의 선두 이슈 **아래**로 간다.
+
+    실측(2026-08-11) 블록 높이 / 선두 이슈 위치 — 1440×900 은 296px/733px 인데
+    375×812 은 700px/1,105px(1.36 화면)이다. 글이 좁은 폭에서 접히며 블록이 두 배
+    넘게 불어 첫 화면이 통째로 '이번 주' 요약이 됐다. 탭 이름은 '오늘'이고 안쪽
+    라벨은 요일과 무관하게 매일 `이번 주 결론` 이다.
+    """
+
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_the_move_happens_only_on_narrow_screens(self):
+        self.assertIn("function placeTodayAgenda", self.script)
+        body = self.script.split("function placeTodayAgenda", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("narrowScreen.matches", body)
+        # 내용을 숨기는 방식은 쓰지 않는다 — 주간 watchpoints 는 카드의
+        # open_question 이 비어 있어 화면에서 그 질문에 답하는 유일한 자리다.
+        self.assertNotIn("hidden = true", body)
+
+    def test_it_runs_after_the_lead_visibility_is_decided(self):
+        """앞에서 부르면 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다
+        (실제로 그렇게 넣었다가 자리가 안 바뀌었다).
+        """
+        decided = self.script.index('document.getElementById("leadIssue").hidden = !lead;')
+        called = self.script.index("placeTodayAgenda();", decided)
+        self.assertGreater(called, decided)
+
+    def test_the_breakpoint_change_moves_it_back(self):
+        # 안 하면 리사이즈한 사람만 어긋난 채 본다.
+        self.assertIn('narrowScreen.addEventListener("change", placeTodayAgenda)', self.script)
+
+
+class WeeklyThemeLabelTests(unittest.TestCase):
+    """한수원 임직원용 서비스가 투자 시그널을 주는 모양새는 기획 단계부터 걸려 있던
+    우려다. 담는 내용(theme_moves)은 그대로 두고 프레이밍만 중화한다
+    (2026-08-11 사용자 결정). 실제로 뜨는 이름은 SMR·계속운전·전력수요처럼
+    주제어이지 종목이 아니다.
+    """
+
+    def test_the_web_label_is_neutral(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('"주제별 강약"', script)
+        code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
+        self.assertNotIn("투자 테마", code)
+
+
 class CountryLabelTests(unittest.TestCase):
     """나라를 말하는 표가 셋이고, 어긋나면 내부 코드가 그대로 화면이 된다.
 
