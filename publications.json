@@ -1,6 +1,36 @@
 {
  "items": [
   {
+   "id": "b5f135e4b14f",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "New version of Thermodynamics of Advanced Fuels - International Database",
+   "url": "https://www.oecd-nea.org/jcms/pl_121102/new-version-of-thermodynamics-of-advanced-fuels-international-database",
+   "date": "",
+   "fetched_at": "2026-08-11",
+   "title_kr": "경제협력개발기구 원자력기구(OECD-NEA) 고급 핵연료 열역학 국제 데이터베이스 신규 버전",
+   "gist": "고급 핵연료의 열역학적 특성 데이터베이스 업데이트",
+   "off_topic": false,
+   "relevance": "technical",
+   "translated_version": 3
+  },
+  {
+   "id": "0928dd0651a4",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "Strengthening nuclear knowledge for the next generation of radiological protection",
+   "url": "https://www.oecd-nea.org/jcms/pl_121119/strengthening-nuclear-knowledge-for-the-next-generation-of-radiological-protection",
+   "date": "",
+   "fetched_at": "2026-08-11",
+   "title_kr": "경제협력개발기구 원자력기구(OECD-NEA) 차세대 방사선 방호를 위한 원자력 지식 강화",
+   "gist": "방사선 방호 분야 인력 양성 및 지식 관리 방안 논의",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "99c89733959c",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -539,42 +569,42 @@
   }
  ],
  "state": {
-  "nea_max_id": 121061,
+  "nea_max_id": 121119,
   "keei_max_list_no": 127887,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 2,
+   "parsed": 2
   },
   "iea_reports": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-10T00:23:27+09:00",
+   "at": "2026-08-11T00:52:19+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
