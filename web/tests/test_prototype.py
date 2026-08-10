@@ -4401,6 +4401,55 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertIn(".timeline-detail", css)
 
 
+class PublicationTitleTests(unittest.TestCase):
+    """발간물 목록은 "이 문서를 열어 볼 값어치가 있나"를 고르는 자리다.
+
+    라이브 실측(2026-08-10) 20건 중 17건의 제목이 기관명으로 시작했고, 바로 위
+    줄에 같은 기관 바이라인이 또 있었다. 모든 행이 같은 10~22자로 시작하니
+    정작 다른 부분이 오른쪽으로 밀린다.
+    """
+
+    def test_the_org_byline_is_not_repeated_at_the_head_of_the_title(self):
+        self.assertEqual(
+            build_data.strip_org_prefix(
+                "국제원자력기구(IAEA) 원자력 시설의 기후 관련 외부 사건에서 얻은 교훈",
+                "IAEA", "국제원자력기구(IAEA)"),
+            "원자력 시설의 기후 관련 외부 사건에서 얻은 교훈")
+
+    def test_a_different_spelling_of_the_same_org_is_still_caught(self):
+        """제목은 '경제협력개발기구 원자력기구(OECD-NEA)', 바이라인은
+        'OECD 원자력기구(NEA)' 였다 — 두 기관처럼 읽힌다. 한국어 표기는 번역마다
+        흔들리므로 판정은 괄호 안 약자로 한다.
+        """
+        self.assertEqual(
+            build_data.strip_org_prefix(
+                "경제협력개발기구 원자력기구(OECD-NEA) 소형모듈원전(SMR) 가속화",
+                "OECD-NEA", "OECD 원자력기구(NEA)"),
+            "소형모듈원전(SMR) 가속화")
+
+    def test_it_does_not_eat_a_title_that_merely_opens_with_a_parenthesis(self):
+        # 기관 약자가 아닌 괄호는 제목의 일부다.
+        self.assertEqual(
+            build_data.strip_org_prefix("소형모듈원자로(SMR) 배치 가속화",
+                                        "IAEA", "국제원자력기구(IAEA)"),
+            "소형모듈원자로(SMR) 배치 가속화")
+
+    def test_a_title_that_is_only_the_org_name_survives(self):
+        # 자르고 나면 아무것도 안 남는 경우 — 빈 제목보다 중복이 낫다.
+        self.assertEqual(
+            build_data.strip_org_prefix("국제원자력기구(IAEA)",
+                                        "IAEA", "국제원자력기구(IAEA)"),
+            "국제원자력기구(IAEA)")
+
+    def test_the_prompt_keeps_the_org_out_of_the_title_slot(self):
+        """근본 원인은 입력 형식이었다 — `(OECD-NEA) Accelerating SMRs` 처럼
+        괄호가 제목 바로 앞에 붙어 모델이 그것까지 제목으로 읽었다.
+        """
+        source = (ROOT.parent / "pubs_translate.py").read_text(encoding="utf-8")
+        self.assertIn("발행기관=", source)
+        self.assertIn("발행기관을 제목 앞에 붙이지 않는다", source)
+
+
 class WebFontWeightTests(unittest.TestCase):
     """폰트 한 벌이 첫 로드 전송량의 77% 였다(2026-08-10 실측 2,057,688 바이트).
 

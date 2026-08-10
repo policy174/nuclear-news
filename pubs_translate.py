@@ -50,6 +50,11 @@ SYSTEM_PROMPT = """너는 한국 원자력 정책 담당자에게 국제기구 �
    - 원문 제목의 뜻만 옮긴다. 없는 말을 붙이지 않는다.
    - 기관명·고유명사는 통용 표기 + 영문 약자 병기
      (International Atomic Energy Agency → 국제원자력기구(IAEA))
+   - **발행기관을 제목 앞에 붙이지 않는다.** 화면이 기관을 따로 표시하므로
+     붙이면 같은 말이 두 번 서고 목록이 전부 같은 글자로 시작한다.
+       나쁨: "국제원자력기구(IAEA) 원자력 시설의 기후 관련 외부 사건 교훈"
+       좋음: "원자력 시설의 기후 관련 외부 사건에서 얻은 교훈"
+     제목 **안에** 기관이 실제로 들어 있으면 그건 살린다.
    - 문서 종류가 제목에 있으면 살린다 (보고서·지침·회의·통계 등)
 
 2) gist — 이 문서가 무엇을 다루는지 한국어 한 줄 (45자 이내)
@@ -102,9 +107,18 @@ def needs_translation(item: dict) -> bool:
 
 
 def build_user_message(items: list[dict]) -> str:
+    """기관은 **맥락**이고 제목이 아니다.
+
+    예전 형식은 `[3] (OECD-NEA) Accelerating SMRs` 였다. 괄호가 제목 바로 앞에
+    붙어 있어 모델이 그것까지 제목으로 읽었고, 실측 20건 중 17건의 title_kr 이
+    기관명으로 시작했다(`경제협력개발기구 원자력기구(OECD-NEA) 소형모듈원전…`).
+    화면은 바로 위에 기관 바이라인을 따로 세우므로 같은 말이 두 번 서고,
+    목록의 모든 행이 같은 20자로 시작해 스캔이 죽는다. 자리를 갈라 준다.
+    """
     lines = []
     for index, item in enumerate(items):
-        lines.append(f"[{index}] ({item.get('org', '')}) {item.get('title', '')}")
+        lines.append(f"[{index}] 발행기관={item.get('org', '')} "
+                     f"| 제목={item.get('title', '')}")
     return "\n".join(lines)
 
 
