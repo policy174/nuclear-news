@@ -159,6 +159,33 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(self.call_kwargs[0].get("model"),
                          audio_brief.SCRIPT_MODEL_DEFAULT)
 
+    def test_generate_script_falls_back_to_shared_bucket_on_429(self):
+        """2026-08-10: 전용 버킷(flash-lite)이 분당 한도에 걸려 대본이 죽고
+        그날 오디오만 조용히 빠졌다. 버티는 것만으로 안 되면 버킷을 옮긴다."""
+        first = {"n": 0}
+
+        def flaky(system_prompt, user_message, **kwargs):
+            self.call_kwargs.append(kwargs)
+            if kwargs.get("model") == audio_brief.SCRIPT_MODEL_DEFAULT:
+                first["n"] += 1
+                raise GeminiError("HTTP 429: limit 20")
+            return {"script": GOOD_SCRIPT}
+
+        audio_brief.call_json = flaky
+        script = audio_brief.generate_script("재료")
+        self.assertIn("HOST:", script)
+        self.assertEqual(first["n"], 1)
+        self.assertEqual(self.call_kwargs[-1]["model"], audio_brief.gemini_client.MODEL)
+
+    def test_generate_script_waits_longer_than_default(self):
+        """대본은 하루 1회·마지막 스텝이라 느려도 된다 — 기본 재시도로는
+        분당 한도 창을 못 넘긴 실사고가 있었다."""
+        self.responses = [{"script": GOOD_SCRIPT}]
+        audio_brief.generate_script("재료")
+        self.assertEqual(self.call_kwargs[0].get("retries"),
+                         audio_brief.SCRIPT_RETRIES)
+        self.assertGreater(audio_brief.SCRIPT_RETRIES, 3)
+
     def test_generate_script_retries_once_on_bad_format(self):
         self.responses = [{"script": "그냥 낭독문입니다."}, {"script": GOOD_SCRIPT}]
         script = audio_brief.generate_script("재료")

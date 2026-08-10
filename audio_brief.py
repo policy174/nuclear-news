@@ -55,6 +55,7 @@ VOICES = {"HOST": "Kore", "ANALYST": "Charon"}
 # 큐레이션·브리핑 체인이 쓰는 버킷은 저녁이면 고갈돼 하루 1회짜리 이 호출이
 # 3연속 429 로 굶었다(2026-08-04 실측: 같은 시각 단독 프로브는 성공).
 SCRIPT_MODEL_DEFAULT = "gemini-2.5-flash-lite"
+SCRIPT_RETRIES = 6     # 기본 3(≈2분)으로는 2026-08-10 분당 한도 창을 못 넘겼다
 
 
 def _script_model() -> str:
@@ -172,6 +173,40 @@ def validate_script(text: str) -> tuple[str, int]:
     return "\n".join(lines), spoken
 
 
+def _script_models() -> list[str]:
+    """대본 모델 사다리 — 전용 버킷이 막히면 공용 버킷으로 넘어간다.
+
+    2026-08-10 실사고: flash-lite 가 분당 한도(limit 20)에 걸려 3연속 429 로
+    대본이 실패했고, 오디오 스텝이 비치명이라 워크플로는 success 로 끝나
+    그날 오디오만 조용히 빠졌다. 정작 그 잡 자신의 호출은 분당 2회였다 —
+    같은 키를 쓰는 다른 소비자가 버킷을 먹었다는 뜻이라, 버티는 것 말고
+    버킷을 옮기는 길도 있어야 한다.
+    """
+    models = [_script_model()]
+    if gemini_client.MODEL and gemini_client.MODEL not in models:
+        models.append(gemini_client.MODEL)
+    return models
+
+
+def _call_script(message: str) -> dict:
+    """대본 1회 호출 — 모델 사다리 + 넉넉한 재시도.
+
+    하루 1회짜리 마지막 스텝이라 느려도 된다. call_json 은 서버가 알려주는
+    대기 시간을 그대로 자므로 SCRIPT_RETRIES 회면 분당 한도 몇 창은 넘긴다.
+    """
+    last_err: Exception | None = None
+    for model in _script_models():
+        try:
+            return call_json(SYSTEM_PROMPT, message, temperature=0.4,
+                             max_output_tokens=8192, timeout=120.0,
+                             thinking_budget=0, model=model,
+                             retries=SCRIPT_RETRIES, label="audio_brief")
+        except GeminiError as exc:
+            last_err = exc
+            print(f"[audio] 대본 {model} 실패 — 다음 모델 폴백: {str(exc)[:160]}")
+    raise last_err or GeminiError("대본 모델 전부 실패")
+
+
 def generate_script(material: str) -> str:
     """대본 생성 + 재시도 사다리 1단 (daily_lead 패턴).
 
@@ -179,11 +214,7 @@ def generate_script(material: str) -> str:
     thinking 을 켜 두면 예산(8192)을 thinking 이 먹고 대본이 잘린다
     (2026-08-04 CI 실사고: thoughts=7863, output=315).
     """
-    result = call_json(SYSTEM_PROMPT, material, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0, thinking_budget=0,
-                       model=_script_model(),
-        label="audio_brief",
-    )
+    result = _call_script(material)
     try:
         script, spoken = validate_script(result.get("script"))
         if spoken <= MAX_SPOKEN:
@@ -197,11 +228,7 @@ def generate_script(material: str) -> str:
         "형식 규칙(모든 줄이 HOST:/ANALYST:)과 분량(1,200~1,500자)을 지켜 "
         "대본 전체를 다시 쓰세요."
     )
-    result = call_json(SYSTEM_PROMPT, retry_message, temperature=0.4,
-                       max_output_tokens=8192, timeout=120.0, thinking_budget=0,
-                       model=_script_model(),
-        label="audio_brief",
-    )
+    result = _call_script(retry_message)
     script, spoken = validate_script(result.get("script"))
     if spoken > MAX_SPOKEN:
         raise ValueError(f"재시도 후에도 {spoken}자 — 포기")
