@@ -3043,8 +3043,24 @@ class TopicWeekAggregationTests(unittest.TestCase):
         _, series = build_data.build_topic_weeks(rows, self.FULL_WEEK)
         self.assertEqual(list(series), ["smr"])
 
+    @unittest.skipIf(SKIP_DATA_GATES, "배포 경로에서는 데이터 지표를 게이트로 쓰지 않는다")
     def test_live_data_weeks_are_within_the_front_end_gate(self):
-        """실데이터에서 주별 합계가 2배 안에 들어와야 화면이 방향을 말한다."""
+        """실데이터에서 주별 합계가 2배 안에 들어와야 화면이 방향을 말한다.
+
+        **이건 데이터 품질을 보는 자리이지 배포를 막는 자리가 아니다**
+        (2026-08-11 발견). deploy-web.yml 은 `build_data.py` 로 데이터를 구운 **뒤에**
+        테스트를 돌리고 그 다음에 배포하므로, 이 검사가 배포 경로에서 살아 있으면
+        **뉴스가 한 주에 몰린 것만으로 CSS 오타 수정도 배포가 막힌다.** 실제로
+        그 상태였다 — 주별 합계 [56, 50, 101], 비 2.02.
+
+        `test_tracking_rate_meets_target` 이 2026-08-03 에 같은 이유로 이미 꺼졌는데
+        (워크플로 주석이 그 사고를 적어 두고 있다) 이 검사만 표식이 빠져 있었다.
+        같은 종류는 같은 취급을 받아야 한다.
+
+        화면은 이 왜곡에 이미 견딘다 — 주별 **비중**으로 정규화하고 `8pp 이상·표본
+        8건 이상`일 때만 방향을 말한다. 그래서 이 값이 넘어도 거짓 방향이 뜨지는
+        않는다. 로컬·수동 실행에서는 계속 켜져 있어 눈에 띈다.
+        """
         catalog = json.loads((ROOT / "public" / "data" / "issues.json").read_text(encoding="utf-8"))
         briefings = json.loads((ROOT / "public" / "data" / "briefings.json").read_text(encoding="utf-8"))
         weeks, series = build_data.build_topic_weeks(
@@ -4399,6 +4415,65 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
         self.assertIn("timeline-detail", app)
         self.assertIn(".timeline-detail", css)
+
+
+class CountryRepairTests(unittest.TestCase):
+    """큐레이션이 나라를 틀리게 붙이는 일은 드물지만 한 건이 세 군데를 망가뜨린다.
+
+    2026-08-11 실사고: IAEA 주최 국제 논의 기사(dt.co.kr)에 `KR` 이 붙었다. 요약에
+    한국 행위자가 없는데도. 그 태그 하나가 ①지역을 국내로 바꾸고 ②국가 지도의
+    한국 칸을 부풀리고 ③같은 사건을 다룬 미국 기사와 한 이슈로 묶일 때 국경
+    충돌로 잡혀 **배포 게이트를 막았다.**
+
+    드문 오판은 규칙을 풀어서 고치지 않는다 — 판정을 고친다.
+    """
+
+    def test_a_repair_wins_over_the_curated_tags(self):
+        build_data._COUNTRY_REPAIRS = {"h1": ["GLOBAL"]}
+        try:
+            countries, source = build_data.infer_countries(
+                {"hash": "h1", "countries": ["KR"], "title_kr": "IAEA 국제 논의"})
+            self.assertEqual(countries, ["GLOBAL"])
+            self.assertEqual(source, "manual-repair")
+        finally:
+            build_data._COUNTRY_REPAIRS = None
+
+    def test_a_repair_also_wins_over_a_stale_scope(self):
+        """`scope` 는 큐레이션이 명시할 때만 채워지는 신뢰 낮은 필드인데(실측 157건
+        중 148건 None) infer_region 맨 앞에 있어서, 고쳐 놓은 나라가 옛 scope 하나에
+        다시 덮이고 있었다.
+        """
+        record = {"hash": "h1", "scope": "kr"}
+        self.assertEqual(build_data.region_of(record, ["GLOBAL"]), "국내")
+        self.assertEqual(
+            build_data.region_of(record, ["GLOBAL"], "manual-repair"), "해외")
+
+    def test_records_without_a_repair_are_untouched(self):
+        build_data._COUNTRY_REPAIRS = {"other": ["GLOBAL"]}
+        try:
+            countries, source = build_data.infer_countries(
+                {"hash": "h1", "countries": ["KR"], "title_kr": "한수원 영덕 부지"})
+            self.assertEqual(countries, ["KR"])
+            self.assertNotEqual(source, "manual-repair")
+        finally:
+            build_data._COUNTRY_REPAIRS = None
+
+    def test_the_repair_file_parses_and_the_live_entry_is_applied(self):
+        repairs = build_data.country_repairs()
+        self.assertIn("b55e201374267ece", repairs)
+        article = next((row for row in self.__class__._news()
+                        if row["hash"] == "b55e201374267ece"), None)
+        if article is None:
+            self.skipTest("생성 데이터 없음")
+        self.assertEqual(article["countries"], ["GLOBAL"])
+        self.assertEqual(article["region"], "해외")
+
+    @staticmethod
+    def _news():
+        path = ROOT / "public" / "data" / "news.json"
+        if not path.exists():
+            return []
+        return json.loads(path.read_text(encoding="utf-8"))
 
 
 class TodayAgendaPlacementTests(unittest.TestCase):

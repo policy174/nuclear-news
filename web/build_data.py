@@ -455,18 +455,23 @@ def load_selection_stats() -> dict[str, dict]:
     return pick_selection_stats(rows)
 
 
-def infer_region(record: dict, countries: list[str] | None = None) -> tuple[str, str]:
+def infer_region(record: dict, countries: list[str] | None = None,
+                 country_source: str = "") -> tuple[str, str]:
     """기사의 대상 지역을 수집 경로가 아니라 기사 내용 기준으로 정규화한다.
 
     명시적인 scope가 있으면 우선 사용한다. 그 외에는 국가 태그를 우선하고,
     국가를 특정하지 못한 경우에만 section과 domain을 보조 신호로 사용한다.
     Google News 한국 도메인에 실린 해외 기사까지 국내로 잡히던 오류를 막는다.
     """
-    scope = (record.get("scope") or "").lower()
-    if scope == "kr":
-        return "국내", "scope"
-    if scope == "overseas":
-        return "해외", "scope"
+    # 사람이 나라를 고쳤으면 `scope` 는 건너뛴다. scope 는 큐레이션이 명시할 때만
+    # 채워지는 신뢰 낮은 필드인데(실측 157건 중 148건이 None) 여기 맨 앞에 있어서,
+    # 고쳐 놓은 나라가 옛 scope 하나에 다시 덮이고 있었다.
+    if country_source != "manual-repair":
+        scope = (record.get("scope") or "").lower()
+        if scope == "kr":
+            return "국내", "scope"
+        if scope == "overseas":
+            return "해외", "scope"
 
     confident_countries = {
         str(country).strip().upper()
@@ -489,8 +494,9 @@ def infer_region(record: dict, countries: list[str] | None = None) -> tuple[str,
     )
 
 
-def region_of(record: dict, countries: list[str] | None = None) -> str:
-    return infer_region(record, countries)[0]
+def region_of(record: dict, countries: list[str] | None = None,
+              country_source: str = "") -> str:
+    return infer_region(record, countries, country_source)[0]
 
 
 def date_of(record: dict) -> str:
@@ -612,7 +618,44 @@ def _country_scopes_from_text(text: str) -> list[str]:
     return []
 
 
+_COUNTRY_REPAIRS: dict[str, list[str]] | None = None
+
+
+def country_repairs() -> dict[str, list[str]]:
+    """`archive_repairs.json` 의 `countries` 수선 — 사람이 판정을 뒤집는 자리.
+
+    큐레이션이 나라를 틀리게 붙이는 일은 드물지만(실측 1,037건 중 GLOBAL+KR
+    동시 태그 2건) 한 건이 세 군데를 동시에 망가뜨린다: ①지역이 국내로 바뀌어
+    국내 풀에서 경쟁하고 ②국가 지도의 한국 칸을 부풀리고 ③같은 사건을 다룬
+    미국 기사와 한 이슈로 묶일 때 **국경 충돌**로 잡혀 배포 게이트를 막는다.
+
+    드문 오판은 규칙을 풀어서 고치지 않는다 — 이 저장소가 이슈 병합에서 얻은
+    원칙 그대로다("틀린 것이 판정이면 판정을 고친다"). 그 목적의 파일이 이미
+    있으니 거기에 적는다.
+
+    아카이브를 다시 쓰지 않는다(`--migrate-quality` 는 파일을 통째로 갈아엎는
+    유지보수 명령이다). 빌드가 매번 아카이브 전체를 지나가므로 여기서 얹으면
+    과거분까지 즉시 반영된다.
+    """
+    global _COUNTRY_REPAIRS
+    if _COUNTRY_REPAIRS is None:
+        try:
+            raw = json.loads((BOT_DIR / "archive_repairs.json").read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            raw = {}
+        _COUNTRY_REPAIRS = {
+            key: [str(code).strip().upper() for code in entry["countries"]
+                  if str(code).strip()]
+            for key, entry in (raw.items() if isinstance(raw, dict) else [])
+            if isinstance(entry, dict) and isinstance(entry.get("countries"), list)
+        }
+    return _COUNTRY_REPAIRS
+
+
 def infer_countries(record: dict) -> tuple[list[str], str]:
+    repaired = country_repairs().get(str(record.get("hash") or ""))
+    if repaired:
+        return repaired, "manual-repair"
     text = _taxonomy_text(record)
     raw_native = [
         str(country).strip().upper()
@@ -3505,7 +3548,7 @@ def build() -> None:
         delivery = deliveries.get(record.get("hash", ""))
         topics, topic_source = infer_topics(record)
         countries, country_source = infer_countries(record)
-        region, region_source = infer_region(record, countries)
+        region, region_source = infer_region(record, countries, country_source)
         canonical_tags = list(dict.fromkeys(
             _canonical_tag(tag) for tag in (record.get("tags") or []) if _canonical_tag(tag)
         ))
