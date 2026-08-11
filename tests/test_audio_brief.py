@@ -339,6 +339,39 @@ class AudioBriefTestCase(unittest.TestCase):
         pcm = b"\x00" * (2 * 24000 * 100)         # 100초
         audio_brief._check_not_truncated(1, chunk, pcm, 24000)  # 예외 없음
 
+    def test_trim_silence_strips_both_ends(self):
+        """이음새가 파일에서 제일 긴 정적이 되던 것(2026-08-10 경계 0.92·0.96초
+        vs 문장 사이 0.5~0.7초) — 청크가 달고 오는 여백을 걷어낸다."""
+        rate = 24000
+        quiet = b"\x00\x00" * rate          # 1초 무음
+        loud = (b"\x00\x40" * rate)         # 1초 유음 (진폭 0x4000)
+        trimmed = audio_brief.trim_silence(quiet + loud + quiet, rate)
+        self.assertAlmostEqual(len(trimmed) / 2 / rate, 1.0, places=1)
+
+    def test_trim_silence_keeps_all_silent_chunk(self):
+        """통째로 무음이면 원본을 준다 — 빈 바이트를 이어붙이면 그 청크가
+        사라진 것을 아무도 모른다."""
+        pcm = b"\x00\x00" * 24000
+        self.assertEqual(audio_brief.trim_silence(pcm, 24000), pcm)
+
+    def test_synthesize_uses_one_gap_between_chunks(self):
+        """이음새 간격은 TTS 여백이 아니라 우리가 정한 값 하나여야 한다."""
+        rate = 24000
+        pad = b"\x00\x00" * (rate // 2)     # 청크마다 앞뒤 0.5초 여백
+        body = b"\x00\x40" * rate
+
+        def padded(chunk, models=None):
+            return pad + body + pad, rate
+
+        audio_brief.call_tts = padded
+        self.addCleanup(setattr, audio_brief, "_check_not_truncated",
+                        audio_brief._check_not_truncated)
+        audio_brief._check_not_truncated = lambda *a, **k: None
+        pcm, _ = audio_brief.synthesize(LONG_SCRIPT)
+        chunks = len(audio_brief.split_script(LONG_SCRIPT))
+        gap = int(rate * audio_brief.CHUNK_GAP_SEC) * 2
+        self.assertEqual(len(pcm), chunks * len(body) + (chunks - 1) * gap)
+
     def test_synthesize_rejects_rate_mismatch(self):
         """레이트가 섞인 채 이어붙이면 뒷부분이 배속으로 재생된다."""
         seen = {"n": 0}

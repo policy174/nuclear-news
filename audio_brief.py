@@ -22,6 +22,7 @@
 
 from __future__ import annotations
 
+import array
 import base64
 import json
 import re
@@ -70,7 +71,9 @@ MIN_LINES = 8          # 이보다 짧으면 대담이 아니라 낭독이다
 MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초)
 DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
-CHUNK_GAP_SEC = 0.33   # 청크 사이에 넣는 무음
+CHUNK_GAP_SEC = 0.45   # 청크 사이 간격. 문장 사이 자연 무음(0.5~0.7초)에 맞춘다
+SILENCE_LEVEL = 300    # s16 진폭 — 이보다 작으면 무음으로 본다 (약 -41 dBFS)
+TRIM_FRAME_MS = 10
 # 잘림 감지용. 실측 8.5자/초 근처(08-10: 대사 1910자 / 257초 = 7.4)라 넉넉히
 # 잡고, 기대치의 이만큼도 안 되면 잘린 것으로 본다.
 SPOKEN_CHARS_PER_SEC = 8.5
@@ -87,7 +90,9 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 화자 2명: HOST(진행자)와 ANALYST(해설위원). 모든 대사는 "HOST: " 또는
   "ANALYST: "로 시작하는 한 줄. 다른 형식의 줄 금지.
 - 구성: 짧은 인사(날짜·이슈 개수) → 하이라이트 이슈를 대화로 풀기 →
-  나머지 이슈는 HOST가 헤드라인만 빠르게 훑기 → 한 문장 마무리.
+  나머지 이슈는 헤드라인만 빠르게 훑기 → 한 문장 마무리.
+- 헤드라인 훑기도 HOST와 ANALYST가 한 건씩 번갈아 맡습니다. 한 화자가
+  세 줄 넘게 연달아 말하지 않습니다.
 - 분량: 대사 합계 1,200~1,500자. 청취 3분 내외.
 - 존댓말.
 
@@ -115,9 +120,14 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 [출력 — JSON 한 객체만]
 {"script": "HOST: ...\\nANALYST: ..."}"""
 
+# 낭독 지시. 청취자는 출근길의 한수원 임직원이고 듣는 목적이 정보라, 팟캐스트
+# 활기보다 '또렷함'이 먼저다. 특히 숫자·기관명·호기명이 뭉개지면 그 문장은
+# 통째로 값이 없다 — 다시 들을 수 없는 매체이기 때문이다.
 STYLE_INSTRUCTION = (
-    "다음은 한국어 아침 뉴스 브리핑 팟캐스트입니다. 밝고 또렷한 라디오 진행 "
-    "톤으로, 약간 경쾌한 속도로 읽어주세요:\n\n"
+    "다음은 한국어 아침 원자력·에너지 브리핑입니다. 두 화자는 정책분석가와 "
+    "기술전문가처럼 차분하고 또렷하게 말합니다. 수치·기관명·호기명·날짜는 "
+    "특히 분명하게 발음하고, 과장된 감탄이나 웃음은 넣지 않습니다. "
+    "대본을 요약하거나 바꾸지 말고 그대로 읽어주세요:\n\n"
 )
 
 
@@ -397,6 +407,35 @@ def _check_not_truncated(index: int, chunk: str, pcm: bytes, rate: int) -> None:
             f"(기대 {expected:.0f}초 이상)")
 
 
+def trim_silence(pcm: bytes, rate: int) -> bytes:
+    """앞뒤 무음을 떼어낸다 (s16le mono).
+
+    TTS 청크는 제 나름의 앞뒤 여백을 달고 온다. 거기에 우리 간격까지 더해지면
+    이음새가 파일에서 제일 긴 정적이 된다 — 2026-08-10 실측으로 경계 두 곳이
+    0.92초·0.96초로 전체 1·2위였고, 문장 사이 자연 무음은 0.5~0.7초였다.
+    모델이 바뀌는 지점에 죽은 자리가 생기는 셈이라 여백을 걷어내고 간격을
+    우리가 정한 값 하나로 통일한다.
+
+    통째로 무음이면 원본을 그대로 준다 — 빈 바이트를 이어붙이면 그 청크가
+    사라진 것을 아무도 모른다.
+    """
+    samples = array.array("h")
+    samples.frombytes(pcm[:len(pcm) // 2 * 2])
+    if sys.byteorder == "big":
+        samples.byteswap()
+    frame = max(1, rate * TRIM_FRAME_MS // 1000)
+    start, end = 0, len(samples)
+    while start < end and max(
+            (abs(x) for x in samples[start:start + frame]), default=0) < SILENCE_LEVEL:
+        start += frame
+    while end > start and max(
+            (abs(x) for x in samples[max(start, end - frame):end]), default=0) < SILENCE_LEVEL:
+        end -= frame
+    if start >= end:
+        return pcm
+    return samples[start:end].tobytes()
+
+
 def synthesize(script: str) -> tuple[bytes, int]:
     """대본을 청크로 나눠 합성하고 PCM 을 이어붙인다.
 
@@ -424,7 +463,7 @@ def synthesize(script: str) -> tuple[bytes, int]:
                 _check_not_truncated(index, chunk, pcm, rate)
                 if pieces:
                     pieces.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
-                pieces.append(pcm)
+                pieces.append(trim_silence(pcm, rate))
             return b"".join(pieces), rate
         except GeminiError as exc:
             last_err = exc
