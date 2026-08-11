@@ -62,6 +62,10 @@ def _script_model() -> str:
     return gemini_client._resolve("GEMINI_SCRIPT_MODEL", SCRIPT_MODEL_DEFAULT)
 
 SPEAKER_RE = re.compile(r"^(HOST|ANALYST):\s*(.+)$")
+# 줄머리 추임새. '네'·'예'는 뒤에 구두점이 붙은 것만 잡는다 — '네트워크',
+# '예산' 같은 낱말을 자르면 안 된다.
+_FILLER_RE = re.compile(
+    r"^(?:아,\s*)?(?:네|예|그렇군요|그렇죠|맞습니다|알겠습니다)\s*[,.!]\s*")
 MIN_LINES = 8          # 이보다 짧으면 대담이 아니라 낭독이다
 MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초)
 DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
@@ -89,7 +93,8 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 미래 예측·전망·투자 권고 금지. "~할 전망", "~가 유망" 금지.
 - 재료 문장을 그대로 읽지 말고 자연스러운 구어체로 재구성. 제목 재진술은
   실패입니다 — HOST가 제목을 말했으면 ANALYST는 배경과 의미를 말해야 합니다.
-- 추임새(아, 네, 그렇군요)는 자연스럽게, 남발 금지.
+- 대사를 '네', '예', '그렇군요', '맞습니다'로 시작하지 마세요. 맞장구 없이
+  바로 내용으로 들어갑니다. (이 규칙은 코드가 다시 한 번 걸러냅니다.)
 
 [출력 — JSON 한 객체만]
 {"script": "HOST: ...\\nANALYST: ..."}"""
@@ -156,6 +161,18 @@ def build_material(briefing: dict, by_id: dict) -> str:
     return "\n\n".join(sections)
 
 
+def strip_filler(text: str) -> str:
+    """줄머리 추임새를 뗀다 — 대담체를 살리라고 열어 뒀더니 남발됐다.
+
+    2026-08-10 대본 26줄 중 13줄이 추임새로 시작했고 '네,' 만 12번이었다
+    (08-08 은 17줄 중 4줄). 프롬프트에 '남발 금지'는 이미 있었고 지켜지지
+    않았다 — 확률적 지시로 안 되는 것은 코드로 자른다. 줄이 통째로
+    추임새뿐이면 남긴다(뗄 내용이 없으면 빈 대사가 된다).
+    """
+    stripped = _FILLER_RE.sub("", text, count=1).strip()
+    return stripped or text
+
+
 def validate_script(text: str) -> tuple[str, int]:
     """화자 형식 줄만 남긴 대본과 대사 글자 수. 대담이 못 되면 ValueError."""
     lines = []
@@ -163,8 +180,9 @@ def validate_script(text: str) -> tuple[str, int]:
     for raw in str(text or "").splitlines():
         match = SPEAKER_RE.match(raw.strip())
         if match:
-            lines.append(f"{match.group(1)}: {match.group(2).strip()}")
-            spoken += len(match.group(2).strip())
+            spoken_text = strip_filler(match.group(2).strip())
+            lines.append(f"{match.group(1)}: {spoken_text}")
+            spoken += len(spoken_text)
     if len(lines) < MIN_LINES:
         raise ValueError(f"화자 형식 줄 {len(lines)}개 — 대담 형식 미달")
     speakers = {line.split(":", 1)[0] for line in lines}

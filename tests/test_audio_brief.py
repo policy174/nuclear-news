@@ -135,6 +135,34 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(len(script.splitlines()), 10)
         self.assertGreater(spoken, 0)
 
+    def test_validate_script_strips_leading_fillers(self):
+        """2026-08-10 대본 26줄 중 13줄이 '네,'로 시작했다. 프롬프트의
+        '남발 금지'로는 안 됐으므로 코드가 자른다."""
+        noisy = "\n".join([
+            "HOST: 안녕하십니까? 오늘 브리핑을 시작합니다.",
+            "ANALYST: 네, 오늘 이슈는 세 가지입니다.",
+            "HOST: 그렇군요. 첫 소식부터 보겠습니다.",
+            "ANALYST: 아, 네, 원안위가 오늘 발표했습니다.",
+            "HOST: 맞습니다! 그 부분이 핵심입니다.",
+            "ANALYST: 예. 계속운전 심사가 하반기로 잡혔습니다.",
+            "HOST: 다음 소식입니다.",
+            "ANALYST: 네트워크 투자도 함께 발표됐습니다.",
+        ])
+        script, _ = audio_brief.validate_script(noisy)
+        bodies = [line.split(": ", 1)[1] for line in script.splitlines()]
+        self.assertEqual(bodies[1], "오늘 이슈는 세 가지입니다.")
+        self.assertEqual(bodies[2], "첫 소식부터 보겠습니다.")
+        self.assertEqual(bodies[3], "원안위가 오늘 발표했습니다.")
+        self.assertEqual(bodies[4], "그 부분이 핵심입니다.")
+        self.assertEqual(bodies[5], "계속운전 심사가 하반기로 잡혔습니다.")
+        # 낱말 첫머리는 건드리지 않는다 — '네트워크'·'예산'
+        self.assertEqual(bodies[7], "네트워크 투자도 함께 발표됐습니다.")
+
+    def test_strip_filler_keeps_line_that_is_only_filler(self):
+        """뗄 내용이 없으면 빈 대사가 된다 — 그럴 땐 그대로 둔다."""
+        self.assertEqual(audio_brief.strip_filler("네."), "네.")
+        self.assertEqual(audio_brief.strip_filler("그렇군요."), "그렇군요.")
+
     def test_validate_script_rejects_monologue(self):
         mono = "\n".join(f"HOST: 문장 {i}입니다." for i in range(10))
         with self.assertRaises(ValueError):
