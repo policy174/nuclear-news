@@ -4,6 +4,7 @@ import json
 import os
 import re
 import time
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -366,6 +367,10 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
 
 - summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 목표·100자 절대 상한). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
 - summary 사실성 제약: 원문에 없는 전망·평가·인과관계를 추가하지 말 것. 계획·예정·전망·검토를 완료된 사실처럼 바꾸지 말고 원문의 시제를 그대로 보존할 것.
+- **`본문:` 이 없는 기사는 제목에 적힌 것 이상을 쓰지 말 것.** 제목을 한국어로 옮기고 다듬는 수준까지다. 제목에 없는 주체·지명·수치·일정을 보태지 말고, 아는 사실로 채우지도 말 것. 제목이 묶음·칼럼(`[외신 헤드라인]`·`[○○ 칼럼]`·`[이슈]`)이라 무슨 일인지 특정할 수 없으면 제목이 말하는 범위까지만 쓴다.
+  (실측 2026-08-11: 본문 없는 기사 597건에서 사고가 났다. `해외건설 500억 달러 시대 겨냥…K건설, 중동 플랜트서 원전·전력 선회` → "한수원이 신규 원전 2기 후보지로 경북 영덕군, SMR 후보지로 부산 기장군을 선정했다"로 지어냈다. 원문에 영덕도 기장도 없다. `[외신 헤드라인] 애플, 中 창신메모리 칩 테스트` → "엔비디아, 전력 인프라에 대규모 투자"로 아예 다른 기사가 됐다.)
+- **인명은 원문에 적힌 대로만 쓴다.** 원문이 성을 줄여 썼으면(`李 대통령`·`尹 장관`·`이 대통령`) 줄인 그대로 옮기고, **네가 아는 사람 이름으로 풀지 말 것.** 원문에 없는 실명을 넣는 것은 오역이 아니라 사실 오류다.
+  (실측 2026-08-10: 원문 `李 대통령 "해남 청정에너지…"` 를 '윤석열 대통령'으로 풀어 써, 같은 사건의 다른 기사와 대통령이 어긋났다.)
 - **summary 는 제목을 바꿔 쓴 문장이 아니다.** 입력에 `본문:` 이 있으면 제목에 없는 사실(수치·주체·일정·원인 중 하나 이상)을 반드시 담을 것.
 - **길이는 80자를 목표로 하고 100자를 절대 넘기지 않는다.** 본문이 풍부해도 summary 는
   목록 한 줄이므로 늘리지 말 것. 넣고 싶은 내용이 남으면 summary 를 늘리지 말고
@@ -956,6 +961,153 @@ def default_section(domain: str, title: str = "") -> str:
 # 프롬프트가 망가진 것을 아무도 모른다.
 HOLLOW_IMPLICATION_DROPS: list[str] = []
 
+# 원문과 성이 어긋난 실명을 걷어낸 건수. 위와 같은 이유로 조용히 지우지 않는다.
+UNSOURCED_NAME_DROPS: list[str] = []
+
+# 본문 없이 쓰인 해석을 걷어낸 건수.
+NO_BODY_INTERPRETATION_DROPS: list[str] = []
+
+
+def drop_interpretation_without_body(payload: dict, title: str = "") -> None:
+    """본문을 못 받은 기사에서는 해석 필드를 비운다 (제자리 수정).
+
+    왜: 제목 한 줄로 '왜 중요한가'를 쓸 근거는 없다. 그런데 프롬프트는 detail 에만
+    "본문이 없으면 빈 문자열"이라는 출구를 주고, summary·implication·why_important
+    에는 안 준다. 재료가 없는데 쓰라고 하면 모델은 아는 것으로 채운다.
+
+    실측 2026-08-11: 큐레이션 900건 중 597건(66.3%)이 본문 없이 작성됐고
+    (수집 성공률 실행별 53~72% — blocked_domain·http_403·title_mismatch),
+    그중 implication 408건 · why_important 63건이 채워져 있었다. 그 63건은
+    **제목만 보고 must_read 등급을 받은 기사**다. 사고도 여기서 났다:
+    `해외건설 500억 달러 시대 겨냥…K건설, 중동 플랜트서 원전·전력 선회` 가
+    "한수원, 신규 원전·SMR 부지 후보지 선정(영덕·기장)"으로 둔갑했다.
+
+    등급(importance)은 건드리지 않는다. `Oklo 동위원소 시험로 임계 달성`,
+    `중국, 신규 원자로 8기 건설 승인` 처럼 제목 자체가 사실을 담은 must_read 가
+    있어서, 본문 없다고 63건을 일괄 강등하면 진짜 신호까지 죽는다. 여기서 지우는
+    것은 근거 없이 **덧붙인 해석**뿐이다 — 이 파일이 drop_hollow_implication 에서
+    쓰는 '빈칸이 빈껍데기보다 낫다' 와 같은 판단.
+    """
+    for field in ("implication", "why_important"):
+        text = clean_text(payload.get(field))
+        if text:
+            NO_BODY_INTERPRETATION_DROPS.append(f"{title[:36]} | {field} | {text[:50]}")
+        payload[field] = ""
+
+# 줄여 쓴 성이 붙는 직함. 한국 기사가 `李 대통령`·`尹 장관` 꼴로 쓰는 자리다.
+_PERSON_TITLES = ("대통령", "국무총리", "부총리", "총리", "장관", "차관", "위원장")
+_TITLE_ALT = "|".join(_PERSON_TITLES)
+# 모델이 내놓은 '풀네임 + 직함'. 공백은 필수다 — 없애면 '기상청장'·'국방장관'
+# 같은 합성어가 쪼개져 '기상'이 이름으로 잡힌다. 반대로 직함 뒤에는 아무것도
+# 걸지 않는다: 한국어는 조사가 직함에 그대로 붙어('대통령**이**') 뒤보기를 걸면
+# 정작 잡아야 할 문장이 전부 빠져나간다. 둘 다 실측으로 걸러낸 함정이다.
+_FULLNAME_TITLE_RE = re.compile(r"(?<![가-힣])([가-힣]{2,4})\s+(" + _TITLE_ALT + r")")
+# 원문 쪽의 줄인 표기. 한자 한 글자(李 대통령) 또는 한글 성 한 글자(이 대통령).
+#
+# 공백은 선택이다(`\s*`) — 실측에 `[이슈] 李대통령, '호남반도체' 직접 챙긴다` 처럼
+# 붙여 쓴 제목이 있었다. 성 한 글자짜리 표식이라 위 풀네임 규칙과 달리 합성어가
+# 쪼개질 걱정이 없다.
+# 한자 범위에 U+F900–U+FAFF(CJK 호환 한자)를 반드시 같이 넣는다. 한국 언론이
+# 내보내는 '李' 가 통합 한자(U+674E)가 아니라 호환 한자(U+F9E1)인 경우가 있는데,
+# 눈으로는 구별이 안 돼 이 범위를 빼먹으면 정작 문제의 기사만 조용히 빠져나간다.
+# 잡아낸 글자는 _surname_of 가 NFC 로 정규화해 같은 성으로 취급한다.
+_CJK = r"一-鿿豈-﫿가-힣"
+_ABBREV_TITLE_RE = re.compile(
+    r"(?<![" + _CJK + r"])([" + _CJK + r"])\s*(" + _TITLE_ALT + r")")
+# 한국 기사가 성으로 쓰는 한자 → 한글. 없는 글자는 대조를 포기한다(모르면 안 건드린다).
+_HANJA_SURNAME = {
+    "李": "이", "尹": "윤", "文": "문", "朴": "박", "金": "김", "崔": "최",
+    "鄭": "정", "姜": "강", "趙": "조", "張": "장", "韓": "한", "吳": "오",
+    "徐": "서", "申": "신", "權": "권", "黃": "황", "安": "안", "宋": "송",
+    "洪": "홍", "柳": "류", "全": "전", "高": "고", "白": "백", "任": "임",
+}
+# 한글 한 글자 표식은 성일 때만 인정한다. '전 대통령'(전직)·'고 대통령'(고인)은
+# 성이 아니라 관형사라 여기서 빼야 멀쩡한 이름을 깎지 않는다.
+_HANGUL_SURNAME_MARKS = set(_HANJA_SURNAME.values()) - {"전", "고"}
+
+
+def _surname_of(mark: str) -> str:
+    """줄여 쓴 한 글자를 한글 성으로. 모르는 글자는 빈 문자열(대조 포기).
+
+    NFC 정규화가 여기 있는 이유: 실측 namdonews 제목의 '李' 는 U+674E 가 아니라
+    **U+F9E1(CJK 호환 한자)** 였다. 한국 언론 CMS 가 흔히 내보내는 형태인데 눈으로는
+    같은 글자라, 정규화 전에는 정작 재현하려던 그 기사만 규칙을 조용히 비껴갔다.
+    한 글자만 정규화한다 — 문장 전체를 정규화하면 고칠 이유가 없는 글자까지
+    바이트가 바뀌어, 내용은 그대로인데 저장분이 달라진다.
+    """
+    mark = unicodedata.normalize("NFC", mark)
+    return _HANJA_SURNAME.get(mark) or (mark if mark in _HANGUL_SURNAME_MARKS else "")
+
+
+def strip_unsourced_person_names(value, source_text: str, where: str = "") -> str:
+    """원문이 줄여 쓴 성과 **어긋나는** 실명은 직함만 남기고 걷어낸다.
+
+    실측 2026-08-10 (namdonews 919437): 원문 제목이 `李 대통령 "해남 청정에너지,
+    반도체 클러스터 움직이는 힘"` 인데 큐레이션이 **윤석열 대통령**으로 풀어 썼다.
+    같은 착공식을 다룬 뉴시스·서울경제 기사는 전부 '이재명'이어서, 사이트에서는
+    한 이슈가 두 대통령을 말하는 상태가 됐다.
+
+    한국 기사는 성을 한자 한 글자(李·尹)나 성 하나로 줄여 쓰고, 모델은 그 빈칸을
+    **학습 시점의 대통령**으로 메운다. 무작위 오타가 아니라 방향이 정해진 오류라
+    프롬프트 한 줄로는 안 막힌다 — 이미 '원문에 없는 사실을 추가하지 말 것'이
+    프롬프트에 있는데도 났다.
+
+    처음에는 '원문에 없는 실명을 전부 걷어낸다'로 짰다가 물렀다. 실측 889건에서
+    58건이 바뀌었는데 대부분 오탐이었다 — '신용시장'→'시장', '헝가리 총리'→'총리',
+    '이장연합회장'→'회장'. 한국어에서 '직함 앞 2~4글자'는 이름보다 보통명사·
+    국가명일 때가 훨씬 많다. 없는 것을 찾는 규칙은 한국어 형태론을 이길 수 없다.
+
+    그래서 **모순만** 본다: 원문이 `X 대통령`으로 성을 밝혀 놓았는데 출력이 다른
+    성의 실명을 쓰면 그때만 걷어낸다. `李 대통령`→`이재명 대통령`은 성이 같으니
+    통과하고(풀어 쓴 것이 맞다), `헝가리 총리`는 원문에 줄인 성 자체가 없으니
+    애초에 대상이 아니다. 이름을 다른 이름으로 고치지는 않는다 — 그건 또 다른
+    추측이다. 직함만 남긴다: 정보 한 조각을 잃는 쪽이 틀린 사람을 단정하는 쪽보다
+    낫다.
+    """
+    text = clean_text(value)
+    if not text:
+        return text
+
+    source_text = source_text or ""
+    # 원문이 직함별로 밝혀 놓은 성. 한 직함에 여러 성이 나오면(인사 기사 등)
+    # 무엇과 대조해야 할지 알 수 없으므로 그 직함은 통째로 포기한다.
+    sourced: dict[str, set[str]] = {}
+    for mark, title in _ABBREV_TITLE_RE.findall(source_text):
+        surname = _surname_of(mark)
+        if surname:
+            sourced.setdefault(title, set()).add(surname)
+
+    def replace(match: re.Match) -> str:
+        name, title = match.group(1), match.group(2)
+        surnames = sourced.get(title)
+        # 원문이 성을 안 밝혔거나 여러 명이 나오면 판단 근거가 없다 → 그대로 둔다.
+        if not surnames or len(surnames) > 1:
+            return match.group(0)
+        # 풀네임이 원문에 그대로 있으면 대조할 것도 없다.
+        if name in source_text or name[0] in surnames:
+            return match.group(0)
+        UNSOURCED_NAME_DROPS.append(
+            f"{where[:40]} | 원문 {''.join(surnames)} {title} ↔ 출력 {name} {title}")
+        return title
+
+    def replace_abbrev(match: re.Match) -> str:
+        """출력도 성 한 글자로 줄여 쓸 때가 있다.
+
+        같은 사고 기사의 title_kr 이 '윤 대통령, 해남 태양광 착공식서…' 였다.
+        풀네임이 아니라 위 규칙에 안 걸리는데, 카드에서 가장 크게 보이는 줄이
+        틀린 사람을 가리키고 있으면 요약만 고친 것은 반쪽이다.
+        """
+        mark, title = match.group(1), match.group(2)
+        surname = _surname_of(mark)
+        surnames = sourced.get(title)
+        if not surname or not surnames or len(surnames) > 1 or surname in surnames:
+            return match.group(0)
+        UNSOURCED_NAME_DROPS.append(
+            f"{where[:40]} | 원문 {''.join(surnames)} {title} ↔ 출력 {mark} {title}")
+        return title
+
+    return _ABBREV_TITLE_RE.sub(replace_abbrev, _FULLNAME_TITLE_RE.sub(replace, text))
+
 
 def drop_hollow_implication(value, title: str = "") -> str:
     """정보량 0인 해석은 빈 문자열로 만든다.
@@ -1082,14 +1234,23 @@ def norm_open_question(item: dict, importance: str, event_type: str = "") -> tup
             (item.get("open_question_source") or "").strip().lower())
 
 
-def normalize_curation_item(item: dict, article: dict) -> dict:
+def normalize_curation_item(item: dict, article: dict, body: str = "") -> dict:
     """LLM 결과를 손실 없이 스키마에 맞춘다. 문장 중간 slicing은 하지 않는다."""
+    # 실명 대조용 원문. 본문은 저장하지 않고 이 호출 안에서만 쓴다(저작권 판단
+    # 유지 — curate_batch 가 프롬프트에 넣을 때와 같은 규칙). 본문까지 넣는 이유는
+    # 제목만 보면 '제목엔 李, 본문엔 이재명' 인 정상 기사에서 멀쩡한 이름을
+    # 깎기 때문이다.
+    source_text = " ".join(filter(None, (
+        article.get("title", ""), article.get("description", ""), body,
+    )))
     importance = item.get("importance", "nice_to_know")
     section = item.get("section") or default_section(
         article.get("domain", ""), article.get("title", "")
     )
     category = item.get("category", "정책")
-    title_kr = clean_text(item.get("title_kr")) or article.get("title", "")
+    title_kr = strip_unsourced_person_names(
+        clean_text(item.get("title_kr")) or article.get("title", ""),
+        source_text, article.get("title", ""))
     grade = importance if importance in VALID_IMPORTANCE else "nice_to_know"
     features = sanitize_features(item.get("features"))
     event_type = (features or {}).get("event_type", "")
@@ -1113,17 +1274,23 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         "countries": norm_countries(item.get("countries")),
         "article_type": norm_article_type(item.get("article_type")),
         "title_kr": title_kr,
-        "summary": clean_text(item.get("summary")),
+        # 사람 이름이 나가는 네 필드는 전부 같은 문을 지난다. 한 곳만 막으면
+        # 카드 제목은 고쳐지고 본문 요지에는 틀린 이름이 그대로 남는다.
+        "summary": strip_unsourced_person_names(
+            item.get("summary"), source_text, article.get("title", "")),
         # 원문 대신 읽는 '기사 요지'. 본문을 못 받아온 기사에서는 빈 문자열이고,
         # 그 상태가 정상이다 — 재료 없이 채우면 제목을 늘려 쓴 문장이 된다.
         # curation_errors 에 넣지 않는다: 요지 하나 때문에 기사를 격리하면
         # 영문 제목 폴백으로 떨어져 지금보다 나쁘다(implication 게이트와 같은 판단).
-        "detail": sanitize_detail(item.get("detail")),
+        "detail": strip_unsourced_person_names(
+            sanitize_detail(item.get("detail")), source_text, article.get("title", "")),
         # 빈껍데기 해석은 화면에 내보내지 않는다. 재생성시키지 않고 그냥 버린다 —
         # 문체 위반으로 기사를 격리하면 영문 제목 폴백으로 떨어져 더 나쁘다.
-        "implication": drop_hollow_implication(item.get("implication"),
-                                               article.get("title", "")),
-        "why_important": clean_text(item.get("why_important")),
+        "implication": strip_unsourced_person_names(
+            drop_hollow_implication(item.get("implication"), article.get("title", "")),
+            source_text, article.get("title", "")),
+        "why_important": strip_unsourced_person_names(
+            item.get("why_important"), source_text, article.get("title", "")),
         "open_question": open_question,
         "open_question_source": open_question_source,
         "open_question_reject": oq_reject,
@@ -1134,6 +1301,10 @@ def normalize_curation_item(item: dict, article: dict) -> dict:
         ][:2],
     }
     normalized.update(normalize_event_date_fields(item))
+    # 본문이 없었으면 해석은 근거가 없다. detail 은 프롬프트가 이미 빈 문자열로
+    # 두게 하므로 여기서는 그 규칙을 나머지 해석 필드로 넓히기만 한다.
+    if not (body or "").strip():
+        drop_interpretation_without_body(normalized, article.get("title", ""))
     return normalized
 
 
@@ -1504,7 +1675,8 @@ def curate_batch(articles: list[dict], reports_kb: list[dict],
                 valid.pop(art["hash"], None)
                 continue
             seen_hashes.add(art["hash"])
-            normalized = normalize_curation_item(item, art)
+            normalized = normalize_curation_item(
+                item, art, (bodies or {}).get(art.get("hash", "")) or "")
             # open_question 게이트 계측. hash 로 덮어쓰므로 분할 재시도가 같은 기사를
             # 두 번 세지 않는다(마지막 판정이 남는다). 판정 자체는 바꾸지 않는다.
             if normalized.get("importance") == "must_read":
@@ -1608,6 +1780,23 @@ def curate_batch(articles: list[dict], reports_kb: list[dict],
         for line in HOLLOW_IMPLICATION_DROPS[:5]:
             print(f"      · {line}")
         HOLLOW_IMPLICATION_DROPS.clear()
+
+    # 이 줄이 0 이 아니면 모델이 원문에 없는 사람을 불러왔다는 뜻이다. 계속 커지면
+    # 프롬프트가 아니라 모델·본문 수집 쪽을 봐야 한다.
+    if UNSOURCED_NAME_DROPS:
+        print(f"  ! 원문과 성이 어긋난 실명 {len(UNSOURCED_NAME_DROPS)}건 제거 (직함만 남김)")
+        for line in UNSOURCED_NAME_DROPS[:5]:
+            print(f"      · {line}")
+        UNSOURCED_NAME_DROPS.clear()
+
+    # 이 줄은 본문 수집 실패율을 해석 손실로 환산해 보여 준다. 위의 [body] 로그가
+    # '몇 건을 못 받았나'를 말한다면 여기는 '그래서 화면에서 무엇이 빠졌나'다.
+    if NO_BODY_INTERPRETATION_DROPS:
+        print(f"  ! 본문 없이 쓰인 해석 {len(NO_BODY_INTERPRETATION_DROPS)}건 제거 "
+              f"(제목만으로는 '왜 중요한가'를 쓸 근거가 없다)")
+        for line in NO_BODY_INTERPRETATION_DROPS[:5]:
+            print(f"      · {line}")
+        NO_BODY_INTERPRETATION_DROPS.clear()
 
     if oq_verdicts:
         blocked: dict[str, int] = {}
