@@ -1412,6 +1412,21 @@ kbd {
   .lead-section { margin-bottom: var(--sp-5); }
 }
 
+/* 부팅 동안 그리는 것은 히어로와 이 스켈레톤뿐이다.
+   본문 격자를 통째로 접는 이유는 index.html #bootSkeleton 주석 참고 — 나중에
+   펴질 세 섹션(오늘 3분·가장 먼저 볼 이슈·지금 달라진 이슈)이 이미 그려진
+   카드 목록을 1451px 밀어내며 CLS 0.90 을 만들던 자리다. 사라지는 요소와
+   새로 나타나는 요소는 layout-shift 로 세지 않으므로, 둘을 같은 순간에
+   맞바꾸면 눈에 보이는 것은 아무것도 움직이지 않는다.
+   접힌 격자에는 오류 화면(#issueList)도 들어 있다 — renderLoadError 가
+   booting 을 같이 벗기는 이유다. */
+body:not(.booting) #bootSkeleton { display: none; }
+body.booting .briefing-content-grid { display: none; }
+/* 로딩 스트립은 35px 를 잡았다가 정상(.status-strip.ok)이 되면 사라져, 그
+   자체로 본문 전체를 35px 끌어올렸다. 로딩 중임은 위 스켈레톤이 이미 말한다. */
+body.booting .status-strip.loading { display: none; }
+#bootSkeleton { min-height: 60vh; align-content: start; }
+
 .skeleton-card { min-height: 230px; padding: 24px; grid-template-columns: 1fr; pointer-events: none; }
 .skeleton-card i {
   display: block;

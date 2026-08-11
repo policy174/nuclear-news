@@ -226,10 +226,19 @@ function dateTimeLabel(value) {
   });
 }
 
+// 시:분만 찍어도 되는 건 그게 오늘일 때뿐이다.
+//
+// 실측 2026-08-10: status.json 의 last_success_at 이 08-09 06:54 에 멈춰 있었는데
+// 화면은 '정상 · 마지막 수집 06:54' 라고 썼다. 47시간 낡은 값이 오늘 아침으로
+// 읽혔다 — 실제 수집기는 정상이었으므로 방향까지 반대인 거짓말이었다.
+// 날짜가 오늘이 아니면 날짜를 같이 말한다. 같은 파일 아래쪽 briefingStaleDays()
+// 분기가 '오류가 아니라 기준 시각을 말해 준다'로 쓰는 규칙과 같다.
 function timeLabel(value) {
   if (!value) return "-";
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return String(value).slice(11, 16);
+  const dateKST = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(parsed);
+  if (dateKST !== todayKST()) return dateTimeLabel(value);
   return parsed.toLocaleTimeString("ko-KR", {
     timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false,
   });
@@ -1074,7 +1083,18 @@ function leadCard(issue, briefing) {
     model.impact ? { label: model.impact.label, text: model.impact.text, group: "read" } : null,
     model.openQuestion ? { label: "다음 확인", text: model.openQuestion, tone: "open", group: "read" } : null,
   ].filter(Boolean);
+  // 남는 게 없으면 요약이 바닥을 받친다.
+  //
+  // 위 규칙('무슨 일'을 안 세운다)은 **변화 문장이 있다**는 전제 위에 있었다.
+  // 그 전제가 깨지는 날이 있다: 실측 2026-08-11 빌드에서 8/10 브리핑의
+  // latest_change 가 12건 중 0건이었다(한 시간 전 같은 브리핑은 2건이었다 —
+  // 코드가 아니라 데이터가 빌드마다 흔들린다). 그날 데스크톱 선두 카드는
+  // 제목 하나만 남고 아래가 통째로 비었다. 82자짜리 summary 를 손에 쥔 채로.
+  //
+  // '가장 먼저 볼 이슈'라고 불러 놓고 무슨 일인지 안 적는 카드는 라벨을
+  // 배신한다. 중복 금지는 겹칠 것이 있을 때만 성립한다.
   const shown = railIsActive() ? blocks.filter(block => block.group === "fact") : blocks;
+  if (!shown.length && issue.summary) shown.push({ label: "무슨 일", text: issue.summary, group: "fact" });
   return `<article id="issue-card-${esc(issue.issue_id)}" class="lead-card ${issueToneClass(issue)}">
     <div class="lead-meta">
       <span class="issue-state">${esc(issueStatusText(issue))}</span>
@@ -1216,10 +1236,23 @@ function renderEmptyBriefing(briefing, issueList) {
   issueList.innerHTML = `<div class="empty-state"><p>${view.detail}</p></div>`;
 }
 
+// 날짜 문자열 산술은 UTC 자정 위에서만 한다.
+//
+// KST 자정(`T00:00:00+09:00`)으로 파싱한 뒤 `toISOString()` 으로 되돌리면 UTC 로
+// 전날 15:00 이 되어 잘라낸 날짜가 하루 빠진다. '최근 7일'이 조용히 8일이 됐다 —
+// 실측 2026-08-09 기준 창이 08-02~08-09 로 잡혀 주간 이슈 72건·근거확인 42건이
+// 떴으나 참값(08-03~08-09)은 65건·39건이었다.
+//
+// 여기서 시간대는 애초에 필요 없다. 들어오는 것도 나가는 것도 `YYYY-MM-DD`
+// 문자열이고, 오프셋을 붙였다 떼는 왕복이 유일한 오차원이었다.
+function shiftDate(date, days) {
+  const base = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(base.getTime())) return "";
+  return new Date(base.getTime() + days * 86400000).toISOString().slice(0, 10);
+}
+
 function weekRange(date) {
-  const end = new Date(`${date}T00:00:00+09:00`);
-  const start = new Date(end.getTime() - 6 * 86400000);
-  return { start: start.toISOString().slice(0, 10), end: date };
+  return { start: shiftDate(date, -6), end: date };
 }
 
 function weeklyChangedIssues(briefing) {
@@ -1397,7 +1430,9 @@ function placeTodayAgenda() {
 function renderBriefing() {
   const briefing = currentBriefing();
   const issueList = document.getElementById("issueList");
-  issueList.classList.remove("skeleton-list");
+  // 부팅 스켈레톤을 걷고 본문 격자를 편다. 브리핑이 없는 날·0건인 날도 여기를
+  // 지나므로(아래 두 반환 경로) 격자가 접힌 채 남는 일은 없다.
+  document.body.classList.remove("booting");
   // 모든 반환 경로(브리핑 없음·0건·정상)에서 한 번씩 판정되도록 맨 앞에서 부른다.
   renderAudioBrief(briefing);
   if (!briefing) {
@@ -2302,16 +2337,32 @@ function renderInsights() {
 function trendRange() {
   const days = Number(state.period) || 7;
   const end = state.meta?.date_max || state.meta?.latest_briefing_date || "";
-  const parsedEnd = new Date(`${end}T00:00:00+09:00`);
-  const requestedStart = new Date(parsedEnd.getTime() - (days - 1) * 86400000).toISOString().slice(0, 10);
+  const requestedStart = shiftDate(end, -(days - 1));
   const start = state.meta?.date_min && state.meta.date_min > requestedStart ? state.meta.date_min : requestedStart;
   return { start, end };
 }
 
+// 분류율은 분모를 밝히지 않으면 거짓말이 된다.
+//
+// build_data.py 는 topic_coverage 를 **큐레이션을 받은 기사**에 대해서만 잰다.
+// 429 로 배치가 통째로 미큐레이션이 되면 분모만 커져 분류기 버그처럼 보이기
+// 때문이고, 이건 그쪽 주석에 사유까지 박혀 있는 의도된 설계다.
+//
+// 문제는 화면이 그 분모를 안 말했다는 것이다. 실측 2026-08-10: 표시 889건 중
+// 220건이 큐레이션 대기라 '주제 분류 99%' 는 669건 기준인데, 화면만 보면 889건의
+// 99% 로 읽힌다. 그래서 여기서는 모수를 같이 쓴다 — build_data.py 가
+// uncurated_count 를 굳이 따로 세어 내보내는 이유가 '눈에 보이게 두려고'다.
 function renderTrendReadiness() {
   const ready = Boolean(state.meta?.trend_ready);
   const topicCoverage = Math.round((state.meta?.topic_coverage || 0) * 100);
   const countryCoverage = Math.round((state.meta?.country_coverage || 0) * 100);
+  const uncurated = state.meta?.uncurated_count || 0;
+  const visible = state.meta?.visible_total || 0;
+  const curated = Math.max(0, visible - uncurated);
+  const basis = uncurated && curated
+    ? ` · 분류율은 큐레이션 ${curated}건 기준(대기 ${uncurated}건 제외)`
+    : "";
+  const coverage = `<div class="coverage"><span>주제 분류 <strong>${topicCoverage}%</strong></span><span>국가 분류 <strong>${countryCoverage}%</strong></span></div>`;
   const { start, end } = trendRange();
   const articleCount = state.news.filter(article => article.article_date >= start && article.article_date <= end).length;
   const issueCount = state.issues.filter(issue => (issue.related_articles || []).some(article => article.article_date >= start && article.article_date <= end)).length;
@@ -2319,18 +2370,36 @@ function renderTrendReadiness() {
   document.getElementById("trendData").hidden = !ready;
   panel.classList.toggle("ready", ready);
   panel.innerHTML = ready
-    ? `<div><strong>분석 기간 ${dateLabel(start)}–${dateLabel(end)}</strong><p>중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개</p></div><div class="coverage"><span>주제 분류 <strong>${topicCoverage}%</strong></span><span>국가 분류 <strong>${countryCoverage}%</strong></span></div>`
-    : `<div><strong>분류 기준을 확인하고 있습니다</strong><p>분류가 완료되면 분석 기간과 근거 데이터를 함께 표시합니다.</p></div><div class="coverage"><span>주제 분류 <strong>${topicCoverage}%</strong></span><span>국가 분류 <strong>${countryCoverage}%</strong></span></div>`;
+    ? `<div><strong>분석 기간 ${dateLabel(start)}–${dateLabel(end)}</strong><p>중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개${basis}</p></div>${coverage}`
+    : `<div><strong>분류 기준을 확인하고 있습니다</strong><p>분류가 완료되면 분석 기간과 근거 데이터를 함께 표시합니다.${basis}</p></div>${coverage}`;
 }
 
-function keywordRows() {
-  const top = new Map((state.trend?.top_tags_7d || []).map(row => [row.tag, row.count]));
+// 기간 토글은 이 표까지 와야 말이 된다.
+//
+// 실측 2026-08-10: '최근 30일'을 눌러도 위쪽 '분석 기간'만 7월 12일~로 바뀌고
+// 표는 top_tags_7d 를 그대로 그렸다. 사용자에게 같은 숫자를 30일치라고 읽힌 셈이다.
+//
+// 30일에는 비교 상대가 없다 — rising/new_tags 는 최근 7일 대 직전 7일로만
+// 계산된다(build_data.py). 없는 비교를 지어내는 대신 있는 것을 쓴다: 30일 건수와
+// 그중 최근 7일이 몇 건인가. 수집량이 주마다 널뛰는 이 데이터에서는 이쪽이
+// '변화'보다 정직하다 — 실측 데이터센터 30일 72건 중 71건이 최근 7일이었다.
+function isMonthPeriod(period = state.period) {
+  return String(period) === "30";
+}
+
+function keywordRows(period = state.period) {
+  const week = new Map((state.trend?.top_tags_7d || []).map(row => [row.tag, row.count]));
+  if (isMonthPeriod(period)) {
+    return (state.trend?.top_tags_30d || [])
+      .map(row => ({ tag: row.tag, now: row.count, week: week.get(row.tag) || 0 }))
+      .filter(row => row.now > 0);
+  }
   const rising = new Map((state.trend?.rising || []).map(row => [row.tag, row]));
   const newTags = new Set((state.trend?.new_tags || []).map(row => row.tag));
-  const tags = new Set([...top.keys(), ...rising.keys(), ...newTags]);
+  const tags = new Set([...week.keys(), ...rising.keys(), ...newTags]);
   return [...tags].map(tag => {
     const rise = rising.get(tag);
-    const now = top.get(tag) ?? rise?.now ?? 0;
+    const now = week.get(tag) ?? rise?.now ?? 0;
     const prev = rise?.prev ?? (newTags.has(tag) ? 0 : now);
     return { tag, now, prev, delta: now - prev, isNew: newTags.has(tag) || (now > 0 && prev === 0) };
     // 0·0 행은 표에 앉을 자격이 없다 — 실측: 수집 키워드가 new_tags 에 올라오고
@@ -2339,21 +2408,59 @@ function keywordRows() {
 }
 
 function renderKeywordTable() {
+  const month = isMonthPeriod();
+  // 변화순·신규만은 최근 7일 대 직전 7일 위에서만 정의된다. 30일에서 눌리게
+  // 두면 또 '눌러도 안 바뀌는 버튼'이 된다 — 아예 치운다.
+  const sortBox = document.getElementById("keywordSort");
+  for (const button of sortBox.querySelectorAll("[data-sort]")) {
+    button.hidden = month && button.dataset.sort !== "mentions";
+  }
+  if (month && state.keywordSort !== "mentions") {
+    state.keywordSort = "mentions";
+    setPressed(sortBox, sortBox.querySelector('[data-sort="mentions"]'));
+  }
+
   let rows = keywordRows();
-  if (state.keywordSort === "new") rows = rows.filter(row => row.isNew);
-  rows.sort((a, b) => state.keywordSort === "change"
+  if (!month && state.keywordSort === "new") rows = rows.filter(row => row.isNew);
+  rows.sort((a, b) => !month && state.keywordSort === "change"
     ? b.delta - a.delta || b.now - a.now
-    : b.now - a.now || b.delta - a.delta);
+    : b.now - a.now || (b.delta || 0) - (a.delta || 0));
   rows = rows.slice(0, 12);
-  document.getElementById("keywordTable").innerHTML = rows.length ? `
-    <div class="keyword-row keyword-head" aria-hidden="true"><span>키워드</span><span>이번 주</span><span>전주</span><span>변화</span><span>상태</span><span></span></div>
-    ${rows.map(row => `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev}</span><span class="${row.delta > 0 ? "positive" : row.delta < 0 ? "negative" : ""}">${row.delta > 0 ? "+" : row.delta < 0 ? "−" : ""}${Math.abs(row.delta)}</span><span>${row.isNew ? "신규" : row.delta >= 3 ? "늘어남" : "이어짐"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`).join("")}`
+  // 비중은 여기서 한 번만 반올림한다. 칸은 반올림값(70%), 아래 해석 문장은 원값
+  // (0.697)으로 세면 '70%인데 70% 이상 아님' 같은 한 건 차이가 난다 — 실측
+  // 기후변화 23/33.
+  if (month) for (const row of rows) row.share = row.now ? Math.round(row.week / row.now * 100) : 0;
+
+  // 열 수(6)는 두 모드가 같다 — .keyword-row 그리드를 건드리지 않으려는 것이다.
+  const head = month
+    ? '<span>키워드</span><span>최근 30일</span><span>최근 7일</span><span>7일 비중</span><span>분포</span><span></span>'
+    : '<span>키워드</span><span>이번 주</span><span>전주</span><span>변화</span><span>상태</span><span></span>';
+  const body = rows.map(row => {
+    if (month) {
+      const share = row.share;
+      return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.week}</span><span class="${share >= 70 ? "positive" : ""}">${share}%</span><span>${share >= 70 ? "최근 집중" : share <= 30 ? "이전 중심" : "고르게"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`;
+    }
+    return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev}</span><span class="${row.delta > 0 ? "positive" : row.delta < 0 ? "negative" : ""}">${row.delta > 0 ? "+" : row.delta < 0 ? "−" : ""}${Math.abs(row.delta)}</span><span>${row.isNew ? "신규" : row.delta >= 3 ? "늘어남" : "이어짐"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`;
+  }).join("");
+  document.getElementById("keywordTable").innerHTML = rows.length
+    ? `<div class="keyword-row keyword-head" aria-hidden="true">${head}</div>${body}`
     : '<p class="empty">조건에 맞는 키워드가 없습니다.</p>';
-  const strongest = [...keywordRows()].sort((a, b) => b.delta - a.delta)[0];
-  document.getElementById("keywordInterpretation").textContent = strongest
-    ? `${strongest.tag}이(가) 전주보다 ${Math.abs(strongest.delta)}건 늘어 이번 주 변화가 가장 컸습니다.`
-    : "비교할 키워드가 아직 충분하지 않습니다.";
-  document.getElementById("keywordEvidence").innerHTML = rows.map(row => `<p><strong>${esc(row.tag)}</strong> · 이번 주 ${row.now}건 · 전주 ${row.prev}건</p>`).join("");
+
+  const interpretation = document.getElementById("keywordInterpretation");
+  if (month) {
+    const concentrated = rows.filter(row => row.share >= 70).length;
+    interpretation.textContent = rows.length
+      ? `상위 ${rows.length}개 중 ${concentrated}개가 30일치의 70% 이상을 최근 7일에 몰았습니다.`
+      : "비교할 키워드가 아직 충분하지 않습니다.";
+  } else {
+    const strongest = [...keywordRows()].sort((a, b) => b.delta - a.delta)[0];
+    interpretation.textContent = strongest
+      ? `${strongest.tag}이(가) 전주보다 ${Math.abs(strongest.delta)}건 늘어 이번 주 변화가 가장 컸습니다.`
+      : "비교할 키워드가 아직 충분하지 않습니다.";
+  }
+  document.getElementById("keywordEvidence").innerHTML = rows.map(row => month
+    ? `<p><strong>${esc(row.tag)}</strong> · 최근 30일 ${row.now}건 · 그중 최근 7일 ${row.week}건</p>`
+    : `<p><strong>${esc(row.tag)}</strong> · 이번 주 ${row.now}건 · 전주 ${row.prev}건</p>`).join("");
 }
 
 function bars(element, rows, labelFn) {
@@ -3492,7 +3599,9 @@ function renderLoadError(error) {
     willRetry ? `${Math.round(delay / 1000)}초 뒤 다시 시도합니다` : "'다시 시도'를 눌러 주세요"
   }</span></div>`;
   renderFailureCopy(lead, "브리핑을 불러오지 못했습니다");
-  document.getElementById("issueList").classList.remove("skeleton-list");
+  // 오류 화면은 접혀 있는 격자 안(#issueList)에 그린다 — 여기서 안 걷으면
+  // 실패했는데 스켈레톤만 계속 도는 화면이 된다.
+  document.body.classList.remove("booting");
   // 재시도가 끝났는데도 "잠시 후 다시 시도해 주세요"라고 하면 거짓말이 된다 —
   // 그 시점부터는 아무도 다시 시도하지 않는다.
   const guidance = willRetry

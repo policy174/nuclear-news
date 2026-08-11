@@ -33,7 +33,8 @@
   <link rel="preload" href="/fonts/pretendard/v1.3.9/PretendardVariable.subset.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<!-- booting: 데이터가 오기 전 상태. app.js 가 첫 렌더에서(성공이든 실패든) 벗긴다. -->
+<body class="booting">
 <a class="skip-link" href="#main">본문으로 바로가기</a>
 
 <div id="systemStatus" class="status-strip loading" role="status" aria-live="polite">
@@ -136,6 +137,19 @@
            스트립은 이제 걷힌다(style.css `.status-strip.ok`). -->
     </section>
 
+    <!-- 부팅 스켈레톤. 예전에는 #issueList 안에 앉아 있었는데, 그 위의 세 섹션
+         (오늘 3분·가장 먼저 볼 이슈·지금 달라진 이슈)이 전부 hidden 으로 시작해
+         데이터가 오면 한꺼번에 펴졌다. 실측 2026-08-10: 그 순간 #todayIssues 가
+         442px → 1893px 로 **1451px** 밀려 CLS 0.90 이 찍혔다(good 기준 0.1).
+         화면에 이미 그려 놓은 것을 밀어내지 않으려면, 로딩 중에는 나중에
+         자리를 차지할 것들 위쪽에 아무것도 그리지 않아야 한다. 그래서 이 자리에
+         혼자 서고, 데이터가 오면 사라진다(사라지는 요소는 shift 로 세지 않는다).
+         .briefing-content-grid 는 body.booting 동안 통째로 접힌다(style.css). -->
+    <div id="bootSkeleton" class="issue-list" role="status" aria-label="브리핑을 불러오고 있습니다">
+      <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
+      <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
+    </div>
+
     <!-- 오늘 3분은 기사 목차가 아니라 의사결정용 스캔 화면이다. 제목 나열은
          카드가 이미 하고 있어서 같은 문장을 두 번 내보내던 자리였고, 필터·정렬이
          걸리면 목차 번호와 카드 번호가 어긋나기까지 했다. 이제 결론과 다음 확인만
@@ -216,12 +230,7 @@
           <div id="filterSummary" class="active-filter-row" aria-live="polite"></div>
           <!-- 목록 자체는 라이브가 아니다. 카드 8장이 통째로 낭독되면 그 안의
                '몇 건이 남았나'가 묻힌다. 개수 변화는 위 #filterSummary 가 말한다. -->
-          <div id="issueList" class="issue-list skeleton-list">
-            <article class="issue-card skeleton-card" aria-label="브리핑을 불러오는 중">
-              <i></i><i></i><i></i><i></i>
-            </article>
-            <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
-          </div>
+          <div id="issueList" class="issue-list"></div>
         </section>
 
         <!-- 4주 주제 변화는 흐름 탭이 주인이다. 여기 같은 표를 또 두면 오늘 화면이
@@ -385,7 +394,9 @@
         <section class="data-card country-map-card">
           <h2>이슈가 어디서 났나</h2>
           <!-- 뒷문장은 지도에 대한 설명이라 지도를 접는 모바일에서는 같이 접는다. -->
-          <p class="data-note">최근 30일 연결 이슈 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
+          <!-- 위 기간 토글을 따라가지 않는다. countries_30d 한 벌만 있고 7일치가
+               없어서인데, 말 안 하면 '7일'을 눌러 놓고 30일 지도를 보게 된다. -->
+          <p class="data-note">기간 선택과 무관하게 최근 30일 연결 이슈 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
           <div class="country-map-layout">
             <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
             <div id="countryMap" class="country-map" aria-hidden="true"></div>
@@ -401,7 +412,7 @@
         <div class="trend-grid">
           <section class="data-card">
             <h2>국가·지역별 이슈 수</h2>
-            <p class="data-note">최근 30일 연결 이슈 기준 · 복수 국가는 각각 1건</p>
+            <p class="data-note">기간 선택과 무관하게 최근 30일 연결 이슈 기준 · 복수 국가는 각각 1건</p>
             <div id="countryBars"></div>
             <p id="countryInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>

@@ -2242,11 +2242,20 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn(".filter(Boolean)", lead)
         for field in ("model.why ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
             self.assertIn(field, lead)
-        # summary('무슨 일')는 뺐다 — 변화 문장이 그 요약으로 만들어지므로 두 블록이
-        # 구조적으로 같은 말이었다(2026-08-08 실측: 선두 카드와 근거 패널이 20자
-        # 넘게 동일). 라벨은 표준 카드와 같은 것을 쓴다.
-        self.assertNotIn('label: "무슨 일"', lead)
         self.assertIn('label: issueChangeLabel(issue, "달라진 것")', lead)
+        # summary('무슨 일')는 평소에 안 세운다 — 변화 문장이 그 요약으로 만들어지므로
+        # 두 블록이 구조적으로 같은 말이었다(2026-08-08 실측: 선두 카드와 근거 패널이
+        # 20자 넘게 동일).
+        #
+        # 다만 **바닥은 있어야 한다.** 그 규칙은 '변화 문장이 있다'는 전제 위에 있었고,
+        # 전제가 깨지는 날이 실제로 왔다: 2026-08-11 빌드에서 8/10 브리핑의
+        # latest_change 가 12건 중 0건이라 데스크톱 선두 카드가 제목만 남고 아래가
+        # 통째로 비었다(82자 summary 를 쥔 채로). 중복 금지는 겹칠 것이 있을 때만
+        # 성립한다 — summary 는 세울 블록이 하나도 없을 때만 등장해야 한다.
+        summary_lines = [line for line in lead.splitlines() if 'label: "무슨 일"' in line]
+        self.assertEqual(len(summary_lines), 1, "summary 블록은 폴백 한 자리에만 있어야 한다")
+        self.assertIn("!shown.length", summary_lines[0],
+                      "summary 는 세울 블록이 0개일 때만 세운다")
         # 주석에서는 이 표현을 설명해도 되지만 화면에 나가는 문자열이면 안 된다.
         code = "\n".join(re.sub(r"//.*$", "", line) for line in script.splitlines())
         self.assertNotIn("어제와 달라진", code)
@@ -2713,6 +2722,50 @@ class SelectionOverrideTests(unittest.TestCase):
         overseas = [row["title"] for row in rows if row["region"] == "해외"]
         self.assertEqual(overseas[0], "승격 해외")   # 자기 지역 안에서는 최상단
         self.assertEqual(rows[0]["region"], "국내")  # 지역 맞물림은 그대로
+
+    def test_scheduled_event_does_not_take_the_lead(self):
+        """아직 안 열린 회의를 '가장 먼저 볼 이슈'로 세우지 않는다.
+
+        사용자 지적(2026-08-10): must_read 가 0건인 날 selection_score 만 남는데
+        그 점수가 '국내 정책 결정'에 크게 가중돼(korea_relevance 3) 회의 예고
+        기사가 1번 자리를 가져갔다. 점수가 더 높아도 예고는 뒤로 민다.
+        """
+        rows = [
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 22.7,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "회의 예고",
+             "representative_article": {"event_date_type": "scheduled"}},
+            {"region": "해외", "importance": "nice_to_know", "sort_score": 16.7,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "실제로 벌어진 일",
+             "representative_article": {"event_date_type": "occurrence"}},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual(rows[0]["title"], "실제로 벌어진 일")
+
+    def test_scheduled_demotion_never_beats_importance(self):
+        """등급이 먼저다 — must_read 예고가 nice_to_know 사건에 밀리면 안 된다."""
+        rows = [
+            {"region": "국내", "importance": "must_read", "sort_score": 1.0,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "중대 예고",
+             "representative_article": {"event_date_type": "scheduled"}},
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 99.0,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "잡담",
+             "representative_article": {"event_date_type": "occurrence"}},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual(rows[0]["title"], "중대 예고")
+
+    def test_missing_event_type_is_not_treated_as_scheduled(self):
+        """event_date_type 은 실측 선두 24건 중 22건이 unknown 이다. 모르는 것을
+        예고로 몰면 규칙이 사실상 전체 순서를 뒤집는다."""
+        rows = [
+            {"region": "국내", "importance": "nice_to_know", "sort_score": 20.0,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "판정 없음"},
+            {"region": "해외", "importance": "nice_to_know", "sort_score": 10.0,
+             "last_seen": "2026-08-10", "editor_pin": 0, "title": "발생",
+             "representative_article": {"event_date_type": "occurrence"}},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual(rows[0]["title"], "판정 없음")
 
     def test_pin_is_stripped_from_output(self):
         rows = [{"region": "국내", "importance": "must_read", "sort_score": 1.0,

@@ -2437,9 +2437,33 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
     rank = {id(row): index for group in (domestic, overseas)
             for index, row in enumerate(group)}
 
+    # 아직 일어나지 않은 일은 같은 순위에서 뒤로 민다.
+    #
+    # 사용자 지적(2026-08-10): "3대 메가프로젝트 전담조직, 왜 이게 가장 먼저 볼
+    # 이슈야". 그날은 must_read 가 0건이라 위 등급 기준이 아무 일도 안 했고, 남은
+    # selection_score 가 '국내 정책 결정'에 크게 가중돼(korea_relevance 3,
+    # policy_materiality 3) **회의 예고 기사**가 1번 자리를 가져갔다. 그 자리는
+    # '가장 먼저 볼 이슈'라고 불린다 — 아직 안 열린 회의를 거기 세우면 라벨이
+    # 거짓이 된다.
+    #
+    # 근거량(독립 출처 수·검증 등급)으로 가르는 안을 먼저 시도했다가 물렸다.
+    # 24일치 백테스트에서 선두가 3~4일 바뀌는데 전부 나쁜 방향이었다 — 원안위
+    # 계속운전 발표가 이란 경고에 밀렸다. verification 은 **출처 품질**이지
+    # 중요도가 아니고, 국내 규제기관 뉴스는 단일 출처·보도자료라 구조적으로
+    # 낮게 나온다(official 13건 중 12건이 independent_source_count 0).
+    #
+    # 한계: event_date_type 은 선두 24건 중 22건이 unknown 이다. 명시적으로
+    # scheduled 로 찍힌 것만 밀리므로, 판정 못 한 예고 기사는 그대로 통과한다.
+    # 그래도 오탐이 없는 쪽을 고른다 — 실측 214건 중 밀리는 이슈는 3건이고
+    # 선두가 바뀌는 날은 지적받은 그 하루뿐이다.
+    def is_scheduled(row: dict) -> int:
+        rep = row.get("representative_article") or {}
+        return 1 if rep.get("event_date_type") == "scheduled" else 0
+
     issue_rows.sort(key=lambda row: (
         rank[id(row)],
         0 if row["importance"] == "must_read" else 1,
+        is_scheduled(row),
         -row["sort_score"],
     ))
     for row in issue_rows:
