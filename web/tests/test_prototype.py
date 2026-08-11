@@ -4444,6 +4444,42 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertIn(".timeline-detail", css)
 
 
+class CollectionTimestampTests(unittest.TestCase):
+    """'마지막 수집'은 수집기가 마지막으로 돈 시각이어야 한다.
+
+    2026-08-11 21:49 KST 에 화면이 `마지막 수집 07:05` 였다. 실제 수집은 20:35 였고
+    데이터도 최신이었다 — 화면이 `last_success_at` 을 쓰고 있었는데 그 필드는
+    build_data 가 **"마지막 정상 브리핑"**(하루 1회)으로 정의한 값이다. 수집은
+    매시간이라 오후 내내 아침 시각이 떠 있고, 보는 사람은 14시간 밀린 줄 안다.
+
+    `status.json` 은 `collector_stamp` 를 이미 싣고 있었는데 화면이 안 썼다.
+    """
+
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_the_collection_line_reads_the_collector_stamp(self):
+        self.assertIn("state.systemStatus?.collector_stamp", self.script)
+        # 수집 문구가 브리핑 시각을 쓰면 안 된다.
+        for line in self.script.splitlines():
+            if "마지막 수집" in line and "//" not in line.split("마지막 수집")[0]:
+                self.assertNotIn("briefedAt", line, f"수집 문구가 브리핑 시각을 쓴다: {line.strip()[:70]}")
+
+    def test_the_briefing_lines_still_read_the_briefing_time(self):
+        # 반대쪽도 어긋나면 안 된다 — 오류 문구는 '마지막 정상 브리핑'이다.
+        self.assertIn("마지막 정상 브리핑", self.script)
+        self.assertNotIn("마지막 정상 수집", self.script)
+
+    def test_the_status_dialog_shows_both(self):
+        """둘은 다른 값이고 다른 주기다. 하나만 보이면 나머지가 어긋나도 모른다."""
+        self.assertIn("<dt>마지막 수집</dt>", self.script)
+        self.assertIn("<dt>마지막 정상 브리핑</dt>", self.script)
+
+    def test_the_build_emits_the_collector_stamp(self):
+        source = (ROOT / "build_data.py").read_text(encoding="utf-8")
+        self.assertIn('"collector_stamp"', source)
+
+
 class SavedIssuesPackTests(unittest.TestCase):
     """브리핑은 이슈 하나로 끝나지 않는다.
 

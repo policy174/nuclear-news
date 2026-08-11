@@ -732,22 +732,30 @@ function renderSystemStatus() {
   const header = document.getElementById("headerStatus");
   const footer = document.getElementById("footerStatus");
   const briefing = currentBriefing() || state.briefings[0] || {};
-  const refreshedAt = state.systemStatus?.last_success_at || state.manifest?.generated_at || state.meta?.generated_at;
+  // '마지막 수집'은 **수집기가 마지막으로 돈 시각**이다(매시간). last_success_at
+  // 은 build_data 가 "마지막 정상 **브리핑**"으로 정의한 값이라(하루 1회) 그걸
+  // 수집 시각이라 부르면 오후 내내 아침 시각이 떠 있다 — 2026-08-11 21:49 KST 에
+  // '마지막 수집 07:05' 였고, 실제 수집은 20:35 였다. 14.7시간 밀린 것처럼 읽힌다.
+  // status.json 은 collector_stamp 를 이미 싣고 있었는데 화면이 안 쓰고 있었다.
+  const collectedAt = state.systemStatus?.collector_stamp
+    || state.manifest?.generated_at || state.meta?.generated_at;
+  // 브리핑 쪽 문구가 쓰는 값 — 이쪽은 last_success_at 이 맞다.
+  const briefedAt = state.systemStatus?.last_success_at || collectedAt;
   let status = "ok";
   let lead = "정상";
   // 정상일 때의 문구에서 뺀 둘: '1차 출처 0건' 은 값이 0 인 날이 대부분이라
   // 처음 온 사람에게 '출처 없는 사이트'로 읽혔고, '다음 갱신 2시간 이내' 는
   // 읽는 사람이 할 일이 없는 운영 일정이다. 둘 다 상태 다이얼로그에 남는다.
-  let message = `마지막 수집 ${timeLabel(refreshedAt)} · 오늘 기사 ${briefing.article_count || 0}건 · 이슈 ${briefing.issue_count || 0}건`;
+  let message = `마지막 수집 ${timeLabel(collectedAt)} · 오늘 기사 ${briefing.article_count || 0}건 · 이슈 ${briefing.issue_count || 0}건`;
 
   if (state.offline) {
     status = "warning";
     lead = "연결 끊김";
-    message = `마지막으로 불러온 ${timeLabel(refreshedAt)} 브리핑을 보고 있습니다`;
+    message = `마지막으로 불러온 ${timeLabel(briefedAt)} 브리핑을 보고 있습니다`;
   } else if (state.systemStatus?.state === "error") {
     status = "error";
     lead = "수집 오류";
-    message = `마지막 정상 수집 ${dateTimeLabel(state.systemStatus.last_success_at)} · ${state.systemStatus.message || "원인을 확인하고 있습니다"}`;
+    message = `마지막 정상 브리핑 ${dateTimeLabel(briefedAt)} · ${state.systemStatus.message || "원인을 확인하고 있습니다"}`;
   } else if (state.systemStatus?.state === "refreshing") {
     status = "refreshing";
     lead = "검증 중";
@@ -755,7 +763,7 @@ function renderSystemStatus() {
   } else if (state.systemStatus && !state.systemStatus.watcher_running) {
     status = "warning";
     lead = "수집 지연";
-    message = `자동 수집이 중지돼 있습니다 · 마지막 정상 수집 ${dateTimeLabel(state.systemStatus.last_success_at)}`;
+    message = `자동 수집이 중지돼 있습니다 · 마지막 정상 브리핑 ${dateTimeLabel(briefedAt)}`;
   } else if (briefingStaleDays() > 0) {
     // 수집기가 돌고 status.json 이 ok 인데도 새 브리핑이 안 나오는 날이 있다.
     // 그때 '정상'이라고 쓰면 사용자는 오늘 것을 보고 있다고 믿는다 — 가장 나쁜
@@ -763,7 +771,7 @@ function renderSystemStatus() {
     const days = briefingStaleDays();
     status = "warning";
     lead = "업데이트 지연";
-    message = `${days}일 전(${dateLabel(state.meta.latest_briefing_date)}) 브리핑을 보고 있습니다 · 마지막 수집 ${timeLabel(refreshedAt)}`;
+    message = `${days}일 전(${dateLabel(state.meta.latest_briefing_date)}) 브리핑을 보고 있습니다 · 마지막 수집 ${timeLabel(collectedAt)}`;
   }
 
   strip.className = `status-strip ${status}`;
@@ -773,17 +781,18 @@ function renderSystemStatus() {
   const items = String(message).split(" · ").map(part => `<span class="status-item">${esc(part)}</span>`).join("");
   strip.innerHTML = `<div class="wrap status-strip-inner"><span class="status-lead"><span class="status-dot" aria-hidden="true"></span><strong>${lead}</strong></span>${items}</div>`;
   header.className = `header-status ${status}`;
-  header.innerHTML = `<i aria-hidden="true"></i><span>${timeLabel(refreshedAt)} · 이슈 ${state.issues.length}</span>`;
+  header.innerHTML = `<i aria-hidden="true"></i><span>${timeLabel(collectedAt)} · 이슈 ${state.issues.length}</span>`;
   // 좁은 화면에서는 위 span 이 숨겨져 이 버튼에 읽을 이름이 남지 않는다.
-  header.setAttribute("aria-label", `데이터 상태 ${lead} · 마지막 수집 ${timeLabel(refreshedAt)}`);
-  footer.textContent = `서비스 상태 ${lead} · 마지막 갱신 ${dateTimeLabel(refreshedAt)}`;
+  header.setAttribute("aria-label", `데이터 상태 ${lead} · 마지막 수집 ${timeLabel(collectedAt)}`);
+  footer.textContent = `서비스 상태 ${lead} · 마지막 갱신 ${dateTimeLabel(collectedAt)}`;
   // 정부·기관이 낸 원문은 0 건인 날이 대부분이다. 0 을 띄우면 결함으로 읽히므로
   // 있는 날에만 줄을 만든다 — 이 저장소가 검증 배지에 쓰는 규칙과 같다.
   const primaryCount = briefing.primary_source_count ?? 0;
   document.getElementById("statusDialogContent").innerHTML = `
     <dl class="status-details">
       <div><dt>상태</dt><dd>${esc(lead)}</dd></div>
-      <div><dt>마지막 수집</dt><dd>${esc(dateTimeLabel(refreshedAt))}</dd></div>
+      <div><dt>마지막 수집</dt><dd>${esc(dateTimeLabel(collectedAt))}</dd></div>
+      <div><dt>마지막 정상 브리핑</dt><dd>${esc(dateTimeLabel(briefedAt))}</dd></div>
       <div><dt>보고 있는 브리핑</dt><dd>${esc(dateLabel(state.meta?.latest_briefing_date) || "—")}</dd></div>
       <div><dt>오늘 원문</dt><dd>${briefing.article_count || 0}건</dd></div>
       <div><dt>연결 이슈</dt><dd>${briefing.issue_count || 0}개</dd></div>
