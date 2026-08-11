@@ -282,6 +282,16 @@
       "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
       "same_event": true
     },
+    "05810ce764a2e4db--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8594,
+      "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
+      "same_event": false
+    },
     "05810ce764a2e4db--bfc67ce932263d19": {
       "embedding_similarity": 0.85,
       "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
@@ -542,6 +552,16 @@
       "right_title": "한수원, 통합 원전정비원자격제도 정부 인정 획득",
       "same_event": false
     },
+    "085d399b2c2607f1--3eacd5e0a0ef3dcd": {
+      "embedding_similarity": 0.8879,
+      "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 지원사업 공모",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "월성본부 '2027년도 한수원 지원사업 공모' 실시",
+      "same_event": true
+    },
     "092735fbd0996847--d5488ec8773bdc1a": {
       "embedding_similarity": 0.8412,
       "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
@@ -590,6 +610,16 @@
       "reason": "중국 원전 건설 및 운전 관련 다른 사건",
       "reviewed_at": "2026-08-05T22:38:46.407670+00:00",
       "right_title": "중국, 신규 원자로 8기 건설 승인",
+      "same_event": false
+    },
+    "09465180cdc8f102--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.9016,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 및 시험",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
       "same_event": false
     },
     "09465180cdc8f102--a4723d13eaa57660": {
@@ -2102,6 +2132,16 @@
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
       "same_event": false
     },
+    "1e53d0f81cb14594--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8864,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 반도체 클러스터 전력 공급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": true
+    },
     "1e53d0f81cb14594--bf2c47cd7e2a9765": {
       "embedding_similarity": 0.8474,
       "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
@@ -2721,6 +2761,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
       "same_event": true
+    },
+    "267f758041b9a4ca--398fa0e5ecf0d24a": {
+      "embedding_similarity": 0.8567,
+      "left_title": "미국 해양광물관리국, NRC와 해상 원자력 프로젝트 협력 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "미국 정부·IAEA, SMR 추진선·FSMR 국제 규제 표준화 논의 착수",
+      "same_event": false
     },
     "267f758041b9a4ca--89a559f17ff440e3": {
       "embedding_similarity": 0.8509,
@@ -4252,6 +4302,16 @@
       "right_title": "월성원자력, 내년도 한수원 지원사업 공모…이달 말까지 접수",
       "same_event": false
     },
+    "394773a9e9dfe69f--67b29b69bb768171": {
+      "embedding_similarity": 0.8935,
+      "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "아마존, 美 텍사스에 7.65GW 규모 최대 가스발전소 건설 추진",
+      "same_event": false
+    },
     "394773a9e9dfe69f--9ec7d0fb22c44034": {
       "embedding_similarity": 0.8664,
       "left_title": "아마존, 데이터센터 전력 확보 위해 텍사스 화석연료 발전소에 투자",
@@ -4832,6 +4892,16 @@
       "right_title": "월성원자력본부, 내년도 지역 지원사업 공모…31일까지 접수",
       "same_event": false
     },
+    "3eacd5e0a0ef3dcd--6db37c05d0b87547": {
+      "embedding_similarity": 0.8866,
+      "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 지원사업 공모",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "월성원자력본부 '27년 한수원 지원사업 공모'",
+      "same_event": true
+    },
     "3eacd5e0a0ef3dcd--7c527ed375648d8f": {
       "embedding_similarity": 0.8923,
       "left_title": "한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수",
@@ -4861,6 +4931,16 @@
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "월성원자력, 2027년 '지역 상생 지원사업' 주민 아이디어 공모",
       "same_event": false
+    },
+    "3eacd5e0a0ef3dcd--a10059d3dab7306b": {
+      "embedding_similarity": 0.8861,
+      "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 지원사업 공모",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "한수원 월성본부, 2027년 지원사업 공모 8월 31일까지 진행",
+      "same_event": true
     },
     "3eacd5e0a0ef3dcd--d0020cb61bf88dcf": {
       "embedding_similarity": 0.8876,
@@ -5262,6 +5342,16 @@
       "right_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
       "same_event": false
     },
+    "431840aff0e21ddb--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.8881,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 및 시험",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "same_event": false
+    },
     "431840aff0e21ddb--a4723d13eaa57660": {
       "embedding_similarity": 0.8679,
       "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
@@ -5309,6 +5399,16 @@
       "prompt_version": 1,
       "reason": "호남 반도체 산단 전력 공급 방안 관련",
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
+      "right_title": "광주 반도체 산단, 에너지·용수 공급 방안 국가 계획과 연계 검증",
+      "same_event": true
+    },
+    "45510ce6eb51954b--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8826,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 반도체 클러스터 에너지 공급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
       "right_title": "광주 반도체 산단, 에너지·용수 공급 방안 국가 계획과 연계 검증",
       "same_event": true
     },
@@ -6051,6 +6151,16 @@
       "reviewed_at": "2026-08-06T01:26:30.685534+00:00",
       "right_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
       "same_event": true
+    },
+    "538c53ac4627ea3f--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.8812,
+      "left_title": "중국 정부, 신규 원전 8기 건설 승인하며 대규모 확장 지속",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 및 시험",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "same_event": false
     },
     "538c53ac4627ea3f--a4723d13eaa57660": {
       "embedding_similarity": 0.8454,
@@ -7322,6 +7432,16 @@
       "right_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
       "same_event": false
     },
+    "6075e41f9e7cab7b--7fbf45e0f47e3880": {
+      "embedding_similarity": 0.9064,
+      "left_title": "대우건설, 하반기 신규 수주 목표 20조원…체코 두코바니 원전 포함",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 해외 사업",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "대우건설, 모잠비크 LNG 수주 및 체코 원전 등 해외 사업 기대",
+      "same_event": false
+    },
     "616c6b13d9f03cfa--9ff80dab9059f991": {
       "embedding_similarity": 0.8518,
       "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
@@ -7550,6 +7670,16 @@
       "reason": "신규 원전 반영 촉구 vs 반도체 클러스터 전력 공급 언급",
       "reviewed_at": "2026-08-10T16:44:26.548360+00:00",
       "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": false
+    },
+    "6260c0799db78ac9--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8629,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 안건",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
       "same_event": false
     },
     "6260c0799db78ac9--c4f1d803b2afc913": {
@@ -7792,6 +7922,16 @@
       "right_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
       "same_event": false
     },
+    "67b29b69bb768171--95249efbdf673402": {
+      "embedding_similarity": 0.8692,
+      "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "아마존, 텍사스에 데이터센터 전용 대규모 가스 발전소 건설",
+      "same_event": false
+    },
     "67b29b69bb768171--9ec7d0fb22c44034": {
       "embedding_similarity": 0.8866,
       "left_title": "아마존, 데이터센터 전력 확보 위해 텍사스 화석연료 발전소에 투자",
@@ -7800,6 +7940,16 @@
       "reason": "데이터센터 전력 확보 방식 차이",
       "reviewed_at": "2026-08-10T07:31:41.891305+00:00",
       "right_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "same_event": false
+    },
+    "67b29b69bb768171--ae0b367b8ac48a53": {
+      "embedding_similarity": 0.8951,
+      "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "아마존, 텍사스 가스발전소 투자에 환경단체 반발 직면",
       "same_event": false
     },
     "67b29b69bb768171--b906acc76abe0b98": {
@@ -7811,6 +7961,16 @@
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "아마존, 텍사스 데이터센터용 천연가스 발전소 투자로 환경 오염 우려 증폭",
       "same_event": true
+    },
+    "67b29b69bb768171--f4fef0b37aba3ef8": {
+      "embedding_similarity": 0.8618,
+      "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "아마존, 데이터센터 전력 공급 위해 대규모 가스 발전소 건설",
+      "same_event": false
     },
     "6833a35dd8fc11fe--89a559f17ff440e3": {
       "embedding_similarity": 0.8413,
@@ -9102,6 +9262,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
       "same_event": false
     },
+    "8087dd0c3497cc5f--9b85b2a6e2593847": {
+      "embedding_similarity": 0.8654,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "한수원, 신규 대형 원전 및 SMR 부지 후보지 선정",
+      "same_event": false
+    },
     "8087dd0c3497cc5f--9d74faab6adb99a1": {
       "embedding_similarity": 0.8906,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -9482,6 +9652,16 @@
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
       "same_event": false
     },
+    "8c6eb5250550b959--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8602,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": false
+    },
     "8c6eb5250550b959--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8493,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -9580,6 +9760,16 @@
       "reason": "주제는 같으나 사안이 다름",
       "reviewed_at": "2026-08-09T03:02:58.722745+00:00",
       "right_title": "텍사스주, 신규 데이터센터 전력망 연결 일시 중단 및 요청 검토",
+      "same_event": false
+    },
+    "911526189a05bdad--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.8717,
+      "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
       "same_event": false
     },
     "911526189a05bdad--a4723d13eaa57660": {
@@ -10122,6 +10312,36 @@
       "right_title": "미국인들, AI 데이터센터 전력 수요 급증에 따른 전기요금 상승에 분노",
       "same_event": false
     },
+    "9bff425a2d2c0a20--a4723d13eaa57660": {
+      "embedding_similarity": 0.8703,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "same_event": false
+    },
+    "9bff425a2d2c0a20--c76e8785efc2694e": {
+      "embedding_similarity": 0.8658,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "same_event": false
+    },
+    "9bff425a2d2c0a20--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8669,
+      "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": false
+    },
     "9d74faab6adb99a1--bccf5f15f321ec1b": {
       "embedding_similarity": 0.8555,
       "left_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
@@ -10292,6 +10512,16 @@
       "right_title": "11차 전기본 신규 양수발전 1.25GW 입찰, 발전사 수주 경쟁 심화",
       "same_event": false
     },
+    "a3e13685ce3cf3f9--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8443,
+      "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 안건",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": false
+    },
     "a3e13685ce3cf3f9--d4658d844ee27556": {
       "embedding_similarity": 0.8468,
       "left_title": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
@@ -10382,6 +10612,16 @@
       "right_title": "전남 해남에 국내 최대 400MW 태양광단지 착공, SK하이닉스에 전력 공급",
       "same_event": true
     },
+    "a73e050bd4d851e8--cad7ad5a754410fe": {
+      "embedding_similarity": 0.9075,
+      "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 프로그램, 다른 표현",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "K-문샷 프로그램, 12대 미션 본격 가동…성과로 입증해야",
+      "same_event": true
+    },
     "a81dcba7d0fa007b--f66bda24aa77b9a9": {
       "embedding_similarity": 0.8599,
       "left_title": "홀텍, 오이스터 크릭 원전 해체 승인 및 걸프 사우스 진출 추진",
@@ -10431,6 +10671,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자...",
       "same_event": true
+    },
+    "a999dbc1af9d7bc8--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8759,
+      "left_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국 네이멍구, 세계 최대 AI 컴퓨팅 시설 준공으로 AI 인프라 허브 부상",
+      "same_event": false
     },
     "aa165fa0824b87d8--df18ce1b196c4691": {
       "embedding_similarity": 0.8436,
@@ -10632,6 +10882,26 @@
       "right_title": "전남광주통합특별시, 해남서 국내 최대 400MW 태양광발전사업 착공",
       "same_event": false
     },
+    "aec7051f7ec2dcb2--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8741,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 발언, 다른 표현",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": true
+    },
+    "aec7051f7ec2dcb2--bd1c124b246d63a9": {
+      "embedding_similarity": 0.8668,
+      "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": false
+    },
     "aec7051f7ec2dcb2--bfc67ce932263d19": {
       "embedding_similarity": 0.8455,
       "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
@@ -10640,6 +10910,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
       "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": false
+    },
+    "af90ffd9ff1d6dc1--bb65e11c8f33af62": {
+      "embedding_similarity": 0.8636,
+      "left_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "미국 에너지부, 딥피션 15MW급 지하 심층 원자로 안전설계 승인",
       "same_event": false
     },
     "af90ffd9ff1d6dc1--bf6d688ab21e07ed": {
@@ -10762,6 +11042,16 @@
       "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
       "same_event": false
     },
+    "b0e178ca6114b1a9--b4a6a52b7238e792": {
+      "embedding_similarity": 0.8644,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
+    },
     "b0e178ca6114b1a9--bd1c124b246d63a9": {
       "embedding_similarity": 0.8744,
       "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
@@ -10770,6 +11060,66 @@
       "reason": "다른 안건",
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": false
+    },
+    "b0e178ca6114b1a9--bfc67ce932263d19": {
+      "embedding_similarity": 0.8708,
+      "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": false
+    },
+    "b0e178ca6114b1a9--c249d789a2ee1649": {
+      "embedding_similarity": 0.8902,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 발언, 다른 표현",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 제12차 전력수급기본계획에 원전 추가 필요성 언급",
+      "same_event": true
+    },
+    "b0e178ca6114b1a9--cdd5f9ed8f148233": {
+      "embedding_similarity": 0.8654,
+      "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "same_event": false
+    },
+    "b0e178ca6114b1a9--d5c4324b0df4e462": {
+      "embedding_similarity": 0.8617,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후부 장관, AI 시대 전력망 선제 구축 강조",
+      "same_event": false
+    },
+    "b0e178ca6114b1a9--db4c6023d7d44228": {
+      "embedding_similarity": 0.8575,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 의원, 반도체용 원전 추가 건설 10월까지 여론 수렴 제안",
+      "same_event": false
+    },
+    "b0e178ca6114b1a9--e510a3f760f56966": {
+      "embedding_similarity": 0.8945,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 지역, 다른 발언",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
       "same_event": false
     },
     "b3adbd243878a3c3--b55e201374267ece": {
@@ -10942,6 +11292,26 @@
       "right_title": "원안위원장, 계속운전 원전 신규 수준 심사 및 SMR 규제 체계 구축 천명",
       "same_event": false
     },
+    "bd1c124b246d63a9--bfc67ce932263d19": {
+      "embedding_similarity": 0.857,
+      "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": false
+    },
+    "bd1c124b246d63a9--cdd5f9ed8f148233": {
+      "embedding_similarity": 0.8609,
+      "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "same_event": false
+    },
     "bd1c124b246d63a9--e510a3f760f56966": {
       "embedding_similarity": 0.862,
       "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
@@ -10951,6 +11321,16 @@
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
       "same_event": false
+    },
+    "bd1c124b246d63a9--f3f39cc1b3cc883e": {
+      "embedding_similarity": 0.8589,
+      "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 발언, 다른 표현",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "김성환 기후에너지환경부 장관, AI 전력수요 대응 신규 원전 검토 시사",
+      "same_event": true
     },
     "bdd164e591b5109d--d675dcf3f120c2fb": {
       "embedding_similarity": 0.8681,
@@ -11152,6 +11532,16 @@
       "right_title": "한수원, 원전 협력사 정비 자격체계 국내 최초 통합 및 정부 인정 획득",
       "same_event": true
     },
+    "c76e8785efc2694e--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8588,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 언급",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": false
+    },
     "ca20b30862dbeec1--e7818e375328e46c": {
       "embedding_similarity": 0.8519,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -11241,6 +11631,16 @@
       "reviewed_at": "2026-08-07T01:04:27.172047+00:00",
       "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
       "same_event": false
+    },
+    "cad7ad5a754410fe--cf3bb67fb64a76b8": {
+      "embedding_similarity": 0.9085,
+      "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 프로그램, 다른 표현",
+      "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
+      "right_title": "과기정통부, K-문샷 추진지원단 개소 및 12대 미션 본격화",
+      "same_event": true
     },
     "cad8f7d2c2d3c640--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8627,
