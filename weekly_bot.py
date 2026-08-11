@@ -348,7 +348,11 @@ def format_weekly(items: list[dict], synthesis: dict | None = None) -> str:
         parts.append("")
 
     if synthesis["theme_moves"]:
-        parts.append("━━ <b>💰 투자 테마 강약</b> ━━")
+        # 웹(흐름 탭)과 같은 중립 표기를 쓴다(2026-08-11 사용자 결정). 같은 독자에게
+        # 가는 두 표면이 다른 이름으로 같은 것을 부르면 그것도 어긋남이고, 한수원
+        # 임직원용 서비스가 투자 시그널을 주는 모양새는 기획 단계부터의 우려였다.
+        # 담는 내용(theme_moves)은 그대로 — 뜨는 이름은 SMR·계속운전처럼 주제어다.
+        parts.append("━━ <b>주제별 강약</b> ━━")
         arrow = {"강화": "▲", "약화": "▼", "유지": "―"}
         for t in synthesis["theme_moves"][:4]:
             if not isinstance(t, dict) or not t.get("theme"):

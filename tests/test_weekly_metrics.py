@@ -93,7 +93,9 @@ class TestWeekly(unittest.TestCase):
         finally:
             weekly_bot.batch_synthesize = orig
         self.assertIn("정책 변화", msg)
-        self.assertIn("투자 테마 강약", msg)
+        self.assertIn("주제별 강약", msg)
+        # 투자 프레이밍은 쓰지 않는다 — 웹과 같은 결정(2026-08-11).
+        self.assertNotIn("투자 테마", msg)
         self.assertIn("▲", msg)
         shown = sum(1 for i in range(9) if f"E{i}" in msg)
         self.assertLessEqual(shown, 5)  # key_events 는 최대 5건으로 컷
