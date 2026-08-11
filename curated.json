@@ -79695,38 +79695,40 @@
   },
   "9b85b2a6e2593847": {
     "features": {
-      "event_type": "policy_decision",
+      "event_type": "corporate_move",
       "korea_relevance": 3,
       "market_materiality": 2,
-      "policy_materiality": 3,
+      "policy_materiality": 1,
       "novelty": 0,
       "evidence_strength": 0,
-      "report_worthiness": 3
+      "report_worthiness": 1
     },
-    "importance": "must_read",
-    "section": "smr",
+    "importance": "nice_to_know",
+    "section": "domestic",
     "scope": "kr",
-    "category": "정책",
+    "category": "시장",
     "topics": [
       "newbuild",
-      "smr"
+      "power_market",
+      "finance"
     ],
     "countries": [
       "KR"
     ],
-    "article_type": "policy",
-    "title_kr": "한수원, 신규 대형 원전 및 SMR 부지 후보지 선정",
-    "summary": "한국수력원자력이 신규 대형 원전 2기 후보지로 경북 영덕군을, 소형모듈원자로(SMR) 후보지로 부산 기장군을 선정했다고 밝혔다.",
+    "article_type": "news",
+    "title_kr": "K건설, 중동 플랜트 불확실성에 원전·전력 인프라 수주로 선회",
+    "summary": "국내 건설사들이 해외건설 수주 500억 달러 목표를 위해 중동 플랜트 중심 전략을 원전과 발전·전력 인프라로 넓히고 있다.",
     "detail": "국내 건설사들이 올해 해외건설 수주 500억 달러 목표 달성을 위해 대형 프로젝트 확보에 나서고 있으며, 상반기 수주액이 지난해보다 크게 감소하여 하반기에 387억 달러가량의 추가 수주가 필요하다. 중동 플랜트 발주 변수가 커지면서 건설사들은 원전과 발전·전력 인프라 등으로 수주 분야를 넓히는 모습이다.",
-    "implication": "신규 원전 및 SMR 부지 후보지 선정은 향후 국내 원전 건설 사업의 구체적인 추진을 위한 중요한 초기 단계이다.",
-    "why_important": "신규 원전 및 SMR 부지 후보지 선정은 국가 전력 수급 계획 및 에너지 정책의 핵심적인 진전이며, 향후 건설 사업의 본격적인 착수를 알리는 중대한 결정이다. 이는 한수원의 장기적인 사업 계획과 국내 원전 생태계 전반에 직접적인 영향을 미친다.",
+    "implication": "중동 플랜트 발주 불확실성이 커지면서 국내 건설사의 원전·전력 인프라 해외 수주 비중이 확대될 수 있다.",
+    "why_important": "",
     "open_question": "",
     "open_question_source": "unknown",
     "open_question_reject": "llm_null",
     "watch_next": "",
     "tags": [
-      "#신규원전",
-      "#SMR부지"
+      "#해외건설",
+      "#원전수주",
+      "#전력인프라"
     ],
     "related_reports": [],
     "event_date": null,

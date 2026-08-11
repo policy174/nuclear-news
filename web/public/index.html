@@ -76,7 +76,7 @@
   </div>
 </header>
 
-<main id="main" class="wrap page-shell">
+<main id="main" class="wrap page-shell" tabindex="-1">
   <section id="view-news" aria-labelledby="briefingTitle">
     <!-- 히어로 전체가 aria-live 였다. 안에 칩·버튼이 다 들어 있어 날짜를 한 칸
          옮길 때마다 스크린리더가 블록 전체를 다시 읽었다. 바뀌는 것은 헤드라인
@@ -288,7 +288,7 @@
           </fieldset>
           <label><span>지역</span><select id="archiveRegion"><option value="전체">전체 지역</option><option value="국내">국내</option><option value="해외">해외</option></select></label>
           <label><span>주제</span><select id="archiveTopic"><option value="전체">전체 주제</option></select></label>
-          <label><span>검증 상태</span><select id="archiveVerification"><option value="전체">전체 상태</option><option value="verified">공식·복수 출처 확인</option><option value="unverified">단일 출처·확인 중</option></select></label>
+          <label><span>근거 구성</span><select id="archiveVerification"><option value="전체">전체 상태</option><option value="verified">공식 원문·독립 출처 2곳+</option><option value="unverified">단일 출처·확인 중</option></select></label>
           <button id="archiveClear" class="clear-filters" type="button" hidden>필터 해제</button>
         </div>
       </details>

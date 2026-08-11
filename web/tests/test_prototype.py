@@ -726,7 +726,7 @@ class VerificationStateTests(unittest.TestCase):
             self._article("h2", "로이터"),
         ], checked_at="2026-08-01T09:00:00+09:00")
         self.assertEqual(state["status"], "official")
-        self.assertEqual(state["label"], "공식 확인")
+        self.assertEqual(state["label"], "공식 원문 포함")
         self.assertEqual(state["official_source_count"], 1)
         self.assertEqual(state["checked_at"], "2026-08-01T09:00:00+09:00")
         self.assertEqual(state["checks"][0]["kind"], "official")
@@ -740,6 +740,18 @@ class VerificationStateTests(unittest.TestCase):
         self.assertEqual(state["independent_source_count"], 2)
         self.assertEqual(state["checks"][1]["kind"], "multi")
         self.assertTrue(state["checks"][1]["passed"])
+
+    def test_verification_labels_describe_evidence_without_claiming_agreement(self):
+        """한 이슈의 타임라인은 관련 사건도 품으므로 출처 수를 '주장 일치'라 부르지 않는다."""
+        self.assertEqual(build_data.VERIFICATION_LABELS["official"], "공식 원문 포함")
+        self.assertEqual(build_data.VERIFICATION_LABELS["corroborated"], "독립 출처 2곳+")
+        state = build_data.verification_state([
+            self._article("h1", "로이터"), self._article("h2", "연합뉴스"),
+        ])
+        self.assertEqual(build_data.verification_state([
+            self._article("official", "원안위", evidence_role="primary", source_type="official"),
+        ])["checks"][0]["label"], "공식 원문 포함")
+        self.assertEqual(state["checks"][1]["label"], "독립 출처 2곳 이상 연결")
 
     def test_same_publisher_twice_is_still_one_source(self):
         state = build_data.verification_state([
@@ -1462,6 +1474,26 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('class="issue-detail-button"', script)
         self.assertIn('id="issueDialogTitle" tabindex="-1"', script)
         self.assertIn('class="dialog-meaning"', script)
+
+    def test_latest_issue_detail_uses_one_canonical_record_across_entry_paths(self):
+        """검색·오늘·탐색에서 같은 issue_id를 열면 최신 누적 근거가 같아야 한다."""
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        resolver = script.split("function currentIssueById", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("const catalogIssue", resolver)
+        self.assertIn("latest_briefing_date", resolver)
+        self.assertIn("return catalogIssue || briefingIssue", resolver)
+        display = script.split("function briefingIssuesForDisplay", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("state.issues.find", display)
+        render = script.split("function renderBriefing()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("briefingIssuesForDisplay(briefing).filter", render)
+
+    def test_skip_link_moves_keyboard_focus_to_main(self):
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('<main id="main" class="wrap page-shell" tabindex="-1">', html)
+        binding = script.split("function bind()", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('document.querySelector(".skip-link")', binding)
+        self.assertIn('main.focus({ preventScroll: true })', binding)
 
     def test_audio_brief_player_is_wired(self):
         """오디오 브리핑 — 마크업·배속·비치명 로드·날짜 대조가 맞물려 있는지.
@@ -4245,6 +4277,12 @@ class VisualSystemTests(unittest.TestCase):
         tabs = mobile[mobile.index(".mobile-tabs {"):]
         self.assertIn("background: var(--c-primary)", tabs[:tabs.index("}")])
 
+    def test_mobile_footer_content_clears_fixed_tabs(self):
+        mobile = self.style.split("@media (max-width: 767px)", 1)[1]
+        footer = mobile[mobile.index(".foot {"):mobile.index("}", mobile.index(".foot {"))]
+        self.assertIn("padding-bottom: calc(68px + env(safe-area-inset-bottom))", footer)
+        self.assertIn("margin-bottom: calc(-68px - env(safe-area-inset-bottom))", footer)
+
     def test_focus_ring_survives_on_ink_chrome(self):
         """포커스 링 안쪽 고리는 배경색으로 링을 띄운다. 잉크 크롬 위에서
         밝은 --c-bg 가 그대로 오면 흰 테가 둘러쳐진다."""
@@ -4432,6 +4470,18 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertEqual(build_data._article_view(wrong)["detail"], "")
         # 이슈 상세에도 실리지 않는다.
         self.assertEqual(build_data.pick_detail([wrong], wrong), ("", ""))
+
+    def test_known_hallucinated_archive_title_is_corrected_at_the_source(self):
+        """폴리뉴스 원문에 없던 영덕·기장 후보지 단정을 아카이브에 남기지 않는다."""
+        records = [json.loads(line) for line in (ROOT.parent / "archive" / "2026-08.jsonl")
+                   .read_text(encoding="utf-8").splitlines() if line.strip()]
+        record = next(row for row in records if row["hash"] == "9b85b2a6e2593847")
+        self.assertIn("K건설", record["title_kr"])
+        self.assertIn("원전", record["summary"])
+        self.assertIn("전력 인프라", record["summary"])
+        for invented in ("영덕", "기장", "후보지 선정"):
+            self.assertNotIn(invented, record["title_kr"] + record["summary"])
+        self.assertEqual(record["importance"], "nice_to_know")
 
     def test_the_dialog_actually_renders_it(self):
         app = (ROOT / "public" / "app.js").read_text(encoding="utf-8")

@@ -93,8 +93,8 @@ CHANGE_LINE_LIMIT = 140
 # 라벨은 판정이 아니라 사실 진술이다. 단일 출처 보도는 결함이 아니라 흔한 정상
 # 상태(실측 84%)라서 '일부 확인' 같은 부정 프레이밍을 쓰지 않는다.
 VERIFICATION_LABELS = {
-    "official": "공식 확인",
-    "corroborated": "복수 출처 확인",
+    "official": "공식 원문 포함",
+    "corroborated": "독립 출처 2곳+",
     "partial": "단일 출처",
     "unverified": "확인 중",
 }
@@ -2227,8 +2227,8 @@ def pick_detail(members: list[dict], representative: dict) -> tuple[str, str]:
 def verification_state(articles: list[dict], checked_at: str = "") -> dict:
     """이슈 근거를 4단계 검증 상태로 요약한다.
 
-    - official: 규제기관·사업자 공식 문서로 확인
-    - corroborated: 재인용 관계를 제거한 독립 출처 2곳 이상이 일치
+    - official: 규제기관·사업자 공식 문서가 근거에 포함
+    - corroborated: 재인용 관계를 제거한 독립 출처 2곳 이상이 연결
     - partial: 독립 출처 1곳만 확인
     - unverified: 배포 자료 재인용뿐이거나 근거가 부족
 
@@ -2266,7 +2266,7 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
             {
                 "kind": "official",
                 "passed": bool(official),
-                "label": "공식 원문 확인",
+                "label": "공식 원문 포함",
                 "detail": ((official_article or {}).get("publisher")
                            or (official_article or {}).get("domain") or ""),
                 "url": source_url(official_article or {}),
@@ -2274,7 +2274,7 @@ def verification_state(articles: list[dict], checked_at: str = "") -> dict:
             {
                 "kind": "multi",
                 "passed": len(independent) >= 2,
-                "label": "복수 독립 출처 확인",
+                "label": "독립 출처 2곳 이상 연결",
                 "detail": " · ".join(independent_labels[:3]),
             },
         ],

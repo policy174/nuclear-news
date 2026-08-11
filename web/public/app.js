@@ -276,8 +276,8 @@ function currentBriefing() {
 
 const VERIFICATION_ORDER = ["official", "corroborated", "partial", "unverified"];
 const VERIFICATION_VIEW = {
-  official: { mark: "✓", label: "공식 확인", detail: "규제기관 또는 사업자 공식 문서로 확인된 내용입니다" },
-  corroborated: { mark: "✓", label: "복수 출처 확인", detail: "재인용 관계를 제외한 독립 출처 2곳 이상이 일치합니다" },
+  official: { mark: "✓", label: "공식 원문 포함", detail: "이 이슈의 근거에 규제기관 또는 사업자 공식 문서가 포함돼 있습니다" },
+  corroborated: { mark: "✓", label: "독립 출처 2곳+", detail: "이 이슈에 재인용 관계를 제외한 독립 출처가 2곳 이상 연결돼 있습니다" },
   partial: { mark: "·", label: "단일 출처", detail: "독립 출처 1곳이 보도했습니다" },
   unverified: { mark: "○", label: "확인 중", detail: "아직 독립·공식 근거가 확인되지 않았습니다" },
 };
@@ -1414,7 +1414,7 @@ function renderBriefing() {
     renderNewsFeed();
     return;
   }
-  let issues = briefing.issues.filter(issueMatchesFilters);
+  let issues = briefingIssuesForDisplay(briefing).filter(issueMatchesFilters);
   // 선두는 편집 판단이라 목록 정렬 토글을 따르지 않는다 — '최신순'으로 바꿨다고
   // 가장 먼저 볼 이슈가 달라지지는 않는다. 필터는 따른다(안 보이는 이슈를 선두로
   // 세울 수는 없다).
@@ -1893,8 +1893,26 @@ function articleTimelineRow(article, briefingDate, currentStage = "이번 브리
 }
 
 function currentIssueById(issueId) {
-  if (state.view === "news") return currentBriefing()?.issues.find(issue => issue.issue_id === issueId) || state.issues.find(issue => issue.issue_id === issueId) || null;
-  return state.issues.find(issue => issue.issue_id === issueId) || null;
+  const catalogIssue = state.issues.find(issue => issue.issue_id === issueId) || null;
+  if (state.view !== "news") return catalogIssue;
+  const briefingIssue = currentBriefing()?.issues.find(issue => issue.issue_id === issueId) || null;
+  // 최신 브리핑과 탐색은 같은 현재 이슈를 가리킨다. 최신 날짜에서 브리핑 스냅샷을
+  // 우선하면 검색으로 연 상세만 누적 1건, 탐색에서 연 상세는 누적 5건처럼 같은
+  // issue_id가 진입 경로에 따라 달라진다. 과거 날짜만 당시 스냅샷을 보존한다.
+  const latestDate = state.meta?.latest_briefing_date || state.briefings?.[0]?.date || "";
+  if (state.briefingDate === latestDate) return catalogIssue || briefingIssue;
+  return briefingIssue || catalogIssue;
+}
+
+function briefingIssuesForDisplay(briefing) {
+  const issues = briefing?.issues || [];
+  const latestDate = state.meta?.latest_briefing_date || state.briefings?.[0]?.date || "";
+  if (briefing?.date !== latestDate) return issues;
+  // 최신 카드의 타임라인 수와 배지는 상세가 쓰는 카탈로그와 같아야 한다.
+  // 과거 브리핑은 그날의 스냅샷이므로 그대로 둔다.
+  return issues.map(issue =>
+    state.issues.find(candidate => candidate.issue_id === issue.issue_id) || issue
+  );
 }
 
 // 같은 주제·태그를 공유하는 다른 이슈. 상세를 막다른 길로 두지 않기 위한 출구다.
@@ -3167,6 +3185,15 @@ function railIsActive() {
 }
 
 function bind() {
+  // 해시 이동만으로는 SPA의 URL 동기화 뒤 포커스가 링크에 남는 브라우저가 있다.
+  // 반복 헤더를 실제로 건너뛰도록 본문을 명시적으로 포커스한다.
+  document.querySelector(".skip-link")?.addEventListener("click", event => {
+    const main = document.getElementById("main");
+    if (!main) return;
+    event.preventDefault();
+    main.focus({ preventScroll: true });
+    main.scrollIntoView({ behavior: "auto", block: "start" });
+  });
   const viewHandler = event => {
     const button = event.target.closest("button[data-view]");
     if (button) switchView(button.dataset.view);
