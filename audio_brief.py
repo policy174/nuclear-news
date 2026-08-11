@@ -71,6 +71,10 @@ MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초)
 DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
 CHUNK_GAP_SEC = 0.33   # 청크 사이에 넣는 무음
+# 잘림 감지용. 실측 8.5자/초 근처(08-10: 대사 1910자 / 257초 = 7.4)라 넉넉히
+# 잡고, 기대치의 이만큼도 안 되면 잘린 것으로 본다.
+SPOKEN_CHARS_PER_SEC = 8.5
+TRUNCATION_RATIO = 0.6
 
 _TTS_ENDPOINT = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
@@ -324,10 +328,14 @@ def _tts_models() -> list[str]:
     return models
 
 
-def call_tts(script: str) -> tuple[bytes, int]:
-    """멀티스피커 합성 → (PCM s16le, sample rate). 모델 순서대로 폴백."""
+def call_tts(script: str, models: list[str] | None = None) -> tuple[bytes, int]:
+    """멀티스피커 합성 → (PCM s16le, sample rate). 모델 순서대로 폴백.
+
+    models 를 주면 그 목록만 쓴다 — 한 대본 안에서 모델이 섞이지 않게
+    synthesize 가 모델을 고정해 내려보낸다.
+    """
     last_err: Exception | None = None
-    for model in _tts_models():
+    for model in (models or _tts_models()):
         url = _TTS_ENDPOINT.format(model=model)
         request = urllib.request.Request(
             url,
@@ -358,26 +366,58 @@ def call_tts(script: str) -> tuple[bytes, int]:
     raise last_err or GeminiError("TTS 모델 전부 실패")
 
 
+def _check_not_truncated(index: int, chunk: str, pcm: bytes, rate: int) -> None:
+    """대사 길이 대비 음원이 너무 짧으면 잘린 것으로 본다.
+
+    Gemini TTS 는 긴 요청을 **오류 없이** 잘라서 돌려준다. 우리 실패는 전부
+    조용한 종류였다(꼬리 감쇠·429 로 통째 누락) — 문장 중간에서 끊긴 브리핑이
+    아무 신호 없이 나가는 것도 같은 함정이라 여기서 센다.
+    """
+    spoken = sum(len(match.group(2)) for match in
+                 (SPEAKER_RE.match(line) for line in chunk.splitlines()) if match)
+    if spoken < 200:
+        return
+    expected = spoken / SPOKEN_CHARS_PER_SEC
+    actual = len(pcm) / 2 / rate
+    if actual < expected * TRUNCATION_RATIO:
+        raise GeminiError(
+            f"청크 {index} 잘림 의심 — 대사 {spoken}자에 음원 {actual:.0f}초"
+            f"(기대 {expected:.0f}초 이상)")
+
+
 def synthesize(script: str) -> tuple[bytes, int]:
     """대본을 청크로 나눠 합성하고 PCM 을 이어붙인다.
 
     청크 PCM 은 전부 같은 포맷(s16le mono, 같은 rate)이라 바이트 연결로 충분하다.
     레이트가 섞이면 이어붙인 결과가 배속으로 재생되므로 그때는 실패시킨다.
+
+    **모델은 대본 하나에 하나만 쓴다.** 청크마다 폴백을 따로 태우면 3번 청크만
+    다른 모델로 넘어가 한 파일 안에서 목소리가 바뀐다 — 모델이 다르면 같은
+    voiceName 이라도 음색이 다르다. 그래서 실패하면 다음 모델로 **처음부터**
+    다시 만든다. 이미 만든 청크를 버리는 값보다 화자가 중간에 바뀌는 값이 크다.
     """
     chunks = split_script(script)
     print(f"[audio] 대본 {len(script)}자 → TTS 청크 {len(chunks)}개")
-    pieces: list[bytes] = []
-    rate = 0
-    for index, chunk in enumerate(chunks, 1):
-        pcm, chunk_rate = call_tts(chunk)
-        if rate and chunk_rate != rate:
-            raise GeminiError(
-                f"청크 {index} 샘플레이트 불일치: {chunk_rate} != {rate}")
-        rate = chunk_rate
-        if pieces:
-            pieces.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
-        pieces.append(pcm)
-    return b"".join(pieces), rate
+    last_err: Exception | None = None
+    for model in _tts_models():
+        pieces: list[bytes] = []
+        rate = 0
+        try:
+            for index, chunk in enumerate(chunks, 1):
+                pcm, chunk_rate = call_tts(chunk, models=[model])
+                if rate and chunk_rate != rate:
+                    raise GeminiError(
+                        f"청크 {index} 샘플레이트 불일치: {chunk_rate} != {rate}")
+                rate = chunk_rate
+                _check_not_truncated(index, chunk, pcm, rate)
+                if pieces:
+                    pieces.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
+                pieces.append(pcm)
+            return b"".join(pieces), rate
+        except GeminiError as exc:
+            last_err = exc
+            print(f"[audio] {model} 실패 — 다음 모델로 대본 처음부터: {exc}")
+    raise last_err or GeminiError("TTS 모델 전부 실패")
 
 
 def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
@@ -386,6 +426,10 @@ def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
     dynaudnorm 은 청크 사이 레벨 차를 평탄화한다 — 요청이 나뉘면 청크마다
     시작 음량이 조금씩 다르다. 감쇠 자체를 여기서 되살릴 수는 없다(실측:
     -40 dB 까지 죽은 꼬리는 정규화해도 고역이 안 돌아온다). 그건 split_script 몫.
+
+    loudnorm 은 그 뒤에 절대 레벨을 팟캐스트 표준(-16 LUFS)으로 맞추고
+    트루피크를 -1.5 dBTP 로 눌러 준다. dynaudnorm 만 걸면 날마다 기준이
+    떠다니고 피크가 -1.1 dBFS 까지 붙어 mp3 인코딩에서 클리핑 여지가 남는다.
     """
     if not shutil.which("ffmpeg"):
         raise RuntimeError("ffmpeg 없음 — mp3 변환 불가")
@@ -395,7 +439,8 @@ def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error", "-f", "s16le",
              "-ar", str(rate), "-ac", "1", "-i", str(raw),
-             "-af", "dynaudnorm=f=250:g=15:p=0.9:m=6",
+             "-af", "dynaudnorm=f=250:g=15:p=0.9:m=6,"
+                    "loudnorm=I=-16:TP=-1.5:LRA=11",
              "-b:a", "64k", str(out_path)],
             check=True,
         )

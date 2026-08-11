@@ -39,6 +39,22 @@ def issue(issue_id, title):
     }
 
 
+def spoken_chars(script):
+    return sum(len(m.group(2)) for m in
+               (audio_brief.SPEAKER_RE.match(line) for line in script.splitlines()) if m)
+
+
+def fake_pcm(script, rate=24000, factor=1.0):
+    """대사 길이에 맞는 그럴듯한 길이의 PCM (s16le mono)."""
+    seconds = max(1.0, spoken_chars(script) / audio_brief.SPOKEN_CHARS_PER_SEC * factor)
+    return b"\x00" * (int(rate * seconds) * 2)
+
+
+LONG_SCRIPT = "\n".join(
+    [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
+     for i in range(10)])
+
+
 GOOD_SCRIPT = "\n".join(
     [f"HOST: 질문 {i}입니다. 그게 왜 중요한 거죠?" if i % 2 == 0
      else f"ANALYST: 핵심은 이렇습니다. 2033년 준공 목표가 확정됐다는 점이죠. ({i})"
@@ -63,6 +79,7 @@ class AudioBriefTestCase(unittest.TestCase):
         self.call_kwargs = []
         self.responses = []
         self.tts_calls = []
+        self.tts_models = []
         self.sent = []
         self.send_ok = True
         audio_brief.is_available = lambda: True
@@ -88,9 +105,11 @@ class AudioBriefTestCase(unittest.TestCase):
             raise GeminiError("429")
         return self.responses.pop(0)
 
-    def _fake_tts(self, script):
+    def _fake_tts(self, script, models=None):
         self.tts_calls.append(script)
-        return b"\x00" * 48000, 24000  # 1초 분량 PCM
+        self.tts_models.append(list(models or []))
+        # 대사 길이에 비례한 PCM — 짧게 돌려주면 잘림 감지가 물어야 정상이다.
+        return fake_pcm(script), 24000
 
     def _fake_mp3(self, pcm, rate, out_path):
         out_path.write_bytes(b"mp3")
@@ -276,21 +295,63 @@ class AudioBriefTestCase(unittest.TestCase):
             [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
              for i in range(10)])
         pcm, rate = audio_brief.synthesize(long_script)
-        expected = len(audio_brief.split_script(long_script))
-        self.assertEqual(len(self.tts_calls), expected)
+        chunks = audio_brief.split_script(long_script)
+        self.assertEqual(len(self.tts_calls), len(chunks))
         self.assertEqual(rate, 24000)
         gap = int(rate * audio_brief.CHUNK_GAP_SEC) * 2
-        self.assertEqual(len(pcm), expected * 48000 + (expected - 1) * gap)
+        self.assertEqual(len(pcm),
+                         sum(len(fake_pcm(c)) for c in chunks) + (len(chunks) - 1) * gap)
 
-    def test_synthesize_rejects_rate_mismatch(self):
-        """레이트가 섞인 채 이어붙이면 뒷부분이 배속으로 재생된다."""
-        rates = iter([24000, 16000])
-        audio_brief.call_tts = lambda chunk: (b"\x00" * 100, next(rates))
+    def test_synthesize_pins_one_model_for_whole_script(self):
+        """모델이 다르면 음색이 다르다 — 청크마다 폴백을 따로 태우면 한 파일
+        안에서 화자가 바뀐다. 실패하면 다음 모델로 **처음부터** 다시 만든다."""
+        chunks = len(audio_brief.split_script(LONG_SCRIPT))
+        first, second = audio_brief._tts_models()[:2]
+        seen = []
+
+        def flaky(chunk, models=None):
+            model = (models or [])[0]
+            seen.append(model)
+            if model == first:
+                raise GeminiError(f"{model}: HTTP 429")
+            return fake_pcm(chunk), 24000
+
+        audio_brief.call_tts = flaky
+        pcm, rate = audio_brief.synthesize(LONG_SCRIPT)
+        self.assertEqual(seen[0], first)            # 1번 모델에서 시작
+        self.assertEqual(seen.count(first), 1)      # 실패 즉시 접는다
+        self.assertEqual(seen.count(second), chunks)  # 처음부터 전부 다시
+        self.assertEqual(len(set(seen[1:])), 1)     # 한 대본 = 한 모델
+
+    def test_synthesize_detects_silent_truncation(self):
+        """Gemini TTS 는 긴 요청을 오류 없이 잘라 돌려준다. 대사 길이 대비
+        음원이 너무 짧으면 모델 실패로 취급한다."""
         long_script = "\n".join(
             [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
              for i in range(10)])
-        with self.assertRaises(GeminiError):
-            audio_brief.synthesize(long_script)
+        audio_brief.call_tts = lambda chunk, models=None: (b"\x00" * 48000, 24000)
+        with self.assertRaises(GeminiError) as ctx:
+            audio_brief.synthesize(long_script)   # 대사 900자에 1초짜리 음원
+        self.assertIn("잘림", str(ctx.exception))
+
+    def test_truncation_check_passes_on_plausible_length(self):
+        chunk = "HOST: " + "가" * 850
+        pcm = b"\x00" * (2 * 24000 * 100)         # 100초
+        audio_brief._check_not_truncated(1, chunk, pcm, 24000)  # 예외 없음
+
+    def test_synthesize_rejects_rate_mismatch(self):
+        """레이트가 섞인 채 이어붙이면 뒷부분이 배속으로 재생된다."""
+        seen = {"n": 0}
+
+        def mixed_rate(chunk, models=None):
+            seen["n"] += 1
+            rate = 24000 if seen["n"] % 3 == 1 else 16000
+            return fake_pcm(chunk, rate=rate, factor=1.2), rate
+
+        audio_brief.call_tts = mixed_rate
+        with self.assertRaises(GeminiError) as ctx:
+            audio_brief.synthesize(LONG_SCRIPT)
+        self.assertIn("샘플레이트", str(ctx.exception))
 
     def test_tts_model_env_override_goes_first(self):
         os.environ["GEMINI_TTS_MODEL"] = "gemini-test-tts"
@@ -309,7 +370,7 @@ class AudioBriefTestCase(unittest.TestCase):
                           .read_text(encoding="utf-8"))
         self.assertEqual(meta["date"], "2026-08-04")
         self.assertEqual(meta["file"], "briefing-2026-08-04.mp3")
-        self.assertEqual(meta["duration_sec"], 1)
+        self.assertGreater(meta["duration_sec"], 0)
         self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-04.mp3").exists())
         self.assertTrue((audio_brief.AUDIO_DIR / "script-2026-08-04.txt").exists())
 
