@@ -3,6 +3,7 @@ import io
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -4415,6 +4416,65 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
         self.assertIn("timeline-detail", app)
         self.assertIn(".timeline-detail", css)
+
+
+class SearchMatchingTests(unittest.TestCase):
+    """검색에서 0건은 "그런 이슈가 없다"로 읽힌다 — 리서치 도구에서 가장 나쁜 실패다.
+
+    2026-08-11 실측: `계속운전` 11건인데 `원안위 계속운전` **0건**이었다. 제목이
+    `원안위, 계속운전 원전의…` 라 쉼표 하나에 막힌 것이다. 이어 붙인 텍스트 한
+    덩어리에 대한 substring 이라 낱말 사이에 무엇이든 끼면 통째로 빗나갔다.
+    """
+
+    @staticmethod
+    def _run(expr: str) -> str:
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        picked = []
+        for name in ("searchNormalize", "queryTokens", "matchesQuery"):
+            block = re.search(rf"^function {name}\(.*?^}}", script, re.S | re.M)
+            assert block, f"{name} 를 못 찾았다"
+            picked.append(block.group(0))
+        source = "\n".join(picked) + f"\nprocess.stdout.write(String({expr}));"
+        with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False,
+                                         encoding="utf-8") as handle:
+            handle.write(source)
+            path = handle.name
+        try:
+            out = subprocess.run(["node", path], capture_output=True, text=True,
+                                 encoding="utf-8")
+        finally:
+            os.unlink(path)
+        if out.returncode != 0:
+            raise AssertionError(out.stderr)
+        return out.stdout.strip()
+
+    TITLE = "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표"
+
+    def test_two_words_separated_by_punctuation_still_match(self):
+        self.assertEqual(
+            self._run(f"matchesQuery({self.TITLE!r}, '원안위 계속운전')"), "true")
+
+    def test_a_single_word_behaves_as_before(self):
+        self.assertEqual(self._run(f"matchesQuery({self.TITLE!r}, '계속운전')"), "true")
+
+    def test_it_is_still_an_AND_not_an_OR(self):
+        # 낱말 하나만 맞는 이슈까지 끌어오면 검색이 잡음이 된다.
+        self.assertEqual(
+            self._run(f"matchesQuery({self.TITLE!r}, '고리 계속운전')"), "false")
+
+    def test_unit_punctuation_does_not_block_the_match(self):
+        self.assertEqual(
+            self._run("matchesQuery('고리 3·4호기 계속운전 허가', '고리 34호기')"), "true")
+
+    def test_an_empty_query_matches_everything(self):
+        self.assertEqual(self._run(f"matchesQuery({self.TITLE!r}, '')"), "true")
+
+    def test_the_results_page_no_longer_uses_a_single_substring(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        # 두 자리(카드 하이라이트 판정·이슈 필터)가 모두 헬퍼를 거쳐야 한 곳만
+        # 고쳐도 결과 페이지와 안내 문구가 갈라지지 않는다.
+        self.assertNotIn(".includes(state.archiveQuery)", script)
+        self.assertGreaterEqual(script.count("matchesQuery("), 3)
 
 
 class CountryRepairTests(unittest.TestCase):

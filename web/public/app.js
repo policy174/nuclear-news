@@ -415,20 +415,47 @@ function setPressed(container, activeButton) {
   });
 }
 
+// 질의를 낱말로 쪼개 각각을 찾는다.
+//
+// 예전에는 이어 붙인 텍스트 한 덩어리에 대한 substring 이었다. 그래서 낱말 사이에
+// 구두점 하나만 끼어도 통째로 빗나갔다 — `원안위 계속운전` 이 **0건**이었는데
+// 제목은 `원안위, 계속운전 원전의…` 였다(2026-08-11 실측: 계속운전 11건 /
+// 원안위 계속운전 0건). 검색에서 0건은 "그런 이슈가 없다"로 읽히므로 거짓 음성이
+// 권위 있게 보인다 — 리서치 도구에서 가장 나쁜 실패다.
+//
+// 정규화는 드롭다운과 같은 `searchNormalize` 를 쓴다. 두 경로가 다른 정규화를
+// 쓰고 있어서 같은 질의가 목록과 결과 페이지에서 다르게 나왔다.
+function queryTokens(query) {
+  return String(query || "").trim().split(/\s+/).filter(Boolean);
+}
+
+function matchesQuery(text, query) {
+  const tokens = queryTokens(query);
+  if (!tokens.length) return true;
+  const haystack = searchNormalize(text);
+  return tokens.every(token => haystack.includes(searchNormalize(token)));
+}
+
 function markMatch(value, query) {
   const text = String(value || "");
-  const needle = String(query || "").trim();
-  if (!needle) return esc(text);
-  const lower = text.toLowerCase();
-  const target = needle.toLowerCase();
+  const tokens = queryTokens(query);
+  if (!tokens.length) return esc(text);
+  // 긴 낱말부터 시도해야 짧은 것이 긴 것 안쪽을 먼저 먹지 않는다.
+  const pattern = tokens
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .map(token => token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  const regex = new RegExp(pattern, "gi");
   let cursor = 0;
   let output = "";
-  let index = lower.indexOf(target);
-  while (index >= 0) {
-    output += esc(text.slice(cursor, index));
-    output += `<mark>${esc(text.slice(index, index + needle.length))}</mark>`;
-    cursor = index + needle.length;
-    index = lower.indexOf(target, cursor);
+  let hit;
+  while ((hit = regex.exec(text)) !== null) {
+    if (hit.index < cursor) continue;          // 겹치는 표시는 건너뛴다
+    output += esc(text.slice(cursor, hit.index));
+    output += `<mark>${esc(hit[0])}</mark>`;
+    cursor = hit.index + hit[0].length;
+    if (hit[0].length === 0) regex.lastIndex += 1;
   }
   return output + esc(text.slice(cursor));
 }
@@ -969,9 +996,9 @@ function issueCard(issue, index, archive = false, front = false) {
     ? `<p class="issue-line"><span class="issue-line-label">${label}</span>${extra}<span class="issue-line-text">${mark(text)}</span></p>`
     : "");
   // 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 해야 한다.
-  const visibleMatch = normalizedSearch(
-    `${issue.title || ""} ${changeText} ${whyText} ${nextText}`
-  ).includes(state.archiveQuery);
+  const visibleMatch = matchesQuery(
+    `${issue.title || ""} ${changeText} ${whyText} ${nextText}`,
+    state.archiveQuery);
   const matchContext = archive && state.archiveQuery && !visibleMatch
     ? `<p class="search-match">검색 조건 <mark>${esc(state.archiveQuery)}</mark>과 연결된 이슈입니다.</p>`
     : "";
@@ -1569,11 +1596,11 @@ function archiveIssueMatches(issue) {
   )).join(" ");
   const countryText = (issue.related_articles || []).flatMap(article => article.countries || [])
     .map(country => COUNTRY_LABELS[country] || country).join(" ");
-  return normalizedSearch([
+  return matchesQuery([
     issue.title, issue.summary, issue.implication, issue.why_important, issue.region,
     ...(issue.tags || []), ...(issue.topics || []).map(topic => TOPIC_LABELS[topic] || topic),
     articleText, countryText,
-  ].join(" ")).includes(state.archiveQuery);
+  ].join(" "), state.archiveQuery);
 }
 
 function sortArchiveIssues(issues) {
