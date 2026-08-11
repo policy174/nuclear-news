@@ -182,6 +182,41 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(audio_brief.strip_filler("네."), "네.")
         self.assertEqual(audio_brief.strip_filler("그렇군요."), "그렇군요.")
 
+    def test_frame_is_deterministic_and_model_frame_lines_dropped(self):
+        """오프닝·클로징은 코드가 붙인다(hourlynews 패턴) — 인사를 생성에
+        맡기니 날마다 정보 0짜리 인사 두 줄이 붙었다. 모델이 그래도 쓴
+        인사·마무리 줄은 중복이라 걷어낸다."""
+        briefing = briefing_row()
+        body = "\n".join([
+            "HOST: 안녕하십니까? 브리핑을 시작하겠습니다.",
+            "ANALYST: 원안위가 오늘 심사 결과를 발표했습니다.",
+            "HOST: 오늘 브리핑은 여기까지입니다. 감사합니다.",
+        ])
+        framed = audio_brief.apply_frame(body, briefing)
+        lines = framed.splitlines()
+        self.assertIn("8월 4일", lines[0])
+        self.assertIn("포천양수발전소", lines[0])       # 헤드라인이 콜드오픈에
+        self.assertEqual(lines[-1], "HOST: 오늘 브리핑은 여기까지입니다.")
+        self.assertEqual(len(lines), 3)                 # 인사·중복 마무리 제거
+        self.assertIn("원안위", framed)
+
+    def test_frame_without_headline_still_opens(self):
+        briefing = dict(briefing_row(), headline="")
+        opening, closing = audio_brief.frame_lines(briefing)
+        self.assertTrue(opening.startswith("HOST: 8월 4일"))
+        self.assertNotIn("오늘의 핵심", opening)
+
+    def test_material_spoken_target_scales_with_issue_count(self):
+        """분량 목표는 이슈 수에 비례한다 — 고정 목표는 많은 날을 뚫고
+        적은 날을 부풀렸다."""
+        lo_small, hi_small = audio_brief.spoken_target(3, 5)
+        lo_big, hi_big = audio_brief.spoken_target(3, 15)
+        self.assertLess(hi_small, hi_big)
+        self.assertLessEqual(hi_big, audio_brief.MAX_SPOKEN - 200)
+        self.write_data()
+        briefing, by_id = audio_brief.load_briefing(audio_brief.WEB_DATA)
+        self.assertIn("[분량]", audio_brief.build_material(briefing, by_id))
+
     def test_validate_script_rejects_monologue(self):
         mono = "\n".join(f"HOST: 문장 {i}입니다." for i in range(10))
         with self.assertRaises(ValueError):

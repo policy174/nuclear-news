@@ -89,16 +89,13 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 [형식 — 반드시 준수]
 - 화자 2명: HOST(진행자)와 ANALYST(해설위원). 모든 대사는 "HOST: " 또는
   "ANALYST: "로 시작하는 한 줄. 다른 형식의 줄 금지.
-- 구성: 콜드오픈 → 하이라이트 이슈를 대화로 풀기 → 나머지 이슈는
-  헤드라인만 빠르게 훑기 → 마무리 한 문장.
-- 콜드오픈: 첫 줄은 HOST 가 날짜와 오늘의 핵심 이슈로 바로 시작합니다.
-  (예: "8월 10일 월요일 Nuclens 브리핑, 오늘의 핵심은 ~입니다.")
-  "안녕하십니까" 같은 인사말, "소식이 많습니다" 같은 예고 문장 금지.
-  둘째 줄부터 바로 첫 이슈입니다.
-- 마무리도 한 문장뿐입니다. "여기까지입니다" 뒤에 덧붙이지 않습니다.
-- 헤드라인 훑기도 HOST와 ANALYST가 한 건씩 번갈아 맡습니다. 한 화자가
-  세 줄 넘게 연달아 말하지 않습니다.
-- 분량: 대사 합계 1,200~1,500자. 청취 3분 내외.
+- 구성: 하이라이트 이슈를 대화로 풀기 → 나머지 이슈는 헤드라인만 빠르게
+  훑기. 인사·자기소개·마무리 문장을 쓰지 마세요 — 오프닝과 클로징은
+  시스템이 따로 붙입니다. 첫 줄부터 바로 첫 이슈입니다.
+- 화자 교대는 이슈 단위입니다. 한 이슈를 말하는 동안에는 같은 화자가
+  2~3문장을 이어 말해도 됩니다. 문장마다 화자를 바꾸는 탁구식 진행 금지.
+- 헤드라인 훑기는 두세 건씩 묶어 HOST와 ANALYST가 블록으로 교대합니다.
+- 분량: [재료]의 [분량] 지시를 따릅니다.
 - 존댓말.
 
 [화자 — 둘 다 내용을 나릅니다]
@@ -192,7 +189,52 @@ def build_material(briefing: dict, by_id: dict) -> str:
     ]
     if rest:
         sections.append("[그 외 이슈 — 헤드라인 훑기용]\n\n" + "\n\n---\n\n".join(rest))
+    # 분량은 그날 이슈 수에 비례한다 — 고정 1,200~1,500자는 이슈 8건 날과
+    # 18건 날을 같은 틀에 밀어 넣어, 많은 날은 목표를 뚫고(실측 1,952자)
+    # 적은 날은 부풀렸다. 하한은 대담 성립선, 상한은 MAX_SPOKEN 안쪽.
+    low, high = spoken_target(len(deep), len(rest))
+    sections.append(f"[분량] 대사 합계 {low:,}~{high:,}자.")
     return "\n\n".join(sections)
+
+
+def spoken_target(deep_count: int, rest_count: int) -> tuple[int, int]:
+    """(하한, 상한) 대사 글자 수. 하이라이트 ~350자, 헤드라인 ~70자 예산."""
+    high = 250 + 350 * deep_count + 70 * rest_count
+    high = max(1100, min(high, MAX_SPOKEN - 200))
+    return max(900, high - 400), high
+
+
+# 모델이 그래도 써넣은 인사·마무리 줄을 골라내는 패턴. 프레임은 코드가 붙이므로
+# 대본 쪽 것은 중복이다.
+_FRAME_LINE_RE = re.compile(
+    r"안녕하십니까|안녕하세요|브리핑입니다|브리핑을 시작|여기까지입니다"
+    r"|마치겠습니다|감사합니다|청취해 주셔서|함께해 주셔서")
+
+
+def frame_lines(briefing: dict) -> tuple[str, str]:
+    """오프닝·클로징 대사 — LLM 이 아니라 코드가 만든다 (hourlynews 패턴).
+
+    인사말은 매일 같은 문장이어야 하는 고정 프레임인데, 이걸 생성에 맡기니
+    날마다 인사 두 줄(정보 0)이 붙거나 예고 문장이 늘어졌다. hourlynews 는
+    인트로·아웃트로를 config 고정 문자열로 붙이고 LLM 은 본문만 쓴다 — 같은
+    구조로 간다. 헤드라인은 이미 개조식이라 그대로 문장에 앉는다.
+    """
+    date = datetime.strptime(briefing["date"], "%Y-%m-%d")
+    weekday = "월화수목금토일"[date.weekday()]
+    headline = str(briefing.get("headline") or "").strip().rstrip(".!?")
+    opening = f"{date.month}월 {date.day}일 {weekday}요일 Nuclens 브리핑입니다."
+    if headline:
+        opening = (f"{date.month}월 {date.day}일 {weekday}요일 Nuclens 브리핑, "
+                   f"오늘의 핵심은 '{headline}'입니다.")
+    return f"HOST: {opening}", "HOST: 오늘 브리핑은 여기까지입니다."
+
+
+def apply_frame(script: str, briefing: dict) -> str:
+    """본문 앞뒤에 고정 프레임을 붙이고, 모델이 쓴 인사·마무리 줄은 걷어낸다."""
+    opening, closing = frame_lines(briefing)
+    body = [line for line in script.splitlines()
+            if not _FRAME_LINE_RE.search(line.split(":", 1)[1])]
+    return "\n".join([opening, *body, closing])
 
 
 def strip_filler(text: str) -> str:
@@ -277,7 +319,7 @@ def generate_script(material: str) -> str:
 
     retry_message = (
         f"{material}\n\n[재요청] 방금 출력에 문제가 있었습니다: {problem}.\n"
-        "형식 규칙(모든 줄이 HOST:/ANALYST:)과 분량(1,200~1,500자)을 지켜 "
+        "형식 규칙(모든 줄이 HOST:/ANALYST:)과 [분량] 지시를 지켜 "
         "대본 전체를 다시 쓰세요."
     )
     result = _call_script(retry_message)
@@ -595,6 +637,7 @@ def generate(force: bool = False) -> bool:
     except (GeminiError, ValueError) as exc:
         print(f"[audio] 대본 실패 — 기존 오디오 유지: {exc}")
         return False
+    script = apply_frame(script, briefing)
 
     try:
         pcm, rate = synthesize(script)
