@@ -652,6 +652,16 @@
       "right_title": "중국 톈완 8호기, 주요 시운전 시험 완료",
       "same_event": false
     },
+    "09465180cdc8f102--5c342902e9a3fff2": {
+      "embedding_similarity": 0.8597,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전 건설 승인 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국의 급속한 원자로 건설 확장, 국제 엔지니어들 놀라게 해",
+      "same_event": true
+    },
     "09465180cdc8f102--63a06abb8b827166": {
       "embedding_similarity": 0.8611,
       "left_title": "중국, 신규 원자로 8기 건설 승인",
@@ -2942,6 +2952,16 @@
       "right_title": "“3대 메가 프로젝트 성공하려면 원전 건설 계획 내놔야”[김상연의 Dee...",
       "same_event": false
     },
+    "2449e0ab8d45461b--29041bd55060fea6": {
+      "embedding_similarity": 0.8527,
+      "left_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "퍼미, 텐서웨이브와 65억 달러 규모 AI 데이터센터 임대 계약 체결",
+      "same_event": false
+    },
     "2449e0ab8d45461b--349e783fd4decdfa": {
       "embedding_similarity": 0.8558,
       "left_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
@@ -3462,6 +3482,16 @@
       "right_title": "여름철 최대 전력수요, 예상보다 빠르게 95GW 돌파하며 예비율 하락",
       "same_event": true
     },
+    "29041bd55060fea6--f73a97b0f28780fb": {
+      "embedding_similarity": 0.8408,
+      "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "퍼미, 텐서웨이브와 65억 달러 규모 AI 데이터센터 임대 계약 체결",
+      "same_event": false
+    },
     "29ad721a16c702fb--726ce5e20cdd473d": {
       "embedding_similarity": 0.8711,
       "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
@@ -3481,6 +3511,36 @@
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
       "same_event": true
+    },
+    "2a2b5e5bbd50d096--911526189a05bdad": {
+      "embedding_similarity": 0.9133,
+      "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전 상업운전 개시 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국 타이핑링 2호기, 최초 계통연결 및 발전 개시",
+      "same_event": true
+    },
+    "2a2b5e5bbd50d096--a4723d13eaa57660": {
+      "embedding_similarity": 0.8432,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 이정표 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국 타이핑링 2호기, 최초 계통연결 및 발전 개시",
+      "same_event": false
+    },
+    "2a2b5e5bbd50d096--c76e8785efc2694e": {
+      "embedding_similarity": 0.864,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 이정표 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국 타이핑링 2호기, 최초 계통연결 및 발전 개시",
+      "same_event": false
     },
     "2ac46bf39add7ba8--3c3560063b344488": {
       "embedding_similarity": 0.8479,
@@ -5892,6 +5952,16 @@
       "right_title": "후쿠시마 원전, 최근 오염수 방류 시작",
       "same_event": true
     },
+    "431840aff0e21ddb--5c342902e9a3fff2": {
+      "embedding_similarity": 0.8486,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전 건설 승인 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국의 급속한 원자로 건설 확장, 국제 엔지니어들 놀라게 해",
+      "same_event": true
+    },
     "431840aff0e21ddb--63a06abb8b827166": {
       "embedding_similarity": 0.8574,
       "left_title": "중국, 신규 원자로 8기 건설 승인",
@@ -6090,6 +6160,16 @@
       "reason": "대상 원전 호기 및 내용 상이",
       "reviewed_at": "2026-08-07T01:04:27.172047+00:00",
       "right_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "same_event": false
+    },
+    "457aa2e1b508d72c--bdf0fa9bc581aaa0": {
+      "embedding_similarity": 0.8451,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 사건 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "새울 3호기, 출력 80% 시운전 중 자동정지 발생…원안위 조사 착수",
       "same_event": false
     },
     "457aa2e1b508d72c--beff8f802cca43be": {
@@ -6521,6 +6601,16 @@
       "reviewed_at": "2026-08-11T08:17:48.760286+00:00",
       "right_title": "텍사스 데이터센터 운영사들, 애벗 주지사 표준 준수 및 ERCOT 프레임워크 지지",
       "same_event": true
+    },
+    "4dd2920f69b7ea54--f936d9674506f52c": {
+      "embedding_similarity": 0.8464,
+      "left_title": "텍사스 주지사, 데이터센터 전력망 연결 대기열 전면 감사 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "비스트라, 텍사스 데이터센터 프로젝트 감사 보류 지지 속 아마존 계약 자신감 표명",
+      "same_event": false
     },
     "4e6a1d2c0301a4d0--6b93ed7e22e9bb4b": {
       "embedding_similarity": 0.9026,
@@ -7622,6 +7712,16 @@
       "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
       "same_event": false
     },
+    "571c41d8d5a745d5--edb8b81478a98395": {
+      "embedding_similarity": 0.8616,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 팹 전력·용수 공급 만전 약속",
+      "same_event": true
+    },
     "571c41d8d5a745d5--ff2ae4aa6fc51e40": {
       "embedding_similarity": 0.8433,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -8081,6 +8181,26 @@
       "reviewed_at": "2026-08-11T08:17:48.760286+00:00",
       "right_title": "AI 데이터센터 전력난 해소에 기존 원전 역할 부각…한국 정책 시사점",
       "same_event": false
+    },
+    "5c342902e9a3fff2--a4723d13eaa57660": {
+      "embedding_similarity": 0.8405,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전 건설 이정표 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국의 급속한 원자로 건설 확장, 국제 엔지니어들 놀라게 해",
+      "same_event": true
+    },
+    "5c342902e9a3fff2--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8512,
+      "left_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전 건설 승인 보도",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "중국의 급속한 원자로 건설 확장, 국제 엔지니어들 놀라게 해",
+      "same_event": true
     },
     "5c6e5abbd0f56fb7--f1b7e28af992975c": {
       "embedding_similarity": 0.8668,
@@ -8890,6 +9010,16 @@
       "reason": "다른 주체, 다른 사안 언급",
       "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
       "right_title": "아마존, 데이터센터 전력 공급 위해 대규모 가스 발전소 건설",
+      "same_event": false
+    },
+    "67b29b69bb768171--f936d9674506f52c": {
+      "embedding_similarity": 0.8539,
+      "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "비스트라, 텍사스 데이터센터 프로젝트 감사 보류 지지 속 아마존 계약 자신감 표명",
       "same_event": false
     },
     "6833a35dd8fc11fe--89a559f17ff440e3": {
@@ -11742,6 +11872,16 @@
       "right_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
       "same_event": false
     },
+    "9ec7d0fb22c44034--f936d9674506f52c": {
+      "embedding_similarity": 0.8748,
+      "left_title": "아마존, 데이터센터 전력 확보 위해 텍사스 화석연료 발전소에 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "비스트라, 텍사스 데이터센터 프로젝트 감사 보류 지지 속 아마존 계약 자신감 표명",
+      "same_event": false
+    },
     "9ec7d0fb22c44034--fd93c69547fa4b1e": {
       "embedding_similarity": 0.8474,
       "left_title": "아마존, 데이터센터 전력 확보 위해 텍사스 화석연료 발전소에 투자",
@@ -12622,6 +12762,16 @@
       "right_title": "수도권 전력 공급 및 송전망 구축의 현실적 한계 직면",
       "same_event": false
     },
+    "b0e178ca6114b1a9--edb8b81478a98395": {
+      "embedding_similarity": 0.8462,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 팹 전력·용수 공급 만전 약속",
+      "same_event": true
+    },
     "b3adbd243878a3c3--b55e201374267ece": {
       "embedding_similarity": 0.8632,
       "left_title": "KEPIC, AIㆍSMR 시대 맞춰 기준체계 확장",
@@ -12901,6 +13051,16 @@
       "reviewed_at": "2026-08-11T03:11:22.301682+00:00",
       "right_title": "수도권 전력 공급 및 송전망 구축의 현실적 한계 직면",
       "same_event": false
+    },
+    "bd1c124b246d63a9--edb8b81478a98395": {
+      "embedding_similarity": 0.865,
+      "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
+      "right_title": "기후장관, 용인·호남 반도체 팹 전력·용수 공급 만전 약속",
+      "same_event": true
     },
     "bd1c124b246d63a9--f3f39cc1b3cc883e": {
       "embedding_similarity": 0.8589,
