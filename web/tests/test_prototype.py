@@ -1233,8 +1233,20 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("change_display", row)
 
     def test_every_delivered_article_is_represented_once_in_its_briefing(self):
+        """편집자가 내린 이슈는 빼고 센다.
+
+        `selection_overrides.json` 의 `hide_from_today` 는 문서화된 편집 도구다
+        ("GitHub 웹에서 직접 편집하면 다음 빌드부터 반영된다"). 그런데 이 검사가
+        발송분과 화면분을 1:1 로 못 박고 있어서 **그 도구를 쓰면 빌드가 깨졌다** —
+        2026-08-11 에 실제로 그랬다(날조 카드 하나를 내리자 16 != 17). 배포 경로에
+        데이터 조건이 사는 것을 라운드 5 에서 두 번 걷어냈는데 여기 하나가 더 있었다.
+        """
+        hidden = set(build_data.load_selection_overrides()["demote"])
         for briefing in self.briefings:
-            expected = sum(1 for article in self.news if article.get("briefing_date") == briefing["date"])
+            delivered = [article for article in self.news
+                         if article.get("briefing_date") == briefing["date"]]
+            expected = sum(1 for article in delivered
+                           if (article.get("hash", "")[:8], briefing["date"]) not in hidden)
             current = sum(issue["current_article_count"] for issue in briefing["issues"])
             self.assertEqual(briefing["article_count"], expected)
             self.assertEqual(current, expected)
@@ -2677,10 +2689,24 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertNotIn("editor_pin", rows[0])
         self.assertNotIn("sort_score", rows[0])
 
-    def test_repo_template_is_valid_and_empty(self):
+    def test_repo_template_parses_into_the_expected_shape(self):
+        """**비어 있어야 한다고 못 박지 않는다.** 이 파일은 쓰라고 있는 자리다.
+
+        예전 이름은 `..._is_valid_and_empty` 였고 항목이 하나라도 들어오면 실패했다.
+        즉 문서가 권하는 대로 편집자가 한 건 내리는 순간 CI 가 빨개지고 배포가
+        막혔다(2026-08-11 실측). 검증할 값어치가 있는 것은 '비었나'가 아니라
+        '읽히는 모양인가'다.
+        """
         over = build_data.load_selection_overrides()
-        self.assertEqual(over["promote"], {})
-        self.assertEqual(over["demote"], {})
+        for bucket in ("promote", "demote"):
+            self.assertIsInstance(over[bucket], dict)
+            for key, action in over[bucket].items():
+                self.assertIsInstance(key, tuple)
+                self.assertEqual(len(key), 2)
+                hash8, day = key
+                self.assertRegex(hash8, r"^[0-9a-f]{8}$")
+                self.assertRegex(day, r"^\d{4}-\d{2}-\d{2}$")
+                self.assertTrue(str(action))
 
     # ---- build_briefings 통합 — 클러스터 누수 회귀 방지 --------------------
 
@@ -4416,6 +4442,59 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         # 타임라인 각 기사도 자기 요지를 펼칠 수 있어야 한다.
         self.assertIn("timeline-detail", app)
         self.assertIn(".timeline-detail", css)
+
+
+class SourceBackfillTests(unittest.TestCase):
+    """자료 팩(정책 브리핑의 산출물)이 인용하는 줄이 인용답지 않았다.
+
+        - 8월 4일 · 원안위, 계속운전 원전의 … (v.daum.net)
+          https://news.google.com/rss/articles/CBMiT0FVX3lxTE5hekxXbS1ZNC1o…
+
+    포털 호스트명이 매체명 자리에 있고 링크는 리다이렉트다. `site_name`·
+    `resolved_url` 은 2026-08-11 수집분부터 붙으므로 그 전 기록은 영영 빈다 —
+    실측 표시 기사 1,136건 중 777건이 해당하고 **그중 645건이 최근 7일분**이라
+    "오래된 것만"이 아니었다.
+    """
+
+    def setUp(self):
+        build_data._SOURCE_BACKFILL = None
+        self.addCleanup(setattr, build_data, "_SOURCE_BACKFILL", None)
+
+    def test_a_backfilled_name_replaces_a_hostname(self):
+        build_data._SOURCE_BACKFILL = {"h1": {"site_name": "노컷뉴스"}}
+        row = build_data._normalize_archive_record({
+            "hash": "h1", "publisher": "v.daum.net", "domain": "daum.net",
+            "url": "https://news.google.com/rss/articles/X", "title": "제목"})
+        self.assertEqual(row["publisher"], "노컷뉴스")
+
+    def test_a_backfilled_url_becomes_the_citable_address(self):
+        build_data._SOURCE_BACKFILL = {
+            "h1": {"resolved_url": "https://www.yna.co.kr/view/AKR1"}}
+        row = build_data._normalize_archive_record({
+            "hash": "h1", "publisher": "연합뉴스", "domain": "yna.co.kr",
+            "url": "https://news.google.com/rss/articles/X", "title": "제목"})
+        self.assertEqual(build_data.source_url(row),
+                         "https://www.yna.co.kr/view/AKR1")
+        # dedup 키는 그대로다 — 바꾸면 같은 기사가 새 기사로 다시 들어온다.
+        self.assertIn("news.google.com", row["url"])
+
+    def test_the_record_wins_over_the_backfill(self):
+        # 백필은 빈자리만 메운다. 나중에 수집된 값이 있으면 그쪽이 최신이다.
+        build_data._SOURCE_BACKFILL = {"h1": {"site_name": "옛이름"}}
+        row = build_data._normalize_archive_record({
+            "hash": "h1", "site_name": "새이름", "publisher": "edaily.co.kr",
+            "domain": "edaily.co.kr", "url": "https://a/b", "title": "제목"})
+        self.assertEqual(row["publisher"], "새이름")
+
+    def test_a_real_publisher_name_is_never_overwritten(self):
+        build_data._SOURCE_BACKFILL = {"h1": {"site_name": "노컷뉴스"}}
+        row = build_data._normalize_archive_record({
+            "hash": "h1", "publisher": "전기신문", "domain": "electimes.com",
+            "url": "https://a/b", "title": "제목"})
+        self.assertEqual(row["publisher"], "전기신문")
+
+    def test_a_missing_file_is_not_an_error(self):
+        self.assertIsInstance(build_data.source_backfill(), dict)
 
 
 class SearchMatchingTests(unittest.TestCase):

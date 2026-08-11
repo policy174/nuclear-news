@@ -41,6 +41,7 @@ if str(ROOT_DIR) not in sys.path:
 from data_quality import (  # noqa: E402
     curation_errors,
     implication_is_hollow,
+    display_publisher,
     invalid_url_reason,
     normalize_event_date_fields,
     normalize_url,
@@ -239,9 +240,38 @@ _COUNTRY_TOKEN_RULES = {
 _GLOBAL_TOKEN_RULES = ("iter",)
 
 
+_SOURCE_BACKFILL: dict[str, dict] | None = None
+
+
+def source_backfill() -> dict[str, dict]:
+    """뒤늦게 채운 매체명·실주소(`tools/backfill_sources.py` 산출).
+
+    두 필드는 2026-08-11 수집분부터 붙는다. 그 전 기록은 재크롤이 없어 영영
+    비는데, **자료 팩이 그 기록을 인용한다** — 실측 표시 기사 1,136건 중 777건이
+    호스트명 매체명이거나 리다이렉트 링크였고 그중 645건이 최근 7일분이었다.
+    "오래된 것만 그렇다"가 아니라 지금 읽는 구간이 그랬다.
+
+    아카이브 파일은 건드리지 않는다(append-only 2,500건을 다시 쓰는 것은 되돌리기
+    어렵다). 빌드가 매번 전체를 지나가므로 옆에 얹기만 하면 된다.
+    """
+    global _SOURCE_BACKFILL
+    if _SOURCE_BACKFILL is None:
+        try:
+            raw = json.loads((BOT_DIR / "archive_source_backfill.json").read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            raw = {}
+        _SOURCE_BACKFILL = raw if isinstance(raw, dict) else {}
+    return _SOURCE_BACKFILL
+
+
 def _normalize_archive_record(record: dict) -> dict:
     """구버전 레코드를 웹 빌드의 현재 출처·사건일 계약으로 읽는다."""
     normalized = dict(record)
+    # 레코드가 이미 들고 있으면 그것이 이긴다 — 백필은 빈자리만 메운다.
+    filled = source_backfill().get(str(record.get("hash") or "")) or {}
+    for field in ("site_name", "resolved_url"):
+        if filled.get(field) and not normalized.get(field):
+            normalized[field] = filled[field]
     normalized["url"] = normalize_url(record.get("url"))
     title = record.get("title") or ""
     publisher = record.get("publisher") or ""
@@ -251,7 +281,10 @@ def _normalize_archive_record(record: dict) -> dict:
     profile = source_profile(domain, publisher)
     normalized.update({
         "title": title,
-        "publisher": publisher or profile["publisher"],
+        # 백필로 얻은 매체명이 있으면 호스트명 자리를 대신한다. profile 은 원래
+        # publisher 로 이미 계산돼 있어 등급·유형 판정은 흔들리지 않는다.
+        "publisher": display_publisher(publisher or profile["publisher"],
+                                       normalized.get("site_name") or ""),
         "source_type": record.get("source_type") or profile["source_type"],
         "evidence_role": record.get("evidence_role") or profile["evidence_role"],
         "source_tier": record.get("source_tier") or profile["source_tier"],
@@ -1867,6 +1900,8 @@ def assert_card_clusters_unchanged(before: list[dict], issues: list[dict]) -> di
 
 
 _DETAIL_TOKEN_RE = re.compile(r"[가-힣]{2,}|[A-Za-z]{3,}|\d{2,}")
+# 요지와 제목이 어긋난 기사 — 빌드 로그로 사람에게 넘긴다.
+_DETAIL_MISMATCHES: list[dict] = []
 # 요지가 제 기사 제목과 이만큼도 안 겹치면 다른 기사의 본문이다.
 _DETAIL_MIN_OVERLAP = 0.30
 
@@ -1900,7 +1935,21 @@ def usable_detail(article: dict) -> str:
         # 조사 한 글자를 떼고도 본다('원전이' → '원전') — keei_match 와 같은 이유.
         if needle in haystack or (len(needle) > 2 and needle[:-1] in haystack):
             hits += 1
-    return detail if hits / len(tokens) >= _DETAIL_MIN_OVERLAP else ""
+    if hits / len(tokens) >= _DETAIL_MIN_OVERLAP:
+        return detail
+    # **조용히 버리지 않는다.** 요지는 원문 본문에서, 제목·요약은 모델에서 나온다.
+    # 둘이 어긋나면 둘 중 하나가 틀린 것인데 겹침만으로는 어느 쪽인지 못 가른다 —
+    # 그리고 2026-08-11 실사고에서 틀린 쪽은 **제목·요약**이었다(원 제목 '해외건설
+    # 500억 달러 시대 겨냥…'인 기사가 '한수원, 신규 원전 부지 후보지 선정'으로
+    # 둔갑해 must_read 로 올라갔다. 사람이 selection_overrides 로 내렸다).
+    # 요지만 지우면 **거짓말은 남고 진실이 사라진다.** 사람이 볼 수 있게 남긴다.
+    _DETAIL_MISMATCHES.append({
+        "hash": str(article.get("hash") or "")[:8],
+        "title_kr": title[:60],
+        "title": str(article.get("title") or "")[:60],
+        "importance": str(article.get("importance") or ""),
+    })
+    return ""
 
 
 def _article_view(article: dict, member_role: str = "card") -> dict:
@@ -4072,6 +4121,17 @@ def build() -> None:
     if _HOLLOW_IMPLICATIONS:
         print(f"[build_data] 빈껍데기 해석 {len(_HOLLOW_IMPLICATIONS)}건 미표시 "
               f"(카드는 요약으로 물러남) — 예: {_HOLLOW_IMPLICATIONS[0][:52]}")
+    # 요지(본문 유래)와 제목·요약(모델 유래)이 어긋난 기사. **사람이 볼 자리다** —
+    # 겹침만으로는 어느 쪽이 틀렸는지 못 가르고, 실사고에서 틀린 쪽은 제목이었다.
+    # must_read 로 올라간 것이 섞여 있으면 selection_overrides 로 내릴 것.
+    if _DETAIL_MISMATCHES:
+        seen = {row["hash"]: row for row in _DETAIL_MISMATCHES}
+        flagged = [row for row in seen.values() if row["importance"] == "must_read"]
+        print(f"[build_data] 요지↔제목 불일치 {len(seen)}건"
+              f"{f' (must_read {len(flagged)}건 — 확인 필요)' if flagged else ''}")
+        for row in list(seen.values())[:5]:
+            print(f"    {row['hash']} [{row['importance']}] "
+                  f"생성={row['title_kr'][:34]} / 원문={row['title'][:34]}")
     atlas = meta["atlas_readiness"]
     print(
         "[build_data:atlas] "

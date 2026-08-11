@@ -107,6 +107,31 @@ def url_hash(url: str | None) -> str:
     return hashlib.sha1(normalized.encode("utf-8")).hexdigest()[:16] if normalized else ""
 
 
+def looks_like_hostname(publisher: str) -> bool:
+    """매체명 자리에 도메인이 들어와 있는가.
+
+    아카이브 1,017건 실측(2026-08-10)에서 601건(59%)이 `hankyung.com` 처럼
+    도메인 그대로였다. 한국 독자에게 `hidomin.com` 은 매체명이 아니다.
+    """
+    publisher = (publisher or "").strip()
+    return bool(publisher) and "." in publisher and " " not in publisher
+
+
+def display_publisher(publisher: str, site_name: str) -> str:
+    """도메인뿐이면 페이지가 스스로 말한 이름(og:site_name)으로 바꾼다.
+
+    도메인→이름 표를 손으로 만들지 않는 이유: 꼬리가 251개 도메인이라 유지가
+    안 되고, **표가 틀리기도 한다** — `chosun.com` 의 실제 매체가 조선비즈인
+    기사가 있었다. 이미 본문 때문에 받은 페이지에 정답이 들어 있다.
+
+    이름을 못 얻은 기사는 종전 표기를 그대로 둔다(실측 표본 29건 중 4건).
+    """
+    site_name = (site_name or "").strip()
+    if site_name and (not publisher or looks_like_hostname(publisher)):
+        return site_name
+    return publisher
+
+
 def source_url(record: dict) -> str:
     """화면·보고서가 링크할 주소. 실주소를 알면 그것, 아니면 원래 주소.
 
