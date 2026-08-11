@@ -4444,6 +4444,79 @@ class ArticleDetailSurfacesTests(unittest.TestCase):
         self.assertIn(".timeline-detail", css)
 
 
+class SavedIssuesPackTests(unittest.TestCase):
+    """브리핑은 이슈 하나로 끝나지 않는다.
+
+    시나리오 D(정책 브리핑)를 실제로 해보니 계속운전 하나를 좇는데 관련 이슈가
+    3건이었고, `자료 팩 복사` 는 하나씩만 나와서 세 번 복사해 손으로 붙여야 했다.
+    붙이는 동안 순서·중복·출처가 흐트러진다.
+    """
+
+    STUBS = """
+const state = {
+  issues: [
+    {issue_id: 'a', title: '첫째 이슈', last_seen: '2026-08-09'},
+    {issue_id: 'b', title: '둘째 이슈', last_seen: '2026-08-11'},
+    {issue_id: 'c', title: '저장 안 함', last_seen: '2026-08-10'},
+  ],
+  savedIds: new Set(['a', 'b']),
+  meta: {latest_briefing_date: '2026-08-11'},
+};
+const location = {origin: 'https://nuclens.pages.dev'};
+const dateLabel = v => v;
+const issueMaterialPack = issue => '# ' + issue.title;
+"""
+
+    def _pack(self, extra: str = "") -> str:
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        fn = re.search(r"^function savedIssuesPack\(\) \{.*?^\}", script, re.S | re.M)
+        self.assertTrue(fn, "savedIssuesPack 을 못 찾았다")
+        body = (self.STUBS + fn.group(0) + extra
+                + "\nprocess.stdout.write(savedIssuesPack());")
+        with tempfile.NamedTemporaryFile("w", suffix=".mjs", delete=False,
+                                         encoding="utf-8") as handle:
+            handle.write(body)
+            path = handle.name
+        try:
+            out = subprocess.run(["node", path], capture_output=True, text=True,
+                                 encoding="utf-8")
+        finally:
+            os.unlink(path)
+        if out.returncode != 0:
+            raise AssertionError(out.stderr)
+        return out.stdout
+
+    def test_it_gathers_only_the_saved_issues_newest_first(self):
+        pack = self._pack()
+        self.assertTrue(pack.startswith("# 저장한 이슈 2건"))
+        self.assertNotIn("저장 안 함", pack)
+        self.assertLess(pack.index("둘째"), pack.index("첫째"))
+
+    def test_it_opens_with_a_table_of_contents(self):
+        # 브리핑을 쓰는 사람이 팩의 모양을 먼저 본다 — 몇 건이고 무엇인지.
+        pack = self._pack()
+        self.assertIn("## 목차", pack)
+        self.assertIn("01. 둘째 이슈", pack)
+        self.assertIn("02. 첫째 이슈", pack)
+
+    def test_each_issue_keeps_its_own_pack_format(self):
+        """조립만 한다 — 여기서 형식을 새로 지으면 단건 팩과 두 벌이 되고 갈라진다."""
+        pack = self._pack()
+        self.assertEqual(pack.split("\n---\n").__len__(), 2)
+
+    def test_nothing_saved_means_nothing_copied(self):
+        pack = self._pack("\nstate.savedIds = new Set();")
+        self.assertEqual(pack, "")
+
+    def test_the_button_is_wired_and_hidden_when_empty(self):
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("data-pack-saved", markup)
+        self.assertIn('closest("[data-pack-saved]")', script)
+        # 묘비만 남은 목록에서 누르면 빈 문서가 복사된다.
+        self.assertIn("packButton.hidden = issues.length === 0", script)
+
+
 class SourceBackfillTests(unittest.TestCase):
     """자료 팩(정책 브리핑의 산출물)이 인용하는 줄이 인용답지 않았다.
 

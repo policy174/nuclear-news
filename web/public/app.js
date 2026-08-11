@@ -1740,6 +1740,10 @@ function renderSaved() {
   document.getElementById("savedIssueList").innerHTML = cards.length
     ? cards.join("")
     : '<div class="empty-state"><strong>저장한 이슈가 없습니다</strong><p>카드의 저장 버튼을 누르면 이 브라우저에서 다시 볼 수 있습니다.</p><button type="button" data-go-view="search">탐색에서 보기</button></div>';
+  // 묶음 팩은 **살아 있는 이슈가 있을 때만** 낸다 — 묘비만 남은 목록에서
+  // 누르면 빈 문서가 복사된다.
+  const packButton = document.getElementById("savedPackButton");
+  if (packButton) packButton.hidden = issues.length === 0;
 }
 
 function renderReportCandidates() {
@@ -1999,6 +2003,40 @@ async function copyIssuePack(button, issueId) {
   const issue = currentIssueById(issueId);
   if (!issue) return;
   await copyToClipboard(button, issueMaterialPack(issue), "자료 팩을 복사하지 못했습니다");
+}
+
+// 저장한 이슈를 **한 장으로** 묶는다.
+//
+// 브리핑은 이슈 하나로 끝나지 않는다 — 시나리오 D(정책 브리핑)를 실제로 해보니
+// 계속운전 하나를 좇는데 관련 이슈가 3건이었고, 팩은 하나씩만 나와서 세 번
+// 복사해 손으로 붙여야 했다. 붙이는 동안 순서·중복·출처가 흐트러진다.
+//
+// 조립만 한다 — 각 이슈의 본문은 issueMaterialPack 그대로다. 여기서 형식을
+// 새로 지으면 단건 팩과 두 벌이 되고 금방 갈라진다.
+function savedIssuesPack() {
+  const issues = state.issues
+    .filter(issue => state.savedIds.has(issue.issue_id))
+    .sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)));
+  if (!issues.length) return "";
+  const today = state.meta?.latest_briefing_date || "";
+  const head = [
+    `# 저장한 이슈 ${issues.length}건`,
+    "",
+    `기준일: ${today ? dateLabel(today) : "-"} · 출처: Nuclens ${location.origin}`,
+    "",
+    "## 목차",
+    ...issues.map((issue, index) =>
+      `${String(index + 1).padStart(2, "0")}. ${issue.title || ""}`),
+    "",
+  ];
+  const body = issues.map(issueMaterialPack).join("\n\n---\n\n");
+  return `${head.join("\n")}\n${body}\n`;
+}
+
+async function copySavedPack(button) {
+  const text = savedIssuesPack();
+  if (!text) { showToast("저장한 이슈가 없습니다"); return; }
+  await copyToClipboard(button, text, "자료 팩을 복사하지 못했습니다");
 }
 
 // '해석과 한계' 문장은 지웠다. 검증 상태를 산문으로 되풀이할 뿐이라 바로 위
@@ -3077,6 +3115,8 @@ function handleIssueAction(event) {
   if (copy) { copyIssueReport(copy, copy.dataset.copyIssue); return true; }
   const pack = event.target.closest("[data-pack-issue]");
   if (pack) { copyIssuePack(pack, pack.dataset.packIssue); return true; }
+  const savedPack = event.target.closest("[data-pack-saved]");
+  if (savedPack) { copySavedPack(savedPack); return true; }
   const save = event.target.closest("[data-save-issue]");
   if (save) { toggleSaved(save.dataset.saveIssue); return true; }
   const share = event.target.closest("[data-share-issue]");
