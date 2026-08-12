@@ -2966,7 +2966,7 @@
     "e85bb1c14dd0a1c5": "2026-08-12T20:30:37.169048+00:00"
   },
   "source_yield": {
-    "at": "2026-08-12T20:32:46+00:00",
+    "at": "2026-08-12T21:34:53+00:00",
     "counts": {
       "한수원 보도자료": 10,
       "원안위 보도자료": 0,
@@ -2978,26 +2978,23 @@
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 14,
-      "La Tribune 원자력": 9,
+      "Reuters 원자력": 13,
+      "La Tribune 원자력": 11,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 16,
-      "Les Échos 원자력": 43,
+      "Les Échos 원자력": 35,
       "E&E News 원자력": 6,
       "Nuclear Engineering International": 19,
-      "Euractiv 원자력": 55,
-      "국내 원자력 보도": 8
+      "Euractiv 원자력": 53,
+      "국내 원자력 보도": 7
     },
     "kept": {
-      "WNN": 1,
-      "ANS Nuclear Newswire": 2,
-      "Reuters 원자력": 3,
-      "La Tribune 원자력": 2,
-      "Le Monde 에너지": 2,
+      "ANS Nuclear Newswire": 1,
+      "La Tribune 원자력": 1,
       "FT 원자력": 1,
       "E&E News 원자력": 1,
-      "Euractiv 원자력": 1
+      "국내 원자력 보도": 2
     },
     "errors": {
       "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
