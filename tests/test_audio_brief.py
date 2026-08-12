@@ -198,7 +198,7 @@ class AudioBriefTestCase(unittest.TestCase):
         ])
         framed = audio_brief.apply_frame(body, briefing)
         lines = framed.splitlines()
-        self.assertEqual(lines[0], "HOST: 8월 4일 화요일 Nuclens 브리핑입니다.")
+        self.assertEqual(lines[0], "HOST: 8월 4일 화요일 Nuclens 오디오 브리핑입니다.")
         self.assertEqual(lines[-1], "HOST: 오늘 브리핑은 여기까지입니다.")
         self.assertEqual(len(lines), 3)                 # 인사·중복 마무리 제거
         self.assertIn("원안위", framed)
@@ -209,7 +209,7 @@ class AudioBriefTestCase(unittest.TestCase):
         briefing = dict(briefing_row(),
                         headline="첨단기술 '7대 SEED' 보고회 개최 (산업부)")
         opening, _ = audio_brief.frame_lines(briefing)
-        self.assertEqual(opening, "HOST: 8월 4일 화요일 Nuclens 브리핑입니다.")
+        self.assertEqual(opening, "HOST: 8월 4일 화요일 Nuclens 오디오 브리핑입니다.")
 
     def test_material_spoken_target_scales_with_issue_count(self):
         """분량 목표는 이슈 수에 비례한다 — 고정 목표는 많은 날을 뚫고
@@ -222,44 +222,18 @@ class AudioBriefTestCase(unittest.TestCase):
         briefing, by_id = audio_brief.load_briefing(audio_brief.WEB_DATA)
         self.assertIn("[분량]", audio_brief.build_material(briefing, by_id))
 
-    def test_validate_script_gates_turn_count(self):
-        """'이슈 단위 블록 교대' 프롬프트는 두 번 무시됐다(08-12 배포분 34줄
-        중 전환 32회). 상한 초과는 ValueError → 기존 재요청 사다리를 탄다."""
-        ping_pong = "\n".join(
-            [f"HOST: 사실 전달 {i}입니다." if i % 2 == 0
-             else f"ANALYST: 해설 {i}입니다." for i in range(20)])
-        with self.assertRaises(ValueError) as ctx:
-            audio_brief.validate_script(ping_pong, turn_limit=10)
-        self.assertIn("탁구식", str(ctx.exception))
-        script, _ = audio_brief.validate_script(ping_pong, turn_limit=20)
-        self.assertEqual(len(script.splitlines()), 20)  # 상한 안이면 통과
-
-    def test_count_turns_merges_consecutive_same_speaker(self):
-        lines = ["HOST: 하나.", "HOST: 둘.", "ANALYST: 셋.", "HOST: 넷."]
-        self.assertEqual(audio_brief.count_turns(lines), 3)
-
-    def test_max_turns_scales(self):
-        # 하이라이트 3 + 나머지 12 → 2*3 + 6 + 2 = 14턴. 08-12 실측 33턴의 절반 이하.
-        self.assertEqual(audio_brief.max_turns(3, 12), 14)
-        self.assertEqual(audio_brief.max_turns(3, 0), 9)
-
-    def test_generate_script_retries_on_turn_overflow_then_accepts(self):
-        """턴 초과는 재요청 한 번까지만 강제 — 그래도 초과면 그 대본을 쓴다.
-        탁구식은 품질 문제지 방송 사고가 아니다."""
-        ping_pong = "\n".join(
-            [f"HOST: 사실 {i}입니다." if i % 2 == 0
-             else f"ANALYST: 해설 {i}입니다." for i in range(20)])
-        self.responses = [{"script": ping_pong}, {"script": ping_pong}]
-        script = audio_brief.generate_script("재료", turn_limit=10)
-        self.assertEqual(len(self.calls), 2)
-        self.assertIn("[재요청]", self.calls[1])
-        self.assertIn("탁구식", self.calls[1])
-        self.assertEqual(len(script.splitlines()), 20)
-
-    def test_validate_script_rejects_monologue(self):
-        mono = "\n".join(f"HOST: 문장 {i}입니다." for i in range(10))
-        with self.assertRaises(ValueError):
-            audio_brief.validate_script(mono)
+    
+    
+    
+    
+    def test_validate_script_absorbs_analyst_lines(self):
+        """1인 진행 전환 후 모델이 옛 대담 형식으로 회귀해도 내용을 살린다."""
+        legacy = "\n".join(
+            [f"HOST: 사실 {i}입니다." if i % 2 == 0 else f"ANALYST: 해설 {i}입니다."
+             for i in range(10)])
+        script, _ = audio_brief.validate_script(legacy)
+        self.assertTrue(all(line.startswith("HOST: ") for line in script.splitlines()))
+        self.assertIn("해설 1입니다", script)
 
     def test_validate_script_rejects_too_few_lines(self):
         with self.assertRaises(ValueError):
@@ -324,15 +298,7 @@ class AudioBriefTestCase(unittest.TestCase):
 
     # ── TTS 계약 ─────────────────────────────────────────────
 
-    def test_tts_payload_speakers_match_script_labels(self):
-        payload = audio_brief.tts_payload("HOST: 안녕하세요.\nANALYST: 네.")
-        config = payload["generationConfig"]
-        self.assertEqual(config["responseModalities"], ["AUDIO"])
-        speakers = {entry["speaker"] for entry in
-                    config["speechConfig"]["multiSpeakerVoiceConfig"]["speakerVoiceConfigs"]}
-        self.assertEqual(speakers, {"HOST", "ANALYST"})
-        self.assertEqual(speakers, set(audio_brief.VOICES))
-
+    
     def test_split_script_chunks_at_speaker_lines(self):
         """긴 대본은 여러 요청으로 나눈다 — 4분을 1요청으로 뽑으면 뒤쪽이
         먹고 작아진다(2026-08-08 실측: 마지막 30초 -40.2 dB vs 첫 30초 -17.6)."""
