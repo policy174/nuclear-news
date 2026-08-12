@@ -1,18 +1,21 @@
 """audio_brief.py 단위 테스트 — 대담 형식 게이트·비치명 계약·중복 생성 방지.
 
-핵심 계약 3개:
+핵심 계약 4개:
   ① 대본은 반드시 HOST/ANALYST 2인 대담 — 형식 미달이면 TTS 를 부르지 않는다.
   ② 어떤 실패도 기존 오디오를 지우지 않는다 (배포마다 캐시로 돌아오는 파일).
   ③ 같은 날짜 재실행은 Gemini 를 다시 부르지 않는다 (무료 티어 보호).
+  ④ 실패는 종료 코드로 나간다 — 비치명 처리는 호출자(워크플로) 몫이다.
 """
 import json
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT))
 
 import audio_brief
 from gemini_client import GeminiError
@@ -531,6 +534,28 @@ class AudioBriefTestCase(unittest.TestCase):
     def test_generate_without_briefings_is_noop(self):
         self.assertFalse(audio_brief.generate())
         self.assertEqual(self.calls, [])
+
+
+class ExitCodeContractTests(unittest.TestCase):
+    """실패는 종료 코드로 나가야 한다.
+
+    2026-08-12: 대본이 429 로 굶어 그날 오디오가 통째로 빠졌는데 워크플로는
+    success 였다. `sys.exit(0)` 이 무조건이라 `|| echo "실패"` 도, 그 뒤에 붙일
+    어떤 재시도도 절대 실행될 수 없는 구조였다. 종료 코드가 진실을 말해야
+    워크플로가 재시도를 걸 수 있다.
+    """
+
+    def _run(self, env_extra: dict) -> int:
+        env = {**os.environ, "GEMINI_API_KEY": "", **env_extra}
+        # .env 가 있는 개발 머신에서 키가 되살아나지 않게 임시 디렉터리에서 돈다.
+        with tempfile.TemporaryDirectory() as tmp:
+            return subprocess.run(
+                [sys.executable, str(ROOT / "audio_brief.py")],
+                cwd=tmp, env=env, capture_output=True, text=True, timeout=60,
+            ).returncode
+
+    def test_no_api_key_exits_nonzero(self):
+        self.assertEqual(self._run({}), 1)
 
 
 if __name__ == "__main__":

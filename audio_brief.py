@@ -680,11 +680,17 @@ def generate(force: bool = False) -> bool:
 
 
 if __name__ == "__main__":
-    # 어떤 실패도 배포를 죽이면 안 된다 — 오디오는 부가 기능이다.
+    # 어떤 실패도 배포를 죽이면 안 된다 — 오디오는 부가 기능이다. 다만 **성패는
+    # 종료 코드로 알린다.** 예전엔 무조건 0 이라 워크플로의
+    # `python audio_brief.py || echo "실패"` 가 한 번도 실행된 적이 없었고,
+    # 429 로 그날 오디오가 통째로 빠져도 스텝은 성공으로 보였다
+    # (2026-08-12 실사고: 19초 만에 조용히 종료, 워크플로는 success).
+    # 호출자는 여전히 `||` 로 받아 넘긴다 — 비치명 계약은 호출자 쪽에 있다.
+    ok = False
     try:
-        generate(force="--force" in sys.argv)
+        ok = generate(force="--force" in sys.argv)
     except Exception as exc:  # noqa: BLE001
         import traceback
         traceback.print_exc()
         print(f"[audio] 예상 밖 실패 — 비치명 처리: {exc}")
-    sys.exit(0)
+    sys.exit(0 if ok else 1)

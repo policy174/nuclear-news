@@ -189,7 +189,17 @@ jobs:
           python web/build_data.py
           # 오디오 브리핑 — build_data 산출물을 재료로 쓰므로 반드시 그 뒤,
           # 배포 전. 실패해도 배포는 계속한다 (오디오는 부가 기능).
-          python audio_brief.py || echo "[audio] 오디오 브리핑 실패 — 비치명, 배포 계속"
+          # 1차 실패 시 90초 뒤 한 번 더. build_data 가 방금 같은 무료 버킷을
+          # 쓰고 끝나는데 오디오가 곧바로 이어 붙어서, 분당 한도면 여기서 풀린다.
+          # 잡 예산 25분 중 실제 사용은 6분이라 여유가 있다. generate() 는 그날
+          # mp3 가 이미 있으면 스킵하므로 성공한 날엔 sleep 을 안 탄다.
+          # 일일 한도였다면 재시도도 실패하고, 로그의 '[gemini] 일일 한도 판정'
+          # 한 줄이 어느 쪽이었는지 말해 준다.
+          python audio_brief.py || {
+            echo "[audio] 1차 실패 — 90초 뒤 1회 재시도"
+            sleep 90
+            python audio_brief.py || echo "[audio] 재시도도 실패 — 비치명, 배포 계속"
+          }
           npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
           # 배포 후 라이브 스모크 (crawl.yml과 동일 기준)
           sleep 15

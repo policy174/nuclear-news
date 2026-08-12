@@ -58,3 +58,37 @@ class TestCallInstrumentation(unittest.TestCase):
         source = inspect.getsource(gemini_client.call_json)
         self.assertIn("_record_call", source)
         self.assertIn("retry", source)
+
+
+class TestQuotaVerdictIsLogged(unittest.TestCase):
+    """429 는 두 갈래고, 어느 쪽으로 갈렸는지가 로그에 남아야 한다.
+
+    2026-08-12 오디오 브리핑이 19초 만에 죽었다. 재시도가 한 번이라도 돌았으면
+    (최소 20초 대기) 불가능한 시간이라 '일일 한도로 판정해 즉시 포기' 말고는
+    설명이 없는데, 로그의 429 본문이 [:600] 으로 잘려 quotaId 가 안 보여
+    확증을 못 했다. 같은 `limit: 20` 메시지가 크롤에선 재시도로 풀린다 —
+    본문 안의 표지가 유일한 판별자인데 그걸 안 찍고 있었다.
+    """
+
+    def test_daily_markers_are_detected_and_named(self):
+        body = '{"error":{"details":[{"quotaId":"GenerateRequestsPerDayPerProjectPerModel"}]}}'
+        self.assertTrue(gemini_client._is_daily_quota(body))
+        self.assertEqual(gemini_client._daily_quota_marker(body), "PerDay")
+
+    def test_rpm_body_is_not_daily_and_names_no_marker(self):
+        """실제 429 본문(2026-08-12). 표지가 없으면 분당으로 보고 재시도한다."""
+        body = ('{"error":{"code":429,"message":"Quota exceeded for metric: '
+                'generativelanguage.googleapis.com/generate_content_free_tier_requests, '
+                'limit: 20, model: gemini-2.5-flash\\nPlease retry in 48.943978808s.",'
+                '"status":"RESOURCE_EXHAUSTED"}}')
+        self.assertFalse(gemini_client._is_daily_quota(body))
+        self.assertEqual(gemini_client._daily_quota_marker(body), "없음")
+        # 이 본문이면 반드시 잔다 — 즉시 포기는 여기서 나올 수 없다.
+        self.assertGreaterEqual(gemini_client._retry_delay_seconds(body), 20)
+
+    def test_both_429_branches_print_their_verdict(self):
+        """어느 갈래로 갔는지 로그로 남지 않으면 다음 사고도 로그 고고학이 된다."""
+        import inspect
+        source = inspect.getsource(gemini_client.call_json)
+        self.assertIn("일일 한도 판정", source)
+        self.assertIn("분당 한도", source)

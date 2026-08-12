@@ -183,6 +183,11 @@ def _is_daily_quota(body_text: str) -> bool:
     return any(marker in body_text for marker in _DAILY_QUOTA_MARKERS)
 
 
+def _daily_quota_marker(body_text: str) -> str:
+    """판정을 만든 표지. 로그용 — 어느 문자열이 걸렸는지가 오진의 유일한 증거다."""
+    return next((m for m in _DAILY_QUOTA_MARKERS if m in body_text), "없음")
+
+
 def is_available() -> bool:
     """키가 설정되어 있고 호출 가능한지."""
     return bool(API_KEY)
@@ -327,12 +332,23 @@ def call_json(
                 # 한 번 실패한 호출이 쿼터를 4배로 먹고 잡 시간까지 잡아먹는다.
                 # GeminiTruncated 와 같은 판단이다 — 같은 조건으로 다시 부르면
                 # 같은 결과가 나오는 실패는 재시도 신호가 아니다.
+                #
+                # 판정을 반드시 찍는다. 2026-08-12 오디오 브리핑이 19초 만에
+                # 죽었는데, 로그의 본문이 [:600] 으로 잘려 quotaId 가 안 보여
+                # "일일이라 즉시 포기"인지 "분당인데 안 잤다"인지 사후에 못 갈랐다.
+                # 같은 `limit: 20` 메시지가 크롤에선 재시도로 풀린다 — 두 갈래를
+                # 가르는 건 본문 안의 표지뿐이고, 그 표지를 안 남기면 매번 다시 캔다.
+                print(f"[gemini] 일일 한도 판정 — 재시도 없이 포기 "
+                      f"({model or MODEL} / {label} / 표지 {_daily_quota_marker(body_text)})")
                 raise last_err from e
             if e.code == 429:
                 # 분당 한도. 서버가 알려주는 값을 그대로 쓴다 — 고정 사다리는
                 # 서버 요구(실측 42초)보다 이른 20초에 첫 재시도를 내보내 실패가
                 # 보장된 요청으로 한도를 더 깎는다.
-                time.sleep(_retry_delay_seconds(body_text) or 20 * (attempt + 1))
+                wait = _retry_delay_seconds(body_text) or 20 * (attempt + 1)
+                print(f"[gemini] 429 분당 한도 — {wait:.0f}초 대기 후 재시도 "
+                      f"{attempt + 1}/{retries} ({model or MODEL} / {label})")
+                time.sleep(wait)
             else:
                 time.sleep(2 ** attempt)
             continue
