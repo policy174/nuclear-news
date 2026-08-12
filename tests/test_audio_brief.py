@@ -197,17 +197,18 @@ class AudioBriefTestCase(unittest.TestCase):
         ])
         framed = audio_brief.apply_frame(body, briefing)
         lines = framed.splitlines()
-        self.assertIn("8월 4일", lines[0])
-        self.assertIn("포천양수발전소", lines[0])       # 헤드라인이 콜드오픈에
+        self.assertEqual(lines[0], "HOST: 8월 4일 화요일 Nuclens 브리핑입니다.")
         self.assertEqual(lines[-1], "HOST: 오늘 브리핑은 여기까지입니다.")
         self.assertEqual(len(lines), 3)                 # 인사·중복 마무리 제거
         self.assertIn("원안위", framed)
 
-    def test_frame_without_headline_still_opens(self):
-        briefing = dict(briefing_row(), headline="")
-        opening, closing = audio_brief.frame_lines(briefing)
-        self.assertTrue(opening.startswith("HOST: 8월 4일"))
-        self.assertNotIn("오늘의 핵심", opening)
+    def test_frame_never_embeds_headline(self):
+        """개조식 헤드라인(출처 꼬리표·중첩 따옴표 포함)을 문장에 접붙이면
+        "…개최 (산업부) 입니다"가 된다(2026-08-13 실사고). 오프닝은 날짜뿐."""
+        briefing = dict(briefing_row(),
+                        headline="첨단기술 '7대 SEED' 보고회 개최 (산업부)")
+        opening, _ = audio_brief.frame_lines(briefing)
+        self.assertEqual(opening, "HOST: 8월 4일 화요일 Nuclens 브리핑입니다.")
 
     def test_material_spoken_target_scales_with_issue_count(self):
         """분량 목표는 이슈 수에 비례한다 — 고정 목표는 많은 날을 뚫고

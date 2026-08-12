@@ -217,15 +217,16 @@ def frame_lines(briefing: dict) -> tuple[str, str]:
     인사말은 매일 같은 문장이어야 하는 고정 프레임인데, 이걸 생성에 맡기니
     날마다 인사 두 줄(정보 0)이 붙거나 예고 문장이 늘어졌다. hourlynews 는
     인트로·아웃트로를 config 고정 문자열로 붙이고 LLM 은 본문만 쓴다 — 같은
-    구조로 간다. 헤드라인은 이미 개조식이라 그대로 문장에 앉는다.
+    구조로 간다.
+
+    오프닝은 날짜뿐이다. 처음엔 "오늘의 핵심은 '헤드라인'입니다"로 헤드라인을
+    접붙였는데, 헤드라인은 출처 꼬리표·중첩 따옴표가 붙는 개조식이라 낭독하면
+    "…개최 (산업부) 입니다"가 됐다(2026-08-13 실사고). 핵심 이슈는 어차피
+    본문 첫 줄이 완결 문장으로 시작하므로 프레임이 앞지를 이유가 없다.
     """
     date = datetime.strptime(briefing["date"], "%Y-%m-%d")
     weekday = "월화수목금토일"[date.weekday()]
-    headline = str(briefing.get("headline") or "").strip().rstrip(".!?")
     opening = f"{date.month}월 {date.day}일 {weekday}요일 Nuclens 브리핑입니다."
-    if headline:
-        opening = (f"{date.month}월 {date.day}일 {weekday}요일 Nuclens 브리핑, "
-                   f"오늘의 핵심은 '{headline}'입니다.")
     return f"HOST: {opening}", "HOST: 오늘 브리핑은 여기까지입니다."
 
 
