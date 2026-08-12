@@ -594,6 +594,48 @@ class TestWeaponsScopeRule(unittest.TestCase):
             self.assertIn(token, prompt)
 
 
+class TestFukushimaIsTheReactorNotTheProduce(unittest.TestCase):
+    """후쿠시마 = 원전이지 농수산물이 아니다.
+
+    2026-08-12 브리핑에 '후쿠시마산 복숭아, 16년 만에 대만 수출 재개'가 실렸다.
+    실측: fukushima 태그 6건 중 3건이 식품·무역 기사였다 (복숭아 수출, CPTPP
+    수산물 개방 압력, 수산행정 일반). 절반이 어긋난 것이다.
+
+    기존 '원자력이 부수적으로만 언급' 규칙이 못 잡은 이유가 핵심이다 — 이 기사는
+    원자력이 곁가지인 게 아니라 **후쿠시마가 본문 전체**다. 규칙이 키로 삼은
+    '부수적'이 성립하지 않아 통과했고, 토픽 목록의 `fukushima(후쿠시마·처리수)`
+    라벨이 '후쿠시마면 유효 주제'로 읽혀 거들었다. 그래서 배제 문구와 토픽 라벨을
+    같이 고쳤다 — 한쪽만 고치면 다른 쪽이 되살린다.
+
+    핵무기 규칙과 같은 모양으로 예외를 남긴다: **우리 정부의 수입 규제 결정**은
+    정책실 사안이라 살아야 한다. 일괄 차단하면 그게 같이 죽는다.
+    """
+
+    def test_prompt_excludes_fukushima_produce_trade(self):
+        prompt = nb.CURATION_SYSTEM_PROMPT
+        for token in ("후쿠시마산 농수산물", "복숭아", "농수산물 무역이다"):
+            self.assertIn(token, prompt)
+
+    def test_prompt_keeps_the_korean_import_regulation_exception(self):
+        """일괄 차단이면 '일본산 수산물 수입금지 유지' 결정이 같이 죽는다."""
+        prompt = nb.CURATION_SYSTEM_PROMPT
+        self.assertIn("한국 정부의 수입 규제 결정은 예외", prompt)
+        for token in ("수입금지", "방사능 안전 규제"):
+            self.assertIn(token, prompt)
+
+    def test_topic_label_scopes_fukushima_to_the_plant(self):
+        """라벨이 '후쿠시마·처리수' 로 되돌아가면 배제 문구만으로는 다시 샌다."""
+        prompt = nb.CURATION_SYSTEM_PROMPT
+        self.assertIn("농수산물 무역은 제외", prompt)
+        self.assertNotIn("fukushima(후쿠시마·처리수)", prompt)
+
+    def test_topic_list_and_validator_stay_in_sync(self):
+        """프롬프트 D 섹션과 VALID_TOPICS 는 반드시 일치 — 코드 주석의 계약이다."""
+        for topic in nb.VALID_TOPICS:
+            self.assertIn(f"{topic}(", nb.CURATION_SYSTEM_PROMPT,
+                          f"{topic} 이 프롬프트 토픽 목록에 없다")
+
+
 class TestFeaturesRecuration(unittest.TestCase):
     """features 결손이 재큐레이션 대상에 들어가는가 — 실패하면 조용히 영구화된다.
 
