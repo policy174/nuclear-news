@@ -92,11 +92,24 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 구성: 하이라이트 이슈를 대화로 풀기 → 나머지 이슈는 헤드라인만 빠르게
   훑기. 인사·자기소개·마무리 문장을 쓰지 마세요 — 오프닝과 클로징은
   시스템이 따로 붙입니다. 첫 줄부터 바로 첫 이슈입니다.
-- 화자 교대는 이슈 단위입니다. 한 이슈를 말하는 동안에는 같은 화자가
-  2~3문장을 이어 말해도 됩니다. 문장마다 화자를 바꾸는 탁구식 진행 금지.
-- 헤드라인 훑기는 두세 건씩 묶어 HOST와 ANALYST가 블록으로 교대합니다.
+- 턴 구조 — 이 규칙이 형식의 핵심입니다:
+  · 하이라이트 이슈 하나 = 정확히 두 턴. 담당 화자가 한 턴(3~5문장)으로
+    사실을 전달하고, 상대 화자가 한 턴(2~3문장)으로 해설합니다.
+    이슈마다 담당을 HOST↔ANALYST 번갈아 맡습니다.
+  · 헤드라인 훑기 = 두세 건을 한 턴에 묶어 두 화자가 교대합니다.
+    한 건에 한 턴 쓰지 마세요.
+  · 전체 턴 수는 [재료]의 [턴수] 상한 이내. 턴이 많다 = 탁구식이라 실패.
 - 분량: [재료]의 [분량] 지시를 따릅니다.
-- 존댓말.
+
+[말투 — 낭독용 구어체]
+- 존댓말. 다만 문어체 낭독이 아니라 사람이 말하는 문장으로.
+- 종결어미를 다양하게. 모든 문장이 "-습니다"로 끝나면 통신문 낭독이
+  됩니다. "-는데요", "-고요", "-거든요" 같은 연결 종결을 자연스럽게 섞고,
+  한 턴 안에서 같은 종결어미를 세 번 연속 쓰지 마세요.
+- 이슈 사이 전환은 한 마디로 부드럽게: "다음은 해외 소식인데요",
+  "국내로 돌아오면" 같은 이정표는 환영입니다 (일반론 문장이 아닙니다).
+- 명사 나열식 문장 금지. "보고회 개최 및 육성 방안 발표가 있었습니다"가
+  아니라 "보고회를 열고 육성 방안을 발표했습니다"로.
 
 [화자 — 둘 다 내용을 나릅니다]
 - HOST(진행자): 무슨 일이 있었는지를 전달합니다. 기관명·수치·일정·호기명·
@@ -125,14 +138,14 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 [출력 — JSON 한 객체만]
 {"script": "HOST: ...\\nANALYST: ..."}"""
 
-# 낭독 지시. 청취자는 출근길의 한수원 임직원이고 듣는 목적이 정보라, 팟캐스트
-# 활기보다 '또렷함'이 먼저다. 특히 숫자·기관명·호기명이 뭉개지면 그 문장은
-# 통째로 값이 없다 — 다시 들을 수 없는 매체이기 때문이다.
+# 낭독 지시. 청취자는 출근길의 한수원 임직원이고 듣는 목적이 정보라 또렷함이
+# 우선이지만, '차분·또렷'만 남기니 통신문 낭독이 됐다(2026-08-13 청취 판정:
+# 너무 딱딱함). 정보의 정확함은 대본이 지키고, 목소리는 사람답게 간다.
 STYLE_INSTRUCTION = (
-    "다음은 한국어 아침 원자력·에너지 브리핑입니다. 두 화자는 정책분석가와 "
-    "기술전문가처럼 차분하고 또렷하게 말합니다. 수치·기관명·호기명·날짜는 "
-    "특히 분명하게 발음하고, 과장된 감탄이나 웃음은 넣지 않습니다. "
-    "대본을 요약하거나 바꾸지 말고 그대로 읽어주세요:\n\n"
+    "다음은 한국어 아침 원자력·에너지 브리핑입니다. 신뢰감 있는 아침 라디오 "
+    "진행처럼 자연스럽고 부드럽게, 서두르지 않되 생기 있게 말합니다. "
+    "수치·기관명·호기명·날짜는 분명하게 발음하고, 과장된 감탄이나 웃음은 "
+    "넣지 않습니다. 대본을 요약하거나 바꾸지 말고 그대로 읽어주세요:\n\n"
 )
 
 
@@ -169,16 +182,20 @@ def _issue_block(issue: dict, deep: bool) -> str:
     return "\n".join(parts)
 
 
-def build_material(briefing: dict, by_id: dict) -> str:
-    """하이라이트는 깊게, 나머지는 헤드라인만 — 라디오 브리핑 구조."""
+def _issue_ids(briefing: dict) -> tuple[list, list]:
+    """(하이라이트 id, 나머지 id) — 재료 조립과 턴 상한이 같은 셈을 쓴다."""
     highlight_ids = [h.get("issue_id") for h in briefing.get("highlight_issues", [])
                      if isinstance(h, dict) and h.get("issue_id")][:DEEP_LIMIT]
     listed = [row.get("issue_id") for row in briefing.get("issues", [])
               if isinstance(row, dict) and row.get("issue_id")]
     if not highlight_ids:
         highlight_ids = listed[:DEEP_LIMIT]
-    rest_ids = [i for i in listed if i not in highlight_ids]
+    return highlight_ids, [i for i in listed if i not in highlight_ids]
 
+
+def build_material(briefing: dict, by_id: dict) -> str:
+    """하이라이트는 깊게, 나머지는 헤드라인만 — 라디오 브리핑 구조."""
+    highlight_ids, rest_ids = _issue_ids(briefing)
     deep = [_issue_block(by_id[i], True) for i in highlight_ids if i in by_id]
     rest = [_issue_block(by_id[i], False) for i in rest_ids if i in by_id]
     weekday = "월화수목금토일"[datetime.strptime(briefing["date"], "%Y-%m-%d").weekday()]
@@ -194,6 +211,7 @@ def build_material(briefing: dict, by_id: dict) -> str:
     # 적은 날은 부풀렸다. 하한은 대담 성립선, 상한은 MAX_SPOKEN 안쪽.
     low, high = spoken_target(len(deep), len(rest))
     sections.append(f"[분량] 대사 합계 {low:,}~{high:,}자.")
+    sections.append(f"[턴수] 전체 {max_turns(len(deep), len(rest))}턴 이내.")
     return "\n\n".join(sections)
 
 
@@ -202,6 +220,17 @@ def spoken_target(deep_count: int, rest_count: int) -> tuple[int, int]:
     high = 250 + 350 * deep_count + 70 * rest_count
     high = max(1100, min(high, MAX_SPOKEN - 200))
     return max(900, high - 400), high
+
+
+def max_turns(deep_count: int, rest_count: int) -> int:
+    """턴 수 상한. 하이라이트 2턴 + 헤드라인 2~3건당 1턴 + 전환 여유 2.
+
+    '이슈 단위 블록 교대' 프롬프트 지시는 두 번 무시됐다(2026-08-12 배포분
+    34줄 중 전환 32회 — 사실상 매 줄 교대). 확률적 지시로 안 되는 것은
+    코드로 자른다 — validate_script 가 이 상한으로 게이트하고, 초과분은
+    기존 재요청 사다리를 태운다.
+    """
+    return 2 * deep_count + max(1, -(-rest_count // 2)) + 2
 
 
 # 모델이 그래도 써넣은 인사·마무리 줄을 골라내는 패턴. 프레임은 코드가 붙이므로
@@ -250,8 +279,7 @@ def strip_filler(text: str) -> str:
     return stripped or text
 
 
-def validate_script(text: str) -> tuple[str, int]:
-    """화자 형식 줄만 남긴 대본과 대사 글자 수. 대담이 못 되면 ValueError."""
+def _speaker_lines(text: str) -> tuple[list[str], int]:
     lines = []
     spoken = 0
     for raw in str(text or "").splitlines():
@@ -260,12 +288,36 @@ def validate_script(text: str) -> tuple[str, int]:
             spoken_text = strip_filler(match.group(2).strip())
             lines.append(f"{match.group(1)}: {spoken_text}")
             spoken += len(spoken_text)
+    return lines, spoken
+
+
+def validate_script(text: str, turn_limit: int | None = None) -> tuple[str, int]:
+    """화자 형식 줄만 남긴 대본과 대사 글자 수. 대담이 못 되면 ValueError."""
+    lines, spoken = _speaker_lines(text)
     if len(lines) < MIN_LINES:
         raise ValueError(f"화자 형식 줄 {len(lines)}개 — 대담 형식 미달")
     speakers = {line.split(":", 1)[0] for line in lines}
     if speakers != {"HOST", "ANALYST"}:
         raise ValueError(f"화자 구성 이상: {sorted(speakers)}")
+    if turn_limit:
+        turns = count_turns(lines)
+        if turns > turn_limit:
+            raise ValueError(
+                f"턴 {turns}개로 상한 {turn_limit}개 초과 — 탁구식 진행. "
+                "하이라이트는 이슈당 두 턴, 헤드라인은 두세 건을 한 턴에 묶으세요")
     return "\n".join(lines), spoken
+
+
+def count_turns(lines: list[str]) -> int:
+    """연속한 같은 화자 줄은 한 턴이다."""
+    turns = 0
+    prev = None
+    for line in lines:
+        speaker = line.split(":", 1)[0]
+        if speaker != prev:
+            turns += 1
+            prev = speaker
+    return turns
 
 
 def _script_models() -> list[str]:
@@ -302,16 +354,20 @@ def _call_script(message: str) -> dict:
     raise last_err or GeminiError("대본 모델 전부 실패")
 
 
-def generate_script(material: str) -> str:
+def generate_script(material: str, turn_limit: int | None = None) -> str:
     """대본 생성 + 재시도 사다리 1단 (daily_lead 패턴).
 
     thinking_budget=0 필수 — 대담 대본은 사고가 필요 없는 창작 출력인데
     thinking 을 켜 두면 예산(8192)을 thinking 이 먹고 대본이 잘린다
     (2026-08-04 CI 실사고: thoughts=7863, output=315).
+
+    turn_limit 은 재요청까지만 강제한다 — 재시도 후에도 초과면 그 대본을
+    그대로 쓴다. 탁구식은 품질 문제지 방송 사고가 아니라, 오디오가 통째로
+    빠지는 것(429 실사고 이틀)보다 낫다.
     """
     result = _call_script(material)
     try:
-        script, spoken = validate_script(result.get("script"))
+        script, spoken = validate_script(result.get("script"), turn_limit)
         if spoken <= MAX_SPOKEN:
             return script
         problem = f"대사 합계 {spoken}자로 상한 {MAX_SPOKEN}자를 넘었습니다"
@@ -320,7 +376,7 @@ def generate_script(material: str) -> str:
 
     retry_message = (
         f"{material}\n\n[재요청] 방금 출력에 문제가 있었습니다: {problem}.\n"
-        "형식 규칙(모든 줄이 HOST:/ANALYST:)과 [분량] 지시를 지켜 "
+        "형식 규칙(모든 줄이 HOST:/ANALYST:)·[분량]·[턴수] 지시를 지켜 "
         "대본 전체를 다시 쓰세요."
     )
     result = _call_script(retry_message)
@@ -634,7 +690,10 @@ def generate(force: bool = False) -> bool:
         return False
 
     try:
-        script = generate_script(material)
+        highlight_ids, rest_ids = _issue_ids(briefing)
+        limit = max_turns(sum(1 for i in highlight_ids if i in by_id),
+                          sum(1 for i in rest_ids if i in by_id))
+        script = generate_script(material, turn_limit=limit)
     except (GeminiError, ValueError) as exc:
         print(f"[audio] 대본 실패 — 기존 오디오 유지: {exc}")
         return False

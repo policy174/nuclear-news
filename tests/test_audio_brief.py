@@ -58,8 +58,9 @@ LONG_SCRIPT = "\n".join(
      for i in range(10)])
 
 
+# 두 줄씩 블록 교대(10줄 = 5턴) — 탁구식 픽스처는 턴 게이트에 걸린다.
 GOOD_SCRIPT = "\n".join(
-    [f"HOST: 질문 {i}입니다. 그게 왜 중요한 거죠?" if i % 2 == 0
+    [f"HOST: 질문 {i}입니다. 그게 왜 중요한 거죠?" if (i // 2) % 2 == 0
      else f"ANALYST: 핵심은 이렇습니다. 2033년 준공 목표가 확정됐다는 점이죠. ({i})"
      for i in range(10)]
 )
@@ -220,6 +221,40 @@ class AudioBriefTestCase(unittest.TestCase):
         self.write_data()
         briefing, by_id = audio_brief.load_briefing(audio_brief.WEB_DATA)
         self.assertIn("[분량]", audio_brief.build_material(briefing, by_id))
+
+    def test_validate_script_gates_turn_count(self):
+        """'이슈 단위 블록 교대' 프롬프트는 두 번 무시됐다(08-12 배포분 34줄
+        중 전환 32회). 상한 초과는 ValueError → 기존 재요청 사다리를 탄다."""
+        ping_pong = "\n".join(
+            [f"HOST: 사실 전달 {i}입니다." if i % 2 == 0
+             else f"ANALYST: 해설 {i}입니다." for i in range(20)])
+        with self.assertRaises(ValueError) as ctx:
+            audio_brief.validate_script(ping_pong, turn_limit=10)
+        self.assertIn("탁구식", str(ctx.exception))
+        script, _ = audio_brief.validate_script(ping_pong, turn_limit=20)
+        self.assertEqual(len(script.splitlines()), 20)  # 상한 안이면 통과
+
+    def test_count_turns_merges_consecutive_same_speaker(self):
+        lines = ["HOST: 하나.", "HOST: 둘.", "ANALYST: 셋.", "HOST: 넷."]
+        self.assertEqual(audio_brief.count_turns(lines), 3)
+
+    def test_max_turns_scales(self):
+        # 하이라이트 3 + 나머지 12 → 2*3 + 6 + 2 = 14턴. 08-12 실측 33턴의 절반 이하.
+        self.assertEqual(audio_brief.max_turns(3, 12), 14)
+        self.assertEqual(audio_brief.max_turns(3, 0), 9)
+
+    def test_generate_script_retries_on_turn_overflow_then_accepts(self):
+        """턴 초과는 재요청 한 번까지만 강제 — 그래도 초과면 그 대본을 쓴다.
+        탁구식은 품질 문제지 방송 사고가 아니다."""
+        ping_pong = "\n".join(
+            [f"HOST: 사실 {i}입니다." if i % 2 == 0
+             else f"ANALYST: 해설 {i}입니다." for i in range(20)])
+        self.responses = [{"script": ping_pong}, {"script": ping_pong}]
+        script = audio_brief.generate_script("재료", turn_limit=10)
+        self.assertEqual(len(self.calls), 2)
+        self.assertIn("[재요청]", self.calls[1])
+        self.assertIn("탁구식", self.calls[1])
+        self.assertEqual(len(script.splitlines()), 20)
 
     def test_validate_script_rejects_monologue(self):
         mono = "\n".join(f"HOST: 문장 {i}입니다." for i in range(10))
