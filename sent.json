@@ -2808,14 +2808,20 @@
     "6d85f43b70dcb120": "2026-08-12T08:58:41.296948+00:00",
     "f580846bff35542d": "2026-08-12T08:58:41.296948+00:00",
     "1b71ad8c55d766e2": "2026-08-12T08:58:41.296948+00:00",
-    "827a32214fdda8cc": "2026-08-12T08:58:41.296948+00:00"
+    "827a32214fdda8cc": "2026-08-12T08:58:41.296948+00:00",
+    "4b37bf091a79b37e": "2026-08-12T10:00:05.557018+00:00",
+    "4bdf3b00742e6173": "2026-08-12T10:00:05.557018+00:00",
+    "744056fa8243ce48": "2026-08-12T10:00:05.557018+00:00",
+    "a9089329516a97b4": "2026-08-12T10:00:05.557018+00:00",
+    "86baa2bd1713535b": "2026-08-12T10:00:05.557018+00:00",
+    "a75dff24f764bc64": "2026-08-12T10:00:05.557018+00:00"
   },
   "source_yield": {
-    "at": "2026-08-12T09:00:40+00:00",
+    "at": "2026-08-12T10:02:32+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 46,
@@ -2823,28 +2829,21 @@
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 27,
-      "La Tribune 원자력": 6,
+      "Reuters 원자력": 0,
+      "La Tribune 원자력": 0,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 18,
-      "Les Échos 원자력": 72,
-      "E&E News 원자력": 3,
-      "Nuclear Engineering International": 18,
-      "Euractiv 원자력": 41,
-      "국내 원자력 보도": 6
+      "FT 원자력": 0,
+      "Les Échos 원자력": 0,
+      "E&E News 원자력": 0,
+      "Nuclear Engineering International": 0,
+      "Euractiv 원자력": 0,
+      "국내 원자력 보도": 0
     },
     "kept": {
-      "IAEA Top News": 1,
-      "Reuters 원자력": 3,
-      "La Tribune 원자력": 1,
-      "FT 원자력": 2,
-      "Les Échos 원자력": 16,
-      "국내 원자력 보도": 4
+      "원안위 보도자료": 1,
+      "산업부 보도자료": 1
     },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   }
 }
