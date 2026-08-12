@@ -252,6 +252,16 @@
       "right_title": "한수원노조 25주년, '한국원자력공사 설립' 비전 제시",
       "same_event": false
     },
+    "0412d08712c9a60e--f19d023d5c9863e4": {
+      "embedding_similarity": 0.8708,
+      "left_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일한 신규 원전 건설 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "영덕 신규 원전 2기, 기후평가 첫 적용…9월 전략환경영향평가서 제출",
+      "same_event": true
+    },
     "043720d41a25c4a3--55842b037eb69172": {
       "embedding_similarity": 0.8723,
       "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
@@ -590,6 +600,16 @@
       "reason": "메가프로젝트와 국가산단 조성",
       "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
+      "same_event": false
+    },
+    "0799408181a9cab4--cd58a155a0a80c75": {
+      "embedding_similarity": 0.8531,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "이재명 정부, 첨단산업 투자 가속화 위해 메가특구법 추진",
       "same_event": false
     },
     "0799408181a9cab4--cdd5f9ed8f148233": {
@@ -1070,6 +1090,16 @@
       "reason": "다른 SMR 기술 및 건설 현황",
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
       "right_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "same_event": false
+    },
+    "0a3a69c9a73e8bbe--c37069e03f838d95": {
+      "embedding_similarity": 0.8521,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 개발 협력",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": false
     },
     "0a3a69c9a73e8bbe--cc2e553cf2927ac5": {
@@ -2822,6 +2852,16 @@
       "right_title": "정부, 반도체 산단 전력 공급 가속화 및 주민수용성 확보 방안 추진",
       "same_event": false
     },
+    "1e53d0f81cb14594--c84ca17eb7ff09ec": {
+      "embedding_similarity": 0.8838,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 지시",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
+      "same_event": true
+    },
     "1e53d0f81cb14594--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8848,
       "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
@@ -3092,6 +3132,26 @@
       "right_title": "원안위, 하반기 SMR 및 계속운전 안전 규제 강화 계획 보고",
       "same_event": false
     },
+    "20021b1017e22f33--95e2af27fb009d26": {
+      "embedding_similarity": 0.8616,
+      "left_title": "HD현대중공업, 미국 AI 데이터센터에 1조원 규모 발전용 엔진 공급 계약",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "HD현대중공업의 AI 데이터센터 엔진 공급 계약",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "AI 데이터센터 슈퍼사이클, HD현대가 힘센엔진·SMR로 쓸어담는다",
+      "same_event": true
+    },
+    "20021b1017e22f33--c50c129ba8446def": {
+      "embedding_similarity": 0.8539,
+      "left_title": "HD현대중공업, 9560억 원 규모 발전용 엔진 수출 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "HD현대중공업의 AI 데이터센터 엔진 공급 계약",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "AI 데이터센터 슈퍼사이클, HD현대가 힘센엔진·SMR로 쓸어담는다",
+      "same_event": true
+    },
     "20030dfcc143d96d--571c41d8d5a745d5": {
       "embedding_similarity": 0.8434,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -3280,6 +3340,16 @@
       "reason": "안전기준 최신화 vs 정기검사 허용 시행규칙 개정",
       "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
       "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "21cfc73fe3bee9c0--55842b037eb69172": {
+      "embedding_similarity": 0.8993,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 다른 수주 건",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "전력기기 날개 단 일진전기···북미 시장 공략으로 성장세 탄력 받나",
       "same_event": false
     },
     "221683642ba2197a--55986de1f4a3ad29": {
@@ -4872,6 +4942,16 @@
       "right_title": "대만, 반도체 성공 이면의 사회·환경적 비용 연구 착수…한국에 시사점",
       "same_event": false
     },
+    "33b53bc5a243a876--cd58a155a0a80c75": {
+      "embedding_similarity": 0.8501,
+      "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "이재명 정부, 첨단산업 투자 가속화 위해 메가특구법 추진",
+      "same_event": false
+    },
     "33b53bc5a243a876--ceab781d5c528e5c": {
       "embedding_similarity": 0.8672,
       "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
@@ -6051,6 +6131,16 @@
       "reviewed_at": "2026-08-11T00:57:03.317305+00:00",
       "right_title": "월성원자력본부 '27년 한수원 지원사업 공모'",
       "same_event": true
+    },
+    "3eacd5e0a0ef3dcd--7939f9cb6aa8c3ca": {
+      "embedding_similarity": 0.8617,
+      "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 발전소 지원사업",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "새울원자력, 2027년도 한수원 지원사업 주민설명회 개최",
+      "same_event": false
     },
     "3eacd5e0a0ef3dcd--7c527ed375648d8f": {
       "embedding_similarity": 0.8923,
@@ -7422,6 +7512,16 @@
       "right_title": "미국 NRC, 방사선 방호 'ALARA' 원칙 폐지 제안 규칙에 대한 공청회 개최",
       "same_event": false
     },
+    "5182ffd451bcbc4d--8c6eb5250550b959": {
+      "embedding_similarity": 0.8484,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 다른 사안",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "삼성·SK하이닉스, 중국 추격에 반도체 팹 가동 앞당겨",
+      "same_event": false
+    },
     "5190f5f0f0d050de--7702cb1efa54b619": {
       "embedding_similarity": 0.8488,
       "left_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
@@ -7670,6 +7770,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
       "right_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "same_event": false
+    },
+    "527a6bd0d4f4a288--6ba47fa577e2684c": {
+      "embedding_similarity": 0.8466,
+      "left_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 양수발전소 건설 건",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한수원 등 발전사, 전국 10GW 이상 양수발전 후보지 물색 가속화",
       "same_event": false
     },
     "527a6bd0d4f4a288--95d7cc3edc33f899": {
@@ -8352,6 +8462,16 @@
       "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
     },
+    "56d7c3c2636ef3e4--8c6eb5250550b959": {
+      "embedding_similarity": 0.8439,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "송영길 후보, 호남 반도체 클러스터 과제로 추가 원전 건설 언급",
+      "same_event": true
+    },
     "57175db7ebab8eb7--c4d66de0858818f1": {
       "embedding_similarity": 0.9184,
       "left_title": "그리스, SMR 도입 타당성 검토 위한 국가 전담 연구그룹 신설",
@@ -8531,6 +8651,16 @@
       "reviewed_at": "2026-08-10T07:31:41.891305+00:00",
       "right_title": "기후장관, 제12차 전력수급기본계획에 원전 추가 필요성 언급",
       "same_event": false
+    },
+    "571c41d8d5a745d5--c84ca17eb7ff09ec": {
+      "embedding_similarity": 0.8698,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
+      "same_event": true
     },
     "571c41d8d5a745d5--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8552,
@@ -9912,6 +10042,16 @@
       "right_title": "빌 게이츠, 한국 방문해 조정식 국회의장 및 국내 기업과 SMR 협력 논의",
       "same_event": true
     },
+    "66d8933507f8bf75--c37069e03f838d95": {
+      "embedding_similarity": 0.8486,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 협력 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": false
+    },
     "66d8933507f8bf75--c8aa840c33843953": {
       "embedding_similarity": 0.9116,
       "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
@@ -10190,6 +10330,26 @@
       "reason": "다른 규정 제안과 전망 논의",
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
+      "same_event": false
+    },
+    "6ba47fa577e2684c--7c527ed375648d8f": {
+      "embedding_similarity": 0.8585,
+      "left_title": "한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 양수발전소 건설 건",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한수원 등 발전사, 전국 10GW 이상 양수발전 후보지 물색 가속화",
+      "same_event": false
+    },
+    "6ba47fa577e2684c--aa165fa0824b87d8": {
+      "embedding_similarity": 0.8591,
+      "left_title": "11차 전기본 신규 양수발전 1.25GW 입찰, 발전사 수주 경쟁 심화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 양수발전소 입찰 건",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한수원 등 발전사, 전국 10GW 이상 양수발전 후보지 물색 가속화",
       "same_event": false
     },
     "6bf7250860e654f1--95e2af27fb009d26": {
@@ -11912,6 +12072,26 @@
       "right_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
       "same_event": false
     },
+    "895b471e7f2e1d4c--c37069e03f838d95": {
+      "embedding_similarity": 0.8562,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 관련 사안",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": false
+    },
+    "895b471e7f2e1d4c--e5d6a54a022526d7": {
+      "embedding_similarity": 0.8426,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체·대상 원전이 다름",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "미국 SMR 뉴스케일파워, 최대 1조원 규모 자본 조달 추진",
+      "same_event": false
+    },
     "895b471e7f2e1d4c--f33f228a288946ee": {
       "embedding_similarity": 0.8473,
       "left_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
@@ -12122,6 +12302,16 @@
       "right_title": "'속도전' 광주 군공항 반도체클러스터, '전력'과 '물' 확보는 여전히 숙...",
       "same_event": true
     },
+    "8c6eb5250550b959--c84ca17eb7ff09ec": {
+      "embedding_similarity": 0.8713,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
+      "same_event": true
+    },
     "8c6eb5250550b959--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8493,
       "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
@@ -12242,6 +12432,16 @@
       "right_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
       "same_event": false
     },
+    "8db4836106efc88d--c37069e03f838d95": {
+      "embedding_similarity": 0.8514,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 공급망 참여",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": false
+    },
     "8db4836106efc88d--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8407,
       "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
@@ -12250,6 +12450,16 @@
       "reason": "주체는 같으나 다른 원자로 기술",
       "reviewed_at": "2026-08-12T05:31:01.399685+00:00",
       "right_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "same_event": false
+    },
+    "8db4836106efc88d--e5d6a54a022526d7": {
+      "embedding_similarity": 0.8474,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체·대상 원전이 다름",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "미국 SMR 뉴스케일파워, 최대 1조원 규모 자본 조달 추진",
       "same_event": false
     },
     "8db4836106efc88d--fd89bc58da35f7d3": {
@@ -13272,6 +13482,16 @@
       "right_title": "오클로 그로브스 시험로, DOE 파일럿 중 5번째 임계 달성",
       "same_event": true
     },
+    "a2008b3343fae06b--b1fb7fdb7c5bdceb": {
+      "embedding_similarity": 0.8469,
+      "left_title": "프랑스 EDF 원전, 폭염으로 일요일 가동 불능 전력량 기록 경신",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 원전 문제",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "프랑스 그라블린 원전 3기, 해파리 유입으로 가동 중단",
+      "same_event": false
+    },
     "a2a4d5064714fb3c--f73a97b0f28780fb": {
       "embedding_similarity": 0.9069,
       "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
@@ -14022,6 +14242,16 @@
       "right_title": "기후장관, 제12차 전력수급기본계획에 원전 추가 필요성 언급",
       "same_event": true
     },
+    "b0e178ca6114b1a9--c84ca17eb7ff09ec": {
+      "embedding_similarity": 0.8451,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급 논의",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
+      "same_event": true
+    },
     "b0e178ca6114b1a9--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8654,
       "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
@@ -14702,6 +14932,16 @@
       "right_title": "한미글로벌, 미국 SMR 사업개발 본격 추진",
       "same_event": false
     },
+    "c37069e03f838d95--cad8f7d2c2d3c640": {
+      "embedding_similarity": 0.8466,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 개발 협력",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": false
+    },
     "c47f64ee73293a42--c900c2cddd05713b": {
       "embedding_similarity": 0.9191,
       "left_title": "원전현장인력양성원, '원전정비원자격제도' 정부 인정 공식 취득",
@@ -14872,6 +15112,26 @@
       "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
+    "cad8f7d2c2d3c640--cc7f4e5ca2d8d186": {
+      "embedding_similarity": 0.8443,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 플랫폼 개발 MOU",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "두산에너빌리티, 페르미아메리카와 SMR 협력 MOU 체결",
+      "same_event": false
+    },
+    "cad8f7d2c2d3c640--e5d6a54a022526d7": {
+      "embedding_similarity": 0.8439,
+      "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체·대상 원전이 다름",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "미국 SMR 뉴스케일파워, 최대 1조원 규모 자본 조달 추진",
+      "same_event": false
+    },
     "cad8f7d2c2d3c640--f993fc196107ef89": {
       "embedding_similarity": 0.8476,
       "left_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
@@ -14992,6 +15252,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
       "same_event": false
     },
+    "dc1568d26b7a3c04--fa7e1f7855f33ca6": {
+      "embedding_similarity": 0.8607,
+      "left_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일한 미·사우디 핵 협력",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "미·사우디 핵동맹 논의, 사우디 에너지 구조 변화 기대",
+      "same_event": true
+    },
     "ddd8072c258528d9--e166e0749a04c6dd": {
       "embedding_similarity": 0.856,
       "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
@@ -15001,6 +15271,16 @@
       "reviewed_at": "2026-08-08T00:48:16.491398+00:00",
       "right_title": "미국 에너지부, 80년 수명 연장된 원전 '80 클럽' 관련 기사 발표",
       "same_event": false
+    },
+    "e13b99e3fa69da3c--e7d282a3db3f0974": {
+      "embedding_similarity": 0.9047,
+      "left_title": "두산에너빌리티, 한수원 주관 해상풍력 사업 우선협상대상자 선정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일한 해상풍력 사업 보도",
+      "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "한수원 등 공공기관, 4조8천억 규모 서남권 해상풍력 사업 참여",
+      "same_event": true
     },
     "e13b99e3fa69da3c--f0d14184f0b9f550": {
       "embedding_similarity": 0.9065,

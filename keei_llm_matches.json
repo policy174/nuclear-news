@@ -71,6 +71,13 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-0a3a69c9a73e8bbe--249f1333d0": {
+      "issue_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "개별 프로젝트 vs 국제 협력",
+      "same_event": false
+    },
     "issue-0abd318976122879--d4863d270a": {
       "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
@@ -604,10 +611,10 @@
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--23a6f604ae": {
-      "issue_title": "텍사스 주지사, 데이터센터 전력망 연결 대기열 전면 감사 지시",
+      "issue_title": "아마존 텍사스 AI 데이터센터, 7.65GW 가스발전 허가 획득",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "다른 국가, 다른 안건",
+      "reason": "국가, 전원, 주체 모두 다름",
       "same_event": false
     },
     "issue-4e6a1d2c0301a4d0--08db51ddba": {
@@ -637,6 +644,20 @@
       "prompt_version": 1,
       "reason": "주체·대상 원전이 다름",
       "same_event": false
+    },
+    "issue-4eccf7e2ecd1798d--0330b81e50": {
+      "issue_title": "미국 NRC, 방사선 방호 'ALARA' 원칙 폐지 제안 규칙에 대한 공청회 개최",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "안건(규칙 내용)이 다름",
+      "same_event": false
+    },
+    "issue-4eccf7e2ecd1798d--08db51ddba": {
+      "issue_title": "미국 NRC, 방사선 방호 'ALARA' 원칙 폐지 제안 규칙에 대한 공청회 개최",
+      "keei_item": "미 NRC, 원전 인허가 및 방사선 방호 규정 현대화 규정안 발표",
+      "prompt_version": 1,
+      "reason": "방사선 방호 규정 현대화의 일환",
+      "same_event": true
     },
     "issue-4ee5aef7063ebdda--0b3993f90d": {
       "issue_title": "벡텔, 폴란드 첫 원전 부지 관리 인수…설계에서 건설 단계로 전환",
@@ -1016,6 +1037,20 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-726ce5e20cdd473d--6debc28b1b": {
+      "issue_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
+      "keei_item": "아르헨티나, 민간투자 기반 ACR-300 건설 계획 발표",
+      "prompt_version": 1,
+      "reason": "국가, 안건, 대상 모두 다름",
+      "same_event": false
+    },
+    "issue-726ce5e20cdd473d--f797174d9b": {
+      "issue_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
+      "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
     "issue-737df86cf04543b5--23a6f604ae": {
       "issue_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -1098,6 +1133,13 @@
       "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
       "prompt_version": 1,
       "reason": "다른 주체, 다른 안건",
+      "same_event": false
+    },
+    "issue-86fd8470109cefcd--6debc28b1b": {
+      "issue_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
+      "keei_item": "아르헨티나, 민간투자 기반 ACR-300 건설 계획 발표",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 안건 모두 다름",
       "same_event": false
     },
     "issue-86fd8470109cefcd--8fce4c09fa": {
@@ -1192,10 +1234,17 @@
       "same_event": false
     },
     "issue-95e2af27fb009d26--8fce4c09fa": {
-      "issue_title": "HD현대중공업, 미국 AI 데이터센터에 1조원 규모 발전용 엔진 공급 계약",
+      "issue_title": "HD현대중공업, 9560억 원 규모 발전용 엔진 수출 계약 체결",
       "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 안건",
+      "reason": "주체, 안건, 대상 모두 다름",
+      "same_event": false
+    },
+    "issue-95e2af27fb009d26--ee30e34bc3": {
+      "issue_title": "HD현대중공업, 9560억 원 규모 발전용 엔진 수출 계약 체결",
+      "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
+      "prompt_version": 1,
+      "reason": "주체, 안건, 대상 모두 다름",
       "same_event": false
     },
     "issue-97e7c36d2ed5091a--8b6d0658ea": {
@@ -1210,6 +1259,13 @@
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
       "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
+    "issue-9b85b2a6e2593847--841ceedbf0": {
+      "issue_title": "K건설, 중동 플랜트 불확실성에 원전·전력 인프라 수주로 선회",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "주체, 국가, 안건 모두 다름",
       "same_event": false
     },
     "issue-9b85b2a6e2593847--d4863d270a": {
@@ -1253,6 +1309,20 @@
       "prompt_version": 1,
       "reason": "주체, 대상, 국가가 다름",
       "same_event": false
+    },
+    "issue-a3ebf95f8f2a3d16--0330b81e50": {
+      "issue_title": "NRC, 원자로 인허가 현대화 제안 규칙 관련 질의응답 진행",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "인허가 현대화의 절차 개편",
+      "same_event": true
+    },
+    "issue-a3ebf95f8f2a3d16--08db51ddba": {
+      "issue_title": "NRC, 원자로 인허가 현대화 제안 규칙 관련 질의응답 진행",
+      "keei_item": "미 NRC, 원전 인허가 및 방사선 방호 규정 현대화 규정안 발표",
+      "prompt_version": 1,
+      "reason": "인허가 현대화 규정안 발표 후속",
+      "same_event": true
     },
     "issue-a4723d13eaa57660--4fe7b05f50": {
       "issue_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
@@ -1380,6 +1450,13 @@
       "reason": "대상 국가, 사안 다름",
       "same_event": false
     },
+    "issue-ba51bf425ca92c1c--841ceedbf0": {
+      "issue_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
     "issue-bb65e11c8f33af62--835e580735": {
       "issue_title": "오클로(Oklo)의 그로브스 동위원소 시험로, 첫 임계 달성",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
@@ -1434,6 +1511,27 @@
       "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
       "prompt_version": 1,
       "reason": "국가가 다름",
+      "same_event": false
+    },
+    "issue-bdf0fa9bc581aaa0--d4863d270a": {
+      "issue_title": "새울 3호기, 출력 80% 시운전 중 자동정지 발생…원안위 조사 착수",
+      "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
+      "prompt_version": 1,
+      "reason": "개별 사고 vs 제도 도입",
+      "same_event": false
+    },
+    "issue-be6777d5d213285c--56dc541d23": {
+      "issue_title": "미국 의회, 국내 우라늄 농축 증대 및 유카 마운틴 폐기 법안 추진",
+      "keei_item": "일본 후쿠이현, 현 의회에 핵연료세 인상 조례안 제출",
+      "prompt_version": 1,
+      "reason": "국가, 안건, 주체 모두 다름",
+      "same_event": false
+    },
+    "issue-be6777d5d213285c--5ea831d148": {
+      "issue_title": "미국 의회, 국내 우라늄 농축 증대 및 유카 마운틴 폐기 법안 추진",
+      "keei_item": "스위스, 신규 원전 건설 금지 해제 법안 가결로 의회 절차 완료",
+      "prompt_version": 1,
+      "reason": "국가, 안건, 주체 모두 다름",
       "same_event": false
     },
     "issue-c0e6afae0ae48a66--8b6d0658ea": {
@@ -1693,6 +1791,13 @@
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
       "prompt_version": 1,
       "reason": "안건이 다름",
+      "same_event": false
+    },
+    "issue-e0c2d46c6a2b5c2a--dc799316ad": {
+      "issue_title": "국방부, 핵추진잠수함정책기획단 신설 및 방사청 사업단 확대 의결",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "주체, 안건, 대상 모두 다름",
       "same_event": false
     },
     "issue-e166e0749a04c6dd--0e615713ea": {
