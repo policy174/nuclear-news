@@ -100,10 +100,10 @@
       "same_event": false
     },
     "issue-0abd318976122879--dcf5909f44": {
-      "issue_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "issue_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
       "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
       "prompt_version": 1,
-      "reason": "다른 안건, 다른 기술",
+      "reason": "주체와 대상이 다름",
       "same_event": false
     },
     "issue-0b5218c29cbb0084--249f1333d0": {
@@ -862,12 +862,26 @@
       "reason": "주체·대상·단계가 다름",
       "same_event": false
     },
+    "issue-5f508326eb5801f7--0330b81e50": {
+      "issue_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "A는 특정 기술, B는 인허가 절차",
+      "same_event": false
+    },
     "issue-5f508326eb5801f7--835e580735": {
       "issue_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
       "prompt_version": 1,
       "reason": "개별 사건이 전체 목표 달성",
       "same_event": true
+    },
+    "issue-5f508326eb5801f7--dcf5909f44": {
+      "issue_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
+      "prompt_version": 1,
+      "reason": "대상 원전과 안건이 다름",
+      "same_event": false
     },
     "issue-5f50f27e3d506043--0e615713ea": {
       "issue_title": "미국 에너지부, 제네시스 미션 프로젝트에 원자력 분야 대거 선정 발표",
@@ -1700,6 +1714,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
+    "issue-cdd5f9ed8f148233--8fce4c09fa": {
+      "issue_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
+      "prompt_version": 1,
+      "reason": "국가와 안건이 다름",
       "same_event": false
     },
     "issue-d2d6214a79979e89--d65bac9c4d": {
