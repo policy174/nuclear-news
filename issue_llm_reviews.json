@@ -472,6 +472,16 @@
       "right_title": "프랑스 EDF 원전, 폭염으로 일요일 가동 불능 전력량 기록 경신",
       "same_event": false
     },
+    "067dba612698c5cc--c45420fbe4826728": {
+      "embedding_similarity": 0.9024,
+      "left_title": "해파리 유입으로 프랑스 그라벨린 원전 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일한 사건의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "프랑스 그라블린 원전, 해파리 떼로 2년 연속 가동 중단",
+      "same_event": true
+    },
     "071c0427ea8759c8--959a0bd83cc42eea": {
       "embedding_similarity": 0.8478,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -1620,6 +1630,16 @@
       "reason": "메가프로젝트와 LNG 발전소는 다른 사안",
       "reviewed_at": "2026-08-13T15:57:33.641934+00:00",
       "right_title": "[시론] 3대 메가프로젝트 출발점은 '온사이트 LNG열병합발전소'",
+      "same_event": false
+    },
+    "0c50ac594b64671c--571c41d8d5a745d5": {
+      "embedding_similarity": 0.8406,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "국회 기후환노위, 3대 메가프로젝트 전력·용수 공급 실효성 질의",
       "same_event": false
     },
     "0c50ac594b64671c--b0e178ca6114b1a9": {
@@ -2782,6 +2802,16 @@
       "right_title": "정부, '공존·억제' 한반도 전략 발표…핵추진잠수함 특별법 추진",
       "same_event": true
     },
+    "185f6731e1e3e3d4--d432179512d219e4": {
+      "embedding_similarity": 0.8403,
+      "left_title": "정부, 한국형 핵추진잠수함 ‘장보고-N’ 사업 전담조직 확대 직제 개정안 국무회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "北, 韓 핵잠수함 추진에 \"생존불가 보복공격 능력 보유해야\" 비난",
+      "same_event": false
+    },
     "185f6731e1e3e3d4--e3e8a6dacacfcbf6": {
       "embedding_similarity": 0.9196,
       "left_title": "정부, 한국형 핵추진잠수함 ‘장보고-N’ 사업 전담조직 확대 직제 개정안 국무회의 통과",
@@ -3070,6 +3100,16 @@
       "reason": "호남 반도체 클러스터 전력 공급 지시",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
       "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
+      "same_event": true
+    },
+    "1e53d0f81cb14594--3c71c0375365c559": {
+      "embedding_similarity": 0.8456,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "호남 반도체 산업 육성을 위한 전력 인프라 구축의 중요성",
       "same_event": true
     },
     "1e53d0f81cb14594--45510ce6eb51954b": {
@@ -3739,6 +3779,16 @@
       "prompt_version": 1,
       "reason": "호남 클러스터 전력 언급과 해남 사업 강조",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
+      "right_title": "대통령, 해남 청정에너지 사업이 반도체·AI 산업 동력 및 지역 활력 될 것 강조",
+      "same_event": false
+    },
+    "20dd978c521bf5e6--58158c94ab72ede0": {
+      "embedding_similarity": 0.8402,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
       "right_title": "대통령, 해남 청정에너지 사업이 반도체·AI 산업 동력 및 지역 활력 될 것 강조",
       "same_event": false
     },
@@ -6162,6 +6212,26 @@
       "right_title": "원안위, 스웨덴과 방사성폐기물·SMR 안전규제 논의",
       "same_event": false
     },
+    "37fa47e677547d36--55842b037eb69172": {
+      "embedding_similarity": 0.8407,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "GS글로벌, 미국 휴스턴지사 개소로 에너지·인프라 시장 공략 강화",
+      "same_event": false
+    },
+    "3819e3139f247c61--397c97cc02966102": {
+      "embedding_similarity": 0.8411,
+      "left_title": "첨단기술 미래성장동력 '7대 SEED' 보고회 개최 (산업부)",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "양자포럼·양자협회, 정부의 '7대 씨앗 R&D' 선정에 환영 표명",
+      "same_event": false
+    },
     "381afffc4b89e8e0--4113d294aea75ee0": {
       "embedding_similarity": 0.8566,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -6229,6 +6299,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T10:25:33.192811+00:00",
+      "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
+      "same_event": false
+    },
+    "381afffc4b89e8e0--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8401,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
       "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
       "same_event": false
     },
@@ -7022,6 +7102,16 @@
       "right_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
       "same_event": false
     },
+    "3c3560063b344488--d1e966b5772613fd": {
+      "embedding_similarity": 0.84,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 상용화 노력 vs 성장동력 강조",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
+      "same_event": false
+    },
     "3c3560063b344488--d2d6214a79979e89": {
       "embedding_similarity": 0.8514,
       "left_title": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
@@ -7082,6 +7172,16 @@
       "right_title": "원안위원장, 계속운전 원전 신규 수준 심사 및 SMR 규제 체계 구축 천명",
       "same_event": false
     },
+    "3c71c0375365c559--571c41d8d5a745d5": {
+      "embedding_similarity": 0.8553,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "호남 반도체 산업 육성을 위한 전력 인프라 구축의 중요성",
+      "same_event": true
+    },
     "3c71c0375365c559--58158c94ab72ede0": {
       "embedding_similarity": 0.842,
       "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
@@ -7090,6 +7190,26 @@
       "reason": "반도체 클러스터와 전력 인프라 구축은 다른 사안",
       "reviewed_at": "2026-08-13T15:57:33.641934+00:00",
       "right_title": "호남 반도체 산업 육성을 위한 전력 인프라 구축의 중요성",
+      "same_event": false
+    },
+    "3c71c0375365c559--8c6eb5250550b959": {
+      "embedding_similarity": 0.8904,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "호남 반도체 산업 육성을 위한 전력 인프라 구축의 중요성",
+      "same_event": true
+    },
+    "3c76de58ea7f4e42--3eacd5e0a0ef3dcd": {
+      "embedding_similarity": 0.84,
+      "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "한수원 새울본부, 2027년도 지원사업 공모 주민설명회 개최",
       "same_event": false
     },
     "3cb803a824851b99--55842b037eb69172": {
@@ -8622,6 +8742,16 @@
       "right_title": "아마존, AI 데이터센터 전력 공급 위해 텍사스에 초대형 가스발전소 건설",
       "same_event": true
     },
+    "4b368fec74e2db91--58158c94ab72ede0": {
+      "embedding_similarity": 0.84,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "여당 특위, 용인 반도체 산단 방문해 전력 문제 해결 지원 약속",
+      "same_event": true
+    },
     "4b37bf091a79b37e--ba51bf425ca92c1c": {
       "embedding_similarity": 0.8621,
       "left_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
@@ -9602,6 +9732,16 @@
       "right_title": "고리 3·4호기 올해, 한빛 1·2호기 내년 계속운전 심사 상정 예정",
       "same_event": true
     },
+    "549b832e2069fa6a--7b8d24f49b047a02": {
+      "embedding_similarity": 0.8407,
+      "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "월성 2·3·4호기 계속운전, 9월 국무회의서 압력관 예타 면제 촉구",
+      "same_event": false
+    },
     "549b832e2069fa6a--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8591,
       "left_title": "내년 원전 4기 계속운전 절차 지연, 운영 불확실성 증대",
@@ -10272,6 +10412,16 @@
       "right_title": "국회 기후에너지환경노동위, 데이터센터 용수·반도체 클러스터 논의",
       "same_event": false
     },
+    "571c41d8d5a745d5--8682f6212c81c195": {
+      "embedding_similarity": 0.8478,
+      "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "호남 반도체 RE100 실현 및 주민 상생 정책토론회 개최",
+      "same_event": true
+    },
     "571c41d8d5a745d5--8c6eb5250550b959": {
       "embedding_similarity": 0.8661,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -10670,6 +10820,16 @@
       "reason": "시론과 정부 협약은 다른 사안",
       "reviewed_at": "2026-08-12T14:20:52.498980+00:00",
       "right_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "same_event": false
+    },
+    "58158c94ab72ede0--90632d54b0efbee5": {
+      "embedding_similarity": 0.8406,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "우리기술, 한수원과 원전 공급자 재고관리 협약 체결",
       "same_event": false
     },
     "58158c94ab72ede0--920ec3d45798e4af": {
@@ -12582,6 +12742,16 @@
       "right_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
       "same_event": false
     },
+    "689e80f53446f692--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8403,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "그리드위즈, SMR 전문기업 알엑스와 AI 데이터센터 전력·냉각 솔루션 개발 협력",
+      "same_event": false
+    },
     "689e80f53446f692--b3adbd243878a3c3": {
       "embedding_similarity": 0.8544,
       "left_title": "KEPIC, AIㆍSMR 시대 맞춰 기준체계 확장",
@@ -13379,6 +13549,16 @@
       "prompt_version": 1,
       "reason": "엔비디아 투자 vs 건설주 체질 개선",
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
+      "right_title": "\"원전 대신 AI 데이터센터\"…건설주, 체질 개선 본격화",
+      "same_event": false
+    },
+    "735bf2a20f913925--f8729b9ad3d35dd4": {
+      "embedding_similarity": 0.8404,
+      "left_title": "미국 민주당 주지사들, 에너지 위기 대응책으로 원자력 발전 전환",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
       "right_title": "\"원전 대신 AI 데이터센터\"…건설주, 체질 개선 본격화",
       "same_event": false
     },
@@ -14522,6 +14702,16 @@
       "right_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
       "same_event": false
     },
+    "8087dd0c3497cc5f--c60046634052feca": {
+      "embedding_similarity": 0.8402,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "규제체계 협력 vs 계속운전 결론",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "산업부·원안위, 원전 수출 위한 규제체계 협력 업무협약 체결",
+      "same_event": false
+    },
     "8087dd0c3497cc5f--e2c914a8ab70f104": {
       "embedding_similarity": 0.8655,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -14731,6 +14921,16 @@
       "reviewed_at": "2026-08-11T08:17:48.760286+00:00",
       "right_title": "국회 기후에너지환경노동위, 데이터센터 용수·반도체 클러스터 논의",
       "same_event": false
+    },
+    "8682f6212c81c195--8c6eb5250550b959": {
+      "embedding_similarity": 0.8501,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사안의 후속 보도",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "호남 반도체 RE100 실현 및 주민 상생 정책토론회 개최",
+      "same_event": true
     },
     "86d1c5852cb9ef75--99fb7b94934451e5": {
       "embedding_similarity": 0.8423,
@@ -15922,6 +16122,16 @@
       "right_title": "광주 반도체 클러스터 본궤도…군공항 부지 국가산단 ‘속도’",
       "same_event": false
     },
+    "959a0bd83cc42eea--b79a8ac5e3b5fd98": {
+      "embedding_similarity": 0.8406,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "HD하이드로젠, 한국형 SOFC 양산체계 구축 완료",
+      "same_event": false
+    },
     "959a0bd83cc42eea--bd1c124b246d63a9": {
       "embedding_similarity": 0.8438,
       "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
@@ -16080,6 +16290,16 @@
       "reason": "AI 데이터센터 메가프로젝트와 전력산업 구조개편",
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
       "right_title": "전력산업 구조개편 해법으로 '통합적 공공 거버넌스' 공감대 형성",
+      "same_event": false
+    },
+    "959a0bd83cc42eea--e74049213537c7ca": {
+      "embedding_similarity": 0.8404,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "LGU+, 2분기 영업익 '역대 최대'…AI 데이터센터가 효자(종합)",
       "same_event": false
     },
     "959a0bd83cc42eea--f21e4ff6f47b524c": {
@@ -16620,6 +16840,16 @@
       "reason": "A는 심사 정책, B는 특정 심의",
       "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+      "same_event": false
+    },
+    "9a7b23e4ae5be6f3--de7403f074cdc5b8": {
+      "embedding_similarity": 0.8407,
+      "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계속운전 심사 vs 월성 압력관 사업",
+      "reviewed_at": "2026-08-13T17:56:58.080169+00:00",
+      "right_title": "한수원노조 건의로 월성 압력관 구매사업 예타 면제 논의 정부 내 진행",
       "same_event": false
     },
     "9a7b23e4ae5be6f3--e2e42584280401fc": {
