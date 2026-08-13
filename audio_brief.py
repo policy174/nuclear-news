@@ -593,7 +593,7 @@ def _mark_sent(meta: dict) -> None:
     _write_meta(meta)
 
 
-def generate(force: bool = False) -> bool:
+def generate(force: bool = False, send: bool = True) -> bool:
     if not is_available():
         print("[audio] GEMINI_API_KEY 없음 — 스킵")
         return False
@@ -662,7 +662,7 @@ def generate(force: bool = False) -> bool:
             old.unlink(missing_ok=True)
     print(f"[audio] {date} 완료 — {file_name} "
           f"({mp3_path.stat().st_size / 1024:.0f} KB, {duration}초)")
-    if send_telegram_audio(mp3_path, meta):
+    if send and send_telegram_audio(mp3_path, meta):
         _mark_sent(meta)
     return True
 
@@ -676,7 +676,8 @@ if __name__ == "__main__":
     # 호출자는 여전히 `||` 로 받아 넘긴다 — 비치명 계약은 호출자 쪽에 있다.
     ok = False
     try:
-        ok = generate(force="--force" in sys.argv)
+        ok = generate(force="--force" in sys.argv,
+                      send="--no-send" not in sys.argv)
     except Exception as exc:  # noqa: BLE001
         import traceback
         traceback.print_exc()

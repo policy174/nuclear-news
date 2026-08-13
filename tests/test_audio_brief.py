@@ -521,6 +521,22 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertTrue(audio_brief.generate(force=True))
         self.assertEqual(len(self.tts_calls), 1)
 
+    def test_generate_force_without_send_replaces_web_audio_only(self):
+        """품질 재생성은 텔레그램 중복 발송 없이 웹 음원만 바꾼다."""
+        self.write_data()
+        audio_brief.AUDIO_DIR.mkdir(parents=True)
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-04.mp3").write_bytes(b"old")
+        audio_brief._write_meta({"date": "2026-08-04",
+                                 "file": "briefing-2026-08-04.mp3",
+                                 "telegram_sent_at": "2026-08-04T07:30:00+09:00"})
+        self.responses = [{"script": GOOD_SCRIPT}]
+        self.assertTrue(audio_brief.generate(force=True, send=False))
+        self.assertEqual(len(self.tts_calls), 1)
+        self.assertEqual(self.sent, [])
+        meta = json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+        self.assertNotIn("telegram_sent_at", meta)
+
     def test_generate_fail_soft_keeps_existing_audio(self):
         self.write_data()
         audio_brief.AUDIO_DIR.mkdir(parents=True)
