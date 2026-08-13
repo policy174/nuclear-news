@@ -1,58 +1,4 @@
 {
-  "69a65db0ee9c6a76": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 3,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "khnp",
-    "category": "정책",
-    "title_kr": "한수원 웹사이트 일반 공지",
-    "summary": "한국수력원자력(KHNP) 웹사이트에 게시된 일반적인 정보입니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-30T22:58:49.621657+00:00",
-    "title": "- KHNP",
-    "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOTWVPWFNvTUt6THpLTmlQSWlOa1pOWHlnY0lGaWVUMjdHbWdmVEJaQlhxLV9PN19pMWlqREh3aGFoV3NmRGxZeEkybnpaSjg4SlRnR0lYT3RZNlRpT1ZIQUN0dTN0UHBWaTU2aHFjS3JuRGtwUHFobkw5dER5NEVBTnNHVlh3UmdJOFRr?oc=5",
-    "feed": "정책",
-    "domain": "khnp.co.kr",
-    "matched": "한수원 보도자료"
-  },
-  "1a9a538b43d47037": {
-    "features": {
-      "event_type": "opinion",
-      "korea_relevance": 2,
-      "market_materiality": 0,
-      "policy_materiality": 1,
-      "novelty": 1,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "domestic",
-    "category": "정책",
-    "title_kr": "제12차 전기본, 한국 산업전략의 시험대라는 기고문",
-    "summary": "제12차 전력수급기본계획이 한국 산업전략의 시험대가 될 것이라는 기고문이 발표되었습니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "cached_at": "2026-07-30T22:58:49.621657+00:00",
-    "title": "[기고]제12차 전기본은 韓 산업전략의 시험대다 - 네이트",
-    "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9NNEp6RjRQYjNUM2tvWThnXzg3ejlNVUJwcjRlQlRxa0htYll0dzBQS3IzbERFclh2YzdValAtZ3pBaER2VXlCUGdCcVpDMU9NcHhV?oc=5",
-    "feed": "정책",
-    "domain": "news.google.co.kr",
-    "matched": "국내 원자력 보도"
-  },
   "5b839201c8b2255b": {
     "features": {
       "event_type": "opinion",
@@ -136953,5 +136899,410 @@
     "feed": "정책",
     "domain": "reuters.com",
     "matched": "Reuters 원자력"
+  },
+  "c693db7134e6be68": {
+    "features": {
+      "event_type": "incident_safety",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "RO"
+    ],
+    "article_type": "news",
+    "title_kr": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+    "summary": "루마니아 체르나보다 원전이 다뉴브강 수위 저하로 인해 전면 가동 중단되었으며, 이는 2003년 폭염 이후 처음이다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "La Roumanie procède à l’arrêt complet de l’unique centrale nucléaire du pays à cause du faible débit du Danube",
+    "link": "https://www.lemonde.fr/international/article/2026/08/13/la-roumanie-procede-a-l-arret-complet-de-l-unique-centrale-nucleaire-du-pays-a-cause-du-faible-debit-du-danube_6745780_3210.html",
+    "feed": "정책",
+    "domain": "lemonde.fr",
+    "matched": "Le Monde 에너지"
+  },
+  "a1eaefe3d78743ea": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "smr",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "smr",
+      "finance"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "opinion",
+    "title_kr": "블루에너지 CEO, 모듈형 원전 건설 및 금융 혁신 방안 논의",
+    "summary": "블루에너지(Blue Energy) CEO 제이크 주레비츠(Jake Jurewicz)는 원전 건설 문제를 극복하기 위해 모듈형 건설 방식과 '가스-투-원자력' 전환 전략을 제시했다.",
+    "detail": "블루에너지 CEO 제이크 주레비츠는 원전 건설의 고질적인 문제인 대규모 프로젝트 지연과 비용 초과를 해결하기 위해 새로운 패러다임을 제안했다. 그는 원전을 맞춤형 토목 공사보다는 제조된 제품처럼 취급하여, 해양 석유 및 가스 산업의 기술을 차용해 대규모 조립식 모듈 블록으로 건설하는 방안을 설명했다. 또한, 초기에는 천연가스 발전 시설로 시작하여 원자력으로 전환하는 '가스-투-원자력' 전략을 통해 초기 수익을 창출하고 자본 위험을 줄여 기관 투자자들에게 매력적인 위험 프로필을 제공할 수 있다고 밝혔다. 이 하이브리드 접근 방식이 원자력 부문에서 상업 프로젝트 부채를 가능하게 하는 '잃어버린 중간 고리'가 될 수 있다고 강조했다.",
+    "implication": "블루에너지는 모듈형 건설과 '가스-투-원자력' 전략을 통해 원전 건설의 고질적인 비용 및 일정 문제를 해결하고 상업적 투자를 유치할 수 있을 것으로 기대한다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#모듈형원전",
+      "#원전금융",
+      "#건설혁신"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "Podcast: Jake Jurewicz, CEO of Blue Energy, is featured on a new episode of The Green Blueprint to talk about the nuclea",
+    "link": "https://www.latitudemedia.com/news/green-blueprint-did-someone-just-figure-out-how-to-project-finance-nuclear",
+    "feed": "정책",
+    "domain": "latitudemedia.com",
+    "matched": "ANS Nuclear News Daily"
+  },
+  "bfd10bfe7bfc127e": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 1,
+      "market_materiality": 3,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "corporate",
+    "title_kr": "콘스텔레이션, 2분기 신규 원자력 PPA 체결로 920MW 전력 공급 예정",
+    "summary": "콘스텔레이션(Constellation)은 2분기에 신규 장기 전력구매계약(PPA)을 체결하여 2029년부터 2032년까지 약 920MW의 원자력 발전 전력을 공급할 예정이다.",
+    "detail": "콘스텔레이션은 2분기 실적 발표에서 15~20년 장기 전력구매계약(PPA)을 체결했다고 밝혔다. 이 계약들은 2029년에서 2032년 사이에 시작될 예정이며, 총 920MW 규모의 원자력 발전 전력을 공급한다. 조 도밍게즈(Joe Dominguez) 콘스텔레이션 CEO는 계약 고객 중 월마트(Walmart)를 언급하며, 드레스덴(Dresden) 원전에서 176MW를 공급하여 일리노이주의 첨단 물류센터를 지원할 것이라고 밝혔다. 이는 월마트가 체결한 첫 원자력 PPA이자 대형 소매업체와 관련된 최초의 계약이다. 공급 전력의 약 890MW는 기존 발전 설비에서, 나머지 30MW는 드레스덴 원전의 30MW 증설을 통해 확보될 예정이다.",
+    "implication": "콘스텔레이션의 대규모 장기 PPA 체결은 기업 고객의 원자력 에너지 수요 증가와 원전의 안정적인 전력 공급원으로서의 가치를 보여주는 시장 신호이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력구매계약",
+      "#원전시장",
+      "#기업수요"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "Second-quarter updates from Constellation: New PPAs, Crane restart, and more",
+    "link": "https://www.ans.org/news/2026-08-13/article-8291/secondquarter-updates-from-constellation-new-ppas-crane-restart-and-more",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
+  },
+  "69dcdd0aa49d95b2": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 은행들, 인공지능(AI) 자금 조달 시장에 집중",
+    "summary": "미국 은행들이 인공지능(AI) 관련 자금 조달 시장에 적극적으로 뛰어들고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "Les banques américaines se ruent sur le filon du financement de l’IA",
+    "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPMWlWSWRCUl90UnJhcl81djU5WWlUQ1k1MmxWTmxMcG03dnIycW9HRFZxN1M3ckxIY2VMN1RUY2tYYng0V25CdzZFTE9PdDV6aGRyQURNYllJX2NZTVc4VER0OG44X3hJbkJlODIwaTVlTk5aN3JuUktpeENpMWRhUlZwZHNtdkg3NG9TU0JkRUZRRVhPUEphTWNmbFZUdVBKNFRWSnU3UUFkNV9OSXZ2WjVnT1YzQ1dLcE1pM0JFM1o0VldnNEI4QXdTa19QdVdlcmFmWTdmSktzXzg0aHdMMw?oc=5",
+    "feed": "정책",
+    "domain": "latribune.fr",
+    "matched": "La Tribune 원자력"
+  },
+  "dedaa223f2ddddd0": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "waste"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "report",
+    "title_kr": "미국 여론조사, 고준위 방사성폐기물 심층 처분 지지 확인",
+    "summary": "미국 여론조사 결과, 미국 시민의 80% 이상이 고준위 방사성폐기물 영구 처분을 국가적 우선순위로 여기며, 심층 처분을 신뢰할 만한 해결책으로 본다.",
+    "detail": "딥 아이솔레이션(Deep Isolation Inc)이 의뢰한 4월 여론조사에서 미국 성인 1,000명 중 81%가 고준위 방사성폐기물 영구 처분이 국가적 우선순위라고 답했다. 반면, 28%만이 사용후핵연료를 원전 부지에 수십 년간 계속 저장하는 것을 지지했다. 심층 지질 처분 기술에 대한 정보를 제공받은 후에는 65%가 심층 시추공 처분을 고준위 방사성폐기물 관리 해결책으로 지지했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#사용후핵연료",
+      "#방사성폐기물"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "US poll finds support for deep geologic disposal",
+    "link": "https://www.world-nuclear-news.org/articles/us-poll-finds-support-for-deep-geologic-disposal",
+    "feed": "정책",
+    "domain": "world-nuclear-news.org",
+    "matched": "WNN"
+  },
+  "975146cde1cfceb8": {
+    "features": {
+      "event_type": "incident_safety",
+      "korea_relevance": 1,
+      "market_materiality": 3,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "RO",
+      "HU"
+    ],
+    "article_type": "news",
+    "title_kr": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+    "summary": "유럽 전역에서 극심한 폭염과 가뭄으로 인해 루마니아, 프랑스 등 여러 국가의 원전 가동이 중단되거나 출력이 제한되며 에너지 위기가 확산되고 있다.",
+    "detail": "루마니아 체르나보다 원전은 다뉴브강 수위 저하로 원자로 1기 가동을 중단했으며, 헝가리 팍스 원전은 다뉴브강 수위 회복으로 터빈 2기를 재가동했다. 프랑스 전력공사(EDF)는 냉각수 부족과 수온 상승으로 여러 원자로 출력을 제한했고, 그라블린 원전은 해파리 떼 유입으로 3기 가동을 일시 중단했다. CNBC는 8월 12일(현지시각) 유럽연합(EU)의 경제 성장세가 큰 타격을 입을 수 있다고 보도했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#기후변화",
+      "#전력시장",
+      "#원전운영"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-12",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "유럽 가뭄·폭염에 원전 차단…에너지 위기 확산",
+    "link": "https://www.g-enews.com/view.php?ud=2026081319565941712bd56fbc3c_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "원자력 정책"
+  },
+  "cfdf56da54c3bf4e": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "fusion"
+    ],
+    "countries": [
+      "US",
+      "JP"
+    ],
+    "article_type": "policy",
+    "title_kr": "미 에너지부, 오크리지 국립연구소 핵융합 증식 블랭킷 시설 지원",
+    "summary": "미 에너지부(DOE)가 오크리지 국립연구소(ORNL)와 교토 퓨저니어링(Kyoto Fusioneering)의 핵융합 증식 블랭킷 시험 시설 개발에 자금을 지원하기로 했다.",
+    "detail": "오크리지 국립연구소(ORNL)는 교토 퓨저니어링(Kyoto Fusioneering)과의 협력을 통해 핵융합 증식 블랭킷 시험 시설인 UNITY-3를 개발할 예정이며, 교토 퓨저니어링은 미국 본사를 테네시(Tennessee)주 오크리지(Oak Ridge)로 이전한다. 이 시설은 14MeV 중성자를 생성하는 가속기를 갖춰 핵융합과 유사한 조건에서 증식 블랭킷 실험을 수행하고, 상업용 블랭킷 설계 평가 및 삼중수소 연료 생산 시뮬레이션 검증에 활용될 예정이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#핵융합",
+      "#R&D"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "DOE funds ORNL and Kyoto Fusioneering test facility",
+    "link": "https://www.ans.org/news/2026-08-13/article-8292/doe-funds-ornl-and-kyoto-fusioneering-test-facility",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
+  },
+  "ad1636e20eb3e2be": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [],
+    "article_type": "opinion",
+    "title_kr": "AI 시대 전력시스템 대전환, 수소의 역할은 '연결자'여야 한다",
+    "summary": "AI 시대 전력수요 급증에 따라 전력시스템 대전환이 필요한 가운데, 수소는 장주기 저장 및 송전망 혼잡 완화 등 전력계통의 '연결자'로서 역할을 해야 한다는 주장이 제기되었다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-08-13",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "[기자수첩] AI 시대, 수소는 '주연'보다 '연결자'여야 한다",
+    "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=202196",
+    "feed": "정책",
+    "domain": "energydaily.co.kr",
+    "matched": "송전망 건설"
+  },
+  "5b821497013ff3f8": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "반도체 메가프로젝트, AI 데이터센터 핵심 부품 국산화 및 중소기업 참여 확대 요구",
+    "summary": "정부가 추진하는 반도체 메가프로젝트 및 AI 데이터센터 구축에 중소기업 참여 확대와 핵심 냉각 부품 국산화 노력이 필요하다는 업계의 목소리가 높아지고 있다.",
+    "detail": "정부는 2029년까지 국내 AI 데이터센터에 550조 원, 2035년까지 1000조 원 투자를 계획하고 있으나, 핵심 냉각 부품 국산화율은 3.3%에 불과하다. 중소기업계는 AI 데이터센터 구축의 핵심인 반도체, 전력, 냉각시스템의 국산화와 글로벌 기업 발주 시 국내 기업 참여 기회 확대를 요구했다. 중소벤처기업부 실장은 대기업과 중소기업의 상생협력을 강화하고 소부장(소재·부품·장비) 중소기업 지원을 위한 클러스터 구축 및 R&D 자금 지원 계획을 밝혔다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#중소기업지원"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-12",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-13T23:29:09.873346+00:00",
+    "title": "반도체 메가프로젝트…\"중소기업도 참여 기회를\"",
+    "link": "https://www.newsis.com/view/NISX20260813_0003748440",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "반도체 클러스터 전력"
   }
 }
