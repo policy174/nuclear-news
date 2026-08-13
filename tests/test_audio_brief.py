@@ -140,6 +140,17 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertNotIn("왜 중요한가", rest_part)
         self.assertIn("중국 원자로 승인", rest_part)
 
+    def test_material_limits_briefs_to_six(self):
+        briefing = briefing_row()
+        briefing["issues"] = [{"issue_id": f"issue-{i}"} for i in range(1, 10)]
+        issues = [issue(f"issue-{i}", f"이슈 {i}") for i in range(1, 10)]
+        self.write_data(briefing, issues)
+        loaded, by_id = audio_brief.load_briefing(audio_brief.WEB_DATA)
+        material = audio_brief.build_material(loaded, by_id)
+        self.assertIn("이슈 7", material)
+        self.assertNotIn("이슈 8", material)
+        self.assertNotIn("이슈 9", material)
+
     def test_load_briefing_picks_latest_date(self):
         rows = [briefing_row("2026-08-03"), briefing_row("2026-08-04")]
         (audio_brief.WEB_DATA / "briefings.json").write_text(
@@ -216,8 +227,8 @@ class AudioBriefTestCase(unittest.TestCase):
         적은 날을 부풀렸다."""
         lo_small, hi_small = audio_brief.spoken_target(3, 5)
         lo_big, hi_big = audio_brief.spoken_target(3, 15)
-        self.assertLess(hi_small, hi_big)
-        self.assertLessEqual(hi_big, audio_brief.MAX_SPOKEN - 200)
+        self.assertLessEqual(hi_small, hi_big)
+        self.assertLessEqual(hi_big, audio_brief.MAX_SPOKEN - 100)
         self.write_data()
         briefing, by_id = audio_brief.load_briefing(audio_brief.WEB_DATA)
         self.assertIn("[분량]", audio_brief.build_material(briefing, by_id))

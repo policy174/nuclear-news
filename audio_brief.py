@@ -74,8 +74,9 @@ SPEAKER_RE = re.compile(r"^(HOST|ANALYST):\s*(.+)$")
 _FILLER_RE = re.compile(
     r"^(?:아,\s*)?(?:네|예|그렇군요|그렇죠|맞습니다|알겠습니다)\s*[,.!]\s*")
 MIN_LINES = 6          # 잘린 출력·한 덩어리 출력을 잡는 하한 (줄 = 문단)
-MAX_SPOKEN = 2600      # 대사 합계 상한 (~4분 30초)
+MAX_SPOKEN = 1500      # 대사 합계 상한 (실측 기준 약 3분 40초)
 DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
+REST_LIMIT = 6         # 단신은 최대 6건 — 전체 이슈 낭독을 막는다
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
 CHUNK_GAP_SEC = 0.45   # 청크 사이 간격. 문장 사이 자연 무음(0.5~0.7초)에 맞춘다
 SILENCE_LEVEL = 300    # s16 진폭 — 이보다 작으면 무음으로 본다 (약 -41 dBFS)
@@ -97,11 +98,11 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 진행자는 한 명입니다. 모든 줄은 "HOST: "로 시작하는 한 문단입니다
   (라벨은 시스템 형식용이고 방송에서 읽히지 않습니다). 다른 형식의 줄 금지.
 - 줄 하나 = 이슈 하나(또는 헤드라인 묶음 하나). 한 줄은 2~5문장.
-- 구성: 하이라이트 이슈를 하나씩 풀기 → 나머지 이슈는 두세 건씩 묶어
+- 구성: 하이라이트 3건을 하나씩 풀기 → 나머지 이슈는 최대 6건만 한 문장씩
   헤드라인 훑기. 인사·자기소개·마무리 문장을 쓰지 마세요 — 오프닝과
   클로징은 시스템이 따로 붙입니다. 첫 줄부터 바로 첫 이슈입니다.
-- 하이라이트 이슈 한 건의 흐름: 무슨 일이 있었는지 → 지금 어느 단계인지
-  → 왜 의미가 있는지(재료의 해석 범위 안에서) → 아직 확정되지 않은 것.
+- 하이라이트 이슈 한 건의 흐름: 무슨 일이 있었는지 → 지금 어느 단계인지.
+  자료에 구체적인 다음 일정·판단 기준이 있을 때만 의미를 덧붙입니다.
 - 분량: [재료]의 [분량] 지시를 따릅니다.
 
 [말투 — 낭독용 구어체]
@@ -125,6 +126,8 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 어떤 이슈에도 붙일 수 있는 일반론 문장 금지 — "매우 중요합니다",
   "기대됩니다", "의지를 보여줍니다", "귀추가 주목됩니다" 같은 문장은
   삭제 대상입니다. 그 문장을 지워도 정보가 줄지 않으면 쓰지 마세요.
+- 약어는 첫 등장에만 "소형모듈원자로, 에스엠알"처럼 풀고 이후에는
+  "에스엠알"로만 말합니다. 같은 명칭을 연달아 두 번 읽지 마세요.
 
 [출력 — JSON 한 객체만]
 {"script": "HOST: ...\\nHOST: ..."}"""
@@ -182,7 +185,7 @@ def _issue_ids(briefing: dict) -> tuple[list, list]:
               if isinstance(row, dict) and row.get("issue_id")]
     if not highlight_ids:
         highlight_ids = listed[:DEEP_LIMIT]
-    return highlight_ids, [i for i in listed if i not in highlight_ids]
+    return highlight_ids, [i for i in listed if i not in highlight_ids][:REST_LIMIT]
 
 
 def build_material(briefing: dict, by_id: dict) -> str:
@@ -207,10 +210,10 @@ def build_material(briefing: dict, by_id: dict) -> str:
 
 
 def spoken_target(deep_count: int, rest_count: int) -> tuple[int, int]:
-    """(하한, 상한) 대사 글자 수. 하이라이트 ~350자, 헤드라인 ~70자 예산."""
-    high = 250 + 350 * deep_count + 70 * rest_count
-    high = max(1100, min(high, MAX_SPOKEN - 200))
-    return max(900, high - 400), high
+    """(하한, 상한) 대사 글자 수. 실측 6.7자/초 기준 약 3분을 겨냥한다."""
+    high = 200 + 270 * deep_count + 45 * min(rest_count, REST_LIMIT)
+    high = max(1050, min(high, MAX_SPOKEN - 100))
+    return max(900, high - 250), high
 
 
 # 모델이 그래도 써넣은 인사·마무리 줄을 골라내는 패턴. 프레임은 코드가 붙이므로
