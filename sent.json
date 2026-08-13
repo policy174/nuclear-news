@@ -3179,38 +3179,42 @@
     "8091506a80ead443": "2026-08-13T10:50:16.558856+00:00"
   },
   "source_yield": {
-    "at": "2026-08-13T10:51:57+00:00",
+    "at": "2026-08-13T11:39:38+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 15,
-      "산업부 보도자료": 10,
+      "원안위 보도자료": 0,
+      "산업부 보도자료": 0,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
-      "WNN": 45,
+      "WNN": 44,
       "ANS Nuclear Newswire": 50,
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 67,
+      "Reuters 원자력": 85,
       "La Tribune 원자력": 7,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 17,
-      "Les Échos 원자력": 55,
+      "FT 원자력": 18,
+      "Les Échos 원자력": 56,
       "E&E News 원자력": 5,
-      "Nuclear Engineering International": 20,
-      "Euractiv 원자력": 52,
-      "국내 원자력 보도": 10
+      "Nuclear Engineering International": 19,
+      "Euractiv 원자력": 55,
+      "국내 원자력 보도": 9
     },
     "kept": {
       "NucNet": 2,
-      "Reuters 원자력": 29,
+      "Reuters 원자력": 35,
       "La Tribune 원자력": 1,
       "Le Monde 에너지": 1,
+      "FT 원자력": 3,
       "Les Échos 원자력": 1,
       "E&E News 원자력": 1,
-      "국내 원자력 보도": 7
+      "국내 원자력 보도": 6
     },
-    "errors": {}
+    "errors": {
+      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
+      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
+    }
   }
 }
