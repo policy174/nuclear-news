@@ -82,6 +82,16 @@
       "right_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
       "same_event": true
     },
+    "01a8a9a99908ca11--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8425,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제 (데이터센터)",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "KIOST, 해저 데이터센터로 AI 전력·물 절감 기술 개발 추진",
+      "same_event": false
+    },
     "01d97e5a989b4f96--3e00af0212edae79": {
       "embedding_similarity": 0.9194,
       "left_title": "유럽 팍시 원전, 냉각수 수위 회복으로 가동 중단 위기 모면",
@@ -932,6 +942,16 @@
       "right_title": "중국 창장 3호기, 전력망 연결 완료",
       "same_event": true
     },
+    "09465180cdc8f102--34fda9868234cd95": {
+      "embedding_similarity": 0.8553,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 명칭",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "바이룽 2호기 첫 콘크리트 타설",
+      "same_event": false
+    },
     "09465180cdc8f102--39978953c427bd87": {
       "embedding_similarity": 0.8482,
       "left_title": "중국, 신규 원자로 8기 건설 승인",
@@ -1201,6 +1221,16 @@
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
       "right_title": "빌 게이츠 방한 앞두고 HD현대, 테라파워와 SMR 시장 공략 가속화",
       "same_event": true
+    },
+    "0a3a69c9a73e8bbe--3755290fbd6dc745": {
+      "embedding_similarity": 0.889,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 프로젝트",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "빌 게이츠, 1년 만에 방한하여 정·재계와 SMR 협력 논의 예정",
+      "same_event": false
     },
     "0a3a69c9a73e8bbe--410bd72bfb8cf04f": {
       "embedding_similarity": 0.8405,
@@ -6152,6 +6182,46 @@
       "right_title": "원안위, 스웨덴 방사선안전청과 SMR 안전규제 등 양자 회의 개최",
       "same_event": false
     },
+    "34fda9868234cd95--431840aff0e21ddb": {
+      "embedding_similarity": 0.849,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 명칭",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "바이룽 2호기 첫 콘크리트 타설",
+      "same_event": false
+    },
+    "34fda9868234cd95--911526189a05bdad": {
+      "embedding_similarity": 0.8605,
+      "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 명칭",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "바이룽 2호기 첫 콘크리트 타설",
+      "same_event": false
+    },
+    "34fda9868234cd95--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.8503,
+      "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 명칭",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "바이룽 2호기 첫 콘크리트 타설",
+      "same_event": false
+    },
+    "34fda9868234cd95--a4723d13eaa57660": {
+      "embedding_similarity": 0.8434,
+      "left_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 명칭",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "바이룽 2호기 첫 콘크리트 타설",
+      "same_event": false
+    },
     "3590184774ef2006--e3bff0056142abce": {
       "embedding_similarity": 0.8444,
       "left_title": "캐나다 정부, 마이크로 원자로 기술 개발에 450만 달러 지원",
@@ -6200,6 +6270,26 @@
       "reason": "AI 데이터센터 메가프로젝트와 효성 개관",
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
       "right_title": "효성, 서울 AI 데이터센터 개관…전력과 '투트랙' 성장",
+      "same_event": false
+    },
+    "3755290fbd6dc745--66d8933507f8bf75": {
+      "embedding_similarity": 0.872,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 방한 및 SMR 협력 논의",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "빌 게이츠, 1년 만에 방한하여 정·재계와 SMR 협력 논의 예정",
+      "same_event": true
+    },
+    "3755290fbd6dc745--8db4836106efc88d": {
+      "embedding_similarity": 0.8549,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 프로젝트",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "빌 게이츠, 1년 만에 방한하여 정·재계와 SMR 협력 논의 예정",
       "same_event": false
     },
     "37c2b999dd059ef7--7f066d5dce3f0910": {
@@ -6521,6 +6611,16 @@
       "reviewed_at": "2026-08-13T13:19:14.937964+00:00",
       "right_title": "첨단기술 미래성장동력 '7대 SEED' 보고회 개최 (산업부)",
       "same_event": false
+    },
+    "397c97cc02966102--cf220a841659c83f": {
+      "embedding_similarity": 0.8896,
+      "left_title": "첨단기술 미래성장동력 '7대 SEED' 보고회 개최 (산업부)",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7대 SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
     },
     "397c97cc02966102--cf3bb67fb64a76b8": {
       "embedding_similarity": 0.8436,
@@ -13032,6 +13132,16 @@
       "right_title": "영덕 신규 원전, 첫 기후변화영향평가 절차 투명 공개 촉구",
       "same_event": false
     },
+    "6daf204a4f7610fb--8c6eb5250550b959": {
+      "embedding_similarity": 0.8482,
+      "left_title": "[시론] 호남 반도체 산업의 성패는 전력 공급에 달려있다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제 (전력 공급)",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "정부, 산업용 전기요금 4개 권역 차등 적용 방안 발표",
+      "same_event": false
+    },
     "6dc5b03025a57f97--9bff425a2d2c0a20": {
       "embedding_similarity": 0.8633,
       "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
@@ -18492,6 +18602,16 @@
       "right_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
       "same_event": false
     },
+    "ba51bf425ca92c1c--cf220a841659c83f": {
+      "embedding_similarity": 0.8699,
+      "left_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 관련 정책",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": false
+    },
     "ba51bf425ca92c1c--d2d0e8abcc97280e": {
       "embedding_similarity": 0.8929,
       "left_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
@@ -19220,6 +19340,16 @@
       "reason": "주체 및 내용 상이 (SMR vs 원전 플랫폼)",
       "reviewed_at": "2026-08-07T01:04:27.172047+00:00",
       "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
+      "same_event": false
+    },
+    "cad7ad5a754410fe--cf220a841659c83f": {
+      "embedding_similarity": 0.8458,
+      "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 관련 정책",
+      "reviewed_at": "2026-08-13T19:54:28.805468+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
       "same_event": false
     },
     "cad7ad5a754410fe--cf3bb67fb64a76b8": {
