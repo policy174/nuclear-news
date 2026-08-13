@@ -1,9 +1,5 @@
 {
   "sent": {
-    "27a5c5153282e1af": "2026-07-30T16:26:55.417696+00:00",
-    "4e68ee4707bd17e4": "2026-07-30T16:26:55.417696+00:00",
-    "5190f5f0f0d050de": "2026-07-30T16:26:55.417696+00:00",
-    "1ef4485f79474935": "2026-07-30T16:26:55.417696+00:00",
     "b5c66a2a41d63d84": "2026-07-30T18:08:03.793024+00:00",
     "d4658d844ee27556": "2026-07-30T20:10:03.094214+00:00",
     "0412d08712c9a60e": "2026-07-30T20:10:03.094214+00:00",
@@ -3248,44 +3244,41 @@
     "af2ba0776cd13f5d": "2026-08-13T15:46:46.488050+00:00"
   },
   "source_yield": {
-    "at": "2026-08-13T15:48:58+00:00",
+    "at": "2026-08-13T16:44:04+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
-      "WNN": 44,
+      "WNN": 45,
       "ANS Nuclear Newswire": 50,
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 100,
+      "Reuters 원자력": 94,
       "La Tribune 원자력": 5,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 18,
-      "Les Échos 원자력": 44,
+      "Les Échos 원자력": 40,
       "E&E News 원자력": 6,
       "Nuclear Engineering International": 12,
-      "Euractiv 원자력": 59,
-      "국내 원자력 보도": 8
+      "Euractiv 원자력": 58,
+      "국내 원자력 보도": 9
     },
     "kept": {
-      "WNN": 1,
+      "WNN": 3,
       "ANS Nuclear Newswire": 2,
       "NucNet": 1,
-      "Reuters 원자력": 46,
+      "Reuters 원자력": 33,
       "La Tribune 원자력": 1,
-      "Le Monde 에너지": 2,
-      "FT 원자력": 4,
-      "Les Échos 원자력": 2,
+      "Le Monde 에너지": 4,
+      "FT 원자력": 2,
+      "Les Échos 원자력": 1,
       "E&E News 원자력": 1,
-      "국내 원자력 보도": 6
+      "국내 원자력 보도": 5
     },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   }
 }
