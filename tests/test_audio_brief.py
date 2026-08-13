@@ -135,8 +135,9 @@ class AudioBriefTestCase(unittest.TestCase):
         material = audio_brief.build_material(briefing, by_id)
         deep_part = material.split("[그 외 이슈")[0]
         rest_part = material.split("[그 외 이슈")[1]
-        self.assertIn("왜 중요한가", deep_part)
-        self.assertIn("해석", deep_part)
+        self.assertIn("최근 변화", deep_part)
+        self.assertNotIn("왜 중요한가", deep_part)
+        self.assertNotIn("해석", deep_part)
         self.assertNotIn("왜 중요한가", rest_part)
         self.assertIn("중국 원자로 승인", rest_part)
 

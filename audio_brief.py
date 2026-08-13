@@ -168,12 +168,10 @@ def _issue_block(issue: dict, deep: bool) -> str:
     parts = [f"제목: {issue.get('title', '')}",
              f"지역: {issue.get('region', '')}",
              f"요약: {issue.get('summary', '')}"]
-    if deep:
-        for key, label in (("latest_change", "최근 변화"), ("implication", "해석"),
-                           ("why_important", "왜 중요한가")):
-            value = issue.get(key)
-            if value:
-                parts.append(f"{label}: {value}")
+    if deep and issue.get("latest_change"):
+        # 기존 implication/why_important에는 기사와 무관한 일반론이 섞인 이력이 있다.
+        # 오디오는 원문을 다시 확인할 수 없으므로 사실 필드와 최근 변화만 사용한다.
+        parts.append(f"최근 변화: {issue['latest_change']}")
     return "\n".join(parts)
 
 
