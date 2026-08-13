@@ -492,6 +492,46 @@
       "right_title": "프랑스 그라블린 원전, 해파리 떼로 2년 연속 가동 중단",
       "same_event": true
     },
+    "06d19dc122234889--0a3a69c9a73e8bbe": {
+      "embedding_similarity": 0.9014,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 기업, 다른 논의",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
+    "06d19dc122234889--4b899066712be0cd": {
+      "embedding_similarity": 0.8444,
+      "left_title": "테라파워, 선진원자로 기업 최초로 INPO 가입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 기업, 다른 논의",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
+    "06d19dc122234889--66d8933507f8bf75": {
+      "embedding_similarity": 0.8482,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 논의",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
+    "06d19dc122234889--8db4836106efc88d": {
+      "embedding_similarity": 0.88,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 기업, 다른 논의",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
     "071c0427ea8759c8--959a0bd83cc42eea": {
       "embedding_similarity": 0.8478,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -742,6 +782,16 @@
       "right_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
       "same_event": false
     },
+    "0799408181a9cab4--a519ec27d94058f0": {
+      "embedding_similarity": 0.8602,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 점검 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
     "0799408181a9cab4--afefc17d290a9361": {
       "embedding_similarity": 0.8683,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -801,6 +851,16 @@
       "reviewed_at": "2026-08-10T00:56:50.761610+00:00",
       "right_title": "정부, 10일 메가프로젝트 2차 점검회의 개최…새만금 반도체 후속 팹 논의 주목",
       "same_event": true
+    },
+    "0799408181a9cab4--d5c5fdd2b381af3a": {
+      "embedding_similarity": 0.8415,
+      "left_title": "대통령, 3대 메가프로젝트 점검 및 전담조직 구성 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 점검 vs 구광모·젠슨황 회담",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
+      "same_event": false
     },
     "0799408181a9cab4--de3ca1d3cf1e0640": {
       "embedding_similarity": 0.8467,
@@ -1672,6 +1732,16 @@
       "right_title": "국회 기후환노위, 3대 메가프로젝트 전력·용수 공급 실효성 질의",
       "same_event": false
     },
+    "0c50ac594b64671c--a519ec27d94058f0": {
+      "embedding_similarity": 0.8467,
+      "left_title": "국회 기후환노위, 3대 메가프로젝트 전력·용수 공급 실효성 질의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 전력 공급 질의 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
     "0c50ac594b64671c--b0e178ca6114b1a9": {
       "embedding_similarity": 0.8544,
       "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
@@ -1720,6 +1790,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-11T05:55:06.333908+00:00",
       "right_title": "알리바바 클라우드, 완전 모듈식 설계로 AI 데이터센터 100일 만에 구축",
+      "same_event": false
+    },
+    "0c9c758818ef14de--a744b7b49a15fef1": {
+      "embedding_similarity": 0.8442,
+      "left_title": "중국, '제로 탄소 단지'로 EU 규제 돌파…AI 데이터센터 유치",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 제로 탄소 단지 vs 중국 기술 기업 동향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "中 기술 기업, AI 하드웨어·로봇으로 글로벌 시장 공략 강화",
       "same_event": false
     },
     "0c9c758818ef14de--a999dbc1af9d7bc8": {
@@ -2381,6 +2461,46 @@
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
       "same_event": false
+    },
+    "139ef867c400ece2--ca20b30862dbeec1": {
+      "embedding_similarity": 0.8537,
+      "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139ef867c400ece2--e6cef644d033b341": {
+      "embedding_similarity": 0.9086,
+      "left_title": "루마니아, 원전 가동 중단 위기 속 다뉴브강 물 전환 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139ef867c400ece2--e86ceaef07092ccd": {
+      "embedding_similarity": 0.894,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139ef867c400ece2--f1b7e28af992975c": {
+      "embedding_similarity": 0.8839,
+      "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 국가, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
     },
     "139f335ef5f249b0--46906f005868a7ff": {
       "embedding_similarity": 0.8458,
@@ -7712,6 +7832,16 @@
       "right_title": "美, 중국산 로봇·데이터 부품 '전면 수입 금지'...한국 영향은?",
       "same_event": false
     },
+    "3faaf3dac53cbed1--a744b7b49a15fef1": {
+      "embedding_similarity": 0.8834,
+      "left_title": "미 FCC, 중국산 로봇·전력 인버터 수입 제한은 미국 생산 확대 및 국가안보 조치",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 수입 제한 vs 중국 기술 기업 동향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "中 기술 기업, AI 하드웨어·로봇으로 글로벌 시장 공략 강화",
+      "same_event": false
+    },
     "3febd93bbeb03c64--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8707,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -10122,6 +10252,16 @@
       "right_title": "HD현대, 계열사 총동원해 AI 데이터센터 시장 공략 가속화",
       "same_event": false
     },
+    "55842b037eb69172--aaecf6ed2ef223a7": {
+      "embedding_similarity": 0.8439,
+      "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사업",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "GS글로벌, 미국 휴스턴 지사 설립으로 북미 에너지 시장 공략",
+      "same_event": false
+    },
     "55842b037eb69172--ad3c543f9dcce811": {
       "embedding_similarity": 0.8427,
       "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
@@ -10992,6 +11132,16 @@
       "right_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
       "same_event": false
     },
+    "58158c94ab72ede0--a519ec27d94058f0": {
+      "embedding_similarity": 0.8444,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터 협약 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
     "58158c94ab72ede0--a56f18cb72571789": {
       "embedding_similarity": 0.8555,
       "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
@@ -11570,6 +11720,16 @@
       "reason": "전력수요 전망 vs 석탄발전 중단",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "same_event": false
+    },
+    "5976e83faefed3d5--a519ec27d94058f0": {
+      "embedding_similarity": 0.8931,
+      "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제, 다른 계획",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": false
     },
     "5976e83faefed3d5--aa165fa0824b87d8": {
@@ -12220,6 +12380,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T00:56:00.347603+00:00",
       "right_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "same_event": false
+    },
+    "6260c0799db78ac9--a519ec27d94058f0": {
+      "embedding_similarity": 0.9145,
+      "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제, 다른 계획",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": false
     },
     "6260c0799db78ac9--af3d17a676b82b29": {
@@ -13482,6 +13652,16 @@
       "right_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
       "same_event": false
     },
+    "726ce5e20cdd473d--a519ec27d94058f0": {
+      "embedding_similarity": 0.8429,
+      "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 차등제 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
     "726ce5e20cdd473d--b8be889cd009faae": {
       "embedding_similarity": 0.884,
       "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
@@ -13760,6 +13940,16 @@
       "reason": "같은 주제, 같은 논의",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "김주영 의원, AI 시대 전력 수요 폭증 대비 발전공기업 통합 검토 언급",
+      "same_event": true
+    },
+    "737df86cf04543b5--a519ec27d94058f0": {
+      "embedding_similarity": 0.854,
+      "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개 관련",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": true
     },
     "737df86cf04543b5--cdd5f9ed8f148233": {
@@ -14080,6 +14270,16 @@
       "reason": "전기본 수립 방향 vs 석탄발전 중단",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "same_event": true
+    },
+    "76ffb07f2b6ccb8d--a519ec27d94058f0": {
+      "embedding_similarity": 0.8745,
+      "left_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개 관련",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": true
     },
     "7702cb1efa54b619--ab4182f3fbeab74b": {
@@ -14922,6 +15122,16 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 3기 가동 중단",
       "same_event": false
     },
+    "8223afcb92f21518--b11d8b14d244b9cc": {
+      "embedding_similarity": 0.8727,
+      "left_title": "유럽 원전 냉각수 리스크 부각, 한수원 두코바니 냉각탑 방식 주목",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 쟁점",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
+    },
     "8223afcb92f21518--ca20b30862dbeec1": {
       "embedding_similarity": 0.8747,
       "left_title": "유럽 원전 냉각수 리스크 부각, 한수원 두코바니 냉각탑 방식 주목",
@@ -15672,6 +15882,16 @@
       "right_title": "프랑스 그라블린 원전 3기, 해파리 유입으로 가동 중단",
       "same_event": true
     },
+    "8ee1f406adeda252--b11d8b14d244b9cc": {
+      "embedding_similarity": 0.852,
+      "left_title": "프랑스 원전 13기, 가뭄과 해파리로 발전 용량 감소",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 원전",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
+    },
     "8ee1f406adeda252--b1fb7fdb7c5bdceb": {
       "embedding_similarity": 0.8528,
       "left_title": "프랑스 EDF 원전, 폭염으로 일요일 가동 불능 전력량 기록 경신",
@@ -16160,6 +16380,16 @@
       "reason": "전기본 vs AI 데이터센터",
       "reviewed_at": "2026-08-13T14:06:40.982165+00:00",
       "right_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "same_event": false
+    },
+    "959a0bd83cc42eea--a519ec27d94058f0": {
+      "embedding_similarity": 0.8475,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 메가프로젝트 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": false
     },
     "959a0bd83cc42eea--a56f18cb72571789": {
@@ -17302,6 +17532,16 @@
       "right_title": "엔비디아, 스타게이트 개발사에 최대 30억 달러 투자",
       "same_event": false
     },
+    "a3e13685ce3cf3f9--a519ec27d94058f0": {
+      "embedding_similarity": 0.8812,
+      "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개 관련",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": true
+    },
     "a3e13685ce3cf3f9--aa165fa0824b87d8": {
       "embedding_similarity": 0.8446,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -17401,6 +17641,46 @@
       "reviewed_at": "2026-08-12T21:38:08.186029+00:00",
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
       "same_event": false
+    },
+    "a519ec27d94058f0--aa165fa0824b87d8": {
+      "embedding_similarity": 0.8631,
+      "left_title": "11차 전기본 신규 양수발전 1.25GW 입찰, 발전사 수주 경쟁 심화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "11차 전기본 양수발전 입찰 vs 12차 전기본 수립",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
+    "a519ec27d94058f0--bd1c124b246d63a9": {
+      "embedding_similarity": 0.848,
+      "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제, 다른 계획",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
+    "a519ec27d94058f0--d4658d844ee27556": {
+      "embedding_similarity": 0.8544,
+      "left_title": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제, 다른 계획",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
+    "a519ec27d94058f0--e35ba84675a81735": {
+      "embedding_similarity": 0.8629,
+      "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개 관련",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": true
     },
     "a56f18cb72571789--afefc17d290a9361": {
       "embedding_similarity": 0.8485,
@@ -18380,6 +18660,46 @@
       "reason": "같은 반도체 클러스터 전력 공급 논의",
       "reviewed_at": "2026-08-11T17:53:45.850312+00:00",
       "right_title": "기후장관, 용인·호남 반도체 팹 전력·용수 공급 만전 약속",
+      "same_event": true
+    },
+    "b11d8b14d244b9cc--b1fb7fdb7c5bdceb": {
+      "embedding_similarity": 0.8567,
+      "left_title": "프랑스 EDF 원전, 폭염으로 일요일 가동 불능 전력량 기록 경신",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 원전",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
+    },
+    "b11d8b14d244b9cc--ca20b30862dbeec1": {
+      "embedding_similarity": 0.9039,
+      "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 현상, 다른 원전",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": true
+    },
+    "b11d8b14d244b9cc--e86ceaef07092ccd": {
+      "embedding_similarity": 0.8596,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": true
+    },
+    "b11d8b14d244b9cc--f1b7e28af992975c": {
+      "embedding_similarity": 0.8645,
+      "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 국가, 같은 가뭄 영향",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
       "same_event": true
     },
     "b14413bcaff5b29c--c1c8d0603e949e14": {
@@ -19542,6 +19862,16 @@
       "right_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
       "same_event": true
     },
+    "d5c5fdd2b381af3a--f73a97b0f28780fb": {
+      "embedding_similarity": 0.8419,
+      "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "엔비디아 투자 vs 구광모·젠슨황 회담",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
+      "same_event": false
+    },
     "da9a4893cdd4761d--e2e42584280401fc": {
       "embedding_similarity": 0.8409,
       "left_title": "원전 안전기준 최신화 추진: 안전등급·가동중검사·품질보증 규정 개정",
@@ -19751,6 +20081,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 일시 가동 중단 예정",
       "same_event": true
+    },
+    "f1f61ee08a41c3fe--f73a97b0f28780fb": {
+      "embedding_similarity": 0.8478,
+      "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 기업, 다른 투자",
+      "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "앤트로픽, AI 스타트업 데카르트 8.5조원 인수 협상",
+      "same_event": false
     },
     "f28040e0c2b52c4c--f73a97b0f28780fb": {
       "embedding_similarity": 0.8525,
