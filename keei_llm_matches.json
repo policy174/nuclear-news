@@ -78,6 +78,13 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-09d2791626624247--92b30862a0": {
+      "issue_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "keei_item": "일본 정부, 선진 원자로와 핵융합 에너지를 중점 산업 분야로 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가의 정책",
+      "same_event": false
+    },
     "issue-0a3a69c9a73e8bbe--249f1333d0": {
       "issue_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -1023,6 +1030,13 @@
       "reason": "주체와 안건이 다름",
       "same_event": false
     },
+    "issue-6a25f94bf83612cd--8fce4c09fa": {
+      "issue_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 산업",
+      "same_event": false
+    },
     "issue-6b93ed7e22e9bb4b--0330b81e50": {
       "issue_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
@@ -1276,10 +1290,10 @@
       "same_event": false
     },
     "issue-95e2af27fb009d26--8fce4c09fa": {
-      "issue_title": "HD현대중공업, 9560억 원 규모 발전용 엔진 수출 계약 체결",
+      "issue_title": "HD현대중공업, 미국 데이터센터용 9560억 원 규모 발전설비 수주",
       "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
       "prompt_version": 1,
-      "reason": "주체, 안건, 대상 모두 다름",
+      "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
     "issue-95e2af27fb009d26--ee30e34bc3": {
@@ -1471,12 +1485,26 @@
       "reason": "다른 기술, 다른 안건",
       "same_event": false
     },
+    "issue-b7041a996c04f630--249f1333d0": {
+      "issue_title": "산업부·원안위, 원전 수출 위한 규제체계 협력 업무협약 체결",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "same_event": false
+    },
     "issue-b7041a996c04f630--dc799316ad": {
       "issue_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
       "reason": "같은 주체, 같은 법령 개정",
       "same_event": true
+    },
+    "issue-b7041a996c04f630--ee30e34bc3": {
+      "issue_title": "산업부·원안위, 원전 수출 위한 규제체계 협력 업무협약 체결",
+      "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 안건",
+      "same_event": false
     },
     "issue-b74b72c478a0f54a--5ea831d148": {
       "issue_title": "네바다주 상원의원들, 유카산 폐기 법안 재발의",
@@ -1555,6 +1583,13 @@
       "reason": "국가가 다름",
       "same_event": false
     },
+    "issue-bdf0fa9bc581aaa0--835e580735": {
+      "issue_title": "새울 3호기 시운전 중 자동정지, 원안위 긴급점검 착수",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사건",
+      "same_event": false
+    },
     "issue-bdf0fa9bc581aaa0--d4863d270a": {
       "issue_title": "원안위, 새울 3호기 시운전 중 자동정지 사건조사 착수",
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
@@ -1623,6 +1658,13 @@
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-c9f1242ff12ab32a--8fce4c09fa": {
+      "issue_title": "LS일렉트릭, 북미 데이터센터 배전 시장서 1.2조 원 수주",
+      "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--249f1333d0": {
@@ -1968,11 +2010,25 @@
       "reason": "인도의 우라늄 확보 노력",
       "same_event": true
     },
+    "issue-f33f228a288946ee--0330b81e50": {
+      "issue_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
+      "prompt_version": 1,
+      "reason": "다른 안건 (특정 기술 vs 일반 규제)",
+      "same_event": false
+    },
     "issue-f33f228a288946ee--835e580735": {
       "issue_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
       "prompt_version": 1,
       "reason": "A는 논의, B는 특정 원자로 성과",
+      "same_event": false
+    },
+    "issue-f33f228a288946ee--dcf5909f44": {
+      "issue_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
+      "prompt_version": 1,
+      "reason": "다른 안건 (미래 기술 vs 기존 설계)",
       "same_event": false
     },
     "issue-f33f228a288946ee--f797174d9b": {
