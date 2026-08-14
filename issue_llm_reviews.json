@@ -72,6 +72,16 @@
       "right_title": "美 1.4조 달러 전력망 투자, 韓 전력기자재 수출 확대 기회",
       "same_event": false
     },
+    "01083ffbfa10992b--e93c5467c89ec2ba": {
+      "embedding_similarity": 0.8574,
+      "left_title": "미국, 원전 기자재 조달에 24조원 대출…韓 기업 기회",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원자로, 다른 기업",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
+      "same_event": false
+    },
     "01083ffbfa10992b--ffdb243b18554e80": {
       "embedding_similarity": 0.8472,
       "left_title": "미국, 원전 기자재 조달에 24조원 대출…韓 기업 기회",
@@ -230,6 +240,16 @@
       "reason": "빌 게이츠와 한국 정부의 SMR 협력 논의",
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
       "right_title": "빌 게이츠 테라파워 이사장, 국무총리 면담 위해 정부서울청사 방문",
+      "same_event": true
+    },
+    "0362503194a61a9f--66d8933507f8bf75": {
+      "embedding_similarity": 0.8566,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 협력",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "빌 게이츠, SMR 협력 확대 위해 방한…총리·재계 총수 회동",
       "same_event": true
     },
     "0362503194a61a9f--895b471e7f2e1d4c": {
@@ -471,6 +491,16 @@
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
       "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
       "same_event": true
+    },
+    "067dba612698c5cc--5e9d01995935b47b": {
+      "embedding_similarity": 0.8596,
+      "left_title": "해파리 유입으로 프랑스 그라벨린 원전 3기 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "해파리 vs 폭염 원인",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
+      "same_event": false
     },
     "067dba612698c5cc--6ef303a35a31a035": {
       "embedding_similarity": 0.9044,
@@ -999,6 +1029,16 @@
       "prompt_version": 1,
       "reason": "SMR 7대 성장동력 육성 강조",
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
+      "right_title": "이재명 대통령, '7대 첨단기술' 육성 의지 표명…SMR 등 선도 강조",
+      "same_event": true
+    },
+    "07cb3da2466f726b--f9836d3cb1423104": {
+      "embedding_similarity": 0.8597,
+      "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR, 7대 시드 육성",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
       "right_title": "이재명 대통령, '7대 첨단기술' 육성 의지 표명…SMR 등 선도 강조",
       "same_event": true
     },
@@ -2412,6 +2452,16 @@
       "right_title": "프랑스 전력 가격, 폭염으로 공급 경색되며 20% 이상 급등",
       "same_event": true
     },
+    "1040c640a9bcc93d--883ea940d9859d4e": {
+      "embedding_similarity": 0.855,
+      "left_title": "프랑스 원전 가동 중단: 장기 폭염, 고수온, 유량 감소가 원전 운영 위협",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 원전 폭염 영향",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "프랑스 전력 가격, 폭염으로 공급 경색되며 20% 이상 급등",
+      "same_event": true
+    },
     "1040c640a9bcc93d--8ee1f406adeda252": {
       "embedding_similarity": 0.8631,
       "left_title": "프랑스 원전 13기, 가뭄과 해파리로 발전 용량 감소",
@@ -2682,6 +2732,16 @@
       "right_title": "루마니아, 다뉴브강 물 전환으로 원자로 9일간 가동 가능",
       "same_event": true
     },
+    "139ef867c400ece2--44c8137dead103cc": {
+      "embedding_similarity": 0.8588,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 가동 중단 vs 영국 폭염",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "루마니아 원전 가동 중단, 영국은 폭염 신기록",
+      "same_event": false
+    },
     "139ef867c400ece2--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8733,
       "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
@@ -2720,6 +2780,16 @@
       "reason": "유럽 원전 전반의 동향",
       "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
       "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
+    },
+    "139ef867c400ece2--7702cb1efa54b619": {
+      "embedding_similarity": 0.8592,
+      "left_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "아르헨티나 협력 vs 루마니아 가동 중단",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
       "same_event": false
     },
     "139ef867c400ece2--8153189c9e875d05": {
@@ -2781,6 +2851,26 @@
       "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 3기 가동 중단",
       "same_event": true
+    },
+    "139ef867c400ece2--af7d7394f069571a": {
+      "embedding_similarity": 0.8609,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 가동 중단",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "루마니아 누클레아레렉트리카, 가동 중인 유일한 원자로 가동 중단 시작",
+      "same_event": true
+    },
+    "139ef867c400ece2--b11d8b14d244b9cc": {
+      "embedding_similarity": 0.8587,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 이슈",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
     },
     "139ef867c400ece2--c693db7134e6be68": {
       "embedding_similarity": 0.8859,
@@ -3352,6 +3442,16 @@
       "right_title": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
       "same_event": true
     },
+    "1a48967b5795e76b--ab17d3bffd6e0497": {
+      "embedding_similarity": 0.869,
+      "left_title": "PJM에서 3GW 부하 이탈 재발: NERC의 2024년 조사 결과 시사점",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 PJM 전력망 부하 이탈",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
+      "same_event": true
+    },
     "1b1c56d199bbbfbb--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8488,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -3541,6 +3641,16 @@
       "reviewed_at": "2026-08-10T11:04:28.965525+00:00",
       "right_title": "HD현대중공업, 미국 데이터센터 발전설비 공급계약 체결",
       "same_event": true
+    },
+    "1d1fb5547d3684cf--c9f1242ff12ab32a": {
+      "embedding_similarity": 0.8599,
+      "left_title": "LS일렉트릭, 북미 데이터센터 배전 시장서 1.2조 원 수주",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "북미 데이터센터 수주 vs 발전설비 공급",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "HD현대중공업, 미국 데이터센터 발전설비 공급계약 체결",
+      "same_event": false
     },
     "1d936273a2b224d7--33b53bc5a243a876": {
       "embedding_similarity": 0.8904,
@@ -3841,6 +3951,16 @@
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "호남 AI 클러스터, 2030년 6월 양산 목표로 속도전",
       "same_event": false
+    },
+    "1e53d0f81cb14594--aab3ce653eda03aa": {
+      "embedding_similarity": 0.8726,
+      "left_title": "대통령, 호남 반도체 클러스터 전력 공급 및 송전망 구축 직접 지시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 반도체 클러스터 전력 공급",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "호남 반도체 프로젝트 전력 확보, 한빛원전·재생에너지 활용 추진",
+      "same_event": true
     },
     "1e53d0f81cb14594--ae09b6f7c584fcd6": {
       "embedding_similarity": 0.8546,
@@ -5392,6 +5512,16 @@
       "right_title": "이재명 대통령, SMR 등 미래 핵심 산업에 메가프로젝트급 투자 강조",
       "same_event": true
     },
+    "2ac46bf39add7ba8--c635ceb310705bc0": {
+      "embedding_similarity": 0.8555,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "이재명 대통령, SMR 등 미래 핵심 산업에 메가프로젝트급 투자 강조",
+      "same_event": true
+    },
     "2ac46bf39add7ba8--cad7ad5a754410fe": {
       "embedding_similarity": 0.8407,
       "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
@@ -6882,6 +7012,16 @@
       "right_title": "양자포럼·양자협회, 정부의 '7대 씨앗 R&D' 선정에 환영 표명",
       "same_event": false
     },
+    "3819e3139f247c61--c635ceb310705bc0": {
+      "embedding_similarity": 0.8609,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR, 7대 SEED 프로젝트 선정",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "양자포럼·양자협회, 정부의 '7대 씨앗 R&D' 선정에 환영 표명",
+      "same_event": true
+    },
     "381afffc4b89e8e0--4113d294aea75ee0": {
       "embedding_similarity": 0.8566,
       "left_title": "호남 반도체 클러스터 연계 정부의 원전 추진 검토, 부지 확보 난항 예상",
@@ -7692,6 +7832,16 @@
       "right_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
       "same_event": false
     },
+    "3c3560063b344488--a4fec121e2c54527": {
+      "embedding_similarity": 0.8557,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "same_event": true
+    },
     "3c3560063b344488--a8be7b36d039f96d": {
       "embedding_similarity": 0.861,
       "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
@@ -7841,6 +7991,16 @@
       "reviewed_at": "2026-08-11T03:11:22.301682+00:00",
       "right_title": "소형모듈원전 실증지역 지정 두고 여수서 경쟁력 확보 vs 안전 위협 공방",
       "same_event": true
+    },
+    "3c3560063b344488--f9836d3cb1423104": {
+      "embedding_similarity": 0.8612,
+      "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 상용화 vs 7대 시드 육성",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "same_event": false
     },
     "3c3560063b344488--fd2a58a50ffbb997": {
       "embedding_similarity": 0.8602,
@@ -9282,6 +9442,16 @@
       "right_title": "우리기술, 400억 원 규모 전환사채 발행 결정",
       "same_event": false
     },
+    "47af7e51f42662d9--5e9d01995935b47b": {
+      "embedding_similarity": 0.8576,
+      "left_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 원전 폭염 영향",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "프랑스 전력 가격 11일 21.8% 상승, 폭염으로 원전 출력 감발",
+      "same_event": true
+    },
     "47af7e51f42662d9--8ee1f406adeda252": {
       "embedding_similarity": 0.8506,
       "left_title": "프랑스 원전 13기, 가뭄과 해파리로 발전 용량 감소",
@@ -9600,6 +9770,16 @@
       "reason": "같은 원전, 같은 사건",
       "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
+      "same_event": true
+    },
+    "4bdf3b00742e6173--d1e966b5772613fd": {
+      "embedding_similarity": 0.8561,
+      "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "이재명 SMR 관련 발언",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "이재명 대통령, 첨단기술 현장 시찰 중 SMR 추진 선박 등 관심 표명",
       "same_event": true
     },
     "4cab8ab317f8d4e9--616c6b13d9f03cfa": {
@@ -9931,6 +10111,16 @@
       "reviewed_at": "2026-08-12T18:54:56.457716+00:00",
       "right_title": "중국 톈완 원전 7호기, 핵연료 장전 개시",
       "same_event": true
+    },
+    "512eab0d49085003--cad7ad5a754410fe": {
+      "embedding_similarity": 0.8983,
+      "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "K-문샷 프로그램 내 다른 미션",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "'K-문샷' AI 과학자 사업 난항, 적임자 재모색",
+      "same_event": false
     },
     "5182ffd451bcbc4d--58158c94ab72ede0": {
       "embedding_similarity": 0.8747,
@@ -13412,6 +13602,16 @@
       "right_title": "'원전 르네상스'에… 산업부-원안위, 규제 역량 묶어 수출 시장으로",
       "same_event": false
     },
+    "65bc735c35edf37c--b9d999be56fd594d": {
+      "embedding_similarity": 0.86,
+      "left_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "필리핀 MOU vs 베트남 사업",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "일본 철수 베트남 닌투언2 원전 사업, 한국 수주 가능성 증대",
+      "same_event": false
+    },
     "65bc735c35edf37c--c60046634052feca": {
       "embedding_similarity": 0.8519,
       "left_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
@@ -13492,6 +13692,26 @@
       "right_title": "빌 게이츠, 한국 방문해 조정식 국회의장 및 국내 기업과 SMR 협력 논의",
       "same_event": true
     },
+    "66d8933507f8bf75--af8b604160b1cc63": {
+      "embedding_similarity": 0.8619,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠와 SMR 협력 논의",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "빌 게이츠, 차세대 원전 협력 논의 위해 방한",
+      "same_event": true
+    },
+    "66d8933507f8bf75--b5b6dd18f36e542a": {
+      "embedding_similarity": 0.9041,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠와 SMR 협력 논의",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "한성숙 국무총리, 빌 게이츠 테라파워 의장과 면담",
+      "same_event": true
+    },
     "66d8933507f8bf75--c37069e03f838d95": {
       "embedding_similarity": 0.8486,
       "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
@@ -13550,6 +13770,16 @@
       "reason": "빌 게이츠와 SMR 협력 논의",
       "reviewed_at": "2026-08-11T22:13:33.599506+00:00",
       "right_title": "빌 게이츠 방한, 국내 재계와 SMR 협력 논의 전망",
+      "same_event": true
+    },
+    "66d8933507f8bf75--faff8cab0a1a484f": {
+      "embedding_similarity": 0.8552,
+      "left_title": "한덕수 국무총리, 빌 게이츠와 14일 SMR 협력 방안 논의 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 협력",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "빌 게이츠 방한, 한국 원전설비 발주 및 수출 협력 논의",
       "same_event": true
     },
     "67b29b69bb768171--95249efbdf673402": {
@@ -14872,6 +15102,16 @@
       "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
       "same_event": true
     },
+    "75feca40d7b229b8--883ea940d9859d4e": {
+      "embedding_similarity": 0.8586,
+      "left_title": "프랑스 원전 가동 중단: 장기 폭염, 고수온, 유량 감소가 원전 운영 위협",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 원전 폭염 영향",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": true
+    },
     "75feca40d7b229b8--ca20b30862dbeec1": {
       "embedding_similarity": 0.9102,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -15041,6 +15281,16 @@
       "reviewed_at": "2026-08-13T14:06:40.982165+00:00",
       "right_title": "네이버, 2028년까지 200MW 규모 AI 데이터센터 구축 계획",
       "same_event": true
+    },
+    "78926903156f16fa--7d3e0c165f9ddd4d": {
+      "embedding_similarity": 0.8555,
+      "left_title": "HD현대중공업, 미국 데이터센터용 9560억 원 규모 발전설비 수주",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 산업, 다른 기업",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
+      "same_event": false
     },
     "78926903156f16fa--a428b18448e5e696": {
       "embedding_similarity": 0.8693,
@@ -15812,6 +16062,16 @@
       "right_title": "소형모듈원전 실증지역 지정 두고 여수서 경쟁력 확보 vs 안전 위협 공방",
       "same_event": false
     },
+    "8087dd0c3497cc5f--f9836d3cb1423104": {
+      "embedding_similarity": 0.8561,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, 다른 주체",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "same_event": false
+    },
     "8087dd0c3497cc5f--fd17939220b56c39": {
       "embedding_similarity": 0.8427,
       "left_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
@@ -15851,6 +16111,16 @@
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "헝가리, 극심한 가뭄으로 전력난 직면",
       "same_event": false
+    },
+    "8223afcb92f21518--975146cde1cfceb8": {
+      "embedding_similarity": 0.8595,
+      "left_title": "유럽 원전 냉각수 리스크 부각, 한수원 두코바니 냉각탑 방식 주목",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 냉각수 리스크",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+      "same_event": true
     },
     "8223afcb92f21518--adefe5b24b489935": {
       "embedding_similarity": 0.8467,
@@ -16152,6 +16422,16 @@
       "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 수주",
       "same_event": false
     },
+    "895b471e7f2e1d4c--a5a1ef68231b4e51": {
+      "embedding_similarity": 0.8664,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 방한 및 SMR 공급망",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "same_event": true
+    },
     "895b471e7f2e1d4c--a6ef16375b196870": {
       "embedding_similarity": 0.8742,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -16181,6 +16461,16 @@
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
       "right_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
       "same_event": false
+    },
+    "895b471e7f2e1d4c--af8b604160b1cc63": {
+      "embedding_similarity": 0.8642,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 방한 및 SMR 협력",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "빌 게이츠, 차세대 원전 협력 논의 위해 방한",
+      "same_event": true
     },
     "895b471e7f2e1d4c--af90ffd9ff1d6dc1": {
       "embedding_similarity": 0.8412,
@@ -16591,6 +16881,16 @@
       "reviewed_at": "2026-08-13T07:27:10.871900+00:00",
       "right_title": "이한우 현대건설 대표, 美 테라파워 경영진과 만나 SMR 협력 논의",
       "same_event": false
+    },
+    "8db4836106efc88d--a5a1ef68231b4e51": {
+      "embedding_similarity": 0.857,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 공급망",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "same_event": true
     },
     "8db4836106efc88d--aafd59741b95cafa": {
       "embedding_similarity": 0.8438,
@@ -17742,6 +18042,16 @@
       "right_title": "정부, 반도체 클러스터 전력 적기 공급 위해 송전선 확충 계획 발표",
       "same_event": false
     },
+    "975146cde1cfceb8--ab4182f3fbeab74b": {
+      "embedding_similarity": 0.8563,
+      "left_title": "루마니아 체르나보다 원전, 다뉴브강 수량 감소로 가동 중단 위기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 이슈",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+      "same_event": false
+    },
     "975146cde1cfceb8--ca20b30862dbeec1": {
       "embedding_similarity": 0.9133,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -17810,6 +18120,16 @@
       "reason": "미국 오클로 시험용 원자로 승인",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "미국 시험용 원자로, 주요 기술 이정표 달성",
+      "same_event": true
+    },
+    "99fb7b94934451e5--a4fec121e2c54527": {
+      "embedding_similarity": 0.8591,
+      "left_title": "정부, 소형모듈원전(SMR) 기술 국가전략기술로 지정 및 지원 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 기술 국가전략기술 지정",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
       "same_event": true
     },
     "99fb7b94934451e5--a8be7b36d039f96d": {
@@ -19172,6 +19492,16 @@
       "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": true
     },
+    "adfbe2085bf6c11e--f9836d3cb1423104": {
+      "embedding_similarity": 0.8559,
+      "left_title": "SMR 상용화 일정 가속화, 9월 특별법 시행에 기대감 고조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "same_event": true
+    },
     "adfbe2085bf6c11e--ffdb243b18554e80": {
       "embedding_similarity": 0.8517,
       "left_title": "SMR 상용화 일정 가속화, 9월 특별법 시행에 기대감 고조",
@@ -19411,6 +19741,16 @@
       "reviewed_at": "2026-08-08T21:55:37.895086+00:00",
       "right_title": "반도체 클러스터 전력 공급 위해 인근 발전 설비 확충 필요성 제기",
       "same_event": false
+    },
+    "afefc17d290a9361--d1e966b5772613fd": {
+      "embedding_similarity": 0.8561,
+      "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
+      "same_event": true
     },
     "afefc17d290a9361--d38a1931a073ff67": {
       "embedding_similarity": 0.8501,
@@ -19772,6 +20112,16 @@
       "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": false
     },
+    "b3fe6868b8391d2d--e166e0749a04c6dd": {
+      "embedding_similarity": 0.8586,
+      "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원자로, 다른 기업",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 345MW급 나트륨 원자로 기자재 제작",
+      "same_event": false
+    },
     "b405ebdfda998eeb--bd1c124b246d63a9": {
       "embedding_similarity": 0.9,
       "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
@@ -20052,6 +20402,16 @@
       "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
       "same_event": false
     },
+    "bca8b527433b7384--c635ceb310705bc0": {
+      "embedding_similarity": 0.8598,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR, 7대 SEED 프로젝트 선정",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
+      "same_event": true
+    },
     "bca8b527433b7384--f9836d3cb1423104": {
       "embedding_similarity": 0.8877,
       "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
@@ -20091,6 +20451,16 @@
       "reviewed_at": "2026-08-12T18:54:56.457716+00:00",
       "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": false
+    },
+    "bccf5f15f321ec1b--f9836d3cb1423104": {
+      "embedding_similarity": 0.8561,
+      "left_title": "SMR 입지·거래 규제, 향후 2년간의 중요성 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "same_event": true
     },
     "bccf5f15f321ec1b--fd2a58a50ffbb997": {
       "embedding_similarity": 0.8495,
@@ -20592,6 +20962,16 @@
       "right_title": "빌 게이츠 방한, 한국 원전설비 발주 및 수출 협력 논의",
       "same_event": false
     },
+    "c635ceb310705bc0--cf220a841659c83f": {
+      "embedding_similarity": 0.8604,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR, 7대 SEED 프로젝트 선정",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
+    },
     "c635ceb310705bc0--d621a4293eb89200": {
       "embedding_similarity": 0.9095,
       "left_title": "2026년 세제개편안, SMR·MMR 기술 국가전략기술 포함",
@@ -20620,6 +21000,16 @@
       "reason": "정부 SMR '7대 SEED' 육성",
       "reviewed_at": "2026-08-14T05:33:31.107110+00:00",
       "right_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "same_event": true
+    },
+    "c73973400bc0f6da--f9836d3cb1423104": {
+      "embedding_similarity": 0.8564,
+      "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "정부, SMR·원전 수출에 힘 실었으나 연구·설비·기후 대응은 숙제",
       "same_event": true
     },
     "c76e8785efc2694e--cb38eed27ac4ccd4": {
@@ -20960,6 +21350,16 @@
       "reason": "미국-사우디 원자력 협력",
       "reviewed_at": "2026-08-09T10:25:33.192811+00:00",
       "right_title": "[칼럼] 미국-사우디 원자력 협상 비판은 잘못된 시각",
+      "same_event": true
+    },
+    "d1e966b5772613fd--d2d0e8abcc97280e": {
+      "embedding_similarity": 0.8585,
+      "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 정책",
+      "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
+      "right_title": "(OFFICIAL) 한국 정부, 2035년 국산 SMR 상용화 등 7대 미래성장동력 공개",
       "same_event": true
     },
     "d1e966b5772613fd--f9836d3cb1423104": {
