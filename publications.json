@@ -1,6 +1,36 @@
 {
  "items": [
   {
+   "id": "a3bd80e00c17",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.08.14.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=127999&mid=a10102050000",
+   "date": "2026-08-14",
+   "fetched_at": "2026-08-15",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=127999&seq=1",
+   "toc": {
+    "issue_title": "주요국 핵융합에너지 개발 현황 비교(EU Fusion for Energy 보고서)",
+    "briefs": [
+     "미국·사우디아라비아, 123 협정 체결",
+     "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+     "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
+     "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
+     "영국 EDF Energy, Heysham A·Hartlepool 원전 운전기간 2년 연장 결정",
+     "독일, Lingen 공장 VVER-1000 원전연료 생산을 위한 시설변경 승인",
+     "독일 연방연구기술우주부, 핵융합 허브 3개에 1억 2,500만 유로 지원",
+     "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
+     "불가리아 원자력규제청, Kozloduy 3·4호기 10년 해체허가 발급",
+     "중국 Taipingling 원전 2호기, 상업운전 개시",
+     "중국 국무원, 원전 8기 신규 건설 승인",
+     "일본 정부, 7차 에기본 실현을 위한 원자력 정책 로드맵 확정",
+     "일본 경제산업성, 개량형경수로·SMR 기술개발·공급망 구축 지원 대상 선정",
+     "일본 자원에너지청, 장기 탈탄소 전원 경매 가이드라인 개정안 마련"
+    ]
+   }
+  },
+  {
    "id": "b5f135e4b14f",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -570,44 +600,44 @@
  ],
  "state": {
   "nea_max_id": 121119,
-  "keei_max_list_no": 127887,
+  "keei_max_list_no": 127999,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "iea_reports": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-14T00:55:29+09:00",
+   "at": "2026-08-15T00:48:45+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }
