@@ -92,6 +92,16 @@
       "right_title": "KIOST, 해저 데이터센터로 AI 전력·물 절감 기술 개발 추진",
       "same_event": false
     },
+    "01d97e5a989b4f96--139ef867c400ece2": {
+      "embedding_similarity": 0.9127,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 냉각수 부족으로 가동 차질",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": true
+    },
     "01d97e5a989b4f96--3e00af0212edae79": {
       "embedding_similarity": 0.9194,
       "left_title": "유럽 팍시 원전, 냉각수 수위 회복으로 가동 중단 위기 모면",
@@ -2462,6 +2472,86 @@
       "right_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
       "same_event": false
     },
+    "139ef867c400ece2--20c1ede3ec303192": {
+      "embedding_similarity": 0.8752,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 수위 상승으로 터빈 재가동",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 상승으로 터빈 재가동",
+      "same_event": true
+    },
+    "139ef867c400ece2--261ebf4ce2d6bf77": {
+      "embedding_similarity": 0.8613,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단 가능성 언급",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
+      "same_event": true
+    },
+    "139ef867c400ece2--4bdd65d0c09aaf72": {
+      "embedding_similarity": 0.8733,
+      "left_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 가동 중단 발표",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139ef867c400ece2--5691b51cb24db466": {
+      "embedding_similarity": 0.9106,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 가동 중단 예정",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 원전 가동 중단 예정",
+      "same_event": true
+    },
+    "139ef867c400ece2--75feca40d7b229b8": {
+      "embedding_similarity": 0.8807,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 전반의 동향",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
+    },
+    "139ef867c400ece2--abf6d61ed6adca40": {
+      "embedding_similarity": 0.889,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 냉각수 확보 비상",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아, 다뉴브강 저수위로 체르나보다 원전 냉각수 확보 비상",
+      "same_event": true
+    },
+    "139ef867c400ece2--adefe5b24b489935": {
+      "embedding_similarity": 0.8952,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 냉각수 부족으로 가동 중단",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 3기 가동 중단",
+      "same_event": true
+    },
+    "139ef867c400ece2--c693db7134e6be68": {
+      "embedding_similarity": 0.8859,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 가동 전면 중단",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "same_event": true
+    },
     "139ef867c400ece2--ca20b30862dbeec1": {
       "embedding_similarity": 0.8537,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -2490,6 +2580,16 @@
       "reason": "같은 원전, 같은 가뭄 영향",
       "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
       "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139ef867c400ece2--eec81ca96d886aa5": {
+      "embedding_similarity": 0.9005,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "헝가리 팍스 원전 냉각수 부족으로 가동 중단",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 일시 가동 중단 예정",
       "same_event": true
     },
     "139ef867c400ece2--f1b7e28af992975c": {
@@ -6092,6 +6192,16 @@
       "right_title": "네덜란드 SMR 프로젝트, 추진력 확보",
       "same_event": true
     },
+    "34155630c94c30d0--b0a08cb6ff57b807": {
+      "embedding_similarity": 0.9074,
+      "left_title": "'원전 르네상스'에… 산업부-원안위, 규제 역량 묶어 수출 시장으로",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 수출 위한 협력 강화 MOU 체결",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "원전 수출에 '안전 및 규제체계 협력' 강화 업무협약 체결",
+      "same_event": true
+    },
     "34575730dc364184--3590184774ef2006": {
       "embedding_similarity": 0.8422,
       "left_title": "캐나다 정부, 마이크로 원자로 기술 개발에 450만 달러 지원",
@@ -8922,6 +9032,16 @@
       "right_title": "한국형 원전 해외 진출 시 규제 시스템 패키지 수출 추진",
       "same_event": false
     },
+    "49470086e3fbd68d--b0a08cb6ff57b807": {
+      "embedding_similarity": 0.9194,
+      "left_title": "'원전 르네상스'에… 산업부-원안위, 규제 역량 묶어 수출 시장으로",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 수출 위한 규제 역량 강화",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "한국형 원전 해외 진출 시 규제 시스템 패키지 수출 추진",
+      "same_event": true
+    },
     "49470086e3fbd68d--bf3c310d019ede03": {
       "embedding_similarity": 0.8657,
       "left_title": "한국수력원자력, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
@@ -10552,6 +10672,16 @@
       "right_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
       "same_event": false
     },
+    "5691b51cb24db466--e9c761ed60c251fb": {
+      "embedding_similarity": 0.9088,
+      "left_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 가동 중단 예정",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 원전 가동 중단 예정",
+      "same_event": true
+    },
     "5691b51cb24db466--f1b7e28af992975c": {
       "embedding_similarity": 0.8799,
       "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
@@ -11940,6 +12070,16 @@
       "reason": "주체는 같으나 구체적 내용 상이",
       "reviewed_at": "2026-08-13T07:27:10.871900+00:00",
       "right_title": "포항에 6천억 규모 AI 데이터센터, 2028년 가동 예정",
+      "same_event": false
+    },
+    "5e9d01995935b47b--ca20b30862dbeec1": {
+      "embedding_similarity": 0.9124,
+      "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 전반의 동향",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
       "same_event": false
     },
     "5ea017e458781684--b0e178ca6114b1a9": {
@@ -16892,6 +17032,16 @@
       "right_title": "정부, 반도체 클러스터 전력 적기 공급 위해 송전선 확충 계획 발표",
       "same_event": false
     },
+    "975146cde1cfceb8--ca20b30862dbeec1": {
+      "embedding_similarity": 0.9133,
+      "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽 원전 전반의 동향",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+      "same_event": false
+    },
     "999d14683bede884--aafd59741b95cafa": {
       "embedding_similarity": 0.8593,
       "left_title": "미 에너지부, 딥 피션 지하 SMR 안전 설계 승인",
@@ -17802,6 +17952,16 @@
       "right_title": "원자력산업협회, SMR 7대 SEED 프로젝트 선정 환영",
       "same_event": false
     },
+    "a8be7b36d039f96d--c635ceb310705bc0": {
+      "embedding_similarity": 0.9197,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 7대 SEED 프로젝트 선정 및 혜택",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "원자력산업협회, SMR 7대 SEED 프로젝트 선정 환영",
+      "same_event": true
+    },
     "a8c1cdc2ca53d72f--b63eab8bc4b1467a": {
       "embedding_similarity": 0.8671,
       "left_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
@@ -18040,6 +18200,16 @@
       "reason": "루마니아 체르나보다 원전 가동 중단",
       "reviewed_at": "2026-08-13T11:44:06.837148+00:00",
       "right_title": "루마니아 누클레아레렉트리카, 가동 중인 유일한 원자로 가동 중단 시작",
+      "same_event": true
+    },
+    "ab4182f3fbeab74b--c693db7134e6be68": {
+      "embedding_similarity": 0.9123,
+      "left_title": "루마니아 체르나보다 원전, 다뉴브강 수량 감소로 가동 중단 위기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 가동 중단 위기",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
       "same_event": true
     },
     "ab4182f3fbeab74b--cffc5263f67de626": {
@@ -19462,6 +19632,16 @@
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": false
     },
+    "c45420fbe4826728--d48ced6883a0a86e": {
+      "embedding_similarity": 0.9179,
+      "left_title": "프랑스 그라블린 원전, 해파리 떼로 2년 연속 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 그라블린 원전 해파리로 가동 중단",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "해파리로 인한 그라블린 원전 가동 중단",
+      "same_event": true
+    },
     "c47f64ee73293a42--c900c2cddd05713b": {
       "embedding_similarity": 0.9191,
       "left_title": "원전현장인력양성원, '원전정비원자격제도' 정부 인정 공식 취득",
@@ -19531,6 +19711,26 @@
       "reviewed_at": "2026-08-13T11:44:06.837148+00:00",
       "right_title": "산업부·원안위, 원전 수출 위한 규제체계 협력 업무협약 체결",
       "same_event": false
+    },
+    "c635ceb310705bc0--d621a4293eb89200": {
+      "embedding_similarity": 0.9095,
+      "left_title": "2026년 세제개편안, SMR·MMR 기술 국가전략기술 포함",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 기술 국가전략기술 포함 및 세제 혜택",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "same_event": true
+    },
+    "c635ceb310705bc0--e4c4b1f4ad2834d4": {
+      "embedding_similarity": 0.9182,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 7대 SEED 프로젝트 선정 및 기대감",
+      "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
+      "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
+      "same_event": true
     },
     "c76e8785efc2694e--cb38eed27ac4ccd4": {
       "embedding_similarity": 0.8588,
