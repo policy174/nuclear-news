@@ -61,16 +61,25 @@ LONG_SCRIPT = "\n".join(
     [f"HOST: {'가' * 200} {i}" if i % 2 == 0 else f"ANALYST: {'나' * 200} {i}"
      for i in range(10)])
 
+def _padded(text, chars):
+    """분량 게이트(SECTION_FLOOR)를 통과하는 길이의 대사 본문."""
+    filler = " 세부 내용이 이어지는 문장입니다."
+    while len(text) < chars:
+        text += filler
+    return text
+
+
 # 기본 픽스처(briefing_row + write_data 기본값)에 맞춘 섹션 응답:
 # deep = issue-1, rest = issue-2. 대본 생성은 (deep, rest) 두 번 호출하고,
 # 재료·검증의 ID 는 실제 issue_id 가 아니라 섹션 내 위치 번호다 (hex 오타 방지).
+# 대사 길이는 섹션 예산(deep 607자·rest 148자)의 하한을 넘긴다.
 DEEP_ITEMS = [{"id": "1",
-               "script": ("HOST: 포천양수발전소 본공사가 시작됐습니다.\n"
-                          "HOST: 2033년 준공 목표가 확정된 상태인데요, "
-                          "지금은 착공 단계입니다.")}]
+               "script": ("HOST: " + _padded(
+                   "포천양수발전소 본공사가 시작됐습니다. 2033년 준공 목표가 "
+                   "확정된 상태인데요, 지금은 착공 단계입니다.", 550))}]
 REST_ITEMS = [{"id": "1",
-               "script": "HOST: 중국에서 신규 원자로가 승인됐습니다. "
-                         "규모는 요약에 나온 그대로입니다."}]
+               "script": "HOST: " + _padded(
+                   "중국에서 신규 원자로가 승인됐습니다.", 150)}]
 
 
 def script_responses():
@@ -170,7 +179,7 @@ class AudioBriefTestCase(unittest.TestCase):
     def test_material_deep_has_change_rest_does_not(self):
         self.write_data()
         briefing, by_id = self.load()
-        deep = audio_brief.build_deep_material(briefing, by_id, ["issue-1"])
+        deep = audio_brief.build_deep_material(briefing, by_id, ["issue-1"], 90.0)
         rest = audio_brief.build_rest_material(44.0, by_id, ["issue-2"])
         self.assertIn("최근 변화", deep)
         self.assertIn("ID: 1", deep)
@@ -246,17 +255,19 @@ class AudioBriefTestCase(unittest.TestCase):
         loaded, by_id = self.load()
         deep_ids, rest_ids = audio_brief._issue_ids(loaded)
         self.responses = [
-            {"items": [{"id": str(n), "script": f"HOST: {n}번 심층입니다."}
+            {"items": [{"id": str(n),
+                        "script": "HOST: " + _padded(f"{n}번 심층입니다.", 300)}
                        for n in range(1, len(deep_ids) + 1)]},
-            {"items": [{"id": str(n), "script": f"HOST: {n}번 단신입니다."}
+            {"items": [{"id": str(n),
+                        "script": "HOST: " + _padded(f"{n}번 단신입니다.", 70)}
                        for n in range(1, len(rest_ids) + 1)]},
         ]
         captured = []
         orig_section = audio_brief.generate_section
 
-        def spy(system_prompt, material, expected_ids):
+        def spy(system_prompt, material, expected_ids, **kwargs):
             captured.append(system_prompt)
-            return orig_section(system_prompt, material, expected_ids)
+            return orig_section(system_prompt, material, expected_ids, **kwargs)
 
         self.addCleanup(setattr, audio_brief, "generate_section", orig_section)
         audio_brief.generate_section = spy
@@ -455,6 +466,46 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertIn("[재요청]", self.calls[1])
         self.assertIn("누락: ['1']", self.calls[1])
         self.assertIn("HOST:", script)
+
+    def test_generate_section_reprompts_on_short_output(self):
+        """모델은 [분량]의 ~75%만 채운다 — 하한 미달이면 수치를 담아 재요청
+        1회, 재요청 후에도 짧으면 수용한다 (짧은 브리핑 > 없는 브리핑)."""
+        self.write_data()
+        briefing, by_id = self.load()
+        short_deep = {"items": [{"id": "1", "script": "HOST: 아주 짧은 심층."}]}
+        self.responses = [short_deep, dict(short_deep),
+                          {"items": [dict(i) for i in REST_ITEMS]}]
+        script = audio_brief.generate_script(briefing, by_id)
+        self.assertEqual(len(self.calls), 3)            # deep + 재요청 + rest
+        self.assertIn("미달", self.calls[1])
+        self.assertIn("아주 짧은 심층", script)          # 재요청 후에도 수용
+
+    def test_prompt_ask_is_inflated(self):
+        """프롬프트의 [분량] 숫자는 이행률 역보정(×1.3)이 걸려 있다 —
+        검증·상한은 원래 목표 기준이라 숫자가 달라야 정상."""
+        self.write_data()
+        _, by_id = self.load()
+        material = audio_brief.build_rest_material(22.0, by_id, ["issue-2"])
+        ask = int(int(22.0 * audio_brief.CHARS_PER_SEC) * audio_brief.PROMPT_ASK_SCALE)
+        self.assertIn(f"{ask:,}자", material)
+
+    def test_assembly_grace_accepts_mild_overrun_blocks_runaway(self):
+        """상한 초과는 유예(×1.15)까지 수용 — raise 하면 그날 오디오가 통째로
+        사라진다. 유예 밖 폭주만 차단."""
+        self.write_data()
+        briefing, by_id = self.load()
+        mild_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 2000)}]}
+        big_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 2500)}]}
+        # rest 는 ceil 게이트에 걸려 재요청 1회 후 수용된다
+        self.responses = [mild_deep, big_rest, dict(big_rest)]
+        script = audio_brief.generate_script(briefing, by_id)   # ~4520자 — 유예 내
+        total = spoken_chars(script)
+        self.assertGreater(total, audio_brief.MAX_SPOKEN)
+        self.assertLessEqual(total, audio_brief.MAX_SPOKEN * audio_brief.MAX_SPOKEN_GRACE)
+        huge_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 2600)}]}
+        self.responses = [huge_deep, big_rest, dict(big_rest)]
+        with self.assertRaises(ValueError):
+            audio_brief.generate_script(briefing, by_id)        # ~5120자 — 폭주
 
     # ── 프롬프트 회귀 (c82a09f 게토차: 예시의 빈 값은 그대로 배껴진다) ──
 

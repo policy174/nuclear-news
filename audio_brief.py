@@ -91,6 +91,12 @@ REST_SEC = 22          # 단신당 (2~3문장)
 REST_MIN_MODE_SEC = 12 # 축소 후 단신당 예산이 이보다 작으면 '최소 1문장' 모드
 FRAME_SEC = 30         # 오프닝+클로징+전환
 MAX_SPOKEN = int(TARGET_SEC_MAX * CHARS_PER_SEC)   # 대사 합계 상한 (= 10분치)
+# 모델은 [분량] 지시의 ~75%만 채운다 (eval 실측 ×0.73~0.80, 3회 재현).
+# 프롬프트에 보여주는 숫자만 역보정하고, 검증·상한은 원래 목표 기준.
+PROMPT_ASK_SCALE = 1.3
+SECTION_FLOOR = 0.85   # 섹션 대사가 목표의 이 비율 미만이면 재요청 1회
+REST_CEIL = 1.3        # 단신 섹션 폭주 상한 (초과 시 재요청)
+MAX_SPOKEN_GRACE = 1.15  # 조립 상한 유예 — 이 밖만 진짜 폭주로 차단
 DEEP_LIMIT = 3         # 깊게 다룰 이슈 수 (하이라이트)
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
 CHUNK_GAP_SEC = 0.45   # 청크 사이 간격. 문장 사이 자연 무음(0.5~0.7초)에 맞춘다
@@ -276,24 +282,32 @@ def _alias_ids(ids: list) -> list[str]:
     return [str(n) for n in range(1, len(ids) + 1)]
 
 
-def build_deep_material(briefing: dict, by_id: dict, ids: list) -> str:
+def _ask_line(high: int, count: int) -> str:
+    """[분량] 지시문. 모델 이행률(~75%)을 역보정한 숫자를 보여준다."""
+    ask = int(high * PROMPT_ASK_SCALE)
+    per = ask // max(count, 1)
+    return (f"[분량] 이슈당 약 {per:,}자씩, 대사 합계 {int(ask * 0.85):,}~{ask:,}자. "
+            "이 글자 수 지시가 문장 수보다 우선입니다.")
+
+
+def build_deep_material(briefing: dict, by_id: dict, ids: list,
+                        deep_sec: float) -> str:
     """하이라이트 섹션 재료 — 날짜·헤드라인 맥락 + 깊은 블록.
 
+    deep_sec 는 section_budgets 가 배분한(축소 반영) 초 — 여기서 다시 계산하면
+    과부하 날의 축소가 deep 에 안 먹는다 (2026-08-15 eval 실사고: 4,359자 초과).
     [분량]은 이슈당 글자 수를 명시한다 — 합계만 주면 모델이 문장 수 감각으로
     짧게 끝낸다 (2026-08-14 eval 실측: 지시 1,822자에 567자, ×0.31).
     """
     blocks = [_issue_block(alias, by_id[i], True)
               for alias, i in zip(_alias_ids(ids), ids)]
     weekday = "월화수목금토일"[datetime.strptime(briefing["date"], "%Y-%m-%d").weekday()]
-    deep_sec, _ = section_budgets(len(ids), 0)
     high = int(deep_sec * CHARS_PER_SEC)
-    per = high // max(len(ids), 1)
     return "\n\n".join([
         f"[날짜] {briefing['date']} ({weekday}요일 아침)",
         f"[오늘의 헤드라인] {briefing.get('headline', '')}",
         "[하이라이트 이슈 — 하나씩 깊게]\n\n" + "\n\n---\n\n".join(blocks),
-        f"[분량] 이슈당 약 {per:,}자씩, 대사 합계 {int(high * 0.85):,}~{high:,}자. "
-        "이 글자 수 지시가 문장 수보다 우선입니다.",
+        _ask_line(high, len(ids)),
     ])
 
 
@@ -302,11 +316,9 @@ def build_rest_material(rest_sec: float, by_id: dict, ids: list) -> str:
     blocks = [_issue_block(alias, by_id[i], False)
               for alias, i in zip(_alias_ids(ids), ids)]
     high = int(rest_sec * CHARS_PER_SEC)
-    per = high // max(len(ids), 1)
     return "\n\n".join([
         "[단신 이슈 — 순서대로 전부]\n\n" + "\n\n---\n\n".join(blocks),
-        f"[분량] 이슈당 약 {per:,}자씩, 대사 합계 {int(high * 0.8):,}~{high:,}자. "
-        "이 글자 수 지시가 문장 수보다 우선입니다.",
+        _ask_line(high, len(ids)),
     ])
 
 
@@ -444,27 +456,46 @@ def _call_script(system_prompt: str, message: str) -> dict:
 TRANSITION_LINE = "HOST: 이어서 나머지 소식들을 짧게 전해드립니다."
 
 
-def generate_section(system_prompt: str, material: str,
-                     expected_ids: list) -> tuple[list[str], int]:
-    """섹션 하나 생성 + ID 검증 + 재요청 1단.
+def generate_section(system_prompt: str, material: str, expected_ids: list,
+                     high_chars: int | None = None,
+                     ceil_ratio: float | None = None) -> tuple[list[str], int]:
+    """섹션 하나 생성 + ID·분량 검증 + 재요청 1단.
 
     빈 섹션은 API 를 부르지 않는다 — 0deep/0rest 날에 불필요한 호출·검증
     실패가 없어야 한다.
+
+    분량 게이트는 closed-loop 다: 목표 미달(SECTION_FLOOR)·폭주(ceil_ratio)면
+    실제 수치를 담아 재요청한다. 재요청 후에도 어긋나면 형식·ID 만 지켰다면
+    수용한다 — 짧은 브리핑이 없는 브리핑보다 낫다 (부분 배송과 같은 원칙).
     """
     if not expected_ids:
         return [], 0
     result = _call_script(system_prompt, material)
+    problem = None
     try:
-        return validate_items(result.get("items"), expected_ids)
+        lines, spoken = validate_items(result.get("items"), expected_ids)
+        if high_chars and spoken < high_chars * SECTION_FLOOR:
+            problem = (f"대사 합계가 {spoken}자로 목표에 크게 미달합니다. "
+                       "[분량]의 이슈당 글자 수를 채우세요")
+        elif high_chars and ceil_ratio and spoken > high_chars * ceil_ratio:
+            problem = (f"대사 합계가 {spoken}자로 목표를 크게 초과합니다. "
+                       "[분량] 범위로 줄이세요")
+        if problem is None:
+            return lines, spoken
     except ValueError as exc:
         problem = str(exc)
     retry_message = (
         f"{material}\n\n[재요청] 방금 출력에 문제가 있었습니다: {problem}.\n"
         "[재료]의 모든 이슈를 입력 순서대로 정확히 한 번씩, script 의 모든 "
-        "줄을 HOST: 로 시작해 다시 쓰세요."
+        "줄을 HOST: 로 시작해, [분량] 지시를 지켜 다시 쓰세요."
     )
     result = _call_script(system_prompt, retry_message)
-    return validate_items(result.get("items"), expected_ids)
+    lines, spoken = validate_items(result.get("items"), expected_ids)
+    if high_chars and not (high_chars * SECTION_FLOOR <= spoken
+                           <= high_chars * (ceil_ratio or 99)):
+        print(f"[audio] 분량 경고 — 재요청 후에도 {spoken}자 "
+              f"(목표 {high_chars}자) — 수용")
+    return lines, spoken
 
 
 def generate_script(briefing: dict, by_id: dict) -> str:
@@ -478,25 +509,32 @@ def generate_script(briefing: dict, by_id: dict) -> str:
     rest_ids = [i for i in rest_ids if i in by_id]
     if not deep_ids and not rest_ids:
         raise ValueError("재료에 이슈가 없음")
-    _, rest_sec = section_budgets(len(deep_ids), len(rest_ids))
+    deep_sec, rest_sec = section_budgets(len(deep_ids), len(rest_ids))
     min_mode = bool(rest_ids) and rest_sec / len(rest_ids) < REST_MIN_MODE_SEC
     # 검증은 실제 issue_id 가 아니라 재료에 적힌 위치 번호로 한다 — 재료가
     # 이슈당 번호 하나를 1:1 로 붙이므로 번호 집합 완전성 = 이슈 완전성이다.
     deep_lines, deep_spoken = generate_section(
-        SYSTEM_PROMPT_DEEP, build_deep_material(briefing, by_id, deep_ids),
-        _alias_ids(deep_ids))
+        SYSTEM_PROMPT_DEEP,
+        build_deep_material(briefing, by_id, deep_ids, deep_sec),
+        _alias_ids(deep_ids), high_chars=int(deep_sec * CHARS_PER_SEC))
     rest_prompt = SYSTEM_PROMPT_REST_MIN if min_mode else SYSTEM_PROMPT_REST
     rest_lines, rest_spoken = generate_section(
         rest_prompt, build_rest_material(rest_sec, by_id, rest_ids),
-        _alias_ids(rest_ids))
+        _alias_ids(rest_ids), high_chars=int(rest_sec * CHARS_PER_SEC),
+        ceil_ratio=REST_CEIL)
     lines = list(deep_lines)
     spoken = deep_spoken + rest_spoken
     if deep_lines and rest_lines:
         lines.append(TRANSITION_LINE)
         spoken += len(TRANSITION_LINE.split(":", 1)[1].strip())
     lines.extend(rest_lines)
+    # 상한은 유예를 두고 진짜 폭주만 막는다 — 10~11분대 오디오는 짧은 초과일
+    # 뿐 사고가 아니고, 여기서 raise 하면 그날 오디오가 통째로 사라진다.
+    if spoken > MAX_SPOKEN * MAX_SPOKEN_GRACE:
+        raise ValueError(f"대사 합계 {spoken}자 — 상한 유예까지 초과, 폭주 차단")
     if spoken > MAX_SPOKEN:
-        raise ValueError(f"대사 합계 {spoken}자로 상한 {MAX_SPOKEN}자 초과")
+        print(f"[audio] 대사 합계 {spoken}자 — 상한 {MAX_SPOKEN}자 초과지만 "
+              "유예 내라 수용")
     return "\n".join(lines)
 
 
