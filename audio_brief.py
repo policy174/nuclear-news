@@ -95,7 +95,8 @@ MAX_SPOKEN = int(TARGET_SEC_MAX * CHARS_PER_SEC)   # 대사 합계 상한 (= 10�
 # 프롬프트에 보여주는 숫자만 역보정하고, 검증·상한은 원래 목표 기준.
 PROMPT_ASK_SCALE = 1.3
 SECTION_FLOOR = 0.85   # 섹션 대사가 목표의 이 비율 미만이면 재요청 1회
-REST_CEIL = 1.3        # 단신 섹션 폭주 상한 (초과 시 재요청)
+SECTION_CEIL = 1.35    # 섹션 폭주 상한 (초과 시 재요청) — deep 에만 안 걸었더니
+                       # 과부하 날 deep 이 ×1.51 로 넘쳤다 (2026-08-16 eval)
 MAX_SPOKEN_GRACE = 1.15  # 조립 상한 유예 — 이 밖만 진짜 폭주로 차단
 DEEP_LIMIT = 3         # 깊게 다룰 이슈 수 (하이라이트)
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
@@ -519,12 +520,13 @@ def generate_script(briefing: dict, by_id: dict) -> str:
     deep_lines, deep_spoken = generate_section(
         SYSTEM_PROMPT_DEEP,
         build_deep_material(briefing, by_id, deep_ids, deep_sec),
-        _alias_ids(deep_ids), high_chars=int(deep_sec * CHARS_PER_SEC))
+        _alias_ids(deep_ids), high_chars=int(deep_sec * CHARS_PER_SEC),
+        ceil_ratio=SECTION_CEIL)
     rest_prompt = SYSTEM_PROMPT_REST_MIN if min_mode else SYSTEM_PROMPT_REST
     rest_lines, rest_spoken = generate_section(
         rest_prompt, build_rest_material(rest_sec, by_id, rest_ids),
         _alias_ids(rest_ids), high_chars=int(rest_sec * CHARS_PER_SEC),
-        ceil_ratio=REST_CEIL)
+        ceil_ratio=SECTION_CEIL)
     lines = list(deep_lines)
     spoken = deep_spoken + rest_spoken
     if deep_lines and rest_lines:

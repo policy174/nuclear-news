@@ -498,18 +498,18 @@ class AudioBriefTestCase(unittest.TestCase):
         사라진다. 유예 밖 폭주만 차단."""
         self.write_data()
         briefing, by_id = self.load()
-        mild_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 2000)}]}
-        big_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 2500)}]}
-        # rest 는 ceil 게이트에 걸려 재요청 1회 후 수용된다
-        self.responses = [mild_deep, big_rest, dict(big_rest)]
-        script = audio_brief.generate_script(briefing, by_id)   # ~4520자 — 유예 내
+        ok_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 800)}]}
+        big_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 3300)}]}
+        # rest 는 ceil 게이트에 걸려 재요청 1회 후 수용된다 (deep 은 ceil 통과 크기)
+        self.responses = [ok_deep, big_rest, dict(big_rest)]
+        script = audio_brief.generate_script(briefing, by_id)   # ~4120자 — 유예 내
         total = spoken_chars(script)
         self.assertGreater(total, audio_brief.MAX_SPOKEN)
         self.assertLessEqual(total, audio_brief.MAX_SPOKEN * audio_brief.MAX_SPOKEN_GRACE)
-        huge_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 2600)}]}
-        self.responses = [huge_deep, big_rest, dict(big_rest)]
+        huge_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 4000)}]}
+        self.responses = [ok_deep, huge_rest, dict(huge_rest)]
         with self.assertRaises(ValueError):
-            audio_brief.generate_script(briefing, by_id)        # ~5120자 — 폭주
+            audio_brief.generate_script(briefing, by_id)        # ~4820자 — 폭주
 
     # ── 프롬프트 회귀 (c82a09f 게토차: 예시의 빈 값은 그대로 배껴진다) ──
 
