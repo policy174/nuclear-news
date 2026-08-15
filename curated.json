@@ -144834,5 +144834,49 @@
     "domain": "newslock.co.kr",
     "matched": "SMR",
     "features_attempts": 1
+  },
+  "8b047295e2c80dc9": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance"
+    ],
+    "countries": [
+      "GLOBAL"
+    ],
+    "article_type": "analysis",
+    "title_kr": "글로벌 주간 브리핑: AI 데이터센터 전력 수요와 자금 조달 문제",
+    "summary": "수만~수십만 개의 GPU와 데이터센터, 전력·냉각설비 구축에 필요한 천문학적 자금 조달이 주요 쟁점으로 부상하며, 특히 AI 스타트업과 네오클라우드 업체들의 자금 확보가 관건이다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-15T18:24:24.059468+00:00",
+    "title": "[글로벌 주간 브리핑] 호르무즈 막히고 AI엔 5000억달러…세계가 치른 '...",
+    "link": "https://www.wolyo.co.kr/news/articleView.html?idxno=316472",
+    "feed": "정책",
+    "domain": "wolyo.co.kr",
+    "matched": "데이터센터 전력"
   }
 }
