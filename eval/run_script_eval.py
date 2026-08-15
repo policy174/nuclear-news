@@ -57,8 +57,8 @@ def run_corpus(name: str, path: Path) -> list[str]:
     sections: list[tuple[str, int]] = []
     original = audio_brief.generate_section
 
-    def spy(system_prompt, material, expected_ids):
-        lines, spoken = original(system_prompt, material, expected_ids)
+    def spy(system_prompt, material, expected_ids, **kwargs):
+        lines, spoken = original(system_prompt, material, expected_ids, **kwargs)
         kind = "deep" if system_prompt is audio_brief.SYSTEM_PROMPT_DEEP else "rest"
         sections.append((kind, spoken))
         return lines, spoken
