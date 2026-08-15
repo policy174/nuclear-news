@@ -156,8 +156,8 @@ _PROMPT_VOICE_RULES = """[말투 — 낭독용 구어체]
 - [재료]의 모든 이슈를 입력 순서 그대로, 이슈당 정확히 한 항목으로 씁니다.
   이슈를 빼먹거나, 두 번 쓰거나, 재료에 없는 이슈를 만들면 안 됩니다.
 - id 는 재료의 ID 값을 글자 그대로 복사합니다.
-- script 의 모든 줄은 "HOST: "로 시작합니다 (라벨은 시스템 형식용이고
-  방송에서 읽히지 않습니다). 다른 형식의 줄 금지.
+- script 에는 낭독할 문장만 씁니다 — 화자 라벨·머리기호·주석 없이,
+  문단 구분이 필요하면 줄바꿈만 사용합니다.
 - 인사·자기소개·마무리 문장 금지 — 오프닝과 클로징은 시스템이 붙입니다."""
 
 SYSTEM_PROMPT_DEEP = f"""{_PROMPT_INTRO}
@@ -368,12 +368,18 @@ def strip_filler(text: str) -> str:
     return stripped or text
 
 
+# 모델이 붙여 보낼 수 있는 화자 라벨(오타 포함) — 떼고 우리가 다시 붙인다.
+# HOST: 를 수십 번 전사시키니 'HOS:'·라벨 누락이 나왔다(2026-08-16 eval).
+# 보일러플레이트 전사는 시키지 않는다 — hex ID 와 같은 교훈.
+_LABEL_RE = re.compile(r"^(?:HOST|ANALYST|HOS|호스트|진행자)\s*:\s*", re.IGNORECASE)
+
+
 def validate_items(items, expected_ids: list) -> tuple[list[str], int]:
     """(HOST 줄 목록, 대사 글자 수). issue ID 완전성이 어긋나면 ValueError.
 
     "당일 이슈 전부"의 실제 보장 지점 — 누락·중복·창작·순서를 전부 잡는다.
     min_lines 방식은 한 이슈가 세 줄 쓰고 다른 이슈를 빼먹어도 통과시켰다.
-    ANALYST 라벨은 버리지 않고 HOST 로 흡수한다 (옛 형식 회귀 대비).
+    script 는 순수 낭독문으로 받고 HOST: 라벨은 여기서 코드가 붙인다.
     """
     if not isinstance(items, list):
         raise ValueError("items 가 배열이 아님")
@@ -401,13 +407,10 @@ def validate_items(items, expected_ids: list) -> tuple[list[str], int]:
             script = "\n".join(str(part) for part in script)
             item = dict(item, script=script)
         for raw in str(item.get("script") or "").splitlines():
-            raw = raw.strip()
+            raw = _LABEL_RE.sub("", raw.strip()).strip()
             if not raw:
                 continue
-            match = SPEAKER_RE.match(raw)
-            if not match:
-                raise ValueError(f"{item['id']}: HOST 형식 아닌 줄 — {raw[:40]}")
-            spoken_text = strip_filler(match.group(2).strip())
+            spoken_text = strip_filler(raw)
             lines.append(f"HOST: {spoken_text}")
             spoken += len(spoken_text)
         if not str(item.get("script") or "").strip():
@@ -486,8 +489,8 @@ def generate_section(system_prompt: str, material: str, expected_ids: list,
         problem = str(exc)
     retry_message = (
         f"{material}\n\n[재요청] 방금 출력에 문제가 있었습니다: {problem}.\n"
-        "[재료]의 모든 이슈를 입력 순서대로 정확히 한 번씩, script 의 모든 "
-        "줄을 HOST: 로 시작해, [분량] 지시를 지켜 다시 쓰세요."
+        "[재료]의 모든 이슈를 입력 순서대로 정확히 한 번씩, [분량] 지시를 "
+        "지켜 다시 쓰세요."
     )
     result = _call_script(system_prompt, retry_message)
     lines, spoken = validate_items(result.get("items"), expected_ids)

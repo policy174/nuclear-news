@@ -322,11 +322,15 @@ class AudioBriefTestCase(unittest.TestCase):
                 ["a", "b"])
         self.assertIn("순서", str(ctx.exception))
 
-    def test_validate_items_rejects_non_host_line(self):
-        with self.assertRaises(ValueError) as ctx:
-            audio_brief.validate_items(
-                [{"id": "a", "script": "그냥 낭독문입니다."}], ["a"])
-        self.assertIn("HOST", str(ctx.exception))
+    def test_validate_items_normalizes_labels(self):
+        """HOST: 라벨은 모델에게 시키지 않고 코드가 붙인다 — 수십 번 전사시키면
+        'HOS:'·라벨 누락 오타가 난다(2026-08-16 eval 실사고, hex ID 와 같은 교훈).
+        순수 낭독문·정상 라벨·오타 라벨 전부 같은 결과가 돼야 한다."""
+        for script in ("그냥 낭독문입니다.", "HOST: 그냥 낭독문입니다.",
+                       "HOS: 그냥 낭독문입니다.", "호스트: 그냥 낭독문입니다."):
+            lines, _ = audio_brief.validate_items(
+                [{"id": "a", "script": script}], ["a"])
+            self.assertEqual(lines, ["HOST: 그냥 낭독문입니다."])
 
     def test_validate_items_strips_leading_fillers(self):
         """2026-08-10 대본 26줄 중 13줄이 '네,'로 시작했다. 프롬프트의
