@@ -1,6 +1,5 @@
 {
   "sent": {
-    "4bdd65d0c09aaf72": "2026-08-01T22:42:31.730896+00:00",
     "32306cfb5d495ced": "2026-08-02T01:29:08.029915+00:00",
     "309571bf26b5e326": "2026-08-02T05:14:36.995925+00:00",
     "90fd79cbc6837ecb": "2026-08-02T05:14:36.995925+00:00",
@@ -3477,14 +3476,20 @@
     "f0aa544acc40684b": "2026-08-15T22:17:40.962220+00:00",
     "2c2961deb41e0686": "2026-08-15T22:17:40.962220+00:00",
     "72fdb8f9c170e368": "2026-08-15T22:17:40.962220+00:00",
-    "114d22fbd5a28b36": "2026-08-15T22:17:40.962220+00:00"
+    "114d22fbd5a28b36": "2026-08-15T22:17:40.962220+00:00",
+    "af1b1cdc6e2dbaee": "2026-08-15T23:16:49.593464+00:00",
+    "7f4eed26ab5b4207": "2026-08-15T23:16:49.593464+00:00",
+    "5a0f480a2d06b7a3": "2026-08-15T23:16:49.593464+00:00",
+    "b2f90d7ef7549859": "2026-08-15T23:16:49.593464+00:00",
+    "e141baba53724369": "2026-08-15T23:16:49.593464+00:00",
+    "73a8666563f58f28": "2026-08-15T23:16:49.593464+00:00"
   },
   "source_yield": {
-    "at": "2026-08-15T22:19:34+00:00",
+    "at": "2026-08-15T23:18:35+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 44,
@@ -3492,21 +3497,20 @@
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 2,
+      "Reuters 원자력": 1,
       "La Tribune 원자력": 4,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 8,
+      "FT 원자력": 7,
       "Les Échos 원자력": 12,
       "E&E News 원자력": 1,
       "Nuclear Engineering International": 12,
-      "Euractiv 원자력": 70,
+      "Euractiv 원자력": 77,
       "국내 원자력 보도": 9
     },
-    "kept": {},
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "kept": {
+      "국내 원자력 보도": 2
+    },
+    "errors": {}
   }
 }
