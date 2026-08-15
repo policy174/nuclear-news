@@ -2,8 +2,9 @@ name: Nuclear news crawl
 
 on:
   schedule:
-    # Private 저장소의 무료 Actions 사용량을 아끼기 위해 3시간마다 실행한다.
-    - cron: "0 */3 * * *"
+    # Public 저장소는 Actions 무료라 매시간 돈다. Private 복귀 시 사용량을
+    # 다시 계산해 간격을 줄일 것 (무료 2,000분/월, 크롤 1회 ~10분).
+    - cron: "0 * * * *"
   workflow_dispatch:
     inputs:
       fetch_publications:
