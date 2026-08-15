@@ -1561,6 +1561,13 @@ function fmtClock(value) {
   return `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, "0")}`;
 }
 
+function audioPartialSuffix() {
+  // TTS 가 중간에 멈춘 부분본 표시 — audio.json 에 partial 키가 있을 때만.
+  const meta = state.audio;
+  return meta && meta.partial
+    ? ` · 부분 ${meta.chunks_done}/${meta.chunks_total}` : "";
+}
+
 function updateAudioToggle(playing) {
   const button = document.getElementById("audioToggle");
   if (!button) return;
@@ -1592,7 +1599,7 @@ function renderAudioBrief(briefing) {
     // 새 음원이므로 접힌 상태로 되돌린다.
     box.classList.remove("started");
     document.getElementById("audioTime").textContent =
-      `0:00 / ${fmtClock(meta.duration_sec)}`;
+      `0:00 / ${fmtClock(meta.duration_sec)}${audioPartialSuffix()}`;
   }
   syncAudioRateButtons();
 }
@@ -3423,7 +3430,7 @@ function bind() {
     const total = Number.isFinite(briefAudio.duration) && briefAudio.duration > 0
       ? briefAudio.duration : state.audio?.duration_sec;
     document.getElementById("audioTime").textContent =
-      `${fmtClock(briefAudio.currentTime)} / ${fmtClock(total)}`;
+      `${fmtClock(briefAudio.currentTime)} / ${fmtClock(total)}${audioPartialSuffix()}`;
   });
   // 캐시 유실 등으로 mp3 가 404 면 죽은 버튼을 남기지 않는다
   briefAudio.addEventListener("error", () => {

@@ -11,9 +11,12 @@ hourlynews 와 같은 앵커 1인 구조로 전환 — 라디오 시간별 뉴�
   - daily-brief 배포 스텝에서 build_data.py 직후 실행된다. 방금 빌드된
     briefings.json·issues.json(우리가 생성한 요약·해석 카드)만 재료로 쓴다 —
     기사 원문을 낭독하지 않으므로 저작권 문제가 없다.
-  - Gemini 텍스트 모델이 HOST(진행자)·ANALYST(해설위원) 대담 대본을 쓰고,
-    Gemini TTS 멀티스피커가 두 목소리로 합성한다. 배속은 여기서 만들지
-    않는다 — 웹 플레이어의 playbackRate 가 맡는다 (음원은 1.0x 원본 유지).
+  - 대본은 당일 이슈 **전부**를 다룬다: 하이라이트는 깊게, 나머지는 단신으로.
+    분량은 이슈당 초 단위 airtime 을 배분하고 실측 발화율로 환산한다
+    (평시 8~10분, NucBrief 의 airtime 배분 이식 2026-08-14).
+  - 대본 생성은 섹션 2회 호출(하이라이트/단신)로 나누고, 응답을 issue ID
+    기반으로 검증해 누락·중복·창작을 잡는다 — "전 이슈 커버"의 보장 지점.
+  - 배속은 여기서 만들지 않는다 — 웹 플레이어의 playbackRate 가 맡는다.
   - 산출물은 web/public/data/audio/ (gitignore 안 — Pages 배포에만 실림).
     crawl.yml 짝수시 재배포에서 사라지지 않도록 Actions 캐시로 유지된다
     (embeddings.json 과 같은 패턴).
@@ -22,6 +25,9 @@ hourlynews 와 같은 앵커 1인 구조로 전환 — 라디오 시간별 뉴�
   - 대본 재료 밖 사실·미래 예측·투자 권고 금지 (daily_lead 와 동일 원칙).
   - 어떤 실패도 배포를 죽이면 안 된다 — main() 은 항상 exit 0.
   - 같은 날짜 재실행은 TTS 를 다시 부르지 않는다 (무료 티어 보호).
+  - 부분이 무(無)보다 낫되, 배송 시간은 항상 예약된다 — TTS 는 hard deadline
+    안쪽에서만 돌고, 완성된 청크가 하나라도 있으면 부분본으로 내보낸다.
+    0청크일 때만 전날 오디오를 유지한다 (NucBrief 이식 2026-08-14).
 """
 
 from __future__ import annotations
@@ -33,6 +39,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -73,10 +80,18 @@ SPEAKER_RE = re.compile(r"^(HOST|ANALYST):\s*(.+)$")
 # '예산' 같은 낱말을 자르면 안 된다.
 _FILLER_RE = re.compile(
     r"^(?:아,\s*)?(?:네|예|그렇군요|그렇죠|맞습니다|알겠습니다)\s*[,.!]\s*")
-MIN_LINES = 6          # 잘린 출력·한 덩어리 출력을 잡는 하한 (줄 = 문단)
-MAX_SPOKEN = 1500      # 대사 합계 상한 (실측 기준 약 3분 40초)
-DEEP_LIMIT = 3         # 대화로 깊게 다룰 이슈 수 (하이라이트)
-REST_LIMIT = 6         # 단신은 최대 6건 — 전체 이슈 낭독을 막는다
+# ── 길이 모델 — 문자 수가 아니라 초로 배분하고 실측 발화율로 환산한다 ──────
+# 고정 문자 상한(1500자 ≈ 3분40초)은 이슈 9건 밖을 통째로 버렸다. 이슈당
+# airtime(초)을 배분하면 기사 수만큼 분량이 자연히 자란다 (NucBrief 이식).
+CHARS_PER_SEC = 6.75   # 실측 2026-08-14 단일 Kore: 1113자 / 165초
+TARGET_SEC_MAX = 600   # 10분 하드 실링
+TARGET_SEC_MIN = 480   # 평시(이슈 충분한 날) 8분 하한
+DEEP_SEC = 90          # 하이라이트당 airtime
+REST_SEC = 22          # 단신당 (2~3문장)
+REST_MIN_MODE_SEC = 12 # 축소 후 단신당 예산이 이보다 작으면 '최소 1문장' 모드
+FRAME_SEC = 30         # 오프닝+클로징+전환
+MAX_SPOKEN = int(TARGET_SEC_MAX * CHARS_PER_SEC)   # 대사 합계 상한 (= 10분치)
+DEEP_LIMIT = 3         # 깊게 다룰 이슈 수 (하이라이트)
 CHUNK_SPOKEN = 900     # TTS 1요청에 넣을 대사 글자 수 (~90초). 아래 주석 참조
 CHUNK_GAP_SEC = 0.45   # 청크 사이 간격. 문장 사이 자연 무음(0.5~0.7초)에 맞춘다
 SILENCE_LEVEL = 300    # s16 진폭 — 이보다 작으면 무음으로 본다 (약 -41 dBFS)
@@ -86,26 +101,29 @@ TRIM_FRAME_MS = 10
 SPOKEN_CHARS_PER_SEC = 8.5
 TRUNCATION_RATIO = 0.6
 
+# ── TTS 안정화 (NucBrief 이식 2026-08-14) ─────────────────────────────────
+TTS_MIN_INTERVAL_SEC = 21    # 프리뷰 TTS 무료 티어 ≈ 3 RPM — 호출 간 최소 간격
+TTS_RETRY_BUDGET_SEC = 240   # 재시도 sleep 의 스테이지 공유 예산 (곱발산 방지)
+TTS_HARD_BUDGET_SEC = 900    # TTS 스테이지 자체 wall-clock 상한 (15분)
+AUDIO_RUN_BUDGET_SEC = 1500  # 프로세스 전체 wall-clock 상한 (25분)
+SHIP_RESERVE_SEC = 180       # 인코딩·기록·텔레그램 전송 예약분
+TTS_CALL_EST_SEC = 35        # deadline 잔여 검사용 1회 호출 추정치
+TTS_CHUNK_RETRIES = 3        # 핀 모델 안에서 청크당 재시도 횟수
+RESTART_THRESHOLD = 2        # 완료 청크가 이보다 적으면 폴백 시 처음부터,
+                             # 이상이면 이어받는다 (음색 seam < 꼬리 잘림)
+
 _TTS_ENDPOINT = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 )
 
-SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 트래커 'Nuclens'(누클렌즈)의
+# 대본은 섹션 2회 호출로 나눈다 — 4~5천 자를 한 번에 뽑으면 출력 잘림·후반
+# 품질 감쇠 위험이 있고, 섹션별로 issue ID 검증·재요청이 가능해진다.
+# 출력은 이슈당 한 항목의 items 배열 — ID 집합 검증이 "전 이슈 커버"를 지킨다.
+_PROMPT_INTRO = """당신은 한수원 임직원용 원자력·에너지 이슈 트래커 'Nuclens'(누클렌즈)의
 아침 오디오 브리핑 원고 작가입니다. 진행자 한 명이 읽는 라디오 뉴스 원고를
-아래 [재료]만 사용해 씁니다.
+아래 [재료]만 사용해 씁니다."""
 
-[형식 — 반드시 준수]
-- 진행자는 한 명입니다. 모든 줄은 "HOST: "로 시작하는 한 문단입니다
-  (라벨은 시스템 형식용이고 방송에서 읽히지 않습니다). 다른 형식의 줄 금지.
-- 줄 하나 = 이슈 하나(또는 헤드라인 묶음 하나). 한 줄은 2~5문장.
-- 구성: 하이라이트 3건을 하나씩 풀기 → 나머지 이슈는 최대 6건만 한 문장씩
-  헤드라인 훑기. 인사·자기소개·마무리 문장을 쓰지 마세요 — 오프닝과
-  클로징은 시스템이 따로 붙입니다. 첫 줄부터 바로 첫 이슈입니다.
-- 하이라이트 이슈 한 건의 흐름: 무슨 일이 있었는지 → 지금 어느 단계인지.
-  자료에 구체적인 다음 일정·판단 기준이 있을 때만 의미를 덧붙입니다.
-- 분량: [재료]의 [분량] 지시를 따릅니다.
-
-[말투 — 낭독용 구어체]
+_PROMPT_VOICE_RULES = """[말투 — 낭독용 구어체]
 - 존댓말. 다만 문어체 낭독이 아니라 사람이 말하는 문장으로.
 - 종결어미를 다양하게. 모든 문장이 "-습니다"로 끝나면 통신문 낭독이
   됩니다. "-는데요", "-고요", "-거든요" 같은 연결 종결을 자연스럽게 섞고,
@@ -121,8 +139,6 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
 - 사업단계를 혼용하지 마세요. 발표·협의·후보선정·부지허가·건설허가·착공·
   최초 콘크리트·상업운전은 서로 다른 단계입니다. 원전 사건도 자동정지·
   수동정지·예방정지·출력감발을 구분합니다.
-- 제목을 읽고 끝내지 마세요. 그 제목이 말하는 사건이 무엇인지, 듣는 사람이
-  처음 듣는다고 생각하고 풀어 말합니다.
 - 어떤 이슈에도 붙일 수 있는 일반론 문장 금지 — "매우 중요합니다",
   "기대됩니다", "의지를 보여줍니다", "귀추가 주목됩니다" 같은 문장은
   삭제 대상입니다. 그 문장을 지워도 정보가 줄지 않으면 쓰지 마세요.
@@ -130,7 +146,46 @@ SYSTEM_PROMPT = """당신은 한수원 임직원용 원자력·에너지 이슈 
   "에스엠알"로만 말합니다. 같은 명칭을 연달아 두 번 읽지 마세요.
 
 [출력 — JSON 한 객체만]
-{"script": "HOST: ...\\nHOST: ..."}"""
+{"items": [{"id": "<재료의 ID 그대로>", "script": "HOST: ..."}]}
+- [재료]의 모든 이슈를 입력 순서 그대로, 이슈당 정확히 한 항목으로 씁니다.
+  이슈를 빼먹거나, 두 번 쓰거나, 재료에 없는 이슈를 만들면 안 됩니다.
+- id 는 재료의 ID 값을 글자 그대로 복사합니다.
+- script 의 모든 줄은 "HOST: "로 시작합니다 (라벨은 시스템 형식용이고
+  방송에서 읽히지 않습니다). 다른 형식의 줄 금지.
+- 인사·자기소개·마무리 문장 금지 — 오프닝과 클로징은 시스템이 붙입니다."""
+
+SYSTEM_PROMPT_DEEP = f"""{_PROMPT_INTRO}
+이번 요청은 그날의 **하이라이트 이슈**를 하나씩 깊게 다루는 본문입니다.
+
+[형식 — 반드시 준수]
+- 이슈 하나 = 항목 하나. 한 항목의 script 는 4~8문장, 여러 줄로 나눠 쓰세요
+  (줄 하나 = 2~3문장 한 문단).
+- 흐름: 무슨 일이 있었는지 → 배경·경과 → 지금 어느 단계인지. 자료에
+  구체적인 다음 일정·판단 기준이 있을 때만 의미를 덧붙입니다.
+- 제목을 읽고 끝내지 마세요. 그 제목이 말하는 사건이 무엇인지, 듣는 사람이
+  처음 듣는다고 생각하고 풀어 말합니다. 요약·최근 변화에 담긴 사실을
+  아끼지 말고 전부 풀어 쓰세요 — 재료 밖 사실만 금지입니다.
+- 분량: [재료]의 [분량] 지시가 문장 수 감각보다 우선합니다. 이슈당 지시된
+  글자 수를 채우세요 — 짧게 끝내는 것이 가장 흔한 실패입니다.
+
+{_PROMPT_VOICE_RULES}"""
+
+SYSTEM_PROMPT_REST = f"""{_PROMPT_INTRO}
+이번 요청은 하이라이트 이후에 이어지는 **단신 묶음**입니다.
+
+[형식 — 반드시 준수]
+- 이슈 하나 = 항목 하나. 한 항목의 script 는 한 줄, 2~3문장.
+- 단신도 제목 낭독이 아닙니다 — 무슨 일이 있었는지 한 번에 알아듣게.
+- 분량: [재료]의 [분량] 지시가 문장 수 감각보다 우선합니다. 이슈당 지시된
+  글자 수를 채우세요 — 한 문장으로 끝내는 것이 가장 흔한 실패입니다.
+
+{_PROMPT_VOICE_RULES}"""
+
+# 과부하(축소 후 단신당 예산 < REST_MIN_MODE_SEC) 시 형식 줄만 교체한다 —
+# 문장 수보다 전 이슈 커버가 우선이다.
+SYSTEM_PROMPT_REST_MIN = SYSTEM_PROMPT_REST.replace(
+    "한 항목의 script 는 한 줄, 2~3문장.",
+    "한 항목의 script 는 한 줄, **1문장** — 오늘은 이슈가 많아 짧게 갑니다.")
 
 # 낭독 지시. 청취자는 출근길의 한수원 임직원이고 듣는 목적이 정보라 또렷함이
 # 우선이지만, '차분·또렷'만 남기니 통신문 낭독이 됐다(2026-08-13 청취 판정:
@@ -164,8 +219,9 @@ def load_briefing(web_data: Path) -> tuple[dict, dict]:
     return latest, by_id
 
 
-def _issue_block(issue: dict, deep: bool) -> str:
-    parts = [f"제목: {issue.get('title', '')}",
+def _issue_block(issue_id: str, issue: dict, deep: bool) -> str:
+    parts = [f"ID: {issue_id}",
+             f"제목: {issue.get('title', '')}",
              f"지역: {issue.get('region', '')}",
              f"요약: {issue.get('summary', '')}"]
     if deep and issue.get("latest_change"):
@@ -176,42 +232,82 @@ def _issue_block(issue: dict, deep: bool) -> str:
 
 
 def _issue_ids(briefing: dict) -> tuple[list, list]:
-    """(하이라이트 id, 나머지 id) — 재료 조립과 턴 상한이 같은 셈을 쓴다."""
+    """(하이라이트 id, 나머지 id 전부) — 단신을 자르지 않는다 (전 이슈 커버)."""
     highlight_ids = [h.get("issue_id") for h in briefing.get("highlight_issues", [])
                      if isinstance(h, dict) and h.get("issue_id")][:DEEP_LIMIT]
     listed = [row.get("issue_id") for row in briefing.get("issues", [])
               if isinstance(row, dict) and row.get("issue_id")]
     if not highlight_ids:
         highlight_ids = listed[:DEEP_LIMIT]
-    return highlight_ids, [i for i in listed if i not in highlight_ids][:REST_LIMIT]
+    return highlight_ids, [i for i in listed if i not in highlight_ids]
 
 
-def build_material(briefing: dict, by_id: dict) -> str:
-    """하이라이트는 깊게, 나머지는 헤드라인만 — 라디오 브리핑 구조."""
-    highlight_ids, rest_ids = _issue_ids(briefing)
-    deep = [_issue_block(by_id[i], True) for i in highlight_ids if i in by_id]
-    rest = [_issue_block(by_id[i], False) for i in rest_ids if i in by_id]
-    weekday = "월화수목금토일"[datetime.strptime(briefing["date"], "%Y-%m-%d").weekday()]
-    sections = [
-        f"[날짜] {briefing['date']} ({weekday}요일 아침)",
-        f"[오늘의 헤드라인] {briefing.get('headline', '')}",
-        "[하이라이트 이슈 — 대화로 깊게 다룰 것]\n\n" + "\n\n---\n\n".join(deep),
-    ]
-    if rest:
-        sections.append("[그 외 이슈 — 헤드라인 훑기용]\n\n" + "\n\n---\n\n".join(rest))
-    # 분량은 그날 이슈 수에 비례한다 — 고정 1,200~1,500자는 이슈 8건 날과
-    # 18건 날을 같은 틀에 밀어 넣어, 많은 날은 목표를 뚫고(실측 1,952자)
-    # 적은 날은 부풀렸다. 하한은 대담 성립선, 상한은 MAX_SPOKEN 안쪽.
-    low, high = spoken_target(len(deep), len(rest))
-    sections.append(f"[분량] 대사 합계 {low:,}~{high:,}자.")
-    return "\n\n".join(sections)
+def section_budgets(deep_count: int, rest_count: int) -> tuple[float, float]:
+    """(하이라이트 초, 단신 초). 총합이 상한을 넘으면 비례 축소한다.
+
+    상한을 총합에서만 자르면 섹션 prompt 예산은 여전히 원래 크기를 요구해
+    말이 안 맞는다 — 축소는 배분 단계에서 일어나야 한다.
+    """
+    content_sec = DEEP_SEC * deep_count + REST_SEC * rest_count
+    available_sec = TARGET_SEC_MAX - FRAME_SEC
+    scale = min(1.0, available_sec / max(content_sec, 1))
+    return DEEP_SEC * deep_count * scale, REST_SEC * rest_count * scale
 
 
 def spoken_target(deep_count: int, rest_count: int) -> tuple[int, int]:
-    """(하한, 상한) 대사 글자 수. 실측 6.7자/초 기준 약 3분을 겨냥한다."""
-    high = 200 + 270 * deep_count + 45 * min(rest_count, REST_LIMIT)
-    high = max(1050, min(high, MAX_SPOKEN - 100))
-    return max(900, high - 250), high
+    """(하한, 상한) 대사 글자 수 — 초로 배분하고 실측 발화율로 환산.
+
+    평시(이슈가 충분한 날)는 8분 하한을 보장하고, 이슈가 적은 날은 짧아지는
+    것을 수용한다. 검증 기준은 문자 수가 아니라 최종 duration 480~600초.
+    """
+    deep_sec, rest_sec = section_budgets(deep_count, rest_count)
+    target_sec = min(FRAME_SEC + deep_sec + rest_sec, TARGET_SEC_MAX)
+    if target_sec >= TARGET_SEC_MIN:
+        low_sec = max(TARGET_SEC_MIN, int(target_sec * 0.92))
+    else:
+        low_sec = int(target_sec * 0.85)
+    return int(low_sec * CHARS_PER_SEC), int(target_sec * CHARS_PER_SEC)
+
+
+# 재료의 ID 는 실제 issue_id(긴 hex)가 아니라 섹션 내 위치 번호("1","2"…)다.
+# 모델이 hex 를 베끼다 한 글자를 틀리는 실사고(2026-08-15 eval:
+# c4c4→c4e4, 누락+창작 판정)가 있었다 — 한 자리 번호는 오타가 불가능하다.
+def _alias_ids(ids: list) -> list[str]:
+    return [str(n) for n in range(1, len(ids) + 1)]
+
+
+def build_deep_material(briefing: dict, by_id: dict, ids: list) -> str:
+    """하이라이트 섹션 재료 — 날짜·헤드라인 맥락 + 깊은 블록.
+
+    [분량]은 이슈당 글자 수를 명시한다 — 합계만 주면 모델이 문장 수 감각으로
+    짧게 끝낸다 (2026-08-14 eval 실측: 지시 1,822자에 567자, ×0.31).
+    """
+    blocks = [_issue_block(alias, by_id[i], True)
+              for alias, i in zip(_alias_ids(ids), ids)]
+    weekday = "월화수목금토일"[datetime.strptime(briefing["date"], "%Y-%m-%d").weekday()]
+    deep_sec, _ = section_budgets(len(ids), 0)
+    high = int(deep_sec * CHARS_PER_SEC)
+    per = high // max(len(ids), 1)
+    return "\n\n".join([
+        f"[날짜] {briefing['date']} ({weekday}요일 아침)",
+        f"[오늘의 헤드라인] {briefing.get('headline', '')}",
+        "[하이라이트 이슈 — 하나씩 깊게]\n\n" + "\n\n---\n\n".join(blocks),
+        f"[분량] 이슈당 약 {per:,}자씩, 대사 합계 {int(high * 0.85):,}~{high:,}자. "
+        "이 글자 수 지시가 문장 수보다 우선입니다.",
+    ])
+
+
+def build_rest_material(rest_sec: float, by_id: dict, ids: list) -> str:
+    """단신 섹션 재료. rest_sec 는 section_budgets 가 배분한(축소 반영) 초."""
+    blocks = [_issue_block(alias, by_id[i], False)
+              for alias, i in zip(_alias_ids(ids), ids)]
+    high = int(rest_sec * CHARS_PER_SEC)
+    per = high // max(len(ids), 1)
+    return "\n\n".join([
+        "[단신 이슈 — 순서대로 전부]\n\n" + "\n\n---\n\n".join(blocks),
+        f"[분량] 이슈당 약 {per:,}자씩, 대사 합계 {int(high * 0.8):,}~{high:,}자. "
+        "이 글자 수 지시가 문장 수보다 우선입니다.",
+    ])
 
 
 # 모델이 그래도 써넣은 인사·마무리 줄을 골라내는 패턴. 프레임은 코드가 붙이므로
@@ -260,23 +356,51 @@ def strip_filler(text: str) -> str:
     return stripped or text
 
 
-def validate_script(text: str) -> tuple[str, int]:
-    """화자 형식 줄만 남긴 원고와 대사 글자 수. 원고가 못 되면 ValueError.
+def validate_items(items, expected_ids: list) -> tuple[list[str], int]:
+    """(HOST 줄 목록, 대사 글자 수). issue ID 완전성이 어긋나면 ValueError.
 
-    1인 진행 전환 후에도 ANALYST 라벨은 버리지 않고 HOST 로 흡수한다 —
-    모델이 옛 형식으로 회귀해도 내용은 살리는 쪽이 낫다.
+    "당일 이슈 전부"의 실제 보장 지점 — 누락·중복·창작·순서를 전부 잡는다.
+    min_lines 방식은 한 이슈가 세 줄 쓰고 다른 이슈를 빼먹어도 통과시켰다.
+    ANALYST 라벨은 버리지 않고 HOST 로 흡수한다 (옛 형식 회귀 대비).
     """
-    lines = []
+    if not isinstance(items, list):
+        raise ValueError("items 가 배열이 아님")
+    got_ids = [str(item.get("id") or "").strip()
+               for item in items if isinstance(item, dict)]
+    if len(got_ids) != len(items):
+        raise ValueError("항목 형식 오류 — 객체가 아닌 항목 존재")
+    expected = list(expected_ids)
+    missing = [i for i in expected if i not in got_ids]
+    duplicated = sorted({i for i in got_ids if got_ids.count(i) > 1})
+    invented = [i for i in got_ids if i not in expected]
+    if missing or duplicated or invented:
+        raise ValueError(
+            f"이슈 ID 불일치 — 누락: {missing or '없음'} / "
+            f"중복: {duplicated or '없음'} / 창작: {invented or '없음'}")
+    if got_ids != expected:
+        raise ValueError(f"이슈 순서 불일치 — 출력 순서: {got_ids}")
+    lines: list[str] = []
     spoken = 0
-    for raw in str(text or "").splitlines():
-        match = SPEAKER_RE.match(raw.strip())
-        if match:
+    for item in items:
+        script = item.get("script")
+        if isinstance(script, list):
+            # 모델이 script 를 줄 배열로 돌려주는 회귀가 있다(2026-08-14 eval
+            # 실측, 과부하 corpus) — 내용은 맞으므로 형식만 받아준다.
+            script = "\n".join(str(part) for part in script)
+            item = dict(item, script=script)
+        for raw in str(item.get("script") or "").splitlines():
+            raw = raw.strip()
+            if not raw:
+                continue
+            match = SPEAKER_RE.match(raw)
+            if not match:
+                raise ValueError(f"{item['id']}: HOST 형식 아닌 줄 — {raw[:40]}")
             spoken_text = strip_filler(match.group(2).strip())
             lines.append(f"HOST: {spoken_text}")
             spoken += len(spoken_text)
-    if len(lines) < MIN_LINES:
-        raise ValueError(f"화자 형식 줄 {len(lines)}개 — 원고 형식 미달")
-    return "\n".join(lines), spoken
+        if not str(item.get("script") or "").strip():
+            raise ValueError(f"{item['id']}: 대사 없음")
+    return lines, spoken
 
 
 def _script_models() -> list[str]:
@@ -294,16 +418,20 @@ def _script_models() -> list[str]:
     return models
 
 
-def _call_script(message: str) -> dict:
+def _call_script(system_prompt: str, message: str) -> dict:
     """대본 1회 호출 — 모델 사다리 + 넉넉한 재시도.
 
     하루 1회짜리 마지막 스텝이라 느려도 된다. call_json 은 서버가 알려주는
     대기 시간을 그대로 자므로 SCRIPT_RETRIES 회면 분당 한도 몇 창은 넘긴다.
+
+    thinking_budget=0 필수 — 원고는 사고가 필요 없는 창작 출력인데
+    thinking 을 켜 두면 예산(8192)을 thinking 이 먹고 원고가 잘린다
+    (2026-08-04 CI 실사고: thoughts=7863, output=315).
     """
     last_err: Exception | None = None
     for model in _script_models():
         try:
-            return call_json(SYSTEM_PROMPT, message, temperature=0.4,
+            return call_json(system_prompt, message, temperature=0.4,
                              max_output_tokens=8192, timeout=120.0,
                              thinking_budget=0, model=model,
                              retries=SCRIPT_RETRIES, label="audio_brief")
@@ -313,32 +441,63 @@ def _call_script(message: str) -> dict:
     raise last_err or GeminiError("대본 모델 전부 실패")
 
 
-def generate_script(material: str) -> str:
-    """원고 생성 + 재시도 사다리 1단 (daily_lead 패턴).
+TRANSITION_LINE = "HOST: 이어서 나머지 소식들을 짧게 전해드립니다."
 
-    thinking_budget=0 필수 — 원고는 사고가 필요 없는 창작 출력인데
-    thinking 을 켜 두면 예산(8192)을 thinking 이 먹고 원고가 잘린다
-    (2026-08-04 CI 실사고: thoughts=7863, output=315).
+
+def generate_section(system_prompt: str, material: str,
+                     expected_ids: list) -> tuple[list[str], int]:
+    """섹션 하나 생성 + ID 검증 + 재요청 1단.
+
+    빈 섹션은 API 를 부르지 않는다 — 0deep/0rest 날에 불필요한 호출·검증
+    실패가 없어야 한다.
     """
-    result = _call_script(material)
+    if not expected_ids:
+        return [], 0
+    result = _call_script(system_prompt, material)
     try:
-        script, spoken = validate_script(result.get("script"))
-        if spoken <= MAX_SPOKEN:
-            return script
-        problem = f"대사 합계 {spoken}자로 상한 {MAX_SPOKEN}자를 넘었습니다"
+        return validate_items(result.get("items"), expected_ids)
     except ValueError as exc:
         problem = str(exc)
-
     retry_message = (
         f"{material}\n\n[재요청] 방금 출력에 문제가 있었습니다: {problem}.\n"
-        "형식 규칙(모든 줄이 HOST: 로 시작)과 [분량] 지시를 지켜 "
-        "원고 전체를 다시 쓰세요."
+        "[재료]의 모든 이슈를 입력 순서대로 정확히 한 번씩, script 의 모든 "
+        "줄을 HOST: 로 시작해 다시 쓰세요."
     )
-    result = _call_script(retry_message)
-    script, spoken = validate_script(result.get("script"))
+    result = _call_script(system_prompt, retry_message)
+    return validate_items(result.get("items"), expected_ids)
+
+
+def generate_script(briefing: dict, by_id: dict) -> str:
+    """섹션 2회 호출(하이라이트/단신) → 코드 조립.
+
+    오프닝·클로징은 여기서 붙이지 않는다 — apply_frame 이 단일 소유자다.
+    전환 라인도 코드 소유 (frame_lines 패턴).
+    """
+    deep_ids, rest_ids = _issue_ids(briefing)
+    deep_ids = [i for i in deep_ids if i in by_id]
+    rest_ids = [i for i in rest_ids if i in by_id]
+    if not deep_ids and not rest_ids:
+        raise ValueError("재료에 이슈가 없음")
+    _, rest_sec = section_budgets(len(deep_ids), len(rest_ids))
+    min_mode = bool(rest_ids) and rest_sec / len(rest_ids) < REST_MIN_MODE_SEC
+    # 검증은 실제 issue_id 가 아니라 재료에 적힌 위치 번호로 한다 — 재료가
+    # 이슈당 번호 하나를 1:1 로 붙이므로 번호 집합 완전성 = 이슈 완전성이다.
+    deep_lines, deep_spoken = generate_section(
+        SYSTEM_PROMPT_DEEP, build_deep_material(briefing, by_id, deep_ids),
+        _alias_ids(deep_ids))
+    rest_prompt = SYSTEM_PROMPT_REST_MIN if min_mode else SYSTEM_PROMPT_REST
+    rest_lines, rest_spoken = generate_section(
+        rest_prompt, build_rest_material(rest_sec, by_id, rest_ids),
+        _alias_ids(rest_ids))
+    lines = list(deep_lines)
+    spoken = deep_spoken + rest_spoken
+    if deep_lines and rest_lines:
+        lines.append(TRANSITION_LINE)
+        spoken += len(TRANSITION_LINE.split(":", 1)[1].strip())
+    lines.extend(rest_lines)
     if spoken > MAX_SPOKEN:
-        raise ValueError(f"재시도 후에도 {spoken}자 — 포기")
-    return script
+        raise ValueError(f"대사 합계 {spoken}자로 상한 {MAX_SPOKEN}자 초과")
+    return "\n".join(lines)
 
 
 def split_script(script: str, limit: int = CHUNK_SPOKEN) -> list[str]:
@@ -389,41 +548,110 @@ def _tts_models() -> list[str]:
     return models
 
 
-def call_tts(script: str, models: list[str] | None = None) -> tuple[bytes, int]:
-    """멀티스피커 합성 → (PCM s16le, sample rate). 모델 순서대로 폴백.
+class RetryBudget:
+    """재시도 sleep 의 스테이지 공유 예산 (NucBrief 이식).
+
+    재시도×모델×청크가 곱으로 불어나면 sleep 만 몇 분씩 쌓인다 — 스테이지
+    전체가 풀 하나를 나눠 쓰면 총 대기 시간이 상수로 캡된다.
+    """
+
+    def __init__(self, total: float):
+        self.remaining = float(total)
+
+    def take(self, seconds: float) -> float:
+        granted = max(0.0, min(float(seconds), self.remaining))
+        self.remaining -= granted
+        return granted
+
+
+_last_tts_at = 0.0
+
+
+def _pace_tts() -> None:
+    """TTS 호출 간 최소 간격 강제 — 프리뷰 TTS 무료 티어는 분당 3회 수준이다.
+
+    청크 2개 시절엔 연속 호출이 운으로 살았지만 6개는 못 산다.
+    """
+    # ponytail: 단일 스레드 타임스탬프 페이서 — 스레드가 생기면 NucBrief 의 락 페이서로
+    global _last_tts_at
+    wait = _last_tts_at + TTS_MIN_INTERVAL_SEC - time.monotonic()
+    if wait > 0:
+        time.sleep(wait)
+    _last_tts_at = time.monotonic()
+
+
+def call_tts(script: str, models: list[str] | None = None,
+             budget: RetryBudget | None = None,
+             deadline: float | None = None) -> tuple[bytes, int]:
+    """단일 화자 합성 → (PCM s16le, sample rate).
 
     models 를 주면 그 목록만 쓴다 — 한 대본 안에서 모델이 섞이지 않게
     synthesize 가 모델을 고정해 내려보낸다.
+
+    한 모델 안에서 최대 TTS_CHUNK_RETRIES 회 재시도한다. 429 는 서버가
+    알려주는 대기 시간을 그대로 자되(무료 티어는 분당 한도라 지수 백오프는
+    같은 창을 두드린다), sleep 은 budget·deadline 양쪽에 클램프된다.
+    일일 한도는 재시도 없이 즉시 넘긴다 — 오늘 안 풀린다.
+
+    실패 GeminiError 에는 .reason(rate_limit|daily_quota|provider_error)이
+    실린다 — 부분 배송 메타의 partial_reason 이 이 값을 쓴다.
     """
-    last_err: Exception | None = None
+    last_err: GeminiError | None = None
     for model in (models or _tts_models()):
-        url = _TTS_ENDPOINT.format(model=model)
-        request = urllib.request.Request(
-            url,
-            data=json.dumps(tts_payload(script)).encode("utf-8"),
-            headers={"Content-Type": "application/json",
-                     "x-goog-api-key": gemini_client.API_KEY or ""},
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=300) as response:
-                payload = json.loads(response.read())
-            part = payload["candidates"][0]["content"]["parts"][0]
-            mime = part["inlineData"]["mimeType"]
-            pcm = base64.b64decode(part["inlineData"]["data"])
-            match = re.search(r"rate=(\d+)", mime)
-            rate = int(match.group(1)) if match else 24000
-            if not pcm:
-                raise GeminiError(f"{model}: 오디오 0바이트")
-            print(f"[audio] TTS {model} — {len(pcm) / 1024:.0f} KB, rate {rate}")
-            return pcm, rate
-        except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")[:200]
-            last_err = GeminiError(f"{model}: HTTP {exc.code} {detail}")
-            print(f"[audio] {last_err} — 다음 모델 폴백")
-        except (urllib.error.URLError, TimeoutError, KeyError, IndexError,
-                json.JSONDecodeError) as exc:
-            last_err = GeminiError(f"{model}: {type(exc).__name__}: {exc}")
-            print(f"[audio] {last_err} — 다음 모델 폴백")
+        for attempt in range(TTS_CHUNK_RETRIES):
+            _pace_tts()
+            url = _TTS_ENDPOINT.format(model=model)
+            request = urllib.request.Request(
+                url,
+                data=json.dumps(tts_payload(script)).encode("utf-8"),
+                headers={"Content-Type": "application/json",
+                         "x-goog-api-key": gemini_client.API_KEY or ""},
+            )
+            retryable = False
+            delay = 20.0
+            try:
+                with urllib.request.urlopen(request, timeout=300) as response:
+                    payload = json.loads(response.read())
+                part = payload["candidates"][0]["content"]["parts"][0]
+                mime = part["inlineData"]["mimeType"]
+                pcm = base64.b64decode(part["inlineData"]["data"])
+                match = re.search(r"rate=(\d+)", mime)
+                rate = int(match.group(1)) if match else 24000
+                if not pcm:
+                    raise KeyError("오디오 0바이트")
+                print(f"[audio] TTS {model} — {len(pcm) / 1024:.0f} KB, rate {rate}")
+                return pcm, rate
+            except urllib.error.HTTPError as exc:
+                detail = exc.read().decode("utf-8", errors="replace")
+                last_err = GeminiError(f"{model}: HTTP {exc.code} {detail[:200]}")
+                if exc.code == 429 and gemini_client._is_daily_quota(detail):
+                    last_err.reason = "daily_quota"
+                    print(f"[audio] {last_err} — 일일 한도, 재시도 없이 넘김")
+                    break
+                last_err.reason = ("rate_limit" if exc.code == 429
+                                   else "provider_error")
+                retryable = True
+                delay = gemini_client._retry_delay_seconds(detail) or 20.0
+            except (urllib.error.URLError, TimeoutError, KeyError, IndexError,
+                    json.JSONDecodeError) as exc:
+                last_err = GeminiError(f"{model}: {type(exc).__name__}: {exc}")
+                last_err.reason = "provider_error"
+                retryable = True
+                delay = 0.0   # 네트워크류는 대기 없이 — 페이서 간격이면 충분
+            if not retryable or attempt + 1 >= TTS_CHUNK_RETRIES:
+                print(f"[audio] {last_err} — 재시도 소진")
+                break
+            usable = delay
+            if deadline is not None:
+                usable = min(usable, max(0.0, deadline - time.monotonic()))
+            granted = budget.take(usable) if budget else usable
+            if delay > 0 and granted <= 0:
+                print(f"[audio] {last_err} — 재시도 예산/데드라인 소진")
+                break
+            print(f"[audio] {last_err} — {granted:.0f}초 후 재시도 "
+                  f"({attempt + 2}/{TTS_CHUNK_RETRIES})")
+            if granted > 0:
+                time.sleep(granted)
     raise last_err or GeminiError("TTS 모델 전부 실패")
 
 
@@ -475,39 +703,80 @@ def trim_silence(pcm: bytes, rate: int) -> bytes:
     return samples[start:end].tobytes()
 
 
-def synthesize(script: str) -> tuple[bytes, int]:
-    """대본을 청크로 나눠 합성하고 PCM 을 이어붙인다.
+def _join_pieces(pieces: list[bytes], rate: int) -> bytes:
+    """청크 PCM 을 CHUNK_GAP_SEC 간격으로 이어붙인다."""
+    out: list[bytes] = []
+    for index, piece in enumerate(pieces):
+        if index:
+            out.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
+        out.append(piece)
+    return b"".join(out)
+
+
+def synthesize(script: str, tts_deadline: float | None = None,
+               ) -> tuple[bytes, int, int, int, str | None]:
+    """대본을 청크로 나눠 합성 → (PCM, rate, 완료 청크, 전체 청크, 중단 사유).
 
     청크 PCM 은 전부 같은 포맷(s16le mono, 같은 rate)이라 바이트 연결로 충분하다.
-    레이트가 섞이면 이어붙인 결과가 배속으로 재생되므로 그때는 실패시킨다.
+    레이트가 섞이면 이어붙인 결과가 배속으로 재생되므로 그 청크는 실패로 친다.
 
-    **모델은 대본 하나에 하나만 쓴다.** 청크마다 폴백을 따로 태우면 3번 청크만
-    다른 모델로 넘어가 한 파일 안에서 목소리가 바뀐다 — 모델이 다르면 같은
-    voiceName 이라도 음색이 다르다. 그래서 실패하면 다음 모델로 **처음부터**
-    다시 만든다. 이미 만든 청크를 버리는 값보다 화자가 중간에 바뀌는 값이 크다.
+    폴백 정책 (NucBrief 이식): 핀 모델 안에서 청크당 재시도를 먼저 쓰고,
+    모델을 갈아탈 때 완료 청크가 RESTART_THRESHOLD 미만이면 처음부터
+    다시 만들지만(깨끗한 재시작이 쌈), 이상이면 실패한 청크부터 **이어받는다**.
+    처음부터 정책만 있으면 7세그먼트가 21렌더가 되고(NucBrief 실측) 그
+    재렌더가 쿼터·시간을 태워 꼬리 잘림의 최대 원인이 된다 — 3분 지점의
+    음색 seam 이 꼬리 잘림보다 낫다.
+
+    deadline 을 넘기면 신규 호출 없이 멈춘다 — 완성분은 부분 배송된다.
+    0청크일 때만 raise.
     """
     chunks = split_script(script)
     print(f"[audio] 대본 {len(script)}자 → TTS 청크 {len(chunks)}개")
-    last_err: Exception | None = None
+    deadline = (tts_deadline if tts_deadline is not None
+                else time.monotonic() + TTS_HARD_BUDGET_SEC)
+    budget = RetryBudget(TTS_RETRY_BUDGET_SEC)
+    pieces: list[bytes] = []
+    models_used: set[str] = set()
+    rate = 0
+    stop_reason: str | None = None
+    last_err: GeminiError | None = None
     for model in _tts_models():
-        pieces: list[bytes] = []
-        rate = 0
-        try:
-            for index, chunk in enumerate(chunks, 1):
-                pcm, chunk_rate = call_tts(chunk, models=[model])
+        if len(pieces) == len(chunks) or stop_reason == "hard_deadline":
+            break
+        if pieces and len(pieces) < RESTART_THRESHOLD:
+            print(f"[audio] 완료 {len(pieces)}청크뿐 — {model} 로 처음부터 재시작")
+            pieces, models_used, rate = [], set(), 0
+        for index in range(len(pieces) + 1, len(chunks) + 1):
+            if time.monotonic() + TTS_MIN_INTERVAL_SEC + TTS_CALL_EST_SEC > deadline:
+                stop_reason = "hard_deadline"
+                print(f"[audio] TTS 데드라인 — {len(pieces)}/{len(chunks)} 에서 중단")
+                break
+            chunk = chunks[index - 1]
+            try:
+                pcm, chunk_rate = call_tts(chunk, models=[model],
+                                           budget=budget, deadline=deadline)
                 if rate and chunk_rate != rate:
                     raise GeminiError(
                         f"청크 {index} 샘플레이트 불일치: {chunk_rate} != {rate}")
-                rate = chunk_rate
-                _check_not_truncated(index, chunk, pcm, rate)
-                if pieces:
-                    pieces.append(b"\x00" * (int(rate * CHUNK_GAP_SEC) * 2))
-                pieces.append(trim_silence(pcm, rate))
-            return b"".join(pieces), rate
-        except GeminiError as exc:
-            last_err = exc
-            print(f"[audio] {model} 실패 — 다음 모델로 대본 처음부터: {exc}")
-    raise last_err or GeminiError("TTS 모델 전부 실패")
+                _check_not_truncated(index, chunk, pcm, chunk_rate)
+            except GeminiError as exc:
+                last_err = exc
+                stop_reason = getattr(exc, "reason", "provider_error")
+                print(f"[audio] {model} 청크 {index} 실패 — 다음 모델: {exc}")
+                break
+            rate = chunk_rate
+            pieces.append(trim_silence(pcm, rate))
+            models_used.add(model)
+            stop_reason = None
+    if not pieces:
+        raise last_err or GeminiError("TTS 모델 전부 실패")
+    if len(models_used) > 1:
+        print(f"[audio] 경고 — 모델 {len(models_used)}개가 한 파일에 기여 "
+              f"(음색 seam 가능): {sorted(models_used)}")
+    if len(pieces) < len(chunks) and stop_reason is None:
+        stop_reason = "provider_error"
+    return (_join_pieces(pieces, rate), rate, len(pieces), len(chunks),
+            stop_reason if len(pieces) < len(chunks) else None)
 
 
 def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
@@ -559,10 +828,18 @@ def send_telegram_audio(mp3_path: Path, meta: dict) -> bool:
         print("[audio] 텔레그램 미설정 — 발송 스킵")
         return False
     minutes, seconds = divmod(int(meta.get("duration_sec") or 0), 60)
-    caption = (
-        f"🎧 {meta.get('date', '')} 오디오 브리핑 ({minutes}분 {seconds:02d}초)\n"
-        "하이라이트 대담 + 나머지 헤드라인 · nuclens.pages.dev"
-    )
+    if meta.get("partial"):
+        caption = (
+            f"🎧 {meta.get('date', '')} 오디오 브리핑 "
+            f"(부분 {meta.get('chunks_done')}/{meta.get('chunks_total')} · "
+            f"{minutes}분 {seconds:02d}초)\n"
+            "전체 내용은 nuclens.pages.dev"
+        )
+    else:
+        caption = (
+            f"🎧 {meta.get('date', '')} 오디오 브리핑 ({minutes}분 {seconds:02d}초)\n"
+            "하이라이트 심층 + 전체 헤드라인 · nuclens.pages.dev"
+        )
     import requests
     try:
         response = requests.post(
@@ -595,6 +872,7 @@ def _mark_sent(meta: dict) -> None:
 
 
 def generate(force: bool = False, send: bool = True) -> bool:
+    run_started_at = time.monotonic()
     if not is_available():
         print("[audio] GEMINI_API_KEY 없음 — 스킵")
         return False
@@ -609,6 +887,8 @@ def generate(force: bool = False, send: bool = True) -> bool:
     existing = _load_json(AUDIO_DIR / META_FILE_NAME) or {}
     if not force and existing.get("date") == date and mp3_path.exists():
         # 생성은 됐는데 발송이 안 된 채 끝난 실행(429 등)을 여기서 회수한다.
+        # 부분본도 여기 걸린다 — 자동 업그레이드는 하지 않는다(쿼터 보호),
+        # 수동 업그레이드는 workflow_dispatch force_audio.
         if not existing.get("telegram_sent_at"):
             if send_telegram_audio(mp3_path, existing):
                 _mark_sent(existing)
@@ -616,25 +896,28 @@ def generate(force: bool = False, send: bool = True) -> bool:
             print(f"[audio] {date} 이미 생성·발송됨 ({file_name}) — 스킵")
         return True
 
-    material = build_material(briefing, by_id)
-    if "제목:" not in material:
-        print("[audio] 재료에 이슈가 없음 — 스킵")
-        return False
-
     try:
-        script = generate_script(material)
+        script = generate_script(briefing, by_id)
     except (GeminiError, ValueError) as exc:
         print(f"[audio] 대본 실패 — 기존 오디오 유지: {exc}")
         return False
     script = apply_frame(script, briefing)
 
+    # 대본을 TTS **전에** 남긴다 — TTS 가 부분 실패해도 전문은 항상 살아서
+    # 부분 오디오의 나머지를 텍스트로 보완한다 (진단 겸용, issue_audit 패턴).
+    AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+    (AUDIO_DIR / f"script-{date}.txt").write_text(script, encoding="utf-8")
+
+    tts_deadline = min(
+        time.monotonic() + TTS_HARD_BUDGET_SEC,
+        run_started_at + AUDIO_RUN_BUDGET_SEC - SHIP_RESERVE_SEC,
+    )
     try:
-        pcm, rate = synthesize(script)
+        pcm, rate, done, total, stop_reason = synthesize(script, tts_deadline)
     except GeminiError as exc:
         print(f"[audio] TTS 실패 — 기존 오디오 유지: {exc}")
         return False
 
-    AUDIO_DIR.mkdir(parents=True, exist_ok=True)
     try:
         to_mp3(pcm, rate, mp3_path)
     except (RuntimeError, subprocess.CalledProcessError) as exc:
@@ -650,10 +933,17 @@ def generate(force: bool = False, send: bool = True) -> bool:
         "script_chars": sum(len(line.split(":", 1)[1]) for line in script.splitlines()),
         "voices": VOICES,
     }
+    if done < total:
+        # 사유·재시도 가능성을 남긴다 — 운영 판단(수동 재생성 여부)의 근거.
+        # daily_quota 만 재시도 불가 — 오늘 안 풀린다.
+        meta.update({
+            "partial": True,
+            "chunks_done": done,
+            "chunks_total": total,
+            "partial_reason": stop_reason or "provider_error",
+            "retryable": stop_reason != "daily_quota",
+        })
     _write_meta(meta)
-    # 대본을 함께 남긴다 — 프롬프트 적중 여부를 라이브 산출물로 검증하는
-    # 진단 요령(issue_audit.json 패턴). 화면은 이 파일을 쓰지 않는다.
-    (AUDIO_DIR / f"script-{date}.txt").write_text(script, encoding="utf-8")
     # 옛 날짜 산출물 정리 — 캐시·배포에 실리는 것은 최신 1개면 충분하다
     for old in AUDIO_DIR.glob("briefing-*.mp3"):
         if old.name != file_name:
@@ -661,7 +951,8 @@ def generate(force: bool = False, send: bool = True) -> bool:
     for old in AUDIO_DIR.glob("script-*.txt"):
         if old.name != f"script-{date}.txt":
             old.unlink(missing_ok=True)
-    print(f"[audio] {date} 완료 — {file_name} "
+    label = f"부분 {done}/{total}" if done < total else "완료"
+    print(f"[audio] {date} {label} — {file_name} "
           f"({mp3_path.stat().st_size / 1024:.0f} KB, {duration}초)")
     if send and send_telegram_audio(mp3_path, meta):
         _mark_sent(meta)

@@ -41,7 +41,11 @@ jobs:
     # 2026-08-03 정기 실행이 15분 벽에 걸려 취소됐다 — 스텝은 전부 성공한 뒤
     # 마지막 스모크가 끝나는 순간(15분 09초)이었다. Plan·trend·배포(TTS 포함)가
     # 각각 3~7분이라 15분은 여유가 없다.
-    timeout-minutes: 25
+    # 2026-08-14 전 이슈 오디오(8~10분) 확장: audio_brief.py 는 자체 상한
+    # AUDIO_RUN_BUDGET_SEC(25분) 안에서 배송 3분을 예약하고 멈추므로,
+    # 잡 상한은 선행 스텝(~6분)을 더해 35분 — Actions 강제종료로 부분 배송이
+    # 불발되는 경로가 없다.
+    timeout-minutes: 35
 
     steps:
       - name: Checkout repo
