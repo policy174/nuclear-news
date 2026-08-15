@@ -192,7 +192,7 @@ jobs:
           echo "마지막 배포로부터 ${age}분 경과 (최소 간격 ${MIN_GAP_MIN}분)"
           if [ "$age" -lt "$MIN_GAP_MIN" ]; then echo "간격 미달 — 배포 스킵"; exit 0; fi
           python web/build_data.py
-          npx --yes wrangler@4 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
+          npx --yes wrangler@4.123.0 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
 
       # 이슈 병합 회색지대 LLM 판정 캐시. 커밋하지 않으면 빌드마다(하루 12회+)
       # 같은 쌍을 다시 물어보게 되고, 판정이 흔들리면 이슈 묶음도 같이 흔들린다.

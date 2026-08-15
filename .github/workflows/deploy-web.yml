@@ -94,7 +94,7 @@ jobs:
             echo "::error::CLOUDFLARE_API_TOKEN 미설정 — 배포할 수 없다"
             exit 1
           fi
-          npx --yes wrangler@4 pages deploy web/public \
+          npx --yes wrangler@4.123.0 pages deploy web/public \
             --project-name=nuclens --branch=main --commit-dirty=true
 
       # "데이터는 올라갔는데 화면이 죽는" 사고 재발 감지. curl 만으로는 부족하다는
