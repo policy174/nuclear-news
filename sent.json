@@ -3456,14 +3456,16 @@
     "1f1a7f1dea0764c5": "2026-08-15T17:18:13.463595+00:00",
     "56d2ffc5f9e9ba0e": "2026-08-15T17:18:13.463595+00:00",
     "a442147c1539028a": "2026-08-15T17:18:13.463595+00:00",
-    "54d98fd4721f281b": "2026-08-15T17:18:13.463595+00:00"
+    "54d98fd4721f281b": "2026-08-15T17:18:13.463595+00:00",
+    "1b41386b40f238db": "2026-08-15T17:44:44.681705+00:00",
+    "d48f68a022448837": "2026-08-15T17:44:44.681705+00:00"
   },
   "source_yield": {
-    "at": "2026-08-15T17:20:27+00:00",
+    "at": "2026-08-15T17:46:34+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 44,
@@ -3471,24 +3473,20 @@
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 4,
-      "La Tribune 원자력": 4,
+      "Reuters 원자력": 3,
+      "La Tribune 원자력": 5,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 10,
       "Les Échos 원자력": 12,
       "E&E News 원자력": 1,
-      "Nuclear Engineering International": 13,
-      "Euractiv 원자력": 69,
+      "Nuclear Engineering International": 12,
+      "Euractiv 원자력": 75,
       "국내 원자력 보도": 9
     },
     "kept": {
-      "Les Échos 원자력": 1,
-      "국내 원자력 보도": 3
+      "국내 원자력 보도": 1
     },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   }
 }
