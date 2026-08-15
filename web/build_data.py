@@ -4112,7 +4112,6 @@ def build() -> None:
         ("insights.json", insights),
         ("publications.json", publications),
         ("entities.json", entities_view),
-        ("issue_audit.json", issue_audit),
         ("manifest.json", manifest),
         ("status.json", status),
     )
@@ -4121,6 +4120,14 @@ def build() -> None:
             json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",
         )
+    # 진단 전용 — 화면이 읽지 않는데 26MiB 를 넘겨 Pages 파일 상한(25MiB)에
+    # 걸려 배포 전체가 죽었다(2026-08-16). 배포 폴더 밖에 남긴다.
+    diag_dir = SITE_DIR / "diag"
+    diag_dir.mkdir(parents=True, exist_ok=True)
+    (diag_dir / "issue_audit.json").write_text(
+        json.dumps(issue_audit, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
     issue_page_count = build_issue_pages(issue_catalog)
     brief_page_count = build_brief_pages(briefings)
     (SITE_DIR / "public" / "rss.xml").write_bytes(build_rss(briefings, now))
