@@ -152,6 +152,16 @@
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": true
     },
+    "01d97e5a989b4f96--975146cde1cfceb8": {
+      "embedding_similarity": 0.9107,
+      "left_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 유럽 전반, B는 헝가리 팍스 원전",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": false
+    },
     "01d97e5a989b4f96--ca20b30862dbeec1": {
       "embedding_similarity": 0.8734,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -659,6 +669,16 @@
       "prompt_version": 1,
       "reason": "다른 기업, 다른 논의",
       "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
+    "06d19dc122234889--aee00725a324e9a4": {
+      "embedding_similarity": 0.9,
+      "left_title": "최태원·정기선이 주목한 SMR, 미국에서 본게임 시작",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 협력 논의, B는 본게임 시작",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
       "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
       "same_event": false
     },
@@ -3102,6 +3122,16 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 일시 가동 중단 예정",
       "same_event": true
     },
+    "139ef867c400ece2--f04c10e84e5022d9": {
+      "embedding_similarity": 0.8849,
+      "left_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "가뭄으로 루마니아 체르나보다 원전 가동 중단",
+      "same_event": true
+    },
     "139ef867c400ece2--f1b7e28af992975c": {
       "embedding_similarity": 0.8839,
       "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
@@ -3110,6 +3140,16 @@
       "reason": "같은 국가, 같은 가뭄 영향",
       "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
       "right_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "same_event": true
+    },
+    "139f335ef5f249b0--25357b78fc8779ae": {
+      "embedding_similarity": 0.9121,
+      "left_title": "산업부·원안위, 한국형 원전 해외 진출 위한 업무협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 수출 규제협력 업무협약",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "산업부·원안위, 원전 수출 규제협력 위한 업무협약 체결",
       "same_event": true
     },
     "139f335ef5f249b0--46906f005868a7ff": {
@@ -5992,6 +6032,16 @@
       "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
       "same_event": true
     },
+    "2cf78843f6ea5720--c693db7134e6be68": {
+      "embedding_similarity": 0.9119,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "B는 헝가리 원전 언급, A는 루마니아만",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": false
+    },
     "2cf78843f6ea5720--ca20b30862dbeec1": {
       "embedding_similarity": 0.863,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -6409,6 +6459,16 @@
       "prompt_version": 1,
       "reason": "루마니아 체르나보다 원전 수량 감소 위기",
       "reviewed_at": "2026-08-13T01:05:09.094355+00:00",
+      "right_title": "루마니아, 다뉴브강 물 전환으로 원자로 9일간 가동 가능",
+      "same_event": true
+    },
+    "337e6ab9e0f144f7--c693db7134e6be68": {
+      "embedding_similarity": 0.9005,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
       "right_title": "루마니아, 다뉴브강 물 전환으로 원자로 9일간 가동 가능",
       "same_event": true
     },
@@ -9391,6 +9451,16 @@
       "reviewed_at": "2026-08-12T21:38:08.186029+00:00",
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
       "same_event": false
+    },
+    "4323de7d47ff47c1--8ccda2e1c46fb274": {
+      "embedding_similarity": 0.9074,
+      "left_title": "스페인, 알마라즈 원전 운영 기한 2030년까지 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "스페인 알마라즈 원전 운영 기한 연장",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "스페인, 에너지 시장 불안정 속 알마라즈 원전 가동 2030년까지 연장 결정",
+      "same_event": true
     },
     "44c8137dead103cc--f1b7e28af992975c": {
       "embedding_similarity": 0.8507,
@@ -13012,6 +13082,36 @@
       "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
       "same_event": false
     },
+    "591caac62d5f3545--8db4836106efc88d": {
+      "embedding_similarity": 0.9,
+      "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 공급망 참여, B는 건설허가",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
+      "same_event": false
+    },
+    "591caac62d5f3545--aee00725a324e9a4": {
+      "embedding_similarity": 0.9015,
+      "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설허가, B는 본게임 시작",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "최태원·정기선이 주목한 SMR, 미국에서 본게임 시작",
+      "same_event": false
+    },
+    "591caac62d5f3545--b3fe6868b8391d2d": {
+      "embedding_similarity": 0.9116,
+      "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설허가, B는 기자재 제작",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 345MW급 나트륨 원자로 기자재 제작",
+      "same_event": false
+    },
     "5948937d2a5e587d--726ce5e20cdd473d": {
       "embedding_similarity": 0.8528,
       "left_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
@@ -15821,6 +15921,16 @@
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "AI 확산으로 전력 인프라 투자 급증, 은행 기업금융 기회 확대",
       "same_event": false
+    },
+    "73dc4aec3344793a--ceff13b7d406dbbe": {
+      "embedding_similarity": 0.9194,
+      "left_title": "텍사스 2.5GW 가스-원자력 복합 프로젝트, 엔지니어링 및 인허가 단계 진입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "텍사스 2.5GW 복합발전소 인허가 단계",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "GE 버노바 히타치 및 블루 에너지, 텍사스 2.5GW 복합발전소 설계·인허가 계약 체결",
+      "same_event": true
     },
     "756c2e6e80bbd36e--7f066d5dce3f0910": {
       "embedding_similarity": 0.8476,
@@ -19072,6 +19182,16 @@
       "right_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
       "same_event": false
     },
+    "975146cde1cfceb8--b11d8b14d244b9cc": {
+      "embedding_similarity": 0.9033,
+      "left_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 원전·화력, B는 원전·화력·태양광",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
+    },
     "975146cde1cfceb8--ca20b30862dbeec1": {
       "embedding_similarity": 0.9133,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -19552,6 +19672,16 @@
       "right_title": "K-원자력안전, 계속운전 및 SMR 심사 원칙 준수 가속화",
       "same_event": false
     },
+    "9dac780789493824--c693db7134e6be68": {
+      "embedding_similarity": 0.9108,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 원전 가동 중단 후 전력 절약 요청",
+      "same_event": true
+    },
     "9dac780789493824--e9c761ed60c251fb": {
       "embedding_similarity": 0.8663,
       "left_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
@@ -19970,6 +20100,46 @@
       "reason": "SMR 등 미래성장동력 투자 강조",
       "reviewed_at": "2026-08-14T12:43:56.426278+00:00",
       "right_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "same_event": true
+    },
+    "a4fec121e2c54527--bca8b527433b7384": {
+      "embedding_similarity": 0.9062,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 발표",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
+      "same_event": true
+    },
+    "a4fec121e2c54527--c635ceb310705bc0": {
+      "embedding_similarity": 0.9086,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 발표",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "same_event": true
+    },
+    "a4fec121e2c54527--cf220a841659c83f": {
+      "embedding_similarity": 0.9105,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 발표",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
+    },
+    "a4fec121e2c54527--e4c4b1f4ad2834d4": {
+      "embedding_similarity": 0.8985,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 육성 발표",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": true
     },
     "a519ec27d94058f0--aa165fa0824b87d8": {
@@ -20490,6 +20660,16 @@
       "reason": "같은 국가의 전력 위기 및 원전 영향 보도",
       "reviewed_at": "2026-08-12T11:07:56.289422+00:00",
       "right_title": "루마니아 체르나보다 원전, 다뉴브강 수량 감소로 가동 중단 위기",
+      "same_event": true
+    },
+    "abf6d61ed6adca40--c693db7134e6be68": {
+      "embedding_similarity": 0.9093,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "루마니아, 다뉴브강 저수위로 체르나보다 원전 냉각수 확보 비상",
       "same_event": true
     },
     "abf6d61ed6adca40--e9c761ed60c251fb": {
@@ -22300,6 +22480,26 @@
       "reason": "정부 SMR '7대 SEED' 육성",
       "reviewed_at": "2026-08-14T05:33:31.107110+00:00",
       "right_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "same_event": true
+    },
+    "c693db7134e6be68--f04c10e84e5022d9": {
+      "embedding_similarity": 0.909,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "가뭄으로 루마니아 체르나보다 원전 가동 중단",
+      "same_event": true
+    },
+    "c693db7134e6be68--f1b7e28af992975c": {
+      "embedding_similarity": 0.8996,
+      "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 수위 저하로 원전 가동 중단",
+      "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
       "same_event": true
     },
     "c73973400bc0f6da--f9836d3cb1423104": {
