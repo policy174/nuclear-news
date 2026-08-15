@@ -61,6 +61,16 @@
    "translated_version": 3
   },
   {
+   "id": "82371ad3225c",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Good Practices in Implementing Plant and Equipment Reliability Programmes in Operating Nuclear Power Plants",
+   "url": "http://www.iaea.org/publications/16099/good-practices-in-implementing-plant-and-equipment-reliability-programmes-in-operating-nuclear-power-plants",
+   "date": "2026-08-10",
+   "fetched_at": "2026-08-16"
+  },
+  {
    "id": "99c89733959c",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -605,39 +615,39 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "iea_reports": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-15T00:48:45+09:00",
+   "at": "2026-08-16T00:23:29+09:00",
    "ok": true,
-   "new": 1,
-   "parsed": 1
+   "new": 0,
+   "parsed": 0
   }
  }
 }
