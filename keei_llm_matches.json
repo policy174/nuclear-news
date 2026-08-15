@@ -610,6 +610,20 @@
       "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
+    "issue-3c3560063b344488--92b30862a0": {
+      "issue_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "keei_item": "일본 정부, 선진 원자로와 핵융합 에너지를 중점 산업 분야로 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 정책",
+      "same_event": false
+    },
+    "issue-3c3560063b344488--99f6aed02e": {
+      "issue_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 프로젝트",
+      "same_event": false
+    },
     "issue-3daa09ef0de9e494--02506fe991": {
       "issue_title": "현대건설, 美 홀텍·엔터지와 SMR-300 도입 가능성 검토",
       "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
@@ -895,6 +909,13 @@
       "keei_item": "Holtec과 EDF, 영국에 SMR-300 최대 4기 도입 위한 제안서 제출",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 단계",
+      "same_event": false
+    },
+    "issue-571c41d8d5a745d5--613ab26b06": {
+      "issue_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 사안",
       "same_event": false
     },
     "issue-571c41d8d5a745d5--841ceedbf0": {
@@ -1387,6 +1408,13 @@
       "reason": "주체, 대상, 안건 모두 다름",
       "same_event": false
     },
+    "issue-92e555a3c19fdcb7--9a0229abcf": {
+      "issue_title": "미국 핵안보국(NNSA), Y-12 칼시너 프로젝트 해체 작업 승인",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "다른 종류의 사건",
+      "same_event": false
+    },
     "issue-937708a71d17b0a2--16d9dcc69c": {
       "issue_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
       "keei_item": "미 NRC, Hatch 원전 2차 계속운전 승인",
@@ -1527,6 +1555,13 @@
       "reason": "다른 원전 대상",
       "same_event": false
     },
+    "issue-a4723d13eaa57660--613ab26b06": {
+      "issue_title": "중국, 신규 원자로 8기 건설 승인",
+      "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
+      "prompt_version": 1,
+      "reason": "동일 주체의 동일 승인",
+      "same_event": true
+    },
     "issue-a4723d13eaa57660--841ceedbf0": {
       "issue_title": "중국, 신규 원자로 8기 건설 승인",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -1616,6 +1651,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-b55e201374267ece--02506fe991": {
+      "issue_title": "미국 정부·IAEA, SMR 추진선·FSMR 국제 규제 표준화 논의 착수",
+      "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
+      "prompt_version": 1,
+      "reason": "일반 논의와 개별 사업",
       "same_event": false
     },
     "issue-b55e201374267ece--add41ecabd": {
@@ -1709,6 +1751,13 @@
       "reason": "다른 국가, 다른 사안",
       "same_event": false
     },
+    "issue-bdd164e591b5109d--9a0229abcf": {
+      "issue_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 협정",
+      "same_event": false
+    },
     "issue-bdd164e591b5109d--bc52b67e71": {
       "issue_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
       "keei_item": "Holtec과 EDF, 영국에 SMR-300 최대 4기 도입 위한 제안서 제출",
@@ -1779,6 +1828,13 @@
       "reason": "하나는 개별 설계, 다른 하나는 제도 도입",
       "same_event": false
     },
+    "issue-c76e8785efc2694e--48657c5c8d": {
+      "issue_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "keei_item": "중국 Taipingling 원전 2호기, 상업운전 개시",
+      "prompt_version": 1,
+      "reason": "동일 원전의 동일 사건",
+      "same_event": true
+    },
     "issue-c76e8785efc2694e--4fe7b05f50": {
       "issue_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
       "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
@@ -1828,11 +1884,25 @@
       "reason": "하나는 개별 기업, 다른 하나는 국제 협력",
       "same_event": false
     },
+    "issue-cad8f7d2c2d3c640--9a0229abcf": {
+      "issue_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "다른 종류의 사건",
+      "same_event": false
+    },
     "issue-cad8f7d2c2d3c640--f797174d9b": {
       "issue_title": "삼성중공업, 미국 Sargent & Lundy와 부유식 SMR 플랫폼 개발 MOU 체결",
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "주체, 안건, 대상 모두 다름",
+      "same_event": false
+    },
+    "issue-cb01e84344688fa0--02506fe991": {
+      "issue_title": "체코 산업통상부, CEZ, 롤스로이스 SMR 2개 추가 부지 개발 MOU 체결",
+      "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 SMR 사업",
       "same_event": false
     },
     "issue-cb01e84344688fa0--d65bac9c4d": {
@@ -1870,11 +1940,32 @@
       "reason": "하나는 개별 프로젝트, 다른 하나는 국제 협력",
       "same_event": false
     },
+    "issue-cd798dfa8457d15c--99f6aed02e": {
+      "issue_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "다른 프로젝트",
+      "same_event": false
+    },
+    "issue-cd798dfa8457d15c--b78f9ce6eb": {
+      "issue_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
+      "keei_item": "독일 연방연구기술우주부, 핵융합 허브 3개에 1억 2,500만 유로 지원",
+      "prompt_version": 1,
+      "reason": "다른 국가의 다른 기술",
+      "same_event": false
+    },
     "issue-cd798dfa8457d15c--ddd33cac84": {
       "issue_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
       "keei_item": "일본 니가타현, 원전 재가동에 따른 도쿄전력 지원금 활용 방안 마련",
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-cd7db33ecb04145e--48657c5c8d": {
+      "issue_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
+      "keei_item": "중국 Taipingling 원전 2호기, 상업운전 개시",
+      "prompt_version": 1,
+      "reason": "다른 원전의 다른 단계",
       "same_event": false
     },
     "issue-cd7db33ecb04145e--4fe7b05f50": {
@@ -1996,6 +2087,13 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-dc1568d26b7a3c04--9a0229abcf": {
+      "issue_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "동일 협정의 다른 표현",
+      "same_event": true
+    },
     "issue-dc1568d26b7a3c04--ee30e34bc3": {
       "issue_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
@@ -2115,6 +2213,13 @@
       "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
+    "issue-e53a1ba2dfe73d05--71662a8146": {
+      "issue_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
+      "keei_item": "주요국 핵융합에너지 개발 현황 비교(EU Fusion for Energy 보고서)",
+      "prompt_version": 1,
+      "reason": "다른 기술의 다른 사안",
+      "same_event": false
+    },
     "issue-e53a1ba2dfe73d05--841ceedbf0": {
       "issue_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -2177,6 +2282,13 @@
       "prompt_version": 1,
       "reason": "A는 논의, B는 기업 사업 발표",
       "same_event": false
+    },
+    "issue-f60dc4f395c063ea--36d5d7452d": {
+      "issue_title": "불가리아 코즐로두이 3·4호기, 10년 해체 면허 발급",
+      "keei_item": "불가리아 원자력규제청, Kozloduy 3·4호기 10년 해체허가 발급",
+      "prompt_version": 1,
+      "reason": "동일 원전의 동일 허가",
+      "same_event": true
     },
     "issue-f73a97b0f28780fb--23a6f604ae": {
       "issue_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
