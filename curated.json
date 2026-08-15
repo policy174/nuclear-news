@@ -144878,5 +144878,101 @@
     "feed": "정책",
     "domain": "wolyo.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "7a317452e7276ac2": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "market",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "차세대 AI 데이터센터·ESS 기반 '배터리'에 쏠린 시선",
+    "summary": "고체 전해질 전문기업 솔리비스가 230억원 규모 시리즈C 투자를 유치하고, 수계형 전지 스타트업 코스모스랩이 220억원 규모 시리즈A 투자를 유치했다.",
+    "detail": "솔리비스는 황화물계 고체 전해질 전문기업으로, 이번 투자로 누적 투자금 652억원을 유치했습니다. 코스모스랩은 타지 않는 물 전해질 배터리를 개발하며, 2027년 양산 개시를 목표로 AI 데이터센터용 ESS 기술을 개발 중입니다. 두 기업 모두 차세대 배터리 시장에서 주목받는 기술을 보유하고 있으며, 정부의 '초격차 글로벌 딥스' 및 '유니콘브릿지' 사업에도 선정되었습니다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#배터리",
+      "#ESS",
+      "#AI데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2024-08-14",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-15T19:19:51.338687+00:00",
+    "title": "[VC’s Pick]차세대 AI 데이터센터·ESS 기반 '배터리'에 쏠린 시선",
+    "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=01095526645547976",
+    "feed": "정책",
+    "domain": "edaily.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "6d52917de753aa8c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "corporate",
+    "title_kr": "LG-엔비디아, 휴머노이드 로봇 및 AI 팩토리 개발 협력",
+    "summary": "LG그룹과 엔비디아가 미국 산타클라라에서 업무협약을 체결하고 휴머노이드 로봇 개발과 인공지능(AI) 기반 제조 공정 혁신을 본격화한다.",
+    "detail": "LG그룹 계열사(LG전자, LG유플러스, LG CNS, LG에너지솔루션)와 엔비디아는 8월 13일(현지시각) 미국 산타클라라 엔비디아 본사에서 업무협약을 맺었습니다. 양사는 2027년 1분기 차세대 이족보행 휴머노이드 레퍼런스 로봇을 공개할 예정이며, 엔비디아의 젯슨 토르와 아이작 GR00T가 탑재됩니다. 또한, 엔비디아의 AI 팩토리 아키텍처 기반 레퍼런스 AI 팩토리를 2027년 상반기까지 구축하고, LG의 송배전·열관리·데이터센터 설계 역량을 투입할 계획입니다. 대규모 인프라 투자에 따른 비용 효율적 관리와 정밀한 전력 제어 및 냉각 성능 확보가 핵심 과제로 꼽힙니다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#로봇",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2024-08-13",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-15T19:19:51.338687+00:00",
+    "title": "LG엔비디아 동맹, 휴머노이드 로봇 개발 본격화",
+    "link": "https://www.g-enews.com/view.php?ud=2026081521245492902bd56fbc3c_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "데이터센터 전력"
   }
 }
