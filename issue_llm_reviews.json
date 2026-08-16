@@ -832,6 +832,16 @@
       "right_title": "국내 데이터센터, 10년 뒤 현재보다 물 사용량 45배 증가 전망",
       "same_event": false
     },
+    "071c0427ea8759c8--96dffa21b827ca27": {
+      "embedding_similarity": 0.8968,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 SMR 전력, B는 데이터센터 물 부족",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "국내 데이터센터, 10년 뒤 현재보다 물 사용량 45배 증가 전망",
+      "same_event": false
+    },
     "073de7d5f693012f--4dd2920f69b7ea54": {
       "embedding_similarity": 0.8674,
       "left_title": "텍사스 주지사, 데이터센터 전력망 연결 대기열 전면 감사 지시",
@@ -1820,6 +1830,16 @@
       "reason": "테라파워 SMR 건설 현황 vs. 빌 게이츠와 최태원의 만남",
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
       "right_title": "최태원 회장, 오늘 빌 게이츠와 'SMR' 협력 논의 위해 만난다…사업 내...",
+      "same_event": false
+    },
+    "0a3a69c9a73e8bbe--76d8beb29f51436d": {
+      "embedding_similarity": 0.893,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설 현황, B는 경쟁력 비교",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠의 SMR 러브콜과 K-SMR의 경쟁력 비교",
       "same_event": false
     },
     "0a3a69c9a73e8bbe--895b471e7f2e1d4c": {
@@ -3480,6 +3500,16 @@
       "reason": "러시아 원전 건설 진행 상황",
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "러시아 콜라 II 원전 부지 준비 작업 착수, 규제기관 인허가 후 진행",
+      "same_event": true
+    },
+    "13204c48ee1a4cd9--565a77d9ffdd8577": {
+      "embedding_similarity": 0.8943,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠 방한, K-SMR 공급망 협력 구체화 기대",
       "same_event": true
     },
     "13204c48ee1a4cd9--66d8933507f8bf75": {
@@ -5992,6 +6022,16 @@
       "right_title": "삼성重, 업계 최초 200㎿급 해상 데이터센터 美선급 인증 획득",
       "same_event": false
     },
+    "22bb352d4ca89d37--96dffa21b827ca27": {
+      "embedding_similarity": 0.8912,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 SMR 전력, B는 데이터센터 물 부족",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "국내 데이터센터, 10년 내 물 수요 45배 급증 전망",
+      "same_event": false
+    },
     "22bb352d4ca89d37--b0e178ca6114b1a9": {
       "embedding_similarity": 0.8429,
       "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
@@ -6352,6 +6392,16 @@
       "right_title": "빌 게이츠 방한, 한국 원전설비 발주 및 수출 협력 논의",
       "same_event": true
     },
+    "2568d6eea4a5a88b--c6e15734feebd758": {
+      "embedding_similarity": 0.8885,
+      "left_title": "미 주정부, AI 데이터센터 전력비 전가 막는다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 AI 전력비, B는 데이터센터 송전 비용",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "버지니아 주, 데이터센터 송전시설 비용 사업자 부담 원칙 확립",
+      "same_event": false
+    },
     "2568d6eea4a5a88b--f8729b9ad3d35dd4": {
       "embedding_similarity": 0.8568,
       "left_title": "미국 민주당 주지사들, 에너지 위기 대응책으로 원자력 발전 전환",
@@ -6490,6 +6540,16 @@
       "reason": "모호체 4호기 시운전 및 임계 달성",
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
       "right_title": "슬로바키아 모호체 4호기, 최초 임계 달성",
+      "same_event": true
+    },
+    "26ff4cd046a6d806--565a77d9ffdd8577": {
+      "embedding_similarity": 0.904,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠 방한 앞두고 HD현대, 테라파워와 SMR 시장 공략 가속화",
       "same_event": true
     },
     "26ff4cd046a6d806--591caac62d5f3545": {
@@ -8390,6 +8450,16 @@
       "reason": "원전 수출 위한 협력 강화 MOU 체결",
       "reviewed_at": "2026-08-14T01:04:51.606120+00:00",
       "right_title": "원전 수출에 '안전 및 규제체계 협력' 강화 업무협약 체결",
+      "same_event": true
+    },
+    "341fae7beffafdcb--a4fec121e2c54527": {
+      "embedding_similarity": 0.9051,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 육성 정책 발표 및 구체화",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "정부, SMR 7대 SEED 프로젝트 선정 및 세액공제 등 육성 가속화",
       "same_event": true
     },
     "34575730dc364184--3590184774ef2006": {
@@ -13992,6 +14062,16 @@
       "right_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
       "same_event": true
     },
+    "565a77d9ffdd8577--62decf04a230225d": {
+      "embedding_similarity": 0.8897,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "테라파워-SK이노베이션, 차세대 나트륨 SMR 협력 합의서 체결",
+      "same_event": true
+    },
     "565a77d9ffdd8577--895b471e7f2e1d4c": {
       "embedding_similarity": 0.8637,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -14012,6 +14092,26 @@
       "right_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
       "same_event": true
     },
+    "565a77d9ffdd8577--953414e97d3544c5": {
+      "embedding_similarity": 0.891,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠 방한 계기, SK·HD현대·두산, 테라파워 SMR 공급망 참여 확대",
+      "same_event": true
+    },
+    "565a77d9ffdd8577--a442147c1539028a": {
+      "embedding_similarity": 0.9023,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "SK이노베이션, 빌 게이츠의 테라파워와 맞손…'K-나트륨'으로 SMR 영토 넓...",
+      "same_event": true
+    },
     "565a77d9ffdd8577--a5a1ef68231b4e51": {
       "embedding_similarity": 0.8537,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -14020,6 +14120,46 @@
       "reason": "테라파워 SMR 협력 보도",
       "reviewed_at": "2026-08-16T07:35:12.770961+00:00",
       "right_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "same_event": true
+    },
+    "565a77d9ffdd8577--c37069e03f838d95": {
+      "embedding_similarity": 0.8956,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": true
+    },
+    "565a77d9ffdd8577--cd30a95d66d1673f": {
+      "embedding_similarity": 0.8908,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR 협력 논의 위해 재회",
+      "same_event": true
+    },
+    "565a77d9ffdd8577--d48f68a022448837": {
+      "embedding_similarity": 0.9009,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "정기선-빌 게이츠, 네 번째 회동…HD현대 'SMR 핵심 파트너' 입지 굳힌다",
+      "same_event": true
+    },
+    "565a77d9ffdd8577--f3f581e85458b942": {
+      "embedding_similarity": 0.8987,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 SMR 사업 참여 협력",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": true
     },
     "5691b51cb24db466--975146cde1cfceb8": {
@@ -15281,6 +15421,16 @@
       "reviewed_at": "2026-08-15T17:24:40.806207+00:00",
       "right_title": "최태원 회장, 오늘 빌 게이츠와 'SMR' 협력 논의 위해 만난다…사업 내...",
       "same_event": true
+    },
+    "591caac62d5f3545--76d8beb29f51436d": {
+      "embedding_similarity": 0.9196,
+      "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설허가, B는 경쟁력 비교",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠의 SMR 러브콜과 K-SMR의 경쟁력 비교",
+      "same_event": false
     },
     "591caac62d5f3545--8db4836106efc88d": {
       "embedding_similarity": 0.9,
@@ -19462,6 +19612,16 @@
       "right_title": "정부, 산업용 전기료 인하 추진…지역별 차등요금제 조율 중",
       "same_event": false
     },
+    "76d8beb29f51436d--895b471e7f2e1d4c": {
+      "embedding_similarity": 0.9192,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설허가, B는 경쟁력 비교",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "빌 게이츠의 SMR 러브콜과 K-SMR의 경쟁력 비교",
+      "same_event": false
+    },
     "76ffb07f2b6ccb8d--8c6eb5250550b959": {
       "embedding_similarity": 0.8554,
       "left_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
@@ -21282,6 +21442,16 @@
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": false
     },
+    "895b471e7f2e1d4c--d31013e6bf533618": {
+      "embedding_similarity": 0.8979,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 건설허가, B는 동맹 강화",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "same_event": false
+    },
     "895b471e7f2e1d4c--d5147918f97d542d": {
       "embedding_similarity": 0.8753,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -22149,6 +22319,16 @@
       "prompt_version": 1,
       "reason": "AI 데이터센터 메가프로젝트와 전력망",
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
+      "right_title": "AI 전력 수요 급증, 반도체 다음 병목은 '전력망' 될 것",
+      "same_event": false
+    },
+    "924905a3d9cd847e--96dffa21b827ca27": {
+      "embedding_similarity": 0.8908,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 SMR 전력, B는 전력망 병목",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
       "right_title": "AI 전력 수요 급증, 반도체 다음 병목은 '전력망' 될 것",
       "same_event": false
     },
@@ -23060,6 +23240,16 @@
       "reason": "해남 청정에너지와 반도체 클러스터는 다른 사건",
       "reviewed_at": "2026-08-12T16:51:37.329928+00:00",
       "right_title": "정부, 반도체 클러스터 전력 적기 공급 위해 송전선 확충 계획 발표",
+      "same_event": false
+    },
+    "96dffa21b827ca27--ed0f8a4388236f51": {
+      "embedding_similarity": 0.8957,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 SMR 전력, B는 데이터센터 물 부족",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "2035년까지 건설될 데이터센터 38% 물 부족 예상",
       "same_event": false
     },
     "975146cde1cfceb8--9dac780789493824": {
@@ -24170,6 +24360,16 @@
       "reason": "SMR 육성 발표와 원전 부지 선정",
       "reviewed_at": "2026-08-16T15:24:34.936434+00:00",
       "right_title": "신규 원전 2기 경북 영덕, SMR 후보 부지 부산 기장 선정",
+      "same_event": false
+    },
+    "a4fec121e2c54527--b0cd9558972bc66d": {
+      "embedding_similarity": 0.892,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 육성 발표, B는 찬반 논쟁",
+      "reviewed_at": "2026-08-16T23:35:36.537123+00:00",
+      "right_title": "정부 7대 SEED 프로젝트에 SMR·핵융합 포함, 관련 단체 찬반 논쟁 발생",
       "same_event": false
     },
     "a4fec121e2c54527--ba51bf425ca92c1c": {
