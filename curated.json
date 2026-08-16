@@ -1,123 +1,4 @@
 {
-  "90f8fd7ff0b293f3": {
-    "features": {
-      "event_type": "other",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "topics": [],
-    "countries": [],
-    "article_type": "news",
-    "title_kr": "홈",
-    "summary": "파이낸셜 타임즈의 홈 화면으로 추정되는 내용이 입력되었습니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "cached_at": "2026-08-02T17:51:24.049063+00:00",
-    "title": "Home",
-    "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNU3oweFA3VUV1b2RxcVJoUzFHeEg2eDlDNkMxenJxdHUtVW0wNmZ5VDVoYWNrTGV3MnlWYXptZmxzc3U4R0NFRXYtUnYxQWFwaXVSbUU5U2lfc2cwRkZHX1dRRXZ3MVlhbmNhMk1uOTVxcDBGZTBEc0U1X1J3cDR6eFktb0tkNmN6amZQcnJjQktXQ2RuVjRoZHFFRHBMNENXMklTN0YtNWtYUTV5WlBKYg?oc=5",
-    "feed": "정책",
-    "domain": "ft.com",
-    "matched": "FT 원자력"
-  },
-  "8196b5154e9f0e5b": {
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 0,
-      "market_materiality": 1,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "importance": "noise",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "topics": [
-      "security_trade"
-    ],
-    "countries": [
-      "CN",
-      "US"
-    ],
-    "article_type": "news",
-    "title_kr": "중국, EU·미국 무역 회담 앞두고 경제 모델 '레드라인' 설정",
-    "summary": "중국이 유럽연합(EU) 및 미국과의 무역 회담을 앞두고 자국 경제 모델에 대한 '레드라인'을 설정했습니다.",
-    "implication": "",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "cached_at": "2026-08-02T17:51:24.049063+00:00",
-    "title": "China draws 'red lines' around its economic model ahead of EU, US trade talks",
-    "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQQWk1MXJvXzVGTkx2SW9Kak03MTJDSUlsYWtZREhuT1MwcjJUOWcyOFFwcXFHYlNrV1dlUUdHVG9yZk5JbFJwS1JzWWg4ZE9pY0NQWWdpSVhoT0g1ZERwVlBvTm51dklQLWlGU0UxeEF1NVJfQ1pvdnZUa1dRQ3RUU09lUE50NGJLcE4wYmNtUGNXT0xLV1BkNnlmR1p4ZTkwQ0pIRnpQUVQ3TGkyakUwRm5RRzNJZi1Id3Bv?oc=5",
-    "feed": "정책",
-    "domain": "reuters.com",
-    "matched": "Reuters 원자력"
-  },
-  "195a5cc0f97befa7": {
-    "features": {
-      "event_type": "incident_safety",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "기술",
-    "topics": [
-      "power_market",
-      "regulation"
-    ],
-    "countries": [
-      "HU"
-    ],
-    "article_type": "news",
-    "title_kr": "그리스 산불, 가뭄으로 헝가리 원자력 발전소 가동 중단",
-    "summary": "그리스는 산불과 싸우고 있으며, 가뭄으로 인해 헝가리 원자력 발전소의 가동이 중단되었습니다.",
-    "implication": "기후변화로 인한 가뭄이 원전 운영에 미치는 영향과 전력 공급 안정성 확보 방안을 검토할 필요가 있습니다.",
-    "why_important": "",
-    "watch_next": "",
-    "tags": [
-      "#기후변화",
-      "#원전운영",
-      "#가뭄"
-    ],
-    "related_reports": [],
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "cached_at": "2026-08-02T17:51:24.049063+00:00",
-    "title": "Greece battles wildfires, drought shuts Hungary's nuclear power plant",
-    "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQdlM1YU9KNEJPZHVUMEt1Y2RQQTJCOC03RHJJWndrU1RJZWZqYjdjbl9IOFNsdGViSnBvQy1LakF2ZlZxSUxkZmxYU3c2MWFNalZ1THdiU0szUkozOUdJeURrekVZOVRUUkduWlpyejFVR25JMG5GZVhfamc0MTc2b2ZkMXY?oc=5",
-    "feed": "정책",
-    "domain": "reuters.com",
-    "matched": "Reuters 원자력"
-  },
   "5f057466db12bb47": {
     "features": {
       "event_type": "opinion",
@@ -148788,6 +148669,319 @@
     "link": "https://www.donga.com/news/Economy/article/all/20260816/134486687/2",
     "feed": "정책",
     "domain": "donga.com",
+    "matched": "데이터센터 전력"
+  },
+  "131e632a7bd8ee6f": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "JP",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "일본·IAEA 원자력학교 개최, 한국 원전 인재 육성 시급",
+    "summary": "일본과 국제원자력기구(IAEA)가 원자력학교를 개최한 가운데, 한국의 차세대 원전 인재 육성이 시급하다는 지적이 제기되었다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#인재양성"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "일본·IAEA 원자력학교 개최…韓 차세대 원전 인재 육성 시급",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5oTktRTWNxLVRCSkJoSThOc2g3Q2dZTnNTVERheVU0TkxwYm12Tk05M0p0U3V5Y0t5SU9xR3BIUVhIZFJweFhZNjNNRmpneGtaMk1hOEF3RlFibFdZZXNXS2tGQVI?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "c4e3cc247581098c": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "미국 풍력 수리비 10억 달러, 원전 예지정비에 시사점",
+    "summary": "미국 풍력 발전의 10억 달러 수리비용 사례가 원전의 예지정비 중요성에 대한 시사점을 제공한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#예지정비"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "미국 풍력 수리비 10억 달러…원전 예지정비에도 시사점",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBCZjQ0eTlDeHAya2YwNmJHQ29HcW10em5FWktHYVI2ZVk2OGdJN01HeU53eG83SEZGZEtyNlNHWXpuUl9UM0h1MjMxOEVCRTJ1VkZ5VFJIUWMyR0tvcEZSZ3dnN04?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "a5eca672103d609e": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "waste",
+      "fuel_cycle"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "원전 확대에도 불구하고 사용후핵연료 저장 공간 부족 심화",
+    "summary": "원전 발전량은 늘어나고 있으나, 사용후핵연료 저장 시설 부족 문제가 심화되고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#사용후핵연료"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "원전 늘리지만, 연료 창고는 비어간다",
+    "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPUkxKbEZraUlzSWs1aUJVd0FURjVNMGM5YnBwTTgwa0xiUEJ4Tmx0cGVFUWRuenB4OUE2SWFWV0JiaWVGVndBR21HcW1ndFhoWTE3cDVtVkkydUFfYzNsS1pOYmo4d2VBTllBbXB1YzlZazgtNkk2MnpXVFd6U2Q3ajV2RDV6TTMxOEJpNHh3?oc=5",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "국내 원자력 보도"
+  },
+  "b67cfaba650a1a6d": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "opinion",
+    "title_kr": "앤트로픽 CEO, AI 반감은 기업·정부·기술업계 신뢰 위기 때문",
+    "summary": "앤트로픽(Anthropic) 다리오 아모데이 최고경영자는 미국 내 AI 반감의 원인이 기업·정부·기술업계에 대한 불신에 있다고 밝혔다.",
+    "detail": "앤트로픽(Anthropic)의 다리오 아모데이 CEO는 15일 엑스(X)를 통해 AI 위험 경고가 아닌 기업·정부·기술업계에 대한 대중의 불신이 AI 반감의 근본 원인이라고 주장했다. 그는 AI 기업들이 약속한 사회적 효용을 아직 충분히 입증하지 못했으며, 대중은 기술을 만들고 배포하는 주체에 대한 불신을 가지고 있다고 설명했다. 아모데이 CEO는 규제가 AI 기술을 소수 대기업에 집중시킨다는 주장에 대해 반박하며, 앤트로픽은 대형 프런티어 AI 개발자에게 위험 평가와 관리 체계 공개를 요구하고 소규모 기업에는 부담을 주지 않는 캘리포니아 프런티어 AI 투명성 법안(SB 53)을 지지한다고 덧붙였다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2025-08-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "앤트로픽 CEO “AI 반감은 신뢰 위기”",
+    "link": "https://www.tokenpost.kr/news/cryptocurrency/391735",
+    "feed": "정책",
+    "domain": "tokenpost.kr",
+    "matched": "데이터센터 전력"
+  },
+  "db0d79e07c93fd34": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance"
+    ],
+    "countries": [
+      "GLOBAL"
+    ],
+    "article_type": "news",
+    "title_kr": "AI 데이터센터 투자, 증권화 방식으로 전환",
+    "summary": "AI 데이터센터 투자가 실제 건물과 서버, 전력·냉각설비를 운영하는 사업체 기반의 증권화 방식으로 전환되고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "AI 붐, 이제 '증권화'로 간다",
+    "link": "https://www.g-enews.com/view.php?ud=2026081623251178899a1f309431_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "데이터센터 전력"
+  },
+  "62decf04a230225d": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "smr",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "smr"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "테라파워-SK이노베이션, 차세대 나트륨 SMR 협력 합의서 체결",
+    "summary": "테라파워와 SK이노베이션이 차세대 나트륨 냉각 고속로(SMR) 협력을 위한 합의서를 체결하며 사업을 본격화한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#테라파워",
+      "#SK이노베이션"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "‘차세대’ 나트륨 SMR 협력 본격화…테라파워-SK이노, 합의서 체결",
+    "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260816.99099004151",
+    "feed": "정책",
+    "domain": "kookje.co.kr",
+    "matched": "NRC 원자력"
+  },
+  "5459515cbb4e6fb0": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance"
+    ],
+    "countries": [
+      "US",
+      "GLOBAL"
+    ],
+    "article_type": "news",
+    "title_kr": "테더 2025년 재무제표 감사 통과, 윈터뮤트 10억 달러 AI 투자 계획",
+    "summary": "테더가 2025년 재무제표 전체 감사에서 적정 의견을 받았고, 윈터뮤트는 5년간 10억 달러를 AI·고빈도매매 인프라에 투입할 계획이다.",
+    "detail": "KPMG U.S.는 테더의 2025년 재무제표 전체 감사에 대해 적정 의견을 냈으며, 테더는 2025년 순이익이 100억 달러를 넘고 초과 준비금은 63억 달러라고 밝혔다. 한편, 디지털자산 거래업체 윈터뮤트는 약 10억 달러(약 1조4150억원)를 5년에 걸쳐 고빈도매매와 AI 데이터센터 인프라에 투입할 계획이다. 윈터뮤트의 투자는 크립토 기업의 관심이 토큰 발행과 거래 중개에만 머물지 않고 AI 인프라와 같은 자본집약적 영역으로 확장되고 있음을 보여준다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-16T18:23:39.505563+00:00",
+    "title": "테더 감사 통과, 윈터뮤트 10억달러 AI 투자",
+    "link": "https://www.tokenpost.kr/news/briefing/391746",
+    "feed": "정책",
+    "domain": "tokenpost.kr",
     "matched": "데이터센터 전력"
   }
 }
