@@ -23,7 +23,12 @@ on:
   workflow_dispatch:
     inputs:
       force_audio:
-        description: '오늘 오디오를 새 코드로 다시 생성 (텔레그램 재발송 안 함)'
+        description: '오늘 오디오를 새 코드로 다시 생성'
+        required: false
+        type: boolean
+        default: false
+      audio_send:
+        description: '재생성한 오디오를 텔레그램으로도 발송 (쿼터 소진으로 아침에 못 만든 날 구제용)'
         required: false
         type: boolean
         default: false
@@ -207,7 +212,12 @@ jobs:
           # 한 줄이 어느 쪽이었는지 말해 준다.
           audio_args=""
           if [ "${{ inputs.force_audio }}" = "true" ]; then
-            audio_args="--force --no-send"
+            # 기본은 웹만 갱신(재발송 소음 방지). audio_send 를 켠 날만 텔레그램에도
+            # 보낸다 — 아침에 쿼터로 못 만든 오디오를 낮에 구제하는 경로.
+            audio_args="--force"
+            if [ "${{ inputs.audio_send }}" != "true" ]; then
+              audio_args="--force --no-send"
+            fi
           fi
           python audio_brief.py $audio_args || {
             echo "[audio] 1차 실패 — 90초 뒤 1회 재시도"
