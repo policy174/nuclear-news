@@ -2240,8 +2240,11 @@ class GeneratedDataTests(unittest.TestCase):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn(".filter(Boolean)", lead)
-        for field in ("model.why ?", "model.impact ?", "model.change ?", "model.openQuestion ?"):
+        for field in ("model.why ?", "model.change ?", "model.openQuestion ?"):
             self.assertIn(field, lead)
+        # model.impact(시사점)는 2026-08-16 부터 스캔 화면(선두 카드 포함)에서 내린다
+        # — 해석은 '왜 중요한가'까지, 시사점은 rail·상세가 편다(3층 톤 분리).
+        self.assertNotIn("model.impact ?", lead)
         self.assertIn('label: issueChangeLabel(issue, "달라진 것")', lead)
         # summary('무슨 일')는 평소에 안 세운다 — 변화 문장이 그 요약으로 만들어지므로
         # 두 블록이 구조적으로 같은 말이었다(2026-08-08 실측: 선두 카드와 근거 패널이
@@ -2967,11 +2970,14 @@ class InterpretationSplitTests(unittest.TestCase):
         self.assertNotIn("Nuclens 해석", code)
         self.assertIn('label: "시사점"', script)
 
-    def test_both_lines_get_their_own_block_on_the_lead_card_and_rail(self):
+    def test_interpretation_layers_split_between_lead_card_and_rail(self):
+        """2026-08-16 3층 톤 분리 — 선두 카드(스캔)는 '왜 중요한가'까지만,
+        시사점(model.impact)은 근거 패널(rail)과 상세가 편다. 목록에서 시사점이
+        사실보다 먼저 서지 않게 한 사용자 결정의 소스 가드다."""
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         lead = script.split("function leadCard(", 1)[1].split("\nfunction ", 1)[0]
-        for field in ("model.why ?", "model.impact ?"):
-            self.assertIn(field, lead, f"선두 카드에 {field} 블록이 없다")
+        self.assertIn("model.why ?", lead, "선두 카드에 '왜 중요한가' 블록이 없다")
+        self.assertNotIn("model.impact ?", lead, "시사점이 선두 카드로 되돌아왔다")
         rail = script.split("function renderEvidenceRail(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("model.why ?", rail)
         self.assertIn("model.impact ?", rail)
@@ -5012,6 +5018,36 @@ class WebFontWeightTests(unittest.TestCase):
         chrome += (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         lost = {c for c in chrome if 0xAC00 <= ord(c) <= 0xD7A3 and ord(c) not in cmap}
         self.assertEqual(lost, set(), f"화면 문구가 빠졌다: {sorted(lost)[:20]}")
+
+
+class RepresentativeKeyTest(unittest.TestCase):
+    """대표 기사 결정식(2026-08-16) — Techmeme 규칙: 디테일·직접출처 우대,
+    최신이라고 무조건 교체하지 않는다. 병합 로직과 무관한 층이다."""
+
+    BASE = {"importance": "nice_to_know", "selection_score": 1.0,
+            "source_tier": 2, "summary": "가" * 80, "detail": "",
+            "evidence_role": "", "article_date": "2026-08-10"}
+
+    def _key(self, **kw):
+        return build_data._representative_key({**self.BASE, **kw})
+
+    def test_richer_detail_beats_newer_date(self):
+        rich_old = self._key(detail="나" * 500, article_date="2026-08-01")
+        thin_new = self._key(detail="", article_date="2026-08-15")
+        self.assertGreater(rich_old, thin_new,
+                           "본문이 두꺼운 옛 기사가 얇은 최신 기사에 대표를 뺏기면 안 된다")
+
+    def test_primary_source_breaks_same_length_bucket(self):
+        primary = self._key(evidence_role="primary", detail="나" * 300)
+        secondary = self._key(evidence_role="", detail="나" * 340)
+        # 340자와 300자는 같은 버킷(250자 단위) — 급이 같으면 공식 원문이 이긴다.
+        self.assertGreater(primary, secondary)
+
+    def test_one_char_difference_does_not_flip(self):
+        left = self._key(detail="나" * 300, article_date="2026-08-05")
+        right = self._key(detail="나" * 301, article_date="2026-08-04")
+        # 1자 차이는 버킷이 같아 분량으로 못 가르고, 남는 동점 처리는 날짜뿐.
+        self.assertGreater(left, right)
 
 
 if __name__ == "__main__":

@@ -1395,11 +1395,22 @@ def _parse_day(value: str) -> date | None:
 
 
 def _representative_key(article: dict) -> tuple:
+    """대표 기사 선정의 결정식 — Techmeme 규칙의 코드 번역 (2026-08-16).
+
+    단독 보도는 디테일 많은 쪽, 복수 보도는 맥락 좋은 쪽이 대표가 된다. '맥락'을
+    추상 판정으로 코드에 넣지 않고 (tier, 본문 분량 버킷, 공식 원문 여부)의 사전식
+    비교로 둔다. 분량은 버킷(250자 단위)이라 1자 차이가 아니라 급 차이만 갈리고,
+    발행시각은 마지막 동점 처리라 **최신 기사가 무조건 대표를 뺏지 않는다** —
+    더 이른 키에서 나은 것이 없으면 교체가 일어나지 않는 구조다.
+    병합 임계(0.92)와는 무관한 층 — 이미 묶인 멤버 안에서 고르기만 한다.
+    """
+    body_len = len(article.get("detail") or "") + len(article.get("summary") or "")
     return (
         1 if article.get("importance") == "must_read" else 0,
         float(article.get("selection_score") or 0),
         1 if article.get("source_tier") == 1 else 0,
-        len(article.get("summary") or ""),
+        min(body_len, 1000) // 250,
+        1 if article.get("evidence_role") == "primary" else 0,
         article.get("article_date") or "",
     )
 
@@ -2121,15 +2132,15 @@ def finalize_card_fields(rows: list[dict]) -> None:
         if display and _is_restatement(title, display):
             display = ""
 
+        # 2026-08-16 슈퍼샘플 계획: 목록 카드의 해석 줄은 why_important 만 쓴다.
+        # implication(시사점)은 스캔 화면에서 사실보다 먼저 서지 않게 목록에서
+        # 내리고 상세·rail·텔레그램에만 남긴다 — 삭제가 아니라 비노출이다.
         why = ""
-        for candidate in (row.get("implication"), row.get("why_important")):
-            candidate = str(candidate or "").strip()
-            if not candidate or _is_restatement(title, candidate):
-                continue
-            if display and _is_restatement(display, candidate):
-                continue
+        candidate = str(row.get("why_important") or "").strip()
+        if candidate and not _is_restatement(title, candidate) and not (
+            display and _is_restatement(display, candidate)
+        ):
             why = candidate
-            break
 
         row["change_display"] = display
         # 그 문장이 '지금 달라진 것'인지 '직전 상태'인지. 화면이 라벨을 고르는
@@ -3440,6 +3451,81 @@ def atlas_readiness(issue_catalog: list[dict]) -> dict:
     }
 
 
+def field_fill(news_items: list[dict], alias_entries) -> dict:
+    """프롬프트 산출 필드의 기사 단위 충전율 — atlas_readiness 와 같은 원칙의
+    **계기판이지 게이트가 아니다**. 프롬프트를 고치기 전에 심는 이유: before/after 를
+    눈대중이 아니라 이 숫자로 판정한다 (2026-08-16 디베이트 합의).
+
+    title_numeric_retention 은 **조건부**다 — 원문 제목에 숫자가 있는 기사 중
+    title_kr 이 숫자를 보존한 비율. 전체 기사 대비 숫자 포함률을 KPI 로 삼으면
+    지표가 프롬프트를 왜곡해 원문에 없는 숫자를 끌어오게 만든다(굿하트). 그 전체
+    비율은 여기서 만들지 않고, 앞으로도 만들지 않는다.
+    """
+    def rate(part: int, whole: int) -> float:
+        return round(part / whole, 4) if whole else 0.0
+
+    total = len(news_items)
+    must = [a for a in news_items if a.get("importance") == "must_read"]
+    interp = [a for a in news_items if a.get("importance") in ("must_read", "nice_to_know")]
+
+    def filled(rows: list[dict], key: str) -> int:
+        return sum(1 for a in rows if str(a.get(key) or "").strip())
+
+    event_types = Counter(
+        str(a.get("event_date_type") or "unknown")
+        for a in news_items if str(a.get("event_date") or "").strip()
+    )
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+    upcoming = sum(
+        1 for a in news_items
+        if a.get("event_date_type") in ("scheduled", "deadline")
+        and str(a.get("event_date") or "") > today
+    )
+
+    digit_re = re.compile(r"\d")
+    numeric_eligible = [a for a in news_items if digit_re.search(str(a.get("title") or ""))]
+    numeric_kept = sum(1 for a in numeric_eligible if digit_re.search(str(a.get("title_kr") or "")))
+
+    # 주체 식별은 어휘 판정이 필요한데, 새 사전을 지어내면 그 사전이 곧 오류원이다.
+    # 이미 병합·엔티티 페이지가 검증해 온 entity_registry 매칭만 쓴다(전 유형).
+    entity_hits = 0
+    if alias_entries:
+        for a in news_items:
+            ids, _ = entity_ids_for_members(
+                [{"title_kr": str(a.get("title_kr") or ""), "summary": ""}], alias_entries
+            )
+            if ids:
+                entity_hits += 1
+
+    return {
+        "article_total": total,
+        "implication": {"eligible": len(interp), "filled": filled(interp, "implication"),
+                        "rate": rate(filled(interp, "implication"), len(interp))},
+        "why_important": {"eligible": len(must), "filled": filled(must, "why_important"),
+                          "rate": rate(filled(must, "why_important"), len(must))},
+        "open_question": {"eligible": len(must), "filled": filled(must, "open_question"),
+                          "rate": rate(filled(must, "open_question"), len(must))},
+        "event_date": {"filled": sum(event_types.values()),
+                       "rate": rate(sum(event_types.values()), total),
+                       "type_counts": dict(event_types),
+                       "upcoming_scheduled_or_deadline": upcoming},
+        "title_numeric_retention": {"eligible": len(numeric_eligible), "kept": numeric_kept,
+                                    "rate": rate(numeric_kept, len(numeric_eligible))},
+        "title_entity_rate": {"matched": entity_hits, "rate": rate(entity_hits, total),
+                              "registry_loaded": bool(alias_entries)},
+    }
+
+
+def _source_tier_counts() -> dict:
+    """흐름 탭 방법론 단락이 쓰는 출처 등급 수 — 하드코딩하면 sources.json 과
+    어긋난 채로 늙는다. 파일이 없어도 빌드는 선다(계기판이지 게이트가 아니다)."""
+    try:
+        raw = json.loads((BOT_DIR / "sources.json").read_text(encoding="utf-8"))
+        return {"tier1": len(raw.get("tier1") or []), "tier2": len(raw.get("tier2") or [])}
+    except (OSError, json.JSONDecodeError):
+        return {"tier1": 0, "tier2": 0}
+
+
 def build_issue_pages(issue_catalog: list[dict]) -> int:
     """이슈별 OG 메타데이터를 가진 정적 진입 페이지를 생성한다."""
     public_dir = (SITE_DIR / "public").resolve()
@@ -3988,6 +4074,8 @@ def build() -> None:
         "issue_catalog_total": len(issue_catalog),
         "p1_regression": p1_regression,
         "atlas_readiness": atlas_readiness(issue_catalog),
+        "field_fill": field_fill(news_items, _entity_alias_entries(entity_registry)),
+        "source_tiers": _source_tier_counts(),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
         "date_min": min((item["article_date"] for item in visible), default=""),
         "date_max": max((item["article_date"] for item in visible), default=""),
@@ -4172,6 +4260,17 @@ def build() -> None:
         + f" | 5칸 {atlas['full_path_issues']} · 3칸+ {atlas['three_plus_issues']} → "
         + ("착수 가능" if atlas["ready"]
            else "대기: " + ", ".join(atlas["blocking_nodes"]))
+    )
+    fill = meta["field_fill"]
+    print(
+        "[build_data:fill] "
+        f"implication {fill['implication']['filled']}/{fill['implication']['eligible']} / "
+        f"why {fill['why_important']['filled']}/{fill['why_important']['eligible']} / "
+        f"open_q {fill['open_question']['filled']}/{fill['open_question']['eligible']} / "
+        f"제목 숫자보존 {fill['title_numeric_retention']['kept']}/{fill['title_numeric_retention']['eligible']} / "
+        f"제목 엔티티 {fill['title_entity_rate']['matched']}/{fill['article_total']} | "
+        f"event_date {fill['event_date']['filled']}건"
+        f"(예정·기한 미래 {fill['event_date']['upcoming_scheduled_or_deadline']}건)"
     )
 
 
