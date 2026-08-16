@@ -1600,6 +1600,9 @@ function renderAudioBrief(briefing) {
     box.classList.remove("started");
     document.getElementById("audioTime").textContent =
       `0:00 / ${fmtClock(meta.duration_sec)}${audioPartialSuffix()}`;
+    const seek = document.getElementById("audioSeek");
+    seek.max = String(Math.ceil(meta.duration_sec || 0));
+    seek.value = "0";
   }
   syncAudioRateButtons();
 }
@@ -3426,9 +3429,23 @@ function bind() {
   });
   briefAudio.addEventListener("pause", () => updateAudioToggle(false));
   briefAudio.addEventListener("ended", () => updateAudioToggle(false));
+  const audioSeek = document.getElementById("audioSeek");
+  // 브라우저가 실측한 길이가 메타 추정치보다 정확하다 — 로드되면 갈아끼운다.
+  briefAudio.addEventListener("loadedmetadata", () => {
+    if (Number.isFinite(briefAudio.duration) && briefAudio.duration > 0) {
+      audioSeek.max = String(Math.ceil(briefAudio.duration));
+    }
+  });
+  audioSeek.addEventListener("input", () => {
+    briefAudio.currentTime = Number(audioSeek.value);
+  });
   briefAudio.addEventListener("timeupdate", () => {
     const total = Number.isFinite(briefAudio.duration) && briefAudio.duration > 0
       ? briefAudio.duration : state.audio?.duration_sec;
+    // 드래그 중(포커스가 바에 있는 동안)에는 손 위치를 덮어쓰지 않는다
+    if (document.activeElement !== audioSeek) {
+      audioSeek.value = String(Math.floor(briefAudio.currentTime));
+    }
     document.getElementById("audioTime").textContent =
       `${fmtClock(briefAudio.currentTime)} / ${fmtClock(total)}${audioPartialSuffix()}`;
   });
