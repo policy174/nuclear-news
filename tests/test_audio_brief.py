@@ -493,23 +493,50 @@ class AudioBriefTestCase(unittest.TestCase):
         ask = int(int(22.0 * audio_brief.CHARS_PER_SEC) * audio_brief.PROMPT_ASK_SCALE)
         self.assertIn(f"{ask:,}자", material)
 
+    def _overload_day(self, deep_chars, rest_chars):
+        """3 deep + 40 rest 과부하 날 — 섹션별 ceil 안쪽 크기의 응답 세트."""
+        briefing = briefing_row()
+        briefing["highlight_issues"] = [
+            {"issue_id": f"issue-{i}", "title": f"이슈 {i}"} for i in (1, 2, 3)]
+        briefing["issues"] = [{"issue_id": f"issue-{i}"} for i in range(1, 44)]
+        issues = [issue(f"issue-{i}", f"이슈 {i}") for i in range(1, 44)]
+        self.write_data(briefing, issues)
+        self.responses = [
+            {"items": [{"id": str(n),
+                        "script": "HOST: " + _padded(f"{n}번 심층.", deep_chars)[:deep_chars]}
+                       for n in (1, 2, 3)]},
+            {"items": [{"id": str(n),
+                        "script": "HOST: " + _padded(f"{n}번 단신.", rest_chars)[:rest_chars]}
+                       for n in range(1, 41)]},
+        ]
+        return self.load()
+
     def test_assembly_grace_accepts_mild_overrun_blocks_runaway(self):
-        """상한 초과는 유예(×1.15)까지 수용 — raise 하면 그날 오디오가 통째로
-        사라진다. 유예 밖 폭주만 차단."""
-        self.write_data()
-        briefing, by_id = self.load()
-        ok_deep = {"items": [{"id": "1", "script": "HOST: " + _padded("심층.", 800)}]}
-        big_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 3300)}]}
-        # rest 는 ceil 게이트에 걸려 재요청 1회 후 수용된다 (deep 은 ceil 통과 크기)
-        self.responses = [ok_deep, big_rest, dict(big_rest)]
-        script = audio_brief.generate_script(briefing, by_id)   # ~4120자 — 유예 내
+        """섹션이 각자 ceil 안이라 트림·재요청 없이 통과해도 합계가 상한을 넘을
+        수 있다 — 유예(×1.15)까지 수용, 그 밖 폭주만 차단. raise 하면 그날
+        오디오가 통째로 사라진다."""
+        briefing, by_id = self._overload_day(370, 85)   # 합계 ~4528자 — 유예 내
+        script = audio_brief.generate_script(briefing, by_id)
         total = spoken_chars(script)
         self.assertGreater(total, audio_brief.MAX_SPOKEN)
         self.assertLessEqual(total, audio_brief.MAX_SPOKEN * audio_brief.MAX_SPOKEN_GRACE)
-        huge_rest = {"items": [{"id": "1", "script": "HOST: " + _padded("단신.", 4000)}]}
-        self.responses = [ok_deep, huge_rest, dict(huge_rest)]
+        briefing, by_id = self._overload_day(405, 99)   # 합계 ~5193자 — 폭주
         with self.assertRaises(ValueError):
-            audio_brief.generate_script(briefing, by_id)        # ~4820자 — 폭주
+            audio_brief.generate_script(briefing, by_id)
+
+    def test_runaway_section_is_sentence_trimmed(self):
+        """재요청 후에도 섹션이 ceil 을 넘으면 문장 트림 — 이슈(줄)는 절대
+        버리지 않고 이슈당 예산으로 줄인다 (2026-08-16 eval: 재요청 응답
+        5,505자 폭주 실사고)."""
+        huge = {"items": [{"id": "1", "script": "HOST: " + _padded("일번.", 800)},
+                          {"id": "2", "script": "HOST: " + _padded("이번.", 800)}]}
+        self.responses = [huge, {"items": [dict(i) for i in huge["items"]]}]
+        lines, spoken = audio_brief.generate_section(
+            audio_brief.SYSTEM_PROMPT_REST, "재료", ["1", "2"],
+            high_chars=300, ceil_ratio=audio_brief.SECTION_CEIL)
+        self.assertEqual(len(lines), 2)                  # 이슈 수 보존
+        self.assertLessEqual(spoken, 300 * audio_brief.SECTION_CEIL)
+        self.assertIn("일번.", lines[0])
 
     # ── 프롬프트 회귀 (c82a09f 게토차: 예시의 빈 값은 그대로 배껴진다) ──
 

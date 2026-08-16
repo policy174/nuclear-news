@@ -369,6 +369,35 @@ def strip_filler(text: str) -> str:
     return stripped or text
 
 
+_SENT_SPLIT = re.compile(r"(?<=[.!?…])\s+")
+
+
+def trim_to_budget(lines: list[str], high_chars: int) -> tuple[list[str], int]:
+    """섹션이 상한을 넘으면 이슈당 예산으로 각 줄을 문장 단위 트림.
+
+    재요청 후에도 모델이 폭주하면(2026-08-16 eval: 재요청 응답 5,505자) 말릴
+    수단이 이것뿐이다. 줄(=이슈)은 절대 버리지 않는다 — 전 이슈 커버 우선.
+    """
+    texts = [line.split(":", 1)[1].strip() for line in lines]
+    spoken = sum(len(t) for t in texts)
+    if spoken <= high_chars * SECTION_CEIL:
+        return lines, spoken
+    per = max(30, high_chars // max(len(texts), 1))
+    out, total = [], 0
+    for text in texts:
+        if len(text) > per:
+            kept = ""
+            for sent in _SENT_SPLIT.split(text):
+                if kept and len(kept) + len(sent) + 1 > per:
+                    break
+                kept = f"{kept} {sent}".strip()
+            text = kept or text[:per]
+        out.append(f"HOST: {text}")
+        total += len(text)
+    print(f"[audio] 분량 트림 — {spoken}자 → {total}자 (이슈당 ~{per}자)")
+    return out, total
+
+
 # 모델이 붙여 보낼 수 있는 화자 라벨(오타 포함) — 떼고 우리가 다시 붙인다.
 # HOST: 를 수십 번 전사시키니 'HOS:'·라벨 누락이 나왔다(2026-08-16 eval).
 # 보일러플레이트 전사는 시키지 않는다 — hex ID 와 같은 교훈.
@@ -495,10 +524,13 @@ def generate_section(system_prompt: str, material: str, expected_ids: list,
     )
     result = _call_script(system_prompt, retry_message)
     lines, spoken = validate_items(result.get("items"), expected_ids)
-    if high_chars and not (high_chars * SECTION_FLOOR <= spoken
-                           <= high_chars * (ceil_ratio or 99)):
-        print(f"[audio] 분량 경고 — 재요청 후에도 {spoken}자 "
-              f"(목표 {high_chars}자) — 수용")
+    if high_chars:
+        # 미달은 수용(짧은 브리핑 > 없는 브리핑), 폭주는 문장 트림으로 봉쇄 —
+        # 재요청 응답에는 더 물을 기회가 없다.
+        lines, spoken = trim_to_budget(lines, high_chars)
+        if spoken < high_chars * SECTION_FLOOR:
+            print(f"[audio] 분량 경고 — 재요청 후에도 {spoken}자 "
+                  f"(목표 {high_chars}자) — 수용")
     return lines, spoken
 
 
