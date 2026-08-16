@@ -1723,6 +1723,13 @@
       "reason": "주체와 대상 원전이 다름",
       "same_event": false
     },
+    "issue-aec4e7721d553311--d65bac9c4d": {
+      "issue_title": "신규 원전 2기 경북 영덕, SMR 후보 부지 부산 기장 선정",
+      "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
+      "prompt_version": 1,
+      "reason": "동일 주체, 동일 부지 선정",
+      "same_event": true
+    },
     "issue-b1e1072288426172--0330b81e50": {
       "issue_title": "KEPIC-Week에서 사용후핵연료 인수기술기준(안) 공청회 최초 개최 예정",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
@@ -1983,10 +1990,10 @@
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--249f1333d0": {
-      "issue_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
+      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 사안",
+      "reason": "A는 기업 협력, B는 국가간 MOU",
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--54df950745": {
@@ -1994,6 +2001,13 @@
       "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 프로젝트",
+      "same_event": false
+    },
+    "issue-ca69ce47dc1e639d--a9ffef226f": {
+      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
+      "prompt_version": 1,
+      "reason": "다른 기업, 다른 협력 내용",
       "same_event": false
     },
     "issue-cad8f7d2c2d3c640--249f1333d0": {
