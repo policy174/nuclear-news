@@ -1010,7 +1010,9 @@ function issueCard(issue, index, archive = false, front = false) {
   // 읽게 만들면 스캔이 안 된다. 세 칸의 역할 분리(사실 / 영향 / 앞으로)는
   // build_data.finalize_card_fields 가 확정해 둔다. 여기서 or 폴백을 쌓으면
   // 그 계약이 두 곳으로 흩어진다.
-  const changeText = issueChangeText(issue);
+  // 목록은 card_change 를 쓴다 — 'A → B' 의 뒤쪽(새 소식)만 담긴 카드 전용 필드다.
+  // 전체 문장은 상세·근거 패널이 편다(build_data.finalize_card_fields 주석 참조).
+  const changeText = String(issue.card_change ?? issueChangeText(issue)).trim();
   // 2026-08-16: 목록 카드의 해석 줄은 why_important 만 — implication(시사점)은
   // 스캔 화면에서 내리고 상세·rail 에서만 선다. 폴백도 계약과 같은 필드만 본다.
   const whyText = String(issue.card_why ?? (issue.why_important || "")).trim();

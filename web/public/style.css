@@ -1205,9 +1205,11 @@ kbd {
   -webkit-line-clamp: 1;
 }
 /* 카드의 세 칸. 역할은 라벨 열이 말한다 — 굵기를 늘려 계층을 만들지 않는다.
-   각 칸은 정확히 한 줄로 잘린다. 잘린 분석문이 완결된 요약보다 나쁘다는 건
-   여전히 맞지만, 그건 문단을 한 줄에 밀어 넣을 때 얘기다. 여기서는 문장 자체가
-   한 줄짜리로 만들어져 들어온다(build_data.finalize_card_fields). */
+   "문장 자체가 한 줄짜리로 들어온다"는 전제로 한 줄만 보였는데, 실측(2026-08-16)
+   에서 그 전제가 깨져 있었다: 변화 문장 중앙값 139자 · 요약 73자인데 카드 한 줄은
+   약 32자다. 100% 가 잘렸고, 화살표 문장은 잘린 자리에 **바뀌기 전 상태**가 남아
+   라벨('달라진 것')과 어긋났다. 세 줄까지 허용해 문장이 완결되게 둔다 —
+   잘린 분석문이 완결된 요약보다 나쁘다는 원칙은 그대로다. */
 .issue-line {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
@@ -1228,7 +1230,7 @@ kbd {
   overflow: hidden;
   color: var(--c-text-secondary);
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
 }
 .issue-line .ai-badge { grid-column: 1; justify-self: start; line-height: 1.9; }
 /* AI 배지가 붙는 줄은 라벨 열을 배지와 나눠 쓴다 — 배지 때문에 본문이 밀리면
