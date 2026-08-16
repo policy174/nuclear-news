@@ -1,51 +1,43 @@
 {
- "generated_at": "2026-08-16T06:43:48.815997+09:00",
+ "generated_at": "2026-08-17T06:42:29.112146+09:00",
  "window": "7d",
  "items": [
   {
-   "keyword": "데이터센터",
-   "count_now": 125,
-   "count_prev": 41,
-   "direction": "데이터센터는 급증하는 전력 소비로 인해 공공요금 상승과 환경 파괴에 대한 우려를 낳고 있으며, 이에 대한 해결책으로 한국해양과학기술원은 해저 데이터센터를 통한 냉각 전력 및 물 절감 기술 개발을 추진하고 있습니다. 동시에 미국에서는 원자력 발전 기업이 데이터센터 공급을 위한 장기 전력구매계약을 체결하고, 국내외 주요 기업들은 AI 및 데이터센터 분야 협력을 논의하며 전력 분야의 중요성을 강조하고 있습니다.",
-   "evidence": [
-    {
-     "hash": "2d652993f68bbff3",
-     "title_kr": "데이터센터 전력 소비 증가, 공공요금 상승 우려 제기",
-     "url": "http://www.koreatimes.com/article/1625486",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "01a8a9a99908ca11",
-     "title_kr": "KIOST, 해저 데이터센터로 AI 전력·물 절감 기술 개발 추진",
-     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000003059&cp=nv",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "d5c5fdd2b381af3a",
-     "title_kr": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
-     "url": "https://biz.chosun.com/industry/company/2026/08/14/JWMVSPCUKNHVTDLQ55V6X4BO6U",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "094ac3709ce07dbb",
-     "title_kr": "美 컨스텔레이션, 920MW 규모 장기 원전 전력구매계약 체결",
-     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE8tQVVMdW9kWDAtY1UtUFJpS1V4VDBweGJacG83ZGpSYXYwX1VGaWl3aE1CLTFTbzZWbFpwOWZMYzZoRi1kRzZkUG5CODJsNEliTjZsNHhUWUtPWkUyOTgzaURlOHc?oc=5",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "9e80bf650c9530ec",
-     "title_kr": "MS, AI 투자로 탄소제거 목표 후퇴 논란…기후대응 목표 재평가",
-     "url": "https://www.esgeconomy.com/news/articleView.html?idxno=16402",
-     "date": "2026-08-14"
-    }
-   ]
-  },
-  {
    "keyword": "SMR",
-   "count_now": 106,
-   "count_prev": 32,
-   "direction": "국내외에서 소형모듈원자로(SMR) 사업 협력이 활발하게 논의되고 있으며, 특히 빌 게이츠 테라파워 회장의 방한을 계기로 HD현대, SK이노베이션 등 국내 기업들이 테라파워와 SMR 사업 가속화 및 글로벌 시장 진출을 모색하고 있습니다. 이러한 흐름은 AI 데이터센터의 전력 수요 대응과 원자로 용기 생산 기반 구축 계획으로 구체화되고 있으며, 미국 정부 또한 텍사스 SMR 프로젝트에 대규모 공적 자금을 지원하며 SMR 개발 및 상업화에 박차를 가하고 있습니다.",
+   "count_now": 115,
+   "count_prev": 36,
+   "direction": "국내에서는 현대건설과 SK이노베이션이 테라파워와 나트륨 SMR 상용화를 위한 협력을 확대하고 있으며, 현대건설은 웨스팅하우스, 홀텍 등 글로벌 원전 기업들과의 파트너십을 통해 SMR 사업 포트폴리오를 강화하고 있습니다. 해외에서는 파라과이가 전력 부족에 대응하여 미국과 SMR 도입을 추진하고, 미군이 마이크로원자로 기지 배치를 계획하는 등 SMR의 상용화 및 다양한 활용 분야로의 확산이 두드러집니다.",
    "evidence": [
+    {
+     "hash": "1a95a9afd4ecd99b",
+     "title_kr": "테라파워, 현대건설·SK이노베이션과 나트륨 SMR 상용화 협력 확대",
+     "url": "https://www.cbci.co.kr/news/articleView.html?idxno=598641",
+     "date": "2026-08-17"
+    },
+    {
+     "hash": "7db712a18d7f6a1f",
+     "title_kr": "파라과이, 전력 부족 전망에 미국과 SMR 협력",
+     "url": "https://www.theguru.co.kr/news/article.html?no=105778",
+     "date": "2026-08-17"
+    },
+    {
+     "hash": "ac2ca5bbc5e881e2",
+     "title_kr": "현대건설, 웨스팅하우스·홀텍·테라파워 등 글로벌 원전 동맹 확대",
+     "url": "https://www.theguru.co.kr/news/article.html?no=105709",
+     "date": "2026-08-17"
+    },
+    {
+     "hash": "3e7a0e79ed144761",
+     "title_kr": "SK이노베이션-테라파워, 나트륨 SMR 사업 공조 및 글로벌 시장 진출 합의",
+     "url": "https://www.financialpost.co.kr/news/articleView.html?idxno=270668",
+     "date": "2026-08-17"
+    },
+    {
+     "hash": "62decf04a230225d",
+     "title_kr": "테라파워-SK이노베이션, 차세대 나트륨 SMR 협력 합의서 체결",
+     "url": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260816.99099004151",
+     "date": "2026-08-17"
+    },
     {
      "hash": "5dcf5cc7354ff99a",
      "title_kr": "HD현대 정기선 회장, 빌 게이츠 테라파워 회장과 SMR 사업 협력 논의",
@@ -53,111 +45,149 @@
      "date": "2026-08-16"
     },
     {
-     "hash": "f2cb25525bb05199",
-     "title_kr": "정기선 HD현대 회장, 빌 게이츠와 美 SMR 사업 가속화 논의",
-     "url": "https://www.apnews.kr/news/articleView.html?idxno=3050496",
-     "date": "2026-08-15"
+     "hash": "72fdb8f9c170e368",
+     "title_kr": "미군, 마이크로원자로 기지 배치…2030년 목표",
+     "url": "https://www.g-enews.com/view.php?ud=202608160658121142fbbec65dfb_1",
+     "date": "2026-08-16"
     },
     {
-     "hash": "ebb55c23efce3634",
-     "title_kr": "SK이노베이션, 테라파워와 나트륨 SMR 사업 본격화 및 글로벌 시장 진출 모색",
-     "url": "https://www.thedailypost.kr/news/articleView.html?idxno=115017",
-     "date": "2026-08-15"
+     "hash": "565a77d9ffdd8577",
+     "title_kr": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+     "url": "https://www.g-enews.com/view.php?ud=2026081609094248280c8c1c064d_1",
+     "date": "2026-08-16"
+    }
+   ]
+  },
+  {
+   "keyword": "데이터센터",
+   "count_now": 115,
+   "count_prev": 64,
+   "direction": "AI 데이터센터의 급증으로 전력, 냉각, 부지 확보 문제가 심화되면서, 이를 해결하기 위한 다양한 기술적, 정책적 시도가 나타나고 있습니다. 해상·수중 데이터센터, 연료전지, 파력 발전 등 새로운 전력 및 냉각 솔루션 개발이 진행되는 한편, 미국에서는 데이터센터 확장으로 인한 재정 부담과 전력 비용 전가에 대한 규제 논의가, 국내에서는 지역별 차등 요금제 도입 가능성이 제기되고 있습니다.",
+   "evidence": [
+    {
+     "hash": "c7bcc12897522552",
+     "title_kr": "해상·수중 데이터센터, AI 전력·냉각·부지 문제 해결 대안으로 부상",
+     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000003524&cp=nv",
+     "date": "2026-08-17"
     },
     {
-     "hash": "06d19dc122234889",
-     "title_kr": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
-     "url": "http://weekly.chosun.com/news/articleView.html?idxno=54293",
-     "date": "2026-08-14"
+     "hash": "6e4a9c5b43e8dd63",
+     "title_kr": "범한퓨얼셀, 국내 최초 10kW급 캐스케이드 SOFC 개발",
+     "url": "https://www.mhns.co.kr/news/articleView.html?idxno=756616",
+     "date": "2026-08-17"
     },
     {
-     "hash": "3733dacb6eb9bc94",
-     "title_kr": "산업통상부 장관, 한수원·SK-테라파워 상업화 계약 체결식 참석 예정",
-     "url": "https://www.newsis.com/view/NISX20260813_0003747765",
-     "date": "2026-08-14"
+     "hash": "65f510220863f209",
+     "title_kr": "美 빅테크, AI 데이터센터 확장으로 1조 6500억 달러 표외부채 폭증",
+     "url": "https://www.the-today.com/news/articleView.html?idxno=88524",
+     "date": "2026-08-16"
     },
     {
-     "hash": "4d55708b92e20a28",
-     "title_kr": "X-에너지, 텍사스 SMR 프로젝트에 최대 10억 달러 추가 공적 자금 확보",
-     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOVGRDNmFpSC1nMEc4MTYzQjFWVm5CQzV0UzBSbFBCcFJ4aU9GYWZxeXBFdkZsd3BJX0FUNzZ2d05tVVR1R3ZWbkI1Q2tucFd2a0dEYnhPMHNWS3p3VGF5bndlWDNmX1hZQVN1RmV2MlB6NUoxQ2ZsbWhkcXk0Ym5NRTVHS3NDQzBQZVpfaTIxVEdHdHdpbjlVZXE1dnFqcVVROWtNZ1R1eDhuWWhNMV9nQUhJY0hLRGNSTnI4TkNOSnB2ZXJPUGtPSUdMQ2NKUQ?oc=5",
-     "date": "2026-08-14"
+     "hash": "88f2b31e11b8a304",
+     "title_kr": "산업용 전기요금 지역별 차등제 공청회 개최, AI 데이터센터 전용 요금제 도입 가능성 논의",
+     "url": "https://kidd.co.kr/news/247042",
+     "date": "2026-08-16"
     },
     {
-     "hash": "e9d57943794eea76",
-     "title_kr": "美 엑스에너지, 텍사스 SMR 사업에 10억 달러 정부 지원금 확보",
-     "url": "https://www.theguru.co.kr/news/article.html?no=105801",
-     "date": "2026-08-14"
+     "hash": "93d6205823452ddf",
+     "title_kr": "비트코인 채굴업체, AI·고성능컴퓨팅 인프라로 전력·부지 전환 확대",
+     "url": "https://www.tokenpost.kr/news/cryptocurrency/391613",
+     "date": "2026-08-16"
     },
     {
-     "hash": "ca2583a6dd5df575",
-     "title_kr": "정기선 HD현대 회장, 빌 게이츠 테라파워 이사장과 SMR 협력 논의",
-     "url": "https://www.munhwa.com/article/11609646",
-     "date": "2026-08-14"
+     "hash": "56e91c636434557b",
+     "title_kr": "정부 '전기국가' 전략 추진 속 K배터리, AI 데이터센터 ESS 시장 공략",
+     "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065580147287978",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "2568d6eea4a5a88b",
+     "title_kr": "미 주정부, AI 데이터센터 전력비 전가 막는다",
+     "url": "https://www.tokenpost.kr/news/policy/391651",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "3ee945d20be45df5",
+     "title_kr": "AI 확산에 데이터센터 전력 수요 급증, 파력 활용 친환경 센터 주목",
+     "url": "https://www.gamevu.co.kr/news/articleView.html?idxno=60067",
+     "date": "2026-08-16"
     }
    ]
   },
   {
    "keyword": "전력시장",
-   "count_now": 74,
-   "count_prev": 32,
-   "direction": "국내 전력시장은 '탈원전 백지화' 정책에도 불구하고 상반기 원전 발전량이 감소하는 등 발전량 측면에서 어려움을 겪고 있습니다. 해외에서는 유럽이 폭염과 가뭄으로 인해 루마니아와 프랑스 등 여러 국가에서 원전 가동 중단 및 출력 제한을 겪으며 전력 위기가 확산되는 가운데, 미국은 디아블로 캐년 원전의 계속 운전을 지원하고 데이터센터 공급을 위한 장기 원전 전력구매계약을 체결하는 등 원전 활용을 확대하고 있습니다. 한편, 국내에서는 산업용 전기요금을 4개 권역으로 차등 적용하는 방안이 발표되며 지역별 전력 시장의 변화가 예고되고 있습니다.",
+   "count_now": 72,
+   "count_prev": 42,
+   "direction": "한국전력과 한국가스공사의 막대한 이자 비용 지출로 전기요금 인상 압박이 가중되는 가운데, 정부는 3대 메가프로젝트를 반영한 제12차 전력수급기본계획의 전력수요 전망을 재수립하고 있습니다. 동시에 AI 데이터센터의 전력 수요 증가에 대응하여 산업용 전기요금 지역별 차등제 및 전용 요금제 도입이 논의되고 있으며, 해상·수중 데이터센터와 ESS 시장 공략 등 새로운 시장 변화가 나타나고 있습니다.",
    "evidence": [
     {
-     "hash": "f04c10e84e5022d9",
-     "title_kr": "가뭄으로 루마니아 체르나보다 원전 가동 중단",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBINE9sRVVPRUhVSy1pUHVaZlFicjg0blFvZllaV05ITHpKR1hOdms5X2NSRTJEVGNYeXUzdjBQM2V2NWFXUlJHYVRvanFKU2NYQkY4dmNPUzlzRXNfbnZLeXZ3UldsWDJXY3BETTU2VUo3OUJfYVE?oc=5",
-     "date": "2026-08-15"
+     "hash": "c7bcc12897522552",
+     "title_kr": "해상·수중 데이터센터, AI 전력·냉각·부지 문제 해결 대안으로 부상",
+     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000003524&cp=nv",
+     "date": "2026-08-17"
     },
     {
-     "hash": "c671b6f1783eaaba",
-     "title_kr": "독립신문 분석: '탈원전 백지화'에도 상반기 원전 발전량 17% 급감",
-     "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE12d3E3SVpuMkxiRDZEUldNclFtTFQ4REhINVlrcmdfbXh1aFgybDNiOHViYTFJdF9QN1dGaUZTX00xTmF2NXUzTms0UVlWSzJ0cmlzZzBJMlFtTk0yTXhxRl9ndU96Vy1MNWFR?oc=5",
-     "date": "2026-08-15"
+     "hash": "3f159c0f2ef8f84e",
+     "title_kr": "한전·가스공사, 상반기 이자 2.7조원…전기료 인상 압박 가중",
+     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000003542&cp=nv",
+     "date": "2026-08-17"
     },
     {
-     "hash": "a587d096a9a94b15",
-     "title_kr": "미 에너지부, 디아블로 캐년 원전에 2.7억 달러 지원",
-     "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8xWnBFQTUtbW92MWUyV2d6d0lucE1ia21SU2xvR1FHNFJ2R3NWVzBLNm55dDAwYWZYNDF6UWRWTWxQOU51MTQ1N2tlOU1nZzhkZXFkbGJfbkN0cHA3MDZJSEhVN0dzUncxanFj?oc=5",
-     "date": "2026-08-15"
+     "hash": "86da111f769b9b42",
+     "title_kr": "한전·가스공사 상반기 이자 2.7조원 지출, 하반기 재무 부담 가중 전망",
+     "url": "https://www.ekn.kr/web/view.php?key=20260816027443266",
+     "date": "2026-08-16"
     },
     {
-     "hash": "6daf204a4f7610fb",
-     "title_kr": "정부, 산업용 전기요금 4개 권역 차등 적용 방안 발표",
-     "url": "https://www.chosun.com/economy/industry-company/2026/08/14/M27VWH2SRFHFXLLLNQ7Q7GBGJM",
-     "date": "2026-08-14"
+     "hash": "88f2b31e11b8a304",
+     "title_kr": "산업용 전기요금 지역별 차등제 공청회 개최, AI 데이터센터 전용 요금제 도입 가능성 논의",
+     "url": "https://kidd.co.kr/news/247042",
+     "date": "2026-08-16"
     },
     {
-     "hash": "9dac780789493824",
-     "title_kr": "루마니아, 다뉴브강 수위 저하로 원전 가동 중단 후 전력 절약 요청",
-     "url": "https://www.lemonde.fr/planete/article/2026/08/13/en-roumanie-particuliers-et-entreprises-appeles-a-economiser-l-electricite-apres-l-arret-de-la-centrale-nucleaire-du-pays-faute-d-eau-dans-le-danube_6745823_3244.html",
-     "date": "2026-08-14"
+     "hash": "fb1014df46236dd8",
+     "title_kr": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
+     "url": "https://www.news1.kr/society/environment/6260506",
+     "date": "2026-08-16"
     },
     {
-     "hash": "2ba5021d79d4b81f",
-     "title_kr": "유럽, 폭염·가뭄으로 원전 가동 차질 속 태양광 발전이 전력 위기 극복",
-     "url": "https://www.segye.com/newsView/20260814500672?OutUrl=naver",
-     "date": "2026-08-14"
+     "hash": "93d6205823452ddf",
+     "title_kr": "비트코인 채굴업체, AI·고성능컴퓨팅 인프라로 전력·부지 전환 확대",
+     "url": "https://www.tokenpost.kr/news/cryptocurrency/391613",
+     "date": "2026-08-16"
     },
     {
-     "hash": "975146cde1cfceb8",
-     "title_kr": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
-     "url": "https://www.g-enews.com/view.php?ud=2026081319565941712bd56fbc3c_1",
-     "date": "2026-08-14"
+     "hash": "7af4254535918448",
+     "title_kr": "엔비디아, SB 에너지에 4조원 투자 논의…오픈AI 데이터센터 지원",
+     "url": "https://www.aitimes.com/news/articleView.html?idxno=214001",
+     "date": "2026-08-16"
     },
     {
-     "hash": "094ac3709ce07dbb",
-     "title_kr": "美 컨스텔레이션, 920MW 규모 장기 원전 전력구매계약 체결",
-     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE8tQVVMdW9kWDAtY1UtUFJpS1V4VDBweGJacG83ZGpSYXYwX1VGaWl3aE1CLTFTbzZWbFpwOWZMYzZoRi1kRzZkUG5CODJsNEliTjZsNHhUWUtPWkUyOTgzaURlOHc?oc=5",
-     "date": "2026-08-14"
+     "hash": "56e91c636434557b",
+     "title_kr": "정부 '전기국가' 전략 추진 속 K배터리, AI 데이터센터 ESS 시장 공략",
+     "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065580147287978",
+     "date": "2026-08-16"
     }
    ]
   },
   {
    "keyword": "전력망",
-   "count_now": 62,
-   "count_prev": 13,
-   "direction": "국내에서는 수도권 및 주요 산업단지(호남 반도체, 용인 반도체)로의 전력 공급을 위한 송전망 건설이 지역 주민들의 강력한 반대에 부딪히며 난항을 겪고 있습니다. 동해안 화력발전소의 경우 송전망 지연으로 인해 발전된 전력이 수도권으로 원활히 공급되지 못하고 출력 제한을 반복하는 등 전력망 인프라 부족 문제가 심화되고 있습니다. 해외에서는 미국 전력망 운영사가 비상시 데이터센터의 전력망 이탈을 의무화하는 방안을 제안하며 전력망 안정화에 대한 논의가 이루어지고 있습니다.",
+   "count_now": 59,
+   "count_prev": 18,
+   "direction": "국내에서는 수도권 전력 공급 및 대규모 산업단지 조성을 위한 송전망 건설이 지역 주민들의 반발에 부딪히며 지연되고, 이로 인해 발전소 출력 제한까지 발생하는 상황입니다. 해외에서는 캐나다와 미국에서 전력망의 신뢰성과 복원력 재정의 및 강화가 논의되고 있으며, 특히 미국에서는 비상시 데이터센터의 전력망 이탈 의무화 제안이 나오는 등 전력망 안정성 확보가 주요 흐름을 이루고 있습니다.",
    "evidence": [
+    {
+     "hash": "8f4d368001d9fec7",
+     "title_kr": "캐나다 하이드로원, 전력망 복원력 재정의 및 한국 원전 과제",
+     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBPbWdzOWZzX0h5TVV4LTRoVHV5RDM3SEY3VU1jdE1MZTNlSGljZVZhYk1OLTB3Vi1vLS1rWDdwa2ZWS3FRSW9STEFXVjFHbHloR3h5MEVzTEUyWVAyWFFrcFVyNEg?oc=5",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "4c72d00aace8c1e2",
+     "title_kr": "미국 중서부 80만 고객 정전, 전력망 복원력 시험대",
+     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1iY2NpaXBnRVQ0TXNBMFJhcW8zM1NtamxZQ2FhUFh2aUtBWlVFMnVTSXZ0OG00VkhDcnNDZ0g2SDVsZkdPT3RQbmdGWHNrMldiMGpZQmNNaGFRMGV4U3lYZ1RSQzM?oc=5",
+     "date": "2026-08-16"
+    },
     {
      "hash": "db9e1bd237ae920a",
      "title_kr": "천안 주민, 수도권 전력 통로화 반대 및 LNG 발전소 건설 반발",
@@ -193,20 +223,70 @@
      "title_kr": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPWDYyM1QxaXNBY2plSmtIdGJpYU04Q0ptU3NqdkNUNElqY3V4OUZ1ZVNBcTNvYlNwLTBycHNpMmVhMk5HVlJjczQ2TWhEM3hUSThMRHdYTE5rMGhuSmhoU3Y5TWdvcnRFT1BOWGN4WWFzb0haS3JNbk1lU0lVUko3OTZvUWdIcUVJc2o0amVUTWFjX0JPTDBLWkRzblNwUQ?oc=5",
      "date": "2026-08-14"
+    }
+   ]
+  },
+  {
+   "keyword": "전력수요",
+   "count_now": 50,
+   "count_prev": 41,
+   "direction": "AI 확산으로 인한 데이터센터의 급증은 전 세계적으로 전력 수요를 크게 증가시키고 있으며, 이는 개발도상국을 포함한 여러 지역에서 전력 및 용수 부족 문제로 이어지고 있습니다. 국내에서는 3대 메가 프로젝트를 반영한 제12차 전력수급기본계획에서 신규 전력 수요 잠정치가 공개될 예정이며, 산업계는 파력 활용 데이터센터 개발 및 AI 컴퓨팅 계약 전환 등을 통해 이러한 전력 수요 증가에 대응하고 있습니다.",
+   "evidence": [
+    {
+     "hash": "7b605e2025a2bb0e",
+     "title_kr": "월드뱅크, 개발도상국 AI 확산의 전력·용수 부족 문제 지적",
+     "url": "http://www.wikileaks-kr.org/news/articleView.html?idxno=190890",
+     "date": "2026-08-16"
     },
     {
-     "hash": "ba0d553d0c8f9d3e",
-     "title_kr": "용인 반도체산단 전력 송전망 건설 반대 전국 대행진, 당진 도착",
-     "url": "http://www.djtimes.co.kr/news/articleView.html?idxno=113028",
-     "date": "2026-08-14"
+     "hash": "c041a2e0e6c1b779",
+     "title_kr": "엔비디아, 오픈AI 오하이오 데이터센터 보증 지원 절반 축소 협상 중",
+     "url": "https://www.aitimes.com/news/articleView.html?idxno=214000",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "664069beff9cc919",
+     "title_kr": "12차 전기본, '3대 메가 프로젝트' 전력수요 잠정치 20일 공개",
+     "url": "https://www.hani.co.kr/arti/society/environment/1273073.html",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "3ee945d20be45df5",
+     "title_kr": "AI 확산에 데이터센터 전력 수요 급증, 파력 활용 친환경 센터 주목",
+     "url": "https://www.gamevu.co.kr/news/articleView.html?idxno=60067",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "8ff6f76070565a2c",
+     "title_kr": "라이엇, 앤트로픽과 91억 달러 AI 컴퓨팅 계약…채굴주 가치 변화",
+     "url": "http://coinreaders.com/253010",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "29f7a7f19c2a2e61",
+     "title_kr": "구미공단, 삼성전자 등 첨단기업 19조 원 투자로 '제2의 신화' 도전",
+     "url": "https://www.tbc.co.kr/news/view?id=209835&pno=20260727163238AE02981",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "96dffa21b827ca27",
+     "title_kr": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+     "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8638262",
+     "date": "2026-08-16"
+    },
+    {
+     "hash": "4387c7d3e5f2ed37",
+     "title_kr": "골드만삭스, 중국 AI 핵심축으로 전력 공급망·하드웨어 인프라 지목",
+     "url": "https://www.tokenpost.kr/news/cryptocurrency/391680",
+     "date": "2026-08-16"
     }
    ]
   },
   {
    "keyword": "전력수급",
-   "count_now": 55,
-   "count_prev": 24,
-   "direction": "국내에서는 3대 메가프로젝트로 인해 제12차 전력수급기본계획의 전력 수요 전망이 수정될 예정이며, 한국전력의 재무 악화 속에서 2040년 목표 전력수요가 상향 조정되는 등 전력수급 불균형에 대한 우려가 커지고 있습니다. 특히 호남 반도체 클러스터와 같은 대규모 산업단지의 안정적인 전력 공급과 RE100 달성을 위해 한빛원전 및 재생에너지 활용, 송전망 확충 등 다양한 방안이 모색되고 있습니다. 해외에서는 유럽의 폭염과 가뭄으로 프랑스 등에서 원전 발전 용량이 감소하는 등 기후 변화가 전력수급에 미치는 영향이 나타나고 있으며, 미국에서는 비상시 데이터센터의 전력망 이탈 의무화 방안이 제안되는 등 수요 관리 논의도 진행되고 있습니다.",
+   "count_now": 47,
+   "count_prev": 32,
+   "direction": "국내에서는 3대 메가프로젝트로 인한 전력수요 증가와 한전의 재무 악화 속에서 제12차 전력수급기본계획의 수요 예측 재수립이 진행되고 있으며, 송전망 지연으로 인한 발전소 출력 제한과 대규모 산업단지의 안정적 전력 공급 확보가 주요 과제로 부상하고 있습니다. 해외에서는 유럽의 폭염으로 원전 및 화력 발전이 차질을 빚고 미국에서는 비상시 데이터센터의 전력망 이탈 의무화가 제안되는 등, 전력수급 안정성 확보가 국내외 공통의 흐름을 이루고 있습니다.",
    "evidence": [
     {
      "hash": "a519ec27d94058f0",
@@ -255,56 +335,6 @@
      "title_kr": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
      "url": "https://www.yna.co.kr/view/AKR20260813174000081?input=1195m",
      "date": "2026-08-13"
-    }
-   ]
-  },
-  {
-   "keyword": "전력수요",
-   "count_now": 49,
-   "count_prev": 34,
-   "direction": "국내외적으로 인공지능(AI) 확산과 데이터센터 증설로 인한 전력 수요 급증이 주요 현안으로 부상하고 있으며, 이는 공공요금 상승 우려와 전력망 부담 가중으로 이어지고 있습니다. 이에 따라 정부는 제12차 전력수급기본계획 수립 과정에서 3대 메가프로젝트를 반영한 미래 전력수요를 재전망하고 있으며, 신규 원전 건설 여부 등 전력 공급 방안에 대한 논의를 재개하고 있습니다. 특히 개발도상국에서는 AI 확산이 전력난 및 용수 부족 문제를 야기할 수 있다는 지적이 제기되는 등 전력 수요 증가에 대한 다각적인 대응이 요구되고 있습니다.",
-   "evidence": [
-    {
-     "hash": "7b605e2025a2bb0e",
-     "title_kr": "월드뱅크, 개발도상국 AI 확산의 전력·용수 부족 문제 지적",
-     "url": "http://www.wikileaks-kr.org/news/articleView.html?idxno=190890",
-     "date": "2026-08-16"
-    },
-    {
-     "hash": "f93e320d91da6966",
-     "title_kr": "12차 전기본, 메가프로젝트 반영 전력수요 전망 토론회 개최",
-     "url": "https://news.tvchosun.com/site/data/html_dir/2026/08/15/2026081590138.html",
-     "date": "2026-08-15"
-    },
-    {
-     "hash": "1f1a7f1dea0764c5",
-     "title_kr": "12차 전기본, 3대 메가프로젝트 반영 전력수요 재논의",
-     "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5SOHZtNzRPVEVMekt2bDFoQlllX0NVVGx4TjE2cmRrZ1Jfd182cDZEVUU1bVNCek5qa0Q2MGxoNjJTUFB2ZFFBOEJNNmpyWUdja1E5SUI0ZF9raENVRTh4NtIBYEFVX3lxTE5SOHZtNzRPVEVMekt2bDFoQlllX0NVVGx4TjE2cmRrZ1Jfd182cDZEVUU1bVNCek5qa0Q2MGxoNjJTUFB2ZFFBOEJNNmpyWUdja1E5SUI0ZF9raENVRTh4Ng?oc=5",
-     "date": "2026-08-15"
-    },
-    {
-     "hash": "1b41386b40f238db",
-     "title_kr": "호남 반도체 포함 미래 전력수요 재전망…9월엔 신규 원전 토론회",
-     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5fc1k5UDh1ZUJkbGhaTHNRTU5CZllvWmZnUzR4cDE3T3dhZDBpTll4bklkak5fblo5NC1ZLVh1cVZZUlVELXByOTJhZXVBdkozMDFLbUZSOHNYY1BDTzZZdF9qXzRGQ0ctMi00UlBsN0LSAXBBVV95cUxOX3NZOVA4dWVCZGxoWkxzUU1OQmZZb1pmZ1M0eHAxN093YWQwaU5ZeG5JZGpOX25aOTQtWS1YdXFWWVJVRC1wcjkyYWV1QXZKMzAxS21GUjhzWGNQQ082WXRfal80RkNHLTItNFJQbDdC?oc=5",
-     "date": "2026-08-15"
-    },
-    {
-     "hash": "2d652993f68bbff3",
-     "title_kr": "데이터센터 전력 소비 증가, 공공요금 상승 우려 제기",
-     "url": "http://www.koreatimes.com/article/1625486",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "4a62b340c12dcae7",
-     "title_kr": "2050년 세계 냉방 전력 수요 3배 증가 전망, 전력망 부담 가중",
-     "url": "https://www.etoday.co.kr/news/view/2614393",
-     "date": "2026-08-14"
-    },
-    {
-     "hash": "d5c5fdd2b381af3a",
-     "title_kr": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
-     "url": "https://biz.chosun.com/industry/company/2026/08/14/JWMVSPCUKNHVTDLQ55V6X4BO6U",
-     "date": "2026-08-14"
     }
    ]
   }
