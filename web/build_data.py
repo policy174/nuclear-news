@@ -88,7 +88,13 @@ KST = timezone(timedelta(hours=9))
 # 히어로 h1과 변화 문장의 하드 상한. 넘기면 카드가 아니라 문단이 된다.
 # 70자는 1280px 히어로에서 두 줄. 요약이 이보다 길면 이슈 제목으로 넘어간다.
 HEADLINE_LIMIT = 70
-CHANGE_LINE_LIMIT = 140
+# 'A → B' 한 문장의 글자 예산. 140 은 카드가 이 문장을 한 줄로 받던 시절 값이라,
+# 앞뒤를 못 담고 **앞쪽**(직전 상태)을 _clip 으로 깎았다 — 실측 2026-08-16 화살표
+# 25건 중 17건이 앞쪽 말줄임이고 뒤쪽은 0건이었다. 하필 앞쪽이 화면 어디에도 없는
+# 유일한 정보다. 카드가 더는 이 문장을 통째로 쓰지 않으므로(카드는 card_prior 만
+# 가져간다) 남은 소비자는 상세·RSS 뿐이고, 둘 다 줄 수 제한이 없다.
+# 200 = 앞쪽 실측 최대 78 + 구분자 3 + 뒤쪽 상한 112 + 종결부 여유.
+CHANGE_LINE_LIMIT = 200
 
 # 라벨은 판정이 아니라 사실 진술이다. 단일 출처 보도는 결함이 아니라 흔한 정상
 # 상태(실측 84%)라서 '일부 확인' 같은 부정 프레이밍을 쓰지 않는다.
@@ -2143,14 +2149,6 @@ def finalize_card_fields(rows: list[dict]) -> None:
             why = candidate
 
         row["change_display"] = display
-        # 카드 전용 변화 문장 — 목록은 한 칸이 좁아 'A → B' 를 통째로 넣으면 CSS 가
-        # **앞쪽만** 남긴다. 그 앞쪽은 바뀌기 전 상태다. 라벨은 '달라진 것'인데
-        # 보이는 문장은 옛 소식인 꼴이라, 이 저장소가 라벨 층에서 한 번 고쳤던
-        # 사고(issueChangeLabel 주석, 라이브 10/160)가 표시 층에서 재발했다.
-        # 실측 2026-08-16: 변화 문장 36건 중 25건이 화살표 문장이고 중앙값 139자인데
-        # 카드 한 줄은 약 32자다 — 100% 가 잘리고, 잘린 자리에 남는 것이 옛 상태였다.
-        # 상세·근거 패널은 A → B 전체를 계속 쓴다(맥락이 필요한 자리다).
-        row["card_change"] = display.split("→", 1)[1].strip() if "→" in display else display
         # 그 문장이 '지금 달라진 것'인지 '직전 상태'인지. 화면이 라벨을 고르는
         # 근거이며, 이것이 없으면 바뀌기 전 상태가 '달라진 것' 이라는 이름으로
         # 나간다. 화살표가 있었는데 앞쪽만 남았으면 그건 직전 상태다.
@@ -2161,6 +2159,20 @@ def finalize_card_fields(rows: list[dict]) -> None:
             row["change_kind"] = "previous"
         else:
             row["change_kind"] = "change"
+        # 카드가 가져가는 건 화살표 **앞**쪽(직전 상태) 하나다.
+        #
+        # 뒤쪽(현재 상태)은 `summary` 와 같은 문장이다 — 실측 2026-08-16 자카드
+        # 중앙값 1.00, 69%가 완전 동일. 둘 다 최신 기사의 summary 에서 나오니
+        # 당연한 결과인데, 그걸 '달라진 것' 라벨로 카드에 다시 세우면 같은 문장이
+        # 이름만 바꿔 두 번 서는 꼴이다(커밋 064d428 의 오류). 앞쪽은 반대로
+        # **화면 어디에도 없는 유일한 정보**라 카드에 값을 한다.
+        # A → B 전문은 상세·근거 패널이 계속 편다(맥락이 필요한 자리다).
+        if "→" in display:
+            row["card_prior"] = display.split("→", 1)[0].strip()
+        elif row["change_kind"] == "previous":
+            row["card_prior"] = display
+        else:
+            row["card_prior"] = ""
         # 카드가 읽는 유일한 '왜 중요해요' 필드. 화면에서 or 폴백을 하면 이 계약이
         # 두 곳에 흩어져 드리프트한다.
         row["card_why"] = why
@@ -3459,7 +3471,7 @@ def atlas_readiness(issue_catalog: list[dict]) -> dict:
     }
 
 
-def field_fill(news_items: list[dict], alias_entries) -> dict:
+def field_fill(news_items: list[dict], alias_entries, issue_rows: list[dict] | None = None) -> dict:
     """프롬프트 산출 필드의 기사 단위 충전율 — atlas_readiness 와 같은 원칙의
     **계기판이지 게이트가 아니다**. 프롬프트를 고치기 전에 심는 이유: before/after 를
     눈대중이 아니라 이 숫자로 판정한다 (2026-08-16 디베이트 합의).
@@ -3489,6 +3501,13 @@ def field_fill(news_items: list[dict], alias_entries) -> dict:
         if a.get("event_date_type") in ("scheduled", "deadline")
         and str(a.get("event_date") or "") > today
     )
+
+    # _clip 이 발동한 흔적. 변화 문장은 **이슈** 단위 필드라 기사 목록에는 없다.
+    # 예산을 200 으로 올려 0 건으로 만들었으므로(2026-08-16), 여기가 다시 늘면
+    # 문장이 길어졌다는 신호다 — 로그에서 보이게 세어 둔다.
+    change_lines = [str(r.get("latest_change") or "") for r in (issue_rows or [])]
+    change_lines = [t for t in change_lines if t.strip()]
+    change_clipped = sum(1 for t in change_lines if "…" in t)
 
     digit_re = re.compile(r"\d")
     numeric_eligible = [a for a in news_items if digit_re.search(str(a.get("title") or ""))]
@@ -3521,6 +3540,8 @@ def field_fill(news_items: list[dict], alias_entries) -> dict:
                                     "rate": rate(numeric_kept, len(numeric_eligible))},
         "title_entity_rate": {"matched": entity_hits, "rate": rate(entity_hits, total),
                               "registry_loaded": bool(alias_entries)},
+        "change_line": {"total": len(change_lines), "clipped": change_clipped,
+                        "rate": rate(change_clipped, len(change_lines))},
     }
 
 
@@ -4082,7 +4103,7 @@ def build() -> None:
         "issue_catalog_total": len(issue_catalog),
         "p1_regression": p1_regression,
         "atlas_readiness": atlas_readiness(issue_catalog),
-        "field_fill": field_fill(news_items, _entity_alias_entries(entity_registry)),
+        "field_fill": field_fill(news_items, _entity_alias_entries(entity_registry), issue_catalog),
         "source_tiers": _source_tier_counts(),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
         "date_min": min((item["article_date"] for item in visible), default=""),
@@ -4278,7 +4299,8 @@ def build() -> None:
         f"제목 숫자보존 {fill['title_numeric_retention']['kept']}/{fill['title_numeric_retention']['eligible']} / "
         f"제목 엔티티 {fill['title_entity_rate']['matched']}/{fill['article_total']} | "
         f"event_date {fill['event_date']['filled']}건"
-        f"(예정·기한 미래 {fill['event_date']['upcoming_scheduled_or_deadline']}건)"
+        f"(예정·기한 미래 {fill['event_date']['upcoming_scheduled_or_deadline']}건) | "
+        f"변화문장 {fill['change_line']['total']}건(말줄임 {fill['change_line']['clipped']})"
     )
 
 
