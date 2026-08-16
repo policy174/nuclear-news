@@ -20,9 +20,29 @@ MINUTE_BODY = """{"error":{"code":429,"message":"You exceeded your current quota
 {"quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier"}]}]}}"""
 
 
+# 2026-08-17 실사고 응답: PerDay 마커가 본문에 있는데 서버는 45초 뒤 재시도를
+# 지시했다. 마커만 믿고 하루를 포기했지만 같은 키·같은 모델 직접 호출은 200 이었다.
+SHORT_DELAY_WITH_DAILY_MARKER = """{"error":{"code":429,
+"message":"Quota exceeded for metric: generate_content_free_tier_requests, limit: 20
+\\nPlease retry in 45.006425697s.","details":[
+{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[
+{"quotaId":"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]},
+{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"45s"}]}}"""
+
+
 class TestDailyQuotaDetection(unittest.TestCase):
     def test_daily_marker_is_detected(self):
         self.assertTrue(gc._is_daily_quota(DAILY_BODY))
+
+    def test_short_retry_delay_beats_daily_marker(self):
+        """서버가 45초 뒤 재시도를 지시하면 일일 한도가 아니다 — 하루가 남았는데
+        45초라고 할 리 없다. 마커보다 retryDelay 를 믿는다."""
+        self.assertFalse(gc._is_daily_quota(SHORT_DELAY_WITH_DAILY_MARKER))
+
+    def test_long_retry_delay_keeps_daily_verdict(self):
+        """긴 지연 + PerDay 마커는 그대로 일일 한도 — 붙잡고 늘어지지 않는다."""
+        body = SHORT_DELAY_WITH_DAILY_MARKER.replace('"45s"', '"3600s"')
+        self.assertTrue(gc._is_daily_quota(body))
 
     def test_minute_quota_is_not_daily(self):
         self.assertFalse(gc._is_daily_quota(MINUTE_BODY))

@@ -91,8 +91,8 @@ RETRY_DELAY_MAX = 75.0
 RETRY_DELAY_BUFFER = 1.0   # 값이 정확해서 딱 맞춰 자면 경계에서 또 튕긴다
 
 
-def _retry_delay_seconds(body_text: str) -> float | None:
-    """429 본문이 알려주는 대기 시간(초). 못 찾으면 None — 호출자가 사다리를 쓴다."""
+def _raw_retry_delay(body_text: str) -> float | None:
+    """429 본문의 대기 시간 원값(초). 판정에는 클램프 전 값이 필요하다."""
     for pattern in (_RETRY_DELAY_FIELD_RE, _RETRY_DELAY_RE):
         found = pattern.search(body_text or "")
         if found:
@@ -100,10 +100,17 @@ def _retry_delay_seconds(body_text: str) -> float | None:
                 seconds = float(found.group(1))
             except ValueError:
                 continue
-            if seconds <= 0:
-                continue
-            return min(seconds + RETRY_DELAY_BUFFER, RETRY_DELAY_MAX)
+            if seconds > 0:
+                return seconds
     return None
+
+
+def _retry_delay_seconds(body_text: str) -> float | None:
+    """429 본문이 알려주는 대기 시간(초). 못 찾으면 None — 호출자가 사다리를 쓴다."""
+    seconds = _raw_retry_delay(body_text)
+    if seconds is None:
+        return None
+    return min(seconds + RETRY_DELAY_BUFFER, RETRY_DELAY_MAX)
 
 
 # 429 는 두 종류다. 분당 한도(RPM)는 기다리면 풀리지만 일일 한도(RPD)는 오늘 안
@@ -172,6 +179,8 @@ def format_call_stats() -> str:
 
 
 _DAILY_QUOTA_MARKERS = ("PerDay", "per_day", "PerDayPerProject", "RequestsPerDay")
+# 이보다 짧은 재시도 지연은 분당 한도의 신호다 — 일일 한도면 리셋까지 몇 시간이다.
+DAILY_QUOTA_MIN_DELAY_SEC = 300.0
 
 
 def _is_daily_quota(body_text: str) -> bool:
@@ -179,7 +188,17 @@ def _is_daily_quota(body_text: str) -> bool:
 
     판정 불가면 False — 분당 한도로 보고 재시도한다. 재시도 가능한 것을 못 하는
     쪽이, 오늘 안 풀릴 것을 붙잡고 늘어지는 쪽보다 낫다.
+
+    **서버가 짧은 재시도 지연을 주면 마커보다 그쪽을 믿는다.** 하루가 남았는데
+    "45초 뒤 재시도"라고 할 리 없다. 2026-08-17 실사고: limit 20 / retry in
+    12~45s 응답을 PerDay 로 읽고 오디오가 하루를 통째로 포기했는데, 같은 키로
+    같은 모델을 직접 부르니 200 이었다. 마커 문자열은 본문 어디에 있어도
+    걸리지만(다른 violation·도움말 링크 포함), retryDelay 는 서버가 이 요청에
+    대해 내린 판단이다.
     """
+    delay = _raw_retry_delay(body_text)
+    if delay is not None and delay <= DAILY_QUOTA_MIN_DELAY_SEC:
+        return False
     return any(marker in body_text for marker in _DAILY_QUOTA_MARKERS)
 
 
