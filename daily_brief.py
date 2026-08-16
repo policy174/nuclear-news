@@ -601,6 +601,11 @@ def plan_briefs(queue: list[dict],
                     if render_investment(a.get("investment_struct")) is None)
     if allsel:
         print(f"[daily_brief] 투자 관점: {len(allsel) - n_omitted}건 표기 / {n_omitted}건 근거 부족 생략")
+    # 시사점(implication→kr_takeaway) 충전 계기판 — 프롬프트를 만질 때 텔레그램 쪽이
+    # 조용히 얇아지는 회귀를 Actions 로그에서 바로 보이게 한다(웹 QA 로는 안 잡힌다).
+    n_takeaway = sum(1 for a in allsel if (a.get("implication") or "").strip())
+    if allsel:
+        print(f"[daily_brief] 시사점: {n_takeaway}건 표기 / {len(allsel) - n_takeaway}건 빈칸")
 
     briefs: list[dict] = []
     # 국내·해외 둘 다 항상 발송 — 사용자가 같은 시간에 둘 다 기대. 없으면 안내 메시지.

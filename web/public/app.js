@@ -808,6 +808,10 @@ function renderSystemStatus() {
       ${primaryCount ? `<div><dt>정부·기관 원문</dt><dd>${primaryCount}건</dd></div>` : ""}
       <div><dt>다음 갱신</dt><dd>2시간 이내</dd></div>
     </dl>${status === "ok" ? "" : `<p>${esc(message)}</p>`}`;
+  // 흐름 탭 방법론 단락의 수집원 수 — meta 가 실어 온 sources.json 카운트.
+  const tiers = state.meta?.source_tiers;
+  const methodologySources = document.getElementById("methodologySources");
+  if (methodologySources && tiers) methodologySources.textContent = String((tiers.tier1 || 0) + (tiers.tier2 || 0));
 }
 
 async function checkForNewGeneration() {
@@ -1007,7 +1011,9 @@ function issueCard(issue, index, archive = false, front = false) {
   // build_data.finalize_card_fields 가 확정해 둔다. 여기서 or 폴백을 쌓으면
   // 그 계약이 두 곳으로 흩어진다.
   const changeText = issueChangeText(issue);
-  const whyText = String(issue.card_why ?? (issue.implication || issue.why_important || "")).trim();
+  // 2026-08-16: 목록 카드의 해석 줄은 why_important 만 — implication(시사점)은
+  // 스캔 화면에서 내리고 상세·rail 에서만 선다. 폴백도 계약과 같은 필드만 본다.
+  const whyText = String(issue.card_why ?? (issue.why_important || "")).trim();
   const nextText = String(issue.open_question || "").trim();
   const mark = text => (archive ? markMatch(text, state.archiveQuery) : esc(text));
   const cardRow = (label, text, extra = "") => (text
@@ -1038,8 +1044,11 @@ function issueCard(issue, index, archive = false, front = false) {
     </div>
     <div class="issue-body">
       <h3><button type="button" class="issue-title-button" data-issue-id="${esc(issue.issue_id)}">${title}</button></h3>
-      ${cardRow(issueChangeLabel(issue, "달라진 것"), changeText)}
-      ${cardRow("왜 중요해요", whyText, `<span class="ai-badge">AI</span>`)}
+      ${cardRow(issueChangeLabel(issue, "달라진 것"), changeText)
+        /* 변화 문장이 빈 날은 summary 가 사실 줄을 받친다(8/11 실측 0/12건인 날 존재).
+           summary 는 100자 상한이 프롬프트에 걸려 있어 더는 '장문'이 아니다. */
+        || cardRow("무슨 일", String(issue.summary || "").trim())}
+      ${cardRow("왜 중요한가", whyText, `<span class="ai-badge">AI</span>`)}
       ${cardRow("다음 확인", nextText)}
       ${selectionReason ? `<div class="issue-reason-row"><span class="issue-reason-chip topic-chip">${esc(selectionReason)}</span></div>` : ""}
       ${matchContext}
@@ -1080,7 +1089,8 @@ function leadCard(issue, briefing) {
   const blocks = [
     model.change ? { label: issueChangeLabel(issue, "달라진 것"), text: model.change.text, tone: "change", group: "fact" } : null,
     model.why ? { label: model.why.label, text: model.why.text, group: "read" } : null,
-    model.impact ? { label: model.impact.label, text: model.impact.text, group: "read" } : null,
+    // model.impact(시사점)는 선두 카드에서도 내린다(2026-08-16) — 스캔 화면의 해석은
+    // '왜 중요한가' 한 줄까지, 시사점은 근거 패널(rail)과 상세가 편다.
     model.openQuestion ? { label: "다음 확인", text: model.openQuestion, tone: "open", group: "read" } : null,
   ].filter(Boolean);
   // 남는 게 없으면 요약이 바닥을 받친다.

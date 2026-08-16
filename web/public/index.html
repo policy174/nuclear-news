@@ -254,6 +254,9 @@
           <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>
           <div id="newsList" class="news-list"></div>
         </details>
+        <!-- Techmeme River 패턴의 축소판 — 선별에서 무엇이 빠졌는지 사용자가 직접
+             확인할 수 있는 감사 경로. 위 드로어가 오늘치, 이 버튼이 전체 기록. -->
+        <button type="button" class="secondary-button" data-go-view="search">지난 수집 기록 전체 보기</button>
         <p class="notice">날짜·수치·기관명은 원문에서 확인하세요.</p>
       </div>
 
@@ -443,6 +446,14 @@
       </div>
       <ol id="briefingTimelineList"></ol>
     </section>
+    <!-- Carbon Brief 관행(2026-08-16 슈퍼샘플 계획): 집계 기준을 화면에 상시 공개
+         한다 — "이 숫자 어디서 났냐"에 먼저 답해 두는 것이 신뢰 확보의 최저비용.
+         신규 박스를 세우지 않고 기존 .notice 문단 어법을 그대로 쓴다(디자인 불변). -->
+    <p class="notice"><strong>집계 방법</strong> — 등록 수집원
+      <span id="methodologySources">—</span>곳에서 매시간 수집하고, AI가 통제 태그
+      (주제 12·국가 10·유형 7)로 분류합니다. 통계는 기사가 아니라 이슈(사건) 단위이며
+      매일 갱신됩니다. 검증 상태는 공식 원문·독립 출처 수로 4단계 표시하고, 요약·해석
+      문장에는 AI 배지를 붙입니다.</p>
     <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
   </section>
 
