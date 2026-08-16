@@ -85,6 +85,28 @@ try {
     console.log("주의: 이슈 카드 0건 — 빈 상태로 렌더됨(정상 가능)");
   }
 
+  // 카드 밀도 계약(220px)은 CSS 산술로는 못 지킨다 — 칸 수도 줄 수도 데이터가
+  // 정한다. 실제로 렌더된 높이를 여기서 본다(2026-08-16, 칸당 3줄로 올리면서 이관).
+  if (cards > 0 || changedCards > 0) {
+    const tall = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll("#changedList .issue-card, #issueList .issue-card")];
+      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 220);
+      return { total: rows.length, over: over.length, max: Math.max(0, ...over) };
+    });
+    if (tall.over > 0) {
+      failures.push(`카드 ${tall.over}/${tall.total}장이 220px 밀도 계약 초과(최대 ${tall.max}px)`);
+    }
+  }
+  // 잘린 카드 본문 — 문장이 완결되게 하려고 칸당 3줄을 준 것이므로, 그래도 잘리면
+  // 데이터가 예상보다 길어진 것이다(경고만, 실패로 세우지 않는다).
+  const clipped = await page.evaluate(() => {
+    const els = [...document.querySelectorAll("#changedList .issue-line-text, #issueList .issue-line-text")];
+    return { total: els.length, cut: els.filter(e => e.scrollHeight > e.clientHeight + 1).length };
+  });
+  if (clipped.cut > 0) {
+    console.log(`주의: 카드 본문 ${clipped.cut}/${clipped.total}줄이 잘림 — 요약 길이 확인 필요`);
+  }
+
   // 최신 브리핑 날짜가 화면에 반영됐는가 — "2026-07-31" → "7월 31일" 표기로 확인
   const d = meta.latest_briefing_date || "";
   if (/^\d{4}-\d{2}-\d{2}$/.test(d) && (cards > 0 || changedCards > 0)) {

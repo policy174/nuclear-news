@@ -4450,8 +4450,15 @@ class VisualSystemTests(unittest.TestCase):
         )
         # 라벨 열이 접히면 역할 구분이 사라진다.
         self.assertIn("white-space: nowrap", self._rule(".issue-line-label"))
-        # 각 칸은 정확히 한 줄. 문단 두 개가 연달아 서는 것을 CSS 에서 막는다.
-        self.assertIn("-webkit-line-clamp: 1", self._rule(".issue-line-text"))
+        # 칸당 최대 세 줄. 한 줄 계약은 "문장이 한 줄짜리로 들어온다"는 전제 위에
+        # 있었는데 2026-08-16 실측에서 그 전제가 깨져 있었다 — 변화 문장 중앙값
+        # 139자 · 요약 73자인데 카드 한 줄은 약 32자라 100% 가 잘렸고, 화살표
+        # 문장은 잘린 자리에 **바뀌기 전 상태**만 남아 '달라진 것' 라벨과 어긋났다.
+        # 세 줄로 올린 뒤 실측: 잘린 줄 0/14(한 줄일 때 14/14, 두 줄일 때 8/14).
+        # 네 줄 이상은 금지 — 카드가 문단이 되면 목록이 아니라 읽을거리가 된다.
+        clamp = re.search(r"-webkit-line-clamp:\s*(\d+)", self._rule(".issue-line-text"))
+        self.assertIsNotNone(clamp, "카드 본문에 줄 수 상한이 없다")
+        self.assertLessEqual(int(clamp.group(1)), 3, "카드 한 칸이 네 줄 이상이 됐다")
 
         actions = self._rule(".issue-list .issue-card .issue-actions")
         self.assertIn("flex-direction: row", actions, "액션이 다시 세로로 쌓인다")
