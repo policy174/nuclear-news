@@ -605,8 +605,11 @@ class ChangeLineTests(unittest.TestCase):
     def test_the_front_end_picks_the_label_from_change_kind(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn('issue.change_kind === "previous" ? "직전까지"', script)
-        # 라벨을 세우는 세 자리가 전부 이 헬퍼를 거쳐야 한 곳만 고쳐도 안 갈라진다.
-        self.assertEqual(script.count("issueChangeLabel(issue,"), 3)
+        # 라벨을 세우는 자리는 전부 이 헬퍼를 거쳐야 한 곳만 고쳐도 안 갈라진다.
+        # 세 자리에서 두 자리로 준 것은 2026-08-17 — 목록 카드가 변화 문장을 더는
+        # 쓰지 않는다(사실 줄은 summary, 추적 맥락은 '직전까지' 고정 라벨). 남은
+        # 두 자리는 선두 카드와 근거 패널이다.
+        self.assertEqual(script.count("issueChangeLabel(issue,"), 2)
 
     def test_card_display_empties_when_both_sides_restate(self):
         summary = ("독일이 2040년대 유럽 최초의 상업용 핵융합 발전소 운영을 "

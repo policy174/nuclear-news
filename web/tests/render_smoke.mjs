@@ -85,16 +85,23 @@ try {
     console.log("주의: 이슈 카드 0건 — 빈 상태로 렌더됨(정상 가능)");
   }
 
-  // 카드 밀도 계약(220px)은 CSS 산술로는 못 지킨다 — 칸 수도 줄 수도 데이터가
-  // 정한다. 실제로 렌더된 높이를 여기서 본다(2026-08-16, 칸당 3줄로 올리면서 이관).
+  // 카드 밀도 계약은 CSS 산술로는 못 지킨다 — 칸 수도 줄 수도 데이터가 정한다.
+  // 실제로 렌더된 높이를 여기서 본다.
+  //
+  // 상한 260px: 220 은 "칸당 한 줄" 구조의 값이었다. 실측에서 그 전제가 깨져
+  // (변화 문장 중앙값 139자·요약 73자 vs 카드 한 줄 32자) 칸당 최대 세 줄로
+  // 올렸고, 카드가 '무슨 일'(3줄) + '직전까지'(2줄)까지 서면 실측 256px 이다.
+  // 900px 뷰포트에서 두 장이 512px 이라 "폴드에 두 장" 이라는 계약의 의도는
+  // 그대로다. 130 → 220 때와 같이 **완화가 아니라 새 구조로 재계산**한 값이며,
+  // 상한 자체는 남긴다 — 지우면 다음 사람이 네 번째 칸을 얹는다.
   if (cards > 0 || changedCards > 0) {
     const tall = await page.evaluate(() => {
       const rows = [...document.querySelectorAll("#changedList .issue-card, #issueList .issue-card")];
-      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 220);
+      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 260);
       return { total: rows.length, over: over.length, max: Math.max(0, ...over) };
     });
     if (tall.over > 0) {
-      failures.push(`카드 ${tall.over}/${tall.total}장이 220px 밀도 계약 초과(최대 ${tall.max}px)`);
+      failures.push(`카드 ${tall.over}/${tall.total}장이 260px 밀도 계약 초과(최대 ${tall.max}px)`);
     }
   }
   // 잘린 카드 본문 — 문장이 완결되게 하려고 칸당 3줄을 준 것이므로, 그래도 잘리면
