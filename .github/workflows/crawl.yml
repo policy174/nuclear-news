@@ -195,6 +195,14 @@ jobs:
           echo "마지막 배포로부터 ${age}분 경과 (최소 간격 ${MIN_GAP_MIN}분)"
           if [ "$age" -lt "$MIN_GAP_MIN" ]; then echo "간격 미달 — 배포 스킵"; exit 0; fi
           python web/build_data.py
+          # 구운 데이터를 배포 **전에** 검사한다. deploy-web.yml 이 같은 검사를 하지만
+          # 그건 화면 코드를 밀 때만 도는 빠른 경로다. 2026-08-15~17 Deploy web 이
+          # 9연속 실패(과병합 클러스터)하는 동안에도 이 스텝은 같은 데이터를 조용히
+          # 배포했다 — 게이트가 한쪽 경로만 지키면 게이트가 아니다.
+          # 실패하면 배포를 건너뛴다: 낡은 사이트보다 틀린 사이트가 나쁘다.
+          # 데이터 지표 게이트(추적률·주별 균형)는 여기서 끈다 — 여기는 데이터 품질을
+          # 보는 자리가 아니라 배포하는 자리다(test_prototype.py SKIP_DATA_GATES 주석).
+          ( cd web && NUCLENS_SKIP_DATA_GATES=1 python -m unittest discover -s tests )
           npx --yes wrangler@4.123.0 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
 
       # 이슈 병합 회색지대 LLM 판정 캐시. 커밋하지 않으면 빌드마다(하루 12회+)
@@ -272,3 +280,19 @@ jobs:
               print("::error::스모크 실패 — " + " | ".join(fails)); sys.exit(1)
           print(f"스모크 OK — 기사 {len(data['news.json'])}건, 최신 브리핑 {m.get('latest_briefing_date')}, JSON 6종 정상")
           EOF
+
+      # 실패를 사람이 보는 곳으로 보낸다. Actions 탭은 아무도 안 본다 —
+      # 2026-08-15~17 Deploy web 이 9번 연속 빨간 채로 이틀을 갔다.
+      # 알림 자체가 실패해도 크롤 결과를 바꾸지 않는다(이미 실패한 잡이다).
+      - name: Notify failure (원자력정책실 동향봇)
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python telegram_send.py --plain "⚠️ nuclens 수집·배포 실패
+
+          워크플로: ${{ github.workflow }} #${{ github.run_number }}
+          로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          배포가 멈췄으므로 사이트는 직전 정상본이 떠 있습니다."

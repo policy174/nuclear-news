@@ -121,3 +121,20 @@ jobs:
             exit 1
           }
           echo "스모크 통과 — 미존재 경로가 404"
+
+      # 이 워크플로는 2026-08-15~17 에 9번 연속 빨간 채로 이틀을 갔다. 아무도 안
+      # 봤기 때문이다 — 그동안 crawl.yml 이 같은 데이터를 계속 배포하고 있었으니
+      # 사이트는 멀쩡해 보였다. 실패는 사람이 있는 곳으로 보낸다.
+      - name: Notify failure (원자력정책실 동향봇)
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python telegram_send.py --plain "⚠️ nuclens 화면 배포 실패
+
+          워크플로: ${{ github.workflow }} #${{ github.run_number }}
+          커밋: ${{ github.sha }}
+          로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          이 변경분은 라이브에 반영되지 않았습니다."
