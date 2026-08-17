@@ -411,13 +411,17 @@ def _stats_key(row: dict) -> tuple:
 
 # 상태 판정은 두 개의 독립 heartbeat 로 한다.
 #
-#   수집기      = 아카이브 최신 archived_at (crawl 이 매시간 append — 선정과 무관)
+#   수집기      = 아카이브 최신 archived_at (crawl 이 3시간마다 append — 선정과 무관)
 #   브리핑 파이프라인 = selection_stats.generated_at + pipeline_status
 #
 # "최신 기사 날짜"만 보고 판정하면 안 된다. 선정 하한을 도입한 뒤에는 며칠간 새
 # 브리핑 항목이 없는 게 정상일 수 있고, 그걸 장애로 표시하면 컷오프 도입의 취지가
 # 무너진다. **콘텐츠가 없는 것과 프로세스가 안 돈 것은 별개다.**
-COLLECTOR_STALE_HOURS = 6      # crawl 은 매시간 — 6시간이면 확실히 멈춘 것
+# crawl 이 3시간 간격(2026-08-17)이 되면서 6시간은 '1회 결측 + cron 지연'으로도
+# 넘는 값이 됐다. GitHub cron 지연 실측이 50~66분이므로 정상 최대 나이는 약 4시간.
+# 10시간 = 2회 연속 결측이어야 멈춘 것으로 본다. 크론 간격을 바꾸면 여기도 바꿀 것.
+COLLECTOR_STALE_HOURS = 10
+BRIEFING_STALE_HOURS = 36      # daily-brief 는 하루 1회 — 36시간이면 한 회차를 건너뛴 것
 BRIEFING_STALE_HOURS = 36      # daily-brief 는 하루 1회 — 36시간이면 한 회차를 건너뛴 것
 
 
