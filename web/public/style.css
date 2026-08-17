@@ -665,11 +665,28 @@ kbd {
 .briefing-hero.weekly-hero .hero-actions { margin-top: var(--sp-5); }
 .hero-stamp { display: flex; align-items: baseline; gap: var(--sp-3); }
 
+/* 흐름 탭과 같은 증상이었다 — 재도색 후 종이가 쿨 그레이로 갈라지면서 위아래
+   괘선만으로는 구역이 안 잡히고, 본문을 --measure 로 묶으니 1280px 중 오른쪽
+   절반이 비어 한쪽으로 쏠려 보였다(사용자 지적).
+   여기는 우측에 보낼 메타가 없다. 대신 성격이 다른 두 묶음(이번 주 결론 /
+   다음 확인)을 좌우로 나눈다 — 폭을 쓰면서 동시에 둘의 구분이 생긴다.
+   grid 의 auto-fit 은 여기서 안 된다 — 머리줄이 전 트랙을 가로질러서 빈 트랙이
+   생기지 않고, 그래서 한쪽이 hidden 이어도 남은 블록이 절반에 머문다(실측
+   601/1280px). flex 로 두면 hidden 은 display:none 이라 아예 빠지고 남은 하나가
+   basis 를 넘어 자란다. 좁은 화면에서는 basis 420px 이 컨테이너를 넘겨 줄바꿈
+   되므로 미디어쿼리도 필요 없다. */
 .today-agenda {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--sp-8);
   margin: var(--sp-5) 0 var(--sp-7);
-  border-top: var(--bd-3) solid var(--c-edge);
-  border-bottom: var(--bd-2) solid var(--c-border);
+  padding: 0 var(--sp-5) var(--sp-5);
+  border: var(--bd-3) solid var(--c-edge);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
 }
+.agenda-head { flex: 1 0 100%; }
+.today-agenda > .agenda-block { flex: 1 1 420px; min-width: 0; }
 .agenda-head {
   display: flex;
   align-items: baseline;
