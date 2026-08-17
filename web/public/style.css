@@ -1994,19 +1994,55 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .archive-result-head p { margin: 3px 0 0; color: var(--c-text-muted); font-size: var(--t-min); }
 .archive-more { display: block; margin: 16px auto 0; }
 
-/* 목록은 괘선, 차트만 카드. 홈이 상자 없이 선으로만 위계를 세우는데 흐름 탭만
-   같은 성격의 목록(주간 판세·움직인 이슈)을 흰 상자에 담고 있었다 — 탭을
-   옮기면 다른 제품처럼 읽힌다. 상자를 걷고 구역 머리(2px 잉크)에 맡긴다.
-   차트(.data-card)는 상자를 유지한다: 그래프·해석·근거를 한 덩어리로 묶는
-   목적이 분명하다. */
-.flow-panel { margin-bottom: var(--sp-8); padding: 0; border: 0; background: none; }
+/* 표면을 되돌린다 — 전제가 바뀌었다.
+   상자를 걷은 이전 결정은 "홈이 선으로만 위계를 세우는데 흐름 탭만 흰 상자를
+   쓰면 다른 제품처럼 읽힌다"였고, 그때는 종이 #eef1ee 와 표면 #fff 의 명도차가
+   미미해서 상자가 있으나 없으나 같은 화면이었다. 2026-08-17 재도색으로 종이가
+   쿨 그레이(#eef1f4)로 갈라지면서 상자 없는 목록 7,500px 이 통째로 바탕에
+   묻혔다 — 사용자 지적 "흐름탭이 잘 안 보여".
+   되돌리되 **구역당 한 면**이다. 항목마다 상자를 주면 스캔 목록이 스티커
+   시트가 된다(이 파일의 상자 하나 원칙). 안쪽 행은 그대로 괘선이 가른다.
+   이 탭에 이미 있는 .data-card 와 같은 어법이라 탭 안에서도 어긋나지 않는다. */
+.flow-panel,
+.weekly-report,
+.briefing-timeline {
+  padding: var(--sp-5);
+  border: var(--bd-3) solid var(--c-edge);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+}
+.flow-panel { margin-bottom: var(--sp-8); }
 /* 주간 판세 — 고정 코너 5개. 매주 같은 자리에서 같은 질문에 답한다. */
-.weekly-report { margin-bottom: var(--sp-8); padding: 0; border: 0; background: none; }
-.weekly-block { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--c-border); }
+.weekly-report { margin-bottom: var(--sp-8); }
+/* 행 구분은 --bd-2 다. 1px 헤어라인은 표 내부용이고, 이 목록은 구역 안의
+   독립 코너라 구조선을 받아야 한다(이 파일 머리의 굵기 3단 규칙).
+   팔레트가 쿨 그레이 종이로 갈라지기 전에는 종이와 표면이 붙어 있어 1px
+   로도 읽혔지만, 지금은 상자 없는 목록이 통째로 바탕에 묻힌다. */
+.weekly-block { margin-top: 18px; padding-top: 16px; border-top: var(--bd-2) solid var(--c-border-strong); }
 .weekly-block:first-child { margin-top: 6px; padding-top: 0; border-top: 0; }
 .weekly-block h3 { margin: 0 0 6px; font-size: var(--t-body-lg); }
 .weekly-intro { margin: 0 0 12px; color: var(--c-text-secondary); }
-.weekly-item { margin-top: 10px; }
+/* 본문 열을 --measure 로 묶으면 1280px 지면의 오른쪽 절반이 통째로 빈다.
+   그 폭을 메타(집계 건수·매체 수)에게 준다 — 빈 자리를 채우는 장식이 아니라,
+   제목 옆에서 '얼마나 쌓였나'를 같은 눈높이에서 읽게 하는 배치다.
+   좁은 화면에서는 한 열로 접힌다(아래 767px 블록). */
+.weekly-item {
+  display: grid;
+  grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+  column-gap: var(--sp-6);
+  /* 제목(17/28.9)과 메타(12.5/21.25)는 크기가 달라 행 위쪽에 맞추면 메타가
+     제목보다 떠 보인다. 베이스라인으로 묶어 같은 줄에 앉힌다. */
+  align-items: baseline;
+  margin-top: 10px;
+}
+.weekly-item > h4,
+.weekly-item > p { grid-column: 1; }
+.weekly-item > .data-note {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  text-align: right;
+}
 .weekly-item p { margin: 0 0 2px; color: var(--c-text-secondary); }
 .weekly-item strong { color: var(--c-text); }
 /* 테마 강약은 라벨 열로 뗀다 — 화살표·테마·설명이 한 문장이면 훑는 눈이 걸릴
@@ -2055,7 +2091,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 }
 .weekly-evidence .hero-evidence-chip:hover { background: var(--c-border); }
 .section-heading.compact { margin-bottom: var(--sp-3); }
-.flow-item { display: grid; grid-template-columns: 42px 1fr; gap: 10px; padding: 18px 0; border-top: 1px solid var(--c-border); }
+.flow-item { display: grid; grid-template-columns: 42px 1fr; gap: 10px; padding: 18px 0; border-top: var(--bd-2) solid var(--c-border-strong); }
 .flow-item:first-child { border-top: 0; }
 .flow-rank { color: var(--c-text-muted); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
 .flow-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
@@ -2738,7 +2774,13 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .archive-filters button { min-height: 44px; }
   .archive-result-head { align-items: flex-start; }
   .archive-result-head h2 { font-size: 18px; }
-  .flow-panel { padding: 16px; }
+  .flow-panel,
+  .weekly-report,
+  .briefing-timeline { padding: 16px; }
+  /* 메타를 오른쪽으로 뺀 2열은 좁은 화면에서 두 열 다 못 쓴다 — 한 열로
+     접고 메타는 다시 본문 아래 왼쪽 정렬로 돌린다. */
+  .weekly-item { grid-template-columns: minmax(0, 1fr); }
+  .weekly-item > .data-note { grid-column: 1; grid-row: auto; margin-top: 4px; text-align: left; }
   .flow-item { grid-template-columns: 30px 1fr; }
   /* 순번 칸이 42 → 30px 로 줄었으니 수명 축 들여쓰기도 30 + gap 10 = 40px 로
      같이 줄인다. 안 줄이면 눈금이 막대보다 12px 오른쪽으로 밀린다. */
