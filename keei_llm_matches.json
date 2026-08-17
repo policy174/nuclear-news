@@ -386,6 +386,13 @@
       "reason": "같은 원전의 진행 단계",
       "same_event": true
     },
+    "issue-27009ea4489faffc--de0fd4314f": {
+      "issue_title": "미군, 마이크로원자로 기지 배치…2030년 목표",
+      "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 주체, 다른 사안",
+      "same_event": false
+    },
     "issue-27cf26ee5365bab5--6445d0b3c3": {
       "issue_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
       "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
@@ -631,6 +638,20 @@
       "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
+    "issue-3c3560063b344488--249f1333d0": {
+      "issue_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "A는 개별 기업 프로젝트, B는 국가 간 협력",
+      "same_event": false
+    },
+    "issue-3c3560063b344488--841ceedbf0": {
+      "issue_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
     "issue-3c3560063b344488--92b30862a0": {
       "issue_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
       "keei_item": "일본 정부, 선진 원자로와 핵융합 에너지를 중점 산업 분야로 선정",
@@ -758,10 +779,17 @@
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--23a6f604ae": {
-      "issue_title": "아마존 텍사스 AI 데이터센터, 7.65GW 가스발전 허가 획득",
+      "issue_title": "미 주정부, AI 데이터센터 전력비 전가 막는다",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "국가, 전원, 주체 모두 다름",
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
+    "issue-4dd2920f69b7ea54--6445d0b3c3": {
+      "issue_title": "미 주정부, AI 데이터센터 전력비 전가 막는다",
+      "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
+      "prompt_version": 1,
+      "reason": "다른 사안 (AI 전력비 vs 원전 도입)",
       "same_event": false
     },
     "issue-4e6a1d2c0301a4d0--08db51ddba": {
@@ -1129,10 +1157,10 @@
       "same_event": false
     },
     "issue-6260c0799db78ac9--23a6f604ae": {
-      "issue_title": "제12차 전력수급기본계획(전기본) 수립 방향에 대한 기고문",
+      "issue_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "다른 국가, 다른 정책",
+      "reason": "A는 일반 동향, B는 특정국 사안",
       "same_event": false
     },
     "issue-6260c0799db78ac9--6445d0b3c3": {
@@ -1380,6 +1408,20 @@
       "reason": "다른 국가, 다른 유형의 사건",
       "same_event": false
     },
+    "issue-7db712a18d7f6a1f--02506fe991": {
+      "issue_title": "파라과이, 전력 부족 전망에 미국과 SMR 협력",
+      "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 주체, 다른 사안",
+      "same_event": false
+    },
+    "issue-7db712a18d7f6a1f--54df950745": {
+      "issue_title": "파라과이, 전력 부족 전망에 미국과 SMR 협력",
+      "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 파트너",
+      "same_event": false
+    },
     "issue-7e77e7f003ff7ab6--bd91314eae": {
       "issue_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
       "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
@@ -1490,6 +1532,13 @@
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
       "prompt_version": 1,
       "reason": "주체, 대상, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-8ee1f406adeda252--bd91314eae": {
+      "issue_title": "프랑스 그라블린 원전, 해파리 떼로 2년 연속 가동 중단",
+      "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
+      "prompt_version": 1,
+      "reason": "A는 특정 원전 해파리, B는 다수국 폭염",
       "same_event": false
     },
     "issue-91479bf4a11beb13--dcf5909f44": {
@@ -1729,6 +1778,20 @@
       "prompt_version": 1,
       "reason": "동일 주체, 동일 부지 선정",
       "same_event": true
+    },
+    "issue-b0cd9558972bc66d--841ceedbf0": {
+      "issue_title": "정부 7대 SEED 프로젝트에 SMR·핵융합 포함, 관련 단체 찬반 논쟁 발생",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
+    "issue-b0cd9558972bc66d--99f6aed02e": {
+      "issue_title": "정부 7대 SEED 프로젝트에 SMR·핵융합 포함, 관련 단체 찬반 논쟁 발생",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
     },
     "issue-b1e1072288426172--0330b81e50": {
       "issue_title": "KEPIC-Week에서 사용후핵연료 인수기술기준(안) 공청회 최초 개최 예정",
@@ -1990,10 +2053,10 @@
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--249f1333d0": {
-      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "issue_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "A는 기업 협력, B는 국가간 MOU",
+      "reason": "A는 개별 기업 협력, B는 국가 간 협력",
       "same_event": false
     },
     "issue-ca69ce47dc1e639d--54df950745": {
@@ -2176,6 +2239,13 @@
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
       "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
+    "issue-d621a4293eb89200--92b30862a0": {
+      "issue_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
+      "keei_item": "일본 정부, 선진 원자로와 핵융합 에너지를 중점 산업 분야로 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
       "same_event": false
     },
     "issue-d675dcf3f120c2fb--6445d0b3c3": {
