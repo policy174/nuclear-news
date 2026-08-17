@@ -1757,7 +1757,19 @@ class GeneratedDataTests(unittest.TestCase):
                         and right_countries & (set(member.get("countries") or []) - non_country_scopes)
                         for member in members
                     )
-                    self.assertTrue(has_cross_border_bridge)
+                    # 실패는 오병합 후보를 뜻한다(8/2 사고의 탐지기). 어느 이슈의 어느
+                    # 쌍인지 로그에 남기지 않으면 CI 밖에서 재현할 방법이 없다 —
+                    # 이 데이터는 배포 폴더 밖(web/diag/)이라 라이브에서 못 받는다.
+                    self.assertTrue(has_cross_border_bridge, (
+                        f"국경을 잇는 근거 기사가 없다 — issue={cluster.get('issue_id')} "
+                        f"({len(members)}건) {sorted(left_countries)} vs {sorted(right_countries)}\n"
+                        f"    L[{left.get('hash', '')[:8]}] {str(left.get('title_kr') or left.get('title') or '')[:60]}\n"
+                        f"    R[{right.get('hash', '')[:8]}] {str(right.get('title_kr') or right.get('title') or '')[:60]}\n"
+                        f"    멤버: " + " / ".join(
+                            f"{sorted(set(m.get('countries') or []) - non_country_scopes)}"
+                            f"{str(m.get('title_kr') or m.get('title') or '')[:28]}"
+                            for m in members[:6])
+                    ))
                 self.assertFalse(build_data._facility_conflict(left, right))
 
     def test_region_matches_confident_country_tags(self):
