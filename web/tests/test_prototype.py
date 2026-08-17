@@ -1915,27 +1915,33 @@ class GeneratedDataTests(unittest.TestCase):
         전신 계약은 '두 번째 줄은 무엇이 아니라 왜'(implication 한 줄, summary
         폴백)였다. 그 줄 하나로는 훑는 사람이 '무엇이 달라졌나 / 왜 중요한가 /
         다음에 뭘 보나' 세 질문에 답할 수 없어서, 2026-08-08 개편에서 칸을 갈랐다.
-        summary 는 카드에서 완전히 내려갔다 — 제목을 어순만 바꿔 다시 쓴 문장이
-        대부분(8/3 실측 8건 중 5건)이라는 판단은 그대로 유효하고, 이제 그 문장은
-        상세에만 있다.
+
+        2026-08-17 에 사실 칸의 재료를 change_display 에서 **summary** 로 바꿨다.
+        두 전제가 실측으로 뒤집혔기 때문이다.
+          · "summary 는 제목을 어순만 바꾼 재진술"(8/3, 8건 중 5건) → 271건 재측정
+            결과 제목과의 자카드 중앙값 0.23, 재진술 의심(0.6+) **0건**. 그 사이
+            큐레이션 프롬프트가 "제목에 없는 사실을 반드시 담을 것"으로 바뀌었다.
+          · change_display 는 13% 만 채워지고, 화살표 뒤쪽이 summary 와 같은
+            문장이라(자카드 1.00) '달라진 것' 라벨로 요약을 되풀이하고 있었다.
+        그래서 카드는 `무슨 일`(summary) + `직전까지`(화살표 앞쪽, 추적 이슈만)로
+        서고, A → B 전문은 상세·근거 패널이 편다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         card = script.split("function issueCard(", 1)[1].split("\nfunction ", 1)[0]
-        # 변화 칸의 라벨은 change_kind 에 따라 갈린다(직전 상태면 '직전까지') —
-        # 기본값이 '달라진 것' 이라는 것까지가 계약이다.
-        self.assertIn('cardRow(issueChangeLabel(issue, "달라진 것")', card,
-                      "카드에 '달라진 것' 칸이 없다")
-        for label in ("왜 중요해요", "다음 확인"):
+        for label in ("무슨 일", "직전까지", "왜 중요한가", "다음 확인"):
             self.assertIn(f'cardRow("{label}"', card, f"카드에 '{label}' 칸이 없다")
         # 역할 분리는 build_data.finalize_card_fields 가 확정한다. 화면에서 or 로
         # 다시 고르면 계약이 두 곳으로 흩어진다 — 스테일 데이터 대비 ?? 하나만 둔다.
         self.assertIn("issue.card_why ??", card)
-        self.assertNotIn("issue.summary", card, "장문 summary 가 카드로 돌아왔다")
+        # 사실 칸은 summary, 추적 맥락은 card_prior. 화면이 change_display 를 다시
+        # 집어 들면 13% 만 채워지는 필드로 돌아가고 라벨도 다시 어긋난다.
+        self.assertIn("issue.card_prior", card)
+        self.assertNotIn("issue.card_change", card, "폐기된 card_change 가 돌아왔다")
         self.assertIn(".issue-line {", style)
         self.assertIn(".issue-line-label {", style)
         # 검색 하이라이트 판정도 화면에 실제로 뜨는 문장을 기준으로 한다
-        self.assertIn("${changeText} ${whyText} ${nextText}", card)
+        self.assertIn("${factText} ${priorText} ${whyText} ${nextText}", card)
         # AI 가 쓴 문장에는 고지가 따라붙는다. 배지 규칙('예외만 표시')과 달리
         # 이건 신호가 아니라 고지라서 전 카드에 붙는다.
         self.assertIn('<span class="ai-badge">AI</span>', card)
