@@ -202,6 +202,11 @@ jobs:
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           git fetch origin main && git reset --hard origin/main
           python web/build_data.py
+          # 분당 한도 창을 넘긴다 — build_data 가 같은 키로 방금 여러 번
+          # 호출하고 끝나서, 곧바로 붙는 오디오의 첫 요청이 그 창에 걸린다.
+          # 2026-08-17 실측: 워크플로 안에서는 재시도 6회를 다 쓰고도 실패했는데
+          # 같은 시각 build_data 없이 로컬에서 부르니 한 번에 성공했다.
+          sleep 65
           # 오디오 브리핑 — build_data 산출물을 재료로 쓰므로 반드시 그 뒤,
           # 배포 전. 실패해도 배포는 계속한다 (오디오는 부가 기능).
           # 1차 실패 시 90초 뒤 한 번 더. build_data 가 방금 같은 무료 버킷을
