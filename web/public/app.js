@@ -2014,19 +2014,125 @@ function relatedIssues(issue, limit = 3) {
     .map(row => row.issue);
 }
 
+// 사내 서식 표기 — '26.8.14. 꼴. 연도는 아포스트로피 두 자리, 월·일은 앞 0 을
+// 떼고 마침표로 닫는다(khnp-report references/style-rules.md §2).
+function reportDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value || ""));
+  if (!match) return "";
+  return `'${match[1].slice(2)}.${Number(match[2])}.${Number(match[3])}.`;
+}
+
+// 출처 각주를 모으는 작은 누산기. 같은 기사가 여러 번 인용돼도 번호는 하나다.
+function footnoteBook() {
+  const rows = [];
+  const index = new Map();
+  return {
+    // 반환값은 본문에 붙일 `[n]` — 붙일 게 없으면 빈 문자열이라 그냥 이어 쓴다.
+    cite(article) {
+      const url = safeUrl(article?.url);
+      const title = String(article?.title_kr || article?.title || "").trim();
+      if (!url && !title) return "";
+      const key = url || title;
+      if (!index.has(key)) {
+        index.set(key, rows.length + 1);
+        const parts = [sourceLabel(article), title ? `「${title}」` : "",
+                       reportDate(article?.article_date), url];
+        rows.push(`[${rows.length + 1}] ${parts.filter(Boolean).join(", ")}`);
+      }
+      return ` [${index.get(key)}]`;
+    },
+    lines() {
+      return rows.length ? ["", "*출처 :", ...rows] : [];
+    },
+  };
+}
+
+// 보고서용 복사 — 위계는 □ → ○ → – 로 옮긴다(사내 서식). **문장은 원문 그대로**
+// 둔다: 개조식 체언 종결로 바꾸는 것은 사람이나 khnp-report 스킬이 할 일이고,
+// 여기서 어미를 기계적으로 자르면 근거 없는 문장이 된다.
+//
+// AI 가 쓴 문장에는 라벨로 그 사실을 남긴다 — 초안에 그대로 실려 나가면
+// 사실과 해석이 섞인다.
 function issueReportText(issue) {
+  const notes = footnoteBook();
   const representative = issue.representative_article || {};
-  const source = [sourceLabel(representative), safeUrl(representative.url)].filter(Boolean).join(" · ");
-  return [
-    `• 이슈: ${issue.title || ""}`,
-    issue.summary ? `• 핵심: ${issue.summary}` : "",
-    issueChangeText(issue) ? `• 변화: ${issueChangeText(issue)}` : "",
-    issue.why_important ? `• 왜 중요(AI 해석): ${issue.why_important}` : "",
-    issue.implication ? `• 시사점(AI 해석): ${issue.implication}` : "",
-    issue.open_question ? `• 미확정: ${issue.open_question}` : "",
-    `• 검증: ${(VERIFICATION_VIEW[verificationState(issue).status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`,
-    source ? `• 근거: ${source}` : "",
-  ].filter(Boolean).join("\n");
+  const state = verificationState(issue);
+  const lines = [`□ ${issue.title || ""}${notes.cite(representative)}`];
+  const add = (label, text) => { if (text) lines.push(` ○ (${label}) ${text}`); };
+  add("사실", issue.summary);
+  add("변화", issueChangeText(issue));
+  add("왜 중요·AI", issue.why_important);
+  add("시사점·AI", issue.implication);
+  add("남은 확인", issue.open_question);
+  add("검증", `${(VERIFICATION_VIEW[state.status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`);
+  return [...lines, ...notes.lines()].join("\n");
+}
+
+// 주간보고 골격 — THIS WEEK 코너 순서(①이번 주 ②국가별 ③발간물 ④예정)가 그대로
+// 사내 주간보고의 목차다. 코너를 그 순서로 옮기고 각주만 붙인다.
+//
+// 시사점은 넣지 않는다. 3층 톤 분리(TODAY=사실 / THIS WEEK=변화·맥락 /
+// 보고서=한수원 관점 시사점)에서 시사점은 사람이 쓰는 층이다 — 빈 칸으로 두고
+// 자리만 표시한다.
+function weeklyReportOutline() {
+  const week = state.trend?.this_week;
+  if (!week) return "";
+  const notes = footnoteBook();
+  const byId = new Map(state.issues.map(issue => [issue.issue_id, issue]));
+  const cite = issueId => notes.cite(byId.get(issueId)?.representative_article);
+  const lines = [
+    `□ 「원자력 정책·산업 주간 동향」 (${reportDate(week.week_start)}~${reportDate(week.week_end)})`,
+    "",
+  ];
+
+  if (week.top?.length) {
+    lines.push("1. 이번 주 핵심");
+    week.top.forEach(row => {
+      lines.push(` □ ${row.title}${cite(row.issue_id)}`);
+      if (row.summary) lines.push(`  ○ ${row.summary}`);
+      lines.push(`  – 이번 주 ${row.week_article_count || 0}건`
+        + `${row.publisher_count ? ` · 매체 ${row.publisher_count}곳` : ""}`
+        + `${row.is_continuing ? " · 기존 이슈 후속" : " · 신규"}`);
+    });
+    lines.push("");
+  }
+  if (week.countries?.length) {
+    lines.push("2. 국가별 동향");
+    week.countries.forEach(row => {
+      lines.push(` □ [${COUNTRY_LABELS[row.country] || row.country}] ${row.title}${cite(row.issue_id)}`);
+    });
+    lines.push("");
+  }
+  if (week.publications?.length) {
+    lines.push("3. 발간물");
+    week.publications.forEach(row => {
+      const title = row.title_kr || row.title || "";
+      // 발간물 제목은 발행일을 제목 안에 달고 오는 일이 잦다(KEEI 격주간 등).
+      // 그 위에 또 붙이면 "인사이트(2026.08.14.) ('26.8.14.)" 가 된다.
+      const when = /\d{4}[.\-/]\s?\d{1,2}/.test(title) ? "" : reportDate(row.date);
+      lines.push(` □ ${row.org_kr || ""} ${title}${when ? ` (${when})` : ""}`);
+      const url = safeUrl(row.url);
+      if (url) lines.push(`  – ${url}`);
+    });
+    lines.push("");
+  }
+  if (week.upcoming?.length) {
+    lines.push("4. 향후 일정");
+    week.upcoming.forEach(row => {
+      lines.push(` □ ${reportDate(row.date)}${row.type === "deadline" ? "(기한)" : ""} ${row.title}`);
+    });
+    lines.push("");
+  }
+  lines.push("5. 시사점", " □ (작성 필요)", "");
+  lines.push(...notes.lines());
+  lines.push("", `*자료 : Nuclens ${location.origin} (${reportDate(week.week_end)} 기준)`);
+  return lines.join("\n");
+}
+
+async function copyWeeklyOutline(button) {
+  const text = weeklyReportOutline();
+  if (!text) { showToast("이번 주 코너가 없습니다"); return; }
+  await copyToClipboard(button, text, "주간보고 골격을 복사하지 못했습니다");
 }
 
 // 동향분석 보고서 초안을 쓸 때 필요한 재료를 한 번에 옮긴다. '보고서용 복사'가
@@ -2764,6 +2870,8 @@ function renderThisWeek() {
     weeklySection("국가별 단신", "나라당 한 건", countries ? `<ul class="tw-list">${countries}</ul>` : ""),
     weeklySection("이번 주 발간물", "", pubs ? `<ul class="tw-list">${pubs}</ul>` : ""),
     weeklySection("예정", "원문에 날짜가 명시된 것만", upcoming ? `<ul class="tw-list">${upcoming}</ul>` : ""),
+    // 코너 순서가 그대로 사내 주간보고 목차다 — 옮겨 붙이는 손을 뺀다.
+    `<p class="tw-actions"><button type="button" class="secondary-button" data-copy-weekly>주간보고 골격 복사</button></p>`,
   ].join("");
   return box.innerHTML;
 }
@@ -3359,6 +3467,8 @@ function handleIssueAction(event) {
   if (pack) { copyIssuePack(pack, pack.dataset.packIssue); return true; }
   const savedPack = event.target.closest("[data-pack-saved]");
   if (savedPack) { copySavedPack(savedPack); return true; }
+  const weeklyOutline = event.target.closest("[data-copy-weekly]");
+  if (weeklyOutline) { copyWeeklyOutline(weeklyOutline); return true; }
   const save = event.target.closest("[data-save-issue]");
   if (save) { toggleSaved(save.dataset.saveIssue); return true; }
   const share = event.target.closest("[data-share-issue]");

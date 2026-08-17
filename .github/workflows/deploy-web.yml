@@ -76,6 +76,14 @@ jobs:
       - name: Check app.js parses
         run: node --check web/public/app.js
 
+      # 순수 함수 검사(집계 창 산술·보고서 표기). 파일은 있었는데 어느 워크플로도
+      # 부르지 않아 2026-08-17 까지 CI 에서 한 번도 돈 적이 없었다 — 안 도는
+      # 테스트는 테스트가 아니다.
+      - name: Run app.js unit checks
+        run: |
+          node web/tests/date_window.mjs
+          node web/tests/report_format.mjs
+
       # 데이터 지표 게이트는 끈다. 추적률은 "오늘 뉴스가 어떻게 묶였나"의 결과지
       # 화면 코드의 성질이 아니다 — 켜 두면 뉴스가 한산한 날 CSS 오타 수정도
       # 배포가 막힌다(2026-08-03 실측: 추적률 0.125 로 이 워크플로 첫 실행이 실패).

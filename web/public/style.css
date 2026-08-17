@@ -1989,6 +1989,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .tw-list li:first-child { border-top: 0; }
 .tw-country, .tw-date { color: var(--c-text-muted); font-size: var(--t-min); }
 .tw-date { font-variant-numeric: tabular-nums; }
+.tw-actions { margin: var(--sp-4) 0 0; }
 @media (max-width: 600px) {
   .tw-list li { grid-template-columns: minmax(0, 1fr); }
 }

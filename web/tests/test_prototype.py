@@ -1976,7 +1976,8 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIsNotNone(channel)
         self.assertTrue(channel.findall("item"))
         self.assertIn("function issueReportText", script)
-        self.assertIn("• 변화:", script)
+        # 위계는 사내 서식(□ → ○ → –). 불릿(•)이던 것을 2026-08-17 에 옮겼다.
+        self.assertIn('add("변화", issueChangeText(issue))', script)
         self.assertIn('data-copy-issue="${esc(issue.issue_id)}"', script)
 
     def test_p2_daily_briefing_fields_are_generated(self):
@@ -3124,7 +3125,7 @@ class OpenQuestionRenderTests(unittest.TestCase):
         self.assertIn("esc(issue.open_question)", self.script)
 
     def test_report_pack_includes_it(self):
-        self.assertIn("• 미확정: ${issue.open_question}", self.script)
+        self.assertIn('add("남은 확인", issue.open_question)', self.script)
 
     def test_style_exists(self):
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")

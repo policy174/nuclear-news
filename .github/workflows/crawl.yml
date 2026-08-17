@@ -203,6 +203,8 @@ jobs:
           # 데이터 지표 게이트(추적률·주별 균형)는 여기서 끈다 — 여기는 데이터 품질을
           # 보는 자리가 아니라 배포하는 자리다(test_prototype.py SKIP_DATA_GATES 주석).
           ( cd web && NUCLENS_SKIP_DATA_GATES=1 python -m unittest discover -s tests )
+          node web/tests/date_window.mjs
+          node web/tests/report_format.mjs
           npx --yes wrangler@4.123.0 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
 
       # 이슈 병합 회색지대 LLM 판정 캐시. 커밋하지 않으면 빌드마다(하루 12회+)
