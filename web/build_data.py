@@ -1647,6 +1647,137 @@ def build_weekly_movers(issue_catalog: list[dict], end_date: str,
     return movers[:WEEKLY_MOVER_COUNT]
 
 
+def _issue_countries(issue: dict) -> set:
+    """이슈의 나라. **catalog 행에는 `countries` 가 없다** — 근거 기사에 있다.
+
+    2026-08-17 실측으로 걸린 함정: 이슈 행에 `countries` 를 기대하고 짰더니 국가별
+    코너가 조용히 0건이 됐다(빈 코너는 키를 안 만드는 규칙 때문에 화면에서도
+    안 보였다 — '없는 것'과 '못 읽은 것'이 같은 모양이 된다).
+    """
+    direct = _country_scope(issue)
+    if direct:
+        return direct
+    return {
+        country
+        for article in issue.get("related_articles") or []
+        for country in _country_scope(article)
+    }
+
+
+THIS_WEEK_TOP = 3
+THIS_WEEK_COUNTRIES = 6
+THIS_WEEK_PUBLICATIONS = 3
+THIS_WEEK_UPCOMING = 5
+
+
+def build_this_week(movers: list[dict], issue_catalog: list[dict],
+                    publications: dict, news_items: list[dict],
+                    end_date: str, days: int = 7,
+                    today: str = "") -> dict:
+    """주간 고정 코너 — 1440·DeBriefed 의 '그릇을 안 바꾼다'를 데이터로 조립한다.
+
+    LLM 호출 0. 네 코너 전부 이미 빌드가 만든 필드의 재배치다.
+
+      ① 이번 주        weekly_movers 상위 3
+      ② 국가별 단신     이번 주 이슈를 국가별로, 나라당 가장 큰 것 1건
+      ③ 발간물         publications 이번 주분
+      ④ 예정           event_date 가 미래인 scheduled·deadline
+
+    **빈 코너는 키 자체를 안 만든다.** Axios 비판(칸을 강제하면 모르는 것도 채운다)
+    이 이 구조의 유일한 위험이고, 그 방어는 '채울 수 없으면 비운다'뿐이다.
+    프론트는 없는 키를 그리지 않는다.
+    """
+    end = _parse_day(end_date)
+    if not end:
+        return {}
+    start = (end - timedelta(days=days - 1)).isoformat()
+    today = today or datetime.now(KST).strftime("%Y-%m-%d")
+
+    top = [
+        {key: mover[key] for key in
+         ("issue_id", "title", "summary", "week_article_count", "week_days",
+          "publisher_count", "is_continuing") if key in mover}
+        for mover in movers[:THIS_WEEK_TOP]
+    ]
+    seen_issues = {row["issue_id"] for row in top}
+
+    # ② 나라당 한 줄. 위에 이미 선 이슈는 빼서 같은 사건이 두 번 나오지 않게 한다.
+    #
+    # 이슈마다 **대표 국가 하나**를 먼저 정하고 그 칸에만 넣는다. 국경을 걸친
+    # 사건은 근거 기사에 여러 나라를 달고 있어서, 나라별로 훑으면 같은 제목이
+    # 여러 줄 된다(2026-08-17 실측: 다뉴브강 이슈가 RO·HU·FR·CZ 를 전부 먹었다).
+    # 대표 국가는 근거 기사에서 가장 자주 나온 나라 — 제목이 말하는 나라와
+    # 어긋나는 칸(헝가리 기사가 RO 칸에 서던 것)도 이걸로 접힌다.
+    by_country: dict[str, dict] = {}
+    for issue in issue_catalog:
+        if issue["issue_id"] in seen_issues:
+            continue
+        if not (start <= str(issue.get("last_seen") or "") <= end_date):
+            continue
+        tally = Counter(
+            country
+            for article in issue.get("related_articles") or []
+            for country in _country_scope(article)
+        )
+        if not tally:
+            tally = Counter(_country_scope(issue))
+        if not tally:
+            continue
+        # 동점이면 코드 알파벳순 — 빌드마다 순서가 흔들리지 않게 한다.
+        primary = min(tally.items(), key=lambda kv: (-kv[1], kv[0]))[0]
+        weight = (issue.get("article_count") or 0, str(issue.get("last_seen") or ""))
+        current = by_country.get(primary)
+        if current is None or weight > current["_weight"]:
+            by_country[primary] = {
+                "country": primary,
+                "issue_id": issue["issue_id"],
+                "title": issue["title"],
+                "article_count": issue.get("article_count") or 0,
+                "_weight": weight,
+            }
+    countries = sorted(by_country.values(),
+                       key=lambda row: (row["_weight"][0], row["country"]), reverse=True)
+    for row in countries:
+        row.pop("_weight", None)
+
+    pubs = [
+        {key: item[key] for key in ("id", "org_kr", "title_kr", "title", "url", "date")
+         if key in item}
+        for item in (publications.get("items") or [])
+        if start <= str(item.get("date") or "") <= end_date
+    ]
+
+    # ④ 예정. 같은 날 같은 제목이 여러 기사로 들어오므로 (날짜, 제목)으로 접는다.
+    upcoming, seen_events = [], set()
+    for article in news_items:
+        when = str(article.get("event_date") or "")
+        if not when or when <= today:
+            continue
+        if article.get("event_date_type") not in ("scheduled", "deadline"):
+            continue
+        title = str(article.get("title_kr") or article.get("title") or "").strip()
+        key = (when, title)
+        if not title or key in seen_events:
+            continue
+        seen_events.add(key)
+        upcoming.append({
+            "date": when,
+            "type": article.get("event_date_type"),
+            "title": title,
+            "precision": article.get("event_date_precision", "unknown"),
+        })
+    upcoming.sort(key=lambda row: row["date"])
+
+    corners = {key: value for key, value in {
+        "top": top,
+        "countries": countries[:THIS_WEEK_COUNTRIES],
+        "publications": pubs[:THIS_WEEK_PUBLICATIONS],
+        "upcoming": upcoming[:THIS_WEEK_UPCOMING],
+    }.items() if value}
+    # 코너가 하나도 없으면 기간 머리말만 남은 빈 블록이 된다 — 통째로 없앤다.
+    return {"week_start": start, "week_end": end_date, **corners} if corners else {}
+
+
 def prepare_insights(insights: dict, news_items: list[dict]) -> dict:
     """흐름 근거에 지역 메타를 붙이고 다양화된 대표 3개를 만든다."""
     by_hash = {item["hash"]: item for item in news_items}
@@ -4055,14 +4186,18 @@ def build() -> None:
           f"({', '.join(weeks) or '없음'}) · 주별 합계 "
           f"{[sum(series[i] for series in topic_series.values()) for i in range(len(weeks))]}")
     country_issue_30 = count_country_issues(issues, day30)
+    week_end = briefings[0]["date"] if briefings else ""
+    weekly_movers = build_weekly_movers(issue_catalog, week_end)
 
     trend = {
         # 금요일 주간 판세 리포트. 없으면 None → 프론트가 기존 정량 트렌드만 그린다
         # (목요일에 빈 탭이 되지 않게 하는 폴백).
         "weekly_report": load_weekly_report(issue_catalog),
         # 이번 주 움직인 이슈 — 키워드 단위 흐름 해석을 대체한다(중복 제거)
-        "weekly_movers": build_weekly_movers(
-            issue_catalog, briefings[0]["date"] if briefings else ""),
+        "weekly_movers": weekly_movers,
+        # 주간 고정 코너(①이번 주 ②국가별 ③발간물 ④예정). 빈 코너는 키가 없다.
+        "this_week": build_this_week(
+            weekly_movers, issue_catalog, publications, news_items, week_end),
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],

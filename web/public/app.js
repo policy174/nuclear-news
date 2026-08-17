@@ -339,6 +339,24 @@ function reportPickBadge(issue) {
   return `<span class="report-pick-badge" title="${esc(topic)}">📝 보고서 검토 추천</span>`;
 }
 
+// 카드 앞면의 귀속 — Semafor 철칙("무출처 관점 금지")과 Carbon Brief 발췌 공식의
+// 최소 이식이다. 요약은 AI가 쓰지만 사실의 출처는 매체다. 기자명은 RSS 에 없으므로
+// 매체명만 쓴다(없는 것을 만들지 않는다).
+//
+// 배지를 새로 만들지 않는 이유: '복수 출처'는 이미 '독립 출처 2곳+' 배지가 말한다.
+// 여기서 더할 정보는 **누가 보도했나**뿐이라 이름만 얹고, 매체가 여럿일 때만
+// '외 N'을 붙인다.
+function issueSourceText(issue) {
+  const names = [];
+  for (const article of issue.related_articles || []) {
+    if ((article.member_role || "card") !== "card") continue;
+    const name = (article.publisher || article.domain || "").trim();
+    if (name && !names.includes(name)) names.push(name);
+  }
+  if (!names.length) return "";
+  return names.length > 1 ? `${names[0]} 외 ${names.length - 1}` : names[0];
+}
+
 function issueEvidenceText(issue) {
   const state = verificationState(issue);
   const articleCount = issue.article_count || (issue.related_articles || []).length;
@@ -1022,6 +1040,7 @@ function issueCard(issue, index, archive = false, front = false) {
   // 스캔 화면에서 내리고 상세·rail 에서만 선다. 폴백도 계약과 같은 필드만 본다.
   const whyText = String(issue.card_why ?? (issue.why_important || "")).trim();
   const nextText = String(issue.open_question || "").trim();
+  const sourceText = issueSourceText(issue);
   const mark = text => (archive ? markMatch(text, state.archiveQuery) : esc(text));
   const cardRow = (label, text, extra = "") => (text
     ? `<p class="issue-line"><span class="issue-line-label">${label}</span>${extra}<span class="issue-line-text">${mark(text)}</span></p>`
@@ -1046,6 +1065,7 @@ function issueCard(issue, index, archive = false, front = false) {
       <span class="issue-state">${esc(issueStatusText(issue, archive))}</span>
       <span>${esc(issue.region)}</span>
       ${topic ? `<span class="issue-topic">${esc(topic)}</span>` : ""}
+      ${sourceText ? `<span class="issue-source">${esc(sourceText)}</span>` : ""}
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
     </div>
@@ -1116,6 +1136,7 @@ function leadCard(issue, briefing) {
       <span>${esc(issue.region)}</span>
       ${countryChips.map(label => `<span>${esc(label)}</span>`).join("")}
       ${topic ? `<span>${esc(topic)}</span>` : ""}
+      ${issueSourceText(issue) ? `<span class="issue-source">${esc(issueSourceText(issue))}</span>` : ""}
       ${verificationBadge(issue)}
       ${reportPickBadge(issue)}
     </div>
@@ -2690,6 +2711,63 @@ function renderTrendTopicFlow() {
   document.getElementById("trendTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
 }
 
+// 주간 고정 코너 — 1440·DeBriefed 의 '그릇을 안 바꾼다'. 순서·이름을 주마다
+// 바꾸지 않는 것이 가치의 원천이므로 코너는 항상 이 순서다. 다만 **빈 코너는
+// 그리지 않는다** — 빌드가 채울 수 없는 코너의 키를 아예 안 보낸다(Axios 비판:
+// 칸을 강제하면 모르는 것도 채운다). 해석 문장 0, LLM 0 — 전부 기존 필드 재배치.
+function renderThisWeek() {
+  const box = document.getElementById("thisWeekBody");
+  if (!box) return "";
+  const week = state.trend?.this_week;
+  if (!week) { box.innerHTML = ""; return ""; }
+
+  const issueButton = (id, text) =>
+    `<button type="button" class="issue-title-button" data-issue-id="${esc(id)}">${esc(text)}</button>`;
+
+  const top = (week.top || []).map(row => {
+    // 이어지는 이슈인지, 며칠에 걸쳐 몇 매체가 다뤘는지 — 사실만 붙인다.
+    const meta = [
+      row.is_continuing ? "이어지는 이슈" : "이번 주 처음",
+      `${row.week_article_count || 0}건`,
+      row.publisher_count ? `매체 ${row.publisher_count}곳` : "",
+    ].filter(Boolean).join(" · ");
+    return `<div class="weekly-item"><h4>${issueButton(row.issue_id, row.title)}</h4>`
+      + (row.summary ? `<p>${esc(row.summary)}</p>` : "")
+      + `<p class="data-note">${esc(meta)}</p></div>`;
+  }).join("");
+
+  const countries = (week.countries || []).map(row =>
+    `<li><span class="tw-country">${esc(COUNTRY_LABELS[row.country] || row.country)}</span>`
+    + issueButton(row.issue_id, row.title) + `</li>`).join("");
+
+  const pubs = (week.publications || []).map(row =>
+    `<li><span class="tw-country">${esc(row.org_kr || "")}</span>`
+    + `<a href="${esc(row.url)}" target="_blank" rel="noopener">`
+    + `${esc(row.title_kr || row.title || "")}</a></li>`).join("");
+
+  // 예정은 '언제'가 먼저다. 날짜가 월 단위까지만 확실한 건 그렇게 말한다 —
+  // 추정한 정밀도를 화면이 올려 말하면 그게 곧 틀린 예고가 된다.
+  const upcoming = (week.upcoming || []).map(row =>
+    // '기한'은 날짜의 성질이므로 날짜 칸에 붙인다. 행 끝으로 보내면 넓은 화면에서
+    // 제목과 멀어져 무엇의 기한인지 읽히지 않는다.
+    `<li><span class="tw-date">${esc(dateLabel(row.date))}`
+    + `${row.precision === "month" ? " 중" : ""}`
+    + `${row.type === "deadline" ? " 기한" : ""}</span>`
+    + `<span>${esc(row.title)}</span></li>`).join("");
+
+  // 이 블록의 기간은 주간 판세 리포트의 기간과 다를 수 있다(리포트는 금요일에
+  // 굳고 코너는 매 빌드 갱신된다). 머리말 하나로 둘을 덮으면 8/8–8/14 라고
+  // 써 놓고 8/17 항목을 보여주게 된다 — 코너는 자기 기간을 자기가 말한다.
+  const span = `${dateLabel(week.week_start)}–${dateLabel(week.week_end)}`;
+  box.innerHTML = [
+    weeklySection("이번 주", `${span} · 가장 많이 쌓인 사건`, top),
+    weeklySection("국가별 단신", "나라당 한 건", countries ? `<ul class="tw-list">${countries}</ul>` : ""),
+    weeklySection("이번 주 발간물", "", pubs ? `<ul class="tw-list">${pubs}</ul>` : ""),
+    weeklySection("예정", "원문에 날짜가 명시된 것만", upcoming ? `<ul class="tw-list">${upcoming}</ul>` : ""),
+  ].join("");
+  return box.innerHTML;
+}
+
 function renderWeeklyReport() {
   const panel = document.getElementById("weeklyReport");
   const report = state.trend?.weekly_report;
@@ -2697,12 +2775,17 @@ function renderWeeklyReport() {
   // 그대로 남는다. 원래 가드는 `!report && !questions.length` 였는데,
   // weekly_reports.json 이 3개월째 생성된 적이 없어(weekly.yml 미가동) 실제로는
   // open_questions 한 코너만 '주간 판세' 제목을 달고 떠 있었다.
-  if (!report) { panel.hidden = true; return; }
+  // 고정 코너는 금요일 리포트가 없어도 선다 — 그게 '그릇을 안 바꾼다'의 뜻이다.
+  // 리포트만 있고 코너가 없거나 그 반대여도 탭이 비지 않는다.
+  const thisWeek = renderThisWeek();
+  const week = state.trend?.this_week;
+  if (!report && !thisWeek) { panel.hidden = true; return; }
   panel.hidden = false;
 
   document.getElementById("weeklyReportMeta").textContent = report
     ? `${dateLabel(report.week_start)}–${dateLabel(report.week_end)} · 이슈 ${report.source_issue_count ?? 0}건`
-    : "";
+    : (week ? `${dateLabel(week.week_start)}–${dateLabel(week.week_end)}` : "");
+  if (!report) { document.getElementById("weeklyReportBody").innerHTML = ""; return; }
 
   const themes = (report?.theme_moves || []).filter(row => row && row.theme);
   const arrow = { "강화": "▲", "약화": "▼", "유지": "―" };

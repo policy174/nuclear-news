@@ -458,6 +458,29 @@ class DataQualityGateTests(unittest.TestCase):
             build_data.validate_archive_records([record])
 
 
+class CardAttributionTests(unittest.TestCase):
+    """카드 앞면의 매체 귀속 — Semafor 철칙("무출처 관점 금지")의 최소 이식.
+
+    요약·해석은 AI 가 쓰지만 사실의 출처는 매체다. 목록 카드와 선두 카드 **둘 다**
+    에 서야 한다 — 선두 카드는 가장 크게 읽히는 자리라 여기가 빠지면 규칙이 아니라
+    장식이 된다.
+    """
+
+    def setUp(self):
+        self.script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+
+    def test_both_card_shapes_carry_the_publisher(self):
+        for name in ("function issueCard(", "function leadCard("):
+            body = self.script.split(name, 1)[1].split("\nfunction ", 1)[0]
+            self.assertIn("issue-source", body, f"{name} 에 매체 귀속이 없다")
+
+    def test_publisher_comes_from_card_members_only(self):
+        """근거로만 붙은 기사(member_role != card)는 카드가 말하는 사실의 출처가 아니다."""
+        body = self.script.split("function issueSourceText(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('member_role', body)
+        self.assertIn('"card"', body)
+
+
 class TodayAgendaContractTests(unittest.TestCase):
     def test_today_agenda_is_a_decision_screen_not_a_title_index(self):
         """오늘 3분은 결론과 다음 확인만 담는다.
@@ -1169,6 +1192,96 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertEqual(len(issues), 2)
         self.assertEqual(sorted(len(issue["members"]) for issue in issues), [1, 1])
         self.assertEqual(sum(len(issue.get("evidence_members") or []) for issue in issues), 1)
+
+
+class ThisWeekCornerTests(unittest.TestCase):
+    """주간 고정 코너 — 그릇은 고정, **빈 칸은 만들지 않는다**.
+
+    Axios 비판(칸을 강제하면 모르는 것도 채운다)에 대한 이 구조의 유일한 방어가
+    '못 채우면 키를 안 보낸다'이므로, 그게 깨지면 코너 구조 자체가 위험해진다.
+    """
+
+    MOVERS = [{"issue_id": "i1", "title": "체코 두코바니", "summary": "요약",
+               "week_article_count": 5, "week_days": 3, "publisher_count": 4,
+               "is_continuing": True}]
+    CATALOG = [
+        {"issue_id": "i1", "title": "체코", "countries": ["CZ"], "article_count": 5,
+         "last_seen": "2026-08-15"},
+        {"issue_id": "i2", "title": "프랑스 큰 건", "countries": ["FR"], "article_count": 3,
+         "last_seen": "2026-08-15"},
+        {"issue_id": "i3", "title": "프랑스 작은 건", "countries": ["FR"], "article_count": 1,
+         "last_seen": "2026-08-14"},
+        {"issue_id": "i4", "title": "지난달 건", "countries": ["JP"], "article_count": 9,
+         "last_seen": "2026-07-01"},
+        {"issue_id": "i5", "title": "범위값만", "countries": ["EUROPE"], "article_count": 4,
+         "last_seen": "2026-08-15"},
+    ]
+
+    def _build(self, **kwargs):
+        args = dict(movers=self.MOVERS, issue_catalog=self.CATALOG,
+                    publications={"items": []}, news_items=[],
+                    end_date="2026-08-15", today="2026-08-15")
+        args.update(kwargs)
+        return build_data.build_this_week(**args)
+
+    def test_country_corner_takes_one_issue_per_country_without_repeating_the_top(self):
+        week = self._build()
+        countries = {row["country"]: row["issue_id"] for row in week["countries"]}
+        # CZ 는 ①에 이미 섰다 — 같은 사건을 두 번 내지 않는다.
+        self.assertNotIn("CZ", countries)
+        # 같은 나라에서는 큰 것 하나만.
+        self.assertEqual(countries["FR"], "i2")
+        # 기간 밖(JP)과 나라가 아닌 범위값(EUROPE)은 국가 코너에 오지 않는다.
+        self.assertNotIn("JP", countries)
+        self.assertNotIn("EUROPE", countries)
+
+    def test_country_corner_reads_the_real_catalog_shape(self):
+        """이슈 행에는 `countries` 가 없다 — 근거 기사에 있다.
+
+        2026-08-17 실측: 이슈 행에서 읽도록 짰더니 국가 코너가 조용히 0건이 됐고,
+        '빈 코너는 안 그린다' 규칙 때문에 화면에서도 안 보였다. **'없는 것'과
+        '못 읽은 것'이 같은 모양이 되는 것**이 이 구조의 진짜 위험이다.
+        """
+        catalog = [{
+            "issue_id": "i9", "title": "일본 재가동", "article_count": 4,
+            "last_seen": "2026-08-15",
+            "related_articles": [{"countries": ["JP"]}, {"countries": ["JP", "EUROPE"]}],
+        }]
+        week = self._build(movers=[], issue_catalog=catalog)
+        self.assertEqual([row["country"] for row in week["countries"]], ["JP"])
+
+    def test_one_issue_cannot_fill_several_country_slots(self):
+        """국경 걸친 사건 하나가 '나라당 한 줄'을 같은 제목 여러 줄로 만들면 안 된다."""
+        catalog = [
+            {"issue_id": "wide", "title": "다뉴브강 수위", "article_count": 9,
+             "last_seen": "2026-08-15",
+             "related_articles": [{"countries": ["RO", "HU", "FR", "CZ"]}]},
+            {"issue_id": "kr", "title": "국내 건", "article_count": 2,
+             "last_seen": "2026-08-15", "related_articles": [{"countries": ["KR"]}]},
+        ]
+        week = self._build(movers=[], issue_catalog=catalog)
+        self.assertEqual([row["issue_id"] for row in week["countries"]], ["wide", "kr"])
+
+    def test_upcoming_takes_only_future_scheduled_or_deadline_and_folds_duplicates(self):
+        news = [
+            {"event_date": "2026-09-01", "event_date_type": "scheduled", "title_kr": "공청회"},
+            {"event_date": "2026-09-01", "event_date_type": "scheduled", "title_kr": "공청회"},
+            {"event_date": "2026-08-10", "event_date_type": "deadline", "title_kr": "지난 기한"},
+            {"event_date": "2026-08-20", "event_date_type": "occurrence", "title_kr": "예정 아님"},
+        ]
+        week = self._build(news_items=news)
+        self.assertEqual([row["title"] for row in week["upcoming"]], ["공청회"])
+
+    def test_empty_corners_are_absent_not_empty(self):
+        week = self._build()
+        self.assertNotIn("upcoming", week)
+        self.assertNotIn("publications", week)
+
+    def test_no_corners_means_no_block_at_all(self):
+        """코너가 전부 비면 기간 머리말만 남은 빈 블록이 뜨면 안 된다."""
+        self.assertEqual(
+            build_data.build_this_week([], [], {"items": []}, [], "2026-08-15",
+                                       today="2026-08-15"), {})
 
 
 class RenderSmokeContractTests(unittest.TestCase):
@@ -3433,10 +3546,26 @@ class WeeklyRenderTests(unittest.TestCase):
         달고 떠 있었다 — 제목이 약속한 것의 1/5. 그 한 칸의 문장도 근거 이슈
         제목의 서술문 전환에 가깝고(실측 유사도 0.32·0.48), 같은
         open_question 이 선두 카드와 상세 모달에 이미 나온다.
+
+        2026-08-17: 고정 코너(this_week)가 생기면서 가드가 한 칸 넓어졌다. 판세
+        리포트가 없어도 코너가 있으면 패널이 선다 — 그게 '그릇을 안 바꾼다'의
+        뜻이다. 위 사고가 재발하지 않는 근거는 가드가 아니라 **빌드**다:
+        `build_this_week` 는 채울 코너가 하나도 없으면 `{}` 를 돌려준다
+        (ThisWeekCornerTests.test_no_corners_means_no_block_at_all).
+        빈 코너를 세는 옛 가드(`questions.length`)로는 돌아가지 않는다.
         """
-        self.assertIn("if (!report) { panel.hidden = true; return; }", self.script)
+        self.assertIn("if (!report && !thisWeek) { panel.hidden = true; return; }", self.script)
         self.assertNotIn("if (!report && !questions.length)", self.script)
         self.assertIn('id="weeklyReport"', self.html)
+        self.assertIn('id="thisWeekBody"', self.html)
+
+    def test_this_week_corners_keep_their_fixed_order(self):
+        """코너 순서를 주마다 바꾸지 않는 것이 이 구조의 가치다(1440·DeBriefed)."""
+        body = self.script.split("function renderThisWeek()")[1].split("function ")[0]
+        order = [body.index(name) for name in
+                 ('weeklySection("이번 주"', 'weeklySection("국가별 단신"',
+                  'weeklySection("이번 주 발간물"', 'weeklySection("예정"')]
+        self.assertEqual(order, sorted(order))
 
     def test_renders_before_existing_trend_charts(self):
         """기존 키워드·slope 는 아래로 — 리포트가 먼저 온다."""

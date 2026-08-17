@@ -1974,6 +1974,24 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .theme-body p { margin: 0 0 6px; }
 .weekly-list { margin: 6px 0 0; padding-left: 18px; color: var(--c-text-secondary); }
 .weekly-list li { margin-bottom: 4px; }
+/* 주간 고정 코너의 목록 — 국가별 단신·발간물·예정 셋이 같은 골격을 쓴다.
+   라벨 열(나라·기관·날짜) + 본문 한 줄. 새 시각 언어를 만들지 않는다 —
+   .theme-move 의 라벨 열 원칙을 좁은 폭으로 그대로 쓴다. */
+.tw-list { margin: 0; padding: 0; list-style: none; }
+.tw-list li {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding: var(--sp-2) 0;
+  border-top: var(--bd-1) solid var(--c-border);
+}
+.tw-list li:first-child { border-top: 0; }
+.tw-country, .tw-date { color: var(--c-text-muted); font-size: var(--t-min); }
+.tw-date { font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) {
+  .tw-list li { grid-template-columns: minmax(0, 1fr); }
+}
 .weekly-evidence { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 /* 히어로 칩은 어두운 배경 전용(흰 글자)이라 밝은 패널에서는 안 보인다.
    같은 클래스를 쓰되 이 패널 안에서만 라이트 톤으로 덮는다. */
