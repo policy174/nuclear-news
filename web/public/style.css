@@ -704,15 +704,17 @@ kbd {
   padding: var(--sp-3) 0;
   border-top: var(--bd-1) solid var(--c-border);
 }
+/* 좌우 2단이 된 뒤 이 라벨이 각 열의 축인데 회색이라 묻혔다. 상호작용 색을
+   쓴다 — 이 화면의 색 자리는 크롬 + 이 라벨 + 검증 배지로 셋(§H-5 규칙 2). */
 .agenda-label {
-  color: var(--c-text-muted);
+  color: var(--c-secondary);
   font-size: var(--t-min);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
 .today-agenda ol,
-.today-agenda ul { display: grid; gap: var(--sp-2); margin: 0; padding: 0; list-style: none; }
-.today-agenda li { font-size: var(--t-body); line-height: 1.5; }
+.today-agenda ul { display: grid; gap: var(--sp-3); margin: 0; padding: 0; list-style: none; }
+.today-agenda li { font-size: var(--t-body); line-height: 1.62; }
 .today-agenda ol li { counter-increment: agenda; }
 .today-agenda ol { counter-reset: agenda; }
 .today-agenda ol li::before {
@@ -1591,6 +1593,9 @@ body.booting .status-strip.loading { display: none; }
 .rail-block:last-of-type { border-bottom: 0; }
 .rail-block > p { margin: 0; font-size: 13px; line-height: 1.65; }
 .rail-no { margin: 0 0 7px !important; color: var(--c-accent-text); font-size: var(--t-min); font-weight: 700; letter-spacing: .04em; }
+/* 요지(한 줄 결론)와 단일 출처 한 줄 — 해석 블록과 같은 본문 어법. */
+.rail-summary { margin: 0; color: var(--c-text-secondary); line-height: 1.62; }
+.rail-sole-source { margin: 0; font-size: var(--t-caption); }
 .rail-impact, .rail-open { margin-top: 11px !important; color: var(--c-text-secondary); }
 .rail-impact strong, .rail-open strong { display: block; margin-bottom: 3px; color: var(--c-text); font-size: var(--t-min); }
 .rail-sources { margin: 0; padding: 0; list-style: none; }
@@ -2037,7 +2042,10 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
    로도 읽혔지만, 지금은 상자 없는 목록이 통째로 바탕에 묻힌다. */
 .weekly-block { margin-top: 18px; padding-top: 16px; border-top: var(--bd-2) solid var(--c-border-strong); }
 .weekly-block:first-child { margin-top: 6px; padding-top: 0; border-top: 0; }
-.weekly-block h3 { margin: 0 0 6px; font-size: var(--t-body-lg); }
+/* 코너명은 키커다. 17px 진한 글씨였을 때 항목 제목(16px)보다 커서 위계가
+   역전됐다 — 코너명(이번 주·국가별 단신)은 자리 표지이고 읽는 대상은 항목
+   제목이다. 편집지 어법대로 키커를 낮추고 제목을 세운다. */
+.weekly-block h3 { margin: 0 0 6px; color: var(--c-text-muted); font-size: 14px; letter-spacing: .04em; }
 .weekly-intro { margin: 0 0 12px; color: var(--c-text-secondary); }
 /* 본문 열을 --measure 로 묶으면 1280px 지면의 오른쪽 절반이 통째로 빈다.
    그 폭을 메타(집계 건수·매체 수)에게 준다 — 빈 자리를 채우는 장식이 아니라,
@@ -2054,6 +2062,9 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 }
 .weekly-item > h4,
 .weekly-item > p { grid-column: 1; }
+/* 항목 제목이 본문과 같은 16px 였다(비율 1.0 — 위계 없음). .flow-head h3 와
+   같은 18px 로 세운다. 제목/본문 1.13×, korea.kr 목록 지면 1.33× 대역 하단. */
+.weekly-item > h4 { font-size: 18px; letter-spacing: -.022em; line-height: 1.4; }
 .weekly-item > .data-note {
   grid-column: 2;
   grid-row: 1;
@@ -2137,7 +2148,8 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
    끼어들면 엉뚱한 구간을 검사하고 조용히 실패한다(실측: 4건 동시 실패).
    같은 이유로 이 주석도 그 문자열을 그대로 쓰지 않는다. */
 .flow-keyword { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
-.flow-summary { margin: 10px 0 0; color: var(--c-text-secondary); font-size: var(--t-caption); }
+/* 캡션 크기(14px)였지만 실제로는 이 패널에서 읽는 본문이다 — 본문 크기로. */
+.flow-summary { margin: 10px 0 0; color: var(--c-text-secondary); font-size: var(--t-body); line-height: 1.62; }
 .flow-keyword span {
   display: inline-block;
   padding: 2px 9px;
