@@ -2272,9 +2272,22 @@ function renderEvidenceRail() {
     .filter(reason => String(reason || "").trim())
     .map(reason => `<span class="topic-chip">${esc(reason)}</span>`).join("");
   const sourceUrl = sourceArticle ? safeUrl(sourceArticle.url) : "";
-  // 블록이 조건부라 번호를 하드코딩하면 01 다음에 03 이 온다. 남은 것만 세어 붙인다.
+  // 블록이 조건부라 번호를 하드코딩하면 01 다음에 03 이 온다. 남은 것만 세어
+  // 붙인다. 주의: no() 는 정의 시점에 소비되므로 const 정의 순서 = 화면 순서다.
+  // 화면에 먼저 서는 블록을 나중에 정의하면 번호가 역전된다(실측 1회).
   let railNo = 0;
   const no = () => String(++railNo).padStart(2, "0");
+  // 요지(= 상세의 '한 줄 결론', issue.summary). 실측 313건에서 why·impact·
+  // openQuestion 셋 다 없는 이슈가 36% — 그런 날 레일은 제목·배지·출처 반복만
+  // 남아 껍데기였다(사용자 지적 "상세 옆이 너무 짧다"). summary 는 사실상
+  // 결측 0 이라 이 블록이 바닥을 받친다. 라벨은 상세와 같은 것을 쓴다(한 필드
+  // 한 이름). AI 배지는 달지 않는다 — 카드·상세도 summary 엔 안 단다.
+  const summaryBlock = issue.summary
+    ? `<section class="rail-block">
+        <p class="rail-no">${no()} / 한 줄 결론</p>
+        <p class="rail-summary">${esc(issue.summary)}</p>
+      </section>`
+    : "";
   const readingBlock = model.why || model.impact || model.openQuestion
     ? `<section class="rail-block">
         <p class="rail-no">${no()} / 읽을 때</p>
@@ -2283,6 +2296,11 @@ function renderEvidenceRail() {
         ${model.openQuestion ? `<p class="rail-open"><strong>아직 확정되지 않은 것</strong>${esc(model.openQuestion)}</p>` : ""}
       </section>`
     : "";
+  // 단일 기사 이슈(전수 62%)는 그 기사 제목이 이슈 제목과 같아, 목록이 위
+  // h2 를 세 번째로 반복하는 자리였다. 그때는 제목 행을 접고 출처만 세운다.
+  const soleArticle = model.articles.length === 1 ? model.articles[0] : null;
+  const soleDuplicatesTitle = !!soleArticle
+    && String(soleArticle.title_kr || "").replace(/\s+/g, "") === String(issue.title || "").replace(/\s+/g, "");
   rail.hidden = false;
   rail.innerHTML = `
     <div class="rail-head">
@@ -2292,17 +2310,24 @@ function renderEvidenceRail() {
       ${selectionReasons ? `<div class="topic-row rail-reasons">${selectionReasons}</div>` : ""}
     </div>
     <div class="rail-body">
+      ${summaryBlock}
       ${readingBlock}
       <section class="rail-block">
         <p class="rail-no">${no()} / 핵심 근거</p>
-        <ol class="rail-sources">${model.articles.slice(0, 4).map(article => {
-          const url = safeUrl(article.url);
-          return `<li>
-            ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>`
-                  : `<span>${esc(article.title_kr)}</span>`}
-            <small>${esc(sourceLabel(article))}${isOfficial(article) ? " · 1차 출처" : ""}</small>
-          </li>`;
-        }).join("")}</ol>
+        ${soleDuplicatesTitle
+          ? `<p class="rail-sole-source">${(() => {
+              const url = safeUrl(soleArticle.url);
+              const label = `${esc(sourceLabel(soleArticle))}${isOfficial(soleArticle) ? " · 1차 출처" : ""}`;
+              return url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label} — 원문 열기 ↗</a>` : label;
+            })()}</p>`
+          : `<ol class="rail-sources">${model.articles.slice(0, 4).map(article => {
+              const url = safeUrl(article.url);
+              return `<li>
+                ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>`
+                      : `<span>${esc(article.title_kr)}</span>`}
+                <small>${esc(sourceLabel(article))}${isOfficial(article) ? " · 1차 출처" : ""}</small>
+              </li>`;
+            }).join("")}</ol>`}
         ${sourceUrl && model.source.official ? `<p class="rail-primary"><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">공식 문서 열기 ↗</a></p>` : ""}
       </section>
       <div class="rail-actions">
