@@ -962,6 +962,28 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertFalse(matched)
         self.assertIn("country_conflict", diagnostics["blocked_by"])
 
+    def test_umbrella_article_does_not_bridge_two_countries(self):
+        """우산 기사를 경유한 전이 병합 차단 — 2026-08-17 라이브 사고의 축소판.
+
+        허브(HU·FR)가 헝가리 묶음과 프랑스 기사를 각각 '같은 사건'으로 만들 수
+        있지만, RO↔FR 을 잇는 기사는 없다. 쌍 판정만으로는 통과하므로 클러스터
+        단위로 막는다.
+        """
+        members = [
+            {"hash": "ro", "countries": ["RO"]},
+            {"hash": "hu", "countries": ["HU"]},
+            {"hash": "umbrella", "countries": ["HU", "FR"]},
+        ]
+        self.assertFalse(
+            build_data._country_bridge_ok({"hash": "fr", "countries": ["FR"]}, members))
+        # 양국을 함께 명시한 기사가 있으면 같은 사건으로 이어 붙일 수 있다.
+        self.assertTrue(build_data._country_bridge_ok(
+            {"hash": "fr", "countries": ["FR"]},
+            members + [{"hash": "bridge", "countries": ["RO", "FR"]}]))
+        # 나라 태그가 없거나 범위값뿐인 기사는 이 가드의 대상이 아니다.
+        self.assertTrue(
+            build_data._country_bridge_ok({"hash": "eu", "countries": ["EUROPE"]}, members))
+
     def test_facility_conflict_blocks_embedding_merge(self):
         left = {
             "hash": "left",
@@ -1743,7 +1765,9 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_generated_issue_clusters_have_no_country_or_facility_conflicts(self):
         by_hash = {article["hash"]: article for article in self.news}
-        non_country_scopes = {"OTHER", "UNSPECIFIED", "GLOBAL", "EUROPE", "EU"}
+        # 병합 시점 가드(_country_bridge_ok)와 같은 집합을 쓴다 — 갈라지면 한쪽만
+        # 통과하는 데이터가 생긴다.
+        non_country_scopes = build_data.NON_COUNTRY_SCOPES
         for cluster in self.issue_audit["clusters"]:
             members = [by_hash[member["hash"]] for member in cluster["members"]]
             for left, right in combinations(members, 2):

@@ -1236,6 +1236,41 @@ def _country_conflict(left: dict, right: dict) -> bool:
     return bool(left_countries and right_countries and left_countries.isdisjoint(right_countries))
 
 
+# 나라가 아닌 범위값. 이걸 나라처럼 세면 '유럽'과 '프랑스'가 서로 다른 나라가 된다.
+NON_COUNTRY_SCOPES = {"OTHER", "UNSPECIFIED", "GLOBAL", "EUROPE", "EU"}
+
+
+def _country_scope(row: dict) -> set:
+    return set(row.get("countries") or []) - NON_COUNTRY_SCOPES
+
+
+def _country_bridge_ok(article: dict, members: list[dict]) -> bool:
+    """국경을 넘는 합류에 그 연결을 설명하는 근거 기사가 있는지 본다.
+
+    쌍 단위 `_country_conflict` 는 **우산 기사**를 경유하는 전이 병합을 못 막는다.
+    2026-08-17 실측(issue-5190f5f0f0d050de, 14건): '글로벌 폭염·가뭄으로 유럽 원전
+    다수 가동 중단'(HU·FR)이 허브가 되어 프랑스 해파리 기사가 다뉴브강 수위
+    (HU·RO) 이슈로 들어왔다. FR↔HU 는 우산 기사가 잇지만 FR↔RO 를 잇는 기사는
+    없다 — 두 개의 다른 사건이다.
+
+    `test_generated_issue_clusters_have_no_country_or_facility_conflicts` 가 이미
+    검사하던 불변식을 병합 시점으로 옮긴 것이다. 그 테스트는 사후 탐지기라
+    깨지면 배포가 멈추기만 하고(2026-08-15~17 Deploy web 9연속 실패) 데이터는
+    고쳐지지 않았다. 여기서 막으면 애초에 안 생긴다.
+    """
+    new = _country_scope(article)
+    if not new:
+        return True
+    pool = [_country_scope(member) for member in members] + [new]
+    for member in members:
+        old = _country_scope(member)
+        if not old or not new.isdisjoint(old):
+            continue
+        if not any(bridge & new and bridge & old for bridge in pool):
+            return False
+    return True
+
+
 # 같은 **설비·프로젝트**를 다루는 쌍은 후속 보도일 가능성이 높다. 기관·기업까지
 # 넣으면 신호가 죽는다 — 실측(2026-08-05, 판정 완료 185쌍):
 #
@@ -1717,6 +1752,9 @@ def cluster_selected_articles(
                 _pair_id(article["hash"], member["hash"]) in veto_pairs
                 for member in issue["members"]
             ):
+                continue
+            # 국경 거부권 — 위와 같은 이유(전이성)로 쌍 판정만으로는 부족하다.
+            if not _country_bridge_ok(article, issue["members"]):
                 continue
             # 대표 기사 한 건만 보면 표현이 단계적으로 바뀌는 A→B→C 후속 보도가
             # 끊길 수 있다. 최근 기사 3건 중 가장 가까운 연결을 사용한다.
