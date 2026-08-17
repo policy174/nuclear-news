@@ -2795,6 +2795,55 @@ class SelectionOverrideTests(unittest.TestCase):
         build_data.order_issue_rows(rows)
         self.assertEqual(rows[0]["title"], "판정 없음")
 
+    def test_recent_top_issue_is_pushed_down(self):
+        """며칠째 1번인 이슈는 선두를 비켜 준다.
+
+        사용자 지적(2026-08-17) "매일 이걸 하면 안 되지". 실측: 테라파워 이슈가
+        8/13·8/14·8/15 연속으로 상단에 앉았다. 원인은 랭킹의 tracking 가점이
+        후속 보도를 가점하는 것이라, 하이라이트 자리에서만 눌러 준다.
+        """
+        rows = [
+            {"issue_id": "old", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 30.0, "last_seen": "2026-08-15", "editor_pin": 0,
+             "title": "사흘째 선두"},
+            {"issue_id": "new", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 10.0, "last_seen": "2026-08-15", "editor_pin": 0,
+             "title": "오늘 새 이슈"},
+        ]
+        build_data.order_issue_rows(rows, {"old"})
+        self.assertEqual(rows[0]["title"], "오늘 새 이슈")
+
+    def test_cooldown_never_beats_importance(self):
+        """must_read 는 며칠 이어져도 선두 자격이 있다 — 8/16 디아블로 캐년은
+        재등장이었지만 2.7억 달러 지원이라는 새 사실이었다."""
+        rows = [
+            {"issue_id": "old", "region": "국내", "importance": "must_read",
+             "sort_score": 1.0, "last_seen": "2026-08-16", "editor_pin": 0,
+             "title": "중대 후속"},
+            {"issue_id": "new", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 99.0, "last_seen": "2026-08-16", "editor_pin": 0,
+             "title": "새 잡담"},
+        ]
+        build_data.order_issue_rows(rows, {"old"})
+        self.assertEqual(rows[0]["title"], "중대 후속")
+
+    def test_cooldown_absent_keeps_old_behaviour(self):
+        """쿨다운 인자를 안 주면 기존과 완전히 같아야 한다."""
+        def make():
+            return [
+                {"issue_id": "a", "region": "국내", "importance": "nice_to_know",
+                 "sort_score": 30.0, "last_seen": "2026-08-15", "editor_pin": 0,
+                 "title": "높은 점수"},
+                {"issue_id": "b", "region": "국내", "importance": "nice_to_know",
+                 "sort_score": 10.0, "last_seen": "2026-08-15", "editor_pin": 0,
+                 "title": "낮은 점수"},
+            ]
+        rows_a, rows_b = make(), make()
+        build_data.order_issue_rows(rows_a)
+        build_data.order_issue_rows(rows_b, set())
+        self.assertEqual([r["title"] for r in rows_a], ["높은 점수", "낮은 점수"])
+        self.assertEqual([r["title"] for r in rows_a], [r["title"] for r in rows_b])
+
     def test_pin_is_stripped_from_output(self):
         rows = [{"region": "국내", "importance": "must_read", "sort_score": 1.0,
                  "last_seen": "2026-08-03", "editor_pin": 1}]

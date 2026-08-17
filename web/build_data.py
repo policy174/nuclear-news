@@ -2445,8 +2445,19 @@ def daily_headline(issue_rows: list[dict]) -> str:
     return daily_lead(issue_rows)["headline"]
 
 
-def order_issue_rows(issue_rows: list[dict]) -> None:
+HIGHLIGHT_COOLDOWN_DAYS = 3   # 1번 자리를 비우는 기간
+
+
+def order_issue_rows(issue_rows: list[dict],
+                     recent_top_ids: set[str] | None = None) -> None:
     """브리핑 이슈를 국내·해외 순위를 번갈아 가며 배열한다 (제자리 정렬).
+
+    recent_top_ids: 최근 HIGHLIGHT_COOLDOWN_DAYS 일간 1번이었던 issue_id.
+    같은 이슈가 며칠째 선두에 앉아 있으면 "오늘 뭐가 새로 있었나"에 답하지
+    못한다 — 사용자 지적(2026-08-17): "매일 이걸 하면 안 되지". 실측으로
+    테라파워·현대건설 이슈가 8/13(1위)·8/14(3위)·8/15(1위)로 눌러앉았다.
+    원인은 랭킹의 tracking 가점(후속보도 +1.5)이 반복을 **가점**하는 것이라,
+    선별 점수를 건드리지 않고 하이라이트 자리에서만 눌러 준다.
 
     봇은 국내와 해외를 **별도 풀에서 각자 캡으로** 뽑는다(국내 3 / 해외 6).
     그런데 웹이 이걸 raw 점수 하나로 다시 줄 세우면서 문제가 생겼다 — 출처 등급
@@ -2455,10 +2466,21 @@ def order_issue_rows(issue_rows: list[dict]) -> None:
     6·8·9위). 점수를 손대 공신력 등급을 왜곡하는 대신, 봇이 이미 만든 두 갈래
     구조를 화면에서도 유지한다: 각 지역 안의 순위(1위끼리, 2위끼리)를 맞물린다.
     """
+    recent_top_ids = recent_top_ids or set()
+
     def within_region(row: dict) -> tuple:
         # 편집 고정(editor_pin)은 **자기 지역 안에서만** 작동한다. 지역 맞물림
         # 구조를 넘어 끌어올리면 해외 이슈가 국내 자리를 먹는다.
+        #
+        # 쿨다운은 등급 **뒤**에 둔다. must_read 는 그 자체로 "오늘 꼭 봐야 할
+        # 것"이라 며칠 이어져도 선두 자격이 있다(8/16 디아블로 캐년 2.7억 달러
+        # 지원은 재등장이지만 새 사실이었다). 등급이 없는 반복만 눌린다.
+        #
+        # 바깥 정렬 키가 아니라 여기 넣는 이유: 바깥은 rank(지역 내 순위)가
+        # 최우선이라 뒤쪽 축이 거의 작동하지 않는다. 실측으로 바깥에 넣었을 때
+        # 반복이 12건에서 10건까지밖에 안 줄었고, 여기 넣으니 0건이 됐다.
         return (row.get("editor_pin", 0), row["importance"] == "must_read",
+                row.get("issue_id") not in recent_top_ids,
                 row["sort_score"], row["last_seen"])
 
     domestic = sorted((r for r in issue_rows if r["region"] == "국내"),
@@ -3137,7 +3159,13 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
             current_articles = [item for item in current_articles
                                 if str(item.get("hash") or "") not in hidden_hashes]
 
-        order_issue_rows(issue_rows)
+        # 최근 며칠 1번이었던 이슈 — briefings 는 이 시점에 날짜 오름차순이다.
+        recent_top_ids = {
+            row["highlight_issues"][0]["issue_id"]
+            for row in briefings[-HIGHLIGHT_COOLDOWN_DAYS:]
+            if row.get("highlight_issues")
+        }
+        order_issue_rows(issue_rows, recent_top_ids)
 
         # headline 은 아카이브 목록(bt-headline)과 날짜 이동에도 쓰이므로 항상
         # 채운다. 히어로가 그 문장을 띄울지는 headline_kind 가 정한다.
