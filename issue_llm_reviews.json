@@ -222,6 +222,16 @@
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": true
     },
+    "01d97e5a989b4f96--da958f5fde753b62": {
+      "embedding_similarity": 0.8741,
+      "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "가동 유지 vs 가동 차질",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": false
+    },
     "01d97e5a989b4f96--f1b7e28af992975c": {
       "embedding_similarity": 0.8925,
       "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
@@ -231,6 +241,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": false
+    },
+    "01d97e5a989b4f96--faa4cef040b9d283": {
+      "embedding_similarity": 0.8773,
+      "left_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "가뭄으로 인한 원전 냉각수 부족",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": true
     },
     "01e83e81854f1daf--0d65034147a0c1c1": {
       "embedding_similarity": 0.9033,
@@ -390,6 +410,16 @@
       "reason": "빌 게이츠와 한국 정부의 SMR 협력 논의",
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
       "right_title": "빌 게이츠 테라파워 이사장, 국무총리 면담 위해 정부서울청사 방문",
+      "same_event": true
+    },
+    "02c8fd8b058a4a93--114c0105a9a5871f": {
+      "embedding_similarity": 0.8791,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 밀집지역 전기요금 차등제 재검토",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "부산시의원, 원전 밀집지역 전기요금 차등제 적용 재검토 촉구",
       "same_event": true
     },
     "02c8fd8b058a4a93--6daf204a4f7610fb": {
@@ -1012,6 +1042,56 @@
       "right_title": "美데이터센터 60곳 가동 시, ‘석탄발전 27기급’ 탄소 배출",
       "same_event": false
     },
+    "076036e9576007bc--11fd6f786a9a2d47": {
+      "embedding_similarity": 0.8738,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 인하 vs 실적 우려",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "유가 상승에 전기요금 인하까지…하반기 실적 우려 커지는 한전",
+      "same_event": false
+    },
+    "076036e9576007bc--179094e2c5703cfb": {
+      "embedding_similarity": 0.8903,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "개편안 공개 vs 역차별 우려",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "인천, 전력자급률 191%에도 지역별 전기요금 차등제 역차별 우려",
+      "same_event": false
+    },
+    "076036e9576007bc--2b01a56cd95da97e": {
+      "embedding_similarity": 0.8866,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 권역별 차등제 개편",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부 전기요금 차등제 초안, 울산 지역 실효성 부족 지적",
+      "same_event": true
+    },
+    "076036e9576007bc--3ec4da535254a08f": {
+      "embedding_similarity": 0.9017,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "개편안 공개 vs 지역별 요금제 추진",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 산업용 지역별 전기요금제 추진…충남 반도체 수혜 기대",
+      "same_event": false
+    },
+    "076036e9576007bc--4d4464de943be9a8": {
+      "embedding_similarity": 0.8887,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "개편안 공개 vs 지역 반발",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 동남권 산업용 전기요금 최대 10% 할인 추진에 지역 반발",
+      "same_event": false
+    },
     "076036e9576007bc--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8889,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -1021,6 +1101,66 @@
       "reviewed_at": "2026-08-17T06:55:45.743911+00:00",
       "right_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
       "same_event": true
+    },
+    "076036e9576007bc--5813792d4e5e0bc3": {
+      "embedding_similarity": 0.8876,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 권역별 차등제 개편",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 지역별 차등 전기요금제 도입 본격화 추진",
+      "same_event": true
+    },
+    "076036e9576007bc--60bb4e70887601af": {
+      "embedding_similarity": 0.8741,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 추진",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "울산시, 지역별 차등 전기요금제 도입 및 직접 전력 공급 추진",
+      "same_event": true
+    },
+    "076036e9576007bc--8ab2bc451c253e3e": {
+      "embedding_similarity": 0.8754,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "차등 전기요금 부산 기여 반영 요구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "국민의힘 “차등 전기요금, 부산 기여 반영해야”",
+      "same_event": true
+    },
+    "076036e9576007bc--909b0e296db8e9c4": {
+      "embedding_similarity": 0.8761,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "불황 터널 갇힌 ‘철의 도시’ 포항…“지역별 전기요금제 서둘러야”",
+      "same_event": true
+    },
+    "076036e9576007bc--e6d8f799d2157f74": {
+      "embedding_similarity": 0.8774,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제 도입 시 수혜 기대",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "경북, 전기요금 차등제 도입 시 수혜 기대…포항 철강업계 주목",
+      "same_event": true
+    },
+    "076036e9576007bc--f430ca936a1680a8": {
+      "embedding_similarity": 0.8976,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "개편안 공개 vs 경쟁력 강화 기대",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "부울경 산업 전기료 10% 인하, 지역 제조업 경쟁력 강화 기대",
+      "same_event": false
     },
     "0799408181a9cab4--0d65034147a0c1c1": {
       "embedding_similarity": 0.888,
@@ -3612,6 +3752,56 @@
       "right_title": "이번 주, 여름 휴가 복귀 및 폭염으로 역대 최대 전력수요 경신 가능성",
       "same_event": false
     },
+    "114c0105a9a5871f--179094e2c5703cfb": {
+      "embedding_similarity": 0.8966,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 역차별 우려",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "인천, 전력자급률 191%에도 지역별 전기요금 차등제 역차별 우려",
+      "same_event": false
+    },
+    "114c0105a9a5871f--20573c8e88129966": {
+      "embedding_similarity": 0.8844,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 공청회",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 지역별 차등 전기요금제 공청회 이달 개최 예정",
+      "same_event": true
+    },
+    "114c0105a9a5871f--29ad721a16c702fb": {
+      "embedding_similarity": 0.8739,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 전기요금 차등제 '부산형 설계' 요구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "국민의힘 부산시당, 지역별 전기요금 차등제 '부산형 설계' 요구",
+      "same_event": true
+    },
+    "114c0105a9a5871f--3febd93bbeb03c64": {
+      "embedding_similarity": 0.8779,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제 재검토 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "조용우 부산시의원 \"전기요금 차등제 재검토해야\"",
+      "same_event": true
+    },
+    "114c0105a9a5871f--4d4464de943be9a8": {
+      "embedding_similarity": 0.9055,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 지역 반발",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 동남권 산업용 전기요금 최대 10% 할인 추진에 지역 반발",
+      "same_event": false
+    },
     "114c0105a9a5871f--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8505,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -3622,6 +3812,16 @@
       "right_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
       "same_event": false
     },
+    "114c0105a9a5871f--5948937d2a5e587d": {
+      "embedding_similarity": 0.8795,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "경북도·포항시, 철강산업 경쟁력 위해 지역별 차등 전기요금제 도입 촉구",
+      "same_event": true
+    },
     "114c0105a9a5871f--6daf204a4f7610fb": {
       "embedding_similarity": 0.8697,
       "left_title": "정부, 산업용 전기요금 4개 권역 차등 적용 방안 발표",
@@ -3630,6 +3830,106 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-17T18:47:55.276171+00:00",
       "right_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "same_event": false
+    },
+    "114c0105a9a5871f--87e6164736db05b6": {
+      "embedding_similarity": 0.8786,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등 적용 추진",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 산업용 전기요금 지역별 차등 적용 방안 추진",
+      "same_event": true
+    },
+    "114c0105a9a5871f--8ab2bc451c253e3e": {
+      "embedding_similarity": 0.8886,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 요구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "국민의힘 “차등 전기요금, 부산 기여 반영해야”",
+      "same_event": true
+    },
+    "114c0105a9a5871f--8c5059624f4eb846": {
+      "embedding_similarity": 0.891,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 특수성 반영 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "부산시의회 \"지역별 전기요금 차등제, 부산 특수성 반영해야\"",
+      "same_event": false
+    },
+    "114c0105a9a5871f--909b0e296db8e9c4": {
+      "embedding_similarity": 0.8832,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 차등 전기요금제 도입 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "불황 터널 갇힌 ‘철의 도시’ 포항…“지역별 전기요금제 서둘러야”",
+      "same_event": true
+    },
+    "114c0105a9a5871f--bab522704bf69520": {
+      "embedding_similarity": 0.9166,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 피해 반영 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "지역별 차등 전기요금제, 원전 밀집 지역 피해 반영 촉구",
+      "same_event": false
+    },
+    "114c0105a9a5871f--c4f1d803b2afc913": {
+      "embedding_similarity": 0.8888,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 혜택 기대",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "경북 지역, 원전 집적지 전기요금 차등제 도입으로 혜택 기대",
+      "same_event": false
+    },
+    "114c0105a9a5871f--ddf2e23780e3ff54": {
+      "embedding_similarity": 0.9169,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 초안 공개",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "정부, 산업용 전기요금 지역별 차등제 초안 공개…울산 요구 일부 제한",
+      "same_event": false
+    },
+    "114c0105a9a5871f--e6d8f799d2157f74": {
+      "embedding_similarity": 0.898,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 수혜 기대",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "경북, 전기요금 차등제 도입 시 수혜 기대…포항 철강업계 주목",
+      "same_event": false
+    },
+    "114c0105a9a5871f--f430ca936a1680a8": {
+      "embedding_similarity": 0.8779,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "부울경 산업 전기료 인하 기대",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "부울경 산업 전기료 10% 인하, 지역 제조업 경쟁력 강화 기대",
+      "same_event": true
+    },
+    "114c0105a9a5871f--f48f2bc14f0043ad": {
+      "embedding_similarity": 0.8932,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "혜택 확대 요구 vs 재검토 촉구",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "부산시, 원전 소재지 전기요금 차등제 재검토 촉구",
       "same_event": false
     },
     "1182253279c464e4--457aa2e1b508d72c": {
@@ -4972,6 +5272,16 @@
       "right_title": "美 슈퍼리치, 190억 달러 규모 AI 전력망 인프라 투자 확대",
       "same_event": false
     },
+    "19ff56653198bf39--7d3e0c165f9ddd4d": {
+      "embedding_similarity": 0.875,
+      "left_title": "美 슈퍼리치, 190억 달러 규모 AI 전력망 인프라 투자 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 전력망 투자 vs K-전력기기 수혜",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
+      "same_event": false
+    },
     "1a48967b5795e76b--ab17d3bffd6e0497": {
       "embedding_similarity": 0.869,
       "left_title": "PJM에서 3GW 부하 이탈 재발: NERC의 2024년 조사 결과 시사점",
@@ -6092,6 +6402,16 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 상승으로 터빈 재가동",
       "same_event": true
     },
+    "20c1ede3ec303192--da958f5fde753b62": {
+      "embedding_similarity": 0.8944,
+      "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원전, 같은 강 수위 문제",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 상승으로 터빈 재가동",
+      "same_event": true
+    },
     "20c1ede3ec303192--e9c761ed60c251fb": {
       "embedding_similarity": 0.8511,
       "left_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
@@ -6952,6 +7272,26 @@
       "right_title": "데이터센터, 규제 피해 선진국에서 개도국으로 이동 추세",
       "same_event": false
     },
+    "2594932b2849ff69--565fac18b6d83a72": {
+      "embedding_similarity": 0.8871,
+      "left_title": "경주시, 여야 정치권과 SMR 제작지원센터 등 핵심 사업 국·도비 확보 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 지원센터 vs 글로벌 원자력 캠퍼스",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "민주당-경주시, 글로벌 원자력 공동 캠퍼스 등 지역 현안 국비 확보 논의",
+      "same_event": false
+    },
+    "2594932b2849ff69--d1617fb4a600f00c": {
+      "embedding_similarity": 0.9089,
+      "left_title": "경주시, 여야 정치권과 SMR 제작지원센터 등 핵심 사업 국·도비 확보 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 지자체, SMR 사업 국비 확보 논의",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "경주시, SMR 제작지원센터 설립 등 국·도비 확보 총력",
+      "same_event": true
+    },
     "261ad77a6bc48a62--60fa264cf574b73f": {
       "embedding_similarity": 0.8407,
       "left_title": "인도, 지연된 재생에너지 사업에 송전 요금 감면 제안",
@@ -6971,6 +7311,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
       "same_event": true
+    },
+    "261ebf4ce2d6bf77--da958f5fde753b62": {
+      "embedding_similarity": 0.8496,
+      "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "가동 유지 vs 가동 중단 가능성",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
+      "same_event": false
     },
     "261ebf4ce2d6bf77--e86ceaef07092ccd": {
       "embedding_similarity": 0.873,
@@ -7991,6 +8341,16 @@
       "reviewed_at": "2026-08-10T00:56:50.761610+00:00",
       "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
       "same_event": true
+    },
+    "2cf78843f6ea5720--da958f5fde753b62": {
+      "embedding_similarity": 0.8823,
+      "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 수위 영향 원전 가동",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": false
     },
     "2cf78843f6ea5720--e6cef644d033b341": {
       "embedding_similarity": 0.9053,
@@ -13640,6 +14000,36 @@
       "reason": "다른 주제: 신규 원전 vs 양수발전 확대",
       "reviewed_at": "2026-08-17T06:55:45.743911+00:00",
       "right_title": "한수원, 양수발전 4,700MW 운영 중이며 2038년까지 1만 400MW 확대 계획",
+      "same_event": false
+    },
+    "4f9b05356955c2fe--6ba47fa577e2684c": {
+      "embedding_similarity": 0.8942,
+      "left_title": "한수원, 양수발전 4,700MW 운영 중이며 2038년까지 1만 400MW 확대 계획",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 기관, 양수발전 확대 계획",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "한수원 등 발전사, 전국 10GW 이상 양수발전 후보지 물색 가속화",
+      "same_event": true
+    },
+    "4f9b05356955c2fe--854c94fa63a4a54d": {
+      "embedding_similarity": 0.8812,
+      "left_title": "한수원, 양수발전 4,700MW 운영 중이며 2038년까지 1만 400MW 확대 계획",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "양수발전 계획 vs 전력 수급 불균형",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "전기는 남았는데 불은 꺼졌다",
+      "same_event": false
+    },
+    "4f9b05356955c2fe--a519ec27d94058f0": {
+      "embedding_similarity": 0.849,
+      "left_title": "한수원, 양수발전 4,700MW 운영 중이며 2038년까지 1만 400MW 확대 계획",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "양수발전 계획 vs 전기본 수립",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": false
     },
     "4f9b05356955c2fe--aa165fa0824b87d8": {
@@ -21011,6 +21401,16 @@
       "reviewed_at": "2026-08-13T11:44:06.837148+00:00",
       "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
       "same_event": true
+    },
+    "75feca40d7b229b8--da958f5fde753b62": {
+      "embedding_similarity": 0.8512,
+      "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "가동 유지 vs 유럽 원전 가동 차질",
+      "reviewed_at": "2026-08-17T22:11:50.299424+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
     },
     "75feca40d7b229b8--e86ceaef07092ccd": {
       "embedding_similarity": 0.8871,
