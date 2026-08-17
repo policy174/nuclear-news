@@ -182,6 +182,29 @@ _DAILY_QUOTA_MARKERS = ("PerDay", "per_day", "PerDayPerProject", "RequestsPerDay
 # 이보다 짧은 재시도 지연은 분당 한도의 신호다 — 일일 한도면 리셋까지 몇 시간이다.
 DAILY_QUOTA_MIN_DELAY_SEC = 300.0
 
+# ── 전역 페이서 ────────────────────────────────────────────────────────────
+# 무료 티어 한도는 **API 키 단위**다. 그런데 이 파일을 쓰는 모든 경로(크롤 큐레이션,
+# issue_review, trend_insights, daily_lead, 오디오 대본)가 한 키를 공유하면서
+# 서로 간격을 모른 채 두드렸다. 2026-08-17 실측: 한 잡 안에서 세 작업이 각자
+# 3회씩 재시도하며 "59초 후 재시도"를 계속 받았다 — 재시도가 분당 창을 다시
+# 채우는 악순환이라 기다릴수록 나빠졌다. 같은 시각 로컬 단독 호출은 200이었다.
+#
+# 호출 간 최소 간격을 프로세스 전역에서 강제한다. 실패가 보장된 요청을 아예
+# 내보내지 않는 것이 재시도 사다리보다 싸다.
+GEMINI_MIN_INTERVAL_SEC = float(_resolve("GEMINI_MIN_INTERVAL_SEC", "4.0"))
+_last_call_at = 0.0
+
+
+def _pace() -> None:
+    """직전 호출로부터 최소 간격이 지나도록 잠근다. 단일 스레드 전제."""
+    global _last_call_at
+    if GEMINI_MIN_INTERVAL_SEC <= 0:
+        return
+    wait = _last_call_at + GEMINI_MIN_INTERVAL_SEC - time.monotonic()
+    if wait > 0:
+        time.sleep(wait)
+    _last_call_at = time.monotonic()
+
 
 def _is_daily_quota(body_text: str) -> bool:
     """429 본문이 일일 한도 소진을 가리키는가.
@@ -309,6 +332,7 @@ def call_json(
         # 재시도도 한 번의 호출이고 한도를 그만큼 깎는다. attempt 를 라벨에 실어야
         # "chunk 4회"가 실제로는 12회였다는 것이 보인다.
         _record_call(model or MODEL, label if attempt == 0 else f"{label}:retry")
+        _pace()
         try:
             req = urllib.request.Request(
                 url,

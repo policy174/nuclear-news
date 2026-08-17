@@ -134,7 +134,9 @@ class TestRetryDelayIsHonoured(unittest.TestCase):
             raise urllib.error.HTTPError("u", 429, "Too Many", {},
                                          BytesIO(REAL_RPM_BODY.encode("utf-8")))
 
+        # 전역 페이서의 간격 대기는 이 검사 대상이 아니다 — 끄고 잰다.
         with patch.object(gc, "API_KEY", "test-key"), \
+             patch.object(gc, "GEMINI_MIN_INTERVAL_SEC", 0), \
              patch.object(gc.urllib.request, "urlopen", fake_urlopen), \
              patch.object(gc.time, "sleep", lambda s: slept.append(s)):
             with self.assertRaises(gc.GeminiError):
@@ -146,3 +148,32 @@ class TestRetryDelayIsHonoured(unittest.TestCase):
     def test_rpm_body_is_not_mistaken_for_daily(self):
         # limit/model 만 있고 PerDay 표지가 없다 — 재시도해야 하는 종류다.
         self.assertFalse(gc._is_daily_quota(REAL_RPM_BODY))
+
+
+class TestGlobalPacer(unittest.TestCase):
+    """무료 한도는 API 키 단위다 — 같은 키를 쓰는 모든 경로가 간격을 지켜야 한다.
+
+    2026-08-17 실사고: 한 잡 안에서 trend_insights·daily_lead·issue_review 가
+    각자 재시도하며 분당 창을 서로 다시 채워, 기다릴수록 나빠졌다.
+    """
+
+    def setUp(self):
+        self._orig = gc.GEMINI_MIN_INTERVAL_SEC
+        gc._last_call_at = 0.0
+        self.addCleanup(setattr, gc, "GEMINI_MIN_INTERVAL_SEC", self._orig)
+
+    def test_pacer_enforces_interval(self):
+        gc.GEMINI_MIN_INTERVAL_SEC = 0.3
+        slept = []
+        with patch.object(gc.time, "sleep", side_effect=slept.append):
+            gc._pace()          # 첫 호출은 즉시
+            gc._pace()          # 두 번째부터 간격 강제
+        self.assertTrue(slept, "두 번째 호출에 대기가 없었다")
+        self.assertLessEqual(slept[-1], 0.3)
+
+    def test_pacer_disabled_by_zero(self):
+        gc.GEMINI_MIN_INTERVAL_SEC = 0
+        with patch.object(gc.time, "sleep") as sleeper:
+            gc._pace()
+            gc._pace()
+        sleeper.assert_not_called()
