@@ -1206,7 +1206,11 @@ class GeneratedDataTests(unittest.TestCase):
         cls.news = json.loads((data_dir / "news.json").read_text(encoding="utf-8"))
         cls.briefings = json.loads((data_dir / "briefings.json").read_text(encoding="utf-8"))
         cls.meta = json.loads((data_dir / "meta.json").read_text(encoding="utf-8"))
-        cls.issue_audit = json.loads((data_dir / "issue_audit.json").read_text(encoding="utf-8"))
+        # issue_audit 은 2026-08-16 부터 배포 폴더 밖(web/diag/)에 쓴다 — 26MiB 가
+        # Pages 파일 상한(25MiB)을 넘겨 배포가 통째로 죽었기 때문이다. 테스트가
+        # 옛 경로를 그대로 읽고 있어서 그날부터 Deploy web 이 setUpClass 에서
+        # 죽었고(배포 중단), 데이터 관련 검사 전체가 함께 멈춰 있었다.
+        cls.issue_audit = json.loads((ROOT / "diag" / "issue_audit.json").read_text(encoding="utf-8"))
         cls.insights = json.loads((data_dir / "insights.json").read_text(encoding="utf-8"))
         cls.issue_catalog = json.loads((data_dir / "issues.json").read_text(encoding="utf-8"))
         cls.publications = json.loads((data_dir / "publications.json").read_text(encoding="utf-8"))
