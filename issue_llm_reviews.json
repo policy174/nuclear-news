@@ -892,6 +892,16 @@
       "right_title": "정부, 12차 전기본 수립 착수…AI·반도체로 전력수요 1.4배 급증 전망",
       "same_event": true
     },
+    "05da702fed62250a--93406ef00ae86d41": {
+      "embedding_similarity": 0.8442,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "정부, 12차 전기본 수립 착수…AI·반도체로 전력수요 1.4배 급증 전망",
+      "same_event": false
+    },
     "05da702fed62250a--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8589,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -1052,6 +1062,16 @@
       "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
       "same_event": false
     },
+    "06d19dc122234889--78d84e4164f7c883": {
+      "embedding_similarity": 0.9055,
+      "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "최태원-빌 게이츠 SMR 협력 논의",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": true
+    },
     "06d19dc122234889--8db4836106efc88d": {
       "embedding_similarity": 0.88,
       "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
@@ -1079,6 +1099,16 @@
       "prompt_version": 1,
       "reason": "A는 협력 논의, B는 본게임 시작",
       "reviewed_at": "2026-08-15T16:25:57.794357+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": false
+    },
+    "06d19dc122234889--d31013e6bf533618": {
+      "embedding_similarity": 0.9141,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주체, SMR 동맹 vs 빌 게이츠 방한",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
       "same_event": false
     },
@@ -2082,6 +2112,16 @@
       "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
       "same_event": false
     },
+    "07d4a12a385b3883--78d84e4164f7c883": {
+      "embedding_similarity": 0.9104,
+      "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설-테라파워 EPC 계약",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
+      "same_event": true
+    },
     "07d4a12a385b3883--8db4836106efc88d": {
       "embedding_similarity": 0.8757,
       "left_title": "두산에너빌리티·HD현대중공업, 테라파워 나트륨 SMR 공급망 참여",
@@ -2272,6 +2312,16 @@
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
       "same_event": false
     },
+    "0988047fbedcde3a--4184f9584371025b": {
+      "embedding_similarity": 0.892,
+      "left_title": "스페인 정부, 알마라즈 원전 1·2호기 운전 허가 2030년까지 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "스페인 원전 연장과 미국 SMR 비교",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "스페인 알마라즈 원전 수명 연장, 미국은 가스 결합 SMR 추진",
+      "same_event": false
+    },
     "0988047fbedcde3a--4323de7d47ff47c1": {
       "embedding_similarity": 0.9176,
       "left_title": "스페인, 알마라즈 원전 운영 기한 2030년까지 연장",
@@ -2280,6 +2330,16 @@
       "reason": "알마라즈 원전 운영 기한 연장",
       "reviewed_at": "2026-08-18T01:13:58.905321+00:00",
       "right_title": "스페인 정부, 알마라즈 원전 1·2호기 운전 허가 2030년까지 연장",
+      "same_event": true
+    },
+    "0988047fbedcde3a--7066771a98670992": {
+      "embedding_similarity": 0.9128,
+      "left_title": "스페인 정부, 알마라즈 원전 1·2호기 운전 허가 2030년까지 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "알마라즈 원전 운전 허가 연장",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "스페인, 알마라즈 원전 폐쇄 연기 결정",
       "same_event": true
     },
     "09ac4f943ed7ad61--4bdd65d0c09aaf72": {
@@ -4069,6 +4129,16 @@
       "prompt_version": 1,
       "reason": "호남 반도체 전력 공급과 AI 전력 공급은 다른 사안",
       "reviewed_at": "2026-08-12T01:09:07.170960+00:00",
+      "right_title": "제12차 전기본, AI 데이터센터·반도체 클러스터 전력 공급 해법 모색",
+      "same_event": false
+    },
+    "0eb1501c0940bb21--93406ef00ae86d41": {
+      "embedding_similarity": 0.8435,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "제12차 전기본, AI 데이터센터·반도체 클러스터 전력 공급 해법 모색",
       "same_event": false
     },
@@ -6222,6 +6292,16 @@
       "right_title": "호남 반도체 포함 미래 전력수요 재전망…9월엔 신규 원전 토론회",
       "same_event": true
     },
+    "1b4b7adc62647aaf--5b5995d129436876": {
+      "embedding_similarity": 0.9089,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업요금제와 신규원전 반영 미정",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
+      "same_event": false
+    },
     "1b4b7adc62647aaf--6daf204a4f7610fb": {
       "embedding_similarity": 0.866,
       "left_title": "정부, 산업용 전기요금 4개 권역 차등 적용 방안 발표",
@@ -8122,6 +8202,16 @@
       "right_title": "고리 3·4호기 계속운전 허가안, 하반기 원안위 상정 예정",
       "same_event": true
     },
+    "24b61cad1fee96a2--d31013e6bf533618": {
+      "embedding_similarity": 0.9133,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "최태원-빌 게이츠 SMR 협력 논의",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "1년 만에 다시 만난 최태원·빌 게이츠, SMR 고리로 ‘AI 전력 동맹’ 강...",
+      "same_event": true
+    },
     "24e4cd768164cbf1--6b93ed7e22e9bb4b": {
       "embedding_similarity": 0.8447,
       "left_title": "미국 원자력규제위원회(NRC), 공청회서 신규 규정 제안 내용 공개",
@@ -9301,6 +9391,16 @@
       "reviewed_at": "2026-08-18T15:44:16.356197+00:00",
       "right_title": "김성환 기후부 장관, 12차 전기본 신규 원전 포함 여부 미정 언급",
       "same_event": true
+    },
+    "2ad78d39aaa94e3b--93406ef00ae86d41": {
+      "embedding_similarity": 0.8405,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 신규 원전 포함 여부 미정 언급",
+      "same_event": false
     },
     "2ad78d39aaa94e3b--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8737,
@@ -11512,6 +11612,16 @@
       "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
       "same_event": false
     },
+    "381afffc4b89e8e0--93406ef00ae86d41": {
+      "embedding_similarity": 0.861,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LNG 확대와 전력수요 발생",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "반도체 산단·AI 데이터센터, 대규모 전력 수요 발생",
+      "same_event": false
+    },
     "381afffc4b89e8e0--959a0bd83cc42eea": {
       "embedding_similarity": 0.8401,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -11602,6 +11712,66 @@
       "right_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
       "same_event": true
     },
+    "3919f11d7d4ed159--664069beff9cc919": {
+      "embedding_similarity": 0.8704,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 잠정치 공개",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "12차 전기본, '3대 메가 프로젝트' 전력수요 잠정치 20일 공개",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--7627d87407330ff9": {
+      "embedding_similarity": 0.8917,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규원전 여부와 송전망 조정",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후장관 \"부적절 송전망 신규 수요 조정…기존 철탑 활용\"",
+      "same_event": false
+    },
+    "3919f11d7d4ed159--802dfa7b61fe4992": {
+      "embedding_similarity": 0.8738,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 신규원전 반영 검토",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "신규 원전·SMR 도입, 제12차 전기본에 반영 검토",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--93406ef00ae86d41": {
+      "embedding_similarity": 0.8446,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "same_event": false
+    },
+    "3919f11d7d4ed159--955dc48230206bac": {
+      "embedding_similarity": 0.8741,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규원전 여부와 송전망 감축",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후장관, 12차 전기본서 송전망 재검토 및 신규 철탑 40% 감축 방침 발표",
+      "same_event": false
+    },
+    "3919f11d7d4ed159--9f907e1be3afe240": {
+      "embedding_similarity": 0.8446,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 12차 전기본, 다른 내용",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "천주교주교회의 생태환경위, 신규 원전 및 수명 연장 중단 촉구",
+      "same_event": false
+    },
     "3919f11d7d4ed159--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8595,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -11610,6 +11780,16 @@
       "reason": "12차 전기본 신규 원전 건설 여부",
       "reviewed_at": "2026-08-18T12:48:32.372666+00:00",
       "right_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--a519ec27d94058f0": {
+      "embedding_similarity": 0.8661,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
       "same_event": true
     },
     "3919f11d7d4ed159--b0e178ca6114b1a9": {
@@ -11642,6 +11822,26 @@
       "right_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
       "same_event": false
     },
+    "3919f11d7d4ed159--c249d789a2ee1649": {
+      "embedding_similarity": 0.8668,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 추가 필요성 언급",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후장관, 제12차 전력수급기본계획에 원전 추가 필요성 언급",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--c84f36bd814fc6f8": {
+      "embedding_similarity": 0.8571,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 토론회 개최",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "제12차 전력수급기본계획, 전력수요·재생에너지 전망 대국민 토론회 개최",
+      "same_event": true
+    },
     "3919f11d7d4ed159--d4658d844ee27556": {
       "embedding_similarity": 0.8583,
       "left_title": "12차 전력수급기본계획, 원전 반영 여부 두고 정부 부처 간 혼선",
@@ -11650,6 +11850,56 @@
       "reason": "12차 전기본 신규 원전 건설 여부",
       "reviewed_at": "2026-08-18T12:48:32.372666+00:00",
       "right_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--d6889c5a7737e33a": {
+      "embedding_similarity": 0.8464,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 12차 전기본, 다른 내용",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "민간 싱크탱크, 호남 반도체 산단 전력에 신규 발전소 불필요 분석",
+      "same_event": false
+    },
+    "3919f11d7d4ed159--d92804977ee3022f": {
+      "embedding_similarity": 0.8545,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 국회 토론회 개최",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--f261f6a0ca06115f": {
+      "embedding_similarity": 0.8575,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 전망 초안 마련",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "정부, 2040년까지 국가 전력 수요 전망 12차 전기본 초안 마련 착수",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--f93e320d91da6966": {
+      "embedding_similarity": 0.847,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 12차 전기본, 다른 내용",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "12차 전기본, 메가프로젝트 반영 전력수요 전망 토론회 개최",
+      "same_event": false
+    },
+    "3919f11d7d4ed159--fb1014df46236dd8": {
+      "embedding_similarity": 0.8706,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 전망 공개",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
     "394773a9e9dfe69f--67b29b69bb768171": {
@@ -12302,6 +12552,16 @@
       "right_title": "최태원·빌 게이츠, SMR 기반 AI 전력 동맹 논의",
       "same_event": true
     },
+    "3b893d5f408b448f--d31013e6bf533618": {
+      "embedding_similarity": 0.9127,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "최태원-빌 게이츠 SMR 협력 논의",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "최태원·빌 게이츠, SMR 기반 AI 전력 동맹 논의",
+      "same_event": true
+    },
     "3c21a6c659220e5f--5841f6b7706c0048": {
       "embedding_similarity": 0.8423,
       "left_title": "텍사스 A&M 대학, 우라늄 전환 연구 유치 및 지원",
@@ -12340,6 +12600,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T03:02:58.722745+00:00",
       "right_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
+      "same_event": false
+    },
+    "3c3357d444dad489--5b5995d129436876": {
+      "embedding_similarity": 0.8581,
+      "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규원전 미정과 전기본 마련 시점",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "김성환 기후장관, 산업용 지역요금제 다음 주 공개 및 12차 전기본 10월 마련",
       "same_event": false
     },
     "3c3560063b344488--46773964cde4834c": {
@@ -15742,6 +16012,16 @@
       "right_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
       "same_event": true
     },
+    "510b6993261d80ee--cf220a841659c83f": {
+      "embedding_similarity": 0.9073,
+      "left_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SMR 프로젝트 발표",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
+    },
     "510b6993261d80ee--d1e966b5772613fd": {
       "embedding_similarity": 0.8654,
       "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
@@ -16422,6 +16702,16 @@
       "right_title": "두산에너빌리티, 美 테라파워 차세대 원전 핵심 기자재 제작 수주",
       "same_event": true
     },
+    "541195b5decf38c7--78d84e4164f7c883": {
+      "embedding_similarity": 0.904,
+      "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설-두산, 테라파워 SMR 기자재 수주",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 원전 핵심 기자재 제작 수주",
+      "same_event": true
+    },
     "541195b5decf38c7--895b471e7f2e1d4c": {
       "embedding_similarity": 0.8651,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -16499,6 +16789,16 @@
       "prompt_version": 1,
       "reason": "전기본 수립 방향 vs 국가 전력 대계",
       "reviewed_at": "2026-08-11T03:11:22.301682+00:00",
+      "right_title": "삼성전자 대규모 투자로 변화하는 국가 전력 대계",
+      "same_event": false
+    },
+    "548055e6161f453a--93406ef00ae86d41": {
+      "embedding_similarity": 0.8513,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LNG 확대와 국가 전력 대계",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "삼성전자 대규모 투자로 변화하는 국가 전력 대계",
       "same_event": false
     },
@@ -20952,6 +21252,16 @@
       "right_title": "테라파워-SK이노베이션, 차세대 나트륨 SMR 협력 합의서 체결",
       "same_event": false
     },
+    "62decf04a230225d--d31013e6bf533618": {
+      "embedding_similarity": 0.9049,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워-SK이노베이션 SMR 협력",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "테라파워-SK이노베이션, 차세대 나트륨 SMR 협력 합의서 체결",
+      "same_event": true
+    },
     "62decf04a230225d--d5488ec8773bdc1a": {
       "embedding_similarity": 0.8489,
       "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
@@ -22792,6 +23102,16 @@
       "right_title": "알리바바 클라우드, 완전 모듈식 설계로 AI 데이터센터 100일 만에 구축",
       "same_event": false
     },
+    "719103e4dd4fefb1--78d84e4164f7c883": {
+      "embedding_similarity": 0.9092,
+      "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설-두산, 테라파워 SMR 기자재 수주",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
+      "same_event": true
+    },
     "719103e4dd4fefb1--895b471e7f2e1d4c": {
       "embedding_similarity": 0.8853,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -24220,6 +24540,16 @@
       "reason": "테라파워 SMR 건설 관련 보도",
       "reviewed_at": "2026-08-18T09:45:18.120351+00:00",
       "right_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "same_event": true
+    },
+    "78d84e4164f7c883--d48f68a022448837": {
+      "embedding_similarity": 0.9049,
+      "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정기선-빌 게이츠 SMR 협력 논의",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "정기선-빌 게이츠, 네 번째 회동…HD현대 'SMR 핵심 파트너' 입지 굳힌다",
       "same_event": true
     },
     "7978bd2bacdc5c2f--7e77e7f003ff7ab6": {
@@ -27152,6 +27482,26 @@
       "right_title": "미국 에너지부(DOE) 핵주기 혁신 캠퍼스(NLIC) 초기 선정 분석",
       "same_event": true
     },
+    "93406ef00ae86d41--a519ec27d94058f0": {
+      "embedding_similarity": 0.8456,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": false
+    },
+    "93406ef00ae86d41--b9d38f426347d282": {
+      "embedding_similarity": 0.8426,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 수요예측 재검토 및 전원믹스 재설계 발표",
+      "same_event": false
+    },
     "93406ef00ae86d41--bd1c124b246d63a9": {
       "embedding_similarity": 0.8674,
       "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
@@ -27161,6 +27511,56 @@
       "reviewed_at": "2026-08-18T15:44:16.356197+00:00",
       "right_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
       "same_event": false
+    },
+    "93406ef00ae86d41--c249d789a2ee1649": {
+      "embedding_similarity": 0.8555,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LNG 확대와 원전 필요성 언급",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "기후장관, 제12차 전력수급기본계획에 원전 추가 필요성 언급",
+      "same_event": true
+    },
+    "93406ef00ae86d41--c84f36bd814fc6f8": {
+      "embedding_similarity": 0.8738,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LNG 확대와 토론회 개최",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "제12차 전력수급기본계획, 전력수요·재생에너지 전망 대국민 토론회 개최",
+      "same_event": false
+    },
+    "93406ef00ae86d41--d6889c5a7737e33a": {
+      "embedding_similarity": 0.8419,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안, LNG vs 12차 전기본",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "민간 싱크탱크, 호남 반도체 산단 전력에 신규 발전소 불필요 분석",
+      "same_event": false
+    },
+    "93406ef00ae86d41--f261f6a0ca06115f": {
+      "embedding_similarity": 0.8486,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LNG 확대와 전력수요 전망 초안 마련",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "정부, 2040년까지 국가 전력 수요 전망 12차 전기본 초안 마련 착수",
+      "same_event": true
+    },
+    "93406ef00ae86d41--fb1014df46236dd8": {
+      "embedding_similarity": 0.8488,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 전망 공개",
+      "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
+      "same_event": true
     },
     "9351ab88f7069491--a587d096a9a94b15": {
       "embedding_similarity": 0.907,
