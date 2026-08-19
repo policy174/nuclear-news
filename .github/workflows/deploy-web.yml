@@ -22,6 +22,8 @@ on:
       # 엔티티 사전은 web/ 밖(저장소 루트)이지만 화면 데이터(entities.json)의
       # 원료다 — 여기 안 넣으면 사전 수정이 다음 크롤(최대 105분)까지 미배포.
       - "entity_registry.json"
+      # Pages Functions(/admin 게이트) — web/ 밖(저장소 루트)이지만 배포 산출물이다.
+      - "functions/**"
       - ".github/workflows/deploy-web.yml"
   workflow_dispatch:      # 데이터는 그대로 두고 화면만 다시 올리고 싶을 때
 

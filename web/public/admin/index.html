@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>운영 콘솔 · Nuclens</title>
+<style>
+  body { margin: 0; padding: 32px 20px; background: #eef1f4; color: #12294c;
+         font-family: Pretendard, system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; display: grid; gap: 16px; }
+  h1 { margin: 0; font-size: 20px; }
+  section { padding: 18px 20px; background: #fff; border: 1px solid #c9d2de;
+            border-radius: 6px; }
+  h2 { margin: 0 0 10px; font-size: 14px; color: #51617a; }
+  dl { display: grid; grid-template-columns: 140px 1fr; gap: 6px 14px; margin: 0;
+       font-size: 14px; }
+  dt { color: #51617a; } dd { margin: 0; font-variant-numeric: tabular-nums; }
+  a { color: #12294c; }
+  .state-ok { color: #1d6f42; font-weight: 700; }
+  .state-bad { color: #b4232a; font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Nuclens 운영 콘솔</h1>
+  <section>
+    <h2>데이터 상태</h2>
+    <dl id="statusList"><dt>불러오는 중</dt><dd>…</dd></dl>
+  </section>
+  <section>
+    <h2>바로가기</h2>
+    <dl>
+      <dt>GitHub Actions</dt><dd><a href="https://github.com/policy174/nuclear-news/actions" rel="noopener">워크플로 실행 이력</a></dd>
+      <dt>Cloudflare Pages</dt><dd><a href="https://dash.cloudflare.com/" rel="noopener">배포 대시보드</a></dd>
+      <dt>사이트</dt><dd><a href="/">nuclens 홈</a></dd>
+    </dl>
+  </section>
+</main>
+<script>
+(async () => {
+  const list = document.getElementById("statusList");
+  const row = (dt, dd, cls = "") =>
+    `<dt>${dt}</dt><dd${cls ? ` class="${cls}"` : ""}>${dd}</dd>`;
+  try {
+    const [status, meta] = await Promise.all([
+      fetch("/data/status.json", { cache: "no-store" }).then(r => r.json()),
+      fetch("/data/meta.json", { cache: "no-store" }).then(r => r.json()),
+    ]);
+    const ok = status.state === "ok";
+    list.innerHTML = [
+      row("상태", ok ? "정상" : (status.message || status.state), ok ? "state-ok" : "state-bad"),
+      row("브리핑 날짜", status.briefing_date || "—"),
+      row("마지막 성공", status.last_success_at || "—"),
+      row("수집기 스탬프", status.collector_stamp || "—"),
+      row("generation_id", status.generation_id || "—"),
+      row("데이터 생성", meta.generated_at || "—"),
+    ].join("");
+  } catch (err) {
+    list.innerHTML = row("상태", "status.json 을 불러오지 못했습니다: " + err.message, "state-bad");
+  }
+})();
+</script>
+</body>
+</html>
