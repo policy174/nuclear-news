@@ -1086,6 +1086,114 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(self.calls, [])
 
 
+def fast_response(chars=600):
+    """condense 응답 — 하한(FAST_MIN_CHARS)을 넘는 단락 3개."""
+    paragraph = _padded("오늘의 핵심 소식입니다.", chars // 3)
+    return {"paragraphs": [paragraph, paragraph, paragraph]}
+
+
+class FastVariantTests(AudioBriefTestCase):
+    """audio.json format_version 2 — fast/expert variants 계약.
+
+    핵심: expert 가 완제·기록·발송된 **뒤에만** fast 를 시도하고, fast 의
+    어떤 실패도 expert-only v2 메타를 건드리지 않는다.
+    """
+
+    def _meta(self):
+        return json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+
+    def test_v2_meta_shape_with_fast(self):
+        self.write_data()
+        self.responses = script_responses() + [fast_response()]
+        self.assertTrue(audio_brief.generate())
+        meta = self._meta()
+        self.assertEqual(meta["format_version"], 2)
+        self.assertEqual(set(meta["variants"]), {"expert", "fast"})
+        # v1 톱레벨은 expert 미러 — 구 프런트가 그대로 읽는다.
+        self.assertEqual(meta["file"], meta["variants"]["expert"]["file"])
+        self.assertEqual(meta["duration_sec"], meta["variants"]["expert"]["duration_sec"])
+        fast = meta["variants"]["fast"]
+        self.assertEqual(fast["file"], "briefing-2026-08-04-fast.mp3")
+        self.assertTrue((audio_brief.AUDIO_DIR / fast["file"]).exists())
+        self.assertGreater(fast["duration_sec"], 0)
+
+    def test_fast_failure_leaves_expert_only_valid_json(self):
+        # condense 호출이 429 로 죽어도 디스크에는 expert-only v2 메타가 온전하다
+        # (expert 기록이 fast 시도보다 먼저라는 순서 계약의 회귀 테스트).
+        self.write_data()
+        self.responses = script_responses()          # fast 몫 없음 → 3번째 호출 실패
+        self.assertTrue(audio_brief.generate())
+        meta = self._meta()                          # 파싱 실패면 여기서 죽는다
+        self.assertEqual(meta["format_version"], 2)
+        self.assertEqual(set(meta["variants"]), {"expert"})
+        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-04-fast.mp3").exists())
+
+    def test_fast_skipped_under_budget(self):
+        # 잔여 예산이 FAST_MIN_REMAINING_SEC 미만이면 LLM 호출 자체가 없다.
+        meta = {"date": "2026-08-04", "variants": {}}
+        started = audio_brief.time.monotonic() - (
+            audio_brief.AUDIO_RUN_BUDGET_SEC - audio_brief.FAST_MIN_REMAINING_SEC + 10)
+        ok = audio_brief.generate_fast_variant(
+            "HOST: 본문", {"date": "2026-08-04"}, meta, started)
+        self.assertFalse(ok)
+        self.assertEqual(self.calls, [])
+
+    def test_partial_expert_skips_fast(self):
+        # 부분본 = 쿼터가 이미 빠듯 — fast 추가 호출 금지.
+        self.write_data()
+        self.responses = script_responses() + [fast_response()]
+        self.addCleanup(setattr, audio_brief, "synthesize", audio_brief.synthesize)
+        audio_brief.synthesize = lambda script, deadline=None: (
+            b"\x00" * 48000, 24000, 2, 6, "rate_limit")
+        self.assertTrue(audio_brief.generate())
+        self.assertNotIn("fast", self._meta().get("variants", {}))
+        labels = [kw.get("label") for kw in self.call_kwargs]
+        self.assertNotIn("audio_fast", labels)
+
+    def test_fast_partial_is_discarded(self):
+        # 3분짜리가 중간에 끊기면 배송하지 않는다 — expert 완본이 있다.
+        self.write_data()
+        self.responses = script_responses() + [fast_response()]
+        original = audio_brief.synthesize
+        self.addCleanup(setattr, audio_brief, "synthesize", original)
+        state = {"n": 0}
+
+        def fake_synthesize(script, deadline=None):
+            state["n"] += 1
+            if state["n"] == 1:                      # expert 는 완본
+                return original(script, deadline)
+            return b"\x00" * 48000, 24000, 1, 3, "rate_limit"
+
+        audio_brief.synthesize = fake_synthesize
+        self.assertTrue(audio_brief.generate())
+        self.assertEqual(set(self._meta()["variants"]), {"expert"})
+
+    def test_cleanup_keeps_todays_fast_and_drops_old(self):
+        self.write_data()
+        audio_brief.AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").write_bytes(b"old")
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").write_bytes(b"old")
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-04-fast.mp3").write_bytes(b"today")
+        self.responses = script_responses()
+        self.assertTrue(audio_brief.generate())
+        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").exists())
+        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").exists())
+        self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-04-fast.mp3").exists())
+
+    def test_telegram_sends_expert_once(self):
+        self.write_data()
+        self.responses = script_responses() + [fast_response()]
+        self.assertTrue(audio_brief.generate())
+        self.assertEqual(len(self.sent), 1)
+        self.assertEqual(self.sent[0][0], "briefing-2026-08-04.mp3")
+
+    def test_condense_rejects_too_short(self):
+        self.responses = [{"paragraphs": ["짧은 한 줄."]}]
+        with self.assertRaises(ValueError):
+            audio_brief.condense_script("HOST: 원문 대본입니다.")
+
+
 class ExitCodeContractTests(unittest.TestCase):
     """실패는 종료 코드로 나가야 한다.
 

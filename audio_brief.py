@@ -71,6 +71,31 @@ VOICES = {"HOST": "Kore"}
 SCRIPT_MODEL_DEFAULT = "gemini-2.5-flash-lite"
 SCRIPT_RETRIES = 6     # 기본 3(≈2분)으로는 2026-08-10 분당 한도 창을 못 넘겼다
 
+# 빠른 브리핑(약 3분) — expert 완제·기록·발송이 끝난 뒤 잔여 예산이 있을 때만
+# 시도하는 부가 산출물. 어떤 실패도 expert 를 건드리지 않는다.
+# 1,300자는 '약 3분'의 제어값이지 계약이 아니다 — 한국어 TTS 실제 길이는
+# 숫자·영문·쉼에 따라 흔들리므로 실측 duration 은 audio.json 이 말한다.
+FAST_TARGET_CHARS = 1300
+FAST_MIN_CHARS = 400          # 이보다 짧으면 브리핑이 아니라 예고편이다
+FAST_MIN_REMAINING_SEC = 300  # LLM 1회 + TTS 2~3청크(pacer 21초) + mp3 변환
+FAST_TTS_BUDGET_SEC = 240
+FAST_RETRIES = 2              # fast 는 선택 산출물 — expert 의 예산을 굶기지 않는다
+
+EXPERT_LABEL = "전문가 브리핑"
+EXPERT_DESCRIPTION = "선정된 핵심 이슈의 정책·사업·기술 의미까지 통합 해설하는 브리핑입니다."
+FAST_LABEL = "빠른 브리핑"
+FAST_DESCRIPTION = "오늘의 핵심 원자력 뉴스를 약 3분 안팎으로 빠르게 훑는 라디오형 브리핑입니다."
+
+FAST_SYSTEM_PROMPT = (
+    "당신은 라디오 뉴스 브리핑 편집자입니다. 주어진 원자력 브리핑 대본을 "
+    "핵심 이슈 중심으로 압축해 약 3분(1,200~1,400자) 분량의 빠른 브리핑을 만드세요.\n"
+    "[규칙]\n"
+    '- 반드시 JSON {"paragraphs": ["..."]} 형식으로만 출력\n'
+    "- 각 원소는 진행자가 그대로 읽는 완결된 한국어 단락 (라벨·이모지·괄호 지문 금지)\n"
+    "- 사실·수치·기관명은 원문 대본에 있는 것만 사용, 새 정보 금지\n"
+    "- 인사말·마무리 금지 — 프레임은 코드가 붙인다\n"
+)
+
 
 def _script_model() -> str:
     return gemini_client._resolve("GEMINI_SCRIPT_MODEL", SCRIPT_MODEL_DEFAULT)
@@ -882,6 +907,76 @@ def to_mp3(pcm: bytes, rate: int, out_path: Path) -> None:
         raw.unlink(missing_ok=True)
 
 
+def condense_script(script: str) -> str:
+    """expert 대본 → 약 3분 빠른 브리핑 대본 (LLM 1회, 재료 재구성 없음).
+
+    이미 검증된 expert 대본만 입력으로 쓴다 — 사실 검증을 두 번 하지 않고,
+    build 재료를 다시 조립하는 경로도 만들지 않는다.
+    """
+    spoken = "\n".join(
+        match.group(2) for match in
+        (SPEAKER_RE.match(line) for line in script.splitlines()) if match
+    )
+    result = call_json(
+        FAST_SYSTEM_PROMPT, f"[원문 대본]\n{spoken}", temperature=0.4,
+        max_output_tokens=4096, timeout=120.0, thinking_budget=0,
+        model=_script_model(), retries=FAST_RETRIES, label="audio_fast")
+    paragraphs = [strip_filler(str(p).strip())
+                  for p in (result.get("paragraphs") or []) if str(p).strip()]
+    if not paragraphs:
+        raise ValueError("빠른 브리핑: 빈 출력")
+    lines = [f"HOST: {_LABEL_RE.sub('', p)}" for p in paragraphs]
+    lines, total = trim_to_budget(lines, FAST_TARGET_CHARS)
+    if total < FAST_MIN_CHARS:
+        raise ValueError(f"빠른 브리핑: {total}자로 과소 (하한 {FAST_MIN_CHARS})")
+    return "\n".join(lines)
+
+
+def generate_fast_variant(script: str, briefing: dict, meta: dict,
+                          run_started_at: float) -> bool:
+    """fast variant 생성·기록. expert-only v2 메타가 이미 디스크에 있는 뒤에만
+    부른다 — 여기서의 어떤 실패도 비치명이고 expert 를 건드리지 않는다."""
+    date = meta["date"]
+    remaining = run_started_at + AUDIO_RUN_BUDGET_SEC - time.monotonic()
+    if remaining < FAST_MIN_REMAINING_SEC:
+        print(f"[audio] fast 스킵 — 잔여 예산 {remaining:.0f}초 "
+              f"(< {FAST_MIN_REMAINING_SEC}초)")
+        return False
+    fast_file = f"briefing-{date}-fast.mp3"
+    try:
+        fast_script = apply_frame(condense_script(script), briefing)
+        (AUDIO_DIR / f"script-{date}-fast.txt").write_text(fast_script, encoding="utf-8")
+        deadline = min(
+            time.monotonic() + FAST_TTS_BUDGET_SEC,
+            run_started_at + AUDIO_RUN_BUDGET_SEC - SHIP_RESERVE_SEC,
+        )
+        pcm, rate, done, total, _stop = synthesize(fast_script, deadline)
+        if done < total:
+            # 3분짜리가 중간에 끊기면 브리핑이 아니다 — expert 완본이 있으니 버린다.
+            print(f"[audio] fast 부분 생성({done}/{total}) — 버리고 expert 만 유지")
+            return False
+        to_mp3(pcm, rate, AUDIO_DIR / fast_file)
+    except (GeminiError, ValueError, RuntimeError, subprocess.CalledProcessError) as exc:
+        print(f"[audio] fast 실패 — expert 만 유지: {exc}")
+        return False
+    meta.setdefault("variants", {})["fast"] = {
+        "date": date,
+        "key": "fast",
+        "label": FAST_LABEL,
+        "description": FAST_DESCRIPTION,
+        "file": fast_file,
+        "duration_sec": int(len(pcm) / 2 / rate),
+        "generated_at": datetime.now(KST).isoformat(),
+        "script_chars": sum(
+            len(line.split(":", 1)[1]) for line in fast_script.splitlines()),
+        "voices": VOICES,
+    }
+    _write_meta(meta)
+    print(f"[audio] fast 완료 — {fast_file} "
+          f"({meta['variants']['fast']['duration_sec']}초)")
+    return True
+
+
 def _write_meta(meta: dict) -> None:
     """원자적 기록 — 배포 중 잘린 audio.json 이 플레이어를 깨면 안 된다."""
     target = AUDIO_DIR / META_FILE_NAME
@@ -1000,37 +1095,64 @@ def generate(force: bool = False, send: bool = True) -> bool:
         return False
 
     duration = int(len(pcm) / 2 / rate)
+    generated_at = datetime.now(KST).isoformat()
+    script_chars = sum(len(line.split(":", 1)[1]) for line in script.splitlines())
+    # v1 톱레벨 필드는 전부 유지한다(구 프런트·캐시 호환) — expert 를 미러링.
+    # v2 는 format_version + variants 만 얹는다.
     meta = {
         "date": date,
         "file": file_name,
         "duration_sec": duration,
-        "generated_at": datetime.now(KST).isoformat(),
-        "script_chars": sum(len(line.split(":", 1)[1]) for line in script.splitlines()),
+        "generated_at": generated_at,
+        "script_chars": script_chars,
         "voices": VOICES,
+        "format_version": 2,
+        "variants": {
+            "expert": {
+                "date": date,
+                "key": "expert",
+                "label": EXPERT_LABEL,
+                "description": EXPERT_DESCRIPTION,
+                "file": file_name,
+                "duration_sec": duration,
+                "generated_at": generated_at,
+                "script_chars": script_chars,
+                "voices": VOICES,
+            },
+        },
     }
     if done < total:
         # 사유·재시도 가능성을 남긴다 — 운영 판단(수동 재생성 여부)의 근거.
         # daily_quota 만 재시도 불가 — 오늘 안 풀린다.
-        meta.update({
+        partial_fields = {
             "partial": True,
             "chunks_done": done,
             "chunks_total": total,
             "partial_reason": stop_reason or "provider_error",
             "retryable": stop_reason != "daily_quota",
-        })
+        }
+        meta.update(partial_fields)
+        meta["variants"]["expert"].update(partial_fields)
     _write_meta(meta)
-    # 옛 날짜 산출물 정리 — 캐시·배포에 실리는 것은 최신 1개면 충분하다
+    # 옛 날짜 산출물 정리 — 캐시·배포에 실리는 것은 최신 날짜 것이면 충분하다.
+    # 오늘 것은 fast 포함 둘 다 지키지 않으면 --force 재생성이 fast 를 먹는다.
+    keep_mp3 = {file_name, f"briefing-{date}-fast.mp3"}
+    keep_script = {f"script-{date}.txt", f"script-{date}-fast.txt"}
     for old in AUDIO_DIR.glob("briefing-*.mp3"):
-        if old.name != file_name:
+        if old.name not in keep_mp3:
             old.unlink(missing_ok=True)
     for old in AUDIO_DIR.glob("script-*.txt"):
-        if old.name != f"script-{date}.txt":
+        if old.name not in keep_script:
             old.unlink(missing_ok=True)
     label = f"부분 {done}/{total}" if done < total else "완료"
     print(f"[audio] {date} {label} — {file_name} "
           f"({mp3_path.stat().st_size / 1024:.0f} KB, {duration}초)")
     if send and send_telegram_audio(mp3_path, meta):
         _mark_sent(meta)
+    # fast 는 expert 가 완본일 때만 — 부분본이 났다는 것은 쿼터가 이미 빠듯하다는
+    # 뜻이라 추가 호출이 내일 몫까지 굶긴다.
+    if done == total:
+        generate_fast_variant(script, briefing, meta, run_started_at)
     return True
 
 
