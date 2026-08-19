@@ -108,7 +108,7 @@ const state = {
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   archiveEntity: "", entities: null,
-  period: "7", keywordSort: "mentions", savedIds: new Set(), savedMeta: {}, follows: new Set(), followSeen: {},
+  period: "7", keywordSort: "mentions", audioMode: "fast", audioFailures: new Set(), savedIds: new Set(), savedMeta: {}, follows: new Set(), followSeen: {},
   offline: !navigator.onLine, pendingGeneration: "",
 };
 
@@ -788,9 +788,18 @@ function renderSystemStatus() {
     lead = "검증 중";
     message = "새 데이터를 검증하고 있습니다 · 완료 전까지 마지막 정상 데이터를 표시합니다";
   } else if (state.systemStatus && !state.systemStatus.watcher_running) {
+    // 이 분기에 오는 사태는 **브리핑** 쪽뿐이다. 수집이 멈춘 날은 build_data 가
+    // state=error 로 올리므로 위 분기가 먼저 받는다(build_data.system_status).
+    // 그런데 문구가 수집이 멈춘 것처럼 박혀 있어, 수집이 멀쩡한데도
+    // 수집기를 의심하게 만들었다 — 2026-08-16: collector_stamp 는 1시간 전이고
+    // state 도 ok 인데 배너는 수집 중지였다. 실제 사태는 브리핑이 36시간 넘게
+    // 안 나온 것. build_data 는 '브리핑이 2일째 갱신되지 않았습니다'라는 정확한
+    // 문장을 status.json 에 이미 싣고 있는데 여기서만 그걸 버렸다. 바로 위
+    // error 분기는 같은 필드를 제대로 쓴다 — 어긋난 쪽은 이 분기다.
     status = "warning";
-    lead = "수집 지연";
-    message = `자동 수집이 중지돼 있습니다 · 마지막 정상 브리핑 ${dateTimeLabel(briefedAt)}`;
+    lead = "업데이트 지연";
+    message = `${state.systemStatus.message || "브리핑이 갱신되지 않았습니다"}`
+      + ` · 마지막 정상 브리핑 ${dateTimeLabel(briefedAt)}`;
   } else if (briefingStaleDays() > 0) {
     // 수집기가 돌고 status.json 이 ok 인데도 새 브리핑이 안 나오는 날이 있다.
     // 그때 '정상'이라고 쓰면 사용자는 오늘 것을 보고 있다고 믿는다 — 가장 나쁜
@@ -940,13 +949,19 @@ function issueMatchesFilters(issue) {
 }
 
 function issueStatusText(issue, archive = false) {
-  if (archive && issue.lifecycle === "quiet") return `종결 · ${dateLabel(issue.last_seen)}`;
+  const parts = [];
   const tracked = issue.tracked_briefings || issue.briefing_count || 1;
+  if (archive && issue.lifecycle === "quiet") parts.push(`종결 · ${dateLabel(issue.last_seen)}`);
   // 중요도가 추적 이력을 덮으면 '달라진 이슈'인데 무엇이 이어지는지 안 보인다.
-  if (issue.importance === "must_read") return tracked > 1 ? `주요 · ${tracked}회 추적` : "주요";
-  if (tracked > 1) return `업데이트 · ${tracked}회 추적`;
+  else if (issue.importance === "must_read") parts.push(tracked > 1 ? `주요 · ${tracked}회 추적` : "주요");
+  else if (tracked > 1) parts.push(`업데이트 · ${tracked}회 추적`);
   // 검증 상태는 배지가 단독으로 책임진다. 여기서 다시 말하면 같은 줄에 두 번 뜬다.
-  return "새 이슈";
+  else parts.push("새 이슈");
+  const storyArticles = Number(issue.story_article_count || 1);
+  const storyOutlets = Number(issue.story_outlet_count || 1);
+  if (storyArticles > 1) parts.push(`동일 사건 보도 ${storyArticles}건 통합`);
+  if (storyOutlets > 1) parts.push(`보도 매체 ${storyOutlets}곳`);
+  return parts.join(" · ");
 }
 
 function issueActions(issue) {
@@ -1263,8 +1278,22 @@ function renderEmptyBriefing(briefing, issueList) {
   const view = emptyBriefingState(briefing);
   document.getElementById("changedIssues").hidden = true;
   document.getElementById("todayAgenda").hidden = true;
-  // 히어로가 이미 사유를 말했으므로 목록에서 같은 문장을 되풀이하지 않는다.
-  // 목록은 '그래서 어디로 가면 되는가'만 담당한다.
+  // 사유는 히어로가 말하고, 목록은 '그래서 어디로 가면 되는가'만 담당한다.
+  // 그 전제가 코드에 없어서 emptyBriefingState 가 만든 title 이 아무 데도 안
+  // 붙고 있었다 — 0건인 날 화면에는 고정 헤드라인("이번 주 원자력, 무엇이
+  // 달라졌나")만 남아, 아래가 비었는데 위에서는 달라진 게 있다고 말했다.
+  // 2026-08-16 라이브에서 실제로 그렇게 났다(발송 실패로 그날 이슈가 0건).
+  const hero = document.getElementById("briefingHero");
+  // 이슈가 있던 날에서 날짜를 옮겨 오면 그날의 히어로 형태가 그대로 남는다.
+  if (hero) hero.classList.remove("lead-issue", "weekly-hero", "no-lead");
+  document.getElementById("briefingKicker").textContent = "주간 원자력 인텔리전스";
+  document.getElementById("briefingTitle").textContent = view.title;
+  document.getElementById("briefingDateLabel").textContent =
+    briefing && briefing.date ? dateWeekdayLabel(briefing.date) : "";
+  // 같은 이유로 직전 날짜의 선두 카드도 걷는다 — 0건이라면서 카드가 하나 떠
+  // 있는 화면이 된다.
+  document.getElementById("leadIssue").hidden = true;
+  document.getElementById("leadCard").innerHTML = "";
   document.getElementById("showChangedIssues").hidden = true;
   // 근거 칩도 함께 지운다 — 안 그러면 직전 브리핑의 근거가 남아 없는 문장을 가리킨다
   const staleEvidence = document.getElementById("headlineEvidence");
@@ -1289,6 +1318,37 @@ function shiftDate(date, days) {
 
 function weekRange(date) {
   return { start: shiftDate(date, -6), end: date };
+}
+
+// 주간 리포트의 구간은 **토~금**이다. weekly_bot 이 금요일에 돌면서 직전 7일을
+// 묶기 때문이고(week_start = 실행일 -6), 저장된 값도 8/1~8/7 · 8/8~8/14 로 그렇다.
+// ISO 주차(월~일)로 계산하면 하루씩 어긋나 매칭이 통째로 빈다.
+function briefingWeek(date) {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return { start: "", end: "" };
+  const toFriday = (5 - parsed.getUTCDay() + 7) % 7;   // 0=일 … 5=금 … 6=토
+  const end = shiftDate(date, toFriday);
+  return { start: shiftDate(end, -6), end };
+}
+
+// 그 주 리포트가 없으면 null 이다. **직전 주로 대체하지 않는다** — 지난주 결론이
+// 오늘 분석인 것처럼 붙는 것이 원래 문제였다(2026-08-16: 7월 브리핑에도 8/8~14
+// 결론이 떴다). 구버전 trend.json(weekly_reports 없음)만 예전 단일 리포트로 산다.
+function weeklyReportFor(date) {
+  const reports = state.trend?.weekly_reports;
+  if (!reports || typeof reports !== "object") return state.trend?.weekly_report || null;
+  const { start } = briefingWeek(date);
+  if (!start) return null;
+  return reports[start] || null;
+}
+
+// "8월 8일–14일" — 같은 달이면 뒤쪽 달 이름을 뺀다.
+function weekRangeLabel(date) {
+  const { start, end } = briefingWeek(date);
+  if (!start || !end) return "";
+  const tail = start.slice(0, 7) === end.slice(0, 7)
+    ? `${Number(end.slice(8, 10))}일` : dateLabel(end);
+  return `${dateLabel(start)}–${tail}`;
 }
 
 function weeklyChangedIssues(briefing) {
@@ -1376,11 +1436,14 @@ function renderHomeIntelligence(briefing) {
 
 
   // 이번 주 해설이 담당하는 것은 '카드에 없는 연결·원인·파급'뿐이다.
-  //   · policy_shifts[].what  → 오늘 3분의 '이번 주 결론' 소유 (여기서 다시 안 낸다)
+  //   · policy_shifts[].what  → 주간 3분의 '이번 주 결론' 소유 (여기서 다시 안 낸다)
   //   · theme_moves           → 바로 위 '주제 변화' 소유 (4주 방향)
   //   · 남는 것 = weekly_intro(사건 간 연결) + so_what(파급효과)
   // 셋을 다 내던 예전 구성은 한 화면에서 같은 문장을 세 번 보게 만들었다.
-  const report = state.trend?.weekly_report;
+  //
+  // 주간 3분과 **같은 주차 리포트**를 본다. 여기만 최신 리포트를 쓰면 한 화면의
+  // 두 블록이 서로 다른 주를 말하게 된다.
+  const report = weeklyReportFor(briefing.date);
   const story = document.getElementById("homeWeeklyStory");
   const intro = dropTextsAlreadyOnCards([report?.weekly_intro], briefing);
   const soWhat = dropTextsAlreadyOnCards(
@@ -1412,9 +1475,21 @@ function dropTextsAlreadyOnCards(lines, briefing) {
     .filter(line => line && !onScreen.has(line) && !seen.has(line) && seen.add(line));
 }
 
+// 이 블록은 '오늘'이 아니라 **그 주**를 말한다. 재료가 weekly_bot 이 금요일에
+// 한 번 쓰는 주간 리포트뿐이라 날짜별로 달라질 내용 자체가 없다. 그런데 이름이
+// '오늘 3분'이라 매일 새 분석이 붙는 것처럼 읽혔고, 실제로는 어느 날짜를 열든
+// 저장된 마지막 한 주가 붙어 있었다 — 7월 브리핑에도 8/8~14 결론이 떴다.
+//
+// 그래서 두 가지를 바꾼다. ① 선택한 날짜가 속한 주차 리포트를 고른다.
+// ② 제목에 그 구간을 적는다 — 며칠간 내용이 같은 이유가 화면에서 설명된다.
+// 그 주 리포트가 아직 없으면 **직전 주로 대신 채우지 않고** 집계 중이라고 말한다.
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
-  const report = state.trend?.weekly_report;
+  const report = weeklyReportFor(briefing.date);
+  const label = weekRangeLabel(briefing.date);
+  document.getElementById("todayAgendaTitle").textContent =
+    label ? `${label} 주간 3분` : "주간 3분";
+
   // 이번 주 결론 = 판이 바뀐 것. theme_moves 는 4주 방향이라 '주제 변화'의 몫이고,
   // 여기서 같이 내면 두 섹션이 같은 답을 한다.
   const conclusions = dropTextsAlreadyOnCards(
@@ -1434,9 +1509,16 @@ function renderTodayAgenda(briefing) {
   document.getElementById("agendaWatchList").innerHTML =
     watch.map(text => `<li>${esc(text)}</li>`).join("");
 
-  agenda.hidden = conclusions.length === 0 && watch.length === 0;
+  // 리포트가 있는데 문장이 전부 카드와 겹쳐 빈 경우와, 리포트 자체가 없는 경우를
+  // 가른다. 앞은 조용히 접고, 뒤는 왜 비었는지 말한다.
+  const pending = document.getElementById("agendaPending");
+  const empty = conclusions.length === 0 && watch.length === 0;
+  pending.hidden = !!report || !label;
+  pending.textContent = pending.hidden ? ""
+    : "이 주 리포트는 아직 집계 중입니다 — 주간 리포트는 금요일 오후에 만들어집니다.";
+  agenda.hidden = empty && pending.hidden;
   document.getElementById("todayAgendaMeta").textContent =
-    agenda.hidden ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
+    empty ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
 // 좁은 화면에서는 이 블록이 오늘의 선두 이슈 **아래**로 간다.
@@ -1599,33 +1681,77 @@ function fmtClock(value) {
 
 function audioPartialSuffix() {
   // TTS 가 중간에 멈춘 부분본 표시 — audio.json 에 partial 키가 있을 때만.
-  const meta = state.audio;
+  // v2 는 variant 별로 partial 이 붙고, v1 구형은 최상위에 붙는다.
+  const meta = activeAudioVariant() || state.audio;
   return meta && meta.partial
     ? ` · 부분 ${meta.chunks_done}/${meta.chunks_total}` : "";
+}
+
+function audioFailureKey(briefing, mode) {
+  return `${briefing?.date || ""}:${mode || ""}`;
+}
+
+function audioVariantsFor(briefing) {
+  const meta = state.audio;
+  if (!meta || !briefing || meta.date !== briefing.date) return {};
+  const raw = meta.variants && typeof meta.variants === "object"
+    ? meta.variants
+    : (meta.file ? { fast: { ...meta, label: "빠른 브리핑", description: "핵심 뉴스 요약" } } : {});
+  return Object.fromEntries(Object.entries(raw).filter(([mode, variant]) => (
+    variant?.file && !state.audioFailures.has(audioFailureKey(briefing, mode))
+  )));
+}
+
+function activeAudioVariant(briefing = currentBriefing()) {
+  const variants = audioVariantsFor(briefing);
+  if (variants[state.audioMode]?.file) return variants[state.audioMode];
+  const fallback = ["fast", "expert"].find(key => variants[key]?.file);
+  if (fallback) {
+    state.audioMode = fallback;
+    return variants[fallback];
+  }
+  return null;
+}
+
+function updateAudioModeButtons(briefing) {
+  const variants = audioVariantsFor(briefing);
+  document.querySelectorAll("#audioModes [data-audio-mode]").forEach(button => {
+    const mode = button.dataset.audioMode;
+    button.hidden = !variants[mode]?.file;
+    button.setAttribute("aria-pressed", mode === state.audioMode ? "true" : "false");
+  });
 }
 
 function updateAudioToggle(playing) {
   const button = document.getElementById("audioToggle");
   if (!button) return;
+  const variant = activeAudioVariant();
+  const label = variant?.label || (state.audioMode === "expert" ? "전문가 브리핑" : "빠른 브리핑");
   button.setAttribute("aria-pressed", playing ? "true" : "false");
-  button.textContent = playing ? "⏸ 일시정지" : "▶ 브리핑 듣기";
+  button.textContent = playing ? "⏸ 일시정지" : `▶ ${label} 듣기`;
 }
 
 function renderAudioBrief(briefing) {
   const box = document.getElementById("audioBrief");
   if (!box) return;
   const audio = document.getElementById("audioEl");
-  const meta = state.audio;
-  const show = !!(meta && meta.file && briefing && meta.date === briefing.date);
+  const variants = audioVariantsFor(briefing);
+  const show = Object.values(variants).some(item => item?.file);
   box.hidden = !show;
   if (!show) {
     // 다른 날짜로 넘어가면 그 날짜에 없는 오디오가 계속 재생되면 안 된다
     if (audio && !audio.paused) audio.pause();
     return;
   }
+  const variant = activeAudioVariant(briefing);
+  if (!variant) { box.hidden = true; return; }
+  // activeAudioVariant가 저장된 모드 대신 실제 사용 가능한 fallback으로 바꿀 수 있다.
+  // 그 뒤 버튼 상태를 갱신해야 aria-pressed와 재생 음원이 어긋나지 않는다.
+  updateAudioModeButtons(briefing);
   // 파일명이 날짜를 품지만(briefing-<date>.mp3) 같은 날 재생성도 있어
   // generated_at 으로 캐시를 가른다 — manifest 구버전 캐시 사고(8/1)의 교훈.
-  const src = `/data/audio/${encodeURIComponent(meta.file)}?v=${encodeURIComponent(meta.generated_at || meta.date)}`;
+  const stamp = variant.generated_at || state.audio?.generated_at || state.audio?.date;
+  const src = `/data/audio/${encodeURIComponent(variant.file)}?v=${encodeURIComponent(stamp || "")}`;
   if (audio.dataset.src !== src) {
     if (!audio.paused) audio.pause();
     audio.dataset.src = src;
@@ -1635,12 +1761,17 @@ function renderAudioBrief(briefing) {
     // 새 음원이므로 접힌 상태로 되돌린다.
     box.classList.remove("started");
     document.getElementById("audioTime").textContent =
-      `0:00 / ${fmtClock(meta.duration_sec)}${audioPartialSuffix()}`;
+      `0:00 / ${fmtClock(variant.duration_sec)}${audioPartialSuffix()}`;
     const seek = document.getElementById("audioSeek");
-    seek.max = String(Math.ceil(meta.duration_sec || 0));
+    seek.max = String(Math.ceil(variant.duration_sec || 0));
     seek.value = "0";
   }
+  const desc = document.getElementById("audioDescription");
+  if (desc) desc.textContent = variant.description || (state.audioMode === "expert"
+    ? "정책·사업 단계와 기술·운영 의미를 한 명의 수석 원자력 분석가가 통합해 설명합니다."
+    : "오늘의 핵심 이슈를 빠르게 훑는 라디오형 브리핑입니다.");
   syncAudioRateButtons();
+  updateAudioToggle(!audio.paused);
 }
 
 function articleCard(article) {
@@ -1921,7 +2052,7 @@ function renderPubs() {
   // 사용자는 필터를 고를 때마다 페이지 맨 위로 되돌아간다. 다른 필터 그룹은
   // 모두 setPressed 로 class/aria 만 갱신한다 — 같은 방식으로 맞춘다.
   const rendered = [...filterBox.querySelectorAll("button")].map(button => button.dataset.pubsOrg);
-  if (rendered.join(" ") !== orgs.join(" ")) {
+  if (rendered.join("\u0000") !== orgs.join("\u0000")) {
     filterBox.innerHTML = orgs.map(org =>
       `<button type="button" data-pubs-org="${esc(org)}">${esc(org)}</button>`
     ).join("");
@@ -1956,21 +2087,59 @@ function renderPubs() {
 
 function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑", shownDetail = "") {
   const url = safeUrl(article.url);
-  const stage = article.briefing_date === briefingDate ? currentStage : "이전 흐름";
+  // 근거 원문은 어느 브리핑에도 실린 적이 없다(briefing_date 가 비어 있다).
+  // '이전 흐름'이라고 적으면 예전 브리핑에 나갔던 것처럼 읽힌다 — 자기 구역의
+  // 제목이 이미 '추가 근거 원문'이라고 말하므로 여기서는 비운다.
+  const stage = article.member_role === "evidence"
+    ? ""
+    : (article.briefing_date === briefingDate ? currentStage : "이전 흐름");
   // 원문 대신 읽는 기사 내용. 위 '기사 내용' 블록이 이미 보여 준 문장은 건너뛴다 —
   // 같은 문단을 한 화면에 두 번 두면 정보가 아니라 소음이다.
   const detail = String(article.detail || "").trim();
   const body = detail && detail !== shownDetail
     ? `<details class="timeline-detail"><summary>내용 보기</summary><p>${esc(detail)}</p></details>`
     : "";
+  // 기준일보다 나중에 나온 기사는 상대 표기가 없어 relativeArticleDate 가 날짜로
+  // 떨어진다 — 그러면 같은 날짜가 두 줄 연달아 선다. 근거 원문은 브리핑 이후에도
+  // 계속 붙으므로 이 겹침이 줄줄이 보인다. 같으면 아랫줄을 비운다.
+  const dateText = dateLabel(article.article_date);
+  const relative = relativeArticleDate(article.article_date, briefingDate);
   return `<li>
-    <div class="timeline-date"><span>${esc(dateLabel(article.article_date))}</span><small>${esc(relativeArticleDate(article.article_date, briefingDate))}</small><em>${stage}</em></div>
+    <div class="timeline-date"><span>${esc(dateText)}</span>${relative === dateText ? "" : `<small>${esc(relative)}</small>`}${stage ? `<em>${esc(stage)}</em>` : ""}</div>
     <div class="timeline-copy">
       ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(article.title_kr)}</a>` : `<span>${esc(article.title_kr)}</span>`}
       <small>${esc(sourceLabel(article))}${isOfficial(article) ? " · 1차 출처" : ""}</small>
       ${body}
     </div>
   </li>`;
+}
+
+// 타임라인은 최신순이다. 같은 날짜 안에서만 1차 출처를 앞에 세운다 — 1차 출처를
+// 통째로 위로 올리면 아래 '최근 5건'이 최근이 아니게 된다.
+function byTimelineOrder(a, b) {
+  return String(b.article_date).localeCompare(String(a.article_date))
+    || Number(isOfficial(b)) - Number(isOfficial(a));
+}
+
+// V1 은 선정된 핵심 기사만 보여줬다. V2 는 장기 타임라인에 미선정 관련 보도까지
+// 근거로 붙이면서 목록이 길어졌다 — 실측 2026-08-16 '테라파워 나트륨 SMR 공급망'
+// 이슈는 선정 2건 + 근거 16건이 한 <ol> 에 18행으로 서서, 정작 브리핑에 나간 2건이
+// 그 사이에 묻혔다.
+//
+// 정보를 버리지는 않는다. 목록을 '최근 것 몇 건 + 나머지 접기'로 편다. 대부분의
+// 이슈는 애초에 이 한도에 걸리지 않아(250건 중 선정 5건 초과 1건) 아무것도 안 바뀐다.
+const TIMELINE_HEAD = 5;
+
+function timelineList(articles, options) {
+  const row = article => articleTimelineRow(
+    article, options.contextDate, options.stage, options.shownDetail);
+  const head = articles.slice(0, TIMELINE_HEAD);
+  const rest = articles.slice(TIMELINE_HEAD);
+  return `<ol class="timeline dialog-timeline">${head.map(row).join("")}</ol>${rest.length
+    ? `<details class="timeline-more"><summary>${esc(options.moreLabel)} ${rest.length}건 더 보기</summary>
+        <ol class="timeline dialog-timeline">${rest.map(row).join("")}</ol>
+      </details>`
+    : ""}`;
 }
 
 function currentIssueById(issueId) {
@@ -2347,16 +2516,24 @@ function openIssueDialog(issueId, updateUrl = true) {
     .filter(reason => String(reason || "").trim())
     .map(reason => `<span class="topic-chip">${esc(reason)}</span>`).join("");
   const contextDate = state.view === "news" ? state.briefingDate : issue.last_seen;
-  const articles = [...(issue.related_articles || [])].sort((a, b) => (
-    Number(isOfficial(b)) - Number(isOfficial(a)) || String(b.article_date).localeCompare(String(a.article_date))
-  ));
+  // member_role 이 두 종류를 가른다: card 는 실제로 브리핑에 나간 기사,
+  // evidence 는 뒤에 매칭으로 붙은 미선정 보도다(build_data.py 가 그렇게 싣고,
+  // test_global_issue_catalog_contains_each_delivered_article_once 가 잠근다).
+  const allArticles = issue.related_articles || [];
+  const cardArticles = allArticles
+    .filter(article => (article.member_role || "card") !== "evidence").sort(byTimelineOrder);
+  const evidenceArticles = allArticles
+    .filter(article => article.member_role === "evidence").sort(byTimelineOrder);
   const related = relatedIssues(issue);
   // 원문(대개 영문)에 들어가지 않고도 읽히도록 만든 기사 요지. 2026-08-07 이전
   // 아카이브에는 없으므로 빈 값이 정상이고, 그때는 이 블록이 통째로 빠진다.
   const issueDetail = String(issue.detail || "").trim();
   document.getElementById("issueDialogContent").innerHTML = `
     <h2 id="issueDialogTitle" tabindex="-1">${esc(issue.title)}</h2>
-    <div class="dialog-meta"><span>${esc(issueStatusText(issue, state.view !== "news"))}</span><span>${dateLabel(issue.first_seen)} 시작</span><span>누적 ${issue.article_count}건</span></div>
+    <div class="dialog-meta"><span>${esc(issueStatusText(issue, state.view !== "news"))}</span><span>${dateLabel(issue.first_seen)} 시작</span><span>${
+      evidenceArticles.length
+        ? `선정 ${cardArticles.length}건 · 추가 근거 ${evidenceArticles.length}건`
+        : `누적 ${issue.article_count}건`}</span></div>
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
@@ -2372,9 +2549,26 @@ function openIssueDialog(issueId, updateUrl = true) {
     </section>
     ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
-      <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 타임라인과 근거 원문</h3></div>
-      <ol class="timeline dialog-timeline">${articles.map(article => articleTimelineRow(article, contextDate, state.view === "news" ? "이번 브리핑" : "최근 브리핑", issueDetail)).join("")}</ol>
+      <div class="dialog-section-head"><h3 id="issueHistoryTitle">주요 사건 타임라인</h3><span>브리핑에 선정된 ${cardArticles.length}건</span></div>
+      ${cardArticles.length
+        ? timelineList(cardArticles, {
+            contextDate,
+            stage: state.view === "news" ? "이번 브리핑" : "최근 브리핑",
+            shownDetail: issueDetail,
+            moreLabel: "이전 사건",
+          })
+        : '<p class="empty">선정된 사건이 없습니다.</p>'}
     </section>
+    ${evidenceArticles.length ? `<details class="dialog-evidence">
+      <summary>추가 근거 원문 ${evidenceArticles.length}건</summary>
+      <p class="dialog-evidence-note">브리핑에 선정되지는 않았지만 같은 사건을 다룬 보도입니다. 검증에는 함께 셉니다.</p>
+      ${timelineList(evidenceArticles, {
+        contextDate,
+        stage: state.view === "news" ? "이번 브리핑" : "최근 브리핑",
+        shownDetail: issueDetail,
+        moreLabel: "이전 근거",
+      })}
+    </details>` : ""}
     ${related.length ? `<section class="dialog-related" aria-labelledby="issueRelatedTitle">
       <div class="dialog-section-head"><h3 id="issueRelatedTitle">관련 이슈</h3><span>같은 주제로 연결된 이슈입니다</span></div>
       <ul>${related.map(item => `<li>
@@ -2540,14 +2734,17 @@ function renderTrendReadiness() {
     ? ` · 분류율은 큐레이션 ${curated}건 기준(대기 ${uncurated}건 제외)`
     : "";
   const coverage = `<div class="coverage"><span>주제 분류 <strong>${topicCoverage}%</strong></span><span>국가 분류 <strong>${countryCoverage}%</strong></span></div>`;
-  const { start, end } = trendRange();
-  const articleCount = state.news.filter(article => article.article_date >= start && article.article_date <= end).length;
-  const issueCount = state.issues.filter(issue => (issue.related_articles || []).some(article => article.article_date >= start && article.article_date <= end)).length;
+  const pdata = periodData();
+  const { start, end } = pdata ? { start: pdata.start, end: pdata.end } : trendRange();
+  const articleCount = pdata?.story_count ?? state.news.filter(article => article.article_date >= start && article.article_date <= end).length;
+  const issueCount = pdata
+    ? articleCount
+    : state.issues.filter(issue => (issue.related_articles || []).some(article => article.article_date >= start && article.article_date <= end)).length;
   const panel = document.getElementById("trendReadiness");
   document.getElementById("trendData").hidden = !ready;
   panel.classList.toggle("ready", ready);
   panel.innerHTML = ready
-    ? `<div><strong>분석 기간 ${dateLabel(start)}–${dateLabel(end)}</strong><p>중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개${basis}</p></div>${coverage}`
+    ? `<div><strong>분석 기간 ${dateLabel(start)}–${dateLabel(end)}</strong><p>${pdata ? `동일 사건 중복 보도 제거 적용 · 선정 사건 ${articleCount}건` : `중복 제거 적용 · 원본 ${articleCount}건 → 연결 이슈 ${issueCount}개`}${basis}</p></div>${coverage}`
     : `<div><strong>분류 기준을 확인하고 있습니다</strong><p>분류가 완료되면 분석 기간과 근거 데이터를 함께 표시합니다.${basis}</p></div>${coverage}`;
 }
 
@@ -2556,21 +2753,32 @@ function renderTrendReadiness() {
 // 실측 2026-08-10: '최근 30일'을 눌러도 위쪽 '분석 기간'만 7월 12일~로 바뀌고
 // 표는 top_tags_7d 를 그대로 그렸다. 사용자에게 같은 숫자를 30일치라고 읽힌 셈이다.
 //
-// 30일에는 비교 상대가 없다 — rising/new_tags 는 최근 7일 대 직전 7일로만
-// 계산된다(build_data.py). 없는 비교를 지어내는 대신 있는 것을 쓴다: 30일 건수와
-// 그중 최근 7일이 몇 건인가. 수집량이 주마다 널뛰는 이 데이터에서는 이쪽이
-// '변화'보다 정직하다 — 실측 데이터센터 30일 72건 중 71건이 최근 7일이었다.
-function isMonthPeriod(period = state.period) {
-  return String(period) === "30";
+// 비교 상대도 같은 기간으로 따라간다. build_data.py 는 기간마다 자기 직전 구간
+// (30일이면 직전 30일, 분기면 직전 분기)의 tag 집계를 tag_comparison 에 실어 준다.
+// 그래서 화면이 7일에만 비교를 붙일 이유는 없다 — 붙일지 말지는 기간이 아니라
+// previous_period_complete 하나로 정한다.
+//
+// 없는 비교를 지어내지는 않는다. archive 가 직전 구간을 온전히 덮지 못하면
+// (2026-08-16 실측: archive 시작 7/18 이라 30일 이상은 전부 previous 없음)
+// 비교 열을 접고 선정 사건 건수만 남긴 뒤, 왜 접혔는지 해석문에 적는다.
+function periodData(period = state.period) {
+  return state.trend?.periods?.[String(period)] || null;
 }
 
+function isWeekPeriod(period = state.period) { return String(period) === "7"; }
+function isMonthPeriod(period = state.period) { return String(period) === "30"; }
+function isLongPeriod(period = state.period) { return Number(period) >= 90; }
+
 function keywordRows(period = state.period) {
+  const pdata = periodData(period);
+  if (pdata?.tag_comparison?.length) return pdata.tag_comparison.map(row => ({
+    tag: row.tag, now: row.count || 0, prev: row.previous_count,
+    delta: row.delta, isNew: Boolean(row.new),
+  }));
+  if (pdata?.top_tags) return pdata.top_tags.map(row => ({ tag: row.tag, now: row.count, prev: null, delta: null, isNew: false }));
+  // 구버전 trend.json 호환
+  if (isMonthPeriod(period)) return (state.trend?.top_tags_30d || []).map(row => ({ tag: row.tag, now: row.count }));
   const week = new Map((state.trend?.top_tags_7d || []).map(row => [row.tag, row.count]));
-  if (isMonthPeriod(period)) {
-    return (state.trend?.top_tags_30d || [])
-      .map(row => ({ tag: row.tag, now: row.count, week: week.get(row.tag) || 0 }))
-      .filter(row => row.now > 0);
-  }
   const rising = new Map((state.trend?.rising || []).map(row => [row.tag, row]));
   const newTags = new Set((state.trend?.new_tags || []).map(row => row.tag));
   const tags = new Set([...week.keys(), ...rising.keys(), ...newTags]);
@@ -2584,60 +2792,123 @@ function keywordRows(period = state.period) {
   }).filter(row => row.now > 0 || row.prev > 0);
 }
 
+function periodLabel(period = state.period) {
+  return ({ "7": "최근 7일", "30": "최근 30일", "90": "최근 분기", "180": "최근 반기", "365": "최근 1년" })[String(period)] || `최근 ${period}일`;
+}
+
+// 비교 상대 구간의 이름. '전주'는 7일에서만 맞는 말이라 기간을 따라 바뀌어야 한다.
+function previousPeriodLabel(period = state.period) {
+  return ({ "7": "직전 7일", "30": "직전 30일", "90": "직전 분기", "180": "직전 반기", "365": "직전 1년" })[String(period)] || `직전 ${period}일`;
+}
+
+// 비교 구간의 실제 날짜. periods[*].requested_start 앞 하루가 직전 구간의 끝이다.
+function previousPeriodRange(pdata) {
+  if (!pdata?.previous_period_complete || !pdata.requested_start) return null;
+  const end = shiftDate(pdata.requested_start, -1);
+  return { start: shiftDate(end, -(Number(pdata.days || state.period) - 1)), end };
+}
+
 function renderKeywordTable() {
-  const month = isMonthPeriod();
-  // 변화순·신규만은 최근 7일 대 직전 7일 위에서만 정의된다. 30일에서 눌리게
-  // 두면 또 '눌러도 안 바뀌는 버튼'이 된다 — 아예 치운다.
+  const weekMode = isWeekPeriod();
+  const pdata = periodData();
+  // 기간이 아니라 '직전 구간이 archive 에 온전히 있는가'로 정한다. 구버전
+  // trend.json 에는 periods 가 없고 7일 rising/new_tags 만 있으므로 그때만 weekMode.
+  const comparisonMode = pdata ? Boolean(pdata.previous_period_complete) : weekMode;
   const sortBox = document.getElementById("keywordSort");
   for (const button of sortBox.querySelectorAll("[data-sort]")) {
-    button.hidden = month && button.dataset.sort !== "mentions";
+    button.hidden = !comparisonMode && button.dataset.sort !== "mentions";
   }
-  if (month && state.keywordSort !== "mentions") {
+  if (!comparisonMode && state.keywordSort !== "mentions") {
     state.keywordSort = "mentions";
     setPressed(sortBox, sortBox.querySelector('[data-sort="mentions"]'));
   }
-
   let rows = keywordRows();
-  if (!month && state.keywordSort === "new") rows = rows.filter(row => row.isNew);
-  rows.sort((a, b) => !month && state.keywordSort === "change"
-    ? b.delta - a.delta || b.now - a.now
-    : b.now - a.now || (b.delta || 0) - (a.delta || 0));
+  if (comparisonMode && state.keywordSort === "new") rows = rows.filter(row => row.isNew);
+  rows.sort((a, b) => comparisonMode && state.keywordSort === "change"
+    ? (b.delta || 0) - (a.delta || 0) || b.now - a.now
+    : b.now - a.now);
   rows = rows.slice(0, 12);
-  // 비중은 여기서 한 번만 반올림한다. 칸은 반올림값(70%), 아래 해석 문장은 원값
-  // (0.697)으로 세면 '70%인데 70% 이상 아님' 같은 한 건 차이가 난다 — 실측
-  // 기후변화 23/33.
-  if (month) for (const row of rows) row.share = row.now ? Math.round(row.week / row.now * 100) : 0;
 
-  // 열 수(6)는 두 모드가 같다 — .keyword-row 그리드를 건드리지 않으려는 것이다.
-  const head = month
-    ? '<span>키워드</span><span>최근 30일</span><span>최근 7일</span><span>7일 비중</span><span>분포</span><span></span>'
-    : '<span>키워드</span><span>이번 주</span><span>전주</span><span>변화</span><span>상태</span><span></span>';
-  const body = rows.map(row => {
-    if (month) {
-      const share = row.share;
-      return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.week}</span><span class="${share >= 70 ? "positive" : ""}">${share}%</span><span>${share >= 70 ? "최근 집중" : share <= 30 ? "이전 중심" : "고르게"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`;
-    }
-    return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev}</span><span class="${row.delta > 0 ? "positive" : row.delta < 0 ? "negative" : ""}">${row.delta > 0 ? "+" : row.delta < 0 ? "−" : ""}${Math.abs(row.delta)}</span><span>${row.isNew ? "신규" : row.delta >= 3 ? "늘어남" : "이어짐"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`;
-  }).join("");
-  document.getElementById("keywordTable").innerHTML = rows.length
+  const nowLabel = periodLabel();
+  const prevLabel = previousPeriodLabel();
+  const head = comparisonMode
+    ? `<span>키워드</span><span>${esc(nowLabel)}</span><span>${esc(prevLabel)}</span><span>변화</span><span>상태</span><span></span>`
+    : `<span>키워드</span><span>${esc(nowLabel)}</span><span></span><span></span><span>기준</span><span></span>`;
+  const body = rows.map(row => comparisonMode
+    ? `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev ?? 0}</span><span class="${(row.delta || 0) > 0 ? "positive" : (row.delta || 0) < 0 ? "negative" : ""}">${(row.delta || 0) > 0 ? "+" : (row.delta || 0) < 0 ? "−" : ""}${Math.abs(row.delta || 0)}</span><span>${row.isNew ? "신규" : (row.delta || 0) >= 3 ? "늘어남" : "이어짐"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`
+    : `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span></span><span></span><span>중복 제거</span><button type="button" data-keyword="${esc(row.tag)}">선정 사건 ${row.now}건 →</button></div>`
+  ).join("");
+  const table = document.getElementById("keywordTable");
+  // 모바일은 머리줄을 접고 셀마다 ::before 라벨을 붙인다(style.css). 그 문구도
+  // 기간을 따라야 하므로 CSS 문자열로 넘긴다 — JSON.stringify 가 곧 CSS 문자열 토큰.
+  table.style.setProperty("--kw-now-label", JSON.stringify(nowLabel));
+  table.style.setProperty("--kw-prev-label", JSON.stringify(prevLabel));
+  table.innerHTML = rows.length
     ? `<div class="keyword-row keyword-head" aria-hidden="true">${head}</div>${body}`
     : '<p class="empty">조건에 맞는 키워드가 없습니다.</p>';
 
+  // 어느 구간을 어느 구간과 비교했는지는 표 위에 날짜로 못 박는다 — '분기'를
+  // 눌렀는데 archive 가 30일뿐이면 표에 뜨는 것은 분기가 아니라 그 30일이다.
+  const meta = document.getElementById("keywordMeta");
+  if (meta) {
+    if (!pdata) meta.textContent = "";
+    else {
+      const prevRange = previousPeriodRange(pdata);
+      const shortfall = pdata.complete_period ? "" : ` · ${nowLabel} 중 현재 축적 ${pdata.available_days || 0}일`;
+      meta.textContent = `${dateLabel(pdata.start)}–${dateLabel(pdata.end)}${
+        prevRange ? ` · ${prevLabel}(${dateLabel(prevRange.start)}–${dateLabel(prevRange.end)}) 대비` : " · 비교 구간 미축적"
+      }${shortfall}`;
+    }
+  }
+
   const interpretation = document.getElementById("keywordInterpretation");
-  if (month) {
-    const concentrated = rows.filter(row => row.share >= 70).length;
-    interpretation.textContent = rows.length
-      ? `상위 ${rows.length}개 중 ${concentrated}개가 30일치의 70% 이상을 최근 7일에 몰았습니다.`
-      : "비교할 키워드가 아직 충분하지 않습니다.";
-  } else {
-    const strongest = [...keywordRows()].sort((a, b) => b.delta - a.delta)[0];
+  if (comparisonMode) {
+    const strongest = [...keywordRows()].sort((a, b) => (b.delta || 0) - (a.delta || 0))[0];
     interpretation.textContent = strongest
-      ? `${strongest.tag}이(가) 전주보다 ${Math.abs(strongest.delta)}건 늘어 이번 주 변화가 가장 컸습니다.`
+      ? `${strongest.tag}이(가) ${prevLabel}보다 ${Math.abs(strongest.delta || 0)}건 ${Number(strongest.delta || 0) >= 0 ? "늘어" : "줄어"} ${nowLabel} 변화가 가장 컸습니다.`
+      : "비교할 키워드가 아직 충분하지 않습니다.";
+  } else if (pdata && !pdata.previous_period_complete) {
+    interpretation.textContent = `${prevLabel} 전체가 archive에 아직 축적되지 않아 ${nowLabel} 선정 사건 건수만 표시합니다.`;
+  } else {
+    const top = rows[0];
+    interpretation.textContent = top
+      ? `${nowLabel} 선정 사건에서 ${top.tag} 관련 이슈가 ${top.now}건으로 가장 많이 선정됐습니다.`
       : "비교할 키워드가 아직 충분하지 않습니다.";
   }
-  document.getElementById("keywordEvidence").innerHTML = rows.map(row => month
-    ? `<p><strong>${esc(row.tag)}</strong> · 최근 30일 ${row.now}건 · 그중 최근 7일 ${row.week}건</p>`
-    : `<p><strong>${esc(row.tag)}</strong> · 이번 주 ${row.now}건 · 전주 ${row.prev}건</p>`).join("");
+  document.getElementById("keywordEvidence").innerHTML = rows.map(row =>
+    `<p><strong>${esc(row.tag)}</strong> · ${esc(nowLabel)} 선정 사건 ${row.now}건</p>`).join("");
+}
+
+function renderPeriodTimeline() {
+  const box = document.getElementById("periodTimeline");
+  const meta = document.getElementById("periodTimelineMeta");
+  const interpretation = document.getElementById("periodTimelineInterpretation");
+  if (!box) return;
+  const pdata = periodData();
+  const rows = pdata?.timeline || [];
+  if (meta) {
+    if (!pdata) meta.textContent = "";
+    else {
+      const contractCoverage = Number(pdata.story_contract_coverage ?? 1);
+      const contractNote = contractCoverage < 0.999
+        ? ` · 사건 단위 집계 적용 ${Math.round(contractCoverage * 100)}% (이전 구간은 기존 선정 단위)`
+        : ` · 복수 매체 보도 사건 ${pdata.multi_source_story_count}건`;
+      meta.textContent = `${dateLabel(pdata.start)}–${dateLabel(pdata.end)} · 선정 사건 ${pdata.story_count}건${contractNote}${pdata.complete_period ? "" : ` · ${periodLabel()} 중 현재 축적 ${pdata.available_days || 0}일`}`;
+    }
+  }
+  if (!rows.length) {
+    box.innerHTML = '<p class="empty">선택 기간에 표시할 흐름이 없습니다.</p>';
+    if (interpretation) interpretation.textContent = "";
+    return;
+  }
+  box.innerHTML = rows.map(row => {
+    const topics = (row.top_topics || []).map(topic => TOPIC_LABELS[topic] || topic).join(" · ");
+    const highlights = (row.highlights || []).map(item => `<li>${esc(item.title)}</li>`).join("");
+    const range = row.start === row.end ? dateLabel(row.start) : `${dateLabel(row.start)}–${dateLabel(row.end)}`;
+    return `<article class="period-timeline-row"><div class="period-timeline-date"><strong>${esc(range)}</strong><span>선정 사건 ${row.story_count}건${row.multi_source_story_count ? ` · 복수 매체 ${row.multi_source_story_count}` : ""}</span></div><div class="period-timeline-copy">${topics ? `<p>${esc(topics)}</p>` : ""}${highlights ? `<ul>${highlights}</ul>` : ""}</div></article>`;
+  }).join("");
+  const busiest = [...rows].sort((a, b) => b.story_count - a.story_count)[0];
+  if (interpretation && busiest) interpretation.textContent = `${pdata?.complete_period ? periodLabel() : "현재 축적 구간"} 중 ${dateLabel(busiest.start)}${busiest.end !== busiest.start ? `–${dateLabel(busiest.end)}` : ""} 구간에 선정 사건 ${busiest.story_count}건으로 움직임이 가장 많았습니다.${pdata && !pdata.complete_period ? " 데이터가 누적되면 선택 기간 전체로 자동 확장됩니다." : ""}`;
 }
 
 function bars(element, rows, labelFn) {
@@ -2656,7 +2927,7 @@ function renderCountryMap() {
   const box = document.getElementById("countryMap");
   const note = document.getElementById("countryMapNote");
   if (!box) return;
-  const rows = state.trend?.countries_30d || [];
+  const rows = periodData()?.countries || state.trend?.countries_30d || [];
   const counts = new Map(rows.map(row => [row.country, row.count]));
   const max = Math.max(1, ...rows.filter(row => COUNTRY_GRID[row.country]).map(row => row.count));
   box.style.setProperty("--map-cols", COUNTRY_MAP_COLS);
@@ -2736,7 +3007,7 @@ function renderCountryRegions(rows) {
   const spreadCount = spread
     ? rows.filter(row => COUNTRY_REGION[row.country] === "유럽·러시아").length
     : 0;
-  const parts = [`최근 30일은 ${lead.name}가 ${lead.count}건으로 가장 많았습니다`];
+  const parts = [`${periodLabel()}은 ${lead.name}가 ${lead.count}건으로 가장 많았습니다`];
   if (spread && spreadCount > 1) {
     parts.push(`유럽·러시아는 ${spreadCount}개국에 ${spread.count}건이 흩어져 있어 나라별로는 작아 보입니다`);
   }
@@ -3006,11 +3277,13 @@ function renderTrend() {
   renumberSections("view-trend");
   if (!state.meta?.trend_ready) return;
   renderKeywordTable();
+  renderPeriodTimeline();
   renderCountryMap();
-  bars(document.getElementById("countryBars"), state.trend.countries_30d, row => COUNTRY_LABELS[row.country] || row.country);
-  const topCountry = state.trend.countries_30d?.[0];
+  const countryRows = periodData()?.countries || state.trend.countries_30d || [];
+  bars(document.getElementById("countryBars"), countryRows, row => COUNTRY_LABELS[row.country] || row.country);
+  const topCountry = countryRows[0];
   document.getElementById("countryInterpretation").textContent = topCountry
-    ? `최근 30일에는 ${COUNTRY_LABELS[topCountry.country] || topCountry.country} 관련 이슈가 ${topCountry.count}개로 가장 많았습니다.`
+    ? `${periodLabel()}에는 ${COUNTRY_LABELS[topCountry.country] || topCountry.country} 관련 선정 사건이 ${topCountry.count}건으로 가장 많았습니다.`
     : "국가별로 비교할 이슈가 아직 충분하지 않습니다.";
   renderSlopeGraph();
 }
@@ -3652,6 +3925,13 @@ function bind() {
     briefAudio.playbackRate = rate;
     syncAudioRateButtons();
   });
+  document.getElementById("audioModes").addEventListener("click", event => {
+    const button = event.target.closest("[data-audio-mode]");
+    if (!button || button.hidden) return;
+    state.audioMode = button.dataset.audioMode;
+    localStorage.setItem("nuclens-audio-mode", state.audioMode);
+    renderAudioBrief(currentBriefing());
+  });
   // playbackRate 는 src 교체 때 1.0 으로 돌아온다 — 재생 시작마다 다시 얹는다.
   briefAudio.addEventListener("play", () => {
     briefAudio.playbackRate = audioRate();
@@ -3674,7 +3954,7 @@ function bind() {
   });
   briefAudio.addEventListener("timeupdate", () => {
     const total = Number.isFinite(briefAudio.duration) && briefAudio.duration > 0
-      ? briefAudio.duration : state.audio?.duration_sec;
+      ? briefAudio.duration : activeAudioVariant()?.duration_sec;
     // 드래그 중(포커스가 바에 있는 동안)에는 손 위치를 덮어쓰지 않는다
     if (document.activeElement !== audioSeek) {
       audioSeek.value = String(Math.floor(briefAudio.currentTime));
@@ -3682,9 +3962,12 @@ function bind() {
     document.getElementById("audioTime").textContent =
       `${fmtClock(briefAudio.currentTime)} / ${fmtClock(total)}${audioPartialSuffix()}`;
   });
-  // 캐시 유실 등으로 mp3 가 404 면 죽은 버튼을 남기지 않는다
+  // 캐시 유실 등으로 한 variant의 mp3가 404여도 다른 브리핑까지 숨기지 않는다.
+  // 날짜+모드 단위로 실패를 기억하고 즉시 다른 variant로 fallback한다.
   briefAudio.addEventListener("error", () => {
-    document.getElementById("audioBrief").hidden = true;
+    const briefing = currentBriefing();
+    if (briefing) state.audioFailures.add(audioFailureKey(briefing, state.audioMode));
+    renderAudioBrief(briefing);
   });
 
   document.getElementById("regionTabs").addEventListener("click", event => {
@@ -3908,6 +4191,8 @@ async function init() {
   }
   loadSaved();
   loadFollows();
+  const savedAudioMode = localStorage.getItem("nuclens-audio-mode");
+  state.audioMode = ["fast", "expert"].includes(savedAudioMode) ? savedAudioMode : "fast";
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
   restoreUrlState();
   renderTopicSelects();

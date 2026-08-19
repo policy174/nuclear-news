@@ -21,15 +21,16 @@ function extract(name) {
   throw new Error(`${name}() 블록이 안 닫힌다`);
 }
 
-const { shiftDate, weekRange, trendStart, timeLabel } = new Function(`
+const { shiftDate, weekRange, briefingWeek, trendStart, timeLabel } = new Function(`
   ${extract("shiftDate")}
   ${extract("weekRange")}
+  ${extract("briefingWeek")}
   ${extract("todayKST")}
   ${extract("dateTimeLabel")}
   ${extract("timeLabel")}
   // trendRange() 는 state/meta 에 얽혀 있어 창 계산부만 같은 헬퍼로 재현한다.
   const trendStart = (end, days) => shiftDate(end, -(days - 1));
-  return { shiftDate, weekRange, trendStart, timeLabel };
+  return { shiftDate, weekRange, briefingWeek, trendStart, timeLabel };
 `)();
 
 const cases = [];
@@ -44,6 +45,19 @@ eq("주간 창 길이 = 7일", 1 + (Date.parse("2026-08-09") - Date.parse(weekRa
 eq("월 경계", weekRange("2026-03-02").start, "2026-02-24");
 eq("윤년 2월", shiftDate("2028-03-01", -1), "2028-02-29");
 eq("연 경계", shiftDate("2026-01-01", -1), "2025-12-31");
+
+// 주간 리포트 매칭 창은 **토~금**이다(weekly_bot 이 금요일에 직전 7일을 묶는다).
+// 수요일이면 그 주 토요일로 되돌아가고 금요일로 끝난다.
+eq("briefingWeek 수요일 시작(토)", briefingWeek("2026-08-12").start, "2026-08-08");
+eq("briefingWeek 수요일 끝(금)", briefingWeek("2026-08-12").end, "2026-08-14");
+// 경계 요일: 토요일은 자기 주의 시작, 금요일은 자기 주의 끝.
+eq("briefingWeek 토요일 시작", briefingWeek("2026-08-08").start, "2026-08-08");
+eq("briefingWeek 금요일 끝", briefingWeek("2026-08-14").end, "2026-08-14");
+// 연 경계: 2026-12-30(수) 의 주는 12/26(토)~2027-01-01(금).
+eq("briefingWeek 연 경계 시작", briefingWeek("2026-12-30").start, "2026-12-26");
+eq("briefingWeek 연 경계 끝", briefingWeek("2026-12-30").end, "2027-01-01");
+// 빈 값은 렌더를 죽이지 않는다.
+eq("briefingWeek 빈 날짜", briefingWeek("").start, "");
 
 // 트렌드 토글: 7일은 7일, 30일은 30일.
 eq("trend 7일 창", trendStart("2026-08-10", 7), "2026-08-04");

@@ -113,6 +113,15 @@
                '오늘 무엇이 있었나'보다 도구가 먼저 선다(사용자 지적 8/6). 읽을
                것(선두 카드)이 먼저, 들을지는 그다음 선택. -->
           <div class="hero-audio" id="audioBrief" hidden>
+            <div class="audio-mode-row" id="audioModes" role="group" aria-label="오디오 브리핑 종류">
+              <button type="button" data-audio-mode="fast" aria-pressed="true">
+                <strong>빠른 브리핑</strong><small>핵심 뉴스 · 약 3분</small>
+              </button>
+              <button type="button" data-audio-mode="expert" aria-pressed="false">
+                <strong>전문가 브리핑</strong><small>정책·기술 통합 해설 · 약 10분</small>
+              </button>
+            </div>
+            <div class="audio-control-row">
             <button id="audioToggle" type="button" aria-pressed="false">▶ 브리핑 듣기</button>
             <span class="hero-audio-time" id="audioTime" aria-hidden="true"></span>
             <!-- 시크 바 — 8~10분 음원에서 중간 이동이 필수가 됐다(사용자 요청
@@ -132,6 +141,8 @@
               <button type="button" data-rate="1.5" aria-pressed="false">1.5×</button>
               <button type="button" data-rate="2" aria-pressed="false">2×</button>
             </div>
+            </div>
+            <p class="audio-description" id="audioDescription"></p>
             <audio id="audioEl" preload="none"></audio>
           </div>
         </div>
@@ -143,7 +154,7 @@
     </section>
 
     <!-- 부팅 스켈레톤. 예전에는 #issueList 안에 앉아 있었는데, 그 위의 세 섹션
-         (오늘 3분·가장 먼저 볼 이슈·지금 달라진 이슈)이 전부 hidden 으로 시작해
+         (주간 3분·가장 먼저 볼 이슈·지금 달라진 이슈)이 전부 hidden 으로 시작해
          데이터가 오면 한꺼번에 펴졌다. 실측 2026-08-10: 그 순간 #todayIssues 가
          442px → 1893px 로 **1451px** 밀려 CLS 0.90 이 찍혔다(good 기준 0.1).
          화면에 이미 그려 놓은 것을 밀어내지 않으려면, 로딩 중에는 나중에
@@ -155,12 +166,19 @@
       <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
     </div>
 
-    <!-- 오늘 3분은 기사 목차가 아니라 의사결정용 스캔 화면이다. 제목 나열은
+    <!-- 주간 3분은 기사 목차가 아니라 의사결정용 스캔 화면이다. 제목 나열은
          카드가 이미 하고 있어서 같은 문장을 두 번 내보내던 자리였고, 필터·정렬이
          걸리면 목차 번호와 카드 번호가 어긋나기까지 했다. 이제 결론과 다음 확인만
-         담는다 — 새로 달라진 사실과 확인할 것이 이 영역의 소유 범위다. -->
+         담는다 — 새로 달라진 사실과 확인할 것이 이 영역의 소유 범위다.
+
+         제목은 renderTodayAgenda 가 선택 날짜의 주차 구간으로 바꿔 쓴다
+         ("8월 8일–14일 주간 3분"). 재료가 주간 리포트뿐이라 며칠간 내용이 같은데,
+         '오늘 3분'이라는 이름이 매일 새 분석처럼 읽히게 만들고 있었다. -->
     <nav id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
-      <div class="agenda-head"><strong id="todayAgendaTitle">오늘 3분</strong><span id="todayAgendaMeta"></span></div>
+      <div class="agenda-head"><strong id="todayAgendaTitle">주간 3분</strong><span id="todayAgendaMeta"></span></div>
+      <!-- 그 주 리포트가 아직 없는 날. 직전 주 내용을 대신 끼우지 않는다 —
+           지난주 결론이 오늘 분석인 것처럼 붙는 것이 원래 문제였다. -->
+      <p class="agenda-pending" id="agendaPending" hidden></p>
       <div class="agenda-block" id="agendaConclusions" hidden>
         <span class="agenda-label">이번 주 결론</span>
         <ol id="agendaConclusionList"></ol>
@@ -380,13 +398,23 @@
     <section id="trendData" hidden>
       <div class="period-row">
         <nav class="filter-tabs" id="periodTabs" aria-label="집계 기간">
-          <button class="filter-tab active" data-period="7" aria-pressed="true">최근 7일</button>
-          <button class="filter-tab" data-period="30" aria-pressed="false">최근 30일</button>
+          <button class="filter-tab active" data-period="7" aria-pressed="true">7일</button>
+          <button class="filter-tab" data-period="30" aria-pressed="false">30일</button>
+          <button class="filter-tab" data-period="90" aria-pressed="false">분기</button>
+          <button class="filter-tab" data-period="180" aria-pressed="false">반기</button>
+          <button class="filter-tab" data-period="365" aria-pressed="false">1년</button>
         </nav>
       </div>
+      <section class="data-card period-timeline-card" aria-labelledby="periodTimelineTitle">
+        <div class="data-card-head"><div><h2 id="periodTimelineTitle">기간 흐름</h2><p id="periodTimelineMeta" class="data-note"></p></div></div>
+        <div id="periodTimeline" class="period-timeline"></div>
+        <p id="periodTimelineInterpretation" class="chart-interpretation"></p>
+      </section>
       <div class="trend-stack">
         <section class="data-card keyword-panel">
-          <div class="data-card-head"><div><h2>키워드 비교</h2></div>
+          <!-- 위 기간 토글을 그대로 따른다. 어느 구간을 어느 구간과 비교했는지
+               한 줄로 밝히지 않으면 '분기'를 눌러 놓고 7일 표를 읽게 된다. -->
+          <div class="data-card-head"><div><h2>키워드 비교</h2><p id="keywordMeta" class="data-note"></p></div>
             <div class="segmented" id="keywordSort">
               <button class="active" type="button" data-sort="mentions" aria-pressed="true">언급순</button>
               <button type="button" data-sort="change" aria-pressed="false">변화순</button>
@@ -408,7 +436,7 @@
           <!-- 뒷문장은 지도에 대한 설명이라 지도를 접는 모바일에서는 같이 접는다. -->
           <!-- 위 기간 토글을 따라가지 않는다. countries_30d 한 벌만 있고 7일치가
                없어서인데, 말 안 하면 '7일'을 눌러 놓고 30일 지도를 보게 된다. -->
-          <p class="data-note">기간 선택과 무관하게 최근 30일 연결 이슈 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
+          <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
           <div class="country-map-layout">
             <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
             <div id="countryMap" class="country-map" aria-hidden="true"></div>
@@ -424,7 +452,7 @@
         <div class="trend-grid">
           <section class="data-card">
             <h2>국가·지역별 이슈 수</h2>
-            <p class="data-note">기간 선택과 무관하게 최근 30일 연결 이슈 기준 · 복수 국가는 각각 1건</p>
+            <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준 · 복수 국가는 각각 1건</p>
             <div id="countryBars"></div>
             <p id="countryInterpretation" class="chart-interpretation"></p>
             <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>

@@ -1659,9 +1659,10 @@ class GeneratedDataTests(unittest.TestCase):
         for rate in ("1", "1.25", "1.5", "2"):
             self.assertIn(f'data-rate="{rate}"', html)
         self.assertIn("syncAudioRateButtons", script)
-        # 날짜가 다른 브리핑에서는 숨는다 — renderBriefing 모든 경로에서 판정
+        # 날짜가 다른 브리핑에서는 숨는다 — renderBriefing 모든 경로에서 판정.
+        # v2 variants 도입으로 날짜 대조는 audioVariantsFor 의 이른 반환이 맡는다.
         self.assertIn("renderAudioBrief(briefing)", script)
-        self.assertIn("meta.date === briefing.date", script)
+        self.assertIn("meta.date !== briefing.date", script)
         # 모바일이 본 무대 — hero-actions 처럼 숨기지 말고 44px 터치 타깃
         self.assertIn(".hero-audio button { min-height: 44px; }", style)
         self.assertNotIn(".hero-audio { display: none", style)
@@ -2051,8 +2052,10 @@ class GeneratedDataTests(unittest.TestCase):
     def test_p5_detail_order_related_issues_and_mobile_actions(self):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        # v2 상세는 타임라인을 둘로 가른다 — 선정 기사(주요 사건 타임라인)와
+        # 미선정 보도(추가 근거 원문, 접힘). 옛 단일 제목은 사라졌다.
         for heading in ("한 줄 결론", "이번에 달라진 점", "왜 중요한가", "시사점",
-                        "사건 타임라인과 근거 원문", "관련 이슈"):
+                        "주요 사건 타임라인", "추가 근거 원문", "관련 이슈"):
             self.assertIn(heading, script)
         self.assertIn("function relatedIssues", script)
         # 제목이 상세 진입점이므로 좁은 화면에서 타임라인 버튼을 숨겨도 길이 남는다.

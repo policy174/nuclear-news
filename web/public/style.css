@@ -724,6 +724,16 @@ kbd {
   font-weight: 700;
 }
 .today-agenda ul li::before { content: "· "; color: var(--c-text-muted); }
+/* 그 주 리포트가 아직 없는 날의 한 줄. 결론 목록과 같은 자리에 오되 주장하는
+   문장이 아니므로 본문 굵기를 주지 않는다. */
+.agenda-pending {
+  margin: 0;
+  padding: var(--sp-3) 0;
+  border-top: var(--bd-1) solid var(--c-border);
+  color: var(--c-text-muted);
+  font-size: var(--t-body);
+  line-height: 1.5;
+}
 .issue-card[id], .lead-card[id] { scroll-margin-top: 92px; }
 .agenda-target { animation: agenda-pulse var(--mo-2) ease-out; }
 @keyframes agenda-pulse { 0%, 100% { background: transparent; } 35% { background: var(--c-surface-sunken); } }
@@ -865,6 +875,59 @@ kbd {
   background: var(--c-text);
   color: var(--c-bg);
 }
+/* ── Audio v2: 빠른 브리핑 / 전문가 브리핑 이중 플레이어 ── */
+.audio-mode-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  flex-basis: 100%;
+  max-width: 560px;
+}
+.audio-mode-row button {
+  display: grid;
+  gap: 2px;
+  min-height: 54px;
+  padding: 8px 12px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--c-text);
+  text-align: left;
+}
+.audio-mode-row button strong { font-size: var(--t-caption); font-weight: 700; }
+.audio-mode-row button small { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 500; }
+.audio-mode-row button[aria-pressed="true"] { border-color: var(--c-text); background: var(--c-surface-sunken); }
+.audio-control-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.audio-control-row > #audioToggle {
+  min-height: 40px;
+  padding: 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--c-border-strong);
+  background: transparent;
+  color: var(--c-text);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+.audio-control-row > #audioToggle:hover { border-bottom-color: var(--c-text); }
+.audio-description { flex-basis: 100%; max-width: 680px; margin: -4px 0 0; color: var(--c-text-muted); font-size: var(--t-min); line-height: 1.5; }
+
+/* ── 장기 흐름: 7일/30일/분기/반기/연간 story timeline ── */
+.period-timeline-card { margin: var(--sp-5) 0 var(--sp-6); }
+.period-timeline { display: grid; border-top: var(--bd-2) solid var(--c-border-strong); }
+.period-timeline-row {
+  display: grid;
+  grid-template-columns: minmax(125px, .55fr) minmax(0, 1.8fr);
+  gap: var(--sp-5);
+  padding: var(--sp-3) 0;
+  border-bottom: var(--bd-1) solid var(--c-border);
+}
+.period-timeline-date { display: grid; align-content: start; gap: 3px; }
+.period-timeline-date strong { font-family: var(--ff-mono); font-size: var(--t-min); font-variant-numeric: tabular-nums; }
+.period-timeline-date span { color: var(--c-text-muted); font-size: var(--t-min); }
+.period-timeline-copy p { margin: 0 0 4px; color: var(--c-secondary); font-size: var(--t-min); font-weight: 650; }
+.period-timeline-copy ul { display: grid; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.period-timeline-copy li { color: var(--c-text-secondary); font-size: var(--t-caption); line-height: 1.45; }
+.period-timeline-copy li::before { content: "· "; color: var(--c-text-muted); }
 /* 데이터 상태 — 히어로가 문장 하나와 상태만 책임진다. 근거 목록은 아래 카드와
    중복이라 제거했다. */
 
@@ -1698,7 +1761,13 @@ body.booting .status-strip.loading { display: none; }
    가리던 문제(실측 2026-08-05: 19건 중 12건). 지우지 않고 접는다. 서가 그리드의
    자식이므로 전체 폭을 차지하도록 열을 넘긴다. */
 .pub-technical { grid-column: 1 / -1; border-top: 1px solid var(--c-border); padding-top: var(--sp-4); }
-.pub-technical > summary {
+/* ── 접기 손잡이 한 벌 ────────────────────────────────────────────────
+   서가의 기술문서와 상세의 근거 원문은 같은 동작을 한다: 정보를 지우지 않고
+   접어 둔다. 손잡이를 두 벌로 그리면 같은 동작이 다른 것으로 읽힌다.
+   레이아웃(테두리·여백)만 각자 정하고 손잡이는 여기 하나를 쓴다. */
+.pub-technical > summary,
+.dialog-evidence > summary,
+.timeline-more > summary {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
@@ -1709,8 +1778,12 @@ body.booting .status-strip.loading { display: none; }
 }
 /* display:flex 는 기본 펼침 마커를 지운다 — 실측으로 잡았다(화살표가 없으니
    클릭할 수 있는 줄로 안 읽힌다). 직접 그린다. */
-.pub-technical > summary::-webkit-details-marker { display: none; }
-.pub-technical > summary::before {
+.pub-technical > summary::-webkit-details-marker,
+.dialog-evidence > summary::-webkit-details-marker,
+.timeline-more > summary::-webkit-details-marker { display: none; }
+.pub-technical > summary::before,
+.dialog-evidence > summary::before,
+.timeline-more > summary::before {
   content: "";
   flex: none;
   width: 7px;
@@ -1720,11 +1793,17 @@ body.booting .status-strip.loading { display: none; }
   transform: rotate(-45deg);
   transition: transform var(--mo-fast, 120ms) ease;
 }
-.pub-technical[open] > summary::before { transform: rotate(45deg); }
+.pub-technical[open] > summary::before,
+.dialog-evidence[open] > summary::before,
+.timeline-more[open] > summary::before { transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) {
-  .pub-technical > summary::before { transition: none; }
+  .pub-technical > summary::before,
+  .dialog-evidence > summary::before,
+  .timeline-more > summary::before { transition: none; }
 }
-.pub-technical > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.pub-technical > summary:focus-visible,
+.dialog-evidence > summary:focus-visible,
+.timeline-more > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
 .pub-technical-shelf {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
@@ -2429,6 +2508,10 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .dialog-meaning strong,
   .dialog-open strong { line-height: 1.5; }
   .dialog-detail > small { grid-column: 1; }
+  /* 제목과 곁말이 한 줄을 다투면 곁말이 잘린다(390px 실측: '브리핑에 선정된 2건'
+     이 '브리핑에 선정'으로 끊겼다). 건수가 든 말이라 반쯤 잘리면 거짓이 된다 —
+     줄을 내준다. */
+  .dialog-section-head { flex-wrap: wrap; gap: 2px 16px; }
 }
 /* 타임라인 각 기사의 원문 내용. 기본은 접어 둔다 — 근거가 7건인 이슈에서 전부
    펼치면 타임라인이 사라진다. 여는 손잡이는 모바일 최소 터치 높이를 지킨다. */
@@ -2481,6 +2564,19 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 .timeline-copy a,
 .timeline-copy > span { color: var(--c-text-secondary); font-size: var(--t-caption); line-height: 1.55; }
 .timeline-copy small { color: var(--c-text-muted); font-size: var(--t-min); }
+/* 선정된 사건과 그 뒤에 붙은 근거 원문은 성격이 다르다 — 같은 구역선(--c-border)
+   으로 나누되, 근거 쪽은 접힌 채로 시작한다. 손잡이 모양은 위 접기 한 벌을 쓴다. */
+.dialog-evidence { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--c-border); }
+.dialog-evidence > summary { font-weight: 650; }
+.dialog-evidence-note { margin: 2px 0 0; color: var(--c-text-muted); font-size: var(--t-min); }
+/* 두 구역 안에서 다시 접는 '더 보기'. 세로선은 .timeline li 가 각자 그리므로
+   손잡이 줄에도 같은 선을 이어 붙인다 — 안 그러면 목록 중간이 끊겨 보인다. */
+.timeline-more > summary {
+  padding-left: 17px;
+  border-left: 1px solid var(--c-border-strong);
+  color: var(--c-secondary);
+}
+.timeline-more > .timeline { margin-top: 0; }
 
 .mobile-tabs { display: none; }
 .toast {
@@ -2658,6 +2754,10 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .hero-audio button { min-height: 44px; }
   .hero-audio:not(.started) .hero-audio-label,
   .hero-audio:not(.started) .hero-audio-rates { display: none; }
+  .audio-mode-row { grid-template-columns: 1fr; width: 100%; }
+  .audio-mode-row button { min-height: 48px; }
+  .audio-control-row { width: 100%; }
+  .period-timeline-row { grid-template-columns: 1fr; gap: 6px; }
   /* '지난 확인 이후'도 hero-actions 와 달리 남는다 — 방문 간격은 모바일이
      더 길다. 터치 타깃은 이 코드베이스의 기준(44px)을 따른다. */
   .return-note button { min-height: 44px; }
@@ -2854,9 +2954,15 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .keyword-row > span:nth-child(5) { grid-area: status; color: var(--c-text-muted); }
   .keyword-row > span:not(:first-child) { text-align: left; }
   .keyword-row > span:nth-child(5) { text-align: right; }
-  .keyword-row > span:nth-child(2)::before { color: var(--c-text-muted); content: "이번 주 "; }
-  .keyword-row > span:nth-child(3)::before { color: var(--c-text-muted); content: "전주 "; }
+  /* 라벨 문구는 기간 토글을 따라 바뀐다 — renderKeywordTable 이 #keywordTable 에
+     --kw-now-label / --kw-prev-label 을 심는다. 헤더 행이 접힌 화면이라 여기가
+     유일한 기간 표시다: '분기'를 눌러 놓고 '이번 주 12'로 읽히면 안 된다. */
+  .keyword-row > span:nth-child(2)::before { color: var(--c-text-muted); content: var(--kw-now-label, "이번 주") " "; }
+  .keyword-row > span:nth-child(3)::before { color: var(--c-text-muted); content: var(--kw-prev-label, "전주") " "; }
   .keyword-row > span:nth-child(4)::before { color: var(--c-text-muted); content: "변화 "; }
+  /* 비교 구간이 없는 기간에는 전주·변화 칸이 빈 span 으로 온다. 접지 않으면
+     숫자 없는 '전주'·'변화' 라벨만 두 개 남는다. */
+  .keyword-row > span:empty { display: none; }
   .keyword-row button { grid-area: link; justify-self: end; min-height: 44px; }
   /* 상단바와 같은 잉크. 위아래 크롬이 같은 재질이어야 그 사이가 지면으로 읽힌다 —
      한쪽만 밝으면 하단 탭이 콘텐츠의 일부처럼 떠 보인다. */
