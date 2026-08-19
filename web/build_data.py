@@ -818,6 +818,198 @@ def count_country_issues(issues: list[dict], since_date: str) -> Counter:
     return counts
 
 
+# ── 기간 집계 (periods) ─────────────────────────────────────────────────
+# Date contract: 모든 경계는 Asia/Seoul calendar date, start/end inclusive.
+# days = (end - requested_start) + 1, available_days = (end - clamped_start) + 1,
+# complete_period = (clamped_start == requested_start). previous 도 같은 규칙.
+# 카운팅 단위는 briefing_story — 선정 기사(card member)를 스토리(_story_groups)로
+# 합친 수. 카드 칩과 같은 정의를 story_id 로 소비한다(간이 키 재정의 금지).
+
+PERIOD_DAYS = (7, 30, 90, 180, 365)
+_PERIOD_BUCKET_DAYS = {7: 1, 30: 7, 90: 15, 180: 30, 365: 30}
+_PERIOD_TOP_TAGS = 10
+_PERIOD_TAG_COMPARISON = 15
+_PERIOD_TIMELINE_HIGHLIGHTS = 3
+
+
+def _kst_day(value: object) -> str:
+    """article_date 는 KST 날짜 문자열이 계약이지만, ISO datetime 이 스며들어도
+    UTC 저녁 기사가 전날로 세이지 않게 KST 로 접어 준다."""
+    raw = str(value or "")
+    if len(raw) <= 10:
+        return raw
+    try:
+        parsed = datetime.fromisoformat(raw)
+    except ValueError:
+        return raw[:10]
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(KST).strftime("%Y-%m-%d")
+
+
+def _period_stories(issues: list[dict], story_ids: dict[str, str]) -> list[dict]:
+    """선정 기사(card member)를 스토리 단위로 접은 집계 재료."""
+    grouped: dict[str, list[dict]] = {}
+    for issue in issues:
+        for member in issue.get("members", []):
+            member_hash = str(member.get("hash") or "")
+            story_id = story_ids.get(member_hash, f"solo:{member_hash}")
+            grouped.setdefault(story_id, []).append(member)
+    stories = []
+    for story_id, members in grouped.items():
+        dates = sorted(_kst_day(m.get("article_date")) for m in members if m.get("article_date"))
+        if not dates:
+            continue
+        representative = max(members, key=_representative_key)
+        stories.append({
+            "date": dates[0],  # 사건 대표일 = 최초 보도일. 버킷 중복 배정 방지.
+            "outlets": {_source_identity(m) for m in members},
+            "publishers": {str(m.get("publisher") or "").strip() for m in members} - {""},
+            "official": any(_is_official_source(m) for m in members),
+            "tier1": any(m.get("source_tier") == 1 for m in members),
+            "tags": {t for m in members for t in (m.get("canonical_tags") or []) if t},
+            "topics": {t for m in members for t in (m.get("topics") or []) if t},
+            "countries": {c for m in members for c in (m.get("countries") or []) if c},
+            "title": str(representative.get("title_kr") or representative.get("title") or ""),
+            "contract_ok": all(
+                str(m.get("publisher") or "").strip() and str(m.get("summary") or "").strip()
+                for m in members
+            ),
+        })
+    stories.sort(key=lambda s: s["date"])
+    return stories
+
+
+def _tag_counts(stories: list[dict]) -> Counter:
+    counts: Counter = Counter()
+    for story in stories:
+        counts.update(story["tags"])
+    return counts
+
+
+def build_trend_periods(issues: list[dict], story_ids: dict[str, str],
+                        briefing_dates: list[str], now: datetime) -> dict:
+    """v2 스키마의 periods — 5구간 스토리 집계.
+
+    직전 구간이 archive 에 온전히 없으면 비교값을 지어내지 않고 null 을 싣는다
+    (previous_period_complete 하나로 프론트 comparisonMode 가 접힌다).
+    빈 버킷은 0으로 채우지 않고 생략한다 — 0은 '조용한 주'로 읽힌다.
+    """
+    if not briefing_dates:
+        return {}
+    archive_first = min(briefing_dates)
+    end_day = now.astimezone(KST).date()
+    end = end_day.strftime("%Y-%m-%d")
+    stories = _period_stories(issues, story_ids)
+    briefing_set = set(briefing_dates)
+
+    periods: dict[str, dict] = {}
+    for days in PERIOD_DAYS:
+        requested_start = (end_day - timedelta(days=days - 1)).strftime("%Y-%m-%d")
+        start = max(requested_start, archive_first)
+        available_days = (_parse_day(end) - _parse_day(start)).days + 1
+        complete = start == requested_start
+
+        window = [s for s in stories if start <= s["date"] <= end]
+        prev_end_day = _parse_day(requested_start) - timedelta(days=1)
+        prev_end = prev_end_day.strftime("%Y-%m-%d")
+        prev_start = (prev_end_day - timedelta(days=days - 1)).strftime("%Y-%m-%d")
+        previous_complete = complete and prev_start >= archive_first
+        previous = [s for s in stories if prev_start <= s["date"] <= prev_end] if previous_complete else []
+
+        tag_now = _tag_counts(window)
+        tag_prev = _tag_counts(previous)
+        tag_comparison = []
+        for tag, count in tag_now.most_common(_PERIOD_TAG_COMPARISON):
+            if previous_complete:
+                prev_count = tag_prev.get(tag, 0)
+                tag_comparison.append({
+                    "tag": tag, "count": count, "previous_count": prev_count,
+                    "delta": count - prev_count, "new": prev_count == 0,
+                })
+            else:
+                tag_comparison.append({
+                    "tag": tag, "count": count, "previous_count": None,
+                    "delta": None, "new": False,
+                })
+
+        topic_counts = Counter(t for s in window for t in s["topics"])
+        country_counts = Counter(c for s in window for c in s["countries"])
+        publisher_counts = Counter(p for s in window for p in s["publishers"])
+
+        bucket_size = _PERIOD_BUCKET_DAYS[days]
+        timeline = []
+        bucket_end_day = _parse_day(end)
+        start_day = _parse_day(start)
+        while bucket_end_day >= start_day:
+            bucket_start_day = max(start_day, bucket_end_day - timedelta(days=bucket_size - 1))
+            b_start = bucket_start_day.strftime("%Y-%m-%d")
+            b_end = bucket_end_day.strftime("%Y-%m-%d")
+            bucket = [s for s in window if b_start <= s["date"] <= b_end]
+            if bucket:
+                bucket_topics = Counter(t for s in bucket for t in s["topics"])
+                highlights = sorted(
+                    (s for s in bucket if s["title"]),
+                    key=lambda s: (len(s["outlets"]), s["date"]), reverse=True,
+                )[:_PERIOD_TIMELINE_HIGHLIGHTS]
+                timeline.append({
+                    "key": b_start,
+                    "start": b_start,
+                    "end": b_end,
+                    "story_count": len(bucket),
+                    "multi_source_story_count": sum(1 for s in bucket if len(s["outlets"]) > 1),
+                    "top_topics": [topic for topic, _ in bucket_topics.most_common(3)],
+                    "highlights": [{"title": s["title"], "date": s["date"]} for s in highlights],
+                })
+            bucket_end_day = bucket_start_day - timedelta(days=1)
+        timeline.reverse()
+
+        contract_count = sum(1 for s in window if s["contract_ok"])
+        periods[str(days)] = {
+            "unit": "briefing_story",
+            "days": days,
+            "requested_start": requested_start,
+            "start": start,
+            "end": end,
+            "available_days": available_days,
+            "complete_period": complete,
+            "archive_first_briefing_date": archive_first,
+            "briefing_day_count": sum(1 for d in briefing_set if start <= d <= end),
+            "story_count": len(window),
+            "multi_source_story_count": sum(1 for s in window if len(s["outlets"]) > 1),
+            "official_story_count": sum(1 for s in window if s["official"]),
+            "tier1_story_count": sum(1 for s in window if s["tier1"]),
+            "average_outlets": round(
+                sum(len(s["outlets"]) for s in window) / len(window), 2) if window else 0,
+            "story_contract_count": contract_count,
+            "story_contract_coverage": round(contract_count / len(window), 2) if window else 0,
+            "publishers": [
+                {"publisher": pub, "count": count}
+                for pub, count in publisher_counts.most_common(10)
+            ],
+            "countries": [
+                {"country": country, "count": count}
+                for country, count in country_counts.most_common(10)
+            ],
+            "top_tags": [
+                {"tag": tag, "count": count}
+                for tag, count in tag_now.most_common(_PERIOD_TOP_TAGS)
+            ],
+            "top_topics": [
+                {"topic": topic, "count": count}
+                for topic, count in topic_counts.most_common(10)
+            ],
+            "previous_period_complete": previous_complete,
+            "previous_top_tags": [
+                {"tag": tag, "count": count}
+                for tag, count in tag_prev.most_common(_PERIOD_TOP_TAGS)
+            ] if previous_complete else [],
+            "tag_comparison": tag_comparison,
+            "timeline": timeline,
+        }
+    return periods
+
+
 def _strong_tags(article: dict) -> set[str]:
     tags = set(article.get("canonical_tags") or [])
     if not tags:
@@ -3181,20 +3373,13 @@ def load_daily_leads() -> dict[str, dict]:
     return leads if isinstance(leads, dict) else {}
 
 
-def load_weekly_report(issue_rows: list[dict]) -> dict | None:
-    """봇이 금요일에 저장한 주간 판세 리포트 → 화면용.
+def _weekly_report_view(report: dict, issue_rows: list[dict]) -> dict:
+    """저장된 주간 리포트 하나 → 화면용.
 
     문장마다 evidence_hashes 를 이슈 상세 링크로 바꾼다. 전역 key_events 만으로는
     어떤 근거가 어느 문장 것인지 알 수 없어 모든 문장에 같은 칩이 붙는다.
     """
-    try:
-        raw = json.loads((BOT_DIR / "weekly_reports.json").read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    reports = raw.get("reports")
-    if not isinstance(reports, dict) or not reports:
-        return None
-    report = dict(reports[max(reports)])
+    report = dict(report)
 
     # 봇은 hash 앞 8자리만 남긴다(프롬프트 토큰 절약). 이슈 카탈로그는 전체
     # hash 로 색인돼 있어 _evidence_chips 를 그대로 쓰면 하나도 안 걸린다.
@@ -3231,6 +3416,41 @@ def load_weekly_report(issue_rows: list[dict]) -> dict | None:
     if merged is not None:
         report["source_issue_count"] = merged
     return report
+
+
+def load_weekly_reports(issue_rows: list[dict]) -> dict[str, dict]:
+    """저장된 주간 리포트 전부 → {week_start(토요일): 화면용}.
+
+    key 는 저장 파일의 ISO 주차("2026-W32")가 아니라 리포트가 든 week_start
+    (토~금 구간의 토요일)다 — 프론트 briefingWeek() 매칭 계약이고, 연도 경계에서
+    ISO 주차와 자체 주차가 섞이는 것을 막는다. 선택한 날짜의 주차 리포트가 없을
+    때 직전 주로 대체하지 않는 것은 프론트 몫이다(지난주 결론이 오늘 분석처럼
+    붙던 문제).
+    """
+    try:
+        raw = json.loads((BOT_DIR / "weekly_reports.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    reports = raw.get("reports")
+    if not isinstance(reports, dict):
+        return {}
+    out: dict[str, dict] = {}
+    for report in reports.values():
+        if not isinstance(report, dict):
+            continue
+        week_start = str(report.get("week_start") or "")
+        if not week_start:
+            continue
+        out[week_start] = _weekly_report_view(report, issue_rows)
+    return out
+
+
+def load_weekly_report(issue_rows: list[dict]) -> dict | None:
+    """최신 주차 리포트 — 구 프런트 호환용 단일 키."""
+    reports = load_weekly_reports(issue_rows)
+    if not reports:
+        return None
+    return reports[max(reports)]
 
 
 def merged_issue_count(issue_rows: list[dict], start: object, end: object) -> int | None:
@@ -4283,10 +4503,19 @@ def build() -> None:
     week_end = briefings[0]["date"] if briefings else ""
     weekly_movers = build_weekly_movers(issue_catalog, week_end)
 
+    weekly_reports = load_weekly_reports(issue_catalog)
     trend = {
         # 금요일 주간 판세 리포트. 없으면 None → 프론트가 기존 정량 트렌드만 그린다
         # (목요일에 빈 탭이 되지 않게 하는 폴백).
-        "weekly_report": load_weekly_report(issue_catalog),
+        "weekly_report": weekly_reports[max(weekly_reports)] if weekly_reports else None,
+        # 주차별(토요일 week_start 키) 전체 — 프론트가 선택 날짜의 주차만 골라 쓴다.
+        "weekly_reports": weekly_reports,
+        # 5구간 스토리 집계. 단위·비교 가능 여부는 데이터가 말한다(periods[*].unit,
+        # previous_period_complete) — 화면이 없는 비교를 지어내지 않게.
+        "periods": build_trend_periods(
+            issues, story_id_map(issues),
+            [briefing["date"] for briefing in briefings], now),
+        "period_unit": "briefing_story",
         # 이번 주 움직인 이슈 — 키워드 단위 흐름 해석을 대체한다(중복 제거)
         "weekly_movers": weekly_movers,
         # 주간 고정 코너(①이번 주 ②국가별 ③발간물 ④예정). 빈 코너는 키가 없다.
