@@ -759,7 +759,7 @@ function renderSystemStatus() {
   const header = document.getElementById("headerStatus");
   const footer = document.getElementById("footerStatus");
   const briefing = currentBriefing() || state.briefings[0] || {};
-  // '마지막 수집'은 **수집기가 마지막으로 돈 시각**이다(매시간, 06·07시 제외). last_success_at
+  // '마지막 수집'은 **수집기가 마지막으로 돈 시각**이다(3시간마다). last_success_at
   // 은 build_data 가 "마지막 정상 **브리핑**"으로 정의한 값이라(하루 1회) 그걸
   // 수집 시각이라 부르면 오후 내내 아침 시각이 떠 있다 — 2026-08-11 21:49 KST 에
   // '마지막 수집 07:05' 였고, 실제 수집은 20:35 였다. 14.7시간 밀린 것처럼 읽힌다.
@@ -833,7 +833,7 @@ function renderSystemStatus() {
       <div><dt>오늘 원문</dt><dd>${briefing.article_count || 0}건</dd></div>
       <div><dt>연결 이슈</dt><dd>${briefing.issue_count || 0}개</dd></div>
       ${primaryCount ? `<div><dt>정부·기관 원문</dt><dd>${primaryCount}건</dd></div>` : ""}
-      <div><dt>갱신 주기</dt><dd>뉴스는 매시간 수집(06·07시 제외) · 사이트 반영은 최대 2시간 간격</dd></div>
+      <div><dt>갱신 주기</dt><dd>3시간 간격</dd></div>
     </dl>${status === "ok" ? "" : `<p>${esc(message)}</p>`}`;
   // 흐름 탭 방법론 단락의 수집원 수 — meta 가 실어 온 sources.json 카운트.
   const tiers = state.meta?.source_tiers;
