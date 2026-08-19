@@ -1,6 +1,16 @@
 {
  "items": [
   {
+   "id": "4d2c14da255d",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "Nuclear Energy Agency and the United States to convene global leaders for Roadmaps to New Nuclear 2026",
+   "url": "https://www.oecd-nea.org/jcms/pl_121251/nuclear-energy-agency-and-the-united-states-to-convene-global-leaders-for-roadmaps-to-new-nuclear-2026",
+   "date": "",
+   "fetched_at": "2026-08-20"
+  },
+  {
    "id": "a3bd80e00c17",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -614,42 +624,42 @@
   }
  ],
  "state": {
-  "nea_max_id": 121119,
+  "nea_max_id": 121251,
   "keei_max_list_no": 127999,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   },
   "iea_reports": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-19T00:41:13+09:00",
+   "at": "2026-08-20T00:46:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
