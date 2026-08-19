@@ -949,7 +949,7 @@ kbd {
 .topic-spark i { flex: 1; min-width: 5px; background: var(--c-secondary); opacity: .72; }
 .topic-direction { font-size: var(--t-min); font-weight: 700; white-space: nowrap; }
 .topic-direction.up { color: var(--c-positive); }
-.topic-direction.down { color: var(--c-critical); }
+.topic-direction.down { color: var(--c-critical-text); }
 .topic-direction.flat,
 .home-topic-row small { color: var(--c-text-muted); }
 /* 방향만으로는 '얼마나'를 모른다. 지난주→이번 주 비교, 4주 변화 폭, 표본 수를
@@ -1600,7 +1600,7 @@ body.booting .status-strip.loading { display: none; }
 .empty-state p,
 .error-state p { margin: 0 0 14px; color: var(--c-text-muted); }
 .error-state { border-color: color-mix(in srgb, var(--c-critical) 50%, var(--c-border)); }
-.error-state small { display: block; margin-bottom: 14px; color: var(--c-critical); }
+.error-state small { display: block; margin-bottom: 14px; color: var(--c-critical-text); }
 .error-state div { display: flex; justify-content: center; gap: 10px; }
 .error-state a { display: inline-grid; place-items: center; min-height: 40px; padding: 0 14px; }
 
@@ -2164,7 +2164,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .theme-move:first-of-type { border-top: 0; }
 .theme-name { margin: 0; color: var(--c-text); font-weight: 700; white-space: nowrap; }
 .theme-name.up { color: var(--c-positive); }
-.theme-name.down { color: var(--c-critical); }
+.theme-name.down { color: var(--c-critical-text); }
 .theme-body p { margin: 0 0 6px; }
 .weekly-list { margin: 6px 0 0; padding-left: 18px; color: var(--c-text-secondary); }
 .weekly-list li { margin-bottom: 4px; }
@@ -2290,7 +2290,7 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .keyword-row button { justify-self: end; padding: 0; border: 0; background: transparent; color: var(--c-secondary); font-size: var(--t-min); }
 .keyword-head { color: var(--c-text-muted); font-weight: 600; }
 .keyword-row .positive { color: var(--c-positive); font-weight: 700; }
-.keyword-row .negative { color: var(--c-critical); font-weight: 700; }
+.keyword-row .negative { color: var(--c-critical-text); font-weight: 700; }
 .bar-row { display: grid; grid-template-columns: minmax(90px, .8fr) minmax(80px, 1.5fr) 28px; align-items: center; gap: 8px; min-height: 31px; font-size: var(--t-min); }
 .bar-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bar-track { height: 8px; overflow: hidden; border-radius: var(--r-1); background: var(--c-surface-sunken); }
