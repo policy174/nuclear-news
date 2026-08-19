@@ -1072,6 +1072,16 @@
       "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
       "same_event": false
     },
+    "06d19dc122234889--42d294aaa404e892": {
+      "embedding_similarity": 0.8627,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 방한 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
+      "same_event": true
+    },
     "06d19dc122234889--4b899066712be0cd": {
       "embedding_similarity": 0.8444,
       "left_title": "테라파워, 선진원자로 기업 최초로 INPO 가입",
@@ -2131,6 +2141,16 @@
       "reviewed_at": "2026-08-18T15:44:16.356197+00:00",
       "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
       "same_event": false
+    },
+    "07d4a12a385b3883--4288e4cee8658728": {
+      "embedding_similarity": 0.9007,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR EPC 우선권 확보",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
+      "same_event": true
     },
     "07d4a12a385b3883--565a77d9ffdd8577": {
       "embedding_similarity": 0.8678,
@@ -6102,6 +6122,16 @@
       "right_title": "美 AI 데이터센터 ‘건설 붐’의 현실… 실제 착공은 20%",
       "same_event": false
     },
+    "18151ca788643e51--53cff084bc298889": {
+      "embedding_similarity": 0.8977,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "실제 착공률은 다른 측면",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "美 AI 데이터센터 ‘건설 붐’의 현실… 실제 착공은 20%",
+      "same_event": false
+    },
     "18151ca788643e51--55842b037eb69172": {
       "embedding_similarity": 0.8605,
       "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
@@ -6340,6 +6370,16 @@
       "reason": "미국 PJM 전력망 부하 이탈",
       "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
       "right_title": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
+      "same_event": true
+    },
+    "1a95a9afd4ecd99b--4288e4cee8658728": {
+      "embedding_similarity": 0.8582,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 상용화 협력",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "테라파워, 현대건설·SK이노베이션과 나트륨 SMR 상용화 협력 확대",
       "same_event": true
     },
     "1a95a9afd4ecd99b--a5a1ef68231b4e51": {
@@ -8492,6 +8532,36 @@
       "right_title": "국내 데이터센터, 10년 내 물 수요 45배 급증 전망",
       "same_event": false
     },
+    "23695984ae743e95--39978953c427bd87": {
+      "embedding_similarity": 0.8951,
+      "left_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7호기와 8호기는 다른 호기",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "중국 톈완 8호기, 주요 시운전 시험 완료",
+      "same_event": false
+    },
+    "23695984ae743e95--6b0f4d492346398a": {
+      "embedding_similarity": 0.8559,
+      "left_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 신규 원자로 핵연료 장전",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "중국 신규 원자로, 가동 이정표 달성",
+      "same_event": true
+    },
+    "23695984ae743e95--70f85437262d5d78": {
+      "embedding_similarity": 0.884,
+      "left_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7호기와 8호기는 다른 호기",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "톈완 8호기, 시운전 단계 진입",
+      "same_event": false
+    },
     "23695984ae743e95--9bff425a2d2c0a20": {
       "embedding_similarity": 0.8814,
       "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
@@ -9161,6 +9231,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
       "same_event": true
+    },
+    "26501fe7282055e9--53cff084bc298889": {
+      "embedding_similarity": 0.8751,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "알루미늄 제련소는 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "미 알루미늄 제련소, AI 데이터센터와 전력 수요 경쟁 심화",
+      "same_event": false
     },
     "267f758041b9a4ca--398fa0e5ecf0d24a": {
       "embedding_similarity": 0.8567,
@@ -10092,6 +10172,16 @@
       "right_title": "정부 전기요금 차등제 초안, 울산 지역 실효성 부족 지적",
       "same_event": false
     },
+    "2b197797b2f5d803--44af16619ddc4885": {
+      "embedding_similarity": 0.8556,
+      "left_title": "한국, 대미 3500억 달러 투자 1호 프로젝트 선정 지연 비판",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "대미 투자 지연 비판 vs 전력 인프라 투자 촉구",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "미국, 한국에 AI 데이터센터 전력 인프라 투자 이행 촉구",
+      "same_event": false
+    },
     "2b442f968d18a90b--337a9ffbe7eef399": {
       "embedding_similarity": 0.8445,
       "left_title": "나노 뉴클리어, 버지니아 원자력 에너지 컨소시엄 합류 발표",
@@ -10351,6 +10441,16 @@
       "reviewed_at": "2026-08-18T01:13:58.905321+00:00",
       "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
       "same_event": true
+    },
+    "2d62da7103d62772--53cff084bc298889": {
+      "embedding_similarity": 0.8746,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "아마존 발전소 투자는 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "아마존 데이터센터 발전소 투자에 시끌…\"미국 최대 오염원 될 것\"",
+      "same_event": false
     },
     "2d62da7103d62772--67b29b69bb768171": {
       "embedding_similarity": 0.9108,
@@ -12031,6 +12131,16 @@
       "reviewed_at": "2026-08-16T17:21:40.899949+00:00",
       "right_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
       "same_event": false
+    },
+    "3755290fbd6dc745--42d294aaa404e892": {
+      "embedding_similarity": 0.8616,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠 방한 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "빌 게이츠, 1년 만에 방한하여 정·재계와 SMR 협력 논의 예정",
+      "same_event": true
     },
     "3755290fbd6dc745--565a77d9ffdd8577": {
       "embedding_similarity": 0.8683,
@@ -13982,6 +14092,26 @@
       "right_title": "중국, 상반기 풍력·태양광 발전량 26% 출력 제한",
       "same_event": false
     },
+    "3d720b9e7ff1cf58--4288e4cee8658728": {
+      "embedding_similarity": 0.8977,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 나트륨 원전 후속 8기 EPC",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 원전 후속 8기 EPC 권한 확보",
+      "same_event": true
+    },
+    "3d720b9e7ff1cf58--42d294aaa404e892": {
+      "embedding_similarity": 0.8606,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR EPC 권한 확보",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 원전 후속 8기 EPC 권한 확보",
+      "same_event": true
+    },
     "3d720b9e7ff1cf58--565a77d9ffdd8577": {
       "embedding_similarity": 0.8835,
       "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
@@ -14962,6 +15092,16 @@
       "right_title": "스페인 알마라즈 원전 수명 연장, 미국은 가스 결합 SMR 추진",
       "same_event": true
     },
+    "4184f9584371025b--b902d15a4977cc45": {
+      "embedding_similarity": 0.8746,
+      "left_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 SMR 추진은 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "스페인 알마라즈 원전 수명 연장, 미국은 가스 결합 SMR 추진",
+      "same_event": false
+    },
     "41e26c8fe1f0a346--814d531edbc817a5": {
       "embedding_similarity": 0.8443,
       "left_title": "IAEA, 일본 ALPS 처리수 22차 방류 삼중수소 농도 기준치 이하 확인",
@@ -14982,6 +15122,16 @@
       "right_title": "수요 불분명한 '3대 메가' 데이터센터, 2035년까지 9배 확장 계획",
       "same_event": true
     },
+    "4288e4cee8658728--541195b5decf38c7": {
+      "embedding_similarity": 0.8584,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설 EPC 우선권 vs 두산 기자재 수주",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 원전 핵심 기자재 제작 수주",
+      "same_event": false
+    },
     "4288e4cee8658728--565a77d9ffdd8577": {
       "embedding_similarity": 0.8674,
       "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
@@ -14992,6 +15142,16 @@
       "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
       "same_event": true
     },
+    "4288e4cee8658728--5c54e3df83691f3c": {
+      "embedding_similarity": 0.8631,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR EPC 협력",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
+      "same_event": true
+    },
     "4288e4cee8658728--78d84e4164f7c883": {
       "embedding_similarity": 0.9119,
       "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
@@ -15000,6 +15160,16 @@
       "reason": "같은 사안의 후속 보도",
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "same_event": true
+    },
+    "4288e4cee8658728--cd229b4b783ae676": {
+      "embedding_similarity": 0.8558,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 상용화 협력",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "HD현대·현대건설, 美 테라파워와 SMR 상용화 협력 강화",
       "same_event": true
     },
     "42bf581871296384--66d8933507f8bf75": {
@@ -15022,6 +15192,26 @@
       "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
       "same_event": false
     },
+    "42d294aaa404e892--719103e4dd4fefb1": {
+      "embedding_similarity": 0.855,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설 협력 논의 vs 두산 기자재 수주",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
+      "same_event": false
+    },
+    "42d294aaa404e892--76d8beb29f51436d": {
+      "embedding_similarity": 0.8719,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "K-SMR 경쟁력 비교는 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "빌 게이츠의 SMR 러브콜과 K-SMR의 경쟁력 비교",
+      "same_event": false
+    },
     "42d294aaa404e892--78d84e4164f7c883": {
       "embedding_similarity": 0.8803,
       "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
@@ -15030,6 +15220,66 @@
       "reason": "같은 사안의 후속 보도",
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "same_event": true
+    },
+    "42d294aaa404e892--b3fe6868b8391d2d": {
+      "embedding_similarity": 0.8609,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설 협력 vs 두산 기자재 제작",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 345MW급 나트륨 원자로 기자재 제작",
+      "same_event": false
+    },
+    "42d294aaa404e892--c37069e03f838d95": {
+      "embedding_similarity": 0.8637,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠와 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": true
+    },
+    "42d294aaa404e892--cd30a95d66d1673f": {
+      "embedding_similarity": 0.8554,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠와 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR 협력 논의 위해 재회",
+      "same_event": true
+    },
+    "42d294aaa404e892--ce33289d9d115226": {
+      "embedding_similarity": 0.8592,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "빌 게이츠와 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 14일 서울서 SMR 협력 논의",
+      "same_event": true
+    },
+    "42d294aaa404e892--e93c5467c89ec2ba": {
+      "embedding_similarity": 0.8656,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산에너빌리티 수주는 다른 주체",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
+      "same_event": false
+    },
+    "42d294aaa404e892--f3f581e85458b942": {
+      "embedding_similarity": 0.88,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워와 SMR 협력 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": true
     },
     "431840aff0e21ddb--5c342902e9a3fff2": {
@@ -17861,6 +18111,76 @@
       "reviewed_at": "2026-08-13T01:05:09.094355+00:00",
       "right_title": "캘리포니아 주 의원들, 디아블로 캐년 원전 2030년 이후 계속운전 촉구",
       "same_event": true
+    },
+    "53cff084bc298889--735bf2a20f913925": {
+      "embedding_similarity": 0.8666,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "건설주 체질 개선은 다른 측면",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "\"원전 대신 AI 데이터센터\"…건설주, 체질 개선 본격화",
+      "same_event": false
+    },
+    "53cff084bc298889--9b9b1beec21bdab2": {
+      "embedding_similarity": 0.8987,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 상승은 다른 쟁점",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "미국인들, AI 데이터센터 전력 수요 급증에 따른 전기요금 상승에 분노",
+      "same_event": false
+    },
+    "53cff084bc298889--b906acc76abe0b98": {
+      "embedding_similarity": 0.882,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "천연가스 발전소 투자는 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "아마존, 텍사스 데이터센터용 천연가스 발전소 투자로 환경 오염 우려 증폭",
+      "same_event": false
+    },
+    "53cff084bc298889--cba38d29fdab71ff": {
+      "embedding_similarity": 0.8943,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "구글 사업은 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "[Why] 구글의 21조원 인도 AI 데이터센터 사업이 시험대에 오른 이유는",
+      "same_event": false
+    },
+    "53cff084bc298889--e525e3a250f8b92b": {
+      "embedding_similarity": 0.8631,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 건설 반대 vs 에너지 지형",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "AI가 재편하는 美 에너지 지형, 한국의 전력 공급 준비는?",
+      "same_event": false
+    },
+    "53cff084bc298889--e7cc90cc9d2bd6d7": {
+      "embedding_similarity": 0.9019,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 건설 반대와 지역 반발",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "AI 데이터센터, 전력·용수 문제로 지역 반발 심화…1300억 달러 규모 차질",
+      "same_event": false
+    },
+    "53cff084bc298889--ed1889253dca5d59": {
+      "embedding_similarity": 0.8626,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 건설 반대 vs 건설 유예",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "美 위스콘신 주지사 후보, AI 데이터센터 신규 건설 1년 유예 공약",
+      "same_event": false
     },
     "541195b5decf38c7--591caac62d5f3545": {
       "embedding_similarity": 0.8772,
@@ -22262,6 +22582,16 @@
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": false
     },
+    "6171879b21657fe7--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8775,
+      "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 관련 정책 논의",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 신규원전 미정·가스발전 증가 시사",
+      "same_event": true
+    },
     "61797c04492442d5--e27f6338be0a6fc5": {
       "embedding_similarity": 0.8724,
       "left_title": "이탈리아, 원자력 부활 위한 기반 마련 착수, 젊은 세대 지지 기대",
@@ -24042,6 +24372,36 @@
       "right_title": "김주영 의원, AI 시대 전력산업 효율화 위한 '한전 지주회사' 제안",
       "same_event": true
     },
+    "6a4c035c89f7767e--b655f3bdb1eefcca": {
+      "embedding_similarity": 0.8647,
+      "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한울 4호기 정지와 안전 점검은 다른 사안",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "원안위, 한울원전 폭염·해수온도 상승 대비 안전 점검",
+      "same_event": false
+    },
+    "6a4c035c89f7767e--b80f5c5da9f236d1": {
+      "embedding_similarity": 0.8555,
+      "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한울 4호기 자동정지 조사 vs 폭염 원전 점검",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "폭염 장기화에 따른 원전 안전관리 비상, 원안위 현장 점검",
+      "same_event": false
+    },
+    "6a4c035c89f7767e--bcb929a6f7db234b": {
+      "embedding_similarity": 0.8558,
+      "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한울 4호기 자동정지 조사 vs 을지연습 훈련",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "한울원전, 을지연습 통합방호훈련 실시…원전 복합위기 대응 점검",
+      "same_event": false
+    },
     "6a9cd5bedfc61523--737df86cf04543b5": {
       "embedding_similarity": 0.8896,
       "left_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -24769,6 +25129,16 @@
       "prompt_version": 1,
       "reason": "알마라즈 원전 운영 기한 연장",
       "reviewed_at": "2026-08-18T06:49:59.225835+00:00",
+      "right_title": "스페인, 알마라즈 원전 폐쇄 연기 결정",
+      "same_event": true
+    },
+    "7066771a98670992--b902d15a4977cc45": {
+      "embedding_similarity": 0.9184,
+      "left_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "알마라즈 원전 운영 허가 연장",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "스페인, 알마라즈 원전 폐쇄 연기 결정",
       "same_event": true
     },
@@ -26342,6 +26712,16 @@
       "right_title": "네이버, 2028년까지 200MW 규모 AI 데이터센터 구축 계획",
       "same_event": true
     },
+    "7889afa9a7889c24--c0f630a0bffe6168": {
+      "embedding_similarity": 0.8677,
+      "left_title": "미국 연방 정부, 디아블로 캐년 원전 운영에 자금 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "디아블로 캐년 원전 자금 지원",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "미국 에너지부, 디아블로 캐년 원전에 2.71억 달러 지원금 지급",
+      "same_event": true
+    },
     "78926903156f16fa--7d3e0c165f9ddd4d": {
       "embedding_similarity": 0.8555,
       "left_title": "HD현대중공업, 미국 데이터센터용 9560억 원 규모 발전설비 수주",
@@ -26390,6 +26770,16 @@
       "reason": "주체 및 사안이 다름",
       "reviewed_at": "2026-08-15T14:40:24.511076+00:00",
       "right_title": "HD현대중공업, 미국 데이터센터용 9560억 원 규모 발전설비 수주",
+      "same_event": false
+    },
+    "78a01bfeb71e2516--94c5d5ca40f4f818": {
+      "embedding_similarity": 0.8579,
+      "left_title": "미국 NRC, Disa Tech의 우라늄 폐광 폐기물 처리 환경평가 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "우라늄 폐광 처리 승인 vs 전문 기업 설립",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
+      "right_title": "디사 테크놀로지스, 우라늄 회수·생산 전문 기업 설립",
       "same_event": false
     },
     "78a01bfeb71e2516--dcb975d82d845013": {
@@ -33479,6 +33869,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
+      "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
+      "same_event": false
+    },
+    "aec7051f7ec2dcb2--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8579,
+      "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 100GW vs 원전 보완",
+      "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
       "same_event": false
     },
