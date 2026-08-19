@@ -1,0 +1,12 @@
+# Pages 프로젝트 선언 설정 — `wrangler pages deploy` 가 매 배포에 적용한다.
+# 바인딩을 대시보드 클릭으로 걸면 "누가 언제 걸었나"가 기록에 안 남는다.
+# compatibility_date 를 고정하는 이유: 미지정 시 wrangler 가 오늘 날짜를 쓰는데,
+# 로컬 workerd 바이너리가 하루 늦으면 pages dev 가 기동 자체를 거부한다(2026-08-19 실측).
+name = "nuclens"
+pages_build_output_dir = "web/public"
+compatibility_date = "2026-08-01"
+
+# /admin 판정 저장소. namespace 는 wrangler kv namespace create nuclens-admin 산출물.
+[[kv_namespaces]]
+binding = "ADMIN_KV"
+id = "191ac97645b743b4a43688aa2781d43e"

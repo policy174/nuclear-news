@@ -71,7 +71,7 @@ class AdminGateTests(unittest.TestCase):
             "MIDDLEWARE_PATH", json.dumps(MIDDLEWARE.resolve().as_uri()))
         proc = subprocess.run(
             ["node", "--input-type=module", "-e", driver],
-            capture_output=True, text=True, timeout=60)
+            capture_output=True, text=True, encoding="utf-8", timeout=60)
         if proc.returncode != 0:
             raise AssertionError(f"node driver 실패:\n{proc.stderr}")
         cls.results = json.loads(proc.stdout.strip().splitlines()[-1])
