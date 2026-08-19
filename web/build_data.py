@@ -2378,6 +2378,97 @@ def _is_independent_source(article: dict) -> bool:
     return article.get("evidence_role") == "independent"
 
 
+# ── 스토리 롤업 ──────────────────────────────────────────────────────────
+# issue 와 story 는 별개다. issue 는 추적 단위(여러 사건 단계가 쌓인다),
+# story 는 '같은 사건을 다룬 다매체 보도' 한 건이다. 여기 함수들은 직렬화
+# 시점의 순수 읽기 전용 — issue["members"] 구성을 절대 바꾸지 않는다
+# (assert_card_clusters_unchanged 보호 구역 밖).
+
+_STORY_WINDOW_DAYS = 3
+_STORY_TITLE_JACCARD = 0.5
+
+
+def _story_days_apart(left: dict, right: dict) -> int | None:
+    a = _parse_day(str(left.get("article_date") or ""))
+    b = _parse_day(str(right.get("article_date") or ""))
+    if not a or not b:
+        return None
+    return abs((a - b).days)
+
+
+def _same_story(anchor: dict, candidate: dict) -> bool:
+    """anchor 기사와 같은 사건의 보도인지.
+
+    사건 단계 시그니처 일치 + 제목 유사(자카드 또는 재진술) + 날짜 근접을
+    모두 요구한다. 시그니처 단독으로 묶으면 반복되는 정책명·기관명 때문에
+    장기간의 다른 사건이 한 스토리가 된다.
+    """
+    days = _story_days_apart(anchor, candidate)
+    if days is None or days > _STORY_WINDOW_DAYS:
+        return False
+    anchor_title = str(anchor.get("title_kr") or anchor.get("title") or "").strip()
+    candidate_title = str(candidate.get("title_kr") or candidate.get("title") or "").strip()
+    if not anchor_title or not candidate_title:
+        return False
+    if _event_stage_signature(anchor_title) != _event_stage_signature(candidate_title):
+        return False
+    if _jaccard(_text_tokens(anchor_title), _text_tokens(candidate_title)) >= _STORY_TITLE_JACCARD:
+        return True
+    return _is_restatement(anchor_title, candidate_title)
+
+
+def _story_groups(members: list[dict]) -> list[list[dict]]:
+    """같은 사건의 다매체 보도를 스토리로 묶는다.
+
+    그룹 anchor(가장 이른 기사)와의 직접 유사만 편입한다 — 멤버끼리의 전이
+    병합을 허용하면 A~B, B~C 연쇄로 서로 다른 사건이 한 스토리로 합쳐진다.
+    이슈 내 멤버 수는 작아서(수십 건) O(n²)로 충분하다.
+    """
+    ordered = sorted(
+        members,
+        key=lambda member: (str(member.get("article_date") or ""), str(member.get("hash") or "")),
+    )
+    groups: list[list[dict]] = []
+    for member in ordered:
+        for group in groups:
+            if _same_story(group[0], member):
+                group.append(member)
+                break
+        else:
+            groups.append([member])
+    return groups
+
+
+def story_rollup(members: list[dict], representative: dict) -> tuple[int, int]:
+    """(story_article_count, story_outlet_count) — 대표 기사가 속한 스토리의 집계.
+
+    카드 칩 '동일 사건 보도 N건 · 매체 N곳'의 재료다. 전체 issue member 수가
+    아니다 — issue 는 여러 사건 단계를 담으므로 전체를 세면 다른 사건의
+    보도까지 '동일 사건'으로 표시된다.
+    """
+    rep_hash = str(representative.get("hash") or "")
+    for group in _story_groups(members):
+        if any(str(member.get("hash") or "") == rep_hash for member in group):
+            outlets = {_source_identity(member) for member in group}
+            return len(group), len(outlets)
+    return 1, 1
+
+
+def story_id_map(issues: list[dict]) -> dict[str, str]:
+    """article hash → story_id. 카드 롤업과 기간 집계가 같은 스토리 정의를
+    쓰도록 그룹핑은 _story_groups 한 곳에만 둔다(간이 키 재정의 금지)."""
+    mapping: dict[str, str] = {}
+    for issue in issues:
+        members = list(issue["members"]) + list(issue.get("evidence_members") or [])
+        for group in _story_groups(members):
+            story_id = f"{issue['issue_id']}:{group[0].get('hash')}"
+            for member in group:
+                member_hash = str(member.get("hash") or "")
+                if member_hash:
+                    mapping[member_hash] = story_id
+    return mapping
+
+
 def pick_open_question(members: list[dict]) -> str:
     """이슈에 붙일 '아직 확정되지 않은 것' 한 문장.
 
@@ -3524,6 +3615,7 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
                     entity_evidence_out.append({"issue_id": issue["issue_id"], **record})
         archive_detail, archive_detail_source = pick_detail(all_timeline, representative)
         report_topic, report_why, report_angles = pick_report_metadata(card_timeline)
+        story_article_count, story_outlet_count = story_rollup(all_timeline, representative)
         rows.append({
             "issue_id": issue["issue_id"],
             "status": "ongoing" if len(briefing_dates) > 1 else "new",
@@ -3562,6 +3654,8 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "card_article_count": len(card_timeline),
             "evidence_article_count": len(evidence_timeline),
             "article_count": len(all_timeline),
+            "story_article_count": story_article_count,
+            "story_outlet_count": story_outlet_count,
             "representative_article": _article_view(representative, "card"),
             "related_articles": (
                 [_article_view(member, "card") for member in card_timeline]
