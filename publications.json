@@ -315,6 +315,16 @@
    }
   },
   {
+   "id": "6cbab1a9203b",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "A Framework for the Education of Multidisciplinary Paediatric Cancer Care Teams",
+   "url": "http://www.iaea.org/publications/16094/a-framework-for-the-education-of-multidisciplinary-paediatric-cancer-care-teams",
+   "date": "2026-07-17",
+   "fetched_at": "2026-08-21"
+  },
+  {
    "id": "b4f6dc8d5901",
    "org": "KEEI",
    "org_kr": "에너지경제연구원",
@@ -630,36 +640,36 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": true,
-   "new": 1,
-   "parsed": 1
+   "new": 0,
+   "parsed": 0
   },
   "iea_reports": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-20T00:46:13+09:00",
+   "at": "2026-08-21T00:49:14+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
