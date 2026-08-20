@@ -372,6 +372,20 @@
       "reason": "국가와 사안이 다름",
       "same_event": false
     },
+    "issue-23695984ae743e95--48657c5c8d": {
+      "issue_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "keei_item": "중국 Taipingling 원전 2호기, 상업운전 개시",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 호기",
+      "same_event": false
+    },
+    "issue-23695984ae743e95--4fe7b05f50": {
+      "issue_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 호기",
+      "same_event": false
+    },
     "issue-24264cf1e2c21525--54df950745": {
       "issue_title": "러시아, 중국과의 장기적인 원자력 협력 강조",
       "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
@@ -785,6 +799,13 @@
       "reason": "동일 원전 운영 연장 건",
       "same_event": true
     },
+    "issue-44af16619ddc4885--3afede2c57": {
+      "issue_title": "한국, 대미 3500억 달러 투자 1호 프로젝트 선정 지연 비판",
+      "keei_item": "일본 경제산업성, 개량형경수로·SMR 기술개발·공급망 구축 지원 대상 선정",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
     "issue-457aa2e1b508d72c--841ceedbf0": {
       "issue_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -828,10 +849,10 @@
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--23a6f604ae": {
-      "issue_title": "미 주정부, AI 데이터센터 전력비 전가 막는다",
+      "issue_title": "미 연준 의사록, AI 투자로 데이터센터 전력 등 물가 압력 지적",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "다른 국가, 다른 사안",
+      "reason": "다른 국가, 다른 주체",
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--6445d0b3c3": {
@@ -993,6 +1014,13 @@
       "keei_item": "영국 정부·EDF, Sizewell B 원전 계속운전 지원 조건 합의",
       "prompt_version": 1,
       "reason": "다른 국가의 다른 원전 계속운전",
+      "same_event": false
+    },
+    "issue-53cff084bc298889--23a6f604ae": {
+      "issue_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 주체",
       "same_event": false
     },
     "issue-5550c8a8d7845204--8b6d0658ea": {
@@ -1667,6 +1695,13 @@
       "reason": "다른 국가, 다른 기술, 다른 안건",
       "same_event": false
     },
+    "issue-94c5d5ca40f4f818--16d9dcc69c": {
+      "issue_title": "미국 NRC, Disa Tech의 우라늄 폐광 폐기물 처리 환경평가 승인",
+      "keei_item": "미 NRC, Hatch 원전 2차 계속운전 승인",
+      "prompt_version": 1,
+      "reason": "같은 주체, 다른 안건",
+      "same_event": false
+    },
     "issue-95e2af27fb009d26--23a6f604ae": {
       "issue_title": "HD현대중공업, 미국 AI 데이터센터에 1조원 규모 발전용 엔진 공급 계약",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -1889,6 +1924,13 @@
       "keei_item": "일본 간사이전력, 자국 최초로 원전을 활용한 ‘오프사이트 PPA’ 추진",
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-b2a7f008bcd4a986--3d685ecca6": {
+      "issue_title": "정부, 반도체·AI·원전 등 전략산업 투자 국부펀드 신설 추진",
+      "keei_item": "일본 문부과학성, 원자력 인재 양성 산·학·관 센터 신설 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 사안",
       "same_event": false
     },
     "issue-b3adbd243878a3c3--23a6f604ae": {
@@ -2431,10 +2473,10 @@
       "same_event": false
     },
     "issue-ddd8072c258528d9--7175604cab": {
-      "issue_title": "미 에너지부, 디아블로 캐년 원전에 2.7억 달러 지원",
+      "issue_title": "미국 연방 정부, 디아블로 캐년 원전 운영에 자금 지원",
       "keei_item": "영국 정부·EDF, Sizewell B 원전 계속운전 지원 조건 합의",
       "prompt_version": 1,
-      "reason": "국가 및 원전 다름",
+      "reason": "다른 국가, 다른 원전",
       "same_event": false
     },
     "issue-ddd8072c258528d9--835e580735": {
@@ -2568,6 +2610,20 @@
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "주체와 사안이 다름",
+      "same_event": false
+    },
+    "issue-ef3eb8e43bbf5bf4--de0fd4314f": {
+      "issue_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 정책",
+      "same_event": false
+    },
+    "issue-f19233ca64499ca1--0cc8670c5e": {
+      "issue_title": "산업부, 인도와 CEPA 개선협상 가속화: 13차 협상 서울 개최",
+      "keei_item": "전 세계 방사성동위원소 산업 현황 (NEA 보고서)",
+      "prompt_version": 1,
+      "reason": "다른 사안, 일반 동향",
       "same_event": false
     },
     "issue-f29ddd79b8bbaeb4--249f1333d0": {

@@ -2252,6 +2252,16 @@
       "right_title": "중국 창장 3호기, 전력망 연결 완료",
       "same_event": true
     },
+    "09465180cdc8f102--23695984ae743e95": {
+      "embedding_similarity": 0.8887,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 중국 원전 건설 및 운영",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "same_event": false
+    },
     "09465180cdc8f102--27cf6798c17900be": {
       "embedding_similarity": 0.8592,
       "left_title": "중국, 신규 원자로 8기 건설 승인",
@@ -2721,6 +2731,16 @@
       "reviewed_at": "2026-08-12T05:31:01.399685+00:00",
       "right_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
       "same_event": false
+    },
+    "0a3a69c9a73e8bbe--4288e4cee8658728": {
+      "embedding_similarity": 0.8911,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 건설",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "same_event": true
     },
     "0a3a69c9a73e8bbe--42d294aaa404e892": {
       "embedding_similarity": 0.8635,
@@ -6872,6 +6892,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": false
     },
+    "1c63f08db9cd89f2--42d294aaa404e892": {
+      "embedding_similarity": 0.8799,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 빌 게이츠의 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "글로벌 SMR 상용화 경쟁 속 한국 제조 역량 부각",
+      "same_event": true
+    },
     "1c63f08db9cd89f2--565a77d9ffdd8577": {
       "embedding_similarity": 0.8681,
       "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
@@ -8542,6 +8572,16 @@
       "right_title": "중국 톈완 8호기, 주요 시운전 시험 완료",
       "same_event": false
     },
+    "23695984ae743e95--431840aff0e21ddb": {
+      "embedding_similarity": 0.8763,
+      "left_title": "중국, 신규 원자로 8기 건설 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 신규 원자로 건설 승인과 톈완 7호기 연료 장전",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "same_event": false
+    },
     "23695984ae743e95--6b0f4d492346398a": {
       "embedding_similarity": 0.8559,
       "left_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
@@ -8562,6 +8602,16 @@
       "right_title": "톈완 8호기, 시운전 단계 진입",
       "same_event": false
     },
+    "23695984ae743e95--911526189a05bdad": {
+      "embedding_similarity": 0.8778,
+      "left_title": "중국 타이핑링 2호기 원자력발전소 상업운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 내 서로 다른 원전의 상업운전 및 연료 장전",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "same_event": false
+    },
     "23695984ae743e95--9bff425a2d2c0a20": {
       "embedding_similarity": 0.8814,
       "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
@@ -8569,6 +8619,26 @@
       "prompt_version": 1,
       "reason": "다른 원전 호기",
       "reviewed_at": "2026-08-19T18:42:41.040412+00:00",
+      "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "same_event": false
+    },
+    "23695984ae743e95--c76e8785efc2694e": {
+      "embedding_similarity": 0.8897,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 중국 원전",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "same_event": false
+    },
+    "23695984ae743e95--cb38eed27ac4ccd4": {
+      "embedding_similarity": 0.8756,
+      "left_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 AI 전력 확보 위한 원전 승인과 톈완 7호기 연료 장전",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
       "right_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
       "same_event": false
     },
@@ -12242,6 +12312,16 @@
       "right_title": "SK 최태원·빌 게이츠, 테라파워 SMR로 AI 데이터센터 전력 공급 협력 논의",
       "same_event": true
     },
+    "37bb8e2982714116--42d294aaa404e892": {
+      "embedding_similarity": 0.8772,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 HD현대 회장의 빌 게이츠와 SMR 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 네 번째 만남…SMR 사업 협력 주목",
+      "same_event": true
+    },
     "37bb8e2982714116--565a77d9ffdd8577": {
       "embedding_similarity": 0.8659,
       "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
@@ -12721,6 +12801,16 @@
       "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
       "same_event": true
+    },
+    "3919f11d7d4ed159--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8816,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 건설 여부와 신중론 표명",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "same_event": false
     },
     "3919f11d7d4ed159--f261f6a0ca06115f": {
       "embedding_similarity": 0.8575,
@@ -13380,6 +13470,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T00:56:00.347603+00:00",
       "right_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
+      "same_event": false
+    },
+    "3b2e55136b3a7a6e--72fdb8f9c170e368": {
+      "embedding_similarity": 0.892,
+      "left_title": "미군, 마이크로원자로 기지 배치…2030년 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 미군 기지 마이크로원자로",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "슈머 상원의원, 미 육군 마이크로원자로 포트드럼 배치 지지",
       "same_event": false
     },
     "3b893d5f408b448f--565a77d9ffdd8577": {
@@ -15142,6 +15242,16 @@
       "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
       "same_event": true
     },
+    "4288e4cee8658728--591caac62d5f3545": {
+      "embedding_similarity": 0.8767,
+      "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR의 건설허가 및 현대건설의 EPC 우선권",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "same_event": true
+    },
     "4288e4cee8658728--5c54e3df83691f3c": {
       "embedding_similarity": 0.8631,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -15150,6 +15260,26 @@
       "reason": "테라파워 SMR EPC 협력",
       "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
+      "same_event": true
+    },
+    "4288e4cee8658728--6914f2b56547a420": {
+      "embedding_similarity": 0.8794,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 테라파워의 SMR 협력",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
+      "same_event": true
+    },
+    "4288e4cee8658728--719103e4dd4fefb1": {
+      "embedding_similarity": 0.8936,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 기자재 공급 계약",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
       "same_event": true
     },
     "4288e4cee8658728--78d84e4164f7c883": {
@@ -15162,6 +15292,56 @@
       "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
       "same_event": true
     },
+    "4288e4cee8658728--9f64b18b47e75f11": {
+      "embedding_similarity": 0.8818,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 두산에너빌리티의 테라파워 SMR 기자재 수주",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 수주",
+      "same_event": true
+    },
+    "4288e4cee8658728--a5a1ef68231b4e51": {
+      "embedding_similarity": 0.8856,
+      "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 한국 기업 협력",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "same_event": true
+    },
+    "4288e4cee8658728--ac2ca5bbc5e881e2": {
+      "embedding_similarity": 0.8832,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 관련 협력 확대",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 웨스팅하우스·홀텍·테라파워 등 글로벌 원전 동맹 확대",
+      "same_event": true
+    },
+    "4288e4cee8658728--b3fe6868b8391d2d": {
+      "embedding_similarity": 0.875,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 두산에너빌리티의 테라파워 SMR 기자재 수주",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 345MW급 나트륨 원자로 기자재 제작",
+      "same_event": true
+    },
+    "4288e4cee8658728--c37069e03f838d95": {
+      "embedding_similarity": 0.8845,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": true
+    },
     "4288e4cee8658728--cd229b4b783ae676": {
       "embedding_similarity": 0.8558,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -15170,6 +15350,46 @@
       "reason": "테라파워 SMR 상용화 협력",
       "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "HD현대·현대건설, 美 테라파워와 SMR 상용화 협력 강화",
+      "same_event": true
+    },
+    "4288e4cee8658728--d48f68a022448837": {
+      "embedding_similarity": 0.8959,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선-빌 게이츠, 네 번째 회동…HD현대 'SMR 핵심 파트너' 입지 굳힌다",
+      "same_event": true
+    },
+    "4288e4cee8658728--d5147918f97d542d": {
+      "embedding_similarity": 0.9059,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 기자재 공급 계약",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": true
+    },
+    "4288e4cee8658728--e93c5467c89ec2ba": {
+      "embedding_similarity": 0.8895,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 기자재 공급 계약",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
+      "same_event": true
+    },
+    "4288e4cee8658728--fd89bc58da35f7d3": {
+      "embedding_similarity": 0.8837,
+      "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 공급 타당성 평가",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": true
     },
     "42bf581871296384--66d8933507f8bf75": {
@@ -15191,6 +15411,36 @@
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
       "same_event": false
+    },
+    "42d294aaa404e892--5c54e3df83691f3c": {
+      "embedding_similarity": 0.8879,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 미국 시장 공략",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
+      "same_event": true
+    },
+    "42d294aaa404e892--6bf18ed2c2e284a4": {
+      "embedding_similarity": 0.8944,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "빌 게이츠, 14일 방한하여 SMR 협력 방안 논의 전망",
+      "same_event": true
+    },
+    "42d294aaa404e892--6fa106aa19f5d44f": {
+      "embedding_similarity": 0.8743,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 HD현대 회장의 빌 게이츠와 SMR 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR 협력 논의 예정",
+      "same_event": true
     },
     "42d294aaa404e892--719103e4dd4fefb1": {
       "embedding_similarity": 0.855,
@@ -15220,6 +15470,66 @@
       "reason": "같은 사안의 후속 보도",
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "same_event": true
+    },
+    "42d294aaa404e892--895b471e7f2e1d4c": {
+      "embedding_similarity": 0.8874,
+      "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "same_event": true
+    },
+    "42d294aaa404e892--997d5f57b3bba72b": {
+      "embedding_similarity": 0.8748,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 한국 기업의 테라파워 SMR 공급망",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "한국 기업, 테라파워 등 글로벌 SMR 공급망 핵심 파트너로 부상",
+      "same_event": true
+    },
+    "42d294aaa404e892--a5a1ef68231b4e51": {
+      "embedding_similarity": 0.8765,
+      "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워와 한국 기업의 SMR 협력 및 현대건설 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "same_event": true
+    },
+    "42d294aaa404e892--a6ef16375b196870": {
+      "embedding_similarity": 0.8898,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 협력 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선 HD현대 회장, 14일 방한 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": true
+    },
+    "42d294aaa404e892--ade565d956f0f34a": {
+      "embedding_similarity": 0.885,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 상용화 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "한국수출입은행, 빌 게이츠와 SMR 상용화 금융 협력 논의",
+      "same_event": true
+    },
+    "42d294aaa404e892--ae5c3e5ad07f1352": {
+      "embedding_similarity": 0.8747,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 한국수출입은행의 테라파워 SMR 금융 협력",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "빌 게이츠, 한국수출입은행과 테라파워 SMR 상용화 위한 금융 협력 논의",
       "same_event": true
     },
     "42d294aaa404e892--b3fe6868b8391d2d": {
@@ -15262,6 +15572,16 @@
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 14일 서울서 SMR 협력 논의",
       "same_event": true
     },
+    "42d294aaa404e892--d5147918f97d542d": {
+      "embedding_similarity": 0.8774,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 두산에너빌리티의 테라파워 SMR 협력",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": true
+    },
     "42d294aaa404e892--e93c5467c89ec2ba": {
       "embedding_similarity": 0.8656,
       "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
@@ -15271,6 +15591,16 @@
       "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
       "same_event": false
+    },
+    "42d294aaa404e892--f2cb25525bb05199": {
+      "embedding_similarity": 0.8784,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설과 HD현대 회장의 빌 게이츠와 SMR 논의",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 美 SMR 사업 가속화 논의",
+      "same_event": true
     },
     "42d294aaa404e892--f3f581e85458b942": {
       "embedding_similarity": 0.88,
@@ -18082,6 +18412,16 @@
       "right_title": "미 에너지부, 디아블로 캐년 원전에 2.7억 달러 지원",
       "same_event": false
     },
+    "53c3e58995054339--c0f630a0bffe6168": {
+      "embedding_similarity": 0.8734,
+      "left_title": "미국 캘리포니아 유일 원전 연장 제동, 차기 주정부가 결정한다",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "캘리포니아 유일 원전 연장 결정과 연방 정부 자금 지원",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "미국 연방 정부, 디아블로 캐년 원전 운영에 자금 지원",
+      "same_event": false
+    },
     "53c3e58995054339--cf5f6b05286e35dc": {
       "embedding_similarity": 0.8428,
       "left_title": "미국 캘리포니아 유일 원전 연장 제동, 차기 주정부가 결정한다",
@@ -20582,6 +20922,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": false
     },
+    "58158c94ab72ede0--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8776,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터 전력 공급과 메가클러스터 조성",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "same_event": false
+    },
     "58158c94ab72ede0--ff2ae4aa6fc51e40": {
       "embedding_similarity": 0.8485,
       "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
@@ -21990,6 +22340,16 @@
       "reason": "신규 원전 반영 미정 vs 지역별 차등제 초안",
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "정부, 산업용 전기요금 지역별 차등제 초안 공개…울산 요구 일부 제한",
+      "same_event": false
+    },
+    "5b5995d129436876--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8861,
+      "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 신규 원전 반영 여부",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
       "same_event": false
     },
     "5b5995d129436876--f261f6a0ca06115f": {
@@ -24401,6 +24761,16 @@
       "reviewed_at": "2026-08-19T22:01:54.328580+00:00",
       "right_title": "한울원전, 을지연습 통합방호훈련 실시…원전 복합위기 대응 점검",
       "same_event": false
+    },
+    "6a4c035c89f7767e--d2af36e4ba653eee": {
+      "embedding_similarity": 0.8925,
+      "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한울 4호기 자동정지",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "한울 4호기, 계획예방정비 후 한 달 만에 자동정지 발생",
+      "same_event": true
     },
     "6a9cd5bedfc61523--737df86cf04543b5": {
       "embedding_similarity": 0.8896,
@@ -35912,6 +36282,16 @@
       "right_title": "수도권 전력 공급 및 송전망 구축의 현실적 한계 직면",
       "same_event": false
     },
+    "bfc67ce932263d19--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8744,
+      "left_title": "산업장관, 수도권 원전 건설 필요성 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "수도권 원전 건설 필요성과 신규 원전 신중론",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "same_event": false
+    },
     "bfe4e33a70ada872--e35ba84675a81735": {
       "embedding_similarity": 0.8712,
       "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
@@ -35941,6 +36321,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "한전KPS, 서남권역 해상풍력 확산1단지 우선협상대상자 선정 관련 보도...",
       "same_event": false
+    },
+    "c0f630a0bffe6168--f20992e2e97d00e7": {
+      "embedding_similarity": 0.8839,
+      "left_title": "캘리포니아 주 의원들, 디아블로 캐년 원전 2030년 이후 계속운전 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "디아블로 캐년 원전 계속운전",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "미국 연방 정부, 디아블로 캐년 원전 운영에 자금 지원",
+      "same_event": true
     },
     "c1c8d0603e949e14--ce3cf4f4265cbc07": {
       "embedding_similarity": 0.8558,
@@ -36760,6 +37150,16 @@
       "reason": "주체와 대상이 다름",
       "reviewed_at": "2026-08-16T11:22:11.050184+00:00",
       "right_title": "미 에너지부, 오크리지 국립연구소 핵융합 증식 블랭킷 시설 지원",
+      "same_event": false
+    },
+    "d02e823fd0afcdf6--d5488ec8773bdc1a": {
+      "embedding_similarity": 0.8742,
+      "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "서로 다른 우라늄 농축 시설 확장",
+      "reviewed_at": "2026-08-20T01:10:18.502472+00:00",
+      "right_title": "Urenco USA, 뉴멕시코에 우라늄 농축 시설 50% 확장 착공",
       "same_event": false
     },
     "d0d2eb7c05b74930--dc1568d26b7a3c04": {
