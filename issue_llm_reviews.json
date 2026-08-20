@@ -4712,6 +4712,26 @@
       "right_title": "우리기술, 한수원 고리 3·4호기 주전산기 설비 85억원 수주",
       "same_event": true
     },
+    "10093fb76e92c305--5a1cdd9fe02751c9": {
+      "embedding_similarity": 0.9046,
+      "left_title": "우리기술, 한수원 고리 3·4호기 주전산기 설비 85억원 수주",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 설비 수주",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "우리기술, 한수원과 고리 3·4호기 PMS DAS 85억원 공급계약 체결",
+      "same_event": true
+    },
+    "10093fb76e92c305--90632d54b0efbee5": {
+      "embedding_similarity": 0.8675,
+      "left_title": "우리기술, 한수원 고리 3·4호기 주전산기 설비 85억원 수주",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주전산기 수주와 재고관리 협약",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "우리기술, 한수원과 원전 공급자 재고관리 협약 체결",
+      "same_event": false
+    },
     "1040c640a9bcc93d--5e9d01995935b47b": {
       "embedding_similarity": 0.8773,
       "left_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
@@ -6012,6 +6032,16 @@
       "right_title": "중국 창장 3호기, 전력망 연결 완료",
       "same_event": false
     },
+    "146c2a87b9f608c6--a0dc82d91aed4ab8": {
+      "embedding_similarity": 0.8706,
+      "left_title": "중국 하이양 3호기 원전 고온 기능 시험 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기 및 국가",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "중국 창장 3호기, 전력망 연결 완료",
+      "same_event": false
+    },
     "147ece88607645c4--669f3cd470352a4e": {
       "embedding_similarity": 0.8855,
       "left_title": "김정관 산업부 장관, 美 투자 압박에 긴급 방미…원전·SMR 투자 논의",
@@ -6740,6 +6770,16 @@
       "reason": "AI 전력망 투자 주체 및 규모",
       "reviewed_at": "2026-08-18T18:53:48.273570+00:00",
       "right_title": "엔비디아, AI 인프라 확보 위해 전력 인프라 기업 랜시움에 4조 투자",
+      "same_event": false
+    },
+    "1a48967b5795e76b--1b91dfa6d90f5524": {
+      "embedding_similarity": 0.8995,
+      "left_title": "PJM, 데이터센터 부하 대응 위한 임시 자원 적정성 서비스 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "데이터센터 전력망 규제",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
       "same_event": false
     },
     "1a48967b5795e76b--ab17d3bffd6e0497": {
@@ -8882,6 +8922,16 @@
       "right_title": "SK이노·테라파워, SMR 사업화 나선다…AI 데이터센터 전력시장 공략",
       "same_event": false
     },
+    "21b11a69def02cde--26eafa8274e4f294": {
+      "embedding_similarity": 0.867,
+      "left_title": "TerraPower, AI 데이터센터용 SMR 프로젝트 올해 발표 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 사업화 및 AI 데이터센터 공략",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "SK이노·테라파워, SMR 사업화 나선다…AI 데이터센터 전력시장 공략",
+      "same_event": true
+    },
     "21b11a69def02cde--4288e4cee8658728": {
       "embedding_similarity": 0.863,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -10120,6 +10170,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-17T15:38:05.192987+00:00",
       "right_title": "최태원 SK 회장, 빌 게이츠와 SMR 기반 AI 데이터센터 전력 협력 논의",
+      "same_event": false
+    },
+    "26eafa8274e4f294--71432e401698a910": {
+      "embedding_similarity": 0.8703,
+      "left_title": "TerraPower, AI 데이터센터용 SMR 프로젝트 올해 발표 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 프로젝트와 UTES 기술",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "데이터센터 에너지 부담 경감 위한 '저온 UTES' 기술 주목",
       "same_event": false
     },
     "26eafa8274e4f294--d31013e6bf533618": {
@@ -12492,6 +12552,16 @@
       "right_title": "정부, SMR 7대 SEED 프로젝트 선정 및 세액공제 등 육성 가속화",
       "same_event": true
     },
+    "341fae7beffafdcb--46a046f4463404f9": {
+      "embedding_similarity": 0.8709,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 7대 SEED 프로젝트 육성",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, SMR 7대 SEED 프로젝트 선정 및 세액공제 등 육성 가속화",
+      "same_event": true
+    },
     "341fae7beffafdcb--510b6993261d80ee": {
       "embedding_similarity": 0.8869,
       "left_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
@@ -14052,6 +14122,16 @@
       "right_title": "중국 톈완 8호기, 주요 시운전 시험 완료",
       "same_event": false
     },
+    "39978953c427bd87--a0dc82d91aed4ab8": {
+      "embedding_similarity": 0.8907,
+      "left_title": "중국 하이양 3호기 원전 고온 기능 시험 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 호기",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "중국 톈완 8호기, 주요 시운전 시험 완료",
+      "same_event": false
+    },
     "39db90d42552e551--5f508326eb5801f7": {
       "embedding_similarity": 0.8595,
       "left_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
@@ -14802,6 +14882,16 @@
       "right_title": "한수원, 올해 원전 이용률 89% 목표 달성 '빨간불'",
       "same_event": false
     },
+    "3ca93141025cfb48--46a046f4463404f9": {
+      "embedding_similarity": 0.884,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7대 SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "李대통령 “반도체 다음 먹거리 준비해야…7대 첨단기술, 차세대 성장엔...",
+      "same_event": true
+    },
     "3cb803a824851b99--55842b037eb69172": {
       "embedding_similarity": 0.8508,
       "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
@@ -14821,6 +14911,16 @@
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "엔비디아, AI 전력 인프라 투자 확대…랜시엄 지분 20% 확보",
       "same_event": false
+    },
+    "3cbfa7cd59665c00--46a046f4463404f9": {
+      "embedding_similarity": 0.8804,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7대 SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "(공동) 첨단기술로 여는 미래, 미래성장동력 ｢7대 SEED｣ 보고회 개최",
+      "same_event": true
     },
     "3cbfa7cd59665c00--510b6993261d80ee": {
       "embedding_similarity": 0.9037,
@@ -17402,6 +17502,16 @@
       "right_title": "광주 반도체 산단, 에너지·용수 공급 방안 국가 계획과 연계 검증",
       "same_event": true
     },
+    "45510ce6eb51954b--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8928,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "광주 반도체 산단, 에너지·용수 공급 방안 국가 계획과 연계 검증",
+      "same_event": true
+    },
     "457aa2e1b508d72c--63c61266bb0dc771": {
       "embedding_similarity": 0.8556,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -17651,6 +17761,16 @@
       "reviewed_at": "2026-08-16T21:22:00.160812+00:00",
       "right_title": "정부, 연내 '메가특구 특별법' 제정 추진으로 353조 지역 투자 가속화",
       "same_event": false
+    },
+    "45c1951eda5814ec--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8842,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 연내 '메가특구 특별법' 제정 추진으로 353조 지역 투자 가속화",
+      "same_event": true
     },
     "460f8b83968e2f7b--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8418,
@@ -17962,6 +18082,16 @@
       "right_title": "우리기술, 400억 원 규모 전환사채 발행 결정",
       "same_event": false
     },
+    "46a046f4463404f9--937a9cdf618471b4": {
+      "embedding_similarity": 0.8746,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "K-문샷 12대 미션 본격 추진, SMR 선박 등 포함",
+      "same_event": true
+    },
     "46a046f4463404f9--a4fec121e2c54527": {
       "embedding_similarity": 0.8908,
       "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
@@ -17992,6 +18122,16 @@
       "right_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
       "same_event": false
     },
+    "46a046f4463404f9--be64fdd1a3f73d30": {
+      "embedding_similarity": 0.9038,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7대 SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 핵융합 발전 '7대 SEED' 선정…2040년대 상용화 목표",
+      "same_event": true
+    },
     "46a046f4463404f9--c635ceb310705bc0": {
       "embedding_similarity": 0.85,
       "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
@@ -18012,6 +18152,16 @@
       "right_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
       "same_event": false
     },
+    "46a046f4463404f9--cf220a841659c83f": {
+      "embedding_similarity": 0.9156,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "7대 SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
+    },
     "46a046f4463404f9--d1e966b5772613fd": {
       "embedding_similarity": 0.8588,
       "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
@@ -18020,6 +18170,26 @@
       "reason": "SMR을 포함한 7대 성장동력으로 AI 시대 대비 강조",
       "reviewed_at": "2026-08-20T09:47:04.740800+00:00",
       "right_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "same_event": true
+    },
+    "46a046f4463404f9--d2d0e8abcc97280e": {
+      "embedding_similarity": 0.8744,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "(OFFICIAL) 한국 정부, 2035년 국산 SMR 상용화 등 7대 미래성장동력 공개",
+      "same_event": true
+    },
+    "46a046f4463404f9--e4c4b1f4ad2834d4": {
+      "embedding_similarity": 0.8706,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 7대 SEED 프로젝트 선정",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": true
     },
     "46c0e041c31a25e2--5976e83faefed3d5": {
@@ -18159,6 +18329,16 @@
       "prompt_version": 1,
       "reason": "반도체 클러스터 전력·용수 공급 협약",
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
+      "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
+      "same_event": true
+    },
+    "48f657e3767cc26c--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8823,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
       "same_event": true
     },
@@ -18371,6 +18551,16 @@
       "reviewed_at": "2026-08-13T07:27:10.871900+00:00",
       "right_title": "SK하이닉스, 용인·청주 신규 반도체 팹에 54조원 투자 결정",
       "same_event": true
+    },
+    "4a4c68cd1c839118--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8714,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전남광주 클러스터와 용인·청주 투자",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "SK하이닉스, 용인·청주 신규 반도체 팹에 54조원 투자 결정",
+      "same_event": false
     },
     "4a7bb3ee4541e469--7fbf45e0f47e3880": {
       "embedding_similarity": 0.9072,
@@ -19489,6 +19679,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 다른 사안",
       "reviewed_at": "2026-08-12T07:20:58.558461+00:00",
+      "right_title": "삼성·SK하이닉스, 중국 추격에 반도체 팹 가동 앞당겨",
+      "same_event": false
+    },
+    "5182ffd451bcbc4d--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8715,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "국내 반도체 클러스터와 중국 추격",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "삼성·SK하이닉스, 중국 추격에 반도체 팹 가동 앞당겨",
       "same_event": false
     },
@@ -24442,6 +24642,16 @@
       "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
       "same_event": true
     },
+    "5ea017e458781684--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8848,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
+      "same_event": true
+    },
     "5f508326eb5801f7--999d14683bede884": {
       "embedding_similarity": 0.8436,
       "left_title": "LANL, ZiaCore 마이크로원자로 임계 도달 발표",
@@ -27332,6 +27542,16 @@
       "right_title": "최형두 의원, 호남 반도체 클러스터 전력·용수 인프라 강조",
       "same_event": false
     },
+    "6f82258d88ebe192--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8783,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "최형두 의원, 호남 반도체 클러스터 전력·용수 인프라 강조",
+      "same_event": true
+    },
     "6fc5e9f939b9ad49--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8738,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -27431,6 +27651,16 @@
       "reviewed_at": "2026-08-20T13:01:47.097556+00:00",
       "right_title": "호남권에 반도체 팹 2기 추가 건설 계획, 12차 전기본에 반영",
       "same_event": false
+    },
+    "701525a4e815124e--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8805,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "호남권에 반도체 팹 2기 추가 건설 계획, 12차 전기본에 반영",
+      "same_event": true
     },
     "7066771a98670992--8ccda2e1c46fb274": {
       "embedding_similarity": 0.8961,
@@ -27791,6 +28021,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
       "same_event": true
+    },
+    "71fb2cce97eae0f9--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8687,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터와 태양광 발전",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "전남광주통합특별시, 해남 400MW 태양광발전사업 착공…SK하이닉스에 전력 공급",
+      "same_event": false
     },
     "7228e841cbd7715e--96dffa21b827ca27": {
       "embedding_similarity": 0.8645,
@@ -29449,6 +29689,16 @@
       "prompt_version": 1,
       "reason": "호남 반도체 메가프로젝트",
       "reviewed_at": "2026-08-10T00:56:50.761610+00:00",
+      "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
+      "same_event": true
+    },
+    "79e904ad0db5c408--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.9083,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "정부, 호남 반도체 등 메가프로젝트 2차 민관 회의 개최…속도전 강조",
       "same_event": true
     },
@@ -31422,6 +31672,16 @@
       "right_title": "전남광주시, 호남 반도체 전력 공급 협약 체결",
       "same_event": true
     },
+    "8b82b5beb7e7c506--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.891,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "전남광주시, 호남 반도체 전력 공급 협약 체결",
+      "same_event": true
+    },
     "8ba4942a5024e40e--be6777d5d213285c": {
       "embedding_similarity": 0.8497,
       "left_title": "미국 의회, 국내 우라늄 농축 증대 및 유카 마운틴 폐기 법안 추진",
@@ -31811,6 +32071,16 @@
       "reviewed_at": "2026-08-14T12:43:56.426278+00:00",
       "right_title": "산업통상부-원자력안전위원회, 장관 주재 협의회 개최",
       "same_event": true
+    },
+    "8d4e6351d6c710b2--924905a3d9cd847e": {
+      "embedding_similarity": 0.873,
+      "left_title": "국회, 국가기간 전력망 확충 특별법 등 민생법안 70여건 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 확충과 AI 전력 수요",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "AI 전력 수요 급증, 반도체 다음 병목은 '전력망' 될 것",
+      "same_event": false
     },
     "8d4e6351d6c710b2--959a0bd83cc42eea": {
       "embedding_similarity": 0.8491,
@@ -33561,6 +33831,16 @@
       "reviewed_at": "2026-08-12T16:51:37.329928+00:00",
       "right_title": "정부, 반도체 클러스터 전력 적기 공급 위해 송전선 확충 계획 발표",
       "same_event": false
+    },
+    "96313e09e28a6bb5--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8815,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 반도체 클러스터 전력 적기 공급 위해 송전선 확충 계획 발표",
+      "same_event": true
     },
     "96dffa21b827ca27--a981c7fb656fcc00": {
       "embedding_similarity": 0.8457,
@@ -35352,6 +35632,16 @@
       "right_title": "미 에너지부, 디아블로 캐년 원전에 2.7억 달러 지원",
       "same_event": false
     },
+    "a58ad15fc6751018--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8709,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SK그룹 전남 동부권 투자 유치",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "SK, 전남 동부권에 AI 데이터센터 등 100조원 투자 예정",
+      "same_event": true
+    },
     "a5a1ef68231b4e51--a6ef16375b196870": {
       "embedding_similarity": 0.8455,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -35972,6 +36262,16 @@
       "right_title": "정부, 호남 반도체 클러스터 전력원으로 재생에너지·ESS 적극 활용 계획",
       "same_event": true
     },
+    "aa8c7e5e69884848--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.89,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 호남 반도체 클러스터 전력원으로 재생에너지·ESS 적극 활용 계획",
+      "same_event": true
+    },
     "aab3ce653eda03aa--b0e178ca6114b1a9": {
       "embedding_similarity": 0.8476,
       "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
@@ -36549,6 +36849,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
+      "right_title": "전남광주통합특별시, 해남서 국내 최대 400MW 태양광발전사업 착공",
+      "same_event": false
+    },
+    "ae09b6f7c584fcd6--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8724,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터와 태양광 발전",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "전남광주통합특별시, 해남서 국내 최대 400MW 태양광발전사업 착공",
       "same_event": false
     },
@@ -39262,6 +39572,26 @@
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
       "same_event": false
     },
+    "c84ca17eb7ff09ec--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8782,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터 조성 추진",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
+      "same_event": true
+    },
+    "c86e470ec9c41cec--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8679,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SK그룹 전남 동부권 투자 유치",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "민형배 시장, SK그룹 전남 동부권 100조원 규모 투자계획 발표 전망",
+      "same_event": true
+    },
     "c9f1242ff12ab32a--f73a97b0f28780fb": {
       "embedding_similarity": 0.8464,
       "left_title": "엔비디아, AI 인프라 강화를 위해 전력 기업 랜시엄에 4조원 투자",
@@ -39792,6 +40122,16 @@
       "right_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
       "same_event": true
     },
+    "d1fba2fe64316947--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8721,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 부지 선정과 인프라 논쟁",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "여야, 호남 반도체 부지 선정 두고 격돌…전력·용수 인프라 논쟁",
+      "same_event": false
+    },
     "d2d0e8abcc97280e--f9836d3cb1423104": {
       "embedding_similarity": 0.8707,
       "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
@@ -40072,6 +40412,16 @@
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": false
     },
+    "ddc18f82e49ced09--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8738,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 메가클러스터와 3대 메가프로젝트",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "김정관 산업부 장관, 반도체·AI 등 '3대 메가프로젝트' 하반기 실행 제시",
+      "same_event": false
+    },
     "ddd8072c258528d9--e166e0749a04c6dd": {
       "embedding_similarity": 0.856,
       "left_title": "미국 에너지부, 오클로(Oklo) 시험용 원자로 가동 승인",
@@ -40222,6 +40572,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
+    "e398ea2844a8575f--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8748,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "투자 대상 지역 및 목적 상이",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "SK하이닉스, AI 메모리 증설 위해 용인·청주에 54조원 투자",
+      "same_event": false
+    },
     "e4b686a577dffbb2--e9c761ed60c251fb": {
       "embedding_similarity": 0.8545,
       "left_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
@@ -40251,6 +40611,16 @@
       "reviewed_at": "2026-08-14T05:33:31.107110+00:00",
       "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": true
+    },
+    "e510a3f760f56966--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8863,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터와 원전 건설",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "산업부 장관, 수도권 전력난에 \"원전 건설 심정\" 발언",
+      "same_event": false
     },
     "e525e3a250f8b92b--f73a97b0f28780fb": {
       "embedding_similarity": 0.8461,
@@ -40412,6 +40782,16 @@
       "right_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
       "same_event": true
     },
+    "eb4f9cc624ee91c4--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8759,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SK그룹 투자 유치 발표",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "민 시장, SK그룹 전남 동부권 100조 투자 유치 발표",
+      "same_event": true
+    },
     "eec81ca96d886aa5--f1b7e28af992975c": {
       "embedding_similarity": 0.87,
       "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
@@ -40512,6 +40892,16 @@
       "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
       "same_event": false
     },
+    "f5304b378680bcac--fb1014df46236dd8": {
+      "embedding_similarity": 0.8402,
+      "left_title": "국회, 전력수급기본계획 수립 시 대기환경 영향 검토 의무화 법안 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수급기본계획 수립 방식과 내용",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
+      "same_event": false
+    },
     "f9836d3cb1423104--fde9f43babfbf220": {
       "embedding_similarity": 0.8505,
       "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
@@ -40530,6 +40920,16 @@
       "reason": "주제가 다름",
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
+      "same_event": false
+    },
+    "fde9f43babfbf220--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8664,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터와 AI 로봇 보급",
+      "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
+      "right_title": "정부, 전 산업에 'AI 옷' 입힌다…AI 로봇 연 1000대 보급 추진",
       "same_event": false
     }
   }
