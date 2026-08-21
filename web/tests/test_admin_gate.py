@@ -50,6 +50,14 @@ const cookie = await makeSessionCookie(env.ADMIN_SESSION_SECRET, now);
 results.valid = await run(new Request("https://x/admin/", {
   headers: { Cookie: `nuclens_admin=${cookie}` } }), env);
 
+// ④-b 인증된 POST 는 로그인으로 가로채이지 않고 하위 라우트로 간다
+//     (/admin/api 쓰기가 통째로 막혔던 회귀)
+const apiForm = new FormData();
+apiForm.set("password", "wrong-on-purpose");
+results.authed_post = await run(new Request("https://x/admin/api", {
+  method: "POST", body: apiForm,
+  headers: { Cookie: `nuclens_admin=${cookie}` } }), env);
+
 // ⑤ 변조 쿠키 → 401
 const tampered = cookie.slice(0, -2) + (cookie.endsWith("00") ? "11" : "00");
 results.tampered = await run(new Request("https://x/admin/", {
@@ -96,6 +104,11 @@ class AdminGateTests(unittest.TestCase):
         self.assertEqual(valid["status"], 200)
         self.assertIn("no-store", valid["cache"])
         self.assertTrue(self.results["valid_verify"])
+
+    def test_authenticated_post_reaches_subroute(self):
+        # 인증 쿠키가 있으면 POST 도 context.next() 로 간다 — 미들웨어가 모든
+        # POST 를 로그인으로 삼키면 콘솔의 판정 쓰기가 통째로 죽는다.
+        self.assertEqual(self.results["authed_post"]["status"], 200)
 
     def test_tampered_cookie_is_401(self):
         self.assertEqual(self.results["tampered"]["status"], 401)

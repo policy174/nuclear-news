@@ -4765,6 +4765,18 @@ def build() -> None:
             json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",
         )
+    # 운영 콘솔의 base 목록 — keywords.json 사본. /admin/ 아래는 엣지 게이트
+    # 뒤라서 공개 data/ 가 아니라 여기 둔다. 콘솔은 base ∪ KV 판정으로
+    # '유효 목록'을 그린다(덧칠 원칙 — 이 파일 자체는 콘솔이 못 바꾼다).
+    try:
+        admin_config = json.loads((BOT_DIR / "keywords.json").read_text(encoding="utf-8"))
+        (OUT_DIR.parent / "admin" / "config.json").write_text(
+            json.dumps(admin_config, ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8",
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"[build] admin config 생략 — keywords.json 읽기 실패: {exc}")
+
     # 진단 전용 — 화면이 읽지 않는데 26MiB 를 넘겨 Pages 파일 상한(25MiB)에
     # 걸려 배포 전체가 죽었다(2026-08-16). 배포 폴더 밖에 남긴다.
     diag_dir = SITE_DIR / "diag"

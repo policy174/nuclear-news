@@ -102,6 +102,16 @@ export async function onRequest(context) {
   }
   const now = Math.floor(Date.now() / 1000);
 
+  // 인증 확인이 **먼저**다. POST 를 먼저 로그인 시도로 가로채면 /admin/api 같은
+  // 하위 라우트의 쓰기 요청이 영원히 로그인 폼(401)을 받는다 — 2026-08-20
+  // 로컬 검증에서 판정 추가가 통째로 막혔다.
+  if (await verifySessionCookie(secret, readCookie(request), now)) {
+    const response = await context.next();
+    const guarded = new Response(response.body, response);
+    guarded.headers.set("Cache-Control", "no-store");
+    return guarded;
+  }
+
   if (request.method === "POST") {
     const form = await request.formData().catch(() => null);
     if (form && form.get("password") === password) {
@@ -118,11 +128,5 @@ export async function onRequest(context) {
     return htmlResponse(loginPage("비밀번호가 일치하지 않습니다."), 401);
   }
 
-  if (await verifySessionCookie(secret, readCookie(request), now)) {
-    const response = await context.next();
-    const guarded = new Response(response.body, response);
-    guarded.headers.set("Cache-Control", "no-store");
-    return guarded;
-  }
   return htmlResponse(loginPage(), 401);
 }

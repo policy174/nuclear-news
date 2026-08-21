@@ -15,10 +15,15 @@ API = ROOT.parent / "functions" / "admin" / "api.js"
 DRIVER = """
 import { onRequest, applyOp, validateEntry } from API_PATH;
 
-function fakeKV(initial) {
+function fakeKV(initial, applied) {
   const store = new Map(initial ? [["judgments", JSON.stringify(initial)]] : []);
+  if (applied) store.set("applied", JSON.stringify(applied));
   return {
-    get: async key => store.get(key) ?? null,
+    // 실제 KV 처럼 두 번째 인자 "json" 을 지원한다 — api.js 가 그렇게 부른다.
+    get: async (key, type) => {
+      const raw = store.get(key) ?? null;
+      return type === "json" && raw !== null ? JSON.parse(raw) : raw;
+    },
     put: async (key, value) => { store.set(key, value); },
     _dump: () => JSON.parse(store.get("judgments") || "null"),
   };
@@ -57,7 +62,11 @@ results.duplicate = await call({ ADMIN_KV: kv }, "POST", { op: "add", version: 1
 results.bad_kind = applyOp({ version: 0, entries: [] }, { op: "add", version: 0, entry: { kind: "source_add", group: "정책", value: "x" } });
 results.bad_group = applyOp({ version: 0, entries: [] }, { op: "add", version: 0, entry: { kind: "keyword_add", group: "없는그룹", value: "x" } });
 
-// ⑦ toggle → disabled true → delete → 원복
+// ⑦ 적용 장부는 GET 에 함께 실린다 (crawl 이 KV 에 PUT 한 것)
+results.with_ledger = await call(
+  { ADMIN_KV: fakeKV(null, { applied_ids: ["id-1"], overlay: "ok" }) }, "GET");
+
+// ⑧ toggle → disabled true → delete → 원복
 const id = kv._dump().entries[0].id;
 results.toggle = await call({ ADMIN_KV: kv }, "POST", { op: "toggle", version: 1, id });
 results.toggled_flag = kv._dump().entries[0].disabled;
@@ -86,7 +95,15 @@ class AdminApiTests(unittest.TestCase):
         self.assertIn("ADMIN_KV", self.r["no_kv"]["body"]["error"])
 
     def test_empty_store_starts_at_version_zero(self):
-        self.assertEqual(self.r["empty"]["body"], {"version": 0, "entries": []})
+        body = self.r["empty"]["body"]
+        self.assertEqual(body["version"], 0)
+        self.assertEqual(body["entries"], [])
+        # 장부가 아직 없으면 null — 콘솔은 이걸 '다음 수집부터'로 읽는다.
+        self.assertIsNone(body["applied"])
+
+    def test_get_exposes_applied_ledger(self):
+        self.assertEqual(self.r["with_ledger"]["body"]["applied"],
+                         {"applied_ids": ["id-1"], "overlay": "ok"})
 
     def test_add_bumps_version_and_stamps_fields(self):
         self.assertEqual(self.r["add"]["status"], 200)

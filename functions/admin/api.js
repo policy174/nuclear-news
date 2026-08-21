@@ -11,6 +11,9 @@
  */
 
 const STORE_KEY = "judgments";
+// crawl 이 매 수집 끝에 PUT 하는 적용 장부 {applied_ids, overlay, collected_at}.
+// 콘솔의 '적용됨 / 다음 수집부터' 배지가 이걸 본다.
+const APPLIED_KEY = "applied";
 
 export const KINDS = new Set([
   "keyword_add", "keyword_remove",
@@ -96,7 +99,10 @@ export async function onRequest(context) {
     return json({ error: "판정 저장은 지금 쓸 수 없습니다 — 배포의 ADMIN_KV 바인딩을 확인하세요." }, 503);
   }
   const store = await loadStore(kv);
-  if (context.request.method === "GET") return json(store);
+  if (context.request.method === "GET") {
+    const applied = await kv.get(APPLIED_KEY, "json").catch(() => null);
+    return json({ ...store, applied });
+  }
   if (context.request.method !== "POST") return json({ error: "GET/POST 만" }, 405);
 
   const body = await context.request.json().catch(() => null);

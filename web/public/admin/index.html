@@ -6,60 +6,106 @@
 <meta name="robots" content="noindex,nofollow">
 <title>운영 콘솔 · Nuclens</title>
 <style>
-  body { margin: 0; padding: 32px 20px; background: #eef1f4; color: #12294c;
+  :root { --ink:#12294c; --paper:#eef1f4; --line:#c9d2de; --muted:#51617a;
+          --ok:#1d6f42; --bad:#b4232a; --pending:#8a5a00; }
+  body { margin: 0; padding: 0 0 48px; background: var(--paper); color: var(--ink);
          font-family: Pretendard, system-ui, sans-serif; }
-  main { max-width: 720px; margin: 0 auto; display: grid; gap: 16px; }
-  h1 { margin: 0; font-size: 20px; }
-  section { padding: 18px 20px; background: #fff; border: 1px solid #c9d2de;
-            border-radius: 6px; }
-  h2 { margin: 0 0 10px; font-size: 14px; color: #51617a; }
-  dl { display: grid; grid-template-columns: 140px 1fr; gap: 6px 14px; margin: 0;
-       font-size: 14px; }
-  dt { color: #51617a; } dd { margin: 0; font-variant-numeric: tabular-nums; }
-  a { color: #12294c; }
-  .state-ok { color: #1d6f42; font-weight: 700; }
-  .state-bad { color: #b4232a; font-weight: 700; }
+  header { display: flex; align-items: center; gap: 18px; padding: 14px 20px;
+           background: var(--ink); color: #fff; }
+  header h1 { margin: 0; font-size: 16px; }
+  nav { display: flex; gap: 4px; margin-left: auto; }
+  nav button { padding: 8px 14px; border: 0; border-radius: 4px; background: transparent;
+               color: #cfd8e6; font-size: 14px; font-weight: 600; cursor: pointer; }
+  nav button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+  main { max-width: 860px; margin: 24px auto 0; padding: 0 20px; display: grid; gap: 16px; }
+  section.card { padding: 18px 20px; background: #fff; border: 1px solid var(--line);
+                 border-radius: 6px; }
+  h2 { margin: 0 0 4px; font-size: 15px; }
+  .note { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  dl { display: grid; grid-template-columns: 140px 1fr; gap: 6px 14px; margin: 0; font-size: 14px; }
+  dt { color: var(--muted); } dd { margin: 0; font-variant-numeric: tabular-nums; }
+  a { color: var(--ink); }
+  .state-ok { color: var(--ok); font-weight: 700; }
+  .state-bad { color: var(--bad); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px;
+          border: 1px solid var(--line); border-radius: 999px; font-size: 13px;
+          background: #f7f9fb; }
+  .chip.added { border-color: var(--ok); }
+  .chip.removed { text-decoration: line-through; opacity: .55; }
+  .chip.disabled { opacity: .45; }
+  .chip button { border: 0; background: none; color: var(--muted); font-size: 13px;
+                 cursor: pointer; padding: 0 2px; line-height: 1; }
+  .chip button:hover { color: var(--bad); }
+  .badge { padding: 1px 7px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+  .badge.pending { background: #fdf3df; color: var(--pending); }
+  .badge.applied { background: #e6f2ea; color: var(--ok); }
+  form.adder { display: flex; gap: 8px; }
+  form.adder input { flex: 1; padding: 8px 10px; border: 1px solid var(--line);
+                     border-radius: 4px; font-size: 14px; min-width: 0; }
+  form.adder button { padding: 8px 14px; border: 0; border-radius: 4px;
+                      background: var(--ink); color: #fff; font-weight: 700; cursor: pointer; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); text-align: left;
+           vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+  td .row-actions { display: flex; gap: 8px; }
+  td .row-actions button { border: 1px solid var(--line); background: #fff; border-radius: 4px;
+                           padding: 3px 9px; font-size: 12.5px; cursor: pointer; }
+  #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+           padding: 10px 16px; border-radius: 6px; background: var(--ink); color: #fff;
+           font-size: 14px; }
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
-<main>
+<header>
   <h1>Nuclens 운영 콘솔</h1>
-  <section>
-    <h2>데이터 상태</h2>
-    <dl id="statusList"><dt>불러오는 중</dt><dd>…</dd></dl>
-  </section>
-  <section>
-    <h2>바로가기</h2>
-    <dl>
-      <dt>GitHub Actions</dt><dd><a href="https://github.com/policy174/nuclear-news/actions" rel="noopener">워크플로 실행 이력</a></dd>
-      <dt>Cloudflare Pages</dt><dd><a href="https://dash.cloudflare.com/" rel="noopener">배포 대시보드</a></dd>
-      <dt>사이트</dt><dd><a href="/">nuclens 홈</a></dd>
-    </dl>
-  </section>
+  <nav id="tabs">
+    <button data-panel="status" aria-pressed="true" type="button">상태</button>
+    <button data-panel="collect" aria-pressed="false" type="button">수집 설정</button>
+    <button data-panel="judgments" aria-pressed="false" type="button">내 판정</button>
+  </nav>
+</header>
+<main>
+  <div id="panel-status">
+    <section class="card">
+      <h2>데이터 상태</h2>
+      <dl id="statusList"><dt>불러오는 중</dt><dd>…</dd></dl>
+    </section>
+    <section class="card">
+      <h2>바로가기</h2>
+      <dl>
+        <dt>GitHub Actions</dt><dd><a href="https://github.com/policy174/nuclear-news/actions" rel="noopener">워크플로 실행 이력</a></dd>
+        <dt>Cloudflare Pages</dt><dd><a href="https://dash.cloudflare.com/" rel="noopener">배포 대시보드</a></dd>
+        <dt>사이트</dt><dd><a href="/">nuclens 홈</a></dd>
+      </dl>
+    </section>
+  </div>
+
+  <div id="panel-collect" hidden>
+    <section class="card">
+      <h2>수집 설정</h2>
+      <p class="note">여기서 누른 것은 기본 파일(keywords.json)을 바꾸지 않고 판정으로 쌓입니다(덧칠).
+        <strong>다음 수집부터</strong> 적용되고, 내 판정에서 지우면 그 판단만 원복됩니다.</p>
+      <p id="collectError" class="note state-bad" hidden></p>
+      <div id="collectGroups"></div>
+    </section>
+  </div>
+
+  <div id="panel-judgments" hidden>
+    <section class="card">
+      <h2>전체 판정 기록</h2>
+      <p class="note">콘솔에서 누른 모든 것이 한 목록으로 모입니다. 지우면 그 판단만 사라지고 나머지는 그대로입니다.</p>
+      <table>
+        <thead><tr><th>종류</th><th>그룹</th><th>값</th><th>기록</th><th>상태</th><th></th></tr></thead>
+        <tbody id="judgmentRows"></tbody>
+      </table>
+      <p id="judgmentEmpty" class="note" hidden>아직 판정이 없습니다.</p>
+    </section>
+  </div>
 </main>
-<script>
-(async () => {
-  const list = document.getElementById("statusList");
-  const row = (dt, dd, cls = "") =>
-    `<dt>${dt}</dt><dd${cls ? ` class="${cls}"` : ""}>${dd}</dd>`;
-  try {
-    const [status, meta] = await Promise.all([
-      fetch("/data/status.json", { cache: "no-store" }).then(r => r.json()),
-      fetch("/data/meta.json", { cache: "no-store" }).then(r => r.json()),
-    ]);
-    const ok = status.state === "ok";
-    list.innerHTML = [
-      row("상태", ok ? "정상" : (status.message || status.state), ok ? "state-ok" : "state-bad"),
-      row("브리핑 날짜", status.briefing_date || "—"),
-      row("마지막 성공", status.last_success_at || "—"),
-      row("수집기 스탬프", status.collector_stamp || "—"),
-      row("generation_id", status.generation_id || "—"),
-      row("데이터 생성", meta.generated_at || "—"),
-    ].join("");
-  } catch (err) {
-    list.innerHTML = row("상태", "status.json 을 불러오지 못했습니다: " + err.message, "state-bad");
-  }
-})();
-</script>
+<div id="toast" hidden></div>
+<script src="/admin/admin.js"></script>
 </body>
 </html>

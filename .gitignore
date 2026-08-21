@@ -35,3 +35,7 @@ Thumbs.db
 .gstack/
 web/diag/
 eval/last_run.log
+# 콘솔 생성물 — build 가 만드는 base 사본, crawl 이 주고받는 판정·장부
+web/public/admin/config.json
+admin_overrides.json
+admin_applied.json
