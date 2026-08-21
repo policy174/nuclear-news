@@ -19,6 +19,7 @@ from gemini_client import (
     is_available as gemini_rest_available,
 )
 from ranking import prior_coverage_count, sanitize_features
+from sources import is_blocked_source
 import article_body
 import entity_match
 import news_archive
@@ -2536,6 +2537,23 @@ def main() -> None:
         print(f"[email] ingest 모듈 실패 → 건너뜀: {type(e).__name__}")
     print(f"[RSS] {len(rss_articles)} candidates")
     all_candidates.extend(rss_articles)
+
+    # 차단 출처는 dedup 전에 끊는다 — 재배포본은 URL·제목이 매번 달라 dedup 을
+    # 통과하고, 통과하면 큐레이션 호출까지 태운다(무료 티어에서 그게 곧 429다).
+    kept, dropped = [], {}
+    for art in all_candidates:
+        # domain 과 link 를 or 로 묶지 않는다 — Google News 경유는 link 가
+        # news.google.com 이고 실제 출처는 domain 에만 있다(반대 경우도 있다).
+        if any(is_blocked_source(art.get(k)) for k in ("domain", "link")):
+            key = art.get("domain") or "unknown"
+            dropped[key] = dropped.get(key, 0) + 1
+            continue
+        kept.append(art)
+    if dropped:
+        # 조용히 버리면 '수집이 줄었다'로 오독한다. sources.json 의 blocked 참조.
+        print("[block] 재배포 출처 제외: "
+              + ", ".join(f"{d} {n}건" for d, n in sorted(dropped.items())))
+    all_candidates = kept
 
     exact_kept = dedup_exact_candidates(all_candidates)
 

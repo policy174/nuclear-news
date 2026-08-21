@@ -103,6 +103,32 @@ def registered_domain(url: str | None) -> str:
     return netloc
 
 
+# ---- 차단 출처 ---------------------------------------------------------------
+# 화이트리스트로는 못 막는 자리다. 실측 2026-08-21: mshale.com 이 한국 방송사
+# 유튜브 클립 제목을 그대로 재배포했고("[🔴속보] 신규 대형원전 부지로 경북 영덕
+# 선정… / 연합뉴스TV(YonhapnewsTV) Mill…"), 본문이 없어 제목만 본 큐레이션이
+# must_read 를 줬다. 몇 달 지난 사건이 그대로 주간 판세의 1번 정책변화와 보고서
+# 후보로 올라갔다. URL 은 매번 다르고 제목 끝에 무작위 영단어+videoId 가 붙어
+# dedup 4중(URL·제목·유사도·임베딩)이 전부 비껴간다 — 같은 낡은 사건이 8/13,
+# 8/14, 8/21 세 번 새 기사로 들어왔다. 사후 필터가 아니라 출처를 끊어야 한다.
+_BLOCKED = frozenset(
+    (d or "").lower().strip().lstrip(".")
+    for d in _CFG.get("blocked", []) if (d or "").strip()
+)
+
+
+def is_blocked_source(url_or_domain: str | None) -> bool:
+    """재배포·스팸으로 확정된 출처인가. 서브도메인 포함.
+
+    URL 도 등록 도메인 문자열도 받는다 — Google News 경유 기사는 link 가
+    news.google.com 이고 실제 출처는 수집 때 확정한 domain 필드에만 있다.
+    """
+    host = registered_domain(url_or_domain)
+    if not host or not _BLOCKED:
+        return False
+    return any(host == d or host.endswith("." + d) for d in _BLOCKED)
+
+
 def _match_domain(url: str | None) -> tuple[int, str, str, str] | None:
     """URL 도메인이 화이트리스트에 있으면 (tier, name). suffix 매칭으로 서브도메인 허용."""
     host = registered_domain(url)

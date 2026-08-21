@@ -54,6 +54,7 @@ from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
 import issue_insight  # noqa: E402
 import issue_review  # noqa: E402
 import keei_match  # noqa: E402
+from sources import is_blocked_source  # noqa: E402
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -339,7 +340,15 @@ def validate_archive_records(records: list[dict]) -> None:
 
 
 def load_archive() -> list[dict]:
+    """아카이브 전체. 차단 출처(sources.json blocked)는 걷어낸 뒤 돌려준다.
+
+    아카이브 파일 자체는 손대지 않는다 — append-only 가 이 프로젝트의 계약이고,
+    차단은 판정이라 나중에 뒤집힐 수 있다. 대신 화면·이슈·트렌드가 읽는 입구를
+    한 곳으로 잡아 여기서 거른다. blocked 에 도메인 하나를 올리면 그 출처로
+    만들어진 과거 이슈까지 다음 빌드에서 사라진다.
+    """
     records = []
+    blocked = 0
     archive_dir = BOT_DIR / "archive"
     for path in sorted(archive_dir.glob("*.jsonl")):
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -353,7 +362,15 @@ def load_archive() -> list[dict]:
             article_hash = record.get("hash")
             if not article_hash:
                 continue
+            # or 로 묶으면 안 된다 — Google News 경유 기사는 domain 이
+            # news.google.com 이고 실제 출처는 resolved_url 에만 남는다.
+            if any(is_blocked_source(record.get(k))
+                   for k in ("domain", "resolved_url", "url")):
+                blocked += 1
+                continue
             records.append(_normalize_archive_record(record))
+    if blocked:
+        print(f"[block] 아카이브에서 차단 출처 {blocked}건 제외 (sources.json blocked)")
     return records
 
 
