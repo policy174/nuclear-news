@@ -665,7 +665,9 @@ def semantic_dedup(articles: list[dict], emb_cache: dict, threshold: float = SEM
         for kept_art, kept_emb in kept:
             if kept_emb is None:
                 continue
-            if cosine_sim(emb, kept_emb) >= threshold:
+            similarity = cosine_sim(emb, kept_emb)
+            if similarity >= threshold:
+                note_fold(kept_art, art, "embedding", similarity)
                 is_dup = True
                 break
         if not is_dup:
@@ -2270,6 +2272,41 @@ def collect_articles(feed_name: str, keywords: list[str], anchors: list[str], st
     return sorted(by_title.values(), key=lambda x: x["pub"])
 
 
+# ── 접힘 장부 ──────────────────────────────────────────────────────────
+# 수집 단계에서 접은 중복을 버리지 않고 **생존 기사에** 장부로 남긴다.
+# 이 기록은 소급이 안 된다 — 접힌 기사는 지금까지 어디에도 안 남았으므로
+# 넣은 날부터만 쌓인다. 그래서 화면(운영 콘솔 병합 진단)보다 먼저 넣는다.
+FOLD_LEDGER_CAP = 30      # 기사 한 건이 들고 다니는 최대 항목(큐·아카이브 비대 방지)
+
+
+def note_fold(kept: dict, dropped: dict, stage: str,
+              similarity: float | None = None) -> None:
+    """dropped 를 kept 의 장부에 적는다.
+
+    접힌 쪽이 이미 들고 있던 장부도 함께 흡수한다 — A←B, B←C 로 접히면
+    A 가 C 까지 알아야 '이 카드 뒤에 몇 건'이 맞는다.
+
+    총계(folded_count)는 상한과 무관하게 센다. 상한은 **보여줄 목록**의 길이일
+    뿐이고, 건수까지 상한에 맞춰 줄이면 그게 곧 거짓말이 된다.
+    """
+    if not dropped or kept is dropped:
+        return
+    entry = {
+        "hash": str(dropped.get("hash") or ""),
+        "title": str(dropped.get("title") or "")[:160],
+        "publisher": str(dropped.get("publisher") or dropped.get("domain") or "")[:60],
+        "stage": stage,
+    }
+    if similarity is not None:
+        entry["similarity"] = round(float(similarity), 3)
+    ledger = kept.setdefault("folded", [])
+    ledger.extend([entry, *(dropped.get("folded") or [])])
+    kept["folded_count"] = (int(kept.get("folded_count") or 0)
+                            + 1 + int(dropped.get("folded_count") or 0))
+    if len(ledger) > FOLD_LEDGER_CAP:
+        del ledger[FOLD_LEDGER_CAP:]
+
+
 def dedup_exact_candidates(articles: list[dict]) -> list[dict]:
     """URL 정규화 1차, 제목 완전일치 2차로 수집 후보를 결정적으로 줄인다."""
     by_url: dict[str, dict] = {}
@@ -2281,8 +2318,13 @@ def dedup_exact_candidates(articles: list[dict]) -> list[dict]:
         candidate["link"] = normalized
         candidate["hash"] = url_hash(normalized)
         existing = by_url.get(normalized)
-        if existing is None or candidate.get("score", 0) > existing.get("score", 0):
+        if existing is None:
             by_url[normalized] = candidate
+        elif candidate.get("score", 0) > existing.get("score", 0):
+            note_fold(candidate, existing, "url_same")
+            by_url[normalized] = candidate
+        else:
+            note_fold(existing, candidate, "url_same")
 
     by_title: dict[str, dict] = {}
     for article in by_url.values():
@@ -2290,8 +2332,13 @@ def dedup_exact_candidates(articles: list[dict]) -> list[dict]:
         if not key:
             continue
         existing = by_title.get(key)
-        if existing is None or article.get("score", 0) > existing.get("score", 0):
+        if existing is None:
             by_title[key] = article
+        elif article.get("score", 0) > existing.get("score", 0):
+            note_fold(article, existing, "title_exact")
+            by_title[key] = article
+        else:
+            note_fold(existing, article, "title_exact")
     return list(by_title.values())
 
 
@@ -2498,14 +2545,17 @@ def main() -> None:
     fuzzy_norms: list[str] = []
     for art in sorted_by_score:
         norm = normalize_title(art["title"])
-        is_dup = False
-        for kept_norm in fuzzy_norms:
-            if difflib.SequenceMatcher(None, norm, kept_norm).ratio() >= 0.82:
-                is_dup = True
+        folded_into = None
+        for kept_art, kept_norm in zip(fuzzy_kept, fuzzy_norms):
+            ratio = difflib.SequenceMatcher(None, norm, kept_norm).ratio()
+            if ratio >= 0.82:
+                folded_into = (kept_art, ratio)
                 break
-        if not is_dup:
+        if folded_into is None:
             fuzzy_kept.append(art)
             fuzzy_norms.append(norm)
+        else:
+            note_fold(folded_into[0], art, "title_similar", folded_into[1])
 
     print(
         f"After dedup: {len(all_candidates)} candidates → {len(exact_kept)} URL/title unique "

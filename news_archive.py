@@ -198,6 +198,11 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "countries": cur.get("countries") or [],
         "article_type": cur.get("article_type", ""),
         "features": cur.get("features"),
+        # 수집 단계에서 접은 중복 보도 장부. 소급이 안 되는 기록이라(예전에는
+        # 그냥 버렸다) 넣은 날부터만 쌓인다 — 운영 콘솔의 병합 진단이
+        # '이 카드 뒤에 접힌 보도 N건'으로 읽는 재료다.
+        "folded": article.get("folded") or [],
+        "folded_count": int(article.get("folded_count") or 0),
     }
     record.update(event_fields)
     return record
