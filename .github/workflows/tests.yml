@@ -1,0 +1,64 @@
+name: Bot tests (봇 코드 변경 시)
+
+# 왜 있는가
+#
+# 루트 tests/ 647건이 **어느 워크플로에서도 돈 적이 없었다**(2026-08-21 확인).
+# crawl.yml·deploy-web.yml 은 둘 다 `cd web && unittest discover -s tests` 만
+# 부른다 — 즉 web/tests/ 만 지켜지고, news_bot·daily_brief·ranking·synthesize
+# 같은 봇 본체는 아무 게이트 없이 main 에 들어가 다음 07:25 브리핑에 그대로
+# 나간다. web/tests/date_window.mjs 도 같은 이유로 2026-08-17 까지 안 돌았다
+# (deploy-web.yml 주석 참조). 안 도는 테스트는 테스트가 아니다.
+#
+# 배포는 안 한다. 배포 게이트는 crawl.yml·deploy-web.yml 에 그대로 두고,
+# 여기는 "봇 코드가 깨졌는가"만 본다.
+
+on:
+  push:
+    branches: [main]
+    # 매시간 크롤이 미는 상태 커밋(JSON·JSONL 만 바뀜)에는 돌지 않는다.
+    # 하루 12회+ 를 전부 태울 이유가 없다 — 코드가 바뀔 때만 본다.
+    paths:
+      - "**.py"
+      - "requirements.txt"
+      - ".github/workflows/tests.yml"
+  pull_request:
+    paths:
+      - "**.py"
+      - "requirements.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # 봇 본체. 외부 호출 0 이지만 모듈 import 단계에서 토큰을 읽는 곳이 있어
+      # 더미를 넣는다 — 실제 값이면 테스트가 진짜 방으로 발송할 수 있다.
+      - name: Run bot tests
+        env:
+          TELEGRAM_BOT_TOKEN: test-dummy
+          TELEGRAM_CHAT_ID: test-dummy
+          NAVER_CLIENT_ID: test-dummy
+          NAVER_CLIENT_SECRET: test-dummy
+        run: python -m unittest discover -s tests
+
+      # web/tests/ 는 여기서 안 돈다. 그쪽은 구운 데이터(web/public/data/*.json)가
+      # 있어야 3개 모듈이 import 단계에서 죽는다 — 실측 2026-08-21: 데이터 없이
+      # 390건(에러 3), 빌드 뒤 479건 전부 통과. 빌드는 8분+Gemini 호출이라 코드
+      # 게이트에 달 것이 아니다. web/tests/ 는 이미 crawl.yml·deploy-web.yml 이
+      # 빌드 직후에 부르고 있으니 그대로 둔다.
