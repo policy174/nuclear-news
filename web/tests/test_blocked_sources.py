@@ -77,5 +77,45 @@ class ArchiveLoadDropsBlocked(unittest.TestCase):
         self.assertEqual(got, {"cccccccc33"})
 
 
+class MainScopeIsNotClobbered(unittest.TestCase):
+    """main() 은 400줄짜리다 — 새로 넣는 지역변수가 기존 이름을 덮으면 조용히
+    타입이 바뀌고 수백 줄 뒤에서 터진다. 실제로 2026-08-21 차단 필터가 noise
+    카운터 `dropped`(int)를 dict 로 덮어써 크롤이 TypeError 로 죽었다.
+    테스트가 main() 을 한 번도 실행하지 않아 CI 도 못 잡았다.
+    """
+
+    def test_no_name_in_main_is_assigned_two_different_literal_types(self):
+        import ast
+        from collections import defaultdict
+
+        src = (ROOT / "news_bot.py").read_text(encoding="utf-8")
+        main = next(n for n in ast.parse(src).body
+                    if isinstance(n, ast.FunctionDef) and n.name == "main")
+        kinds = defaultdict(set)
+        for node in ast.walk(main):
+            if not isinstance(node, ast.Assign):
+                continue
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    pairs = [(target, node.value)]
+                elif isinstance(target, (ast.Tuple, ast.List)) and isinstance(
+                        node.value, (ast.Tuple, ast.List)):
+                    pairs = list(zip(target.elts, node.value.elts))
+                else:
+                    continue
+                for name, value in pairs:
+                    if not isinstance(name, ast.Name):
+                        continue
+                    if isinstance(value, ast.Constant) and isinstance(value.value, int):
+                        kinds[name.id].add("int")
+                    elif isinstance(value, ast.Dict):
+                        kinds[name.id].add("dict")
+                    elif isinstance(value, ast.List):
+                        kinds[name.id].add("list")
+        clashes = {k: sorted(v) for k, v in kinds.items() if len(v) > 1}
+        self.assertEqual(clashes, {},
+                         f"main() 안에서 같은 이름이 다른 타입으로 재대입됐다: {clashes}")
+
+
 if __name__ == "__main__":
     unittest.main()
