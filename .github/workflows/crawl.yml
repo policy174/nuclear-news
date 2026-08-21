@@ -26,7 +26,10 @@ jobs:
   crawl:
     runs-on: ubuntu-latest
     # 막힌 실행이 기본 6시간 동안 다음 크롤을 막지 못하게 한다
-    timeout-minutes: 30
+    # 45분. 무료 티어 429 대기가 길어지면 news_bot 만 25분을 쓰는 날이 있고,
+    # 30분 상한에서는 그 뒤 Deploy 스텝이 통째로 잘렸다(2026-08-21 2회 연속
+    # cancelled → 사이트가 갱신 안 됨). 공개 저장소라 Actions 분은 무료다.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 

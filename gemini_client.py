@@ -87,6 +87,37 @@ _RETRY_DELAY_RE = re.compile(r"retry in\s+([0-9]+(?:\.[0-9]+)?)\s*s", re.IGNOREC
 _RETRY_DELAY_FIELD_RE = re.compile(r'"retryDelay"\s*:\s*"([0-9]+(?:\.[0-9]+)?)s"')
 
 # 서버가 말도 안 되게 긴 값을 주면(또는 파싱이 어긋나면) 잡을 통째로 잡아먹는다.
+# 한 프로세스가 429 대기로 쓸 수 있는 총 시간. 넘으면 그 뒤의 429 는 자지 않고
+# 즉시 포기한다.
+#
+# 2026-08-21 실사고: 크롤이 429 대기로만 ~12분을 자다가 news_bot 이 25분을 쓰고,
+# 작업 상한 30분에서 **Deploy 스텝이 통째로 잘렸다**(2회 연속). 키가 말라 있을 때의
+# 재시도는 실패가 보장된 요청이고, 그 대가로 배포가 죽는다 — 늦은 사이트보다
+# 갱신 안 되는 사이트가 나쁘다. 한도가 분당인지 일일인지 본문으로 확실히 못
+# 가르므로(위 _is_daily_quota 주석) 판정 대신 **총량**으로 막는다.
+RETRY_SLEEP_BUDGET_SEC = float(os.environ.get("GEMINI_RETRY_SLEEP_BUDGET", "300"))
+_slept_total = 0.0
+
+
+def retry_sleep_spent() -> float:
+    """이 프로세스가 429 대기로 쓴 총 시간(초)."""
+    return _slept_total
+
+
+def reset_retry_budget() -> None:
+    global _slept_total
+    _slept_total = 0.0
+
+
+# 이 모듈은 한글·em대시를 찍는다. Windows 기본 코덱(cp949)에서는 그 print 가
+# UnicodeEncodeError 로 죽는데, news_bot 처럼 stdout 을 먼저 재설정하는 모듈이
+# 함께 로드된 경우에만 우연히 살아남았다 — 단독 실행·단위 테스트에서 터진다.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    pass
+
+
 RETRY_DELAY_MAX = 75.0
 RETRY_DELAY_BUFFER = 1.0   # 값이 정확해서 딱 맞춰 자면 경계에서 또 튕긴다
 
@@ -389,6 +420,13 @@ def call_json(
                 # 서버 요구(실측 42초)보다 이른 20초에 첫 재시도를 내보내 실패가
                 # 보장된 요청으로 한도를 더 깎는다.
                 wait = _retry_delay_seconds(body_text) or 20 * (attempt + 1)
+                global _slept_total
+                if _slept_total + wait > RETRY_SLEEP_BUDGET_SEC:
+                    print(f"[gemini] 429 재시도 예산 소진 "
+                          f"({_slept_total:.0f}/{RETRY_SLEEP_BUDGET_SEC:.0f}초) — "
+                          f"더 기다리지 않고 포기 ({model or MODEL} / {label})")
+                    raise last_err from e
+                _slept_total += wait
                 print(f"[gemini] 429 분당 한도 — {wait:.0f}초 대기 후 재시도 "
                       f"{attempt + 1}/{retries} ({model or MODEL} / {label})")
                 time.sleep(wait)

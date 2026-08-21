@@ -58,6 +58,12 @@ class TestDailyQuotaIsNotRetried(unittest.TestCase):
     잡아먹는다. 실측 2026-08-06: 6 chunk 가 전부 20+40+60초씩 자면서 크롤이
     3분에서 16분으로 늘었다."""
 
+    def setUp(self):
+        # 429 대기 예산은 프로세스 전역이다 — 앞 테스트가 쓴 만큼이 남아 있으면
+        # 여기의 재시도가 예산 소진으로 조기 중단돼 계약이 아니라 순서를 잰다.
+        gc.reset_retry_budget()
+        self.addCleanup(gc.reset_retry_budget)
+
     def _run(self, body):
         calls = {"n": 0, "slept": []}
 
@@ -169,7 +175,9 @@ class TestGlobalPacer(unittest.TestCase):
             gc._pace()          # 첫 호출은 즉시
             gc._pace()          # 두 번째부터 간격 강제
         self.assertTrue(slept, "두 번째 호출에 대기가 없었다")
-        self.assertLessEqual(slept[-1], 0.3)
+        # monotonic 해상도 때문에 간격값과 정확히 같거나 아주 미세하게 클 수 있다
+        # (실측 0.30000000004). 계약은 '간격을 넘겨 자지 않는다'이므로 여유를 준다.
+        self.assertLessEqual(slept[-1], 0.3 + 1e-6)
 
     def test_pacer_disabled_by_zero(self):
         gc.GEMINI_MIN_INTERVAL_SEC = 0
@@ -177,3 +185,45 @@ class TestGlobalPacer(unittest.TestCase):
             gc._pace()
             gc._pace()
         sleeper.assert_not_called()
+
+
+class TestRetrySleepBudget(unittest.TestCase):
+    """429 대기 총량 상한.
+
+    2026-08-21: 키가 마른 상태에서 청크마다 3회씩 재시도하며 ~12분을 자다가
+    크롤 작업 상한에 걸려 **배포 스텝이 통째로 잘렸다**. 한도가 분당인지
+    일일인지 본문으로 못 가르므로 판정 대신 총량으로 막는다.
+    """
+
+    def setUp(self):
+        self._orig = gc.RETRY_SLEEP_BUDGET_SEC
+        gc.reset_retry_budget()
+        self.addCleanup(setattr, gc, "RETRY_SLEEP_BUDGET_SEC", self._orig)
+        self.addCleanup(gc.reset_retry_budget)
+
+    def _call_with_429(self, retries=5):
+        def fake_urlopen(*a, **kw):
+            raise urllib.error.HTTPError("u", 429, "Too Many", {},
+                                         BytesIO(REAL_RPM_BODY.encode("utf-8")))
+        with patch.object(gc, "API_KEY", "test-key"),              patch.object(gc.urllib.request, "urlopen", fake_urlopen),              patch.object(gc.time, "sleep", lambda s: None):
+            with self.assertRaises(gc.GeminiError):
+                gc.call_json("system", "user", retries=retries, label="test")
+
+    def test_budget_stops_sleeping_once_spent(self):
+        gc.RETRY_SLEEP_BUDGET_SEC = 100.0        # 60초짜리 대기 한 번이면 소진
+        self._call_with_429(retries=5)
+        self.assertLessEqual(gc.retry_sleep_spent(), 100.0)
+
+    def test_budget_is_process_wide_not_per_call(self):
+        gc.RETRY_SLEEP_BUDGET_SEC = 130.0
+        self._call_with_429(retries=5)
+        first = gc.retry_sleep_spent()
+        self._call_with_429(retries=5)           # 두 번째 호출은 남은 예산만 쓴다
+        self.assertLessEqual(gc.retry_sleep_spent(), 130.0)
+        self.assertGreaterEqual(gc.retry_sleep_spent(), first)
+
+    def test_reset_clears_budget(self):
+        gc.RETRY_SLEEP_BUDGET_SEC = 100.0
+        self._call_with_429()
+        gc.reset_retry_budget()
+        self.assertEqual(gc.retry_sleep_spent(), 0.0)
