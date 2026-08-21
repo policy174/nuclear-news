@@ -2329,8 +2329,107 @@ def format_must_read(article: dict, curation: dict) -> str:
     return "".join(parts)
 
 
+# ── 운영 콘솔 판정 오버레이 ────────────────────────────────────────────
+# /admin 콘솔이 KV 에 쌓은 판정을 수집 설정 위에 덧칠한다. keywords.json 은
+# 그대로 둔다(덧칠 원칙) — 합치는 것은 이 프로세스의 메모리뿐이라, 콘솔에서
+# 판정 하나를 지우면 다음 수집이 정확히 원래 동작으로 돌아간다.
+ADMIN_OVERLAY_FILE = Path("admin_overrides.json")
+# 장부는 배포 산출물이 아니라 KV 로 간다 — 워크플로가 이 파일을 KV 에 PUT 한다.
+# 정적 파일로 두면 news_bot 이 안 도는 배포(daily-brief·deploy-web)가 폴더
+# 스냅샷을 통째로 올리면서 장부를 지워, 적용된 판정이 '다음 수집부터'로
+# 되돌아가 보인다.
+ADMIN_APPLIED_FILE = Path("admin_applied.json")
+ADMIN_COMMON_GROUP = "공통"
+_ADMIN_LIST_FIELDS = {"keyword": "keywords", "anchor": "anchors"}
+
+
+def load_admin_overlay(path: Path = ADMIN_OVERLAY_FILE) -> tuple[list[dict], str]:
+    """(판정 목록, 상태). 파일이 없거나 깨졌으면 빈 목록 — 수집은 계속 돈다.
+
+    상태를 함께 돌려주는 이유: '판정이 0건'과 'KV 를 못 읽었다'는 화면에서
+    같아 보이면 안 된다. 콘솔은 이 값으로 조용한 무시를 구분한다.
+    """
+    try:
+        raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"[admin] 판정 오버레이 없음/손상 → 기본 설정만 사용 ({type(e).__name__})")
+        return [], "unavailable"
+    entries = raw.get("entries")
+    if not isinstance(entries, list):
+        return [], "unavailable"
+    return [e for e in entries if isinstance(e, dict)], "ok"
+
+
+def apply_admin_overlay(config: dict, entries: list[dict]) -> list[str]:
+    """config 를 제자리에서 덧칠하고 **실제로 적용된** entry id 를 돌려준다.
+
+    - disabled 판정은 건너뛴다(잠시 끄기).
+    - group '공통' 은 모든 피드에 적용한다.
+    - 제외어는 negative_terms 문자열에 합류시킨다. 도메인 핵심어 가드
+      (_PROTECTED_TITLE_WORDS)는 parse_negative_terms 가 수집 시점에 그대로
+      적용하므로 여기서 다시 세우지 않는다 — 가드가 두 곳에 있으면 갈라진다.
+    - 이미 있는 값을 또 넣거나 없는 값을 빼는 판정은 '적용됨'으로 치지 않는다.
+      장부에 남는 것은 실제로 설정을 바꾼 판정뿐이다.
+    """
+    applied: list[str] = []
+    for entry in entries:
+        if entry.get("disabled"):
+            continue
+        kind = str(entry.get("kind") or "")
+        value = str(entry.get("value") or "").strip()
+        group = str(entry.get("group") or "")
+        field, _, action = kind.rpartition("_")
+        if not value or action not in {"add", "remove"}:
+            continue
+        targets = list(config) if group == ADMIN_COMMON_GROUP else (
+            [group] if group in config else [])
+        touched = False
+        for feed_name in targets:
+            feed = config[feed_name]
+            if field in _ADMIN_LIST_FIELDS:
+                items = feed.setdefault(_ADMIN_LIST_FIELDS[field], [])
+                if action == "add" and value not in items:
+                    items.append(value)
+                    touched = True
+                elif action == "remove" and value in items:
+                    items.remove(value)
+                    touched = True
+            elif field == "exclusion":
+                terms = str(feed.get("negative_terms") or "").split()
+                if action == "add" and f"-{value}" not in terms:
+                    terms.append(f"-{value}")
+                    touched = True
+                elif action == "remove":
+                    kept = [t for t in terms if t.lstrip("-").lower() != value.lower()]
+                    touched = touched or len(kept) != len(terms)
+                    terms = kept
+                feed["negative_terms"] = " ".join(terms)
+        if touched and entry.get("id"):
+            applied.append(str(entry["id"]))
+    if applied:
+        print(f"[admin] 콘솔 판정 {len(applied)}건 적용")
+    return applied
+
+
+def record_admin_applied(applied_ids: list[str], overlay_state: str,
+                         path: Path = ADMIN_APPLIED_FILE) -> None:
+    """콘솔이 '적용됨 / 다음 수집부터'를 가르는 장부. 실패해도 비치명."""
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({
+            "applied_ids": applied_ids,
+            "overlay": overlay_state,
+            "collected_at": datetime.now(timezone.utc).isoformat(),
+        }, ensure_ascii=False), encoding="utf-8")
+    except OSError as e:  # noqa: BLE001 — 장부는 부가 기능, 수집을 멈추지 않는다
+        print(f"[admin] 적용 장부 기록 실패 → 건너뜀: {type(e).__name__}: {e}")
+
+
 def main() -> None:
     config = json.loads(KEYWORDS_FILE.read_text(encoding="utf-8"))
+    # 운영 콘솔 판정 덧칠 — keywords.json 파일 자체는 건드리지 않는다.
+    overlay_entries, overlay_state = load_admin_overlay()
+    record_admin_applied(apply_admin_overlay(config, overlay_entries), overlay_state)
     state = load_state()
     curated = load_curated()
     queue = load_queue()

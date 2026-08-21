@@ -47,6 +47,32 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuclear-embeddings-
 
+      # 운영 콘솔(/admin)이 KV 에 쌓아 둔 판정을 내려받는다. 없거나 못 읽으면
+      # 기본 설정(keywords.json)만으로 수집한다 — 비치명이되 조용하지는 않게,
+      # 파일을 지우고 경고를 남긴다. news_bot 이 그 부재를 applied.json 에
+      # overlay:"unavailable" 로 적어 콘솔이 '적용됨' 이라고 우기지 못한다.
+      - name: Fetch admin judgments (KV)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ADMIN_KV_NAMESPACE_ID: 191ac97645b743b4a43688aa2781d43e
+        run: |
+          rm -f admin_overrides.json
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN 미설정 — 콘솔 판정 없이 수집"
+            exit 0
+          fi
+          url="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/storage/kv/namespaces/$ADMIN_KV_NAMESPACE_ID/values/judgments"
+          if curl -sf "$url" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -o admin_overrides.json; then
+            echo "판정 $(python -c "import json;print(len(json.load(open('admin_overrides.json',encoding='utf-8')).get('entries',[])))" 2>/dev/null || echo '?')건 내려받음"
+          else
+            # 404 = 아직 아무도 판정을 누르지 않음(정상). 그 외는 경고.
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+            rm -f admin_overrides.json
+            if [ "$code" = "404" ]; then echo "저장된 판정 없음 — 기본 설정으로 수집";
+            else echo "::warning::콘솔 판정 조회 실패(HTTP $code) — 기본 설정으로 수집"; fi
+          fi
+
       - run: python news_bot.py
         env:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
@@ -58,6 +84,23 @@ jobs:
           # 이메일 뉴스레터 수집 (선택 — 미설정 시 자동 스킵)
           IMAP_USER: ${{ secrets.IMAP_USER }}
           IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+
+      # 적용 장부를 KV 로 돌려보낸다 — 콘솔의 '적용됨 / 다음 수집부터' 배지 재료.
+      # 정적 파일로 배포하지 않는 이유는 news_bot.ADMIN_APPLIED_FILE 주석 참고.
+      - name: Publish admin applied ledger (KV)
+        if: always()
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ADMIN_KV_NAMESPACE_ID: 191ac97645b743b4a43688aa2781d43e
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ ! -f admin_applied.json ]; then exit 0; fi
+          curl -sf -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/storage/kv/namespaces/$ADMIN_KV_NAMESPACE_ID/values/applied" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -F "value=<admin_applied.json" -F metadata='{}' >/dev/null \
+            && echo "적용 장부 게시" \
+            || echo "::warning::적용 장부 게시 실패 — 콘솔 배지가 옛 상태를 보일 수 있음"
 
       # 수집 후보가 아니라 실제 최근 브리핑 기사 기준으로 21일 캐시를 백필한다.
       # API 장애 시 크롤 본체는 계속하고 웹은 로컬 후보 벡터로 안전하게 폴백한다.
