@@ -1271,6 +1271,135 @@ def load_match_overrides(path: Path = MATCH_OVERRIDES_FILE) -> dict[str, set[str
     return {"approved": keys("approved"), "rejected": keys("rejected")}
 
 
+# 운영 콘솔이 KV 에 쌓은 판정 중 **쌍 판정**만 골라 같은 계약으로 돌려준다.
+# crawl 이 수집 전에 내려받아 저장소 루트에 두고, 여기서 손편집 파일
+# (issue_match_overrides.json)과 합쳐 쓴다 — 덧칠 원칙: 파일은 안 건드린다.
+ADMIN_OVERLAY_FILE = BOT_DIR / "admin_overrides.json"
+
+
+def load_admin_pair_judgments(path: Path = ADMIN_OVERLAY_FILE) -> dict[str, set[str]]:
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"approved": set(), "rejected": set()}
+    approved: set[str] = set()
+    rejected: set[str] = set()
+    for entry in raw.get("entries") or []:
+        if not isinstance(entry, dict) or entry.get("disabled"):
+            continue
+        pair = str(entry.get("value") or "")
+        if "--" not in pair or pair.startswith("--") or pair.endswith("--"):
+            continue
+        # 화면이 어느 쪽을 눌렀든 저장은 정렬된 pair_id 로 맞춘다.
+        left, _, right = pair.partition("--")
+        pair = _pair_id(left, right)
+        if entry.get("kind") == "pair_join":
+            approved.add(pair)
+        elif entry.get("kind") == "pair_split":
+            rejected.add(pair)
+    return {"approved": approved, "rejected": rejected}
+
+
+# 운영 콘솔 '병합 진단' 재료. issue_audit.json 은 1.7MB 에 배포도 안 되므로
+# (25MiB 사고 이후 web/diag/ 로 옮김) 화면이 읽을 만큼만 잘라 따로 낸다.
+MERGE_DIAG_MERGED_CAP = 60
+MERGE_DIAG_NEAR_CAP = 60
+MERGE_DIAG_FOLD_CAP = 60
+
+
+def _diag_why(source: dict) -> dict:
+    """왜 붙었나/왜 안 붙었나를 설명하는 최소 수치만. 전부 실으면 파일이 커진다."""
+    keep = ("score", "title_ratio", "token_ratio", "tag_shared", "topic_shared",
+            "embedding_similarity", "local_embedding_similarity", "method", "blocked_by")
+    return {k: source[k] for k in keep if source.get(k) not in (None, [], "")}
+
+
+def build_merge_diagnostics(issue_audit: dict, records: list[dict],
+                            judgments: dict[str, set[str]]) -> dict:
+    """콘솔이 읽는 병합 진단 투영.
+
+    세 구역: 붙은 것(merged, → 떼어내기) · 문턱 아래에서 안 붙은 것(near_miss,
+    → 잇기) · 수집 단계에서 접힌 것(folds, 장부가 쌓인 날부터).
+    """
+    by_hash = {str(r.get("hash") or ""): r for r in records}
+
+    merged = []
+    for cluster in (issue_audit.get("clusters") or [])[:MERGE_DIAG_MERGED_CAP]:
+        members = [{
+            "hash": m.get("hash"),
+            "title": (by_hash.get(str(m.get("hash") or ""), {}).get("title_kr")
+                      or m.get("title") or "")[:160],
+            "date": m.get("article_date") or m.get("briefing_date") or "",
+            "publisher": by_hash.get(str(m.get("hash") or ""), {}).get("publisher", ""),
+        } for m in (cluster.get("members") or [])]
+        matches = []
+        for match in cluster.get("matches") or []:
+            pair = _pair_id(match.get("reference_hash"), match.get("hash"))
+            if not pair or pair.startswith("--") or pair.endswith("--"):
+                continue
+            matches.append({"pair_id": pair, "why": _diag_why(match)})
+        merged.append({
+            "issue_id": cluster.get("issue_id"),
+            "first_seen": cluster.get("first_seen"),
+            "last_seen": cluster.get("last_seen"),
+            "members": members,
+            "matches": matches,
+        })
+
+    near = sorted((c for c in (issue_audit.get("review_candidates") or [])),
+                  key=lambda c: c.get("candidate_score") or 0, reverse=True)
+    near_miss = [{
+        "pair_id": c.get("candidate_id"),
+        "score": c.get("candidate_score"),
+        "left": {"hash": c.get("left_hash"), "title": (c.get("left_title") or "")[:160],
+                 "date": c.get("left_date")},
+        "right": {"hash": c.get("right_hash"), "title": (c.get("right_title") or "")[:160],
+                  "date": c.get("right_date")},
+        "why": _diag_why(c.get("diagnostics") or {}),
+    } for c in near[:MERGE_DIAG_NEAR_CAP]]
+
+    folds = sorted((r for r in records if int(r.get("folded_count") or 0) > 0),
+                   key=lambda r: (int(r.get("folded_count") or 0), str(r.get("archived_at") or "")),
+                   reverse=True)
+    fold_rows = [{
+        "hash": r.get("hash"),
+        "title": r.get("title_kr") or r.get("title") or "",
+        "publisher": r.get("publisher", ""),
+        "date": str(r.get("archived_at") or r.get("pub") or "")[:10],
+        "folded_count": int(r.get("folded_count") or 0),
+        "folded": (r.get("folded") or [])[:12],
+    } for r in folds[:MERGE_DIAG_FOLD_CAP]]
+
+    return {
+        "generated_at": datetime.now(KST).isoformat(),
+        "merged": merged,
+        "near_miss": near_miss,
+        "folds": fold_rows,
+        "judged": {"join": sorted(judgments.get("approved") or set()),
+                   "split": sorted(judgments.get("rejected") or set())},
+        "counts": {
+            "clusters": len(issue_audit.get("clusters") or []),
+            "candidates": len(issue_audit.get("review_candidates") or []),
+            # 장부가 0이면 '접힌 게 없다'가 아니라 '아직 안 쌓였다'일 수 있다 —
+            # 화면이 그 둘을 가르도록 적재 시작 이후 레코드 수도 같이 준다.
+            "records": len(records),
+            "records_with_ledger": sum(1 for r in records if "folded_count" in r),
+        },
+    }
+
+
+def merge_pair_judgments(*sources: dict[str, set[str]]) -> dict[str, set[str]]:
+    """여러 판정 출처를 합친다. **분리(rejected)가 병합(approved)을 이긴다** —
+    selection_overrides 의 demote 우선과 같은 규칙이고, 잘못 붙은 카드가
+    잘못 갈라진 카드보다 신뢰를 크게 깎기 때문이다."""
+    approved: set[str] = set()
+    rejected: set[str] = set()
+    for source in sources:
+        approved |= source.get("approved") or set()
+        rejected |= source.get("rejected") or set()
+    return {"approved": approved - rejected, "rejected": rejected}
+
+
 # ---- 편집 override -------------------------------------------------------------
 #
 # 알고리즘 결과에 사람이 최종 판단을 얹는 자리. 텔레그램 브리핑은 07:25 무인
@@ -4321,7 +4450,8 @@ def build() -> None:
 
     embeddings = load_embeddings_cache()
     local_embeddings = build_local_embeddings(news_items)
-    match_overrides = load_match_overrides()
+    match_overrides = merge_pair_judgments(
+        load_match_overrides(), load_admin_pair_judgments())
     entity_registry = load_entity_registry()
     facility_entities = facility_entities_by_hash(
         news_items, facility_alias_entries(entity_registry)
@@ -4776,6 +4906,19 @@ def build() -> None:
         )
     except (OSError, json.JSONDecodeError) as exc:
         print(f"[build] admin config 생략 — keywords.json 읽기 실패: {exc}")
+
+    # 운영 콘솔 '병합 진단' 투영 — 같은 게이트 뒤.
+    try:
+        merge_diag = build_merge_diagnostics(issue_audit, records, match_overrides)
+        (OUT_DIR.parent / "admin" / "merge_diag.json").write_text(
+            json.dumps(merge_diag, ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8",
+        )
+        print(f"[build] 병합 진단: 붙은 이슈 {len(merge_diag['merged'])}개 · "
+              f"문턱 아래 {len(merge_diag['near_miss'])}쌍 · "
+              f"접힘 장부 {len(merge_diag['folds'])}건")
+    except (OSError, KeyError, TypeError) as exc:
+        print(f"[build] 병합 진단 생략: {type(exc).__name__}: {exc}")
 
     # 진단 전용 — 화면이 읽지 않는데 26MiB 를 넘겨 Pages 파일 상한(25MiB)에
     # 걸려 배포 전체가 죽었다(2026-08-16). 배포 폴더 밖에 남긴다.

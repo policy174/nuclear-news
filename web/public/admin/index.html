@@ -55,6 +55,20 @@
   #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
            padding: 10px 16px; border-radius: 6px; background: var(--ink); color: #fff;
            font-size: 14px; }
+  .diag { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .diag:last-child { border-bottom: 0; }
+  .diag-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+               margin-bottom: 6px; font-size: 12.5px; color: var(--muted); }
+  .diag-title { font-size: 14px; font-weight: 650; color: var(--ink); }
+  .diag-side { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .diag-why { margin: 6px 0 0; color: var(--muted); font-size: 12px;
+              font-variant-numeric: tabular-nums; }
+  .diag-actions { display: flex; gap: 8px; margin-top: 8px; }
+  .diag-actions button { border: 1px solid var(--line); background: #fff; border-radius: 4px;
+                         padding: 4px 10px; font-size: 12.5px; cursor: pointer; }
+  .diag-actions button:hover { border-color: var(--ink); }
+  .fold-list { margin: 6px 0 0; padding-left: 16px; color: var(--muted); font-size: 12.5px; }
+  @media (max-width: 640px) { .diag-side { grid-template-columns: 1fr; } }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -64,6 +78,7 @@
   <nav id="tabs">
     <button data-panel="status" aria-pressed="true" type="button">상태</button>
     <button data-panel="collect" aria-pressed="false" type="button">수집 설정</button>
+    <button data-panel="merge" aria-pressed="false" type="button">병합 진단</button>
     <button data-panel="judgments" aria-pressed="false" type="button">내 판정</button>
   </nav>
 </header>
@@ -90,6 +105,32 @@
         <strong>다음 수집부터</strong> 적용되고, 내 판정에서 지우면 그 판단만 원복됩니다.</p>
       <p id="collectError" class="note state-bad" hidden></p>
       <div id="collectGroups"></div>
+    </section>
+  </div>
+
+  <div id="panel-merge" hidden>
+    <section class="card">
+      <h2>병합 진단</h2>
+      <p class="note">이 서비스에서 더 위험한 실패는 누락이 아니라 <strong>오병합</strong>입니다.
+        여기서 누른 것도 기본 파일을 덮지 않고 판정으로 쌓이며,
+        <strong>다음 빌드부터</strong> 적용됩니다. 이미 나간 회차의 카드는 바뀌지 않습니다.</p>
+      <p id="mergeMeta" class="note"></p>
+      <p id="mergeError" class="note state-bad" hidden></p>
+    </section>
+    <section class="card">
+      <h2>01 붙은 이슈 — 잘못 묶였나</h2>
+      <p class="note">묶인 기사와 그 근거 수치입니다. 떼어내면 앞으로 이 조합을 다시 붙이지 않습니다.</p>
+      <div id="mergeMerged"></div>
+    </section>
+    <section class="card">
+      <h2>02 문턱 아래 — 붙었어야 했나</h2>
+      <p class="note">자동 병합 문턱 바로 아래에서 안 붙은 쌍입니다. 점수가 높은 순.</p>
+      <div id="mergeNear"></div>
+    </section>
+    <section class="card">
+      <h2>03 수집 단계에서 접힌 보도</h2>
+      <p class="note">예전에는 여기서 삭제됐습니다. 이 장부는 소급되지 않아 도입일부터 쌓입니다.</p>
+      <div id="mergeFolds"></div>
     </section>
   </div>
 

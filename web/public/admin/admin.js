@@ -9,12 +9,13 @@
  */
 "use strict";
 
-const state = { store: { version: 0, entries: [] }, config: null, applied: new Set(), appliedLoaded: false };
+const state = { store: { version: 0, entries: [] }, config: null, applied: new Set(), appliedLoaded: false, merge: null };
 
 const KIND_LABELS = {
   keyword_add: "키워드 추가", keyword_remove: "키워드 제거",
   exclusion_add: "제외어 추가", exclusion_remove: "제외어 제거",
   anchor_add: "앵커 추가", anchor_remove: "앵커 제거",
+  pair_join: "잇기", pair_split: "떼어내기",
 };
 const FIELDS = [
   { field: "keyword", label: "검색 키워드", note: "그대로 검색에 나갑니다" },
@@ -143,9 +144,101 @@ function renderJudgments() {
     </tr>`).join("");
 }
 
+// ── 병합 진단 ──────────────────────────────────────────────────────────
+const WHY_LABELS = {
+  score: "점수", title_ratio: "제목", token_ratio: "낱말", tag_shared: "태그 공유",
+  topic_shared: "주제 공유", embedding_similarity: "임베딩",
+  local_embedding_similarity: "로컬 임베딩", method: "방법", blocked_by: "차단",
+};
+
+function whyLine(why) {
+  const parts = Object.entries(why || {}).map(([key, value]) => {
+    const label = WHY_LABELS[key] || key;
+    const shown = typeof value === "number" ? value.toFixed(2)
+      : Array.isArray(value) ? value.join(",") : String(value);
+    return `${label} ${esc(shown)}`;
+  });
+  return parts.length ? `<p class="diag-why">${parts.join(" · ")}</p>` : "";
+}
+
+// 같은 쌍에 이미 내린 판정 — 버튼 대신 상태를 보여 준다(두 번 누르면 중복 400).
+function pairJudgment(pairId) {
+  return state.store.entries.find(e =>
+    (e.kind === "pair_join" || e.kind === "pair_split") && e.value === pairId);
+}
+
+function pairActions(pairId, kind, label) {
+  const existing = pairJudgment(pairId);
+  if (existing) {
+    return `<div class="diag-actions">
+      <span class="badge ${existing.disabled ? "" : "pending"}">${esc(KIND_LABELS[existing.kind])}${existing.disabled ? " (꺼짐)" : " · 다음 빌드부터"}</span>
+      <button type="button" data-delete="${esc(existing.id)}">되돌리기</button>
+    </div>`;
+  }
+  return `<div class="diag-actions">
+    <button type="button" data-pair="${esc(kind)}|${esc(pairId)}">${label}</button>
+  </div>`;
+}
+
+function renderMerge() {
+  const meta = document.getElementById("mergeMeta");
+  const error = document.getElementById("mergeError");
+  if (!state.merge) {
+    error.hidden = false;
+    error.textContent = "병합 진단 자료(/admin/merge_diag.json)가 아직 없습니다 — 다음 빌드부터 생깁니다.";
+    return;
+  }
+  error.hidden = true;
+  const c = state.merge.counts || {};
+  // 장부 0건이 '접힌 게 없다'로 읽히면 안 된다 — 아직 안 쌓인 것과 구분해 적는다.
+  const ledgerNote = c.records_with_ledger
+    ? `접힘 장부 적재 ${c.records_with_ledger}건`
+    : "접힘 장부는 아직 쌓이지 않았습니다(도입 이후 수집분부터)";
+  meta.textContent = `붙은 이슈 ${c.clusters ?? 0}개 · 검토 후보 ${c.candidates ?? 0}쌍 · ${ledgerNote}`;
+
+  document.getElementById("mergeMerged").innerHTML =
+    (state.merge.merged || []).map(issue => {
+      const members = issue.members.map(m =>
+        `<div><span class="diag-title">${esc(m.title)}</span><br>
+         <span class="diag-head">${esc(m.publisher || "")} · ${esc(m.date || "")}</span></div>`).join("");
+      const matches = (issue.matches || []).map(match =>
+        `${whyLine(match.why)}${pairActions(match.pair_id, "pair_split", "떼어내기")}`).join("");
+      return `<article class="diag">
+        <div class="diag-head">${esc(issue.first_seen || "")} → ${esc(issue.last_seen || "")} · 기사 ${issue.members.length}건</div>
+        ${members}${matches}
+      </article>`;
+    }).join("") || '<p class="note">붙은 이슈가 없습니다.</p>';
+
+  document.getElementById("mergeNear").innerHTML =
+    (state.merge.near_miss || []).map(pair => `
+      <article class="diag">
+        <div class="diag-head">점수 ${Number(pair.score || 0).toFixed(3)}</div>
+        <div class="diag-side">
+          <div><span class="diag-title">${esc(pair.left.title)}</span><br>
+            <span class="diag-head">${esc(pair.left.date || "")}</span></div>
+          <div><span class="diag-title">${esc(pair.right.title)}</span><br>
+            <span class="diag-head">${esc(pair.right.date || "")}</span></div>
+        </div>
+        ${whyLine(pair.why)}${pairActions(pair.pair_id, "pair_join", "잇기")}
+      </article>`).join("") || '<p class="note">문턱 아래 후보가 없습니다.</p>';
+
+  document.getElementById("mergeFolds").innerHTML =
+    (state.merge.folds || []).map(row => `
+      <article class="diag">
+        <span class="diag-title">${esc(row.title)}</span>
+        <div class="diag-head">${esc(row.publisher || "")} · ${esc(row.date || "")} · 접힘 ${row.folded_count}건</div>
+        <ul class="fold-list">${(row.folded || []).map(f =>
+          `<li>${esc(f.title)} — ${esc(f.publisher || "")} · ${esc(f.stage)}${
+            f.similarity != null ? ` · 유사도 ${Number(f.similarity).toFixed(2)}` : ""}</li>`).join("")}</ul>
+      </article>`).join("") ||
+      `<p class="note">${state.merge.counts?.records_with_ledger
+        ? "접힌 보도가 없습니다." : "아직 장부가 쌓이지 않았습니다 — 도입 이후 수집분부터 보입니다."}</p>`;
+}
+
 function render() {
   renderCollect();
   renderJudgments();
+  renderMerge();
 }
 
 // ── 상태 탭 (기존) ─────────────────────────────────────────────────────
@@ -176,7 +269,7 @@ document.getElementById("tabs").addEventListener("click", event => {
   if (!button) return;
   document.querySelectorAll("#tabs button").forEach(b =>
     b.setAttribute("aria-pressed", b === button ? "true" : "false"));
-  ["status", "collect", "judgments"].forEach(name => {
+  ["status", "collect", "merge", "judgments"].forEach(name => {
     document.getElementById(`panel-${name}`).hidden = name !== button.dataset.panel;
   });
 });
@@ -196,6 +289,12 @@ document.body.addEventListener("click", event => {
   if (del) { post("delete", { id: del.dataset.delete }); return; }
   const toggle = event.target.closest("[data-toggle]");
   if (toggle) { post("toggle", { id: toggle.dataset.toggle }); return; }
+  const pair = event.target.closest("[data-pair]");
+  if (pair) {
+    const [kind, pairId] = pair.dataset.pair.split("|");
+    addJudgment(kind, "병합", pairId);
+    return;
+  }
   const remove = event.target.closest("[data-remove]");
   if (remove) {
     const [field, group, value] = remove.dataset.remove.split("|");
@@ -213,9 +312,10 @@ document.body.addEventListener("click", event => {
 
 (async () => {
   renderStatus();
-  const [store, config] = await Promise.allSettled([
+  const [store, config, merge] = await Promise.allSettled([
     fetchJson("/admin/api"),
     fetchJson("/admin/config.json"),
+    fetchJson("/admin/merge_diag.json"),
   ]);
   if (store.status === "fulfilled") {
     state.store = store.value;
@@ -228,5 +328,6 @@ document.body.addEventListener("click", event => {
     toast(store.reason.message);
   }
   if (config.status === "fulfilled") state.config = config.value;
+  if (merge.status === "fulfilled") state.merge = merge.value;
   render();
 })();

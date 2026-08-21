@@ -19,8 +19,11 @@ export const KINDS = new Set([
   "keyword_add", "keyword_remove",
   "exclusion_add", "exclusion_remove",
   "anchor_add", "anchor_remove",
+  // 병합 진단의 쌍 판정. value 는 정렬된 pair id "<a>--<b>" 이고,
+  // build_data 의 load_admin_pair_judgments 가 같은 계약으로 읽는다.
+  "pair_join", "pair_split",
 ]);
-export const GROUPS = new Set(["정책", "SMR", "공통"]);
+export const GROUPS = new Set(["정책", "SMR", "공통", "병합"]);
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
