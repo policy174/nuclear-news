@@ -242,6 +242,16 @@
       "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
       "same_event": true
     },
+    "01d97e5a989b4f96--6ba91278beddc8b7": {
+      "embedding_similarity": 0.861,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 루마니아 체르나보다, B는 헝가리 팍스",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리 팍스 원전, 폭염·가뭄으로 냉각수 부족 및 가동 차질",
+      "same_event": false
+    },
     "01d97e5a989b4f96--829572ab405b6400": {
       "embedding_similarity": 0.8941,
       "left_title": "헝가리, 원전 냉각수 확보 위해 다뉴브강 수위 높이려 바지선 침몰 예정",
@@ -8922,6 +8932,16 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": false
     },
+    "20c1ede3ec303192--5e2c11cd445bbcee": {
+      "embedding_similarity": 0.855,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사건의 후속 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 상승으로 터빈 재가동",
+      "same_event": true
+    },
     "20c1ede3ec303192--829572ab405b6400": {
       "embedding_similarity": 0.9067,
       "left_title": "헝가리, 원전 냉각수 확보 위해 다뉴브강 수위 높이려 바지선 침몰 예정",
@@ -10302,6 +10322,16 @@
       "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
       "same_event": true
     },
+    "261ebf4ce2d6bf77--5e2c11cd445bbcee": {
+      "embedding_similarity": 0.8492,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사건의 후속 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리 총리, 팍스 원전 이번 주말 가동 중단 가능성 언급",
+      "same_event": true
+    },
     "261ebf4ce2d6bf77--da958f5fde753b62": {
       "embedding_similarity": 0.8496,
       "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
@@ -11502,6 +11532,16 @@
       "right_title": "김성환 기후부 장관, 12차 전기본 신규 원전 포함 여부 미정 언급",
       "same_event": true
     },
+    "2ad78d39aaa94e3b--d60c75d7877511ce": {
+      "embedding_similarity": 0.8467,
+      "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주제는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 신규 원전 포함 여부 미정 언급",
+      "same_event": false
+    },
     "2ad78d39aaa94e3b--ef3eb8e43bbf5bf4": {
       "embedding_similarity": 0.8466,
       "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
@@ -11662,6 +11702,16 @@
       "right_title": "[독립신문 시론] 월성 2·3·4호기 계속운전, 더 늦출 시간이 없다… 9월 국무회의가 골든타임",
       "same_event": true
     },
+    "2bdc5f2fb94508de--b14413bcaff5b29c": {
+      "embedding_similarity": 0.8768,
+      "left_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
+      "same_event": false
+    },
     "2c443ce216b010d3--3eacd5e0a0ef3dcd": {
       "embedding_similarity": 0.9128,
       "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
@@ -11699,6 +11749,26 @@
       "prompt_version": 1,
       "reason": "헝가리 팍스 원전 가동 차질",
       "reviewed_at": "2026-08-09T03:02:58.722745+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": true
+    },
+    "2cf78843f6ea5720--5e2c11cd445bbcee": {
+      "embedding_similarity": 0.8859,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 헝가리 팍스, B는 루마니아·헝가리",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
+      "same_event": false
+    },
+    "2cf78843f6ea5720--6ba91278beddc8b7": {
+      "embedding_similarity": 0.856,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄으로 인한 원전 냉각수 문제",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "다뉴브강 수위 저하로 루마니아·헝가리 원전 가동 위기, 바지선 침몰 조치",
       "same_event": true
     },
@@ -12381,6 +12451,16 @@
       "reviewed_at": "2026-08-10T07:31:41.891305+00:00",
       "right_title": "AI 시대 전력 수요 급증, 신규 원전과 사용후핵연료 문제",
       "same_event": false
+    },
+    "32bdcb14ad78cf0c--5e2c11cd445bbcee": {
+      "embedding_similarity": 0.8956,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사건의 후속 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "\"강물이 말라붙자 원전이 멈췄다\"…44년 만의 '셧다운' 공포 [스프]",
+      "same_event": true
     },
     "337a9ffbe7eef399--616c6b13d9f03cfa": {
       "embedding_similarity": 0.8421,
@@ -13839,6 +13919,16 @@
       "prompt_version": 1,
       "reason": "SMR 공급망 참여와 발전소 수주",
       "reviewed_at": "2026-08-21T15:45:47.588382+00:00",
+      "right_title": "두산에너빌리티, 오만 미스파 발전소 공사 수주…9300억원 규모",
+      "same_event": false
+    },
+    "37f056f65b32bcdb--9177c575aca6c154": {
+      "embedding_similarity": 0.891,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 계약 건",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "두산에너빌리티, 오만 미스파 발전소 공사 수주…9300억원 규모",
       "same_event": false
     },
@@ -15872,6 +15962,16 @@
       "right_title": "현대건설, 테라파워 나트륨 원전 후속 8기 EPC 권한 확보",
       "same_event": false
     },
+    "3d720b9e7ff1cf58--9177c575aca6c154": {
+      "embedding_similarity": 0.8554,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 관련 계약",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "현대건설, 테라파워 나트륨 원전 후속 8기 EPC 권한 확보",
+      "same_event": true
+    },
     "3d720b9e7ff1cf58--aee00725a324e9a4": {
       "embedding_similarity": 0.8856,
       "left_title": "최태원·정기선이 주목한 SMR, 미국에서 본게임 시작",
@@ -16421,6 +16521,16 @@
       "reviewed_at": "2026-08-10T11:04:28.965525+00:00",
       "right_title": "조용우 부산시의원 \"전기요금 차등제 재검토해야\"",
       "same_event": false
+    },
+    "4007612ebf9f6fb8--cc5ef12e160a4ddf": {
+      "embedding_similarity": 0.8611,
+      "left_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "영덕 신규 원전 건설 관련",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "영덕 원전건설을 서둘러야 하는 이유",
+      "same_event": true
     },
     "4007612ebf9f6fb8--dec5f85da999856e": {
       "embedding_similarity": 0.8524,
@@ -18512,6 +18622,16 @@
       "right_title": "원안위원장, 계속운전 원전 신규 수준 심사 및 SMR 규제 체계 구축 천명",
       "same_event": true
     },
+    "45983b0cc0e544be--7393df5eb25e5b97": {
+      "embedding_similarity": 0.8544,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "경주 방폐장 반입 폐기물 일부 부적합 판정, 원안위 최종 판단 대기",
+      "same_event": false
+    },
     "45983b0cc0e544be--7f066d5dce3f0910": {
       "embedding_similarity": 0.8546,
       "left_title": "원자력안전위원회, 2026년 하반기 K-원자력 안전 업무보고",
@@ -18530,6 +18650,56 @@
       "reason": "계속운전 결론과 폐기물 처분시설 허가는 다른 사안",
       "reviewed_at": "2026-08-21T21:34:04.603010+00:00",
       "right_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "same_event": false
+    },
+    "45983b0cc0e544be--8c22552de277ddd1": {
+      "embedding_similarity": 0.8582,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "한국원자력환경공단, 방사능분석능력평가 9년 연속 전 항목 A등급 획득",
+      "same_event": false
+    },
+    "45983b0cc0e544be--9331484faee72c49": {
+      "embedding_similarity": 0.8641,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원자력연구원 방폐물, 서류 불일치로 ‘부적합’ 판정 받아",
+      "same_event": false
+    },
+    "45983b0cc0e544be--a63591a6bec8cc50": {
+      "embedding_similarity": 0.8571,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원안위, 고준위 방폐물 및 SMR 규제 협력 위해 스웨덴과 양자 회의",
+      "same_event": false
+    },
+    "45983b0cc0e544be--b5dd15b0ae376e7e": {
+      "embedding_similarity": 0.8688,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원안위, 고준위 방사성폐기물 선도국 스웨덴과 규제 협력 확대",
+      "same_event": false
+    },
+    "45983b0cc0e544be--fe3d0953adb542a2": {
+      "embedding_similarity": 0.853,
+      "left_title": "원자력안전위원회, 중저준위 방사성폐기물 처분시설 변경허가 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "고준위방폐물관리위원회, 4개 전문위원회 가동해 관리정책 논의 착수",
       "same_event": false
     },
     "45c1951eda5814ec--58158c94ab72ede0": {
@@ -19522,6 +19692,16 @@
       "right_title": "테라파워, 현대건설·SK이노베이션과 나트륨 원자로 배치 가속화 협약",
       "same_event": false
     },
+    "4a4144ea501c3978--9177c575aca6c154": {
+      "embedding_similarity": 0.8812,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 계약에 대한 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "테라파워, 현대건설·SK이노베이션과 나트륨 원자로 배치 가속화 협약",
+      "same_event": true
+    },
     "4a4144ea501c3978--a5a1ef68231b4e51": {
       "embedding_similarity": 0.8642,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -19811,6 +19991,16 @@
       "reviewed_at": "2026-08-14T10:00:04.206125+00:00",
       "right_title": "이재명 대통령, 첨단기술 현장 시찰 중 SMR 추진 선박 등 관심 표명",
       "same_event": true
+    },
+    "4c5baf7e1aaf4467--c715119981e5d8c7": {
+      "embedding_similarity": 0.8994,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "same_event": false
     },
     "4c72d00aace8c1e2--ab17d3bffd6e0497": {
       "embedding_similarity": 0.8475,
@@ -20261,6 +20451,16 @@
       "reviewed_at": "2026-08-12T05:31:01.399685+00:00",
       "right_title": "미국 NRC, 방사선 방호 'ALARA' 원칙 폐지 제안 규칙에 대한 공청회 개최",
       "same_event": false
+    },
+    "4f423b753929302f--5e2c11cd445bbcee": {
+      "embedding_similarity": 0.873,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사건의 후속 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리 팍스 원전, 냉각수 수위 충분해 가동 중단 피해",
+      "same_event": true
     },
     "4f423b753929302f--829572ab405b6400": {
       "embedding_similarity": 0.8835,
@@ -22720,6 +22920,16 @@
       "reason": "테라파워 SMR 건설 및 빌 게이츠 방한 협력 논의",
       "reviewed_at": "2026-08-17T09:46:55.602147+00:00",
       "right_title": "빌 게이츠 방한, 국내 재계와 SMR 협력 논의 전망",
+      "same_event": true
+    },
+    "5691b51cb24db466--6ba91278beddc8b7": {
+      "embedding_similarity": 0.8641,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄으로 인한 원전 냉각수 문제",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 저하로 원전 가동 중단 예정",
       "same_event": true
     },
     "5691b51cb24db466--975146cde1cfceb8": {
@@ -25582,6 +25792,16 @@
       "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
       "same_event": true
     },
+    "5c6e5abbd0f56fb7--6ba91278beddc8b7": {
+      "embedding_similarity": 0.8552,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄으로 인한 원전 냉각수 문제",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "루마니아, 다뉴브강 수위 하락으로 원자로 가동 중단 가능성",
+      "same_event": true
+    },
     "5c6e5abbd0f56fb7--975146cde1cfceb8": {
       "embedding_similarity": 0.8589,
       "left_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
@@ -25692,6 +25912,46 @@
       "right_title": "뉴클레오, 미국 MOX 핵연료 제조시설 구축에 핵심 단계 진입",
       "same_event": false
     },
+    "5e2c11cd445bbcee--6ba91278beddc8b7": {
+      "embedding_similarity": 0.8497,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 헝가리 팍스, B는 루마니아 체르나보다",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "same_event": false
+    },
+    "5e2c11cd445bbcee--75feca40d7b229b8": {
+      "embedding_similarity": 0.9078,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 헝가리 팍스 원전, B는 유럽 전반",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
+    },
+    "5e2c11cd445bbcee--772d30a3308e46cd": {
+      "embedding_similarity": 0.8564,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 사건의 후속 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리, 다뉴브강 수위 상승 예상에도 원전 출력 제한 지속",
+      "same_event": true
+    },
+    "5e2c11cd445bbcee--8153189c9e875d05": {
+      "embedding_similarity": 0.8641,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리, 극심한 가뭄으로 전력난 직면",
+      "same_event": false
+    },
     "5e2c11cd445bbcee--829572ab405b6400": {
       "embedding_similarity": 0.8779,
       "left_title": "헝가리, 원전 냉각수 확보 위해 다뉴브강 수위 높이려 바지선 침몰 예정",
@@ -25712,6 +25972,16 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
       "same_event": false
     },
+    "5e2c11cd445bbcee--b11d8b14d244b9cc": {
+      "embedding_similarity": 0.874,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 헝가리 팍스, B는 유럽 전반",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
+      "same_event": false
+    },
     "5e2c11cd445bbcee--ca20b30862dbeec1": {
       "embedding_similarity": 0.9123,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -25721,6 +25991,16 @@
       "reviewed_at": "2026-08-21T15:45:47.588382+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
       "same_event": false
+    },
+    "5e2c11cd445bbcee--e71004c69a22ef1e": {
+      "embedding_similarity": 0.8547,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄으로 인한 원전 냉각수 문제",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리, 원전 냉각수 확보 위해 발전소 인근 바지선 2척 침몰 예정",
+      "same_event": true
     },
     "5e2c11cd445bbcee--e9c761ed60c251fb": {
       "embedding_similarity": 0.8946,
@@ -27952,6 +28232,16 @@
       "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
       "same_event": true
     },
+    "6914f2b56547a420--9177c575aca6c154": {
+      "embedding_similarity": 0.9099,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 계약에 대한 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
+      "same_event": true
+    },
     "6914f2b56547a420--a5a1ef68231b4e51": {
       "embedding_similarity": 0.8896,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -28210,6 +28500,16 @@
       "reason": "사건 주체 및 내용 상이",
       "reviewed_at": "2026-08-21T21:34:04.603010+00:00",
       "right_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "same_event": false
+    },
+    "6ba91278beddc8b7--eec81ca96d886aa5": {
+      "embedding_similarity": 0.8667,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "A는 루마니아 체르나보다, B는 헝가리 팍스",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 일시 가동 중단 예정",
       "same_event": false
     },
     "6bf18ed2c2e284a4--a5a1ef68231b4e51": {
@@ -29192,6 +29492,16 @@
       "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
       "same_event": true
     },
+    "719103e4dd4fefb1--9177c575aca6c154": {
+      "embedding_similarity": 0.8915,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 계약에 대한 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
+      "same_event": true
+    },
     "719103e4dd4fefb1--a5a1ef68231b4e51": {
       "embedding_similarity": 0.8614,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -29980,6 +30290,16 @@
       "reason": "전력산업 재편 논의 vs K-배터리 시장 공략",
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
+      "same_event": false
+    },
+    "7393df5eb25e5b97--c715119981e5d8c7": {
+      "embedding_similarity": 0.8544,
+      "left_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "경주 방폐장 반입 폐기물 일부 부적합 판정, 원안위 최종 판단 대기",
       "same_event": false
     },
     "73dc4aec3344793a--91dc2ca3740985f2": {
@@ -33972,6 +34292,16 @@
       "right_title": "김성환 장관, 12차 전기본에 원전 추가 건설 국민 의견 수렴 강조",
       "same_event": false
     },
+    "9177c575aca6c154--9f64b18b47e75f11": {
+      "embedding_similarity": 0.896,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 계약에 대한 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 수주",
+      "same_event": true
+    },
     "9177c575aca6c154--a5a1ef68231b4e51": {
       "embedding_similarity": 0.859,
       "left_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
@@ -33991,6 +34321,16 @@
       "reviewed_at": "2026-08-21T15:45:47.588382+00:00",
       "right_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
       "same_event": false
+    },
+    "9177c575aca6c154--e93c5467c89ec2ba": {
+      "embedding_similarity": 0.8861,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 계약에 대한 보도",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
+      "same_event": true
     },
     "91dc2ca3740985f2--9ec7d0fb22c44034": {
       "embedding_similarity": 0.8525,
@@ -34181,6 +34521,16 @@
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "미국 에너지부(DOE) 핵주기 혁신 캠퍼스(NLIC) 초기 선정 분석",
       "same_event": true
+    },
+    "9331484faee72c49--c715119981e5d8c7": {
+      "embedding_similarity": 0.8565,
+      "left_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원자력연구원 방폐물, 서류 불일치로 ‘부적합’ 판정 받아",
+      "same_event": false
     },
     "93406ef00ae86d41--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.855,
@@ -39292,6 +39642,16 @@
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": true
     },
+    "b0f4ac5b3e395b70--cc5ef12e160a4ddf": {
+      "embedding_similarity": 0.8571,
+      "left_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "영덕 신규 원전 건설 관련",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "동해안, 신규 원전 기반 에너지·AI 산업벨트 구축 제안",
+      "same_event": true
+    },
     "b11d8b14d244b9cc--b1fb7fdb7c5bdceb": {
       "embedding_similarity": 0.8567,
       "left_title": "프랑스 EDF 원전, 폭염으로 일요일 가동 불능 전력량 기록 경신",
@@ -39859,6 +40219,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-14T17:50:04.417678+00:00",
+      "right_title": "원안위, 고준위 방사성폐기물 선도국 스웨덴과 규제 협력 확대",
+      "same_event": false
+    },
+    "b5dd15b0ae376e7e--c715119981e5d8c7": {
+      "embedding_similarity": 0.8506,
+      "left_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "원안위, 고준위 방사성폐기물 선도국 스웨덴과 규제 협력 확대",
       "same_event": false
     },
@@ -41152,6 +41522,26 @@
       "right_title": "중국, AI 데이터센터에 '녹색 기준' 적용…한국은 속도전만",
       "same_event": false
     },
+    "c715119981e5d8c7--c78dc655fc2095e3": {
+      "embedding_similarity": 0.8507,
+      "left_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "경주 방폐장, 원자력연구원 반입 폐기물 부적합 판정 논란",
+      "same_event": false
+    },
+    "c715119981e5d8c7--d4010b67b8de8881": {
+      "embedding_similarity": 0.8581,
+      "left_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "원자력안전위원회, 새울 1호기 안전성 확인 후 재가동 승인",
+      "same_event": false
+    },
     "c73973400bc0f6da--cad7ad5a754410fe": {
       "embedding_similarity": 0.854,
       "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
@@ -41530,6 +41920,16 @@
       "reason": "중국 원전 승인 vs 미중 AI 경쟁",
       "reviewed_at": "2026-08-11T03:11:22.301682+00:00",
       "right_title": "미중 AI 경쟁 심화: 중국 AI 모델의 전력 소비 및 데이터센터 역량 분석",
+      "same_event": false
+    },
+    "cb403aa79ab1fba9--d60c75d7877511ce": {
+      "embedding_similarity": 0.8515,
+      "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
+      "right_title": "김성환 장관, \"한전 전기요금 복지 비용 재정 보전 검토\"",
       "same_event": false
     },
     "cc17bcabbfe22ebf--ef3eb8e43bbf5bf4": {
