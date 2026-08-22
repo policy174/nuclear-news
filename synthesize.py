@@ -41,7 +41,12 @@ try:
 except (AttributeError, ValueError):
     pass
 
-from gemini_client import GeminiError, call_json, is_available
+from gemini_client import (
+    FALLBACK_MODEL,
+    GeminiError,
+    call_json,
+    is_available,
+)
 from sources import credibility
 
 # 본문은 길어서 토큰 절감 위해 잘라 보냄 (wnn.py 와 동일 한도)
@@ -159,6 +164,7 @@ def _synthesize(clusters: list[dict]) -> dict[int, dict]:
             temperature=0.2,
             max_output_tokens=4096,
             timeout=120.0,
+            fallback_model=FALLBACK_MODEL,
             label="synthesize",
         )
     except GeminiError as e:
@@ -223,7 +229,8 @@ def _self_check(clusters: list[dict], cards: dict[int, dict]) -> int:
             temperature=0.0,
             max_output_tokens=4096,
             timeout=90.0,
-            label="synthesize",
+            fallback_model=FALLBACK_MODEL,
+            label="synthesize_check",
         )
     except GeminiError as e:
         print(f"⚠️ [synthesize] self-check 실패 → 카드가 미검증 상태로 통과합니다(원본 유지): {e}")

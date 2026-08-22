@@ -227,3 +227,100 @@ class TestRetrySleepBudget(unittest.TestCase):
         self._call_with_429()
         gc.reset_retry_budget()
         self.assertEqual(gc.retry_sleep_spent(), 0.0)
+
+
+class TestQuotaFallbackModel(unittest.TestCase):
+    """무료 티어 한도는 모델별 버킷이다(quotaId 가 `...PerModel-FreeTier`).
+
+    2026-08-22 실사고: 발송 직전 의미 dedup 이 flash 쿼터 소진으로 죽고
+    `전량 유지` 로 물러나, 같은 사건(원안위 중저준위 표층처분시설 변경허가)이
+    국내 8건 중 3건으로 나갔다. 같은 시각 flash-lite 는 같은 키로 9회 성공했다.
+    """
+
+    def setUp(self):
+        gc.reset_retry_budget()
+        self.addCleanup(gc.reset_retry_budget)
+
+    def _urlopen(self, seen, fail_models, body=DAILY_BODY):
+        def fake(req, *a, **kw):
+            url = req.full_url if hasattr(req, "full_url") else str(req)
+            model = url.split("/models/")[1].split(":")[0]
+            seen.append(model)
+            if model in fail_models:
+                raise urllib.error.HTTPError("u", 429, "Too Many", {},
+                                             BytesIO(body.encode("utf-8")))
+            return _ok_response()
+        return fake
+
+    def test_429_falls_back_to_the_other_model_bucket(self):
+        seen = []
+        with patch.object(gc, "API_KEY", "test-key"),              patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash"})),              patch.object(gc.time, "sleep", lambda s: None):
+            out = gc.call_json("system", "user", retries=0,
+                               fallback_model="gemini-2.5-flash-lite")
+        self.assertEqual({"ok": 1}, out)
+        self.assertEqual(["gemini-2.5-flash", "gemini-2.5-flash-lite"], seen)
+
+    def test_no_fallback_when_the_primary_succeeds(self):
+        seen = []
+        with patch.object(gc, "API_KEY", "test-key"),              patch.object(gc.urllib.request, "urlopen", self._urlopen(seen, set())):
+            gc.call_json("system", "user", retries=0,
+                         fallback_model="gemini-2.5-flash-lite")
+        self.assertEqual(["gemini-2.5-flash"], seen, "1차가 됐는데 폴백까지 태웠다")
+
+    def test_both_exhausted_raises_the_original_error(self):
+        """폴백도 죽으면 호출자의 기존 처리(대개 안전한 폴백)가 그대로 돌아야 한다."""
+        seen = []
+        with patch.object(gc, "API_KEY", "test-key"),              patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash",
+                                               "gemini-2.5-flash-lite"})),              patch.object(gc.time, "sleep", lambda s: None):
+            with self.assertRaises(gc.GeminiError):
+                gc.call_json("system", "user", retries=0,
+                             fallback_model="gemini-2.5-flash-lite")
+        self.assertEqual(2, len(seen))
+
+    def test_truncation_does_not_fall_back(self):
+        """잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 입력을 줄이라는 신호다."""
+        seen = []
+
+        def fake(req, *a, **kw):
+            seen.append(req.full_url.split("/models/")[1].split(":")[0])
+            return _payload_response({"candidates": [{"finishReason": "MAX_TOKENS",
+                                                      "content": {}}]})
+
+        with patch.object(gc, "API_KEY", "test-key"),              patch.object(gc.urllib.request, "urlopen", fake):
+            with self.assertRaises(gc.GeminiTruncated):
+                gc.call_json("system", "user", retries=0,
+                             fallback_model="gemini-2.5-flash-lite")
+        self.assertEqual(1, len(seen), "잘림인데 다른 모델로 또 태웠다")
+
+    def test_send_path_callers_ask_for_the_fallback(self):
+        """소스 가드 — 발송 경로에서 이 인자가 빠지면 사고가 그대로 재발한다."""
+        root = Path(__file__).parent.parent
+        for name in ("dedup.py", "synthesize.py", "daily_brief.py"):
+            src = (root / name).read_text(encoding="utf-8")
+            self.assertIn("fallback_model=FALLBACK_MODEL", src, name)
+            self.assertEqual(src.count("call_json("),
+                             src.count("fallback_model=FALLBACK_MODEL"),
+                             f"{name}: call_json 중 폴백을 안 쓰는 호출이 있다")
+
+
+class _Resp:
+    def __init__(self, raw):
+        self._raw = raw
+    def read(self):
+        return self._raw
+    def __enter__(self):
+        return self
+    def __exit__(self, *a):
+        return False
+
+
+def _payload_response(payload):
+    import json as _json
+    return _Resp(_json.dumps(payload).encode("utf-8"))
+
+
+def _ok_response():
+    return _payload_response(
+        {"candidates": [{"content": {"parts": [{"text": '{"ok": 1}'}]}}]})

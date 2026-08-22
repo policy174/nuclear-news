@@ -28,7 +28,12 @@ try:
 except (AttributeError, ValueError):
     pass
 
-from gemini_client import GeminiError, call_json, is_available
+from gemini_client import (
+    FALLBACK_MODEL,
+    GeminiError,
+    call_json,
+    is_available,
+)
 
 
 # ---- 프롬프트 (connect-ai 스타일 외부화 — 인라인 상수) ----------------------
@@ -142,6 +147,7 @@ def _llm_semantic_groups(clusters: list[dict]) -> list[list[int]]:
             temperature=0.05,
             max_output_tokens=4096,
             timeout=90.0,
+            fallback_model=FALLBACK_MODEL,
             label="dedup",
         )
     except GeminiError as e:
@@ -275,7 +281,8 @@ def dedup_articles(articles: list[dict],
 
     try:
         result = call_json(DEDUP_SYSTEM_PROMPT, "\n".join(lines),
-                           temperature=0.05, max_output_tokens=4096, timeout=90.0)
+                           temperature=0.05, max_output_tokens=4096, timeout=90.0,
+                           fallback_model=FALLBACK_MODEL, label="dedup_articles")
     except GeminiError as e:
         print(f"[dedup] Gemini 실패 → 전량 유지: {e}")
         return list(articles), []

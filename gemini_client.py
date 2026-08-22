@@ -54,6 +54,12 @@ def _resolve(key: str, default: str | None = None) -> str | None:
 API_KEY = _resolve("GEMINI_API_KEY")
 MODEL = _resolve("GEMINI_MODEL", "gemini-2.5-flash")
 
+# 발송 경로가 쿼터에 굶었을 때 물러설 모델. 무료 티어 한도는 **모델별 버킷**이라
+# (429 본문의 quotaId 가 `...PerModel-FreeTier`) 상시 파이프라인이 flash 를 다
+# 태운 날에도 다른 모델은 남아 있다. 실측 2026-08-22: flash 가 온종일 429 인
+# 동안 flash-lite 는 같은 키로 9회 성공했다.
+FALLBACK_MODEL = _resolve("GEMINI_FALLBACK_MODEL", "gemini-2.5-flash-lite")
+
 # Gemini REST 엔드포인트 — SDK 안 쓰고 stdlib urllib만 사용 (의존성 0)
 _ENDPOINT = (
     "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
@@ -323,6 +329,7 @@ def call_json(
     retries: int = 3,
     thinking_budget: int | None = None,
     model: str | None = None,
+    fallback_model: str | None = None,
     label: str = "unlabeled",
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
@@ -342,6 +349,35 @@ def call_json(
     """
     if not API_KEY:
         raise GeminiError("GEMINI_API_KEY 미설정. .env 또는 GitHub Secrets에 등록 필요.")
+
+    # 429 로 죽을 때 다른 모델 버킷으로 한 번만 물러선다. 실패해도 원래 예외를
+    # 그대로 올리므로 호출자의 기존 처리(대개 안전한 폴백)는 바뀌지 않는다.
+    #
+    # 왜 필요한가: 2026-08-22 브리핑에서 발송 직전 의미 dedup 이 429 로 죽고
+    # `전량 유지` 로 물러나, 같은 사건(원안위 중저준위 표층처분시설 변경허가)이
+    # 국내 8건 중 3건으로 나갔다. dedup 은 하루 두 번 부르는 호출인데 매시간
+    # 크롤과 같은 flash 버킷을 쓴 탓에 저녁이면 늘 굶는다.
+    if fallback_model and fallback_model != (model or MODEL):
+        try:
+            return call_json(
+                system_prompt, user_message, temperature=temperature,
+                max_output_tokens=max_output_tokens, timeout=timeout,
+                retries=retries, thinking_budget=thinking_budget,
+                model=model, fallback_model=None, label=label)
+        except GeminiTruncated:
+            # 잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 입력을 줄이라는 신호다.
+            raise
+        except GeminiError as e:
+            if "HTTP 429" not in str(e):
+                raise
+            print(f"[gemini] {model or MODEL} 쿼터 소진 → {fallback_model} 로 폴백 "
+                  f"({label})")
+            return call_json(
+                system_prompt, user_message, temperature=temperature,
+                max_output_tokens=max_output_tokens, timeout=timeout,
+                retries=retries, thinking_budget=thinking_budget,
+                model=fallback_model, fallback_model=None,
+                label=f"{label}:fallback")
 
     generation_config: dict = {
         "temperature": temperature,
