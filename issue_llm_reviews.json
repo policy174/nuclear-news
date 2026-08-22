@@ -2402,6 +2402,16 @@
       "right_title": "월성본부 '2027년도 한수원 지원사업 공모' 실시",
       "same_event": true
     },
+    "08cc25cd258ff60b--8d4e6351d6c710b2": {
+      "embedding_similarity": 0.8549,
+      "left_title": "국회, 국가기간 전력망 확충 특별법 등 민생법안 70여건 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "산업통상부, 지역 산업위기 대응 특별법 개정안 국회 본회의 통과 발표",
+      "same_event": false
+    },
     "092735fbd0996847--d5488ec8773bdc1a": {
       "embedding_similarity": 0.8412,
       "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
@@ -2631,6 +2641,16 @@
       "reviewed_at": "2026-08-20T21:38:48.477053+00:00",
       "right_title": "아마존, 텍사스 데이터센터용 천연가스 발전소 투자로 환경 오염 우려 증폭",
       "same_event": false
+    },
+    "096b22c258a86011--dde280038dec99b6": {
+      "embedding_similarity": 0.8596,
+      "left_title": "미 연준 의사록, AI 투자로 데이터센터 전력 등 물가 압력 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "PJM 데이터센터 전력망 관리",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "PJM, 데이터센터 전력망 사용 감축 및 백업 전환 방안 제안",
+      "same_event": true
     },
     "096b22c258a86011--e525e3a250f8b92b": {
       "embedding_similarity": 0.8444,
@@ -5222,6 +5242,16 @@
       "right_title": "전기요금 4년 새 58% 뛴 서울교통공사, ‘철도용 요금제’ 제안 “공공...",
       "same_event": false
     },
+    "114c0105a9a5871f--a16e3db4d132291b": {
+      "embedding_similarity": 0.856,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 지역의 전기요금제",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "김보라 안성시장, 지역별 차등 전기요금제에 안성시 기여 반영 촉구",
+      "same_event": false
+    },
     "114c0105a9a5871f--a7d1f09e47935d2a": {
       "embedding_similarity": 0.8458,
       "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
@@ -7022,6 +7052,16 @@
       "right_title": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
       "same_event": false
     },
+    "1a48967b5795e76b--2bdc5f2fb94508de": {
+      "embedding_similarity": 0.8562,
+      "left_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 국가의 전력망 정책",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "미국 PJM, 비상시 데이터센터 전력망 이탈 의무화 제안",
+      "same_event": false
+    },
     "1a48967b5795e76b--ab17d3bffd6e0497": {
       "embedding_similarity": 0.869,
       "left_title": "PJM에서 3GW 부하 이탈 재발: NERC의 2024년 조사 결과 시사점",
@@ -7671,6 +7711,16 @@
       "reviewed_at": "2026-08-20T21:38:48.477053+00:00",
       "right_title": "PJM, 데이터센터 부하 대응 위한 임시 자원 적정성 서비스 제안",
       "same_event": false
+    },
+    "1b91dfa6d90f5524--dde280038dec99b6": {
+      "embedding_similarity": 0.8983,
+      "left_title": "PJM, 데이터센터 부하 대응 위한 임시 자원 적정성 서비스 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "PJM 데이터센터 전력망 관리",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "PJM, 데이터센터 전력망 사용 감축 및 백업 전환 방안 제안",
+      "same_event": true
     },
     "1c63f08db9cd89f2--4288e4cee8658728": {
       "embedding_similarity": 0.8485,
@@ -9110,6 +9160,16 @@
       "reason": "계속운전과 안전문화 논의",
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "원전 안전문화, 사업자 넘어 규제기관 리더십까지 확대 논의",
+      "same_event": false
+    },
+    "2159831fad1ddf60--27690c176d3ab1e1": {
+      "embedding_similarity": 0.856,
+      "left_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "국회 본회의, 오세희 의원 대표발의 원자력안전법 개정안 통과",
       "same_event": false
     },
     "2159831fad1ddf60--2e1a5ee355098b0b": {
@@ -11052,6 +11112,16 @@
       "right_title": "국회 본회의, 오세희 의원 대표발의 원자력안전법 개정안 통과",
       "same_event": false
     },
+    "27690c176d3ab1e1--f5304b378680bcac": {
+      "embedding_similarity": 0.8576,
+      "left_title": "국회, 전력수급기본계획 수립 시 대기환경 영향 검토 의무화 법안 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "국회 본회의, 오세희 의원 대표발의 원자력안전법 개정안 통과",
+      "same_event": false
+    },
     "27cf26ee5365bab5--27e417353612169a": {
       "embedding_similarity": 0.8541,
       "left_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
@@ -11861,6 +11931,16 @@
       "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
       "same_event": false
+    },
+    "2bdc5f2fb94508de--dde280038dec99b6": {
+      "embedding_similarity": 0.8608,
+      "left_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "PJM 데이터센터 전력망 관리",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "PJM, 데이터센터 전력망 사용 감축 및 백업 전환 방안 제안",
+      "same_event": true
     },
     "2bdc5f2fb94508de--f8729b9ad3d35dd4": {
       "embedding_similarity": 0.8812,
@@ -14080,6 +14160,36 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-10T05:19:54.404187+00:00",
       "right_title": "원안위, 스웨덴과 방사성폐기물·SMR 안전규제 논의",
+      "same_event": false
+    },
+    "37c707e08b4b8f0a--616c6b13d9f03cfa": {
+      "embedding_similarity": 0.862,
+      "left_title": "센트러스 에너지, X-에너지에 LEU 및 HALEU 농축 서비스 제공 확정 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "센트러스 에너지 계약 vs Urenco 시설 확장",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "Urenco USA, 뉴멕시코 우라늄 농축 시설 확장 착공",
+      "same_event": false
+    },
+    "37c707e08b4b8f0a--a8607be1ca7960f3": {
+      "embedding_similarity": 0.8597,
+      "left_title": "FANCO, HALEU 연료 제조 시설 인허가 계획 NRC에 제출",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "FANCO 인허가 제출 vs Urenco 시설 확장",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "Urenco USA, 뉴멕시코 우라늄 농축 시설 확장 착공",
+      "same_event": false
+    },
+    "37c707e08b4b8f0a--be6777d5d213285c": {
+      "embedding_similarity": 0.8622,
+      "left_title": "미국 의회, 국내 우라늄 농축 증대 및 유카 마운틴 폐기 법안 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 우라늄 농축 및 폐기물 법안 vs 시설 확장",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "Urenco USA, 뉴멕시코 우라늄 농축 시설 확장 착공",
       "same_event": false
     },
     "37c707e08b4b8f0a--d1658517bf1f5c3f": {
@@ -18622,6 +18732,16 @@
       "right_title": "광주 반도체 산단, 에너지·용수 공급 방안 국가 계획과 연계 검증",
       "same_event": true
     },
+    "457aa2e1b508d72c--4c5baf7e1aaf4467": {
+      "embedding_similarity": 0.8542,
+      "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 방폐물 관련 안건",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "same_event": false
+    },
     "457aa2e1b508d72c--63c61266bb0dc771": {
       "embedding_similarity": 0.8556,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -20272,6 +20392,66 @@
       "right_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
       "same_event": false
     },
+    "4c5baf7e1aaf4467--8087dd0c3497cc5f": {
+      "embedding_similarity": 0.8603,
+      "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위 계속운전/SMR 규제 vs 방폐물 안건 심의",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--8c22552de277ddd1": {
+      "embedding_similarity": 0.8598,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위 방폐물 심의 vs 한국원자력환경공단 평가",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "한국원자력환경공단, 방사능분석능력평가 9년 연속 전 항목 A등급 획득",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--9331484faee72c49": {
+      "embedding_similarity": 0.8563,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 방폐물 관련 안건",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "원자력연구원 방폐물, 서류 불일치로 ‘부적합’ 판정 받아",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--9e7a3003708adbaa": {
+      "embedding_similarity": 0.8615,
+      "left_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위 규제 협력 vs 방폐물 안건 심의",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--a45344607e7a523b": {
+      "embedding_similarity": 0.8551,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 방폐물 관련 안건",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "새울 1호기, 정기검사 중 임계 허용…원안위 승인",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--a63591a6bec8cc50": {
+      "embedding_similarity": 0.8564,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 방폐물 관련 안건",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "원안위, 고준위 방폐물 및 SMR 규제 협력 위해 스웨덴과 양자 회의",
+      "same_event": false
+    },
     "4c5baf7e1aaf4467--b5dd15b0ae376e7e": {
       "embedding_similarity": 0.8643,
       "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
@@ -20290,6 +20470,16 @@
       "reason": "안건이 다름",
       "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "same_event": false
+    },
+    "4c5baf7e1aaf4467--f5b17ffee23802af": {
+      "embedding_similarity": 0.8592,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위 방폐물 심의 vs 한국원자력환경공단 평가",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "한국원자력환경공단, KINS 방사능분석능력평가 9년 연속 A등급 획득",
       "same_event": false
     },
     "4c5baf7e1aaf4467--fd84d71cb0fa8b71": {
@@ -21660,6 +21850,16 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "한수원, 포천양수발전소 주변지역에 연 3억5천만원 지원사업 추진",
+      "same_event": false
+    },
+    "527a6bd0d4f4a288--cc5ef12e160a4ddf": {
+      "embedding_similarity": 0.8582,
+      "left_title": "한수원, 포천양수발전소 본공사 착수…2033년 준공 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
       "same_event": false
     },
     "527a6bd0d4f4a288--df18ce1b196c4691": {
@@ -23190,6 +23390,16 @@
       "reason": "다른 주체: 현대건설 vs 두산에너빌리티",
       "reviewed_at": "2026-08-17T06:55:45.743911+00:00",
       "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": false
+    },
+    "565a77d9ffdd8577--de4a0ca483c6b53c": {
+      "embedding_similarity": 0.8561,
+      "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "SK그룹, AI 풀스택 전략으로 SMR 중심 에너지 포트폴리오 다변화 가속",
       "same_event": false
     },
     "565a77d9ffdd8577--e93c5467c89ec2ba": {
@@ -26652,6 +26862,16 @@
       "right_title": "한·스웨덴, 고준위 방폐물 및 SMR 안전규제 협력 논의",
       "same_event": true
     },
+    "616c6b13d9f03cfa--9177c575aca6c154": {
+      "embedding_similarity": 0.8615,
+      "left_title": "센트러스 에너지, X-에너지에 LEU 및 HALEU 농축 서비스 제공 확정 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "센트러스 계약 vs 두산 SMR 기자재 공급",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": false
+    },
     "616c6b13d9f03cfa--9ff80dab9059f991": {
       "embedding_similarity": 0.8518,
       "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
@@ -28712,6 +28932,16 @@
       "right_title": "김주영 의원, AI 시대 전력산업 효율화 위한 '한전 지주회사' 제안",
       "same_event": true
     },
+    "6a39f4c7b30e2ad2--6ba91278beddc8b7": {
+      "embedding_similarity": 0.8608,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄 원전 영향 vs 지구촌 기후 재난",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "최악가뭄, 괴물폭우, 극한폭염 “정말 왜 이러나”...지구촌 곳곳 복합...",
+      "same_event": false
+    },
     "6a4c035c89f7767e--b655f3bdb1eefcca": {
       "embedding_similarity": 0.8647,
       "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
@@ -28811,6 +29041,16 @@
       "reviewed_at": "2026-08-13T13:19:14.937964+00:00",
       "right_title": "중국 신규 원자로, 가동 이정표 달성",
       "same_event": true
+    },
+    "6b44ee4146ad6b25--cc2e553cf2927ac5": {
+      "embedding_similarity": 0.8547,
+      "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 기술 협력",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
+      "same_event": false
     },
     "6b93ed7e22e9bb4b--937708a71d17b0a2": {
       "embedding_similarity": 0.871,
@@ -28931,6 +29171,16 @@
       "reviewed_at": "2026-08-22T03:52:45.199711+00:00",
       "right_title": "유럽 폭염으로 원전·화력 발전 차질, 태양광이 전력 공백 상쇄",
       "same_event": false
+    },
+    "6ba91278beddc8b7--b269359073571cc7": {
+      "embedding_similarity": 0.9073,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 냉각수 문제",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "루마니아, 체르나보다 원전 냉각수 확보 위해 다뉴브강 수위 증대 조치",
+      "same_event": true
     },
     "6ba91278beddc8b7--ca20b30862dbeec1": {
       "embedding_similarity": 0.8434,
@@ -29792,6 +30042,16 @@
       "right_title": "EDF, 기후변화 대응 위해 15년간 90억 유로 투자 계획",
       "same_event": true
     },
+    "709922b17832f517--9177c575aca6c154": {
+      "embedding_similarity": 0.8609,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산 SMR 기자재 공급 vs X-에너지 HALEU 계약",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "X-에너지, 센트러스와 HALEU 공급 계약 체결",
+      "same_event": false
+    },
     "709922b17832f517--9ff80dab9059f991": {
       "embedding_similarity": 0.8488,
       "left_title": "ARC, 아이다호 국립연구소(INL)와 SMR 배치 협력",
@@ -30091,6 +30351,16 @@
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
       "same_event": true
+    },
+    "71dee5bc61bfecc4--ac892a7ec84e8be4": {
+      "embedding_similarity": 0.8569,
+      "left_title": "X-에너지, 미 에너지부로부터 SMR 프로젝트에 10억 달러 추가 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 프로젝트",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "아폴로 아토믹스, 증기 발생기 축소 SMR 개발 위해 3,100만 달러 투자 유치",
+      "same_event": false
     },
     "71f5625759c56698--737df86cf04543b5": {
       "embedding_similarity": 0.8586,
@@ -31980,6 +32250,16 @@
       "reason": "다른 사안",
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "한수원, 포천양수발전소 주변지역에 연 3억5천만원 지원사업 추진",
+      "same_event": false
+    },
+    "7c527ed375648d8f--cc5ef12e160a4ddf": {
+      "embedding_similarity": 0.8553,
+      "left_title": "한수원, 1조 7,508억 원 규모 포천양수발전소 본공사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
       "same_event": false
     },
     "7c527ed375648d8f--df18ce1b196c4691": {
@@ -34902,6 +35182,26 @@
       "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업협력 주요 조건 합의서 체결",
       "same_event": true
     },
+    "9177c575aca6c154--bb3cbf82f04b7978": {
+      "embedding_similarity": 0.8617,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산 SMR 기자재 공급 vs 압축기 공동개발",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 에바라엘리엇과 첨단 압축기 공동개발 MOU 체결",
+      "same_event": false
+    },
+    "9177c575aca6c154--c37069e03f838d95": {
+      "embedding_similarity": 0.8583,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산 SMR 기자재 공급 vs HD현대 회장 협력 논의",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": false
+    },
     "9177c575aca6c154--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8695,
       "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
@@ -34920,6 +35220,16 @@
       "reason": "테라파워 나트륨 SMR 기자재 공급과 SMR 협력 MOU",
       "reviewed_at": "2026-08-22T06:45:13.238999+00:00",
       "right_title": "두산에너빌리티, 페르미아메리카와 SMR 협력 MOU 체결",
+      "same_event": false
+    },
+    "9177c575aca6c154--d31013e6bf533618": {
+      "embedding_similarity": 0.8575,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 SMR 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
       "same_event": false
     },
     "9177c575aca6c154--d48f68a022448837": {
@@ -34950,6 +35260,16 @@
       "reason": "같은 계약에 대한 보도",
       "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
+      "same_event": true
+    },
+    "9177c575aca6c154--ebb55c23efce3634": {
+      "embedding_similarity": 0.8548,
+      "left_title": "두산에너빌리티, 테라파워 나트륨 SMR 핵심 기자재 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 SMR 사업 관련 계약",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업 본격화 및 글로벌 시장 진출 모색",
       "same_event": true
     },
     "9177c575aca6c154--f3f581e85458b942": {
@@ -36661,6 +36981,26 @@
       "reviewed_at": "2026-08-09T07:53:47.894337+00:00",
       "right_title": "미국 시험용 원자로, 주요 기술 이정표 달성",
       "same_event": true
+    },
+    "999ddd4d6588d3cb--9bff425a2d2c0a20": {
+      "embedding_similarity": 0.8551,
+      "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 중국 라이양 원전 5·6호기 단조품 수주",
+      "same_event": false
+    },
+    "999ddd4d6588d3cb--c76e8785efc2694e": {
+      "embedding_similarity": 0.8581,
+      "left_title": "중국 창장 3호기 원전, 전력망 연결 및 상업 운전 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전 건설 사업",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "두산에너빌리티, 중국 라이양 원전 5·6호기 단조품 수주",
+      "same_event": false
     },
     "999ddd4d6588d3cb--cb38eed27ac4ccd4": {
       "embedding_similarity": 0.8713,
@@ -39082,6 +39422,16 @@
       "right_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
       "same_event": true
     },
+    "ab17d3bffd6e0497--dde280038dec99b6": {
+      "embedding_similarity": 0.8585,
+      "left_title": "PJM에서 3GW 부하 이탈 재발: NERC의 2024년 조사 결과 시사점",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "PJM 데이터센터 전력망 관리",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "PJM, 데이터센터 전력망 사용 감축 및 백업 전환 방안 제안",
+      "same_event": true
+    },
     "ab4182f3fbeab74b--af7d7394f069571a": {
       "embedding_similarity": 0.8725,
       "left_title": "루마니아 체르나보다 원전, 다뉴브강 수량 감소로 가동 중단 위기",
@@ -40482,6 +40832,16 @@
       "right_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
       "same_event": true
     },
+    "b269359073571cc7--f1b7e28af992975c": {
+      "embedding_similarity": 0.8613,
+      "left_title": "루마니아·헝가리, 가뭄으로 전력 위기 직면 및 비상사태 선포",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 원전 냉각수 문제",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "루마니아, 체르나보다 원전 냉각수 확보 위해 다뉴브강 수위 증대 조치",
+      "same_event": true
+    },
     "b2a7f008bcd4a986--dc15ddca324e46d2": {
       "embedding_similarity": 0.8441,
       "left_title": "산업부, 반도체 조직 '반도체혁신성장지원단' 국장급으로 확대 추진",
@@ -40679,6 +41039,16 @@
       "prompt_version": 1,
       "reason": "다른 주제의 보도",
       "reviewed_at": "2026-08-11T15:55:41.805394+00:00",
+      "right_title": "김성환 기후부 장관, 반도체 팹 전력 공급 차질 없게 할 것",
+      "same_event": false
+    },
+    "b405ebdfda998eeb--d60c75d7877511ce": {
+      "embedding_similarity": 0.855,
+      "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 발언",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
       "right_title": "김성환 기후부 장관, 반도체 팹 전력 공급 차질 없게 할 것",
       "same_event": false
     },
@@ -43042,6 +43412,26 @@
       "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
       "same_event": true
     },
+    "d31013e6bf533618--dcf7c30e7fd1692d": {
+      "embedding_similarity": 0.8595,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SK-테라파워 SMR 동맹 vs 테라파워 데이터센터 프로젝트",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "테라파워, 데이터센터 고객 2호 원전 프로젝트 추진…연내 확정 목표",
+      "same_event": false
+    },
+    "d31013e6bf533618--de4a0ca483c6b53c": {
+      "embedding_similarity": 0.879,
+      "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SK-테라파워 SMR 동맹 및 AI 전력",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "SK그룹, AI 풀스택 전략으로 SMR 중심 에너지 포트폴리오 다변화 가속",
+      "same_event": true
+    },
     "d31013e6bf533618--e09799bedd69016c": {
       "embedding_similarity": 0.8741,
       "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
@@ -43220,6 +43610,16 @@
       "reason": "HALEU 계약 vs HD현대 협력",
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
+      "same_event": false
+    },
+    "d5c4324b0df4e462--d60c75d7877511ce": {
+      "embedding_similarity": 0.8572,
+      "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 발언",
+      "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
+      "right_title": "김성환 기후부 장관, AI 시대 전력망 선제 구축 강조",
       "same_event": false
     },
     "d5c5fdd2b381af3a--f73a97b0f28780fb": {

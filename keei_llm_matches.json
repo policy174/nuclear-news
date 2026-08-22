@@ -58,7 +58,7 @@
       "same_event": false
     },
     "issue-0412d08712c9a60e--841ceedbf0": {
-      "issue_title": "영덕 신규 원전, 전략환경영향평가 착수…초안 9월 제출 예정",
+      "issue_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 사안",
@@ -83,6 +83,13 @@
       "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
       "prompt_version": 1,
       "reason": "대상 원전과 허가 종류 다름",
+      "same_event": false
+    },
+    "issue-08cc25cd258ff60b--b6aec252c7": {
+      "issue_title": "산업통상부, 지역 산업위기 대응 특별법 개정안 국회 본회의 통과 발표",
+      "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 법안",
       "same_event": false
     },
     "issue-09d2791626624247--841ceedbf0": {
@@ -428,6 +435,13 @@
       "reason": "다른 국가, 다른 주체, 다른 사안",
       "same_event": false
     },
+    "issue-27690c176d3ab1e1--dc799316ad": {
+      "issue_title": "국회 본회의, 오세희 의원 대표발의 원자력안전법 개정안 통과",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "same_event": false
+    },
     "issue-27cf26ee5365bab5--6445d0b3c3": {
       "issue_title": "미국 NRC 및 FEMA, 크레인 원자력발전소 재가동 비상 대비 태세 논의",
       "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
@@ -503,6 +517,13 @@
       "keei_item": "미국·사우디아라비아, 123 협정 체결",
       "prompt_version": 1,
       "reason": "주체와 안건이 다름",
+      "same_event": false
+    },
+    "issue-2bdc5f2fb94508de--b6aec252c7": {
+      "issue_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 규정",
       "same_event": false
     },
     "issue-2fb4f99952cfbc5e--8b6d0658ea": {
@@ -825,6 +846,13 @@
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
       "prompt_version": 1,
       "reason": "국가와 안건이 다름",
+      "same_event": false
+    },
+    "issue-45983b0cc0e544be--dc799316ad": {
+      "issue_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "같은 주체, 다른 안건",
       "same_event": false
     },
     "issue-46906f005868a7ff--6f56f58c45": {
@@ -1485,6 +1513,13 @@
       "reason": "주체, 대상, 안건 모두 다름",
       "same_event": false
     },
+    "issue-7702cb1efa54b619--6f56f58c45": {
+      "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "keei_item": "유럽투자은행, 루마니아 Cernavodă 1호기 설비개선 1.3조 원 대출 승인",
+      "prompt_version": 1,
+      "reason": "같은 원전, 다른 사안",
+      "same_event": false
+    },
     "issue-7702cb1efa54b619--a9ffef226f": {
       "issue_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
@@ -1856,6 +1891,13 @@
       "reason": "인허가 현대화 규정안 발표 후속",
       "same_event": true
     },
+    "issue-a45344607e7a523b--dc799316ad": {
+      "issue_title": "새울 1호기, 정기검사 중 임계 허용…원안위 승인",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "개별 승인과 일반 규정",
+      "same_event": false
+    },
     "issue-a4723d13eaa57660--4fe7b05f50": {
       "issue_title": "중국 뤼펑 2호기 '슈퍼 모듈' 설치 완료, 원전 건설 이정표 달성",
       "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
@@ -1882,6 +1924,20 @@
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
       "reason": "다른 국가의 다른 사안",
+      "same_event": false
+    },
+    "issue-a75afed1bd7ff155--6debc28b1b": {
+      "issue_title": "러시아, 30GW 원전 용량 증설 및 수출 확대 계획 발표",
+      "keei_item": "아르헨티나, 민간투자 기반 ACR-300 건설 계획 발표",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 계획",
+      "same_event": false
+    },
+    "issue-a75afed1bd7ff155--841ceedbf0": {
+      "issue_title": "러시아, 30GW 원전 용량 증설 및 수출 확대 계획 발표",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 전략",
       "same_event": false
     },
     "issue-a81dcba7d0fa007b--16d9dcc69c": {
@@ -2211,6 +2267,13 @@
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
       "reason": "하나는 개별 설계, 다른 하나는 제도 도입",
+      "same_event": false
+    },
+    "issue-c715119981e5d8c7--dc799316ad": {
+      "issue_title": "원안위, 중저준위 방사성폐기물 표층처분시설 건설·운영 변경 허가",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "같은 주체, 다른 안건",
       "same_event": false
     },
     "issue-c76e8785efc2694e--48657c5c8d": {
