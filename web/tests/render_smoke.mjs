@@ -88,20 +88,29 @@ try {
   // 카드 밀도 계약은 CSS 산술로는 못 지킨다 — 칸 수도 줄 수도 데이터가 정한다.
   // 실제로 렌더된 높이를 여기서 본다.
   //
-  // 상한 260px: 220 은 "칸당 한 줄" 구조의 값이었다. 실측에서 그 전제가 깨져
-  // (변화 문장 중앙값 139자·요약 73자 vs 카드 한 줄 32자) 칸당 최대 세 줄로
-  // 올렸고, 카드가 '무슨 일'(3줄) + '직전까지'(2줄)까지 서면 실측 256px 이다.
-  // 900px 뷰포트에서 두 장이 512px 이라 "폴드에 두 장" 이라는 계약의 의도는
-  // 그대로다. 130 → 220 때와 같이 **완화가 아니라 새 구조로 재계산**한 값이며,
-  // 상한 자체는 남긴다 — 지우면 다음 사람이 네 번째 칸을 얹는다.
+  // 상한 380px: 260 은 "칸이 최대 두 개"라는 전제의 값이었고, 그 전제가 두 번
+  // 깨졌다(실측 2026-08-22 라이브, 카드 16장).
+  //   ① 260 은 자기 구조의 worst case 도 못 담았다 — '무슨 일'(3줄)+'직전까지'(3줄)
+  //      은 합법인데 287px 이고, 그날 카드 16장 중 3장이 이 모양이었다.
+  //      주석은 '3줄+2줄=256px' 만 계산해 두고 3줄+3줄을 빼먹었다.
+  //   ② 세 번째 칸이 생겼다 — '왜 중요한가'·'다음 확인'이 붙어 302px.
+  // 지금 구조의 진짜 worst case 는 3칸 × 각 3줄 clamp = **374px 실측**이다.
+  // 380 은 거기에 렌더 편차 몇 px 만 얹은 값이라, 네 번째 칸(+76px)이나 clamp
+  // 4줄(+72px)은 여전히 즉시 걸린다 — 상한을 남기는 이유가 그것이다.
+  // 130 → 220 → 260 때와 같이 **완화가 아니라 새 구조로 재계산**한 값이다.
+  //
+  // "폴드에 두 장"(900px 뷰포트)은 카드 높이 계약이지 페이지 상단 계약이 아니다.
+  // 374px 두 장은 748px 이라 그 의도는 유지된다. 다만 실제로는 헤더·히어로·선두
+  // 이슈가 991px 을 먼저 먹어 첫 카드가 폴드 아래에서 시작한다 — 그건 이 계약이
+  // 아니라 페이지 상단 구조의 문제이고, 별건이다.
   if (cards > 0 || changedCards > 0) {
     const tall = await page.evaluate(() => {
       const rows = [...document.querySelectorAll("#changedList .issue-card, #issueList .issue-card")];
-      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 260);
+      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 380);
       return { total: rows.length, over: over.length, max: Math.max(0, ...over) };
     });
     if (tall.over > 0) {
-      failures.push(`카드 ${tall.over}/${tall.total}장이 260px 밀도 계약 초과(최대 ${tall.max}px)`);
+      failures.push(`카드 ${tall.over}/${tall.total}장이 380px 밀도 계약 초과(최대 ${tall.max}px)`);
     }
   }
   // 잘린 카드 본문 — 문장이 완결되게 하려고 칸당 3줄을 준 것이므로, 그래도 잘리면

@@ -1517,6 +1517,10 @@ function renderTodayAgenda(briefing) {
   pending.textContent = pending.hidden ? ""
     : "이 주 리포트는 아직 집계 중입니다 — 주간 리포트는 금요일 오후에 만들어집니다.";
   agenda.hidden = empty && pending.hidden;
+  // 리포트가 아직 없는 날은 이 블록의 내용이 펜딩 한 문장뿐이다. 그 주 리포트는
+  // 금요일 오후에 만들어지므로 주 6일이 이 상태고, 그동안 상자 chrome 이 폴드에서
+  // 128px 을 먹는다(실측 2026-08-22 라이브). 문장은 남기고 상자만 벗긴다.
+  agenda.classList.toggle("is-pending-only", empty && !pending.hidden);
   document.getElementById("todayAgendaMeta").textContent =
     empty ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
 }

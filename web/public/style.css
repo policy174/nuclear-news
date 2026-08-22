@@ -726,6 +726,19 @@ kbd {
 .today-agenda ul li::before { content: "· "; color: var(--c-text-muted); }
 /* 그 주 리포트가 아직 없는 날의 한 줄. 결론 목록과 같은 자리에 오되 주장하는
    문장이 아니므로 본문 굵기를 주지 않는다. */
+/* 펜딩 한 문장만 있는 날의 압축형. 상자·테두리·배경을 벗기고 위아래 여백만
+   남긴다 — 문장은 그대로 보여야 한다(왜 비었는지 말하는 것이 이 블록의 일). */
+.today-agenda.is-pending-only {
+  padding: 0;
+  margin: var(--sp-4) 0 var(--sp-5);
+  border: 0;
+  background: none;
+}
+.today-agenda.is-pending-only .agenda-head { padding: 0; }
+.today-agenda.is-pending-only .agenda-pending {
+  padding: var(--sp-1) 0 0;
+  border-top: 0;
+}
 .agenda-pending {
   margin: 0;
   padding: var(--sp-3) 0;
