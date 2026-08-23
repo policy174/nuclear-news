@@ -602,6 +602,56 @@
       "right_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
       "same_event": false
     },
+    "02e1bb4b9e238254--21e4b78b256bbd70": {
+      "embedding_similarity": 0.8791,
+      "left_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "석탄발전소 폐지지역 지원 특별법 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "당진시·한국동서발전, 석탄발전 폐지 공동 대응 협약 체결",
+      "same_event": true
+    },
+    "02e1bb4b9e238254--42c963e3c0ee7aa3": {
+      "embedding_similarity": 0.8746,
+      "left_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "전기사업법 개정안 국회 통과, 전기본 수립 시 대기환경 영향 검토 의무화",
+      "same_event": false
+    },
+    "02e1bb4b9e238254--64a8ad19f9714c29": {
+      "embedding_similarity": 0.8624,
+      "left_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "이종배 의원 대표발의 전기사업법 개정안 국회 본회의 통과",
+      "same_event": false
+    },
+    "02e1bb4b9e238254--9158679d23f5f911": {
+      "embedding_similarity": 0.8701,
+      "left_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "same_event": false
+    },
+    "02e1bb4b9e238254--a13983f4518e66e1": {
+      "embedding_similarity": 0.8775,
+      "left_title": "'석탄화력발전소 폐지지역 지원 특별법' 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "석탄발전소 폐지지역 지원 특별법 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "한국동서발전-당진시, 석탄발전소 폐지 '정의로운 전환' 협약 체결",
+      "same_event": true
+    },
     "02e1bb4b9e238254--dc704bc92a96cebd": {
       "embedding_similarity": 0.8594,
       "left_title": "이종배 의원 대표발의 '전기사업법 개정안', 국회 본회의 통과",
@@ -5092,6 +5142,16 @@
       "right_title": "동박 공급이 부족해진다…롯데에너지머티리얼즈, 판가 인상 수혜 기대",
       "same_event": false
     },
+    "0e03646bbee3f807--c27ff83a2b34cbd4": {
+      "embedding_similarity": 0.8975,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기금 조성 vs 기금 운용 방식",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "미래대응기금, SMR 개발 등 성장동력 투자 예정이나 상시 추경 방지 설계 요구",
+      "same_event": false
+    },
     "0e03646bbee3f807--ffed13994a4c38e4": {
       "embedding_similarity": 0.8633,
       "left_title": "정부, 반도체 추가세수 100조원 이상 전망, SMR·핵융합 등 미래 성장동력에 투자 계획",
@@ -7072,6 +7132,16 @@
       "right_title": "정부, 미래대응기금·국부펀드 SMR 등 첨단산업 중복 투자 논란",
       "same_event": false
     },
+    "15a4689f66109f9d--c27ff83a2b34cbd4": {
+      "embedding_similarity": 0.8917,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기금 조성 vs 중복 투자 논란",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "정부, 미래대응기금·국부펀드 SMR 등 첨단산업 중복 투자 논란",
+      "same_event": false
+    },
     "15a4689f66109f9d--ffed13994a4c38e4": {
       "embedding_similarity": 0.8853,
       "left_title": "정부, 반도체 추가세수 100조원 이상 전망, SMR·핵융합 등 미래 성장동력에 투자 계획",
@@ -7081,6 +7151,16 @@
       "reviewed_at": "2026-08-23T06:45:31.404612+00:00",
       "right_title": "정부, 미래대응기금·국부펀드 SMR 등 첨단산업 중복 투자 논란",
       "same_event": false
+    },
+    "15e411f55407746d--1f235e424372ff51": {
+      "embedding_similarity": 0.8641,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울원전 1호기 재가동",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "새울원전 1호기, 취수구 비잠수형 차단문 교체로 잠수작업 전면 대체",
+      "same_event": true
     },
     "161db024a3257418--e415df575e4ff4c8": {
       "embedding_similarity": 0.8465,
@@ -9442,6 +9522,16 @@
       "right_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
       "same_event": false
     },
+    "1f235e424372ff51--5302bc68f1710b50": {
+      "embedding_similarity": 0.8797,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 자동정지",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "한수원 새울 3호기, 시운전 시험 중 자동 정지 발생",
+      "same_event": false
+    },
     "1f235e424372ff51--63c61266bb0dc771": {
       "embedding_similarity": 0.8883,
       "left_title": "새울 3호기 시운전 중 자동정지, 원안위 긴급점검 착수",
@@ -9460,6 +9550,26 @@
       "reason": "새울 3호기 자동정지 vs 새울 1호기 재가동",
       "reviewed_at": "2026-08-23T12:40:25.224100+00:00",
       "right_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "same_event": false
+    },
+    "1f235e424372ff51--bf58fa5f441f906c": {
+      "embedding_similarity": 0.889,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 자동정지",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "새울3호기, 시운전 중 원자로 자동 정지…원안위 정밀 점검 착수",
+      "same_event": false
+    },
+    "1f235e424372ff51--d8b6d0f67712a87c": {
+      "embedding_similarity": 0.8785,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 자동정지",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "새울원전 3호기, 전력망 복구시험 중 자동 정지 발생",
       "same_event": false
     },
     "1f5270f31d6e57ef--6daf204a4f7610fb": {
@@ -10962,6 +11072,16 @@
       "right_title": "한국전력, 전력망 확충 예산 5500억 원 미집행…주민 반대·인허가 지연이 원인",
       "same_event": false
     },
+    "248485a6481da043--eead02e2334a6e47": {
+      "embedding_similarity": 0.8952,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 포화 대응 vs 예산 미집행",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "한국전력, 전력망 확충 예산 5500억 원 미집행…주민 반대·인허가 지연이 원인",
+      "same_event": false
+    },
     "249b86fbd940aa28--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8823,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -11571,6 +11691,16 @@
       "reviewed_at": "2026-08-13T09:15:36.859327+00:00",
       "right_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
       "same_event": false
+    },
+    "268c3a33366fded3--4dd6bcfae86b28c4": {
+      "embedding_similarity": 0.9034,
+      "left_title": "IAEA, 원전 정보시스템(PRIS) 전면 개편…세계 417기 가동",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "IAEA 원전 정보시스템 개편",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "IAEA, 세계 원전 정보 데이터베이스 PRIS 전면 개편",
+      "same_event": true
     },
     "269538276bb6a27b--9cfe538a3c4d1592": {
       "embedding_similarity": 0.9099,
@@ -12652,6 +12782,16 @@
       "right_title": "이재명 대통령, SMR 등 미래 핵심 산업에 메가프로젝트급 투자 강조",
       "same_event": true
     },
+    "2ac46bf39add7ba8--c27ff83a2b34cbd4": {
+      "embedding_similarity": 0.8702,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 투자 분야",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "이재명 대통령, SMR 등 미래 핵심 산업에 메가프로젝트급 투자 강조",
+      "same_event": false
+    },
     "2ac46bf39add7ba8--c635ceb310705bc0": {
       "embedding_similarity": 0.8555,
       "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
@@ -13410,6 +13550,16 @@
       "reason": "안전기준 최신화 vs 안전 전방위 강화",
       "reviewed_at": "2026-08-09T16:23:33.152066+00:00",
       "right_title": "정부, 노후 원전부터 SMR까지 원자력 안전 전방위 강화 추진",
+      "same_event": false
+    },
+    "2e54b8e74c6fc037--9158679d23f5f911": {
+      "embedding_similarity": 0.8793,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의 vs 석탄발전 폐지 특별법",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "석탄발전 폐지 '발전소만 닫고 끝' 막는다…정의로운 전환 특별법 국회...",
       "same_event": false
     },
     "2f2d36144d11a6b3--cfdf56da54c3bf4e": {
@@ -20752,6 +20902,16 @@
       "right_title": "AI 시대 맞아 전력산업 구조개편 시동, 한수원 별도 유지 검토",
       "same_event": true
     },
+    "462bca85c70708bb--9158679d23f5f911": {
+      "embedding_similarity": 0.8757,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "AI 시대 맞아 전력산업 구조개편 시동, 한수원 별도 유지 검토",
+      "same_event": true
+    },
     "462bca85c70708bb--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.8659,
       "left_title": "김주영 의원, 한전 홀딩스 체제 및 발전 5사 재통합 제안",
@@ -20909,6 +21069,16 @@
       "prompt_version": 1,
       "reason": "다른 주제의 보도",
       "reviewed_at": "2026-08-11T15:55:41.805394+00:00",
+      "right_title": "SFA, LS전선 미국 공장에 해저케이블 제조설비 '턴테이블' 출하",
+      "same_event": false
+    },
+    "46846f0fc08ed1ea--b35eb3f20deb19c6": {
+      "embedding_similarity": 0.8911,
+      "left_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LS전선 공급망 vs SFA 설비 출하",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "SFA, LS전선 미국 공장에 해저케이블 제조설비 '턴테이블' 출하",
       "same_event": false
     },
@@ -23559,6 +23729,16 @@
       "prompt_version": 1,
       "reason": "발전 5사 통합 및 한전 지주사 체제 제안",
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
+      "right_title": "김주영 의원, '발전5사 완전통합, 한전지주사 체제' 제안",
+      "same_event": true
+    },
+    "5232e9a68060ae2f--9158679d23f5f911": {
+      "embedding_similarity": 0.8663,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "김주영 의원, '발전5사 완전통합, 한전지주사 체제' 제안",
       "same_event": true
     },
@@ -29292,6 +29472,16 @@
       "right_title": "한전, 적기 송전 중심 '전력안보' 체계로 패러다임 전환",
       "same_event": false
     },
+    "612614ae06f13848--eead02e2334a6e47": {
+      "embedding_similarity": 0.8805,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 포화 대응 방안",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "한전, 적기 송전 중심 '전력안보' 체계로 패러다임 전환",
+      "same_event": true
+    },
     "613c436b24575f57--90632d54b0efbee5": {
       "embedding_similarity": 0.865,
       "left_title": "우리기술, 한수원과 고리 3·4호기 PMS 설비개선 자재 공급계약 체결",
@@ -30372,6 +30562,16 @@
       "right_title": "빌 게이츠 방한, AI 전력전쟁 속 빅테크의 차세대 원전 선점 동향",
       "same_event": false
     },
+    "630c8b324d88e729--eead02e2334a6e47": {
+      "embedding_similarity": 0.8673,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "동해안-동서울 HVDC 등 주요 송전망 건설 지연 심화",
+      "same_event": false
+    },
     "630c8b324d88e729--fd17939220b56c39": {
       "embedding_similarity": 0.8443,
       "left_title": "원전 9기 계속운전 심사 인력난으로 지연, 전력 공백 우려 제기",
@@ -30450,6 +30650,16 @@
       "reason": "전력망 확충법 vs 전기사업법 개정안",
       "reviewed_at": "2026-08-23T12:40:25.224100+00:00",
       "right_title": "이종배 의원 대표발의 전기사업법 개정안 국회 본회의 통과",
+      "same_event": false
+    },
+    "64a8ad19f9714c29--f762199f53581f88": {
+      "embedding_similarity": 0.8659,
+      "left_title": "이종배 의원 대표발의 전기사업법 개정안 국회 본회의 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 법안 통과",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "국회, 국가기간 전력망 건설 민간 참여 특별법 본회의 통과",
       "same_event": false
     },
     "64c9fa5bae113782--66d8933507f8bf75": {
@@ -32231,6 +32441,26 @@
       "reviewed_at": "2026-08-22T01:09:41.796883+00:00",
       "right_title": "영덕 신규원전 12조 프로젝트 사업 속도 낸다… 환경영향평가 착수",
       "same_event": true
+    },
+    "6d595b8e75280614--bb676bb38bd4b23e": {
+      "embedding_similarity": 0.8734,
+      "left_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 AI 기업",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "앤스로픽, 라이엇 플랫폼스와 91억 달러 규모 AI 컴퓨팅 계약 체결",
+      "same_event": false
+    },
+    "6d595b8e75280614--f1f61ee08a41c3fe": {
+      "embedding_similarity": 0.885,
+      "left_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "앤트로픽 IPO 추진 vs 인수 협상",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "앤트로픽, AI 스타트업 데카르트 8.5조원 인수 협상",
+      "same_event": false
     },
     "6d85f43b70dcb120--86d1c5852cb9ef75": {
       "embedding_similarity": 0.8464,
@@ -34602,6 +34832,16 @@
       "right_title": "기후장관 \"부적절 송전망 신규 수요 조정…기존 철탑 활용\"",
       "same_event": false
     },
+    "7627d87407330ff9--eead02e2334a6e47": {
+      "embedding_similarity": 0.8717,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "기후장관 \"부적절 송전망 신규 수요 조정…기존 철탑 활용\"",
+      "same_event": false
+    },
     "7627d87407330ff9--ef3eb8e43bbf5bf4": {
       "embedding_similarity": 0.8423,
       "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
@@ -34610,6 +34850,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-20T21:38:48.477053+00:00",
       "right_title": "기후장관 \"부적절 송전망 신규 수요 조정…기존 철탑 활용\"",
+      "same_event": false
+    },
+    "76920e8f1065c4a1--eead02e2334a6e47": {
+      "embedding_similarity": 0.8617,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "당진 지역 송전탑 건설 문제 제기, 제11차 전기본 송전망 계획 재검토 요구",
       "same_event": false
     },
     "76c6cf0abce0dfc7--8c6eb5250550b959": {
@@ -35372,6 +35622,16 @@
       "right_title": "러시아의 글로벌 사우스 원자력 외교 동향과 시사점 분석",
       "same_event": false
     },
+    "7aca416ae827bf7e--9158679d23f5f911": {
+      "embedding_similarity": 0.8845,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "김성환 기후장관, 발전 5사 통폐합 및 전력산업 거버넌스 재편 의지 표명",
+      "same_event": true
+    },
     "7aca416ae827bf7e--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.8445,
       "left_title": "김주영 의원, 한전 홀딩스 체제 및 발전 5사 재통합 제안",
@@ -35501,6 +35761,16 @@
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
       "same_event": true
+    },
+    "7d3e0c165f9ddd4d--b35eb3f20deb19c6": {
+      "embedding_similarity": 0.8845,
+      "left_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LS전선 공급망 구축 vs K-전력기기 수혜",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
+      "same_event": false
     },
     "7d3e0c165f9ddd4d--c50c129ba8446def": {
       "embedding_similarity": 0.8412,
@@ -35791,6 +36061,16 @@
       "reviewed_at": "2026-08-11T10:46:41.061755+00:00",
       "right_title": "원자력안전위원회, 스웨덴 방사선안전청과 고준위폐기물 규제 논의",
       "same_event": false
+    },
+    "7f3bcd995216c495--9158679d23f5f911": {
+      "embedding_similarity": 0.8651,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "국회, 한전 지주사 체제 등 전력산업 구조개편 방향 제안",
+      "same_event": true
     },
     "7f3bcd995216c495--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.9118,
@@ -36682,6 +36962,16 @@
       "right_title": "전기는 남았는데 불은 꺼졌다",
       "same_event": false
     },
+    "854c94fa63a4a54d--eead02e2334a6e47": {
+      "embedding_similarity": 0.8658,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "전기는 남았는데 불은 꺼졌다",
+      "same_event": false
+    },
     "85788b54856243a7--96dffa21b827ca27": {
       "embedding_similarity": 0.8467,
       "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
@@ -37020,6 +37310,16 @@
       "reason": "주체는 같으나 사안이 다름",
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
       "right_title": "한화 건설부문, AI 데이터센터 전력 효율화 국책과제 수행",
+      "same_event": false
+    },
+    "87ed2c177c6b914e--9158679d23f5f911": {
+      "embedding_similarity": 0.8909,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 법안 발의 vs 통합 법안 추진",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "전북 국회의원, 한전 산하 발전 5개사 통합 법안 발의 추진",
       "same_event": false
     },
     "87ed2c177c6b914e--dc1e6a30e09ccefd": {
@@ -38511,6 +38811,26 @@
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "AI, 미국 경제 재편하며 데이터센터 전력 생산 확대 등 인프라 투자 견인",
       "same_event": false
+    },
+    "9158679d23f5f911--a103bbd20e85eafd": {
+      "embedding_similarity": 0.8712,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "김주영 의원, AI 시대 전력 수요 폭증 대비 발전공기업 통합 검토 언급",
+      "same_event": true
+    },
+    "9158679d23f5f911--b817c7c00ad978ec": {
+      "embedding_similarity": 0.862,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "발전 5사 통합 '한국발전공사법안' 발의, 산업용 전력 공급 변화 주목",
+      "same_event": true
     },
     "9158679d23f5f911--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.8673,
@@ -41740,6 +42060,16 @@
       "reason": "다른 투자 대상",
       "reviewed_at": "2026-08-09T21:58:11.456426+00:00",
       "right_title": "엔비디아, 스타게이트 개발사에 최대 30억 달러 투자",
+      "same_event": false
+    },
+    "a2faae47f5b611b9--b35eb3f20deb19c6": {
+      "embedding_similarity": 0.883,
+      "left_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LS전선 공급망 구축 vs 가온전선 매출 개선",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "가온전선, 북미 전력망·데이터센터 투자 확대로 매출 및 수익성 개선",
       "same_event": false
     },
     "a3818579cb1a0fd1--a3e13685ce3cf3f9": {
@@ -46152,6 +46482,16 @@
       "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
       "same_event": true
     },
+    "be0543ad09ded286--eead02e2334a6e47": {
+      "embedding_similarity": 0.8677,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "정부, 민간 전력망 건설 참여 법적 근거 마련…한전 부담 완화",
+      "same_event": false
+    },
     "be64fdd1a3f73d30--f9836d3cb1423104": {
       "embedding_similarity": 0.8906,
       "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
@@ -46541,6 +46881,36 @@
       "reviewed_at": "2026-08-23T12:40:25.224100+00:00",
       "right_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
       "same_event": true
+    },
+    "c27ff83a2b34cbd4--c99eed2eee894e67": {
+      "embedding_similarity": 0.9056,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기금 규모 및 투자 대상 차이",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "정부, 800조원 이상 슈퍼예산 발표 예정…SMR 등 7대 시드 기술 투자",
+      "same_event": false
+    },
+    "c27ff83a2b34cbd4--cc7bb4d533f205af": {
+      "embedding_similarity": 0.9101,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기금 규모 및 투자 대상 차이",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "정부, 지역균형성장 위한 '100조+α 미래대응기금' 신설…SMR 등 투자",
+      "same_event": false
+    },
+    "c27ff83a2b34cbd4--cf220a841659c83f": {
+      "embedding_similarity": 0.8871,
+      "left_title": "정부, 150조 미래대응기금 조성…SMR 등 미래기술 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기금 조성 vs SEED 프로젝트 발표",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": false
     },
     "c27ff83a2b34cbd4--d1e966b5772613fd": {
       "embedding_similarity": 0.8721,
@@ -47652,6 +48022,16 @@
       "right_title": "NRC, Orano의 50억 달러 규모 우라늄 농축시설 인허가 청문회 개시",
       "same_event": false
     },
+    "d0c7d17bb4c55e35--eead02e2334a6e47": {
+      "embedding_similarity": 0.8618,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "한국 송전망 구축 평균 13년 소요, 첨단산업 인프라 병목 현상 심화",
+      "same_event": false
+    },
     "d0d2eb7c05b74930--dc1568d26b7a3c04": {
       "embedding_similarity": 0.866,
       "left_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
@@ -48019,6 +48399,16 @@
       "prompt_version": 1,
       "reason": "반도체 조직 확대와 전력 분석은 다른 사안",
       "reviewed_at": "2026-08-18T21:37:17.182874+00:00",
+      "right_title": "민간 싱크탱크, 호남 반도체 산단 전력에 신규 발전소 불필요 분석",
+      "same_event": false
+    },
+    "d6889c5a7737e33a--eead02e2334a6e47": {
+      "embedding_similarity": 0.8619,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "민간 싱크탱크, 호남 반도체 산단 전력에 신규 발전소 불필요 분석",
       "same_event": false
     },
@@ -48501,6 +48891,16 @@
       "reviewed_at": "2026-08-13T13:19:14.937964+00:00",
       "right_title": "미국 SMR 뉴스케일파워, 최대 1조원 규모 자본 조달 추진",
       "same_event": true
+    },
+    "e6041ef77fcf962f--eead02e2334a6e47": {
+      "embedding_similarity": 0.8645,
+      "left_title": "정부, 전력망 포화 대응 위해 '계절별 송전용량' 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 전력망 정책",
+      "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "국내 재생에너지 출력제어 심화, 중국 사례 통해 전력망 해법 모색",
+      "same_event": false
     },
     "e6cef644d033b341--f1b7e28af992975c": {
       "embedding_similarity": 0.9067,
