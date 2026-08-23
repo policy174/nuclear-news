@@ -1102,6 +1102,16 @@
       "right_title": "정부, 12차 전기본 수립 착수…AI·반도체로 전력수요 1.4배 급증 전망",
       "same_event": true
     },
+    "05da702fed62250a--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8792,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "정부, 12차 전기본 수립 착수…AI·반도체로 전력수요 1.4배 급증 전망",
+      "same_event": true
+    },
     "05f30b2aabaa39a0--dec5f85da999856e": {
       "embedding_similarity": 0.8477,
       "left_title": "美, 한국에 대미 투자 및 한미 원자력협정 후속 협의 압박",
@@ -2752,6 +2762,16 @@
       "right_title": "스페인, 알마라즈 원전 폐쇄 연기 결정",
       "same_event": true
     },
+    "099ce0d43f46036a--1b4b7adc62647aaf": {
+      "embedding_similarity": 0.8456,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 요금제 및 송전용량 시범 적용",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "기후에너지환경부, 9월부터 계절별 송전용량 시범 적용 추진",
+      "same_event": false
+    },
     "099ce0d43f46036a--248485a6481da043": {
       "embedding_similarity": 0.9055,
       "left_title": "기후에너지환경부, 9월부터 계절별 송전용량 시범 적용 추진",
@@ -2810,6 +2830,16 @@
       "reason": "송전용량 시범 적용 vs 송전망 재검토",
       "reviewed_at": "2026-08-22T21:56:24.641206+00:00",
       "right_title": "기후장관, 12차 전기본서 송전망 재검토 및 신규 철탑 40% 감축 방침 발표",
+      "same_event": false
+    },
+    "099ce0d43f46036a--a3e13685ce3cf3f9": {
+      "embedding_similarity": 0.8552,
+      "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 투자 및 송전용량 시범 적용",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "기후에너지환경부, 9월부터 계절별 송전용량 시범 적용 추진",
       "same_event": false
     },
     "099ce0d43f46036a--a519ec27d94058f0": {
@@ -7951,6 +7981,16 @@
       "reviewed_at": "2026-08-19T04:02:15.567632+00:00",
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": false
+    },
+    "1b4b7adc62647aaf--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8434,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "same_event": true
     },
     "1b91dfa6d90f5524--1d3c97152df4e5c9": {
       "embedding_similarity": 0.8518,
@@ -15172,6 +15212,16 @@
       "right_title": "12차 전기본, 3대 메가프로젝트 반영 전력수요 재논의",
       "same_event": true
     },
+    "38aa27b55057c078--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8448,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 3대 메가프로젝트 반영 전력수요 재논의",
+      "same_event": true
+    },
     "38c5485b15d88131--3eacd5e0a0ef3dcd": {
       "embedding_similarity": 0.9106,
       "left_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
@@ -15440,6 +15490,16 @@
       "reason": "12차 전기본 전력수요 전망 공개",
       "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
+      "same_event": true
+    },
+    "3919f11d7d4ed159--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8495,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
       "same_event": true
     },
     "3939699e2aa85cc6--6daf204a4f7610fb": {
@@ -20522,6 +20582,16 @@
       "right_title": "12차 전기본, 2040년 전력수요 재산정 및 '전기국가' 전략 본격화",
       "same_event": true
     },
+    "479eb23a61ad65ae--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8536,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 2040년 전력수요 재산정 및 '전기국가' 전략 본격화",
+      "same_event": true
+    },
     "47af7e51f42662d9--5e9d01995935b47b": {
       "embedding_similarity": 0.8576,
       "left_title": "프랑스 EDF 원전 6기, 폭염으로 가동 중단…원전 가용성 20% 육박",
@@ -23061,6 +23131,16 @@
       "reviewed_at": "2026-08-11T03:11:22.301682+00:00",
       "right_title": "삼성전자 대규모 투자로 변화하는 국가 전력 대계",
       "same_event": false
+    },
+    "548055e6161f453a--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8775,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "삼성전자 대규모 투자로 변화하는 국가 전력 대계",
+      "same_event": true
     },
     "549b832e2069fa6a--756c2e6e80bbd36e": {
       "embedding_similarity": 0.8601,
@@ -27112,6 +27192,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
+    "5b5995d129436876--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8634,
+      "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "same_event": true
+    },
     "5bd4090b74327348--6ea6e3a37d06959e": {
       "embedding_similarity": 0.8612,
       "left_title": "래디언트의 칼레이도스 마이크로원자로, 아이다호 시험장으로 운송 시작",
@@ -30732,6 +30822,16 @@
       "right_title": "중국 톈완 7호기 원자력 발전소 연료 장전 시작",
       "same_event": true
     },
+    "6e0604e6a1a62afb--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8568,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본 2040년 전력수요 26.8GW 증가, 시민사회 재검증 촉구",
+      "same_event": true
+    },
     "6e874ad37df15b2c--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8402,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -32452,6 +32552,16 @@
       "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
       "same_event": false
     },
+    "75feca40d7b229b8--f7d8189e1caf32ca": {
+      "embedding_similarity": 0.9107,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 가동 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사건 주체 및 내용 상이",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
+    },
     "761809b46c950412--895b471e7f2e1d4c": {
       "embedding_similarity": 0.8948,
       "left_title": "빌 게이츠 방한, SMR 공급망 논의…테라파워, 美 NRC 건설허가 획득",
@@ -33279,6 +33389,16 @@
       "prompt_version": 1,
       "reason": "같은 전력수급기본계획 논의",
       "reviewed_at": "2026-08-19T06:57:15.493469+00:00",
+      "right_title": "제12차 전력수급기본계획, 신규 원전 건설 여부 및 규모가 최대 쟁점",
+      "same_event": true
+    },
+    "7acc052fb27f5e3f--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8641,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
       "right_title": "제12차 전력수급기본계획, 신규 원전 건설 여부 및 규모가 최대 쟁점",
       "same_event": true
     },
@@ -36902,6 +37022,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
+    "93406ef00ae86d41--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8693,
+      "left_title": "기후에너지환경부, 반도체 전력난 대응 위해 LNG 발전 확대 방침 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "same_event": true
+    },
     "9351ab88f7069491--a587d096a9a94b15": {
       "embedding_similarity": 0.907,
       "left_title": "미 에너지부, 디아블로 캐년 원전에 2.7억 달러 지원",
@@ -39502,6 +39632,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
+    "a3e13685ce3cf3f9--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8485,
+      "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "same_event": true
+    },
     "a3ebf95f8f2a3d16--f016fc6728215437": {
       "embedding_similarity": 0.8504,
       "left_title": "NRC, 원자로 인허가 현대화 제안 규칙 관련 질의응답 진행",
@@ -41522,6 +41662,16 @@
       "right_title": "최태원·정기선이 주목한 SMR, 미국에서 본게임 시작",
       "same_event": true
     },
+    "af3d17a676b82b29--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8502,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "국가 AI 인프라 구축, 전력망·기술 확보 과제 직면",
+      "same_event": true
+    },
     "af71de9302dc770a--d31013e6bf533618": {
       "embedding_similarity": 0.8597,
       "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
@@ -42972,6 +43122,16 @@
       "right_title": "일본 철수 베트남 닌투언2 원전 사업, 한국 수주 가능성 증대",
       "same_event": false
     },
+    "b9ed7ccd23b0f237--fbd3322d6a137c46": {
+      "embedding_similarity": 0.883,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "기후부, 12차 전기본에 메가프로젝트發 전력수요 반영…LNG 발전 확대 검토",
+      "same_event": true
+    },
     "ba51bf425ca92c1c--c635ceb310705bc0": {
       "embedding_similarity": 0.8694,
       "left_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
@@ -43981,6 +44141,16 @@
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
       "same_event": false
+    },
+    "c522755952c6b618--fbd3322d6a137c46": {
+      "embedding_similarity": 0.875,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전력수급기본계획, 20일 전력 수요 전망치 공개 예정",
+      "same_event": true
     },
     "c60046634052feca--c73973400bc0f6da": {
       "embedding_similarity": 0.8425,
@@ -45192,6 +45362,16 @@
       "right_title": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
       "same_event": false
     },
+    "d60c75d7877511ce--fbd3322d6a137c46": {
+      "embedding_similarity": 0.848,
+      "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "same_event": true
+    },
     "d6889c5a7737e33a--dc15ddca324e46d2": {
       "embedding_similarity": 0.843,
       "left_title": "산업부, 반도체 조직 '반도체혁신성장지원단' 국장급으로 확대 추진",
@@ -45231,6 +45411,16 @@
       "reviewed_at": "2026-08-21T18:41:03.844990+00:00",
       "right_title": "호남권 출력제어 급증 속 정부, 2028년 반도체 클러스터 전력 공급 천명",
       "same_event": false
+    },
+    "d92804977ee3022f--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8678,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
+      "same_event": true
     },
     "da958f5fde753b62--f1b7e28af992975c": {
       "embedding_similarity": 0.8877,
@@ -45791,6 +45981,16 @@
       "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
       "right_title": "앤트로픽, AI 스타트업 데카르트 8.5조원 인수 협상",
       "same_event": false
+    },
+    "f261f6a0ca06115f--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8763,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 관련 보도",
+      "reviewed_at": "2026-08-23T01:11:34.388801+00:00",
+      "right_title": "정부, 2040년까지 국가 전력 수요 전망 12차 전기본 초안 마련 착수",
+      "same_event": true
     },
     "f28040e0c2b52c4c--f73a97b0f28780fb": {
       "embedding_similarity": 0.8525,
