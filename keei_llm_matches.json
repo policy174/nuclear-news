@@ -533,6 +533,13 @@
       "reason": "대상 국가 다름",
       "same_event": false
     },
+    "issue-302efc1d05fea600--3d685ecca6": {
+      "issue_title": "싱가포르, 에너지 전환 전략에 원자력·재생에너지 병행 추진",
+      "keei_item": "일본 문부과학성, 원자력 인재 양성 산·학·관 센터 신설 추진",
+      "prompt_version": 1,
+      "reason": "국가, 안건 모두 다름",
+      "same_event": false
+    },
     "issue-3102d57c68498e6e--835e580735": {
       "issue_title": "브라질 INB, 우라늄 자급 목표로 지질 연구 추진",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
@@ -834,6 +841,13 @@
       "reason": "동일 원전 운영 연장 건",
       "same_event": true
     },
+    "issue-44a5dbf43710cac6--23a6f604ae": {
+      "issue_title": "싱가포르국립대, AI 전력 병목 해소 위한 생물학 데이터센터 시제품 공개",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 대상 다름",
+      "same_event": false
+    },
     "issue-44af16619ddc4885--3afede2c57": {
       "issue_title": "한국, 대미 3500억 달러 투자 1호 프로젝트 선정 지연 비판",
       "keei_item": "일본 경제산업성, 개량형경수로·SMR 기술개발·공급망 구축 지원 대상 선정",
@@ -898,10 +912,17 @@
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--23a6f604ae": {
-      "issue_title": "미 연준 의사록, AI 투자로 데이터센터 전력 등 물가 압력 지적",
+      "issue_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "다른 국가, 다른 주체",
+      "reason": "주체, 대상 국가 다름",
+      "same_event": false
+    },
+    "issue-4dd2920f69b7ea54--3afede2c57": {
+      "issue_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "keei_item": "일본 경제산업성, 개량형경수로·SMR 기술개발·공급망 구축 지원 대상 선정",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 국가 다름",
       "same_event": false
     },
     "issue-4dd2920f69b7ea54--6445d0b3c3": {
@@ -909,6 +930,20 @@
       "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
       "prompt_version": 1,
       "reason": "다른 사안 (AI 전력비 vs 원전 도입)",
+      "same_event": false
+    },
+    "issue-4dd6bcfae86b28c4--0cc8670c5e": {
+      "issue_title": "IAEA, 원전 정보시스템(PRIS) 전면 개편…세계 417기 가동",
+      "keei_item": "전 세계 방사성동위원소 산업 현황 (NEA 보고서)",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 보고서 다름",
+      "same_event": false
+    },
+    "issue-4dd6bcfae86b28c4--59ed9f8ae2": {
+      "issue_title": "IAEA, 원전 정보시스템(PRIS) 전면 개편…세계 417기 가동",
+      "keei_item": "전 세계 사용후핵연료 현황 통계 (IAEA Global SNF Inventory)",
+      "prompt_version": 1,
+      "reason": "같은 기관의 다른 보고서",
       "same_event": false
     },
     "issue-4e6a1d2c0301a4d0--08db51ddba": {
@@ -1450,6 +1485,13 @@
       "reason": "같은 규정 개정의 다른 단계",
       "same_event": true
     },
+    "issue-6d595b8e75280614--23a6f604ae": {
+      "issue_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 국가 다름",
+      "same_event": false
+    },
     "issue-6f43d6ced821513e--7175604cab": {
       "issue_title": "EDF, 테크닙 에너지스와 EPR2 원자로 건설 및 인도 협력 전략적 협약 체결",
       "keei_item": "영국 정부·EDF, Sizewell B 원전 계속운전 지원 조건 합의",
@@ -1843,10 +1885,10 @@
       "same_event": false
     },
     "issue-9a7b23e4ae5be6f3--dc799316ad": {
-      "issue_title": "새울 1호기, 정기검사 중 임계 허용…원안위 승인",
+      "issue_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
-      "reason": "개별 원전 승인과 법령 개정은 다른 안건",
+      "reason": "같은 기관의 다른 안건",
       "same_event": false
     },
     "issue-9b85b2a6e2593847--841ceedbf0": {
@@ -2106,6 +2148,13 @@
       "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
       "prompt_version": 1,
       "reason": "일반 논의와 개별 사업",
+      "same_event": false
+    },
+    "issue-b55e201374267ece--23a6f604ae": {
+      "issue_title": "美 어플라이드 아토믹스, 4억 달러 투입 엠파워 SMR 재추진",
+      "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 대상 다름",
       "same_event": false
     },
     "issue-b55e201374267ece--add41ecabd": {
