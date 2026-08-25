@@ -320,6 +320,16 @@
    }
   },
   {
+   "id": "f841268eb026",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Detection of Unintended or Accidental Medical Exposures in Radiotherapy Through Patient Response",
+   "url": "http://www.iaea.org/publications/16038/detection-of-unintended-or-accidental-medical-exposures-in-radiotherapy-through-patient-response",
+   "date": "2026-07-17",
+   "fetched_at": "2026-08-26"
+  },
+  {
    "id": "6cbab1a9203b",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -651,36 +661,36 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "iea_reports": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-25T00:47:19+09:00",
+   "at": "2026-08-26T00:51:12+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
