@@ -43,6 +43,13 @@
       "reason": "주체와 안건이 다름",
       "same_event": false
     },
+    "issue-037106987823f68c--3d685ecca6": {
+      "issue_title": "싱가포르, 에너지 전환 전략에 원자력·재생에너지 병행 추진",
+      "keei_item": "일본 문부과학성, 원자력 인재 양성 산·학·관 센터 신설 추진",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 안건",
+      "same_event": false
+    },
     "issue-037106987823f68c--ee30e34bc3": {
       "issue_title": "싱가포르·중국, 원자력 기술 평화적 이용 위한 협력 양해각서 체결",
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
@@ -363,6 +370,27 @@
       "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 산업 분야",
+      "same_event": false
+    },
+    "issue-1f19bad6b206fd4f--add41ecabd": {
+      "issue_title": "미국·중국, 핵융합 전용 규제 체계 구축하며 2040년대 상용화 속도전 돌입",
+      "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
+      "prompt_version": 1,
+      "reason": "미국 핵융합 규제 진전",
+      "same_event": true
+    },
+    "issue-1f19bad6b206fd4f--b6aec252c7": {
+      "issue_title": "미국·중국, 핵융합 전용 규제 체계 구축하며 2040년대 상용화 속도전 돌입",
+      "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
+      "prompt_version": 1,
+      "reason": "핵융합 vs 일반 원전 규제",
+      "same_event": false
+    },
+    "issue-1f235e424372ff51--dc799316ad": {
+      "issue_title": "원자력안전위원회, 새울원전 1호기 정기검사 후 8월 21일 재가동 허용",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "개별 원전 재가동 vs 법령 개정",
       "same_event": false
     },
     "issue-2159831fad1ddf60--dc799316ad": {
@@ -715,6 +743,13 @@
       "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
+    "issue-39d2da80812a25d1--249f1333d0": {
+      "issue_title": "미 해사청(MARAD), 코퍼스 크리스티 항만과 해상 SMR 개발 협력 MOU 체결",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "국내 해상 SMR vs 아시아 SMR 협력",
+      "same_event": false
+    },
     "issue-3b00d0a5a0199c0b--8fce4c09fa": {
       "issue_title": "미국 에너지부, NASA와 래디언트 인더스트리에 HALEU 공급 조건부 약속",
       "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
@@ -785,6 +820,13 @@
       "reason": "가뭄으로 인한 원전 영향",
       "same_event": true
     },
+    "issue-3e00af0212edae79--ddd33cac84": {
+      "issue_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
+      "keei_item": "일본 니가타현, 원전 재가동에 따른 도쿄전력 지원금 활용 방안 마련",
+      "prompt_version": 1,
+      "reason": "다른 국가, 다른 원전",
+      "same_event": false
+    },
     "issue-3faaf3dac53cbed1--8b6d0658ea": {
       "issue_title": "미 FCC, 중국산 로봇·전력 인버터 수입 제한은 미국 생산 확대 및 국가안보 조치",
       "keei_item": "미국, 2025년 국내 우라늄 정광 생산량 전년 대비 세 배 증가",
@@ -793,10 +835,10 @@
       "same_event": false
     },
     "issue-4113d294aea75ee0--23a6f604ae": {
-      "issue_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "issue_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
-      "reason": "다른 국가의 다른 계획",
+      "reason": "다른 국가, 다른 안건",
       "same_event": false
     },
     "issue-4113d294aea75ee0--54df950745": {
@@ -1008,6 +1050,13 @@
       "prompt_version": 1,
       "reason": "가뭄으로 인한 원전 영향",
       "same_event": true
+    },
+    "issue-522b62c9f4b69caa--8fce4c09fa": {
+      "issue_title": "대창솔루션, 프랑스 아라벨 솔루션과 826억 원 규모 원전 특수강 공급 계약",
+      "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
+      "prompt_version": 1,
+      "reason": "개별 기업 계약 vs 국가 공급망 정책",
+      "same_event": false
     },
     "issue-523e0acf9253e1c6--23a6f604ae": {
       "issue_title": "美 어플라이드 아토믹스, 4억 달러 투입 엠파워 SMR 재추진",
@@ -1548,6 +1597,13 @@
       "reason": "다른 원전, 다른 사안",
       "same_event": false
     },
+    "issue-73bb46ca55808e9b--dc799316ad": {
+      "issue_title": "국회, 원자력의학원 방사선상해 치료병원 법제화…5대 실행과제 착수",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 안건",
+      "same_event": false
+    },
     "issue-73dc4aec3344793a--99f6aed02e": {
       "issue_title": "텍사스 2.5GW 가스-원자력 복합 프로젝트, 엔지니어링 및 인허가 단계 진입",
       "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
@@ -1724,10 +1780,10 @@
       "same_event": false
     },
     "issue-895b471e7f2e1d4c--249f1333d0": {
-      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "A는 개별 기업 협력, B는 국가 간 협력",
+      "reason": "주체와 안건이 다름",
       "same_event": false
     },
     "issue-895b471e7f2e1d4c--835e580735": {
@@ -1738,10 +1794,10 @@
       "same_event": false
     },
     "issue-895b471e7f2e1d4c--a9ffef226f": {
-      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
       "prompt_version": 1,
-      "reason": "다른 기업의 다른 협력",
+      "reason": "다른 기업, 다른 안건",
       "same_event": false
     },
     "issue-89a559f17ff440e3--54df950745": {
@@ -1885,10 +1941,10 @@
       "same_event": false
     },
     "issue-9a7b23e4ae5be6f3--dc799316ad": {
-      "issue_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "issue_title": "새울 1호기, 정기검사 중 임계 허용…원안위 승인",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
-      "reason": "같은 기관의 다른 안건",
+      "reason": "개별 원전 승인 vs 법령 개정",
       "same_event": false
     },
     "issue-9b85b2a6e2593847--841ceedbf0": {

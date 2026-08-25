@@ -362,6 +362,26 @@
       "right_title": "정부, 서남권 반도체 용수 인프라 1조원 이상 투입…예타 면제 추진",
       "same_event": false
     },
+    "01e1896c892484a1--a3e13685ce3cf3f9": {
+      "embedding_similarity": 0.8698,
+      "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 투자 확대 및 예타 면제",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "정부, 14조 규모 전력망 예타 면제 확정…구축 18개월 단축",
+      "same_event": true
+    },
+    "01e1896c892484a1--be0543ad09ded286": {
+      "embedding_similarity": 0.8627,
+      "left_title": "정부, 14조 규모 전력망 예타 면제 확정…구축 18개월 단축",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력망 예타 면제 및 민간 참여",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "정부, 민간 전력망 건설 참여 법적 근거 마련…한전 부담 완화",
+      "same_event": true
+    },
     "01e83e81854f1daf--0d65034147a0c1c1": {
       "embedding_similarity": 0.9033,
       "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
@@ -2792,6 +2812,16 @@
       "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
       "same_event": false
     },
+    "07d4a12a385b3883--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8699,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "현대건설은 4세대 원자로",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "현대건설, 美 4세대 원자로 EPC 우선권 확보로 시장 선점 가속화",
+      "same_event": false
+    },
     "07ef074eb438fd8a--937708a71d17b0a2": {
       "embedding_similarity": 0.8639,
       "left_title": "미국 NRC, Constellation Ginna 원전 계속운전 신청서 접수",
@@ -5160,6 +5190,16 @@
       "reason": "웨스팅하우스 협력 vs HD현대 협력",
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
+      "same_event": false
+    },
+    "0cbfb9e759a63e36--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8801,
+      "left_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 협력 대상",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
       "same_event": false
     },
     "0cbfb9e759a63e36--f993fc196107ef89": {
@@ -7982,6 +8022,16 @@
       "right_title": "美 AI 데이터센터 ‘건설 붐’의 현실… 실제 착공은 20%",
       "same_event": false
     },
+    "18151ca788643e51--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.8625,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "데이터센터 건설 붐",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "美 AI 데이터센터 ‘건설 붐’의 현실… 실제 착공은 20%",
+      "same_event": true
+    },
     "184711c764fc70c6--6260c0799db78ac9": {
       "embedding_similarity": 0.8726,
       "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
@@ -8320,6 +8370,16 @@
       "reason": "해남 지진과 원전 영향 관련 보도",
       "reviewed_at": "2026-08-24T22:06:59.218065+00:00",
       "right_title": "해남 지진 71회 발생에도 한빛원전 정상 운전 확인",
+      "same_event": true
+    },
+    "1b323589ebe226b5--a4f0ec0058db5c06": {
+      "embedding_similarity": 0.9058,
+      "left_title": "한수원, 해남 규모 3.1 지진에 원전 영향 없음 공식 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 원전, 동일 사건",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "원안위, 해남 3.1 지진 한빛원전 안전 영향 없음 확인",
       "same_event": true
     },
     "1b41386b40f238db--5976e83faefed3d5": {
@@ -11772,6 +11832,16 @@
       "right_title": "한미글로벌, 원전·해외사업 확대에 '인력 투자' 승부수",
       "same_event": false
     },
+    "2534b3b550f84a4e--6075e41f9e7cab7b": {
+      "embedding_similarity": 0.8463,
+      "left_title": "체코 두코바니 신규 원전 2029년 착공 목표, 17개 공급 패키지 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사업, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "대우건설, 모잠비크 LNG 수주 및 체코 원전 등 해외 사업 기대",
+      "same_event": false
+    },
     "2534b3b550f84a4e--7fbf45e0f47e3880": {
       "embedding_similarity": 0.8572,
       "left_title": "대우건설, 하반기 신규 수주 목표 20조원…체코 두코바니 원전 포함",
@@ -11781,6 +11851,16 @@
       "reviewed_at": "2026-08-24T01:10:53.329609+00:00",
       "right_title": "체코 두코바니 신규 원전 2029년 착공 목표, 17개 공급 패키지 확보",
       "same_event": true
+    },
+    "2534b3b550f84a4e--a6adb01e9d1e79b0": {
+      "embedding_similarity": 0.8729,
+      "left_title": "체코 두코바니 신규 원전 2029년 착공 목표, 17개 공급 패키지 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사업, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "대우건설, 국내 주택사업 축소 및 해외 에너지 인프라 확대 전략 추진",
+      "same_event": false
     },
     "2534b3b550f84a4e--b63be32aebf27329": {
       "embedding_similarity": 0.8436,
@@ -14162,6 +14242,16 @@
       "right_title": "아마존 데이터센터 발전소 투자에 시끌…\"미국 최대 오염원 될 것\"",
       "same_event": true
     },
+    "2d62da7103d62772--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.8693,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "데이터센터 전력·물 사용 공방",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "아마존 데이터센터 발전소 투자에 시끌…\"미국 최대 오염원 될 것\"",
+      "same_event": true
+    },
     "2d652993f68bbff3--96dffa21b827ca27": {
       "embedding_similarity": 0.8562,
       "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
@@ -16099,6 +16189,16 @@
       "prompt_version": 1,
       "reason": "발전 5사 통합 논의",
       "reviewed_at": "2026-08-24T04:08:23.584466+00:00",
+      "right_title": "발전 5사 하나로 통합한다…'한국발전공사' 설립 추진",
+      "same_event": true
+    },
+    "346da384dda06dab--982e7cb474410e08": {
+      "embedding_similarity": 0.8924,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 법안 발의",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "발전 5사 하나로 통합한다…'한국발전공사' 설립 추진",
       "same_event": true
     },
@@ -19832,6 +19932,26 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
       "same_event": true
     },
+    "3fce799833b0c589--6ba91278beddc8b7": {
+      "embedding_similarity": 0.8718,
+      "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
+      "same_event": false
+    },
+    "3fce799833b0c589--75feca40d7b229b8": {
+      "embedding_similarity": 0.8401,
+      "left_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 원전, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "폭염·가뭄으로 유럽 원전 가동 차질, 전력 정책 질문 변화",
+      "same_event": false
+    },
     "3fce799833b0c589--772d30a3308e46cd": {
       "embedding_similarity": 0.8626,
       "left_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
@@ -21601,6 +21721,16 @@
       "reviewed_at": "2026-08-20T07:03:24.920897+00:00",
       "right_title": "두산에너빌리티, 테라파워 첫 SMR 핵심기기 제작 참여",
       "same_event": true
+    },
+    "42d294aaa404e892--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8867,
+      "left_title": "현대건설, 빌 게이츠 테라파워와 SMR 협력 논의로 미국 시장 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 협력 대상",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "same_event": false
     },
     "42d294aaa404e892--fd89bc58da35f7d3": {
       "embedding_similarity": 0.8732,
@@ -25482,6 +25612,26 @@
       "right_title": "대창솔루션, 프랑스 아라벨 솔루션과 826억 원 규모 원전 특수강 공급 계약",
       "same_event": false
     },
+    "522b62c9f4b69caa--bca1920d907255cd": {
+      "embedding_similarity": 0.8615,
+      "left_title": "대창솔루션, 프랑스 아라벨 솔루션과 826억 원 규모 원전 특수강 공급 계약",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "대창솔루션은 프랑스 원전, 두산은 오만 가스복합",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "same_event": false
+    },
+    "522b62c9f4b69caa--d5147918f97d542d": {
+      "embedding_similarity": 0.8689,
+      "left_title": "대창솔루션, 프랑스 아라벨 솔루션과 826억 원 규모 원전 특수강 공급 계약",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "대창솔루션은 프랑스 원전, 두산은 미국 SMR",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": false
+    },
     "5232e9a68060ae2f--6a25f94bf83612cd": {
       "embedding_similarity": 0.8802,
       "left_title": "김주영 의원, AI 시대 전력산업 구조개편 국회 심포지엄 개최",
@@ -25499,6 +25649,16 @@
       "prompt_version": 1,
       "reason": "발전 5사 통합 논의",
       "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
+      "right_title": "김주영 의원, '발전5사 완전통합, 한전지주사 체제' 제안",
+      "same_event": true
+    },
+    "5232e9a68060ae2f--982e7cb474410e08": {
+      "embedding_similarity": 0.873,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 통합 제안",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "김주영 의원, '발전5사 완전통합, 한전지주사 체제' 제안",
       "same_event": true
     },
@@ -30932,6 +31092,16 @@
       "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
       "same_event": false
     },
+    "5c54e3df83691f3c--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8818,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 계약 체결",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "HD현대, 테라파워·현대건설과 미국 SMR 시장 공동 공략",
+      "same_event": true
+    },
     "5c6e5abbd0f56fb7--6ba91278beddc8b7": {
       "embedding_similarity": 0.8552,
       "left_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
@@ -33849,6 +34019,16 @@
       "prompt_version": 1,
       "reason": "SK와 테라파워의 SMR 동맹",
       "reviewed_at": "2026-08-19T18:42:41.040412+00:00",
+      "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
+      "same_event": true
+    },
+    "6914f2b56547a420--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8757,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 계약 체결",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
       "same_event": true
     },
@@ -40102,6 +40282,16 @@
       "right_title": "전북 국회의원, 한전 산하 발전 5개사 통합 법안 발의 추진",
       "same_event": false
     },
+    "87ed2c177c6b914e--982e7cb474410e08": {
+      "embedding_similarity": 0.8687,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전공기업 통합 법안 발의",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "전북 국회의원, 한전 산하 발전 5개사 통합 법안 발의 추진",
+      "same_event": true
+    },
     "87ed2c177c6b914e--dc1e6a30e09ccefd": {
       "embedding_similarity": 0.8761,
       "left_title": "김주영 의원, 한전 홀딩스 체제 및 발전 5사 재통합 제안",
@@ -42682,6 +42872,16 @@
       "right_title": "이한우 현대건설 대표, 美 테라파워 경영진과 만나 SMR 협력 논의",
       "same_event": false
     },
+    "9558655446586673--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8619,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산/현대, 테라파워와 SMR 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "이한우 현대건설 대표, 美 테라파워 경영진과 만나 SMR 협력 논의",
+      "same_event": true
+    },
     "955dc48230206bac--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8611,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -43832,6 +44032,46 @@
       "right_title": "한미 원자력협정, 핵잠수함 군사적 이용 제한 및 외교적 승인 필요성 조명",
       "same_event": false
     },
+    "982e7cb474410e08--a103bbd20e85eafd": {
+      "embedding_similarity": 0.8672,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전공기업 통합 법안 발의",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "김주영 의원, AI 시대 전력 수요 폭증 대비 발전공기업 통합 검토 언급",
+      "same_event": true
+    },
+    "982e7cb474410e08--b817c7c00ad978ec": {
+      "embedding_similarity": 0.8653,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전공기업 통합 법안 발의",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "발전 5사 통합 '한국발전공사법안' 발의, 산업용 전력 공급 변화 주목",
+      "same_event": true
+    },
+    "982e7cb474410e08--dc1e6a30e09ccefd": {
+      "embedding_similarity": 0.8813,
+      "left_title": "김주영 의원, 한전 홀딩스 체제 및 발전 5사 재통합 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 통합 제안",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "same_event": true
+    },
+    "982e7cb474410e08--ef74b306eeeeb515": {
+      "embedding_similarity": 0.8623,
+      "left_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전공기업 통합 법안 발의",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "김주영 의원, AI 시대 전력산업 효율화 위한 '한전 지주회사' 제안",
+      "same_event": true
+    },
     "98674232dca93f5e--e0c2d46c6a2b5c2a": {
       "embedding_similarity": 0.8522,
       "left_title": "국방부, 핵추진잠수함정책기획단 신설 및 방사청 사업단 확대 의결",
@@ -44412,6 +44652,16 @@
       "right_title": "미국인들, AI 데이터센터 전력 수요 급증에 따른 전기요금 상승에 분노",
       "same_event": false
     },
+    "9b9b1beec21bdab2--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.8667,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "데이터센터 전력 수요 급증",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "미국인들, AI 데이터센터 전력 수요 급증에 따른 전기요금 상승에 분노",
+      "same_event": true
+    },
     "9bff425a2d2c0a20--a0dc82d91aed4ab8": {
       "embedding_similarity": 0.893,
       "left_title": "중국 톈완(Tianwan) 8호기 냉수압 시험 완료",
@@ -44460,6 +44710,16 @@
       "reason": "다른 원전 건설 사업",
       "reviewed_at": "2026-08-12T21:38:08.186029+00:00",
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
+      "same_event": false
+    },
+    "9c6e9baaf48da56b--bca1920d907255cd": {
+      "embedding_similarity": 0.9189,
+      "left_title": "두산에너빌리티, 오만 미스파 가스복합발전소 9300억원 규모 EPC 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사업, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
       "same_event": false
     },
     "9cab845080d526a9--a5a1ef68231b4e51": {
@@ -46421,6 +46681,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자...",
       "same_event": true
+    },
+    "a974a16826acef5f--bca1920d907255cd": {
+      "embedding_similarity": 0.8741,
+      "left_title": "두산에너빌리티, 중국 라이양 원전 5·6호기 단조품 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사업, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "same_event": false
     },
     "a974a16826acef5f--cb38eed27ac4ccd4": {
       "embedding_similarity": 0.8575,
@@ -49112,6 +49382,16 @@
       "right_title": "발전 5사 통합 '한국발전공사법안' 발의, 산업용 전력 공급 변화 주목",
       "same_event": false
     },
+    "b869f5bfe8d681a5--d85f07205c5b9e41": {
+      "embedding_similarity": 0.8806,
+      "left_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 회동 목적",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "이재명 대통령, 주요 기업 총수들과 국내외 투자 협력 논의",
+      "same_event": false
+    },
     "b869f5bfe8d681a5--fe1432d7e83e03dd": {
       "embedding_similarity": 0.8485,
       "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
@@ -49131,6 +49411,16 @@
       "reviewed_at": "2026-08-11T22:13:33.599506+00:00",
       "right_title": "아마존, 텍사스 데이터센터용 천연가스 발전소 투자로 환경 오염 우려 증폭",
       "same_event": true
+    },
+    "b906acc76abe0b98--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.875,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 주제, 다른 국가",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "아마존, 텍사스 데이터센터용 천연가스 발전소 투자로 환경 오염 우려 증폭",
+      "same_event": false
     },
     "b9719697dda27644--ca69ce47dc1e639d": {
       "embedding_similarity": 0.8499,
@@ -49181,6 +49471,16 @@
       "reviewed_at": "2026-08-23T15:29:53.976802+00:00",
       "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업협력 주요 조건 합의서 체결",
       "same_event": false
+    },
+    "b9719697dda27644--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8716,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산/SK, 테라파워와 SMR 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업협력 주요 조건 합의서 체결",
+      "same_event": true
     },
     "b9d38f426347d282--bd1c124b246d63a9": {
       "embedding_similarity": 0.8473,
@@ -49332,6 +49632,16 @@
       "right_title": "국회, SMR 개발 속도 대비 안전규제 미비 지적",
       "same_event": true
     },
+    "bb3cbf82f04b7978--bca1920d907255cd": {
+      "embedding_similarity": 0.879,
+      "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사업, 다른 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 에바라엘리엇과 첨단 압축기 공동개발 MOU 체결",
+      "same_event": false
+    },
     "bb4cfce4a1166d4b--f20992e2e97d00e7": {
       "embedding_similarity": 0.8721,
       "left_title": "캘리포니아 주 의원들, 디아블로 캐년 원전 2030년 이후 계속운전 촉구",
@@ -49420,6 +49730,16 @@
       "reason": "주체는 같으나 다른 계약",
       "reviewed_at": "2026-08-24T22:06:59.218065+00:00",
       "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": false
+    },
+    "bca1920d907255cd--e93c5467c89ec2ba": {
+      "embedding_similarity": 0.8649,
+      "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "오만 가스복합 vs 미국 SMR",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 테라파워 차세대 원전 핵심 기자재 수주",
       "same_event": false
     },
     "bca1920d907255cd--fbd3322d6a137c46": {
@@ -50382,6 +50702,16 @@
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": false
     },
+    "c37069e03f838d95--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8638,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산/HD현대, 테라파워와 SMR 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
+      "same_event": true
+    },
     "c45420fbe4826728--d48ced6883a0a86e": {
       "embedding_similarity": 0.9179,
       "left_title": "프랑스 그라블린 원전, 해파리 떼로 2년 연속 가동 중단",
@@ -50659,6 +50989,16 @@
       "prompt_version": 1,
       "reason": "센트러스-X-에너지와 카이로스파워는 다른 주체",
       "reviewed_at": "2026-08-20T07:03:24.920897+00:00",
+      "right_title": "카이로스파워, SMR 제조·건설 협력체 출범…삼성물산 참여",
+      "same_event": false
+    },
+    "c6af053e70344f32--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8647,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산 vs 카이로스파워 SMR 협력체",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "카이로스파워, SMR 제조·건설 협력체 출범…삼성물산 참여",
       "same_event": false
     },
@@ -51222,6 +51562,26 @@
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": false
     },
+    "cc2e553cf2927ac5--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.879,
+      "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 협력 대상",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "same_event": false
+    },
+    "cc7f4e5ca2d8d186--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8637,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산, 테라파워와 SMR 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 페르미아메리카와 SMR 협력 MOU 체결",
+      "same_event": true
+    },
     "cd229b4b783ae676--d31013e6bf533618": {
       "embedding_similarity": 0.8758,
       "left_title": "SK-테라파워, SMR 동맹 강화…AI 전력 핵심 파트너로 부상",
@@ -51229,6 +51589,16 @@
       "prompt_version": 1,
       "reason": "HD현대·현대건설 테라파워 SMR 협력",
       "reviewed_at": "2026-08-19T09:43:43.059678+00:00",
+      "right_title": "HD현대·현대건설, 美 테라파워와 SMR 상용화 협력 강화",
+      "same_event": true
+    },
+    "cd229b4b783ae676--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8656,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산/현대, 테라파워와 SMR 협력",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "HD현대·현대건설, 美 테라파워와 SMR 상용화 협력 강화",
       "same_event": true
     },
@@ -51850,6 +52220,16 @@
       "reason": "HALEU 계약 vs HD현대 협력",
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
+      "same_event": false
+    },
+    "d5488ec8773bdc1a--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8731,
+      "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 협력 대상",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
       "same_event": false
     },
     "d5c4324b0df4e462--d60c75d7877511ce": {
@@ -52522,6 +52902,16 @@
       "right_title": "헝가리 원전, 다뉴브강 수위 저하로 인한 가동 중단 유예",
       "same_event": true
     },
+    "e7cc90cc9d2bd6d7--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.864,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "데이터센터 전력·용수 문제",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "AI 데이터센터, 전력·용수 문제로 지역 반발 심화…1300억 달러 규모 차질",
+      "same_event": true
+    },
     "e86ceaef07092ccd--e9c761ed60c251fb": {
       "embedding_similarity": 0.8941,
       "left_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 3기 가동 중단",
@@ -52740,6 +53130,16 @@
       "reason": "신규 원전 검토 시사",
       "reviewed_at": "2026-08-22T21:56:24.641206+00:00",
       "right_title": "김성환 기후에너지환경부 장관, AI 전력수요 대응 신규 원전 검토 시사",
+      "same_event": true
+    },
+    "f3f581e85458b942--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8838,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 계약 체결",
+      "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
+      "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": true
     },
     "f3f581e85458b942--ffdb243b18554e80": {
