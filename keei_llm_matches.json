@@ -1702,6 +1702,13 @@
       "reason": "폭염으로 인한 원전 영향",
       "same_event": true
     },
+    "issue-7e77e7f003ff7ab6--f020226b19": {
+      "issue_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "A는 유럽 전반, B는 특정 국가.",
+      "same_event": false
+    },
     "issue-7f066d5dce3f0910--08db51ddba": {
       "issue_title": "원자력안전위원회, 2026년 하반기 K-원자력 안전 업무보고",
       "keei_item": "미 NRC, 원전 인허가 및 방사선 방호 규정 현대화 규정안 발표",
@@ -1737,6 +1744,13 @@
       "reason": "다른 주체, 다른 안건",
       "same_event": false
     },
+    "issue-8223afcb92f21518--f020226b19": {
+      "issue_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "헝가리 다뉴브강 저수위 대응.",
+      "same_event": true
+    },
     "issue-825c981b6effb82e--4fe7b05f50": {
       "issue_title": "중국 장저우 4호기, 피동형 안전 모듈 최종 설치 완료",
       "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
@@ -1750,6 +1764,13 @@
       "prompt_version": 1,
       "reason": "다른 국가, 다른 원전",
       "same_event": false
+    },
+    "issue-858f887a11d713e9--c2b8808fe0": {
+      "issue_title": "스페인 최고령 원전, 퇴출 위기 극복하고 운영 지속 결정",
+      "keei_item": "스페인 정부, Almaraz 원전 운영허가 2030년까지 갱신",
+      "prompt_version": 1,
+      "reason": "스페인 Almaraz 원전 운영 갱신.",
+      "same_event": true
     },
     "issue-86fd8470109cefcd--6debc28b1b": {
       "issue_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
@@ -1770,6 +1791,13 @@
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "다른 주체, 다른 사업",
+      "same_event": false
+    },
+    "issue-8887ec6042611bca--841ceedbf0": {
+      "issue_title": "정부, 8월 26일 지방 주도 성장 및 권역별 성장엔진 육성방안 발표",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
       "same_event": false
     },
     "issue-8891f90e1c26806d--23a6f604ae": {
@@ -1798,6 +1826,13 @@
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
       "prompt_version": 1,
       "reason": "한쪽은 동향, 다른 쪽은 사건",
+      "same_event": false
+    },
+    "issue-895b471e7f2e1d4c--a3cf49987b": {
+      "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
       "same_event": false
     },
     "issue-895b471e7f2e1d4c--a9ffef226f": {
@@ -1996,6 +2031,13 @@
       "reason": "다른 원전, 다른 호기",
       "same_event": false
     },
+    "issue-9dacbce26e9badf0--d4863d270a": {
+      "issue_title": "네덜란드, 신규 원전 2기 건설 위해 EDF·웨스팅하우스와 설계 연구 계약",
+      "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-9e7a3003708adbaa--88604b2e8c": {
       "issue_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
       "keei_item": "스웨덴 Videberg Kraft, SMR 공급사로 Rolls-Royce SMR 최종 선정",
@@ -2015,6 +2057,13 @@
       "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
       "prompt_version": 1,
       "reason": "주체, 대상, 국가가 다름",
+      "same_event": false
+    },
+    "issue-a0b12b1d397170fb--3afede2c57": {
+      "issue_title": "국민의힘, 한국판 IRA에 SMR·전기차 지원 추가 제안",
+      "keei_item": "일본 경제산업성, 개량형경수로·SMR 기술개발·공급망 구축 지원 대상 선정",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
       "same_event": false
     },
     "issue-a0dc82d91aed4ab8--4fe7b05f50": {
@@ -2395,11 +2444,25 @@
       "reason": "국가, 안건, 주체 모두 다름",
       "same_event": false
     },
+    "issue-beae8672ddf45352--23abb7f7ab": {
+      "issue_title": "트럼프 美 대통령, 중국산 드론 및 부품에 최대 100% 관세 부과",
+      "keei_item": "폴란드 대통령, 원전 인허가 간소화 법 개정안 서명",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-beae8672ddf45352--a50cc0c8f8": {
       "issue_title": "트럼프 美 대통령, 중국산 드론 및 부품에 최대 100% 관세 부과",
       "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
       "prompt_version": 1,
       "reason": "완전히 다른 사안",
+      "same_event": false
+    },
+    "issue-bedcc71e7fbc9ded--c35275bb9a": {
+      "issue_title": "산업부, 한미 웨스팅하우스 지분 공동 인수 보도 사실과 다름 해명",
+      "keei_item": "슬로바키아 정부, ČEZ 보유 JESS 지분 49% 9월 인수 추진",
+      "prompt_version": 1,
+      "reason": "주체 및 대상이 다름.",
       "same_event": false
     },
     "issue-c0e6afae0ae48a66--8b6d0658ea": {
@@ -2626,6 +2689,34 @@
       "reason": "A는 개별 지원, B는 일반 보고서",
       "same_event": false
     },
+    "issue-d02e823fd0afcdf6--64601fdd0c": {
+      "issue_title": "Urenco USA, 뉴멕시코 우라늄 농축 시설 확장 착공",
+      "keei_item": "미국 Urenco USA, New Mexico 우라늄 농축시설 증설사업 기공식 개최",
+      "prompt_version": 1,
+      "reason": "Urenco USA 뉴멕시코 증설.",
+      "same_event": true
+    },
+    "issue-d080a8fb0f8f4da1--a3cf49987b": {
+      "issue_title": "산업부, 베트남과 핵심광물·에너지안보 협력 강화",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
+      "same_event": false
+    },
+    "issue-d0c492baa6937861--0e615713ea": {
+      "issue_title": "미국, 2030년대 중반까지 핵융합 발전 상용화 목표 로드맵 발표",
+      "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
+      "prompt_version": 1,
+      "reason": "미국 핵융합 로드맵 발표.",
+      "same_event": true
+    },
+    "issue-d0c492baa6937861--de0fd4314f": {
+      "issue_title": "미국, 2030년대 중반까지 핵융합 발전 상용화 목표 로드맵 발표",
+      "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-d2d6214a79979e89--d65bac9c4d": {
       "issue_title": "경북도·경주시, '실용' SMR 유치 실패 후 '상용' SMR 유치 재도전",
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
@@ -2701,6 +2792,13 @@
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
       "reason": "주체, 안건, 국가가 다름",
+      "same_event": false
+    },
+    "issue-d8ddeb54d18d01d7--99f6aed02e": {
+      "issue_title": "미국 에너지부(DOE) NRIC, 첨단 원자로·핵연료 주기 13개 프로젝트 선정",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "선정 프로젝트 분야가 다름.",
       "same_event": false
     },
     "issue-da9a4893cdd4761d--dc799316ad": {
@@ -2836,6 +2934,13 @@
       "reason": "다른 국가, 다른 사업",
       "same_event": false
     },
+    "issue-e0c2d46c6a2b5c2a--7bd28372a9": {
+      "issue_title": "한국 정부, 8000톤급 원자력 잠수함 '장보고-N' 개발 가속화",
+      "keei_item": "미국 Duke Energy, 2026 Carolinas 자원계획에 신규 원전 약 4.5GW 반영",
+      "prompt_version": 1,
+      "reason": "국가 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-e0c2d46c6a2b5c2a--dc799316ad": {
       "issue_title": "국방부, 핵추진잠수함정책기획단 신설 및 방사청 사업단 확대 의결",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
@@ -2869,6 +2974,13 @@
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
       "reason": "협력 대상 지역/국가 다름",
+      "same_event": false
+    },
+    "issue-e20a2a78f72b0623--a3cf49987b": {
+      "issue_title": "튀르키예, 2050년까지 5GW SMR 도입 목표로 韓·美와 기술 협력 확대",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
       "same_event": false
     },
     "issue-e20a2a78f72b0623--d4863d270a": {
@@ -2948,6 +3060,13 @@
       "reason": "다른 원전, 다른 단계",
       "same_event": false
     },
+    "issue-e6cef644d033b341--f020226b19": {
+      "issue_title": "루마니아, 원전 가동 중단 위기 속 다뉴브강 물 전환 노력",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "루마니아 다뉴브강 저수위 대응.",
+      "same_event": true
+    },
     "issue-e6f1b841d625b887--23a6f604ae": {
       "issue_title": "LS일렉트릭, 북미 AI 데이터센터 전력설비 공급 계약 2309억 원으로 증액",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -2962,6 +3081,13 @@
       "reason": "주체와 사안이 다름",
       "same_event": false
     },
+    "issue-edd7cd1a2a6bd9cc--249f1333d0": {
+      "issue_title": "한-베트남, 원전 인력 양성 등 에너지 협력 확대 논의",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-edd7cd1a2a6bd9cc--841ceedbf0": {
       "issue_title": "한-베트남 에너지 협력 강화 논의, 닌투언2 원전 사업 참여 기대",
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
@@ -2969,11 +3095,25 @@
       "reason": "다른 국가, 다른 주체",
       "same_event": false
     },
+    "issue-edd7cd1a2a6bd9cc--a3cf49987b": {
+      "issue_title": "한-베트남, 원전 인력 양성 등 에너지 협력 확대 논의",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
+      "same_event": false
+    },
     "issue-ef3eb8e43bbf5bf4--de0fd4314f": {
       "issue_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
       "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 정책",
+      "same_event": false
+    },
+    "issue-f016fc6728215437--64601fdd0c": {
+      "issue_title": "NRC, Orano의 50억 달러 규모 우라늄 농축시설 인허가 청문회 개시",
+      "keei_item": "미국 Urenco USA, New Mexico 우라늄 농축시설 증설사업 기공식 개최",
+      "prompt_version": 1,
+      "reason": "주체 및 안건이 다름.",
       "same_event": false
     },
     "issue-f19233ca64499ca1--0cc8670c5e": {
