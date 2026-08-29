@@ -728,39 +728,39 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": true,
-   "new": 1,
+   "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "iea_reports": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-08-29T00:03:02+09:00",
+   "at": "2026-08-30T03:19:25+09:00",
    "ok": true,
-   "new": 1,
-   "parsed": 1
+   "new": 0,
+   "parsed": 0
   }
  }
 }
