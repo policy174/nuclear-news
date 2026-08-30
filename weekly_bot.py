@@ -273,12 +273,16 @@ def save_weekly_report(synthesis: dict, agg: dict, items: list[dict],
     now = (now or datetime.now(KST)).astimezone(KST)
     path = path or WEEKLY_REPORTS_FILE
     store = load_weekly_reports(path)
-    key = week_id(now)
-    start = now - timedelta(days=6)
+    # 주차 앵커는 실행 시각이 아니라 최근 금요일. cron 지연으로 실행이 KST
+    # 토요일로 넘어가면 week_start 가 일요일로 밀려 웹 가드
+    # (test_week_id_is_week_start_saturday)가 빌드를 막는다 — 2026-08-29 실사고.
+    anchor = now - timedelta(days=(now.weekday() - 4) % 7)
+    key = week_id(anchor)
+    start = anchor - timedelta(days=6)
     entry = {
         "week_id": key,
         "week_start": start.date().isoformat(),
-        "week_end": now.date().isoformat(),
+        "week_end": anchor.date().isoformat(),
         "generated_at": now.isoformat(),
         "timezone": "Asia/Seoul",
         "schema_version": 1,

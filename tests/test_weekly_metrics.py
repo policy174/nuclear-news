@@ -238,7 +238,7 @@ class TestWeeklyReportStore(unittest.TestCase):
         """dirty 를 len(reports) 로 판정하면 덮어쓰기가 영영 저장 안 된다."""
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "weekly_reports.json"
-            now = datetime(2026, 8, 3, 17, 0, tzinfo=weekly_bot.KST)
+            now = datetime(2026, 8, 7, 17, 0, tzinfo=weekly_bot.KST)
             agg = {"total": 3}
             self.assertTrue(weekly_bot.save_weekly_report(
                 self._synthesis(), agg, self.ITEMS, now, path))
@@ -250,7 +250,7 @@ class TestWeeklyReportStore(unittest.TestCase):
     def test_same_week_overwrite_is_detected(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "weekly_reports.json"
-            now = datetime(2026, 8, 3, 17, 0, tzinfo=weekly_bot.KST)
+            now = datetime(2026, 8, 7, 17, 0, tzinfo=weekly_bot.KST)
             weekly_bot.save_weekly_report(self._synthesis(), {"total": 3},
                                           self.ITEMS, now, path)
             self.assertTrue(weekly_bot.save_weekly_report(
@@ -265,12 +265,27 @@ class TestWeeklyReportStore(unittest.TestCase):
             path = Path(tmp) / "weekly_reports.json"
             weekly_bot.save_weekly_report(
                 self._synthesis(), {"total": 3}, self.ITEMS,
-                datetime(2026, 8, 3, 17, 0, tzinfo=weekly_bot.KST), path)
+                datetime(2026, 8, 7, 17, 0, tzinfo=weekly_bot.KST), path)
             weekly_bot.save_weekly_report(
                 self._synthesis(), {"total": 3}, self.ITEMS,
-                datetime(2026, 8, 10, 17, 0, tzinfo=weekly_bot.KST), path)
+                datetime(2026, 8, 14, 17, 0, tzinfo=weekly_bot.KST), path)
             self.assertEqual(sorted(weekly_bot.load_weekly_reports(path)["reports"]),
                              ["2026-W32", "2026-W33"])
+
+    def test_late_saturday_run_keeps_saturday_week_start(self):
+        """cron 지연으로 KST 토요일 새벽에 돌아도 주차는 금요일 앵커.
+
+        2026-08-29(토) 04:47 실사고 — week_start 가 일요일(08-23)로 저장돼
+        웹 가드가 빌드를 막고 crawl 이 6연속 실패했다.
+        """
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "weekly_reports.json"
+            late = datetime(2026, 8, 29, 4, 47, tzinfo=weekly_bot.KST)
+            weekly_bot.save_weekly_report(self._synthesis(), {"total": 3},
+                                          self.ITEMS, late, path)
+            report = weekly_bot.load_weekly_reports(path)["reports"]["2026-W35"]
+            self.assertEqual(report["week_start"], "2026-08-22")  # 토요일
+            self.assertEqual(report["week_end"], "2026-08-28")    # 금요일
 
     def test_source_issue_count_is_not_article_count(self):
         """기사 수를 쓰면 후속 보도가 많은 주가 실제보다 풍성해 보인다."""
