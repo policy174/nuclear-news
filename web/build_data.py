@@ -2225,6 +2225,13 @@ def cluster_selected_articles(
             # 국경 거부권 — 위와 같은 이유(전이성)로 쌍 판정만으로는 부족하다.
             if not _country_bridge_ok(article, issue["members"]):
                 continue
+            # 설비 거부권 — 쌍 판정은 아래에서 최근 멤버 3건만 보므로, 그보다
+            # 앞선 멤버와 설비가 어긋나는 전이 병합을 못 막는다. 사후 탐지기
+            # (test_generated_issue_clusters_have_no_country_or_facility_conflicts)가
+            # 이 불변식을 검사해 깨지면 배포만 멈추고 데이터는 안 고쳐진다
+            # (2026-08-29 실사고) — 국경 거부권처럼 병합 시점으로 옮긴다.
+            if any(_facility_conflict(article, member) for member in issue["members"]):
+                continue
             # 대표 기사 한 건만 보면 표현이 단계적으로 바뀌는 A→B→C 후속 보도가
             # 끊길 수 있다. 최근 기사 3건 중 가장 가까운 연결을 사용한다.
             for reference in issue["members"][-3:]:

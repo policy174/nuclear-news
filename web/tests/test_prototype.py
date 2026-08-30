@@ -1053,6 +1053,36 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertEqual(len(issues), 1)
         self.assertEqual([member["hash"] for member in issues[0]["members"]], ["a", "b", "c"])
 
+    def test_facility_conflict_vetoes_join_via_neutral_member(self):
+        """설비 거부권 — 중립 멤버를 경유한 합류 차단 (2026-08-29 실사고 축소판).
+
+        참조 루프는 "한 쌍이라도 매치되면 합류"라서, 설비 표기가 없는 멤버 b 를
+        다리 삼아 a(월성)와 충돌하는 c(한빛)가 같은 이슈로 들어온다. 사후
+        탐지기(test_generated_issue_clusters...)가 이 불변식을 검사해 깨지면
+        배포만 멈추므로 병합 시점에 전체 멤버를 상대로 거부한다.
+        """
+        cards = [
+            {"hash": "a", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+             "title_kr": "월성 3호기 정기검사 착수", "tags": ["#월성"],
+             "topics": ["regulation"], "countries": ["KR"]},
+            {"hash": "b", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+             "title_kr": "원전 정기검사 제도 개선 발표", "tags": [],
+             "topics": ["regulation"], "countries": ["KR"]},
+            {"hash": "c", "briefing_date": "2026-08-08", "article_date": "2026-08-08",
+             "title_kr": "한빛 1호기 정기검사 착수", "tags": ["#한빛"],
+             "topics": ["regulation"], "countries": ["KR"]},
+        ]
+        embeddings = {"a": [1.0, 0.0], "b": [0.999, 0.02], "c": [0.995, 0.03]}
+        # 전제 확인: b 는 a·c 모두와 임베딩 매치, a↔c 직접 쌍은 설비 충돌.
+        matched_ab, _, _ = build_data.issue_similarity(cards[0], cards[1], embeddings)
+        matched_bc, _, _ = build_data.issue_similarity(cards[1], cards[2], embeddings)
+        self.assertTrue(matched_ab and matched_bc)
+        self.assertTrue(build_data._facility_conflict(cards[0], cards[2]))
+        issues = build_data.cluster_selected_articles(cards, embeddings)
+        self.assertEqual(len(issues), 2)
+        self.assertEqual([m["hash"] for m in issues[0]["members"]], ["a", "b"])
+        self.assertEqual([m["hash"] for m in issues[1]["members"]], ["c"])
+
     def _nrc_rulemaking_articles(self):
         """일반 제목 1건 + 서로 다른 규정 2건. 라이브 사고의 최소 재현."""
         return [
