@@ -126122,5 +126122,370 @@
     "feed": "정책",
     "domain": "khan.co.kr",
     "matched": "원자력 정책"
+  },
+  "f4d609dbcfc5655e": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "한국원전수출산업협회(KNA), 美 댈러스서 한미 원전 협력 세미나 개최",
+    "summary": "한국원전수출산업협회(KNA)가 30일 미국 댈러스에서 '한-미 원전산업 협력 세미나'를 개최하여 국내 기업의 미국 원전 공급망 진입을 지원하고 양국 산업계 협력 기반을 다졌다.",
+    "detail": "KNA는 27일(현지시간) 북미 원자력 행사인 'NECX 2026' 기간 중 세미나를 열었으며, 인공지능(AI) 및 데이터센터 전력 수요 급증에 대응하기 위한 협력을 모색했다. 행사에는 한국수력원자력(한수원) 등 국내 기업과 미국 주정부 기관, 차세대 원자로 개발사 등 70여 명이 참석하여 한국의 원전 전주기 공급망 역량을 소개했다. 미국 측 인사들은 한국 원전 산업계와의 협력이 필수적이라고 강조했으며, 웨스팅하우스, 테라파워 등 주요 기업들이 참여해 협력 가능성을 타진했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#한미협력",
+      "#공급망"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-27",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "美 AI 전력난, K원전이 뚫는다…KNA, 美 댈러스서 원전 협력",
+    "link": "https://www.etnews.com/20260830000072",
+    "feed": "정책",
+    "domain": "etnews.com",
+    "matched": "원전 수출"
+  },
+  "b618a6d2a00c142d": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "이원주 기후에너지환경부 에너지전환정책실장, 靑 메가프로젝트 보좌관 임명",
+    "summary": "이원주 기후에너지환경부 에너지전환정책실장이 30일 신설된 청와대 메가프로젝트 보좌관에 임명되어, 정부가 메가프로젝트 추진 시 전력 문제를 핵심 과제로 보고 있음을 시사했다.",
+    "detail": "이원주 보좌관은 1971년생으로 서울대 경제학과를 졸업하고 행정고시 40회로 공직에 입문한 정통 산업 관료이며, 지식경제부와 산업통상자원부를 거쳐 기후에너지환경부 에너지전환정책실장을 역임했다. 그는 전력산업, 전력망, 재생에너지, 원자력 발전 산업 등을 담당해왔으며, 이번 임명은 메가프로젝트에 필요한 전력 공급 실무를 담당해온 관료가 청와대 총괄직으로 자리를 옮긴 것으로 평가된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#정부인사",
+      "#에너지정책"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-30",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "[프로필] 이원주 靑 메가프로젝트 보좌관…'에너지 전문 관료'",
+    "link": "https://www.yna.co.kr/view/AKR20260830028900530?input=1195m",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "원자력 정책"
+  },
+  "fdd5629e463e9d73": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "메타, AI 데이터센터 유지보수 작업에 로봇 투입 시험",
+    "summary": "메타가 AI 데이터센터에서 케이블 교체, 서버 재시작 등 물리 작업을 로봇으로 처리하는 실험을 진행 중이며, 이는 AI 인프라 확장에 따른 유지보수 자동화 시도이다.",
+    "detail": "메타는 와이어드(WIRED) 보도를 통해 Watney Robotics, 키노바(Kinova), ABB 장비를 활용하여 로봇 실험을 하고 있다고 알려졌다. 키노바 Gen3 로봇팔은 서버 전원 제어에, 다른 로봇은 네트워크 케이블 교체에 시험되고 있으며, 아이오와주 알투나 캠퍼스와 오하이오주 뉴올버니의 프로메테우스 캠퍼스에서 진행 중이다. 프로메테우스는 1기가와트 규모 AI 클러스터로 설계되었으며, 직원들은 로봇 도입이 일부 업무의 최대 80%를 대체할 수 있다고 우려하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-08-28",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "메타, 데이터센터 케이블 교체 로봇 시험",
+    "link": "https://www.tokenpost.kr/news/ai/400597",
+    "feed": "정책",
+    "domain": "tokenpost.kr",
+    "matched": "반도체 클러스터 전력"
+  },
+  "eed91ed1883c4917": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "fukushima"
+    ],
+    "countries": [
+      "JP"
+    ],
+    "article_type": "news",
+    "title_kr": "일본 정부, 후쿠시마 원전 해체에 AI 로봇 투입 및 3.45조 원 투자",
+    "summary": "일본 정부가 후쿠시마 원전 해체 작업에 자율제어 AI 로봇을 투입하고 3.45조 원을 투자하여 원자로 내부 상태 점검 및 잔해물 철거 작업을 진행할 예정이다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#후쿠시마",
+      "#원전해체",
+      "#AI기술"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "후쿠시마 원전 해체 AI 로봇 투입, 日 정부 3.45조 투자",
+    "link": "https://www.hankyung.com/article/2026083016237",
+    "feed": "discovery:fukushima",
+    "domain": "hankyung.com",
+    "matched": "후쿠시마 원전 점검"
+  },
+  "d5a665e6da7e22e0": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한국수력원자력(한수원), 국가품질혁신경진대회서 금상 3개 획득",
+    "summary": "한국수력원자력(한수원)이 국내 최대 품질혁신 경연 무대인 '제52회 국가품질혁신경진대회'에서 금상 3개, 은상 1개, 동상 2개를 수상하며 19년 연속 금상 수상 기록을 이어갔다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "한수원, 국가품질혁신경진대회서 금상 3개 획득...19년 연속 대통령상 ...",
+    "link": "https://www.hidomin.com/news/articleView.html?idxno=719057",
+    "feed": "정책",
+    "domain": "hidomin.com",
+    "matched": "한국수력원자력"
+  },
+  "8534f4d9bdc7d44c": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "datacenter_ai",
+      "regulation",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+    "summary": "미국 텍사스주가 신규 데이터센터의 전력망 연결 승인 절차를 일시 중단하고 펜실베이니아주가 규제를 강화하는 등 데이터센터 개발에 대한 지역사회 반발과 주정부의 제동이 확산되고 있다.",
+    "detail": "텍사스주는 전력망 영향 점검을 위해 승인 절차를 중단했으며, 펜실베이니아주는 데이터센터 사업자가 전기요금, 환경 보호, 지역사회 협의 기준을 법적 구속력 있게 이행하도록 했다. 이는 대규모 전력 소비, 용수 사용, 소음 등 데이터센터가 지역사회에 미치는 영향에 대한 우려가 커진 결과이다. 이러한 규제 강화는 데이터센터 건설 지연으로 이어져 국내 배터리 기업의 북미 에너지저장장치(ESS) 사업 확대에도 변수가 될 수 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#전력망",
+      "#규제"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-30",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "美 데이터센터 반발 확산…K배터리 ESS 사업에도 변수되나",
+    "link": "http://www.metroseoul.co.kr/article/20260830500245",
+    "feed": "정책",
+    "domain": "metroseoul.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "3346ecff1a550f84": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "[특별기고] AI 데이터센터, 전력·냉각 등 종합 역량으로 제2의 반도체 신화 기대",
+    "summary": "특별기고에서 인공지능데이터센터(AIDC)가 AI 반도체뿐 아니라 전력, 냉각, 네트워크 솔루션 등 종합적인 역량을 통해 제2의 반도체 신화를 이끌 수 있다고 주장했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "[특별기고] AI 데이터센터를 제2의 반도체 신화로",
+    "link": "https://www.etnews.com/20260828000031",
+    "feed": "정책",
+    "domain": "etnews.com",
+    "matched": "데이터센터 전력"
+  },
+  "9da2eea7915b1da3": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "이철우 경북도지사, 산업용 지역별 전기요금 인하폭 30% 이상 확대 촉구",
+    "summary": "이철우 경북도지사가 정부의 산업용 지역별 전기요금제 도입을 환영하면서도, 기업 유치를 위해 현재 최대 10%인 인하 폭을 30% 이상으로 확대해야 한다고 30일 주장했다.",
+    "detail": "정부는 지난 26일 산업용 전기요금을 11개 권역으로 나누어 차등 적용하는 설계안을 공개했으며, 남부권에는 최대 10%(㎾h당 18원) 인하 방안이 제시되었다. 경북도는 이로 인해 연간 약 4984억 원의 전기요금 절감 효과를 추산했으나, 이 지사는 10% 인하로는 기업의 지방 이전을 유도하기 어렵다고 지적하며 전력자립률과 발전지역 기여도를 반영한 강력한 가격 신호가 필요하다고 강조했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전기요금",
+      "#지역균형발전",
+      "#산업유치"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-30",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-08-30T08:12:21.563316+00:00",
+    "title": "“전기료 10% 깎아선 기업 안 온다”…이철우, 30% 인하 촉구",
+    "link": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01977846645552568",
+    "feed": "정책",
+    "domain": "edaily.co.kr",
+    "matched": "원자력 정책"
   }
 }
