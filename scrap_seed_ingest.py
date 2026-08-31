@@ -113,7 +113,28 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
             continue
         key = seed_key(seed)
         row = ledger.get(key) or {"tries": 0, "seed_date": seed.get("date")}
-        if row.get("status") in ("resolved", "gave_up"):
+        if row.get("status") == "gave_up":
+            continue
+        if row.get("status") == "resolved":
+            # 해결됐어도 기사가 파이프라인에 안착(sent)할 때까지 재주입한다 —
+            # 429 쿼터 소진 크롤은 큐레이션을 건너뛰며 sent 마킹을 안 하는데,
+            # 시드 기사는 키워드에 안 걸려 정규 재수집 경로가 없다(2026-08-31
+            # 실측: 해결 1건이 429 시각과 겹쳐 소리 없이 유실). 재검색은 없음.
+            link = row.get("link")
+            if link and not article_seen(state, link):
+                domain = get_domain(link)
+                articles.append({
+                    "hash": url_hash(link),
+                    "title": row.get("title") or seed["title"],
+                    "description": row.get("description", ""),
+                    "link": link,
+                    "pub": now,
+                    "matched": "사내스크랩",
+                    "score": 10,
+                    "domain": domain,
+                    "publisher": source_profile(domain).get("publisher", "") or seed.get("publisher", ""),
+                    "feed": "정책",
+                })
             continue
         if row["tries"] >= SEED_MAX_TRIES:
             row["status"] = "gave_up"
@@ -147,6 +168,10 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         link = best.get("originallink") or best.get("link")
         row["status"] = "resolved"
         row["link"] = link
+        # 재주입용 스냅샷 — 429 로 이번 크롤에서 유실돼도 다음 크롤이 재검색
+        # 없이 다시 넣을 수 있게 한다.
+        row["title"] = strip_html(best.get("title", "")) or seed["title"]
+        row["description"] = strip_html(best.get("description", ""))
         if article_seen(state, link):
             resolved += 1  # 봇이 이미 수집한 기사 — 시드 목적 달성, 주입 불필요
             continue

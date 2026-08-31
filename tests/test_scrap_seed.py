@@ -52,17 +52,20 @@ class MatchTests(unittest.TestCase):
 
 
 class LedgerTests(unittest.TestCase):
-    def _run(self, state, seeds, naver_items):
+    def _run(self, state, seeds, naver_items, already_sent=False):
+        search = mock.MagicMock(return_value=naver_items)
         with mock.patch.object(ssi, "load_seeds", return_value=seeds), \
              mock.patch.dict(sys.modules, {"news_bot": mock.MagicMock(
-                 search_naver=mock.MagicMock(return_value=naver_items),
-                 article_seen=mock.MagicMock(return_value=False),
+                 search_naver=search,
+                 article_seen=mock.MagicMock(return_value=already_sent),
                  get_domain=lambda url: "electimes.com",
                  url_hash=lambda url: "h" + url[-4:],
                  strip_html=lambda t: t,
                  source_profile=lambda d: {"publisher": "전기신문"},
              )}):
-            return ssi.fetch_scrap_seed_articles(state)
+            result = ssi.fetch_scrap_seed_articles(state)
+        self._search_calls = search.call_count
+        return result
 
     def test_resolves_and_marks_ledger(self):
         from datetime import datetime
@@ -76,8 +79,13 @@ class LedgerTests(unittest.TestCase):
         self.assertEqual(articles[0]["matched"], "사내스크랩")
         row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
         self.assertEqual(row["status"], "resolved")
-        # 해결된 시드는 다음 실행에서 재검색 안 함
-        self.assertEqual(self._run(state, seeds, items), [])
+        # 아직 sent 안 됐으면(429 유실 등) 재검색 없이 재주입
+        reinjected = self._run(state, seeds, items)
+        self.assertEqual(len(reinjected), 1)
+        self.assertEqual(self._search_calls, 0)
+        # sent 되면 재주입도 끝
+        self.assertEqual(self._run(state, seeds, items, already_sent=True), [])
+        self.assertEqual(self._search_calls, 0)
 
     def test_backoff_and_give_up(self):
         from datetime import datetime
