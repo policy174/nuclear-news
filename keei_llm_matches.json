@@ -295,6 +295,13 @@
       "reason": "B는 복수 주체의 복수 신청.",
       "same_event": false
     },
+    "issue-114c0105a9a5871f--d7e636e0b2": {
+      "issue_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "keei_item": "일본 간사이전력, 자재비·인건비 상승으로 기업용 전기요금 10~15% 인상",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
     "issue-114c0105a9a5871f--e2a678ffcd": {
       "issue_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
       "keei_item": "일본, 중동 정세 악화로 인한 연료가격 상승분 6월부터 가정용 전기요금 반영",
@@ -307,6 +314,20 @@
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
       "reason": "지역과 사안이 다름",
+      "same_event": false
+    },
+    "issue-12539c181bdda705--23abb7f7ab": {
+      "issue_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "keei_item": "폴란드 대통령, 원전 인허가 간소화 법 개정안 서명",
+      "prompt_version": 1,
+      "reason": "국가, 주체, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-12539c181bdda705--835e580735": {
+      "issue_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
+      "prompt_version": 1,
+      "reason": "행정명령의 구체적 내용 다름",
       "same_event": false
     },
     "issue-12ec710dcc1a738a--0b3993f90d": {
@@ -3305,11 +3326,25 @@
       "reason": "주체 및 안건이 다름.",
       "same_event": false
     },
+    "issue-f05008a326b99feb--d65bac9c4d": {
+      "issue_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
+      "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
+      "prompt_version": 1,
+      "reason": "동일 SMR 사업의 진행 단계",
+      "same_event": true
+    },
     "issue-f19233ca64499ca1--0cc8670c5e": {
       "issue_title": "산업부, 인도와 CEPA 개선협상 가속화: 13차 협상 서울 개최",
       "keei_item": "전 세계 방사성동위원소 산업 현황 (NEA 보고서)",
       "prompt_version": 1,
       "reason": "다른 사안, 일반 동향",
+      "same_event": false
+    },
+    "issue-f1f4a9733a1bafa4--add41ecabd": {
+      "issue_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
+      "prompt_version": 1,
+      "reason": "원전과 핵융합은 다른 분야",
       "same_event": false
     },
     "issue-f29ddd79b8bbaeb4--249f1333d0": {
@@ -3352,6 +3387,20 @@
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "A는 논의, B는 기업 사업 발표",
+      "same_event": false
+    },
+    "issue-f4d609dbcfc5655e--249f1333d0": {
+      "issue_title": "한국원전수출산업협회(KNA), 美 댈러스서 한미 원전 협력 세미나 개최",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "세미나와 MOU는 다른 사건",
+      "same_event": false
+    },
+    "issue-f4d609dbcfc5655e--a3cf49987b": {
+      "issue_title": "한국원전수출산업협회(KNA), 美 댈러스서 한미 원전 협력 세미나 개최",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "세미나와 기업 간 협력은 다름",
       "same_event": false
     },
     "issue-f60dc4f395c063ea--36d5d7452d": {
