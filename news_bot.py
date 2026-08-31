@@ -2594,7 +2594,12 @@ def main() -> None:
     save_embeddings_cache(emb_cache)
     print(f"After semantic dedup: {len(semantically_unique)} articles")
 
-    final_articles = sorted(semantically_unique, key=lambda x: x["pub"])
+    # 사내스크랩 시드는 줄 맨 앞 — pub=now 라 pub 오름차순에선 항상 마지막
+    # chunk 에 서고, 429 로 쿼터가 중간에 죽으면 매번 시드부터 유실됐다
+    # (2026-08-31~09-01 실측 2회 연속). 유입 상한 절단([:MAX])에서도 같은 이유로
+    # 맨 먼저 잘린다. 홍보실 큐레이션을 통과한 고신뢰 소수라 선두가 정당하다.
+    final_articles = sorted(semantically_unique,
+                            key=lambda x: (x.get("matched") != "사내스크랩", x["pub"]))
 
     # ---- batch 큐레이션: 새 기사만 모아 N건 → 1회 호출 (무료 티어 quota 보호) ----
     # 기존: 기사당 judge 1회 + 큐레이션 1회 (+각 5초 대기) → 한도 소진이 실패의 근본 원인.
