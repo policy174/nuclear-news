@@ -5282,6 +5282,26 @@
       "right_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
       "same_event": false
     },
+    "0b26359a6aa80885--1000a8363de8a196": {
+      "embedding_similarity": 0.8964,
+      "left_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "NuScale의 AI 기술 도입",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "NuScale, NPX·Nuclearn의 원자력 특화 AI 도입해 SMR 개발 가속화",
+      "same_event": true
+    },
+    "0b26359a6aa80885--44df38eec4748a71": {
+      "embedding_similarity": 0.9095,
+      "left_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "NuScale의 AI 기술 도입",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "NuScale, SMR 엔지니어링에 AI 도구 도입해 효율성 증대",
+      "same_event": true
+    },
     "0b26359a6aa80885--523e0acf9253e1c6": {
       "embedding_similarity": 0.8455,
       "left_title": "美 어플라이드 아토믹스, 4억 달러 투입 엠파워 SMR 재추진",
@@ -9942,6 +9962,16 @@
       "right_title": "인천, 전력자급률 191%에도 지역별 전기요금 차등제 역차별 우려",
       "same_event": false
     },
+    "179094e2c5703cfb--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8783,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 요구",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "인천, 전력자급률 191%에도 지역별 전기요금 차등제 역차별 우려",
+      "same_event": true
+    },
     "179094e2c5703cfb--b445f28b575da231": {
       "embedding_similarity": 0.861,
       "left_title": "정부, 영호남 산업용 전기요금 최대 10% 인하 방침",
@@ -11071,6 +11101,16 @@
       "reviewed_at": "2026-08-19T21:42:54.738826+00:00",
       "right_title": "산업용 전기요금 지역별 차등제 공청회 개최, AI 데이터센터 전용 요금제 도입 가능성 논의",
       "same_event": true
+    },
+    "1b4b7adc62647aaf--8ed0ddd8bfea6a7c": {
+      "embedding_similarity": 0.8664,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 사안",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": false
     },
     "1b4b7adc62647aaf--91626dddb147da2a": {
       "embedding_similarity": 0.8608,
@@ -17062,6 +17102,16 @@
       "right_title": "한국, 미국과 SMR 기술 격차 4년…사업화 가속화 필요",
       "same_event": false
     },
+    "292cd74230526ef1--f1f4a9733a1bafa4": {
+      "embedding_similarity": 0.8851,
+      "left_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 원전 인허가 개편 vs 한국 SMR 기술 격차",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "한국, 미국과 SMR 기술 격차 4년…사업화 가속화 필요",
+      "same_event": false
+    },
     "292cd74230526ef1--f7f2d48b9b488a4c": {
       "embedding_similarity": 0.8468,
       "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
@@ -17691,6 +17741,16 @@
       "reviewed_at": "2026-08-30T08:26:17.681137+00:00",
       "right_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
       "same_event": false
+    },
+    "2bdc5f2fb94508de--8534f4d9bdc7d44c": {
+      "embedding_similarity": 0.9179,
+      "left_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 주의 데이터센터 전력망 규제",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "same_event": true
     },
     "2bdc5f2fb94508de--9153dd7eaf6c0ed5": {
       "embedding_similarity": 0.8997,
@@ -22652,6 +22712,16 @@
       "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
       "same_event": false
     },
+    "3919f11d7d4ed159--8ed0ddd8bfea6a7c": {
+      "embedding_similarity": 0.8639,
+      "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 반영 미정",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": true
+    },
     "3919f11d7d4ed159--93406ef00ae86d41": {
       "embedding_similarity": 0.8446,
       "left_title": "김성환 기후장관, 12차 전기본 신규 원전 건설 여부 미확정 발표",
@@ -23090,6 +23160,16 @@
       "reason": "12차 전기본 전력수요 전망 재조정",
       "reviewed_at": "2026-08-29T23:44:12.784378+00:00",
       "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
+      "same_event": true
+    },
+    "3936f98b28485c84--8ed0ddd8bfea6a7c": {
+      "embedding_similarity": 0.8785,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 관련 보도",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
       "same_event": true
     },
     "3936f98b28485c84--8fd0bf3e40950ca1": {
@@ -25970,6 +26050,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-18T09:45:18.120351+00:00",
       "right_title": "영덕 원전건설을 서둘러야 하는 이유",
+      "same_event": false
+    },
+    "4049424c7f7f06f5--f1f4a9733a1bafa4": {
+      "embedding_similarity": 0.887,
+      "left_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 원전 인허가 개편 vs 수력발전 개혁",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "미국 의회, 수력발전 인허가 개혁 추진…원전·SMR 규제에 시사점",
       "same_event": false
     },
     "4049424c7f7f06f5--ffdb243b18554e80": {
@@ -29782,6 +29872,16 @@
       "right_title": "12차 전기본, 2040년 전력수요 재산정 및 '전기국가' 전략 본격화",
       "same_event": true
     },
+    "479eb23a61ad65ae--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8515,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 재산정",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 2040년 전력수요 재산정 및 '전기국가' 전략 본격화",
+      "same_event": true
+    },
     "479eb23a61ad65ae--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8634,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -30992,6 +31092,16 @@
       "right_title": "미국 중서부 80만 고객 정전, 전력망 복원력 시험대",
       "same_event": true
     },
+    "4c9acb05e565646d--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8962,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 요구",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "이철우 경북도지사, 산업용 지역 전기요금제 환영…30% 이상 차등 요구",
+      "same_event": true
+    },
     "4cab8ab317f8d4e9--616c6b13d9f03cfa": {
       "embedding_similarity": 0.8449,
       "left_title": "센트러스 에너지, X-에너지에 LEU 및 HALEU 농축 서비스 제공 확정 계약 체결",
@@ -31051,6 +31161,16 @@
       "reviewed_at": "2026-08-16T11:22:11.050184+00:00",
       "right_title": "정부, 동남권 산업용 전기요금 최대 10% 할인 추진에 지역 반발",
       "same_event": false
+    },
+    "4d4464de943be9a8--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8887,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 요구",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "정부, 동남권 산업용 전기요금 최대 10% 할인 추진에 지역 반발",
+      "same_event": true
     },
     "4d4f470e26175fd6--933f7c2ce99b2d0c": {
       "embedding_similarity": 0.8703,
@@ -32461,6 +32581,16 @@
       "reviewed_at": "2026-08-12T01:09:07.170960+00:00",
       "right_title": "[특징주] 혜인, AI 데이터센터 확대 기대감에 '上'",
       "same_event": false
+    },
+    "520f29d551639aec--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8406,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 전기본의 원전 필요량 전망",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 2040년 원전 19기 규모 전력 추가 필요 전망",
+      "same_event": true
     },
     "520f29d551639aec--93406ef00ae86d41": {
       "embedding_similarity": 0.8927,
@@ -38102,6 +38232,16 @@
       "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
       "same_event": false
     },
+    "5b5995d129436876--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8528,
+      "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 반영 미정",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "same_event": true
+    },
     "5b5995d129436876--87e6164736db05b6": {
       "embedding_similarity": 0.8578,
       "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
@@ -42742,6 +42882,16 @@
       "right_title": "두산에너빌리티, 美 테라파워 345MW급 나트륨 원자로 기자재 제작",
       "same_event": true
     },
+    "6b44ee4146ad6b25--b613d34b976b7c8c": {
+      "embedding_similarity": 0.8849,
+      "left_title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산의 부품 계약 vs 투자",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "same_event": false
+    },
     "6b44ee4146ad6b25--b9719697dda27644": {
       "embedding_similarity": 0.8475,
       "left_title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
@@ -44141,6 +44291,16 @@
       "reviewed_at": "2026-08-28T00:32:35.476950+00:00",
       "right_title": "[가고파] 지역 전기요금제- 박진욱(디지털미디어부장)",
       "same_event": false
+    },
+    "6e0604e6a1a62afb--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8415,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 전기본의 전력수요 및 재생에너지 목표",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본 2040년 전력수요 26.8GW 증가, 시민사회 재검증 촉구",
+      "same_event": true
     },
     "6e0604e6a1a62afb--b73fb2374225efa6": {
       "embedding_similarity": 0.8483,
@@ -47622,6 +47782,16 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": true
     },
+    "79168fd7c5b4bf97--97117ec5a88f37dd": {
+      "embedding_similarity": 0.9019,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 요구",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "산업용 10% ‘찔끔’ 인하…주민 체감 역부족",
+      "same_event": true
+    },
     "79168fd7c5b4bf97--c0a0a81776742190": {
       "embedding_similarity": 0.8852,
       "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
@@ -47631,6 +47801,16 @@
       "reviewed_at": "2026-08-30T23:19:47.630093+00:00",
       "right_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
       "same_event": false
+    },
+    "79168fd7c5b4bf97--df3e9902e4fe2353": {
+      "embedding_similarity": 0.8769,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등제 추진",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "정부, 지역별 차등 전기요금제 추진…인천 기업 할인 수혜 전망",
+      "same_event": true
     },
     "7978bd2bacdc5c2f--7e77e7f003ff7ab6": {
       "embedding_similarity": 0.8886,
@@ -47831,6 +48011,16 @@
       "reviewed_at": "2026-08-11T08:17:48.760286+00:00",
       "right_title": "김성환 기후장관, 발전 5사 통폐합 및 전력산업 거버넌스 재편 의지 표명",
       "same_event": false
+    },
+    "7acc052fb27f5e3f--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.864,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 건설 쟁점",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "제12차 전력수급기본계획, 신규 원전 건설 여부 및 규모가 최대 쟁점",
+      "same_event": true
     },
     "7acc052fb27f5e3f--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8499,
@@ -49742,6 +49932,36 @@
       "right_title": "핀란드 온칼로 사용후핵연료 처분장, 안전성 평가 통과",
       "same_event": true
     },
+    "8534f4d9bdc7d44c--a91e232c2dad49b6": {
+      "embedding_similarity": 0.8828,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 데이터센터 전력망 규제 강화",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "미국, 전력망 규제 강화로 AI 데이터센터 전력 확보 난항",
+      "same_event": true
+    },
+    "8534f4d9bdc7d44c--b14413bcaff5b29c": {
+      "embedding_similarity": 0.901,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "펜실베이니아 데이터센터 추진과 규제",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
+      "same_event": true
+    },
+    "8534f4d9bdc7d44c--e7cc90cc9d2bd6d7": {
+      "embedding_similarity": 0.8799,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 데이터센터 전력망 규제 강화",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "AI 데이터센터, 전력·용수 문제로 지역 반발 심화…1300억 달러 규모 차질",
+      "same_event": true
+    },
     "8534f4d9bdc7d44c--fbaacb3e11ce9992": {
       "embedding_similarity": 0.8438,
       "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
@@ -49832,6 +50052,16 @@
       "right_title": "호남 반도체 RE100 실현 및 주민 상생 정책토론회 개최",
       "same_event": true
     },
+    "86ae70d05b0522e3--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8658,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 재조정",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
+      "same_event": true
+    },
     "86ae70d05b0522e3--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8431,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -49860,6 +50090,16 @@
       "reason": "원전 추가 필요성 vs 전력수요 재조정",
       "reviewed_at": "2026-08-24T18:48:54.879032+00:00",
       "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
+      "same_event": false
+    },
+    "86d1c5852cb9ef75--8b486e4051da2e66": {
+      "embedding_similarity": 0.8777,
+      "left_title": "정부·K-조선, 선박용 SMR 개발 및 시장 선점 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "선박용 SMR 추진 vs 미국 원자력 상선",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대",
       "same_event": false
     },
     "86d1c5852cb9ef75--937a9cdf618471b4": {
@@ -50161,6 +50401,126 @@
       "reviewed_at": "2026-08-29T18:22:56.815954+00:00",
       "right_title": "한전·가스공사 상반기 이자 2.7조원 지출, 하반기 재무 부담 가중 전망",
       "same_event": false
+    },
+    "86e09ce2f6b7856c--89ac96ab2605cdee": {
+      "embedding_similarity": 0.8799,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 토론회 개최",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 2040년 재생에너지 220GW 목표 12차 전기본 토론회 개최",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--9952085878dc5e7f": {
+      "embedding_similarity": 0.8448,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 재전망",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본 전력수요 재전망, 원가회수율 공개 필요성 제기",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--a3818579cb1a0fd1": {
+      "embedding_similarity": 0.8731,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 논의",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 2040년 전력수요 재전망 및 재생에너지 보급 논의",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--a519ec27d94058f0": {
+      "embedding_similarity": 0.8554,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 재개",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 수요 예측 토론회 이달 개최하며 수립 재개",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--c8644b4278ee57fb": {
+      "embedding_similarity": 0.8455,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 및 원전 필요성",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본 토론회, 2040년 최대 전력수요 165GW 전망…원전 19기 필요",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--c8b6134bc8a382df": {
+      "embedding_similarity": 0.8517,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 및 재생에너지 논란",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후솔루션, 메가프로젝트 전력수요 증가에 화석연료 확대 반대",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--d92804977ee3022f": {
+      "embedding_similarity": 0.8451,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 국회 토론회 개최",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--f261f6a0ca06115f": {
+      "embedding_similarity": 0.8424,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 초안 마련 착수",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "정부, 2040년까지 국가 전력 수요 전망 12차 전기본 초안 마련 착수",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--f93e320d91da6966": {
+      "embedding_similarity": 0.8425,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 전망 토론회",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 메가프로젝트 반영 전력수요 전망 토론회 개최",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--fb1014df46236dd8": {
+      "embedding_similarity": 0.8421,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 전망 재수립",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8535,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 필요성 및 재생에너지 논란",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "same_event": true
+    },
+    "86e09ce2f6b7856c--fe0d40c7d4d03625": {
+      "embedding_similarity": 0.8403,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 전기본의 원전 필요량 전망",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "12차 전기본 수요 전망, 2040년 최대 165GW…원전 19기 규모",
+      "same_event": true
     },
     "878d00311e26bcd7--959a0bd83cc42eea": {
       "embedding_similarity": 0.8621,
@@ -51660,6 +52020,26 @@
       "reason": "새울 1호기 재가동 및 출력 도달",
       "reviewed_at": "2026-08-26T10:00:50.133400+00:00",
       "right_title": "한수원 새울 1호기, 계획예방정비 후 100% 출력 도달",
+      "same_event": true
+    },
+    "8ed0ddd8bfea6a7c--b73fb2374225efa6": {
+      "embedding_similarity": 0.8654,
+      "left_title": "제12차 전기본, 2040년 재생에너지 220GW 확대…전력망 대책 미흡 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 관련 보도",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": true
+    },
+    "8ed0ddd8bfea6a7c--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8577,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 필요성 제기",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
       "same_event": true
     },
     "8ee1f406adeda252--92d7cd732bd9f9f6": {
@@ -56120,6 +56500,16 @@
       "reason": "대미 투자 논의설 해명 vs 대미 전략투자 논의",
       "reviewed_at": "2026-08-19T21:42:54.738826+00:00",
       "right_title": "산업부 김정관 장관, 방미해 대미 전략투자 프로젝트 등 주요 현안 논의",
+      "same_event": false
+    },
+    "a09e07c12995b24d--b613d34b976b7c8c": {
+      "embedding_similarity": 0.8892,
+      "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산의 투자와 현대중공업의 공장",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "현대중공업터보기계, 포항에 1000억 들여 SMR 기자재 공장 건립",
       "same_event": false
     },
     "a09e07c12995b24d--baf86b26077f0bc1": {
@@ -60980,6 +61370,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-21T22:01:10.780992+00:00",
       "right_title": "원안위, 고준위 방사성폐기물 선도국 스웨덴과 규제 협력 확대",
+      "same_event": false
+    },
+    "b613d34b976b7c8c--bca1920d907255cd": {
+      "embedding_similarity": 0.8946,
+      "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산의 수주와 SMR 협력 vs 투자",
+      "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
+      "right_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
       "same_event": false
     },
     "b613d34b976b7c8c--fbd3322d6a137c46": {
