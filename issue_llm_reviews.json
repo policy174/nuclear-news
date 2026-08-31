@@ -2382,6 +2382,16 @@
       "right_title": "인천, 전력자급률 191%에도 지역별 전기요금 차등제 역차별 우려",
       "same_event": false
     },
+    "076036e9576007bc--18cbdf9d828811f6": {
+      "embedding_similarity": 0.8818,
+      "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 전기요금 인하 추진 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "전남광주, 산업용 지역 전기요금제 시행 시 연간 최대 4250억 원 절감 전망",
+      "same_event": true
+    },
     "076036e9576007bc--1b4b7adc62647aaf": {
       "embedding_similarity": 0.8894,
       "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
@@ -5372,6 +5382,16 @@
       "right_title": "NuScale, NPX·Nuclearn의 원자력 특화 AI 도입해 SMR 개발 가속화",
       "same_event": true
     },
+    "0b26359a6aa80885--21b11a69def02cde": {
+      "embedding_similarity": 0.8587,
+      "left_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "SK이노·테라파워, SMR 사업화 나선다…AI 데이터센터 전력시장 공략",
+      "same_event": false
+    },
     "0b26359a6aa80885--44df38eec4748a71": {
       "embedding_similarity": 0.9095,
       "left_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
@@ -5390,6 +5410,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-29T12:21:14.373316+00:00",
       "right_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
+      "same_event": false
+    },
+    "0b26359a6aa80885--da31d14542316967": {
+      "embedding_similarity": 0.8638,
+      "left_title": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원자로 개발 AI vs 원전 시뮬레이션 AI",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "Nuclearn-GSE, AI 기반 원전 시뮬레이션 및 훈련 시스템 통합 협력",
       "same_event": false
     },
     "0b43d6bb9cbffb77--42d294aaa404e892": {
@@ -8012,6 +8042,16 @@
       "right_title": "정부, 동남권 산업용 전기요금 최대 10% 할인 추진에 지역 반발",
       "same_event": false
     },
+    "114c0105a9a5871f--4e61080331055832": {
+      "embedding_similarity": 0.859,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "전남광주시, 산업용 지역 전기요금제 시행 시 연 4250억 절감 전망",
+      "same_event": false
+    },
     "114c0105a9a5871f--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8505,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -8562,6 +8602,16 @@
       "right_title": "기후부, 원전 계속운전 10년→20년 연장 검토 및 반도체 전력·용수 대책 제시",
       "same_event": false
     },
+    "12539c181bdda705--1b9b1a171f706440": {
+      "embedding_similarity": 0.8604,
+      "left_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 행정명령 관련 후속 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "트럼프 행정부, 외국산 전력망 장비 제한 국가 비상사태 선포",
+      "same_event": true
+    },
     "12539c181bdda705--418cbfd4919c8483": {
       "embedding_similarity": 0.8564,
       "left_title": "미국, 전력망 핵심 장비 '탈중국' 행정명령…K전력기기 수주 확대",
@@ -8569,6 +8619,26 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-30T08:26:17.681137+00:00",
+      "right_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "same_event": false
+    },
+    "12539c181bdda705--7bc06b0dde0d292a": {
+      "embedding_similarity": 0.858,
+      "left_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 행정명령 관련 후속 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "트럼프 사실상 中전력장비 수입 제한에 … K전력·전선주 급등",
+      "same_event": true
+    },
+    "12539c181bdda705--beae8672ddf45352": {
+      "embedding_similarity": 0.8611,
+      "left_title": "트럼프 美 대통령, 중국산 드론 및 부품에 최대 100% 관세 부과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
       "right_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
       "same_event": false
     },
@@ -9280,6 +9350,16 @@
       "reason": "계속운전과 SMR 규제는 다른 사안",
       "reviewed_at": "2026-08-14T15:51:05.904776+00:00",
       "right_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
+      "same_event": false
+    },
+    "13d178fae214cbef--83e930795b6984c2": {
+      "embedding_similarity": 0.8782,
+      "left_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 안전규제 논의 vs SMR 인허가 심사",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
       "same_event": false
     },
     "13d178fae214cbef--86d1c5852cb9ef75": {
@@ -10472,6 +10552,16 @@
       "right_title": "핀란드 로비사 원전 터빈 설비 현대화 착수, 발전량 증대 목표",
       "same_event": true
     },
+    "18cbdf9d828811f6--c0a0a81776742190": {
+      "embedding_similarity": 0.8872,
+      "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 전기요금 인하 추진 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "전남광주, 산업용 지역 전기요금제 시행 시 연간 최대 4250억 원 절감 전망",
+      "same_event": true
+    },
     "19449c9e64f1d058--6daf204a4f7610fb": {
       "embedding_similarity": 0.851,
       "left_title": "정부, 산업용 전기요금 4개 권역 차등 적용 방안 발표",
@@ -10962,6 +11052,16 @@
       "right_title": "정부, 산업용 지역별 전기요금제 추진…충남 반도체 수혜 기대",
       "same_event": true
     },
+    "1b4b7adc62647aaf--4e61080331055832": {
+      "embedding_similarity": 0.8625,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 지역요금제 기본안 공개 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "전남광주시, 산업용 지역 전기요금제 시행 시 연 4250억 절감 전망",
+      "same_event": true
+    },
     "1b4b7adc62647aaf--5976e83faefed3d5": {
       "embedding_similarity": 0.8449,
       "left_title": "24.7GW 전력 더 필요한데 … 신규 원전 몇 기 짓나 또 '국민 선택'",
@@ -11091,6 +11191,16 @@
       "reviewed_at": "2026-08-19T06:57:15.493469+00:00",
       "right_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
       "same_event": false
+    },
+    "1b4b7adc62647aaf--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8637,
+      "left_title": "김성환 기후부 장관, 산업용 지역요금제 기본안 다음 주 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 지역요금제 기본안 공개 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "same_event": true
     },
     "1b4b7adc62647aaf--7acc052fb27f5e3f": {
       "embedding_similarity": 0.8472,
@@ -13589,6 +13699,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-19T09:43:43.059678+00:00",
+      "right_title": "정부, 지역별 차등 전기요금제 공청회 이달 개최 예정",
+      "same_event": false
+    },
+    "20573c8e88129966--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8613,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
       "right_title": "정부, 지역별 차등 전기요금제 공청회 이달 개최 예정",
       "same_event": false
     },
@@ -21222,6 +21342,16 @@
       "right_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
       "same_event": false
     },
+    "34b54b6a74dfabbb--d4010b67b8de8881": {
+      "embedding_similarity": 0.8592,
+      "left_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "원자력안전위원회, 새울 1호기 안전성 확인 후 재가동 승인",
+      "same_event": false
+    },
     "34d296121651d3c6--3c3560063b344488": {
       "embedding_similarity": 0.8419,
       "left_title": "원전 안전성 유지하며 SMR 및 신기술 상용화 노력 강조",
@@ -21821,6 +21951,16 @@
       "reviewed_at": "2026-08-24T01:10:53.329609+00:00",
       "right_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
       "same_event": false
+    },
+    "371f58bb78f102e7--83e930795b6984c2": {
+      "embedding_similarity": 0.8905,
+      "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 SMR 표준설계인가 심사 착수 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "same_event": true
     },
     "371f58bb78f102e7--86d1c5852cb9ef75": {
       "embedding_similarity": 0.8784,
@@ -23161,6 +23301,16 @@
       "reviewed_at": "2026-08-29T23:44:12.784378+00:00",
       "right_title": "전력거래소, 태양광 55% 증가 시 ESS 220% 증설 필요 분석",
       "same_event": false
+    },
+    "3936f98b28485c84--438378ac85e21966": {
+      "embedding_similarity": 0.846,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 전기본 원전 추가 검토 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "정부, AI·반도체 전력수요 급증에 12차 전기본 신규 원전 추가 검토",
+      "same_event": true
     },
     "3936f98b28485c84--46469d2e48bf84d6": {
       "embedding_similarity": 0.8412,
@@ -31712,6 +31862,16 @@
       "right_title": "IAEA, 새로운 정보 시스템 ATLAS 공식 출시",
       "same_event": true
     },
+    "4e61080331055832--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8627,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 전기요금 인하폭 확대 요구 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "전남광주시, 산업용 지역 전기요금제 시행 시 연 4250억 절감 전망",
+      "same_event": true
+    },
     "4e61080331055832--c0a0a81776742190": {
       "embedding_similarity": 0.8978,
       "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
@@ -33880,6 +34040,16 @@
       "reason": "AI 데이터센터 건설 반대와 발전소 추진",
       "reviewed_at": "2026-08-30T11:19:16.712827+00:00",
       "right_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
+      "same_event": false
+    },
+    "53cff084bc298889--8534f4d9bdc7d44c": {
+      "embedding_similarity": 0.8611,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
       "same_event": false
     },
     "53cff084bc298889--9153dd7eaf6c0ed5": {
@@ -39772,6 +39942,16 @@
       "right_title": "한·스웨덴, 고준위 방폐물 및 SMR 안전규제 협력 논의",
       "same_event": true
     },
+    "612614ae06f13848--9020ad1179cec5a7": {
+      "embedding_similarity": 0.8612,
+      "left_title": "한전, 배전선로별 정전비용 산출 착수…전력망 투자 우선순위 활용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "한전, 적기 송전 중심 '전력안보' 체계로 패러다임 전환",
+      "same_event": false
+    },
     "612614ae06f13848--d60c75d7877511ce": {
       "embedding_similarity": 0.8457,
       "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
@@ -42172,6 +42352,16 @@
       "right_title": "미국원자력학회(ANS), 새로운 원자력 표준 2건 승인",
       "same_event": false
     },
+    "670ab38b1bd7b5b3--f1f4a9733a1bafa4": {
+      "embedding_similarity": 0.858,
+      "left_title": "미국원자력학회(ANS), 새로운 원자력 표준 2건 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "same_event": false
+    },
     "670ab38b1bd7b5b3--f25981372ce8d4bb": {
       "embedding_similarity": 0.8512,
       "left_title": "웨스팅하우스, eVinci 시험용 원자로 저출력 임계 시험 완료",
@@ -42421,6 +42611,16 @@
       "reviewed_at": "2026-08-28T15:08:36.818111+00:00",
       "right_title": "원자력안전위원회, 혁신형소형모듈원자로(i-SMR) 표준설계인가 신청 보고 접수",
       "same_event": false
+    },
+    "687f55c2836fcbc3--83e930795b6984c2": {
+      "embedding_similarity": 0.9168,
+      "left_title": "원자력안전위원회, 혁신형소형모듈원자로(i-SMR) 표준설계인가 신청 보고 접수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 SMR 표준설계인가 심사 착수 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "same_event": true
     },
     "687f55c2836fcbc3--99fb7b94934451e5": {
       "embedding_similarity": 0.8528,
@@ -45132,6 +45332,16 @@
       "right_title": "톈완 8호기, 시운전 단계 진입",
       "same_event": true
     },
+    "71109766530a978f--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8594,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "동일 인물의 동일 요구 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "경북도지사, 산업용 지역 전기요금제 인하폭 확대 요구",
+      "same_event": true
+    },
     "71301f3f0739bc0b--756c2e6e80bbd36e": {
       "embedding_similarity": 0.8497,
       "left_title": "내년 원전 4기 계속운전 절차 미착수, 전력 수급 불안정 우려",
@@ -46462,6 +46672,16 @@
       "right_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
       "same_event": false
     },
+    "73dc4aec3344793a--8534f4d9bdc7d44c": {
+      "embedding_similarity": 0.8579,
+      "left_title": "텍사스 2.5GW 가스-원자력 복합 프로젝트, 엔지니어링 및 인허가 단계 진입",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "same_event": false
+    },
     "73dc4aec3344793a--91dc2ca3740985f2": {
       "embedding_similarity": 0.8458,
       "left_title": "텍사스 2.5GW 가스-원자력 복합 프로젝트, 엔지니어링 및 인허가 단계 진입",
@@ -46620,6 +46840,16 @@
       "reason": "미국 데이터센터와 한국 전력 계획은 다른 사건",
       "reviewed_at": "2026-08-30T03:23:01.610837+00:00",
       "right_title": "엔비디아, SB 에너지에 4조원 투자 논의…오픈AI 데이터센터 지원",
+      "same_event": false
+    },
+    "742c43e9aa3d49dd--8534f4d9bdc7d44c": {
+      "embedding_similarity": 0.859,
+      "left_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
       "same_event": false
     },
     "742c43e9aa3d49dd--9153dd7eaf6c0ed5": {
@@ -46911,6 +47141,16 @@
       "reviewed_at": "2026-08-29T18:22:56.815954+00:00",
       "right_title": "정부, 산업용 지역 차등 전기요금제 발표로 동국제강 수익성 개선 기대",
       "same_event": false
+    },
+    "7532265b4f157617--79168fd7c5b4bf97": {
+      "embedding_similarity": 0.8638,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 전기요금 인하폭 확대 요구 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "기후에너지환경부, 지역별 산업용 전기요금 차등제 하반기 시행 계획",
+      "same_event": true
     },
     "7532265b4f157617--b445f28b575da231": {
       "embedding_similarity": 0.8571,
@@ -48092,6 +48332,26 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": true
     },
+    "79168fd7c5b4bf97--81355ce900f985e4": {
+      "embedding_similarity": 0.8612,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "인천, 높은 전력자급률에도 지역별 전기요금 할인 적어 '역차별' 주장",
+      "same_event": false
+    },
+    "79168fd7c5b4bf97--8400ea24b1cde938": {
+      "embedding_similarity": 0.8593,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "산업부, 충청·강원권 산업용 전기료 ㎾h당 최대 15원 인하 검토",
+      "same_event": false
+    },
     "79168fd7c5b4bf97--97117ec5a88f37dd": {
       "embedding_similarity": 0.9019,
       "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
@@ -48112,6 +48372,16 @@
       "right_title": "정부, 울산 포함 남부권 산업용 전기요금 최대 18원 인하안 공개",
       "same_event": false
     },
+    "79168fd7c5b4bf97--aea0077427192ab1": {
+      "embedding_similarity": 0.8574,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "포항 철강노조연대, 지역별 전기요금 인하 등 정책 요구",
+      "same_event": false
+    },
     "79168fd7c5b4bf97--c0a0a81776742190": {
       "embedding_similarity": 0.8852,
       "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
@@ -48122,6 +48392,16 @@
       "right_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
       "same_event": false
     },
+    "79168fd7c5b4bf97--cac1b0cc3d736923": {
+      "embedding_similarity": 0.8616,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 요구 내용이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "인천 시민단체, 정부에 지역별 차등 전기요금제 수정 요구",
+      "same_event": false
+    },
     "79168fd7c5b4bf97--df3e9902e4fe2353": {
       "embedding_similarity": 0.8769,
       "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
@@ -48130,6 +48410,16 @@
       "reason": "산업용 전기요금 지역별 차등제 추진",
       "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
       "right_title": "정부, 지역별 차등 전기요금제 추진…인천 기업 할인 수혜 전망",
+      "same_event": true
+    },
+    "79168fd7c5b4bf97--f430ca936a1680a8": {
+      "embedding_similarity": 0.8626,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 산업용 전기요금 인하폭 확대 요구 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "부울경 산업 전기료 10% 인하, 지역 제조업 경쟁력 강화 기대",
       "same_event": true
     },
     "7978bd2bacdc5c2f--7e77e7f003ff7ab6": {
@@ -50172,6 +50462,16 @@
       "right_title": "국내 최대 규모 400MW 태양광단지 착공…RE100 전력 연간 529GWh 공급",
       "same_event": false
     },
+    "83e930795b6984c2--ffdb243b18554e80": {
+      "embedding_similarity": 0.8678,
+      "left_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지하 원전 기대 vs SMR 인허가 심사",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "same_event": false
+    },
     "8400ea24b1cde938--c0a0a81776742190": {
       "embedding_similarity": 0.8957,
       "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
@@ -50262,6 +50562,16 @@
       "right_title": "핀란드 포시바, 온칼로 1호 처분공 굴착 착수…韓 고준위 정책 영향",
       "same_event": false
     },
+    "8534f4d9bdc7d44c--9c00adcd73d60f56": {
+      "embedding_similarity": 0.8637,
+      "left_title": "플로리다주, AI 규제 정치광고·데이터센터 분야별 법제화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 AI 규제 vs 미국 데이터센터 전력망 규제",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "same_event": false
+    },
     "8534f4d9bdc7d44c--a91e232c2dad49b6": {
       "embedding_similarity": 0.8828,
       "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
@@ -50282,6 +50592,16 @@
       "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
       "same_event": true
     },
+    "8534f4d9bdc7d44c--ce3cf4f4265cbc07": {
+      "embedding_similarity": 0.8619,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 데이터센터 전력망 규제 강화 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "텍사스 데이터센터 운영사들, 애벗 주지사 표준 준수 및 ERCOT 프레임워크 지지",
+      "same_event": true
+    },
     "8534f4d9bdc7d44c--e13a29a8683f935e": {
       "embedding_similarity": 0.8748,
       "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
@@ -50292,6 +50612,16 @@
       "right_title": "'AI 천국' 외치던 미국, 민심은 돌아섰다…52% \"기대보다 두렵다\"",
       "same_event": false
     },
+    "8534f4d9bdc7d44c--e1af5f2555337119": {
+      "embedding_similarity": 0.8628,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 데이터센터 전력망 규제 강화 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 유권자, 데이터센터 반대 심화…원전보다 싫어해",
+      "same_event": true
+    },
     "8534f4d9bdc7d44c--e7cc90cc9d2bd6d7": {
       "embedding_similarity": 0.8799,
       "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
@@ -50301,6 +50631,16 @@
       "reviewed_at": "2026-08-31T03:17:39.696837+00:00",
       "right_title": "AI 데이터센터, 전력·용수 문제로 지역 반발 심화…1300억 달러 규모 차질",
       "same_event": true
+    },
+    "8534f4d9bdc7d44c--f8729b9ad3d35dd4": {
+      "embedding_similarity": 0.8618,
+      "left_title": "미국 민주당 주지사들, 에너지 위기 대응책으로 원자력 발전 전환",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 민주당 원전 전환 vs 미국 데이터센터 전력망 규제",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "same_event": false
     },
     "8534f4d9bdc7d44c--fbaacb3e11ce9992": {
       "embedding_similarity": 0.8438,
@@ -51501,6 +51841,16 @@
       "reviewed_at": "2026-08-24T06:59:30.594528+00:00",
       "right_title": "박정성 산업통상부 통상교섭본부장, 한미 FTA 버금가는 양자 협력 추진",
       "same_event": false
+    },
+    "8a993fa32456abc0--9b85b2a6e2593847": {
+      "embedding_similarity": 0.8761,
+      "left_title": "K건설, 중동 플랜트 불확실성에 원전·전력 인프라 수주로 선회",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전·전력 인프라 수주 관련 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "해외건설 시장, AI·전력 인프라 중심으로 재편…韓 기업 대응",
+      "same_event": true
     },
     "8ab2bc451c253e3e--b445f28b575da231": {
       "embedding_similarity": 0.8526,
@@ -52820,6 +53170,16 @@
       "reason": "다른 국가의 다른 규제",
       "reviewed_at": "2026-08-30T23:19:47.630093+00:00",
       "right_title": "미국 엔시날 168억 달러 가스발전 프로젝트, AI 전력난으로 사업성 주목",
+      "same_event": false
+    },
+    "9153dd7eaf6c0ed5--e13a29a8683f935e": {
+      "embedding_similarity": 0.8596,
+      "left_title": "미국 주정부, 데이터센터 전력 수요 증가에 따른 계통 비용 분담 규제 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "'AI 천국' 외치던 미국, 민심은 돌아섰다…52% \"기대보다 두렵다\"",
       "same_event": false
     },
     "9153dd7eaf6c0ed5--e525e3a250f8b92b": {
@@ -57442,6 +57802,16 @@
       "right_title": "NRC, Orano의 50억 달러 규모 우라늄 농축시설 인허가 청문회 개시",
       "same_event": false
     },
+    "a3ebf95f8f2a3d16--f1f4a9733a1bafa4": {
+      "embedding_similarity": 0.8617,
+      "left_title": "NRC, 원자로 인허가 현대화 제안 규칙 관련 질의응답 진행",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 원자로 인허가 현대화 제안 규칙 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "same_event": true
+    },
     "a3ebf95f8f2a3d16--f33f228a288946ee": {
       "embedding_similarity": 0.8663,
       "left_title": "미국 NRC, DOE 및 캐나다 CNSC, SMR 개발사들과 선진원자로 전망 논의",
@@ -58781,6 +59151,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자...",
       "same_event": true
+    },
+    "a974a16826acef5f--b613d34b976b7c8c": {
+      "embedding_similarity": 0.8603,
+      "left_title": "두산에너빌리티, 중국 라이양 원전 5·6호기 단조품 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "same_event": false
     },
     "a974a16826acef5f--bca1920d907255cd": {
       "embedding_similarity": 0.8741,
@@ -61742,6 +62122,16 @@
       "right_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
       "same_event": false
     },
+    "b613d34b976b7c8c--bca8b527433b7384": {
+      "embedding_similarity": 0.8604,
+      "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 사안이 다름",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
+      "same_event": false
+    },
     "b613d34b976b7c8c--d5147918f97d542d": {
       "embedding_similarity": 0.8735,
       "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
@@ -61911,6 +62301,16 @@
       "reviewed_at": "2026-08-29T05:30:30.917001+00:00",
       "right_title": "기후솔루션, 메가프로젝트 전력수요 증가에 화석연료 확대 반대",
       "same_event": false
+    },
+    "b73fb2374225efa6--d1f22b19a877962c": {
+      "embedding_similarity": 0.8786,
+      "left_title": "제12차 전기본, 2040년 재생에너지 220GW 확대…전력망 대책 미흡 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "같은 전기본 재생에너지 목표 보도",
+      "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
+      "right_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "same_event": true
     },
     "b73fb2374225efa6--d92804977ee3022f": {
       "embedding_similarity": 0.8543,
