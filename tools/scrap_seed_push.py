@@ -117,7 +117,18 @@ def main() -> None:
         body["sha"] = sha
     result = gh_api(token, "PUT", f"repos/{REPO}/contents/{SEEDS_PATH}", body)
     commit = (result.get("commit") or {}).get("sha", "")[:7]
-    print(f"커밋 완료 {commit}: 신규 {added}건 / 총 {len(payload)}건 → 다음 크롤이 원문 역추적")
+    print(f"커밋 완료 {commit}: 신규 {added}건 / 총 {len(payload)}건")
+
+    # 새 시드가 있으면 크롤을 즉시 디스패치 — 3시간 그리드를 기다리면 조간
+    # (07시 언저리 도착)이 당일 08:05+ 브리핑을 놓친다. dispatch 는 cron 과
+    # 달리 지연 없이 뜨므로 07시대 시드가 ~07:45 큐에 앉아 당일 아침에 탄다.
+    # 비치명: 실패해도 다음 정기 크롤(3시간 내)이 처리한다.
+    try:
+        gh_api(token, "POST", f"repos/{REPO}/actions/workflows/crawl.yml/dispatches",
+               {"ref": "main"})
+        print("크롤 디스패치 완료 → ~30분 내 원문 역추적·사이트 반영")
+    except SystemExit as e:
+        print(f"크롤 디스패치 실패(비치명, 다음 정기 크롤이 처리): {e}")
 
 
 if __name__ == "__main__":
