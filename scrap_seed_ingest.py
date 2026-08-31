@@ -26,10 +26,12 @@ MATCH_THRESHOLD = 0.5      # 시드 제목 토큰이 후보 제목에 절반 이
 
 KST = timezone(timedelta(hours=9))
 
-# "1.[헤럴드경제 027면] 전기에도 색깔을 입혀보자 (민병권 …)" 꼴.
-# 면 번호는 없을 수도 있고, 괄호 저자·직함 꼬리는 제목의 일부로 둔다
-# (매칭은 토큰 겹침이라 꼬리가 있어도 안 깨진다).
+# "1.[헤럴드경제 027면] 전기에도 색깔을 입혀보자 (민병권 …)" 꼴. 면 번호는
+# 없을 수도 있다. 끝의 괄호 꼬리(저자·직함·'종합' 류)는 제목에서 뗀다 —
+# 네이버 API 가 추가 단어를 AND 결합해 쿼리를 죽이고(2026-08-31 실측:
+# 저자 포함 검색 0건, 제외하면 1위 적중), 토큰 포함률도 희석된다.
 _REPORT_LINE = re.compile(r"^\s*\d+\.\s*\[(?P<pub>[^\]]+?)(?:\s+\d+면)?\]\s*(?P<title>\S.*)$")
+_TITLE_TAIL = re.compile(r"\s*\([^()]*\)\s*$")
 _REPORT_HEADER = re.compile(r"(?P<month>\d{1,2})월\s*(?P<day>\d{1,2})일\s*(조간|석간)?\s*스크랩\s*보고")
 
 
@@ -46,9 +48,12 @@ def parse_scrap_report(text: str, year: int) -> list[dict]:
     for line in text.splitlines():
         m = _REPORT_LINE.match(line)
         if m:
+            title = _TITLE_TAIL.sub("", m.group("title")).strip()
+            if not title:
+                continue
             seeds.append({"date": date,
                           "publisher": m.group("pub").strip(),
-                          "title": m.group("title").strip()})
+                          "title": title})
     return seeds
 
 

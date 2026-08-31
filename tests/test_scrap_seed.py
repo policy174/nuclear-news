@@ -24,7 +24,8 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(len(seeds), 2)
         self.assertEqual(seeds[0]["date"], "2026-08-31")
         self.assertEqual(seeds[0]["publisher"], "헤럴드경제")  # "027면" 은 제거
-        self.assertTrue(seeds[0]["title"].startswith("전기에도 색깔을"))
+        # 저자·직함 꼬리는 제거 — 네이버 쿼리를 죽이고 토큰 포함률을 희석한다
+        self.assertEqual(seeds[0]["title"], "전기에도 색깔을 입혀보자")
         self.assertEqual(seeds[1]["publisher"], "전기신문")  # 면 번호 없는 꼴
 
     def test_non_report_text_returns_empty(self):
