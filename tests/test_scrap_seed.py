@@ -1,0 +1,106 @@
+import sys
+import unittest
+from pathlib import Path
+from unittest import mock
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import scrap_seed_ingest as ssi
+
+REPORT = """8월 31일 석간스크랩 보고
+
+■ 에너지
+1.[헤럴드경제 027면] 전기에도 색깔을 입혀보자 (민병권 국가과학기술연구회 연구전략 본부장)
+2.[전기신문] 12차 전기본 초안 공개, 원전 비중 유지
+
+■ 기타
+쓸데없는 줄은 무시된다
+"""
+
+
+class ParseTests(unittest.TestCase):
+    def test_parses_publisher_page_and_title(self):
+        seeds = ssi.parse_scrap_report(REPORT, 2026)
+        self.assertEqual(len(seeds), 2)
+        self.assertEqual(seeds[0]["date"], "2026-08-31")
+        self.assertEqual(seeds[0]["publisher"], "헤럴드경제")  # "027면" 은 제거
+        self.assertTrue(seeds[0]["title"].startswith("전기에도 색깔을"))
+        self.assertEqual(seeds[1]["publisher"], "전기신문")  # 면 번호 없는 꼴
+
+    def test_non_report_text_returns_empty(self):
+        self.assertEqual(ssi.parse_scrap_report("오늘 점심 뭐 먹지", 2026), [])
+
+    def test_seed_key_is_stable(self):
+        seed = {"date": "2026-08-31", "publisher": "전기신문", "title": "제목"}
+        self.assertEqual(ssi.seed_key(seed), ssi.seed_key(dict(seed)))
+
+
+class MatchTests(unittest.TestCase):
+    def test_online_title_with_subtitle_still_matches(self):
+        # 지면 제목이 온라인 제목 안에 들어 있으면(부제가 붙어도) 잡힌다
+        self.assertGreaterEqual(
+            ssi.title_overlap("12차 전기본 초안 공개, 원전 비중 유지",
+                              "12차 전기본 초안 공개…원전 비중 유지·재생에너지 확대"),
+            ssi.MATCH_THRESHOLD)
+
+    def test_unrelated_title_does_not_match(self):
+        self.assertLess(
+            ssi.title_overlap("전기에도 색깔을 입혀보자",
+                              "한수원, 체코 신규 원전 계약 체결"),
+            ssi.MATCH_THRESHOLD)
+
+
+class LedgerTests(unittest.TestCase):
+    def _run(self, state, seeds, naver_items):
+        with mock.patch.object(ssi, "load_seeds", return_value=seeds), \
+             mock.patch.dict(sys.modules, {"news_bot": mock.MagicMock(
+                 search_naver=mock.MagicMock(return_value=naver_items),
+                 article_seen=mock.MagicMock(return_value=False),
+                 get_domain=lambda url: "electimes.com",
+                 url_hash=lambda url: "h" + url[-4:],
+                 strip_html=lambda t: t,
+                 source_profile=lambda d: {"publisher": "전기신문"},
+             )}):
+            return ssi.fetch_scrap_seed_articles(state)
+
+    def test_resolves_and_marks_ledger(self):
+        from datetime import datetime
+        seeds = [{"date": datetime.now(ssi.KST).date().isoformat(),
+                  "publisher": "전기신문", "title": "12차 전기본 초안 공개, 원전 비중 유지"}]
+        state = {"sent": {}}
+        items = [{"originallink": "https://electimes.com/a123",
+                  "title": "12차 전기본 초안 공개…원전 비중 유지"}]
+        articles = self._run(state, seeds, items)
+        self.assertEqual(len(articles), 1)
+        self.assertEqual(articles[0]["matched"], "사내스크랩")
+        row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
+        self.assertEqual(row["status"], "resolved")
+        # 해결된 시드는 다음 실행에서 재검색 안 함
+        self.assertEqual(self._run(state, seeds, items), [])
+
+    def test_backoff_and_give_up(self):
+        from datetime import datetime
+        seeds = [{"date": datetime.now(ssi.KST).date().isoformat(),
+                  "publisher": "전기신문", "title": "아무도 안 쓴 제목"}]
+        state = {"sent": {}}
+        self.assertEqual(self._run(state, seeds, []), [])
+        row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
+        self.assertEqual(row["tries"], 1)
+        # 백오프 창 안이라 재시도 안 함
+        self.assertEqual(self._run(state, seeds, []), [])
+        self.assertEqual(row["tries"], 1)
+        # 상한 도달 시 gave_up
+        row["tries"] = ssi.SEED_MAX_TRIES
+        row.pop("last_tried")
+        self._run(state, seeds, [])
+        self.assertEqual(row["status"], "gave_up")
+
+    def test_stale_seed_skipped_and_ledger_pruned(self):
+        seeds = [{"date": "2026-01-01", "publisher": "전기신문", "title": "옛날 기사"}]
+        state = {"sent": {}, "scrap_seeds": {"deadbeef0000": {"seed_date": "2026-01-01"}}}
+        self.assertEqual(self._run(state, seeds, []), [])
+        self.assertEqual(state["scrap_seeds"], {})
+
+
+if __name__ == "__main__":
+    unittest.main()

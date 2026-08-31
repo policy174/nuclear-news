@@ -2538,6 +2538,15 @@ def main() -> None:
     print(f"[RSS] {len(rss_articles)} candidates")
     all_candidates.extend(rss_articles)
 
+    # 사내 신문스크랩 카톡방 시드(매체·제목만) → 공개 원문 역추적 합류.
+    # 비치명: scrap_seeds.json 없으면 조용히 0건.
+    try:
+        from scrap_seed_ingest import fetch_scrap_seed_articles
+        scrap_seed_candidates = fetch_scrap_seed_articles(state)
+        all_candidates.extend(scrap_seed_candidates)
+    except Exception as e:  # noqa: BLE001
+        print(f"[scrap_seed] ingest 실패 → 건너뜀: {type(e).__name__}")
+
     # 차단 출처는 dedup 전에 끊는다 — 재배포본은 URL·제목이 매번 달라 dedup 을
     # 통과하고, 통과하면 큐레이션 호출까지 태운다(무료 티어에서 그게 곧 429다).
     unblocked, blocked_counts = [], {}
