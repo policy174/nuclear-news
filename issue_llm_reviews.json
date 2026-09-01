@@ -72,6 +72,16 @@
       "right_title": "국방예산 70조 돌파, 핵추진잠수함 개발 기본계획 보고",
       "same_event": false
     },
+    "00b7e06b7f2b7cf2--e0c2d46c6a2b5c2a": {
+      "embedding_similarity": 0.8602,
+      "left_title": "국방부, 핵추진잠수함정책기획단 신설 및 방사청 사업단 확대 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핵추진잠수함 관련 조직 신설 및 예산",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "국방예산 70조 돌파, 핵추진잠수함 개발 기본계획 보고",
+      "same_event": true
+    },
     "00de7e91000ed475--96dffa21b827ca27": {
       "embedding_similarity": 0.8476,
       "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
@@ -2052,6 +2062,16 @@
       "right_title": "12차 전력수급기본계획, 2040년 전력수요 재전망 공청회 8월 20일 개최",
       "same_event": true
     },
+    "04efed515cb6116f--b0e178ca6114b1a9": {
+      "embedding_similarity": 0.8646,
+      "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "용수·전력 공급과 원전 폐지 공론화는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": false
+    },
     "04efed515cb6116f--b73fb2374225efa6": {
       "embedding_similarity": 0.8669,
       "left_title": "제12차 전기본, 2040년 재생에너지 220GW 확대…전력망 대책 미흡 지적",
@@ -2181,6 +2201,16 @@
       "reviewed_at": "2026-09-01T00:28:56.220618+00:00",
       "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
       "same_event": true
+    },
+    "04efed515cb6116f--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8632,
+      "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "신규 원전 신중론과 공론화는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": false
     },
     "04efed515cb6116f--f261f6a0ca06115f": {
       "embedding_similarity": 0.8855,
@@ -2802,6 +2832,36 @@
       "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
       "same_event": false
     },
+    "06e9dd3d1fe8d66a--99fb7b94934451e5": {
+      "embedding_similarity": 0.8611,
+      "left_title": "정부, 소형모듈원전(SMR) 기술 국가전략기술로 지정 및 지원 확대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
+      "same_event": false
+    },
+    "06e9dd3d1fe8d66a--a4fec121e2c54527": {
+      "embedding_similarity": 0.8626,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "성장동력 육성과 R&D 투자는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
+      "same_event": false
+    },
+    "06e9dd3d1fe8d66a--ba51bf425ca92c1c": {
+      "embedding_similarity": 0.86,
+      "left_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 미래성장동력 투자",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
+      "same_event": true
+    },
     "06e9dd3d1fe8d66a--d1e966b5772613fd": {
       "embedding_similarity": 0.8677,
       "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
@@ -2849,6 +2909,16 @@
       "prompt_version": 1,
       "reason": "텍사스 기업 유치와 전력수요 전망",
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
+      "right_title": "美 텍사스주, 데이터센터 건설 중단 여파로 전력수요 전망 대폭 하향",
+      "same_event": false
+    },
+    "073de7d5f693012f--e17805472c05ed7e": {
+      "embedding_similarity": 0.8622,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력 부족과 수요 전망 하향은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "美 텍사스주, 데이터센터 건설 중단 여파로 전력수요 전망 대폭 하향",
       "same_event": false
     },
@@ -8752,6 +8822,16 @@
       "right_title": "정부, 산업용 전기 지역별 차등 요금제 4권역 추진",
       "same_event": false
     },
+    "114c0105a9a5871f--6069799c66af44db": {
+      "embedding_similarity": 0.8648,
+      "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 혜택 요구와 개편 논란은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "same_event": false
+    },
     "114c0105a9a5871f--6378785abe56dde9": {
       "embedding_similarity": 0.864,
       "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
@@ -11232,6 +11312,16 @@
       "right_title": "핀란드 로비사 원전 터빈 설비 현대화 착수, 발전량 증대 목표",
       "same_event": true
     },
+    "18cbdf9d828811f6--6069799c66af44db": {
+      "embedding_similarity": 0.8658,
+      "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 개편과 절감 전망은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "전남광주, 산업용 지역 전기요금제 시행 시 연간 최대 4250억 원 절감 전망",
+      "same_event": false
+    },
     "18cbdf9d828811f6--79168fd7c5b4bf97": {
       "embedding_similarity": 0.853,
       "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
@@ -12491,6 +12581,16 @@
       "reviewed_at": "2026-08-22T09:30:16.910017+00:00",
       "right_title": "PJM, 데이터센터 전력망 사용 감축 및 백업 전환 방안 제안",
       "same_event": true
+    },
+    "1b91dfa6d90f5524--e17805472c05ed7e": {
+      "embedding_similarity": 0.8638,
+      "left_title": "PJM, 데이터센터 부하 대응 위한 임시 자원 적정성 서비스 제안",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "임시 자원 제안과 전력 부족은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "same_event": false
     },
     "1b9b1a171f706440--418cbfd4919c8483": {
       "embedding_similarity": 0.8655,
@@ -14680,6 +14780,16 @@
       "reason": "주체와 대상이 다름",
       "reviewed_at": "2026-08-18T12:48:32.372666+00:00",
       "right_title": "블루에너지-GE 버노바, 텍사스 2.5GW 가스-원자력 복합발전소 협력 가속화",
+      "same_event": false
+    },
+    "205e053d314fca3d--ef8497efb48823ba": {
+      "embedding_similarity": 0.865,
+      "left_title": "블루에너지-GE 버노바, 텍사스 2.5GW 가스-원자력 복합발전소 협력 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "다른 지역, 다른 발전소 협력",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "ONE Nuclear, 루이지애나 2.88GW 에너지 프로젝트 LOI 체결",
       "same_event": false
     },
     "205e053d314fca3d--f3f581e85458b942": {
@@ -21782,6 +21892,16 @@
       "right_title": "안호영 의원, 발전공기업 통합 '한국발전공사' 전북 본사 설립 법안 발의",
       "same_event": false
     },
+    "33d1eec62d688128--d1f22b19a877962c": {
+      "embedding_similarity": 0.8592,
+      "left_title": "국회, 재생에너지 RPS 제도 폐지 및 정부 주도 계약시장 도입 법안 통과",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (RPS 폐지 vs 재생에너지 목표)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "same_event": false
+    },
     "33d1eec62d688128--d70dfe635c2bb671": {
       "embedding_similarity": 0.9161,
       "left_title": "국회, 재생에너지 RPS 제도 폐지 및 정부 주도 계약시장 도입 법안 통과",
@@ -22272,6 +22392,16 @@
       "right_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
       "same_event": true
     },
+    "34b54b6a74dfabbb--87c6c33c04c22365": {
+      "embedding_similarity": 0.8659,
+      "left_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "건설 심사와 조직화는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, SMR 규제담당과 정식 조직화…내년 예산 3030억원 편성",
+      "same_event": false
+    },
     "34b54b6a74dfabbb--9e7a3003708adbaa": {
       "embedding_similarity": 0.8569,
       "left_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
@@ -22701,6 +22831,16 @@
       "reviewed_at": "2026-08-29T18:22:56.815954+00:00",
       "right_title": "영덕군, 신규 원전 명칭 공모 시작…10월 최종 명칭 발표 예정",
       "same_event": true
+    },
+    "36e4c25410ce3cf4--a99a8ccde65cec72": {
+      "embedding_similarity": 0.8591,
+      "left_title": "경북도의회, 원자력 특별위원회 구성…영덕 신규 원전 2기 건설 확정 언급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (신규 원전 vs 원전 운영 점검)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "영덕군의회, 고리·새울원자력본부 현장 견학으로 원전 운영 실태 점검",
+      "same_event": false
     },
     "36e4c25410ce3cf4--cb98e9d57d62e93c": {
       "embedding_similarity": 0.8653,
@@ -24931,6 +25071,16 @@
       "reviewed_at": "2026-09-01T08:38:53.049906+00:00",
       "right_title": "IAEA, 해상 원자력 기술 활용 위한 ATLAS 프로그램 출범",
       "same_event": false
+    },
+    "396255ddaecb4647--40011c26e70eb434": {
+      "embedding_similarity": 0.8593,
+      "left_title": "국제원자력기구(IAEA) ATLAS 해양 원자력 이니셔티브에 26개국 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "IAEA 해상 원자력 이니셔티브",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "IAEA, 해상 원자력 기술 활용 위한 ATLAS 프로그램 출범",
+      "same_event": true
     },
     "397c97cc02966102--3c3560063b344488": {
       "embedding_similarity": 0.8603,
@@ -35402,6 +35552,16 @@
       "right_title": "'AI 천국' 외치던 미국, 민심은 돌아섰다…52% \"기대보다 두렵다\"",
       "same_event": false
     },
+    "53cff084bc298889--e17805472c05ed7e": {
+      "embedding_similarity": 0.86,
+      "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "same_event": false
+    },
     "53cff084bc298889--e525e3a250f8b92b": {
       "embedding_similarity": 0.8631,
       "left_title": "미국인 70%, AI 데이터센터 건설 반대…선거 쟁점 부상",
@@ -40762,6 +40922,16 @@
       "right_title": "데이터센터 전력수요, 사업 불확실성 반영 기준 논란",
       "same_event": false
     },
+    "5c22cc5586b97424--d4387b828f083a9f": {
+      "embedding_similarity": 0.8644,
+      "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수요 검증과 전력 확보는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "AI 데이터센터 육성, 3GW 규모 전력 확보가 핵심 과제",
+      "same_event": false
+    },
     "5c22cc5586b97424--d55815e70886f1d7": {
       "embedding_similarity": 0.8711,
       "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
@@ -41562,6 +41732,26 @@
       "right_title": "산업용 10% ‘찔끔’ 인하…주민 체감 역부족",
       "same_event": true
     },
+    "6069799c66af44db--9c2f6063b9f62d4a": {
+      "embedding_similarity": 0.8638,
+      "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "인천 역차별 논란과 요금 인하안은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "정부, 울산 포함 남부권 산업용 전기요금 최대 18원 인하안 공개",
+      "same_event": false
+    },
+    "6069799c66af44db--a7d1f09e47935d2a": {
+      "embedding_similarity": 0.8583,
+      "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (전기요금제 vs 태양광협회 우려)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "태양광협회, 지역별 차등 전기요금제 도입에 우려 표명",
+      "same_event": false
+    },
     "6069799c66af44db--c0a0a81776742190": {
       "embedding_similarity": 0.9179,
       "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
@@ -41580,6 +41770,16 @@
       "reason": "산업용 전기요금 지역별 차등 개편안",
       "reviewed_at": "2026-09-01T08:38:53.049906+00:00",
       "right_title": "인천 시민단체, 정부에 지역별 차등 전기요금제 수정 요구",
+      "same_event": true
+    },
+    "6069799c66af44db--cc2bdd3da5df9ee5": {
+      "embedding_similarity": 0.8593,
+      "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "기후부 장관, 산업용 지역요금제 내주 공개 및 12차 전기본 10월 마련 발표",
       "same_event": true
     },
     "6069799c66af44db--dafcc7f231fdac95": {
@@ -41601,6 +41801,16 @@
       "reviewed_at": "2026-09-01T08:38:53.049906+00:00",
       "right_title": "정부, 산업용 전기요금 지역별 차등제 초안 공개…울산 요구 일부 제한",
       "same_event": false
+    },
+    "6069799c66af44db--f430ca936a1680a8": {
+      "embedding_similarity": 0.8579,
+      "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "산업용 전기요금 지역별 차등",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "부울경 산업 전기료 10% 인하, 지역 제조업 경쟁력 강화 기대",
+      "same_event": true
     },
     "6075e41f9e7cab7b--7fbf45e0f47e3880": {
       "embedding_similarity": 0.9064,
@@ -43110,6 +43320,16 @@
       "reason": "12차 전기본 vs 검사체계 개편",
       "reviewed_at": "2026-08-23T15:29:53.976802+00:00",
       "right_title": "전기안전공사, 전력수요 증가 대응 검사체계 개편 방안 모색",
+      "same_event": false
+    },
+    "63c61266bb0dc771--83e930795b6984c2": {
+      "embedding_similarity": 0.8597,
+      "left_title": "새울 3호기 시운전 중 자동정지, 원안위 긴급점검 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (새울 3호기 vs SMR 설계)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
       "same_event": false
     },
     "63c61266bb0dc771--9a7b23e4ae5be6f3": {
@@ -49242,6 +49462,16 @@
       "right_title": "기후장관 \"부적절 송전망 신규 수요 조정…기존 철탑 활용\"",
       "same_event": false
     },
+    "762806f433ee4410--96dffa21b827ca27": {
+      "embedding_similarity": 0.8625,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "물·전기 부족과 재생에너지 전략은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "전력거래소, 재생에너지 변동성·AI 수요 대응 위한 중장기 전략 발표",
+      "same_event": false
+    },
     "7686f91e9f765318--80780b359441fe56": {
       "embedding_similarity": 0.8686,
       "left_title": "한-베트남, 원전 인력 양성 등 에너지 협력 확대 논의",
@@ -49641,6 +49871,16 @@
       "reviewed_at": "2026-08-09T03:02:58.722745+00:00",
       "right_title": "헝가리 원전 전력 부족, 시장 자유화 촉진 가능성",
       "same_event": true
+    },
+    "776bbde6b2562f84--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8626,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 추가 필요성과 전력 계획은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "전력수요 증가 시 발전소 증설보다 효율적 전력 계획 필요",
+      "same_event": false
     },
     "7794ef035aa53589--7fbf45e0f47e3880": {
       "embedding_similarity": 0.8412,
@@ -50120,6 +50360,16 @@
       "reason": "주체는 같으나 사안이 다름",
       "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
       "right_title": "산업부, 충청·강원권 산업용 전기료 ㎾h당 최대 15원 인하 검토",
+      "same_event": false
+    },
+    "79168fd7c5b4bf97--859401fc1e498f76": {
+      "embedding_similarity": 0.8614,
+      "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "경북도지사, 경북권 전기요금 30% 인하 주장",
       "same_event": false
     },
     "79168fd7c5b4bf97--97117ec5a88f37dd": {
@@ -52332,6 +52582,26 @@
       "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
       "same_event": false
     },
+    "83e930795b6984c2--9e7a3003708adbaa": {
+      "embedding_similarity": 0.8661,
+      "left_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "국제 협력과 국내 심사는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "same_event": false
+    },
+    "83e930795b6984c2--a45344607e7a523b": {
+      "embedding_similarity": 0.8628,
+      "left_title": "새울 1호기, 정기검사 중 임계 허용…원안위 승인",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정기검사 승인과 SMR 심사는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "same_event": false
+    },
     "83e930795b6984c2--adfbe2085bf6c11e": {
       "embedding_similarity": 0.8566,
       "left_title": "SMR 상용화 일정 가속화, 9월 특별법 시행에 기대감 고조",
@@ -53212,6 +53482,26 @@
       "right_title": "한화 건설부문, AI 데이터센터 전력 효율화 국책과제 수행",
       "same_event": false
     },
+    "87c6c33c04c22365--9e7a3003708adbaa": {
+      "embedding_similarity": 0.8655,
+      "left_title": "원안위, 스웨덴과 고준위 방폐장 및 SMR 안전규제 협력 강화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "국제 협력과 조직화는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, SMR 규제담당과 정식 조직화…내년 예산 3030억원 편성",
+      "same_event": false
+    },
+    "87c6c33c04c22365--f05008a326b99feb": {
+      "embedding_similarity": 0.8603,
+      "left_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "원안위, SMR 규제담당과 정식 조직화…내년 예산 3030억원 편성",
+      "same_event": false
+    },
     "87d825e2e80fb3bf--bca1920d907255cd": {
       "embedding_similarity": 0.8402,
       "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
@@ -53869,6 +54159,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-31T18:52:25.631666+00:00",
+      "right_title": "미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대",
+      "same_event": false
+    },
+    "8b486e4051da2e66--ffdb243b18554e80": {
+      "embedding_similarity": 0.859,
+      "left_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (지하 원전 vs 상선 원자력)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대",
       "same_event": false
     },
@@ -54929,6 +55229,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 다른 사안",
       "reviewed_at": "2026-08-24T22:06:59.218065+00:00",
+      "right_title": "3대 메가프로젝트, 2040년 원전 19기 규모 전력 추가 필요",
+      "same_event": false
+    },
+    "8fd0bf3e40950ca1--d1f22b19a877962c": {
+      "embedding_similarity": 0.8587,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (재생에너지 목표 vs 원전 필요량)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "3대 메가프로젝트, 2040년 원전 19기 규모 전력 추가 필요",
       "same_event": false
     },
@@ -61192,6 +61502,16 @@
       "right_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
       "same_event": false
     },
+    "a91e232c2dad49b6--e17805472c05ed7e": {
+      "embedding_similarity": 0.8579,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "미국, 전력망 규제 강화로 AI 데이터센터 전력 확보 난항",
+      "same_event": false
+    },
     "a91e232c2dad49b6--f8729b9ad3d35dd4": {
       "embedding_similarity": 0.8497,
       "left_title": "미국 민주당 주지사들, 에너지 위기 대응책으로 원자력 발전 전환",
@@ -63549,6 +63869,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-31T22:32:42.699187+00:00",
+      "right_title": "AI 특수로 미국 전력설비 업계 일감 폭주",
+      "same_event": false
+    },
+    "b2401cbfa6d575c6--e17805472c05ed7e": {
+      "embedding_similarity": 0.8666,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 특수와 전력 부족은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "AI 특수로 미국 전력설비 업계 일감 폭주",
       "same_event": false
     },
@@ -66842,6 +67172,16 @@
       "right_title": "정부, 800조원 이상 슈퍼예산 발표 예정…SMR 등 7대 시드 기술 투자",
       "same_event": false
     },
+    "c635ceb310705bc0--ce215adf0ad0798b": {
+      "embedding_similarity": 0.8604,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 국가전략기술 지정 및 투자",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "same_event": true
+    },
     "c635ceb310705bc0--cf220a841659c83f": {
       "embedding_similarity": 0.8604,
       "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
@@ -68002,6 +68342,16 @@
       "right_title": "박홍근 \"미래대응기금, AI·지역에 투자\"...성장동력·균형발전 지원",
       "same_event": false
     },
+    "ce215adf0ad0798b--d1e966b5772613fd": {
+      "embedding_similarity": 0.8666,
+      "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "성장동력 강조와 R&D 투자는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "same_event": false
+    },
     "ce215adf0ad0798b--ffed13994a4c38e4": {
       "embedding_similarity": 0.8686,
       "left_title": "정부, 반도체 추가세수 100조원 이상 전망, SMR·핵융합 등 미래 성장동력에 투자 계획",
@@ -68331,6 +68681,26 @@
       "reviewed_at": "2026-09-01T01:55:14.661635+00:00",
       "right_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 공론화 후 결정",
       "same_event": true
+    },
+    "d1f22b19a877962c--e6041ef77fcf962f": {
+      "embedding_similarity": 0.859,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (재생에너지 목표 vs 출력제어)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "국내 재생에너지 출력제어 심화, 중국 사례 통해 전력망 해법 모색",
+      "same_event": false
+    },
+    "d1f22b19a877962c--ef3eb8e43bbf5bf4": {
+      "embedding_similarity": 0.8605,
+      "left_title": "김성환 기후장관, 재생에너지 100GW 추진 속 신규 원전 신중론 표명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체는 같으나 안건이 다름",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "same_event": false
     },
     "d1f22b19a877962c--f261f6a0ca06115f": {
       "embedding_similarity": 0.8529,
@@ -69352,6 +69722,26 @@
       "right_title": "웨스팅하우스, eVinci 시험용 원자로 저출력 임계 시험 완료",
       "same_event": false
     },
+    "e17805472c05ed7e--f8729b9ad3d35dd4": {
+      "embedding_similarity": 0.863,
+      "left_title": "미국 민주당 주지사들, 에너지 위기 대응책으로 원자력 발전 전환",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원자력 전환과 전력 부족은 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "same_event": false
+    },
+    "e17805472c05ed7e--fd285756fe461ef6": {
+      "embedding_similarity": 0.8633,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력 부족과 인력 필요는 다른 사안",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "골드만삭스, 美 전력 인프라 2030년까지 51만명 추가 인력 필요 분석",
+      "same_event": false
+    },
     "e1af5f2555337119--fbaacb3e11ce9992": {
       "embedding_similarity": 0.8512,
       "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
@@ -70291,6 +70681,16 @@
       "reviewed_at": "2026-08-23T12:40:25.224100+00:00",
       "right_title": "3대 메가프로젝트 전력공급 방안과 무탄소 전원 확대",
       "same_event": true
+    },
+    "fcaa0e3e05d67c7b--ffed13994a4c38e4": {
+      "embedding_similarity": 0.8582,
+      "left_title": "정부, 반도체 추가세수 100조원 이상 전망, SMR·핵융합 등 미래 성장동력에 투자 계획",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "안건이 다름 (세수 활용 계획 vs 예산안)",
+      "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
+      "right_title": "[2027 예산안] ‘3대 메가프로젝트+AI’에 21.3兆 … 호남 반도체 클러스...",
+      "same_event": false
     },
     "fd89bc58da35f7d3--ffdb243b18554e80": {
       "embedding_similarity": 0.8553,
