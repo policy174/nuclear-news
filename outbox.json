@@ -1,52 +1,81 @@
 {
   "schema_version": 1,
-  "date": "2026-08-31",
-  "created_at": "2026-08-30T23:39:06.490117+00:00",
-  "status": "sent",
+  "date": "2026-09-01",
+  "created_at": "2026-09-01T00:13:56.214044+00:00",
+  "status": "pending",
   "briefs": [
     {
+      "name": "보고서추천",
+      "text": "<b>📝 보고서 검토 추천 (2026-09-01)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 국내 1호 SMR 표준설계인가 심사 착수 및 정책적 함의</b>\n   • <b>왜:</b> 국내 최초 SMR 표준설계인가 심사 착수는 한국형 SMR 개발 및 상용화의 중요한 분기점이며, 향후 SMR 관련 정책 수립 및 사업 추진에 직접적인 영향을 미칠 사안입니다.\n   • <b>추천 각도:</b> 국내 SMR 기술 경쟁력 및 상용화 전망 / SMR 인허가 제도 및 규제 동향 분석 / SMR 수출 경쟁력 확보 방안\n\n<b>2. 핀란드 포시바 온칼로 1호 처분공 굴착 착수와 한국 고준위 방폐물 관리 정책</b>\n   • <b>왜:</b> 핀란드 온칼로의 세계 최초 고준위 방폐물 영구처분 실증 착수는 한국의 고준위 방폐물 관리 정책 수립 및 기술 개발에 중요한 참고 사례를 제공하며, 정책 결정에 직접적인 영향을 줄 수 있습니다.\n   • <b>추천 각도:</b> 핀란드 온칼로 처분장 건설 및 운영 현황 분석 / 한국 고준위 방폐물 관리 정책과의 비교 및 시사점 도출 / 미래 고준위 방폐물 처분 기술 동향 및 전망",
+      "status": "pending"
+    },
+    {
       "name": "국내",
-      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-08-31)</b>\n\n<b>📌 1. 12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란</b>\n   • <b>무슨 일:</b> 제12차 전력수급기본계획의 2040년 재생에너지 220GW 보급 목표가 국토의 1.5%를 태양광발전소로 채워야 하는 등 현실성 논란에 직면했다.\n   🔗 <a href=\"https://view.asiae.co.kr/article/2026082919154023667\">출처</a> · <code>asiae.co.kr</code>\n\n<b>📌 2. 경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구</b>\n   • <b>무슨 일:</b> 정부가 산업용 전기요금 지역별 차등제 설계안을 공개하자 이철우 경북도지사가 최대 10% 수준의 인하폭으로는 기업 유치에 한계가 있다며 30% 이상의 차등 폭 확대를 요구했다.\n   🔗 <a href=\"https://www.bzeronews.com/news/articleView.html?idxno=821848\">출처</a> · <code>bzeronews.com</code>\n\n<b>📌 3. 원안위, 부산 기장 혁신형 SMR 건설 심사 착수</b>  ✅ 원자력안전위원회\n   • <b>무슨 일:</b> 원자력안전위원회(원안위)가 부산 기장군에 건설될 국내 최초 혁신형 소형모듈원자로(i-SMR)의 안전성 및 설계 심사에 착수했다.\n   🔗 <a href=\"http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&amp;key=20260831.22002008642\">출처</a> · <code>kookje.co.kr</code>\n\n<b>📌 4. 이원주 기후에너지환경부 에너지전환정책실장, 靑 메가프로젝트 보좌관 임명</b>  ✅ 연합뉴스\n   • <b>무슨 일:</b> 이원주 기후에너지환경부 에너지전환정책실장이 30일 신설된 청와대 메가프로젝트 보좌관에 임명되어, 정부가 메가프로젝트 추진 시 전력 문제를 핵심 과제로 보고 있음을 시사했다.\n   🔗 <a href=\"https://www.yna.co.kr/view/AKR20260830028900530?input=1195m\">출처</a> · <code>연합뉴스</code>\n\n<b>📌 5. 한전, 배전선로별 정전비용 산출 착수…전력망 투자 우선순위 활용</b>  ✅ 연합뉴스\n   • <b>무슨 일:</b> 한국전력 전력연구원이 전력망 안정성 유지를 위한 효율적 투자 우선순위 설정을 위해 배전선로별 정전비용 산출 작업에 착수했다.\n   🔗 <a href=\"https://www.yna.co.kr/view/AKR20260828106551530?input=1195m\">출처</a> · <code>연합뉴스</code>\n\n<b>📌 6. 두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성</b>\n   • <b>무슨 일:</b> 두산그룹이 영남권에 5조 1000억 원을 투자하여 소형모듈원전(SMR), 대형 원전, 가스·수소 혼소 터빈 등 차세대 에너지 밸류체인을 집적한 글로벌 전력망 공급 기지를 조성한다.\n   • <b>🇰🇷 한수원 시사점:</b> 두산그룹의 대규모 투자는 12차 전력수급기본계획의 신규 원전 및 SMR 도입 물량 구체화에 맞춰 국내 에너지 산업 생태계를 강화할 것으로 예상된다.\n   🔗 <a href=\"https://www.asiatime.co.kr/article/20260830500046\">출처</a> · <code>asiatime.co.kr</code>\n",
-      "status": "sent",
-      "sent_at": "2026-08-30T23:44:05.645652+00:00"
+      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-09-01)</b>\n\n<b>📌 1. 원안위, 국내 1호 SMR 표준설계인가 심사 착수</b>  ✅ KBS 뉴스\n   • <b>무슨 일:</b> 원자력안전위원회가 국내 1호 SMR의 상업 가동을 위한 첫 관문인 표준설계인가 심사에 착수하여 설계 안전성 등을 중점적으로 살필 예정이다.\n   🔗 <a href=\"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8650837\">출처</a> · <code>KBS 뉴스</code>\n\n<b>📌 2. 산업통상부, 9월부터 산업 ODA 관리기관 KOTRA로 이관</b>  ✅ 산업통상부\n   • <b>무슨 일:</b> 산업통상부는 8월 31일 KIAT와 KOTRA 간 협약을 체결, 9월 1일부터 산업 ODA 사업 관리 업무를 KOTRA로 이관한다.\n   🔗 <a href=\"https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172136/view\">출처</a> · <code>산업통상부</code>\n\n<b>📌 3. 정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정</b>\n   • <b>무슨 일:</b> 정부가 제12차 전력수급기본계획 수립을 위한 공개토론회에서 2030년 100GW, 2035년 163GW, 2040년 220GW의 재생에너지 보급 목표를 제시했다.\n   🔗 <a href=\"https://www.kukinews.com/article/view/kuk202608310214\">출처</a> · <code>kukinews.com</code>\n\n<b>📌 4. 산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란</b>\n   • <b>무슨 일:</b> 기후에너지환경부와 한국전력공사가 산업용 전기요금을 전국 4개 권역으로 나눠 차등 적용하는 개편안을 공식 발표했으나, 인천 지역에서 역차별 논란이 제기되었습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 인천 지역은 높은 전력자급률에도 불구하고 수도권으로 분류되어 요금 인하 혜택이 적어, 지역사회에서 정책 취지에 역행한다는 비판이 제기되고 있습니다.\n   🔗 <a href=\"https://www.kgnews.co.kr/news/article.html?no=909633\">출처</a> · <code>kgnews.co.kr</code>\n\n<b>📌 5. 기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시</b>  ✅ 뉴시스\n   • <b>무슨 일:</b> 기후에너지환경부가 다음 달부터 제12차 전력수급기본계획 수립을 위해 신규 원전 확대 및 2040년 석탄발전 폐지 등을 주제로 공청회를 개최할 예정이다.\n   • <b>🇰🇷 한수원 시사점:</b> 급증하는 전력수요에 대응하기 위해 신규 원전 건설의 필요성이 제기되고 있으며, 특히 호남 지역에 추가 원전 부지가 검토될 가능성이 있다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiYEFVX3lxTE51UUdjcVV2TnQ0Umt2SWhQYjFDX29Bc0M0NGlsUjRRQ1BOZS02YTd0bGk1blFiWS1wNEd0Wjg1S3lHZXNvRlpqUTZpZHVBcTRnTXhVUXdSX2hHZENrVVk1b9IBeEFVX3lxTE54Z19HVjQxLWszMjhjbmdPcDlocG0teXlUS1QtcUJOcFVKM3UzazBXY0dmbFNpOTBtZmhJZnMzR2JWUVJpWUJ5NVlmUmhYaHB3NTdJOFFoMEhWdjZTVDFiNzBNQ1NOVEVieEJPSW9SbHVvd1dERkhNdQ?oc=5\">출처</a> · <code>뉴시스</code>\n\n<b>📌 6. 주한인도대사, 한국을 원전 등 전략산업 핵심 파트너로 지목</b>\n   • <b>무슨 일:</b> 고랄랑 다스 주한인도대사는 한국이 조선, 반도체, 원자력에너지 등 인도의 주요 국가 정책에서 매우 중요한 핵심 파트너라고 밝혔다.\n   • <b>🇰🇷 한수원 시사점:</b> 인도 정부가 한국을 원자력 등 핵심 전략산업의 중요한 파트너로 인식하고 있어, 향후 양국 간 원자력 분야 협력 확대 및 시장 진출 기회가 모색될 수 있다.\n   🔗 <a href=\"https://www.newspim.com/news/view/20260831000863\">출처</a> · <code>newspim.com</code>\n\n<b>📌 7. 정부, 3대 메가프로젝트 전력수요 검증 미흡 지적</b>\n   • <b>무슨 일:</b> 정부가 3대 메가프로젝트 AI 데이터센터 전력수요를 2040년까지 전기본에 반영하며 기업 사업계획 검증이 미흡하다는 지적이 제기됐다.\n   • <b>🇰🇷 한수원 시사점:</b> 데이터센터 전력수요 예측의 불확실성이 발전설비 과잉투자로 이어질 수 있어, 향후 11차 전기본의 전원믹스 조정 가능성을 시사한다.\n   🔗 <a href=\"https://www.khan.co.kr/article/202608312032015\">출처</a> · <code>khan.co.kr</code>\n",
+      "status": "pending"
     },
     {
       "name": "해외",
-      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-08-31)</b>\n\n<b>📌 1. 트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명</b>\n   • <b>무슨 일:</b> 도널드 트럼프 미국 대통령이 국가 안보를 이유로 전력망 내 외국산 전력장비 유입을 금지하는 행정명령에 서명했으며, 이는 한국 ESS 기업들의 반사이익으로 이어질 전망이다.\n   • <b>🇰🇷 한수원 시사점:</b> 미국의 대중 견제 기조가 구체적 규제로 현실화된 것으로, 북미 ESS 시장에서 한국 기업들의 현지 생산 및 시장 점유율 확대가 가속화될 것이다.\n   🔗 <a href=\"https://www.dt.co.kr/article/12080960\">출처</a> · <code>dt.co.kr</code>\n\n<b>📌 2. 아르헨티나, 아투차 2호기 계속운전 위해 사용후핵연료 건식저장시설 준비</b>\n   • <b>무슨 일:</b> 아르헨티나가 아투차 2호기 원자력발전소의 장기 운전을 지원하기 위해 사용후핵연료 건식저장시설 가동 준비에 착수했다.\n   • <b>🇰🇷 한수원 시사점:</b> 사용후핵연료 건식저장시설 확보는 원전의 계속운전 및 장기 운영에 필수적인 선결 과제임을 보여주며, 국내 사용후핵연료 정책 수립에도 시사하는 바가 크다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE5VaU1OTDgyNE1xYURnM2VGVkFQdVBMUWlkcFpUMjI4Z3hPUExhTW9WOS04V0VrTS1YTG5SSTRTMFdxbVY3ZVZBTFBOUHd0XzhzMFR5M2E0eDBuejNtS3hETlF5bWE?oc=5\">출처</a> · <code>에너지안전신문</code>\n\n<b>📌 3. 美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화</b>\n   • <b>무슨 일:</b> 미국 텍사스주가 신규 데이터센터의 전력망 연결 승인 절차를 일시 중단하고 펜실베이니아주가 규제를 강화하는 등 데이터센터 개발에 대한 지역사회 반발과 주정부의 제동이 확산되고 있다.\n   🔗 <a href=\"http://www.metroseoul.co.kr/article/20260830500245\">출처</a> · <code>metroseoul.co.kr</code>\n\n<b>📌 4. 뉴스케일(NuScale), 원자로 개발에 AI 기술 도입</b>  ✅ Nuclear Engineering International\n   • <b>무슨 일:</b> 소형모듈원자로(SMR) 개발사 뉴스케일(NuScale)이 원자로 개발 과정에 인공지능(AI) 기술을 도입한다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMigAFBVV95cUxQWnVoMklHNGdqSmFFS0dBWS11LWZmSV9lUlc5S2hOaUVLdThJeVp3Z0VtM2lQLXh3Vi1JRm5SWldMWWo1LVdkRTVkOWhQOE9fRzRMUkxMV0ppQk9JSTlOQW5pZ0pYMDRuYVJoT1RiaURqalpmbnVvb0NOb0Jxb2J1cw?oc=5\">출처</a> · <code>Nuclear Engineering International</code>\n\n<b>📌 5. 미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보</b>\n   • <b>무슨 일:</b> 미국 원자력 인허가 체계가 첨단원자로 및 SMR 확산에 맞춰 규제 속도를 원전 경쟁력의 핵심 인프라로 전환하고 있습니다.\n   • <b>🇰🇷 한수원 시사점:</b> 미국은 첨단원자로 및 SMR 기술 발전에 맞춰 인허가 절차를 효율화하여 글로벌 원전 시장에서의 경쟁 우위를 확보하려는 전략을 추진하고 있습니다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE9POGFSYXhxWkk1NjFHNEtDd0c2RnVqRm40b2M1WTRrMmt3czRlSzlwWmllbl9FTHNNbmdMVWRTMmpvQXBUVUF4OFVUVUFxdEFLSjZPMGJYZTlnaUxBTUhOcjlqRUY?oc=5\">출처</a> · <code>에너지안전신문</code>\n\n<b>📌 6. 한국원전수출산업협회(KNA), 美 댈러스서 한미 원전 협력 세미나 개최</b>  ✅ 전자신문\n   • <b>무슨 일:</b> 한국원전수출산업협회(KNA)가 30일 미국 댈러스에서 &#x27;한-미 원전산업 협력 세미나&#x27;를 개최하여 국내 기업의 미국 원전 공급망 진입을 지원하고 양국 산업계 협력 기반을 다졌다.\n   🔗 <a href=\"https://www.etnews.com/20260830000072\">출처</a> · <code>전자신문</code>\n",
-      "status": "sent",
-      "sent_at": "2026-08-30T23:44:05.645652+00:00"
+      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-09-01)</b>\n\n<b>📌 1. 핀란드 포시바, 온칼로 1호 처분공 굴착 착수…韓 고준위 정책 영향</b>\n   • <b>무슨 일:</b> 핀란드 방사성폐기물 관리기업 포시바가 2026년 8월 26일 세계 최초 고준위 방사성폐기물 영구처분장 온칼로에서 1호 처분공 굴착을 시작했다.\n   • <b>왜 중요:</b> 핀란드 온칼로 처분장의 1호 처분공 굴착은 세계 최초의 고준위 방사성폐기물 영구처분 실증이라는 점에서 상징적 의미가 큽니다. 이는 한국을 포함한 각국의 고준위 방폐물 관리 정책 수립 및 기술 개발에 중요한 이정표가 될 것입니다.\n   • <b>🇰🇷 한수원 시사점:</b> 세계 최초 고준위 방사성폐기물 영구처분장의 실제 처분공 굴착 시작은 한국의 고준위 방사성폐기물 관리 특별법 제정 및 부지 선정 논의에 중요한 선례를 제공한다.\n   🔗 <a href=\"https://www.g-enews.com/view.php?ud=202608311346555193fbbec65dfb_1\">출처</a> · <code>g-enews.com</code>\n\n<b>📌 2. 미국 팔리세이즈 원전, 핵연료 장전 시작으로 재가동 이정표 달성</b>\n   • <b>무슨 일:</b> 미국 미시간주의 팔리세이즈(Palisades) 원자력발전소가 핵연료 장전을 시작하며 홀텍(Holtec)의 재가동 노력에 중요한 이정표를 세웠다.\n   🔗 <a href=\"https://holtecinternational.com/hh-47-17\">출처</a> · <code>holtecinternational.com</code>\n\n<b>📌 3. 미국 뉴햄프셔주, 신규 원전 도입 검토 및 로드맵 개발 중</b>  ✅ US DOE\n   • <b>무슨 일:</b> 미국 뉴햄프셔주가 신규 원전 도입을 고려하고 있으며, 주 에너지부가 현재 원자력 로드맵을 수립 중이다.\n   🔗 <a href=\"https://vnews.com/2026/08/28/new-hampshire-nuclear-power-roadmap\">출처</a> · <code>vnews.com</code>\n\n<b>📌 4. IAEA, 후쿠시마 ALPS 처리수 23차 방류 삼중수소 기준치 이하 확인</b>  ✅ IAEA\n   • <b>무슨 일:</b> 국제원자력기구(IAEA)가 후쿠시마 ALPS 처리수 23차 방류분의 삼중수소 농도가 일본의 운영 한참 기준치보다 훨씬 낮음을 확인했다.\n   🔗 <a href=\"http://www.iaea.org/newscenter/pressreleases/tritium-level-far-below-japans-operational-limit-in-23rd-batch-of-alps-treated-water-iaea-confirms\">출처</a> · <code>IAEA Top News</code>\n\n<b>📌 5. 디플로이어블 에너지, INL 및 해상에서 원자력 에너지 발사대 프로젝트 2건 발표</b>  ✅ PR Newswire\n   • <b>무슨 일:</b> 디플로이어블 에너지가 국립원자로혁신센터(NRIC)의 지원으로 아이다호국립연구소(INL)와 해상에서 2건의 원자력 에너지 발사대 시범 프로젝트를 발표했다.\n   🔗 <a href=\"https://www.prnewswire.com/news-releases/deployable-energy-selected-for-full-power-demonstration-at-idaho-national-laboratory-and-maritime-demonstration-with-hornbeck-offshore-302862818.html\">출처</a> · <code>PR Newswire</code>\n\n<b>📌 6. ONE Nuclear, 루이지애나 2.88GW 에너지 프로젝트 LOI 체결</b>  ✅ Financial Times\n   • <b>무슨 일:</b> ONE Nuclear가 루이지애나주에서 2.88GW 규모의 에너지 프로젝트 및 데이터센터 캠퍼스 개발을 위한 구속력 있는 LOI를 체결했다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxQbmZPUzl4bnNQZm51SHdRLWtZQklWeGNhVll4QlZvVFdPLVoxZU5XbHBJak9vNkczS04zNHhpc1gtYm84dmFJclVKMDdJdWMtWXFfbGNUYVFUbTRGaDRDOEkwdWxtWmlHTFJCSWt0QjcyME9DMHpMQlV5MTVhV1BZM0hJV1VBS1VTSW1wbFpOM0U5ZzF6cFh0ai1KUm02LWtmeUtsd0JR?oc=5\">출처</a> · <code>Financial Times</code>\n\n<b>📌 7. 호주, 원전 금지법 폐지 및 건설 승인 여부 논쟁 재점화</b>\n   • <b>무슨 일:</b> 호주에서 원전 금지법 폐지 여부와 원전 건설·운영 승인 금지 여부를 둘러싼 논쟁이 재점화되고 있다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE1KdnpyRmtWNWpnZFdVN3ZtenZEM3lZSVlVR1VDdzBRMjRXUTlBemViUmw0bUlBdTlTSGxMYnY1bGhEbjQ5ZUxmcjN4X2RUSWMyOU82ZUVTTUxYVGZGUTN0dms2b3g?oc=5\">출처</a> · <code>에너지안전신문</code>\n\n<b>📌 8. 미국 전력망 60%, 2030년까지 전력 부족 고위험 직면</b>\n   • <b>무슨 일:</b> 북미전력신뢰성공사(NERC) 보고서에 따르면 미국 전력망 15개 평가 권역 중 9개(60%)가 2030년까지 전력 공급 부족 고위험에 처할 것으로 경고됐다.\n   🔗 <a href=\"https://www.g-enews.com/view.php?ud=2026083023475340790c8c1c064d_1\">출처</a> · <code>g-enews.com</code>\n\n<b>📌 9. 미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대</b>\n   • <b>무슨 일:</b> 미국이 원자력 추진 상선 상용화를 재추진하며 한국 조선업계에 새로운 시장 기회가 열릴 수 있으나, 국제 규제와 경제성 등 과제가 남아있다.\n   • <b>🇰🇷 한수원 시사점:</b> 미국과 영국 기업의 협력 및 IAEA의 국제기준 마련 착수는 원자력 추진 상선 시장의 본격적인 개화를 시사하며, 한국 조선업계의 기술력과 참여 가능성을 높인다.\n   🔗 <a href=\"https://www.viva100.com/article/20260830500576\">출처</a> · <code>viva100.com</code>\n",
+      "status": "pending"
     }
   ],
   "items": [
     {
-      "hash": "86e09ce2f6b7856c",
-      "title_kr": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "hash": "83e930795b6984c2",
+      "title_kr": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "region": "국내",
+      "section": "smr",
+      "scope": "kr",
+      "domain": "kbs.co.kr",
+      "theme": "",
+      "score": 26.189,
+      "breakdown": {
+        "importance": 10.0,
+        "event:regulatory_action": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 2.0,
+        "time_decay": -0.41
+      },
+      "report_pick": "국내 1호 SMR 표준설계인가 심사 착수 및 정책적 함의",
+      "report_pick_why": "국내 최초 SMR 표준설계인가 심사 착수는 한국형 SMR 개발 및 상용화의 중요한 분기점이며, 향후 SMR 관련 정책 수립 및 사업 추진에 직접적인 영향을 미칠 사안입니다.",
+      "report_pick_angles": [
+        "국내 SMR 기술 경쟁력 및 상용화 전망",
+        "SMR 인허가 제도 및 규제 동향 분석",
+        "SMR 수출 경쟁력 확보 방안"
+      ]
+    },
+    {
+      "hash": "c56cea1bac15563d",
+      "title_kr": "산업통상부, 9월부터 산업 ODA 관리기관 KOTRA로 이관",
       "region": "국내",
       "section": "domestic",
       "scope": "kr",
-      "domain": "asiae.co.kr",
+      "domain": "motir.go.kr",
       "theme": "",
-      "score": 23.244,
+      "score": 22.715,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 3.0,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
         "evidence_strength": 3.0,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.86
+        "source_tier1": 3.0,
+        "time_decay": -0.88
       }
     },
     {
-      "hash": "79168fd7c5b4bf97",
-      "title_kr": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
+      "hash": "d1f22b19a877962c",
+      "title_kr": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
       "region": "국내",
       "section": "domestic",
       "scope": "kr",
-      "domain": "bzeronews.com",
+      "domain": "kukinews.com",
       "theme": "",
-      "score": 23.076,
+      "score": 22.689,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
@@ -55,293 +84,355 @@
         "policy_materiality": 3.0,
         "evidence_strength": 3.0,
         "tracking:repeat": 0.5,
-        "time_decay": -0.02
+        "time_decay": -0.41
       }
     },
     {
-      "hash": "34b54b6a74dfabbb",
-      "title_kr": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
-      "region": "국내",
-      "section": "smr",
-      "scope": "kr",
-      "domain": "kookje.co.kr",
-      "theme": "",
-      "score": 22.276,
-      "breakdown": {
-        "importance": 5.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 2.0,
-        "source_tier1": 3.0,
-        "time_decay": -0.32
-      }
-    },
-    {
-      "hash": "b618a6d2a00c142d",
-      "title_kr": "이원주 기후에너지환경부 에너지전환정책실장, 靑 메가프로젝트 보좌관 임명",
+      "hash": "6069799c66af44db",
+      "title_kr": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
       "region": "국내",
       "section": "domestic",
       "scope": "kr",
-      "domain": "yna.co.kr",
+      "domain": "kgnews.co.kr",
       "theme": "",
-      "score": 22.956,
+      "score": 22.491,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 3.0,
-        "source_tier2": 1.5,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 2.0,
         "tracking:follow_up": 1.5,
-        "time_decay": -0.64
+        "time_decay": -0.61
       }
     },
     {
-      "hash": "9020ad1179cec5a7",
-      "title_kr": "한전, 배전선로별 정전비용 산출 착수…전력망 투자 우선순위 활용",
+      "hash": "04efed515cb6116f",
+      "title_kr": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
       "region": "국내",
-      "section": "khnp",
+      "section": "domestic",
       "scope": "kr",
-      "domain": "yna.co.kr",
+      "domain": "newsis.com",
       "theme": "",
-      "score": 19.744,
+      "score": 22.491,
       "breakdown": {
         "importance": 5.0,
-        "event:corporate_move": 3.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 2.0,
+        "tracking:follow_up": 1.5,
+        "time_decay": -0.61
+      }
+    },
+    {
+      "hash": "8e8fe76bd5cbf52b",
+      "title_kr": "주한인도대사, 한국을 원전 등 전략산업 핵심 파트너로 지목",
+      "region": "국내",
+      "section": "international",
+      "scope": "kr",
+      "domain": "newspim.com",
+      "theme": "",
+      "score": 19.991,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
         "market_materiality": 2.0,
         "policy_materiality": 2.0,
         "evidence_strength": 2.0,
-        "source_tier2": 1.5,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.86
+        "time_decay": -0.61
       }
     },
     {
-      "hash": "b613d34b976b7c8c",
-      "title_kr": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "hash": "5c22cc5586b97424",
+      "title_kr": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
       "region": "국내",
-      "section": "smr",
+      "section": "domestic",
       "scope": "kr",
-      "domain": "asiatime.co.kr",
+      "domain": "khan.co.kr",
       "theme": "",
-      "score": 18.936,
-      "breakdown": {
-        "importance": 5.0,
-        "event:corporate_move": 3.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 3.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 3.0,
-        "time_decay": -0.66
-      }
-    },
-    {
-      "hash": "12539c181bdda705",
-      "title_kr": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
-      "region": "해외",
-      "section": "international",
-      "scope": "overseas",
-      "domain": "dt.co.kr",
-      "theme": "",
-      "score": 18.236,
+      "score": 22.189,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
-        "korea_relevance": 2.4,
+        "korea_relevance": 3.6,
         "market_materiality": 2.0,
-        "policy_materiality": 2.0,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.66
+        "policy_materiality": 3.0,
+        "evidence_strength": 3.0,
+        "time_decay": -0.41
       }
     },
     {
-      "hash": "7fd3d1c9f6ba61ab",
-      "title_kr": "아르헨티나, 아투차 2호기 계속운전 위해 사용후핵연료 건식저장시설 준비",
+      "hash": "e5237552273392ad",
+      "title_kr": "핀란드 포시바, 온칼로 1호 처분공 굴착 착수…韓 고준위 정책 영향",
       "region": "해외",
       "section": "international",
       "scope": "overseas",
-      "domain": "esnews.kr",
+      "domain": "g-enews.com",
       "theme": "",
-      "score": 17.676,
+      "score": 23.991,
+      "breakdown": {
+        "importance": 10.0,
+        "event:project_milestone": 4.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 1.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 3.0,
+        "time_decay": -0.61
+      },
+      "report_pick": "핀란드 포시바 온칼로 1호 처분공 굴착 착수와 한국 고준위 방폐물 관리 정책",
+      "report_pick_why": "핀란드 온칼로의 세계 최초 고준위 방폐물 영구처분 실증 착수는 한국의 고준위 방폐물 관리 정책 수립 및 기술 개발에 중요한 참고 사례를 제공하며, 정책 결정에 직접적인 영향을 줄 수 있습니다.",
+      "report_pick_angles": [
+        "핀란드 온칼로 처분장 건설 및 운영 현황 분석",
+        "한국 고준위 방폐물 관리 정책과의 비교 및 시사점 도출",
+        "미래 고준위 방폐물 처분 기술 동향 및 전망"
+      ]
+    },
+    {
+      "hash": "d37600e1640b08bf",
+      "title_kr": "미국 팔리세이즈 원전, 핵연료 장전 시작으로 재가동 이정표 달성",
+      "region": "해외",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "holtecinternational.com",
+      "theme": "",
+      "score": 21.967,
+      "breakdown": {
+        "importance": 10.0,
+        "event:project_milestone": 4.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 2.0,
+        "time_decay": -0.23
+      }
+    },
+    {
+      "hash": "0ba6540cad07df02",
+      "title_kr": "미국 뉴햄프셔주, 신규 원전 도입 검토 및 로드맵 개발 중",
+      "region": "해외",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "vnews.com",
+      "theme": "",
+      "score": 17.967,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "source_tier1": 3.0,
+        "time_decay": -0.23
+      }
+    },
+    {
+      "hash": "9be26dc561919dc7",
+      "title_kr": "IAEA, 후쿠시마 ALPS 처리수 23차 방류 삼중수소 기준치 이하 확인",
+      "region": "해외",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "iaea.org",
+      "theme": "",
+      "score": 17.591,
+      "breakdown": {
+        "importance": 5.0,
+        "event:regulatory_action": 6.0,
+        "korea_relevance": 1.2,
+        "policy_materiality": 1.0,
+        "evidence_strength": 2.0,
+        "source_tier1": 3.0,
+        "time_decay": -0.61
+      }
+    },
+    {
+      "hash": "af8e84f49e671b8c",
+      "title_kr": "디플로이어블 에너지, INL 및 해상에서 원자력 에너지 발사대 프로젝트 2건 발표",
+      "region": "해외",
+      "section": "smr",
+      "scope": "overseas",
+      "domain": "prnewswire.com",
+      "theme": "",
+      "score": 14.967,
       "breakdown": {
         "importance": 5.0,
         "event:project_milestone": 4.0,
         "korea_relevance": 1.2,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 3.0,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.02
-      }
-    },
-    {
-      "hash": "8534f4d9bdc7d44c",
-      "title_kr": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
-      "region": "해외",
-      "section": "international",
-      "scope": "overseas",
-      "domain": "metroseoul.co.kr",
-      "theme": "",
-      "score": 17.556,
-      "breakdown": {
-        "importance": 5.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 2.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 2.0,
-        "time_decay": -0.64
-      }
-    },
-    {
-      "hash": "0b26359a6aa80885",
-      "title_kr": "뉴스케일(NuScale), 원자로 개발에 AI 기술 도입",
-      "region": "해외",
-      "section": "smr",
-      "scope": "overseas",
-      "domain": "neimagazine.com",
-      "theme": "",
-      "score": 14.22,
-      "breakdown": {
-        "importance": 5.0,
-        "event:corporate_move": 3.0,
-        "korea_relevance": 1.2,
         "market_materiality": 2.0,
         "policy_materiality": 1.0,
         "evidence_strength": 2.0,
-        "tracking:follow_up": 1.5,
-        "time_decay": -1.48
+        "time_decay": -0.23
       }
     },
     {
-      "hash": "f1f4a9733a1bafa4",
-      "title_kr": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "hash": "ef8497efb48823ba",
+      "title_kr": "ONE Nuclear, 루이지애나 2.88GW 에너지 프로젝트 LOI 체결",
+      "region": "해외",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "ft.com",
+      "theme": "",
+      "score": 16.589,
+      "breakdown": {
+        "importance": 5.0,
+        "event:contract_award": 6.0,
+        "market_materiality": 2.0,
+        "policy_materiality": 1.0,
+        "evidence_strength": 3.0,
+        "time_decay": -0.41
+      }
+    },
+    {
+      "hash": "ef2c5778a9698fe3",
+      "title_kr": "호주, 원전 금지법 폐지 및 건설 승인 여부 논쟁 재점화",
       "region": "해외",
       "section": "international",
       "scope": "overseas",
       "domain": "esnews.kr",
       "theme": "",
-      "score": 16.344,
+      "score": 15.918,
       "breakdown": {
         "importance": 5.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 1.2,
+        "event:policy_decision": 6.0,
         "market_materiality": 1.0,
         "policy_materiality": 2.0,
         "evidence_strength": 2.0,
-        "time_decay": -0.86
+        "time_decay": -0.08
       }
     },
     {
-      "hash": "f4d609dbcfc5655e",
-      "title_kr": "한국원전수출산업협회(KNA), 美 댈러스서 한미 원전 협력 세미나 개최",
+      "hash": "e17805472c05ed7e",
+      "title_kr": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
       "region": "해외",
       "section": "international",
       "scope": "overseas",
-      "domain": "etnews.com",
+      "domain": "g-enews.com",
       "theme": "",
-      "score": 16.256,
+      "score": 15.315,
+      "breakdown": {
+        "importance": 5.0,
+        "event:market_signal": 2.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 3.0,
+        "policy_materiality": 2.0,
+        "evidence_strength": 3.0,
+        "time_decay": -0.88
+      }
+    },
+    {
+      "hash": "8b486e4051da2e66",
+      "title_kr": "미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대",
+      "region": "해외",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "viva100.com",
+      "theme": "",
+      "score": 15.015,
       "breakdown": {
         "importance": 5.0,
         "event:corporate_move": 3.0,
         "korea_relevance": 2.4,
         "market_materiality": 2.0,
-        "policy_materiality": 1.0,
-        "evidence_strength": 2.0,
+        "policy_materiality": 2.0,
         "tracking:follow_up": 1.5,
-        "time_decay": -0.64
+        "time_decay": -0.88
       }
     }
   ],
   "report_diag": {
-    "candidates": [],
-    "recommended": []
+    "candidates": [
+      "83e93079",
+      "e5237552",
+      "d37600e1",
+      "e1780547"
+    ],
+    "recommended": [
+      {
+        "hash": "83e930795b6984c2",
+        "topic": "국내 1호 SMR 표준설계인가 심사 착수 및 정책적 함의",
+        "why": "국내 최초 SMR 표준설계인가 심사 착수는 한국형 SMR 개발 및 상용화의 중요한 분기점이며, 향후 SMR 관련 정책 수립 및 사업 추진에 직접적인 영향을 미칠 사안입니다.",
+        "angles": [
+          "국내 SMR 기술 경쟁력 및 상용화 전망",
+          "SMR 인허가 제도 및 규제 동향 분석",
+          "SMR 수출 경쟁력 확보 방안"
+        ]
+      },
+      {
+        "hash": "e5237552273392ad",
+        "topic": "핀란드 포시바 온칼로 1호 처분공 굴착 착수와 한국 고준위 방폐물 관리 정책",
+        "why": "핀란드 온칼로의 세계 최초 고준위 방폐물 영구처분 실증 착수는 한국의 고준위 방폐물 관리 정책 수립 및 기술 개발에 중요한 참고 사례를 제공하며, 정책 결정에 직접적인 영향을 줄 수 있습니다.",
+        "angles": [
+          "핀란드 온칼로 처분장 건설 및 운영 현황 분석",
+          "한국 고준위 방폐물 관리 정책과의 비교 및 시사점 도출",
+          "미래 고준위 방폐물 처분 기술 동향 및 전망"
+        ]
+      }
+    ]
   },
   "selection_stats": {
     "domestic": {
-      "candidate_count": 67,
-      "selected_count": 6,
-      "below_floor_count": 7,
-      "features_missing": 18,
+      "candidate_count": 106,
+      "selected_count": 7,
+      "below_floor_count": 16,
+      "features_missing": 30,
       "cap": {
         "base": 3,
         "max": 8,
-        "eligible": 45,
-        "must_read": 0,
-        "must_read_bonus": 0,
+        "eligible": 80,
+        "must_read": 1,
+        "must_read_bonus": 1,
         "eligible_bonus": 3,
         "surge_bonus": 0,
-        "cap_before_limits": 6,
-        "cap_applied": 6
+        "cap_before_limits": 7,
+        "cap_applied": 7
       }
     },
     "overseas": {
-      "candidate_count": 44,
-      "selected_count": 6,
-      "below_floor_count": 28,
+      "candidate_count": 42,
+      "selected_count": 9,
+      "below_floor_count": 27,
       "features_missing": 0,
       "cap": {
         "base": 6,
         "max": 12,
-        "eligible": 10,
-        "must_read": 0,
-        "must_read_bonus": 0,
-        "eligible_bonus": 0,
+        "eligible": 11,
+        "must_read": 2,
+        "must_read_bonus": 2,
+        "eligible_bonus": 1,
         "surge_bonus": 0,
-        "cap_before_limits": 6,
-        "cap_applied": 6
+        "cap_before_limits": 9,
+        "cap_applied": 9
       }
     }
   },
   "dropped_duplicates": [
     {
-      "hash": "b14ca3c1bc4d7931",
-      "dup_of": "86e09ce2f6b7856c",
-      "title": "정부, 12차 전기본 재생에너지 2040년 220GW 확대 목표 제시"
+      "hash": "8ed0ddd8bfea6a7c",
+      "dup_of": "04efed515cb6116f",
+      "title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시"
     },
     {
-      "hash": "3e5677a0b916d0ca",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "정부·한전, 산업용 지역 전기요금제 설계안 공청회서 공개"
+      "hash": "3c9ceabb9894a06e",
+      "dup_of": "18cbdf9d828811f6",
+      "title": "광주전남, 산업용 지역 전기요금제 시행 시 연간 최대 4,250억 절감 전망"
     },
     {
-      "hash": "aab3d18f0c77b30f",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "이철우 경북도지사, 산업용 지역 전기요금 30% 이상 인하 요구"
+      "hash": "4e61080331055832",
+      "dup_of": "18cbdf9d828811f6",
+      "title": "전남광주시, 산업용 지역 전기요금제 시행 시 연 4250억 절감 전망"
     },
     {
-      "hash": "811eb4fbeea9ee44",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "이철우 경북도지사, 산업용 지역 전기요금 30% 이상 차등 인하 요구"
+      "hash": "e722c5b763530fa0",
+      "dup_of": "6e24c663385bd7d0",
+      "title": "인천시-민주당 인천시당, 당정협의회서 지역별 차등 전기요금제 도입 건의"
     },
     {
-      "hash": "9da2eea7915b1da3",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "이철우 경북도지사, 산업용 지역별 전기요금 인하폭 30% 이상 확대 촉구"
-    },
-    {
-      "hash": "71109766530a978f",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "경북도지사, 산업용 지역 전기요금제 인하폭 확대 요구"
-    },
-    {
-      "hash": "6a1d281238c37a65",
-      "dup_of": "79168fd7c5b4bf97",
-      "title": "이철우 경북지사, 산업용 지역 전기요금 30% 이상 인하 요구"
-    },
-    {
-      "hash": "62472549c2284f38",
-      "dup_of": "b618a6d2a00c142d",
-      "title": "이원주 기후부 에너지전환정책실장, 靑 메가프로젝트 보좌관 임명"
-    },
-    {
-      "hash": "19449c9e64f1d058",
-      "dup_of": "9020ad1179cec5a7",
-      "title": "한전 전력연구원, 배전선로별 정전 비용 산출 착수"
+      "hash": "3e1aecb27a193e06",
+      "dup_of": "6e24c663385bd7d0",
+      "title": "인천시-민주당 인천시당, 지역별 차등 전기요금제 도입 논의"
     },
     {
       "hash": "138f2c3db11e636d",
@@ -349,8 +440,13 @@
       "title": "현대중공업터보기계, 포항에 1000억 원 투자해 SMR 생산거점 구축"
     },
     {
+      "hash": "3ae043e1e084c101",
+      "dup_of": "9b844c36e004b9cc",
+      "title": "국민 79.2% 신규 원전 건설 필요성 공감, 지역 수용성은 56.3%"
+    },
+    {
       "hash": "5a27073af08d28a5",
-      "dup_of": "3ae043e1e084c101",
+      "dup_of": "9b844c36e004b9cc",
       "title": "국민 80%, 신규 원전 건설 및 전력계획 반영 필요성 공감"
     },
     {
@@ -359,90 +455,65 @@
       "title": "국민 80% 이상 신규 원전 필요성 공감, 안전성 최우선 요구"
     },
     {
-      "hash": "81d58b597683120b",
-      "dup_of": "3ae043e1e084c101",
-      "title": "국민 80%, 신규 원전 건설 필요성 공감대 형성"
+      "hash": "18cbdf9d828811f6",
+      "dup_of": "6069799c66af44db",
+      "title": "전남광주, 산업용 지역 전기요금제 시행 시 연간 최대 4250억 원 절감 전망"
     },
     {
-      "hash": "c98783f4857de8e0",
-      "dup_of": "b618a6d2a00c142d",
-      "title": "이원주 기후부 에너지전환정책실장, 메가프로젝트 보좌관 발탁"
+      "hash": "c646a9ae5dade878",
+      "dup_of": "5018ea0b08df8325",
+      "title": "핀란드 포시바, 온칼로 사용후핵연료 최종 처분장 첫 시추 시작"
     },
     {
-      "hash": "817bc25fa704af0c",
-      "dup_of": "86e09ce2f6b7856c",
-      "title": "12차 전기본, 2040년 재생에너지 220GW 전망 및 신규 원전 추가 검토"
+      "hash": "4a0071660fcd4721",
+      "dup_of": "1b5b2818dda38785",
+      "title": "메인 해양사관학교, 내년 가을 신규 원자력 공학 기술 전공 개설 예정"
     },
     {
-      "hash": "94f61971620e3623",
-      "dup_of": "1b5929ba9fdfedd7",
-      "title": "클라크 건설, TRISO-X의 테네시 TX-1 핵연료 공장 다음 단계 진행"
+      "hash": "5018ea0b08df8325",
+      "dup_of": "e5237552273392ad",
+      "title": "핀란드 Posiva, 온칼로 사용후핵연료 최종 처분 구멍 시추 개시"
     },
     {
-      "hash": "462a8eb66f30c790",
-      "dup_of": "7fd3d1c9f6ba61ab",
-      "title": "아르헨티나 아투차 2호기, 사용후핵연료 건식저장시설 장비 시험 진행 중"
-    },
-    {
-      "hash": "3b65196c64370665",
-      "dup_of": "8534f4d9bdc7d44c",
-      "title": "AI 투자 거품 붕괴 경고 속 데이터센터 전력·용수 부담 부각"
-    },
-    {
-      "hash": "b05c45056ffa731b",
-      "dup_of": "8534f4d9bdc7d44c",
-      "title": "AI 데이터센터, 2030년 미국 전력 생산량 20% 이상 소비 전망"
-    },
-    {
-      "hash": "1b44239e7a33462b",
-      "dup_of": "0b26359a6aa80885",
-      "title": "뉴클레오 주도 컨소시엄, 200MW급 SMR 탑재 부유식 원전 개념 설계 개발"
-    },
-    {
-      "hash": "c1ddbcc160b82974",
-      "dup_of": "0b26359a6aa80885",
-      "title": "홀텍 SMR-300 시험 시설, 아이다호 국립연구소에 구축 중"
+      "hash": "b2401cbfa6d575c6",
+      "dup_of": "e17805472c05ed7e",
+      "title": "AI 특수로 미국 전력설비 업계 일감 폭주"
     }
   ],
   "prune_hashes": [
-    "02be38a48d3136f6",
-    "0b26359a6aa80885",
-    "0bf331033114cc70",
-    "12539c181bdda705",
-    "19449c9e64f1d058",
-    "1b44239e7a33462b",
-    "3194f325072c29e8",
-    "34b54b6a74dfabbb",
-    "3b65196c64370665",
-    "3e5677a0b916d0ca",
-    "462a8eb66f30c790",
-    "496af345e2f394a0",
-    "5d47fe7fcab6cb7c",
-    "62472549c2284f38",
-    "6a1d281238c37a65",
-    "71109766530a978f",
-    "79168fd7c5b4bf97",
-    "7fd3d1c9f6ba61ab",
-    "811eb4fbeea9ee44",
-    "817bc25fa704af0c",
-    "8534f4d9bdc7d44c",
-    "86e09ce2f6b7856c",
-    "8abe6b33c2544a58",
-    "9020ad1179cec5a7",
-    "90c314ca93cfaf78",
-    "9da2eea7915b1da3",
-    "aab3d18f0c77b30f",
-    "b05c45056ffa731b",
-    "b14ca3c1bc4d7931",
-    "b36481a0db21f8c5",
-    "b613d34b976b7c8c",
-    "b618a6d2a00c142d",
-    "b620f67ff533e888",
-    "c1ddbcc160b82974",
-    "c724b3328c27de8f",
-    "c98783f4857de8e0",
-    "f1f4a9733a1bafa4",
-    "f4d609dbcfc5655e",
-    "fce32a0c1966aa4c"
+    "04efed515cb6116f",
+    "0ba6540cad07df02",
+    "18cbdf9d828811f6",
+    "203bab0f014fdfea",
+    "2bf4391aea26a2b4",
+    "2fb3284808d9ea1d",
+    "3b24ac155ff0e969",
+    "4717af17738faa83",
+    "5018ea0b08df8325",
+    "5474db1913ba5612",
+    "5c22cc5586b97424",
+    "6069799c66af44db",
+    "739c7f40ef6e6e27",
+    "83e930795b6984c2",
+    "8b486e4051da2e66",
+    "8e8fe76bd5cbf52b",
+    "8ed0ddd8bfea6a7c",
+    "9be26dc561919dc7",
+    "a24ec5ba912ce1da",
+    "a9c6d12620eec444",
+    "af8e84f49e671b8c",
+    "b2401cbfa6d575c6",
+    "bc63a54257e9491b",
+    "c56cea1bac15563d",
+    "c5bf8871ed24aac5",
+    "cff72f02cbd09dcc",
+    "d0bf2667fcb72b5f",
+    "d17ac3148573c3df",
+    "d1f22b19a877962c",
+    "d37600e1640b08bf",
+    "e17805472c05ed7e",
+    "e5237552273392ad",
+    "ef2c5778a9698fe3",
+    "ef8497efb48823ba"
   ]
 }
