@@ -1,0 +1,37 @@
+name: Notify (수동 공지)
+
+# 장애 사후 보고 등 임의 메시지를 동향봇 채널로 발송한다.
+# 채널 chat_id 가 Secrets 에만 있어(로컬 .env 는 개인 DM) 로컬에서 직접 못
+# 쏘는 것의 우회 — 로컬에서는 `gh workflow run notify.yml -f message="..."`.
+# 용도 규약(2026-09-01 사용자 지시): 봇 장애를 수리하면 원인·조치·영향을
+# 이 경로로 채널에 올린다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "보낼 메시지 (평문)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # telegram_send.py 는 stdlib(urllib)만 쓴다 — pip 불필요
+      - name: Send
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # 쉘 보간이 아니라 env 로 넘긴다 — 메시지 속 따옴표·백틱이 스크립트를
+          # 깨거나 명령으로 실행되는 것을 막는다.
+          MESSAGE: ${{ inputs.message }}
+        run: python telegram_send.py --plain "$MESSAGE"
