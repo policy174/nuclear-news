@@ -81,6 +81,31 @@ class TestLegacyScore(unittest.TestCase):
         self.assertEqual(s, 5.0)
 
 
+class TestScrapSeedBonus(unittest.TestCase):
+    """사내스크랩 시드 가점 — features 유무(legacy 포함) 양쪽에 적용."""
+
+    def test_bonus_applies_to_both_paths(self):
+        plain = item(importance="nice_to_know", queued_hours_ago=0)
+        seeded = {**plain, "matched": "사내스크랩"}
+        s_plain, _ = ranking.score_item(plain, CFG, now=NOW)
+        s_seed, b = ranking.score_item(seeded, CFG, now=NOW)
+        self.assertEqual(s_seed - s_plain, CFG.get("scrap_seed_bonus", 2.5))
+        self.assertIn("scrap_seed", b)
+        # features 있는 경로에도 동일
+        withf = item(features=feat(event_type="other"), importance="nice_to_know",
+                     queued_hours_ago=0)
+        s1, _ = ranking.score_item(withf, CFG, now=NOW)
+        s2, _ = ranking.score_item({**withf, "matched": "사내스크랩"}, CFG, now=NOW)
+        self.assertEqual(s2 - s1, CFG.get("scrap_seed_bonus", 2.5))
+
+    def test_other_matched_values_get_no_bonus(self):
+        a = item(importance="nice_to_know", queued_hours_ago=0)
+        s1, _ = ranking.score_item(a, CFG, now=NOW)
+        s2, b = ranking.score_item({**a, "matched": "계속운전"}, CFG, now=NOW)
+        self.assertEqual(s1, s2)
+        self.assertNotIn("scrap_seed", b)
+
+
 class TestNewScore(unittest.TestCase):
     def test_breakdown_explainable(self):
         a = item(features=feat(event_type="contract_award", korea_relevance=3,

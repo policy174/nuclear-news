@@ -316,6 +316,14 @@ def score_item(item: dict, cfg: dict,
             score += track
             breakdown[track_key] = track
 
+    # 사내 신문스크랩 시드 — 홍보실 큐레이션을 이미 통과한 기사라 신뢰 가점.
+    # if/else 밖이라 features 결손(legacy) 항목에도 적용된다(429 fallback 로
+    # 들어온 시드가 정확히 그 경우다).
+    if item.get("matched") == "사내스크랩":
+        scrap_bonus = float(cfg.get("scrap_seed_bonus", 2.5))
+        score += scrap_bonus
+        breakdown["scrap_seed"] = scrap_bonus
+
     decay = _time_decay(item, cfg, now)
     if decay:
         score -= decay
