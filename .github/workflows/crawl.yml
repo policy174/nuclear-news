@@ -7,7 +7,10 @@ on:
     # 프로세스 내 페이서로도 조율되지 않는다. 2026-08-17: 매시간 크롤과 40분짜리
     # 브리핑이 겹쳐 오디오 대본이 12분(6회 재시도 × 2모델)을 기다리고도 429였다.
     # 3시간 간격이라 크롤은 KST 06·09시 — 브리핑(08:05 예약, 지연 시 최대
-    # ~09:15 시작)과 지연 긴 날 09시 크롤이 겹칠 수 있다(양쪽 재시도 사다리로 허용).
+    # ~09:15 시작)과 지연 긴 날 09시 크롤이 겹칠 수 있다. 겹치면 상태 커밋이
+    # rebase 충돌할 수 있는데, Commit state 가 비치명으로 넘긴다(그 시각 상태만
+    # 포기, 다음 크롤이 재수집). 공유 concurrency 그룹은 검토 후 기각 — 대기
+    # 슬롯이 1개라 대기 중인 브리핑이 후속 크롤 dispatch 에 밀려 취소될 수 있다.
     - cron: "0 */3 * * *"
   workflow_dispatch:
     inputs:
@@ -188,11 +191,19 @@ jobs:
             if git push; then exit 0; fi
             echo "push 충돌 — rebase 후 재시도 $i/5"
             git fetch origin main
-            git rebase origin/main || { git rebase --abort; echo "!! rebase 충돌 — 수동 확인 필요"; exit 1; }
+            # 충돌은 대부분 브리핑(08:05+지연)과의 동시 실행 — 큐·sent 를 양쪽이
+            # 같이 커밋해서다(2026-09-01 실사고). 이번 시각 상태를 포기해도
+            # 다음 크롤이 같은 기사를 재수집·재커밋하므로 자기 치유된다.
+            # 여기서 죽으면 뒤의 웹 배포까지 잘리고 실패 알림이 사용자를 깨운다.
+            git rebase origin/main || {
+              git rebase --abort
+              echo "::warning::상태 커밋 rebase 충돌 — 이번 시각 상태 미커밋 (다음 크롤이 재수집)"
+              exit 0
+            }
             sleep $((RANDOM % 8 + 4))
           done
-          echo "!! push 5회 실패 — 이번 시각 상태 미커밋"
-          exit 1
+          echo "::warning::상태 push 5회 실패 — 이번 시각 상태 미커밋 (다음 크롤이 재수집)"
+          exit 0
 
       # 오디오 브리핑 mp3 — daily-brief 가 만들고 Actions 캐시로만 산다. 복원
       # 없이 배포하면 오디오 없는 스냅샷이 라이브를 덮어 플레이어가 404 를 문다.
