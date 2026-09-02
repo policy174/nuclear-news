@@ -762,6 +762,16 @@
       "right_title": "호남 반도체·AI 데이터센터 인프라 예타 면제, 국무회의서 의결",
       "same_event": true
     },
+    "01fba58f8dc8193d--48fac32c1799ad10": {
+      "embedding_similarity": 0.8698,
+      "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "슈퍼 예산 vs 메가프로젝트 전력",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "same_event": false
+    },
     "01fba58f8dc8193d--58158c94ab72ede0": {
       "embedding_similarity": 0.9137,
       "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
@@ -792,6 +802,26 @@
       "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
       "same_event": true
     },
+    "01fba58f8dc8193d--5cbb6bdac1cb82f9": {
+      "embedding_similarity": 0.8668,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 전력/용수 투자 vs 반도체/AI 인프라 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 예산안 의결…반도체·AI 인프라에 21.3조원 투입",
+      "same_event": false
+    },
+    "01fba58f8dc8193d--74718867c1074358": {
+      "embedding_similarity": 0.8717,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 전력 vs 슈퍼 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 내년도 820조 원 규모 슈퍼예산 편성 의결",
+      "same_event": false
+    },
     "01fba58f8dc8193d--76ce0f0151217ee0": {
       "embedding_similarity": 0.8955,
       "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
@@ -809,6 +839,26 @@
       "prompt_version": 1,
       "reason": "AI 데이터센터 추진 vs 메가프로젝트 투자",
       "reviewed_at": "2026-09-02T08:05:07.939081+00:00",
+      "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "same_event": false
+    },
+    "01fba58f8dc8193d--96dffa21b827ca27": {
+      "embedding_similarity": 0.8772,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력 vs 메가프로젝트 전력",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "same_event": false
+    },
+    "01fba58f8dc8193d--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8751,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 추가 필요성 vs 메가프로젝트 전력",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
       "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
       "same_event": false
     },
@@ -7512,6 +7562,16 @@
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": false
     },
+    "0d8057a17d6efac8--2534b3b550f84a4e": {
+      "embedding_similarity": 0.8771,
+      "left_title": "체코 두코바니 신규 원전 2029년 착공 목표, 17개 공급 패키지 확보",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "체코 원전 vs 국내 건설사 해외 수주",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "국내 건설사, 해외 원전·SMR 수주 기대감 증대 및 계약 성사 주목",
+      "same_event": false
+    },
     "0dcbd3e61fc1892d--55842b037eb69172": {
       "embedding_similarity": 0.8468,
       "left_title": "국내 전력기기업체, 북미 AI 데이터센터 및 전력망 확충으로 수주 급증",
@@ -7589,6 +7649,16 @@
       "prompt_version": 1,
       "reason": "SMR 육성 발표와 규제 예산 투입",
       "reviewed_at": "2026-09-01T23:14:01.212455+00:00",
+      "right_title": "원안위, 차세대 SMR 규제 및 안전 소통에 내년 3030억 원 투입",
+      "same_event": false
+    },
+    "0ea08f1ae0377c68--ce215adf0ad0798b": {
+      "embedding_similarity": 0.8645,
+      "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 핵심기술 투자 vs SMR 규제 및 안전 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
       "right_title": "원안위, 차세대 SMR 규제 및 안전 소통에 내년 3030억 원 투입",
       "same_event": false
     },
@@ -8072,6 +8142,16 @@
       "right_title": "우리기술, 한수원과 고리 3·4호기 PMS 설비개선 자재 85억원 공급 계약",
       "same_event": true
     },
+    "10351b1594349dfa--2e0cb44d30e44c26": {
+      "embedding_similarity": 0.8705,
+      "left_title": "AI 전력난 심화로 K전선 기업, 북미·유럽서 12.5조원 수주 달성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 전력난 수주 vs 유럽 시장 공략",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "국내 전력기기 3사, 친환경 제품 앞세워 유럽 시장 공략 가속화",
+      "same_event": false
+    },
     "10351b1594349dfa--5bfbb7e47287e323": {
       "embedding_similarity": 0.8834,
       "left_title": "대한전선, 파리 CIGRE서 HVDC 기술로 유럽 전력망 시장 공략",
@@ -8240,6 +8320,16 @@
       "reason": "산단 지원 vs 메가프로젝트",
       "reviewed_at": "2026-08-26T04:06:41.373411+00:00",
       "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
+      "same_event": false
+    },
+    "10775bba6f983bb8--492277b53b883a52": {
+      "embedding_similarity": 0.8738,
+      "left_title": "정부, 호남 반도체 산단 용수 예타 면제 및 6조원 지원 의결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호남 산단 용수 vs 반도체 세수",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
       "same_event": false
     },
     "10775bba6f983bb8--49324f145082c76f": {
@@ -10452,6 +10542,16 @@
       "right_title": "정부, SMR·원전 수출에 힘 실었으나 연구·설비·기후 대응은 숙제",
       "same_event": false
     },
+    "13d178fae214cbef--cfccbb451ccad441": {
+      "embedding_similarity": 0.8732,
+      "left_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 안전규제 논의 vs SMR 규제 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
+    },
     "13d178fae214cbef--e2c914a8ab70f104": {
       "embedding_similarity": 0.8416,
       "left_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
@@ -10759,6 +10859,16 @@
       "prompt_version": 1,
       "reason": "주제는 같으나 사안이 다름",
       "reviewed_at": "2026-08-23T18:30:27.461746+00:00",
+      "right_title": "정부, 미래대응기금·국부펀드 SMR 등 첨단산업 중복 투자 논란",
+      "same_event": false
+    },
+    "15a4689f66109f9d--76ce0f0151217ee0": {
+      "embedding_similarity": 0.8657,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 SEED 프로젝트 육성 vs 중복 투자 논란",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
       "right_title": "정부, 미래대응기금·국부펀드 SMR 등 첨단산업 중복 투자 논란",
       "same_event": false
     },
@@ -11750,6 +11860,26 @@
       "reason": "프랑스 EPR2 원전 건설 승인",
       "reviewed_at": "2026-08-27T01:09:16.436194+00:00",
       "right_title": "EDF, EPR2 건설에 테크닙 선정",
+      "same_event": true
+    },
+    "19a13366c1378ea8--bb4cfce4a1166d4b": {
+      "embedding_similarity": 0.8663,
+      "left_title": "미국 웨체스터 인디언 포인트 원전 재가동 여부, 연방하원 선거 쟁점 부상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 원전 재가동 쟁점 vs 원전 재가동 연료 장전",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "홀텍, 미국 팔리세이즈 원전 재가동 위한 연료 장전 시작",
+      "same_event": false
+    },
+    "19a13366c1378ea8--e000f116b94e6aa9": {
+      "embedding_similarity": 0.8667,
+      "left_title": "홀텍, 미국 팔리세이즈 원전 재가동 위한 연료 장전 시작",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 원전 재가동 및 변압기 공급",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "HD현대일렉트릭, 美 재가동 원전에 '262톤급' 초대형 변압기 공급…대형...",
       "same_event": true
     },
     "19c7308bc9bfcb2e--959a0bd83cc42eea": {
@@ -19702,6 +19832,16 @@
       "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
       "same_event": true
     },
+    "2bed756f70c17c7d--cfccbb451ccad441": {
+      "embedding_similarity": 0.8724,
+      "left_title": "당정, 내년 800조원대 예산안에 SMR·핵융합 등 7대 초격차 산업 투자 합의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 초격차 산업 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": true
+    },
     "2bed756f70c17c7d--d1e966b5772613fd": {
       "embedding_similarity": 0.8431,
       "left_title": "이재명 대통령, SMR·양자컴 등 7대 성장동력으로 AI 시대 대비 강조",
@@ -20150,6 +20290,16 @@
       "reason": "주체는 다르나 사안이 유사",
       "reviewed_at": "2026-08-28T00:32:35.476950+00:00",
       "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": false
+    },
+    "2e0cb44d30e44c26--74477b87bbb4a347": {
+      "embedding_similarity": 0.8702,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 전력설비 공급 계약 2309억 원으로 증액",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "LS일렉트릭 계약 vs K전선 수주",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "AI 전력난 심화로 K전선 기업, 북미·유럽서 12.5조원 수주 달성",
       "same_event": false
     },
     "2e0cb44d30e44c26--b2401cbfa6d575c6": {
@@ -22922,6 +23072,16 @@
       "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
       "same_event": false
     },
+    "34b54b6a74dfabbb--cfccbb451ccad441": {
+      "embedding_similarity": 0.8731,
+      "left_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "기장 SMR 심사 vs SMR 규제 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
+    },
     "34b54b6a74dfabbb--d4010b67b8de8881": {
       "embedding_similarity": 0.8592,
       "left_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
@@ -23771,6 +23931,16 @@
       "reviewed_at": "2026-08-24T04:08:23.584466+00:00",
       "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
       "same_event": true
+    },
+    "371f58bb78f102e7--cfccbb451ccad441": {
+      "embedding_similarity": 0.8672,
+      "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR SEED 포함 vs SMR 규제체계 구축",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
     },
     "371f58bb78f102e7--d1e966b5772613fd": {
       "embedding_similarity": 0.8523,
@@ -26999,6 +27169,16 @@
       "prompt_version": 1,
       "reason": "같은 SEED 프로젝트 발표",
       "reviewed_at": "2026-08-19T06:57:15.493469+00:00",
+      "right_title": "(공동) 첨단기술로 여는 미래, 미래성장동력 ｢7대 SEED｣ 보고회 개최",
+      "same_event": true
+    },
+    "3cbfa7cd59665c00--76ce0f0151217ee0": {
+      "embedding_similarity": 0.8655,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 발표 및 육성",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
       "right_title": "(공동) 첨단기술로 여는 미래, 미래성장동력 ｢7대 SEED｣ 보고회 개최",
       "same_event": true
     },
@@ -32482,6 +32662,16 @@
       "right_title": "대통령 주재 3대 메가프로젝트 점검회의, 전력 수급 논의",
       "same_event": true
     },
+    "48fac32c1799ad10--492277b53b883a52": {
+      "embedding_similarity": 0.87,
+      "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "슈퍼 예산 vs 슈퍼 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
+      "same_event": false
+    },
     "48fac32c1799ad10--4b3b98f7df0d6505": {
       "embedding_similarity": 0.8537,
       "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
@@ -32512,6 +32702,16 @@
       "right_title": "정부, 반도체 추가세수 미래대응기금 조성…SMR 등 미래산업 투자",
       "same_event": true
     },
+    "48fac32c1799ad10--53ed255f676ef803": {
+      "embedding_similarity": 0.8708,
+      "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 차세대 성장동력 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 내년 예산 3030억 편성…SMR 규제기술 연구 가속화",
+      "same_event": true
+    },
     "48fac32c1799ad10--615c807de397fd0c": {
       "embedding_similarity": 0.8406,
       "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
@@ -32531,6 +32731,16 @@
       "reviewed_at": "2026-08-25T22:05:18.442592+00:00",
       "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
       "same_event": true
+    },
+    "48fac32c1799ad10--74718867c1074358": {
+      "embedding_similarity": 0.8667,
+      "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 투자 예산 vs 예산 규모",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 내년도 820조 원 규모 슈퍼예산 편성 의결",
+      "same_event": false
     },
     "48fac32c1799ad10--86d1c5852cb9ef75": {
       "embedding_similarity": 0.8648,
@@ -32622,6 +32832,16 @@
       "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
       "same_event": true
     },
+    "48fac32c1799ad10--cfccbb451ccad441": {
+      "embedding_similarity": 0.866,
+      "left_title": "정부, 내년 800조원 이상 '슈퍼 예산' 편성…SMR 등 차세대 성장동력에 우선 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 투자 예산 vs SMR 규제체계 구축",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
+    },
     "48fac32c1799ad10--d621a4293eb89200": {
       "embedding_similarity": 0.8568,
       "left_title": "2026년 세제개편안, SMR·MMR 기술 국가전략기술 포함",
@@ -32650,6 +32870,26 @@
       "reason": "예산안 의결 vs 예산안 투자 내용",
       "reviewed_at": "2026-09-02T08:05:07.939081+00:00",
       "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "same_event": false
+    },
+    "492277b53b883a52--c99eed2eee894e67": {
+      "embedding_similarity": 0.8678,
+      "left_title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 기술 투자 관련 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 800조원 이상 슈퍼예산 발표 예정…SMR 등 7대 시드 기술 투자",
+      "same_event": true
+    },
+    "492277b53b883a52--fcaa0e3e05d67c7b": {
+      "embedding_similarity": 0.866,
+      "left_title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "예산 규모 및 기금 신설 vs 메가프로젝트 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "[2027 예산안] ‘3대 메가프로젝트+AI’에 21.3兆 … 호남 반도체 클러스...",
       "same_event": false
     },
     "492277b53b883a52--ffed13994a4c38e4": {
@@ -34661,6 +34901,16 @@
       "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
       "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
       "same_event": true
+    },
+    "510b6993261d80ee--cfccbb451ccad441": {
+      "embedding_similarity": 0.8662,
+      "left_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 발표 vs SMR 규제체계 구축",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
     },
     "510b6993261d80ee--d1e966b5772613fd": {
       "embedding_similarity": 0.8654,
@@ -46772,6 +47022,16 @@
       "right_title": "영덕 신규원전 12조 프로젝트 사업 속도 낸다… 환경영향평가 착수",
       "same_event": true
     },
+    "6d402bf98f9187b2--76ce0f0151217ee0": {
+      "embedding_similarity": 0.8677,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 기술 투자 관련 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
+      "same_event": true
+    },
     "6d402bf98f9187b2--86d1c5852cb9ef75": {
       "embedding_similarity": 0.8577,
       "left_title": "정부·K-조선, 선박용 SMR 개발 및 시장 선점 추진",
@@ -46832,6 +47092,16 @@
       "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
       "same_event": true
     },
+    "6d402bf98f9187b2--cfccbb451ccad441": {
+      "embedding_similarity": 0.8736,
+      "left_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 규제체계 구축 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
+      "same_event": true
+    },
     "6d595b8e75280614--742c43e9aa3d49dd": {
       "embedding_similarity": 0.8422,
       "left_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
@@ -46880,6 +47150,16 @@
       "reason": "AI IPO vs AI 전력난 사업성",
       "reviewed_at": "2026-08-24T04:08:23.584466+00:00",
       "right_title": "미국 엔시날 168억 달러 가스발전 프로젝트, AI 전력난으로 사업성 주목",
+      "same_event": false
+    },
+    "6d595b8e75280614--d76380ca9c1e1687": {
+      "embedding_similarity": 0.873,
+      "left_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 기업 IPO vs 웨스팅하우스 IPO",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "美 웨스팅하우스, AI 전력 수요·트럼프 지원에 힘입어 IPO 추진",
       "same_event": false
     },
     "6d595b8e75280614--f1f61ee08a41c3fe": {
@@ -50462,6 +50742,26 @@
       "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
       "same_event": true
     },
+    "76ce0f0151217ee0--87c6c33c04c22365": {
+      "embedding_similarity": 0.8704,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 시드기술 육성",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, SMR 규제담당과 정식 조직화…내년 예산 3030억원 편성",
+      "same_event": true
+    },
+    "76ce0f0151217ee0--a4fec121e2c54527": {
+      "embedding_similarity": 0.8738,
+      "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 미래 성장동력 육성",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "same_event": true
+    },
     "76ce0f0151217ee0--b13c2956325ce467": {
       "embedding_similarity": 0.8948,
       "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
@@ -50482,6 +50782,16 @@
       "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
       "same_event": false
     },
+    "76ce0f0151217ee0--c2a1e3fcf49ba7e8": {
+      "embedding_similarity": 0.8649,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 SEED 프로젝트 육성 vs 미래대응기금 투자",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "청와대, 미래대응기금 신설로 SMR 등 첨단산업 투자 계획 밝혀",
+      "same_event": false
+    },
     "76ce0f0151217ee0--c3b39f043f6c61da": {
       "embedding_similarity": 0.8816,
       "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
@@ -50490,6 +50800,16 @@
       "reason": "2027년 예산안 SMR 투자",
       "reviewed_at": "2026-09-02T08:05:07.939081+00:00",
       "right_title": "정부, 내년 820조원 '수퍼 예산' 편성…SMR 등 7대 신성장동력 투자",
+      "same_event": true
+    },
+    "76ce0f0151217ee0--c635ceb310705bc0": {
+      "embedding_similarity": 0.866,
+      "left_title": "SMR, 대한민국 미래 대도약 '7대 SEED 프로젝트' 선정 및 세제 혜택 예고",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 선정 및 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
       "same_event": true
     },
     "76ce0f0151217ee0--c99eed2eee894e67": {
@@ -50511,6 +50831,16 @@
       "reviewed_at": "2026-09-02T08:05:07.939081+00:00",
       "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
       "same_event": false
+    },
+    "76ce0f0151217ee0--cf220a841659c83f": {
+      "embedding_similarity": 0.8752,
+      "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 시드기술 육성",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 7대 SEED 프로젝트 발표…SMR 등 미래 성장동력 육성",
+      "same_event": true
     },
     "76ce0f0151217ee0--cfccbb451ccad441": {
       "embedding_similarity": 0.8819,
@@ -54170,6 +54500,16 @@
       "reason": "주체와 대상이 다름",
       "reviewed_at": "2026-08-16T11:22:11.050184+00:00",
       "right_title": "과기정통부, K-문샷 추진지원단 개소 및 12대 미션 본격화",
+      "same_event": false
+    },
+    "86d1c5852cb9ef75--cfccbb451ccad441": {
+      "embedding_similarity": 0.8773,
+      "left_title": "정부·K-조선, 선박용 SMR 개발 및 시장 선점 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 개발 vs SMR 규제 예산",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
       "same_event": false
     },
     "86d1c5852cb9ef75--d36a3834236c76ff": {
@@ -62872,6 +63212,16 @@
       "right_title": "정부, 호남 반도체 클러스터 전력원으로 재생에너지·ESS 적극 활용 계획",
       "same_event": true
     },
+    "aaa232f2b9b0540b--c0a0a81776742190": {
+      "embedding_similarity": 0.8665,
+      "left_title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "남부권 산업용 전기요금 인하 vs 지역차등제 도입",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 유턴기업 지방 유치 위해 산업용 전기요금 지역차등제 도입",
+      "same_event": false
+    },
     "aab3ce653eda03aa--b0e178ca6114b1a9": {
       "embedding_similarity": 0.8476,
       "left_title": "김성환 기후장관, 광주 반도체 클러스터 용수·전력 공급 방안 언급",
@@ -66472,6 +66822,16 @@
       "right_title": "김정재 의원, SMR 국가전략기술 포함 조세특례제한법 개정안 대표 발의",
       "same_event": true
     },
+    "baf86b26077f0bc1--ce215adf0ad0798b": {
+      "embedding_similarity": 0.87,
+      "left_title": "김정재 의원, SMR 국가전략기술 포함 조세특례제한법 개정안 대표 발의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 국가전략기술 포함",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "same_event": true
+    },
     "baf86b26077f0bc1--d621a4293eb89200": {
       "embedding_similarity": 0.8826,
       "left_title": "2026년 세제개편안, SMR·MMR 기술 국가전략기술 포함",
@@ -66741,6 +67101,16 @@
       "reviewed_at": "2026-08-16T01:15:09.609934+00:00",
       "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
       "same_event": false
+    },
+    "bca8b527433b7384--ce215adf0ad0798b": {
+      "embedding_similarity": 0.8688,
+      "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 기술 투자 및 육성",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
+      "same_event": true
     },
     "bca8b527433b7384--f05008a326b99feb": {
       "embedding_similarity": 0.8562,
@@ -69522,6 +69892,16 @@
       "right_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
       "same_event": true
     },
+    "ce215adf0ad0798b--e2c914a8ab70f104": {
+      "embedding_similarity": 0.865,
+      "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 SEED 프로젝트 투자 및 환영",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원자력산업계, 정부의 SMR '7대 SEED' 프로젝트 선정 환영",
+      "same_event": true
+    },
     "ce215adf0ad0798b--fc7713878b880cd5": {
       "embedding_similarity": 0.8627,
       "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
@@ -69671,6 +70051,16 @@
       "reviewed_at": "2026-08-12T22:11:25.393264+00:00",
       "right_title": "캘리포니아 지역 관료, 원전 운영 연장 촉구",
       "same_event": true
+    },
+    "cfccbb451ccad441--f05008a326b99feb": {
+      "embedding_similarity": 0.8663,
+      "left_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "i-SMR 설계 심사 준비 vs SMR 규제체계 구축",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "원안위, 2027년 R&D 예산 705억원 편성…SMR 규제체계 구축 주력",
+      "same_event": false
     },
     "cfccbb451ccad441--fcaa0e3e05d67c7b": {
       "embedding_similarity": 0.8802,
@@ -70080,6 +70470,16 @@
       "reason": "하나의 사건이 아닌 전망 및 의견 제시",
       "reviewed_at": "2026-08-23T09:38:27.026732+00:00",
       "right_title": "[시론] 에너지 전환에 ‘메가프로젝트’ 성패 달려",
+      "same_event": false
+    },
+    "d3e3f82b091518b0--d3efe9f885c36c0f": {
+      "embedding_similarity": 0.8669,
+      "left_title": "호주, 데이터센터에 청정 전력 자급 및 계통 비용 부담 의무화 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "호주 데이터센터 전력 vs 호주 시장 진출",
+      "reviewed_at": "2026-09-02T13:26:06.040625+00:00",
+      "right_title": "“전력소비 10년 새 51% 급증”…K전력기업, 호주시장 진출 ‘잰걸음’",
       "same_event": false
     },
     "d432179512d219e4--f79d16a902e0cbda": {
