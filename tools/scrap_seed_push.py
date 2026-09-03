@@ -23,7 +23,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from scrap_seed_ingest import SEED_MAX_AGE_DAYS, parse_scrap_report, seed_key  # noqa: E402
+from scrap_seed_ingest import (  # noqa: E402
+    SEED_MAX_AGE_DAYS, parse_media_trend, parse_scrap_report, seed_key)
 
 KAKAO_WIN = Path.home() / ".claude/skills/kakao-read/scripts/win/kakao_win.py"
 STORE_DB = Path.home() / ".config/kakao-read/store.db"
@@ -45,16 +46,34 @@ def sync_kakao() -> None:
 def collect_seeds() -> list[dict]:
     con = sqlite3.connect(STORE_DB)
     cur = con.cursor()
-    # 스크랩 보고는 형식이 고유해서 방을 특정할 필요가 없다 — 전 메시지에서
+    # 스크랩 보고·언론 동향은 형식이 고유해서 방을 특정할 필요가 없다 — 전 메시지에서
     # 패턴으로 찾는다(메모리 덤프의 방 사슬 조각화에도 강건).
-    cur.execute("SELECT sendAt, message FROM messages WHERE message LIKE '%스크랩 보고%'")
+    cur.execute("SELECT sendAt, message FROM messages "
+                "WHERE message LIKE '%스크랩 보고%' OR message LIKE '%언론 동향%'")
     seeds: dict[str, dict] = {}
     for send_at, message in cur.fetchall():
         ts = datetime.fromtimestamp(send_at if send_at < 1e12 else send_at / 1000)
-        for seed in parse_scrap_report(message or "", ts.year):
-            seeds[seed_key(seed)] = seed
+        for seed in parse_scrap_report(message or "", ts.year) + parse_media_trend(message or "", ts.year):
+            key = seed_key(seed)
+            # 같은 기사가 보고(링크 없음)와 동향(링크 있음) 양쪽에 오면 링크 쪽 승리
+            if key not in seeds or (seed.get("link") and not seeds[key].get("link")):
+                seeds[key] = seed
     con.close()
     return list(seeds.values())
+
+
+def resolve_redirect(url: str) -> str | None:
+    """스크랩 서비스 단축링크(surl.realsn.com 등)를 공개 원문 URL 로 해소.
+    사규·저작권상 surl 자체는 레포에 올리지 않는다 — 커밋 전에 반드시 치환.
+    실패하면 None (호출자가 링크 없는 제목 시드로 강등)."""
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}, method="HEAD")
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            final = r.url or ""
+    except Exception:  # noqa: BLE001 — 링크 하나가 push 를 못 막는다
+        return None
+    return final if final.startswith("http") and "realsn.com" not in final else None
 
 
 def gh_token() -> str:
@@ -100,9 +119,19 @@ def main() -> None:
     merged = {seed_key(s): s for s in existing if (s.get("date") or "") >= cutoff}
     added = 0
     for seed in fresh:
-        if seed_key(seed) not in merged:
-            merged[seed_key(seed)] = seed
-            added += 1
+        key = seed_key(seed)
+        if key in merged and not (seed.get("link") and not merged[key].get("link")):
+            continue
+        if seed.get("link"):
+            resolved = resolve_redirect(seed["link"])
+            if resolved:
+                seed["link"] = resolved
+            else:
+                seed.pop("link")  # 해소 실패 — 제목 검색 경로로 강등
+                if key in merged:
+                    continue
+        merged[key] = seed
+        added += 1
     if not added and sha:
         print(f"신규 시드 0건 (기존 {len(merged)}건 유지) — 커밋 생략")
         return

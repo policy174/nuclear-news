@@ -12,24 +12,50 @@ REPORT = """8월 31일 석간스크랩 보고
 ■ 에너지
 1.[헤럴드경제 027면] 전기에도 색깔을 입혀보자 (민병권 국가과학기술연구회 연구전략 본부장)
 2.[전기신문] 12차 전기본 초안 공개, 원전 비중 유지
+3.[한국일보 A16면] 전력망, 민간이 건설해 한전에 판매 길 열려
 
 ■ 기타
 쓸데없는 줄은 무시된다
+"""
+
+# 실물 형식 재현 — 섹션 헤더 + "제목 (매체명)" + 단축링크 줄 (코드는 가짜)
+TREND = """9.3 언론 동향 17:00 기준
+
+[종합일간지]
+정부 주도 ‘보안 특화 AI’ 구축 (동아일보)
+https://surl.example.com/aaa000
+
+사이버 위협 막는 '보안 AI' 만든다 (한국일보)
+https://surl.example.com/bbb111
 """
 
 
 class ParseTests(unittest.TestCase):
     def test_parses_publisher_page_and_title(self):
         seeds = ssi.parse_scrap_report(REPORT, 2026)
-        self.assertEqual(len(seeds), 2)
+        self.assertEqual(len(seeds), 3)
         self.assertEqual(seeds[0]["date"], "2026-08-31")
         self.assertEqual(seeds[0]["publisher"], "헤럴드경제")  # "027면" 은 제거
         # 저자·직함 꼬리는 제거 — 네이버 쿼리를 죽이고 토큰 포함률을 희석한다
         self.assertEqual(seeds[0]["title"], "전기에도 색깔을 입혀보자")
         self.assertEqual(seeds[1]["publisher"], "전기신문")  # 면 번호 없는 꼴
+        self.assertEqual(seeds[2]["publisher"], "한국일보")  # "A16면" 꼴도 제거
 
     def test_non_report_text_returns_empty(self):
         self.assertEqual(ssi.parse_scrap_report("오늘 점심 뭐 먹지", 2026), [])
+
+    def test_parses_media_trend_with_links(self):
+        seeds = ssi.parse_media_trend(TREND, 2026)
+        self.assertEqual(len(seeds), 2)
+        self.assertEqual(seeds[0]["date"], "2026-09-03")
+        self.assertEqual(seeds[0]["publisher"], "동아일보")
+        self.assertEqual(seeds[0]["link"], "https://surl.example.com/aaa000")
+        self.assertIn("보안 특화 AI", seeds[0]["title"])
+        # 섹션 헤더([종합일간지])는 시드가 되지 않는다
+        self.assertTrue(all("종합일간지" not in s["title"] for s in seeds))
+
+    def test_media_trend_ignores_other_text(self):
+        self.assertEqual(ssi.parse_media_trend("오늘 점심 뭐 먹지", 2026), [])
 
     def test_seed_key_is_stable(self):
         seed = {"date": "2026-08-31", "publisher": "전기신문", "title": "제목"}
@@ -109,6 +135,40 @@ class LedgerTests(unittest.TestCase):
         state = {"sent": {}, "scrap_seeds": {"deadbeef0000": {"seed_date": "2026-01-01"}}}
         self.assertEqual(self._run(state, seeds, []), [])
         self.assertEqual(state["scrap_seeds"], {})
+
+    def test_link_seed_resolves_without_search(self):
+        from datetime import datetime
+        seeds = [{"date": datetime.now(ssi.KST).date().isoformat(),
+                  "publisher": "동아일보", "title": "링크 딸린 기사",
+                  "link": "https://donga.com/a999"}]
+        state = {"sent": {}}
+        articles = self._run(state, seeds, [])
+        self.assertEqual(self._search_calls, 0)  # 검색 없이
+        self.assertEqual(len(articles), 1)
+        self.assertEqual(articles[0]["link"], "https://donga.com/a999")
+        row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
+        self.assertEqual(row["status"], "resolved")
+
+    def test_history_persists_after_ledger_prune(self):
+        from datetime import datetime
+        today = datetime.now(ssi.KST).date().isoformat()
+        seeds = [{"date": today, "publisher": "전기신문",
+                  "title": "12차 전기본 초안 공개, 원전 비중 유지"}]
+        state = {"sent": {}}
+        items = [{"originallink": "https://electimes.com/a123",
+                  "title": "12차 전기본 초안 공개…원전 비중 유지"}]
+        self._run(state, seeds, items)
+        key = ssi.seed_key(seeds[0])
+        self.assertIn(key, state["scrap_history"])
+        self.assertEqual(state["scrap_history"][key]["link"], "https://electimes.com/a123")
+        self.assertEqual(state["scrap_history"][key]["date"], today)
+        # ledger 가 5일 롤링으로 지워져도 이력은 90일 창이라 남는다
+        # (시드 0건이면 조기 반환이라 청소가 안 돈다 — 더미 시드로 청소를 트리거)
+        state["scrap_seeds"][key]["seed_date"] = "2026-01-01"
+        dummy = [{"date": today, "publisher": "전기신문", "title": "전혀 다른 기사"}]
+        self._run(state, dummy, [])
+        self.assertNotIn(key, state["scrap_seeds"])
+        self.assertIn(key, state["scrap_history"])
 
 
 if __name__ == "__main__":

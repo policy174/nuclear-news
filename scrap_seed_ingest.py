@@ -23,6 +23,7 @@ SEED_MAX_AGE_DAYS = 5      # 이보다 오래된 시드는 재시도 안 함(뉴
 SEED_MAX_TRIES = 6         # 백오프 재시도 상한
 SEED_RETRY_HOURS = 5       # 재시도 최소 간격 (매시간 크롤이 연타하지 않게)
 MATCH_THRESHOLD = 0.5      # 시드 제목 토큰이 후보 제목에 절반 이상 있으면 같은 기사
+HISTORY_KEEP_DAYS = 90     # 해석 이력(scrap_history) 보존 — 웹 '신문스크랩' 탭의 창
 
 KST = timezone(timedelta(hours=9))
 
@@ -30,7 +31,7 @@ KST = timezone(timedelta(hours=9))
 # 없을 수도 있다. 끝의 괄호 꼬리(저자·직함·'종합' 류)는 제목에서 뗀다 —
 # 네이버 API 가 추가 단어를 AND 결합해 쿼리를 죽이고(2026-08-31 실측:
 # 저자 포함 검색 0건, 제외하면 1위 적중), 토큰 포함률도 희석된다.
-_REPORT_LINE = re.compile(r"^\s*\d+\.\s*\[(?P<pub>[^\]]+?)(?:\s+\d+면)?\]\s*(?P<title>\S.*)$")
+_REPORT_LINE = re.compile(r"^\s*\d+\.\s*\[(?P<pub>[^\]]+?)(?:\s+[A-Za-z]*\d+면)?\]\s*(?P<title>\S.*)$")
 _TITLE_TAIL = re.compile(r"\s*\([^()]*\)\s*$")
 _REPORT_HEADER = re.compile(r"(?P<month>\d{1,2})월\s*(?P<day>\d{1,2})일\s*(조간|석간)?\s*스크랩\s*보고")
 
@@ -55,6 +56,51 @@ def parse_scrap_report(text: str, year: int) -> list[dict]:
                           "publisher": m.group("pub").strip(),
                           "title": title})
     return seeds
+
+
+# "9.3 언론 동향 17:00 기준" 형식 — 기사마다 "제목 (매체명)" 줄 다음에 URL 줄이 붙는다.
+# URL 은 스크랩 서비스 단축링크(surl.realsn.com)로 오는데 공개 원문으로 리다이렉트된다
+# (2026-09-04 실측). 리다이렉트 해소는 push(로컬)가 하고, 여기 파서는 순수 텍스트만 본다.
+_TREND_HEADER = re.compile(r"(?P<month>\d{1,2})\s*\.\s*(?P<day>\d{1,2})\s*언론\s*동향")
+_TREND_ENTRY = re.compile(r"^(?P<title>\S.*?)\s*\((?P<pub>[^()]+)\)\s*$")
+_TREND_URL = re.compile(r"^(?P<url>https?://\S+)\s*$")
+
+
+def parse_media_trend(text: str, year: int) -> list[dict]:
+    """언론 동향 텍스트 → [{date, publisher, title, link}]. 동향 형식이 아니면 []."""
+    header = _TREND_HEADER.search(text)
+    if not header:
+        return []
+    try:
+        date = datetime(year, int(header.group("month")), int(header.group("day"))).date().isoformat()
+    except ValueError:
+        return []
+    seeds, pending = [], None
+    for line in text.splitlines():
+        line = line.strip()
+        url = _TREND_URL.match(line)
+        if url and pending:
+            seeds.append({**pending, "link": url.group("url")})
+            pending = None
+            continue
+        entry = _TREND_ENTRY.match(line)
+        # "[종합일간지]" 류 섹션 헤더는 괄호 꼬리가 없어 entry 에 안 걸린다
+        pending = ({"date": date, "publisher": entry.group("pub").strip(),
+                    "title": entry.group("title").strip()} if entry else None)
+    return seeds
+
+
+def _record_history(history: dict, key: str, seed: dict, row: dict) -> None:
+    """해석 이력 upsert — ledger 는 5일 롤링이라, 웹 '신문스크랩' 탭이 읽는
+    영속 이력은 여기(state["scrap_history"], 90일)에 남긴다."""
+    history[key] = {
+        "date": seed.get("date") or row.get("seed_date") or "",
+        "publisher": seed.get("publisher", ""),
+        "seed_title": seed.get("title", ""),
+        "link": row.get("link") or seed.get("link") or "",
+        "title": row.get("title") or seed.get("title", ""),
+        "description": row.get("description", ""),
+    }
 
 
 def seed_key(seed: dict) -> str:
@@ -105,6 +151,11 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
     # 장부도 시드와 같은 수명으로 청소 (sent 청소는 save_state 가 하지만 이 키는 안 본다)
     for key in [k for k, v in ledger.items() if (v.get("seed_date") or "") < cutoff_date]:
         del ledger[key]
+    # 해석 이력 — 장부보다 오래 산다(웹 탭의 창). 같은 패턴으로 90일 청소.
+    history = state.setdefault("scrap_history", {})
+    hist_cutoff = (datetime.now(KST) - timedelta(days=HISTORY_KEEP_DAYS)).date().isoformat()
+    for key in [k for k, v in history.items() if (v.get("date") or "") < hist_cutoff]:
+        del history[key]
 
     articles: list[dict] = []
     resolved = skipped = 0
@@ -115,7 +166,15 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         row = ledger.get(key) or {"tries": 0, "seed_date": seed.get("date")}
         if row.get("status") == "gave_up":
             continue
+        # 링크가 딸려 온 시드('언론 동향' 메시지)는 검색 없이 즉시 해결 —
+        # push 가 surl 리다이렉트를 공개 원문 URL 로 이미 치환해 커밋했다.
+        direct = (seed.get("link") or "").strip()
+        if direct.startswith("http") and row.get("status") != "resolved":
+            row.update(status="resolved", link=direct,
+                       title=seed.get("title", ""), description="")
+            ledger[key] = row
         if row.get("status") == "resolved":
+            _record_history(history, key, seed, row)
             # 해결됐어도 기사가 파이프라인에 안착(sent)할 때까지 재주입한다 —
             # 429 쿼터 소진 크롤은 큐레이션을 건너뛰며 sent 마킹을 안 하는데,
             # 시드 기사는 키워드에 안 걸려 정규 재수집 경로가 없다(2026-08-31
@@ -148,8 +207,15 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         row["tries"] += 1
         row["last_tried"] = now.isoformat()
         ledger[key] = row
+        # 첫 시도는 전체 제목. 실패 후 재시도부터는 최장 토큰 4개로 축약 —
+        # 지면 제목이 온라인에서 의역되면 전체 제목 AND 검색이 0건이 된다
+        # (2026-09-01 실측: 이투데이·한국일보 전국지 2건이 이 유형으로 gave_up).
+        # 매칭 판정은 그대로 전체 제목 title_overlap 이라 오탐이 늘지 않는다.
+        query = seed["title"]
+        if row["tries"] >= 2:
+            query = " ".join(sorted(_TOKEN_RE.findall(seed["title"]), key=len, reverse=True)[:4]) or query
         try:
-            items = search_naver(seed["title"])
+            items = search_naver(query)
         except Exception as e:  # noqa: BLE001 — 시드 하나가 수집을 못 막는다
             print(f"  ! [scrap_seed] '{seed['title'][:30]}' 검색 실패: {type(e).__name__}")
             continue
@@ -172,6 +238,7 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         # 없이 다시 넣을 수 있게 한다.
         row["title"] = strip_html(best.get("title", "")) or seed["title"]
         row["description"] = strip_html(best.get("description", ""))
+        _record_history(history, key, seed, row)
         if article_seen(state, link):
             resolved += 1  # 봇이 이미 수집한 기사 — 시드 목적 달성, 주입 불필요
             continue
