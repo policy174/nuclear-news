@@ -1381,6 +1381,7 @@ class GeneratedDataTests(unittest.TestCase):
         cls.insights = json.loads((data_dir / "insights.json").read_text(encoding="utf-8"))
         cls.issue_catalog = json.loads((data_dir / "issues.json").read_text(encoding="utf-8"))
         cls.publications = json.loads((data_dir / "publications.json").read_text(encoding="utf-8"))
+        cls.scraps = json.loads((data_dir / "scraps.json").read_text(encoding="utf-8"))
 
     def test_card_slots_never_repeat_the_same_sentence(self):
         """제목 · 달라진 것 · 왜 중요해요 · 다음 확인은 서로 다른 말을 해야 한다.
@@ -2518,6 +2519,45 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("org_kr", item)
             self.assertIsInstance(item["is_new"], bool)
 
+    def test_scraps_view_is_always_generated(self):
+        """신문스크랩 파일도 0건이어도 항상 존재해야 한다 — publications 와 같은 계약."""
+        self.assertIsInstance(self.scraps, dict)
+        self.assertIsInstance(self.scraps["days"], list)
+        for day in self.scraps["days"]:
+            self.assertRegex(day["date"], r"^\d{4}-\d{2}-\d{2}$")
+            for item in day["items"]:
+                self.assertTrue(item["title"])
+                self.assertTrue(item["url"].startswith("http"))
+                self.assertIn("print_publisher", item)
+
+    def test_build_scraps_survives_missing_state_and_joins_by_hash(self):
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        original = build_data.BOT_DIR
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                build_data.BOT_DIR = Path(tmp)
+                # sent.json 없음 → 빈 구조
+                self.assertEqual(build_data.build_scraps([], now)["days"], [])
+                # 이력 1건: 아카이브 조인 성공 시 아카이브 필드, 실패 시 스냅샷 폴백
+                from data_quality import url_hash
+                link = "https://news.example.com/a1"
+                (Path(tmp) / "sent.json").write_text(json.dumps({"scrap_history": {
+                    "k1": {"date": "2026-09-01", "publisher": "경북일보",
+                           "seed_title": "지면 제목", "link": link,
+                           "title": "온라인 제목", "description": "요약 스냅샷"},
+                }}, ensure_ascii=False), encoding="utf-8")
+                records = [{"hash": url_hash(link), "url": link, "publisher": "경북일보",
+                            "title": "온라인 제목", "title_kr": "아카이브 한글 제목",
+                            "summary": "아카이브 요약"}]
+                joined = build_data.build_scraps(records, now)["days"]
+                self.assertEqual(joined[0]["items"][0]["title"], "아카이브 한글 제목")
+                fallback = build_data.build_scraps([], now)["days"]
+                self.assertEqual(fallback[0]["items"][0]["title"], "온라인 제목")
+                self.assertEqual(fallback[0]["items"][0]["summary"], "요약 스냅샷")
+        finally:
+            build_data.BOT_DIR = original
+
     def test_publications_loader_survives_missing_and_broken_files(self):
         original = build_data.BOT_DIR
         try:
@@ -2606,8 +2646,26 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertIn('data-view="report"', mobile_nav)
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertEqual(mobile_nav.count("<button"),
-                         4, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
-        self.assertIn("grid-template-columns: repeat(4, 1fr)", style)
+                         5, "모바일 탭 수가 바뀌면 grid-template-columns도 함께 고쳐야 한다")
+        self.assertIn("grid-template-columns: repeat(5, 1fr)", style)
+
+    def test_scrap_tab_is_wired_and_failure_tolerant(self):
+        """신문스크랩 탭 — 발간물 탭과 같은 배선·비치명 계약."""
+        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('data-view="scrap"', html)
+        self.assertIn('id="view-scrap"', html)
+        self.assertIn('"scrap"', script)
+        self.assertIn("function renderScraps", script)
+        # 스크랩 로드 실패가 사이트 전체를 죽이면 안 된다
+        self.assertIn('loadJSON("scraps.json").catch(', script)
+        # 렌더러는 데이터를 신뢰하지 않는다
+        render = script.split("function renderScraps(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('typeof item === "object"', render)
+        self.assertIn("item.title && item.url", render)
+        # 모바일 하단 탭에도 있어야 한다
+        mobile_nav = html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
+        self.assertIn('data-view="scrap"', mobile_nav)
 
     def test_keei_candidates_narrow_but_never_decide(self):
         """점수는 후보만 좁힌다 — 판정은 LLM 몫이다.
@@ -3981,9 +4039,9 @@ class SavedFollowTests(unittest.TestCase):
         self.assertIn('id="headerSaved"', self.html)
         self.assertIn('data-go-saved', self.html)
         self.assertIn('id="search-saved"', self.html)
-        # 저장은 탐색 안으로 합쳐졌고 모바일 탭은 4개다.
+        # 저장은 탐색 안으로 합쳐졌고 모바일 탭은 5개다(신문스크랩 포함).
         mobile_nav = self.html.split('id="mobileTabs"', 1)[1].split("</nav>", 1)[0]
-        self.assertEqual(mobile_nav.count("<button"), 4)
+        self.assertEqual(mobile_nav.count("<button"), 5)
 
     def test_saved_meta_snapshot_and_tombstone(self):
         self.assertIn("nuclens-saved-meta", self.script)

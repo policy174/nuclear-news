@@ -55,6 +55,7 @@
       <button class="main-tab" data-view="trend" aria-pressed="false">흐름</button>
       <button class="main-tab" data-view="search" aria-pressed="false">탐색</button>
       <button class="main-tab" data-view="report" aria-pressed="false">보고서</button>
+      <button class="main-tab" data-view="scrap" aria-pressed="false">신문스크랩</button>
     </nav>
     <div class="header-tools">
       <!-- 좁은 화면에서는 아래 span·kbd 가 CSS 로 접혀 아이콘만 남는다. 그러면
@@ -531,6 +532,19 @@
     <div id="pubsList" class="pubs-list"></div>
     </section>
   </section>
+
+  <section id="view-scrap" hidden aria-labelledby="scrapTitle">
+    <div class="archive-intro">
+      <div>
+        <h1 id="scrapTitle">신문스크랩</h1>
+        <p>사내 신문스크랩에서 확인된 기사들의 공개 원문을 보고 날짜별로 모았습니다.</p>
+      </div>
+    </div>
+    <section class="scrap-days" aria-labelledby="scrapListTitle">
+      <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="scrapListTitle">날짜별 스크랩</h2></div></div>
+      <div id="scrapList"></div>
+    </section>
+  </section>
 </main>
 
 <dialog id="globalSearchDialog" class="search-dialog" aria-labelledby="globalSearchTitle">
@@ -558,6 +572,7 @@
   <button type="button" data-view="trend" aria-pressed="false"><span>흐름</span></button>
   <button type="button" data-view="search" aria-pressed="false"><span>탐색</span></button>
   <button type="button" data-view="report" aria-pressed="false"><span>보고서</span></button>
+  <button type="button" data-view="scrap" aria-pressed="false"><span>스크랩</span></button>
 </nav>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
