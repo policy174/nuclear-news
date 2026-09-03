@@ -78,11 +78,13 @@ class MatchTests(unittest.TestCase):
 
 
 class LedgerTests(unittest.TestCase):
-    def _run(self, state, seeds, naver_items, already_sent=False):
+    def _run(self, state, seeds, naver_items, already_sent=False, webkr_items=None):
         search = mock.MagicMock(return_value=naver_items)
+        webkr = mock.MagicMock(return_value=webkr_items or [])
         with mock.patch.object(ssi, "load_seeds", return_value=seeds), \
              mock.patch.dict(sys.modules, {"news_bot": mock.MagicMock(
                  search_naver=search,
+                 search_naver_webkr=webkr,
                  article_seen=mock.MagicMock(return_value=already_sent),
                  get_domain=lambda url: "electimes.com",
                  url_hash=lambda url: "h" + url[-4:],
@@ -91,6 +93,7 @@ class LedgerTests(unittest.TestCase):
              )}):
             result = ssi.fetch_scrap_seed_articles(state)
         self._search_calls = search.call_count
+        self._webkr_calls = webkr.call_count
         return result
 
     def test_resolves_and_marks_ledger(self):
@@ -135,6 +138,24 @@ class LedgerTests(unittest.TestCase):
         state = {"sent": {}, "scrap_seeds": {"deadbeef0000": {"seed_date": "2026-01-01"}}}
         self.assertEqual(self._run(state, seeds, []), [])
         self.assertEqual(state["scrap_seeds"], {})
+
+    def test_webkr_fallback_rescues_non_affiliated_press(self):
+        """뉴스 검색 0건이어도 웹문서 검색이 지역지 자사 기사를 잡으면 resolve."""
+        from datetime import datetime
+        seeds = [{"date": datetime.now(ssi.KST).date().isoformat(),
+                  "publisher": "경상투데이", "title": "울진군, 대규모 청정수소 생산 가능성 강조"}]
+        state = {"sent": {}}
+        webkr = [
+            {"title": "TARGET_noun.xls", "link": "https://example.com/file.xls"},
+            {"title": "울진군, 대규모 청정수소 생산 가능성 강조",
+             "link": "https://www.gyeongsangtoday.com/news/view.php?idx=1234"},
+        ]
+        articles = self._run(state, seeds, [], webkr_items=webkr)
+        self.assertEqual(len(articles), 1)
+        self.assertIn("gyeongsangtoday", articles[0]["link"])
+        row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
+        self.assertEqual(row["status"], "resolved")
+        self.assertEqual(self._webkr_calls, 1)
 
     def test_link_seed_resolves_without_search(self):
         from datetime import datetime

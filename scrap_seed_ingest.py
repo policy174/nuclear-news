@@ -143,7 +143,8 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         return []
 
     # 순환 import 회피 — email_ingest 와 같은 lazy import 패턴
-    from news_bot import article_seen, get_domain, search_naver, source_profile, strip_html, url_hash
+    from news_bot import (article_seen, get_domain, search_naver, search_naver_webkr,
+                          source_profile, strip_html, url_hash)
 
     ledger = state.setdefault("scrap_seeds", {})
     now = datetime.now(timezone.utc)
@@ -220,14 +221,25 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
             print(f"  ! [scrap_seed] '{seed['title'][:30]}' 검색 실패: {type(e).__name__}")
             continue
 
-        best, best_score = None, 0.0
-        for item in items:
-            link = item.get("originallink") or item.get("link")
-            if not link:
-                continue
-            score = title_overlap(seed["title"], strip_html(item.get("title", "")))
-            if score > best_score:
-                best, best_score = item, score
+        def best_match(candidates: list[dict]) -> tuple[dict | None, float]:
+            top, top_score = None, 0.0
+            for item in candidates:
+                if not (item.get("originallink") or item.get("link")):
+                    continue
+                score = title_overlap(seed["title"], strip_html(item.get("title", "")))
+                if score > top_score:
+                    top, top_score = item, score
+            return top, top_score
+
+        best, best_score = best_match(items)
+        if not best or best_score < MATCH_THRESHOLD:
+            # 뉴스 API 미제휴 지역지(경상투데이·경북신문 등)는 뉴스 검색으로는
+            # 영원히 안 나온다 — 웹문서 검색이 자사 사이트 기사를 잡는다(실측).
+            # 게시판·파일 링크가 섞여 오지만 같은 제목 겹침 문턱이 거른다.
+            try:
+                best, best_score = best_match(search_naver_webkr(seed["title"]))
+            except Exception as e:  # noqa: BLE001
+                print(f"  ! [scrap_seed] '{seed['title'][:30]}' 웹문서 검색 실패: {type(e).__name__}")
         if not best or best_score < MATCH_THRESHOLD:
             continue
 
