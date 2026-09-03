@@ -78,13 +78,16 @@ class MatchTests(unittest.TestCase):
 
 
 class LedgerTests(unittest.TestCase):
-    def _run(self, state, seeds, naver_items, already_sent=False, webkr_items=None):
+    def _run(self, state, seeds, naver_items, already_sent=False, webkr_items=None,
+             gnews_items=None):
         search = mock.MagicMock(return_value=naver_items)
         webkr = mock.MagicMock(return_value=webkr_items or [])
+        gnews = mock.MagicMock(return_value=gnews_items or [])
         with mock.patch.object(ssi, "load_seeds", return_value=seeds), \
              mock.patch.dict(sys.modules, {"news_bot": mock.MagicMock(
                  search_naver=search,
                  search_naver_webkr=webkr,
+                 fetch_rss=gnews,
                  article_seen=mock.MagicMock(return_value=already_sent),
                  get_domain=lambda url: "electimes.com",
                  url_hash=lambda url: "h" + url[-4:],
@@ -156,6 +159,20 @@ class LedgerTests(unittest.TestCase):
         row = state["scrap_seeds"][ssi.seed_key(seeds[0])]
         self.assertEqual(row["status"], "resolved")
         self.assertEqual(self._webkr_calls, 1)
+
+    def test_gnews_fallback_after_naver_and_webkr(self):
+        """네이버 뉴스·웹문서 모두 실패해도 구글뉴스 RSS 가 잡으면 resolve."""
+        from datetime import datetime
+        seeds = [{"date": datetime.now(ssi.KST).date().isoformat(),
+                  "publisher": "경상매일신문",
+                  "title": "사드 10년 버틴 성주 소성리 햇빛 소득 하반기 착공 눈앞"}]
+        state = {"sent": {}}
+        gnews = [{"title": "사드 10년 버틴 성주 소성리 햇빛 소득 하반기 착공 눈앞",
+                  "link": "https://news.google.com/rss/articles/abc123"}]
+        articles = self._run(state, seeds, [], gnews_items=gnews)
+        self.assertEqual(len(articles), 1)
+        self.assertIn("news.google.com", articles[0]["link"])
+        self.assertEqual(self._webkr_calls, 1)  # 웹문서를 먼저 시도한 뒤
 
     def test_link_seed_resolves_without_search(self):
         from datetime import datetime

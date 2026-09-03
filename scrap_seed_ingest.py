@@ -143,8 +143,8 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
         return []
 
     # 순환 import 회피 — email_ingest 와 같은 lazy import 패턴
-    from news_bot import (article_seen, get_domain, search_naver, search_naver_webkr,
-                          source_profile, strip_html, url_hash)
+    from news_bot import (article_seen, fetch_rss, get_domain, search_naver,
+                          search_naver_webkr, source_profile, strip_html, url_hash)
 
     ledger = state.setdefault("scrap_seeds", {})
     now = datetime.now(timezone.utc)
@@ -240,6 +240,17 @@ def fetch_scrap_seed_articles(state: dict) -> list[dict]:
                 best, best_score = best_match(search_naver_webkr(seed["title"]))
             except Exception as e:  # noqa: BLE001
                 print(f"  ! [scrap_seed] '{seed['title'][:30]}' 웹문서 검색 실패: {type(e).__name__}")
+        if not best or best_score < MATCH_THRESHOLD:
+            # 마지막 폴백 — Google News 검색 RSS. 키·쿼터 계약 불필요, 2026-09-04
+            # 실측: 네이버 뉴스가 6회 포기한 시드 10건 중 5건 구제. fetch_rss 가
+            # <source> 매체 복원과 " - 매체명" 꼬리 제거까지 해 준다.
+            from urllib.parse import quote
+            try:
+                gnews = fetch_rss("https://news.google.com/rss/search?q="
+                                  + quote(seed["title"]) + "&hl=ko&gl=KR&ceid=KR:ko")
+                best, best_score = best_match(gnews[:10])
+            except Exception as e:  # noqa: BLE001
+                print(f"  ! [scrap_seed] '{seed['title'][:30]}' 구글뉴스 검색 실패: {type(e).__name__}")
         if not best or best_score < MATCH_THRESHOLD:
             continue
 
