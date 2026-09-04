@@ -2752,6 +2752,26 @@
       "right_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
       "same_event": false
     },
+    "0566c98f225d37a3--371f58bb78f102e7": {
+      "embedding_similarity": 0.8462,
+      "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 육성 및 규제 개혁 관련",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
+      "same_event": true
+    },
+    "0566c98f225d37a3--46a046f4463404f9": {
+      "embedding_similarity": 0.8499,
+      "left_title": "정부, AI 시대 다음 먹거리로 SMR 등 7대 SEED 프로젝트 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "정부 SEED 프로젝트 vs 후보자 규제개혁",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
+      "same_event": false
+    },
     "05810ce764a2e4db--571c41d8d5a745d5": {
       "embedding_similarity": 0.84,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -6092,6 +6112,16 @@
       "right_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
       "same_event": true
     },
+    "0a3a69c9a73e8bbe--83e09e9f857583f9": {
+      "embedding_similarity": 0.8489,
+      "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 나트륨 SMR 관련 보도",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "same_event": true
+    },
     "0a3a69c9a73e8bbe--895b471e7f2e1d4c": {
       "embedding_similarity": 0.9103,
       "left_title": "테라파워 나트륨 SMR, 美 와이오밍주서 건설 현황 조명",
@@ -7320,6 +7350,16 @@
       "reason": "SMR 자금 확보와 협력 계약",
       "reviewed_at": "2026-08-16T15:24:34.936434+00:00",
       "right_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
+      "same_event": false
+    },
+    "0cbfb9e759a63e36--5167039add8b16d2": {
+      "embedding_similarity": 0.8462,
+      "left_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협력 확대와 홀텍 IPO 분석",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
       "same_event": false
     },
     "0cbfb9e759a63e36--523e0acf9253e1c6": {
@@ -13772,6 +13812,16 @@
       "right_title": "SK그룹, AI 풀스택 전략으로 SMR 중심 에너지 포트폴리오 다변화 가속",
       "same_event": false
     },
+    "1c06818650f7ceef--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.85,
+      "left_title": "한수원, 원전 공정열 활용 고온수전해 K-SOC 산업 생태계 육성",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "공정열 활용 vs AI·SMR 전략",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "same_event": false
+    },
     "1c63f08db9cd89f2--4288e4cee8658728": {
       "embedding_similarity": 0.8485,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -15430,6 +15480,16 @@
       "reason": "새울 1호기 재가동 vs 새울 3호기 자동정지",
       "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "새울원전 3호기, 전력망 복구시험 중 자동 정지 발생",
+      "same_event": false
+    },
+    "1f235e424372ff51--e8741e7c6c9f68a0": {
+      "embedding_similarity": 0.8662,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 vs 새울 3호기",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
       "same_event": false
     },
     "1f5270f31d6e57ef--6069799c66af44db": {
@@ -17140,6 +17200,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-20T21:38:48.477053+00:00",
       "right_title": "중국, 쉬웨이(Xuwei) 1단계 프로젝트 승인",
+      "same_event": false
+    },
+    "23695984ae743e95--c94feb346f61931a": {
+      "embedding_similarity": 0.8511,
+      "left_title": "중국 톈완 7호기 원전, 첫 핵연료 장전 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "톈완 7호기 vs 쉬다바오 1호기",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "중국 쉬다바오 1호기 원자로 돔 설치 완료",
       "same_event": false
     },
     "23695984ae743e95--cb38eed27ac4ccd4": {
@@ -23542,6 +23612,16 @@
       "right_title": "캐나다 서스캐처원 우라늄 광산 건설 착공",
       "same_event": true
     },
+    "33f6acd7fdf087e6--4602974590c8de51": {
+      "embedding_similarity": 0.8462,
+      "left_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "N-2 규제와 송전 용량 확보 어려움",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "정부, 송전망 포화 대응 위해 9월부터 '계절별 송전용량' 시범 적용",
+      "same_event": true
+    },
     "33f6acd7fdf087e6--612614ae06f13848": {
       "embedding_similarity": 0.8555,
       "left_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
@@ -23551,6 +23631,26 @@
       "reviewed_at": "2026-09-04T13:26:15.832974+00:00",
       "right_title": "한전, 적기 송전 중심 '전력안보' 체계로 패러다임 전환",
       "same_event": false
+    },
+    "33f6acd7fdf087e6--96dffa21b827ca27": {
+      "embedding_similarity": 0.8498,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 vs 송전 용량",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "same_event": false
+    },
+    "33f6acd7fdf087e6--be0543ad09ded286": {
+      "embedding_similarity": 0.8484,
+      "left_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "N-2 규제와 송전 용량 확보 어려움",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "정부, 민간 전력망 건설 참여 법적 근거 마련…한전 부담 완화",
+      "same_event": true
     },
     "33f6acd7fdf087e6--cb3e09376383de6f": {
       "embedding_similarity": 0.8608,
@@ -23580,6 +23680,16 @@
       "reason": "전력망 포화 대응 송전 용량 도입",
       "reviewed_at": "2026-09-04T07:56:57.804386+00:00",
       "right_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "same_event": true
+    },
+    "33f6acd7fdf087e6--f762199f53581f88": {
+      "embedding_similarity": 0.8485,
+      "left_title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "N-2 규제와 송전 용량 확보 어려움",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "국회, 국가기간 전력망 건설 민간 참여 특별법 본회의 통과",
       "same_event": true
     },
     "34155630c94c30d0--b0a08cb6ff57b807": {
@@ -23852,6 +23962,16 @@
       "right_title": "발전 5사 하나로 통합한다…'한국발전공사' 설립 추진",
       "same_event": true
     },
+    "346da384dda06dab--83b3ffe9523e336e": {
+      "embedding_similarity": 0.8498,
+      "left_title": "정부, 발전 5사·석유가스공사 통합 등 109개 공공기관 기능 개혁 추진",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 추진",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "발전 5사 하나로 통합한다…'한국발전공사' 설립 추진",
+      "same_event": true
+    },
     "346da384dda06dab--9158679d23f5f911": {
       "embedding_similarity": 0.9044,
       "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
@@ -23980,6 +24100,26 @@
       "reason": "다른 DOE 프로젝트",
       "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
       "right_title": "미국 에너지부, 원자력 수명 주기 혁신 캠퍼스 최종 후보지 5개 주 발표",
+      "same_event": false
+    },
+    "349fee0c20bfbf28--79ae5834f1b41613": {
+      "embedding_similarity": 0.8994,
+      "left_title": "테네시주, Type One Energy에 상업용 핵융합 시설 첫 인허가 발급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테네시주 핵융합 발전소 면허 발급",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "테네시주, 핵융합 에너지 개발 지원 정책 추진",
+      "same_event": true
+    },
+    "349fee0c20bfbf28--a8607be1ca7960f3": {
+      "embedding_similarity": 0.8502,
+      "left_title": "FANCO, HALEU 연료 제조 시설 인허가 계획 NRC에 제출",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "HALEU 연료 vs 테네시주 핵융합",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "테네시주, Type One Energy에 상업용 핵융합 시설 첫 인허가 발급",
       "same_event": false
     },
     "349fee0c20bfbf28--b3fe6868b8391d2d": {
@@ -26462,6 +26602,16 @@
       "right_title": "12차 전기본, 4개월 만에 전력수요 전망 재조정",
       "same_event": true
     },
+    "3936f98b28485c84--8a0a836e77dd28c7": {
+      "embedding_similarity": 0.8499,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 설비 확대 vs 사업 협력",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "SK이터닉스, 엔라이튼과 재생에너지 사업 협력 확대",
+      "same_event": false
+    },
     "3936f98b28485c84--8ed0ddd8bfea6a7c": {
       "embedding_similarity": 0.8785,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -26660,6 +26810,16 @@
       "reason": "화석연료 확대 반대 의견은 다른 사안",
       "reviewed_at": "2026-08-29T23:44:12.784378+00:00",
       "right_title": "기후솔루션, 메가프로젝트 전력수요 증가에 화석연료 확대 반대",
+      "same_event": false
+    },
+    "3936f98b28485c84--cd2318c0be5d5379": {
+      "embedding_similarity": 0.8472,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 확대 방안과 전기요금 차등제",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "기후에너지환경부, 지역별 전기요금 차등제 설계안 공개",
       "same_event": false
     },
     "3936f98b28485c84--d60c75d7877511ce": {
@@ -28812,6 +28972,16 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": true
     },
+    "3db1fb734ba2fd2f--7d9268f856d1f63f": {
+      "embedding_similarity": 0.8479,
+      "left_title": "영덕군의회, 신규 원전 예정지 확정 후 고리·새울 원전 안전성 점검",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "영덕군 신규 원전 관련 보도",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "경북 영덕군, 신규 원전 명칭 공모 추진 및 주민 생존권 요구",
+      "same_event": true
+    },
     "3db1fb734ba2fd2f--cc5ef12e160a4ddf": {
       "embedding_similarity": 0.8439,
       "left_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
@@ -29569,6 +29739,16 @@
       "prompt_version": 1,
       "reason": "데이터센터 전력 수요 vs 인력 시장 영향",
       "reviewed_at": "2026-09-04T13:26:15.832974+00:00",
+      "right_title": "데이터센터 전력난이 인력 시장에 미치는 영향 분석",
+      "same_event": false
+    },
+    "406c83aae90714b4--e17805472c05ed7e": {
+      "embedding_similarity": 0.8474,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "미국 전력망 부족 전망과 데이터센터 영향",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
       "right_title": "데이터센터 전력난이 인력 시장에 미치는 영향 분석",
       "same_event": false
     },
@@ -35152,6 +35332,16 @@
       "right_title": "이철우 경북도지사, 산업용 지역 전기요금제 환영…30% 이상 차등 요구",
       "same_event": false
     },
+    "4c9acb05e565646d--cd2318c0be5d5379": {
+      "embedding_similarity": 0.8477,
+      "left_title": "기후에너지환경부, 지역별 전기요금 차등제 설계안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "지역별 전기요금 차등제 관련 보도",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "이철우 경북도지사, 산업용 지역 전기요금제 환영…30% 이상 차등 요구",
+      "same_event": true
+    },
     "4cab8ab317f8d4e9--616c6b13d9f03cfa": {
       "embedding_similarity": 0.8449,
       "left_title": "센트러스 에너지, X-에너지에 LEU 및 HALEU 농축 서비스 제공 확정 계약 체결",
@@ -35430,6 +35620,16 @@
       "reason": "새울 3호기 자동정지 관련 보도",
       "reviewed_at": "2026-08-16T01:15:09.609934+00:00",
       "right_title": "새울원전 3호기, 전력망 복구시험 중 자동 정지 발생",
+      "same_event": true
+    },
+    "4da5b7ab6c225c78--e8741e7c6c9f68a0": {
+      "embedding_similarity": 0.8829,
+      "left_title": "상업운전 앞둔 새울 3호기 시운전 중 자동정지 및 사업기간 연장",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 자동정지 및 재가동 승인",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
       "same_event": true
     },
     "4dd2920f69b7ea54--67b29b69bb768171": {
@@ -36110,6 +36310,16 @@
       "reason": "핀란드 온칼로 처분공 굴착 착수",
       "reviewed_at": "2026-09-01T08:38:53.049906+00:00",
       "right_title": "핀란드 Posiva, 온칼로 사용후핵연료 최종 처분 구멍 시추 개시",
+      "same_event": true
+    },
+    "50251b1a457197d4--6b44ee4146ad6b25": {
+      "embedding_similarity": 0.8476,
+      "left_title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "두산에너빌리티 SMR 부품 공급 및 기술 협력",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "서울과기대-두산에너빌리티, 차세대 원전·SMR 기술협력 MOU 체결",
       "same_event": true
     },
     "502f5a4137922949--9bff425a2d2c0a20": {
@@ -38140,6 +38350,16 @@
       "reason": "A는 법안 발의, B는 예산 편성",
       "reviewed_at": "2026-09-03T16:31:01.889174+00:00",
       "right_title": "원안위, 내년 예산 3030억 편성…SMR 규제기술 연구 가속화",
+      "same_event": false
+    },
+    "53ed255f676ef803--bb52be419ea610f9": {
+      "embedding_similarity": 0.8492,
+      "left_title": "원안위, 내년 예산 3030억 편성…SMR 규제기술 연구 가속화",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원안위 예산 vs 경남도 국비 확보",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "경남도, 2027년 국비 11.6조원 확보…SMR 관련 예산 187억원 포함",
       "same_event": false
     },
     "53ed255f676ef803--c27ff83a2b34cbd4": {
@@ -40520,6 +40740,16 @@
       "reason": "전력 공급 협약과 반도체 팹 건설 계획",
       "reviewed_at": "2026-08-20T13:01:47.097556+00:00",
       "right_title": "호남권에 반도체 팹 2기 추가 건설 계획, 12차 전기본에 반영",
+      "same_event": false
+    },
+    "58158c94ab72ede0--70ad13bfd6dc0ba5": {
+      "embedding_similarity": 0.8479,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "반도체 클러스터 전력 공급과 발전공기업 통합",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "정부, 발전공기업 5사 (가칭)한국발전으로 단일법인화 공식 발표",
       "same_event": false
     },
     "58158c94ab72ede0--71fb2cce97eae0f9": {
@@ -43582,6 +43812,16 @@
       "right_title": "12차 전력수급기본계획, 20일 전력 수요 전망치 공개 예정",
       "same_event": false
     },
+    "5c22cc5586b97424--c846e4b8dd195588": {
+      "embedding_similarity": 0.847,
+      "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "3대 메가프로젝트 전력 수요 검증 관련",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "[2026 국감] AI·반도체 '3대 메가프로젝트'…탄소중립과 양립 가능한가",
+      "same_event": true
+    },
     "5c22cc5586b97424--c8644b4278ee57fb": {
       "embedding_similarity": 0.8607,
       "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
@@ -46251,6 +46491,16 @@
       "reviewed_at": "2026-09-02T08:05:07.939081+00:00",
       "right_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
       "same_event": false
+    },
+    "63c61266bb0dc771--e8741e7c6c9f68a0": {
+      "embedding_similarity": 0.8882,
+      "left_title": "새울 3호기 시운전 중 자동정지, 원안위 긴급점검 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 자동정지 및 재가동 승인",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
+      "same_event": true
     },
     "64390f8237447d17--baf86b26077f0bc1": {
       "embedding_similarity": 0.8459,
@@ -49942,6 +50192,16 @@
       "right_title": "로사톰, 해상 SMR 수요 대응 위해 무르만스크에 전용 완공 기지 검토",
       "same_event": false
     },
+    "6e8eb94913ed615b--e83fff73156ff7f4": {
+      "embedding_similarity": 0.8488,
+      "left_title": "로사톰, 카자흐스탄 발하시 원전 2.4GW EPC 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원전 사업 주체는 같으나 대상과 내용이 다름",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "로사톰, 해상 SMR 수요 대응 위해 무르만스크에 전용 완공 기지 검토",
+      "same_event": false
+    },
     "6ea6e3a37d06959e--cd7402e9a9f88194": {
       "embedding_similarity": 0.8467,
       "left_title": "래디언트의 칼레이도스 마이크로원자로, 아이다호 시험장으로 운송 시작",
@@ -53492,6 +53752,16 @@
       "right_title": "美 웨스팅하우스 지분 인수, 한국 원전동맹 강화 기회 [사설]",
       "same_event": false
     },
+    "784d51db2716601c--f4a9fbcee4542f9e": {
+      "embedding_similarity": 0.8479,
+      "left_title": "미국 웨스팅하우스, 정부 지원 등에 업고 IPO 추진…기업가치 150억 달러 전망",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 IPO와 한국의 공동 인수 검토",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "한국, 미국과 웨스팅하우스 공동 인수 검토 (2000억 달러 펀드 활용)",
+      "same_event": false
+    },
     "78620a0ee8315307--f6b15870627509bd": {
       "embedding_similarity": 0.8641,
       "left_title": "앤트로픽, 엔스케일과 450억 달러 AI 컴퓨팅 계약…용량 확보 총력",
@@ -54081,6 +54351,26 @@
       "reviewed_at": "2026-08-28T05:43:40.552626+00:00",
       "right_title": "프랑스 골페슈 원전, 기후 조건으로 재차 가동 중단 발표",
       "same_event": false
+    },
+    "79ae5834f1b41613--cfdf56da54c3bf4e": {
+      "embedding_similarity": 0.8503,
+      "left_title": "미 에너지부, 오크리지 국립연구소 핵융합 증식 블랭킷 시설 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "오크리지 연구소 vs 테네시주 정책",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "테네시주, 핵융합 에너지 개발 지원 정책 추진",
+      "same_event": false
+    },
+    "79ae5834f1b41613--dbc2743e407e894e": {
+      "embedding_similarity": 0.9001,
+      "left_title": "테네시주, 타입 원 에너지(Type One Energy)에 핵융합 발전소 면허 발급",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테네시주 핵융합 발전소 면허 발급",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "테네시주, 핵융합 에너지 개발 지원 정책 추진",
+      "same_event": true
     },
     "79d1832e76e7c772--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8674,
@@ -54820,6 +55110,16 @@
       "reason": "주체는 같으나 사안이 다름",
       "reviewed_at": "2026-09-03T16:31:01.889174+00:00",
       "right_title": "영덕군의회, 신규 원전 예정지 확정 후 고리·새울 원전 안전성 점검",
+      "same_event": false
+    },
+    "7d9268f856d1f63f--d4010b67b8de8881": {
+      "embedding_similarity": 0.849,
+      "left_title": "영덕군의회, 신규 원전 예정지 확정 후 고리·새울 원전 안전성 점검",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상 원전이 다름",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원자력안전위원회, 새울 1호기 안전성 확인 후 재가동 승인",
       "same_event": false
     },
     "7db712a18d7f6a1f--9ff80dab9059f991": {
@@ -56170,6 +56470,16 @@
       "reason": "중국 원전의 다른 호기 건설 관련 보도",
       "reviewed_at": "2026-08-21T21:34:04.603010+00:00",
       "right_title": "중국 하이양 3호기 원전 고온 기능 시험 완료",
+      "same_event": false
+    },
+    "825c981b6effb82e--c94feb346f61931a": {
+      "embedding_similarity": 0.8605,
+      "left_title": "중국 장저우 4호기, 피동형 안전 모듈 최종 설치 완료",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "장저우 4호기 vs 쉬다바오 1호기",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "중국 쉬다바오 1호기 원자로 돔 설치 완료",
       "same_event": false
     },
     "829572ab405b6400--975146cde1cfceb8": {
@@ -58182,6 +58492,16 @@
       "right_title": "전남광주시, 호남 반도체 전력 공급 협약 체결",
       "same_event": false
     },
+    "8b82b5beb7e7c506--cd2318c0be5d5379": {
+      "embedding_similarity": 0.846,
+      "left_title": "기후에너지환경부, 지역별 전기요금 차등제 설계안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전기요금 차등제와 호남 반도체 전력 공급",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "전남광주시, 호남 반도체 전력 공급 협약 체결",
+      "same_event": false
+    },
     "8b82b5beb7e7c506--cdd5f9ed8f148233": {
       "embedding_similarity": 0.8612,
       "left_title": "이재명 대통령, 해남 청정에너지로 반도체 클러스터 및 지역소멸 극복 강조",
@@ -58301,6 +58621,16 @@
       "reviewed_at": "2026-08-09T14:29:05.244945+00:00",
       "right_title": "전력거래소, 한빛원전 현장 점검··· 여름철 전력수급 안정 대응",
       "same_event": true
+    },
+    "8c32eada0e1f5144--96dffa21b827ca27": {
+      "embedding_similarity": 0.8484,
+      "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 전력 수요 전망과 AI 시대 최 회장 성적",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "[곽재원의 Now&Future] AI 시대 최태원 회장의 진짜 성적표는 아직 나오...",
+      "same_event": false
     },
     "8c32eada0e1f5144--fbd3322d6a137c46": {
       "embedding_similarity": 0.8645,
@@ -59591,6 +59921,16 @@
       "reviewed_at": "2026-08-24T09:59:48.702160+00:00",
       "right_title": "민간 발전량 126% 오를 때 발전5사 27% 감소…통합발전사 출범으로 진검...",
       "same_event": false
+    },
+    "9158679d23f5f911--b6087bb243da8ad3": {
+      "embedding_similarity": 0.8482,
+      "left_title": "국회, 발전 5사 통합 '한국발전공사법안' 발의…25년 만에 재편 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 논의",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조",
+      "same_event": true
     },
     "9158679d23f5f911--b817c7c00ad978ec": {
       "embedding_similarity": 0.862,
@@ -64162,6 +64502,16 @@
       "right_title": "새울원전 3호기, 전력망 복구시험 중 자동 정지 발생",
       "same_event": false
     },
+    "a3880024de8c77cf--e8741e7c6c9f68a0": {
+      "embedding_similarity": 0.8619,
+      "left_title": "원자력안전위원회, 새울원전 1호기 정기검사 후 8월 21일 재가동 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 vs 새울 3호기",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
+      "same_event": false
+    },
     "a3e13685ce3cf3f9--a519ec27d94058f0": {
       "embedding_similarity": 0.8812,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -67832,6 +68182,16 @@
       "right_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
       "same_event": false
     },
+    "b0cdd490f0e1afe3--e8741e7c6c9f68a0": {
+      "embedding_similarity": 0.8823,
+      "left_title": "원안위, 새울 3호기 시운전 중 자동정지 사건조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 자동정지 및 재가동 승인",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
+      "same_event": true
+    },
     "b0cdd490f0e1afe3--f05008a326b99feb": {
       "embedding_similarity": 0.8504,
       "left_title": "원안위, 새울 3호기 시운전 중 자동정지 사건조사 착수",
@@ -70020,6 +70380,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-09-03T23:09:48.792274+00:00",
       "right_title": "경남도, 2027년 국비 11.6조원 확보…SMR 관련 예산 187억원 포함",
+      "same_event": false
+    },
+    "bb52be419ea610f9--e16bd67756c231dc": {
+      "embedding_similarity": 0.8495,
+      "left_title": "경남도, 2027년 국비 11.6조원 확보…SMR 관련 예산 187억원 포함",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "경남도 국비 확보 vs SMR 특별법",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "경남 제조업 성장, SMR 특별법 통과 등 정책 효과 분석",
       "same_event": false
     },
     "bb65e11c8f33af62--bf6d688ab21e07ed": {
@@ -72272,6 +72642,26 @@
       "right_title": "한국사회책임투자포럼, 국내 RE100 기업 재생에너지 사용률 저조 보고",
       "same_event": false
     },
+    "c836141adfe4cc3c--e83fff73156ff7f4": {
+      "embedding_similarity": 0.8498,
+      "left_title": "로사톰, 카자흐스탄 발하시 원전 2.4GW EPC 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "카자흐스탄 계약 vs 러시아 계획",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "러시아, 대규모 원자력 발전 확대 계획 발표",
+      "same_event": false
+    },
+    "c846e4b8dd195588--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8486,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 전기본, 메가프로젝트 전력 수요 관련",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "[2026 국감] AI·반도체 '3대 메가프로젝트'…탄소중립과 양립 가능한가",
+      "same_event": true
+    },
     "c84ca17eb7ff09ec--e7194df18af9a0fe": {
       "embedding_similarity": 0.8436,
       "left_title": "한국전력, 1만5천개 배전선로별 정전비용 산출 착수",
@@ -72390,6 +72780,16 @@
       "reason": "원전 추가 필요성 vs 화석연료 반대",
       "reviewed_at": "2026-08-26T10:00:50.133400+00:00",
       "right_title": "기후솔루션, 메가프로젝트 전력수요 증가에 화석연료 확대 반대",
+      "same_event": false
+    },
+    "c94feb346f61931a--e5a4ebd98ea2a0b9": {
+      "embedding_similarity": 0.8773,
+      "left_title": "중국 쉬다바오 원전 1·2호기 주제어실 시뮬레이터 가동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "쉬다바오 1·2호기 vs 쉬다바오 1호기",
+      "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
+      "right_title": "중국 쉬다바오 1호기 원자로 돔 설치 완료",
       "same_event": false
     },
     "c99eed2eee894e67--ce215adf0ad0798b": {
