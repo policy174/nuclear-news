@@ -72,6 +72,32 @@ class PeriodAggregationTests(unittest.TestCase):
         self.assertEqual(by_tag["smr"]["delta"], 0)
         self.assertFalse(by_tag["smr"]["new"])
 
+    def test_tag_cloud_matches_comparison_contract(self):
+        # 워드클라우드 재료 — tag_comparison 과 같은 필드 계약, 상한 40.
+        issues = [
+            _issue("i1", [_member("a1", "가나 원전 협약 서명", "2026-08-18", tags=["smr"])]),
+            _issue("i2", [_member("a2", "나미비아 우라늄 증산 발표", "2026-08-08", tags=["smr", "우라늄"])]),
+        ]
+        periods = _build(issues, ["2026-06-01", "2026-08-18"], NOW)
+        cloud = periods["7"]["tag_cloud"]
+        self.assertLessEqual(len(cloud), 40)
+        by_tag = {row["tag"]: row for row in cloud}
+        self.assertEqual(by_tag["smr"]["count"], 1)
+        self.assertEqual(by_tag["smr"]["previous_count"], 1)
+        self.assertEqual(by_tag["smr"]["delta"], 0)
+        self.assertFalse(by_tag["smr"]["new"])
+        comparison = {row["tag"]: row for row in periods["7"]["tag_comparison"]}
+        for tag, row in comparison.items():
+            self.assertEqual(by_tag[tag], row)
+
+    def test_tag_cloud_null_when_previous_incomplete(self):
+        issues = [_issue("i1", [_member("a1", "원전 계약 체결", "2026-08-10", tags=["smr"])])]
+        periods = _build(issues, ["2026-07-18"], NOW)
+        row = periods["30"]["tag_cloud"][0]
+        self.assertIsNone(row["previous_count"])
+        self.assertIsNone(row["delta"])
+        self.assertFalse(row["new"])
+
     def test_incomplete_previous_yields_null_not_fabrication(self):
         issues = [_issue("i1", [_member("a1", "원전 계약 체결", "2026-08-10", tags=["smr"])])]
         periods = _build(issues, ["2026-07-18"], NOW)

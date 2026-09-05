@@ -846,6 +846,9 @@ PERIOD_DAYS = (7, 30, 90, 180, 365)
 _PERIOD_BUCKET_DAYS = {7: 1, 30: 7, 90: 15, 180: 30, 365: 30}
 _PERIOD_TOP_TAGS = 10
 _PERIOD_TAG_COMPARISON = 15
+# 워드클라우드 전용 — 표(15개)보다 넓게 본다. 프런트는 이 키가 없으면
+# tag_comparison 으로 내려앉으므로(wordCloudRows) 값 없는 구버전도 안전.
+_PERIOD_TAG_CLOUD = 40
 _PERIOD_TIMELINE_HIGHLIGHTS = 3
 
 
@@ -1022,6 +1025,15 @@ def build_trend_periods(issues: list[dict], story_ids: dict[str, str],
                 for tag, count in tag_prev.most_common(_PERIOD_TOP_TAGS)
             ] if previous_complete else [],
             "tag_comparison": tag_comparison,
+            "tag_cloud": [
+                {
+                    "tag": tag, "count": count,
+                    "previous_count": tag_prev.get(tag, 0) if previous_complete else None,
+                    "delta": count - tag_prev.get(tag, 0) if previous_complete else None,
+                    "new": previous_complete and tag_prev.get(tag, 0) == 0,
+                }
+                for tag, count in tag_now.most_common(_PERIOD_TAG_CLOUD)
+            ],
             "timeline": timeline,
         }
     return periods
