@@ -611,6 +611,12 @@
   <div><div class="search-dialog-head"><h2 id="statusDialogTitle">데이터 상태</h2><button id="statusDialogClose" type="button" aria-label="상태 닫기">×</button></div><div id="statusDialogContent"></div></div>
 </dialog>
 
+<!-- 일정 상세. 이슈 다이얼로그를 쓰지 않는 이유는 재료가 다르기 때문이다 —
+     일정 기사 대부분은 브리핑에 선정되지 않은 공지·예고라 열 이슈가 없다.
+     그래서 이 창은 스스로 근거를 갖는다: 근거 문장·출처. -->
+<dialog id="calendarDialog" class="calendar-dialog" aria-labelledby="calendarDialogTitle">
+  <div class="issue-dialog-shell"><button id="calendarDialogClose" class="dialog-close" type="button" aria-label="일정 상세 닫기">×</button><div id="calendarDialogContent"></div></div>
+</dialog>
 <dialog id="issueDialog" class="issue-dialog" aria-labelledby="issueDialogTitle">
   <div class="issue-dialog-shell"><button id="issueDialogClose" class="dialog-close" type="button" aria-label="이슈 상세 닫기">×</button><div id="issueDialogContent"></div></div>
 </dialog>

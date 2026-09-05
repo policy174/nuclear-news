@@ -2433,6 +2433,244 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .word-cloud-swatch.new { color: var(--c-accent-text); }
 .word-cloud-swatch.up { color: var(--c-text); }
 .word-cloud-swatch.down { color: var(--c-text-muted); }
+
+/* ── 앞으로 30일 달력 (event_calendar) ─────────────────────────────────── */
+.event-calendar { position: relative; margin-top: var(--sp-12); }
+.cal-legend {
+  display: flex;
+  gap: var(--sp-4);
+  margin: var(--sp-3) 0 var(--sp-2);
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+}
+.cal-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: var(--bd-2) solid var(--c-border-strong);
+  border-left: var(--bd-1) solid var(--c-border);
+  background: var(--c-surface);
+}
+.cal-head {
+  padding: 6px 8px;
+  border-right: var(--bd-1) solid var(--c-border);
+  border-bottom: var(--bd-1) solid var(--c-border);
+  background: var(--c-surface-sunken);
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  font-weight: 650;
+}
+.cal-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* 격자 칸은 기본이 min-width:auto 라 안쪽 글자보다 작아지지 못한다. 0 으로
+     내리지 않으면 긴 이름이 칸을 뚫고 옆 날짜 위로 흘러간다(실측: 9/18 '한전
+     대구본부 여름철 전력수급 대책기간 운영'이 19일 칸을 덮었다). 아래 칩까지
+     같은 이유로 줄줄이 0 을 놓아야 말줄임이 실제로 걸린다. */
+  min-width: 0;
+  min-height: 96px;
+  padding: 6px;
+  border-right: var(--bd-1) solid var(--c-border);
+  border-bottom: var(--bd-1) solid var(--c-border);
+}
+/* 창 앞뒤로 남는 자리. 달력이 아닌 곳이므로 괘선 안쪽을 비운다. */
+.cal-cell.is-blank { background: var(--c-bg); }
+.cal-cell.is-sun, .cal-cell.is-sat { background: var(--c-surface-sunken); }
+.cal-daynum {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+  font-variant-numeric: tabular-nums;
+}
+.cal-cell.is-today .cal-daynum { color: var(--c-text); font-weight: 700; }
+/* 라임은 블록이지 선이 아니다 — 잉크 글자를 동반한다(팔레트 규칙 1). */
+.cal-today {
+  padding: 1px 5px;
+  background: var(--c-signal);
+  color: var(--c-signal-ink);
+  font-family: var(--ff-base);
+  font-size: var(--t-min);
+  font-style: normal;
+  font-weight: 700;
+}
+.cal-chips { display: grid; gap: 3px; min-width: 0; margin: 0; padding: 0; list-style: none; }
+.cal-chips li { min-width: 0; }
+.cal-chip, .cal-more {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding: 3px 5px;
+  border: 0;
+  background: var(--c-surface-sunken);
+  color: var(--c-text);
+  font-family: var(--ff-base);
+  font-size: var(--t-min);
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--mo-1);
+}
+.cal-chip:hover, .cal-more:hover { background: var(--c-secondary-weak); }
+.cal-chip-label { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* 여기 서는 말은 '시작·진행 중·종료' 라 숫자가 아니다. 모노로 두면 한글이
+   전각으로 벌어져 자간이 새는 것처럼 보인다(실측 스크린샷에서 '진 행  중'). */
+.cal-until {
+  flex: none;
+  margin-left: auto;
+  white-space: nowrap;
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+}
+.cal-more { justify-content: center; color: var(--c-text-muted); font-family: var(--ff-mono); }
+/* 종류는 모양으로 말한다. 크기를 같게 두면 셋이 한 줄에서 정렬된다. */
+.cal-dot { flex: none; width: 7px; height: 7px; background: var(--c-secondary); }
+.cal-dot.is-deadline { transform: rotate(45deg); background: var(--c-warning); }
+.cal-dot.is-range { width: 12px; height: 3px; background: var(--c-accent-text); }
+/* 근거 문장. 떠 있는 것이라 하드 오프셋을 쓴다(팔레트 규칙 3). */
+.cal-popover {
+  position: absolute;
+  z-index: 40;
+  width: min(340px, calc(100% - 8px));
+  padding: var(--sp-3);
+  border: var(--bd-2) solid var(--c-edge);
+  background: var(--c-surface);
+  box-shadow: var(--sh-1);
+  pointer-events: none;
+}
+.cal-pop-when {
+  display: flex;
+  gap: var(--sp-2);
+  margin: 0 0 4px;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+}
+.cal-pop-when span { color: var(--c-text-secondary); font-family: var(--ff-base); font-weight: 650; }
+.cal-pop-label { margin: 0 0 6px; font-size: var(--t-body); font-weight: 700; }
+.cal-pop-clause { margin: 0 0 6px; color: var(--c-text-secondary); font-size: var(--t-caption); line-height: 1.55; }
+.cal-pop-source { margin: 0; color: var(--c-text-muted); font-size: var(--t-min); }
+/* 다가오는 일정 — 좁은 화면에서만 선다. 격자가 잃은 이름을 폭이 있는 곳에서
+   되찾는 자리라, 칩이 이름을 달고 있는 넓은 화면에는 있을 이유가 없다. */
+.cal-upcoming { display: none; margin-top: var(--sp-6); }
+.cal-upcoming h3 { margin: 0 0 var(--sp-2); font-size: var(--t-body); }
+.cal-upcoming ul { margin: 0; padding: 0; list-style: none; }
+.cal-up-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px var(--sp-3);
+  align-items: baseline;
+  width: 100%;
+  padding: var(--sp-2) 0;
+  border: 0;
+  border-top: var(--bd-1) solid var(--c-border);
+  background: none;
+  color: var(--c-text);
+  font-family: var(--ff-base);
+  text-align: left;
+  cursor: pointer;
+}
+.cal-up-when {
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+  font-variant-numeric: tabular-nums;
+}
+.cal-up-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+}
+/* 이름은 두 열을 다 쓰고 줄바꿈도 허용한다 — 이 화면에서 이름이 온전히 서는
+   유일한 자리이므로, 여기서까지 말줄임을 걸면 목록을 만든 뜻이 없어진다. */
+.cal-up-label { grid-column: 1 / -1; font-size: var(--t-caption); }
+/* 8건을 넘는 나머지. timeline-more 와 같은 손잡이 어법 — 세로선이 없는
+   목록이라 왼쪽 테두리는 빌리지 않는다. 안쪽 행은 .cal-up-row 의 border-top 을
+   그대로 물려받으므로 여기서 다시 긋지 않는다. */
+.cal-up-more { border-top: var(--bd-1) solid var(--c-border); }
+.cal-up-more > summary { padding: var(--sp-2) 0; color: var(--c-secondary); font-size: var(--t-caption); cursor: pointer; }
+.cal-up-more > ul { margin: 0; padding: 0; list-style: none; }
+.cal-months { margin-top: var(--sp-6); }
+.cal-months h3 { margin: 0 0 var(--sp-2); font-size: var(--t-body); }
+.cal-months ul { margin: 0; padding: 0; list-style: none; }
+.cal-months li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: var(--sp-3);
+  align-items: baseline;
+  padding: var(--sp-2) 0;
+  border-top: var(--bd-1) solid var(--c-border);
+}
+.cal-month-when { color: var(--c-text-muted); font-family: var(--ff-mono); font-size: var(--t-min); }
+.cal-month-label { font-size: var(--t-caption); }
+.cal-months a { color: var(--c-text-muted); font-size: var(--t-min); white-space: nowrap; }
+.cal-note { margin-top: var(--sp-3); }
+/* 일정 상세 — 이슈 다이얼로그와 같은 껍데기를 쓰되 안은 일정의 것이다. */
+.calendar-dialog { width: min(560px, calc(100% - 32px)); }
+.cal-dialog-title { margin: 0 0 var(--sp-4); font-size: var(--t-body-lg); }
+.cal-detail { padding-top: var(--sp-4); border-top: var(--bd-1) solid var(--c-border); }
+.cal-detail:first-of-type { padding-top: 0; border-top: 0; }
+.cal-detail h3 { margin: 0 0 var(--sp-2); font-size: var(--t-card); line-height: 1.25; }
+.cal-detail-when {
+  display: flex;
+  gap: var(--sp-2);
+  margin: 0 0 4px;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+}
+.cal-detail-when span { color: var(--c-text-secondary); font-family: var(--ff-base); font-weight: 650; }
+.cal-detail-clause {
+  margin: 0;
+  padding: var(--sp-3);
+  background: var(--c-surface-sunken);
+  color: var(--c-text-secondary);
+  font-size: var(--t-caption);
+  line-height: 1.6;
+}
+.cal-detail-note { margin: 6px 0 var(--sp-3); color: var(--c-text-muted); font-size: var(--t-min); }
+/* 근거가 기관 공지임을 말하는 표. 색이 아니라 글자로 말한다 — 색만으로
+   가르면 흑백 출력과 색각 이상에서 두 경로가 같아 보인다. */
+.cal-official {
+  margin-left: auto;
+  padding: 0 5px;
+  border: var(--bd-1) solid var(--c-accent-text);
+  color: var(--c-accent-text);
+  font-family: var(--ff-base);
+  font-size: var(--t-min);
+  font-weight: 700;
+}
+/* 시간·주최·장소. 기관 공지에만 있는 칸이라 없으면 줄째 안 그린다. */
+.cal-detail-facts {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 2px var(--sp-3);
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-caption);
+}
+.cal-detail-facts dt { color: var(--c-text-muted); font-size: var(--t-min); }
+.cal-detail-facts dd { margin: 0; color: var(--c-text-secondary); }
+.cal-detail-seen {
+  margin: var(--sp-2) 0 0;
+  color: var(--c-text-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--t-min);
+}
+.cal-pop-where { margin: 0 0 6px; color: var(--c-text-secondary); font-size: var(--t-min); }
+.cal-detail-sources { margin: 0; padding: 0; list-style: none; }
+.cal-detail-sources li { padding: var(--sp-2) 0; border-top: var(--bd-1) solid var(--c-border); }
+.cal-detail-sources a { font-size: var(--t-caption); }
+.cal-detail-sources small { display: block; margin-top: 2px; color: var(--c-text-muted); font-size: var(--t-min); }
+.cal-detail-issue { margin: var(--sp-3) 0 0; }
+
 .bar-row { display: grid; grid-template-columns: minmax(90px, .8fr) minmax(80px, 1.5fr) 28px; align-items: center; gap: 8px; min-height: 31px; font-size: var(--t-min); }
 .bar-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bar-track { height: 8px; overflow: hidden; border-radius: var(--r-1); background: var(--c-surface-sunken); }
@@ -3081,6 +3319,42 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .word-cloud { padding: var(--sp-3) 0; }
   /* 좁은 화면에서는 손끝이 낱말 사이를 못 가른다 — 최소 높이를 준다. */
   .word-cloud-item { min-height: 24px; align-items: center; }
+  /* 좁은 화면의 달력 — 격자를 버리지 않는다. 한 달을 한눈에 보는 것이 이
+     구역의 존재 이유라 목록으로 접으면 남는 게 없다. 대신 칩이 점으로 줄고,
+     칸 전체가 그날 목록을 연다(calendarCell 의 data-cal-day).
+     이름은 지우지 않고 **숨긴다** — display:none 이면 접근성 트리에서도 빠져
+     읽어 주는 쪽에 남는 것이 점 하나가 된다. */
+  .cal-cell { min-height: 58px; padding: 4px 3px; gap: 3px; }
+  .cal-head { padding: 5px 4px; text-align: center; }
+  .cal-daynum { justify-content: center; }
+  /* 좁은 칸에 '8/29 오늘'을 같이 두면 배지가 두 줄로 접혀 '오/늘'이 된다.
+     글자를 지우고 날짜 자체를 시그널 슬래브(--c-signal)로 세운다 — 시그널 면은
+     잉크 글자(--c-signal-ink)를 동반한다는 규칙 그대로다. */
+  .cal-today { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+  .cal-cell.is-today .cal-daynum {
+    padding: 1px 4px;
+    background: var(--c-signal);
+    color: var(--c-signal-ink);
+  }
+  .cal-chip { justify-content: center; padding: 3px 2px; }
+  .cal-chip-label, .cal-until {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .cal-more { padding: 2px; }
+  .cal-legend { flex-wrap: wrap; gap: var(--sp-3); }
+  /* :not([hidden]) 이 필요하다 — 작성자 스타일의 display 는 UA 의
+     [hidden]{display:none} 을 특정도와 무관하게 이긴다. 그냥 block 으로 두면
+     일정 0건이라 JS 가 내린 절이 좁은 화면에서만 되살아나 빈 제목이 선다. */
+  .cal-upcoming:not([hidden]) { display: block; }
+  .cal-months li { grid-template-columns: 62px minmax(0, 1fr); row-gap: 2px; }
+  .cal-months a { grid-column: 2; }
+  .cal-popover { width: calc(100% - 8px); }
+
   .keyword-head { display: none; }
   .keyword-row {
     grid-template-columns: auto auto auto 1fr;
