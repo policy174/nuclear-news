@@ -51,6 +51,12 @@ from data_quality import (  # noqa: E402
     source_url,
     split_title_publisher,
     title_key,
+    url_hash,
+)
+from scrap_seed_ingest import (  # noqa: E402
+    MATCH_THRESHOLD as SCRAP_MATCH_THRESHOLD,
+    _tokens as scrap_tokens,
+    seed_key as scrap_seed_key,
 )
 from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
 import issue_insight  # noqa: E402
@@ -459,6 +465,92 @@ def _hours_since(stamp: str, now: datetime) -> float | None:
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=timezone.utc)
     return (now - parsed).total_seconds() / 3600.0
+
+
+def build_scraps(records: list[dict], now: datetime) -> dict:
+    """'신문스크랩' 탭 데이터 — 사내 스크랩 시드의 해석 결과를 공개 원문으로.
+
+    소스는 sent.json["scrap_history"](90일 영속 이력)와 scrap_seeds.json.
+    원문을 찾은 것만 싣는다(미해결 숨김). 이력의 link 를 url_hash 로 아카이브에
+    조인하고, 조인이 빗나가면(429 유실 등) 이력 스냅샷으로라도 싣는다 —
+    소리 없이 사라지는 기사가 없게. 이력에 없는 시드는 아카이브 제목 매칭
+    (title_overlap ≥ MATCH_THRESHOLD)으로 한 번 더 구제한다 — 네이버 미제휴
+    지역지 기사가 다른 경로로 이미 수집돼 있는 케이스(2026-09-01 실측 +2건).
+    """
+    try:
+        state = json.loads((BOT_DIR / "sent.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        state = {}
+    history = state.get("scrap_history") or {}
+    if not isinstance(history, dict):
+        history = {}
+    try:
+        seeds = json.loads((BOT_DIR / "scrap_seeds.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        seeds = []
+    if not isinstance(seeds, list):
+        seeds = []
+
+    by_hash = {r.get("hash"): r for r in records if r.get("hash")}
+    days: dict[str, list[dict]] = {}
+    used_hashes: set[str] = set()
+
+    def add_item(date: str, print_publisher: str, record: dict | None,
+                 title: str, summary: str, link: str) -> None:
+        if not date or not (record or link):
+            return
+        record = record or {}
+        article_hash = record.get("hash")
+        if article_hash:
+            if article_hash in used_hashes:
+                return
+            used_hashes.add(article_hash)
+        online_publisher = record.get("publisher") or print_publisher
+        days.setdefault(date, []).append({
+            "title": record.get("title_kr") or record.get("title") or title,
+            "summary": record.get("summary") or summary,
+            "url": record.get("url") or link,
+            "print_publisher": print_publisher,
+            "publisher": online_publisher,
+            "hash": article_hash,
+        })
+
+    for entry in history.values():
+        if not isinstance(entry, dict):
+            continue
+        link = entry.get("link") or ""
+        record = by_hash.get(url_hash(link)) if link else None
+        add_item(entry.get("date") or "", entry.get("publisher") or "", record,
+                 entry.get("title") or entry.get("seed_title") or "",
+                 entry.get("description") or "", link)
+
+    # 이력에 없는 시드의 표시 전용 구제 — 수집 파이프라인에는 손대지 않는다.
+    # 레코드 제목 토큰은 한 번만 뽑아 둔다(시드 × 전체 아카이브 스캔 비용 절감).
+    pending = [s for s in seeds
+               if isinstance(s, dict) and s.get("title")
+               and scrap_seed_key(s) not in history]
+    if pending:
+        indexed = [(record, scrap_tokens(record.get("title_kr") or "")
+                    | scrap_tokens(record.get("title") or ""))
+                   for record in records]
+        for seed in pending:
+            seed_tokens = scrap_tokens(seed["title"])
+            if not seed_tokens:
+                continue
+            best, best_score = None, 0.0
+            for record, tokens in indexed:
+                score = len(seed_tokens & tokens) / len(seed_tokens)
+                if score > best_score:
+                    best, best_score = record, score
+            if best and best_score >= SCRAP_MATCH_THRESHOLD:
+                add_item(seed.get("date") or "", seed.get("publisher") or "",
+                         best, seed["title"], "", best.get("url") or "")
+
+    return {
+        "generated_at": now.isoformat(),
+        "days": [{"date": date, "items": days[date]}
+                 for date in sorted(days, reverse=True)],
+    }
 
 
 def system_status(records: list[dict], selection_stats: dict, now: datetime) -> dict:
@@ -4935,6 +5027,7 @@ def build() -> None:
         ("insights.json", insights),
         ("publications.json", publications),
         ("entities.json", entities_view),
+        ("scraps.json", build_scraps(records, now)),
         ("manifest.json", manifest),
         ("status.json", status),
     )

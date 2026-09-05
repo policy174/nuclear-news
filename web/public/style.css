@@ -1755,6 +1755,11 @@ body.booting .status-strip.loading { display: none; }
 }
 .notice { margin: 16px 0 0; color: var(--c-text-muted); font-size: var(--t-min); }
 
+/* 신문스크랩 탭 — 날짜 그룹 + .news-item 카드 재사용 */
+.scrap-day { display: grid; gap: var(--sp-3); margin-top: var(--sp-6); }
+.scrap-day-date { margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--c-border); font-size: var(--t-body); }
+.scrap-day-date small { margin-left: 6px; color: var(--c-text-muted); font-weight: 400; }
+
 /* 발간물 탭 — 뉴스 흐름과 별개인 기관 보고서·간행물 리스트 */
 .pubs-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
 .pubs-filters button {
@@ -3395,7 +3400,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     min-height: 60px;
     padding-bottom: env(safe-area-inset-bottom);
     border-top: 1px solid var(--c-primary-strong);

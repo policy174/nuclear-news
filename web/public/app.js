@@ -85,7 +85,7 @@ const COUNTRY_MAP_LABELS = [
 ];
 
 const OFFICIAL_HINTS = ["go.kr", "khnp", "kaeri", "iaea.org", "energy.gov", "nrc.gov"];
-const VIEW_IDS = ["news", "trend", "search", "report"];
+const VIEW_IDS = ["news", "trend", "search", "report", "scrap"];
 const ISSUE_ROUTE = /^\/issue\/([^/]+)\/?$/;
 const BRIEF_ROUTE = /^\/brief\/(\d{4}-\d{2}-\d{2})\/?$/;
 
@@ -101,7 +101,7 @@ const STRINGS = {
 
 const state = {
   news: [], briefings: [], issues: [], trend: null, insights: null, meta: null,
-  pubs: null, pubsOrg: "전체",
+  pubs: null, pubsOrg: "전체", scraps: null,
   manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
@@ -2173,6 +2173,42 @@ function renderPubs() {
     : "");
 }
 
+function renderScraps() {
+  const listBox = document.getElementById("scrapList");
+  if (!listBox) return;
+  // 렌더러는 데이터를 신뢰하지 않는다 — renderPubs 와 같은 계약.
+  const rawDays = (state.scraps && Array.isArray(state.scraps.days)) ? state.scraps.days : [];
+  const days = rawDays
+    .filter(day => day && typeof day === "object" && typeof day.date === "string" && Array.isArray(day.items))
+    .map(day => ({
+      date: day.date,
+      items: day.items.filter(item => item && typeof item === "object" && item.title && item.url),
+    }))
+    .filter(day => day.items.length);
+  if (!days.length) {
+    listBox.innerHTML = '<div class="empty-state"><strong>아직 정리된 스크랩 기사가 없습니다</strong><p>매일 아침 사내 스크랩에서 확인된 기사의 공개 원문을 모읍니다.</p></div>';
+    return;
+  }
+  listBox.innerHTML = days.map(day => {
+    const cards = day.items.map(item => {
+      const url = safeUrl(item.url);
+      // 지면 매체명과 온라인 발행처가 다르면(타 매체 원문으로 해석된 경우) 병기
+      const printPub = item.print_publisher && item.print_publisher !== item.publisher
+        ? `<span>지면 ${esc(item.print_publisher)}</span>` : "";
+      return `<article class="news-item">
+        <div class="news-meta"><span>${esc(item.publisher || item.print_publisher || "출처 미상")}</span>${printPub}</div>
+        <h3>${esc(item.title)}</h3>
+        ${item.summary ? `<p class="news-summary">${esc(item.summary)}</p>` : ""}
+        ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 확인 <span aria-hidden="true">↗</span></a>` : ""}
+      </article>`;
+    }).join("");
+    return `<section class="scrap-day">
+      <h3 class="scrap-day-date">${esc(dateWeekdayLabel(day.date))} <small>${day.items.length}건</small></h3>
+      ${cards}
+    </section>`;
+  }).join("");
+}
+
 function articleTimelineRow(article, briefingDate, currentStage = "이번 브리핑", shownDetail = "") {
   const url = safeUrl(article.url);
   // 근거 원문은 어느 브리핑에도 실린 적이 없다(briefing_date 가 비어 있다).
@@ -4101,6 +4137,7 @@ function switchView(view, updateUrl = true) {
   if (view === "trend") renderTrend();
   if (view === "search") renderSaved();
   if (view === "report") { renderReportCandidates(); renderPubs(); }
+  if (view === "scrap") renderScraps();
   if (updateUrl) syncUrl();
   scrollToPageTop();
 }
@@ -4946,7 +4983,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -4956,6 +4993,8 @@ async function init() {
       loadRootJSON("audio/audio.json", true).catch(() => null),
       // 엔티티 사전도 부가 데이터 — 없으면 허브의 대상 그룹만 비고 나머지는 산다.
       loadJSON("entities.json").catch(() => null),
+      // 신문스크랩도 부가 데이터 — 없으면 스크랩 탭만 빈 상태로 뜬다.
+      loadJSON("scraps.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;

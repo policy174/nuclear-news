@@ -1,0 +1,97 @@
+{
+  "briefing_date": "2026-09-01",
+  "_readme": "재현율 정답지 2호. 소스는 사내 신문스크랩 카톡방의 '9월 1일 조간스크랩 보고'(본사+경북지역, 총 21건) — 08-06 정답지(네이버 최신순+사람 확인)와 소스가 다르다. 조간 지면 기사라 온라인 게재는 대부분 전날 저녁~새벽으로 창 안. 스크랩 21건 중 원자력 브리핑과 무관한 것(CSR 반찬나눔·손글씨 폰트·성주 태양광·일반 폐기물)은 이벤트로 세지 않았다. 주의: 08-31부터 scrap_seed_ingest 가 이 카톡방 제목을 수집 시드로 주입하므로, 시드가 해결된 기사의 collect 는 독립 측정이 아니다 — 시드 경로 자체의 작동 검증으로 읽을 것.",
+  "window": {
+    "article_from": "2026-08-31T07:00:00+09:00",
+    "article_to": "2026-09-01T07:00:00+09:00"
+  },
+  "events": [
+    {
+      "event_id": "wonjeon-renaissance-climate",
+      "required": true,
+      "label": "이상기후에 발목 잡힌 '원전 르네상스' (이투데이 기획)",
+      "region": "해외",
+      "why": "기후변화·냉각수 부족이 원전 확대의 구조 리스크라는 종합지 기획. 08-06 팍스 중단의 일반화 격. scrap seed 는 gave_up(6회) — 시드 경로가 못 살린 전국지 기사를 정규 경로가 잡는지 보는 지표.",
+      "match": {"all": ["르네상스"], "any": ["이상기후", "기후", "폭염"]},
+      "source_urls": []
+    },
+    {
+      "event_id": "naari-wolseong-12yr",
+      "required": true,
+      "label": "월성 나아리 주민 이주 요구 12년 — 한겨레·경향 동시 기고",
+      "region": "국내",
+      "why": "신규 원전 논의 국면에서 전국지 두 곳이 같은 날 월성 인접 주민(나아리) 문제를 기고로 제기. 기고·칼럼이라도 다출처 동시 등장은 수용성 의제 신호 — 오피니언을 노이즈로 일괄 폐기하는지 보는 지표.",
+      "match": {"any": ["나아리", "12년+12일"]},
+      "source_urls": [
+        "https://www.hani.co.kr/arti/opinion/because/1275603.html",
+        "https://www.khan.co.kr/article/202608312004005"
+      ]
+    },
+    {
+      "event_id": "grid-private-transmission",
+      "required": true,
+      "label": "전력망 민간 건설·한전 판매 허용 (한국일보)",
+      "region": "국내",
+      "why": "전력망 특별법 후속 — 송전망 건설 민간 개방. 원전·AI 전력수요 확대의 전제 인프라 정책. 08-06 차등요금과 같은 '전력시장 정책' 축. scrap seed 는 gave_up — 정규 키워드 경로 검증.",
+      "match": {"all": ["전력망", "민간"]},
+      "source_urls": []
+    },
+    {
+      "event_id": "yeongdeok-new-npp-nomulli",
+      "required": true,
+      "label": "영덕 신규 원전, 노물리 문제 해결 발언 (범영덕원전유치위 위원장)",
+      "region": "국내",
+      "why": "신규 원전 후보지 영덕의 유치위 발언 — 지역 단독(경북도민일보). 08-06 고창 건식저장 건의와 같은 '지역지 단독 수용성 이벤트' 지표. 시드로 resolved 됨.",
+      "match": {"all": ["노물리"]},
+      "source_urls": ["https://www.hidomin.com/news/articleView.html?idxno=719316"]
+    },
+    {
+      "event_id": "gyeongbuk-tariff-cut-editorial",
+      "required": false,
+      "label": "경북권 전기료 30% 인하가 정답 (경북도민일보 사설)",
+      "region": "국내",
+      "why": "차등요금·원전 소재지 보상 프레임의 지역 사설. 08-06 required 였던 차등요금 이벤트의 후속 반향.",
+      "match": {"all": ["30%"], "any": ["전기료", "전기요금"]},
+      "source_urls": ["https://www.hidomin.com/news/articleView.html?idxno=719315"]
+    },
+    {
+      "event_id": "power-demand-column-segye",
+      "required": false,
+      "label": "전력수요 늘면 발전소부터 지어야 할까 (세계일보 기고)",
+      "region": "국내",
+      "why": "수요관리·유연성 중심 전력정책 기고. 단독 오피니언이라 required 아님.",
+      "match": {"all": ["발전소부터"]},
+      "source_urls": ["https://www.segye.com/newsView/20260831514351"]
+    },
+    {
+      "event_id": "grid-communication-column-etnews",
+      "required": false,
+      "label": "AI 시대 전력망보다 먼저 '소통망' (전자신문 기고)",
+      "region": "국내",
+      "why": "에너지정보문화재단 대표 기고 — 전력망 수용성. 단독 오피니언.",
+      "match": {"all": ["소통망"]},
+      "source_urls": ["https://www.etnews.com/20260831000069"]
+    },
+    {
+      "event_id": "wolseong-lifejacket-csr",
+      "required": false,
+      "label": "월성본부, 동경주 어업인 구명조끼 410벌 (지역지 5곳 다출처)",
+      "region": "국내",
+      "why": "한수원 동정·CSR. 브리핑에 없어도 되지만 지역지 다출처 수집이 도는지 보는 지표. 시드로 resolved.",
+      "match": {"all": ["구명조끼"]},
+      "source_urls": [
+        "https://www.kyongbuk.co.kr/news/articleView.html?idxno=40826",
+        "https://news.bbsi.co.kr/news/articleView.html?idxno=4103784"
+      ]
+    },
+    {
+      "event_id": "jukbyeon-airstrip-deliberation",
+      "required": false,
+      "label": "죽변 비상활주로 이전 공론화 (경북매일)",
+      "region": "국내",
+      "why": "울진(한울·신한울 소재지) 인접 현안의 공론화 프레임. 원자력 직접 이슈는 아니라 required 아님.",
+      "match": {"all": ["비상활주로"]},
+      "source_urls": ["https://www.kbmaeil.com/article/20260831500273"]
+    }
+  ]
+}

@@ -306,12 +306,12 @@ jobs:
           # 같은 URL 이 curl 로는 200 인데 이 블록만 6종 전부 HTTPError 로 죽어
           # 스모크가 상시 실패하고 있었다(2026-08-02 규명). UA 를 명시한다.
           UA = {"User-Agent": "nuclens-smoke/1.0"}
-          names = ["news.json", "briefings.json", "issues.json", "trend.json", "meta.json", "insights.json", "publications.json"]
+          names = ["news.json", "briefings.json", "issues.json", "trend.json", "meta.json", "insights.json", "publications.json", "scraps.json"]
           # 새로 추가된 파일은 첫 배포 전까지 라이브에 없다. 홀수시 실행은 배포를
           # 건너뛰고 '직전 배포본'을 검사하므로, 필수로 두면 병합 직후 한 번은
           # 무조건 빨갛게 뜬다. 빌드가 항상 생성한다는 보장은 웹 단위 테스트가
           # 이미 하고 있으므로 여기서는 404 만 눈감아 준다(형식 검사는 그대로).
-          TOLERATE_MISSING = {"publications.json"}
+          TOLERATE_MISSING = {"publications.json", "scraps.json"}
           fails, data = [], {}
           for n in names:
               try:

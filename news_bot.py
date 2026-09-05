@@ -69,6 +69,7 @@ DIGEST_QUEUE_FILE = Path("digest_queue.json")
 DELIVERY_LOG_FILE = Path("delivery_log.jsonl")
 
 NAVER_URL = "https://openapi.naver.com/v1/search/news.json"
+NAVER_WEBKR_URL = "https://openapi.naver.com/v1/search/webkr.json"
 TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
 
 DOMAIN_SCORE = {
@@ -791,6 +792,24 @@ def search_naver(query: str, display: int = 30) -> list[dict]:
     }
     params = {"query": query, "display": display, "sort": "date"}
     r = requests.get(NAVER_URL, headers=headers, params=params, timeout=10)
+    r.raise_for_status()
+    return r.json().get("items", [])
+
+
+def search_naver_webkr(query: str, display: int = 10) -> list[dict]:
+    """네이버 웹문서 검색 — 뉴스 API 미제휴 지역지(경상투데이·경북신문 등)의
+    자사 사이트 기사를 찾는 보조 경로. 스크랩 시드 역추적 전용(2026-09-04
+    실측: 뉴스 검색이 6회 gave_up 한 지역지 기사가 웹문서에선 1위로 잡힘).
+    결과에 게시판·엑셀 파일 링크가 섞이므로 호출자가 제목 겹침으로 거른다.
+    정렬은 sim — 제목 그대로 찾는 용도라 최신순이 오히려 해롭다."""
+    import requests
+
+    headers = {
+        "X-Naver-Client-Id": NAVER_CLIENT_ID,
+        "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
+    }
+    params = {"query": query, "display": display, "sort": "sim"}
+    r = requests.get(NAVER_WEBKR_URL, headers=headers, params=params, timeout=10)
     r.raise_for_status()
     return r.json().get("items", [])
 
