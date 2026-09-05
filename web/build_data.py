@@ -32,6 +32,8 @@ from email.utils import format_datetime
 from html import escape as html_escape
 from pathlib import Path
 from urllib.parse import quote
+
+import event_calendar
 from xml.etree import ElementTree as ET
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -4687,6 +4689,16 @@ def build() -> None:
         # 주간 고정 코너(①이번 주 ②국가별 ③발간물 ④예정). 빈 코너는 키가 없다.
         "this_week": build_this_week(
             weekly_movers, issue_catalog, publications, news_items, week_end),
+        # 앞으로 30일 달력 — 기사 문장에서 날짜 절을 뽑아 짝지은 일정
+        # (event_calendar.py 머리말). 60일 창(visible) 전체를 재료로 쓴다:
+        # 미래 일정을 예고하는 기사는 몇 주 전에 나온다.
+        "event_calendar": event_calendar.build(
+            visible, now.astimezone(KST).date(),
+            story_ids=story_id_map(issues),
+            issue_ids={
+                member.get("hash", ""): row.get("issue_id", "")
+                for row in issue_catalog for member in row.get("members", [])
+            }),
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],
