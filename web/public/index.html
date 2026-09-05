@@ -489,6 +489,56 @@
         </div>
       </div>
     </section>
+    <!-- 워드 클라우드 — 위 기간 토글(7·30·90·180·365일)을 **그대로** 따른다.
+         같은 keywordRows() 를 쓰므로 위의 키워드 표와 어긋날 수 없다.
+         표와 역할이 다르다: 표는 12개를 순위·증감으로 읽는 자리고, 이 그림은
+         그 기간의 무게 분포를 한눈에 보는 자리다. 크기는 언급 수, 색은 변화. -->
+    <section id="trendWordCloud" class="word-cloud-panel" aria-labelledby="wordCloudHeading" hidden>
+      <div class="section-heading compact">
+        <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="wordCloudHeading">무엇이 크게 있었나</h2></div>
+        <span class="data-note" id="wordCloudMeta"></span>
+      </div>
+      <div id="wordCloud" class="word-cloud"></div>
+      <!-- 색 범례. 비교할 직전 구간이 없는 기간에는 색이 아무 말도 하지 않으므로
+           app.js 가 통째로 내린다. 기호는 낱말 자체에도 붙는다(WORD_CLOUD_ICON) —
+           색 하나로만 가르면 구분이 옅어진다. -->
+      <ul id="wordCloudLegend" class="word-cloud-legend" hidden>
+        <li><span class="word-cloud-swatch new" aria-hidden="true">● 신규</span>직전 구간에 없던 말 중 큰 것</li>
+        <li><span class="word-cloud-swatch up" aria-hidden="true">▲ 증가</span>더 많이 다뤄짐</li>
+        <li><span class="word-cloud-swatch down" aria-hidden="true">▼ 감소</span>덜 다뤄짐</li>
+      </ul>
+      <p id="wordCloudInterpretation" class="chart-interpretation"></p>
+    </section>
+    <!-- 앞으로 30일 — 흐름 탭이 뒤를 본 다음 앞을 본다.
+         칸에 서는 이름은 기사 제목이 아니라 **그 날짜가 적힌 문장**에서 뽑은
+         일정 이름이다(event_calendar.py 머리말). 칩은 3단으로 읽힌다:
+         이름(상시) → 근거 문장(마우스) → 출처까지(클릭).
+         재료가 드문 화면이라 빈 칸을 채우려 하지 않는다. -->
+    <section id="eventCalendar" class="event-calendar" aria-labelledby="eventCalendarHeading" hidden>
+      <div class="section-heading compact">
+        <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="eventCalendarHeading">앞으로 무엇이 있나</h2></div>
+        <span class="data-note" id="eventCalendarMeta"></span>
+      </div>
+      <div class="cal-legend" aria-hidden="true">
+        <span><i class="cal-dot is-point"></i>예정</span>
+        <span><i class="cal-dot is-deadline"></i>마감</span>
+        <span><i class="cal-dot is-range"></i>기간</span>
+      </div>
+      <div id="eventCalendarGrid" class="cal-grid"></div>
+      <!-- 좁은 화면에서 격자 칩은 점으로 줄어 이름을 잃는다. 그래서 폭이 있는
+           곳에 이름을 세운다. 격자는 '언제·얼마나'를, 이 목록은 '무엇'을 답한다. -->
+      <section id="eventCalendarUpcoming" class="cal-upcoming" aria-labelledby="eventCalendarUpcomingTitle" hidden>
+        <h3 id="eventCalendarUpcomingTitle">다가오는 일정</h3>
+        <ul id="eventCalendarUpcomingList"></ul>
+      </section>
+      <!-- '9월 중'처럼 달까지만 적힌 일정. 날짜 칸에 넣으면 그 달 1일 일정이
+           되므로 격자 밖에 따로 세운다. -->
+      <section id="eventCalendarMonths" class="cal-months" aria-labelledby="eventCalendarMonthsTitle" hidden>
+        <h3 id="eventCalendarMonthsTitle">날짜까지는 안 나온 것</h3>
+        <ul id="eventCalendarMonthList"></ul>
+      </section>
+      <p class="data-note cal-note">기사 문장에 날짜가 적힌 일정만 세웁니다. 일정을 누르면 근거 문장과 출처를 봅니다.</p>
+    </section>
     <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
          쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
     <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">

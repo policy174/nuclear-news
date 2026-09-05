@@ -2330,6 +2330,109 @@ dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 .kw-status.up { background: color-mix(in srgb, var(--c-positive) 14%, transparent); color: var(--c-positive); }
 .kw-status.down { background: color-mix(in srgb, var(--c-critical) 14%, transparent); color: var(--c-critical-text); }
 .kw-status.flat { color: var(--c-text-muted); }
+
+/* ── 워드 클라우드 ────────────────────────────────────────────────────────
+ *
+ * 위 키워드 표와 같은 재료를 다르게 읽는 자리다. 표는 순위와 증감을 숫자로 주고,
+ * 여기는 그 기간의 무게 분포를 한눈에 준다. 크기 = 언급 수, 색 = 변화.
+ *
+ * 두 벌의 배치가 있다. 기본은 흘려 놓기(flex-wrap) — 자바스크립트가 아직 재지
+ * 못했거나(숨은 탭) ResizeObserver 가 없는 환경에서도 읽히는 상태다. 실제 글자
+ * 폭을 재서 싸는 데 성공하면 .is-packed 가 붙고 절대 배치로 바뀐다.
+ */
+.word-cloud-panel { margin: var(--sp-5) 0 var(--sp-6); }
+.word-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px 16px;
+  padding: var(--sp-4) var(--sp-3);
+  border-top: var(--bd-2) solid var(--c-border-strong);
+  border-bottom: var(--bd-1) solid var(--c-border);
+}
+/* 싸기에 성공한 상태. 높이는 app.js 가 실제 결과에서 재어 넣는다. */
+.word-cloud.is-packed {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding: var(--sp-4) 0;
+}
+.word-cloud.is-packed .word-cloud-item {
+  position: absolute;
+  margin: 0;
+  white-space: nowrap;
+}
+.word-cloud-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-text-muted);
+  font-weight: 650;
+  /* 낱말이 크게 설수록 자간이 벌어져 보인다 — 큰 활자에서만 조인다. */
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  cursor: pointer;
+}
+.word-cloud-word { display: inline-block; }
+/* 신규·증가·감소 색이 옅어 구분이 어렵다는 지적 — 색은 그대로 두고(위 주석의
+   '신규만 강조' 원칙도 그대로) 낱말 앞에 작은 기호를 더한다. 낱말 크기를
+   그대로 따라가면 큰 낱말에서 기호만 거대해지므로 em 으로 축소해 고정한다. */
+.word-cloud-badge { margin-right: .16em; font-size: .6em; font-style: normal; vertical-align: middle; }
+/* 건수는 낱말 크기를 따라가지 않는다 — 같은 축을 두 번 쓰면 크기가 뜻을 잃는다. */
+.word-cloud-count {
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+/* 강조색은 '신규' 하나에만 쓴다. 이 화면에서 가장 새로운 사실이고, 색을 두 군데
+   이상 쓰면 강조가 배경이 된다(--c-accent 는 "변화" 전용 · 화면당 3회 이하). */
+.word-cloud-item.new { color: var(--c-accent-text); }
+.word-cloud-item.up { color: var(--c-text); }
+.word-cloud-item.down,
+.word-cloud-item.flat { color: var(--c-text-muted); }
+
+/* 하나에 손을 얹으면 나머지를 물린다. 낱말이 마흔 개 겹쳐 있는 판에서 이 한 겹이
+   없으면 어디에 손이 갔는지 자기 색으로는 구분되지 않는다. */
+.word-cloud:hover .word-cloud-item,
+.word-cloud:focus-within .word-cloud-item { opacity: 0.4; }
+.word-cloud .word-cloud-item:hover,
+.word-cloud .word-cloud-item:focus-visible { opacity: 1; }
+.word-cloud-item:hover .word-cloud-word,
+.word-cloud-item:focus-visible .word-cloud-word {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.word-cloud-item:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 3px; }
+.word-cloud-item { transition: opacity 120ms linear; }
+@media (prefers-reduced-motion: reduce) {
+  .word-cloud-item { transition: none; }
+}
+
+/* 범례. 점 대신 낱말 견본을 쓴다 — 구름에서 실제로 보게 되는 것이 색 입은
+   낱말이지 점이 아니다. */
+.word-cloud-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--c-text-muted);
+  font-size: var(--t-min);
+}
+.word-cloud-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.word-cloud-swatch { font-weight: 700; }
+.word-cloud-swatch.new { color: var(--c-accent-text); }
+.word-cloud-swatch.up { color: var(--c-text); }
+.word-cloud-swatch.down { color: var(--c-text-muted); }
 .bar-row { display: grid; grid-template-columns: minmax(90px, .8fr) minmax(80px, 1.5fr) 28px; align-items: center; gap: 8px; min-height: 31px; font-size: var(--t-min); }
 .bar-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bar-track { height: 8px; overflow: hidden; border-radius: var(--r-1); background: var(--c-surface-sunken); }
@@ -2975,6 +3078,9 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   /* 좁은 화면에서 표를 옆으로 밀지 않는다. 행을 두 줄로 접고 숫자마다 라벨을
      붙여 헤더 없이도 읽히게 한다. */
   .keyword-table { overflow-x: visible; }
+  .word-cloud { padding: var(--sp-3) 0; }
+  /* 좁은 화면에서는 손끝이 낱말 사이를 못 가른다 — 최소 높이를 준다. */
+  .word-cloud-item { min-height: 24px; align-items: center; }
   .keyword-head { display: none; }
   .keyword-row {
     grid-template-columns: auto auto auto 1fr;
