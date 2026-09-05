@@ -174,28 +174,45 @@
       <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
     </div>
 
-    <!-- 주간 3분은 기사 목차가 아니라 의사결정용 스캔 화면이다. 제목 나열은
-         카드가 이미 하고 있어서 같은 문장을 두 번 내보내던 자리였고, 필터·정렬이
-         걸리면 목차 번호와 카드 번호가 어긋나기까지 했다. 이제 결론과 다음 확인만
-         담는다 — 새로 달라진 사실과 확인할 것이 이 영역의 소유 범위다.
+    <!-- 한 주의 원자력 — 주간 리포트 **하나**가 통째로 서는 자리다. 기사 목차가
+         아니라 의사결정용 스캔 화면이라, 제목 나열은 카드에 맡기고 여기서는
+         한 리포트의 what → 서술 → so_what → watchpoint 를 순서대로 읽힌다.
 
-         제목은 renderTodayAgenda 가 선택 날짜의 주차 구간으로 바꿔 쓴다
-         ("8월 8일–14일 주간 3분"). 재료가 주간 리포트뿐이라 며칠간 내용이 같은데,
-         '오늘 3분'이라는 이름이 매일 새 분석처럼 읽히게 만들고 있었다. -->
-    <nav id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
-      <div class="agenda-head"><strong id="todayAgendaTitle">주간 3분</strong><span id="todayAgendaMeta"></span></div>
-      <!-- 그 주 리포트가 아직 없는 날. 직전 주 내용을 대신 끼우지 않는다 —
-           지난주 결론이 오늘 분석인 것처럼 붙는 것이 원래 문제였다. -->
+         순서가 곧 논리다. 바꾸지 말 것:
+           한눈에 보기(무엇이 바뀌었나)     policy_shifts[].what   최대 3
+           한 주 해설(이번 주 흐름은)        weekly_intro
+           왜 중요한가(그래서 어떤 의미)     policy_shifts[].so_what 최대 3
+           지금 확인할 것(다음에 무엇을)     watchpoints[]          최대 3
+
+         제목은 renderTodayAgenda 가 **화면에 띄운 리포트의 구간**으로 바꿔 쓴다
+         ("한 주의 원자력 · 8월 15일–21일"). 토요일에 지난주 리포트를 보는 것이
+         정상 동작이라 '이번 주 결론' 같은 상대 표현은 화면이 말하는 주와 어긋난다.
+
+         nav 였다가 section 이 됐다. 산문 두 영역이 들어오면서 이 블록은 더 이상
+         링크 묶음이 아니다 — 랜드마크 목록에 '탐색'으로 올라가면 스크린리더
+         사용자에게 거짓말이 된다. -->
+    <section id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
+      <div class="agenda-head"><strong id="todayAgendaTitle">한 주의 원자력</strong><span id="todayAgendaMeta"></span></div>
+      <!-- 완성된 리포트가 아직 하나도 없을 때만 뜬다. 미래 주차를 당겨 쓰지는
+           않는다 — 7월 브리핑에 8월 결론이 붙던 것이 원래 문제였다. -->
       <p class="agenda-pending" id="agendaPending" hidden></p>
       <div class="agenda-block" id="agendaConclusions" hidden>
-        <span class="agenda-label">이번 주 결론</span>
+        <span class="agenda-label">한눈에 보기</span>
         <ol id="agendaConclusionList"></ol>
       </div>
+      <div class="agenda-block" id="agendaNarrative" hidden>
+        <span class="agenda-label">한 주 해설</span>
+        <div id="agendaNarrativeBody"></div>
+      </div>
+      <div class="agenda-block" id="agendaSoWhat" hidden>
+        <span class="agenda-label">왜 중요한가</span>
+        <ul id="agendaSoWhatList"></ul>
+      </div>
       <div class="agenda-block" id="agendaWatch" hidden>
-        <span class="agenda-label">다음 확인</span>
+        <span class="agenda-label">지금 확인할 것</span>
         <ul id="agendaWatchList"></ul>
       </div>
-    </nav>
+    </section>
 
     <div class="briefing-content-grid">
       <div class="briefing-main">
@@ -268,13 +285,8 @@
              '오늘·이번 주'가 아니라 4주 추세까지 떠안고, 같은 숫자가 두 탭에 뜬다.
              탭 이름이 이미 질문을 갈라놨다 — 오늘은 무슨 일, 흐름은 어느 방향. -->
 
-        <section id="homeWeeklyStory" class="home-intelligence" aria-labelledby="homeWeeklyStoryTitle" hidden>
-          <div class="section-heading">
-            <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="homeWeeklyStoryTitle">3분이면 이해되는 이번 주 원자력</h2></div>
-          </div>
-          <div id="homeWeeklyStoryBody"></div>
-          <button type="button" class="secondary-button" data-go-view="trend">전체 흐름 보기</button>
-        </section>
+        <!-- '3분이면 이해되는 이번 주 원자력'(homeWeeklyStory)은 걷었다 — 같은
+             주간 리포트를 화면 맨 위 '한 주의 원자력'이 통째로 소유한다. -->
 
         <details class="feed-drawer">
           <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>

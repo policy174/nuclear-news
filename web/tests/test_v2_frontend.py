@@ -14,8 +14,19 @@ INDEX = (PUBLIC / "index.html").read_text(encoding="utf-8")
 
 class TestV2Ported(unittest.TestCase):
     def test_weekly_pending_message_present(self):
-        # 그 주 리포트가 없으면 직전 주로 채우지 않고 집계 중이라고 말한다.
-        self.assertIn("집계 중입니다", APP)
+        # 완성된 리포트가 하나도 없을 때만 펜딩을 말한다. 선택일까지 완성된
+        # 가장 최근 리포트는 보여주되(주 6일 '집계 중' 데드스테이트 해소),
+        # 미래 리포트는 절대 당겨 쓰지 않는다(weeklyReportFor 의 end > date 게이트).
+        self.assertIn("아직 완성된 주간 리포트가 없습니다", APP)
+        self.assertIn("end > date", APP)
+
+    def test_agenda_unified_blocks_present(self):
+        # '한 주의 원자력' 통합 — 해설(weekly_intro)·왜 중요한가(so_what)가
+        # 어젠다 한 곳에 있고, 옛 04 섹션(homeWeeklyStory)은 걷었다.
+        self.assertIn("agendaNarrativeBody", INDEX)
+        self.assertIn("agendaSoWhatList", INDEX)
+        self.assertNotIn('id="homeWeeklyStory"', INDEX)
+        self.assertIn("agendaNarrative", APP)
 
     def test_story_chip_templates_present(self):
         self.assertIn("동일 사건 보도", APP)

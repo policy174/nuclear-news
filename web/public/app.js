@@ -1331,21 +1331,49 @@ function briefingWeek(date) {
   return { start: shiftDate(end, -6), end };
 }
 
-// 그 주 리포트가 없으면 null 이다. **직전 주로 대체하지 않는다** — 지난주 결론이
-// 오늘 분석인 것처럼 붙는 것이 원래 문제였다(2026-08-16: 7월 브리핑에도 8/8~14
-// 결론이 떴다). 구버전 trend.json(weekly_reports 없음)만 예전 단일 리포트로 산다.
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// 리포트가 덮는 구간의 끝. 저장된 값에 week_end 가 있으면 그것이 정답이고,
+// 없는 옛 레코드만 토~금(7일) 규칙으로 메운다.
+function weeklyReportEnd(report, start) {
+  const end = String(report?.week_end || "");
+  return ISO_DATE_RE.test(end) ? end : shiftDate(start, 6);
+}
+
+// **선택한 날짜까지 이미 완성된 가장 최근 리포트**를 고른다.
+//
+// 예전에는 '선택 날짜가 속한 토~금 주차' 리포트만 찾았다. 그런데 리포트는 그 주
+// **금요일 오후**에야 생긴다. 토요일 0시에 새 주차가 시작되므로 토·일·월·화·수·목
+// 엿새 동안 그 주차 키는 비어 있고, 화면은 내내 '집계 중'이었다 — 바로 옆에 완성된
+// 지난주 리포트를 들고서.
+//
+// 미래 리포트는 여전히 절대 고르지 않는다(week_end <= 선택일). 7월 브리핑에 8/8~14
+// 결론이 붙던 2026-08-16 의 문제는 '직전으로 대체'가 아니라 '미래를 당겨 쓴 것'이
+// 원인이었고, 그 문은 아래 부등호가 계속 닫아 둔다.
+// 구버전 trend.json(weekly_reports 없음)만 예전 단일 리포트로 산다.
 function weeklyReportFor(date) {
   const reports = state.trend?.weekly_reports;
   if (!reports || typeof reports !== "object") return state.trend?.weekly_report || null;
-  const { start } = briefingWeek(date);
-  if (!start) return null;
-  return reports[start] || null;
+  if (!ISO_DATE_RE.test(String(date || ""))) return null;
+  let best = null;
+  let bestEnd = "";
+  for (const [start, report] of Object.entries(reports)) {
+    if (!report || typeof report !== "object" || !ISO_DATE_RE.test(start)) continue;
+    const end = weeklyReportEnd(report, start);
+    if (!end || end > date) continue;      // 아직 끝나지 않은 주 = 아직 없는 리포트
+    if (!best || end > bestEnd) { best = report; bestEnd = end; }
+  }
+  return best;
 }
 
-// "8월 8일–14일" — 같은 달이면 뒤쪽 달 이름을 뺀다.
-function weekRangeLabel(date) {
-  const { start, end } = briefingWeek(date);
-  if (!start || !end) return "";
+// "8월 15일–21일" — 같은 달이면 뒤쪽 달 이름을 뺀다.
+//
+// 기간을 **고른 리포트가 말한다**. 화면이 선택 날짜에서 주차를 계산하면 8/22 에
+// "한 주의 원자력 · 8월 22일–28일"이라 적어 놓고 8/15~21 내용을 보여주게 된다.
+function weekRangeLabel(report) {
+  const start = String(report?.week_start || "");
+  const end = String(report?.week_end || "");
+  if (!ISO_DATE_RE.test(start) || !ISO_DATE_RE.test(end)) return "";
   const tail = start.slice(0, 7) === end.slice(0, 7)
     ? `${Number(end.slice(8, 10))}일` : dateLabel(end);
   return `${dateLabel(start)}–${tail}`;
@@ -1434,31 +1462,13 @@ function renderHomeIntelligence(briefing) {
   metrics.hidden = confirmedRate < 0.5;
   metrics.textContent = metrics.hidden ? "" : `근거 확인 ${confirmed.length}건 · 주간 이슈 ${weeklyIssues.length}건`;
 
-
-  // 이번 주 해설이 담당하는 것은 '카드에 없는 연결·원인·파급'뿐이다.
-  //   · policy_shifts[].what  → 주간 3분의 '이번 주 결론' 소유 (여기서 다시 안 낸다)
-  //   · theme_moves           → 바로 위 '주제 변화' 소유 (4주 방향)
-  //   · 남는 것 = weekly_intro(사건 간 연결) + so_what(파급효과)
-  // 셋을 다 내던 예전 구성은 한 화면에서 같은 문장을 세 번 보게 만들었다.
-  //
-  // 주간 3분과 **같은 주차 리포트**를 본다. 여기만 최신 리포트를 쓰면 한 화면의
-  // 두 블록이 서로 다른 주를 말하게 된다.
-  const report = weeklyReportFor(briefing.date);
-  const story = document.getElementById("homeWeeklyStory");
-  const intro = dropTextsAlreadyOnCards([report?.weekly_intro], briefing);
-  const soWhat = dropTextsAlreadyOnCards(
-    (report?.policy_shifts || []).map(row => row?.so_what), briefing
-  ).slice(0, 3);
-  // 새 관점이 하나도 없으면 억지로 채우지 않고 숨긴다.
-  story.hidden = intro.length === 0 && soWhat.length === 0;
-  if (!story.hidden) {
-    document.getElementById("homeWeeklyStoryBody").innerHTML = `
-      ${intro.map(text => `<p class="home-weekly-intro">${esc(text)}</p>`).join("")}
-      ${soWhat.map(text => `<article><p>${esc(text)}</p></article>`).join("")}`;
-  }
+  // 주간 리포트(weekly_intro · so_what)는 여기서 안 낸다 — 화면 맨 위
+  // '한 주의 원자력'(renderTodayAgenda) 한 곳이 그 리포트를 통째로 소유한다.
+  // 이 함수에 남은 몫은 히어로의 근거 확인 비율 한 줄이다.
+  // weeklyReportFor 를 여기서 다시 부르지 않는 것이 중복 방지의 형태다.
 }
 
-// 카드가 이미 화면에 낸 문장은 오늘 3분에서 다시 내지 않는다. 정확히 같은 문장만
+// 카드가 이미 화면에 낸 문장은 '한 주의 원자력'에서 다시 내지 않는다. 정확히 같은 문장만
 // 막는다 — 어순·어미만 바꾼 재진술은 문자열로 못 잡고(app.js 아래 주석 참조),
 // 잘못 지우면 유일한 결론이 사라진다. 의미 중복은 fixture 와 수동 검토 몫이다.
 function dropTextsAlreadyOnCards(lines, briefing) {
@@ -1480,49 +1490,66 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // '오늘 3분'이라 매일 새 분석이 붙는 것처럼 읽혔고, 실제로는 어느 날짜를 열든
 // 저장된 마지막 한 주가 붙어 있었다 — 7월 브리핑에도 8/8~14 결론이 떴다.
 //
-// 그래서 두 가지를 바꾼다. ① 선택한 날짜가 속한 주차 리포트를 고른다.
-// ② 제목에 그 구간을 적는다 — 며칠간 내용이 같은 이유가 화면에서 설명된다.
-// 그 주 리포트가 아직 없으면 **직전 주로 대신 채우지 않고** 집계 중이라고 말한다.
+// 그래서 두 가지를 지킨다. ① 선택한 날짜까지 **완성된** 가장 최근 리포트를 고른다
+// (weeklyReportFor — 미래 리포트는 안 고른다). ② 제목에 그 리포트가 말하는 구간을
+// 그대로 적는다 — 며칠간 내용이 같은 이유가 화면에서 설명된다.
+//
+// 한 리포트를 여기 하나로 모았다. 그전에는 what·watchpoints 가 여기,
+// weekly_intro·so_what 이 화면 아래 홈 인텔리전스에 있었다. 같은 금요일
+// 리포트인데도 별개 기능처럼 보였고, 무엇보다 **무엇이 바뀌었나(what)와 그래서
+// 무슨 의미인가(so_what)를 읽으려면 화면을 오르내려야 했다.** 네 영역의 순서가
+// 곧 읽는 순서다 — 무엇이 바뀌었나 → 이번 주 흐름 → 그래서 어떤 의미 → 다음에 볼 것.
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
   const report = weeklyReportFor(briefing.date);
-  const label = weekRangeLabel(briefing.date);
+  const label = weekRangeLabel(report);
   document.getElementById("todayAgendaTitle").textContent =
-    label ? `${label} 주간 3분` : "주간 3분";
+    label ? `한 주의 원자력 · ${label}` : "한 주의 원자력";
 
-  // 이번 주 결론 = 판이 바뀐 것. theme_moves 는 4주 방향이라 '주제 변화'의 몫이고,
-  // 여기서 같이 내면 두 섹션이 같은 답을 한다.
+  // 한눈에 보기 = 판이 바뀐 것. theme_moves 는 4주 방향이라 흐름 탭의 몫이고,
+  // 여기서 같이 내면 두 탭이 같은 답을 한다.
   const conclusions = dropTextsAlreadyOnCards(
     (report?.policy_shifts || []).map(row => row?.what), briefing
   ).slice(0, 3);
-  // 다음 확인은 카드의 open_question 이 사실상 비어 있어(실측 19건 중 0건) 주간
+  // 한 주 해설 — 사건 사이의 연결. 카드가 낱개로는 못 하는 말이다.
+  const narrative = dropTextsAlreadyOnCards([report?.weekly_intro], briefing);
+  // 왜 중요한가 — 같은 policy_shifts 행의 파급. what 과 짝이라 바로 아래 온다.
+  const soWhat = dropTextsAlreadyOnCards(
+    (report?.policy_shifts || []).map(row => row?.so_what), briefing
+  ).slice(0, 3);
+  // '지금 확인할 것'은 카드의 open_question 이 사실상 비어 있어(실측 19건 중 0건) 주간
   // watchpoints 가 화면에서 이 질문에 답하는 유일한 자리다.
   const watch = dropTextsAlreadyOnCards(report?.watchpoints || [], briefing).slice(0, 3);
 
-  const conclusionBlock = document.getElementById("agendaConclusions");
-  conclusionBlock.hidden = conclusions.length === 0;
-  document.getElementById("agendaConclusionList").innerHTML =
-    conclusions.map(text => `<li>${esc(text)}</li>`).join("");
-
-  const watchBlock = document.getElementById("agendaWatch");
-  watchBlock.hidden = watch.length === 0;
-  document.getElementById("agendaWatchList").innerHTML =
-    watch.map(text => `<li>${esc(text)}</li>`).join("");
+  // 영역별 채우기·숨기기는 한 곳에서 한다. 내용이 없는 영역은 라벨만 남기지 않고
+  // 통째로 접는다 — 빈 제목은 '아직 안 나왔다'가 아니라 '고장'으로 읽힌다.
+  const fill = (blockId, listId, rows, wrap) => {
+    document.getElementById(blockId).hidden = rows.length === 0;
+    document.getElementById(listId).innerHTML = rows.map(wrap).join("");
+  };
+  fill("agendaConclusions", "agendaConclusionList", conclusions,
+    text => `<li>${esc(text)}</li>`);
+  fill("agendaNarrative", "agendaNarrativeBody", narrative,
+    text => `<p class="agenda-narrative">${esc(text)}</p>`);
+  fill("agendaSoWhat", "agendaSoWhatList", soWhat,
+    text => `<li>${esc(text)}</li>`);
+  fill("agendaWatch", "agendaWatchList", watch,
+    text => `<li>${esc(text)}</li>`);
 
   // 리포트가 있는데 문장이 전부 카드와 겹쳐 빈 경우와, 리포트 자체가 없는 경우를
   // 가른다. 앞은 조용히 접고, 뒤는 왜 비었는지 말한다.
   const pending = document.getElementById("agendaPending");
-  const empty = conclusions.length === 0 && watch.length === 0;
-  pending.hidden = !!report || !label;
+  const empty = conclusions.length === 0 && narrative.length === 0
+    && soWhat.length === 0 && watch.length === 0;
+  pending.hidden = !!report;
   pending.textContent = pending.hidden ? ""
-    : "이 주 리포트는 아직 집계 중입니다 — 주간 리포트는 금요일 오후에 만들어집니다.";
+    : "아직 완성된 주간 리포트가 없습니다 — 주간 리포트는 금요일 오후에 만들어집니다.";
   agenda.hidden = empty && pending.hidden;
-  // 리포트가 아직 없는 날은 이 블록의 내용이 펜딩 한 문장뿐이다. 그 주 리포트는
-  // 금요일 오후에 만들어지므로 주 6일이 이 상태고, 그동안 상자 chrome 이 폴드에서
-  // 128px 을 먹는다(실측 2026-08-22 라이브). 문장은 남기고 상자만 벗긴다.
+  // 리포트가 하나도 없는 날은 이 블록의 내용이 펜딩 한 문장뿐이다. 그동안 상자
+  // chrome 이 폴드에서 128px 을 먹는다(실측 2026-08-22 라이브). 문장은 남기고 상자만 벗긴다.
   agenda.classList.toggle("is-pending-only", empty && !pending.hidden);
   document.getElementById("todayAgendaMeta").textContent =
-    empty ? "" : `결론 ${conclusions.length} · 확인 ${watch.length}`;
+    empty ? "" : `한눈에 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
 // 좁은 화면에서는 이 블록이 오늘의 선두 이슈 **아래**로 간다.
@@ -3857,7 +3884,7 @@ function bind() {
   });
   // briefingTitle: 기사 제목을 얹은 날의 h1 은 안에 상세 진입 버튼을 품는다.
   // leadCard: 선두 카드 안의 버튼(타임라인·저장·공유)도 같은 위임을 탄다.
-  ["todayAgenda", "issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog",
+  ["todayAgenda", "issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
    "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle",
    "recentIssueList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);

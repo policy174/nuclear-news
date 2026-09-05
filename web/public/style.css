@@ -248,7 +248,7 @@ body {
    탐색·보고서 탭은 700px 초과 요소가 0건이라 대상에 없다. */
 .today-agenda ol li,
 .today-agenda ul li,
-.home-weekly-intro,
+.agenda-narrative,
 .news-summary,
 .lead-block dd,
 .weekly-block > p,
@@ -724,6 +724,15 @@ kbd {
   font-weight: 700;
 }
 .today-agenda ul li::before { content: "· "; color: var(--c-text-muted); }
+/* 한 주 해설만 산문이다 — 목록 사이에서 읽는 속도가 한 번 느려져야 하는
+   자리라 본문보다 한 단 크게 두고 줄간을 넓힌다. 값은 예전 04 섹션의
+   .home-weekly-intro 그대로다(그 블록은 이 자리로 합쳐지며 사라졌다). */
+.agenda-narrative {
+  margin: 0;
+  color: var(--c-text-secondary);
+  font-size: var(--t-body-lg);
+  line-height: 1.65;
+}
 /* 그 주 리포트가 아직 없는 날의 한 줄. 결론 목록과 같은 자리에 오되 주장하는
    문장이 아니므로 본문 굵기를 주지 않는다. */
 /* 펜딩 한 문장만 있는 날의 압축형. 상자·테두리·배경을 벗기고 위아래 여백만
@@ -969,10 +978,6 @@ kbd {
    같이 낸다 — 표본이 작으면 방향 판단을 믿지 않아야 하기 때문이다. */
 .topic-figures { display: flex; flex-wrap: wrap; gap: var(--sp-2); font-size: var(--t-min); }
 .topic-sample { opacity: .75; }
-#homeWeeklyStoryBody { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
-.home-weekly-intro { grid-column: 1 / -1; margin: 0; color: var(--c-text-secondary); font-size: var(--t-body-lg); line-height: 1.65; }
-#homeWeeklyStoryBody article { padding: var(--sp-4); border-top: var(--bd-1) solid var(--c-border); background: var(--c-surface-sunken); }
-#homeWeeklyStoryBody article p { margin: var(--sp-2) 0 0; color: var(--c-text-secondary); line-height: 1.65; }
 .home-intelligence > .secondary-button { margin-top: var(--sp-4); }
 /* 홈은 두 구역이다: 상태가 움직인 이슈가 먼저, 나머지가 아래. */
 .changed-section { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--c-border); }
@@ -3012,8 +3017,6 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   .topic-direction { justify-self: end; }
   /* 132px 라벨 열은 좁은 화면에서 본문을 반으로 자른다 — 테마명을 윗줄로 올린다. */
   .theme-move { grid-template-columns: minmax(0, 1fr); gap: var(--sp-1); }
-  #homeWeeklyStoryBody { grid-template-columns: 1fr; }
-  .home-weekly-intro { grid-column: 1; }
   .mobile-tabs small { position: absolute; top: 6px; right: calc(50% - 25px); min-width: 17px; border-radius: var(--r-1); background: var(--c-signal); color: var(--c-signal-ink); font-size: var(--t-min); font-weight: 700; }
   .toast { right: 12px; bottom: 76px; left: 12px; min-width: 0; }
   /* 고정 탭 아래까지 푸터 배경은 이어지되, 마지막 상태 문구는 탭 위에 둔다. */
