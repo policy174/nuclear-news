@@ -16,9 +16,11 @@ from __future__ import annotations
 
 import base64
 import json
+import re
 import sqlite3
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -62,6 +64,39 @@ def collect_seeds() -> list[dict]:
     return list(seeds.values())
 
 
+_TREND_NEEDLE = "언론 동향".encode("utf-8")
+_TREND_HEADER_RE = re.compile(r"\d{1,2}\s*\.\s*\d{1,2}\s*언론\s*동향[^\n]*")
+_CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
+def collect_trend_seeds_from_dump() -> list[dict]:
+    """'언론 동향'(장문·링크 다수) 메시지를 sync 가 남긴 원시 덤프에서 직접 추출.
+
+    긴 메시지는 SQLite 오버플로 페이지에 저장돼 store 재구성 파서가 통째로
+    놓친다 — 2026-09-05 실측: store 0건 vs 원시 덤프에서 시드 247건. 같은
+    메시지가 메모리에 여러 번 나타나므로(23곳) seed_key 로 합집합한다.
+    창이 잘려 일부만 파싱되는 조각도 다른 사본이 메운다.
+    """
+    dump = Path(tempfile.gettempdir()) / "kt_kakao.dmp"
+    if not dump.exists():
+        return []
+    data = dump.read_bytes()  # ~800MB — 실측 무리 없음. 조각내면 경계 유실만 생긴다
+    seeds: dict[str, dict] = {}
+    pos = -1
+    while True:
+        pos = data.find(_TREND_NEEDLE, pos + 1)
+        if pos < 0:
+            break
+        text = data[max(0, pos - 256): pos + 24 * 1024].decode("utf-8", errors="ignore")
+        m = _TREND_HEADER_RE.search(text)
+        if not m:
+            continue
+        body = _CONTROL_RE.split(text[m.start():])[0]
+        for seed in parse_media_trend(body, datetime.now().year):
+            seeds[seed_key(seed)] = seed
+    return list(seeds.values())
+
+
 def resolve_redirect(url: str) -> str | None:
     """스크랩 서비스 단축링크(surl.realsn.com 등)를 공개 원문 URL 로 해소.
     사규·저작권상 surl 자체는 레포에 올리지 않는다 — 커밋 전에 반드시 치환.
@@ -73,7 +108,10 @@ def resolve_redirect(url: str) -> str | None:
             final = r.url or ""
     except Exception:  # noqa: BLE001 — 링크 하나가 push 를 못 막는다
         return None
-    return final if final.startswith("http") and "realsn.com" not in final else None
+    if not final.startswith("http"):
+        return None
+    # 단축링크가 또 다른 단축링크로 오면(실측: lrl.kr) 원문이 아니다
+    return None if any(h in final for h in ("realsn.com", "lrl.kr")) else final
 
 
 def gh_token() -> str:
@@ -102,6 +140,11 @@ def gh_api(token: str, method: str, path: str, body: dict | None = None) -> dict
 def main() -> None:
     sync_kakao()
     fresh = collect_seeds()
+    known = {seed_key(s) for s in fresh}
+    trend = [s for s in collect_trend_seeds_from_dump() if seed_key(s) not in known]
+    if trend:
+        print(f"[trend] 원시 덤프에서 언론 동향 시드 {len(trend)}건")
+    fresh += trend
     if not fresh:
         print("스크랩 보고 메시지 없음 — 카톡에서 방을 한 번 열고 다시 실행")
         return
