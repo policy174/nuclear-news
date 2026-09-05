@@ -1142,6 +1142,16 @@
       "right_title": "美 전문가, \"韓 원자력추진잠수함·농축재처리 진전\" 평가",
       "same_event": false
     },
+    "0236a4aa4bb8793a--60661f43cc4e589f": {
+      "embedding_similarity": 0.8707,
+      "left_title": "울진군의회 원전특위, 한울 붕산수 누출 관련 전수조사기구 구성 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "붕산수 누출 조사 촉구 vs 원전 자동정지",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "한울원전 4호기 8시 50분 자동정지, 원안위 현장 조사 착수",
+      "same_event": false
+    },
     "0236a4aa4bb8793a--67e9d8e68965f581": {
       "embedding_similarity": 0.885,
       "left_title": "한울원전 붕산수 누출 사고 발생, 울진군의회 진상 규명 촉구",
@@ -2762,6 +2772,26 @@
       "right_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
       "same_event": false
     },
+    "0566c98f225d37a3--06e9dd3d1fe8d66a": {
+      "embedding_similarity": 0.854,
+      "left_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
+      "same_event": false
+    },
+    "0566c98f225d37a3--341fae7beffafdcb": {
+      "embedding_similarity": 0.8649,
+      "left_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "규제개혁 강조 vs SEED 프로젝트 선정",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "정부, SMR 7대 SEED 프로젝트 선정 및 세액공제 등 육성 가속화",
+      "same_event": false
+    },
     "0566c98f225d37a3--371f58bb78f102e7": {
       "embedding_similarity": 0.8462,
       "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
@@ -3030,6 +3060,16 @@
       "reason": "SMR 기자재 계약 vs 핵추진 상선단",
       "reviewed_at": "2026-08-25T21:37:20.888555+00:00",
       "right_title": "핵추진 상선단 꾸리는 美...K조선 신규 수주 ‘청신호’",
+      "same_event": false
+    },
+    "05f30b2aabaa39a0--2210d5be949aa4c1": {
+      "embedding_similarity": 0.8544,
+      "left_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "KBS 시사기획 창, 한국형 핵추진 잠수함과 한미 원자력협정 조명",
       "same_event": false
     },
     "05f30b2aabaa39a0--dec5f85da999856e": {
@@ -3459,6 +3499,16 @@
       "prompt_version": 1,
       "reason": "SMR 지원과 R&D 투자 목표는 다른 사안",
       "reviewed_at": "2026-09-04T22:59:03.339007+00:00",
+      "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
+      "same_event": false
+    },
+    "06e9dd3d1fe8d66a--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8534,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
       "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
       "same_event": false
     },
@@ -5522,6 +5572,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": false
     },
+    "09a77384ec508667--98f960d1e64b0622": {
+      "embedding_similarity": 0.9048,
+      "left_title": "한국원자력연구원, 덴마크 솔트포스에 약 30억 원 규모 MSR 기술 수출",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한국원자력연구원 MSR 기술 수출",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "한국원자력연구원, 덴마크 Saltfoss MSR 개발에 연료 제조·재료 부식 평가 서비스 제공",
+      "same_event": true
+    },
     "09ac4f943ed7ad61--4bdd65d0c09aaf72": {
       "embedding_similarity": 0.8868,
       "left_title": "헝가리 총리, 다뉴브강 수위 저하로 원전 가동 중단 가능성 경고",
@@ -6982,6 +7042,16 @@
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": true
     },
+    "0b6644cb81dc3f2b--2210d5be949aa4c1": {
+      "embedding_similarity": 0.8678,
+      "left_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핵잠/협정 복원 vs 핵잠 저농축 우라늄",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "KBS, 한국형 핵잠수함 저농축 우라늄 도입 과제 조명",
+      "same_event": false
+    },
     "0b6644cb81dc3f2b--dec5f85da999856e": {
       "embedding_similarity": 0.8566,
       "left_title": "美, 한국에 대미 투자 및 한미 원자력협정 후속 협의 압박",
@@ -8061,6 +8131,16 @@
       "reviewed_at": "2026-08-23T09:38:27.026732+00:00",
       "right_title": "미래대응기금, SMR 개발 등 성장동력 투자 예정이나 상시 추경 방지 설계 요구",
       "same_event": false
+    },
+    "0e19b8c99c82d81e--345bbd6f547f8863": {
+      "embedding_similarity": 0.8663,
+      "left_title": "울진군, 원자력수소 국가산단 성공적 조성을 위해 추진에 속도",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "울진군 원자력수소산단 조성",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "울진군, 원자력수소국가산단 등 주요 사업 재정 효율성 재검토",
+      "same_event": true
     },
     "0ea08f1ae0377c68--48fac32c1799ad10": {
       "embedding_similarity": 0.8537,
@@ -9422,6 +9502,16 @@
       "right_title": "AI 기술 발전이 화석연료 생산성 높여 탄소 배출량 증가 우려 제기",
       "same_event": true
     },
+    "10b0434dfdbd3b5c--68ded5211bab6770": {
+      "embedding_similarity": 0.8521,
+      "left_title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "Raven-Flint, 우라늄 전환 시설 인허가 신청서 NRC에 접수",
+      "same_event": false
+    },
     "10b0434dfdbd3b5c--a8607be1ca7960f3": {
       "embedding_similarity": 0.8539,
       "left_title": "FANCO, HALEU 연료 제조 시설 인허가 계획 NRC에 제출",
@@ -10362,6 +10452,46 @@
       "right_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
       "same_event": false
     },
+    "12cde85e50bb42eb--3db1fb734ba2fd2f": {
+      "embedding_similarity": 0.8539,
+      "left_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북 영덕군, 신규 원전 명칭 공모 추진 및 주민 생존권 요구",
+      "same_event": false
+    },
+    "12cde85e50bb42eb--423c7f5bf8bc1b7c": {
+      "embedding_similarity": 0.8896,
+      "left_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원자력특위 구성 vs 신규 원전 대응",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북도의회, 영덕 신규 원전 2기 확정 후 원자력산업 연계 대응",
+      "same_event": false
+    },
+    "12cde85e50bb42eb--4441d3971fb189ed": {
+      "embedding_similarity": 0.9141,
+      "left_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "경북도의회 원자력특위 구성",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북도의회, 원자력특별위원회 구성해 산업 경쟁력 강화 추진",
+      "same_event": true
+    },
+    "12cde85e50bb42eb--568a4bd4e05f9cde": {
+      "embedding_similarity": 0.8738,
+      "left_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "경북도의회 원전특위 vs 울산시의회 원전특위",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "울산시의회, 원전특위 구성해 노후 원전 계속운전 및 고리 1호기 해체 현안 점검",
+      "same_event": false
+    },
     "12cde85e50bb42eb--7d9268f856d1f63f": {
       "embedding_similarity": 0.8454,
       "left_title": "영덕군의회, 신규 원전 예정지 확정 후 고리·새울 원전 안전성 점검",
@@ -10370,6 +10500,16 @@
       "reason": "다른 지역 원전 및 위원회 활동",
       "reviewed_at": "2026-09-04T20:53:04.811019+00:00",
       "right_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "same_event": false
+    },
+    "12cde85e50bb42eb--a99a8ccde65cec72": {
+      "embedding_similarity": 0.8531,
+      "left_title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "영덕군의회, 고리·새울원자력본부 현장 견학으로 원전 운영 실태 점검",
       "same_event": false
     },
     "12d31c310985e1ed--55842b037eb69172": {
@@ -17072,6 +17212,26 @@
       "right_title": "미국 원전 부지 활용 사례, 한국 계속운전 촉발제로 삼아야",
       "same_event": false
     },
+    "2210d5be949aa4c1--68384fc3df5f5b93": {
+      "embedding_similarity": 0.8544,
+      "left_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "우라늄 농축 권한 확대를 위한 한미 안보협의 지지부진",
+      "same_event": false
+    },
+    "2210d5be949aa4c1--91f328bcff177545": {
+      "embedding_similarity": 0.8793,
+      "left_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핵잠/협정 복원 vs 핵잠 도입/재처리 협력",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "[특파원 칼럼] 한국 핵추진잠수함 도입 및 사용후핵연료 재처리 협력",
+      "same_event": false
+    },
     "2210d5be949aa4c1--dec5f85da999856e": {
       "embedding_similarity": 0.8799,
       "left_title": "美, 한국에 대미 투자 및 한미 원자력협정 후속 협의 압박",
@@ -17080,6 +17240,16 @@
       "reason": "미국 투자 압박과 한미 원자력협정",
       "reviewed_at": "2026-09-04T07:56:57.804386+00:00",
       "right_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "same_event": false
+    },
+    "2210d5be949aa4c1--e40a9585f266cf82": {
+      "embedding_similarity": 0.8982,
+      "left_title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "핵잠/협정 복원 vs 권한 확보 지연",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "한미 원자력협정 개정 후속 협의, 우라늄 농축·재처리 권한 확보 지연",
       "same_event": false
     },
     "22146fbc99f0006f--523e0acf9253e1c6": {
@@ -24202,6 +24372,16 @@
       "right_title": "캐나다 신규 SMR, 미국·프랑스·영국산 농축 우라늄 연료 수입 의존",
       "same_event": false
     },
+    "345bbd6f547f8863--63f9a78749de4475": {
+      "embedding_similarity": 0.8887,
+      "left_title": "울진군, 원자력수소 국가산단 성공적 조성을 위해 추진에 속도",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "원자력수소산단 조성 vs 재정 부담 최소화",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "울진군, '군민 실익' 기준 현안사업 재점검 및 재정 부담 최소화 추진",
+      "same_event": false
+    },
     "346da384dda06dab--70ad13bfd6dc0ba5": {
       "embedding_similarity": 0.8771,
       "left_title": "정부, 발전공기업 5사 (가칭)한국발전으로 단일법인화 공식 발표",
@@ -24829,6 +25009,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-28T00:32:35.476950+00:00",
+      "right_title": "경주, 빌 게이츠 방한 계기 한미 SMR 협력 가속화로 차세대 원전 산업 선도",
+      "same_event": false
+    },
+    "3518d3eff7e56c00--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8542,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
       "right_title": "경주, 빌 게이츠 방한 계기 한미 SMR 협력 가속화로 차세대 원전 산업 선도",
       "same_event": false
     },
@@ -27921,6 +28111,16 @@
       "reviewed_at": "2026-08-09T10:25:33.192811+00:00",
       "right_title": "오클로(Oklo) 그로브스(Groves) 원자로, 1년 내 첫 임계 달성",
       "same_event": true
+    },
+    "3a4c6bb32078ce0f--60661f43cc4e589f": {
+      "embedding_similarity": 0.8566,
+      "left_title": "울진군의회 원전특위, 한울 붕산수 누출 관련 전수조사기구 구성 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북도의회, 원자력특별위원회 구성…김재준 의원 위원장 선임",
+      "same_event": false
     },
     "3a4c6bb32078ce0f--67e9d8e68965f581": {
       "embedding_similarity": 0.8451,
@@ -37102,6 +37302,36 @@
       "right_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
       "same_event": false
     },
+    "5167039add8b16d2--a168e78ba8bc7be9": {
+      "embedding_similarity": 0.8614,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "건설사, 불황에도 ‘자사주 매입’ CEO들 ‘책임경영ʼ 행보 박차",
+      "same_event": false
+    },
+    "5167039add8b16d2--ac2ca5bbc5e881e2": {
+      "embedding_similarity": 0.8839,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "홀텍 IPO 분석 vs 동맹 확대",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "현대건설, 웨스팅하우스·홀텍·테라파워 등 글로벌 원전 동맹 확대",
+      "same_event": false
+    },
+    "5167039add8b16d2--b9719697dda27644": {
+      "embedding_similarity": 0.864,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "주체와 대상이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업협력 주요 조건 합의서 체결",
+      "same_event": false
+    },
     "5167039add8b16d2--cc2e553cf2927ac5": {
       "embedding_similarity": 0.8506,
       "left_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
@@ -37112,6 +37342,16 @@
       "right_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
       "same_event": false
     },
+    "5167039add8b16d2--d5147918f97d542d": {
+      "embedding_similarity": 0.8573,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "홀텍 IPO 및 테라파워 SMR 관련",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": true
+    },
     "5167039add8b16d2--d76380ca9c1e1687": {
       "embedding_similarity": 0.842,
       "left_title": "美 웨스팅하우스, AI 전력 수요·트럼프 지원에 힘입어 IPO 추진",
@@ -37120,6 +37360,46 @@
       "reason": "다른 주체, 다른 IPO",
       "reviewed_at": "2026-09-04T20:53:04.811019+00:00",
       "right_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "same_event": false
+    },
+    "5167039add8b16d2--ebb55c23efce3634": {
+      "embedding_similarity": 0.8617,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "홀텍 IPO 관련 분석 및 사업화",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "SK이노베이션, 테라파워와 나트륨 SMR 사업 본격화 및 글로벌 시장 진출 모색",
+      "same_event": true
+    },
+    "5167039add8b16d2--f3f581e85458b942": {
+      "embedding_similarity": 0.857,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "홀텍 IPO 및 테라파워 SMR 관련",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
+      "same_event": true
+    },
+    "5167039add8b16d2--f759a386f8314a36": {
+      "embedding_similarity": 0.8873,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "홀텍 IPO 분석 vs SMR 거점 설립",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "美 홀텍, 인도 구자라트주에 SMR 생산·R&D 거점 설립 추진",
+      "same_event": false
+    },
+    "5167039add8b16d2--fd9149f4661ec85b": {
+      "embedding_similarity": 0.8496,
+      "left_title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "현대중공업터보기계, 포항에 1000억 투자해 SMR 핵심 기자재 생산",
       "same_event": false
     },
     "5182ffd451bcbc4d--58158c94ab72ede0": {
@@ -45142,6 +45422,26 @@
       "right_title": "울진군의회 원전특위, 한울 붕산수 누출 관련 전수조사기구 구성 촉구",
       "same_event": true
     },
+    "60661f43cc4e589f--8919a752858d9db6": {
+      "embedding_similarity": 0.8983,
+      "left_title": "울진군의회 원전특위, 한울 붕산수 누출 관련 전수조사기구 구성 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한울 붕산수 누출 조사 촉구",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북도의원, 한울 6호기 붕산수 누출 늑장 공개 한수원 비판",
+      "same_event": true
+    },
+    "60661f43cc4e589f--f0df400054111aee": {
+      "embedding_similarity": 0.8554,
+      "left_title": "울진군의회 원전특위, 한울 붕산수 누출 관련 전수조사기구 구성 촉구",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "경북도의회, 원자력특별위원회 구성…정책·제도 개선 추진",
+      "same_event": false
+    },
     "6069799c66af44db--7532265b4f157617": {
       "embedding_similarity": 0.8994,
       "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
@@ -48522,6 +48822,26 @@
       "right_title": "국내 최초 상업용 AI 데이터센터, 포항서 착공…원전 전력 활용",
       "same_event": false
     },
+    "68ded5211bab6770--dbea2d62d1e9d0f1": {
+      "embedding_similarity": 0.8902,
+      "left_title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "첨단원자로 지원 vs 우라늄 시설 지원",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "미국 에너지부, Raven-Flint社에 두 번째 우라늄 전환 시설 건설 지원",
+      "same_event": false
+    },
+    "68ded5211bab6770--e4ed4a02fda72d03": {
+      "embedding_similarity": 0.8519,
+      "left_title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "라이트브리지, 핵연료 시설 계획 가속화",
+      "same_event": false
+    },
     "6914f2b56547a420--78d84e4164f7c883": {
       "embedding_similarity": 0.8684,
       "left_title": "현대건설, 美 테라파워 차세대 원전 최대 8기 EPC 우선권 확보",
@@ -48531,6 +48851,16 @@
       "reviewed_at": "2026-08-19T12:52:48.833689+00:00",
       "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
       "same_event": true
+    },
+    "6914f2b56547a420--83e09e9f857583f9": {
+      "embedding_similarity": 0.9026,
+      "left_title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계약 체결 vs 동맹 구축",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "테라파워, 한국 기업들과 나트륨 SMR 동맹 구축",
+      "same_event": false
     },
     "6914f2b56547a420--895b471e7f2e1d4c": {
       "embedding_similarity": 0.8565,
@@ -51369,6 +51699,16 @@
       "prompt_version": 1,
       "reason": "현대건설-두산, 테라파워 SMR 기자재 수주",
       "reviewed_at": "2026-08-18T22:03:42.493339+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
+      "same_event": true
+    },
+    "719103e4dd4fefb1--83e09e9f857583f9": {
+      "embedding_similarity": 0.8661,
+      "left_title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 기자재 수주",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
       "right_title": "두산에너빌리티, 美 테라파워 차세대 SMR 핵심 기자재 수주",
       "same_event": true
     },
@@ -55462,6 +55802,16 @@
       "right_title": "한수원, 3D프린팅 원전 부품 새울 1호기 18개월 무결함 운전 성공",
       "same_event": false
     },
+    "7b5b01045873a4a4--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8554,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "한수원, 3D프린팅 원전 부품 새울 1호기 18개월 무결함 운전 성공",
+      "same_event": false
+    },
     "7b626bdd112e21a1--959a0bd83cc42eea": {
       "embedding_similarity": 0.8589,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -57141,6 +57491,26 @@
       "reviewed_at": "2026-09-04T07:56:57.804386+00:00",
       "right_title": "정부, 발전 5사·석유가스공사 통합 등 109개 공공기관 기능 개혁 추진",
       "same_event": true
+    },
+    "83e09e9f857583f9--d5147918f97d542d": {
+      "embedding_similarity": 0.8721,
+      "left_title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "테라파워 SMR 기자재 공급 계약",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 공급 계약 체결",
+      "same_event": true
+    },
+    "83e09e9f857583f9--ef379b05444c5a2f": {
+      "embedding_similarity": 0.9136,
+      "left_title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "계약 체결 vs 부품사 선정",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "TerraPower, Natrium SMR 부품 공급사 12곳 추가 선정",
+      "same_event": false
     },
     "83e930795b6984c2--87c6c33c04c22365": {
       "embedding_similarity": 0.8836,
@@ -75222,6 +75592,16 @@
       "right_title": "박정성 통상교섭본부장, 대미 투자로 한미 FTA급 협력 추진",
       "same_event": false
     },
+    "d4d8b5bd46df0964--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8636,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "한수원, 미래 원자력 인재 확보 위해 고교생 대상 현장 체험 확대",
+      "same_event": false
+    },
     "d5147918f97d542d--d5488ec8773bdc1a": {
       "embedding_similarity": 0.8788,
       "left_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
@@ -75900,6 +76280,26 @@
       "reason": "반도체 클러스터와 데이터센터 지방 이전은 다른 사안",
       "reviewed_at": "2026-08-21T21:34:04.603010+00:00",
       "right_title": "데이터센터, 전기요금 차등화로 수도권 쏠림 완화 및 지방 이전 전망",
+      "same_event": false
+    },
+    "de4a0ca483c6b53c--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8809,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "한수원 전략 수립 vs SK그룹 포트폴리오",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "SK그룹, AI 풀스택 전략으로 SMR 중심 에너지 포트폴리오 다변화 가속",
+      "same_event": false
+    },
+    "de51d7f8d210c6d9--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8581,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-09-05T01:05:51.229311+00:00",
+      "right_title": "현대건설 이한우 대표, 테라파워와 차세대 원전 8기 EPC 우선권 확보",
       "same_event": false
     },
     "de94ef3f41e5ce27--fe38c24988ff17a4": {
