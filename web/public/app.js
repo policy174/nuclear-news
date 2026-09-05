@@ -1429,21 +1429,78 @@ function topicFlowRows() {
     const shares = row.values.map((value, index) => totals[index] ? value / totals[index] * 100 : 0);
     const delta = shares.at(-1) - shares[0];
     const sample = row.values.reduce((sum, value) => sum + value, 0);
-    // 표본이 작으면 방향을 말하지 않는다. 8pp 는 주 단위 잡음을 넘는 폭.
-    return { ...row, span, shares, delta, sample, directional: Math.abs(delta) >= 8 && sample >= 8 };
+    return { ...row, span, shares, delta, sample };
   });
 }
 
+// 인접한 두 주 사이의 차이가 잡음인지 신호인지 — 두 값 중 큰 쪽의 25%, 최소
+// 2건. 절대치 하나로 고정하면 큰 주제(수십 건)에서는 잡음을 신호로 읽고
+// 작은 주제(한두 건)에서는 반대로 진짜 등락을 잡음으로 지운다.
+const TOPIC_FLOW_STEP_FLOOR = 2;
+const TOPIC_FLOW_STEP_RATIO = 0.25;
+function topicFlowStepSign(prev, curr) {
+  const base = Math.max(prev, curr, 1);
+  const gap = curr - prev;
+  if (Math.abs(gap) < Math.max(TOPIC_FLOW_STEP_FLOOR, Math.round(base * TOPIC_FLOW_STEP_RATIO))) return 0;
+  return gap > 0 ? 1 : -1;
+}
+
+// 표본이 작으면(주제 통틀어 8건 미만) 어떤 굴곡도 잡음이다 — 기존 방향
+// 게이트(8건)를 그대로 물려받는다.
+const TOPIC_FLOW_SAMPLE_MIN = 8;
+
+// 첫 주와 마지막 주만 비교하면 '10 → 4 → 9 → 10'이 '변화 없음'이 된다 —
+// 가운데 급락이 있었다는 사실이 통째로 사라진다. 그래서 주 사이 걸음(step)을
+// 전부 보고 그 모양으로 패턴을 가른다. 값(row.values, 이슈 건수)으로 판단한다 —
+// 이번 화면에서 그 값 자체를 막대 위에 그대로 보여주므로, 패턴 이름과 눈에
+// 보이는 숫자가 어긋나지 않는다. 옆의 'span주 +Npp' 문구는 비중(shares)
+// 기준으로 그대로 남는다 — 그건 '다른 주제 대비 몫이 얼마나 움직였나',
+// 이 패턴은 '그 사이 모양이 어땠나'로 서로 다른 질문에 답한다.
+function topicFlowPattern(values, sample) {
+  if (sample < TOPIC_FLOW_SAMPLE_MIN) return { tone: "flat", label: "보합" };
+  const steps = [];
+  for (let i = 1; i < values.length; i += 1) steps.push(topicFlowStepSign(values[i - 1], values[i]));
+  const signed = steps.filter(step => step !== 0);
+  if (!signed.length) return { tone: "flat", label: "보합" };
+  let reversals = 0;
+  for (let i = 1; i < signed.length; i += 1) if (signed[i] !== signed[i - 1]) reversals += 1;
+  if (reversals === 0) {
+    return signed[0] > 0 ? { tone: "up", label: "지속 증가" } : { tone: "down", label: "지속 감소" };
+  }
+  if (reversals >= 2) return { tone: "mixed", label: "등락 반복" };
+  // 반전 한 번 — 앞 구간과 뒤 구간의 방향으로 모양이 갈린다.
+  const first = signed[0];
+  const last = signed[signed.length - 1];
+  if (first < 0 && last > 0) return { tone: "mixed", label: "감소 후 회복" };
+  if (first > 0 && last < 0) {
+    // 끝값이 시작값보다 뚜렷이 낮으면 둔화가 계속된 것이고, 시작값 언저리로
+    // 돌아왔을 뿐이면 일시적으로 솟았다 가라앉은 것이다.
+    return topicFlowStepSign(values[0], values[values.length - 1]) < 0
+      ? { tone: "mixed", label: "증가 후 둔화" }
+      : { tone: "mixed", label: "일시 급증" };
+  }
+  return { tone: "flat", label: "보합" };
+}
+
+const TOPIC_FLOW_ICON = { up: "▲", down: "▼", flat: "―", mixed: "↕" };
+
 function topicFlowRow(row) {
-  const direction = !row.directional ? "= 변화 없음" : row.delta > 0 ? "▲ 늘고 있음" : "▼ 줄고 있음";
+  const pattern = topicFlowPattern(row.values, row.sample);
   const maxShare = Math.max(1, ...row.shares);
+  // 막대 높이는 그대로 비중(shares) 기준 — 막대 위 숫자만 실제 건수(values)로
+  // 바꿔, '몫이 얼마나 큰가'(높이)와 '실제 몇 건인가'(숫자)를 함께 준다.
+  const bars = row.shares.map((value, index) => `<span class="topic-spark-col">`
+    + `<b>${row.values[index]}</b>`
+    + `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`
+    + `</span>`).join("");
   return `<div class="home-topic-row">
     <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
-    <span class="topic-spark" aria-label="최근 ${row.span}주 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${row.shares.map(value => `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`).join("")}</span>
-    <span class="topic-direction ${row.directional ? (row.delta > 0 ? "up" : "down") : "flat"}">${direction}</span>
+    <span class="topic-spark" aria-label="최근 ${row.span}주 이슈 ${row.values.join(" → ")}건 · 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${bars}</span>
+    <span class="topic-direction ${pattern.tone}"><i aria-hidden="true">${TOPIC_FLOW_ICON[pattern.tone]}</i>${esc(pattern.label)}</span>
     <small class="topic-figures">
-      <!-- 화살표는 span 주 전체의 변화다. 옆 숫자를 '지난주 → 이번 주'로 두면
-           ▼ 옆에 오르는 두 수가 붙는다(실측: SMR ▼ / 18% → 19%). 같은 구간을 쓴다. -->
+      <!-- 이 두 줄은 비중(shares) 기준 — span 주 전체의 상대적 몫 변화를 말한다.
+           옆 숫자를 '지난주 → 이번 주'로 두면 ▼ 옆에 오르는 두 수가 붙는다
+           (실측: SMR ▼ / 18% → 19%). 같은 구간을 쓴다. -->
       <span class="topic-compare">${row.span}주 전 ${Math.round(row.shares[0])}% → 이번 주 ${Math.round(row.shares.at(-1))}%</span>
       <span class="topic-delta">${row.span}주 ${row.delta > 0 ? "+" : ""}${Math.round(row.delta)}pp</span>
       <!-- 이슈 단위다(build_topic_weeks). 한 이슈가 주제 둘이면 둘 다에 1건씩
@@ -2839,12 +2896,38 @@ function previousPeriodRange(pdata) {
   return { start: shiftDate(end, -(Number(pdata.days || state.period) - 1)), end };
 }
 
+// '비교 가능한가'는 기간 전체의 사실 하나다 — 키워드 표와 워드 클라우드가 각자
+// 다른 방식으로 판정하면(예: 표는 이 플래그, 구름은 row.prev 존재 여부) 어느
+// 한쪽만 어긋나는 순간 같은 기간을 두고 표와 구름이 다른 말을 하게 된다.
+// 옛 trend.json(구버전, periods 없음)에서는 weekMode 로 물러난다.
+function comparisonModeFor(pdata, weekMode = isWeekPeriod()) {
+  return pdata ? Boolean(pdata.previous_period_complete) : weekMode;
+}
+
+// 신규·증가·감소·보합 — 색만으로 가르던 상태를 아이콘·글자 배지로도 낸다.
+// 예전 코드는 delta<0 을 '이어짐'(=변화 없음과 같은 문구)으로 묶어, 옆에는
+// "−5"가 빨갛게 찍혀 있는데 상태 칸은 "변화 없다"고 말하는 모순이 있었다.
+// 이제는 delta 부호 그대로 증가/감소/보합 셋으로 가르고, 신규가 가장 먼저다.
+const KEYWORD_STATUS = {
+  new: { icon: "●", label: "신규" },
+  up: { icon: "▲", label: "증가" },
+  down: { icon: "▼", label: "감소" },
+  flat: { icon: "―", label: "보합" },
+};
+function keywordStatusTone(row) {
+  if (row.isNew) return "new";
+  const delta = row.delta || 0;
+  return delta > 0 ? "up" : delta < 0 ? "down" : "flat";
+}
+
 function renderKeywordTable() {
   const weekMode = isWeekPeriod();
   const pdata = periodData();
   // 기간이 아니라 '직전 구간이 archive 에 온전히 있는가'로 정한다. 구버전
   // trend.json 에는 periods 가 없고 7일 rising/new_tags 만 있으므로 그때만 weekMode.
-  const comparisonMode = pdata ? Boolean(pdata.previous_period_complete) : weekMode;
+  // 워드 클라우드도 같은 판정을 쓴다(comparisonModeFor) — 표와 구름이 같은
+  // 기간에서 서로 다른 비교 가능 여부를 말하지 않게.
+  const comparisonMode = comparisonModeFor(pdata, weekMode);
   const sortBox = document.getElementById("keywordSort");
   for (const button of sortBox.querySelectorAll("[data-sort]")) {
     button.hidden = !comparisonMode && button.dataset.sort !== "mentions";
@@ -2865,10 +2948,14 @@ function renderKeywordTable() {
   const head = comparisonMode
     ? `<span>키워드</span><span>${esc(nowLabel)}</span><span>${esc(prevLabel)}</span><span>변화</span><span>상태</span><span></span>`
     : `<span>키워드</span><span>${esc(nowLabel)}</span><span></span><span></span><span>기준</span><span></span>`;
-  const body = rows.map(row => comparisonMode
-    ? `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev ?? 0}</span><span class="${(row.delta || 0) > 0 ? "positive" : (row.delta || 0) < 0 ? "negative" : ""}">${(row.delta || 0) > 0 ? "+" : (row.delta || 0) < 0 ? "−" : ""}${Math.abs(row.delta || 0)}</span><span>${row.isNew ? "신규" : (row.delta || 0) >= 3 ? "늘어남" : "이어짐"}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`
-    : `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span></span><span></span><span>중복 제거</span><button type="button" data-keyword="${esc(row.tag)}">선정 사건 ${row.now}건 →</button></div>`
-  ).join("");
+  const body = rows.map(row => {
+    if (!comparisonMode) {
+      return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span></span><span></span><span>중복 제거</span><button type="button" data-keyword="${esc(row.tag)}">선정 사건 ${row.now}건 →</button></div>`;
+    }
+    const tone = keywordStatusTone(row);
+    const status = KEYWORD_STATUS[tone];
+    return `<div class="keyword-row"><strong>${esc(row.tag)}</strong><span>${row.now}</span><span>${row.prev ?? 0}</span><span class="${(row.delta || 0) > 0 ? "positive" : (row.delta || 0) < 0 ? "negative" : ""}">${(row.delta || 0) > 0 ? "+" : (row.delta || 0) < 0 ? "−" : ""}${Math.abs(row.delta || 0)}</span><span class="kw-status ${tone}"><i aria-hidden="true">${status.icon}</i>${status.label}</span><button type="button" data-keyword="${esc(row.tag)}">근거 ${row.now}건 →</button></div>`;
+  }).join("");
   const table = document.getElementById("keywordTable");
   // 모바일은 머리줄을 접고 셀마다 ::before 라벨을 붙인다(style.css). 그 문구도
   // 기간을 따라야 하므로 CSS 문자열로 넘긴다 — JSON.stringify 가 곧 CSS 문자열 토큰.
