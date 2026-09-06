@@ -97,28 +97,29 @@
   /* 시안의 IBM Plex Mono 는 추가하지 않는다(웹폰트 한 벌 더 = 로딩 비용).
      오버라인·번호·지표에만 쓰므로 시스템 모노 스택으로 충분하다. */
   --ff-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", monospace;
-  /* ── 그림자 · 하드 오프셋 ─────────────────────────────────────────
-     blur 를 0 으로 두고 색을 --c-edge 로 잡는다. 커스텀 프로퍼티는 사용
-     시점에 해석되므로 다크가 --c-edge 한 줄만 뒤집으면 세 단이 통째로 밝은
-     오프셋으로 전환된다 — 그래서 다크 블록의 `--sh-*: none` 세 줄이 없다.
-     반복 요소(행·배지·칩)에는 절대 쓰지 않는다: 형제를 덮어 목록이 스티커가
-     된다. 상자형 표면에만. */
-  --sh-1: 2px 2px 0 var(--c-edge);
-  --sh-2: 4px 4px 0 var(--c-edge);
-  --sh-3: 6px 6px 0 var(--c-edge);
-  /* 시안 원칙: "카드·그림자·과도한 라운드를 줄이고 선과 타이포그래피로 위계를
-     표현한다." 시안 197줄에 border-radius 는 장식용 원 1건뿐이다. 토큰을 0 으로
-     두면 카드·버튼·입력이 한 번에 각지고, 되돌릴 때도 이 세 줄이면 된다. */
-  --r-1: 0;
-  --r-2: 0;
-  --r-3: 0;
-  /* ── 테두리 3단 ───────────────────────────────────────────────────
-     굵기 자체가 위계 신호다. 1 = 헤어라인(표 내부·메타), 2 = 구조선(구역
-     머리·행 구분), 3 = 프레임(상자를 두르거나 구역을 연다). 스캔 목록에
-     3px 를 여덟 줄 쌓으면 확신이 아니라 소음이 된다 — 3 은 아껴 쓴다. */
+  /* ── 그림자 · 소프트 워시 (B안 '정책 소프트', 2026-09) ──────────────
+     하드 오프셋(2px 2px 0)은 스티커 감성의 몸통이라 폐기했다. x 오프셋 0,
+     blur > 0, 잉크(--c-primary 계열) 저알파 rgba 만 허용 — 형식은
+     test_shadows_are_soft_low_alpha_washes 가 잠근다. 다크에서는 그림자가
+     종이에 묻혀 거의 사라지는데 그게 정상이다: 위계는 보더가 계속 든다.
+     반복 요소(행·배지·칩)에 쓰지 않는 규칙은 그대로다 — 상자형 표면에만. */
+  --sh-1: 0 1px 2px rgba(18, 41, 76, .06);
+  --sh-2: 0 2px 6px rgba(18, 41, 76, .08);
+  --sh-3: 0 6px 16px rgba(18, 41, 76, .12);
+  /* radius — 컨트롤 8 / 패널 12 / 다이얼로그 16 / 배지·칩 pill. 일괄
+     라운드는 클리셰라 표·히트맵 셀·잉크 크롬은 계속 각지다(토큰을 안
+     물렸으므로 자동). 되돌릴 때도 이 네 줄이면 된다. */
+  --r-1: 8px;
+  --r-2: 12px;
+  --r-3: 16px;
+  --r-4: 999px;
+  /* ── 테두리 — 전부 헤어라인 (B안 정책 소프트, 2026-09) ─────────────
+     위계 신호를 굵기에서 색으로 옮겼다: 구역·프레임은 잉크(--c-edge),
+     행·표 내부는 회색(--c-border). 세 토큰은 가드가 존재를 요구해 남긴다
+     — 값을 다시 벌리면 하드엣지로 되돌아가는 스위치다. */
   --bd-1: 1px;
-  --bd-2: 2px;
-  --bd-3: 3px;
+  --bd-2: 1px;
+  --bd-3: 1px;
   --fo-ring: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-focus);
   --wrap: 1280px;
   /* ── 간격 · 4px 배수 ──────────────────────────────────────────────
@@ -1033,6 +1034,7 @@ kbd {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: .08em;
+  border-radius: var(--r-4);
 }
 .section-heading h2 { margin: 0; font-size: 20px; line-height: 1.35; letter-spacing: -.022em; }
 .section-heading p:not(.eyebrow):not(.section-count) { margin: 4px 0 0; color: var(--c-text-muted); font-size: var(--t-caption); }
@@ -1146,13 +1148,12 @@ kbd {
 /* 필터가 없는 날이 대부분인데 min-height 12px + margin 10px 가 늘 자리를 잡아,
    구역 머리와 첫 행 사이에 설명 없는 22px 이 생겼다. 내용이 없으면 접는다. */
 .active-filter-row:empty { display: none; }
-.active-filter-row span { padding: 3px 8px; border: var(--bd-1) solid var(--c-secondary); border-radius: var(--r-1); background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
+.active-filter-row span { padding: 3px 9px; border: var(--bd-1) solid var(--c-secondary); border-radius: var(--r-4); background: var(--c-secondary-weak); color: var(--c-secondary); font-size: var(--t-min); }
 
-/* 시안의 목록은 카드가 아니라 표다 — 순서 / 변화 / 이슈 / 근거 4열, 구분은
-   테두리 상자가 아니라 행 사이 선 하나. 네 열은 app.js 에서 형제 요소로 나온다. */
-/* 목록 자체는 여백을 갖지 않는다 — 머리와의 거리는 구역 머리가 정한다.
-   머리가 없는 목록(저장 탭)은 .section-heading.compact 의 아래 여백이 맡는다. */
-.issue-list { display: grid; gap: 0; margin-top: 0; }
+/* B안 정책 소프트(2026-09) — 목록이 표에서 카드로 돌아왔다. 4열 그리드는
+   유지하고 행 구분을 '사이 선 하나'에서 '헤어라인 패널 + 간격'으로 바꿨다.
+   네 열은 app.js 에서 형제 요소로 나온다. */
+.issue-list { display: grid; gap: var(--sp-3); margin-top: 0; }
 /* 행 높이를 32px 패딩에서 20px 로 조인다. 1440×900 첫 화면에 카드가 두 장
    들어가던 것이 네 장이 된다 — 훑어 비교하는 화면에서 밀도는 장식이 아니라
    기능이다. 4열 비율도 함께 좁혀 가운데 죽은 공간을 줄인다. */
@@ -1162,28 +1163,22 @@ kbd {
      변화 열에서 뺀다 — 앞 두 열의 가로 합은 172px 로 그대로다. */
   grid-template-columns: 52px 120px minmax(0, 1fr) minmax(0, auto);
   column-gap: var(--sp-4);
-  padding: var(--sp-5) var(--sp-3) var(--sp-5) var(--sp-3);
-  border: 0;
-  border-top: var(--bd-2) solid var(--c-border);
-  background: transparent;
+  padding: var(--sp-5) var(--sp-4) var(--sp-5) var(--sp-4);
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
   /* 배경만 바뀌던 hover 를 세 값이 함께 움직이게 한다(배경·윗괘선·번호) —
      한 값만 변하면 '켜졌나' 싶고, 셋이 같이 변하면 행이 선택된 것으로 읽힌다.
      전부 합성 가능한 속성이라 레이아웃은 흔들리지 않는다. */
   transition: background var(--mo-1), border-color var(--mo-1);
 }
-/* 첫 행의 2px 진한 괘선 — 선두 카드(.lead-card)와 같은 어법. 표가 시작되는
-   지점을 선 하나로 선언한다(박스·배경 없이). */
-.issue-list > .issue-card:first-child { border-top: var(--bd-3) solid var(--c-edge); }
-/* 구역 머리가 이미 잉크 괘선으로 열었으면 첫 행은 보통 행처럼 얇게 긋는다.
-   머리가 없는 목록(저장·최근 본·팔로우)은 위 규칙의 2px 이 그대로 문을 연다. */
-.issues-section .issue-list > .issue-card:first-child,
-.archive-results .issue-list > .issue-card:first-child { border-top: var(--bd-2) solid var(--c-border); }
+/* 카드 전환으로 첫 행 특례 괘선은 폐지 — 모든 카드가 같은 헤어라인 패널이다. */
 /* front — 기본 화면의 상위 2건. 편집 판단(선두 카드)과 일반 행 사이의 중간
    위계다. 제목 활자만 한 단 키우고 구조는 표 그대로 둔다. */
 .issue-card.front h3 { font-size: 28px; line-height: 1.3; }
 .issue-card.front .issue-summary { font-size: var(--t-body-lg); }
 .issue-card.front .issue-index { color: var(--c-text); }
-.issue-card:hover { border-top-color: var(--c-edge); background: var(--c-surface); }
+.issue-card:hover { border-color: var(--c-edge); background: var(--c-surface-sunken); }
 .issue-card:hover .issue-index { color: var(--c-text); }
 /* 행 hover 가 배경을 바꾸는데 클릭 지점은 제목뿐이었다 — 어포던스와 실제가
    어긋난다. 이슈를 품은 행(data-issue-card)은 행 전체가 상세 진입점이다.
@@ -1264,9 +1259,9 @@ kbd {
 .verification-badge {
   align-self: start;
   margin-top: 4px;
-  padding: 3px 7px;
+  padding: 3px 9px;
   border: var(--bd-2) solid currentColor;
-  border-radius: var(--r-1);
+  border-radius: var(--r-4);
   font-size: var(--t-min);
   font-weight: 700;
 }
@@ -1281,9 +1276,9 @@ kbd {
 .report-pick-badge {
   align-self: start;
   margin-top: 4px;
-  padding: 3px 7px;
+  padding: 3px 9px;
   border: var(--bd-2) solid currentColor;
-  border-radius: var(--r-1);
+  border-radius: var(--r-4);
   color: var(--c-accent-text);
   font-size: var(--t-min);
   font-weight: 700;
@@ -1510,7 +1505,9 @@ kbd {
 .lead-card {
   padding: var(--sp-4);
   border: var(--bd-3) solid var(--c-edge);
+  border-radius: var(--r-2);
   background: var(--c-surface);
+  box-shadow: var(--sh-2);
 }
 .lead-meta {
   display: flex;
@@ -1953,9 +1950,9 @@ a.cover-face:hover { transform: translate(-2px, -2px); box-shadow: var(--sh-2); 
   align-items: baseline;
   gap: 6px;
   min-height: 44px;
-  padding: 0 var(--sp-3);
+  padding: 0 var(--sp-4);
   border: var(--bd-1) solid var(--c-border);
-  border-radius: var(--r-1);
+  border-radius: var(--r-4);
   background: var(--c-surface);
   font-size: var(--t-caption);
   transition: background var(--mo-1), border-color var(--mo-1);
@@ -2762,7 +2759,7 @@ dialog {
   color: var(--c-text);
   box-shadow: var(--sh-3);
 }
-dialog::backdrop { background: rgb(18 37 30 / 48%); }
+dialog::backdrop { background: rgb(18 41 76 / 48%); }
 .search-dialog { width: min(680px, calc(100% - 32px)); }
 /* 즉시 결과 — 그룹 라벨은 모노 소문자 어법(오버라인과 같은 목소리), 행은
    44px 터치 타깃. 키보드 활성은 배경으로 표시한다(색만으로 구분하지 않음 —
@@ -2920,7 +2917,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
 }
 .ai-badge { color: var(--c-text-muted); font-size: var(--t-min); font-weight: 400; }
 .topic-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.topic-chip { padding: 3px 8px; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1); color: var(--c-text-muted); font-size: var(--t-min); }
+.topic-chip { padding: 3px 9px; border: var(--bd-1) solid var(--c-border); border-radius: var(--r-4); color: var(--c-text-muted); font-size: var(--t-min); }
 .issue-reason-row {
   display: flex;
   max-height: 26px;
@@ -3050,10 +3047,10 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
      를 파일 전체에 돌려 dict() 로 만든다. 나중 값이 앞을 덮어쓰므로 여기 hex 를
      두면 그 테스트가 재는 대비 쌍이 조용히 바뀐다. 단위 없는/px 토큰만 둔다. */
   :root {
-    --bd-3: 2px;
-    --sh-1: 2px 2px 0 var(--c-edge);
-    --sh-2: 3px 3px 0 var(--c-edge);
-    --sh-3: 4px 4px 0 var(--c-edge);
+    --bd-3: 1px;
+    --sh-1: 0 1px 2px rgba(18, 41, 76, .06);
+    --sh-2: 0 1px 4px rgba(18, 41, 76, .07);
+    --sh-3: 0 4px 10px rgba(18, 41, 76, .10);
   }
   /* 발간물 — 모바일은 1열 서가형 목록. 표지 비율을 풀고(aspect auto) 스파인
      달린 목록 카드로 강등한다. 2열 표지는 제목 5줄+gist 에서 세로로 무너진다. */
@@ -3190,7 +3187,7 @@ dialog::backdrop { background: rgb(18 37 30 / 48%); }
   /* 4열 표는 390px 에 안 들어간다. 시안 모바일과 같이 순서만 남기고 나머지를
      한 열로 접는다 — '변화'는 다시 가로 한 줄. */
   .issue-list { gap: 0; }
-  .issue-card { grid-template-columns: 32px minmax(0, 1fr); column-gap: 11px; padding: 18px 0; }
+  .issue-card { grid-template-columns: 32px minmax(0, 1fr); column-gap: 11px; padding: 16px var(--sp-4); }
   .issue-index { grid-row: 1; font-size: 24px; }
   .issue-meta {
     grid-column: 2;
