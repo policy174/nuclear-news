@@ -4063,6 +4063,212 @@ def report_entity_stats(registry: list[dict], issue_catalog: list[dict]) -> None
         print("[build_data] ⚠ 엔티티 이슈당 평균 4 초과 — 범용어 오탐 의심, 별칭·정책 점검")
     if total_issues and len(linked_issues) / total_issues < 0.30:
         print("[build_data] ⚠ 엔티티 연결 이슈 비율 30% 미만 — 별칭 부족 의심")
+
+
+# ── 정책의제 (agenda) ─────────────────────────────────────────────────────────
+# 손큐레이션 의제 몇 건이 이슈들을 가로질러 오래 산다(계획 gleaming-waddling-pearl
+# Phase 1). 원칙 세 개:
+#   1. issue_id 는 클러스터 재편으로 바뀔 수 있다 — 자동 연결(topics·tags·
+#      entity_ids 교집합)이 1차 앵커이고 핀은 보조다. 깨진 핀은 조용히 버리지
+#      않고 broken_pins 로 내보낸다.
+#   2. 자동 연결은 '후보'다 — 같은 태그가 같은 정책 질문을 뜻하지 않는다.
+#      확정(핀)과 후보를 다른 칸에 싣는다. unpin 은 핀 취소이자 후보 제외다.
+#   3. 판단 로그의 근거는 스냅샷으로 동결한다(first-write-wins) — 이슈가 이후
+#      변형·소멸해도 "당시 무엇을 보고 판단했나"를 복원할 수 있어야 한다
+#      (판정 캐시에 근거 스냅샷을 같이 두는 기존 계약과 동일).
+
+AGENDA_REGISTRY_FILE = BOT_DIR / "agenda_registry.json"
+AGENDA_SNAPSHOT_FILE = BOT_DIR / "agenda_log_snapshots.json"
+
+
+def load_agenda_registry(path: Path = None) -> list[dict]:
+    """비치명 — 파일이 없으면 의제 기능만 빈다."""
+    try:
+        raw = json.loads((path or AGENDA_REGISTRY_FILE).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    agendas = raw.get("agendas") if isinstance(raw, dict) else None
+    return [a for a in (agendas or []) if isinstance(a, dict) and a.get("id")]
+
+
+def load_admin_agenda_entries(path: Path = ADMIN_OVERLAY_FILE) -> dict:
+    """콘솔 KV 장부에서 agenda_* 판정만 걸러 온다 (load_admin_pair_judgments 형제).
+
+    pins/unpins 는 disabled 를 건너뛴다(비활성 = 판정 취소). logs 는 disabled 도
+    싣는다 — 철회된 판단도 이력이다(화면이 취소선으로 그린다)."""
+    out = {"pins": {}, "unpins": {}, "logs": [], "next": {}}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return out
+    latest_next: dict[str, tuple[str, str]] = {}
+    for entry in raw.get("entries") or []:
+        if not isinstance(entry, dict):
+            continue
+        kind = entry.get("kind")
+        value = str(entry.get("value") or "")
+        if kind in ("agenda_pin", "agenda_unpin"):
+            if entry.get("disabled"):
+                continue
+            agenda_id, _, issue_id = value.partition("--")
+            if agenda_id and issue_id:
+                bucket = out["pins" if kind == "agenda_pin" else "unpins"]
+                bucket.setdefault(agenda_id, set()).add(issue_id)
+        elif kind == "agenda_log":
+            agenda_id, _, issue_id = value.partition("--")
+            if agenda_id:
+                out["logs"].append({
+                    "id": str(entry.get("id") or ""),
+                    "agenda_id": agenda_id,
+                    "issue_id": issue_id,
+                    "note": str(entry.get("reason") or ""),
+                    "created_at": str(entry.get("created_at") or ""),
+                    "disabled": bool(entry.get("disabled")),
+                })
+        elif kind == "agenda_next" and value and not entry.get("disabled"):
+            created = str(entry.get("created_at") or "")
+            if value not in latest_next or created > latest_next[value][0]:
+                latest_next[value] = (created, str(entry.get("reason") or ""))
+    out["next"] = {aid: text for aid, (_, text) in latest_next.items()}
+    return out
+
+
+def freeze_agenda_snapshots(logs: list[dict], issues_by_id: dict,
+                            path: Path = AGENDA_SNAPSHOT_FILE, now: str = "") -> dict:
+    """판단 로그가 참조한 이슈의 '당시 모습'을 첫 조우 시 동결한다.
+
+    first-write-wins: 한 번 얼린 스냅샷은 다시 쓰지 않는다 — 이슈 제목·대표
+    기사가 이후 바뀌어도 판단 당시의 근거가 남는다. 참조 이슈가 아직 카탈로그에
+    없으면 얼리지 않고 다음 빌드에서 재시도한다(빈 스냅샷을 영구화하지 않기 위해)."""
+    try:
+        snaps = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        snaps = {}
+    if not isinstance(snaps, dict):
+        snaps = {}
+    dirty = False
+    for log in logs:
+        key = log.get("id") or ""
+        if not key or key in snaps:
+            continue
+        issue_id = log.get("issue_id") or ""
+        if not issue_id:
+            continue  # 이슈 참조 없는 로그는 스냅샷 대상이 아니다
+        issue = issues_by_id.get(issue_id)
+        if not issue:
+            continue
+        rep = issue.get("representative_article") or {}
+        snaps[key] = {
+            "issue_id": issue_id,
+            "issue_title": issue.get("title", ""),
+            "article_title": rep.get("title_kr", ""),
+            "article_url": rep.get("url", ""),
+            "article_date": rep.get("article_date", ""),
+            "frozen_at": now,
+        }
+        dirty = True
+    if dirty:
+        try:
+            path.write_text(
+                json.dumps(snaps, ensure_ascii=False, indent=1, sort_keys=True) + "\n",
+                encoding="utf-8")
+        except OSError:
+            pass
+    return snaps
+
+
+def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: dict,
+                       calendar_events: list[dict], generated_at: str,
+                       snapshot_path: Path = AGENDA_SNAPSHOT_FILE) -> dict:
+    """agendas.json — 항상 생성한다(레지스트리 없으면 빈 목록, entities 와 동일)."""
+    issues_by_id = {row["issue_id"]: row for row in issue_catalog}
+    snaps = freeze_agenda_snapshots(admin.get("logs") or [], issues_by_id,
+                                    path=snapshot_path, now=generated_at)
+    agendas = []
+    zero_linked: list[str] = []
+    broken_total = 0
+    for spec in registry:
+        aid = spec["id"]
+        topics = set(spec.get("topics") or [])
+        tags = set(spec.get("tags") or [])
+        ents = set(spec.get("entity_ids") or [])
+        unpins = admin.get("unpins", {}).get(aid, set())
+        pins = admin.get("pins", {}).get(aid, set()) - unpins
+        candidates = []
+        for row in issue_catalog:
+            iid = row["issue_id"]
+            if iid in pins or iid in unpins:
+                continue
+            if (topics & set(row.get("topics") or [])
+                    or tags & set(row.get("tags") or [])
+                    or ents & set(row.get("entity_ids") or [])):
+                candidates.append(iid)
+        pinned = [iid for iid in pins if iid in issues_by_id]
+        broken = sorted(pins - set(pinned))
+        broken_total += len(broken)
+        last_seen = lambda iid: issues_by_id[iid].get("last_seen") or ""  # noqa: E731
+        pinned.sort(key=last_seen, reverse=True)
+        candidates.sort(key=last_seen, reverse=True)
+        # '최신 관련 소식' — 의제의 판단이 바뀌었다는 주장이 아니다(그건 판단
+        # 로그의 몫). 핀이 있으면 핀에서, 없으면 후보에서 가장 최근 것.
+        latest_news, latest_from = "", ""
+        for iid in (pinned or candidates)[:1]:
+            row = issues_by_id[iid]
+            latest_news = (row.get("change_display") or row.get("latest_change")
+                           or row.get("summary") or "")
+            latest_from = iid
+        evidence = {"issues": len(pinned), "verified": 0, "official_sources": 0}
+        for iid in pinned:
+            ver = issues_by_id[iid].get("verification") or {}
+            evidence["official_sources"] += int(ver.get("official_source_count") or 0)
+            if ver.get("status") in ("official", "corroborated"):
+                evidence["verified"] += 1
+        linked_set = set(pinned) | set(candidates)
+        events = [{"id": ev.get("id", ""), "date": ev.get("date", ""),
+                   "label": ev.get("label", ""), "issue_id": ev.get("issue_id", "")}
+                  for ev in calendar_events
+                  if ev.get("issue_id") in linked_set][:10]
+        logs = []
+        for log in admin.get("logs") or []:
+            if log.get("agenda_id") != aid:
+                continue
+            entry = {k: log[k] for k in ("id", "issue_id", "note", "created_at", "disabled")}
+            snap = snaps.get(log.get("id") or "")
+            if snap:
+                entry["evidence"] = snap
+            logs.append(entry)
+        logs.sort(key=lambda l: l.get("created_at") or "")
+        if not pinned and not candidates:
+            zero_linked.append(aid)
+        agendas.append({
+            "id": aid,
+            "title": spec.get("title", ""),
+            "question": spec.get("question", ""),
+            "bottleneck": spec.get("bottleneck", ""),
+            "bottleneck_reviewed_at": spec.get("bottleneck_reviewed_at", ""),
+            "transfer_conditions": spec.get("transfer_conditions", ""),
+            "next_check": admin.get("next", {}).get(aid) or spec.get("next_check", ""),
+            "topics": sorted(topics), "tags": sorted(tags), "entity_ids": sorted(ents),
+            "pinned_issue_ids": pinned,
+            "candidate_issue_ids": candidates[:30],
+            "candidate_count": len(candidates),
+            "broken_pins": broken,
+            "latest_news": latest_news,
+            "latest_news_issue_id": latest_from,
+            "evidence": evidence,
+            "events": events,
+            "log": logs,
+            "created_at": spec.get("created_at", ""),
+        })
+    coverage = {"count": len(agendas), "zero_linked": zero_linked,
+                "broken_pins": broken_total}
+    if registry:
+        linked = ", ".join(
+            f"{a['id']} 핀{len(a['pinned_issue_ids'])}·후보{a['candidate_count']}"
+            for a in agendas)
+        print(f"[build_data] 의제: {linked}"
+              + (f" · ⚠ 깨진 핀 {broken_total}건" if broken_total else ""))
+    return {"generated_at": generated_at, "agendas": agendas, "coverage": coverage}
     for entity_id, cnt in counts.most_common(3):
         if total_issues and cnt / total_issues > 0.40:
             print(f"[build_data] ⚠ 엔티티 {entity_id} 가 이슈의 40% 초과({cnt}/{total_issues}) — 범용어 오탐 의심")
@@ -4793,6 +4999,12 @@ def build() -> None:
     weekly_movers = build_weekly_movers(issue_catalog, week_end)
 
     weekly_reports = load_weekly_reports(issue_catalog)
+    # 달력은 트렌드와 의제가 같이 소비한다 — 두 번 만들면 정의가 갈라진다.
+    calendar_view = event_calendar.build(
+        visible, now.astimezone(KST).date(),
+        story_ids=story_id_map(issues),
+        issue_ids=issue_id_map(issue_catalog),
+        official=load_official_events())
     trend = {
         # 금요일 주간 판세 리포트. 없으면 None → 프론트가 기존 정량 트렌드만 그린다
         # (목요일에 빈 탭이 되지 않게 하는 폴백).
@@ -4813,11 +5025,7 @@ def build() -> None:
         # 앞으로 30일 달력 — 기사 문장에서 날짜 절을 뽑아 짝지은 일정
         # (event_calendar.py 머리말). 60일 창(visible) 전체를 재료로 쓴다:
         # 미래 일정을 예고하는 기사는 몇 주 전에 나온다.
-        "event_calendar": event_calendar.build(
-            visible, now.astimezone(KST).date(),
-            story_ids=story_id_map(issues),
-            issue_ids=issue_id_map(issue_catalog),
-            official=load_official_events()),
+        "event_calendar": calendar_view,
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],
@@ -4919,6 +5127,9 @@ def build() -> None:
         for issue in briefing.get("issues", [])
         if issue.get("previous_article_count", 0) > 0
     )
+    agendas_view = build_agendas_view(
+        issue_catalog, load_agenda_registry(), load_admin_agenda_entries(),
+        calendar_view.get("events") or [], now.isoformat())
     meta = {
         "generation_id": generation_id,
         "generated_at": now.isoformat(),
@@ -4928,6 +5139,8 @@ def build() -> None:
         "issue_catalog_total": len(issue_catalog),
         "p1_regression": p1_regression,
         "atlas_readiness": atlas_readiness(issue_catalog),
+        # 의제 계기판 — atlas 와 같은 원칙: 게이트가 아니라 계기판.
+        "agenda_coverage": agendas_view["coverage"],
         "field_fill": field_fill(news_items, _entity_alias_entries(entity_registry), issue_catalog),
         "source_tiers": _source_tier_counts(),
         "latest_briefing_date": briefings[0]["date"] if briefings else "",
@@ -5054,6 +5267,7 @@ def build() -> None:
         ("insights.json", insights),
         ("publications.json", publications),
         ("entities.json", entities_view),
+        ("agendas.json", agendas_view),
         ("scraps.json", build_scraps(records, now)),
         ("manifest.json", manifest),
         ("status.json", status),

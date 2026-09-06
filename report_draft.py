@@ -205,7 +205,9 @@ def _ask(client, issue: dict) -> tuple[str, list[str]]:
     return "", problems
 
 
-def run(*, client=None, now: datetime | None = None) -> dict:
+def run(*, client=None, now: datetime | None = None, publish_only: bool = False) -> dict:
+    """publish_only=True 면 LLM 호출 없이 캐시에서 공개 파일만 다시 쓴다 —
+    매시간 crawl 배포가 초안 파일을 빠뜨리지 않게 하는 경로(쿼터 소비 0)."""
     now = now or datetime.now(timezone.utc)
     stats = {"targets": 0, "cached": 0, "generated": 0, "failed": 0, "status": "ok"}
 
@@ -222,12 +224,12 @@ def run(*, client=None, now: datetime | None = None) -> dict:
     stats["targets"] = len(targets)
     cache = llm_cache.load(CACHE_FILE, "drafts")
 
-    if client is None:
+    if client is None and not publish_only:
         try:
             import gemini_client as client  # noqa: PLC0415
         except ImportError:
             client = None
-    can_call = client is not None and client.is_available()
+    can_call = (not publish_only) and client is not None and client.is_available()
 
     calls = 0
     for issue in targets:
@@ -262,8 +264,9 @@ def run(*, client=None, now: datetime | None = None) -> dict:
         else:
             stats["failed"] += 1
 
-    llm_cache.save(cache, CACHE_FILE, key="drafts", prompt_version=PROMPT_VERSION,
-                   comment="보고 후보 이슈의 개조식 초안 캐시 — report_draft.py")
+    if not publish_only:
+        llm_cache.save(cache, CACHE_FILE, key="drafts", prompt_version=PROMPT_VERSION,
+                       comment="보고 후보 이슈의 개조식 초안 캐시 — report_draft.py")
 
     # 공개 파일에는 성공한 초안만, 현재 카탈로그에 있는 이슈만 싣는다.
     live_ids = {str(issue.get("issue_id") or "") for issue in issues}
@@ -288,7 +291,7 @@ def run(*, client=None, now: datetime | None = None) -> dict:
 
 
 if __name__ == "__main__":
-    result = run()
+    result = run(publish_only="--publish-only" in sys.argv)
     print(f"[report_draft] {result}")
     # 쿼터·재료 부재는 비치명(초안 없이 배포) — exit 0. 예상 밖 상태만 실패로.
     sys.exit(1 if result["status"] in ("bad_issues_file", "write_failed") else 0)

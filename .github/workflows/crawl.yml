@@ -260,6 +260,9 @@ jobs:
           echo "마지막 배포로부터 ${age}분 경과 (최소 간격 ${MIN_GAP_MIN}분)"
           if [ "$age" -lt "$MIN_GAP_MIN" ]; then echo "간격 미달 — 배포 스킵"; exit 0; fi
           python web/build_data.py
+          # 초안은 daily-brief 가 생성한다 — 여기서는 캐시를 공개 파일로 옮기기만
+          # 한다(LLM 0회). 안 하면 매시간 배포가 초안 파일을 빠뜨린다.
+          python report_draft.py --publish-only || echo "[report_draft] publish 실패 — 비치명"
           # 구운 데이터를 배포 **전에** 검사한다. deploy-web.yml 이 같은 검사를 하지만
           # 그건 화면 코드를 밀 때만 도는 빠른 경로다. 2026-08-15~17 Deploy web 이
           # 9연속 실패(과병합 클러스터)하는 동안에도 이 스텝은 같은 데이터를 조용히
@@ -281,7 +284,7 @@ jobs:
         run: |
           # 파일별로 가드한다 — 한 파일이 없어서 git add 가 실패하면 나머지
           # 파일의 커밋까지 같이 죽는다(daily_leads.json 데드락과 같은 함정).
-          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json; do
+          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json agenda_log_snapshots.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet && exit 0

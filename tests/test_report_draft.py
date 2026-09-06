@@ -140,6 +140,20 @@ class RunTests(unittest.TestCase):
             self.assertEqual(stats["cached"], 1)
             self.assertEqual(client.calls, 2)
 
+    def test_publish_only_uses_cache_without_calls(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            client = _FakeClient(GOOD_LINES)
+            self._run(tmp, [_issue()], client)
+            # publish_only: 클라이언트 없이도 캐시에서 공개 파일이 나온다.
+            with mock.patch.object(rd, "ISSUES_FILE", tmp / "issues.json"), \
+                 mock.patch.object(rd, "CACHE_FILE", tmp / "cache.json"), \
+                 mock.patch.object(rd, "PUBLIC_FILE", tmp / "public.json"):
+                stats = rd.run(client=None, now=NOW, publish_only=True)
+            self.assertEqual(stats["published"], 1)
+            self.assertEqual(client.calls, 1)
+
     def test_per_run_cap(self):
         import tempfile
         with tempfile.TemporaryDirectory() as raw:
