@@ -3551,6 +3551,17 @@ def attach_keei_refs(issue_rows: list[dict], publications: dict) -> dict:
     return stats
 
 
+def load_official_events() -> list[dict]:
+    """official_events_fetch.py 가 커밋한 공식 일정 스토어 → 달력 병합 재료.
+    파일 부재·파손은 빈 목록 — 공식 소스가 죽어도 달력은 clause 경로로 선다."""
+    try:
+        raw = json.loads((BOT_DIR / "official_events.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    items = raw.get("items") if isinstance(raw, dict) else None
+    return [i for i in items or [] if isinstance(i, dict)]
+
+
 def load_publications(now: datetime | None = None) -> dict:
     """pubs_fetch.py 가 커밋한 발간물 상태 파일 → 웹 표시용 뷰.
 
@@ -4795,7 +4806,8 @@ def build() -> None:
             issue_ids={
                 member.get("hash", ""): row.get("issue_id", "")
                 for row in issue_catalog for member in row.get("members", [])
-            }),
+            },
+            official=load_official_events()),
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],
         "top_tags_30d": [{"tag": tag, "count": count} for tag, count in tags_30.most_common(10)],

@@ -254,9 +254,57 @@ def _merge_similar(rows: list[dict]) -> list[dict]:
         if not target["issue_id"] and row["issue_id"]:
             target["issue_id"] = row["issue_id"]
         # 더 짧은 라벨이 대개 군더더기(주어 조사)가 덜 붙은 쪽이다.
-        if len(row["label"]) < len(target["label"]):
+        # 단 official 타깃의 라벨은 기관이 적은 이름 그대로 둔다 — 기사 절에서
+        # 깎은 라벨이 짧다고 공지 제목을 덮으면 공식 배지 옆에 남의 말이 선다.
+        if target.get("origin") != "official" and len(row["label"]) < len(target["label"]):
             target["label"] = row["label"]
     return merged
+
+
+def _official_row(item: dict) -> dict | None:
+    """official_events.json 의 행 → 달력 이벤트 계약으로 코어스.
+    date/end_date 가 ISO 가 아니면 버린다 — 스토어는 외부 스크레이퍼 산출이라
+    빌드가 신뢰하지 않는다(파서가 개편에 깨진 날의 쓰레기 행 방어)."""
+    day = _parse_pub(item.get("date"))
+    end = _parse_pub(item.get("end_date")) or day
+    label = str(item.get("label") or "").strip()
+    if not day or not label or end < day:
+        return None
+    kind = item.get("kind") if item.get("kind") in ("point", "deadline", "range") else "point"
+    notice_title = str(item.get("notice_title") or "")
+    return {
+        "date": day.isoformat(),
+        "end_date": end.isoformat(),
+        "kind": kind,
+        "label": label,
+        # 팝오버의 근거 문장 자리 — 공지는 문장이 따로 없어 공지 제목이 그 역할.
+        "clause": notice_title or label,
+        "origin": "official",
+        "hash": str(item.get("hash") or ""),
+        "story_id": "",
+        "issue_id": "",
+        "title": notice_title or label,
+        "url": str(item.get("url") or ""),
+        "publisher": str(item.get("publisher") or ""),
+        "topics": item.get("topics") or [],
+        "source_kind": "official",
+        "time": str(item.get("time") or ""),
+        "host": str(item.get("host") or ""),
+        "organizer": str(item.get("organizer") or ""),
+        "place": str(item.get("place") or ""),
+        "source_id": str(item.get("source_id") or ""),
+        "sources": [{
+            "hash": str(item.get("hash") or ""),
+            "story_id": "",
+            "issue_id": "",
+            "title": notice_title or label,
+            "url": str(item.get("url") or ""),
+            "publisher": str(item.get("publisher") or ""),
+            "topics": item.get("topics") or [],
+            "source_kind": "official",
+        }],
+        "first_seen": str(item.get("first_seen") or day.isoformat()),
+    }
 
 
 def _parse_pub(value: object) -> date | None:
@@ -281,7 +329,8 @@ def _source_row(article: dict, story_id: str, issue_id: str) -> dict:
 
 
 def build(articles: list[dict], today: date, days: int = WINDOW_DAYS,
-          story_ids: dict | None = None, issue_ids: dict | None = None) -> dict:
+          story_ids: dict | None = None, issue_ids: dict | None = None,
+          official: list[dict] | None = None) -> dict:
     story_ids = story_ids or {}
     issue_ids = issue_ids or {}
     end_window = today + timedelta(days=days)
@@ -289,6 +338,18 @@ def build(articles: list[dict], today: date, days: int = WINDOW_DAYS,
     notes: dict[tuple, dict] = {}
     dropped = 0
     long_range = 0
+    official_dropped = 0
+
+    # 공식 일정(official_events.json) — 스토어는 영속이라 창 필터는 여기서.
+    official_rows: list[dict] = []
+    for item in official or []:
+        row = _official_row(item) if isinstance(item, dict) else None
+        if row is None:
+            continue
+        if row["end_date"] < today.isoformat() or row["date"] > end_window.isoformat():
+            official_dropped += 1
+            continue
+        official_rows.append(row)
 
     for article in articles:
         pub = _parse_pub(article.get("article_date") or article.get("date"))
@@ -366,8 +427,13 @@ def build(articles: list[dict], today: date, days: int = WINDOW_DAYS,
                             "publisher": article.get("publisher", ""),
                         }
 
+    # official 을 먼저 넣는다 — _merge_similar 는 먼저 온 행이 병합 타깃이라,
+    # 같은 사건을 기사 절도 말할 때 공식 행이 살아남고(공식 배지·시간·장소
+    # 유지) 기사 쪽은 sources 로 붙는다.
     rows = _merge_similar(
-        sorted(events.values(), key=lambda r: (r["date"], r["end_date"], r["label"])))
+        official_rows
+        + sorted(events.values(), key=lambda r: (r["date"], r["end_date"], r["label"])))
+    rows.sort(key=lambda r: (r["date"], r["end_date"], r["label"]))
     if len(rows) > MAX_EVENTS:
         dropped += len(rows) - MAX_EVENTS
         rows = rows[:MAX_EVENTS]
@@ -382,5 +448,6 @@ def build(articles: list[dict], today: date, days: int = WINDOW_DAYS,
         "days": days,
         "events": rows,
         "month_notes": sorted(notes.values(), key=lambda n: (n["month"], n["label"])),
-        "dropped": {"out_of_window": dropped, "long_range": long_range},
+        "dropped": {"out_of_window": dropped, "long_range": long_range,
+                    "official_out_of_window": official_dropped},
     }

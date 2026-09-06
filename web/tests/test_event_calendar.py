@@ -171,5 +171,77 @@ class ExtractionTests(unittest.TestCase):
         self.assertEqual(ev["sources"][0]["story_id"], "story-abc")
 
 
+def _official(label, day, end=None, kind="point", **kw):
+    row = {
+        "hash": "of-abcdef123456", "date": day, "end_date": end or day,
+        "kind": kind, "label": label, "notice_title": "",
+        "time": "", "host": "", "organizer": "", "place": "",
+        "url": "https://example.test/official", "publisher": "한국원자력학회",
+        "source_id": "kns_notice", "origin": "official",
+        "source_kind": "official", "first_seen": "2026-08-20",
+    }
+    row.update(kw)
+    return row
+
+
+class OfficialMergeTests(unittest.TestCase):
+    def test_official_row_carries_facts_and_origin(self):
+        cal = _build([], official=[_official(
+            "전원믹스 심포지움", "2026-09-09",
+            time="14:00", host="한국원자력학회", place="대한상공회의소")])
+        self.assertEqual(len(cal["events"]), 1)
+        ev = cal["events"][0]
+        self.assertEqual(ev["origin"], "official")
+        self.assertEqual(ev["time"], "14:00")
+        self.assertEqual(ev["place"], "대한상공회의소")
+        self.assertEqual(ev["sources"][0]["source_kind"], "official")
+        self.assertTrue(ev["id"].startswith("ev-"))
+
+    def test_official_out_of_window_counter(self):
+        cal = _build([], official=[
+            _official("지난 행사", "2026-08-20"),
+            _official("먼 행사", "2026-12-20"),
+            _official("창 안 행사", "2026-09-10"),
+        ])
+        self.assertEqual(len(cal["events"]), 1)
+        self.assertEqual(cal["dropped"]["official_out_of_window"], 2)
+
+    def test_official_merges_with_clause_and_stays_primary(self):
+        # 같은 날 같은 사건을 기사도 말한다 — 공식 행이 타깃, 기사는 근거로 붙는다.
+        cal = _build(
+            [_article("전원믹스와 시장제도 심포지움을 9월 9일 개최한다.", "2026-09-01")],
+            official=[_official("시장제도 심포지움 개최", "2026-09-09",
+                                time="14:00", place="대한상공회의소")])
+        self.assertEqual(len(cal["events"]), 1)
+        ev = cal["events"][0]
+        self.assertEqual(ev["origin"], "official")
+        self.assertEqual(ev["source_count"], 2)
+        self.assertEqual(ev["sources"][0]["source_kind"], "official")
+        self.assertEqual(ev["sources"][1]["source_kind"], "news")
+        self.assertEqual(ev["time"], "14:00")
+
+    def test_official_label_survives_shorter_clause_label(self):
+        cal = _build(
+            [_article("심포지움 개최를 9월 9일 개최한다.", "2026-09-01")],
+            official=[_official("전원믹스와 시장제도 심포지움 개최", "2026-09-09")])
+        if len(cal["events"]) == 1:  # 병합됐다면 공식 라벨이 남아야 한다
+            self.assertEqual(cal["events"][0]["label"], "전원믹스와 시장제도 심포지움 개최")
+
+    def test_build_without_official_param_unchanged(self):
+        cal = _build([_article("주민 설명회를 9월 12일 개최한다.", "2026-09-01")])
+        self.assertEqual(len(cal["events"]), 1)
+        self.assertEqual(cal["dropped"]["official_out_of_window"], 0)
+
+    def test_malformed_official_rows_skipped(self):
+        cal = _build([], official=[
+            {"label": "날짜 없는 행"},
+            _official("끝이 앞서는 행", "2026-09-20", end="2026-09-10", kind="range"),
+            "문자열 쓰레기",
+            _official("정상 행", "2026-09-10"),
+        ])
+        self.assertEqual(len(cal["events"]), 1)
+        self.assertEqual(cal["events"][0]["label"], "정상 행")
+
+
 if __name__ == "__main__":
     unittest.main()
