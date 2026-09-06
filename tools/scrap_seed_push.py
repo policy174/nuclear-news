@@ -21,6 +21,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -123,18 +124,27 @@ def gh_token() -> str:
     return token
 
 
-def gh_api(token: str, method: str, path: str, body: dict | None = None) -> dict:
-    cmd = [GH, "api", "-X", method, path, "-H", f"Authorization: token {token}"]
-    if body:
-        cmd += ["--input", "-"]
-    r = subprocess.run(cmd, input=json.dumps(body) if body else None,
-                       capture_output=True, text=True, encoding="utf-8")
-    if r.returncode != 0 and "404" not in (r.stderr or ""):
-        raise SystemExit(f"gh api {path} 실패: {(r.stderr or '')[:300]}")
-    try:
-        return json.loads(r.stdout)
-    except json.JSONDecodeError:
-        return {}
+def gh_api(token: str, method: str, path: str, body: dict | None = None,
+           tries: int = 3) -> dict:
+    # 일시 네트워크 오류에 3회 재시도(3s·6s 백오프) — 실측 29회 중 2회가
+    # "error connecting to api.github.com" 으로 죽어 그 회차 수집이 통째로
+    # 무성과였다. 404는 정상 경로(첫 커밋 전 GET)라 재시도하지 않는다.
+    for attempt in range(tries):
+        cmd = [GH, "api", "-X", method, path, "-H", f"Authorization: token {token}"]
+        if body:
+            cmd += ["--input", "-"]
+        r = subprocess.run(cmd, input=json.dumps(body) if body else None,
+                           capture_output=True, text=True, encoding="utf-8")
+        if r.returncode == 0 or "404" in (r.stderr or ""):
+            try:
+                return json.loads(r.stdout)
+            except json.JSONDecodeError:
+                return {}
+        if attempt < tries - 1:
+            print(f"gh api {path} 실패(시도 {attempt + 1}/{tries}) — 재시도: "
+                  f"{(r.stderr or '').strip()[:120]}")
+            time.sleep(3 * (attempt + 1))
+    raise SystemExit(f"gh api {path} 실패: {(r.stderr or '')[:300]}")
 
 
 def main() -> None:
