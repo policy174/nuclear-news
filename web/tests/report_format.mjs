@@ -20,14 +20,14 @@ function extract(name) {
   throw new Error(`${name}() 블록이 안 닫힌다`);
 }
 
-// footnoteBook 은 sourceLabel·safeUrl 을 쓴다 — 표기 검사에 필요한 최소 구현만
-// 세워 준다. 진짜 구현의 계약(매체명 폴백, 위험 URL 차단)은 각자의 자리에서 본다.
-const { reportDate, footnoteBook } = new Function(`
-  const sourceLabel = a => a.publisher || a.domain || "출처 미상";
+// footnoteBook 은 sourceLabel·safeUrl 을 쓴다 — sourceLabel 은 진짜 구현을
+// 가져온다(도메인 꼬리 제거가 각주 표기의 일부다). safeUrl 만 최소 구현.
+const { reportDate, footnoteBook, sourceLabel } = new Function(`
   const safeUrl = u => (typeof u === "string" && /^https?:/.test(u) ? u : "");
+  ${extract("sourceLabel")}
   ${extract("reportDate")}
   ${extract("footnoteBook")}
-  return { reportDate, footnoteBook };
+  return { reportDate, footnoteBook, sourceLabel };
 `)();
 
 const cases = [];
@@ -65,6 +65,11 @@ const risky = footnoteBook();
 eq("javascript: 는 링크 없이", risky.cite({ publisher: "X", title_kr: "다", url: "javascript:alert(1)" }),
    " [1]");
 eq("각주에 스킴 유출 없음", /javascript:/.test(risky.lines().join("\n")), false);
+
+// 수집기가 이어붙인 도메인 꼬리는 각주에 나가지 않는다 ('26.9.7 실측).
+eq("매체명 도메인 꼬리 제거", sourceLabel({ publisher: "동아경제신문 & daenews.co.kr" }), "동아경제신문");
+eq("꼬리 없는 매체명은 그대로", sourceLabel({ publisher: "전기신문" }), "전기신문");
+eq("매체명 없으면 도메인 폴백", sourceLabel({ domain: "world-nuclear-news.org" }), "world-nuclear-news.org");
 
 // (변화) 중복 생략의 판정기 — 공백·문장부호 차이를 무시하고 포함을 본다.
 // "옛 문장 → 새 문장" 이어붙이기가 (사실)과 같은 말을 두 번 하게 만들던

@@ -258,7 +258,10 @@ function relativeArticleDate(articleDate, briefingDate) {
 }
 
 function sourceLabel(article) {
-  return article.publisher || article.domain || "출처 미상";
+  const raw = article.publisher || article.domain || "출처 미상";
+  // 수집기가 매체명 뒤에 도메인을 이어붙인 값("동아경제신문 & daenews.co.kr")이
+  // 각주·타임라인에 그대로 나가던 것을 걷는다 — 표시층 정리다.
+  return String(raw).replace(/\s*&\s*[a-z0-9.-]+\.[a-z]{2,}$/i, "");
 }
 
 function isOfficial(article) {
