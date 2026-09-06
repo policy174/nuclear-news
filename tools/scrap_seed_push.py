@@ -141,13 +141,16 @@ def gh_api(token: str, method: str, path: str, body: dict | None = None,
             except json.JSONDecodeError:
                 return {}
         if attempt < tries - 1:
-            print(f"gh api {path} 실패(시도 {attempt + 1}/{tries}) — 재시도: "
+            print(f"gh api {path} 실패(시도 {attempt + 1}/{tries}) - 재시도: "
                   f"{(r.stderr or '').strip()[:120]}")
             time.sleep(3 * (attempt + 1))
     raise SystemExit(f"gh api {path} 실패: {(r.stderr or '')[:300]}")
 
 
 def main() -> None:
+    # 로그(scrap_seed_task.log)에 실행 경계·시각이 없어 2026-09-06 지연
+    # 추적이 막혔다 — 실행마다 도장 하나.
+    print(f"[{datetime.now():%Y-%m-%d %H:%M}] scrap_seed_push 실행", flush=True)
     sync_kakao()
     fresh = collect_seeds()
     known = {seed_key(s) for s in fresh}
