@@ -4145,7 +4145,7 @@ class TokenSystemTests(unittest.TestCase):
         self.assertIn("@media (prefers-reduced-motion: reduce)", self.style)
         self.assertIn("@media (min-width: 1200px)", self.style)
         self.assertIn("@media (max-width: 767px)", self.style)
-        self.assertIn("--r-1: 0", self.style)
+        self.assertIn("--r-1: 8px", self.style)
         self.assertIn("outline: 2px solid var(--c-focus);", self.style)
         self.assertIn("box-shadow: var(--fo-ring);", self.style)
 
@@ -4169,15 +4169,28 @@ class HardEdgeSystemTests(unittest.TestCase):
         dark = self.style.split(':root[data-theme="dark"] {', 1)[1].split("}", 1)[0]
         self.assertIn("--c-edge:", dark, "다크 블록에 --c-edge 재정의가 없다")
 
-    def test_shadows_are_hard_offsets_with_zero_blur(self):
+    def test_shadows_are_soft_low_alpha_washes(self):
+        """B안 '정책 소프트'(2026-09) — 그림자는 x 오프셋 0 · blur > 0 · 저알파.
+
+        하드 오프셋(2px 2px 0)은 스티커 감성의 몸통이라 폐기했다. 알파가
+        짙어지거나 x 오프셋이 돌아오면 소프트 계약이 깨진 것이다. 정의는
+        루트와 모바일 강등 블록 두 벌 — finditer 로 전부 검사한다.
+        """
         for step in (1, 2, 3):
-            match = re.search(rf"--sh-{step}:\s*([^;]+);", self.style)
-            self.assertIsNotNone(match, f"--sh-{step} 정의가 없다")
-            self.assertRegex(
-                match.group(1).strip(),
-                r"^\d+px \d+px 0 var\(--c-edge\)$",
-                f"--sh-{step} 는 blur 0 인 --c-edge 오프셋이어야 한다",
-            )
+            matches = list(re.finditer(rf"--sh-{step}:\s*([^;]+);", self.style))
+            self.assertTrue(matches, f"--sh-{step} 정의가 없다")
+            for match in matches:
+                value = match.group(1).strip()
+                parsed = re.match(
+                    r"^0 (\d+)px (\d+)px rgba\(\d+, \d+, \d+, (\.\d+)\)$", value
+                )
+                self.assertIsNotNone(
+                    parsed, f"--sh-{step} 가 소프트 계약(0 ypx blurpx rgba 저알파)을 벗어났다: {value}"
+                )
+                self.assertGreater(int(parsed.group(2)), 0, f"--sh-{step} blur 가 0 이다")
+                self.assertLessEqual(
+                    float(parsed.group(3)), 0.15, f"--sh-{step} 알파가 짙다: {value}"
+                )
         # 다크의 `--sh-*: none` 세 줄이 돌아오면 다크에서 상자 위계가 통째로 죽는다.
         self.assertNotIn("--sh-1: none", self.style)
 
