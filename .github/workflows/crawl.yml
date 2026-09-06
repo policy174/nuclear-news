@@ -173,6 +173,28 @@ jobs:
         continue-on-error: true
         run: python official_events_fetch.py --once-per-day
 
+      # 큐레이션 429 유실분(features=None) 소급 수선 — 무료 일일 쿼터 리셋
+      # (00:00 PT = 07:00 UTC) 직후 창에서 하루 1회. once-per-day 는 스크립트가
+      # backfilled_at 스탬프로 자체 판정. 수선된 archive/ 라인은 아래 Commit
+      # state 가 그대로 받는다 — 별도 워크플로로 빼면 merge=union 이 크롤
+      # append 와 만나 수정 전·후 라인을 둘 다 남기므로 반드시 이 잡 안에서.
+      - name: Backfill uncurated archive (1일 1회)
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          h=$(date -u +%H)
+          if [ "$h" -ge 7 ] && [ "$h" -le 9 ]; then
+            python backfill_curation.py
+          else
+            echo "쿼터 리셋 창(07~09 UTC) 밖 — 스킵"
+          fi
+
       - name: Commit state
         run: |
           git config user.name "github-actions[bot]"
