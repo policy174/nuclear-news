@@ -516,6 +516,8 @@ def build_scraps(records: list[dict], now: datetime) -> dict:
             # 조간|석간|"" — 헤더 라벨이 여기까지 관통해야 '석간이 안 왔다'가
             # 화면에서 보인다. 구 이력에는 없어 빈 값이 정상.
             "edition": edition,
+            # 스크랩 탭 주제 그룹핑용 — 시드에는 분류가 없어 조인이 주는 것만.
+            "topics": [t for t in (record.get("topics") or []) if isinstance(t, str)],
         })
 
     for entry in history.values():

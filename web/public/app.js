@@ -1609,8 +1609,29 @@ function renderTodayAgenda(briefing) {
     empty ? "" : `한눈에 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
-// '한 주의 원자력'은 2026-09 흐름 탭으로 이사했다(index.html #view-trend).
-// 좁은 화면 재배치(placeTodayAgenda)는 오늘 탭 폴드 문제였으므로 함께 폐기.
+// 좁은 화면에서는 이 블록이 오늘의 선두 이슈 **아래**로 간다.
+//
+// 실측(2026-08-11) — 블록 높이 / 선두 이슈 위치:
+//   1440×900  296px / 733px      768×1024  408px / 838px
+//   375×812   700px / 1,105px  ← 1.36 화면
+// 모바일만 이상치다. 글이 좁은 폭에서 접히며 블록이 두 배 넘게 불어 첫 화면이
+// 통째로 '이번 주' 요약이 된다 — 그런데 탭 이름은 '오늘'이고, 안쪽 라벨은
+// 요일과 무관하게 매일 `이번 주 결론`이다(8/5·8/7 동일).
+//
+// 내용은 하나도 안 숨긴다. 주간 watchpoints 는 카드의 open_question 이 실측
+// 19건 중 0건이라 화면에서 그 질문에 답하는 유일한 자리다 — 접으면 모바일
+// 사용자에게선 사실상 사라진다. 순서만 바꾼다.
+function placeTodayAgenda() {
+  const agenda = document.getElementById("todayAgenda");
+  const lead = document.getElementById("leadIssue");
+  const grid = document.querySelector(".briefing-content-grid");
+  if (!agenda || !lead || !grid) return;
+  if (narrowScreen.matches && !lead.hidden) {
+    if (agenda.previousElementSibling !== lead) lead.after(agenda);
+  } else if (agenda.nextElementSibling !== grid) {
+    grid.before(agenda);          // 원래 자리 — 히어로 바로 다음
+  }
+}
 
 function renderBriefing() {
   const briefing = currentBriefing();
@@ -1641,6 +1662,9 @@ function renderBriefing() {
   const lead = issues[0] || null;
   const leadId = lead ? lead.issue_id : "";
   document.getElementById("leadIssue").hidden = !lead;
+  // 선두 이슈의 표시 여부가 정해진 **뒤에** 자리를 잡는다 — 앞에서 부르면
+  // 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다.
+  placeTodayAgenda();
   document.getElementById("leadCard").innerHTML = lead ? leadCard(lead, briefing) : "";
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
@@ -2183,7 +2207,7 @@ function renderScraps() {
     return;
   }
   listBox.innerHTML = days.map(day => {
-    const cards = day.items.map(item => {
+    const cardHtml = (item) => {
       const url = safeUrl(item.url);
       // 이 탭의 정렬 키는 지면 매체다(빌드가 시드 순서 = 지면 가나다순 유지).
       // 정렬 키가 회색 2순위면 목록에 순서가 있어도 안 보인다 — 지면 매체를
@@ -2201,10 +2225,26 @@ function renderScraps() {
         ${item.summary ? `<p class="news-summary">${esc(item.summary)}</p>` : ""}
         ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 확인 <span aria-hidden="true">↗</span></a>` : ""}
       </article>`;
-    }).join("");
+    };
+    // 주제(topics[0])로 묶는다 — 카톡 스크랩 보고의 섹션 어법. 시드에는 분류가
+    // 없어(로컬 파서가 "[종합일간지]" 류 헤더를 버린다) 아카이브 조인이 주는
+    // 주제 분류를 대신 쓴다. 조인 실패 항목은 '기타'로 마지막에 선다.
+    const groups = new Map();
+    day.items.forEach(item => {
+      const key = (Array.isArray(item.topics) && item.topics[0]) || "etc";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+    });
+    const sections = [...groups.entries()]
+      .sort((a, b) => (a[0] === "etc") - (b[0] === "etc") || b[1].length - a[1].length)
+      .map(([key, items]) => {
+        const label = key === "etc" ? "기타" : (TOPIC_LABELS[key] || key);
+        return `<div class="scrap-topic"><span>${esc(label)}</span><small>${items.length}건</small></div>`
+          + items.map(cardHtml).join("");
+      }).join("");
     return `<section class="scrap-day">
       <h3 class="scrap-day-date">${esc(dateWeekdayLabel(day.date))} <small>${day.items.length}건</small></h3>
-      ${cards}
+      ${sections}
     </section>`;
   }).join("");
 }
@@ -4201,6 +4241,7 @@ function initFilterDrawers() {
     closeFilterDrawer(open);
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
+  narrowScreen.addEventListener("change", placeTodayAgenda);
   // 경계를 넘나들면 자리도 따라와야 한다 — 안 하면 리사이즈한 사람만 어긋난 채 본다.
   railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();
