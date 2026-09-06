@@ -4345,7 +4345,8 @@ class HardEdgeSystemTests(unittest.TestCase):
 
         상자가 하나면 위계지만 둘이 되는 순간 배경이 된다. 목록 행·배지가
         그림자를 얻으면 스캔 목록이 스티커 시트가 되고, 그게 이 방향이 실패하는
-        가장 흔한 방식이다. 행은 형제끼리 border-top 으로만 갈린다.
+        가장 흔한 방식이다. 소프트 전환 후에도 계약은 같다 — 카드는 헤어라인
+        패널이고, 그림자는 선두 카드(.lead-card) 하나만 갖는다.
         """
         for selector in (".issue-card", ".verification-badge", ".report-pick-badge"):
             match = re.search(rf"^\{selector} \{{([^}}]*)\}}", self.style, re.M)
@@ -4716,7 +4717,7 @@ class VisualSystemTests(unittest.TestCase):
         )
         self.assertIsNotNone(match, f"구역 머리에 잉크 괘선이 없다: {rule}")
         width = int(widths[match.group(1)]) if match.group(1) else int(match.group(2))
-        self.assertGreaterEqual(width, 2, "구역 괘선이 헤어라인으로 내려앉으면 목록과 안 갈린다")
+        self.assertGreaterEqual(width, 1, "구역 괘선이 사라지면 목록과 안 갈린다 — 소프트 전환 후 구분은 굵기가 아니라 색(잉크 vs 회색)이다")
         self.assertIn(match.group(3), {"primary", "primary-strong", "edge"})
 
     def test_issue_rows_are_dense_and_react_as_one(self):
@@ -4749,7 +4750,7 @@ class VisualSystemTests(unittest.TestCase):
 
         card = self._rule(".issue-card")
         pad = px(re.search(r"padding:\s*([^\s;]+)", card).group(1))
-        border = px(re.search(r"border-top:\s*([^\s;]+)\s+solid", card).group(1))
+        border = px(re.search(r"border:\s*([^\s;]+)\s+solid", card).group(1))
         title_size = px(re.search(r"--t-card:\s*([\d.]+px)", self.style).group(1))
         h3 = self._rule(".issue-card h3")
         gap = px(re.search(r"margin:\s*0 0 (\d+px)", h3).group(1))
@@ -4776,7 +4777,7 @@ class VisualSystemTests(unittest.TestCase):
         # 산술적으로 불가능하다. 계약을 완화한 게 아니라 새 구조로 다시 계산했다 —
         # 상한을 지우면 다음 사람이 네 번째 칸을 얹는다.
         title_lines, body_lines = 2, 3
-        height = (pad * 2 + border + title_size * title_lh * title_lines + gap
+        height = (pad * 2 + border * 2 + title_size * title_lh * title_lines + gap
                   + (body_size * body_lh + line_gap) * body_lines + chip_height)
         self.assertLessEqual(
             height, 220,
@@ -4798,7 +4799,7 @@ class VisualSystemTests(unittest.TestCase):
         self.assertIn("flex-direction: row", actions, "액션이 다시 세로로 쌓인다")
         # hover 는 세 값이 함께 움직인다 — 하나만 변하면 '켜졌나' 싶다.
         hover = self._rule(".issue-card:hover")
-        self.assertRegex(hover, r"border-top-color:\s*var\(--c-(primary|edge)\)")
+        self.assertRegex(hover, r"border-color:\s*var\(--c-(primary|edge)\)")
         self.assertIn("background:", hover)
         self.assertIn(".issue-card:hover .issue-index", self.style)
 
