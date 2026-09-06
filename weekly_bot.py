@@ -185,8 +185,12 @@ def batch_synthesize(items: list[dict], agg: dict) -> dict:
 
     try:
         from gemini_client import call_json
+        # thinking 캡 필수 — 2026-09-04 실사고: thoughts=9598 이 출력 예산 10000 을
+        # 잠식해 output 387 에서 MAX_TOKENS 잘림 → W36 리포트가 빈 껍데기로 저장.
+        # 2048 이면 서사에 필요한 사고는 남기고 출력 ~8000 토큰이 항상 보장된다.
         result = call_json(WEEKLY_PROMPT, user_text,
                            temperature=0.3, max_output_tokens=10000, timeout=120.0,
+            thinking_budget=2048,
             label="weekly_bot",
         )
     except Exception as e:  # noqa: BLE001
@@ -429,7 +433,13 @@ def main() -> None:
     agg = build_aggregates(items)
     synthesis = batch_synthesize(items, agg)
     message = format_weekly(items, synthesis)
-    save_weekly_report(synthesis, agg, items)
+    # 합성 실패(폴백 빈 형태)면 저장하지 않는다 — 빈 껍데기가 웹 블록을 통째로
+    # 접히게 하고, 재실행이 채워 둔 정상 리포트를 덮어쓸 수도 있다 (W36 실사고).
+    # weekly_intro 는 성공 응답에 항상 있는 필수 필드라 빈 값 = 실패 신호다.
+    if synthesis["weekly_intro"]:
+        save_weekly_report(synthesis, agg, items)
+    else:
+        print("[weekly] 합성 실패 — 빈 리포트는 저장하지 않음 (기존 항목 보존)")
 
     from telegram_send import send_long_text  # lazy — 토큰 없는 로컬 테스트 대비
     results = send_long_text(message, parse_mode="HTML", disable_preview=True)
