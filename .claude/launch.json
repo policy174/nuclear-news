@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuclens-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-c",
+        "import os,functools,http.server as h; p=int(os.environ.get('PORT','8917')); handler=functools.partial(h.SimpleHTTPRequestHandler, directory='web/public'); h.HTTPServer(('127.0.0.1',p), handler).serve_forever()"
+      ],
+      "autoPort": true
+    }
+  ]
+}

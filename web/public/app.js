@@ -97,6 +97,9 @@ const STRINGS = {
   entityClear: "탐색으로 돌아가기",
   recentCapture: "최근 포착",
   hubEmptyEntities: "아직 연결된 대상이 없습니다 — 데이터가 쌓이면 채워집니다.",
+  draftAiNote: "*자료 : Nuclens AI 초안 — 수치·판단은 원문 대조 후 사용",
+  draftHeading: "보고서 초안 (AI)",
+  previewHeading: "보고서용 복사 내용 미리보기",
 };
 
 const state = {
@@ -2084,6 +2087,7 @@ function renderReportCandidates() {
       <h3><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>
       ${why ? `<p>${esc(why)}</p>` : ""}
       ${reasons.length ? `<div class="report-angle-row">${reasons.map(reason => `<span class="topic-chip">${esc(reason)}</span>`).join("")}</div>` : ""}
+      ${draftPreviewBlock(issue, { withCopy: true })}
       <button type="button" class="secondary-button" data-pack-issue="${esc(issue.issue_id)}">보고서 자료팩 복사</button>
     </article>`;
   }).join("") : '<div class="empty-state"><strong>이번 주 보고 후보가 없습니다</strong><p>보고 후보로 분류된 이슈가 생기면 근거 자료와 함께 표시합니다.</p></div>';
@@ -2380,25 +2384,72 @@ function footnoteBook() {
   };
 }
 
-// 보고서용 복사 — 위계는 □ → ○ → – 로 옮긴다(사내 서식). **문장은 원문 그대로**
-// 둔다: 개조식 체언 종결로 바꾸는 것은 사람이나 khnp-report 스킬이 할 일이고,
-// 여기서 어미를 기계적으로 자르면 근거 없는 문장이 된다.
+// 보고 후보 이슈의 개조식 초안(report_draft.py 산출). 없으면 빈 문자열 —
+// 호출부가 템플릿 복사로 물러난다.
+function reportDraftFor(issueId) {
+  return state.reportDrafts?.drafts?.[issueId]?.draft || "";
+}
+
+// 초안 뒤에 붙는 출처 목록 — 초안 본문은 LLM 산출이라 각주 번호가 없으므로,
+// 근거가 된 카드 기사들을 결정적으로 나열한다(footnoteBook 형식 재사용).
+function draftSourceLines(issue) {
+  const notes = footnoteBook();
+  (issue.related_articles || [])
+    .filter(article => article.member_role !== "evidence")
+    .slice(0, 6)
+    .forEach(article => notes.cite(article));
+  return notes.lines();
+}
+
+// 보고서용 복사 — 위계는 □ → ○ → – 로 옮긴다(사내 서식).
 //
-// AI 가 쓴 문장에는 라벨로 그 사실을 남긴다 — 초안에 그대로 실려 나가면
-// 사실과 해석이 섞인다.
+// 보고 후보(report_pick) 이슈는 개조식 초안이 있으면 초안을 내보낸다 — 카드
+// 필드 나열은 "결국 기사 정리"라는 판정('26.9.7)을 받았다. 초안은 AI 산출이므로
+// 머리에 그 사실을 밝힌다.
+//
+// 초안이 없는 이슈는 템플릿 그대로 — **문장은 원문 그대로** 둔다: 개조식 체언
+// 종결로 바꾸는 것은 사람이나 khnp-report 스킬이 할 일이고, 여기서 어미를
+// 기계적으로 자르면 근거 없는 문장이 된다. AI 가 쓴 문장에는 라벨을 남긴다.
 function issueReportText(issue) {
+  const draft = reportDraftFor(issue.issue_id);
+  if (draft) {
+    return [`□ ${issue.title || ""}`, "", draft, ...draftSourceLines(issue),
+            "", STRINGS.draftAiNote].join("\n");
+  }
   const notes = footnoteBook();
   const representative = issue.representative_article || {};
-  const state = verificationState(issue);
+  const verState = verificationState(issue);
   const lines = [`□ ${issue.title || ""}${notes.cite(representative)}`];
   const add = (label, text) => { if (text) lines.push(` ○ (${label}) ${text}`); };
   add("사실", issue.summary);
-  add("변화", issueChangeText(issue));
+  // (변화)가 (사실)을 그대로 품고 있으면 생략 — "옛 문장 → 새 문장" 이어붙이기가
+  // 요약과 중복돼 보고서 재료에서 같은 말을 두 번 하게 된다(실측 '26.9.7).
+  const change = issueChangeText(issue);
+  if (change && !normalizedIncludes(change, issue.summary)) add("변화", change);
   add("왜 중요·AI", issue.why_important);
   add("시사점·AI", issue.implication);
   add("남은 확인", issue.open_question);
-  add("검증", `${(VERIFICATION_VIEW[state.status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`);
+  add("검증", `${(VERIFICATION_VIEW[verState.status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`);
   return [...lines, ...notes.lines()].join("\n");
+}
+
+// 공백·문장부호 차이를 무시한 포함 판정 — 중복 줄 제거 전용.
+function normalizedIncludes(haystack, needle) {
+  const norm = text => String(text || "").replace(/[\s.,'"“”‘’·]/g, "");
+  const target = norm(needle);
+  return Boolean(target) && norm(haystack).includes(target);
+}
+
+// 복사 전에 내용을 화면에서 읽게 한다 — "복사 말고 실제로도 어떤 내용인지 볼 수
+// 있게"('26.9.7 사용자 요청). 미리보기와 복사는 같은 함수(issueReportText)를
+// 쓴다 — 형식을 두 벌 지으면 금방 갈라진다(savedIssuesPack 주석과 같은 계약).
+function draftPreviewBlock(issue, { withCopy = false } = {}) {
+  const draft = reportDraftFor(issue.issue_id);
+  return `<details class="report-preview"${draft ? " open" : ""}>
+    <summary>${esc(draft ? STRINGS.draftHeading : STRINGS.previewHeading)}</summary>
+    <pre class="report-preview-text">${esc(issueReportText(issue))}</pre>
+    ${withCopy ? `<button type="button" class="secondary-button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button>` : ""}
+  </details>`;
 }
 
 // 주간보고 골격 — THIS WEEK 코너 순서(①이번 주 ②국가별 ③발간물 ④예정)가 그대로
@@ -2456,7 +2507,23 @@ function weeklyReportOutline() {
     });
     lines.push("");
   }
-  lines.push("5. 시사점", " □ (작성 필요)", "");
+  // 시사점 최종 문장은 사람 몫(3층 톤 분리)이되, 빈칸만 주지 않는다 — 주간
+  // LLM 합성(policy_shifts.so_what·watchpoints)이 이미 있는데 복사본에 안 실려
+  // "골격이 쓸 게 없다"는 판정('26.9.7)을 받았다. AI 초안으로 표시해 넘긴다.
+  const weekly = weeklyReportFor(week.week_end) || {};
+  const soWhats = (weekly.policy_shifts || [])
+    .map(row => String(row?.so_what || "").trim()).filter(Boolean);
+  const watchpoints = (weekly.watchpoints || [])
+    .map(text => String(text || "").trim()).filter(Boolean).slice(0, 3);
+  lines.push("5. 시사점");
+  if (soWhats.length) {
+    soWhats.forEach(text => lines.push(` □ (AI 초안) ${text}`));
+    watchpoints.forEach(text => lines.push(` □ (확인 필요·AI) ${text}`));
+    lines.push(" □ (작성 필요) 최종 시사점은 위 초안 검토 후 직접 작성");
+  } else {
+    lines.push(" □ (작성 필요)");
+  }
+  lines.push("");
   lines.push(...notes.lines());
   lines.push("", `*자료 : Nuclens ${location.origin} (${reportDate(week.week_end)} 기준)`);
   return lines.join("\n");
@@ -2710,6 +2777,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${selectionReasons ? `<div class="topic-row dialog-reasons" aria-label="선정 사유">${selectionReasons}</div>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
+      ${draftPreviewBlock(issue)}
     </section>
     ${keeiDialogSection(issue)}
     <section class="dialog-history" aria-labelledby="issueHistoryTitle">
@@ -3361,6 +3429,9 @@ function renderThisWeek() {
     weeklySection("이번 주 발간물", "", pubs ? `<ul class="tw-list">${pubs}</ul>` : ""),
     weeklySection("예정", "원문에 날짜가 명시된 것만", upcoming ? `<ul class="tw-list">${upcoming}</ul>` : ""),
     // 코너 순서가 그대로 사내 주간보고 목차다 — 옮겨 붙이는 손을 뺀다.
+    // 복사 전에 내용을 읽게 한다 — 이슈 미리보기와 같은 계약(draftPreviewBlock).
+    `<details class="report-preview"><summary>${esc(STRINGS.previewHeading)}</summary>` +
+      `<pre class="report-preview-text">${esc(weeklyReportOutline())}</pre></details>`,
     `<p class="tw-actions"><button type="button" class="secondary-button" data-copy-weekly>주간보고 골격 복사</button></p>`,
   ].join("");
   return box.innerHTML;
@@ -5055,7 +5126,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -5067,6 +5138,8 @@ async function init() {
       loadJSON("entities.json").catch(() => null),
       // 신문스크랩도 부가 데이터 — 없으면 스크랩 탭만 빈 상태로 뜬다.
       loadJSON("scraps.json").catch(() => null),
+      // 보고서 초안(report_draft.py, 보고 후보만) — 없으면 템플릿 복사로 물러난다.
+      loadJSON("report_drafts.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;

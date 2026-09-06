@@ -2009,7 +2009,11 @@ class GeneratedDataTests(unittest.TestCase):
         self.assertTrue(channel.findall("item"))
         self.assertIn("function issueReportText", script)
         # 위계는 사내 서식(□ → ○ → –). 불릿(•)이던 것을 2026-08-17 에 옮겼다.
-        self.assertIn('add("변화", issueChangeText(issue))', script)
+        # (변화)는 (사실)을 그대로 품으면 생략한다 — "기사 정리" 판정('26.9.7)의
+        # 중복 지적. 보고 후보는 개조식 초안(report_drafts.json)이 우선한다.
+        self.assertIn('if (change && !normalizedIncludes(change, issue.summary)) add("변화", change)', script)
+        self.assertIn("reportDraftFor(issue.issue_id)", script)
+        self.assertIn("draftPreviewBlock", script)
         self.assertIn('data-copy-issue="${esc(issue.issue_id)}"', script)
 
     def test_p2_daily_briefing_fields_are_generated(self):

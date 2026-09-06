@@ -1814,6 +1814,7 @@ body.booting .status-strip.loading { display: none; }
    레이아웃(테두리·여백)만 각자 정하고 손잡이는 여기 하나를 쓴다. */
 .pub-technical > summary,
 .dialog-evidence > summary,
+.report-preview > summary,
 .timeline-more > summary {
   display: flex;
   align-items: center;
@@ -1827,9 +1828,11 @@ body.booting .status-strip.loading { display: none; }
    클릭할 수 있는 줄로 안 읽힌다). 직접 그린다. */
 .pub-technical > summary::-webkit-details-marker,
 .dialog-evidence > summary::-webkit-details-marker,
+.report-preview > summary::-webkit-details-marker,
 .timeline-more > summary::-webkit-details-marker { display: none; }
 .pub-technical > summary::before,
 .dialog-evidence > summary::before,
+.report-preview > summary::before,
 .timeline-more > summary::before {
   content: "";
   flex: none;
@@ -1842,15 +1845,33 @@ body.booting .status-strip.loading { display: none; }
 }
 .pub-technical[open] > summary::before,
 .dialog-evidence[open] > summary::before,
+.report-preview[open] > summary::before,
 .timeline-more[open] > summary::before { transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) {
   .pub-technical > summary::before,
   .dialog-evidence > summary::before,
+  .report-preview > summary::before,
   .timeline-more > summary::before { transition: none; }
 }
 .pub-technical > summary:focus-visible,
 .dialog-evidence > summary:focus-visible,
+.report-preview > summary:focus-visible,
 .timeline-more > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+/* 보고서용 복사 미리보기 — 복사될 텍스트를 화면에서 먼저 읽는 자리.
+   위계 들여쓰기(□○–)가 그대로 보이도록 공백을 보존한다. */
+.report-preview { margin-top: var(--sp-3); }
+.report-preview-text {
+  margin: var(--sp-2) 0;
+  padding: var(--sp-3);
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface-sunken);
+  font-family: inherit;
+  font-size: var(--t-caption);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
 .pub-technical-shelf {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));

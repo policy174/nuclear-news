@@ -66,6 +66,18 @@ eq("javascript: 는 링크 없이", risky.cite({ publisher: "X", title_kr: "다"
    " [1]");
 eq("각주에 스킴 유출 없음", /javascript:/.test(risky.lines().join("\n")), false);
 
+// (변화) 중복 생략의 판정기 — 공백·문장부호 차이를 무시하고 포함을 본다.
+// "옛 문장 → 새 문장" 이어붙이기가 (사실)과 같은 말을 두 번 하게 만들던
+// '26.9.7 실측의 재발 방지.
+const { normalizedIncludes } = new Function(
+  `${extract("normalizedIncludes")}\nreturn { normalizedIncludes };`)();
+eq("요약을 품은 변화 문장은 중복", normalizedIncludes(
+  "방안을 공식화했습니다 → 법안을 지난 27일 대표 발의했다.",
+  "법안을 지난 27일 대표 발의했다"), true);
+eq("문장부호 차이는 무시", normalizedIncludes("발의했다.", "발의했다"), true);
+eq("다른 내용이면 중복 아님", normalizedIncludes("재가동을 승인", "법안 발의"), false);
+eq("빈 요약은 중복 아님", normalizedIncludes("변화 문장", ""), false);
+
 const failed = cases.filter(row => !row.ok);
 for (const row of cases) {
   console.log(`${row.ok ? "ok  " : "FAIL"} ${row.label} → ${row.got}${row.ok ? "" : ` (기대 ${row.want})`}`);
