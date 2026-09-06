@@ -2927,6 +2927,17 @@ def story_id_map(issues: list[dict]) -> dict[str, str]:
     return mapping
 
 
+def issue_id_map(issue_catalog: list[dict]) -> dict[str, str]:
+    """article hash → issue_id. 직렬화된 카탈로그 행의 멤버는 related_articles 다
+    (members 키는 원시 클러스터에만 있다 — 여기서 잘못 읽으면 달력 연결이 전부 빈다)."""
+    return {
+        str(member.get("hash") or ""): row.get("issue_id", "")
+        for row in issue_catalog
+        for member in row.get("related_articles") or []
+        if member.get("hash")
+    }
+
+
 def pick_open_question(members: list[dict]) -> str:
     """이슈에 붙일 '아직 확정되지 않은 것' 한 문장.
 
@@ -4805,10 +4816,7 @@ def build() -> None:
         "event_calendar": event_calendar.build(
             visible, now.astimezone(KST).date(),
             story_ids=story_id_map(issues),
-            issue_ids={
-                member.get("hash", ""): row.get("issue_id", "")
-                for row in issue_catalog for member in row.get("members", [])
-            },
+            issue_ids=issue_id_map(issue_catalog),
             official=load_official_events()),
         "open_questions": collect_open_questions(issue_catalog),
         "top_tags_7d": [{"tag": tag, "count": count} for tag, count in tags_7.most_common(10)],

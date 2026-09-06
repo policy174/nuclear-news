@@ -118,6 +118,16 @@ class StoryRollupTests(unittest.TestCase):
         count, _ = build_data.story_rollup(members, issue["members"][0])
         self.assertEqual(count, len(mapping))
 
+    def test_issue_id_map_reads_serialized_catalog_rows(self):
+        # 달력의 이슈 연결이 소비하는 맵 — 직렬화 행의 멤버 키는 related_articles 다.
+        # 과거 members 키를 읽어 33/33 전부 빈 값이 나간 사고의 재발 방지.
+        catalog_row = {
+            "issue_id": "issue-x",
+            "related_articles": [{"hash": "a1"}, {"hash": "a2"}, {"hash": ""}],
+        }
+        mapping = build_data.issue_id_map([catalog_row])
+        self.assertEqual(mapping, {"a1": "issue-x", "a2": "issue-x"})
+
 
 if __name__ == "__main__":
     unittest.main()
