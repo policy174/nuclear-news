@@ -167,12 +167,19 @@ jobs:
             python pubs_fetch.py --once-per-day
           fi
 
+      # 공식 일정(국회 AMPOS·KAIF·KNS) — pubs 와 같은 하루 1회·격리 계약.
+      # 실패해도 스토어의 기존 일정은 살아 있고 달력은 clause 경로로 계속 선다.
+      - name: Fetch official events (1일 1회)
+        continue-on-error: true
+        run: python official_events_fetch.py --once-per-day
+
       - name: Commit state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent.json curated.json digest_queue.json archive/
           if [ -f publications.json ]; then git add publications.json; fi
+          if [ -f official_events.json ]; then git add official_events.json; fi
           # 크롤이 delivery_log.jsonl 에 남기는 진단 기록(큐레이션 유실·
           # open_question 게이트 사유)이 이 목록에 없어서 러너와 함께 버려지고
           # 있었다. 실측(2026-08-04): 커밋된 173건이 전부 발송 기록이고
