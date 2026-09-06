@@ -57,6 +57,10 @@ BASE = Path(__file__).parent
 WEB_DATA = BASE / "web" / "public" / "data"
 AUDIO_DIR = WEB_DATA / "audio"
 META_FILE_NAME = "audio.json"
+# 과거 브리핑에서도 오디오가 들려야 한다(2026-09 사용자 요청). 하루 약 6MB,
+# 14일 ≈ 85MB — Pages 파일 한도·Actions 캐시(10GB) 예산 안. 30일로 늘리려면
+# 캐시 예산을 다시 볼 것.
+AUDIO_KEEP_DAYS = 14
 KST = timezone(timedelta(hours=9))
 
 # 승인된 조합 (2026-08-04 샘플 청취 판정: v2=3.1 채택). 앞에서부터 시도한다.
@@ -978,8 +982,21 @@ def generate_fast_variant(script: str, briefing: dict, meta: dict,
 
 
 def _write_meta(meta: dict) -> None:
-    """원자적 기록 — 배포 중 잘린 audio.json 이 플레이어를 깨면 안 된다."""
+    """원자적 기록 — 배포 중 잘린 audio.json 이 플레이어를 깨면 안 된다.
+
+    v2(2026-09): 톱레벨 필드는 오늘치 그대로(구버전 프런트·캐시 호환)이고,
+    "days" 에 날짜별 variants 를 14일 창으로 누적한다 — 과거 브리핑 페이지의
+    플레이어(app.js audioVariantsFor)가 이 키를 읽는다.
+    """
     target = AUDIO_DIR / META_FILE_NAME
+    prev = _load_json(target) or {}
+    days = dict(prev.get("days") or {})
+    if meta.get("date") and isinstance(meta.get("variants"), dict):
+        days[meta["date"]] = meta["variants"]
+        cutoff = (datetime.strptime(meta["date"], "%Y-%m-%d")
+                  - timedelta(days=AUDIO_KEEP_DAYS)).strftime("%Y-%m-%d")
+        days = {d: v for d, v in days.items() if d >= cutoff}
+    meta = {**meta, "days": days}
     tmp = target.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(target)
@@ -1146,15 +1163,14 @@ def generate(force: bool = False, send: bool = True) -> bool:
         meta.update(partial_fields)
         meta["variants"]["expert"].update(partial_fields)
     _write_meta(meta)
-    # 옛 날짜 산출물 정리 — 캐시·배포에 실리는 것은 최신 날짜 것이면 충분하다.
-    # 오늘 것은 fast 포함 둘 다 지키지 않으면 --force 재생성이 fast 를 먹는다.
-    keep_mp3 = {file_name, f"briefing-{date}-fast.mp3"}
-    keep_script = {f"script-{date}.txt", f"script-{date}-fast.txt"}
-    for old in AUDIO_DIR.glob("briefing-*.mp3"):
-        if old.name not in keep_mp3:
-            old.unlink(missing_ok=True)
-    for old in AUDIO_DIR.glob("script-*.txt"):
-        if old.name not in keep_script:
+    # 옛 날짜 산출물 정리 — 매일 전날 것을 지우던 정책을 14일 보관 창으로
+    # 바꿨다(과거 /brief/* 페이지의 플레이어가 쓴다). 파일명이 날짜를 품으므로
+    # 문자열 비교로 충분하다. 오늘 것은 창 안이라 자동으로 보존된다.
+    cutoff = (datetime.strptime(date, "%Y-%m-%d")
+              - timedelta(days=AUDIO_KEEP_DAYS)).strftime("%Y-%m-%d")
+    for old in (*AUDIO_DIR.glob("briefing-*.mp3"), *AUDIO_DIR.glob("script-*.txt")):
+        stamp = re.search(r"\d{4}-\d{2}-\d{2}", old.name)
+        if stamp and stamp.group() < cutoff:
             old.unlink(missing_ok=True)
     label = f"부분 {done}/{total}" if done < total else "완료"
     print(f"[audio] {date} {label} — {file_name} "

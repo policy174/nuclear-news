@@ -1609,29 +1609,8 @@ function renderTodayAgenda(briefing) {
     empty ? "" : `한눈에 ${conclusions.length} · 확인 ${watch.length}`;
 }
 
-// 좁은 화면에서는 이 블록이 오늘의 선두 이슈 **아래**로 간다.
-//
-// 실측(2026-08-11) — 블록 높이 / 선두 이슈 위치:
-//   1440×900  296px / 733px      768×1024  408px / 838px
-//   375×812   700px / 1,105px  ← 1.36 화면
-// 모바일만 이상치다. 글이 좁은 폭에서 접히며 블록이 두 배 넘게 불어 첫 화면이
-// 통째로 '이번 주' 요약이 된다 — 그런데 탭 이름은 '오늘'이고, 안쪽 라벨은
-// 요일과 무관하게 매일 `이번 주 결론`이다(8/5·8/7 동일).
-//
-// 내용은 하나도 안 숨긴다. 주간 watchpoints 는 카드의 open_question 이 실측
-// 19건 중 0건이라 화면에서 그 질문에 답하는 유일한 자리다 — 접으면 모바일
-// 사용자에게선 사실상 사라진다. 순서만 바꾼다.
-function placeTodayAgenda() {
-  const agenda = document.getElementById("todayAgenda");
-  const lead = document.getElementById("leadIssue");
-  const grid = document.querySelector(".briefing-content-grid");
-  if (!agenda || !lead || !grid) return;
-  if (narrowScreen.matches && !lead.hidden) {
-    if (agenda.previousElementSibling !== lead) lead.after(agenda);
-  } else if (agenda.nextElementSibling !== grid) {
-    grid.before(agenda);          // 원래 자리 — 히어로 바로 다음
-  }
-}
+// '한 주의 원자력'은 2026-09 흐름 탭으로 이사했다(index.html #view-trend).
+// 좁은 화면 재배치(placeTodayAgenda)는 오늘 탭 폴드 문제였으므로 함께 폐기.
 
 function renderBriefing() {
   const briefing = currentBriefing();
@@ -1662,9 +1641,6 @@ function renderBriefing() {
   const lead = issues[0] || null;
   const leadId = lead ? lead.issue_id : "";
   document.getElementById("leadIssue").hidden = !lead;
-  // 선두 이슈의 표시 여부가 정해진 **뒤에** 자리를 잡는다 — 앞에서 부르면
-  // 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다.
-  placeTodayAgenda();
   document.getElementById("leadCard").innerHTML = lead ? leadCard(lead, briefing) : "";
   if (state.issueSort === "latest") {
     issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
@@ -1781,10 +1757,15 @@ function audioFailureKey(briefing, mode) {
 
 function audioVariantsFor(briefing) {
   const meta = state.audio;
-  if (!meta || !briefing || meta.date !== briefing.date) return {};
-  const raw = meta.variants && typeof meta.variants === "object"
-    ? meta.variants
-    : (meta.file ? { fast: { ...meta, label: "빠른 브리핑", description: "핵심 뉴스 요약" } } : {});
+  if (!meta || !briefing) return {};
+  // 과거 날짜는 days(v2, 14일 창)에서 찾고, 오늘치는 종전 계약을 그대로 둔다 —
+  // 구버전 audio.json(days 없음)에서도 오늘 것은 재생돼야 한다.
+  const today = meta.date !== briefing.date ? null
+    : (meta.variants && typeof meta.variants === "object"
+      ? meta.variants
+      : (meta.file ? { fast: { ...meta, label: "빠른 브리핑", description: "핵심 뉴스 요약" } } : {}));
+  const raw = (meta.days && meta.days[briefing.date]) || today;
+  if (!raw) return {};
   return Object.fromEntries(Object.entries(raw).filter(([mode, variant]) => (
     variant?.file && !state.audioFailures.has(audioFailureKey(briefing, mode))
   )));
@@ -2204,15 +2185,19 @@ function renderScraps() {
   listBox.innerHTML = days.map(day => {
     const cards = day.items.map(item => {
       const url = safeUrl(item.url);
-      // 지면 매체명과 온라인 발행처가 다르면(타 매체 원문으로 해석된 경우) 병기
-      const printPub = item.print_publisher && item.print_publisher !== item.publisher
-        ? `<span>지면 ${esc(item.print_publisher)}</span>` : "";
+      // 이 탭의 정렬 키는 지면 매체다(빌드가 시드 순서 = 지면 가나다순 유지).
+      // 정렬 키가 회색 2순위면 목록에 순서가 있어도 안 보인다 — 지면 매체를
+      // pill 로 1순위에 세우고, 온라인 발행처가 다르면 '원문 …'으로 병기한다.
+      // 제목이 먼저다: 훑는 눈이 회색 메타부터 밟게 하지 않는다.
+      const paper = item.print_publisher || item.publisher || "출처 미상";
+      const online = item.publisher && item.publisher !== paper
+        ? `<span>원문 ${esc(item.publisher)}</span>` : "";
       // 조간|석간 — 어느 보고에서 온 기사인지. 구 이력에는 없어 빈 값이 정상,
       // 이 칩이 서고부터 '석간이 안 왔다'가 화면에서 보인다.
       const edition = item.edition ? `<span>${esc(item.edition)}</span>` : "";
       return `<article class="news-item">
-        <div class="news-meta"><span>${esc(item.publisher || item.print_publisher || "출처 미상")}</span>${printPub}${edition}</div>
         <h3>${esc(item.title)}</h3>
+        <div class="news-meta"><span class="scrap-paper">${esc(paper)}</span>${online}${edition}</div>
         ${item.summary ? `<p class="news-summary">${esc(item.summary)}</p>` : ""}
         ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 확인 <span aria-hidden="true">↗</span></a>` : ""}
       </article>`;
@@ -4217,7 +4202,6 @@ function initFilterDrawers() {
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
   // 경계를 넘나들면 자리도 따라와야 한다 — 안 하면 리사이즈한 사람만 어긋난 채 본다.
-  narrowScreen.addEventListener("change", placeTodayAgenda);
   railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();
 }

@@ -980,14 +980,17 @@ class AudioBriefTestCase(unittest.TestCase):
                         fake.now + audio_brief.TTS_HARD_BUDGET_SEC)
 
     def test_generate_cleans_previous_dates(self):
+        """14일 창 밖만 지운다(2026-09) — 창 안 과거 파일은 과거 페이지가 쓴다."""
         self.write_data()
         audio_brief.AUDIO_DIR.mkdir(parents=True)
-        (audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").write_bytes(b"old")
-        (audio_brief.AUDIO_DIR / "script-2026-08-03.txt").write_text("old", encoding="utf-8")
+        (audio_brief.AUDIO_DIR / "briefing-2026-07-01.mp3").write_bytes(b"old")
+        (audio_brief.AUDIO_DIR / "script-2026-07-01.txt").write_text("old", encoding="utf-8")
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").write_bytes(b"recent")
         self.responses = script_responses()
         self.assertTrue(audio_brief.generate())
-        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").exists())
-        self.assertFalse((audio_brief.AUDIO_DIR / "script-2026-08-03.txt").exists())
+        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-07-01.mp3").exists())
+        self.assertFalse((audio_brief.AUDIO_DIR / "script-2026-07-01.txt").exists())
+        self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").exists())
 
     def test_generate_skips_when_up_to_date(self):
         self.write_data()
@@ -1205,17 +1208,26 @@ class FastVariantTests(AudioBriefTestCase):
         self.assertTrue(audio_brief.generate())
         self.assertEqual(set(self._meta()["variants"]), {"expert"})
 
-    def test_cleanup_keeps_todays_fast_and_drops_old(self):
+    def test_cleanup_keeps_window_and_drops_beyond(self):
+        """14일 보관 창(2026-09) — 창 안은 남고 창 밖만 죽는다.
+
+        과거 /brief/* 페이지의 플레이어가 창 안 파일을 참조하므로, '전날 삭제'
+        였던 종전 계약은 뒤집혔다.
+        """
         self.write_data()
         audio_brief.AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-        (audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").write_bytes(b"old")
-        (audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").write_bytes(b"old")
+        (audio_brief.AUDIO_DIR / "briefing-2026-07-01.mp3").write_bytes(b"ancient")
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").write_bytes(b"recent")
+        (audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").write_bytes(b"recent")
         (audio_brief.AUDIO_DIR / "briefing-2026-08-04-fast.mp3").write_bytes(b"today")
         self.responses = script_responses()
         self.assertTrue(audio_brief.generate())
-        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").exists())
-        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").exists())
+        self.assertFalse((audio_brief.AUDIO_DIR / "briefing-2026-07-01.mp3").exists())
+        self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-03.mp3").exists())
+        self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-03-fast.mp3").exists())
         self.assertTrue((audio_brief.AUDIO_DIR / "briefing-2026-08-04-fast.mp3").exists())
+        # 메타 v2 — days 에 오늘치가 누적된다.
+        self.assertIn("2026-08-04", self._meta().get("days", {}))
 
     def test_telegram_sends_expert_once(self):
         self.write_data()
