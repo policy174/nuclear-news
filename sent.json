@@ -1,34 +1,5 @@
 {
   "sent": {
-    "42ed4c1e3e1c7a2a": "2026-08-23T21:15:57.397848+00:00",
-    "f37c4e020aaa92c8": "2026-08-23T21:15:57.397848+00:00",
-    "b0cba6a4bb7ec3b3": "2026-08-23T21:15:57.397848+00:00",
-    "c77b0926fa79aca6": "2026-08-23T21:15:57.397848+00:00",
-    "0f967193da4c4d6e": "2026-08-23T21:15:57.397848+00:00",
-    "f8dc455b824828ab": "2026-08-23T21:15:57.397848+00:00",
-    "9331bf90c6175be4": "2026-08-23T21:15:57.397848+00:00",
-    "d7f2b26b393d8f55": "2026-08-23T21:15:57.397848+00:00",
-    "4664f849e43a20d7": "2026-08-23T21:15:57.397848+00:00",
-    "1231c29451001b3d": "2026-08-23T21:15:57.397848+00:00",
-    "c3b39f043f6c61da": "2026-08-23T21:15:57.397848+00:00",
-    "2b4a4414def1ea16": "2026-08-23T21:15:57.397848+00:00",
-    "af81699dd61feece": "2026-08-23T21:15:57.397848+00:00",
-    "cccfeaa686d80396": "2026-08-23T21:15:57.397848+00:00",
-    "0088a07c545f9d53": "2026-08-23T21:15:57.397848+00:00",
-    "3887a231a120212a": "2026-08-23T21:15:57.397848+00:00",
-    "d36a3834236c76ff": "2026-08-23T21:15:57.397848+00:00",
-    "8c713aac5bc2935c": "2026-08-23T21:15:57.397848+00:00",
-    "5b7d9377ca0fe744": "2026-08-23T21:15:57.397848+00:00",
-    "495c71a3cddacf26": "2026-08-23T21:15:57.397848+00:00",
-    "087e26651d94c18b": "2026-08-23T21:15:57.397848+00:00",
-    "ff96b1986becfe6a": "2026-08-23T21:15:57.397848+00:00",
-    "ec1fa409ebb36dc5": "2026-08-23T21:15:57.397848+00:00",
-    "6d26edf39aa6d45e": "2026-08-23T21:15:57.397848+00:00",
-    "27b288a22ae50b7d": "2026-08-23T21:15:57.397848+00:00",
-    "0c585183d466a71c": "2026-08-23T21:15:57.397848+00:00",
-    "371f58bb78f102e7": "2026-08-23T21:15:57.397848+00:00",
-    "7794ef035aa53589": "2026-08-23T21:15:57.397848+00:00",
-    "03343c3ef1fcd123": "2026-08-23T21:15:57.397848+00:00",
     "a4f0ec0058db5c06": "2026-08-24T00:56:43.718660+00:00",
     "51b4181bbe910820": "2026-08-24T00:56:43.718660+00:00",
     "e1af5f2555337119": "2026-08-24T00:56:43.718660+00:00",
@@ -2580,10 +2551,20 @@
     "b0e6fcb1b0dfbe18": "2026-09-06T17:27:15.018837+00:00",
     "461ad2d7248015ca": "2026-09-06T17:27:15.018837+00:00",
     "ff9838327fdad75b": "2026-09-06T17:27:15.018837+00:00",
-    "8670d0ff62f2c4a6": "2026-09-06T17:27:15.018837+00:00"
+    "8670d0ff62f2c4a6": "2026-09-06T17:27:15.018837+00:00",
+    "1d0db23ba4dc1323": "2026-09-06T22:17:41.006451+00:00",
+    "78d8c3e35a9b8b8f": "2026-09-06T22:17:41.006451+00:00",
+    "d6324ffea4c225ce": "2026-09-06T22:17:41.006451+00:00",
+    "422164d1c2ca6c11": "2026-09-06T22:17:41.006451+00:00",
+    "3cda238262da7372": "2026-09-06T22:17:41.006451+00:00",
+    "fc197e131c6b8872": "2026-09-06T22:17:41.006451+00:00",
+    "c8ce0179d3b300fd": "2026-09-06T22:17:41.006451+00:00",
+    "267c75ee56e30815": "2026-09-06T22:17:41.006451+00:00",
+    "8f14b31e85975c6d": "2026-09-06T22:17:41.006451+00:00",
+    "f631cb4d8ae6a2f2": "2026-09-06T22:17:41.006451+00:00"
   },
   "source_yield": {
-    "at": "2026-09-06T19:54:41+00:00",
+    "at": "2026-09-06T22:19:33+00:00",
     "counts": {
       "한수원 보도자료": 10,
       "원안위 보도자료": 15,
@@ -2608,7 +2589,7 @@
     },
     "kept": {
       "Les Échos 원자력": 1,
-      "국내 원자력 보도": 3
+      "국내 원자력 보도": 4
     },
     "errors": {}
   },
@@ -3537,7 +3518,8 @@
     "96360691b6eb": {
       "tries": 6,
       "seed_date": "2026-09-03",
-      "last_tried": "2026-09-06T19:54:42.658249+00:00"
+      "last_tried": "2026-09-06T19:54:42.658249+00:00",
+      "status": "gave_up"
     },
     "da2374898029": {
       "tries": 0,
@@ -4021,6 +4003,629 @@
       "link": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=87900",
       "title": "네이버클라우드, 정부 사이버 보안 AI 사업자로 최종 선정",
       "description": "네이버클라우드(컨소시엄)가 정부의 '특화 인공지능 파운데이션 모델 개발 사이버 보안 분야'의 사업자로 최종 선정됐다. 과학기술정보통신부는 3일, 네이버클라우드와 SK텔레콤을 대상으로 진행한 발표 평가 결과..."
+    },
+    "b7e9f84f9737": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://news.jtbc.co.kr/article/NB12316588?influxDiv=NAVER",
+      "title": "공공기관 109개 '메스'…발전 5개사 하나로, LH는 다시 둘로",
+      "description": "규모인 109개 공공기관을 감축하겠습니다.] 다만 2009년 한국토지공사와 대한주택공사가 합쳐져 탄생했던 LH는 17년 만에 다시 둘로 나뉩니다. 개발과 복지를 동시에 수행하면서 주택공급 속도가 떨어졌기 때문이란..."
+    },
+    "9ea5e6e4a451": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202609032127015",
+      "title": "‘민영화로 경쟁’ 무산…재생에너지 전환 ‘규모의 경제’ 기대",
+      "description": ""
+    },
+    "eeec7d19175a": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202609032014015",
+      "title": "길 위에서 외치는 소리",
+      "description": ""
+    },
+    "c3618d867224": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008861",
+      "title": "미토스 쇼크 대응할 ‘보안 특화 AI’, 네이버 연합군이 만든다",
+      "description": ""
+    },
+    "f8418773b0cf": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008953",
+      "title": "해킹 AI 맞설 독자 모델 만든다… 네이버 컨소시엄, 사업자로 선정",
+      "description": ""
+    },
+    "9bbe7a0e89cc": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3684199",
+      "title": "한울6호기 비상훈련 시행, 평가지침 시범 적용·운영능력 집중 확인",
+      "description": ""
+    },
+    "e4b5496419b5": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.nocutnews.co.kr/news/6572856",
+      "title": "경쟁하라며 쪼갠 발전 5사…25년 만에 다시 합친다",
+      "description": ""
+    },
+    "2f16082780ac": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.news1.kr/politics/assembly/6279232",
+      "title": "김민석 \"연대 저해 언급 조심\"…혁신당 \"신뢰 없인 대화도 없다\"",
+      "description": ""
+    },
+    "5dae4c4ea46f": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20260903_0003775528",
+      "title": "조국 \"정부 정책 '증원전'으로 선회…탈원전 방향 흔들려선 안 돼\"",
+      "description": ""
+    },
+    "a4fd31b8a760": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20260903_0003775754",
+      "title": "한빛원전 1·2호기 열교환기 용접 오류 확인…6건 조치 예정",
+      "description": ""
+    },
+    "8cce884d5aef": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609031056104470556",
+      "title": "SMR 영토 넓히는 건설사…신입부터 외국인까지 ‘인재 확보전’",
+      "description": ""
+    },
+    "a6ca1a6c10ed": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "http://www.dhns.co.kr/news/articleView.html?idxno=384302",
+      "title": "한울6호기 방사능방재 전체(불상)훈련 실시",
+      "description": ""
+    },
+    "26d8f628fbe2": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.segye.com/newsView/20260903515074?OutUrl=naver",
+      "title": "네이버클라우드, ‘한국형 보안 AI모델’ 개발",
+      "description": "기업·대학 32곳 참여 컨소시엄 정부 사업 최종 수행기관 선정 반도체·방위 분야 등 활용 방침 네이버클라우드가 국가 사이버보안 특화 인공지능(AI) 모델 개발 사업자로 선정됐다. AI를 활용해 고도화하는 사이버..."
+    },
+    "99628b43bdb3": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://m.news.nate.com/view/20260904n00587",
+      "title": "원전 강국인데 핵연료는 해외 의존하는 모순…'핵잠재력' 전략 담았다",
+      "description": "한국핵안보전략포럼이 엮고 정성장 세종연구소 부소장 등 8명의 전문가가 집필한 ‘한국의 핵안보 프로젝트 6: 에너지 안보와 핵잠재력’이 출간됐다. 한국핵안보전략포럼 총서의 여섯 번째 책이다. 책은 한국이 세계적...."
+    },
+    "774428ec6a29": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "http://www.breaknews.com/1233993",
+      "title": "경북도의회 \"도민 안전 위협 요소 속전속결 대응해야\"… 석면 제거·원전 감시 촉구",
+      "description": ""
+    },
+    "ed98a930a1b8": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "http://www.breaknews.com/1233997",
+      "title": "한수원, 청소년에게 방사선 과학기술 현장 체험 기회 제공",
+      "description": ""
+    },
+    "3932deccccc9": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/09/03/20260903500325?wlog_tag3=naver",
+      "title": "김재준 경북도의원 “국내 원전 가장 많은 경북, 중앙정부만 믿지 않고...",
+      "description": "개정 ▲경북도가 주도하는 독자적인 원전 감시 및 현장 조사 체계 구축 ▲반복되는 작업자들의 인적 오류를 원천 차단할 방지 대책 마련 ▲원전 최대 집적지인 경북으로 원전 안전 관련 유관기관들의 조속한 이전 등을..."
+    },
+    "6b9c7e7a840c": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.asiae.co.kr/article/2026090318102429182",
+      "title": "한빛원전 냉각계통 용접절차 6건 '오적용'…13년간 품질관리 허점",
+      "description": ""
+    },
+    "c17db88405fd": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=05228326645576512&mediaCodeNo=257",
+      "title": "한울원전 붕산수 누출 3주 뒤 알려져…“경북도 독자 감시권 필요”",
+      "description": ""
+    },
+    "a80135efbbca": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.joongang.co.kr/article/25458883",
+      "title": "한국수력원자력, 혁신제품 지정 위한 중소기업 대상 맞춤형 컨설팅",
+      "description": ""
+    },
+    "09131e55d26d": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.pressian.com/pages/articles/2026090316443108546",
+      "title": "한빛 1·2호기 열교환기 보수 과정서 '용접절차서 오적용'… 품질관리 허점 드러나",
+      "description": ""
+    },
+    "69e1fe0621f9": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/202609032987i",
+      "title": "내년 7월 'K미토스' 개발…네이버, 韓 보안 AI 생태계 만든다",
+      "description": ""
+    },
+    "04da3ea99c53": {
+      "tries": 0,
+      "seed_date": "2026-09-04",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090329001",
+      "title": "민주-혁신당 통합 놓고 기싸움…\"덩치에만 집착\" vs \"말조심하라\"",
+      "description": ""
+    },
+    "9a59510df077": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.ikbc.co.kr/article/view/kbc202609060037",
+      "title": "한빛원전, 사용후핵연료 저장시설 추진...시민단체 '반발'",
+      "description": "영광 한빛원전이 2030년 포화상태에 이르는 사용후핵연료 임시 저장 공간의 추가 건설을 추진하고 있습니다. 임시 시설로 지어지지만 나중에는 영구 저장 시설이 될 수 있다며 시민단체와 주민들은 반발하고 있습니다...."
+    },
+    "24722b721dbf": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.ytn.co.kr/_ln/0105_202609061822590850",
+      "title": "새울 3호기 재가동 이틀 만에 수동 정지 \"방사선 영향 없어\"",
+      "description": ""
+    },
+    "436f860bc094": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2070830",
+      "title": "김세훈 화천군수 “농업예산 10% 시대 열 것…군민 생활 안정·실질소득 집중”",
+      "description": ""
+    },
+    "6781b6b976f5": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2070843",
+      "title": "한국수력원자력 홍천양수건설소 물품 지원",
+      "description": ""
+    },
+    "70f8c6e873e6": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.gndomin.com/news/articleView.html?idxno=488094",
+      "title": "경남적십자사 한수원 취약계층 태양광 LED보안등 설치사업 실시",
+      "description": ""
+    },
+    "b61ca23a6f54": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.kbmaeil.com/article/20260906500658",
+      "title": "새울 3호기 또 멈췄다…재가동 이틀 만에 수동정지",
+      "description": ""
+    },
+    "e88d023a1c38": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.ksilbo.co.kr/news/articleView.html?idxno=1066508",
+      "title": "새울 3호기 또 수동정지 \"방사선 영향 없어\"",
+      "description": "수동 정지 조치했다고 설명했다. 원자로 정지로 인한 외부 방사선 영향은 전혀 없으며, 현재 발전소는 안정 상태인 것으로 파악됐다. 새울원전은 현재 배관 누설에 대한 상세한 원인을 분석 중이다. 앞서 새울 3호기는..."
+    },
+    "cf7b2c25ef4f": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.gyeongsangtoday.com/news/view.php?idx=272249",
+      "title": "경주시의회 `쓰레기 집중 도시 만들어선 안 돼` 행정에 쓴소리",
+      "description": "제300회 임시회 본회의 5분 발언 주동열·김영철·박지우·손윤희 안강 폐기물매립장 백지화 촉구 동경주 생활권·중기 살리기 매진 한수원 상생 기금 확대방안 모색"
+    },
+    "f9cdad9484ad": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.gjinews.co.kr/front/news/view.do?articleId=ARTICLE_00032255",
+      "title": "경주시장애인체육회, ‘스포츠과학 교실’ 운영",
+      "description": ""
+    },
+    "796dab17e3fc": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202609062040005",
+      "title": "더워지는 9월, 길어지는 여름…더 늦게 식는 전력 수요 걱정된다[찌릿찌...",
+      "description": "하지만 달력이 9월로 넘어간다고 전력 수요까지 곧바로 식는 것은 아니다. 전국적으로 9월 평균기온은... 더운 여름이 길어질수록 전력 수요도 늦게 식는다. 전력 관리를 둘러싼 종합 체계에 대한 이해와 관심은 앞으로..."
+    },
+    "a03569b86784": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6849906_36911.html",
+      "title": "이 대통령, 프랑스 출국‥\"무거운 발걸음, 네팔 상황 계속 챙기겠다\"",
+      "description": "이 대통령이 3박5일간의 프랑스 국빈방문에 앞서 출국 직전 자신의 SNS를 통해 네팔 홍수 참사 상황을 계속 챙기겠다고 강조했습니다. 이 대통령은 \"네팔 홍수 참사로 실종된 우리 ..."
+    },
+    "cc49480a7090": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.g-enews.com/article/Industry/2026/09/20260906185439915724debea800_1",
+      "title": "새울 3호기, 재가동 이틀 만에 수동 정지…배관 누설 확인",
+      "description": ""
+    },
+    "f8b40c16caa6": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.g-enews.com/article/Global-Biz/2026/09/202609061754001561fbbec65dfb_1",
+      "title": "우즈베크, 2.1GW 원전 현지화 30% 상향… 한국 공급망 합작 조건 직면",
+      "description": ""
+    },
+    "c9823b8b5a48": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.news1.kr/local/ulsan/6281492",
+      "title": "새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "description": ""
+    },
+    "dcc2e3888ac0": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.newsshare.co.kr/1989125",
+      "title": "경주시장애인체육회, 장애인 선수 경기력 향상 ‘스포츠과학 교실’ 운영",
+      "description": ""
+    },
+    "bded2318da2a": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.idaegu.co.kr/news/articleView.html?idxno=558760",
+      "title": "경주시 \"천년 역사 위 미래산업 더해 도시 브랜드 세계로 확장\"",
+      "description": ""
+    },
+    "1ce04742c229": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12145627",
+      "title": "마크롱 만나는 李대통령 … 원전·영화·우주 '전방위 밀착'",
+      "description": "한불 수교 140주년 국빈방문 원전 공동수출 협력 방안 모색 이재명 대통령이 6일(현지시간) 프랑스 니스에... 에마뉘엘 마크롱 프랑스 대통령의 초청으로 이뤄진 이번 방문에서 인공지능(AI)·우주·원자력·바이오·문화..."
+    },
+    "f7c94e9e8446": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.mt.co.kr/society/2026/09/06/2026090620073861861",
+      "title": "새울 원전 3호기, 재가동 이틀 만에 수동정지…\"방사선 영향 없어\"",
+      "description": ""
+    },
+    "6e838a00ab7c": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.munhwa.com/article/11614857",
+      "title": "새울 3호기 원자로 정지돼…“방사선 영향 없어”",
+      "description": ""
+    },
+    "5061db25bbdf": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026090618362666257",
+      "title": "새울 3호기 재가동 이틀 만에 배관 누설로 또 정지",
+      "description": ""
+    },
+    "82ae43a7e405": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.sjbnews.com/news/news.php?number=886954",
+      "title": "한빛원전 고준위폐기물 저장시설 고창군 토론회",
+      "description": ""
+    },
+    "fa35d1209ef8": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20087734",
+      "title": "새울 3호기, 재가동 이틀 만에 다시 멈춰…배관 누설이 원인",
+      "description": ""
+    },
+    "10272490193f": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.segye.com/newsView/20260906508714?OutUrl=naver",
+      "title": "‘공공 PPA 중개 플랫폼’ 출범… 업계 “특혜” 발끈",
+      "description": "민간 PPA 중개업체들이 세금으로 공공기관 사업만 우대하는 불공정 특혜라며 집단 반발하고 있다. 인공지능(AI) 플랫폼 ‘세계온(SEGYE.On)’으로 생성 6일 기후에너지환경부에 따르면 지난달 말 한국에너지공단이..."
+    },
+    "09cf9c48fed4": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.segye.com:443/newsView/20260906509683",
+      "title": "새울3호기 재가동 이틀 만에 수동 정지…한수원 “원인 분석 중”",
+      "description": ""
+    },
+    "1aa74bb5f948": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.segye.com/newsView/20260906508660?OutUrl=naver",
+      "title": "월성원전, 해병대 1사단과 방호 협력 강화",
+      "description": "점검하고 원전 방호를 위한 상호 협력 방안을 논의했다고 6일 밝혔다. 해병대 1사단장 일행은 이날 월성본부... 역량을 강화해야 한다는 데 뜻을 같이했다. 특히 유사시 신속하고 효과적인 공동 대응이 가능하도록..."
+    },
+    "fadedbb20e23": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.segye.com/newsView/20260906509635",
+      "title": "한울원전 6호기 방사능방재 전체훈련, 비상대응 역량 점검",
+      "description": ""
+    },
+    "6e1147f890f7": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.isusanin.com/news/articleView.html?idxno=65586",
+      "title": "경주지역 어업인들에게 구명조끼 410벌 전달",
+      "description": ""
+    },
+    "fd8024ae1162": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.asiae.co.kr/article/2026090619423852014",
+      "title": "새울3호기 시운전 중 배관 누설… 원자로 수동 정지",
+      "description": ""
+    },
+    "65f65dbed8a8": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00"
+    },
+    "a0a436597f02": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00"
+    },
+    "e9dc2190b1a7": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.inews24.com/view/2002440",
+      "title": "새울 3호기 시운전 중에 증기누설, 원자로 수동정지⋯안전 이상 없나",
+      "description": ""
+    },
+    "2a7e7150d563": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260906190632421",
+      "title": "새울원전 3호기, 재가동 이틀 만에 또 정지…증기 배관 누설",
+      "description": ""
+    },
+    "54742f192bb1": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=202908",
+      "title": "[2026 국감] 원전 계속운전 심사, 사실상 '합격할 때까지 보완' 구조 아닌가",
+      "description": ""
+    },
+    "ff9effd17224": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=202927",
+      "title": "새울 3호기, 시운전 중 원자로 '수동 정지'",
+      "description": ""
+    },
+    "9b5956e717a1": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=70837",
+      "title": "이재명 대통령, 프랑스 국빈방문…AI·원자력 등 논의",
+      "description": ""
+    },
+    "f2c40817d905": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.yna.co.kr/view/AKR20260906041400057",
+      "title": "새울 3호기 재가동 이틀 만에 수동정지 \"방사선 영향 없어\"",
+      "description": ""
+    },
+    "e2226f6a83ab": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.ygnews.co.kr/news/articleView.html?idxno=319917",
+      "title": "“사용후핵연료 저장시설 군민소통 강화”",
+      "description": ""
+    },
+    "6d4fd37db15d": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.ygnews.co.kr/news/articleView.html?idxno=319918",
+      "title": "한빛 2호기도 수명만료 장기간 정지",
+      "description": ""
+    },
+    "bf8b15446ed8": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00"
+    },
+    "e3aa00a36bff": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "http://www.ujeil.com/news/articleView.html?idxno=391567",
+      "title": "울산 고대 역사의 장 '우시산국 축제'",
+      "description": ""
+    },
+    "6b1739290d8e": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=02056566645577496&mediaCodeNo=257",
+      "title": "새울 원전 3호기 재가동 이틀 만에 수동 정지",
+      "description": ""
+    },
+    "a589e22b58c7": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://news.jkn.co.kr/post/977123",
+      "title": "새울 3호기, 재가동 이틀 만 또 정지…상업 운전 ‘빨간불’?",
+      "description": ""
+    },
+    "c657dfbbfca4": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.electimes.com/news/articleView.html?idxno=372088",
+      "title": "새울3호기, 시운전 중 배관 누설 확인...원자로 수동 정지",
+      "description": ""
+    },
+    "76e15a15cf92": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://biz.chosun.com/science-chosun/science/2026/09/06/TPGOWXT5IBFDPJQV6CAKYJHJKU/",
+      "title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "description": ""
+    },
+    "0f822a2e42dd": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://biz.chosun.com/policy/policy_sub/2026/09/07/5CCOQR6V2FEPFA5WTKWQCCC55Q/",
+      "title": "원전 추가 가동기간 논란… 기후부 “10→20년으로 늘려야” vs 원안위 “현행 유지”",
+      "description": ""
+    },
+    "6dbaf0f0a98a": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.chosun.com/economy/science/2026/09/06/MY4DAZLEGM4DKZRSGE3DQN3CMU/",
+      "title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "description": ""
+    },
+    "bb00348335a2": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.chosun.com/opinion/specialist_column/2026/09/06/FAXWBABDNRHNRIMI2UK5SRKGTA/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "title": "[기고] 친환경 에너지 저장하는 물 배터리, ‘양수발전’이 필요하다",
+      "description": "다행히 최근의 양수발전소는 아름다운 자연과 어우러진 친환경 관광 명소로 거듭나며 지역 경제에도 기여하고 있다. 풍요로운 햇빛과 바람을 온전히 우리의 에너지로 만들기 위해서 이 거대한 물 배터리는 선택이 아닌..."
+    },
+    "001051114205": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609061831141413",
+      "title": "韓·佛 '호르무즈 파병' 논의 주목… AI·원전협력 확대",
+      "description": "오찬과 확대 정상회담을 갖는다. 정상회담에선 호르무즈 사안 등을 비롯해 인공지능(AI)·우주·원자력·바이오 등 미래산업 분야에서는 공동 연구개발(R&D)과 기업 협력, 상호 시장 진출 방안을 모색한다. 특히 원전 분야..."
+    },
+    "b1fae1710cae": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609061938239991",
+      "title": "새울 3호기 또 정지.. 재시동 사흘 만에 배관에서 증기 누출",
+      "description": ""
+    },
+    "439e7002f84f": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609041620423790",
+      "title": "李대통령 '프랑스 도착' 국빈방문 일정 돌입…K콘텐츠부터 원전까지",
+      "description": ""
+    },
+    "498fdfc0801e": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090668641",
+      "title": "\"해외근무수당은 포괄수당\"…대법원 판결 이끌어낸 화우",
+      "description": ""
+    },
+    "c7e70a6a20d5": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090668641",
+      "title": "\"해외근무수당은 포괄수당\"…대법원 판결 이끌어낸 화우",
+      "description": "기업이 해외 근무 수당은 시간외근무수당을 포함하는 포괄 수당이라는 점을 일관되게 명시했다면 시간외근무수당을 추가로 청구하는 것은 이중 산정이라는 대법원 판단이 나왔다. 사측을 대리한 법무법인 화우는 “사내..."
+    },
+    "bd483fe0c6ef": {
+      "tries": 1,
+      "seed_date": "2026-09-07",
+      "last_tried": "2026-09-06T22:19:34.626253+00:00",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090668391",
+      "title": "재생에너지 직접 구매…전력거래시장 확대",
+      "description": "기업이 재생에너지 발전사업자에게 직접 전력을 공급받는 직접전력거래(PPA)가 확산하고 있다. 글로벌... 국내 수출기업들은 해외 시장에서 경쟁력을 유지하기 위해서라도 PPA를 통해 재생에너지를 확보해야 하는..."
+    },
+    "8dc36211e3bf": {
+      "tries": 0,
+      "seed_date": "2026-09-07",
+      "status": "resolved",
+      "link": "https://www.hankookilbo.com/news/article/A2026090617470005576",
+      "title": "내달 상업운전 앞둔 새울 3호기, 재가동 이틀 만에 또 멈췄다",
+      "description": ""
     }
   },
   "scrap_history": {
@@ -6918,6 +7523,672 @@
       "title": "네이버클라우드, 정부 사이버 보안 AI 사업자로 최종 선정",
       "description": "네이버클라우드(컨소시엄)가 정부의 '특화 인공지능 파운데이션 모델 개발 사이버 보안 분야'의 사업자로 최종 선정됐다. 과학기술정보통신부는 3일, 네이버클라우드와 SK텔레콤을 대상으로 진행한 발표 평가 결과...",
       "edition": "조간"
+    },
+    "b7e9f84f9737": {
+      "date": "2026-09-04",
+      "publisher": "JTBC",
+      "seed_title": "공공기관 109개 '메스'…발전 5개사 하나로, LH는 다시 둘로",
+      "link": "https://news.jtbc.co.kr/article/NB12316588?influxDiv=NAVER",
+      "title": "공공기관 109개 '메스'…발전 5개사 하나로, LH는 다시 둘로",
+      "description": "규모인 109개 공공기관을 감축하겠습니다.] 다만 2009년 한국토지공사와 대한주택공사가 합쳐져 탄생했던 LH는 17년 만에 다시 둘로 나뉩니다. 개발과 복지를 동시에 수행하면서 주택공급 속도가 떨어졌기 때문이란...",
+      "edition": ""
+    },
+    "9ea5e6e4a451": {
+      "date": "2026-09-04",
+      "publisher": "경향신문",
+      "seed_title": "‘민영화로 경쟁’ 무산…재생에너지 전환 ‘규모의 경제’ 기대",
+      "link": "https://www.khan.co.kr/article/202609032127015",
+      "title": "‘민영화로 경쟁’ 무산…재생에너지 전환 ‘규모의 경제’ 기대",
+      "description": "",
+      "edition": ""
+    },
+    "eeec7d19175a": {
+      "date": "2026-09-04",
+      "publisher": "경향신문",
+      "seed_title": "길 위에서 외치는 소리",
+      "link": "https://www.khan.co.kr/article/202609032014015",
+      "title": "길 위에서 외치는 소리",
+      "description": "",
+      "edition": ""
+    },
+    "c3618d867224": {
+      "date": "2026-09-04",
+      "publisher": "국민일보",
+      "seed_title": "미토스 쇼크 대응할 ‘보안 특화 AI’, 네이버 연합군이 만든다",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008861",
+      "title": "미토스 쇼크 대응할 ‘보안 특화 AI’, 네이버 연합군이 만든다",
+      "description": "",
+      "edition": ""
+    },
+    "f8418773b0cf": {
+      "date": "2026-09-04",
+      "publisher": "국민일보",
+      "seed_title": "해킹 AI 맞설 독자 모델 만든다… 네이버 컨소시엄, 사업자로 선정",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008953",
+      "title": "해킹 AI 맞설 독자 모델 만든다… 네이버 컨소시엄, 사업자로 선정",
+      "description": "",
+      "edition": ""
+    },
+    "9bbe7a0e89cc": {
+      "date": "2026-09-04",
+      "publisher": "국제뉴스",
+      "seed_title": "한울6호기 비상훈련 시행, 평가지침 시범 적용·운영능력 집중 확인",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3684199",
+      "title": "한울6호기 비상훈련 시행, 평가지침 시범 적용·운영능력 집중 확인",
+      "description": "",
+      "edition": ""
+    },
+    "e4b5496419b5": {
+      "date": "2026-09-04",
+      "publisher": "노컷뉴스",
+      "seed_title": "경쟁하라며 쪼갠 발전 5사…25년 만에 다시 합친다",
+      "link": "https://www.nocutnews.co.kr/news/6572856",
+      "title": "경쟁하라며 쪼갠 발전 5사…25년 만에 다시 합친다",
+      "description": "",
+      "edition": ""
+    },
+    "2f16082780ac": {
+      "date": "2026-09-04",
+      "publisher": "뉴스1",
+      "seed_title": "김민석 \"연대 저해 언급 조심\"…혁신당 \"신뢰 없인 대화도 없다\"",
+      "link": "https://www.news1.kr/politics/assembly/6279232",
+      "title": "김민석 \"연대 저해 언급 조심\"…혁신당 \"신뢰 없인 대화도 없다\"",
+      "description": "",
+      "edition": ""
+    },
+    "5dae4c4ea46f": {
+      "date": "2026-09-04",
+      "publisher": "뉴시스",
+      "seed_title": "조국 \"정부 정책 '증원전'으로 선회…탈원전 방향 흔들려선 안 돼\"",
+      "link": "https://www.newsis.com/view/NISX20260903_0003775528",
+      "title": "조국 \"정부 정책 '증원전'으로 선회…탈원전 방향 흔들려선 안 돼\"",
+      "description": "",
+      "edition": ""
+    },
+    "a4fd31b8a760": {
+      "date": "2026-09-04",
+      "publisher": "뉴시스",
+      "seed_title": "한빛원전 1·2호기 열교환기 용접 오류 확인…6건 조치 예정",
+      "link": "https://www.newsis.com/view/NISX20260903_0003775754",
+      "title": "한빛원전 1·2호기 열교환기 용접 오류 확인…6건 조치 예정",
+      "description": "",
+      "edition": ""
+    },
+    "8cce884d5aef": {
+      "date": "2026-09-04",
+      "publisher": "대한경제",
+      "seed_title": "SMR 영토 넓히는 건설사…신입부터 외국인까지 ‘인재 확보전’",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609031056104470556",
+      "title": "SMR 영토 넓히는 건설사…신입부터 외국인까지 ‘인재 확보전’",
+      "description": "",
+      "edition": ""
+    },
+    "a6ca1a6c10ed": {
+      "date": "2026-09-04",
+      "publisher": "대한뉴스",
+      "seed_title": "한울6호기 방사능방재 전체(불상)훈련 실시",
+      "link": "http://www.dhns.co.kr/news/articleView.html?idxno=384302",
+      "title": "한울6호기 방사능방재 전체(불상)훈련 실시",
+      "description": "",
+      "edition": ""
+    },
+    "26d8f628fbe2": {
+      "date": "2026-09-04",
+      "publisher": "매일경제",
+      "seed_title": "보안특화 AI모델 개발… 네이버클라우드 선정",
+      "link": "https://www.segye.com/newsView/20260903515074?OutUrl=naver",
+      "title": "네이버클라우드, ‘한국형 보안 AI모델’ 개발",
+      "description": "기업·대학 32곳 참여 컨소시엄 정부 사업 최종 수행기관 선정 반도체·방위 분야 등 활용 방침 네이버클라우드가 국가 사이버보안 특화 인공지능(AI) 모델 개발 사업자로 선정됐다. AI를 활용해 고도화하는 사이버...",
+      "edition": ""
+    },
+    "99628b43bdb3": {
+      "date": "2026-09-04",
+      "publisher": "매일경제",
+      "seed_title": "원전 강국인데 핵연료는 해외 의존하는 모순…‘핵잠재력’ 전략 담았다",
+      "link": "https://m.news.nate.com/view/20260904n00587",
+      "title": "원전 강국인데 핵연료는 해외 의존하는 모순…'핵잠재력' 전략 담았다",
+      "description": "한국핵안보전략포럼이 엮고 정성장 세종연구소 부소장 등 8명의 전문가가 집필한 ‘한국의 핵안보 프로젝트 6: 에너지 안보와 핵잠재력’이 출간됐다. 한국핵안보전략포럼 총서의 여섯 번째 책이다. 책은 한국이 세계적....",
+      "edition": ""
+    },
+    "774428ec6a29": {
+      "date": "2026-09-04",
+      "publisher": "브레이크뉴스",
+      "seed_title": "경북도의회 \"도민 안전 위협 요소 속전속결 대응해야\"… 석면 제거·원전 감시 촉구",
+      "link": "http://www.breaknews.com/1233993",
+      "title": "경북도의회 \"도민 안전 위협 요소 속전속결 대응해야\"… 석면 제거·원전 감시 촉구",
+      "description": "",
+      "edition": ""
+    },
+    "ed98a930a1b8": {
+      "date": "2026-09-04",
+      "publisher": "브레이크뉴스",
+      "seed_title": "한수원, 청소년에게 방사선 과학기술 현장 체험 기회 제공",
+      "link": "http://www.breaknews.com/1233997",
+      "title": "한수원, 청소년에게 방사선 과학기술 현장 체험 기회 제공",
+      "description": "",
+      "edition": ""
+    },
+    "3932deccccc9": {
+      "date": "2026-09-04",
+      "publisher": "서울신문",
+      "seed_title": "김재준 경북도의원 “국내 원전 가장 많은 경북, 중앙정부만 믿지 않고 독자적 안전 방재 대책 직접 챙겨야”",
+      "link": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/09/03/20260903500325?wlog_tag3=naver",
+      "title": "김재준 경북도의원 “국내 원전 가장 많은 경북, 중앙정부만 믿지 않고...",
+      "description": "개정 ▲경북도가 주도하는 독자적인 원전 감시 및 현장 조사 체계 구축 ▲반복되는 작업자들의 인적 오류를 원천 차단할 방지 대책 마련 ▲원전 최대 집적지인 경북으로 원전 안전 관련 유관기관들의 조속한 이전 등을...",
+      "edition": ""
+    },
+    "6b9c7e7a840c": {
+      "date": "2026-09-04",
+      "publisher": "아시아경제",
+      "seed_title": "한빛원전 냉각계통 용접절차 6건 '오적용'…13년간 품질관리 허점",
+      "link": "https://www.asiae.co.kr/article/2026090318102429182",
+      "title": "한빛원전 냉각계통 용접절차 6건 '오적용'…13년간 품질관리 허점",
+      "description": "",
+      "edition": ""
+    },
+    "c17db88405fd": {
+      "date": "2026-09-04",
+      "publisher": "이데일리",
+      "seed_title": "한울원전 붕산수 누출 3주 뒤 알려져…“경북도 독자 감시권 필요”",
+      "link": "https://www.edaily.co.kr/news/read?newsId=05228326645576512&mediaCodeNo=257",
+      "title": "한울원전 붕산수 누출 3주 뒤 알려져…“경북도 독자 감시권 필요”",
+      "description": "",
+      "edition": ""
+    },
+    "a80135efbbca": {
+      "date": "2026-09-04",
+      "publisher": "중앙일보",
+      "seed_title": "한국수력원자력, 혁신제품 지정 위한 중소기업 대상 맞춤형 컨설팅",
+      "link": "https://www.joongang.co.kr/article/25458883",
+      "title": "한국수력원자력, 혁신제품 지정 위한 중소기업 대상 맞춤형 컨설팅",
+      "description": "",
+      "edition": ""
+    },
+    "09131e55d26d": {
+      "date": "2026-09-04",
+      "publisher": "프레시안",
+      "seed_title": "한빛 1·2호기 열교환기 보수 과정서 '용접절차서 오적용'… 품질관리 허점 드러나",
+      "link": "https://www.pressian.com/pages/articles/2026090316443108546",
+      "title": "한빛 1·2호기 열교환기 보수 과정서 '용접절차서 오적용'… 품질관리 허점 드러나",
+      "description": "",
+      "edition": ""
+    },
+    "69e1fe0621f9": {
+      "date": "2026-09-04",
+      "publisher": "한국경제",
+      "seed_title": "내년 7월 'K미토스' 개발…네이버, 韓 보안 AI 생태계 만든다",
+      "link": "https://www.hankyung.com/article/202609032987i",
+      "title": "내년 7월 'K미토스' 개발…네이버, 韓 보안 AI 생태계 만든다",
+      "description": "",
+      "edition": ""
+    },
+    "04da3ea99c53": {
+      "date": "2026-09-04",
+      "publisher": "한국경제",
+      "seed_title": "민주-혁신당 통합 놓고 기싸움…\"덩치에만 집착\" vs \"말조심하라\"",
+      "link": "https://www.hankyung.com/article/2026090329001",
+      "title": "민주-혁신당 통합 놓고 기싸움…\"덩치에만 집착\" vs \"말조심하라\"",
+      "description": "",
+      "edition": ""
+    },
+    "9a59510df077": {
+      "date": "2026-09-07",
+      "publisher": "KBC",
+      "seed_title": "한빛원전, 사용후핵연료 저장시설 추진...시민단체 '반발'",
+      "link": "https://www.ikbc.co.kr/article/view/kbc202609060037",
+      "title": "한빛원전, 사용후핵연료 저장시설 추진...시민단체 '반발'",
+      "description": "영광 한빛원전이 2030년 포화상태에 이르는 사용후핵연료 임시 저장 공간의 추가 건설을 추진하고 있습니다. 임시 시설로 지어지지만 나중에는 영구 저장 시설이 될 수 있다며 시민단체와 주민들은 반발하고 있습니다....",
+      "edition": ""
+    },
+    "24722b721dbf": {
+      "date": "2026-09-07",
+      "publisher": "YTN",
+      "seed_title": "새울 3호기 재가동 이틀 만에 수동 정지 \"방사선 영향 없어\"",
+      "link": "https://www.ytn.co.kr/_ln/0105_202609061822590850",
+      "title": "새울 3호기 재가동 이틀 만에 수동 정지 \"방사선 영향 없어\"",
+      "description": "",
+      "edition": ""
+    },
+    "436f860bc094": {
+      "date": "2026-09-07",
+      "publisher": "강원도민일보",
+      "seed_title": "김세훈 화천군수 “농업예산 10% 시대 열 것…군민 생활 안정·실질소득 집중”",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2070830",
+      "title": "김세훈 화천군수 “농업예산 10% 시대 열 것…군민 생활 안정·실질소득 집중”",
+      "description": "",
+      "edition": ""
+    },
+    "6781b6b976f5": {
+      "date": "2026-09-07",
+      "publisher": "강원도민일보",
+      "seed_title": "한국수력원자력 홍천양수건설소 물품 지원",
+      "link": "https://www.kado.net/news/articleView.html?idxno=2070843",
+      "title": "한국수력원자력 홍천양수건설소 물품 지원",
+      "description": "",
+      "edition": ""
+    },
+    "70f8c6e873e6": {
+      "date": "2026-09-07",
+      "publisher": "경남도민신문",
+      "seed_title": "경남적십자사 한수원 취약계층 태양광 LED보안등 설치사업 실시",
+      "link": "http://www.gndomin.com/news/articleView.html?idxno=488094",
+      "title": "경남적십자사 한수원 취약계층 태양광 LED보안등 설치사업 실시",
+      "description": "",
+      "edition": ""
+    },
+    "b61ca23a6f54": {
+      "date": "2026-09-07",
+      "publisher": "경북매일",
+      "seed_title": "새울 3호기 또 멈췄다…재가동 이틀 만에 수동정지",
+      "link": "https://www.kbmaeil.com/article/20260906500658",
+      "title": "새울 3호기 또 멈췄다…재가동 이틀 만에 수동정지",
+      "description": "",
+      "edition": ""
+    },
+    "e88d023a1c38": {
+      "date": "2026-09-07",
+      "publisher": "경상일보",
+      "seed_title": "새울 3호기 또 수동정지 “방사선 영향 없어”",
+      "link": "https://www.ksilbo.co.kr/news/articleView.html?idxno=1066508",
+      "title": "새울 3호기 또 수동정지 \"방사선 영향 없어\"",
+      "description": "수동 정지 조치했다고 설명했다. 원자로 정지로 인한 외부 방사선 영향은 전혀 없으며, 현재 발전소는 안정 상태인 것으로 파악됐다. 새울원전은 현재 배관 누설에 대한 상세한 원인을 분석 중이다. 앞서 새울 3호기는...",
+      "edition": ""
+    },
+    "cf7b2c25ef4f": {
+      "date": "2026-09-07",
+      "publisher": "경상투데이",
+      "seed_title": "경주시의회 “쓰레기 집중 도시 만들어선 안 돼” 행정에 쓴소리",
+      "link": "https://www.gyeongsangtoday.com/news/view.php?idx=272249",
+      "title": "경주시의회 `쓰레기 집중 도시 만들어선 안 돼` 행정에 쓴소리",
+      "description": "제300회 임시회 본회의 5분 발언 주동열·김영철·박지우·손윤희 안강 폐기물매립장 백지화 촉구 동경주 생활권·중기 살리기 매진 한수원 상생 기금 확대방안 모색",
+      "edition": "조간"
+    },
+    "f9cdad9484ad": {
+      "date": "2026-09-07",
+      "publisher": "경주인터넷뉴스",
+      "seed_title": "경주시장애인체육회, ‘스포츠과학 교실’ 운영",
+      "link": "http://www.gjinews.co.kr/front/news/view.do?articleId=ARTICLE_00032255",
+      "title": "경주시장애인체육회, ‘스포츠과학 교실’ 운영",
+      "description": "",
+      "edition": ""
+    },
+    "796dab17e3fc": {
+      "date": "2026-09-07",
+      "publisher": "경향신문",
+      "seed_title": "더워지는 9월, 길어지는 여름… 더 늦게 식는 전력 수요 걱정된다",
+      "link": "https://www.khan.co.kr/article/202609062040005",
+      "title": "더워지는 9월, 길어지는 여름…더 늦게 식는 전력 수요 걱정된다[찌릿찌...",
+      "description": "하지만 달력이 9월로 넘어간다고 전력 수요까지 곧바로 식는 것은 아니다. 전국적으로 9월 평균기온은... 더운 여름이 길어질수록 전력 수요도 늦게 식는다. 전력 관리를 둘러싼 종합 체계에 대한 이해와 관심은 앞으로...",
+      "edition": "조간"
+    },
+    "a03569b86784": {
+      "date": "2026-09-07",
+      "publisher": "경향신문",
+      "seed_title": "이 대통령, 프랑스 국빈방문… 네팔 상황에 \"발걸음 무겁다“",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6849906_36911.html",
+      "title": "이 대통령, 프랑스 출국‥\"무거운 발걸음, 네팔 상황 계속 챙기겠다\"",
+      "description": "이 대통령이 3박5일간의 프랑스 국빈방문에 앞서 출국 직전 자신의 SNS를 통해 네팔 홍수 참사 상황을 계속 챙기겠다고 강조했습니다. 이 대통령은 \"네팔 홍수 참사로 실종된 우리 ...",
+      "edition": "조간"
+    },
+    "cc49480a7090": {
+      "date": "2026-09-07",
+      "publisher": "글로벌이코노믹",
+      "seed_title": "새울 3호기, 재가동 이틀 만에 수동 정지…배관 누설 확인",
+      "link": "https://www.g-enews.com/article/Industry/2026/09/20260906185439915724debea800_1",
+      "title": "새울 3호기, 재가동 이틀 만에 수동 정지…배관 누설 확인",
+      "description": "",
+      "edition": ""
+    },
+    "f8b40c16caa6": {
+      "date": "2026-09-07",
+      "publisher": "글로벌이코노믹",
+      "seed_title": "우즈베크, 2.1GW 원전 현지화 30% 상향… 한국 공급망 합작 조건 직면",
+      "link": "https://www.g-enews.com/article/Global-Biz/2026/09/202609061754001561fbbec65dfb_1",
+      "title": "우즈베크, 2.1GW 원전 현지화 30% 상향… 한국 공급망 합작 조건 직면",
+      "description": "",
+      "edition": ""
+    },
+    "c9823b8b5a48": {
+      "date": "2026-09-07",
+      "publisher": "뉴스1",
+      "seed_title": "새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "link": "https://www.news1.kr/local/ulsan/6281492",
+      "title": "새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "description": "",
+      "edition": ""
+    },
+    "dcc2e3888ac0": {
+      "date": "2026-09-07",
+      "publisher": "뉴스쉐어",
+      "seed_title": "경주시장애인체육회, 장애인 선수 경기력 향상 ‘스포츠과학 교실’ 운영",
+      "link": "http://www.newsshare.co.kr/1989125",
+      "title": "경주시장애인체육회, 장애인 선수 경기력 향상 ‘스포츠과학 교실’ 운영",
+      "description": "",
+      "edition": ""
+    },
+    "bded2318da2a": {
+      "date": "2026-09-07",
+      "publisher": "대구신문",
+      "seed_title": "경주시 \"천년 역사 위 미래산업 더해 도시 브랜드 세계로 확장\"",
+      "link": "https://www.idaegu.co.kr/news/articleView.html?idxno=558760",
+      "title": "경주시 \"천년 역사 위 미래산업 더해 도시 브랜드 세계로 확장\"",
+      "description": "",
+      "edition": ""
+    },
+    "1ce04742c229": {
+      "date": "2026-09-07",
+      "publisher": "매일경제",
+      "seed_title": "마크롱 만나는 李대통령 … 원전·영화·우주 '전방위 밀착'",
+      "link": "https://www.mk.co.kr/article/12145627",
+      "title": "마크롱 만나는 李대통령 … 원전·영화·우주 '전방위 밀착'",
+      "description": "한불 수교 140주년 국빈방문 원전 공동수출 협력 방안 모색 이재명 대통령이 6일(현지시간) 프랑스 니스에... 에마뉘엘 마크롱 프랑스 대통령의 초청으로 이뤄진 이번 방문에서 인공지능(AI)·우주·원자력·바이오·문화...",
+      "edition": ""
+    },
+    "f7c94e9e8446": {
+      "date": "2026-09-07",
+      "publisher": "머니투데이",
+      "seed_title": "새울 원전 3호기, 재가동 이틀 만에 수동정지…\"방사선 영향 없어\"",
+      "link": "https://www.mt.co.kr/society/2026/09/06/2026090620073861861",
+      "title": "새울 원전 3호기, 재가동 이틀 만에 수동정지…\"방사선 영향 없어\"",
+      "description": "",
+      "edition": ""
+    },
+    "6e838a00ab7c": {
+      "date": "2026-09-07",
+      "publisher": "문화일보",
+      "seed_title": "새울 3호기 원자로 정지돼…“방사선 영향 없어”",
+      "link": "https://www.munhwa.com/article/11614857",
+      "title": "새울 3호기 원자로 정지돼…“방사선 영향 없어”",
+      "description": "",
+      "edition": ""
+    },
+    "5061db25bbdf": {
+      "date": "2026-09-07",
+      "publisher": "부산일보",
+      "seed_title": "새울 3호기 재가동 이틀 만에 배관 누설로 또 정지",
+      "link": "https://www.busan.com/view/busan/view.php?code=2026090618362666257",
+      "title": "새울 3호기 재가동 이틀 만에 배관 누설로 또 정지",
+      "description": "",
+      "edition": ""
+    },
+    "82ae43a7e405": {
+      "date": "2026-09-07",
+      "publisher": "새전북신문",
+      "seed_title": "한빛원전 고준위폐기물 저장시설 고창군 토론회",
+      "link": "https://www.sjbnews.com/news/news.php?number=886954",
+      "title": "한빛원전 고준위폐기물 저장시설 고창군 토론회",
+      "description": "",
+      "edition": ""
+    },
+    "fa35d1209ef8": {
+      "date": "2026-09-07",
+      "publisher": "서울경제",
+      "seed_title": "새울 3호기, 재가동 이틀 만에 다시 멈춰…배관 누설이 원인",
+      "link": "https://www.sedaily.com/article/20087734",
+      "title": "새울 3호기, 재가동 이틀 만에 다시 멈춰…배관 누설이 원인",
+      "description": "",
+      "edition": ""
+    },
+    "10272490193f": {
+      "date": "2026-09-07",
+      "publisher": "세계일보",
+      "seed_title": "‘공공 PPA 중개 플랫폼’ 출범… 업계 “특혜” 발끈",
+      "link": "https://www.segye.com/newsView/20260906508714?OutUrl=naver",
+      "title": "‘공공 PPA 중개 플랫폼’ 출범… 업계 “특혜” 발끈",
+      "description": "민간 PPA 중개업체들이 세금으로 공공기관 사업만 우대하는 불공정 특혜라며 집단 반발하고 있다. 인공지능(AI) 플랫폼 ‘세계온(SEGYE.On)’으로 생성 6일 기후에너지환경부에 따르면 지난달 말 한국에너지공단이...",
+      "edition": "조간"
+    },
+    "09cf9c48fed4": {
+      "date": "2026-09-07",
+      "publisher": "세계일보",
+      "seed_title": "새울3호기 재가동 이틀 만에 수동 정지…한수원 “원인 분석 중”",
+      "link": "https://www.segye.com:443/newsView/20260906509683",
+      "title": "새울3호기 재가동 이틀 만에 수동 정지…한수원 “원인 분석 중”",
+      "description": "",
+      "edition": ""
+    },
+    "1aa74bb5f948": {
+      "date": "2026-09-07",
+      "publisher": "세계일보",
+      "seed_title": "월성원전, 해병대 1사단과 방호 협력 강화",
+      "link": "https://www.segye.com/newsView/20260906508660?OutUrl=naver",
+      "title": "월성원전, 해병대 1사단과 방호 협력 강화",
+      "description": "점검하고 원전 방호를 위한 상호 협력 방안을 논의했다고 6일 밝혔다. 해병대 1사단장 일행은 이날 월성본부... 역량을 강화해야 한다는 데 뜻을 같이했다. 특히 유사시 신속하고 효과적인 공동 대응이 가능하도록...",
+      "edition": "조간"
+    },
+    "fadedbb20e23": {
+      "date": "2026-09-07",
+      "publisher": "세계일보",
+      "seed_title": "한울원전 6호기 방사능방재 전체훈련, 비상대응 역량 점검",
+      "link": "https://www.segye.com/newsView/20260906509635",
+      "title": "한울원전 6호기 방사능방재 전체훈련, 비상대응 역량 점검",
+      "description": "",
+      "edition": ""
+    },
+    "6e1147f890f7": {
+      "date": "2026-09-07",
+      "publisher": "수산인신문",
+      "seed_title": "경주지역 어업인들에게 구명조끼 410벌 전달",
+      "link": "http://www.isusanin.com/news/articleView.html?idxno=65586",
+      "title": "경주지역 어업인들에게 구명조끼 410벌 전달",
+      "description": "",
+      "edition": ""
+    },
+    "fd8024ae1162": {
+      "date": "2026-09-07",
+      "publisher": "아시아경제",
+      "seed_title": "새울3호기 시운전 중 배관 누설… 원자로 수동 정지",
+      "link": "https://www.asiae.co.kr/article/2026090619423852014",
+      "title": "새울3호기 시운전 중 배관 누설… 원자로 수동 정지",
+      "description": "",
+      "edition": ""
+    },
+    "e9dc2190b1a7": {
+      "date": "2026-09-07",
+      "publisher": "아이뉴스24",
+      "seed_title": "새울 3호기 시운전 중에 증기누설, 원자로 수동정지⋯안전 이상 없나",
+      "link": "https://www.inews24.com/view/2002440",
+      "title": "새울 3호기 시운전 중에 증기누설, 원자로 수동정지⋯안전 이상 없나",
+      "description": "",
+      "edition": ""
+    },
+    "2a7e7150d563": {
+      "date": "2026-09-07",
+      "publisher": "아주경제",
+      "seed_title": "새울원전 3호기, 재가동 이틀 만에 또 정지…증기 배관 누설",
+      "link": "https://www.ajunews.com/view/20260906190632421",
+      "title": "새울원전 3호기, 재가동 이틀 만에 또 정지…증기 배관 누설",
+      "description": "",
+      "edition": ""
+    },
+    "54742f192bb1": {
+      "date": "2026-09-07",
+      "publisher": "에너지데일리",
+      "seed_title": "[2026 국감] 원전 계속운전 심사, 사실상 '합격할 때까지 보완' 구조 아닌가",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=202908",
+      "title": "[2026 국감] 원전 계속운전 심사, 사실상 '합격할 때까지 보완' 구조 아닌가",
+      "description": "",
+      "edition": ""
+    },
+    "ff9effd17224": {
+      "date": "2026-09-07",
+      "publisher": "에너지데일리",
+      "seed_title": "새울 3호기, 시운전 중 원자로 '수동 정지'",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=202927",
+      "title": "새울 3호기, 시운전 중 원자로 '수동 정지'",
+      "description": "",
+      "edition": ""
+    },
+    "9b5956e717a1": {
+      "date": "2026-09-07",
+      "publisher": "에너지타임즈",
+      "seed_title": "이재명 대통령, 프랑스 국빈방문…AI·원자력 등 논의",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=70837",
+      "title": "이재명 대통령, 프랑스 국빈방문…AI·원자력 등 논의",
+      "description": "",
+      "edition": ""
+    },
+    "f2c40817d905": {
+      "date": "2026-09-07",
+      "publisher": "연합뉴스",
+      "seed_title": "새울 3호기 재가동 이틀 만에 수동정지 \"방사선 영향 없어\"",
+      "link": "https://www.yna.co.kr/view/AKR20260906041400057",
+      "title": "새울 3호기 재가동 이틀 만에 수동정지 \"방사선 영향 없어\"",
+      "description": "",
+      "edition": ""
+    },
+    "e2226f6a83ab": {
+      "date": "2026-09-07",
+      "publisher": "영광신문",
+      "seed_title": "“사용후핵연료 저장시설 군민소통 강화”",
+      "link": "http://www.ygnews.co.kr/news/articleView.html?idxno=319917",
+      "title": "“사용후핵연료 저장시설 군민소통 강화”",
+      "description": "",
+      "edition": ""
+    },
+    "6d4fd37db15d": {
+      "date": "2026-09-07",
+      "publisher": "영광신문",
+      "seed_title": "한빛 2호기도 수명만료 장기간 정지",
+      "link": "http://www.ygnews.co.kr/news/articleView.html?idxno=319918",
+      "title": "한빛 2호기도 수명만료 장기간 정지",
+      "description": "",
+      "edition": ""
+    },
+    "e3aa00a36bff": {
+      "date": "2026-09-07",
+      "publisher": "울산제일일보",
+      "seed_title": "울산 고대 역사의 장 '우시산국 축제'",
+      "link": "http://www.ujeil.com/news/articleView.html?idxno=391567",
+      "title": "울산 고대 역사의 장 '우시산국 축제'",
+      "description": "",
+      "edition": ""
+    },
+    "6b1739290d8e": {
+      "date": "2026-09-07",
+      "publisher": "이데일리",
+      "seed_title": "새울 원전 3호기 재가동 이틀 만에 수동 정지",
+      "link": "https://www.edaily.co.kr/news/read?newsId=02056566645577496&mediaCodeNo=257",
+      "title": "새울 원전 3호기 재가동 이틀 만에 수동 정지",
+      "description": "",
+      "edition": ""
+    },
+    "a589e22b58c7": {
+      "date": "2026-09-07",
+      "publisher": "재경일보",
+      "seed_title": "새울 3호기, 재가동 이틀 만 또 정지…상업 운전 ‘빨간불’?",
+      "link": "https://news.jkn.co.kr/post/977123",
+      "title": "새울 3호기, 재가동 이틀 만 또 정지…상업 운전 ‘빨간불’?",
+      "description": "",
+      "edition": ""
+    },
+    "c657dfbbfca4": {
+      "date": "2026-09-07",
+      "publisher": "전기신문",
+      "seed_title": "새울3호기, 시운전 중 배관 누설 확인...원자로 수동 정지",
+      "link": "https://www.electimes.com/news/articleView.html?idxno=372088",
+      "title": "새울3호기, 시운전 중 배관 누설 확인...원자로 수동 정지",
+      "description": "",
+      "edition": ""
+    },
+    "76e15a15cf92": {
+      "date": "2026-09-07",
+      "publisher": "조선비즈",
+      "seed_title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "link": "https://biz.chosun.com/science-chosun/science/2026/09/06/TPGOWXT5IBFDPJQV6CAKYJHJKU/",
+      "title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "description": "",
+      "edition": ""
+    },
+    "0f822a2e42dd": {
+      "date": "2026-09-07",
+      "publisher": "조선비즈",
+      "seed_title": "원전 추가 가동기간 논란… 기후부 “10→20년으로 늘려야” vs 원안위 “현행 유지”",
+      "link": "https://biz.chosun.com/policy/policy_sub/2026/09/07/5CCOQR6V2FEPFA5WTKWQCCC55Q/",
+      "title": "원전 추가 가동기간 논란… 기후부 “10→20년으로 늘려야” vs 원안위 “현행 유지”",
+      "description": "",
+      "edition": ""
+    },
+    "6dbaf0f0a98a": {
+      "date": "2026-09-07",
+      "publisher": "조선일보",
+      "seed_title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "link": "https://www.chosun.com/economy/science/2026/09/06/MY4DAZLEGM4DKZRSGE3DQN3CMU/",
+      "title": "새울 3호기 재가동 이틀 만에 또 정지…이번엔 배관 누설",
+      "description": "",
+      "edition": ""
+    },
+    "bb00348335a2": {
+      "date": "2026-09-07",
+      "publisher": "조선일보",
+      "seed_title": "친환경 에너지 저장하는 물 배터리, ‘양수발전’이 필요하다",
+      "link": "https://www.chosun.com/opinion/specialist_column/2026/09/06/FAXWBABDNRHNRIMI2UK5SRKGTA/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "title": "[기고] 친환경 에너지 저장하는 물 배터리, ‘양수발전’이 필요하다",
+      "description": "다행히 최근의 양수발전소는 아름다운 자연과 어우러진 친환경 관광 명소로 거듭나며 지역 경제에도 기여하고 있다. 풍요로운 햇빛과 바람을 온전히 우리의 에너지로 만들기 위해서 이 거대한 물 배터리는 선택이 아닌...",
+      "edition": "조간"
+    },
+    "001051114205": {
+      "date": "2026-09-07",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "韓·佛 '호르무즈 파병' 논의 주목… AI·원전협력 확대",
+      "link": "https://www.fnnews.com/news/202609061831141413",
+      "title": "韓·佛 '호르무즈 파병' 논의 주목… AI·원전협력 확대",
+      "description": "오찬과 확대 정상회담을 갖는다. 정상회담에선 호르무즈 사안 등을 비롯해 인공지능(AI)·우주·원자력·바이오 등 미래산업 분야에서는 공동 연구개발(R&D)과 기업 협력, 상호 시장 진출 방안을 모색한다. 특히 원전 분야...",
+      "edition": "조간"
+    },
+    "b1fae1710cae": {
+      "date": "2026-09-07",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "새울 3호기 또 정지.. 재시동 사흘 만에 배관에서 증기 누출",
+      "link": "https://www.fnnews.com/news/202609061938239991",
+      "title": "새울 3호기 또 정지.. 재시동 사흘 만에 배관에서 증기 누출",
+      "description": "",
+      "edition": ""
+    },
+    "439e7002f84f": {
+      "date": "2026-09-07",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "李대통령 '프랑스 도착' 국빈방문 일정 돌입…K콘텐츠부터 원전까지",
+      "link": "https://www.fnnews.com/news/202609041620423790",
+      "title": "李대통령 '프랑스 도착' 국빈방문 일정 돌입…K콘텐츠부터 원전까지",
+      "description": "",
+      "edition": ""
+    },
+    "498fdfc0801e": {
+      "date": "2026-09-07",
+      "publisher": "한국경제",
+      "seed_title": "\"해외근무수당은 포괄수당\"…대법원 판결 이끌어낸 화우",
+      "link": "https://www.hankyung.com/article/2026090668641",
+      "title": "\"해외근무수당은 포괄수당\"…대법원 판결 이끌어낸 화우",
+      "description": "",
+      "edition": ""
+    },
+    "c7e70a6a20d5": {
+      "date": "2026-09-07",
+      "publisher": "한국경제",
+      "seed_title": "“해외근무수당은 포괄수당” 대법원 판결 이끌어낸 화우",
+      "link": "https://www.hankyung.com/article/2026090668641",
+      "title": "\"해외근무수당은 포괄수당\"…대법원 판결 이끌어낸 화우",
+      "description": "기업이 해외 근무 수당은 시간외근무수당을 포함하는 포괄 수당이라는 점을 일관되게 명시했다면 시간외근무수당을 추가로 청구하는 것은 이중 산정이라는 대법원 판단이 나왔다. 사측을 대리한 법무법인 화우는 “사내...",
+      "edition": "조간"
+    },
+    "bd483fe0c6ef": {
+      "date": "2026-09-07",
+      "publisher": "한국경제",
+      "seed_title": "재생에너지 직접 구매…전력거래시장 확대",
+      "link": "https://www.hankyung.com/article/2026090668391",
+      "title": "재생에너지 직접 구매…전력거래시장 확대",
+      "description": "기업이 재생에너지 발전사업자에게 직접 전력을 공급받는 직접전력거래(PPA)가 확산하고 있다. 글로벌... 국내 수출기업들은 해외 시장에서 경쟁력을 유지하기 위해서라도 PPA를 통해 재생에너지를 확보해야 하는...",
+      "edition": "조간"
+    },
+    "8dc36211e3bf": {
+      "date": "2026-09-07",
+      "publisher": "한국일보",
+      "seed_title": "내달 상업운전 앞둔 새울 3호기, 재가동 이틀 만에 또 멈췄다",
+      "link": "https://www.hankookilbo.com/news/article/A2026090617470005576",
+      "title": "내달 상업운전 앞둔 새울 3호기, 재가동 이틀 만에 또 멈췄다",
+      "description": "",
+      "edition": ""
     }
   }
 }
