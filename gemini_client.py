@@ -54,11 +54,23 @@ def _resolve(key: str, default: str | None = None) -> str | None:
 API_KEY = _resolve("GEMINI_API_KEY")
 MODEL = _resolve("GEMINI_MODEL", "gemini-2.5-flash")
 
-# 발송 경로가 쿼터에 굶었을 때 물러설 모델. 무료 티어 한도는 **모델별 버킷**이라
+# 쿼터에 굶었을 때 물러설 모델(콤마 구분 체인). 무료 티어 한도는 **모델별 버킷**이라
 # (429 본문의 quotaId 가 `...PerModel-FreeTier`) 상시 파이프라인이 flash 를 다
 # 태운 날에도 다른 모델은 남아 있다. 실측 2026-08-22: flash 가 온종일 429 인
-# 동안 flash-lite 는 같은 키로 9회 성공했다.
-FALLBACK_MODEL = _resolve("GEMINI_FALLBACK_MODEL", "gemini-2.5-flash-lite")
+# 동안 flash-lite 는 같은 키로 9회 성공했다. 실측 2026-09-07: 이 키에서
+# 3.5-flash-lite·3.5-flash·3.6-flash 모두 200 — 기본 체인에 3.5-flash-lite 포함.
+# gemini-flash-latest 는 금지 — 2주 예고로 핫스왑되어 프리뷰 빌드의 더 빡빡한
+# 한도에 떨어질 수 있다.
+def _parse_fallback_models(raw: str | None) -> tuple[str, ...]:
+    """콤마 구분 모델 목록 → 중복·빈값 제거한 순서 보존 튜플."""
+    return tuple(dict.fromkeys(m.strip() for m in (raw or "").split(",") if m.strip()))
+
+
+FALLBACK_MODELS = _parse_fallback_models(_resolve(
+    "GEMINI_FALLBACK_MODEL", "gemini-2.5-flash-lite,gemini-3.5-flash-lite"))
+# 단수 이름은 명시 폴백 호출자(dedup·synthesize·daily_brief·report_draft)의 기존
+# 계약 — 체인 첫 모델이 그 역할을 잇는다.
+FALLBACK_MODEL = FALLBACK_MODELS[0] if FALLBACK_MODELS else None
 
 # Gemini REST 엔드포인트 — SDK 안 쓰고 stdlib urllib만 사용 (의존성 0)
 _ENDPOINT = (
@@ -359,11 +371,13 @@ def call_json(
     # 크롤과 같은 flash 버킷을 쓴 탓에 저녁이면 늘 굶는다.
     if fallback_model and fallback_model != (model or MODEL):
         try:
+            # model 을 명시해 재귀한다 — 여기서 None 으로 두면 아래 기본 경로
+            # 체인에 재진입해, 호출자가 고른 1단계 폴백이 다단 체인으로 변한다.
             return call_json(
                 system_prompt, user_message, temperature=temperature,
                 max_output_tokens=max_output_tokens, timeout=timeout,
                 retries=retries, thinking_budget=thinking_budget,
-                model=model, fallback_model=None, label=label)
+                model=model or MODEL, fallback_model=None, label=label)
         except GeminiTruncated:
             # 잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 입력을 줄이라는 신호다.
             raise
@@ -378,6 +392,37 @@ def call_json(
                 retries=retries, thinking_budget=thinking_budget,
                 model=fallback_model, fallback_model=None,
                 label=f"{label}:fallback")
+
+    # 기본 경로(모델·폴백 둘 다 미지정)는 FALLBACK_MODELS 체인을 자동 적용한다.
+    # 최대 소비자인 크롤 큐레이션이 지금까지 폴백 없이 단일 모델로 돌았고, 큐레이션이
+    # 429 로 유실된 기사는 라벨이 없어 이슈·헤드라인 후보가 못 된다(라이브 실측
+    # 2026-09-07: 미큐레이션 잔량 658건). model 을 명시한 호출은 체인을 타지 않는다
+    # — issue_review·audio_brief 는 자체 사다리가 있고, 판정 모델이 바뀌면 이슈
+    # 병합 캐시가 흔들린다.
+    if model is None and fallback_model is None:
+        chain = [MODEL] + [m for m in FALLBACK_MODELS if m != MODEL]
+        if len(chain) > 1:
+            primary_err: GeminiError | None = None
+            for step, chain_model in enumerate(chain):
+                try:
+                    return call_json(
+                        system_prompt, user_message, temperature=temperature,
+                        max_output_tokens=max_output_tokens, timeout=timeout,
+                        retries=retries, thinking_budget=thinking_budget,
+                        model=chain_model, fallback_model=None,
+                        label=label if step == 0 else f"{label}:fallback")
+                except GeminiTruncated:
+                    # 잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 체인 금지.
+                    raise
+                except GeminiError as e:
+                    if "HTTP 429" not in str(e):
+                        raise
+                    # 진단은 주모델 예외가 낫다 — quotaId 가 담긴 첫 429 를 보존.
+                    primary_err = primary_err or e
+                    if step + 1 < len(chain):
+                        print(f"[gemini] {chain_model} 쿼터 소진 → "
+                              f"{chain[step + 1]} 로 체인 폴백 ({label})")
+            raise primary_err
 
     generation_config: dict = {
         "temperature": temperature,

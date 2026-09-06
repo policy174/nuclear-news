@@ -63,6 +63,12 @@ class TestDailyQuotaIsNotRetried(unittest.TestCase):
         # 여기의 재시도가 예산 소진으로 조기 중단돼 계약이 아니라 순서를 잰다.
         gc.reset_retry_budget()
         self.addCleanup(gc.reset_retry_budget)
+        # 이 클래스의 계약은 '같은 모델에서 재시도하지 않는다'다 — 기본 경로의
+        # 모델 체인(TestDefaultChain 이 잰다)이 호출 수를 늘리면 그 계약이 아니라
+        # 체인을 재게 되므로 끈다.
+        chain_off = patch.object(gc, "FALLBACK_MODELS", ())
+        chain_off.start()
+        self.addCleanup(chain_off.stop)
 
     def _run(self, body):
         calls = {"n": 0, "slept": []}
@@ -200,6 +206,10 @@ class TestRetrySleepBudget(unittest.TestCase):
         gc.reset_retry_budget()
         self.addCleanup(setattr, gc, "RETRY_SLEEP_BUDGET_SEC", self._orig)
         self.addCleanup(gc.reset_retry_budget)
+        # 호출 수 어서션이 기본 경로 모델 체인의 추가 호출을 세지 않게 끈다.
+        chain_off = patch.object(gc, "FALLBACK_MODELS", ())
+        chain_off.start()
+        self.addCleanup(chain_off.stop)
 
     def _call_with_429(self, retries=5):
         def fake_urlopen(*a, **kw):
@@ -303,6 +313,118 @@ class TestQuotaFallbackModel(unittest.TestCase):
             self.assertEqual(src.count("call_json("),
                              src.count("fallback_model=FALLBACK_MODEL"),
                              f"{name}: call_json 중 폴백을 안 쓰는 호출이 있다")
+
+
+class TestDefaultChain(unittest.TestCase):
+    """기본 경로(모델·폴백 둘 다 미지정)는 FALLBACK_MODELS 체인을 자동으로 탄다.
+
+    크롤 큐레이션 — 최대 소비자 — 이 폴백 없이 단일 모델로 돌아, 429 로 유실된
+    기사가 아카이브에 라벨 없이 쌓였다(라이브 실측 2026-09-07: 미큐레이션 658건).
+    라벨이 없으면 이슈·헤드라인 후보가 못 된다.
+    """
+
+    def setUp(self):
+        gc.reset_retry_budget()
+        self.addCleanup(gc.reset_retry_budget)
+        # 페이서 간격 대기(4초)는 이 클래스의 검사 대상이 아니다 — 끄고 잰다.
+        for target, value in (("FALLBACK_MODELS", ("gemini-2.5-flash-lite",)),
+                              ("MODEL", "gemini-2.5-flash"),
+                              ("API_KEY", "test-key"),
+                              ("GEMINI_MIN_INTERVAL_SEC", 0)):
+            p = patch.object(gc, target, value)
+            p.start()
+            self.addCleanup(p.stop)
+
+    def _urlopen(self, seen, fail_models, body=MINUTE_BODY):
+        def fake(req, *a, **kw):
+            model = req.full_url.split("/models/")[1].split(":")[0]
+            seen.append(model)
+            if model in fail_models:
+                raise urllib.error.HTTPError("u", 429, "Too Many", {},
+                                             BytesIO(body.encode("utf-8")))
+            return _ok_response()
+        return fake
+
+    def test_default_path_chains_on_429(self):
+        seen = []
+        with patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash"})), \
+             patch.object(gc.time, "sleep", lambda s: None):
+            out = gc.call_json("system", "user", retries=0)
+        self.assertEqual({"ok": 1}, out)
+        self.assertEqual(["gemini-2.5-flash", "gemini-2.5-flash-lite"], seen)
+
+    def test_explicit_model_disables_the_chain(self):
+        """model 명시 호출(issue_review·audio_brief 자체 사다리)은 체인 금지 —
+        판정 모델이 바뀌면 이슈 병합 캐시가 흔들린다."""
+        seen = []
+        with patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash",
+                                               "gemini-2.5-flash-lite"})), \
+             patch.object(gc.time, "sleep", lambda s: None):
+            with self.assertRaises(gc.GeminiError):
+                gc.call_json("system", "user", retries=0,
+                             model="gemini-2.5-flash")
+        self.assertEqual(["gemini-2.5-flash"], seen)
+
+    def test_daily_429_jumps_to_next_model_without_sleeping(self):
+        seen, slept = [], []
+        with patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash"},
+                                        body=DAILY_BODY)), \
+             patch.object(gc.time, "sleep", slept.append):
+            out = gc.call_json("system", "user", retries=3)
+        self.assertEqual({"ok": 1}, out)
+        self.assertEqual(["gemini-2.5-flash", "gemini-2.5-flash-lite"], seen)
+        self.assertEqual([], slept, "일일 한도는 자지 않고 즉시 다음 모델로 가야 한다")
+
+    def test_chain_exhausted_raises_the_primary_error(self):
+        """체인이 다 죽으면 주모델의 429 를 올린다 — quotaId 가 담긴 첫 예외가
+        진단에 낫고, classify_request_failure 의 'HTTP 429' 매칭도 그대로 산다."""
+        seen = []
+        with patch.object(gc.urllib.request, "urlopen",
+                          self._urlopen(seen, {"gemini-2.5-flash",
+                                               "gemini-2.5-flash-lite"},
+                                        body=DAILY_BODY)), \
+             patch.object(gc.time, "sleep", lambda s: None):
+            with self.assertRaises(gc.GeminiError) as ctx:
+                gc.call_json("system", "user", retries=0)
+        self.assertEqual(2, len(seen))
+        self.assertIn("HTTP 429", str(ctx.exception))
+        self.assertIn("quotaId", str(ctx.exception))
+
+    def test_non_quota_error_does_not_chain(self):
+        seen = []
+
+        def fake(req, *a, **kw):
+            seen.append(req.full_url.split("/models/")[1].split(":")[0])
+            raise urllib.error.HTTPError("u", 400, "Bad Request", {},
+                                         BytesIO(b'{"error":{"code":400}}'))
+
+        with patch.object(gc.urllib.request, "urlopen", fake), \
+             patch.object(gc.time, "sleep", lambda s: None):
+            with self.assertRaises(gc.GeminiError):
+                gc.call_json("system", "user", retries=0)
+        self.assertEqual(1, len(seen), "쿼터가 아닌데 다른 모델까지 태웠다")
+
+    def test_truncation_does_not_chain(self):
+        """잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 입력을 줄이라는 신호다."""
+        seen = []
+
+        def fake(req, *a, **kw):
+            seen.append(req.full_url.split("/models/")[1].split(":")[0])
+            return _payload_response({"candidates": [{"finishReason": "MAX_TOKENS",
+                                                      "content": {}}]})
+
+        with patch.object(gc.urllib.request, "urlopen", fake):
+            with self.assertRaises(gc.GeminiTruncated):
+                gc.call_json("system", "user", retries=0)
+        self.assertEqual(1, len(seen))
+
+    def test_env_list_parsing(self):
+        self.assertEqual(("a", "b"), gc._parse_fallback_models("a, b,,a"))
+        self.assertEqual((), gc._parse_fallback_models(None))
+        self.assertEqual((), gc._parse_fallback_models(" , "))
 
 
 class _Resp:
