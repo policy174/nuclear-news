@@ -221,5 +221,47 @@ class LedgerTests(unittest.TestCase):
         self.assertIn(key, state["scrap_history"])
 
 
+class GhApiRetryTest(unittest.TestCase):
+    """push 도구 gh_api 의 일시 네트워크 오류 재시도(0d16763) 가드.
+
+    2026-09-05 실측: api.github.com 연결 실패 1방에 push 전체가 죽어
+    9-04 조간 시드가 9-06 09:30 커밋까지 밀렸다(웹 스크랩 탭 이틀 공백).
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+        import scrap_seed_push
+        cls.ssp = scrap_seed_push
+
+    @staticmethod
+    def _result(code, stderr="", stdout="{}"):
+        return mock.Mock(returncode=code, stderr=stderr, stdout=stdout)
+
+    def test_transient_failure_retries_then_succeeds(self):
+        seq = [self._result(1, "error connecting to api.github.com"),
+               self._result(0, "", '{"ok": 1}')]
+        with mock.patch.object(self.ssp.subprocess, "run", side_effect=seq) as run, \
+             mock.patch.object(self.ssp.time, "sleep") as slept:
+            out = self.ssp.gh_api("tok", "GET", "repos/r/contents/f")
+        self.assertEqual(out, {"ok": 1})
+        self.assertEqual(run.call_count, 2)
+        slept.assert_called_once()
+
+    def test_persistent_failure_still_fatal(self):
+        seq = [self._result(1, "error connecting to api.github.com")] * 3
+        with mock.patch.object(self.ssp.subprocess, "run", side_effect=seq), \
+             mock.patch.object(self.ssp.time, "sleep"):
+            with self.assertRaises(SystemExit):
+                self.ssp.gh_api("tok", "GET", "repos/r/contents/f")
+
+    def test_404_returns_without_retry(self):
+        seq = [self._result(1, "HTTP 404: Not Found", "")]
+        with mock.patch.object(self.ssp.subprocess, "run", side_effect=seq) as run:
+            out = self.ssp.gh_api("tok", "GET", "repos/r/contents/nope")
+        self.assertEqual(out, {})
+        self.assertEqual(run.call_count, 1)
+
+
 if __name__ == "__main__":
     unittest.main()
