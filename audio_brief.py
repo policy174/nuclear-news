@@ -1064,6 +1064,18 @@ def generate(force: bool = False, send: bool = True) -> bool:
                 _mark_sent(existing)
         else:
             print(f"[audio] {date} 이미 생성·발송됨 ({file_name}) — 스킵")
+        # fast 만 죽은 날의 회수 — expert 는 완본인데 TTS 503 소나기가 fast
+        # 차례에 쏟아지면 '선택 산출물' 강등으로 fast 가 빠진다(실사고
+        # 2026-09-06: expert 완료 후 fast 청크 0/2 에서 데드라인). 같은 날
+        # 재실행이 여기 조기 종료에 걸려 회수 기회가 없었다. 대본은 디스크에
+        # 있으므로(script-{date}.txt, TTS 전에 저장하는 계약) fast 만 다시
+        # 시도한다 — expert·발송은 건드리지 않고, 실패해도 비치명 그대로.
+        if not existing.get("partial") and "fast" not in (existing.get("variants") or {}):
+            script_path = AUDIO_DIR / f"script-{date}.txt"
+            if script_path.exists():
+                print(f"[audio] {date} fast 부재 — 회수 시도")
+                generate_fast_variant(script_path.read_text(encoding="utf-8"),
+                                      briefing, existing, run_started_at)
         return True
 
     try:

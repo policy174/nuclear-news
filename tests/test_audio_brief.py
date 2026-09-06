@@ -902,6 +902,42 @@ class AudioBriefTestCase(unittest.TestCase):
         self.assertEqual(meta["partial_reason"], "daily_quota")
         self.assertFalse(meta["retryable"])
 
+    def test_generate_rerun_recovers_missing_fast(self):
+        """expert 완본인데 fast 만 죽은 날(TTS 503, 실사고 2026-09-06) —
+        같은 날 재실행이 fast 만 다시 만든다. expert·발송은 안 건드린다."""
+        self.write_data()
+        # 응답 2개 = expert 대본까지만 — fast 의 condense 는 응답 고갈로
+        # 죽는다. 실사고(expert 완료 후 fast 실패)와 같은 착지 상태.
+        self.responses = script_responses()
+        self.assertTrue(audio_brief.generate())
+        meta_path = audio_brief.AUDIO_DIR / "audio.json"
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        self.assertNotIn("fast", meta["variants"])
+        date = meta["date"]
+        sent_before = len(self.sent)
+        # 재실행 — 이번엔 condense 응답을 준다(503 소나기가 지나간 상황).
+        self.responses = [{"paragraphs": ["오늘의 핵심입니다. " * 40]}]
+        self.assertTrue(audio_brief.generate())         # 재실행 = 회수
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        self.assertIn("fast", meta["variants"])
+        self.assertTrue((audio_brief.AUDIO_DIR / f"briefing-{date}-fast.mp3").exists())
+        self.assertEqual(len(self.sent), sent_before)   # 재발송 없음
+
+    def test_generate_rerun_does_not_upgrade_partial(self):
+        """부분본은 쿼터가 빠듯했다는 뜻 — fast 회수는 완본에서만."""
+        self.write_data()
+        self.responses = script_responses()
+        original = audio_brief.synthesize
+        self.addCleanup(setattr, audio_brief, "synthesize", original)
+        audio_brief.synthesize = lambda script, deadline=None: (
+            b"\x00" * 48000, 24000, 2, 6, "rate_limit")
+        self.assertTrue(audio_brief.generate())         # partial 생성
+        audio_brief.synthesize = original
+        self.assertTrue(audio_brief.generate())         # 재실행
+        meta = json.loads((audio_brief.AUDIO_DIR / "audio.json")
+                          .read_text(encoding="utf-8"))
+        self.assertNotIn("fast", meta.get("variants", {}))
+
     def test_generate_writes_script_before_tts(self):
         """대본 전문은 TTS 실패와 무관하게 남는다 — 부분 오디오의 나머지를
         텍스트가 보완한다."""
