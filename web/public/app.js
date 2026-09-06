@@ -1819,6 +1819,15 @@ function updateAudioToggle(playing) {
   button.textContent = playing ? "⏸ 일시정지" : `▶ ${label} 듣기`;
 }
 
+// 시크바 상태 두 조각.
+// audioSeekHeld — 손이 바를 잡고 있는 동안 timeupdate 가 손 위치를 덮지 않게.
+//   예전 가드는 document.activeElement 기준이었는데, range 는 포인터를 떼도
+//   포커스를 쥐고 있어 시크 한 번 뒤 진행바가 영구히 멈췄다.
+// audioPendingSeek — preload="none" 이라 메타데이터가 없을 때 currentTime 대입은
+//   조용히 무시된다. 목표를 여기 쥐고 있다가 메타데이터가 오면 적용한다.
+let audioSeekHeld = false;
+let audioPendingSeek = null;
+
 function renderAudioBrief(briefing) {
   const box = document.getElementById("audioBrief");
   if (!box) return;
@@ -1853,6 +1862,9 @@ function renderAudioBrief(briefing) {
     const seek = document.getElementById("audioSeek");
     seek.max = String(Math.ceil(variant.duration_sec || 0));
     seek.value = "0";
+    // 다른 음원으로 갈아탄다 — 이전 음원을 향하던 드래그·대기 시크는 무효다.
+    audioSeekHeld = false;
+    audioPendingSeek = null;
   }
   const desc = document.getElementById("audioDescription");
   if (desc) desc.textContent = variant.description || (state.audioMode === "expert"
@@ -4709,20 +4721,52 @@ function bind() {
   briefAudio.addEventListener("pause", () => updateAudioToggle(false));
   briefAudio.addEventListener("ended", () => updateAudioToggle(false));
   const audioSeek = document.getElementById("audioSeek");
+  // preload="none" 은 데이터 요금을 아끼는 선택인데, 그 대가로 재생 전에는
+  // duration 이 없어 currentTime 대입이 조용히 무시된다. 바에는 메타 추정치
+  // max 가 이미 있어 핸들은 움직이므로, 첫 드래그가 사라지는 모양이 된다.
+  // 첫 상호작용에서만 메타데이터를 당겨 온다.
+  const ensureAudioMetadata = () => {
+    if (briefAudio.readyState === 0 && briefAudio.dataset.src) {
+      briefAudio.preload = "metadata";
+      briefAudio.load();
+    }
+  };
+  const audioMetaReady = () =>
+    Number.isFinite(briefAudio.duration) && briefAudio.duration > 0;
+  const replayPendingSeek = () => {
+    if (audioPendingSeek !== null && audioMetaReady()) {
+      briefAudio.currentTime = audioPendingSeek;
+      audioPendingSeek = null;
+    }
+  };
   // 브라우저가 실측한 길이가 메타 추정치보다 정확하다 — 로드되면 갈아끼운다.
   briefAudio.addEventListener("loadedmetadata", () => {
-    if (Number.isFinite(briefAudio.duration) && briefAudio.duration > 0) {
-      audioSeek.max = String(Math.ceil(briefAudio.duration));
-    }
+    if (audioMetaReady()) audioSeek.max = String(Math.ceil(briefAudio.duration));
+    replayPendingSeek();
   });
+  briefAudio.addEventListener("durationchange", replayPendingSeek);
+  briefAudio.addEventListener("canplay", replayPendingSeek);
+  // input = 드래그 중(잡음), change = 손을 뗀 순간(확정). 매 프레임 시크하면
+  // 디코더가 따라오느라 더듬거린다 — 확정에서만 실제로 옮긴다.
   audioSeek.addEventListener("input", () => {
-    briefAudio.currentTime = Number(audioSeek.value);
+    audioSeekHeld = true;
+    ensureAudioMetadata();
+  });
+  audioSeek.addEventListener("change", () => {
+    audioSeekHeld = false;
+    const target = Number(audioSeek.value);
+    if (audioMetaReady()) {
+      briefAudio.currentTime = target;
+    } else {
+      audioPendingSeek = target;
+      ensureAudioMetadata();
+    }
   });
   briefAudio.addEventListener("timeupdate", () => {
     const total = Number.isFinite(briefAudio.duration) && briefAudio.duration > 0
       ? briefAudio.duration : activeAudioVariant()?.duration_sec;
-    // 드래그 중(포커스가 바에 있는 동안)에는 손 위치를 덮어쓰지 않는다
-    if (document.activeElement !== audioSeek) {
+    // 드래그 중에는 손 위치를 덮어쓰지 않는다
+    if (!audioSeekHeld) {
       audioSeek.value = String(Math.floor(briefAudio.currentTime));
     }
     document.getElementById("audioTime").textContent =
