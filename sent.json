@@ -2643,14 +2643,27 @@
     "f63df812ac4b75a2": "2026-09-05T22:35:27.678658+00:00",
     "ec0dc45414006a11": "2026-09-05T22:35:27.678658+00:00",
     "e5c2887b8f9d5ba9": "2026-09-05T22:35:27.678658+00:00",
-    "823a27d979d3925e": "2026-09-05T22:35:27.678658+00:00"
+    "823a27d979d3925e": "2026-09-05T22:35:27.678658+00:00",
+    "32a2975321147a52": "2026-09-06T00:30:37.605598+00:00",
+    "b51033df22b96cb1": "2026-09-06T00:30:37.605598+00:00",
+    "dda0944b3400d244": "2026-09-06T00:30:37.605598+00:00",
+    "83ca4403bece8a68": "2026-09-06T00:30:37.605598+00:00",
+    "799e8ac46065f600": "2026-09-06T00:30:37.605598+00:00",
+    "fdbf075340089528": "2026-09-06T00:30:37.605598+00:00",
+    "6b49d66178129525": "2026-09-06T00:30:37.605598+00:00",
+    "2563c0ef389b93a5": "2026-09-06T00:30:37.605598+00:00",
+    "747e5578c315b3cb": "2026-09-06T00:30:37.605598+00:00",
+    "186a82aaa89d9f9f": "2026-09-06T00:30:37.605598+00:00",
+    "d92f4114eb659cbc": "2026-09-06T00:30:37.605598+00:00",
+    "a596fb19bd15fc3a": "2026-09-06T00:30:37.605598+00:00",
+    "5fb2544bfed68c7d": "2026-09-06T00:30:37.605598+00:00"
   },
   "source_yield": {
-    "at": "2026-09-05T22:37:36+00:00",
+    "at": "2026-09-06T00:32:50+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 43,
@@ -2658,29 +2671,26 @@
       "NucNet": 15,
       "SFEN": 10,
       "DOE": 10,
-      "Reuters 원자력": 23,
-      "La Tribune 원자력": 45,
+      "Reuters 원자력": 5,
+      "La Tribune 원자력": 43,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 5,
       "Les Échos 원자력": 6,
       "E&E News 원자력": 0,
-      "Nuclear Engineering International": 14,
-      "Euractiv 원자력": 15,
+      "Nuclear Engineering International": 12,
+      "Euractiv 원자력": 14,
       "국내 원자력 보도": 5
     },
     "kept": {
-      "Reuters 원자력": 22,
-      "La Tribune 원자력": 19,
+      "Reuters 원자력": 5,
+      "La Tribune 원자력": 15,
       "Le Monde 에너지": 1,
       "FT 원자력": 1,
       "Les Échos 원자력": 1,
       "국내 원자력 보도": 2
     },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   },
   "scrap_seeds": {
     "381b7c589e14": {
@@ -4752,6 +4762,294 @@
       "link": "https://biz.heraldcorp.com/article/10861586?ref=naver",
       "title": "장세일 영광군수, 민형배 시장에 반도체 구상 제안",
       "description": ""
+    },
+    "86536a2b0722": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.hidomin.com/pdf/php/check.php?category=&y=2026&m=09&d=04&page=4&hosu=0",
+      "title": "붕산수 누출 쉬쉬 … 원전 은폐 관행에 안전망 위협",
+      "description": "한수원과 규제기관의 불 투명한 정보 공개 관행을 더 이상 방치 할 수 없다는 비판과 함께 지자체 차원... com 붕산수 누출 쉬쉬 … 원전 은폐 관행에 안전망 위협 2027년7월부터전체의무복무병사 를 대상으로 한..."
+    },
+    "2368526eaf29": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBVVEI2VUpVdC1BNGx2dVBUN3pGV0Q5YTdwUUdOUC1yM1Frb3lZeUFERDYxcWZuQ2VnOGFNYVdOSEVseWxwZmJfZk1wVU9MajFQd19hQkpINy1OVUIzRlJLYzkzU09iME9WVnc?oc=5",
+      "title": "울진경찰·유관기관, 추석맞이 교통안전 캠페인",
+      "description": "울진경찰·유관기관, 추석맞이 교통안전 캠페인  hidomin.com"
+    },
+    "45350b2007ea": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "56fdc421a8ca": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "eace04654241": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "66ea66796a12": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "23ec894d18d5": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "924635a35778": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "http://www.newsian.co.kr/news/articleView.html?idxno=94736",
+      "title": "기보·한수원, AI 활용 감사체계 고도화…내부통제 힘 모은다",
+      "description": "유철근 기보 상임감사(왼쪽)와 강민구 한수원 상임감사위원이 기념촬영을 하고 있다. [사진=기술보증기금]... 양 기관은 이번 협약을 계기로 AI 기반 감사체계를 고도화해 감사업무의 효율성과 전문성을 높이고, 감사절차..."
+    },
+    "1f83904a665e": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202609032127015",
+      "title": "‘민영화로 경쟁’ 무산…재생에너지 전환 ‘규모의 경제’ 기대",
+      "description": "취지였던 경쟁과 민영화는 사실상 효과를 보지 못한 반면 발전산업의 중심축이 재생에너지로 전환하는 구조적 변화에 대응하기 위해서는 ‘규모의 경제’가 필요하다는 판단 때문이다. 다만 기계적 통합 수준을 넘는..."
+    },
+    "bfb8991c9c75": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "57399d03069e": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008953&cp=nv",
+      "title": "해킹 AI 맞설 독자 모델 만든다… 네이버 컨소시엄, 사업자로 선정",
+      "description": "개발 사업자로 선정됐다. 33개 기업·기관으로 구성된 네이버클라우드 컨소시엄은 방어와 공격에 특화된 7000억개 매개변수급 AI 모델 2종을 동시에 개발해 독자적인 사이버 보안 역량을 확보할 계획이다...."
+    },
+    "1e584035c177": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.naeil.com/news/read/601147?ref=naver",
+      "title": "원전 시공기술로 세계 교두보 확보",
+      "description": "삼성물산과 현대건설이 설계·시공 중심 원전기술로 북미권과 유럽에서 사업영역을 확장하고 있다.... 개발에 착수하는 한편 이를 유럽 SMR 시장 확대의 교두보로 삼아 해외 시장으로 사업을 확대할 것”이라고 밝혔다."
+    },
+    "0c1615ace365": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.yna.co.kr/view/AKR20260903109800009",
+      "title": "대만, '탈원전' 뒤집고 상업운전 끝난 원전3호기 2028년 재가동",
+      "description": "김철문 통신원 = 미국과 일본 등이 원전 재가동에 나선 가운데 '탈원전'을 추진해온 대만이 상업운전이 끝난 원전 3호기를 ..."
+    },
+    "b5845c159de3": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.kfenews.co.kr/news/articleView.html?idxno=663775",
+      "title": "기보·한수원, AI 기반 감사혁신 맞손",
+      "description": "사진=기술보증기금 기보는 지난 2일 경북 경주 한국수력원자력 본사에서 한수원과 'AI 기반 감사 혁신 및 인권친화적 감사 강화를 위한 업무협약(MOU)'을 체결했다고 3일 밝혔다. 이번 협약은 양 기관이 보유한 감사 역량과..."
+    },
+    "c8f5fad402a0": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "41a37d0e3a6a": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.idaegu.co.kr/news/articleView.html?idxno=558603",
+      "title": "영덕군의회, 고리·새울원전 찾아 안전성 점검",
+      "description": "영덕군의회는 지난달 31일 부산 기장군 고리원자력본부와 울산 울주군 새울원자력본부를 방문해 신규 원전의 안전성과 지역 상생 발전 사례를 점검했다. 이번 방문은 영덕군이 신규 대형원전 건설 예정지로 확정된 데..."
+    },
+    "eeb47d70d975": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.dt.co.kr/article/12081973?ref=naver",
+      "title": "네이버클라우드, 韓 사이버보안 특화모델 개발 나선다",
+      "description": "네이버클라우드가 사이버 보안에 특화된 파운데이션 모델 개발에 착수한다. 과학기술정보통신부는 3일 사이버 보안 특화 AI 파운데이션 모델 개발 사업자로 네이버클라우드 컨소시엄이 선정됐다고 밝혔다. 정부는..."
+    },
+    "0a6eeb2b9c92": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12143749",
+      "title": "직원 1.4만명 '공룡 발전公' 탄생 … 재생에너지 발전 총력전",
+      "description": "한국발전공사(가칭)로 통합된다. 단일 법인이 출범하면 직원 1만4000명이 넘고, 연매출 30조원에 달하는 '공룡 에너지 공기업'이 탄생할 전망이다. 정부는 내부 경쟁을 멈추고 흩어진 투자 여력을 한데 모아 재생에너지..."
+    },
+    "8b433d996119": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.segye.com/newsView/20260903515074?OutUrl=naver",
+      "title": "네이버클라우드, ‘한국형 보안 AI모델’ 개발",
+      "description": "기업·대학 32곳 참여 컨소시엄 정부 사업 최종 수행기관 선정 반도체·방위 분야 등 활용 방침 네이버클라우드가 국가 사이버보안 특화 인공지능(AI) 모델 개발 사업자로 선정됐다. AI를 활용해 고도화하는 사이버..."
+    },
+    "622d5ccd953c": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBlUTZGVkxGblZpX3NjWjB3aFIxdVdTVXpnbF9VV0ZmZ2RiLUxzcXlVU0RiNWlZcC1ubFFZRk1ibFNacy00WDVGejhuanRSbF9VVHlzLWY3Z0FxRVc0bTNqNmN3?oc=5",
+      "title": "`맥스터 지원금` 사용 놓고 경주 감포읍 주민간 갈등 심화",
+      "description": "`맥스터 지원금` 사용 놓고 경주 감포읍 주민간 갈등 심화  매일신문"
+    },
+    "f762ed043ccc": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.epnc.co.kr/news/articleView.html?idxno=406165",
+      "title": "네이버클라우드-LG CNS, ‘보안 특화 AI’ 개발…33개 산학연 뭉쳤다",
+      "description": "네이버클라우드와 LG CNS가 AI 모델과 인프라, 보안, 데이터를 아우르는 자체 기술을 기반으로 국내 사이버보안 환경에 특화된 AI 파운데이션 모델 개발에 나선다. 네이버클라우드는 LG CNS와 컨소시엄을 구성해 과학기술정...."
+    },
+    "2c45f4fe5a2f": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.munhwa.com/article/11614586?ref=naver",
+      "title": "대만도 脫 ‘탈원전’",
+      "description": "미국과 일본 등이 원전 재가동에 나선 데 이어 대만도 기존의 탈원전 원칙을 뒤집은 것이다. 인공지능(AI)과 반도체 산업의 폭발적인 성장으로 전력 수요가 급증하고 중국의 대만 봉쇄 위협 속 에너지 안보 우려가 커진..."
+    },
+    "e3a2afc5e773": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.munhwa.com/article/11614578?ref=naver",
+      "title": "민영화 근본책 없는 공공기관 개혁안[포럼]",
+      "description": "내용의 공공기관 개혁안을 발표했다. 이 개혁안은 공공기관의 20%를 통폐합하는 대규모로 공공부문을... 기관을 통합하는 개혁은 바람직한 방향이다. 더 전향적으로 민간 영역으로 전환이 가능한 서비스는 민영화하고..."
+    },
+    "ad135daf9a8b": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.munhwa.com/article/11614589",
+      "title": "전기료 ‘N년치 선납’은 反기업 꼼수[포럼]",
+      "description": "전기 요금 선납제를 추진 중이라고 한다. 2027년부터 5년치로... 삼전닉스 노조는 영업이익의 N%를 성과급으로 요구했다. 하지만... 삼전닉스가 전기료 25조 원을 선불하면 그만큼 한전이 시장 대신 기업으로부터..."
+    },
+    "78a3ddea12a7": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20086969?ref=naver",
+      "title": "AI 입힌 원전 정비기술, UAE에 첫 수출",
+      "description": "설립 5년 차 스타트업이 인공지능(AI)을 전면 활용한 원자력 발전소 정비 작업을 아랍에미리트(UAE) 바라카 원전에서 수행했다. 국내 기업이 해외 원전에 AI 정비 기술 용역을 수출한 첫 사례다. 원전 업계에서는 바라카..."
+    },
+    "bbaffc7a9a33": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20086743?ref=naver",
+      "title": "네이버클라우드 컨소시엄, ‘국가 보안 AI’ 만든다",
+      "description": "지원해 국가 차원의 보안 AI 선순환 생태계를 구축해 나간다는 방침이다. 김유원 네이버클라우드 대표는 “이번 사업 수주는 네이버클라우드 컨소시엄이 보유한 대규모 AI 인프라와 데이터, 보안 전문 역량을..."
+    },
+    "6a308cdbadce": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "ebd48fa8a6b1": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.businessplus.kr/news/articleView.html?idxno=116335",
+      "title": "한국수력원자력·기술보증기금, AI 기반 감사 혁신 협력…인권친화 감사...",
+      "description": "한국수력원자력(한수원)이 기술보증기금과 인공지능(AI) 기반 감사 혁신 및 역량 강화를 위한 업무협약을... 인공지능(AI)을 활용한 감사기법을 확대하고 피감사자의 권익 보호를 강화하는 감사 체계 구축을 위해 협력한다...."
+    },
+    "f40c5d2605dc": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.munhwa.com/article/11614333?ref=naver",
+      "title": "네이버클라우드 ‘보안 특화 AI’ 개발 맡는다… GPU 256장 지원",
+      "description": "네이버클라우드가 SK텔레콤(SKT)과 맞붙은 정부의 사이버 보안 특화 인공지능(AI) 파운데이션 모델 개발 사업에서 최종 수행기관으로 낙점됐다. 과학기술정보통신부는 3일 공모에 참여한 2개 컨소시엄을 평가한 결과..."
+    },
+    "45f26f673736": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.etnews.com/20260903000019",
+      "title": "세라믹기술원, 소재·셀·공정 기술 연계 '한국형 고제산화물 셀' 기술자립 돕는....",
+      "description": "한국세라믹기술원(KICET·원장 윤종석)이 보유한 세라믹 소재·셀·공정 기술을 한국수력원자력 등의 사업화 수요와 연계해 한국형 고체산화물 셀(K-SOC) 기술자립 지원에 나선다. SOC는 고체산화물 전해질을 사용하는 에너...."
+    },
+    "0ad7109bab7d": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00"
+    },
+    "2c99ed4da8aa": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609031809097402",
+      "title": "정부 보안AI 개발 사업자에 네이버",
+      "description": "네이버클라우드 컨소시엄이 정부의 '특화 인공지능(AI) 파운데이션 모델 개발(사이버 보안 분야)' 사업자로 최종 선정된 후 본격적인 개발에 착수했다. 네이버클라우드 컨소시엄은 국내 보안 환경에 최적화된 AI..."
+    },
+    "c53114da00f8": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090328611",
+      "title": "보안특화 'K미토스' 네이버가 만든다",
+      "description": "네이버 컨소시엄이 국내 독자적인 기술로 사이버 보안 분야에 특화한 인공지능(AI) 모델을 개발한다.... 앤트로픽의 최첨단 사이버 보안 특화 모델 ‘미토스’에 견줄 보안 특화 AI를 구축하는 게 목표다. ◇산·학·연..."
+    },
+    "53f6b80605ae": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090328591",
+      "title": "한전, 삼전닉스에 전기료 선납 제안…\"대규모 전력망 구축\"",
+      "description": "SK하이닉스에 총 25조원 규모의 전기료 선납을 제안했다. 선납받은 돈을 용인·호남 반도체 클러스터에 전력을 공급하기 위한 대규모 전력망을 구축하는 데 사용하겠다는 구상이다. 3일 업계에 따르면 한전은 삼성전자와..."
+    },
+    "719166172a06": {
+      "tries": 1,
+      "seed_date": "2026-09-04",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=87900",
+      "title": "네이버클라우드, 정부 사이버 보안 AI 사업자로 최종 선정",
+      "description": "네이버클라우드(컨소시엄)가 정부의 '특화 인공지능 파운데이션 모델 개발 사이버 보안 분야'의 사업자로 최종 선정됐다. 과학기술정보통신부는 3일, 네이버클라우드와 SK텔레콤을 대상으로 진행한 발표 평가 결과..."
+    },
+    "dc727ed15368": {
+      "tries": 1,
+      "seed_date": "2026-09-05",
+      "last_tried": "2026-09-06T00:32:50.788679+00:00",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20087357?ref=naver",
+      "title": "4명 중 1명은 본사 안 가고 구조조정도 안해…발전 5사 통합 ‘반쪽 개...",
+      "description": "인력의 25%를 지역재생에너지본부에 분산 배치하기로 했다. 회사 통폐합 이후에도 인력과 재무구조 효율화를 위한 별도 목표는 잡지 않기로 해 공공기관 개혁이 반쪽짜리에 그치는 것 아니냐는 지적이 나온다...."
     }
   },
   "scrap_history": {
@@ -7090,6 +7388,222 @@
       "link": "https://biz.heraldcorp.com/article/10861586?ref=naver",
       "title": "장세일 영광군수, 민형배 시장에 반도체 구상 제안",
       "description": ""
+    },
+    "86536a2b0722": {
+      "date": "2026-09-04",
+      "publisher": "경북도민일보",
+      "seed_title": "붕산수 누출 ‘쉬쉬’ … “원전 은폐 관행에 안전망 위협”",
+      "link": "https://www.hidomin.com/pdf/php/check.php?category=&y=2026&m=09&d=04&page=4&hosu=0",
+      "title": "붕산수 누출 쉬쉬 … 원전 은폐 관행에 안전망 위협",
+      "description": "한수원과 규제기관의 불 투명한 정보 공개 관행을 더 이상 방치 할 수 없다는 비판과 함께 지자체 차원... com 붕산수 누출 쉬쉬 … 원전 은폐 관행에 안전망 위협 2027년7월부터전체의무복무병사 를 대상으로 한..."
+    },
+    "2368526eaf29": {
+      "date": "2026-09-04",
+      "publisher": "경북도민일보",
+      "seed_title": "울진경찰·유관기관, 추석맞이 교통안전캠페인",
+      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBVVEI2VUpVdC1BNGx2dVBUN3pGV0Q5YTdwUUdOUC1yM1Frb3lZeUFERDYxcWZuQ2VnOGFNYVdOSEVseWxwZmJfZk1wVU9MajFQd19hQkpINy1OVUIzRlJLYzkzU09iME9WVnc?oc=5",
+      "title": "울진경찰·유관기관, 추석맞이 교통안전 캠페인",
+      "description": "울진경찰·유관기관, 추석맞이 교통안전 캠페인  hidomin.com"
+    },
+    "924635a35778": {
+      "date": "2026-09-04",
+      "publisher": "경상매일신문",
+      "seed_title": "한수원, 기보와 AI 기반 감사체계 고도화",
+      "link": "http://www.newsian.co.kr/news/articleView.html?idxno=94736",
+      "title": "기보·한수원, AI 활용 감사체계 고도화…내부통제 힘 모은다",
+      "description": "유철근 기보 상임감사(왼쪽)와 강민구 한수원 상임감사위원이 기념촬영을 하고 있다. [사진=기술보증기금]... 양 기관은 이번 협약을 계기로 AI 기반 감사체계를 고도화해 감사업무의 효율성과 전문성을 높이고, 감사절차..."
+    },
+    "1f83904a665e": {
+      "date": "2026-09-04",
+      "publisher": "경향신문",
+      "seed_title": "‘민영화로 경쟁’ 무산 … 재생에너지 전환 ‘규모의 경제’ 기대",
+      "link": "https://www.khan.co.kr/article/202609032127015",
+      "title": "‘민영화로 경쟁’ 무산…재생에너지 전환 ‘규모의 경제’ 기대",
+      "description": "취지였던 경쟁과 민영화는 사실상 효과를 보지 못한 반면 발전산업의 중심축이 재생에너지로 전환하는 구조적 변화에 대응하기 위해서는 ‘규모의 경제’가 필요하다는 판단 때문이다. 다만 기계적 통합 수준을 넘는..."
+    },
+    "57399d03069e": {
+      "date": "2026-09-04",
+      "publisher": "국민일보",
+      "seed_title": "해킹 AI 맞설 독자 모델 만든다 네이버 컨소시엄, 사업자로 선정",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000008953&cp=nv",
+      "title": "해킹 AI 맞설 독자 모델 만든다… 네이버 컨소시엄, 사업자로 선정",
+      "description": "개발 사업자로 선정됐다. 33개 기업·기관으로 구성된 네이버클라우드 컨소시엄은 방어와 공격에 특화된 7000억개 매개변수급 AI 모델 2종을 동시에 개발해 독자적인 사이버 보안 역량을 확보할 계획이다...."
+    },
+    "1e584035c177": {
+      "date": "2026-09-04",
+      "publisher": "내일신문",
+      "seed_title": "원전 시공기술로 세계 교두보 확보",
+      "link": "https://www.naeil.com/news/read/601147?ref=naver",
+      "title": "원전 시공기술로 세계 교두보 확보",
+      "description": "삼성물산과 현대건설이 설계·시공 중심 원전기술로 북미권과 유럽에서 사업영역을 확장하고 있다.... 개발에 착수하는 한편 이를 유럽 SMR 시장 확대의 교두보로 삼아 해외 시장으로 사업을 확대할 것”이라고 밝혔다."
+    },
+    "0c1615ace365": {
+      "date": "2026-09-04",
+      "publisher": "대경일보",
+      "seed_title": "대만, 탈원전 끝났다… 원전3호기 2028년 재가동",
+      "link": "https://www.yna.co.kr/view/AKR20260903109800009",
+      "title": "대만, '탈원전' 뒤집고 상업운전 끝난 원전3호기 2028년 재가동",
+      "description": "김철문 통신원 = 미국과 일본 등이 원전 재가동에 나선 가운데 '탈원전'을 추진해온 대만이 상업운전이 끝난 원전 3호기를 ..."
+    },
+    "b5845c159de3": {
+      "date": "2026-09-04",
+      "publisher": "대경일보",
+      "seed_title": "한수원·기술보증기금, 감사혁신‘맞손’",
+      "link": "https://www.kfenews.co.kr/news/articleView.html?idxno=663775",
+      "title": "기보·한수원, AI 기반 감사혁신 맞손",
+      "description": "사진=기술보증기금 기보는 지난 2일 경북 경주 한국수력원자력 본사에서 한수원과 'AI 기반 감사 혁신 및 인권친화적 감사 강화를 위한 업무협약(MOU)'을 체결했다고 3일 밝혔다. 이번 협약은 양 기관이 보유한 감사 역량과..."
+    },
+    "41a37d0e3a6a": {
+      "date": "2026-09-04",
+      "publisher": "대구신문",
+      "seed_title": "영덕군의회, 고리·새울원전 찾아 안전성 점검",
+      "link": "https://www.idaegu.co.kr/news/articleView.html?idxno=558603",
+      "title": "영덕군의회, 고리·새울원전 찾아 안전성 점검",
+      "description": "영덕군의회는 지난달 31일 부산 기장군 고리원자력본부와 울산 울주군 새울원자력본부를 방문해 신규 원전의 안전성과 지역 상생 발전 사례를 점검했다. 이번 방문은 영덕군이 신규 대형원전 건설 예정지로 확정된 데..."
+    },
+    "eeb47d70d975": {
+      "date": "2026-09-04",
+      "publisher": "디지털타임스",
+      "seed_title": "네이버클라우드, 韓 사이버보안 특화 파운데이션 모델 개발 나선다",
+      "link": "https://www.dt.co.kr/article/12081973?ref=naver",
+      "title": "네이버클라우드, 韓 사이버보안 특화모델 개발 나선다",
+      "description": "네이버클라우드가 사이버 보안에 특화된 파운데이션 모델 개발에 착수한다. 과학기술정보통신부는 3일 사이버 보안 특화 AI 파운데이션 모델 개발 사업자로 네이버클라우드 컨소시엄이 선정됐다고 밝혔다. 정부는..."
+    },
+    "0a6eeb2b9c92": {
+      "date": "2026-09-04",
+      "publisher": "매일경제 A05면",
+      "seed_title": "직원 1.4만명 '공룡 발전公' 탄생 … 재생에너지 발전 총력전",
+      "link": "https://www.mk.co.kr/article/12143749",
+      "title": "직원 1.4만명 '공룡 발전公' 탄생 … 재생에너지 발전 총력전",
+      "description": "한국발전공사(가칭)로 통합된다. 단일 법인이 출범하면 직원 1만4000명이 넘고, 연매출 30조원에 달하는 '공룡 에너지 공기업'이 탄생할 전망이다. 정부는 내부 경쟁을 멈추고 흩어진 투자 여력을 한데 모아 재생에너지..."
+    },
+    "8b433d996119": {
+      "date": "2026-09-04",
+      "publisher": "매일경제 A13면",
+      "seed_title": "보안특화 AI모델 개발 네이버클라우드 선정",
+      "link": "https://www.segye.com/newsView/20260903515074?OutUrl=naver",
+      "title": "네이버클라우드, ‘한국형 보안 AI모델’ 개발",
+      "description": "기업·대학 32곳 참여 컨소시엄 정부 사업 최종 수행기관 선정 반도체·방위 분야 등 활용 방침 네이버클라우드가 국가 사이버보안 특화 인공지능(AI) 모델 개발 사업자로 선정됐다. AI를 활용해 고도화하는 사이버..."
+    },
+    "622d5ccd953c": {
+      "date": "2026-09-04",
+      "publisher": "매일신문",
+      "seed_title": "맥스터 지원금 사용처 경주 감포읍 ‘민-민 갈등’",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBlUTZGVkxGblZpX3NjWjB3aFIxdVdTVXpnbF9VV0ZmZ2RiLUxzcXlVU0RiNWlZcC1ubFFZRk1ibFNacy00WDVGejhuanRSbF9VVHlzLWY3Z0FxRVc0bTNqNmN3?oc=5",
+      "title": "`맥스터 지원금` 사용 놓고 경주 감포읍 주민간 갈등 심화",
+      "description": "`맥스터 지원금` 사용 놓고 경주 감포읍 주민간 갈등 심화  매일신문"
+    },
+    "f762ed043ccc": {
+      "date": "2026-09-04",
+      "publisher": "머니투데이",
+      "seed_title": "33개 산학연 뭉친 네이버 컨소시엄, ‘국가대표 보안 AI’ 개발",
+      "link": "https://www.epnc.co.kr/news/articleView.html?idxno=406165",
+      "title": "네이버클라우드-LG CNS, ‘보안 특화 AI’ 개발…33개 산학연 뭉쳤다",
+      "description": "네이버클라우드와 LG CNS가 AI 모델과 인프라, 보안, 데이터를 아우르는 자체 기술을 기반으로 국내 사이버보안 환경에 특화된 AI 파운데이션 모델 개발에 나선다. 네이버클라우드는 LG CNS와 컨소시엄을 구성해 과학기술정...."
+    },
+    "2c45f4fe5a2f": {
+      "date": "2026-09-04",
+      "publisher": "문화일보",
+      "seed_title": "대만도 脫 '탈원전’",
+      "link": "https://www.munhwa.com/article/11614586?ref=naver",
+      "title": "대만도 脫 ‘탈원전’",
+      "description": "미국과 일본 등이 원전 재가동에 나선 데 이어 대만도 기존의 탈원전 원칙을 뒤집은 것이다. 인공지능(AI)과 반도체 산업의 폭발적인 성장으로 전력 수요가 급증하고 중국의 대만 봉쇄 위협 속 에너지 안보 우려가 커진..."
+    },
+    "e3a2afc5e773": {
+      "date": "2026-09-04",
+      "publisher": "문화일보",
+      "seed_title": "민영화 근본책 없는 공공기관 개혁안",
+      "link": "https://www.munhwa.com/article/11614578?ref=naver",
+      "title": "민영화 근본책 없는 공공기관 개혁안[포럼]",
+      "description": "내용의 공공기관 개혁안을 발표했다. 이 개혁안은 공공기관의 20%를 통폐합하는 대규모로 공공부문을... 기관을 통합하는 개혁은 바람직한 방향이다. 더 전향적으로 민간 영역으로 전환이 가능한 서비스는 민영화하고..."
+    },
+    "ad135daf9a8b": {
+      "date": "2026-09-04",
+      "publisher": "문화일보",
+      "seed_title": "전기료 ‘N년치 선납’ 은 反기업 꼼수",
+      "link": "https://www.munhwa.com/article/11614589",
+      "title": "전기료 ‘N년치 선납’은 反기업 꼼수[포럼]",
+      "description": "전기 요금 선납제를 추진 중이라고 한다. 2027년부터 5년치로... 삼전닉스 노조는 영업이익의 N%를 성과급으로 요구했다. 하지만... 삼전닉스가 전기료 25조 원을 선불하면 그만큼 한전이 시장 대신 기업으로부터..."
+    },
+    "78a3ddea12a7": {
+      "date": "2026-09-04",
+      "publisher": "서울경제 A14면",
+      "seed_title": "AI 입힌 원전 정비기술, UAE에 첫 수출",
+      "link": "https://www.sedaily.com/article/20086969?ref=naver",
+      "title": "AI 입힌 원전 정비기술, UAE에 첫 수출",
+      "description": "설립 5년 차 스타트업이 인공지능(AI)을 전면 활용한 원자력 발전소 정비 작업을 아랍에미리트(UAE) 바라카 원전에서 수행했다. 국내 기업이 해외 원전에 AI 정비 기술 용역을 수출한 첫 사례다. 원전 업계에서는 바라카..."
+    },
+    "bbaffc7a9a33": {
+      "date": "2026-09-04",
+      "publisher": "서울경제 A14면",
+      "seed_title": "네이버클라우드'국가 보안 AI'만든다",
+      "link": "https://www.sedaily.com/article/20086743?ref=naver",
+      "title": "네이버클라우드 컨소시엄, ‘국가 보안 AI’ 만든다",
+      "description": "지원해 국가 차원의 보안 AI 선순환 생태계를 구축해 나간다는 방침이다. 김유원 네이버클라우드 대표는 “이번 사업 수주는 네이버클라우드 컨소시엄이 보유한 대규모 AI 인프라와 데이터, 보안 전문 역량을..."
+    },
+    "ebd48fa8a6b1": {
+      "date": "2026-09-04",
+      "publisher": "전자신문",
+      "seed_title": "기술보증기금·한국수력원자력 'AI 기반 감사 혁신' 협력",
+      "link": "https://www.businessplus.kr/news/articleView.html?idxno=116335",
+      "title": "한국수력원자력·기술보증기금, AI 기반 감사 혁신 협력…인권친화 감사...",
+      "description": "한국수력원자력(한수원)이 기술보증기금과 인공지능(AI) 기반 감사 혁신 및 역량 강화를 위한 업무협약을... 인공지능(AI)을 활용한 감사기법을 확대하고 피감사자의 권익 보호를 강화하는 감사 체계 구축을 위해 협력한다...."
+    },
+    "f40c5d2605dc": {
+      "date": "2026-09-04",
+      "publisher": "전자신문",
+      "seed_title": "네이버클라우드, '보안 특화 AI' 개발 낙점",
+      "link": "https://www.munhwa.com/article/11614333?ref=naver",
+      "title": "네이버클라우드 ‘보안 특화 AI’ 개발 맡는다… GPU 256장 지원",
+      "description": "네이버클라우드가 SK텔레콤(SKT)과 맞붙은 정부의 사이버 보안 특화 인공지능(AI) 파운데이션 모델 개발 사업에서 최종 수행기관으로 낙점됐다. 과학기술정보통신부는 3일 공모에 참여한 2개 컨소시엄을 평가한 결과..."
+    },
+    "45f26f673736": {
+      "date": "2026-09-04",
+      "publisher": "전자신문",
+      "seed_title": "세라믹기술원, 소재·셀·공정 기반 K-SOC 기술자립 돕는다",
+      "link": "https://www.etnews.com/20260903000019",
+      "title": "세라믹기술원, 소재·셀·공정 기술 연계 '한국형 고제산화물 셀' 기술자립 돕는....",
+      "description": "한국세라믹기술원(KICET·원장 윤종석)이 보유한 세라믹 소재·셀·공정 기술을 한국수력원자력 등의 사업화 수요와 연계해 한국형 고체산화물 셀(K-SOC) 기술자립 지원에 나선다. SOC는 고체산화물 전해질을 사용하는 에너...."
+    },
+    "2c99ed4da8aa": {
+      "date": "2026-09-04",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "정부 보안AI 개발 사업자에 네이버",
+      "link": "https://www.fnnews.com/news/202609031809097402",
+      "title": "정부 보안AI 개발 사업자에 네이버",
+      "description": "네이버클라우드 컨소시엄이 정부의 '특화 인공지능(AI) 파운데이션 모델 개발(사이버 보안 분야)' 사업자로 최종 선정된 후 본격적인 개발에 착수했다. 네이버클라우드 컨소시엄은 국내 보안 환경에 최적화된 AI..."
+    },
+    "c53114da00f8": {
+      "date": "2026-09-04",
+      "publisher": "한국경제 A11면",
+      "seed_title": "보안특화 ‘K미토스’ 네이버가 만든다",
+      "link": "https://www.hankyung.com/article/2026090328611",
+      "title": "보안특화 'K미토스' 네이버가 만든다",
+      "description": "네이버 컨소시엄이 국내 독자적인 기술로 사이버 보안 분야에 특화한 인공지능(AI) 모델을 개발한다.... 앤트로픽의 최첨단 사이버 보안 특화 모델 ‘미토스’에 견줄 보안 특화 AI를 구축하는 게 목표다. ◇산·학·연..."
+    },
+    "53f6b80605ae": {
+      "date": "2026-09-04",
+      "publisher": "한국경제 A11면",
+      "seed_title": "한전, 삼전닉스에 전기료 선납 제안…“대규모 전력망 구축”",
+      "link": "https://www.hankyung.com/article/2026090328591",
+      "title": "한전, 삼전닉스에 전기료 선납 제안…\"대규모 전력망 구축\"",
+      "description": "SK하이닉스에 총 25조원 규모의 전기료 선납을 제안했다. 선납받은 돈을 용인·호남 반도체 클러스터에 전력을 공급하기 위한 대규모 전력망을 구축하는 데 사용하겠다는 구상이다. 3일 업계에 따르면 한전은 삼성전자와..."
+    },
+    "719166172a06": {
+      "date": "2026-09-04",
+      "publisher": "한국일보 A16면",
+      "seed_title": "네이버클라우드 ‘사이버보안 특화 AI’ 정부 사업 선정",
+      "link": "https://www.ekoreanews.co.kr/news/articleView.html?idxno=87900",
+      "title": "네이버클라우드, 정부 사이버 보안 AI 사업자로 최종 선정",
+      "description": "네이버클라우드(컨소시엄)가 정부의 '특화 인공지능 파운데이션 모델 개발 사이버 보안 분야'의 사업자로 최종 선정됐다. 과학기술정보통신부는 3일, 네이버클라우드와 SK텔레콤을 대상으로 진행한 발표 평가 결과..."
+    },
+    "dc727ed15368": {
+      "date": "2026-09-05",
+      "publisher": "서울경제",
+      "seed_title": "인력 25% 본사 안 가고 구조조정도 없어… 발전 5사 '반쪽 개혁’",
+      "link": "https://www.sedaily.com/article/20087357?ref=naver",
+      "title": "4명 중 1명은 본사 안 가고 구조조정도 안해…발전 5사 통합 ‘반쪽 개...",
+      "description": "인력의 25%를 지역재생에너지본부에 분산 배치하기로 했다. 회사 통폐합 이후에도 인력과 재무구조 효율화를 위한 별도 목표는 잡지 않기로 해 공공기관 개혁이 반쪽짜리에 그치는 것 아니냐는 지적이 나온다...."
     }
   }
 }
