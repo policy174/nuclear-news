@@ -33,11 +33,16 @@ KST = timezone(timedelta(hours=9))
 # 저자 포함 검색 0건, 제외하면 1위 적중), 토큰 포함률도 희석된다.
 _REPORT_LINE = re.compile(r"^\s*\d+\.\s*\[(?P<pub>[^\]]+?)(?:\s+[A-Za-z]*\d+면)?\]\s*(?P<title>\S.*)$")
 _TITLE_TAIL = re.compile(r"\s*\([^()]*\)\s*$")
-_REPORT_HEADER = re.compile(r"(?P<month>\d{1,2})월\s*(?P<day>\d{1,2})일\s*(조간|석간)?\s*스크랩\s*보고")
+_REPORT_HEADER = re.compile(r"(?P<month>\d{1,2})월\s*(?P<day>\d{1,2})일\s*(?P<edition>조간|석간)?\s*스크랩\s*보고")
 
 
 def parse_scrap_report(text: str, year: int) -> list[dict]:
-    """스크랩 보고 텍스트 → [{date, publisher, title}]. 보고 형식이 아니면 []."""
+    """스크랩 보고 텍스트 → [{date, publisher, title, edition}]. 보고 형식이 아니면 [].
+
+    edition(조간|석간)은 헤더에서만 나온다 — 이 라벨이 시드까지 관통해야
+    웹 신문스크랩 탭에서 '석간이 안 왔다'가 보인다(실측 09-03·09-05 석간
+    부재가 화면에선 구분 불가였다). seed_key 에는 넣지 않는다 — 키 안정성이
+    같은 제목의 조·석간 중복이라는 이론상 충돌보다 무겁다."""
     header = _REPORT_HEADER.search(text)
     if not header:
         return []
@@ -45,6 +50,7 @@ def parse_scrap_report(text: str, year: int) -> list[dict]:
         date = datetime(year, int(header.group("month")), int(header.group("day"))).date().isoformat()
     except ValueError:
         return []
+    edition = header.group("edition") or ""
     seeds = []
     for line in text.splitlines():
         m = _REPORT_LINE.match(line)
@@ -54,7 +60,8 @@ def parse_scrap_report(text: str, year: int) -> list[dict]:
                 continue
             seeds.append({"date": date,
                           "publisher": m.group("pub").strip(),
-                          "title": title})
+                          "title": title,
+                          "edition": edition})
     return seeds
 
 
@@ -100,6 +107,7 @@ def _record_history(history: dict, key: str, seed: dict, row: dict) -> None:
         "link": row.get("link") or seed.get("link") or "",
         "title": row.get("title") or seed.get("title", ""),
         "description": row.get("description", ""),
+        "edition": seed.get("edition", ""),
     }
 
 

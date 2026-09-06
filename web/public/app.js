@@ -2207,8 +2207,11 @@ function renderScraps() {
       // 지면 매체명과 온라인 발행처가 다르면(타 매체 원문으로 해석된 경우) 병기
       const printPub = item.print_publisher && item.print_publisher !== item.publisher
         ? `<span>지면 ${esc(item.print_publisher)}</span>` : "";
+      // 조간|석간 — 어느 보고에서 온 기사인지. 구 이력에는 없어 빈 값이 정상,
+      // 이 칩이 서고부터 '석간이 안 왔다'가 화면에서 보인다.
+      const edition = item.edition ? `<span>${esc(item.edition)}</span>` : "";
       return `<article class="news-item">
-        <div class="news-meta"><span>${esc(item.publisher || item.print_publisher || "출처 미상")}</span>${printPub}</div>
+        <div class="news-meta"><span>${esc(item.publisher || item.print_publisher || "출처 미상")}</span>${printPub}${edition}</div>
         <h3>${esc(item.title)}</h3>
         ${item.summary ? `<p class="news-summary">${esc(item.summary)}</p>` : ""}
         ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 확인 <span aria-hidden="true">↗</span></a>` : ""}

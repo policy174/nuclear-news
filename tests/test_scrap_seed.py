@@ -44,6 +44,18 @@ class ParseTests(unittest.TestCase):
     def test_non_report_text_returns_empty(self):
         self.assertEqual(ssi.parse_scrap_report("오늘 점심 뭐 먹지", 2026), [])
 
+    def test_edition_captured_from_header(self):
+        # 헤더의 조간|석간이 시드마다 실린다 — 웹 탭에서 '석간 누락'을 보이게
+        # 하는 라벨. 라벨 없는 헤더는 빈 문자열(구형 보고 호환).
+        seeds = ssi.parse_scrap_report(REPORT, 2026)
+        self.assertTrue(seeds)
+        self.assertTrue(all(s["edition"] == "석간" for s in seeds))
+        plain = ssi.parse_scrap_report("9월 1일 스크랩 보고\n1.[전기신문] 제목", 2026)
+        self.assertEqual(plain[0]["edition"], "")
+        # seed_key 는 edition 과 무관 — 키 안정성 유지.
+        with_ed = dict(plain[0], edition="조간")
+        self.assertEqual(ssi.seed_key(plain[0]), ssi.seed_key(with_ed))
+
     def test_parses_media_trend_with_links(self):
         seeds = ssi.parse_media_trend(TREND, 2026)
         self.assertEqual(len(seeds), 2)

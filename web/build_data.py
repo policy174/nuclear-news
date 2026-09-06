@@ -496,7 +496,7 @@ def build_scraps(records: list[dict], now: datetime) -> dict:
     used_hashes: set[str] = set()
 
     def add_item(date: str, print_publisher: str, record: dict | None,
-                 title: str, summary: str, link: str) -> None:
+                 title: str, summary: str, link: str, edition: str = "") -> None:
         if not date or not (record or link):
             return
         record = record or {}
@@ -513,6 +513,9 @@ def build_scraps(records: list[dict], now: datetime) -> dict:
             "print_publisher": print_publisher,
             "publisher": online_publisher,
             "hash": article_hash,
+            # 조간|석간|"" — 헤더 라벨이 여기까지 관통해야 '석간이 안 왔다'가
+            # 화면에서 보인다. 구 이력에는 없어 빈 값이 정상.
+            "edition": edition,
         })
 
     for entry in history.values():
@@ -522,7 +525,8 @@ def build_scraps(records: list[dict], now: datetime) -> dict:
         record = by_hash.get(url_hash(link)) if link else None
         add_item(entry.get("date") or "", entry.get("publisher") or "", record,
                  entry.get("title") or entry.get("seed_title") or "",
-                 entry.get("description") or "", link)
+                 entry.get("description") or "", link,
+                 entry.get("edition") or "")
 
     # 이력에 없는 시드의 표시 전용 구제 — 수집 파이프라인에는 손대지 않는다.
     # 레코드 제목 토큰은 한 번만 뽑아 둔다(시드 × 전체 아카이브 스캔 비용 절감).
@@ -544,7 +548,8 @@ def build_scraps(records: list[dict], now: datetime) -> dict:
                     best, best_score = record, score
             if best and best_score >= SCRAP_MATCH_THRESHOLD:
                 add_item(seed.get("date") or "", seed.get("publisher") or "",
-                         best, seed["title"], "", best.get("url") or "")
+                         best, seed["title"], "", best.get("url") or "",
+                         seed.get("edition") or "")
 
     return {
         "generated_at": now.isoformat(),
