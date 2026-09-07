@@ -31,7 +31,9 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # 운영 알림은 개인 DM 으로 (2026-09-01·09-08 교정). 미설정이면 채널 폴백.
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
           # 쉘 보간이 아니라 env 로 넘긴다 — 메시지 속 따옴표·백틱이 스크립트를
           # 깨거나 명령으로 실행되는 것을 막는다.
           MESSAGE: ${{ inputs.message }}
-        run: python telegram_send.py --plain "$MESSAGE"
+        run: python telegram_send.py --ops --plain "$MESSAGE"

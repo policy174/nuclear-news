@@ -390,13 +390,14 @@ jobs:
       # 실패를 사람이 보는 곳으로 보낸다. Actions 탭은 아무도 안 본다 —
       # 2026-08-15~17 Deploy web 이 9번 연속 빨간 채로 이틀을 갔다.
       # 알림 자체가 실패해도 크롤 결과를 바꾸지 않는다(이미 실패한 잡이다).
-      - name: Notify failure (원자력정책실 동향봇)
+      - name: Notify failure (운영 알림 → 개인 DM)
         if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
         run: |
-          python telegram_send.py --plain "⚠️ nuclens 수집·배포 실패
+          python telegram_send.py --ops --plain "⚠️ nuclens 수집·배포 실패
 
           워크플로: ${{ github.workflow }} #${{ github.run_number }}
           로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

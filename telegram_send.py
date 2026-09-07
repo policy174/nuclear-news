@@ -54,6 +54,11 @@ def _resolve(key: str) -> str | None:
 _ENV_FILE = _load_env_file()
 TOKEN = _resolve("TELEGRAM_BOT_TOKEN")
 CHAT_ID = _resolve("TELEGRAM_CHAT_ID")
+# 운영 알림(수집·배포 실패, watchdog 복구, 장애 보고)의 행선지. 브리핑 채널은
+# 임직원이 보는 곳이라 운영 잡음이 가면 안 된다 — 2026-09-01 "여기 말고 다른데",
+# 2026-09-08 watchdog 알림이 또 채널로 가서 재교정. 값이 없으면 브리핑 채널로
+# 폴백한다(알림이 사라지는 것보다 잘못된 방이 낫다).
+OPS_CHAT_ID = _resolve("TELEGRAM_OPS_CHAT_ID")
 
 if not TOKEN or not CHAT_ID:
     sys.exit(
@@ -152,7 +157,16 @@ def main() -> int:
     parser.add_argument("--file", "-f", help="메시지 파일 경로 (UTF-8)")
     parser.add_argument("--plain", action="store_true", help="평문 발송 (서식 비활성화)")
     parser.add_argument("--markdown", action="store_true", help="MarkdownV2 모드")
+    parser.add_argument("--ops", action="store_true",
+                        help="운영 알림 — TELEGRAM_OPS_CHAT_ID(개인 DM)로 발송, 없으면 브리핑 채널 폴백")
     args = parser.parse_args()
+
+    if args.ops:
+        global CHAT_ID
+        if OPS_CHAT_ID:
+            CHAT_ID = OPS_CHAT_ID
+        else:
+            print("[WARN] TELEGRAM_OPS_CHAT_ID 미설정 — 운영 알림을 브리핑 채널로 폴백", file=sys.stderr)
 
     if args.file:
         text = Path(args.file).read_text(encoding="utf-8")
