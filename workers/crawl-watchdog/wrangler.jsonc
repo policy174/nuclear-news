@@ -4,7 +4,8 @@
   "name": "nuclens-crawl-watchdog",
   "main": "src/index.mjs",
   "compatibility_date": "2026-08-28",
-  "workers_dev": false,
+  // workers.dev 는 진단 프로브(fetch 핸들러, dry-run) 용 — 판정 JSON 만 돌려준다.
+  "workers_dev": true,
   "triggers": {
     "crons": ["7,22,37,52 * * * *"]
   },

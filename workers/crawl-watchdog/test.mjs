@@ -107,6 +107,24 @@ test("watchdog dispatches one backup and notifies for a missing slot", async () 
   }
 });
 
+test("dry run reports the decision without dispatching", async () => {
+  const originalFetch = globalThis.fetch;
+  const posts = [];
+  globalThis.fetch = async (url, init = {}) => {
+    if ((init.method || "GET") === "POST") posts.push(String(url));
+    return new Response(JSON.stringify({ workflow_runs: [] }), { status: 200 });
+  };
+  try {
+    const log = await checkAndRecover({ GITHUB_TOKEN: "t" }, at("2026-09-07T09:37:00Z"),
+                                      { dryRun: true });
+    assert.equal(log.would_dispatch, true);
+    assert.equal(log.dispatched, false);
+    assert.equal(posts.length, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("watchdog stays quiet when the cap is exhausted", async () => {
   const originalFetch = globalThis.fetch;
   const calls = [];

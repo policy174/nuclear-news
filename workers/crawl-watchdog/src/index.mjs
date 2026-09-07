@@ -83,7 +83,7 @@ async function notify(env, base, text) {
   }
 }
 
-export async function checkAndRecover(env, now = new Date()) {
+export async function checkAndRecover(env, now = new Date(), { dryRun = false } = {}) {
   if (!env.GITHUB_TOKEN) throw new Error("GITHUB_TOKEN Worker secret is missing");
   const owner = env.GITHUB_OWNER || "policy174";
   const repo = env.GITHUB_REPO || "nuclear-news";
@@ -114,6 +114,13 @@ export async function checkAndRecover(env, now = new Date()) {
     console.log(JSON.stringify(log));
     return log;
   }
+  if (dryRun) {
+    // 진단 프로브(fetch 핸들러)용 — 여기까지 왔으면 토큰·판정·상한이 전부
+    // 정상이고 실제 크론이라면 dispatch 했을 것이라는 뜻.
+    log.would_dispatch = true;
+    log.dispatch_count_24h = recent;
+    return log;
+  }
 
   // trigger_source 는 crawl.yml 의 run-name 이 제목에 찍어 위 상한 계산이 읽는다.
   // ponytail: 복구 lookback 확장(V2 recovery_lookback_hours)은 미이식 — V1
@@ -137,5 +144,16 @@ export async function checkAndRecover(env, now = new Date()) {
 export default {
   async scheduled(_controller, env, ctx) {
     ctx.waitUntil(checkAndRecover(env));
+  },
+  // GET <workers.dev>/ — 지금 이 순간의 판정을 dry-run 으로 돌려준다. dispatch 는
+  // 절대 하지 않는다. 크론이 안 도는 것과 핸들러가 던지는 것을 tail 없이 가르려고
+  // 둔 창(2026-09-07 실측: 세 틱 연속 로그 0줄, 원인 미상). 공개 정보(Actions
+  // run 상태)만 담긴다.
+  async fetch(_request, env) {
+    try {
+      return Response.json(await checkAndRecover(env, new Date(), { dryRun: true }));
+    } catch (error) {
+      return Response.json({ error: String(error) }, { status: 500 });
+    }
   },
 };
