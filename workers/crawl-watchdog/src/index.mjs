@@ -39,12 +39,18 @@ export function evaluateRuns(runs, now = new Date(), graceMinutes = 25) {
   return { shouldDispatch: true, state: "trigger_missing", start };
 }
 
-// 최근 24시간의 workflow_dispatch 이벤트 run 수 — watchdog 발화 + 수동 실행을
-// 함께 센다(수동 실행은 드물고, 상한은 안전판이지 정밀 회계가 아니다).
+// 최근 24시간에 **watchdog 이 쏜** 복구 run 수. 수동 실행은 세지 않는다 —
+// 2026-09-07 실측: 다른 세션의 수동 실행 5건이 상한(4)을 먹어 정작 12시 슬롯
+// 누락을 못 살렸다. API run 목록엔 inputs 가 없으므로 crawl.yml 의 run-name 이
+// 제목에 찍어 주는 trigger_source 를 읽는다.
+export const RECOVERY_MARKER = "backup_watchdog";
+
 export function dispatchCountLast24h(runs, now = new Date()) {
   const cutoff = new Date(now.getTime() - DAY_MS);
   return runs.filter((run) =>
-    run.event === "workflow_dispatch" && new Date(run.created_at || 0) >= cutoff).length;
+    run.event === "workflow_dispatch"
+    && String(run.display_title || run.name || "").includes(RECOVERY_MARKER)
+    && new Date(run.created_at || 0) >= cutoff).length;
 }
 
 async function github(env, path, init = {}) {
@@ -109,14 +115,16 @@ export async function checkAndRecover(env, now = new Date()) {
     return log;
   }
 
-  // V1 crawl.yml 의 workflow_dispatch 는 fetch_publications 입력만 정의한다 —
-  // 정의 안 된 입력을 보내면 GitHub 이 422 로 거부하므로 빈 inputs 로 보낸다.
+  // trigger_source 는 crawl.yml 의 run-name 이 제목에 찍어 위 상한 계산이 읽는다.
   // ponytail: 복구 lookback 확장(V2 recovery_lookback_hours)은 미이식 — V1
   // LOOKBACK_HOURS=6h 가 슬롯 2개를 덮어 단일 슬롯 누락은 복구된다. 6시간 넘는
   // 장애를 겪으면 crawl.yml 에 입력 추가 + news_bot env 화로 확장할 것.
   await github(env, `${base}/dispatches`, {
     method: "POST",
-    body: JSON.stringify({ ref: "main", inputs: {} }),
+    body: JSON.stringify({
+      ref: "main",
+      inputs: { trigger_source: RECOVERY_MARKER, recovery_reason: decision.state },
+    }),
   });
   log.dispatched = true;
   console.log(JSON.stringify(log));

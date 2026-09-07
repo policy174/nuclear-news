@@ -1,5 +1,10 @@
 name: Nuclear news crawl
 
+# 실행 제목에 출처를 찍는다. workflow_dispatch 의 inputs 는 API run 목록에 안
+# 나오므로, crawl-watchdog 이 '내가 쏜 복구'만 세려면 제목이 유일한 단서다
+# (2026-09-07 실측: 수동 실행 5건이 상한을 먹어 정작 12시 슬롯 누락을 못 살렸다).
+run-name: "crawl · ${{ github.event_name == 'workflow_dispatch' && inputs.trigger_source || 'schedule' }}"
+
 on:
   schedule:
     # 3시간 간격. 병목은 Actions 분(공개 저장소라 무료)이 아니라 **Gemini 무료
@@ -18,6 +23,14 @@ on:
         description: "발간물 수집 강제 실행 (시간 게이트 무시)"
         type: boolean
         default: false
+      trigger_source:
+        description: "호출자 식별 (수동 실행은 manual 유지 — watchdog 이 backup_watchdog 으로 쏜다)"
+        type: string
+        default: "manual"
+      recovery_reason:
+        description: "watchdog 복구 사유 (trigger_missing·workflow_failed)"
+        type: string
+        default: ""
 
 permissions:
   contents: write

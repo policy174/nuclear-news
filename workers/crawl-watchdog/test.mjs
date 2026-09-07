@@ -48,14 +48,41 @@ test("previous-slot runs do not satisfy the current slot", () => {
   assert.equal(stale.shouldDispatch, true);
 });
 
-test("daily dispatch cap counts only recent workflow_dispatch events", () => {
+test("daily dispatch cap counts only the watchdog's own recent recoveries", () => {
   const runs = [
-    { event: "workflow_dispatch", created_at: "2026-09-07T08:00:00Z" },
-    { event: "workflow_dispatch", created_at: "2026-09-07T02:00:00Z" },
-    { event: "workflow_dispatch", created_at: "2026-09-06T02:00:00Z" }, // >24h
-    { event: "schedule", created_at: "2026-09-07T06:00:00Z" },
+    { event: "workflow_dispatch", display_title: "crawl · backup_watchdog",
+      created_at: "2026-09-07T08:00:00Z" },
+    { event: "workflow_dispatch", display_title: "crawl · backup_watchdog",
+      created_at: "2026-09-07T02:00:00Z" },
+    { event: "workflow_dispatch", display_title: "crawl · backup_watchdog",
+      created_at: "2026-09-06T02:00:00Z" }, // >24h
+    // 수동 실행은 세지 않는다 — 실측 2026-09-07 수동 5건이 상한을 먹었다.
+    { event: "workflow_dispatch", display_title: "crawl · manual",
+      created_at: "2026-09-07T07:00:00Z" },
+    { event: "workflow_dispatch", display_title: "Nuclear news crawl",  // run-name 도입 전
+      created_at: "2026-09-07T05:00:00Z" },
+    { event: "schedule", display_title: "crawl · schedule", created_at: "2026-09-07T06:00:00Z" },
   ];
   assert.equal(dispatchCountLast24h(runs, at("2026-09-07T09:37:00Z")), 2);
+});
+
+test("recovery dispatch carries the marker crawl.yml prints into the run title", async () => {
+  const originalFetch = globalThis.fetch;
+  const bodies = [];
+  globalThis.fetch = async (url, init = {}) => {
+    if (String(url).includes("/runs?")) {
+      return new Response(JSON.stringify({ workflow_runs: [] }), { status: 200 });
+    }
+    bodies.push(JSON.parse(init.body));
+    return new Response(null, { status: 204 });
+  };
+  try {
+    await checkAndRecover({ GITHUB_TOKEN: "t" }, at("2026-09-07T09:37:00Z"));
+    assert.equal(bodies[0].inputs.trigger_source, "backup_watchdog");
+    assert.equal(bodies[0].inputs.recovery_reason, "trigger_missing");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test("watchdog dispatches one backup and notifies for a missing slot", async () => {
@@ -86,10 +113,11 @@ test("watchdog stays quiet when the cap is exhausted", async () => {
   const now = at("2026-09-07T09:37:00Z");
   // 첫 실패는 현재 슬롯(09:00~) 안, 나머지는 지난 24시간 내 — 합계 4회로 상한 도달.
   const runs = [
-    { event: "workflow_dispatch", status: "completed", conclusion: "failure",
-      created_at: "2026-09-07T09:10:00Z" },
+    { event: "workflow_dispatch", display_title: "crawl · backup_watchdog",
+      status: "completed", conclusion: "failure", created_at: "2026-09-07T09:10:00Z" },
     ...[1, 2, 3].map((i) => ({
-      event: "workflow_dispatch", status: "completed", conclusion: "failure",
+      event: "workflow_dispatch", display_title: "crawl · backup_watchdog",
+      status: "completed", conclusion: "failure",
       created_at: new Date(now.getTime() - i * 3 * 3_600_000).toISOString(),
     })),
   ];
