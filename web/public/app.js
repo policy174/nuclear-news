@@ -2415,10 +2415,20 @@ function chronicleEventsDesc(chron) {
 
 // 이슈 다이얼로그의 스토리 구역. 핵심 차별점: 현 다이얼로그 타임라인은 60일 창
 // 안만 보이는데, 스토리는 그 밖으로 밀려난 과거 사건까지 이어 보여준다.
+//
+// 그래서 **타임라인이 못 보여주는 게 있을 때만** 선다 — ①원장에 현재 이슈
+// 밖의 과거 사건이 있거나 ②서사가 생성돼 있을 때. 원장이 이슈와 같은 내용뿐인
+// 날(전진 축적 첫날이 그렇다)에 세우면 같은 목록을 두 번 보여주는 소음이 된다
+// ("같은 문단을 한 화면에 두 번 두지 않는다" — dropTextsAlreadyOnCards 와
+// 같은 계약, 실제로 '타임라인이랑 뭐가 다르냐' 판정을 받았다 '26.9.7).
 function chronicleDialogSection(issue, contextDate) {
   const chron = chronicleFor(issue);
   if (!chron || (chron.events || []).length < 2) return "";
   const narrative = chronicleNarrativeFor(chron.chronicle_id);
+  const issueHashes = new Set(
+    (issue.related_articles || []).map(article => article.hash).filter(Boolean));
+  const pastEvents = (chron.events || []).filter(event => !issueHashes.has(event.hash));
+  if (!pastEvents.length && !narrative) return "";
   const range = flowSpanRange();
   const narrativeBlock = narrative ? `
       <div class="chronicle-narrative">
@@ -2430,12 +2440,14 @@ function chronicleDialogSection(issue, contextDate) {
       <div class="dialog-section-head"><h3 id="issueChronicleTitle">스토리</h3><span>${esc(dateLabel(chron.first_seen))}부터 사건 ${(chron.events || []).length}건</span></div>
       ${range ? flowSpanTrack(chron, range) : ""}
       ${narrativeBlock}
-      ${timelineList(chronicleEventsDesc(chron), {
+      ${pastEvents.length ? `<p class="dialog-evidence-note">위 타임라인에 없는 과거 사건 — 이슈가 갈리거나 수집 창(60일) 밖으로 밀려난 기록입니다.</p>
+      ${timelineList(pastEvents.slice()
+        .sort((a, b) => String(b.article_date || "").localeCompare(String(a.article_date || ""))), {
         contextDate,
         stage: "지난 흐름",
         shownDetail: "",
         moreLabel: "이전 사건",
-      })}
+      })}` : ""}
     </section>`;
 }
 
