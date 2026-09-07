@@ -47,6 +47,7 @@ from gemini_client import (
     is_available,
 )
 from sources import credibility
+import issue_continuity
 import ranking
 
 ROOT = Path(__file__).parent
@@ -516,7 +517,8 @@ def empty_reason(diag: dict) -> str:
     return "오늘 새로 확인된 브리핑 이슈가 없습니다."
 
 
-def region_stats(diag: dict, selected: list[dict], pool: list[dict] | None = None) -> dict:
+def region_stats(diag: dict, selected: list[dict], pool: list[dict] | None = None,
+                 continuity: dict | None = None) -> dict:
     """그날 그 지역의 선정 통계.
 
     features 결손은 하한 판정에서 면제되므로(ranking.floor_verdict) 컷오프 수치만
@@ -534,6 +536,39 @@ def region_stats(diag: dict, selected: list[dict], pool: list[dict] | None = Non
     # 올릴지 max 를 올릴지 수집을 늘릴지 사후에 못 가른다.
     if diag.get("cap"):
         stats["cap"] = diag["cap"]
+    # 연속일 반복 판정. 감점만 받고 살아남은 건까지 남겨야 "게이트가 세긴 한데
+    # 아무것도 안 걸렀다"와 "판정 자체가 안 돌았다"를 사후에 가를 수 있다.
+    if continuity is not None:
+        verdicts = continuity.get("verdicts") or []
+        stats["continuity"] = {
+            "checked": continuity.get("checked", 0),
+            "matched": continuity.get("matched", 0),
+            "dropped": len(diag.get("dropped_repeat") or []),
+            "by_progression": {
+                key: sum(1 for v in verdicts if v.get("progression") == key)
+                for key in ("material", "minor", "none")
+            },
+            "samples": verdicts[:6],
+        }
+        # dedup 이 접은 뒤의 재판정. 삭제를 실제로 정한 것은 이쪽이므로 위 숫자와
+        # 따로 남긴다 — 둘이 갈리면 "근거 교집합이 판정을 뒤집었다"는 뜻이다.
+        recheck = continuity.get("recheck")
+        if isinstance(recheck, dict):
+            again = recheck.get("verdicts") or []
+            stats["continuity"]["recheck"] = {
+                "checked": recheck.get("checked", 0),
+                "matched": recheck.get("matched", 0),
+                "by_progression": {
+                    key: sum(1 for v in again if v.get("progression") == key)
+                    for key in ("material", "minor", "none")
+                },
+                # 문턱을 넘은 건수와 그냥 겹친 건수를 따로 센다 — 겹침만 세면
+                # 게이트가 실제보다 활발해 보인다 (V2 실측 5:1).
+                "evidence_confirmed": sum(1 for v in again
+                                          if v.get("evidence_confirmed")),
+                "evidence_overlapping": sum(1 for v in again
+                                            if v.get("evidence_shared")),
+            }
     return stats
 
 
@@ -580,17 +615,56 @@ def plan_briefs(queue: list[dict],
     # 국내와 해외를 한 번에 보내지 않는 이유: 지역이 다른 기사가 한 사건으로 묶이면
     # 한쪽 브리핑이 통째로 비는 사고가 난다.
     from dedup import dedup_articles
+
+    # 연속일 반복 게이트 — 선정 **전에** 어제 발송분과 대조한다 (V2 5차 이식,
+    # 백테스트 게이트 통과 후 배선). 그날 큐 안의 중복은 제목·의미 dedup 이
+    # 이미 잡지만, 어제와 대조하는 자리는 파이프라인에 없었다(웹은 발송 뒤에 잇는다).
+    continuity_cfg = issue_continuity.resolve_config(cfg)
+    recent_sent = issue_continuity.load_recent_sent(
+        int(continuity_cfg.get("lookback_days", 5)))
+
+    # 판정을 두 번 받는다. 처음은 여기(점수에 감점을 싣는다), 두 번째는
+    # rank_and_select 안에서 dedup 이 후보를 접은 뒤다. 두 번 다 같은 판정기·
+    # 같은 발송 이력을 쓴다. 흔한 말 집합은 **처음 풀에서 한 번만** 센다 —
+    # 두 번째 입력은 걸러진 소수라 안에서 다시 세면 문턱이 최소값으로 떨어져
+    # 같은 하루 안에서 '흔한 말'의 정의가 바뀐다.
+    dom_generic = issue_continuity.generic_anchors(list(dom_pool) + recent_sent)
+    dom_cont = issue_continuity.annotate(dom_pool, recent_sent, cfg, today,
+                                         generic=dom_generic)
+
+    def dom_recheck(rows: list[dict]) -> None:
+        # 두 번째 판정은 덮어쓰지 않고 따로 남긴다 — 첫 판정의 checked/matched 는
+        # '풀 전체에서 몇 건이 반복이었나'라는 별개의 사실이다.
+        dom_cont["recheck"] = issue_continuity.annotate(
+            rows, recent_sent, cfg, today, generic=dom_generic)
+
     dom, dom_diag = ranking.rank_and_select(
         dom_pool, DOMESTIC_CAP, cfg, now, ranking.resolve_floor(cfg, "domestic"),
         cap_spec=ranking.resolve_caps(cfg, "domestic"),
-        semantic_dedup=dedup_articles)
+        semantic_dedup=dedup_articles,
+        continuity_recheck=dom_recheck)
+
+    # 해외 풀은 **국내 선정 결과까지** 어제분에 얹어서 본다 — 같은 이슈가 국내
+    # 1번과 해외 3번을 동시에 차지한 실측(2026-08-16 테라파워) 대응.
+    forn_recent = recent_sent + [issue_continuity.as_sent_record(a, today) for a in dom]
+    forn_generic = issue_continuity.generic_anchors(list(forn_pool) + forn_recent)
+    forn_cont = issue_continuity.annotate(forn_pool, forn_recent, cfg, today,
+                                          generic=forn_generic)
+
+    def forn_recheck(rows: list[dict]) -> None:
+        forn_cont["recheck"] = issue_continuity.annotate(
+            rows, forn_recent, cfg, today, generic=forn_generic)
+
     forn, forn_diag = ranking.rank_and_select(
         forn_pool, FOREIGN_CAP, cfg, now, ranking.resolve_floor(cfg, "overseas"),
         cap_spec=ranking.resolve_caps(cfg, "overseas"),
-        semantic_dedup=dedup_articles)
+        semantic_dedup=dedup_articles,
+        continuity_recheck=forn_recheck)
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별 "
           f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건, "
-          f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건)")
+          f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건, "
+          f"연속일 반복 {len(dom_diag.get('dropped_repeat') or []) + len(forn_diag.get('dropped_repeat') or [])}건 제외 "
+          f"/ 감점 {dom_cont['matched'] + forn_cont['matched']}건 판정)")
 
     # 투자 보강 — 양쪽 선별분 한 번에 (무료 티어 호출 절감)
     allsel = dom + forn
@@ -651,6 +725,13 @@ def plan_briefs(queue: list[dict],
             "hash": h,
             "title_kr": (a.get("title_kr") or a.get("title") or "")[:100],
             "region": reg,
+            # 내일의 연속일 게이트가 읽을 재료. 제목만으로는 단계 판정이
+            # 얇아진다 — '협의'와 '본계약'이 요약에만 있는 날이 흔하다
+            # (백테스트 #10: 대만 원안위 '승인'이 요약에만 있어 material 을 놓쳤다).
+            # issue_continuity.load_recent_sent 가 이 줄을 그대로 읽는다.
+            "summary": (a.get("summary") or "")[:200],
+            "tags": (a.get("tags") or [])[:6],
+            "event_date": a.get("event_date"),
             "section": a.get("section", ""),
             # LLM 판정 scope (없으면 region()이 휴리스틱으로 결정한 것 — 오분류 추적용)
             "scope": a.get("scope", ""),
@@ -682,8 +763,8 @@ def plan_briefs(queue: list[dict],
     return {**base, "status": "pending", "briefs": briefs, "items": out_items,
             "report_diag": report_diag,
             "selection_stats": {
-                "domestic": region_stats(dom_diag, dom, dom_pool),
-                "overseas": region_stats(forn_diag, forn, forn_pool),
+                "domestic": region_stats(dom_diag, dom, dom_pool, dom_cont),
+                "overseas": region_stats(forn_diag, forn, forn_pool, forn_cont),
             },
             "dropped_duplicates": dom_diag["dropped_duplicates"] + forn_diag["dropped_duplicates"],
             "prune_hashes": prune}

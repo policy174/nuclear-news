@@ -229,6 +229,17 @@ def derive_novelty(item: dict) -> int:
     return 2 if prior <= 2 else 1
 
 
+def _continuity_of(item: dict) -> dict:
+    """`issue_continuity.annotate()` 가 붙여 둔 연속일 판정. 없으면 빈 dict.
+
+    이 모듈은 판정을 **하지 않는다** — 재료(delivery_log)가 외부 파일이라
+    들여오면 랭킹 테스트가 파일에 묶인다. news_bot 이 `prior_coverage` 를
+    주입하는 것과 같은 방향으로, 결과만 읽는다.
+    """
+    value = item.get("continuity")
+    return value if isinstance(value, dict) else {}
+
+
 def _tracking_bonus(item: dict, cfg: dict) -> tuple[float, str]:
     """추적 중인 이슈가 다시 움직였을 때의 가점.
 
@@ -312,6 +323,13 @@ def score_item(item: dict, cfg: dict,
             breakdown["related_reports"] = b
 
         track, track_key = _tracking_bonus(item, cfg)
+        # 추적 가점은 '이 이슈가 다시 움직였다'는 신호여야 한다. 어제 보낸 이야기가
+        # 단계 하나 안 움직인 채 다시 온 경우에도 붙고 있었다 — 감점 0(novelty
+        # 가중치)에 가점 >0 이면 중요한 이슈일수록 며칠 연속 상위에 남는다.
+        # 판정은 issue_continuity 가 하고 여기서는 그 결과를 읽기만 한다.
+        if track and _continuity_of(item).get("cancel_tracking"):
+            breakdown[f"{track_key}:cancelled"] = 0.0
+            track = 0.0
         if track:
             score += track
             breakdown[track_key] = track
@@ -329,6 +347,13 @@ def score_item(item: dict, cfg: dict,
         score -= decay
         breakdown["time_decay"] = round(-decay, 2)
 
+    # 연속일 반복 감점. legacy 경로에도 걸어야 한다 — features 결손 항목이 반복을
+    # 통째로 비껴가면 그 경로로 매일 같은 기사가 올라온다.
+    cont = _continuity_of(item)
+    delta = float(cont.get("score_delta") or 0.0)
+    if delta:
+        score += delta
+        breakdown[f"continuity:{cont.get('progression') or 'repeat'}"] = round(delta, 2)
 
     return round(score, 3), breakdown
 
@@ -644,6 +669,35 @@ SEMANTIC_HEAD_MULTIPLIER = 3
 SEMANTIC_HEAD_MIN = 12
 
 
+def _remove_continuity_repeats(items: list[dict], repeats: list[dict]) -> list[dict]:
+    """진전 없는 정확 반복을 후보에서 빼고, 감사 기록을 온전히 남긴다."""
+    surviving: list[dict] = []
+    already_repeated = {str(row.get("hash") or "") for row in repeats}
+    for item in items:
+        cont = _continuity_of(item)
+        if not cont.get("drop"):
+            surviving.append(item)
+            continue
+        if str(item.get("hash") or "") in already_repeated:
+            continue
+        repeats.append({
+            "hash": item.get("hash", ""),
+            "story_id": item.get("story_id", ""),
+            "title": (item.get("title_kr") or item.get("title") or "")[:80],
+            "prior_title": cont.get("prior_title", ""),
+            "prior_date": cont.get("prior_date", ""),
+            "days_ago": cont.get("days_ago"),
+            "similarity": cont.get("similarity"),
+            "evidence_shared": cont.get("evidence_shared"),
+            "evidence_confirmed": cont.get("evidence_confirmed"),
+            "identity_confirmed": cont.get("identity_confirmed"),
+            "identity_method": cont.get("identity_method"),
+            "progression": cont.get("progression"),
+            "match_reasons": cont.get("match_reasons") or [],
+        })
+    return surviving
+
+
 def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                     now: datetime | None = None,
                     floor: dict | None = None,
@@ -652,6 +706,7 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                     semantic_dedup: Callable[
                         [list[dict], dict[str, float]],
                         tuple[list[dict], list[dict]]] | None = None,
+                    continuity_recheck: Callable[[list[dict]], None] | None = None,
                     ) -> tuple[list[dict], dict]:
     """점수화 → 중복 클러스터 → (의미 dedup) → (하한) → 다양성 top-k.
 
@@ -664,6 +719,12 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
             못 넘는 표기 요동('어멘텀'/'아멘텀', '팍스'/'팍시')을 잡는 자리다.
             **주입식으로 받는다** — 이 모듈은 LLM 을 모른 채로 남아야 테스트가
             네트워크 없이 돈다. None 이면 이 단계를 건너뛴다.
+        continuity_recheck: dedup 으로 후보가 접힌 **뒤에** 연속일 판정을 다시
+            붙이는 콜러블(제자리 수정). 호출부가 `issue_continuity.annotate` 를
+            감아 넣는다 — 이 모듈은 delivery_log 를 모른 채로 남아야 하므로
+            semantic_dedup 과 같은 주입식이다. dedup 이 접으며 합친 folded·
+            근거 메타데이터가 판정 재료(근거 교집합)라, 접기 전 판정만으로는
+            그 재료가 아직 없다. None 이면 첫 판정(annotate)이 그대로 선다.
 
     Returns:
         (선정 리스트, 진단 dict: scores/breakdowns/dropped_duplicates/
@@ -696,6 +757,18 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
         kept = [a for a in ordered if id(a) in alive]
         dropped = dropped + head_dropped
 
+    # 연속일 반복 제거. 재판정 콜러블이 있으면 dedup 이 접은 최종 후보에 다시
+    # 판정을 붙인 뒤 제거한다 — 점수도 다시 계산해야 감점·가점 취소가 반영된다.
+    repeats: list[dict] = []
+    if continuity_recheck is not None and kept:
+        continuity_recheck(kept)
+        for row in kept:
+            h = row.get("hash", "")
+            s2, b2 = score_item(row, cfg, now)
+            scores[h] = s2
+            breakdowns[h] = b2
+    kept = _remove_continuity_repeats(kept, repeats)
+
     below: list[dict] = []
     if floor:
         passing = []
@@ -726,6 +799,9 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
         "cap": cap_detail,
         "candidate_count": len(items),
         "dropped_below_floor": below,
+        # 연속일 반복으로 후보에서 빠진 것. 감점만 받고 살아남은 것들은
+        # breakdown 의 continuity:* 로 남는다.
+        "dropped_repeat": repeats,
         "dropped_duplicates": [{"hash": d.get("hash", ""),
                                 "dup_of": d.get("dup_of", ""),
                                 "title": (d.get("title_kr") or d.get("title") or "")[:80]}
