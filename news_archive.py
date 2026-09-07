@@ -40,6 +40,7 @@ from data_quality import (
     split_title_publisher,
     title_key,
 )
+import article_quality_gate
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -205,7 +206,38 @@ def make_record(article: dict, cur: dict, archived_at: str) -> dict:
         "folded_count": int(article.get("folded_count") or 0),
     }
     record.update(event_fields)
+    record.update(_quality_labels(record, article))
     return record
+
+
+def _quality_labels(record: dict, article: dict) -> dict:
+    """품질 검사 **라벨** — 격리·삭제·필드 제거 없음 (V2 5차 이식 P3).
+
+    V2 article_quality_gate 는 quarantine 까지 하지만 V1 최대 약점은 재현율이라
+    (필수 기사 0% 이력) 차단은 안 한다. 검사 결과만 레코드에 남겨 관리자 콘솔·
+    빌드가 읽게 하고, 1주 라벨 분포를 본 뒤 차단 전환을 별도 결정한다.
+    라벨 실패는 절대 적재를 막지 않는다 — 사유를 라벨로 남긴다(조용한 실패 금지).
+    """
+    try:
+        result = article_quality_gate.audit_article_integrity(
+            record,
+            source={
+                "title": article.get("title") or "",
+                "description": article.get("description") or "",
+                "published_at": record.get("pub") or "",
+            },
+        )
+        labels: dict = {
+            "curation_status": article_quality_gate.infer_curation_status(record),
+        }
+        if result.findings:
+            labels["quality_findings"] = [f.as_dict() for f in result.findings]
+        if result.action != "allow":
+            # 게이트였다면 취했을 조치(sanitize|quarantine). 지금은 표시만.
+            labels["quality_action_advice"] = result.action
+        return labels
+    except Exception as exc:  # noqa: BLE001 — 크롤 경로 보호가 검사보다 우선
+        return {"quality_label_error": str(exc)[:120]}
 
 
 def append_records(records: list[dict]) -> int:

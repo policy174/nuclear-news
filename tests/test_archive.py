@@ -63,6 +63,19 @@ class TestMakeRecord(unittest.TestCase):
         self.assertIsNone(r["event_date"])
         self.assertNotIn("description", r)  # 원문 본문 미저장 (저작권)
 
+    def test_quality_labels_are_stamped_but_never_gate(self):
+        """5차 이식 P3 — 라벨만 붙고 격리·필드 제거는 없다 (재현율 보호)."""
+        article = {
+            "hash": "q1", "link": "https://example.com/a",
+            "title": "Plant restart approved", "domain": "example.com",
+        }
+        cur = {"title_kr": "발전소 재가동 승인", "summary": "요약",
+               "features": {"novelty": 2}, "importance": "nice_to_know"}
+        r = news_archive.make_record(article, cur, "2026-09-07T04:00:00+00:00")
+        self.assertEqual(r["curation_status"], "reviewed")  # features 有 → reviewed
+        self.assertEqual(r["title_kr"], "발전소 재가동 승인")  # 원본 무손상
+        self.assertNotIn("quality_label_error", r)
+
     def test_open_question_reject_survives_into_the_archive(self):
         """게이트 사유는 아카이브 화이트리스트에 있어야 남는다.
 
