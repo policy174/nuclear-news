@@ -234,9 +234,11 @@ jobs:
           # (초안 없이 배포). 오디오 뒤에 두는 이유: build_data·오디오가 같은
           # 무료 버킷을 방금 썼고, 여기까지 오면 분당 창이 풀려 있다.
           python report_draft.py || echo "[report_draft] 실패 — 초안 없이 배포 계속"
+          # 스토리 국면형 서사 — 전용 버킷(gemini-3.5-flash)이라 위와 쿼터 경합 0.
+          python chronicle_narrative.py || echo "[chronicle_narrative] 실패 — 서사 없이 배포 계속"
           # 초안 캐시를 커밋해야 다음 회차가 같은 이슈를 다시 묻지 않는다.
           # push 실패는 비치명 — 캐시가 안 남으면 다음 회차가 재생성할 뿐이다.
-          git add report_drafts.json 2>/dev/null || true
+          git add report_drafts.json chronicle_narratives.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -280,7 +282,10 @@ jobs:
         run: |
           # 파일별로 가드한다 — 한 파일이 없어서 git add 가 실패하면 나머지
           # 파일의 커밋까지 같이 죽는다(daily_leads.json 데드락과 같은 함정).
-          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json; do
+          # chronicles.json(스토리 원장)·agenda_log_snapshots.json 은 build_data 가
+          # 쓰는 영속 파일 — 여기서 안 커밋하면 이 경로의 갱신분만 조용히 유실된다
+          # (crawl.yml 커밋 루프에는 있는데 여기 빠져 있던 함정).
+          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json chronicles.json agenda_log_snapshots.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet && exit 0

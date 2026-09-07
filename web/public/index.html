@@ -541,6 +541,15 @@
       </section>
       <p class="data-note cal-note">기사 문장에 날짜가 적힌 일정만 세웁니다. 일정을 누르면 근거 문장과 출처를 봅니다.</p>
     </section>
+    <!-- 스토리(chronicle) — 이슈 60일 수명을 넘어 쌓이는 시간축 원장. 재료가
+         없으면 스스로 내려가고 renumberSections 가 번호를 당긴다. -->
+    <section id="chronicleSection" class="chronicle-panel" aria-labelledby="chronicleHeading" hidden>
+      <div class="section-heading compact">
+        <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="chronicleHeading">이어지는 사안</h2></div>
+        <span class="data-note" id="chronicleMeta"></span>
+      </div>
+      <div id="chronicleList" class="chronicle-list"></div>
+    </section>
     <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
          쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
     <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">

@@ -4079,6 +4079,12 @@ def report_entity_stats(registry: list[dict], issue_catalog: list[dict]) -> None
 
 AGENDA_REGISTRY_FILE = BOT_DIR / "agenda_registry.json"
 AGENDA_SNAPSHOT_FILE = BOT_DIR / "agenda_log_snapshots.json"
+# 스토리(chronicle) 영속 원장 — 배포 사본(OUT_DIR/chronicles.json)과 이름이 같다.
+# 반드시 이 상수로만 읽고 써야 한다: 공개본 경로를 원장으로 착각하면
+# (data/ 는 매 빌드 새로 쓰는 gitignore 산출물) 원장이 매 빌드 초기화된다.
+CHRONICLE_LEDGER_FILE = BOT_DIR / "chronicles.json"
+CHRONICLE_EVENT_CAP = 200          # 연대기당 이벤트 상한 — 초과분은 오래된 것부터 드롭
+CHRONICLE_MIN_BRIEFINGS = 3        # 신규 승격 문턱: 이 횟수 이상 브리핑에 노출된 이슈만
 
 
 def load_agenda_registry(path: Path = None) -> list[dict]:
@@ -4175,6 +4181,101 @@ def freeze_agenda_snapshots(logs: list[dict], issues_by_id: dict,
         except OSError:
             pass
     return snaps
+
+
+def update_chronicle_ledger(issue_catalog: list[dict], now_iso: str,
+                            path: Path = CHRONICLE_LEDGER_FILE,
+                            ) -> tuple[dict[str, str], dict]:
+    """스토리(chronicle) 영속 원장 갱신 — 이슈 수명(60일 창)을 넘는 시간축 아카이브.
+
+    issue_id 는 첫 기사가 60일 창 밖으로 밀려나면 바뀌거나 사라지는 파생값이라
+    (agenda 의 broken_pins 가 실증) 장기 축에 못 쓴다. 기사 hash 는 영구 안정이므로
+    원장이 hash 집합을 기억하면 issue_id 가 갈려도 같은 스토리로 이어붙는다.
+    같은 빌드에서 한 기사는 정확히 한 이슈에만 속하므로 이 매칭은 퍼지가 아니라
+    사전 조회다 — story_rollup 류 유사도 병합과 달리 과병합 여지가 없다.
+
+    이벤트는 first-write-wins(freeze_agenda_snapshots 와 같은 원칙): 한 번 적힌
+    hash 는 다시 쓰지 않아 재실행이 멱등이다. 반환은 ({issue_id: chronicle_id},
+    배포용 뷰) — 앞엣것으로 카탈로그 행에 chronicle_id 를 주입한다.
+    """
+    try:
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        ledger = {}
+    chronicles = ledger.get("chronicles")
+    if not isinstance(chronicles, dict):
+        chronicles = {}
+
+    hash_to_chronicle: dict[str, str] = {}
+    for cid, chron in chronicles.items():
+        for event in chron.get("events") or []:
+            hash_to_chronicle.setdefault(str(event.get("hash") or ""), cid)
+
+    result: dict[str, str] = {}
+    dirty = False
+    for row in issue_catalog:
+        # evidence 멤버는 '선정되지 않은 근거'라 스토리 소속 판정에서 제외한다 —
+        # 포함하면 관련성 낮은 기사가 연대기를 오염시킨다.
+        card_articles = [a for a in row.get("related_articles") or []
+                         if a.get("member_role") != "evidence" and a.get("hash")]
+        hashes = {a["hash"] for a in card_articles}
+        if not hashes:
+            continue
+        cid = next((hash_to_chronicle[h] for h in sorted(hashes)
+                    if h in hash_to_chronicle), None)
+        if cid is None:
+            # 전 이슈를 승격시키면 원장이 issues.json 재탕이 된다 — 실제로
+            # 이어지고 있는 사안(브리핑 3회+)이나 보고 추천 사안만 스토리가 된다.
+            if (int(row.get("tracked_briefings") or 0) < CHRONICLE_MIN_BRIEFINGS
+                    and not row.get("report_pick")):
+                continue
+            cid = f"chron-{min(hashes)}"          # 결정적 시드 — 재실행 안정
+            if cid not in chronicles:
+                chronicles[cid] = {
+                    "chronicle_id": cid,
+                    "title": row.get("title", ""),
+                    "entity_ids": row.get("entity_ids") or [],
+                    "events": [],
+                    "first_seen": row.get("first_seen", ""),
+                    "last_seen": row.get("last_seen", ""),
+                    "updated_at": now_iso,
+                }
+                dirty = True
+        chron = chronicles[cid]
+        existing = {str(e.get("hash") or "") for e in chron.get("events") or []}
+        new_events = [{
+            "hash": a["hash"],
+            "article_date": a.get("article_date", ""),
+            "briefing_date": a.get("briefing_date", ""),
+            "title_kr": a.get("title_kr") or a.get("title", ""),
+            "url": a.get("url", ""),
+            "publisher": a.get("publisher", ""),
+        } for a in card_articles if a["hash"] not in existing]
+        if new_events:
+            new_events.sort(key=lambda e: (e["article_date"], e["hash"]))
+            chron["events"] = (chron["events"] + new_events)[-CHRONICLE_EVENT_CAP:]
+            chron["title"] = row.get("title") or chron.get("title", "")
+            chron["entity_ids"] = row.get("entity_ids") or chron.get("entity_ids") or []
+            chron["last_seen"] = max(str(row.get("last_seen") or ""),
+                                     str(chron.get("last_seen") or ""))
+            chron["updated_at"] = now_iso
+            for event in new_events:
+                hash_to_chronicle.setdefault(event["hash"], cid)
+            dirty = True
+        result[row["issue_id"]] = cid
+
+    if dirty:
+        try:
+            path.write_text(
+                json.dumps({"schema_version": 1, "chronicles": chronicles},
+                           ensure_ascii=False, indent=1, sort_keys=True) + "\n",
+                encoding="utf-8")
+        except OSError:
+            pass
+    # 배포 사본용 뷰 — 원장 그대로 (프런트가 chronicle_id 로 조회).
+    ledger_view = {"schema_version": 1, "generated_at": now_iso,
+                   "chronicles": chronicles}
+    return result, ledger_view
 
 
 def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: dict,
@@ -5130,6 +5231,13 @@ def build() -> None:
     agendas_view = build_agendas_view(
         issue_catalog, load_agenda_registry(), load_admin_agenda_entries(),
         calendar_view.get("events") or [], now.isoformat())
+    # 스토리 원장 — 카탈로그가 완성된 뒤에 갱신해야 report_pick·entity_ids 가 실린다.
+    chronicle_map, chronicles_view = update_chronicle_ledger(
+        issue_catalog, now.isoformat())
+    for row in issue_catalog:
+        row["chronicle_id"] = chronicle_map.get(row["issue_id"], "")
+    print(f"[build_data] 스토리 원장: 연결 {len(chronicle_map)}건 / "
+          f"원장 {len(chronicles_view['chronicles'])}개")
     meta = {
         "generation_id": generation_id,
         "generated_at": now.isoformat(),
@@ -5268,6 +5376,7 @@ def build() -> None:
         ("publications.json", publications),
         ("entities.json", entities_view),
         ("agendas.json", agendas_view),
+        ("chronicles.json", chronicles_view),
         ("scraps.json", build_scraps(records, now)),
         ("manifest.json", manifest),
         ("status.json", status),

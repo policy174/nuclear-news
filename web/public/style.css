@@ -1314,6 +1314,48 @@ kbd {
 }
 .dialog-related button:hover { text-decoration: underline; text-underline-offset: 3px; }
 .dialog-related small { display: block; margin-top: 3px; color: var(--c-text-muted); font-size: var(--t-min); }
+
+/* ── 스토리(chronicle) — 다이얼로그 구역 + 흐름 탭 카드 목록 ─────────────── */
+.dialog-chronicle { margin-top: 24px; }
+.chronicle-narrative { margin-top: 12px; }
+.chronicle-narrative p { margin: 0 0 10px; line-height: 1.6; }
+.chronicle-phase strong,
+.chronicle-watch strong {
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--c-text-secondary);
+  font-size: var(--t-min);
+  font-weight: 700;
+}
+.chronicle-list { display: grid; gap: 14px; margin-top: 14px; }
+.chronicle-card {
+  padding: 14px 16px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+}
+.chronicle-card h3 { margin: 0; font-size: var(--t-body); line-height: 1.45; }
+.chronicle-card h3 button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  font: inherit;
+  font-weight: 650;
+  text-align: left;
+}
+.chronicle-card h3 button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.chronicle-scale { margin: 4px 0 8px; color: var(--c-text-muted); font-size: var(--t-min); }
+.chronicle-card p { margin: 0 0 8px; line-height: 1.55; }
+.chronicle-story summary,
+.chronicle-events summary {
+  color: var(--c-secondary);
+  font-size: var(--t-min);
+  font-weight: 650;
+  cursor: pointer;
+}
+.chronicle-story p { margin: 10px 0 0; line-height: 1.6; }
+.chronicle-events { margin-top: 6px; }
 /* 표 행에서는 제목이 위계의 기둥이다. 시안 23px / -.037em 을 그대로 쓴다. */
 .issue-card h3 {
   /* 9 → 6px. 2px 괘선이 행마다 1px 씩 더 먹는 값을 여기서 갚는다 — 제목과

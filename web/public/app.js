@@ -2393,6 +2393,52 @@ function reportDraftFor(issueId) {
   return state.reportDrafts?.drafts?.[issueId]?.draft || "";
 }
 
+// 스토리(chronicle) — 이슈의 60일 수명을 넘어 쌓이는 시간축 원장(chronicles.json).
+// 원장이 없거나 이슈가 스토리에 속하지 않으면 null — 호출부가 블록을 통째로
+// 숨긴다(발간물·오디오와 같은 비치명 계약).
+function chronicleFor(issue) {
+  const cid = issue?.chronicle_id || "";
+  return (cid && state.chronicles?.chronicles?.[cid]) || null;
+}
+
+// 국면형 서사(chronicle_narrative.py 산출). 없으면 null — 타임라인만 선다.
+function chronicleNarrativeFor(chronicleId) {
+  return state.chronicleNarratives?.narratives?.[chronicleId] || null;
+}
+
+// 원장 이벤트는 기사 뷰의 부분집합 필드만 갖는다 — 타임라인 부품이 기대하는
+// 형태로 그대로 통과시킨다(publisher 만 있으면 sourceLabel 이 처리).
+function chronicleEventsDesc(chron) {
+  return (chron.events || []).slice()
+    .sort((a, b) => String(b.article_date || "").localeCompare(String(a.article_date || "")));
+}
+
+// 이슈 다이얼로그의 스토리 구역. 핵심 차별점: 현 다이얼로그 타임라인은 60일 창
+// 안만 보이는데, 스토리는 그 밖으로 밀려난 과거 사건까지 이어 보여준다.
+function chronicleDialogSection(issue, contextDate) {
+  const chron = chronicleFor(issue);
+  if (!chron || (chron.events || []).length < 2) return "";
+  const narrative = chronicleNarrativeFor(chron.chronicle_id);
+  const range = flowSpanRange();
+  const narrativeBlock = narrative ? `
+      <div class="chronicle-narrative">
+        ${narrative.phase_now ? `<p class="chronicle-phase"><strong>지금 국면 <span class="ai-badge">AI</span></strong>${esc(narrative.phase_now)}</p>` : ""}
+        ${(narrative.narrative || []).map(paragraph => `<p>${esc(paragraph)}</p>`).join("")}
+        ${(narrative.watchpoints || []).length ? `<p class="chronicle-watch"><strong>지켜볼 지점</strong>${narrative.watchpoints.map(esc).join(" · ")}</p>` : ""}
+      </div>` : "";
+  return `<section class="dialog-chronicle" aria-labelledby="issueChronicleTitle">
+      <div class="dialog-section-head"><h3 id="issueChronicleTitle">스토리</h3><span>${esc(dateLabel(chron.first_seen))}부터 사건 ${(chron.events || []).length}건</span></div>
+      ${range ? flowSpanTrack(chron, range) : ""}
+      ${narrativeBlock}
+      ${timelineList(chronicleEventsDesc(chron), {
+        contextDate,
+        stage: "지난 흐름",
+        shownDetail: "",
+        moreLabel: "이전 사건",
+      })}
+    </section>`;
+}
+
 // 초안 뒤에 붙는 출처 목록 — 초안 본문은 LLM 산출이라 각주 번호가 없으므로,
 // 근거가 된 카드 기사들을 결정적으로 나열한다(footnoteBook 형식 재사용).
 function draftSourceLines(issue) {
@@ -2414,10 +2460,18 @@ function draftSourceLines(issue) {
 // 종결로 바꾸는 것은 사람이나 khnp-report 스킬이 할 일이고, 여기서 어미를
 // 기계적으로 자르면 근거 없는 문장이 된다. AI 가 쓴 문장에는 라벨을 남긴다.
 function issueReportText(issue) {
+  // 스토리 소속이면 경과 한 문단을 재료로 붙인다 — 보고서의 '경과' 칸이
+  // 60일 창 밖 발단까지 물고 들어가게 하는 최소 연결(v1).
+  const chron = chronicleFor(issue);
+  const narrative = chron ? chronicleNarrativeFor(chron.chronicle_id) : null;
+  const chronicleLines = narrative?.phase_now
+    ? ["", ` ○ (경과·AI) ${narrative.phase_now}`
+       + ` (${dateLabel(chron.first_seen)}부터 사건 ${(chron.events || []).length}건)`]
+    : [];
   const draft = reportDraftFor(issue.issue_id);
   if (draft) {
-    return [`□ ${issue.title || ""}`, "", draft, ...draftSourceLines(issue),
-            "", STRINGS.draftAiNote].join("\n");
+    return [`□ ${issue.title || ""}`, "", draft, ...chronicleLines,
+            ...draftSourceLines(issue), "", STRINGS.draftAiNote].join("\n");
   }
   const notes = footnoteBook();
   const representative = issue.representative_article || {};
@@ -2433,7 +2487,7 @@ function issueReportText(issue) {
   add("시사점·AI", issue.implication);
   add("남은 확인", issue.open_question);
   add("검증", `${(VERIFICATION_VIEW[verState.status] || VERIFICATION_VIEW.unverified).label} — ${issueEvidenceText(issue)}`);
-  return [...lines, ...notes.lines()].join("\n");
+  return [...lines, ...chronicleLines, ...notes.lines()].join("\n");
 }
 
 // 공백·문장부호 차이를 무시한 포함 판정 — 중복 줄 제거 전용.
@@ -2804,6 +2858,7 @@ function openIssueDialog(issueId, updateUrl = true) {
         moreLabel: "이전 근거",
       })}
     </details>` : ""}
+    ${chronicleDialogSection(issue, contextDate)}
     ${related.length ? `<section class="dialog-related" aria-labelledby="issueRelatedTitle">
       <div class="dialog-section-head"><h3 id="issueRelatedTitle">관련 이슈</h3><span>같은 주제로 연결된 이슈입니다</span></div>
       <ul>${related.map(item => `<li>
@@ -4146,6 +4201,8 @@ function renderTrend() {
   renderPeriodTimeline();
   // 지난 브리핑은 트렌드 집계 준비 여부와 무관하다 — 이른 return 앞에서 그린다.
   renderBriefingTimeline();
+  // 스토리도 번호가 붙은 구역 — renumberSections 앞에서 hidden 이 정해져야 한다.
+  renderChronicles();
   // 워드 클라우드는 번호가 붙은 구역이라 renumberSections 앞에서 hidden 이 정해져야
   // 한다. 그러지 않으면 숨은 구역이 번호를 한 칸 먹는다.
   renderWordCloud();
@@ -4165,6 +4222,50 @@ function renderTrend() {
     ? `${periodLabel()}에는 ${COUNTRY_LABELS[topCountry.country] || topCountry.country} 관련 선정 사건이 ${topCountry.count}건으로 가장 많았습니다.`
     : "국가별로 비교할 이슈가 아직 충분하지 않습니다.";
   renderSlopeGraph();
+}
+
+// 흐름 탭의 '이어지는 사안' — 스토리 원장에서 최근 갱신 순으로 몇 건.
+// 살아있는 이슈(카탈로그에 chronicle_id 로 연결)가 있으면 제목 클릭이 그 이슈
+// 다이얼로그를 연다(data-issue-id 전역 위임 재사용). 이슈가 60일 창 밖으로
+// 죽었어도 카드 자체는 남는다 — 그게 이 원장의 존재 이유다.
+const CHRONICLE_LIST_MAX = 6;
+
+function renderChronicles() {
+  const section = document.getElementById("chronicleSection");
+  if (!section) return;
+  const chronicles = Object.values(state.chronicles?.chronicles || {})
+    .filter(chron => (chron.events || []).length >= 2)
+    .sort((a, b) => String(b.last_seen || "").localeCompare(String(a.last_seen || "")))
+    .slice(0, CHRONICLE_LIST_MAX);
+  section.hidden = !chronicles.length;
+  if (!chronicles.length) return;
+  const byChronicle = new Map(
+    state.issues.filter(issue => issue.chronicle_id)
+      .map(issue => [issue.chronicle_id, issue.issue_id]));
+  const range = flowSpanRange();
+  document.getElementById("chronicleMeta").textContent =
+    `이슈 수명(60일)을 넘어 이어 붙인 사안 ${chronicles.length}건`;
+  document.getElementById("chronicleList").innerHTML = chronicles.map(chron => {
+    const liveIssueId = byChronicle.get(chron.chronicle_id) || "";
+    const narrative = chronicleNarrativeFor(chron.chronicle_id);
+    const events = chronicleEventsDesc(chron);
+    const title = liveIssueId
+      ? `<button type="button" class="issue-title-button" data-issue-id="${esc(liveIssueId)}">${esc(chron.title)}</button>`
+      : `<span>${esc(chron.title)}</span>`;
+    return `<article class="chronicle-card">
+      <h3>${title}</h3>
+      <p class="chronicle-scale">${esc(dateLabel(chron.first_seen))}부터 · 사건 ${events.length}건${liveIssueId ? "" : " · 추적 종료"}</p>
+      ${range ? flowSpanTrack(chron, range) : ""}
+      ${narrative?.phase_now ? `<p class="chronicle-phase"><strong>지금 국면 <span class="ai-badge">AI</span></strong>${esc(narrative.phase_now)}</p>` : ""}
+      ${narrative?.narrative?.length ? `<details class="chronicle-story"><summary>스토리 읽기</summary>
+        ${narrative.narrative.map(paragraph => `<p>${esc(paragraph)}</p>`).join("")}
+        ${(narrative.watchpoints || []).length ? `<p class="chronicle-watch"><strong>지켜볼 지점</strong>${narrative.watchpoints.map(esc).join(" · ")}</p>` : ""}
+      </details>` : ""}
+      <details class="chronicle-events"><summary>사건 ${events.length}건 펼치기</summary>
+        ${timelineList(events, { contextDate: chron.last_seen, stage: "지난 흐름", shownDetail: "", moreLabel: "이전 사건" })}
+      </details>
+    </article>`;
+  }).join("");
 }
 
 function clearBriefingFilters() {
@@ -5129,7 +5230,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts, state.chronicles, state.chronicleNarratives] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -5143,6 +5244,9 @@ async function init() {
       loadJSON("scraps.json").catch(() => null),
       // 보고서 초안(report_draft.py, 보고 후보만) — 없으면 템플릿 복사로 물러난다.
       loadJSON("report_drafts.json").catch(() => null),
+      // 스토리 원장·서사 — 없으면 스토리 섹션만 숨는다(같은 비치명 계약).
+      loadJSON("chronicles.json").catch(() => null),
+      loadJSON("chronicle_narratives.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;
