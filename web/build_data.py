@@ -1500,11 +1500,53 @@ def build_merge_diagnostics(issue_audit: dict, records: list[dict],
         "folded": (r.get("folded") or [])[:12],
     } for r in folds[:MERGE_DIAG_FOLD_CAP]]
 
+    # 품질 검사 **라벨** (V2 5차 이식 P3). news_archive 가 격리 없이 찍기만 하는
+    # curation_status·quality_action_advice·quality_findings 의 분포와 표본.
+    # 차단 전환 여부를 정할 1주 관찰의 재료라, 격리 권고(quarantine)가 몇 건이고
+    # 어떤 기사였는지가 핵심이다. 라벨 없는 레코드는 '도입 전'이라 따로 센다.
+    labeled = [r for r in records if r.get("curation_status")]
+    by_status: dict[str, int] = {}
+    by_advice: dict[str, int] = {}
+    by_code: dict[str, int] = {}
+    for r in labeled:
+        by_status[str(r["curation_status"])] = by_status.get(str(r["curation_status"]), 0) + 1
+        advice = r.get("quality_action_advice")
+        if advice:
+            by_advice[str(advice)] = by_advice.get(str(advice), 0) + 1
+        for f in r.get("quality_findings") or []:
+            code = str((f or {}).get("code") or "")
+            if code:
+                by_code[code] = by_code.get(code, 0) + 1
+    # quarantine 권고가 앞, 그 안에서는 최신순
+    advised = [r for r in labeled if r.get("quality_action_advice")]
+    advised = (sorted((r for r in advised if r.get("quality_action_advice") == "quarantine"),
+                      key=lambda r: str(r.get("archived_at") or ""), reverse=True)
+               + sorted((r for r in advised if r.get("quality_action_advice") != "quarantine"),
+                        key=lambda r: str(r.get("archived_at") or ""), reverse=True))
+    quality_rows = [{
+        "hash": r.get("hash"),
+        "title": r.get("title_kr") or r.get("title") or "",
+        "publisher": r.get("publisher", ""),
+        "date": str(r.get("archived_at") or r.get("pub") or "")[:10],
+        "status": r.get("curation_status"),
+        "advice": r.get("quality_action_advice"),
+        "findings": [{"code": (f or {}).get("code"), "severity": (f or {}).get("severity"),
+                      "message": str((f or {}).get("message") or "")[:120]}
+                     for f in (r.get("quality_findings") or [])[:4]],
+    } for r in advised[:12]]
+
     return {
         "generated_at": datetime.now(KST).isoformat(),
         "merged": merged,
         "near_miss": near_miss,
         "folds": fold_rows,
+        "quality": {
+            "labeled": len(labeled),
+            "by_status": by_status,
+            "by_advice": by_advice,
+            "by_code": dict(sorted(by_code.items(), key=lambda kv: kv[1], reverse=True)[:8]),
+            "samples": quality_rows,
+        },
         "judged": {"join": sorted(judgments.get("approved") or set()),
                    "split": sorted(judgments.get("rejected") or set())},
         "counts": {

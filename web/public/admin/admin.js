@@ -233,6 +233,26 @@ function renderMerge() {
       </article>`).join("") ||
       `<p class="note">${state.merge.counts?.records_with_ledger
         ? "접힌 보도가 없습니다." : "아직 장부가 쌓이지 않았습니다 — 도입 이후 수집분부터 보입니다."}</p>`;
+
+  // 품질 검사 라벨 — 격리 없이 찍기만 한 결과. 격리 권고가 몇 건이고 무엇이었는지가
+  // 차단 전환 결정의 재료라, 분포 한 줄 + 권고 표본을 보여 준다.
+  const q = state.merge.quality;
+  const qualityEl = document.getElementById("mergeQuality");
+  if (qualityEl) {
+    const dist = (obj) => Object.entries(obj || {}).map(([k, v]) => `${esc(k)} ${v}`).join(" · ");
+    qualityEl.innerHTML = !q || !q.labeled
+      ? '<p class="note">라벨이 아직 없습니다 — 도입 이후 수집분부터 보입니다.</p>'
+      : `<p class="note">라벨 ${q.labeled}건 · 상태: ${dist(q.by_status)}${
+          Object.keys(q.by_advice || {}).length ? ` · 권고: ${dist(q.by_advice)}` : " · 권고 없음"}${
+          Object.keys(q.by_code || {}).length ? `<br>사유 상위: ${dist(q.by_code)}` : ""}</p>` +
+        ((q.samples || []).map(row => `
+          <article class="diag">
+            <span class="diag-title">${esc(row.title)}</span>
+            <div class="diag-head">${esc(row.publisher || "")} · ${esc(row.date || "")} · ${esc(row.status || "")} · 권고 <strong>${esc(row.advice || "")}</strong></div>
+            <ul class="fold-list">${(row.findings || []).map(f =>
+              `<li>${esc(f.code || "")}${f.severity ? ` (${esc(f.severity)})` : ""}${f.message ? ` — ${esc(f.message)}` : ""}</li>`).join("")}</ul>
+          </article>`).join("") || '<p class="note">조치 권고가 붙은 기사가 없습니다.</p>');
+  }
 }
 
 function render() {

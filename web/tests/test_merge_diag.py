@@ -133,6 +133,30 @@ class MergeDiagProjectionTests(unittest.TestCase):
             {"approved": set(), "rejected": set()})
         self.assertEqual(legacy["counts"]["records_with_ledger"], 0)
 
+    def test_quality_labels_are_summarised_with_quarantine_advice_first(self):
+        # 5차 이식 P3 — 라벨 분포와 권고 표본. 격리 권고가 표본 맨 앞에 선다.
+        records = [
+            {"hash": "q1", "title_kr": "정상", "curation_status": "reviewed",
+             "archived_at": "2026-09-07T01:00:00+00:00"},
+            {"hash": "q2", "title_kr": "날짜 근거 부족", "curation_status": "reviewed",
+             "quality_action_advice": "sanitize",
+             "quality_findings": [{"code": "event_date_source_unavailable", "severity": "warning"}],
+             "archived_at": "2026-09-07T03:00:00+00:00"},
+            {"hash": "q3", "title_kr": "제목 어긋남", "curation_status": "fallback",
+             "quality_action_advice": "quarantine",
+             "quality_findings": [{"code": "title_mismatch", "severity": "error", "message": "x"}],
+             "archived_at": "2026-09-07T02:00:00+00:00"},
+            {"hash": "old", "title": "라벨 이전 레코드"},
+        ]
+        quality = build_data.build_merge_diagnostics(
+            self.AUDIT, records, {"approved": set(), "rejected": set()})["quality"]
+        self.assertEqual(quality["labeled"], 3)
+        self.assertEqual(quality["by_status"], {"reviewed": 2, "fallback": 1})
+        self.assertEqual(quality["by_advice"], {"sanitize": 1, "quarantine": 1})
+        self.assertEqual(list(quality["by_code"])[0] in ("event_date_source_unavailable", "title_mismatch"), True)
+        self.assertEqual([r["hash"] for r in quality["samples"]], ["q3", "q2"])
+        self.assertEqual(quality["samples"][0]["findings"][0]["code"], "title_mismatch")
+
 
 if __name__ == "__main__":
     unittest.main()
