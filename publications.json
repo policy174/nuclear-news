@@ -1,6 +1,37 @@
 {
  "items": [
   {
+   "id": "fa97abd8683f",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "NEA International School of Nuclear Law celebrates 25-year milestone",
+   "url": "https://www.oecd-nea.org/jcms/pl_121408/nea-international-school-of-nuclear-law-celebrates-25-year-milestone",
+   "date": "",
+   "fetched_at": "2026-09-08",
+   "title_kr": "원자력법 국제학교 25주년 기념",
+   "gist": "원자력법 교육 프로그램의 25년간 성과 기념",
+   "off_topic": true,
+   "off_topic_reason": "교육기관 기념 행사 소식",
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
+   "id": "68f77cfd001c",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "Call for contributions: Workshop on Radiological Protection During Armed Conflict",
+   "url": "https://www.oecd-nea.org/jcms/pl_121510/call-for-contributions-workshop-on-radiological-protection-during-armed-conflict",
+   "date": "",
+   "fetched_at": "2026-09-08",
+   "title_kr": "무력 분쟁 시 방사선 방호 워크숍 기고문 모집",
+   "gist": "무력 분쟁 상황에서의 방사선 방호 방안 논의를 위한 워크숍",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "f17f0aec4d86",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -722,42 +753,42 @@
   }
  ],
  "state": {
-  "nea_max_id": 121326,
+  "nea_max_id": 121510,
   "keei_max_list_no": 128090,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 2,
+   "parsed": 2
   },
   "iea_reports": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-09-07T02:36:21+09:00",
+   "at": "2026-09-08T04:09:57+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0

@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-0074f8fb9ab6",
-   "date": "2026-08-31",
-   "end_date": "2026-08-31",
-   "kind": "deadline",
-   "label": "2026년 원전기업 신입사원 입문 과정 (2차) 교육생 모집",
-   "title": "2026년 원전기업 신입사원 입문 과정 (2차) 교육생 모집",
-   "notice_title": "2026년 원전기업 신입사원 입문 과정 (2차) 교육생 모집 (~ 8. 31.)",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "",
-   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30035&s=",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_notice",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-06"
-  },
-  {
    "hash": "of-58c2c71e80f5",
    "date": "2026-09-04",
    "end_date": "2026-09-04",
@@ -574,24 +555,25 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-09-07T02:36:25+09:00",
-   "ok": false,
-   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
+   "at": "2026-09-08T04:11:14+09:00",
+   "ok": true,
+   "new": 0,
+   "parsed": 5
   },
   "kaif_calendar": {
-   "at": "2026-09-07T02:36:25+09:00",
+   "at": "2026-09-08T04:11:14+09:00",
    "ok": true,
    "new": 22,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-09-07T02:36:25+09:00",
+   "at": "2026-09-08T04:11:14+09:00",
    "ok": true,
    "new": 1,
    "parsed": 6
   },
   "kns_notice": {
-   "at": "2026-09-07T02:36:25+09:00",
+   "at": "2026-09-08T04:11:14+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
