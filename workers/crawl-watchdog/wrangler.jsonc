@@ -1,0 +1,24 @@
+{
+  // V2 원본 적응판 — V1(policy174/nuclear-news) 대상, 크론은 V2 그대로 15분 간격.
+  // 슬롯 판정이 3시간 단위라 15분 체크는 지연 반응 속도만 좌우한다.
+  "name": "nuclens-crawl-watchdog",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-08-28",
+  "workers_dev": false,
+  "triggers": {
+    "crons": ["7,22,37,52 * * * *"]
+  },
+  "vars": {
+    "GITHUB_OWNER": "policy174",
+    "GITHUB_REPO": "nuclear-news",
+    "GITHUB_WORKFLOW": "crawl.yml",
+    "NOTIFY_WORKFLOW": "notify.yml",
+    "BACKUP_GRACE_MINUTES": "25",
+    "MAX_DISPATCHES_PER_DAY": "4"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // 시크릿: GITHUB_TOKEN (fine-grained PAT, Actions read/write + Contents read,
+  // policy174/nuclear-news 한정). 배포 워크플로가 --secrets-file 로 주입한다.
+}

@@ -1,0 +1,45 @@
+name: Deploy crawl watchdog
+
+# V2 원본 적응판. CRAWL_WATCHDOG_GITHUB_TOKEN(fine-grained PAT: Actions
+# read/write, 이 저장소 한정)이 repo Secrets 에 있어야 배포된다.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workers/crawl-watchdog/**"
+      - ".github/workflows/deploy-crawl-watchdog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-crawl-watchdog
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test watchdog decisions
+        run: node --test workers/crawl-watchdog/test.mjs
+
+      - name: Deploy Worker and Cron Trigger
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CRAWL_WATCHDOG_GITHUB_TOKEN: ${{ secrets.CRAWL_WATCHDOG_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$CRAWL_WATCHDOG_GITHUB_TOKEN" ]; then
+            echo "::error::CRAWL_WATCHDOG_GITHUB_TOKEN 미설정 — fine-grained PAT (Actions: read/write) 필요"
+            exit 1
+          fi
+          python -c 'import json, os; json.dump({"GITHUB_TOKEN": os.environ["CRAWL_WATCHDOG_GITHUB_TOKEN"]}, open("/tmp/crawl-watchdog-secrets.json", "w"))'
+          npx --yes wrangler@4 deploy \
+            --config workers/crawl-watchdog/wrangler.jsonc \
+            --secrets-file /tmp/crawl-watchdog-secrets.json
+          rm -f /tmp/crawl-watchdog-secrets.json
