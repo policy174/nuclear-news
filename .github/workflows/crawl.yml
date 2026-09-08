@@ -268,6 +268,10 @@ jobs:
           # 이슈 병합 회색지대 LLM 판정용. 없으면 판정을 못 해 '병합 안 함'으로
           # 떨어지고, 새 쌍은 daily-brief 빌드까지 최대 하루를 기다리게 된다.
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # 리뷰 전용 버킷 — daily-brief.yml 의 버킷 맵 분산과 동일 값
+          # (2026-09-08 장애: 한 버킷 429 폭풍). 두 워크플로가 다르면 리뷰
+          # 판정 캐시가 모델 따라 흔들린다 — 반드시 같이 바꿀 것.
+          GEMINI_REVIEW_MODEL: ${{ vars.GEMINI_REVIEW_MODEL || 'gemini-3.5-flash' }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           # 배포 간격은 '지금 몇 시인가'가 아니라 '마지막 배포 이후 얼마나

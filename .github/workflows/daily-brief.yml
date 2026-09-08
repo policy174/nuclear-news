@@ -51,7 +51,10 @@ jobs:
     # AUDIO_RUN_BUDGET_SEC(25분) 안에서 배송 3분을 예약하고 멈추므로,
     # 잡 상한은 선행 스텝(~6분)을 더해 35분 — Actions 강제종료로 부분 배송이
     # 불발되는 경로가 없다.
-    timeout-minutes: 35
+    # 45분 — 2026-09-08 실측: 429 폭풍 날 오디오 90초 재시도 중 35분 상한이
+    # 잡을 죽여(exit 143) 배포·오디오·서사가 통째로 미실행. 버킷 분산이 본질
+    # 수리이고 이건 안전 마진(크롤과 동일 값).
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repo
@@ -196,6 +199,14 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
           GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL || 'gemini-3.1-flash-tts-preview' }}
+          # 버킷 맵 분산 (2026-09-08 장애: review·insight·audio 가 전부 flash-lite
+          # 한 버킷에 몰려 분당 429 폭풍 → 오디오 재시도 중 잡 타임아웃 살해).
+          # 무료 한도는 모델별 버킷 — 최대 소비자(review)와 오디오 대본을 각자
+          # 전용 버킷으로. 결과 배치: 큐레이션 2.5-flash(+체인 2.5/3.5-lite) /
+          # 리뷰 3.5-flash(스토리 서사와 공유 — 하루 4콜 수준이라 허용) /
+          # 인사이트 2.5-flash-lite / 오디오 대본 3.6-flash.
+          GEMINI_REVIEW_MODEL: ${{ vars.GEMINI_REVIEW_MODEL || 'gemini-3.5-flash' }}
+          GEMINI_SCRIPT_MODEL: ${{ vars.GEMINI_SCRIPT_MODEL || 'gemini-3.6-flash' }}
           # 오디오 브리핑 텔레그램 발송용 (audio_brief.send_telegram_audio)
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
