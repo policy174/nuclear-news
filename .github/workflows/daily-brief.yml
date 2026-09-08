@@ -247,7 +247,11 @@ jobs:
           # 리뷰 3.5-flash(스토리 서사와 공유 — 하루 4콜 수준이라 허용) /
           # 인사이트 2.5-flash-lite / 오디오 대본 3.6-flash.
           GEMINI_REVIEW_MODEL: ${{ vars.GEMINI_REVIEW_MODEL || 'gemini-3.5-flash' }}
-          GEMINI_SCRIPT_MODEL: ${{ vars.GEMINI_SCRIPT_MODEL || 'gemini-3.6-flash' }}
+          # 오디오 대본은 3.x 금지 — 3.x 계열은 thinkingBudget=0 을 INVALID_ARGUMENT
+          # 로 거부한다(실측 2026-09-08: 3.6-flash·3.5-flash-lite 둘 다 400).
+          # 대본은 thinking 을 꺼야 하므로(예산 잠식, 2026-08-04 실사고) 2.5 계열만.
+          # 리뷰가 3.5-flash 로 빠져나가 flash-lite 버킷은 이제 인사이트+대본뿐.
+          GEMINI_SCRIPT_MODEL: ${{ vars.GEMINI_SCRIPT_MODEL || 'gemini-2.5-flash-lite' }}
           # 오디오 브리핑 텔레그램 발송용 (audio_brief.send_telegram_audio)
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
