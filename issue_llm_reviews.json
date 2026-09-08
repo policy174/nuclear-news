@@ -3652,6 +3652,46 @@
       "right_title": "빌 게이츠 방한, 최태원·정기선과 SMR 협력 확대 논의",
       "same_event": false
     },
+    "06de8debaeb1556c--1f235e424372ff51": {
+      "embedding_similarity": 0.8565,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
+    },
+    "06de8debaeb1556c--8a56f751c8dd5cbb": {
+      "embedding_similarity": 0.9044,
+      "left_title": "새울 3호기, 재가동 이틀 만에 운전원 실수로 재정지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 재정지 사건",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": true
+    },
+    "06de8debaeb1556c--bd042c13c329e015": {
+      "embedding_similarity": 0.883,
+      "left_title": "원안위, 새울 3호기 시운전 중 원자로 수동정지 사건조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 수동정지 조사 착수",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": true
+    },
+    "06de8debaeb1556c--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8493,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 재정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
+    },
     "06e54efc0d2656ba--076036e9576007bc": {
       "embedding_similarity": 0.8424,
       "left_title": "기후에너지환경부, 산업용 전기요금 권역별 차등제 개편안 공개",
@@ -8942,6 +8982,26 @@
       "right_title": "뉴클레오, 미국 MOX 연료 공장 인허가 계획 제출",
       "same_event": false
     },
+    "0f2b7179c6023803--8a56f751c8dd5cbb": {
+      "embedding_similarity": 0.8687,
+      "left_title": "새울 3호기, 재가동 이틀 만에 운전원 실수로 재정지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 재정지 사건",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 시운전 중 응축수 배관 누설로 수동 정지",
+      "same_event": true
+    },
+    "0f2b7179c6023803--bd042c13c329e015": {
+      "embedding_similarity": 0.897,
+      "left_title": "원안위, 새울 3호기 시운전 중 원자로 수동정지 사건조사 착수",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 수동정지 조사 착수",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 시운전 중 응축수 배관 누설로 수동 정지",
+      "same_event": true
+    },
     "0f3f55fa5aa97d6c--4288e4cee8658728": {
       "embedding_similarity": 0.8556,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -13862,6 +13922,36 @@
       "right_title": "전력 다소비 기업 유치 기대 속 고리 3·4호기 계속운전 연내 결정 전망",
       "same_event": true
     },
+    "1b2befb372b0461c--5c22cc5586b97424": {
+      "embedding_similarity": 0.8545,
+      "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "전력수요 검증 vs 11차 전기본",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "제11차 전력수급기본계획 소위, 2040년 최대 전력 수요 165GW 전망 제시",
+      "same_event": false
+    },
+    "1b2befb372b0461c--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8413,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 vs 11차 전기본",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "제11차 전력수급기본계획 소위, 2040년 최대 전력 수요 165GW 전망 제시",
+      "same_event": false
+    },
+    "1b2befb372b0461c--fe38c24988ff17a4": {
+      "embedding_similarity": 0.8547,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "12차 vs 11차 전기본",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "제11차 전력수급기본계획 소위, 2040년 최대 전력 수요 165GW 전망 제시",
+      "same_event": false
+    },
     "1b323589ebe226b5--48711ea9b6186065": {
       "embedding_similarity": 0.9178,
       "left_title": "한수원, 해남 규모 3.1 지진에 원전 영향 없음 공식 발표",
@@ -17052,6 +17142,16 @@
       "right_title": "한수원 새울 3호기, 시운전 시험 중 자동 정지 발생",
       "same_event": false
     },
+    "1f235e424372ff51--5a04d764e2636975": {
+      "embedding_similarity": 0.8479,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
+      "same_event": false
+    },
     "1f235e424372ff51--5b54f33313e4f6c7": {
       "embedding_similarity": 0.8417,
       "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
@@ -17060,6 +17160,16 @@
       "reason": "다른 원전 호기 및 사건",
       "reviewed_at": "2026-09-07T08:27:23.595171+00:00",
       "right_title": "새울 3호기, 재가동 이틀 만에 증기 배관 누설로 수동 정지",
+      "same_event": false
+    },
+    "1f235e424372ff51--5fbd043c337f2580": {
+      "embedding_similarity": 0.8486,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 배관 누설로 시운전 중 수동 정지",
       "same_event": false
     },
     "1f235e424372ff51--63c61266bb0dc771": {
@@ -17122,6 +17232,26 @@
       "right_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
       "same_event": false
     },
+    "1f235e424372ff51--9d8ba4b32f8abdc6": {
+      "embedding_similarity": 0.8541,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 조사",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "원안위, 새울 3호기 수동정지 원인 조사 착수…상업운전 지연 우려",
+      "same_event": false
+    },
+    "1f235e424372ff51--a4ac42382d200ef9": {
+      "embedding_similarity": 0.8625,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
+    },
     "1f235e424372ff51--b0cdd490f0e1afe3": {
       "embedding_similarity": 0.8718,
       "left_title": "원안위, 새울 3호기 시운전 중 자동정지 사건조사 착수",
@@ -17170,6 +17300,16 @@
       "reason": "새울 1호기 재가동 vs 새울 3호기 자동정지",
       "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "새울3호기, 시운전 중 원자로 자동 정지…원안위 정밀 점검 착수",
+      "same_event": false
+    },
+    "1f235e424372ff51--d6dbe6e84add0ffc": {
+      "embedding_similarity": 0.856,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동 vs 새울 3호기 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울원자력본부 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
       "same_event": false
     },
     "1f235e424372ff51--d8b6d0f67712a87c": {
@@ -21852,6 +21992,16 @@
       "right_title": "한국, 미국과 SMR 기술 격차 4년…사업화 가속화 필요",
       "same_event": false
     },
+    "29937f3b8e104c91--c78e0418362af12c": {
+      "embedding_similarity": 0.9191,
+      "left_title": "베트남 국회의장, 한덕수 총리 면담서 한국 기업의 원전 등 메가 프로젝트 참여 희망",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "베트남 원전 협력 논의",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한 총리, 베트남에 한국 에너지·원전 기업 진출 지원 요청",
+      "same_event": true
+    },
     "29ad721a16c702fb--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8693,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -22021,6 +22171,16 @@
       "reviewed_at": "2026-09-04T07:56:57.804386+00:00",
       "right_title": "삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너로 선정",
       "same_event": false
+    },
+    "2abf24a24282c789--b28bcc0d7f1097de": {
+      "embedding_similarity": 0.9025,
+      "left_title": "삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너로 선정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "삼성물산 스웨덴 SMR 사업 협약",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "삼성물산, 스웨덴 SMR 4기 개발 협약 체결",
+      "same_event": true
     },
     "2ac46bf39add7ba8--2bed756f70c17c7d": {
       "embedding_similarity": 0.8757,
@@ -22290,6 +22450,16 @@
       "reason": "12차 전기본 신규 원전 포함 여부 관련 보도",
       "reviewed_at": "2026-09-03T08:00:15.786027+00:00",
       "right_title": "김성환 기후부 장관, 12차 전기본 신규 원전 포함 여부 미정 언급",
+      "same_event": true
+    },
+    "2ae5ed9e68edd9cd--972a92e1bca340ca": {
+      "embedding_similarity": 0.898,
+      "left_title": "산업부, 대미 원전 8기 건설 프로젝트 관련 미확정 보도에 신중 당부",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "대미 원전 프로젝트 보도 관련 입장",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "산업통상부, 대미투자 제1호 프로젝트 확정 보도에 대해 \"확정된 바 없다\" 설명",
       "same_event": true
     },
     "2b01a56cd95da97e--51dcb7c7707f1ab4": {
@@ -29382,6 +29552,16 @@
       "right_title": "정부, 8월 24일~28일 주간 일정 발표…12차 전기본 수립 제6차 토론회 개최",
       "same_event": true
     },
+    "3936f98b28485c84--611c8800e1535aa7": {
+      "embedding_similarity": 0.8556,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 목표 현실성 vs 태양광 고온장애",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "‘기온상승’에 태양광 ‘고온장애’ 우려",
+      "same_event": false
+    },
     "3936f98b28485c84--664069beff9cc919": {
       "embedding_similarity": 0.8506,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -32072,6 +32252,16 @@
       "right_title": "[메가프로젝트, 대한민국을 다시 설계하다] ③ 피지컬 AI, 제조업의 판을...",
       "same_event": false
     },
+    "3e53defa5863be50--ce215adf0ad0798b": {
+      "embedding_similarity": 0.8978,
+      "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "SMR 등 R&D 투자 확대",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
+      "same_event": true
+    },
     "3e5677a0b916d0ca--5b5995d129436876": {
       "embedding_similarity": 0.8684,
       "left_title": "기후에너지환경부 장관, 12차 전기본 신규 원전 반영 미정 공식화",
@@ -32200,6 +32390,26 @@
       "reason": "두산·SK·테라파워의 SMR 사업",
       "reviewed_at": "2026-08-25T03:59:14.044067+00:00",
       "right_title": "SK이노베이션-테라파워, 나트륨 SMR 사업 공조 및 글로벌 시장 진출 합의",
+      "same_event": true
+    },
+    "3e8ffcf2b346c1e6--6e5945789657b346": {
+      "embedding_similarity": 0.904,
+      "left_title": "이재명 대통령, 프랑스 국빈 방문해 원전 공동수출 협력 모색",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 국빈 방문 원전 협력",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "이재명 대통령, 프랑스 국빈방문 중 원전 등 첨단산업 협력 논의",
+      "same_event": true
+    },
+    "3e8ffcf2b346c1e6--93c2da3e76af5902": {
+      "embedding_similarity": 0.9062,
+      "left_title": "이재명 대통령, 프랑스 국빈 방문해 원전 공동수출 협력 모색",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "프랑스 국빈 방문 원전 협력",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "李대통령, 6~9일 프랑스 국빈 방문…AI·원전 협력 확대 논의",
       "same_event": true
     },
     "3eacd5e0a0ef3dcd--527a6bd0d4f4a288": {
@@ -32341,6 +32551,16 @@
       "reviewed_at": "2026-08-12T14:20:52.498980+00:00",
       "right_title": "한수원 새울본부, 2027년도 지원사업 주민설명회 개최",
       "same_event": false
+    },
+    "3eb0eeaad988fbd7--42e953f23b002dac": {
+      "embedding_similarity": 0.9182,
+      "left_title": "경남도의회, SMR 특별법 시행 앞두고 경남 특구 지정 건의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "경남 SMR 특구 지정 건의",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "경남도의회, 경남을 한국 SMR 생산거점으로 육성 촉구 건의안 발의",
+      "same_event": true
     },
     "3ec4da535254a08f--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.8975,
@@ -39832,6 +40052,16 @@
       "right_title": "포항시, AI 데이터센터 용수 공급 대책 미흡 지적",
       "same_event": false
     },
+    "50a0d5222dadcb85--84741e96baea01d4": {
+      "embedding_similarity": 0.8946,
+      "left_title": "중국, 배터리 저장 장치 제조 프로젝트 승인 중단",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "중국 ESS 배터리 신규 프로젝트 승인 중단",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "중국 규제당국, ESS 배터리 과잉 생산 우려로 신규 프로젝트 승인 잠정 중단",
+      "same_event": true
+    },
     "510b6993261d80ee--53ed255f676ef803": {
       "embedding_similarity": 0.8521,
       "left_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
@@ -45692,6 +45922,16 @@
       "right_title": "헝가리 팍스 원전 2기, 다뉴브강 수위 상승으로 정상 출력 재개",
       "same_event": true
     },
+    "58effbba016eec58--b35eb3f20deb19c6": {
+      "embedding_similarity": 0.9017,
+      "left_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "유럽·북미 AI 데이터센터 인프라 vs 국내 생산능력 확충",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "국내 전선업계, 북미 AI 데이터센터·전력망 수요 확대에 생산능력 확충",
+      "same_event": false
+    },
     "591caac62d5f3545--62decf04a230225d": {
       "embedding_similarity": 0.9011,
       "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
@@ -46582,6 +46822,16 @@
       "right_title": "한수원 주관 성주 사드 보상 소성리 태양광 사업 합동회의 개최",
       "same_event": false
     },
+    "5a04d764e2636975--8a56f751c8dd5cbb": {
+      "embedding_similarity": 0.8907,
+      "left_title": "새울 3호기, 재가동 이틀 만에 운전원 실수로 재정지",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 운전원 실수로 인한 재정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
+      "same_event": true
+    },
     "5a04d764e2636975--cd7699e3b615a1d2": {
       "embedding_similarity": 0.9129,
       "left_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
@@ -46589,6 +46839,16 @@
       "prompt_version": 1,
       "reason": "새울 3호기 배관 누설로 수동 정지",
       "reviewed_at": "2026-09-08T00:56:55.193309+00:00",
+      "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
+      "same_event": true
+    },
+    "5a04d764e2636975--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8558,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 시운전 중 원자로 수동정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
       "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
       "same_event": true
     },
@@ -46961,6 +47221,16 @@
       "reviewed_at": "2026-08-21T01:24:13.238901+00:00",
       "right_title": "러시아 점령 자포리자 원전, 외부 전력 공급 상실",
       "same_event": false
+    },
+    "5b4719f3dee43bf2--8652a7a19354d293": {
+      "embedding_similarity": 0.874,
+      "left_title": "러시아 점령 자포리자 원전, 외부 전력 공급 상실",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "자포리자 원전 전력 공급 상실",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "자포리자 원전, 외부 전력선 복구 위한 국지적 휴전 시행",
+      "same_event": true
     },
     "5b4719f3dee43bf2--adc51c6d402cf67a": {
       "embedding_similarity": 0.8659,
@@ -48812,6 +49082,16 @@
       "right_title": "한수원 새울 3호기, 배관 누설로 시운전 중 수동 정지",
       "same_event": true
     },
+    "5fbd043c337f2580--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8469,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 배관 누설로 시운전 중 수동 정지",
+      "same_event": false
+    },
     "60661f43cc4e589f--6a4c035c89f7767e": {
       "embedding_similarity": 0.8524,
       "left_title": "한울원전 4호기 자동정지, 원안위 조사 착수",
@@ -49081,6 +49361,26 @@
       "reviewed_at": "2026-08-11T22:13:33.599506+00:00",
       "right_title": "한·스웨덴, 고준위 방폐물 및 SMR 안전규제 협력 논의",
       "same_event": true
+    },
+    "611c8800e1535aa7--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8661,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 목표 현실성 vs 태양광 고온장애",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "‘기온상승’에 태양광 ‘고온장애’ 우려",
+      "same_event": false
+    },
+    "611c8800e1535aa7--d1f22b19a877962c": {
+      "embedding_similarity": 0.8539,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "재생에너지 목표 현실성 vs 태양광 고온장애",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "‘기온상승’에 태양광 ‘고온장애’ 우려",
+      "same_event": false
     },
     "612614ae06f13848--9020ad1179cec5a7": {
       "embedding_similarity": 0.8612,
@@ -59662,6 +59962,16 @@
       "right_title": "정부, 12차 전기본 AI 데이터센터 수요 10.8GW 우선 반영",
       "same_event": true
     },
+    "7b24e00f4d942436--bb1f1f7a059243ba": {
+      "embedding_similarity": 0.8928,
+      "left_title": "AI 데이터센터 전력 공급 및 세제 지원 정책 토론회 개최, 원전 1기 규모 전력 수요 논의",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력수요 논의 vs 대응 비판",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "AI 데이터센터 전력 수요 급증에 따른 한국의 대응 방식 비판",
+      "same_event": false
+    },
     "7b24e00f4d942436--c84f36bd814fc6f8": {
       "embedding_similarity": 0.8634,
       "left_title": "AI 데이터센터 전력 공급 및 세제 지원 정책 토론회 개최, 원전 1기 규모 전력 수요 논의",
@@ -62402,6 +62712,16 @@
       "right_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
       "same_event": true
     },
+    "8670d0ff62f2c4a6--b28bcc0d7f1097de": {
+      "embedding_similarity": 0.8993,
+      "left_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "삼성물산 스웨덴 SMR 사업 협약",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "삼성물산, 스웨덴 SMR 4기 개발 협약 체결",
+      "same_event": true
+    },
     "8670d0ff62f2c4a6--bc4bc9cf3ac1021d": {
       "embedding_similarity": 0.8836,
       "left_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
@@ -63891,6 +64211,16 @@
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "미국 최장수 원전의 57년 운영 경험, 한국 원전 정책에 주는 시사점",
       "same_event": false
+    },
+    "8b040173e1f3965f--e81f303cd42dbed5": {
+      "embedding_similarity": 0.9019,
+      "left_title": "우즈베키스탄, 지자흐 2.1GW 원전 국산화율 30%로 상향",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "우즈베키스탄 원전 국산화율 상향",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "우즈베키스탄, 원전 프로젝트 현지화 위한 산업단지 계획 검토",
+      "same_event": true
     },
     "8b486e4051da2e66--b1a7b2cc44367615": {
       "embedding_similarity": 0.8541,
@@ -69602,6 +69932,16 @@
       "right_title": "원안위, 새울 3호기 수동정지 원인 조사 착수…상업운전 지연 우려",
       "same_event": true
     },
+    "9d8ba4b32f8abdc6--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8507,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 조사 착수",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "원안위, 새울 3호기 수동정지 원인 조사 착수…상업운전 지연 우려",
+      "same_event": false
+    },
     "9da2eea7915b1da3--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8695,
       "left_title": "정부, 유턴기업 지방 유치 위해 산업용 전기요금 지역차등제 도입",
@@ -70949,6 +71289,16 @@
       "prompt_version": 1,
       "reason": "사건 조사 착수 vs 수동 정지",
       "reviewed_at": "2026-09-08T00:56:55.193309+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
+    },
+    "a4ac42382d200ef9--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8562,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 재정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
       "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
       "same_event": false
     },
@@ -76852,6 +77202,16 @@
       "right_title": "정부, SMR을 '7대 SEED 프로젝트'에 선정하며 원전업계 기대감 고조",
       "same_event": true
     },
+    "bb1f1f7a059243ba--fe38c24988ff17a4": {
+      "embedding_similarity": 0.9129,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력수요 전망 vs 대응 비판",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "AI 데이터센터 전력 수요 급증에 따른 한국의 대응 방식 비판",
+      "same_event": false
+    },
     "bb3cbf82f04b7978--bca1920d907255cd": {
       "embedding_similarity": 0.879,
       "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
@@ -77271,6 +77631,16 @@
       "reviewed_at": "2026-09-08T00:56:55.193309+00:00",
       "right_title": "한수원 새울 3호기, 재가동 이틀 만에 증기 응축수 배관 누설로 수동 정지",
       "same_event": true
+    },
+    "bd042c13c329e015--cdf84543be54fcb1": {
+      "embedding_similarity": 0.852,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 조사 착수",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "원안위, 새울 3호기 시운전 중 원자로 수동정지 사건조사 착수",
+      "same_event": false
     },
     "bd042c13c329e015--d6dbe6e84add0ffc": {
       "embedding_similarity": 0.9,
@@ -77971,6 +78341,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "한전KPS, 서남권역 해상풍력 확산1단지 우선협상대상자 선정 관련 보도...",
       "same_event": false
+    },
+    "c08191b8c3fa83e9--c6416e9cf7d667f9": {
+      "embedding_similarity": 0.9121,
+      "left_title": "정부, 대미 투자 1호 텍사스 LNG 발전소 투자금 223억 달러로 증액 및 원전 패키지 포함",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "텍사스 발전소 투자 및 원전 패키지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한미전략투자 운영위원회, 30조원 규모 텍사스 가스발전 첫 의결",
+      "same_event": true
     },
     "c0a0a81776742190--c4f1d803b2afc913": {
       "embedding_similarity": 0.8501,
@@ -80442,6 +80822,16 @@
       "right_title": "웨스팅하우스 eVinci 마이크로원자로, 네바다서 임계 달성",
       "same_event": false
     },
+    "cd7699e3b615a1d2--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8602,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 재정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
+    },
     "cd7db33ecb04145e--e5a4ebd98ea2a0b9": {
       "embedding_similarity": 0.8566,
       "left_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
@@ -80531,6 +80921,16 @@
       "reviewed_at": "2026-08-20T18:42:42.127641+00:00",
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": true
+    },
+    "cdf84543be54fcb1--d6dbe6e84add0ffc": {
+      "embedding_similarity": 0.8535,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-2.5-flash-lite",
+      "prompt_version": 1,
+      "reason": "새울 3호기 상업운전 목표 vs 재정지",
+      "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
+      "right_title": "한수원 새울원자력본부 새울 3호기, 재가동 이틀 만에 배관 누설로 수동 정지",
+      "same_event": false
     },
     "cdf84543be54fcb1--df3cf36a91300d94": {
       "embedding_similarity": 0.8442,
