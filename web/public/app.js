@@ -100,6 +100,9 @@ const STRINGS = {
   draftAiNote: "*자료 : Nuclens AI 초안 — 수치·판단은 원문 대조 후 사용",
   draftHeading: "보고서 초안 (AI)",
   previewHeading: "보고서용 복사 내용 미리보기",
+  agendaEmpty: "등록된 정책의제가 없습니다 — 의제가 등재되면 여기서 대응 자료를 관리합니다.",
+  agendaNoLog: "(기록 없음 — 판단 로그는 운영 콘솔에서 기록)",
+  libraryEmpty: "자료실이 비어 있습니다 — 과거 사례 브리핑이 검수를 통과하면 실립니다.",
 };
 
 const state = {
@@ -108,6 +111,7 @@ const state = {
   manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
+  agendas: null, precedents: null, agendaId: "",
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   archiveEntity: "", entities: null,
@@ -876,6 +880,7 @@ function syncUrl(mode = "replace") {
   if (state.view !== "news") params.set("view", state.view);
   if (state.archiveQuery) params.set("q", state.archiveQuery);
   if (state.archiveEntity) params.set("ent", state.archiveEntity);
+  if (state.agendaId) params.set("agenda", state.agendaId);
   if (state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
   if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
   if (state.archivePeriod !== "all") params.set("ap", state.archivePeriod);
@@ -904,6 +909,9 @@ function restoreUrlState() {
   // ent 딥링크는 탐색 화면을 전제한다 — view 파라미터가 따로 없으면 그리로 간다.
   state.archiveEntity = params.get("ent") || "";
   if (state.archiveEntity && !params.get("view")) state.view = "search";
+  // agenda 딥링크는 보고서 화면을 전제한다 (같은 규약).
+  state.agendaId = params.get("agenda") || "";
+  if (state.agendaId && !params.get("view")) state.view = "report";
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
   state.archivePeriod = ["7", "30", "all"].includes(params.get("ap")) ? params.get("ap") : "all";
@@ -2096,6 +2104,207 @@ function renderReportCandidates() {
   }).join("") : '<div class="empty-state"><strong>이번 주 보고 후보가 없습니다</strong><p>보고 후보로 분류된 이슈가 생기면 근거 자료와 함께 표시합니다.</p></div>';
 }
 
+// ── 정책의제 대응 + 대응 자료실 (보고서 탭 02·03) ────────────────────────────
+//
+// 카드는 상황 인지용(제목·다음 확인·미니 통계), 판단에 필요한 전체는 카드를
+// 열어야 나온다. 자동 연결은 '후보'로만 표기한다 — 자동 연결 ≠ 사람이 확인한
+// 연결. 진행형 경과는 이슈·판단 로그의 몫이고, 자료실 사례는 종결된 사실만.
+
+function agendaList() { return state.agendas?.agendas || []; }
+
+function agendaById(id) { return agendaList().find(agenda => agenda.id === id); }
+
+function precedentsFor(agendaId) {
+  return (state.precedents?.entries || [])
+    .filter(entry => (entry.agenda_ids || []).includes(agendaId));
+}
+
+function agendaActiveLogs(agenda) {
+  return (agenda.log || []).filter(log => !log.disabled);
+}
+
+// 이슈 → 의제 역인덱스. 핀(확인된 연결)과 자동 후보를 분리해 돌려준다.
+function agendaLinksForIssue(issueId) {
+  const pinned = [];
+  const candidates = [];
+  for (const agenda of agendaList()) {
+    if ((agenda.pinned_issue_ids || []).includes(issueId)) pinned.push(agenda);
+    else if ((agenda.candidate_issue_ids || []).includes(issueId)) candidates.push(agenda);
+  }
+  // 후보 정렬은 agendas.json 순서(핀·최신 활동순) 그대로, 최대 2개만 — 후보가
+  // 줄줄이 붙으면 '관련 의제'라는 말의 신뢰가 죽는다.
+  return { pinned, candidates: candidates.slice(0, 2) };
+}
+
+function agendaIssueRow(issueId) {
+  const issue = state.issues.find(row => row.issue_id === issueId);
+  if (!issue) return "";
+  return `<li><button type="button" data-issue-id="${esc(issueId)}" data-force-dialog="1">${esc(issue.title)}</button>
+    <small>${esc(dateLabel(issue.last_seen))} · 근거 ${issue.article_count || 0}건</small></li>`;
+}
+
+function renderAgendaDetail(agenda) {
+  const logs = agendaActiveLogs(agenda);
+  const latestLog = logs.length ? logs[logs.length - 1] : null;
+  const evidence = agenda.evidence || {};
+  const cases = precedentsFor(agenda.id);
+  const reviewed = agenda.bottleneck_reviewed_at ? ` <small>(검토일 ${reportDate(agenda.bottleneck_reviewed_at)})</small>` : "";
+  const allLogs = agenda.log || [];
+  return `<div class="agenda-detail">
+    ${agenda.question ? `<p class="agenda-question">${esc(agenda.question)}</p>` : ""}
+    <dl class="agenda-lines">
+      ${agenda.bottleneck ? `<div><dt>현재 병목</dt><dd>${esc(agenda.bottleneck)}${reviewed}</dd></div>` : ""}
+      ${agenda.latest_news ? `<div><dt>최신 관련 소식</dt><dd>${esc(agenda.latest_news)}${agenda.latest_news_issue_id ? ` <button type="button" class="text-action" data-issue-id="${esc(agenda.latest_news_issue_id)}" data-force-dialog="1">이슈 보기</button>` : ""}</dd></div>` : ""}
+      <div><dt>최근 판단</dt><dd>${latestLog ? `${esc(latestLog.note)} <small>(${esc(dateLabel(latestLog.created_at))})</small>` : esc(STRINGS.agendaNoLog)}</dd></div>
+      ${agenda.next_check ? `<div><dt>다음 확인</dt><dd>${esc(agenda.next_check)}</dd></div>` : ""}
+      <div><dt>연결 근거 현황</dt><dd>이슈 ${evidence.issues || 0} · 확인 ${evidence.verified || 0} · 공식 출처 ${evidence.official_sources || 0}</dd></div>
+    </dl>
+    ${agenda.transfer_conditions ? `<details class="agenda-fold"><summary>적용 조건 — 해외·과거 사례를 가져올 때</summary><p>${esc(agenda.transfer_conditions)}</p></details>` : ""}
+    ${agenda.pinned_issue_ids?.length ? `<div class="agenda-issues"><h4>의제 이슈 <small>확인된 연결 ${agenda.pinned_issue_ids.length}건</small></h4>
+      <ul>${agenda.pinned_issue_ids.map(agendaIssueRow).join("")}</ul></div>` : ""}
+    ${agenda.candidate_issue_ids?.length ? `<details class="agenda-fold"><summary>관련 후보 ${agenda.candidate_count}건 — 자동 연결, 확인 전</summary>
+      <ul>${agenda.candidate_issue_ids.slice(0, 10).map(agendaIssueRow).join("")}</ul></details>` : ""}
+    ${agenda.events?.length ? `<div class="agenda-events"><h4>향후 일정</h4>
+      <ul>${agenda.events.map(ev => `<li>${esc(dateLabel(ev.date))} · ${esc(ev.label)}</li>`).join("")}</ul></div>` : ""}
+    ${allLogs.length ? `<details class="agenda-fold"><summary>판단 이력 ${allLogs.length}건</summary>
+      <ol class="agenda-log">${allLogs.map(log => `<li${log.disabled ? ' class="withdrawn"' : ""}>
+        ${esc(dateLabel(log.created_at))} — ${esc(log.note)}
+        ${log.evidence ? `<small>근거: 「${esc(log.evidence.issue_title)}」 (${esc(dateLabel(log.evidence.article_date))} 기준)</small>` : ""}
+      </li>`).join("")}</ol></details>` : ""}
+    ${cases.length ? `<div class="agenda-cases"><h4>연결 사례</h4>
+      <ul>${cases.map(entry => `<li><button type="button" class="text-action" data-open-precedent="${esc(entry.id)}">${esc(entry.title)}</button>
+        <small>${esc(entry.one_liner || "")}</small></li>`).join("")}</ul></div>` : ""}
+    <details class="report-preview"><summary>${esc(STRINGS.previewHeading)}</summary>
+      <pre class="report-preview-text">${esc(agendaReportText(agenda))}</pre>
+      <button type="button" class="secondary-button" data-copy-agenda="${esc(agenda.id)}">대응 자료팩 복사</button>
+    </details>
+  </div>`;
+}
+
+function renderAgendaBlock() {
+  const box = document.getElementById("agendaBlock");
+  if (!box) return;
+  const agendas = agendaList();
+  if (!agendas.length) {
+    box.innerHTML = `<p class="empty">${esc(STRINGS.agendaEmpty)}</p>`;
+    return;
+  }
+  box.innerHTML = agendas.map(agenda => {
+    const open = state.agendaId === agenda.id;
+    const stats = `관련 이슈 ${(agenda.pinned_issue_ids || []).length + (agenda.candidate_count || 0)}`
+      + ` · 판단 ${agendaActiveLogs(agenda).length} · 사례 ${precedentsFor(agenda.id).length}`;
+    return `<article class="agenda-card${open ? " open" : ""}">
+      <h3><button type="button" data-agenda-toggle="${esc(agenda.id)}" aria-expanded="${open}">${esc(agenda.title)}</button></h3>
+      ${agenda.next_check ? `<p class="agenda-next"><strong>다음 확인</strong> ${esc(agenda.next_check)}</p>` : ""}
+      <p class="agenda-stats">${esc(stats)}</p>
+      ${open ? renderAgendaDetail(agenda) : ""}
+    </article>`;
+  }).join("");
+}
+
+function renderLibrary() {
+  const box = document.getElementById("libraryList");
+  if (!box) return;
+  const entries = state.precedents?.entries || [];
+  if (!entries.length) {
+    box.innerHTML = `<p class="empty">${esc(STRINGS.libraryEmpty)}</p>`;
+    return;
+  }
+  box.innerHTML = entries.map(entry => {
+    if (entry.kind === "dossier") {
+      const url = safeUrl(entry.file ? `${location.origin}${entry.file}` : "");
+      return `<details class="library-item" id="prec-${esc(entry.id)}">
+        <summary><strong>${esc(entry.title)}</strong><small>${esc(entry.period || "")}</small></summary>
+        ${entry.one_liner ? `<p>${esc(entry.one_liner)}</p>` : ""}
+        ${entry.use_for ? `<p class="library-use"><strong>어디에 쓰나</strong> ${esc(entry.use_for)}</p>` : ""}
+        ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 PDF 열기 <span aria-hidden="true">↗</span></a>` : ""}
+      </details>`;
+    }
+    return `<details class="library-item" id="prec-${esc(entry.id)}">
+      <summary><strong>${esc(entry.title)}</strong><small>${esc(entry.period || "")}</small></summary>
+      ${entry.one_liner ? `<p>${esc(entry.one_liner)}</p>` : ""}
+      ${(entry.sections || []).map(section => `<h4>${esc(section.h || "")}</h4><p>${esc(section.body || "")}</p>`).join("")}
+      ${(entry.sources || []).length ? `<p class="library-sources">출처: ${entry.sources.map(src => {
+        const url = safeUrl(src.url);
+        return url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src.label || url)}</a>` : esc(src.label || "");
+      }).join(" · ")}</p>` : ""}
+    </details>`;
+  }).join("");
+}
+
+// 대응 자료팩 — 관찰(현 상황·동향)→판단→대응의 3축을 명시한다. 문장은 원문
+// 그대로(개조식 변환은 khnp-report 몫), 판단 기록이 없으면 없다고 쓴다 —
+// 그럴듯한 판단을 지어 넣는 것보다 빈칸이 정직하다.
+function agendaReportText(agenda) {
+  const notes = footnoteBook();
+  const byId = new Map(state.issues.map(issue => [issue.issue_id, issue]));
+  const lines = [`□ 「${agenda.title} — 대응자료」 (${reportDate(state.meta?.latest_briefing_date || "")} 기준)`, ""];
+  lines.push("1. 현 상황");
+  if (agenda.question) lines.push(` ○ (문제) ${agenda.question}`);
+  if (agenda.latest_news) lines.push(` ○ (확인된 것) ${agenda.latest_news}`);
+  if (agenda.next_check) lines.push(` ○ (다음 확인) ${agenda.next_check}`);
+  lines.push("", "2. 주요 쟁점");
+  if (agenda.bottleneck) lines.push(` ○ (병목) ${agenda.bottleneck}`);
+  if (agenda.transfer_conditions) lines.push(` ○ (적용 조건) ${agenda.transfer_conditions}`);
+  const pinnedIssues = (agenda.pinned_issue_ids || []).map(id => byId.get(id)).filter(Boolean);
+  const timeline = pinnedIssues.slice(0, 8);
+  if (timeline.length || agenda.events?.length) {
+    lines.push("", "3. 최근 동향");
+    timeline.forEach(issue => {
+      lines.push(` ○ ${reportDate(issue.last_seen)} ${issue.title}${notes.cite(issue.representative_article)}`);
+    });
+    (agenda.events || []).forEach(ev => lines.push(` ○ (예정) ${reportDate(ev.date)} ${ev.label}`));
+  }
+  lines.push("", "4. 현재 판단");
+  const logs = agendaActiveLogs(agenda);
+  if (logs.length) {
+    logs.slice(-3).forEach(log => {
+      lines.push(` ○ ${reportDate(log.created_at)} ${log.note}`);
+      if (log.evidence) lines.push(`  – 근거: 「${log.evidence.issue_title}」 (${reportDate(log.evidence.article_date)})`);
+    });
+  } else {
+    lines.push(" ○ (기록 없음)");
+  }
+  const cases = precedentsFor(agenda.id);
+  if (cases.length) {
+    lines.push("", "5. 과거 사례");
+    cases.forEach(entry => {
+      lines.push(` ○ ${entry.title}${entry.one_liner ? ` — ${entry.one_liner}` : ""}`);
+      (entry.sections || []).forEach(section => {
+        const head = String(section.h || "");
+        if (head.includes("무엇이 다른가") || head.includes("어떻게 쓸 것인가")) {
+          lines.push(`  – (${head.includes("다른가") ? "이번과의 차이" : "참고 범위"}) ${section.body || ""}`);
+        }
+      });
+      if (entry.kind === "dossier" && entry.use_for) lines.push(`  – (용도) ${entry.use_for}`);
+    });
+  }
+  lines.push("", "6. 대응 필요사항");
+  if (agenda.next_check) lines.push(` ○ (추가 확인) ${agenda.next_check}`);
+  if (cases.length) lines.push(` ○ (준비 자료) ${cases.map(entry => entry.title).join(" / ")}`);
+  lines.push(" ○ (보고 필요 여부) □ (작성 필요)");
+  lines.push("", "7. 시사점", " □ (작성 필요)");
+  lines.push(...notes.lines());
+  lines.push("", `*자료 : Nuclens ${location.origin}/?view=report&agenda=${agenda.id}`);
+  return lines.join("\n");
+}
+
+async function copyAgendaPack(button, agendaId) {
+  const agenda = agendaById(agendaId);
+  if (!agenda) return;
+  await copyToClipboard(button, agendaReportText(agenda), "대응 자료팩을 복사하지 못했습니다");
+}
+
+function openAgendaInReport(agendaId) {
+  const dialog = document.getElementById("issueDialog");
+  if (dialog?.open) dialog.close();
+  state.agendaId = agendaId;
+  if (state.view !== "report") switchView("report");
+  else renderAgendaBlock();
+  syncUrl();
+  document.getElementById("agendaBlock")?.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+}
+
 const PUB_KIND_LABELS = {
   publication: "간행물", report: "보고서", analysis: "분석", press: "보도자료",
   news_or_report: "소식·보고서", keei_insight: "정기간행물",
@@ -2845,6 +3054,16 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${issue.open_question ? `<p class="dialog-open"><strong>아직 확정되지 않은 것</strong>${esc(issue.open_question)}</p>` : ""}
       ${selectionReasons ? `<div class="topic-row dialog-reasons" aria-label="선정 사유">${selectionReasons}</div>` : ""}
       ${topics ? `<div class="topic-row">${topics}</div>` : ""}
+      ${(() => {
+        // 이슈→의제 역링크 — 핀(사람이 확인한 연결)은 ●, 자동 후보는 ○·흐리게.
+        // 자동 연결 ≠ 확인된 연결이라는 구분이 이 칩의 존재 이유다.
+        const links = agendaLinksForIssue(issue.issue_id);
+        if (!links.pinned.length && !links.candidates.length) return "";
+        return `<div class="topic-row agenda-links" aria-label="관련 의제">
+          ${links.pinned.map(agenda => `<button type="button" class="agenda-chip" data-open-agenda="${esc(agenda.id)}">● ${esc(agenda.title)}</button>`).join("")}
+          ${links.candidates.map(agenda => `<button type="button" class="agenda-chip auto" data-open-agenda="${esc(agenda.id)}">○ ${esc(agenda.title)} · 자동</button>`).join("")}
+        </div>`;
+      })()}
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
       ${draftPreviewBlock(issue)}
     </section>
@@ -4363,7 +4582,7 @@ function switchView(view, updateUrl = true) {
   if (view === "search") renderArchiveSearch();
   if (view === "trend") renderTrend();
   if (view === "search") renderSaved();
-  if (view === "report") { renderReportCandidates(); renderPubs(); }
+  if (view === "report") { renderReportCandidates(); renderAgendaBlock(); renderLibrary(); renderPubs(); }
   if (view === "scrap") renderScraps();
   if (updateUrl) syncUrl();
   scrollToPageTop();
@@ -4752,6 +4971,27 @@ function handleIssueAction(event) {
     }
     return true;
   }
+  const agendaToggle = event.target.closest("[data-agenda-toggle]");
+  if (agendaToggle) {
+    const id = agendaToggle.dataset.agendaToggle;
+    state.agendaId = state.agendaId === id ? "" : id;
+    renderAgendaBlock();
+    syncUrl();
+    return true;
+  }
+  const openAgenda = event.target.closest("[data-open-agenda]");
+  if (openAgenda) { openAgendaInReport(openAgenda.dataset.openAgenda); return true; }
+  const openPrecedent = event.target.closest("[data-open-precedent]");
+  if (openPrecedent) {
+    const item = document.getElementById(`prec-${openPrecedent.dataset.openPrecedent}`);
+    if (item) {
+      item.open = true;
+      item.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    }
+    return true;
+  }
+  const agendaPack = event.target.closest("[data-copy-agenda]");
+  if (agendaPack) { copyAgendaPack(agendaPack, agendaPack.dataset.copyAgenda); return true; }
   const copy = event.target.closest("[data-copy-issue]");
   if (copy) { copyIssueReport(copy, copy.dataset.copyIssue); return true; }
   const pack = event.target.closest("[data-pack-issue]");
@@ -5242,7 +5482,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts, state.chronicles, state.chronicleNarratives] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts, state.chronicles, state.chronicleNarratives, state.agendas, state.precedents] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -5259,6 +5499,9 @@ async function init() {
       // 스토리 원장·서사 — 없으면 스토리 섹션만 숨는다(같은 비치명 계약).
       loadJSON("chronicles.json").catch(() => null),
       loadJSON("chronicle_narratives.json").catch(() => null),
+      // 정책의제·대응 자료실 — 없으면 보고서 탭의 해당 구역만 빈다(비치명).
+      loadJSON("agendas.json").catch(() => null),
+      loadJSON("precedents.json").catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;

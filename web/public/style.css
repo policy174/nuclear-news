@@ -1857,6 +1857,8 @@ body.booting .status-strip.loading { display: none; }
 .pub-technical > summary,
 .dialog-evidence > summary,
 .report-preview > summary,
+.agenda-fold > summary,
+.library-item > summary,
 .timeline-more > summary {
   display: flex;
   align-items: center;
@@ -1871,10 +1873,14 @@ body.booting .status-strip.loading { display: none; }
 .pub-technical > summary::-webkit-details-marker,
 .dialog-evidence > summary::-webkit-details-marker,
 .report-preview > summary::-webkit-details-marker,
+.agenda-fold > summary::-webkit-details-marker,
+.library-item > summary::-webkit-details-marker,
 .timeline-more > summary::-webkit-details-marker { display: none; }
 .pub-technical > summary::before,
 .dialog-evidence > summary::before,
 .report-preview > summary::before,
+.agenda-fold > summary::before,
+.library-item > summary::before,
 .timeline-more > summary::before {
   content: "";
   flex: none;
@@ -1888,17 +1894,77 @@ body.booting .status-strip.loading { display: none; }
 .pub-technical[open] > summary::before,
 .dialog-evidence[open] > summary::before,
 .report-preview[open] > summary::before,
+.agenda-fold[open] > summary::before,
+.library-item[open] > summary::before,
 .timeline-more[open] > summary::before { transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) {
   .pub-technical > summary::before,
   .dialog-evidence > summary::before,
   .report-preview > summary::before,
+  .agenda-fold > summary::before,
+  .library-item > summary::before,
   .timeline-more > summary::before { transition: none; }
 }
 .pub-technical > summary:focus-visible,
 .dialog-evidence > summary:focus-visible,
 .report-preview > summary:focus-visible,
+.agenda-fold > summary:focus-visible,
+.library-item > summary:focus-visible,
 .timeline-more > summary:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+/* ── 정책의제 대응 + 대응 자료실 (보고서 탭 02·03) ──────────────────────────
+   카드=상황 인지, 상세=판단. 자동 연결 칩(.auto)은 흐리게 — 확인된 연결(●)과
+   자동 후보(○)가 같은 무게로 보이면 '관련 의제'라는 말의 신뢰가 죽는다. */
+.agenda-card {
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-3);
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+}
+.agenda-card h3 { margin: 0; }
+.agenda-card h3 button {
+  all: unset; cursor: pointer; font-weight: 700; color: var(--c-text);
+}
+.agenda-card h3 button:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.agenda-next { margin: var(--sp-2) 0 0; }
+.agenda-next strong { color: var(--c-accent-text); margin-right: var(--sp-2); }
+.agenda-stats { margin: var(--sp-1) 0 0; color: var(--c-text-secondary); font-size: var(--t-caption); }
+.agenda-detail { margin-top: var(--sp-3); border-top: var(--bd-1) solid var(--c-border); padding-top: var(--sp-3); }
+.agenda-question { font-weight: 600; margin: 0 0 var(--sp-2); }
+.agenda-lines { margin: 0; display: grid; gap: var(--sp-2); }
+.agenda-lines dt { font-weight: 700; font-size: var(--t-caption); color: var(--c-text-secondary); }
+.agenda-lines dd { margin: 2px 0 0; }
+.agenda-fold { margin-top: var(--sp-2); }
+.agenda-issues h4, .agenda-events h4, .agenda-cases h4 { margin: var(--sp-3) 0 var(--sp-1); font-size: var(--t-caption); }
+.agenda-issues ul, .agenda-events ul, .agenda-cases ul, .agenda-fold ul { margin: 0; padding-left: 0; list-style: none; display: grid; gap: var(--sp-1); }
+.agenda-issues small, .agenda-cases small { display: block; color: var(--c-text-secondary); }
+.agenda-log { margin: 0; padding-left: var(--sp-4); display: grid; gap: var(--sp-1); }
+.agenda-log .withdrawn { text-decoration: line-through; color: var(--c-text-secondary); }
+.agenda-log small { display: block; color: var(--c-text-secondary); }
+.agenda-chip {
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-4);
+  background: var(--c-surface);
+  padding: 2px 10px;
+  cursor: pointer;
+  font-size: var(--t-caption);
+  color: var(--c-text);
+}
+.agenda-chip.auto { color: var(--c-text-secondary); border-style: dashed; }
+.library-item {
+  margin-bottom: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-2);
+  background: var(--c-surface);
+}
+.library-item > summary strong { margin-right: var(--sp-2); }
+.library-item > summary small { color: var(--c-text-secondary); }
+.library-item h4 { margin: var(--sp-3) 0 var(--sp-1); }
+.library-item p { margin: 0 0 var(--sp-2); }
+.library-use strong { color: var(--c-accent-text); margin-right: var(--sp-2); }
+.library-sources { font-size: var(--t-caption); color: var(--c-text-secondary); }
+
 /* 보고서용 복사 미리보기 — 복사될 텍스트를 화면에서 먼저 읽는 자리.
    위계 들여쓰기(□○–)가 그대로 보이도록 공백을 보존한다. */
 .report-preview { margin-top: var(--sp-3); }

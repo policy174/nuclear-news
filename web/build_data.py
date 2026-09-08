@@ -4121,6 +4121,28 @@ def report_entity_stats(registry: list[dict], issue_catalog: list[dict]) -> None
 
 AGENDA_REGISTRY_FILE = BOT_DIR / "agenda_registry.json"
 AGENDA_SNAPSHOT_FILE = BOT_DIR / "agenda_log_snapshots.json"
+PRECEDENT_REGISTRY_FILE = BOT_DIR / "precedent_registry.json"
+
+
+def build_precedents_view(path: Path = None, known_agenda_ids: set | None = None) -> dict:
+    """precedents.json — 대응 자료실(과거 사례·부서 문서) passthrough.
+
+    손큐레이션 원본(precedent_registry.json)을 그대로 싣는다 — 빌드는 가공하지
+    않고, 존재하지 않는 의제 참조만 계기판으로 경고한다(게이트 아님). 콘텐츠
+    규칙(8절 골격·'이번과의 차이' 필수·LLM 생성 금지)은 레지스트리 _readme 몫."""
+    try:
+        raw = json.loads((path or PRECEDENT_REGISTRY_FILE).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"entries": []}
+    entries = [e for e in (raw.get("entries") or [])
+               if isinstance(e, dict) and e.get("id")]
+    if known_agenda_ids is not None:
+        broken = sorted({aid for e in entries
+                         for aid in e.get("agenda_ids") or []
+                         if aid not in known_agenda_ids})
+        if broken:
+            print(f"[build_data] ⚠ 자료실: 존재하지 않는 의제 참조 {broken}")
+    return {"entries": entries}
 # 스토리(chronicle) 영속 원장 — 배포 사본(OUT_DIR/chronicles.json)과 이름이 같다.
 # 반드시 이 상수로만 읽고 써야 한다: 공개본 경로를 원장으로 착각하면
 # (data/ 는 매 빌드 새로 쓰는 gitignore 산출물) 원장이 매 빌드 초기화된다.
@@ -5273,6 +5295,8 @@ def build() -> None:
     agendas_view = build_agendas_view(
         issue_catalog, load_agenda_registry(), load_admin_agenda_entries(),
         calendar_view.get("events") or [], now.isoformat())
+    precedents_view = build_precedents_view(
+        known_agenda_ids={a["id"] for a in agendas_view["agendas"]})
     # 스토리 원장 — 카탈로그가 완성된 뒤에 갱신해야 report_pick·entity_ids 가 실린다.
     chronicle_map, chronicles_view = update_chronicle_ledger(
         issue_catalog, now.isoformat())
@@ -5418,6 +5442,7 @@ def build() -> None:
         ("publications.json", publications),
         ("entities.json", entities_view),
         ("agendas.json", agendas_view),
+        ("precedents.json", precedents_view),
         ("chronicles.json", chronicles_view),
         ("scraps.json", build_scraps(records, now)),
         ("manifest.json", manifest),

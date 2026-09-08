@@ -172,6 +172,30 @@ class SnapshotTests(unittest.TestCase):
         self.assertTrue(view["agendas"][0]["log"][0]["disabled"])
 
 
+class PrecedentTests(unittest.TestCase):
+    def _registry(self, entries, tmp):
+        path = Path(tmp) / "precedent_registry.json"
+        path.write_text(json.dumps({"entries": entries}, ensure_ascii=False),
+                        encoding="utf-8")
+        return path
+
+    def test_passthrough_and_broken_agenda_warning(self):
+        entries = [
+            {"id": "prec-a", "kind": "case", "title": "사례",
+             "agenda_ids": ["agenda-lto", "agenda-gone"]},
+            {"kind": "case", "title": "id 없는 행은 걸러짐"},
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            view = build_data.build_precedents_view(
+                self._registry(entries, tmp), known_agenda_ids={"agenda-lto"})
+        self.assertEqual([e["id"] for e in view["entries"]], ["prec-a"])
+
+    def test_missing_registry_is_nonfatal(self):
+        view = build_data.build_precedents_view(Path("no/such/registry.json"),
+                                                known_agenda_ids=set())
+        self.assertEqual(view, {"entries": []})
+
+
 class AdminEntryTests(unittest.TestCase):
     def _overlay(self, entries, tmp):
         path = Path(tmp) / "overlay.json"
