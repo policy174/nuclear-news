@@ -3358,14 +3358,33 @@
     "1f45da00f45aae68": "2026-09-08T22:15:35.706469+00:00",
     "8449413875ab878a": "2026-09-08T22:15:35.706469+00:00",
     "f64695852782f69d": "2026-09-08T22:15:35.706469+00:00",
-    "d50338742ff3775e": "2026-09-08T22:15:35.706469+00:00"
+    "d50338742ff3775e": "2026-09-08T22:15:35.706469+00:00",
+    "fd1ed16c567b6f08": "2026-09-08T22:46:09.939101+00:00",
+    "ad032513488d1307": "2026-09-08T22:46:09.939101+00:00",
+    "fb7d065e1b2563f7": "2026-09-08T22:46:09.939101+00:00",
+    "2d73d1e83234a9a4": "2026-09-08T22:46:09.939101+00:00",
+    "14a34f990f80d4cf": "2026-09-08T22:46:09.939101+00:00",
+    "7b78e32266fcce03": "2026-09-08T22:46:09.939101+00:00",
+    "63f6c927aafc4543": "2026-09-08T22:46:09.939101+00:00",
+    "7f9d0ff5e5f8b1af": "2026-09-08T22:46:09.939101+00:00",
+    "9c8ce109d6c85003": "2026-09-08T22:46:09.939101+00:00",
+    "4e79f7ce9bb5dec3": "2026-09-08T22:46:09.939101+00:00",
+    "546ffaf4e2996e5d": "2026-09-08T22:46:09.939101+00:00",
+    "70ed7e712a8087bb": "2026-09-08T22:46:09.939101+00:00",
+    "0db6df9acc428c66": "2026-09-08T22:46:09.939101+00:00",
+    "2a0ac5c3a3e621ba": "2026-09-08T22:46:09.939101+00:00",
+    "c94b0ead62a644e7": "2026-09-08T22:46:09.939101+00:00",
+    "d8052aa14ef1ae9d": "2026-09-08T22:46:09.939101+00:00",
+    "be48be8bbf286161": "2026-09-08T22:46:09.939101+00:00",
+    "c7c3ce15922f55c0": "2026-09-08T22:46:09.939101+00:00",
+    "ae29e93abd988602": "2026-09-08T22:46:09.939101+00:00"
   },
   "source_yield": {
-    "at": "2026-09-08T22:17:48+00:00",
+    "at": "2026-09-08T22:47:56+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 45,
@@ -3375,7 +3394,7 @@
       "DOE": 10,
       "DOE 원자력국": 10,
       "서울대 원자력미래기술정책연구소": 0,
-      "한국원자력학회": 2,
+      "한국원자력학회": 1,
       "한국원자력산업협회": 0,
       "한국원자력환경공단": 0,
       "한국원자력통제기술원": 0,
@@ -3385,22 +3404,15 @@
       "La Tribune 원자력": 3,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 23,
-      "Les Échos 원자력": 32,
+      "FT 원자력": 22,
+      "Les Échos 원자력": 31,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 10,
       "Euractiv 원자력": 19,
       "국내 원자력 보도": 6
     },
-    "kept": {
-      "ANS Nuclear Newswire": 1,
-      "Reuters 원자력": 1,
-      "POWER Magazine": 1
-    },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "kept": {},
+    "errors": {}
   },
   "scrap_seeds": {
     "86536a2b0722": {
@@ -6238,6 +6250,413 @@
       "link": "https://www.hankyung.com/article/2026090820621",
       "title": "대미 원전투자 최종관문…'WEC 지분 인수'인 이유",
       "description": "한국이 대미투자펀드를 통해 미국 본토에 대형 원전 8개를 짓는 방안이 급부상했다. 양국이 이달 중순 이런... 하지만 원전업계에선 최종 관문은 여전히 협상 중인 웨스팅하우스(WEC) 지분 인수라고 말한다. 미국은..."
+    },
+    "25215df616fa": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8658320",
+      "title": "한·프랑스, 군사비밀정보보호협정 개정…AI·반도체 MOU 등 16건 체결",
+      "description": ""
+    },
+    "291a89715c2c": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6850516_36911.html",
+      "title": "한-프, 협정·MOU 등 9건 교환‥국방·AI·원전 협력 강화",
+      "description": ""
+    },
+    "128c0121a3e3": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333468?division=NAVER",
+      "title": "터빈은 두산·시공은 현대·대우?…'얼마 남기나' 관건",
+      "description": "있을지가 관건입니다. 최지수 기자의 보도입니다. [기자] 한미 양국이 합의를 앞둔 '엔시날 프로젝트'는... 가스터빈 독자 기술을 갖춘 두산에너빌리티가 핵심 설비를 공급하고 시공은 현대건설과 삼성물산 등 건설사가..."
+    },
+    "4992b787c85b": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.ytn.co.kr/_ln/0102_202609082302134876",
+      "title": "\"원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진\"",
+      "description": "대미투자 협상을 진행 중인 한미 양국은 미국에 건설하기로 한 원전 8기 가운데 2기는 한국형 모델로... 또 원전 관련 원천기술을 가진 웨스팅하우스의 지분 인수도 협의 중인 것으로 알려졌는데, 우리 원전 수출 시..."
+    },
+    "d05ec94df817": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000010333",
+      "title": "대미투자에 원전 확정땐 농축·재처리 협의 청신호 기대",
+      "description": ""
+    },
+    "65ee0ae18be8": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3689021",
+      "title": "\"청년 창업으로 경주 원도심에 온기\"…한수원, 황오동 창업특구 속도",
+      "description": ""
+    },
+    "5eff63a307a1": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3688285",
+      "title": "원전 소재 5개 지자체, 현안 공동 대응·제도 개선 힘 모은다",
+      "description": ""
+    },
+    "24dabc95a649": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3688842",
+      "title": "추경호 대구광역시장, '대한민국 국제물주간' 9-11일까지 개최....60개국 1만2천명 집결",
+      "description": ""
+    },
+    "b643026bdbd5": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.naeil.com/news/read/601591",
+      "title": "한·프, 정상회담 계기 협력문건 16건 채택",
+      "description": ""
+    },
+    "6c518fd0ecf7": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.nocutnews.co.kr/news/6575174",
+      "title": "李·마크롱 \"호르무즈 협력\" 한뜻…국방 등 MOU 16건 체결",
+      "description": ""
+    },
+    "ac57d1a233b7": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.news1.kr/economy/trend/6284065",
+      "title": "대미투자 2호는 美 원전 8기 유력…APR1400 2기·웨스팅하우스 지분 '승부수'",
+      "description": ""
+    },
+    "f8f13fcd8885": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.news1.kr/politics/president/6284248",
+      "title": "한-프랑스 'MOU 16건' 군사안보·AI·원전 밀착…\"호르무즈 평화적 해결\"",
+      "description": ""
+    },
+    "86dae5d51373": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.newspim.com/news/view/20260909000011",
+      "title": "한-프랑스, 협력문건 16건 채택…국방서 AI·원자력까지 '전방위' 공조",
+      "description": ""
+    },
+    "da9596454df2": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781666",
+      "title": "靑 \"李·마크롱, 호르무즈·우크라 등 국제사회 주요 현안 공감대 넓혀\"",
+      "description": ""
+    },
+    "ba564cab7cd2": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20260908_0003781403",
+      "title": "새울원자력, 노사 합동 '전통시장 장보기' 등",
+      "description": ""
+    },
+    "6adc835a30b8": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISI20260909_0021429500",
+      "title": "한-프랑스 장기 농축역무 공급 협력 의향서 교환",
+      "description": ""
+    },
+    "6e266b3194d8": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609081102152090099",
+      "title": "K-원전 영토확장 기회… 공사 리스크ㆍ손실 떠안을수도",
+      "description": ""
+    },
+    "54159cb68a8e": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609081533525100162",
+      "title": "대미 프로젝트 1호 확정 … ‘굳건한 동맹’ 계기 삼아야",
+      "description": ""
+    },
+    "fee525d3f94f": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.donga.com/news/Opinion/article/all/20260908/134630780/2",
+      "title": "[광화문에서/박민우]55년 서사 쌓인 K원전의 미국행… 대체불가 파트너 자리 굳혀야",
+      "description": ""
+    },
+    "e4e8134e00c2": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.donga.com/news/article/all/20260908/134630765/1",
+      "title": "[사설]“대미투자 1, 2호 가스 화력-원전”… ‘상업적 합리성’ 지켜내야",
+      "description": "AP 뉴시스 대미 투자 1호 프로젝트로 223억 달러(약 30조 원) 규모의 미국 텍사스주 엔시날 가스복합화력발전소 건설 사업이 낙점됐다. 2호 투자 사업으로는 미국에 한국형 원전 2기를 포함해 원전 8기를 짓는 1200억..."
+    },
+    "6fc7bcf63372": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12147410",
+      "title": "\"美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전\"",
+      "description": "전력 가용성을 요구하고 있다. 순간적인 급증에도 끊임없이 대응해야 하는 대규모 연산 특성상 기존 인프라... AI 데이터센터에 필요한 전력을 공급하기 위해 원전이 안정적으로 전력을 생산하고 저장장치는 출력 변동에..."
+    },
+    "9260218d6bd8": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12147423",
+      "title": "'K원전 르네상스' 막 오른다",
+      "description": "문재인 정부의 탈원전 정책으로 위축됐던 원전 산업이 본격적인 '르네상스'를 맞을 수 있다는 희망과 함께 기업의 실제 실적으로 이어질지 더 지켜봐야 한다는 신중론도 제기된다. 8일 한국거래소에 따르면 이날 원전..."
+    },
+    "2342111579f7": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12147372",
+      "title": "30% 이익 남는 '한국형 원전'… 대미투자 펀드로 교두보 확보",
+      "description": "재원 확보가 핵심 과제로 떠올랐다. 8일 정부 안팎에 따르면 한국과 미국은 미국 내 대형 원전 8기를 짓는 데 대미투자펀드 자금을 투입하되, 이 중 2기는 한국형 노형인 APR1400으로 건설하는 방법을 검토하고 있는..."
+    },
+    "0332d0bb8993": {
+      "tries": 1,
+      "seed_date": "2026-09-09",
+      "last_tried": "2026-09-08T22:48:26.240133+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12147373",
+      "title": "K원전, 핵연료봉부터 시공까지 '밸류체인 독립'… 수출 새 동력",
+      "description": "韓 원전 美서 새 기회 제2의 반도체 노린다 韓美, 총 투자규모 막판 협상 산업부 \"2천억弗 절대 안넘어... ◆ 원전 산업 매출도 복원 중 미국의 원전 설계 능력에 한국의 시공과 기자재 공급 능력을 더하면 시너지 효과가..."
+    },
+    "0fc89659e62d": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.segye.com:443/newsView/20260908518174",
+      "title": "첫 대미 투자금 22억弗 이상… 정부, 9월 말 美에 송금 추진",
+      "description": ""
+    },
+    "c12255d05487": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.segye.com:443/newsView/20260908516435",
+      "title": "한빛2호기, 40년 설계수명 마치고 가동 정지",
+      "description": ""
+    },
+    "128a2163d05a": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.asiae.co.kr/article/2026090818101437850",
+      "title": "\"시장 살리고 복지 채우고\"… 새울원자력 노사, 남창시장서 나눔 실천",
+      "description": ""
+    },
+    "6f004097114d": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.asiae.co.kr/article/2026090823431242781",
+      "title": "한·프, AI·원전연료 등 16건 협력문건 체결…삼성, 미스트랄AI 전략투자",
+      "description": ""
+    },
+    "9ed14d8e0269": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003209",
+      "title": "李·마크롱 정상회담 계기 16건 협정·MOU 체결…국방·첨단기술 확대",
+      "description": ""
+    },
+    "65b356837c3c": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260908153847082",
+      "title": "K-중후장대, 美 원전·에너지 '골드러시' 임박...반도체는 불확실성 지속",
+      "description": ""
+    },
+    "693ad47ed7b9": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260909054904903",
+      "title": "李대통령, 한불 공동 R&D·대규모 투자 강조…삼성·네이버 'AI 협력'",
+      "description": ""
+    },
+    "e6b00d675f37": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260909010943848",
+      "title": "韓·佛, MOU 포함 협력문건 16건 체결…AI·반도체부터 우주·원전까지",
+      "description": ""
+    },
+    "f8f6cbd177cc": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260909011902856",
+      "title": "경주서 원전 소재 지자체 행정협의회…원전 현안 공동 대응",
+      "description": ""
+    },
+    "c47f1101c4c7": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20260908172713456",
+      "title": "정부, 프랑스와 6건 협정·MOU 체결…삼성전자, 佛 미스트랄AI에 전략 투자",
+      "description": ""
+    },
+    "ee3f06425c78": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=03932726645578152&mediaCodeNo=257",
+      "title": "“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”",
+      "description": ""
+    },
+    "a6616f692935": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=01951606645578480&mediaCodeNo=257",
+      "title": "李, 한불 기업인 만나 첨단산업 협력 논의…삼성, 佛 미스트랄AI에 전략적 투자",
+      "description": ""
+    },
+    "8e8781cb6ed9": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=03991766645578152&mediaCodeNo=257",
+      "title": "한미 '원전 주도권 게임' 본격화..\"사업 지분·EPC확보가 관건\"",
+      "description": ""
+    },
+    "faa49cefa433": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.etoday.co.kr/news/view/2623288",
+      "title": "한-프랑스, AI·원전·우주 협력 본격화…삼성전자, 미스트랄AI에 전략투자",
+      "description": ""
+    },
+    "f9a87514d534": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.chosun.com/politics/politics_general/2026/09/09/G7AUGQPRYFANLH3AIXSPXDY57E/",
+      "title": "AI부터 핵연료까지… 韓·佛, ‘기술·안보 동맹’으로",
+      "description": ""
+    },
+    "4fcabba56550": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609081855146252",
+      "title": "[사설] 원전 참여 등 대미 투자 윤곽, 최대한의 국익 확보를",
+      "description": ""
+    },
+    "bbaef327ac05": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609081830073223",
+      "title": "‘美 원전 8기’ 기대에 불붙은 원전株… 이틀째 강세",
+      "description": ""
+    },
+    "08b07964d789": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609080906233548",
+      "title": "한-체코 국방부 장관 회담 \"원전 잭팟 이어 방산 협력도 확대\"",
+      "description": ""
+    },
+    "d926c922f91a": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hani.co.kr/arti/politics/bluehouse/1276873.html",
+      "title": "[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입",
+      "description": ""
+    },
+    "18b795bc1d74": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hani.co.kr/arti/opinion/editorial/1276870.html",
+      "title": "[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야",
+      "description": ""
+    },
+    "ba0f6c8286a8": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hani.co.kr/arti/society/environment/1276910.html",
+      "title": "주인 네 번 바뀐 웨스팅하우스… 미국 핵비확산·수출통제 체제와도 연관",
+      "description": ""
+    },
+    "65c75d5816fc": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090820501",
+      "title": "韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로",
+      "description": ""
+    },
+    "de2e6b74194d": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090823651",
+      "title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "description": ""
+    },
+    "e5331c61046a": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090820621",
+      "title": "대미 원전투자 최종관문 'WEC 지분 인수'인 이유",
+      "description": ""
+    },
+    "a54a31fa964b": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090819731",
+      "title": "대미투자 호재發 원전주 '동반 랠리'",
+      "description": ""
+    },
+    "2c6332b4c641": {
+      "tries": 0,
+      "seed_date": "2026-09-09",
+      "status": "resolved",
+      "link": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026090823651",
+      "title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "description": ""
     }
   },
   "scrap_history": {
@@ -11709,6 +12128,456 @@
       "title": "대미 원전투자 최종관문…'WEC 지분 인수'인 이유",
       "description": "한국이 대미투자펀드를 통해 미국 본토에 대형 원전 8개를 짓는 방안이 급부상했다. 양국이 이달 중순 이런... 하지만 원전업계에선 최종 관문은 여전히 협상 중인 웨스팅하우스(WEC) 지분 인수라고 말한다. 미국은...",
       "edition": "조간"
+    },
+    "25215df616fa": {
+      "date": "2026-09-09",
+      "publisher": "KBS",
+      "seed_title": "한·프랑스, 군사비밀정보보호협정 개정…AI·반도체 MOU 등 16건 체결",
+      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8658320",
+      "title": "한·프랑스, 군사비밀정보보호협정 개정…AI·반도체 MOU 등 16건 체결",
+      "description": "",
+      "edition": ""
+    },
+    "291a89715c2c": {
+      "date": "2026-09-09",
+      "publisher": "MBC",
+      "seed_title": "한-프, 협정·MOU 등 9건 교환‥국방·AI·원전 협력 강화",
+      "link": "https://imnews.imbc.com/news/2026/politics/article/6850516_36911.html",
+      "title": "한-프, 협정·MOU 등 9건 교환‥국방·AI·원전 협력 강화",
+      "description": "",
+      "edition": ""
+    },
+    "128c0121a3e3": {
+      "date": "2026-09-09",
+      "publisher": "SBS",
+      "seed_title": "터빈은 두산·시공은 현대·대우?…'얼마 남기나' 관건",
+      "link": "https://biz.sbs.co.kr/article_hub/20000333468?division=NAVER",
+      "title": "터빈은 두산·시공은 현대·대우?…'얼마 남기나' 관건",
+      "description": "있을지가 관건입니다. 최지수 기자의 보도입니다. [기자] 한미 양국이 합의를 앞둔 '엔시날 프로젝트'는... 가스터빈 독자 기술을 갖춘 두산에너빌리티가 핵심 설비를 공급하고 시공은 현대건설과 삼성물산 등 건설사가...",
+      "edition": ""
+    },
+    "4992b787c85b": {
+      "date": "2026-09-09",
+      "publisher": "YTN",
+      "seed_title": "\"원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진\"",
+      "link": "https://www.ytn.co.kr/_ln/0102_202609082302134876",
+      "title": "\"원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진\"",
+      "description": "대미투자 협상을 진행 중인 한미 양국은 미국에 건설하기로 한 원전 8기 가운데 2기는 한국형 모델로... 또 원전 관련 원천기술을 가진 웨스팅하우스의 지분 인수도 협의 중인 것으로 알려졌는데, 우리 원전 수출 시...",
+      "edition": ""
+    },
+    "d05ec94df817": {
+      "date": "2026-09-09",
+      "publisher": "국민일보",
+      "seed_title": "대미투자에 원전 확정땐 농축·재처리 협의 청신호 기대",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000010333",
+      "title": "대미투자에 원전 확정땐 농축·재처리 협의 청신호 기대",
+      "description": "",
+      "edition": ""
+    },
+    "65ee0ae18be8": {
+      "date": "2026-09-09",
+      "publisher": "국제뉴스",
+      "seed_title": "\"청년 창업으로 경주 원도심에 온기\"…한수원, 황오동 창업특구 속도",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3689021",
+      "title": "\"청년 창업으로 경주 원도심에 온기\"…한수원, 황오동 창업특구 속도",
+      "description": "",
+      "edition": ""
+    },
+    "5eff63a307a1": {
+      "date": "2026-09-09",
+      "publisher": "국제뉴스",
+      "seed_title": "원전 소재 5개 지자체, 현안 공동 대응·제도 개선 힘 모은다",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3688285",
+      "title": "원전 소재 5개 지자체, 현안 공동 대응·제도 개선 힘 모은다",
+      "description": "",
+      "edition": ""
+    },
+    "24dabc95a649": {
+      "date": "2026-09-09",
+      "publisher": "국제뉴스",
+      "seed_title": "추경호 대구광역시장, '대한민국 국제물주간' 9-11일까지 개최....60개국 1만2천명 집결",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3688842",
+      "title": "추경호 대구광역시장, '대한민국 국제물주간' 9-11일까지 개최....60개국 1만2천명 집결",
+      "description": "",
+      "edition": ""
+    },
+    "b643026bdbd5": {
+      "date": "2026-09-09",
+      "publisher": "내일신문",
+      "seed_title": "한·프, 정상회담 계기 협력문건 16건 채택",
+      "link": "https://www.naeil.com/news/read/601591",
+      "title": "한·프, 정상회담 계기 협력문건 16건 채택",
+      "description": "",
+      "edition": ""
+    },
+    "6c518fd0ecf7": {
+      "date": "2026-09-09",
+      "publisher": "노컷뉴스",
+      "seed_title": "李·마크롱 \"호르무즈 협력\" 한뜻…국방 등 MOU 16건 체결",
+      "link": "https://www.nocutnews.co.kr/news/6575174",
+      "title": "李·마크롱 \"호르무즈 협력\" 한뜻…국방 등 MOU 16건 체결",
+      "description": "",
+      "edition": ""
+    },
+    "ac57d1a233b7": {
+      "date": "2026-09-09",
+      "publisher": "뉴스1",
+      "seed_title": "대미투자 2호는 美 원전 8기 유력…APR1400 2기·웨스팅하우스 지분 '승부수'",
+      "link": "https://www.news1.kr/economy/trend/6284065",
+      "title": "대미투자 2호는 美 원전 8기 유력…APR1400 2기·웨스팅하우스 지분 '승부수'",
+      "description": "",
+      "edition": ""
+    },
+    "f8f13fcd8885": {
+      "date": "2026-09-09",
+      "publisher": "뉴스1",
+      "seed_title": "한-프랑스 'MOU 16건' 군사안보·AI·원전 밀착…\"호르무즈 평화적 해결\"",
+      "link": "https://www.news1.kr/politics/president/6284248",
+      "title": "한-프랑스 'MOU 16건' 군사안보·AI·원전 밀착…\"호르무즈 평화적 해결\"",
+      "description": "",
+      "edition": ""
+    },
+    "86dae5d51373": {
+      "date": "2026-09-09",
+      "publisher": "뉴스핌",
+      "seed_title": "한-프랑스, 협력문건 16건 채택…국방서 AI·원자력까지 '전방위' 공조",
+      "link": "https://www.newspim.com/news/view/20260909000011",
+      "title": "한-프랑스, 협력문건 16건 채택…국방서 AI·원자력까지 '전방위' 공조",
+      "description": "",
+      "edition": ""
+    },
+    "da9596454df2": {
+      "date": "2026-09-09",
+      "publisher": "뉴시스",
+      "seed_title": "靑 \"李·마크롱, 호르무즈·우크라 등 국제사회 주요 현안 공감대 넓혀\"",
+      "link": "https://www.newsis.com/view/NISX20260909_0003781666",
+      "title": "靑 \"李·마크롱, 호르무즈·우크라 등 국제사회 주요 현안 공감대 넓혀\"",
+      "description": "",
+      "edition": ""
+    },
+    "ba564cab7cd2": {
+      "date": "2026-09-09",
+      "publisher": "뉴시스",
+      "seed_title": "새울원자력, 노사 합동 '전통시장 장보기' 등",
+      "link": "https://www.newsis.com/view/NISX20260908_0003781403",
+      "title": "새울원자력, 노사 합동 '전통시장 장보기' 등",
+      "description": "",
+      "edition": ""
+    },
+    "6adc835a30b8": {
+      "date": "2026-09-09",
+      "publisher": "뉴시스",
+      "seed_title": "한-프랑스 장기 농축역무 공급 협력 의향서 교환",
+      "link": "https://www.newsis.com/view/NISI20260909_0021429500",
+      "title": "한-프랑스 장기 농축역무 공급 협력 의향서 교환",
+      "description": "",
+      "edition": ""
+    },
+    "6e266b3194d8": {
+      "date": "2026-09-09",
+      "publisher": "대한경제",
+      "seed_title": "K-원전 영토확장 기회… 공사 리스크ㆍ손실 떠안을수도",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609081102152090099",
+      "title": "K-원전 영토확장 기회… 공사 리스크ㆍ손실 떠안을수도",
+      "description": "",
+      "edition": ""
+    },
+    "54159cb68a8e": {
+      "date": "2026-09-09",
+      "publisher": "대한경제",
+      "seed_title": "대미 프로젝트 1호 확정 … ‘굳건한 동맹’ 계기 삼아야",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609081533525100162",
+      "title": "대미 프로젝트 1호 확정 … ‘굳건한 동맹’ 계기 삼아야",
+      "description": "",
+      "edition": ""
+    },
+    "fee525d3f94f": {
+      "date": "2026-09-09",
+      "publisher": "동아일보",
+      "seed_title": "[광화문에서/박민우]55년 서사 쌓인 K원전의 미국행… 대체불가 파트너 자리 굳혀야",
+      "link": "https://www.donga.com/news/Opinion/article/all/20260908/134630780/2",
+      "title": "[광화문에서/박민우]55년 서사 쌓인 K원전의 미국행… 대체불가 파트너 자리 굳혀야",
+      "description": "",
+      "edition": ""
+    },
+    "e4e8134e00c2": {
+      "date": "2026-09-09",
+      "publisher": "동아일보",
+      "seed_title": "[사설]“대미투자 1, 2호 가스 화력-원전”… ‘상업적 합리성’ 지켜내야",
+      "link": "https://www.donga.com/news/article/all/20260908/134630765/1",
+      "title": "[사설]“대미투자 1, 2호 가스 화력-원전”… ‘상업적 합리성’ 지켜내야",
+      "description": "AP 뉴시스 대미 투자 1호 프로젝트로 223억 달러(약 30조 원) 규모의 미국 텍사스주 엔시날 가스복합화력발전소 건설 사업이 낙점됐다. 2호 투자 사업으로는 미국에 한국형 원전 2기를 포함해 원전 8기를 짓는 1200억...",
+      "edition": ""
+    },
+    "6fc7bcf63372": {
+      "date": "2026-09-09",
+      "publisher": "매일경제",
+      "seed_title": "\"美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전\"",
+      "link": "https://www.mk.co.kr/article/12147410",
+      "title": "\"美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전\"",
+      "description": "전력 가용성을 요구하고 있다. 순간적인 급증에도 끊임없이 대응해야 하는 대규모 연산 특성상 기존 인프라... AI 데이터센터에 필요한 전력을 공급하기 위해 원전이 안정적으로 전력을 생산하고 저장장치는 출력 변동에...",
+      "edition": ""
+    },
+    "9260218d6bd8": {
+      "date": "2026-09-09",
+      "publisher": "매일경제",
+      "seed_title": "'K원전 르네상스' 막 오른다",
+      "link": "https://www.mk.co.kr/article/12147423",
+      "title": "'K원전 르네상스' 막 오른다",
+      "description": "문재인 정부의 탈원전 정책으로 위축됐던 원전 산업이 본격적인 '르네상스'를 맞을 수 있다는 희망과 함께 기업의 실제 실적으로 이어질지 더 지켜봐야 한다는 신중론도 제기된다. 8일 한국거래소에 따르면 이날 원전...",
+      "edition": ""
+    },
+    "2342111579f7": {
+      "date": "2026-09-09",
+      "publisher": "매일경제",
+      "seed_title": "30% 이익 남는 '한국형 원전'… 대미투자 펀드로 교두보 확보",
+      "link": "https://www.mk.co.kr/article/12147372",
+      "title": "30% 이익 남는 '한국형 원전'… 대미투자 펀드로 교두보 확보",
+      "description": "재원 확보가 핵심 과제로 떠올랐다. 8일 정부 안팎에 따르면 한국과 미국은 미국 내 대형 원전 8기를 짓는 데 대미투자펀드 자금을 투입하되, 이 중 2기는 한국형 노형인 APR1400으로 건설하는 방법을 검토하고 있는...",
+      "edition": ""
+    },
+    "0332d0bb8993": {
+      "date": "2026-09-09",
+      "publisher": "매일경제",
+      "seed_title": "K원전, 핵연료봉부터 시공까지 '밸류체인 독립'… 수출 새 동력",
+      "link": "https://www.mk.co.kr/article/12147373",
+      "title": "K원전, 핵연료봉부터 시공까지 '밸류체인 독립'… 수출 새 동력",
+      "description": "韓 원전 美서 새 기회 제2의 반도체 노린다 韓美, 총 투자규모 막판 협상 산업부 \"2천억弗 절대 안넘어... ◆ 원전 산업 매출도 복원 중 미국의 원전 설계 능력에 한국의 시공과 기자재 공급 능력을 더하면 시너지 효과가...",
+      "edition": ""
+    },
+    "0fc89659e62d": {
+      "date": "2026-09-09",
+      "publisher": "세계일보",
+      "seed_title": "첫 대미 투자금 22억弗 이상… 정부, 9월 말 美에 송금 추진",
+      "link": "https://www.segye.com:443/newsView/20260908518174",
+      "title": "첫 대미 투자금 22억弗 이상… 정부, 9월 말 美에 송금 추진",
+      "description": "",
+      "edition": ""
+    },
+    "c12255d05487": {
+      "date": "2026-09-09",
+      "publisher": "세계일보",
+      "seed_title": "한빛2호기, 40년 설계수명 마치고 가동 정지",
+      "link": "https://www.segye.com:443/newsView/20260908516435",
+      "title": "한빛2호기, 40년 설계수명 마치고 가동 정지",
+      "description": "",
+      "edition": ""
+    },
+    "128a2163d05a": {
+      "date": "2026-09-09",
+      "publisher": "아시아경제",
+      "seed_title": "\"시장 살리고 복지 채우고\"… 새울원자력 노사, 남창시장서 나눔 실천",
+      "link": "https://www.asiae.co.kr/article/2026090818101437850",
+      "title": "\"시장 살리고 복지 채우고\"… 새울원자력 노사, 남창시장서 나눔 실천",
+      "description": "",
+      "edition": ""
+    },
+    "6f004097114d": {
+      "date": "2026-09-09",
+      "publisher": "아시아경제",
+      "seed_title": "한·프, AI·원전연료 등 16건 협력문건 체결…삼성, 미스트랄AI 전략투자",
+      "link": "https://www.asiae.co.kr/article/2026090823431242781",
+      "title": "한·프, AI·원전연료 등 16건 협력문건 체결…삼성, 미스트랄AI 전략투자",
+      "description": "",
+      "edition": ""
+    },
+    "9ed14d8e0269": {
+      "date": "2026-09-09",
+      "publisher": "아시아투데이",
+      "seed_title": "李·마크롱 정상회담 계기 16건 협정·MOU 체결…국방·첨단기술 확대",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003209",
+      "title": "李·마크롱 정상회담 계기 16건 협정·MOU 체결…국방·첨단기술 확대",
+      "description": "",
+      "edition": ""
+    },
+    "65b356837c3c": {
+      "date": "2026-09-09",
+      "publisher": "아주경제",
+      "seed_title": "K-중후장대, 美 원전·에너지 '골드러시' 임박...반도체는 불확실성 지속",
+      "link": "https://www.ajunews.com/view/20260908153847082",
+      "title": "K-중후장대, 美 원전·에너지 '골드러시' 임박...반도체는 불확실성 지속",
+      "description": "",
+      "edition": ""
+    },
+    "693ad47ed7b9": {
+      "date": "2026-09-09",
+      "publisher": "아주경제",
+      "seed_title": "李대통령, 한불 공동 R&D·대규모 투자 강조…삼성·네이버 'AI 협력'",
+      "link": "https://www.ajunews.com/view/20260909054904903",
+      "title": "李대통령, 한불 공동 R&D·대규모 투자 강조…삼성·네이버 'AI 협력'",
+      "description": "",
+      "edition": ""
+    },
+    "e6b00d675f37": {
+      "date": "2026-09-09",
+      "publisher": "아주경제",
+      "seed_title": "韓·佛, MOU 포함 협력문건 16건 체결…AI·반도체부터 우주·원전까지",
+      "link": "https://www.ajunews.com/view/20260909010943848",
+      "title": "韓·佛, MOU 포함 협력문건 16건 체결…AI·반도체부터 우주·원전까지",
+      "description": "",
+      "edition": ""
+    },
+    "f8f6cbd177cc": {
+      "date": "2026-09-09",
+      "publisher": "아주경제",
+      "seed_title": "경주서 원전 소재 지자체 행정협의회…원전 현안 공동 대응",
+      "link": "https://www.ajunews.com/view/20260909011902856",
+      "title": "경주서 원전 소재 지자체 행정협의회…원전 현안 공동 대응",
+      "description": "",
+      "edition": ""
+    },
+    "c47f1101c4c7": {
+      "date": "2026-09-09",
+      "publisher": "아주경제",
+      "seed_title": "정부, 프랑스와 6건 협정·MOU 체결…삼성전자, 佛 미스트랄AI에 전략 투자",
+      "link": "https://www.ajunews.com/view/20260908172713456",
+      "title": "정부, 프랑스와 6건 협정·MOU 체결…삼성전자, 佛 미스트랄AI에 전략 투자",
+      "description": "",
+      "edition": ""
+    },
+    "ee3f06425c78": {
+      "date": "2026-09-09",
+      "publisher": "이데일리",
+      "seed_title": "“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”",
+      "link": "https://www.edaily.co.kr/news/read?newsId=03932726645578152&mediaCodeNo=257",
+      "title": "“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”",
+      "description": "",
+      "edition": ""
+    },
+    "a6616f692935": {
+      "date": "2026-09-09",
+      "publisher": "이데일리",
+      "seed_title": "李, 한불 기업인 만나 첨단산업 협력 논의…삼성, 佛 미스트랄AI에 전략적 투자",
+      "link": "https://www.edaily.co.kr/news/read?newsId=01951606645578480&mediaCodeNo=257",
+      "title": "李, 한불 기업인 만나 첨단산업 협력 논의…삼성, 佛 미스트랄AI에 전략적 투자",
+      "description": "",
+      "edition": ""
+    },
+    "8e8781cb6ed9": {
+      "date": "2026-09-09",
+      "publisher": "이데일리",
+      "seed_title": "한미 '원전 주도권 게임' 본격화..\"사업 지분·EPC확보가 관건\"",
+      "link": "https://www.edaily.co.kr/news/read?newsId=03991766645578152&mediaCodeNo=257",
+      "title": "한미 '원전 주도권 게임' 본격화..\"사업 지분·EPC확보가 관건\"",
+      "description": "",
+      "edition": ""
+    },
+    "faa49cefa433": {
+      "date": "2026-09-09",
+      "publisher": "이투데이",
+      "seed_title": "한-프랑스, AI·원전·우주 협력 본격화…삼성전자, 미스트랄AI에 전략투자",
+      "link": "https://www.etoday.co.kr/news/view/2623288",
+      "title": "한-프랑스, AI·원전·우주 협력 본격화…삼성전자, 미스트랄AI에 전략투자",
+      "description": "",
+      "edition": ""
+    },
+    "f9a87514d534": {
+      "date": "2026-09-09",
+      "publisher": "조선일보",
+      "seed_title": "AI부터 핵연료까지… 韓·佛, ‘기술·안보 동맹’으로",
+      "link": "https://www.chosun.com/politics/politics_general/2026/09/09/G7AUGQPRYFANLH3AIXSPXDY57E/",
+      "title": "AI부터 핵연료까지… 韓·佛, ‘기술·안보 동맹’으로",
+      "description": "",
+      "edition": ""
+    },
+    "4fcabba56550": {
+      "date": "2026-09-09",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "[사설] 원전 참여 등 대미 투자 윤곽, 최대한의 국익 확보를",
+      "link": "https://www.fnnews.com/news/202609081855146252",
+      "title": "[사설] 원전 참여 등 대미 투자 윤곽, 최대한의 국익 확보를",
+      "description": "",
+      "edition": ""
+    },
+    "bbaef327ac05": {
+      "date": "2026-09-09",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "‘美 원전 8기’ 기대에 불붙은 원전株… 이틀째 강세",
+      "link": "https://www.fnnews.com/news/202609081830073223",
+      "title": "‘美 원전 8기’ 기대에 불붙은 원전株… 이틀째 강세",
+      "description": "",
+      "edition": ""
+    },
+    "08b07964d789": {
+      "date": "2026-09-09",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "한-체코 국방부 장관 회담 \"원전 잭팟 이어 방산 협력도 확대\"",
+      "link": "https://www.fnnews.com/news/202609080906233548",
+      "title": "한-체코 국방부 장관 회담 \"원전 잭팟 이어 방산 협력도 확대\"",
+      "description": "",
+      "edition": ""
+    },
+    "d926c922f91a": {
+      "date": "2026-09-09",
+      "publisher": "한겨레",
+      "seed_title": "[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입",
+      "link": "https://www.hani.co.kr/arti/politics/bluehouse/1276873.html",
+      "title": "[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입",
+      "description": "",
+      "edition": ""
+    },
+    "18b795bc1d74": {
+      "date": "2026-09-09",
+      "publisher": "한겨레",
+      "seed_title": "[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야",
+      "link": "https://www.hani.co.kr/arti/opinion/editorial/1276870.html",
+      "title": "[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야",
+      "description": "",
+      "edition": ""
+    },
+    "ba0f6c8286a8": {
+      "date": "2026-09-09",
+      "publisher": "한겨레",
+      "seed_title": "주인 네 번 바뀐 웨스팅하우스… 미국 핵비확산·수출통제 체제와도 연관",
+      "link": "https://www.hani.co.kr/arti/society/environment/1276910.html",
+      "title": "주인 네 번 바뀐 웨스팅하우스… 미국 핵비확산·수출통제 체제와도 연관",
+      "description": "",
+      "edition": ""
+    },
+    "65c75d5816fc": {
+      "date": "2026-09-09",
+      "publisher": "한국경제",
+      "seed_title": "韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로",
+      "link": "https://www.hankyung.com/article/2026090820501",
+      "title": "韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로",
+      "description": "",
+      "edition": ""
+    },
+    "de2e6b74194d": {
+      "date": "2026-09-09",
+      "publisher": "한국경제",
+      "seed_title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "link": "https://www.hankyung.com/article/2026090823651",
+      "title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "description": "",
+      "edition": ""
+    },
+    "e5331c61046a": {
+      "date": "2026-09-09",
+      "publisher": "한국경제",
+      "seed_title": "대미 원전투자 최종관문 'WEC 지분 인수'인 이유",
+      "link": "https://www.hankyung.com/article/2026090820621",
+      "title": "대미 원전투자 최종관문 'WEC 지분 인수'인 이유",
+      "description": "",
+      "edition": ""
+    },
+    "a54a31fa964b": {
+      "date": "2026-09-09",
+      "publisher": "한국경제",
+      "seed_title": "대미투자 호재發 원전주 '동반 랠리'",
+      "link": "https://www.hankyung.com/article/2026090819731",
+      "title": "대미투자 호재發 원전주 '동반 랠리'",
+      "description": "",
+      "edition": ""
+    },
+    "2c6332b4c641": {
+      "date": "2026-09-09",
+      "publisher": "한국경제TV",
+      "seed_title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "link": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026090823651",
+      "title": "韓·佛, 원전 협력 강화…\"호르무즈 공조 지속\"",
+      "description": "",
+      "edition": ""
     }
   }
 }
