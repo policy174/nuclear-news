@@ -2136,11 +2136,32 @@ function agendaLinksForIssue(issueId) {
   return { pinned, candidates: candidates.slice(0, 2) };
 }
 
+// 목록용 한 줄 요지 — 변화 문장의 "옛 → 새" 화살표는 한 줄 요지에선 장황하다.
+// 화살표 뒤(현재 상태)만 취한다. 변화의 서사가 필요하면 이슈 상세로 간다.
+function issueGist(issue) {
+  const text = issueChangeText(issue) || issue.summary || "";
+  const arrow = text.lastIndexOf("→");
+  return arrow >= 0 ? text.slice(arrow + 1).trim() : text;
+}
+
 function agendaIssueRow(issueId) {
   const issue = state.issues.find(row => row.issue_id === issueId);
   if (!issue) return "";
+  // 제목만 나열하면 목록이 아니라 목차다 — 내용 한 줄(요약·변화)을 같이 싣는다.
+  const gist = issueGist(issue);
   return `<li><button type="button" data-issue-id="${esc(issueId)}" data-force-dialog="1">${esc(issue.title)}</button>
-    <small>${esc(dateLabel(issue.last_seen))} · 근거 ${issue.article_count || 0}건</small></li>`;
+    <small>${esc(dateLabel(issue.last_seen))} · 근거 ${issue.article_count || 0}건</small>
+    ${gist ? `<p class="agenda-issue-gist">${esc(gist)}</p>` : ""}</li>`;
+}
+
+// 의제의 타임라인 재료 — 핀(확인된 연결) 우선, 부족하면 자동 후보로 채운다.
+// 콘솔(핀 입력)이 생기기 전에도 도구가 빈 껍데기가 되면 안 된다('26.9.8 판정:
+// "내용도 없고 관련 기사 엮어놓은 것도 없다"). 자동 채움은 항상 그 사실을
+// 표기한다 — 자동 연결 ≠ 확인된 연결 원칙은 라벨로 지킨다.
+function agendaTimelineIssues(agenda, limit = 8) {
+  const pinned = agenda.pinned_issue_ids || [];
+  const fill = (agenda.candidate_issue_ids || []).slice(0, Math.max(0, limit - pinned.length));
+  return { pinned: pinned.slice(0, limit), auto: fill };
 }
 
 function renderAgendaDetail(agenda) {
@@ -2162,8 +2183,10 @@ function renderAgendaDetail(agenda) {
     ${agenda.transfer_conditions ? `<details class="agenda-fold"><summary>적용 조건 — 해외·과거 사례를 가져올 때</summary><p>${esc(agenda.transfer_conditions)}</p></details>` : ""}
     ${agenda.pinned_issue_ids?.length ? `<div class="agenda-issues"><h4>의제 이슈 <small>확인된 연결 ${agenda.pinned_issue_ids.length}건</small></h4>
       <ul>${agenda.pinned_issue_ids.map(agendaIssueRow).join("")}</ul></div>` : ""}
-    ${agenda.candidate_issue_ids?.length ? `<details class="agenda-fold"><summary>관련 후보 ${agenda.candidate_count}건 — 자동 연결, 확인 전</summary>
-      <ul>${agenda.candidate_issue_ids.slice(0, 10).map(agendaIssueRow).join("")}</ul></details>` : ""}
+    ${!agenda.pinned_issue_ids?.length && agenda.candidate_issue_ids?.length ? `<div class="agenda-issues"><h4>관련 이슈 <small>자동 연결 · 확인 전</small></h4>
+      <ul>${agenda.candidate_issue_ids.slice(0, 6).map(agendaIssueRow).join("")}</ul></div>` : ""}
+    ${agenda.candidate_issue_ids?.length ? `<details class="agenda-fold"><summary>관련 후보 전체 ${agenda.candidate_count}건 — 자동 연결, 확인 전</summary>
+      <ul>${agenda.candidate_issue_ids.slice(0, 15).map(agendaIssueRow).join("")}</ul></details>` : ""}
     ${agenda.events?.length ? `<div class="agenda-events"><h4>향후 일정</h4>
       <ul>${agenda.events.map(ev => `<li>${esc(dateLabel(ev.date))} · ${esc(ev.label)}</li>`).join("")}</ul></div>` : ""}
     ${allLogs.length ? `<details class="agenda-fold"><summary>판단 이력 ${allLogs.length}건</summary>
@@ -2246,13 +2269,22 @@ function agendaReportText(agenda) {
   lines.push("", "2. 주요 쟁점");
   if (agenda.bottleneck) lines.push(` ○ (병목) ${agenda.bottleneck}`);
   if (agenda.transfer_conditions) lines.push(` ○ (적용 조건) ${agenda.transfer_conditions}`);
-  const pinnedIssues = (agenda.pinned_issue_ids || []).map(id => byId.get(id)).filter(Boolean);
-  const timeline = pinnedIssues.slice(0, 8);
-  if (timeline.length || agenda.events?.length) {
+  // 핀이 없어도 동향 절이 비면 안 된다 — 자동 연결로 채우되 그 사실을 밝힌다.
+  const picks = agendaTimelineIssues(agenda);
+  const timelineRow = issue => {
+    const gist = issueGist(issue);
+    lines.push(` ○ ${reportDate(issue.last_seen)} ${issue.title}${notes.cite(issue.representative_article)}`);
+    if (gist) lines.push(`  – ${gist}`);
+  };
+  const pinnedIssues = picks.pinned.map(id => byId.get(id)).filter(Boolean);
+  const autoIssues = picks.auto.map(id => byId.get(id)).filter(Boolean);
+  if (pinnedIssues.length || autoIssues.length || agenda.events?.length) {
     lines.push("", "3. 최근 동향");
-    timeline.forEach(issue => {
-      lines.push(` ○ ${reportDate(issue.last_seen)} ${issue.title}${notes.cite(issue.representative_article)}`);
-    });
+    pinnedIssues.forEach(timelineRow);
+    if (autoIssues.length) {
+      lines.push(` ○ (자동 연결 · 확인 전 ${autoIssues.length}건)`);
+      autoIssues.forEach(timelineRow);
+    }
     (agenda.events || []).forEach(ev => lines.push(` ○ (예정) ${reportDate(ev.date)} ${ev.label}`));
   }
   lines.push("", "4. 현재 판단");

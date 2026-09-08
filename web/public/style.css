@@ -1938,6 +1938,15 @@ body.booting .status-strip.loading { display: none; }
 .agenda-issues h4, .agenda-events h4, .agenda-cases h4 { margin: var(--sp-3) 0 var(--sp-1); font-size: var(--t-caption); }
 .agenda-issues ul, .agenda-events ul, .agenda-cases ul, .agenda-fold ul { margin: 0; padding-left: 0; list-style: none; display: grid; gap: var(--sp-1); }
 .agenda-issues small, .agenda-cases small { display: block; color: var(--c-text-secondary); }
+.agenda-issue-gist {
+  margin: 2px 0 0;
+  color: var(--c-text-secondary);
+  font-size: var(--t-caption);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .agenda-log { margin: 0; padding-left: var(--sp-4); display: grid; gap: var(--sp-1); }
 .agenda-log .withdrawn { text-decoration: line-through; color: var(--c-text-secondary); }
 .agenda-log small { display: block; color: var(--c-text-secondary); }
