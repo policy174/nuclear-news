@@ -992,6 +992,16 @@
       "right_title": "금리 올리고 돈 푼다…‘하준경식 폴리시믹스’ 변수는 노봉법",
       "same_event": false
     },
+    "01fba58f8dc8193d--894d72113b913529": {
+      "embedding_similarity": 0.907,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 예산 배정 건",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "기후에너지환경부, AI 데이터센터 용수 예산 호남권에 우선 배정",
+      "same_event": false
+    },
     "01fba58f8dc8193d--8f9d7e52ab1fbc4b": {
       "embedding_similarity": 0.8409,
       "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
@@ -2671,6 +2681,16 @@
       "reviewed_at": "2026-09-01T00:28:56.220618+00:00",
       "right_title": "[사설] '3대 메가'에 원전 19기 전력 더 필요, 뒷짐 풀고 속도 내야",
       "same_event": true
+    },
+    "04efed515cb6116f--aa796809b0c0eb6b": {
+      "embedding_similarity": 0.8434,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 차수가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "11차 전기본, LNG 발전설비 10GW 증가에도 수요는 반토막 전망",
+      "same_event": false
     },
     "04efed515cb6116f--af6f646191c91c18": {
       "embedding_similarity": 0.8705,
@@ -6032,6 +6052,16 @@
       "right_title": "헝가리 총리, 팍스 원전 일요일 가동 중단 발표",
       "same_event": true
     },
+    "09afc6bdb24beac0--88d9d248d0beeb63": {
+      "embedding_similarity": 0.9014,
+      "left_title": "한수원, 새울원자력 3호기 배관 누설로 재가동 이틀 만에 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 수동 정지",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울 3호기, 시운전 중 증기 누설로 수동 정지",
+      "same_event": true
+    },
     "09afc6bdb24beac0--8a56f751c8dd5cbb": {
       "embedding_similarity": 0.8903,
       "left_title": "새울 3호기, 재가동 이틀 만에 운전원 실수로 재정지",
@@ -8802,6 +8832,16 @@
       "right_title": "국내 건설사, 해외 원전·SMR 수주 기대감 증대 및 계약 성사 주목",
       "same_event": false
     },
+    "0d98b3f0ce5d3186--50a0450c20bee9ac": {
+      "embedding_similarity": 0.911,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 협상",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "미국, 한국에 1,200억 달러 규모 원전 8기 건설 공식 제안",
+      "same_event": true
+    },
     "0d98b3f0ce5d3186--59fdec838a3146f8": {
       "embedding_similarity": 0.8837,
       "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
@@ -11492,6 +11532,16 @@
       "right_title": "BWXT 및 카이로스 파워, 5억 달러 규모 핵연료 허브 건설 계획 발표",
       "same_event": false
     },
+    "1370b0e15070ccc4--50a0450c20bee9ac": {
+      "embedding_similarity": 0.9003,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "미국, 원전 8기 건설 계획 중 1호는 LNG 발전",
+      "same_event": true
+    },
     "138f2c3db11e636d--b613d34b976b7c8c": {
       "embedding_similarity": 0.8733,
       "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
@@ -12321,6 +12371,26 @@
       "reviewed_at": "2026-08-17T06:55:45.743911+00:00",
       "right_title": "美 3500억 투자·신규 관세 압박 확대… 김정관, 3주 만에 긴급 방미",
       "same_event": true
+    },
+    "14a34f990f80d4cf--1f235e424372ff51": {
+      "embedding_similarity": 0.8454,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 호기가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울3호기, 재가동 이틀 만에 증기 누설로 또 정지",
+      "same_event": false
+    },
+    "14a34f990f80d4cf--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8498,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "상업운전 목표와 고장 정지 사건",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울3호기, 재가동 이틀 만에 증기 누설로 또 정지",
+      "same_event": false
     },
     "14fdea2b11e3b9ae--1dcdc14282ec8451": {
       "embedding_similarity": 0.8859,
@@ -17552,6 +17622,16 @@
       "right_title": "한수원 새울 1호기, 계획예방정비 후 100% 출력 도달",
       "same_event": true
     },
+    "1f235e424372ff51--98a8c1b2e0b24fe5": {
+      "embedding_similarity": 0.8747,
+      "left_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 호기가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울 3호기, 재가동 이틀 만에 증기 누설로 수동 정지…원안위 조사 착수",
+      "same_event": false
+    },
     "1f235e424372ff51--9a7b23e4ae5be6f3": {
       "embedding_similarity": 0.8415,
       "left_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
@@ -20772,6 +20852,16 @@
       "right_title": "창원시, SMR 제조부품 시험검사 지원센터 국비 확보 건의",
       "same_event": false
     },
+    "25c611c5e02f7132--50a0450c20bee9ac": {
+      "embedding_similarity": 0.9115,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 협상",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "미국, 원전 8기 건설에 1200억 달러 투자 제안…한국 수익·주도권 확보 관건",
+      "same_event": true
+    },
     "25c611c5e02f7132--59fdec838a3146f8": {
       "embedding_similarity": 0.8744,
       "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
@@ -22539,6 +22629,16 @@
       "prompt_version": 1,
       "reason": "한·프랑스 정상회담 원전 협력",
       "reviewed_at": "2026-09-08T17:26:53.835567+00:00",
+      "right_title": "한·프랑스 정상회담 개최, AI·원자력 및 호르무즈 해협 파병 논의",
+      "same_event": true
+    },
+    "2a6921c742c5a265--85d558a7373de935": {
+      "embedding_similarity": 0.9197,
+      "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 한·프랑스 정상회담",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
       "right_title": "한·프랑스 정상회담 개최, AI·원자력 및 호르무즈 해협 파병 논의",
       "same_event": true
     },
@@ -25572,6 +25672,16 @@
       "right_title": "미국 AI 전력망 비상 속 두산·현대건설, SMR 사업 협력 확대",
       "same_event": false
     },
+    "31bef6b9037f621a--50a0450c20bee9ac": {
+      "embedding_similarity": 0.9017,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "산업부, 한미 대미투자 1호로 텍사스 LNG 검토 및 원전 8기 후속 논의",
+      "same_event": true
+    },
     "31bef6b9037f621a--c08191b8c3fa83e9": {
       "embedding_similarity": 0.8793,
       "left_title": "정부, 대미 투자 1호 텍사스 LNG 발전소 투자금 223억 달러로 증액 및 원전 패키지 포함",
@@ -27252,6 +27362,16 @@
       "right_title": "울진 원전 전력 활용 청정수소 생산, 국회에 산단 지원 요청",
       "same_event": true
     },
+    "346da384dda06dab--547e2a94314636a3": {
+      "embedding_similarity": 0.9129,
+      "left_title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 추진",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "발전 5사 하나로 통합한다…'한국발전공사' 설립 추진",
+      "same_event": true
+    },
     "346da384dda06dab--70ad13bfd6dc0ba5": {
       "embedding_similarity": 0.8771,
       "left_title": "정부, 발전공기업 5사 (가칭)한국발전으로 단일법인화 공식 발표",
@@ -28031,6 +28151,16 @@
       "reviewed_at": "2026-08-04T08:17:49.750712+00:00",
       "right_title": "캐나다 정부, 마이크로 원자로 기술 개발에 450만 달러 지원",
       "same_event": false
+    },
+    "35ee10ae240450c8--e412b569926b9447": {
+      "embedding_similarity": 0.9104,
+      "left_title": "한수원, 체코수소협회와 원자력 청정수소 법·제도 분석 용역 성과 공유",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코수소협회 협력 성과",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한수원, 체코수소협회와 유럽 원자력·청정수소 시장 진출 전략 모색",
+      "same_event": true
     },
     "3663a7da51eee3fe--8223afcb92f21518": {
       "embedding_similarity": 0.8989,
@@ -30370,6 +30500,16 @@
       "reason": "양수발전 입찰과 재생에너지 확대는 다른 안건",
       "reviewed_at": "2026-08-30T03:23:01.610837+00:00",
       "right_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "same_event": false
+    },
+    "3936f98b28485c84--aa796809b0c0eb6b": {
+      "embedding_similarity": 0.8435,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 차수가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "11차 전기본, LNG 발전설비 10GW 증가에도 수요는 반토막 전망",
       "same_event": false
     },
     "3936f98b28485c84--af6f646191c91c18": {
@@ -32892,6 +33032,16 @@
       "right_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
       "same_event": false
     },
+    "3e53defa5863be50--6d402bf98f9187b2": {
+      "embedding_similarity": 0.8995,
+      "left_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "내년 에너지 R&D 예산",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
+      "same_event": true
+    },
     "3e53defa5863be50--76ce0f0151217ee0": {
       "embedding_similarity": 0.8803,
       "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
@@ -32901,6 +33051,16 @@
       "reviewed_at": "2026-09-08T17:26:53.835567+00:00",
       "right_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
       "same_event": false
+    },
+    "3e53defa5863be50--7e05f1199bf57e0c": {
+      "embedding_similarity": 0.9025,
+      "left_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "내년 에너지 R&D 예산",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "내년 에너지 R&D 예산 48% 확대, 원자력 예산 역대 최대",
+      "same_event": true
     },
     "3e53defa5863be50--964664856198c4dd": {
       "embedding_similarity": 0.8791,
@@ -32931,6 +33091,16 @@
       "reviewed_at": "2026-09-08T17:26:53.835567+00:00",
       "right_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
       "same_event": false
+    },
+    "3e53defa5863be50--f02a105a02d41212": {
+      "embedding_similarity": 0.9031,
+      "left_title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "내년 에너지 R&D 예산",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "정부, 에너지 R&D 예산 48% 증액…원자력 예산 역대 최대 규모",
+      "same_event": true
     },
     "3e5677a0b916d0ca--5b5995d129436876": {
       "embedding_similarity": 0.8684,
@@ -33382,6 +33552,26 @@
       "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
       "same_event": true
     },
+    "3f901e12f3d58c9c--76c25b6cb116675c": {
+      "embedding_similarity": 0.902,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 협상",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
+      "same_event": true
+    },
+    "3f901e12f3d58c9c--9d9b9712c4e75084": {
+      "embedding_similarity": 0.9019,
+      "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
+      "same_event": true
+    },
     "3fa9cce3e5e4ecfe--8f400ecdab896259": {
       "embedding_similarity": 0.8847,
       "left_title": "김구연 경남도의원, 석탄화력발전소 폐지 지역경제 충격 최소화 조례 발의",
@@ -33520,6 +33710,16 @@
       "reason": "원전 가동 중단 및 재가동",
       "reviewed_at": "2026-08-24T18:48:54.879032+00:00",
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
+      "same_event": true
+    },
+    "3fcf932af8a2d7b8--4681cd2d1eacc8fd": {
+      "embedding_similarity": 0.9168,
+      "left_title": "한국수력원자력, 새울원전 3호기 시운전 중 원자로 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 정지 및 후속 반응",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "울산탈핵시민공동행동, 새울 3호기 잇단 정지에 상업운전 승인 중단 촉구",
       "same_event": true
     },
     "3fcf932af8a2d7b8--8a56f751c8dd5cbb": {
@@ -33761,6 +33961,16 @@
       "reviewed_at": "2026-09-04T22:59:03.339007+00:00",
       "right_title": "구미, 반도체·AI 데이터센터 앞세워 서울서 ‘투자 세일즈’",
       "same_event": false
+    },
+    "40a363e84e0a3554--806225e255d4065e": {
+      "embedding_similarity": 0.9167,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 협상 관련 보도",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "정부, 미국 텍사스에 223억 달러 규모 가스복합발전소 건설 추진",
+      "same_event": true
     },
     "40b7e9b76676e6f9--59fdec838a3146f8": {
       "embedding_similarity": 0.8827,
@@ -39022,6 +39232,16 @@
       "right_title": "[재계 이슈] 한화그룹, KAI 지분 15.89% 확보…오스탈USA 인수도 추진 | ...",
       "same_event": false
     },
+    "4a12a0346582e86c--806225e255d4065e": {
+      "embedding_similarity": 0.9097,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 및 국가 상이",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "삼성물산·현대건설, 스웨덴·미국 SMR 사업 참여",
+      "same_event": false
+    },
     "4a4144ea501c3978--565a77d9ffdd8577": {
       "embedding_similarity": 0.8735,
       "left_title": "빌 게이츠 테라파워 SMR, 현대건설이 건설 참여…SK그룹과 협력",
@@ -41072,6 +41292,26 @@
       "right_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
       "same_event": true
     },
+    "50a0450c20bee9ac--94d1472d5107818d": {
+      "embedding_similarity": 0.9018,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한국, 미국 내 1300억달러 규모 원전 8기 건설 추진…APR1400 2기 포함",
+      "same_event": true
+    },
+    "50a0450c20bee9ac--9d9b9712c4e75084": {
+      "embedding_similarity": 0.9095,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "same_event": true
+    },
     "50a0450c20bee9ac--c08191b8c3fa83e9": {
       "embedding_similarity": 0.8867,
       "left_title": "정부, 대미 투자 1호 텍사스 LNG 발전소 투자금 223억 달러로 증액 및 원전 패키지 포함",
@@ -41090,6 +41330,16 @@
       "reason": "대미 투자 및 원전 건설 합의",
       "reviewed_at": "2026-09-08T13:09:05.610059+00:00",
       "right_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "same_event": true
+    },
+    "50a0450c20bee9ac--fe5e3a400f31076f": {
+      "embedding_similarity": 0.9091,
+      "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "산업부, 미국에 대형 원전 최대 8기 건설 방안 검토 보고",
       "same_event": true
     },
     "50a0d5222dadcb85--84741e96baea01d4": {
@@ -43770,6 +44020,26 @@
       "reason": "발전공기업 통합 추진",
       "reviewed_at": "2026-09-08T17:26:53.835567+00:00",
       "right_title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
+      "same_event": true
+    },
+    "547e2a94314636a3--c9a2dcc53b958845": {
+      "embedding_similarity": 0.9192,
+      "left_title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구체적 결정과 일반적 논의",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "재생에너지 전환 위한 발전 부문 통합 논의 재점화",
+      "same_event": false
+    },
+    "547e2a94314636a3--fd658e760a42a5bf": {
+      "embedding_similarity": 0.9058,
+      "left_title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발전 5사 통합 추진",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "국회, 발전공기업 5개사 통합 위한 '한국발전공사법안' 발의",
       "same_event": true
     },
     "548055e6161f453a--5976e83faefed3d5": {
@@ -52472,6 +52742,16 @@
       "right_title": "빌 게이츠 테라파워 의장, 최태원·정기선 만나 SMR 사업 협력 논의",
       "same_event": true
     },
+    "64e38eedc704963b--806225e255d4065e": {
+      "embedding_similarity": 0.9009,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 협상 보도",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "사설: 한국의 대미투자 1·2호 가스화력 및 원전 사업, 상업적 합리성 확보 강조",
+      "same_event": true
+    },
     "64e9af97c5aec46c--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8496,
       "left_title": "한국 SMR 동력 컨테이너선 개념 설계, 미국선급협회(ABS)로부터 기본승인(AIP) 획득",
@@ -55351,6 +55631,16 @@
       "reviewed_at": "2026-08-11T22:13:33.599506+00:00",
       "right_title": "HD하이드로젠, SOFC 발전설비 양산체계 구축",
       "same_event": false
+    },
+    "6c07c355a200d029--9d9b9712c4e75084": {
+      "embedding_similarity": 0.9178,
+      "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 협상",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한국 정부, 미국 내 원전 8기 건설 등 대미 투자 협상 진행 중",
+      "same_event": true
     },
     "6c07c355a200d029--dec5f85da999856e": {
       "embedding_similarity": 0.8762,
@@ -59142,6 +59432,16 @@
       "right_title": "김성환 장관, 폭염 속 여름철 전력수급 상황 점검",
       "same_event": true
     },
+    "758725936ed3273f--98d67f29cf01a985": {
+      "embedding_similarity": 0.9175,
+      "left_title": "정부, 핵추진 잠수함 건조 관련 IAEA 포괄적 안전조치협정 협의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵잠 관련 IAEA 협의",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한국 정부, IAEA에 핵잠 도입 위한 핵물질 사찰 면제 협의 의향 통보",
+      "same_event": true
+    },
     "75feca40d7b229b8--8223afcb92f21518": {
       "embedding_similarity": 0.8689,
       "left_title": "유럽 원전 냉각수 리스크 부각, 한수원 두코바니 냉각탑 방식 주목",
@@ -60111,6 +60411,16 @@
       "reviewed_at": "2026-08-10T22:07:21.502470+00:00",
       "right_title": "국내외 원전 사업 가속화, 삼성물산 등 국내 건설사 기회 확대 전망",
       "same_event": false
+    },
+    "7812cc3808e031e9--88d9d248d0beeb63": {
+      "embedding_similarity": 0.9029,
+      "left_title": "한수원, 새울원자력 3호기 배관 누설로 재가동 이틀 만에 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 수동 정지",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울 3호기 시운전 정지 원인 '운전원 오조작' 확인, 원안위 재개 승인",
+      "same_event": true
     },
     "7812cc3808e031e9--a3880024de8c77cf": {
       "embedding_similarity": 0.8897,
@@ -64050,6 +64360,16 @@
       "reason": "산업용 전기요금 지역차등제 도입",
       "reviewed_at": "2026-09-03T01:15:30.313929+00:00",
       "right_title": "경북도지사, 경북권 전기요금 30% 인하 주장",
+      "same_event": true
+    },
+    "85d558a7373de935--b83f9888e6a52bce": {
+      "embedding_similarity": 0.9048,
+      "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한·프랑스 정상회담",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "이재명 대통령, 프랑스와 호르무즈 해협 항행 자유 위해 공조 합의",
       "same_event": true
     },
     "86025b5da7ff3e53--aaa232f2b9b0540b": {
@@ -68442,6 +68762,16 @@
       "right_title": "조선업계, 해상 데이터센터 전력원으로 SMR 활용 방안 검토",
       "same_event": false
     },
+    "94211f8b62401f02--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8457,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 차수가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "산업부 제11차 전기본에 따른 국내 전력수요 급증…원전 등 기저부하 확충 시급",
+      "same_event": false
+    },
     "9437d237e08f35c5--ca20b30862dbeec1": {
       "embedding_similarity": 0.8404,
       "left_title": "글로벌 폭염·가뭄으로 유럽 원전 다수 가동 중단…에너지 공급 차질",
@@ -68460,6 +68790,16 @@
       "reason": "프랑스 원전 가뭄/폭염 영향",
       "reviewed_at": "2026-08-20T21:38:48.477053+00:00",
       "right_title": "프랑스 원전, 폭염이 발전량에 미치는 영향 분석",
+      "same_event": true
+    },
+    "949cf05ae6eb26df--9d9b9712c4e75084": {
+      "embedding_similarity": 0.914,
+      "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 협상",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "산업부, 한미 대미투자 프로젝트 내 대형 원전 8기 건설 포함 협상 진행",
       "same_event": true
     },
     "94c5d5ca40f4f818--a81dcba7d0fa007b": {
@@ -70372,6 +70712,16 @@
       "right_title": "국방부, 핵추진잠수함 건조 추진 및 IAEA와 핵물질 관리 협의 방침",
       "same_event": false
     },
+    "98a8c1b2e0b24fe5--cdf84543be54fcb1": {
+      "embedding_similarity": 0.8521,
+      "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "상업운전 목표와 고장 정지 사건",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "새울 3호기, 재가동 이틀 만에 증기 누설로 수동 정지…원안위 조사 착수",
+      "same_event": false
+    },
     "991f0fbcbef486cd--9c00adcd73d60f56": {
       "embedding_similarity": 0.8419,
       "left_title": "플로리다주, AI 규제 정치광고·데이터센터 분야별 법제화",
@@ -71471,6 +71821,16 @@
       "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
       "right_title": "원안위, 새울 3호기 수동정지 원인 조사 착수…상업운전 지연 우려",
       "same_event": false
+    },
+    "9d9b9712c4e75084--e6c2826be60629b1": {
+      "embedding_similarity": 0.9095,
+      "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한미, 대미 투자 협상서 미국 내 원전 8기 건설 포함 여부 조율",
+      "same_event": true
     },
     "9da2eea7915b1da3--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8695,
@@ -74482,6 +74842,26 @@
       "right_title": "카이로스 파워, 헤르메스 2 원자로 모의실험 장치 1단계 시험 완료",
       "same_event": false
     },
+    "aa796809b0c0eb6b--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8598,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 차수가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "11차 전기본, LNG 발전설비 10GW 증가에도 수요는 반토막 전망",
+      "same_event": false
+    },
+    "aa796809b0c0eb6b--fe38c24988ff17a4": {
+      "embedding_similarity": 0.8574,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 차수가 다름",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "11차 전기본, LNG 발전설비 10GW 증가에도 수요는 반토막 전망",
+      "same_event": false
+    },
     "aa8c7e5e69884848--afefc17d290a9361": {
       "embedding_similarity": 0.8629,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -76932,6 +77312,16 @@
       "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
       "same_event": false
     },
+    "b19fd0094bb30156--d0acb6732cea6ae5": {
+      "embedding_similarity": 0.8995,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "美 웨스팅하우스 지분 인수, 한국 원전동맹 강화 기회 [사설]",
+      "same_event": true
+    },
     "b1ba1728c250cf7c--fbd3322d6a137c46": {
       "embedding_similarity": 0.8512,
       "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
@@ -78991,6 +79381,16 @@
       "reviewed_at": "2026-08-12T03:26:21.200563+00:00",
       "right_title": "앤스로픽, 라이엇 플랫폼스와 91억 달러 규모 AI 컴퓨팅 계약 체결",
       "same_event": false
+    },
+    "bbae50c606e8cae3--d78c6aa8af0067c5": {
+      "embedding_similarity": 0.9122,
+      "left_title": "한수원, 체코수소협회와 유럽 원자력 청정수소 시장 진출 로드맵 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 청정수소 협력",
+      "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한수원, 체코와 원전 넘어 청정수소 사업 협력 확대",
+      "same_event": true
     },
     "bbdf3262cd80efd2--fe1432d7e83e03dd": {
       "embedding_similarity": 0.8513,
