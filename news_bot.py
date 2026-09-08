@@ -139,10 +139,40 @@ RSS_SOURCES += [
     # 프랑스 원자력학회 — EPR2·SMR·프랑스 정책 (프랑스어 → Gemini가 한국어 요약)
     {"url": "https://www.sfen.org/feed/", "name": "SFEN",
      "domain_label": "sfen.org"},
-    # 미 에너지부 공식 — 전 에너지원 피드라 비원자력 포함, 큐레이션 noise 필터가 거름
-    {"url": "https://www.energy.gov/rss.xml", "name": "DOE",
+    # 미 에너지부 공식 — 전 에너지원 피드라 비원자력 포함, 큐레이션 noise 필터가 거름.
+    # `/rss.xml` 은 쓰지 않는다. 그 경로는 200 에 파싱 가능한 XML 을 돌려주지만 내용이
+    # 정적 히스토리 페이지 목록이고 최신 항목이 2020-06-10 에서 멈춰 있다(v2 실측
+    # 2026-08-19). 접속이 성공하니 실패 카운터는 오르지 않는다 — 죽은 피드가 살아
+    # 있는 척하는 모양이라 응답으로는 못 가리고 URL 로만 갈린다.
+    {"url": "https://www.energy.gov/newsroom/rss.xml", "name": "DOE",
+     "domain_label": "energy.gov"},
+    # 같은 부처의 원자력국 전용 피드. 월 4~5건으로 뜸하지만 Civil Nuclear Credit 지급·
+    # HALEU 배분·신형로 임계처럼 뉴스룸이 싣지 않는 1차 발표가 여기로만 나온다.
+    {"url": "https://www.energy.gov/ne/rss.xml", "name": "DOE 원자력국",
      "domain_label": "energy.gov"},
 ]
+# 국내 원자력 기관 — 직접 RSS 가 없어 Google News site: 우회 (v2 PR #65 이식).
+# 검색어 없음: 도메인 자체가 원자력 기관이라 site: 만으로 주제가 좁혀진다.
+# 주의: 기관 사이트라 Google News 색인이 얇다 — 며칠씩 0건이어도 '실패'가 아니라
+# '무소식'이다. 몇 주째 0건이면 색인 자체가 없다는 뜻이므로 전용 파서를 붙여
+# OFFICIAL_DIRECT_SOURCES 로 옮기는 것이 맞다.
+KR_NUCLEAR_ORG_FEEDS = (
+    ("서울대 원자력미래기술정책연구소", "niftep.snu.ac.kr"),
+    ("한국원자력학회", "kns.org"),
+    ("한국원자력산업협회", "kaif.or.kr"),
+    ("한국원자력환경공단", "korad.or.kr"),
+    ("한국원자력통제기술원", "kinac.re.kr"),
+    ("한전원자력연료", "knfc.co.kr"),
+    ("혁신형 SMR 기술개발사업단", "ismr.or.kr"),
+)
+for _org_name, _org_domain in KR_NUCLEAR_ORG_FEEDS:
+    _org_q = quote_plus(f"site:{_org_domain} when:3d")
+    RSS_SOURCES.append({
+        "url": f"https://news.google.com/rss/search?q={_org_q}&hl=ko&gl=KR&ceid=KR:ko",
+        # domain_label 이 곧 기사 도메인이 된다 — sources.json 의 같은 도메인
+        # 항목이 그대로 등급·근거 역할로 붙는다.
+        "name": _org_name, "domain_label": _org_domain,
+    })
 # Reuters는 공개 RSS 폐지, La Tribune은 섹션 피드 없음 → Google News 우회 (실측 12~18건/일)
 _REUTERS_Q = quote_plus('site:reuters.com ("nuclear power" OR reactor OR SMR OR uranium) when:1d')
 RSS_SOURCES.append({

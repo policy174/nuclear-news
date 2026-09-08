@@ -228,6 +228,18 @@
       "source_type": "specialist_media",
       "evidence_role": "independent",
       "rank_tier": 2
+    },
+    {
+      "domain": "kinac.re.kr",
+      "name": "한국원자력통제기술원",
+      "aliases": [
+        "한국원자력통제기술원",
+        "원자력통제기술원",
+        "KINAC"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 1
     }
   ],
   "tier2": [
@@ -458,6 +470,65 @@
       ],
       "source_type": "specialist_media",
       "evidence_role": "independent",
+      "rank_tier": 2
+    },
+    {
+      "domain": "kns.org",
+      "name": "한국원자력학회",
+      "aliases": [
+        "한국원자력학회",
+        "원자력학회"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 2
+    },
+    {
+      "domain": "kaif.or.kr",
+      "name": "한국원자력산업협회",
+      "aliases": [
+        "한국원자력산업협회",
+        "원자력산업협회",
+        "KAIF"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 2
+    },
+    {
+      "domain": "knfc.co.kr",
+      "name": "한전원자력연료",
+      "aliases": [
+        "한전원자력연료",
+        "KEPCO Nuclear Fuel",
+        "KEPCO NF"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 2
+    },
+    {
+      "domain": "ismr.or.kr",
+      "name": "혁신형 SMR 기술개발사업단",
+      "aliases": [
+        "혁신형 SMR 기술개발사업단",
+        "혁신형SMR기술개발사업단",
+        "i-SMR 사업단"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
+      "rank_tier": 2
+    },
+    {
+      "domain": "niftep.snu.ac.kr",
+      "name": "서울대 원자력미래기술정책연구소",
+      "aliases": [
+        "서울대 원자력미래기술정책연구소",
+        "원자력미래기술정책연구소",
+        "NIFTEP"
+      ],
+      "source_type": "official",
+      "evidence_role": "primary",
       "rank_tier": 2
     }
   ],
