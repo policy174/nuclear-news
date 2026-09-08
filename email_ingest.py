@@ -31,6 +31,7 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
+from urllib.parse import parse_qs, urlparse
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -68,7 +69,20 @@ def _unwrap(url: str, timeout: float = 10.0) -> str:
 
     HEAD 우선, 405 등으로 거부되면 GET(본문 안 읽음) 재시도 — ANS 트래커는
     HEAD 를 405 로 거부함(실측). 둘 다 실패하면 원본 유지.
+
+    Outlook safelinks 는 리다이렉트가 아니라 200 인터스티셜이라 HEAD/GET 으로
+    안 풀린다 — `url=` 파라미터를 **로컬로** 벗긴 뒤 네트워크 unwrap 을 탄다.
+    실사고(2026-09-08): 상용구 '구독 안내' 링크가 safelinks 껍데기째
+    outlook.com 도메인으로 수집됐고, 가변 파라미터(data·sdata) 탓에 같은
+    링크의 hash 가 발송마다 달라져 sent 14일 만료 후 재수집 → duplicate
+    게이트가 빌드를 차단했다. 벗기면 진짜 타깃(ans.org 등)이 covered/junk
+    필터에 정상적으로 걸리고, 기사 링크는 안정된 정체성을 얻는다.
     """
+    parsed = urlparse(url)
+    if parsed.hostname and parsed.hostname.endswith("safelinks.protection.outlook.com"):
+        inner = parse_qs(parsed.query).get("url", [""])[0]
+        if inner.lower().startswith("http"):
+            url = inner
     for method in ("HEAD", "GET"):
         try:
             req = urllib.request.Request(url, method=method,
