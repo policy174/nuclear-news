@@ -33,7 +33,20 @@ KST = timezone(timedelta(hours=9))
 
 # 하루에 내보낼 쿼리 상한. 네이버 무료 한도(일 25,000)에는 여유가 크지만, 늘어난
 # 유입은 전부 LLM 큐레이션을 타므로 실제 제약은 Gemini 쿼터다.
-DAILY_QUERY_BUDGET = 30
+#
+# 2026-08-15 까지 이 값은 이름과 달리 **회차당** 상한이었다 — plan_queries 가
+# crawl 마다 새로 30개를 세웠고 크롤은 매시간이었으니 하루 최대 720개가 나갔다.
+# '하루 30'이라고 적어 두고 24배를 쓰고 있었던 셈이다. 이제 state 에 그날 쓴
+# 양을 적어 진짜 총량으로 막는다. (v2 실측 수정 이식, 2026-09-08 — 우리는
+# 3시간 간격이라 최대 240/일이었지만 같은 결함)
+DAILY_QUERY_BUDGET = 40
+
+# 한 회차가 하루치를 독식하지 못하게 한다. 총량만 있으면 아침 첫 크롤이 40개를
+# 다 쓰고 저녁엔 한 건도 못 묻는다 — 씨앗은 그날 들어온 기사에서 나오므로
+# 늦게 뜬 사건일수록 못 묻게 되는 쪽이 손해가 크다.
+# 3시간 간격(하루 8회) + 브리핑 직전 1회 = 9회 기준 6×9=54 > 40 이라 총량이
+# 먼저 걸린다. 회차 간격이 바뀌어도 하루 상한은 그대로다.
+PER_RUN_QUERY_CAP = 6
 
 # 우선순위 창
 MUST_READ_HOURS = 48
@@ -189,12 +202,26 @@ def plan_queries(archive_rows: list[dict],
                  registry: list[dict],
                  state: dict,
                  now: datetime | None = None,
-                 budget: int = DAILY_QUERY_BUDGET) -> tuple[list[dict], dict]:
+                 budget: int = DAILY_QUERY_BUDGET,
+                 per_run_cap: int = PER_RUN_QUERY_CAP) -> tuple[list[dict], dict]:
     """검색할 쿼리 목록과 갱신된 상태를 낸다. 네트워크를 타지 않는다(테스트 가능).
+
+    ``budget`` 은 **하루 총량**이다 — 회차당이 아니다. 그날 내보낸 양을
+    ``state["spent"]`` 에 적어 두고 남은 만큼만 낸다. 하루 경계는 KST 기준:
+    이 저장소의 '오늘'은 전부 KST 이고(브리핑·아카이브), UTC 로 재면 한국 시간
+    오전 9시에 예산이 리셋돼 사람이 보는 날짜와 어긋난다.
 
     반환 쿼리: {"query", "source", "entity_id", "reason", "fingerprint"}
     """
     now = now or datetime.now(timezone.utc)
+    day = now.astimezone(KST).strftime("%Y-%m-%d")
+    spent = state.get("spent") if isinstance(state.get("spent"), dict) else {}
+    used = int(spent.get("count") or 0) if spent.get("date") == day else 0
+    # 회차 상한과 남은 총량 중 작은 쪽. 둘 다 0 이하면 이번 회차는 묻지 않는다.
+    run_cap = min(per_run_cap, max(0, budget - used))
+    if run_cap <= 0:
+        state["spent"] = {"date": day, "count": used}
+        return [], state
     alias_entries = _entity_alias_entries(registry)
     by_id = {entity["id"]: entity for entity in registry}
 
@@ -244,8 +271,10 @@ def plan_queries(archive_rows: list[dict],
             bucket = per_entity.get(entity_id) or []
             if depth < len(bucket):
                 queries.append(bucket[depth])
-                if len(queries) >= budget:
+                if len(queries) >= run_cap:
+                    state["spent"] = {"date": day, "count": used + len(queries)}
                     return queries, state
+    state["spent"] = {"date": day, "count": used + len(queries)}
     return queries, state
 
 

@@ -1132,6 +1132,33 @@ class TestDiscoveryPlanning(unittest.TestCase):
         queries, _ = self._plan(rows, budget=7)
         self.assertLessEqual(len(queries), 7)
 
+    def test_daily_budget_accumulates_across_runs(self):
+        """예산은 하루 총량이다 — 회차당이 아니다. state['spent'] 가 그날 쓴
+        양을 기억해, 회차를 거듭해도 총량을 넘지 못한다(v2 실측 수정 이식:
+        예전엔 회차마다 새로 세서 '하루 30'이 3시간 간격 기준 240까지 나갔다)."""
+        rows = self._rows(*[{"title": f"팍스 원전 {i}호기 가동 중"} for i in range(50)])
+        state = {"version": 1, "queries": {}}
+        total = 0
+        for _ in range(20):
+            queries, state = self.d.plan_queries(
+                rows, self.registry, state, now=self.now,
+                budget=10, per_run_cap=4)
+            total += len(queries)
+            self.assertLessEqual(len(queries), 4, "회차 상한 초과")
+        self.assertLessEqual(total, 10, "하루 총량 초과 — spent 미적재")
+        self.assertEqual(state["spent"]["count"], total)
+
+    def test_spent_resets_on_a_new_kst_day(self):
+        from datetime import datetime, timezone
+        rows = self._rows({"title": "팍스 원전 가동 중 발표"})
+        state = {"version": 1, "queries": {},
+                 "spent": {"date": "2026-08-05", "count": 40}}
+        queries, state = self.d.plan_queries(
+            rows, self.registry, state, now=self.now, budget=40, per_run_cap=6)
+        # now 는 KST 2026-08-06 — 어제 소진분은 리셋되어 다시 물을 수 있다
+        self.assertGreater(len(queries), 0)
+        self.assertEqual(state["spent"]["date"], "2026-08-06")
+
     def test_one_entity_cannot_eat_the_whole_budget(self):
         """깊이 우선이면 홀텍 16 · 원안위 10 으로 예산이 말라 팍스를 못 물었다."""
         rows = self._rows(
