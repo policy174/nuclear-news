@@ -5,7 +5,7 @@
   },
   "retired": {},
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-08"
   },
   "terms": {
@@ -85,19 +85,24 @@
           "title": "세계원자력협회, 2025년 글로벌 원전 발전량 2702TWh로 사상 최고치 경신"
         }
       ],
-      "expires_at": "2026-09-09T13:09:39.658453+00:00",
+      "expires_at": "2026-09-09T13:34:45.894214+00:00",
       "importance": "nice_to_know",
-      "new_articles": 0,
+      "last_result_count": 7,
+      "last_run": "2026-09-08T13:34:45.894214+00:00",
+      "new_articles": 7,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-08T13:34:43.464287+00:00",
+      "queries_run": 1,
       "query": "세계원자력협회",
       "score": 3.7,
-      "status": "tracking",
+      "status": "extended",
       "term": "세계원자력협회",
       "ttl_hours": 24,
       "type": "org",
-      "yield_days": [],
-      "yields": 0,
+      "yield_days": [
+        "2026-09-08"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "안전조치협정": {
@@ -128,19 +133,24 @@
           "title": "정부, IAEA에 핵추진잠수함 관련 CSA 제14조 협의 의사 공식 통보"
         }
       ],
-      "expires_at": "2026-09-09T13:09:39.658453+00:00",
+      "expires_at": "2026-09-09T13:34:45.894214+00:00",
       "importance": "must_read",
-      "new_articles": 0,
+      "last_result_count": 5,
+      "last_run": "2026-09-08T13:34:45.894214+00:00",
+      "new_articles": 5,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-08T13:34:43.464287+00:00",
+      "queries_run": 1,
       "query": "안전조치협정 원자력",
       "score": 4.1,
-      "status": "tracking",
+      "status": "extended",
       "term": "안전조치협정",
       "ttl_hours": 24,
       "type": "project",
-      "yield_days": [],
-      "yields": 0,
+      "yield_days": [
+        "2026-09-08"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "체코수소협회": {
@@ -273,9 +283,12 @@
       ],
       "expires_at": "2026-09-09T13:09:39.658453+00:00",
       "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-08T13:34:45.894214+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-08T13:34:43.464287+00:00",
+      "queries_run": 1,
       "query": "한국원자력학회",
       "score": 3.7,
       "status": "tracking",
@@ -284,7 +297,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
