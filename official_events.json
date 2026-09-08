@@ -555,25 +555,24 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-09-08T04:11:14+09:00",
-   "ok": true,
-   "new": 0,
-   "parsed": 5
+   "at": "2026-09-09T02:20:54+09:00",
+   "ok": false,
+   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
   },
   "kaif_calendar": {
-   "at": "2026-09-08T04:11:14+09:00",
+   "at": "2026-09-09T02:20:54+09:00",
    "ok": true,
    "new": 22,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-09-08T04:11:14+09:00",
+   "at": "2026-09-09T02:20:54+09:00",
    "ok": true,
    "new": 1,
-   "parsed": 6
+   "parsed": 4
   },
   "kns_notice": {
-   "at": "2026-09-08T04:11:14+09:00",
+   "at": "2026-09-09T02:20:54+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
