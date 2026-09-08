@@ -2136,6 +2136,84 @@ def collect_discovery(state: dict, anchors: list[str], negative_terms: str = "")
     return out
 
 
+def collect_adaptive(state: dict, config: dict, anchors: list[str],
+                     negative_terms: str = "") -> list[dict]:
+    """신규 이슈 탐색 — 사전에 없는 이름으로 만든 **임시** 검색어를 던진다.
+
+    discovery 와 예산이 완전히 갈려 있다(별도 상태 파일 · 별도 총량). 이 함수가
+    실패해도 discovery 는 이미 돌았고 그 반대도 마찬가지다 — 둘 다 비치명 경로다.
+
+    `config` 를 받는 이유는 예산이 아니라 **중복 방지**다. 고정 키워드와 같은
+    질의를 임시 검색어로 또 만들면 같은 검색을 두 번 던지고, 그 낭비는 로그에
+    '유입 0건'으로만 보여서 원인을 되짚을 수 없다.
+
+    v2 에서 이식(2026-09-08). 원본은 console=admin_overrides.learned_terms() 를
+    넘기지만 V1 admin_overrides 는 최소 이식이라 그 게이트가 없다 — 콘솔 차단/
+    고정 기능을 이식하기 전까지 빈 dict 로 돈다.
+    """
+    import adaptive_discovery
+    import discovery
+
+    rows = discovery.load_recent_archive_rows(days=adaptive_discovery.NOVELTY_HISTORY_DAYS)
+    if not rows:
+        print("[adaptive] 아카이브 비어 있음 → 건너뜀")
+        return []
+    registry = entity_match.load_entity_registry()
+    astate = adaptive_discovery.load_state()
+
+    fixed = [str(kw) for group in config.values() if isinstance(group, dict)
+             for kw in (group.get("keywords") or [])]
+    # discovery 가 쓰는 질의도 중복 대상이다. 상태 파일에 남은 것이 곧 그 목록이다.
+    try:
+        known_discovery = [str(row.get("query") or "")
+                           for row in (discovery.load_state().get("queries") or {}).values()]
+    except Exception:  # noqa: BLE001 — 중복 방지 재료일 뿐 없어도 돈다
+        known_discovery = []
+
+    queries, astate = adaptive_discovery.plan_queries(
+        rows, registry, astate,
+        fixed_queries=fixed,
+        discovery_queries=known_discovery,
+        console={},
+    )
+    summary = adaptive_discovery.summary(astate)
+    if not queries:
+        # discovery 와 같은 이유로 0건의 사유를 가른다 — 예산 소진과 '물을 게
+        # 없음'은 대응이 정반대다.
+        if summary["spent_today"] >= adaptive_discovery.DAILY_QUERY_BUDGET:
+            print(f"[adaptive] 오늘 예산 소진 "
+                  f"({summary['spent_today']}/{adaptive_discovery.DAILY_QUERY_BUDGET}) → 건너뜀")
+        else:
+            print(f"[adaptive] 질의 0건 (추적 중 {summary['active']}개, "
+                  f"오늘 신규 {summary['minted_today']}개)")
+        adaptive_discovery.save_state(adaptive_discovery.prune_state(astate))
+        return []
+
+    out: list[dict] = []
+    results: list[dict] = []
+    for spec in queries:
+        found = collect_articles(f"adaptive:{spec['term_id']}", [spec["query"]],
+                                 anchors, state, negative_terms=negative_terms)
+        for article in found:
+            article["adaptive_term"] = spec["term"]
+        out.extend(found)
+        # collect_articles 가 article_seen 으로 이미 본 URL 을 걸러 내므로
+        # 여기 남은 것은 정의상 전부 신규다(discovery 와 같은 계약).
+        results.append({**spec, "result_count": len(found), "new_article_count": len(found)})
+
+    astate = adaptive_discovery.record_results(astate, results)
+    astate = adaptive_discovery.sweep(astate)
+    astate = adaptive_discovery.prune_state(astate)
+    adaptive_discovery.save_state(astate)
+    summary = adaptive_discovery.summary(astate)
+    yielded = sum(1 for r in results if r["new_article_count"])
+    print(f"[adaptive] 질의 {len(queries)}건 → 신규 {len(out)}건 "
+          f"(성과 있는 검색어 {yielded}건, 추적 중 {summary['active']}/{summary['capacity']}개, "
+          f"승격 후보 {summary['promote_candidates']}개, "
+          f"오늘 {summary['spent_today']}/{adaptive_discovery.DAILY_QUERY_BUDGET})")
+    return out
+
+
 def collect_rss_articles(state: dict) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=LOOKBACK_HOURS * 4)
     # 게시판은 날짜만 준다. _board_datetime 이 자정(KST)으로 박으므로 어제 자
@@ -2545,6 +2623,18 @@ def main() -> None:
         all_candidates.extend(disc)
     except Exception as e:  # noqa: BLE001
         print(f"[discovery] 실패 → 건너뜀: {type(e).__name__}: {e}")
+
+    # 신규 이슈 탐색 — 사전에 없는 이름(신생 기업·발의 법안·스치는 해외 원전)을
+    # 임시 검색어로 추적한다. discovery(아는 이슈 재확인)와 상호 보완, 별도 예산.
+    # 비치명: 실패해도 크롤 본체는 계속 돈다.
+    try:
+        policy_cfg = config.get("정책") or next(iter(config.values()), {})
+        adaptive = collect_adaptive(state, config,
+                                    policy_cfg.get("anchors", []),
+                                    policy_cfg.get("negative_terms", ""))
+        all_candidates.extend(adaptive)
+    except Exception as e:  # noqa: BLE001
+        print(f"[adaptive] 실패 → 건너뜀: {type(e).__name__}: {e}")
 
     rss_articles = collect_rss_articles(state)
 
