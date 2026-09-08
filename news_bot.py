@@ -406,6 +406,7 @@ D. 통제 태그 - 웹 트렌드 집계용. **반드시 아래 고정 목록의 
   · 원문 제목·본문에 있는 핵심 수치 1개(용량·금액·기수·시한)는 제목에 보존한다. **원문에 없는 숫자를 제목을 위해 끌어오지 말 것** — 숫자가 없는 사건은 없는 대로 쓴다.
   · 명사 나열("~에 대한 논의", "~ 관련 동향")로 끝내지 말고 무슨 일이 일어났는지 서술한다. (X) "체코 원전 수주 관련 논의" → (O) "한수원, 체코 두코바니 2기 최종계약 서명"
   · 원문 제목이 요점을 감추면(리드 묻기·주체 생략·클릭베이트) 원문 제목이 아니라 **기사 내용 기준**으로 새로 쓴다. 단 `본문:` 이 없는 기사는 제목에 있는 것만으로 쓴다(추측 금지).
+  · **본문에 구체적 새 사실(주체+행위+시점: 발동·의결·체결·발표·선포·수치)이 있으면 반드시 그것이 헤드라인이다.** 분석·전망 기사라도 그 안에 담긴 사건이 제목이 된다. "가능성 시사"·"중요성 부각"·"재편 전망" 같은 주제 서술형 제목은 본문에 구체 사건이 하나도 없을 때만 허용. (X) "미국 전력망, 인프라 투자 재편 가능성 시사" → (O) "미국, 전력망 외국산 장비 겨냥 국가비상사태 행정명령 발동"
 
 - summary: '무슨 일'을 한국어 완결형 서술문 1개로 작성(공백 포함 80자 목표·100자 절대 상한). **모든 항목 작성.** 길면 문자열을 자르지 말고 핵심을 줄여 처음부터 다시 쓸 것. 원문에 있는 수치·일정(GW·MW·금액·기수·시행일·인허가 시한)은 가능한 범위에서 보존할 것.
 - summary 사실성 제약: 원문에 없는 전망·평가·인과관계를 추가하지 말 것. 계획·예정·전망·검토를 완료된 사실처럼 바꾸지 말고 원문의 시제를 그대로 보존할 것.
@@ -1031,6 +1032,44 @@ UNSOURCED_NAME_DROPS: list[str] = []
 # 본문 없이 쓰인 해석을 걷어낸 건수.
 NO_BODY_INTERPRETATION_DROPS: list[str] = []
 
+# 원문에 없는 인과를 지어붙인 해석을 걷어낸 건수 (v2 이식, 2026-09-08).
+UNSUPPORTED_CAUSAL_DROPS: list[str] = []
+
+_CAUSAL_MARKERS = (
+    "때문", "로 인해", "이에 따라", "여파로", "결과로", "영향으로",
+    "탓에", "따른 것", "기인", "그 결과",
+)
+
+
+def drop_unsupported_causal_interpretation(value: object, source_text: object,
+                                           title: str = "") -> str:
+    """해석 필드는 원문에 없는 인과 관계를 지어내면 안 된다.
+
+    실사례(v2 gold 라벨 CUR-001): 새울 3호기 '자동정지'와 '사업기간 연장'이
+    한 기사에 같이 나오자 해석이 "자동정지로 인해 사업기간이 연장됐다"는
+    인과를 만들어냈다 — 원문 어디에도 없는 문장이다. 임의의 한국어 인과문을
+    중립문으로 고치는 것은 결정적이지 않으므로, 지어낸 해석은 고치지 않고
+    비운다 — 미묘하게 틀린 것보다 빈 쪽이 안전하다.
+    """
+    text = clean_text(value)
+    source = clean_text(source_text)
+    if text and any(marker in text for marker in _CAUSAL_MARKERS) \
+            and not any(marker in source for marker in _CAUSAL_MARKERS):
+        UNSUPPORTED_CAUSAL_DROPS.append(f"{title[:40]} | {text[:80]}")
+        return ""
+    return text
+
+
+def separate_curation_headline_events(title: object) -> str:
+    """한 헤드라인이 별개 사건(정지 + 사업기간 연장)을 흡수하지 못하게 한다.
+
+    아카이브 회귀 4da5b7ab6c225c78 의 결정적 가드(v2 gold 라벨 CUR-001) —
+    의도적으로 좁다: 같은 생성 제목 안에서 '운영 정지'가 '사업·수행 기간
+    연장' 앞에 오는 조합만 자른다.
+    """
+    import article_quality_gate
+    return article_quality_gate.separate_mixed_event_headline(title)
+
 
 def drop_interpretation_without_body(payload: dict, title: str = "") -> None:
     """본문을 못 받은 기사에서는 해석 필드를 비운다 (제자리 수정).
@@ -1312,9 +1351,9 @@ def normalize_curation_item(item: dict, article: dict, body: str = "") -> dict:
         article.get("domain", ""), article.get("title", "")
     )
     category = item.get("category", "정책")
-    title_kr = strip_unsourced_person_names(
+    title_kr = separate_curation_headline_events(strip_unsourced_person_names(
         clean_text(item.get("title_kr")) or article.get("title", ""),
-        source_text, article.get("title", ""))
+        source_text, article.get("title", "")))
     grade = importance if importance in VALID_IMPORTANCE else "nice_to_know"
     features = sanitize_features(item.get("features"))
     event_type = (features or {}).get("event_type", "")
@@ -1350,11 +1389,15 @@ def normalize_curation_item(item: dict, article: dict, body: str = "") -> dict:
             sanitize_detail(item.get("detail")), source_text, article.get("title", "")),
         # 빈껍데기 해석은 화면에 내보내지 않는다. 재생성시키지 않고 그냥 버린다 —
         # 문체 위반으로 기사를 격리하면 영문 제목 폴백으로 떨어져 더 나쁘다.
-        "implication": strip_unsourced_person_names(
-            drop_hollow_implication(item.get("implication"), article.get("title", "")),
+        "implication": drop_unsupported_causal_interpretation(
+            strip_unsourced_person_names(
+                drop_hollow_implication(item.get("implication"), article.get("title", "")),
+                source_text, article.get("title", "")),
             source_text, article.get("title", "")),
-        "why_important": strip_unsourced_person_names(
-            item.get("why_important"), source_text, article.get("title", "")),
+        "why_important": drop_unsupported_causal_interpretation(
+            strip_unsourced_person_names(
+                item.get("why_important"), source_text, article.get("title", "")),
+            source_text, article.get("title", "")),
         "open_question": open_question,
         "open_question_source": open_question_source,
         "open_question_reject": oq_reject,
