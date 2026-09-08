@@ -13,14 +13,16 @@ name: Daily Brief (통합 일일 브리핑)
 #      untracked 라 reset 에도 생존)를 재병합해 재시도.
 
 on:
-  # "08:00 KST 이전엔 오지 말 것"이 요구사항(2026-09-01 사용자 결정 — 지연
-  # 보정으로 앞당긴 06:25 예약이 지연 없는 날 새벽 06:30 에 도착했다).
-  # GitHub cron 지연은 [0, ~66분] 분포라 **하한은 예약 시각 자체로만 보장**된다
-  # → 예약 08:05 KST(23:05 UTC), 실도착 08:05~09:15. :05 는 정시 큐 회피.
-  # 지연이 긴 날은 시작이 00:00 UTC 크롤과 겹칠 수 있으나 outbox claim/
-  # rebase 재시도 사다리가 양쪽에 있어 허용(큐는 hash 단위 제거라 안전).
+  # 예약 07:25 KST(22:25 UTC), 실도착 07:25~08:31 (2026-09-08 사용자 결정 —
+  # 9/1 의 "08시 이전 금지"를 대체). 하한 근거: 카톡 신문스크랩 조간이 보통
+  # 07:15 까지 방에 오고 repo 반영은 +2분 실측(09-07: 본대 +77건이 07:17 커밋)
+  # — 07:25 체크아웃이면 조간 시드가 들어와 있다(마진 ~8분). 낙오분(09-07
+  # 07:46 +1건 실측)은 어느 시각이든 카드엔 못 타고 09시 크롤로 사이트 반영.
+  # GitHub cron 지연은 [0, ~66분] 분포라 **하한은 예약 시각 자체로만 보장**된다.
+  # :25 는 정시 큐 회피. 지연이 긴 날은 시작이 00:00 UTC 크롤과 겹칠 수 있으나
+  # outbox claim/rebase 재시도 사다리가 양쪽에 있어 허용(큐는 hash 단위 제거라 안전).
   schedule:
-    - cron: '5 23 * * *'
+    - cron: '25 22 * * *'
   workflow_dispatch:
     inputs:
       force_audio:
@@ -89,6 +91,45 @@ jobs:
           key: ${{ runner.os }}-nuclens-audio-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-nuclens-audio-
+
+      # 발송 직전 최신 수집 (v2 패턴 이식, 2026-09-08). 정기 crawl(3시간 간격)과
+      # 발송 사이 공백에 뜬 기사 — 특히 카톡 조간 시드(07:15 도착)와 07시대
+      # 기사 — 를 그날 아침 브리핑에 담는다. 실패해도 기존 큐로 발송은 계속.
+      - name: Collect (브리핑 직전 최신 수집)
+        continue-on-error: true
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          IMAP_USER: ${{ secrets.IMAP_USER }}
+          IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+        run: python news_bot.py
+
+      # 수집분을 즉시 커밋 — 이 스텝을 빼면 안 된다: 뒤의 Push claim·Confirm·
+      # Deploy 스텝이 git reset --hard 를 쓰므로, push 안 된 수집분(sent.json·
+      # curated.json·archive/)이 통째로 날아간다. v2 가 Collect 직후 별도 커밋
+      # 스텝을 두는 이유가 정확히 이것.
+      - name: Commit collected state
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sent.json curated.json digest_queue.json archive/
+          for f in discovery_state.json adaptive_state.json publications.json delivery_log.jsonl; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: pre-brief collect state"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; echo "rebase 충돌 — 이번 수집분 미커밋(비치명)"; exit 0; }
+            sleep $((RANDOM % 8 + 4))
+          done
+          echo "push 5회 실패 — 이번 수집분 미커밋(비치명)"
 
       - name: Backfill 21-day briefing embeddings
         continue-on-error: true
