@@ -932,6 +932,16 @@
       "right_title": "12차 전기본, '3대 메가 프로젝트' 전력수요 잠정치 20일 공개",
       "same_event": true
     },
+    "01fba58f8dc8193d--6b2326bd15c550b9": {
+      "embedding_similarity": 0.8539,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 인프라와 지자체 투자",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "충청남도·당진시, 이에프디·엔에프디코리아와 1.2조원 규모 AI 데이터센터 투자 협약 체결",
+      "same_event": false
+    },
     "01fba58f8dc8193d--74718867c1074358": {
       "embedding_similarity": 0.8717,
       "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
@@ -3241,6 +3251,16 @@
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
       "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
       "same_event": true
+    },
+    "05b42bdf43217603--e17805472c05ed7e": {
+      "embedding_similarity": 0.853,
+      "left_title": "미국 전력망 60%, 2030년까지 전력 부족 고위험 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력망 전망과 AI 전망",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "일론 머스크, AI가 세계경제 30% 확대 잠재력 보유",
+      "same_event": false
     },
     "05da702fed62250a--1b4b7adc62647aaf": {
       "embedding_similarity": 0.8429,
@@ -13262,6 +13282,76 @@
       "right_title": "엔터지, 홀텍 SMR-300 배치 검토 위해 현대건설과 협력",
       "same_event": false
     },
+    "17494159e9693304--2bdc5f2fb94508de": {
+      "embedding_similarity": 0.8437,
+      "left_title": "펜실베이니아 주지사, 데이터센터 전력 비용 규제 위한 GRID 요건 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 내용 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--523e0acf9253e1c6": {
+      "embedding_similarity": 0.8405,
+      "left_title": "美 어플라이드 아토믹스, 4억 달러 투입 엠파워 SMR 재추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--742c43e9aa3d49dd": {
+      "embedding_similarity": 0.841,
+      "left_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--8534f4d9bdc7d44c": {
+      "embedding_similarity": 0.8842,
+      "left_title": "美 텍사스·펜실베이니아주, 데이터센터 전력망 연결 승인 절차 일시 중단·규제 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 대상과 내용이 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--9153dd7eaf6c0ed5": {
+      "embedding_similarity": 0.8794,
+      "left_title": "미국 주정부, 데이터센터 전력 수요 증가에 따른 계통 비용 분담 규제 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계통 비용과 세금 감면",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--991f0fbcbef486cd": {
+      "embedding_similarity": 0.8744,
+      "left_title": "미국, AI 과세 논의 데이터센터 전력·물 사용으로 확산",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "과세 논의와 감면 중단",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
+    "17494159e9693304--fbaacb3e11ce9992": {
+      "embedding_similarity": 0.8834,
+      "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "선거 쟁점과 정책 집행",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "미국 10여 개 주, 재정 부담과 주민 반발로 데이터센터 세금 감면 중단",
+      "same_event": false
+    },
     "179094e2c5703cfb--51dcb7c7707f1ab4": {
       "embedding_similarity": 0.9083,
       "left_title": "정부, 2026년 하반기 업무보고서 산업용 전기요금 지역별 차등 적용 발표",
@@ -23262,6 +23352,16 @@
       "right_title": "산업부, 대미 원전 8기 건설 프로젝트 관련 미확정 보도에 신중 당부",
       "same_event": false
     },
+    "2ae5ed9e68edd9cd--c316f07443043bf1": {
+      "embedding_similarity": 0.8686,
+      "left_title": "산업부, 대미 원전 8기 건설 프로젝트 관련 미확정 보도에 신중 당부",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": true
+    },
     "2ae5ed9e68edd9cd--d5217cd852b861bd": {
       "embedding_similarity": 0.8873,
       "left_title": "산업부, 대미 원전 8기 건설 프로젝트 관련 미확정 보도에 신중 당부",
@@ -25420,6 +25520,16 @@
       "reason": "주체는 같으나 다른 사안",
       "reviewed_at": "2026-09-06T12:23:13.806348+00:00",
       "right_title": "두산에너빌리티, 글로벌 SMR 시장 성장 속 미국·유럽 수주 확대 기대",
+      "same_event": false
+    },
+    "2fdecbf8a6f380af--c316f07443043bf1": {
+      "embedding_similarity": 0.841,
+      "left_title": "미 육군, 야누스 프로그램으로 5개 기지에 20기 이상 마이크로원자로 배치",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": false
     },
     "2fdecbf8a6f380af--d8ddeb54d18d01d7": {
@@ -29250,6 +29360,16 @@
       "reason": "원전 재가동 여부와 신규 원전 추진은 별개",
       "reviewed_at": "2026-09-05T11:40:59.816527+00:00",
       "right_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
+      "same_event": false
+    },
+    "37429a89a97b6760--c316f07443043bf1": {
+      "embedding_similarity": 0.8529,
+      "left_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "뉴욕주 계획과 한국 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": false
     },
     "3755290fbd6dc745--42d294aaa404e892": {
@@ -33671,6 +33791,16 @@
       "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
       "right_title": "李대통령, 6~9일 프랑스 국빈 방문…AI·원전 협력 확대 논의",
       "same_event": true
+    },
+    "3e8ffcf2b346c1e6--a8a60fc87a2a16e5": {
+      "embedding_similarity": 0.8649,
+      "left_title": "이재명 대통령, 프랑스 국빈 방문해 원전 공동수출 협력 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상 외교와 기업 간 계약",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한수원-프랑스 오라노, 원전연료 장기 농축 역무 공급 협력 추진",
+      "same_event": false
     },
     "3e8ffcf2b346c1e6--b83f9888e6a52bce": {
       "embedding_similarity": 0.8716,
@@ -39060,6 +39190,16 @@
       "reason": "기자재 계약 vs 핵연료 계약",
       "reviewed_at": "2026-08-29T18:22:56.815954+00:00",
       "right_title": "Standard Nuclear, Antares Nuclear와 TRISO 핵연료 공급 다년 계약 체결",
+      "same_event": false
+    },
+    "47ec7493867e73b9--f983acecede886d0": {
+      "embedding_similarity": 0.9031,
+      "left_title": "Standard Nuclear, Antares Nuclear와 TRISO 핵연료 공급 다년 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계약 주체 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "Centrus, Radiant에 마이크로리액터 연료 공급 계약 체결",
       "same_event": false
     },
     "47f352c5a5d2757f--e20a2a78f72b0623": {
@@ -46852,6 +46992,16 @@
       "right_title": "정부, 지역별 차등 전기요금제 도입 본격화 추진",
       "same_event": false
     },
+    "58158c94ab72ede0--5a41ca1e03a31e29": {
+      "embedding_similarity": 0.8443,
+      "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국농어촌공사, 2030년까지 유휴 수면 28개 지구에 3GW 수상태양광 추진",
+      "same_event": false
+    },
     "58158c94ab72ede0--5a6496dc2029b55d": {
       "embedding_similarity": 0.8491,
       "left_title": "정부, 호남·용인 반도체 클러스터 전력·용수 공급 협약 체결",
@@ -48980,6 +49130,16 @@
       "reason": "미국 내 원전 8기 건설 협상",
       "reviewed_at": "2026-09-08T14:31:37.955676+00:00",
       "right_title": "산업부, 한미 대미투자 프로젝트 내 대형 원전 8기 건설 포함 협상 진행",
+      "same_event": true
+    },
+    "59fdec838a3146f8--c316f07443043bf1": {
+      "embedding_similarity": 0.9134,
+      "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": true
     },
     "59fdec838a3146f8--e6c2826be60629b1": {
@@ -52142,6 +52302,16 @@
       "right_title": "두산에너빌리티, 글로벌 SMR 시장 성장 속 미국·유럽 수주 확대 기대",
       "same_event": false
     },
+    "621c01df281a6274--c316f07443043bf1": {
+      "embedding_similarity": 0.857,
+      "left_title": "미국 육군, 22억 달러 규모 야누스 프로그램으로 상업용 마이크로원자로 20기 이상 배치",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 육군 사업과 한국 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
+    },
     "621c01df281a6274--cd7402e9a9f88194": {
       "embedding_similarity": 0.8466,
       "left_title": "미국 육군, 22억 달러 규모 야누스 프로그램으로 상업용 마이크로원자로 20기 이상 배치",
@@ -52211,6 +52381,16 @@
       "reviewed_at": "2026-08-30T23:19:47.630093+00:00",
       "right_title": "미국 육군, 22억 달러 규모 야누스 프로그램으로 상업용 마이크로원자로 20기 이상 배치",
       "same_event": false
+    },
+    "6250ab7f47935df2--806225e255d4065e": {
+      "embedding_similarity": 0.8836,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 협상 및 의의",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "대미 투자 프로젝트, AI 시대 전력난 해소 위한 지렛대 역할 기대",
+      "same_event": true
     },
     "6250ab7f47935df2--c6416e9cf7d667f9": {
       "embedding_similarity": 0.8745,
@@ -55562,6 +55742,36 @@
       "right_title": "중국 신규 원자로, 가동 이정표 달성",
       "same_event": true
     },
+    "6b2326bd15c550b9--84013b70c3462a79": {
+      "embedding_similarity": 0.8445,
+      "left_title": "SK텔레콤, AI 데이터센터 사업에 3조800억 원 외부 자금 유치",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "투자 주체 및 대상 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "충청남도·당진시, 이에프디·엔에프디코리아와 1.2조원 규모 AI 데이터센터 투자 협약 체결",
+      "same_event": false
+    },
+    "6b2326bd15c550b9--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8754,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 계획과 지자체 협약",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "충청남도·당진시, 이에프디·엔에프디코리아와 1.2조원 규모 AI 데이터센터 투자 협약 체결",
+      "same_event": false
+    },
+    "6b2326bd15c550b9--fe1432d7e83e03dd": {
+      "embedding_similarity": 0.8432,
+      "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "충청남도·당진시, 이에프디·엔에프디코리아와 1.2조원 규모 AI 데이터센터 투자 협약 체결",
+      "same_event": false
+    },
     "6b250e152ba779eb--8919a752858d9db6": {
       "embedding_similarity": 0.8874,
       "left_title": "울진 3개 기관, 한울 6호기 붕산수 누출 사고 및 정보공개 진상규명 촉구",
@@ -56379,6 +56589,16 @@
       "prompt_version": 1,
       "reason": "미국 내 원전 8기 건설 협상",
       "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
+      "right_title": "한국 정부, 미국 내 원전 8기 건설 등 대미 투자 협상 진행 중",
+      "same_event": true
+    },
+    "6c07c355a200d029--b19fd0094bb30156": {
+      "embedding_similarity": 0.8835,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 협상",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
       "right_title": "한국 정부, 미국 내 원전 8기 건설 등 대미 투자 협상 진행 중",
       "same_event": true
     },
@@ -60562,6 +60782,16 @@
       "right_title": "기후에너지환경부, 지역별 차등 전기요금제 개편안 공개 논란",
       "same_event": true
     },
+    "76c25b6cb116675c--a83b5f04110b2c41": {
+      "embedding_similarity": 0.8475,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분투자",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한전·한수원, 웨스팅하우스 지분 투자 신중 검토",
+      "same_event": true
+    },
     "76c25b6cb116675c--b19fd0094bb30156": {
       "embedding_similarity": 0.9048,
       "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
@@ -60581,6 +60811,16 @@
       "reviewed_at": "2026-09-09T07:32:57.263503+00:00",
       "right_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
       "same_event": true
+    },
+    "76c25b6cb116675c--c316f07443043bf1": {
+      "embedding_similarity": 0.8732,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지분 매입과 원전 건설",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
     },
     "76c6cf0abce0dfc7--8c6eb5250550b959": {
       "embedding_similarity": 0.8554,
@@ -63532,6 +63772,16 @@
       "right_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
       "same_event": true
     },
+    "806225e255d4065e--c316f07443043bf1": {
+      "embedding_similarity": 0.9092,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": true
+    },
     "806225e255d4065e--c6416e9cf7d667f9": {
       "embedding_similarity": 0.8826,
       "left_title": "한미전략투자 운영위원회, 30조원 규모 텍사스 가스발전 첫 의결",
@@ -65342,6 +65592,16 @@
       "right_title": "李대통령, 6~9일 프랑스 국빈 방문…AI·원전 협력 확대 논의",
       "same_event": true
     },
+    "85d558a7373de935--a8a60fc87a2a16e5": {
+      "embedding_similarity": 0.8632,
+      "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상 회담과 기업 간 계약",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한수원-프랑스 오라노, 원전연료 장기 농축 역무 공급 협력 추진",
+      "same_event": false
+    },
     "85d558a7373de935--b83f9888e6a52bce": {
       "embedding_similarity": 0.9048,
       "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
@@ -65351,6 +65611,16 @@
       "reviewed_at": "2026-09-08T23:08:50.786321+00:00",
       "right_title": "이재명 대통령, 프랑스와 호르무즈 해협 항행 자유 위해 공조 합의",
       "same_event": true
+    },
+    "85d558a7373de935--be3b0bc33f0f8c0a": {
+      "embedding_similarity": 0.8521,
+      "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 주체 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력의향서 체결",
+      "same_event": false
     },
     "85d558a7373de935--e436f8b57d691cbe": {
       "embedding_similarity": 0.8854,
@@ -67020,6 +67290,16 @@
       "reason": "미국 원전 상선 vs 두산 SMR 수주",
       "reviewed_at": "2026-09-06T07:45:58.395792+00:00",
       "right_title": "두산에너빌리티, 글로벌 SMR 시장 성장 속 미국·유럽 수주 확대 기대",
+      "same_event": false
+    },
+    "8b486e4051da2e66--c316f07443043bf1": {
+      "embedding_similarity": 0.8435,
+      "left_title": "미국, 원자력 상선 상용화 추진… 한국 조선업계 새 시장 기대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 분야 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": false
     },
     "8b486e4051da2e66--cad7ad5a754410fe": {
@@ -70892,6 +71172,16 @@
       "right_title": "빌드블록-노무라, 미국 진출 전략 백서 발간",
       "same_event": false
     },
+    "960f72ba9fd3624f--c316f07443043bf1": {
+      "embedding_similarity": 0.8431,
+      "left_title": "미일, 전략 분야 투자 협력 재확인…SMR 건설에 최대 400억 달러",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협력 국가 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
+    },
     "960f72ba9fd3624f--dec5f85da999856e": {
       "embedding_similarity": 0.8414,
       "left_title": "美, 한국에 대미 투자 및 한미 원자력협정 후속 협의 압박",
@@ -71912,6 +72202,16 @@
       "right_title": "두산에너빌리티, 글로벌 SMR 시장 성장 속 미국·유럽 수주 확대 기대",
       "same_event": false
     },
+    "99746f01419e6fec--c316f07443043bf1": {
+      "embedding_similarity": 0.8515,
+      "left_title": "미 육군 야누스 프로그램, 5개 원자로 개발사 및 군 기지 선정 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
+    },
     "99746f01419e6fec--c6af053e70344f32": {
       "embedding_similarity": 0.8406,
       "left_title": "미 육군 야누스 프로그램, 5개 원자로 개발사 및 군 기지 선정 발표",
@@ -72790,6 +73090,16 @@
       "reason": "산업용 전기요금 지역차등제 도입",
       "reviewed_at": "2026-09-03T01:15:30.313929+00:00",
       "right_title": "정부, 울산 포함 남부권 산업용 전기요금 최대 18원 인하안 공개",
+      "same_event": true
+    },
+    "9c3c5e658986fdf4--a83b5f04110b2c41": {
+      "embedding_similarity": 0.8799,
+      "left_title": "웨스팅하우스 지분 인수, 국익 부합 여부 냉철한 판단 필요",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 투자",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한전·한수원, 웨스팅하우스 지분 투자 신중 검토",
       "same_event": true
     },
     "9c3c5e658986fdf4--cf4674ffab5f6e75": {
@@ -75482,6 +75792,26 @@
       "right_title": "김유창 교수, 정부의 산업용 지역별 전기요금 차등제에 원전 위험 반영 촉구",
       "same_event": false
     },
+    "a83b5f04110b2c41--b19fd0094bb30156": {
+      "embedding_similarity": 0.8591,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 투자",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한전·한수원, 웨스팅하우스 지분 투자 신중 검토",
+      "same_event": true
+    },
+    "a83b5f04110b2c41--d76380ca9c1e1687": {
+      "embedding_similarity": 0.8499,
+      "left_title": "美 웨스팅하우스, AI 전력 수요·트럼프 지원에 힘입어 IPO 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IPO와 지분투자 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한전·한수원, 웨스팅하우스 지분 투자 신중 검토",
+      "same_event": false
+    },
     "a8607be1ca7960f3--aee00725a324e9a4": {
       "embedding_similarity": 0.8619,
       "left_title": "최태원·정기선이 주목한 SMR, 미국에서 본게임 시작",
@@ -76810,6 +77140,16 @@
       "reason": "VMI 협약 vs 3D프린팅 부품",
       "reviewed_at": "2026-08-26T20:02:41.657855+00:00",
       "right_title": "한수원, 3D프린팅 원전 부품 18개월 실전 운전 성공 검증",
+      "same_event": false
+    },
+    "ad25c9b9cdbd72bc--fdc59ff2116b1ced": {
+      "embedding_similarity": 0.8503,
+      "left_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세부 안건 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한수원, AI 접목 수력·양수발전 역할 확대 논의",
       "same_event": false
     },
     "ad3c543f9dcce811--c50c129ba8446def": {
@@ -78452,6 +78792,16 @@
       "right_title": "알파 컴퓨트, 펜실베이니아에 779억원 규모 200MW 데이터센터 추진",
       "same_event": false
     },
+    "b19fd0094bb30156--c316f07443043bf1": {
+      "embedding_similarity": 0.9103,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": true
+    },
     "b19fd0094bb30156--cf4674ffab5f6e75": {
       "embedding_similarity": 0.8871,
       "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
@@ -79370,6 +79720,16 @@
       "reason": "주체는 같으나 사안이 다름",
       "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
       "right_title": "정부, 미래 먹거리 SMR 집중 육성…두산에너빌리티, 핵심 제조사 '부상'",
+      "same_event": false
+    },
+    "b613d34b976b7c8c--c316f07443043bf1": {
+      "embedding_similarity": 0.845,
+      "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": false
     },
     "b613d34b976b7c8c--ce215adf0ad0798b": {
@@ -81552,6 +81912,16 @@
       "right_title": "한전KPS, 서남권역 해상풍력 확산1단지 우선협상대상자 선정 관련 보도...",
       "same_event": false
     },
+    "c08191b8c3fa83e9--c316f07443043bf1": {
+      "embedding_similarity": 0.8992,
+      "left_title": "정부, 대미 투자 1호 텍사스 LNG 발전소 투자금 223억 달러로 증액 및 원전 패키지 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": true
+    },
     "c08191b8c3fa83e9--c6416e9cf7d667f9": {
       "embedding_similarity": 0.9121,
       "left_title": "정부, 대미 투자 1호 텍사스 LNG 발전소 투자금 223억 달러로 증액 및 원전 패키지 포함",
@@ -82231,6 +82601,36 @@
       "reviewed_at": "2026-08-26T10:00:50.133400+00:00",
       "right_title": "청와대, 미래대응기금 신설로 SMR 등 첨단산업 투자 계획 밝혀",
       "same_event": true
+    },
+    "c316f07443043bf1--c6416e9cf7d667f9": {
+      "embedding_similarity": 0.8753,
+      "left_title": "한미전략투자 운영위원회, 30조원 규모 텍사스 가스발전 첫 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스발전과 원전 건설",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
+    },
+    "c316f07443043bf1--cc5ef12e160a4ddf": {
+      "embedding_similarity": 0.8428,
+      "left_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
+    },
+    "c316f07443043bf1--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8486,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 다름",
+      "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
+      "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
+      "same_event": false
     },
     "c35e7d695873c436--d31013e6bf533618": {
       "embedding_similarity": 0.872,
