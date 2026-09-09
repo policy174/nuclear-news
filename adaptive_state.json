@@ -46,7 +46,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-10"
   },
   "terms": {
@@ -114,9 +114,12 @@
       ],
       "expires_at": "2026-09-10T18:16:21.340073+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-09T21:38:42.380269+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-09T21:38:40.654290+00:00",
+      "queries_run": 1,
       "query": "NextEra Energy 원자력",
       "score": 3.6,
       "status": "tracking",
@@ -125,7 +128,7 @@
       "type": "company",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "경주에모여": {
       "articles": 3,
@@ -187,19 +190,24 @@
           "title": "한국전력, 최대 18조원 규모 베트남 닌투언 2 원전 수주 협상 가속화"
         }
       ],
-      "expires_at": "2026-09-10T18:16:21.340073+00:00",
+      "expires_at": "2026-09-10T21:38:42.380269+00:00",
       "importance": "must_read",
-      "new_articles": 0,
+      "last_result_count": 1,
+      "last_run": "2026-09-09T21:38:42.380269+00:00",
+      "new_articles": 1,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-09T21:38:40.654290+00:00",
+      "queries_run": 1,
       "query": "닌투언 2 원전",
       "score": 3.6,
-      "status": "tracking",
+      "status": "extended",
       "term": "닌투언 2",
       "ttl_hours": 24,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
+      "yield_days": [
+        "2026-09-10"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "두에인아놀드": {
@@ -399,19 +407,24 @@
           "title": "정부, 웨스팅하우스 지분 인수 및 대미 대형 원전 8기 건설 연계 패키지 검토"
         }
       ],
-      "expires_at": "2026-09-10T18:16:21.340073+00:00",
+      "expires_at": "2026-09-10T21:38:42.380269+00:00",
       "importance": "must_read",
-      "new_articles": 0,
+      "last_result_count": 13,
+      "last_run": "2026-09-09T21:38:42.380269+00:00",
+      "new_articles": 13,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-09T21:38:40.654290+00:00",
+      "queries_run": 1,
       "query": "정부가 대미 원전",
       "score": 3.6,
-      "status": "tracking",
+      "status": "extended",
       "term": "정부가 대미",
       "ttl_hours": 24,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
+      "yield_days": [
+        "2026-09-10"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "체코수소협회": {
