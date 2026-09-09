@@ -1,13 +1,57 @@
 {
- "generated_at": "2026-09-08T23:22:08.267298+09:00",
+ "generated_at": "2026-09-09T09:36:07.313738+09:00",
  "window": "7d",
  "items": [
   {
-   "keyword": "SMR",
-   "count_now": 107,
-   "count_prev": 43,
-   "direction": "정부는 AI 전력 수요 대응을 위해 내년도 에너지 R&D 예산을 7336억 원으로 대폭 확대하며 소형모듈원자로(SMR) 기술 개발에 집중하고 있다. 이와 함께 경주시는 월성 원전 계속운전과 함께 SMR 상용호기 건설 지원을 정부에 건의했으며, 민간 기업과 대학 간의 SMR 부품 공동 연구 협의도 이루어지고 있다.",
+   "keyword": "데이터센터",
+   "count_now": 104,
+   "count_prev": 35,
+   "direction": "미국과 아시아 등 국내외에서 SMR 및 연료전지 등과 연계한 AI 데이터센터 구축 및 전력 인프라 확보가 추진되는 동시에, 부지 확보와 행정 절차 과정에서 차질이나 주민 우려가 함께 나타나고 있다.",
    "evidence": [
+    {
+     "hash": "4d17339421bbbe1e",
+     "title_kr": "미국 에너지부, 사바나 리버 사이트 SMR 연계 AI 데이터센터 부지 임대 추진",
+     "url": "https://www.ans.org/news/2026-09-08/article-8318/accelerating-americas-small-modular-reactor-moment",
+     "date": "2026-09-09"
+    },
+    {
+     "hash": "4814b0c001cfe453",
+     "title_kr": "오픈AI, 호주 퍼머스와 900MW 규모 말레이시아 AI 데이터센터 공급 계약",
+     "url": "https://www.g-enews.com/view.php?ud=2026090823433016850c8c1c064d_1",
+     "date": "2026-09-09"
+    },
+    {
+     "hash": "f8812a78c9f43f70",
+     "title_kr": "두산퓨얼셀, 미국 데이터센터·유럽서 잇달아 연료전지 수주 확보",
+     "url": "https://www.inthenews.co.kr/news/article.html?no=91591",
+     "date": "2026-09-09"
+    },
+    {
+     "hash": "8449413875ab878a",
+     "title_kr": "전남광주통합시 해남 솔라시도 AI데이터센터 조성 본격화",
+     "url": "https://www.newscj.com/news/articleView.html?idxno=3431088",
+     "date": "2026-09-09"
+    }
+   ]
+  },
+  {
+   "keyword": "SMR",
+   "count_now": 90,
+   "count_prev": 54,
+   "direction": "국내외에서 SMR 개발 및 실증을 위한 정부 예산 확대와 함께 한·프랑스 공동 연구, 미국 에너지부의 데이터센터 연계 사업, 그리고 지자체의 상용호기 건설 건의 등이 이어지고 있다.",
+   "evidence": [
+    {
+     "hash": "d8096cc2b530c509",
+     "title_kr": "한·프랑스 정상회담 계기, 삼성전자 미스트랄AI 투자 및 원자력연-프라마톰 SMR 협력 추진",
+     "url": "https://www.munhwa.com/article/11615524",
+     "date": "2026-09-09"
+    },
+    {
+     "hash": "4d17339421bbbe1e",
+     "title_kr": "미국 에너지부, 사바나 리버 사이트 SMR 연계 AI 데이터센터 부지 임대 추진",
+     "url": "https://www.ans.org/news/2026-09-08/article-8318/accelerating-americas-small-modular-reactor-moment",
+     "date": "2026-09-09"
+    },
     {
      "hash": "9f78f3de3e01224a",
      "title_kr": "경주시, 월성 2·3·4호기 계속운전 및 SMR 상용호기 건설 정부 지원 건의",
@@ -19,64 +63,20 @@
      "title_kr": "정부, 내년도 에너지 R&D 예산 7,336억 원 편성…원자력 및 SMR 대폭 확대",
      "url": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005916614",
      "date": "2026-09-08"
-    },
-    {
-     "hash": "1233630c4e353579",
-     "title_kr": "만호제강·국립창원대, SMR 샤프트 및 열교환기 공동 연구 협의",
-     "url": "https://www.knnews.co.kr/news/articleView.php?idxno=1550354",
-     "date": "2026-09-08"
-    },
-    {
-     "hash": "430f014b8cbf1b3f",
-     "title_kr": "AI 전력 수요 대응 위해 에너지 R&D 48% 증액, SMR·핵융합에 집중",
-     "url": "https://www.straightnews.co.kr/news/articleView.html?idxno=310552",
-     "date": "2026-09-08"
-    }
-   ]
-  },
-  {
-   "keyword": "데이터센터",
-   "count_now": 94,
-   "count_prev": 40,
-   "direction": "AI 데이터센터 확대로 전력 수요가 급증함에 따라 미국 텍사스 등지에서 원전 및 가스발전 건설이 검토되고 있으며, 국내외 전선 및 전력기기 업계는 북미 시장의 수요에 대응하여 생산 능력을 확충하고 있다. 국내에서는 수도권 데이터센터 집중과 비수도권 발전소 간의 송전망 포화 문제가 대두되며 인프라 확충 과제가 지적되고 있다.",
-   "evidence": [
-    {
-     "hash": "e0de8223a756505e",
-     "title_kr": "미국 텍사스, AI 전력 수요 대응 가스발전 및 원전 8기 검토",
-     "url": "https://www.donga.com/news/Economy/article/all/20260908/134623622/2",
-     "date": "2026-09-08"
-    },
-    {
-     "hash": "5de053e090ba1dc5",
-     "title_kr": "수도권 집중된 AI 데이터센터와 포화된 송전망…전력 인프라 과제 대두",
-     "url": "https://www.mk.co.kr/article/12146358",
-     "date": "2026-09-08"
-    },
-    {
-     "hash": "58effbba016eec58",
-     "title_kr": "국내 전선업계, 북미 AI 데이터센터·전력망 수요 확대에 생산능력 확충",
-     "url": "https://www.fnnews.com/news/202609061422093115",
-     "date": "2026-09-08"
     }
    ]
   },
   {
    "keyword": "지역수용성",
-   "count_now": 69,
-   "count_prev": 33,
-   "direction": "원전 소재 5개 지방자치단체가 행정협의회를 개최하여 원전 부지 내 사용후핵연료 저장시설 문제와 발전소 주변지역 지원제도 개선을 논의했다. 특히 영광군수는 부지 내 저장시설의 영구화 우려를 차단하기 위한 법령 정비와 중간저장시설 마련을 촉구했으며, 기장군은 주민들을 대상으로 SMR 초도기 사업 설명회를 개최할 예정이다.",
+   "count_now": 64,
+   "count_prev": 28,
+   "direction": "원전 소재 5개 지방자치단체가 경주에서 행정협의회를 열어 사용후핵연료 부지 내 저장시설과 지원제도 개선을 공동으로 논의했으며, 영광군수는 영구화 방지 법령 마련을 요구했다.",
    "evidence": [
     {
-     "hash": "141be34e11684928",
-     "title_kr": "기장군, i-SMR 초도기 사업 설명회 13일 개최…주민 대상 사업 추진 일정 공개",
-     "url": "https://www.betanews.net/article/view/beta202609080016",
-     "date": "2026-09-08"
-    },
-    {
-     "hash": "035eafbd4f2dea81",
-     "title_kr": "원전 소재 5개 지자체, 사용후핵연료 저장시설 등 공동 대응",
-     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000010176&cp=nv",
-     "date": "2026-09-08"
+     "hash": "6a3c8f8fdde782ea",
+     "title_kr": "원전 소재 5개 지자체, 경주서 행정협의회 개최…현안 공동 대응 논의",
+     "url": "https://www.ajunews.com/view/20260909011902856",
+     "date": "2026-09-09"
     },
     {
      "hash": "fb8f4159d61e51ad",
@@ -85,19 +85,25 @@
      "date": "2026-09-08"
     },
     {
-     "hash": "6b253c1e67dba673",
-     "title_kr": "원전 소재 5개 지자체, 경주서 협의회 개최…저장시설·지원사업 논의",
-     "url": "http://news.lghellovision.net/news/articleView.html?idxno=554251",
+     "hash": "cc8d1838aed9058f",
+     "title_kr": "장세일 영광군수, 원전 부지 내 저장시설 영구화 우려 차단 법령 모색",
+     "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=503186",
      "date": "2026-09-08"
     }
    ]
   },
   {
    "keyword": "전력시장",
-   "count_now": 62,
+   "count_now": 57,
    "count_prev": 32,
-   "direction": "AI와 반도체 산업의 급격한 전력 수요 증가로 인해 한국전력의 중장기 성장이 전망되는 한편, 재무 부담 완화를 위한 대책들이 거론되고 있다. 또한 기장군의회의 원전 소재지역 전기요금 차등제 확대 촉구와 함께, AI·데이터센터 확산에 따른 전력 수요 대응 방안이 논의되고 있다.",
+   "direction": "대규모 AI 및 반도체 산업의 전력 수요 급증에 따라 전력망 선납 요금 검토와 함께 중장기 성장성이 부각되는 한편, 송전 부담 및 요금 제도를 둘러싼 다양한 이해관계와 지자체의 차등제 요구가 제기되고 있다.",
    "evidence": [
+    {
+     "hash": "59319bca8d01a794",
+     "title_kr": "한전, 반도체·AI 클러스터 전력망 구축 위한 선납 요금 검토",
+     "url": "https://www.ppss.kr/news/articleView.html?idxno=309582",
+     "date": "2026-09-09"
+    },
     {
      "hash": "4fe123fbc8a828ac",
      "title_kr": "한전, 중동전쟁 장기화로 실적 부담…AI·반도체 전력 수요로 중장기 성장 전망",
@@ -109,21 +115,27 @@
      "title_kr": "기장군의회, 원전 소재지역 전기요금 차등제 확대 촉구 건의안 가결",
      "url": "https://www.pressian.com/pages/articles/2026090717243341184",
      "date": "2026-09-08"
-    },
-    {
-     "hash": "9bf7801772f87454",
-     "title_kr": "이호현 기후차관, AI·데이터센터 전력 수요 급증에 재생에너지 안전관리 고도화 강조",
-     "url": "http://www.newstomato.com/ReadNews.aspx?inflow=N&no=1312907",
-     "date": "2026-09-08"
     }
    ]
   },
   {
    "keyword": "전력망",
-   "count_now": 58,
-   "count_prev": 26,
-   "direction": "호남 반도체 클러스터 등 대규모 전력 공급을 위한 송전선 지중화 사업이 인허가 및 토지 문제로 지연되는 등 전력 인프라 구축에 난항을 겪고 있다. 이에 한국전력은 전력구 공사에 시공책임형 CM 방식을 처음 도입하고 반도체 기업들에 전력망 구축을 위한 선수금을 요구하는 등 재무 및 투자 부담 대응에 나서고 있다.",
+   "count_now": 56,
+   "count_prev": 27,
+   "direction": "AI와 데이터센터로 인한 전력 수요 급증에 대응해 한전의 대규모 송배전망 투자와 전력구 공사 방식 도입이 추진되는 반면, 호남권과 충청권 등에서는 지중화 지연과 송전선로 노선 확정을 둘러싼 갈등이 빚어지고 있다.",
    "evidence": [
+    {
+     "hash": "f34fa49eb30bc235",
+     "title_kr": "한전, 5년간 송배전망에 55조 투자…AI·데이터센터 수요 급증 대비",
+     "url": "https://www.newsis.com/view/NISX20260908_0003781245",
+     "date": "2026-09-09"
+    },
+    {
+     "hash": "42e22733fbffd04a",
+     "title_kr": "호남-수도권 송전선로 통과 충청권 주민들, 입지선정 절차 중단 및 수요 재산정 공개 요구",
+     "url": "https://www.kukinews.com/article/view/kuk202609080128",
+     "date": "2026-09-09"
+    },
     {
      "hash": "4f051001528cc787",
      "title_kr": "호남 반도체 전력망 송전선 지중화 사업 60% 계획 지연",
@@ -135,26 +147,14 @@
      "title_kr": "전력구 공사, 시공책임형 CM 첫 도입…호남권 반도체 시범사업 추진",
      "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609071048315410894",
      "date": "2026-09-08"
-    },
-    {
-     "hash": "a72209a6f4326980",
-     "title_kr": "한전, 반도체 기업에 25조원 전기요금 선납 요구…재무 부담 논란",
-     "url": "https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800056.html",
-     "date": "2026-09-08"
-    },
-    {
-     "hash": "ece67f8054116994",
-     "title_kr": "한국전력, 반도체 클러스터용 전력망 구축 위해 대규모 선수금 제기",
-     "url": "https://www.newsquest.co.kr/news/articleView.html?idxno=300491",
-     "date": "2026-09-08"
     }
    ]
   },
   {
    "keyword": "사용후핵연료",
-   "count_now": 49,
+   "count_now": 48,
    "count_prev": 20,
-   "direction": "고리·한빛·한울 원전의 사용후핵연료 저장시설이 2028년부터 순차적으로 포화될 것으로 예상되면서 종합 대책 마련이 시급해지고 있다. 원전 소재 5개 지자체장들은 행정협의회를 열어 부지 내 저장시설 문제에 공동 대응하기로 하였으며, 영광군수는 저장시설의 영구화를 막기 위한 법령 개정과 중간저장시설 마련을 강력히 요구했다.",
+   "direction": "고리, 한빛, 한울 원전의 저장시설 포화가 임박한 가운데, 원전 소재 5개 지자체장이 행정협의회를 개최하여 부지 내 저장시설 문제에 공동 대응하고 영구화 방지를 위한 제도 개선을 촉구했다.",
    "evidence": [
     {
      "hash": "15fc54b56051e5e4",
