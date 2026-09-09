@@ -3810,12 +3810,48 @@
     "41bc649c60077e39": "2026-09-09T21:37:36.146634+00:00",
     "dacb7d1f68a9d22c": "2026-09-09T21:37:36.146634+00:00",
     "ac16b838d32c1d8a": "2026-09-09T21:37:36.146634+00:00",
-    "89a84fbe59b46305": "2026-09-09T21:37:36.146634+00:00"
+    "89a84fbe59b46305": "2026-09-09T21:37:36.146634+00:00",
+    "52337f49e17b1bfa": "2026-09-09T22:33:28.948014+00:00",
+    "320ef255e68dc71d": "2026-09-09T22:33:28.948014+00:00",
+    "9c07b04c1b9e0871": "2026-09-09T22:33:28.948014+00:00",
+    "4a7419cdbee6b86b": "2026-09-09T22:33:28.948014+00:00",
+    "bfb00b3a7666e96f": "2026-09-09T22:33:28.948014+00:00",
+    "11c41eb134898427": "2026-09-09T22:33:28.948014+00:00",
+    "4cbbcc1c88d582d8": "2026-09-09T22:33:28.948014+00:00",
+    "a89623745fab0d00": "2026-09-09T22:33:28.948014+00:00",
+    "6a71764b1bcaa3f1": "2026-09-09T22:33:28.948014+00:00",
+    "d2f42084f37a23e0": "2026-09-09T22:33:28.948014+00:00",
+    "1302a98be5fc87a6": "2026-09-09T22:33:28.948014+00:00",
+    "6671427c783ae6ae": "2026-09-09T22:33:28.948014+00:00",
+    "03dd6cf07b91024b": "2026-09-09T22:33:28.948014+00:00",
+    "8061405192b0c70b": "2026-09-09T22:33:28.948014+00:00",
+    "5ccec349cfcb2d65": "2026-09-09T22:33:28.948014+00:00",
+    "22f69a9db15e13a8": "2026-09-09T22:33:28.948014+00:00",
+    "8f833513f688d6ad": "2026-09-09T22:33:28.948014+00:00",
+    "68df0762fbcd7086": "2026-09-09T22:33:28.948014+00:00",
+    "75747d6c1680bc66": "2026-09-09T22:33:28.948014+00:00",
+    "2c3594f87a16eded": "2026-09-09T22:33:28.948014+00:00",
+    "91194796c39221c3": "2026-09-09T22:33:28.948014+00:00",
+    "c081cc75d08aba5a": "2026-09-09T22:33:28.948014+00:00",
+    "7b6362cf57c56267": "2026-09-09T22:33:28.948014+00:00",
+    "cf807ecace650e8f": "2026-09-09T22:33:28.948014+00:00",
+    "58ba05b1eced194f": "2026-09-09T22:33:28.948014+00:00",
+    "3774186d9b5457c9": "2026-09-09T22:33:28.948014+00:00",
+    "05f1f710b123620d": "2026-09-09T22:33:28.948014+00:00",
+    "83cce3ad08d0a763": "2026-09-09T22:33:28.948014+00:00",
+    "d7cdbc31a59041cc": "2026-09-09T22:33:28.948014+00:00",
+    "3a0c2ac5614a18d1": "2026-09-09T22:33:28.948014+00:00",
+    "db88ff243ac383a5": "2026-09-09T22:33:28.948014+00:00",
+    "9fe7880fec0c55ff": "2026-09-09T22:33:28.948014+00:00",
+    "737c142431d01e66": "2026-09-09T22:33:28.948014+00:00",
+    "c7ff44931a3162ef": "2026-09-09T22:33:28.948014+00:00",
+    "4af2a74e5a3eb0e3": "2026-09-09T22:33:28.948014+00:00",
+    "902179cbfb300390": "2026-09-09T22:33:28.948014+00:00"
   },
   "source_yield": {
-    "at": "2026-09-09T21:39:28+00:00",
+    "at": "2026-09-09T22:35:16+00:00",
     "counts": {
-      "한수원 보도자료": 0,
+      "한수원 보도자료": 10,
       "원안위 보도자료": 15,
       "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
@@ -3832,8 +3868,8 @@
       "한국원자력환경공단": 0,
       "한국원자력통제기술원": 0,
       "한전원자력연료": 5,
-      "혁신형 SMR 기술개발사업단": 1,
-      "Reuters 원자력": 19,
+      "혁신형 SMR 기술개발사업단": 0,
+      "Reuters 원자력": 18,
       "La Tribune 원자력": 20,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
@@ -3845,21 +3881,11 @@
       "국내 원자력 보도": 9
     },
     "kept": {
-      "WNN": 2,
-      "ANS Nuclear Newswire": 1,
-      "NucNet": 1,
-      "DOE": 1,
-      "DOE 원자력국": 1,
-      "혁신형 SMR 기술개발사업단": 1,
-      "Reuters 원자력": 4,
-      "FT 원자력": 2,
-      "Les Échos 원자력": 1,
-      "Nuclear Engineering International": 3,
+      "한수원 보도자료": 1,
+      "WNN": 1,
       "국내 원자력 보도": 3
     },
-    "errors": {
-      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn"
-    }
+    "errors": {}
   },
   "scrap_seeds": {
     "dc727ed15368": {
@@ -6997,6 +7023,432 @@
       "status": "resolved",
       "link": "https://news.lghellovision.net/news/articleView.html?idxno=554400",
       "title": "\"4,292억 원전 상생금, 밀실야합 규탄\"…장안·일광 주민 한수원 집결",
+      "description": ""
+    },
+    "fecbd0c9e902": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.kns.tv/news/articleView.html?idxno=1017022",
+      "title": "한수원, ʻ대한민국 국제물주간 2026ʼ 공동주최…수력·양수발전 특별세션 운영",
+      "description": ""
+    },
+    "adf25cbaaa77": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=760710",
+      "title": "아나돌루 에이전시 / 9.9 한·프, 국빈방문 계기 9개 협력 성과 [외신에 비친 한국]",
+      "description": ""
+    },
+    "1a5ce2859a4d": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=760706",
+      "title": "한-프, 국방부터 AI·원전까지···'전략적 동반자' 협력 구체화",
+      "description": ""
+    },
+    "1ae36063267f": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.nspna.com/country/?mode=view&newsid=827651",
+      "title": "월성원자력본부, 관계기관과 원전 대드론 방어체계 공유",
+      "description": ""
+    },
+    "a78158ea7340": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000010671",
+      "title": "천문학적 자금 투입 한·미 ‘원전 빅딜’ 기대·우려 교차",
+      "description": ""
+    },
+    "9e241f2d7ef4": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.iij.co.kr/news/articleView.html?idxno=389743",
+      "title": "월성원자력본부, 원전 대드론 방어체계 협의회서 소개",
+      "description": ""
+    },
+    "777d80a45e1a": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3690240",
+      "title": "\"물·에너지가 AI를 만났다\"…한수원, 국제물주간서 차세대 수력 기술 공개",
+      "description": ""
+    },
+    "6eed1dc053c9": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3690071",
+      "title": "\"원전 하늘길 틈새 차단\"…월성본부, 첨단 드론 대응 시스템 점검",
+      "description": ""
+    },
+    "539a7bf40ce3": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.g-enews.com/article/General-News/2026/09/20260909200809637331a5c2dd38_1",
+      "title": "김정관 산업장관, 유럽 순방 뒤 곧장 美 직행...'대미투자' 막판 최종 조율",
+      "description": ""
+    },
+    "aab0d6779484": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.nocutnews.co.kr/news/6575819",
+      "title": "월성원전, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "description": ""
+    },
+    "cda65a0c3583": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.newstown.co.kr/news/articleView.html?idxno=715263",
+      "title": "캠코, JDC와 감사인력 교차 파견…2027년 AI 감사 시스템까지 가동",
+      "description": ""
+    },
+    "93edde7daba5": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20260909_0003783296",
+      "title": "김정관, 유럽서 곧장 미국으로…대미투자 막판 조율",
+      "description": ""
+    },
+    "89d5d60b04a7": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609091046351090236",
+      "title": "대미 투자 ‘원전 8기’ 논의 속…수출 주도기관 ‘조정 키’ 쥔 산업부",
+      "description": ""
+    },
+    "cb79ca574508": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.thetimes.kr/news/article.html?no=49444",
+      "title": "한수원, ‘대한민국 국제물주간 2026’서 수력·양수발전 특별세션 운영",
+      "description": ""
+    },
+    "efe93a313a97": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.dailian.co.kr/news/view/1688541/%ED%95%9C%EC%88%98%EC%9B%90-%EA%B5%AD%EC%A0%9C%EB%AC%BC%EC%A3%BC%EA%B0%84-%EC%B2%AB-%EA%B3%B5%EB%8F%99%EC%A3%BC%EC%B5%9C%EC%88%98%EB%A0%A5-A-2026",
+      "title": "한수원, 국제물주간 첫 공동주최…수력 AI·양수 역할 논의",
+      "description": ""
+    },
+    "83550b0e1b3e": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "http://www.newsdream.net/157096",
+      "title": "월성원전, 대드론 방어체계 공유…관계기관 공동대응 강화",
+      "description": ""
+    },
+    "3ea91fdd6b44": {
+      "tries": 1,
+      "seed_date": "2026-09-10",
+      "last_tried": "2026-09-09T22:35:51.747234+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/article/12148559",
+      "title": "韓, 러시아산 核연료 의존도 낮춘다",
+      "description": "농축 우라늄 전량을 해외에서 수입하고 있으며, 그중에서도 러시아산 농축 우라늄 수입 비율이 30%에 달한다. 김회천 한수원 사장은 \"이번 협력의향서 체결을 계기로 양사 간 협력을 확대하고 핵연료 공급 안정성을 더욱..."
+    },
+    "461ad9a1a1f8": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20089166",
+      "title": "“탈탄소하려다 전기료 폭탄”…포스코 “월성1호기 PPA 허용해야”",
+      "description": ""
+    },
+    "566759f8c957": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20089062",
+      "title": "단독‘입찰 금지’ 처분 무색…부정당업자, 입찰시장 활보",
+      "description": ""
+    },
+    "8aedb956477b": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.sentv.co.kr/article/view/sentv202609090227",
+      "title": "한국수력원자력, ʻ대한민국 국제물주간 2026ʼ서 수력·양수발전 특별세션 운영",
+      "description": ""
+    },
+    "5d752047605b": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.segye.com:443/newsView/20260909521046",
+      "title": "월성본부, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "description": ""
+    },
+    "4175601dc5db": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "http://www.sisakorea.kr/98455",
+      "title": "한수원, ʻ대한민국 국제물주간 2026ʼ에서 수력·양수발전 특별세션 운영",
+      "description": ""
+    },
+    "ebc4ee9b1304": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003509",
+      "title": "[사설] 美 원전 건설 참여, 원전산업 재도약 기회되길",
+      "description": ""
+    },
+    "94567cf781c9": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003660",
+      "title": "‘1.2조’ 새만금 조력발전 구체화… 한수원·수공 공동출자 검토",
+      "description": ""
+    },
+    "5cae56192ce7": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://kr.aving.net/news/articleView.html?idxno=1814237",
+      "title": "한국수력원자력, WSCE 2026서 ‘i-SMR’ 알려...“친환경 에너지시스템과 스마트도시의 결합!”",
+      "description": ""
+    },
+    "3d73eca8d452": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.ecojournal.co.kr/news/view.php?idx=175472&mcode=m9373ku",
+      "title": "박정 의원, 무탄소 PPA 확대·전통산업 경쟁력 강화",
+      "description": ""
+    },
+    "08a4b656ed7a": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2297568",
+      "title": "'마인드키퍼' 확대 / 프랑스 오라노와 LOI / 국제물주간 'AI 기반' 논의",
+      "description": ""
+    },
+    "4f95989f2f5d": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2468832",
+      "title": "韓佛 정상 “새로운 140년”…안보·첨단기술 협력 확대",
+      "description": ""
+    },
+    "083c85738502": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2468863",
+      "title": "韓佛, AI·원전 협력 확대…삼성, 미스트랄AI 투자",
+      "description": ""
+    },
+    "1039ed70676a": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=04454246645578480&mediaCodeNo=257",
+      "title": "美 투자 독촉에 서두르는 정부…내부서도 “검증 부족” 우려",
+      "description": ""
+    },
+    "a30584edf81a": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "http://www.epitimes.co.kr/bbs/board.php?bo_table=news&wr_id=33963&me_id=&me_code=&type=web",
+      "title": "한국수력원자력, 국제물주간 주최기관 새로 참여",
+      "description": ""
+    },
+    "1f3eba0fc7c0": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://biz.chosun.com/stock/stock_general/2026/09/10/UG2BNHSVTNEOHHQX64JLHMJO5A/",
+      "title": "‘美 원전 8기’ 대미 투자 가능성에 원전株 들썩… 노형 따라 수혜주 갈린다",
+      "description": ""
+    },
+    "e40a0186390a": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.chosun.com/opinion/contribution/2026/09/09/73YJSRK4QNEQ3IM7DTSCANPPIQ/",
+      "title": "[기고] 주춤한 한미 원자력 협력, 손뼉 맞춰 속도 내야",
+      "description": ""
+    },
+    "51257dd6ec13": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.joongang.co.kr/article/25460558",
+      "title": "보물 될까, 애물 될까…웨스팅하우스 지분 투자 ‘고심’",
+      "description": ""
+    },
+    "84828a3350db": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431380",
+      "title": "미국 원전 8기 건설, K원전 르네상스의 출발점으로",
+      "description": ""
+    },
+    "6d707a0b04fe": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431463",
+      "title": "한수원, 동료가 살피는 마음건강…‘마인드키퍼’ 본격 확대",
+      "description": ""
+    },
+    "e76a5e5679a3": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431456",
+      "title": "한수원, 물과 전력망을 잇다…AI 수력·양수발전으로 영역 확장",
+      "description": ""
+    },
+    "b97074886c16": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.todaykorea.co.kr/news/articleView.html?idxno=405923",
+      "title": "캠코, JDC와 감사업무 역량 강화 ‘맞손’",
+      "description": ""
+    },
+    "2e2ef557e659": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609091829473772",
+      "title": "SMR 시장 선도가 최우선 과제",
+      "description": ""
+    },
+    "7f458efe45d8": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609092023380234",
+      "title": "佛순방 마친 李 \"임기 헌법상 명확히 제한\"…연임개헌 논란 직접 차단",
+      "description": ""
+    },
+    "f7984f9f12fb": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609091834567336",
+      "title": "고리원전, 불법 드론 비행 방지 총력",
+      "description": ""
+    },
+    "e3a970d08ffa": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609091246005281",
+      "title": "한전, 서울 방문한 페트로베트남과 닌투언 원전 프로젝트 협력 논의",
+      "description": ""
+    },
+    "3df16207ffb3": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202609091446569574",
+      "title": "李, 佛서 국방·원전·AI 협력 넓히고 귀국…국내 현안 '첩첩산중'",
+      "description": ""
+    },
+    "7433cee8ee16": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hani.co.kr/arti/society/environment/1277037.html",
+      "title": "“10~18년 걸리는 신규 원전, ‘3대 메가’ 전력 공급 사실상 불가능”",
+      "description": ""
+    },
+    "b3a1fafa12a6": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hani.co.kr/arti/society/environment/1277090.html",
+      "title": "부채 210조 한전, 웨스팅하우스 지분 인수?…도시바엔 ‘파산 원인’",
+      "description": ""
+    },
+    "9183ce69aaee": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/202609094532i",
+      "title": "\"전기료 미리 내면 원가에 드립니다\"…한수원 '15조' 조달 묘수",
+      "description": ""
+    },
+    "f9c56a29dec3": {
+      "tries": 1,
+      "seed_date": "2026-09-10",
+      "last_tried": "2026-09-09T22:35:51.747234+00:00",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090946391",
+      "title": "K원전 핵심 경쟁력 '공기 준수'…주 52시간 규제에 발목 잡히나",
+      "description": "공기 지연의 주 원인은 ‘주 52시간 근로시간제’인 것으로 분석됐다. 한국 원전의 핵심 경쟁력인 ‘정해진 기간과 예산 내 완공’이 근로시간 규제로 흔들리고 있다는 우려가 나온다. 9일 국회..."
+    },
+    "eb13ae3401ed": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090945741",
+      "title": "대구시, 삼전닉스와 물 산업 개척한다",
+      "description": ""
+    },
+    "782c447823da": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090939096",
+      "title": "대미투자 기대에 '들썩'…가장 먼저 실적 개선될 원전주는?",
+      "description": ""
+    },
+    "3df813b69e5e": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hankyung.com/article/2026090946171",
+      "title": "전남광주, 2030년까지 반도체 인재 2.7만명 육성",
+      "description": ""
+    },
+    "b484b848b8b9": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609090580",
+      "title": "美 원전 빅사이클...왜 K-건설이 필요한가",
+      "description": ""
+    },
+    "1574cf24620e": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://www.hankookilbo.com/news/article/A2026090909420002169",
+      "title": "대미투자의 핵심은 동반 진출이다[기고]",
+      "description": ""
+    },
+    "9cce61244182": {
+      "tries": 0,
+      "seed_date": "2026-09-10",
+      "status": "resolved",
+      "link": "https://biz.heraldcorp.com/article/10868063?ref=naver",
+      "title": "“국내생산세액공제 대상에 미래차·로봇 완제품·SMR도 포함해야”",
       "description": ""
     }
   },
@@ -13403,6 +13855,483 @@
       "seed_title": "\"4,292억 원전 상생금, 밀실야합 규탄\"…장안·일광 주민 한수원 집결",
       "link": "https://news.lghellovision.net/news/articleView.html?idxno=554400",
       "title": "\"4,292억 원전 상생금, 밀실야합 규탄\"…장안·일광 주민 한수원 집결",
+      "description": "",
+      "edition": ""
+    },
+    "fecbd0c9e902": {
+      "date": "2026-09-10",
+      "publisher": "KNS뉴스통신",
+      "seed_title": "한수원, ʻ대한민국 국제물주간 2026ʼ 공동주최…수력·양수발전 특별세션 운영",
+      "link": "https://www.kns.tv/news/articleView.html?idxno=1017022",
+      "title": "한수원, ʻ대한민국 국제물주간 2026ʼ 공동주최…수력·양수발전 특별세션 운영",
+      "description": "",
+      "edition": ""
+    },
+    "adf25cbaaa77": {
+      "date": "2026-09-10",
+      "publisher": "KTV국민방송",
+      "seed_title": "아나돌루 에이전시 / 9.9 한·프, 국빈방문 계기 9개 협력 성과 [외신에 비친 한국]",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=760710",
+      "title": "아나돌루 에이전시 / 9.9 한·프, 국빈방문 계기 9개 협력 성과 [외신에 비친 한국]",
+      "description": "",
+      "edition": ""
+    },
+    "1a5ce2859a4d": {
+      "date": "2026-09-10",
+      "publisher": "KTV국민방송",
+      "seed_title": "한-프, 국방부터 AI·원전까지···'전략적 동반자' 협력 구체화",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=760706",
+      "title": "한-프, 국방부터 AI·원전까지···'전략적 동반자' 협력 구체화",
+      "description": "",
+      "edition": ""
+    },
+    "1ae36063267f": {
+      "date": "2026-09-10",
+      "publisher": "NSP통신",
+      "seed_title": "월성원자력본부, 관계기관과 원전 대드론 방어체계 공유",
+      "link": "https://www.nspna.com/country/?mode=view&newsid=827651",
+      "title": "월성원자력본부, 관계기관과 원전 대드론 방어체계 공유",
+      "description": "",
+      "edition": ""
+    },
+    "a78158ea7340": {
+      "date": "2026-09-10",
+      "publisher": "국민일보",
+      "seed_title": "천문학적 자금 투입 한·미 ‘원전 빅딜’ 기대·우려 교차",
+      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000010671",
+      "title": "천문학적 자금 투입 한·미 ‘원전 빅딜’ 기대·우려 교차",
+      "description": "",
+      "edition": ""
+    },
+    "9e241f2d7ef4": {
+      "date": "2026-09-10",
+      "publisher": "국제i저널",
+      "seed_title": "월성원자력본부, 원전 대드론 방어체계 협의회서 소개",
+      "link": "https://www.iij.co.kr/news/articleView.html?idxno=389743",
+      "title": "월성원자력본부, 원전 대드론 방어체계 협의회서 소개",
+      "description": "",
+      "edition": ""
+    },
+    "777d80a45e1a": {
+      "date": "2026-09-10",
+      "publisher": "국제뉴스",
+      "seed_title": "\"물·에너지가 AI를 만났다\"…한수원, 국제물주간서 차세대 수력 기술 공개",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3690240",
+      "title": "\"물·에너지가 AI를 만났다\"…한수원, 국제물주간서 차세대 수력 기술 공개",
+      "description": "",
+      "edition": ""
+    },
+    "6eed1dc053c9": {
+      "date": "2026-09-10",
+      "publisher": "국제뉴스",
+      "seed_title": "\"원전 하늘길 틈새 차단\"…월성본부, 첨단 드론 대응 시스템 점검",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3690071",
+      "title": "\"원전 하늘길 틈새 차단\"…월성본부, 첨단 드론 대응 시스템 점검",
+      "description": "",
+      "edition": ""
+    },
+    "539a7bf40ce3": {
+      "date": "2026-09-10",
+      "publisher": "글로벌이코노믹",
+      "seed_title": "김정관 산업장관, 유럽 순방 뒤 곧장 美 직행...'대미투자' 막판 최종 조율",
+      "link": "https://www.g-enews.com/article/General-News/2026/09/20260909200809637331a5c2dd38_1",
+      "title": "김정관 산업장관, 유럽 순방 뒤 곧장 美 직행...'대미투자' 막판 최종 조율",
+      "description": "",
+      "edition": ""
+    },
+    "aab0d6779484": {
+      "date": "2026-09-10",
+      "publisher": "노컷뉴스",
+      "seed_title": "월성원전, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "link": "https://www.nocutnews.co.kr/news/6575819",
+      "title": "월성원전, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "description": "",
+      "edition": ""
+    },
+    "cda65a0c3583": {
+      "date": "2026-09-10",
+      "publisher": "뉴스타운",
+      "seed_title": "캠코, JDC와 감사인력 교차 파견…2027년 AI 감사 시스템까지 가동",
+      "link": "https://www.newstown.co.kr/news/articleView.html?idxno=715263",
+      "title": "캠코, JDC와 감사인력 교차 파견…2027년 AI 감사 시스템까지 가동",
+      "description": "",
+      "edition": ""
+    },
+    "93edde7daba5": {
+      "date": "2026-09-10",
+      "publisher": "뉴시스",
+      "seed_title": "김정관, 유럽서 곧장 미국으로…대미투자 막판 조율",
+      "link": "https://www.newsis.com/view/NISX20260909_0003783296",
+      "title": "김정관, 유럽서 곧장 미국으로…대미투자 막판 조율",
+      "description": "",
+      "edition": ""
+    },
+    "89d5d60b04a7": {
+      "date": "2026-09-10",
+      "publisher": "대한경제",
+      "seed_title": "대미 투자 ‘원전 8기’ 논의 속…수출 주도기관 ‘조정 키’ 쥔 산업부",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609091046351090236",
+      "title": "대미 투자 ‘원전 8기’ 논의 속…수출 주도기관 ‘조정 키’ 쥔 산업부",
+      "description": "",
+      "edition": ""
+    },
+    "cb79ca574508": {
+      "date": "2026-09-10",
+      "publisher": "더타임즈",
+      "seed_title": "한수원, ‘대한민국 국제물주간 2026’서 수력·양수발전 특별세션 운영",
+      "link": "https://www.thetimes.kr/news/article.html?no=49444",
+      "title": "한수원, ‘대한민국 국제물주간 2026’서 수력·양수발전 특별세션 운영",
+      "description": "",
+      "edition": ""
+    },
+    "efe93a313a97": {
+      "date": "2026-09-10",
+      "publisher": "데일리안",
+      "seed_title": "한수원, 국제물주간 첫 공동주최…수력 AI·양수 역할 논의",
+      "link": "https://www.dailian.co.kr/news/view/1688541/%ED%95%9C%EC%88%98%EC%9B%90-%EA%B5%AD%EC%A0%9C%EB%AC%BC%EC%A3%BC%EA%B0%84-%EC%B2%AB-%EA%B3%B5%EB%8F%99%EC%A3%BC%EC%B5%9C%EC%88%98%EB%A0%A5-A-2026",
+      "title": "한수원, 국제물주간 첫 공동주최…수력 AI·양수 역할 논의",
+      "description": "",
+      "edition": ""
+    },
+    "83550b0e1b3e": {
+      "date": "2026-09-10",
+      "publisher": "드림저널",
+      "seed_title": "월성원전, 대드론 방어체계 공유…관계기관 공동대응 강화",
+      "link": "http://www.newsdream.net/157096",
+      "title": "월성원전, 대드론 방어체계 공유…관계기관 공동대응 강화",
+      "description": "",
+      "edition": ""
+    },
+    "3ea91fdd6b44": {
+      "date": "2026-09-10",
+      "publisher": "매일경제",
+      "seed_title": "韓, 러시아산 核연료 의존도 낮춘다",
+      "link": "https://www.mk.co.kr/article/12148559",
+      "title": "韓, 러시아산 核연료 의존도 낮춘다",
+      "description": "농축 우라늄 전량을 해외에서 수입하고 있으며, 그중에서도 러시아산 농축 우라늄 수입 비율이 30%에 달한다. 김회천 한수원 사장은 \"이번 협력의향서 체결을 계기로 양사 간 협력을 확대하고 핵연료 공급 안정성을 더욱...",
+      "edition": ""
+    },
+    "461ad9a1a1f8": {
+      "date": "2026-09-10",
+      "publisher": "서울경제",
+      "seed_title": "“탈탄소하려다 전기료 폭탄”…포스코 “월성1호기 PPA 허용해야”",
+      "link": "https://www.sedaily.com/article/20089166",
+      "title": "“탈탄소하려다 전기료 폭탄”…포스코 “월성1호기 PPA 허용해야”",
+      "description": "",
+      "edition": ""
+    },
+    "566759f8c957": {
+      "date": "2026-09-10",
+      "publisher": "서울경제",
+      "seed_title": "단독‘입찰 금지’ 처분 무색…부정당업자, 입찰시장 활보",
+      "link": "https://www.sedaily.com/article/20089062",
+      "title": "단독‘입찰 금지’ 처분 무색…부정당업자, 입찰시장 활보",
+      "description": "",
+      "edition": ""
+    },
+    "8aedb956477b": {
+      "date": "2026-09-10",
+      "publisher": "서울경제TV",
+      "seed_title": "한국수력원자력, ʻ대한민국 국제물주간 2026ʼ서 수력·양수발전 특별세션 운영",
+      "link": "https://www.sentv.co.kr/article/view/sentv202609090227",
+      "title": "한국수력원자력, ʻ대한민국 국제물주간 2026ʼ서 수력·양수발전 특별세션 운영",
+      "description": "",
+      "edition": ""
+    },
+    "5d752047605b": {
+      "date": "2026-09-10",
+      "publisher": "세계일보",
+      "seed_title": "월성본부, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "link": "https://www.segye.com:443/newsView/20260909521046",
+      "title": "월성본부, 레이더·열화상카메라 등 통합 대드론 방어체계 소개",
+      "description": "",
+      "edition": ""
+    },
+    "4175601dc5db": {
+      "date": "2026-09-10",
+      "publisher": "시사코리아",
+      "seed_title": "한수원, ʻ대한민국 국제물주간 2026ʼ에서 수력·양수발전 특별세션 운영",
+      "link": "http://www.sisakorea.kr/98455",
+      "title": "한수원, ʻ대한민국 국제물주간 2026ʼ에서 수력·양수발전 특별세션 운영",
+      "description": "",
+      "edition": ""
+    },
+    "ebc4ee9b1304": {
+      "date": "2026-09-10",
+      "publisher": "아시아투데이",
+      "seed_title": "[사설] 美 원전 건설 참여, 원전산업 재도약 기회되길",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003509",
+      "title": "[사설] 美 원전 건설 참여, 원전산업 재도약 기회되길",
+      "description": "",
+      "edition": ""
+    },
+    "94567cf781c9": {
+      "date": "2026-09-10",
+      "publisher": "아시아투데이",
+      "seed_title": "‘1.2조’ 새만금 조력발전 구체화… 한수원·수공 공동출자 검토",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260909010003660",
+      "title": "‘1.2조’ 새만금 조력발전 구체화… 한수원·수공 공동출자 검토",
+      "description": "",
+      "edition": ""
+    },
+    "5cae56192ce7": {
+      "date": "2026-09-10",
+      "publisher": "에이빙뉴스",
+      "seed_title": "한국수력원자력, WSCE 2026서 ‘i-SMR’ 알려...“친환경 에너지시스템과 스마트도시의 결합!”",
+      "link": "https://kr.aving.net/news/articleView.html?idxno=1814237",
+      "title": "한국수력원자력, WSCE 2026서 ‘i-SMR’ 알려...“친환경 에너지시스템과 스마트도시의 결합!”",
+      "description": "",
+      "edition": ""
+    },
+    "3d73eca8d452": {
+      "date": "2026-09-10",
+      "publisher": "에코저널",
+      "seed_title": "박정 의원, 무탄소 PPA 확대·전통산업 경쟁력 강화",
+      "link": "https://www.ecojournal.co.kr/news/view.php?idx=175472&mcode=m9373ku",
+      "title": "박정 의원, 무탄소 PPA 확대·전통산업 경쟁력 강화",
+      "description": "",
+      "edition": ""
+    },
+    "08a4b656ed7a": {
+      "date": "2026-09-10",
+      "publisher": "웹이코노미",
+      "seed_title": "'마인드키퍼' 확대 / 프랑스 오라노와 LOI / 국제물주간 'AI 기반' 논의",
+      "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2297568",
+      "title": "'마인드키퍼' 확대 / 프랑스 오라노와 LOI / 국제물주간 'AI 기반' 논의",
+      "description": "",
+      "edition": ""
+    },
+    "4f95989f2f5d": {
+      "date": "2026-09-10",
+      "publisher": "이뉴스투데이",
+      "seed_title": "韓佛 정상 “새로운 140년”…안보·첨단기술 협력 확대",
+      "link": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2468832",
+      "title": "韓佛 정상 “새로운 140년”…안보·첨단기술 협력 확대",
+      "description": "",
+      "edition": ""
+    },
+    "083c85738502": {
+      "date": "2026-09-10",
+      "publisher": "이뉴스투데이",
+      "seed_title": "韓佛, AI·원전 협력 확대…삼성, 미스트랄AI 투자",
+      "link": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2468863",
+      "title": "韓佛, AI·원전 협력 확대…삼성, 미스트랄AI 투자",
+      "description": "",
+      "edition": ""
+    },
+    "1039ed70676a": {
+      "date": "2026-09-10",
+      "publisher": "이데일리",
+      "seed_title": "美 투자 독촉에 서두르는 정부…내부서도 “검증 부족” 우려",
+      "link": "https://www.edaily.co.kr/news/read?newsId=04454246645578480&mediaCodeNo=257",
+      "title": "美 투자 독촉에 서두르는 정부…내부서도 “검증 부족” 우려",
+      "description": "",
+      "edition": ""
+    },
+    "a30584edf81a": {
+      "date": "2026-09-10",
+      "publisher": "전력산업신문",
+      "seed_title": "한국수력원자력, 국제물주간 주최기관 새로 참여",
+      "link": "http://www.epitimes.co.kr/bbs/board.php?bo_table=news&wr_id=33963&me_id=&me_code=&type=web",
+      "title": "한국수력원자력, 국제물주간 주최기관 새로 참여",
+      "description": "",
+      "edition": ""
+    },
+    "1f3eba0fc7c0": {
+      "date": "2026-09-10",
+      "publisher": "조선비즈",
+      "seed_title": "‘美 원전 8기’ 대미 투자 가능성에 원전株 들썩… 노형 따라 수혜주 갈린다",
+      "link": "https://biz.chosun.com/stock/stock_general/2026/09/10/UG2BNHSVTNEOHHQX64JLHMJO5A/",
+      "title": "‘美 원전 8기’ 대미 투자 가능성에 원전株 들썩… 노형 따라 수혜주 갈린다",
+      "description": "",
+      "edition": ""
+    },
+    "e40a0186390a": {
+      "date": "2026-09-10",
+      "publisher": "조선일보",
+      "seed_title": "[기고] 주춤한 한미 원자력 협력, 손뼉 맞춰 속도 내야",
+      "link": "https://www.chosun.com/opinion/contribution/2026/09/09/73YJSRK4QNEQ3IM7DTSCANPPIQ/",
+      "title": "[기고] 주춤한 한미 원자력 협력, 손뼉 맞춰 속도 내야",
+      "description": "",
+      "edition": ""
+    },
+    "51257dd6ec13": {
+      "date": "2026-09-10",
+      "publisher": "중앙일보",
+      "seed_title": "보물 될까, 애물 될까…웨스팅하우스 지분 투자 ‘고심’",
+      "link": "https://www.joongang.co.kr/article/25460558",
+      "title": "보물 될까, 애물 될까…웨스팅하우스 지분 투자 ‘고심’",
+      "description": "",
+      "edition": ""
+    },
+    "84828a3350db": {
+      "date": "2026-09-10",
+      "publisher": "천지일보",
+      "seed_title": "미국 원전 8기 건설, K원전 르네상스의 출발점으로",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431380",
+      "title": "미국 원전 8기 건설, K원전 르네상스의 출발점으로",
+      "description": "",
+      "edition": ""
+    },
+    "6d707a0b04fe": {
+      "date": "2026-09-10",
+      "publisher": "천지일보",
+      "seed_title": "한수원, 동료가 살피는 마음건강…‘마인드키퍼’ 본격 확대",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431463",
+      "title": "한수원, 동료가 살피는 마음건강…‘마인드키퍼’ 본격 확대",
+      "description": "",
+      "edition": ""
+    },
+    "e76a5e5679a3": {
+      "date": "2026-09-10",
+      "publisher": "천지일보",
+      "seed_title": "한수원, 물과 전력망을 잇다…AI 수력·양수발전으로 영역 확장",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3431456",
+      "title": "한수원, 물과 전력망을 잇다…AI 수력·양수발전으로 영역 확장",
+      "description": "",
+      "edition": ""
+    },
+    "b97074886c16": {
+      "date": "2026-09-10",
+      "publisher": "투데이코리아",
+      "seed_title": "캠코, JDC와 감사업무 역량 강화 ‘맞손’",
+      "link": "https://www.todaykorea.co.kr/news/articleView.html?idxno=405923",
+      "title": "캠코, JDC와 감사업무 역량 강화 ‘맞손’",
+      "description": "",
+      "edition": ""
+    },
+    "2e2ef557e659": {
+      "date": "2026-09-10",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "SMR 시장 선도가 최우선 과제",
+      "link": "https://www.fnnews.com/news/202609091829473772",
+      "title": "SMR 시장 선도가 최우선 과제",
+      "description": "",
+      "edition": ""
+    },
+    "7f458efe45d8": {
+      "date": "2026-09-10",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "佛순방 마친 李 \"임기 헌법상 명확히 제한\"…연임개헌 논란 직접 차단",
+      "link": "https://www.fnnews.com/news/202609092023380234",
+      "title": "佛순방 마친 李 \"임기 헌법상 명확히 제한\"…연임개헌 논란 직접 차단",
+      "description": "",
+      "edition": ""
+    },
+    "f7984f9f12fb": {
+      "date": "2026-09-10",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "고리원전, 불법 드론 비행 방지 총력",
+      "link": "https://www.fnnews.com/news/202609091834567336",
+      "title": "고리원전, 불법 드론 비행 방지 총력",
+      "description": "",
+      "edition": ""
+    },
+    "e3a970d08ffa": {
+      "date": "2026-09-10",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "한전, 서울 방문한 페트로베트남과 닌투언 원전 프로젝트 협력 논의",
+      "link": "https://www.fnnews.com/news/202609091246005281",
+      "title": "한전, 서울 방문한 페트로베트남과 닌투언 원전 프로젝트 협력 논의",
+      "description": "",
+      "edition": ""
+    },
+    "3df16207ffb3": {
+      "date": "2026-09-10",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "李, 佛서 국방·원전·AI 협력 넓히고 귀국…국내 현안 '첩첩산중'",
+      "link": "https://www.fnnews.com/news/202609091446569574",
+      "title": "李, 佛서 국방·원전·AI 협력 넓히고 귀국…국내 현안 '첩첩산중'",
+      "description": "",
+      "edition": ""
+    },
+    "7433cee8ee16": {
+      "date": "2026-09-10",
+      "publisher": "한겨레",
+      "seed_title": "“10~18년 걸리는 신규 원전, ‘3대 메가’ 전력 공급 사실상 불가능”",
+      "link": "https://www.hani.co.kr/arti/society/environment/1277037.html",
+      "title": "“10~18년 걸리는 신규 원전, ‘3대 메가’ 전력 공급 사실상 불가능”",
+      "description": "",
+      "edition": ""
+    },
+    "b3a1fafa12a6": {
+      "date": "2026-09-10",
+      "publisher": "한겨레",
+      "seed_title": "부채 210조 한전, 웨스팅하우스 지분 인수?…도시바엔 ‘파산 원인’",
+      "link": "https://www.hani.co.kr/arti/society/environment/1277090.html",
+      "title": "부채 210조 한전, 웨스팅하우스 지분 인수?…도시바엔 ‘파산 원인’",
+      "description": "",
+      "edition": ""
+    },
+    "9183ce69aaee": {
+      "date": "2026-09-10",
+      "publisher": "한국경제",
+      "seed_title": "\"전기료 미리 내면 원가에 드립니다\"…한수원 '15조' 조달 묘수",
+      "link": "https://www.hankyung.com/article/202609094532i",
+      "title": "\"전기료 미리 내면 원가에 드립니다\"…한수원 '15조' 조달 묘수",
+      "description": "",
+      "edition": ""
+    },
+    "f9c56a29dec3": {
+      "date": "2026-09-10",
+      "publisher": "한국경제",
+      "seed_title": "K원전 핵심 경쟁력 '공기 준수'…주 52시간 규제에 발목 잡히나",
+      "link": "https://www.hankyung.com/article/2026090946391",
+      "title": "K원전 핵심 경쟁력 '공기 준수'…주 52시간 규제에 발목 잡히나",
+      "description": "공기 지연의 주 원인은 ‘주 52시간 근로시간제’인 것으로 분석됐다. 한국 원전의 핵심 경쟁력인 ‘정해진 기간과 예산 내 완공’이 근로시간 규제로 흔들리고 있다는 우려가 나온다. 9일 국회...",
+      "edition": ""
+    },
+    "eb13ae3401ed": {
+      "date": "2026-09-10",
+      "publisher": "한국경제",
+      "seed_title": "대구시, 삼전닉스와 물 산업 개척한다",
+      "link": "https://www.hankyung.com/article/2026090945741",
+      "title": "대구시, 삼전닉스와 물 산업 개척한다",
+      "description": "",
+      "edition": ""
+    },
+    "782c447823da": {
+      "date": "2026-09-10",
+      "publisher": "한국경제",
+      "seed_title": "대미투자 기대에 '들썩'…가장 먼저 실적 개선될 원전주는?",
+      "link": "https://www.hankyung.com/article/2026090939096",
+      "title": "대미투자 기대에 '들썩'…가장 먼저 실적 개선될 원전주는?",
+      "description": "",
+      "edition": ""
+    },
+    "3df813b69e5e": {
+      "date": "2026-09-10",
+      "publisher": "한국경제",
+      "seed_title": "전남광주, 2030년까지 반도체 인재 2.7만명 육성",
+      "link": "https://www.hankyung.com/article/2026090946171",
+      "title": "전남광주, 2030년까지 반도체 인재 2.7만명 육성",
+      "description": "",
+      "edition": ""
+    },
+    "b484b848b8b9": {
+      "date": "2026-09-10",
+      "publisher": "한국경제TV",
+      "seed_title": "美 원전 빅사이클...왜 K-건설이 필요한가",
+      "link": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609090580",
+      "title": "美 원전 빅사이클...왜 K-건설이 필요한가",
+      "description": "",
+      "edition": ""
+    },
+    "1574cf24620e": {
+      "date": "2026-09-10",
+      "publisher": "한국일보",
+      "seed_title": "대미투자의 핵심은 동반 진출이다[기고]",
+      "link": "https://www.hankookilbo.com/news/article/A2026090909420002169",
+      "title": "대미투자의 핵심은 동반 진출이다[기고]",
+      "description": "",
+      "edition": ""
+    },
+    "9cce61244182": {
+      "date": "2026-09-10",
+      "publisher": "헤럴드경제",
+      "seed_title": "“국내생산세액공제 대상에 미래차·로봇 완제품·SMR도 포함해야”",
+      "link": "https://biz.heraldcorp.com/article/10868063?ref=naver",
+      "title": "“국내생산세액공제 대상에 미래차·로봇 완제품·SMR도 포함해야”",
       "description": "",
       "edition": ""
     }
