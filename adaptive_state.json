@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 5,
+    "count": 6,
     "date": "2026-09-11"
   },
   "retired": {
@@ -11,6 +11,22 @@
       "term": "HYTEP",
       "type": "company",
       "until": "2026-09-24T13:17:45.227049+00:00"
+    },
+    "nexteraenergy": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-10T20:44:00.528047+00:00",
+      "term": "NextEra Energy",
+      "type": "company",
+      "until": "2026-09-24T20:44:00.528047+00:00"
+    },
+    "경주에모여": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-10T20:44:00.528047+00:00",
+      "term": "경주에 모여",
+      "type": "plant",
+      "until": "2026-09-24T20:44:00.528047+00:00"
     },
     "대미투자프로젝트에": {
       "new_articles": 10,
@@ -68,6 +84,14 @@
       "type": "project",
       "until": "2026-09-23T22:34:44.510509+00:00"
     },
+    "자원경제학회": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-10T20:44:00.528047+00:00",
+      "term": "자원경제학회",
+      "type": "org",
+      "until": "2026-09-24T20:44:00.528047+00:00"
+    },
     "한국농수산식품유통공사": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -86,84 +110,38 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-11"
   },
   "terms": {
-    "nexteraenergy": {
+    "vver1000": {
       "articles": 1,
-      "created_at": "2026-09-09T18:16:21.340073+00:00",
+      "created_at": "2026-09-10T20:44:00.528047+00:00",
       "domains": [
-        "ans.org"
+        "world-nuclear-news.org"
       ],
       "evidence": [
         {
-          "domain": "ans.org",
-          "hash": "ac54850ba3160d9d",
+          "domain": "world-nuclear-news.org",
+          "hash": "31c33c123ed184e7",
           "importance": "must_read",
-          "title": "미국 DOE, 아이오와 듀안 아놀드 원전 재가동에 최대 19억 달러 대출 승인"
+          "title": "체코 원자력안전청, 테멜린 원전 1호기 웨스팅하우스 핵연료 사용 승인"
         }
       ],
-      "expires_at": "2026-09-10T18:16:21.340073+00:00",
+      "expires_at": "2026-09-11T20:44:00.528047+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-09T21:38:42.380269+00:00",
+      "last_run": "2026-09-10T20:44:02.717726+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-09T21:38:40.654290+00:00",
+      "planned_at": "2026-09-10T20:44:00.528047+00:00",
       "queries_run": 1,
-      "query": "NextEra Energy 원자력",
-      "score": 3.6,
+      "query": "VVER-1000 원자력",
+      "score": 3.0,
       "status": "tracking",
-      "term": "NextEra Energy",
+      "term": "VVER-1000",
       "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
-    "경주에모여": {
-      "articles": 3,
-      "created_at": "2026-09-09T18:16:21.340073+00:00",
-      "domains": [
-        "ekn.kr",
-        "dkilbo.com",
-        "gukjenews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "ekn.kr",
-          "hash": "c08f645fa01fc1d6",
-          "importance": "noise",
-          "title": "원전 소재 5개 지자체, 원전 정책 주민 의견 반영 촉구"
-        },
-        {
-          "domain": "dkilbo.com",
-          "hash": "2953df5a68f2f5bd",
-          "importance": "nice_to_know",
-          "title": "원전소재 지자체 행정협의회, 경주서 건식저장시설 및 지원제도 논의"
-        },
-        {
-          "domain": "gukjenews.com",
-          "hash": "0941fc0d704f2d61",
-          "importance": "nice_to_know",
-          "title": "원전 소재 5개 지자체, 경주서 공동 현안 논의 및 제도 개선 협력"
-        }
-      ],
-      "expires_at": "2026-09-10T18:16:21.340073+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-09T18:16:24.335945+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-09T18:16:21.340073+00:00",
-      "queries_run": 1,
-      "query": "경주에 모여 원전",
-      "score": 3.64,
-      "status": "tracking",
-      "term": "경주에 모여",
-      "ttl_hours": 24,
-      "type": "plant",
+      "type": "tech",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
@@ -269,52 +247,6 @@
       "term": "두에인 아놀드",
       "ttl_hours": 72,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "자원경제학회": {
-      "articles": 3,
-      "created_at": "2026-09-09T18:16:21.340073+00:00",
-      "domains": [
-        "e-platform.net",
-        "enertopianews.co.kr",
-        "esnews.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "e-platform.net",
-          "hash": "f974d6fc369b4bc4",
-          "importance": "nice_to_know",
-          "title": "원자력학회 등, 9일 'AI 시대 국가경쟁력을 위한 전원믹스와 시장제도' 심포지움 개최"
-        },
-        {
-          "domain": "enertopianews.co.kr",
-          "hash": "14513aaa20acb745",
-          "importance": "nice_to_know",
-          "title": "한국원자력학회 등 3개 기관, AI 시대 최적 전원믹스 심포지움 개최"
-        },
-        {
-          "domain": "esnews.kr",
-          "hash": "203e67426f939f9e",
-          "importance": "nice_to_know",
-          "title": "원자력학회·자원경제학회, AI시대 전원믹스 심포지움 개최"
-        }
-      ],
-      "expires_at": "2026-09-10T18:16:21.340073+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-10T00:20:21.677126+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-10T00:20:19.779467+00:00",
-      "queries_run": 2,
-      "query": "자원경제학회 원자력",
-      "score": 3.7,
-      "status": "tracking",
-      "term": "자원경제학회",
-      "ttl_hours": 24,
-      "type": "org",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
@@ -459,9 +391,12 @@
       ],
       "expires_at": "2026-09-11T18:00:52.320834+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-10T20:44:02.717726+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-10T20:44:00.528047+00:00",
+      "queries_run": 1,
       "query": "포툼이 운영하 원전",
       "score": 3.6,
       "status": "tracking",
@@ -470,7 +405,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "한국경제인협회": {
       "articles": 8,
@@ -551,9 +486,12 @@
       ],
       "expires_at": "2026-09-11T18:00:52.320834+00:00",
       "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-10T20:44:02.717726+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-10T20:44:00.528047+00:00",
+      "queries_run": 1,
       "query": "한국자원경제학회 원자력",
       "score": 3.12,
       "status": "tracking",
@@ -562,7 +500,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "행정협의회를열고": {
       "articles": 4,
