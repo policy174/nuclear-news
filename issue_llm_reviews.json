@@ -2412,6 +2412,16 @@
       "right_title": "정부, 2040년 석탄발전 조기 폐지 공식화…보상 대책은 '안갯속'",
       "same_event": true
     },
+    "04efed515cb6116f--23dddbd48188ea05": {
+      "embedding_similarity": 0.8748,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 7차 토론회",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 18일 제12차 전기본 제7차 토론회 개최…석탄발전 조기 폐지 논의",
+      "same_event": true
+    },
     "04efed515cb6116f--2ad78d39aaa94e3b": {
       "embedding_similarity": 0.8639,
       "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
@@ -6150,6 +6160,16 @@
       "reason": "송전용량 시범 적용 vs 송전망 재검토",
       "reviewed_at": "2026-08-22T21:56:24.641206+00:00",
       "right_title": "기후장관, 12차 전기본서 송전망 재검토 및 신규 철탑 40% 감축 방침 발표",
+      "same_event": false
+    },
+    "099ce0d43f46036a--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8402,
+      "left_title": "기후에너지환경부, 9월부터 계절별 송전용량 시범 적용 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "송전용량 적용과 전기본 토론",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
       "same_event": false
     },
     "099ce0d43f46036a--a3e13685ce3cf3f9": {
@@ -17672,6 +17692,16 @@
       "right_title": "삼성물산, 스웨덴 1.2GW 소형모듈원전(SMR) 사업 파트너 선정",
       "same_event": false
     },
+    "1f120c9fa83b2359--7f147b6638e91bec": {
+      "embedding_similarity": 0.9184,
+      "left_title": "한·프, ‘전략적 동반자’ 내실화…안보부터 AI·원전까지 협력 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 협력 강화",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "한·프, 군사·원자력 협력 강화…AI·반도체 MOU 체결",
+      "same_event": true
+    },
     "1f19bad6b206fd4f--267f758041b9a4ca": {
       "embedding_similarity": 0.8467,
       "left_title": "미국 정부·IAEA, SMR 추진선·FSMR 국제 규제 표준화 논의 착수",
@@ -18231,6 +18261,16 @@
       "reviewed_at": "2026-09-09T21:55:46.365698+00:00",
       "right_title": "정부, 2040년 석탄발전 조기 폐지 공식화…보상 대책은 '안갯속'",
       "same_event": false
+    },
+    "1f8fa0842ada19b6--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8929,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 석탄폐지 논의",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "정부, 2040년 석탄발전 조기 폐지 공식화…보상 대책은 '안갯속'",
+      "same_event": true
     },
     "1f8fa0842ada19b6--d1f22b19a877962c": {
       "embedding_similarity": 0.8532,
@@ -20231,6 +20271,26 @@
       "reviewed_at": "2026-08-09T12:28:40.090016+00:00",
       "right_title": "“3대 메가 프로젝트 성공하려면 원전 건설 계획 내놔야”[김상연의 Dee...",
       "same_event": false
+    },
+    "23dddbd48188ea05--3936f98b28485c84": {
+      "embedding_similarity": 0.8492,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 7차 토론회",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 18일 제12차 전기본 제7차 토론회 개최…석탄발전 조기 폐지 논의",
+      "same_event": true
+    },
+    "23dddbd48188ea05--d1f22b19a877962c": {
+      "embedding_similarity": 0.8468,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 7차 토론회",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 18일 제12차 전기본 제7차 토론회 개최…석탄발전 조기 폐지 논의",
+      "same_event": true
     },
     "24088be83738a88a--5e9d01995935b47b": {
       "embedding_similarity": 0.9037,
@@ -23011,6 +23071,66 @@
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
       "same_event": true
+    },
+    "2a04570e1ac9c15e--3fcf932af8a2d7b8": {
+      "embedding_similarity": 0.8858,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 정지 관련 반발",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "울산탈핵시민공동행동, 새울 3호기 잇단 정지에 상업운전 승인 중단 촉구",
+      "same_event": true
+    },
+    "2a04570e1ac9c15e--5a04d764e2636975": {
+      "embedding_similarity": 0.9173,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 수동 정지 사건",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
+      "same_event": true
+    },
+    "2a04570e1ac9c15e--7812cc3808e031e9": {
+      "embedding_similarity": 0.9127,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정지 사건을 다룸",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "새울 3호기 시운전 정지 원인 '운전원 오조작' 확인, 원안위 재개 승인",
+      "same_event": false
+    },
+    "2a04570e1ac9c15e--9d8ba4b32f8abdc6": {
+      "embedding_similarity": 0.9078,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 정지 및 조사",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "원안위, 새울 3호기 수동정지 원인 조사 착수…상업운전 지연 우려",
+      "same_event": true
+    },
+    "2a04570e1ac9c15e--9facddabb8bbbd56": {
+      "embedding_similarity": 0.9125,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "새울 3호기 배관 누설 정지",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "새울 3호기, 시운전 중 배관 누설로 원자로 수동 정지",
+      "same_event": true
+    },
+    "2a04570e1ac9c15e--ba855ef18b483232": {
+      "embedding_similarity": 0.879,
+      "left_title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정지 사건과 이전 재개 승인",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "원안위, 새울 3호기 시운전 시험 재가동 승인",
+      "same_event": false
     },
     "2a04570e1ac9c15e--cdf84543be54fcb1": {
       "embedding_similarity": 0.8851,
@@ -30912,6 +31032,16 @@
       "right_title": "정부, 제12차 전기본 반영한 호남 반도체 팹 전력 인프라 확충 추진",
       "same_event": false
     },
+    "3936f98b28485c84--8061405192b0c70b": {
+      "embedding_similarity": 0.847,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재생에너지와 원전 확대 주장",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "KAIST 정용훈 교수, 제12차 전기본서 AI 시대 대비 신규원전 60GW까지 확대 주장",
+      "same_event": false
+    },
     "3936f98b28485c84--86ae70d05b0522e3": {
       "embedding_similarity": 0.8629,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -34291,6 +34421,16 @@
       "reviewed_at": "2026-09-03T01:15:30.313929+00:00",
       "right_title": "당진시의회, 석탄화력 폐쇄 대응 토론회…정의로운 전환 조례 추진",
       "same_event": true
+    },
+    "3fa9cce3e5e4ecfe--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8607,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 토론회와 지자체 토론회",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "당진시의회, 석탄화력 폐쇄 대응 토론회…정의로운 전환 조례 추진",
+      "same_event": false
     },
     "3faaf3dac53cbed1--418cbfd4919c8483": {
       "embedding_similarity": 0.8555,
@@ -64002,6 +64142,16 @@
       "right_title": "신규 원전·SMR 도입, 제12차 전기본에 반영 검토",
       "same_event": true
     },
+    "8061405192b0c70b--fbd3322d6a137c46": {
+      "embedding_similarity": 0.8687,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 확대 논의",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "KAIST 정용훈 교수, 제12차 전기본서 AI 시대 대비 신규원전 60GW까지 확대 주장",
+      "same_event": true
+    },
     "806225e255d4065e--81d0ccd190a702d9": {
       "embedding_similarity": 0.9013,
       "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
@@ -67342,6 +67492,16 @@
       "right_title": "롱비치 항만, 미 해양청(MARAD)과 해상 원자로 개발 협력 첫 파트너십 체결",
       "same_event": false
     },
+    "89ac96ab2605cdee--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8591,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 7차 토론회",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 2040년 재생에너지 220GW 목표 12차 전기본 토론회 개최",
+      "same_event": true
+    },
     "89ac96ab2605cdee--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8644,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -68570,6 +68730,16 @@
       "reason": "웨스팅하우스 지분 인수",
       "reviewed_at": "2026-09-09T21:55:46.365698+00:00",
       "right_title": "한전, 웨스팅하우스 지분 인수 논란…재무 건전성·실익 의문",
+      "same_event": true
+    },
+    "8ed0ddd8bfea6a7c--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8911,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 토론회 개최",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
       "same_event": true
     },
     "8ed0ddd8bfea6a7c--b73fb2374225efa6": {
@@ -71682,6 +71852,16 @@
       "right_title": "원안위, SMR 규제기술 연구 등 내년 예산 3030억 편성",
       "same_event": false
     },
+    "964f779aa41e4bcb--99f2916afcd7ec62": {
+      "embedding_similarity": 0.8438,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정책 및 발언",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "김성환 기후장관, AI 전력수요 25~30GW 증가 예상…원전 필수 고려 강조",
+      "same_event": false
+    },
     "964f779aa41e4bcb--d1f22b19a877962c": {
       "embedding_similarity": 0.8531,
       "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
@@ -72781,6 +72961,26 @@
       "reviewed_at": "2026-08-24T06:59:30.594528+00:00",
       "right_title": "한국 델타엑스, 美 조지아에 1.41억 달러 BESS 생산 캠퍼스 신설",
       "same_event": false
+    },
+    "99f2916afcd7ec62--9e9d52989ceba32b": {
+      "embedding_similarity": 0.8489,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 석탄 발전 논의",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "정부, 12차 전기본 수립 시 석탄·가스 발전 유지 검토에 비판 제기",
+      "same_event": true
+    },
+    "99f2916afcd7ec62--a6bf47f14764936b": {
+      "embedding_similarity": 0.8817,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 석탄폐지 논의",
+      "reviewed_at": "2026-09-10T03:02:36.742557+00:00",
+      "right_title": "12차 전기본, 2040년 석탄발전 21기 추가 폐지 논의 시작",
+      "same_event": true
     },
     "99f2916afcd7ec62--d1f22b19a877962c": {
       "embedding_similarity": 0.8515,
