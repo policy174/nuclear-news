@@ -981,6 +981,20 @@
       "reason": "A는 원전 재가동, B는 광범위한 대응 조치.",
       "same_event": false
     },
+    "issue-3e8ffcf2b346c1e6--a3cf49987b": {
+      "issue_title": "한-프랑스 정상회담 계기 9건 협정·MOU 체결, 원전 연료 공급망 강화",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "한-프랑스 원전 연료 공급망 협력과 테라파워 공급망 협력은 별개 사안",
+      "same_event": false
+    },
+    "issue-3e8ffcf2b346c1e6--a9ffef226f": {
+      "issue_title": "한-프랑스 정상회담 계기 9건 협정·MOU 체결, 원전 연료 공급망 강화",
+      "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
+      "prompt_version": 1,
+      "reason": "한-프랑스 원전 연료 협력과 오클로의 연료 공급망 추진은 서로 다른 사건",
+      "same_event": false
+    },
     "issue-3eacd5e0a0ef3dcd--613ab26b06": {
       "issue_title": "한수원 포천양수건설소, 2027년 발전소 주변지역 지원사업 공모",
       "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
@@ -2626,6 +2640,20 @@
       "reason": "주체와 대상 원전이 다름",
       "same_event": false
     },
+    "issue-ab0f4ec01ae5bec3--c2b8808fe0": {
+      "issue_title": "정부, APEC 에너지장관회의서 2030 재생에너지 100GW 및 AI 전력망 혁신 정책 공유",
+      "keei_item": "스페인 정부, Almaraz 원전 운영허가 2030년까지 갱신",
+      "prompt_version": 1,
+      "reason": "APEC 에너지장관회의 정책 공유와 스페인 알maraz 원전 갱신은 별개임",
+      "same_event": false
+    },
+    "issue-ab0f4ec01ae5bec3--de0fd4314f": {
+      "issue_title": "정부, APEC 에너지장관회의서 2030 재생에너지 100GW 및 AI 전력망 혁신 정책 공유",
+      "keei_item": "중국, 탄소배출 저감 행동계획 발표…2030년 원전 설비용량 110GW 목표 제시",
+      "prompt_version": 1,
+      "reason": "APEC 에너지장관회의와 중국의 원전 설비용량 110GW 목표는 별개의 사건",
+      "same_event": false
+    },
     "issue-aec4e7721d553311--d65bac9c4d": {
       "issue_title": "신규 원전 2기 경북 영덕, SMR 후보 부지 부산 기장 선정",
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
@@ -2673,6 +2701,13 @@
       "keei_item": "일본 문부과학성, 원자력 인재 양성 산·학·관 센터 신설 추진",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
+    "issue-b35eb3f20deb19c6--a3cf49987b": {
+      "issue_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "LS전선의 AI 전력 인프라와 테라파워의 Natrium 상용화 협력은 다른 사건",
       "same_event": false
     },
     "issue-b3adbd243878a3c3--23a6f604ae": {
@@ -2914,10 +2949,10 @@
       "same_event": false
     },
     "issue-bedcc71e7fbc9ded--c35275bb9a": {
-      "issue_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "issue_title": "한전, 웨스팅하우스 지분 인수 논란…재무 건전성·실익 의문",
       "keei_item": "슬로바키아 정부, ČEZ 보유 JESS 지분 49% 9월 인수 추진",
       "prompt_version": 1,
-      "reason": "한국과 슬로바키아의 서로 다른 인수 추진 건",
+      "reason": "한전의 웨스팅하우스 이슈와 슬로바키아 JESS 지분 인수는 무관함",
       "same_event": false
     },
     "issue-c08191b8c3fa83e9--c35275bb9a": {
@@ -3080,6 +3115,13 @@
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
       "same_event": false
+    },
+    "issue-cb38eed27ac4ccd4--613ab26b06": {
+      "issue_title": "중국, AI 전력 확보 위해 7년간 원전 64기 승인…한국과 대비",
+      "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
+      "prompt_version": 1,
+      "reason": "중국의 대규모 원전 건설 승인이라는 동일한 사안에 대한 보도",
+      "same_event": true
     },
     "issue-cc2e553cf2927ac5--249f1333d0": {
       "issue_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
@@ -3802,6 +3844,13 @@
       "reason": "정책 동향과 기술 성과",
       "same_event": false
     },
+    "issue-f8c7352740e28772--b78f9ce6eb": {
+      "issue_title": "구글, 핀란드 디지털 인프라에 20조원 투자 및 포툼 원전 전력 22년 장기 구매 계약 체결",
+      "keei_item": "독일 연방연구기술우주부, 핵융합 허브 3개에 1억 2,500만 유로 지원",
+      "prompt_version": 1,
+      "reason": "구글의 포툼 원전 전력 구매 계약과 독일의 핵융합 허브 지원은 다른 사건",
+      "same_event": false
+    },
     "issue-f993fc196107ef89--249f1333d0": {
       "issue_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -3814,6 +3863,20 @@
       "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
       "prompt_version": 1,
       "reason": "웨스팅하우스 계약과 테라파워 공급망 협력",
+      "same_event": false
+    },
+    "issue-f9c74adbe9e445cb--617747aa21": {
+      "issue_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "keei_item": "스웨덴 정부, Ringhals 사업 추진 중인 Videberg Kraft 지분 60% 취득",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 LNG 압박과 스웨덴 Ringhals 사업은 무관함",
+      "same_event": false
+    },
+    "issue-f9c74adbe9e445cb--7d0ce85eb8": {
+      "issue_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "keei_item": "일본 JBIC, 대미 투자 2차 사업에 6.3조 원 융자…SMR은 보류",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 LNG 압박과 일본 JBIC의 SMR 보류 융자는 다른 사건",
       "same_event": false
     },
     "issue-f9ffebf1f741230a--23abb7f7ab": {
