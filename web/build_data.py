@@ -40,6 +40,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+import domain_rules  # noqa: E402  (ROOT_DIR 등록 뒤에 와야 한다)
 from data_quality import (  # noqa: E402
     curation_errors,
     implication_is_hollow,
@@ -4439,6 +4440,34 @@ def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: d
             print(f"[build_data] ⚠ 엔티티 {entity_id} 가 이슈의 40% 초과({cnt}/{total_issues}) — 범용어 오탐 의심")
 
 
+# ── 현안 분류 ──────────────────────────────────────────────────────────
+# 대분류(domain) 12개 · 세부 태그(domain_tags). 정본은 tags.json 이고 대분류는
+# 한수원 현행 본사 조직에 대응한다. 값은 두 곳에서 온다:
+#   1) 큐레이션 LLM 이 기사에 붙인 domain — 있으면 이쪽이 이긴다
+#   2) 없으면 domain_rules 가 제목·요지로 판정(LLM 0회)
+# 규칙은 실측 590건에서 71% 를 가른다. 나머지는 빈 값으로 두고 화면이 칩을
+# 숨긴다 — 억지로 채우면 틀린 분류가 맞는 척한다.
+def apply_domains(catalog: list[dict]) -> None:
+    for row in catalog:
+        members = row.get("related_articles") or []
+        # 주의: 기사 레코드의 `domain` 은 웹사이트 도메인(asiae.co.kr)이다.
+        # 분류는 이름이 겹치지 않게 khnp_domain 으로 둔다 — 겹쳐 두면 칩에
+        # 매체 주소가 뜬다(2026-09-11 실측).
+        voted = Counter(str(m.get("khnp_domain") or "") for m in members if m.get("khnp_domain"))
+        if voted:
+            domain = voted.most_common(1)[0][0]
+            tags: list[str] = []
+            for member in members:
+                if member.get("khnp_domain") == domain and member.get("khnp_tags"):
+                    tags = [t for t in member["khnp_tags"] if t]
+                    break
+        else:
+            domain, tags = domain_rules.classify(
+                row.get("title") or "", (row.get("summary") or "")[:160])
+        row["khnp_domain"] = domain
+        row["khnp_tags"] = tags[:2]
+
+
 def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_at: str = "",
                         entity_registry: list[dict] | None = None,
                         entity_evidence_out: list[dict] | None = None) -> list[dict]:
@@ -5076,6 +5105,7 @@ def build() -> None:
         entity_registry=entity_registry,
         entity_evidence_out=entity_match_evidence,
     )
+    apply_domains(issue_catalog)
     # 카드 두 번째 줄을 이슈 타임라인으로 채운다. 기사 하나만 보는 큐레이션
     # 프롬프트로는 원리상 못 만드는 문장이다 — 로이터 헤드라인에는 가뭄이 없지만
     # 그 기사가 속한 클러스터에는 다뉴브강 수위 저하부터 다 들어 있다.

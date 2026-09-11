@@ -3694,6 +3694,15 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   background: var(--c-fam-etc); color: var(--c-fam-etc-ink);
 }
 .toc .chip--tag { font-weight: 500; }
+/* 소분류 — 대분류 뒤에 '>' 로 잇는다. 색은 대분류가 갖고 여기는 글자만 남긴다:
+   한 줄에 색칩이 둘이면 어느 쪽이 상위인지 안 읽힌다. */
+.toc .chip--sub {
+  background: none; color: var(--c-text-muted);
+  font-weight: 500; padding-left: 0;
+}
+/* 구분자는 ASCII '>' 를 쓴다. Pretendard 는 한글 2,350자 서브셋이라
+   ›(U+203A) 같은 기호가 폰트에 없어 대체 글리프로 깨진다(실측). */
+.toc .chip--sub::before { content: ">"; margin-right: var(--sp-2); opacity: .55; }
 button.chip { cursor: pointer; }
 button.chip:hover { filter: brightness(.96); }
 button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }

@@ -112,7 +112,7 @@ const state = {
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
   agendas: null, precedents: null, agendaId: "",
-  archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체",
+  archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체", archiveDomain: "",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   archiveEntity: "", entities: null,
   period: "7", keywordSort: "mentions", audioMode: "fast", audioFailures: new Set(), savedIds: new Set(), savedMeta: {}, follows: new Set(), followSeen: {},
@@ -883,6 +883,7 @@ function syncUrl(mode = "replace") {
   if (state.agendaId) params.set("agenda", state.agendaId);
   if (state.archiveRegion !== "전체") params.set("ar", state.archiveRegion);
   if (state.archiveTopic !== "전체") params.set("at", state.archiveTopic);
+  if (state.archiveDomain) params.set("ad", state.archiveDomain);
   if (state.archivePeriod !== "all") params.set("ap", state.archivePeriod);
   if (state.archiveVerification !== "전체") params.set("av", state.archiveVerification);
   const query = params.toString();
@@ -914,6 +915,7 @@ function restoreUrlState() {
   if (state.agendaId && !params.get("view")) state.view = "report";
   state.archiveRegion = ["전체", "국내", "해외"].includes(params.get("ar")) ? params.get("ar") : "전체";
   state.archiveTopic = params.get("at") || "전체";
+  state.archiveDomain = params.get("ad") || "";
   state.archivePeriod = ["7", "30", "all"].includes(params.get("ap")) ? params.get("ap") : "all";
   state.archiveVerification = ["verified", "unverified"].includes(params.get("av")) ? params.get("av") : "전체";
 }
@@ -1642,16 +1644,25 @@ const CONTINUING_LIMIT = 3;
 
 // 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
 // 브라우저 기본 동작으로 따라온다 — pushState 로 가로채면 셋 다 직접 짜야 한다.
-// 색 묶음. 주제 14개에 색을 하나씩 주면 목록이 형광펜이 된다 — 성격이 같은
-// 것끼리 묶어 일곱 벌로 줄이고, 라벨은 정확한 주제명을 그대로 쓴다.
-// D6 에서 현안 대분류 7개가 들어오면 이 표가 그 자리를 내준다.
-const TOPIC_FAMILY = {
-  regulation: "safety", safety: "safety", operations: "safety",
-  restart_lto: "lto",
-  smr: "build", newbuild: "build",
-  fuel_cycle: "cycle", waste: "cycle", decommissioning: "cycle",
-  power_market: "market", datacenter_ai: "market", finance: "market",
-  security_trade: "policy", policy_general: "policy",
+// 대분류 12개의 색 묶음. 열두 색을 다 주면 목록이 형광펜이 되므로 성격이 같은
+// 것끼리 일곱 벌로 묶는다 — 라벨이 정확하니 색이 겹쳐도 글자가 가른다.
+const DOMAIN_FAMILY = {
+  "안전성": "safety", "규제": "safety",
+  "계속운전": "lto",
+  "건설": "build", "SMR": "build",
+  "핵연료": "cycle", "사후처리": "cycle",
+  "경제성": "market", "재생·수소": "market",
+  "정책": "policy", "해외사업": "policy",
+  "수용성": "etc",
+};
+
+// 분류 이식 전 대역 — 옛 topics 를 대분류로 근사한다. domain 이 채워지면 안 쓴다.
+const TOPIC_DOMAIN = {
+  regulation: "규제", safety: "안전성", operations: "안전성",
+  restart_lto: "계속운전", smr: "SMR", newbuild: "건설",
+  fuel_cycle: "핵연료", waste: "사후처리", decommissioning: "사후처리",
+  power_market: "정책", datacenter_ai: "정책", finance: "경제성",
+  security_trade: "해외사업", policy_general: "정책",
 };
 
 // 분류 칩. 현안 대분류(domain)가 붙기 전까지는 통제 주제(topics)가 그 자리를
@@ -1662,21 +1673,26 @@ const TOPIC_FAMILY = {
 // 상세로 가는 링크이므로 둘은 겹치면 안 된다 — 링크 안에 버튼을 넣는 것은
 // 유효하지 않은 마크업이라, 행은 <div> 로 두고 제목 링크를 늘여(stretched link)
 // 행 전체를 덮는다. 칩은 그 위에 선다.
+// 대분류 > 소분류. 색은 대분류가 갖고, 소분류는 그 뒤에 옅게 붙는다 —
+// 분류가 없으면(규칙이 못 고른 29%) 칩째로 숨긴다. 억지로 채우면 틀린 분류가
+// 맞는 척한다.
 function tocChips(issue) {
-  const domain = issue.domain || "";
-  const tags = (issue.domain_tags || []).filter(tag => tag && tag !== domain);
-  const topic = (issue.topics || [])[0] || "";
-  const items = domain
-    ? [{ label: domain, key: "" }, ...tags.map(tag => ({ label: tag, key: "" }))]
-    : (TOPIC_LABELS[topic] ? [{ label: TOPIC_LABELS[topic], key: topic }] : []);
-  if (!items.length) return "";
-  return `<span class="toc-chips">${items.map((item, index) => {
-    const family = item.key ? (TOPIC_FAMILY[item.key] || "etc") : "etc";
-    const kind = index ? "tag" : "domain";
-    return item.key
-      ? `<button type="button" class="chip chip--${kind}" data-family="${esc(family)}" data-hub-topic="${esc(item.key)}" title="${esc(item.label)} 기사 모아 보기">${esc(item.label)}</button>`
-      : `<span class="chip chip--${kind}" data-family="${esc(family)}">${esc(item.label)}</span>`;
-  }).join("")}</span>`;
+  const domain = issue.khnp_domain || "";
+  if (!domain) {
+    // 분류 이식 전 데이터를 위한 대역. domain 이 채워지면 이 가지는 죽는다.
+    const topic = (issue.topics || [])[0] || "";
+    if (!TOPIC_LABELS[topic]) return "";
+    return `<span class="toc-chips"><button type="button" class="chip chip--domain"
+      data-family="${esc(DOMAIN_FAMILY[TOPIC_DOMAIN[topic]] || "etc")}" data-hub-topic="${esc(topic)}"
+      title="${esc(TOPIC_LABELS[topic])} 기사 모아 보기">${esc(TOPIC_LABELS[topic])}</button></span>`;
+  }
+  const sub = (issue.khnp_tags || []).filter(tag => tag && tag !== domain)[0] || "";
+  const family = DOMAIN_FAMILY[domain] || "etc";
+  return `<span class="toc-chips"><button type="button" class="chip chip--domain"
+    data-family="${esc(family)}" data-hub-domain="${esc(domain)}"
+    title="${esc(domain)} 기사 모아 보기">${esc(domain)}</button>${
+    sub ? `<span class="chip chip--sub">${esc(sub)}</span>` : ""
+  }</span>`;
 }
 
 function tocMeta(issue) {
@@ -1923,6 +1939,7 @@ function archiveIssueMatches(issue) {
   if (state.archiveEntity && !(issue.entity_ids || []).includes(state.archiveEntity)) return false;
   if (state.archiveRegion !== "전체" && !(issue.regions || []).includes(state.archiveRegion)) return false;
   if (state.archiveTopic !== "전체" && !(issue.topics || []).includes(state.archiveTopic)) return false;
+  if (state.archiveDomain && issue.khnp_domain !== state.archiveDomain) return false;
   const confirmed = ["official", "corroborated"].includes(verificationState(issue).status);
   if (state.archiveVerification === "verified" && !confirmed) return false;
   if (state.archiveVerification === "unverified" && confirmed) return false;
@@ -2025,7 +2042,7 @@ function renderArchiveSearch(resetLimit = false) {
   // 랜딩(모든 조건이 기본값)에서만 발견 허브를 깐다. 조건이 하나라도 서면
   // 이 화면은 결과 화면이고, 허브는 소음이다.
   const isLanding = !state.archiveQuery && !state.archiveEntity
-    && state.archiveRegion === "전체" && state.archiveTopic === "전체"
+    && state.archiveRegion === "전체" && state.archiveTopic === "전체" && !state.archiveDomain
     && state.archivePeriod === "all" && state.archiveVerification === "전체";
   const hub = document.getElementById("exploreHub");
   if (hub) {
@@ -2040,6 +2057,7 @@ function renderArchiveSearch(resetLimit = false) {
     state.archivePeriod !== "all" ? `최근 ${state.archivePeriod}일` : "",
     state.archiveRegion !== "전체" ? state.archiveRegion : "",
     state.archiveTopic !== "전체" ? TOPIC_LABELS[state.archiveTopic] || state.archiveTopic : "",
+    state.archiveDomain || "",
     state.archiveVerification === "verified" ? "공식·복수 출처 확인" : state.archiveVerification === "unverified" ? "단일 출처·확인 중" : "",
   ].filter(Boolean);
   const matchedArticles = matches.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
@@ -4546,6 +4564,7 @@ function clearArchiveFilters() {
   state.archiveEntity = "";
   state.archiveRegion = "전체";
   state.archiveTopic = "전체";
+  state.archiveDomain = "";
   state.archivePeriod = "all";
   state.archiveVerification = "전체";
   document.getElementById("globalSearch").value = "";
@@ -4573,6 +4592,7 @@ function handleHubAction(event) {
   state.archiveEntity = "";
   state.archiveRegion = "전체";
   state.archiveTopic = "전체";
+  state.archiveDomain = "";
   state.archivePeriod = "all";
   state.archiveVerification = "전체";
   document.getElementById("globalSearch").value = "";
@@ -4943,6 +4963,7 @@ function applySearchResult(option) {
     state.archiveEntity = "";
     state.archiveRegion = "전체";
     state.archiveTopic = "전체";
+  state.archiveDomain = "";
     state.archivePeriod = "all";
     state.archiveVerification = "전체";
   };
@@ -5149,6 +5170,15 @@ function bind() {
   // handleHubAction 이 아카이브 필터를 초기화하고 주제를 걸므로 그대로 태우고,
   // 홈에서 눌렀으니 화면만 옮겨 준다.
   document.getElementById("tocList").addEventListener("click", event => {
+    const domainChip = event.target.closest("[data-hub-domain]");
+    if (domainChip) {
+      state.archiveDomain = domainChip.dataset.hubDomain;
+      state.archiveQuery = ""; state.archiveEntity = ""; state.archiveTopic = "전체";
+      renderArchiveSearch(true);
+      switchView("search");
+      syncUrl("push");
+      return;
+    }
     if (!event.target.closest("[data-hub-topic]")) return;
     handleHubAction(event);
     switchView("search");
@@ -5163,6 +5193,7 @@ function bind() {
     state.archiveEntity = open.dataset.followOpen;
     state.archiveRegion = "전체";
     state.archiveTopic = "전체";
+  state.archiveDomain = "";
     state.archivePeriod = "all";
     state.archiveVerification = "전체";
     switchView("search");
