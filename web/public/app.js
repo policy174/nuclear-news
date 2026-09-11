@@ -1642,22 +1642,41 @@ const CONTINUING_LIMIT = 3;
 
 // 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
 // 브라우저 기본 동작으로 따라온다 — pushState 로 가로채면 셋 다 직접 짜야 한다.
+// 색 묶음. 주제 14개에 색을 하나씩 주면 목록이 형광펜이 된다 — 성격이 같은
+// 것끼리 묶어 일곱 벌로 줄이고, 라벨은 정확한 주제명을 그대로 쓴다.
+// D6 에서 현안 대분류 7개가 들어오면 이 표가 그 자리를 내준다.
+const TOPIC_FAMILY = {
+  regulation: "safety", safety: "safety", operations: "safety",
+  restart_lto: "lto",
+  smr: "build", newbuild: "build",
+  fuel_cycle: "cycle", waste: "cycle", decommissioning: "cycle",
+  power_market: "market", datacenter_ai: "market", finance: "market",
+  security_trade: "policy", policy_general: "policy",
+};
+
 // 분류 칩. 현안 대분류(domain)가 붙기 전까지는 통제 주제(topics)가 그 자리를
-// 대신한다 — 실데이터에 585/590 이 채워져 있고 어휘가 14개로 닫혀 있다.
+// 대신한다 — 실데이터에 585/590 이 채워져 있고 어휘가 닫혀 있다.
 // D6 에서 domain 이 들어오면 이 함수만 바뀌고 화면은 그대로다.
+//
+// 칩은 버튼이다. 누르면 탐색 탭에서 같은 주제가 모인 목록으로 간다. 행 전체는
+// 상세로 가는 링크이므로 둘은 겹치면 안 된다 — 링크 안에 버튼을 넣는 것은
+// 유효하지 않은 마크업이라, 행은 <div> 로 두고 제목 링크를 늘여(stretched link)
+// 행 전체를 덮는다. 칩은 그 위에 선다.
 function tocChips(issue) {
   const domain = issue.domain || "";
-  // 대분류와 주제 태그가 같은 뜻이면 한 번만 쓴다("계속운전 · 계속운전" 금지).
   const tags = (issue.domain_tags || []).filter(tag => tag && tag !== domain);
-  const labels = domain
-    ? [domain, ...tags]
-    : [TOPIC_LABELS[(issue.topics || [])[0]] || ""].filter(Boolean);
-  if (!labels.length) return "";
-  // 첫 칸이 분류, 나머지는 딸림 — 굵기로만 가른다. 9줄에 색을 일곱 벌 깔면
-  // 위계가 아니라 형광펜이 된다(style.css 규칙 2).
-  return `<span class="toc-chips">${labels.map((label, index) => (
-    `<span class="chip chip--${index ? "tag" : "domain"}">${esc(label)}</span>`
-  )).join("")}</span>`;
+  const topic = (issue.topics || [])[0] || "";
+  const items = domain
+    ? [{ label: domain, key: "" }, ...tags.map(tag => ({ label: tag, key: "" }))]
+    : (TOPIC_LABELS[topic] ? [{ label: TOPIC_LABELS[topic], key: topic }] : []);
+  if (!items.length) return "";
+  return `<span class="toc-chips">${items.map((item, index) => {
+    const family = item.key ? (TOPIC_FAMILY[item.key] || "etc") : "etc";
+    const kind = index ? "tag" : "domain";
+    return item.key
+      ? `<button type="button" class="chip chip--${kind}" data-family="${esc(family)}" data-hub-topic="${esc(item.key)}" title="${esc(item.label)} 기사 모아 보기">${esc(item.label)}</button>`
+      : `<span class="chip chip--${kind}" data-family="${esc(family)}">${esc(item.label)}</span>`;
+  }).join("")}</span>`;
 }
 
 function tocMeta(issue) {
@@ -1670,11 +1689,11 @@ function tocMeta(issue) {
 }
 
 function tocRow(issue) {
-  return `<a class="toc-row" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  return `<div class="toc-row">
   ${tocChips(issue)}
-  <span class="toc-title">${esc(issue.title)}</span>
+  <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
   <span class="toc-meta">${esc(tocMeta(issue))}</span>
-</a>`;
+</div>`;
 }
 
 // 첫 현안만 한 단 크게 세우고 요지 한 줄을 붙인다. 카드로 키우지 않는다 —
@@ -1682,12 +1701,12 @@ function tocRow(issue) {
 // 그래서 걷혔다). 강조는 활자 크기와 요지 한 줄까지다.
 function tocLeadRow(issue) {
   const gist = String(issue.summary || "").trim();
-  return `<a class="toc-row toc-row--lead" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  return `<div class="toc-row toc-row--lead">
   ${tocChips(issue)}
-  <span class="toc-title">${esc(issue.title)}</span>
+  <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
   ${gist ? `<span class="toc-gist">${esc(gist)}</span>` : ""}
   <span class="toc-meta">${esc(tocMeta(issue))}</span>
-</a>`;
+</div>`;
 }
 
 function continuingRow(issue) {
@@ -5126,6 +5145,14 @@ function bind() {
   });
   // 팔로우 패널 — 대상 열기(그 시점에 확인 처리)·해제. 저장 화면 진입만으로는
   // 확인 처리하지 않는다(주석 계약은 index.html 의 followPanel 에).
+  // 목차의 분류 칩 — 누르면 탐색 탭에서 같은 주제가 모인 목록으로 간다.
+  // handleHubAction 이 아카이브 필터를 초기화하고 주제를 걸므로 그대로 태우고,
+  // 홈에서 눌렀으니 화면만 옮겨 준다.
+  document.getElementById("tocList").addEventListener("click", event => {
+    if (!event.target.closest("[data-hub-topic]")) return;
+    handleHubAction(event);
+    switchView("search");
+  });
   document.getElementById("followPanel").addEventListener("click", event => {
     const unfollow = event.target.closest("[data-unfollow]");
     if (unfollow) { toggleFollow(unfollow.dataset.unfollow); return; }

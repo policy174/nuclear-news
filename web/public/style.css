@@ -89,6 +89,18 @@
   --c-verified-on-primary: #6cc0a2;   /* 6.70:1 on #12294c · 5.71:1 on #1c3355 */
   --c-unverified-on-primary: #93a398; /* 5.48:1 on #12294c · 4.67:1 on #1c3355 */
   --c-focus: #7379dc;        /* 포커스링 전용 3.44:1 — 작은 링크 텍스트 금지 */
+  /* ── 분류 칩 — 색 묶음 일곱 ─────────────────────────────────────
+     주제 14개에 색을 하나씩 주면 목록이 형광펜이 된다. 성격이 같은 것끼리
+     묶어 일곱 벌로 줄였다(app.js TOPIC_FAMILY). 칩은 배경 위 잉크 글자라
+     "옅은 표면 + 짙은 잉크" 한 쌍으로만 쓴다 — 테두리를 두르지 않는다.
+     라벨은 정확한 주제명이고 색은 묶음이라, 색이 겹쳐도 글자가 가른다. */
+  --c-fam-safety: #fbe9e4;   --c-fam-safety-ink: #a84230;  /* 5.85:1 */
+  --c-fam-lto: #e2f0ea;      --c-fam-lto-ink: #14503d;     /* 7.51:1 */
+  --c-fam-build: #e6edf7;    --c-fam-build-ink: #1a3a6b;   /* 9.57:1 */
+  --c-fam-cycle: #eceaf8;    --c-fam-cycle-ink: #454bb0;   /* 6.31:1 */
+  --c-fam-market: #f6eddc;   --c-fam-market-ink: #7a4f0c;  /* 7.16:1 */
+  --c-fam-policy: #e3eff2;   --c-fam-policy-ink: #1f5f6e;  /* 6.02:1 */
+  --c-fam-etc: #e8ecef;      --c-fam-etc-ink: #43494f;     /* 8.62:1 */
   --c-chart-1: #204a8f;
   --c-chart-2: #1a6b52;
   --c-chart-3: #7379dc;
@@ -3655,20 +3667,42 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   display: block; background: var(--c-surface);
   border: var(--bd-1) solid var(--c-border); border-radius: var(--r-2);
 }
+/* 행은 <div> 이고 제목 링크를 늘여(::after inset 0) 행 전체를 덮는다.
+   링크 안에 버튼을 넣는 것은 유효하지 않은 마크업이라, 분류 칩을 누를 수
+   있게 하려면 이 구조여야 한다. 칩은 z-index 로 링크 위에 선다. */
 .toc-row {
+  position: relative;
   display: grid; grid-template-areas: "chips meta" "title title";
   grid-template-columns: auto 1fr; column-gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4); border-bottom: var(--bd-1) solid var(--c-border);
-  text-decoration: none; color: inherit;
+  color: inherit;
 }
 .toc-row:last-child { border-bottom: 0; }
 .toc-row:hover { background: var(--c-secondary-weak); }
-.toc-row:focus-visible { outline: none; box-shadow: var(--fo-ring); border-radius: var(--r-1); }
-.toc-chips { grid-area: chips; display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; margin-bottom: var(--sp-2); }
+.toc-link { color: inherit; text-decoration: none; }
+.toc-link::after { content: ""; position: absolute; inset: 0; }
+.toc-link:focus-visible { outline: none; box-shadow: var(--fo-ring); border-radius: var(--r-1); }
+.toc-chips {
+  grid-area: chips; display: flex; gap: var(--sp-2); align-items: center;
+  flex-wrap: wrap; margin-bottom: var(--sp-2);
+  position: relative; z-index: 1;   /* 늘인 링크 위 */
+}
 .toc-chips:empty { display: none; }
-.toc .chip { font-size: 13px; font-weight: 600; color: var(--c-text-muted); }
+.toc .chip {
+  font-size: 13px; font-weight: 600; font-family: inherit;
+  padding: 2px var(--sp-2); border: 0; border-radius: var(--r-4);
+  background: var(--c-fam-etc); color: var(--c-fam-etc-ink);
+}
 .toc .chip--tag { font-weight: 500; }
-.toc .chip--tag::before { content: " b7 "; }
+button.chip { cursor: pointer; }
+button.chip:hover { filter: brightness(.96); }
+button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
+.toc .chip[data-family="safety"] { background: var(--c-fam-safety); color: var(--c-fam-safety-ink); }
+.toc .chip[data-family="lto"]    { background: var(--c-fam-lto);    color: var(--c-fam-lto-ink); }
+.toc .chip[data-family="build"]  { background: var(--c-fam-build);  color: var(--c-fam-build-ink); }
+.toc .chip[data-family="cycle"]  { background: var(--c-fam-cycle);  color: var(--c-fam-cycle-ink); }
+.toc .chip[data-family="market"] { background: var(--c-fam-market); color: var(--c-fam-market-ink); }
+.toc .chip[data-family="policy"] { background: var(--c-fam-policy); color: var(--c-fam-policy-ink); }
 .toc-title {
   grid-area: title; display: block;
   font-size: clamp(17px, 1.9vw, 20px); font-weight: 660;
