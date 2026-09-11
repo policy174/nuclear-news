@@ -1642,24 +1642,51 @@ const CONTINUING_LIMIT = 3;
 
 // 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
 // 브라우저 기본 동작으로 따라온다 — pushState 로 가로채면 셋 다 직접 짜야 한다.
-function tocRow(issue) {
+// 분류 칩. 현안 대분류(domain)가 붙기 전까지는 통제 주제(topics)가 그 자리를
+// 대신한다 — 실데이터에 585/590 이 채워져 있고 어휘가 14개로 닫혀 있다.
+// D6 에서 domain 이 들어오면 이 함수만 바뀌고 화면은 그대로다.
+function tocChips(issue) {
   const domain = issue.domain || "";
   // 대분류와 주제 태그가 같은 뜻이면 한 번만 쓴다("계속운전 · 계속운전" 금지).
   const tags = (issue.domain_tags || []).filter(tag => tag && tag !== domain);
-  const chips = [
-    domain ? `<span class="chip chip--domain">${esc(domain)}</span>` : "",
-    ...tags.map(tag => `<span class="chip chip--tag">${esc(tag)}</span>`),
-  ].join("");
+  const labels = domain
+    ? [domain, ...tags]
+    : [TOPIC_LABELS[(issue.topics || [])[0]] || ""].filter(Boolean);
+  if (!labels.length) return "";
+  // 첫 칸이 분류, 나머지는 딸림 — 굵기로만 가른다. 9줄에 색을 일곱 벌 깔면
+  // 위계가 아니라 형광펜이 된다(style.css 규칙 2).
+  return `<span class="toc-chips">${labels.map((label, index) => (
+    `<span class="chip chip--${index ? "tag" : "domain"}">${esc(label)}</span>`
+  )).join("")}</span>`;
+}
+
+function tocMeta(issue) {
   const rep = issue.representative_article || {};
-  const meta = [
+  return [
     rep.publisher || "",
     (issue.article_count || 0) > 1 ? `기사 ${issue.article_count}건` : "",
     dateLabel(issue.last_seen),
   ].filter(Boolean).join(" · ");
+}
+
+function tocRow(issue) {
   return `<a class="toc-row" href="/issue/${encodeURIComponent(issue.issue_id)}/">
-  ${chips ? `<span class="toc-chips">${chips}</span>` : ""}
+  ${tocChips(issue)}
   <span class="toc-title">${esc(issue.title)}</span>
-  <span class="toc-meta">${esc(meta)}</span>
+  <span class="toc-meta">${esc(tocMeta(issue))}</span>
+</a>`;
+}
+
+// 첫 현안만 한 단 크게 세우고 요지 한 줄을 붙인다. 카드로 키우지 않는다 —
+// 상자가 되는 순간 첫 화면을 혼자 먹고 목차가 다시 아래로 밀린다(선두 카드가
+// 그래서 걷혔다). 강조는 활자 크기와 요지 한 줄까지다.
+function tocLeadRow(issue) {
+  const gist = String(issue.summary || "").trim();
+  return `<a class="toc-row toc-row--lead" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  ${tocChips(issue)}
+  <span class="toc-title">${esc(issue.title)}</span>
+  ${gist ? `<span class="toc-gist">${esc(gist)}</span>` : ""}
+  <span class="toc-meta">${esc(tocMeta(issue))}</span>
 </a>`;
 }
 
@@ -1692,7 +1719,7 @@ function renderBriefing() {
 
   const ordered = briefingIssuesForDisplay(briefing);
   const top = ordered.slice(0, TOC_LIMIT);
-  tocList.innerHTML = top.map(tocRow).join("");
+  tocList.innerHTML = top.map((issue, index) => (index ? tocRow(issue) : tocLeadRow(issue))).join("");
 
   // 이어지는 현안은 목차와 겹치지 않을 때만 선다 — 같은 이슈가 한 화면에 두 번
   // 서면 9줄이라는 약속이 깨진다.
