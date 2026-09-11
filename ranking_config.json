@@ -22,11 +22,13 @@
   },
   "feature_weights": {
     "_comment": "각 feature(0~3)에 곱하는 배수. korea_relevance 1.2 = 한국 관련성 3점이면 +3.6점. evidence_strength 는 LLM 이 아니라 ranking.py 가 표현·수치로 판정한 값에 곱한다. novelty 는 0 — 수집 단계 4중 dedup 을 통과한 기사는 정의상 대부분 새 사건이라 판정할 것이 없다(실측 157건 중 137건이 3점). 후속 보도 신호는 tracking 가점이 대신한다(2026-08-01).",
+    "_report_worthiness": "2026-09-11 신설. 부서 핵심이슈(10대 중점사업·분야별 이슈·참고자료 6개 편)를 프롬프트 A-2 에 넣고 그 적합도를 순위에 연결했다. 그 전까지 이 feature 는 수집만 되고 가중치가 없어 점수에 전혀 반영되지 않았다. 1.0 은 검증 전 초기값 — delivery_log.jsonl breakdown 에서 분포를 보고 조정할 것. 3점이 흔하면 프롬프트가 무른 것이고, 전건 0이면 기준이 과한 것이다.",
     "korea_relevance": 1.2,
     "market_materiality": 1.0,
     "policy_materiality": 1.0,
     "novelty": 0.0,
-    "evidence_strength": 1.0
+    "evidence_strength": 1.0,
+    "report_worthiness": 1.0
   },
   "source_bonus": {
     "_comment": "출처 공신력(sources.json tier 매칭). LLM이 아니라 로컬 도메인 매칭으로 결정.",

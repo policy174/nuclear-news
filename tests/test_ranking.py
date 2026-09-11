@@ -118,6 +118,15 @@ class TestNewScore(unittest.TestCase):
         self.assertAlmostEqual(s, sum(v for k, v in b.items() if k != "legacy"),
                                places=2)
 
+    def test_report_worthiness_scored(self):
+        """부서 핵심이슈 적합도가 순위에 실제로 반영되는가 (2026-09-11 배선)."""
+        plain = item(h="a", features=feat(), queued_hours_ago=0)
+        agenda = item(h="b", features=feat(report_worthiness=3), queued_hours_ago=0)
+        s_plain, _ = ranking.score_item(plain, CFG, now=NOW)
+        s_agenda, b = ranking.score_item(agenda, CFG, now=NOW)
+        self.assertIn("report_worthiness", b)
+        self.assertGreater(s_agenda, s_plain)
+
     def test_tier1_source_bonus(self):
         a = item(domain="iaea.org", features=feat(), queued_hours_ago=0)
         a["link"] = "https://www.iaea.org/newscenter/x"

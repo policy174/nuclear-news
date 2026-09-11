@@ -299,7 +299,7 @@ def score_item(item: dict, cfg: dict,
 
         fw = cfg.get("feature_weights") or {}
         for key in ("korea_relevance", "market_materiality", "policy_materiality",
-                    "novelty", "evidence_strength"):
+                    "novelty", "evidence_strength", "report_worthiness"):
             contrib = feats[key] * float(fw.get(key, 0))
             if contrib:
                 score += contrib
