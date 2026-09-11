@@ -1,0 +1,167 @@
+/* D1 시안 전용 스타일. web/public/style.css 의 토큰 위에 올린다 —
+   팔레트·간격·활자 토큰을 그대로 쓰므로 확정되면 그대로 이식할 수 있다.
+
+   지키는 규칙 (승인된 계획 D1):
+   · 제목이 가장 크다. 대분류·태그는 작고 옅되 대비 게이트를 통과한다.
+   · 제목은 두 줄을 목표로 하되 넘으면 높이가 늘어난다 —
+     **말줄임·글자 축소로 맞추지 않는다.** 그래서 이 파일에는
+     text-overflow:ellipsis 도 -webkit-line-clamp 도 없다.
+   · 반복 요소(행)에 그림자를 얹지 않는다(style.css 규칙 3).
+   · 행 전체가 <a> 다 — 키보드·새 탭·뒤로가기 스크롤 복원이 공짜로 따라온다. */
+
+.mk { background: var(--c-bg); color: var(--c-text); font-family: var(--ff-base); margin: 0; }
+
+.mk-banner {
+  background: var(--c-primary); color: #fff;
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--t-caption); display: flex; gap: var(--sp-4);
+  align-items: center; flex-wrap: wrap;
+}
+.mk-banner label { display: inline-flex; gap: var(--sp-1); align-items: center; cursor: pointer; }
+
+.mk-wrap { max-width: 720px; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-16); }
+.mk-wrap--issue { max-width: 680px; }
+
+/* ── 머리 ─────────────────────────────────────────────────────────── */
+.mk-head { margin-bottom: var(--sp-5); }
+.mk-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.mk-head h1 { font-size: var(--t-card); margin: 0; letter-spacing: -.01em; }
+.mk-date { font-size: var(--t-caption); color: var(--c-text-muted); }
+/* 아카이브 검색 진입은 상단에 상시 노출한다. */
+.mk-search {
+  display: block; margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-surface); border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-1); color: var(--c-secondary);
+  text-decoration: none; font-size: var(--t-body);
+}
+.mk-search:hover { border-color: var(--c-edge); }
+
+/* ── 목차 ─────────────────────────────────────────────────────────── */
+.toc { display: block; background: var(--c-surface); border: var(--bd-1) solid var(--c-border); border-radius: var(--r-2); }
+.toc-row {
+  display: block; padding: var(--sp-4);
+  border-bottom: var(--bd-1) solid var(--c-border);
+  text-decoration: none; color: inherit;
+}
+.toc-row:last-child { border-bottom: 0; }
+.toc-row:hover { background: var(--c-secondary-weak); }
+.toc-row:focus-visible { outline: none; box-shadow: var(--fo-ring); border-radius: var(--r-1); }
+
+.toc-chips { display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-2); flex-wrap: wrap; }
+.chip { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+.chip--domain { color: var(--c-text-muted); }
+.chip--tag { color: var(--c-text-muted); font-weight: 500; }
+.chip--tag::before { content: "· "; }
+
+/* 제목 — 화면에서 가장 큰 글자. 길면 높이가 늘어난다. */
+.toc-title {
+  display: block;
+  font-size: clamp(18px, 2.2vw, 23px);
+  font-weight: 680; line-height: 1.38;
+  letter-spacing: -.012em;
+  word-break: keep-all;   /* 한글 단어 중간에서 끊지 않는다 */
+}
+.toc-meta { display: block; margin-top: var(--sp-2); font-size: var(--t-caption); color: var(--c-text-muted); }
+
+/* 읽은 항목 — 과하지 않게. 제목을 흐리지 않고 왼쪽 표시만 준다. */
+.toc-row.is-read .toc-title { color: var(--c-text-secondary); font-weight: 620; }
+.toc-row.is-read .toc-chips::before {
+  content: "읽음"; font-size: 12.5px; color: var(--c-text-muted);
+  border: var(--bd-1) solid var(--c-border); border-radius: var(--r-4);
+  padding: 0 var(--sp-2);
+}
+
+/* ── 대분류 색 틴트 (B안 — 토글로 켠다) ────────────────────────────
+   style.css 규칙 2 는 "색을 쓰는 자리는 화면당 셋까지"다. 9줄에 7색을
+   동시에 깔면 그 규칙과 정면으로 부딪친다 — 그래서 기본은 무채색이고
+   이건 D2 에서 눈으로 비교하기 위한 대안이다. 잉크는 네 개를 기존
+   토큰에서 그대로 가져왔다. */
+.mk.tint .chip--domain {
+  padding: 1px var(--sp-2); border-radius: var(--r-4);
+  background: var(--c-surface-sunken); color: var(--c-text-secondary);
+}
+.mk.tint .chip--domain[data-domain="안전성"]   { background: #fbe9e4; color: #a84230; }
+.mk.tint .chip--domain[data-domain="전원계획"] { background: #e6edf7; color: #1a3a6b; }
+.mk.tint .chip--domain[data-domain="계속운전"] { background: #e2f0ea; color: #1a6b52; }
+.mk.tint .chip--domain[data-domain="경제성"]   { background: #f6eddc; color: #96620f; }
+.mk.tint .chip--domain[data-domain="사후처리"] { background: #eceaf8; color: #454bb0; }
+.mk.tint .chip--domain[data-domain="수용성"]   { background: #e3eff2; color: #1f5f6e; }
+.mk.tint .chip--domain[data-domain="사업전략"] { background: #e8ecef; color: #3d4a57; }
+
+/* 메타 올리기 — 출처·건수·날짜를 칩 줄로 올려 행당 한 줄을 줄인다.
+   제목 크기는 그대로 둔다. (실측 2026-09-11: 제목을 18→16px 로 줄이는
+   '조밀하게' 안은 스크롤을 2.7→2.5 밖에 못 줄이면서 "제목이 가장 큼"
+   원칙만 깎았다 — 행 높이를 먹는 것은 제목이 아니라 줄 수였다.) */
+.mk.compact .toc-row {
+  display: grid;
+  grid-template-areas: "chips meta" "title title";
+  grid-template-columns: auto 1fr;
+  column-gap: var(--sp-3);
+}
+.mk.compact .toc-chips { grid-area: chips; }
+.mk.compact .toc-meta { grid-area: meta; margin-top: 0; text-align: right; align-self: center; margin-bottom: var(--sp-2); }
+.mk.compact .toc-title { grid-area: title; }
+
+/* ── 이어지는 현안 ────────────────────────────────────────────────── */
+.cont { margin-top: var(--sp-8); }
+.cont h2 { font-size: var(--t-body); color: var(--c-text-secondary); margin: 0 0 var(--sp-3); }
+.cont-row {
+  display: block; padding: var(--sp-3) 0;
+  border-top: var(--bd-1) solid var(--c-border);
+  text-decoration: none; color: inherit;
+}
+.cont-title { display: block; font-size: var(--t-body); font-weight: 600; word-break: keep-all; }
+.cont-change { display: block; margin-top: var(--sp-1); font-size: var(--t-caption); color: var(--c-text-secondary); }
+
+.mk-status { margin-top: var(--sp-8); font-size: var(--t-caption); color: var(--c-text-muted); }
+
+/* ── 상세 ─────────────────────────────────────────────────────────── */
+.back { display: inline-block; margin-bottom: var(--sp-4); color: var(--c-secondary); text-decoration: none; font-size: var(--t-body); }
+.back--foot { margin: var(--sp-10) 0 0; }
+.mk-chips { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+.issue-title {
+  font-size: clamp(22px, 3vw, 29px); font-weight: 700;
+  line-height: 1.32; letter-spacing: -.015em; margin: 0 0 var(--sp-6);
+  word-break: keep-all;
+}
+.stage { margin-bottom: var(--sp-8); }
+.stage > h2 {
+  font-size: var(--t-caption); font-weight: 700; letter-spacing: .04em;
+  color: var(--c-text-muted); margin: 0 0 var(--sp-3);
+}
+.gists { list-style: none; margin: 0; padding: 0; }
+.gists li {
+  padding: var(--sp-3) 0; border-top: var(--bd-1) solid var(--c-border);
+  max-width: var(--measure);
+}
+.gists li:first-child { border-top: 0; padding-top: 0; }
+.gist-text { display: block; font-size: var(--t-body-lg); line-height: 1.62; }
+.gist-src { display: block; margin-top: var(--sp-1); font-size: var(--t-caption); color: var(--c-text-muted); }
+/* 시안에서만 보이는 선택 근거 — 구현에는 안 나간다. */
+.trace { margin-top: var(--sp-3); font-size: 12.5px; color: var(--c-text-muted); font-family: var(--ff-mono); }
+
+.why {
+  margin: 0; padding: var(--sp-4);
+  background: var(--c-signal); color: var(--c-signal-ink);
+  border-radius: var(--r-2); font-size: var(--t-body);
+  line-height: 1.62; max-width: var(--measure);
+}
+.verify { margin: 0 0 var(--sp-3); font-size: var(--t-caption); color: var(--c-text-secondary); }
+.sources { list-style: none; margin: 0; padding: 0; }
+.sources li { padding: var(--sp-2) 0; border-top: var(--bd-1) solid var(--c-border); }
+.sources a { color: var(--c-secondary); font-size: var(--t-body); word-break: keep-all; }
+.src-meta { display: block; margin-top: 2px; font-size: var(--t-caption); color: var(--c-text-muted); }
+
+.more > summary { cursor: pointer; font-size: var(--t-body); color: var(--c-secondary); padding: var(--sp-3) 0; }
+.detail { font-size: var(--t-body); line-height: 1.72; color: var(--c-text-secondary); max-width: var(--measure); }
+.detail--empty { color: var(--c-text-muted); font-style: normal; }
+.more h3 { font-size: var(--t-caption); color: var(--c-text-muted); letter-spacing: .04em; margin: var(--sp-6) 0 var(--sp-2); }
+.timeline { margin: 0; padding-left: var(--sp-5); font-size: var(--t-body); line-height: 1.6; }
+.timeline li { margin-bottom: var(--sp-3); word-break: keep-all; }
+.timeline b { color: var(--c-text-muted); font-weight: 600; font-size: var(--t-caption); }
+
+@media (max-width: 520px) {
+  .mk-wrap { padding: var(--sp-4) var(--sp-3) var(--sp-12); }
+  .toc-row { padding: var(--sp-4) var(--sp-3); }
+}
