@@ -3626,3 +3626,72 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
     transition-duration: .01ms !important;
   }
 }
+
+/* ── 목차형 홈 ────────────────────────────────────────────────────────
+   홈은 읽는 화면이 아니라 고르는 화면이다. 규칙 셋만 지킨다:
+
+   1. 제목이 가장 크다. 대분류·태그·출처는 작고 옅되 --c-text-muted
+      (4.69:1) 위로는 내리지 않는다 — '옅게'가 '안 보이게'가 되면 안 된다.
+   2. 제목은 두 줄을 목표로 하되 넘으면 높이가 늘어난다. 그래서 이 블록에는
+      text-overflow:ellipsis 도 -webkit-line-clamp 도 없다. 끝에 붙는
+      '승인·철회·연기'가 잘리면 고를 수가 없다("승인 중단"이 "승인"이 된다).
+   3. 반복 요소에 그림자를 얹지 않는다(위 규칙 3) — 스캔 목록이 스티커
+      시트가 된다. 위계는 괘선과 여백이 든다. */
+
+.today-head { margin-bottom: var(--sp-5); }
+.today-head-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
+.today-head h1 { font-size: var(--t-card); margin: 0; letter-spacing: -.01em; }
+.today-search {
+  display: block; width: 100%; margin-top: var(--sp-3); text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-surface); border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-1); color: var(--c-secondary); font-size: var(--t-body);
+  font-family: inherit; cursor: pointer;
+}
+.today-search:hover { border-color: var(--c-edge); }
+.today-date { margin: var(--sp-3) 0 0; font-size: var(--t-caption); color: var(--c-text-muted); }
+
+.toc {
+  display: block; background: var(--c-surface);
+  border: var(--bd-1) solid var(--c-border); border-radius: var(--r-2);
+}
+.toc-row {
+  display: grid; grid-template-areas: "chips meta" "title title";
+  grid-template-columns: auto 1fr; column-gap: var(--sp-3);
+  padding: var(--sp-4); border-bottom: var(--bd-1) solid var(--c-border);
+  text-decoration: none; color: inherit;
+}
+.toc-row:last-child { border-bottom: 0; }
+.toc-row:hover { background: var(--c-secondary-weak); }
+.toc-row:focus-visible { outline: none; box-shadow: var(--fo-ring); border-radius: var(--r-1); }
+.toc-chips { grid-area: chips; display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; margin-bottom: var(--sp-2); }
+.toc-chips:empty { display: none; }
+.toc .chip { font-size: 13px; font-weight: 600; color: var(--c-text-muted); }
+.toc .chip--tag { font-weight: 500; }
+.toc .chip--tag::before { content: " b7 "; }
+.toc-title {
+  grid-area: title; display: block;
+  font-size: clamp(18px, 2.2vw, 23px); font-weight: 680;
+  line-height: 1.38; letter-spacing: -.012em; word-break: keep-all;
+}
+.toc-meta {
+  grid-area: meta; align-self: center; text-align: right;
+  margin-bottom: var(--sp-2); font-size: var(--t-caption); color: var(--c-text-muted);
+}
+
+.cont { margin-top: var(--sp-8); }
+.cont h2 { font-size: var(--t-body); color: var(--c-text-secondary); margin: 0 0 var(--sp-3); }
+.cont-row { display: block; padding: var(--sp-3) 0; border-top: var(--bd-1) solid var(--c-border); text-decoration: none; color: inherit; }
+.cont-row:hover .cont-title { color: var(--c-secondary); }
+.cont-row:focus-visible { outline: none; box-shadow: var(--fo-ring); }
+.cont-title { display: block; font-size: var(--t-body); font-weight: 600; word-break: keep-all; }
+.cont-change { display: block; margin-top: var(--sp-1); font-size: var(--t-caption); color: var(--c-text-secondary); }
+
+.today-status { margin: var(--sp-8) 0 var(--sp-6); font-size: var(--t-caption); color: var(--c-text-muted); }
+
+@media (max-width: 520px) {
+  /* 좁은 화면에서는 출처가 칩 옆에서 두 줄로 감긴다 — 아래로 내려 제목이
+     먼저 읽히게 한다. 제목 크기는 건드리지 않는다. */
+  .toc-row { grid-template-areas: "chips" "title" "meta"; grid-template-columns: 1fr; }
+  .toc-meta { text-align: left; align-self: start; margin: var(--sp-2) 0 0; }
+}

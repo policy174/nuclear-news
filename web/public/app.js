@@ -928,7 +928,6 @@ function renderTopicSelects() {
     archiveCounts.set(topic, (archiveCounts.get(topic) || 0) + 1);
   }));
   [
-    ["topicSel", briefingCounts, state.topic],
     ["archiveTopic", archiveCounts, state.archiveTopic],
   ].forEach(([id, counts, selected]) => {
     const select = document.getElementById(id);
@@ -1290,29 +1289,16 @@ function emptyBriefingState(briefing) {
 
 function renderEmptyBriefing(briefing, issueList) {
   const view = emptyBriefingState(briefing);
-  document.getElementById("changedIssues").hidden = true;
-  document.getElementById("todayAgenda").hidden = true;
+  document.getElementById("continuingSection").hidden = true;
   // 사유는 히어로가 말하고, 목록은 '그래서 어디로 가면 되는가'만 담당한다.
   // 그 전제가 코드에 없어서 emptyBriefingState 가 만든 title 이 아무 데도 안
   // 붙고 있었다 — 0건인 날 화면에는 고정 헤드라인("이번 주 원자력, 무엇이
   // 달라졌나")만 남아, 아래가 비었는데 위에서는 달라진 게 있다고 말했다.
   // 2026-08-16 라이브에서 실제로 그렇게 났다(발송 실패로 그날 이슈가 0건).
-  const hero = document.getElementById("briefingHero");
-  // 이슈가 있던 날에서 날짜를 옮겨 오면 그날의 히어로 형태가 그대로 남는다.
-  if (hero) hero.classList.remove("lead-issue", "weekly-hero", "no-lead");
-  document.getElementById("briefingKicker").textContent = "주간 원자력 인텔리전스";
-  document.getElementById("briefingTitle").textContent = view.title;
   document.getElementById("briefingDateLabel").textContent =
     briefing && briefing.date ? dateWeekdayLabel(briefing.date) : "";
-  // 같은 이유로 직전 날짜의 선두 카드도 걷는다 — 0건이라면서 카드가 하나 떠
-  // 있는 화면이 된다.
-  document.getElementById("leadIssue").hidden = true;
-  document.getElementById("leadCard").innerHTML = "";
-  document.getElementById("showChangedIssues").hidden = true;
-  // 근거 칩도 함께 지운다 — 안 그러면 직전 브리핑의 근거가 남아 없는 문장을 가리킨다
-  const staleEvidence = document.getElementById("headlineEvidence");
-  if (staleEvidence) { staleEvidence.hidden = true; staleEvidence.innerHTML = ""; }
-  issueList.innerHTML = `<div class="empty-state"><p>${view.detail}</p></div>`;
+  document.getElementById("statusLine").textContent = "";
+  issueList.innerHTML = `<div class="empty-state"><strong>${esc(view.title)}</strong><p>${view.detail}</p></div>`;
 }
 
 // 날짜 문자열 산술은 UTC 자정 위에서만 한다.
@@ -1647,114 +1633,83 @@ function placeTodayAgenda() {
   }
 }
 
+// ── 목차형 홈 ───────────────────────────────────────────────────────
+// 홈은 읽는 화면이 아니라 고르는 화면이다. 선두 카드·달라진 이슈·오늘 이슈로
+// 갈려 있던 세 목록을 한 줄씩 세운 목차 하나로 합쳤다. 정렬·보기·필터는 걷었다
+// — 9줄에는 거를 것이 없고, 거르고 싶으면 탐색 탭이 주인이다.
+const TOC_LIMIT = 9;
+const CONTINUING_LIMIT = 3;
+
+// 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
+// 브라우저 기본 동작으로 따라온다 — pushState 로 가로채면 셋 다 직접 짜야 한다.
+function tocRow(issue) {
+  const domain = issue.domain || "";
+  // 대분류와 주제 태그가 같은 뜻이면 한 번만 쓴다("계속운전 · 계속운전" 금지).
+  const tags = (issue.domain_tags || []).filter(tag => tag && tag !== domain);
+  const chips = [
+    domain ? `<span class="chip chip--domain">${esc(domain)}</span>` : "",
+    ...tags.map(tag => `<span class="chip chip--tag">${esc(tag)}</span>`),
+  ].join("");
+  const rep = issue.representative_article || {};
+  const meta = [
+    rep.publisher || "",
+    (issue.article_count || 0) > 1 ? `기사 ${issue.article_count}건` : "",
+    dateLabel(issue.last_seen),
+  ].filter(Boolean).join(" · ");
+  return `<a class="toc-row" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  ${chips ? `<span class="toc-chips">${chips}</span>` : ""}
+  <span class="toc-title">${esc(issue.title)}</span>
+  <span class="toc-meta">${esc(meta)}</span>
+</a>`;
+}
+
+function continuingRow(issue) {
+  // 변화 문장은 'A → B' 꼴이다. 목차에 이미 제목이 있으니 바뀐 쪽만 보인다.
+  const change = String(issue.latest_change || "").split("→").pop().trim();
+  return `<a class="cont-row" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  <span class="cont-title">${esc(issue.title)}</span>
+  ${change ? `<span class="cont-change">${esc(change)}</span>` : ""}
+</a>`;
+}
+
 function renderBriefing() {
   const briefing = currentBriefing();
-  const issueList = document.getElementById("issueList");
-  // 부팅 스켈레톤을 걷고 본문 격자를 편다. 브리핑이 없는 날·0건인 날도 여기를
-  // 지나므로(아래 두 반환 경로) 격자가 접힌 채 남는 일은 없다.
+  const tocList = document.getElementById("tocList");
   document.body.classList.remove("booting");
-  // 모든 반환 경로(브리핑 없음·0건·정상)에서 한 번씩 판정되도록 맨 앞에서 부른다.
   renderAudioBrief(briefing);
   if (!briefing) {
-    renderEmptyBriefing(null, issueList);
+    renderEmptyBriefing(null, tocList);
     return;
   }
-  renderTodayAgenda(briefing);
-  renderHomeIntelligence(briefing);
-  // 필터 때문에 비어 보이는 것과 그날 실제로 이슈가 0건인 것은 다르다.
   if (!briefing.issues.length) {
-    renderEmptyBriefing(briefing, issueList);
-    document.getElementById("issueCount").textContent = "0개 이슈";
-    renderBriefingSidebar(briefing);
+    renderEmptyBriefing(briefing, tocList);
     renderNewsFeed();
     return;
   }
-  let issues = briefingIssuesForDisplay(briefing).filter(issueMatchesFilters);
-  // 선두는 편집 판단이라 목록 정렬 토글을 따르지 않는다 — '최신순'으로 바꿨다고
-  // 가장 먼저 볼 이슈가 달라지지는 않는다. 필터는 따른다(안 보이는 이슈를 선두로
-  // 세울 수는 없다).
-  const lead = issues[0] || null;
-  const leadId = lead ? lead.issue_id : "";
-  document.getElementById("leadIssue").hidden = !lead;
-  // 선두 이슈의 표시 여부가 정해진 **뒤에** 자리를 잡는다 — 앞에서 부르면
-  // 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다.
-  placeTodayAgenda();
-  document.getElementById("leadCard").innerHTML = lead ? leadCard(lead, briefing) : "";
-  if (state.issueSort === "latest") {
-    issues = [...issues].sort((a, b) => String(b.last_seen).localeCompare(String(a.last_seen)) || b.article_count - a.article_count);
-  }
-  // HERO 는 생성 문장이 아니라 고정 제품 헤드라인이다. daily_lead 는 아카이브와
-  // RSS 용으로 계속 만들지만 이 자리에 다시 연결하지 않는다.
-  document.getElementById("briefingTitle").textContent = "이번 주 원자력, 무엇이 달라졌나";
-  document.getElementById("briefingKicker").textContent = "주간 원자력 인텔리전스";
-  const hero = document.getElementById("briefingHero");
-  if (hero) {
-    hero.classList.add("lead-issue", "weekly-hero");
-    hero.classList.remove("no-lead");
-  }
-  document.getElementById("briefingDateLabel").textContent = `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호`;
-  // 근거 칩은 히어로가 문장을 낼 때 그 문장이 어디서 왔는지 보이려고 있었다.
-  // 낼 문장이 없으니 칩도 없다. 컨테이너는 남긴다 — index.html 이 참조한다.
-  const evidenceBox = document.getElementById("headlineEvidence");
-  if (evidenceBox) {
-    evidenceBox.hidden = true;
-    evidenceBox.innerHTML = "";
-  }
 
-  const changed = weeklyChangedIssues(briefing);
-  const sectionChanges = changed.length >= 3 ? changed : [];
-  const changedIds = new Set(sectionChanges.map(issue => issue.issue_id));
-  // 선두로 올린 이슈는 아래 두 목록에서 뺀다 — 같은 이슈가 한 화면에 두 번 서면
-  // 개수 표시("8개 이슈")도 실제 카드 수와 어긋난다.
-  const rest = issues.filter(issue => !changedIds.has(issue.issue_id) && issue.issue_id !== leadId);
-  const changedSection = document.getElementById("changedIssues");
-  const visibleChanged = sectionChanges.filter(issue => issueMatchesFilters(issue) && issue.issue_id !== leadId);
-  changedSection.hidden = visibleChanged.length === 0;
-  document.getElementById("changedCount").textContent = `${visibleChanged.length}개 이슈`;
-  document.getElementById("changedList").innerHTML =
-    visibleChanged.map((issue, index) => issueCard(issue, index)).join("");
-  const changedButton = document.getElementById("showChangedIssues");
-  changedButton.hidden = visibleChanged.length === 0;
-  // 몇 건이 달라졌는지는 버튼이 말한다 — 히어로에 지표 블록을 새로 세우면
-  // 헤더 상태 칩·상태 스트립과 같은 숫자를 되풀이하게 된다(중복 표시 금지 원칙).
-  if (visibleChanged.length) {
-    changedButton.innerHTML = `달라진 이슈 ${visibleChanged.length}건 보기 <span aria-hidden="true">→</span>`;
-  }
+  document.getElementById("briefingDateLabel").textContent =
+    `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호`;
 
-  document.getElementById("issueCount").textContent = `${rest.length}개 이슈`;
-  issueList.classList.toggle("list-view", state.issueView === "list");
-  // front 강조는 '기본 화면'에서만 — 최신 브리핑 + 필터·정렬이 기본값일 때.
-  // 편집 판단이 아니라 기존 순서의 상위 2건을 조판만 다르게 세우는 것이므로,
-  // 조건이 하나라도 어긋나면(과거 날짜·필터·최신순) 강조를 접는다. 개수는
-  // 정확히 2건 — "2~3건" 같은 재량 표현이 남으면 화면마다 다르게 구현된다.
-  const frontActive = briefing.date === state.briefings?.[0]?.date
-    && state.region === "전체" && state.topic === "전체"
-    && state.issueSort === "importance" && state.issueView === "card";
-  // 위 '지금 달라진 이슈'에 결과가 남아 있는데 아래에서 '없습니다'라고 하면
-  // 한 화면이 스스로를 부정한다. 두 구역을 합쳐 0건일 때만 빈 상태를 보인다.
-  const elsewhere = visibleChanged.length ? "지금 달라진 이슈" : "가장 먼저 볼 이슈";
-  issueList.innerHTML = rest.length
-    ? rest.map((issue, index) => issueCard(issue, index, false, frontActive && index < 2)).join("")
-    : (visibleChanged.length || lead
-      ? `<p class="section-note">필터에 맞는 이슈는 위 <strong>${elsewhere}</strong>에 있습니다.</p>`
-      : '<div class="empty-state"><strong>조건에 맞는 이슈가 없습니다</strong><p>주제나 지역 필터를 해제해 보세요.</p><button type="button" data-clear-briefing>필터 해제</button></div>');
-  const activeFilters = [];
-  if (state.region !== "전체") activeFilters.push(state.region);
-  if (state.topic !== "전체") activeFilters.push(TOPIC_LABELS[state.topic] || state.topic);
-  document.getElementById("filterSummary").innerHTML = activeFilters.map(item => `<span>${esc(item)}</span>`).join("");
-  document.getElementById("filterCount").textContent = activeFilters.length ? `(${activeFilters.length})` : "";
-  // 이 숫자는 세 자리(선두 카드 + 이어지는 이슈 + 오늘의 이슈)의 합계다. 바로 아래
-  // 섹션이 '7건'이라고 쓰는데 여기가 '8건'이면 한 화면이 스스로와 어긋나 보인다 —
-  // 무엇을 더한 값인지 말해 주면 어긋남이 아니라 내역이 된다.
-  // 선두 카드는 이 커밋(8551f68) 이후에 생겼다. 문구는 그때 것을 쓰되 셈은
-  // 선두 1건을 포함해야 한다 — 안 그러면 화면에 보이는 카드 수보다 하나 적다.
-  document.getElementById("filterSheetCount").textContent = `필터 결과 전체 ${visibleChanged.length + rest.length + (lead ? 1 : 0)}건`;
-  const clear = document.getElementById("clearFilters");
-  clear.hidden = activeFilters.length === 0;
-  clear.textContent = activeFilters.length ? `필터 해제 (${activeFilters.length})` : "필터 해제";
-  renderBriefingSidebar(briefing, leadId);
+  const ordered = briefingIssuesForDisplay(briefing);
+  const top = ordered.slice(0, TOC_LIMIT);
+  tocList.innerHTML = top.map(tocRow).join("");
+
+  // 이어지는 현안은 목차와 겹치지 않을 때만 선다 — 같은 이슈가 한 화면에 두 번
+  // 서면 9줄이라는 약속이 깨진다.
+  const shown = new Set(top.map(issue => issue.issue_id));
+  const continuing = weeklyChangedIssues(briefing)
+    .filter(issue => !shown.has(issue.issue_id))
+    .slice(0, CONTINUING_LIMIT);
+  document.getElementById("continuingSection").hidden = continuing.length === 0;
+  document.getElementById("continuingList").innerHTML = continuing.map(continuingRow).join("");
+
+  const articles = briefing.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
+  const hidden = ordered.length - top.length;
+  document.getElementById("statusLine").textContent =
+    `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`
+    + (hidden > 0 ? ` · 목차 밖 ${hidden}건은 탐색 탭에서` : "");
+
   renderNewsFeed();
-  renumberSections("view-news");
 }
 
 // ── 오디오 브리핑 플레이어 ──────────────────────────────────
@@ -5116,10 +5071,10 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  // briefingTitle: 기사 제목을 얹은 날의 h1 은 안에 상세 진입 버튼을 품는다.
-  // leadCard: 선두 카드 안의 버튼(타임라인·저장·공유)도 같은 위임을 탄다.
-  ["todayAgenda", "issueList", "changedList", "leadCard", "archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
-   "headlineEvidence", "weeklyReportBody", "insightList", "evidenceRail", "briefingTitle",
+  // 홈 목차는 이 위임을 타지 않는다 — 행이 통째로 <a href> 라 브라우저가
+  // 상세 페이지로 보낸다. 여기 남은 것은 다이얼로그를 여는 화면들뿐이다.
+  ["archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
+   "weeklyReportBody", "insightList",
    "recentIssueList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
@@ -5171,11 +5126,6 @@ function bind() {
     switchView("news");
   });
 
-  document.getElementById("showChangedIssues").addEventListener("click", () => {
-    const section = document.getElementById("changedIssues");
-    (section.hidden ? document.getElementById("todayIssues") : section)
-      .scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
-  });
   const briefAudio = document.getElementById("audioEl");
   document.getElementById("audioToggle").addEventListener("click", () => {
     if (briefAudio.paused) briefAudio.play().catch(() => {});
@@ -5267,31 +5217,8 @@ function bind() {
     renderAudioBrief(briefing);
   });
 
-  document.getElementById("regionTabs").addEventListener("click", event => {
-    const button = event.target.closest("[data-region]");
-    if (!button) return;
-    state.region = button.dataset.region;
-    setPressed(event.currentTarget, button);
-    renderBriefing();
-    syncUrl();
-  });
-  document.getElementById("topicSel").addEventListener("change", event => {
-    state.topic = event.target.value;
-    renderBriefing();
-    syncUrl();
-  });
-  document.getElementById("clearFilters").addEventListener("click", clearBriefingFilters);
-  document.getElementById("closeFilters").addEventListener("click", () => closeFilterDrawer(document.getElementById("briefingFilters")));
   document.getElementById("closeArchiveFilters").addEventListener("click", () => closeFilterDrawer(document.getElementById("archiveFilterDrawer")));
   initFilterDrawers();
-  document.getElementById("issueSort").addEventListener("change", event => { state.issueSort = event.target.value; renderBriefing(); });
-  document.getElementById("issueViewToggle").addEventListener("click", event => {
-    const button = event.target.closest("[data-issue-view]");
-    if (!button) return;
-    state.issueView = button.dataset.issueView;
-    setPressed(event.currentTarget, button);
-    renderBriefing();
-  });
   document.getElementById("dateSel").addEventListener("change", event => {
     state.briefingDate = event.target.value;
     renderDateSelect();
@@ -5489,7 +5416,7 @@ function renderLoadError(error) {
     willRetry ? `${Math.round(delay / 1000)}초 뒤 다시 시도합니다` : "'다시 시도'를 눌러 주세요"
   }</span></div>`;
   renderFailureCopy(lead, "브리핑을 불러오지 못했습니다");
-  // 오류 화면은 접혀 있는 격자 안(#issueList)에 그린다 — 여기서 안 걷으면
+  // 오류 화면은 목차 자리(#tocList)에 그린다 — 여기서 안 걷으면
   // 실패했는데 스켈레톤만 계속 도는 화면이 된다.
   document.body.classList.remove("booting");
   // 재시도가 끝났는데도 "잠시 후 다시 시도해 주세요"라고 하면 거짓말이 된다 —
@@ -5497,7 +5424,7 @@ function renderLoadError(error) {
   const guidance = willRetry
     ? `${Math.round(delay / 1000)}초 뒤 자동으로 다시 시도합니다.`
     : "자동 재시도를 5회 모두 실패했습니다. 아래 버튼으로 다시 시도해 주세요.";
-  document.getElementById("issueList").innerHTML = `<div class="error-state"><strong>데이터를 불러오지 못했습니다</strong><p>${guidance}</p><small>${esc(error.message)}</small><div><button type="button" id="retryInit">다시 시도</button><a href="mailto:policy174@naver.com">문의</a></div></div>`;
+  document.getElementById("tocList").innerHTML = `<div class="error-state"><strong>데이터를 불러오지 못했습니다</strong><p>${guidance}</p><small>${esc(error.message)}</small><div><button type="button" id="retryInit">다시 시도</button><a href="mailto:policy174@naver.com">문의</a></div></div>`;
   document.getElementById("retryInit")?.addEventListener("click", () => { initRetryCount = 0; init(); });
   if (willRetry) initRetryTimer = window.setTimeout(init, delay);
 }
@@ -5556,12 +5483,10 @@ async function init() {
   state.briefingDate = state.meta.latest_briefing_date || state.briefings[0]?.date || "";
   restoreUrlState();
   renderTopicSelects();
-  document.getElementById("topicSel").value = state.topic;
   document.getElementById("archiveRegion").value = state.archiveRegion;
   document.getElementById("archiveTopic").value = state.archiveTopic;
   document.getElementById("archiveVerification").value = state.archiveVerification;
   document.getElementById("globalSearch").value = state.archiveQuery;
-  setPressed(document.getElementById("regionTabs"), document.querySelector(`#regionTabs [data-region="${state.region}"]`));
   setPressed(document.getElementById("archivePeriod"), document.querySelector(`#archivePeriod [data-period="${state.archivePeriod}"]`));
   const firstIssueDate = state.issues.reduce((oldest, issue) => !oldest || issue.first_seen < oldest ? issue.first_seen : oldest, "");
   // 이슈 수와 원문 수는 다른 단위다. 한 숫자로 뭉치면 규모를 오해한다.
