@@ -309,6 +309,13 @@
       "reason": "다른 주체, 다른 협력 사안",
       "same_event": false
     },
+    "issue-10f5d9696b487b59--36d332f8d9": {
+      "issue_title": "포르튬 자회사 누코어 에너지, 스웨덴 신규 원전 건설에 국가 지원 신청",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "대상 원전 노형 또는 프로젝트가 다름",
+      "same_event": false
+    },
     "issue-10f5d9696b487b59--f2e783de29": {
       "issue_title": "포르튬 자회사 누코어 에너지, 스웨덴 신규 원전 건설에 국가 지원 신청",
       "keei_item": "스웨덴 Studsvik 등, 연이어 신규 원전 사업 국가보조 신청",
@@ -421,11 +428,25 @@
       "reason": "국가와 주체가 다름",
       "same_event": false
     },
+    "issue-189cc4c4e5021986--36d332f8d9": {
+      "issue_title": "두산스코다파워, 핀란드 로비사 원전 현대화 사업 착수",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "기업과 사안이 서로 다름",
+      "same_event": false
+    },
     "issue-18d7399f8aad9119--16d9dcc69c": {
       "issue_title": "한빛원전 2호기, 9월 11일 설계수명 만료로 가동 중단",
       "keei_item": "미 NRC, Hatch 원전 2차 계속운전 승인",
       "prompt_version": 1,
       "reason": "다른 원전, 다른 국가",
+      "same_event": false
+    },
+    "issue-196e74c9ed11607a--883d768ad7": {
+      "issue_title": "프랑스, 그라블린 원전 EPR2 2기 부지 준비 허가; 네덜란드, 신규 원전 설계 연구 계약",
+      "keei_item": "네덜란드 NEO NL, 신규원전 설계연구 수행업체로 EDF·Westinghouse 선정",
+      "prompt_version": 1,
+      "reason": "국가와 프로젝트 주체가 다름",
       "same_event": false
     },
     "issue-1e53d0f81cb14594--23a6f604ae": {
@@ -461,6 +482,13 @@
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
       "reason": "개별 원전 재가동 vs 법령 개정",
+      "same_event": false
+    },
+    "issue-2159831fad1ddf60--cba0dde103": {
+      "issue_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "keei_item": "일본 규제위, 원전 운전 중 계획적 정비 허용 추진",
+      "prompt_version": 1,
+      "reason": "규제기관 및 국가가 다름",
       "same_event": false
     },
     "issue-2159831fad1ddf60--dc799316ad": {
@@ -589,6 +617,13 @@
       "reason": "같은 규정 개정 절차",
       "same_event": true
     },
+    "issue-2abf24a24282c789--36d332f8d9": {
+      "issue_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "삼성물산 SMR과 포르툼 사업은 다름",
+      "same_event": false
+    },
     "issue-2abf24a24282c789--617747aa21": {
       "issue_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
       "keei_item": "스웨덴 정부, Ringhals 사업 추진 중인 Videberg Kraft 지분 60% 취득",
@@ -601,6 +636,13 @@
       "keei_item": "일본 JBIC, 대미 투자 2차 사업에 6.3조 원 융자…SMR은 보류",
       "prompt_version": 1,
       "reason": "삼성물산 SMR 사업과 일본 JBIC 융자는 서로 무관한 사안임",
+      "same_event": false
+    },
+    "issue-2abf24a24282c789--83998966ea": {
+      "issue_title": "삼성물산, 스웨덴 1.2GW SMR 사업 공동 EPC 파트너 참여",
+      "keei_item": "스웨덴 Blykalla, Untra 부지에 SMR 건설 사업 정부 승인·국가보조 신청 추진",
+      "prompt_version": 1,
+      "reason": "삼성물산과 Blykalla는 서로 다른 건임",
       "same_event": false
     },
     "issue-2abf24a24282c789--88604b2e8c": {
@@ -665,6 +707,13 @@
       "prompt_version": 1,
       "reason": "대상 국가 다름",
       "same_event": false
+    },
+    "issue-2fdecbf8a6f380af--f5d65c6801": {
+      "issue_title": "미 육군, 야누스 프로그램으로 5개 기지에 20기 이상 마이크로원자로 배치",
+      "keei_item": "미 육군, Janus 프로그램 마이크로원자로 5개 사업자·부지 선정",
+      "prompt_version": 1,
+      "reason": "미 육군 야누스 프로그램 사업자 선정",
+      "same_event": true
     },
     "issue-302efc1d05fea600--3d685ecca6": {
       "issue_title": "싱가포르, 에너지 전환 전략에 원자력·재생에너지 병행 추진",
@@ -776,6 +825,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 사안",
+      "same_event": false
+    },
+    "issue-33d1eec62d688128--10aeef51d9": {
+      "issue_title": "국회, 재생에너지 RPS 제도 폐지 및 정부 주도 계약시장 도입 법안 통과",
+      "keei_item": "IAEA, 해상 원자력 이용 촉진 위한 국제협력체계 ‘ATLAS’ 출범",
+      "prompt_version": 1,
+      "reason": "국내 법안과 IAEA 협력체계는 무관",
       "same_event": false
     },
     "issue-33d1eec62d688128--6445d0b3c3": {
@@ -1793,6 +1849,13 @@
       "reason": "다른 국가, 다른 주체",
       "same_event": false
     },
+    "issue-6833a35dd8fc11fe--d38ee438da": {
+      "issue_title": "McDermott, 네덜란드 Rolls-Royce SMR 프로젝트 지원 협력 계약 체결",
+      "keei_item": "독일 Siemens Energy, Rolls-Royce SMR용 증기터빈 핵심부품 생산 추진",
+      "prompt_version": 1,
+      "reason": "McDermott와 Siemens Energy는 별개 계약",
+      "same_event": false
+    },
     "issue-6840549526cc231d--6445d0b3c3": {
       "issue_title": "인도, SHANTI 법안 규칙에 대한 대중 의견 수렴 착수",
       "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
@@ -1925,6 +1988,13 @@
       "prompt_version": 1,
       "reason": "국가, 주체, 안건 모두 다름",
       "same_event": false
+    },
+    "issue-72fdb8f9c170e368--f5d65c6801": {
+      "issue_title": "미 육군 야누스 프로그램, 5개 원자로 개발사 및 군 기지 선정 발표",
+      "keei_item": "미 육군, Janus 프로그램 마이크로원자로 5개 사업자·부지 선정",
+      "prompt_version": 1,
+      "reason": "미 육군 Janus 프로그램 사업자 선정",
+      "same_event": true
     },
     "issue-737df86cf04543b5--23a6f604ae": {
       "issue_title": "AI 시대 전력수요 대응 위한 한전 중심 전력산업 재편 논의 본격화",
@@ -2108,6 +2178,13 @@
       "reason": "대상 원전과 사안이 다름",
       "same_event": false
     },
+    "issue-813f63b730f89d11--36d332f8d9": {
+      "issue_title": "스웨덴, 신규 원전 3400MW 건설에 현대건설 AP1000 등 3개 노형 경쟁",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "현대건설 입찰 경쟁과 포르툼 보조금은 다름",
+      "same_event": false
+    },
     "issue-813f63b730f89d11--f2e783de29": {
       "issue_title": "스웨덴, 신규 원전 3400MW 건설에 현대건설 AP1000 등 3개 노형 경쟁",
       "keei_item": "스웨덴 Studsvik 등, 연이어 신규 원전 사업 국가보조 신청",
@@ -2155,6 +2232,13 @@
       "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
       "prompt_version": 1,
       "reason": "주체와 범위가 다름",
+      "same_event": false
+    },
+    "issue-8544fbda8f613329--75a9edbcb6": {
+      "issue_title": "캐나다 Prodigy, 원주민과 이동형 원전 건설 협약 체결",
+      "keei_item": "스웨덴 Studsvik, 한·미 기업과 BWRX-300 SMR 4기 공동 개발 협약 체결",
+      "prompt_version": 1,
+      "reason": "캐나다와 스웨덴의 서로 다른 기업 협약",
       "same_event": false
     },
     "issue-858f887a11d713e9--c2b8808fe0": {
@@ -2248,6 +2332,13 @@
       "reason": "주체, 대상, 안건 모두 다름",
       "same_event": false
     },
+    "issue-89df4dc9da6b2837--36d332f8d9": {
+      "issue_title": "우간다, 한국 기업의 원전·AI 사업 참여 지원 당부",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "우간다 협력과 스웨덴 보조금은 무관",
+      "same_event": false
+    },
     "issue-89df4dc9da6b2837--76da1c3e41": {
       "issue_title": "우간다, 한국 기업의 원전·AI 사업 참여 지원 당부",
       "keei_item": "미 에너지부, X-energy의 Texas 사업에 최대 1조 4,000억 원 추가 지원",
@@ -2282,6 +2373,13 @@
       "prompt_version": 1,
       "reason": "미-사우디 원자력 협정의 진행 단계",
       "same_event": true
+    },
+    "issue-8ba4942a5024e40e--e52f9efd04": {
+      "issue_title": "美-사우디 민수용 원자력 협상, 우라늄 농축 딜레마 분석",
+      "keei_item": "미국·사우디아라비아 123 협정, 미 의회 제출·검토 절차 돌입",
+      "prompt_version": 1,
+      "reason": "협상 쟁점 분석과 의회 제출 절차는 다름",
+      "same_event": false
     },
     "issue-8d4e6351d6c710b2--92b30862a0": {
       "issue_title": "국회, 국가기간 전력망 확충 특별법 등 민생법안 70여건 본회의 통과",
@@ -2352,6 +2450,13 @@
       "prompt_version": 1,
       "reason": "다른 국가, 다른 주체",
       "same_event": false
+    },
+    "issue-9397ece8baa51088--36d332f8d9": {
+      "issue_title": "포르툼, 스웨덴 신규 원전 건설 위한 국가 지원 신청",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "포르툼의 스웨덴 원전 국가 지원 신청",
+      "same_event": true
     },
     "issue-9397ece8baa51088--f2e783de29": {
       "issue_title": "포르툼, 스웨덴 신규 원전 건설 위한 국가 지원 신청",
@@ -2463,6 +2568,13 @@
       "keei_item": "중국 Taipingling 원전 2호기, 최초 계통연결 완료",
       "prompt_version": 1,
       "reason": "다른 원전, 다른 호기",
+      "same_event": false
+    },
+    "issue-9c6e9baaf48da56b--07df75016b": {
+      "issue_title": "두산에너빌리티, 오만 미스파 가스복합발전소 9300억원 규모 EPC 계약 체결",
+      "keei_item": "카자흐스탄, 러시아 Rosatom과 Balkhash 원전 EPC 계약 체결",
+      "prompt_version": 1,
+      "reason": "오만 가스복합과 카자흐스탄 원전은 무관",
       "same_event": false
     },
     "issue-9dacbce26e9badf0--d4863d270a": {
@@ -2766,6 +2878,13 @@
       "reason": "일반 논의와 개별 사업",
       "same_event": false
     },
+    "issue-b55e201374267ece--10aeef51d9": {
+      "issue_title": "IAEA, 해상 원자력 기술 활용 위한 ATLAS 프로그램 출범",
+      "keei_item": "IAEA, 해상 원자력 이용 촉진 위한 국제협력체계 ‘ATLAS’ 출범",
+      "prompt_version": 1,
+      "reason": "IAEA ATLAS 프로그램 출범 동일 사안",
+      "same_event": true
+    },
     "issue-b55e201374267ece--23a6f604ae": {
       "issue_title": "美 어플라이드 아토믹스, 4억 달러 투입 엠파워 SMR 재추진",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -2778,6 +2897,13 @@
       "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
       "prompt_version": 1,
       "reason": "다른 기술, 다른 안건",
+      "same_event": false
+    },
+    "issue-b618a6d2a00c142d--7ba1502b12": {
+      "issue_title": "이원주 기후에너지환경부 에너지전환정책실장, 靑 메가프로젝트 보좌관 임명",
+      "keei_item": "원전산업 현지화 추진 사례(IAEA 보고서)",
+      "prompt_version": 1,
+      "reason": "인사 발령과 IAEA 보고서는 무관",
       "same_event": false
     },
     "issue-b7041a996c04f630--249f1333d0": {
@@ -2828,6 +2954,13 @@
       "prompt_version": 1,
       "reason": "대상 국가, 사안 다름",
       "same_event": false
+    },
+    "issue-ba51bf425ca92c1c--77d959ece5": {
+      "issue_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "원안위 i-SMR 표준설계인가 심사 착수",
+      "same_event": true
     },
     "issue-ba51bf425ca92c1c--841ceedbf0": {
       "issue_title": "이재명 대통령, SMR 등 7대 미래성장동력 전략적 투자 강조",
@@ -3228,6 +3361,13 @@
       "reason": "다른 원전, 다른 공정 단계",
       "same_event": false
     },
+    "issue-cd7db33ecb04145e--e0700959da": {
+      "issue_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
+      "keei_item": "중국, Zhaoyuan 원전 2호기 최초 콘크리트 타설",
+      "prompt_version": 1,
+      "reason": "바이룽 2호기와 자오위안 2호기는 다른 원전",
+      "same_event": false
+    },
     "issue-cdd5f9ed8f148233--0073017cf6": {
       "issue_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
       "keei_item": "일본 간사이전력, 후쿠이현 지역 활성화 지원금 작년보다 약 93억 원 감소",
@@ -3268,6 +3408,13 @@
       "keei_item": "주요국 핵융합에너지 개발 현황 비교(EU Fusion for Energy 보고서)",
       "prompt_version": 1,
       "reason": "A는 개별 지원, B는 일반 보고서",
+      "same_event": false
+    },
+    "issue-d016d9dfb936a7af--cba0dde103": {
+      "issue_title": "금화피에스시, 한수원과 331억 원 한울본부 정비 계약 체결",
+      "keei_item": "일본 규제위, 원전 운전 중 계획적 정비 허용 추진",
+      "prompt_version": 1,
+      "reason": "한울본부 정비 계약과 일본의 정비 허용 추진은 별개 사안",
       "same_event": false
     },
     "issue-d02e823fd0afcdf6--64601fdd0c": {
@@ -3311,6 +3458,13 @@
       "prompt_version": 1,
       "reason": "주체, 대상, 안건이 다름",
       "same_event": false
+    },
+    "issue-d37600e1640b08bf--6ed1757444": {
+      "issue_title": "PNNL, 팔리세이즈 원전 재가동 환경 평가 가속화 지원",
+      "keei_item": "미국 Holtec, Palisades 원전 재가동 위한 연료장전 착수",
+      "prompt_version": 1,
+      "reason": "미국 팔리세이즈 원전 재가동 관련 동일 사건",
+      "same_event": true
     },
     "issue-d37600e1640b08bf--b6aec252c7": {
       "issue_title": "PNNL, 팔리세이즈 원전 재가동 환경 평가 가속화 지원",
@@ -3452,6 +3606,13 @@
       "reason": "다른 주, 다른 안건",
       "same_event": false
     },
+    "issue-db89d389ada4d697--10aeef51d9": {
+      "issue_title": "국제원자력기구(IAEA) ATLAS 해양 원자력 이니셔티브에 26개국 참여",
+      "keei_item": "IAEA, 해상 원자력 이용 촉진 위한 국제협력체계 ‘ATLAS’ 출범",
+      "prompt_version": 1,
+      "reason": "IAEA ATLAS 해양 원자력 이니셔티브 출범 동맹",
+      "same_event": true
+    },
     "issue-dbc2743e407e894e--add41ecabd": {
       "issue_title": "테네시주, Type One Energy에 상업용 핵융합 시설 첫 인허가 발급",
       "keei_item": "미국 Tennessee·Washington 주, 핵융합 규제 정비 및 인허가 진전",
@@ -3472,6 +3633,13 @@
       "prompt_version": 1,
       "reason": "동일 협정의 다른 표현",
       "same_event": true
+    },
+    "issue-dc1568d26b7a3c04--e52f9efd04": {
+      "issue_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
+      "keei_item": "미국·사우디아라비아 123 협정, 미 의회 제출·검토 절차 돌입",
+      "prompt_version": 1,
+      "reason": "협정 체결과 미 의회 제출 절차는 진행 단계가 다름",
+      "same_event": false
     },
     "issue-dc1568d26b7a3c04--ee30e34bc3": {
       "issue_title": "사우디아라비아-미국, 평화적 핵에너지 협력 및 양자 안전조치 협정 체결",
@@ -3739,6 +3907,20 @@
       "reason": "주체와 사안이 다름",
       "same_event": false
     },
+    "issue-e81f303cd42dbed5--9f6f4710a8": {
+      "issue_title": "우즈베키스탄, 지자흐 2.1GW 원전 국산화율 30%로 상향",
+      "keei_item": "우즈베키스탄 정부, Jizzakh 원전 사업 현지화 비중 30%로 확대 추진",
+      "prompt_version": 1,
+      "reason": "우즈베키스탄 지자흐 원전 현지화 비중 확대 동일 사안",
+      "same_event": true
+    },
+    "issue-e83fff73156ff7f4--07df75016b": {
+      "issue_title": "로사톰, 카자흐스탄 발하시 원전 2.4GW EPC 계약 체결",
+      "keei_item": "카자흐스탄, 러시아 Rosatom과 Balkhash 원전 EPC 계약 체결",
+      "prompt_version": 1,
+      "reason": "카자흐스탄 발하시 원전 EPC 계약 체결 동일 사건",
+      "same_event": true
+    },
     "issue-e86ceaef07092ccd--bd91314eae": {
       "issue_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
       "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
@@ -3949,11 +4131,25 @@
       "reason": "미-사우디 123 협정 진행 단계",
       "same_event": true
     },
+    "issue-fb0c85d957b01043--e52f9efd04": {
+      "issue_title": "미국-사우디, 평화적 원자력 협력 위한 123 협정 체결",
+      "keei_item": "미국·사우디아라비아 123 협정, 미 의회 제출·검토 절차 돌입",
+      "prompt_version": 1,
+      "reason": "123협정 체결과 의회 제출·검토 단계는 다름",
+      "same_event": false
+    },
     "issue-fb0c85d957b01043--ee30e34bc3": {
       "issue_title": "미국-사우디, 평화적 원자력 협력 위한 123 협정 체결",
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
       "prompt_version": 1,
       "reason": "미-사우디와 호주-인도의 서로 다른 협정임",
+      "same_event": false
+    },
+    "issue-fdc59ff2116b1ced--77d959ece5": {
+      "issue_title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "한수원 경영전략 수립과 원안위 i-SMR 심사는 별개",
       "same_event": false
     }
   },
