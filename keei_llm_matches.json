@@ -708,6 +708,20 @@
       "reason": "대상 원전과 안건이 다름",
       "same_event": false
     },
+    "issue-31c33c123ed184e7--85716785e1": {
+      "issue_title": "체코 원자력안전청, 테멜린 원전 1호기 웨스팅하우스 핵연료 사용 승인",
+      "keei_item": "독일, Lingen 공장 VVER-1000 원전연료 생산을 위한 시설변경 승인",
+      "prompt_version": 1,
+      "reason": "체코 테멜린 연료 승인과 독일 공장 연료 승인은 다른 사건임",
+      "same_event": false
+    },
+    "issue-31c33c123ed184e7--a50cc0c8f8": {
+      "issue_title": "체코 원자력안전청, 테멜린 원전 1호기 웨스팅하우스 핵연료 사용 승인",
+      "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
+      "prompt_version": 1,
+      "reason": "체코 원전 연료 승인과 미 NRC의 Framatome 승인은 다름",
+      "same_event": false
+    },
     "issue-320c30e555c0cd76--f797174d9b": {
       "issue_title": "이란 혁명수비대, 미·이스라엘 핵 보유 시 핵 개발 지속 경고",
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
@@ -1738,10 +1752,10 @@
       "same_event": false
     },
     "issue-65bc735c35edf37c--249f1333d0": {
-      "issue_title": "한국수력원자력, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
+      "issue_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "다른 주체, 다른 사안",
+      "reason": "한수원-필리핀과 미-한일 SMR 협력은 다른 사건임",
       "same_event": false
     },
     "issue-65bc735c35edf37c--841ceedbf0": {
@@ -1841,6 +1855,13 @@
       "prompt_version": 1,
       "reason": "같은 규정 개정의 다른 단계",
       "same_event": true
+    },
+    "issue-6bd77dd19faecf6a--841ceedbf0": {
+      "issue_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "한미 대미 투자 합의와 캐나다 원자력 전략 발표는 다름",
+      "same_event": false
     },
     "issue-6d595b8e75280614--23a6f604ae": {
       "issue_title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
@@ -2225,6 +2246,13 @@
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
       "prompt_version": 1,
       "reason": "주체, 대상, 안건 모두 다름",
+      "same_event": false
+    },
+    "issue-89df4dc9da6b2837--76da1c3e41": {
+      "issue_title": "우간다, 한국 기업의 원전·AI 사업 참여 지원 당부",
+      "keei_item": "미 에너지부, X-energy의 Texas 사업에 최대 1조 4,000억 원 추가 지원",
+      "prompt_version": 1,
+      "reason": "우간다의 한국 기업 당부와 미 에너지부의 X-energy 지원은 다름",
       "same_event": false
     },
     "issue-8a6cb1986d1d299e--9a0229abcf": {
@@ -2963,10 +2991,10 @@
       "same_event": false
     },
     "issue-c08191b8c3fa83e9--7d0ce85eb8": {
-      "issue_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "issue_title": "김정관 산업장관, 미국 방문해 대미투자 1호 사업 및 원전 2기 건설 최종 조율",
       "keei_item": "일본 JBIC, 대미 투자 2차 사업에 6.3조 원 융자…SMR은 보류",
       "prompt_version": 1,
-      "reason": "알래스카 LNG 압박과 일본 JBIC 융자는 별개의 사안임",
+      "reason": "한국 장관 대미 투자와 일본 JBIC의 융자는 별개의 사안임",
       "same_event": false
     },
     "issue-c08191b8c3fa83e9--c35275bb9a": {
@@ -3138,10 +3166,17 @@
       "same_event": true
     },
     "issue-cc2e553cf2927ac5--249f1333d0": {
-      "issue_title": "웨스팅하우스-아멘텀, AP1000/AP300 협력 계약 체결",
+      "issue_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
       "prompt_version": 1,
-      "reason": "주체, 대상, 범위가 다름",
+      "reason": "웨스팅하우스 협력과 한미일 SMR 협력은 다른 사건임",
+      "same_event": false
+    },
+    "issue-cc2e553cf2927ac5--a3cf49987b": {
+      "issue_title": "美 웨스팅하우스·아멘텀, AP1000·AP300 협력 확대 계약",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 계약과 TerraPower의 공급망 협력은 다름",
       "same_event": false
     },
     "issue-cc2e553cf2927ac5--dcf5909f44": {

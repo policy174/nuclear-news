@@ -1352,6 +1352,16 @@
       "right_title": "정유로 벌고 AI로 키운다…GS, 2.4GW 데이터센터 승부수",
       "same_event": false
     },
+    "023eaaeb5c3ba7ad--0fefdbbf50ae882c": {
+      "embedding_similarity": 0.9128,
+      "left_title": "경남도, SMR 글로벌 육성전략 2.0 발표…10년간 4조6990억원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남도 SMR 육성 전략",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "경남도, 4조 7천억 원 투입해 SMR 산업 생태계 선점 추진",
+      "same_event": true
+    },
     "023eaaeb5c3ba7ad--3eb0eeaad988fbd7": {
       "embedding_similarity": 0.8829,
       "left_title": "경남도의회, SMR 특별법 시행 앞두고 경남 특구 지정 건의",
@@ -2562,6 +2572,16 @@
       "right_title": "12차 전기본, 2040년 전력수요 재산정 및 '전기국가' 전략 본격화",
       "same_event": true
     },
+    "04efed515cb6116f--5142973d6b48c8a1": {
+      "embedding_similarity": 0.8476,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 확충 요구",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "여야 의원·한수원 노조, 제12차 전기본 원전 확충 및 계속운전 반영 촉구",
+      "same_event": true
+    },
     "04efed515cb6116f--520f29d551639aec": {
       "embedding_similarity": 0.8783,
       "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
@@ -3370,6 +3390,76 @@
       "reason": "수도권 원전 건설 필요성 언급",
       "reviewed_at": "2026-08-09T05:45:24.592522+00:00",
       "right_title": "김정관 장관, 수도권 원전 건설 필요성 언급하며 반도체 클러스터 강조",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--10da48de39f64b09": {
+      "embedding_similarity": 0.9157,
+      "left_title": "한·프, 협력·MOU 문건 16건 채택…군사·AI·원자력 협력 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 첨단기술 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--23da29650a8bc025": {
+      "embedding_similarity": 0.9028,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 간 협력과 기업의 AI 소개",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "네이버, 프랑스와 AI 협력 확대…한수원 협업 'Hy-NuRI' 원전 특화 AI 소개",
+      "same_event": false
+    },
+    "0591d0ff1fc0988c--2fffa431ceda1473": {
+      "embedding_similarity": 0.9014,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 AI 및 원전 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국-프랑스, AI·원전연료 등 16건 협력문건 체결",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--64dd2d2eb7585dd7": {
+      "embedding_similarity": 0.9045,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 AI 및 원전 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한-프랑스, 원전·AI·우주 등 16건 협력 문건 체결",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--7f147b6638e91bec": {
+      "embedding_similarity": 0.9198,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 첨단기술 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·프, 군사·원자력 협력 강화…AI·반도체 MOU 체결",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--bf760dea60ef24c4": {
+      "embedding_similarity": 0.9152,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 첨단기술 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한-프랑스 비즈니스 라운드테이블 개최…첨단산업 협력 고도화 모색",
+      "same_event": true
+    },
+    "0591d0ff1fc0988c--e436f8b57d691cbe": {
+      "embedding_similarity": 0.906,
+      "left_title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 AI 및 원자력 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국·프랑스, AI 및 핵연료 등 기술·안보 동맹 강화 합의",
       "same_event": true
     },
     "05b42bdf43217603--e17805472c05ed7e": {
@@ -9612,6 +9702,16 @@
       "right_title": "뉴클레오, 미국 MOX 연료 공장 인허가 계획 제출",
       "same_event": false
     },
+    "0f16386b54504128--76a70f0330c3db48": {
+      "embedding_similarity": 0.9058,
+      "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "민간 원자력 고위급대화 출범",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·프랑스 정상회담서 민간 원자력 고위급대화 출범 및 오라노와 농축협력 체결",
+      "same_event": true
+    },
     "0f16386b54504128--84038b03afe761fa": {
       "embedding_similarity": 0.8881,
       "left_title": "한-佛 정상회담, 방산·원자력 등 6개 분야 협력 강화",
@@ -9751,6 +9851,16 @@
       "reviewed_at": "2026-08-10T03:14:00.269593+00:00",
       "right_title": "AI 데이터센터 성장 비전, 전력·용수 공급 지연 우려",
       "same_event": false
+    },
+    "0f9db833c21540ca--9d64535a81b9a8fb": {
+      "embedding_similarity": 0.842,
+      "left_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 원전 수명연장 심사 반대",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "부산 탈핵단체, 고리 3·4호기 수명 연장 중단 촉구",
+      "same_event": true
     },
     "0fa89838a34686b8--8c6eb5250550b959": {
       "embedding_similarity": 0.8421,
@@ -10871,6 +10981,36 @@
       "reviewed_at": "2026-08-09T00:56:00.347603+00:00",
       "right_title": "이번 주, 여름 휴가 복귀 및 폭염으로 역대 최대 전력수요 경신 가능성",
       "same_event": false
+    },
+    "10da48de39f64b09--181eef88ae7f79e6": {
+      "embedding_similarity": 0.9058,
+      "left_title": "한·프, 협력·MOU 문건 16건 채택…군사·AI·원자력 협력 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "종합 협력과 특정 MOU 체결",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·프랑스, SMR 공동연구 위한 원자력 R&D 협력 MOU 조만간 체결 예정",
+      "same_event": false
+    },
+    "10da48de39f64b09--7937f4e9d4d92267": {
+      "embedding_similarity": 0.9119,
+      "left_title": "한·프, 협력·MOU 문건 16건 채택…군사·AI·원자력 협력 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 MOU 체결",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한-프랑스, 군사안보·AI·원전 등 16건 MOU 체결로 협력 강화",
+      "same_event": true
+    },
+    "10da48de39f64b09--a2fd55bbd4003a24": {
+      "embedding_similarity": 0.9174,
+      "left_title": "한·프랑스 정상회담, SMR 공동연구 및 우라늄 농축 협력 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 정상회담 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·프, 협력·MOU 문건 16건 채택…군사·AI·원자력 협력 확대",
+      "same_event": true
     },
     "10f5d9696b487b59--119751b359f131ad": {
       "embedding_similarity": 0.8745,
@@ -21012,6 +21152,26 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": false
     },
+    "244cdfa089de7b4b--3d985a095960d6d2": {
+      "embedding_similarity": 0.9058,
+      "left_title": "한수원, 국제물주간 공동 주최…수력·양수발전 AI 접목 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국제물주간 공동 주최",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한수원 공동 주최 '대한민국 국제물주간 2026' 대구서 개막",
+      "same_event": true
+    },
+    "244cdfa089de7b4b--e7e2266a31c1b958": {
+      "embedding_similarity": 0.9173,
+      "left_title": "한수원, 국제물주간 공동 주최…수력·양수발전 AI 접목 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국제물주간 행사 개최",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "기후에너지환경부 등 공동 주최 '대한민국 국제물주간 2026' 대구 개막",
+      "same_event": true
+    },
     "244dfaecb860642f--510b6993261d80ee": {
       "embedding_similarity": 0.8439,
       "left_title": "정부, SMR 등 7대 첨단기술 'SEED 프로젝트' 발표",
@@ -21831,6 +21991,16 @@
       "reviewed_at": "2026-08-18T06:49:59.225835+00:00",
       "right_title": "창원시, SMR 제조부품 시험검사 지원센터 국비 확보 건의",
       "same_event": false
+    },
+    "25c0ec611d4b695e--76a70f0330c3db48": {
+      "embedding_similarity": 0.9087,
+      "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 원자력 협력 논의",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "이재명 대통령, 프랑스 국빈 방문서 AI·원자력 협력 논의",
+      "same_event": true
     },
     "25c0ec611d4b695e--84038b03afe761fa": {
       "embedding_similarity": 0.897,
@@ -23542,6 +23712,16 @@
       "right_title": "한국, 미국과 SMR 기술 격차 4년…사업화 가속화 필요",
       "same_event": false
     },
+    "2988c1ab9b3747e5--9d64535a81b9a8fb": {
+      "embedding_similarity": 0.8519,
+      "left_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "노후 원전 수명연장 심사 반대",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "탈핵부산시민연대, 고리본부서 노후 원전 수명연장 심사 규탄 기자회견",
+      "same_event": true
+    },
     "29937f3b8e104c91--c78e0418362af12c": {
       "embedding_similarity": 0.9191,
       "left_title": "베트남 국회의장, 한덕수 총리 면담서 한국 기업의 원전 등 메가 프로젝트 참여 희망",
@@ -24270,6 +24450,16 @@
       "reason": "지역별 전기요금 차등제 설계안",
       "reviewed_at": "2026-09-04T01:08:51.191668+00:00",
       "right_title": "정부 전기요금 차등제 초안, 울산 지역 실효성 부족 지적",
+      "same_event": true
+    },
+    "2b0349e4305b27b2--82d6b22684551922": {
+      "embedding_similarity": 0.9046,
+      "left_title": "원안위, 2026년 월성·한울 원전 동시 방사선 비상 대비 국가방사능방재 연합훈련 실시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "월성원전 방사능 방재 훈련",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "포항시·원안위, 월성원전 방사선 비상 대비 연합훈련 실시",
       "same_event": true
     },
     "2b14174897fe42e6--bca1920d907255cd": {
@@ -25961,6 +26151,26 @@
       "reviewed_at": "2026-08-30T20:36:31.001439+00:00",
       "right_title": "박용선 포항시장, 지역별 차등 전기요금제 조속 시행 요구",
       "same_event": true
+    },
+    "2ea68139776e08db--806225e255d4065e": {
+      "embedding_similarity": 0.904,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 협상 조율",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "김정관 산업장관, 미국 방문해 대미투자 세부 조율 및 15% 관세 방어 협의",
+      "same_event": true
+    },
+    "2eb5995ebd0c31b9--31c33c123ed184e7": {
+      "embedding_similarity": 0.8542,
+      "left_title": "체코, 기존 원전 80년 장기운전 및 신규 2기 건설·SMR 개발 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 체코 원전 사안",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "체코 원자력안전청, 테멜린 원전 1호기 웨스팅하우스 핵연료 사용 승인",
+      "same_event": false
     },
     "2eb5995ebd0c31b9--3c2431c611ed055c": {
       "embedding_similarity": 0.8664,
@@ -35292,6 +35502,16 @@
       "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
       "same_event": true
     },
+    "3f901e12f3d58c9c--724a3270a5cb5092": {
+      "embedding_similarity": 0.9021,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 논의",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
+      "same_event": true
+    },
     "3f901e12f3d58c9c--76c25b6cb116675c": {
       "embedding_similarity": 0.902,
       "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
@@ -43822,6 +44042,16 @@
       "right_title": "'K-문샷' AI 과학자 사업 난항, 적임자 재모색",
       "same_event": false
     },
+    "5142973d6b48c8a1--fbd3322d6a137c46": {
+      "embedding_similarity": 0.85,
+      "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 확충 요구",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "여야 의원·한수원 노조, 제12차 전기본 원전 확충 및 계속운전 반영 촉구",
+      "same_event": true
+    },
     "5167039add8b16d2--6b44ee4146ad6b25": {
       "embedding_similarity": 0.8436,
       "left_title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
@@ -50022,6 +50252,16 @@
       "right_title": "경북도·포항시, 철강산업 경쟁력 위해 지역별 차등 전기요금제 도입 촉구",
       "same_event": false
     },
+    "595a5a6d2f6514ab--724a3270a5cb5092": {
+      "embedding_similarity": 0.915,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한미 대미투자 최종 합의문 구상에 미국 내 원전 8기 건설 포함",
+      "same_event": true
+    },
     "595a5a6d2f6514ab--9d9b9712c4e75084": {
       "embedding_similarity": 0.9055,
       "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
@@ -50540,6 +50780,16 @@
       "reason": "미국 내 원전 8기 건설 협상",
       "reviewed_at": "2026-09-08T17:26:53.835567+00:00",
       "right_title": "한국 정부, 미국 내 원전 8기 건설 등 대미 투자 협상 진행 중",
+      "same_event": true
+    },
+    "59fdec838a3146f8--724a3270a5cb5092": {
+      "embedding_similarity": 0.9095,
+      "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
       "same_event": true
     },
     "59fdec838a3146f8--770db940df0e326f": {
@@ -58252,6 +58502,16 @@
       "right_title": "HD하이드로젠, SOFC 발전설비 양산체계 구축",
       "same_event": false
     },
+    "6c07c355a200d029--724a3270a5cb5092": {
+      "embedding_similarity": 0.9146,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국 정부, 미국 내 원전 8기 건설 등 대미 투자 협상 진행 중",
+      "same_event": true
+    },
     "6c07c355a200d029--806225e255d4065e": {
       "embedding_similarity": 0.8959,
       "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
@@ -60542,6 +60802,16 @@
       "right_title": "AI 데이터센터 전력 수요 급증, 정부 지원책 논의 활발",
       "same_event": false
     },
+    "724a3270a5cb5092--770db940df0e326f": {
+      "embedding_similarity": 0.9023,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 사업 합의",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한미, 대미 전략투자 후속으로 원전 사업 추진 의견 접근",
+      "same_event": true
+    },
     "724a3270a5cb5092--806225e255d4065e": {
       "embedding_similarity": 0.8949,
       "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
@@ -60550,6 +60820,66 @@
       "reason": "한미 대미투자 협상 진행",
       "reviewed_at": "2026-09-10T18:18:06.808564+00:00",
       "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "same_event": true
+    },
+    "724a3270a5cb5092--81d0ccd190a702d9": {
+      "embedding_similarity": 0.9109,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국 정부, 2000억 달러 대미 투자로 미국에 대형 원전 8기 건설 추진",
+      "same_event": true
+    },
+    "724a3270a5cb5092--949cf05ae6eb26df": {
+      "embedding_similarity": 0.9198,
+      "left_title": "산업부, 한미 대미투자 프로젝트 내 대형 원전 8기 건설 포함 협상 진행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "same_event": true
+    },
+    "724a3270a5cb5092--94d1472d5107818d": {
+      "embedding_similarity": 0.9121,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한국, 미국 내 1300억달러 규모 원전 8기 건설 추진…APR1400 2기 포함",
+      "same_event": true
+    },
+    "724a3270a5cb5092--9d9b9712c4e75084": {
+      "embedding_similarity": 0.9164,
+      "left_title": "미국, 한국에 1200억 달러 규모 대형 원전 8기 건설 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 건설 협상",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "same_event": true
+    },
+    "724a3270a5cb5092--b19fd0094bb30156": {
+      "embedding_similarity": 0.9091,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 건설 규모 및 내용 상이",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "same_event": false
+    },
+    "724a3270a5cb5092--b30da15ba00bf260": {
+      "embedding_similarity": 0.9066,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 1000억달러 투자 합의",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "정부, 미국과의 대미 투자 첫 사업으로 에너지 분야 1000억 달러 투자 합의 임박",
       "same_event": true
     },
     "724a3270a5cb5092--c6416e9cf7d667f9": {
@@ -60561,6 +60891,16 @@
       "reviewed_at": "2026-09-10T18:18:06.808564+00:00",
       "right_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
       "same_event": false
+    },
+    "724a3270a5cb5092--fe5e3a400f31076f": {
+      "embedding_similarity": 0.9041,
+      "left_title": "한·미, 최대 8기 원전 건설 포함 1000억달러 대미 투자 합의 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 원전 8기 건설 추진",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "산업부, 미국에 대형 원전 최대 8기 건설 방안 검토 보고",
+      "same_event": true
     },
     "726ce5e20cdd473d--8ab2bc451c253e3e": {
       "embedding_similarity": 0.8911,
@@ -62472,6 +62812,16 @@
       "right_title": "당진 지역 송전탑 건설 문제 제기, 제11차 전기본 송전망 계획 재검토 요구",
       "same_event": false
     },
+    "76a70f0330c3db48--7f147b6638e91bec": {
+      "embedding_similarity": 0.9062,
+      "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-프랑스 원자력 협력 합의",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한·프, 군사·원자력 협력 강화…AI·반도체 MOU 체결",
+      "same_event": true
+    },
     "76a70f0330c3db48--84038b03afe761fa": {
       "embedding_similarity": 0.9088,
       "left_title": "한-佛 정상회담, 방산·원자력 등 6개 분야 협력 강화",
@@ -62490,6 +62840,16 @@
       "reason": "한불 정상회담 성과 보도",
       "reviewed_at": "2026-09-10T08:12:50.801036+00:00",
       "right_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "same_event": true
+    },
+    "76a70f0330c3db48--93c2da3e76af5902": {
+      "embedding_similarity": 0.9011,
+      "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "프랑스 방문 및 원전 협력",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "李대통령, 6~9일 프랑스 국빈 방문…AI·원전 협력 확대 논의",
       "same_event": true
     },
     "76a70f0330c3db48--a2fd55bbd4003a24": {
@@ -66852,6 +67212,16 @@
       "right_title": "SK브로드밴드 데이터센터 떼고 통신·IPTV만으로 성장할까, 김성수 노조...",
       "same_event": false
     },
+    "82d6b22684551922--c5a5730a092769b3": {
+      "embedding_similarity": 0.9124,
+      "left_title": "원안위, 2026년 월성·한울 원전 동시 방사선 비상 대비 국가방사능방재 연합훈련 실시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가방사능방재 연합훈련",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "울산시, 2026년 국가방사능방재 연합훈련 참여…대응체계 점검",
+      "same_event": true
+    },
     "83259375ad66eb4f--afefc17d290a9361": {
       "embedding_similarity": 0.8516,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -67800,6 +68170,16 @@
       "reason": "주제 및 주체 다름",
       "reviewed_at": "2026-09-09T18:37:45.049710+00:00",
       "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력의향서 체결",
+      "same_event": false
+    },
+    "85d558a7373de935--bf760dea60ef24c4": {
+      "embedding_similarity": 0.9017,
+      "left_title": "한·프랑스 정상회담 개최…원자력발전 및 첨단산업 공조 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상회담과 비즈니스 행사",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "한-프랑스 비즈니스 라운드테이블 개최…첨단산업 협력 고도화 모색",
       "same_event": false
     },
     "85d558a7373de935--e436f8b57d691cbe": {
@@ -78642,6 +79022,16 @@
       "right_title": "[사설] '3대 메가'에 원전 19기 전력 더 필요, 뒷짐 풀고 속도 내야",
       "same_event": true
     },
+    "a89623745fab0d00--b19fd0094bb30156": {
+      "embedding_similarity": 0.901,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 2기 건설 조율",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "김정관 산업장관, 미국 방문해 대미투자 1호 사업 및 원전 2기 건설 최종 조율",
+      "same_event": true
+    },
     "a8be7b36d039f96d--adfbe2085bf6c11e": {
       "embedding_similarity": 0.8487,
       "left_title": "SMR 상용화 일정 가속화, 9월 특별법 시행에 기대감 고조",
@@ -81631,6 +82021,16 @@
       "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "AI 특수로 미국 전력설비 업계 일감 폭주",
       "same_event": false
+    },
+    "b269359073571cc7--c693db7134e6be68": {
+      "embedding_similarity": 0.9177,
+      "left_title": "루마니아, 다뉴브강 수위 저하로 유일한 원전 가동 전면 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "다뉴브강 수위 저하 대응",
+      "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
+      "right_title": "루마니아, 체르나보다 원전 냉각수 확보 위해 다뉴브강 수위 증대 조치",
+      "same_event": true
     },
     "b269359073571cc7--f04c10e84e5022d9": {
       "embedding_similarity": 0.8865,
