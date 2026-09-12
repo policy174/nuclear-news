@@ -78,11 +78,19 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      # 복구 창을 **07시부터**로 좁힌다(v2 기본값은 04시). 이유: 우리 크롤은
+      # KST 03:00 슬롯이 실제로 ~04:53 에 끝나는데, 기본 창이면 그 크롤이
+      # 예약 실행(19:50 UTC + 지연 113분 = 06:36~06:53 시작)보다 **먼저**
+      # 브리핑을 쏴 버린다. 그러면 카드가 05:10 에 나가고 아침 뉴스를 통째로
+      # 놓친다 — 복구 장치가 주 경로를 가로채는 셈이다.
+      # 07시 시작이면 예약 실행이 항상 먼저 기회를 갖고, 그게 실패·누락했을 때만
+      # KST 06:00 크롤(실제 ~07:53)과 09:00 크롤(~10:53)이 되살린다.
+      # 예약 트리거 자체는 창과 무관하게 항상 돈다(게이트 1번 분기).
       - name: Decide whether to run the full brief
         id: gate
         env:
           TRIGGER_WORKFLOW_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
-        run: python tools/daily_brief_trigger_gate.py
+        run: python tools/daily_brief_trigger_gate.py --fallback-start-hour 7
 
   brief:
     needs: preflight
