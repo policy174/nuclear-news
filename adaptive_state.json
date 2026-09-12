@@ -198,7 +198,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 11,
     "date": "2026-09-12"
   },
   "terms": {
@@ -216,23 +216,25 @@
           "title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결"
         }
       ],
-      "expires_at": "2026-09-12T16:08:58.206679+00:00",
+      "expires_at": "2026-09-13T00:23:47.192126+00:00",
       "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-11T18:07:38.586426+00:00",
-      "new_articles": 0,
+      "last_result_count": 1,
+      "last_run": "2026-09-12T00:23:47.192126+00:00",
+      "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-09-11T18:07:36.047613+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-12T00:23:46.312640+00:00",
+      "queries_run": 2,
       "query": "국방·AI 원전",
       "score": 3.6,
-      "status": "tracking",
+      "status": "extended",
       "term": "국방·AI",
       "ttl_hours": 24,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
+      "yield_days": [
+        "2026-09-12"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     },
     "로비사": {
       "articles": 3,
