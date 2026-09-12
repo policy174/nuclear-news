@@ -315,11 +315,29 @@ jobs:
           GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL || 'gemini-3.1-flash-tts-preview' }}
           # 버킷 맵 분산 (2026-09-08 장애: review·insight·audio 가 전부 flash-lite
           # 한 버킷에 몰려 분당 429 폭풍 → 오디오 재시도 중 잡 타임아웃 살해).
-          # 무료 한도는 모델별 버킷 — 최대 소비자(review)와 오디오 대본을 각자
-          # 전용 버킷으로. 결과 배치: 큐레이션 2.5-flash(+체인 2.5/3.5-lite) /
-          # 리뷰 3.5-flash(스토리 서사와 공유 — 하루 4콜 수준이라 허용) /
-          # 인사이트 2.5-flash-lite / 오디오 대본 3.6-flash.
+          # 무료 한도는 모델별 버킷이다.
+          #
+          # 현재 배치: 큐레이션 2.5-flash(+체인 2.5/3.5-lite) / 리뷰 3.5-flash
+          # (스토리 서사와 공유 — 하루 4콜 수준이라 허용) / 보고서 초안 3.6-flash
+          # / **인사이트 3.5-flash-lite** / **오디오 대본 2.5-flash-lite 단독**.
           GEMINI_REVIEW_MODEL: ${{ vars.GEMINI_REVIEW_MODEL || 'gemini-3.5-flash' }}
+          # [2026-09-12] 인사이트를 flash-lite 에서 빼낸다 — **오디오가 09-06 이후
+          # 엿새간 못 만들어진 직접 원인이다.** 09-12 실측 로그:
+          #   호출 12회 · gemini-2.5-flash-lite 8회(최대 분당 2)
+          #   [issue_insight:retry 5 / issue_insight 2 / ...]
+          # flash-lite 호출 8회 중 7회가 인사이트였고(MAX_NEW_PER_RUN=40 이라
+          # 최대 40콜까지 간다), 그 직후 순서인 오디오가 같은 버킷을 찾다가
+          # 429 로 죽었다 — `[audio] 대본 실패 — 기존 오디오 유지`.
+          #
+          # **떠나야 할 쪽이 인사이트인 이유**: 오디오 대본은 thinking_budget=0
+          # 이 필수인데(원고가 잘린다 — audio_brief.py:501) 3.x 계열은 그 값을
+          # INVALID_ARGUMENT 로 거부한다(2026-09-08 실측). 오디오는 2.5 를 못
+          # 떠난다. 인사이트는 thinking 을 끄지 않으므로 3.x 로 갈 수 있다.
+          #
+          # 3.5-flash-lite 를 고른 이유: 우리 키로 **실제 성공 기록이 있다**
+          # (09-12 로그에 호출 성공 1회). 3.1-flash-lite 는 v2 가 쓰지만 우리
+          # 계정에선 미검증이라 피했다 — 없는 모델이면 인사이트가 통째로 죽는다.
+          GEMINI_INSIGHT_MODEL: ${{ vars.GEMINI_INSIGHT_MODEL || 'gemini-3.5-flash-lite' }}
           # 오디오 대본은 3.x 금지 — 3.x 계열은 thinkingBudget=0 을 INVALID_ARGUMENT
           # 로 거부한다(실측 2026-09-08: 3.6-flash·3.5-flash-lite 둘 다 400).
           # 대본은 thinking 을 꺼야 하므로(예산 잠식, 2026-08-04 실사고) 2.5 계열만.

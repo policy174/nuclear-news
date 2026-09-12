@@ -275,6 +275,10 @@ jobs:
           # (2026-09-08 장애: 한 버킷 429 폭풍). 두 워크플로가 다르면 리뷰
           # 판정 캐시가 모델 따라 흔들린다 — 반드시 같이 바꿀 것.
           GEMINI_REVIEW_MODEL: ${{ vars.GEMINI_REVIEW_MODEL || 'gemini-3.5-flash' }}
+          # 인사이트도 같은 이유로 두 워크플로가 같아야 한다 — 다르면 인사이트
+          # 캐시가 모델 따라 흔들린다. 근거는 daily-brief.yml 의 같은 줄 주석
+          # (오디오가 엿새 죽은 직접 원인이 인사이트의 flash-lite 점유였다).
+          GEMINI_INSIGHT_MODEL: ${{ vars.GEMINI_INSIGHT_MODEL || 'gemini-3.5-flash-lite' }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 웹 배포 스킵"; exit 0; fi
           # 배포 간격은 '지금 몇 시인가'가 아니라 '마지막 배포 이후 얼마나
