@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-09-12T09:39:30.569905+09:00",
+ "generated_at": "2026-09-13T07:40:04.332455+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "SMR",
-   "count_now": 181,
-   "count_prev": 64,
-   "direction": "국내에서는 HD현대 등 민간 기업이 AI 데이터센터 전력 수요 대응을 위해 SMR 분야에 1조 원 규모의 투자를 진행하며 전용 공장 건립을 추진하고 있습니다. 정부는 SMR을 미래 성장 엔진으로 보고 R&D 예산 확대와 특별법 시행을 추진하며, 경남도 또한 SMR 글로벌 육성전략을 발표하는 등 정부, 지자체, 민간 모두 SMR 시장 선점과 기술 자립을 위한 투자와 제도 정비를 가속화하는 흐름입니다.",
+   "count_now": 177,
+   "count_prev": 68,
+   "direction": "AI 데이터센터의 폭증하는 전력 수요에 대응하기 위해 HD현대가 SMR 분야에 1조 원 이상을 투자하고, 정부는 R&D 예산 확대와 특별법 시행으로 시장 선점을 가속화하고 있습니다. 경남도 역시 SMR 생산 거점 구축 계획을 발표하며 국내외적으로 SMR 관련 투자가 활발히 이루어지고 있습니다. 미국 루이지애나주의 SMR 프로젝트도 다음 단계로 진전되는 등 글로벌 SMR 시장에 대한 관심과 투자가 확대되는 흐름입니다. (evidence_idx: [0, 1, 2, 3, 4, 6])",
    "evidence": [
     {
      "hash": "23c8a1adeb838711",
@@ -21,6 +21,18 @@
      "date": "2026-09-12"
     },
     {
+     "hash": "c2c4c1e5de2a6fcb",
+     "title_kr": "루이지애나 SMR 프로젝트, 다음 단계 진전",
+     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1TTlhEcnFNdTM2TVVsR1F4U1U1UGQ1S0tFSkFTODFuSWhNWmJMQXY0VjR4UzhrcGJySHk3UUFyMEtQVWFVMV9aeXZQRWpnR1BlV1NZQXF2ZU9WZDNBSDQtNzVOZHJMNV9TYmV0bkRRM3RzYlJVaC1wX3RwRQ?oc=5",
+     "date": "2026-09-12"
+    },
+    {
+     "hash": "631f0fa57b2f4431",
+     "title_kr": "경남도, 4조 6990억 원 투입해 SMR 생산거점 구축 계획 발표",
+     "url": "https://www.pointe.co.kr/news/articleView.html?idxno=84627",
+     "date": "2026-09-12"
+    },
+    {
      "hash": "6a2b22b3dbf81a01",
      "title_kr": "HD현대중공업, 울산·영암에 발전엔진 및 SMR 전용공장 1조원 투자",
      "url": "https://www.joongang.co.kr/article/25460910",
@@ -31,27 +43,21 @@
      "title_kr": "HD현대重, 발전엔진·SMR에 1조 투자…AI 인프라 선점",
      "url": "https://www.donga.com/news/Economy/article/all/20260910/134646228/2",
      "date": "2026-09-11"
-    },
-    {
-     "hash": "a74679ac38d6e08f",
-     "title_kr": "2027년 예산안, 성장잠재력 확충에 초점",
-     "url": "https://www.seoul.co.kr/news/editOpinion/opinion/contribution/2026/09/11/20260911025004?wlog_tag3=naver",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "a090f4a6c3771d3c",
-     "title_kr": "경남도, 4.7조 원 투입 SMR 글로벌 육성전략 2.0 발표",
-     "url": "https://www.segye.com/newsView/20260910510092",
-     "date": "2026-09-11"
     }
    ]
   },
   {
    "keyword": "데이터센터",
-   "count_now": 156,
-   "count_prev": 50,
-   "direction": "AI 데이터센터의 전력 수요가 국내외적으로 폭증하는 가운데, HD현대 등 민간 기업은 SMR 등 발전원에 투자하고 국내 대형 건설사들은 데이터센터 디벨로퍼 사업을 확대하며 시장이 성장하고 있습니다. 그러나 이러한 확충은 국내에서 주민 반발과 전력망·발전시설 비용 부담 요구 등 제도적 갈등을 심화시키고, 미국에서는 전력망 연결 지연과 AI 종말론까지 겹쳐 전력·데이터센터 문제가 정치적 쟁점으로 부각되는 등 여러 난관에 직면하고 있습니다.",
+   "count_now": 167,
+   "count_prev": 56,
+   "direction": "AI 데이터센터의 전력 수요 급증으로 인해 미국 텍사스주에서는 전력망 연결을 일시 중단하고 영향을 조사하는 한편, 애틀랜타 지역의 전력 수요는 1GW 이상으로 확대될 전망입니다. 국내에서는 데이터센터 확충 가속화 속 주민 반발과 제도적 갈등이 심화되고 있으며, 데이터센터에 필요한 전력망 및 발전시설 비용을 데이터센터가 부담해야 한다는 주장도 제기되고 있습니다. (evidence_idx: [1, 4, 5, 6])",
    "evidence": [
+    {
+     "hash": "9b7792184c21ab07",
+     "title_kr": "미국 텍사스주, AI 데이터센터 전력망 연결 일시 중단 및 영향 조사",
+     "url": "https://www.businesspost.co.kr/BP?command=article_view&num=446899",
+     "date": "2026-09-13"
+    },
     {
      "hash": "c9a2796e15216b43",
      "title_kr": "국내 데이터센터 확충 가속화 속 주민 반발과 제도적 갈등 심화",
@@ -69,49 +75,37 @@
      "title_kr": "데이터센터 전력망·발전시설 비용, 주민 아닌 데이터센터 부담 요구",
      "url": "http://www.koreatimes.com/article/1629313",
      "date": "2026-09-12"
-    },
-    {
-     "hash": "26d10da0839c85cf",
-     "title_kr": "실리콘밸리, AI 종말론 재부상…전력·데이터센터 문제 정치 쟁점화",
-     "url": "https://www.aitimes.com/news/articleView.html?idxno=215136",
-     "date": "2026-09-12"
-    },
-    {
-     "hash": "e5829679bd6d69df",
-     "title_kr": "美 데이터센터, 전력망 연결에 6년 소요…AI 전력 투자 지연 우려",
-     "url": "https://www.dailian.co.kr/news/view/1689307?sc=Naver",
-     "date": "2026-09-12"
-    },
-    {
-     "hash": "23c8a1adeb838711",
-     "title_kr": "HD현대, 인공지능(AI) 데이터센터 전력 수요 대응 위해 SMR·발전엔진에 1조 원 투자",
-     "url": "https://www.dailian.co.kr/news/view/1689347?sc=Naver",
-     "date": "2026-09-12"
-    },
-    {
-     "hash": "398ff5754165b4a7",
-     "title_kr": "국내 대형 건설사, AI 데이터센터 디벨로퍼 사업 확대",
-     "url": "http://www.newslock.co.kr/news/articleView.html?idxno=136078",
-     "date": "2026-09-12"
-    },
-    {
-     "hash": "5fa35d490e49af19",
-     "title_kr": "엔비디아 데이터센터 매출 18% 증가, 블랙웰 출하량 보도",
-     "url": "https://www.tokenpost.kr/news/ai/405966",
-     "date": "2026-09-11"
     }
    ]
   },
   {
    "keyword": "대미투자",
-   "count_now": 79,
+   "count_now": 81,
    "count_prev": 0,
-   "direction": "한국 정부는 미국 상무장관과의 협의를 통해 최대 3500억 달러 규모의 대미 투자를 조율하고 있으며, 이 중 1000억 달러 규모로 미국 내 신규 원전 8기와 천연가스 시설에 한국 자금을 투입하는 합의가 임박했다는 보도가 나오고 있습니다. 이러한 흐름은 한미 양국 간의 에너지 협력을 강화하고 국내 원전 산업의 대미 수출 기회를 확대하는 방향으로 전개되고 있습니다.",
+   "direction": "한국 정부가 미국 내 원전 8기 등 약 1000억 달러 규모의 대미 투자 1호 사업을 공개할 예정이며, 산업통상자원부 장관이 미국 상무장관과 만나 원전 건설 협력을 포함한 투자 규모를 조율하고 있습니다. 이러한 대미 에너지 투자 논의는 국내 건설주와 원전주에 대한 수혜 기대감을 높이고 있습니다. (evidence_idx: [0, 1, 2, 3, 4, 5, 6, 7])",
    "evidence": [
+    {
+     "hash": "107bd131aa0ca265",
+     "title_kr": "국내 건설주, 미국 에너지 인프라 프로젝트 수혜 기대감에 상승세",
+     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=486432",
+     "date": "2026-09-13"
+    },
+    {
+     "hash": "3794d3ff53f5a406",
+     "title_kr": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+     "url": "https://www.news1.kr/economy/trend/6288054",
+     "date": "2026-09-13"
+    },
     {
      "hash": "f5433ad7b3b0ff14",
      "title_kr": "산업통상부 김정관 장관, 미국 상무장관과 대미 투자 및 원전 협력 조율",
      "url": "https://www.newsis.com/view/NISX20260910_0003783916",
+     "date": "2026-09-11"
+    },
+    {
+     "hash": "a763571805475398",
+     "title_kr": "하나증권, 한국 정부 대미 에너지 투자와 연계된 원전주 수혜 전망",
+     "url": "https://www.businesspost.co.kr/BP?command=article_view&num=446961",
      "date": "2026-09-11"
     },
     {
@@ -137,26 +131,52 @@
      "title_kr": "한국 정부, 미국에 원전 8기 포함 1000억 달러 에너지 투자 합의 임박 보도",
      "url": "https://news.dealsitetv.com/articles/175910",
      "date": "2026-09-11"
+    }
+   ]
+  },
+  {
+   "keyword": "전력망",
+   "count_now": 71,
+   "count_prev": 39,
+   "direction": "AI 데이터센터와 전력망 투자 증가로 구리 가격이 역사적 고점을 기록하고 있으며, 미국에서는 데이터센터 전력망 연결에 6년이 소요되는 등 AI 전력 투자 지연 우려가 제기됩니다. 글로벌 전력망 투자는 노후화, 재생에너지 전환, AI 수요 증가가 겹치며 구조적 성장에 진입했으며, 유럽에서는 해저 전력망 시장에서 LS전선과 대한전선의 역할이 주목받고 있습니다. (evidence_idx: [2, 3, 4, 5, 7])",
+   "evidence": [
+    {
+     "hash": "9b7792184c21ab07",
+     "title_kr": "미국 텍사스주, AI 데이터센터 전력망 연결 일시 중단 및 영향 조사",
+     "url": "https://www.businesspost.co.kr/BP?command=article_view&num=446899",
+     "date": "2026-09-13"
     },
     {
-     "hash": "8b1da65ad8ec36c3",
-     "title_kr": "정부, 3500억 달러 대미투자 협상 마무리 조율…가스발전·원전 거론",
-     "url": "http://www.sisafocus.co.kr/news/articleView.html?idxno=364867",
+     "hash": "f96e11e92b34a965",
+     "title_kr": "AI 데이터센터·전력망 투자 증가로 구리값 역사적 고점 기록",
+     "url": "https://biz.heraldcorp.com/article/10870782",
+     "date": "2026-09-12"
+    },
+    {
+     "hash": "e5829679bd6d69df",
+     "title_kr": "美 데이터센터, 전력망 연결에 6년 소요…AI 전력 투자 지연 우려",
+     "url": "https://www.dailian.co.kr/news/view/1689307?sc=Naver",
+     "date": "2026-09-12"
+    },
+    {
+     "hash": "2ab8625088dbb5f9",
+     "title_kr": "글로벌 전력망 투자, 노후·재생·AI 수요 겹치며 구조적 성장에 진입",
+     "url": "https://magazine.hankyung.com/money/article/202608114312c",
      "date": "2026-09-11"
     },
     {
-     "hash": "89a84fbe59b46305",
-     "title_kr": "한미 원전 협력 기대감에 원전주 급등…두산에너빌리티 등 강세",
-     "url": "https://www.hankyung.com/article/2026090939096",
-     "date": "2026-09-10"
+     "hash": "bb834c929ccaff5c",
+     "title_kr": "유럽 해저케이블 훼손 우려 증대, LS전선·대한전선 역할 주목",
+     "url": "https://biz.newdaily.co.kr/site/data/html/2026/09/11/2026091100056.html",
+     "date": "2026-09-11"
     }
    ]
   },
   {
    "keyword": "한수원",
    "count_now": 70,
-   "count_prev": 5,
-   "direction": "한국수력원자력은 프랑스 오라노와의 우라늄 농축 장기 협력 의향서 체결을 통해 핵연료 공급망 다변화를 추진하고 있으며, 미국과의 대규모 원전 건설 협의에도 관여하는 등 국제적인 원전 사업 및 핵연료 공급망 안정화에 적극적으로 참여하고 있습니다. 동시에 국내에서는 네이버 컨소시엄과 함께 보안 특화 AI 개발에 참여하며 첨단 기술 분야로의 협력을 확대하는 흐름을 보입니다.",
+   "count_prev": 4,
+   "direction": "한수원은 프랑스 오라노와 우라늄 농축 분야 장기 협력을 위한 협력의향서를 체결하며 핵연료 공급망 다변화를 추진하고 있습니다. 또한, 네이버 컨소시엄과 협력하여 보안 AI 개발에 참여하는 등 다양한 분야에서 협력을 확대하고 있습니다. (evidence_idx: [0, 1, 2, 4, 5, 6])",
    "evidence": [
     {
      "hash": "ce9acb187ff87652",
@@ -177,12 +197,6 @@
      "date": "2026-09-11"
     },
     {
-     "hash": "f5433ad7b3b0ff14",
-     "title_kr": "산업통상부 김정관 장관, 미국 상무장관과 대미 투자 및 원전 협력 조율",
-     "url": "https://www.newsis.com/view/NISX20260910_0003783916",
-     "date": "2026-09-11"
-    },
-    {
      "hash": "cd661bbbe4a75ffa",
      "title_kr": "네이버·LG, 700B 보안AI 공동 개발…한수원 등 21개 기관 데이터 투입",
      "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02217286645579136",
@@ -199,21 +213,21 @@
      "title_kr": "네이버클라우드, 보안 특화 AI 개발 사업 수행…한수원 등 42개 기관 참여",
      "url": "https://zdnet.co.kr/view?no=20260910090943",
      "date": "2026-09-11"
-    },
-    {
-     "hash": "8f5a625175bf26de",
-     "title_kr": "한수원, 체코 트레비치 유소년 축구단 초청해 스포츠·문화 교류 진행",
-     "url": "https://www.g-enews.com/view.php?ud=202609110930029036a9fc143920_1",
-     "date": "2026-09-11"
     }
    ]
   },
   {
    "keyword": "전력시장",
    "count_now": 70,
-   "count_prev": 45,
-   "direction": "AI 및 첨단산업의 전력 수요 급증으로 전력시장은 새로운 전력수급 체계 마련을 촉구받고 있으며, 현대엔지니어링의 대규모 발전소 건설 사업자 선정과 같이 발전 설비 확충이 진행되고 있습니다. 동시에 전력망 확충의 병목 현상, 원전 차질에 따른 석탄 수입 증가, 그리고 전기요금 인상 가능성 등 공급 측면의 도전과 함께 무탄소 PPA 확대 및 관련 법 개정 논의가 활발히 이루어지는 복합적인 흐름입니다.",
+   "count_prev": 46,
+   "direction": "국제유가 상승으로 원전 등 비화석 에너지의 경쟁력이 높아질 것으로 전망되는 가운데, AI 시대 전력수요 증가에 대응하기 위한 전력망 확충과 관련하여 숙련 기술 인력 부족이 병목 현상으로 지적되고 있습니다. 또한, 첨단산업 전력수요 증가로 4분기 전기요금 인상 가능성이 제기되는 등 전력 시장의 구조적 변화와 정책적 논의가 활발합니다. (evidence_idx: [0, 2, 3, 7])",
    "evidence": [
+    {
+     "hash": "7b12f09a3c463f4c",
+     "title_kr": "국제유가 100달러 돌파, 원전 등 비화석 에너지 경쟁력 상승 전망",
+     "url": "https://www.sedaily.com/article/20089915",
+     "date": "2026-09-12"
+    },
     {
      "hash": "686873baac0a7412",
      "title_kr": "이언주 의원, AI 시대 전력수급 새 틀 마련 촉구",
@@ -227,83 +241,9 @@
      "date": "2026-09-11"
     },
     {
-     "hash": "cc789cbaeab50621",
-     "title_kr": "현대엔지니어링, 용인·신호남 발전소 2.4조원 규모 우선협상대상자 선정",
-     "url": "https://www.sentv.co.kr/article/view/sentv202609110005",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "ee43f01f600174dd",
-     "title_kr": "국민 63%, 메가프로젝트 전력 재생에너지 의무화에 찬성",
-     "url": "https://magazine.hankyung.com/business/article/202609119000b",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "e9a83d9cb6fbb9e7",
-     "title_kr": "국회 토론회, 원전 포함 무탄소 PPA 확대 및 관련 법 개정 필요성 논의",
-     "url": "http://www.breaknews.com/1235935",
-     "date": "2026-09-11"
-    },
-    {
      "hash": "a059f6b8927bd311",
      "title_kr": "첨단산업 전력수요 증가로 4분기 전기요금 인상 가능성 제기",
      "url": "https://www.newsis.com/view/NISX20260908_0003780603",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "1d70c408e4a542e2",
-     "title_kr": "한국, 올해 석탄 수입 10% 이상 증가 전망…원전 차질 영향",
-     "url": "https://www.esgeconomy.com/news/articleView.html?idxno=16690",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "c812120d725ce538",
-     "title_kr": "현대엔지니어링, 용인 열병합·여수 복합발전소 우선협상대상자 선정",
-     "url": "http://www.biztribune.co.kr/news/articleView.html?idxno=358837",
-     "date": "2026-09-11"
-    }
-   ]
-  },
-  {
-   "keyword": "전력망",
-   "count_now": 69,
-   "count_prev": 38,
-   "direction": "글로벌 전력망은 노후화, 재생에너지 전환, AI 데이터센터의 폭증하는 수요가 겹치며 구조적 성장기에 진입하고 있으며, LS전선이 북미 AI 데이터센터 전력 인프라에 대규모 투자를 단행하는 등 관련 투자가 활발합니다. 그러나 미국에서는 데이터센터의 전력망 연결에 장기간이 소요되어 AI 전력 투자 지연 우려가 제기되고, 국내에서는 호남 반도체 전력망 이중화 대책과 같은 정책적 논의가 진행되는 등 전력망 확충과 안정화가 주요 과제로 부상하는 흐름입니다.",
-   "evidence": [
-    {
-     "hash": "e5829679bd6d69df",
-     "title_kr": "美 데이터센터, 전력망 연결에 6년 소요…AI 전력 투자 지연 우려",
-     "url": "https://www.dailian.co.kr/news/view/1689307?sc=Naver",
-     "date": "2026-09-12"
-    },
-    {
-     "hash": "2ab8625088dbb5f9",
-     "title_kr": "글로벌 전력망 투자, 노후·재생·AI 수요 겹치며 구조적 성장에 진입",
-     "url": "https://magazine.hankyung.com/money/article/202608114312c",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "bb834c929ccaff5c",
-     "title_kr": "유럽 해저케이블 훼손 우려 증대, LS전선·대한전선 역할 주목",
-     "url": "https://biz.newdaily.co.kr/site/data/html/2026/09/11/2026091100056.html",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "c1cbbd86642f6f3e",
-     "title_kr": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
-     "url": "https://www.bloter.net/news/articleView.html?idxno=673407",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "e718cb733fa68887",
-     "title_kr": "김성환 장관, 호남 반도체 전력망 이중화 대책 및 12차 전기본 반영 언급",
-     "url": "https://www.mt.co.kr/economy/2026/09/11/2026091116085139739",
-     "date": "2026-09-11"
-    },
-    {
-     "hash": "deb33af68d9ba836",
-     "title_kr": "누빈자산운용, AI·전기화로 전력수요 42% 증가 전망",
-     "url": "http://www.paxetv.com/news/articleView.html?idxno=281670",
      "date": "2026-09-11"
     }
    ]
