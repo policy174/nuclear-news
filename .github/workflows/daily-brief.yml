@@ -43,6 +43,13 @@ on:
         required: false
         type: boolean
         default: false
+  # 2차 트리거 (2026-09-12 v2 이식). GitHub 가 cron 이벤트를 누락하거나 심하게
+  # 밀면, 다음 크롤 완료가 아침 브리핑을 되살린다. 예약 시각에만 기대지 않는다.
+  # 중복 발송은 preflight 의 게이트가 막고(04~12시 KST 창 + outbox 오늘자 sent),
+  # daily_brief.py:793 의 "이미 sent 인 브리핑은 안 건드린다"가 2차 방어선이다.
+  workflow_run:
+    workflows: ["Nuclear news crawl"]
+    types: [completed]
 
 permissions:
   contents: write   # outbox/큐/delivery_log 커밋
@@ -52,19 +59,51 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  brief:
+  # 이 트리거로 전체 브리핑을 돌려야 하는가. schedule·수동은 항상 돈다.
+  # 크롤 완료(workflow_run)는 **누락된 cron 의 대타**라 아침 창 안에서, 그리고
+  # 오늘치가 아직 안 나갔을 때만 돈다. 판정 로직은 YAML 표현식이 아니라
+  # tools/daily_brief_trigger_gate.py 에 둔다 — 그래야 테스트가 된다(6개).
+  preflight:
     runs-on: ubuntu-latest
-    # 2026-08-03 정기 실행이 15분 벽에 걸려 취소됐다 — 스텝은 전부 성공한 뒤
-    # 마지막 스모크가 끝나는 순간(15분 09초)이었다. Plan·trend·배포(TTS 포함)가
-    # 각각 3~7분이라 15분은 여유가 없다.
-    # 2026-08-14 전 이슈 오디오(8~10분) 확장: audio_brief.py 는 자체 상한
-    # AUDIO_RUN_BUDGET_SEC(25분) 안에서 배송 3분을 예약하고 멈추므로,
-    # 잡 상한은 선행 스텝(~6분)을 더해 35분 — Actions 강제종료로 부분 배송이
-    # 불발되는 경로가 없다.
-    # 45분 — 2026-09-08 실측: 429 폭풍 날 오디오 90초 재시도 중 35분 상한이
-    # 잡을 죽여(exit 143) 배포·오디오·서사가 통째로 미실행. 버킷 분산이 본질
-    # 수리이고 이건 안전 마진(크롤과 동일 값).
-    timeout-minutes: 45
+    outputs:
+      should_run: ${{ steps.gate.outputs.should_run }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # 큐에 밀린 실행은 먼저 끝난 실행이 커밋한 claim 을 봐야 한다 —
+          # workflow_run 의 이벤트 SHA 는 낡아 있을 수 있다.
+          ref: main
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Decide whether to run the full brief
+        id: gate
+        env:
+          TRIGGER_WORKFLOW_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: python tools/daily_brief_trigger_gate.py
+
+  brief:
+    needs: preflight
+    if: needs.preflight.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    # [2026-09-12] **잡 타임아웃을 두지 않는다.** 이 값은 15 → 35 → 45 로 세 번
+    # 올랐고 세 번 다 그 벽에 부딪혀 잡이 죽었다. 9/08~9/12 닷새는 45분 벽에
+    # 걸려 매일 취소됐고(정확히 55분 00초 — 45분 + post steps), 그때마다 배포·
+    # 오디오·초안·서사가 통째로 미실행됐다. 벽을 또 올리는 건 같은 사고를 뒤로
+    # 미루는 것일 뿐이다.
+    #
+    # v2 가 같은 결론에 먼저 도달했다(2026-08-26): "정상 계산을 벽시계 시간으로
+    # 실패 처리하지 않는다 — 단계·잡 timeout-minutes 를 두면 느린 성공을 장애로
+    # 바꾸고 뒤의 오디오·배포까지 연쇄 생략한다."
+    #
+    # 영구 대기 위험은 **요청별 타임아웃**이 막는다 — 확인함(2026-09-12): 이
+    # repo 의 네트워크 호출 15개 전부에 timeout 인자가 있다(audio_brief.py:1032
+    # 의 sendAudio 는 timeout=120). Gemini 재시도도 라벨당 300초 예산으로
+    # 스스로 끊는다. 공개 저장소라 Actions 분은 무료고, 병목은 예나 지금이나
+    # Gemini 무료 키의 분당 한도다.
+    # 새 상한을 도입하려거든, 그 값이 왜 이번엔 안 부딪히는지부터 적을 것.
 
     steps:
       - name: Checkout repo
@@ -387,8 +426,14 @@ jobs:
   # 가장 단순한 것이어야 한다**: 모든 게 망가진 날에도 이것만은 돌아야 한다.
   # cancelled() 를 반드시 포함한다 — 타임아웃은 failure 가 아니라 cancelled 다.
   notify_failure:
-    needs: brief
-    if: ${{ always() && (needs.brief.result == 'failure' || needs.brief.result == 'cancelled') }}
+    # preflight 도 지켜본다. 안 그러면 게이트가 죽었을 때 brief 가 skipped 가 되고
+    # 알림은 침묵한다 — 이 워크플로가 고치려는 병을 새로 하나 만드는 셈이다.
+    # skipped 는 알리지 않는다(게이트가 "오늘은 안 돌아도 된다"고 판정한 정상 경로).
+    needs: [preflight, brief]
+    if: >-
+      ${{ always() && (
+        needs.preflight.result == 'failure' || needs.preflight.result == 'cancelled' ||
+        needs.brief.result == 'failure' || needs.brief.result == 'cancelled') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -398,10 +443,20 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
         run: |
-          python3 telegram_send.py --ops --plain "⚠️ nuclens 아침 브리핑 실패 (${{ needs.brief.result }})
+          # 탐지와 발송은 다른 일이다 — 텔레그램이 한 번 흔들렸다고 경보를
+          # 잃으면 안 된다(telegram_send.py 자체에는 재시도가 없다). v2 의
+          # operational_monitoring 도 같은 이유로 "알림을 보냈다고 기록하는 것"과
+          # "알림 조건을 탐지한 것"을 분리한다. 여기선 셸 재시도로 그 절반만 한다.
+          for i in 1 2 3; do
+            python3 telegram_send.py --ops --plain "⚠️ nuclens 아침 브리핑 실패 (${{ needs.brief.result }})
 
           워크플로: ${{ github.workflow }} #${{ github.run_number }}
           로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          cancelled 면 45분 타임아웃, failure 면 산출물 가드 또는 배포 실패입니다.
-          로그에서 'Artifact guard' 스텝을 먼저 보세요."
+          cancelled 면 잡이 중간에 끊긴 것, failure 면 산출물 가드 또는 배포 실패입니다.
+          로그에서 'Artifact guard' 스텝을 먼저 보세요." && exit 0
+            echo "알림 발송 실패 $i/3 — 20초 후 재시도"
+            sleep 20
+          done
+          echo "::error::운영 알림 3회 실패 — 이 실행의 경보가 유실됐습니다"
+          exit 1
