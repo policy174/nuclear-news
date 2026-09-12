@@ -1082,6 +1082,16 @@
       "right_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
       "same_event": false
     },
+    "01fba58f8dc8193d--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.8595,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 예산 세부 안건",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "same_event": false
+    },
     "01fba58f8dc8193d--9a731ff9a24c76d7": {
       "embedding_similarity": 0.8445,
       "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
@@ -14972,6 +14982,16 @@
       "right_title": "윤곽 드러난 대미 에너지투자…'수익·일감' 얼마나 챙기나",
       "same_event": true
     },
+    "1848ffbccc0b4cb2--806225e255d4065e": {
+      "embedding_similarity": 0.8594,
+      "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 대미 투자 협상",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "미국 내 6.3GW 발전시설 건설, AI 데이터센터 전력 공급 구상",
+      "same_event": true
+    },
     "185f6731e1e3e3d4--28eb64c118c56d1a": {
       "embedding_similarity": 0.8619,
       "left_title": "정부, 한국형 핵추진잠수함 ‘장보고-N’ 사업 전담조직 확대 직제 개정안 국무회의 통과",
@@ -15291,6 +15311,16 @@
       "reviewed_at": "2026-09-08T14:31:37.955676+00:00",
       "right_title": "원안위, 설계수명 만료되는 한빛원자력발전소 2호기 가동 정지 결정",
       "same_event": true
+    },
+    "18d7399f8aad9119--f17c3e63543db5d8": {
+      "embedding_similarity": 0.8701,
+      "left_title": "한빛원전 2호기, 9월 11일 설계수명 만료로 가동 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가동 중단과 사고관리계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 한빛원전 1·2호기 사고관리계획서 승인안 재논의 결정",
+      "same_event": false
     },
     "18d7399f8aad9119--f75705575a26812d": {
       "embedding_similarity": 0.8821,
@@ -15661,6 +15691,26 @@
       "reviewed_at": "2026-08-30T20:36:31.001439+00:00",
       "right_title": "AI 데이터센터 확산으로 철강·건설기계 등 전통 산업에 대규모 수요 발생",
       "same_event": false
+    },
+    "1a08c05d0557d415--4c5baf7e1aaf4467": {
+      "embedding_similarity": 0.8616,
+      "left_title": "원안위, 제2026-12회 회의서 중저준위 방폐물 안건 심의·의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 회차의 회의",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원자력안전위원회, 제2026-14회 회의 개최해 2건 안건 심의·의결",
+      "same_event": false
+    },
+    "1a08c05d0557d415--a6bf269f3d5aa561": {
+      "embedding_similarity": 0.8592,
+      "left_title": "원자력안전위원회, 제2026-14회 회의 개최해 2건 안건 심의·의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 회의의 개최와 안건",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "same_event": true
     },
     "1a48967b5795e76b--1b91dfa6d90f5524": {
       "embedding_similarity": 0.8995,
@@ -18242,6 +18292,16 @@
       "right_title": "국회, 발전공기업 5개사 통합 위한 '한국발전공사법안' 발의",
       "same_event": true
     },
+    "1de1b7705c203421--3e5aeb2fbda7db0e": {
+      "embedding_similarity": 0.8624,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 검토",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "한수원, 웨스팅하우스 지분 확보 통해 한국형 원전 수출 제약 해소 모색",
+      "same_event": true
+    },
     "1de1b7705c203421--3f901e12f3d58c9c": {
       "embedding_similarity": 0.8948,
       "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
@@ -18292,6 +18352,16 @@
       "right_title": "한국 정부, 2000억 달러 대미 투자로 미국에 대형 원전 8기 건설 추진",
       "same_event": false
     },
+    "1de1b7705c203421--87e025748e999b23": {
+      "embedding_similarity": 0.8603,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부의 대미 투자 검토",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "미국 투자 확대 압박 속 정부, 사업 타당성 검증 부족 우려 제기",
+      "same_event": true
+    },
     "1de1b7705c203421--9c3c5e658986fdf4": {
       "embedding_similarity": 0.8675,
       "left_title": "웨스팅하우스 지분 인수, 국익 부합 여부 냉철한 판단 필요",
@@ -18312,6 +18382,16 @@
       "right_title": "한전·한수원, 웨스팅하우스 지분 투자 신중 검토",
       "same_event": true
     },
+    "1de1b7705c203421--a89623745fab0d00": {
+      "embedding_similarity": 0.863,
+      "left_title": "김정관 산업장관, 미국 방문해 대미투자 1호 사업 및 원전 2기 건설 최종 조율",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 대미 투자 안건",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "same_event": false
+    },
     "1de1b7705c203421--b19fd0094bb30156": {
       "embedding_similarity": 0.8752,
       "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
@@ -18330,6 +18410,26 @@
       "reason": "대미 투자 패키지 논의",
       "reviewed_at": "2026-09-12T07:53:54.881195+00:00",
       "right_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "same_event": true
+    },
+    "1de1b7705c203421--da18bc4f6cd74897": {
+      "embedding_similarity": 0.8621,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 참여 논의",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "미국, 원전 사업에 '지분 참여' 제안…웨스팅하우스 관련 논의",
+      "same_event": true
+    },
+    "1de1b7705c203421--db5419d4ef36b7ef": {
+      "embedding_similarity": 0.8599,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "알래스카 LNG 투자 사안",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "美, 알래스카 LNG 사업 불확실성에 한국 참여 압박",
       "same_event": true
     },
     "1de1b7705c203421--dcaac36649cb7fe2": {
@@ -20090,6 +20190,16 @@
       "reason": "원전 해체 vs 우라늄 채굴 규정",
       "reviewed_at": "2026-09-05T07:31:46.434028+00:00",
       "right_title": "미국 NRC, 우라늄 채굴 및 해체 기한 새 규정 제안",
+      "same_event": false
+    },
+    "1fd31b23a4d14947--7796d3ebb7eeea3d": {
+      "embedding_similarity": 0.8609,
+      "left_title": "미국 NRC, 우라늄 채굴 및 해체 기한 새 규정 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제기관과 주정부의 조치",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "미국 뉴멕시코주, 주립 토지 내 신규 우라늄 채굴 임대 금지 행정명령 발동",
       "same_event": false
     },
     "1fd31b23a4d14947--94c5d5ca40f4f818": {
@@ -23610,6 +23720,26 @@
       "reason": "주체는 같으나 다른 사안",
       "reviewed_at": "2026-08-24T22:06:59.218065+00:00",
       "right_title": "최태원 SK 회장, 빌 게이츠와 SMR 기반 AI 데이터센터 전력 협력 논의",
+      "same_event": false
+    },
+    "26de3808c9508762--7b24e00f4d942436": {
+      "embedding_similarity": 0.8832,
+      "left_title": "AI 데이터센터 전력 공급 및 세제 지원 정책 토론회 개최, 원전 1기 규모 전력 수요 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체 및 논의 주체가 다름",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "인천시의회, AI 데이터센터 유치 위한 전력수급 및 투자 방안 논의",
+      "same_event": false
+    },
+    "26de3808c9508762--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8576,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 프로젝트와 지자체 유치",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "인천시의회, AI 데이터센터 유치 위한 전력수급 및 투자 방안 논의",
       "same_event": false
     },
     "26eafa8274e4f294--26ff4cd046a6d806": {
@@ -27812,6 +27942,16 @@
       "right_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
       "same_event": false
     },
+    "2f366bdb6179c57a--bfb00b3a7666e96f": {
+      "embedding_similarity": 0.8606,
+      "left_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상회담과 기업 간 협약",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력의향서 체결",
+      "same_event": false
+    },
     "2f366bdb6179c57a--c046a731436912fa": {
       "embedding_similarity": 0.8696,
       "left_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
@@ -27860,6 +28000,16 @@
       "reason": "한-프 정상회담 협력 합의",
       "reviewed_at": "2026-09-12T00:43:42.523204+00:00",
       "right_title": "한-프랑스 정상회담, 민간 원자력 고위급 대화 출범 합의",
+      "same_event": true
+    },
+    "2f366bdb6179c57a--fd1ed16c567b6f08": {
+      "embedding_similarity": 0.8604,
+      "left_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한-프 정상회담",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "한-프 정상회담, 호르무즈·우크라 등 국제 현안 공감대 넓혀",
       "same_event": true
     },
     "2f366bdb6179c57a--fd4be31e22de5cf2": {
@@ -32070,6 +32220,16 @@
       "reason": "SEED 프로젝트 포함과 예산 지원은 다른 사건",
       "reviewed_at": "2026-09-05T22:54:21.617783+00:00",
       "right_title": "정부, 내년 예산안에 SMR 등 7대 국가전략기술 집중 지원",
+      "same_event": false
+    },
+    "371f58bb78f102e7--dc231859cce91b94": {
+      "embedding_similarity": 0.8622,
+      "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "설계인가 신청과 특별법 시행",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, SMR 연구·개발 및 상용화 지원 위한 특별법 시행",
       "same_event": false
     },
     "371f58bb78f102e7--e2c914a8ab70f104": {
@@ -38582,6 +38742,16 @@
       "right_title": "국내 전력 기기 3사, 상반기 수주 잔고 36조원 돌파하며 고속 성장",
       "same_event": true
     },
+    "41960dd1740dddb9--5463036039550a84": {
+      "embedding_similarity": 0.8614,
+      "left_title": "과학기술정보통신부, SMR 특별법 및 시행령 시행…5년마다 기본계획 수립",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 법 시행과 지자체 계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "경상남도, 10년간 4.7조원 투입해 SMR 생산거점 조성 추진",
+      "same_event": false
+    },
     "41960dd1740dddb9--884457c4a9305b01": {
       "embedding_similarity": 0.8685,
       "left_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
@@ -40459,6 +40629,16 @@
       "prompt_version": 1,
       "reason": "원안위의 SMR 규제 조직화와 원자력 추진선 SMR 규제",
       "reviewed_at": "2026-09-02T01:15:12.800318+00:00",
+      "right_title": "원안위, 원자력 추진선 SMR 규제체계 마련 본격화",
+      "same_event": false
+    },
+    "443dc23a57e6ec6c--884457c4a9305b01": {
+      "embedding_similarity": 0.8631,
+      "left_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 특별법과 추진선 규제",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
       "right_title": "원안위, 원자력 추진선 SMR 규제체계 마련 본격화",
       "same_event": false
     },
@@ -43719,6 +43899,16 @@
       "prompt_version": 1,
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-28T00:32:35.476950+00:00",
+      "right_title": "대우건설 정원주 회장, 베트남 장관과 원전·LNG 사업 협력 논의",
+      "same_event": false
+    },
+    "4b93b189c65bbf08--bf6399b160f26270": {
+      "embedding_similarity": 0.859,
+      "left_title": "베트남, AI·에너지 첨단산업 전환…한국과 원전 협력 가능성 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 동향과 기업의 면담",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
       "right_title": "대우건설 정원주 회장, 베트남 장관과 원전·LNG 사업 협력 논의",
       "same_event": false
     },
@@ -47550,6 +47740,16 @@
       "reason": "포천양수발전소 본공사 착수",
       "reviewed_at": "2026-08-10T07:31:41.891305+00:00",
       "right_title": "한수원, 포천양수발전소 주변지역 지원사업 공모 시작",
+      "same_event": true
+    },
+    "527e9b552b8d0868--e356787a673aa06d": {
+      "embedding_similarity": 0.8596,
+      "left_title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한-프 정상회담",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "이재명 대통령, 프랑스 마크롱 대통령과 정상회담…호르무즈 파병 공조 논의",
       "same_event": true
     },
     "52a290304fefba37--f33f228a288946ee": {
@@ -54282,6 +54482,16 @@
       "right_title": "칼레이도스, 아이다호 시험 시설로 이전",
       "same_event": true
     },
+    "5bdbe57180995cf2--bf6399b160f26270": {
+      "embedding_similarity": 0.8591,
+      "left_title": "베트남, AI·에너지 첨단산업 전환…한국과 원전 협력 가능성 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 동향과 기업의 면담",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "대우건설, 하노이 시장 면담 및 베트남 원전·에너지 인프라 사업 확대 추진",
+      "same_event": false
+    },
     "5bfbb7e47287e323--92d32e6c692cd837": {
       "embedding_similarity": 0.9043,
       "left_title": "대한전선, 파리 CIGRE서 HVDC 기술로 유럽 전력망 시장 공략",
@@ -56330,6 +56540,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-30T23:19:47.630093+00:00",
       "right_title": "미국 육군, 22억 달러 규모 야누스 프로그램으로 상업용 마이크로원자로 20기 이상 배치",
+      "same_event": false
+    },
+    "623bc44f0c5dc5ea--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.8595,
+      "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 예산안과 의원실 평가",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "황정아 의원, SMR 등 에너지기술 R&D 예산 55.7% 확대로 상용화 촉진",
       "same_event": false
     },
     "6250ab7f47935df2--806225e255d4065e": {
@@ -60922,6 +61142,16 @@
       "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
       "same_event": false
     },
+    "6d402bf98f9187b2--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.8618,
+      "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 연도 및 예산안 상이",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, 내년 R&D 예산 40조원 돌파 전망…SMR 등 SEED 프로젝트 추진",
+      "same_event": false
+    },
     "6d402bf98f9187b2--a4fec121e2c54527": {
       "embedding_similarity": 0.8739,
       "left_title": "정부, SMR·차세대 태양광을 미래 성장동력으로 육성 발표",
@@ -64992,6 +65222,16 @@
       "right_title": "한불 정상회담 앞두고 핵잠수함 및 핵연료주기 실질협력 촉구",
       "same_event": true
     },
+    "75eedb72f4e8246c--e356787a673aa06d": {
+      "embedding_similarity": 0.863,
+      "left_title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한불 정상회담 관련 보도",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "한불 정상회담 앞두고 핵잠수함 및 핵연료주기 실질협력 촉구",
+      "same_event": true
+    },
     "75feca40d7b229b8--8223afcb92f21518": {
       "embedding_similarity": 0.8689,
       "left_title": "유럽 원전 냉각수 리스크 부각, 한수원 두코바니 냉각탑 방식 주목",
@@ -67642,6 +67882,16 @@
       "right_title": "AI 데이터센터 전력 수요 급증에 따른 한국의 대응 방식 비판",
       "same_event": false
     },
+    "7b24e00f4d942436--c5e721b8fa6c6584": {
+      "embedding_similarity": 0.8605,
+      "left_title": "AI 데이터센터 전력 공급 및 세제 지원 정책 토론회 개최, 원전 1기 규모 전력 수요 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국회 토론회와 시의회 간담회",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "인천시의회, AI 데이터센터 유치 간담회 개최…전력 수급 문제 논의",
+      "same_event": false
+    },
     "7b24e00f4d942436--c84f36bd814fc6f8": {
       "embedding_similarity": 0.8634,
       "left_title": "AI 데이터센터 전력 공급 및 세제 지원 정책 토론회 개최, 원전 1기 규모 전력 수요 논의",
@@ -67910,6 +68160,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-24T09:59:48.702160+00:00",
       "right_title": "'Coal to SMR'의 잠재적 물량, 단기 143GW·장기 450GW 육박한다",
+      "same_event": false
+    },
+    "7b4399b2aa2e9008--959a0bd83cc42eea": {
+      "embedding_similarity": 0.8454,
+      "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 투자 계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "현대차그룹, 새만금에 로봇·AI·수소·태양광 등 9조원 투자 발표",
       "same_event": false
     },
     "7b5b01045873a4a4--acd19c0064cbf19f": {
@@ -68320,6 +68580,16 @@
       "reason": "안건이 다름 (우크라이나 vs ATLAS)",
       "reviewed_at": "2026-08-28T00:32:35.476950+00:00",
       "right_title": "IAEA, ATLAS 장관급 출범 행사 공동 성명 발표",
+      "same_event": false
+    },
+    "7e05f1199bf57e0c--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.863,
+      "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 연도 및 예산안 상이",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "내년 에너지 R&D 예산 48% 확대, 원자력 예산 역대 최대",
       "same_event": false
     },
     "7e77e7f003ff7ab6--8ee1f406adeda252": {
@@ -69072,6 +69342,16 @@
       "right_title": "산업부·원안위, 원전 수출 규제협력 공동 대응 업무협약 체결",
       "same_event": false
     },
+    "8078881f05913157--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.8618,
+      "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 정부 예산안 발표",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, 내년 에너지 R&D 예산 48% 확대해 SMR·핵융합 집중 투자",
+      "same_event": true
+    },
     "8087dd0c3497cc5f--80ab9984fd458758": {
       "embedding_similarity": 0.8808,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -69640,6 +69920,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-29T12:21:14.373316+00:00",
       "right_title": "스웨덴, 신규 원전 3400MW 건설에 현대건설 AP1000 등 3개 노형 경쟁",
+      "same_event": false
+    },
+    "813f63b730f89d11--d592371115ea63b1": {
+      "embedding_similarity": 0.8621,
+      "left_title": "스웨덴, 신규 원전 3400MW 건설에 현대건설 AP1000 등 3개 노형 경쟁",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대형 원전 경쟁과 SMR 협약",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "삼성물산, 스웨덴 1.2GW SMR 공동개발협약 체결하며 유럽 시장 공략",
       "same_event": false
     },
     "8153189c9e875d05--ca20b30862dbeec1": {
@@ -72172,6 +72462,16 @@
       "right_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
       "same_event": true
     },
+    "884457c4a9305b01--8d010b0ab37c89a2": {
+      "embedding_similarity": 0.8614,
+      "left_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "법안 시행과 제도 개편 의견",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "SMR 상용화를 위한 전기본 반영 및 전력시장 정산 체계 개편 필요성 제기",
+      "same_event": false
+    },
     "884457c4a9305b01--959a0bd83cc42eea": {
       "embedding_similarity": 0.8782,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -72179,6 +72479,16 @@
       "prompt_version": 1,
       "reason": "데이터센터와 SMR 특별법",
       "reviewed_at": "2026-09-12T07:53:54.881195+00:00",
+      "right_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
+      "same_event": false
+    },
+    "884457c4a9305b01--964664856198c4dd": {
+      "embedding_similarity": 0.862,
+      "left_title": "원안위, SMR 규제기술 연구 등 내년 예산 3030억 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원안위 예산과 SMR 특별법",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
       "right_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
       "same_event": false
     },
@@ -72230,6 +72540,16 @@
       "reason": "설계 심사와 특별법",
       "reviewed_at": "2026-09-12T12:47:02.632919+00:00",
       "right_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
+      "same_event": false
+    },
+    "884457c4a9305b01--fe0652b5cb6d5cd4": {
+      "embedding_similarity": 0.8627,
+      "left_title": "SMR 특별법 시행, 2035년 상용화 목표 상세설계 내년 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특별법 시행과 인허가 절차",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "국내 첫 SMR 인허가 절차 본격화…부산 산업 지도 변화 예고",
       "same_event": false
     },
     "8866bf24956afeb0--c0a0a81776742190": {
@@ -77282,6 +77602,16 @@
       "right_title": "홀텍, 미국 남부 지역 SMR 시장 성장 목표",
       "same_event": false
     },
+    "962102da67dd64bb--995a3a9b7cdd6475": {
+      "embedding_similarity": 0.8599,
+      "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 예산안과 원안위 예산",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 2027년 예산 3,030억 원 편성…SMR 규제기술 연구 가속화",
+      "same_event": false
+    },
     "962102da67dd64bb--db08e16acafcc890": {
       "embedding_similarity": 0.8502,
       "left_title": "정부, 내년 예산안에 SMR 등 7대 국가전략기술 집중 지원",
@@ -78191,6 +78521,16 @@
       "reviewed_at": "2026-09-09T13:39:44.767471+00:00",
       "right_title": "IAEA, 한국 정부의 원자력 추진 잠수함 도입 의향 통보 확인",
       "same_event": true
+    },
+    "98df06022a735e10--e356787a673aa06d": {
+      "embedding_similarity": 0.8639,
+      "left_title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상회담과 기업 간 협력",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력 추진",
+      "same_event": false
     },
     "991f0fbcbef486cd--9c00adcd73d60f56": {
       "embedding_similarity": 0.8419,
@@ -79451,6 +79791,16 @@
       "reviewed_at": "2026-09-10T23:08:32.351430+00:00",
       "right_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
       "same_event": true
+    },
+    "9d64535a81b9a8fb--f17c3e63543db5d8": {
+      "embedding_similarity": 0.8849,
+      "left_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계속운전 심의와 사고관리계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 한빛원전 1·2호기 사고관리계획서 승인안 재논의 결정",
+      "same_event": false
     },
     "9d74faab6adb99a1--9e7a3003708adbaa": {
       "embedding_similarity": 0.8411,
@@ -82122,6 +82472,16 @@
       "right_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
       "same_event": true
     },
+    "a6bf269f3d5aa561--f17c3e63543db5d8": {
+      "embedding_similarity": 0.9024,
+      "left_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계속운전 심의와 사고관리계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 한빛원전 1·2호기 사고관리계획서 승인안 재논의 결정",
+      "same_event": false
+    },
     "a6bf47f14764936b--d1f22b19a877962c": {
       "embedding_similarity": 0.8599,
       "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
@@ -82911,6 +83271,16 @@
       "reviewed_at": "2026-09-11T22:06:52.895628+00:00",
       "right_title": "미국 텍사스주, 원전 474기 규모 전력 신청에 포괄적 감사 지시",
       "same_event": false
+    },
+    "a9fb1fe43ffce860--d592371115ea63b1": {
+      "embedding_similarity": 0.8643,
+      "left_title": "삼성물산, 스웨덴 1.2GW SMR 공동개발협약 체결하며 유럽 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "스웨덴 SMR 공동개발 협약",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "스웨덴 Studsvik, 4기 SMR 프로젝트 추진 가속화",
+      "same_event": true
     },
     "aa165fa0824b87d8--df18ce1b196c4691": {
       "embedding_similarity": 0.8436,
@@ -92822,6 +93192,16 @@
       "right_title": "AI 데이터센터 확산에도 전력 소비 통계 미흡 지적",
       "same_event": false
     },
+    "d592371115ea63b1--f7f2d48b9b488a4c": {
+      "embedding_similarity": 0.8596,
+      "left_title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 계약",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "삼성물산, 스웨덴 1.2GW SMR 공동개발협약 체결하며 유럽 시장 공략",
+      "same_event": false
+    },
     "d5c4324b0df4e462--d60c75d7877511ce": {
       "embedding_similarity": 0.8572,
       "left_title": "김성환 기후에너지환경부 장관, 전력은 국가 안보자산 강조",
@@ -93372,6 +93752,16 @@
       "right_title": "두산에너빌리티 주가 강세 속 소형모듈원자로 개발 촉진법 시행",
       "same_event": true
     },
+    "dc231859cce91b94--f05008a326b99feb": {
+      "embedding_similarity": 0.8608,
+      "left_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "설계 심사와 특별법 시행",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "정부, SMR 연구·개발 및 상용화 지원 위한 특별법 시행",
+      "same_event": false
+    },
     "dc704bc92a96cebd--f762199f53581f88": {
       "embedding_similarity": 0.8601,
       "left_title": "이종배 의원 대표발의 '전기사업법 개정안', 국회 본회의 통과",
@@ -93771,6 +94161,16 @@
       "reviewed_at": "2026-09-08T14:31:37.955676+00:00",
       "right_title": "원안위, 설계수명 만료되는 한빛원자력발전소 2호기 가동 정지 결정",
       "same_event": true
+    },
+    "e2ac9fd71cf8554d--f17c3e63543db5d8": {
+      "embedding_similarity": 0.8743,
+      "left_title": "한빛 2호기, 설계수명 만료로 장기 정지 및 계속운전 심사 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수명 만료와 사고관리계획",
+      "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
+      "right_title": "원안위, 한빛원전 1·2호기 사고관리계획서 승인안 재논의 결정",
+      "same_event": false
     },
     "e2ac9fd71cf8554d--fe054b905eb2bce8": {
       "embedding_similarity": 0.9034,
