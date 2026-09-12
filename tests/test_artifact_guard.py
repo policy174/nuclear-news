@@ -134,6 +134,28 @@ class GuardTests(unittest.TestCase):
         failures = artifact_guard.check(None, now=NOW)
         self.assertTrue(any("issues.json" in f for f in failures), failures)
 
+    # ---- 오디오 신선도 ----
+
+    def _write_audio(self, date):
+        (self.data / "audio").mkdir(exist_ok=True)
+        self.write(self.data / "audio" / "audio.json", {"date": date})
+
+    def test_audio_missing_file_is_not_a_failure(self):
+        # 캐시 미스와 생성 실패를 구별할 수 없다 — 없는 걸 실패로 세면
+        # 캐시가 비는 날마다 헛울린다.
+        self.assertEqual(artifact_guard.check(None, now=NOW), [])
+
+    def test_audio_one_day_old_passes(self):
+        # 하루 못 만드는 건 쿼터 빠듯한 날의 정상 범위. 알리지 않는다.
+        self._write_audio("2026-09-12")
+        self.assertEqual(artifact_guard.check(None, now=NOW), [])
+
+    def test_audio_stale_for_three_days_fails(self):
+        # 2026-09-06~12 엿새를 아무도 몰랐던 그 상태.
+        self._write_audio("2026-09-10")
+        failures = artifact_guard.check(None, now=NOW)
+        self.assertTrue(any("오디오가 3일째" in f for f in failures), failures)
+
     def test_recent_days_matches_report_draft(self):
         # 두 곳이 갈라지면 가드가 report_draft 가 안 만드는 대상을 요구하게 된다.
         import report_draft

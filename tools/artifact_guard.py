@@ -37,6 +37,13 @@ KST = timezone(timedelta(hours=9))
 RECENT_DAYS = 21  # report_draft._targets 와 같은 창 — 바뀌면 같이 바꿀 것
 CORE_FILES = ("briefings.json", "issues.json", "news.json", "meta.json")
 
+# 오디오는 부가 기능이라 하루 못 만드는 건 정상 범위다(쿼터가 빠듯한 날이 있다).
+# 사흘이면 다른 얘기다 — 2026-09-06~12 엿새를 아무도 모른 채 지나간 전례가 있고,
+# 그건 "오늘 실패"가 아니라 구조가 깨진 것이었다. severity(얼마나 급한가)와
+# level(사람이 손대야 하는가)은 다른 축이라는 v2 의 구분을 여기에 적용한다:
+# 1일 실패는 알리지 않고, 3일 연속이면 잡을 빨갛게 해 DM 을 띄운다.
+AUDIO_STALE_DAYS = 3
+
 
 def _load(path: Path, default):
     try:
@@ -99,7 +106,25 @@ def check(baseline: Path | None, now: datetime | None = None) -> list[str]:
         else:
             print(f"[guard] 신규 초안 {len(fresh)}건 — 남은 대상 {len(pending)}건")
 
-    # 3. 첫 화면 데이터
+    # 3. 오디오가 며칠째 멈춰 있는가
+    #
+    # 파일이 아예 없으면 **판정하지 않는다** — 워크플로가 오디오 캐시를 복원해
+    # 놓는 구조라, 캐시 미스와 생성 실패를 여기서 구별할 수 없다. 없는 걸
+    # 실패로 세면 캐시가 비는 날마다 헛울린다.
+    audio = _load(DATA / "audio" / "audio.json", None)
+    audio_date = (audio or {}).get("date") if isinstance(audio, dict) else None
+    if not audio_date:
+        print("[guard] 오디오 메타 없음 — 신선도 검사 SKIP (캐시 미스와 구별 불가)")
+    else:
+        stale = (now.date() - datetime.fromisoformat(audio_date).date()).days
+        if stale >= AUDIO_STALE_DAYS:
+            failures.append(
+                f"오디오가 {stale}일째 {audio_date} 에 멈춰 있음 "
+                f"({AUDIO_STALE_DAYS}일 이상은 구조 고장 — 쿼터 버킷 충돌 의심)")
+        else:
+            print(f"[guard] 오디오 {audio_date} ({stale}일 전) — 신선도 PASS")
+
+    # 4. 첫 화면 데이터
     for name in CORE_FILES:
         payload = _load(DATA / name, None)
         if payload is None:
