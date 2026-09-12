@@ -13,16 +13,24 @@ name: Daily Brief (통합 일일 브리핑)
 #      untracked 라 reset 에도 생존)를 재병합해 재시도.
 
 on:
-  # 예약 07:25 KST(22:25 UTC), 실도착 07:25~08:31 (2026-09-08 사용자 결정 —
-  # 9/1 의 "08시 이전 금지"를 대체). 하한 근거: 카톡 신문스크랩 조간이 보통
-  # 07:15 까지 방에 오고 repo 반영은 +2분 실측(09-07: 본대 +77건이 07:17 커밋)
-  # — 07:25 체크아웃이면 조간 시드가 들어와 있다(마진 ~8분). 낙오분(09-07
-  # 07:46 +1건 실측)은 어느 시각이든 카드엔 못 타고 09시 크롤로 사이트 반영.
-  # GitHub cron 지연은 [0, ~66분] 분포라 **하한은 예약 시각 자체로만 보장**된다.
-  # :25 는 정시 큐 회피. 지연이 긴 날은 시작이 00:00 UTC 크롤과 겹칠 수 있으나
-  # outbox claim/rebase 재시도 사다리가 양쪽에 있어 허용(큐는 hash 단위 제거라 안전).
+  # 예약 04:50 KST(19:50 UTC). **예약 시각이 곧 도착 시각이 아니다** — 여기서
+  # GitHub cron 은 상시 지연된다. 2026-09-12 실측:
+  #   브리핑 슬롯(22:25 UTC) n=10 → 106~123분 (평균 113, 편차 ±9 로 안정)
+  #   크롤 슬롯              → 6~162분 (슬롯마다 제각각, 예측 불가)
+  # 슬롯이 다르면 지연도 다르므로 **평균 역산은 새 슬롯에서 성립할 보장이 없다.**
+  # 그래서 평균이 아니라 관측 최악(162분)으로 역산한다:
+  #   04:50 + 162분(최악) + 18분(잡 시작→발송 실측) = 07:50  → SLA "08시 이전" 충족
+  #   04:50 + 113분(평균) + 18분                     = 06:41
+  # 이르게 오는 피해 < 늦게 오는 피해라는 판단(2026-09-12 사용자 결정).
+  # 직전 예약 07:25 는 실제로는 09:14~09:22 시작 / 카드 ~09:40 이었다 —
+  # '출근길에 이미 와 있다'가 아니라 이미 사무실이다. :50 은 정시 큐 혼잡 회피.
+  # 조간 시드(07:15 도착)보다 이르지만, 09-12 에 잡 안의 크롤을 뺐으므로
+  # 브리핑은 어차피 직전 수집을 하지 않는다 — 시드는 다음 크롤이 처리한다.
+  # 재측정법: gh run list --workflow=daily-brief.yml --json startedAt,event 로
+  # schedule 이벤트의 시작 시각을 예약 시각과 비교. 슬롯을 옮기면 다시 잴 것.
+  # (cron 의 timezone 필드는 미검증 — UTC + 주석 환산이라는 현행 관례 유지.)
   schedule:
-    - cron: '25 22 * * *'
+    - cron: '50 19 * * *'
   workflow_dispatch:
     inputs:
       force_audio:
@@ -204,7 +212,21 @@ jobs:
           sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1 || echo "ffmpeg 설치 실패 — 오디오 스킵 (비치명)"
 
       # 아침 브리핑·흐름 해석을 nuclens.pages.dev에 즉시 반영 (하루 1회 확정 배포)
+      # 맨 끝 산출물 가드의 기준선 — Deploy 가 report_draft.py 를 돌리기 **전**의
+      # 초안 보유 목록을 떠 둔다. Deploy 첫 줄이 `git reset --hard origin/main`
+      # 이므로 기준선도 origin/main 에서 읽어야 같은 시점이 된다(워킹트리 아님).
+      # 실패해도 비치명 — 기준선이 없으면 가드가 초안 검사만 SKIP 한다.
+      - name: Snapshot draft baseline (산출물 가드 기준선)
+        if: always() && steps.claim.conclusion == 'success'
+        continue-on-error: true
+        run: |
+          git fetch origin main --quiet || true
+          git show origin/main:report_drafts.json > "$RUNNER_TEMP/drafts_before.json" 2>/dev/null \
+            || echo '{}' > "$RUNNER_TEMP/drafts_before.json"
+          wc -c < "$RUNNER_TEMP/drafts_before.json" | xargs echo "[guard] 기준선 바이트:"
+
       - name: Deploy web to Cloudflare Pages
+        id: deploy
         if: always() && steps.claim.conclusion == 'success'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -339,3 +361,47 @@ jobs:
           npm install --no-save playwright@1
           npx playwright install --with-deps chromium
           node web/tests/render_smoke.mjs
+
+      # 산출물 검사 — 이 잡에서 **유일하게 continue-on-error 가 없는** 스텝이다.
+      #
+      # 왜 필요한가: 나머지 스텝이 전부 비치명이고 파이썬 쪽도 쿼터 실패를 삼켜
+      # exit 0 한다. 그래서 9/08~9/12 닷새간 dedup·오디오·보고서 초안이 전부
+      # 죽었는데 워크플로는 초록이었다. 조건식(failure()||cancelled())을 고쳐도
+      # 이건 못 잡는다 — GitHub 는 exit 0 을 성공으로 보기 때문이다.
+      # "스텝이 돌았는가"가 아니라 **"산출물이 생겼는가"**를 여기서 직접 본다.
+      #
+      # 여기서 exit 1 이 나야 아래 notify_failure 잡이 발화한다. 그 고리:
+      #   산출물 없음 → 가드 exit 1 → brief 잡 실패 → notify_failure 발화 → 개인 DM
+      # 오탐 방지 규칙은 tools/artifact_guard.py 머리말과 tests/test_artifact_guard.py 참조.
+      - name: Artifact guard (산출물 검사)
+        if: always() && steps.deploy.outcome == 'success'
+        run: python tools/artifact_guard.py --baseline "$RUNNER_TEMP/drafts_before.json"
+
+  # 실패·취소 알림을 **별도 잡**으로 뺀다. 죽는 잡 맨 아래에 알림 스텝을 붙이는
+  # 건 "네가 죽으면 나한테 알려줘"를 죽는 쪽에 맡기는 구조다 — 하드 타임아웃으로
+  # 러너가 종료되면 그 스텝도 같이 날아간다. 실제로 9/08~9/12 닷새간 brief 잡이
+  # 매일 45분 타임아웃으로 취소됐는데 알림은 0건이었다(daily-brief 에는 애초에
+  # failure() 스텝 자체가 없었고, crawl-watchdog 은 crawl.yml 만 감시한다).
+  #
+  # 의존성 0 으로 유지할 것 — telegram_send.py 는 순수 stdlib 다. **경보는 시스템에서
+  # 가장 단순한 것이어야 한다**: 모든 게 망가진 날에도 이것만은 돌아야 한다.
+  # cancelled() 를 반드시 포함한다 — 타임아웃은 failure 가 아니라 cancelled 다.
+  notify_failure:
+    needs: brief
+    if: ${{ always() && (needs.brief.result == 'failure' || needs.brief.result == 'cancelled') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Notify (운영 알림 → 개인 DM)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+        run: |
+          python3 telegram_send.py --ops --plain "⚠️ nuclens 아침 브리핑 실패 (${{ needs.brief.result }})
+
+          워크플로: ${{ github.workflow }} #${{ github.run_number }}
+          로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          cancelled 면 45분 타임아웃, failure 면 산출물 가드 또는 배포 실패입니다.
+          로그에서 'Artifact guard' 스텝을 먼저 보세요."

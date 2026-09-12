@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
@@ -41,6 +42,20 @@ ROOT = Path(__file__).parent
 ISSUES_FILE = ROOT / "web" / "public" / "data" / "issues.json"
 CACHE_FILE = ROOT / "report_drafts.json"
 PUBLIC_FILE = ROOT / "web" / "public" / "data" / "report_drafts.json"
+
+# 전용 모델 버킷 (2026-09-12). 무료 한도는 **모델별 버킷**이라, 같은 잡에서
+# build_data(최대 소비자)와 오디오 대본이 2.5 계열을 먼저 태우면 순서상 맨
+# 마지막인 초안 생성이 매일 429 로 죽는다 — 실측 9/07~9/12 엿새간 초안 신규
+# 0건(대상 26건 적체), 로그는 `429 재시도 예산 소진 — report_draft:fallback`.
+#
+# 아이러니: chronicle_narrative.py 는 **이 파일의 골격을 복제해** 만든 것인데,
+# 09-07 에 복제본만 전용 버킷을 받았고 원본인 여기는 빠졌다. 그래서 서사는
+# 매일 정상 생성되는데 초안만 죽어 있었다. 같은 처방을 되돌려 적용한다.
+#
+# 3.5 는 리뷰(GEMINI_REVIEW_MODEL)와 스토리 서사가 이미 쓰므로 3.6 으로 뺀다.
+# 3.6 이 400 을 내면 3.5 로 내릴 것 — 3.x 가 거부하는 건 thinkingBudget=0 인데
+# (오디오 대본이 그래서 2.5 에 묶여 있다) 여기는 thinking 을 끄지 않는다.
+REPORT_MODEL_DEFAULT = "gemini-3.6-flash"
 
 # 프롬프트를 고치면 올린다 — 옛 초안이 자동 무효.
 PROMPT_VERSION = 1
@@ -180,6 +195,14 @@ def _targets(issues: list[dict], today: datetime) -> list[dict]:
 
 # ---- 생성 --------------------------------------------------------------------
 
+def _resolve_model() -> str:
+    try:
+        import gemini_client  # noqa: PLC0415
+    except ImportError:
+        return os.environ.get("GEMINI_REPORT_MODEL") or REPORT_MODEL_DEFAULT
+    return gemini_client._resolve("GEMINI_REPORT_MODEL", REPORT_MODEL_DEFAULT)
+
+
 def _ask(client, issue: dict) -> tuple[str, list[str]]:
     """(초안 텍스트, 위반 목록). 게이트 실패 1회는 위반을 되먹여 재시도."""
     message = _user_message(issue)
@@ -191,7 +214,11 @@ def _ask(client, issue: dict) -> tuple[str, list[str]]:
             message + feedback,
             temperature=0.2,
             max_output_tokens=MAX_OUTPUT_TOKENS,
-            fallback_model=getattr(client, "FALLBACK_MODEL", None),
+            # model= 을 주면 call_json 의 기본 폴백 체인이 발동하지 않는다
+            # (체인 조건: model is None and fallback_model is None). 의도한
+            # 것이다 — 폴백이 거의 전부 2.5-flash-lite 로 수렴해서, 폴백을
+            # 남겨두면 방금 떼어낸 혼잡 버킷으로 도로 흘러내린다.
+            model=_resolve_model(),
             label="report_draft",
         )
         lines = [str(line) for line in (payload.get("lines") or []) if str(line).strip()]

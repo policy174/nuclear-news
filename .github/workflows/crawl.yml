@@ -397,8 +397,12 @@ jobs:
       # 실패를 사람이 보는 곳으로 보낸다. Actions 탭은 아무도 안 본다 —
       # 2026-08-15~17 Deploy web 이 9번 연속 빨간 채로 이틀을 갔다.
       # 알림 자체가 실패해도 크롤 결과를 바꾸지 않는다(이미 실패한 잡이다).
+      # cancelled() 를 반드시 포함한다 — **타임아웃은 failure 가 아니라 cancelled 다.**
+      # 2026-09-12 발견: 이 조건이 failure() 뿐이라 45분 타임아웃으로 죽은 런에서는
+      # 이 스텝이 skipped 됐다. 위 주석이 "Deploy web 이 9번 연속 빨간 채로 이틀을
+      # 갔다"고 적어놨는데, 정작 타임아웃은 그 그물을 통째로 빠져나가고 있었다.
       - name: Notify failure (운영 알림 → 개인 DM)
-        if: failure()
+        if: failure() || cancelled()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
