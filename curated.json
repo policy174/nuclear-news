@@ -202681,5 +202681,291 @@
     "domain": "hankyung.com",
     "matched": "데이터센터 전력",
     "features_attempts": 1
+  },
+  "add9dfb011b7fec3": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "동덕여대 박주헌 교수, 12차 전력수급기본계획 '시나리오 플래닝' 전환 제안",
+    "summary": "12차 전력수급기본계획은 AI·반도체 전력 수요 급증에 대응해 단일 점전망에서 다중 시나리오 플래닝으로 전환해야 한다는 제안이 나왔다.",
+    "detail": "박주헌 동덕여대 교수는 9월 10일 토론회에서 과거 전력수요 과소예측의 위험성을 지적하며 2038년 정격 설비용량 268.1GW 중 실효용량이 157.8GW에 불과하다고 분석했다. 특히 호남 지역은 정격용량이 24.6GW이나 실효용량이 14.2GW에 그쳐 '유발무력' 상태라며, 서남권 반도체 클러스터 공급을 위해 24시간 안정적인 'Firm Power' 확보와 전력망 시간 격차 해소가 시급하다고 강조했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#12차전력수급기본계획",
+      "#전력수요",
+      "#실효용량"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-10",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "[분석] 12차 전력수급기본계획 '예측의 계획에서 대비의 계획으로'(박주헌 동덕여대 교수)",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9IelpuSms5WjdoWGZUcllnNkdsRlA3ak1KTGNjMTdMcE12QWR3azRaRnA0ZGZycVZUbVd2Nzk2MWRDVGpTSVBMSlc0YXBENm94TmQyblFfRGFjNTRzUEJESmtzclg?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "6492c3fb89e4cc8b": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "report",
+    "title_kr": "국회예산정책처, RE100 산단 성공 위해 '인프라·세제·정주여건' 3박자 강조",
+    "summary": "국회예산정책처는 RE100 산업단지 조성이 성공하려면 발전소 건설을 넘어 전력 인프라, 세제 혜택, 인력 정주 여건이 고루 갖춰져야 한다는 보고서를 발간했다.",
+    "detail": "국회예산정책처가 2024년 기준 국내 기업의 재생에너지 전력 소비 비중이 12%에 불과하다고 지적하며 주요국 사례를 분석했다. 중국 오르도스는 분산전력망과 임대주택을 결합했고, 말레이시아 사라왁은 수력발전 기반에 법인세 면제와 우대 전력요금을 제공했다. 반면 스웨덴 노르보텐은 정주 여건 부재로 노동력 부족을 겪었으며, 현재 정부와 국회는 RE100 산단 조성을 위한 특별법안 11건을 논의 중이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#RE100",
+      "#산업단지",
+      "#지산지소"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "시동 건 RE100 산단…'인프라·세제·정주' 3박자 맞춰야 산다",
+    "link": "https://www.mt.co.kr/economy/2026/09/13/2026091111194823822",
+    "feed": "정책",
+    "domain": "mt.co.kr",
+    "matched": "송전망 건설"
+  },
+  "85365a50f350cf98": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "market",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "개인투자자, 반도체 ETF 차익실현…원전·금·전력기기 ETF로 자금 이동",
+    "summary": "개인 투자자들이 상반기 주도주였던 반도체 ETF에서 자금을 빼내어 금, 원전, 전력기기 등 대안 자산과 테마로 순매수세를 분산하고 있다.",
+    "detail": "11일까지 한국거래소 데이터에 따르면 개인은 'KODEX SK하이닉스단일종목레버리지' 등을 대거 순매도한 반면, 'ACE KRX금현물', 'TIGER코리아원자력', 'KODEX AI전력핵심설비' 등에는 자금을 투입했다. 반도체주 조정 국면에 따라 포트폴리오를 다변화하려는 투자 심리가 반영된 결과다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#ETF",
+      "#원전주",
+      "#전력기기"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-11",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "상반기엔 반도체 싹쓸이하더니…개인 자금이 몰린 의외의 ETF",
+    "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=486435",
+    "feed": "정책",
+    "domain": "pinpointnews.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "5c2c73b07e9c9249": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "리벨리온 박성현 대표, 미국 엔비디아 본사 방문해 젠슨 황 회장 회동",
+    "summary": "국산 AI 반도체 스타트업 리벨리온의 박성현 대표가 미국 엔비디아 본사를 방문해 젠슨 황 CEO와 회동했으나 구체적인 대화 내용은 공개되지 않았다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#리벨리온",
+      "#엔비디아",
+      "#NPU"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "[사이드B] '엔비디아 대항마' 리벨리온, 젠슨 황 손잡나…GPU+NPU 협력 주...",
+    "link": "http://www.inews24.com/view/2004880",
+    "feed": "정책",
+    "domain": "inews24.com",
+    "matched": "데이터센터 전력"
+  },
+  "d3d0580c2399b20f": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "정부, 반도체·AI 메가프로젝트 대비 안정적 전력 공급망 구축 추진",
+    "summary": "정부는 반도체와 데이터센터 등 대규모 전력 소모 메가프로젝트를 뒷받침하기 위해 재생에너지와 LNG 발전 등을 총동원해 전력 공급망을 구축할 방침이다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력공급망",
+      "#메가프로젝트",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "3대 메가프로젝트 성패는 '전력'…총괄할 한전 차기 사장 누구?",
+    "link": "https://www.news1.kr/local/gwangju-jeonnam/6287640",
+    "feed": "정책",
+    "domain": "news1.kr",
+    "matched": "데이터센터 전력"
+  },
+  "1d7b0dc21625cedd": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "한수원 등 국내 기업, 대미 투자 원전 8기 중 2기 국산 APR1400 검토",
+    "summary": "한국수력원자력을 비롯한 국내 기업들은 독자적인 대형 원전 건설 노하우를 바탕으로 대미 투자 원전 8기 중 2기에 국산 APR1400 도입을 검토하고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#APR1400",
+      "#한수원",
+      "#미국원전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-12T22:46:22.515655+00:00",
+    "title": "대미 투자 원전 8기 중 2기 '국산 APR1400' 검토…美 원전과 차이는?",
+    "link": "https://www.news1.kr/industry/general-industry/6287832",
+    "feed": "정책",
+    "domain": "news1.kr",
+    "matched": "원전 수출"
   }
 }
