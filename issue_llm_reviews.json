@@ -1162,6 +1162,16 @@
       "right_title": "한전, 호남·용인 반도체 산단에 대규모 전력 공급 로드맵 발표",
       "same_event": true
     },
+    "01fba58f8dc8193d--d3d0580c2399b20f": {
+      "embedding_similarity": 0.8772,
+      "left_title": "정부, 2027년 메가프로젝트 전력·용수 공급에 1.9조원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "메가프로젝트 전력 공급",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부, 반도체·AI 메가프로젝트 대비 안정적 전력 공급망 구축 추진",
+      "same_event": true
+    },
     "01fba58f8dc8193d--d85f07205c5b9e41": {
       "embedding_similarity": 0.8556,
       "left_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
@@ -1491,6 +1501,16 @@
       "reviewed_at": "2026-09-10T21:00:46.460629+00:00",
       "right_title": "경남도, SMR 글로벌 육성전략 2.0 발표…10년간 4조6990억원 투입",
       "same_event": false
+    },
+    "0287e9d046eb5b50--3794d3ff53f5a406": {
+      "embedding_similarity": 0.8785,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 투자",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한미 당국, 2,000억 달러 규모 대미 투자 프로젝트 내 대형원전 8기 포함 여부 논의",
+      "same_event": true
     },
     "0287e9d046eb5b50--50a0450c20bee9ac": {
       "embedding_similarity": 0.892,
@@ -2521,6 +2541,16 @@
       "reviewed_at": "2026-09-01T00:28:56.220618+00:00",
       "right_title": "정부, 12차 전기본 수립 착수…AI·반도체로 전력수요 1.4배 급증 전망",
       "same_event": true
+    },
+    "04efed515cb6116f--063047632851abed": {
+      "embedding_similarity": 0.8605,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전폐지 vs AI수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": false
     },
     "04efed515cb6116f--076036e9576007bc": {
       "embedding_similarity": 0.8549,
@@ -4181,6 +4211,56 @@
       "reviewed_at": "2026-08-26T16:32:17.816059+00:00",
       "right_title": "KBS 시사기획 창, 한국형 핵추진 잠수함과 한미 원자력협정 조명",
       "same_event": false
+    },
+    "063047632851abed--3936f98b28485c84": {
+      "embedding_similarity": 0.8683,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재생에너지 vs AI수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": false
+    },
+    "063047632851abed--5c22cc5586b97424": {
+      "embedding_similarity": 0.8409,
+      "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수요 검증 vs AI수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": false
+    },
+    "063047632851abed--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8428,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재생에너지 vs AI수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": false
+    },
+    "063047632851abed--d1f22b19a877962c": {
+      "embedding_similarity": 0.8551,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재생에너지 vs AI수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": false
+    },
+    "063047632851abed--fe38c24988ff17a4": {
+      "embedding_similarity": 0.8717,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AI 전력수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 수요 증가에 따른 전력수요 급증…12차 전기본서 논의",
+      "same_event": true
     },
     "067133909cd33404--fbd3322d6a137c46": {
       "embedding_similarity": 0.8424,
@@ -8331,6 +8411,16 @@
       "reviewed_at": "2026-09-13T01:01:34.867811+00:00",
       "right_title": "HD현대중공업, 1조 722억원 투자해 발전엔진 및 SMR 전용공장 건립",
       "same_event": true
+    },
+    "0ad65c3149551bc0--fd9149f4661ec85b": {
+      "embedding_similarity": 0.8763,
+      "left_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "투자 주체 및 규모 상이",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "현대중공업터보기계, 포항에 1000억 투자해 SMR 핵심 기자재 생산",
+      "same_event": false
     },
     "0b26359a6aa80885--1000a8363de8a196": {
       "embedding_similarity": 0.8964,
@@ -14052,6 +14142,16 @@
       "right_title": "김정관 산업부 장관, 프랑스 이어 미국 방문…대미투자 1호 막판 협의",
       "same_event": true
     },
+    "14d62d38adbfee7f--7d19110e0c58b28f": {
+      "embedding_similarity": 0.8786,
+      "left_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "장관 방미 대미원전 협상",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "김정관 산업부 장관, 프랑스 이어 미국 방문…대미투자 1호 막판 협의",
+      "same_event": true
+    },
     "14fdea2b11e3b9ae--1dcdc14282ec8451": {
       "embedding_similarity": 0.8859,
       "left_title": "강민국 의원, 5개 발전공기업 통합 '한국발전공사법안' 발의",
@@ -15420,6 +15520,16 @@
       "reason": "동일한 전기요금 차등제 관련 보도",
       "reviewed_at": "2026-09-04T13:26:15.832974+00:00",
       "right_title": "전남광주, 산업용 지역 전기요금제 시행 시 연간 최대 4250억 원 절감 전망",
+      "same_event": true
+    },
+    "18d485ea7e099351--fe38c24988ff17a4": {
+      "embedding_similarity": 0.8582,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AI 전력수요",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
       "same_event": true
     },
     "18d7399f8aad9119--35dad0e2433bb492": {
@@ -18502,6 +18612,16 @@
       "right_title": "산업부, 대미투자 협상서 대형 원전 8기 패키지 검토",
       "same_event": true
     },
+    "1d7b0dc21625cedd--59fdec838a3146f8": {
+      "embedding_similarity": 0.8756,
+      "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 참여",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한수원 등 국내 기업, 대미 투자 원전 8기 중 2기 국산 APR1400 검토",
+      "same_event": true
+    },
     "1d936273a2b224d7--33b53bc5a243a876": {
       "embedding_similarity": 0.8904,
       "left_title": "AI 생태계 육성 위한 3대 메가 프로젝트, 전력·인허가 불확실성 해소 필요",
@@ -20441,6 +20561,16 @@
       "reviewed_at": "2026-08-23T15:29:53.976802+00:00",
       "right_title": "사설: AI·반도체 산업 전력 확보, 국가 경쟁력 직결 강조",
       "same_event": false
+    },
+    "1fc6ec871a6554c8--3794d3ff53f5a406": {
+      "embedding_similarity": 0.8736,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 사업",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 및 WEC 지분 인수 논의",
+      "same_event": true
     },
     "1fc6ec871a6554c8--724a3270a5cb5092": {
       "embedding_similarity": 0.8886,
@@ -23622,6 +23752,16 @@
       "right_title": "이재명 대통령, 프랑스 국빈 방문서 AI·원자력 협력 논의",
       "same_event": true
     },
+    "25c611c5e02f7132--3794d3ff53f5a406": {
+      "embedding_similarity": 0.8753,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 사업",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "미국, 원전 8기 건설에 1200억 달러 투자 제안…한국 수익·주도권 확보 관건",
+      "same_event": true
+    },
     "25c611c5e02f7132--50a0450c20bee9ac": {
       "embedding_similarity": 0.9115,
       "left_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
@@ -26050,6 +26190,16 @@
       "reason": "미국 원전 건설 보도 및 해명",
       "reviewed_at": "2026-09-08T14:31:37.955676+00:00",
       "right_title": "한미 대미투자 최종 합의문 구상에 미국 내 원전 8기 건설 포함",
+      "same_event": true
+    },
+    "2ae5ed9e68edd9cd--7d19110e0c58b28f": {
+      "embedding_similarity": 0.8702,
+      "left_title": "산업부, 대미 원전 8기 건설 프로젝트 관련 미확정 보도에 신중 당부",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 협상 및 해명",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
       "same_event": true
     },
     "2ae5ed9e68edd9cd--949cf05ae6eb26df": {
@@ -32452,6 +32602,16 @@
       "right_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
       "same_event": false
     },
+    "371f58bb78f102e7--754393574b8fedf7": {
+      "embedding_similarity": 0.8763,
+      "left_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정책 발표와 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
     "371f58bb78f102e7--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8715,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -33042,6 +33202,26 @@
       "right_title": "SK 최태원·빌 게이츠, 테라파워 SMR로 AI 데이터센터 전력 공급 협력 논의",
       "same_event": false
     },
+    "3794d3ff53f5a406--3f901e12f3d58c9c": {
+      "embedding_similarity": 0.879,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 투자",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 및 웨스팅하우스 지분 인수 논의",
+      "same_event": true
+    },
+    "3794d3ff53f5a406--4a12a0346582e86c": {
+      "embedding_similarity": 0.87,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대형원전 투자와 SMR",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "삼성물산·현대건설, 스웨덴·미국 SMR 사업 참여",
+      "same_event": false
+    },
     "3794d3ff53f5a406--530c775cac0dc980": {
       "embedding_similarity": 0.901,
       "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
@@ -33112,6 +33292,16 @@
       "right_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
       "same_event": false
     },
+    "3794d3ff53f5a406--7d19110e0c58b28f": {
+      "embedding_similarity": 0.8724,
+      "left_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 협상",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "same_event": true
+    },
     "3794d3ff53f5a406--806225e255d4065e": {
       "embedding_similarity": 0.8917,
       "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
@@ -33140,6 +33330,26 @@
       "reason": "대미 원전 투자 합의",
       "reviewed_at": "2026-09-12T22:21:54.071724+00:00",
       "right_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "same_event": true
+    },
+    "3794d3ff53f5a406--94d1472d5107818d": {
+      "embedding_similarity": 0.8785,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 8기 투자",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "한국, 미국 내 1300억달러 규모 원전 8기 건설 추진…APR1400 2기 포함",
+      "same_event": true
+    },
+    "3794d3ff53f5a406--972a92e1bca340ca": {
+      "embedding_similarity": 0.8691,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 보도 및 해명",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "산업통상부, 대미투자 제1호 프로젝트 확정 보도에 대해 \"확정된 바 없다\" 설명",
       "same_event": true
     },
     "3794d3ff53f5a406--9fc327957b5801f8": {
@@ -33210,6 +33420,16 @@
       "reason": "대미 원전 투자 합의",
       "reviewed_at": "2026-09-12T22:21:54.071724+00:00",
       "right_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "same_event": true
+    },
+    "3794d3ff53f5a406--d5217cd852b861bd": {
+      "embedding_similarity": 0.8712,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 보도 및 해명",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "산업통상부, 대미투자 첫 송금 및 원전 협력 구체 사항 미확정 설명",
       "same_event": true
     },
     "3794d3ff53f5a406--fe5e3a400f31076f": {
@@ -34280,6 +34500,16 @@
       "reason": "ESS 증설 필요 분석은 다른 사안",
       "reviewed_at": "2026-08-29T23:44:12.784378+00:00",
       "right_title": "전력거래소, 태양광 55% 증가 시 ESS 220% 증설 필요 분석",
+      "same_event": false
+    },
+    "3936f98b28485c84--422343bc527a566c": {
+      "embedding_similarity": 0.8695,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 대상 상이",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "10년간 365MW, 이젠 매년 4GW...해상풍력 공급망 '투자 시계' 빨라진다",
       "same_event": false
     },
     "3936f98b28485c84--438378ac85e21966": {
@@ -39801,6 +40031,26 @@
       "reviewed_at": "2026-09-03T13:31:28.759797+00:00",
       "right_title": "포항 철강노조, 산업용 전기요금 인하 및 지역별 차등요금제 9월 시행 촉구",
       "same_event": true
+    },
+    "422343bc527a566c--86e09ce2f6b7856c": {
+      "embedding_similarity": 0.8485,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 대상 상이",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "10년간 365MW, 이젠 매년 4GW...해상풍력 공급망 '투자 시계' 빨라진다",
+      "same_event": false
+    },
+    "422343bc527a566c--d1f22b19a877962c": {
+      "embedding_similarity": 0.8607,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 대상 상이",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "10년간 365MW, 이젠 매년 4GW...해상풍력 공급망 '투자 시계' 빨라진다",
+      "same_event": false
     },
     "423c7f5bf8bc1b7c--cc5ef12e160a4ddf": {
       "embedding_similarity": 0.8508,
@@ -58592,6 +58842,16 @@
       "right_title": "동해안-동서울 HVDC 등 주요 송전망 건설 지연 심화",
       "same_event": false
     },
+    "631f0fa57b2f4431--754393574b8fedf7": {
+      "embedding_similarity": 0.8766,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 동향 vs 경남 계획",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "경남도, 4조 6990억 원 투입해 SMR 생산거점 구축 계획 발표",
+      "same_event": false
+    },
     "631f0fa57b2f4431--7b27963ed389efb2": {
       "embedding_similarity": 0.8535,
       "left_title": "동남권, SMR·4세대 원자로 등 차세대 원전 분야 성장엔진 확정",
@@ -66222,6 +66482,16 @@
       "right_title": "기후에너지환경부, 지역별 산업용 전기요금 차등제 하반기 시행 계획",
       "same_event": true
     },
+    "754393574b8fedf7--78df41095a0024b7": {
+      "embedding_similarity": 0.8702,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 예산과 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부, 내년도 에너지 R&D 예산 7,336억 원 편성…원자력 및 SMR 대폭 확대",
+      "same_event": false
+    },
     "754393574b8fedf7--906cf33fdcfd7cbc": {
       "embedding_similarity": 0.8853,
       "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
@@ -66249,6 +66519,26 @@
       "prompt_version": 1,
       "reason": "데이터센터 사업과 SMR 동향",
       "reviewed_at": "2026-09-13T01:01:34.867811+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
+    "754393574b8fedf7--95eb3a7bbb45c539": {
+      "embedding_similarity": 0.8711,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 예산과 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "경남도, 내년 국비 11조 6811억원 확보…SMR 등 첨단산업 육성",
+      "same_event": false
+    },
+    "754393574b8fedf7--964664856198c4dd": {
+      "embedding_similarity": 0.8707,
+      "left_title": "원안위, SMR 규제기술 연구 등 내년 예산 3030억 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제기관 예산과 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
       "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
       "same_event": false
     },
@@ -66282,6 +66572,66 @@
       "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
       "same_event": false
     },
+    "754393574b8fedf7--b9d747dc7286be6f": {
+      "embedding_similarity": 0.8769,
+      "left_title": "경남도, 내년 국비 11조6811억 확보…SMR 혁신제조 기술개발 187억 반영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남 예산 vs 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
+    "754393574b8fedf7--bb52be419ea610f9": {
+      "embedding_similarity": 0.8713,
+      "left_title": "경남도, 2027년 국비 11.6조원 확보…SMR 관련 예산 187억원 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 예산과 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
+    "754393574b8fedf7--c1a5b7851b1493fd": {
+      "embedding_similarity": 0.8777,
+      "left_title": "과기정통부, 소형모듈원자로 개발 촉진 및 지원에 관한 특별법 및 시행령 시행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특별법 시행 vs 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
+    "754393574b8fedf7--c27a71bbf060f1ea": {
+      "embedding_similarity": 0.872,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "예산 증액과 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "과기정통부, 내년 에너지 R&D 예산 48% 증액…SMR·핵융합 집중",
+      "same_event": false
+    },
+    "754393574b8fedf7--ce215adf0ad0798b": {
+      "embedding_similarity": 0.8719,
+      "left_title": "정부, SMR 등 7대 국가전략 핵심기술 R&D에 39.5조 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "R&D 투자와 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "same_event": false
+    },
+    "754393574b8fedf7--cf08af9f1d3a1d58": {
+      "embedding_similarity": 0.8788,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 동향 vs 경남 예산",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "경남도 내년 정부예산안에 국비 11조6811억 반영…SMR 사업 본격화",
+      "same_event": false
+    },
     "754393574b8fedf7--db08e16acafcc890": {
       "embedding_similarity": 0.8929,
       "left_title": "정부, 내년 예산안에 SMR 등 7대 국가전략기술 집중 지원",
@@ -66310,6 +66660,16 @@
       "reason": "종합 동향과 개별 지자체 계획",
       "reviewed_at": "2026-09-13T01:01:34.867811+00:00",
       "right_title": "경상남도, 2035년 SMR 제조시장 점유율 60% 달성 육성전략 2.0 발표",
+      "same_event": false
+    },
+    "754393574b8fedf7--ed11472438a2c144": {
+      "embedding_similarity": 0.8758,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "법안 시행과 업계 동향",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "두산에너빌리티 주가 강세 속 소형모듈원자로 개발 촉진법 시행",
       "same_event": false
     },
     "756c2e6e80bbd36e--7f066d5dce3f0910": {
@@ -69732,6 +70092,16 @@
       "right_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
       "same_event": true
     },
+    "7d19110e0c58b28f--9d17fb1176de3641": {
+      "embedding_similarity": 0.8708,
+      "left_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 수출 협상",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "산업부, 대미 원전 8기 수출 추진 속 한전·한수원 역할 조정 총괄",
+      "same_event": true
+    },
     "7d19110e0c58b28f--a89623745fab0d00": {
       "embedding_similarity": 0.8708,
       "left_title": "김정관 산업장관, 미국 방문해 대미투자 1호 사업 및 원전 2기 건설 최종 조율",
@@ -69739,6 +70109,16 @@
       "prompt_version": 1,
       "reason": "대미 투자 최종 협상",
       "reviewed_at": "2026-09-11T22:06:52.895628+00:00",
+      "right_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
+      "same_event": true
+    },
+    "7d19110e0c58b28f--b19fd0094bb30156": {
+      "embedding_similarity": 0.8729,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 협상",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
       "right_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
       "same_event": true
     },
@@ -94502,6 +94882,16 @@
       "right_title": "[시론] 에너지 전환에 ‘메가프로젝트’ 성패 달려",
       "same_event": false
     },
+    "d3d0580c2399b20f--d85f07205c5b9e41": {
+      "embedding_similarity": 0.875,
+      "left_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정부 프로젝트",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "정부, 반도체·AI 메가프로젝트 대비 안정적 전력 공급망 구축 추진",
+      "same_event": false
+    },
     "d3e3f82b091518b0--d3efe9f885c36c0f": {
       "embedding_similarity": 0.8669,
       "left_title": "호주, 데이터센터에 청정 전력 자급 및 계통 비용 부담 의무화 추진",
@@ -95331,6 +95721,16 @@
       "reviewed_at": "2026-09-12T22:21:54.071724+00:00",
       "right_title": "경상남도, 2035년 SMR 제조시장 점유율 60% 달성 육성전략 2.0 발표",
       "same_event": false
+    },
+    "dc231859cce91b94--ebd6c254d86e0f91": {
+      "embedding_similarity": 0.8798,
+      "left_title": "정부, SMR 연구·개발 및 상용화 지원 위한 특별법 시행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 특별법 시행",
+      "reviewed_at": "2026-09-13T02:57:50.138593+00:00",
+      "right_title": "SMR 특별법 시행에 원전주 시선…두산에너빌리티·한전기술·우리기술 ...",
+      "same_event": true
     },
     "dc231859cce91b94--ed11472438a2c144": {
       "embedding_similarity": 0.9155,
