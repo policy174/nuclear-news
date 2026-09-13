@@ -1,22 +1,41 @@
 {
   "name": "Nuclens",
   "fonts": {
-    "heading": { "family": "Noto Sans KR", "weights": "500;700", "css": "'Noto Sans KR', sans-serif" },
-    "body":    { "family": "Noto Sans KR", "weights": "400;500", "css": "'Noto Sans KR', sans-serif" },
-    "mono":    { "family": "Noto Sans KR", "weights": "500;700", "css": "'Noto Sans KR', sans-serif" }
+    "heading": {
+      "family": "Noto Sans KR",
+      "weights": "700;900",
+      "css": "'Noto Sans KR', sans-serif"
+    },
+    "body": {
+      "family": "Noto Sans KR",
+      "weights": "400;500;700",
+      "css": "'Noto Sans KR', sans-serif"
+    },
+    "mono": {
+      "family": "Noto Sans KR",
+      "weights": "500;700",
+      "css": "'Noto Sans KR', sans-serif"
+    }
   },
   "colors": {
     "bg": "#EEF1F4",
     "bgEdge": "#DDE3EA",
     "ink": "#12294C",
-    "inkDim": "rgba(18,41,76,0.66)",
-    "inkMute": "rgba(18,41,76,0.42)",
+    "inkDim": "rgba(18,41,76,0.68)",
+    "inkMute": "rgba(18,41,76,0.40)",
     "accent": "#1F5FA8",
-    "accentBright": "#3D86D6",
-    "term": "#12294C",
-    "termText": "#EEF1F4"
+    "accentBright": "#5AA0E8",
+    "bgDark": "#12294C",
+    "bgDarkEdge": "#091628",
+    "inkOnDark": "#EEF1F4",
+    "inkOnDarkDim": "rgba(238,241,244,0.72)"
   },
-  "headline": { "case": "none", "weight": 700, "size": 68, "letterSpacing": -1, "lineHeight": 1.14 },
-  "useTerminal": false,
+  "headline": {
+    "case": "none",
+    "weight": 700,
+    "size": 80,
+    "letterSpacing": -1.5,
+    "lineHeight": 1.18
+  },
   "radius": 14
 }

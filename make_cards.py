@@ -26,6 +26,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import gemini_client
+import sources
 
 ROOT = Path(__file__).parent
 CARDS_DIR = ROOT / "cards"
@@ -87,6 +88,12 @@ def is_sensitive(item: dict) -> bool:
     return any(w in text for w in SENSITIVE_WORDS)
 
 
+def source_name(link: str) -> str:
+    """매체·기관 표시명. 화이트리스트에 없으면 도메인 그대로."""
+    hit = sources.credibility({"url": link}).get("name")
+    return hit or sources.registered_domain(link) or ""
+
+
 def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS) -> list[dict]:
     """outbox 발송분 중 must_read 우선 상위 k 건. 원문 링크 없는 건은 제외."""
     picked = []
@@ -103,6 +110,10 @@ def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS) -> list[dict]:
             "importance": meta.get("importance", "nice_to_know"),
             "score": float(item.get("score") or 0),
             "sensitive": is_sensitive(item),
+            # 카드 아래 칩. 정책 카드에선 '언제 누가'가 장식이 아니라 본문이다.
+            "event_date": (item.get("event_date") or "").replace("-", "."),
+            "source": source_name(link),
+            "tag": next(iter(item.get("tags") or []), ""),
         })
     picked.sort(key=lambda x: (x["importance"] != "must_read", -x["score"]))
     return picked[:k]
@@ -196,6 +207,11 @@ def build_slides(raw: dict, items: list[dict], date: str) -> list[dict]:
         "type": "hook",
         "slideNum": f"01 / {total:02d}",
         "stepLabel": "NUCLENS 브리핑",
+        "date": date.replace("-", "."),
+        "label": "원자력 정책 브리핑",
+        # 커버 목차 — 앨범에 뭐가 들었는지 첫 장에서 보여준다
+        "toc": [c["headline"].replace("[[", "").replace("]]", "")
+                for c in raw["steps"]],
         "headline": raw["hook"]["headline"],
         "subline": raw["hook"]["subline"],
         "handle": SITE,
@@ -204,17 +220,24 @@ def build_slides(raw: dict, items: list[dict], date: str) -> list[dict]:
         slides.append({
             "type": "step",
             "slideNum": f"{i:02d} / {total:02d}",
+            "idx": f"{i - 1:02d}",
             "stepLabel": copy["stepLabel"],
             "headline": copy["headline"],
             "subline": copy["subline"],
+            "meta": [m for m in (item["event_date"], item["tag"]) if m],
             "handle": SITE,
+            "footer": item["source"],
             "url": item["link"],   # build.js 는 안 쓴다 — 캡션·검증용
         })
     slides.append({
         "type": "cta",
+        "slideNum": f"{total:02d} / {total:02d}",
         "stepLabel": "NUCLENS",
         "headline": "전체 보기",
-        "subline": SITE,
+        "subline": "오늘 브리핑 전문과 지난 이슈 흐름",
+        "keyword": SITE,
+        "handle": "매일 07:25 발송",   # 알약이 이미 주소라 꼬리말까지 주소면 세 번이다
+        "footer": date.replace("-", "."),
     })
     return slides
 
