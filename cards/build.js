@@ -1,16 +1,14 @@
 /**
- * carousel-lite renderer (theme-driven)
- * Reads theme.json (the look, built once during setup) + slides.json (the content)
- * and renders each slide to a 1080x1440 PNG.
+ * Nuclens 카드 렌더러 — carousel-lite(tenfoldmarc) 포크.
  *
- * Usage:
- *   npm install
- *   node build.js                 # reads ./theme.json + ./slides.json -> ./out/*.png
- *   node build.js my-slides.json  # custom content file
- *   node build.js --sample        # render 3 built-in sample slides (for previewing a theme)
+ * 원본에서 남긴 것: CLI 구조, theme.json 병합, [[강조]] 파싱, puppeteer 루프.
+ * 갈아엎은 것: 레이아웃 전체. 원본은 하단을 `.terminal` 개발자 밈 블록으로
+ * 채우는 전제라, 그걸 끄면 화면 60%가 빈 채로 남는다(실측). 3행 그리드
+ * (머리·본문·꼬리)로 바꾸고 커버/본문/마지막장을 서로 다른 판형으로 만들었다.
  *
- * theme.json is OPTIONAL. If absent, the default look is used. Build it during
- * setup (see SKILL.md) so the carousels match the user's taste.
+ *   node build.js                 # ./theme.json + ./slides.json -> ./out/*.png
+ *   node build.js my-slides.json
+ *   node build.js --sample        # 내장 한글 샘플 3장 (테마 미리보기)
  */
 
 const puppeteer = require("puppeteer");
@@ -20,24 +18,25 @@ const path = require("path");
 const DEFAULT_THEME = {
   name: "Default",
   fonts: {
-    heading: { family: "Space Grotesk", weights: "500;700", css: "'Space Grotesk', sans-serif" },
-    body: { family: "Space Grotesk", weights: "500;700", css: "'Space Grotesk', sans-serif" },
-    mono: { family: "JetBrains Mono", weights: "500;700", css: "'JetBrains Mono', monospace" },
+    heading: { family: "Noto Sans KR", weights: "700;900", css: "'Noto Sans KR', sans-serif" },
+    body: { family: "Noto Sans KR", weights: "400;500;700", css: "'Noto Sans KR', sans-serif" },
+    mono: { family: "Noto Sans KR", weights: "500;700", css: "'Noto Sans KR', sans-serif" },
   },
   colors: {
-    bg: "#F4EFE6",
-    bgEdge: "#EBE3D4",
-    ink: "#2A1F14",
-    inkDim: "rgba(42,31,20,0.62)",
-    inkMute: "rgba(42,31,20,0.40)",
-    accent: "#C15F3C",
-    accentBright: "#E8945A",
-    term: "#241D16",
-    termText: "#EAD9C5",
+    bg: "#EEF1F4",
+    bgEdge: "#E2E7EE",
+    ink: "#12294C",
+    inkDim: "rgba(18,41,76,0.68)",
+    inkMute: "rgba(18,41,76,0.40)",
+    accent: "#1F5FA8",
+    accentBright: "#5AA0E8",
+    bgDark: "#12294C",
+    bgDarkEdge: "#0B1B33",
+    inkOnDark: "#EEF1F4",
+    inkOnDarkDim: "rgba(238,241,244,0.70)",
   },
-  headline: { case: "upper", weight: 700, size: 96, letterSpacing: -2, lineHeight: 1.14 },
-  useTerminal: true,
-  radius: 18,
+  headline: { case: "none", weight: 700, size: 72, letterSpacing: -1.5, lineHeight: 1.18 },
+  radius: 14,
 };
 
 function deepMerge(base, over) {
@@ -101,23 +100,22 @@ function esc(value) {
     .replaceAll("'", "&#39;");
 }
 
-function accentize(text, accent) {
-  return esc(text).replace(
-    /\[\[(.+?)\]\]/g,
-    `<span style="color:${accent};">$1</span>`
-  );
+function accentize(text, cls) {
+  return esc(text).replace(/\[\[(.+?)\]\]/g, `<span class="${cls}">$1</span>`);
 }
 
-function terminalBlock(lines, theme) {
-  if (!theme.useTerminal || !lines || !lines.length) return "";
-  const rows = lines.map((l) => `<div class="t-line">${esc(l)}</div>`).join("\n");
-  return `<div class="terminal">${rows}</div>`;
-}
-
-function shell(inner, theme) {
+function shell(inner, theme, dark) {
   const c = theme.colors;
   const h = theme.headline;
   const hCase = h.case === "upper" ? "uppercase" : "none";
+  const bg = dark
+    ? `radial-gradient(130% 100% at 20% 0%, ${c.bgDark} 0%, ${c.bgDarkEdge} 100%)`
+    : `radial-gradient(120% 90% at 50% 0%, ${c.bg} 0%, ${c.bgEdge} 100%)`;
+  const ink = dark ? c.inkOnDark : c.ink;
+  const inkDim = dark ? c.inkOnDarkDim : c.inkDim;
+  const inkMute = dark ? "rgba(238,241,244,0.45)" : c.inkMute;
+  const accent = dark ? c.accentBright : c.accent;
+
   return `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,86 +125,170 @@ ${fontLinks(theme)}
   html, body { width: 1080px; height: 1440px; }
   body {
     font-family: ${theme.fonts.body.css};
-    background: radial-gradient(120% 90% at 50% 0%, ${c.bg} 0%, ${c.bgEdge} 100%);
-    color: ${c.ink};
+    background: ${bg};
+    color: ${ink};
     position: relative;
     overflow: hidden;
   }
-  .frame { position: absolute; inset: 0; padding: 70px 64px; display: flex; flex-direction: column; }
-  /* 자식이 shrink 하면 글자가 넘쳐도 컨테이너는 멀쩡해 보여 넘침 가드가 눈뜬장님이 된다.
-     여백을 내주는 .spacer 만 양보한다. */
-  .frame > *:not(.spacer) { flex-shrink: 0; }
-  .top { display: flex; justify-content: space-between; align-items: center;
-    font-family: ${theme.fonts.mono.css}; font-size: 18px; font-weight: 700;
-    letter-spacing: 2px; color: ${c.inkMute}; text-transform: uppercase; }
-  .step { margin-top: 70px; font-family: ${theme.fonts.mono.css}; font-size: 30px;
-    font-weight: 700; letter-spacing: 6px; color: ${c.accent}; text-transform: uppercase; }
-  /* word-break:keep-all = 한글 어절 단위 줄바꿈. 없으면 '결/론' 처럼 낱말이
-     쪼개진다. line-height 도 라틴 기준 0.98 에서 올렸다 — 한글은 글자틀이
-     꽉 차서 0.98 이면 윗줄 받침과 아랫줄 초성이 붙는다. */
-  .headline { margin-top: 26px; font-family: ${theme.fonts.heading.css};
+  /* 3행 그리드 — 꼬리를 바닥에 못박고 본문이 남는 높이를 전부 먹는다.
+     원본의 .spacer{flex:1} 방식은 내용을 전부 위로 밀어 아래를 비운다. */
+  .card { position: absolute; inset: 0; padding: 72px 64px 64px;
+    display: grid; grid-template-rows: auto 1fr auto; }
+  .hd { display: flex; justify-content: space-between; align-items: center;
+    color: ${inkMute}; font-size: 24px; font-weight: 700; letter-spacing: 3px; }
+  .hd .brand { color: ${accent}; }
+  /* 본문은 위에서 시작한다 — 가운데 정렬하면 짧은 카드에서 위아래가 같이 비어
+     '여백 많은 텍스트'가 된다. 남는 공간은 아래로 몰아 유령 번호가 먹는다. */
+  .body { display: flex; flex-direction: column; justify-content: flex-start;
+    padding-top: 58px; position: relative; z-index: 1; min-height: 0; }
+  .ft { display: flex; justify-content: space-between; align-items: center;
+    padding-top: 26px; border-top: 2px solid ${dark ? "rgba(238,241,244,0.18)" : "rgba(18,41,76,0.14)"};
+    color: ${inkMute}; font-size: 24px; font-weight: 700; }
+  .ft .site { color: ${accent}; }
+
+  /* 꼭지 머리 — 악센트로 꽉 찬 번호 뱃지 + 태그. 카드뉴스의 '몇 번째 무슨 얘기'
+     신호를 글자 색이 아니라 덩어리로 준다. */
+  .idxrow { display: flex; align-items: center; gap: 28px; }
+  .badge { width: 96px; height: 96px; border-radius: 20px; background: ${accent};
+    color: #fff; font-family: ${theme.fonts.heading.css}; font-weight: 900;
+    font-size: 46px; display: flex; align-items: center; justify-content: center;
+    letter-spacing: -1px; }
+  .tag { font-size: 32px; font-weight: 700; color: ${accent}; letter-spacing: 1px; }
+
+  .headline { margin-top: 30px; font-family: ${theme.fonts.heading.css};
     font-weight: ${h.weight}; font-size: ${h.size}px; line-height: ${h.lineHeight};
     letter-spacing: ${h.letterSpacing}px; text-transform: ${hCase};
+    /* 한글은 어절 단위로 끊는다. 없으면 '결/론' 처럼 낱말이 쪼개진다. */
     word-break: keep-all; overflow-wrap: break-word; }
-  .subline { margin-top: 30px; font-family: ${theme.fonts.body.css}; font-size: 38px;
-    font-weight: 500; line-height: 1.42; color: ${c.inkDim}; max-width: 880px;
+  .em { color: ${accent}; }
+  .subline { font-size: 36px; font-weight: 500; line-height: 1.5; color: ${inkDim};
     word-break: keep-all; overflow-wrap: break-word; }
-  .spacer { flex: 1; }
-  .terminal { background: ${c.term}; color: ${c.termText}; border-radius: ${theme.radius}px;
-    padding: 34px 38px; font-family: ${theme.fonts.mono.css}; font-size: 28px;
-    line-height: 1.85; box-shadow: 0 24px 60px rgba(0,0,0,0.18); }
-  .t-line { white-space: pre-wrap; }
-  .bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 40px;
-    font-family: ${theme.fonts.mono.css}; font-size: 20px; font-weight: 700; color: ${c.inkMute}; }
-  .swipe { color: ${c.accent}; }
-  .cta { position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; padding: 0 90px; }
-  .cta .kicker { font-family: ${theme.fonts.mono.css}; font-size: 22px; font-weight: 700;
-    letter-spacing: 6px; color: ${c.accent}; text-transform: uppercase; margin-bottom: 34px; }
-  .cta .headline { font-size: ${Math.round(h.size * 1.25)}px; margin-top: 0; }
-  .cta .subline { margin: 30px auto 56px; text-align: center; }
-  .pill { display: inline-block; padding: 26px 70px; border-radius: ${theme.radius}px;
-    border: 3px solid ${c.accent}66; background: ${c.accent}12;
-    font-family: ${theme.fonts.heading.css}; font-weight: 700; font-size: 56px;
-    letter-spacing: 10px; color: ${c.accent}; }
+  /* 요약을 패널에 넣는다 — 본문 아래가 글자 몇 줄로 허전하게 끝나지 않는다. */
+  .panel { margin-top: 40px; padding: 34px 38px;
+    background: ${dark ? "rgba(238,241,244,0.07)" : "rgba(18,41,76,0.05)"};
+    border-left: 10px solid ${accent}; border-radius: 0 ${theme.radius}px ${theme.radius}px 0; }
+  .panel .subline { color: ${ink}; font-size: 38px; }
+
+  /* 메타 칩 — 날짜·기관·태그. 한 문장짜리 카드가 화면을 못 채우는 문제를
+     장식이 아니라 정보로 메운다. 정책 카드에선 '언제 누가'가 본문이다. */
+  .meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 46px; }
+  .chip { padding: 14px 28px; border-radius: 999px; font-size: 28px;
+    font-weight: 700; color: ${inkDim};
+    border: 2px solid ${dark ? "rgba(238,241,244,0.22)" : "rgba(18,41,76,0.16)"}; }
+
+  /* 유령 번호 — 오른쪽 아래 여백을 메운다. 꼬리말과 겹치면 지저분해지므로
+     본문 칸 안에 가두고(z-index 0) 꼬리말 위에서 끝낸다. */
+  .ghost { position: absolute; right: 24px; bottom: 205px; z-index: 0;
+    font-family: ${theme.fonts.heading.css}; font-weight: 900; font-size: 430px;
+    line-height: 0.76; color: ${accent}; opacity: ${dark ? 0.12 : 0.07};
+    letter-spacing: -18px; }
+
+  /* 커버 — 날짜를 위에, 판단을 아래에. 양 끝을 잡아 가운데가 비어도 구도가 선다. */
+  .cover .body { justify-content: space-between; padding: 40px 0 30px; }
+  .cover .headline { font-size: ${Math.round(h.size * 1.16)}px; margin-top: 0; }
+  .cover .today { font-family: ${theme.fonts.heading.css}; font-weight: 900;
+    font-size: 132px; line-height: 0.92; letter-spacing: -5px; color: ${accent}; }
+  .cover .label { margin-top: 18px; font-size: 32px; font-weight: 700;
+    letter-spacing: 7px; color: ${inkMute}; }
+  /* 커버 목차 — 커버 가운데가 통째로 비는 걸 오늘 다룰 꼭지 목록으로 메운다.
+     장식이 아니라 '이 앨범에 뭐가 들었나'다. */
+  .toc { display: flex; flex-direction: column; gap: 24px; }
+  .toc .row { display: flex; gap: 24px; align-items: baseline; }
+  .toc .n { font-family: ${theme.fonts.heading.css}; font-weight: 900;
+    font-size: 30px; color: ${accent}; letter-spacing: 1px; flex: none; }
+  .toc .t { font-size: 36px; font-weight: 500; color: ${inkDim};
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cover .bar { width: 190px; height: 14px; background: ${accent};
+    border-radius: 7px; margin-bottom: 44px; }
+  .cover .subline { margin-top: 34px; font-size: 34px; }
+
+  /* 마지막장 — 가운데 정렬 + 알약 */
+  .end .body { align-items: center; justify-content: center; text-align: center; }
+  .end .headline { font-size: ${Math.round(h.size * 1.3)}px; margin-top: 0; }
+  .end .kicker { font-size: 28px; font-weight: 700; color: ${accent};
+    letter-spacing: 8px; margin-bottom: 30px; }
+  .end .subline { margin-top: 30px; }
+  .pill { margin-top: 52px; display: inline-block; padding: 24px 62px;
+    border-radius: 999px; border: 3px solid ${accent}; color: ${accent};
+    font-family: ${theme.fonts.heading.css}; font-weight: 700; font-size: 40px;
+    letter-spacing: 4px; }
 </style></head><body>${inner}</body></html>`;
 }
 
 function renderSlide(s, theme) {
   const type = s.type || "step";
-  const c = theme.colors;
-  const top = `<div class="top"><span>${esc(s.handle || "")}</span><span>${esc(
-    s.slideNum || ""
-  )}</span></div>`;
+  const site = esc(s.handle || "");
+  const num = esc(s.slideNum || "");
 
-  if (type === "cta") {
-    const pill = s.keyword ? `<div class="pill">${esc(s.keyword)}</div>` : "";
+  if (type === "hook") {
     return shell(
-      `<div class="cta">
-        <div class="kicker">${esc(s.stepLabel || "FREE")}</div>
-        <h1 class="headline">${accentize(s.headline, c.accent)}</h1>
-        <p class="subline">${esc(s.subline || "")}</p>
-        ${pill}
+      `<div class="card cover">
+        <div class="hd"><span class="brand">${esc(s.stepLabel || "NUCLENS")}</span><span>${num}</span></div>
+        <div class="body">
+          <div>
+            <div class="today">${esc(s.date || "")}</div>
+            <div class="label">${esc(s.label || "원자력 정책 브리핑")}</div>
+          </div>
+          ${
+            Array.isArray(s.toc) && s.toc.length
+              ? `<div class="toc">${s.toc
+                  .map((t, n) => `<div class="row"><span class="n">${String(n + 1).padStart(2, "0")}</span><span class="t">${esc(t)}</span></div>`)
+                  .join("")}</div>`
+              : ""
+          }
+          <div>
+            <div class="bar"></div>
+            <h1 class="headline">${accentize(s.headline, "em")}</h1>
+            <p class="subline">${esc(s.subline || "")}</p>
+          </div>
+        </div>
+        <div class="ft"><span class="site">${site}</span><span>SWIPE →</span></div>
       </div>`,
-      theme
+      theme,
+      true
     );
   }
 
-  const step = s.stepLabel ? `<div class="step">${esc(s.stepLabel)}</div>` : "";
-  const term = terminalBlock(s.terminal, theme);
+  if (type === "cta") {
+    return shell(
+      `<div class="card end">
+        <div class="hd"><span class="brand">${esc(s.stepLabel || "NUCLENS")}</span><span>${num}</span></div>
+        <div class="body">
+          <h1 class="headline">${accentize(s.headline, "em")}</h1>
+          <p class="subline">${esc(s.subline || "")}</p>
+          ${s.keyword ? `<div class="pill">${esc(s.keyword)}</div>` : ""}
+        </div>
+        <div class="ft"><span class="site">${site}</span><span>${esc(s.footer || "")}</span></div>
+      </div>`,
+      theme,
+      true
+    );
+  }
+
+  const ghost = s.idx ? `<div class="ghost">${esc(s.idx)}</div>` : "";
   return shell(
-    `<div class="frame">
-      ${top}
-      ${step}
-      <h1 class="headline">${accentize(s.headline, c.accent)}</h1>
-      <p class="subline">${esc(s.subline || "")}</p>
-      <div class="spacer"></div>
-      ${term}
-      <div class="bottom"><span>${esc(s.handle || "")}</span><span class="swipe">${
-      type === "hook" ? "swipe →" : ""
-    }</span></div>
+    `<div class="card">
+      <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
+      ${ghost}
+      <div class="body">
+        <div class="idxrow">
+          ${s.idx ? `<div class="badge">${esc(s.idx)}</div>` : ""}
+          ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
+        </div>
+        <h1 class="headline">${accentize(s.headline, "em")}</h1>
+        <div class="panel"><p class="subline">${esc(s.subline || "")}</p></div>
+        ${
+          Array.isArray(s.meta) && s.meta.length
+            ? `<div class="meta">${s.meta
+                .map((m) => `<span class="chip">${esc(m)}</span>`)
+                .join("")}</div>`
+            : ""
+        }
+      </div>
+      <div class="ft"><span class="site">${site}</span><span>${esc(s.footer || "")}</span></div>
     </div>`,
-    theme
+    theme,
+    false
   );
 }
 
@@ -215,23 +297,32 @@ const SAMPLE_SLIDES = [
     type: "hook",
     slideNum: "01 / 03",
     stepLabel: "NUCLENS 브리핑",
+    date: "2026.09.17",
+    toc: ["원안위, 고리 3호기 운영변경허가 심의", "한-프랑스 정상회담 원전 협정",
+          "12차 전기본 원전 비중 논의"],
     headline: "고리 3호기 [[계속운전]] 심의 연내 결론",
-    subline: "2026-09-17 · 오늘 수집 128건 중 3건",
+    subline: "오늘 수집 128건 중 3건 추립니다.",
     handle: "nuclens.pages.dev",
   },
   {
     type: "step",
     slideNum: "02 / 03",
+    idx: "01",
     stepLabel: "계속운전",
     headline: "원안위, 고리 3호기 [[운영변경허가]] 심의",
-    subline: "설계수명 만료 원전 4기의 재가동 일정을 좀다. · 원자력안전위원회",
+    subline: "설계수명 만료 원전 4기의 재가동 일정을 좁히는 분기점.",
     handle: "nuclens.pages.dev",
+    footer: "원자력안전위원회",
+    meta: ["2026.09.16", "원자력안전위원회", "#계속운전"],
   },
   {
     type: "cta",
+    slideNum: "03 / 03",
     stepLabel: "NUCLENS",
     headline: "전체 보기",
-    subline: "nuclens.pages.dev",
+    subline: "오늘 브리핑 전문과 지난 이슈 흐름",
+    keyword: "nuclens.pages.dev",
+    handle: "nuclens.pages.dev",
   },
 ];
 
@@ -257,7 +348,7 @@ const SAMPLE_SLIDES = [
     process.exit(1);
   }
 
-  console.log(`Theme: ${theme.name} | ${theme.fonts.heading.family} / ${theme.fonts.mono.family}`);
+  console.log(`Theme: ${theme.name} | ${theme.fonts.heading.family}`);
 
   const outDir = path.resolve(process.cwd(), "out");
   fs.mkdirSync(outDir, { recursive: true });
@@ -269,7 +360,6 @@ const SAMPLE_SLIDES = [
 
   for (let i = 0; i < slides.length; i++) {
     await page.setContent(renderSlide(slides[i], theme), { waitUntil: "load", timeout: 60000 });
-    // wait for web fonts to actually finish loading before screenshotting
     try {
       await page.evaluate(() => document.fonts.ready);
     } catch (e) {}
@@ -277,50 +367,54 @@ const SAMPLE_SLIDES = [
 
     // 조용한 실패 두 가지를 여기서 잡는다. CDN 이 막히면 폰트 없이 "성공" 하고,
     // 한글이 넘치면 잘린 채 "성공" 한다. 둘 다 PNG 는 멀쩡해 보인다.
-    //
-    // 폰트 check() 에 반드시 한글 문자열을 넘긴다 — Google Fonts 는
-    // unicode-range 로 subset 을 쪼개 배포하므로 텍스트 인자 없이 물으면
-    // 라틴 subset 만 와도 true 다.
     const headFamily = theme.fonts.heading.family;
     const fontOk = await page.evaluate((fam) => {
-      // document.fonts.check() 단독은 가드가 못 된다 — 선언된 @font-face 가
-      // 하나도 없는 family 는 시스템 폰트로 폴백하며 true 를 준다(실측: 존재하지
-      // 않는 family 로도 통과). CDN 이 막히면 정확히 이 상태가 되므로,
-      // 스타일시트가 실제로 왔는지(=선언된 face 가 있는지)를 먼저 묻는다.
+      // check() 단독은 가드가 못 된다 — 선언된 @font-face 가 하나도 없는
+      // family 는 시스템 폰트로 폴백하며 true 를 준다(실측: 존재하지 않는
+      // family 로도 통과). CDN 이 막히면 정확히 이 상태다. 스타일시트가
+      // 실제로 왔는지를 먼저 묻고, 한글 텍스트로 subset 까지 확인한다.
       const faces = [...document.fonts].filter(
         (f) => f.family.replace(/['"]/g, "") === fam
       );
       if (!faces.length) return false;
       return document.fonts.check(`700 68px '${fam}'`, "계속운전 원자력");
     }, headFamily);
-    // body 는 overflow:hidden 이고 .frame/.cta 는 position:absolute 라
-    // document.body.scrollHeight 는 내용과 무관하게 항상 1440 이다.
+
     const overflow = await page.evaluate(() => {
-      const f = document.querySelector(".frame") || document.querySelector(".cta");
-      if (!f) return "no-frame";
+      const card = document.querySelector(".card");
+      if (!card) return "no-card";
       // scrollHeight 로 재면 안 된다 — 한글 폰트는 글자 잉크박스가 line-height
       // 보다 커서(실측: headline 155 < 166) 멀쩡한 카드도 매번 걸린다.
-      // 자식의 실제 사각형이 프레임 안쪽 여백을 벗어났는지만 본다.
-      const fr = f.getBoundingClientRect();
-      const cs = getComputedStyle(f);
-      const top = fr.top + parseFloat(cs.paddingTop) - 2;
-      const bottom = fr.bottom - parseFloat(cs.paddingBottom) + 2;
-      return [...f.children]
-        .filter((el) => {
-          const r = el.getBoundingClientRect();
-          return r.height > 0 && (r.bottom > bottom || r.top < top);
-        })
-        .map((el) => `${el.className || el.tagName}`)
-        .join(",");
+      // 각 칸의 실제 사각형이 카드 안쪽 여백을 벗어났는지만 본다.
+      const cr = card.getBoundingClientRect();
+      const cs = getComputedStyle(card);
+      const top = cr.top + parseFloat(cs.paddingTop) - 2;
+      const bottom = cr.bottom - parseFloat(cs.paddingBottom) + 2;
+      const rows = [...card.children].filter((el) => !el.classList.contains("ghost"));
+      const bad = [];
+      for (const row of rows) {
+        const r = row.getBoundingClientRect();
+        if (r.height > 0 && (r.bottom > bottom || r.top < top)) bad.push(row.className);
+        // 본문 칸은 1fr 이라 칸 자체는 안 넘치고 안쪽 글자만 넘친다.
+        for (const el of row.children) {
+          const er = el.getBoundingClientRect();
+          if (er.height > 0 && (er.bottom > r.bottom + 2 || er.top < r.top - 2)) {
+            bad.push(el.className || el.tagName);
+          }
+        }
+      }
+      return [...new Set(bad)].join(",");
     });
+
     if (!fontOk || overflow) {
       await browser.close();
       throw new Error(
         `render guard failed (slide ${i + 1}): font=${fontOk} overflow=${overflow}`
       );
     }
-    const num = String(i + 1).padStart(2, "0");
-    const out = path.join(outDir, `slide-${num}.png`);
+
+    const n = String(i + 1).padStart(2, "0");
+    const out = path.join(outDir, `slide-${n}.png`);
     await page.screenshot({ path: out, type: "png" });
     console.log("rendered", out);
   }
