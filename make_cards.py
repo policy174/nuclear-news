@@ -294,6 +294,10 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
         temperature=0.3,
         max_output_tokens=4096,
         thinking_budget=0,
+        # 폴백은 flash-lite 까지만. 기본 체인의 세 번째 gemini-3.5-flash-lite 는
+        # thinkingBudget 을 HTTP 400 (INVALID_ARGUMENT) 으로 거부한다(실측 2026-09-14/15,
+        # 카드 2회 시도 중 1회가 여기서 죽었다). 체인 자체는 gemini_client 소관.
+        fallback_model=gemini_client.FALLBACK_MODEL,
         label="cards",
     )
 
