@@ -58,5 +58,17 @@ class HeadlineConcretenessPromptGuard(unittest.TestCase):
     """
 
     def test_the_prompt_bans_thematic_headlines(self):
-        for marker in ("가능성 시사", "주제 서술형 제목", "반드시 그것이 헤드라인"):
+        for marker in ("가능성 시사", "주제 서술형 제목", "새로 전하는 구체 사건"):
             self.assertIn(marker, news_bot.CURATION_SYSTEM_PROMPT)
+
+    def test_the_prompt_bans_background_facts_as_headline(self):
+        """실사례(2026-09-14 히어로): 영남일보 칼럼 `[취재수첩] 영덕의 꿈`이
+        배경으로 적은 6월 부지 선정을 제목으로 끌어올려 must_read·1위가 됐다.
+        같은 기사를 v2 는 '지역 기대감 고조'(nice_to_know)로 냈다 — v2 프롬프트엔
+        '본문 속 사건이 곧 헤드라인' 조항이 없고 '사건 단계 유지'만 있다.
+        구체성 조항(09-08 자체 추가)은 남기되 '새로 전하는' 사건으로 좁히고,
+        배경 사건 금지 + v2 의 단계 유지 조항을 함께 잠근다."""
+        for marker in ("배경으로 인용된 과거 사건", "사건 단계를 정확히 유지",
+                       "그 글의 논지"):
+            self.assertIn(marker, news_bot.CURATION_SYSTEM_PROMPT)
+        self.assertNotIn("반드시 그것이 헤드라인", news_bot.CURATION_SYSTEM_PROMPT)
