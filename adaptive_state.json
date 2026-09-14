@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 4,
+    "count": 5,
     "date": "2026-09-14"
   },
   "retired": {
@@ -230,7 +230,7 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 5,
     "date": "2026-09-14"
   },
   "terms": {
@@ -324,6 +324,40 @@
       "score": 3.6,
       "status": "extended",
       "term": "전력회사 주부전력",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-09-14"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "주부전력하마오카": {
+      "articles": 1,
+      "created_at": "2026-09-14T13:53:40.920927+00:00",
+      "domains": [
+        "yna.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "541941314ac51e41",
+          "importance": "must_read",
+          "title": "日 하마오카 원전, 내진 데이터 조작 사실로 드러나 경영진 사임"
+        }
+      ],
+      "expires_at": "2026-09-15T13:53:41.798283+00:00",
+      "importance": "must_read",
+      "last_result_count": 4,
+      "last_run": "2026-09-14T13:53:41.798283+00:00",
+      "new_articles": 4,
+      "origin": "auto",
+      "planned_at": "2026-09-14T13:53:40.920927+00:00",
+      "queries_run": 1,
+      "query": "주부전력 하마오카 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "주부전력 하마오카",
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
