@@ -182,10 +182,18 @@ def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS,
                brief_date: str = "") -> list[dict]:
     """카드 레이어의 선별. 기존 랭킹이 **발송하기로 정한 것** 안에서만 고른다.
 
-    중복 제거·주제 다양성 감점·지역별 캡은 이미 ranking 단계에서 끝났다. 여기서
-    새로 하는 일은 세 가지뿐이다: ①원문 링크 없는 건 제외 ②must_read 우선
-    ③점수순 상위 k. 국내·해외를 합쳐 전역 정렬하므로 **기존 지역 안배는 유지되지
-    않는다** — 3장 전부 해외가 될 수 있다. 의도된 단순화다.
+    하는 일: ①원문 링크 없는 건 제외 ②must_read 우선·점수순 ③**분류당 한 장**.
+
+    ③이 필요한 이유는 랭킹의 중복 제거가 같은 사건의 다른 기사를 놓치기 때문이다.
+    실측 2026-09-12 outbox: "SMR 특별법 시행" 기사 3건이 나란히 통과했고(제목
+    토큰 겹침 0.43~0.44, ranking 의 _same_event 문턱 0.6 미달), "한-프랑스
+    정상회담"은 국내·해외 양쪽에 한 건씩 들어왔다. 브리핑은 8~18건이라 티가 덜
+    나지만 카드는 3장이라 같은 사건이 두 장 나가면 그날 카드의 3분의 2가 한
+    얘기가 된다. 분류(topics[0])를 키로 쓰면 문턱값을 새로 튜닝하지 않아도 된다.
+
+    분류가 k 가지가 안 되면 그만큼만 만든다 — 억지로 채우지 않는다.
+
+    국내·해외를 합쳐 전역 정렬하므로 **기존 지역 안배는 유지되지 않는다**.
     # ponytail: 지역 안배가 필요해지면 국내/해외 각각에서 뽑아 교대로 배치할 것
     """
     picked = []
@@ -213,7 +221,16 @@ def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS,
             "tag": next(iter(item.get("tags") or []), ""),
         })
     picked.sort(key=lambda x: (x["importance"] != "must_read", -x["score"]))
-    return picked[:k]
+    seen: set[str] = set()
+    chosen = []
+    for item in picked:
+        if item["topic"] in seen:
+            continue
+        seen.add(item["topic"])
+        chosen.append(item)
+        if len(chosen) == k:
+            break
+    return chosen
 
 
 def attach_bodies(items: list[dict]) -> None:
@@ -568,6 +585,21 @@ def _self_check() -> None:
     # 분류는 LLM 이 아니라 코드가 붙인다
     assert topic_label({"topics": ["restart_lto", "regulation"]}) == "계속운전·재가동"
     assert topic_label({"topics": ["없는토픽"]}) == "원자력 정책"
+
+    # 분류당 한 장 — 같은 사건의 다른 기사가 두 장 나가는 걸 막는다
+    ob = {"items": [
+        {"hash": "a", "title_kr": "SMR 특별법 시행", "score": 30.0, "tags": []},
+        {"hash": "b", "title_kr": "SMR 특별법 시행령 공포", "score": 29.0, "tags": []},
+        {"hash": "c", "title_kr": "고리 3호기 계속운전 심의", "score": 28.0, "tags": []},
+    ]}
+    cur = {
+        "a": {"link": "http://a", "importance": "must_read", "topics": ["smr"]},
+        "b": {"link": "http://b", "importance": "must_read", "topics": ["smr"]},
+        "c": {"link": "http://c", "importance": "must_read", "topics": ["restart_lto"]},
+    }
+    got = pick_items(ob, cur, k=3, brief_date="2026-09-14")
+    assert [g["hash"] for g in got] == ["a", "c"], [g["hash"] for g in got]
+    assert len({g["topic"] for g in got}) == len(got)
 
     # 해가 틀린 사건일은 칩에서 뺀다 (2026 브리핑에 2024 가 박히던 실사고)
     assert plausible_event_date("2026-09-11", "2026-09-12") == "2026.09.11"
