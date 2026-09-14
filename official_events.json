@@ -1,44 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-2c63039bf968",
-   "date": "2026-09-07",
-   "end_date": "2026-09-07",
-   "kind": "deadline",
-   "label": "2026년 원전해체 해외 비즈니스 개발 과정 (1차) 교육생 모집",
-   "title": "2026년 원전해체 해외 비즈니스 개발 과정 (1차) 교육생 모집",
-   "notice_title": "2026년 원전해체 해외 비즈니스 개발 과정 (1차) 교육생 모집 (~ 9. 7.)",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "",
-   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30030&s=",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_notice",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-06"
-  },
-  {
-   "hash": "of-3173b8b9c346",
-   "date": "2026-09-07",
-   "end_date": "2026-09-07",
-   "kind": "point",
-   "label": "탄소중립기본법의 녹색산업 육성체계와 AI 기후테크 인재정책 과제",
-   "title": "탄소중립기본법의 녹색산업 육성체계와 AI 기후테크 인재정책 과제",
-   "notice_title": "",
-   "time": "13:30",
-   "host": "박정현 의원실, 국회 기후위기 탈탄소 경제포럼, (사)기후미래",
-   "organizer": "박정현 의원실, 국회 기후위기 탈탄소 경제포럼, (사)기후미래",
-   "place": "의원회관 제2소회의실",
-   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
-   "publisher": "국회",
-   "source_id": "assembly_events",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-06"
-  },
-  {
    "hash": "of-248fbdc086b4",
    "date": "2026-09-08",
    "end_date": "2026-09-08",
@@ -612,24 +574,25 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-09-14T01:47:40+09:00",
-   "ok": false,
-   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
+   "at": "2026-09-15T00:51:02+09:00",
+   "ok": true,
+   "new": 0,
+   "parsed": 6
   },
   "kaif_calendar": {
-   "at": "2026-09-14T01:47:40+09:00",
+   "at": "2026-09-15T00:51:02+09:00",
    "ok": true,
    "new": 23,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-09-14T01:47:40+09:00",
+   "at": "2026-09-15T00:51:02+09:00",
    "ok": true,
    "new": 1,
    "parsed": 4
   },
   "kns_notice": {
-   "at": "2026-09-14T01:47:40+09:00",
+   "at": "2026-09-15T00:51:02+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1

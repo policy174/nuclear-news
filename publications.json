@@ -1,6 +1,21 @@
 {
  "items": [
   {
+   "id": "a7427e169b49",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "Uranium 2026: Resources, Production and Demand",
+   "url": "https://www.oecd-nea.org/jcms/pl_121658/uranium-2026-resources-production-and-demand",
+   "date": "",
+   "fetched_at": "2026-09-15",
+   "title_kr": "우라늄 2026: 자원, 생산 및 수요",
+   "gist": "전 세계 우라늄 자원, 생산량, 수요 동향 분석",
+   "off_topic": false,
+   "relevance": "market",
+   "translated_version": 3
+  },
+  {
    "id": "94dfb599e0e9",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -51,6 +66,21 @@
    }
   },
   {
+   "id": "1f99a3108f5a",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Strategy for the Prevention, Detection and Response to the Inadvertent Presence of Radioactive Material in Metal Recycling and Other Associated Processes",
+   "url": "http://www.iaea.org/publications/16074/strategy-for-the-prevention-detection-and-response-to-the-inadvertent-presence-of-radioactive-material-in-metal-recycling-and-other-associated-processes-0",
+   "date": "2026-09-11",
+   "fetched_at": "2026-09-15",
+   "title_kr": "금속 재활용 및 기타 관련 공정에서 방사성 물질의 부주의한 존재 방지, 탐지 및 대응 전략",
+   "gist": "금속 재활용 과정 중 방사성 물질 혼입 방지·탐지·대응 전략",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "0c5573f57a9b",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -63,6 +93,21 @@
    "gist": "금속 재활용 시 방사성 물질 혼입 방지, 탐지, 대응 전략",
    "off_topic": false,
    "relevance": "policy",
+   "translated_version": 3
+  },
+  {
+   "id": "98cd2cf43427",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Nuclear Data Newsletter No. 81 Issue No. 81, July 2026",
+   "url": "http://www.iaea.org/publications/16136/nuclear-data-newsletter-no-81-issue-no-81-july-2026",
+   "date": "2026-09-10",
+   "fetched_at": "2026-09-15",
+   "title_kr": "핵 데이터 뉴스레터 제81호 (2026년 7월)",
+   "off_topic": true,
+   "off_topic_reason": "핵 데이터 관련 기술 정보로 정책 담당자에게 직접적인 관련성이 낮음",
+   "relevance": "technical",
    "translated_version": 3
   },
   {
@@ -833,42 +878,42 @@
   }
  ],
  "state": {
-  "nea_max_id": 121624,
+  "nea_max_id": 121658,
   "keei_max_list_no": 128168,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": true,
-   "new": 0,
+   "new": 2,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   },
   "iea_reports": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-09-14T01:47:35+09:00",
+   "at": "2026-09-15T00:46:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0

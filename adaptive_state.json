@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 5,
-    "date": "2026-09-14"
+    "count": 1,
+    "date": "2026-09-15"
   },
   "retired": {
     "hytep": {
@@ -230,10 +230,56 @@
     }
   },
   "spent": {
-    "count": 5,
-    "date": "2026-09-14"
+    "count": 3,
+    "date": "2026-09-15"
   },
   "terms": {
+    "adb": {
+      "articles": 3,
+      "created_at": "2026-09-14T15:36:07.277986+00:00",
+      "domains": [
+        "newsis.com",
+        "kbs.co.kr",
+        "sbs.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "newsis.com",
+          "hash": "0987de38c24cff20",
+          "importance": "nice_to_know",
+          "title": "이재명 대통령, ADB 총재 접견해 핵심광물·AI·원전 협력 논의"
+        },
+        {
+          "domain": "kbs.co.kr",
+          "hash": "621d7f9145877d98",
+          "importance": "nice_to_know",
+          "title": "이재명 대통령, 칸다 마사토 ADB 총재 접견…핵심광물·AI·원전 협력 논의"
+        },
+        {
+          "domain": "sbs.co.kr",
+          "hash": "c90eeb2286837cc2",
+          "importance": "nice_to_know",
+          "title": "이재명 대통령, 간다 마사토 ADB 총재 접견해 원전·핵심광물 협력 논의"
+        }
+      ],
+      "expires_at": "2026-09-16T15:36:07.277986+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-14T15:36:09.870158+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-14T15:36:07.277986+00:00",
+      "queries_run": 1,
+      "query": "ADB 원자력",
+      "score": 4.6,
+      "status": "tracking",
+      "term": "ADB",
+      "ttl_hours": 48,
+      "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "mw발하슈": {
       "articles": 1,
       "created_at": "2026-09-14T08:36:03.991957+00:00",
@@ -251,11 +297,11 @@
       "expires_at": "2026-09-15T08:36:03.991957+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-14T08:36:06.064722+00:00",
+      "last_run": "2026-09-14T15:36:09.870158+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-14T08:36:03.991957+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-14T15:36:07.277986+00:00",
+      "queries_run": 2,
       "query": "MW 발하슈 원전",
       "score": 3.6,
       "status": "tracking",
@@ -264,7 +310,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "규모의발하슈": {
       "articles": 1,
@@ -283,11 +329,11 @@
       "expires_at": "2026-09-15T08:36:03.991957+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-14T08:36:06.064722+00:00",
+      "last_run": "2026-09-14T15:36:09.870158+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-14T08:36:03.991957+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-14T15:36:07.277986+00:00",
+      "queries_run": 2,
       "query": "규모의 발하슈 원전",
       "score": 3.6,
       "status": "tracking",
@@ -296,7 +342,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "전력회사주부전력": {
       "articles": 1,
