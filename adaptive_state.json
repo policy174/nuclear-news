@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 3,
     "date": "2026-09-14"
   },
   "retired": {
@@ -230,9 +230,108 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 3,
     "date": "2026-09-14"
   },
-  "terms": {},
+  "terms": {
+    "mw발하슈": {
+      "articles": 1,
+      "created_at": "2026-09-14T08:36:03.991957+00:00",
+      "domains": [
+        "g-enews.com"
+      ],
+      "evidence": [
+        {
+          "domain": "g-enews.com",
+          "hash": "8a5bd763d3b79395",
+          "importance": "must_read",
+          "title": "러시아 로사톰, 카자흐스탄과 2400MW 발하슈 원전 EPC 본계약 체결"
+        }
+      ],
+      "expires_at": "2026-09-15T08:36:03.991957+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-14T08:36:06.064722+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-14T08:36:03.991957+00:00",
+      "queries_run": 1,
+      "query": "MW 발하슈 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "MW 발하슈",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "규모의발하슈": {
+      "articles": 1,
+      "created_at": "2026-09-14T08:36:03.991957+00:00",
+      "domains": [
+        "g-enews.com"
+      ],
+      "evidence": [
+        {
+          "domain": "g-enews.com",
+          "hash": "8a5bd763d3b79395",
+          "importance": "must_read",
+          "title": "러시아 로사톰, 카자흐스탄과 2400MW 발하슈 원전 EPC 본계약 체결"
+        }
+      ],
+      "expires_at": "2026-09-15T08:36:03.991957+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-14T08:36:06.064722+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-14T08:36:03.991957+00:00",
+      "queries_run": 1,
+      "query": "규모의 발하슈 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "규모의 발하슈",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "카자흐스탄국영": {
+      "articles": 1,
+      "created_at": "2026-09-14T08:36:03.991957+00:00",
+      "domains": [
+        "g-enews.com"
+      ],
+      "evidence": [
+        {
+          "domain": "g-enews.com",
+          "hash": "8a5bd763d3b79395",
+          "importance": "must_read",
+          "title": "러시아 로사톰, 카자흐스탄과 2400MW 발하슈 원전 EPC 본계약 체결"
+        }
+      ],
+      "expires_at": "2026-09-15T08:36:06.064722+00:00",
+      "importance": "must_read",
+      "last_result_count": 1,
+      "last_run": "2026-09-14T08:36:06.064722+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-09-14T08:36:03.991957+00:00",
+      "queries_run": 1,
+      "query": "카자흐스탄 국영 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "카자흐스탄 국영",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-09-14"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    }
+  },
   "version": 1
 }
