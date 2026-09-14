@@ -66,12 +66,14 @@ def _now_month() -> str:
 
 
 def _month_files_recent() -> list[Path]:
-    """중복 체크 대상: 최근 2개 월 파일. (기사가 월 경계를 넘어 재등장하는 경우 대비)"""
-    now = datetime.now(timezone.utc)
-    months = {now.strftime("%Y-%m")}
-    prev = now.replace(day=1) - timedelta(days=1)
-    months.add(prev.strftime("%Y-%m"))
-    return [ARCHIVE_DIR / f"{m}.jsonl" for m in sorted(months)]
+    """중복 체크 대상: 아카이브 **전체** 월 파일.
+
+    원래 최근 2개월만 봤다. 그런데 web/build_data.py 의 품질 게이트는 전 기간을
+    보므로, 두 달 넘게 지난 기사가 다시 수집되면(실측 2026-09-14: 7월 27일 기사가
+    같은 hash 로 재아카이브) 크롤은 통과시키고 게이트는 죽여 배포가 멈춘다.
+    창을 게이트와 같게 맞춘다. 파일이 월 단위라 전부 읽어도 수천 줄이다.
+    """
+    return sorted(ARCHIVE_DIR.glob("*.jsonl"))
 
 
 def load_recent_hashes() -> set[str]:
