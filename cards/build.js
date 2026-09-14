@@ -137,10 +137,10 @@ ${fontLinks(theme)}
   .hd { display: flex; justify-content: space-between; align-items: center;
     color: ${inkMute}; font-size: 24px; font-weight: 700; letter-spacing: 3px; }
   .hd .brand { color: ${accent}; }
-  /* 본문은 위에서 시작한다 — 가운데 정렬하면 짧은 카드에서 위아래가 같이 비어
-     '여백 많은 텍스트'가 된다. 남는 공간은 아래로 몰아 유령 번호가 먹는다. */
-  .body { display: flex; flex-direction: column; justify-content: flex-start;
-    padding-top: 58px; position: relative; z-index: 1; min-height: 0; }
+  /* 카드 한 장에 뱃지·헤드라인·불릿 3개·칩이 들어오면서 본문에 무게가 생겼다.
+     가운데 정렬이 맞다 — 위로 붙이면 아래 40%가 다시 빈다(실측). */
+  .body { display: flex; flex-direction: column; justify-content: center;
+    position: relative; z-index: 1; min-height: 0; }
   .ft { display: flex; justify-content: space-between; align-items: center;
     padding-top: 26px; border-top: 2px solid ${dark ? "rgba(238,241,244,0.18)" : "rgba(18,41,76,0.14)"};
     color: ${inkMute}; font-size: 24px; font-weight: 700; }
@@ -163,25 +163,21 @@ ${fontLinks(theme)}
   .em { color: ${accent}; }
   .subline { font-size: 36px; font-weight: 500; line-height: 1.5; color: ${inkDim};
     word-break: keep-all; overflow-wrap: break-word; }
-  /* 요약을 패널에 넣는다 — 본문 아래가 글자 몇 줄로 허전하게 끝나지 않는다. */
-  .panel { margin-top: 40px; padding: 34px 38px;
-    background: ${dark ? "rgba(238,241,244,0.07)" : "rgba(18,41,76,0.05)"};
-    border-left: 10px solid ${accent}; border-radius: 0 ${theme.radius}px ${theme.radius}px 0; }
-  .panel .subline { color: ${ink}; font-size: 38px; }
 
-  /* 메타 칩 — 날짜·기관·태그. 한 문장짜리 카드가 화면을 못 채우는 문제를
-     장식이 아니라 정보로 메운다. 정책 카드에선 '언제 누가'가 본문이다. */
+  /* 사실/의미 불릿 — 카드 한 장이 한 가지만 말한다. 한 문장짜리 요약을 패널에
+     넣어 여백을 메우던 방식은 버렸다(글자만 빽빽해진다). */
+  .points { margin-top: 48px; display: flex; flex-direction: column; gap: 28px; }
+  .points li { list-style: none; display: flex; gap: 24px; font-size: 40px;
+    font-weight: 500; line-height: 1.36; color: ${ink};
+    word-break: keep-all; overflow-wrap: break-word; }
+  .points li::before { content: ""; flex: none; width: 14px; height: 14px;
+    border-radius: 4px; background: ${accent}; margin-top: 19px; }
+
+  /* 메타 칩 — 날짜·태그. 출처는 꼬리말이 이미 들고 있다. */
   .meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 46px; }
   .chip { padding: 14px 28px; border-radius: 999px; font-size: 28px;
     font-weight: 700; color: ${inkDim};
     border: 2px solid ${dark ? "rgba(238,241,244,0.22)" : "rgba(18,41,76,0.16)"}; }
-
-  /* 유령 번호 — 오른쪽 아래 여백을 메운다. 꼬리말과 겹치면 지저분해지므로
-     본문 칸 안에 가두고(z-index 0) 꼬리말 위에서 끝낸다. */
-  .ghost { position: absolute; right: 24px; bottom: 205px; z-index: 0;
-    font-family: ${theme.fonts.heading.css}; font-weight: 900; font-size: 430px;
-    line-height: 0.76; color: ${accent}; opacity: ${dark ? 0.12 : 0.07};
-    letter-spacing: -18px; }
 
   /* 커버 — 날짜를 위에, 판단을 아래에. 양 끝을 잡아 가운데가 비어도 구도가 선다. */
   .cover .body { justify-content: space-between; padding: 40px 0 30px; }
@@ -265,64 +261,78 @@ function renderSlide(s, theme) {
     );
   }
 
-  const ghost = s.idx ? `<div class="ghost">${esc(s.idx)}</div>` : "";
+  // 의미 카드는 짙은 판으로 뒤집는다 — 앨범을 넘기면 사실(밝음)/의미(어두움)가
+  // 번갈아 와서, 지금 보는 장이 어느 쪽인지 글자를 안 읽어도 안다.
+  const dark = s.variant === "why";
+  const bullets = Array.isArray(s.points) && s.points.length
+    ? `<ul class="points">${s.points.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
+    : "";
+  const chips = Array.isArray(s.meta) && s.meta.length
+    ? `<div class="meta">${s.meta.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>`
+    : "";
   return shell(
     `<div class="card">
       <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
-      ${ghost}
       <div class="body">
         <div class="idxrow">
           ${s.idx ? `<div class="badge">${esc(s.idx)}</div>` : ""}
           ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
         </div>
         <h1 class="headline">${accentize(s.headline, "em")}</h1>
-        <div class="panel"><p class="subline">${esc(s.subline || "")}</p></div>
-        ${
-          Array.isArray(s.meta) && s.meta.length
-            ? `<div class="meta">${s.meta
-                .map((m) => `<span class="chip">${esc(m)}</span>`)
-                .join("")}</div>`
-            : ""
-        }
+        ${bullets}
+        ${chips}
       </div>
       <div class="ft"><span class="site">${site}</span><span>${esc(s.footer || "")}</span></div>
     </div>`,
     theme,
-    false
+    dark
   );
 }
 
 const SAMPLE_SLIDES = [
   {
     type: "hook",
-    slideNum: "01 / 03",
+    slideNum: "01 / 04",
     stepLabel: "NUCLENS 브리핑",
     date: "2026.09.17",
-    toc: ["원안위, 고리 3호기 운영변경허가 심의", "한-프랑스 정상회담 원전 협정",
-          "12차 전기본 원전 비중 논의"],
+    toc: ["원안위, 고리 3호기 운영변경허가 심의"],
     headline: "고리 3호기 [[계속운전]] 심의 연내 결론",
-    subline: "오늘 수집 128건 중 3건 추립니다.",
+    subline: "오늘 수집 128건 중 1건 추립니다.",
     handle: "nuclens.pages.dev",
   },
   {
     type: "step",
-    slideNum: "02 / 03",
+    slideNum: "02 / 04",
     idx: "01",
     stepLabel: "계속운전",
     headline: "원안위, 고리 3호기 [[운영변경허가]] 심의",
-    subline: "설계수명 만료 원전 4기의 재가동 일정을 좁히는 분기점.",
+    points: ["9월 16일 제2026-15회 회의", "설계수명 만료 4기 대상", "1건 재상정 결정"],
+    meta: ["2026.09.16", "#계속운전"],
     handle: "nuclens.pages.dev",
     footer: "원자력안전위원회",
-    meta: ["2026.09.16", "원자력안전위원회", "#계속운전"],
+  },
+  {
+    type: "step",
+    variant: "why",
+    slideNum: "03 / 04",
+    idx: "01",
+    stepLabel: "왜 중요한가",
+    headline: "재가동 일정의 [[분기점]]",
+    points: ["설계수명 만료 원전 4기 일정에 직결",
+             "한수원 계속운전 이행 과제와 연동",
+             "재상정 안건 결과는 아직 미확정"],
+    handle: "nuclens.pages.dev",
+    footer: "원자력안전위원회",
   },
   {
     type: "cta",
-    slideNum: "03 / 03",
+    slideNum: "04 / 04",
     stepLabel: "NUCLENS",
     headline: "전체 보기",
     subline: "오늘 브리핑 전문과 지난 이슈 흐름",
     keyword: "nuclens.pages.dev",
-    handle: "nuclens.pages.dev",
+    handle: "크롤 완료 직후 발송",
+    footer: "2026.09.17",
   },
 ];
 
