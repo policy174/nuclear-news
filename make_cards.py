@@ -35,7 +35,8 @@ OUT_DIR = CARDS_DIR / "out"
 SLIDES_FILE = CARDS_DIR / "slides.json"
 ALBUM_FILE = CARDS_DIR / "album.json"
 OUTBOX_FILE = ROOT / "outbox.json"
-CURATED_FILE = ROOT / "curated.json"
+# 사이트가 매일 굽는 순위. web/build_data.py 가 배포 스텝에서 만든다(gitignore).
+BRIEFINGS_FILE = ROOT / "web" / "public" / "data" / "briefings.json"
 
 KST = timezone(timedelta(hours=9))
 
@@ -97,7 +98,9 @@ APP_JS = ROOT / "web" / "public" / "app.js"
 # 어휘 부분일치로 판정하면 안 된다 — "사고" 가 "사고관리계획서" 에 걸려
 # 계속운전 규제 기사가 사고 기사로 잡혔다(실측 2026-09-14). 큐레이션이 기사마다
 # 이미 매겨둔 event_type 을 쓴다. 보조 어휘는 부분일치 사고가 없는 것만 남긴다.
-SENSITIVE_EVENT_TYPES = {"incident_safety"}
+# 사이트가 event_type=incident_safety 인 기사에 "safety" 토픽을 붙인다
+# (web/build_data.py infer_topics). 그 판정을 그대로 쓴다.
+SENSITIVE_TOPICS = {"safety"}
 SENSITIVE_WORDS = ("피폭", "방사능 누출", "INES", "중대재해")
 
 SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 카드뉴스 카피라이터다.
@@ -131,10 +134,10 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 # ---- A. 카드 소재 선정 + 재료 확보 ---------------------------------------------
 
 
-def is_sensitive(item: dict, meta: dict) -> bool:
-    if (meta.get("features") or {}).get("event_type") in SENSITIVE_EVENT_TYPES:
+def is_sensitive(row: dict) -> bool:
+    if SENSITIVE_TOPICS & set(row.get("topics") or []):
         return True
-    text = f"{item.get('title_kr', '')} {item.get('summary', '')}"
+    text = f"{row.get('title', '')} {row.get('summary', '')}"
     return any(w in text for w in SENSITIVE_WORDS)
 
 
@@ -178,59 +181,52 @@ def source_name(link: str) -> str:
     return hit or sources.registered_domain(link) or ""
 
 
-def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS,
-               brief_date: str = "") -> list[dict]:
-    """카드 레이어의 선별. 기존 랭킹이 **발송하기로 정한 것** 안에서만 고른다.
+def load_site_ranking(date: str) -> list[dict] | None:
+    """그날 브리핑의 이슈 목록을 **사이트가 정한 순서 그대로**. 없으면 None."""
+    if not BRIEFINGS_FILE.exists():
+        return None
+    for briefing in json.loads(BRIEFINGS_FILE.read_text(encoding="utf-8")):
+        if briefing.get("date") == date:
+            return briefing.get("issues") or []
+    return None
 
-    하는 일: ①원문 링크 없는 건 제외 ②must_read 우선·점수순 ③**분류당 한 장**.
 
-    ③이 필요한 이유는 랭킹의 중복 제거가 같은 사건의 다른 기사를 놓치기 때문이다.
-    실측 2026-09-12 outbox: "SMR 특별법 시행" 기사 3건이 나란히 통과했고(제목
-    토큰 겹침 0.43~0.44, ranking 의 _same_event 문턱 0.6 미달), "한-프랑스
-    정상회담"은 국내·해외 양쪽에 한 건씩 들어왔다. 브리핑은 8~18건이라 티가 덜
-    나지만 카드는 3장이라 같은 사건이 두 장 나가면 그날 카드의 3분의 2가 한
-    얘기가 된다. 분류(topics[0])를 키로 쓰면 문턱값을 새로 튜닝하지 않아도 된다.
+def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "") -> list[dict]:
+    """카드 = 사이트 순위 상위 k. 여기서 다시 고르지 않는다.
 
-    분류가 k 가지가 안 되면 그만큼만 만든다 — 억지로 채우지 않는다.
+    순위는 사이트가 이미 정했다(web/build_data.py order_issue_rows — 국내·해외
+    맞물림, 편집 고정, must_read, 며칠째 1위 쿨다운). 이슈는 기사가 아니라
+    **클러스터**라 같은 사건의 다른 기사가 두 장 나가는 문제도 거기서 끝난다.
+    카드가 따로 정렬하면 화면과 카드가 다른 얘기를 하게 된다(2026-09-14 교정).
 
-    국내·해외를 합쳐 전역 정렬하므로 **기존 지역 안배는 유지되지 않는다**.
-    # ponytail: 지역 안배가 필요해지면 국내/해외 각각에서 뽑아 교대로 배치할 것
+    하는 일은 원문 링크 없는 이슈를 건너뛰는 것뿐이다.
     """
     picked = []
-    for item in outbox.get("items", []):
-        meta = curated.get(item.get("hash"), {})
-        link = (meta.get("link") or "").strip()
+    for row in issue_rows:
+        rep = row.get("representative_article") or {}
+        link = (rep.get("url") or "").strip()
         if not link:
             continue  # 출처 미확인 — 카드에서 빼고 텍스트 브리핑으로만
         picked.append({
-            "hash": item["hash"],
-            "title": item.get("title_kr", ""),
-            "summary": item.get("summary", ""),
+            "hash": rep.get("hash", ""),
+            "title": row.get("title", ""),
+            "summary": row.get("summary", ""),
             # 큐레이션이 본문에서 뽑아둔 결과. 카드의 주 재료다.
-            "detail": meta.get("detail") or "",
-            "why_important": meta.get("why_important") or "",
-            "implication": meta.get("implication") or "",
-            "open_question": meta.get("open_question") or "",
+            "detail": row.get("detail") or "",
+            "why_important": row.get("why_important") or "",
+            "implication": row.get("implication") or "",
+            "open_question": row.get("open_question") or "",
             "link": link,
-            "importance": meta.get("importance", "nice_to_know"),
-            "score": float(item.get("score") or 0),
-            "sensitive": is_sensitive(item, meta),
-            "event_date": plausible_event_date(item.get("event_date") or "", brief_date),
-            "source": source_name(link),
-            "topic": topic_label(meta),
-            "tag": next(iter(item.get("tags") or []), ""),
+            "importance": row.get("importance", "nice_to_know"),
+            "sensitive": is_sensitive(row),
+            "event_date": plausible_event_date(rep.get("event_date") or "", brief_date),
+            "source": rep.get("publisher") or source_name(link),
+            "topic": topic_label(row),
+            "tag": next(iter(row.get("tags") or []), ""),
         })
-    picked.sort(key=lambda x: (x["importance"] != "must_read", -x["score"]))
-    seen: set[str] = set()
-    chosen = []
-    for item in picked:
-        if item["topic"] in seen:
-            continue
-        seen.add(item["topic"])
-        chosen.append(item)
-        if len(chosen) == k:
+        if len(picked) == k:
             break
-    return chosen
+    return picked
 
 
 def attach_bodies(items: list[dict]) -> None:
@@ -495,13 +491,19 @@ def main() -> int:
         print(f"[cards] {date} 카드는 이미 발송됨 — 스킵")
         return 0
 
-    curated = json.loads(CURATED_FILE.read_text(encoding="utf-8"))
-    items = pick_items(outbox, curated, brief_date=date)
+    rows = load_site_ranking(date)
+    if rows is None:
+        # 사이트 데이터가 없거나 오늘 날짜가 아니다. 배포 스텝(build_data)이 먼저
+        # 돌아야 한다. 어제 순위로 카드를 만드는 것보다 안 만드는 게 낫다.
+        print(f"[cards] 사이트 순위 없음 — {BRIEFINGS_FILE.relative_to(ROOT)} 에 {date} 브리핑이 없다. "
+              "배포 스텝(web/build_data.py)이 먼저 돌아야 한다")
+        return 1
+    items = pick_items(rows, brief_date=date)
     if not items:
         print("[cards] 카드로 낼 이슈 없음 — 텍스트 브리핑만. 억지로 채우지 않는다")
         return 0
-    print(f"[cards] 소재 {len(items)}건: " +
-          " / ".join(f"{i['importance']} {i['title'][:24]}" for i in items))
+    print(f"[cards] 사이트 순위 상위 {len(items)}건: " +
+          " / ".join(f"{i['topic']} {i['title'][:24]}" for i in items))
     attach_bodies(items)
 
     collected = sum(s.get("candidate_count", 0)
@@ -574,8 +576,6 @@ def _self_check() -> None:
     assert strip_accent_on_sensitive(dirty, [{**items[0], "sensitive": True}]) == 1
     assert "[[" not in dirty["steps"][0]["headline"]
     assert strip_accent_on_sensitive(copy.deepcopy(ok), items) == 0
-    assert is_sensitive({"title_kr": "사고관리계획서 심사"}, {"features": {"event_type": "regulatory_action"}}) is False
-    assert is_sensitive({"title_kr": "정기 점검"}, {"features": {"event_type": "incident_safety"}}) is True
 
     # [[ ]] 는 글자 수에서 빠진다 — 정확히 한계면 통과해야 한다
     edge = mutate(headline="[[" + "가" * HEADLINE_MAX + "]]")
@@ -586,20 +586,20 @@ def _self_check() -> None:
     assert topic_label({"topics": ["restart_lto", "regulation"]}) == "계속운전·재가동"
     assert topic_label({"topics": ["없는토픽"]}) == "원자력 정책"
 
-    # 분류당 한 장 — 같은 사건의 다른 기사가 두 장 나가는 걸 막는다
-    ob = {"items": [
-        {"hash": "a", "title_kr": "SMR 특별법 시행", "score": 30.0, "tags": []},
-        {"hash": "b", "title_kr": "SMR 특별법 시행령 공포", "score": 29.0, "tags": []},
-        {"hash": "c", "title_kr": "고리 3호기 계속운전 심의", "score": 28.0, "tags": []},
-    ]}
-    cur = {
-        "a": {"link": "http://a", "importance": "must_read", "topics": ["smr"]},
-        "b": {"link": "http://b", "importance": "must_read", "topics": ["smr"]},
-        "c": {"link": "http://c", "importance": "must_read", "topics": ["restart_lto"]},
-    }
-    got = pick_items(ob, cur, k=3, brief_date="2026-09-14")
-    assert [g["hash"] for g in got] == ["a", "c"], [g["hash"] for g in got]
-    assert len({g["topic"] for g in got}) == len(got)
+    # 사이트 순위를 그대로 — 재정렬 없음, 링크 없는 이슈만 건너뜀
+    rows = [
+        {"title": "링크 없음", "topics": ["smr"], "representative_article": {}},
+        {"title": "해외 1위", "topics": ["security_trade"], "importance": "nice_to_know",
+         "representative_article": {"url": "http://a", "hash": "a", "publisher": "WNN"}},
+        {"title": "국내 1위", "topics": ["restart_lto"], "importance": "must_read",
+         "representative_article": {"url": "http://b", "hash": "b"}},
+    ]
+    got = pick_items(rows, k=3, brief_date="2026-09-14")
+    assert [g["hash"] for g in got] == ["a", "b"], "사이트 순서 유지 + 링크 없는 건 제외"
+    assert got[0]["source"] == "WNN" and got[0]["topic"] == "에너지안보·통상"
+    assert is_sensitive({"topics": ["safety"], "title": "", "summary": ""}) is True
+    assert is_sensitive({"topics": ["regulation"], "title": "사고관리계획서", "summary": ""}) is False
+    assert load_site_ranking("1999-01-01") in (None, [])
 
     # 해가 틀린 사건일은 칩에서 뺀다 (2026 브리핑에 2024 가 박히던 실사고)
     assert plausible_event_date("2026-09-11", "2026-09-12") == "2026.09.11"
