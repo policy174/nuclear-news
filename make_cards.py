@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
@@ -72,9 +73,24 @@ MIN_PNG_BYTES = 20_000  # 1080×1440 그라디언트 빈 카드가 대략 20KB. 
 SITE = "nuclens.pages.dev"
 DELIVERY_NOTE = "크롤 완료 직후 발송"  # cron 고정 시각이 아니다 (daily-brief.yml 주 경로 = workflow_run)
 
-# 사내 현안집 '표준 주제 축'(news_bot.py 큐레이션 프롬프트 (3)번) 을 그대로 쓴다.
-# 새 분류 체계를 만들지 않는다.
-TAGS = ("안전성", "전원계획", "계속운전", "경제성", "사후처리", "수용성", "거시·산업")
+# 카드 분류는 **사이트가 쓰는 그 분류**다. 기사마다 파이프라인이 이미 topics 를
+# 붙여두므로(curated[hash].topics) LLM 에게 태그를 고르게 할 이유가 없다 —
+# 고르게 하면 사이트와 다른 이름이 나오고 없는 태그를 지어낸다.
+#
+# 표시명은 web/public/app.js 의 TOPIC_LABELS 와 같아야 한다. 여기 복사본을 두되
+# _self_check 가 app.js 를 파싱해 두 벌이 어긋났는지 검사한다(런타임은 파싱에
+# 의존하지 않는다 — 파싱이 깨져도 카드는 나가야 한다).
+TOPIC_LABELS = {
+    "smr": "SMR", "newbuild": "신규 건설", "restart_lto": "계속운전·재가동",
+    "fuel_cycle": "핵연료주기", "waste": "사용후핵연료·방폐", "finance": "원전금융·투자",
+    "regulation": "규제·인허가", "power_market": "전력시장·요금",
+    "datacenter_ai": "데이터센터·AI 전력", "fusion": "핵융합",
+    "security_trade": "에너지안보·통상", "fukushima": "후쿠시마·처리수",
+    "operations": "원전 운영", "safety": "안전·사건", "decommissioning": "해체·폐로",
+    "workforce": "산업 인력", "policy_general": "원자력 정책", "research": "연구·기술",
+    "applications": "비발전 활용",
+}
+APP_JS = ROOT / "web" / "public" / "app.js"
 
 # sensitivity: 사고·안전·재난. 여기 걸리면 [[ ]] 강조와 수사적 표현을 금지한다.
 #
@@ -90,10 +106,10 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 
 출력 형식(JSON 객체 하나):
 {{"hook": {{"headline": "..."}},
-  "steps": [{{"stepLabel": "...", "headline": "...",
-             "facts": ["...", "..."], "why": ["...", "..."]}}]}}
+  "steps": [{{"headline": "...", "facts": ["...", "..."], "why": ["...", "..."]}}]}}
 
 - steps 는 입력 기사와 **같은 개수·같은 순서**로 만든다. 하나도 빠뜨리지 않는다.
+- 분류(태그)는 코드가 붙이니 쓰지 않는다.
 - hook.headline: 오늘 전체를 관통하는 한 줄 판단. 한글 {HEADLINE_TARGET}자 이내
   (최대 {HEADLINE_MAX}자, 넘기면 버려진다). 표지 부제는 코드가 만드니 쓰지 않는다.
 - steps[].headline: 그 기사에서 **무슨 일이 있었나**. 같은 길이 규칙.
@@ -103,7 +119,6 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 - steps[].why: {BULLETS_MIN}~{BULLETS_MAX}개, 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
   다음 확인사항 순서를 권장한다. 입력의 why_important·implication·open_question 을
   재료로 쓰되 그대로 베끼지 말고 한 줄로 줄인다.
-- steps[].stepLabel: 다음 중 정확히 하나 — {", ".join(TAGS)}
 - 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. 불릿에는 쓰지 않는다.
 - 숫자·호기명·국가명·기관명은 원문 그대로 옮긴다. 반올림·추정·의역 금지.
   **입력에 없는 수치·날짜를 지어내지 않는다.** 재료가 부족하면 불릿 수를 줄인다.
@@ -123,13 +138,48 @@ def is_sensitive(item: dict, meta: dict) -> bool:
     return any(w in text for w in SENSITIVE_WORDS)
 
 
+# 사건일이 브리핑 날짜에서 이만큼 넘게 떨어져 있으면 칩에 쓰지 않는다.
+# 추출 오류가 카드에 그대로 찍힌다 — 실측 2026-09-14: "고리 3·4호기 계속운전
+# 심의 착수"(2026-09-11 기사)의 event_date 가 2024-09-11 로 잡혀 카드에 2024 가
+# 박혔다. 시행 예정일처럼 앞뒤로 벌어지는 정상 값도 있어 넉넉히 잡되, 해(年)가
+# 틀린 급은 걸러낸다. 틀린 날짜를 보여주는 것보다 안 보여주는 게 낫다.
+EVENT_DATE_MAX_DRIFT_DAYS = 400
+
+
+def plausible_event_date(raw: str, brief_date: str) -> str:
+    """칩에 쓸 사건일. 브리핑 날짜에서 너무 멀면 빈 문자열."""
+    if not raw:
+        return ""
+    try:
+        event = datetime.strptime(raw[:10], "%Y-%m-%d")
+        brief = datetime.strptime(brief_date[:10], "%Y-%m-%d")
+    except ValueError:
+        return ""
+    if abs((event - brief).days) > EVENT_DATE_MAX_DRIFT_DAYS:
+        return ""
+    return raw[:10].replace("-", ".")
+
+
+def topic_label(meta: dict) -> str:
+    """기사 분류 표시명. 파이프라인이 매긴 topics 의 첫 값을 사이트와 같은 이름으로.
+
+    topics 는 web/build_data.py 의 _TOPIC_RULES 순서로 담기므로 첫 값이 가장
+    구체적인 축이다(예: restart_lto → regulation → power_market).
+    """
+    for topic in meta.get("topics") or []:
+        if topic in TOPIC_LABELS:
+            return TOPIC_LABELS[topic]
+    return "원자력 정책"  # 분류가 없는 기사도 카드에서 빼지는 않는다
+
+
 def source_name(link: str) -> str:
     """매체·기관 표시명. 화이트리스트에 없으면 도메인 그대로."""
     hit = sources.credibility({"url": link}).get("name")
     return hit or sources.registered_domain(link) or ""
 
 
-def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS) -> list[dict]:
+def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS,
+               brief_date: str = "") -> list[dict]:
     """카드 레이어의 선별. 기존 랭킹이 **발송하기로 정한 것** 안에서만 고른다.
 
     중복 제거·주제 다양성 감점·지역별 캡은 이미 ranking 단계에서 끝났다. 여기서
@@ -157,8 +207,9 @@ def pick_items(outbox: dict, curated: dict, k: int = MAX_CARDS) -> list[dict]:
             "importance": meta.get("importance", "nice_to_know"),
             "score": float(item.get("score") or 0),
             "sensitive": is_sensitive(item, meta),
-            "event_date": (item.get("event_date") or "").replace("-", "."),
+            "event_date": plausible_event_date(item.get("event_date") or "", brief_date),
             "source": source_name(link),
+            "topic": topic_label(meta),
             "tag": next(iter(item.get("tags") or []), ""),
         })
     picked.sort(key=lambda x: (x["importance"] != "must_read", -x["score"]))
@@ -284,8 +335,6 @@ def validate(raw: dict, items: list[dict]) -> list[str]:
         _check_line(problems, f"{tag}.headline", slide.get("headline"), HEADLINE_MAX, True)
         _check_bullets(problems, f"{tag}.facts", slide.get("facts"), FACT_MAX)
         _check_bullets(problems, f"{tag}.why", slide.get("why"), WHY_MAX)
-        if slide.get("stepLabel") not in TAGS:
-            problems.append(f"{tag}: stepLabel '{slide.get('stepLabel')}' 은 허용 태그 아님")
     return problems
 
 
@@ -336,7 +385,7 @@ def build_slides(raw: dict, items: list[dict], date: str,
             "type": "step",
             "slideNum": f"{i + 1:02d} / {total:02d}",
             "idx": f"{i:02d}",
-            "stepLabel": copy["stepLabel"],
+            "stepLabel": item["topic"],
             "headline": copy["headline"],
             "points": copy["facts"],
             "whyLabel": "왜 중요한가",
@@ -430,7 +479,7 @@ def main() -> int:
         return 0
 
     curated = json.loads(CURATED_FILE.read_text(encoding="utf-8"))
-    items = pick_items(outbox, curated)
+    items = pick_items(outbox, curated, brief_date=date)
     if not items:
         print("[cards] 카드로 낼 이슈 없음 — 텍스트 브리핑만. 억지로 채우지 않는다")
         return 0
@@ -480,11 +529,11 @@ def _self_check() -> None:
     items = [{"title": "a", "summary": "", "link": "http://x", "sensitive": False,
               "importance": "must_read", "score": 1.0, "hash": "h", "detail": "",
               "why_important": "", "implication": "", "open_question": "",
-              "event_date": "2026.09.11", "source": "원안위", "tag": "#원안위"}]
+              "event_date": "2026.09.11", "source": "원안위", "tag": "#원안위",
+              "topic": "규제·인허가"}]
     ok = {
         "hook": {"headline": "짧은 판단"},
         "steps": [{
-            "stepLabel": "계속운전",
             "headline": "[[원안위]] 심의 착수",
             "facts": ["9월 11일 제2026-14회 회의", "2건 의결, 1건 재상정"],
             "why": ["설계수명 만료 4기 일정에 직결", "재상정분 결과는 미확정"],
@@ -501,7 +550,6 @@ def _self_check() -> None:
     assert any("facts" in p for p in validate(mutate(facts=["가", "나", "다", "라"]), items)), "불릿 최대 개수"
     assert any("why" in p for p in validate(mutate(why=["가" * (WHY_MAX + 1), "나"]), items))
     assert any("강조" in p for p in validate(mutate(facts=["[[강조]] 금지", "나"]), items))
-    assert any("stepLabel" in p for p in validate(mutate(stepLabel="아무거나"), items))
     assert any("개수" in p for p in validate({**ok, "steps": ok["steps"] * 2}, items))
     # sensitive 강조는 검증 실패가 아니라 코드가 벗긴다
     import copy
@@ -516,6 +564,26 @@ def _self_check() -> None:
     edge = mutate(headline="[[" + "가" * HEADLINE_MAX + "]]")
     assert validate(edge, items) == [], validate(edge, items)
     assert visible_len("[[가나]]다") == 3
+
+    # 분류는 LLM 이 아니라 코드가 붙인다
+    assert topic_label({"topics": ["restart_lto", "regulation"]}) == "계속운전·재가동"
+    assert topic_label({"topics": ["없는토픽"]}) == "원자력 정책"
+
+    # 해가 틀린 사건일은 칩에서 뺀다 (2026 브리핑에 2024 가 박히던 실사고)
+    assert plausible_event_date("2026-09-11", "2026-09-12") == "2026.09.11"
+    assert plausible_event_date("2024-09-11", "2026-09-12") == ""
+    assert plausible_event_date("2026-03-11", "2026-09-12") == "2026.03.11"
+    assert plausible_event_date("", "2026-09-12") == ""
+    assert plausible_event_date("없는날짜", "2026-09-12") == ""
+
+    # 표시명이 사이트와 어긋나면 여기서 죽는다 (런타임은 이 파싱에 의존하지 않는다)
+    if APP_JS.exists():
+        block = re.search(r"const TOPIC_LABELS = \{(.*?)\};", APP_JS.read_text(encoding="utf-8"), re.S)
+        assert block, "app.js 에서 TOPIC_LABELS 를 못 찾음 — 이름이 바뀌었나?"
+        site = dict(re.findall(r"(\w+):\s*\"([^\"]+)\"", block.group(1)))
+        assert site == TOPIC_LABELS, (
+            "분류 표시명이 web/public/app.js 와 어긋남: "
+            f"{set(site.items()) ^ set(TOPIC_LABELS.items())}")
 
     # 장수 산식: 표지1 + 2N + 마지막1
     built = build_slides(ok, items, "2026-09-14", 645)
