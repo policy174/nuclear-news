@@ -389,7 +389,10 @@ const SAMPLE_SLIDES = [
       const faces = [...document.fonts].filter(
         (f) => f.family.replace(/['"]/g, "") === fam
       );
-      if (!faces.length) return false;
+      // 선언만으로는 모자란다 — local() 소스가 실패한 face 도 "선언됨"이고 Chrome 은
+      // 그걸 check() 실패로 안 친다(실측 2026-09-15: 로컬 폰트 없음+CDN 차단에서
+      // 통과). 실제로 로드된 face 가 하나라도 있어야 한다.
+      if (!faces.some((f) => f.status === "loaded")) return false;
       return document.fonts.check(`700 68px '${fam}'`, "계속운전 원자력");
     }, headFamily);
 
