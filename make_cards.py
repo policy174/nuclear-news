@@ -38,8 +38,8 @@ CURATED_FILE = ROOT / "curated.json"
 
 KST = timezone(timedelta(hours=9))
 
-# 기사 1건 = 카드 2장(사실 / 의미). 표지 1 + 2N + 마지막 1 = 2N+2 장.
-# 텔레그램 앨범 한도가 10장이라 N=4 까지가 상한이다(10장). 3건이면 8장.
+# 기사 1건 = 카드 1장. 한 주제는 한 장 안에서 끝낸다 — 사실 불릿과 "왜 중요한가"
+# 를 같은 장의 서로 다른 블록으로 나눠 담는다. 표지 1 + N + 마지막 1 = N+2 장.
 MAX_CARDS = 3
 TELEGRAM_ALBUM_MAX = 10
 
@@ -57,7 +57,8 @@ HEADLINE_MAX = 34
 SUBLINE_MAX = 50   # 표지 부제
 FACT_MAX = 34      # 사실 불릿 한 줄
 WHY_MAX = 40       # 의미 불릿 한 줄
-BULLETS_MIN, BULLETS_MAX = 2, 4
+# 한 장에 둘 다 들어가므로 각각 3개까지. 넘치는지는 build.js 넘침 가드가 잰다.
+BULLETS_MIN, BULLETS_MAX = 2, 3
 
 # curated 의 detail 이 이보다 짧으면 그 기사만 원문을 다시 탄다.
 # 원문 본문은 저작권 계약상 저장하지 않는다(article_body.py:370) — 남는 건
@@ -84,12 +85,13 @@ SENSITIVE_EVENT_TYPES = {"incident_safety"}
 SENSITIVE_WORDS = ("피폭", "방사능 누출", "INES", "중대재해")
 
 SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 카드뉴스 카피라이터다.
-기사 1건당 카드 2장을 만든다 — ①무슨 일이 있었나(사실) ②왜 중요한가(의미).
+기사 1건당 카드 **한 장**을 만든다. 한 장 안에 ①무슨 일이 있었나(사실 불릿)
+②왜 중요한가(의미 불릿)를 둘 다 담는다.
 
 출력 형식(JSON 객체 하나):
 {{"hook": {{"headline": "..."}},
-  "steps": [{{"stepLabel": "...", "headline": "...", "facts": ["...", "...", "..."],
-             "whyHeadline": "...", "why": ["...", "...", "..."]}}]}}
+  "steps": [{{"stepLabel": "...", "headline": "...",
+             "facts": ["...", "..."], "why": ["...", "..."]}}]}}
 
 - steps 는 입력 기사와 **같은 개수·같은 순서**로 만든다. 하나도 빠뜨리지 않는다.
 - hook.headline: 오늘 전체를 관통하는 한 줄 판단. 한글 {HEADLINE_TARGET}자 이내
@@ -98,16 +100,15 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 - steps[].facts: {BULLETS_MIN}~{BULLETS_MAX}개, 각 {FACT_MAX}자 이내. **날짜·기관·대상·결정·수치**처럼
   원문에 적힌 구체값만. 해석·전망·형용사 금지. 개조식 체언 종결.
   예) "9월 11일 제2026-14회 회의" / "2건 의결, 1건 재상정"
-- steps[].whyHeadline: **왜 중요한가**를 한 줄 판단으로. 같은 길이 규칙.
 - steps[].why: {BULLETS_MIN}~{BULLETS_MAX}개, 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
   다음 확인사항 순서를 권장한다. 입력의 why_important·implication·open_question 을
   재료로 쓰되 그대로 베끼지 말고 한 줄로 줄인다.
 - steps[].stepLabel: 다음 중 정확히 하나 — {", ".join(TAGS)}
-- 강조는 headline·whyHeadline 당 최대 한 곳만 `[[대괄호]]`. 불릿에는 쓰지 않는다.
+- 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. 불릿에는 쓰지 않는다.
 - 숫자·호기명·국가명·기관명은 원문 그대로 옮긴다. 반올림·추정·의역 금지.
   **입력에 없는 수치·날짜를 지어내지 않는다.** 재료가 부족하면 불릿 수를 줄인다.
-- 입력 기사에 sensitive=true 가 붙었으면 그 기사의 두 장 모두 `[[ ]]` 강조와
-  수사적 표현을 쓰지 않는다. 사실 서술만.
+- 입력 기사에 sensitive=true 가 붙었으면 `[[ ]]` 강조와 수사적 표현을 쓰지 않는다.
+  사실 서술만.
 - 사람인 척하는 페르소나·감탄사·이모지 금지. 개조식 체언 종결을 기본으로 한다.
 - 글자 수는 코드로 다시 잰다. 넘기면 통째로 버려지니 짧게 쓴다."""
 
@@ -281,7 +282,6 @@ def validate(raw: dict, items: list[dict]) -> list[str]:
             problems.append(f"{tag}: 객체가 아님")
             continue
         _check_line(problems, f"{tag}.headline", slide.get("headline"), HEADLINE_MAX, True)
-        _check_line(problems, f"{tag}.whyHeadline", slide.get("whyHeadline"), HEADLINE_MAX, True)
         _check_bullets(problems, f"{tag}.facts", slide.get("facts"), FACT_MAX)
         _check_bullets(problems, f"{tag}.why", slide.get("why"), WHY_MAX)
         if slide.get("stepLabel") not in TAGS:
@@ -299,7 +299,7 @@ def strip_accent_on_sensitive(raw: dict, items: list[dict]) -> int:
     for slide, item in zip(raw.get("steps") or [], items):
         if not item["sensitive"] or not isinstance(slide, dict):
             continue
-        for field in ("headline", "whyHeadline"):
+        for field in ("headline",):
             text = slide.get(field)
             if isinstance(text, str) and "[[" in text:
                 slide[field] = text.replace("[[", "").replace("]]", "")
@@ -311,13 +311,13 @@ def build_slides(raw: dict, items: list[dict], date: str,
                  collected: int = 0) -> list[dict]:
     """검증 통과한 카피 → build.js 가 먹는 slides 배열.
 
-    기사 1건당 두 장이다. 한 장에 사실·해석·시사점을 다 넣으면 글자만 빽빽해지고,
-    나눠 담으면 각 장이 한 가지만 말한다.
+    한 주제는 한 장 안에서 끝낸다. 빽빽해지지 않는 이유는 블록을 나누기
+    때문이다 — 사실 불릿은 맨몸으로, 의미는 색 깔린 패널 안에.
 
     원문 URL 은 LLM 이 아니라 여기서 붙인다 — 긴 URL 을 LLM 에 베끼게 하면
     오타가 난다. steps 와 items 는 개수·순서가 검증된 뒤다.
     """
-    total = len(items) * 2 + 2
+    total = len(items) + 2
     slides = [{
         "type": "hook",
         "slideNum": f"01 / {total:02d}",
@@ -331,28 +331,19 @@ def build_slides(raw: dict, items: list[dict], date: str,
         "subline": f"오늘 수집 {collected:,}건 중 {len(items)}건",
         "handle": SITE,
     }]
-    n = 1
     for i, (copy, item) in enumerate(zip(raw["steps"], items), start=1):
-        idx = f"{i:02d}"
-        chips = [m for m in (item["event_date"], item["tag"]) if m]
-        n += 1
         slides.append({
-            "type": "step", "slideNum": f"{n:02d} / {total:02d}", "idx": idx,
+            "type": "step",
+            "slideNum": f"{i + 1:02d} / {total:02d}",
+            "idx": f"{i:02d}",
             "stepLabel": copy["stepLabel"],
             "headline": copy["headline"],
             "points": copy["facts"],
-            "meta": chips,
+            "whyLabel": "왜 중요한가",
+            "why": copy["why"],
+            "meta": [m for m in (item["event_date"], item["tag"]) if m],
             "handle": SITE, "footer": item["source"],
             "url": item["link"],   # build.js 는 안 쓴다 — 캡션·검증용
-        })
-        n += 1
-        slides.append({
-            "type": "step", "variant": "why",
-            "slideNum": f"{n:02d} / {total:02d}", "idx": idx,
-            "stepLabel": "왜 중요한가",
-            "headline": copy["whyHeadline"],
-            "points": copy["why"],
-            "handle": SITE, "footer": item["source"],
         })
     slides.append({
         "type": "cta",
@@ -496,7 +487,6 @@ def _self_check() -> None:
             "stepLabel": "계속운전",
             "headline": "[[원안위]] 심의 착수",
             "facts": ["9월 11일 제2026-14회 회의", "2건 의결, 1건 재상정"],
-            "whyHeadline": "재가동 일정의 분기점",
             "why": ["설계수명 만료 4기 일정에 직결", "재상정분 결과는 미확정"],
         }],
     }
@@ -506,9 +496,9 @@ def _self_check() -> None:
         return {**ok, "steps": [{**ok["steps"][0], **kw}]}
 
     assert any("headline" in p for p in validate(mutate(headline="가" * (HEADLINE_MAX + 1)), items))
-    assert any("whyHeadline" in p for p in validate(mutate(whyHeadline="가" * 40), items))
     assert any("facts" in p for p in validate(mutate(facts=["가" * (FACT_MAX + 1), "나"]), items))
     assert any("facts" in p for p in validate(mutate(facts=["하나뿐"]), items)), "불릿 최소 개수"
+    assert any("facts" in p for p in validate(mutate(facts=["가", "나", "다", "라"]), items)), "불릿 최대 개수"
     assert any("why" in p for p in validate(mutate(why=["가" * (WHY_MAX + 1), "나"]), items))
     assert any("강조" in p for p in validate(mutate(facts=["[[강조]] 금지", "나"]), items))
     assert any("stepLabel" in p for p in validate(mutate(stepLabel="아무거나"), items))
@@ -529,9 +519,9 @@ def _self_check() -> None:
 
     # 장수 산식: 표지1 + 2N + 마지막1
     built = build_slides(ok, items, "2026-09-14", 645)
-    assert len(built) == len(items) * 2 + 2 == 4, len(built)
-    assert [s["type"] for s in built] == ["hook", "step", "step", "cta"]
-    assert built[2]["variant"] == "why"
+    assert len(built) == len(items) + 2 == 3, len(built)
+    assert [s["type"] for s in built] == ["hook", "step", "cta"]
+    assert built[1]["points"] and built[1]["why"], "한 장에 사실·의미가 둘 다"
     assert "07:25" not in json.dumps(built, ensure_ascii=False), "고정 발송 시각 문구 잔존"
     print("self-check OK")
 

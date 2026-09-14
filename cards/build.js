@@ -173,6 +173,18 @@ ${fontLinks(theme)}
   .points li::before { content: ""; flex: none; width: 14px; height: 14px;
     border-radius: 4px; background: ${accent}; margin-top: 19px; }
 
+  /* 의미 블록 — 같은 장 안에서 사실과 구분되도록 색을 깐다. 사실 불릿은
+     맨몸, 의미는 패널 안. 장을 쪼개지 않고도 두 덩이가 갈린다. */
+  .why { margin-top: 42px; padding: 30px 34px 32px;
+    background: ${dark ? "rgba(238,241,244,0.07)" : "rgba(18,41,76,0.05)"};
+    border-left: 10px solid ${accent};
+    border-radius: 0 ${theme.radius}px ${theme.radius}px 0; }
+  .why .lbl { font-size: 27px; font-weight: 700; letter-spacing: 2px;
+    color: ${accent}; margin-bottom: 20px; }
+  .why .points { margin-top: 0; gap: 18px; }
+  .why .points li { font-size: 34px; line-height: 1.34; color: ${inkDim}; }
+  .why .points li::before { width: 12px; height: 12px; margin-top: 16px; }
+
   /* 메타 칩 — 날짜·태그. 출처는 꼬리말이 이미 들고 있다. */
   .meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 46px; }
   .chip { padding: 14px 28px; border-radius: 999px; font-size: 28px;
@@ -261,11 +273,12 @@ function renderSlide(s, theme) {
     );
   }
 
-  // 의미 카드는 짙은 판으로 뒤집는다 — 앨범을 넘기면 사실(밝음)/의미(어두움)가
-  // 번갈아 와서, 지금 보는 장이 어느 쪽인지 글자를 안 읽어도 안다.
-  const dark = s.variant === "why";
-  const bullets = Array.isArray(s.points) && s.points.length
-    ? `<ul class="points">${s.points.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
+  const bullets = (list, cls) =>
+    Array.isArray(list) && list.length
+      ? `<ul class="points${cls || ""}">${list.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
+      : "";
+  const why = Array.isArray(s.why) && s.why.length
+    ? `<div class="why"><div class="lbl">${esc(s.whyLabel || "왜 중요한가")}</div>${bullets(s.why)}</div>`
     : "";
   const chips = Array.isArray(s.meta) && s.meta.length
     ? `<div class="meta">${s.meta.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>`
@@ -279,54 +292,44 @@ function renderSlide(s, theme) {
           ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
         </div>
         <h1 class="headline">${accentize(s.headline, "em")}</h1>
-        ${bullets}
+        ${bullets(s.points)}
+        ${why}
         ${chips}
       </div>
       <div class="ft"><span class="site">${site}</span><span>${esc(s.footer || "")}</span></div>
     </div>`,
     theme,
-    dark
+    false
   );
 }
 
 const SAMPLE_SLIDES = [
   {
     type: "hook",
-    slideNum: "01 / 04",
+    slideNum: "01 / 03",
     stepLabel: "NUCLENS 브리핑",
     date: "2026.09.17",
     toc: ["원안위, 고리 3호기 운영변경허가 심의"],
     headline: "고리 3호기 [[계속운전]] 심의 연내 결론",
-    subline: "오늘 수집 128건 중 1건 추립니다.",
+    subline: "오늘 수집 128건 중 1건",
     handle: "nuclens.pages.dev",
   },
   {
     type: "step",
-    slideNum: "02 / 04",
+    slideNum: "02 / 03",
     idx: "01",
     stepLabel: "계속운전",
     headline: "원안위, 고리 3호기 [[운영변경허가]] 심의",
     points: ["9월 16일 제2026-15회 회의", "설계수명 만료 4기 대상", "1건 재상정 결정"],
+    whyLabel: "왜 중요한가",
+    why: ["설계수명 만료 원전 4기 일정에 직결", "재상정 안건 결과는 아직 미확정"],
     meta: ["2026.09.16", "#계속운전"],
     handle: "nuclens.pages.dev",
     footer: "원자력안전위원회",
   },
   {
-    type: "step",
-    variant: "why",
-    slideNum: "03 / 04",
-    idx: "01",
-    stepLabel: "왜 중요한가",
-    headline: "재가동 일정의 [[분기점]]",
-    points: ["설계수명 만료 원전 4기 일정에 직결",
-             "한수원 계속운전 이행 과제와 연동",
-             "재상정 안건 결과는 아직 미확정"],
-    handle: "nuclens.pages.dev",
-    footer: "원자력안전위원회",
-  },
-  {
     type: "cta",
-    slideNum: "04 / 04",
+    slideNum: "03 / 03",
     stepLabel: "NUCLENS",
     headline: "전체 보기",
     subline: "오늘 브리핑 전문과 지난 이슈 흐름",
