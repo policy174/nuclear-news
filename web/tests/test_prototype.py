@@ -2980,6 +2980,31 @@ class SelectionOverrideTests(unittest.TestCase):
         build_data.order_issue_rows(rows, {"old"})
         self.assertEqual(rows[0]["title"], "오늘 새 이슈")
 
+    def test_multi_article_must_read_beats_single_article_in_region(self):
+        """같은 지역·같은 등급이면 기사 2건 이상인 이슈가 단신보다 앞선다.
+
+        지니 지적(2026-09-15): 원안위 하위규정 의결(1건)이 웨스팅하우스 지분
+        (4건)·SMR 특별법 시행(4건) 위에 섰다 — 점수가 새로움을 가점하고 연속성을
+        감점해서다. 축은 불리언이라 4건과 2건은 다시 점수로 가른다.
+        """
+        rows = [
+            {"issue_id": "brief", "region": "국내", "importance": "must_read",
+             "sort_score": 30.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "article_count": 1, "title": "단신"},
+            {"issue_id": "big", "region": "국내", "importance": "must_read",
+             "sort_score": 20.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "article_count": 4, "title": "굵은 사건"},
+            {"issue_id": "mid", "region": "국내", "importance": "must_read",
+             "sort_score": 25.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "article_count": 2, "title": "두 건짜리"},
+            {"issue_id": "many-minor", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 99.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "article_count": 9, "title": "기사만 많은 잡담"},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual([r["title"] for r in rows],
+                         ["두 건짜리", "굵은 사건", "단신", "기사만 많은 잡담"])
+
     def test_cooldown_never_beats_importance(self):
         """must_read 는 며칠 이어져도 선두 자격이 있다 — 8/16 디아블로 캐년은
         재등장이었지만 2.7억 달러 지원이라는 새 사실이었다."""
