@@ -1758,14 +1758,9 @@ function renderBriefing() {
   const ordered = briefingIssuesForDisplay(briefing);
   const top = ordered.slice(0, TOC_LIMIT);
   tocList.innerHTML = top.map((issue, index) => tocRow(issue, index, index === 0)).join("");
-  // 패널 머리: 날짜·건수, 국내/해외·근거 확인 수. 꼬리: 그날 전문 페이지.
-  const d = new Date(`${briefing.date}T00:00:00`);
+  // 패널 꼬리 한 줄: 날짜·호수·건수. 머리는 없다(폰 첫 화면 확보).
   document.getElementById("briefPanelDate").textContent =
     `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${top.length}건`;
-  const domestic = top.filter(issue => issue.region === "국내").length;
-  const verified = top.filter(issue => ["official", "corroborated"].includes((issue.verification || {}).status)).length;
-  document.getElementById("briefPanelCount").textContent =
-    `국내 ${domestic} · 해외 ${top.length - domestic} · 근거 확인 ${verified}`;
   document.getElementById("briefPanelAll").href = `/brief/${briefing.date}/`;
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);

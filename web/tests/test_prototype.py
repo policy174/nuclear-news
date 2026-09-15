@@ -1612,10 +1612,10 @@ class GeneratedDataTests(unittest.TestCase):
             label.strip()
             for label in re.findall(r'<p class="eyebrow(?: dark)?">([A-Z ]+)', html)
         }
-        # 오늘 탭은 브리핑 패널의 킥커(TODAY BRIEF)가 오버라인 역할이라 <p class="eyebrow">
-        # 는 흐름 탭의 THIS WEEK 만 남는다.
+        # 오늘 탭의 패널은 머리(킥커·제목)가 없다 — 폰 첫 화면에 행이 1개만
+        # 보여서 걷었다(2026-09-15). <p class="eyebrow"> 는 흐름 탭의 THIS WEEK 만.
         self.assertTrue(overlines <= {"TODAY", "THIS WEEK"}, overlines)
-        self.assertIn('class="brief-kicker">TODAY BRIEF', html)
+        self.assertNotIn('class="brief-kicker"', html)
         self.assertIn("원자력 정책·산업 이슈 트래커", html)
         # 4주 주제 변화는 흐름 탭이 주인이다 — 오늘 화면에 같은 표를 두면 같은
         # 숫자가 두 탭에 뜬다. 오늘은 '무슨 일', 흐름은 '어느 방향'.
@@ -4638,8 +4638,8 @@ class VisualSystemTests(unittest.TestCase):
         오버라인 어휘 자체는 TODAY·THIS WEEK 두 종으로 잠겨 있고(별도 테스트),
         여기서는 '한 화면에서 되풀이하지 않는다'를 지킨다.
         """
-        # 오늘 탭의 오버라인은 브리핑 패널 킥커 하나뿐이다.
-        self.assertEqual(self.html.count('class="brief-kicker">TODAY BRIEF'), 1)
+        # 오늘 탭에는 오버라인이 없다 — 패널이 01번 행으로 바로 시작한다.
+        self.assertEqual(self.html.count('class="brief-kicker"'), 0)
         self.assertGreaterEqual(self.html.count('class="sec-no"'), 5)
         self.assertIn("font-family: var(--ff-mono)", self._rule(".sec-no"))
         # 구역 머리는 잉크 괘선으로 시작한다 — 번호만 붙이면 목록의 일부로 읽힌다.

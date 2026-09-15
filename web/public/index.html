@@ -116,17 +116,15 @@
       <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
     </div>
 
-    <!-- 브리핑 패널 — 짙은 면 하나에 "오늘 반드시 볼 변화" 목차를 세운다.
+    <!-- 브리핑 패널 — 짙은 면 하나에 오늘의 목차를 세운다.
          Codex 목업(work/home-brief-comparison.html, B안)의 구조를 따르되 면색은
          브랜드 네이비(--c-primary). 번호·지역·대분류·제목·왜 중요한가·화살표. -->
-    <section class="brief-panel" aria-labelledby="briefPanelTitle">
-      <div class="brief-top">
-        <div><small class="brief-kicker">TODAY BRIEF</small><h2 id="briefPanelTitle">오늘 반드시 볼 변화</h2></div>
-        <p class="brief-date" id="briefPanelDate"></p>
-      </div>
-      <p class="brief-count" id="briefPanelCount"></p>
+    <section class="brief-panel" aria-label="오늘의 현안 목차">
+      <!-- 패널 머리(킥커·제목·날짜·건수)는 없다 — 폰에서 첫 화면에 행이 1개만
+           보였다(2026-09-15 실측 375px). 날짜는 위 date-nav 가 이미 들고 있고,
+           건수는 꼬리 한 줄이면 충분하다. 패널은 01번 행으로 바로 시작한다. -->
       <nav id="tocList" class="toc" aria-label="오늘의 현안 목차"></nav>
-      <div class="brief-foot"><span>번호 · 분류 · 제목 · 왜 중요한가</span><a id="briefPanelAll" href="#">전체 브리핑 →</a></div>
+      <div class="brief-foot"><span id="briefPanelDate"></span><a id="briefPanelAll" href="#">전체 브리핑 →</a></div>
     </section>
 
     <!-- 정책의제 '한 주의 원자력' — main 에 라이브인 블록. 목차형 개편(09-11)이

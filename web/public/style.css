@@ -3769,17 +3769,9 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
    가장 또렷하다(형광 글자보다). 제목은 흰색, 이유 한 줄은 한 단 옅게. */
 .brief-panel {
   background: var(--c-primary); color: #eef1f4;
-  border-radius: var(--r-3); padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  border-radius: var(--r-3); padding: var(--sp-2) var(--sp-6) var(--sp-4);
   margin-top: var(--sp-4);
 }
-.brief-top { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-4);
-  padding-bottom: var(--sp-4); border-bottom: 1px solid rgba(238,241,244,.18); }
-.brief-kicker { display: block; font-size: var(--t-min); font-weight: 800; letter-spacing: 2.5px; color: #8fb4e6; }
-.brief-panel h2 { margin: var(--sp-2) 0 0; font-size: clamp(24px, 2.8vw, 32px); font-weight: 800;
-  letter-spacing: -.02em; line-height: 1.15; color: #fff; }
-.brief-date, .brief-count { margin: 0; font-size: var(--t-caption); color: rgba(238,241,244,.62); }
-.brief-date { text-align: right; white-space: nowrap; }
-.brief-count { margin: var(--sp-3) 0 var(--sp-1); }
 
 /* 목차: 패널 안에서는 면·테두리를 걷고 괘선만 남긴다 */
 .brief-panel .toc { background: none; border: 0; border-radius: 0; }
@@ -3816,11 +3808,23 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
   font-size: var(--t-caption); color: rgba(238,241,244,.55); }
 .brief-foot a { color: #8fb4e6; font-weight: 700; text-decoration: none; }
 .brief-foot a:hover { text-decoration: underline; }
+/* 폰: 한 화면에 행 3개는 들어와야 목록이 '한눈에' 잡힌다(지니 지적 09-15).
+   머리를 줄이고 행을 압축한다. 제목은 여전히 안 자른다(위 규칙 2) — 대신
+   '왜 중요한가'를 두 줄에서 접고 출처 줄을 걷는다(상세에 있다). */
 @media (max-width: 520px) {
-  .brief-panel { padding: var(--sp-5) var(--sp-4) var(--sp-4); border-radius: var(--r-2); }
-  .brief-panel .toc-row { grid-template-columns: 34px minmax(0, 1fr) 18px; }
-  .brief-top { flex-direction: column; align-items: flex-start; }
-  .brief-date { text-align: left; }
+  .today-head { margin-bottom: var(--sp-3); }
+  .today-head h1 { font-size: 20px; }
+  .today-search { margin-top: var(--sp-2); padding: var(--sp-2) var(--sp-3); font-size: var(--t-caption); }
+  .brief-panel { padding: 0 var(--sp-3) var(--sp-3); border-radius: var(--r-2); margin-top: var(--sp-3); }
+  .brief-panel .toc-row { grid-template-columns: 28px minmax(0, 1fr) 16px; column-gap: var(--sp-2); padding: var(--sp-3) 0; }
+  .brief-panel .toc-title, .brief-panel .toc-row--lead .toc-title { font-size: 16.5px; line-height: 1.3; }
+  .toc-meta-line { margin-bottom: var(--sp-1); }
+  .brief-panel .toc .chip, .brief-panel .toc-row .chip { font-size: 12.5px; padding: 2px 8px; }
+  .toc-num { font-size: 13px; padding-top: 2px; }
+  .toc-why { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    margin-top: var(--sp-1); font-size: 13px; line-height: 1.45; }
+  .brief-panel .toc-meta { display: none; }
+  .toc-arrow { font-size: 16px; }
 }
 
 /* 카테고리를 더 잘 보이게 — 칩(글자)에 더해 행 왼쪽 띠(색)로 두 번째 단서.
