@@ -1,9 +1,6 @@
 {
   "name": "Nuclens",
-  "canvas": {
-    "width": 1080,
-    "height": 1080
-  },
+  "canvas": { "width": 1080, "height": 1080 },
   "fonts": {
     "heading": {
       "family": "Wanted Sans Variable",
@@ -22,17 +19,17 @@
     }
   },
   "colors": {
-    "bg": "#EEF1F4",
-    "bgEdge": "#DDE3EA",
-    "ink": "#12294C",
-    "inkDim": "rgba(18,41,76,0.70)",
-    "inkMute": "rgba(18,41,76,0.44)",
-    "accent": "#1F5FA8",
-    "accentBright": "#5AA0E8",
-    "bgDark": "#12294C",
-    "bgDarkEdge": "#091628",
-    "inkOnDark": "#EEF1F4",
-    "inkOnDarkDim": "rgba(238,241,244,0.74)"
+    "bg": "#0A0C10",
+    "bgEdge": "#050609",
+    "ink": "#F6F5F0",
+    "inkDim": "rgba(246,245,240,0.74)",
+    "inkMute": "rgba(246,245,240,0.46)",
+    "accent": "#C8FF3D",
+    "accentBright": "#C8FF3D",
+    "bgDark": "#0A0C10",
+    "bgDarkEdge": "#050609",
+    "inkOnDark": "#F6F5F0",
+    "inkOnDarkDim": "rgba(246,245,240,0.74)"
   },
   "headline": {
     "case": "none",

@@ -222,7 +222,8 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
             "event_date": plausible_event_date(rep.get("event_date") or "", brief_date),
             "source": rep.get("publisher") or source_name(link),
             "topic": topic_label(row),
-            "tag": next(iter(row.get("tags") or []), ""),
+            # 칩은 항상 #태그 꼴로 — 이슈에 따라 "#원안위" / "smr특별법" 이 섞여 온다
+            "tag": (lambda t: "#" + t.lstrip("#") if t else "")(next(iter(row.get("tags") or []), "")),
         })
         if len(picked) == k:
             break
