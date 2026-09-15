@@ -3774,7 +3774,7 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
 }
 .brief-top { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-4);
   padding-bottom: var(--sp-4); border-bottom: 1px solid rgba(238,241,244,.18); }
-.brief-kicker { display: block; font-size: 12px; font-weight: 800; letter-spacing: 2.5px; color: #8fb4e6; }
+.brief-kicker { display: block; font-size: var(--t-min); font-weight: 800; letter-spacing: 2.5px; color: #8fb4e6; }
 .brief-panel h2 { margin: var(--sp-2) 0 0; font-size: clamp(24px, 2.8vw, 32px); font-weight: 800;
   letter-spacing: -.02em; line-height: 1.15; color: #fff; }
 .brief-date, .brief-count { margin: 0; font-size: var(--t-caption); color: rgba(238,241,244,.62); }

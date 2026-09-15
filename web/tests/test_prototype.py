@@ -1352,7 +1352,7 @@ class RenderSmokeContractTests(unittest.TestCase):
         self.assertNotIn("networkidle", code)
         self.assertIn('waitUntil: "domcontentloaded"', code)
         self.assertIn("waitForFunction", code)
-        self.assertIn("skeleton-list", code)
+        self.assertIn(".toc-row", code)
 
     def test_render_smoke_ignores_skeleton_cards(self):
         """#issueList 에는 index.html 이 박아 둔 스켈레톤 카드가 있다.
@@ -1363,7 +1363,10 @@ class RenderSmokeContractTests(unittest.TestCase):
         smoke = (ROOT / "tests" / "render_smoke.mjs").read_text(encoding="utf-8")
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertIn("skeleton-card", html)
-        self.assertIn("#issueList article:not(.skeleton-card)", smoke)
+        # 목차형 홈: 정적 스켈레톤은 #bootSkeleton 에 있고, 스모크는 동적 행(.toc-row)
+        # 또는 빈 상태만 센다 — #tocList 안에는 정적 마크업이 없다.
+        self.assertIn("#tocList .toc-row", smoke)
+        self.assertNotIn("#issueList", smoke)
 
 
 class GeneratedDataTests(unittest.TestCase):
@@ -1551,7 +1554,6 @@ class GeneratedDataTests(unittest.TestCase):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         self.assertIn('id="globalSearchOpen"', html)
         self.assertIn('id="globalSearchDialog"', html)
-        self.assertIn('id="topicSel"', html)
         # 흐름 카드의 제목은 이슈(사건) 제목이고, 클릭하면 상세로 간다.
         # 키워드 단위 해석 문장을 쓰면 한 사건이 키워드 수만큼 반복된다.
         self.assertIn('data-issue-id="${esc(item.issue_id)}"', script)
@@ -1610,7 +1612,10 @@ class GeneratedDataTests(unittest.TestCase):
             label.strip()
             for label in re.findall(r'<p class="eyebrow(?: dark)?">([A-Z ]+)', html)
         }
-        self.assertEqual(overlines, {"TODAY", "THIS WEEK"})
+        # 오늘 탭은 브리핑 패널의 킥커(TODAY BRIEF)가 오버라인 역할이라 <p class="eyebrow">
+        # 는 흐름 탭의 THIS WEEK 만 남는다.
+        self.assertTrue(overlines <= {"TODAY", "THIS WEEK"}, overlines)
+        self.assertIn('class="brief-kicker">TODAY BRIEF', html)
         self.assertIn("원자력 정책·산업 이슈 트래커", html)
         # 4주 주제 변화는 흐름 탭이 주인이다 — 오늘 화면에 같은 표를 두면 같은
         # 숫자가 두 탭에 뜬다. 오늘은 '무슨 일', 흐름은 '어느 방향'.
@@ -1660,7 +1665,8 @@ class GeneratedDataTests(unittest.TestCase):
         display = script.split("function briefingIssuesForDisplay", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("state.issues.find", display)
         render = script.split("function renderBriefing()", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("briefingIssuesForDisplay(briefing).filter", render)
+        # 목차형 홈은 정렬된 목록을 그대로 자른다 — 정본은 여전히 briefingIssuesForDisplay.
+        self.assertIn("briefingIssuesForDisplay(briefing)", render)
 
     def test_skip_link_moves_keyboard_focus_to_main(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
@@ -2032,15 +2038,7 @@ class GeneratedDataTests(unittest.TestCase):
                 self.assertNotEqual(display, str(issue["title"]).strip().rstrip(".!?"))
                 self.assertNotEqual(display, str(issue.get("card_why") or "").strip().rstrip(".!?"))
 
-    def test_p4_home_splits_changed_issues_from_the_rest(self):
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        for element_id in ("changedIssues", "changedList", "changedCount", "briefingKicker"):
-            self.assertIn(f'id="{element_id}"', html)
-        # 히어로가 아래 카드 목록을 그대로 반복하던 블록은 제거했다.
-        self.assertNotIn('id="briefingHighlights"', html)
-        self.assertNotIn('id="sideStats"', html)
-        self.assertIn("function changedIssues", script)
+    # test_p4_home_splits_changed_issues_from_the_rest: 삭제(2026-09-15) — '지금 달라진 이슈' 섹션이 목차로 흡수됨
 
     def test_hero_does_not_repeat_the_status_strip(self):
         """히어로 '데이터 상태'는 상태 스트립과 같은 숫자 넷을 되풀이했다.
@@ -2136,16 +2134,7 @@ class GeneratedDataTests(unittest.TestCase):
         # 이건 신호가 아니라 고지라서 전 카드에 붙는다.
         self.assertIn('<span class="ai-badge">AI</span>', card)
 
-    def test_hero_h1_is_the_fixed_weekly_product_promise(self):
-        """h1 은 일별 기사 제목이나 daily_lead 가 아니라 고정 제품 문구다."""
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn('id="briefingTitle">이번 주 원자력, 무엇이 달라졌나</h1>', html)
-        self.assertIn('textContent = "이번 주 원자력, 무엇이 달라졌나"', render)
-        self.assertNotIn('getElementById("briefingTitle").innerHTML', render)
-        render_code = "\n".join(re.sub(r"//.*$", "", line) for line in render.splitlines())
-        self.assertNotIn("daily_lead", render_code)
+    # test_hero_h1_is_the_fixed_weekly_product_promise: 삭제(2026-09-15) — 주간 히어로가 목차형 홈에서 걷힘
 
     def test_hero_does_not_repeat_what_the_lead_card_already_says(self):
         """'왜'는 한 화면에 한 번만 선다.
@@ -2368,70 +2357,11 @@ class GeneratedDataTests(unittest.TestCase):
             self.assertIn("headline_evidence", briefing)
             self.assertIsInstance(briefing["headline_evidence"], list)
 
-    def test_hero_evidence_chips_are_not_rendered(self):
-        """근거 칩은 히어로가 문장을 낼 때 그 출처를 보이려던 것이다.
+    # test_hero_evidence_chips_are_not_rendered: 삭제(2026-09-15) — 히어로 근거 칩 자체가 없음
 
-        낼 문장이 없으니 칩도 없다. 컨테이너는 index.html 이 참조하므로 남긴다.
-        """
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('id="headlineEvidence"', html)
-        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("evidenceBox.hidden = true;", render)
-        self.assertNotIn("hero-evidence-chip", render)
+    # test_weekly_hero_is_visible_and_keeps_the_audio_brief: 삭제(2026-09-15) — 주간 히어로 걷힘 (오디오는 test_audio_sits_below_the_brief_panel 로)
 
-    def test_weekly_hero_is_visible_and_keeps_the_audio_brief(self):
-        """주간 고정 HERO를 보이되 daily_lead 문장과 오디오는 건드리지 않는다."""
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
-        self.assertIn('aria-labelledby="briefingTitle"', html)
-        self.assertIn('hero.classList.add("lead-issue", "weekly-hero")', script)
-        self.assertIn('hero.classList.remove("no-lead")', script)
-        self.assertIn(".briefing-hero.weekly-hero", css)
-        # no-lead / lead-issue 어느 쪽도 오디오를 걷어내면 안 된다.
-        self.assertNotIn(".briefing-hero.no-lead .hero-audio", css)
-        self.assertNotIn(".briefing-hero.lead-issue .hero-audio", css)
-        self.assertIn("audioBrief", script)
-
-    def test_empty_state_does_not_contradict_the_changed_section(self):
-        """필터 결과가 위 구역에만 있을 때 아래에서 '없습니다'라고 하면 안 된다.
-
-        실측: topic=fusion 이면 '지금 달라진 이슈'에 독일 핵융합 카드가 남는데
-        '오늘 확인된 이슈'는 빈 상태를 띄워 한 화면이 스스로를 부정했다.
-
-        가드에 조건이 더 붙을 수 있으므로(선두 카드로 옮겨간 경우 등) 줄바꿈까지
-        문자열로 고정하지 않는다 — 지켜야 할 것은 서식이 아니라 '빈 상태보다
-        먼저 다른 구역을 확인한다'는 순서다.
-        """
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("section-note", render)
-        empty_index = render.index("조건에 맞는 이슈가 없습니다")
-        guard = re.search(r"visibleChanged\.length[^\n]*\n\s*\?", render)
-        self.assertIsNotNone(guard, "빈 상태 앞에 visibleChanged 를 확인하는 가드가 없다")
-        self.assertLess(guard.start(), empty_index)
-
-    def test_lead_card_is_wired_and_not_duplicated_below(self):
-        """선두 이슈는 자기 자리에 서고, 아래 두 목록에서는 빠져야 한다.
-
-        같은 이슈가 한 화면에 두 번 서면 '8개 이슈' 개수 표시가 실제 카드 수와
-        어긋난다. 그리고 새 컨테이너를 만들면 handleIssueAction 위임 목록에
-        id 를 넣어야 카드 안의 버튼(타임라인·저장·공유)이 산다.
-        """
-        html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('id="leadIssue"', html)
-        self.assertIn('id="leadCard"', html)
-        self.assertIn("function leadCard(", script)
-        delegation = script.split("handleIssueAction);", 1)[0]
-        self.assertIn('"leadCard"', delegation)
-        render = script.split("function renderBriefing(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("issue.issue_id !== leadId", render)
-        # 선두는 편집 판단이라 정렬 토글보다 먼저 정해진다 — '최신순'으로 바꿨다고
-        # 가장 먼저 볼 이슈가 달라지면 그건 판단이 아니라 정렬 결과다.
-        self.assertLess(render.index("const lead = issues[0]"),
-                        render.index('state.issueSort === "latest"'))
+    # test_empty_state_does_not_contradict_the_changed_section: 삭제(2026-09-15) — 달라진 섹션이 없어 모순이 성립하지 않음
 
     def test_lead_card_skips_blocks_that_have_no_data(self):
         """빈 블록은 세우지 않는다.
@@ -2497,8 +2427,10 @@ class GeneratedDataTests(unittest.TestCase):
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         style = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         for element_id in (
-            "systemStatus", "headerStatus", "globalSearchDialog", "briefingFilters",
-            "issueSort", "issueViewToggle", "mobileTabs", "themeToggle", "search-saved",
+            # 필터·정렬·보기 토글은 목차형 홈에서 걷었다 — 9줄은 고르는 화면이지
+            # 다루는 화면이 아니다(거르고 싶으면 탐색 탭).
+            "systemStatus", "headerStatus", "globalSearchDialog",
+            "mobileTabs", "themeToggle", "search-saved",
         ):
             self.assertIn(f'id="{element_id}"', html)
         self.assertIn("function renderSystemStatus", script)
@@ -3678,7 +3610,8 @@ class WeeklyRenderTests(unittest.TestCase):
         필요한 것은 '이 id 들이 위임돼 있는가'이므로 개별로 확인한다.
         """
         block = self.script.split("].forEach(id => {")[0].rsplit("[", 1)[-1]
-        for container in ("weeklyReportBody", "insightList", "issueList", "evidenceRail"):
+        # 홈 목차(#tocList)는 위임을 타지 않는다 — 행이 링크라 브라우저가 상세로 보낸다.
+        for container in ("weeklyReportBody", "insightList", "archiveIssueList"):
             self.assertIn(f'"{container}"', block, f"{container} 가 위임 목록에 없다")
 
     def test_chip_is_readable_on_light_panel(self):
@@ -3765,10 +3698,11 @@ class EmptyBriefingStateTests(unittest.TestCase):
         self.assertIn("오늘은 브리핑 기준을 넘는 이슈가 없습니다", self.script)
         self.assertIn("오늘 새로 확인된 브리핑 이슈가 없습니다", self.script)
 
-    def test_hero_and_list_do_not_repeat_the_same_sentence(self):
-        """히어로 h1 이 사유를 말하므로 목록은 '어디로 가면 되는가'만 담당한다."""
-        self.assertIn('<div class="empty-state"><p>${view.detail}</p></div>', self.script)
-        self.assertIn('document.getElementById("showChangedIssues").hidden = true;',
+    def test_empty_state_carries_reason_and_next_step_once(self):
+        """빈 날의 사유와 안내는 목차 자리 한 곳에만 선다."""
+        # 목차형 홈엔 히어로가 없다 — 빈 날의 사유(title)와 안내(detail)는 목차 자리가
+        # 함께 든다. 한 문장이 두 곳에 나가지 않는다는 원칙은 그대로다.
+        self.assertIn('<div class="empty-state"><strong>${esc(view.title)}</strong><p>${view.detail}</p></div>',
                       self.script)
 
     def test_below_floor_wording_is_candidate_not_collected(self):
@@ -4516,9 +4450,9 @@ class FirstScreenContentFirstTests(unittest.TestCase):
         title_line = next(line for line in lead.splitlines() if "issue-title-button" in line)
         self.assertNotIn("? ", title_line.split("<h3>")[0], "제목 렌더에 조건이 다시 붙었다")
 
-    def test_audio_sits_below_the_hero_actions(self):
-        """플레이어는 히어로의 마지막 줄이다 — 날짜와 콘텐츠 사이에 끼지 않는다."""
-        self.assertLess(self.html.index('class="hero-actions"'),
+    def test_audio_sits_below_the_brief_panel(self):
+        """플레이어는 브리핑 패널 뒤다 — 목차보다 먼저 서면 '읽을 것'이 밀린다."""
+        self.assertLess(self.html.index('id="tocList"'),
                         self.html.index('id="audioBrief"'))
 
     def test_audio_rates_stay_folded_until_playback_on_mobile(self):
@@ -4704,7 +4638,8 @@ class VisualSystemTests(unittest.TestCase):
         오버라인 어휘 자체는 TODAY·THIS WEEK 두 종으로 잠겨 있고(별도 테스트),
         여기서는 '한 화면에서 되풀이하지 않는다'를 지킨다.
         """
-        self.assertEqual(self.html.count('class="eyebrow">TODAY'), 1)
+        # 오늘 탭의 오버라인은 브리핑 패널 킥커 하나뿐이다.
+        self.assertEqual(self.html.count('class="brief-kicker">TODAY BRIEF'), 1)
         self.assertGreaterEqual(self.html.count('class="sec-no"'), 5)
         self.assertIn("font-family: var(--ff-mono)", self._rule(".sec-no"))
         # 구역 머리는 잉크 괘선으로 시작한다 — 번호만 붙이면 목록의 일부로 읽힌다.
@@ -5202,13 +5137,7 @@ class TodayAgendaPlacementTests(unittest.TestCase):
         # open_question 이 비어 있어 화면에서 그 질문에 답하는 유일한 자리다.
         self.assertNotIn("hidden = true", body)
 
-    def test_it_runs_after_the_lead_visibility_is_decided(self):
-        """앞에서 부르면 첫 렌더에서 leadIssue 가 아직 hidden 이라 조건이 늘 거짓이다
-        (실제로 그렇게 넣었다가 자리가 안 바뀌었다).
-        """
-        decided = self.script.index('document.getElementById("leadIssue").hidden = !lead;')
-        called = self.script.index("placeTodayAgenda();", decided)
-        self.assertGreater(called, decided)
+    # test_it_runs_after_the_lead_visibility_is_decided: 삭제(2026-09-15) — leadIssue 가 없어 placeTodayAgenda 는 no-op
 
     def test_the_breakpoint_change_moves_it_back(self):
         # 안 하면 리사이즈한 사람만 어긋난 채 본다.

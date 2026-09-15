@@ -1292,6 +1292,8 @@ function emptyBriefingState(briefing) {
 function renderEmptyBriefing(briefing, issueList) {
   const view = emptyBriefingState(briefing);
   document.getElementById("continuingSection").hidden = true;
+  const agenda = document.getElementById("todayAgenda");
+  if (agenda) agenda.hidden = true;
   // 사유는 히어로가 말하고, 목록은 '그래서 어디로 가면 되는가'만 담당한다.
   // 그 전제가 코드에 없어서 emptyBriefingState 가 만든 title 이 아무 데도 안
   // 붙고 있었다 — 0건인 날 화면에는 고정 헤드라인("이번 주 원자력, 무엇이
@@ -1765,6 +1767,8 @@ function renderBriefing() {
   document.getElementById("briefPanelCount").textContent =
     `국내 ${domestic} · 해외 ${top.length - domestic} · 근거 확인 ${verified}`;
   document.getElementById("briefPanelAll").href = `/brief/${briefing.date}/`;
+  // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
+  renderTodayAgenda(briefing);
 
   // 이어지는 현안은 목차와 겹치지 않을 때만 선다 — 같은 이슈가 한 화면에 두 번
   // 서면 9줄이라는 약속이 깨진다.
@@ -4563,8 +4567,11 @@ function renderChronicles() {
 function clearBriefingFilters() {
   state.region = "전체";
   state.topic = "전체";
-  document.getElementById("topicSel").value = "전체";
-  setPressed(document.getElementById("regionTabs"), document.querySelector('#regionTabs [data-region="전체"]'));
+  // 홈 필터 바는 목차형 개편에서 걷혔다 — 요소가 없으면 건너뛴다.
+  const topicSel = document.getElementById("topicSel");
+  if (topicSel) topicSel.value = "전체";
+  const regionTabs = document.getElementById("regionTabs");
+  if (regionTabs) setPressed(regionTabs, regionTabs.querySelector('[data-region="전체"]'));
   renderBriefing();
   syncUrl();
 }

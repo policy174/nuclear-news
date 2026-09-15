@@ -44,89 +44,59 @@ try {
   // 네트워크가 아니라 **렌더러 출력**으로 판정한다.
   await page.goto(BASE, { waitUntil: "domcontentloaded", timeout: 60000 });
 
-  // #issueList 는 index.html 에 스켈레톤 카드가 박혀 있어서 렌더러가 죽어도
-  // article 이 잡힌다. renderBriefing 이 맨 처음 하는 일이 skeleton-list 클래스
-  // 제거이므로, 그 클래스가 사라졌는지가 "렌더러가 실제로 돌았는가"의 신호다.
-  // #headerStatus 는 renderSystemStatus 의 출력 — 둘 다 서면 초기화가 끝난 것.
+  // 홈은 목차형(#tocList)이다. index.html 의 #bootSkeleton 이 정적 스켈레톤을
+  // 들고 있으므로 그걸 세면 렌더러가 죽어도 잡힌다 — 렌더러가 실제로 돌았다는
+  // 신호는 #tocList 안의 .toc-row(동적) 또는 .empty-state 다. #headerStatus 는
+  // renderSystemStatus 의 출력 — 둘 다 서면 초기화가 끝난 것.
   try {
     await page.waitForFunction(() => {
-      const list = document.querySelector("#issueList");
+      const toc = document.querySelector("#tocList");
       const header = document.querySelector("#headerStatus");
-      return !!list && !list.classList.contains("skeleton-list")
+      return !!toc && (toc.querySelector(".toc-row") || toc.querySelector(".empty-state"))
         && !!header && /이슈\s*\d+/.test(header.textContent || "");
     }, null, { timeout: 45000 });
   } catch {
     const headerStatus = (await page.textContent("#headerStatus").catch(() => "")) || "";
-    const skeleton = await page.locator("#issueList.skeleton-list").count();
-    failures.push(`초기 렌더 미완료 (45초) — 헤더 "${headerStatus.trim()}", 스켈레톤 ${skeleton ? "잔존" : "제거됨"}`);
+    failures.push(`초기 렌더 미완료 (45초) — 헤더 "${headerStatus.trim()}"`);
     for (const line of diagnostics()) failures.push(line.trim());
   }
 
   const bodyText = (await page.textContent("body")) || "";
   if (/데이터 연결 실패/.test(bodyText)) failures.push("'데이터 연결 실패' 문구가 화면에 있음");
 
-  // 선정 하한 도입 뒤로 이슈 0건은 정상 상태다(News Minimalist 식 — 조용한 날은
-  // 피드가 짧아지는 게 설계 의도). 그래서 "카드가 1개 이상"을 요구하면 멀쩡한
-  // 날에 CI 가 빨개진다. 대신 **렌더러가 무언가를 그렸는가**를 본다:
-  // 카드 아니면 빈 상태, 둘 다 없으면 그때가 진짜 렌더 실패다.
-  const listHtml = (await page.innerHTML("#issueList").catch(() => "")) || "";
-  if (!listHtml.trim()) failures.push("renderBriefing 이 아무것도 그리지 않음 (#issueList 비어 있음)");
-  // 스켈레톤 카드는 정적 마크업이라 세면 안 된다 — 렌더러가 죽어도 잡힌다.
-  const cards = await page.locator("#issueList article:not(.skeleton-card)").count();
-  const emptyStates = await page.locator("#issueList .empty-state").count();
-  const changedCards = await page.locator("#changedList article").count();
-  if (cards === 0 && changedCards === 0 && emptyStates === 0) {
-    failures.push("이슈 목록이 카드도 빈 상태도 아님 — 렌더 실패 의심");
-  }
-  // 빈 상태라면 아는 세 갈래 중 하나여야 한다. 정체불명의 빈 화면은 실패로 본다.
-  if (cards === 0 && changedCards === 0) {
-    const known = /(브리핑 기준을 넘는 이슈가 없습니다|새로 확인된 브리핑 이슈가 없습니다|아직 갱신되지 않았습니다|새로 연결된 이슈가 없습니다)/;
-    if (!known.test(bodyText)) failures.push("이슈 0건인데 사유 문구가 없음");
-    console.log("주의: 이슈 카드 0건 — 빈 상태로 렌더됨(정상 가능)");
-  }
+  // 선정 하한 도입 뒤로 이슈 0건은 정상 상태다. "행이 1개 이상"을 요구하면 조용한
+  // 날에 CI 가 빨개진다. 대신 렌더러가 무언가를 그렸는가를 본다: 행 아니면 빈 상태.
+  const rows = await page.locator("#tocList .toc-row").count();
+  const emptyStates = await page.locator("#tocList .empty-state").count();
+  if (rows === 0 && emptyStates === 0) failures.push("목차가 행도 빈 상태도 아님 — 렌더 실패 의심");
+  if (rows === 0) console.log("주의: 목차 0행 — 빈 상태로 렌더됨(정상 가능)");
 
-  // 카드 밀도 계약은 CSS 산술로는 못 지킨다 — 칸 수도 줄 수도 데이터가 정한다.
-  // 실제로 렌더된 높이를 여기서 본다.
-  //
-  // 상한 505px: 380 은 "칸이 최대 세 개"라는 전제의 값이었고, 그 전제가 또
-  // 깨졌다(실측 2026-09-09 라이브, 카드 16장 중 4장 초과·최대 453px).
-  //   네 번째 칸이 상시화됐다 — '무슨 일'+'직전까지'+'왜 중요한가'+'다음 확인'이
-  //   한 카드에 동시에 선다. 버그가 아니라 데이터가 좋아진 결과다: 백필·발송 직전
-  //   재수집·사실성 게이트(09-07~08)로 why_important 와 open_question 이 둘 다
-  //   채워진 이슈가 늘었다. 애써 채운 칸을 숨기는 대신 상한을 재계산한다.
-  // 지금 구조의 진짜 worst case 는 고정부 213px(제목·메타·배지·간격, 453px 카드
-  // 실측 역산) + 4칸 × 3줄 clamp 72px = **501px**이다. 505 는 거기에 렌더 편차
-  // 몇 px 만 얹은 값이라, 다섯 번째 칸(+76px)이나 clamp 4줄(+96px)은 여전히
-  // 즉시 걸린다 — 상한을 남기는 이유가 그것이다.
-  // 130 → 220 → 260 → 380 때와 같이 **완화가 아니라 새 구조로 재계산**한 값이다.
-  //
-  // "폴드에 두 장"(900px 뷰포트) 의도는 4칸 worst 에서는 성립하지 않는다(501×2
-  // > 900). 4칸 카드는 정보를 다 보여주는 쪽을 택한 것이고(2026-09-09 사용자
-  // 결정), 3칸 이하 카드는 여전히 두 장이 폴드에 든다. 페이지 상단(헤더·히어로)
-  // 이 991px 을 먼저 먹는 문제는 이 계약과 별건이다.
-  if (cards > 0 || changedCards > 0) {
-    const tall = await page.evaluate(() => {
-      const rows = [...document.querySelectorAll("#changedList .issue-card, #issueList .issue-card")];
-      const over = rows.map(c => Math.round(c.getBoundingClientRect().height)).filter(h => h > 505);
-      return { total: rows.length, over: over.length, max: Math.max(0, ...over) };
+  // 행 계약: 번호·분류(또는 지역)·제목 링크·화살표가 다 서야 한다. 하나라도 빠지면
+  // 렌더러가 절반만 그린 것이다. 제목은 잘라내지 않는다(clamp 없음) — 넘치면
+  // 높이가 늘어야 하고, 잘리면 '승인 중단'이 '승인'이 된다.
+  if (rows > 0) {
+    const bad = await page.evaluate(() => {
+      const out = [];
+      for (const row of document.querySelectorAll("#tocList .toc-row")) {
+        const miss = [];
+        if (!row.querySelector(".toc-num")) miss.push("번호");
+        if (!row.querySelector(".toc-region") && !row.querySelector(".chip--domain")) miss.push("분류/지역");
+        if (!row.querySelector("a.toc-link[href]")) miss.push("제목 링크");
+        const title = row.querySelector(".toc-title");
+        if (title && title.scrollHeight > title.clientHeight + 1) miss.push("제목 잘림");
+        if (miss.length) out.push(miss.join("·"));
+      }
+      return out;
     });
-    if (tall.over > 0) {
-      failures.push(`카드 ${tall.over}/${tall.total}장이 505px 밀도 계약 초과(최대 ${tall.max}px)`);
-    }
-  }
-  // 잘린 카드 본문 — 문장이 완결되게 하려고 칸당 3줄을 준 것이므로, 그래도 잘리면
-  // 데이터가 예상보다 길어진 것이다(경고만, 실패로 세우지 않는다).
-  const clipped = await page.evaluate(() => {
-    const els = [...document.querySelectorAll("#changedList .issue-line-text, #issueList .issue-line-text")];
-    return { total: els.length, cut: els.filter(e => e.scrollHeight > e.clientHeight + 1).length };
-  });
-  if (clipped.cut > 0) {
-    console.log(`주의: 카드 본문 ${clipped.cut}/${clipped.total}줄이 잘림 — 요약 길이 확인 필요`);
+    if (bad.length) failures.push(`목차 행 ${bad.length}/${rows}개 계약 위반: ${bad.slice(0, 3).join(" / ")}`);
+    // 패널 머리(날짜·건수)가 채워졌는가 — renderBriefing 뒷부분이 돌았다는 신호
+    const panelDate = (await page.textContent("#briefPanelDate").catch(() => "")) || "";
+    if (!/\d+월 \d+일/.test(panelDate)) failures.push(`브리핑 패널 날짜 미표시 ("${panelDate.trim()}")`);
   }
 
   // 최신 브리핑 날짜가 화면에 반영됐는가 — "2026-07-31" → "7월 31일" 표기로 확인
   const d = meta.latest_briefing_date || "";
-  if (/^\d{4}-\d{2}-\d{2}$/.test(d) && (cards > 0 || changedCards > 0)) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(d) && rows > 0) {
     const label = `${parseInt(d.slice(5, 7), 10)}월 ${parseInt(d.slice(8, 10), 10)}일`;
     if (!bodyText.includes(label)) failures.push(`최신 브리핑 날짜(${label}) 미표시`);
   }
