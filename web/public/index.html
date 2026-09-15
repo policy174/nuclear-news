@@ -116,7 +116,18 @@
       <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
     </div>
 
-    <nav id="tocList" class="toc" aria-label="오늘의 현안 목차"></nav>
+    <!-- 브리핑 패널 — 짙은 면 하나에 "오늘 반드시 볼 변화" 목차를 세운다.
+         Codex 목업(work/home-brief-comparison.html, B안)의 구조를 따르되 면색은
+         브랜드 네이비(--c-primary). 번호·지역·대분류·제목·왜 중요한가·화살표. -->
+    <section class="brief-panel" aria-labelledby="briefPanelTitle">
+      <div class="brief-top">
+        <div><small class="brief-kicker">TODAY BRIEF</small><h2 id="briefPanelTitle">오늘 반드시 볼 변화</h2></div>
+        <p class="brief-date" id="briefPanelDate"></p>
+      </div>
+      <p class="brief-count" id="briefPanelCount"></p>
+      <nav id="tocList" class="toc" aria-label="오늘의 현안 목차"></nav>
+      <div class="brief-foot"><span>번호 · 분류 · 제목 · 왜 중요한가</span><a id="briefPanelAll" href="#">전체 브리핑 →</a></div>
+    </section>
 
     <section id="continuingSection" class="cont" aria-labelledby="continuingTitle" hidden>
       <h2 id="continuingTitle">이어지는 현안</h2>

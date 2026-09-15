@@ -1697,34 +1697,35 @@ function tocChips(issue) {
 
 function tocMeta(issue) {
   const rep = issue.representative_article || {};
+  // 날짜는 패널 머리가 든다 — 행마다 반복하면 같은 날짜가 아홉 번 찍힌다.
   return [
     rep.publisher || "",
     (issue.article_count || 0) > 1 ? `기사 ${issue.article_count}건` : "",
-    dateLabel(issue.last_seen),
   ].filter(Boolean).join(" · ");
 }
 
-function tocRow(issue) {
-  return `<div class="toc-row">
-  ${tocChips(issue)}
-  <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
-  <span class="toc-meta">${esc(tocMeta(issue))}</span>
+function tocWhy(issue) {
+  // '왜 중요한가' 한 줄. 큐레이션의 implication 이 있으면 그것, 없으면 요약.
+  return String(issue.implication || issue.summary || "").trim();
+}
+function tocFamily(issue) {
+  const domain = issue.khnp_domain || TOPIC_DOMAIN[(issue.topics || [])[0] || ""] || "";
+  return DOMAIN_FAMILY[domain] || "etc";
+}
+function tocRow(issue, index = 0, lead = false) {
+  const why = tocWhy(issue);
+  return `<div class="toc-row${lead ? " toc-row--lead" : ""}" data-family="${esc(tocFamily(issue))}">
+  <span class="toc-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+  <span class="toc-body">
+    <span class="toc-meta-line"><span class="toc-region">${esc(issue.region || "")}</span>${tocChips(issue)}</span>
+    <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
+    ${why ? `<span class="toc-why">${esc(why)}</span>` : ""}
+    <span class="toc-meta">${esc(tocMeta(issue))}</span>
+  </span>
+  <span class="toc-arrow" aria-hidden="true">→</span>
 </div>`;
 }
-
-// 첫 현안만 한 단 크게 세우고 요지 한 줄을 붙인다. 카드로 키우지 않는다 —
-// 상자가 되는 순간 첫 화면을 혼자 먹고 목차가 다시 아래로 밀린다(선두 카드가
-// 그래서 걷혔다). 강조는 활자 크기와 요지 한 줄까지다.
-function tocLeadRow(issue) {
-  const gist = String(issue.summary || "").trim();
-  return `<div class="toc-row toc-row--lead">
-  ${tocChips(issue)}
-  <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
-  ${gist ? `<span class="toc-gist">${esc(gist)}</span>` : ""}
-  <span class="toc-meta">${esc(tocMeta(issue))}</span>
-</div>`;
-}
-
+function tocLeadRow(issue) { return tocRow(issue, 0, true); }
 function continuingRow(issue) {
   // 변화 문장은 'A → B' 꼴이다. 목차에 이미 제목이 있으니 바뀐 쪽만 보인다.
   const change = String(issue.latest_change || "").split("→").pop().trim();
@@ -1754,7 +1755,16 @@ function renderBriefing() {
 
   const ordered = briefingIssuesForDisplay(briefing);
   const top = ordered.slice(0, TOC_LIMIT);
-  tocList.innerHTML = top.map((issue, index) => (index ? tocRow(issue) : tocLeadRow(issue))).join("");
+  tocList.innerHTML = top.map((issue, index) => tocRow(issue, index, index === 0)).join("");
+  // 패널 머리: 날짜·건수, 국내/해외·근거 확인 수. 꼬리: 그날 전문 페이지.
+  const d = new Date(`${briefing.date}T00:00:00`);
+  document.getElementById("briefPanelDate").textContent =
+    `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${top.length}건`;
+  const domestic = top.filter(issue => issue.region === "국내").length;
+  const verified = top.filter(issue => ["official", "corroborated"].includes((issue.verification || {}).status)).length;
+  document.getElementById("briefPanelCount").textContent =
+    `국내 ${domestic} · 해외 ${top.length - domestic} · 근거 확인 ${verified}`;
+  document.getElementById("briefPanelAll").href = `/brief/${briefing.date}/`;
 
   // 이어지는 현안은 목차와 겹치지 않을 때만 선다 — 같은 이슈가 한 화면에 두 번
   // 서면 9줄이라는 약속이 깨진다.
