@@ -1562,6 +1562,15 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // 곧 읽는 순서다 — 무엇이 바뀌었나 → 이번 주 흐름 → 그래서 어떤 의미 → 다음에 볼 것.
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
+  const toggle = document.getElementById("agendaToggle");
+  if (toggle && !toggle.dataset.bound) {
+    toggle.dataset.bound = "1";
+    toggle.addEventListener("click", () => {
+      const body = document.getElementById("agendaBody");
+      body.hidden = !body.hidden;
+      toggle.setAttribute("aria-expanded", body.hidden ? "false" : "true");
+    });
+  }
   const report = weeklyReportFor(briefing.date);
   const label = weekRangeLabel(report);
   document.getElementById("todayAgendaTitle").textContent =
@@ -1641,7 +1650,10 @@ function placeTodayAgenda() {
 // 홈은 읽는 화면이 아니라 고르는 화면이다. 선두 카드·달라진 이슈·오늘 이슈로
 // 갈려 있던 세 목록을 한 줄씩 세운 목차 하나로 합쳤다. 정렬·보기·필터는 걷었다
 // — 9줄에는 거를 것이 없고, 거르고 싶으면 탐색 탭이 주인이다.
-const TOC_LIMIT = 9;
+// 첫 화면은 4건 — 9건은 "잘 안 들어온다"(지니 09-16). 지역 맞물림이라 국내 2·해외 2.
+// 나머지는 꼬리의 '펼치기'가 제자리에서 연다(옛 '전체 브리핑' 링크는 같은 화면을
+// 다시 그릴 뿐이라 아무 일도 안 일어났다).
+const TOC_LIMIT = 4;
 const CONTINUING_LIMIT = 3;
 
 // 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
@@ -1708,7 +1720,17 @@ function renderBriefing() {
   // 패널 꼬리 한 줄: 날짜·호수·건수. 머리는 없다(폰 첫 화면 확보).
   document.getElementById("briefPanelDate").textContent =
     `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${top.length}건`;
-  document.getElementById("briefPanelAll").href = `/brief/${briefing.date}/`;
+  const rest = ordered.slice(TOC_LIMIT);
+  const more = document.getElementById("briefPanelAll");
+  more.hidden = rest.length === 0;
+  more.textContent = `나머지 ${rest.length}건 펼치기 →`;
+  more.onclick = () => {
+    tocList.insertAdjacentHTML("beforeend",
+      rest.map((issue, index) => tocRow(issue, TOC_LIMIT + index)).join(""));
+    more.hidden = true;
+    document.getElementById("briefPanelDate").textContent =
+      `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${ordered.length}건`;
+  };
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
 
@@ -1722,10 +1744,8 @@ function renderBriefing() {
   document.getElementById("continuingList").innerHTML = continuing.map(continuingRow).join("");
 
   const articles = briefing.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
-  const hidden = ordered.length - top.length;
   document.getElementById("statusLine").textContent =
-    `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`
-    + (hidden > 0 ? ` · 목차 밖 ${hidden}건은 탐색 탭에서` : "");
+    `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`;
 
   renderNewsFeed();
 }

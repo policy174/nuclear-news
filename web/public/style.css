@@ -3764,48 +3764,57 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
 }
 
 /* ── 브리핑 패널 ───────────────────────────────────────────────────────
-   짙은 면 하나에 목차를 세운다. 행 = 번호 · 지역 분류 · 제목 · 화살표.
+   밝은 면 하나에 목차를 세운다. 행 = 번호 · 지역 분류 · 제목 · 화살표.
    요약 줄은 없다 — "길게 요약을 띄우는 것 자체가 이상하다"(지니 09-15).
-   분류는 Codex B안처럼 작은 메타 글자 한 줄로만. 색 띠·색 칩·소분류는 걷었다
-   — 카테고리를 키운 것이 작위적으로 읽혔다. 잘 보이는 것은 맞을 때만 미덕이다. */
+   분류는 작은 메타 글자 한 줄로만. 색 띠·색 칩·소분류는 걷었다(작위적).
+   면은 종이색이다 — 네이비 면은 "너무 진하다"(지니 09-16). 네이비는 번호·
+   분류·화살표의 잉크로만 남긴다. */
 .brief-panel {
-  background: var(--c-primary); color: #eef1f4;
-  border-radius: var(--r-3); padding: var(--sp-2) var(--sp-6) var(--sp-4);
+  background: var(--c-surface); color: inherit;
+  border: var(--bd-1) solid var(--c-border); border-radius: var(--r-3);
+  padding: var(--sp-1) var(--sp-5) var(--sp-3);
   margin-top: var(--sp-4);
 }
 .brief-panel .toc { background: none; border: 0; border-radius: 0; }
 .brief-panel .toc-row {
   grid-template-areas: none; grid-template-columns: 40px minmax(0, 1fr) 20px;
   column-gap: var(--sp-3); align-items: start;
-  padding: var(--sp-4) 0; border-bottom: 1px solid rgba(238,241,244,.14);
+  padding: var(--sp-4) 0; border-bottom: var(--bd-1) solid var(--c-border);
 }
 .brief-panel .toc-row:last-child { border-bottom: 0; }
-.brief-panel .toc-row:hover { background: rgba(255,255,255,.04); }
-.toc-num { font-size: 14px; font-weight: 800; color: #8fb4e6; padding-top: 4px; letter-spacing: .5px; }
+.brief-panel .toc-row:hover { background: var(--c-secondary-weak); }
+.toc-num { font-size: 14px; font-weight: 800; color: var(--c-primary); padding-top: 4px; letter-spacing: .5px; }
 .toc-body { display: block; min-width: 0; }
 .toc-meta-line {
   display: flex; align-items: baseline; gap: var(--sp-3); margin-bottom: 6px;
   position: relative; z-index: 1;
-  font-size: 12.5px; letter-spacing: 1px; color: rgba(238,241,244,.6);
+  font-size: 12.5px; letter-spacing: 1px; color: var(--c-text-muted);
 }
 .toc-region { font-weight: 600; }
 .brief-panel .toc-chips { margin: 0; gap: 0; }
 .brief-panel .toc .chip {
   background: none; padding: 0; border-radius: 0;
-  font-size: 12.5px; font-weight: 800; letter-spacing: 1px; color: #8fb4e6;
+  font-size: 12.5px; font-weight: 800; letter-spacing: 1px; color: var(--c-primary);
 }
 .brief-panel .toc .chip:hover { filter: none; text-decoration: underline; }
-.brief-panel .toc-title { display: block; font-size: clamp(17px, 1.8vw, 19px); font-weight: 700; line-height: 1.32; color: #fff; }
+.brief-panel .toc-title { display: block; font-size: clamp(17px, 1.8vw, 19px); font-weight: 700; line-height: 1.32; }
 .brief-panel .toc-link { color: inherit; }
-.brief-panel .toc-link:hover { color: #cfe0f7; }
-.toc-arrow { align-self: center; font-size: 19px; color: #8fb4e6; }
+.brief-panel .toc-link:hover { color: var(--c-secondary); }
+.toc-arrow { align-self: center; font-size: 19px; color: var(--c-primary); }
 .brief-foot { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3);
-  margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid rgba(238,241,244,.18);
-  font-size: var(--t-caption); color: rgba(238,241,244,.55); }
-.brief-foot a { color: #8fb4e6; font-weight: 700; text-decoration: none; }
-.brief-foot a:hover { text-decoration: underline; }
-/* 폰: 한 화면에 행 4개는 들어와야 목록이 '한눈에' 잡힌다(지니 09-15). 머리를
-   줄이고 행을 압축한다. 제목은 여전히 안 자른다(위 규칙 2). */
+  margin-top: var(--sp-2); padding-top: var(--sp-3); border-top: var(--bd-1) solid var(--c-border);
+  font-size: var(--t-caption); color: var(--c-text-muted); }
+.brief-more { background: none; border: 0; padding: 0; font: inherit; font-weight: 700;
+  color: var(--c-primary); cursor: pointer; }
+.brief-more:hover { text-decoration: underline; }
+.brief-more:focus-visible { outline: none; box-shadow: var(--fo-ring); border-radius: var(--r-1); }
+/* '한 주의 원자력'은 머리 한 줄만 보이고 누르면 펼쳐진다 */
+button.agenda-head { background: none; border: 0; padding: 0; width: 100%; text-align: left;
+  font: inherit; color: inherit; cursor: pointer; }
+button.agenda-head strong { font-size: var(--t-body); }
+button.agenda-head::after { content: "▸"; margin-left: var(--sp-2); color: var(--c-text-muted); }
+button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
+/* 폰: 한 화면에 목차 4건 + 머리가 들어온다. 제목은 여전히 안 자른다(위 규칙 2). */
 @media (max-width: 520px) {
   .today-head { margin-bottom: var(--sp-3); }
   .today-head h1 { font-size: 20px; }

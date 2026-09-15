@@ -124,14 +124,17 @@
            보였다(2026-09-15 실측 375px). 날짜는 위 date-nav 가 이미 들고 있고,
            건수는 꼬리 한 줄이면 충분하다. 패널은 01번 행으로 바로 시작한다. -->
       <nav id="tocList" class="toc" aria-label="오늘의 현안 목차"></nav>
-      <div class="brief-foot"><span id="briefPanelDate"></span><a id="briefPanelAll" href="#">전체 브리핑 →</a></div>
+      <div class="brief-foot"><span id="briefPanelDate"></span><button type="button" id="briefPanelAll" class="brief-more" hidden>나머지 펼치기 →</button></div>
     </section>
 
     <!-- 정책의제 '한 주의 원자력' — main 에 라이브인 블록. 목차형 개편(09-11)이
          index.html 을 다시 쓰면서 빠뜨렸던 것을 되살렸다(2026-09-15). 렌더러
          (renderTodayAgenda)·CSS 는 남아 있었고 마크업만 없었다. -->
     <section id="todayAgenda" class="today-agenda" aria-labelledby="todayAgendaTitle" hidden>
-      <div class="agenda-head"><strong id="todayAgendaTitle">한 주의 원자력</strong><span id="todayAgendaMeta"></span></div>
+      <!-- 접힌 채 시작한다 — 홈에 요약 문단이 너무 많다(지니 09-16). 머리 한 줄만
+           보이고, 누르면 결론·해설·확인할 것이 펼쳐진다. -->
+      <button type="button" class="agenda-head" id="agendaToggle" aria-expanded="false" aria-controls="agendaBody"><strong id="todayAgendaTitle">한 주의 원자력</strong><span id="todayAgendaMeta"></span></button>
+      <div id="agendaBody" hidden>
       <p class="agenda-pending" id="agendaPending" hidden></p>
       <div class="agenda-block" id="agendaConclusions" hidden>
         <span class="agenda-label">한눈에 보기</span>
@@ -148,6 +151,7 @@
       <div class="agenda-block" id="agendaWatch" hidden>
         <span class="agenda-label">지금 확인할 것</span>
         <ul id="agendaWatchList"></ul>
+      </div>
       </div>
     </section>
 
