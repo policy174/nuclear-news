@@ -4459,7 +4459,7 @@ def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: d
 # 아직 못 물은 이슈는 **빈 값**이다. 정규식 대역을 뒀더니 deploy-web(키 없음)이
 # 그 결과를 그대로 라이브에 올렸다 — 원안위 하위규정 의결이 '핵연료'로
 # (2026-09-16 실측). 빈 칩이 틀린 칩보다 낫다. 빈자리는 키가 있는 crawl 빌드가
-# 회차마다 60건씩 채우고 캐시를 커밋한다.
+# 회차마다 120건씩 채우고 캐시를 커밋한다.
 def apply_domains(catalog: list[dict], llm: dict[str, tuple[str, list[str]]] | None = None) -> None:
     llm = llm or {}
     for row in catalog:

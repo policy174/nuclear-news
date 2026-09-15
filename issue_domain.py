@@ -26,7 +26,7 @@ CACHE_KEY = "domains"
 CACHE_COMMENT = "이슈 단위 현안 분류 캐시. 키는 issue_id, prompt_version 이 다르면 다시 묻는다."
 PROMPT_VERSION = 1
 BATCH_SIZE = 20
-MAX_NEW_PER_RUN = 60
+MAX_NEW_PER_RUN = 120
 MODEL_DEFAULT = "gemini-2.5-flash-lite"
 
 
