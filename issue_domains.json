@@ -1,6 +1,6 @@
 {
-  "_comment": "이슈 단위 현안 분류 캐시. 키는 issue_id, digest(제목+요약)가 다르면 다시 묻는다.",
-  "prompt_version": 1,
+  "_comment": "이슈 단위 현안 분류 캐시. 키는 issue_id, prompt_version 이 다르면 다시 묻는다.",
+  "prompt_version": 2,
   "domains": {
     "issue-8a5bd763d3b79395": {
       "digest": "bc9ab23f090825d2",
@@ -881,6 +881,202 @@
       "prompt_version": 1,
       "model": "gemini-2.5-flash-lite",
       "generated_at": "2026-09-15T13:19:24.041847+00:00"
+    },
+    "issue-37429a89a97b6760": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-2534b3b550f84a4e": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "체코 두코바니 원전 본계약 비용, 자금조달 비용 누락으로 예상치 상회 전망",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-98f960d1e64b0622": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "한국원자력연구원, 덴마크 솔트포스에 약 30억 원 규모 MSR 기술 수출",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-2210d5be949aa4c1": {
+      "domain": "정책",
+      "tags": [
+        "한미협정비확산"
+      ],
+      "title": "청와대, 한미 안보협상 난항 인정…핵잠·원자력협정 복원 노력",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-fdc59ff2116b1ced": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "한수원, AI·SMR 활용 중장기 경영전략 수립 착수",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-12cde85e50bb42eb": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "경북도의회, 원자력 등 5대 특별위원회 구성 및 2028년까지 활동 개시",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-68ded5211bab6770": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-196e74c9ed11607a": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "프랑스, 그라블린 원전 EPR2 2기 부지 준비 허가; 네덜란드, 신규 원전 설계 연구 계약",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-0566c98f225d37a3": {
+      "domain": "규제",
+      "tags": [
+        "규제개선"
+      ],
+      "title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-d37600e1640b08bf": {
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "PNNL, 팔리세이즈 원전 재가동 환경 평가 가속화 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-d2f5be7db738b8a3": {
+      "domain": "",
+      "tags": [],
+      "title": "미국, 베네수엘라 전력망 6~12개월 내 안정화 목표 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-c45a59f98aa1ed14": {
+      "domain": "규제",
+      "tags": [
+        "해외규제"
+      ],
+      "title": "미국 NRC, 우라늄 채굴 및 해체 기한 새 규정 제안",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-24af6a920048a850": {
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "대만, 탈원전 정책 전환…원전 3호기 재가동 심사 막바지",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-83e09e9f857583f9": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "테라파워, 나트륨 원자로 공급 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-5167039add8b16d2": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "美 잭스 리서치, 홀텍 IPO 원자력 투자 매력적 기회 분석",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-540843d7351d1b5c": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "IAEA, 핀란드 핵·방사능 비상 대비 및 대응 태세 검토",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-099ce0d43f46036a": {
+      "domain": "규제",
+      "tags": [
+        "규제개선"
+      ],
+      "title": "N-2 규제로 원전 6기 전력량에 해당하는 송전 용량 확보 어려움 직면",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-019fb4ed9c519195": {
+      "domain": "",
+      "tags": [],
+      "title": "산업통상부 장관, G20 혁신장관회의서 AI 협력방안 논의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-e5c53755993ad27b": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "한수원 참여 성주 소성리 주민태양광, 하반기 착공 목표로 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-c1d0a94234114e5a": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "한빛원전, 13년 묵은 용접절차시방서 오류 적용 의혹 제기",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-15T22:34:39.341406+00:00"
     }
   }
 }
