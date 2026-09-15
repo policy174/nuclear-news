@@ -414,6 +414,13 @@
       "reason": "주체와 사안이 다름",
       "same_event": false
     },
+    "issue-13d178fae214cbef--77d959ece5": {
+      "issue_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "i-SMR 표준설계 심사 착수 관련 동일한 사건임",
+      "same_event": true
+    },
     "issue-13d178fae214cbef--835e580735": {
       "issue_title": "KINS, i-SMR 및 선진원자로 안전규제 논의 본격화 심포지엄 개최",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
@@ -454,6 +461,13 @@
       "keei_item": "네덜란드 NEO NL, 신규원전 설계연구 수행업체로 EDF·Westinghouse 선정",
       "prompt_version": 1,
       "reason": "국가와 프로젝트 주체가 다름",
+      "same_event": false
+    },
+    "issue-1a08c05d0557d415--dc799316ad": {
+      "issue_title": "원안위, 생활방사선법 하위규정 개정안 등 2건 의결",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "생활방사선법 개정과 정기검사 법령 개정은 별개의 안건임",
       "same_event": false
     },
     "issue-1e53d0f81cb14594--23a6f604ae": {
@@ -1093,6 +1107,13 @@
       "reason": "다른 사안",
       "same_event": false
     },
+    "issue-410bd72bfb8cf04f--8fce4c09fa": {
+      "issue_title": "美 원전 투자 재시동 및 국내 전력수요 급증, 건설사 수주 기대감 상승",
+      "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
+      "prompt_version": 1,
+      "reason": "건설사 수주 기대감과 DOE의 대출 약정 발표는 서로 다름",
+      "same_event": false
+    },
     "issue-4113d294aea75ee0--23a6f604ae": {
       "issue_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -1261,12 +1282,26 @@
       "reason": "가동 중단과 대응 조치는 같은 사건",
       "same_event": true
     },
+    "issue-4d55708b92e20a28--37147e9bf3": {
+      "issue_title": "미국 에너지부(DOE) NRIC, 첨단 원자로·핵연료 주기 13개 프로젝트 선정",
+      "keei_item": "미 에너지부, Nuclear Energy Launch Pad 2차 지원 대상 13개 사업 선정",
+      "prompt_version": 1,
+      "reason": "미 DOE NRIC의 13개 프로젝트 선정에 대한 동일 보도임",
+      "same_event": true
+    },
     "issue-4d55708b92e20a28--76da1c3e41": {
       "issue_title": "X-에너지, 텍사스 SMR 프로젝트에 최대 10억 달러 추가 공적 자금 확보",
       "keei_item": "미 에너지부, X-energy의 Texas 사업에 최대 1조 4,000억 원 추가 지원",
       "prompt_version": 1,
       "reason": "X-energy 텍사스 SMR 프로젝트 추가 지원.",
       "same_event": true
+    },
+    "issue-4d55708b92e20a28--99f6aed02e": {
+      "issue_title": "미국 에너지부(DOE) NRIC, 첨단 원자로·핵연료 주기 13개 프로젝트 선정",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "13개 프로젝트 선정과 Genesis Mission AI 프로젝트는 다름",
+      "same_event": false
     },
     "issue-4d55708b92e20a28--a50cc0c8f8": {
       "issue_title": "X-에너지, 텍사스 SMR 프로젝트에 최대 10억 달러 추가 공적 자금 확보",
@@ -1905,6 +1940,13 @@
       "reason": "내용 완전히 다름",
       "same_event": false
     },
+    "issue-68ded5211bab6770--99f6aed02e": {
+      "issue_title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
+      "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
+      "prompt_version": 1,
+      "reason": "첨단 원자로 프로젝트 12개 선정과 Genesis Mission은 다름",
+      "same_event": false
+    },
     "issue-6a25f94bf83612cd--23a6f604ae": {
       "issue_title": "김주영 의원, AI 시대 전력산업 구조개편 국회 심포지엄 개최",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -1917,6 +1959,20 @@
       "keei_item": "미 에너지부, 원전 공급망 재건 위한 26조 원 규모의 조건부 대출 약정 발표",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 산업",
+      "same_event": false
+    },
+    "issue-6b44ee4146ad6b25--249f1333d0": {
+      "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "오만 수주 및 SMR 협력과 미·한·일 SMR 협력각서는 다른 사안임",
+      "same_event": false
+    },
+    "issue-6b44ee4146ad6b25--a3cf49987b": {
+      "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "오만 수주 건과 테라파워 공급망 협력은 별개의 사건임",
       "same_event": false
     },
     "issue-6b93ed7e22e9bb4b--0330b81e50": {
@@ -2704,10 +2760,10 @@
       "same_event": false
     },
     "issue-a3ebf95f8f2a3d16--b6aec252c7": {
-      "issue_title": "미국 NRC, 원자로 인허가 및 감독체계 대대적 개편안 발표",
+      "issue_title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
       "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
       "prompt_version": 1,
-      "reason": "동일 주체, 다른 규정 개정",
+      "reason": "전면 개편안 공개와 환경심사 규정 개정안은 서로 다른 사안임",
       "same_event": false
     },
     "issue-a45344607e7a523b--dc799316ad": {
@@ -3983,6 +4039,13 @@
       "prompt_version": 1,
       "reason": "광산 건설과 에너지 전략은 다름",
       "same_event": false
+    },
+    "issue-e4ccfc7cc9bf3032--10aeef51d9": {
+      "issue_title": "국제원자력기구(IAEA) ATLAS 해양 원자력 이니셔티브에 26개국 참여",
+      "keei_item": "IAEA, 해상 원자력 이용 촉진 위한 국제협력체계 ‘ATLAS’ 출범",
+      "prompt_version": 1,
+      "reason": "IAEA ATLAS 해양 원자력 이니셔티브 출범 동일 사건임",
+      "same_event": true
     },
     "issue-e53a1ba2dfe73d05--6445d0b3c3": {
       "issue_title": "TRISO-X 연료 시설 건설 지속을 위한 신규 보조금 확보",
