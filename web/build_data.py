@@ -40,7 +40,6 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-import domain_rules  # noqa: E402  (ROOT_DIR 등록 뒤에 와야 한다)
 from data_quality import (  # noqa: E402
     curation_errors,
     implication_is_hollow,
@@ -4457,9 +4456,10 @@ def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: d
 # 한수원 현행 본사 조직에 대응한다. 값은 두 곳에서 온다:
 #   1) 큐레이션 LLM 이 기사에 붙인 domain — 있으면 이쪽이 이긴다
 #   2) 이슈 단위 LLM 판정(issue_domain, 영구 캐시) — 사건을 보고 고른다
-#   3) 아직 못 물은 이슈(회차 상한에 밀림)만 domain_rules 가 임시로 판정
-# 규칙은 낱말로 고르다 틀린다(핵연료물질 허가 의결→핵연료제조, 데이터 조작
-# 사임→사고고장; 2026-09-15). LLM 이 빈 값을 냈으면 빈 값 — 화면이 칩을 숨긴다.
+# 아직 못 물은 이슈는 **빈 값**이다. 정규식 대역을 뒀더니 deploy-web(키 없음)이
+# 그 결과를 그대로 라이브에 올렸다 — 원안위 하위규정 의결이 '핵연료'로
+# (2026-09-16 실측). 빈 칩이 틀린 칩보다 낫다. 빈자리는 키가 있는 crawl 빌드가
+# 회차마다 60건씩 채우고 캐시를 커밋한다.
 def apply_domains(catalog: list[dict], llm: dict[str, tuple[str, list[str]]] | None = None) -> None:
     llm = llm or {}
     for row in catalog:
@@ -4475,11 +4475,8 @@ def apply_domains(catalog: list[dict], llm: dict[str, tuple[str, list[str]]] | N
                 if member.get("khnp_domain") == domain and member.get("khnp_tags"):
                     tags = [t for t in member["khnp_tags"] if t]
                     break
-        elif str(row.get("issue_id") or "") in llm:
-            domain, tags = llm[str(row["issue_id"])]
         else:
-            domain, tags = domain_rules.classify(
-                row.get("title") or "", (row.get("summary") or "")[:160])
+            domain, tags = llm.get(str(row.get("issue_id") or ""), ("", []))
         row["khnp_domain"] = domain
         row["khnp_tags"] = tags[:2]
 
