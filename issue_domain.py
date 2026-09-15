@@ -12,7 +12,6 @@ domain_rules(정규식)는 낱말로 고른다: '핵연료물질 사용 허가' 
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from datetime import datetime, timezone
@@ -24,7 +23,7 @@ ROOT = Path(__file__).resolve().parent
 TAGS_FILE = ROOT / "tags.json"
 CACHE_FILE = ROOT / "issue_domains.json"
 CACHE_KEY = "domains"
-CACHE_COMMENT = "이슈 단위 현안 분류 캐시. 키는 issue_id, digest(제목+요약)가 다르면 다시 묻는다."
+CACHE_COMMENT = "이슈 단위 현안 분류 캐시. 키는 issue_id, prompt_version 이 다르면 다시 묻는다."
 PROMPT_VERSION = 1
 BATCH_SIZE = 20
 MAX_NEW_PER_RUN = 60
@@ -55,11 +54,6 @@ def _system_prompt() -> str:
         "입력에 준 idx 를 모두 포함한다. domain 과 tag 는 위 목록의 표기 그대로 쓴다.",
     ]
     return "\n".join(lines)
-
-
-def _digest(row: dict) -> str:
-    raw = f"{row.get('title') or ''}|{(row.get('summary') or '')[:200]}|v{PROMPT_VERSION}"
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
 
 
 def build_user_message(rows: list[dict]) -> str:
@@ -116,13 +110,15 @@ def generate(rows: list[dict], *, client=None, cache_path: Path = CACHE_FILE,
         issue_id = str(row.get("issue_id") or "")
         if not issue_id:
             continue
-        digest = _digest(row)
+        # 키는 issue_id 만. 제목·요약 지문을 걸었더니 CI 재빌드마다 요약이 다시
+        # 생성돼 80건 중 40건이 캐시를 못 맞혔다(2026-09-16 실측). 분류는 사건이
+        # 바뀌지 않는 한 안 바뀌고, 프롬프트가 바뀌면 prompt_version 으로 무효화.
         entry = cache.get(issue_id)
-        if isinstance(entry, dict) and entry.get("digest") == digest:
+        if llm_cache.is_current(entry, PROMPT_VERSION):
             stats["from_cache"] += 1
             result[issue_id] = (str(entry.get("domain") or ""), list(entry.get("tags") or []))
             continue
-        todo.append({**row, "_digest": digest})
+        todo.append(row)
 
     if len(todo) > max_new:
         todo.sort(key=lambda row: str(row.get("last_seen") or ""), reverse=True)
@@ -167,7 +163,7 @@ def generate(rows: list[dict], *, client=None, cache_path: Path = CACHE_FILE,
             domain, tags = parsed[index]
             issue_id = str(row["issue_id"])
             result[issue_id] = (domain, tags)
-            cache[issue_id] = {"digest": row["_digest"], "domain": domain, "tags": tags,
+            cache[issue_id] = {"domain": domain, "tags": tags,
                                "title": row.get("title") or "", "prompt_version": PROMPT_VERSION,
                                "model": model, "generated_at": now}
             stats["asked"] += 1
