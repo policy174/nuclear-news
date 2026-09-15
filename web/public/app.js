@@ -1693,11 +1693,16 @@ const CONTINUING_LIMIT = 3;
 // 상세로 가는 링크이므로 둘은 겹치면 안 된다 — 링크 안에 버튼을 넣는 것은
 // 유효하지 않은 마크업이라, 행은 <div> 로 두고 제목 링크를 늘여(stretched link)
 // 행 전체를 덮는다. 칩은 그 위에 선다.
+// 홈 목차의 분류 필터 — 칩을 누르면 그날 이슈 중 같은 분류만 제자리에서 보인다
+// (지니 09-16: "분류를 누르면 연관된 것만 바로"). 탭을 옮기지 않는다.
+let homeDomainFilter = "";
 function tocChips(issue) {
   const domain = issue.khnp_domain || "";
   if (!domain) return "";
-  return `<span class="toc-chips"><button type="button" class="chip chip--domain"
-    data-hub-domain="${esc(domain)}" title="${esc(domain)} 기사 모아 보기">${esc(domain)}</button></span>`;
+  const active = domain === homeDomainFilter;
+  const title = active ? "필터 해제" : `${domain} 이슈만 보기`;
+  return `<span class="toc-chips"><button type="button" class="chip chip--domain${active ? " is-active" : ""}"
+    data-hub-domain="${esc(domain)}" aria-pressed="${active}" title="${esc(title)}">${esc(domain)}</button></span>`;
 }
 
 // 행 = 번호 · 지역 분류 · 제목 · 화살표. 요약·출처 줄은 없다 — "길게 요약을
@@ -1740,22 +1745,47 @@ function renderBriefing() {
     `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호`;
 
   const ordered = briefingIssuesForDisplay(briefing);
-  const top = ordered.slice(0, TOC_LIMIT);
+  const issueNo = state.briefings.length - state.briefings.indexOf(briefing);
+  const dateLabel = `${dateWeekdayLabel(briefing.date)} · 제${issueNo}호`;
+  // 분류 필터가 걸려 있으면 그날 이슈 중 같은 분류 전부, 아니면 상위 TOC_LIMIT 건.
+  if (homeDomainFilter && !ordered.some(issue => issue.khnp_domain === homeDomainFilter)) {
+    homeDomainFilter = "";   // 날짜를 옮겨 그 분류가 없으면 필터는 조용히 풀린다
+  }
+  const top = homeDomainFilter
+    ? ordered.filter(issue => issue.khnp_domain === homeDomainFilter)
+    : ordered.slice(0, TOC_LIMIT);
   tocList.innerHTML = top.map((issue, index) => tocRow(issue, index)).join("");
   // 패널 꼬리 한 줄: 날짜·호수·건수. 머리는 없다(폰 첫 화면 확보).
-  document.getElementById("briefPanelDate").textContent =
-    `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${top.length}건`;
-  const rest = ordered.slice(TOC_LIMIT);
+  const foot = document.getElementById("briefPanelDate");
   const more = document.getElementById("briefPanelAll");
-  more.hidden = rest.length === 0;
-  more.textContent = `나머지 ${rest.length}건 펼치기 →`;
-  more.onclick = () => {
-    tocList.insertAdjacentHTML("beforeend",
-      rest.map((issue, index) => tocRow(issue, TOC_LIMIT + index)).join(""));
-    more.hidden = true;
-    document.getElementById("briefPanelDate").textContent =
-      `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${ordered.length}건`;
-  };
+  const archive = document.getElementById("briefPanelArchive");
+  if (homeDomainFilter) {
+    foot.textContent = `${homeDomainFilter} ${top.length}건 · ${dateWeekdayLabel(briefing.date)}`;
+    more.hidden = false;
+    more.textContent = "전체 보기 ✕";
+    more.onclick = () => { homeDomainFilter = ""; renderBriefing(); };
+    archive.hidden = false;
+    archive.onclick = event => {
+      event.preventDefault();
+      state.archiveDomain = homeDomainFilter;
+      state.archiveQuery = ""; state.archiveEntity = ""; state.archiveTopic = "전체";
+      renderArchiveSearch(true);
+      switchView("search");
+      syncUrl("push");
+    };
+  } else {
+    foot.textContent = `${dateLabel} · ${top.length}건`;
+    const rest = ordered.slice(TOC_LIMIT);
+    more.hidden = rest.length === 0;
+    more.textContent = `나머지 ${rest.length}건 펼치기 →`;
+    more.onclick = () => {
+      tocList.insertAdjacentHTML("beforeend",
+        rest.map((issue, index) => tocRow(issue, TOC_LIMIT + index)).join(""));
+      more.hidden = true;
+      foot.textContent = `${dateLabel} · ${ordered.length}건`;
+    };
+    archive.hidden = true;
+  }
   renderCardStrip(briefing.date);
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
@@ -5177,11 +5207,10 @@ function bind() {
   document.getElementById("tocList").addEventListener("click", event => {
     const domainChip = event.target.closest("[data-hub-domain]");
     if (domainChip) {
-      state.archiveDomain = domainChip.dataset.hubDomain;
-      state.archiveQuery = ""; state.archiveEntity = ""; state.archiveTopic = "전체";
-      renderArchiveSearch(true);
-      switchView("search");
-      syncUrl("push");
+      // 제자리 필터(토글). 지난 기사까지 보려면 꼬리의 '지난 기사까지' 링크.
+      const domain = domainChip.dataset.hubDomain;
+      homeDomainFilter = homeDomainFilter === domain ? "" : domain;
+      renderBriefing();
       return;
     }
     if (!event.target.closest("[data-hub-topic]")) return;

@@ -3792,11 +3792,17 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
 }
 .toc-region { font-weight: 600; }
 .brief-panel .toc-chips { margin: 0; gap: 0; }
+/* 분류는 옅은 네이비 알약 — 글자만으로는 안 보인다(지니 09-16 "조금 더 잘 보이게").
+   색 띠·색 계열은 여전히 없다. 눌리면 면이 네이비로 뒤집혀 필터가 걸렸음을 보인다. */
 .brief-panel .toc .chip {
-  background: none; padding: 0; border-radius: 0;
-  font-size: 12.5px; font-weight: 800; letter-spacing: 1px; color: var(--c-primary);
+  background: var(--c-secondary-weak); color: var(--c-primary);
+  padding: 2px 9px; border-radius: var(--r-4);
+  font-size: 12.5px; font-weight: 700; letter-spacing: .3px;
 }
-.brief-panel .toc .chip:hover { filter: none; text-decoration: underline; }
+.brief-panel .toc .chip:hover { filter: none; background: var(--c-border); }
+.brief-panel .toc .chip.is-active { background: var(--c-primary); color: #fff; }
+.brief-foot-actions { display: flex; gap: var(--sp-3); align-items: center; flex: 0 0 auto; }
+.brief-foot-actions a, .brief-foot-actions button { white-space: nowrap; }
 .brief-panel .toc-title { display: block; font-size: clamp(17px, 1.8vw, 19px); font-weight: 700; line-height: 1.32; }
 .brief-panel .toc-link { color: inherit; }
 .brief-panel .toc-link:hover { color: var(--c-secondary); }
@@ -3816,9 +3822,17 @@ button.agenda-head::after { content: "▸"; margin-left: var(--sp-2); color: var
 button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
 /* 폰: 한 화면에 목차 4건 + 머리가 들어온다. 제목은 여전히 안 자른다(위 규칙 2). */
 @media (max-width: 520px) {
-  .today-head { margin-bottom: var(--sp-3); }
-  .today-head h1 { font-size: 20px; }
-  .today-search { margin-top: var(--sp-2); padding: var(--sp-2) var(--sp-3); font-size: var(--t-caption); }
+  /* 머리(제목·날짜·검색)가 폰 화면의 1/3을 먹었다(지니 09-16). 제목과 날짜를 한 줄에,
+     날짜 컨트롤은 36px, 검색은 상자 대신 글자 한 줄. 검색 진입은 그대로 상단이다. */
+  .today-head { margin-bottom: var(--sp-2); }
+  .today-head-row { flex-wrap: nowrap; gap: var(--sp-2); }
+  .today-head h1 { font-size: 17px; flex: 0 0 auto; }
+  .date-nav { width: auto; flex: 1 1 auto; justify-content: flex-end; }
+  .date-nav button, .date-nav select { height: 36px; }
+  .date-nav button { width: 36px; }
+  .date-nav select { flex: 0 1 auto; min-width: 0; max-width: 128px; font-size: 13.5px; padding: 0 22px 0 8px; }
+  .today-search { display: inline-block; width: auto; margin-top: var(--sp-1); padding: 2px 0;
+    border: 0; background: none; font-size: var(--t-caption); text-decoration: underline; }
   .brief-panel { padding: 0 var(--sp-3) var(--sp-3); border-radius: var(--r-2); margin-top: var(--sp-3); }
   .brief-panel .toc-row { grid-template-columns: 28px minmax(0, 1fr) 16px; column-gap: var(--sp-2); padding: var(--sp-3) 0; }
   .brief-panel .toc-title { font-size: 16px; line-height: 1.3; }

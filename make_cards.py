@@ -520,6 +520,9 @@ def main() -> int:
     collected = sum(s.get("candidate_count", 0)
                     for s in (outbox.get("selection_stats") or {}).values()
                     if isinstance(s, dict))
+    if not collected:
+        # --date 로컬 실행이나 stats 없는 outbox — "오늘 수집 0건 중 3건"이 찍혔다(09-16).
+        collected = sum(int(r.get("article_count") or 0) for r in rows)
 
     raw = None
     last_problems: list[str] = []
