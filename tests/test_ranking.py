@@ -599,6 +599,64 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(cfg["schema_version"], 1)
 
 
+class TestStoryRankingShadow(unittest.TestCase):
+    def live_cfg(self):
+        cfg = dict(CFG)
+        cfg["story_ranking"] = dict(CFG["story_ranking"], mode="live")
+        return cfg
+
+    def test_different_event_stages_are_not_folded(self):
+        rows = [
+            item("a", title="고리 2호기 계속운전 심사 착수", tags=["계속운전"]),
+            item("b", title="고리 2호기 계속운전 최종 승인", tags=["계속운전"]),
+        ]
+        kept, dropped = ranking.cluster_duplicates(
+            rows, {"a": 12.0, "b": 11.0}, threshold=0.50,
+            consolidate_story=True)
+        self.assertEqual(2, len(kept))
+        self.assertEqual([], dropped)
+
+    def test_duplicate_articles_become_one_story_with_unique_outlets(self):
+        rows = [
+            item("a", title="한수원 체코 원전 본계약 체결", publisher="연합뉴스"),
+            item("b", title="한수원 체코 원전 본계약 체결", publisher="Reuters"),
+            item("c", title="한수원 체코 원전 본계약 체결", publisher="연합뉴스"),
+        ]
+        scores = {"a": 3.0, "b": 2.0, "c": 1.0}
+        kept, dropped = ranking.cluster_duplicates(
+            rows, scores, consolidate_story=True)
+        self.assertEqual(1, len(kept))
+        self.assertEqual(2, len(dropped))
+        self.assertEqual(3, kept[0]["story_article_count"])
+        self.assertEqual(2, kept[0]["story_outlet_count"])
+        self.assertEqual({"a", "b", "c"}, set(kept[0]["story_article_hashes"]))
+
+    def test_coverage_changes_shadow_score_but_not_current_score(self):
+        article = item("a", features=feat(), queued_hours_ago=0,
+                       story_outlet_count=4, story_tier1_count=2)
+        current_score, current_detail = ranking.score_item(article, CFG, NOW)
+        story_score, story_detail = ranking.score_item(article, self.live_cfg(), NOW)
+        self.assertNotIn("coverage:outlets", current_detail)
+        self.assertEqual(2.0, story_score - current_score)
+        self.assertEqual(1.2, story_detail["coverage:outlets"])
+        self.assertEqual(0.8, story_detail["coverage:multi_tier1"])
+
+    def test_report_worthiness_is_capped_only_in_story_mode(self):
+        article = item("a", features=feat(report_worthiness=3), queued_hours_ago=0)
+        current_score, _ = ranking.score_item(article, CFG, NOW)
+        story_score, story_detail = ranking.score_item(article, self.live_cfg(), NOW)
+        self.assertAlmostEqual(2.001, current_score - story_score, places=3)
+        self.assertEqual(1.0, story_detail["report_worthiness"])
+
+    def test_shadow_does_not_mutate_operational_candidates(self):
+        rows = [item("a", title="동일 원전 계약 체결", publisher="A", features=feat()),
+                item("b", title="동일 원전 계약 체결", publisher="B", features=feat())]
+        result = ranking.story_shadow(rows, 1, CFG, NOW)
+        self.assertNotIn("story_sources", rows[0])
+        self.assertEqual(1, len(result["selected"]))
+        self.assertEqual(2, result["selected"][0]["story_outlet_count"])
+
+
 if __name__ == "__main__":
     unittest.main()
 

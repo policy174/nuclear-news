@@ -660,6 +660,29 @@ def plan_briefs(queue: list[dict],
         cap_spec=ranking.resolve_caps(cfg, "overseas"),
         semantic_dedup=dedup_articles,
         continuity_recheck=forn_recheck)
+
+    # v2 story-ranking은 3회 shadow로 먼저 관찰한다. 운영 선별·큐 정리에는
+    # 관여하지 않고 selection_stats에 예상 순위와 점수 근거만 남긴다.
+    story_shadow = None
+    if (cfg.get("story_ranking") or {}).get("mode") == "shadow":
+        story_shadow = {
+            "mode": "shadow",
+            "domestic": ranking.story_shadow(
+                dom_pool, DOMESTIC_CAP, cfg, now,
+                ranking.resolve_floor(cfg, "domestic"),
+                ranking.resolve_caps(cfg, "domestic")),
+            "overseas": ranking.story_shadow(
+                forn_pool, FOREIGN_CAP, cfg, now,
+                ranking.resolve_floor(cfg, "overseas"),
+                ranking.resolve_caps(cfg, "overseas")),
+        }
+        live_top = [(row.get("hash") or "")[:8] for row in dom + forn]
+        shadow_top = [
+            row["hash"][:8]
+            for key in ("domestic", "overseas")
+            for row in story_shadow[key]["selected"]
+        ]
+        print(f"[story-shadow] live={live_top} / story={shadow_top}")
     print(f"[daily_brief] 국내 {len(dom)}건 / 해외 {len(forn)}건 선별 "
           f"(중복 제거 {len(dom_diag['dropped_duplicates']) + len(forn_diag['dropped_duplicates'])}건, "
           f"하한 미달 {len(dom_diag['dropped_below_floor']) + len(forn_diag['dropped_below_floor'])}건, "
@@ -719,10 +742,11 @@ def plan_briefs(queue: list[dict],
                     for r in report_diag.get("recommended", []) if r.get("hash")}
 
     # delivery_log 용 항목 메타 (점수 내역 = '왜 이 기사가 올라왔나' 증거)
-    def _item_meta(a: dict, reg: str, diag: dict) -> dict:
+    def _item_meta(a: dict, reg: str, diag: dict, brief_rank: int) -> dict:
         h = a.get("hash", "")
         meta = {
             "hash": h,
+            "brief_rank": brief_rank,
             "title_kr": (a.get("title_kr") or a.get("title") or "")[:100],
             "region": reg,
             # 내일의 연속일 게이트가 읽을 재료. 제목만으로는 단계 판정이
@@ -740,6 +764,11 @@ def plan_briefs(queue: list[dict],
             "score": diag["scores"].get(h),
             "breakdown": diag["breakdowns"].get(h),
         }
+        for key in ("story_id", "story_article_count", "story_outlet_count",
+                    "story_tier1_count", "story_independent_outlet_count",
+                    "story_display_reason"):
+            if a.get(key) not in (None, ""):
+                meta[key] = a[key]
         # 빈 값은 넣지 않는다 — 하루 0~2건짜리 표식이라 나머지 전 줄에
         # report_pick:"" 이 붙으면 로그가 그만큼 읽기 어려워진다.
         if report_picks.get(h):
@@ -749,8 +778,10 @@ def plan_briefs(queue: list[dict],
             meta["report_pick_angles"] = pick.get("angles", [])
         return meta
 
-    out_items = ([_item_meta(a, "국내", dom_diag) for a in dom]
-                 + [_item_meta(a, "해외", forn_diag) for a in forn])
+    out_items = ([_item_meta(a, "국내", dom_diag, rank)
+                  for rank, a in enumerate(dom, 1)]
+                 + [_item_meta(a, "해외", forn_diag, rank)
+                    for rank, a in enumerate(forn, 1)])
 
     # 큐 정리 대상: 선별본 + 선별본의 중복(후속보도) + noise/market.
     # 선별 안 된 항목은 큐에 남아 다음날 재경쟁 (시간 감쇠·3일 자동정리로 상한).
@@ -765,6 +796,7 @@ def plan_briefs(queue: list[dict],
             "selection_stats": {
                 "domestic": region_stats(dom_diag, dom, dom_pool, dom_cont),
                 "overseas": region_stats(forn_diag, forn, forn_pool, forn_cont),
+                **({"story_shadow": story_shadow} if story_shadow else {}),
             },
             "dropped_duplicates": dom_diag["dropped_duplicates"] + forn_diag["dropped_duplicates"],
             "prune_hashes": prune}

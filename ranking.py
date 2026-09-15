@@ -20,14 +20,18 @@
 from __future__ import annotations
 
 import difflib
+import copy
 import json
 import math
 import re
 from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 from sources import credibility
+import story_cluster
+import event_stage
 
 ROOT = Path(__file__).parent
 CONFIG_FILE = ROOT / "ranking_config.json"
@@ -260,18 +264,58 @@ def _tracking_bonus(item: dict, cfg: dict) -> tuple[float, str]:
     return float(tracking.get("repeat", 0.5)), "tracking:repeat"
 
 
+def _parse_freshness_timestamp(value) -> datetime | None:
+    """ISO와 RSS의 RFC 2822 발행시각을 모두 읽는다."""
+    if isinstance(value, datetime):
+        parsed = value
+    elif isinstance(value, str) and value.strip():
+        try:
+            parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+        except ValueError:
+            try:
+                parsed = parsedate_to_datetime(value.strip())
+            except (TypeError, ValueError, OverflowError):
+                return None
+    else:
+        return None
+    return parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None \
+        else parsed.astimezone(timezone.utc)
+
+
 def _time_decay(item: dict, cfg: dict, now: datetime) -> float:
     td = cfg.get("time_decay") or {}
     per_12h = float(td.get("per_12h", 0.5))
     cap = float(td.get("max", 3.0))
-    try:
-        qt = datetime.fromisoformat(item.get("queued_at", ""))
-        if qt.tzinfo is None:
-            qt = qt.replace(tzinfo=timezone.utc)
-    except (ValueError, TypeError):
+    # 큐 적재 시각은 재수집 때마다 새로워질 수 있다. 실제 발행시각이 있으면
+    # 그것을 우선해 오래된 배경 기사가 새 기사처럼 보이지 않게 한다.
+    story_live = (cfg.get("story_ranking") or {}).get("mode") == "live"
+    qt = _parse_freshness_timestamp(item.get("published_at")) if story_live else None
+    if qt is None or qt > now:
+        qt = _parse_freshness_timestamp(item.get("queued_at"))
+    if qt is None or qt > now:
         return 0.0
     age_h = max(0.0, (now - qt).total_seconds() / 3600)
     return min(cap, per_12h * (age_h / 12.0))
+
+
+def _coverage_bonus(item: dict, cfg: dict) -> tuple[float, dict]:
+    """첫 매체는 0점, 추가 독립매체와 복수 Tier 1에만 제한적 가점을 준다."""
+    spec = cfg.get("coverage_bonus") or {}
+    try:
+        outlets = max(1, int(item.get("story_outlet_count") or 1))
+        tier1 = max(0, int(item.get("story_tier1_count") or 0))
+    except (TypeError, ValueError):
+        outlets, tier1 = 1, 0
+    outlet_bonus = min(float(spec.get("max_outlet_bonus", 1.2)),
+                       max(0, outlets - 1) * float(spec.get("per_additional_outlet", 0.4)))
+    tier_bonus = float(spec.get("multi_tier1_bonus", 0.8)) if tier1 >= 2 else 0.0
+    total = min(float(spec.get("max_total", 2.0)), outlet_bonus + tier_bonus)
+    detail = {}
+    if outlet_bonus:
+        detail["coverage:outlets"] = round(outlet_bonus, 2)
+    if tier_bonus:
+        detail["coverage:multi_tier1"] = round(tier_bonus, 2)
+    return total, detail
 
 
 def score_item(item: dict, cfg: dict,
@@ -300,7 +344,12 @@ def score_item(item: dict, cfg: dict,
         fw = cfg.get("feature_weights") or {}
         for key in ("korea_relevance", "market_materiality", "policy_materiality",
                     "novelty", "evidence_strength", "report_worthiness"):
-            contrib = feats[key] * float(fw.get(key, 0))
+            weight = float(fw.get(key, 0))
+            if key == "report_worthiness" and \
+                    (cfg.get("story_ranking") or {}).get("mode") == "live":
+                weight = float((cfg.get("story_ranking") or {}).get(
+                    "report_worthiness_weight", weight))
+            contrib = feats[key] * weight
             if contrib:
                 score += contrib
                 breakdown[key] = round(contrib, 2)
@@ -341,6 +390,12 @@ def score_item(item: dict, cfg: dict,
         scrap_bonus = float(cfg.get("scrap_seed_bonus", 2.5))
         score += scrap_bonus
         breakdown["scrap_seed"] = scrap_bonus
+
+    story_live = (cfg.get("story_ranking") or {}).get("mode") == "live"
+    coverage, coverage_detail = _coverage_bonus(item, cfg) if story_live else (0.0, {})
+    if coverage:
+        score += coverage
+        breakdown.update(coverage_detail)
 
     decay = _time_decay(item, cfg, now)
     if decay:
@@ -470,7 +525,8 @@ def _facility_conflict(fac_a: frozenset[str], fac_b: frozenset[str]) -> bool:
 
 
 def cluster_duplicates(items: list[dict], scores: dict[str, float],
-                       threshold: float = 0.82) -> tuple[list[dict], list[dict]]:
+                       threshold: float = 0.82, *,
+                       consolidate_story: bool = False) -> tuple[list[dict], list[dict]]:
     """제목 유사도(문자열 ratio + 토큰 자카드)로 같은 사건을 묶고 점수 최고 1건만 유지.
 
     Returns:
@@ -488,19 +544,33 @@ def cluster_duplicates(items: list[dict], scores: dict[str, float],
         facs = _title_facilities(art)
         tags = _norm_tags(art)
         rep_hash = None
+        representative = None
         for kn, kt, kf, kg, kh in kept_sig:
             if _facility_conflict(facs, kf):
+                continue
+            candidate_rep = next((row for row in kept
+                                  if row.get("hash", "") == kh), None)
+            if consolidate_story and candidate_rep is not None and event_stage.articles_conflict(
+                    art, candidate_rep):
                 continue
             if _same_event(norm, toks, kn, kt, threshold) or \
                     _same_facility_event(facs, tags, kf, kg):
                 rep_hash = kh
+                representative = candidate_rep
                 break
         if rep_hash is not None:
+            if consolidate_story and representative is not None:
+                story_cluster.consolidate_story_metadata(
+                    representative, [art], relation="duplicate",
+                    reason="제목·시설 유사", stage="rank_title")
             d = dict(art)
             d["dup_of"] = rep_hash
             dropped.append(d)
             continue
         kept.append(art)
+        if consolidate_story:
+            story_cluster.consolidate_story_metadata(
+                art, [], relation="single", stage="rank_title")
         if norm or toks:
             kept_sig.append((norm, toks, facs, tags, art.get("hash", "")))
     return kept, dropped
@@ -741,8 +811,16 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
         scores[h] = s
         breakdowns[h] = b
 
-    kept, dropped = cluster_duplicates(items, scores,
-                                       float(cfg.get("duplicate_similarity", 0.82)))
+    story_live = (cfg.get("story_ranking") or {}).get("mode") == "live"
+    kept, dropped = cluster_duplicates(
+        items, scores, float(cfg.get("duplicate_similarity", 0.82)),
+        consolidate_story=story_live)
+
+    # story를 합친 뒤 매체 수가 생겼으므로 coverage를 포함해 다시 채점한다.
+    if story_live:
+        for row in kept:
+            h = row.get("hash", "")
+            scores[h], breakdowns[h] = score_item(row, cfg, now)
 
     # 글자로 잡히는 건 위에서 이미 걷혔다. 남은 상위 후보만 의미로 한 번 더 본다.
     if semantic_dedup is not None and len(kept) > 1:
@@ -808,3 +886,34 @@ def rank_and_select(items: list[dict], k: int, cfg: dict | None = None,
                                for d in dropped],
     }
     return selected, diag
+
+
+def story_shadow(items: list[dict], k: int, cfg: dict | None = None,
+                 now: datetime | None = None, floor: dict | None = None,
+                 cap_spec: dict | None = None) -> dict:
+    """운영 결과를 바꾸지 않고 story-ranking 예상 결과만 계산한다.
+
+    semantic LLM dedup은 두 번 호출하지 않는다. 제목·시설 dedup, coverage,
+    발행시각 감쇠와 이미 붙은 continuity 판정까지만 결정적으로 재생한다.
+    """
+    cfg = copy.deepcopy(cfg or load_config())
+    cfg.setdefault("story_ranking", {})["mode"] = "live"
+    selected, diag = rank_and_select(
+        copy.deepcopy(items), k, cfg, now, floor, cap_spec=cap_spec)
+    return {
+        "selected": [
+            {
+                "rank": rank,
+                "hash": row.get("hash", ""),
+                "title": (row.get("title_kr") or row.get("title") or "")[:100],
+                "score": diag["scores"].get(row.get("hash", "")),
+                "story_article_count": row.get("story_article_count", 1),
+                "story_outlet_count": row.get("story_outlet_count", 1),
+                "story_tier1_count": row.get("story_tier1_count", 0),
+                "breakdown": diag["breakdowns"].get(row.get("hash", ""), {}),
+            }
+            for rank, row in enumerate(selected, 1)
+        ],
+        "dropped_repeat": diag.get("dropped_repeat", []),
+        "dropped_duplicates": diag.get("dropped_duplicates", []),
+    }
