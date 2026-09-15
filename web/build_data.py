@@ -60,6 +60,7 @@ from scrap_seed_ingest import (  # noqa: E402
     seed_key as scrap_seed_key,
 )
 from embedding_pipeline import EMBEDDING_MODEL, cached_vector  # noqa: E402
+import issue_domain  # noqa: E402
 import issue_insight  # noqa: E402
 import issue_review  # noqa: E402
 import keei_match  # noqa: E402
@@ -4444,10 +4445,12 @@ def build_agendas_view(issue_catalog: list[dict], registry: list[dict], admin: d
 # 대분류(domain) 12개 · 세부 태그(domain_tags). 정본은 tags.json 이고 대분류는
 # 한수원 현행 본사 조직에 대응한다. 값은 두 곳에서 온다:
 #   1) 큐레이션 LLM 이 기사에 붙인 domain — 있으면 이쪽이 이긴다
-#   2) 없으면 domain_rules 가 제목·요지로 판정(LLM 0회)
-# 규칙은 실측 590건에서 71% 를 가른다. 나머지는 빈 값으로 두고 화면이 칩을
-# 숨긴다 — 억지로 채우면 틀린 분류가 맞는 척한다.
-def apply_domains(catalog: list[dict]) -> None:
+#   2) 이슈 단위 LLM 판정(issue_domain, 영구 캐시) — 사건을 보고 고른다
+#   3) 아직 못 물은 이슈(회차 상한에 밀림)만 domain_rules 가 임시로 판정
+# 규칙은 낱말로 고르다 틀린다(핵연료물질 허가 의결→핵연료제조, 데이터 조작
+# 사임→사고고장; 2026-09-15). LLM 이 빈 값을 냈으면 빈 값 — 화면이 칩을 숨긴다.
+def apply_domains(catalog: list[dict], llm: dict[str, tuple[str, list[str]]] | None = None) -> None:
+    llm = llm or {}
     for row in catalog:
         members = row.get("related_articles") or []
         # 주의: 기사 레코드의 `domain` 은 웹사이트 도메인(asiae.co.kr)이다.
@@ -4461,6 +4464,8 @@ def apply_domains(catalog: list[dict]) -> None:
                 if member.get("khnp_domain") == domain and member.get("khnp_tags"):
                     tags = [t for t in member["khnp_tags"] if t]
                     break
+        elif str(row.get("issue_id") or "") in llm:
+            domain, tags = llm[str(row["issue_id"])]
         else:
             domain, tags = domain_rules.classify(
                 row.get("title") or "", (row.get("summary") or "")[:160])
@@ -5105,7 +5110,13 @@ def build() -> None:
         entity_registry=entity_registry,
         entity_evidence_out=entity_match_evidence,
     )
-    apply_domains(issue_catalog)
+    domains, domain_stats = issue_domain.generate(issue_catalog)
+    apply_domains(issue_catalog, domains)
+    for briefing in briefings:
+        apply_domains(briefing.get("issues") or [], domains)
+    print(f"[build_data] 현안 분류: {domain_stats['candidates']}건 "
+          f"(캐시 {domain_stats['from_cache']} / 신규 {domain_stats['asked']} / "
+          f"밀림 {domain_stats['deferred']} / 호출 {domain_stats['calls']}회) [{domain_stats['status']}]")
     # 카드 두 번째 줄을 이슈 타임라인으로 채운다. 기사 하나만 보는 큐레이션
     # 프롬프트로는 원리상 못 만드는 문장이다 — 로이터 헤드라인에는 가뭄이 없지만
     # 그 기사가 속한 클러스터에는 다뉴브강 수위 저하부터 다 들어 있다.

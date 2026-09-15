@@ -1,0 +1,666 @@
+{
+  "_comment": "이슈 단위 현안 분류 캐시. 키는 issue_id, digest(제목+요약)가 다르면 다시 묻는다.",
+  "prompt_version": 1,
+  "domains": {
+    "issue-8a5bd763d3b79395": {
+      "digest": "bc9ab23f090825d2",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "러시아 로사톰, 카자흐스탄과 2400MW 발하슈 원전 EPC 본계약 체결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-51c2f9141fbf7dee": {
+      "digest": "0148513614981872",
+      "domain": "규제",
+      "tags": [
+        "원안위"
+      ],
+      "title": "원안위, 생활방사선법 하위규정 개정안 등 2건 의결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-ebf0f3941e2ed499": {
+      "digest": "f0bd491d01139073",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "원자력안전재단-美 IEEE, 원전기기 성능검증 상호인증 체결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-18d7399f8aad9119": {
+      "digest": "6d3572c3b60b9129",
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "한빛원전 1·2호기 설계수명 만료로 가동 중단…서남권 전력공급 불확실성 증대",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-541941314ac51e41": {
+      "digest": "d38db4dadcb04b4f",
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "日 하마오카 원전, 내진 데이터 조작 사실로 드러나 경영진 사임",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-40c55eaaa3e1c6e4": {
+      "digest": "c605e3e950874cee",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-9ed81d83af57bd80": {
+      "digest": "4490dd24bea90218",
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "이탈리아 에너지부 장관, 2035년까지 원자력 발전 재개 법안 추진 시사",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-5463036039550a84": {
+      "digest": "41554aed582ba022",
+      "domain": "SMR",
+      "tags": [
+        "SMR제도"
+      ],
+      "title": "과기정통부, SMR 개발 촉진 특별법 및 시행령 시행",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-a609b345c28f83cc": {
+      "digest": "9d98cc1ffb5e9a5d",
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "자포리자 원자력 발전소에 대한 공격 지속",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-63f4116f8b5103ca": {
+      "digest": "27eae26cd96d56d3",
+      "domain": "규제",
+      "tags": [
+        "해외규제"
+      ],
+      "title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-89c1ce7ebf89478f": {
+      "digest": "14bb7fca0bf64c3c",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "원자력안전위원회, UAE·체코·싱가포르와 원전 안전규제 협력 논의",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-fd47081578facf4b": {
+      "digest": "c044347c8e06ffa3",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "이재명 대통령, ADB와 중앙아시아 원전·광물 진출 협력 모색",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-971313da21360267": {
+      "digest": "a9a56f710093dd5b",
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "정부·전남광주시·한전, 호남권 반도체 클러스터 전력공급 협약 체결 및 2029년 3GW 우선 공급",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-0ffff3ff0eab4288": {
+      "digest": "1ec1eb24c3c12302",
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-8aedff067a37c200": {
+      "digest": "efe472e087941fca",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국, 미국 에너지 인프라에 2000억 달러 투자 논의…원전 8기 포함",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-3ba51f578a66482f": {
+      "digest": "ec714054272c0875",
+      "domain": "핵연료",
+      "tags": [
+        "공급망"
+      ],
+      "title": "IAEA, 우라늄 자원 충분하나 원전 성장 위해 지속 투자 필수 발표",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-50d037aa9f6b32f7": {
+      "digest": "001726e7fb6e4c52",
+      "domain": "핵연료",
+      "tags": [
+        "우라늄"
+      ],
+      "title": "사우디아라비아, 메디나 지역서 우라늄 함유 광석 1억 1000만 톤 확인",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-b795e4f7e7503f80": {
+      "digest": "d00f04d01218408d",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-d380d727a7322ff3": {
+      "digest": "a8801f9a8a3ea96a",
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "테레스트리얼 에너지, IMSR 인허가 지원용 흑연 관련 보고서 미국 NRC 제출",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-7d9268f856d1f63f": {
+      "digest": "2c7583ffde719ade",
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "한수원, 영덕을 신규 원전 건설 예정지로 선정",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-eff231f64748ec5c": {
+      "digest": "7efe5a027c529636",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "과기정통부, SMR 특별법 및 시행령 시행…2035년 상용화 목표",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-7d4f5a342c3182d8": {
+      "digest": "c1fdd81851dea9de",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-98d67f29cf01a985": {
+      "digest": "d7b418351cbbe7b9",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "정부, 핵추진잠수함 관련 IAEA에 공식 통보…별도 약정 협의 착수",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-f2779e3dff33262a": {
+      "digest": "a2f450cddbf8e802",
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "한빛 2호기, 계속운전 인허가 지연으로 가동 중단 및 4400억 추가 비용 발생",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-18d485ea7e099351": {
+      "digest": "c656c405312f191a",
+      "domain": "정책",
+      "tags": [
+        "전원계획"
+      ],
+      "title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-0c94592b8e9adc53": {
+      "digest": "2a039a78326e3ae6",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "용인특례시장, 삼성·SK 반도체 산단 1600조 투자 및 16GW 전력 수요 전망",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-accf4201d8c8346b": {
+      "digest": "5b9bd0be4f11f92c",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "부산, SMR 운영실증 최적지…안전·신뢰성 기반으로 시장 선점해야",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-f8e7b22057b9012f": {
+      "digest": "ff07e0cf7b4df765",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-7f86c8eb71c7dd1a": {
+      "digest": "a299b38f41170f95",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "미 해군 관계자, 한국 핵추진잠수함 도입 타당성 및 비용 효과성 강조",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-db3edcdb62b80a40": {
+      "digest": "411a27c0214fed49",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "UAE, 5GW AI 데이터센터 안보 및 전력 효율 위해 분산 배치 결정",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-3ed27016f76f412b": {
+      "digest": "b27143f7848bc8e3",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "미 하원 민주당 AI 위원회, 2026년 데이터센터 전력비용 등 정책 논의",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-084df1d2f1101ca1": {
+      "digest": "cbba4b5a43102bb8",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "IMM·우리PE, 싱가포르 DDSP에 2,080만 달러 투자…아시아 AI 데이터센터 인프라 구축",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-d28a120879f31bf4": {
+      "digest": "7da79e7e05a53b9b",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "텍사스 ERCOT, 474GW 전력 연결 신청 접수…AI 전환 경쟁 심화",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-e444b60ea50d9446": {
+      "digest": "44b861984fd2048b",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "한화오션, '바다 위 데이터센터' 첫 공개…60MW급 FDC 선봬",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-268dccb5086b2189": {
+      "digest": "87824e073120230f",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "Bluecore, 부유식 SMR 개발 자금 조달",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-28beadc1fcbe1162": {
+      "digest": "203e9ba2fc7ba257",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "ABB, SMR 시장 확대 경쟁에 합류",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-2ea68139776e08db": {
+      "digest": "e6d935b438c92a50",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-3baed88320762d8b": {
+      "digest": "4f1b147a2f3996d0",
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "한수원, 운영허가 만료된 한빛 2호기 가동 중단…계속운전 심사 지연",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-c1a5b7851b1493fd": {
+      "digest": "c69be544be69d05d",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "과기정통부, 소형모듈원자로 개발 촉진 및 지원에 관한 특별법 및 시행령 시행",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-168509c4dc690d42": {
+      "digest": "7a782001c7910df7",
+      "domain": "정책",
+      "tags": [
+        "전원계획"
+      ],
+      "title": "미 에너지부, 전력망 안정성 위해 워싱턴주 석탄화력발전소 유지 비상명령 발동",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-0ad65c3149551bc0": {
+      "digest": "54cef99074cad501",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-3572a813f1675148": {
+      "digest": "0f67b7cc75908b8c",
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "원자력 발전소, 불시 음주 단속서 만취 노동자 2명 적발",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-642bf50bf6a951a9": {
+      "digest": "bdc7b5dd30be17aa",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "산업부 통상교섭본부장, 영국 장관과 대러 LNG 제재 예외 등 논의",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-f9c74adbe9e445cb": {
+      "digest": "6a96a36748b2ef4f",
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-754393574b8fedf7": {
+      "digest": "f6af0a4561719c01",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-57d2219c4e7d3660": {
+      "digest": "606e51da17b00b83",
+      "domain": "규제",
+      "tags": [
+        "해외규제"
+      ],
+      "title": "미국 NRC, 원자로 인허가 및 감독체계 대대적 개편안 발표",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-844109b3a19e53b5": {
+      "digest": "aee931ae8f5500ec",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "중국 정부, ESS 배터리 신규 공장 인허가 5월부터 전면 동결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-9153dd7eaf6c0ed5": {
+      "digest": "fd1213e0594f1620",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "미국 FCC, 통신장비 승인 개정안에서 데이터센터용 광트랜시버 규제 제외",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-ed7d8541b2ddb277": {
+      "digest": "51b7af21cc05f74e",
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "중국, 2030년까지 쿠부치 사막에 400km 태양광 만리장성 건설 계획",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-f3bd58fe25a45aff": {
+      "digest": "c42411ece593a708",
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "미국 리머릭 원전, 디지털 계측제어(I&C) 시스템 현대화 추진",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-3021a3a7ac353b4b": {
+      "digest": "53dd297af9c8979f",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "브로드컴, 오픈AI·구글 맞춤 칩으로 2026년 2분기 매출 188.9억 달러 달성",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-1ab754ffcb6dcf4b": {
+      "digest": "bf9c25d41634d1cb",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "미국 딥 피션, 지하 매립형 SMR 실증용 캐니스터 지중 설치·회수 성공",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-c2c4c1e5de2a6fcb": {
+      "digest": "34896581c452bf6e",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "루이지애나 SMR 프로젝트, 다음 단계 진전",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-c1c8d0603e949e14": {
+      "digest": "f3728065d64005e1",
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-1a08c05d0557d415": {
+      "digest": "88095b7276a671ce",
+      "domain": "규제",
+      "tags": [
+        "원안위"
+      ],
+      "title": "원자력안전위원회, 제2026-14회 회의 개최해 2건 안건 심의·의결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-e356787a673aa06d": {
+      "digest": "74d6435ee0d1090c",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-8070f5ccefba9cf4": {
+      "digest": "2d757ed529f7dcf2",
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-995a3a9b7cdd6475": {
+      "digest": "846a5954ea97b912",
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-f07e8993b12e13bb": {
+      "digest": "697192c6e8dd6524",
+      "domain": "핵연료",
+      "tags": [
+        "핵연료제조"
+      ],
+      "title": "미 NIST, 플루토늄·우라늄 등 핵물질 X선 방출 측정 정확도 향상",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    },
+    "issue-2f366bdb6179c57a": {
+      "digest": "369566704b122bdd",
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
+      "prompt_version": 1,
+      "model": "gemini-2.5-flash-lite",
+      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+    }
+  }
+}

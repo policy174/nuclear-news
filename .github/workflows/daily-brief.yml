@@ -432,7 +432,7 @@ jobs:
           # chronicles.json(스토리 원장)·agenda_log_snapshots.json 은 build_data 가
           # 쓰는 영속 파일 — 여기서 안 커밋하면 이 경로의 갱신분만 조용히 유실된다
           # (crawl.yml 커밋 루프에는 있는데 여기 빠져 있던 함정).
-          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json chronicles.json agenda_log_snapshots.json; do
+          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json issue_domains.json chronicles.json agenda_log_snapshots.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet && exit 0
