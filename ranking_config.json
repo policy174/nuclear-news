@@ -35,6 +35,18 @@
     "tier1": 3.0,
     "tier2": 1.5
   },
+  "story_ranking": {
+    "_comment": "shadow는 운영 순위를 유지하면서 story 단위 예상 순위만 selection_stats에 기록한다. 3회 검증 뒤 live로 전환한다.",
+    "mode": "shadow",
+    "report_worthiness_weight": 0.333
+  },
+  "coverage_bonus": {
+    "_comment": "첫 매체는 0점. 추가 독립매체와 복수 Tier1 확인만 보조 가점으로 반영한다.",
+    "per_additional_outlet": 0.4,
+    "max_outlet_bonus": 1.2,
+    "multi_tier1_bonus": 0.8,
+    "max_total": 2.0
+  },
   "selection_floor": {
     "_comment": "캡(국내3/해외6)은 상한이지 하한이 아니다 — 이 값에 못 미치면 자리를 비운다. 면제는 features 결손 1종뿐이다: _legacy_score 경로라 점수가 등급 기본값에 고정돼, 하한을 걸면 중요도가 아니라 큐레이션 실패를 자르게 된다. 등급 면제(must_read 무조건 통과)는 2026-08-03 제거 — 표본에서 한 번도 발동하지 않았고, 결손이 고쳐지면 must_read 전체가 하한을 우회하게 된다. 근거는 docs/score_distribution.md §7-2.",
     "_tuning": "0건인 날이 주 3일 이상이면 높은 것이고, 한 번도 0건이 아니면 무의미한 것이다. 14.0 은 19일 표본에서 국내 3일·해외 2일이 0건, 총 선정 163→131건.",

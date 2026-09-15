@@ -2,6 +2,7 @@
 import json
 import sys
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -37,6 +38,7 @@ def qitem(h="h1", importance="nice_to_know", section="international",
 class TestRegion(unittest.TestCase):
     def test_khnp_section_domestic_even_foreign_source(self):
         self.assertEqual(db.region({"section": "khnp", "domain": "reuters.com"}), "국내")
+
 
     def test_us_article_misclassified_domestic_corrected(self):
         self.assertEqual(db.region({"section": "domestic", "domain": "ans.org"}), "해외")
@@ -84,6 +86,26 @@ class TestRegion(unittest.TestCase):
     def test_unknown_domain_defaults_overseas(self):
         self.assertEqual(db.region({"section": "", "domain": "county17.com",
                                     "title": "BWXT plans fuel hub"}), "해외")
+
+
+class TestStoryShadowContract(unittest.TestCase):
+    @patch("daily_brief.enrich_investment", return_value={})
+    def test_plan_records_shadow_rank_without_changing_delivery(self, _enrich):
+        features = {"event_type": "policy_decision", "korea_relevance": 3,
+                    "market_materiality": 1, "policy_materiality": 3,
+                    "novelty": 0, "evidence_strength": 0,
+                    "report_worthiness": 0}
+        queue = [qitem("dom", scope="kr", title="국내 원전 정책 확정",
+                       features=features),
+                 qitem("forn", scope="overseas", title="해외 원전 정책 확정",
+                       features=features)]
+        outbox = db.plan_briefs(queue, now=NOW)
+        self.assertEqual(["dom", "forn"], [row["hash"] for row in outbox["items"]])
+        self.assertEqual([1, 1], [row["brief_rank"] for row in outbox["items"]])
+        shadow = outbox["selection_stats"]["story_shadow"]
+        self.assertEqual("shadow", shadow["mode"])
+        self.assertEqual("dom", shadow["domestic"]["selected"][0]["hash"])
+        self.assertEqual("forn", shadow["overseas"]["selected"][0]["hash"])
 
 
 class TestInvestment(unittest.TestCase):

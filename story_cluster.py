@@ -10,6 +10,7 @@ V2 원본(665줄)은 수집·랭킹·dedup 세 경로의 story 접기 전체를 
 from __future__ import annotations
 
 from typing import NamedTuple
+from urllib.parse import urlparse
 
 import story_identity
 
@@ -34,6 +35,125 @@ def raw_sources_of(article: dict) -> list[dict]:
     """수집 단계에서 이 기사에 접힌 근거들. 없으면 빈 목록."""
     vals = article.get("raw_sources")
     return [v for v in vals if isinstance(v, dict)] if isinstance(vals, list) else []
+
+
+def source_identity(article: dict) -> str:
+    """같은 매체의 전재가 coverage를 부풀리지 않도록 안정 식별자를 만든다."""
+    publisher = _clean(article.get("publisher"))
+    domain = _clean(article.get("domain"))
+    if not domain:
+        try:
+            domain = urlparse(str(article.get("link") or article.get("url") or "")).netloc
+            domain = domain.lower().removeprefix("www.")
+        except (TypeError, ValueError):
+            domain = ""
+    return (publisher or domain or _clean(article.get("feed")) or "unknown").lower()
+
+
+def source_tier(article: dict) -> int | None:
+    """별도 등급표를 만들지 않고 기존 sources.py 판정을 재사용한다."""
+    try:
+        tier = int(article.get("source_tier"))
+        if tier in (1, 2, 3):
+            return tier
+    except (TypeError, ValueError):
+        pass
+    try:
+        from sources import credibility
+        result = credibility({
+            "title": article.get("title") or article.get("title_kr") or "",
+            "url": article.get("link") or article.get("url") or "",
+            "meta": article.get("publisher") or article.get("domain") or "",
+        })
+        tier = result.get("tier")
+        return int(tier) if tier in (1, 2) else None
+    except Exception:
+        return None
+
+
+def _source_record(article: dict) -> dict:
+    return {
+        "identity": source_identity(article),
+        "publisher": _clean(article.get("publisher") or article.get("domain")
+                            or article.get("feed"))[:100],
+        "domain": _clean(article.get("domain"))[:120],
+        "tier": source_tier(article),
+        "evidence_role": _clean(article.get("evidence_role"))[:40],
+    }
+
+
+def consolidate_story_metadata(representative: dict, members: list[dict], *,
+                               relation: str = "duplicate", reason: str = "",
+                               stage: str = "") -> dict:
+    """접힌 기사를 버리지 않고 story의 출처·제목·hash 근거로 합친다.
+
+    이 함수는 결정적이며 LLM을 호출하지 않는다. 제목 dedup과 semantic dedup이
+    같은 계약을 쓰게 해 대표 교체 뒤에도 coverage와 continuity 근거가 남는다.
+    """
+    all_members = [representative] + [m for m in members if m is not representative]
+    for article in all_members:
+        ensure_story_id(article)
+
+    sources: dict[str, dict] = {}
+    hashes: list[str] = []
+    titles: list[str] = []
+    member_rows: list[dict] = []
+    article_count = 0
+    for article in all_members:
+        try:
+            article_count += max(1, int(article.get("story_article_count") or 1))
+        except (TypeError, ValueError):
+            article_count += 1
+        inherited = article.get("story_sources") or [_source_record(article)]
+        for source in inherited:
+            if not isinstance(source, dict):
+                continue
+            ident = _clean(source.get("identity")) or source_identity(article)
+            prior = sources.get(ident)
+            if prior is None or (source.get("tier") and
+                    (not prior.get("tier") or int(source["tier"]) < int(prior["tier"]))):
+                sources[ident] = dict(source, identity=ident)
+        own_hash = str(article.get("hash") or "")
+        inherited_hashes = article.get("story_article_hashes") or [own_hash]
+        hashes.extend(str(value) for value in inherited_hashes if str(value))
+        title = _clean(article.get("title_kr") or article.get("title"))[:180]
+        titles.extend(article.get("story_related_titles") or ([title] if title else []))
+        inherited_members = article.get("story_members") or []
+        member_rows.extend(row for row in inherited_members if isinstance(row, dict))
+        if own_hash:
+            member_rows.append({"hash": own_hash, "title": title,
+                                "publisher": _source_record(article)["publisher"]})
+
+    def unique(values):
+        seen = set()
+        out = []
+        for value in values:
+            key = str(value)
+            if key and key not in seen:
+                seen.add(key)
+                out.append(value)
+        return out
+
+    source_list = sorted(sources.values(), key=lambda row: row.get("identity") or "")
+    member_by_hash = {}
+    for row in member_rows:
+        if row.get("hash") and row["hash"] not in member_by_hash:
+            member_by_hash[row["hash"]] = row
+    representative["story_article_count"] = max(article_count, len(set(hashes)), 1)
+    representative["story_article_hashes"] = unique(hashes)
+    representative["story_outlet_count"] = len(source_list)
+    representative["story_tier1_count"] = sum(1 for row in source_list if row.get("tier") == 1)
+    representative["story_independent_outlet_count"] = sum(
+        1 for row in source_list if row.get("evidence_role") == "independent")
+    representative["story_sources"] = source_list
+    representative["story_related_titles"] = unique(titles)[:12]
+    representative["story_members"] = list(member_by_hash.values())[:16]
+    representative["story_relation"] = relation
+    if reason:
+        representative["story_reason"] = _clean(reason)[:300]
+    if stage:
+        representative["story_dedup_stage"] = stage
+    return representative
 
 
 class EvidenceOverlap(NamedTuple):
