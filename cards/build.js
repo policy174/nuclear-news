@@ -17,6 +17,7 @@ const path = require("path");
 
 const DEFAULT_THEME = {
   name: "Default",
+  canvas: { width: 1080, height: 1080 },
   fonts: {
     heading: { family: "Noto Sans KR", weights: "700;900", css: "'Noto Sans KR', sans-serif" },
     body: { family: "Noto Sans KR", weights: "400;500;700", css: "'Noto Sans KR', sans-serif" },
@@ -69,25 +70,6 @@ function loadTheme() {
   }
 }
 
-function fontLinks(theme) {
-  const seen = new Set();
-  const links = [];
-  for (const role of ["heading", "body", "mono"]) {
-    const f = theme.fonts[role];
-    if (!f || !f.family) continue;
-    const key = `${f.family}:${f.weights}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const fam = f.family.replace(/\s+/g, "+");
-    links.push(
-      `<link href="https://fonts.googleapis.com/css2?family=${fam}:wght@${
-        f.weights || "400;700"
-      }&display=swap" rel="stylesheet">`
-    );
-  }
-  return links.join("\n");
-}
-
 function esc(value) {
   // 원본은 이름만 esc 이고 String() 변환만 했다. RSS 제목의 &, <, 따옴표가
   // 그대로 주입돼 레이아웃이 깨진다. accentize() 는 esc() 뒤에 [[ ]] 를
@@ -115,14 +97,21 @@ function shell(inner, theme, dark) {
   const inkDim = dark ? c.inkOnDarkDim : c.inkDim;
   const inkMute = dark ? "rgba(238,241,244,0.45)" : c.inkMute;
   const accent = dark ? c.accentBright : c.accent;
+  const fontPath = path.resolve(process.cwd(), "fonts/WantedSansVariable.woff2");
+  const wantedFont = fs.existsSync(fontPath)
+    ? fs.readFileSync(fontPath).toString("base64")
+    : "";
 
   return `<!doctype html><html><head><meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-${fontLinks(theme)}
 <style>
+  @font-face {
+    font-family: "Wanted Sans Variable";
+    src: url("data:font/woff2;base64,${wantedFont}") format("woff2");
+    font-style: normal;
+    font-weight: 400 1000;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1080px; height: 1440px; }
+  html, body { width: ${theme.canvas.width}px; height: ${theme.canvas.height}px; }
   body {
     font-family: ${theme.fonts.body.css};
     background: ${bg};
@@ -132,11 +121,21 @@ ${fontLinks(theme)}
   }
   /* 3행 그리드 — 꼬리를 바닥에 못박고 본문이 남는 높이를 전부 먹는다.
      원본의 .spacer{flex:1} 방식은 내용을 전부 위로 밀어 아래를 비운다. */
-  .card { position: absolute; inset: 0; padding: 72px 64px 64px;
+  .card { position: absolute; inset: 0; padding: 48px 54px 44px;
     display: grid; grid-template-rows: auto 1fr auto; }
+  .card::after { content: ""; position: absolute; left: 54px; right: 54px; top: 106px;
+    height: 1px; background: ${dark ? "rgba(238,241,244,.18)" : "rgba(18,41,76,.14)"}; }
   .hd { display: flex; justify-content: space-between; align-items: center;
-    color: ${inkMute}; font-size: 24px; font-weight: 700; letter-spacing: 3px; }
+    color: ${inkMute}; font-size: 19px; font-weight: 700; letter-spacing: 2px; }
   .hd .brand { color: ${accent}; }
+  .classification { margin-top: 32px; display: grid; grid-template-columns: 132px auto;
+    width: fit-content; align-items: end; border-bottom: 6px solid ${accent}; padding-bottom: 12px; }
+  .classification .class-label { color: ${inkMute}; font-size: 16px; font-weight: 800;
+    letter-spacing: 1.5px; padding-bottom: 5px; }
+  .classification .class-title { color: ${accent}; font-family: ${theme.fonts.heading.css};
+    font-size: 43px; line-height: 1; font-weight: 850; letter-spacing: -1.5px; }
+  .section-kicker { margin-top: 20px; color: ${inkMute}; font-size: 20px;
+    font-weight: 750; letter-spacing: 3px; }
   /* 카드 한 장에 뱃지·헤드라인·불릿 3개·칩이 들어오면서 본문에 무게가 생겼다.
      가운데 정렬이 맞다 — 위로 붙이면 아래 40%가 다시 빈다(실측). */
   .body { display: flex; flex-direction: column; justify-content: center;
@@ -155,39 +154,62 @@ ${fontLinks(theme)}
     letter-spacing: -1px; }
   .tag { font-size: 32px; font-weight: 700; color: ${accent}; letter-spacing: 1px; }
 
-  .headline { margin-top: 30px; font-family: ${theme.fonts.heading.css};
+  .headline { margin-top: 22px; font-family: ${theme.fonts.heading.css};
     font-weight: ${h.weight}; font-size: ${h.size}px; line-height: ${h.lineHeight};
     letter-spacing: ${h.letterSpacing}px; text-transform: ${hCase};
     /* 한글은 어절 단위로 끊는다. 없으면 '결/론' 처럼 낱말이 쪼개진다. */
     word-break: keep-all; overflow-wrap: break-word; }
-  .em { color: ${accent}; }
+  .em { color: ${accent}; font-weight: 800; }
+  .hero-stat { display: grid; grid-template-columns: auto auto 1fr; align-items: end;
+    gap: 18px; margin-top: 30px; padding: 22px 0 26px; border-top: 1px solid ${inkMute};
+    border-bottom: 1px solid ${inkMute}; color: ${accent}; }
+  .hero-stat .value { font-family: ${theme.fonts.heading.css}; font-size: 160px;
+    line-height: .76; font-weight: 900; letter-spacing: -10px; }
+  .hero-stat .unit { font-family: ${theme.fonts.heading.css}; font-size: 50px;
+    line-height: 1; font-weight: 900; padding-bottom: 10px; }
+  .hero-stat .caption { margin-left: auto; max-width: 380px; font-size: 27px;
+    line-height: 1.35; font-weight: 700; color: ${inkDim}; text-align: right;
+    word-break: keep-all; }
   .subline { font-size: 36px; font-weight: 500; line-height: 1.5; color: ${inkDim};
     word-break: keep-all; overflow-wrap: break-word; }
 
   /* 사실/의미 불릿 — 카드 한 장이 한 가지만 말한다. 한 문장짜리 요약을 패널에
      넣어 여백을 메우던 방식은 버렸다(글자만 빽빽해진다). */
-  .points { margin-top: 48px; display: flex; flex-direction: column; gap: 28px; }
-  .points li { list-style: none; display: flex; gap: 24px; font-size: 40px;
+  .points { margin-top: 28px; display: flex; flex-direction: column; gap: 17px; }
+  .points li { list-style: none; display: flex; gap: 18px; font-size: 29px;
     font-weight: 500; line-height: 1.36; color: ${ink};
     word-break: keep-all; overflow-wrap: break-word; }
   .points li::before { content: ""; flex: none; width: 14px; height: 14px;
-    border-radius: 4px; background: ${accent}; margin-top: 19px; }
+    border-radius: 0; background: ${accent}; margin-top: 13px; }
+
+  .status-list { margin-top: 26px; display: flex; flex-direction: column; }
+  .status-row { display: grid; grid-template-columns: 138px 1fr; min-height: 74px;
+    align-items: center; border-top: 1px solid ${dark ? "rgba(246,245,240,.20)" : "rgba(18,41,76,.22)"}; }
+  .status-row:last-child { border-bottom: 1px solid ${dark ? "rgba(246,245,240,.20)" : "rgba(18,41,76,.22)"}; }
+  .status-row .status-label { align-self: stretch; display: flex; align-items: center;
+    justify-content: flex-start; font-size: 23px; font-weight: 850; color: ${accent}; }
+  .status-row.pending .status-label { color: ${accent}; }
+  .status-row.next .status-label { color: ${accent}; }
+  .status-row .status-text { padding: 15px 0; font-size: 27px; font-weight: 650;
+    line-height: 1.3; color: ${ink}; word-break: keep-all; }
 
   /* 의미 블록 — 같은 장 안에서 사실과 구분되도록 색을 깐다. 사실 불릿은
      맨몸, 의미는 패널 안. 장을 쪼개지 않고도 두 덩이가 갈린다. */
-  .why { margin-top: 42px; padding: 30px 34px 32px;
-    background: ${dark ? "rgba(238,241,244,0.07)" : "rgba(18,41,76,0.05)"};
-    border-left: 10px solid ${accent};
-    border-radius: 0 ${theme.radius}px ${theme.radius}px 0; }
-  .why .lbl { font-size: 27px; font-weight: 700; letter-spacing: 2px;
-    color: ${accent}; margin-bottom: 20px; }
-  .why .points { margin-top: 0; gap: 18px; }
-  .why .points li { font-size: 34px; line-height: 1.34; color: ${inkDim}; }
-  .why .points li::before { width: 12px; height: 12px; margin-top: 16px; }
+  /* 의미 패널 — 악센트 단색 위에 밝은 잉크. Codex 원안은 전 카드 다크 전제라
+     패널 안 글자를 ink 로 두었는데, 본문을 밝은 판으로 돌리면 라벨이
+     악센트-위-악센트로 사라지고 글자는 네이비-위-블루가 된다(실측). */
+  .why { margin-top: 24px; padding: 20px 24px 22px;
+    background: ${dark ? "rgba(255,255,255,.045)" : accent};
+    border-top: 4px solid ${dark ? accent : "rgba(255,255,255,.35)"};
+    color: ${dark ? ink : c.inkOnDark}; }
+  .why .lbl { font-size: 18px; font-weight: 750; letter-spacing: 2px;
+    color: ${dark ? accent : "rgba(238,241,244,.78)"}; margin-bottom: 12px; }
+  .why .points { margin-top: 0; gap: 10px; }
+  .why .points li { font-size: 25px; line-height: 1.34; color: ${dark ? ink : c.inkOnDark}; }
+  .why .points li::before { background: ${dark ? accent : "rgba(238,241,244,.85)"}; }
 
-  /* 메타 칩 — 날짜·태그. 출처는 꼬리말이 이미 들고 있다. */
-  .meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 46px; }
-  .chip { padding: 14px 28px; border-radius: 999px; font-size: 28px;
+  .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .chip { padding: 8px 16px; border-radius: 0; font-size: 19px;
     font-weight: 700; color: ${inkDim};
     border: 2px solid ${dark ? "rgba(238,241,244,0.22)" : "rgba(18,41,76,0.16)"}; }
 
@@ -283,15 +305,27 @@ function renderSlide(s, theme) {
   const chips = Array.isArray(s.meta) && s.meta.length
     ? `<div class="meta">${s.meta.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>`
     : "";
+  const heroStat = s.heroStat
+    ? `<div class="hero-stat"><span class="value">${esc(s.heroStat)}</span><span class="unit">${esc(s.heroUnit || "")}</span><span class="caption">${esc(s.heroCaption || "")}</span></div>`
+    : "";
+  const statusRows = Array.isArray(s.statusRows) && s.statusRows.length
+    ? `<div class="status-list">${s.statusRows.map((row) =>
+        `<div class="status-row ${esc(row.tone || "")}"><div class="status-label">${esc(row.label)}</div><div class="status-text">${esc(row.text)}</div></div>`
+      ).join("")}</div>`
+    : "";
   return shell(
     `<div class="card">
       <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
       <div class="body">
+        ${s.mainTitle ? `<div class="classification"><span class="class-label">MAIN TITLE</span><span class="class-title">${esc(s.mainTitle)}</span></div>` : ""}
+        ${s.sectionLabel ? `<div class="section-kicker">${esc(s.sectionLabel)}</div>` : ""}
         <div class="idxrow">
-          ${s.idx ? `<div class="badge">${esc(s.idx)}</div>` : ""}
+          ${s.idx && !s.mainTitle ? `<div class="badge">${esc(s.idx)}</div>` : ""}
           ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
         </div>
         <h1 class="headline">${accentize(s.headline, "em")}</h1>
+        ${heroStat}
+        ${statusRows}
         ${bullets(s.points)}
         ${why}
         ${chips}
@@ -369,7 +403,7 @@ const SAMPLE_SLIDES = [
   const browser = await puppeteer.launch({ headless: "new", args: ["--no-sandbox"] });
   const page = await browser.newPage();
   page.setDefaultTimeout(60000);
-  await page.setViewport({ width: 1080, height: 1440, deviceScaleFactor: 1 });
+  await page.setViewport({ width: theme.canvas.width, height: theme.canvas.height, deviceScaleFactor: 1 });
 
   for (let i = 0; i < slides.length; i++) {
     await page.setContent(renderSlide(slides[i], theme), { waitUntil: "load", timeout: 60000 });

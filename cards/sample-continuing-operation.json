@@ -1,0 +1,41 @@
+[
+  {
+    "type": "step",
+    "slideNum": "01 / 02",
+    "idx": "01",
+    "mainTitle": "계속운전",
+    "sectionLabel": "심의 결과",
+    "headline": "원전 [[4기]] 첫 심의\n결론 못 냈다",
+    "heroStat": "4",
+    "heroUnit": "기",
+    "heroCaption": "고리 3·4호기\n한빛 1·2호기",
+    "points": [
+      "원안위는 9월 11일 사고관리계획서 승인안과 운영변경허가안을 함께 심의했습니다.",
+      "첫 회의에서는 결론을 내리지 못해 추후 회의에 재상정하기로 했습니다."
+    ],
+    "meta": ["제2026-14회", "2026.09.11", "재상정"],
+    "handle": "nuclens.pages.dev",
+    "footer": "원자력안전위원회"
+  },
+  {
+    "type": "step",
+    "slideNum": "02 / 02",
+    "idx": "02",
+    "mainTitle": "계속운전",
+    "sectionLabel": "절차 해설",
+    "headline": "계속운전 허가의 [[첫 관문]]",
+    "statusRows": [
+      {"label": "KINS", "text": "사고관리능력 허가기준 충족 판단", "tone": "current"},
+      {"label": "전문위", "text": "KINS 심사결과 적절성 사전검토", "tone": "next"},
+      {"label": "원안위", "text": "결론 없이 추후 재심의", "tone": "pending"}
+    ],
+    "whyLabel": "왜 중요한가",
+    "why": [
+      "사고관리계획서 승인은 계속운전 허가 가능성을 가르는 핵심 단계입니다.",
+      "고리 3·4호기는 이미 정지 상태라 심의 일정이 재가동 시점을 좌우합니다."
+    ],
+    "meta": ["WH900 동일 노형", "4기 일괄 심의"],
+    "handle": "nuclens.pages.dev",
+    "footer": "NUCLENS POLICY BRIEF"
+  }
+]
