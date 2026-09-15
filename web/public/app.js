@@ -1294,6 +1294,8 @@ function renderEmptyBriefing(briefing, issueList) {
   document.getElementById("continuingSection").hidden = true;
   const agenda = document.getElementById("todayAgenda");
   if (agenda) agenda.hidden = true;
+  const strip = document.getElementById("cardStrip");
+  if (strip) strip.hidden = true;
   // 사유는 히어로가 말하고, 목록은 '그래서 어디로 가면 되는가'만 담당한다.
   // 그 전제가 코드에 없어서 emptyBriefingState 가 만든 title 이 아무 데도 안
   // 붙고 있었다 — 0건인 날 화면에는 고정 헤드라인("이번 주 원자력, 무엇이
@@ -1560,6 +1562,29 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // 리포트인데도 별개 기능처럼 보였고, 무엇보다 **무엇이 바뀌었나(what)와 그래서
 // 무슨 의미인가(so_what)를 읽으려면 화면을 오르내려야 했다.** 네 영역의 순서가
 // 곧 읽는 순서다 — 무엇이 바뀌었나 → 이번 주 흐름 → 그래서 어떤 의미 → 다음에 볼 것.
+// 카드뉴스 띠 — /cards/index.json 의 최신 날짜 PNG 를 가로로 넘겨 본다. 보고 있는
+// 브리핑 날짜의 카드가 있으면 그것, 없으면 최신 것을 날짜 표시와 함께.
+let cardIndexPromise = null;
+function renderCardStrip(date) {
+  const section = document.getElementById("cardStrip");
+  if (!section) return;
+  cardIndexPromise = cardIndexPromise
+    || fetch(`/cards/index.json?cb=${Date.now()}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
+  cardIndexPromise.then(index => {
+    const dates = (index && index.dates) || {};
+    const pick = dates[date] ? date : (index && index.latest) || "";
+    const files = (dates[pick] || []).filter(Boolean);
+    if (!pick || !files.length) { section.hidden = true; return; }
+    document.getElementById("cardStripMeta").textContent =
+      `${dateWeekdayLabel(pick)} · ${files.length}장${pick === date ? "" : " (최신)"}`;
+    document.getElementById("cardStripTrack").innerHTML = files.map((file, i) =>
+      `<a class="card-strip-item" href="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" target="_blank" rel="noopener">
+        <img src="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}" loading="lazy" width="1080" height="1080">
+      </a>`).join("");
+    section.hidden = false;
+  });
+}
+
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
   const toggle = document.getElementById("agendaToggle");
@@ -1731,6 +1756,7 @@ function renderBriefing() {
     document.getElementById("briefPanelDate").textContent =
       `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${ordered.length}건`;
   };
+  renderCardStrip(briefing.date);
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
 

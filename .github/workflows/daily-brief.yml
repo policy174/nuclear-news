@@ -518,17 +518,24 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python send_album.py
 
-      # 발송 기록(outbox.cards)이 곧 중복 방지 키다. 기록을 못 남기면 재실행 시
-      # 같은 앨범이 한 번 더 나간다 — 비치명이지만 커밋은 해둔다.
-      - name: Commit card record (중복 발송 방지 키)
-        if: always() && steps.send_cards.outcome == 'success'
+      # 같은 PNG 를 사이트에도 — web/public/cards/<date>/ 로 복사해 커밋한다.
+      # (커밋해야 매시 크롤 배포에서 안 사라진다.) push 가 web/** 이라 deploy-web
+      # 이 자동으로 뜬다. 발송 기록(outbox.cards)은 중복 방지 키라 같이 커밋한다.
+      - name: Publish cards to site
+        id: publish_cards
+        if: always() && steps.make_cards.outcome == 'success'
+        continue-on-error: true
+        run: python publish_cards.py
+
+      - name: Commit card record + site PNGs
+        if: always() && (steps.send_cards.outcome == 'success' || steps.publish_cards.outcome == 'success')
         continue-on-error: true
         run: |
-          python -c "import json;print(json.dumps(json.load(open('outbox.json',encoding='utf-8'))['cards'],ensure_ascii=False))" > "$RUNNER_TEMP/cards.json"
+          python -c "import json;print(json.dumps(json.load(open('outbox.json',encoding='utf-8')).get('cards') or {},ensure_ascii=False))" > "$RUNNER_TEMP/cards.json"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3; do
-            git add outbox.json
+            git add outbox.json web/public/cards
             if git diff --cached --quiet; then echo "기록할 변경 없음"; exit 0; fi
             git commit -m "chore: card album sent"
             if git push origin HEAD:main; then echo "카드 기록 push 성공"; exit 0; fi
@@ -539,9 +546,11 @@ jobs:
           import json, sys
           cards = json.load(open(sys.argv[1], encoding="utf-8"))
           ob = json.load(open("outbox.json", encoding="utf-8"))
-          ob["cards"] = cards
+          if cards:
+              ob["cards"] = cards
           json.dump(ob, open("outbox.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
           PY
+            python publish_cards.py
           done
           echo "카드 기록 push 실패 — 비치명. 오늘 재실행하면 앨범이 중복될 수 있다"
 

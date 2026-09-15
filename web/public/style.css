@@ -3826,5 +3826,16 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
   .toc-num { font-size: 13px; padding-top: 2px; }
   .toc-arrow { font-size: 16px; }
 }
+/* 카드뉴스 띠 — 정사각 카드를 가로 스냅으로. 폰에서는 한 장이 화면 폭의 78%. */
+.card-strip { margin-top: var(--sp-4); }
+.card-strip-head { display: flex; align-items: baseline; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+.card-strip-head strong { font-size: var(--t-body); }
+.card-strip-head span { color: var(--c-text-muted); font-size: var(--t-caption); }
+.card-strip-track { display: flex; gap: var(--sp-3); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: var(--sp-2); -webkit-overflow-scrolling: touch; }
+.card-strip-item { flex: 0 0 300px; scroll-snap-align: start; border-radius: var(--r-2); overflow: hidden;
+  border: var(--bd-1) solid var(--c-border); background: var(--c-surface); }
+.card-strip-item img { display: block; width: 100%; height: auto; }
+@media (max-width: 520px) { .card-strip-item { flex-basis: 78vw; } }
 /* 헤더의 날짜 줄은 패널 꼬리가 대신 든다 */
 .today-date { display: none; }

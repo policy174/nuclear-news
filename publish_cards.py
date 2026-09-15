@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+"""카드 PNG 를 사이트로 — cards/album.json → web/public/cards/<date>/NN.png + index.json.
+
+텔레그램에 보낸 것과 같은 파일을 홈의 '카드뉴스로 보기' 띠가 넘겨 본다(지니 09-16).
+web/public/data 와 달리 이 폴더는 **커밋한다**: 크롤 배포가 매시 web/public 을
+통째로 올리므로, 커밋에 없는 파일은 다음 배포에서 사라진다.
+보관은 KEEP_DAYS 일 — 그 뒤 폴더는 지운다. ponytail: 5장×300KB×14일 ≈ 20MB 상한,
+이력이 하루 1.5MB 씩 자라는 건 감수. 더 크면 Pages 외부 저장으로.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import shutil
+from datetime import date as date_type, timedelta
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+ALBUM_FILE = ROOT / "cards" / "album.json"
+SITE_DIR = ROOT / "web" / "public" / "cards"
+KEEP_DAYS = 14
+
+
+def publish(album: dict, site_dir: Path, album_root: Path, today: date_type | None = None) -> dict:
+    day = str(album["date"])
+    files = [album_root / f for f in album.get("files") or []]
+    if not files or not all(f.exists() for f in files):
+        raise FileNotFoundError("album.json 의 파일이 없다 — 렌더가 안 끝났다")
+    out = site_dir / day
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
+    names = []
+    for i, src in enumerate(files, 1):
+        name = f"{i:02d}.png"
+        shutil.copyfile(src, out / name)
+        names.append(name)
+
+    cutoff = (today or date_type.today()) - timedelta(days=KEEP_DAYS)
+    for folder in site_dir.iterdir():
+        if folder.is_dir() and len(folder.name) == 10 and folder.name < cutoff.isoformat():
+            shutil.rmtree(folder)
+
+    dates = {d.name: sorted(p.name for p in d.glob("*.png"))
+             for d in site_dir.iterdir() if d.is_dir() and len(d.name) == 10}
+    dates = {k: v for k, v in dates.items() if v}
+    index = {"latest": max(dates), "dates": dict(sorted(dates.items()))}
+    (site_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n",
+                                         encoding="utf-8")
+    return index
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--album", type=Path, default=ALBUM_FILE)
+    ap.add_argument("--site-dir", type=Path, default=SITE_DIR)
+    args = ap.parse_args()
+    if not args.album.exists():
+        print("[cards] album.json 없음 — 게시할 카드가 없다. 스킵")
+        return 0
+    album = json.loads(args.album.read_text(encoding="utf-8"))
+    index = publish(album, args.site_dir, args.album.resolve().parents[1])
+    print(f"[cards] 사이트 게시: {album['date']} {len(index['dates'][album['date']])}장 "
+          f"(보관 {len(index['dates'])}일치) → {args.site_dir}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

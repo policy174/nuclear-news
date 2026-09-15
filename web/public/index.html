@@ -127,6 +127,13 @@
       <div class="brief-foot"><span id="briefPanelDate"></span><button type="button" id="briefPanelAll" class="brief-more" hidden>나머지 펼치기 →</button></div>
     </section>
 
+    <!-- 카드뉴스 — 텔레그램 앨범과 같은 PNG 를 사이트에서도 넘겨 본다(지니 09-16).
+         /cards/index.json 이 있는 날만 선다. 이미지는 daily-brief 가 커밋한다. -->
+    <section id="cardStrip" class="card-strip" aria-labelledby="cardStripTitle" hidden>
+      <div class="card-strip-head"><strong id="cardStripTitle">카드뉴스로 보기</strong><span id="cardStripMeta"></span></div>
+      <div class="card-strip-track" id="cardStripTrack"></div>
+    </section>
+
     <!-- 정책의제 '한 주의 원자력' — main 에 라이브인 블록. 목차형 개편(09-11)이
          index.html 을 다시 쓰면서 빠뜨렸던 것을 되살렸다(2026-09-15). 렌더러
          (renderTodayAgenda)·CSS 는 남아 있었고 마크업만 없었다. -->

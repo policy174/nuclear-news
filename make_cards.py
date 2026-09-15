@@ -57,7 +57,10 @@ TELEGRAM_ALBUM_MAX = 10
 HEADLINE_TARGET = 20
 HEADLINE_MAX = 34
 SUBLINE_MAX = 50   # 표지 부제
-FACT_MAX = 34      # 사실 불릿 한 줄
+# 34자는 실측에서 두 번 연속 넘겼다(09-16: "2035년 경수형 SMR 상용화 목표…" 36자) —
+# 두 번 실패면 카드가 통째로 빠진다. 진짜 한계는 렌더 가드(넘침 사각형)이므로
+# 코드 상한은 한 줄 반 폭까지 열어 둔다.
+FACT_MAX = 40      # 사실 불릿
 WHY_MAX = 40       # 의미 불릿 한 줄
 # 한 장에 둘 다 들어가므로 각각 3개까지. 넘치는지는 build.js 넘침 가드가 잰다.
 BULLETS_MIN, BULLETS_MAX = 2, 3
@@ -481,18 +484,21 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true",
                     help="오늘 이미 카드를 보냈어도 다시 만든다")
+    ap.add_argument("--date", help="outbox 대신 이 날짜의 사이트 순위로 만든다(로컬 검증용, --force 포함)")
     args = ap.parse_args()
 
-    if not OUTBOX_FILE.exists():
-        print("[cards] outbox.json 없음 — 브리핑이 아직 안 돌았다. 스킵")
-        return 0
-    outbox = json.loads(OUTBOX_FILE.read_text(encoding="utf-8"))
-    date = outbox.get("date") or datetime.now(KST).strftime("%Y-%m-%d")
-
-    if outbox.get("status") not in ("sent", "partial"):
-        print(f"[cards] 텍스트 브리핑 상태 '{outbox.get('status')}' — 카드 스킵")
-        return 0
-    if not args.force and (outbox.get("cards") or {}).get("date") == date:
+    if args.date:
+        date, outbox = args.date, {}
+    else:
+        if not OUTBOX_FILE.exists():
+            print("[cards] outbox.json 없음 — 브리핑이 아직 안 돌았다. 스킵")
+            return 0
+        outbox = json.loads(OUTBOX_FILE.read_text(encoding="utf-8"))
+        date = outbox.get("date") or datetime.now(KST).strftime("%Y-%m-%d")
+        if outbox.get("status") not in ("sent", "partial"):
+            print(f"[cards] 텍스트 브리핑 상태 '{outbox.get('status')}' — 카드 스킵")
+            return 0
+    if not (args.force or args.date) and (outbox.get("cards") or {}).get("date") == date:
         print(f"[cards] {date} 카드는 이미 발송됨 — 스킵")
         return 0
 
