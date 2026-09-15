@@ -1648,86 +1648,33 @@ const CONTINUING_LIMIT = 3;
 // 브라우저 기본 동작으로 따라온다 — pushState 로 가로채면 셋 다 직접 짜야 한다.
 // 대분류 12개의 색 묶음. 열두 색을 다 주면 목록이 형광펜이 되므로 성격이 같은
 // 것끼리 일곱 벌로 묶는다 — 라벨이 정확하니 색이 겹쳐도 글자가 가른다.
-const DOMAIN_FAMILY = {
-  "안전성": "safety", "규제": "safety",
-  "계속운전": "lto",
-  "건설": "build", "SMR": "build",
-  "핵연료": "cycle", "사후처리": "cycle",
-  "경제성": "market", "재생·수소": "market",
-  "정책": "policy", "해외사업": "policy",
-  "수용성": "etc",
-};
-
-// 분류 이식 전 대역 — 옛 topics 를 대분류로 근사한다. domain 이 채워지면 안 쓴다.
-const TOPIC_DOMAIN = {
-  regulation: "규제", safety: "안전성", operations: "안전성",
-  restart_lto: "계속운전", smr: "SMR", newbuild: "건설",
-  fuel_cycle: "핵연료", waste: "사후처리", decommissioning: "사후처리",
-  power_market: "정책", datacenter_ai: "정책", finance: "경제성",
-  security_trade: "해외사업", policy_general: "정책",
-};
-
-// 분류 칩. 현안 대분류(domain)가 붙기 전까지는 통제 주제(topics)가 그 자리를
-// 대신한다 — 실데이터에 585/590 이 채워져 있고 어휘가 닫혀 있다.
-// D6 에서 domain 이 들어오면 이 함수만 바뀌고 화면은 그대로다.
+// 분류 칩 — 현안 대분류(khnp_domain) 하나. 없으면 아무것도 그리지 않는다:
+// 옛 topics 로 근사하던 대역(2026-09-11)은 걷었다. 그 근사가 '에너지안보·통상'
+// 같은 틀린 칩을 맞는 척 세웠다(지니 09-15). 빈칸이 틀린 칩보다 낫다.
 //
-// 칩은 버튼이다. 누르면 탐색 탭에서 같은 주제가 모인 목록으로 간다. 행 전체는
+// 칩은 버튼이다. 누르면 탐색 탭에서 같은 분류가 모인 목록으로 간다. 행 전체는
 // 상세로 가는 링크이므로 둘은 겹치면 안 된다 — 링크 안에 버튼을 넣는 것은
 // 유효하지 않은 마크업이라, 행은 <div> 로 두고 제목 링크를 늘여(stretched link)
 // 행 전체를 덮는다. 칩은 그 위에 선다.
-// 대분류 > 소분류. 색은 대분류가 갖고, 소분류는 그 뒤에 옅게 붙는다 —
-// 분류가 없으면(규칙이 못 고른 29%) 칩째로 숨긴다. 억지로 채우면 틀린 분류가
-// 맞는 척한다.
 function tocChips(issue) {
   const domain = issue.khnp_domain || "";
-  if (!domain) {
-    // 분류 이식 전 데이터를 위한 대역. domain 이 채워지면 이 가지는 죽는다.
-    const topic = (issue.topics || [])[0] || "";
-    if (!TOPIC_LABELS[topic]) return "";
-    return `<span class="toc-chips"><button type="button" class="chip chip--domain"
-      data-family="${esc(DOMAIN_FAMILY[TOPIC_DOMAIN[topic]] || "etc")}" data-hub-topic="${esc(topic)}"
-      title="${esc(TOPIC_LABELS[topic])} 기사 모아 보기">${esc(TOPIC_LABELS[topic])}</button></span>`;
-  }
-  const sub = (issue.khnp_tags || []).filter(tag => tag && tag !== domain)[0] || "";
-  const family = DOMAIN_FAMILY[domain] || "etc";
+  if (!domain) return "";
   return `<span class="toc-chips"><button type="button" class="chip chip--domain"
-    data-family="${esc(family)}" data-hub-domain="${esc(domain)}"
-    title="${esc(domain)} 기사 모아 보기">${esc(domain)}</button>${
-    sub ? `<span class="chip chip--sub">${esc(sub)}</span>` : ""
-  }</span>`;
+    data-hub-domain="${esc(domain)}" title="${esc(domain)} 기사 모아 보기">${esc(domain)}</button></span>`;
 }
 
-function tocMeta(issue) {
-  const rep = issue.representative_article || {};
-  // 날짜는 패널 머리가 든다 — 행마다 반복하면 같은 날짜가 아홉 번 찍힌다.
-  return [
-    rep.publisher || "",
-    (issue.article_count || 0) > 1 ? `기사 ${issue.article_count}건` : "",
-  ].filter(Boolean).join(" · ");
-}
-
-function tocWhy(issue) {
-  // '왜 중요한가' 한 줄. 큐레이션의 implication 이 있으면 그것, 없으면 요약.
-  return String(issue.implication || issue.summary || "").trim();
-}
-function tocFamily(issue) {
-  const domain = issue.khnp_domain || TOPIC_DOMAIN[(issue.topics || [])[0] || ""] || "";
-  return DOMAIN_FAMILY[domain] || "etc";
-}
-function tocRow(issue, index = 0, lead = false) {
-  const why = tocWhy(issue);
-  return `<div class="toc-row${lead ? " toc-row--lead" : ""}" data-family="${esc(tocFamily(issue))}">
+// 행 = 번호 · 지역 분류 · 제목 · 화살표. 요약·출처 줄은 없다 — "길게 요약을
+// 띄우는 것 자체가 이상하다"(지니 09-15). 고르는 화면이지 읽는 화면이 아니다.
+function tocRow(issue, index = 0) {
+  return `<div class="toc-row">
   <span class="toc-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
   <span class="toc-body">
     <span class="toc-meta-line"><span class="toc-region">${esc(issue.region || "")}</span>${tocChips(issue)}</span>
     <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
-    ${why ? `<span class="toc-why">${esc(why)}</span>` : ""}
-    <span class="toc-meta">${esc(tocMeta(issue))}</span>
   </span>
   <span class="toc-arrow" aria-hidden="true">→</span>
 </div>`;
 }
-function tocLeadRow(issue) { return tocRow(issue, 0, true); }
 function continuingRow(issue) {
   // 변화 문장은 'A → B' 꼴이다. 목차에 이미 제목이 있으니 바뀐 쪽만 보인다.
   const change = String(issue.latest_change || "").split("→").pop().trim();
@@ -1757,7 +1704,7 @@ function renderBriefing() {
 
   const ordered = briefingIssuesForDisplay(briefing);
   const top = ordered.slice(0, TOC_LIMIT);
-  tocList.innerHTML = top.map((issue, index) => tocRow(issue, index, index === 0)).join("");
+  tocList.innerHTML = top.map((issue, index) => tocRow(issue, index)).join("");
   // 패널 꼬리 한 줄: 날짜·호수·건수. 머리는 없다(폰 첫 화면 확보).
   document.getElementById("briefPanelDate").textContent =
     `${dateWeekdayLabel(briefing.date)} · 제${state.briefings.length - state.briefings.indexOf(briefing)}호 · ${top.length}건`;
