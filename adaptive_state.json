@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 4,
     "date": "2026-09-15"
   },
   "retired": {
@@ -246,7 +246,7 @@
     }
   },
   "spent": {
-    "count": 11,
+    "count": 12,
     "date": "2026-09-15"
   },
   "terms": {
@@ -324,6 +324,52 @@
       "term": "ZNPP",
       "ttl_hours": 24,
       "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "울진군등": {
+      "articles": 3,
+      "created_at": "2026-09-15T05:38:48.606651+00:00",
+      "domains": [
+        "newsprime.co.kr",
+        "gukjenews.com",
+        "metroseoul.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "newsprime.co.kr",
+          "hash": "905227c1f85c7eda",
+          "importance": "nice_to_know",
+          "title": "울진군 등 원전 지자체 5곳, 건식저장시설 지원방안 선확정 촉구"
+        },
+        {
+          "domain": "gukjenews.com",
+          "hash": "625ada77eda9e2ef",
+          "importance": "nice_to_know",
+          "title": "울진군, 원전 건식저장시설 지원방안 마련 촉구"
+        },
+        {
+          "domain": "metroseoul.co.kr",
+          "hash": "925bcde178d4b0f8",
+          "importance": "nice_to_know",
+          "title": "울진군 등 원전소재 5개 지자체, 사용후핵연료 건식저장시설 '선 지원방안·후 의견수렴' 촉구"
+        }
+      ],
+      "expires_at": "2026-09-17T05:38:48.606651+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-15T05:38:49.817537+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-15T05:38:48.606651+00:00",
+      "queries_run": 1,
+      "query": "울진군 등 원전",
+      "score": 4.6,
+      "status": "tracking",
+      "term": "울진군 등",
+      "ttl_hours": 48,
+      "type": "plant",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
