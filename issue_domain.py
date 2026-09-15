@@ -26,7 +26,10 @@ CACHE_KEY = "domains"
 CACHE_COMMENT = "이슈 단위 현안 분류 캐시. 키는 issue_id, prompt_version 이 다르면 다시 묻는다."
 PROMPT_VERSION = 2
 BATCH_SIZE = 20
-MAX_NEW_PER_RUN = 120
+# 무료 키는 모델당 하루 20호출이고 큐레이션·해석·리드·카드가 같은 키를 쓴다.
+# 09-16 실사고: 회차 120건(6호출)+로컬 실험이 쿼터를 먹어 아침 카드·해석이 통째로
+# 빠졌다. 회차 2호출까지만 — 백필은 느려도 브리핑을 굶기진 않는다.
+MAX_NEW_PER_RUN = 40
 # flash-lite 는 낱말에 끌린다(실측 09-16: '폐로 문서 위조 인정'→사후처리, NRC 규제
 # 개편→해체 낱말). 하루 5~6호출이라 flash 를 쓴다. 쿼터는 GEMINI_DOMAIN_MODEL 로 조정.
 MODEL_DEFAULT = "gemini-2.5-flash"
@@ -160,7 +163,8 @@ def generate(rows: list[dict], *, client=None, cache_path: Path = CACHE_FILE,
         try:
             payload = client.call_json(system_prompt, build_user_message(chunk),
                                        temperature=0.0, max_output_tokens=4096,
-                                       model=model, label="issue_domain")
+                                       model=model, label="issue_domain",
+                                       fallback_model=getattr(client, "FALLBACK_MODEL", None))
         except Exception as exc:  # noqa: BLE001 — 분류 부재는 비치명(칩이 숨는다)
             stats["failed"] += len(chunk)
             stats["status"] = f"error: {type(exc).__name__}"
