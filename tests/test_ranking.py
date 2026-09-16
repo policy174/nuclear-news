@@ -600,6 +600,11 @@ class TestConfig(unittest.TestCase):
 
 
 class TestStoryRankingShadow(unittest.TestCase):
+    def shadow_cfg(self):
+        cfg = dict(CFG)
+        cfg["story_ranking"] = dict(CFG["story_ranking"], mode="shadow")
+        return cfg
+
     def live_cfg(self):
         cfg = dict(CFG)
         cfg["story_ranking"] = dict(CFG["story_ranking"], mode="live")
@@ -634,7 +639,7 @@ class TestStoryRankingShadow(unittest.TestCase):
     def test_coverage_changes_shadow_score_but_not_current_score(self):
         article = item("a", features=feat(), queued_hours_ago=0,
                        story_outlet_count=4, story_tier1_count=2)
-        current_score, current_detail = ranking.score_item(article, CFG, NOW)
+        current_score, current_detail = ranking.score_item(article, self.shadow_cfg(), NOW)
         story_score, story_detail = ranking.score_item(article, self.live_cfg(), NOW)
         self.assertNotIn("coverage:outlets", current_detail)
         self.assertEqual(2.0, story_score - current_score)
@@ -643,7 +648,7 @@ class TestStoryRankingShadow(unittest.TestCase):
 
     def test_report_worthiness_is_capped_only_in_story_mode(self):
         article = item("a", features=feat(report_worthiness=3), queued_hours_ago=0)
-        current_score, _ = ranking.score_item(article, CFG, NOW)
+        current_score, _ = ranking.score_item(article, self.shadow_cfg(), NOW)
         story_score, story_detail = ranking.score_item(article, self.live_cfg(), NOW)
         self.assertAlmostEqual(2.001, current_score - story_score, places=3)
         self.assertEqual(1.0, story_detail["report_worthiness"])
@@ -651,7 +656,7 @@ class TestStoryRankingShadow(unittest.TestCase):
     def test_shadow_does_not_mutate_operational_candidates(self):
         rows = [item("a", title="동일 원전 계약 체결", publisher="A", features=feat()),
                 item("b", title="동일 원전 계약 체결", publisher="B", features=feat())]
-        result = ranking.story_shadow(rows, 1, CFG, NOW)
+        result = ranking.story_shadow(rows, 1, self.shadow_cfg(), NOW)
         self.assertNotIn("story_sources", rows[0])
         self.assertEqual(1, len(result["selected"]))
         self.assertEqual(2, result["selected"][0]["story_outlet_count"])
