@@ -44,6 +44,12 @@ def main() -> int:
         print("[push] PUSH_ADMIN_TOKEN/VAPID_PRIVATE_KEY 미설정 — 스킵")
         return 0
     from pywebpush import WebPushException, webpush  # noqa: PLC0415 — 로컬엔 없을 수 있다
+    from py_vapid import Vapid  # noqa: PLC0415
+
+    # pywebpush 는 문자열을 '파일 경로 아니면 base64 raw 키'로만 본다 — 시크릿에 넣은
+    # PEM 본문은 어느 쪽도 아니라 'Could not deserialize key data'(2026-09-17 실측).
+    if "-----BEGIN" in private_key:
+        private_key = Vapid.from_pem(private_key.strip().encode())
 
     resp = requests.get(f"{SITE_URL}/push/list", headers={"Authorization": f"Bearer {token}"}, timeout=30)
     if resp.status_code != 200:
