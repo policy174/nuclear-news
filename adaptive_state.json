@@ -20,6 +20,14 @@
       "type": "company",
       "until": "2026-09-30T15:53:40.129923+00:00"
     },
+    "gda": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-16T22:16:48.732345+00:00",
+      "term": "GDA",
+      "type": "company",
+      "until": "2026-09-30T22:16:48.732345+00:00"
+    },
     "hytep": {
       "new_articles": 3,
       "reason": "기간 만료",
@@ -164,6 +172,14 @@
       "type": "plant",
       "until": "2026-09-26T16:24:05.949631+00:00"
     },
+    "미사일방어사령부": {
+      "new_articles": 2,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-16T22:16:48.732345+00:00",
+      "term": "미사일방어사령부",
+      "type": "org",
+      "until": "2026-09-30T22:16:48.732345+00:00"
+    },
     "산진해경제자유구역청": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -196,6 +212,14 @@
       "type": "project",
       "until": "2026-09-23T22:34:44.510509+00:00"
     },
+    "울진군등": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-16T22:16:50.586418+00:00",
+      "term": "울진군 등",
+      "type": "plant",
+      "until": "2026-09-30T22:16:50.586418+00:00"
+    },
     "이사진은하마오카": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -227,6 +251,14 @@
       "term": "정부가 대미",
       "type": "plant",
       "until": "2026-09-24T21:53:53.664847+00:00"
+    },
+    "주부전력이하마오카": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-16T22:16:50.586418+00:00",
+      "term": "주부전력이 하마오카",
+      "type": "plant",
+      "until": "2026-09-30T22:16:50.586418+00:00"
     },
     "주부전력하마오카": {
       "new_articles": 4,
@@ -310,7 +342,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 9,
     "date": "2026-09-17"
   },
   "terms": {
@@ -365,38 +397,6 @@
       "yields": 1,
       "zero_streak": 0
     },
-    "gda": {
-      "articles": 1,
-      "created_at": "2026-09-15T18:41:33.068191+00:00",
-      "domains": [
-        "world-nuclear-news.org"
-      ],
-      "evidence": [
-        {
-          "domain": "world-nuclear-news.org",
-          "hash": "c3de2b9a5fc71ff5",
-          "importance": "must_read",
-          "title": "영국 규제기관, X-energy Xe-100 SMR 설계 평가 착수"
-        }
-      ],
-      "expires_at": "2026-09-16T18:41:33.068191+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-15T18:41:35.682072+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-15T18:41:33.068191+00:00",
-      "queries_run": 1,
-      "query": "GDA 원자력",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "GDA",
-      "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
     "공군미사일방어사령부": {
       "articles": 3,
       "created_at": "2026-09-15T18:41:33.068191+00:00",
@@ -427,12 +427,12 @@
       ],
       "expires_at": "2026-09-17T18:41:33.068191+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-09-15T18:41:35.682072+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-09-16T22:16:50.586362+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-09-15T18:41:33.068191+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-16T22:16:48.732345+00:00",
+      "queries_run": 2,
       "query": "공군 미사일방어사령부 원전",
       "score": 4.6,
       "status": "extended",
@@ -443,7 +443,7 @@
         "2026-09-16"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "년간의탈": {
       "articles": 2,
@@ -578,100 +578,6 @@
       "yields": 0,
       "zero_streak": 1
     },
-    "미사일방어사령부": {
-      "articles": 3,
-      "created_at": "2026-09-15T18:41:33.068191+00:00",
-      "domains": [
-        "epj.co.kr",
-        "khnp.co.kr",
-        "e-platform.net"
-      ],
-      "evidence": [
-        {
-          "domain": "epj.co.kr",
-          "hash": "5c798ebac721a5db",
-          "importance": "nice_to_know",
-          "title": "한수원, 공군 미사일방어사령부와 원전 방호 협력 MOU 체결"
-        },
-        {
-          "domain": "khnp.co.kr",
-          "hash": "fd39a45211d1ae68",
-          "importance": "nice_to_know",
-          "title": "한수원, 공군 미사일방어사령부와 원전 공중·미사일 위협 방호 MOU 체결"
-        },
-        {
-          "domain": "e-platform.net",
-          "hash": "e83ae6e3ec57b345",
-          "importance": "nice_to_know",
-          "title": "한수원, 공군 미사일방어사령부와 원전 방호력 강화 MOU 체결"
-        }
-      ],
-      "expires_at": "2026-09-16T18:41:35.682072+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-09-15T18:41:35.682072+00:00",
-      "new_articles": 2,
-      "origin": "auto",
-      "planned_at": "2026-09-15T18:41:33.068191+00:00",
-      "queries_run": 1,
-      "query": "미사일방어사령부 원자력",
-      "score": 3.4,
-      "status": "extended",
-      "term": "미사일방어사령부",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [
-        "2026-09-16"
-      ],
-      "yields": 1,
-      "zero_streak": 0
-    },
-    "울진군등": {
-      "articles": 3,
-      "created_at": "2026-09-15T05:38:48.606651+00:00",
-      "domains": [
-        "newsprime.co.kr",
-        "gukjenews.com",
-        "metroseoul.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "newsprime.co.kr",
-          "hash": "905227c1f85c7eda",
-          "importance": "nice_to_know",
-          "title": "울진군 등 원전 지자체 5곳, 건식저장시설 지원방안 선확정 촉구"
-        },
-        {
-          "domain": "gukjenews.com",
-          "hash": "625ada77eda9e2ef",
-          "importance": "nice_to_know",
-          "title": "울진군, 원전 건식저장시설 지원방안 마련 촉구"
-        },
-        {
-          "domain": "metroseoul.co.kr",
-          "hash": "925bcde178d4b0f8",
-          "importance": "nice_to_know",
-          "title": "울진군 등 원전소재 5개 지자체, 사용후핵연료 건식저장시설 '선 지원방안·후 의견수렴' 촉구"
-        }
-      ],
-      "expires_at": "2026-09-17T05:38:48.606651+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-15T22:18:00.483763+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-15T22:17:58.384022+00:00",
-      "queries_run": 2,
-      "query": "울진군 등 원전",
-      "score": 4.6,
-      "status": "tracking",
-      "term": "울진군 등",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "전력연구소": {
       "articles": 12,
       "created_at": "2026-09-16T15:53:40.129923+00:00",
@@ -722,52 +628,6 @@
       ],
       "yields": 1,
       "zero_streak": 0
-    },
-    "주부전력이하마오카": {
-      "articles": 3,
-      "created_at": "2026-09-15T15:38:55.538541+00:00",
-      "domains": [
-        "pointe.co.kr",
-        "world-nuclear-news.org",
-        "ajunews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "pointe.co.kr",
-          "hash": "dcc743bf26c7ddd2",
-          "importance": "nice_to_know",
-          "title": "일본 주부전력, 하마오카 원전 재가동 심사 자료 조작 적발"
-        },
-        {
-          "domain": "world-nuclear-news.org",
-          "hash": "0d79db0143b54d65",
-          "importance": "nice_to_know",
-          "title": "일본 주부전력, 하마오카 3·4호기 재가동 신청 철회"
-        },
-        {
-          "domain": "ajunews.com",
-          "hash": "ed964abc478fa449",
-          "importance": "must_read",
-          "title": "일본 주부전력, 하마오카 원전 지진 데이터 조작으로 사장·회장 동반 사퇴"
-        }
-      ],
-      "expires_at": "2026-09-18T15:38:55.538541+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-15T22:47:29.771833+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-15T22:47:27.337872+00:00",
-      "queries_run": 2,
-      "query": "주부전력이 하마오카 원전",
-      "score": 7.0,
-      "status": "tracking",
-      "term": "주부전력이 하마오카",
-      "ttl_hours": 72,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     },
     "한국기계연구원": {
       "articles": 6,
