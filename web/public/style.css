@@ -3663,6 +3663,61 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 .today-search:hover { border-color: var(--c-edge); }
 .today-date { margin: var(--sp-3) 0 0; font-size: var(--t-caption); color: var(--c-text-muted); }
 
+.today-lede { margin: var(--sp-2) 0 0; font-size: var(--t-body); color: var(--c-text-secondary); }
+
+/* ── 오늘 먼저 볼 3건 ──────────────────────────────────────────────────
+   이 화면에서 유일하게 크게 쓰는 요소. 목차 행과 같은 괘선 위계를 쓰되
+   번호를 키우고 '왜 중요한가' 한 줄을 붙인다. 카드마다 그림자를 얹지
+   않는다(팔레트 규칙 3) — 위계는 번호 크기와 여백이 든다. */
+.pick3 { list-style: none; margin: var(--sp-4) 0 0; padding: 0; display: grid; gap: var(--sp-3); }
+.pick-card {
+  background: var(--c-surface); border: var(--bd-1) solid var(--c-border);
+  border-radius: var(--r-3);
+}
+/* 1번은 테두리를 잉크로 — 셋 중에서도 먼저 볼 것이 하나는 있어야 한다 */
+.pick-card:first-child { border-color: var(--c-edge); border-width: 2px; }
+.pick-link {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-3);
+  color: inherit; text-decoration: none; border-radius: var(--r-3);
+}
+.pick-link:hover .pick-title { color: var(--c-secondary); }
+.pick-link:focus-visible { outline: none; box-shadow: var(--fo-ring); }
+.pick-rank {
+  font-size: 38px; font-weight: 800; line-height: .92; letter-spacing: -.04em;
+  color: var(--c-primary); text-align: center;
+}
+/* 번호 아래 짧은 띠 — 셋을 한 덩어리로 묶는 유일한 장식 */
+.pick-rank::after {
+  content: ""; display: block; width: 22px; height: 4px; border-radius: var(--r-4);
+  background: var(--c-secondary); margin: var(--sp-2) auto 0;
+}
+.pick-body { display: block; min-width: 0; }
+.pick-meta {
+  display: block; margin-bottom: 6px;
+  font-size: 12.5px; font-weight: 600; letter-spacing: 1px; color: var(--c-text-muted);
+}
+.pick-title {
+  display: block; font-size: clamp(17px, 1.9vw, 19px); font-weight: 700;
+  line-height: 1.34; word-break: keep-all;
+}
+/* 고른 이유 한 줄. 요약이 아니다 — 길면 두 줄에서 자른다. */
+.pick-why {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-top: var(--sp-2); font-size: var(--t-body); line-height: 1.5;
+  color: var(--c-text-secondary); word-break: keep-all;
+}
+.pick-foot { display: block; margin-top: var(--sp-2); }
+.pick-foot:empty { display: none; }
+@media (max-width: 520px) {
+  .pick3 { gap: var(--sp-2); margin-top: var(--sp-3); }
+  .pick-link { grid-template-columns: 34px minmax(0, 1fr); column-gap: var(--sp-2);
+    padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-2); }
+  .pick-rank { font-size: 30px; }
+  .pick-title { font-size: 16.5px; }
+  .pick-why { font-size: 14px; }
+}
+
 .toc {
   display: block; background: var(--c-surface);
   border: var(--bd-1) solid var(--c-border); border-radius: var(--r-2);
@@ -3742,13 +3797,19 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
   color: var(--c-text-secondary); max-width: var(--measure);
   word-break: keep-all;
 }
+.brief-panel-title { font-size: var(--t-body); color: var(--c-text-secondary);
+  margin: var(--sp-4) 0 0; font-weight: 600; }
+.brief-panel-title[hidden] { display: none; }
+
 .cont { margin-top: var(--sp-8); }
-.cont h2 { font-size: var(--t-body); color: var(--c-text-secondary); margin: 0 0 var(--sp-3); }
+.cont-sub { margin: 0 0 var(--sp-3); font-size: var(--t-caption); color: var(--c-text-muted); }
+.cont h2 { font-size: var(--t-body); color: var(--c-text-secondary); margin: 0 0 var(--sp-1); }
 .cont-row { display: block; padding: var(--sp-3) 0; border-top: var(--bd-1) solid var(--c-border); text-decoration: none; color: inherit; }
 .cont-row:hover .cont-title { color: var(--c-secondary); }
 .cont-row:focus-visible { outline: none; box-shadow: var(--fo-ring); }
 .cont-title { display: block; font-size: var(--t-body); font-weight: 600; word-break: keep-all; }
-.cont-change { display: block; margin-top: var(--sp-1); font-size: var(--t-caption); color: var(--c-text-secondary); }
+.cont-change { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-top: var(--sp-1); font-size: var(--t-caption); color: var(--c-text-secondary); }
 
 .today-status { margin: var(--sp-8) 0 var(--sp-6); font-size: var(--t-caption); color: var(--c-text-muted); }
 

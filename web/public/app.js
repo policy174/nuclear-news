@@ -1292,6 +1292,14 @@ function emptyBriefingState(briefing) {
 function renderEmptyBriefing(briefing, issueList) {
   const view = emptyBriefingState(briefing);
   document.getElementById("continuingSection").hidden = true;
+  // 0건인 날에는 고를 것이 없다 — 카드도 머리도 걷는다.
+  const pickList = document.getElementById("pickList");
+  if (pickList) { pickList.innerHTML = ""; pickList.hidden = true; }
+  document.getElementById("todayTitle").textContent = "오늘의 원전 현안";
+  document.getElementById("todayLede").textContent = "";
+  const panelTitle = document.getElementById("briefPanelTitle");
+  if (panelTitle) panelTitle.hidden = true;
+  document.getElementById("briefPanel").hidden = false;
   const agenda = document.getElementById("todayAgenda");
   if (agenda) agenda.hidden = true;
   const strip = document.getElementById("cardStrip");
@@ -1754,6 +1762,8 @@ function placeTodayAgenda() {
 // 나머지는 꼬리의 '펼치기'가 제자리에서 연다(옛 '전체 브리핑' 링크는 같은 화면을
 // 다시 그릴 뿐이라 아무 일도 안 일어났다).
 const TOC_LIMIT = 4;
+// 오늘 먼저 볼 건수. 3은 "고른 것"으로 읽히는 최대치다 — 넷부터는 목록이 된다.
+const PICK_LIMIT = 3;
 const CONTINUING_LIMIT = 3;
 
 // 행 전체가 진짜 <a href> 다. 새 탭·키보드 이동·뒤로가기 스크롤 복원이 전부
@@ -1792,6 +1802,25 @@ function tocRow(issue, index = 0) {
   <span class="toc-arrow" aria-hidden="true">→</span>
 </div>`;
 }
+// 먼저 볼 3건. 목차 행(tocRow)과 같은 데이터인데 번호를 크게 쓰고 '왜 중요한가'
+// 한 줄을 더한다 — 요약이 아니라 고른 이유다. 분류는 여기선 누를 수 없는 글자다:
+// 링크 안에 버튼을 넣을 수 없고, 필터는 아래 목차 행이 이미 들고 있다.
+function pickCard(issue, index) {
+  const meta = [issue.region || "", issue.khnp_domain || ""].filter(Boolean).join(" · ");
+  const why = (issue.why_important || "").trim();
+  return `<li class="pick-card">
+  <a class="pick-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+    <span class="pick-rank" aria-hidden="true">${index + 1}</span>
+    <span class="pick-body">
+      ${meta ? `<span class="pick-meta">${esc(meta)}</span>` : ""}
+      <span class="pick-title">${esc(issue.title)}</span>
+      ${why ? `<span class="pick-why">${esc(why)}</span>` : ""}
+      <span class="pick-foot">${verificationBadge(issue, { always: true })}</span>
+    </span>
+  </a>
+</li>`;
+}
+
 function continuingRow(issue) {
   // 변화 문장은 'A → B' 꼴이다. 목차에 이미 제목이 있으니 바뀐 쪽만 보인다.
   const change = String(issue.latest_change || "").split("→").pop().trim();
@@ -1826,10 +1855,20 @@ function renderBriefing() {
   if (homeDomainFilter && !ordered.some(issue => issue.khnp_domain === homeDomainFilter)) {
     homeDomainFilter = "";   // 날짜를 옮겨 그 분류가 없으면 필터는 조용히 풀린다
   }
+  // 분류 필터가 걸리면 '고른 3건'이라는 말이 성립하지 않는다 — 그때는 카드를
+  // 걷고 필터에 걸린 이슈 전부를 목차로만 보인다.
+  const picks = homeDomainFilter ? [] : ordered.slice(0, PICK_LIMIT);
+  const pickList = document.getElementById("pickList");
+  pickList.innerHTML = picks.map(pickCard).join("");
+  pickList.hidden = picks.length === 0;
+
   const top = homeDomainFilter
     ? ordered.filter(issue => issue.khnp_domain === homeDomainFilter)
-    : ordered.slice(0, TOC_LIMIT);
-  tocList.innerHTML = top.map((issue, index) => tocRow(issue, index)).join("");
+    : ordered.slice(PICK_LIMIT, PICK_LIMIT + TOC_LIMIT);
+  const rowOffset = homeDomainFilter ? 0 : PICK_LIMIT;
+  tocList.innerHTML = top.map((issue, index) => tocRow(issue, rowOffset + index)).join("");
+  document.getElementById("briefPanelTitle").hidden = homeDomainFilter !== "";
+  document.getElementById("briefPanel").hidden = top.length === 0;
   // 패널 꼬리 한 줄: 날짜·호수·건수. 머리는 없다(폰 첫 화면 확보).
   const foot = document.getElementById("briefPanelDate");
   const more = document.getElementById("briefPanelAll");
@@ -1849,13 +1888,14 @@ function renderBriefing() {
       syncUrl("push");
     };
   } else {
-    foot.textContent = `${dateLabel} · ${top.length}건`;
-    const rest = ordered.slice(TOC_LIMIT);
+    const shownCount = picks.length + top.length;
+    foot.textContent = `${dateLabel} · ${shownCount}건`;
+    const rest = ordered.slice(PICK_LIMIT + TOC_LIMIT);
     more.hidden = rest.length === 0;
     more.textContent = `나머지 ${rest.length}건 펼치기 →`;
     more.onclick = () => {
       tocList.insertAdjacentHTML("beforeend",
-        rest.map((issue, index) => tocRow(issue, TOC_LIMIT + index)).join(""));
+        rest.map((issue, index) => tocRow(issue, PICK_LIMIT + TOC_LIMIT + index)).join(""));
       more.hidden = true;
       foot.textContent = `${dateLabel} · ${ordered.length}건`;
     };
@@ -1867,12 +1907,20 @@ function renderBriefing() {
 
   // 이어지는 현안은 목차와 겹치지 않을 때만 선다 — 같은 이슈가 한 화면에 두 번
   // 서면 9줄이라는 약속이 깨진다.
-  const shown = new Set(top.map(issue => issue.issue_id));
+  const shown = new Set([...picks, ...top].map(issue => issue.issue_id));
   const continuing = weeklyChangedIssues(briefing)
     .filter(issue => !shown.has(issue.issue_id))
     .slice(0, CONTINUING_LIMIT);
   document.getElementById("continuingSection").hidden = continuing.length === 0;
   document.getElementById("continuingList").innerHTML = continuing.map(continuingRow).join("");
+
+  document.getElementById("todayTitle").textContent =
+    picks.length ? `오늘 먼저 볼 ${picks.length}건` : "오늘의 원전 현안";
+  const changedCount = continuing.length;
+  document.getElementById("todayLede").textContent = picks.length
+    ? `이슈 ${briefing.issues.length}건 중 골랐습니다.`
+      + (changedCount ? ` 진행 중 이슈 ${changedCount}건에 변화가 있습니다.` : "")
+    : "";
 
   const articles = briefing.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
   document.getElementById("statusLine").textContent =

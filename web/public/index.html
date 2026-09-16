@@ -120,6 +120,9 @@
       </div>
       <p class="push-hint" id="pushHint" hidden></p>
       <p class="today-date" id="briefingDateLabel"></p>
+      <!-- 한 줄 안내 — 몇 건 중 몇 건을 골랐고, 진행 중 이슈에 변화가 몇 건인지.
+           숫자를 먼저 말해야 아래 3건이 '고른 것'으로 읽힌다. -->
+      <p class="today-lede" id="todayLede"></p>
     </header>
 
     <div id="bootSkeleton" class="issue-list" role="status" aria-label="브리핑을 불러오고 있습니다">
@@ -127,13 +130,19 @@
       <article class="issue-card skeleton-card" aria-hidden="true"><i></i><i></i><i></i><i></i></article>
     </div>
 
+    <!-- 오늘 먼저 볼 3건 — 이 화면에서 유일하게 크게 쓰는 요소.
+         번호·분류·제목·'왜 중요한가' 한 줄·근거. 요약은 여기에도 안 쓴다
+         (지니 09-15) — 왜 골랐는지만 한 줄이다. 나머지는 아래 목차로 간다. -->
+    <ol class="pick3" id="pickList" aria-label="오늘 먼저 볼 3건"></ol>
+
     <!-- 브리핑 패널 — 짙은 면 하나에 오늘의 목차를 세운다.
          Codex 목업(work/home-brief-comparison.html, B안)의 구조를 따르되 면색은
          브랜드 네이비(--c-primary). 번호·지역·대분류·제목·왜 중요한가·화살표. -->
-    <section class="brief-panel" aria-label="오늘의 현안 목차">
+    <section id="briefPanel" class="brief-panel" aria-label="오늘의 현안 목차">
       <!-- 패널 머리(킥커·제목·날짜·건수)는 없다 — 폰에서 첫 화면에 행이 1개만
            보였다(2026-09-15 실측 375px). 날짜는 위 date-nav 가 이미 들고 있고,
            건수는 꼬리 한 줄이면 충분하다. 패널은 01번 행으로 바로 시작한다. -->
+      <h2 class="brief-panel-title" id="briefPanelTitle">그 밖의 이슈</h2>
       <nav id="tocList" class="toc" aria-label="오늘의 현안 목차"></nav>
       <div class="brief-foot"><span id="briefPanelDate"></span><span class="brief-foot-actions"><a id="briefPanelArchive" class="brief-more" href="#" hidden>지난 기사까지 →</a><button type="button" id="briefPanelAll" class="brief-more" hidden>나머지 펼치기 →</button></span></div>
     </section>
@@ -174,7 +183,8 @@
     </section>
 
     <section id="continuingSection" class="cont" aria-labelledby="continuingTitle" hidden>
-      <h2 id="continuingTitle">이어지는 현안</h2>
+      <h2 id="continuingTitle">진행 중 이슈의 변화</h2>
+      <p class="cont-sub">지난 브리핑 이후 새로 확인된 것만 적었습니다.</p>
       <div id="continuingList"></div>
     </section>
 
