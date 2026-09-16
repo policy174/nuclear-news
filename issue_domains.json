@@ -25,15 +25,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-ebf0f3941e2ed499": {
-      "digest": "f0bd491d01139073",
       "domain": "해외사업",
       "tags": [
         "원전수출"
       ],
       "title": "원자력안전재단-美 IEEE, 원전기기 성능검증 상호인증 체결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
     },
     "issue-18d7399f8aad9119": {
       "digest": "6d3572c3b60b9129",
@@ -124,15 +123,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-fd47081578facf4b": {
-      "digest": "c044347c8e06ffa3",
-      "domain": "해외사업",
+      "domain": "정책",
       "tags": [
-        "원전수출"
+        "국제협력외교"
       ],
-      "title": "이재명 대통령, ADB와 중앙아시아 원전·광물 진출 협력 모색",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "이재명 대통령, ADB 총재 면담서 중앙아시아 원전 및 핵심광물 협력 논의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
     },
     "issue-971313da21360267": {
       "digest": "a9a56f710093dd5b",
@@ -597,15 +595,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-1a08c05d0557d415": {
-      "digest": "88095b7276a671ce",
       "domain": "규제",
       "tags": [
         "원안위"
       ],
-      "title": "원자력안전위원회, 제2026-14회 회의 개최해 2건 안건 심의·의결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "원안위, 생활방사선법 하위규정 개정안 등 2건 의결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
     },
     "issue-e356787a673aa06d": {
       "digest": "74d6435ee0d1090c",
@@ -1077,6 +1074,176 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-09-15T22:34:39.341406+00:00"
+    },
+    "issue-59fdec838a3146f8": {
+      "domain": "해외사업",
+      "tags": [
+        "합작지분투자"
+      ],
+      "title": "한·미, 미국 내 대형원전 건설 추진 및 웨스팅하우스 지분 투자 협상 임박",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-3d9498ab3d9e3128": {
+      "domain": "규제",
+      "tags": [
+        "해외규제"
+      ],
+      "title": "일본 주부전력, 하마오카 원전 지진 데이터 조작으로 사장·회장 동반 사퇴",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-3a624ee1bb37526a": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한·카자흐스탄 정상회담, 원유·원전 협력 및 포괄적 동반자 격상",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-c3de2b9a5fc71ff5": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "영국 규제기관, X-energy Xe-100 SMR 설계 평가 착수",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-d5a3db934889e8bd": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "미 국방부, 우주용 원자로 개발·우주선 통합에 1.61억 달러 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-97d7ccf69b1d259d": {
+      "domain": "수용성",
+      "tags": [
+        "지역지원"
+      ],
+      "title": "정부, 송전망 건설 수용성 제고 위해 철탑 절반 감축 및 지중화 확대",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-88bd5673cf01350f": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "IAEA \"원전 설비 3.4배로 늘린다\"…북미가 택한 소형 원자로, 한국엔 기회",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-e2b8e78419ac0be3": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "이유진 靑 기후비서관, 원전·재생에너지 통합 에너지 인프라 패키지 수출 전략 강조",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-905227c1f85c7eda": {
+      "domain": "사후처리",
+      "tags": [
+        "사용후핵연료"
+      ],
+      "title": "울진군 등 원전 지자체 5곳, 건식저장시설 지원방안 선확정 촉구",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-5b02cf81a9451362": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "정부, 15년간 운영된 RPS 제도 계약시장제도로 전환하는 법률 공포",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-82d6b22684551922": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "한수원, 지진·산불·드론 위협 복합재난 대응훈련 실시",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-679353c9aae88737": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "중국, SMR 기술 발전 지원 위한 글로벌 혁신 네트워크 출범",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-023eaaeb5c3ba7ad": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "경남도, SMR 육성전략 발표…투자계획의 61%를 시장창출 분야에 배정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-3859b6017f125ca1": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "효성중공업, 미국 빅테크 기업에 3865억 원 규모 초고압변압기 공급 계약 수주",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-911eed395c44140c": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "유럽투자은행(EIB), 핀란드 SMR 기업 Steady Energy에 첫 투자 결정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-e072d7348bcf2d36": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "중국 핵공업집단(CNNC)과 IAEA, 고온가스로(HTGR) 핵기술 국제 협력 협정 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
+    },
+    "issue-e83fff73156ff7f4": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "러시아 로사톰, 카자흐스탄과 2400MW 발하슈 원전 EPC 본계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-16T01:42:59.745373+00:00"
     }
   }
 }
