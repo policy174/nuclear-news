@@ -70,15 +70,35 @@ function loadTheme() {
   }
 }
 
-// Wanted Sans 는 woff2 를 임베딩하고, 그 밖의 family(Noto Sans KR)는 Google Fonts 에서
-// 받는다 — "아저씨 글씨체"(지니 09-17) 판정으로 09-15 이전 서체로 되돌렸다. 폰트가
-// 실제로 로드됐는지는 아래 render guard 가 잰다.
+// 저장소에 박제된 폰트 — family → woff2. 외부 CDN 의존 0(지니 09-17: "미리 받아서
+// 박제"). Pretendard 는 사이트가 web/public/fonts 에 이미 든 원본을 그대로 쓴다
+// (서브셋본은 KS X 1001 2350자라 기사 속 드문 음절이 빠질 수 있다).
+// 여기 없는 family 만 Google Fonts 링크로 받고, 로드 여부는 render guard 가 잰다.
+const EMBEDDED_FONTS = {
+  "Wanted Sans Variable": path.resolve(__dirname, "fonts/WantedSansVariable.woff2"),
+  "Pretendard Variable": path.resolve(__dirname, "../web/public/fonts/pretendard/v1.3.9/PretendardVariable.woff2"),
+};
+
+function fontFaces(theme) {
+  const out = [];
+  const seen = new Set();
+  for (const role of ["heading", "body", "mono"]) {
+    const f = theme.fonts[role];
+    const file = f && EMBEDDED_FONTS[f.family];
+    if (!file || seen.has(f.family) || !fs.existsSync(file)) continue;
+    seen.add(f.family);
+    const b64 = fs.readFileSync(file).toString("base64");
+    out.push(`@font-face { font-family: "${f.family}"; src: url("data:font/woff2;base64,${b64}") format("woff2"); font-style: normal; font-weight: ${f.weights || "400 900"}; }`);
+  }
+  return out.join("");
+}
+
 function fontLinks(theme) {
   const links = [];
   const seen = new Set();
   for (const role of ["heading", "body", "mono"]) {
     const f = theme.fonts[role];
-    if (!f || !f.family || f.family === "Wanted Sans Variable") continue;
+    if (!f || !f.family || EMBEDDED_FONTS[f.family]) continue;
     const key = `${f.family}:${f.weights}`;
     if (seen.has(key)) continue;
     seen.add(key);
@@ -115,22 +135,12 @@ function shell(inner, theme, dark) {
   const inkDim = dark ? c.inkOnDarkDim : c.inkDim;
   const inkMute = dark ? "rgba(238,241,244,0.45)" : c.inkMute;
   const accent = dark ? c.accentBright : c.accent;
-  const fontPath = path.resolve(process.cwd(), "fonts/WantedSansVariable.woff2");
-  const wantedFont = fs.existsSync(fontPath)
-    ? fs.readFileSync(fontPath).toString("base64")
-    : "";
-
   return `<!doctype html><html><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${fontLinks(theme)}
 <style>
-  @font-face {
-    font-family: "Wanted Sans Variable";
-    src: url("data:font/woff2;base64,${wantedFont}") format("woff2");
-    font-style: normal;
-    font-weight: 400 1000;
-  }
+  ${fontFaces(theme)}
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: ${theme.canvas.width}px; height: ${theme.canvas.height}px; }
   body {
@@ -169,11 +179,12 @@ ${fontLinks(theme)}
   /* 꼭지 머리 — 악센트로 꽉 찬 번호 뱃지 + 태그. 카드뉴스의 '몇 번째 무슨 얘기'
      신호를 글자 색이 아니라 덩어리로 준다. */
   .idxrow { display: flex; align-items: center; gap: 28px; }
-  .badge { width: 96px; height: 96px; border-radius: 20px; background: ${accent};
+  .badge { width: 104px; height: 104px; border-radius: 22px; background: ${accent};
     color: #fff; font-family: ${theme.fonts.heading.css}; font-weight: 900;
-    font-size: 46px; display: flex; align-items: center; justify-content: center;
+    font-size: 50px; display: flex; align-items: center; justify-content: center;
     letter-spacing: -1px; }
-  .tag { font-size: 32px; font-weight: 700; color: ${accent}; letter-spacing: 1px; }
+  /* 분류는 제목 다음으로 큰 글자 — "타이틀/분류 더 크게"(지니 09-17) */
+  .tag { font-size: 42px; font-weight: 700; color: ${accent}; letter-spacing: 0; }
 
   .headline { margin-top: 22px; font-family: ${theme.fonts.heading.css};
     font-weight: ${h.weight}; font-size: ${h.size}px; line-height: ${h.lineHeight};
@@ -219,15 +230,15 @@ ${fontLinks(theme)}
   /* 의미 패널 — 악센트 단색 위에 밝은 잉크. Codex 원안은 전 카드 다크 전제라
      패널 안 글자를 ink 로 두었는데, 본문을 밝은 판으로 돌리면 라벨이
      악센트-위-악센트로 사라지고 글자는 네이비-위-블루가 된다(실측). */
+  /* 진한 파랑 면 위 흰 글자는 "눈에 안 들어온다"(지니 09-17) — 연한 틴트 + 네이비 글자 */
   .why { margin-top: 24px; padding: 20px 24px 22px;
-    background: ${dark ? "rgba(255,255,255,.045)" : accent};
-    border-top: 4px solid ${dark ? accent : "rgba(255,255,255,.35)"};
-    color: ${dark ? ink : c.inkOnDark}; }
-  .why .lbl { font-size: 18px; font-weight: 750; letter-spacing: 2px;
-    color: ${dark ? accent : "rgba(238,241,244,.78)"}; margin-bottom: 12px; }
+    background: ${dark ? "rgba(255,255,255,.045)" : "rgba(31,95,168,.09)"};
+    border-top: 4px solid ${accent}; color: ${ink}; }
+  .why .lbl { font-size: 19px; font-weight: 750; letter-spacing: 2px;
+    color: ${accent}; margin-bottom: 12px; }
   .why .points { margin-top: 0; gap: 10px; }
-  .why .points li { font-size: 25px; line-height: 1.34; color: ${dark ? ink : c.inkOnDark}; }
-  .why .points li::before { background: ${dark ? accent : "rgba(238,241,244,.85)"}; }
+  .why .points li { font-size: 26px; line-height: 1.34; color: ${ink}; font-weight: 500; }
+  .why .points li::before { background: ${accent}; }
 
   .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
   .chip { padding: 8px 16px; border-radius: 0; font-size: 19px;
@@ -243,15 +254,16 @@ ${fontLinks(theme)}
     letter-spacing: 7px; color: ${inkMute}; }
   /* 커버 목차 — 커버 가운데가 통째로 비는 걸 오늘 다룰 꼭지 목록으로 메운다.
      장식이 아니라 '이 앨범에 뭐가 들었나'다. */
-  .toc { display: flex; flex-direction: column; gap: 24px; }
+  /* 표지 목차가 주인공 — 한 줄 판단 헤드라인은 뺐다(목차와 중복, 지니 09-17). 두 줄 허용. */
+  .toc { display: flex; flex-direction: column; gap: 30px; }
   .toc .row { display: flex; gap: 24px; align-items: baseline; }
   .toc .n { font-family: ${theme.fonts.heading.css}; font-weight: 900;
-    font-size: 30px; color: ${accent}; letter-spacing: 1px; flex: none; }
-  .toc .t { font-size: 36px; font-weight: 500; color: ${inkDim};
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    font-size: 34px; color: ${accent}; letter-spacing: 1px; flex: none; }
+  .toc .t { font-size: 50px; font-weight: 600; line-height: 1.28; color: ${ink};
+    word-break: keep-all; overflow-wrap: break-word; }
   .cover .bar { width: 190px; height: 14px; background: ${accent};
-    border-radius: 7px; margin-bottom: 44px; }
-  .cover .subline { margin-top: 34px; font-size: 34px; }
+    border-radius: 7px; margin-bottom: 28px; }
+  .cover .subline { margin-top: 0; font-size: 34px; }
 
   /* 마지막장 — 가운데 정렬 + 알약 */
   .end .body { align-items: center; justify-content: center; text-align: center; }
@@ -289,7 +301,6 @@ function renderSlide(s, theme) {
           }
           <div>
             <div class="bar"></div>
-            <h1 class="headline">${accentize(s.headline, "em")}</h1>
             <p class="subline">${esc(s.subline || "")}</p>
           </div>
         </div>
