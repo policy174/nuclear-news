@@ -3069,6 +3069,38 @@ class SelectionOverrideTests(unittest.TestCase):
         build_data.order_issue_rows(rows, {"old"})
         self.assertEqual(rows[0]["title"], "중대 후속")
 
+    def test_cooldown_does_not_rank_must_read_against_must_read(self):
+        """must_read 끼리는 쿨다운이 순위를 가르지 않는다.
+
+        2026-09-16 회귀: "한·미, 미국 내 대형원전 건설 추진 및 웨스팅하우스 지분
+        투자 협상 임박"(그날 최고점 30.2, 기사 10건)이 09-13 에 1번이었다는
+        이유만으로 해외 must_read 5건 중 꼴찌 → 전체 9위로 밀렸다. 협상이
+        '임박'으로 움직였고 기사가 5→10건으로 늘어난 날이었다.
+        """
+        rows = [
+            {"issue_id": "was-top", "region": "해외", "importance": "must_read",
+             "sort_score": 30.2, "last_seen": "2026-09-16", "editor_pin": 0,
+             "article_count": 10, "title": "어제 1번이었고 오늘 더 커진 사건"},
+            {"issue_id": "fresh", "region": "해외", "importance": "must_read",
+             "sort_score": 26.2, "last_seen": "2026-09-16", "editor_pin": 0,
+             "article_count": 1, "title": "오늘 처음 나온 must_read"},
+        ]
+        build_data.order_issue_rows(rows, {"was-top"})
+        self.assertEqual(rows[0]["title"], "어제 1번이었고 오늘 더 커진 사건")
+
+    def test_cooldown_still_demotes_ungraded_repeats(self):
+        """등급이 없는 반복은 그대로 눌린다 — 그게 쿨다운의 원래 표적이다."""
+        rows = [
+            {"issue_id": "stuck", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 99.0, "last_seen": "2026-08-15", "editor_pin": 0,
+             "article_count": 2, "title": "며칠째 눌러앉은 이슈"},
+            {"issue_id": "new", "region": "국내", "importance": "nice_to_know",
+             "sort_score": 10.0, "last_seen": "2026-08-15", "editor_pin": 0,
+             "article_count": 2, "title": "오늘 새 이슈"},
+        ]
+        build_data.order_issue_rows(rows, {"stuck"})
+        self.assertEqual(rows[0]["title"], "오늘 새 이슈")
+
     def test_cooldown_absent_keeps_old_behaviour(self):
         """쿨다운 인자를 안 주면 기존과 완전히 같아야 한다."""
         def make():
