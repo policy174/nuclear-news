@@ -2141,6 +2141,8 @@ a.cover-face:hover { transform: translate(-2px, -2px); box-shadow: var(--sh-2); 
 @keyframes view-in { from { opacity: 0; transform: translateY(6px); } }
 dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 @keyframes dialog-in { from { opacity: 0; transform: translateY(4px); } }
+/* 폰의 이슈 상세(바텀 시트) 전용 — 아래에서 끝까지 올라온다 */
+@keyframes sheet-up { from { transform: translateY(100%); } }
 
 /* ── 팔로우 패널(저장 탭) + 엔티티 팔로우 버튼 ── */
 .follow-panel { margin-bottom: var(--sp-10); }
@@ -3597,8 +3599,24 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   }
   .foot-grid { grid-template-columns: 1fr; gap: 16px; }
   .foot-bottom { display: grid; }
-  .issue-dialog { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); }
-  .issue-dialog-shell { padding: 20px; }
+  /* 폰에서 이슈 상세는 가운데 뜬 카드가 아니라 **아래에서 올라오는 시트**다
+     (지니 09-17 "누르면 나오는 방식도 달라"). 목록을 누른 손가락이 화면 아래에
+     있으니 내용도 거기서 열리고, 닫는 동작은 아래로 쓸어내리는 것과 같은 방향이
+     된다. 넓은 화면은 기존 가운데 모달 그대로 — 거기선 시트가 의미가 없다. */
+  .issue-dialog {
+    width: 100%; max-width: none;
+    margin: auto auto 0;
+    max-height: 88vh; max-height: 88dvh;
+    border-radius: var(--r-3) var(--r-3) 0 0;
+    border-bottom: 0;
+    animation: sheet-up var(--mo-2) var(--mo-ease-out);
+  }
+  /* 손잡이 — 이 면이 아래에서 올라왔고 아래로 내려간다는 유일한 표식 */
+  .issue-dialog-shell::before {
+    content: ""; display: block; width: 40px; height: 4px; margin: 0 auto var(--sp-3);
+    border-radius: var(--r-4); background: var(--c-border-strong);
+  }
+  .issue-dialog-shell { padding: 12px 20px calc(20px + env(safe-area-inset-bottom)); }
   .issue-dialog h2 { font-size: var(--t-card); }
   .timeline li { grid-template-columns: 86px minmax(0, 1fr); gap: 10px; }
   /* 검색 모달은 화면 한가운데 뜬다(실측 y=304). 키보드가 올라오면 입력창과 힌트가
@@ -3709,6 +3727,9 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 }
 .pick-foot { display: block; margin-top: var(--sp-2); }
 .pick-foot:empty { display: none; }
+/* 폰에서는 카드에 제목과 이유만 남긴다 — 건수 안내 줄과 근거 배지는 지면을
+   먹는 만큼 말하지 않는다(지니 09-17 "컴팩트하게"). 둘 다 넓은 화면에는 남고,
+   근거는 상세 화면이 여전히 들고 있다. */
 @media (max-width: 520px) {
   .pick3 { gap: var(--sp-2); margin-top: var(--sp-3); }
   .pick-link { grid-template-columns: 34px minmax(0, 1fr); column-gap: var(--sp-2);
@@ -3716,6 +3737,8 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   .pick-rank { font-size: 30px; }
   .pick-title { font-size: 16.5px; }
   .pick-why { font-size: 14px; }
+  .pick-foot { display: none; }
+  .today-lede { display: none; }
 }
 
 .toc {

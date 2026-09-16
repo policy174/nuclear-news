@@ -1573,6 +1573,11 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // 카드뉴스 띠 — /cards/index.json 의 최신 날짜 PNG 를 가로로 넘겨 본다. 보고 있는
 // 브리핑 날짜의 카드가 있으면 그것, 없으면 최신 것을 날짜 표시와 함께.
 let cardIndexPromise = null;
+function cardIndex() {
+  cardIndexPromise = cardIndexPromise
+    || fetch(`/cards/index.json?cb=${Date.now()}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
+  return cardIndexPromise;
+}
 // ── 웹 푸시 ───────────────────────────────────────────────────────────
 // 아침 브리핑 뒤 push_notify.py 가 /push/list 의 구독자에게 한 번 보낸다.
 // 공개키는 비밀이 아니다(구독을 이 서버로 묶는 식별자). 개인키는 GitHub Secrets.
@@ -1651,9 +1656,7 @@ async function initPush() {
 function renderCardStrip(date) {
   const section = document.getElementById("cardStrip");
   if (!section) return;
-  cardIndexPromise = cardIndexPromise
-    || fetch(`/cards/index.json?cb=${Date.now()}`).then(r => (r.ok ? r.json() : null)).catch(() => null);
-  cardIndexPromise.then(index => {
+  cardIndex().then(index => {
     const dates = (index && index.dates) || {};
     const pick = dates[date] ? date : (index && index.latest) || "";
     const files = (dates[pick] || []).filter(Boolean);
@@ -1807,7 +1810,11 @@ function tocRow(issue, index = 0) {
 // 링크 안에 버튼을 넣을 수 없고, 필터는 아래 목차 행이 이미 들고 있다.
 function pickCard(issue, index) {
   const meta = [issue.region || "", issue.khnp_domain || ""].filter(Boolean).join(" · ");
-  const why = (issue.why_important || "").trim();
+  // why_important 는 빈 날이 많다 — 빌드(split_interpretation)가 시사점과 겹치면
+  // 한쪽을 비우기 때문이다(09-16 라이브 상위 3건 중 2건 공백). 카드의 이 줄에는
+  // 라벨이 없으니 '시사점'으로 메워도 거짓말이 되지 않는다. 요약은 안 쓴다 —
+  // 요약 줄 금지는 그대로다(지니 09-15).
+  const why = (issue.why_important || issue.implication || "").trim();
   return `<li class="pick-card">
   <a class="pick-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">
     <span class="pick-rank" aria-hidden="true">${index + 1}</span>
@@ -1819,6 +1826,28 @@ function pickCard(issue, index) {
     </span>
   </a>
 </li>`;
+}
+
+function applyCardLines(pickList, picks, date) {
+  cardIndex().then(index => {
+    const lines = (index && index.lines && index.lines[date]) || null;
+    if (!lines) return;
+    picks.forEach((issue, i) => {
+      const line = String(lines[issue.issue_id] || "").trim();
+      if (!line) return;
+      const card = pickList.children[i];
+      const slot = card && card.querySelector(".pick-why");
+      if (slot) { slot.textContent = line; return; }
+      // 사이트 문장이 비어 카드에 줄 자체가 없던 이슈 — 여기서 처음 생긴다
+      const body = card && card.querySelector(".pick-body");
+      const foot = body && body.querySelector(".pick-foot");
+      if (!body) return;
+      const span = document.createElement("span");
+      span.className = "pick-why";
+      span.textContent = line;
+      body.insertBefore(span, foot);
+    });
+  });
 }
 
 function continuingRow(issue) {
@@ -1861,6 +1890,12 @@ function renderBriefing() {
   const pickList = document.getElementById("pickList");
   pickList.innerHTML = picks.map(pickCard).join("");
   pickList.hidden = picks.length === 0;
+  // 카드뉴스 카피의 '왜' 한 줄(≤40자)로 갈아 끼운다 — 사이트의 why_important 는
+  // 36~143자 서술형이라 카드에 쓰기엔 길다. index.json 이 아직 안 왔으면 위에서
+  // 그린 사이트 문장이 그대로 남는다.
+  // ponytail: 늦게 도착하면 글자가 한 번 바뀐다. 첫 방문에만, 줄이 다를 때만.
+  // 거슬리면 briefings.json 빌드에 이 줄을 실어 동기 렌더로 옮길 것.
+  if (picks.length) applyCardLines(pickList, picks, briefing.date);
 
   const top = homeDomainFilter
     ? ordered.filter(issue => issue.khnp_domain === homeDomainFilter)

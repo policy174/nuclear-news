@@ -44,7 +44,15 @@ def publish(album: dict, site_dir: Path, album_root: Path, today: date_type | No
     dates = {d.name: sorted(p.name for p in d.glob("*.png"))
              for d in site_dir.iterdir() if d.is_dir() and len(d.name) == 10}
     dates = {k: v for k, v in dates.items() if v}
-    index = {"latest": max(dates), "dates": dict(sorted(dates.items()))}
+    # 카드 카피의 '왜' 한 줄도 같이 싣는다 — 홈의 먼저 볼 3건이 쓴다(make_cards.card_lines).
+    # 옛 index.json 의 다른 날짜 줄은 보존하고, 남아 있는 날짜치만 남긴다.
+    lines = dict((json.loads((site_dir / "index.json").read_text(encoding="utf-8")).get("lines") or {})
+                 if (site_dir / "index.json").exists() else {})
+    if album.get("lines"):
+        lines[day] = album["lines"]
+    lines = {k: v for k, v in lines.items() if k in dates and v}
+    index = {"latest": max(dates), "dates": dict(sorted(dates.items())),
+             "lines": dict(sorted(lines.items()))}
     (site_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n",
                                          encoding="utf-8")
     return index

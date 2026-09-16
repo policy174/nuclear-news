@@ -212,6 +212,8 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
             continue  # 출처 미확인 — 카드에서 빼고 텍스트 브리핑으로만
         picked.append({
             "hash": rep.get("hash", ""),
+            # 홈의 '먼저 볼 3건' 카드가 이 카피를 issue_id 로 되찾아 간다(album.json lines)
+            "issue_id": row.get("issue_id", ""),
             "title": row.get("title", ""),
             "summary": row.get("summary", ""),
             # 큐레이션이 본문에서 뽑아둔 결과. 카드의 주 재료다.
@@ -441,6 +443,28 @@ def strip_accent_on_sensitive(raw: dict, items: list[dict]) -> int:
     return stripped
 
 
+def card_lines(raw: dict, items: list[dict]) -> dict[str, str]:
+    """카드 '왜 중요한가' 첫 줄 → {issue_id: 한 줄}. 홈의 먼저 볼 3건이 쓴다.
+
+    사이트의 why_important·implication 은 36~143자 서술형이고 상위 3건 중 둘은
+    비어 있는 날이 흔하다(실측 09-12~09-16). 반면 이 카피는 같은 이슈를 두고
+    LLM 이 WHY_MAX 안에 쓴 뒤 코드가 길이를 잰 문장이다 — 홈 카드가 원하는
+    바로 그 한 줄이라, 호출을 새로 하지 않고 이미 만든 것을 옮긴다.
+
+    LLM 이 두 번 다 틀려 draft_copy 로 물러난 날은 한도가 FALLBACK_LINE_MAX 라
+    '컴팩트한 한 줄'이 아니다. 그런 줄은 내보내지 않는다 — 홈은 그날만 조용히
+    사이트 문장으로 돌아간다.
+    """
+    lines: dict[str, str] = {}
+    for slide, item in zip(raw.get("steps") or [], items):
+        issue_id = str(item.get("issue_id") or "").strip()
+        why = (slide or {}).get("why") or []
+        first = str(why[0]).strip().replace("[[", "").replace("]]", "") if why else ""
+        if issue_id and first and visible_len(first) <= WHY_MAX:
+            lines[issue_id] = first
+    return lines
+
+
 def build_slides(raw: dict, items: list[dict], date: str,
                  collected: int = 0) -> list[dict]:
     """검증 통과한 카피 → build.js 가 먹는 slides 배열.
@@ -626,6 +650,7 @@ def main() -> int:
         "date": date,
         "caption": build_caption(slides, date),
         "files": [str(f.relative_to(ROOT)).replace("\\", "/") for f in files],
+        "lines": card_lines(raw, items),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[cards] {len(files)}장 준비 완료 → {ALBUM_FILE.name}")
     return 0
@@ -669,6 +694,14 @@ def _self_check() -> None:
     edge = mutate(headline="[[" + "가" * HEADLINE_MAX + "]]")
     assert validate(edge, items) == [], validate(edge, items)
     assert visible_len("[[가나]]다") == 3
+
+    # 홈 카드가 가져갈 한 줄 — issue_id 로 맞물리고, 길면 안 내보낸다
+    li = [{**items[0], "issue_id": "iss-1"}]
+    assert card_lines(ok, li) == {"iss-1": "설계수명 만료 4기 일정에 직결"}
+    assert card_lines(ok, [{**items[0], "issue_id": ""}]) == {}, "issue_id 없으면 못 맞춘다"
+    long_why = {**ok, "steps": [{**ok["steps"][0], "why": ["가" * (WHY_MAX + 1)]}]}
+    assert card_lines(long_why, li) == {}, "폴백 카피의 긴 줄은 홈에 안 내보낸다"
+    assert card_lines({**ok, "steps": [{**ok["steps"][0], "why": ["[[강조]] 한 줄"]}]}, li)         == {"iss-1": "강조 한 줄"}, "마크업은 벗겨서 내보낸다"
 
     # 분류는 LLM 이 아니라 코드가 붙인다
     assert topic_label({"topics": ["restart_lto", "regulation"]}) == "계속운전·재가동"
