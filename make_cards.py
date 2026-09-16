@@ -167,11 +167,17 @@ def plausible_event_date(raw: str, brief_date: str) -> str:
 
 
 def topic_label(meta: dict) -> str:
-    """기사 분류 표시명. 파이프라인이 매긴 topics 의 첫 값을 사이트와 같은 이름으로.
+    """기사 분류 표시명 — **사이트 칩과 같은 값**을 쓴다.
 
-    topics 는 web/build_data.py 의 _TOPIC_RULES 순서로 담기므로 첫 값이 가장
-    구체적인 축이다(예: restart_lto → regulation → power_market).
+    1순위는 khnp_domain(현안 분류를 LLM 이 매긴 값, 사이트가 칩으로 보여 주는 그것).
+    카드가 topics 규칙값을 쓰던 동안 사이트 칩은 '안전성'인데 카드는 '규제·인허가'로
+    나갔다(09-16 한수원 복합재난 훈련 실측). 카드는 사이트를 따라간다.
+    khnp_domain 이 비면(분류 대기) topics 의 첫 값으로 물러난다 — topics 는
+    web/build_data.py 의 _TOPIC_RULES 순서라 첫 값이 가장 구체적인 축이다.
     """
+    domain = str(meta.get("khnp_domain") or "").strip()
+    if domain:
+        return domain
     for topic in meta.get("topics") or []:
         if topic in TOPIC_LABELS:
             return TOPIC_LABELS[topic]
@@ -721,6 +727,9 @@ def _self_check() -> None:
     # 분류는 LLM 이 아니라 코드가 붙인다
     assert topic_label({"topics": ["restart_lto", "regulation"]}) == "계속운전·재가동"
     assert topic_label({"topics": ["없는토픽"]}) == "원자력 정책"
+    # 사이트 칩(khnp_domain)이 있으면 그게 이긴다 — 카드와 사이트가 어긋나면 안 된다
+    assert topic_label({"khnp_domain": "안전성", "topics": ["regulation"]}) == "안전성"
+    assert topic_label({"khnp_domain": "", "topics": ["regulation"]}) == "규제·인허가"
 
     # 사이트 순위를 그대로 — 재정렬 없음, 링크 없는 이슈만 건너뜀
     rows = [
