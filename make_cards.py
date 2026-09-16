@@ -512,6 +512,8 @@ def build_slides(raw: dict, items: list[dict], date: str,
         "headline": "전체 보기",
         "subline": "오늘 브리핑 전문과 지난 이슈 흐름",
         "keyword": SITE,
+        # 마지막장이 통째로 비어 있었다 — 오늘 3건을 다시 세운다(디자인 검토 09-17).
+        "toc": [c["headline"].replace("[[", "").replace("]]", "") for c in raw["steps"]],
         "handle": DELIVERY_NOTE,   # 알약이 이미 주소라 꼬리말까지 주소면 세 번이다
         "footer": date.replace("-", "."),
     })
