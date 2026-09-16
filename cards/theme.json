@@ -6,19 +6,19 @@
   },
   "fonts": {
     "heading": {
-      "family": "Wanted Sans Variable",
-      "weights": "400 1000",
-      "css": "'Wanted Sans Variable', sans-serif"
+      "family": "Noto Sans KR",
+      "weights": "400;500;700;900",
+      "css": "'Noto Sans KR', sans-serif"
     },
     "body": {
-      "family": "Wanted Sans Variable",
-      "weights": "400 1000",
-      "css": "'Wanted Sans Variable', sans-serif"
+      "family": "Noto Sans KR",
+      "weights": "400;500;700;900",
+      "css": "'Noto Sans KR', sans-serif"
     },
     "mono": {
-      "family": "Wanted Sans Variable",
-      "weights": "400 1000",
-      "css": "'Wanted Sans Variable', sans-serif"
+      "family": "Noto Sans KR",
+      "weights": "400;500;700;900",
+      "css": "'Noto Sans KR', sans-serif"
     }
   },
   "colors": {
@@ -37,9 +37,9 @@
   "headline": {
     "case": "none",
     "weight": 700,
-    "size": 65,
-    "letterSpacing": -2.2,
-    "lineHeight": 1.12
+    "size": 62,
+    "letterSpacing": -1.5,
+    "lineHeight": 1.2
   },
   "radius": 14
 }

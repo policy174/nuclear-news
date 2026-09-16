@@ -70,6 +70,24 @@ function loadTheme() {
   }
 }
 
+// Wanted Sans 는 woff2 를 임베딩하고, 그 밖의 family(Noto Sans KR)는 Google Fonts 에서
+// 받는다 — "아저씨 글씨체"(지니 09-17) 판정으로 09-15 이전 서체로 되돌렸다. 폰트가
+// 실제로 로드됐는지는 아래 render guard 가 잰다.
+function fontLinks(theme) {
+  const links = [];
+  const seen = new Set();
+  for (const role of ["heading", "body", "mono"]) {
+    const f = theme.fonts[role];
+    if (!f || !f.family || f.family === "Wanted Sans Variable") continue;
+    const key = `${f.family}:${f.weights}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const fam = f.family.replace(/\s+/g, "+");
+    links.push(`<link href="https://fonts.googleapis.com/css2?family=${fam}:wght@${f.weights || "400;700"}&display=swap" rel="stylesheet">`);
+  }
+  return links.join("\n");
+}
+
 function esc(value) {
   // 원본은 이름만 esc 이고 String() 변환만 했다. RSS 제목의 &, <, 따옴표가
   // 그대로 주입돼 레이아웃이 깨진다. accentize() 는 esc() 뒤에 [[ ]] 를
@@ -103,6 +121,9 @@ function shell(inner, theme, dark) {
     : "";
 
   return `<!doctype html><html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+${fontLinks(theme)}
 <style>
   @font-face {
     font-family: "Wanted Sans Variable";

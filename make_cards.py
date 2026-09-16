@@ -310,9 +310,11 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
 
 _SENT_SPLIT_RE = re.compile(r"(?<=[.!?。])\s+|\n+")
 _CLAUSE_SEPS = ("…", " - ", " – ", ", ")   # '·'·공백은 안 쓴다 — "3·4호기"가 "3"이 된다
-# 폴백 카피는 축약하지 않는다. 문장을 통째로 두되 한 장에 사실 1·의미 1 문장만 —
-# 2+2 는 "글이 너무 많아 안 들어온다"(지니 09-16). 90자 = 두 줄, 문장을 안 자른다.
+# 폴백 카피는 축약하지 않는다. 문장을 통째로 두되 한 장에 사실 2·의미 2 문장까지 —
+# 1+1 은 "내용이 너무 없다"(지니 09-17), 72자 하드컷 2+2 는 "글이 너무 많다"(09-16).
+# 90자 = 두 줄, 문장을 안 자른다. 제대로 된 개조식은 LLM 경로(사실 2~3·의미 2~3) 몫.
 FALLBACK_LINE_MAX = 90
+FALLBACK_BULLETS = 2
 FALLBACK_HEADLINE_MAX = 44   # 제목은 축약 없이 세 줄까지 — "…지분…" 같은 잘린 제목보다 낫다
 
 
@@ -357,10 +359,10 @@ def draft_copy(items: list[dict]) -> dict:
     for it in items:
         # 사실 = 요약 한 문장(없으면 본문 요지 첫 문장). 의미 = 왜 중요한가(없으면 시사점) 한 문장.
         facts = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("summary"), it.get("detail"))]
-        facts = [f for f in facts if f][:1]
+        facts = [f for f in facts if f][:FALLBACK_BULLETS]
         why = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("why_important"), it.get("implication"),
                                                               it.get("open_question"))]
-        why = [w for w in why if w and w not in facts][:1]
+        why = [w for w in why if w and w not in facts][:FALLBACK_BULLETS]
         if not facts and it.get("title"):
             facts.append(clip(it["title"], FALLBACK_LINE_MAX))
         if not why:
@@ -575,6 +577,8 @@ def main() -> int:
     ap.add_argument("--date", help="outbox 대신 이 날짜의 사이트 순위로 만든다(로컬 검증용, --force 포함)")
     ap.add_argument("--no-llm", action="store_true",
                     help="Gemini 를 부르지 않고 사이트 문장(detail·why_important)으로 카피를 짠다")
+    ap.add_argument("--copy-file", type=Path,
+                    help="사람(또는 다른 LLM)이 쓴 카피 JSON — 같은 검증을 거치고 Gemini 는 안 부른다")
     args = ap.parse_args()
 
     if args.date:
@@ -616,7 +620,16 @@ def main() -> int:
 
     raw = None
     last_problems: list[str] = []
-    for attempt in (() if args.no_llm else (1, 2)):
+    if args.copy_file:
+        candidate = json.loads(args.copy_file.read_text(encoding="utf-8"))
+        strip_accent_on_sensitive(candidate, items)
+        problems = validate(candidate, items)
+        if problems:
+            print(f"[cards] --copy-file 검증 실패: {'; '.join(problems[:8])}")
+            return 1
+        print(f"[cards] 카피 파일 사용 — {args.copy_file}")
+        raw = candidate
+    for attempt in (() if (args.no_llm or raw) else (1, 2)):
         try:
             candidate = ask_llm(items, date, collected, problems=last_problems)
         except Exception as exc:  # noqa: BLE001 — 카드는 부가 기능, 원인만 남긴다
