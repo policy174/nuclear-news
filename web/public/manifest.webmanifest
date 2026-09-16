@@ -1,0 +1,16 @@
+{
+  "name": "Nuclens 원자력 브리핑",
+  "short_name": "Nuclens",
+  "description": "원자력 정책·산업 이슈 트래커 — 아침 브리핑과 카드뉴스",
+  "start_url": "/?src=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eef1f4",
+  "theme_color": "#12294c",
+  "lang": "ko",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

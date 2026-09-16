@@ -3851,5 +3851,19 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
   border: var(--bd-1) solid var(--c-border); background: var(--c-surface); }
 .card-strip-item img { display: block; width: 100%; height: auto; }
 @media (max-width: 520px) { .card-strip-item { flex-basis: 78vw; } }
+/* 검색 줄 + 알림 토글 */
+.today-tools { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.today-tools .today-search { flex: 1 1 260px; margin-top: var(--sp-3); }
+.push-toggle { margin-top: var(--sp-3); padding: var(--sp-2) var(--sp-3); font: inherit; font-size: var(--t-caption);
+  font-weight: 700; color: var(--c-primary); background: var(--c-secondary-weak); border: 0;
+  border-radius: var(--r-4); cursor: pointer; white-space: nowrap; }
+.push-toggle.is-on { background: var(--c-primary); color: #fff; }
+.push-toggle:disabled { opacity: .6; cursor: wait; }
+.push-hint { margin: var(--sp-2) 0 0; font-size: var(--t-caption); color: var(--c-text-secondary); }
+@media (max-width: 520px) {
+  .today-tools { gap: var(--sp-2); }
+  .today-tools .today-search { flex-basis: auto; margin-top: var(--sp-1); }
+  .push-toggle { margin-top: var(--sp-1); padding: 2px 10px; }
+}
 /* 헤더의 날짜 줄은 패널 꼬리가 대신 든다 */
 .today-date { display: none; }

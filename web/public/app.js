@@ -743,6 +743,7 @@ function toggleSaved(issueId) {
   else state.savedIds.add(issueId);
   persistSaved();
   renderBriefing();
+  initPush().catch(() => {});
   renderArchiveSearch();
   renderSaved();
   showToast(saved ? "저장을 해제했습니다" : "이슈를 저장했습니다");
@@ -1565,6 +1566,81 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // 카드뉴스 띠 — /cards/index.json 의 최신 날짜 PNG 를 가로로 넘겨 본다. 보고 있는
 // 브리핑 날짜의 카드가 있으면 그것, 없으면 최신 것을 날짜 표시와 함께.
 let cardIndexPromise = null;
+// ── 웹 푸시 ───────────────────────────────────────────────────────────
+// 아침 브리핑 뒤 push_notify.py 가 /push/list 의 구독자에게 한 번 보낸다.
+// 공개키는 비밀이 아니다(구독을 이 서버로 묶는 식별자). 개인키는 GitHub Secrets.
+const PUSH_PUBLIC_KEY = "BOshdtsrxCv_P4mecLbxVjl9KM2-OW1nsXn9VoR7i4HupiS7oU2u1lS5ZDx6Ll0vQhVE5SSKp68_pWfEHMZRgZA";
+function urlBase64ToUint8Array(base64) {
+  const padding = "=".repeat((4 - (base64.length % 4)) % 4);
+  const raw = atob((base64 + padding).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from([...raw].map(ch => ch.charCodeAt(0)));
+}
+function pushSupported() {
+  return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+}
+function isStandalone() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+async function initPush() {
+  const button = document.getElementById("pushToggle");
+  const hint = document.getElementById("pushHint");
+  if (!button) return;
+  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!pushSupported()) {
+    // iOS Safari 는 홈 화면에 추가하기 전엔 PushManager 가 없다 — 그 안내만 남긴다.
+    if (isiOS && !isStandalone()) {
+      hint.textContent = "iPhone: 공유 → '홈 화면에 추가' 한 뒤, 그 앱에서 알림을 켜세요.";
+      hint.hidden = false;
+    }
+    return;
+  }
+  let reg;
+  try { reg = await navigator.serviceWorker.register("/sw.js"); }
+  catch { return; }
+  button.hidden = false;
+  const paint = async () => {
+    const sub = await reg.pushManager.getSubscription();
+    const on = !!sub && Notification.permission === "granted";
+    button.textContent = on ? "🔔 아침 알림 켜짐 · 끄기" : "🔔 아침 알림 받기";
+    button.setAttribute("aria-pressed", String(on));
+    button.classList.toggle("is-on", on);
+    return sub;
+  };
+  let current = await paint();
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    hint.hidden = true;
+    try {
+      if (current) {
+        await fetch("/push/subscribe", { method: "DELETE", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ endpoint: current.endpoint }) });
+        await current.unsubscribe();
+      } else {
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+          hint.textContent = "브라우저에서 알림이 차단돼 있습니다. 사이트 설정에서 허용으로 바꿔 주세요.";
+          hint.hidden = false;
+          return;
+        }
+        const sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(PUSH_PUBLIC_KEY),
+        });
+        const res = await fetch("/push/subscribe", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ subscription: sub.toJSON() }) });
+        if (!res.ok) throw new Error(`subscribe ${res.status}`);
+        hint.textContent = "켜졌습니다. 다음 아침 브리핑부터 알림이 옵니다.";
+        hint.hidden = false;
+      }
+    } catch (error) {
+      hint.textContent = `알림 설정 실패: ${String(error).slice(0, 80)}`;
+      hint.hidden = false;
+    } finally {
+      button.disabled = false;
+      current = await paint();
+    }
+  });
+}
+
 function renderCardStrip(date) {
   const section = document.getElementById("cardStrip");
   if (!section) return;

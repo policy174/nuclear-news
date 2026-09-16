@@ -540,6 +540,16 @@ jobs:
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "CLOUDFLARE_API_TOKEN 미설정 — 스킵"; exit 0; fi
           npx --yes wrangler@4.123.0 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
 
+      # 웹 푸시 — 구독자에게 "오늘 브리핑" 한 번. 카드 성패와 무관하게 브리핑이 나갔으면 보낸다.
+      - name: Web push (아침 알림)
+        if: always() && steps.claim.conclusion == 'success'
+        continue-on-error: true
+        env:
+          PUSH_ADMIN_TOKEN: ${{ secrets.PUSH_ADMIN_TOKEN }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_SUBJECT: ${{ vars.VAPID_SUBJECT || 'mailto:nuclens@users.noreply.github.com' }}
+        run: python push_notify.py
+
       - name: Commit card record + site PNGs
         if: always() && (steps.send_cards.outcome == 'success' || steps.publish_cards.outcome == 'success')
         continue-on-error: true

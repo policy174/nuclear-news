@@ -6,7 +6,13 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="Nuclens는 원자력 정책·산업 뉴스를 이슈 단위로 연결하고 중요한 변화를 근거와 함께 추적합니다.">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#12251e">
+  <meta name="theme-color" content="#12294c">
+  <!-- 홈 화면 추가(PWA) + 웹 푸시. iOS 는 홈 화면에 추가한 뒤에만 알림이 된다(16.4+). -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nuclens">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Nuclens">
   <meta property="og:locale" content="ko_KR">
@@ -107,7 +113,12 @@
       </div>
       <!-- 아카이브 검색 진입은 상단에 상시 노출한다 — 지난 자료를 찾는 것이
            이 사이트의 업무 용도다. 접거나 아래로 내리지 말 것. -->
-      <button type="button" class="today-search" data-go-view="search">현안 검색 · 지난 자료 찾기</button>
+      <div class="today-tools">
+        <button type="button" class="today-search" data-go-view="search">현안 검색 · 지난 자료 찾기</button>
+        <!-- 아침 브리핑 푸시. 지원 안 되는 브라우저에서는 JS 가 숨긴다. -->
+        <button type="button" class="push-toggle" id="pushToggle" hidden aria-pressed="false">🔔 아침 알림 받기</button>
+      </div>
+      <p class="push-hint" id="pushHint" hidden></p>
       <p class="today-date" id="briefingDateLabel"></p>
     </header>
 
