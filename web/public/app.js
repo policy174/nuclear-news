@@ -743,7 +743,6 @@ function toggleSaved(issueId) {
   else state.savedIds.add(issueId);
   persistSaved();
   renderBriefing();
-  initPush().catch(() => {});
   renderArchiveSearch();
   renderSaved();
   showToast(saved ? "저장을 해제했습니다" : "이슈를 저장했습니다");
@@ -5701,6 +5700,7 @@ async function init() {
   appReady = true;
   initLoading = false;
   if (!generationTimer) generationTimer = window.setInterval(checkForNewGeneration, 60000);
+  initPush().catch(() => {});   // 푸시 토글 — 화면이 다 선 뒤, 실패해도 조용히
 }
 
 initializeTheme();
