@@ -3261,6 +3261,7 @@ def daily_headline(issue_rows: list[dict]) -> str:
 
 
 HIGHLIGHT_COOLDOWN_DAYS = 3   # 1번 자리를 비우는 기간
+MULTI_ARTICLE_BONUS = 4.0     # 기사 2건 이상 가점 (근거는 within_region 주석)
 
 
 def order_issue_rows(issue_rows: list[dict],
@@ -3308,7 +3309,19 @@ def order_issue_rows(issue_rows: list[dict],
         # 최우선이라 뒤쪽 축이 거의 작동하지 않는다. 실측으로 바깥에 넣었을 때
         # 반복이 12건에서 10건까지밖에 안 줄었고, 여기 넣으니 0건이 됐다.
         #
-        # 기사 2건 이상 여부(불리언)는 쿨다운 뒤, 점수 앞. 점수는 새로움에 가점하고
+        # 기사 2건 이상은 **하드 게이트가 아니라 점수 가점(+4)**이다(2026-09-17).
+        # 게이트였을 때는 점수를 무한대로 이겼다 — 08-13 "첨단기술 7대 SEED
+        # 보고회"(must_read, 31.8, 1건)와 08-24 "원안위, 새울 1호기 재가동
+        # 승인"(must_read, 31.7, 1건)이 그날 최고점인데 2건짜리에 밀려 3위였다.
+        # 60일 백테스트: 그날 최고점 must_read 가 상위 3건 밖인 날 2일 → 0일,
+        # 최고점(등급 무관) 누락 5일 → 3일, 상위 3건이 바뀌는 날 9일.
+        #
+        # 폭이 4 인 이유: +2·+3 은 '단신 역전'(상위 3건의 1건짜리 무등급이 같은
+        # 지역 3건+ 이슈보다 위)이 1일 → 4일로 늘어 09-16 결정을 되돌린다. 4 는
+        # 그 지표를 게이트 시절과 같은 1일로 유지하는 가장 낮은 값이다.
+        # 재현: python web/tools/rank_backtest.py
+        #
+        # 아래 옛 근거는 그대로 유효하다 — 건수 자체·검증 등급을 쓰지 않는 이유. 점수는 새로움에 가점하고
         # 이어지는 이슈에 연속성 감점을 줘서 **단신이 굵어지는 사건을 이겼다**
         # (2026-09-15 실측: 원안위 하위규정 의결 1건이 웨스팅하우스 지분 4건·
         # SMR 특별법 시행 4건·한빛 가동중단 2건 위에 섰다). 지니 결정(09-16):
@@ -3318,10 +3331,11 @@ def order_issue_rows(issue_rows: list[dict],
         # 선두를 먹는다(08-10 주석의 그 함정). 불리언은 60일 중 37일에서 상위
         # 3건이 바뀌었고, 바뀐 쪽이 한빛·고리3·4·대미 8기·배관 누설이었다.
         must_read = row["importance"] == "must_read"
+        weight = row["sort_score"] + (
+            MULTI_ARTICLE_BONUS if (row.get("article_count") or 0) >= 2 else 0)
         return (row.get("editor_pin", 0), must_read,
                 must_read or row.get("issue_id") not in recent_top_ids,
-                (row.get("article_count") or 0) >= 2,
-                row["sort_score"], row["last_seen"])
+                weight, row["last_seen"])
 
     domestic = sorted((r for r in issue_rows if r["region"] == "국내"),
                       key=within_region, reverse=True)

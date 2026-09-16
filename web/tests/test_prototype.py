@@ -3030,30 +3030,47 @@ class SelectionOverrideTests(unittest.TestCase):
         build_data.order_issue_rows(rows, {"old"})
         self.assertEqual(rows[0]["title"], "오늘 새 이슈")
 
-    def test_multi_article_must_read_beats_single_article_in_region(self):
-        """같은 지역·같은 등급이면 기사 2건 이상인 이슈가 단신보다 앞선다.
+    def test_multi_article_beats_a_narrowly_higher_scoring_brief(self):
+        """점수가 조금 앞선 단신은 굵어지는 사건에 진다 — 가점 폭(+4) 안이면.
 
         지니 지적(2026-09-15): 원안위 하위규정 의결(1건)이 웨스팅하우스 지분
         (4건)·SMR 특별법 시행(4건) 위에 섰다 — 점수가 새로움을 가점하고 연속성을
-        감점해서다. 축은 불리언이라 4건과 2건은 다시 점수로 가른다.
+        감점해서다. 실측 점수 차는 3점 안팎이었다(30.8 vs 27.7).
         """
         rows = [
             {"issue_id": "brief", "region": "국내", "importance": "must_read",
-             "sort_score": 30.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "sort_score": 30.8, "last_seen": "2026-09-15", "editor_pin": 0,
              "article_count": 1, "title": "단신"},
             {"issue_id": "big", "region": "국내", "importance": "must_read",
-             "sort_score": 20.0, "last_seen": "2026-09-15", "editor_pin": 0,
+             "sort_score": 27.7, "last_seen": "2026-09-15", "editor_pin": 0,
              "article_count": 4, "title": "굵은 사건"},
-            {"issue_id": "mid", "region": "국내", "importance": "must_read",
-             "sort_score": 25.0, "last_seen": "2026-09-15", "editor_pin": 0,
-             "article_count": 2, "title": "두 건짜리"},
             {"issue_id": "many-minor", "region": "국내", "importance": "nice_to_know",
              "sort_score": 99.0, "last_seen": "2026-09-15", "editor_pin": 0,
              "article_count": 9, "title": "기사만 많은 잡담"},
         ]
         build_data.order_issue_rows(rows)
         self.assertEqual([r["title"] for r in rows],
-                         ["두 건짜리", "굵은 사건", "단신", "기사만 많은 잡담"])
+                         ["굵은 사건", "단신", "기사만 많은 잡담"])
+
+    def test_multi_article_bonus_does_not_bury_a_clearly_better_brief(self):
+        """가점이지 게이트가 아니다 — 점수 차가 폭보다 크면 단신이 이긴다.
+
+        게이트였을 때 이게 안 됐다(2026-09-17 회귀). 08-13 "첨단기술 7대 SEED
+        보고회"(must_read, 31.8, 1건)와 08-24 "원안위, 새울 1호기 재가동
+        승인"(must_read, 31.7, 1건)은 그날 최고점인데 2건짜리에 밀려 3위였다.
+        """
+        rows = [
+            {"issue_id": "top", "region": "국내", "importance": "must_read",
+             "sort_score": 31.8, "last_seen": "2026-08-13", "editor_pin": 0,
+             "article_count": 1, "title": "그날 최고점 단신"},
+            {"issue_id": "pair", "region": "국내", "importance": "must_read",
+             "sort_score": 25.0, "last_seen": "2026-08-13", "editor_pin": 0,
+             "article_count": 2, "title": "두 건짜리"},
+        ]
+        build_data.order_issue_rows(rows)
+        self.assertEqual(rows[0]["title"], "그날 최고점 단신")
+        self.assertEqual(build_data.MULTI_ARTICLE_BONUS, 4.0,
+                         "폭을 바꾸면 web/tools/rank_backtest.py 를 다시 돌릴 것")
 
     def test_cooldown_never_beats_importance(self):
         """must_read 는 며칠 이어져도 선두 자격이 있다 — 8/16 디아블로 캐년은
