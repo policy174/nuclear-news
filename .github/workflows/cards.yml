@@ -21,6 +21,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   cards:
@@ -62,21 +63,12 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python send_album.py
 
-      - name: Publish cards to site + deploy + commit
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # 여기서 wrangler 로 직접 올리면 안 된다 — 이 잡에는 build_data 산출물(issue/·brief/·
+      # data/)이 없어 Pages 가 라이브의 그 파일들을 지운다. 커밋 뒤 deploy-web 을 깨운다
+      # (봇 push 는 워크플로를 못 깨우지만 workflow_dispatch API 호출은 된다).
+      - name: Publish cards to site + commit
         run: |
           python publish_cards.py
-          # 봇 push 는 deploy-web 을 못 깨우므로 직접 올린다(web/public 은 라이브 데이터가 없어
-          # 데이터 파일은 안 올라간다 — Pages 는 없는 파일을 지우므로 data 는 먼저 받아 둔다)
-          mkdir -p web/public/data
-          for f in news briefings issues trend meta insights publications scraps; do
-            curl -fsS "https://nuclens.pages.dev/data/$f.json" -o "web/public/data/$f.json" || true
-          done
-          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
-            npx --yes wrangler@4.123.0 pages deploy web/public --project-name=nuclens --branch=main --commit-dirty=true
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3; do
@@ -88,3 +80,8 @@ jobs:
             python publish_cards.py
           done
           echo "push 실패 — 카드 PNG 미게시"; exit 1
+
+      - name: Trigger site deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-web.yml -R ${{ github.repository }}
