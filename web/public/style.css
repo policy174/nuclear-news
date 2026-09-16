@@ -3694,13 +3694,14 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 }
 /* 1번은 테두리를 잉크로 — 셋 중에서도 먼저 볼 것이 하나는 있어야 한다 */
 .pick-card:first-child { border-color: var(--c-edge); border-width: 2px; }
-.pick-link {
+.pick-open {
   display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--sp-3);
+  width: 100%; text-align: left; border: 0; background: none; font: inherit;
   padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-3);
-  color: inherit; text-decoration: none; border-radius: var(--r-3);
+  color: inherit; border-radius: var(--r-3); cursor: pointer;
 }
-.pick-link:hover .pick-title { color: var(--c-secondary); }
-.pick-link:focus-visible { outline: none; box-shadow: var(--fo-ring); }
+.pick-open:hover .pick-title { color: var(--c-secondary); }
+.pick-open:focus-visible { outline: none; box-shadow: var(--fo-ring); }
 .pick-rank {
   font-size: 38px; font-weight: 800; line-height: .92; letter-spacing: -.04em;
   color: var(--c-primary); text-align: center;
@@ -3725,20 +3726,52 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   margin-top: var(--sp-2); font-size: var(--t-body); line-height: 1.5;
   color: var(--c-text-secondary); word-break: keep-all;
 }
-.pick-foot { display: block; margin-top: var(--sp-2); }
-.pick-foot:empty { display: none; }
+.pick-foot { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-2); }
+/* 펼침 힌트 — 이 카드가 눌린다는 유일한 표식이라 폰에서도 남는다 */
+.pick-more { margin-left: auto; display: inline-flex; align-items: center; gap: 2px;
+  font-size: var(--t-caption); color: var(--c-text-muted); white-space: nowrap; }
+.pick-more i { font-style: normal; transition: transform var(--mo-1); }
+.pick-card.is-open .pick-more i { transform: rotate(180deg); }
+.pick-badge:empty { display: none; }
+
+/* 2단계 — 한 줄 요약·다음에 확인할 것·추적·액션. 번호 칸만큼 들여 카드의
+   제목 줄과 왼쪽을 맞춘다. */
+.pick-detail {
+  padding: 0 var(--sp-4) var(--sp-4) calc(44px + var(--sp-3) + var(--sp-3));
+  font-size: var(--t-body); line-height: 1.6; color: var(--c-text-secondary);
+}
+.pick-detail p { margin: 0; word-break: keep-all; }
+.pick-sum { color: var(--c-text); }
+.pick-q { margin-top: var(--sp-3) !important; }
+.pick-q b { display: block; font-size: var(--t-caption); font-weight: 600; color: var(--c-text-muted); }
+.pick-track { margin-top: var(--sp-3) !important; font-size: var(--t-caption); color: var(--c-text-muted); }
+.pick-actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.pick-actions button, .pick-actions a {
+  min-height: 40px; display: inline-flex; align-items: center; padding: 0 var(--sp-4);
+  border: var(--bd-1) solid var(--c-border); border-radius: var(--r-1);
+  background: var(--c-surface); color: var(--c-text); font: inherit;
+  font-size: var(--t-caption); text-decoration: none; cursor: pointer;
+}
+.pick-actions button:hover, .pick-actions a:hover { border-color: var(--c-edge); }
+.pick-actions .primary { background: var(--c-primary); color: #fff; border-color: var(--c-primary); font-weight: 600; }
+.pick-actions .primary:hover { background: var(--c-primary-strong); }
+.pick-actions button:focus-visible, .pick-actions a:focus-visible { outline: none; box-shadow: var(--fo-ring); }
+@media (prefers-reduced-motion: reduce) { .pick-more i { transition: none; } }
 /* 폰에서는 카드에 제목과 이유만 남긴다 — 건수 안내 줄과 근거 배지는 지면을
    먹는 만큼 말하지 않는다(지니 09-17 "컴팩트하게"). 둘 다 넓은 화면에는 남고,
    근거는 상세 화면이 여전히 들고 있다. */
 @media (max-width: 520px) {
   .pick3 { gap: var(--sp-2); margin-top: var(--sp-3); }
-  .pick-link { grid-template-columns: 34px minmax(0, 1fr); column-gap: var(--sp-2);
+  .pick-open { column-gap: var(--sp-2);
     padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-2); }
   .pick-rank { font-size: 30px; }
   .pick-title { font-size: 16.5px; }
   .pick-why { font-size: 14px; }
-  .pick-foot { display: none; }
+  .pick-badge { display: none; }   /* 근거는 펼친 안과 상세 화면이 든다 */
   .today-lede { display: none; }
+  .pick-open { grid-template-columns: 34px minmax(0, 1fr); }
+  .pick-detail { padding: 0 var(--sp-3) var(--sp-3) calc(34px + var(--sp-2) + var(--sp-3));
+    font-size: 14px; }
 }
 
 .toc {
@@ -3929,12 +3962,28 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
 .card-strip-head { display: flex; align-items: baseline; gap: var(--sp-2); margin-bottom: var(--sp-2); }
 .card-strip-head strong { font-size: var(--t-body); }
 .card-strip-head span { color: var(--c-text-muted); font-size: var(--t-caption); }
+.card-strip-viewport { position: relative; }
 .card-strip-track { display: flex; gap: var(--sp-3); overflow-x: auto; scroll-snap-type: x mandatory;
   padding-bottom: var(--sp-2); -webkit-overflow-scrolling: touch; }
+/* 가로 스크롤바는 넓은 화면에서 띠 아래 회색 줄로 남는다 — 버튼이 그 역할을 한다 */
+.card-strip-track::-webkit-scrollbar { height: 0; }
+.card-strip-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 40px; height: 40px; display: grid; place-items: center; padding: 0 0 4px;
+  border: var(--bd-1) solid var(--c-border); border-radius: var(--r-4);
+  background: var(--c-surface); color: var(--c-text); box-shadow: var(--sh-1);
+  font: inherit; font-size: 26px; line-height: 1; cursor: pointer; }
+.card-strip-nav:hover { border-color: var(--c-border-strong); }
+.card-strip-nav.prev { left: calc(var(--sp-2) * -1); }
+.card-strip-nav.next { right: calc(var(--sp-2) * -1); }
+/* 끝에 닿으면 흐리게 두지 않고 치운다 — 카드 위에 겹친 회색 원이 지저분하다 */
+.card-strip-nav[disabled] { opacity: 0; pointer-events: none; }
+/* 손가락이 있는 기기에선 스와이프가 빠르다 — 버튼을 치운다 */
+@media (hover: none), (max-width: 520px) { .card-strip-nav { display: none; } }
 .card-strip-item { flex: 0 0 300px; scroll-snap-align: start; border-radius: var(--r-2); overflow: hidden;
   border: var(--bd-1) solid var(--c-border); background: var(--c-surface); }
 .card-strip-item img { display: block; width: 100%; height: auto; }
-@media (max-width: 520px) { .card-strip-item { flex-basis: 78vw; } }
+/* 다음 장이 살짝 보여야 넘길 수 있다는 걸 손이 안다 */
+@media (max-width: 520px) { .card-strip-item { flex-basis: 84vw; } }
 /* 검색 줄 + 알림 토글 */
 .today-tools { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
 .today-tools .today-search { flex: 1 1 260px; margin-top: var(--sp-3); }

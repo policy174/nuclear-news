@@ -151,7 +151,13 @@
          /cards/index.json 이 있는 날만 선다. 이미지는 daily-brief 가 커밋한다. -->
     <section id="cardStrip" class="card-strip" aria-labelledby="cardStripTitle" hidden>
       <div class="card-strip-head"><strong id="cardStripTitle">카드뉴스로 보기</strong><span id="cardStripMeta"></span></div>
-      <div class="card-strip-track" id="cardStripTrack"></div>
+      <!-- 폰은 스와이프(가로 스크롤 + 스냅), 넓은 화면은 좌우 버튼(지니 09-17).
+           버튼은 터치 기기·좁은 화면에서 숨는다 — 거기선 손가락이 더 빠르다. -->
+      <div class="card-strip-viewport">
+        <button type="button" class="card-strip-nav prev" id="cardStripPrev" aria-label="이전 카드" aria-controls="cardStripTrack">‹</button>
+        <div class="card-strip-track" id="cardStripTrack"></div>
+        <button type="button" class="card-strip-nav next" id="cardStripNext" aria-label="다음 카드" aria-controls="cardStripTrack">›</button>
+      </div>
     </section>
 
     <!-- 정책의제 '한 주의 원자력' — main 에 라이브인 블록. 목차형 개편(09-11)이

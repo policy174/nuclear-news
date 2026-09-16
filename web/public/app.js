@@ -1668,7 +1668,63 @@ function renderCardStrip(date) {
         <img src="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}" loading="lazy" width="1080" height="1080">
       </a>`).join("");
     section.hidden = false;
+    bindCardStripNav();
+    placeCardStrip();
   });
+}
+
+// 넓은 화면엔 좌우 버튼으로 한 장씩 넘긴다(지니 09-17). 폰은 스와이프 — 트랙이
+// 이미 scroll-snap 이라 손가락만으로 넘어간다. 한 번에 정확히 한 장 움직이도록
+// 이동 폭은 카드 실제 너비 + 간격에서 잰다(CSS 가 flex-basis 를 바꿔도 따라온다).
+function bindCardStripNav() {
+  const track = document.getElementById("cardStripTrack");
+  const prev = document.getElementById("cardStripPrev");
+  const next = document.getElementById("cardStripNext");
+  if (!track || !prev || !next) return;
+  // 한 번에 카드 한 장. 이동 폭을 카드 실제 너비 + 간격에서 재면 스냅 지점에
+  // 정확히 떨어지고, CSS 가 폭을 바꿔도(폰 84vw) 따라온다.
+  const step = () => {
+    const first = track.firstElementChild;
+    if (!first) return track.clientWidth;
+    const gap = parseFloat(getComputedStyle(track).columnGap || "0") || 0;
+    return first.getBoundingClientRect().width + gap;
+  };
+  const sync = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 1;
+    next.disabled = track.scrollLeft >= max - 1;
+  };
+  // 끝에 닿았는지는 scroll 이벤트로 갱신한다. 다만 그 이벤트 하나에만 기대지
+  // 않는다 — 렌더가 멈춘 탭에서는 scroll 이 아예 안 뜬다(실측 09-17). 버튼을
+  // 누른 뒤에도 한 번 더 잰다.
+  const move = (dir) => {
+    track.scrollBy({ left: dir * step(), behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    setTimeout(sync, 400);
+  };
+  if (!track.dataset.navBound) {
+    track.dataset.navBound = "1";
+    prev.addEventListener("click", () => move(-1));
+    next.addEventListener("click", () => move(1));
+    track.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+  }
+  sync();
+}
+
+// 데스크톱에서 카드뉴스는 '먼저 볼 3건' **위**에 선다(지니 09-17). 넓은 화면은
+// 세로가 남아 가로 띠가 위에 있어도 3건을 밀어내지 않는데, 원래 자리(목차 아래)
+// 에서는 1,238px 아래라 사실상 안 보였다. 폰은 원래 자리 그대로 — 거기서는 띠가
+// 위에 오면 3건이 첫 화면 밖으로 나간다.
+function placeCardStrip() {
+  const strip = document.getElementById("cardStrip");
+  const picks = document.getElementById("pickList");
+  const panel = document.getElementById("briefPanel");
+  if (!strip || !picks || !panel) return;
+  if (!narrowScreen.matches) {
+    if (strip.nextElementSibling !== picks) picks.before(strip);
+  } else if (strip.previousElementSibling !== panel) {
+    panel.after(strip);          // 원래 자리 — 목차 다음
+  }
 }
 
 function renderTodayAgenda(briefing) {
@@ -1808,6 +1864,32 @@ function tocRow(issue, index = 0) {
 // 먼저 볼 3건. 목차 행(tocRow)과 같은 데이터인데 번호를 크게 쓰고 '왜 중요한가'
 // 한 줄을 더한다 — 요약이 아니라 고른 이유다. 분류는 여기선 누를 수 없는 글자다:
 // 링크 안에 버튼을 넣을 수 없고, 필터는 아래 목차 행이 이미 들고 있다.
+// 시안(nuclens-today-mockup.html)의 2단계를 옮긴다. 누르면 카드가 제자리에서
+// 펼쳐져 한 줄 요약·다음에 확인할 것·추적 기간과 **액션 세 개**를 보인다. 전체
+// 상세는 그 다음 단계다 — 목록에서 바로 상세로 보내면 "이게 뭔지" 확인하는 한
+// 걸음이 없어 아니면 되돌아 나와야 한다(지니 09-17 "눌렀을 때 버튼도 나오고").
+function pickDetail(issue) {
+  const tracked = issue.tracked_briefings || 1;
+  const track = tracked > 1
+    ? `${dateLabel(issue.first_seen)}부터 추적 중 · 브리핑 ${tracked}회`
+    : "오늘 처음 잡힌 이슈";
+  const question = (issue.open_question || "").trim();
+  const url = safeUrl((issue.representative_article || {}).url || "");
+  const saved = state.savedIds.has(issue.issue_id);
+  // '전체 내용 보기'는 data-issue-id 위임을 탄다 — 폰은 바텀 시트, 데스크톱은
+  // 근거 패널. 화면마다 맞는 쪽이 열리게 두고 여기서 강제하지 않는다.
+  return `<p class="pick-sum">${esc(issue.summary || "")}</p>
+  ${question ? `<p class="pick-q"><b>다음에 확인할 것</b>${esc(question)}</p>` : ""}
+  <p class="pick-track">${esc(track)}</p>
+  <div class="pick-actions">
+    <button type="button" class="primary" data-issue-id="${esc(issue.issue_id)}">전체 내용 보기</button>
+    ${url ? `<a href="${url}" target="_blank" rel="noopener">원문</a>` : ""}
+    <button type="button" data-save-issue="${esc(issue.issue_id)}">${saved ? "저장됨" : "저장"}</button>
+  </div>`;
+}
+
+// <a> 가 아니라 <button> 이다 — 펼침은 이동이 아니다. 원문으로 나가는 링크는
+// 펼친 안에 따로 있다.
 function pickCard(issue, index) {
   const meta = [issue.region || "", issue.khnp_domain || ""].filter(Boolean).join(" · ");
   // why_important 는 빈 날이 많다 — 빌드(split_interpretation)가 시사점과 겹치면
@@ -1815,16 +1897,21 @@ function pickCard(issue, index) {
   // 라벨이 없으니 '시사점'으로 메워도 거짓말이 되지 않는다. 요약은 안 쓴다 —
   // 요약 줄 금지는 그대로다(지니 09-15).
   const why = (issue.why_important || issue.implication || "").trim();
+  const panelId = `pickDetail-${index + 1}`;
   return `<li class="pick-card">
-  <a class="pick-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">
+  <button class="pick-open" type="button" aria-expanded="false" aria-controls="${panelId}">
     <span class="pick-rank" aria-hidden="true">${index + 1}</span>
     <span class="pick-body">
       ${meta ? `<span class="pick-meta">${esc(meta)}</span>` : ""}
       <span class="pick-title">${esc(issue.title)}</span>
       ${why ? `<span class="pick-why">${esc(why)}</span>` : ""}
-      <span class="pick-foot">${verificationBadge(issue, { always: true })}</span>
+      <span class="pick-foot">
+        <span class="pick-badge">${verificationBadge(issue, { always: true })}</span>
+        <span class="pick-more">자세히<i aria-hidden="true">⌄</i></span>
+      </span>
     </span>
-  </a>
+  </button>
+  <div class="pick-detail" id="${panelId}" hidden>${pickDetail(issue)}</div>
 </li>`;
 }
 
@@ -1841,7 +1928,7 @@ function applyCardLines(pickList, picks, date) {
       // 사이트 문장이 비어 카드에 줄 자체가 없던 이슈 — 여기서 처음 생긴다
       const body = card && card.querySelector(".pick-body");
       const foot = body && body.querySelector(".pick-foot");
-      if (!body) return;
+      if (!body) return;   // foot 앞에 끼워 넣는다 — 제목·이유·근거 순서를 지킨다
       const span = document.createElement("span");
       span.className = "pick-why";
       span.textContent = line;
@@ -4894,6 +4981,7 @@ function initFilterDrawers() {
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
   narrowScreen.addEventListener("change", placeTodayAgenda);
+  narrowScreen.addEventListener("change", placeCardStrip);
   // 경계를 넘나들면 자리도 따라와야 한다 — 안 하면 리사이즈한 사람만 어긋난 채 본다.
   railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();
@@ -5247,6 +5335,16 @@ function handleIssueAction(event) {
   if (savedPack) { copySavedPack(savedPack); return true; }
   const weeklyOutline = event.target.closest("[data-copy-weekly]");
   if (weeklyOutline) { copyWeeklyOutline(weeklyOutline); return true; }
+  // 먼저 볼 3건의 2단계 펼침. 안쪽 액션(data-issue-id 등)은 위에서 이미 걸러졌다.
+  const pick = event.target.closest(".pick-open");
+  if (pick) {
+    const open = pick.getAttribute("aria-expanded") === "true";
+    pick.setAttribute("aria-expanded", String(!open));
+    const panel = document.getElementById(pick.getAttribute("aria-controls"));
+    if (panel) panel.hidden = open;
+    pick.closest(".pick-card")?.classList.toggle("is-open", !open);
+    return true;
+  }
   const save = event.target.closest("[data-save-issue]");
   if (save) { toggleSaved(save.dataset.saveIssue); return true; }
   const share = event.target.closest("[data-share-issue]");
@@ -5331,9 +5429,11 @@ function bind() {
     if (event.target.closest("[data-clear-briefing]")) clearBriefingFilters();
     if (event.target.closest("[data-clear-archive]")) clearArchiveFilters();
   });
-  // 홈 목차는 이 위임을 타지 않는다 — 행이 통째로 <a href> 라 브라우저가
-  // 상세 페이지로 보낸다. 여기 남은 것은 다이얼로그를 여는 화면들뿐이다.
-  ["archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
+  // 홈 목차(#tocList)는 이 위임을 타지 않는다 — 행이 통째로 <a href> 라 브라우저가
+  // 상세 페이지로 보낸다. 반면 '먼저 볼 3건'(#pickList)은 <button> 이라 위임이
+  // 필요하다(펼침·전체 내용 보기·저장). 나머지는 다이얼로그를 여는 화면들이다.
+  ["pickList",
+   "archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
    "weeklyReportBody", "insightList",
    "recentIssueList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
