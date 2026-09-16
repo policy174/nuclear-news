@@ -306,6 +306,67 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
     )
 
 
+_SENT_SPLIT_RE = re.compile(r"(?<=[.!?。])\s+|\n+")
+_CLAUSE_SEPS = ("…", " - ", " – ", ", ")   # '·'·공백은 안 쓴다 — "3·4호기"가 "3"이 된다
+# 폴백 카피는 축약하지 않는다. 문장을 통째로 두고(최대 두 줄 반) 넘치면 렌더 가드가 잡는다.
+FALLBACK_LINE_MAX = 96
+FALLBACK_HEADLINE_MAX = 44   # 제목은 축약 없이 세 줄까지 — "…지분…" 같은 잘린 제목보다 낫다
+
+
+def clip(text: str, limit: int) -> str:
+    """limit 안으로 줄이되 절 경계에서 끊는다. 말줄임 없는 문장이 잘린 문장보다 낫다."""
+    text = " ".join(str(text or "").split()).rstrip(".。")
+    if visible_len(text) <= limit:
+        return text
+    for sep in _CLAUSE_SEPS:
+        if sep not in text:
+            continue
+        parts = text.split(sep)
+        acc = parts[0]
+        for part in parts[1:]:
+            nxt = acc + sep + part
+            if visible_len(nxt) > limit:
+                break
+            acc = nxt
+        acc = acc.strip(" ,·-–")
+        # 첫 절부터 상한을 넘으면 이 구분자로는 못 자른다 — 다음 구분자로
+        if visible_len(acc) <= limit - 1 and visible_len(acc) >= max(8, limit // 3):
+            return acc + "…"   # 절이 이어졌음을 남긴다 — "확인되어" 로 끝나면 미완성으로 읽힌다
+    return text[:limit - 1].rstrip(" ,·") + "…"
+
+
+def _sentences(*fields: str) -> list[str]:
+    out: list[str] = []
+    for field in fields:
+        for sent in _SENT_SPLIT_RE.split(str(field or "")):
+            sent = " ".join(sent.split()).strip()
+            if len(sent) >= 6 and sent not in out:
+                out.append(sent)
+    return out
+
+
+def draft_copy(items: list[dict]) -> dict:
+    """Gemini 없이 카피를 짠다 — 큐레이션이 이미 뽑아둔 detail·why_important·implication 을
+    문장 단위로 잘라 쓴다. LLM 보다 거칠지만(축약 없이 절 단위 절단) 쿼터가 0이어도
+    카드가 나간다(09-16 아침: 429 로 카드가 통째로 빠졌다). --no-llm 또는 LLM 2회
+    실패 시 폴백."""
+    steps = []
+    for it in items:
+        # 사실 = 요약 한 문장 + 본문 요지 첫 문장(둘). 의미 = 왜 중요한가·시사점 첫 문장.
+        facts = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("summary"), it.get("detail"))]
+        facts = [f for f in facts if f][:2]
+        why = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("why_important"), it.get("implication"),
+                                                              it.get("open_question"))]
+        why = [w for w in why if w and w not in facts][:2]
+        if not facts and it.get("title"):
+            facts.append(clip(it["title"], FALLBACK_LINE_MAX))
+        if not why:
+            why = [f for f in facts[1:2]] or [clip(it.get("title", ""), FALLBACK_LINE_MAX)]
+        steps.append({"headline": clip(it.get("title", ""), FALLBACK_HEADLINE_MAX),
+                      "facts": facts, "why": why})
+    return {"hook": {"headline": f"오늘 먼저 볼 원자력 현안 {len(items)}건"}, "steps": steps}
+
+
 def _check_line(problems: list[str], where: str, text, limit: int,
                 allow_accent: bool) -> None:
     if not text or not isinstance(text, str):
@@ -320,17 +381,19 @@ def _check_line(problems: list[str], where: str, text, limit: int,
         problems.append(f"{where}: 강조 표기 오류")
 
 
-def _check_bullets(problems: list[str], where: str, bullets, limit: int) -> None:
+def _check_bullets(problems: list[str], where: str, bullets, limit: int,
+                   bullets_min: int = BULLETS_MIN) -> None:
     if not isinstance(bullets, list):
         problems.append(f"{where}: 배열이 아님")
         return
-    if not BULLETS_MIN <= len(bullets) <= BULLETS_MAX:
-        problems.append(f"{where}: {len(bullets)}개 — {BULLETS_MIN}~{BULLETS_MAX}개여야 한다")
+    if not bullets_min <= len(bullets) <= BULLETS_MAX:
+        problems.append(f"{where}: {len(bullets)}개 — {bullets_min}~{BULLETS_MAX}개여야 한다")
     for i, b in enumerate(bullets[:BULLETS_MAX]):
         _check_line(problems, f"{where}[{i + 1}]", b, limit, allow_accent=False)
 
 
-def validate(raw: dict, items: list[dict]) -> list[str]:
+def validate(raw: dict, items: list[dict], bullets_min: int = BULLETS_MIN,
+             line_max: int | None = None, headline_max: int = HEADLINE_MAX) -> list[str]:
     """LLM 출력 검증. 문제 목록을 반환 — 비어 있으면 통과.
 
     "JSON only" 라고 써도 LLM 은 글자 수를 못 세고 태그를 지어낸다. 코드로 잰다.
@@ -353,9 +416,9 @@ def validate(raw: dict, items: list[dict]) -> list[str]:
         if not isinstance(slide, dict):
             problems.append(f"{tag}: 객체가 아님")
             continue
-        _check_line(problems, f"{tag}.headline", slide.get("headline"), HEADLINE_MAX, True)
-        _check_bullets(problems, f"{tag}.facts", slide.get("facts"), FACT_MAX)
-        _check_bullets(problems, f"{tag}.why", slide.get("why"), WHY_MAX)
+        _check_line(problems, f"{tag}.headline", slide.get("headline"), headline_max, True)
+        _check_bullets(problems, f"{tag}.facts", slide.get("facts"), line_max or FACT_MAX, bullets_min)
+        _check_bullets(problems, f"{tag}.why", slide.get("why"), line_max or WHY_MAX, bullets_min)
     return problems
 
 
@@ -485,6 +548,8 @@ def main() -> int:
     ap.add_argument("--force", action="store_true",
                     help="오늘 이미 카드를 보냈어도 다시 만든다")
     ap.add_argument("--date", help="outbox 대신 이 날짜의 사이트 순위로 만든다(로컬 검증용, --force 포함)")
+    ap.add_argument("--no-llm", action="store_true",
+                    help="Gemini 를 부르지 않고 사이트 문장(detail·why_important)으로 카피를 짠다")
     args = ap.parse_args()
 
     if args.date:
@@ -526,7 +591,7 @@ def main() -> int:
 
     raw = None
     last_problems: list[str] = []
-    for attempt in (1, 2):
+    for attempt in (() if args.no_llm else (1, 2)):
         try:
             candidate = ask_llm(items, date, collected, problems=last_problems)
         except Exception as exc:  # noqa: BLE001 — 카드는 부가 기능, 원인만 남긴다
@@ -541,8 +606,16 @@ def main() -> int:
             break
         print(f"[cards] 카피 검증 실패 ({attempt}/2): {'; '.join(last_problems[:6])}")
     if raw is None:
-        print("[cards] 2회 실패 — 카드를 건너뛰고 텍스트 브리핑만 나간다")
-        return 1
+        # LLM 이 없거나(쿼터 0) 두 번 다 틀렸다 — 사이트 문장으로 대체한다. 거칠어도
+        # 카드가 안 나가는 것보다 낫다(09-16 아침 실사고). 렌더 넘침 가드는 그대로.
+        candidate = draft_copy(items)
+        problems = validate(candidate, items, bullets_min=1, line_max=FALLBACK_LINE_MAX,
+                            headline_max=FALLBACK_HEADLINE_MAX)
+        if problems:
+            print(f"[cards] LLM 없이도 못 만듦: {'; '.join(problems[:6])} — 카드 건너뜀")
+            return 1
+        print("[cards] " + ("--no-llm" if args.no_llm else "LLM 2회 실패") + " → 사이트 문장으로 카피 대체")
+        raw = candidate
 
     slides = build_slides(raw, items, date, collected)
     render(slides)
@@ -637,6 +710,20 @@ def _self_check() -> None:
     assert [s["type"] for s in built] == ["hook", "step", "cta"]
     assert built[1]["points"] and built[1]["why"], "한 장에 사실·의미가 둘 다"
     assert "07:25" not in json.dumps(built, ensure_ascii=False), "고정 발송 시각 문구 잔존"
+    # LLM 없는 폴백 — 긴 제목·긴 문장도 상한 안으로 절 단위 절단, 검증 통과
+    long_item = {"title": "日 하마오카 원전, 내진 데이터 조작 사실로 드러나 경영진 사임 그리고 추가 조사 착수",
+                 "detail": "주부전력은 9월 15일 하마오카 원전의 내진 평가 자료 일부가 조작됐다고 인정했다. "
+                           "사장과 원자력본부장이 사임했다. 규제위원회는 추가 조사에 착수했다.",
+                 "why_important": "일본 원전 재가동 심사 전반의 신뢰 문제로 번질 수 있다.",
+                 "implication": "", "open_question": "", "summary": ""}
+    fb = draft_copy([long_item])
+    assert validate(fb, [long_item], bullets_min=1, line_max=FALLBACK_LINE_MAX,
+                    headline_max=FALLBACK_HEADLINE_MAX) == [], fb
+    assert visible_len(fb["steps"][0]["headline"]) <= FALLBACK_HEADLINE_MAX
+    assert clip("가나다라", 34) == "가나다라"
+    long_sent = "일본 주부전력은 하마오카 원전 3·4호기의 재가동 심사에 제출한 지진 데이터 일부를 조작했다고 인정하고 경영진 사임을 발표했다"
+    assert visible_len(clip(long_sent, FACT_MAX)) <= FACT_MAX, clip(long_sent, FACT_MAX)
+    assert "3·4호기" in clip("하마오카 원전 3·4호기 재가동 심사 지연", 20)   # '·'에서 안 자른다
     print("self-check OK")
 
 
