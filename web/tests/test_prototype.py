@@ -27,6 +27,8 @@ except (OSError, KeyError, json.JSONDecodeError):
     DATA_DIR = DATA_ROOT
 
 import build_data  # noqa: E402
+sys.path.insert(0, str(ROOT.parent))   # 봇 루트 — issue_review 는 거기 산다
+import issue_review  # noqa: E402
 for _key in ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"):
     os.environ.setdefault(_key, "test")
 import news_bot  # noqa: E402
@@ -946,11 +948,12 @@ class IssueSimilarityTests(unittest.TestCase):
         self.assertFalse(matched)
 
     def test_cached_embeddings_connect_supported_followup(self):
+        """어휘 바닥(여기서는 공유 태그 2개)을 넘으면 코사인이 후속 보도를 잇는다."""
         left = {
             "hash": "left",
             "title_kr": "월성 계속운전 지원 체계 검토 착수",
             "summary": "지역 지원 제도를 검토한다.",
-            "tags": ["#계속운전"],
+            "tags": ["#계속운전", "#월성"],
             "topics": ["restart_lto"],
             "countries": ["KR"],
         }
@@ -958,7 +961,7 @@ class IssueSimilarityTests(unittest.TestCase):
             "hash": "right",
             "title_kr": "지역 상생 재원 논의 본격화",
             "summary": "장기운전과 연계한 재원을 논의한다.",
-            "tags": ["#계속운전"],
+            "tags": ["#계속운전", "#월성"],
             "topics": ["restart_lto"],
             "countries": ["KR"],
         }
@@ -966,6 +969,53 @@ class IssueSimilarityTests(unittest.TestCase):
         matched, _, diagnostics = build_data.issue_similarity(left, right, embeddings)
         self.assertTrue(matched)
         self.assertEqual(diagnostics["method"], "embedding")
+
+    def test_thin_overlap_defers_to_review_instead_of_merging(self):
+        """코사인만 높고 낱말이 안 겹치는 쌍은 병합이 아니라 **판정 유보**다.
+
+        2026-09-16 라이브 회귀: "한수원, 지진·산불·드론 위협 복합재난 대응훈련
+        실시"(9/14 한울, 한수원)와 "원안위, 2026년 월성·한울 원전 동시 방사선
+        비상 대비 국가방사능방재 연합훈련 실시"(9/10 월성·한울, 원안위)가 한
+        이슈로 붙었다. 기관도 훈련도 날짜도 다르고 규칙 판정은 이미 거부하고
+        있었는데(score 0.196) 코사인 하나가 그 거부를 덮었다. 없는 '기사 2건'이
+        생겨 순위 게이트를 통과했고, 검증 배지가 "공식 원문 포함 — 원자력안전
+        위원회"로 올라갔다(한수원 보도자료 이슈에 원안위 공식문서가 근거로 달렸다).
+
+        끊는 것이 목적이 아니다 — 후보로 남겨 LLM 검수가 판정하게 한다.
+        """
+        left = {
+            "hash": "left",
+            "title_kr": "한수원, 지진·산불·드론 위협 복합재난 대응훈련 실시",
+            "summary": "한수원이 한울원자력본부에서 복합재난 훈련을 실시했다.",
+            "tags": ["#재난대응", "#안전훈련", "#원전안전"],
+            "topics": ["regulation"],
+            "countries": ["KR"],
+        }
+        right = {
+            "hash": "right",
+            "title_kr": "원안위, 2026년 월성·한울 원전 동시 방사선 비상 대비 국가방사능방재 연합훈련 실시",
+            "summary": "원안위가 월성·한울에서 국가방사능방재 연합훈련을 실시한다.",
+            "tags": ["#원전안전", "#방사능방재"],
+            "topics": ["regulation"],
+            "countries": ["KR"],
+        }
+        embeddings = {"left": [1.0, 0.0], "right": [0.999, 0.01]}
+        matched, _, diagnostics = build_data.issue_similarity(left, right, embeddings)
+        self.assertFalse(matched, "어휘 바닥을 못 넘으면 자동 병합하지 않는다")
+        self.assertGreaterEqual(diagnostics["embedding_similarity"],
+                                build_data.ISSUE_EMBEDDING_THRESHOLD)
+        is_candidate, method, _score = build_data.is_review_candidate(diagnostics)
+        self.assertTrue(is_candidate, "버리지 말고 LLM 검수로 보낼 것")
+        self.assertEqual(method, "gemini_candidate")
+        self.assertTrue(issue_review.in_review_band(diagnostics),
+                        "검수 밴드 상한이 이 쌍을 다시 떨어뜨리면 안 된다")
+
+    def test_lexical_floor_accepts_any_one_axis(self):
+        floor = build_data._has_lexical_floor
+        self.assertTrue(floor(0.28, 0.0, 0))       # 제목
+        self.assertTrue(floor(0.0, 0.16, 0))       # 토큰
+        self.assertTrue(floor(0.0, 0.0, 2))        # 공유 태그
+        self.assertFalse(floor(0.246, 0.0455, 1))  # 09-16 한수원 훈련 쌍 실측값
 
     def test_country_conflict_blocks_embedding_merge(self):
         left = {

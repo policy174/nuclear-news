@@ -58,8 +58,18 @@ class BandTests(unittest.TestCase):
     def test_band_is_low_inclusive_high_exclusive(self):
         self.assertTrue(issue_review.in_review_band({"embedding_similarity": 0.84}))
         self.assertTrue(issue_review.in_review_band({"embedding_similarity": 0.919}))
-        self.assertFalse(issue_review.in_review_band({"embedding_similarity": 0.92}))
         self.assertFalse(issue_review.in_review_band({"embedding_similarity": 0.839}))
+
+    def test_high_cosine_pairs_are_adjudicated_not_dropped(self):
+        """0.92 위도 밴드 안이다 — 2026-09-17 부터 그 위가 자동 병합이 아니다.
+
+        build_data 가 어휘 바닥을 못 넘은 쌍을 병합하지 않고 후보로 넘긴다.
+        상한이 0.92 로 남아 있으면 그 쌍들은 검수도 못 받고 조용히 갈라진다 —
+        한수원 훈련 ↔ 원안위 연합훈련(오병합)을 막으려다 한·프랑스 정상회담
+        (정상 병합, 제목 겹침 0.25)까지 함께 끊는다.
+        """
+        self.assertTrue(issue_review.in_review_band({"embedding_similarity": 0.92}))
+        self.assertTrue(issue_review.in_review_band({"embedding_similarity": 1.0}))
 
     def test_real_continuation_at_0_85_is_adjudicated(self):
         """실측 회귀 — 이 쌍이 밴드 밖으로 나가면 헝가리 팍스 후속이 다시 갈라진다.
@@ -83,13 +93,13 @@ class BandTests(unittest.TestCase):
         rows = [
             candidate("in1", 0.90),
             candidate("in1", 0.90),          # 중복
-            candidate("out_high", 0.95),
+            candidate("high", 0.95),         # 상한 위가 아니다 — 후보로 온 이상 판정한다
             candidate("out_low", 0.80),
             candidate("blocked", 0.90, blocked=["country_conflict"]),
             {"no_id": True},
         ]
         picked = issue_review.select_pairs(rows)
-        self.assertEqual([row["candidate_id"] for row in picked], ["in1"])
+        self.assertEqual([row["candidate_id"] for row in picked], ["in1", "high"])
 
 
 class ReviewTests(unittest.TestCase):
@@ -452,9 +462,10 @@ class TestBandLowerBoundIsDeliberate(unittest.TestCase):
     분포가 밴드에 가깝다는 것은 병합할 값어치가 있다는 증거가 아니다.
     """
 
-    def test_band_is_unchanged(self):
+    def test_band_lower_bound_is_unchanged(self):
+        """지키는 것은 **하한**이다. 상한은 2026-09-17 에 1.01 로 올렸다 —
+        자동 병합이 무조건이 아니게 되면서 그 위도 판정 대상이 됐다."""
         self.assertEqual(0.84, issue_review.REVIEW_BAND_LOW)
-        self.assertEqual(0.92, issue_review.REVIEW_BAND_HIGH)
 
     def test_reasoning_is_recorded_in_the_module(self):
         self.assertIn("다시 제안하지 말 것", issue_review.__doc__)

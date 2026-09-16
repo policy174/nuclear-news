@@ -80,11 +80,15 @@ except ImportError:  # pragma: no cover
 ROOT = Path(__file__).parent
 CACHE_FILE = ROOT / "issue_llm_reviews.json"
 
-# 자동 병합(>=0.92)과 자동 분리(<0.84) 사이. build_data.ISSUE_EMBEDDING_THRESHOLD
-# 를 올리면 REVIEW_BAND_HIGH 도 같이 올려야 한다.
+# 자동 분리(<0.84) 위의 전 구간. 상한이 0.92 였던 것은 그 위가 **무조건** 자동
+# 병합이었기 때문이다 — 2026-09-17 부터 아니다. build_data 가 0.92 이상이라도
+# 어휘 바닥(EMBEDDING_FLOOR_*)을 못 넘은 쌍은 병합하지 않고 여기로 넘긴다.
+# 상한을 0.92 에 둔 채로 두면 그 쌍들이 검수도 못 받고 조용히 갈라진다.
+#
+# 코사인 1.0 까지 받도록 상한을 1.01 로 둔다(in_review_band 는 < high).
 # 하한 0.88 → 0.84 (2026-08-03, 근거는 모듈 docstring).
 REVIEW_BAND_LOW = 0.84
-REVIEW_BAND_HIGH = 0.92
+REVIEW_BAND_HIGH = 1.01
 
 # 프롬프트를 고치면 올린다. 캐시된 옛 판정이 자동으로 무효가 된다.
 PROMPT_VERSION = 1

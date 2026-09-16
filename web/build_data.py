@@ -88,6 +88,32 @@ ISSUE_WINDOW_DAYS = 21
 # 지표가 병합기의 성질을 말하게 된다(같은 실측에서 7일 누적 0.193 / 14일 0.120).
 TRACKING_WINDOW_BRIEFINGS = 7
 ISSUE_EMBEDDING_THRESHOLD = 0.92
+# 코사인만으로 자동 병합하기 전에 요구하는 어휘 바닥.
+#
+# 왜 필요한가: 0.92 는 "같은 사건"을 보증하지 못한다. 한국어 원자력 요약문은
+# 장르가 같으면 코사인이 쉽게 0.92 를 넘는다. 실측(2026-09-16 라이브) —
+# "한수원, 지진·산불·드론 위협 복합재난 대응훈련 실시"(9/14 한울, 한수원)와
+# "원안위, 2026년 월성·한울 원전 동시 방사선 비상 대비 국가방사능방재 연합훈련
+# 실시"(9/10 월성·한울, 원안위)가 한 이슈로 붙었다. 기관도 훈련도 날짜도 다른데
+# 규칙 판정은 이미 거부하고 있었다(matched=False, score 0.196). 코사인 하나가
+# 그 거부를 덮었다. 그 결과 없는 '기사 2건'이 생겨 순위 게이트를 통과했고,
+# 검증 배지까지 "공식 원문 포함 — 원자력안전위원회"로 올라갔다(한수원 보도자료
+# 이슈에 원안위 공식문서가 근거로 달렸다).
+#
+# 고치는 방향: 바닥을 못 넘은 쌍을 **버리지 않고** 이미 있는 LLM 회색지대 검수로
+# 보낸다(issue_review). 어휘가 얇아도 같은 사건인 쌍이 실제로 많다 — 한·프랑스
+# 정상회담, 다뉴브강 가뭄, 자포리자. 코드가 혼자 가를 문제가 아니다.
+#
+# 값의 근거: 60일 실측에서 임베딩 단독 연결 375쌍(하루 6.2쌍) 중 이 바닥을 못
+# 넘는 것이 88쌍(하루 1.5쌍, 23%). 그 구간에 명백한 오병합이 몰려 있다 —
+# 「12차 전기본 220GW」↔「대통령, 재계 총수 회동」(제목 겹침 0.038),
+# 「슈퍼예산 SMR」↔「AI 데이터센터 물·전기 부족」(0.066),
+# 「두산 테라파워 계약」↔「TerraPower, AI데이터센터 SMR 발표 예정」(0.107).
+# 0.28 은 is_review_candidate 의 contextual 문턱과 같은 값이다 — 두 곳이 "맥락이
+# 닿는다"를 다른 높이로 재면 어느 쪽도 설명할 수 없게 된다.
+EMBEDDING_FLOOR_TITLE_RATIO = 0.28
+EMBEDDING_FLOOR_TOKEN_RATIO = 0.16
+EMBEDDING_FLOOR_TAG_SHARED = 2
 ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
 LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
 LOCAL_EMBEDDING_DIMENSION = 1024
@@ -1862,9 +1888,13 @@ def issue_similarity(
         # "같은 사건"이 아니라 "같은 분야"를 잡는 높이다(오병합 쌍의 코사인
         # 중앙값 0.856, 제목 유사도 중앙값 0.24). 게이트를 걷어내고 코사인만
         # 0.92 로 올린다 — 0.92 미만은 사람/LLM 검수 큐로 보낸다.
+        # 코사인이 아무리 높아도 어휘가 바닥을 못 넘으면 자동 병합하지 않는다.
+        # matched 를 False 로 두면 아래 is_review_candidate 가 이 쌍을 집어
+        # LLM 검수 큐로 보낸다 — 분리가 아니라 **판정 유보**다.
         elif (
             embedding_similarity is not None
             and embedding_similarity >= ISSUE_EMBEDDING_THRESHOLD
+            and _has_lexical_floor(title_ratio, token_ratio, tag_shared)
         ):
             matched, method = True, "embedding"
             score = max(score, embedding_similarity)
@@ -1890,6 +1920,15 @@ def issue_similarity(
         "left_facilities": sorted(left_units or left_plants),
         "right_facilities": sorted(right_units or right_plants),
     }
+
+
+def _has_lexical_floor(title_ratio: float, token_ratio: float, tag_shared: int) -> bool:
+    """코사인 단독 병합을 허용할 만큼 낱말이 겹치는가. 세 축 중 하나면 충분하다."""
+    return (
+        float(title_ratio or 0) >= EMBEDDING_FLOOR_TITLE_RATIO
+        or float(token_ratio or 0) >= EMBEDDING_FLOOR_TOKEN_RATIO
+        or int(tag_shared or 0) >= EMBEDDING_FLOOR_TAG_SHARED
+    )
 
 
 def is_review_candidate(diagnostics: dict) -> tuple[bool, str, float]:
