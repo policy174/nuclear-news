@@ -180,6 +180,14 @@
       "type": "project",
       "until": "2026-09-23T22:34:44.510509+00:00"
     },
+    "이사진은하마오카": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-16T03:38:50.825770+00:00",
+      "term": "이사진은 하마오카",
+      "type": "plant",
+      "until": "2026-09-30T03:38:50.825770+00:00"
+    },
     "자원경제학회": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -551,38 +559,6 @@
       "status": "tracking",
       "term": "울진군 등",
       "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "이사진은하마오카": {
-      "articles": 1,
-      "created_at": "2026-09-15T03:00:17.845400+00:00",
-      "domains": [
-        "gukjenews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "gukjenews.com",
-          "hash": "a015fd8bcd8b76f6",
-          "importance": "must_read",
-          "title": "주부전력 사장, 하마오카 원전 3·4호기 재가동 안전성 검토 부정행위 책임 사임"
-        }
-      ],
-      "expires_at": "2026-09-16T03:00:17.845400+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-15T22:18:00.483763+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-15T22:17:58.384022+00:00",
-      "queries_run": 2,
-      "query": "이사진은 하마오카 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "이사진은 하마오카",
-      "ttl_hours": 24,
       "type": "plant",
       "yield_days": [],
       "yields": 0,
