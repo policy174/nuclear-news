@@ -3086,6 +3086,42 @@ class SelectionOverrideTests(unittest.TestCase):
         build_data.order_issue_rows(rows, {"old"})
         self.assertEqual(rows[0]["title"], "중대 후속")
 
+    def test_pick_cards_are_wired_to_the_issue_action_delegate(self):
+        """#pickList 가 위임 목록에 있어야 카드가 눌린다.
+
+        2026-09-17 실제로 이 한 줄이 빠져서 펼침·저장·전체 내용 보기가 전부 죽어
+        있었다. 목록 옆 주석이 "홈 목차는 위임을 안 탄다"고 말하는데, 그건
+        #tocList(행이 <a>) 얘기고 #pickList 는 <button> 이라 반대다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        binding = script.split('addEventListener("click", handleIssueAction)')[0]
+        container_list = binding[binding.rindex("["):]
+        self.assertIn('"pickList"', container_list,
+                      "#pickList 가 handleIssueAction 위임 목록에 없다")
+        # 펼침은 이동이 아니다 — 카드 머리는 <button> 이어야 한다
+        card = script.split("function pickCard(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn('<button class="pick-open"', card)
+        self.assertIn('aria-expanded="false"', card)
+        self.assertNotIn('<a class="pick-link"', card, "링크로 되돌아갔다")
+        # 2단계에 액션 셋이 다 있어야 한다(시안 nuclens-today-mockup.html)
+        detail = script.split("function pickDetail(", 1)[1].split("\nfunction ", 1)[0]
+        for marker in ("data-issue-id", "data-save-issue", 'rel="noopener"'):
+            self.assertIn(marker, detail, f"2단계 액션 {marker} 가 없다")
+
+    def test_card_strip_sits_above_the_picks_on_desktop_only(self):
+        """카드뉴스는 넓은 화면에서만 '먼저 볼 3건' 위로 올라간다(지니 09-17).
+
+        폰에서 위로 올리면 3건이 첫 화면 밖으로 나간다 — 그래서 좁은 화면은
+        원래 자리(목차 다음)로 되돌린다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        place = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("narrowScreen.matches", place, "폭 판정이 없다")
+        self.assertIn("picks.before(strip)", place)
+        self.assertIn("panel.after(strip)", place, "좁은 화면 원위치 복귀가 없다")
+        self.assertIn('narrowScreen.addEventListener("change", placeCardStrip)', script,
+                      "회전·창 크기 변경에 자리가 안 따라간다")
+
     def test_cooldown_does_not_rank_must_read_against_must_read(self):
         """must_read 끼리는 쿨다운이 순위를 가르지 않는다.
 
