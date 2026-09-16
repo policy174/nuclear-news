@@ -99,7 +99,10 @@ class TestStoryShadowContract(unittest.TestCase):
                        features=features),
                  qitem("forn", scope="overseas", title="해외 원전 정책 확정",
                        features=features)]
-        outbox = db.plan_briefs(queue, now=NOW)
+        cfg = dict(db.ranking.load_config())
+        cfg["story_ranking"] = dict(cfg["story_ranking"], mode="shadow")
+        with patch("daily_brief.ranking.load_config", return_value=cfg):
+            outbox = db.plan_briefs(queue, now=NOW)
         self.assertEqual(["dom", "forn"], [row["hash"] for row in outbox["items"]])
         self.assertEqual([1, 1], [row["brief_rank"] for row in outbox["items"]])
         shadow = outbox["selection_stats"]["story_shadow"]

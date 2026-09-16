@@ -36,8 +36,8 @@
     "tier2": 1.5
   },
   "story_ranking": {
-    "_comment": "shadow는 운영 순위를 유지하면서 story 단위 예상 순위만 selection_stats에 기록한다. 3회 검증 뒤 live로 전환한다.",
-    "mode": "shadow",
+    "_comment": "live는 story 단위 중복 통합, coverage 가점, 실제 발행시각 감쇠를 운영 순위에 적용한다. 이상 시 shadow로 즉시 롤백한다.",
+    "mode": "live",
     "report_worthiness_weight": 0.333
   },
   "coverage_bonus": {
