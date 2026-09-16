@@ -1,6 +1,21 @@
 {
  "items": [
   {
+   "id": "b3069b627519",
+   "org": "OECD-NEA",
+   "org_kr": "OECD 원자력기구(NEA)",
+   "kind": "news_or_report",
+   "title": "Reviewing progress and setting strategic priorities for future nuclear safety challenges",
+   "url": "https://www.oecd-nea.org/jcms/pl_121802/reviewing-progress-and-setting-strategic-priorities-for-future-nuclear-safety-challenges",
+   "date": "",
+   "fetched_at": "2026-09-17",
+   "title_kr": "미래 원자력 안전 과제를 위한 진행 상황 검토 및 전략적 우선순위 설정",
+   "gist": "미래 원자력 안전 과제에 대한 진행 상황 검토 및 전략적 우선순위 설정",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "a7427e169b49",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -878,42 +893,42 @@
   }
  ],
  "state": {
-  "nea_max_id": 121658,
+  "nea_max_id": 121802,
   "keei_max_list_no": 128168,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   },
   "iea_reports": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-09-16T00:52:35+09:00",
+   "at": "2026-09-17T01:04:56+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
