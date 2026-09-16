@@ -152,8 +152,10 @@ ${fontLinks(theme)}
   }
   /* 3행 그리드 — 꼬리를 바닥에 못박고 본문이 남는 높이를 전부 먹는다.
      원본의 .spacer{flex:1} 방식은 내용을 전부 위로 밀어 아래를 비운다. */
+  /* 열을 minmax(0,1fr) 로 못박는다 — auto 열은 내용이 넓으면 max-content 로 늘어나
+     카드 바깥까지 행을 밀어낸다(09-17 표지 목차 nowrap 에서 1049px 까지 벌어짐). */
   .card { position: absolute; inset: 0; padding: 48px 54px 44px;
-    display: grid; grid-template-rows: auto 1fr auto; }
+    display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); }
   .card::after { content: ""; position: absolute; left: 54px; right: 54px; top: 106px;
     height: 1px; background: ${dark ? "rgba(238,241,244,.18)" : "rgba(18,41,76,.14)"}; }
   .hd { display: flex; justify-content: space-between; align-items: center;
@@ -259,8 +261,11 @@ ${fontLinks(theme)}
   .toc .row { display: flex; gap: 24px; align-items: baseline; }
   .toc .n { font-family: ${theme.fonts.heading.css}; font-weight: 900;
     font-size: 34px; color: ${accent}; letter-spacing: 1px; flex: none; }
+  /* flex:1 + min-width:0 이라야 줄이 칸을 넘지 않는다 — 이게 없으면 nowrap 이
+     플렉스 아이템을 캔버스 밖까지 늘리고, 줄이기 루프의 scrollWidth>clientWidth 도
+     영원히 거짓이다(실측 09-17: 표지 세 줄이 전부 오른쪽으로 잘림). */
   .toc .t { font-size: 50px; font-weight: 600; line-height: 1.28; color: ${ink};
-    word-break: keep-all; overflow-wrap: break-word; }
+    flex: 1; min-width: 0; overflow: hidden; word-break: keep-all; }
   .cover .bar { width: 190px; height: 14px; background: ${accent};
     border-radius: 7px; margin-bottom: 28px; }
   .cover .subline { margin-top: 0; font-size: 34px; }
@@ -442,6 +447,18 @@ const SAMPLE_SLIDES = [
     try {
       await page.evaluate(() => document.fonts.ready);
     } catch (e) {}
+    // 표지 목차는 한 줄에 한 꼭지(지니 09-17). 넘치는 줄만 글자를 줄여 한 줄에 넣는다 —
+    // 34자 헤드라인과 20자 헤드라인이 같은 크기로 다 들어가는 크기는 없다.
+    await page.evaluate(() => {
+      for (const el of document.querySelectorAll(".toc .t")) {
+        el.style.whiteSpace = "nowrap";
+        let size = parseFloat(getComputedStyle(el).fontSize);
+        while (el.scrollWidth > el.clientWidth && size > 30) {
+          size -= 1;
+          el.style.fontSize = size + "px";
+        }
+      }
+    });
     await new Promise((r) => setTimeout(r, 400));
 
     // 조용한 실패 두 가지를 여기서 잡는다. CDN 이 막히면 폰트 없이 "성공" 하고,
@@ -472,16 +489,24 @@ const SAMPLE_SLIDES = [
       const cs = getComputedStyle(card);
       const top = cr.top + parseFloat(cs.paddingTop) - 2;
       const bottom = cr.bottom - parseFloat(cs.paddingBottom) + 2;
+      // 가로도 잰다 — 세로만 보던 탓에 표지 목차가 캔버스 밖으로 잘려 나갔는데도
+      // 통과했다(09-17). 글자는 안쪽 여백 안에 있어야 한다.
+      const left = cr.left + parseFloat(cs.paddingLeft) - 2;
+      const right = cr.right - parseFloat(cs.paddingRight) + 2;
       const rows = [...card.children].filter((el) => !el.classList.contains("ghost"));
       const bad = [];
       for (const row of rows) {
         const r = row.getBoundingClientRect();
         if (r.height > 0 && (r.bottom > bottom || r.top < top)) bad.push(row.className);
+        if (r.width > 0 && (r.right > right || r.left < left)) bad.push(row.className + ":가로");
         // 본문 칸은 1fr 이라 칸 자체는 안 넘치고 안쪽 글자만 넘친다.
         for (const el of row.children) {
           const er = el.getBoundingClientRect();
           if (er.height > 0 && (er.bottom > r.bottom + 2 || er.top < r.top - 2)) {
             bad.push(el.className || el.tagName);
+          }
+          if (er.width > 0 && (er.right > right || er.left < left)) {
+            bad.push((el.className || el.tagName) + ":가로");
           }
         }
       }
