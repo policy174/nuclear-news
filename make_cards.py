@@ -308,8 +308,9 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
 
 _SENT_SPLIT_RE = re.compile(r"(?<=[.!?。])\s+|\n+")
 _CLAUSE_SEPS = ("…", " - ", " – ", ", ")   # '·'·공백은 안 쓴다 — "3·4호기"가 "3"이 된다
-# 폴백 카피는 축약하지 않는다. 문장을 통째로 두고(최대 두 줄 반) 넘치면 렌더 가드가 잡는다.
-FALLBACK_LINE_MAX = 96
+# 폴백 카피는 축약하지 않는다. 문장을 통째로 두되 한 장에 사실 1·의미 1 문장만 —
+# 2+2 는 "글이 너무 많아 안 들어온다"(지니 09-16). 90자 = 두 줄, 문장을 안 자른다.
+FALLBACK_LINE_MAX = 90
 FALLBACK_HEADLINE_MAX = 44   # 제목은 축약 없이 세 줄까지 — "…지분…" 같은 잘린 제목보다 낫다
 
 
@@ -352,12 +353,12 @@ def draft_copy(items: list[dict]) -> dict:
     실패 시 폴백."""
     steps = []
     for it in items:
-        # 사실 = 요약 한 문장 + 본문 요지 첫 문장(둘). 의미 = 왜 중요한가·시사점 첫 문장.
+        # 사실 = 요약 한 문장(없으면 본문 요지 첫 문장). 의미 = 왜 중요한가(없으면 시사점) 한 문장.
         facts = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("summary"), it.get("detail"))]
-        facts = [f for f in facts if f][:2]
+        facts = [f for f in facts if f][:1]
         why = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("why_important"), it.get("implication"),
                                                               it.get("open_question"))]
-        why = [w for w in why if w and w not in facts][:2]
+        why = [w for w in why if w and w not in facts][:1]
         if not facts and it.get("title"):
             facts.append(clip(it["title"], FALLBACK_LINE_MAX))
         if not why:
