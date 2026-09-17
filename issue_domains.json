@@ -743,37 +743,34 @@
       "generated_at": "2026-09-16T23:22:38.505243+00:00"
     },
     "issue-ab0f4ec01ae5bec3": {
-      "digest": "674f5861a55f1579",
       "domain": "재생·수소",
       "tags": [
         "재생에너지"
       ],
       "title": "정부, APEC 에너지장관회의서 2030 재생에너지 100GW 및 AI 전력망 혁신 정책 공유",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
     },
     "issue-6824420ee2a38934": {
-      "digest": "3387430249ba9ae8",
       "domain": "정책",
       "tags": [
         "국제협력외교"
       ],
       "title": "기후에너지환경부, APEC 에너지 장관 회의서 원전·SMR 협력 논의 예정",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
     },
     "issue-86831c42381ae09a": {
-      "digest": "fcc81415b63420c3",
       "domain": "안전성",
       "tags": [
         "원전안전운영"
       ],
       "title": "아르곤 국립연구소, 차세대 원자로 안전성 연구 14년 캠페인 완료",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
     },
     "issue-8df8ff446b69d318": {
       "digest": "c236a9454fb7223d",
@@ -820,15 +817,14 @@
       "generated_at": "2026-09-15T13:19:24.041847+00:00"
     },
     "issue-e009af115f0ba074": {
-      "digest": "f9bcbb2392367663",
-      "domain": "경제성",
+      "domain": "해외사업",
       "tags": [
-        "발전원가"
+        "해외운영"
       ],
       "title": "미국 에너지부, 아이오와주 드웨인 아놀드 원전 재가동에 19억 달러 대출 종결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
     },
     "issue-4681cd2d1eacc8fd": {
       "digest": "4ff7cfc530044af7",
@@ -1646,6 +1642,166 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-09-16T23:22:38.505243+00:00"
+    },
+    "issue-fe1432d7e83e03dd": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "정부·전남광주시·한전, 호남권 반도체 클러스터 전력공급 협약 체결 및 2029년 3GW 우선 공급",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-492277b53b883a52": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-63c61266bb0dc771": {
+      "domain": "안전성",
+      "tags": [
+        "사고고장"
+      ],
+      "title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-9158679d23f5f911": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-fb0c85d957b01043": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "미국-사우디, 평화적 원자력 협력 위한 123 협정 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-13d178fae214cbef": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "정부, 내년 에너지 R&D 예산 7336억 원 편성…SMR 등 차세대 발전 기술 투자 확대",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-bbae50c606e8cae3": {
+      "domain": "재생·수소",
+      "tags": [
+        "청정수소"
+      ],
+      "title": "한수원, 체코수소협회와 원자력 청정수소 법·제도 분석 용역 성과 공유",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-62b7339c71d5ebbc": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "자포리자 원전, 외부 전력선 복구 위한 국지적 휴전 시행",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-7eb1aa603fa1727d": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "IAEA 사무총장, 이란 핵물질 접근 불가… \"심각한 핵확산 우려\"",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-07ef6ce93cc048ff": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "IAEA, 시리아 비밀 원자로 완공 직전 발견…핵무기 생산 가능성 시사",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-676cd380d609d954": {
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "원전 추가 가동기간 논란: 기후부 20년 연장 vs 원안위 현행 유지",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-3eb0eeaad988fbd7": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "경남도의회, SMR 특별법 시행 앞두고 경남 특구 지정 건의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-e9608686ef8d2812": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "튀르키예 에너지장관, 제2·3 원전 프로젝트에 러시아 관심 표명",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-e81f303cd42dbed5": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "우즈베키스탄, 지자흐 2.1GW 원전 국산화율 30%로 상향",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-baca5170b9b93ee2": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "미국 전력망, 인프라 투자 재편 가능성 시사",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
+    },
+    "issue-aa6ac60c2ca8f6b0": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "카이로스 파워, 헤르메스 2 원자로 모의실험 장치 1단계 시험 완료",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-17T03:33:53.690277+00:00"
     }
   }
 }
