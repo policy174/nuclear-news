@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-09-17T10:18:59.893708+09:00",
+ "generated_at": "2026-09-18T08:09:04.774761+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "SMR",
-   "count_now": 260,
-   "count_prev": 108,
-   "direction": "국내외적으로 SMR 기술 개발 및 상용화를 위한 움직임이 활발합니다. 한국은 카자흐스탄과의 공동 연구개발 MOU 체결 및 IAEA에서의 차세대 원자력 청사진 제시를 통해 국제 협력을 강화하고 있으며, 국내에서는 SMR 국가산업단지 조성 추진, 관련 스타트업 육성, 그리고 학계의 본격적인 대비 워크숍 개최 등 전방위적인 노력이 전개되고 있습니다.",
+   "count_now": 241,
+   "count_prev": 142,
+   "direction": "한국은 카자흐스탄과의 SMR 공동 연구개발 MOU 체결, IAEA에서의 차세대 원자력 청사진 제시, 그리고 부산 기후산업박람회에서의 SMR 기술 전시 등을 통해 SMR 분야에서의 국제 협력 및 기술 선도 노력을 강화하고 있습니다. 또한, 국내에서는 SMR 국가산단 조기 조성 및 관련 워크숍 개최 등 SMR 사업화를 위한 정책적, 지역적 움직임도 나타나고 있습니다. 한편, 미국에서는 Blue Energy가 텍사스에 SMR 프로젝트 건설 허가를 신청하는 등 해외에서도 SMR 관련 움직임이 관찰됩니다.",
    "evidence": [
     {
      "hash": "5b6d5b57831be542",
@@ -27,9 +27,9 @@
      "date": "2026-09-17"
     },
     {
-     "hash": "b5d40a5572d6341f",
-     "title_kr": "디캠프, 초소형원자로 개발 기업 비즈 등 딥테크 스타트업 10개사 선정",
-     "url": "https://sports.khan.co.kr/article/202609170307003?pt=nv",
+     "hash": "9fd4c4e2ded65b09",
+     "title_kr": "Blue Energy, 텍사스 가스-원전 프로젝트 건설 허가 신청 제출",
+     "url": "https://www.world-nuclear-news.org/articles/blue-energy-submits-first-construction-application-to-nrc",
      "date": "2026-09-17"
     },
     {
@@ -48,127 +48,89 @@
   },
   {
    "keyword": "데이터센터",
-   "count_now": 222,
-   "count_prev": 109,
-   "direction": "AI 인프라 확장에 따라 데이터센터 투자가 증가하고 있으나, 전력 확보, 용도, 연결성, 인허가, 금융 조달 등 복합적인 고려사항이 부각되고 있습니다. 특히 AI 데이터센터의 전력 수요 급증은 전력망 부담으로 이어져 미국에서는 세제 혜택 제외 법안이 추진되는 등 정책적 논의가 시작되었으며, 이에 대응하여 전력 효율성을 높이는 기술 개발 및 발전기 공급 계약이 활발히 이루어지고 있습니다.",
+   "count_now": 203,
+   "count_prev": 137,
+   "direction": "AI 데이터센터의 급증으로 인한 전력 수요 증가는 동남아시아의 가스 수입 및 태양광 확충 추진, 북미전력신뢰도공사의 전력망 연계 규제 강화, 그리고 미국 하원의 데이터센터 전력비 부담 법안 통과 등 전력망 및 비용 부담 관련 논의를 촉발하고 있습니다. 또한, 효성중공업의 변압기 공급 계약 체결과 베인캐피털벤처스의 AI 인프라 펀드 조성 등 관련 인프라 투자 및 자금 조달 움직임도 나타나고 있습니다.",
    "evidence": [
+    {
+     "hash": "10889e4685ab6904",
+     "title_kr": "동남아시아, AI 데이터센터 전력 수요 급증 속 가스 수입 및 태양광 확충 추진",
+     "url": "https://www.g-enews.com/view.php?ud=202609171909499504fbbec65dfb_1",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "afac0f147faf133c",
+     "title_kr": "데이터센터 전력비 부담 법안, 미 하원 통과… FERC 규정 마련도 추진",
+     "url": "https://www.tokenpost.kr/news/policy/409912",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "4d2f3fff4e759e9f",
+     "title_kr": "북미전력신뢰도공사, 데이터센터 급증에 따른 전력망 연계 규제 강화",
+     "url": "https://www.powermag.com/bringing-a-power-plants-worth-of-load-onto-the-grid-nercs-interconnection-reckoning",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "d66da380817abab9",
+     "title_kr": "삼일PwC, AI 데이터센터 전력 확보와 지방 분산 전략 분석",
+     "url": "http://www.newsian.co.kr/news/articleView.html?idxno=95523",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "b470c3516136e1c8",
+     "title_kr": "미국 하원, 데이터센터 전력망 구축 비용을 사업자가 부담하는 법안 압도적 통과",
+     "url": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609180232&t=NN",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "ddec4874efd29a28",
+     "title_kr": "효성중공업, 미국 빅테크 2곳과 3,865억 원 규모 변압기 공급 계약 체결",
+     "url": "https://weekly.donga.com/3/all/11/6390772/1",
+     "date": "2026-09-18"
+    },
     {
      "hash": "844839f651a1ba7f",
      "title_kr": "베인캐피털벤처스, 16억 달러 규모 AI 인프라·물리적 AI 초기 펀드 조성",
      "url": "https://www.tokenpost.kr/news/ai/409217",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "ff4c0decd8d3a9c2",
-     "title_kr": "미국 AI 인프라 5조 달러 투자 불확실성 대두…국내 반도체 공급망 촉각",
-     "url": "https://www.g-enews.com/view.php?ud=202609161945047800fbbec65dfb_1",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "5399af7585838eb3",
-     "title_kr": "데이터센터 투자, 전력 확보 넘어 용도·연결성 따져야",
-     "url": "https://www.etoday.co.kr/news/view/2626292",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "3ab3a0a90170b3f3",
-     "title_kr": "中 H3C, AI 인프라 확장…데이터센터 냉각 솔루션 강화",
-     "url": "https://www.newspim.com/news/view/20260916000924",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "527d317176389180",
-     "title_kr": "리벨리온, 일본 도쿄 데이터센터에 AI 추론 인프라 구축",
-     "url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202609161105231760109664",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "b2344a2c7b0049c3",
-     "title_kr": "미 상원의원, 데이터센터 세제 혜택 제외 법안 추진…전력망 부담 논란",
-     "url": "https://www.tokenpost.kr/news/policy/409294",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "e2baac5644dcb2bf",
-     "title_kr": "제네락홀딩스, 아마존에 최대 80억 달러 규모 데이터센터 발전기 공급 계약 체결",
-     "url": "https://www.newspim.com/news/view/20260917000078",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "1aac164bd0d342c2",
-     "title_kr": "Arm, 데이터센터용 AGI CPU 20억 달러 규모 고객 수요 확보",
-     "url": "https://www.tokenpost.kr/news/ai/409337",
-     "date": "2026-09-17"
-    }
-   ]
-  },
-  {
-   "keyword": "AI데이터센터",
-   "count_now": 91,
-   "count_prev": 37,
-   "direction": "AI 데이터센터는 급증하는 전력 수요와 냉각 부담에 대응하기 위한 기술 개발 및 인프라 투자가 핵심 흐름을 이루고 있습니다. 삼성, LG 등 국내 기업들은 고효율 냉각 솔루션 경쟁을 벌이고 있으며, 히타치는 미국에 AI 데이터센터용 변압기 공장을 건설하는 등 전력 인프라 구축 투자가 활발합니다. 또한, SK이노베이션은 SMR을 포함한 통합 전력 솔루션을, GS그룹은 수소연료전지 등 전력 안정화 기술을 제시하며 AI 데이터센터의 대규모 전력 수요에 대응하는 다양한 에너지 솔루션 개발 및 투자가 이루어지고 있습니다.",
-   "evidence": [
-    {
-     "hash": "35738a8e46467c47",
-     "title_kr": "기후위기 대응, 견디는 것을 넘어선 실질적 변화 필요",
-     "url": "https://www.joongang.co.kr/article/25462518",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "ae1a5ff3d95362d4",
-     "title_kr": "삼성·LG전자, AI 데이터센터 냉각 솔루션 등 고효율 에너지 절감 기술 경쟁",
-     "url": "https://www.donga.com/news/Economy/article/all/20260916/134683770/2",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "e4abb4ac1fbce77b",
-     "title_kr": "日 히타치, 美에 5억 달러 투자해 AI 데이터센터용 변압기 공장 건설",
-     "url": "https://www.g-enews.com/view.php?ud=2026091617532418350c8c1c064d_1",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "19ce9574e07b7fbc",
-     "title_kr": "쿠팡·테슬라 법칙…기준 정립 기업이 시장 정의",
-     "url": "https://biz.heraldcorp.com/article/10875651",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "ae3cf4fa48f41a82",
-     "title_kr": "김동관 한화그룹 수석부회장, 국방 AI 데이터센터 조성 추진",
-     "url": "https://www.businesspost.co.kr/BP?command=article_view&num=446264",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "22430cc1d5b43ff4",
-     "title_kr": "SK이노베이션, WCE 2026서 BESS·SMR·LNG 결합 전력 설루션 공개",
-     "url": "http://www.e2news.com/news/articleView.html?idxno=334339",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "df5fe2d1f6572e07",
-     "title_kr": "GS벤처스, AI 데이터센터 테크데이 개최…전력·냉각 밸류체인 강화",
-     "url": "https://www.munhwa.com/article/11617619",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "0d6805c1ea1aef28",
-     "title_kr": "KT클라우드, 2031년까지 5년간 AI 인프라에 6조 원 투자 및 1GW AIDC 공급",
-     "url": "https://www.ajunews.com/view/20260916083334313",
      "date": "2026-09-17"
     }
    ]
   },
   {
    "keyword": "원전수출",
-   "count_now": 85,
-   "count_prev": 42,
-   "direction": "원전 수출 흐름은 한국 정부의 미국 웨스팅하우스 지분 인수 협상을 중심으로 전개되고 있으며, 이는 미국 내 대형 원전 건설 참여와 밸류체인 실익 확보를 목표로 합니다. 동시에 카자흐스탄과의 원전 및 SMR 공동 연구개발 MOU 체결, 핵연료 공급망 안정화 협력 강화 등 중앙아시아 지역과의 고위급 협력도 활발히 이루어지고 있습니다. 다만, 웨스팅하우스 지분 인수 협상에서는 지분율과 수익 보장, 원전 노형 배치 등을 두고 한미 간 이견이 발생하며 난항을 겪는 모습도 관찰됩니다.",
+   "count_now": 94,
+   "count_prev": 52,
+   "direction": "한국은 웨스팅하우스 지분 인수 추진을 통해 원전 수출 체계 일원화를 모색하고 있으며, 미국 내 약 40조원 규모의 원전 시장 진출을 위해 국내 건설사들이 총력을 기울이고 있습니다. 또한, 카자흐스탄과의 원전·SMR 공동 연구개발 MOU 체결 및 코트라 주관 수출상담회 개최 등 해외 시장 확대를 위한 다각적인 노력이 진행되고 있습니다.",
    "evidence": [
     {
-     "hash": "893f3ef1b26940d3",
-     "title_kr": "정부, 웨스팅하우스 지분 5~10% 인수 협상 중",
-     "url": "https://news.sbs.co.kr/news/endPage.do?cooper=NAVER&news_id=N1008756177&plink=ORI",
-     "date": "2026-09-17"
+     "hash": "0804cc38e9ee36e8",
+     "title_kr": "한국, 웨스팅하우스 지분 15% 인수 추진하며 이사회 참여 요구",
+     "url": "https://stockhub.kr/timeline/news_ee8229c514ec",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "f05a38c911f2c951",
+     "title_kr": "한국, 웨스팅하우스 지분 15% 인수 추진",
+     "url": "https://www.hankyung.com/article/2026091566461",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "b29dbbcd264beced",
+     "title_kr": "국내 건설사, 미국 40조원 원전 시장 진출 총력…AI 전력 수요 급증 영향",
+     "url": "https://www.newspim.com/news/view/20260917001045",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "a6785dddb3a932dd",
+     "title_kr": "사설, 미국 내 한국형 원전 건설 시 수익성 및 한국 기업 참여 보장 요구",
+     "url": "https://www.asiatoday.co.kr/kn/view.php?key=20260917010006852",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "50a9a588763237e0",
+     "title_kr": "한국전력기술, 신한울 3·4호기 및 체코 원전 설계 참여로 해외시장 확대",
+     "url": "https://www.hankyung.com/article/2026091703531",
+     "date": "2026-09-18"
     },
     {
      "hash": "5b6d5b57831be542",
@@ -181,55 +143,119 @@
      "title_kr": "코트라, 기후·에너지 수출상담회 개최…원전 수질관리 MOU 2건 체결",
      "url": "https://www.cstimes.com/news/articleView.html?idxno=720995",
      "date": "2026-09-17"
+    }
+   ]
+  },
+  {
+   "keyword": "AI데이터센터",
+   "count_now": 88,
+   "count_prev": 45,
+   "direction": "AI 데이터센터의 전력 수요 증가는 한국형 원전 건설 및 금융 제안, 데이터센터 백업 발전기 공급 계약 체결, 그리고 전력망 비상 상황 발생 등 다양한 이슈를 야기하고 있습니다. 또한, 삼성전자와 LG전자의 AI 데이터센터 냉각 솔루션 경쟁 및 두산그룹의 전력 수요 대응 투자 등 관련 기술 개발 및 인프라 투자 움직임도 나타나고 있습니다.",
+   "evidence": [
+    {
+     "hash": "7085716fc64dc348",
+     "title_kr": "오펜하이머 손자, AI 데이터센터 전력 해법으로 한국형 원전 건설·금융 제안",
+     "url": "https://www.ddaily.co.kr/page/view/2026091707130926481",
+     "date": "2026-09-18"
     },
     {
-     "hash": "507a308cc8162c54",
-     "title_kr": "한미, 웨스팅하우스 지분 15% 인수 및 美 원전 건설 참여 막판 조율",
-     "url": "https://www.newsis.com/view/NISX20260916_0003791665",
+     "hash": "c464a0d27d1c31c0",
+     "title_kr": "美 제네락홀딩스, 아마존과 80억 달러 규모 데이터센터 백업 발전기 공급 계약",
+     "url": "https://www.mediapen.com/news/view/1124446",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "a76c43e3c86ad6ce",
+     "title_kr": "美 암홀딩스·제네락홀딩스 급등, 플루언스에너지 급락",
+     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01886006645581432",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "a239673be9a9e73e",
+     "title_kr": "AI 데이터센터 확산에 실리콘밸리 전력 인프라 '비상'",
+     "url": "https://www.mk.co.kr/article/12156031",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "35738a8e46467c47",
+     "title_kr": "기후위기 대응, 견디는 것을 넘어선 실질적 변화 필요",
+     "url": "https://www.joongang.co.kr/article/25462518",
      "date": "2026-09-17"
     },
     {
-     "hash": "a364dd0a199c5ee7",
-     "title_kr": "한국 정부, 웨스팅하우스 지분 15% 인수 및 이사 지명권 협의",
-     "url": "https://www.newsis.com/view/NISX20260916_0003792673",
+     "hash": "ae1a5ff3d95362d4",
+     "title_kr": "삼성·LG전자, AI 데이터센터 냉각 솔루션 등 고효율 에너지 절감 기술 경쟁",
+     "url": "https://www.donga.com/news/Economy/article/all/20260916/134683770/2",
      "date": "2026-09-17"
+    }
+   ]
+  },
+  {
+   "keyword": "전력망",
+   "count_now": 84,
+   "count_prev": 67,
+   "direction": "AI 데이터센터의 급증으로 인한 전력 수요 증가는 미국 하원의 데이터센터 전력비 부담 법안 통과, 북미전력신뢰도공사의 전력망 연계 규제 강화, 그리고 미국 에너지부의 전력망 비상명령 발동 등 전력망 안정성 및 비용 부담 관련 논의를 심화시키고 있습니다. 한편, 한국전력의 가상송전선로 도입 추진 및 국내 태양광 잠재량 분석 등 전력망 보강 및 효율화 노력도 병행되고 있습니다.",
+   "evidence": [
+    {
+     "hash": "a34c98c43a9061f2",
+     "title_kr": "한전, 송전망 건설 지연 대응 '가상송전선로' 도입 추진",
+     "url": "http://www.kjdaily.com/article.php?aid=1789640660687145004",
+     "date": "2026-09-18"
     },
     {
-     "hash": "c320c436cbccb422",
-     "title_kr": "한미, 웨스팅하우스 지분 15% 인수 두고 협상 난항",
-     "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1724475",
-     "date": "2026-09-17"
+     "hash": "afac0f147faf133c",
+     "title_kr": "데이터센터 전력비 부담 법안, 미 하원 통과… FERC 규정 마련도 추진",
+     "url": "https://www.tokenpost.kr/news/policy/409912",
+     "date": "2026-09-18"
     },
     {
-     "hash": "9b9b3eefa27d0b33",
-     "title_kr": "산업통상부, 대미 투자 협상 난항으로 국회 보고 돌연 취소",
-     "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8665369",
-     "date": "2026-09-17"
+     "hash": "4d2f3fff4e759e9f",
+     "title_kr": "북미전력신뢰도공사, 데이터센터 급증에 따른 전력망 연계 규제 강화",
+     "url": "https://www.powermag.com/bringing-a-power-plants-worth-of-load-onto-the-grid-nercs-interconnection-reckoning",
+     "date": "2026-09-18"
     },
     {
-     "hash": "c3e9db3a8135a3fb",
-     "title_kr": "이 대통령, 중앙아시아 순방서 카자흐스탄과 원전 연료 공급망 협력 강화",
-     "url": "https://view.asiae.co.kr/article/2026091622020791633",
+     "hash": "eb450f6a44b4e020",
+     "title_kr": "미국 에너지부, 중대서부 지역 전력망 비상명령 발동",
+     "url": "https://www.energy.gov/articles/energy-secretary-secures-mid-atlantic-grid-due-anticipated-stressed-system-conditions",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "d66da380817abab9",
+     "title_kr": "삼일PwC, AI 데이터센터 전력 확보와 지방 분산 전략 분석",
+     "url": "http://www.newsian.co.kr/news/articleView.html?idxno=95523",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "926cfcbbecf77cd0",
+     "title_kr": "태양광 잠재량 398GW, 배전망 보강 시 182GW 수용 가능",
+     "url": "http://www.e2news.com/news/articleView.html?idxno=334345",
      "date": "2026-09-17"
     }
    ]
   },
   {
    "keyword": "AI",
-   "count_now": 81,
-   "count_prev": 26,
-   "direction": "AI 관련 흐름은 국제 협력 확대와 함께 다양한 산업 분야로의 기술 적용이 활발히 이루어지고 있습니다. 아랍에미리트와의 첨단 기술 협력에서 AI가 언급되고, 한수원은 풍력 터빈 진단에 AI를 활용하는 등 에너지 분야에서의 적용 사례가 나타납니다. 동시에 AI 데이터센터의 전력 수요 증가로 인한 발전기 공급 계약 및 모듈러 데이터센터 표준화 협력 등 인프라 구축 노력이 활발하며, AI 확산이 청년층 고용에 미칠 영향에 대한 사회경제적 우려도 제기되고 있습니다.",
+   "count_now": 76,
+   "count_prev": 40,
+   "direction": "AI 기술의 발전은 데이터센터의 전력 수요 증가와 이에 따른 전력망 부담 심화, 그리고 관련 인프라 투자 확대라는 흐름을 형성하고 있습니다. 한국은 AI 기반 풍력 터빈 진단 기술 개발 및 사이버 보안 특화 AI 파운데이션 모델 개발 사업 참여 등 AI 기술 활용 범위를 넓히고 있으며, 아랍에미리트와의 AI 분야 경제 협력 확대도 추진하고 있습니다.",
    "evidence": [
+    {
+     "hash": "afac0f147faf133c",
+     "title_kr": "데이터센터 전력비 부담 법안, 미 하원 통과… FERC 규정 마련도 추진",
+     "url": "https://www.tokenpost.kr/news/policy/409912",
+     "date": "2026-09-18"
+    },
+    {
+     "hash": "5371cf891255ca45",
+     "title_kr": "두산, AI 시대 전력 수요 대응 위한 CCL 생산 능력 강화 투자",
+     "url": "https://www.mt.co.kr/industry/2026/09/18/2026091719484291315",
+     "date": "2026-09-18"
+    },
     {
      "hash": "667f728730f7ae47",
      "title_kr": "아랍에미리트, 한국 기업 전용 산업단지 조성 추진",
      "url": "https://www.donga.com/news/Economy/article/all/20260916/134683829/2",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "5399af7585838eb3",
-     "title_kr": "데이터센터 투자, 전력 확보 넘어 용도·연결성 따져야",
-     "url": "https://www.etoday.co.kr/news/view/2626292",
      "date": "2026-09-17"
     },
     {
@@ -243,86 +269,6 @@
      "title_kr": "에스투더블유, 과기정통부 주도 ‘보안 특화 AI 파운데이션 모델’ 개발 사업 참여",
      "url": "https://kr.aving.net/news/articleView.html?idxno=1814526",
      "date": "2026-09-17"
-    },
-    {
-     "hash": "4d3ca8c6eeb013b6",
-     "title_kr": "AI 고용 충격, 청년층 집중 우려…대미 투자 진통",
-     "url": "http://kor.theasian.asia/archives/415800",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "e2baac5644dcb2bf",
-     "title_kr": "제네락홀딩스, 아마존에 최대 80억 달러 규모 데이터센터 발전기 공급 계약 체결",
-     "url": "https://www.newspim.com/news/view/20260917000078",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "1aac164bd0d342c2",
-     "title_kr": "Arm, 데이터센터용 AGI CPU 20억 달러 규모 고객 수요 확보",
-     "url": "https://www.tokenpost.kr/news/ai/409337",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "b6542664adb5069b",
-     "title_kr": "LG유플러스, GS건설 등과 사전제작형 모듈러 데이터센터 표준화 협력",
-     "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5061829",
-     "date": "2026-09-16"
-    }
-   ]
-  },
-  {
-   "keyword": "전력망",
-   "count_now": 76,
-   "count_prev": 64,
-   "direction": "전력망 관련 흐름은 AI 데이터센터의 급증하는 전력 수요로 인한 부담과 재생에너지 확대에 따른 안정성 확보, 그리고 송전망 건설의 사회적 수용성 제고라는 세 가지 축으로 전개되고 있습니다. 미국에서는 데이터센터의 전력망 부담으로 세제 혜택 제외 법안이 추진되고 있으며, 국내에서는 송전망 건설 지연 문제를 해결하기 위해 철탑 감축 및 지중화 확대, 인근 마을 태양광 지원 등 주민 수용성 제고 방안이 추진되고 있습니다. 또한, 재생에너지 확대를 대비한 전력수급 예측 강화 및 AI 기반 예측 시스템 도입 논의도 활발합니다.",
-   "evidence": [
-    {
-     "hash": "b2344a2c7b0049c3",
-     "title_kr": "미 상원의원, 데이터센터 세제 혜택 제외 법안 추진…전력망 부담 논란",
-     "url": "https://www.tokenpost.kr/news/policy/409294",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "8f4c54ed23c21103",
-     "title_kr": "미국 트럼프 행정부, 중국산 전력망 핵심 장비 퇴출 행정명령 발동",
-     "url": "https://www.g-enews.com/view.php?ud=202609170817383570c8c1c064d_1",
-     "date": "2026-09-17"
-    },
-    {
-     "hash": "c1d6f1835221fa0d",
-     "title_kr": "전문가, 2027년 AI 주도주로 전력 인프라 및 피지컬 AI 지목",
-     "url": "https://www.newsis.com/view/NISX20260915_0003789901",
-     "date": "2026-09-16"
-    },
-    {
-     "hash": "f23ba37231732761",
-     "title_kr": "정부, 송전망 건설 수용성 제고 위해 마을에 태양광 설치 지원",
-     "url": "https://www.chosun.com/economy/economy_general/2026/09/16/CIBZMIN43FCULPM4MHFMIFACF4",
-     "date": "2026-09-16"
-    },
-    {
-     "hash": "afa84551ffadd5c1",
-     "title_kr": "전력거래소 이사장, 재생에너지 확대 대비 전력수급 예측 강화 제안",
-     "url": "https://www.naeil.com/news/read/602291",
-     "date": "2026-09-16"
-    },
-    {
-     "hash": "97d7ccf69b1d259d",
-     "title_kr": "정부, 송전망 건설 수용성 제고 위해 철탑 절반 감축 및 지중화 확대",
-     "url": "https://www.sedaily.com/article/20091262",
-     "date": "2026-09-16"
-    },
-    {
-     "hash": "5db4adcf0d72c30d",
-     "title_kr": "전문가, AI 데이터센터 입지 이동과 전용 변전소·자가발전 병행 필요성 제기",
-     "url": "https://view.asiae.co.kr/article/2026091516335321907",
-     "date": "2026-09-16"
-    },
-    {
-     "hash": "4562a6d2bb7296f5",
-     "title_kr": "기후에너지환경부, 국가기간 송전망 선로 통합으로 철탑 40% 감축 추진",
-     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01489126645580776",
-     "date": "2026-09-16"
     }
    ]
   }
