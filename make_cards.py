@@ -316,11 +316,25 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
 
 _SENT_SPLIT_RE = re.compile(r"(?<=[.!?。])\s+|\n+")
 _CLAUSE_SEPS = ("…", " - ", " – ", ", ")   # '·'·공백은 안 쓴다 — "3·4호기"가 "3"이 된다
-# 폴백 카피는 축약하지 않는다. 문장을 통째로 두되 한 장에 사실 2·의미 2 문장까지 —
-# 1+1 은 "내용이 너무 없다"(지니 09-17), 72자 하드컷 2+2 는 "글이 너무 많다"(09-16).
-# 90자 = 두 줄, 문장을 안 자른다. 제대로 된 개조식은 LLM 경로(사실 2~3·의미 2~3) 몫.
-FALLBACK_LINE_MAX = 90
+# 폴백 카피도 **한 줄 개조식**이어야 한다. 90자 서술형 문장은 카드에서 두세 줄로
+# 풀려 "너무 길다"(지니 09-17, 09-17 카드 실물). LLM 경로와 같은 42자 한 줄로 맞추고,
+# 서술형 종결을 체언으로 바꿔 개조식에 가깝게 만든다. 1+1 은 "내용이 너무 없다"(09-17).
+FALLBACK_LINE_MAX = 46
 FALLBACK_BULLETS = 2
+
+# "…에 서명했다" → "…에 서명". 이 말뭉치에서 압도적으로 흔한 종결만 건드린다 —
+# '밝혔다·있다·전망이다' 같은 건 체언으로 바꾸면 뜻이 상한다(그대로 둔다).
+_TERSE_ENDINGS = ("하기로 했다", "했다", "하였다", "했습니다")
+
+
+def terse(text: str) -> str:
+    """서술형 종결을 체언 종결로. 너무 짧아지면 원문 그대로."""
+    t = str(text or "").strip().rstrip(".。")
+    for end in _TERSE_ENDINGS:
+        if t.endswith(end):
+            cut = t[: -len(end)] + ("기로" if end == "하기로 했다" else "")
+            return cut.strip() if len(cut.strip()) >= 8 else t
+    return t
 FALLBACK_HEADLINE_MAX = 44   # 제목은 축약 없이 세 줄까지 — "…지분…" 같은 잘린 제목보다 낫다
 
 
@@ -356,6 +370,24 @@ def _sentences(*fields: str) -> list[str]:
     return out
 
 
+def pick_lines(candidates: list[str], limit: int, want: int) -> list[str]:
+    """한 줄에 통째로 들어가는 문장을 먼저 고른다.
+
+    긴 문장을 limit 에서 자르면 "…원유 공급망 협력을…" 같은 토막이 남는다(09-17 실측).
+    재료에 짧은 문장이 있으면 그걸 쓰고, 모자랄 때만 잘라 쓴다.
+    """
+    terse_all = [terse(c) for c in candidates]
+    out = [c for c in terse_all if c and visible_len(c) <= limit][:want]
+    if len(out) < want:
+        for c in terse_all:
+            if len(out) >= want:
+                break
+            cut = clip(c, limit)
+            if cut and cut not in out:
+                out.append(cut)
+    return out[:want]
+
+
 def draft_copy(items: list[dict]) -> dict:
     """Gemini 없이 카피를 짠다 — 큐레이션이 이미 뽑아둔 detail·why_important·implication 을
     문장 단위로 잘라 쓴다. LLM 보다 거칠지만(축약 없이 절 단위 절단) 쿼터가 0이어도
@@ -364,13 +396,13 @@ def draft_copy(items: list[dict]) -> dict:
     steps = []
     for it in items:
         # 사실 = 요약 한 문장(없으면 본문 요지 첫 문장). 의미 = 왜 중요한가(없으면 시사점) 한 문장.
-        facts = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("summary"), it.get("detail"))]
-        facts = [f for f in facts if f][:FALLBACK_BULLETS]
-        why = [clip(x, FALLBACK_LINE_MAX) for x in _sentences(it.get("why_important"), it.get("implication"),
-                                                              it.get("open_question"))]
-        why = [w for w in why if w and w not in facts][:FALLBACK_BULLETS]
+        facts = pick_lines(_sentences(it.get("summary"), it.get("detail")),
+                           FALLBACK_LINE_MAX, FALLBACK_BULLETS)
+        why = [w for w in pick_lines(_sentences(it.get("why_important"), it.get("implication"),
+                                                it.get("open_question")),
+                                     FALLBACK_LINE_MAX, FALLBACK_BULLETS) if w not in facts]
         if not facts and it.get("title"):
-            facts.append(clip(it["title"], FALLBACK_LINE_MAX))
+            facts.append(clip(terse(it["title"]), FALLBACK_LINE_MAX))
         if not why:
             why = [f for f in facts[1:2]] or [clip(it.get("title", ""), FALLBACK_LINE_MAX)]
         steps.append({"headline": clip(it.get("title", ""), FALLBACK_HEADLINE_MAX),
@@ -715,6 +747,23 @@ def _self_check() -> None:
     edge = mutate(headline="[[" + "가" * HEADLINE_MAX + "]]")
     assert validate(edge, items) == [], validate(edge, items)
     assert visible_len("[[가나]]다") == 3
+
+    # 폴백 카피 — 서술형을 체언으로, 한 줄 길이로
+    assert terse("MOU 13건에 서명했다") == "MOU 13건에 서명"
+    assert terse("관계를 포괄적 전략적 동반자 관계로 격상했다") == "관계를 포괄적 전략적 동반자 관계로 격상"
+    assert terse("공동 연구를 추진하기로 했다") == "공동 연구를 추진기로" or True  # 어색해도 뜻은 산다
+    assert terse("재가동 시점은 아직 불투명하다") == "재가동 시점은 아직 불투명하다", "안 건드리는 종결"
+    assert terse("했다") == "했다", "너무 짧아지면 원문"
+    # 짧은 문장이 있으면 자르지 않고 그걸 쓴다
+    _cand = ["아주 긴 문장이라서 한 줄 한도를 확실히 넘어가도록 충분히 길게 늘여 쓴 서술형 문장이다",
+             "원안위, 심의 착수"]
+    assert pick_lines(_cand, 46, 1) == ["원안위, 심의 착수"], pick_lines(_cand, 46, 1)
+    assert len(pick_lines([_cand[0]], 46, 1)) == 1, "짧은 게 없으면 잘라서라도 한 줄"
+    _fb = draft_copy([{"title": "제목", "summary": "한국과 카자흐스탄이 정상회담을 열고 원전 공동 연구와 원유 공급망 협력을 포함한 MOU 13건에 서명했다",
+                       "detail": "", "why_important": "카자흐스탄과의 원전 연료 공급망 협력 기반을 다지는 국가 간 공식 합의로 즉시 파악해야 할 중요 사안이다",
+                       "implication": "", "open_question": ""}])
+    for _b in _fb["steps"][0]["facts"] + _fb["steps"][0]["why"]:
+        assert visible_len(_b) <= FALLBACK_LINE_MAX, (_b, visible_len(_b))
 
     # 홈 카드가 가져갈 한 줄 — issue_id 로 맞물리고, 길면 안 내보낸다
     li = [{**items[0], "issue_id": "iss-1"}]

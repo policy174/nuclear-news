@@ -561,6 +561,16 @@
   </section>
 </main>
 
+<!-- 카드뉴스 크게 보기 — 띠에서 카드를 누르면 열린다. 좌우 버튼으로 다음 장,
+     터치는 스와이프(트랙이 scroll-snap). dialog 라서 Esc·배경 어둡게는 공짜다. -->
+<dialog id="cardViewer" class="card-viewer" aria-label="카드뉴스 크게 보기">
+  <button type="button" class="card-viewer-close" id="cardViewerClose" aria-label="닫기">×</button>
+  <button type="button" class="card-viewer-nav prev" id="cardViewerPrev" aria-label="이전 카드">‹</button>
+  <div class="card-viewer-track" id="cardViewerTrack"></div>
+  <button type="button" class="card-viewer-nav next" id="cardViewerNext" aria-label="다음 카드">›</button>
+  <p class="card-viewer-count" id="cardViewerCount" aria-live="polite"></p>
+</dialog>
+
 <dialog id="globalSearchDialog" class="search-dialog" aria-labelledby="globalSearchTitle">
   <form id="globalSearchForm" method="dialog">
     <div class="search-dialog-head"><h2 id="globalSearchTitle">통합 검색</h2><button id="globalSearchClose" type="button" aria-label="검색 닫기">×</button></div>

@@ -3984,6 +3984,34 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
 .card-strip-item img { display: block; width: 100%; height: auto; }
 /* 다음 장이 살짝 보여야 넘길 수 있다는 걸 손이 안다 */
 @media (max-width: 520px) { .card-strip-item { flex-basis: 84vw; } }
+/* 카드뉴스 크게 보기 */
+.card-viewer { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh;
+  /* 어두운 면은 dialog 자체가 든다 — ::backdrop 만 믿으면 뒤 화면이 그대로 비친다(실측). */
+  margin: 0; padding: 0; border: 0; background: rgba(9, 22, 40, .94); overflow: hidden; }
+.card-viewer::backdrop { background: rgba(9, 22, 40, .94); }
+.card-viewer-track { display: flex; height: 100%; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.card-viewer-track::-webkit-scrollbar { height: 0; }
+.card-viewer-slide { flex: 0 0 100%; scroll-snap-align: center; display: grid; place-items: center;
+  padding: 56px var(--sp-4); }
+.card-viewer-slide img { display: block; width: auto; height: auto;
+  max-width: min(94vw, 78dvh); max-height: 78dvh; border-radius: var(--r-2); }
+.card-viewer-nav, .card-viewer-close { position: fixed; z-index: 2; display: grid; place-items: center;
+  border: var(--bd-1) solid rgba(255, 255, 255, .28); border-radius: var(--r-4);
+  background: rgba(18, 41, 76, .72); color: #fff; font: inherit; line-height: 1; cursor: pointer; }
+.card-viewer-nav { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; font-size: 30px; padding-bottom: 4px; }
+.card-viewer-nav.prev { left: var(--sp-3); }
+.card-viewer-nav.next { right: var(--sp-3); }
+.card-viewer-nav[disabled] { opacity: 0; pointer-events: none; }
+.card-viewer-close { top: var(--sp-3); right: var(--sp-3); width: 44px; height: 44px; font-size: 26px; padding-bottom: 3px; }
+.card-viewer-count { position: fixed; left: 50%; bottom: var(--sp-3); transform: translateX(-50%);
+  margin: 0; color: rgba(255, 255, 255, .78); font-size: var(--t-caption); font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .card-viewer-slide { padding: 52px var(--sp-2); }
+  .card-viewer-slide img { max-width: 94vw; max-height: 74dvh; }
+  .card-viewer-nav { width: 44px; height: 44px; font-size: 26px; }
+}
+
 /* 검색 줄 + 알림 토글 */
 .today-tools { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
 .today-tools .today-search { flex: 1 1 260px; margin-top: var(--sp-3); }

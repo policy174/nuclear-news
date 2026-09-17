@@ -1664,13 +1664,68 @@ function renderCardStrip(date) {
     document.getElementById("cardStripMeta").textContent =
       `${dateWeekdayLabel(pick)} · ${files.length}장${pick === date ? "" : " (최신)"}`;
     document.getElementById("cardStripTrack").innerHTML = files.map((file, i) =>
-      `<a class="card-strip-item" href="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" target="_blank" rel="noopener">
+      `<a class="card-strip-item" href="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" target="_blank" rel="noopener" data-card-index="${i}">
         <img src="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}" loading="lazy" width="1080" height="1080">
       </a>`).join("");
     section.hidden = false;
     bindCardStripNav();
+    bindCardViewer(pick, files);
     placeCardStrip();
   });
+}
+
+// 띠에서 카드를 누르면 크게 본다. 좌우 버튼으로 다음 장, 터치는 스와이프 —
+// 트랙이 한 칸 100% 인 scroll-snap 이라 넘김은 브라우저가 한다(지니 09-17).
+// 원본 PNG 새 탭은 남긴다 — 가운데 클릭·Ctrl 클릭은 그대로 링크로 동작한다.
+function bindCardViewer(date, files) {
+  const dlg = document.getElementById("cardViewer");
+  const track = document.getElementById("cardViewerTrack");
+  const strip = document.getElementById("cardStripTrack");
+  const prev = document.getElementById("cardViewerPrev");
+  const next = document.getElementById("cardViewerNext");
+  const count = document.getElementById("cardViewerCount");
+  if (!dlg || !track || !strip || !prev || !next) return;
+
+  const at = () => (track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0);
+  const sync = () => {
+    const i = at();
+    if (count) count.textContent = `${i + 1} / ${track.children.length}`;
+    prev.disabled = i <= 0;
+    next.disabled = i >= track.children.length - 1;
+  };
+  const move = (dir) => {
+    track.scrollBy({ left: dir * track.clientWidth, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    setTimeout(sync, 400);
+  };
+  const open = (index) => {
+    track.innerHTML = files.map((file, i) =>
+      `<div class="card-viewer-slide"><img src="/cards/${encodeURIComponent(date)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}"></div>`).join("");
+    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+    // 열자마자 누른 장으로. 레이아웃이 선 뒤라야 clientWidth 가 나온다.
+    const land = () => { track.scrollLeft = track.clientWidth * index; sync(); };
+    land();
+    setTimeout(land, 50);
+  };
+
+  strip.onclick = (event) => {
+    const link = event.target.closest("[data-card-index]");
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+    event.preventDefault();
+    open(Number(link.dataset.cardIndex) || 0);
+  };
+
+  if (!dlg.dataset.bound) {
+    dlg.dataset.bound = "1";
+    prev.addEventListener("click", () => move(-1));
+    next.addEventListener("click", () => move(1));
+    track.addEventListener("scroll", sync, { passive: true });
+    document.getElementById("cardViewerClose")?.addEventListener("click", () => dlg.close());
+    // 카드 바깥(어두운 여백)을 누르면 닫는다. 이미지 위는 그대로 둔다.
+    track.addEventListener("click", (event) => {
+      if (event.target.closest("img")) return;
+      dlg.close();
+    });
+  }
 }
 
 // 넓은 화면엔 좌우 버튼으로 한 장씩 넘긴다(지니 09-17). 폰은 스와이프 — 트랙이
