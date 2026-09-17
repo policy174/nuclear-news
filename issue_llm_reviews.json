@@ -372,6 +372,16 @@
       "right_title": "유럽, 역대급 가뭄으로 원전 가동 중단 및 전력난 심화",
       "same_event": true
     },
+    "019fb4ed9c519195--1671085462fb1d98": {
+      "embedding_similarity": 0.8711,
+      "left_title": "산업통상부 장관, G20 혁신장관회의서 AI 협력방안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 G20 회의",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, G20 에너지장관 회의서 '회복력 있는 전력망 파트너십' 제안",
+      "same_event": false
+    },
     "01a8a9a99908ca11--959a0bd83cc42eea": {
       "embedding_similarity": 0.8425,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -3470,6 +3480,16 @@
       "reason": "신규 원전 신중론과 공론화는 다른 사안",
       "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": false
+    },
+    "04efed515cb6116f--ef5a4d6c25004919": {
+      "embedding_similarity": 0.8475,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력 정책 사안",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "기후부·한전 구성 ‘전력산업 산학연관 전문 포럼’, 성과 발표회 개최",
       "same_event": false
     },
     "04efed515cb6116f--f261f6a0ca06115f": {
@@ -6792,6 +6812,16 @@
       "right_title": "정부, 대미투자 국회 비공개 보고 일정 22일로 연기",
       "same_event": true
     },
+    "090c6bcad8fda51e--3794d3ff53f5a406": {
+      "embedding_similarity": 0.8713,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프로젝트 동향",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 3500억 달러 대미투자 국회 보고 취소…원전 사업 범위 협상 난항",
+      "same_event": true
+    },
     "090c6bcad8fda51e--8e8c4284df1bde22": {
       "embedding_similarity": 0.8743,
       "left_title": "정부, 3500억 달러 대미투자 국회 보고 취소…원전 사업 범위 협상 난항",
@@ -6822,6 +6852,16 @@
       "right_title": "산업통상부, 대미 투자 협상 난항으로 국회 보고 돌연 취소",
       "same_event": true
     },
+    "090c6bcad8fda51e--bbd2a88f54b9ebf1": {
+      "embedding_similarity": 0.8708,
+      "left_title": "한·미, 미국 내 대형원전 건설 추진 및 웨스팅하우스 지분 투자 협상 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 3500억 달러 대미투자 국회 보고 취소…원전 사업 범위 협상 난항",
+      "same_event": true
+    },
     "090c6bcad8fda51e--c0e89f694077f6d3": {
       "embedding_similarity": 0.9049,
       "left_title": "정부, 3500억 달러 대미투자 국회 보고 취소…원전 사업 범위 협상 난항",
@@ -6850,6 +6890,16 @@
       "reason": "대미투자 국회 보고 취소",
       "reviewed_at": "2026-09-17T01:26:36.289816+00:00",
       "right_title": "대한민국 정부, 한미 대미투자 MOU 및 국회 보고 연기",
+      "same_event": true
+    },
+    "090c6bcad8fda51e--f8e7b22057b9012f": {
+      "embedding_similarity": 0.8721,
+      "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프로젝트 동향",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 3500억 달러 대미투자 국회 보고 취소…원전 사업 범위 협상 난항",
       "same_event": true
     },
     "091727bf3acda130--10da48de39f64b09": {
@@ -7399,6 +7449,16 @@
       "prompt_version": 1,
       "reason": "원안위 예산 편성과 해양 SMR 기술 협력은 다름",
       "reviewed_at": "2026-09-16T18:56:17.688194+00:00",
+      "right_title": "한국전력기술, 해양 SMR 'BANDI' 핵심기술 확보 위해 기계연과 협력",
+      "same_event": false
+    },
+    "097b96999975e9f1--ec468d9c8c3e4121": {
+      "embedding_similarity": 0.8726,
+      "left_title": "한국, IAEA서 SMR·원자력 선박 주도 차세대 원자력 청사진 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 청사진과 개별 협력",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
       "right_title": "한국전력기술, 해양 SMR 'BANDI' 핵심기술 확보 위해 기계연과 협력",
       "same_event": false
     },
@@ -8971,6 +9031,16 @@
       "reviewed_at": "2026-09-12T22:46:56.999417+00:00",
       "right_title": "HD현대, 인공지능(AI) 데이터센터 전력 수요 대응 위해 SMR·발전엔진에 1조 원 투자",
       "same_event": true
+    },
+    "0ad65c3149551bc0--3d1a03d307cd3c62": {
+      "embedding_similarity": 0.9158,
+      "left_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 투자와 엔진증설 분석",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "HD현대重, 발전엔진증설 장·단기 긍정 효과 [한국주식 원포인트 레슨]",
+      "same_event": false
     },
     "0ad65c3149551bc0--754393574b8fedf7": {
       "embedding_similarity": 0.8656,
@@ -11059,6 +11129,16 @@
       "prompt_version": 1,
       "reason": "웨스팅하우스 지분 인수 협상",
       "reviewed_at": "2026-09-17T03:24:59.482621+00:00",
+      "right_title": "웨스팅하우스, 이사 지명권 조건으로 한전·한수원에 지분 10% 요구",
+      "same_event": true
+    },
+    "0e7e4ae37f0ea733--8df8ff446b69d318": {
+      "embedding_similarity": 0.8711,
+      "left_title": "한전, 웨스팅하우스 지분 인수 논란…재무 건전성·실익 의문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
       "right_title": "웨스팅하우스, 이사 지명권 조건으로 한전·한수원에 지분 10% 요구",
       "same_event": true
     },
@@ -14132,6 +14212,16 @@
       "right_title": "산업통상부, 제1차 한-중앙아 정상회의 계기 원전 및 핵심광물 협력 MOU 체결",
       "same_event": true
     },
+    "12cd698c2e4b52b2--c0a58f0d0c0af487": {
+      "embedding_similarity": 0.8727,
+      "left_title": "이재명 대통령, 제1차 한·중앙아시아 정상회의서 SMR 및 에너지 협력 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-중앙아 정상회의 협력",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한국·중앙아 5개국, '서울선언' 채택해 핵심광물·원전 협력 강화",
+      "same_event": true
+    },
     "12cd698c2e4b52b2--d9288b4de48e9218": {
       "embedding_similarity": 0.8868,
       "left_title": "이재명 대통령, ADB 총재 면담서 중앙아시아 원전 및 핵심광물 협력 논의",
@@ -14140,6 +14230,16 @@
       "reason": "ADB 면담과 정상회의",
       "reviewed_at": "2026-09-17T01:26:36.289816+00:00",
       "right_title": "이재명 대통령, 제1차 한·중앙아시아 정상회의서 SMR 및 에너지 협력 제안",
+      "same_event": false
+    },
+    "12cd698c2e4b52b2--de451dcbb84936da": {
+      "embedding_similarity": 0.8719,
+      "left_title": "이재명 대통령, 제1차 한·중앙아시아 정상회의서 SMR 및 에너지 협력 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정상회의와 비즈니스 서밋",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "산업통상부, 중앙아시아 5개국과 제1차 한-중앙아 비즈니스 서밋 개최",
       "same_event": false
     },
     "12cd698c2e4b52b2--f6607cce45ffc36b": {
@@ -17722,6 +17822,16 @@
       "right_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
       "same_event": false
     },
+    "19a13366c1378ea8--3d67923b7d733157": {
+      "embedding_similarity": 0.871,
+      "left_title": "홀텍, 미국 팔리세이즈 원전 재가동 위한 연료 장전 시작",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재가동과 신규 건설 허가",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
+      "same_event": false
+    },
     "19a13366c1378ea8--4f1cad9e204860e2": {
       "embedding_similarity": 0.8936,
       "left_title": "홀텍, 미국 팔리세이즈 원전 재가동 위한 연료 장전 시작",
@@ -18080,6 +18190,16 @@
       "reason": "차세대 원전 EPC와 미래 사업 인재 확보",
       "reviewed_at": "2026-09-01T14:11:34.363705+00:00",
       "right_title": "현대건설, 하반기 신입 공채 돌입…원전·SMR 등 미래 사업 인재 확보",
+      "same_event": false
+    },
+    "1a7f3f915fba544b--ec468d9c8c3e4121": {
+      "embedding_similarity": 0.8718,
+      "left_title": "한국, IAEA서 SMR·원자력 선박 주도 차세대 원자력 청사진 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 청사진과 기업 동향",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "HD현대 정기선, SMR 기반 선박까지 친환경 선박 기술 영역 확대",
       "same_event": false
     },
     "1a86126eea13b23b--4288e4cee8658728": {
@@ -31582,6 +31702,16 @@
       "right_title": "한-프랑스 정상회담, 민간 원자력 고위급 대화 출범 합의",
       "same_event": true
     },
+    "2f366bdb6179c57a--f6607cce45ffc36b": {
+      "embedding_similarity": 0.872,
+      "left_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협력 대상 국가가 다름",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "이재명 대통령, 카자흐스탄과 원전·SMR 전주기 협력 MOU 체결",
+      "same_event": false
+    },
     "2f366bdb6179c57a--fd1ed16c567b6f08": {
       "embedding_similarity": 0.8604,
       "left_title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
@@ -34312,6 +34442,16 @@
       "right_title": "울진 원전 전력 활용 청정수소 생산, 국회에 산단 지원 요청",
       "same_event": true
     },
+    "345bbd6f547f8863--b182c1402a045dff": {
+      "embedding_similarity": 0.8879,
+      "left_title": "울진군, 원자력수소 국가산단 성공적 조성을 위해 추진에 속도",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "울진 원자력수소 산단 조성",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "경상북도, 울진 원자력 청정수소 생산거점 청사진 발표",
+      "same_event": true
+    },
     "346da384dda06dab--547e2a94314636a3": {
       "embedding_similarity": 0.9129,
       "left_title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
@@ -35479,6 +35619,16 @@
       "prompt_version": 1,
       "reason": "한미 대미투자 합의 내용",
       "reviewed_at": "2026-09-10T18:18:06.808564+00:00",
+      "right_title": "한미, 원전 8기 건설 및 LNG 투자 포함 134조 원 대미투자 합의 임박",
+      "same_event": true
+    },
+    "36c1766a38f39825--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.8723,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대미투자 및 원전 협력",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
       "right_title": "한미, 원전 8기 건설 및 LNG 투자 포함 134조 원 대미투자 합의 임박",
       "same_event": true
     },
@@ -38222,6 +38372,16 @@
       "right_title": "산업부, 제12차 전기본 원전 계속운전 및 신규 건설 검토",
       "same_event": false
     },
+    "3936f98b28485c84--5fe3eac18a020401": {
+      "embedding_similarity": 0.849,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전체 계획과 개별 건의",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "위성곤 제주지사, 김성환 기후부 장관 만나 해상풍력 5GW 전력계획 반영...",
+      "same_event": false
+    },
     "3936f98b28485c84--611c8800e1535aa7": {
       "embedding_similarity": 0.8556,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -38592,6 +38752,16 @@
       "right_title": "한국철강협회, 태양광 발전용 강재 협의체 출범…국산화 추진",
       "same_event": false
     },
+    "3936f98b28485c84--aed4d2e2d8700a87": {
+      "embedding_similarity": 0.8781,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제와 성격이 다름",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "전국 태양광 설치 잠재량 398GW…배전망 보강 시 182GW 수용 가능",
+      "same_event": false
+    },
     "3936f98b28485c84--af6f646191c91c18": {
       "embedding_similarity": 0.8411,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -38840,6 +39010,16 @@
       "reason": "재생에너지 vs 신규 원전",
       "reviewed_at": "2026-08-30T07:56:58.971921+00:00",
       "right_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "same_event": false
+    },
+    "3936f98b28485c84--ef5a4d6c25004919": {
+      "embedding_similarity": 0.8537,
+      "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력 정책 사안",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "기후부·한전 구성 ‘전력산업 산학연관 전문 포럼’, 성과 발표회 개최",
       "same_event": false
     },
     "3936f98b28485c84--f261f6a0ca06115f": {
@@ -39571,6 +39751,26 @@
       "reviewed_at": "2026-08-09T10:25:33.192811+00:00",
       "right_title": "오클로(Oklo) 그로브스(Groves) 원자로, 1년 내 첫 임계 달성",
       "same_event": true
+    },
+    "3a193a9798c4627e--82d6b22684551922": {
+      "embedding_similarity": 0.8978,
+      "left_title": "원안위, 2026년 월성·한울 원전 동시 방사선 비상 대비 국가방사능방재 연합훈련 실시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 방재 훈련",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한울원자력본부, 신한울 2호기 방사능방재 전체훈련 실시",
+      "same_event": false
+    },
+    "3a193a9798c4627e--adf4685fb75ca6bc": {
+      "embedding_similarity": 0.8977,
+      "left_title": "한수원, 지진·산불·드론 위협 복합재난 대응훈련 실시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 방재 훈련",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한울원자력본부, 신한울 2호기 방사능방재 전체훈련 실시",
+      "same_event": false
     },
     "3a4c6bb32078ce0f--60661f43cc4e589f": {
       "embedding_similarity": 0.8566,
@@ -41082,6 +41282,16 @@
       "right_title": "데이터센터 전력 수요 급증, 송전망 구축 지역 갈등 확산",
       "same_event": false
     },
+    "3d1a03d307cd3c62--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8891,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 소식과 주식 분석",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "HD현대重, 발전엔진증설 장·단기 긍정 효과 [한국주식 원포인트 레슨]",
+      "same_event": false
+    },
     "3d2b177ae4f51424--45ba205e3e57eff7": {
       "embedding_similarity": 0.845,
       "left_title": "영국, 자국 전력 공급 보존 위해 유럽으로의 전력 수출 제한",
@@ -41159,6 +41369,16 @@
       "prompt_version": 1,
       "reason": "규제 개편과 특정 SMR 허가",
       "reviewed_at": "2026-09-17T07:03:03.844689+00:00",
+      "right_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
+      "same_event": false
+    },
+    "3d67923b7d733157--f1f4a9733a1bafa4": {
+      "embedding_similarity": 0.8726,
+      "left_title": "미국, 원전 인허가 체계 개편으로 규제 속도 경쟁력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 개편과 개별 허가",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
       "right_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
       "same_event": false
     },
@@ -49512,6 +49732,16 @@
       "right_title": "한수원-웨스팅하우스, 美 원전 8기 건설 협력 잠정 합의",
       "same_event": true
     },
+    "4b88a52b0395c931--92c1435dd6a38436": {
+      "embedding_similarity": 0.8722,
+      "left_title": "한수원 등, 웨스팅하우스 지분 15%·이사회 의결권 확보 추진…미국은 5~10% 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지분 인수와 원전 건설",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 미국에 한국형 원전 2기 포함 총 8기 건설 검토",
+      "same_event": false
+    },
     "4b88a52b0395c931--a83b5f04110b2c41": {
       "embedding_similarity": 0.9153,
       "left_title": "한수원 등, 웨스팅하우스 지분 15%·이사회 의결권 확보 추진…미국은 5~10% 제안",
@@ -51139,6 +51369,16 @@
       "prompt_version": 1,
       "reason": "시험시설 구축과 부지 승인",
       "reviewed_at": "2026-09-17T01:26:36.289816+00:00",
+      "right_title": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
+      "same_event": false
+    },
+    "4f1cad9e204860e2--cd7402e9a9f88194": {
+      "embedding_similarity": 0.8727,
+      "left_title": "웨스팅하우스 eVinci 마이크로원자로, 네바다서 임계 달성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 해외 SMR 프로젝트",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
       "right_title": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
       "same_event": false
     },
@@ -58812,6 +59052,16 @@
       "right_title": "한미 대미투자 최종 합의문 구상에 미국 내 원전 8기 건설 포함",
       "same_event": true
     },
+    "595a5a6d2f6514ab--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.8722,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대미투자 및 원전 협력",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미 대미투자 최종 합의문 구상에 미국 내 원전 8기 건설 포함",
+      "same_event": true
+    },
     "595a5a6d2f6514ab--f8e7b22057b9012f": {
       "embedding_similarity": 0.9143,
       "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
@@ -61630,6 +61880,16 @@
       "reason": "웨스팅하우스 지분 인수",
       "reviewed_at": "2026-09-16T13:34:06.077912+00:00",
       "right_title": "정부 주도 美 웨스팅하우스 소수 지분 인수 추진 속 한전 자금조달 방안 부각",
+      "same_event": true
+    },
+    "5da600fef839df85--8cbbd9806434ba90": {
+      "embedding_similarity": 0.9071,
+      "left_title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 웨스팅하우스 지분 인수 두고 15% vs 5~10% 줄다리기 협상",
       "same_event": true
     },
     "5da600fef839df85--8df8ff446b69d318": {
@@ -65400,6 +65660,16 @@
       "reason": "데이터센터 분산과 산업단지",
       "reviewed_at": "2026-09-16T16:16:01.181456+00:00",
       "right_title": "아랍에미리트, 한국 기업 전용 산업단지 조성 추진",
+      "same_event": false
+    },
+    "6699709aea7eb25a--bac842ec0861c668": {
+      "embedding_similarity": 0.871,
+      "left_title": "한수원, 영덕을 신규 원전 건설 예정지로 선정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 건설과 교정시설 유치",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "영덕군, 신규 교정시설 유치 공모 참여 검토…군민 의견 수렴 진행",
       "same_event": false
     },
     "6699709aea7eb25a--cb98e9d57d62e93c": {
@@ -72842,6 +73112,16 @@
       "right_title": "경남도 내년 정부예산안에 국비 11조6811억 반영…SMR 사업 본격화",
       "same_event": false
     },
+    "754393574b8fedf7--d029858ca9787dfd": {
+      "embedding_similarity": 0.873,
+      "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 동향과 개별 기업 동향",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "두산, AI 전환 가속화…SMR도 미래 성장축으로 주목",
+      "same_event": false
+    },
     "754393574b8fedf7--d557b962171ac1c2": {
       "embedding_similarity": 0.8821,
       "left_title": "정부·지자체·민간, SMR 시장 선점 위한 투자와 제도 정비 가속",
@@ -73660,6 +73940,16 @@
       "reason": "웨스팅하우스 지분 인수 추진 보도",
       "reviewed_at": "2026-09-16T16:16:01.181456+00:00",
       "right_title": "정부, 웨스팅하우스 지분 5~10% 인수 협상 중",
+      "same_event": true
+    },
+    "76c25b6cb116675c--8cbbd9806434ba90": {
+      "embedding_similarity": 0.8773,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 웨스팅하우스 지분 인수 두고 15% vs 5~10% 줄다리기 협상",
       "same_event": true
     },
     "76c25b6cb116675c--8df8ff446b69d318": {
@@ -80822,6 +81112,16 @@
       "right_title": "한국철강협회, 태양광위원회 출범…제12차 전기본 태양광 확대 대응",
       "same_event": false
     },
+    "86e09ce2f6b7856c--aed4d2e2d8700a87": {
+      "embedding_similarity": 0.8719,
+      "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제와 성격이 다름",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "전국 태양광 설치 잠재량 398GW…배전망 보강 시 182GW 수용 가능",
+      "same_event": false
+    },
     "86e09ce2f6b7856c--c82aa35cee00b535": {
       "embedding_similarity": 0.8985,
       "left_title": "12차 전기본, 2040년 재생에너지 220GW 목표 달성 현실성 논란",
@@ -82962,6 +83262,36 @@
       "right_title": "국회, 안도걸 의원 대표발의 '전력망 확충 3법' 본회의 통과",
       "same_event": false
     },
+    "8cbbd9806434ba90--8df8ff446b69d318": {
+      "embedding_similarity": 0.878,
+      "left_title": "한전, 웨스팅하우스 지분 인수 논란…재무 건전성·실익 의문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 웨스팅하우스 지분 인수 두고 15% vs 5~10% 줄다리기 협상",
+      "same_event": true
+    },
+    "8cbbd9806434ba90--9c3c5e658986fdf4": {
+      "embedding_similarity": 0.8846,
+      "left_title": "웨스팅하우스 지분 인수, 국익 부합 여부 냉철한 판단 필요",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 웨스팅하우스 지분 인수 두고 15% vs 5~10% 줄다리기 협상",
+      "same_event": true
+    },
+    "8cbbd9806434ba90--b19fd0094bb30156": {
+      "embedding_similarity": 0.8858,
+      "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 웨스팅하우스 지분 인수 두고 15% vs 5~10% 줄다리기 협상",
+      "same_event": true
+    },
     "8cbfeac0711237e1--dec5f85da999856e": {
       "embedding_similarity": 0.8873,
       "left_title": "美, 한국에 대미 투자 및 한미 원자력협정 후속 협의 압박",
@@ -83371,6 +83701,16 @@
       "reviewed_at": "2026-09-15T16:00:05.096853+00:00",
       "right_title": "이재명 대통령, ADB 총재와 핵심광물·AI·원전 협력 확대 논의",
       "same_event": true
+    },
+    "8e8c4284df1bde22--bb15859d10f6656b": {
+      "embedding_similarity": 0.8716,
+      "left_title": "미국 대미 투자 협상서 사용후핵연료 파이로프로세싱 사업 제안설에 과학계 관심 집중",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 세부 쟁점",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 대미 투자 프로젝트 국회 보고 연기…알래스카 LNG 등 이견 조율",
+      "same_event": false
     },
     "8e8c4284df1bde22--f9c74adbe9e445cb": {
       "embedding_similarity": 0.8748,
@@ -90262,6 +90602,16 @@
       "right_title": "미국-영국, SMR 추진 상선단 개발 협력…한국 조선업계 수주 기대",
       "same_event": false
     },
+    "a27e9c756c8d356b--bb15859d10f6656b": {
+      "embedding_similarity": 0.8751,
+      "left_title": "미국 대미 투자 협상서 사용후핵연료 파이로프로세싱 사업 제안설에 과학계 관심 집중",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 협상",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "한미, 미국 내 원전 8기 노형 두고 이견…대미투자 협상 막판 진통",
+      "same_event": true
+    },
     "a2a4d5064714fb3c--f6b15870627509bd": {
       "embedding_similarity": 0.8434,
       "left_title": "앤트로픽, 엔스케일과 450억 달러 AI 컴퓨팅 계약…용량 확보 총력",
@@ -94372,6 +94722,16 @@
       "right_title": "김성환 기후장관, \"재생에너지 확대, 원전으로 보완\"",
       "same_event": false
     },
+    "aed4d2e2d8700a87--d1f22b19a877962c": {
+      "embedding_similarity": 0.8718,
+      "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제와 성격이 다름",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "전국 태양광 설치 잠재량 398GW…배전망 보강 시 182GW 수용 가능",
+      "same_event": false
+    },
     "aee00725a324e9a4--af90ffd9ff1d6dc1": {
       "embedding_similarity": 0.8551,
       "left_title": "미국 에너지부, 딥피션 15MW급 지하 심층 원자로 안전설계 승인",
@@ -98231,6 +98591,16 @@
       "reviewed_at": "2026-09-16T06:59:48.347903+00:00",
       "right_title": "한미, 대미투자 연계 웨스팅하우스 지분 인수 및 의결권 확보 협상 진행",
       "same_event": true
+    },
+    "bbd2a88f54b9ebf1--f02b9a7c53cffa36": {
+      "embedding_similarity": 0.8721,
+      "left_title": "한·미, 미국 내 대형원전 건설 추진 및 웨스팅하우스 지분 투자 협상 임박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국가 간 협상과 의원 발언",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정진욱 의원, 대미 원전 수출 검토 및 '팀 코리아' 협력 강조",
+      "same_event": false
     },
     "bbd2a88f54b9ebf1--faea267441c0ab7b": {
       "embedding_similarity": 0.8853,
@@ -103282,6 +103652,16 @@
       "right_title": "여야, 호남 반도체 부지 선정 두고 격돌…전력·용수 인프라 논쟁",
       "same_event": false
     },
+    "d2b3d1024f894883--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.8727,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 일정 및 사안",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정부, 대미 투자 1호 사업 국회 보고 22일로 연기…웨스팅하우스 지분 협상 난항",
+      "same_event": false
+    },
     "d2d0e8abcc97280e--f9836d3cb1423104": {
       "embedding_similarity": 0.8707,
       "left_title": "정부, SMR·핵융합 등 '7대 시드' 육성으로 AI 시대 이후 성장동력 확보 추진",
@@ -104071,6 +104451,16 @@
       "reviewed_at": "2026-09-03T08:00:15.786027+00:00",
       "right_title": "12차 전기본, 10월 확정 목표로 국회 토론회 개최",
       "same_event": true
+    },
+    "d9288b4de48e9218--de451dcbb84936da": {
+      "embedding_similarity": 0.8708,
+      "left_title": "이재명 대통령, ADB 총재 면담서 중앙아시아 원전 및 핵심광물 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "ADB 면담과 비즈니스 서밋",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "산업통상부, 중앙아시아 5개국과 제1차 한-중앙아 비즈니스 서밋 개최",
+      "same_event": false
     },
     "d9288b4de48e9218--f6607cce45ffc36b": {
       "embedding_similarity": 0.8793,
@@ -105731,6 +106121,16 @@
       "reviewed_at": "2026-09-13T23:09:42.019375+00:00",
       "right_title": "부산 기장군 SMR 부지 지원을 위한 특별법 시행 및 기본계획 추진",
       "same_event": false
+    },
+    "f02b9a7c53cffa36--f8e7b22057b9012f": {
+      "embedding_similarity": 0.8731,
+      "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 프로젝트",
+      "reviewed_at": "2026-09-17T10:51:59.343434+00:00",
+      "right_title": "정진욱 의원, 대미 원전 수출 검토 및 '팀 코리아' 협력 강조",
+      "same_event": true
     },
     "f04c10e84e5022d9--f1b7e28af992975c": {
       "embedding_similarity": 0.8705,
