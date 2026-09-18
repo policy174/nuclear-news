@@ -316,6 +316,7 @@ function renderSlide(s, theme) {
             <div class="today">${esc(s.date || "")}</div>
             <div class="label">${esc(s.label || "원자력 정책 브리핑")}</div>
           </div>
+          ${s.headline ? `<h1 class="headline">${accentize(s.headline, "em")}</h1>` : ""}
           ${
             Array.isArray(s.toc) && s.toc.length
               ? `<div class="toc">${s.toc

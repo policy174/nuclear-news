@@ -327,7 +327,7 @@ _CLAUSE_SEPS = ("…", " - ", " – ", ", ")   # '·'·공백은 안 쓴다 — 
 # 폴백 카피도 **한 줄 개조식**이어야 한다. 90자 서술형 문장은 카드에서 두세 줄로
 # 풀려 "너무 길다"(지니 09-17, 09-17 카드 실물). LLM 경로와 같은 42자 한 줄로 맞추고,
 # 서술형 종결을 체언으로 바꿔 개조식에 가깝게 만든다. 1+1 은 "내용이 너무 없다"(09-17).
-FALLBACK_LINE_MAX = 46
+FALLBACK_LINE_MAX = 64   # 잘린 줄을 안 세우려면 한 줄이 길어야 한다. 넘치면 build.js 가 줄여 맞춘다
 FALLBACK_BULLETS = 2
 
 # "…에 서명했다" → "…에 서명". 이 말뭉치에서 압도적으로 흔한 종결만 건드린다 —
@@ -388,13 +388,17 @@ def pick_lines(candidates: list[str], limit: int, want: int) -> list[str]:
     """
     terse_all = [terse(c) for c in candidates]
     out = [c for c in terse_all if c and visible_len(c) <= limit][:want]
-    if len(out) < want:
+    # 통째로 들어가는 줄이 하나라도 있으면 거기서 멈춘다. 자른 줄로 개수를 채우면
+    # 한 장에 "…쟁점…" 같은 토막이 나란히 선다(09-18 실측: 불릿 8줄 중 6줄이
+    # 말줄임). 줄이 하나 적은 건 눈에 안 띄지만 잘린 문장은 바로 읽힌다 —
+    # closing_lines 가 이미 쓰는 판단을 본문 불릿에도 그대로 적용한다.
+    if not out:
         for c in terse_all:
-            if len(out) >= want:
-                break
             cut = clip(c, limit)
             if cut and cut not in out:
                 out.append(cut)
+            if len(out) >= want:
+                break
     return out[:want]
 
 
@@ -417,7 +421,7 @@ def draft_copy(items: list[dict]) -> dict:
             why = [f for f in facts[1:2]] or [clip(it.get("title", ""), FALLBACK_LINE_MAX)]
         steps.append({"headline": clip(it.get("title", ""), FALLBACK_HEADLINE_MAX),
                       "facts": facts, "why": why})
-    return {"hook": {"headline": f"오늘 먼저 볼 원자력 현안 {len(items)}건"}, "steps": steps}
+    return {"hook": {"headline": "오늘 먼저 볼 원자력 현안"}, "steps": steps}
 
 
 def _check_line(problems: list[str], where: str, text, limit: int,
