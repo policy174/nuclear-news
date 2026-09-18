@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -64,6 +65,10 @@ FACT_MAX = 40      # 사실 불릿
 WHY_MAX = 40       # 의미 불릿 한 줄
 # 한 장에 둘 다 들어가므로 각각 3개까지. 넘치는지는 build.js 넘침 가드가 잰다.
 BULLETS_MIN, BULLETS_MAX = 2, 3
+# 마지막 장 '오늘 더 있었던 일' 한 줄. 첫 장 목차와 같은 자리다. 실측(09-18)은
+# 33자가 들어가고 34자에서 렌더가 말줄임으로 잘랐다 — 글자 폭이 제각각이라
+# 경계에 붙이지 않고 여유를 둔다. 자를 바에는 그 줄을 안 쓴다(closing_lines).
+CTA_LINE_MAX = 28
 
 # curated 의 detail 이 이보다 짧으면 그 기사만 원문을 다시 탄다.
 # 원문 본문은 저작권 계약상 저장하지 않는다(article_body.py:370) — 남는 건
@@ -74,7 +79,10 @@ BODY_CHARS_FOR_PROMPT = 1200
 
 MIN_PNG_BYTES = 20_000  # 1080×1440 그라디언트 빈 카드가 대략 20KB. 그 아래면 빈 렌더.
 
-SITE = "nuclens.pages.dev"
+# 카드 하단 핸들·캡션에 박히는 주소. 워크플로가 SITE_URL 을 이미 들고 있으므로
+# 그것을 먼저 본다 — v1 에서 가져온 상수를 그대로 두면 v2 카드가 v1 사이트를
+# 광고한다.
+SITE = (os.environ.get("SITE_URL") or "https://nuclens.pages.dev").split("//")[-1].strip("/")
 DELIVERY_NOTE = "크롤 완료 직후 발송"  # cron 고정 시각이 아니다 (daily-brief.yml 주 경로 = workflow_run)
 
 # 카드 분류는 **사이트가 쓰는 그 분류**다. 기사마다 파이프라인이 이미 topics 를
@@ -119,10 +127,10 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 - hook.headline: 오늘 전체를 관통하는 한 줄 판단. 한글 {HEADLINE_TARGET}자 이내
   (최대 {HEADLINE_MAX}자, 넘기면 버려진다). 표지 부제는 코드가 만드니 쓰지 않는다.
 - steps[].headline: 그 기사에서 **무슨 일이 있었나**. 같은 길이 규칙.
-- steps[].facts: {BULLETS_MIN}~{BULLETS_MAX}개, 각 {FACT_MAX}자 이내. **날짜·기관·대상·결정·수치**처럼
+- steps[].facts: **{BULLETS_MAX}개**(재료가 정말 없을 때만 {BULLETS_MIN}개), 각 {FACT_MAX}자 이내. **날짜·기관·대상·결정·수치**처럼
   원문에 적힌 구체값만. 해석·전망·형용사 금지. 개조식 체언 종결.
   예) "9월 11일 제2026-14회 회의" / "2건 의결, 1건 재상정"
-- steps[].why: {BULLETS_MIN}~{BULLETS_MAX}개, 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
+- steps[].why: **{BULLETS_MAX}개**(재료가 정말 없을 때만 {BULLETS_MIN}개), 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
   다음 확인사항 순서를 권장한다. 입력의 why_important·implication·open_question 을
   재료로 쓰되 그대로 베끼지 말고 한 줄로 줄인다.
 - 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. 불릿에는 쓰지 않는다.
@@ -324,7 +332,9 @@ FALLBACK_BULLETS = 2
 
 # "…에 서명했다" → "…에 서명". 이 말뭉치에서 압도적으로 흔한 종결만 건드린다 —
 # '밝혔다·있다·전망이다' 같은 건 체언으로 바꾸면 뜻이 상한다(그대로 둔다).
-_TERSE_ENDINGS = ("하기로 했다", "했다", "하였다", "했습니다")
+# "…은 미정이다" 처럼 서술형 지정사로 끝나는 줄이 마지막 장에 그대로 서면
+# 개조식 카드에서 혼자 튄다. "이다" 는 앞 글자를 남기고 떼면 체언이 된다.
+_TERSE_ENDINGS = ("하기로 했다", "했다", "하였다", "했습니다", "이다")
 
 
 def terse(text: str) -> str:
@@ -505,8 +515,32 @@ def card_lines(raw: dict, items: list[dict]) -> dict[str, str]:
     return lines
 
 
+
+_SUBJECT_PREFIX_RE = re.compile(r"^[^,]{2,12},\s*")
+
+
+def closing_lines(rest_rows: list[dict], want: int = 3,
+                  limit: int = CTA_LINE_MAX) -> list[str]:
+    """마지막 장에 세울 '오늘 더 있었던 일' 줄.
+
+    카드로 못 낸 이슈의 제목을 줄인다. **자른 줄은 버린다** — 후보가 열 건 넘게
+    남아 있는데 굳이 말줄임표가 붙은 줄을 세울 이유가 없다(pick_lines 와 같은
+    판단). 제목 앞머리의 주체("한수원, ", "美 NRC, ")는 뗀다: 세 줄이 나란히
+    서면 주체보다 사건이 먼저 읽혀야 한다.
+    """
+    out: list[str] = []
+    for row in rest_rows:
+        title = _SUBJECT_PREFIX_RE.sub("", str(row.get("title") or "").strip())
+        line = terse(title)
+        if not line or visible_len(line) > limit or line in out:
+            continue
+        out.append(line)
+        if len(out) == want:
+            break
+    return out
+
 def build_slides(raw: dict, items: list[dict], date: str,
-                 collected: int = 0) -> list[dict]:
+                 collected: int = 0, rest_rows: list[dict] | None = None) -> list[dict]:
     """검증 통과한 카피 → build.js 가 먹는 slides 배열.
 
     한 주제는 한 장 안에서 끝낸다. 빽빽해지지 않는 이유는 블록을 나누기
@@ -543,18 +577,30 @@ def build_slides(raw: dict, items: list[dict], date: str,
             "handle": SITE, "footer": item["source"],
             "url": item["link"],   # build.js 는 안 쓴다 — 캡션·검증용
         })
-    slides.append({
-        "type": "cta",
-        "slideNum": f"{total:02d} / {total:02d}",
-        "stepLabel": "NUCLENS",
-        "headline": "전체 보기",
-        "subline": "오늘 브리핑 전문과 지난 이슈 흐름",
-        "keyword": SITE,
-        # 마지막장이 통째로 비어 있었다 — 오늘 3건을 다시 세운다(디자인 검토 09-17).
-        "toc": [c["headline"].replace("[[", "").replace("]]", "") for c in raw["steps"]],
-        "handle": DELIVERY_NOTE,   # 알약이 이미 주소라 꼬리말까지 주소면 세 번이다
-        "footer": date.replace("-", "."),
-    })
+    # 마지막 장. 한때 통째로 비어서 오늘 3건을 다시 세웠는데(09-17), 그건 첫 장
+    # 목차를 그대로 되풀이하는 것이었다(지니 09-18). 남은 질문을 세우는 것도
+    # 마찬가지다 — 그건 이미 각 장의 '왜 중요한가' 마지막 줄에 있다. 그래서
+    # **카드로 못 낸 오늘의 나머지**를 싣는다. 카드에서 처음 나오는 정보이고,
+    # 사이트로 넘어갈 이유도 그 자리에서 생긴다.
+    more = closing_lines(rest_rows or [])
+    if len(more) >= 2:
+        remaining = len(rest_rows or [])
+        slides.append({
+            "type": "cta",
+            "slideNum": f"{total:02d} / {total:02d}",
+            "stepLabel": "NUCLENS",
+            "headline": "오늘 더 있었던 일",
+            "subline": f"나머지 {remaining}건은 사이트에서",
+            "keyword": SITE,
+            "toc": more,
+            "handle": DELIVERY_NOTE,   # 알약이 이미 주소라 꼬리말까지 주소면 세 번이다
+            "footer": date.replace("-", "."),
+        })
+    else:
+        # 세울 게 없으면 장을 빼고 장수를 줄인다. 링크는 모든 장 꼬리말에 이미
+        # 있다 — 할 말 없는 장을 세우느니 없는 게 낫다.
+        for slide in slides:
+            slide["slideNum"] = f"{slide['slideNum'].split('/')[0].strip()} / {len(slides):02d}"
     return slides
 
 
@@ -695,7 +741,10 @@ def main() -> int:
         print("[cards] " + ("--no-llm" if args.no_llm else "LLM 2회 실패") + " → 사이트 문장으로 카피 대체")
         raw = candidate
 
-    slides = build_slides(raw, items, date, collected)
+    taken = {i["hash"] for i in items if i.get("hash")}
+    rest_rows = [r for r in rows
+                 if (r.get("representative_article") or {}).get("hash") not in taken]
+    slides = build_slides(raw, items, date, collected, rest_rows)
     render(slides)
     files = gate(len(slides))
 
@@ -811,12 +860,27 @@ def _self_check() -> None:
             "분류 표시명이 web/public/app.js 와 어긋남: "
             f"{set(site.items()) ^ set(TOPIC_LABELS.items())}")
 
-    # 장수 산식: 표지1 + 2N + 마지막1
-    built = build_slides(ok, items, "2026-09-14", 645)
+    # 장수 산식: 표지1 + N + 마지막1. 마지막 장은 '오늘 더 있었던 일'이라
+    # 카드로 못 낸 이슈가 남아 있을 때만 선다.
+    rest = [{"title": "美 NRC, 팰리세이즈 SMR 부지 기초 토목공사 예외 승인"},
+            {"title": "웨스팅하우스, eVinci 마이크로원자로 임계 시험 성공"},
+            {"title": "원안위, IAEA 총회 계기 UAE·체코·싱가포르와 원자력 안전규제 협력 강화"}]
+    lines = closing_lines(rest)
+    # 주체 접두를 떼고 체언으로 끝낸다. 26자를 넘는 셋째 줄은 자르지 않고 버린다.
+    assert lines == ["팰리세이즈 SMR 부지 기초 토목공사 예외 승인",
+                     "eVinci 마이크로원자로 임계 시험 성공"], lines
+    built = build_slides(ok, items, "2026-09-14", 645, rest)
     assert len(built) == len(items) + 2 == 3, len(built)
     assert [s["type"] for s in built] == ["hook", "step", "cta"]
+    # 마지막 장이 첫 장 목차를 되풀이하지 않는다 — 이게 이 장의 존재 이유다.
+    assert built[-1]["toc"] != built[0]["toc"], "마지막 장이 표지 목차의 반복이다"
+    assert built[-1]["toc"] == lines, built[-1]["toc"]
     assert built[1]["points"] and built[1]["why"], "한 장에 사실·의미가 둘 다"
     assert "07:25" not in json.dumps(built, ensure_ascii=False), "고정 발송 시각 문구 잔존"
+    # 남길 게 없으면 장을 세우지 않고 장수를 줄인다.
+    built = build_slides(ok, items, "2026-09-14", 645, [])
+    assert [s["type"] for s in built] == ["hook", "step"], built
+    assert built[0]["slideNum"] == "01 / 02" and built[1]["slideNum"] == "02 / 02", built
     # LLM 없는 폴백 — 긴 제목·긴 문장도 상한 안으로 절 단위 절단, 검증 통과
     long_item = {"title": "日 하마오카 원전, 내진 데이터 조작 사실로 드러나 경영진 사임 그리고 추가 조사 착수",
                  "detail": "주부전력은 9월 15일 하마오카 원전의 내진 평가 자료 일부가 조작됐다고 인정했다. "
