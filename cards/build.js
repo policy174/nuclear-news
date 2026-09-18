@@ -256,6 +256,38 @@ ${fontLinks(theme)}
   .why .points li { font-size: 29px; line-height: 1.34; color: ${ink}; font-weight: 600; }
   .why .points li::before { background: ${dark ? accent : c.signalInk}; }
 
+  /* 본문 장 = 매거진 판형. 머리(번호·분류·제목)를 네이비 밴드에 반전으로 얹고,
+     사실·의미는 종이 위에 둔다. 세 장이 같은 회색 벽처럼 보이던 이유는 한 장
+     안에 판이 하나뿐이어서였다(09-18 실측) — 밴드가 그 장의 앵커가 된다.
+     위계도 뒤집는다: 사실은 캡션급으로 내리고 '왜 중요한가'를 본문 크기로
+     올린다. 카드가 파는 건 기사 요약이 아니라 그 판단이다. */
+  .card.mag { padding: 0; display: flex; flex-direction: column; }
+  .card.mag::after { display: none; }   /* 밴드 경계가 이미 가로선이다 */
+  .mag .band { background: ${c.bgDark}; color: ${c.inkOnDark};
+    padding: 48px 54px 46px; }
+  .mag .band .hd { color: rgba(238,241,244,.52); }
+  .mag .band .hd .brand { color: ${c.accentBright}; }
+  .mag .idxrow { margin-top: 34px; }
+  .mag .badge { background: ${c.bg}; color: ${c.bgDark}; }
+  .mag .tag { color: ${c.accentBright}; }
+  .mag .headline { margin-top: 22px; font-size: 58px; color: ${c.inkOnDark}; }
+  .mag .headline .em { color: ${c.accentBright}; }
+  .mag .body { flex: 1; padding: 44px 54px 0; justify-content: center; }
+  /* 사실 = 근거. 읽히되 주인공은 아니다. */
+  .mag .points { margin-top: 0; }
+  .mag .points li { font-size: 27px; font-weight: 500; color: ${c.inkDim}; }
+  .mag .points li::before { background: ${c.inkMute}; width: 8px; height: 8px;
+    margin-top: 13px; }
+  /* 의미 = 주인공. 상자를 걷고 글자를 키운다 — 상자 안의 상자는 부차로 읽힌다. */
+  .mag .why { margin-top: 36px; padding: 28px 0 0; background: none;
+    border-left: 0; border-top: 2px solid ${c.ink}; }
+  .mag .why .lbl { color: ${c.accent}; margin-bottom: 16px; }
+  .mag .why .points li { font-size: 34px; font-weight: 700; color: ${c.ink};
+    line-height: 1.32; }
+  .mag .why .points li::before { background: ${c.accent}; width: 10px; height: 10px;
+    margin-top: 16px; }
+  .mag .ft { margin: 0 54px; padding-bottom: 44px; }
+
   .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .chip { padding: 9px 16px; border-radius: 0; font-size: 21px;
     font-weight: 700; color: ${inkDim};
@@ -370,9 +402,9 @@ function renderSlide(s, theme) {
       ).join("")}</div>`
     : "";
   return shell(
-    `<div class="card">
-      <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
-      <div class="body">
+    `<div class="card mag">
+      <div class="band">
+        <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
         ${s.mainTitle ? `<div class="classification"><span class="class-label">MAIN TITLE</span><span class="class-title">${esc(s.mainTitle)}</span></div>` : ""}
         ${s.sectionLabel ? `<div class="section-kicker">${esc(s.sectionLabel)}</div>` : ""}
         <div class="idxrow">
@@ -380,6 +412,8 @@ function renderSlide(s, theme) {
           ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
         </div>
         <h1 class="headline">${accentize(s.headline, "em")}</h1>
+      </div>
+      <div class="body">
         ${heroStat}
         ${statusRows}
         ${bullets(s.points)}
