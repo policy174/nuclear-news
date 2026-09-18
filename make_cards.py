@@ -393,13 +393,12 @@ def pick_lines(candidates: list[str], limit: int, want: int) -> list[str]:
     # 말줄임). 줄이 하나 적은 건 눈에 안 띄지만 잘린 문장은 바로 읽힌다 —
     # closing_lines 가 이미 쓰는 판단을 본문 불릿에도 그대로 적용한다.
     if not out:
-        # 통짜가 하나도 없으면 가장 짧은 후보 하나만 자른다. 잘린 줄을 둘 세우면
-        # 한 장에 말줄임이 나란히 서고(09-18), 그건 재료가 없다는 신호를 두 번
-        # 주는 것이다 — 한 번이면 족하다.
-        shortest = min(terse_all, key=visible_len, default="")
-        cut = clip(shortest, limit) if shortest else ""
-        if cut:
-            out.append(cut)
+        for c in terse_all:
+            cut = clip(c, limit)
+            if cut and cut not in out:
+                out.append(cut)
+            if len(out) >= want:
+                break
     return out[:want]
 
 
