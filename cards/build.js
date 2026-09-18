@@ -130,6 +130,46 @@ function accentize(text, cls) {
   });
 }
 
+// 히어로 그래픽 — **사진은 쓰지 않는다.** 뉴스 카드 상단에 실사처럼 보이는 합성
+// 이미지를 올리면 없는 장면을 사실처럼 보이게 한다(v2 시안 판정 09-18). 대신
+// 분류에서 결정되는 기하 도형을 브랜드 색으로 얇게 깐다. 판단 근거는 파이프라인이
+// 이미 정한 분류 라벨 하나뿐이고, 본문 문구를 훑지 않는다 — 훑으면 오늘 기사에만
+// 맞는 규칙이 된다.
+const HERO_ART = {
+  atom: `<ellipse rx="300" ry="110"/><ellipse rx="300" ry="110" transform="rotate(60)"/><ellipse rx="300" ry="110" transform="rotate(120)"/><circle r="24" fill="currentColor" stroke="none"/>`,
+  grid: `<path d="M-300 190 L0 -180 L300 190"/><path d="M-250 110h500M-190 30h380M-130 -50h260"/><path d="M-110 190v-300M110 190v-300"/>`,
+  link: `<circle cx="-110" cy="0" r="150"/><circle cx="110" cy="0" r="150"/><path d="M-360 0h700"/>`,
+  doc: `<rect x="-190" y="-200" width="380" height="400"/><path d="M-120 -110h240M-120 -20h240M-120 70h150"/><path d="M-300 230h600"/>`,
+  wave: `<path d="M-360 60q180-200 360 0t360 0"/><path d="M-360 150q180-200 360 0t360 0"/><path d="M-360-30q180-200 360 0t360 0"/>`,
+};
+
+function heroArt(label) {
+  const t = String(label || "");
+  const key = /SMR|원자로|신규|건설/.test(t) ? "atom"
+    : /전력|계통|수급|에너지/.test(t) ? "grid"
+    : /해외|수출|협력|통상|외교/.test(t) ? "link"
+    : /규제|인허가|안전|정책|법/.test(t) ? "doc"
+    : "wave";
+  return `<svg viewBox="-360 -260 720 520" preserveAspectRatio="xMidYMid slice">${HERO_ART[key]}</svg>`;
+}
+
+// 사실 카드 두 장. 카피가 signals(라벨·값·상태)를 주면 그걸 쓰고, 없으면(폴백 카피)
+// 사실 불릿을 그대로 세운다. 상태 알약은 **카피가 준 값일 때만** 붙는다 — 본문에서
+// 유추해 붙이면 원문에 없는 판정을 카드가 만들어내는 꼴이다.
+const MUTED_STATUS = ["연기", "보류", "부결", "반려", "중단", "미정", "무산"];
+
+function editorialRows(s) {
+  const signals = (Array.isArray(s.signals) ? s.signals : []).filter((x) => x && x.value);
+  if (signals.length) {
+    return signals.slice(0, 2).map((x) => ({
+      label: x.label || "확인된 사실", text: x.value, state: x.status || "",
+      muted: MUTED_STATUS.includes(String(x.status || "")),
+    }));
+  }
+  return (Array.isArray(s.points) ? s.points : []).slice(0, 2)
+    .map((t) => ({ label: "", text: t, state: "" }));
+}
+
 function shell(inner, theme, dark) {
   const c = theme.colors;
   const h = theme.headline;
@@ -256,6 +296,71 @@ ${fontLinks(theme)}
   .why .points li { font-size: 29px; line-height: 1.34; color: ${ink}; font-weight: 600; }
   .why .points li::before { background: ${dark ? accent : c.signalInk}; }
 
+  /* 편집형 본문 장 — v2 코덱스 시안(47d30b8d)의 판형을 옮긴다. 히어로(네이비) /
+     사실 두 장 / 판단 한 문장 / 출처 띠. 옮기면서 바꾼 둘: 사진 히어로는 기하
+     그래픽으로(없는 장면을 만들지 않는다), 라벨·상태는 정규식이 아니라 카피가 준
+     값으로(오늘 기사에만 맞는 규칙을 코드에 박지 않는다). */
+  .card.ed { padding: 0; display: grid; grid-template-rows: 466px 1fr 88px; }
+  .card.ed::after { display: none; }
+  .ed-hero { position: relative; overflow: hidden; padding: 44px 54px 40px;
+    display: flex; flex-direction: column;
+    color: ${c.inkOnDark}; background:
+      radial-gradient(120% 150% at 88% 0%, rgba(90,160,232,.30) 0%, transparent 58%),
+      ${c.bgDark}; }
+  .ed-art { position: absolute; right: -130px; top: 40px; width: 720px; height: 520px;
+    color: ${c.accentBright}; opacity: .28; }
+  .ed-art svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
+    stroke-width: 2.5; }
+  .ed-hero .hd, .ed-copy { position: relative; z-index: 1; }
+  .ed-hero .hd { color: rgba(238,241,244,.55); }
+  .ed-hero .hd .brand { color: ${c.accentBright}; }
+  .ed-copy { margin-top: auto; width: 78%; }
+  .ed-kicker { display: flex; align-items: center; gap: 14px; font-size: 22px;
+    font-weight: 750; color: rgba(238,241,244,.62); }
+  .ed-kicker strong { color: ${c.accentBright}; font-weight: 850; }
+  .ed-title { margin-top: 20px; font-family: ${theme.fonts.heading.css};
+    font-size: 64px; line-height: 1.1; letter-spacing: -2.6px; font-weight: 850;
+    word-break: keep-all; }
+  /* 강조는 제목의 마지막 구절 — 그 구절만 한 단 크게 떨어뜨려 덩어리를 만든다. */
+  .ed-title .em { display: block; color: ${c.accentBright}; font-size: 1.1em; }
+  .ed-deck { margin-top: 18px; max-width: 780px; color: rgba(238,241,244,.86);
+    font-size: 24px; line-height: 1.4; font-weight: 500; word-break: keep-all; }
+  .ed-body { padding: 30px 54px 18px; display: flex; flex-direction: column;
+    justify-content: center; }
+  .ed-head { color: ${accent}; font-size: 22px; font-weight: 850; letter-spacing: 1px; }
+  .ed-grid { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ed-fact { border: 1px solid ${c.rule}; padding: 18px 20px; display: grid;
+    grid-template-columns: 56px 1fr; gap: 16px; align-items: start; }
+  .ed-fact .n { font-family: ${theme.fonts.heading.css}; font-size: 26px;
+    font-weight: 900; color: ${c.bg}; background: ${c.ink}; width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center; }
+  .ed-fact .lbl { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .ed-fact .lbl strong { color: ${c.ink}; font-size: 27px; font-weight: 820; }
+  .ed-fact .state { padding: 4px 12px; font-size: 19px; font-weight: 800;
+    background: ${c.signal}; color: ${c.signalInk}; }
+  .ed-fact .state.muted { background: none; color: ${inkMute};
+    border: 1px solid ${c.rule}; }
+  .ed-fact .val { margin-top: 7px; color: ${inkDim}; font-size: 22px;
+    line-height: 1.36; font-weight: 550; word-break: keep-all; }
+  .ed-fact .val.solo { margin-top: 0; color: ${c.ink}; font-size: 25px;
+    font-weight: 650; }
+  .ed-why { margin-top: 26px; padding-top: 22px; border-top: 3px solid ${c.ink}; }
+  .ed-why-grid { margin-top: 16px; display: grid; grid-template-columns: 1.3fr .9fr;
+    gap: 34px; align-items: start; }
+  .ed-lead { color: ${c.ink}; font-size: 32px; line-height: 1.3; font-weight: 780;
+    letter-spacing: -1px; word-break: keep-all; }
+  .ed-checks { border-left: 1px solid ${c.rule}; padding-left: 26px;
+    display: flex; flex-direction: column; gap: 14px; }
+  .ed-check { display: grid; grid-template-columns: 20px 1fr; gap: 12px;
+    color: ${inkDim}; font-size: 20px; line-height: 1.36; font-weight: 600;
+    word-break: keep-all; }
+  .ed-check::before { content: ""; width: 12px; height: 12px; margin-top: 9px;
+    background: ${accent}; }
+  .ed-ft { padding: 0 54px; display: flex; justify-content: space-between;
+    align-items: center; background: ${c.bgDark}; color: rgba(238,241,244,.55);
+    font-size: 23px; font-weight: 700; }
+  .ed-ft .src { color: ${c.inkOnDark}; font-weight: 800; }
+
   .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .chip { padding: 9px 16px; border-radius: 0; font-size: 21px;
     font-weight: 700; color: ${inkDim};
@@ -351,42 +456,41 @@ function renderSlide(s, theme) {
     );
   }
 
-  const bullets = (list, cls) =>
-    Array.isArray(list) && list.length
-      ? `<ul class="points${cls || ""}">${list.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`
-      : "";
-  const why = Array.isArray(s.why) && s.why.length
-    ? `<div class="why"><div class="lbl">${esc(s.whyLabel || "왜 중요한가")}</div>${bullets(s.why)}</div>`
-    : "";
-  const chips = Array.isArray(s.meta) && s.meta.length
-    ? `<div class="meta">${s.meta.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>`
-    : "";
-  const heroStat = s.heroStat
-    ? `<div class="hero-stat"><span class="value">${esc(s.heroStat)}</span><span class="unit">${esc(s.heroUnit || "")}</span><span class="caption">${esc(s.heroCaption || "")}</span></div>`
-    : "";
-  const statusRows = Array.isArray(s.statusRows) && s.statusRows.length
-    ? `<div class="status-list">${s.statusRows.map((row) =>
-        `<div class="status-row ${esc(row.tone || "")}"><div class="status-label">${esc(row.label)}</div><div class="status-text">${esc(row.text)}</div></div>`
-      ).join("")}</div>`
-    : "";
+  const rows = editorialRows(s);
+  const checks = (Array.isArray(s.why) ? s.why : []).slice(1, 3);
+  const lead = (Array.isArray(s.why) ? s.why : [])[0] || "";
+  // 리드 문장이 사실 카드에 다시 서지 않도록, 덱은 signals 가 있을 때만 쓴다.
+  const deck = (Array.isArray(s.signals) && s.signals.length)
+    ? (Array.isArray(s.points) ? s.points[0] || "" : "") : "";
+  const context = Array.isArray(s.meta) ? s.meta.join(" · ").replaceAll("#", "") : "";
   return shell(
-    `<div class="card">
-      <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
-      <div class="body">
-        ${s.mainTitle ? `<div class="classification"><span class="class-label">MAIN TITLE</span><span class="class-title">${esc(s.mainTitle)}</span></div>` : ""}
-        ${s.sectionLabel ? `<div class="section-kicker">${esc(s.sectionLabel)}</div>` : ""}
-        <div class="idxrow">
-          ${s.idx && !s.mainTitle ? `<div class="badge">${esc(s.idx)}</div>` : ""}
-          ${s.stepLabel ? `<div class="tag">${esc(s.stepLabel)}</div>` : ""}
+    `<div class="card ed">
+      <section class="ed-hero">
+        <div class="ed-art ghost">${heroArt(s.stepLabel)}</div>
+        <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
+        <div class="ed-copy">
+          <div class="ed-kicker"><strong>${esc(s.stepLabel || "")}</strong>${context ? `<span>${esc(context)}</span>` : ""}</div>
+          <h1 class="ed-title">${accentize(s.headline, "em")}</h1>
+          ${deck ? `<p class="ed-deck">${esc(deck)}</p>` : ""}
         </div>
-        <h1 class="headline">${accentize(s.headline, "em")}</h1>
-        ${heroStat}
-        ${statusRows}
-        ${bullets(s.points)}
-        ${why}
-        ${chips}
-      </div>
-      <div class="ft"><span class="site">${site}</span><span class="src">${esc(s.footer || "")}</span></div>
+      </section>
+      <section class="ed-body">
+        <div class="ed-head">확인된 사실</div>
+        <div class="ed-grid">${rows.map((row, i) =>
+          `<div class="ed-fact"><div class="n">${String(i + 1).padStart(2, "0")}</div><div>
+             ${row.label ? `<div class="lbl"><strong>${esc(row.label)}</strong>${row.state ? `<span class="state${row.muted ? " muted" : ""}">${esc(row.state)}</span>` : ""}</div>` : ""}
+             <div class="val${row.label ? "" : " solo"}">${esc(row.text)}</div>
+           </div></div>`
+        ).join("")}</div>
+        ${lead ? `<div class="ed-why">
+          <div class="ed-head">왜 중요한가</div>
+          <div class="ed-why-grid">
+            <p class="ed-lead">${esc(lead)}</p>
+            ${checks.length ? `<div class="ed-checks">${checks.map((t) => `<div class="ed-check"><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
+          </div>
+        </div>` : ""}
+      </section>
+      <footer class="ed-ft"><span>${site}</span><span class="src">${esc(s.footer || "")}</span></footer>
     </div>`,
     theme,
     false
@@ -569,6 +673,7 @@ function selfCheck() {
         if (r.width > 0 && (r.right > right || r.left < left)) bad.push(row.className + ":가로");
         // 본문 칸은 1fr 이라 칸 자체는 안 넘치고 안쪽 글자만 넘친다.
         for (const el of row.children) {
+          if (el.classList.contains("ghost")) continue;   // 장식 그래픽은 일부러 흘러넘친다
           const er = el.getBoundingClientRect();
           if (er.height > 0 && (er.bottom > r.bottom + 2 || er.top < r.top - 2)) {
             bad.push(el.className || el.tagName);

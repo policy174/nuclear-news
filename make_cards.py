@@ -65,6 +65,14 @@ FACT_MAX = 40      # 사실 불릿
 WHY_MAX = 40       # 의미 불릿 한 줄
 # 한 장에 둘 다 들어가므로 각각 3개까지. 넘치는지는 build.js 넘침 가드가 잰다.
 BULLETS_MIN, BULLETS_MAX = 2, 3
+# 사실 카드 두 장(라벨·값·상태). 편집형 판형이 이 구조를 먹는다. 상태는 **닫힌
+# 목록**이라야 한다 — 열어두면 모델이 "급물살", "청신호" 같은 논평을 알약에 박는다.
+SIGNAL_COUNT = 2
+SIGNAL_LABEL_MAX = 10
+SIGNAL_VALUE_MAX = 30
+STATUS_WORDS = ("합의", "서명", "연기", "보류", "협의", "가결", "부결", "발의",
+                "제출", "착수", "진행", "확대", "축소", "승인", "반려", "검토",
+                "미정", "완료", "중단", "무산")
 # 마지막 장 '오늘 더 있었던 일' 한 줄. 첫 장 목차와 같은 자리다. 실측(09-18)은
 # 33자가 들어가고 34자에서 렌더가 말줄임으로 잘랐다 — 글자 폭이 제각각이라
 # 경계에 붙이지 않고 여유를 둔다. 자를 바에는 그 줄을 안 쓴다(closing_lines).
@@ -133,7 +141,13 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
 - steps[].why: **{BULLETS_MAX}개**(재료가 정말 없을 때만 {BULLETS_MIN}개), 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
   다음 확인사항 순서를 권장한다. 입력의 why_important·implication·open_question 을
   재료로 쓰되 그대로 베끼지 말고 한 줄로 줄인다.
-- 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. 불릿에는 쓰지 않는다.
+- steps[].signals: **{SIGNAL_COUNT}개**. 각 {{"label": 그 사실이 무엇에 관한 것인가({SIGNAL_LABEL_MAX}자 이내
+  체언, 예 "MOU 서명"·"핵심 쟁점"·"심의 일정"), "value": 원문에 적힌 값({SIGNAL_VALUE_MAX}자 이내),
+  "status": 아래 목록에서 하나}}. status 목록: {' · '.join(STATUS_WORDS)}.
+  **목록에 없는 말을 지어내지 말고**, 어느 것도 안 맞으면 그 사실은 signals 에 넣지 않는다.
+  facts 와 같은 사실을 써도 된다 — signals 는 그 사실의 뼈대다.
+- 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. **제목의 마지막 구절**에 건다
+  (카드에서 그 구절만 한 단 크게 떨어진다). 불릿에는 쓰지 않는다.
 - 숫자·호기명·국가명·기관명은 원문 그대로 옮긴다. 반올림·추정·의역 금지.
   **입력에 없는 수치·날짜를 지어내지 않는다.** 재료가 부족하면 불릿 수를 줄인다.
 - 입력 기사에 sensitive=true 가 붙었으면 `[[ ]]` 강조와 수사적 표현을 쓰지 않는다.
@@ -393,12 +407,12 @@ def pick_lines(candidates: list[str], limit: int, want: int) -> list[str]:
     # 말줄임). 줄이 하나 적은 건 눈에 안 띄지만 잘린 문장은 바로 읽힌다 —
     # closing_lines 가 이미 쓰는 판단을 본문 불릿에도 그대로 적용한다.
     if not out:
-        for c in terse_all:
-            cut = clip(c, limit)
-            if cut and cut not in out:
-                out.append(cut)
-            if len(out) >= want:
-                break
+        # 통짜가 하나도 없으면 가장 짧은 후보 하나만 자른다. 잘린 줄을 둘 세우면
+        # 한 장에 말줄임이 나란히 서고(09-18), 재료가 없다는 신호를 두 번 주는 꼴이다.
+        shortest = min(terse_all, key=visible_len, default="")
+        cut = clip(shortest, limit) if shortest else ""
+        if cut:
+            out.append(cut)
     return out[:want]
 
 
@@ -476,7 +490,35 @@ def validate(raw: dict, items: list[dict], bullets_min: int = BULLETS_MIN,
         _check_line(problems, f"{tag}.headline", slide.get("headline"), headline_max, True)
         _check_bullets(problems, f"{tag}.facts", slide.get("facts"), line_max or FACT_MAX, bullets_min)
         _check_bullets(problems, f"{tag}.why", slide.get("why"), line_max or WHY_MAX, bullets_min)
+        _check_signals(problems, tag, slide.get("signals"), required=line_max is None)
     return problems
+
+
+def _check_signals(problems: list[str], tag: str, signals, required: bool) -> None:
+    """사실 카드의 라벨·값·상태. 폴백 카피에는 없다(required=False).
+
+    status 는 닫힌 목록 안에서만 온다 — 알약은 카드에서 판정처럼 읽히므로,
+    원문에 없는 판단을 모델이 만들어 넣을 자리를 애초에 안 준다.
+    """
+    if not signals:
+        if required:
+            problems.append(f"{tag}.signals: 없음 — {SIGNAL_COUNT}개여야 한다")
+        return
+    if not isinstance(signals, list) or len(signals) != SIGNAL_COUNT:
+        problems.append(f"{tag}.signals: {len(signals) if isinstance(signals, list) else '?'}개 "
+                        f"— {SIGNAL_COUNT}개여야 한다")
+        return
+    for i, sig in enumerate(signals, start=1):
+        where = f"{tag}.signals[{i}]"
+        if not isinstance(sig, dict):
+            problems.append(f"{where}: 객체가 아님")
+            continue
+        _check_line(problems, f"{where}.label", sig.get("label"), SIGNAL_LABEL_MAX, False)
+        _check_line(problems, f"{where}.value", sig.get("value"), SIGNAL_VALUE_MAX, False)
+        status = str(sig.get("status") or "")
+        if status not in STATUS_WORDS:
+            problems.append(f"{where}.status: \"{status}\" — 목록 밖 "
+                            f"({' · '.join(STATUS_WORDS[:6])} …)")
 
 
 def strip_accent_on_sensitive(raw: dict, items: list[dict]) -> int:
@@ -575,6 +617,7 @@ def build_slides(raw: dict, items: list[dict], date: str,
             "stepLabel": item["topic"],
             "headline": copy["headline"],
             "points": copy["facts"],
+            "signals": copy.get("signals") or [],
             "whyLabel": "왜 중요한가",
             "why": copy["why"],
             "meta": [m for m in (item["event_date"], item["tag"]) if m],
@@ -775,6 +818,8 @@ def _self_check() -> None:
             "headline": "[[원안위]] 심의 착수",
             "facts": ["9월 11일 제2026-14회 회의", "2건 의결, 1건 재상정"],
             "why": ["설계수명 만료 4기 일정에 직결", "재상정분 결과는 미확정"],
+            "signals": [{"label": "심의 결과", "value": "2건 의결, 1건 재상정", "status": "가결"},
+                        {"label": "재상정분", "value": "다음 회의로 이월", "status": "미정"}],
         }],
     }
     assert validate(ok, items) == [], validate(ok, items)
@@ -789,6 +834,20 @@ def _self_check() -> None:
     assert any("why" in p for p in validate(mutate(why=["가" * (WHY_MAX + 1), "나"]), items))
     assert any("강조" in p for p in validate(mutate(facts=["[[강조]] 금지", "나"]), items))
     assert any("개수" in p for p in validate({**ok, "steps": ok["steps"] * 2}, items))
+    # 사실 카드 — 상태는 닫힌 목록 안에서만
+    assert any("signals" in p for p in validate(mutate(signals=None), items)), "signals 필수"
+    assert any("status" in p for p in validate(mutate(signals=[
+        {**ok["steps"][0]["signals"][0], "status": "급물살"},
+        ok["steps"][0]["signals"][1]]), items)), "목록 밖 상태"
+    assert any("signals" in p for p in validate(mutate(
+        signals=ok["steps"][0]["signals"][:1]), items)), "개수"
+    assert any("label" in p for p in validate(mutate(signals=[
+        {"label": "가" * (SIGNAL_LABEL_MAX + 1), "value": "값", "status": "합의"},
+        ok["steps"][0]["signals"][1]]), items))
+    # 폴백 카피에는 signals 가 없다 — 그건 실패가 아니다
+    assert validate({**ok, "steps": [{k: v for k, v in ok["steps"][0].items() if k != "signals"}]},
+                    items, bullets_min=1, line_max=FALLBACK_LINE_MAX,
+                    headline_max=FALLBACK_HEADLINE_MAX) == []
     # sensitive 강조는 검증 실패가 아니라 코드가 벗긴다
     import copy
     dirty = copy.deepcopy(ok)
