@@ -581,15 +581,14 @@
       "generated_at": "2026-09-16T23:22:38.505243+00:00"
     },
     "issue-8070f5ccefba9cf4": {
-      "digest": "2d757ed529f7dcf2",
       "domain": "계속운전",
       "tags": [
         "계속운전"
       ],
-      "title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "기장군, 고리 2~4호기 계속운전 상생협력금 갈등 해결에 한수원 역할 요청",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
     },
     "issue-995a3a9b7cdd6475": {
       "digest": "846a5954ea97b912",
@@ -2789,6 +2788,390 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-09-18T03:20:14.937435+00:00"
+    },
+    "issue-b91bfcc849692088": {
+      "domain": "핵연료",
+      "tags": [
+        "핵연료제조"
+      ],
+      "title": "암페라-LLNL, TRISO 핵연료 개발 협력…액체금속 분사 기술 활용",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-12e2f4c8f9ad9385": {
+      "domain": "사후처리",
+      "tags": [
+        "방폐물"
+      ],
+      "title": "국무조정실, 후쿠시마 오염수 23차 방류계획 및 대응 브리핑",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-b408b5e35449c0f7": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "구윤철 부총리, 다자 통상협력 확대 및 원전 등 고부가가치 수주 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-1c06818650f7ceef": {
+      "domain": "재생·수소",
+      "tags": [
+        "수력양수"
+      ],
+      "title": "한수원, 원전 공정열 활용 고온수전해 K-SOC 산업 생태계 육성",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-9dacbce26e9badf0": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "네덜란드, 신규 원전 FEED 연구 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-9397ece8baa51088": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "포르툼, 스웨덴 신규 원전 건설 위한 국가 지원 신청",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-bdbb49a2077a9f4a": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "EU, SF₆ 사용 제한 강화…효성·HD현대, 420kV 친환경 GIS 경쟁",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-c0a0a81776742190": {
+      "domain": "경제성",
+      "tags": [
+        "전기요금"
+      ],
+      "title": "정부, 남부권 산업용 전기요금 최대 10% 인하 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-6da9d8c70fd660b7": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "경북도의회, 원자력 특별위원회 구성…영덕 신규 원전 2기 건설 확정 언급",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-e4ccfc7cc9bf3032": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "국제원자력기구(IAEA) ATLAS 해양 원자력 이니셔티브에 26개국 참여",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-a0b12b1d397170fb": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "국민의힘, 한국판 IRA에 SMR·전기차 지원 추가 제안",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-10f5d9696b487b59": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "포르튬 자회사 누코어 에너지, 스웨덴 신규 원전 건설에 국가 지원 신청",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-47ec7493867e73b9": {
+      "domain": "핵연료",
+      "tags": [
+        "핵연료제조"
+      ],
+      "title": "Standard Nuclear, Antares Nuclear와 TRISO 핵연료 공급 다년 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-6543ddbbaeb4bc81": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "LS일렉트릭, 북미 AI 데이터센터 전력설비 공급 계약 2309억 원으로 증액",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-d0468add0e6e8f36": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "베트남 국회, 닌투언 원전 사업 3개 독립 프로젝트로 분리 추진 결정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-69c8a881044613f7": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "CFS, SPARC 핵융합로 완성 위해 10억 달러 투자 유치",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-e5a4ebd98ea2a0b9": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "중국 쉬다바오 원전 1·2호기 주제어실 시뮬레이터 가동 개시",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-5bfbb7e47287e323": {
+      "domain": "재생·수소",
+      "tags": [
+        "수력양수"
+      ],
+      "title": "대한전선, 파리 CIGRE서 HVDC 기술로 유럽 전력망 시장 공략",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-01e1896c892484a1": {
+      "domain": "정책",
+      "tags": [
+        "전원계획"
+      ],
+      "title": "정부, 14조 규모 전력망 예타 면제 확정…구축 18개월 단축",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-73bb46ca55808e9b": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "국회, 원자력의학원 방사선상해 치료병원 법제화…5대 실행과제 착수",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-a45344607e7a523b": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "원자력안전위원회, 새울원전 1호기 정기검사 후 8월 21일 재가동 허용",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-bca1920d907255cd": {
+      "domain": "해외사업",
+      "tags": [],
+      "title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-1b323589ebe226b5": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "한수원, 해남 규모 3.1 지진에 원전 영향 없음 공식 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-522b62c9f4b69caa": {
+      "domain": "해외사업",
+      "tags": [],
+      "title": "대창솔루션, 프랑스 아라벨 솔루션과 826억 원 규모 원전 특수강 공급 계약",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-26eafa8274e4f294": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "두산에너빌리티, 美 테라파워 SMR 핵심 기자재 제작 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-1f19bad6b206fd4f": {
+      "domain": "SMR",
+      "tags": [
+        "SMR제도"
+      ],
+      "title": "미국·중국, 핵융합 전용 규제 체계 구축하며 2040년대 상용화 속도전 돌입",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-5e2c11cd445bbcee": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "헝가리 팍스 원전, 다뉴브강 수위 회복으로 3호기 재가동 시작",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-b1a7b2cc44367615": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "미국, 중국 조선업 견제 위해 핵 추진 상선단 계획",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-dc704bc92a96cebd": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "이종배 의원 대표발의 전기사업법 개정안 국회 본회의 통과",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-037106987823f68c": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "싱가포르, 에너지 전환 전략에 원자력·재생에너지 병행 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-68be746272350483": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "아일랜드, 데이터센터 전력 수요로 원자력 발전 재논의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-6d595b8e75280614": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "AI 기업 앤트로픽, 2조 달러 IPO 추진…전력 확보가 핵심 과제",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-44a5dbf43710cac6": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "싱가포르국립대, AI 전력 병목 해소 위한 생물학 데이터센터 시제품 공개",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-df46595bdfc12f16": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "美 매사추세츠 주지사, 뉴잉글랜드 지역 첨단 원자력·핵융합 에너지 정상회의 개최",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-9177c575aca6c154": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "두산에너빌리티, 美 3대 SMR 개발사와 핵심 부품 공급 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-9c6e9baaf48da56b": {
+      "domain": "해외사업",
+      "tags": [],
+      "title": "두산에너빌리티, 오만 미스파 가스복합발전소 9300억원 규모 EPC 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-46906f005868a7ff": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "우리기술, 한수원과 고리 3·4호기 PMS 설비개선 자재 공급계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-e20a2a78f72b0623": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "튀르키예, 2050년까지 5GW SMR 도입 목표로 韓·美와 기술 협력 확대",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
+    },
+    "issue-a75afed1bd7ff155": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "러시아, 30GW 원전 증설 및 신흥국 17기 수출 공세 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-18T08:30:42.694758+00:00"
     }
   }
 }
