@@ -67,18 +67,23 @@ def send_media_group(files: list[Path], caption: str) -> list[dict]:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true")
+    # 스토리 카드뉴스(story_cards.py)도 같은 발송기를 쓴다. 앨범 파일과 중복 방지
+    # 키만 갈라준다 — 발송 로직·검증이 둘로 갈리면 한쪽만 고쳐지는 날이 온다.
+    ap.add_argument("--album", type=Path, default=ALBUM_FILE)
+    ap.add_argument("--key", default="cards", help="outbox 중복 방지 키")
     args = ap.parse_args()
 
-    if not ALBUM_FILE.exists():
-        print("[album] cards/album.json 없음 — make_cards 가 스킵했거나 실패했다")
+    album_file = args.album if args.album.is_absolute() else ROOT / args.album
+    if not album_file.exists():
+        print(f"[album] {album_file.name} 없음 — 생성기가 스킵했거나 실패했다")
         return 0
-    album = json.loads(ALBUM_FILE.read_text(encoding="utf-8"))
+    album = json.loads(album_file.read_text(encoding="utf-8"))
     date = album["date"]
     files = [ROOT / f for f in album["files"]]
 
     outbox = json.loads(OUTBOX_FILE.read_text(encoding="utf-8")) if OUTBOX_FILE.exists() else {}
-    if not args.force and (outbox.get("cards") or {}).get("date") == date:
-        print(f"[album] {date} 카드는 이미 발송됨 — 스킵")
+    if not args.force and (outbox.get(args.key) or {}).get("date") == date:
+        print(f"[album] {date} {args.key} 는 이미 발송됨 — 스킵")
         return 0
     if outbox.get("date") != date:
         print(f"[album] album({date}) 과 outbox({outbox.get('date')}) 날짜 불일치 — 발송 중단")
@@ -95,7 +100,7 @@ def main() -> int:
     result = send_media_group(files, album["caption"])
 
     # F — Message 배열을 받은 뒤에만 기록한다. 기록이 곧 중복 방지 키다.
-    outbox["cards"] = {
+    outbox[args.key] = {
         "date": date,
         "sent_at": datetime.now(KST).isoformat(),
         "count": len(files),
@@ -103,7 +108,7 @@ def main() -> int:
     }
     OUTBOX_FILE.write_text(json.dumps(outbox, ensure_ascii=False, indent=2),
                            encoding="utf-8")
-    print(f"[album] {len(files)}장 발송 완료 (message_id {outbox['cards']['message_ids']})")
+    print(f"[album] {len(files)}장 발송 완료 (message_id {outbox[args.key]['message_ids']})")
     return 0
 
 

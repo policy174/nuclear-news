@@ -135,12 +135,84 @@ function accentize(text, cls) {
 // 분류에서 결정되는 기하 도형을 브랜드 색으로 얇게 깐다. 판단 근거는 파이프라인이
 // 이미 정한 분류 라벨 하나뿐이고, 본문 문구를 훑지 않는다 — 훑으면 오늘 기사에만
 // 맞는 규칙이 된다.
+// 히어로 일러스트 — **사진은 쓰지 않는다.** 실사처럼 보이는 합성 이미지를 뉴스
+// 카드 맨 위에 깔면 "이 사건의 사진"으로 읽힌다(v2 시안 판정 09-18). 대신 그림인
+// 게 한눈에 보이는 평면 실루엣을 브랜드 색으로 그린다. 고르는 근거는 파이프라인이
+// 정한 분류 하나뿐 — 본문 문구를 훑으면 오늘 기사에만 맞는 규칙이 된다.
+//
+// 좌표계는 720×520. 왼쪽 45%는 제목이 앉으므로 형태를 오른쪽에 모은다.
+const SKY = `<circle cx="470" cy="140" r="122" fill="currentColor" opacity=".20"/>`;
+const GROUND = `<rect x="0" y="398" width="720" height="330" fill="currentColor" opacity=".32"/>`;
+
+function dome(x, y, w, h) {
+  const r = w / 2;
+  return `<path d="M${x} ${y} v-${h} a${r} ${r} 0 0 1 ${w} 0 v${h} z" fill="currentColor" opacity=".58"/>`;
+}
+function pylon(x, y, h) {
+  const w = h * 0.42;
+  return `<g stroke="currentColor" stroke-width="3.5" fill="none" opacity=".72">
+    <path d="M${x - w / 2} ${y} L${x} ${y - h} L${x + w / 2} ${y}"/>
+    <path d="M${x - w * 0.36} ${y - h * 0.3}h${w * 0.72}M${x - w * 0.22} ${y - h * 0.58}h${w * 0.44}"/>
+    <path d="M${x - w * 0.6} ${y - h * 0.82}h${w * 1.2}M${x - w * 0.46} ${y - h * 0.95}h${w * 0.92}"/>
+  </g>`;
+}
+function tower(x, y, h, w) {
+  return `<path d="M${x} ${y} q${w * 0.18} -${h * 0.62} ${w * 0.06} -${h}
+    h${w * 0.88} q-${w * 0.12} ${h * 0.38} ${w * 0.06} ${h} z"
+    fill="currentColor" opacity=".46"/>`;
+}
+function blocks(x, y, spec) {
+  return spec.map(([w, h], i) =>
+    `<rect x="${x + i * (w + 12)}" y="${y - h}" width="${w}" height="${h}" fill="currentColor" opacity=".${38 + i * 6}"/>`
+  ).join("");
+}
+
 const HERO_ART = {
-  atom: `<ellipse rx="300" ry="110"/><ellipse rx="300" ry="110" transform="rotate(60)"/><ellipse rx="300" ry="110" transform="rotate(120)"/><circle r="24" fill="currentColor" stroke="none"/>`,
-  grid: `<path d="M-300 190 L0 -180 L300 190"/><path d="M-250 110h500M-190 30h380M-130 -50h260"/><path d="M-110 190v-300M110 190v-300"/>`,
-  link: `<circle cx="-110" cy="0" r="150"/><circle cx="110" cy="0" r="150"/><path d="M-360 0h700"/>`,
-  doc: `<rect x="-190" y="-200" width="380" height="400"/><path d="M-120 -110h240M-120 -20h240M-120 70h150"/><path d="M-300 230h600"/>`,
-  wave: `<path d="M-360 60q180-200 360 0t360 0"/><path d="M-360 150q180-200 360 0t360 0"/><path d="M-360-30q180-200 360 0t360 0"/>`,
+  // SMR·신규 건설 — 냉각탑과 격납건물이 줄지어 선 부지.
+  atom: `${SKY}
+    ${tower(80, 398, 190, 108)}${dome(250, 398, 132, 62)}${tower(400, 398, 216, 120)}
+    ${dome(560, 398, 150, 70)}${dome(660, 398, 96, 46)}
+    <circle cx="596" cy="250" r="30" fill="none" stroke="currentColor" stroke-width="3" opacity=".55"/>
+    <ellipse cx="596" cy="250" rx="72" ry="28" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".45"/>
+    <ellipse cx="596" cy="250" rx="72" ry="28" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".45" transform="rotate(62 596 250)"/>
+    ${GROUND}`,
+  // 전력망·수급 — 도시에서 시작해 화면을 가로지르는 송전 계통.
+  grid: `${SKY}${blocks(40, 398, [[58, 132], [46, 196], [64, 108], [42, 164]])}
+    ${pylon(360, 398, 244)}${pylon(530, 398, 208)}${pylon(672, 398, 168)}
+    <path d="M300 258q85 40 170 0M470 288q85 34 170 0" fill="none" stroke="currentColor"
+      stroke-width="2.5" opacity=".5"/>
+    <path d="M300 288q85 40 170 0M470 314q85 34 170 0" fill="none" stroke="currentColor"
+      stroke-width="2.5" opacity=".38"/>
+    ${GROUND}`,
+  // 해외사업·수출·협력 — 양쪽 부지를 잇는 항로.
+  link: `${SKY}${dome(70, 398, 140, 66)}${tower(230, 398, 170, 96)}
+    ${dome(520, 398, 140, 66)}${dome(640, 398, 104, 50)}
+    <path d="M140 316q230 -150 450 0" fill="none" stroke="currentColor" stroke-width="3.5"
+      stroke-dasharray="17 14" opacity=".85"/>
+    <circle cx="140" cy="316" r="12" fill="currentColor" opacity=".95"/>
+    <circle cx="590" cy="316" r="12" fill="currentColor" opacity=".95"/>
+    ${GROUND}`,
+  // 규제·정책·법 — 문서철에서 의사당으로.
+  doc: `${SKY}
+    <rect x="60" y="268" width="128" height="130" fill="currentColor" opacity=".30"/>
+    <g stroke="currentColor" stroke-width="3" opacity=".5" fill="none">
+      <path d="M82 300h84M82 328h84M82 356h54"/>
+    </g>
+    <path d="M430 398v-210h190v210z" fill="currentColor" opacity=".34"/>
+    <path d="M525 176 L396 248h258z" fill="currentColor" opacity=".46"/>
+    <g stroke="currentColor" stroke-width="3.5" opacity=".6" fill="none">
+      <path d="M456 270v112M494 270v112M556 270v112M594 270v112"/>
+    </g>
+    <path d="M250 398v-96h96v96z" fill="currentColor" opacity=".24"/>
+    ${GROUND}`,
+  // 그 밖 — 지평선과 계측 파형.
+  wave: `${SKY}${blocks(60, 398, [[62, 128], [50, 176], [58, 104], [44, 148]])}
+    ${dome(520, 398, 128, 60)}${dome(640, 398, 92, 44)}
+    <path d="M40 300q70 -76 140 0t140 0t140 0t140 0" fill="none" stroke="currentColor"
+      stroke-width="3" opacity=".5"/>
+    <path d="M40 342q70 -76 140 0t140 0t140 0t140 0" fill="none" stroke="currentColor"
+      stroke-width="3" opacity=".32"/>
+    ${GROUND}`,
 };
 
 function heroArt(label) {
@@ -150,7 +222,9 @@ function heroArt(label) {
     : /해외|수출|협력|통상|외교/.test(t) ? "link"
     : /규제|인허가|안전|정책|법/.test(t) ? "doc"
     : "wave";
-  return `<svg viewBox="-360 -260 720 520" preserveAspectRatio="xMidYMid slice">${HERO_ART[key]}</svg>`;
+  // 카드가 정사각(1080×1080)이므로 뷰박스도 정사각으로 잘라낸다 — 비율이 어긋나면
+  // slice 가 형태를 확대해 덩어리로 만든다(실측 09-18).
+  return `<svg viewBox="0 -60 720 720" preserveAspectRatio="xMidYMid slice">${HERO_ART[key]}</svg>`;
 }
 
 // 사실 카드 두 장. 카피가 signals(라벨·값·상태)를 주면 그걸 쓰고, 없으면(폴백 카피)
@@ -168,6 +242,36 @@ function editorialRows(s) {
   }
   return (Array.isArray(s.points) ? s.points : []).slice(0, 2)
     .map((t) => ({ label: "", text: t, state: "" }));
+}
+
+// 스토리 카드뉴스용 사진. 저작권이 확인된 것만 저장소에 박제한다(cards/photos/photos.json
+// 에 출처·라이선스·작가). 생성 이미지는 쓰지 않는다 — 없는 장면을 사실처럼 보이게 한다.
+const PHOTO_DIR = path.resolve(__dirname, "photos");
+let PHOTO_META = {};
+try {
+  PHOTO_META = JSON.parse(fs.readFileSync(path.join(PHOTO_DIR, "photos.json"), "utf8"));
+} catch (e) {}
+
+function photoKey(label) {
+  const t = String(label || "");
+  return /해외|수출|협력|통상|외교/.test(t) ? "link"
+    : /전력|계통|수급|에너지/.test(t) ? "grid"
+    : /규제|인허가|정책|법|국회/.test(t) ? "doc"
+    : /SMR|원자로|신규|건설/.test(t) ? "atom"
+    : "wave";
+}
+
+function photoData(key) {
+  const file = path.join(PHOTO_DIR, `${key}.jpg`);
+  if (!fs.existsSync(file)) return "";
+  return `data:image/jpeg;base64,${fs.readFileSync(file).toString("base64")}`;
+}
+
+function photoCredit(key) {
+  const m = PHOTO_META[key];
+  if (!m) return "";
+  const who = (m.author || "").replace(/\s+/g, " ").trim();
+  return ["사진", who, m.license, "via Wikimedia Commons"].filter(Boolean).join(" · ");
 }
 
 function shell(inner, theme, dark) {
@@ -296,70 +400,219 @@ ${fontLinks(theme)}
   .why .points li { font-size: 29px; line-height: 1.34; color: ${ink}; font-weight: 600; }
   .why .points li::before { background: ${dark ? accent : c.signalInk}; }
 
-  /* 편집형 본문 장 — v2 코덱스 시안(47d30b8d)의 판형을 옮긴다. 히어로(네이비) /
-     사실 두 장 / 판단 한 문장 / 출처 띠. 옮기면서 바꾼 둘: 사진 히어로는 기하
-     그래픽으로(없는 장면을 만들지 않는다), 라벨·상태는 정규식이 아니라 카피가 준
-     값으로(오늘 기사에만 맞는 규칙을 코드에 박지 않는다). */
-  .card.ed { padding: 0; display: grid; grid-template-rows: 466px 1fr 88px; }
+  /* 편집형 본문 장 — v2 코덱스 시안(47d30b8d)의 판형을 옮긴다. 옮기면서 바꾼 둘:
+     사진 히어로는 코드로 그린 실루엣으로(없는 장면을 만들지 않는다), 라벨·상태는
+     정규식이 아니라 카피가 준 값으로(오늘 기사에만 맞는 규칙을 코드에 박지 않는다).
+     장면은 카드 한 장 전체를 덮고 글자는 그 위에 올라간다(지니 09-18). */
+  .card.ed { padding: 0; display: flex; flex-direction: column;
+    background: ${c.bg}; color: ${c.ink}; }
   .card.ed::after { display: none; }
-  .ed-hero { position: relative; overflow: hidden; padding: 44px 54px 40px;
-    display: flex; flex-direction: column;
-    color: ${c.inkOnDark}; background:
-      radial-gradient(120% 150% at 88% 0%, rgba(90,160,232,.30) 0%, transparent 58%),
-      ${c.bgDark}; }
-  .ed-art { position: absolute; right: -130px; top: 40px; width: 720px; height: 520px;
-    color: ${c.accentBright}; opacity: .28; }
+  .ed-art { position: absolute; inset: 0; color: ${c.accent}; opacity: .62; }
+  /* 종이 위에 그림을 깔고, 글자 자리는 종이색으로 다시 덮는다. 어두운 판에서는
+     같은 글자가 안 읽혔다(지니 09-18) — 카드는 훑는 물건이라 종이가 기본이다. */
+  .ed-art::after { content: ""; position: absolute; inset: 0; background:
+    linear-gradient(180deg, rgba(238,241,244,.34) 0%, rgba(238,241,244,.56) 34%,
+      rgba(238,241,244,.80) 54%, rgba(238,241,244,.88) 100%),
+    linear-gradient(90deg, rgba(238,241,244,.74) 0%, rgba(238,241,244,.22) 60%,
+      rgba(238,241,244,0) 100%); }
   .ed-art svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
     stroke-width: 2.5; }
-  .ed-hero .hd, .ed-copy { position: relative; z-index: 1; }
-  .ed-hero .hd { color: rgba(238,241,244,.55); }
-  .ed-hero .hd .brand { color: ${c.accentBright}; }
-  .ed-copy { margin-top: auto; width: 78%; }
+  .ed-hero, .ed-body, .ed-ft { position: relative; z-index: 1; }
+  .ed-hero { padding: 44px 54px 0; display: flex; flex-direction: column; flex: 0 0 auto; }
+  .ed-hero .hd { color: ${inkMute}; }
+  .ed-hero .hd .brand { color: ${accent}; }
+  .ed-copy { margin-top: 122px; width: 88%; }
   .ed-kicker { display: flex; align-items: center; gap: 14px; font-size: 22px;
-    font-weight: 750; color: rgba(238,241,244,.62); }
-  .ed-kicker strong { color: ${c.accentBright}; font-weight: 850; }
-  .ed-title { margin-top: 20px; font-family: ${theme.fonts.heading.css};
-    font-size: 64px; line-height: 1.1; letter-spacing: -2.6px; font-weight: 850;
-    word-break: keep-all; }
-  /* 강조는 제목의 마지막 구절 — 그 구절만 한 단 크게 떨어뜨려 덩어리를 만든다. */
-  .ed-title .em { display: block; color: ${c.accentBright}; font-size: 1.1em; }
-  .ed-deck { margin-top: 18px; max-width: 780px; color: rgba(238,241,244,.86);
+    font-weight: 750; color: ${inkMute}; }
+  .ed-kicker strong { color: ${accent}; font-weight: 850; }
+  .ed-title { margin-top: 18px; font-family: ${theme.fonts.heading.css};
+    font-size: 66px; line-height: 1.1; letter-spacing: -2.8px; font-weight: 850;
+    color: ${c.ink}; word-break: keep-all; }
+  /* 강조는 제목의 마지막 구절 — 색만 바꾼다. 줄을 떨어뜨리면 제목이 두 덩이로
+     갈려서 오히려 안 읽힌다(지니 09-18). */
+  .ed-title .em { color: ${accent}; }
+  .ed-deck { margin-top: 16px; max-width: 840px; color: ${inkDim};
     font-size: 24px; line-height: 1.4; font-weight: 500; word-break: keep-all; }
-  .ed-body { padding: 30px 54px 18px; display: flex; flex-direction: column;
+  .ed-body { padding: 0 54px; flex: 1; display: flex; flex-direction: column;
     justify-content: center; }
   .ed-head { color: ${accent}; font-size: 22px; font-weight: 850; letter-spacing: 1px; }
-  .ed-grid { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .ed-fact { border: 1px solid ${c.rule}; padding: 18px 20px; display: grid;
-    grid-template-columns: 56px 1fr; gap: 16px; align-items: start; }
-  .ed-fact .n { font-family: ${theme.fonts.heading.css}; font-size: 26px;
-    font-weight: 900; color: ${c.bg}; background: ${c.ink}; width: 56px; height: 56px;
-    display: flex; align-items: center; justify-content: center; }
-  .ed-fact .lbl { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .ed-fact .lbl strong { color: ${c.ink}; font-size: 27px; font-weight: 820; }
-  .ed-fact .state { padding: 4px 12px; font-size: 19px; font-weight: 800;
-    background: ${c.signal}; color: ${c.signalInk}; }
+  .ed-grid { margin-top: 10px; display: flex; flex-direction: column; }
+  /* 박스를 걷는다 — 면이 둘이면 내용이 아니라 칸이 먼저 읽힌다(지니 09-18).
+     라벨·상태는 한 줄, 값은 그 아래 본문 크기로. 행은 가는 선으로만 가른다. */
+  .ed-fact { display: block; padding: 20px 0; border-top: 1px solid rgba(18,41,76,.16); }
+  .ed-fact:last-child { border-bottom: 1px solid rgba(18,41,76,.16); }
+  .ed-fact .lbl { display: flex; align-items: center; gap: 12px; }
+  .ed-fact .lbl strong { color: ${accent}; font-size: 23px; font-weight: 850;
+    letter-spacing: .5px; }
+  /* 알약 배경이 신호색(#E0E9F5)이면 종이와 구분이 안 된다 — 한 단 더 진하게. */
+  .ed-fact .state { padding: 3px 11px; font-size: 18px; font-weight: 800;
+    background: rgba(31,95,168,.16); color: ${accent}; }
   .ed-fact .state.muted { background: none; color: ${inkMute};
-    border: 1px solid ${c.rule}; }
-  .ed-fact .val { margin-top: 7px; color: ${inkDim}; font-size: 22px;
-    line-height: 1.36; font-weight: 550; word-break: keep-all; }
-  .ed-fact .val.solo { margin-top: 0; color: ${c.ink}; font-size: 25px;
-    font-weight: 650; }
-  .ed-why { margin-top: 26px; padding-top: 22px; border-top: 3px solid ${c.ink}; }
-  .ed-why-grid { margin-top: 16px; display: grid; grid-template-columns: 1.3fr .9fr;
-    gap: 34px; align-items: start; }
-  .ed-lead { color: ${c.ink}; font-size: 32px; line-height: 1.3; font-weight: 780;
-    letter-spacing: -1px; word-break: keep-all; }
-  .ed-checks { border-left: 1px solid ${c.rule}; padding-left: 26px;
-    display: flex; flex-direction: column; gap: 14px; }
-  .ed-check { display: grid; grid-template-columns: 20px 1fr; gap: 12px;
-    color: ${inkDim}; font-size: 20px; line-height: 1.36; font-weight: 600;
+    border: 1px solid rgba(18,41,76,.24); }
+  .ed-fact .val { margin-top: 9px; color: ${c.ink}; font-size: 30px;
+    line-height: 1.34; font-weight: 650; word-break: keep-all; }
+  .ed-fact .val.solo { margin-top: 0; }
+  .ed-why { margin-top: 34px; }
+  .ed-lead { margin-top: 14px; color: ${c.ink}; font-size: 40px; line-height: 1.26;
+    font-weight: 800; letter-spacing: -1.4px; word-break: keep-all; }
+  .ed-checks { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .ed-check { display: grid; grid-template-columns: 22px 1fr; gap: 14px;
+    color: ${inkDim}; font-size: 23px; line-height: 1.36; font-weight: 600;
     word-break: keep-all; }
-  .ed-check::before { content: ""; width: 12px; height: 12px; margin-top: 9px;
+  .ed-check::before { content: ""; width: 11px; height: 11px; margin-top: 11px;
     background: ${accent}; }
-  .ed-ft { padding: 0 54px; display: flex; justify-content: space-between;
-    align-items: center; background: ${c.bgDark}; color: rgba(238,241,244,.55);
-    font-size: 23px; font-weight: 700; }
-  .ed-ft .src { color: ${c.inkOnDark}; font-weight: 800; }
+  .ed-ft { padding: 26px 54px 40px; display: flex; justify-content: space-between;
+    align-items: center; color: ${inkMute}; font-size: 23px; font-weight: 700; }
+  .ed-ft .src { color: ${c.ink}; font-weight: 800; }
+
+  /* ── 스토리 카드뉴스(5장) ────────────────────────────────────────────────
+     이슈 하나를 표지·사실·쟁점·의미·체크리스트로 푸는 판형. 일일 카드와 달리
+     장마다 역할이 다르고, 재료는 chronicle(이벤트·서사·관전포인트)에서 온다.
+     밝은 아이보리 바탕 + 네이비 잉크 + 블루 포인트(연두는 폐기 팔레트라 안 쓴다). */
+  .card.st { padding: 0; display: flex; flex-direction: column;
+    background: #F6F2E9; color: #12294C; }
+  .card.st::after { display: none; }
+  /* 장마다 바탕을 달리해 넘길 때 리듬을 준다(시안). 쟁점 장만 옅은 블루 판. */
+  .card.st.st-blue { background: #E6EEFA; }
+  .st-hd { padding: 40px 48px 0; display: flex; justify-content: space-between;
+    align-items: flex-start; flex: 0 0 auto; }
+  .st-hd .brand { font-family: ${theme.fonts.heading.css}; font-size: 27px;
+    font-weight: 900; letter-spacing: 3px; }
+  .st-hd .tagline { display: block; margin-top: 7px; font-size: 15px; font-weight: 750;
+    letter-spacing: 2.4px; color: #8A93A1; }
+  .st-hd .num { font-size: 21px; font-weight: 800; letter-spacing: 2px; color: #8A93A1; }
+  .st-body { flex: 1; padding: 26px 48px 40px; display: flex; flex-direction: column;
+    min-height: 0; }
+  .st-chip { align-self: flex-start; padding: 13px 26px; border-radius: 999px;
+    background: #DDE8F6; color: #1F5FA8; font-size: 28px; font-weight: 850; }
+  .st-q { margin-top: 20px; font-family: ${theme.fonts.heading.css}; font-size: 46px;
+    font-weight: 850; line-height: 1.26; letter-spacing: -1.8px; word-break: keep-all; }
+  .st-q .em { color: #1F5FA8; }
+  .st-row { display: flex; align-items: center; gap: 20px; }
+  .st-row .st-q { margin-top: 0; font-size: 46px; }
+
+  /* 표지 */
+  .st-photo { position: relative; height: 470px; flex: 0 0 auto; background-size: cover;
+    background-position: center; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%); }
+  .st-photo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(18,41,76,.46) 0%, rgba(18,41,76,.12) 40%,
+      rgba(18,41,76,.06) 100%); }
+  .st-photo .st-hd { position: relative; z-index: 1; color: #F7F5EF; }
+  .st-photo .st-hd .tagline, .st-photo .st-hd .num { color: rgba(247,245,239,.78); }
+  .st-cover .st-body { padding-top: 34px; }
+  .st-title { margin-top: 20px; font-family: ${theme.fonts.heading.css}; font-size: 74px;
+    font-weight: 850; line-height: 1.16; letter-spacing: -2.6px; word-break: keep-all; }
+  .st-title .em { color: #1F5FA8; }
+  .st-desc { margin-top: 24px; font-size: 30px; line-height: 1.5; font-weight: 600;
+    color: #41506B; word-break: keep-all; }
+  /* 표지 배지 — 그 이슈의 핵심 숫자. 원문에 있는 값이 있을 때만 붙는다. */
+  .st-badge { margin: auto 0; align-self: stretch; display: flex; align-items: baseline;
+    gap: 22px; background: #E6EEFA; border-left: 10px solid #1F5FA8; padding: 30px 34px; }
+  .st-badge .v { font-family: ${theme.fonts.heading.css}; font-size: 68px; font-weight: 900;
+    letter-spacing: -2px; color: #12294C; }
+  .st-badge .l { font-size: 27px; font-weight: 700; color: #41506B; word-break: keep-all; }
+  .st-credit { margin-top: auto; font-size: 16px; font-weight: 600; color: #9AA3B0; }
+  .st-slogan { margin-top: 14px; display: flex; justify-content: space-between;
+    align-items: baseline; }
+  .st-slogan strong { font-family: ${theme.fonts.heading.css}; font-size: 24px;
+    font-weight: 900; letter-spacing: 2px; }
+  .st-slogan span { font-size: 19px; font-weight: 650; color: #8A93A1; }
+
+  .st-lede { margin-top: 26px; font-family: ${theme.fonts.heading.css}; font-size: 50px;
+    font-weight: 850; line-height: 1.3; letter-spacing: -1.6px; word-break: keep-all; }
+  .st-lede .em { color: #1F5FA8; }
+
+  /* 사실 정리 — 세로 타임라인 */
+  .st-tl { flex: 1; margin: 26px 0 0; display: flex; flex-direction: column;
+    justify-content: space-evenly; }
+  .st-tl .tl-row { position: relative; display: grid; grid-template-columns: 34px 236px 1fr;
+    gap: 24px; align-items: center; padding-bottom: 26px; }
+  .st-tl .tl-row:last-child { padding-bottom: 0; }
+  /* 연결선은 행마다 긋지 않고 한 줄로 관통시킨다 — 행 간격이 가변이라 토막난다. */
+  .st-tl { position: relative; }
+  .st-tl::before { content: ""; position: absolute; left: 15px; top: 26px; bottom: 26px;
+    width: 2px; background: #D7DEE8; }
+  .st-tl .dot { position: relative; z-index: 1; width: 24px; height: 24px; margin-left: 4px;
+    border-radius: 50%; border: 6px solid #8FB8E4; background: #F6F2E9; box-sizing: border-box; }
+  .st-tl .tl-row.now .dot { border-color: #12294C; background: #12294C; }
+  .st-tl .when { font-size: 30px; font-weight: 800; color: #1F5FA8; word-break: keep-all; }
+  .st-tl .tl-row.now .when { color: #12294C; }
+  .st-tl .what { background: #E6EEFA; padding: 24px 28px; font-size: 30px;
+    line-height: 1.34; font-weight: 700; color: #12294C; word-break: keep-all; }
+  .st-tl .tl-row.now .what { background: #DCE8F8; }
+  .st-note { margin-top: 20px; display: grid; grid-template-columns: 36px 1fr; gap: 18px;
+    align-items: center; background: #EFEADC; padding: 26px 28px; font-size: 26px;
+    line-height: 1.4; font-weight: 650; color: #1F3D6B; word-break: keep-all; }
+  .st-note .ic { width: 32px; height: 32px; color: #1F5FA8; display: block; }
+  .st-note .ic svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
+    stroke-width: 3; stroke-linejoin: round; }
+
+  /* 핵심 쟁점 — 번호 카드 */
+  .st-cards { flex: 1; margin: 26px 0 0; display: flex; flex-direction: column;
+    justify-content: space-evenly; gap: 20px; }
+  .st-icard { background: #FFFFFF; border: 1px solid #D3E0F2; padding: 30px 32px;
+    display: grid; grid-template-columns: 104px 1fr; gap: 28px; align-items: center; }
+  .st-icard .lead { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .st-icard .n { font-family: ${theme.fonts.heading.css}; font-size: 26px; font-weight: 900;
+    color: #1F5FA8; letter-spacing: 1px; }
+  .st-icard .ic { width: 84px; height: 84px; border-radius: 50%; background: #E7EEF8;
+    color: #1F5FA8; display: flex; align-items: center; justify-content: center; }
+  .st-icard .ic svg { width: 46px; height: 46px; fill: none; stroke: currentColor;
+    stroke-width: 3; stroke-linejoin: round; }
+  .st-icard h3 { font-size: 34px; font-weight: 850; word-break: keep-all; }
+  .st-icard ul { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+  .st-icard li { list-style: none; display: grid; grid-template-columns: 14px 1fr; gap: 12px;
+    font-size: 26px; line-height: 1.4; font-weight: 650; color: #35455F;
+    word-break: keep-all; }
+  .st-icard li::before { content: ""; width: 9px; height: 9px; margin-top: 12px;
+    border-radius: 50%; background: #1F5FA8; }
+
+  /* 왜 중요한가 */
+  .st-msg { margin-top: 24px; font-family: ${theme.fonts.heading.css}; font-size: 52px;
+    font-weight: 850; line-height: 1.3; letter-spacing: -1.8px; word-break: keep-all; }
+  .st-msg .em { color: #1F5FA8; }
+  .st-three { flex: 1; margin: 34px 0; display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; align-content: center; }
+  .st-three .cell { background: #FFFDF7; border: 1px solid #E6E0D2; padding: 34px 22px;
+    text-align: center; }
+  .st-three .ic { width: 96px; height: 96px; margin: 0 auto 20px; border-radius: 50%;
+    background: #E7EEF8; color: #1F5FA8; display: flex; align-items: center;
+    justify-content: center; }
+  .st-three .ic svg { width: 52px; height: 52px; fill: none; stroke: currentColor;
+    stroke-width: 3.5; }
+  .st-three h4 { font-size: 30px; font-weight: 850; word-break: keep-all; }
+  .st-three p { margin-top: 14px; font-size: 24px; line-height: 1.46; font-weight: 620;
+    color: #41506B; word-break: keep-all; }
+  .st-quotes { margin-top: auto; display: flex; flex-direction: column; gap: 14px; }
+  .st-quote { background: #FFFDF7; border: 1px solid #E6E0D2; padding: 20px 24px;
+    display: grid; grid-template-columns: 38px 1fr; gap: 18px; font-size: 27px;
+    line-height: 1.44; font-weight: 650; color: #35455F; word-break: keep-all; }
+  .st-quote::before { content: "C"; font-family: ${theme.fonts.heading.css};
+    font-size: 46px; font-weight: 900; color: #A9C4E6; line-height: .9; }
+
+  /* 앞으로 볼 것 */
+  .st-split { flex: 1; margin: 28px 0 0; display: grid; grid-template-columns: 1.28fr .82fr;
+    gap: 26px; align-items: stretch; }
+  .st-check { display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .st-check .item { display: grid; grid-template-columns: 38px 1fr; gap: 16px;
+    align-items: center; background: #FFFDF7; border: 1px solid #E6E0D2;
+    padding: 24px 22px; font-size: 27px; font-weight: 700; color: #35455F;
+    word-break: keep-all; }
+  .st-check .item.on { background: #E6EEFA; border-color: #CFDFF4; }
+  .st-check .box { width: 34px; height: 34px; border: 2px solid #C3CDDB; color: #FFFDF7;
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+    font-weight: 900; }
+  .st-check .item.on .box { background: #1F5FA8; border-color: #1F5FA8; }
+  .st-check .item.on { color: #12294C; }
+  .st-aside { background: #E6EEFA; padding: 32px 30px; font-size: 28px; line-height: 1.5;
+    font-weight: 680; color: #1F3D6B; word-break: keep-all; display: flex;
+    flex-direction: column; justify-content: center; }
+  .st-aside .ic { display: block; width: 64px; height: 64px; margin-bottom: 18px;
+    color: #1F5FA8; }
+  .st-aside .ic svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
+    stroke-width: 3; stroke-linejoin: round; }
+  .st-cta { margin-top: 26px; align-self: flex-start; background: #12294C; color: #F6F2E9;
+    padding: 22px 38px; border-radius: 999px; font-size: 28px; font-weight: 800; }
 
   .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .chip { padding: 9px 16px; border-radius: 0; font-size: 21px;
@@ -407,8 +660,119 @@ ${fontLinks(theme)}
 </style></head><body>${inner}</body></html>`;
 }
 
+function storyHead(s, tagline) {
+  return `<div class="st-hd"><div><span class="brand">NUCLENS</span>
+      <span class="tagline">${esc(tagline || "")}</span></div>
+    <span class="num">${esc(s.slideNum || "")}</span></div>`;
+}
+
+const STORY_ICONS = {
+  market: `<path d="M8 38h10v10H8zM19 26h10v22H19zM30 14h10v34H30z"/><path d="M6 8h36"/>`,
+  shield: `<path d="M24 5l17 7v13c0 11-7 18-17 22C14 43 7 36 7 25V12z"/><path d="M16 24l6 6 11-12"/>`,
+  network: `<circle cx="24" cy="11" r="6"/><circle cx="10" cy="37" r="6"/><circle cx="38" cy="37" r="6"/><path d="M20 16L13 31M28 16l7 15M16 37h16"/>`,
+  clip: `<path d="M20 6h14l8 8v28H20z"/><path d="M26 20h12M26 28h12M26 36h8"/>`,
+  coins: `<ellipse cx="24" cy="13" rx="15" ry="6"/><path d="M9 13v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8"/><path d="M9 21v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8"/><path d="M9 29v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8"/>`,
+  plant: `<path d="M6 42V22l12-7v7l12-7v27z"/><path d="M30 42V14h12v28"/><path d="M12 28v6M20 28v6M34 22v6"/>`,
+  doc: `<path d="M13 6h16l8 8v28H13z"/><path d="M29 6v9h8"/><path d="M19 22h12M19 29h12M19 36h8"/>`,
+  scope: `<path d="M6 30l24-13 5 9-24 13z"/><path d="M30 17l9-5 5 9-9 5"/><path d="M15 36l4 8M19 44h-8"/><circle cx="38" cy="30" r="3"/>`,
+};
+
+function storyIcon(kind) {
+  return `<svg viewBox="0 0 48 48">${STORY_ICONS[kind] || STORY_ICONS.market}</svg>`;
+}
+
+function renderStory(s, theme, type) {
+  const num = esc(s.slideNum || "");
+  const chip = s.chip ? `<div class="st-chip">${esc(s.chip)}</div>` : "";
+
+  if (type === "story-cover") {
+    const key = s.photo || photoKey(s.topic);
+    const data = photoData(key);
+    return shell(
+      `<div class="card st st-cover">
+        <div class="st-photo" style="background-image:url('${data}')">
+          ${storyHead(s, s.tagline || "NEWS FOR A BRIGHTER TOMORROW")}
+        </div>
+        <div class="st-body">
+          <div class="st-row">${chip}${s.topic ? `<span class="st-desc" style="margin:0;font-size:24px;font-weight:700;color:#12294C">${esc(s.topic)}</span>` : ""}</div>
+          <h1 class="st-title">${accentize(s.headline, "em")}</h1>
+          <p class="st-desc">${esc(s.deck || "")}</p>
+          ${s.badge ? `<div class="st-badge"><span class="v">${esc(s.badge.value)}</span>
+            <span class="l">${esc(s.badge.label)}</span></div>` : ""}
+          <div class="st-credit">${esc(photoCredit(key))}</div>
+          <div class="st-slogan"><strong>NUCLENS</strong><span>${esc(s.slogan || "원전을 넘어, 더 나은 내일로")}</span></div>
+        </div>
+      </div>`, theme, false);
+  }
+
+  if (type === "story-facts") {
+    const rows = (s.timeline || []).slice(0, 5).map((r, i, arr) =>
+      `<div class="tl-row${i === arr.length - 1 ? " now" : ""}"><div class="dot"></div>
+        <div class="when">${esc(r.when)}</div><div class="what">${esc(r.what)}</div></div>`).join("");
+    return shell(
+      `<div class="card st">
+        ${storyHead(s, s.tagline || "GLOBAL NUCLEAR INSIGHT")}
+        <div class="st-body">
+          <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
+          ${s.lede ? `<p class="st-lede">${accentize(s.lede, "em")}</p>` : ""}
+          <div class="st-tl">${rows}</div>
+          ${s.note ? `<div class="st-note"><span class="ic">${storyIcon("clip")}</span><span>${esc(s.note)}</span></div>` : ""}
+        </div>
+      </div>`, theme, false);
+  }
+
+  if (type === "story-issues") {
+    const cards = (s.issues || []).slice(0, 3).map((it, i) =>
+      `<div class="st-icard"><div class="lead"><span class="n">${String(i + 1).padStart(2, "0")}</span>
+          <span class="ic">${storyIcon(it.icon || ["coins", "plant", "doc"][i] || "doc")}</span></div>
+        <div><h3>${esc(it.title)}</h3>
+          <ul>${(it.points || []).slice(0, 2).map((t) => `<li><span>${esc(t)}</span></li>`).join("")}</ul>
+        </div></div>`).join("");
+    return shell(
+      `<div class="card st st-blue">
+        ${storyHead(s, s.tagline || "FOCUS ON WHAT MATTERS")}
+        <div class="st-body">
+          <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
+          <div class="st-cards">${cards}</div>
+        </div>
+      </div>`, theme, false);
+  }
+
+  if (type === "story-why") {
+    const cells = (s.pillars || []).slice(0, 3).map((c) =>
+      `<div class="cell"><div class="ic">${storyIcon(c.icon)}</div><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p></div>`).join("");
+    return shell(
+      `<div class="card st">
+        ${storyHead(s, s.tagline || "BIGGER PICTURE, CLEARER INSIGHTS")}
+        <div class="st-body">
+          ${chip}
+          <h2 class="st-msg">${accentize(s.headline, "em")}</h2>
+          <div class="st-three">${cells}</div>
+          <div class="st-quotes">${(s.quotes || []).slice(0, 2).map((q) => `<p class="st-quote">${esc(q)}</p>`).join("")}</div>
+        </div>
+      </div>`, theme, false);
+  }
+
+  // story-check
+  const items = (s.checks || []).slice(0, 5).map((c) =>
+    `<div class="item${c.done ? " on" : ""}"><span class="box">${c.done ? "✓" : ""}</span><span>${esc(c.text)}</span></div>`).join("");
+  return shell(
+    `<div class="card st">
+      ${storyHead(s, s.tagline || "NEXT STEP FOR A SUSTAINABLE TOMORROW")}
+      <div class="st-body">
+        <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
+        <div class="st-split">
+          <div class="st-check">${items}</div>
+          ${s.aside ? `<div class="st-aside"><span class="ic">${storyIcon("scope")}</span>${esc(s.aside)}</div>` : ""}
+        </div>
+        <div class="st-cta">${esc(s.cta || "지금 이슈를 계속 업데이트합니다")} →</div>
+      </div>
+    </div>`, theme, false);
+}
+
 function renderSlide(s, theme) {
   const type = s.type || "step";
+  if (type.startsWith("story-")) return renderStory(s, theme, type);
   const site = esc(s.handle || "");
   const num = esc(s.slideNum || "");
 
@@ -465,8 +829,8 @@ function renderSlide(s, theme) {
   const context = Array.isArray(s.meta) ? s.meta.join(" · ").replaceAll("#", "") : "";
   return shell(
     `<div class="card ed">
+      <div class="ed-art ghost">${heroArt(s.stepLabel)}</div>
       <section class="ed-hero">
-        <div class="ed-art ghost">${heroArt(s.stepLabel)}</div>
         <div class="hd"><span class="brand">NUCLENS</span><span>${num}</span></div>
         <div class="ed-copy">
           <div class="ed-kicker"><strong>${esc(s.stepLabel || "")}</strong>${context ? `<span>${esc(context)}</span>` : ""}</div>
@@ -477,17 +841,15 @@ function renderSlide(s, theme) {
       <section class="ed-body">
         <div class="ed-head">확인된 사실</div>
         <div class="ed-grid">${rows.map((row, i) =>
-          `<div class="ed-fact"><div class="n">${String(i + 1).padStart(2, "0")}</div><div>
+          `<div class="ed-fact">
              ${row.label ? `<div class="lbl"><strong>${esc(row.label)}</strong>${row.state ? `<span class="state${row.muted ? " muted" : ""}">${esc(row.state)}</span>` : ""}</div>` : ""}
              <div class="val${row.label ? "" : " solo"}">${esc(row.text)}</div>
-           </div></div>`
+           </div>`
         ).join("")}</div>
         ${lead ? `<div class="ed-why">
           <div class="ed-head">왜 중요한가</div>
-          <div class="ed-why-grid">
-            <p class="ed-lead">${esc(lead)}</p>
-            ${checks.length ? `<div class="ed-checks">${checks.map((t) => `<div class="ed-check"><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
-          </div>
+          <p class="ed-lead">${esc(lead)}</p>
+          ${checks.length ? `<div class="ed-checks">${checks.map((t) => `<div class="ed-check"><span>${esc(t)}</span></div>`).join("")}</div>` : ""}
         </div>` : ""}
       </section>
       <footer class="ed-ft"><span>${site}</span><span class="src">${esc(s.footer || "")}</span></footer>

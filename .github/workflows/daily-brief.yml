@@ -527,6 +527,26 @@ jobs:
         continue-on-error: true
         run: python publish_cards.py
 
+      # 스토리 카드뉴스 — 며칠에 걸친 이슈 하나를 5장(표지·타임라인·쟁점·의미·체크)으로.
+      # chronicle 이 붙은 이슈가 있는 날만 만들고, 없으면 조용히 스킵한다(exit 0).
+      # **일일 카드 발송·게시가 끝난 뒤**에 돌아야 한다 — 렌더가 같은 cards/out 을 비운다.
+      - name: Make story cards (스토리 있는 날만)
+        id: make_story
+        if: always() && steps.publish_cards.outcome == 'success' && vars.STORY_CARDS_ENABLED != 'off'
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+        run: python story_cards.py
+
+      - name: Send story album (sendMediaGroup)
+        if: always() && steps.make_story.outcome == 'success'
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python send_album.py --album cards/story_album.json --key story_cards
+
       # 봇 토큰 push 는 deploy-web 을 못 깨운다(GitHub 재귀 방지) — 여기서 직접 올린다.
       # 바뀐 파일만 올라가므로 싸다. 실측 09-16: 커밋만 하고 배포가 안 떠 사이트 카드가
       # 텔레그램 앨범과 달랐다.
