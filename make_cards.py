@@ -569,6 +569,59 @@ def _check_signals(problems: list[str], tag: str, signals, required: bool) -> No
                             f"({' · '.join(STATUS_WORDS[:6])} …)")
 
 
+def fit_line(text: str, limit: int) -> str:
+    """상한을 넘는 줄을 **말줄임 없이** 상한 안으로. 뒤 어절부터 덜어낸다.
+
+    LLM 은 한글 글자 수를 못 센다. 36자를 34자로 못 줄여서 앨범 전체가 폴백으로
+    떨어지는 건 과하다(09-19 두 번 연속, 초과는 고작 2자였다) — strip_accent_on_
+    sensitive 와 같은 판단이다. 절반 아래로 깎여야 할 만큼 길면 그때만 clip 으로
+    절 경계에서 자른다.
+    """
+    if not isinstance(text, str) or visible_len(text) <= limit:
+        return text
+    words = text.split()
+    while words and visible_len(" ".join(words)) > limit:
+        words.pop()
+    out = " ".join(words).rstrip(" ,·-–—:;")
+    return out if visible_len(out) >= max(8, limit // 2) else clip(text, limit)
+
+
+def fit_copy(raw: dict, line_max: int | None = None, headline_max: int = HEADLINE_MAX) -> int:
+    """카피 전체를 상한 안으로 맞춘다. 줄인 곳 수를 반환."""
+    fixed = 0
+
+    def fit(holder: dict, key: str, limit: int) -> None:
+        nonlocal fixed
+        before = holder.get(key)
+        if isinstance(before, str):
+            after = fit_line(before, limit)
+            if after != before:
+                holder[key] = after
+                fixed += 1
+
+    hook = raw.get("hook")
+    if isinstance(hook, dict):
+        fit(hook, "headline", HEADLINE_MAX)
+    for slide in raw.get("steps") or []:
+        if not isinstance(slide, dict):
+            continue
+        fit(slide, "headline", headline_max)
+        for field, cap in (("facts", line_max or FACT_MAX), ("why", line_max or WHY_MAX)):
+            lines = slide.get(field)
+            if isinstance(lines, list):
+                for i, line in enumerate(lines):
+                    if isinstance(line, str):
+                        after = fit_line(line, cap)
+                        if after != line:
+                            lines[i] = after
+                            fixed += 1
+        for sig in slide.get("signals") or []:
+            if isinstance(sig, dict):
+                fit(sig, "label", SIGNAL_LABEL_MAX)
+                fit(sig, "value", SIGNAL_VALUE_MAX)
+    return fixed
+
+
 def strip_accent_on_sensitive(raw: dict, items: list[dict]) -> int:
     """사고·안전 기사의 `[[ ]]` 강조를 벗긴다. 벗긴 개수를 반환.
 
@@ -819,6 +872,9 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001 — 카드는 부가 기능, 원인만 남긴다
             print(f"[cards] LLM 호출 실패 ({attempt}/2) — {type(exc).__name__}: {exc}")
             continue
+        trimmed = fit_copy(candidate)
+        if trimmed:
+            print(f"[cards] 상한 넘은 줄 {trimmed}곳을 코드가 줄였다")
         stripped = strip_accent_on_sensitive(candidate, items)
         if stripped:
             print(f"[cards] sensitive 기사 강조 {stripped}곳 제거")
@@ -885,6 +941,14 @@ def _self_check() -> None:
     assert any("why" in p for p in validate(mutate(why=["가" * (WHY_MAX + 1), "나"]), items))
     assert any("강조" in p for p in validate(mutate(facts=["[[강조]] 금지", "나"]), items))
     assert any("개수" in p for p in validate({**ok, "steps": ok["steps"] * 2}, items))
+    # 상한 초과는 버리지 않고 줄인다 — 2자 넘쳐서 앨범이 통째로 폴백이 됐다(09-19)
+    long_copy = mutate(headline="기후에너지환경부, 미국에 SMR·전력기자재 중심 한미 에너지 동맹 제안")
+    assert any("headline" in p for p in validate(long_copy, items)), "줄이기 전엔 실패"
+    assert fit_copy(long_copy) >= 1
+    assert validate(long_copy, items) == [], validate(long_copy, items)
+    assert "…" not in long_copy["steps"][0]["headline"], "어절을 덜어내지 말줄임은 안 붙인다"
+    assert visible_len(fit_line("가나다라마바사 아자차카타파하 " * 4, 20)) <= 20
+
     # 사실 카드 — 상태는 닫힌 목록 안에서만
     assert any("signals" in p for p in validate(mutate(signals=None), items)), "signals 필수"
     assert any("status" in p for p in validate(mutate(signals=[
