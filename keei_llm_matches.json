@@ -2563,6 +2563,20 @@
       "reason": "협상 쟁점 분석과 의회 제출 절차는 다름",
       "same_event": false
     },
+    "issue-8ccda2e1c46fb274--5924c0c9b7": {
+      "issue_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "keei_item": "스페인 Almaraz 원전, 연장운전 조건부 적합 판정",
+      "prompt_version": 1,
+      "reason": "같은 원전 연장운전 관련 보도",
+      "same_event": true
+    },
+    "issue-8ccda2e1c46fb274--c2b8808fe0": {
+      "issue_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "keei_item": "스페인 정부, Almaraz 원전 운영허가 2030년까지 갱신",
+      "prompt_version": 1,
+      "reason": "같은 원전 운영허가 갱신 보도",
+      "same_event": true
+    },
     "issue-8d4e6351d6c710b2--92b30862a0": {
       "issue_title": "국회, 국가기간 전력망 확충 특별법 등 민생법안 70여건 본회의 통과",
       "keei_item": "일본 정부, 선진 원자로와 핵융합 에너지를 중점 산업 분야로 선정",
@@ -2899,6 +2913,13 @@
       "reason": "다른 국가의 다른 사안",
       "same_event": false
     },
+    "issue-a5a1ef68231b4e51--a3cf49987b": {
+      "issue_title": "테라파워-한국 기업 SMR 협력, 한국 원전기업 수출 공급망 확대",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "같은 기업의 SMR 상용화 협력 보도",
+      "same_event": true
+    },
     "issue-a74fe0a192c3a524--02506fe991": {
       "issue_title": "홀텍, 아이다호 국립연구소(INL) SMR-300 시험 시설 구축 진전 발표",
       "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
@@ -3037,6 +3058,13 @@
       "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
       "prompt_version": 1,
       "reason": "국내 i-SMR 표준설계인가 심사 착수 동일 사안",
+      "same_event": true
+    },
+    "issue-b0cd9558972bc66d--77d959ece5": {
+      "issue_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "같은 SMR 표준설계인가 심사 보도",
       "same_event": true
     },
     "issue-b0cd9558972bc66d--841ceedbf0": {
@@ -4277,6 +4305,13 @@
       "prompt_version": 1,
       "reason": "주체 및 안건이 다름.",
       "same_event": false
+    },
+    "issue-f05008a326b99feb--77d959ece5": {
+      "issue_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "같은 SMR 표준설계인가 심사 보도",
+      "same_event": true
     },
     "issue-f05008a326b99feb--d65bac9c4d": {
       "issue_title": "원안위, 부산 기장 혁신형 SMR 건설 심사 착수",
