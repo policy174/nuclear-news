@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -29,6 +30,11 @@ ROOT = mc.ROOT
 CHRONICLES = ROOT / "chronicles.json"
 NARRATIVES = ROOT / "chronicle_narratives.json"
 ALBUM_FILE = ROOT / "cards" / "story_album.json"
+# 일일 카드와 PNG 폴더를 나눈다. 같은 cards/out 을 쓰면 나중에 도는 쪽이 앞 앨범을
+# 지우고, 그러면 게시·재시도 순서에 따라 엉뚱한 PNG 가 사이트로 간다.
+OUT_DIR = ROOT / "cards" / "out-story"
+os.environ.setdefault("CARDS_OUT", OUT_DIR.name)
+mc.OUT_DIR = OUT_DIR
 
 MIN_EVENTS = 3          # 이보다 적으면 타임라인이 안 선다
 TIMELINE_ROWS = 4

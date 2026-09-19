@@ -937,7 +937,9 @@ function selfCheck() {
 
   console.log(`Theme: ${theme.name} | ${theme.fonts.heading.family}`);
 
-  const outDir = path.resolve(process.cwd(), "out");
+  // 스토리 카드뉴스는 같은 렌더러를 쓰되 다른 폴더로 뽑는다(CARDS_OUT=out-story).
+  // 한 폴더를 나눠 쓰면 나중에 도는 쪽이 앞 앨범의 PNG 를 지운다.
+  const outDir = path.resolve(process.cwd(), process.env.CARDS_OUT || "out");
   fs.mkdirSync(outDir, { recursive: true });
 
   const browser = await puppeteer.launch({ headless: "new", args: ["--no-sandbox"] });

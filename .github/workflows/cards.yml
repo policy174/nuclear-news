@@ -63,12 +63,40 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python send_album.py
 
+      # 일일 카드 PNG 를 사이트 폴더로 먼저 옮긴다. 스토리 렌더가 cards/out 을 비우고
+      # 쓰기 때문에, 복사 전에 스토리를 돌리면 일일 PNG 가 사라진다.
+      - name: Publish daily cards to site folder
+        run: python publish_cards.py
+
+      # 스토리 카드뉴스 — chronicle 이 붙은 이슈가 있는 날만. 없으면 조용히 스킵(exit 0).
+      - name: Make story cards
+        id: make_story
+        if: vars.STORY_CARDS_ENABLED != 'off'
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
+        run: |
+          if [ -n "${{ inputs.date }}" ]; then python story_cards.py --date "${{ inputs.date }}"; else python story_cards.py; fi
+
+      - name: Send story album
+        if: inputs.send && steps.make_story.outcome == 'success'
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python send_album.py --album cards/story_album.json --key story_cards
+
+      - name: Publish story cards to site folder
+        if: steps.make_story.outcome == 'success'
+        continue-on-error: true
+        run: python publish_cards.py --album cards/story_album.json --kind story
+
       # 여기서 wrangler 로 직접 올리면 안 된다 — 이 잡에는 build_data 산출물(issue/·brief/·
       # data/)이 없어 Pages 가 라이브의 그 파일들을 지운다. 커밋 뒤 deploy-web 을 깨운다
       # (봇 push 는 워크플로를 못 깨우지만 workflow_dispatch API 호출은 된다).
-      - name: Publish cards to site + commit
+      - name: Commit + push card PNGs
         run: |
-          python publish_cards.py
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           for i in 1 2 3; do
@@ -76,8 +104,12 @@ jobs:
             if git diff --cached --quiet; then echo "기록할 변경 없음"; exit 0; fi
             git commit -m "chore: cards regenerated"
             if git push origin HEAD:main; then exit 0; fi
+            # 충돌이면 원격을 받아 다시 복사한다 — PNG 는 cards/out 에 아직 있다.
             git fetch origin main && git reset --hard origin/main
             python publish_cards.py
+            if [ -f cards/story_album.json ]; then
+              python publish_cards.py --album cards/story_album.json --kind story
+            fi
           done
           echo "push 실패 — 카드 PNG 미게시"; exit 1
 
