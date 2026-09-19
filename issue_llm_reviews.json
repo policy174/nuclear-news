@@ -782,6 +782,36 @@
       "right_title": "국회, 국가기간 전력망 건설 민간 참여 특별법 본회의 통과",
       "same_event": false
     },
+    "01e371abd003f3f6--023eaaeb5c3ba7ad": {
+      "embedding_similarity": 0.8741,
+      "left_title": "경남도, SMR 글로벌 육성전략 2.0 발표…10년간 4조6990억원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 도정 사안",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 동남권 메가특구 지정 위한 민관협의체 회의 개최",
+      "same_event": false
+    },
+    "01e371abd003f3f6--3e369da9d53ed333": {
+      "embedding_similarity": 0.8716,
+      "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 도정 사안",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 동남권 메가특구 지정 위한 민관협의체 회의 개최",
+      "same_event": false
+    },
+    "01e371abd003f3f6--72888f93b36f1d3a": {
+      "embedding_similarity": 0.8831,
+      "left_title": "경남도, SMR 육성전략 발표…투자계획의 61%를 시장창출 분야에 배정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 육성과 메가특구",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 동남권 메가특구 지정 위한 민관협의체 회의 개최",
+      "same_event": false
+    },
     "01e83e81854f1daf--0d65034147a0c1c1": {
       "embedding_similarity": 0.9033,
       "left_title": "윤 대통령, 해남 태양광 착공식서 청정에너지와 첨단산업 연계 강조",
@@ -3480,6 +3510,16 @@
       "reason": "용수·전력 공급과 원전 폐지 공론화는 다른 사안",
       "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "same_event": false
+    },
+    "04efed515cb6116f--b0e9b511d4cfd556": {
+      "embedding_similarity": 0.8747,
+      "left_title": "기후에너지환경부, 12차 전기본 신규 원전·석탄 폐지 공론화 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화 개시와 토론회",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "제12차 전기본 토론회, 석탄발전 폐지 부지 SMR·안보전원 논의",
       "same_event": false
     },
     "04efed515cb6116f--b73fb2374225efa6": {
@@ -29002,6 +29042,16 @@
       "right_title": "여름철 최대 전력수요, 예상보다 빠르게 95GW 돌파하며 예비율 하락",
       "same_event": true
     },
+    "28e5be70b67ef2d9--33c3f08807abca13": {
+      "embedding_similarity": 0.8766,
+      "left_title": "한수원, '2026년 사이버보안위원회' 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 행사 개최",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한수원, 원전 무선통신·AI 전환 기술 교류 콘퍼런스 개최",
+      "same_event": false
+    },
     "28f69a2896a4d00d--37429a89a97b6760": {
       "embedding_similarity": 0.862,
       "left_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
@@ -32062,6 +32112,16 @@
       "right_title": "한국전력, 최대 18조원 규모 베트남 닌투언 2 원전 수주 협상 가속화",
       "same_event": true
     },
+    "2e2210cdf10c8f04--ee66c9b724067a81": {
+      "embedding_similarity": 0.8856,
+      "left_title": "한국전력, 최대 18조원 규모 베트남 닌투언 2 원전 수주 협상 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 협상과 ODA 사업",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한수원KNP, 베트남 닌투언 원전 인력 양성 ODA 사업 논의",
+      "same_event": false
+    },
     "2e2210cdf10c8f04--f05a38c911f2c951": {
       "embedding_similarity": 0.8494,
       "left_title": "한국전력, 최대 18조원 규모 베트남 닌투언 2 원전 수주 협상 가속화",
@@ -34132,6 +34192,26 @@
       "right_title": "\"강물이 말라붙자 원전이 멈췄다\"…44년 만의 '셧다운' 공포 [스프]",
       "same_event": true
     },
+    "335eec7a3e32afb8--629a2a0fdc790c1f": {
+      "embedding_similarity": 0.8697,
+      "left_title": "이재명 대통령, IEA 사무총장과 에너지 정책 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령의 IEA 사무총장 면담",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "李대통령, IEA 사무총장에 “에너지 안보 국제적 협조”",
+      "same_event": true
+    },
+    "335eec7a3e32afb8--a0dfd243a1e84454": {
+      "embedding_similarity": 0.873,
+      "left_title": "이재명 대통령, IEA 사무총장과 에너지 정책 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령의 IEA 사무총장 면담",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "이재명 대통령, 재생에너지 중심 전기화 속 원전·LNG 병행 방침 언급",
+      "same_event": true
+    },
     "337a9ffbe7eef399--616c6b13d9f03cfa": {
       "embedding_similarity": 0.8421,
       "left_title": "영국 SMR 프로젝트, Jacobs(제이콥스)社가 기획 및 인허가 지원",
@@ -35100,6 +35180,26 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-16T09:30:34.848230+00:00",
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
+      "same_event": false
+    },
+    "33c3f08807abca13--5b10be754efbb2ba": {
+      "embedding_similarity": 0.8775,
+      "left_title": "한수원, '2026년 사이버보안위원회' 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 행사 개최",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한수원, 원전 AI 전환 및 무선통신 기술 교류 콘퍼런스 개최",
+      "same_event": false
+    },
+    "33c3f08807abca13--7be32c23dbde14d9": {
+      "embedding_similarity": 0.87,
+      "left_title": "한수원, '2026년 사이버보안위원회' 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 행사",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한수원, AI 전환 워크숍 및 무선통신 콘퍼런스 개최",
       "same_event": false
     },
     "33d1eec62d688128--3936f98b28485c84": {
@@ -43382,6 +43482,26 @@
       "right_title": "경상남도, 10년간 4.7조원 투입해 SMR 생산거점 조성 추진",
       "same_event": true
     },
+    "3e369da9d53ed333--42e953f23b002dac": {
+      "embedding_similarity": 0.8765,
+      "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "도 투자계획과 의회 건의",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도의회, 경남을 한국 SMR 생산거점으로 육성 촉구 건의안 발의",
+      "same_event": false
+    },
+    "3e369da9d53ed333--4ff251a7935d0756": {
+      "embedding_similarity": 0.8789,
+      "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "도 투자계획과 의원 건의",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도의원, 경남 SMR 생산거점 조성 및 진흥특구 유치 건의",
+      "same_event": false
+    },
     "3e369da9d53ed333--631f0fa57b2f4431": {
       "embedding_similarity": 0.8925,
       "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
@@ -43412,6 +43532,26 @@
       "right_title": "경남도, 2035년까지 21조원 투입해 SMR 글로벌 거점 육성",
       "same_event": false
     },
+    "3e369da9d53ed333--9367204e929e4399": {
+      "embedding_similarity": 0.8834,
+      "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남 SMR 육성 투자",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, SMR 산업 육성에 4조7000억원 투자 계획",
+      "same_event": true
+    },
+    "3e369da9d53ed333--95eb3a7bbb45c539": {
+      "embedding_similarity": 0.8813,
+      "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "투자 계획과 국비 확보",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 내년 국비 11조 6811억원 확보…SMR 등 첨단산업 육성",
+      "same_event": false
+    },
     "3e369da9d53ed333--a090f4a6c3771d3c": {
       "embedding_similarity": 0.9157,
       "left_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
@@ -43421,6 +43561,26 @@
       "reviewed_at": "2026-09-19T08:24:31.145844+00:00",
       "right_title": "경남도, 4.7조 원 투입 SMR 글로벌 육성전략 2.0 발표",
       "same_event": true
+    },
+    "3e369da9d53ed333--b9d747dc7286be6f": {
+      "embedding_similarity": 0.8752,
+      "left_title": "경남도, 내년 국비 11조6811억 확보…SMR 혁신제조 기술개발 187억 반영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 예산 및 계획",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "same_event": false
+    },
+    "3e369da9d53ed333--bb52be419ea610f9": {
+      "embedding_similarity": 0.8743,
+      "left_title": "경남도, 2027년 국비 11.6조원 확보…SMR 관련 예산 187억원 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 예산 및 계획",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "경남도, 피지컬 AI와 SMR 육성에 2035년까지 4조 6990억 원 투입",
+      "same_event": false
     },
     "3e369da9d53ed333--cf08af9f1d3a1d58": {
       "embedding_similarity": 0.8923,
@@ -43862,6 +44022,66 @@
       "right_title": "한수원, 웨스팅하우스 지분 확보 통해 한국형 원전 수출 제약 해소 모색",
       "same_event": false
     },
+    "3e6ed751617791b6--51bfedada4db158d": {
+      "embedding_similarity": 0.872,
+      "left_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원자로가 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "새울 3호기, 재가동 이틀 만에 증기 응축수 배관 누설로 수동 정지",
+      "same_event": false
+    },
+    "3e6ed751617791b6--7812cc3808e031e9": {
+      "embedding_similarity": 0.884,
+      "left_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원자로가 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "새울 3호기 시운전 정지 원인 '운전원 오조작' 확인, 원안위 재개 승인",
+      "same_event": false
+    },
+    "3e6ed751617791b6--98a8c1b2e0b24fe5": {
+      "embedding_similarity": 0.8681,
+      "left_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원자로가 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "새울 3호기, 재가동 이틀 만에 증기 누설로 수동 정지…원안위 조사 착수",
+      "same_event": false
+    },
+    "3e6ed751617791b6--9d64535a81b9a8fb": {
+      "embedding_similarity": 0.8799,
+      "left_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "same_event": false
+    },
+    "3e6ed751617791b6--a6bf269f3d5aa561": {
+      "embedding_similarity": 0.8822,
+      "left_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "same_event": false
+    },
+    "3e6ed751617791b6--ba855ef18b483232": {
+      "embedding_similarity": 0.8699,
+      "left_title": "원안위, 연구용 원자로 하나로 재가동 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원자로가 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "원안위, 새울 3호기 시운전 시험 재가동 승인",
+      "same_event": false
+    },
     "3e7a0e79ed144761--4288e4cee8658728": {
       "embedding_similarity": 0.8649,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -44050,6 +44270,16 @@
       "reason": "원전 협력과 항행 자유 공조",
       "reviewed_at": "2026-09-08T20:39:27.184215+00:00",
       "right_title": "이재명 대통령, 프랑스와 호르무즈 해협 항행 자유 위해 공조 합의",
+      "same_event": false
+    },
+    "3e8ffcf2b346c1e6--c56baa57f4715711": {
+      "embedding_similarity": 0.8704,
+      "left_title": "이재명 대통령, 프랑스 국빈 방문해 원전 공동수출 협력 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "면담 대상국이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
       "same_event": false
     },
     "3e8ffcf2b346c1e6--ce9acb187ff87652": {
@@ -46140,6 +46370,36 @@
       "reason": "한미 대미투자 협상 난항",
       "reviewed_at": "2026-09-19T08:24:31.145844+00:00",
       "right_title": "한미 대미투자 협상, 원전·파이로프로세싱 이견으로 난항",
+      "same_event": true
+    },
+    "41d994dee10c3024--c0c5ab7a396e4ef0": {
+      "embedding_similarity": 0.8738,
+      "left_title": "한미 대미투자 협상 장기화 속 실제 집행 거칠 자금·계약·인허가 과제 산적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미투자와 원전수출 협상",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한미, 웨스팅하우스 지분·원전 수출 협상 난항 지속",
+      "same_event": false
+    },
+    "41d994dee10c3024--d5217cd852b861bd": {
+      "embedding_similarity": 0.8686,
+      "left_title": "한미 대미투자 협상 장기화 속 실제 집행 거칠 자금·계약·인허가 과제 산적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미투자 협상 및 정부 설명",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "산업통상부, 대미투자 첫 송금 및 원전 협력 구체 사항 미확정 설명",
+      "same_event": true
+    },
+    "41d994dee10c3024--f9406e1f10c69dfd": {
+      "embedding_similarity": 0.873,
+      "left_title": "한미 대미투자 협상 장기화 속 실제 집행 거칠 자금·계약·인허가 과제 산적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대미투자 협상 지연",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한국 대미 투자 1년째 제자리…美 불만, 한국 불안",
       "same_event": true
     },
     "41dc52eac505b940--5c22cc5586b97424": {
@@ -53342,6 +53602,16 @@
       "right_title": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
       "same_event": false
     },
+    "4f1d37c92a3ba32b--c56baa57f4715711": {
+      "embedding_similarity": 0.8808,
+      "left_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "접견 대상 및 주제 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "이재명 대표, IEA 사무총장 접견…중동전쟁·에너지 안보 논의",
+      "same_event": false
+    },
     "4f423b753929302f--5e2c11cd445bbcee": {
       "embedding_similarity": 0.873,
       "left_title": "헝가리 팍스 원전, 다뉴브강 수위 낮아져 가동 중단",
@@ -55900,6 +56170,16 @@
       "reason": "주체와 주제는 같으나 구체적 사안이 다름",
       "reviewed_at": "2026-08-23T09:38:27.026732+00:00",
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
+      "same_event": false
+    },
+    "524e188d4e1530c1--f6b15870627509bd": {
+      "embedding_similarity": 0.8808,
+      "left_title": "앤트로픽, 엔스케일과 450억 달러 AI 컴퓨팅 계약…용량 확보 총력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "컴퓨팅 계약과 상장 신청",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "엔비디아 투자 英 AI 인프라 기업 엔스케일, 美 증시 상장 신청",
       "same_event": false
     },
     "525b21a811f83076--7160a03bddccd9ff": {
@@ -66662,6 +66942,16 @@
       "right_title": "국내 대기업들, SMR 민간 참여 확대를 위한 제도 개편 촉구",
       "same_event": false
     },
+    "629a2a0fdc790c1f--795b7aa7c1b54d47": {
+      "embedding_similarity": 0.8706,
+      "left_title": "이재명 대통령, IEA 사무총장 면담서 중동전쟁으로 인한 원전 의존도 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령의 IEA 사무총장 면담",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "李대통령, IEA 사무총장에 “에너지 안보 국제적 협조”",
+      "same_event": true
+    },
     "62b7339c71d5ebbc--8652a7a19354d293": {
       "embedding_similarity": 0.9195,
       "left_title": "자포리자 원전 수리 위한 휴전 발효…안전 확보 노력",
@@ -68090,6 +68380,16 @@
       "reason": "서로 다른 지역 지원 정책",
       "reviewed_at": "2026-09-13T22:41:01.361803+00:00",
       "right_title": "발전소 인근 지역에 미래산업 유치 및 인프라 활용 특례 논의",
+      "same_event": false
+    },
+    "667f728730f7ae47--c56baa57f4715711": {
+      "embedding_similarity": 0.8753,
+      "left_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제는 같으나 다른 사안",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "아랍에미리트, 한국 기업 전용 산업단지 조성 추진",
       "same_event": false
     },
     "667f728730f7ae47--db3edcdb62b80a40": {
@@ -71061,6 +71361,36 @@
       "reviewed_at": "2026-09-18T03:11:11.409052+00:00",
       "right_title": "기후에너지환경부, 미국에 SMR·전력기자재 중심 '한미 에너지 동맹' 제안",
       "same_event": true
+    },
+    "6c9ad92b85d2da9b--7d604ab595035fb4": {
+      "embedding_similarity": 0.8775,
+      "left_title": "기후에너지환경부, 미국에 SMR·전력기자재 중심 '한미 에너지 동맹' 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 에너지 동맹 제안",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "AI 전력망 전쟁…한국, 美에 변압기·원전 ‘에너지 동맹’ 제안",
+      "same_event": true
+    },
+    "6c9ad92b85d2da9b--7ec85a1867835556": {
+      "embedding_similarity": 0.8798,
+      "left_title": "기후에너지환경부, 미국에 SMR·전력기자재 중심 '한미 에너지 동맹' 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "제안 대상 및 행사 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "기후에너지환경부 이호현 차관, G20 에너지장관회의서 전력망 파트너십 제안",
+      "same_event": false
+    },
+    "6c9ad92b85d2da9b--98a45c4269c9a944": {
+      "embedding_similarity": 0.8749,
+      "left_title": "기후에너지환경부, 미국에 SMR·전력기자재 중심 '한미 에너지 동맹' 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "제안 대상과 내용이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한국, 주요 20개국에 '회복력 있는 전력망 파트너십' 제안",
+      "same_event": false
     },
     "6c9ad92b85d2da9b--a51492e1dfcd6b6a": {
       "embedding_similarity": 0.8746,
@@ -92232,6 +92562,16 @@
       "right_title": "12차 전기본, 2040년 석탄발전 21기 추가 폐지 논의 시작",
       "same_event": true
     },
+    "99f2916afcd7ec62--b0e9b511d4cfd556": {
+      "embedding_similarity": 0.8678,
+      "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 토론회",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "제12차 전기본 토론회, 석탄발전 폐지 부지 SMR·안보전원 논의",
+      "same_event": true
+    },
     "99f2916afcd7ec62--be1d85b22b2626ca": {
       "embedding_similarity": 0.8424,
       "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
@@ -92780,6 +93120,16 @@
       "reason": "일반적 지연 vs 일반 정책",
       "reviewed_at": "2026-08-04T22:25:38.778650+00:00",
       "right_title": "원전 계속운전 심사 가속화 및 사고 은폐 시 처벌 강화",
+      "same_event": false
+    },
+    "9a94d3be8028be9e--a34c98c43a9061f2": {
+      "embedding_similarity": 0.8796,
+      "left_title": "기후부, 계절별 송전용량 시범사업 착수…전력망 효율 높인다",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력망 사업",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한전, 송전망 건설 지연 대응 '가상송전선로' 도입 추진",
       "same_event": false
     },
     "9b7792184c21ab07--fbaacb3e11ce9992": {
@@ -99632,6 +99982,16 @@
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": true
     },
+    "b0e9b511d4cfd556--e471ebb1e8e3d19f": {
+      "embedding_similarity": 0.8941,
+      "left_title": "정부, 12차 전기본서 2040년까지 석탄발전 60기 폐지 로드맵 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 로드맵과 토론회",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "제12차 전기본 토론회, 석탄발전 폐지 부지 SMR·안보전원 논의",
+      "same_event": false
+    },
     "b0f4ac5b3e395b70--cc5ef12e160a4ddf": {
       "embedding_similarity": 0.8571,
       "left_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
@@ -100130,6 +100490,16 @@
       "reason": "AI 특수와 전력 부족은 다른 사안",
       "reviewed_at": "2026-09-01T18:24:33.473609+00:00",
       "right_title": "AI 특수로 미국 전력설비 업계 일감 폭주",
+      "same_event": false
+    },
+    "b2542509e41d8d1d--c56baa57f4715711": {
+      "embedding_similarity": 0.8682,
+      "left_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 협력 사안",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "한-아부다비 CEPA 경제동맹, 로봇·바이오 등 협력 확대",
       "same_event": false
     },
     "b269359073571cc7--c693db7134e6be68": {
@@ -103262,6 +103632,16 @@
       "right_title": "미국 농무부(USDA), 농촌 지역 원자력 프로젝트에 자금 지원",
       "same_event": true
     },
+    "bda5f625aa462afc--e009af115f0ba074": {
+      "embedding_similarity": 0.8709,
+      "left_title": "미국 에너지부, 아이오와주 드웨인 아놀드 원전 재가동에 19억 달러 대출 종결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지원 주체와 대상이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "미 농무부, 농촌 전기 협동조합 대상 원자력 발전 자금 지원 개시",
+      "same_event": false
+    },
     "bdbb49a2077a9f4a--d629f03c05c9422e": {
       "embedding_similarity": 0.8402,
       "left_title": "EU, SF₆ 사용 제한 강화…효성·HD현대, 420kV 친환경 GIS 경쟁",
@@ -105281,6 +105661,26 @@
       "reviewed_at": "2026-09-15T23:15:44.404074+00:00",
       "right_title": "주부전력, 데이터 스캔들 여파로 사장 사임 및 원전 재가동 신청 철회",
       "same_event": true
+    },
+    "c56baa57f4715711--d9288b4de48e9218": {
+      "embedding_similarity": 0.8745,
+      "left_title": "이재명 대통령, ADB 총재 면담서 중앙아시아 원전 및 핵심광물 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "면담 대상국 및 인물이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
+      "same_event": false
+    },
+    "c56baa57f4715711--fd47081578facf4b": {
+      "embedding_similarity": 0.8784,
+      "left_title": "이재명 대통령, ADB와 중앙아시아 원전·광물 진출 협력 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "접견 대상이 다름",
+      "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
+      "right_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
+      "same_event": false
     },
     "c5f1ac255d40cb47--d1658517bf1f5c3f": {
       "embedding_similarity": 0.8474,
