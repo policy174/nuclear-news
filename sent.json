@@ -6850,12 +6850,19 @@
     "0e3b8bf9c490ff7b": "2026-09-19T12:37:33.019500+00:00",
     "eaa52d46818f2991": "2026-09-19T12:37:33.019500+00:00",
     "b6be034f807b139b": "2026-09-19T12:37:33.019500+00:00",
-    "dd438ab98d6d6578": "2026-09-19T12:37:33.019500+00:00"
+    "dd438ab98d6d6578": "2026-09-19T12:37:33.019500+00:00",
+    "11e1ca48e07fa1b6": "2026-09-19T13:05:38.308555+00:00",
+    "879f2bdfffae7ab8": "2026-09-19T13:05:38.308555+00:00",
+    "337094c4cbb33797": "2026-09-19T13:05:38.308555+00:00",
+    "0dc9c21dc71a89b8": "2026-09-19T13:05:38.308555+00:00",
+    "ccd9093e2b3a06bb": "2026-09-19T13:05:38.308555+00:00",
+    "72081c5d1120c965": "2026-09-19T13:05:38.308555+00:00",
+    "eebd38b205e76824": "2026-09-19T13:05:38.308555+00:00"
   },
   "source_yield": {
-    "at": "2026-09-19T12:39:49+00:00",
+    "at": "2026-09-19T13:08:03+00:00",
     "counts": {
-      "한수원 보도자료": 10,
+      "한수원 보도자료": 0,
       "원안위 보도자료": 0,
       "산업부 보도자료": 0,
       "원자력연구원 보도자료": 10,
@@ -6874,22 +6881,23 @@
       "한전원자력연료": 1,
       "혁신형 SMR 기술개발사업단": 0,
       "Reuters 원자력": 9,
-      "La Tribune 원자력": 9,
+      "La Tribune 원자력": 6,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 10,
-      "Les Échos 원자력": 13,
+      "Les Échos 원자력": 14,
       "E&E News 원자력": 0,
-      "Nuclear Engineering International": 10,
-      "Euractiv 원자력": 10,
-      "국내 원자력 보도": 4
+      "Nuclear Engineering International": 4,
+      "Euractiv 원자력": 8,
+      "국내 원자력 보도": 0
     },
     "kept": {
+      "DOE": 2,
       "Reuters 원자력": 1,
-      "La Tribune 원자력": 1,
-      "국내 원자력 보도": 3
+      "Les Échos 원자력": 1
     },
     "errors": {
+      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn",
       "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
       "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
     }
