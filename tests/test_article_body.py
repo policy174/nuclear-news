@@ -224,6 +224,52 @@ class FetchTests(unittest.TestCase):
         self.assertEqual(stats["attempted"], 2)
         self.assertEqual(stats["reasons"]["blocked_domain"], 1)
 
+    def test_bot_blocked_article_is_retried_in_a_browser(self):
+        """봇 차단(403)은 헤더로 못 푼다 — 실패한 건만 브라우저로 한 번 더 간다."""
+        session = self.FakeSession({})          # 전부 실패시키는 세션
+        articles = [{"hash": "h1", "link": "https://www.iaea.org/x",
+                     "title": "IAEA 이사회, 신규 이사국 선출"}]
+        called = {}
+
+        def fake_browser(urls, **kw):
+            called["urls"] = list(urls)
+            return {"https://www.iaea.org/x":
+                    "Eleven countries have been elected to the 35-member IAEA Board "
+                    "of Governors for the 2026-2028 period. " * 3}
+
+        original, ab.browser_bodies = ab.browser_bodies, fake_browser
+        try:
+            bodies, stats = ab.fetch_bodies(articles, workers=1,
+                                            session_factory=lambda: session)
+        finally:
+            ab.browser_bodies = original
+        self.assertEqual(called["urls"], ["https://www.iaea.org/x"])
+        self.assertIn("h1", bodies, "브라우저가 받아온 본문이 실려야 한다")
+        self.assertEqual(stats["browser_ok"], 1)
+
+    def test_browser_body_of_a_different_article_is_still_dropped(self):
+        session = self.FakeSession({})
+        articles = [{"hash": "h1", "link": "https://www.iaea.org/x",
+                     "title": "IAEA 이사회, 신규 이사국 선출"}]
+        original, ab.browser_bodies = ab.browser_bodies, lambda urls, **kw: {
+            "https://www.iaea.org/x": "The weather in Vienna is mild and tourists "
+                                      "gather in the old town every afternoon. " * 3}
+        try:
+            bodies, stats = ab.fetch_bodies(articles, workers=1,
+                                            session_factory=lambda: session)
+        finally:
+            ab.browser_bodies = original
+        self.assertNotIn("h1", bodies)
+        self.assertEqual(stats["reasons"]["browser_title_mismatch"], 1)
+
+    def test_translated_title_matches_its_original_language_body(self):
+        """번역된 한글 제목 + 영문 본문 — 라틴 토큰으로 판정한다."""
+        body = ("Eleven countries have been elected to serve on the 35-member IAEA "
+                "Board of Governors for the 2026-2028 period.")
+        self.assertTrue(ab.matches_title(body, "IAEA 이사회, 신규 이사국 선출"))
+        self.assertFalse(ab.matches_title(
+            "The weather in Vienna is mild this week.", "IAEA 이사회, 신규 이사국 선출"))
+
     def test_cap_defers_the_rest_instead_of_dropping_silently(self):
         articles = [{"hash": f"h{i}", "link": "https://www.reuters.com/x", "title": "t"}
                     for i in range(5)]

@@ -38,8 +38,10 @@ import html as html_module
 import json
 import os
 import re
+import subprocess
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from urllib.parse import urlparse
 
 try:  # requests 는 news_bot 이 이미 의존하지만, 단독 import 시 죽지 않게 둔다
@@ -265,6 +267,9 @@ _RELEVANCE_RATIO = 0.50
 _RELEVANCE_MIN_HITS = 3
 
 
+_HANGUL_RE = re.compile(r"[가-힣]")
+
+
 def matches_title(body: str, title: str) -> bool:
     """본문이 그 제목의 기사인가.
 
@@ -280,6 +285,13 @@ def matches_title(body: str, title: str) -> bool:
     if not tokens:
         return True
     haystack = body.lower()
+    # 번역된 제목 + 원문 본문이면 한국어 토큰이 겹칠 수가 없다(실측 2026-09-19:
+    # "IAEA 이사회, 신규 이사국 선출" 제목에 영문 본문 → 0 hits 로 멀쩡한 본문을
+    # 버렸다). 그때는 라틴·숫자 토큰으로만 본다 — 기관명·연도·호기는 번역돼도 남는다.
+    if _HANGUL_RE.search(title) and not _HANGUL_RE.search(body):
+        latin = [t for t in set(tokens)
+                 if len(t) >= 2 and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9.\-]*", t)]
+        return any(t.lower() in haystack for t in latin)
     hits = 0
     for token in set(tokens):
         needle = token.lower()
@@ -367,6 +379,41 @@ def fetch_one(url: str, session, title: str = "",
     return body, "ok"
 
 
+# ---- 브라우저 폴백 --------------------------------------------------------------
+# 봇 차단은 헤더로 못 푼다. iaea.org 실측(2026-09-19): UA·Accept·Sec-Fetch·
+# Accept-Encoding 조합을 다 바꿔도 403, 처음 두 요청만 통과했다 — 클라이언트
+# 지문·빈도 판정이다. 카드 렌더가 이미 puppeteer 를 들고 있으므로, **실패한 몇
+# 건만** 실제 브라우저로 다시 받는다. 건당 3~5초라 상한을 둔다.
+BROWSER_SCRIPT = Path(__file__).resolve().parent / "cards" / "fetch_body.js"
+BROWSER_MAX = int(os.environ.get("BODY_BROWSER_MAX", "4"))
+BROWSER_TIMEOUT = float(os.environ.get("BODY_BROWSER_TIMEOUT", "120"))
+# 브라우저로 다시 받을 실패 사유. 404·title_mismatch 는 다시 받아도 같다.
+BROWSER_RETRY_REASONS = {"blocked_domain", "http_401", "http_403", "http_429", "thin"}
+
+
+def browser_bodies(urls: list[str], *, limit: int = BROWSER_MAX,
+                   timeout: float = BROWSER_TIMEOUT) -> dict[str, str]:
+    """{url: 본문}. node·puppeteer 가 없거나 실패하면 빈 dict — 전부 비치명."""
+    wanted = [u for u in dict.fromkeys(urls) if u][:limit]
+    if not wanted or not BROWSER_SCRIPT.exists():
+        return {}
+    try:
+        proc = subprocess.run(
+            ["node", BROWSER_SCRIPT.name, json.dumps(wanted)],
+            cwd=str(BROWSER_SCRIPT.parent), capture_output=True, timeout=timeout,
+        )
+        raw = (proc.stdout or b"").decode("utf-8", "replace").strip() or "{}"
+        data = json.loads(raw)
+    except Exception:  # noqa: BLE001 — 타임아웃·노드 부재·JSON 깨짐 전부 여기
+        return {}
+    out: dict[str, str] = {}
+    for url, text in (data or {}).items():
+        body = " ".join(str(text or "").split())[:MAX_BODY_CHARS]
+        if len(body) >= MIN_BODY_CHARS:
+            out[url] = body
+    return out
+
+
 def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
                  workers: int = WORKERS, session_factory=None) -> tuple[dict[str, str], dict]:
     """{hash: 본문} 과 통계. 실패한 기사는 키가 없다(호출자는 그냥 건너뛴다).
@@ -414,12 +461,34 @@ def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
         stats["reasons"]["pool_error"] = f"{type(exc).__name__}"
         return {}, stats
 
-    for article_hash, body, status in results:
+    retry: list[dict] = []
+    for (article_hash, body, status), article in zip(results, targets):
         stats["reasons"][status] = stats["reasons"].get(status, 0) + 1
         if body and article_hash:
             bodies[article_hash] = body
             stats["ok"] += 1
             stats["chars"] += len(body)
+        elif status in BROWSER_RETRY_REASONS and article_hash:
+            retry.append(article)
+
+    # 봇 차단으로 떨어진 것만 브라우저로 한 번 더. 상한(BROWSER_MAX) 안에서만 돈다.
+    if retry:
+        by_url = {(a.get("resolved_url") or a.get("link") or ""): a for a in retry}
+        got = browser_bodies(list(by_url))
+        for url, body in got.items():
+            article = by_url.get(url) or {}
+            title = str(article.get("title") or "")
+            if title and not matches_title(body, title):
+                stats["reasons"]["browser_title_mismatch"] = \
+                    stats["reasons"].get("browser_title_mismatch", 0) + 1
+                continue
+            article_hash = article.get("hash") or ""
+            if not article_hash:
+                continue
+            bodies[article_hash] = body
+            stats["ok"] += 1
+            stats["chars"] += len(body)
+            stats["browser_ok"] = stats.get("browser_ok", 0) + 1
     if stats["ok"]:
         stats["avg_chars"] = stats["chars"] // stats["ok"]
     return bodies, stats
@@ -429,5 +498,6 @@ def format_stats(stats: dict) -> str:
     reasons = stats.get("reasons") or {}
     detail = " ".join(f"{k}={v}" for k, v in sorted(reasons.items()))
     rate = (stats["ok"] * 100 // stats["attempted"]) if stats.get("attempted") else 0
+    browser = f" | 브라우저 {stats['browser_ok']}건" if stats.get("browser_ok") else ""
     return (f"[body] 본문 {stats.get('ok', 0)}/{stats.get('attempted', 0)}건 ({rate}%) "
-            f"평균 {stats.get('avg_chars', 0)}자 | {detail}")
+            f"평균 {stats.get('avg_chars', 0)}자 | {detail}{browser}")
