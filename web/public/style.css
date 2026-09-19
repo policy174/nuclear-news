@@ -3984,6 +3984,8 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
 .card-strip-item img { display: block; width: 100%; height: auto; }
 /* 다음 장이 살짝 보여야 넘길 수 있다는 걸 손이 안다 */
 @media (max-width: 520px) { .card-strip-item { flex-basis: 84vw; } }
+/* 스토리 카드뉴스가 시작되는 자리에 경계 한 줄 — 같은 띠에 두 앨범이 이어 붙는다. */
+.card-strip-item.is-story-start { margin-left: 18px; box-shadow: -18px 0 0 -8px var(--c-border); }
 /* 카드뉴스 크게 보기 */
 .card-viewer { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh;
   /* 어두운 면은 dialog 자체가 든다 — ::backdrop 만 믿으면 뒤 화면이 그대로 비친다(실측). */

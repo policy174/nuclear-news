@@ -1658,18 +1658,27 @@ function renderCardStrip(date) {
   if (!section) return;
   cardIndex().then(index => {
     const dates = (index && index.dates) || {};
+    const stories = (index && index.stories) || {};
     const pick = dates[date] ? date : (index && index.latest) || "";
-    const files = (dates[pick] || []).filter(Boolean);
-    if (!pick || !files.length) { section.hidden = true; return; }
+    const daily = (dates[pick] || []).filter(Boolean);
+    // 스토리 카드뉴스(이슈 하나를 5장으로)는 같은 날 별도 폴더에 올라온다. 띠에서는
+    // 일일 카드 뒤에 이어 붙인다 — 하루치 카드가 두 곳에 흩어지면 아무도 안 본다.
+    const story = (stories[pick] || []).filter(Boolean);
+    const items = daily.map(file => ({ dir: pick, file }))
+      .concat(story.map(file => ({ dir: `${pick}-story`, file })));
+    if (!pick || !items.length) { section.hidden = true; return; }
+    const src = it => `/cards/${encodeURIComponent(it.dir)}/${encodeURIComponent(it.file)}`;
     document.getElementById("cardStripMeta").textContent =
-      `${dateWeekdayLabel(pick)} · ${files.length}장${pick === date ? "" : " (최신)"}`;
-    document.getElementById("cardStripTrack").innerHTML = files.map((file, i) =>
-      `<a class="card-strip-item" href="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" target="_blank" rel="noopener" data-card-index="${i}">
-        <img src="/cards/${encodeURIComponent(pick)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}" loading="lazy" width="1080" height="1080">
+      `${dateWeekdayLabel(pick)} · ${daily.length}장`
+      + (story.length ? ` + 스토리 ${story.length}장` : "")
+      + (pick === date ? "" : " (최신)");
+    document.getElementById("cardStripTrack").innerHTML = items.map((it, i) =>
+      `<a class="card-strip-item${i === daily.length && story.length ? " is-story-start" : ""}" href="${src(it)}" target="_blank" rel="noopener" data-card-index="${i}">
+        <img src="${src(it)}" alt="카드뉴스 ${i + 1}/${items.length}" loading="lazy" width="1080" height="1080">
       </a>`).join("");
     section.hidden = false;
     bindCardStripNav();
-    bindCardViewer(pick, files);
+    bindCardViewer(items);
     placeCardStrip();
   });
 }
@@ -1677,7 +1686,7 @@ function renderCardStrip(date) {
 // 띠에서 카드를 누르면 크게 본다. 좌우 버튼으로 다음 장, 터치는 스와이프 —
 // 트랙이 한 칸 100% 인 scroll-snap 이라 넘김은 브라우저가 한다(지니 09-17).
 // 원본 PNG 새 탭은 남긴다 — 가운데 클릭·Ctrl 클릭은 그대로 링크로 동작한다.
-function bindCardViewer(date, files) {
+function bindCardViewer(items) {
   const dlg = document.getElementById("cardViewer");
   const track = document.getElementById("cardViewerTrack");
   const strip = document.getElementById("cardStripTrack");
@@ -1698,8 +1707,8 @@ function bindCardViewer(date, files) {
     setTimeout(sync, 400);
   };
   const open = (index) => {
-    track.innerHTML = files.map((file, i) =>
-      `<div class="card-viewer-slide"><img src="/cards/${encodeURIComponent(date)}/${encodeURIComponent(file)}" alt="카드뉴스 ${i + 1}/${files.length}"></div>`).join("");
+    track.innerHTML = items.map((it, i) =>
+      `<div class="card-viewer-slide"><img src="/cards/${encodeURIComponent(it.dir)}/${encodeURIComponent(it.file)}" alt="카드뉴스 ${i + 1}/${items.length}"></div>`).join("");
     if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
     // 열자마자 누른 장으로. 레이아웃이 선 뒤라야 clientWidth 가 나온다.
     const land = () => { track.scrollLeft = track.clientWidth * index; sync(); };

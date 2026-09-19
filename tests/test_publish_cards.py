@@ -60,6 +60,38 @@ class PublishTest(unittest.TestCase):
                                           site, root, today=date(2026, 9, 16))
             self.assertEqual(index["lines"], {})
 
+    def test_story_album_goes_to_its_own_folder(self):
+        """같은 날 일일 5장과 스토리 5장이 함께 올라온다 — 폴더도 index 칸도 갈려야 한다."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "cards" / "out").mkdir(parents=True)
+            for name in ("slide-01.png", "slide-02.png"):
+                (root / "cards" / "out" / name).write_bytes(b"png")
+            site = root / "site"
+            publish_cards.publish({"date": "2026-09-18", "files": ["cards/out/slide-01.png"]},
+                                  site, root, today=date(2026, 9, 18))
+            index = publish_cards.publish(
+                {"date": "2026-09-18", "files": ["cards/out/slide-01.png", "cards/out/slide-02.png"]},
+                site, root, today=date(2026, 9, 18), kind="story")
+            self.assertEqual(index["dates"], {"2026-09-18": ["01.png"]})
+            self.assertEqual(index["stories"], {"2026-09-18": ["01.png", "02.png"]})
+            self.assertTrue((site / "2026-09-18-story" / "02.png").exists())
+            # 일일 카드를 덮어쓰지 않았다
+            self.assertEqual(sorted(p.name for p in (site / "2026-09-18").iterdir()), ["01.png"])
+
+    def test_story_folder_expires_with_the_same_cutoff(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "cards" / "out").mkdir(parents=True)
+            (root / "cards" / "out" / "slide-01.png").write_bytes(b"png")
+            site = root / "site"
+            (site / "2026-08-01-story").mkdir(parents=True)
+            (site / "2026-08-01-story" / "01.png").write_bytes(b"x")
+            index = publish_cards.publish({"date": "2026-09-15", "files": ["cards/out/slide-01.png"]},
+                                          site, root, today=date(2026, 9, 16))
+            self.assertFalse((site / "2026-08-01-story").exists())
+            self.assertEqual(index["stories"], {})
+
     def test_missing_png_raises(self):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(FileNotFoundError):
