@@ -67,6 +67,7 @@ WHY_MAX = 40       # 의미 불릿 한 줄
 BULLETS_MIN, BULLETS_MAX = 2, 3
 # 사실 카드 두 장(라벨·값·상태). 편집형 판형이 이 구조를 먹는다. 상태는 **닫힌
 # 목록**이라야 한다 — 열어두면 모델이 "급물살", "청신호" 같은 논평을 알약에 박는다.
+RELATED_MAX = 34   # 관련 보도 한 줄
 SIGNAL_COUNT = 2
 SIGNAL_LABEL_MAX = 10
 SIGNAL_VALUE_MAX = 30
@@ -146,6 +147,9 @@ SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 �
   "status": 아래 목록에서 하나}}. status 목록: {' · '.join(STATUS_WORDS)}.
   **목록에 없는 말을 지어내지 말고**, 어느 것도 안 맞으면 그 사실은 signals 에 넣지 않는다.
   facts 와 같은 사실을 써도 된다 — signals 는 그 사실의 뼈대다.
+- 입력의 `other_headlines` 는 **같은 이슈를 다룬 다른 보도의 제목**이다. 본문이 없는 날
+  이게 유일한 추가 재료이니, 거기 적힌 수치·기관·일정을 facts·signals 에 적극 쓴다.
+  단 제목을 그대로 베끼지 말고 한 줄로 줄인다.
 - 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. **제목의 마지막 구절**에 건다
   (카드에서 그 구절만 한 단 크게 떨어진다). 불릿에는 쓰지 않는다.
 - 숫자·호기명·국가명·기관명은 원문 그대로 옮긴다. 반올림·추정·의역 금지.
@@ -257,10 +261,50 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
             "topic": topic_label(row),
             # 칩은 항상 #태그 꼴로 — 이슈에 따라 "#원안위" / "smr특별법" 이 섞여 온다
             "tag": (lambda t: "#" + t.lstrip("#") if t else "")(next(iter(row.get("tags") or []), "")),
+            # 여기까지가 대표 기사 하나. 아래는 **이슈가 이미 들고 있는데 카드가 안 쓰던 것**
+            # (지니 09-19 "내용이 너무 없다"). 본문 수집이 막힌 날에도 항상 있다.
+            "coverage": coverage_line(row),
+            "related": related_lines(row, rep),
+            "verified": ((row.get("verification") or {}).get("label") or "").strip(),
         })
         if len(picked) == k:
             break
     return picked
+
+
+def coverage_line(row: dict) -> str:
+    """"보도 14건 · 매체 10곳 · 10일째" — 이슈의 취재 규모.
+
+    LLM 이 만들 값이 아니다. 전부 수집 단계에서 이미 센 숫자라 코드가 적는다.
+    """
+    v = row.get("verification") or {}
+    bits = []
+    count = int(row.get("article_count") or 0)
+    if count:
+        bits.append(f"보도 {count}건")
+    outlets = int(v.get("independent_source_count") or v.get("source_count") or 0)
+    if outlets > 1:
+        bits.append(f"매체 {outlets}곳")
+    days = int(row.get("tracked_briefings") or 0)
+    if days > 1:
+        bits.append(f"{days}일째")
+    return " · ".join(bits)
+
+
+def related_lines(row: dict, rep: dict, want: int = 2) -> list[dict]:
+    """같은 이슈를 다른 곳은 뭐라고 썼나. 대표 기사와 제목이 겹치면 뺀다."""
+    out: list[dict] = []
+    seen = {str(rep.get("title_kr") or "")}
+    for art in row.get("related_articles") or []:
+        title = str(art.get("title_kr") or art.get("title") or "").strip()
+        if not title or title in seen:
+            continue
+        seen.add(title)
+        out.append({"title": clip(terse(title), RELATED_MAX),
+                    "source": str(art.get("publisher") or "").strip()})
+        if len(out) == want:
+            break
+    return out
 
 
 def attach_bodies(items: list[dict]) -> None:
@@ -311,6 +355,10 @@ def ask_llm(items: list[dict], date: str, total_collected: int,
                 "implication": it["implication"],
                 "open_question": it["open_question"],
                 "body": it.get("body", ""),
+                # 같은 이슈의 다른 보도 제목. 본문 수집이 403·차단으로 비는 날이
+                # 잦은데(09-19 0/2건), 제목만으로도 카피가 훨씬 구체적이 된다.
+                "other_headlines": [r["title"] for r in (it.get("related") or [])][:6],
+                "coverage": it.get("coverage", ""),
                 "sensitive": it["sensitive"],
             }.items() if v not in ("", None)}
             for i, it in enumerate(items)
@@ -618,6 +666,9 @@ def build_slides(raw: dict, items: list[dict], date: str,
             "headline": copy["headline"],
             "points": copy["facts"],
             "signals": copy.get("signals") or [],
+            "coverage": item.get("coverage") or "",
+            "related": item.get("related") or [],
+            "verified": item.get("verified") or "",
             "whyLabel": "왜 중요한가",
             "why": copy["why"],
             "meta": [m for m in (item["event_date"], item["tag"]) if m],

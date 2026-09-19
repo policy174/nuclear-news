@@ -421,43 +421,55 @@ ${fontLinks(theme)}
   .ed-hero { padding: 44px 54px 0; display: flex; flex-direction: column; flex: 0 0 auto; }
   .ed-hero .hd { color: ${inkMute}; }
   .ed-hero .hd .brand { color: ${accent}; }
-  .ed-copy { margin-top: 122px; width: 88%; }
+  .ed-copy { margin-top: 84px; width: 92%; }
   .ed-kicker { display: flex; align-items: center; gap: 14px; font-size: 22px;
     font-weight: 750; color: ${inkMute}; }
   .ed-kicker strong { color: ${accent}; font-weight: 850; }
   .ed-title { margin-top: 18px; font-family: ${theme.fonts.heading.css};
-    font-size: 66px; line-height: 1.1; letter-spacing: -2.8px; font-weight: 850;
+    font-size: 68px; line-height: 1.08; letter-spacing: -2.8px; font-weight: 850;
     color: ${c.ink}; word-break: keep-all; }
   /* 강조는 제목의 마지막 구절 — 색만 바꾼다. 줄을 떨어뜨리면 제목이 두 덩이로
      갈려서 오히려 안 읽힌다(지니 09-18). */
   .ed-title .em { color: ${accent}; }
-  .ed-deck { margin-top: 16px; max-width: 840px; color: ${inkDim};
-    font-size: 24px; line-height: 1.4; font-weight: 500; word-break: keep-all; }
+  .ed-deck { margin-top: 16px; max-width: 860px; color: ${inkDim};
+    font-size: 27px; line-height: 1.4; font-weight: 550; word-break: keep-all; }
   .ed-body { padding: 0 54px; flex: 1; display: flex; flex-direction: column;
     justify-content: center; }
-  .ed-head { color: ${accent}; font-size: 22px; font-weight: 850; letter-spacing: 1px; }
+  .ed-head { color: ${accent}; font-size: 24px; font-weight: 850; letter-spacing: 1px; }
   .ed-grid { margin-top: 10px; display: flex; flex-direction: column; }
   /* 박스를 걷는다 — 면이 둘이면 내용이 아니라 칸이 먼저 읽힌다(지니 09-18).
      라벨·상태는 한 줄, 값은 그 아래 본문 크기로. 행은 가는 선으로만 가른다. */
   .ed-fact { display: block; padding: 20px 0; border-top: 1px solid rgba(18,41,76,.16); }
   .ed-fact:last-child { border-bottom: 1px solid rgba(18,41,76,.16); }
   .ed-fact .lbl { display: flex; align-items: center; gap: 12px; }
-  .ed-fact .lbl strong { color: ${accent}; font-size: 23px; font-weight: 850;
+  .ed-fact .lbl strong { color: ${accent}; font-size: 26px; font-weight: 850;
     letter-spacing: .5px; }
   /* 알약 배경이 신호색(#E0E9F5)이면 종이와 구분이 안 된다 — 한 단 더 진하게. */
   .ed-fact .state { padding: 3px 11px; font-size: 18px; font-weight: 800;
     background: rgba(31,95,168,.16); color: ${accent}; }
   .ed-fact .state.muted { background: none; color: ${inkMute};
     border: 1px solid rgba(18,41,76,.24); }
-  .ed-fact .val { margin-top: 9px; color: ${c.ink}; font-size: 30px;
-    line-height: 1.34; font-weight: 650; word-break: keep-all; }
+  .ed-fact .val { margin-top: 9px; color: ${c.ink}; font-size: 33px;
+    line-height: 1.32; font-weight: 700; word-break: keep-all; }
   .ed-fact .val.solo { margin-top: 0; }
-  .ed-why { margin-top: 34px; }
-  .ed-lead { margin-top: 14px; color: ${c.ink}; font-size: 40px; line-height: 1.26;
+  /* 취재 규모 + 관련 보도 — 이슈가 이미 들고 있는 재료다. 본문 수집이 막힌 날에도
+     카드가 비지 않게 한다(지니 09-19 "내용이 너무 없다"). */
+  .ed-more { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(18,41,76,.16); }
+  .ed-scale { display: flex; align-items: center; gap: 14px; font-size: 24px;
+    font-weight: 750; color: ${inkDim}; }
+  .ed-scale .ed-badge { padding: 4px 12px; background: rgba(31,95,168,.14); color: ${accent};
+    font-size: 20px; font-weight: 800; }
+  .ed-rel { margin-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+  .ed-rel li { list-style: none; display: grid; grid-template-columns: 1fr auto; gap: 16px;
+    align-items: baseline; font-size: 24px; line-height: 1.34; font-weight: 600;
+    color: ${inkDim}; word-break: keep-all; }
+  .ed-rel li .s { font-size: 20px; font-weight: 700; color: ${inkMute}; white-space: nowrap; }
+  .ed-why { margin-top: 30px; }
+  .ed-lead { margin-top: 14px; color: ${c.ink}; font-size: 42px; line-height: 1.24;
     font-weight: 800; letter-spacing: -1.4px; word-break: keep-all; }
   .ed-checks { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
-  .ed-check { display: grid; grid-template-columns: 22px 1fr; gap: 14px;
-    color: ${inkDim}; font-size: 23px; line-height: 1.36; font-weight: 600;
+  .ed-check { display: grid; grid-template-columns: 24px 1fr; gap: 16px;
+    color: ${inkDim}; font-size: 26px; line-height: 1.36; font-weight: 650;
     word-break: keep-all; }
   .ed-check::before { content: ""; width: 11px; height: 11px; margin-top: 11px;
     background: ${accent}; }
@@ -844,6 +856,11 @@ function renderSlide(s, theme) {
              <div class="val${row.label ? "" : " solo"}">${esc(row.text)}</div>
            </div>`
         ).join("")}</div>
+        ${rows.length && (s.coverage || (s.related || []).length) ? `<div class="ed-more">
+          ${s.coverage ? `<div class="ed-scale"><span>${esc(s.coverage)}</span>${s.verified ? `<span class="ed-badge">${esc(s.verified)}</span>` : ""}</div>` : ""}
+          ${(s.related || []).length ? `<ul class="ed-rel">${s.related.map((r) =>
+            `<li><span class="t">${esc(r.title)}</span>${r.source ? `<span class="s">${esc(r.source)}</span>` : ""}</li>`).join("")}</ul>` : ""}
+        </div>` : ""}
         ${lead ? `<div class="ed-why">
           <div class="ed-head">왜 중요한가</div>
           <p class="ed-lead">${esc(lead)}</p>
