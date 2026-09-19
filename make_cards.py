@@ -234,7 +234,7 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
     **클러스터**라 같은 사건의 다른 기사가 두 장 나가는 문제도 거기서 끝난다.
     카드가 따로 정렬하면 화면과 카드가 다른 얘기를 하게 된다(2026-09-14 교정).
 
-    하는 일은 원문 링크 없는 이슈를 건너뛰는 것뿐이다.
+    하는 일은 **재료가 없는 이슈를 건너뛰는 것**뿐이다(아래 thin_material).
     """
     picked = []
     for row in issue_rows:
@@ -242,6 +242,12 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
         link = (rep.get("url") or "").strip()
         if not link:
             continue  # 출처 미확인 — 카드에서 빼고 텍스트 브리핑으로만
+        if thin_material(row):
+            # 요약 한 줄이 전부인 이슈. 카드로 만들면 '제목을 두 번 쓴 장'이 된다
+            # (09-19 "IAEA 이사회, 신규 이사국 선출" 실물: 사실 1줄 = 제목 재진술,
+            # 왜 중요한가 = 제목 그대로). 사이트에는 그대로 남고 카드에서만 빠진다.
+            print(f"[cards] 재료 얇아 건너뜀: {row.get('title', '')[:32]}")
+            continue
         picked.append({
             "hash": rep.get("hash", ""),
             # 홈의 '먼저 볼 3건' 카드가 이 카피를 issue_id 로 되찾아 간다(album.json lines)
@@ -270,6 +276,19 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
         if len(picked) == k:
             break
     return picked
+
+
+def thin_material(row: dict) -> bool:
+    """카드로 낼 재료가 없는 이슈인가.
+
+    요약 한 줄 말고 **쓸 게 하나라도** 있어야 한다 — 본문에서 뽑은 detail, 의미
+    (why_important·implication), 남은 질문, 또는 다른 보도 2건 이상. 영문 원문
+    하나짜리 이슈가 여기 걸린다(본문이 봇 차단으로 안 열려 detail 이 비어 있다).
+    """
+    if any((row.get(k) or "").strip()
+           for k in ("detail", "why_important", "implication", "open_question")):
+        return False
+    return len(row.get("related_articles") or []) < 2
 
 
 def coverage_line(row: dict) -> str:
@@ -941,6 +960,12 @@ def _self_check() -> None:
     assert any("why" in p for p in validate(mutate(why=["가" * (WHY_MAX + 1), "나"]), items))
     assert any("강조" in p for p in validate(mutate(facts=["[[강조]] 금지", "나"]), items))
     assert any("개수" in p for p in validate({**ok, "steps": ok["steps"] * 2}, items))
+    # 재료 게이트 — 요약 한 줄뿐인 이슈는 카드에서 뺀다
+    assert thin_material({"summary": "한 줄", "related_articles": [{"title_kr": "a"}]})
+    assert not thin_material({"summary": "한 줄", "implication": "의미가 있다"})
+    assert not thin_material({"summary": "한 줄",
+                              "related_articles": [{"title_kr": "a"}, {"title_kr": "b"}]})
+
     # 상한 초과는 버리지 않고 줄인다 — 2자 넘쳐서 앨범이 통째로 폴백이 됐다(09-19)
     long_copy = mutate(headline="기후에너지환경부, 미국에 SMR·전력기자재 중심 한미 에너지 동맹 제안")
     assert any("headline" in p for p in validate(long_copy, items)), "줄이기 전엔 실패"
@@ -1011,12 +1036,16 @@ def _self_check() -> None:
     rows = [
         {"title": "링크 없음", "topics": ["smr"], "representative_article": {}},
         {"title": "해외 1위", "topics": ["security_trade"], "importance": "nice_to_know",
+         "detail": "재료가 있다",
          "representative_article": {"url": "http://a", "hash": "a", "publisher": "WNN"}},
         {"title": "국내 1위", "topics": ["restart_lto"], "importance": "must_read",
+         "implication": "의미가 있다",
          "representative_article": {"url": "http://b", "hash": "b"}},
+        {"title": "요약뿐", "topics": ["smr"], "summary": "한 줄",
+         "representative_article": {"url": "http://c", "hash": "c"}},
     ]
     got = pick_items(rows, k=3, brief_date="2026-09-14")
-    assert [g["hash"] for g in got] == ["a", "b"], "사이트 순서 유지 + 링크 없는 건 제외"
+    assert [g["hash"] for g in got] == ["a", "b"], "사이트 순서 유지 + 링크·재료 없는 건 제외"
     assert got[0]["source"] == "WNN" and got[0]["topic"] == "에너지안보·통상"
     assert is_sensitive({"topics": ["safety"], "title": "", "summary": ""}) is True
     assert is_sensitive({"topics": ["regulation"], "title": "사고관리계획서", "summary": ""}) is False
