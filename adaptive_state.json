@@ -20,6 +20,14 @@
       "type": "company",
       "until": "2026-09-30T15:53:40.129923+00:00"
     },
+    "epri": {
+      "new_articles": 2,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "EPRI",
+      "type": "company",
+      "until": "2026-10-03T17:42:43.938534+00:00"
+    },
     "gda": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -75,6 +83,14 @@
       "term": "ZNPP",
       "type": "company",
       "until": "2026-09-29T22:17:58.384022+00:00"
+    },
+    "거치지않고": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "거치지 않고",
+      "type": "plant",
+      "until": "2026-10-03T17:42:43.938534+00:00"
     },
     "경주에모여": {
       "new_articles": 0,
@@ -284,6 +300,14 @@
       "type": "org",
       "until": "2026-09-24T20:44:00.528047+00:00"
     },
+    "전력연구소": {
+      "new_articles": 3,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "전력연구소",
+      "type": "org",
+      "until": "2026-10-03T17:42:43.938534+00:00"
+    },
     "전력회사주부전력": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -299,6 +323,14 @@
       "term": "정부가 대미",
       "type": "plant",
       "until": "2026-09-24T21:53:53.664847+00:00"
+    },
+    "정상회의계기": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "정상회의 계기",
+      "type": "plant",
+      "until": "2026-10-03T17:42:43.938534+00:00"
     },
     "주부전력이하마오카": {
       "new_articles": 0,
@@ -332,6 +364,14 @@
       "type": "plant",
       "until": "2026-09-29T13:08:30.036410+00:00"
     },
+    "태양광위원회": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "태양광위원회",
+      "type": "org",
+      "until": "2026-10-03T17:42:43.938534+00:00"
+    },
     "포툼": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -355,6 +395,14 @@
       "term": "한국경제인협회",
       "type": "org",
       "until": "2026-09-25T18:07:38.586500+00:00"
+    },
+    "한국기계연구원": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "한국기계연구원",
+      "type": "org",
+      "until": "2026-10-03T17:42:43.938534+00:00"
     },
     "한국농수산식품유통공사": {
       "new_articles": 0,
@@ -380,6 +428,14 @@
       "type": "org",
       "until": "2026-09-25T18:07:36.047613+00:00"
     },
+    "한국철강협회": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-19T17:42:43.938534+00:00",
+      "term": "한국철강협회",
+      "type": "org",
+      "until": "2026-10-03T17:42:43.938534+00:00"
+    },
     "행정협의회를열고": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -390,7 +446,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-20"
   },
   "terms": {
@@ -442,103 +498,6 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
-    },
-    "epri": {
-      "articles": 9,
-      "created_at": "2026-09-16T15:53:40.129923+00:00",
-      "domains": [
-        "khnp.co.kr",
-        "energydaily.co.kr",
-        "newsquest.co.kr",
-        "tf.co.kr",
-        "newspim.com",
-        "bbsi.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "khnp.co.kr",
-          "hash": "219e1b6525cba8db",
-          "importance": "nice_to_know",
-          "title": "한수원, 머신러닝 활용 풍력터빈 성능 개선 성과로 미 전력연구소 기술이전상 수상"
-        },
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "cc86ac87ddaca364",
-          "importance": "nice_to_know",
-          "title": "한수원, 미국 전력연구소 기술이전상 수상으로 풍력 역량 입증"
-        },
-        {
-          "domain": "newsquest.co.kr",
-          "hash": "7668ee56e0ea4d04",
-          "importance": "noise",
-          "title": "한수원, 미국 전력연구소(EPRI) 기술이전상 수상"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:40.129923+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-17T23:20:58.953104+00:00",
-      "new_articles": 2,
-      "origin": "auto",
-      "planned_at": "2026-09-17T23:20:57.108757+00:00",
-      "queries_run": 3,
-      "query": "EPRI 원자력",
-      "score": 9.45,
-      "status": "extended",
-      "term": "EPRI",
-      "ttl_hours": 72,
-      "type": "company",
-      "yield_days": [
-        "2026-09-17"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    },
-    "거치지않고": {
-      "articles": 3,
-      "created_at": "2026-09-17T15:53:42.851613+00:00",
-      "domains": [
-        "kbsm.net",
-        "kbmaeil.com",
-        "steeldaily.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "kbsm.net",
-          "hash": "479253f4815881e5",
-          "importance": "nice_to_know",
-          "title": "국민의힘 이상휘 의원, 철강·청정수소 원전 전력 직접공급 위한 전기사업법 개정안 발의"
-        },
-        {
-          "domain": "kbmaeil.com",
-          "hash": "abe392fe8d657b2c",
-          "importance": "nice_to_know",
-          "title": "국민의힘 이상휘 의원, 원전 전력 직접 공급 위한 전기사업법 개정안 대표 발의"
-        },
-        {
-          "domain": "steeldaily.co.kr",
-          "hash": "05cf9a2a5e6856b6",
-          "importance": "nice_to_know",
-          "title": "이상휘 의원, 철강업계 원전 전력 직접 구매 허용 전기사업법 개정안 발의"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:42.851613+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-19T07:45:49.764184+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-19T07:45:47.793646+00:00",
-      "queries_run": 2,
-      "query": "거치지 않고 원전",
-      "score": 4.6,
-      "status": "tracking",
-      "term": "거치지 않고",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     },
     "국내외전문가들": {
       "articles": 3,
@@ -619,11 +578,11 @@
       "expires_at": "2026-09-19T18:02:35.886570+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-09-18T18:02:38.453669+00:00",
+      "last_run": "2026-09-19T17:42:46.294052+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-18T18:02:35.886570+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-19T17:42:43.938534+00:00",
+      "queries_run": 2,
       "query": "사이버보안위원회 원자력",
       "score": 4.36,
       "status": "tracking",
@@ -632,7 +591,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "수익보장": {
       "articles": 1,
@@ -651,11 +610,11 @@
       "expires_at": "2026-09-19T18:02:35.886570+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-18T18:02:38.453669+00:00",
+      "last_run": "2026-09-19T17:42:46.294052+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-18T18:02:35.886570+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-19T17:42:43.938534+00:00",
+      "queries_run": 2,
       "query": "수익 보장 원전",
       "score": 3.6,
       "status": "tracking",
@@ -664,7 +623,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "의원이철강업계": {
       "articles": 1,
@@ -696,98 +655,6 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
-    },
-    "전력연구소": {
-      "articles": 12,
-      "created_at": "2026-09-16T15:53:40.129923+00:00",
-      "domains": [
-        "khnp.co.kr",
-        "energydaily.co.kr",
-        "newsquest.co.kr",
-        "tf.co.kr",
-        "kbmaeil.com",
-        "srtimes.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "khnp.co.kr",
-          "hash": "219e1b6525cba8db",
-          "importance": "nice_to_know",
-          "title": "한수원, 머신러닝 활용 풍력터빈 성능 개선 성과로 미 전력연구소 기술이전상 수상"
-        },
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "cc86ac87ddaca364",
-          "importance": "nice_to_know",
-          "title": "한수원, 미국 전력연구소 기술이전상 수상으로 풍력 역량 입증"
-        },
-        {
-          "domain": "newsquest.co.kr",
-          "hash": "7668ee56e0ea4d04",
-          "importance": "noise",
-          "title": "한수원, 미국 전력연구소(EPRI) 기술이전상 수상"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:40.129923+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-17T23:20:58.953104+00:00",
-      "new_articles": 3,
-      "origin": "auto",
-      "planned_at": "2026-09-17T23:20:57.108757+00:00",
-      "queries_run": 3,
-      "query": "전력연구소 원자력",
-      "score": 11.7,
-      "status": "extended",
-      "term": "전력연구소",
-      "ttl_hours": 72,
-      "type": "org",
-      "yield_days": [
-        "2026-09-17"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    },
-    "정상회의계기": {
-      "articles": 2,
-      "created_at": "2026-09-17T15:53:42.851613+00:00",
-      "domains": [
-        "yna.co.kr",
-        "energy-news.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "yna.co.kr",
-          "hash": "1b330a5401666e48",
-          "importance": "nice_to_know",
-          "title": "산업통상자원부, 제1차 한·중앙아시아 정상회의 계기 원전·에너지 협력문서 체결"
-        },
-        {
-          "domain": "energy-news.co.kr",
-          "hash": "7a38ccf0fb712c82",
-          "importance": "must_read",
-          "title": "산업통상부, 제1차 한-중앙아 정상회의 계기 원전 및 핵심광물 협력 MOU 체결"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:42.851613+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-19T02:38:38.758416+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-09-19T02:38:36.849426+00:00",
-      "queries_run": 2,
-      "query": "정상회의 계기 원전",
-      "score": 5.3,
-      "status": "extended",
-      "term": "정상회의 계기",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-18"
-      ],
-      "yields": 1,
       "zero_streak": 1
     },
     "창지앙": {
@@ -854,55 +721,6 @@
       "yields": 0,
       "zero_streak": 1
     },
-    "태양광위원회": {
-      "articles": 8,
-      "created_at": "2026-09-17T15:53:42.851613+00:00",
-      "domains": [
-        "news1.kr",
-        "shinailbo.co.kr",
-        "edaily.co.kr",
-        "asiae.co.kr",
-        "mcnews.co.kr",
-        "enewstoday.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "news1.kr",
-          "hash": "2c39f29c8a626d89",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광위원회 발족해 발전용 국산 강재 공급 확대 추진"
-        },
-        {
-          "domain": "shinailbo.co.kr",
-          "hash": "24c01dd262470225",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광위원회 출범…국산 강재 공급망 강화"
-        },
-        {
-          "domain": "edaily.co.kr",
-          "hash": "5c21d2ce223331df",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광 위원회 출범…국산 강재 공급망 강화"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:42.851613+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-19T02:38:38.758416+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-19T02:38:36.849426+00:00",
-      "queries_run": 2,
-      "query": "태양광위원회 원자력",
-      "score": 5.52,
-      "status": "tracking",
-      "term": "태양광위원회",
-      "ttl_hours": 48,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "하이난성창지앙": {
       "articles": 1,
       "created_at": "2026-09-18T18:02:35.886570+00:00",
@@ -967,106 +785,6 @@
       "yields": 0,
       "zero_streak": 1
     },
-    "한국기계연구원": {
-      "articles": 6,
-      "created_at": "2026-09-16T15:53:40.129923+00:00",
-      "domains": [
-        "etnews.com",
-        "energydaily.co.kr",
-        "newdaily.co.kr",
-        "etoday.co.kr",
-        "ajunews.com",
-        "knpnews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "etnews.com",
-          "hash": "bcb1dc0c5110f779",
-          "importance": "nice_to_know",
-          "title": "한국전력기술, 한국기계연구원과 해양 SMR 반디 기술개발 협약 체결"
-        },
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "b1dcaddd83b3e180",
-          "importance": "nice_to_know",
-          "title": "한국전력기술·기계연구원, 해양 SMR 'BANDI' 핵심기술 개발 협력"
-        },
-        {
-          "domain": "newdaily.co.kr",
-          "hash": "1dd7fcf9b1d94c88",
-          "importance": "nice_to_know",
-          "title": "한전기술, 해양 소형모듈원자로(SMR) ‘BANDI’ 기술개발 착수"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:40.129923+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-19T07:45:49.764184+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-09-19T07:45:47.793646+00:00",
-      "queries_run": 3,
-      "query": "한국기계연구원 원자력",
-      "score": 7.9,
-      "status": "extended",
-      "term": "한국기계연구원",
-      "ttl_hours": 72,
-      "type": "org",
-      "yield_days": [
-        "2026-09-17"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    },
-    "한국철강협회": {
-      "articles": 8,
-      "created_at": "2026-09-17T15:53:42.851613+00:00",
-      "domains": [
-        "news1.kr",
-        "shinailbo.co.kr",
-        "edaily.co.kr",
-        "asiae.co.kr",
-        "mcnews.co.kr",
-        "enewstoday.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "news1.kr",
-          "hash": "2c39f29c8a626d89",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광위원회 발족해 발전용 국산 강재 공급 확대 추진"
-        },
-        {
-          "domain": "shinailbo.co.kr",
-          "hash": "24c01dd262470225",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광위원회 출범…국산 강재 공급망 강화"
-        },
-        {
-          "domain": "edaily.co.kr",
-          "hash": "5c21d2ce223331df",
-          "importance": "nice_to_know",
-          "title": "한국철강협회, 태양광 위원회 출범…국산 강재 공급망 강화"
-        }
-      ],
-      "expires_at": "2026-09-19T15:53:42.851613+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-19T02:38:38.758416+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-19T02:38:36.849426+00:00",
-      "queries_run": 2,
-      "query": "한국철강협회 원자력",
-      "score": 5.52,
-      "status": "tracking",
-      "term": "한국철강협회",
-      "ttl_hours": 48,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "행정청장접견해": {
       "articles": 1,
       "created_at": "2026-09-19T15:01:58.505246+00:00",
@@ -1083,9 +801,12 @@
       ],
       "expires_at": "2026-09-20T15:01:58.505246+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-19T17:42:46.294052+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-19T17:42:43.938534+00:00",
+      "queries_run": 1,
       "query": "행정청장 접견해 원전",
       "score": 3.6,
       "status": "tracking",
@@ -1094,7 +815,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
