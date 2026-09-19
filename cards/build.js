@@ -474,22 +474,22 @@ ${fontLinks(theme)}
   .card.st::after { display: none; }
   /* 장마다 바탕을 달리해 넘길 때 리듬을 준다(시안). 쟁점 장만 옅은 블루 판. */
   .card.st.st-blue { background: #E6EEFA; }
-  .st-hd { padding: 40px 48px 0; display: flex; justify-content: space-between;
+  .st-hd { padding: 36px 44px 0; display: flex; justify-content: space-between;
     align-items: flex-start; flex: 0 0 auto; }
-  .st-hd .brand { font-family: ${theme.fonts.heading.css}; font-size: 27px;
+  .st-hd .brand { font-family: ${theme.fonts.heading.css}; font-size: 29px;
     font-weight: 900; letter-spacing: 3px; }
-  .st-hd .tagline { display: block; margin-top: 7px; font-size: 15px; font-weight: 750;
+  .st-hd .tagline { display: block; margin-top: 7px; font-size: 16px; font-weight: 750;
     letter-spacing: 2.4px; color: #8A93A1; }
   .st-hd .num { font-size: 21px; font-weight: 800; letter-spacing: 2px; color: #8A93A1; }
-  .st-body { flex: 1; padding: 26px 48px 40px; display: flex; flex-direction: column;
+  .st-body { flex: 1; padding: 24px 44px 34px; display: flex; flex-direction: column;
     min-height: 0; }
   .st-chip { align-self: flex-start; padding: 13px 26px; border-radius: 999px;
-    background: #DDE8F6; color: #1F5FA8; font-size: 28px; font-weight: 850; }
+    background: #DDE8F6; color: #1F5FA8; font-size: 30px; font-weight: 850; }
   .st-q { margin-top: 20px; font-family: ${theme.fonts.heading.css}; font-size: 46px;
     font-weight: 850; line-height: 1.26; letter-spacing: -1.8px; word-break: keep-all; }
   .st-q .em { color: #1F5FA8; }
   .st-row { display: flex; align-items: center; gap: 20px; }
-  .st-row .st-q { margin-top: 0; font-size: 46px; }
+  .st-row .st-q { margin-top: 0; font-size: 50px; }
 
   /* 표지 */
   .st-photo { position: relative; height: 470px; flex: 0 0 auto; background-size: cover;
@@ -500,17 +500,17 @@ ${fontLinks(theme)}
   .st-photo .st-hd { position: relative; z-index: 1; color: #F7F5EF; }
   .st-photo .st-hd .tagline, .st-photo .st-hd .num { color: rgba(247,245,239,.78); }
   .st-cover .st-body { padding-top: 34px; }
-  .st-title { margin-top: 20px; font-family: ${theme.fonts.heading.css}; font-size: 74px;
+  .st-title { margin-top: 20px; font-family: ${theme.fonts.heading.css}; font-size: 78px;
     font-weight: 850; line-height: 1.16; letter-spacing: -2.6px; word-break: keep-all; }
   .st-title .em { color: #1F5FA8; }
-  .st-desc { margin-top: 24px; font-size: 30px; line-height: 1.5; font-weight: 600;
+  .st-desc { margin-top: 24px; font-size: 33px; line-height: 1.48; font-weight: 600;
     color: #41506B; word-break: keep-all; }
   /* 표지 배지 — 그 이슈의 핵심 숫자. 원문에 있는 값이 있을 때만 붙는다. */
   .st-badge { margin: auto 0; align-self: stretch; display: flex; align-items: baseline;
     gap: 22px; background: #E6EEFA; border-left: 10px solid #1F5FA8; padding: 30px 34px; }
-  .st-badge .v { font-family: ${theme.fonts.heading.css}; font-size: 68px; font-weight: 900;
+  .st-badge .v { font-family: ${theme.fonts.heading.css}; font-size: 72px; font-weight: 900;
     letter-spacing: -2px; color: #12294C; }
-  .st-badge .l { font-size: 27px; font-weight: 700; color: #41506B; word-break: keep-all; }
+  .st-badge .l { font-size: 29px; font-weight: 700; color: #41506B; word-break: keep-all; }
   .st-credit { margin-top: auto; font-size: 16px; font-weight: 600; color: #9AA3B0; }
   .st-slogan { margin-top: 14px; display: flex; justify-content: space-between;
     align-items: baseline; }
@@ -518,7 +518,7 @@ ${fontLinks(theme)}
     font-weight: 900; letter-spacing: 2px; }
   .st-slogan span { font-size: 19px; font-weight: 650; color: #8A93A1; }
 
-  .st-lede { margin-top: 26px; font-family: ${theme.fonts.heading.css}; font-size: 50px;
+  .st-lede { margin-top: 26px; font-family: ${theme.fonts.heading.css}; font-size: 54px;
     font-weight: 850; line-height: 1.3; letter-spacing: -1.6px; word-break: keep-all; }
   .st-lede .em { color: #1F5FA8; }
 
@@ -535,13 +535,13 @@ ${fontLinks(theme)}
   .st-tl .dot { position: relative; z-index: 1; width: 24px; height: 24px; margin-left: 4px;
     border-radius: 50%; border: 6px solid #8FB8E4; background: #F6F2E9; box-sizing: border-box; }
   .st-tl .tl-row.now .dot { border-color: #12294C; background: #12294C; }
-  .st-tl .when { font-size: 30px; font-weight: 800; color: #1F5FA8; word-break: keep-all; }
+  .st-tl .when { font-size: 32px; font-weight: 800; color: #1F5FA8; word-break: keep-all; }
   .st-tl .tl-row.now .when { color: #12294C; }
-  .st-tl .what { background: #E6EEFA; padding: 24px 28px; font-size: 30px;
+  .st-tl .what { background: #E6EEFA; padding: 26px 30px; font-size: 33px;
     line-height: 1.34; font-weight: 700; color: #12294C; word-break: keep-all; }
   .st-tl .tl-row.now .what { background: #DCE8F8; }
   .st-note { margin-top: 20px; display: grid; grid-template-columns: 36px 1fr; gap: 18px;
-    align-items: center; background: #EFEADC; padding: 26px 28px; font-size: 26px;
+    align-items: center; background: #EFEADC; padding: 28px 30px; font-size: 29px;
     line-height: 1.4; font-weight: 650; color: #1F3D6B; word-break: keep-all; }
   .st-note .ic { width: 32px; height: 32px; color: #1F5FA8; display: block; }
   .st-note .ic svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
@@ -559,16 +559,16 @@ ${fontLinks(theme)}
     color: #1F5FA8; display: flex; align-items: center; justify-content: center; }
   .st-icard .ic svg { width: 46px; height: 46px; fill: none; stroke: currentColor;
     stroke-width: 3; stroke-linejoin: round; }
-  .st-icard h3 { font-size: 34px; font-weight: 850; word-break: keep-all; }
+  .st-icard h3 { font-size: 37px; font-weight: 850; word-break: keep-all; }
   .st-icard ul { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
   .st-icard li { list-style: none; display: grid; grid-template-columns: 14px 1fr; gap: 12px;
-    font-size: 26px; line-height: 1.4; font-weight: 650; color: #35455F;
+    font-size: 28px; line-height: 1.4; font-weight: 650; color: #35455F;
     word-break: keep-all; }
   .st-icard li::before { content: ""; width: 9px; height: 9px; margin-top: 12px;
     border-radius: 50%; background: #1F5FA8; }
 
   /* 왜 중요한가 */
-  .st-msg { margin-top: 24px; font-family: ${theme.fonts.heading.css}; font-size: 52px;
+  .st-msg { margin-top: 24px; font-family: ${theme.fonts.heading.css}; font-size: 56px;
     font-weight: 850; line-height: 1.3; letter-spacing: -1.8px; word-break: keep-all; }
   .st-msg .em { color: #1F5FA8; }
   .st-three { flex: 1; margin: 34px 0; display: grid; grid-template-columns: repeat(3, 1fr);
@@ -580,39 +580,39 @@ ${fontLinks(theme)}
     justify-content: center; }
   .st-three .ic svg { width: 52px; height: 52px; fill: none; stroke: currentColor;
     stroke-width: 3.5; }
-  .st-three h4 { font-size: 30px; font-weight: 850; word-break: keep-all; }
-  .st-three p { margin-top: 14px; font-size: 24px; line-height: 1.46; font-weight: 620;
+  .st-three h4 { font-size: 32px; font-weight: 850; word-break: keep-all; }
+  .st-three p { margin-top: 14px; font-size: 26px; line-height: 1.44; font-weight: 620;
     color: #41506B; word-break: keep-all; }
   .st-quotes { margin-top: auto; display: flex; flex-direction: column; gap: 14px; }
   .st-quote { background: #FFFDF7; border: 1px solid #E6E0D2; padding: 20px 24px;
-    display: grid; grid-template-columns: 38px 1fr; gap: 18px; font-size: 27px;
-    line-height: 1.44; font-weight: 650; color: #35455F; word-break: keep-all; }
+    display: grid; grid-template-columns: 40px 1fr; gap: 18px; font-size: 29px;
+    line-height: 1.42; font-weight: 650; color: #35455F; word-break: keep-all; }
   .st-quote::before { content: "C"; font-family: ${theme.fonts.heading.css};
     font-size: 46px; font-weight: 900; color: #A9C4E6; line-height: .9; }
 
   /* 앞으로 볼 것 */
-  .st-split { flex: 1; margin: 28px 0 0; display: grid; grid-template-columns: 1.28fr .82fr;
-    gap: 26px; align-items: stretch; }
-  .st-check { display: flex; flex-direction: column; justify-content: center; gap: 18px; }
-  .st-check .item { display: grid; grid-template-columns: 38px 1fr; gap: 16px;
+  /* 인용을 옆 칸에 세우면 세로로 긴 빈 면에 작은 글씨가 갇힌다(지니 09-19).
+     체크리스트가 폭을 다 쓰고, 인용은 그 아래 가로 띠로 깐다. */
+  .st-check { flex: 1; margin-top: 26px; display: flex; flex-direction: column;
+    justify-content: space-evenly; gap: 16px; }
+  .st-check .item { display: grid; grid-template-columns: 42px 1fr; gap: 18px;
     align-items: center; background: #FFFDF7; border: 1px solid #E6E0D2;
-    padding: 24px 22px; font-size: 27px; font-weight: 700; color: #35455F;
+    padding: 26px 24px; font-size: 30px; font-weight: 700; color: #35455F;
     word-break: keep-all; }
   .st-check .item.on { background: #E6EEFA; border-color: #CFDFF4; }
-  .st-check .box { width: 34px; height: 34px; border: 2px solid #C3CDDB; color: #FFFDF7;
+  .st-check .box { width: 38px; height: 38px; border: 2px solid #C3CDDB; color: #FFFDF7;
     display: flex; align-items: center; justify-content: center; font-size: 19px;
     font-weight: 900; }
   .st-check .item.on .box { background: #1F5FA8; border-color: #1F5FA8; }
   .st-check .item.on { color: #12294C; }
-  .st-aside { background: #E6EEFA; padding: 32px 30px; font-size: 28px; line-height: 1.5;
-    font-weight: 680; color: #1F3D6B; word-break: keep-all; display: flex;
-    flex-direction: column; justify-content: center; }
-  .st-aside .ic { display: block; width: 64px; height: 64px; margin-bottom: 18px;
-    color: #1F5FA8; }
+  .st-aside { margin-top: 20px; background: #E6EEFA; padding: 26px 30px; font-size: 31px;
+    line-height: 1.4; font-weight: 700; color: #1F3D6B; word-break: keep-all;
+    display: grid; grid-template-columns: 70px 1fr; gap: 24px; align-items: center; }
+  .st-aside .ic { display: block; width: 64px; height: 64px; color: #1F5FA8; }
   .st-aside .ic svg { width: 100%; height: 100%; fill: none; stroke: currentColor;
     stroke-width: 3; stroke-linejoin: round; }
   .st-cta { margin-top: 26px; align-self: flex-start; background: #12294C; color: #F6F2E9;
-    padding: 22px 38px; border-radius: 999px; font-size: 28px; font-weight: 800; }
+    padding: 22px 40px; border-radius: 999px; font-size: 30px; font-weight: 800; }
 
   .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
   .chip { padding: 9px 16px; border-radius: 0; font-size: 21px;
@@ -761,10 +761,8 @@ function renderStory(s, theme, type) {
       ${storyHead(s, s.tagline || "NEXT STEP FOR A SUSTAINABLE TOMORROW")}
       <div class="st-body">
         <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
-        <div class="st-split">
-          <div class="st-check">${items}</div>
-          ${s.aside ? `<div class="st-aside"><span class="ic">${storyIcon("scope")}</span>${esc(s.aside)}</div>` : ""}
-        </div>
+        <div class="st-check">${items}</div>
+        ${s.aside ? `<div class="st-aside"><span class="ic">${storyIcon("scope")}</span><span>${esc(s.aside)}</span></div>` : ""}
         <div class="st-cta">${esc(s.cta || "지금 이슈를 계속 업데이트합니다")} →</div>
       </div>
     </div>`, theme, false);
