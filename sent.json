@@ -6857,14 +6857,24 @@
     "0dc9c21dc71a89b8": "2026-09-19T13:05:38.308555+00:00",
     "ccd9093e2b3a06bb": "2026-09-19T13:05:38.308555+00:00",
     "72081c5d1120c965": "2026-09-19T13:05:38.308555+00:00",
-    "eebd38b205e76824": "2026-09-19T13:05:38.308555+00:00"
+    "eebd38b205e76824": "2026-09-19T13:05:38.308555+00:00",
+    "738804c09e1e0ed1": "2026-09-19T15:00:27.289836+00:00",
+    "44e69981193e1c85": "2026-09-19T15:00:27.289836+00:00",
+    "0251f6d8d5489aee": "2026-09-19T15:00:27.289836+00:00",
+    "bcb6202e97af4b26": "2026-09-19T15:00:27.289836+00:00",
+    "544958d4593fc67c": "2026-09-19T15:00:27.289836+00:00",
+    "75d463834208c653": "2026-09-19T15:00:27.289836+00:00",
+    "b0cc259b6e5c2ec1": "2026-09-19T15:00:27.289836+00:00",
+    "4f29f66ab47ef287": "2026-09-19T15:00:27.289836+00:00",
+    "56ee8ba1b1c31c78": "2026-09-19T15:00:27.289836+00:00",
+    "df59f5c4f7ae42a6": "2026-09-19T15:00:27.289836+00:00"
   },
   "source_yield": {
-    "at": "2026-09-19T13:08:03+00:00",
+    "at": "2026-09-19T15:02:29+00:00",
     "counts": {
-      "한수원 보도자료": 0,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "한수원 보도자료": 10,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 52,
@@ -6880,458 +6890,24 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 1,
       "혁신형 SMR 기술개발사업단": 0,
-      "Reuters 원자력": 9,
-      "La Tribune 원자력": 6,
+      "Reuters 원자력": 8,
+      "La Tribune 원자력": 5,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 10,
-      "Les Échos 원자력": 14,
+      "FT 원자력": 12,
+      "Les Échos 원자력": 11,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 4,
       "Euractiv 원자력": 8,
       "국내 원자력 보도": 0
     },
     "kept": {
-      "DOE": 2,
-      "Reuters 원자력": 1,
-      "Les Échos 원자력": 1
+      "DOE": 1,
+      "La Tribune 원자력": 2
     },
-    "errors": {
-      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn",
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   },
   "scrap_seeds": {
-    "098466ae9dde": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1015630",
-      "title": "월성본부, 신월성2호기 방사능방재 연합훈련 실시···민·관·군 합동 안전망 점검",
-      "description": ""
-    },
-    "8de2bb318c6d": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8662731",
-      "title": "이 대통령, 아시아개발은행 총재 접견…핵심광물·AI·원전 협력 논의",
-      "description": ""
-    },
-    "f6fe34b8a130": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.mbn.co.kr/news/politics/5219049",
-      "title": "이 대통령, 아시아개발은행 총재 접견…핵심광물·원전 협력 논의",
-      "description": ""
-    },
-    "1364cabc3b6c": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008752270",
-      "title": "이 대통령, 아시아개발은행 총재 접견…핵심 광물·인공지능 협력 논의",
-      "description": ""
-    },
-    "392cf4ff7e8e": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694112",
-      "title": "\"시민 안전 최우선\"…경주시의회, 원자력 주요시설 현장점검",
-      "description": ""
-    },
-    "2258946e8b29": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694607",
-      "title": "'한울 상고문화제' 여름 경필대회 개최…부구초 이종무·울진남부초 손영은 본부장상 수상",
-      "description": ""
-    },
-    "7850d239e1c8": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694427",
-      "title": "새울원자력, '드론 불법비행 대응 강화'…항공안전법 개정 안내 실시",
-      "description": ""
-    },
-    "570da803ada9": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694671",
-      "title": "울진군, 원전 건식저장시설 지원방안 마련 촉구...공동 대응 추진",
-      "description": ""
-    },
-    "d1807e75d0f7": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3693884",
-      "title": "장세일 영광군수, 영광의 경쟁력은 '자원'보다 '연결'에 있다",
-      "description": ""
-    },
-    "87c0913b8288": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694261",
-      "title": "한울본부 부스 운영…주민 의견 청취·소통 강화 약속",
-      "description": ""
-    },
-    "8b63ff9d7d54": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3694694",
-      "title": "한울본부, '2026년 재난대응 안전한국훈련' 실시…복합 재난·신종 위협 대응 점검",
-      "description": ""
-    },
-    "f0bbb45900dc": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.g-enews.com/article/Global-Biz/2026/09/202609141341242133fbbec65dfb_1",
-      "title": "카자흐 동부가 삼킨 우라늄, 빅테크까지 줄 섰다",
-      "description": ""
-    },
-    "80664b9cbe68": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://thesejong.tv/html/view.html?idx=1004489",
-      "title": "한국수력원자력 상생협력처 사회공헌부 추석명절 생필품 키트 200만원 기탁",
-      "description": ""
-    },
-    "5f1f617fa572": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://thesejong.tv/html/view.html?idx=1004390",
-      "title": "한국수력원자력(주) 사업개발처 물품기탁 추석맞이 어려운 이웃 돕기, 식료품세트 45개 기탁",
-      "description": ""
-    },
-    "8c4411136b55": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.naeil.com/news/read/602188",
-      "title": "대구 국제물주간 190만 달러 계약",
-      "description": ""
-    },
-    "6249fc6d9f09": {
-      "tries": 1,
-      "seed_date": "2026-09-14",
-      "last_tried": "2026-09-14T11:09:51.958215+00:00",
-      "status": "resolved",
-      "link": "https://www.nocutnews.co.kr/news/6577820?utm_source=naver&utm_medium=article&utm_campaign=20260914043356",
-      "title": "새울원자력본부, 취약계층 위한 '추석 명절 꾸러미' 전달",
-      "description": "등 취약계층을 위한 '추석 명절 꾸러미' 전달식을 가졌다고 밝혔다. 전달식은 이제호 대외협력처장을 비롯한 새울원자력본부 임직원과 울주군자원봉사센터 손영순 마켓장 및 관계자 등이 참석한 가운데 진행됐다...."
-    },
-    "de42f4a3f2db": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.nocutnews.co.kr/news/6577791",
-      "title": "한울원전, 지진·산불·드론 위협까지…고강도 재난대응 훈련 실시",
-      "description": ""
-    },
-    "0be8a72f1cf3": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.news1.kr/local/ulsan/6289547",
-      "title": "새울원자력본부, 원전 주변 불법 드론 대응 강화…\"형사처벌 대상\"",
-      "description": ""
-    },
-    "af794b11c16e": {
-      "tries": 1,
-      "seed_date": "2026-09-14",
-      "last_tried": "2026-09-14T11:09:51.958215+00:00",
-      "status": "resolved",
-      "link": "http://www.newsroad.co.kr/news/articleView.html?idxno=64287",
-      "title": "\"점심시간 1시간이 금상을 만들었다\"…전국장애인기능경기대회, 4년의 ...",
-      "description": "4년의 점심시간이 금상을 만들었다. 제43회 전국장애인기능경기대회 전자출판 직종에 출전하는 노혜림 씨의... 직종에서 금상을 거머쥐었다. 4년간의 기록은 '꾸준함'이라는 단어의 의미를 증명한다. 노 씨의 여정은..."
-    },
-    "05127ccb1d64": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.dkilbo.com/news/articleView.html?idxno=554255",
-      "title": "봉화군, 현동천 산책로에 안심가로등 설치",
-      "description": ""
-    },
-    "9e2cae75dae6": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609140806426240806",
-      "title": "봉화군, 안심가로등 공모 선정…현동천 산책로에 22본 설치 ... 등",
-      "description": ""
-    },
-    "f76a650208c2": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "http://www.dhns.co.kr/news/articleView.html?idxno=384939",
-      "title": "한울본부, 제5회 ‘한울 상고문화제’ 여름(夏)편 경필대회 성료",
-      "description": ""
-    },
-    "0f4425855e1b": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.dailian.co.kr/news/view/1690195/%ED%95%9C%EC%88%98%EC%9B%90-%EC%A7%80%EC%A7%84%EC%82%B0%EB%B6%88%EB%93%9C%EB%A1%A0-%EC%9C%84%ED%98%91-%EB%B3%B5%ED%95%A9%EC%9E%AC%EB%82%9C-%EB%8C%80-2026",
-      "title": "한수원, 지진·산불·드론 위협 복합재난 대응훈련",
-      "description": ""
-    },
-    "fe397e5c8bb7": {
-      "tries": 1,
-      "seed_date": "2026-09-14",
-      "last_tried": "2026-09-14T11:09:51.958215+00:00",
-      "status": "resolved",
-      "link": "https://www.ilovepc.co.kr/news/articleView.html?idxno=60684",
-      "title": "한국형 원전 8기? … 노형, 지분인수 아직은 '가정'",
-      "description": "거론되는 8기 중 한국형 원전은 2기에 불과하며, 나머지 6기는 웨스팅하우스 노형이다. '8기 건설'이라는 숫자는 미정과 추측이다. 웨스팅하우스 지분 인수 역시 IP 분쟁을 풀 유용한 카드지만 인수 조건과 금액은..."
-    },
-    "892c42380920": {
-      "tries": 1,
-      "seed_date": "2026-09-14",
-      "last_tried": "2026-09-14T11:09:51.958215+00:00",
-      "status": "resolved",
-      "link": "https://www.mk.co.kr/article/12152078",
-      "title": "중둥전쟁發 LNG값 급등에 석탄발전 늘었다 ... ‘2040 탈석탄 로드맵’ ...",
-      "description": "중동 전쟁으로 액화천연가스(LNG) 가격이 급등한데다 원전 가동 중단까지 겹치면서, 석탄 발전이 부족한 전력을 메웠기 때문인 것으로풀이된다. 14일 한국전력공사 전력통계월보에 따르면, 올해 3~7월 국내..."
-    },
-    "ac648eade04d": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.viva100.com/article/20260914500201",
-      "title": "경북 봉화군, 태양광 안심가로등으로 야간 안전 강화",
-      "description": ""
-    },
-    "1977f0439f05": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "http://www.businessplus.kr/news/articleView.html?idxno=116814",
-      "title": "한수원, 지진·산불·방사능·드론 위협까지…복합재난 대응훈련",
-      "description": ""
-    },
-    "5ca0110d8f14": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.seoul.co.kr/news/society/2026/09/14/20260914500212",
-      "title": "한수원 한울본부, 복합·신종 재난 대비 고강도 훈련 시행",
-      "description": ""
-    },
-    "289c5c891673": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.segye.com:443/newsView/20260914510742",
-      "title": "李대통령, 아시아개발은행 총재와 핵심광물·원전 협력 논의",
-      "description": ""
-    },
-    "dd773e5809f9": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.straightnews.co.kr/news/articleView.html?idxno=311160",
-      "title": "“맥스터부터 방폐장까지”… 경주시의회, 원자력 핵심시설 전면 현장점검",
-      "description": ""
-    },
-    "9cce7d8af337": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.straightnews.co.kr/news/articleView.html?idxno=311163",
-      "title": "울진군, 원전 5개 지자체와 ‘건식저장시설’ 공동대응 전선 구축",
-      "description": ""
-    },
-    "d450881d4289": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "http://www.koreajn.co.kr/news/articleView.html?idxno=157947",
-      "title": "한울원자력본부, 복합 · 신종 재난 대비 안전한국훈련 시행",
-      "description": ""
-    },
-    "652d5701cfa5": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.asiae.co.kr/article/2026091412350971016",
-      "title": "원전 주변 미승인 드론 처벌 강화… 새울원자력, 대응체계 점검",
-      "description": ""
-    },
-    "57c170dc3b2e": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260914010005131",
-      "title": "李, ADB 총재 만나 “핵심광물·AI·원전 협력 확대”",
-      "description": ""
-    },
-    "02b736018bc1": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "http://www.wsobi.com/news/articleView.html?idxno=318126",
-      "title": "기업들, 미술대회 개최-환경정화-인재육성-성금기탁 사회공헌 실천",
-      "description": ""
-    },
-    "9ca08c33bd49": {
-      "tries": 1,
-      "seed_date": "2026-09-14",
-      "last_tried": "2026-09-14T11:09:51.958215+00:00",
-      "status": "resolved",
-      "link": "https://www.yna.co.kr/view/AKR20260914120200057?input=1195m",
-      "title": "새울원자력, 울산 원전 주변지역 미승인 드론 비행 대응 강화",
-      "description": "새울원자력본부는 이 협의체에서 향후 미승인 드론 발견 시 관계기관과 신속한 대응과 협조가 이뤄질 수 있도록 협조체계 강화 방안을 논의했다. 아울러 원전 주변 드론 비행이 잦은 지역에 항공안전법 개정을 알리는..."
-    },
-    "41cbd6b98056": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.yna.co.kr/view/AKR20260914066200057",
-      "title": "새울원자력, 울주군 취약계층에 추석 명절 꾸러미 전달",
-      "description": ""
-    },
-    "245e088b6827": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003267169",
-      "title": "700번 넘게 숲·마을 지켰다... '홍천 풍천리반대위' 오체투지 환경상 대상",
-      "description": ""
-    },
-    "8d783595250c": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003267129",
-      "title": "국민 안녕을 담보하지 못하는 국가 주도 개발의 역설",
-      "description": ""
-    },
-    "3231c13f8068": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003267054",
-      "title": "작은 위험을 대수롭지 않게 여기면 참사는 시작된다",
-      "description": ""
-    },
-    "3c0931875fb8": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "http://www.opinionnews.co.kr/news/articleView.html?idxno=144428",
-      "title": "대미투자 핵심은 에너지…K-건설·원전 미국행 본격화",
-      "description": ""
-    },
-    "ac278cc539b8": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.edaily.co.kr/news/read?newsId=02030326645580120&mediaCodeNo=257",
-      "title": "S2W, 국가 보안 AI 모델 개발 사업 참여…네이버 컨소 일원",
-      "description": ""
-    },
-    "4225961d1343": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.edaily.co.kr/news/read?newsId=03335766645580120&mediaCodeNo=257",
-      "title": "李, ADB 금융 지렛대로 중앙亞 공략…韓기업 원전·광물 진출길 연다(종합)",
-      "description": ""
-    },
-    "a7ef4a7328b5": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.etoday.co.kr/news/view/2624960",
-      "title": "NH證 “원전 르네상스 시작⋯APR1400 수출 확대 기대”",
-      "description": ""
-    },
-    "9d26f1457e28": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.egn.kr/news/articleView.html?idxno=210547",
-      "title": "경주시·월성원자력본부, ‘2026년 월성 방사능방재 연합훈련’ 실시...\"지진·산불에 원전까지 대규모 훈련!\"",
-      "description": ""
-    },
-    "f46c8a281563": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.egn.kr/news/articleView.html?idxno=210582",
-      "title": "경주시의회, 월성원전·방사성폐기물 시설 직접 점검…“시민 안전이 최우선!”",
-      "description": ""
-    },
-    "0bb6be141dba": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.jayupress.com/news/articleView.html?idxno=54699",
-      "title": "과학적 사실로 본 한빛원전 건식저장",
-      "description": ""
-    },
-    "0b13733f07cb": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://biz.chosun.com/it-science/ict/2026/09/14/JECSKC35QJAU3FEVUU3J36I2TE/",
-      "title": "S2W, ‘사이버보안 특파모’ 네이버클라우드 컨소시엄 합류",
-      "description": ""
-    },
-    "141dc7d088ec": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.fnnews.com/news/202609141047507366",
-      "title": "새울원전 주변 미승인 드론 비행 처벌.. 징역형까지 가능",
-      "description": ""
-    },
-    "fe29ebc97ce0": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.fnnews.com/news/202609141417550947",
-      "title": "李대통령, 아시아 개발은행 총재에 \"핵심광물·AI·원전 협력 확대하자\"",
-      "description": ""
-    },
-    "4b5aaf3d8a1a": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.newsprime.co.kr/news/article/?no=747630&sec_no=64",
-      "title": "울진군, 건식저장시설 지역 부담 해소 '공동전선' 구축",
-      "description": ""
-    },
-    "73fe82df590d": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.pressian.com/pages/articles/2026091414271307462",
-      "title": "울진군, 원전소재 지방자치단체와 사용후핵연료 건식저장시설 공동 대응",
-      "description": ""
-    },
-    "bc192986c2de": {
-      "tries": 0,
-      "seed_date": "2026-09-14",
-      "status": "resolved",
-      "link": "https://www.pressian.com/pages/articles/2026091414061314935",
-      "title": "한울본부, 울진 금강송 마라톤서 주민과 소통…임직원 100여 명 참가",
-      "description": ""
-    },
     "cd0fe45dfed6": {
       "tries": 0,
       "seed_date": "2026-09-15",

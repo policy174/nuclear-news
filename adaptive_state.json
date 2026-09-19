@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 6,
-    "date": "2026-09-19"
+    "count": 4,
+    "date": "2026-09-20"
   },
   "retired": {
     "adb": {
@@ -390,10 +390,59 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-09-19"
+    "count": 3,
+    "date": "2026-09-20"
   },
   "terms": {
+    "dmg": {
+      "articles": 6,
+      "created_at": "2026-09-19T15:01:58.505246+00:00",
+      "domains": [
+        "newspim.com",
+        "gnnews.co.kr",
+        "cnbnews.com",
+        "jeonmae.co.kr",
+        "newscj.com",
+        "mtnews.net"
+      ],
+      "evidence": [
+        {
+          "domain": "newspim.com",
+          "hash": "8a44974c3c830c3d",
+          "importance": "nice_to_know",
+          "title": "경남도, DMG그룹 1000억원 투자유치 협약 체결…전력장비 생산"
+        },
+        {
+          "domain": "gnnews.co.kr",
+          "hash": "a75e299ca475a4a7",
+          "importance": "noise",
+          "title": "경남도, DMG그룹과 투자협약 체결…자동차부품 생산시설 유치"
+        },
+        {
+          "domain": "cnbnews.com",
+          "hash": "5d62456a91ba7462",
+          "importance": "noise",
+          "title": "경남도, 중국 DMG그룹과 1000억 규모 국내복귀 투자협약"
+        }
+      ],
+      "expires_at": "2026-09-20T15:01:58.505246+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-19T15:02:01.407058+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-19T15:01:58.505246+00:00",
+      "queries_run": 1,
+      "query": "DMG 원자력",
+      "score": 3.63,
+      "status": "tracking",
+      "term": "DMG",
+      "ttl_hours": 24,
+      "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "epri": {
       "articles": 9,
       "created_at": "2026-09-16T15:53:40.129923+00:00",
@@ -490,6 +539,52 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "국내외전문가들": {
+      "articles": 3,
+      "created_at": "2026-09-19T15:01:58.505246+00:00",
+      "domains": [
+        "energydaily.co.kr",
+        "skyedaily.com",
+        "sisakorea.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "energydaily.co.kr",
+          "hash": "99fee6bc9d1e012c",
+          "importance": "nice_to_know",
+          "title": "국내 원전해체 사업 현황 및 글로벌 경험 공유 포럼 개최"
+        },
+        {
+          "domain": "skyedaily.com",
+          "hash": "9c44510b4f9b6c4d",
+          "importance": "nice_to_know",
+          "title": "한수원, 기후에너지환경부와 ‘2026 원전해체 비즈니스 포럼’ 공동 개최"
+        },
+        {
+          "domain": "sisakorea.kr",
+          "hash": "96ca46087ca4a883",
+          "importance": "noise",
+          "title": "한수원, 2026 원전해체 비즈니스 포럼 개최"
+        }
+      ],
+      "expires_at": "2026-09-20T15:01:58.505246+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-09-19T15:02:01.407058+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-19T15:01:58.505246+00:00",
+      "queries_run": 1,
+      "query": "국내외 전문가들 원전",
+      "score": 3.64,
+      "status": "tracking",
+      "term": "국내외 전문가들",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "사이버보안위원회": {
       "articles": 5,
@@ -727,6 +822,38 @@
       "yields": 0,
       "zero_streak": 1
     },
+    "쿠르스크": {
+      "articles": 1,
+      "created_at": "2026-09-19T15:01:58.505246+00:00",
+      "domains": [
+        "reuters.com"
+      ],
+      "evidence": [
+        {
+          "domain": "reuters.com",
+          "hash": "8655a16005ca85e0",
+          "importance": "must_read",
+          "title": "IAEA, 러시아 쿠르스크 원전 냉각탑 드론 피격 보고"
+        }
+      ],
+      "expires_at": "2026-09-20T15:01:58.505246+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-19T15:02:01.407058+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-19T15:01:58.505246+00:00",
+      "queries_run": 1,
+      "query": "쿠르스크 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "쿠르스크",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "태양광위원회": {
       "articles": 8,
       "created_at": "2026-09-17T15:53:42.851613+00:00",
@@ -939,6 +1066,35 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "행정청장접견해": {
+      "articles": 1,
+      "created_at": "2026-09-19T15:01:58.505246+00:00",
+      "domains": [
+        "edaily.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "edaily.co.kr",
+          "hash": "c56baa57f4715711",
+          "importance": "must_read",
+          "title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의"
+        }
+      ],
+      "expires_at": "2026-09-20T15:01:58.505246+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "행정청장 접견해 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "행정청장 접견해",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
     }
   },
   "version": 1
