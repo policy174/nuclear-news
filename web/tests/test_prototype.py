@@ -3108,19 +3108,30 @@ class SelectionOverrideTests(unittest.TestCase):
         for marker in ("data-issue-id", "data-save-issue", 'rel="noopener"'):
             self.assertIn(marker, detail, f"2단계 액션 {marker} 가 없다")
 
-    def test_card_strip_sits_above_the_picks_on_desktop_only(self):
-        """카드뉴스는 넓은 화면에서만 '먼저 볼 3건' 위로 올라간다(지니 09-17).
+    def test_card_strip_sits_below_the_picks_on_desktop_only(self):
+        """카드뉴스는 넓은 화면에서 '먼저 볼 3건' **바로 아래**에 선다(지니 09-20).
 
-        폰에서 위로 올리면 3건이 첫 화면 밖으로 나간다 — 그래서 좁은 화면은
-        원래 자리(목차 다음)로 되돌린다.
+        09-17 에는 3건 **위**였다. 그런데 그날의 카드는 밤에 커밋되므로 낮에 보는
+        띠는 대개 어제 것이다 — 위에 두면 첫 화면 맨 위의 가장 큰 시각 블록이
+        어제 3건이고 바로 아래가 오늘 3건이라, 한 화면에 '오늘 3건'이 두 벌 선다.
+        한 칸 내려 오늘 3건을 먼저 읽히게 한다.
+
+        원래 자리(목차 다음)까지 내리지는 않는다 — 거기서는 1,238px 아래라
+        사실상 안 보였다. 폰은 목차 다음 그대로: 위로 올리면 3건이 첫 화면 밖으로
+        나간다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         place = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("narrowScreen.matches", place, "폭 판정이 없다")
-        self.assertIn("picks.before(strip)", place)
+        self.assertIn("picks.after(strip)", place, "3건 아래 배치가 없다")
+        self.assertNotIn("picks.before(strip)", place, "3건 위로 되돌아갔다")
         self.assertIn("panel.after(strip)", place, "좁은 화면 원위치 복귀가 없다")
         self.assertIn('narrowScreen.addEventListener("change", placeCardStrip)', script,
                       "회전·창 크기 변경에 자리가 안 따라간다")
+        # 3건은 근거 레일과 함께 2단 래퍼(.today-picks) 안에 있다. 띠를 목록
+        # 바로 뒤에 넣으면 격자 안으로 들어가 레일 밑으로 접힌다 — 래퍼 뒤여야 한다.
+        self.assertIn('querySelector(".today-picks")', place,
+                      "띠가 2단 격자 안으로 들어간다")
 
     def test_cooldown_does_not_rank_must_read_against_must_read(self):
         """must_read 끼리는 쿨다운이 순위를 가르지 않는다.

@@ -982,13 +982,35 @@ kbd {
   border-bottom: var(--bd-1) solid var(--c-border);
   font-size: var(--t-caption);
 }
-.topic-spark { display: flex; align-items: end; height: 40px; gap: 4px; }
-/* 각 막대 위에 그 주의 실제 건수를 찍는다(막대만으로는 몇 건인지 모른다).
-   열을 세로 flex 로 나눠 숫자를 위, 막대를 아래에 붙인다 — 막대 높이가
-   제각각이어도 숫자는 항상 같은 줄에 정렬된다. */
-.topic-spark-col { display: flex; flex: 1; min-width: 5px; height: 100%; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; }
-.topic-spark-col b { font-size: var(--t-min); font-weight: 600; line-height: 1; color: var(--c-text-muted); font-variant-numeric: tabular-nums; }
-.topic-spark-col i { width: 100%; background: var(--c-secondary); opacity: .72; }
+/* 주별 칸 — 막대 높이 대신 농도로 크기를 나른다(09-20). 칸은 각지게 둔다:
+   일괄 라운드는 표를 스티커 시트로 만든다(radius 규칙 그대로). 칸 사이는
+   종이색 1px 로 갈라 괘선을 새로 긋지 않는다. */
+.topic-spark { display: flex; align-items: stretch; height: 34px; gap: 0; }
+.topic-cell {
+  flex: 1; min-width: 5px; display: grid; place-items: center;
+  font-family: var(--ff-mono); font-size: var(--t-min); font-weight: 700;
+  font-variant-numeric: tabular-nums; color: var(--c-signal-ink);
+  border-right: 1px solid var(--c-bg);
+}
+.topic-cell:last-child { border-right: 0; }
+/* 다섯 단 — 네 단 이하면 근소한 차이가 뭉치고, 여섯 단부터는 눈이 못 가른다.
+   위 두 단만 흰 글자로 뒤집는다(짙은 바탕에서 잉크는 AA 미달). */
+.topic-cell.h0 { background: var(--c-surface-sunken); color: var(--c-text-muted); font-weight: 400; }
+.topic-cell.h1 { background: #e6edf7; }
+.topic-cell.h2 { background: #cddcef; }
+.topic-cell.h3 { background: #9fbce0; }
+.topic-cell.h4 { background: #5f8ec9; color: #fff; }   /* 4.62:1 */
+.topic-cell.h5 { background: var(--c-secondary); color: #fff; }  /* 8.62:1 */
+/* 다크에서는 농도 방향이 뒤집힌다 — 밝은 바탕에서 짙어지는 계단을 그대로 쓰면
+   짙은 종이 위에서 큰 값이 배경에 묻힌다. 어두운 데서 시작해 밝아지고, 글자
+   잉크도 같이 뒤집는다. 다크의 --c-secondary(#8fb4e6)는 밝은 색이라 h5 가 가장
+   밝은 칸이 되는 것이 자연스럽다. */
+:root[data-theme="dark"] .topic-cell { color: var(--c-text); }
+:root[data-theme="dark"] .topic-cell.h1 { background: #1d3355; }
+:root[data-theme="dark"] .topic-cell.h2 { background: #2b4a77; }
+:root[data-theme="dark"] .topic-cell.h3 { background: #3f689c; }
+:root[data-theme="dark"] .topic-cell.h4 { background: #6a95c8; color: #0b1c36; }
+:root[data-theme="dark"] .topic-cell.h5 { background: var(--c-secondary); color: #0b1c36; }
 .topic-direction { display: inline-flex; align-items: center; gap: 3px; font-size: var(--t-min); font-weight: 700; white-space: nowrap; }
 .topic-direction i { font-style: normal; }
 .topic-direction.up { color: var(--c-positive); }
@@ -1857,6 +1879,44 @@ body.booting .status-strip.loading { display: none; }
 .report-candidate h3 button { padding: 0; border: 0; background: transparent; color: var(--c-text); font: inherit; text-align: left; cursor: pointer; }
 .report-candidate > p:not(.report-candidate-topic) { color: var(--c-text-secondary); line-height: 1.65; }
 .report-angle-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ── 보고 진행 표시 ──────────────────────────────────────────────────
+   칸 사이 연결선은 ::after 로 긋는다 — 마지막 칸에는 안 붙는다. 완료는
+   --c-verified, 지금 할 것은 상호작용색. 나머지는 회색으로 가만히 있는다.
+   좁은 화면에서는 가로줄이 접히므로 세로로 세운다. */
+.report-steps {
+  list-style: none; margin: var(--sp-1) 0 0; padding: 0;
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--t-caption); color: var(--c-text-muted);
+}
+.report-steps li { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.report-steps li::after {
+  content: ""; flex: 1; min-width: var(--sp-4); height: 1px;
+  background: var(--c-border); margin-left: var(--sp-2);
+}
+.report-steps li:last-child { flex: 0 0 auto; }
+.report-steps li:last-child::after { display: none; }
+.report-steps li:not(:last-child) { flex: 1; }
+.report-steps b {
+  /* 원은 글자 크기 하한(--t-min 12.5px)에 맞춰 20px 이다. 18px 로 줄이려면
+     숫자를 10.5px 로 내려야 하는데 그건 가드가 막는다(그리고 프로젝터에서
+     안 보인다) — 원을 키우는 쪽이 맞다. */
+  flex: 0 0 auto; width: 20px; height: 20px; border-radius: var(--r-4);
+  border: 1.5px solid var(--c-border-strong); display: grid; place-items: center;
+  font-family: var(--ff-mono); font-size: var(--t-min); font-weight: 700; line-height: 1;
+}
+.report-steps .is-done { color: var(--c-verified); }
+.report-steps .is-done b { background: var(--c-verified); border-color: var(--c-verified); color: #fff; }
+.report-steps .is-done::after { background: var(--c-verified); }
+.report-steps .is-now { color: var(--c-accent-text); font-weight: 700; }
+.report-steps .is-now b { border-color: var(--c-secondary); border-width: 2px; color: var(--c-secondary); }
+.report-steps-foot { margin: 0; font-size: var(--t-caption); color: var(--c-text-muted); }
+@media (max-width: 719px) {
+  .report-steps { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
+  .report-steps li,
+  .report-steps li:not(:last-child) { flex: 0 0 auto; white-space: normal; }
+  .report-steps li::after { display: none; }
+}
 .report-candidate .secondary-button { justify-self: start; }
 /* 기술문서 접기 — 연구·설계 실무용 문서가 서가 앞줄을 차지해 정책 자료를
    가리던 문제(실측 2026-08-05: 19건 중 12건). 지우지 않고 접는다. 서가 그리드의
@@ -2139,6 +2199,44 @@ a.cover-face:hover { transform: translate(-2px, -2px); box-shadow: var(--sh-2); 
    reduced-motion 은 전역 오버라이드가 animation-duration 을 죽여 함께 꺼진다. */
 .view-in { animation: view-in var(--mo-2) var(--mo-ease-out); }
 @keyframes view-in { from { opacity: 0; transform: translateY(6px); } }
+
+/* ── 내용이 도착할 때의 모션 (2026-09-20) ────────────────────────────────
+   기존 모션은 전부 '사람이 누른 뒤'에만 돌았다(탭·다이얼로그·시트). 정작
+   첫인상을 만드는 자리 — 스켈레톤이 끝나고 내용이 들어서는 순간 — 은 무音
+   전환이라 회색 막대가 갑자기 글자로 바뀐다. 아래 셋은 그 순간에만 돈다.
+
+   장식이 아니라는 기준 하나로 골랐다: 움직임이 **읽는 순서**를 말할 때만 쓴다.
+   3건은 1→2→3 순위가 있고, 히트맵은 왼쪽이 과거다. 순서가 없는 것(카드뉴스
+   띠·목차·본문)에는 붙이지 않는다 — 거기서 흔들리면 그냥 산만한 사이트다.
+   전부 --mo-* 토큰을 쓰므로 아래 reduced-motion 전역 오버라이드가 같이 끈다. */
+@keyframes rise-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes cell-in { from { opacity: 0; transform: scaleY(.55); } }
+
+/* 지표 스트립 — 3건보다 먼저 선다. 딜레이 0. */
+.today-metrics:not([hidden]) { animation: rise-in var(--mo-2) var(--mo-ease-out) both; }
+
+/* 3건 — 60ms 씩 밀어 1→2→3 을 눈이 따라가게 한다. 셋뿐이라 nth-child 로 충분하다
+   (JS 로 인덱스를 심을 이유가 없다). 총 120ms 면 '느리다'가 아니라 '순서가 있다'
+   로만 읽힌다. */
+.pick3 > .pick-card { animation: rise-in var(--mo-2) var(--mo-ease-out) both; }
+.pick3 > .pick-card:nth-child(2) { animation-delay: 60ms; }
+.pick3 > .pick-card:nth-child(3) { animation-delay: 120ms; }
+
+/* 히트맵 — 열 단위로 왼쪽에서 오른쪽으로 채워진다. 행이 아니라 열로 미는 게
+   핵심이다: 왼쪽이 과거고 오른쪽이 이번 주라, 파도가 시간 방향과 같이 간다.
+   scaleY 로 밑에서 차오르게 해 '쌓인 양'이라는 뜻을 한 번 더 준다. */
+.topic-cell { animation: cell-in var(--mo-2) var(--mo-ease-out) both; transform-origin: bottom; }
+.topic-cell:nth-child(2) { animation-delay: 50ms; }
+.topic-cell:nth-child(3) { animation-delay: 100ms; }
+.topic-cell:nth-child(4) { animation-delay: 150ms; }
+.topic-cell:nth-child(5) { animation-delay: 200ms; }
+
+/* 레일 교체 — 마우스가 카드 사이를 지나가면 오른쪽 열 내용이 통째로 갈린다.
+   전환이 없으면 커서를 옮기는 내내 깜빡인다. --mo-1(120ms)은 '바뀌었다'만
+   알리고 읽는 것을 지연시키지 않는 길이다. */
+.pick-rail dl,
+.pick-rail-src { animation: fade-in var(--mo-1) var(--mo-ease-out) both; }
+@keyframes fade-in { from { opacity: 0; } }
 dialog[open] { animation: dialog-in var(--mo-2) var(--mo-ease-out); }
 @keyframes dialog-in { from { opacity: 0; transform: translateY(4px); } }
 /* 폰의 이슈 상세(바텀 시트) 전용 — 아래에서 끝까지 올라온다 */
@@ -3683,10 +3781,90 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 
 .today-lede { margin: var(--sp-2) 0 0; font-size: var(--t-body); color: var(--c-text-secondary); }
 
+/* ── 지표 스트립 ──────────────────────────────────────────────────────
+   같은 숫자를 산문 대신 네 칸으로. 칸 사이는 헤어라인이고 바깥은 잉크
+   프레임 — 굵기가 곧 위계라는 규칙 그대로다(--bd-1 / --bd-2). 반복 요소가
+   아니라 상자형 표면 하나이므로 --sh-1 을 붙인다(그림자 규칙 3).
+   숫자는 모노 — 자릿수가 달라도 칸이 흔들리지 않는다. */
+.today-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin: var(--sp-4) 0 0; background: var(--c-surface);
+  border: var(--bd-2) solid var(--c-edge); border-radius: var(--r-2);
+  overflow: hidden; box-shadow: var(--sh-1);
+}
+.today-metrics .metric { padding: var(--sp-3) var(--sp-4); border-right: var(--bd-1) solid var(--c-border); }
+.today-metrics .metric:last-child { border-right: 0; }
+.today-metrics dt {
+  font-size: var(--t-caption); letter-spacing: .08em; font-weight: 700;
+  color: var(--c-text-muted);
+}
+.today-metrics dd {
+  margin: var(--sp-1) 0 0; font-family: var(--ff-mono);
+  font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
+}
+.today-metrics p { margin: 2px 0 0; font-size: var(--t-caption); color: var(--c-text-secondary); }
+/* '변화'만 상호작용색으로 띄운다 — 화면당 색 셋 규칙 안에서 한 자리를 쓴다 */
+.today-metrics .is-hot dd { color: var(--c-secondary); }
+.today-metrics .is-hot p { color: var(--c-accent-text); font-weight: 600; }
+
 /* ── 오늘 먼저 볼 3건 ──────────────────────────────────────────────────
    이 화면에서 유일하게 크게 쓰는 요소. 목차 행과 같은 괘선 위계를 쓰되
    번호를 키우고 '왜 중요한가' 한 줄을 붙인다. 카드마다 그림자를 얹지
    않는다(팔레트 규칙 3) — 위계는 번호 크기와 여백이 든다. */
+/* 2단 — 목록 + 근거 레일. 레일은 1100px 부터 선다. 그 아래에서는 296px 을
+   빼면 제목이 세 줄로 접혀 3건 목록이 되레 나빠진다(실측 1024px). */
+.today-picks { display: block; }
+.pick-rail { display: none; }
+@media (min-width: 1100px) {
+  .today-picks { display: grid; grid-template-columns: minmax(0, 1fr) 296px; gap: var(--sp-5); align-items: start; }
+  .today-picks .pick3 { margin-top: var(--sp-4); }
+  .pick-rail {
+    display: block; position: sticky; top: var(--sp-4);
+    margin-top: var(--sp-4); background: var(--c-surface);
+    border: var(--bd-2) solid var(--c-edge); border-radius: var(--r-2);
+    overflow: hidden; box-shadow: var(--sh-1); font-size: var(--t-caption);
+  }
+  /* 레일이 가리키는 카드에 잉크 테두리를 옮긴다. 1번 고정 강조(:first-child)는
+     레일이 2·3번을 가리킬 때 화면에 강조가 둘이 되므로 그때만 끈다. */
+  .today-picks .pick-card.is-railed { border-color: var(--c-edge); border-width: 2px; }
+  .today-picks:has(.pick-card.is-railed:not(:first-child)) .pick-card:first-child {
+    border-color: var(--c-border); border-width: var(--bd-1);
+  }
+}
+.pick-rail-head {
+  background: var(--c-primary); color: #fff; padding: 10px var(--sp-4);
+  font-size: var(--t-min); font-weight: 700; letter-spacing: .08em;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pick-rail-head span { opacity: .72; font-weight: 500; letter-spacing: 0; }
+.pick-rail dl { margin: 0; padding: 0 var(--sp-4); }
+.pick-rail-row {
+  display: flex; justify-content: space-between; gap: var(--sp-3);
+  padding: 9px 0; border-bottom: var(--bd-1) solid var(--c-border);
+}
+.pick-rail-row:last-child { border-bottom: 0; }
+.pick-rail dt { color: var(--c-text-muted); white-space: nowrap; }
+.pick-rail dd { margin: 0; text-align: right; font-weight: 600; color: var(--c-text); }
+.pick-rail dd.ok { color: var(--c-verified); }
+/* 빈 근거는 회색으로 넘기지 않는다 — 없다는 것이 이 화면에서 가장 중요한 사실인
+   날이 있다. --c-critical-text 는 본문 대비 5.85:1 로 텍스트에 쓸 수 있다. */
+.pick-rail dd.gap { color: var(--c-critical-text); }
+.pick-rail-src { padding: 0 var(--sp-4) var(--sp-3); }
+.pick-rail-src a {
+  display: block; padding: 7px 0; color: var(--c-secondary);
+  text-decoration: none; border-bottom: var(--bd-1) solid var(--c-border);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pick-rail-src a:last-child { border-bottom: 0; }
+.pick-rail-src a:hover { text-decoration: underline; }
+.pick-rail-act { padding: var(--sp-3) var(--sp-4); border-top: var(--bd-1) solid var(--c-border); background: var(--c-surface-sunken); }
+.pick-rail-act button {
+  width: 100%; background: var(--c-primary); color: #fff; border: 0;
+  padding: 9px; border-radius: var(--r-1); font-family: inherit;
+  font-size: var(--t-caption); font-weight: 700; cursor: pointer;
+}
+.pick-rail-act button:hover { background: var(--c-primary-strong); }
+
 .pick3 { list-style: none; margin: var(--sp-4) 0 0; padding: 0; display: grid; gap: var(--sp-3); }
 .pick-card {
   background: var(--c-surface); border: var(--bd-1) solid var(--c-border);
@@ -3769,6 +3947,13 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   .pick-why { font-size: 14px; }
   .pick-badge { display: none; }   /* 근거는 펼친 안과 상세 화면이 든다 */
   .today-lede { display: none; }
+  /* 폰에서는 2×2. 네 칸을 390px 에 욱여넣으면 숫자가 두 줄로 접힌다.
+     '변화' 칸이 둘째 줄 왼쪽에 와서 접힘선 위에 남는다 — 순서는 그대로 둔다. */
+  .today-metrics { grid-template-columns: repeat(2, 1fr); margin-top: var(--sp-3); }
+  .today-metrics .metric { padding: var(--sp-3); }
+  .today-metrics .metric:nth-child(2n) { border-right: 0; }
+  .today-metrics .metric:nth-child(-n + 2) { border-bottom: var(--bd-1) solid var(--c-border); }
+  .today-metrics dd { font-size: 26px; }
   .pick-open { grid-template-columns: 34px minmax(0, 1fr); }
   .pick-detail { padding: 0 var(--sp-3) var(--sp-3) calc(34px + var(--sp-2) + var(--sp-3));
     font-size: 14px; }

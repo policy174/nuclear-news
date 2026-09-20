@@ -121,8 +121,15 @@
       <p class="push-hint" id="pushHint" hidden></p>
       <p class="today-date" id="briefingDateLabel"></p>
       <!-- 한 줄 안내 — 몇 건 중 몇 건을 골랐고, 진행 중 이슈에 변화가 몇 건인지.
-           숫자를 먼저 말해야 아래 3건이 '고른 것'으로 읽힌다. -->
+           숫자를 먼저 말해야 아래 3건이 '고른 것'으로 읽힌다.
+           지표 스트립(아래)이 서면 이 문장은 숨는다 — 같은 말을 두 번 하지 않는다.
+           빈 브리핑·구버전 데이터에서는 스트립이 안 서므로 폴백으로 남긴다. -->
       <p class="today-lede" id="todayLede"></p>
+      <!-- 지표 스트립 — 같은 숫자를 산문 대신 네 칸으로 세운다(지니 09-20).
+           회색 12px 산문 한 줄은 프로젝터에서 안 읽힌다. 새 데이터는 없다:
+           네 칸 전부 이미 화면 어딘가에 있던 값을 자리만 옮긴 것이다.
+           '변화' 칸만 상호작용색으로 띄운다 — 오늘 달라진 게 이 화면의 요지다. -->
+      <dl class="today-metrics" id="todayMetrics" hidden></dl>
     </header>
 
     <div id="bootSkeleton" class="issue-list" role="status" aria-label="브리핑을 불러오고 있습니다">
@@ -133,7 +140,14 @@
     <!-- 오늘 먼저 볼 3건 — 이 화면에서 유일하게 크게 쓰는 요소.
          번호·분류·제목·'왜 중요한가' 한 줄·근거. 요약은 여기에도 안 쓴다
          (지니 09-15) — 왜 골랐는지만 한 줄이다. 나머지는 아래 목차로 간다. -->
-    <ol class="pick3" id="pickList" aria-label="오늘 먼저 볼 3건"></ol>
+    <!-- 넓은 화면은 2단이다: 3건 목록 + 근거 레일. 1440px 에서 오른쪽 296px 이
+         통째로 비어 있었고, "근거가 어디 있냐"는 질문에 답하려면 카드를 눌러
+         펴야 했다. 레일은 고른 한 건의 근거를 클릭 없이 계속 띄운다.
+         폰에서는 레일을 숨긴다 — 거기서는 카드 안 '자세히'가 같은 일을 한다. -->
+    <div class="today-picks">
+      <ol class="pick3" id="pickList" aria-label="오늘 먼저 볼 3건"></ol>
+      <aside class="pick-rail" id="pickRail" aria-label="선택한 이슈의 근거" hidden></aside>
+    </div>
 
     <!-- 브리핑 패널 — 짙은 면 하나에 오늘의 목차를 세운다.
          Codex 목업(work/home-brief-comparison.html, B안)의 구조를 따르되 면색은

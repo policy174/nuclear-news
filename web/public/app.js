@@ -1498,15 +1498,23 @@ function topicFlowPattern(values, sample) {
 
 const TOPIC_FLOW_ICON = { up: "▲", down: "▼", flat: "―", mixed: "↕" };
 
-function topicFlowRow(row) {
+// 칸 농도는 **표 전체**의 최대 건수를 기준으로 잡는다(행별이 아니라).
+// 행마다 자기 최댓값으로 정규화하면 36·38·28·29 가 전부 같은 크기로 그려져
+// (실측: 높이차 7px/40px) 눈이 차이를 못 읽고, 행이 다르면 같은 짙기가 다른
+// 건수를 뜻해 위아래 비교도 안 된다. 전역 기준이면 두 비교가 동시에 산다.
+function topicFlowScale(rows) {
+  return Math.max(1, ...rows.flatMap(row => row.values));
+}
+
+function topicFlowRow(row, _i, _all, scale = row.__scale || Math.max(1, ...row.values)) {
   const pattern = topicFlowPattern(row.values, row.sample);
-  const maxShare = Math.max(1, ...row.shares);
-  // 막대 높이는 그대로 비중(shares) 기준 — 막대 위 숫자만 실제 건수(values)로
-  // 바꿔, '몫이 얼마나 큰가'(높이)와 '실제 몇 건인가'(숫자)를 함께 준다.
-  const bars = row.shares.map((value, index) => `<span class="topic-spark-col">`
-    + `<b>${row.values[index]}</b>`
-    + `<i style="height:${Math.max(8, Math.round(value / maxShare * 100))}%"></i>`
-    + `</span>`).join("");
+  // 막대 높이를 칸 농도로 바꿨다(09-20). 높이는 40px 안에서만 움직여 근소한
+  // 차이를 못 나르는데, 농도는 다섯 단이라 훑는 눈이 바로 잡는다. 칸 안의
+  // 숫자는 그대로 실제 건수 — 색은 대강, 숫자는 정확히를 한 칸이 같이 낸다.
+  const bars = row.values.map((value, index) => {
+    const level = value === 0 ? 0 : Math.min(5, Math.ceil(value / scale * 5));
+    return `<span class="topic-cell h${level}" title="${esc(String(row.shares[index] !== undefined ? Math.round(row.shares[index]) : 0))}%">${value}</span>`;
+  }).join("");
   return `<div class="home-topic-row">
     <strong>${esc(TOPIC_LABELS[row.topic] || row.topic)}</strong>
     <span class="topic-spark" aria-label="최근 ${row.span}주 이슈 ${row.values.join(" → ")}건 · 비중 ${row.shares.map(value => `${Math.round(value)}%`).join(", ")}">${bars}</span>
@@ -1775,17 +1783,22 @@ function bindCardStripNav() {
   sync();
 }
 
-// 데스크톱에서 카드뉴스는 '먼저 볼 3건' **위**에 선다(지니 09-17). 넓은 화면은
-// 세로가 남아 가로 띠가 위에 있어도 3건을 밀어내지 않는데, 원래 자리(목차 아래)
-// 에서는 1,238px 아래라 사실상 안 보였다. 폰은 원래 자리 그대로 — 거기서는 띠가
-// 위에 오면 3건이 첫 화면 밖으로 나간다.
+// 데스크톱에서 카드뉴스는 '먼저 볼 3건' **바로 아래**에 선다(지니 09-20).
+// 09-17 에는 3건 위였는데, 카드는 대개 **어제** 것이라(그날 카드는 밤에 커밋된다)
+// 위에 두면 첫 화면 맨 위의 가장 큰 시각 블록이 어제 3건이고 그 바로 밑이 오늘
+// 3건이 된다 — 같은 화면에 '오늘 3건'이 두 벌 선다. 한 칸 내리면 오늘 3건이
+// 먼저 읽히고 카드는 '같은 내용을 카드로도 본다'는 보조 자리로 내려간다.
+// 원래 자리(목차 아래)까지 내리지는 않는다 — 거기서는 1,238px 아래라 안 보였다.
+// 폰은 목차 다음 그대로 — 거기서는 띠가 위에 오면 3건이 첫 화면 밖으로 나간다.
 function placeCardStrip() {
   const strip = document.getElementById("cardStrip");
-  const picks = document.getElementById("pickList");
+  // 3건 목록은 2단 래퍼 안에 있다(목록 + 근거 레일). 띠를 목록 바로 뒤에 넣으면
+  // 2단 격자 안에 들어가 레일 밑으로 접힌다 — 래퍼 뒤에 붙인다.
+  const picks = document.querySelector(".today-picks") || document.getElementById("pickList");
   const panel = document.getElementById("briefPanel");
   if (!strip || !picks || !panel) return;
   if (!narrowScreen.matches) {
-    if (strip.nextElementSibling !== picks) picks.before(strip);
+    if (strip.previousElementSibling !== picks) picks.after(strip);
   } else if (strip.previousElementSibling !== panel) {
     panel.after(strip);          // 원래 자리 — 목차 다음
   }
@@ -2047,6 +2060,7 @@ function renderBriefing() {
   // ponytail: 늦게 도착하면 글자가 한 번 바뀐다. 첫 방문에만, 줄이 다를 때만.
   // 거슬리면 briefings.json 빌드에 이 줄을 실어 동기 렌더로 옮길 것.
   if (picks.length) applyCardLines(pickList, picks, briefing.date);
+  renderPickRail(picks, picks.length ? picks[0].issue_id : "");
 
   const top = homeDomainFilter
     ? ordered.filter(issue => issue.khnp_domain === homeDomainFilter)
@@ -2103,16 +2117,109 @@ function renderBriefing() {
   document.getElementById("todayTitle").textContent =
     picks.length ? `오늘 먼저 볼 ${picks.length}건` : "오늘의 원전 현안";
   const changedCount = continuing.length;
-  document.getElementById("todayLede").textContent = picks.length
+  const lede = document.getElementById("todayLede");
+  lede.textContent = picks.length
     ? `이슈 ${briefing.issues.length}건 중 골랐습니다.`
       + (changedCount ? ` 진행 중 이슈 ${changedCount}건에 변화가 있습니다.` : "")
     : "";
 
   const articles = briefing.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
+  // 지표 스트립이 서면 같은 말을 하는 리드 문장은 숨는다. 스트립이 못 서는
+  // 날(0건)에는 리드가 그대로 남는다 — 화면이 아무 말도 안 하는 상태를 만들지 않는다.
+  lede.hidden = renderTodayMetrics(briefing, picks, changedCount, articles);
   document.getElementById("statusLine").textContent =
     `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`;
 
   renderNewsFeed();
+}
+
+// ── 근거 레일 (넓은 화면 전용) ──────────────────────────────────────
+//
+// 고른 한 건의 **근거만** 낸다. 요약·시사점은 내지 않는다 — 그건 카드가 이미
+// 냈고, 같은 문장이 한 화면에 두 번 서면 레일이 카드의 복사본이 된다.
+// 값이 없는 칸은 지어내지 않고 '없음'이라고 쓴다: 이 서비스가 파는 것이
+// 근거인데 레일이 빈칸을 그럴듯하게 채우면 파는 것 자체가 거짓이 된다.
+let pickRailPicks = [];
+
+function renderPickRail(picks, selectedId) {
+  const rail = document.getElementById("pickRail");
+  if (!rail) return;
+  pickRailPicks = picks;
+  const issue = picks.find(row => row.issue_id === selectedId) || picks[0];
+  if (!issue || !picks.length) { rail.hidden = true; rail.innerHTML = ""; return; }
+
+  const verState = verificationState(issue);
+  const verView = VERIFICATION_VIEW[verState.status] || VERIFICATION_VIEW.unverified;
+  const official = (verState.official_source_count || 0) > 0;
+  const sources = (issue.related_articles || []).slice(0, 4);
+  const topic = (issue.topics || [])[0];
+  const rows = [
+    ["최초 확인", shortDay(issue.first_seen)],
+    ["추적", `${issue.tracked_briefings || issue.briefing_count || 1}개 브리핑`],
+    ["보도", `${verState.source_count || sources.length || 0}건`],
+    ["공식 원문", official ? "포함" : "없음", official ? "ok" : "gap"],
+    ["검증", verView.label, official ? "ok" : ""],
+    ["주제", topic ? (TOPIC_LABELS[topic] || topic) : "미분류"],
+    ["보고 후보", (issue.report_pick || "").trim() ? "연결됨" : "없음",
+      (issue.report_pick || "").trim() ? "ok" : ""],
+  ];
+  rail.innerHTML = `
+    <div class="pick-rail-head">근거<span>${esc(String(picks.indexOf(issue) + 1))}번 이슈</span></div>
+    <dl>${rows.map(([label, value, tone]) => `
+      <div class="pick-rail-row"><dt>${esc(label)}</dt><dd class="${tone || ""}">${esc(value)}</dd></div>`).join("")}
+    </dl>
+    ${sources.length ? `<div class="pick-rail-src">${sources.map(article => `
+      <a href="${esc(article.url || "#")}" target="_blank" rel="noopener">${esc(article.publisher || article.domain || "출처")} · ${esc(shortDay(article.article_date))} →</a>`).join("")}</div>` : ""}
+    <div class="pick-rail-act">
+      <button type="button" data-issue-id="${esc(issue.issue_id)}">이슈 전체 보기</button>
+    </div>`;
+  rail.hidden = false;
+  // 선택 표시는 목록 쪽에도 건다 — 레일이 어느 카드를 말하는지 보여야 한다.
+  document.querySelectorAll("#pickList .pick-card").forEach((card, i) => {
+    card.classList.toggle("is-railed", picks[i] && picks[i].issue_id === issue.issue_id);
+  });
+}
+
+// ISO 날짜 → MM.DD. 값이 없으면 지어내지 않는다.
+function shortDay(value) {
+  const text = String(value || "");
+  const match = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+  return match ? `${match[2]}.${match[3]}` : "—";
+}
+
+// 지표 스트립 — 네 칸 전부 이미 화면에 있던 값이다. 수집·이슈는 상태칩이,
+// 변화는 리드 문장이, 공식 원문은 3건의 근거 배지가 들고 있던 것을 한 줄로
+// 모았다. 새 데이터를 만들지 않는다는 게 이 함수의 유일한 규칙이다.
+// 반환값은 "스트립이 섰는가" — 호출부가 리드 문장을 숨길지 결정한다.
+function renderTodayMetrics(briefing, picks, changedCount, articles) {
+  const box = document.getElementById("todayMetrics");
+  if (!box) return false;
+  if (!picks.length) { box.hidden = true; box.innerHTML = ""; return false; }
+  const collectedAt = state.systemStatus?.collector_stamp
+    || state.manifest?.generated_at || state.meta?.generated_at;
+  const official = picks.filter(issue => verificationState(issue).status === "official").length;
+  // '수집'은 **오늘 들어온 기사 수**(briefing.article_count)다. 아래 statusLine 이
+  // 쓰는 articles 는 이슈에 달린 근거 원문의 누계라 값이 다르다(09-20 실측 37 vs 19).
+  // 누계를 '수집'이라 부르고 옆에 수집 시각을 적으면 오늘 37건 들어온 것으로 읽힌다.
+  // 상단 상태칩이 이미 '오늘 기사 19건'이라고 말하고 있어 두 숫자가 정면충돌한다.
+  const cells = [
+    { label: "수집", value: briefing.article_count || articles,
+      sub: collectedAt ? `마지막 ${timeLabel(collectedAt)}` : "오늘 기사" },
+    { label: "이슈", value: briefing.issues.length, sub: "오늘 추적 중" },
+    // 변화 0 은 숨기지 않는다 — "오늘은 없음"도 읽는 사람에게는 답이다.
+    { label: "변화", value: changedCount, hot: changedCount > 0,
+      sub: changedCount ? "진행 중 이슈에 후속 보도" : "진행 중 이슈에 변화 없음" },
+    { label: "공식 원문", value: `${official}/${picks.length}`,
+      sub: official === picks.length ? "3건 모두 확인" : `${picks.length - official}건은 단일 출처` },
+  ];
+  box.innerHTML = cells.map(cell => `
+    <div class="metric${cell.hot ? " is-hot" : ""}">
+      <dt>${esc(cell.label)}</dt>
+      <dd>${esc(String(cell.value))}</dd>
+      <p>${esc(cell.sub)}</p>
+    </div>`).join("");
+  box.hidden = false;
+  return true;
 }
 
 // ── 오디오 브리핑 플레이어 ──────────────────────────────────
@@ -2446,6 +2553,34 @@ function renderSaved() {
   if (packButton) packButton.hidden = issues.length === 0;
 }
 
+// 보고 후보 진행 표시 — 이 카드가 "보고서까지 얼마나 온 것인가"를 네 칸으로
+// 말한다. 넷 다 이미 있는 값에서 유도한다(선정·검증 상태·초안 유무) — 진행률을
+// 따로 저장하지 않는다. 마지막 칸은 사람이 누르는 동작이라 절대 완료로 켜지지
+// 않는다: 화면이 "다 됐다"고 먼저 말하면 복사 안 한 것을 복사했다고 믿는다.
+function reportSteps(issue) {
+  const verState = verificationState(issue);
+  const verified = ["official", "corroborated"].includes(verState.status);
+  const hasDraft = Boolean(reportDraftFor(issue.issue_id));
+  // 미완료 사유는 검증 라벨을 그대로 쓴다 — 건수를 새로 계산하지 않는다.
+  // source_count 와 status 는 서로 다른 규칙으로 정해져서 빼기를 하면
+  // "1건 중 0건 미검증" 같은 문장이 나온다(09-20 실측).
+  const gap = (VERIFICATION_VIEW[verState.status] || {}).label || "";
+  const steps = [
+    { label: "이슈 연결", done: true },
+    { label: verified || !gap ? "근거 확인" : `근거 확인 (${gap})`, done: verified },
+    { label: "초안 검토", done: hasDraft },
+    { label: "자료팩 복사", done: false },
+  ];
+  const now = steps.findIndex(step => !step.done);
+  const doneCount = steps.filter(step => step.done).length;
+  return `<ol class="report-steps" aria-label="보고 진행">
+    ${steps.map((step, i) => `<li class="${step.done ? "is-done" : i === now ? "is-now" : ""}">
+      <b aria-hidden="true">${step.done ? "✓" : i + 1}</b>${esc(step.label)}
+    </li>`).join("")}
+  </ol>
+  <p class="report-steps-foot">${steps.length}단계 중 ${doneCount}단계 완료</p>`;
+}
+
 function renderReportCandidates() {
   const box = document.getElementById("reportCandidateList");
   if (!box) return;
@@ -2458,7 +2593,8 @@ function renderReportCandidates() {
       <h3><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>
       ${why ? `<p>${esc(why)}</p>` : ""}
       ${reasons.length ? `<div class="report-angle-row">${reasons.map(reason => `<span class="topic-chip">${esc(reason)}</span>`).join("")}</div>` : ""}
-      ${draftPreviewBlock(issue, { withCopy: true })}
+      ${reportSteps(issue)}
+      ${draftPreviewBlock(issue, { withCopy: true, collapsed: true })}
       <button type="button" class="secondary-button" data-pack-issue="${esc(issue.issue_id)}">보고서 자료팩 복사</button>
     </article>`;
   }).join("") : '<div class="empty-state"><strong>이번 주 보고 후보가 없습니다</strong><p>보고 후보로 분류된 이슈가 생기면 근거 자료와 함께 표시합니다.</p></div>';
@@ -3113,9 +3249,12 @@ function normalizedIncludes(haystack, needle) {
 // 복사 전에 내용을 화면에서 읽게 한다 — "복사 말고 실제로도 어떤 내용인지 볼 수
 // 있게"('26.9.7 사용자 요청). 미리보기와 복사는 같은 함수(issueReportText)를
 // 쓴다 — 형식을 두 벌 지으면 금방 갈라진다(savedIssuesPack 주석과 같은 계약).
-function draftPreviewBlock(issue, { withCopy = false } = {}) {
+// collapsed: 보고 후보 카드에서만 쓴다. 초안이 펼쳐진 채 서면 카드가 세로로
+// 끝없이 늘어나 후보 둘을 나란히 비교할 수 없다(09-20 실측) — 거기서는 진행
+// 표시가 상태를 말하고 초안은 눌러서 편다. 상세 다이얼로그는 종전대로 펼친다.
+function draftPreviewBlock(issue, { withCopy = false, collapsed = false } = {}) {
   const draft = reportDraftFor(issue.issue_id);
-  return `<details class="report-preview"${draft ? " open" : ""}>
+  return `<details class="report-preview"${draft && !collapsed ? " open" : ""}>
     <summary>${esc(draft ? STRINGS.draftHeading : STRINGS.previewHeading)}</summary>
     <pre class="report-preview-text">${esc(issueReportText(issue))}</pre>
     ${withCopy ? `<button type="button" class="secondary-button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button>` : ""}
@@ -4053,7 +4192,9 @@ function renderTrendTopicFlow() {
   // 한 주를 독자가 채워 읽는다.
   document.getElementById("trendTopicFlowTitle").textContent =
     `최근 ${rows[0].span}주 동안 어디로 움직였나`;
-  document.getElementById("trendTopicFlowRows").innerHTML = rows.map(topicFlowRow).join("");
+  const scale = topicFlowScale(rows);
+  document.getElementById("trendTopicFlowRows").innerHTML =
+    rows.map(row => topicFlowRow(row, 0, rows, scale)).join("");
 }
 
 // 주간 고정 코너 — 1440·DeBriefed 의 '그릇을 안 바꾼다'. 순서·이름을 주마다
@@ -5501,6 +5642,19 @@ function bind() {
    "weeklyReportBody", "insightList",
    "recentIssueList"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
+  });
+  // 레일이 따라갈 카드를 고른다. 마우스가 얹히거나 키보드 포커스가 들어오면
+  // 바뀐다 — 누르는 동작은 이미 '펼치기'가 쓰고 있어서 선택까지 겸하면 펼치지
+  // 않고는 근거를 못 본다. hover 는 넓은 화면에서만 의미가 있고, focusin 이
+  // 키보드·터치 경로를 받는다.
+  ["mouseover", "focusin"].forEach(type => {
+    document.getElementById("pickList").addEventListener(type, event => {
+      const card = event.target.closest?.(".pick-card");
+      if (!card || card.classList.contains("is-railed")) return;
+      const index = [...card.parentElement.children].indexOf(card);
+      const issue = pickRailPicks[index];
+      if (issue) renderPickRail(pickRailPicks, issue.issue_id);
+    });
   });
   document.getElementById("clearRecentIssues")?.addEventListener("click", () => {
     try { localStorage.removeItem("nuclens-recent-issues"); } catch { /* 무해 */ }
