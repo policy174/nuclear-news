@@ -311,7 +311,10 @@ def _normalize_archive_record(record: dict) -> dict:
     normalized = dict(record)
     # 레코드가 이미 들고 있으면 그것이 이긴다 — 백필은 빈자리만 메운다.
     filled = source_backfill().get(str(record.get("hash") or "")) or {}
-    for field in ("site_name", "resolved_url"):
+    # og_image 가 여기 끼는 이유: 크롤의 본문 수집은 **새로 들어온 기사에만**
+    # 돈다(news_bot: fetch_bodies(new_articles)). 전환점은 대개 며칠 전 기사라
+    # 이미 아카이브에 있고, 그러면 사진이 영영 안 붙는다 — 백필이 유일한 경로다.
+    for field in ("site_name", "resolved_url", "og_image"):
         if filled.get(field) and not normalized.get(field):
             normalized[field] = filled[field]
     normalized["url"] = normalize_url(record.get("url"))

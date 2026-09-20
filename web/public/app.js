@@ -2154,7 +2154,11 @@ function renderBriefing() {
   // 안 서서 표지가 통째로 사라진다. 실측(45일): 상위 3건 안에 다일자 이슈가
   // 있는 날이 38/45(84%). 순위를 뒤집는 것이 아니라 **표지 자격**만 보는 것이고,
   // 아래 3건 목록의 순서는 그대로다.
-  const heroPick = picks.find(issue => issueBeats(issue).length >= 2) || picks[0] || null;
+  const heroReady = picks.filter(issue => issueBeats(issue).length >= 2);
+  const hasPhoto = issue => (issue.related_articles || []).some(a => a.og_image);
+  // 자격(다일자)을 통과한 것들 안에서만 사진 유무를 본다 — 순위를 사진이
+  // 뒤집으면 안 된다. 자격자가 하나뿐이면 사진이 없어도 그것이 선다.
+  const heroPick = heroReady.find(hasPhoto) || heroReady[0] || picks[0] || null;
   // 표지가 서면 리드 문장은 숨는다 — 표지가 같은 말을 더 크게 한다.
   const heroUp = renderLeadHero(heroPick);
   lede.hidden = heroUp;
@@ -2253,7 +2257,8 @@ function renderLeadHero(issue) {
   const seen = new Set();
   const three = picked.filter(b => !seen.has(b.date) && seen.add(b.date));
   const last = beats[beats.length - 1];
-  const photo = [...beats].reverse().find(b => b.img)?.img || "";
+  const photo = [...beats].reverse().find(b => b.img)?.img
+    || (issue.related_articles || []).map(a => a.og_image).find(Boolean) || "";
   const verState = verificationState(issue);
   const chron = chronicleFor(issue);
   const trackedDays = chron
@@ -3133,6 +3138,13 @@ function issueBeats(issue, limit = 5) {
   const events = (chron?.events?.length ? chron.events : (issue.related_articles || []))
     .filter(event => event && event.article_date);
   if (events.length < 2) return [];
+  // 원장(chronicles.json)은 봇이 직접 쓰는 append-only 파일이라 og_image 칸이
+  // 없다 — 원장을 우선 쓰면 사진이 영영 안 붙는다(실측). 원장을 고치지 않고
+  // 같은 hash 의 이슈 기사에서 보충한다: 둘은 같은 기사이고 해시가 그 증거다.
+  const photoByHash = new Map();
+  (issue.related_articles || []).forEach(a => {
+    if (a && a.hash && a.og_image) photoByHash.set(a.hash, a.og_image);
+  });
 
   const byDay = new Map();
   events.forEach(event => {
@@ -3158,7 +3170,7 @@ function issueBeats(issue, limit = 5) {
       title: head.title_kr || head.title || "",
       publisher: head.publisher || head.domain || "",
       url: head.url || "",
-      img: head.og_image || "",
+      img: head.og_image || photoByHash.get(head.hash) || "",
       outlets: outlets(day),
       count: byDay.get(day).length,
       event_date: head.event_date && head.event_date !== day ? head.event_date : "",

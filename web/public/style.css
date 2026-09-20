@@ -3930,7 +3930,13 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   .lead-art { order: -1; min-height: 180px; }
   .lead-text { padding: var(--sp-4) var(--sp-4) var(--sp-5); }
   .lead-title button { font-size: 24px; line-height: 1.34; }
-  .lead-deck { display: none; }
+  /* 요약은 남긴다 — 감췄더니 표지가 제목 한 줄만 말하고 끝나서 아래 3건 카드
+     보다 오히려 빈약해졌다(지니 09-21). 두 줄로 잘라 높이만 묶는다. */
+  .lead-deck {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; font-size: var(--t-body); line-height: 1.66;
+    margin-bottom: var(--sp-4);
+  }
   .lead-beats { display: none; }
   .lead-foot { padding: 0 var(--sp-4) var(--sp-4); justify-content: flex-start; }
 }
