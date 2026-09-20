@@ -5059,6 +5059,11 @@ def build() -> None:
             "features": record.get("features") or {},
             "article_type": record.get("article_type", ""),
             "url": source_url(record),
+            # 전환점 썸네일. 이 dict 는 화이트리스트라 여기 없는 필드는 조용히
+            # 버려진다 — _normalize_archive_record 가 백필에서 붙여 준 og_image 가
+            # 실제로 여기서 떨어지고 있었다(2026-09-21: 라이브 데이터에 키는 있고
+            # 값은 전부 빈 문자열). 정규화만 고치면 되는 줄 알았던 자리다.
+            "og_image": record.get("og_image", ""),
             "domain": record.get("domain", ""),
             "publisher": record.get("publisher", ""),
             "source_tier": record.get("source_tier"),

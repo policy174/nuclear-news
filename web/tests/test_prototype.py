@@ -3139,30 +3139,61 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertIn(".beat-thumb.is-empty::after", css, "빈 칸 표기가 없다")
         self.assertIn("사진 없음", css, "빈 칸을 말없이 비워 둔다")
 
-    def test_card_strip_sits_below_the_picks_on_desktop_only(self):
-        """카드뉴스는 넓은 화면에서 '먼저 볼 3건' **바로 아래**에 선다(지니 09-20).
+    def test_og_image_survives_every_hop_to_the_screen(self):
+        """사진은 네 단계를 거쳐 화면에 온다 — 한 곳만 빠져도 전부 빈 칸이다.
 
-        09-17 에는 3건 **위**였다. 그런데 그날의 카드는 밤에 커밋되므로 낮에 보는
-        띠는 대개 어제 것이다 — 위에 두면 첫 화면 맨 위의 가장 큰 시각 블록이
-        어제 3건이고 바로 아래가 오늘 3건이라, 한 화면에 '오늘 3건'이 두 벌 선다.
-        한 칸 내려 오늘 3건을 먼저 읽히게 한다.
+        2026-09-21 라이브에서 실제로 그랬다: 키는 있고 값은 전부 빈 문자열.
+        정규화(백필)와 최종 뷰만 고쳤는데 그 사이 `visible` 화이트리스트가
+        조용히 버리고 있었다. 새 dict 를 만드는 자리가 셋이라 하나를 놓치기 쉽다.
 
-        원래 자리(목차 다음)까지 내리지는 않는다 — 거기서는 1,238px 아래라
-        사실상 안 보였다. 폰은 목차 다음 그대로: 위로 올리면 3건이 첫 화면 밖으로
-        나간다.
+            크롤/백필 → _normalize_archive_record → visible(화이트리스트)
+                     → _article_view → issues.json
+        """
+        source = (Path(__file__).resolve().parents[1] / "build_data.py").read_text(encoding="utf-8")
+        # ① 백필이 채울 수 있어야 한다
+        self.assertIn('"site_name", "resolved_url", "og_image"', source,
+                      "백필 필드 목록에서 og_image 가 빠졌다")
+        # ② 표시 레코드를 새로 만드는 화이트리스트가 들고 가야 한다
+        self.assertIn('"og_image": record.get("og_image", "")', source,
+                      "visible 화이트리스트가 og_image 를 버린다 — 라이브에서 겪은 그 버그")
+        # ③ 최종 기사 뷰가 내보내야 한다
+        self.assertIn('"og_image": article.get("og_image", "")', source,
+                      "_article_view 가 og_image 를 안 내보낸다")
+
+    def test_card_strip_sits_at_the_very_bottom(self):
+        """카드뉴스는 홈 맨 아래다(지니 2026-09-21). 폭에 따라 자리를 바꾸지 않는다.
+
+        09-17 엔 3건 위, 09-20 엔 3건 아래였다가 여기로 왔다. 위에 두면 안 되는
+        이유가 둘이다. ①카드는 밤에 커밋되므로 낮에 보는 띠는 대개 **어제 것**이고
+        오늘 지면 위에 어제 카드가 선다. ②내용이 지면과 같다 — 같은 3건을 더
+        간략히 말한 것이라 위에서 읽을 이유가 없다.
+
+        그럼에도 사이트에 남기는 이유는 **가져가는 것**이라서다: 임직원이 캡처해
+        보고·카톡에 붙이는 것이 이 서비스의 실제 유통 경로다. 다 읽은 뒤 부록이
+        맞는 자리다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         place = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("narrowScreen.matches", place, "폭 판정이 없다")
-        self.assertIn("picks.after(strip)", place, "3건 아래 배치가 없다")
-        self.assertNotIn("picks.before(strip)", place, "3건 위로 되돌아갔다")
-        self.assertIn("panel.after(strip)", place, "좁은 화면 원위치 복귀가 없다")
-        self.assertIn('narrowScreen.addEventListener("change", placeCardStrip)', script,
-                      "회전·창 크기 변경에 자리가 안 따라간다")
-        # 3건은 근거 레일과 함께 2단 래퍼(.today-picks) 안에 있다. 띠를 목록
-        # 바로 뒤에 넣으면 격자 안으로 들어가 레일 밑으로 접힌다 — 래퍼 뒤여야 한다.
-        self.assertIn('querySelector(".today-picks")', place,
-                      "띠가 2단 격자 안으로 들어간다")
+        self.assertIn("feed-drawer", place, "맨 아래(수집 원문 서랍 앞) 기준점이 없다")
+        self.assertIn("anchor.before(strip)", place)
+        # 폭 분기가 남아 있으면 옛 동작이 되살아난 것이다.
+        self.assertNotIn("narrowScreen", place, "폭에 따라 자리를 바꾸고 있다")
+        self.assertNotIn("picks.after(strip)", place)
+        self.assertNotIn("picks.before(strip)", place)
+
+    def test_audio_bar_sits_right_under_the_lead(self):
+        """오디오는 표지 바로 아래 한 줄이다.
+
+        표지 **안**이 아닌 이유: 오디오는 1위 이슈가 아니라 그날 브리핑 전체를
+        읽는다 — 테두리 안에 넣으면 이 이슈의 음성으로 읽힌다. 종전 자리(상태줄
+        뒤, 목차·의제 다음)에서는 한참 스크롤해야 나와 발견이 안 됐다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        place = script.split("function placeAudioBar(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("leadHero", place, "표지를 기준으로 삼지 않는다")
+        self.assertIn("anchor.after(audio)", place)
+        # 표지가 안 서는 날(하루짜리 이슈)에는 3건 목록이 기준이 되어야 한다.
+        self.assertIn("pickList", place, "표지가 없는 날의 기준점이 없다")
 
     def test_cooldown_does_not_rank_must_read_against_must_read(self):
         """must_read 끼리는 쿨다운이 순위를 가르지 않는다.

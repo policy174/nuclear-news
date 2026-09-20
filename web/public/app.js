@@ -1806,25 +1806,33 @@ function bindCardStripNav() {
   sync();
 }
 
-// 데스크톱에서 카드뉴스는 '먼저 볼 3건' **바로 아래**에 선다(지니 09-20).
-// 09-17 에는 3건 위였는데, 카드는 대개 **어제** 것이라(그날 카드는 밤에 커밋된다)
-// 위에 두면 첫 화면 맨 위의 가장 큰 시각 블록이 어제 3건이고 그 바로 밑이 오늘
-// 3건이 된다 — 같은 화면에 '오늘 3건'이 두 벌 선다. 한 칸 내리면 오늘 3건이
-// 먼저 읽히고 카드는 '같은 내용을 카드로도 본다'는 보조 자리로 내려간다.
-// 원래 자리(목차 아래)까지 내리지는 않는다 — 거기서는 1,238px 아래라 안 보였다.
-// 폰은 목차 다음 그대로 — 거기서는 띠가 위에 오면 3건이 첫 화면 밖으로 나간다.
+// 카드뉴스는 홈 **맨 아래**다(지니 09-21). 폭에 따라 자리를 바꾸지 않는다.
+//
+// 위에 두면 안 되는 이유가 둘이다. ①카드는 밤에 커밋되므로 낮에 보는 띠는
+// 대개 **어제 것**이고, 오늘 지면 위에 어제 카드가 선다. ②내용이 지면과 같다 —
+// 같은 3건을 더 간략히 말한 것이라 위에서 읽을 이유가 없다.
+//
+// 그럼에도 사이트에 남기는 이유는 **가져가는 것**이라서다: 임직원이 캡처해
+// 보고·카톡에 붙이는 것이 이 서비스의 실제 유통 경로다(style.css 팔레트 주석).
+// 그러면 자리는 다 읽은 뒤 부록이 맞다.
+// 오디오는 표지 바로 아래 한 줄이다. 표지 **안**이 아닌 이유: 오디오는 1위
+// 이슈가 아니라 그날 브리핑 전체를 읽는다 — 표지 테두리 안에 넣으면 이 이슈의
+// 음성으로 읽힌다. 종전 자리(상태줄 뒤, 목차·의제 다음)에서는 한참 스크롤해야
+// 나와서 매일 나오는 기능인데도 발견이 안 됐다.
+function placeAudioBar() {
+  const audio = document.getElementById("audioBrief");
+  const hero = document.getElementById("leadHero");
+  const picks = document.getElementById("pickList");
+  const anchor = (hero && !hero.hidden) ? hero : picks;
+  if (!audio || !anchor) return;
+  if (audio.previousElementSibling !== anchor) anchor.after(audio);
+}
+
 function placeCardStrip() {
   const strip = document.getElementById("cardStrip");
-  // 3건 목록은 2단 래퍼 안에 있다(목록 + 근거 레일). 띠를 목록 바로 뒤에 넣으면
-  // 2단 격자 안에 들어가 레일 밑으로 접힌다 — 래퍼 뒤에 붙인다.
-  const picks = document.querySelector(".today-picks") || document.getElementById("pickList");
-  const panel = document.getElementById("briefPanel");
-  if (!strip || !picks || !panel) return;
-  if (!narrowScreen.matches) {
-    if (strip.previousElementSibling !== picks) picks.after(strip);
-  } else if (strip.previousElementSibling !== panel) {
-    panel.after(strip);          // 원래 자리 — 목차 다음
-  }
+  const anchor = document.querySelector("#view-news .feed-drawer");
+  if (!strip || !anchor) return;
+  if (strip.nextElementSibling !== anchor) anchor.before(strip);
 }
 
 function renderTodayAgenda(briefing) {
@@ -2162,6 +2170,9 @@ function renderBriefing() {
   // 표지가 서면 리드 문장은 숨는다 — 표지가 같은 말을 더 크게 한다.
   const heroUp = renderLeadHero(heroPick);
   lede.hidden = heroUp;
+  // 표지가 선 뒤에 불러야 한다 — 앞에서 부르면 기준점이 아직 없어서 오디오가
+  // 3건 목록 래퍼(.today-picks) 안으로 들어간다(실측 2026-09-21).
+  placeAudioBar();
   // 표지에 세운 이슈는 아래 목록에서 뺀다. 같은 이슈가 한 화면에 두 번 서면
   // 3건이 실은 2건이 되고, 표지가 "고른 하나"가 아니라 "첫 줄"로 읽힌다.
   if (heroUp && heroPick) {
@@ -5391,7 +5402,6 @@ function initFilterDrawers() {
   });
   narrowScreen.addEventListener("change", syncArchiveDrawer);
   narrowScreen.addEventListener("change", placeTodayAgenda);
-  narrowScreen.addEventListener("change", placeCardStrip);
   // 경계를 넘나들면 자리도 따라와야 한다 — 안 하면 리사이즈한 사람만 어긋난 채 본다.
   railScreen.addEventListener("change", () => { if (appReady) renderBriefing(); });
   syncArchiveDrawer();

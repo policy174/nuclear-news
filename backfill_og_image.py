@@ -85,13 +85,20 @@ def main() -> int:
         try:
             data = json.loads(Path(args.from_issues).read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
-            print(f"[og] --from-issues 를 못 읽었다: {exc}")
-            return 1
-        rows = data if isinstance(data, list) else (data.get("issues") or [])
-        wanted = {str(a.get("hash") or "")
-                  for issue in rows for a in (issue.get("related_articles") or [])}
-        wanted.discard("")
-        print(f"[og] 이슈에 붙은 기사 {len(wanted)}건으로 대상을 좁힌다")
+            # 죽지 않는다. issues.json 은 build_data 의 **산출물**이라 첫 빌드
+            # 전에는 없고, 그때 백필이 통째로 꺼지면 사진이 영영 안 붙는다
+            # (2026-09-21 CI 첫 실행이 정확히 이렇게 조용히 스킵됐다).
+            print(f"[og] --from-issues 를 못 읽어 아카이브 전체로 진행한다: {exc}")
+            data = None
+        if data is None:
+            rows = []
+        else:
+            rows = data if isinstance(data, list) else (data.get("issues") or [])
+        if rows:
+            wanted = {str(a.get("hash") or "")
+                      for issue in rows for a in (issue.get("related_articles") or [])}
+            wanted.discard("")
+            print(f"[og] 이슈에 붙은 기사 {len(wanted)}건으로 대상을 좁힌다")
     todo = []
     for record in archive_records(args.days):
         h = str(record.get("hash") or "")
