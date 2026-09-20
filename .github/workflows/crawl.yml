@@ -305,6 +305,13 @@ jobs:
           )
           echo "마지막 배포로부터 ${age}분 경과 (최소 간격 ${MIN_GAP_MIN}분)"
           if [ "$age" -lt "$MIN_GAP_MIN" ]; then echo "간격 미달 — 배포 스킵"; exit 0; fi
+          # 전환점 썸네일용 og:image. 크롤의 본문 수집은 새 기사만 보는데
+          # 화면이 사진을 쓰는 자리는 며칠 전 기사(전환점)라 백필이 유일한
+          # 경로다. --from-issues 로 실제로 화면에 뜨는 기사만 노린다(아카이브
+          # 전수는 4배를 더 때리고도 화면에 차이가 없다).
+          # **build_data 앞**이어야 한다 — 빌드가 이 파일을 읽어 빈자리를 메운다.
+          # 비치명: 실패해도 사진만 빈 칸이고 배포는 계속된다.
+          python backfill_og_image.py --from-issues --days 45 --limit 250             || echo "[og] 백필 실패 — 사진 없이 계속"
           python web/build_data.py
           # 초안은 daily-brief 가 생성한다 — 여기서는 캐시를 공개 파일로 옮기기만
           # 한다(LLM 0회). 안 하면 매시간 배포가 초안 파일을 빠뜨린다.
@@ -331,7 +338,7 @@ jobs:
         run: |
           # 파일별로 가드한다 — 한 파일이 없어서 git add 가 실패하면 나머지
           # 파일의 커밋까지 같이 죽는다(daily_leads.json 데드락과 같은 함정).
-          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json issue_domains.json agenda_log_snapshots.json chronicles.json; do
+          for f in issue_llm_reviews.json keei_llm_matches.json issue_insights.json issue_domains.json agenda_log_snapshots.json chronicles.json archive_source_backfill.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet && exit 0
