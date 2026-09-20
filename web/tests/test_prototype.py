@@ -3160,6 +3160,22 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertIn('"og_image": article.get("og_image", "")', source,
                       "_article_view 가 og_image 를 안 내보낸다")
 
+    def test_card_strip_shows_story_albums_only(self):
+        """띠에 서는 것은 스토리 앨범뿐이다(지니 2026-09-21).
+
+        일일 3건 카드는 위 지면이 같은 3건을 더 자세히 말한다 — 아래에서 또
+        넘길 이유가 없다. 스토리는 한 이슈를 5장으로 푼 것이라 지면에 없는
+        물건이고, 그래서 이것만 남는다. 만드는 것과 텔레그램 발송은 그대로다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        fn = script.split("function renderCardStrip(", 1)[1].split("\\nfunction ", 1)[0]
+        self.assertIn("index.stories", fn)
+        self.assertNotIn("index.dates", fn, "일일 카드가 띠로 되돌아왔다")
+        # 그날치가 없으면 빈 띠가 되므로 최신 몇 편을 세운다 — 날짜에 매면 안 된다.
+        self.assertIn("STORY_SETS", fn)
+        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("스토리 카드뉴스", markup)
+
     def test_card_strip_sits_at_the_very_bottom(self):
         """카드뉴스는 홈 맨 아래다(지니 2026-09-21). 폭에 따라 자리를 바꾸지 않는다.
 

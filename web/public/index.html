@@ -177,10 +177,11 @@
       <div class="shorts-track" id="shortsTrack"></div>
     </section>
 
-    <!-- 카드뉴스 — 텔레그램 앨범과 같은 PNG 를 사이트에서도 넘겨 본다(지니 09-16).
-         /cards/index.json 이 있는 날만 선다. 이미지는 daily-brief 가 커밋한다. -->
+    <!-- 스토리 카드뉴스 — 한 이슈를 5장으로 푼 앨범. 일일 3건 카드는 띠에서 뺐다
+         (지니 2026-09-21): 같은 3건을 위 지면이 이미 말한다. 이미지는 daily-brief 가
+         커밋하고, 스토리가 한 편도 없으면 구역이 통째로 숨는다. -->
     <section id="cardStrip" class="card-strip" aria-labelledby="cardStripTitle" hidden>
-      <div class="card-strip-head"><strong id="cardStripTitle">카드뉴스로 보기</strong><span id="cardStripMeta"></span></div>
+      <div class="card-strip-head"><strong id="cardStripTitle">스토리 카드뉴스</strong><span id="cardStripMeta"></span></div>
       <!-- 폰은 스와이프(가로 스크롤 + 스냅), 넓은 화면은 좌우 버튼(지니 09-17).
            버튼은 터치 기기·좁은 화면에서 숨는다 — 거기선 손가락이 더 빠르다. -->
       <div class="card-strip-viewport">
