@@ -4,9 +4,15 @@
 일일 카드(make_cards.py)가 그날 상위 3건을 한 장씩 훑는 물건이라면, 이건 **며칠에
 걸쳐 이어진 이슈 하나**를 표지·타임라인·쟁점·의미·체크리스트로 끝까지 따라간다.
 
-재료는 전부 chronicle 이다. 타임라인은 `events[]`(실제 기사 날짜·제목), 쟁점·의미는
-`narrative`(국면 서사), 체크리스트는 `watchpoints`. 그래서 **없는 날짜를 지어낼 자리가
-없다** — 프롬프트가 아니라 검증이 그걸 막는다(validate 의 when/숫자 대조).
+재료는 전부 원장에서 온다. 어느 이슈가 어느 스토리인지, 그 스토리가 자격을
+갖췄는지는 `card_context` 가 정하고 — **제목이 아니라 id 로 정한다** — 이 파일은
+거기서 받은 사건 목록에 카피를 입힌다. 타임라인은 그 사건들의 날짜·제목,
+쟁점·의미는 각 사건의 `implication`·`summary`, 체크리스트는 `open_question`·
+`why_important` 다. 그래서 **없는 날짜를 지어낼 자리가 없다** — 프롬프트가 아니라
+검증이 그걸 막는다(validate 의 when/숫자 대조).
+
+사건 하나의 재료는 그 사건의 `source_event_id` 에서만 온다. 다른 사건의 기사를
+끌어와 한 행을 채우지 않는다(`card_context` 모듈 주석 ③).
 
     python story_cards.py --date 2026-09-18        # 그날 사이트 순위로 고른다
     python story_cards.py --date ... --dry         # 렌더 없이 카피만 본다
@@ -23,149 +29,73 @@ import re
 import sys
 from pathlib import Path
 
-import gemini_client
+import card_context
+import card_qa
+
 import make_cards as mc
 
 ROOT = mc.ROOT
-CHRONICLES = ROOT / "chronicles.json"
-NARRATIVES = ROOT / "chronicle_narratives.json"
 ALBUM_FILE = ROOT / "cards" / "story_album.json"
 # 일일 카드와 PNG 폴더를 나눈다. 같은 cards/out 을 쓰면 나중에 도는 쪽이 앞 앨범을
 # 지우고, 그러면 게시·재시도 순서에 따라 엉뚱한 PNG 가 사이트로 간다.
 OUT_DIR = ROOT / "cards" / "out-story"
-os.environ.setdefault("CARDS_OUT", OUT_DIR.name)
-mc.OUT_DIR = OUT_DIR
 
-MIN_EVENTS = 3          # 이보다 적으면 타임라인이 안 선다
-TIMELINE_ROWS = 4
-ISSUE_COUNT = 3
-PILLAR_COUNT = 3
-CHECK_COUNT = 5
 
-# 길이 상한 — 렌더가 줄이기 전에 코드가 막는다(LLM 은 한글 글자 수를 못 센다).
-COVER_HEADLINE_MAX = 26
-COVER_DECK_MAX = 90
-BADGE_VALUE_MAX = 14
-BADGE_LABEL_MAX = 20
-LEDE_MAX = 30
-WHEN_MAX = 16
-WHAT_MAX = 34
-NOTE_MAX = 40
-ISSUE_TITLE_MAX = 14
-ISSUE_POINT_MAX = 30
-WHY_HEADLINE_MAX = 34
-PILLAR_TITLE_MAX = 10
-PILLAR_TEXT_MAX = 44
-QUOTE_MAX = 48
-CHECK_HEADLINE_MAX = 20
-CHECK_TEXT_MAX = 34
-ASIDE_MAX = 64
+def use_story_out_dir() -> None:
+    """렌더 대상을 스토리 폴더로 돌린다. **import 시점이 아니라 여기서 한다.**
 
-ISSUE_ICONS = ("coins", "plant", "doc", "market", "shield", "network")
-PILLAR_ICONS = ("market", "shield", "network", "coins", "plant", "doc")
+    예전에는 이 두 줄이 모듈 맨 위에 있었다. 이 파일이 별도 프로세스로만 불릴
+    때는 맞는 자리였는데, `make_cards` 가 스토리 카피를 검증하려고 이 모듈을
+    지연 import 하기 시작하면서 **import 만으로 일일 카드의 렌더 대상이 바뀌었다.**
 
-SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 카드뉴스 편집자다.
-하나의 이슈가 며칠에 걸쳐 어떻게 움직였는지를 5장짜리 카드뉴스로 만든다.
-입력은 그 이슈의 **사건 목록(events)**, **국면 서사(narrative)**, **관전 포인트
-(watchpoints)** 다. 여기 없는 사실·날짜·수치를 새로 만들지 않는다.
+    2026-09-20 실측: 일일 슬라이드가 `cards/out-story/` 로 구워졌고, 장수 게이트는
+    빈 `cards/out/` 을 보고 `PNG 장수 불일치: 0 ≠ 5` 로 죽었다. 카피는 논리 2회로
+    멀쩡히 나왔는데 워크플로는 빨간불이었다.
 
-JSON 만 출력한다. 스키마:
-{{
- "cover":  {{"chip": 분류 한 단어(예 "해외이슈"), "topic": 보조 라벨(예 "미국 투자"),
-            "headline": {COVER_HEADLINE_MAX}자 이내 제목. 질문형이 좋다. 강조는 `[[대괄호]]`로 한 곳만,
-            "deck": {COVER_DECK_MAX}자 이내 두 문장. 무슨 일이 있었고 무엇이 쟁점인지,
-            "badge": {{"value": 핵심 숫자({BADGE_VALUE_MAX}자 이내, 예 "2,000억 달러"),
-                      "label": 그 숫자가 무엇인지({BADGE_LABEL_MAX}자 이내)}} 또는 null}},
- "facts":  {{"lede": {LEDE_MAX}자 이내 한 줄 요약(강조 한 곳 가능),
-            "timeline": [{{"when": 날짜, "what": {WHAT_MAX}자 이내 그날 일어난 일}}] {TIMELINE_ROWS}개,
-            "note": {NOTE_MAX}자 이내 한 줄 덧붙임(없으면 "")}},
- "issues": [{{"title": {ISSUE_TITLE_MAX}자 이내 쟁점 이름, "points": [{ISSUE_POINT_MAX}자 이내] 2개,
-            "icon": {" | ".join(ISSUE_ICONS)} 중 하나}}] {ISSUE_COUNT}개,
- "why":    {{"headline": {WHY_HEADLINE_MAX}자 이내 한 문장(강조 한 곳 가능),
-            "pillars": [{{"title": {PILLAR_TITLE_MAX}자 이내, "text": {PILLAR_TEXT_MAX}자 이내,
-                        "icon": {" | ".join(PILLAR_ICONS)} 중 하나}}] {PILLAR_COUNT}개,
-            "quotes": [{QUOTE_MAX}자 이내] 2개}},
- "check":  {{"headline": {CHECK_HEADLINE_MAX}자 이내,
-            "checks": [{{"text": {CHECK_TEXT_MAX}자 이내, "done": true/false}}] {CHECK_COUNT}개,
-            "aside": {ASIDE_MAX}자 이내 마무리 한 줄}}
-}}
+    모듈 import 는 다른 모듈의 전역을 건드리지 않는다.
+    """
+    os.environ.setdefault("CARDS_OUT", OUT_DIR.name)
+    mc.OUT_DIR = OUT_DIR
 
-규칙:
-- **timeline[].when 은 입력 events 의 날짜만 쓴다.** 그 날짜에 없던 일을 붙이지 않는다.
-  마지막 칸은 가장 최근 사건이고, when 을 "현재 (9월 17일)" 처럼 써도 된다(날짜는 그대로).
-- **badge.value 의 숫자는 입력에 나온 숫자여야 한다.** 없으면 badge 를 null 로 둔다.
-- checks {CHECK_COUNT}개는 **반드시 섞는다**: 앞의 2~3개는 events 에 이미 있는 사실이라
-  `"done": true`, 나머지 2~3개는 watchpoints 기반의 앞으로 볼 것이라 `"done": false`.
-  전부 true 이거나 전부 false 면 그 카드는 버려진다.
-- 문장은 카드뉴스 말투(~습니다/~입니다)로 짧게. 개조식 명사 나열은 쓰지 않는다.
-- 해석·전망을 사실처럼 쓰지 않는다. 불확실한 건 "미정"·"확정되지 않았습니다"로 남긴다.
-"""
+# `MIN_EVENTS = 3` 은 여기 없다. **자격은 사건 수가 아니라 관계가 정한다** —
+# 발표 → 시행처럼 단계가 넘어간 두 칸은 이야기이고, 같은 사안을 다섯 번 되풀이한
+# 다섯 칸은 이야기가 아니다. 판정은 `card_context.eligibility` 한 곳에 있다.
+#
+# 남은 숫자들은 **재료의 상한**이다. 프롬프트에 원문을 무한히 밀어 넣지 않는다.
+# 규격 숫자와 프롬프트는 `card_editorial` 에 함께 산다 — 프롬프트가 이 숫자를
+# 문장으로 적어야 해서 둘이 갈리면 모델이 코드와 다른 규격을 듣는다. 여기서는
+# 검증이 쓸 이름만 가져온다(두 벌을 두면 한쪽만 고치는 날이 온다).
+from card_editorial import (  # noqa: E402
+    ASIDE_MAX, BADGE_LABEL_MAX, BADGE_VALUE_MAX, CHECK_COUNT, CHECK_HEADLINE_MAX,
+    CHECK_TEXT_MAX, COVER_DECK_MAX, COVER_HEADLINE_MAX, ISSUE_COUNT, ISSUE_ICONS,
+    ISSUE_POINT_MAX, ISSUE_TITLE_MAX, LEDE_MAX, NOTE_MAX, PILLAR_COUNT,
+    PILLAR_ICONS, PILLAR_TEXT_MAX, PILLAR_TITLE_MAX, QUOTE_MAX, TIMELINE_ROWS,
+    WHAT_MAX, WHEN_MAX, WHY_HEADLINE_MAX,
+)
 
 
 # ---- A. 재료 ------------------------------------------------------------------
 
+def build_payload(candidate: card_context.StoryCandidate, date: str) -> dict:
+    """Evidence Packet. 실제 조립은 `card_context` 가 한다.
 
-def load_chronicles() -> dict:
-    if not CHRONICLES.exists():
-        return {}
-    return json.loads(CHRONICLES.read_text(encoding="utf-8")).get("chronicles") or {}
-
-
-def load_narratives() -> dict:
-    if not NARRATIVES.exists():
-        return {}
-    return json.loads(NARRATIVES.read_text(encoding="utf-8")).get("narratives") or {}
-
-
-def pick_story(date: str) -> tuple[dict, dict] | None:
-    """그날 사이트 순위 위에서부터 내려가며 **스토리가 붙은 첫 이슈**를 고른다.
-
-    순위를 다시 매기지 않는다 — 카드가 사이트와 다른 걸 1위로 세우면 둘이 갈린다.
+    여기 두면 make_cards 가 같은 것을 쓰려다 순환 import 가 된다(story_cards 가
+    make_cards 를 읽는다). 재료 조립은 원래 card_context 의 일이다.
     """
-    rows = mc.load_site_ranking(date)
-    if not rows:
-        return None
-    chron, nar = load_chronicles(), load_narratives()
-    if not chron:
-        return None
-    by_hash: dict[str, dict] = {}
-    for c in chron.values():
-        for ev in c.get("events") or []:
-            by_hash.setdefault(str(ev.get("hash") or ""), c)
-    for row in rows:
-        rep = row.get("representative_article") or {}
-        c = by_hash.get(str(rep.get("hash") or ""))
-        if not c or len(c.get("events") or []) < MIN_EVENTS:
-            continue
-        n = nar.get(c.get("chronicle_id"))
-        if not n or not (n.get("narrative") or {}).get("narrative"):
-            continue
-        return row, {"chronicle": c, "narrative": n["narrative"]}
-    return None
-
-
-def build_payload(row: dict, story: dict, date: str) -> dict:
-    c, n = story["chronicle"], story["narrative"]
-    events = sorted(c.get("events") or [], key=lambda e: str(e.get("article_date") or ""))
-    rep = row.get("representative_article") or {}
-    return {
-        "date": date,
-        "issue_title": row.get("title") or c.get("title"),
-        "topic": mc.topic_label(row),
-        "events": [{"date": e.get("article_date"), "title": e.get("title_kr")}
-                   for e in events[-12:] if e.get("article_date")],
-        "narrative": n.get("narrative") or [],
-        "phase_now": n.get("phase_now") or "",
-        "watchpoints": n.get("watchpoints") or [],
-        "summary": rep.get("summary") or row.get("summary") or "",
-        "why_important": row.get("why_important") or "",
-    }
+    return card_context.evidence_packet(candidate, date, topic=mc.topic_label(candidate.issue))
 
 
 # ---- B. 검증 ------------------------------------------------------------------
 
 
 _NUM_RE = re.compile(r"[0-9][0-9,.]*")
+
+
+# 모델은 상한 근처에서 1~2자를 넘긴다(실측: cover.headline 27/26, lede 36/30 —
+# 재시도해도 같은 자리에서 걸린다). 그 한 글자 때문에 카드를 통째로 버리면 그날
+# 스토리가 안 나간다(폴백이 없는 트랙이다). **길이에만** 2자를 연다 —
+# 날짜·숫자 대조에는 여유를 주지 않는다. 그건 지어내기 방지라 성격이 다르다.
+LEN_SLACK = 2
 
 
 def _line(problems: list[str], where: str, text, limit: int, accent_ok: bool = False) -> None:
@@ -176,7 +106,7 @@ def _line(problems: list[str], where: str, text, limit: int, accent_ok: bool = F
         problems.append(f"{where}: 강조 표기는 여기 못 쓴다")
     if text.count("[[") > 1:
         problems.append(f"{where}: 강조는 한 곳만")
-    if mc.visible_len(text) > limit:
+    if mc.visible_len(text) > limit + LEN_SLACK:
         problems.append(f'{where}: {mc.visible_len(text)}자 > {limit} — "{text[:22]}…"')
 
 
@@ -190,6 +120,92 @@ def _dates_in(payload: dict) -> set[str]:
             continue
         y, mo, da = m.group(1), int(m.group(2)), int(m.group(3))
         out |= {d, f"{y}년 {mo}월 {da}일", f"{mo}월 {da}일", f"{y}.{mo:02d}.{da:02d}"}
+    return out
+
+
+
+def _event_for_row(row: dict, payload: dict) -> dict | None:
+    """타임라인 한 행이 가리키는 **그 사건**. 날짜로 찾는다.
+
+    카피는 `source_event_id` 를 적지 않는다(화면에 안 나가는 값을 쓰게 하면
+    그것부터 지어낸다). 대신 행의 `when` 이 어느 사건의 날짜인지로 되짚는다 —
+    날짜는 이미 "입력 events 의 것만" 으로 검증되는 값이다.
+    """
+    when = str(row.get("when") or "")
+    for event in payload.get("events") or ():
+        stamp = str(event.get("date") or "")
+        if not stamp:
+            continue
+        year, month, day = stamp[:4], int(stamp[5:7]), int(stamp[8:10])
+        for form in (stamp, f"{year}년 {month}월 {day}일", f"{month}월 {day}일",
+                     f"{year}.{month:02d}.{day:02d}"):
+            if form in when or when in form:
+                return event
+    return None
+
+
+def _fit(text, limit: int) -> str:
+    """상한 안으로. 절 경계에서 끊고, 못 끊으면 그대로 둔다(검증이 잡는다)."""
+    if not isinstance(text, str):
+        return text
+    return text if mc.visible_len(text) <= limit else mc.clip(text, limit)
+
+
+def normalize(raw: dict, payload: dict) -> dict:
+    """LLM 출력을 카드 규격으로 다듬는다. **버리는 것과 고치는 것을 가른다.**
+
+    길이 초과는 고친다 — 한 글자 넘겼다고 그날 스토리를 통째로 빼는 건 손해다
+    (실측: cover.headline 이 26자 상한에서 29~32자로 세 번 연속 걸렸다).
+    반대로 **입력에 없는 날짜·숫자는 고치지 않고 버린다** — 그건 길이 문제가
+    아니라 지어낸 것이고, 이 카드의 존재 이유가 '날짜를 지어낼 자리가 없다'는
+    점이기 때문이다. 아래는 전부 자르기이고, 지어내기 판정은 validate 가 한다.
+    """
+    if not isinstance(raw, dict):
+        return raw
+    out = json.loads(json.dumps(raw, ensure_ascii=False))
+    cover = out.get("cover") or {}
+    cover["headline"] = _fit(cover.get("headline"), COVER_HEADLINE_MAX)
+    cover["deck"] = _fit(cover.get("deck"), COVER_DECK_MAX)
+    if isinstance(cover.get("badge"), dict):
+        cover["badge"]["label"] = _fit(cover["badge"].get("label"), BADGE_LABEL_MAX)
+
+    facts = out.get("facts") or {}
+    facts["lede"] = _fit(facts.get("lede"), LEDE_MAX)
+    if facts.get("note"):
+        facts["note"] = _fit(facts["note"], NOTE_MAX)
+    known = _dates_in(payload)
+    rows = [r for r in (facts.get("timeline") or []) if isinstance(r, dict)]
+    if known:
+        # 입력에 없는 날짜의 행은 **버린다**(자르지 않는다). 모델이 events 가
+        # 모자랄 때 "현재 (9월 9일)" 같은 행을 만들어 채우는 것을 봤다.
+        rows = [r for r in rows
+                if any(k in str(r.get("when") or "") or str(r.get("when") or "") in k
+                       for k in known)]
+    want = min(TIMELINE_ROWS, len(payload.get("events") or [])) or TIMELINE_ROWS
+    for r in rows:
+        r["what"] = _fit(r.get("what"), WHAT_MAX)
+        r["when"] = _fit(r.get("when"), WHEN_MAX)
+    facts["timeline"] = rows[:want]
+
+    for it in (out.get("issues") or []):
+        if isinstance(it, dict):
+            it["title"] = _fit(it.get("title"), ISSUE_TITLE_MAX)
+            it["points"] = [_fit(t, ISSUE_POINT_MAX) for t in (it.get("points") or [])][:2]
+
+    why = out.get("why") or {}
+    why["headline"] = _fit(why.get("headline"), WHY_HEADLINE_MAX)
+    if why.get("quote"):
+        why["quote"] = _fit(why["quote"], QUOTE_MAX)
+    for pl in (why.get("pillars") or []):
+        if isinstance(pl, dict):
+            pl["title"] = _fit(pl.get("title"), PILLAR_TITLE_MAX)
+            pl["text"] = _fit(pl.get("text"), PILLAR_TEXT_MAX)
+
+    check = out.get("check") or {}
+    check["headline"] = _fit(check.get("headline"), CHECK_HEADLINE_MAX)
+    for it in (check.get("checks") or []):
+        if isinstance(it, dict):
+            it["text"] = _fit(it.get("text"), CHECK_TEXT_MAX)
     return out
 
 
@@ -207,20 +223,27 @@ def validate(raw: dict, payload: dict) -> list[str]:
         _line(problems, "cover.badge.value", badge.get("value"), BADGE_VALUE_MAX)
         _line(problems, "cover.badge.label", badge.get("label"), BADGE_LABEL_MAX)
         # 숫자는 재료에 있던 것만. 카드에서 제일 크게 박히는 자리라 지어내면 바로 사고다.
+        #
+        # 예전에는 `num in haystack` 이었다. 부분 문자열이라 **"17" 이 "170" 안에
+        # 있다고 근거로 인정됐다.** 값과 단위를 한 덩어리로 묶어 비교한다.
         haystack = json.dumps(payload, ensure_ascii=False)
-        nums = _NUM_RE.findall(str(badge.get("value") or ""))
-        for num in nums:
-            if num.replace(",", "") not in haystack.replace(",", ""):
-                problems.append(f'cover.badge.value: "{num}" 은 입력에 없는 숫자')
+        for problem in card_qa.ungrounded(badge.get("value"), haystack):
+            problems.append(f"cover.badge.value: {problem}")
 
     facts = raw.get("facts") or {}
     _line(problems, "facts.lede", facts.get("lede"), LEDE_MAX, accent_ok=True)
     if facts.get("note"):
         _line(problems, "facts.note", facts.get("note"), NOTE_MAX)
     timeline = facts.get("timeline")
-    if not isinstance(timeline, list) or len(timeline) != TIMELINE_ROWS:
+    # events 가 4건 미만인 스토리도 있다 — 그럴 땐 있는 만큼이 정답이다.
+    # v1 은 정확히 4행을 요구했다. v2 에서는 normalize 가 **입력에 없는 날짜의 행을
+    # 버리기** 때문에 3행으로 내려올 수 있다(모델이 "현재 (9월 9일)" 같은 행을 즐겨
+    # 만든다). 지어낸 행을 지우고 남은 3행이 4행을 채운 거짓말보다 낫다 — 범위로 본다.
+    want = min(TIMELINE_ROWS, len(payload.get("events") or [])) or TIMELINE_ROWS
+    lo = 2 if want > 2 else want
+    if not isinstance(timeline, list) or not lo <= len(timeline) <= want:
         problems.append(f"facts.timeline: {len(timeline) if isinstance(timeline, list) else '?'}개 "
-                        f"— {TIMELINE_ROWS}개여야 한다")
+                        f"— {lo}~{want}개여야 한다")
     else:
         known = _dates_in(payload)
         for i, rowx in enumerate(timeline, start=1):
@@ -229,6 +252,16 @@ def validate(raw: dict, payload: dict) -> list[str]:
                 continue
             _line(problems, f"facts.timeline[{i}].when", rowx.get("when"), WHEN_MAX)
             _line(problems, f"facts.timeline[{i}].what", rowx.get("what"), WHAT_MAX)
+            # **한 행은 자기 사건만 인용한다.** 행의 날짜로 어느 event 인지
+            # 정하고, 그 event 의 재료에 없는 숫자를 쓰면 다른 날 사건의 근거를
+            # 끌어온 것이다(cross-event leakage). 스토리 전체의 '왜 중요한가'만
+            # 여러 사건을 함께 인용할 수 있다.
+            own = _event_for_row(rowx, payload)
+            if own is not None:
+                material = json.dumps(own, ensure_ascii=False)
+                for problem in card_qa.ungrounded(rowx.get("what"), material):
+                    problems.append(f"facts.timeline[{i}].what: {problem} "
+                                    f"(이 행은 {own.get('date')} 사건이다)")
             when = str(rowx.get("when") or "")
             if known and not any(k in when or when in k for k in known):
                 problems.append(f'facts.timeline[{i}].when: "{when}" 은 events 에 없는 날짜')
@@ -319,15 +352,28 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
     return slides
 
 
-def ask_llm(payload: dict, problems: list[str] | None = None) -> dict:
-    body = dict(payload)
-    if problems:
-        body["fix_these"] = problems
-    return gemini_client.call_json(
-        SYSTEM_PROMPT, json.dumps(body, ensure_ascii=False, indent=1),
-        temperature=0.35, max_output_tokens=4096, thinking_budget=0,
-        fallback_model=gemini_client.FALLBACK_MODEL, label="story-cards",
-    )
+def load_story_copy(date: str) -> tuple[dict, dict] | None:
+    """make_cards 가 남긴 (evidence packet, 카피). 없으면 오늘은 스토리가 없다.
+
+    **여기서 LLM 을 부르지 않는다.** 그날의 편집 판단은 make_cards 가 이미
+    한 번 했고(`card_editorial` 모듈 주석), 이 스크립트가 다시 부르면 같은 날
+    두 산출물이 서로 다른 판단 위에 서게 된다.
+    """
+    if not mc.STORY_COPY_FILE.exists():
+        return None
+    try:
+        saved = json.loads(mc.STORY_COPY_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"[story] {mc.STORY_COPY_FILE.name} 을 읽지 못했다: {exc}")
+        return None
+    if str(saved.get("date") or "") != date:
+        print(f"[story] 저장된 카피는 {saved.get('date')} 것이다 — 오늘({date}) 것이 아니다")
+        return None
+    payload, copy = saved.get("payload"), saved.get("copy")
+    if not isinstance(payload, dict) or not isinstance(copy, dict):
+        print("[story] 저장된 카피의 모양이 아니다")
+        return None
+    return payload, copy
 
 
 # ---- D. main ------------------------------------------------------------------
@@ -335,8 +381,8 @@ def ask_llm(payload: dict, problems: list[str] | None = None) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--date", help="이 날짜의 사이트 순위로 고른다")
-    ap.add_argument("--dry", action="store_true", help="렌더 없이 카피만 만든다")
+    ap.add_argument("--date", help="이 날짜의 스토리 카피를 렌더한다")
+    ap.add_argument("--dry", action="store_true", help="렌더 없이 카피만 본다")
     ap.add_argument("--copy-file", type=Path, help="사람이 쓴 카피 JSON(같은 검증을 거친다)")
     ap.add_argument("--check", action="store_true", help="검증기 self-check")
     args = ap.parse_args()
@@ -346,44 +392,30 @@ def main() -> int:
         return 0
 
     date = args.date or mc.datetime.now(mc.KST).strftime("%Y-%m-%d")
-    hit = pick_story(date)
-    if not hit:
-        print(f"[story] {date}: 스토리가 붙은 이슈 없음 — 카드 안 만든다")
+    saved = load_story_copy(date)
+    if saved is None:
+        print(f"[story] {date}: 오늘 스토리 카피가 없다 — 카드 안 만든다")
         return 0
-    row, story = hit
-    payload = build_payload(row, story, date)
-    print(f"[story] {payload['issue_title'][:40]} | 이벤트 {len(payload['events'])}건 "
-          f"| 관전 {len(payload['watchpoints'])}건")
-
-    raw, problems = None, []
+    payload, raw = saved
     if args.copy_file:
         raw = json.loads(args.copy_file.read_text(encoding="utf-8"))
-        problems = validate(raw, payload)
-        if problems:
-            print("[story] --copy-file 검증 실패: " + "; ".join(problems[:8]))
-            return 1
-    else:
-        for attempt in (1, 2):
-            try:
-                candidate = ask_llm(payload, problems)
-            except Exception as exc:  # noqa: BLE001 — 부가물이라 원인만 남기고 건너뛴다
-                print(f"[story] LLM 실패 ({attempt}/2): {exc}")
-                continue
-            problems = validate(candidate, payload)
-            if not problems:
-                raw = candidate
-                break
-            print(f"[story] 카피 검증 실패 ({attempt}/2): " + "; ".join(problems[:6]))
-    if raw is None:
-        # 폴백 카피를 만들지 않는다. 스토리 카드는 부가물이고, 재료를 기계적으로
-        # 이어 붙이면 타임라인이 그럴듯한 거짓말이 된다.
-        print("[story] 카피를 못 만들었다 — 오늘 스토리 카드는 건너뛴다")
+    print(f"[story] {payload['issue_title'][:36]} | thread={payload.get('thread_id')} "
+          f"| 사건 {len(payload['events'])}건 | 관전 {len(payload['watchpoints'])}건")
+
+    raw = normalize(raw, payload)
+    problems = validate(raw, payload)
+    if problems:
+        # 폴백 카피를 만들지 않는다. 재료를 기계적으로 이어 붙이면 타임라인이
+        # 그럴듯한 거짓말이 된다. 스토리만 빠지고 일일 카드는 이미 나갔다.
+        print("[story] 카피 검증 실패: " + "; ".join(problems[:8]))
         return 0
+
 
     slides = build_slides(raw, payload)
     if args.dry:
         print(json.dumps(slides, ensure_ascii=False, indent=1))
         return 0
+    use_story_out_dir()
     mc.render(slides)
     files = mc.gate(len(slides))
     plain = raw["cover"]["headline"].replace("[[", "").replace("]]", "")
@@ -391,7 +423,8 @@ def main() -> int:
     ALBUM_FILE.write_text(json.dumps({
         "date": date, "issue": payload["issue_title"],
         "caption": caption,
-        "chronicle_id": story["chronicle"].get("chronicle_id"),
+        "thread_id": payload.get("thread_id", ""),
+        "issue_id": payload.get("issue_id", ""),
         "files": [str(f.relative_to(ROOT)).replace("\\", "/") for f in files],
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[story] {len(files)}장 준비 완료 → {ALBUM_FILE.name}")
@@ -401,7 +434,10 @@ def main() -> int:
 def _self_check() -> None:
     """runnable check — 검증기가 실제로 막는지 본다."""
     payload = {"topic": "해외사업",
+               # 타임라인 4행 규격을 그대로 검사하려면 이벤트도 4건이어야 한다
+               # (events 가 더 적은 날은 그 개수만큼만 쓴다 — 아래에서 따로 본다).
                "events": [{"date": "2026-09-08", "title": "미국, 원전 8기 제안"},
+                          {"date": "2026-09-12", "title": "산업부, 협상 진행 확인"},
                           {"date": "2026-09-16", "title": "국회 보고 취소"},
                           {"date": "2026-09-17", "title": "MOU 서명 연기"}],
                "narrative": ["..."], "phase_now": "...", "watchpoints": ["..."]}
@@ -449,11 +485,24 @@ def _self_check() -> None:
     assert not [p for p in validate(good, payload) if "숫자" in p], "입력에 있는 숫자는 통과"
 
     # 길이·개수
-    bad = mut("cover", headline="가" * (COVER_HEADLINE_MAX + 1))
+    # 길이는 2자까지 봐준다(LEN_SLACK) — 그 안쪽은 통과하고 normalize 가 잘라 넣는다.
+    edge = mut("cover", headline="가" * (COVER_HEADLINE_MAX + LEN_SLACK))
+    assert not any("cover.headline" in p for p in validate(edge, payload)), "여유 안쪽은 통과"
+    fixed = normalize(edge, payload)
+    assert mc.visible_len(fixed["cover"]["headline"]) <= COVER_HEADLINE_MAX, fixed["cover"]["headline"]
+    # 지어낸 날짜 행은 자르는 게 아니라 **버린다**.
+    invented = json.loads(json.dumps(ok))
+    invented["facts"]["timeline"].append({"when": "현재 (9월 9일)", "what": "협상 계속"})
+    assert len(normalize(invented, payload)["facts"]["timeline"]) == TIMELINE_ROWS, "지어낸 행 제거"
+    bad = mut("cover", headline="가" * (COVER_HEADLINE_MAX + LEN_SLACK + 1))
     assert any("cover.headline" in p for p in validate(bad, payload))
     bad = json.loads(json.dumps(ok)); bad["issues"] = bad["issues"][:2]
     assert any("issues" in p for p in validate(bad, payload))
-    bad = json.loads(json.dumps(ok)); bad["facts"]["timeline"] = bad["facts"]["timeline"][:3]
+    # 3행까지는 봐준다(지어낸 행을 버린 결과일 수 있다). 2행 미만이면 타임라인이 아니다.
+    assert not any("timeline" in p for p in
+                   validate({**ok, "facts": {**ok["facts"],
+                                             "timeline": ok["facts"]["timeline"][:3]}}, payload))
+    bad = json.loads(json.dumps(ok)); bad["facts"]["timeline"] = bad["facts"]["timeline"][:1]
     assert any("timeline" in p for p in validate(bad, payload))
     bad = json.loads(json.dumps(ok)); bad["issues"][0]["icon"] = "rocket"
     assert any("목록 밖" in p for p in validate(bad, payload))

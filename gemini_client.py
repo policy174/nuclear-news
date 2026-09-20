@@ -54,6 +54,18 @@ def _resolve(key: str, default: str | None = None) -> str | None:
 API_KEY = _resolve("GEMINI_API_KEY")
 MODEL = _resolve("GEMINI_MODEL", "gemini-2.5-flash")
 
+
+def synthesis_model() -> str:
+    """'무엇을 말할지'를 고르는 자리에 쓰는 모델. llm_policy 가 부른다.
+
+    v2(차장 포크)에서 카드 파이프라인을 들여오며 생긴 구멍이다. v2 는 여기
+    기본값을 gemini-3.5-flash-lite 로 두는데, 이 저장소에서 그 모델은 400 을
+    돌려준 전력이 있다(카드 함정 목록). 그래서 기본값을 v2 에서 베끼지 않고
+    **이 저장소의 MODEL 로 되돌린다** — 환경변수로 올릴 길만 열어 둔다.
+    모델 교체는 카드 이식과 다른 결정이고, 같이 딸려 들어오면 안 된다.
+    """
+    return _resolve("GEMINI_SYNTHESIS_MODEL", MODEL) or MODEL
+
 # 쿼터에 굶었을 때 물러설 모델(콤마 구분 체인). 무료 티어 한도는 **모델별 버킷**이라
 # (429 본문의 quotaId 가 `...PerModel-FreeTier`) 상시 파이프라인이 flash 를 다
 # 태운 날에도 다른 모델은 남아 있다. 실측 2026-08-22: flash 가 온종일 429 인
