@@ -1835,8 +1835,6 @@ function placeCardStrip() {
   const anchor = document.querySelector("#view-news .feed-drawer");
   if (!strip || !anchor) return;
   if (strip.nextElementSibling !== anchor) anchor.before(strip);
-  // 카드뉴스가 옮겨 가면 그 앞에 붙는 영상도 따라가야 한다(표지 이슈가 아닐 때).
-  placeShortsStrip();
 }
 
 // ── 쇼츠 ────────────────────────────────────────────────────────────
@@ -1869,7 +1867,68 @@ function shortsFor(issue) {
   return key ? shortsAll().filter(row => shortsMatch(row, key)) : [];
 }
 
-function shortsTile(row, { link = false } = {}) {
+// 영상은 홈에 자기 구역을 갖지 않는다(지니 2026-09-21: "배치가 너무 이상한데
+// 그냥 거기 누르면 들어갈 수 있게"). 세로 영상 하나에 가로 지면 한 줄을 내주면
+// 무슨 수를 써도 오른쪽이 빈다. 대신 **그 이슈에 배지로 붙는다** — 시안
+// (nuclens-design-v5/build_home.py 의 .playbadge)의 노란 띠 그대로다. 누르면
+// 이슈 상세가 열리고 영상은 거기 맨 앞에 있다.
+function shortsBadge(issue, { compact = false } = {}) {
+  const row = shortsFor(issue)[0];
+  if (!row) return "";
+  const sec = Number(row.seconds) || 0;
+  const len = sec ? ` · ${sec >= 60 ? `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초` : `${sec}초`}` : "";
+  return `<a class="play-badge${compact ? " compact" : ""}" href="/issue/${encodeURIComponent(issue.issue_id)}/"
+    data-play-video="${esc(issue.issue_id)}"><span aria-hidden="true">▶</span>${
+    compact ? "영상" : `이 이슈 영상으로${len}`}</a>`;
+}
+
+// 넓은 화면에서는 눌린 영상이 **따라다닌다**(지니 2026-09-21 "옆 화면에 떠다니게
+// 같이 스크롤할 때마다"). 부르지 않았는데 떠 있는 상자는 안 만든다 — 배지를
+// 누른 사람에게만 붙고, 닫으면 그 방문 동안 다시 안 뜬다. 좁은 화면에서는
+// 지면을 가리므로 대신 이슈 상세를 연다(영상이 거기 맨 앞이다).
+function openVideoDock(issueId) {
+  const issue = currentIssueById(issueId) || state.issues.find(i => i.issue_id === issueId);
+  const row = issue ? shortsFor(issue)[0] : null;
+  if (!row) { openIssueDialog(issueId); return; }
+  let dock = document.getElementById("videoDock");
+  if (!dock) {
+    dock = document.createElement("aside");
+    dock.id = "videoDock";
+    dock.className = "video-dock";
+    dock.setAttribute("aria-label", "영상 재생");
+    document.body.append(dock);
+    dock.addEventListener("click", event => {
+      if (event.target.closest(".dock-close")) closeVideoDock();
+    });
+  }
+  dock.innerHTML = `
+    <div class="dock-head"><strong>${esc(row.title || "영상")}</strong>
+      <button type="button" class="dock-close" aria-label="영상 닫기">✕</button></div>
+    ${shortsTile(row, { link: true, caption: false })}`;
+  dock.hidden = false;
+  const video = dock.querySelector("video");
+  if (video) { video.controls = true; video.play().catch(() => {}); }
+}
+
+// 넓은 화면이면 떠 있는 영상, 좁으면 이슈 상세(영상이 맨 앞이다).
+function handlePlayBadge(event) {
+  const play = event.target.closest("[data-play-video]");
+  if (!play) return false;
+  event.preventDefault();
+  if (window.matchMedia("(min-width: 1100px)").matches) openVideoDock(play.dataset.playVideo);
+  else openIssueDialog(play.dataset.playVideo);
+  return true;
+}
+
+function closeVideoDock() {
+  const dock = document.getElementById("videoDock");
+  if (!dock) return;
+  dock.querySelector("video")?.pause();
+  dock.hidden = true;
+  dock.innerHTML = "";
+}
+
+function shortsTile(row, { link = false, caption = true } = {}) {
   const yt = /^[\w-]{6,20}$/.test(String(row.youtube || "").trim()) ? String(row.youtube).trim() : "";
   const poster = String(row.poster || "").trim()
     ? `/shorts/${encodeURIComponent(String(row.poster).trim())}`
@@ -1880,7 +1939,7 @@ function shortsTile(row, { link = false } = {}) {
     // 메타데이터만 받는다 — 표지가 없으면 첫 프레임이 이 덕에 뜨고, 표지가 있어도
     // 재생 길이를 읽어야 머리글에 실을 수 있다. 본편은 누를 때 받는다.
     : `<video controls playsinline preload="metadata"${poster ? ` poster="${esc(poster)}"` : ""} src="/shorts/${encodeURIComponent(String(row.file || "").trim())}${poster ? "" : "#t=0.1"}"></video>`;
-  const title = String(row.title || "").trim();
+  const title = caption ? String(row.title || "").trim() : "";
   const issueId = String(row.issue_id || "").trim();
   return `<figure class="short">${media}
     <div class="short-meta">
@@ -1888,55 +1947,6 @@ function shortsTile(row, { link = false } = {}) {
       ${link && issueId.startsWith("issue-") ? `<button type="button" class="short-link" data-issue-id="${esc(issueId)}" data-force-dialog="1">이슈 보기 →</button>` : ""}
     </div>
   </figure>`;
-}
-
-let shortsShown = [];
-
-function renderShortsStrip() {
-  const section = document.getElementById("shortsStrip");
-  if (!section) return;
-  // 브리핑 날짜에 매지 않는다 — 쇼츠는 그날의 산물이 아니라 이슈의 산물이라
-  // 하루 지났다고 홈에서 사라지면 만든 값을 못 쓴다. 최신 3개까지.
-  const rows = shortsAll()
-    .slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).slice(0, 3);
-  shortsShown = rows;
-  section.hidden = rows.length === 0;
-  if (!rows.length) return;
-  const track = document.getElementById("shortsTrack");
-  track.innerHTML = rows.map(row => shortsTile(row, { link: true })).join("");
-  const meta = document.getElementById("shortsStripMeta");
-  meta.textContent = rows.length > 1 ? `${rows.length}편` : "";
-  // 재생 길이는 파일이 안다 — index.json 에 손으로 적게 하면 틀린 채로 남는다.
-  // 한 편일 때만 머리글에 싣는다(여러 편이면 어느 편의 길이인지 모른다).
-  const only = rows.length === 1 && track.querySelector("video");
-  if (only) only.addEventListener("loadedmetadata", () => {
-    const sec = Math.round(only.duration || 0);
-    if (sec) meta.textContent = `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초`;
-  }, { once: true });
-  placeShortsStrip();
-}
-
-// 영상은 **그것이 말하는 이슈 곁**에 선다. 오늘 표지가 바로 그 이슈면 표지 바로
-// 아래가 제자리다 — 같은 사건을 두 형식으로 잇달아 내는 것이고, 그 자리에 있으면
-// 설명이 필요 없다. 표지가 다른 이슈인 날에는 아래 미디어 구역(카드뉴스 앞)으로
-// 물러난다. 폭에 따라 자리를 바꾸지는 않는다(지니 09-21).
-function placeShortsStrip() {
-  const strip = document.getElementById("shortsStrip");
-  if (!strip || strip.hidden) return;
-  const hero = document.getElementById("leadHero");
-  const heroId = hero && !hero.hidden ? hero.querySelector("[data-issue-id]")?.dataset.issueId || "" : "";
-  const onCover = heroId && shortsShown.some(row => shortsMatch(row, shortsKey(heroId)));
-  if (onCover) {
-    // 오디오 바가 표지 바로 아래를 이미 쓰고 있으면 그 다음이다.
-    const audio = document.getElementById("audioBrief");
-    const anchor = audio && !audio.hidden && audio.previousElementSibling === hero ? audio : hero;
-    if (strip.previousElementSibling !== anchor) anchor.after(strip);
-    strip.classList.add("on-cover");
-    return;
-  }
-  strip.classList.remove("on-cover");
-  const cards = document.getElementById("cardStrip");
-  if (cards && strip.nextElementSibling !== cards) cards.before(strip);
 }
 
 function renderTodayAgenda(briefing) {
@@ -2067,7 +2077,7 @@ function tocRow(issue, index = 0) {
   return `<div class="toc-row">
   <span class="toc-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
   <span class="toc-body">
-    <span class="toc-meta-line"><span class="toc-region">${esc(issue.region || "")}</span>${tocChips(issue)}</span>
+    <span class="toc-meta-line"><span class="toc-region">${esc(issue.region || "")}</span>${tocChips(issue)}${shortsBadge(issue, { compact: true })}</span>
     <span class="toc-title"><a class="toc-link" href="/issue/${encodeURIComponent(issue.issue_id)}/">${esc(issue.title)}</a></span>
   </span>
   <span class="toc-arrow" aria-hidden="true">→</span>
@@ -2118,7 +2128,7 @@ function pickCard(issue, index) {
       <span class="pick-title">${esc(issue.title)}</span>
       ${why ? `<span class="pick-why">${esc(why)}</span>` : ""}
       <span class="pick-foot">
-        <span class="pick-badge">${verificationBadge(issue, { always: true })}</span>
+        <span class="pick-badge">${verificationBadge(issue, { always: true })}${shortsBadge(issue, { compact: true })}</span>
         <span class="pick-more">자세히<i aria-hidden="true">⌄</i></span>
       </span>
     </span>
@@ -2246,7 +2256,6 @@ function renderBriefing() {
     archive.hidden = true;
   }
   renderCardStrip();
-  renderShortsStrip();
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
 
@@ -2391,7 +2400,7 @@ function renderLeadHero(issue) {
   box.innerHTML = `
     <div class="lead-grid${photo ? "" : " no-art"}">
       <div class="lead-text">
-        <p class="lead-kick">${topicChipHtml(issue)}${trackedDays > 1 ? `<span class="lead-track">추적 ${trackedDays}일</span>` : ""}</p>
+        <p class="lead-kick">${topicChipHtml(issue)}${trackedDays > 1 ? `<span class="lead-track">추적 ${trackedDays}일</span>` : ""}${photo ? "" : shortsBadge(issue)}</p>
         ${photo || sameLine ? "" : `<p class="lead-latest">
           <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
           ${esc(last.title)}</p>`}
@@ -2400,6 +2409,7 @@ function renderLeadHero(issue) {
       </div>
       ${photo ? `<div class="lead-art">
         <img src="${esc(photo)}" alt="" loading="lazy" onerror="leadPhotoFail(this)">
+        ${shortsBadge(issue)}
         <div class="lead-slab">
           <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
           ${sameLine ? "" : `<span>${esc(last.title)}</span>`}
@@ -3891,6 +3901,14 @@ function openIssueDialog(issueId, updateUrl = true) {
       evidenceArticles.length
         ? `선정 ${cardArticles.length}건 · 추가 근거 ${evidenceArticles.length}건`
         : `누적 ${issue.article_count}건`}</span></div>
+    ${(() => {
+      const shorts = shortsFor(issue);
+      if (!shorts.length) return "";
+      return `<section class="dialog-shorts" aria-labelledby="issueShortsTitle">
+      <div class="dialog-section-head"><h3 id="issueShortsTitle">영상</h3><span>이 이슈로 만든 쇼츠</span></div>
+      ${shorts.map(row => shortsTile(row)).join("")}
+    </section>`;
+    })()}
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
@@ -3915,14 +3933,6 @@ function openIssueDialog(issueId, updateUrl = true) {
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
       ${draftPreviewBlock(issue)}
     </section>
-    ${(() => {
-      const shorts = shortsFor(issue);
-      if (!shorts.length) return "";
-      return `<section class="dialog-shorts" aria-labelledby="issueShortsTitle">
-      <div class="dialog-section-head"><h3 id="issueShortsTitle">영상</h3><span>이 이슈로 만든 쇼츠</span></div>
-      ${shorts.map(row => shortsTile(row)).join("")}
-    </section>`;
-    })()}
     ${keeiDialogSection(issue)}
     ${(() => {
       // 사건이 여러 날에 걸쳐 있으면 전환점 필름으로 낸다 — 날짜 역순 목록은
@@ -3975,6 +3985,7 @@ function openIssueDialog(issueId, updateUrl = true) {
       </li>`).join("")}</ul>
     </section>` : ""}`;
   state.issueId = issueId;
+  closeVideoDock();
   if (!dialog.open) dialog.showModal();
   requestAnimationFrame(() => document.getElementById("issueDialogTitle")?.focus());
   if (updateUrl) {
@@ -5844,6 +5855,7 @@ function stepBriefing(direction) {
 }
 
 function handleIssueAction(event) {
+  if (handlePlayBadge(event)) return true;
   const agenda = event.target.closest("[data-agenda-issue]");
   if (agenda) {
     const target = document.getElementById(`issue-card-${agenda.dataset.agendaIssue}`);
@@ -5944,6 +5956,12 @@ function bind() {
     event.preventDefault();
     main.focus({ preventScroll: true });
     main.scrollIntoView({ behavior: "auto", block: "start" });
+  });
+  // 재생 배지는 어디에 붙어 있든 여기서 받는다 — 목차 행은 통째로 <a> 라
+  // 이슈 위임(handleIssueAction)을 안 타기 때문이다. 이슈 위임이 먼저 처리한
+  // 클릭은 defaultPrevented 로 걸러져 두 번 열리지 않는다.
+  document.addEventListener("click", event => {
+    if (!event.defaultPrevented) handlePlayBadge(event);
   });
   const viewHandler = event => {
     const button = event.target.closest("button[data-view]");

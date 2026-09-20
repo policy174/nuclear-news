@@ -3202,8 +3202,8 @@ class SelectionOverrideTests(unittest.TestCase):
 
         /shorts/index.json 에 이슈별 예약 줄을 미리 적어두고(지니 2026-09-21
         "자리만 만들어놔 파일은 내가 나중에 넣어줄게") file·youtube 가 채워지는
-        순간 화면에 붙는 계약이다. 빈 줄이 새어 나가면 검은 사각형이 홈에
-        서므로 걸러내는 한 줄이 이 기능의 전부다.
+        순간 배지가 붙는 계약이다. 빈 줄이 새어 나가면 아무 데도 안 가는 노란
+        배지가 표지에 붙으므로, 걸러내는 한 줄이 이 기능의 전부다.
         """
         index = json.loads((ROOT / "public" / "shorts" / "index.json").read_text(encoding="utf-8"))
         rows = index["shorts"]
@@ -3215,30 +3215,44 @@ class SelectionOverrideTests(unittest.TestCase):
         all_fn = script.split("function shortsAll(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("row.file", all_fn)
         self.assertIn("row.youtube", all_fn)
-        strip = script.split("function renderShortsStrip(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("shortsAll()", strip, "거르지 않은 원본 목록을 그리고 있다")
-        self.assertIn("section.hidden = rows.length === 0", strip, "빈 날 구역을 안 숨긴다")
-        # 마크업도 숨긴 채로 시작해야 한다 — JS 가 늦게 오는 순간이 있다.
-        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        self.assertRegex(markup, r'id="shortsStrip"[^>]*hidden')
+        badge = script.split("function shortsBadge(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("shortsFor(issue)", badge, "거르지 않은 원본 목록을 쓰고 있다")
+        self.assertIn("if (!row) return", badge, "영상이 없는 이슈에도 배지를 단다")
 
-    def test_video_stands_next_to_the_issue_it_talks_about(self):
-        """영상은 그 이슈 곁에 선다 — 오늘 표지가 그 이슈면 표지 바로 아래다.
+    def test_video_rides_the_issue_instead_of_its_own_block(self):
+        """영상은 홈에 자기 구역을 갖지 않는다 — 그 이슈에 배지로 붙는다.
 
-        처음엔 목차와 '한 주의 원자력' 사이 고정 자리였는데, 대만 영상의 이슈가
-        바로 그날 표지였다(실측 09-20). 같은 사건을 1,700px 떨어뜨려 두 번 내면
-        둘 다 남의 것으로 읽힌다. 표지가 다른 이슈인 날에는 아래 미디어 구역
-        (카드뉴스 앞)으로 물러난다. 폭에 따라 자리를 바꾸지는 않는다.
+        세로 9:16 한 편에 가로 지면 한 줄을 내주면 무슨 수를 써도 오른쪽이
+        빈다(실측 1240px 중 영상 305px, 나머지 빈 줄). 지니 09-21: "배치가 너무
+        이상한데 그냥 거기 누르면 들어갈 수 있게". 시안(nuclens-design-v5 의
+        .playbadge) 노란 배지로 되돌렸다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        place = script.split("function placeShortsStrip(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("leadHero", place, "표지를 기준점으로 안 쓴다")
-        self.assertIn("cardStrip", place, "표지가 아닐 때 물러날 자리가 없다")
-        self.assertNotIn("matchMedia", place, "폭에 따라 자리를 바꾸고 있다")
-        self.assertNotIn("innerWidth", place)
-        # 카드뉴스가 옮겨 간 뒤에도 영상이 그 앞에 붙어 있어야 한다.
-        cards = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("placeShortsStrip()", cards)
+        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertNotIn("shortsStrip", markup, "영상 구역이 되살아났다")
+        self.assertNotIn("renderShortsStrip", script)
+        # 표지·목차 행·먼저 볼 3건 — 그 이슈가 화면 어디에 서든 배지가 따라간다.
+        for fn in ("renderLeadHero(", "tocRow(", "pickCard("):
+            body = script.split("function " + fn, 1)[1].split("\nfunction ", 1)[0]
+            self.assertIn("shortsBadge(", body, fn + " 에 배지가 없다")
+        # 배지를 누르면 상세가 열린다 — 영상은 거기 맨 앞이어야 한다.
+        dialog = script.split("function openIssueDialog(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertLess(dialog.index("dialog-shorts"), dialog.index("dialog-update"),
+                        "영상이 한 줄 결론 뒤로 밀렸다 — 배지가 약속한 것과 다르다")
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("--c-video:", css)
+        self.assertIn(".play-badge", css)
+
+        # 떠 있는 영상은 **부른 사람에게만** 붙는다. 렌더 경로가 열면 뉴스 사이트
+        # 자동재생 플레이어와 같은 물건이 된다(지니 09-21 "떠다니게"는 누른 뒤).
+        openers = [line for line in script.split("\n") if "openVideoDock(" in line
+                   and "function openVideoDock" not in line]
+        self.assertTrue(openers, "떠 있는 영상을 여는 자리가 없다")
+        for line in openers:
+            self.assertNotIn("render", line, f"렌더가 영상을 띄운다: {line.strip()}")
+        # 좁은 화면에서는 지면을 가리므로 아예 안 뜬다.
+        self.assertIn("@media (max-width: 1099px) { .video-dock { display: none; } }", css)
+
 
     def test_audio_bar_sits_right_under_the_lead(self):
         """오디오는 표지 바로 아래 한 줄이다.
