@@ -1835,6 +1835,8 @@ function placeCardStrip() {
   const anchor = document.querySelector("#view-news .feed-drawer");
   if (!strip || !anchor) return;
   if (strip.nextElementSibling !== anchor) anchor.before(strip);
+  // 카드뉴스가 옮겨 가면 그 앞에 붙는 영상도 따라가야 한다(표지 이슈가 아닐 때).
+  placeShortsStrip();
 }
 
 // ── 쇼츠 ────────────────────────────────────────────────────────────
@@ -1875,9 +1877,9 @@ function shortsTile(row, { link = false } = {}) {
   const media = yt
     ? `<a class="short-yt" href="https://www.youtube.com/shorts/${yt}" target="_blank" rel="noopener">
         <img src="${esc(poster)}" alt="" loading="lazy"><span aria-hidden="true">▶</span></a>`
-    // 표지 없이도 검은 사각형이 되지 않게 preload 를 갈라 쓴다 — poster 가 있으면
-    // 아무것도 안 받고, 없으면 메타데이터만 받아 첫 프레임을 띄운다.
-    : `<video controls playsinline preload="${poster ? "none" : "metadata"}"${poster ? ` poster="${esc(poster)}"` : ""} src="/shorts/${encodeURIComponent(String(row.file || "").trim())}#t=0.1"></video>`;
+    // 메타데이터만 받는다 — 표지가 없으면 첫 프레임이 이 덕에 뜨고, 표지가 있어도
+    // 재생 길이를 읽어야 머리글에 실을 수 있다. 본편은 누를 때 받는다.
+    : `<video controls playsinline preload="metadata"${poster ? ` poster="${esc(poster)}"` : ""} src="/shorts/${encodeURIComponent(String(row.file || "").trim())}${poster ? "" : "#t=0.1"}"></video>`;
   const title = String(row.title || "").trim();
   const issueId = String(row.issue_id || "").trim();
   return `<figure class="short">${media}
@@ -1888,6 +1890,8 @@ function shortsTile(row, { link = false } = {}) {
   </figure>`;
 }
 
+let shortsShown = [];
+
 function renderShortsStrip() {
   const section = document.getElementById("shortsStrip");
   if (!section) return;
@@ -1895,10 +1899,44 @@ function renderShortsStrip() {
   // 하루 지났다고 홈에서 사라지면 만든 값을 못 쓴다. 최신 3개까지.
   const rows = shortsAll()
     .slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).slice(0, 3);
+  shortsShown = rows;
   section.hidden = rows.length === 0;
   if (!rows.length) return;
-  document.getElementById("shortsTrack").innerHTML = rows.map(row => shortsTile(row, { link: true })).join("");
-  document.getElementById("shortsStripMeta").textContent = rows.length > 1 ? `${rows.length}편` : "";
+  const track = document.getElementById("shortsTrack");
+  track.innerHTML = rows.map(row => shortsTile(row, { link: true })).join("");
+  const meta = document.getElementById("shortsStripMeta");
+  meta.textContent = rows.length > 1 ? `${rows.length}편` : "";
+  // 재생 길이는 파일이 안다 — index.json 에 손으로 적게 하면 틀린 채로 남는다.
+  // 한 편일 때만 머리글에 싣는다(여러 편이면 어느 편의 길이인지 모른다).
+  const only = rows.length === 1 && track.querySelector("video");
+  if (only) only.addEventListener("loadedmetadata", () => {
+    const sec = Math.round(only.duration || 0);
+    if (sec) meta.textContent = `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초`;
+  }, { once: true });
+  placeShortsStrip();
+}
+
+// 영상은 **그것이 말하는 이슈 곁**에 선다. 오늘 표지가 바로 그 이슈면 표지 바로
+// 아래가 제자리다 — 같은 사건을 두 형식으로 잇달아 내는 것이고, 그 자리에 있으면
+// 설명이 필요 없다. 표지가 다른 이슈인 날에는 아래 미디어 구역(카드뉴스 앞)으로
+// 물러난다. 폭에 따라 자리를 바꾸지는 않는다(지니 09-21).
+function placeShortsStrip() {
+  const strip = document.getElementById("shortsStrip");
+  if (!strip || strip.hidden) return;
+  const hero = document.getElementById("leadHero");
+  const heroId = hero && !hero.hidden ? hero.querySelector("[data-issue-id]")?.dataset.issueId || "" : "";
+  const onCover = heroId && shortsShown.some(row => shortsMatch(row, shortsKey(heroId)));
+  if (onCover) {
+    // 오디오 바가 표지 바로 아래를 이미 쓰고 있으면 그 다음이다.
+    const audio = document.getElementById("audioBrief");
+    const anchor = audio && !audio.hidden && audio.previousElementSibling === hero ? audio : hero;
+    if (strip.previousElementSibling !== anchor) anchor.after(strip);
+    strip.classList.add("on-cover");
+    return;
+  }
+  strip.classList.remove("on-cover");
+  const cards = document.getElementById("cardStrip");
+  if (cards && strip.nextElementSibling !== cards) cards.before(strip);
 }
 
 function renderTodayAgenda(briefing) {

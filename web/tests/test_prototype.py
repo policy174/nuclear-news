@@ -3168,7 +3168,7 @@ class SelectionOverrideTests(unittest.TestCase):
         물건이고, 그래서 이것만 남는다. 만드는 것과 텔레그램 발송은 그대로다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        fn = script.split("function renderCardStrip(", 1)[1].split("\\nfunction ", 1)[0]
+        fn = script.split("function renderCardStrip(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("index.stories", fn)
         self.assertNotIn("index.dates", fn, "일일 카드가 띠로 되돌아왔다")
         # 그날치가 없으면 빈 띠가 되므로 최신 몇 편을 세운다 — 날짜에 매면 안 된다.
@@ -3212,15 +3212,33 @@ class SelectionOverrideTests(unittest.TestCase):
             self.assertTrue(str(row.get("issue_id", "")).strip(), "issue_id 없는 줄은 어디에도 못 붙는다")
 
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
-        all_fn = script.split("function shortsAll(", 1)[1].split("\\nfunction ", 1)[0]
+        all_fn = script.split("function shortsAll(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("row.file", all_fn)
         self.assertIn("row.youtube", all_fn)
-        strip = script.split("function renderShortsStrip(", 1)[1].split("\\nfunction ", 1)[0]
+        strip = script.split("function renderShortsStrip(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("shortsAll()", strip, "거르지 않은 원본 목록을 그리고 있다")
         self.assertIn("section.hidden = rows.length === 0", strip, "빈 날 구역을 안 숨긴다")
         # 마크업도 숨긴 채로 시작해야 한다 — JS 가 늦게 오는 순간이 있다.
         markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
         self.assertRegex(markup, r'id="shortsStrip"[^>]*hidden')
+
+    def test_video_stands_next_to_the_issue_it_talks_about(self):
+        """영상은 그 이슈 곁에 선다 — 오늘 표지가 그 이슈면 표지 바로 아래다.
+
+        처음엔 목차와 '한 주의 원자력' 사이 고정 자리였는데, 대만 영상의 이슈가
+        바로 그날 표지였다(실측 09-20). 같은 사건을 1,700px 떨어뜨려 두 번 내면
+        둘 다 남의 것으로 읽힌다. 표지가 다른 이슈인 날에는 아래 미디어 구역
+        (카드뉴스 앞)으로 물러난다. 폭에 따라 자리를 바꾸지는 않는다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        place = script.split("function placeShortsStrip(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("leadHero", place, "표지를 기준점으로 안 쓴다")
+        self.assertIn("cardStrip", place, "표지가 아닐 때 물러날 자리가 없다")
+        self.assertNotIn("matchMedia", place, "폭에 따라 자리를 바꾸고 있다")
+        self.assertNotIn("innerWidth", place)
+        # 카드뉴스가 옮겨 간 뒤에도 영상이 그 앞에 붙어 있어야 한다.
+        cards = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("placeShortsStrip()", cards)
 
     def test_audio_bar_sits_right_under_the_lead(self):
         """오디오는 표지 바로 아래 한 줄이다.
