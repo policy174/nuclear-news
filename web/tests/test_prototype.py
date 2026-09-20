@@ -3108,6 +3108,37 @@ class SelectionOverrideTests(unittest.TestCase):
         for marker in ("data-issue-id", "data-save-issue", 'rel="noopener"'):
             self.assertIn(marker, detail, f"2단계 액션 {marker} 가 없다")
 
+    def test_beats_are_rules_not_a_score(self):
+        """전환점은 규칙으로 뽑는다 — 점수를 만들지 않는다(지니 09-20).
+
+        점수로 뽑으면 라벨에 쓸 말이 없어 화면에 숫자를 보여주게 되고, 숫자는
+        곧 중요도로 오해된다. 규칙 이름이 그대로 라벨이 되어야 "왜 이 날이
+        뽑혔나"가 읽힌다. 다섯 규칙과 라벨 표가 코드에 함께 있어야 한다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        body = script.split("function issueBeats(", 1)[1].split("\nfunction ", 1)[0]
+        for rule in ("first", "official", "peak", "volume", "latest"):
+            self.assertIn(f'"{rule}"', body, f"{rule} 규칙이 없다")
+            self.assertIn(f"{rule}:", script.split("const BEAT_RULES", 1)[1][:400],
+                          f"{rule} 라벨이 없다")
+        self.assertNotIn("score", body, "전환점에 점수가 들어왔다")
+        # 같은 이미지가 한 이슈에 두 번 나오면 그 사건의 사진이 아니다 —
+        # 둘 중 하나를 고르지 않고 둘 다 버려야 한다.
+        self.assertIn("seen[row.img] > 1", body, "이슈 단위 중복 이미지 제거가 없다")
+
+    def test_beat_thumbnail_degrades_to_an_empty_slot(self):
+        """사진은 덧붙임이지 구조가 아니다.
+
+        og:image 는 referrer 차단·URL 만료로 흔히 깨진다. 깨졌을 때 빈자리를
+        그럴듯하게 채우면 안 되고, 날짜·규칙·제목·원문은 그대로 남아야 한다.
+        """
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        self.assertIn("beatThumbFail", script, "onerror 폴백이 없다")
+        self.assertIn('is-empty"', script, "빈 칸 상태가 없다")
+        self.assertIn(".beat-thumb.is-empty::after", css, "빈 칸 표기가 없다")
+        self.assertIn("사진 없음", css, "빈 칸을 말없이 비워 둔다")
+
     def test_card_strip_sits_below_the_picks_on_desktop_only(self):
         """카드뉴스는 넓은 화면에서 '먼저 볼 3건' **바로 아래**에 선다(지니 09-20).
 

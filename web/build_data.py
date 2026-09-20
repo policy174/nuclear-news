@@ -2704,6 +2704,10 @@ def _article_view(article: dict, member_role: str = "card") -> dict:
         "url": source_url(article),
         "importance": article.get("importance", ""),
         "member_role": member_role,
+        # 전환점 썸네일. 크롤이 본문을 받을 때 곁다리로 담은 og:image 이고
+        # 없으면 빈 문자열 — 화면이 '사진 없음' 칸으로 받는다. 원 서버 URL 을
+        # 그대로 참조하므로 여기서 복제하지 않는다(article_body.extract_og_image).
+        "og_image": article.get("og_image", ""),
     }
 
 

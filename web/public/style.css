@@ -1922,6 +1922,60 @@ body.booting .status-strip.loading { display: none; }
    가리던 문제(실측 2026-08-05: 19건 중 12건). 지우지 않고 접는다. 서가 그리드의
    자식이므로 전체 폭을 차지하도록 열을 넘긴다. */
 .pub-technical { grid-column: 1 / -1; border-top: 1px solid var(--c-border); padding-top: var(--sp-4); }
+/* ── 전환점 필름 ──────────────────────────────────────────────────────
+   날짜 역순 목록을 대신한다. 목록은 "몇 건이 있었나"를 말하고 필름은 "언제
+   무엇이 뒤집혔나"를 말한다 — 상세에서 알고 싶은 것은 뒤쪽이다.
+
+   썸네일 크기가 곧 주장의 크기다. 100px 칸에서는 "그날 이 매체가 이렇게
+   보도했다"는 증거 표시로 읽히고, 지면 절반에 걸면 "이것이 그날의 사건"이라는
+   주장이 된다 — 실측상 뽑히는 사진은 원전 전경 자료사진·인물 증명사진·조감도라
+   뒤쪽은 거짓이 된다. 그래서 이 칸은 커지면 안 된다. */
+.beat-film { list-style: none; margin: 0; padding: 0; }
+.beat-film .beat {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr) 100px;
+  gap: var(--sp-3); align-items: start;
+  padding: var(--sp-4) 0; border-bottom: var(--bd-1) solid var(--c-border);
+}
+.beat-film .beat:last-child { border-bottom: 0; }
+.beat-dot {
+  width: 8px; height: 8px; border-radius: var(--r-4);
+  background: var(--c-border-strong); margin: 7px 0 0 3px;
+}
+.beat.is-now .beat-dot { background: var(--c-secondary); box-shadow: 0 0 0 3px var(--c-secondary-weak); }
+.beat-meta { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; margin: 0 0 5px; }
+.beat-date { font-family: var(--ff-mono); font-size: 15px; font-weight: 700; color: var(--c-secondary); }
+.beat-rule {
+  font-size: var(--t-min); padding: 2px 7px; font-weight: 600;
+  background: var(--c-signal); color: var(--c-signal-ink);
+}
+/* 규칙마다 뜻이 다르므로 색도 다르다. 첫 보도는 사실의 시작이라 중립,
+   가장 최근은 지금 상태라 주의색. 나머지는 같은 워시. */
+.beat-rule.rule-first { background: var(--c-surface-sunken); color: var(--c-text-muted); }
+.beat-rule.rule-latest { background: var(--c-fam-safety); color: var(--c-fam-safety-ink); }
+.beat-ev { font-family: var(--ff-mono); font-size: var(--t-min); color: var(--c-text-muted); }
+.beat-title { margin: 0 0 4px; font-size: 15.5px; line-height: 1.5; }
+.beat-title a { color: var(--c-text); text-decoration: none; }
+.beat-title a:hover { color: var(--c-secondary); text-decoration: underline; }
+.beat-src { margin: 0; font-size: var(--t-caption); color: var(--c-text-muted); }
+.beat-thumb {
+  display: block; width: 100px; aspect-ratio: 4 / 3; position: relative;
+  background: var(--c-surface-sunken); border: var(--bd-1) solid var(--c-border);
+  overflow: hidden;
+}
+.beat-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.beat-thumb.is-empty img { display: none; }
+/* 빈 칸을 채우지 않는다 — 없다는 것도 사실이다. */
+.beat-thumb.is-empty::after {
+  content: "사진 없음"; position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-size: var(--t-min); color: var(--c-text-muted);
+}
+@media (max-width: 719px) {
+  .beat-film .beat { grid-template-columns: 14px minmax(0, 1fr) 72px; gap: var(--sp-2); }
+  .beat-thumb { width: 72px; }
+  .beat-title { font-size: 14.5px; }
+}
+
 /* ── 접기 손잡이 한 벌 ────────────────────────────────────────────────
    서가의 기술문서와 상세의 근거 원문은 같은 동작을 한다: 정보를 지우지 않고
    접어 둔다. 손잡이를 두 벌로 그리면 같은 동작이 다른 것으로 읽힌다.

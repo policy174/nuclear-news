@@ -281,3 +281,44 @@ class FetchTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OgImageTests(unittest.TestCase):
+    """전환점 썸네일용 og:image 추출.
+
+    실측 2026-09-20(원문 90건): og:image 자체는 96%가 있는데 그중 상당수가
+    기사 사진이 아니라 매체 로고·SNS 기본 이미지·기관 도장이다. 걸러야 79%가
+    기사 고유 사진으로 남는다. 아래 세 케이스가 실제로 걸린 것들이다.
+    """
+
+    def test_real_article_photo_survives(self):
+        html = ('<meta content="https://i3n.news1.kr/system/photos/2026/9/11/high.jpg" '
+                'property="og:image">')
+        self.assertEqual(ab.extract_og_image(html),
+                         "https://i3n.news1.kr/system/photos/2026/9/11/high.jpg")
+
+    def test_property_first_and_content_first_both_parse(self):
+        """매체마다 meta 속성 순서가 다르다. 둘 다 안 보면 절반을 놓친다."""
+        url = "https://img.hankyung.com/photo/202609/01.4150.jpg"
+        self.assertEqual(
+            ab.extract_og_image(f'<meta property="og:image" content="{url}">'), url)
+        self.assertEqual(
+            ab.extract_og_image(f'<meta content="{url}" property="og:image">'), url)
+
+    def test_fixed_house_images_are_dropped(self):
+        """로고·도장·SNS 기본 이미지는 그 기사의 사진이 아니다."""
+        for junk in (
+            "/images/core/logo.png",                       # motir.go.kr, 상대경로 + 로고
+            "https://www.ytn.co.kr/img/comm/ytn_sns_default.jpg",
+            "https://www.energy.gov/sites/default/files/DOE%20Full%20Seal.png",
+            "https://static.mk.co.kr/facebook_mknews.jpg",
+        ):
+            with self.subTest(junk=junk):
+                self.assertEqual(
+                    ab.extract_og_image(
+                        f'<meta property="og:image" content="{junk}">'), "")
+
+    def test_missing_tag_is_not_an_error(self):
+        """사진이 없는 것은 정상이다 — 화면이 '사진 없음' 칸으로 받는다."""
+        self.assertEqual(ab.extract_og_image(""), "")
+        self.assertEqual(ab.extract_og_image("<html><body>기사</body></html>"), "")

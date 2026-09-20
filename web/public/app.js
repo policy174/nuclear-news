@@ -3038,6 +3038,106 @@ function byTimelineOrder(a, b) {
 // 이슈는 애초에 이 한도에 걸리지 않아(250건 중 선정 5건 초과 1건) 아무것도 안 바뀐다.
 const TIMELINE_HEAD = 5;
 
+// ── 전환점(beats) ────────────────────────────────────────────────────
+//
+// 사건을 날짜로 접고 **규칙에 걸린 날만** 남긴다. 점수를 만들지 않는다 —
+// 그래서 규칙 이름이 그대로 화면 라벨이 되고, "왜 이 날이 뽑혔나"가 읽힌다.
+// 점수였다면 라벨에 쓸 말이 없어 숫자를 보여주게 되고, 숫자는 중요도로 오해된다.
+//
+//   first    첫 보도일
+//   official 공식 원문(정부·기관 발표)이 처음 붙은 날
+//   peak     하루에 가장 많은 매체가 동시에 다룬 날
+//   volume   그 밖에 원문이 몰린 날 (자리가 남을 때만)
+//   latest   가장 최근 보도일
+//
+// 스토리 원장이 있으면 그쪽을 쓴다 — 이슈의 60일 창 밖 발단까지 물고 있다.
+const BEAT_RULES = {
+  first: "첫 보도", official: "공식 원문", peak: "최다 동시 보도",
+  volume: "보도 집중", latest: "가장 최근",
+};
+
+function issueBeats(issue, limit = 5) {
+  const chron = chronicleFor(issue);
+  const events = (chron?.events?.length ? chron.events : (issue.related_articles || []))
+    .filter(event => event && event.article_date);
+  if (events.length < 2) return [];
+
+  const byDay = new Map();
+  events.forEach(event => {
+    const day = String(event.article_date);
+    if (!byDay.has(day)) byDay.set(day, []);
+    byDay.get(day).push(event);
+  });
+  const days = [...byDay.keys()].sort();
+  if (days.length < 2) return [];
+
+  const outlets = day => new Set(byDay.get(day).map(e => e.publisher || e.domain || "")).size;
+  const isOfficial = event => event.source_type === "official" || event.source_type === "press_release";
+  const peakOutlets = Math.max(...days.map(outlets));
+
+  const picked = new Map();
+  const take = (day, rule) => {
+    if (!day || picked.has(day) || picked.size >= limit) return;
+    // 그날의 대표 기사 — 공식 원문을 먼저, 그다음 매체 등급이 높은 것.
+    const head = byDay.get(day).slice().sort((a, b) =>
+      (isOfficial(b) - isOfficial(a)) || ((a.source_tier || 9) - (b.source_tier || 9)))[0];
+    picked.set(day, {
+      date: day, rule,
+      title: head.title_kr || head.title || "",
+      publisher: head.publisher || head.domain || "",
+      url: head.url || "",
+      img: head.og_image || "",
+      outlets: outlets(day),
+      count: byDay.get(day).length,
+      event_date: head.event_date && head.event_date !== day ? head.event_date : "",
+    });
+  };
+
+  take(days[0], "first");
+  const firstOfficial = days.find(day => byDay.get(day).some(isOfficial));
+  if (firstOfficial) take(firstOfficial, "official");
+  if (peakOutlets > 1) take(days.find(day => outlets(day) === peakOutlets), "peak");
+  take(days[days.length - 1], "latest");
+  // 자리가 남으면 원문이 몰린 날로 채운다. 규칙에 걸린 날이 먼저이고 이건 보충이다.
+  days.slice().sort((a, b) => byDay.get(b).length - byDay.get(a).length)
+    .forEach(day => take(day, "volume"));
+
+  const rows = [...picked.values()].sort((a, b) => a.date.localeCompare(b.date));
+  // 한 이슈 안에서 반복되는 이미지는 그 사건의 사진이 아니라 매체·기관 고정
+  // 이미지다(실측: 미 에너지부 도장이 한 이슈에 4번). 둘 중 하나를 고르지 않고
+  // **둘 다 버린다** — 어느 쪽이 그날 것인지 알 방법이 없다.
+  const seen = {};
+  rows.forEach(row => { if (row.img) seen[row.img] = (seen[row.img] || 0) + 1; });
+  rows.forEach(row => { if (seen[row.img] > 1) row.img = ""; });
+  return rows;
+}
+
+// 전환점 필름. 썸네일은 원 서버 URL 을 그대로 참조하고 복제하지 않는다.
+// 깨지는 것을 전제로 만든다 — referrer 차단·URL 만료가 흔하다. 사진이 전부
+// 사라져도 날짜·규칙·제목·매체·원문 링크는 그대로 남는다.
+function beatFilm(beats) {
+  return `<ol class="beat-film">${beats.map((beat, i) => `
+    <li class="beat${i === beats.length - 1 ? " is-now" : ""}">
+      <span class="beat-dot" aria-hidden="true"></span>
+      <div class="beat-body">
+        <p class="beat-meta"><b class="beat-date">${esc(beat.date.slice(5).replace("-", "."))}</b>
+          <span class="beat-rule rule-${esc(beat.rule)}">${esc(BEAT_RULES[beat.rule] || beat.rule)}</span>
+          ${beat.event_date ? `<span class="beat-ev">사건일 ${esc(beat.event_date.slice(5).replace("-", "."))}</span>` : ""}</p>
+        <p class="beat-title">${beat.url
+          ? `<a href="${esc(beat.url)}" target="_blank" rel="noopener">${esc(beat.title)}</a>`
+          : esc(beat.title)}</p>
+        <p class="beat-src">${esc(beat.publisher)} · 원문 ${beat.count} · 매체 ${beat.outlets}</p>
+      </div>
+      ${beat.img
+        ? `<span class="beat-thumb"><img src="${esc(beat.img)}" alt="" loading="lazy" onerror="beatThumbFail(this)"></span>`
+        : '<span class="beat-thumb is-empty" aria-hidden="true"></span>'}
+    </li>`).join("")}</ol>`;
+}
+
+// 인라인 onerror 안에서 따옴표를 쓰지 않기 위한 전역 함수. 문자열 안의 문자열
+// 안의 문자열이 되면 어떤 이스케이프를 써도 다음에 고치는 사람이 또 깨뜨린다.
+window.beatThumbFail = function (img) { img.parentNode.classList.add("is-empty"); };
+
 function timelineList(articles, options) {
   const row = article => articleTimelineRow(
     article, options.contextDate, options.stage, options.shownDetail);
@@ -3599,7 +3699,27 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${draftPreviewBlock(issue)}
     </section>
     ${keeiDialogSection(issue)}
-    <section class="dialog-history" aria-labelledby="issueHistoryTitle">
+    ${(() => {
+      // 사건이 여러 날에 걸쳐 있으면 전환점 필름으로 낸다 — 날짜 역순 목록은
+      // "언제 무엇이 뒤집혔나"를 안 보여준다(지니 09-20). 하루짜리 이슈는
+      // 접을 날이 없어 필름이 성립하지 않으므로 종전 목록을 그대로 쓴다.
+      const beats = issueBeats(issue);
+      if (beats.length >= 2) {
+        return `<section class="dialog-history" aria-labelledby="issueHistoryTitle">
+      <div class="dialog-section-head"><h3 id="issueHistoryTitle">사건 흐름</h3><span>전환점 ${beats.length}개 / 원문 ${cardArticles.length}건</span></div>
+      ${beatFilm(beats)}
+      ${cardArticles.length > beats.length ? `<details class="dialog-evidence">
+        <summary>선정된 사건 ${cardArticles.length}건 전부</summary>
+        ${timelineList(cardArticles, {
+          contextDate,
+          stage: state.view === "news" ? "이번 브리핑" : "최근 브리핑",
+          shownDetail: issueDetail,
+          moreLabel: "이전 사건",
+        })}
+      </details>` : ""}
+    </section>`;
+      }
+      return `<section class="dialog-history" aria-labelledby="issueHistoryTitle">
       <div class="dialog-section-head"><h3 id="issueHistoryTitle">주요 사건 타임라인</h3><span>브리핑에 선정된 ${cardArticles.length}건</span></div>
       ${cardArticles.length
         ? timelineList(cardArticles, {
@@ -3609,7 +3729,8 @@ function openIssueDialog(issueId, updateUrl = true) {
             moreLabel: "이전 사건",
           })
         : '<p class="empty">선정된 사건이 없습니다.</p>'}
-    </section>
+    </section>`;
+    })()}
     ${evidenceArticles.length ? `<details class="dialog-evidence">
       <summary>추가 근거 원문 ${evidenceArticles.length}건</summary>
       <p class="dialog-evidence-note">브리핑에 선정되지는 않았지만 같은 사건을 다룬 보도입니다. 검증에는 함께 셉니다.</p>

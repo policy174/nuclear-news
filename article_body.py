@@ -335,6 +335,43 @@ def extract_site_name(page_html: str) -> str:
     return name
 
 
+_OG_IMAGE_RE = re.compile(
+    r"""(?is)<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']""")
+_OG_IMAGE_REV_RE = re.compile(
+    r"""(?is)<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']""")
+# 파일명만으로 **확실한** 것만 건다. 애매한 것은 통과시키고 이슈 단위 중복
+# 검사(화면 쪽)에 맡긴다 — '없는 것' 말고 '어긋나는 것'만 잡는다.
+_OG_IMAGE_JUNK_RE = re.compile(
+    r"(logo|seal|default|noimage|_sns|sns_|facebook|og[-_]?image|blank)", re.I)
+
+
+def extract_og_image(page_html: str) -> str:
+    """og:image 절대 URL. 못 얻거나 기사 사진이 아니면 빈 문자열.
+
+    site_name 과 같은 이유로 공짜다 — 본문 때문에 페이지를 이미 받고 있다.
+
+    실측 2026-09-20(원문 90건): og:image 자체는 96%가 있는데, 그중 상당수가
+    기사 사진이 아니라 매체 로고·SNS 기본 이미지·기관 도장이다(`motir.go.kr`
+    `/images/core/logo.png`, `DOE Full Seal`, `ytn_sns_default.jpg`). 여기서
+    파일명·상대경로로 거르면 79%가 기사 고유 사진으로 남는다.
+
+    상대경로는 살리지 않고 버린다. 원 도메인을 붙이면 살릴 수야 있지만, 실측상
+    상대경로로 내놓은 곳은 전부 로고였다 — 살려 봐야 로고다.
+
+    **이 값은 작게 쓸 것을 전제로 뽑는다.** 뽑히는 사진은 대개 원전 전경
+    자료사진·인물 증명사진·조감도라 지면 절반에 걸면 독자가 그것을 그날의
+    사건으로 읽는다. 전환점 카드 안의 100px 남짓한 칸이면 "그날 이 매체가
+    이렇게 보도했다"는 증거 표시로 읽혀 거짓이 되지 않는다.
+    """
+    match = _OG_IMAGE_RE.search(page_html) or _OG_IMAGE_REV_RE.search(page_html)
+    if not match:
+        return ""
+    src = match.group(1).strip()
+    if not src.startswith("http"):
+        return ""
+    return "" if _OG_IMAGE_JUNK_RE.search(src) else src
+
+
 def fetch_one(url: str, session, title: str = "",
               meta: dict | None = None) -> tuple[str, str]:
     """(본문, 상태). 상태는 통계·진단용이며 호출자는 본문만 보면 된다.
@@ -371,6 +408,9 @@ def fetch_one(url: str, session, title: str = "",
         # 본문 판정보다 **먼저** 담는다. 제목과 안 맞아 본문을 버리는 기사도
         # 매체명은 멀쩡하고, 그 기사도 카드에는 실린다.
         meta["site_name"] = extract_site_name(resp.text)
+        # 전환점 썸네일용. 본문 판정과 무관하게 담는다 — 본문이 제목과 안 맞아
+        # 버려지는 기사도 카드에는 실리고, 그 카드도 사진은 멀쩡하다.
+        meta["og_image"] = extract_og_image(resp.text)
     body = extract_text(resp.text)
     if not body:
         return "", "thin"
@@ -446,6 +486,8 @@ def fetch_bodies(articles: list[dict], *, max_fetch: int = MAX_FETCH_PER_RUN,
                                  str(article.get("title") or ""), meta)
         if meta.get("site_name"):
             article["site_name"] = meta["site_name"]
+        if meta.get("og_image"):
+            article["og_image"] = meta["og_image"]
         # Google News 리다이렉트를 푼 실주소. 원래 link 는 그대로 둔다 —
         # 그게 dedup 키(url_hash)라 바꾸면 같은 기사가 새 기사로 들어온다.
         resolved = meta.get("url") or ""
