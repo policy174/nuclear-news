@@ -2083,15 +2083,24 @@ function renderBriefing() {
   // 걷고 필터에 걸린 이슈 전부를 목차로만 보인다.
   const picks = homeDomainFilter ? [] : ordered.slice(0, PICK_LIMIT);
   const pickList = document.getElementById("pickList");
-  pickList.innerHTML = picks.map(pickCard).join("");
-  pickList.hidden = picks.length === 0;
+  // 표지에 세울 한 건을 **먼저** 정하고 목록은 한 번만 그린다.
+  // 두 번 그리면 applyCardLines 가 깨진다: 그 함수는 비동기(cardIndex().then)인데
+  // DOM 을 인덱스로 찾아서(pickList.children[i]), 먼저 건 호출이 나중에 도착하면
+  // 이미 갈린 목록에 옛 인덱스로 꽂힌다 — 2026-09-21 라이브에서 2번 카드에 1번
+  // 카드의 문장이 들어갔다. 렌더를 한 번으로 줄이는 것이 근본 수정이다.
+  const heroPickCandidates = picks.filter(issue => issueBeats(issue).length >= 2);
+  const heroHasPhoto = issue => (issue.related_articles || []).some(a => a.og_image);
+  const heroPick = heroPickCandidates.find(heroHasPhoto) || heroPickCandidates[0] || null;
+  const listPicks = heroPick ? picks.filter(i => i.issue_id !== heroPick.issue_id) : picks;
+  pickList.innerHTML = listPicks.map(pickCard).join("");
+  pickList.hidden = listPicks.length === 0;
   // 카드뉴스 카피의 '왜' 한 줄(≤40자)로 갈아 끼운다 — 사이트의 why_important 는
   // 36~143자 서술형이라 카드에 쓰기엔 길다. index.json 이 아직 안 왔으면 위에서
   // 그린 사이트 문장이 그대로 남는다.
   // ponytail: 늦게 도착하면 글자가 한 번 바뀐다. 첫 방문에만, 줄이 다를 때만.
   // 거슬리면 briefings.json 빌드에 이 줄을 실어 동기 렌더로 옮길 것.
-  if (picks.length) applyCardLines(pickList, picks, briefing.date);
-  renderPickRail(picks, picks.length ? picks[0].issue_id : "");
+  if (listPicks.length) applyCardLines(pickList, listPicks, briefing.date);
+  renderPickRail(listPicks, listPicks.length ? listPicks[0].issue_id : "");
 
   const top = homeDomainFilter
     ? ordered.filter(issue => issue.khnp_domain === homeDomainFilter)
@@ -2162,26 +2171,20 @@ function renderBriefing() {
   // 안 서서 표지가 통째로 사라진다. 실측(45일): 상위 3건 안에 다일자 이슈가
   // 있는 날이 38/45(84%). 순위를 뒤집는 것이 아니라 **표지 자격**만 보는 것이고,
   // 아래 3건 목록의 순서는 그대로다.
-  const heroReady = picks.filter(issue => issueBeats(issue).length >= 2);
-  const hasPhoto = issue => (issue.related_articles || []).some(a => a.og_image);
-  // 자격(다일자)을 통과한 것들 안에서만 사진 유무를 본다 — 순위를 사진이
-  // 뒤집으면 안 된다. 자격자가 하나뿐이면 사진이 없어도 그것이 선다.
-  const heroPick = heroReady.find(hasPhoto) || heroReady[0] || picks[0] || null;
-  // 표지가 서면 리드 문장은 숨는다 — 표지가 같은 말을 더 크게 한다.
   const heroUp = renderLeadHero(heroPick);
+  // 표지가 서면 리드 문장은 숨는다 — 표지가 같은 말을 더 크게 한다.
   lede.hidden = heroUp;
   // 표지가 선 뒤에 불러야 한다 — 앞에서 부르면 기준점이 아직 없어서 오디오가
   // 3건 목록 래퍼(.today-picks) 안으로 들어간다(실측 2026-09-21).
   placeAudioBar();
-  // 표지에 세운 이슈는 아래 목록에서 뺀다. 같은 이슈가 한 화면에 두 번 서면
-  // 3건이 실은 2건이 되고, 표지가 "고른 하나"가 아니라 "첫 줄"로 읽힌다.
-  if (heroUp && heroPick) {
-    const rest = picks.filter(issue => issue.issue_id !== heroPick.issue_id);
-    pickList.innerHTML = rest.map(pickCard).join("");
-    pickList.hidden = rest.length === 0;
-    if (rest.length) applyCardLines(pickList, rest, briefing.date);
-    renderPickRail(rest, rest.length ? rest[0].issue_id : "");
+  // 표지가 못 서는 날(하루짜리 이슈뿐)에는 뺐던 한 건을 목록에 되돌린다.
+  if (!heroUp && heroPick && listPicks.length !== picks.length) {
+    pickList.innerHTML = picks.map(pickCard).join("");
+    pickList.hidden = picks.length === 0;
+    if (picks.length) applyCardLines(pickList, picks, briefing.date);
+    renderPickRail(picks, picks[0].issue_id);
   }
+
   document.getElementById("statusLine").textContent =
     `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`;
 
@@ -2268,6 +2271,11 @@ function renderLeadHero(issue) {
   const seen = new Set();
   const three = picked.filter(b => !seen.has(b.date) && seen.add(b.date));
   const last = beats[beats.length - 1];
+  // 마지막 전환점의 기사 제목이 이슈 제목과 같은 날이 흔하다(이슈 제목이 대개
+  // 최신 기사에서 온다). 같으면 그 줄을 아예 내지 않는다 — 한 화면에 같은 문장이
+  // 두 번 서면 표지가 스스로를 되풀이한다.
+  const sameLine = normalizedIncludes(issue.title, last.title)
+    || normalizedIncludes(last.title, issue.title);
   const photo = [...beats].reverse().find(b => b.img)?.img
     || (issue.related_articles || []).map(a => a.og_image).find(Boolean) || "";
   const verState = verificationState(issue);
@@ -2278,20 +2286,22 @@ function renderLeadHero(issue) {
 
   box.dataset.issueId = issue.issue_id;
   box.innerHTML = `
-    <div class="lead-grid">
+    <div class="lead-grid${photo ? "" : " no-art"}">
       <div class="lead-text">
         <p class="lead-kick">${topicChipHtml(issue)}${trackedDays > 1 ? `<span class="lead-track">추적 ${trackedDays}일</span>` : ""}</p>
+        ${photo || sameLine ? "" : `<p class="lead-latest">
+          <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
+          ${esc(last.title)}</p>`}
         <h2 class="lead-title"><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h2>
         <p class="lead-deck">${esc(issue.summary || "")}</p>
       </div>
-      <div class="lead-art${photo ? "" : " is-empty"}">
-        ${photo ? `<img src="${esc(photo)}" alt="" loading="lazy" onerror="beatThumbFail(this)">` : ""}
+      ${photo ? `<div class="lead-art">
+        <img src="${esc(photo)}" alt="" loading="lazy" onerror="leadPhotoFail(this)">
         <div class="lead-slab">
           <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
-          ${normalizedIncludes(issue.title, last.title) || normalizedIncludes(last.title, issue.title)
-            ? "" : `<span>${esc(last.title)}</span>`}
+          ${sameLine ? "" : `<span>${esc(last.title)}</span>`}
         </div>
-      </div>
+      </div>` : ""}
     </div>
     <ol class="lead-beats">${three.map(b => `
       <li><p class="lb-meta"><b>${esc(b.date.slice(5).replace("-", "."))}</b>
@@ -3232,6 +3242,15 @@ function beatFilm(beats) {
 // 인라인 onerror 안에서 따옴표를 쓰지 않기 위한 전역 함수. 문자열 안의 문자열
 // 안의 문자열이 되면 어떤 이스케이프를 써도 다음에 고치는 사람이 또 깨뜨린다.
 window.beatThumbFail = function (img) { img.parentNode.classList.add("is-empty"); };
+
+// 표지 사진이 깨졌을 때(referrer 차단·URL 만료) 사진 칸을 통째로 걷는다.
+// 잉크 면만 남기면 "못 불러왔다"로 읽혀서, 없는 것보다 나쁘다.
+window.leadPhotoFail = function (img) {
+  const art = img.closest(".lead-art");
+  const grid = img.closest(".lead-grid");
+  if (art) art.remove();
+  if (grid) grid.classList.add("no-art");
+};
 
 function timelineList(articles, options) {
   const row = article => articleTimelineRow(

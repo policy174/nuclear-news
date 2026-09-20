@@ -3863,6 +3863,22 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
    슬래브 한 줄과 아래 전환점 3칸이 나른다. */
 .lead-hero { background: var(--c-surface); margin-top: var(--sp-5); }
 .lead-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+/* 사진이 없으면 칸을 비워 두지 않고 **없앤다**. 잉크 면을 세우면 지면 절반이
+   빈 색면이 되어 "사진을 못 불러왔다"로 읽힌다(지니 09-21). 칸을 빼면 제목과
+   요약이 전체 폭을 쓰고, 슬래브가 나르던 한 줄은 본문 위로 올라간다. */
+.lead-grid.no-art { grid-template-columns: 1fr; }
+.lead-grid.no-art .lead-text { padding: var(--sp-8) var(--sp-8) var(--sp-6); }
+.lead-grid.no-art .lead-deck { max-width: 68ch; }
+/* 슬래브 대신 본문 위 한 줄 — 사진이 없는 날 "무엇이 달라졌나"를 나르는 자리 */
+.lead-latest {
+  margin: 0 0 var(--sp-4); font-size: var(--t-body); line-height: 1.6;
+  color: var(--c-text-secondary); padding-left: var(--sp-3);
+  border-left: var(--bd-2) solid var(--c-secondary);
+}
+.lead-latest b {
+  display: block; font-family: var(--ff-mono); font-size: var(--t-min);
+  letter-spacing: .12em; color: var(--c-secondary); margin-bottom: 3px;
+}
 .lead-text {
   padding: var(--sp-10) var(--sp-8) var(--sp-8);
   display: flex; flex-direction: column; justify-content: center;
