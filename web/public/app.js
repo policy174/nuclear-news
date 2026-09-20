@@ -1,5 +1,28 @@
 "use strict";
 
+// 주제 → 색 묶음 일곱. CSS 의 --c-fam-* 이 이 이름으로 짝을 이룬다.
+// 주제 19개에 색을 하나씩 주면 목록이 형광펜이 된다 — 성격이 같은 것끼리 묶어
+// 일곱 벌로 줄인다. 라벨은 정확한 주제명이고 색은 묶음이라, 색이 겹쳐도 글자가 가른다.
+const TOPIC_FAMILY = {
+  safety: "safety", operations: "safety", fukushima: "safety", decommissioning: "safety",
+  restart_lto: "lto",
+  newbuild: "build", smr: "build",
+  fuel_cycle: "cycle", waste: "cycle",
+  power_market: "market", finance: "market", datacenter_ai: "market",
+  policy_general: "policy", regulation: "policy", security_trade: "policy",
+  fusion: "etc", research: "etc", workforce: "etc", applications: "etc",
+};
+
+function topicFamily(topic) { return TOPIC_FAMILY[topic] || "etc"; }
+
+// 이슈의 대표 주제 칩 — 라벨 + 묶음 색. 주제가 없으면 빈 문자열(칩을 만들지 않는다).
+function topicChipHtml(issue, extraClass = "") {
+  const topic = (issue.topics || [])[0];
+  if (!topic) return "";
+  return `<span class="cat-chip fam-${esc(topicFamily(topic))}${extraClass ? " " + extraClass : ""}">`
+    + `${esc(TOPIC_LABELS[topic] || topic)}</span>`;
+}
+
 const TOPIC_LABELS = {
   smr: "SMR", newbuild: "신규 건설", restart_lto: "계속운전·재가동",
   fuel_cycle: "핵연료주기", waste: "사용후핵연료·방폐", finance: "원전금융·투자",
@@ -2237,24 +2260,20 @@ function renderLeadHero(issue) {
     ? (beats.length && chron.first_seen ? daysBetween(chron.first_seen, state.briefingDate) : 0)
     : 0;
 
+  box.dataset.issueId = issue.issue_id;
   box.innerHTML = `
     <div class="lead-grid">
       <div class="lead-text">
-        <p class="lead-kick">${trackedDays > 1 ? `추적 ${trackedDays}일 · ` : ""}${esc(issue.khnp_domain || issue.region || "")}</p>
+        <p class="lead-kick">${topicChipHtml(issue)}${trackedDays > 1 ? `<span class="lead-track">추적 ${trackedDays}일</span>` : ""}</p>
         <h2 class="lead-title"><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h2>
         <p class="lead-deck">${esc(issue.summary || "")}</p>
-        <dl class="lead-figs">
-          <div><dt>원문</dt><dd>${(issue.related_articles || []).length}</dd></div>
-          <div><dt>매체</dt><dd>${new Set((issue.related_articles || []).map(a => a.publisher || a.domain)).size}</dd></div>
-          <div><dt>보도일</dt><dd>${beats.length ? new Set((issue.related_articles || []).map(a => a.article_date)).size : 0}</dd></div>
-          <div><dt>공식 원문</dt><dd>${verState.official_source_count || 0}</dd></div>
-        </dl>
       </div>
       <div class="lead-art${photo ? "" : " is-empty"}">
         ${photo ? `<img src="${esc(photo)}" alt="" loading="lazy" onerror="beatThumbFail(this)">` : ""}
         <div class="lead-slab">
           <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
-          <span>${esc(last.title)}</span>
+          ${normalizedIncludes(issue.title, last.title) || normalizedIncludes(last.title, issue.title)
+            ? "" : `<span>${esc(last.title)}</span>`}
         </div>
       </div>
     </div>
@@ -5814,7 +5833,7 @@ function bind() {
   ["pickList",
    "archiveIssueList", "savedIssueList", "reportCandidateList", "issueDialog", "thisWeekBody",
    "weeklyReportBody", "insightList",
-   "recentIssueList"].forEach(id => {
+   "recentIssueList", "leadHero"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
   });
   // 레일이 따라갈 카드를 고른다. 마우스가 얹히거나 키보드 포커스가 들어오면

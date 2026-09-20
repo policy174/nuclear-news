@@ -3836,6 +3836,23 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 
 .today-lede { margin: var(--sp-2) 0 0; font-size: var(--t-body); color: var(--c-text-secondary); }
 
+/* ── 카테고리 칩 ──────────────────────────────────────────────────────
+   팔레트에 --c-fam-* 일곱 벌이 정의만 돼 있고 쓰이는 데가 없었다(실측: app.js
+   참조 0건). 카테고리가 회색 12px 로만 있어서 "잘 안 보인다"는 판정을 받았고
+   (지니 09-21), 이미 설계돼 있던 그 일곱 색을 여기 물린다.
+   테두리를 두르지 않는다 — 옅은 표면 + 짙은 잉크 한 쌍으로만 쓴다(팔레트 규칙). */
+.cat-chip {
+  display: inline-block; padding: 3px 9px; font-size: var(--t-min);
+  font-weight: 700; letter-spacing: .01em; white-space: nowrap;
+  background: var(--c-fam-etc); color: var(--c-fam-etc-ink);
+}
+.cat-chip.fam-safety { background: var(--c-fam-safety); color: var(--c-fam-safety-ink); }
+.cat-chip.fam-lto    { background: var(--c-fam-lto);    color: var(--c-fam-lto-ink); }
+.cat-chip.fam-build  { background: var(--c-fam-build);  color: var(--c-fam-build-ink); }
+.cat-chip.fam-cycle  { background: var(--c-fam-cycle);  color: var(--c-fam-cycle-ink); }
+.cat-chip.fam-market { background: var(--c-fam-market); color: var(--c-fam-market-ink); }
+.cat-chip.fam-policy { background: var(--c-fam-policy); color: var(--c-fam-policy-ink); }
+
 /* ── 오늘의 한 건 (잡지 표지) ─────────────────────────────────────────
    1위 이슈 하나를 크게 세운다. 테두리로 두르지 않고 흰 면과 잉크 면의 맞댐으로
    가른다 — 박스마다 선을 두르면 지면이 서식이 되고 잡지가 안 된다.
@@ -3850,10 +3867,8 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   padding: var(--sp-10) var(--sp-8) var(--sp-8);
   display: flex; flex-direction: column; justify-content: center;
 }
-.lead-kick {
-  margin: 0 0 var(--sp-4); font-family: var(--ff-mono); font-size: var(--t-min);
-  letter-spacing: .18em; color: var(--c-text-muted);
-}
+.lead-kick { display: flex; align-items: center; gap: var(--sp-2); margin: 0 0 var(--sp-4); }
+.lead-track { font-family: var(--ff-mono); font-size: var(--t-min); letter-spacing: .1em; color: var(--c-text-muted); }
 .lead-title { margin: 0 0 var(--sp-4); }
 .lead-title button {
   border: 0; background: none; padding: 0; text-align: left; cursor: pointer;
@@ -3865,12 +3880,6 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   margin: 0 0 var(--sp-6); font-size: var(--t-body-lg); line-height: 1.75;
   color: var(--c-text-secondary); word-break: keep-all;
 }
-.lead-figs {
-  display: flex; gap: var(--sp-6); margin: 0;
-  border-top: var(--bd-1) solid var(--c-border); padding-top: var(--sp-4);
-}
-.lead-figs dt { font-family: var(--ff-mono); font-size: var(--t-min); letter-spacing: .06em; color: var(--c-text-muted); }
-.lead-figs dd { margin: 3px 0 0; font-family: var(--ff-mono); font-size: 17px; font-weight: 700; }
 .lead-art { position: relative; min-height: 340px; background: var(--c-primary); }
 .lead-art img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
@@ -3913,24 +3922,17 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   font-size: var(--t-caption); font-weight: 700; color: var(--c-secondary);
 }
 @media (max-width: 719px) {
-  /* 폰 — 표지가 첫 화면을 다 먹으면 나머지 이슈를 못 보고 "매일 같은 화면"으로
-     읽힌다. 1위는 실측상 매일 바뀌므로 줄일 것은 높이다: 사진 150px, 요약 숨김
-     (제목과 슬래브가 이미 말한다), 전환점은 첫·끝 둘만. */
+  /* 폰 — 표지가 말하는 것은 결국 **제목 하나**다. 전환점·매체·원문 같은
+     부속이 그 아래에 줄줄이 서면서 첫 화면을 다 먹었다(지니 09-21).
+     여기서는 사진과 제목에만 자리를 주고 나머지는 전부 뺀다 — 자세한 것은
+     눌러서 상세로 간다. 표지 전체가 클릭 대상이다. */
   .lead-grid { grid-template-columns: 1fr; }
-  .lead-art { order: -1; min-height: 150px; }
-  .lead-text { padding: var(--sp-4); }
-  .lead-title button { font-size: 23px; }
+  .lead-art { order: -1; min-height: 180px; }
+  .lead-text { padding: var(--sp-4) var(--sp-4) var(--sp-5); }
+  .lead-title button { font-size: 24px; line-height: 1.34; }
   .lead-deck { display: none; }
-  .lead-figs { gap: var(--sp-4); padding-top: var(--sp-3); }
-  .lead-figs dd { font-size: 14px; }
-  .lead-slab { padding: var(--sp-10) var(--sp-4) var(--sp-3); }
-  .lead-slab span { font-size: 13.5px; }
-  .lead-beats { grid-template-columns: 1fr 1fr; }
-  .lead-beats li:nth-child(2) { display: none; }
-  .lead-beats li { padding: var(--sp-3); }
-  .lead-beats li + li { border-left: var(--bd-1) solid var(--c-border); }
-  .lb-title { font-size: 12.5px; display: -webkit-box; -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; overflow: hidden; }
+  .lead-beats { display: none; }
+  .lead-foot { padding: 0 var(--sp-4) var(--sp-4); justify-content: flex-start; }
 }
 
 /* ── 오늘 먼저 볼 3건 ──────────────────────────────────────────────────
