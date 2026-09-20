@@ -168,6 +168,15 @@
       <div class="brief-foot"><span id="briefPanelDate"></span><span class="brief-foot-actions"><a id="briefPanelArchive" class="brief-more" href="#" hidden>지난 기사까지 →</a><button type="button" id="briefPanelAll" class="brief-more" hidden>나머지 펼치기 →</button></span></div>
     </section>
 
+    <!-- 쇼츠 — 매일 나오는 것이 아니라 이슈 하나에 붙는다(지니 09-20). 그래서
+         날짜가 아니라 issue_id 로 건다: /shorts/index.json 에 파일 이름 한 칸을
+         채우면 여기와 그 이슈 「자세히」 두 곳에 같은 영상이 선다. 비어 있으면
+         통째로 숨는다 — 자리만 있고 아무것도 안 뜨는 것이 정상이다. -->
+    <section id="shortsStrip" class="shorts-strip" aria-labelledby="shortsStripTitle" hidden>
+      <div class="card-strip-head"><strong id="shortsStripTitle">영상으로 보기</strong><span id="shortsStripMeta"></span></div>
+      <div class="shorts-track" id="shortsTrack"></div>
+    </section>
+
     <!-- 카드뉴스 — 텔레그램 앨범과 같은 PNG 를 사이트에서도 넘겨 본다(지니 09-16).
          /cards/index.json 이 있는 날만 선다. 이미지는 daily-brief 가 커밋한다. -->
     <section id="cardStrip" class="card-strip" aria-labelledby="cardStripTitle" hidden>

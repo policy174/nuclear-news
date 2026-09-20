@@ -3181,6 +3181,31 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertNotIn("picks.after(strip)", place)
         self.assertNotIn("picks.before(strip)", place)
 
+    def test_shorts_slot_shows_nothing_until_a_file_is_named(self):
+        """쇼츠는 **자리만** 먼저 선다. 영상이 없으면 아무 데도 안 뜬다.
+
+        /shorts/index.json 에 이슈별 예약 줄을 미리 적어두고(지니 2026-09-21
+        "자리만 만들어놔 파일은 내가 나중에 넣어줄게") file·youtube 가 채워지는
+        순간 화면에 붙는 계약이다. 빈 줄이 새어 나가면 검은 사각형이 홈에
+        서므로 걸러내는 한 줄이 이 기능의 전부다.
+        """
+        index = json.loads((ROOT / "public" / "shorts" / "index.json").read_text(encoding="utf-8"))
+        rows = index["shorts"]
+        self.assertTrue(rows, "예약 줄이 하나도 없다 — 자리 자체가 사라졌다")
+        for row in rows:
+            self.assertTrue(str(row.get("issue_id", "")).strip(), "issue_id 없는 줄은 어디에도 못 붙는다")
+
+        script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
+        all_fn = script.split("function shortsAll(", 1)[1].split("\\nfunction ", 1)[0]
+        self.assertIn("row.file", all_fn)
+        self.assertIn("row.youtube", all_fn)
+        strip = script.split("function renderShortsStrip(", 1)[1].split("\\nfunction ", 1)[0]
+        self.assertIn("shortsAll()", strip, "거르지 않은 원본 목록을 그리고 있다")
+        self.assertIn("section.hidden = rows.length === 0", strip, "빈 날 구역을 안 숨긴다")
+        # 마크업도 숨긴 채로 시작해야 한다 — JS 가 늦게 오는 순간이 있다.
+        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
+        self.assertRegex(markup, r'id="shortsStrip"[^>]*hidden')
+
     def test_audio_bar_sits_right_under_the_lead(self):
         """오디오는 표지 바로 아래 한 줄이다.
 

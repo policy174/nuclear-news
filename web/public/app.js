@@ -134,7 +134,7 @@ const state = {
   manifest: null, systemStatus: null, dataBase: "/data",
   briefingDate: "", region: "전체", topic: "전체", view: "news",
   issueSort: "importance", issueView: "card", issueId: "", railIssueId: "",
-  agendas: null, precedents: null, agendaId: "",
+  agendas: null, precedents: null, agendaId: "", shorts: null,
   archiveQuery: "", archiveRegion: "전체", archiveTopic: "전체", archiveDomain: "",
   archivePeriod: "all", archiveVerification: "전체", archiveSort: "updated", archiveLimit: 20,
   archiveEntity: "", entities: null,
@@ -1834,6 +1834,70 @@ function placeCardStrip() {
   if (strip.nextElementSibling !== anchor) anchor.before(strip);
 }
 
+// ── 쇼츠 ────────────────────────────────────────────────────────────
+//
+// 쇼츠는 매일 나오는 것이 아니라 **이슈 하나에 붙는다**(지니 09-20). 그래서
+// 날짜가 아니라 issue_id 로 건다 — /shorts/index.json 에 파일 이름 한 칸을
+// 채우면 홈 아래 띠와 그 이슈 「자세히」 두 곳에 같은 영상이 선다.
+// 파일이 없으면 아무 데도 안 뜬다: 자리만 있고 비어 있는 상태가 정상이다.
+function shortsKey(value) {
+  return String(value || "").trim().toLowerCase().replace(/^issue-/, "");
+}
+
+function shortsAll() {
+  const rows = state.shorts?.shorts;
+  if (!Array.isArray(rows)) return [];
+  // file·youtube 둘 다 비면 아직 영상이 없는 예약 줄이다 — 자리만 잡아둔 것이라
+  // 화면에 세우지 않는다. 이 한 줄이 "파일은 나중에" 를 가능하게 한다.
+  return rows.filter(row => row && (String(row.file || "").trim() || String(row.youtube || "").trim()));
+}
+
+function shortsMatch(row, issueKey) {
+  // 앞 8자리만 적어도 붙는다 — 사람이 URL 에서 베끼는 값이라 16자리를 전부
+  // 옮겨 적게 하면 오타가 난다. 8자리 미만은 무시한다(남의 이슈에 붙는 사고).
+  const key = shortsKey(row.issue_id || row.hash8);
+  return key.length >= 8 && issueKey.startsWith(key);
+}
+
+function shortsFor(issue) {
+  const key = shortsKey(issue?.issue_id);
+  return key ? shortsAll().filter(row => shortsMatch(row, key)) : [];
+}
+
+function shortsTile(row, { link = false } = {}) {
+  const yt = /^[\w-]{6,20}$/.test(String(row.youtube || "").trim()) ? String(row.youtube).trim() : "";
+  const poster = String(row.poster || "").trim()
+    ? `/shorts/${encodeURIComponent(String(row.poster).trim())}`
+    : (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : "");
+  const media = yt
+    ? `<a class="short-yt" href="https://www.youtube.com/shorts/${yt}" target="_blank" rel="noopener">
+        <img src="${esc(poster)}" alt="" loading="lazy"><span aria-hidden="true">▶</span></a>`
+    // 표지 없이도 검은 사각형이 되지 않게 preload 를 갈라 쓴다 — poster 가 있으면
+    // 아무것도 안 받고, 없으면 메타데이터만 받아 첫 프레임을 띄운다.
+    : `<video controls playsinline preload="${poster ? "none" : "metadata"}"${poster ? ` poster="${esc(poster)}"` : ""} src="/shorts/${encodeURIComponent(String(row.file || "").trim())}#t=0.1"></video>`;
+  const title = String(row.title || "").trim();
+  const issueId = String(row.issue_id || "").trim();
+  return `<figure class="short">${media}
+    <div class="short-meta">
+      ${title ? `<figcaption>${esc(title)}</figcaption>` : ""}
+      ${link && issueId.startsWith("issue-") ? `<button type="button" class="short-link" data-issue-id="${esc(issueId)}" data-force-dialog="1">이슈 보기 →</button>` : ""}
+    </div>
+  </figure>`;
+}
+
+function renderShortsStrip() {
+  const section = document.getElementById("shortsStrip");
+  if (!section) return;
+  // 브리핑 날짜에 매지 않는다 — 쇼츠는 그날의 산물이 아니라 이슈의 산물이라
+  // 하루 지났다고 홈에서 사라지면 만든 값을 못 쓴다. 최신 3개까지.
+  const rows = shortsAll()
+    .slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).slice(0, 3);
+  section.hidden = rows.length === 0;
+  if (!rows.length) return;
+  document.getElementById("shortsTrack").innerHTML = rows.map(row => shortsTile(row, { link: true })).join("");
+  document.getElementById("shortsStripMeta").textContent = rows.length > 1 ? `${rows.length}편` : "";
+}
+
 function renderTodayAgenda(briefing) {
   const agenda = document.getElementById("todayAgenda");
   const toggle = document.getElementById("agendaToggle");
@@ -2141,6 +2205,7 @@ function renderBriefing() {
     archive.hidden = true;
   }
   renderCardStrip(briefing.date);
+  renderShortsStrip();
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
 
@@ -3809,6 +3874,14 @@ function openIssueDialog(issueId, updateUrl = true) {
       <div class="dialog-actions"><button type="button" data-copy-issue="${esc(issue.issue_id)}">보고서용 복사</button><button type="button" data-pack-issue="${esc(issue.issue_id)}">자료 팩 복사</button><button type="button" data-save-issue="${esc(issue.issue_id)}">${state.savedIds.has(issue.issue_id) ? "저장됨" : "저장"}</button><button type="button" data-share-issue="${esc(issue.issue_id)}">공유</button></div>
       ${draftPreviewBlock(issue)}
     </section>
+    ${(() => {
+      const shorts = shortsFor(issue);
+      if (!shorts.length) return "";
+      return `<section class="dialog-shorts" aria-labelledby="issueShortsTitle">
+      <div class="dialog-section-head"><h3 id="issueShortsTitle">영상</h3><span>이 이슈로 만든 쇼츠</span></div>
+      ${shorts.map(row => shortsTile(row)).join("")}
+    </section>`;
+    })()}
     ${keeiDialogSection(issue)}
     ${(() => {
       // 사건이 여러 날에 걸쳐 있으면 전환점 필름으로 낸다 — 날짜 역순 목록은
@@ -6267,7 +6340,7 @@ async function init() {
   initLoading = true;
   try {
     await initializeDataBase();
-    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts, state.chronicles, state.chronicleNarratives, state.agendas, state.precedents] = await Promise.all([
+    [state.news, state.briefings, state.issues, state.trend, state.meta, state.insights, state.pubs, state.audio, state.entities, state.scraps, state.reportDrafts, state.chronicles, state.chronicleNarratives, state.agendas, state.precedents, state.shorts] = await Promise.all([
       loadJSON("news.json"), loadJSON("briefings.json"), loadJSON("issues.json"),
       loadJSON("trend.json"), loadJSON("meta.json"), loadJSON("insights.json"),
       // 발간물은 부가 데이터 — 없어도 사이트 전체가 죽으면 안 된다 (8/1 빈 화면 사고 계약)
@@ -6287,6 +6360,9 @@ async function init() {
       // 정책의제·대응 자료실 — 없으면 보고서 탭의 해당 구역만 빈다(비치명).
       loadJSON("agendas.json").catch(() => null),
       loadJSON("precedents.json").catch(() => null),
+      // 쇼츠 목록은 data/ 가 아니라 정적 /shorts/ 에 산다 — 빌드 산출물이 아니라
+      // 사람이 직접 채우는 자리라서 매 빌드에 지워지면 안 된다(카드뉴스와 같은 계약).
+      fetch("/shorts/index.json", { cache: "no-cache" }).then(r => (r.ok ? r.json() : null)).catch(() => null),
     ]);
   } catch (error) {
     initLoading = false;
