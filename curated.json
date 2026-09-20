@@ -296487,5 +296487,558 @@
     "feed": "정책",
     "domain": "edaily.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "1bc040b763e53fbe": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "restart_lto",
+      "finance",
+      "power_market"
+    ],
+    "countries": [
+      "FR",
+      "US"
+    ],
+    "article_type": "report",
+    "title_kr": "OECD NEA·EPRI, '2025 전력생산비용' 보고서 공개…기존 원전·수력 LCOE 최저",
+    "summary": "OECD NEA와 미국 EPRI가 공개한 2025 전력생산비용 보고서에서 기존 원전과 수력발전이 가장 저렴한 저탄소 전력원인 것으로 나타났다.",
+    "detail": "경제협력개발기구(OECD) 산하 원자력기구(NEA)와 미국 전력연구원(EPRI)은 회원국 21개국과 23개 기술에 대한 발전비용을 비교한 2025년 전력생산비용 보고서를 공개했다. 계속운전하는 기존 원전의 균등화발전비용(LCOE) 중앙값은 1㎿h당 44달러였으며 한국은 39.90달러로 최저 수준을 기록했다. 반면 단기 추진 대형원전과 소형모듈원자로(SMR)는 초기 건설비용 부담으로 LCOE 중앙값이 각각 141달러와 146달러로 높게 나타났다.",
+    "implication": "초기 투자비가 상각된 기존 원전의 계속운전이 신규 건설 원전이나 재생에너지에 비해 경제성 면에서 확실한 우위에 있음을 입증한다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#계속운전",
+      "#LCOE",
+      "#원자력기구"
+    ],
+    "related_reports": [],
+    "event_date": "2025-02-19",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "“전력생산비 100달러↑…기존 원전·수력발전이 제일 저렴”",
+    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE01anNfdGZiOTZnZTZ4RkQ1bWV2dXlVYVdRNW8zWWRYcXprLW5mcjFvOVkwU2RJa2JOWG95Sk9HbEloOHlaWFQ4MENZbG5NeUE?oc=5",
+    "feed": "정책",
+    "domain": "daum.net",
+    "matched": "국내 원자력 보도"
+  },
+  "c48c20277fbab6bc": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [],
+    "article_type": "news",
+    "title_kr": "로이터, 글로벌 주요 뉴스 송고",
+    "summary": "로이터 통신이 글로벌 주요 뉴스를 송고했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "Reuters",
+    "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxQaEhqZC11Vlh5aWhha01mOTA0Zlo1NUdwbGg2ZWdHVHVJeUZmQkRXSXkzX0tYOFJMakFhMUY5TXJmRjdYTVBjRF9UY2NyZ3FJaUNvaVMwU29YZ1NpcUZ1cjkyWEZWel82NTRCSnYwLWxRN25LcWkyLThfMy1rOHBOcFVMc3hSMmZaakpKYXZVdm8xOEMxMWhPbG1iUlVhaTYxbHB6NEM4US00S1h5c3FIMTBmczY2cHF0WGx6WGFFcHl0RGQyVS1RSDJsNTFkY3ZaVU0zMk5aTFhsX2hXZVNibzA1MmZtRnJkUlFYd1c1T3pyVGFGYlV2N1hRcjNjZw?oc=5",
+    "feed": "정책",
+    "domain": "reuters.com",
+    "matched": "Reuters 원자력"
+  },
+  "d2e7ca423388fc7f": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "smr"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "정부, SMR·핵융합 포함 '미래성장동력 7대 SEED' 전략 추진",
+    "summary": "정부가 SMR, 핵융합, 재생에너지 등 7대 미래 성장축을 선정하고 초기 시장 형성을 위한 적극적 투자에 나선다.",
+    "detail": "정부는 시장 질서가 완성되지 않은 미래산업에서 기술과 시장을 선점하기 위해 SMR, 핵융합, 재생에너지, 양자, 우주, 첨단바이오, 소부장을 '미래성장동력 7대 SEED'로 지정했다. 정부가 초기 위험을 분담하고 실증과 수요를 창출해 민간 투자를 유도한다는 방침이다. 박홍근 기획예산처 장관은 정부가 전략적 투자자이자 초기 수요자로서 적극적인 역할을 하겠다고 강조했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#미래성장동력",
+      "#R&D"
+    ],
+    "related_reports": [],
+    "event_date": "2025-08-12",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "[창간 14주년 특별기획Ⅲ –점프 UP 코리아Ⅱ①] 반도체 다음을 심는다...",
+    "link": "http://www.newsian.co.kr/news/articleView.html?idxno=95635",
+    "feed": "SMR",
+    "domain": "newsian.co.kr",
+    "matched": "SMR"
+  },
+  "26ae0e0be54da913": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "smr",
+      "security_trade"
+    ],
+    "countries": [
+      "LV",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "백용호 명예회장, 라트비아 국회의장 예방…SMR·방산 협력 논의",
+    "summary": "백용호 머니투데이 명예회장이 라트비아 국회의장을 만나 SMR과 방산 등 첨단 산업 협력 방안을 논의했다.",
+    "detail": "백용호 명예회장은 라트비아 리가를 방문해 다이가 미에리냐 국회의장과 바이라 비케프레이베르가 전 대통령을 예방했다. 양측은 북한과 러시아의 군사적 협력 등 안보 위협을 공유하고, 반도체, AI, 드론, 소형모듈원자로(SMR) 등 첨단 산업 및 경제 협력 방안을 교환했다. 미에리냐 의장은 라트비아가 한국의 유럽 진출 관문 역할을 할 수 있다고 강조했다.",
+    "implication": "발트 3국의 안보 요충지인 라트비아와 SMR 및 첨단 산업 분야의 협력 가능성을 모색한 외교적 행보이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#라트비아",
+      "#경제협력"
+    ],
+    "related_reports": [],
+    "event_date": "2025-08-18",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "백용호, 라트비아 의장·전 대통령 예방…안보·경제 협력 논의",
+    "link": "https://www.sidae.com/article/2026092009564526331",
+    "feed": "SMR",
+    "domain": "sidae.com",
+    "matched": "SMR"
+  },
+  "997189812fcca4c8": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 2,
+      "market_materiality": 3,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "market",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "효성중공업, 美 시장서 1Gvar급 MMC 스태콤 수주…전력망 안정화 공략",
+    "summary": "효성중공업이 AI 데이터센터 증설로 전력 수요가 급증한 미국 시장에서 1Gvar급 MMC 스태콤을 수주했다.",
+    "detail": "효성중공업은 미국 시장에서 단일 설비 기준 세계 최대 규모인 1Gvar급 MMC 스태콤을 수주했다. 미국 전역의 AI 데이터센터 건설과 신재생에너지 확대에 따른 전력 계통 전압 불안정 문제를 해결하기 위한 조치다. 조현준 회장의 기술 경영 철학을 바탕으로 초고압 직류송전(HVDC) 분야로도 사업을 확대하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#효성중공업",
+      "#스태콤",
+      "#미국전력망"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "10억 달러 시장 정조준한 조현준…효성 스태콤, 美 슈퍼사이클 '선점'",
+    "link": "https://www.financialpost.co.kr/news/articleView.html?idxno=276600",
+    "feed": "정책",
+    "domain": "financialpost.co.kr",
+    "matched": "송전망 건설"
+  },
+  "b372fb043a944616": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "한수원, 포항시 공영주차장 태양광 10MW 구축 사업 업무협약 체결",
+    "summary": "한수원이 포항시와 공영주차장을 활용한 10MW 규모 태양광 발전시설 구축 업무협약을 체결했다.",
+    "detail": "포항시는 경상북도개발공사, 켑코솔라, 한수원 등과 ‘공영주차장 RE100 신·재생에너지 설치사업’ MOU를 체결했다. 2027년부터 민간자본 약 200억원을 투입해 공영주차장 30곳에 10MW 규모의 태양광 설비를 설치한다. 생산된 전력은 전력구매계약을 통해 지역 기업의 RE100 달성을 지원하며 발전수익은 주차장 확충에 재투자된다.",
+    "implication": "지자체 유휴부지를 활용한 재생에너지 보급 확대와 지역 기업의 RE100 지원을 연계한 대표적 협력 모델이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한수원",
+      "#태양광",
+      "#RE100"
+    ],
+    "related_reports": [],
+    "event_date": "2025-08-18",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "포항시, 공영주차장 30곳에 태양광 10MW 설치…RE100 지원",
+    "link": "https://www.ajunews.com/view/20260920105556419",
+    "feed": "정책",
+    "domain": "ajunews.com",
+    "matched": "한국수력원자력"
+  },
+  "f23bc0c02600b564": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "구자은 LS 회장, 제5회 LS 퓨처데이 참석…AI 사업 성과 강조",
+    "summary": "구자은 LS그룹 회장이 'LS 퓨처데이'에 참석해 AI를 현장과 제품에 적용해 사업 성과를 내자고 당부했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2025-08-18",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "구자은 LS 회장 \"AI 변화 속도 두려워하지 말고 먼저 즐기자\"",
+    "link": "https://www.hankookilbo.com/news/article/A2026092011000002811?did=NA",
+    "feed": "정책",
+    "domain": "hankookilbo.com",
+    "matched": "데이터센터 전력"
+  },
+  "4aa601dc1a694e1e": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "환경단체, 정부 3대 메가프로젝트 중단 촉구…호르무즈 파병 비판",
+    "summary": "620개 환경·노동·시민단체가 정부의 3대 메가프로젝트가 온실가스 감축과 노동권 보장에 역행한다며 중단을 촉구했다. 또한 호르무즈 해협 파병 검토에 대해서도 비판했다.",
+    "detail": "9·19 기후정의행진 조직위원회는 정부의 3대 메가프로젝트가 온실가스 감축 목표 달성에 부정적이며, 반도체 공장 및 데이터센터 건설을 위해 과도한 전력과 용수 사용이 필요하다고 주장했다. 또한, 한국 조선업 기술력이 핵추진잠수함 및 군함 건조에 필수적이라며 호르무즈 해협 파병을 검토하는 것은 미국의 군사적 행동을 지지하는 것이라고 비판했다.",
+    "implication": "정부의 대규모 산업 프로젝트 추진에 대한 환경단체의 반발은 에너지 정책 및 관련 산업 추진에 부담으로 작용할 수 있다.",
+    "why_important": "정부의 대규모 산업 프로젝트 추진에 대한 환경단체의 비판은 에너지 정책 결정 과정에서 환경적 요소를 고려해야 함을 시사한다. 특히 데이터센터 건설에 따른 전력 수요 증가와 관련된 논쟁은 원전의 역할에 대한 간접적인 영향을 줄 수 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#기후정의",
+      "#메가프로젝트"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "“李, ‘탄소 역행’ 메가프로젝트 중단해야”…호르무즈 대응도 비판",
+    "link": "https://www.segye.com/newsView/20260920504665?OutUrl=naver",
+    "feed": "정책",
+    "domain": "segye.com",
+    "matched": "데이터센터 전력"
+  },
+  "d6c94bc13f99256d": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "market",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "LG전자, AI 데이터센터용 공랭식 무급유 터보 칠러 출시",
+    "summary": "LG전자가 전력 소비를 대폭 줄인 AI 데이터센터 최적화 공랭식 무급유 인버터 터보 칠러를 출시했다.",
+    "detail": "LG전자는 인공지능(AI) 데이터센터에 최적화된 ‘공랭식 무급유 인버터 터보 칠러’를 출시했다. 무급유 마그네틱 베어링 기술과 냉매 프리쿨링 기술을 적용해 기존 방식보다 연간 전력 소비량을 약 30% 절감한다. 하이드로닉 모듈러 기술을 통해 데이터센터 증설에 맞춰 신속한 현장 구축이 가능하다.",
+    "implication": "급증하는 AI 데이터센터의 전력 및 냉각 효율 요구에 대응하는 고효율 냉각 솔루션 시장 공략을 가속화한다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#LG전자",
+      "#데이터센터",
+      "#칠러"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "LG전자, AI 데이터센터용 대용량 터보 칠러 출시",
+    "link": "https://it.chosun.com/news/articleView.html?idxno=2023092170538",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "데이터센터 전력"
+  },
+  "41d523b4818312a4": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한수원, 제3기 'ESG·경영혁신 위원회' 출범…경영 효율화 추진",
+    "summary": "한국수력원자력이 기존 ESG 위원회에 경영혁신 기능을 추가한 제3기 위원회를 출범시켰다.",
+    "detail": "한수원은 방사선보건원에서 김회천 사장과 비상임이사, 외부 전문가들이 참석한 가운데 제3기 ‘한수원 ESG·경영혁신 위원회’ 첫 회의를 개최했다. 이번 위원회는 경영혁신 기능을 확대 개편해 에너지, 사회, 거버넌스 등 분야별 외부 전문가의 자문을 받아 중장기 경영혁신 방향을 논의했다.",
+    "implication": "대내외 에너지 환경 변화에 대응하여 외부 전문성을 활용한 경영 전반의 혁신과 지속가능 성장 체계를 다지는 계기가 된다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한수원",
+      "#ESG",
+      "#경영혁신"
+    ],
+    "related_reports": [],
+    "event_date": "2025-08-18",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "한수원, ‘ESG·경영혁신 위원회’ 3기 출범… 지속가능 성장·혁신 속도",
+    "link": "http://www.metroseoul.co.kr/article/20260920500122",
+    "feed": "정책",
+    "domain": "metroseoul.co.kr",
+    "matched": "원자력안전위원회"
+  },
+  "0202b9a66bed9cbd": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "작년 온실가스 0.9% 감소했으나, 석탄발전 증가로 전력 부문은 역행",
+    "summary": "작년 국내 온실가스 배출량이 0.9% 감소했으나, 원자력 발전소 예방정비로 인한 석탄발전 증가로 전력 부문에서는 온실가스 배출이 늘어나는 역행 현상이 나타났다.",
+    "detail": "지난해 국내 온실가스 배출량은 0.9% 감소했으나, 전력 부문에서는 원자력 발전소의 예방정비로 인해 석탄발전량이 증가하면서 온실가스 배출이 늘어나는 추세를 보였다. 2030년 국가 온실가스 감축목표(2030 NDC) 달성을 위해서는 추가적인 1억4900만톤 감축이 필요한 상황이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#온실가스",
+      "#석탄발전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "작년 온실가스 0.9% 감소했지만…석탄발전 증가로 전력 부문은 ‘역행’",
+    "link": "https://www.ekn.kr/web/view.php?key=20260920022286761",
+    "feed": "정책",
+    "domain": "ekn.kr",
+    "matched": "원자력 NDC"
+  },
+  "66af11da50f66e07": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 도입 다음은 '운영'…모듈형 AI 데이터센터 '네오큐브' 제시",
+    "summary": "아이에이클라우드가 GPU·NPU, 서버, 전력·냉각 등을 통합한 모듈형 AI 데이터센터 '네오큐브'를 제시했다. 이는 AI 운영 단계에서의 효율성과 비용 절감을 목표로 한다.",
+    "detail": "아이에이클라우드는 'CAIO 서밋 2026'에서 그래픽처리장치(GPU)·신경망처리장치(NPU), 서버, 스토리지, 전력·냉각, AI 운영 플랫폼을 통합한 모듈형 AI 데이터센터 '네오큐브(NeoCube)'를 선보였다. 네오큐브는 GPU·NPU 자원을 가상화하고 AI 모델을 배포·운영할 수 있도록 지원하며, AI 도입 후 운영 단계에서의 효율성과 비용 절감을 목표로 한다.",
+    "implication": "AI 데이터센터의 모듈화 및 통합 솔루션 등장은 전력 및 냉각 시스템의 효율성 증대와 함께 전력 수요 관리에 영향을 줄 수 있다.",
+    "why_important": "AI 데이터센터의 운영 효율화 및 비용 절감을 위한 모듈형 솔루션 등장은 급증하는 AI 관련 전력 수요에 대한 기술적 대응 방안을 보여준다. 이는 향후 전력 인프라 구축 및 운영 전략 수립에 참고 자료가 될 수 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#모듈형데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2026-08-18",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-20T03:38:21.099596+00:00",
+    "title": "[CAIO 서밋 2026] AI 도입 다음은 '운영'…에이전트·보안·GPU 비용 해법...",
+    "link": "https://www.etnews.com/20260920000018",
+    "feed": "정책",
+    "domain": "etnews.com",
+    "matched": "데이터센터 전력"
   }
 }
