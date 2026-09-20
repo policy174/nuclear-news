@@ -1873,7 +1873,11 @@ function shortsFor(issue) {
 // (nuclens-design-v5/build_home.py 의 .playbadge)의 노란 띠 그대로다. 누르면
 // 이슈 상세가 열리고 영상은 거기 맨 앞에 있다.
 function shortsBadge(issue, { compact = false } = {}) {
-  const row = shortsFor(issue)[0];
+  // 지면에는 **그 영상의 날짜부터** 붙는다. 이슈는 60일을 살고 같은 이슈가 여러
+  // 날 브리핑에 실리는데(대만 마안산: 08-26·09-04·09-20), 날짜를 안 보면 8월
+  // 지면에 9월 영상이 걸린다 — 그날 아직 일어나지 않은 일을 말하는 영상이다.
+  // 상세·이슈 페이지에는 날짜 맥락이 없으므로 거기서는 언제나 보인다.
+  const row = shortsFor(issue).find(r => !state.briefingDate || String(r.date || "") <= state.briefingDate);
   if (!row) return "";
   const sec = Number(row.seconds) || 0;
   const len = sec ? ` · ${sec >= 60 ? `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초` : `${sec}초`}` : "";

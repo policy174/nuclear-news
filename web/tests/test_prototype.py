@@ -3218,6 +3218,12 @@ class SelectionOverrideTests(unittest.TestCase):
         badge = script.split("function shortsBadge(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("shortsFor(issue)", badge, "거르지 않은 원본 목록을 쓰고 있다")
         self.assertIn("if (!row) return", badge, "영상이 없는 이슈에도 배지를 단다")
+        # 같은 이슈가 여러 날 브리핑에 실린다(대만 마안산: 08-26·09-04·09-20).
+        # 날짜를 안 보면 8월 지면에 9월 영상이 걸린다 — 그날 아직 안 일어난 일이다.
+        self.assertIn("state.briefingDate", badge, "지난 날짜 지면에도 영상이 샌다")
+        for row in rows:
+            self.assertRegex(str(row.get("date", "")), r"^\d{4}-\d{2}-\d{2}$",
+                             "date 가 없으면 어느 날부터 띄울지 알 수 없다")
 
     def test_video_rides_the_issue_instead_of_its_own_block(self):
         """영상은 홈에 자기 구역을 갖지 않는다 — 그 이슈에 배지로 붙는다.
