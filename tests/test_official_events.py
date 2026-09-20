@@ -177,8 +177,11 @@ class StoreTests(unittest.TestCase):
         self.assertEqual([i["hash"] for i in kept], ["of-2", "of-3"])
 
     def test_source_failure_keeps_previous_items(self):
-        store = {"items": [{"hash": "of-x", "date": "2026-09-10",
-                            "end_date": "2026-09-10"}],
+        # 날짜를 박지 않는다 — run() 은 끝난 지 7일 넘은 일정을 prune 으로
+        # 내리므로, 고정 날짜를 쓰면 그날로부터 8일 뒤에 이 테스트가 썩는다
+        # (2026-09-21 실제로 그렇게 깨졌다: 09-10 고정값 → 11일 경과 → 0건).
+        soon = date.today().isoformat()
+        store = {"items": [{"hash": "of-x", "date": soon, "end_date": soon}],
                  "state": {}, "last_checked": {}}
         def boom(state):
             raise RuntimeError("사이트 개편")
