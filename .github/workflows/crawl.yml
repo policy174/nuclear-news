@@ -311,7 +311,7 @@ jobs:
           # 전수는 4배를 더 때리고도 화면에 차이가 없다).
           # **build_data 앞**이어야 한다 — 빌드가 이 파일을 읽어 빈자리를 메운다.
           # 비치명: 실패해도 사진만 빈 칸이고 배포는 계속된다.
-          python backfill_og_image.py --from-issues --days 45 --limit 250             || echo "[og] 백필 실패 — 사진 없이 계속"
+          python backfill_og_image.py --from-issues --days 45 --limit 400             || echo "[og] 백필 실패 — 사진 없이 계속"
           python web/build_data.py
           # 초안은 daily-brief 가 생성한다 — 여기서는 캐시를 공개 파일로 옮기기만
           # 한다(LLM 0회). 안 하면 매시간 배포가 초안 파일을 빠뜨린다.

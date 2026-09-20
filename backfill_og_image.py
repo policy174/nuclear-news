@@ -61,6 +61,8 @@ def archive_records(days: int) -> list[dict]:
             # 빌드가 만드는 파생 필드라 여기에 없다(실측 2026-09 7,623줄 전부 None).
             stamp = str(record.get("pub") or record.get("archived_at") or "")[:10]
             if stamp >= cutoff:
+                record = dict(record)
+                record["_stamp"] = stamp
                 rows.append(record)
     return rows
 
@@ -113,11 +115,15 @@ def main() -> int:
             continue
         if article_body.is_blocked(url):
             continue
-        todo.append((h, url))
+        todo.append((str(record.get("_stamp") or ""), h, url))
 
+    # **최신부터** 때린다. 오래된 것부터 돌면 상한(--limit)에 걸려 새 기사에
+    # 영영 도달하지 못한다 — 실측 2026-09-21 라이브: 07-01~09-10 은 사진이 붙고
+    # 09-11 이후 2,062건은 전부 0이었다. 화면이 쓰는 것은 최근 이슈다.
+    todo.sort(key=lambda row: row[0], reverse=True)
     # 같은 기사가 아카이브에 여러 줄로 있을 수 있다 — 해시로 한 번만.
     seen: set[str] = set()
-    todo = [(h, u) for h, u in todo if not (h in seen or seen.add(h))][:args.limit]
+    todo = [(h, u) for _, h, u in todo if not (h in seen or seen.add(h))][:args.limit]
     print(f"[og] 대상 {len(todo)}건 (최근 {args.days}일 / 상한 {args.limit})")
     if args.dry_run or not todo:
         return 0
