@@ -1,0 +1,189 @@
+{
+ "date": "2026-09-21",
+ "variants": {
+  "fast": {
+   "date": "2026-09-21",
+   "key": "fast",
+   "label": "빠른 브리핑",
+   "description": "오늘의 핵심 원자력 뉴스를 약 3분 안팎으로 빠르게 훑는 라디오형 브리핑입니다.",
+   "file": "briefing-fast-2026-09-21.mp3",
+   "duration_sec": 126,
+   "generated_at": "2026-09-21T04:42:15.624425+09:00",
+   "script_chars": 908,
+   "voices": {
+    "HOST": "Kore"
+   },
+   "format_version": 2,
+   "evidence_digest": "4e7f7c245fd92ef5aa949dfb5fd517188ca32856baac689ddad4bfbb5b0f19d1",
+   "script_digest": "00b90bc428c9577a1863b46080584b558f3cd3a0c17e08a37acd14f2b072c40f",
+   "gate_version": 2,
+   "evidence_issue_count": 9,
+   "semantic_gate_enabled": false,
+   "semantic_gate_version": 1,
+   "semantic_model": "gemini-3.1-flash-lite",
+   "semantic_thinking_level": "unspecified",
+   "semantic_verdict_digest": "",
+   "telegram_sent_at": "2026-09-21T04:42:18.439133+09:00",
+   "telegram_file_id": "CQACAgUAAxkDAAIBkWqwNxlLZusy08PJAXfTsWFGKiIdAAITJwACS0OAVdqGjJ4C2_6QPQQ",
+   "delivery": {
+    "state": "delivered",
+    "at": "2026-09-21T04:42:18.442201+09:00",
+    "attempts": 1,
+    "file_id": "CQACAgUAAxkDAAIBkWqwNxlLZusy08PJAXfTsWFGKiIdAAITJwACS0OAVdqGjJ4C2_6QPQQ",
+    "channel": "queued"
+   }
+  },
+  "expert": {
+   "date": "2026-09-21",
+   "key": "expert",
+   "label": "전문가 브리핑",
+   "description": "선정된 핵심 이슈를 수석 원자력 분석가가 사업 단계·기술·정책 의미까지 약 11분간 통합 해설합니다.",
+   "file": "briefing-expert-2026-09-21.mp3",
+   "duration_sec": 689,
+   "generated_at": "2026-09-21T04:49:22.910761+09:00",
+   "script_chars": 4666,
+   "voices": {
+    "HOST": "Kore"
+   },
+   "format_version": 2,
+   "delivery_mode": "expert_single",
+   "issue_count": 14,
+   "dossier_count": 14,
+   "spoken_target": 6272,
+   "spoken_ratio": 0.74,
+   "verification": {
+    "coverage_score": 100.0,
+    "factual_support_score": 100.0,
+    "stage_precision_score": 100.0,
+    "expert_depth_score": 100.0,
+    "single_speaker_score": 100.0,
+    "passed": true
+   },
+   "semantic_gate_version": 1,
+   "semantic_model": "gemini-3.1-flash-lite",
+   "semantic_thinking_level": "unspecified",
+   "semantic_verdict_digest": "5e77ef9982c89347f9364c9aea0facac68c2ad7727c648c8df9d3852b2c9601f",
+   "order_check": {
+    "ok": false,
+    "out_of_order": false,
+    "missing": [],
+    "duplicated": [
+     "story-aec44fbc6dc629ce",
+     "story-f49db048bb3de335"
+    ],
+    "unanchored": []
+   },
+   "intro_check": {
+    "ok": false,
+    "missing": [
+     "story-aec44fbc6dc629ce",
+     "story-f49db048bb3de335"
+    ]
+   },
+   "brief_order": [
+    {
+     "region": "국내",
+     "brief_rank": 1,
+     "title": "정부, 2000억 달러 규모 대미투자 협상 결과 22일 국회 보고"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 2,
+     "title": "과기정통부, 7대 시드 프로젝트 전담 조직 연내 신설"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 3,
+     "title": "LS마린솔루션, 신안우이 해상풍력 해저케이블 시공권 확보"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 4,
+     "title": "고리 1호기 부지, SMR 및 데이터센터 활용 방안 논의"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 5,
+     "title": "부산시, 조선·해양과 SMR 결합한 해양산업 육성 전략 발표"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 6,
+     "title": "황이주 울진군수, '울진행복 에너지연금' 정책 추진 본격화"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 7,
+     "title": "경남도, 동남권 메가특구 1호 지정 추진 및 SMR 등 전략산업 육성"
+    },
+    {
+     "region": "국내",
+     "brief_rank": 8,
+     "title": "울진군, 원자력 청정수소 산단 조성 위한 범정부 지원 촉구"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 1,
+     "title": "북한, IAEA 결의안 거부 및 핵보유국 지위 천명"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 2,
+     "title": "미국, 한국에 대미 투자 신속 이행 압박 및 전략 분야 협력 강조"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 3,
+     "title": "베트남, 전략물자 수출통제 강화…원자력·반도체 등 품목 관리"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 4,
+     "title": "국내 조선 3사, 가스텍 2026서 차세대 해양 에너지 솔루션 기술 인증 획득"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 5,
+     "title": "OECD NEA, 기존 원전 계속운전이 저탄소 전력 중 가장 저렴"
+    },
+    {
+     "region": "해외",
+     "brief_rank": 6,
+     "title": "중국 CXMT, 5세대 D램 공정 플랫폼 적용 제품 양산 개시"
+    }
+   ],
+   "evidence_audit": {
+    "action": "allow",
+    "ok": true,
+    "removed": [],
+    "findings": []
+   },
+   "evidence_digest": "83e6cda86b1065581845b4bdd02a6aed7caa209fddf16f18ea783e34265f8039",
+   "script_digest": "501521ad4a8d15901b069e32c95ebc288e9bbe22129f1f6949f16ae9fbaffad9",
+   "gate_version": 2,
+   "evidence_issue_count": 14,
+   "tts_models": [
+    "gemini-3.1-flash-tts-preview"
+   ],
+   "warnings": [],
+   "telegram_sent_at": "2026-09-21T04:49:26.137802+09:00",
+   "telegram_file_id": "CQACAgUAAxkDAAIBkmqwOMVIvyEm3mk2DuV9pOB0c953AAIUJwACS0OAVcu1pnb8LFODPQQ",
+   "delivery": {
+    "state": "delivered",
+    "at": "2026-09-21T04:49:26.141299+09:00",
+    "attempts": 1,
+    "file_id": "CQACAgUAAxkDAAIBkmqwOMVIvyEm3mk2DuV9pOB0c953AAIUJwACS0OAVcu1pnb8LFODPQQ",
+    "channel": "queued"
+   }
+  }
+ },
+ "default_variant": "fast",
+ "generated_at": "2026-09-21T04:49:22.910761+09:00",
+ "file": "briefing-fast-2026-09-21.mp3",
+ "duration_sec": 126,
+ "script_chars": 908,
+ "voices": {
+  "HOST": "Kore"
+ },
+ "telegram_sent_at": "2026-09-21T04:42:18.439133+09:00"
+}

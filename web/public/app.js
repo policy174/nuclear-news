@@ -1334,7 +1334,6 @@ function renderEmptyBriefing(briefing, issueList) {
   // 2026-08-16 라이브에서 실제로 그렇게 났다(발송 실패로 그날 이슈가 0건).
   document.getElementById("briefingDateLabel").textContent =
     briefing && briefing.date ? dateWeekdayLabel(briefing.date) : "";
-  document.getElementById("statusLine").textContent = "";
   issueList.innerHTML = `<div class="empty-state"><strong>${esc(view.title)}</strong><p>${view.detail}</p></div>`;
 }
 
@@ -2185,8 +2184,6 @@ function renderBriefing() {
     renderPickRail(picks, picks[0].issue_id);
   }
 
-  document.getElementById("statusLine").textContent =
-    `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`;
 
   renderNewsFeed();
 }

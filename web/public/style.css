@@ -1930,6 +1930,20 @@ body.booting .status-strip.loading { display: none; }
    보도했다"는 증거 표시로 읽히고, 지면 절반에 걸면 "이것이 그날의 사건"이라는
    주장이 된다 — 실측상 뽑히는 사진은 원전 전경 자료사진·인물 증명사진·조감도라
    뒤쪽은 거짓이 된다. 그래서 이 칸은 커지면 안 된다. */
+/* ── 홈 하단 자료 묶음 ────────────────────────────────────────────────
+   성격이 다른 줄 셋(수집 원문 서랍 · 지난 기록 버튼 · 주의문)이 같은 무게의
+   가로줄로 층층이 쌓여 "정리 안 된 채 흩어진" 것으로 읽혔다(실측 115px / 60자).
+   한 면에 묶고 안에서 위계를 준다 — 서랍이 주, 아래 한 줄이 종. */
+.today-footer { background: var(--c-surface); margin-top: var(--sp-5); }
+.today-footer .feed-drawer { margin: 0; border: 0; }
+.today-footer-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); flex-wrap: wrap;
+  padding: var(--sp-3) var(--sp-5);
+  border-top: var(--bd-1) solid var(--c-border);
+}
+.today-footer-row .notice { margin: 0; }
+
 .beat-film { list-style: none; margin: 0; padding: 0; }
 .beat-film .beat {
   display: grid; grid-template-columns: 14px minmax(0, 1fr) 100px;

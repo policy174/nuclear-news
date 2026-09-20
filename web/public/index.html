@@ -215,7 +215,9 @@
       <div id="continuingList"></div>
     </section>
 
-    <p id="statusLine" class="today-status"></p>
+    <!-- '이슈 N건 · 원문 N건' 줄은 걷었다(지니 2026-09-21). 수집 건수는
+         이미 기각된 숫자이고, 이 줄은 목차와 카드뉴스 사이에 어디에도 속하지
+         않은 채 떠 있었다. 같은 값은 상단 상태칩이 들고 있다. -->
 
     <div class="hero-audio" id="audioBrief" hidden>
             <div class="audio-mode-row" id="audioModes" role="group" aria-label="오디오 브리핑 종류">
@@ -251,12 +253,16 @@
             <audio id="audioEl" preload="none"></audio>
           </div>
 
-    <details class="feed-drawer">
-          <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>
-          <div id="newsList" class="news-list"></div>
-        </details>
-    <button type="button" class="secondary-button" data-go-view="search">지난 수집 기록 전체 보기</button>
-    <p class="notice">날짜·수치·기관명은 원문에서 확인하세요.</p>
+    <section class="today-footer" aria-label="오늘 수집한 자료">
+      <details class="feed-drawer">
+        <summary><span id="feedLabel">오늘 수집한 원문</span><small id="feedTitle"></small></summary>
+        <div id="newsList" class="news-list"></div>
+      </details>
+      <div class="today-footer-row">
+        <button type="button" class="secondary-button" data-go-view="search">지난 수집 기록 전체 보기</button>
+        <p class="notice">날짜·수치·기관명은 원문에서 확인하세요.</p>
+      </div>
+    </section>
   </section>
 
   <section id="view-search" hidden aria-labelledby="archiveTitle">
