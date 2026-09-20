@@ -263,14 +263,25 @@ def load_site_ranking(date: str) -> list[dict] | None:
 
 
 def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "") -> list[dict]:
-    """카드 = 사이트 순위 상위 k. 여기서 다시 고르지 않는다.
+    """카드 = 사이트 순위 상위 k **중 보고 후보만**. 순위를 여기서 다시 매기지 않는다.
 
     순위는 사이트가 이미 정했다(web/build_data.py order_issue_rows — 국내·해외
     맞물림, 편집 고정, must_read, 며칠째 1위 쿨다운). 이슈는 기사가 아니라
     **클러스터**라 같은 사건의 다른 기사가 두 장 나가는 문제도 거기서 끝난다.
     카드가 따로 정렬하면 화면과 카드가 다른 얘기를 하게 된다(2026-09-14 교정).
 
-    하는 일은 원문 링크 없는 이슈를 건너뛰는 것뿐이다.
+    거르는 것은 둘이다.
+
+    ① 원문 링크 없는 이슈 — 출처 미확인이라 카드에 못 싣는다.
+
+    ② **보고 후보가 아닌 이슈**(지니 2026-09-21). 카드는 임직원이 캡처해 보고·
+       카톡에 붙이는 이미지 자산이지 읽을거리가 아니다. 그러면 실릴 자격은
+       "오늘 순위가 높다"가 아니라 "보고할 만하다"여야 한다.
+
+       대가를 알고 쓰는 규칙이다. 실측(최근 30일): 보고 후보가 있는 날은
+       19/30(63%)이고 하루 평균 1.2건이다 — **3일에 1일꼴로 카드가 0장**이고,
+       나오는 날도 1~2장이다. 텔레그램 일일 앨범이 그만큼 안 나간다.
+       매일 나가는 쪽으로 되돌리려면 아래 report_pick 조건만 지우면 된다.
     """
     picked = []
     for row in issue_rows:
@@ -278,6 +289,8 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
         link = (rep.get("url") or "").strip()
         if not link:
             continue  # 출처 미확인 — 카드에서 빼고 텍스트 브리핑으로만
+        if not (row.get("report_pick") or "").strip():
+            continue  # 보고 후보가 아니면 카드로 만들지 않는다
         picked.append({
             "hash": rep.get("hash", ""),
             # 홈의 '먼저 볼 3건' 카드가 이 카피를 issue_id 로 되찾아 간다(album.json lines)

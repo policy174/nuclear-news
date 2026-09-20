@@ -2126,7 +2126,24 @@ function renderBriefing() {
   const articles = briefing.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
   // 지표 스트립이 서면 같은 말을 하는 리드 문장은 숨는다. 스트립이 못 서는
   // 날(0건)에는 리드가 그대로 남는다 — 화면이 아무 말도 안 하는 상태를 만들지 않는다.
-  lede.hidden = renderTodayMetrics(briefing, picks, changedCount, articles);
+  // 표지에 세울 한 건 — **다일자 진행 이슈를 먼저** 고른다. 1위가 하루짜리인
+  // 날이 있고(오늘 3건 중 첫 건이 그런 날이 잦다) 그때 1위를 그대로 쓰면 전환점이
+  // 안 서서 표지가 통째로 사라진다. 실측(45일): 상위 3건 안에 다일자 이슈가
+  // 있는 날이 38/45(84%). 순위를 뒤집는 것이 아니라 **표지 자격**만 보는 것이고,
+  // 아래 3건 목록의 순서는 그대로다.
+  const heroPick = picks.find(issue => issueBeats(issue).length >= 2) || picks[0] || null;
+  // 표지가 서면 리드 문장은 숨는다 — 표지가 같은 말을 더 크게 한다.
+  const heroUp = renderLeadHero(heroPick);
+  lede.hidden = heroUp;
+  // 표지에 세운 이슈는 아래 목록에서 뺀다. 같은 이슈가 한 화면에 두 번 서면
+  // 3건이 실은 2건이 되고, 표지가 "고른 하나"가 아니라 "첫 줄"로 읽힌다.
+  if (heroUp && heroPick) {
+    const rest = picks.filter(issue => issue.issue_id !== heroPick.issue_id);
+    pickList.innerHTML = rest.map(pickCard).join("");
+    pickList.hidden = rest.length === 0;
+    if (rest.length) applyCardLines(pickList, rest, briefing.date);
+    renderPickRail(rest, rest.length ? rest[0].issue_id : "");
+  }
   document.getElementById("statusLine").textContent =
     `이슈 ${briefing.issues.length}건 · 원문 ${articles}건`;
 
@@ -2187,39 +2204,75 @@ function shortDay(value) {
   return match ? `${match[2]}.${match[3]}` : "—";
 }
 
-// 지표 스트립 — 네 칸 전부 이미 화면에 있던 값이다. 수집·이슈는 상태칩이,
-// 변화는 리드 문장이, 공식 원문은 3건의 근거 배지가 들고 있던 것을 한 줄로
-// 모았다. 새 데이터를 만들지 않는다는 게 이 함수의 유일한 규칙이다.
-// 반환값은 "스트립이 섰는가" — 호출부가 리드 문장을 숨길지 결정한다.
-function renderTodayMetrics(briefing, picks, changedCount, articles) {
-  const box = document.getElementById("todayMetrics");
+// ── 오늘의 한 건 (잡지 표지) ─────────────────────────────────────────
+//
+// 1위 이슈 하나를 크게 세운다. 지니 판정 09-20~21: 수집 건수 네 칸은 "하나도
+// 안 궁금하다"(폐기), 파형은 "눈에 안 들어온다"(폐기), 전환점 필름은 "너무
+// 좋다"(채택). 그 셋의 결론이 이 블록이다.
+//
+// "매일 같은 화면"이 되지 않는다는 것은 실측으로 확인했다 — 최근 19일 연속
+// 1위 이슈가 19/19일 바뀌었다.
+//
+// 사진은 분위기만 맡고 사실은 전부 글자가 나른다. 원본 그대로 크게 걸면 안
+// 된다: 뽑히는 og:image 는 대개 원전 전경 자료사진·인물 증명사진·3년 전
+// 조감도라(실측 원문 90건) 독자가 그날의 사건으로 읽는다. 듀오톤(CSS)으로
+// 눌러 '처리된 그림'이 되게 한다 — 이미지를 복제·가공하지 않는다.
+function renderLeadHero(issue) {
+  const box = document.getElementById("leadHero");
   if (!box) return false;
-  if (!picks.length) { box.hidden = true; box.innerHTML = ""; return false; }
-  const collectedAt = state.systemStatus?.collector_stamp
-    || state.manifest?.generated_at || state.meta?.generated_at;
-  const official = picks.filter(issue => verificationState(issue).status === "official").length;
-  // '수집'은 **오늘 들어온 기사 수**(briefing.article_count)다. 아래 statusLine 이
-  // 쓰는 articles 는 이슈에 달린 근거 원문의 누계라 값이 다르다(09-20 실측 37 vs 19).
-  // 누계를 '수집'이라 부르고 옆에 수집 시각을 적으면 오늘 37건 들어온 것으로 읽힌다.
-  // 상단 상태칩이 이미 '오늘 기사 19건'이라고 말하고 있어 두 숫자가 정면충돌한다.
-  const cells = [
-    { label: "수집", value: briefing.article_count || articles,
-      sub: collectedAt ? `마지막 ${timeLabel(collectedAt)}` : "오늘 기사" },
-    { label: "이슈", value: briefing.issues.length, sub: "오늘 추적 중" },
-    // 변화 0 은 숨기지 않는다 — "오늘은 없음"도 읽는 사람에게는 답이다.
-    { label: "변화", value: changedCount, hot: changedCount > 0,
-      sub: changedCount ? "진행 중 이슈에 후속 보도" : "진행 중 이슈에 변화 없음" },
-    { label: "공식 원문", value: `${official}/${picks.length}`,
-      sub: official === picks.length ? "3건 모두 확인" : `${picks.length - official}건은 단일 출처` },
-  ];
-  box.innerHTML = cells.map(cell => `
-    <div class="metric${cell.hot ? " is-hot" : ""}">
-      <dt>${esc(cell.label)}</dt>
-      <dd>${esc(String(cell.value))}</dd>
-      <p>${esc(cell.sub)}</p>
-    </div>`).join("");
+  const beats = issue ? issueBeats(issue) : [];
+  // 전환점이 둘 미만이면 표지가 성립하지 않는다(하루짜리 이슈). 종전 3건 목록이
+  // 그대로 첫 화면을 맡는다 — 빈 표지를 세우지 않는다.
+  if (!issue || beats.length < 2) { box.hidden = true; box.innerHTML = ""; return false; }
+
+  // 홈에는 첫·끝 + 가운데 하나까지 셋만. 전체 경과는 상세가 맡는다(중복 금지).
+  const picked = beats.length >= 3 ? [beats[0], beats[Math.floor(beats.length / 2)], beats[beats.length - 1]] : beats;
+  const seen = new Set();
+  const three = picked.filter(b => !seen.has(b.date) && seen.add(b.date));
+  const last = beats[beats.length - 1];
+  const photo = [...beats].reverse().find(b => b.img)?.img || "";
+  const verState = verificationState(issue);
+  const chron = chronicleFor(issue);
+  const trackedDays = chron
+    ? (beats.length && chron.first_seen ? daysBetween(chron.first_seen, state.briefingDate) : 0)
+    : 0;
+
+  box.innerHTML = `
+    <div class="lead-grid">
+      <div class="lead-text">
+        <p class="lead-kick">${trackedDays > 1 ? `추적 ${trackedDays}일 · ` : ""}${esc(issue.khnp_domain || issue.region || "")}</p>
+        <h2 class="lead-title"><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h2>
+        <p class="lead-deck">${esc(issue.summary || "")}</p>
+        <dl class="lead-figs">
+          <div><dt>원문</dt><dd>${(issue.related_articles || []).length}</dd></div>
+          <div><dt>매체</dt><dd>${new Set((issue.related_articles || []).map(a => a.publisher || a.domain)).size}</dd></div>
+          <div><dt>보도일</dt><dd>${beats.length ? new Set((issue.related_articles || []).map(a => a.article_date)).size : 0}</dd></div>
+          <div><dt>공식 원문</dt><dd>${verState.official_source_count || 0}</dd></div>
+        </dl>
+      </div>
+      <div class="lead-art${photo ? "" : " is-empty"}">
+        ${photo ? `<img src="${esc(photo)}" alt="" loading="lazy" onerror="beatThumbFail(this)">` : ""}
+        <div class="lead-slab">
+          <b>${esc(BEAT_RULES[last.rule] || "")} · ${esc(last.date.slice(5).replace("-", "."))}</b>
+          <span>${esc(last.title)}</span>
+        </div>
+      </div>
+    </div>
+    <ol class="lead-beats">${three.map(b => `
+      <li><p class="lb-meta"><b>${esc(b.date.slice(5).replace("-", "."))}</b>
+        <span>${esc(BEAT_RULES[b.rule] || b.rule)}</span></p>
+        <p class="lb-title">${esc(b.title)}</p>
+        <p class="lb-src">${esc(b.publisher)}</p></li>`).join("")}</ol>
+    <div class="lead-foot"><button type="button" data-issue-id="${esc(issue.issue_id)}">이슈 전체 보기 →</button></div>`;
   box.hidden = false;
   return true;
+}
+
+// 두 날짜 사이의 일수. 값이 이상하면 0 — 화면에 음수 일수를 띄우지 않는다.
+function daysBetween(from, to) {
+  const a = Date.parse(`${from}T00:00:00Z`), b = Date.parse(`${to}T00:00:00Z`);
+  if (Number.isNaN(a) || Number.isNaN(b) || b < a) return 0;
+  return Math.round((b - a) / 86400000) + 1;
 }
 
 // ── 오디오 브리핑 플레이어 ──────────────────────────────────

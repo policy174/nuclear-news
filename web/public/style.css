@@ -2266,8 +2266,9 @@ a.cover-face:hover { transform: translate(-2px, -2px); box-shadow: var(--sh-2); 
 @keyframes rise-in { from { opacity: 0; transform: translateY(8px); } }
 @keyframes cell-in { from { opacity: 0; transform: scaleY(.55); } }
 
-/* 지표 스트립 — 3건보다 먼저 선다. 딜레이 0. */
-.today-metrics:not([hidden]) { animation: rise-in var(--mo-2) var(--mo-ease-out) both; }
+/* 표지 — 3건보다 먼저 선다. 딜레이 0. */
+/* 표지는 내용이 도착하는 순간 한 번 올라온다. 3건 stagger 와 같은 어법. */
+.lead-hero:not([hidden]) { animation: rise-in var(--mo-2) var(--mo-ease-out) both; }
 
 /* 3건 — 60ms 씩 밀어 1→2→3 을 눈이 따라가게 한다. 셋뿐이라 nth-child 로 충분하다
    (JS 로 인덱스를 심을 이유가 없다). 총 120ms 면 '느리다'가 아니라 '순서가 있다'
@@ -3835,31 +3836,102 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 
 .today-lede { margin: var(--sp-2) 0 0; font-size: var(--t-body); color: var(--c-text-secondary); }
 
-/* ── 지표 스트립 ──────────────────────────────────────────────────────
-   같은 숫자를 산문 대신 네 칸으로. 칸 사이는 헤어라인이고 바깥은 잉크
-   프레임 — 굵기가 곧 위계라는 규칙 그대로다(--bd-1 / --bd-2). 반복 요소가
-   아니라 상자형 표면 하나이므로 --sh-1 을 붙인다(그림자 규칙 3).
-   숫자는 모노 — 자릿수가 달라도 칸이 흔들리지 않는다. */
-.today-metrics {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  margin: var(--sp-4) 0 0; background: var(--c-surface);
-  border: var(--bd-2) solid var(--c-edge); border-radius: var(--r-2);
-  overflow: hidden; box-shadow: var(--sh-1);
+/* ── 오늘의 한 건 (잡지 표지) ─────────────────────────────────────────
+   1위 이슈 하나를 크게 세운다. 테두리로 두르지 않고 흰 면과 잉크 면의 맞댐으로
+   가른다 — 박스마다 선을 두르면 지면이 서식이 되고 잡지가 안 된다.
+
+   사진은 듀오톤이다. 원본 그대로 이 크기에 걸면 독자가 그날의 사건으로 읽는데,
+   뽑히는 사진은 대개 자료사진·증명사진·조감도라 거짓이 된다(실측 09-20).
+   잉크 한 색으로 눌리면 '처리된 그림'이 되어 그 주장이 사라진다. 사실은
+   슬래브 한 줄과 아래 전환점 3칸이 나른다. */
+.lead-hero { background: var(--c-surface); margin-top: var(--sp-5); }
+.lead-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+.lead-text {
+  padding: var(--sp-10) var(--sp-8) var(--sp-8);
+  display: flex; flex-direction: column; justify-content: center;
 }
-.today-metrics .metric { padding: var(--sp-3) var(--sp-4); border-right: var(--bd-1) solid var(--c-border); }
-.today-metrics .metric:last-child { border-right: 0; }
-.today-metrics dt {
-  font-size: var(--t-caption); letter-spacing: .08em; font-weight: 700;
-  color: var(--c-text-muted);
+.lead-kick {
+  margin: 0 0 var(--sp-4); font-family: var(--ff-mono); font-size: var(--t-min);
+  letter-spacing: .18em; color: var(--c-text-muted);
 }
-.today-metrics dd {
-  margin: var(--sp-1) 0 0; font-family: var(--ff-mono);
-  font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
+.lead-title { margin: 0 0 var(--sp-4); }
+.lead-title button {
+  border: 0; background: none; padding: 0; text-align: left; cursor: pointer;
+  font-family: var(--ff-base); font-size: clamp(26px, 3.1vw, 40px); font-weight: 700;
+  line-height: 1.3; letter-spacing: -.022em; color: var(--c-text); word-break: keep-all;
 }
-.today-metrics p { margin: 2px 0 0; font-size: var(--t-caption); color: var(--c-text-secondary); }
-/* '변화'만 상호작용색으로 띄운다 — 화면당 색 셋 규칙 안에서 한 자리를 쓴다 */
-.today-metrics .is-hot dd { color: var(--c-secondary); }
-.today-metrics .is-hot p { color: var(--c-accent-text); font-weight: 600; }
+.lead-title button:hover { color: var(--c-secondary); }
+.lead-deck {
+  margin: 0 0 var(--sp-6); font-size: var(--t-body-lg); line-height: 1.75;
+  color: var(--c-text-secondary); word-break: keep-all;
+}
+.lead-figs {
+  display: flex; gap: var(--sp-6); margin: 0;
+  border-top: var(--bd-1) solid var(--c-border); padding-top: var(--sp-4);
+}
+.lead-figs dt { font-family: var(--ff-mono); font-size: var(--t-min); letter-spacing: .06em; color: var(--c-text-muted); }
+.lead-figs dd { margin: 3px 0 0; font-family: var(--ff-mono); font-size: 17px; font-weight: 700; }
+.lead-art { position: relative; min-height: 340px; background: var(--c-primary); }
+.lead-art img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.08) brightness(.95);
+  mix-blend-mode: screen; opacity: .72;
+}
+.lead-art::after {
+  content: ""; position: absolute; inset: 0; background: var(--c-primary);
+  mix-blend-mode: multiply; opacity: .6;
+}
+/* 사진이 없는 날(실측 확보율 79%)에도 빈자리로 두지 않는다 — 잉크 면이 선다. */
+.lead-art.is-empty img { display: none; }
+.lead-slab {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: var(--sp-12) var(--sp-5) var(--sp-5);
+  background: linear-gradient(transparent, rgba(11, 28, 54, .94) 42%);
+}
+.lead-slab b {
+  display: block; font-family: var(--ff-mono); font-size: var(--t-min);
+  letter-spacing: .14em; color: rgba(255, 255, 255, .62); margin-bottom: 6px;
+}
+.lead-slab span {
+  display: block; font-size: 15px; font-weight: 600; color: #fff;
+  line-height: 1.55; word-break: keep-all;
+}
+.lead-beats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+.lead-beats li { padding: var(--sp-5) var(--sp-5) var(--sp-5); border-top: var(--bd-1) solid var(--c-border); }
+.lead-beats li + li { border-left: var(--bd-1) solid var(--c-border); }
+.lb-meta { display: flex; align-items: center; gap: var(--sp-2); margin: 0 0 var(--sp-2); }
+.lb-meta b { font-family: var(--ff-mono); font-size: 13px; color: var(--c-secondary); }
+.lb-meta span { font-size: var(--t-min); color: var(--c-text-muted); }
+.lb-title { margin: 0 0 4px; font-size: 14px; line-height: 1.6; word-break: keep-all; }
+.lb-src { margin: 0; font-size: var(--t-min); color: var(--c-text-muted); }
+.lead-foot {
+  border-top: var(--bd-1) solid var(--c-border); padding: var(--sp-3) var(--sp-5);
+  display: flex; justify-content: flex-end;
+}
+.lead-foot button {
+  border: 0; background: none; padding: 0; cursor: pointer; font: inherit;
+  font-size: var(--t-caption); font-weight: 700; color: var(--c-secondary);
+}
+@media (max-width: 719px) {
+  /* 폰 — 표지가 첫 화면을 다 먹으면 나머지 이슈를 못 보고 "매일 같은 화면"으로
+     읽힌다. 1위는 실측상 매일 바뀌므로 줄일 것은 높이다: 사진 150px, 요약 숨김
+     (제목과 슬래브가 이미 말한다), 전환점은 첫·끝 둘만. */
+  .lead-grid { grid-template-columns: 1fr; }
+  .lead-art { order: -1; min-height: 150px; }
+  .lead-text { padding: var(--sp-4); }
+  .lead-title button { font-size: 23px; }
+  .lead-deck { display: none; }
+  .lead-figs { gap: var(--sp-4); padding-top: var(--sp-3); }
+  .lead-figs dd { font-size: 14px; }
+  .lead-slab { padding: var(--sp-10) var(--sp-4) var(--sp-3); }
+  .lead-slab span { font-size: 13.5px; }
+  .lead-beats { grid-template-columns: 1fr 1fr; }
+  .lead-beats li:nth-child(2) { display: none; }
+  .lead-beats li { padding: var(--sp-3); }
+  .lead-beats li + li { border-left: var(--bd-1) solid var(--c-border); }
+  .lb-title { font-size: 12.5px; display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden; }
+}
 
 /* ── 오늘 먼저 볼 3건 ──────────────────────────────────────────────────
    이 화면에서 유일하게 크게 쓰는 요소. 목차 행과 같은 괘선 위계를 쓰되
@@ -4003,11 +4075,6 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   .today-lede { display: none; }
   /* 폰에서는 2×2. 네 칸을 390px 에 욱여넣으면 숫자가 두 줄로 접힌다.
      '변화' 칸이 둘째 줄 왼쪽에 와서 접힘선 위에 남는다 — 순서는 그대로 둔다. */
-  .today-metrics { grid-template-columns: repeat(2, 1fr); margin-top: var(--sp-3); }
-  .today-metrics .metric { padding: var(--sp-3); }
-  .today-metrics .metric:nth-child(2n) { border-right: 0; }
-  .today-metrics .metric:nth-child(-n + 2) { border-bottom: var(--bd-1) solid var(--c-border); }
-  .today-metrics dd { font-size: 26px; }
   .pick-open { grid-template-columns: 34px minmax(0, 1fr); }
   .pick-detail { padding: 0 var(--sp-3) var(--sp-3) calc(34px + var(--sp-2) + var(--sp-3));
     font-size: 14px; }
