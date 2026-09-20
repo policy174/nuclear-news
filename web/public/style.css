@@ -1979,15 +1979,12 @@ body.booting .status-strip.loading { display: none; }
   overflow: hidden;
 }
 .beat-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.beat-thumb.is-empty img { display: none; }
-/* 빈 칸을 채우지 않는다 — 없다는 것도 사실이다. */
-.beat-thumb.is-empty::after {
-  content: "사진 없음"; position: absolute; inset: 0;
-  display: grid; place-items: center;
-  font-size: var(--t-min); color: var(--c-text-muted);
-}
+/* 사진이 없으면 칸 자체가 없다 — 회색 네모에 '사진 없음'을 적어두면 빈자리가
+   두 번 눈에 띈다(표지에서 이미 같은 판정을 했다, 지니 09-21). 글이 그 폭을 쓴다. */
+.beat-film .beat.no-thumb { grid-template-columns: 14px minmax(0, 1fr); }
 @media (max-width: 719px) {
   .beat-film .beat { grid-template-columns: 14px minmax(0, 1fr) 72px; gap: var(--sp-2); }
+  .beat-film .beat.no-thumb { grid-template-columns: 14px minmax(0, 1fr); }
   .beat-thumb { width: 72px; }
   .beat-title { font-size: 14.5px; }
 }

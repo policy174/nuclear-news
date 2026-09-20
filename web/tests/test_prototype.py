@@ -3126,18 +3126,26 @@ class SelectionOverrideTests(unittest.TestCase):
         # 둘 중 하나를 고르지 않고 둘 다 버려야 한다.
         self.assertIn("seen[row.img] > 1", body, "이슈 단위 중복 이미지 제거가 없다")
 
-    def test_beat_thumbnail_degrades_to_an_empty_slot(self):
-        """사진은 덧붙임이지 구조가 아니다.
+    def test_beat_without_a_photo_drops_the_slot(self):
+        """사진이 없으면 칸도 없다 — 글이 그 폭을 쓴다.
 
-        og:image 는 referrer 차단·URL 만료로 흔히 깨진다. 깨졌을 때 빈자리를
-        그럴듯하게 채우면 안 되고, 날짜·규칙·제목·원문은 그대로 남아야 한다.
+        전에는 회색 네모에 '사진 없음'을 적었다. 한 이슈의 전환점 다섯 중 셋이
+        빈 날이 흔해서, 빈자리가 다섯 번 눈에 띄는 화면이 됐다(지니 09-21
+        "사진없는건 텍스트만으로"). 표지에서 이미 같은 판정을 했다 — no-art.
+
+        og:image 는 referrer 차단·URL 만료로 **런타임에도** 깨진다. 그때도 같은
+        결과여야 한다: 칸을 걷고 날짜·규칙·제목·원문은 그대로 남는다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
+        film = script.split("function beatFilm(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("no-thumb", film, "사진 없는 전환점 표시가 없다")
+        self.assertNotIn("is-empty", film, "빈 칸을 그대로 세우고 있다")
         self.assertIn("beatThumbFail", script, "onerror 폴백이 없다")
-        self.assertIn('is-empty"', script, "빈 칸 상태가 없다")
-        self.assertIn(".beat-thumb.is-empty::after", css, "빈 칸 표기가 없다")
-        self.assertIn("사진 없음", css, "빈 칸을 말없이 비워 둔다")
+        fail = script.split("window.beatThumbFail", 1)[1][:400]
+        self.assertIn("no-thumb", fail, "깨진 사진이 빈 칸으로 남는다")
+        self.assertIn(".beat-film .beat.no-thumb { grid-template-columns: 14px minmax(0, 1fr); }", css)
+        self.assertNotIn('content: "사진 없음"', css, "빈 칸에 글자를 적고 있다")
 
     def test_og_image_survives_every_hop_to_the_screen(self):
         """사진은 네 단계를 거쳐 화면에 온다 — 한 곳만 빠져도 전부 빈 칸이다.
@@ -3218,9 +3226,10 @@ class SelectionOverrideTests(unittest.TestCase):
         badge = script.split("function shortsBadge(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("shortsFor(issue)", badge, "거르지 않은 원본 목록을 쓰고 있다")
         self.assertIn("if (!row) return", badge, "영상이 없는 이슈에도 배지를 단다")
-        # 같은 이슈가 여러 날 브리핑에 실린다(대만 마안산: 08-26·09-04·09-20).
-        # 날짜를 안 보면 8월 지면에 9월 영상이 걸린다 — 그날 아직 안 일어난 일이다.
-        self.assertIn("state.briefingDate", badge, "지난 날짜 지면에도 영상이 샌다")
+        # 한 영상이 여러 이슈를 말할 수 있다 — 대만 영상은 마안산 재가동과
+        # 3호기 심사 둘 다를 다룬다(지니 09-21 "대만 관련에는 다 달아줘").
+        match = script.split("function shortsMatch(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("[].concat(", match, "issue_id 목록을 안 받는다")
         for row in rows:
             self.assertRegex(str(row.get("date", "")), r"^\d{4}-\d{2}-\d{2}$",
                              "date 가 없으면 어느 날부터 띄울지 알 수 없다")

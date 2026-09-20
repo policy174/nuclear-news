@@ -1856,10 +1856,14 @@ function shortsAll() {
 }
 
 function shortsMatch(row, issueKey) {
+  // 한 영상이 여러 이슈를 말할 수 있다 — 대만 영상은 마안산 재가동과 3호기
+  // 심사 둘 다를 다룬다. issue_id 에 목록을 적으면 그 전부에 붙는다.
   // 앞 8자리만 적어도 붙는다 — 사람이 URL 에서 베끼는 값이라 16자리를 전부
   // 옮겨 적게 하면 오타가 난다. 8자리 미만은 무시한다(남의 이슈에 붙는 사고).
-  const key = shortsKey(row.issue_id || row.hash8);
-  return key.length >= 8 && issueKey.startsWith(key);
+  return [].concat(row.issue_id || row.hash8 || []).some(value => {
+    const key = shortsKey(value);
+    return key.length >= 8 && issueKey.startsWith(key);
+  });
 }
 
 function shortsFor(issue) {
@@ -1873,11 +1877,10 @@ function shortsFor(issue) {
 // (nuclens-design-v5/build_home.py 의 .playbadge)의 노란 띠 그대로다. 누르면
 // 이슈 상세가 열리고 영상은 거기 맨 앞에 있다.
 function shortsBadge(issue, { compact = false } = {}) {
-  // 지면에는 **그 영상의 날짜부터** 붙는다. 이슈는 60일을 살고 같은 이슈가 여러
-  // 날 브리핑에 실리는데(대만 마안산: 08-26·09-04·09-20), 날짜를 안 보면 8월
-  // 지면에 9월 영상이 걸린다 — 그날 아직 일어나지 않은 일을 말하는 영상이다.
-  // 상세·이슈 페이지에는 날짜 맥락이 없으므로 거기서는 언제나 보인다.
-  const row = shortsFor(issue).find(r => !state.briefingDate || String(r.date || "") <= state.briefingDate);
+  // 날짜로 가리지 않는다(지니 09-21 "대만 관련에는 다 달아줘"). 같은 이슈가
+  // 여러 날 브리핑에 실리면 그 날짜마다 배지가 붙는다 — 지난 지면에서도 같은
+  // 사건을 영상으로 볼 수 있는 편이 낫다는 판정이다.
+  const row = shortsFor(issue)[0];
   if (!row) return "";
   const sec = Number(row.seconds) || 0;
   const len = sec ? ` · ${sec >= 60 ? `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초` : `${sec}초`}` : "";
@@ -3339,7 +3342,7 @@ function issueBeats(issue, limit = 5) {
 // 사라져도 날짜·규칙·제목·매체·원문 링크는 그대로 남는다.
 function beatFilm(beats) {
   return `<ol class="beat-film">${beats.map((beat, i) => `
-    <li class="beat${i === beats.length - 1 ? " is-now" : ""}">
+    <li class="beat${i === beats.length - 1 ? " is-now" : ""}${beat.img ? "" : " no-thumb"}">
       <span class="beat-dot" aria-hidden="true"></span>
       <div class="beat-body">
         <p class="beat-meta"><b class="beat-date">${esc(beat.date.slice(5).replace("-", "."))}</b>
@@ -3352,13 +3355,18 @@ function beatFilm(beats) {
       </div>
       ${beat.img
         ? `<span class="beat-thumb"><img src="${esc(beat.img)}" alt="" loading="lazy" onerror="beatThumbFail(this)"></span>`
-        : '<span class="beat-thumb is-empty" aria-hidden="true"></span>'}
+        : ""}
     </li>`).join("")}</ol>`;
 }
 
 // 인라인 onerror 안에서 따옴표를 쓰지 않기 위한 전역 함수. 문자열 안의 문자열
 // 안의 문자열이 되면 어떤 이스케이프를 써도 다음에 고치는 사람이 또 깨뜨린다.
-window.beatThumbFail = function (img) { img.parentNode.classList.add("is-empty"); };
+// 사진이 깨지면 칸을 걷는다 — 회색 네모에 '사진 없음'을 적는 것은 없는 것보다
+// 나쁘다(지니 09-21). 글이 그 폭을 쓴다.
+window.beatThumbFail = function (img) {
+  img.closest(".beat")?.classList.add("no-thumb");
+  img.parentNode.remove();
+};
 
 // 표지 사진이 깨졌을 때(referrer 차단·URL 만료) 사진 칸을 통째로 걷는다.
 // 잉크 면만 남기면 "못 불러왔다"로 읽혀서, 없는 것보다 나쁘다.
