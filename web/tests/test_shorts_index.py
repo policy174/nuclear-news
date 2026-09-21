@@ -2,13 +2,10 @@
 
 배포 경로(deploy-web.yml → web/tests)에서 돈다. 발행기(nuclens-shorts/publish.py)만
 검사하면 웹 파일을 직접 고쳐 푸시하는 경로로 우회된다 — 2026-09-21 에 그 경로로
-8번 밀었다. 그날 공유 페이지의 인라인 스크립트가 문법 오류로 나간 것도 여기서
-잡혔어야 했다(app.js 만 node --check 했다).
+8번 밀었다.
 """
 import json
 import re
-import shutil
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -143,22 +140,8 @@ class ShortsIndexTests(unittest.TestCase):
         self.assertIn('fetch("/shorts/index.json"', page)
         self.assertIn('href="/shorts/"', (ROOT / "public" / "index.html").read_text(encoding="utf-8"))
 
-    def test_inline_scripts_parse(self):
-        """공유·아카이브 페이지의 인라인 스크립트는 node --check 를 통과해야 한다.
-        2026-09-21 공유 페이지가 문자열 안 개행으로 SyntaxError 인 채 배포됐다 —
-        재생 버튼·공유 버튼이 전부 죽었는데 아무 검사에도 안 걸렸다."""
-        node = shutil.which("node")
-        if not node:
-            self.skipTest("node 없음")
-        pages = sorted(SHORTS.rglob("*.html"))
-        self.assertTrue(pages)
-        for page in pages:
-            for n, js in enumerate(inline_scripts(page.read_text(encoding="utf-8"))):
-                with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as f:
-                    f.write(js)
-                r = subprocess.run([node, "--check", f.name], capture_output=True, text=True)
-                Path(f.name).unlink()
-                self.assertEqual(r.returncode, 0, "%s <script> #%d: %s" % (page.relative_to(ROOT), n, r.stderr.strip()[-400:]))
+    # 인라인 <script> 파싱 검사는 test_prototype.test_inline_scripts_parse 가
+    # public/ 전체를 본다 — 여기서 또 하지 않는다.
 
 
 if __name__ == "__main__":
