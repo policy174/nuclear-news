@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-650e4b368701",
-   "date": "2026-09-14",
-   "end_date": "2026-09-14",
-   "kind": "deadline",
-   "label": "2026년 제3차 원전기업 인증 신청기업 모집 공고",
-   "title": "2026년 제3차 원전기업 인증 신청기업 모집 공고",
-   "notice_title": "2026년 제3차 원전기업 인증 신청기업 모집 공고 (~ 9. 14.)",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "",
-   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30021&s=",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_notice",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-06"
-  },
-  {
    "hash": "of-4a50932709bd",
    "date": "2026-09-15",
    "end_date": "2026-09-15",
@@ -191,6 +172,25 @@
    "first_seen": "2026-09-18"
   },
   {
+   "hash": "of-416aa4bcb522",
+   "date": "2026-09-28",
+   "end_date": "2026-09-28",
+   "kind": "point",
+   "label": "「산업·에너지」 전략",
+   "title": "「산업·에너지」 전략",
+   "notice_title": "",
+   "time": "14:00",
+   "host": "김소희 의원실, 경제사회연구원 기후에너지센터, 한국경영인학회",
+   "organizer": "김소희 의원실, 경제사회연구원 기후에너지센터, 한국경영인학회",
+   "place": "의원회관 제7간담회의실(210호)",
+   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
+   "publisher": "국회",
+   "source_id": "assembly_events",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-09-22"
+  },
+  {
    "hash": "of-e79addddc7b7",
    "date": "2026-09-28",
    "end_date": "2026-10-01",
@@ -229,6 +229,25 @@
    "first_seen": "2026-09-06"
   },
   {
+   "hash": "of-82118b93800e",
+   "date": "2026-09-29",
+   "end_date": "2026-09-29",
+   "kind": "point",
+   "label": "첨단산업 전력수요 급증, 원전이 해답인가?",
+   "title": "첨단산업 전력수요 급증, 원전이 해답인가?",
+   "notice_title": "",
+   "time": "10:00",
+   "host": "우원식·최기상·김주영·곽상언 의원실, 국회 기후위기 탈탄소 경제포럼, 에너지전환포럼",
+   "organizer": "우원식·최기상·김주영·곽상언 의원실, 국회 기후위기 탈탄소 경제포럼, 에너지전환포럼",
+   "place": "의원회관 제5간담회의실(208호)",
+   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
+   "publisher": "국회",
+   "source_id": "assembly_events",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-09-22"
+  },
+  {
    "hash": "of-ccdb7c0fb073",
    "date": "2026-09-29",
    "end_date": "2026-09-29",
@@ -246,6 +265,25 @@
    "origin": "official",
    "source_kind": "official",
    "first_seen": "2026-09-17"
+  },
+  {
+   "hash": "of-2cbdeb6aab05",
+   "date": "2026-09-30",
+   "end_date": "2026-09-30",
+   "kind": "point",
+   "label": "탄소중립 성과관리를 위한 기후정책 성과감사 세미나",
+   "title": "탄소중립 성과관리를 위한 기후정책 성과감사 세미나",
+   "notice_title": "",
+   "time": "10:00",
+   "host": "김용태 의원실, 한국에너지공단",
+   "organizer": "김용태 의원실, 한국에너지공단",
+   "place": "의원회관 제6간담회의실(209호)",
+   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
+   "publisher": "국회",
+   "source_id": "assembly_events",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-09-22"
   },
   {
    "hash": "of-f7e637553ea5",
@@ -498,24 +536,25 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-09-21T00:56:40+09:00",
-   "ok": false,
-   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
+   "at": "2026-09-22T00:46:03+09:00",
+   "ok": true,
+   "new": 3,
+   "parsed": 7
   },
   "kaif_calendar": {
-   "at": "2026-09-21T00:56:40+09:00",
+   "at": "2026-09-22T00:46:03+09:00",
    "ok": true,
    "new": 25,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-09-21T00:56:40+09:00",
+   "at": "2026-09-22T00:46:03+09:00",
    "ok": true,
    "new": 3,
    "parsed": 4
   },
   "kns_notice": {
-   "at": "2026-09-21T00:56:40+09:00",
+   "at": "2026-09-22T00:46:03+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
