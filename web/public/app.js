@@ -5883,8 +5883,12 @@ function applyTheme(theme, persist = false) {
 }
 
 function initializeTheme() {
-  const saved = localStorage.getItem("nuclens-theme");
-  applyTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+  // **밝은 면이 기본이다.** 시안은 라이트 단일이고(style.css :root 주석 "다크는
+  // 시안에 없다 … OS 자동 감지는 도입하지 않는다"), 다크는 파생이다. 그런데 이
+  // 함수만 OS 설정을 따라가고 있어서, 폰을 다크로 쓰는 사람은 사이트를 처음
+  // 열 때부터 어두운 화면만 봤다 — 밝은 版이 있는 줄도 모른다(지니 2026-09-21).
+  // 고른 사람의 뜻은 그대로 존중한다: 저장된 값이 있으면 그것이 이긴다.
+  applyTheme(localStorage.getItem("nuclens-theme") || "light");
 }
 
 function stepBriefing(direction) {
