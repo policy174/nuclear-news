@@ -11,3 +11,22 @@
 # record_type 이 붙은 줄을 건너뛰고, selection_stats 는 pipeline_status 로 고른다).
 delivery_log.jsonl merge=union
 archive/*.jsonl merge=union
+
+# 바이너리는 절대 줄바꿈 변환을 하지 않는다.
+#
+# core.autocrlf=true 인 Windows 에서 git 은 파일이 텍스트인지 **앞 8000 바이트에
+# NUL 이 있는지**로 짐작한다. mp4 는 앞머리(ftyp·moov)가 ASCII 태그투성이라
+# NUL 없이 지나가고, 그래서 텍스트로 오인돼 CR 이 뜯긴다 — 실측 2026-09-21:
+# 7,122,268 바이트 86.2초 영상이 커밋 뒤 5,620,012 바이트 68.6초가 됐다.
+# 라이브에서 폰 재생이 안 되던 원인이 이것이다. PNG 는 IHDR 에 NUL 이 있어
+# 우연히 무사했을 뿐, 규칙으로 막아 둔다.
+*.mp4 binary
+*.mov binary
+*.m4a binary
+*.mp3 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.woff2 binary
+*.pdf binary
