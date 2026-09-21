@@ -31,6 +31,16 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
+      # 다음 주 영상 브리핑 후보 — 주간 리포트의 보고서 후보·정책 변화를 지니 DM 으로.
+      # 채널이 아니라 --ops(개인 DM) 다. 실패해도 리포트 커밋을 막지 않는다(비치명, 종료 코드 보장).
+      - name: Brief candidates (영상 브리핑 씨앗 → DM)
+        if: always()
+        run: python brief_candidates.py || echo "후보 발송 실패 — 비치명"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+
       # 주간 리포트를 웹이 쓸 수 있게 커밋. 발송이 실패해도 여기까지는 온다.
       - name: Commit weekly report
         if: always()
