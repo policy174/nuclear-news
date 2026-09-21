@@ -1960,10 +1960,17 @@ function shortsTile(row, { link = false, caption = true } = {}) {
     // 재생 길이를 읽어야 머리글에 실을 수 있다. 본편은 누를 때 받는다.
     : `<video controls playsinline preload="metadata"${poster ? ` poster="${esc(poster)}"` : ""} src="/shorts/${encodeURIComponent(String(row.file || "").trim())}${poster ? "" : "#t=0.1"}"></video>`;
   const title = caption ? String(row.title || "").trim() : "";
+  // 두 줄 요약 — 제목은 영상 안에 계속 떠 있다. 여기에 또 적으면 같은 낱말만
+  // 반복된다(지니 2026-09-21 "계속 대만 원전정책 변화라는 단어만 반복해서 적혀").
+  // 화면에 남길 것은 제목이 아니라 "무슨 내용인가"다.
+  const sum = caption
+    ? [].concat(row.summary || []).map(line => String(line).trim()).filter(Boolean)
+    : [];
   const issueId = String(row.issue_id || "").trim();
   return `<figure class="short">${media}
     <div class="short-meta">
       ${title ? `<figcaption>${esc(title)}</figcaption>` : ""}
+      ${sum.length ? `<p class="short-sum">${sum.map(line => esc(line)).join("<br>")}</p>` : ""}
       ${link && issueId.startsWith("issue-") ? `<button type="button" class="short-link" data-issue-id="${esc(issueId)}" data-force-dialog="1">이슈 보기 →</button>` : ""}
     </div>
   </figure>`;

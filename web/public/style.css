@@ -3383,6 +3383,10 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
   color: #fff; font-size: 34px; text-shadow: 0 2px 12px rgba(9, 22, 40, .6); }
 .short-meta { display: flex; flex-direction: column; gap: var(--sp-1); align-items: flex-start; }
 .short figcaption { font-size: var(--t-caption); color: var(--c-text); line-height: 1.4; }
+/* 두 줄 요약 — 제목 아래. 제목은 영상 안에 이미 떠 있으니 여기서 일을 하는
+   것은 이쪽이다. 제목보다 크게 두면 위계가 뒤집히므로 색만 낮춘다. */
+.short-sum { font-size: var(--t-caption); color: var(--c-text-muted);
+  line-height: 1.62; word-break: keep-all; }
 .short-link { align-self: flex-start; padding: 0; border: 0; background: none;
   color: var(--c-text-muted); font: inherit; font-size: var(--t-caption); cursor: pointer; }
 .short-link:hover { color: var(--c-text); }
