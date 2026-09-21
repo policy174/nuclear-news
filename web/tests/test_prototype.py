@@ -265,19 +265,35 @@ class BrandAccessibilityTests(unittest.TestCase):
         self.assertIn("outline: 2px solid var(--c-focus);", css)
         self.assertIn("box-shadow: var(--fo-ring);", css)
 
-    def test_n_lettermark_is_restored_without_lens_geometry(self):
+    def test_arch_mark_is_the_same_shape_everywhere(self):
+        """심벌은 세 파일에 흩어져 있다 — 하나만 고치면 브랜드가 둘이 된다.
+
+        2026-09-21 교체: 채운 사각형 + 흰 N 은 네이버와 같은 문법이라 버렸다
+        (지니 "네이버랑 너무 똑같다"). 아치 = 격납건물 돔이자 소문자 n 의 어깨,
+        속의 점은 노심이자 렌즈의 초점. **고른 이유는 한 색으로 눌러도 남는
+        것**이라, 그라데이션·입체가 들어오면 그 이유가 사라진다.
+
+        og-image·아이콘은 make_og_image.py 가 같은 기하를 비율로 그린다 —
+        기하를 두 번 적지 않는 것이 두 그림이 어긋나지 않는 유일한 방법이다.
+        """
         favicon = (ROOT / "public" / "favicon.svg").read_text(encoding="utf-8")
         logo_mark = (ROOT / "public" / "logo-mark.svg").read_text(encoding="utf-8")
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        self.assertIn('class="brand-mark" aria-hidden="true">N</span>', html)
+        generator = (ROOT / "tools" / "make_og_image.py").read_text(encoding="utf-8")
+
+        # 아치 획 + 노심 점이 세 곳 모두에 있어야 한다.
+        for name, text in (("favicon", favicon), ("logo-mark", logo_mark), ("index", html)):
+            self.assertIn("a13 13 0 0 1" if "48 48" in text else "a15 15 0 0 1", text, name)
+            self.assertIn("#f0c23c", text, name + " 에 노심 점이 없다")
+            self.assertNotIn("linearGradient", text, name + " 에 그라데이션이 들어왔다")
+        self.assertNotIn('aria-hidden="true">N</span>', html, "옛 N 글자 마크가 남아 있다")
         self.assertIn('aria-label="Nuclens"', favicon)
-        self.assertIn("<path", favicon)
-        self.assertNotIn('id="favicon-lens"', favicon)
         self.assertNotIn("<clipPath", favicon)
-        self.assertIn('aria-label="Nuclens N"', logo_mark)
-        self.assertIn("<path", logo_mark)
-        self.assertNotIn("<clipPath", logo_mark)
         self.assertNotIn("nuclens-lens", logo_mark)
+        # 생성기도 같은 마크를 그려야 한다 — N 획 세 개로 되돌아가면 안 된다.
+        self.assertIn("def arch_mark(", generator)
+        self.assertIn("AMBER", generator)
+        self.assertIn("(0x12, 0x29, 0x4C)", generator, "공유 카드가 옛 팔레트로 나간다")
 
     def test_link_preview_image_exists_and_matches_the_deployed_mark(self):
         """공유 카드 이미지는 화면과 같은 심벌이어야 한다.

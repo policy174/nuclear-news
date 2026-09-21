@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Nuclens N">
-  <title>Nuclens N</title>
-  <circle cx="20" cy="20" r="20" fill="#0E2A3C"/>
-  <path d="M11.5 30V10h4l9 13.2V10h4v20h-4l-9-13.2V30z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Nuclens">
+  <title>Nuclens</title>
+  <!-- 아치 = 격납건물 돔이자 소문자 n 의 어깨. 속의 점은 노심이자 렌즈의 초점.
+       한 색으로 눌러도(흑백 1도 인쇄) 형태가 남는 것이 이 마크를 고른 이유다. -->
+  <path d="M11 42V25a13 13 0 0 1 26 0v17" fill="none" stroke="#12294c" stroke-width="5.6" stroke-linecap="round"/>
+  <circle cx="24" cy="27" r="3.8" fill="#f0c23c"/>
 </svg>

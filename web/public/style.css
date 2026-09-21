@@ -390,8 +390,10 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   height: 32px;
   flex: 0 0 auto;
   border-radius: 0;
-  background: var(--c-signal);
-  color: var(--c-signal-ink);
+  /* 판을 깔지 않는다 — 상단바가 이미 잉크 면이다. 채운 사각형 위의 흰 글자는
+     남의 브랜드 문법이었다(지니 2026-09-21 "네이버랑 너무 똑같다"). */
+  background: none;
+  color: #fff;
   /* 하드 그림자를 붙이지 않는다 — --c-edge(#0b1713)는 상단바의 --c-primary
      (#12251e) 위에서 1.4:1 이라 아무것도 안 보인다. 잉크 크롬 안(.topbar ·
      .mobile-tabs · .status-strip · .rail-head)에서는 --sh-* 를 쓰지 말 것. */

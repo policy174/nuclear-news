@@ -6,9 +6,11 @@
 
     python web/tools/make_og_image.py
 
-의존성 0 (zlib·struct). 심벌은 배포 중인 public/logo-mark.svg 와 같은 N 마크다.
-브랜드 개편안의 Overlap Lens 는 2026-08-01 에 N 마크로 되돌린 결정(7bc99b2)이
-있으므로 여기서도 쓰지 않는다 — 화면과 공유 카드의 심벌이 달라지면 안 된다.
+의존성 0 (zlib·struct). 심벌은 배포 중인 public/logo-mark.svg 와 같은 아치
+마크다 — 화면과 공유 카드의 심벌이 달라지면 안 된다.
+
+    python web/tools/make_og_image.py           # og-image.png
+    python web/tools/make_og_image.py --icons   # + PWA·애플 아이콘 3종
 """
 
 from __future__ import annotations
@@ -23,13 +25,17 @@ OUT = Path(__file__).resolve().parents[1] / "public" / "og-image.png"
 WIDTH, HEIGHT = 1200, 630
 # style.css 의 --c-primary 와 같은 값으로 유지한다 — 공유 카드가 사이트와 따로 놀면
 # 브랜드가 두 개로 보인다. 팔레트를 바꾸면 이 상수도 함께 바꾸고 재생성할 것.
-BG = (0x12, 0x25, 0x1E)
+# 2026-08-17 재도색(#12251e 딥포레스트 → #12294c 딥네이비)이 여기 반영되지
+# 않아 공유 카드만 옛 색으로 나가고 있었다. 팔레트를 바꾸면 이 상수도 같이.
+BG = (0x12, 0x29, 0x4C)
 WHITE = (0xFF, 0xFF, 0xFF)
+AMBER = (0xF0, 0xC2, 0x3C)
 
-# N 마크 — public/logo-mark.svg 와 같은 구성(원판 + 흰 N).
+# 아치 마크 — public/logo-mark.svg 와 같은 기하(48 단위 기준을 비율로 옮긴다).
+#   아치 반지름 13/48 · 획 5.6/48 · 다리 끝 42/48 · 노심 점 r3.8 at cy27
 MARK_R = 116
 MARK_CY = 248
-MARK_STROKE = 26  # N 획 두께 (원 지름 대비 비율을 SVG 와 맞춤)
+MARK_STROKE = 26
 
 # 워드마크 — 기하학적 스트로크 글리프. 폰트 의존을 없애려고 직접 그린다.
 GLYPH_H = 74
@@ -187,25 +193,48 @@ def draw_wordmark(canvas: Canvas, text: str) -> None:
         cursor += GLYPH_W + GLYPH_GAP
 
 
-def draw_mark(canvas: Canvas) -> None:
-    """원판 + 흰 N — public/logo-mark.svg 와 같은 심벌."""
-    cx = WIDTH / 2
-    bounds = (int(cx - MARK_R - 2), int(MARK_CY - MARK_R - 2),
-              int(cx + MARK_R + 2), int(MARK_CY + MARK_R + 2))
-    # 원판은 배경과 같은 Primary 라 보이지 않으므로 흰 테두리 대신 밝은 원판을
-    # 쓰지 않고, SVG 처럼 원판 위에 N 만 얹는다(배경이 곧 원판 역할).
-    canvas.fill(_coverage(disc_shape(cx, MARK_CY, MARK_R), bounds), WHITE, 0.08)
+def arch_mark(canvas: Canvas, cx: float, cy: float, unit: float,
+              ink: tuple[int, int, int] = WHITE, core: tuple[int, int, int] = AMBER) -> None:
+    """아치 + 노심. unit 은 SVG 48 단위 1칸의 픽셀 길이다.
 
-    half_w, half_h = MARK_R * 0.46, MARK_R * 0.52
-    left, right = cx - half_w, cx + half_w
-    top, bottom = MARK_CY - half_h, MARK_CY + half_h
-    strokes = [
-        segment_shape(left, bottom, left, top, MARK_STROKE),
-        segment_shape(left, top, right, bottom, MARK_STROKE),
-        segment_shape(right, bottom, right, top, MARK_STROKE),
-    ]
-    for stroke in strokes:
-        canvas.fill(_coverage(stroke, bounds), WHITE)
+    SVG 와 같은 수를 쓴다 — 두 그림이 어긋나는 사고를 막으려면 기하를 두 번
+    적지 말고 한 번 적고 배율만 바꿔야 한다.
+    """
+    r = 13 * unit
+    stroke = 5.6 * unit
+    top_y = cy - 2 * unit          # 아치 중심 (SVG 의 y=25, 박스 중심 24 기준)
+    foot_y = cy + 18 * unit        # 다리 끝 (SVG 의 y=42)
+    pad = stroke + 2
+    bounds = (int(cx - r - pad), int(top_y - r - pad), int(cx + r + pad), int(foot_y + pad))
+    shapes = [segment_shape(cx - r, top_y, cx - r, foot_y, stroke),
+              segment_shape(cx + r, top_y, cx + r, foot_y, stroke)]
+    shapes += arc_segments(cx, top_y, r, 180, 360, stroke, steps=40)
+    for shape in shapes:
+        canvas.fill(_coverage(shape, bounds), ink)
+    canvas.fill(_coverage(disc_shape(cx, cy, 3.8 * unit), bounds), core)
+
+
+def draw_mark(canvas: Canvas) -> None:
+    arch_mark(canvas, WIDTH / 2, MARK_CY, MARK_R / 13)
+
+
+def rounded_tile(size: int, radius: float):
+    def inside(x: float, y: float) -> bool:
+        cx = min(max(x, radius), size - radius)
+        cy = min(max(y, radius), size - radius)
+        return math.hypot(x - cx, y - cy) <= radius
+    return inside
+
+
+def write_icon(path: Path, size: int) -> None:
+    """PWA·애플 아이콘. 마스크 대비 안전 영역(88%) 안에 마크를 앉힌다."""
+    canvas = Canvas(size, size)
+    unit = size / 64          # favicon.svg 와 같은 64 단위 기준
+    # 애플 아이콘은 스스로 모서리를 깎으므로 판은 꽉 채운다. PWA maskable 도 같다.
+    canvas.fill(_coverage(rounded_tile(size, 0.001), (0, 0, size, size)), BG)
+    arch_mark(canvas, size / 2, size * 0.545, unit * 64 / 48 * 0.79)
+    canvas.write(path)
+    print(f"[icon] {path.name} ({path.stat().st_size:,} bytes, {size}x{size})")
 
 
 def main() -> None:
@@ -214,6 +243,12 @@ def main() -> None:
     draw_wordmark(canvas, "NUCLENS")
     canvas.write(OUT)
     print(f"[og] {OUT.name} 생성 ({OUT.stat().st_size:,} bytes, {WIDTH}x{HEIGHT})")
+    import sys
+    if "--icons" in sys.argv:
+        public = OUT.parent
+        write_icon(public / "icon-192.png", 192)
+        write_icon(public / "icon-512.png", 512)
+        write_icon(public / "apple-touch-icon.png", 180)
 
 
 if __name__ == "__main__":
