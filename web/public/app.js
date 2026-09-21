@@ -1897,9 +1897,14 @@ function shortsBadge(issue, { compact = false } = {}) {
   if (!row) return "";
   const sec = Number(row.seconds) || 0;
   const len = sec ? ` · ${sec >= 60 ? `${Math.floor(sec / 60)}분 ${String(sec % 60).padStart(2, "0")}초` : `${sec}초`}` : "";
-  return `<a class="play-badge${compact ? " compact" : ""}" href="/issue/${encodeURIComponent(issue.issue_id)}/"
-    data-play-video="${esc(issue.issue_id)}"><span aria-hidden="true">▶</span>${
-    compact ? "영상" : `이 이슈 영상으로${len}`}</a>`;
+  const page = String(row.page || "").trim();
+  const href = page ? `/shorts/${encodeURIComponent(page)}/`
+                    : `/issue/${encodeURIComponent(issue.issue_id)}/`;
+  // page 가 있으면 data-play-video 를 달지 않는다 — 달면 handlePlayBadge 가
+  // 가로채 떠 있는 영상/상세를 열고, 영상 페이지로 못 간다.
+  const hook = page ? "" : ` data-play-video="${esc(issue.issue_id)}"`;
+  return `<a class="play-badge${compact ? " compact" : ""}" href="${href}"${hook}>`
+    + `<span aria-hidden="true">▶</span>${compact ? "영상" : `이 이슈 영상으로${len}`}</a>`;
 }
 
 // 넓은 화면에서는 눌린 영상이 **따라다닌다**(지니 2026-09-21 "옆 화면에 떠다니게
@@ -3911,6 +3916,16 @@ function renderEvidenceRail() {
     </div>`;
 }
 
+// 공유 페이지에서 구역을 지정해 들어온다(#issueChronicleTitle 등). 다이얼로그가
+// 다 그려진 뒤 그 구역으로 내려 준다 — 안 하면 맨 위에서 다시 찾아야 한다.
+function scrollToHashSection(id) {
+  if (!id) return false;
+  const el = document.getElementById(id);
+  if (!el) return false;
+  (el.closest("section") || el).scrollIntoView({ block: "start" });
+  return true;
+}
+
 function openIssueDialog(issueId, updateUrl = true) {
   const issue = currentIssueById(issueId);
   if (!issue) return;
@@ -4031,7 +4046,13 @@ function openIssueDialog(issueId, updateUrl = true) {
   state.issueId = issueId;
   closeVideoDock();
   if (!dialog.open) dialog.showModal();
-  requestAnimationFrame(() => document.getElementById("issueDialogTitle")?.focus());
+  // syncUrl 이 해시를 지우기 전에 읽는다. 구역 지정이 없으면 종전대로 제목에 포커스.
+  const wantSection = (location.hash || "").replace(/^#/, "");
+  requestAnimationFrame(() => {
+    if (!scrollToHashSection(wantSection)) {
+      document.getElementById("issueDialogTitle")?.focus();
+    }
+  });
   if (updateUrl) {
     const currentIssue = issueIdFromLocation() || new URLSearchParams(location.search).get("issue") || "";
     if (currentIssue !== issueId) {
