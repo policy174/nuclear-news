@@ -753,6 +753,43 @@ def _taxonomy_text(record: dict) -> str:
     return " ".join(values).lower()
 
 
+# 사람이 손본 분류. LLM 태그가 우리 분류 정의와 어긋날 때 되돌리는 자리다
+# (selection_overrides.json 과 같은 계약 — 코드 수정 없이 JSON 만 고친다).
+# 근본 해결은 프롬프트(news_bot.py D절)지만 그건 **새 기사부터** 듣는다.
+_TOPIC_OVERRIDES: dict[str, list[str]] | None = None
+
+
+def topic_overrides() -> dict[str, list[str]]:
+    global _TOPIC_OVERRIDES
+    if _TOPIC_OVERRIDES is None:
+        try:
+            raw = json.loads((ROOT_DIR / "topic_overrides.json").read_text(encoding="utf-8"))
+            rows = raw.get("issues") or {}
+        except (OSError, json.JSONDecodeError, AttributeError):
+            rows = {}
+        _TOPIC_OVERRIDES = {
+            str(key).replace("issue-", "").lower(): [str(t) for t in (row.get("topics") or [])]
+            for key, row in rows.items() if isinstance(row, dict)
+        }
+    return _TOPIC_OVERRIDES
+
+
+def override_topics(issue_id: str, topics: list[str]) -> list[str]:
+    """이 이슈에 사람이 정한 분류가 있으면 그것으로 갈아끼운다.
+
+    앞 8자리만 적어도 붙는다 — 사람이 URL 에서 베끼는 값이라 16자리를 전부
+    옮겨 적게 하면 오타가 난다(쇼츠 index.json 과 같은 규칙).
+    """
+    key = str(issue_id or "").replace("issue-", "").lower()
+    if not key:
+        return topics
+    table = topic_overrides()
+    for short, values in table.items():
+        if len(short) >= 8 and key.startswith(short):
+            return values[:3]
+    return topics
+
+
 def infer_topics(record: dict) -> tuple[list[str], str]:
     native = [str(topic) for topic in (record.get("topics") or []) if str(topic).strip()]
     if native:
@@ -4039,7 +4076,8 @@ def build_briefings(news_items: list[dict], issues: list[dict], checked_at: str 
                 "region": "국내·해외" if len(regions) > 1 else next(iter(regions), ""),
                 "importance": representative.get("importance", ""),
                 "selection_reasons": list(dict.fromkeys(reasons))[:2],
-                "topics": [topic for topic, _ in topic_counts.most_common(3)],
+                "topics": override_topics(issue["issue_id"],
+                                          [topic for topic, _ in topic_counts.most_common(3)]),
                 "tags": [tag for tag, _ in tag_counts.most_common(6)],
                 "current_article_count": len(current),
                 "previous_article_count": len(history),
@@ -4639,7 +4677,8 @@ def build_issue_catalog(issues: list[dict], latest_briefing_date: str, checked_a
             "regions": sorted(regions),
             "importance": representative.get("importance", ""),
             "selection_reasons": list(dict.fromkeys(reasons))[:2],
-            "topics": [topic for topic, _ in topic_counts.most_common(3)],
+            "topics": override_topics(issue["issue_id"],
+                                      [topic for topic, _ in topic_counts.most_common(3)]),
             "tags": [tag for tag, _ in tag_counts.most_common(8)],
             "entity_ids": entity_ids,
             "current_article_count": len(current),

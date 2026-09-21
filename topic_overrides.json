@@ -1,0 +1,45 @@
+{
+ "_note": "이슈의 분류(칩)를 사람이 손보는 자리. LLM 이 단 태그가 우리 분류 정의와 어긋날 때 쓴다. GitHub 웹에서 직접 고치면 다음 빌드부터 반영된다 — 코드 수정 불필요.",
+ "_how": [
+  "키는 이슈 상세 URL 끝(예: issue-923952b28d9b3c1a). 앞 8자리만 적어도 붙는다.",
+  "값은 통제 태그 목록: smr · newbuild · restart_lto · fuel_cycle · waste · finance · regulation · power_market · datacenter_ai · fusion · security_trade · fukushima",
+  "빈 배열([])을 주면 그 이슈는 분류 칩을 달지 않는다.",
+  "최대 3개까지 화면에 선다.",
+  "근본 해결은 프롬프트(news_bot.py D절)다. 여기는 이미 나간 분류를 되돌리는 자리다."
+ ],
+ "issues": {
+  "issue-923952b28d9b3c1a": {
+   "topics": [
+    "security_trade",
+    "newbuild"
+   ],
+   "reason": "국가 간 투자 패키지·관세 협상이지 원전 사업의 자금조달이 아니다 — finance 는 '원전금융·투자'다(지니 2026-09-21)."
+  },
+  "issue-eb197e1fd0eb5b1a": {
+   "topics": [
+    "security_trade",
+    "power_market",
+    "datacenter_ai"
+   ],
+   "reason": "태그에 #에너지안보 가 있는데 security_trade 가 빠져 있었다. 에너지 안보를 내건 협력 MOU 다."
+  },
+  "issue-06f22aa88b138220": {
+   "topics": [
+    "datacenter_ai",
+    "power_market"
+   ],
+   "reason": "두산의 AI 전력 사업 지분 투자다. 원전 사업의 자금조달이 아니므로 finance 를 뗀다."
+  },
+  "issue-94064a0be3d96040": {
+   "topics": [],
+   "reason": "설계 노하우 AI 전환으로 받은 장관상 기사다. SMR·규제 둘 다 기사의 사건이 아니다 — 맞는 칸이 없으면 안 다는 것이 맞다."
+  },
+  "issue-96f490d162cfe510": {
+   "topics": [
+    "datacenter_ai",
+    "power_market"
+   ],
+   "reason": "국부펀드의 데이터센터 투자 전략이다. 원전 사업의 자금조달이 아니므로 finance 를 뗀다."
+  }
+ }
+}

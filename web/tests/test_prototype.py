@@ -3168,6 +3168,31 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertIn('"og_image": article.get("og_image", "")', source,
                       "_article_view 가 og_image 를 안 내보낸다")
 
+    def test_topic_overrides_can_correct_a_wrong_chip(self):
+        """LLM 이 단 분류를 사람이 되돌릴 자리가 있어야 한다.
+
+        2026-09-21 실측: '2000억 달러 대미 전략투자 협상'이 finance(원전금융·투자)로,
+        '한국-IEA 에너지 안보 MOU'가 security_trade 없이 나갔다. 프롬프트는 고쳤지만
+        그건 **새로 분류되는 기사부터** 듣는다 — 이미 나간 것을 되돌릴 손잡이가
+        따로 필요하다(selection_overrides.json 과 같은 계약).
+        """
+        table = json.loads((ROOT.parent / "topic_overrides.json").read_text(encoding="utf-8"))
+        rows = table["issues"]
+        self.assertTrue(rows, "손본 분류가 하나도 없다 — 자리 자체가 사라졌다")
+        valid = set(build_data._TOPIC_RULES) | {"policy_general", "research", "safety"}
+        for key, row in rows.items():
+            self.assertRegex(key, r"^(issue-)?[0-9a-f]{8,16}$", key)
+            self.assertTrue(str(row.get("reason", "")).strip(), key + " 에 사유가 없다")
+            self.assertLessEqual(len(row.get("topics") or []), 3, key)
+            for topic in row.get("topics") or []:
+                self.assertIn(topic, valid, key + " 가 목록 밖 태그를 쓴다: " + topic)
+        # 손본 값이 실제로 이겨야 한다 — 안 이기면 파일만 있고 화면은 그대로다.
+        first = next(iter(rows))
+        self.assertEqual(build_data.override_topics(first, ["fusion"]),
+                         (rows[first]["topics"] or [])[:3])
+        self.assertEqual(build_data.override_topics("issue-" + "f" * 16, ["fusion"]), ["fusion"])
+
+
     def test_card_strip_shows_story_albums_only(self):
         """띠에 서는 것은 스토리 앨범뿐이다(지니 2026-09-21).
 
