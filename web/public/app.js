@@ -1855,25 +1855,32 @@ function shortsAll() {
   return rows.filter(row => row && (String(row.file || "").trim() || String(row.youtube || "").trim()));
 }
 
+// 최신 편 — 배열 순서가 아니라 date·no 로 정한다. 사람이 index.json 에 줄을
+// 어디에 끼워 넣든(맨 위든 맨 아래든) 답이 같아야 02편부터 안 깨진다.
+function shortsLatest() {
+  return shortsAll().slice().sort((a, b) =>
+    String(b.date || "").localeCompare(String(a.date || ""))
+    || (Number(b.no) || 0) - (Number(a.no) || 0))[0];
+}
+
 // 코너 진입 칩. 이슈에 붙는 배지와 달리 지면 내용과 무관하게 항상 선다.
-// 지금은 최신 한 편으로 바로 보내고, 아카이브 페이지가 생기면 href 한 줄만
-// /shorts/ 로 되돌리면 된다.
+// 최신 편의 공유 페이지로 보내고, 전편 목록은 /shorts/(아카이브)가 맡는다.
 function renderBriefVideoLink() {
   const el = document.getElementById("briefVideoLink");
   if (!el) return;
-  const row = shortsAll()[0];
+  const row = shortsLatest();
   if (!row) { el.hidden = true; return; }
   const page = String(row.page || "").trim();
-  if (page) el.href = `/shorts/${encodeURIComponent(page)}/`;
+  el.href = page ? `/shorts/${encodeURIComponent(page)}/` : "/shorts/";
   el.hidden = false;
 }
 
 function shortsMatch(row, issueKey) {
   // 한 영상이 여러 이슈를 말할 수 있다 — 대만 영상은 마안산 재가동과 3호기
-  // 심사 둘 다를 다룬다. issue_id 에 목록을 적으면 그 전부에 붙는다.
+  // 심사 둘 다를 다룬다. issue_ids 에 목록을 적으면 그 전부에 붙는다.
   // 앞 8자리만 적어도 붙는다 — 사람이 URL 에서 베끼는 값이라 16자리를 전부
   // 옮겨 적게 하면 오타가 난다. 8자리 미만은 무시한다(남의 이슈에 붙는 사고).
-  return [].concat(row.issue_id || row.hash8 || []).some(value => {
+  return [].concat(row.issue_ids || row.issue_id || row.hash8 || []).some(value => {
     const key = shortsKey(value);
     return key.length >= 8 && issueKey.startsWith(key);
   });
@@ -1971,7 +1978,10 @@ function shortsTile(row, { link = false, caption = true } = {}) {
   const sum = caption
     ? [].concat(row.summary || []).map(line => String(line).trim()).filter(Boolean)
     : [];
-  const issueId = String(row.issue_id || "").trim();
+  // 「이슈 보기」는 한 곳만 가리킨다 — 여러 이슈를 말하는 영상은 primary_issue_id.
+  // 배열을 String() 으로 누르면 "issue-a,issue-b" 가 돼 아무 데도 못 간다.
+  const issueId = String(row.primary_issue_id
+    || [].concat(row.issue_ids || row.issue_id || [])[0] || "").trim();
   const secs = Number(row.seconds) || 0;
   const len = secs
     ? (secs >= 60 ? `${Math.floor(secs / 60)}분 ${String(secs % 60).padStart(2, "0")}초` : `${secs}초`)

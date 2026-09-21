@@ -3349,7 +3349,8 @@ class SelectionOverrideTests(unittest.TestCase):
         rows = index["shorts"]
         self.assertTrue(rows, "예약 줄이 하나도 없다 — 자리 자체가 사라졌다")
         for row in rows:
-            self.assertTrue(str(row.get("issue_id", "")).strip(), "issue_id 없는 줄은 어디에도 못 붙는다")
+            self.assertTrue(row.get("issue_ids") or str(row.get("issue_id", "")).strip(),
+                            "issue_ids 없는 줄은 어디에도 못 붙는다")
 
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         all_fn = script.split("function shortsAll(", 1)[1].split("\nfunction ", 1)[0]
