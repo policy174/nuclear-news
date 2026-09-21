@@ -5879,7 +5879,6 @@ function stepBriefing(direction) {
   const nextIndex = dates.indexOf(state.briefingDate) + direction;
   if (nextIndex < 0 || nextIndex >= dates.length) return;
   state.briefingDate = dates[nextIndex];
-  renderBriefVideoLink();
   renderDateSelect();
   renderBriefing();
   renderSystemStatus();
@@ -6486,6 +6485,7 @@ async function init() {
   const catalogArticles = state.issues.reduce((sum, issue) => sum + (issue.article_count || 0), 0);
   document.getElementById("archiveCatalogMeta").textContent =
     `${state.issues.length}개 이슈 · ${catalogArticles}개 원문 · ${dateLabel(firstIssueDate)}–${dateLabel(state.meta.latest_briefing_date)}`;
+  renderBriefVideoLink();   // 지면과 무관한 코너 진입 — 첫 로드에 한 번
   renderDateSelect();
   renderBriefing();
   renderArchiveSearch();
