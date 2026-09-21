@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 8 * * 5"  # UTC 08:00 Friday = KST 17:00 Friday
   workflow_dispatch:
+    inputs:
+      candidates_only:
+        description: "주간 리포트는 건너뛰고 영상 브리핑 후보 DM 만 보낸다(배선 시험용)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write   # weekly_reports.json 커밋 (웹 '주간 흐름' 탭 재료)
@@ -26,6 +31,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - run: python weekly_bot.py
+        if: ${{ !inputs.candidates_only }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -43,7 +49,7 @@ jobs:
 
       # 주간 리포트를 웹이 쓸 수 있게 커밋. 발송이 실패해도 여기까지는 온다.
       - name: Commit weekly report
-        if: always()
+        if: ${{ always() && !inputs.candidates_only }}
         run: |
           # 파일별 가드 — 한 파일이 없어서 git add 가 실패하면 스텝 전체가 죽는다
           # (daily_leads.json 데드락과 같은 함정).
