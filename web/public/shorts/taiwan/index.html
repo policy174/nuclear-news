@@ -38,8 +38,16 @@ body{background:var(--navy);color:var(--paper);min-height:100vh;
   padding:36px 16px 72px}
 .wrap{width:100%;max-width:520px}
 a{color:inherit}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .home{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;
   color:var(--blue);text-decoration:none;letter-spacing:.08em}
+/* 공유는 큰 상자가 아니라 머리줄 아이콘이다(지니 2026-09-21) — 본문 흐름을
+   끊지 않고, 폰에서는 공유 시트가 바로 뜬다. */
+.share{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;
+  border:1px solid rgba(255,255,255,.22);border-radius:999px;background:none;
+  color:var(--paper);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.share:hover{background:rgba(255,255,255,.08)}
+.share:active{transform:translateY(1px)}
 .rule{width:64px;height:5px;background:var(--blue);margin:24px 0 12px}
 .series{font-size:14px;font-weight:700;color:var(--video);letter-spacing:.06em}
 h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-top:7px}
@@ -74,7 +82,6 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
 .btn{flex:1 1 160px;display:inline-flex;align-items:center;justify-content:center;
   gap:8px;padding:15px 18px;border-radius:11px;font-size:16px;font-weight:700;
   text-decoration:none;border:0;cursor:pointer;font-family:inherit}
-.btn.p{background:var(--blue);color:#08172E}
 .btn.s{background:rgba(255,255,255,.09);color:var(--paper);
   border:1px solid rgba(255,255,255,.18)}
 .btn:active{transform:translateY(1px)}
@@ -90,7 +97,17 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
 </head>
 <body>
 <div class="wrap">
-  <a class="home" href="/">← NUCLENS</a>
+  <div class="top">
+    <a class="home" href="/">← NUCLENS</a>
+    <button type="button" class="share" id="copy" aria-label="이 영상 공유하기">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor"
+           stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/>
+        <circle cx="18" cy="19" r="2.6"/>
+        <path d="M8.3 10.8 15.7 6.4M8.3 13.2l7.4 4.4"/></svg>
+      <span>공유</span>
+    </button>
+  </div>
   <div class="rule"></div>
   <p class="series">영상 브리핑 #1</p>
   <h1>대만 원전정책 변화</h1>
@@ -110,9 +127,6 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
   <div class="row">
     <a class="btn s" href="/issue/issue-3399fabc42412de7/#issueChronicleTitle">스토리</a>
     <a class="btn s" href="/issue/issue-3399fabc42412de7/#issueHistoryTitle">자세한 뉴스</a>
-  </div>
-  <div class="row">
-    <button class="btn p" id="copy">링크 복사</button>
   </div>
 
   <div class="src">
