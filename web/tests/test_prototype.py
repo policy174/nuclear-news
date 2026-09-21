@@ -3249,6 +3249,45 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertNotIn("picks.after(strip)", place)
         self.assertNotIn("picks.before(strip)", place)
 
+    def test_shorts_video_files_are_not_mangled(self):
+        """올린 영상이 저장소를 거치며 깨지지 않았는지 본다.
+
+        2026-09-21: core.autocrlf=true 인 Windows 에서 git 이 mp4 를 텍스트로
+        오인해(앞 8000 바이트에 NUL 이 없다) CR 을 뜯어냈다. 7,122,268 바이트
+        86.2초가 5,620,012 바이트 68.6초가 됐고, 데스크톱 크롬은 끊긴 데까지
+        재생해서 "된다"고 보였지만 폰에서는 아예 안 열렸다.
+
+        바이트 수를 박지 않는다 — 영상이 바뀌면 같이 고쳐야 하는 테스트는
+        결국 지워진다. 대신 **박스 사슬이 파일 끝까지 맞물리는지**를 본다.
+        잘리거나 중간이 빠지면 여기서 어긋난다.
+        """
+        import struct
+        attrs = (ROOT.parent / ".gitattributes").read_text(encoding="utf-8")
+        self.assertRegex(attrs, r"\*\.mp4\s+binary", "mp4 가 다시 텍스트로 취급된다")
+        for path in sorted((ROOT / "public" / "shorts").glob("*.mp4")):
+            size = path.stat().st_size
+            seen, offset = [], 0
+            with path.open("rb") as handle:
+                while offset < size:
+                    head = handle.read(8)
+                    if len(head) < 8:
+                        self.fail(f"{path.name}: {offset:,} 에서 박스 머리가 끊겼다")
+                    box = struct.unpack(">I", head[:4])[0]
+                    kind = head[4:8].decode("latin1")
+                    if box == 1:
+                        box = struct.unpack(">Q", handle.read(8))[0]
+                    self.assertGreaterEqual(box, 8, f"{path.name}: {kind} 크기가 이상하다")
+                    seen.append(kind)
+                    offset += box
+                    handle.seek(offset)
+            self.assertEqual(offset, size,
+                             f"{path.name}: 박스 합 {offset:,} != 파일 {size:,} — 잘렸다")
+            self.assertIn("moov", seen, f"{path.name}: moov 가 없다")
+            # moov 가 mdat 뒤에 있으면 폰이 전체를 받아야 재생을 시작한다.
+            self.assertLess(seen.index("moov"), seen.index("mdat"),
+                            f"{path.name}: faststart 가 아니다")
+
+
     def test_shorts_slot_shows_nothing_until_a_file_is_named(self):
         """쇼츠는 **자리만** 먼저 선다. 영상이 없으면 아무 데도 안 뜬다.
 
