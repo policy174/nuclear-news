@@ -3262,11 +3262,20 @@ class SelectionOverrideTests(unittest.TestCase):
         """
         import re
         import tempfile
-        pattern = re.compile(r"<script(?![^>]*src=)[^>]*>(.*?)</script>", re.S)
+        # type 이 없거나 JS 일 때만 본다. 생성 페이지(issue/·brief/)는 머리에
+        # application/ld+json 을 심는데 그건 JSON 이라 node --check 가 당연히
+        # 거절한다 — 실측 2026-09-21, 이 테스트가 그 이유로 배포를 한 번 막았다.
+        pattern = re.compile(r"<script([^>]*)>(.*?)</script>", re.S)
         checked = 0
         for path in sorted((ROOT / "public").rglob("*.html")):
-            for index, body in enumerate(pattern.findall(path.read_text(encoding="utf-8"))):
-                if not body.strip():
+            for index, (attrs, body) in enumerate(pattern.findall(path.read_text(encoding="utf-8"))):
+                if "src=" in attrs or not body.strip():
+                    continue
+                # type 이 붙어 있는데 JS 가 아니면 건너뛴다 — 정규식으로
+                # 값을 파내는 것보다 이 두 줄이 읽기 쉽고 틀릴 데가 없다.
+                kind = attrs.lower()
+                if "type=" in kind and not ("javascript" in kind or "module" in kind):
+                    continue
                     continue
                 handle = tempfile.NamedTemporaryFile("w", suffix=".js", delete=False,
                                                      encoding="utf-8")
@@ -3278,9 +3287,13 @@ class SelectionOverrideTests(unittest.TestCase):
                 finally:
                     os.unlink(handle.name)
                 if result.returncode:
-                    tail = (result.stderr or "").strip().splitlines()
-                    self.fail(f"{path.name} 의 script#{index} 가 안 읽힌다: "
-                              + (tail[-1] if tail else "?"))
+                    # node 는 마지막 줄에 버전 배너를 찍는다 — 그걸 집으면
+                    # 원인이 안 보인다(실측). SyntaxError 줄을 골라 낸다.
+                    lines = [line for line in (result.stderr or "").splitlines()
+                             if "Error" in line or "^" in line]
+                    where = path.relative_to(ROOT / "public")
+                    self.fail(f"{where} 의 script#{index} 가 안 읽힌다: "
+                              + (lines[0].strip() if lines else "?"))
                 checked += 1
         self.assertGreater(checked, 0, "검사한 인라인 스크립트가 없다")
 
