@@ -2035,7 +2035,10 @@ class GeneratedDataTests(unittest.TestCase):
 
     def test_brand_remains_private_with_open_graph_metadata(self):
         html = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("NUCLENS", html)
+        # 워드마크는 소문자다(지니 2026-09-21) — 대문자로 되돌아가면 아치 마크와
+        # og 카드의 소문자 글리프가 화면과 어긋난다.
+        self.assertIn("<strong>nuclens</strong>", html)
+        self.assertNotIn("<strong>NUCLENS</strong>", html)
         self.assertIn('content="noindex,nofollow"', html)
         self.assertIn('name="color-scheme" content="light dark"', html)
         self.assertIn('name="description"', html)

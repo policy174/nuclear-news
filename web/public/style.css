@@ -404,7 +404,9 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   line-height: 1;
 }
 .brand-copy { display: grid; min-width: 0; line-height: 1.15; }
-.brand-copy strong { letter-spacing: .01em; font-size: 16px; font-weight: 750; }
+/* 소문자 워드마크(지니 2026-09-21) — 대문자 때 벌려 두었던 자간을 되돌린다.
+   소문자는 글자마다 폭이 달라 자간을 벌리면 낱말이 흩어진다. */
+.brand-copy strong { letter-spacing: 0; font-size: 17px; font-weight: 700; }
 .brand-copy small {
   margin-top: 3px;
   color: rgb(255 255 255 / 62%);
@@ -3896,7 +3898,6 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 }
 
 @media (max-width: 390px) {
-  .brand-copy strong { letter-spacing: .06em; }
   .header-tools { gap: 4px; }
   /* 767px 블록에서 .section-heading·.archive-intro 가 이미 grid 다. 여기 남은
      것은 결과 머리줄뿐 — 정렬 select 가 제목 옆에서 밀려 잘리던 자리다. */

@@ -32,17 +32,22 @@ WHITE = (0xFF, 0xFF, 0xFF)
 AMBER = (0xF0, 0xC2, 0x3C)
 
 # 아치 마크 — public/logo-mark.svg 와 같은 기하(48 단위 기준을 비율로 옮긴다).
-#   아치 반지름 13/48 · 획 5.6/48 · 다리 끝 42/48 · 노심 점 r3.8 at cy27
+#   아치 반지름 13/48 · 획 4.4/48 · 다리 끝 42/48 · 노심 점 r3.8 at cy27
 MARK_R = 116
-MARK_CY = 248
+# 마크와 워드마크가 붙어 보였다(지니 2026-09-21) — 마크를 올리고 글자를
+# 내려 사이를 74px 벌렸다. 위 88 / 아래 76 으로 광학 중심도 맞는다.
+MARK_CY = 225
 MARK_STROKE = 26
 
 # 워드마크 — 기하학적 스트로크 글리프. 폰트 의존을 없애려고 직접 그린다.
-GLYPH_H = 74
-GLYPH_W = 52
-GLYPH_GAP = 26
-GLYPH_STROKE = 9
-WORDMARK_Y = 452
+# 2026-09-21 소문자로 전환(지니). 소문자는 폭이 글자마다 달라서(l 은 획 하나)
+# 고정 칸으로 배치하면 'l' 좌우가 휑해진다 — 글자마다 advance 를 따로 준다.
+GLYPH_H = 74          # 어센더 높이 (l)
+XHEIGHT = 52          # 소문자 몸통 높이 = 둥근 글자의 지름
+GLYPH_GAP = 16
+# 아치 획을 얇게 했으므로 워드마크도 같은 비율로 얇게 — 한쪽만 얇으면 어긋난다.
+GLYPH_STROKE = 8
+WORDMARK_Y = 480
 
 SS = 3  # 슈퍼샘플링 배율 — 곡선 계단현상 제거
 
@@ -145,6 +150,53 @@ def arc_segments(cx: float, cy: float, radius: float, start: float, end: float,
             for i in range(len(points) - 1)]
 
 
+def ellipse_segments(cx: float, cy: float, rx: float, ry: float, start: float, end: float,
+                     width: float, steps: int = 32) -> list:
+    """타원 호. s 의 보울을 원으로 그리면 폭이 다른 글자의 절반이 된다 —
+    가로로 늘린 반타원 둘을 가운데서 맞물려야 자폭이 맞는다."""
+    points = []
+    for index in range(steps + 1):
+        angle = math.radians(start + (end - start) * index / steps)
+        points.append((cx + rx * math.cos(angle), cy + ry * math.sin(angle)))
+    return [segment_shape(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1], width)
+            for i in range(len(points) - 1)]
+
+
+def lower_glyph(letter: str, x: float, base: float) -> tuple[list, float]:
+    """소문자 기하 글리프. (도형들, 다음 글자까지의 폭) 을 돌려준다.
+
+    n 은 우리 심벌과 같은 형태다 — 다리 둘 + 반원 어깨. 마크와 워드마크가 같은
+    기하에서 나왔다는 것이 이 브랜드의 유일한 장식이다.
+    """
+    r = XHEIGHT / 2
+    top = base - XHEIGHT
+    cy = base - r
+    s = GLYPH_STROKE
+    if letter == "l":
+        return [segment_shape(x, base - GLYPH_H, x, base, s)], s
+    if letter == "n":
+        shapes = [segment_shape(x, cy, x, base, s),
+                  segment_shape(x + 2 * r, cy, x + 2 * r, base, s)]
+        return shapes + arc_segments(x + r, cy, r, 180, 360, s), 2 * r
+    if letter == "u":
+        shapes = [segment_shape(x, top, x, cy, s),
+                  segment_shape(x + 2 * r, top, x + 2 * r, base, s)]
+        return shapes + arc_segments(x + r, cy, r, 0, 180, s), 2 * r
+    if letter == "c":
+        return arc_segments(x + r, cy, r, 48, 312, s, steps=40), 2 * r
+    if letter == "e":
+        # 가로줄은 원 오른쪽 끝에서 멈춘다 — 둥근 끝이 반 획만큼 더 나가므로
+        # 그만큼 당기지 않으면 획이 곡선 밖으로 삐져나온다.
+        shapes = [segment_shape(x + s * 0.3, cy, x + 2 * r - s * 0.4, cy, s)]
+        return shapes + arc_segments(x + r, cy, r, 0, -252, s, steps=44), 2 * r
+    if letter == "s":
+        ry = r / 2
+        shapes = ellipse_segments(x + r, top + ry, r, ry, 325, 90, s, steps=30)
+        shapes += ellipse_segments(x + r, base - ry, r, ry, 270, 505, s, steps=30)
+        return shapes, 2 * r
+    return [], 2 * r
+
+
 def glyph_shapes(letter: str, x: float, y: float, w: float, h: float) -> list:
     """대문자 기하 글리프. 브랜드 톤(정확·기하학적)에 맞춘 최소 획."""
     top, bottom = y, y + h
@@ -182,15 +234,21 @@ def glyph_shapes(letter: str, x: float, y: float, w: float, h: float) -> list:
 
 
 def draw_wordmark(canvas: Canvas, text: str) -> None:
-    total = len(text) * GLYPH_W + (len(text) - 1) * GLYPH_GAP
+    base = WORDMARK_Y + GLYPH_H
+    runs = []
+    total = 0.0
+    for index, letter in enumerate(text):
+        shapes, advance = lower_glyph(letter, 0, base)
+        runs.append((letter, advance))
+        total += advance + (GLYPH_GAP if index else 0)
     cursor = (WIDTH - total) / 2
-    for letter in text:
-        for shape in glyph_shapes(letter, cursor, WORDMARK_Y, GLYPH_W, GLYPH_H):
-            bounds = (int(cursor - GLYPH_STROKE), int(WORDMARK_Y - GLYPH_STROKE),
-                      int(cursor + GLYPH_W + GLYPH_STROKE),
-                      int(WORDMARK_Y + GLYPH_H + GLYPH_STROKE))
+    for letter, advance in runs:
+        shapes, _ = lower_glyph(letter, cursor, base)
+        bounds = (int(cursor - GLYPH_STROKE), int(base - GLYPH_H - GLYPH_STROKE),
+                  int(cursor + advance + GLYPH_STROKE), int(base + GLYPH_STROKE))
+        for shape in shapes:
             canvas.fill(_coverage(shape, bounds), WHITE)
-        cursor += GLYPH_W + GLYPH_GAP
+        cursor += advance + GLYPH_GAP
 
 
 def arch_mark(canvas: Canvas, cx: float, cy: float, unit: float,
@@ -201,7 +259,7 @@ def arch_mark(canvas: Canvas, cx: float, cy: float, unit: float,
     적지 말고 한 번 적고 배율만 바꿔야 한다.
     """
     r = 13 * unit
-    stroke = 5.6 * unit
+    stroke = 4.4 * unit
     top_y = cy - 2 * unit          # 아치 중심 (SVG 의 y=25, 박스 중심 24 기준)
     foot_y = cy + 18 * unit        # 다리 끝 (SVG 의 y=42)
     pad = stroke + 2
@@ -240,7 +298,7 @@ def write_icon(path: Path, size: int) -> None:
 def main() -> None:
     canvas = Canvas(WIDTH, HEIGHT)
     draw_mark(canvas)
-    draw_wordmark(canvas, "NUCLENS")
+    draw_wordmark(canvas, "nuclens")
     canvas.write(OUT)
     print(f"[og] {OUT.name} 생성 ({OUT.stat().st_size:,} bytes, {WIDTH}x{HEIGHT})")
     import sys
