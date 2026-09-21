@@ -1967,10 +1967,16 @@ function shortsTile(row, { link = false, caption = true } = {}) {
     ? [].concat(row.summary || []).map(line => String(line).trim()).filter(Boolean)
     : [];
   const issueId = String(row.issue_id || "").trim();
-  return `<figure class="short">${media}
+  const secs = Number(row.seconds) || 0;
+  const len = secs
+    ? (secs >= 60 ? `${Math.floor(secs / 60)}분 ${String(secs % 60).padStart(2, "0")}초` : `${secs}초`)
+    : "";
+  // 표지가 그래픽이라 정지 이미지로 읽힌다 — 길이 배지를 얹어 영상임을 못박는다.
+  return `<figure class="short">${yt || !len ? media : `<div class="short-frame">${media}
+      <span class="short-len" aria-hidden="true">▶ ${esc(len)}</span></div>`}
     <div class="short-meta">
       ${title ? `<figcaption>${esc(title)}</figcaption>` : ""}
-      ${sum.length ? `<p class="short-sum">${sum.map(line => esc(line)).join("<br>")}</p>` : ""}
+      ${sum.length ? `<ul class="short-sum">${sum.map(line => `<li>${esc(line)}</li>`).join("")}</ul>` : ""}
       ${link && issueId.startsWith("issue-") ? `<button type="button" class="short-link" data-issue-id="${esc(issueId)}" data-force-dialog="1">이슈 보기 →</button>` : ""}
     </div>
   </figure>`;

@@ -3385,8 +3385,21 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 .short figcaption { font-size: var(--t-caption); color: var(--c-text); line-height: 1.4; }
 /* 두 줄 요약 — 제목 아래. 제목은 영상 안에 이미 떠 있으니 여기서 일을 하는
    것은 이쪽이다. 제목보다 크게 두면 위계가 뒤집히므로 색만 낮춘다. */
-.short-sum { font-size: var(--t-caption); color: var(--c-text-muted);
+.short-sum { margin: 0; padding: 0; list-style: none;
+  font-size: var(--t-caption); color: var(--c-text-muted);
   line-height: 1.62; word-break: keep-all; }
+.short-sum li { position: relative; padding-left: 15px; }
+/* 글리프(○)로 찍으면 12.5px 하한 가드에 걸린다 — 글자가 아니라 도형으로 그린다. */
+.short-sum li::before { content: ""; position: absolute; left: 1px; top: 9px;
+  width: 6px; height: 6px; border: 1.5px solid var(--c-video); border-radius: 50%; }
+
+/* 표지가 타이포 그래픽이라 정지 이미지로 읽힌다(지니 2026-09-21 "이게 영상인지
+   잘 모른다는 얘기가 있는데"). 길이 배지를 얹으면 한눈에 영상이 된다. */
+.short-frame { position: relative; display: inline-block; max-width: 100%; }
+.short-len { position: absolute; right: 8px; bottom: 8px; z-index: 2;
+  padding: 3px 9px; border-radius: var(--r-1); background: rgb(8 18 36 / 82%);
+  color: #fff; font-size: var(--t-caption); font-weight: 700; letter-spacing: .02em;
+  pointer-events: none; }
 .short-link { align-self: flex-start; padding: 0; border: 0; background: none;
   color: var(--c-text-muted); font: inherit; font-size: var(--t-caption); cursor: pointer; }
 .short-link:hover { color: var(--c-text); }
