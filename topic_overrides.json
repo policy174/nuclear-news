@@ -40,6 +40,13 @@
     "power_market"
    ],
    "reason": "국부펀드의 데이터센터 투자 전략이다. 원전 사업의 자금조달이 아니므로 finance 를 뗀다."
+  },
+  "issue-3399fabc42412de7": {
+   "topics": [
+    "restart_lto",
+    "power_market"
+   ],
+   "reason": "기사가 사건으로 다루는 것은 만산 원전 재가동이다. 가스 쇼크·LNG 가격은 그 동기이지 사건이 아니다. 기사 레코드에는 restart_lto 가 먼저 붙어 있는데(archive/2026-09.jsonl), 이슈 4건을 묶으면서 빈도 다수결(build_data topic_counts.most_common)이 power_market 을 1위로 올렸다 — 화면은 topics[0] 을 칩으로 쓴다(지니 2026-09-21 \"대만원전 이슈가 어떻게 분류가 전력시장, 요금이야\")."
   }
  }
 }
