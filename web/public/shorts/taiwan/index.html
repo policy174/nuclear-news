@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>대만 원전정책 변화 · NUCLENS 영상 브리핑</title>
-<meta name="description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단">
+<title>대만 원전정책 변화 · NUCLENS 영상 브리핑 #1</title>
+<meta name="description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단 · 10개월 뒤 2026.3 정부가 재가동 추진 공식화">
 <link rel="canonical" href="https://nuclens.pages.dev/shorts/taiwan/">
 
 <meta property="og:type" content="video.other">
 <meta property="og:site_name" content="Nuclens">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:title" content="대만 원전정책 변화 · NUCLENS 영상 브리핑">
-<meta property="og:description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단">
+<meta property="og:title" content="대만 원전정책 변화 · NUCLENS 영상 브리핑 #1">
+<meta property="og:description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단 · 10개월 뒤 2026.3 정부가 재가동 추진 공식화">
 <meta property="og:url" content="https://nuclens.pages.dev/shorts/taiwan/">
 <meta property="og:image" content="https://nuclens.pages.dev/shorts/2026-09-21-taiwan-og.png">
 <meta property="og:image:width" content="1200">
@@ -22,8 +22,8 @@
 <meta property="og:video:width" content="1080">
 <meta property="og:video:height" content="1920">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="대만 원전정책 변화 · NUCLENS 영상 브리핑">
-<meta name="twitter:description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단">
+<meta name="twitter:title" content="대만 원전정책 변화 · NUCLENS 영상 브리핑 #1">
+<meta name="twitter:description" content="2025.5 만산 2호기 정지로 원전 상업운전 전면 중단 · 10개월 뒤 2026.3 정부가 재가동 추진 공식화">
 <meta name="twitter:image" content="https://nuclens.pages.dev/shorts/2026-09-21-taiwan-og.png">
 
 <link rel="icon" href="/favicon.svg">
@@ -151,7 +151,9 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
   // 공유 시트가 있으면 그걸 쓰고(폰), 없으면 클립보드로 떨어진다(PC).
   document.getElementById("copy").addEventListener("click", async function () {
     var url = location.href;
-    var data = { title: "대만 원전정책 변화", text: "2025.5 만산 2호기 정지로 원전 상업운전 전면 중단", url: url };
+    // text 를 넣으면 메시지 본문과 미리보기 카드가 같은 문장을 두 번 말한다.
+    // 제목과 주소만 넘기고 나머지는 카드가 맡는다(지니 2026-09-21 "쓸데없는 거는 빼고").
+    var data = { title: "대만 원전정책 변화 · NUCLENS 영상 브리핑 #1", url: url };
     try {
       if (navigator.share && navigator.canShare && navigator.canShare(data)) {
         await navigator.share(data);
