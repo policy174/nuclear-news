@@ -2087,11 +2087,25 @@
       "reason": "같은 규정 개정의 다른 단계",
       "same_event": true
     },
+    "issue-6bd77dd19faecf6a--36d332f8d9": {
+      "issue_title": "정부, 3500억달러 대미투자 첫 사업 협상안 국회 보고 추진",
+      "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
+      "prompt_version": 1,
+      "reason": "대상 국가와 사업 주체가 전혀 다름",
+      "same_event": false
+    },
     "issue-6bd77dd19faecf6a--617747aa21": {
       "issue_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
       "keei_item": "스웨덴 정부, Ringhals 사업 추진 중인 Videberg Kraft 지분 60% 취득",
       "prompt_version": 1,
       "reason": "주체와 대상 기업이 다름",
+      "same_event": false
+    },
+    "issue-6bd77dd19faecf6a--7d0ce85eb8": {
+      "issue_title": "정부, 3500억달러 대미투자 첫 사업 협상안 국회 보고 추진",
+      "keei_item": "일본 JBIC, 대미 투자 2차 사업에 6.3조 원 융자…SMR은 보류",
+      "prompt_version": 1,
+      "reason": "한국의 대미 투자와 일본 JBIC의 투자는 별개",
       "same_event": false
     },
     "issue-6bd77dd19faecf6a--841ceedbf0": {
@@ -2351,6 +2365,13 @@
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 안건",
+      "same_event": false
+    },
+    "issue-7fc990644e96bc13--a3cf49987b": {
+      "issue_title": "라브샨베크 사비로프 키르기스스탄 투자청장, 한국 기업 진출 지원 표명",
+      "keei_item": "미국 TerraPower, 한국 기업과 Natrium 상용화·공급망 협력 확대",
+      "prompt_version": 1,
+      "reason": "키르기스스탄 투자청장과 테라파워 협력은 별개",
       "same_event": false
     },
     "issue-8070f5ccefba9cf4--d65bac9c4d": {
@@ -4087,6 +4108,20 @@
       "keei_item": "한국, SMR 등 신규 원자로 설계 사전검토 제도 도입 구체화",
       "prompt_version": 1,
       "reason": "다른 국가의 다른 정책/협의",
+      "same_event": false
+    },
+    "issue-dfc92d82a14a5860--249f1333d0": {
+      "issue_title": "한미일 외교장관, 유엔총회 계기 회동…SMR·북극권 협력 논의",
+      "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
+      "prompt_version": 1,
+      "reason": "한미일 SMR 협력 관련 동일 사안",
+      "same_event": true
+    },
+    "issue-dfc92d82a14a5860--54df950745": {
+      "issue_title": "한미일 외교장관, 유엔총회 계기 회동…SMR·북극권 협력 논의",
+      "keei_item": "라오스, 러시아와 원자력 협력협정 체결 및 원전 도입 타당성 검토 추진",
+      "prompt_version": 1,
+      "reason": "한미일 회동과 라오스-러시아 협정은 무관",
       "same_event": false
     },
     "issue-e009af115f0ba074--76da1c3e41": {
