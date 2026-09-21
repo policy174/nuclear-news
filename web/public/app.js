@@ -3926,14 +3926,6 @@ function openIssueDialog(issueId, updateUrl = true) {
       evidenceArticles.length
         ? `선정 ${cardArticles.length}건 · 추가 근거 ${evidenceArticles.length}건`
         : `누적 ${issue.article_count}건`}</span></div>
-    ${(() => {
-      const shorts = shortsFor(issue);
-      if (!shorts.length) return "";
-      return `<section class="dialog-shorts" aria-labelledby="issueShortsTitle">
-      <div class="dialog-section-head"><h3 id="issueShortsTitle">영상</h3><span>이 이슈로 만든 쇼츠</span></div>
-      ${shorts.map(row => shortsTile(row)).join("")}
-    </section>`;
-    })()}
     <section class="dialog-update" aria-labelledby="issueUpdateTitle">
       <h3 id="issueUpdateTitle">한 줄 결론</h3>
       ${issue.summary ? `<p>${esc(issue.summary)}</p>` : '<p class="empty">요약이 없습니다.</p>'}
@@ -3959,6 +3951,20 @@ function openIssueDialog(issueId, updateUrl = true) {
       ${draftPreviewBlock(issue)}
     </section>
     ${keeiDialogSection(issue)}
+    ${(() => {
+      // 영상은 본문 **뒤**다(지니 2026-09-21 "대만 뉴스 눌렀을 때는 첫 화면에
+      // 안 뜨면 좋겠어, 이미 위에 있으니까"). 처음엔 맨 앞에 뒀는데 — 배지를
+      // 누르고 들어온 사람이 먼저 볼 것이라는 이유였다 — 목록에 이미 배지가
+      // 있고 제목줄에 코너 칩까지 서면서 상세 첫 화면까지 영상이면 같은 것을
+      // 세 번 보여주는 꼴이 된다. 묻지는 않는다: 본문 한 덩어리 아래, 사건
+      // 흐름 위라 한 번만 내리면 닿는다.
+      const shorts = shortsFor(issue);
+      if (!shorts.length) return "";
+      return `<section class="dialog-shorts" aria-labelledby="issueShortsTitle">
+      <div class="dialog-section-head"><h3 id="issueShortsTitle">영상</h3><span>이 이슈로 만든 쇼츠</span></div>
+      ${shorts.map(row => shortsTile(row)).join("")}
+    </section>`;
+    })()}
     ${(() => {
       // 사건이 여러 날에 걸쳐 있으면 전환점 필름으로 낸다 — 날짜 역순 목록은
       // "언제 무엇이 뒤집혔나"를 안 보여준다(지니 09-20). 하루짜리 이슈는

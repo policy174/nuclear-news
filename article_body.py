@@ -326,7 +326,8 @@ def extract_site_name(page_html: str) -> str:
     match = _SITE_NAME_RE.search(page_html) or _SITE_NAME_REV_RE.search(page_html)
     if not match:
         return ""
-    name = _PORTAL_PREFIX_RE.sub("", match.group(1)).strip()
+    # meta content 는 HTML 본문이라 엔티티가 그대로 온다 — "E&amp;E News" 처럼.
+    name = _PORTAL_PREFIX_RE.sub("", html_module.unescape(match.group(1))).strip()
     # 도메인·URL 을 site_name 에 넣어 둔 매체가 있다 — 그건 지금 값과 다를 게 없다.
     if not name or " " in name and len(name) > 40:
         return ""
@@ -366,7 +367,12 @@ def extract_og_image(page_html: str) -> str:
     match = _OG_IMAGE_RE.search(page_html) or _OG_IMAGE_REV_RE.search(page_html)
     if not match:
         return ""
-    src = match.group(1).strip()
+    # 엔티티를 안 풀면 쿼리스트링이 깨진 URL 이 된다. g-enews 는
+    # `?idx=5&amp;simg=…` 로 내주는데, 그대로 받으면 서버가 9바이트짜리
+    # text/html 을 돌려주고 브라우저는 깨진 이미지로 처리한다(실측 2026-09-21:
+    # 디코드하면 같은 주소가 84,792바이트 image/jpeg). 저장된 og:image 1,948건
+    # 중 118건이 이 상태였다 — g-enews 69 · chosun 36 · 그 외 13.
+    src = html_module.unescape(match.group(1)).strip()
     if not src.startswith("http"):
         return ""
     return "" if _OG_IMAGE_JUNK_RE.search(src) else src

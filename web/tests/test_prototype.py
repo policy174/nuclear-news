@@ -3250,10 +3250,16 @@ class SelectionOverrideTests(unittest.TestCase):
         for fn in ("renderLeadHero(", "tocRow(", "pickCard("):
             body = script.split("function " + fn, 1)[1].split("\nfunction ", 1)[0]
             self.assertIn("shortsBadge(", body, fn + " 에 배지가 없다")
-        # 배지를 누르면 상세가 열린다 — 영상은 거기 맨 앞이어야 한다.
+        # 상세에서 영상은 본문 **뒤**다(지니 2026-09-21 "대만 뉴스 눌렀을 때는
+        # 첫 화면에 안 뜨면 좋겠어, 이미 위에 있으니까"). 09-21 아침까지는 맨
+        # 앞이었는데, 목록 배지 + 제목줄 코너 칩까지 서면서 상세 첫 화면까지
+        # 영상이면 같은 것을 세 번 보여주는 꼴이 됐다. 묻히지는 않게 사건 흐름
+        # 위에 둔다 — 한 번만 내리면 닿는다.
         dialog = script.split("function openIssueDialog(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertLess(dialog.index("dialog-shorts"), dialog.index("dialog-update"),
-                        "영상이 한 줄 결론 뒤로 밀렸다 — 배지가 약속한 것과 다르다")
+        self.assertGreater(dialog.index("dialog-shorts"), dialog.index("dialog-update"),
+                           "영상이 상세 첫 화면으로 되돌아갔다")
+        self.assertLess(dialog.index("dialog-shorts"), dialog.index("dialog-history"),
+                        "영상이 사건 흐름 뒤로 밀려 묻혔다")
         css = (ROOT / "public" / "style.css").read_text(encoding="utf-8")
         self.assertIn("--c-video:", css)
         self.assertIn(".play-badge", css)

@@ -322,3 +322,21 @@ class OgImageTests(unittest.TestCase):
         """사진이 없는 것은 정상이다 — 화면이 '사진 없음' 칸으로 받는다."""
         self.assertEqual(ab.extract_og_image(""), "")
         self.assertEqual(ab.extract_og_image("<html><body>기사</body></html>"), "")
+
+
+class OgEntityTests(unittest.TestCase):
+    """meta content 는 HTML 이라 & 가 &amp; 로 온다. 안 풀면 URL 이 깨진다.
+
+    2026-09-21 실측: g-enews 의 `?idx=5&amp;simg=…` 를 그대로 요청하면 9바이트
+    text/html 이 오고(브라우저는 깨진 이미지로 처리), 디코드하면 같은 주소가
+    84,792바이트 image/jpeg 다. 저장분 1,948건 중 118건이 이 상태였다.
+    """
+
+    def test_og_image_unescapes_entities(self):
+        url = "https://n.example.com/a.php?idx=5&simg=b.jpg"
+        page = '<meta property="og:image" content="%s">' % url.replace("&", "&amp;")
+        self.assertEqual(ab.extract_og_image(page), url)
+
+    def test_site_name_unescapes_entities(self):
+        page = '<meta property="og:site_name" content="E&amp;E News">'
+        self.assertEqual(ab.extract_site_name(page), "E&E News")
