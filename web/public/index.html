@@ -110,6 +110,12 @@
           <select id="dateSel" aria-label="브리핑 날짜"></select>
           <button id="nextDay" type="button" aria-label="다음 브리핑">→</button>
         </div>
+        <!-- 영상 브리핑 진입 — 그날 지면에 무엇이 실렸든 자리가 고정이다.
+             배지(.play-badge)는 이슈에 붙어서 그 이슈가 지면에서 내려가면 같이
+             사라진다(2026-09-21 대만 편에서 실제로 그랬다). 이 칩은 이슈가
+             아니라 '영상 브리핑'이라는 코너를 가리킨다. -->
+        <a class="brief-video-link" id="briefVideoLink" href="/shorts/" hidden>
+          <span aria-hidden="true">▶</span>영상 브리핑</a>
       </div>
       <!-- 아카이브 검색 진입은 상단에 상시 노출한다 — 지난 자료를 찾는 것이
            이 사이트의 업무 용도다. 접거나 아래로 내리지 말 것. -->

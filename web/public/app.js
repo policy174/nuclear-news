@@ -1855,6 +1855,19 @@ function shortsAll() {
   return rows.filter(row => row && (String(row.file || "").trim() || String(row.youtube || "").trim()));
 }
 
+// 코너 진입 칩. 이슈에 붙는 배지와 달리 지면 내용과 무관하게 항상 선다.
+// 지금은 최신 한 편으로 바로 보내고, 아카이브 페이지가 생기면 href 한 줄만
+// /shorts/ 로 되돌리면 된다.
+function renderBriefVideoLink() {
+  const el = document.getElementById("briefVideoLink");
+  if (!el) return;
+  const row = shortsAll()[0];
+  if (!row) { el.hidden = true; return; }
+  const page = String(row.page || "").trim();
+  if (page) el.href = `/shorts/${encodeURIComponent(page)}/`;
+  el.hidden = false;
+}
+
 function shortsMatch(row, issueKey) {
   // 한 영상이 여러 이슈를 말할 수 있다 — 대만 영상은 마안산 재가동과 3호기
   // 심사 둘 다를 다룬다. issue_id 에 목록을 적으면 그 전부에 붙는다.
@@ -5860,6 +5873,7 @@ function stepBriefing(direction) {
   const nextIndex = dates.indexOf(state.briefingDate) + direction;
   if (nextIndex < 0 || nextIndex >= dates.length) return;
   state.briefingDate = dates[nextIndex];
+  renderBriefVideoLink();
   renderDateSelect();
   renderBriefing();
   renderSystemStatus();

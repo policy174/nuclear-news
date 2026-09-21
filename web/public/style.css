@@ -3418,6 +3418,16 @@ dialog::backdrop { background: rgb(18 41 76 / 48%); }
 /* 사진 없는 표지에서는 분류 칩 줄에 함께 선다 */
 .lead-kick .play-badge { position: static; padding: 3px 10px 4px; }
 
+/* 코너 진입 칩 — 제목줄 오른쪽. 배지와 같은 노란 면을 쓰되 이슈가 아니라
+   '영상 브리핑' 자체를 가리킨다. 지면 내용과 무관하게 항상 선다. */
+.brief-video-link { display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 999px; background: var(--c-video);
+  color: var(--c-primary); font-size: var(--t-caption); font-weight: 700;
+  text-decoration: none; white-space: nowrap; }
+.brief-video-link:hover { background: color-mix(in srgb, var(--c-video) 82%, #fff); }
+.brief-video-link span { font-size: 11px; }
+.brief-video-link[hidden] { display: none; }
+
 /* 상세에서는 제목 바로 다음이다 — 배지를 누르고 들어온 사람이 먼저 볼 것 */
 .dialog-shorts { margin-top: var(--sp-3); }
 .dialog-shorts .short { max-width: 240px; }
@@ -4345,7 +4355,10 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
   /* 머리(제목·날짜·검색)가 폰 화면의 1/3을 먹었다(지니 09-16). 제목과 날짜를 한 줄에,
      날짜 컨트롤은 36px, 검색은 상자 대신 글자 한 줄. 검색 진입은 그대로 상단이다. */
   .today-head { margin-bottom: var(--sp-2); }
-  .today-head-row { flex-wrap: nowrap; gap: var(--sp-2); }
+  .today-head-row { flex-wrap: wrap; gap: var(--sp-2); }
+  /* 제목·날짜가 한 줄, 영상 칩은 그 아래 한 줄을 다 쓴다 — 375px 에서 셋을
+     한 줄에 두면 날짜 select 가 먼저 찌그러진다. */
+  .brief-video-link { flex: 1 0 100%; justify-content: center; }
   .today-head h1 { font-size: 17px; flex: 0 0 auto; }
   .date-nav { width: auto; flex: 1 1 auto; justify-content: flex-end; }
   .date-nav button, .date-nav select { height: 36px; }
