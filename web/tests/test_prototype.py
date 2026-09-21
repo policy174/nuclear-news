@@ -3249,6 +3249,42 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertNotIn("picks.after(strip)", place)
         self.assertNotIn("picks.before(strip)", place)
 
+    def test_inline_scripts_parse(self):
+        """public/ 의 인라인 <script> 가 전부 파싱되는지 본다.
+
+        2026-09-21: 공유 페이지(shorts/taiwan)의 스크립트에 문자열 안 진짜
+        줄바꿈이 들어가(`"\n"` 이 되어야 할 자리) SyntaxError 로 블록이 통째로
+        죽었다. 그래서 큰 재생 버튼이 아무 일도 안 했고 — 그 버튼이 영상 위를
+        덮고 있어 네이티브 컨트롤도 못 눌렀다. 폰·PC 둘 다 "재생이 안 된다"로
+        보였는데 콘솔을 안 보면 원인이 안 드러난다.
+
+        화면 코드는 파싱 실패가 곧 기능 전체 상실이라 이 검사가 싸게 먹힌다.
+        """
+        import re
+        import tempfile
+        pattern = re.compile(r"<script(?![^>]*src=)[^>]*>(.*?)</script>", re.S)
+        checked = 0
+        for path in sorted((ROOT / "public").rglob("*.html")):
+            for index, body in enumerate(pattern.findall(path.read_text(encoding="utf-8"))):
+                if not body.strip():
+                    continue
+                handle = tempfile.NamedTemporaryFile("w", suffix=".js", delete=False,
+                                                     encoding="utf-8")
+                handle.write(body)
+                handle.close()
+                try:
+                    result = subprocess.run(["node", "--check", handle.name],
+                                            capture_output=True, text=True)
+                finally:
+                    os.unlink(handle.name)
+                if result.returncode:
+                    tail = (result.stderr or "").strip().splitlines()
+                    self.fail(f"{path.name} 의 script#{index} 가 안 읽힌다: "
+                              + (tail[-1] if tail else "?"))
+                checked += 1
+        self.assertGreater(checked, 0, "검사한 인라인 스크립트가 없다")
+
+
     def test_shorts_video_files_are_not_mangled(self):
         """올린 영상이 저장소를 거치며 깨지지 않았는지 본다.
 

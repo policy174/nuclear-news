@@ -160,13 +160,11 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
         await navigator.share(data);
         return;
       }
-      await navigator.clipboard.writeText(line + "
-" + url);
+      await navigator.clipboard.writeText(line + "\n" + url);
     } catch (e) {
       if (e && e.name === "AbortError") return;   // 사용자가 공유 시트를 닫았다
       var t = document.createElement("textarea");
-      t.value = line + "
-" + url; document.body.appendChild(t); t.select();
+      t.value = line + "\n" + url; document.body.appendChild(t); t.select();
       try { document.execCommand("copy"); } finally { t.remove(); }
     }
     var el = document.getElementById("toast");
