@@ -153,17 +153,20 @@ h1{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.28;margin-
     var url = location.href;
     // text 를 넣으면 메시지 본문과 미리보기 카드가 같은 문장을 두 번 말한다.
     // 제목과 주소만 넘기고 나머지는 카드가 맡는다(지니 2026-09-21 "쓸데없는 거는 빼고").
-    var data = { title: "대만 원전정책 변화 · 영상 브리핑 #1", url: url };
+    var line = "[nuclens] 영상 브리핑 #1 대만 원전정책 변화 - 전면 중단 10개월 만에 재가동 추진 · 이르면 2028년";
+    var data = { title: "대만 원전정책 변화 · 영상 브리핑 #1", text: line, url: url };
     try {
       if (navigator.share && navigator.canShare && navigator.canShare(data)) {
         await navigator.share(data);
         return;
       }
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(line + "
+" + url);
     } catch (e) {
       if (e && e.name === "AbortError") return;   // 사용자가 공유 시트를 닫았다
       var t = document.createElement("textarea");
-      t.value = url; document.body.appendChild(t); t.select();
+      t.value = line + "
+" + url; document.body.appendChild(t); t.select();
       try { document.execCommand("copy"); } finally { t.remove(); }
     }
     var el = document.getElementById("toast");
