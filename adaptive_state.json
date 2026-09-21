@@ -100,6 +100,14 @@
       "type": "plant",
       "until": "2026-10-03T17:42:43.938534+00:00"
     },
+    "경상북도개발공사": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-21T08:30:57.330725+00:00",
+      "term": "경상북도개발공사",
+      "type": "org",
+      "until": "2026-10-05T08:30:57.330725+00:00"
+    },
     "경주에모여": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -115,6 +123,14 @@
       "term": "공군 미사일방어사령부",
       "type": "plant",
       "until": "2026-10-01T18:46:07.638391+00:00"
+    },
+    "국내외전문가들": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-21T08:30:56.346428+00:00",
+      "term": "국내외 전문가들",
+      "type": "plant",
+      "until": "2026-10-05T08:30:56.346428+00:00"
     },
     "국방ai": {
       "new_articles": 1,
@@ -518,104 +534,9 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 5,
     "date": "2026-09-21"
   },
-  "terms": {
-    "경상북도개발공사": {
-      "articles": 3,
-      "created_at": "2026-09-20T15:40:12.177564+00:00",
-      "domains": [
-        "metroseoul.co.kr",
-        "kmib.co.kr",
-        "kbmaeil.com"
-      ],
-      "evidence": [
-        {
-          "domain": "metroseoul.co.kr",
-          "hash": "dc6bafe4a98a9dfc",
-          "importance": "nice_to_know",
-          "title": "포항시, 한수원 등과 공영주차장 RE100 신재생에너지 사업 협약"
-        },
-        {
-          "domain": "kmib.co.kr",
-          "hash": "87d9cd3a53b6f753",
-          "importance": "nice_to_know",
-          "title": "포항시, 한수원 등과 공영주차장 30곳에 태양광 10MW 설치 협약"
-        },
-        {
-          "domain": "kbmaeil.com",
-          "hash": "ee31657e6cccbf69",
-          "importance": "nice_to_know",
-          "title": "포항시, 한수원 등과 200억 민자 유치해 10㎿ 태양광 발전사업 추진"
-        }
-      ],
-      "expires_at": "2026-09-21T15:40:12.177564+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-20T22:17:24.918511+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-20T22:17:23.310507+00:00",
-      "queries_run": 2,
-      "query": "경상북도개발공사 원자력",
-      "score": 3.7,
-      "status": "tracking",
-      "term": "경상북도개발공사",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "국내외전문가들": {
-      "articles": 3,
-      "created_at": "2026-09-19T15:01:58.505246+00:00",
-      "domains": [
-        "energydaily.co.kr",
-        "skyedaily.com",
-        "sisakorea.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "99fee6bc9d1e012c",
-          "importance": "nice_to_know",
-          "title": "국내 원전해체 사업 현황 및 글로벌 경험 공유 포럼 개최"
-        },
-        {
-          "domain": "skyedaily.com",
-          "hash": "9c44510b4f9b6c4d",
-          "importance": "nice_to_know",
-          "title": "한수원, 기후에너지환경부와 ‘2026 원전해체 비즈니스 포럼’ 공동 개최"
-        },
-        {
-          "domain": "sisakorea.kr",
-          "hash": "96ca46087ca4a883",
-          "importance": "noise",
-          "title": "한수원, 2026 원전해체 비즈니스 포럼 개최"
-        }
-      ],
-      "expires_at": "2026-09-21T08:19:26.282219+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-20T22:17:24.918511+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-09-20T22:17:23.310507+00:00",
-      "queries_run": 5,
-      "query": "국내외 전문가들 원전",
-      "score": 3.64,
-      "status": "extended",
-      "term": "국내외 전문가들",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-20"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    }
-  },
+  "terms": {},
   "version": 1
 }
