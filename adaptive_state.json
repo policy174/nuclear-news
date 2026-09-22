@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 4,
     "date": "2026-09-22"
   },
   "retired": {
@@ -11,6 +11,14 @@
       "term": "ADB",
       "type": "company",
       "until": "2026-09-29T22:18:00.483831+00:00"
+    },
+    "candu": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-22T04:09:33.109063+00:00",
+      "term": "CANDU",
+      "type": "plant",
+      "until": "2026-10-06T04:09:33.109063+00:00"
     },
     "cnnc": {
       "new_articles": 0,
@@ -452,6 +460,14 @@
       "type": "plant",
       "until": "2026-09-25T18:07:36.047613+00:00"
     },
+    "피커링": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-22T04:09:33.109063+00:00",
+      "term": "피커링",
+      "type": "plant",
+      "until": "2026-10-06T04:09:33.109063+00:00"
+    },
     "하이난성창지앙": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -534,73 +550,43 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 9,
     "date": "2026-09-22"
   },
   "terms": {
-    "candu": {
+    "정부가3개월간": {
       "articles": 1,
-      "created_at": "2026-09-21T15:36:14.694083+00:00",
+      "created_at": "2026-09-22T04:09:30.672552+00:00",
       "domains": [
-        "ft.com"
+        "ekn.kr"
       ],
       "evidence": [
         {
-          "domain": "ft.com",
-          "hash": "72367536cd915cdf",
+          "domain": "ekn.kr",
+          "hash": "12488c80aa2370ce",
           "importance": "must_read",
-          "title": "캐나다 애트킨스레알리스 합작법인, 피커링 원전 5호기 설비개선 17억 달러 계약 체결"
+          "title": "AI·반도체 전력 폭증에…정부, 3개월간 ‘원전 공론화’ 착수"
         }
       ],
-      "expires_at": "2026-09-22T15:36:14.694083+00:00",
+      "expires_at": "2026-09-23T04:09:33.108958+00:00",
       "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-21T21:36:20.696112+00:00",
-      "new_articles": 0,
+      "last_result_count": 27,
+      "last_run": "2026-09-22T04:09:33.108958+00:00",
+      "new_articles": 27,
       "origin": "auto",
-      "planned_at": "2026-09-21T21:36:18.324317+00:00",
-      "queries_run": 2,
-      "query": "CANDU 원전",
+      "planned_at": "2026-09-22T04:09:30.672552+00:00",
+      "queries_run": 1,
+      "query": "정부가 3개월간 원전",
       "score": 3.6,
-      "status": "tracking",
-      "term": "CANDU",
+      "status": "extended",
+      "term": "정부가 3개월간",
       "ttl_hours": 24,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "피커링": {
-      "articles": 1,
-      "created_at": "2026-09-21T15:36:14.694083+00:00",
-      "domains": [
-        "ft.com"
+      "yield_days": [
+        "2026-09-22"
       ],
-      "evidence": [
-        {
-          "domain": "ft.com",
-          "hash": "72367536cd915cdf",
-          "importance": "must_read",
-          "title": "캐나다 애트킨스레알리스 합작법인, 피커링 원전 5호기 설비개선 17억 달러 계약 체결"
-        }
-      ],
-      "expires_at": "2026-09-22T15:36:14.694083+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-21T21:36:20.696112+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-21T21:36:18.324317+00:00",
-      "queries_run": 2,
-      "query": "피커링 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "피커링",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
+      "yields": 1,
+      "zero_streak": 0
     },
     "피커링candu": {
       "articles": 1,
