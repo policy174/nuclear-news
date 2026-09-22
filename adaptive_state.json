@@ -558,7 +558,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 5,
     "date": "2026-09-23"
   },
   "terms": {
@@ -705,14 +705,14 @@
           "title": "AI·반도체 전력 폭증에…정부, 3개월간 ‘원전 공론화’ 착수"
         }
       ],
-      "expires_at": "2026-09-23T04:09:33.108958+00:00",
+      "expires_at": "2026-09-23T18:28:38.896353+00:00",
       "importance": "must_read",
-      "last_result_count": 27,
-      "last_run": "2026-09-22T04:09:33.108958+00:00",
-      "new_articles": 27,
+      "last_result_count": 3,
+      "last_run": "2026-09-22T18:28:38.896353+00:00",
+      "new_articles": 30,
       "origin": "auto",
-      "planned_at": "2026-09-22T04:09:30.672552+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-22T18:28:37.419723+00:00",
+      "queries_run": 2,
       "query": "정부가 3개월간 원전",
       "score": 3.6,
       "status": "extended",
@@ -720,9 +720,10 @@
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
-        "2026-09-22"
+        "2026-09-22",
+        "2026-09-23"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "텍사스가스발전2호": {
@@ -775,12 +776,12 @@
       ],
       "expires_at": "2026-09-23T09:01:49.843212+00:00",
       "importance": "must_read",
-      "last_result_count": 2,
-      "last_run": "2026-09-22T09:01:49.843212+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-09-22T18:28:38.896353+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-09-22T09:01:48.970895+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-22T18:28:37.419723+00:00",
+      "queries_run": 2,
       "query": "현대건설과 나트륨 원전",
       "score": 3.6,
       "status": "extended",
@@ -791,7 +792,7 @@
         "2026-09-22"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
