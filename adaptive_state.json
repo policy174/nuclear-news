@@ -60,6 +60,14 @@
       "type": "company",
       "until": "2026-09-24T13:17:45.227049+00:00"
     },
+    "moc": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-23T23:25:10.768082+00:00",
+      "term": "MOC",
+      "type": "company",
+      "until": "2026-10-07T23:25:10.768082+00:00"
+    },
     "mw발하슈": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -148,6 +156,14 @@
       "type": "plant",
       "until": "2026-10-05T08:30:56.346428+00:00"
     },
+    "국민과함께": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-23T23:25:10.768082+00:00",
+      "term": "국민과 함께",
+      "type": "plant",
+      "until": "2026-10-07T23:25:10.768082+00:00"
+    },
     "국방ai": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -203,6 +219,14 @@
       "term": "대구공공시설관리공단",
       "type": "org",
       "until": "2026-10-02T18:02:35.886570+00:00"
+    },
+    "대미투자2호로": {
+      "new_articles": 18,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-23T23:25:10.768082+00:00",
+      "term": "대미투자 2호로",
+      "type": "plant",
+      "until": "2026-10-07T23:25:10.768082+00:00"
     },
     "대미투자프로젝트에": {
       "new_articles": 10,
@@ -460,6 +484,14 @@
       "type": "org",
       "until": "2026-10-03T17:42:43.938534+00:00"
     },
+    "텍사스가스발전2호": {
+      "new_articles": 17,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-23T23:25:10.768082+00:00",
+      "term": "텍사스 가스발전·2호",
+      "type": "plant",
+      "until": "2026-10-07T23:25:10.768082+00:00"
+    },
     "포툼": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -582,7 +614,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 9,
     "date": "2026-09-24"
   },
   "terms": {
@@ -619,12 +651,12 @@
       ],
       "expires_at": "2026-09-26T16:24:52.485546+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 6,
-      "last_run": "2026-09-23T16:24:55.435504+00:00",
-      "new_articles": 6,
+      "last_result_count": 1,
+      "last_run": "2026-09-23T23:25:12.997802+00:00",
+      "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-09-23T16:24:52.485546+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-23T23:25:10.768082+00:00",
+      "queries_run": 2,
       "query": "BWRX-300 원자력",
       "score": 14.85,
       "status": "extended",
@@ -634,7 +666,7 @@
       "yield_days": [
         "2026-09-24"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "kurt": {
@@ -685,51 +717,6 @@
       "yields": 1,
       "zero_streak": 2
     },
-    "moc": {
-      "articles": 3,
-      "created_at": "2026-09-22T22:18:27.272363+00:00",
-      "domains": [
-        "yna.co.kr",
-        "donga.com"
-      ],
-      "evidence": [
-        {
-          "domain": "yna.co.kr",
-          "hash": "dfc92d82a14a5860",
-          "importance": "nice_to_know",
-          "title": "한미일 외교장관, 유엔총회 계기 회동…SMR·북극권 협력 논의"
-        },
-        {
-          "domain": "donga.com",
-          "hash": "0c157eb4404951f9",
-          "importance": "nice_to_know",
-          "title": "한미일 외교 “北 완전한 비핵화 확고한 의지”"
-        },
-        {
-          "domain": "donga.com",
-          "hash": "a8f70eee44a629c0",
-          "importance": "nice_to_know",
-          "title": "한미일 외교장관, SMR 배치 협력각서 후속 조치 논의"
-        }
-      ],
-      "expires_at": "2026-09-23T22:18:27.272363+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-22T22:18:30.228160+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-22T22:18:27.272363+00:00",
-      "queries_run": 1,
-      "query": "MOC 원자력",
-      "score": 4.1,
-      "status": "tracking",
-      "term": "MOC",
-      "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
     "공론화위원회": {
       "articles": 5,
       "created_at": "2026-09-23T16:24:52.485546+00:00",
@@ -762,11 +749,11 @@
       "expires_at": "2026-09-26T16:24:52.485546+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-23T16:24:55.435504+00:00",
+      "last_run": "2026-09-23T23:25:12.997802+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-23T16:24:52.485546+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-23T23:25:10.768082+00:00",
+      "queries_run": 2,
       "query": "공론화위원회 원자력",
       "score": 7.8,
       "status": "tracking",
@@ -775,109 +762,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
-    },
-    "국민과함께": {
-      "articles": 1,
-      "created_at": "2026-09-22T19:13:42.678102+00:00",
-      "domains": [
-        "enertopianews.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "enertopianews.co.kr",
-          "hash": "9cfca4446334bc15",
-          "importance": "must_read",
-          "title": "원전 '르네상스' 온다...국민과 함께 원전 역할 논의 시작"
-        }
-      ],
-      "expires_at": "2026-09-23T19:13:44.366958+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-23T18:48:11.267980+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-09-23T18:48:08.731507+00:00",
-      "queries_run": 2,
-      "query": "국민과 함께 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "국민과 함께",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-23"
-      ],
-      "yields": 1,
-      "zero_streak": 1
-    },
-    "대미투자2호로": {
-      "articles": 1,
-      "created_at": "2026-09-22T15:39:56.607388+00:00",
-      "domains": [
-        "khan.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "khan.co.kr",
-          "hash": "36b62be32bdd9c3d",
-          "importance": "must_read",
-          "title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통"
-        }
-      ],
-      "expires_at": "2026-09-23T22:18:30.228160+00:00",
-      "importance": "must_read",
-      "last_result_count": 5,
-      "last_run": "2026-09-22T22:18:30.228160+00:00",
-      "new_articles": 18,
-      "origin": "auto",
-      "planned_at": "2026-09-22T22:18:27.272363+00:00",
-      "queries_run": 2,
-      "query": "대미투자 2호로 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "대미투자 2호로",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-23"
-      ],
-      "yields": 2,
-      "zero_streak": 0
-    },
-    "텍사스가스발전2호": {
-      "articles": 1,
-      "created_at": "2026-09-22T15:39:56.607388+00:00",
-      "domains": [
-        "tvchosun.com"
-      ],
-      "evidence": [
-        {
-          "domain": "tvchosun.com",
-          "hash": "f585f23e93ddf894",
-          "importance": "must_read",
-          "title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고"
-        }
-      ],
-      "expires_at": "2026-09-23T22:18:30.228160+00:00",
-      "importance": "must_read",
-      "last_result_count": 6,
-      "last_run": "2026-09-22T22:18:30.228160+00:00",
-      "new_articles": 17,
-      "origin": "auto",
-      "planned_at": "2026-09-22T22:18:27.272363+00:00",
-      "queries_run": 2,
-      "query": "텍사스 가스발전·2호 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "텍사스 가스발전·2호",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-23"
-      ],
-      "yields": 2,
-      "zero_streak": 0
+      "zero_streak": 2
     },
     "한국에너지공단": {
       "articles": 12,
@@ -912,12 +797,12 @@
       ],
       "expires_at": "2026-09-26T16:24:52.485546+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-09-23T16:24:55.435504+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-09-23T23:25:12.997802+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-09-23T16:24:52.485546+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-23T23:25:10.768082+00:00",
+      "queries_run": 2,
       "query": "한국에너지공단 원자력",
       "score": 9.1,
       "status": "extended",
@@ -928,7 +813,7 @@
         "2026-09-24"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "해치": {
       "articles": 3,
