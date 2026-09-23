@@ -3040,11 +3040,11 @@
       "same_event": false
     },
     "issue-a8607be1ca7960f3--a50cc0c8f8": {
-      "issue_title": "FANCO, NRC에 HALEU 연료 제조시설 건설 계획 제출",
+      "issue_title": "FANCO, HALEU 연료 제조 시설 인허가 계획 NRC에 제출",
       "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
       "prompt_version": 1,
-      "reason": "다른 기업의 다른 안건",
-      "same_event": false
+      "reason": "HALEU 연료 제조시설 인허가 계획 제출 및 승인",
+      "same_event": true
     },
     "issue-a8c1cdc2ca53d72f--0e615713ea": {
       "issue_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
@@ -3857,6 +3857,13 @@
       "prompt_version": 1,
       "reason": "개별 기업 인허가 서류 제출과 NRC의 제도 개편임",
       "same_event": false
+    },
+    "issue-d4776c81220de821--a50cc0c8f8": {
+      "issue_title": "FANCO, NRC에 HALEU 연료 제조시설 건설 계획 제출",
+      "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
+      "prompt_version": 1,
+      "reason": "HALEU 연료 제조시설 건설 계획 제출 및 승인",
+      "same_event": true
     },
     "issue-d5488ec8773bdc1a--a50cc0c8f8": {
       "issue_title": "센트러스-X-에너지, HALEU 농축 계약 체결 및 TRISO-X 캠퍼스 확장",
