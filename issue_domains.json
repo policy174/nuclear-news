@@ -56,15 +56,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-40c55eaaa3e1c6e4": {
-      "digest": "c605e3e950874cee",
       "domain": "해외사업",
       "tags": [
-        "원전수출"
+        "합작지분투자"
       ],
-      "title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
     },
     "issue-9ed81d83af57bd80": {
       "domain": "정책",
@@ -250,15 +249,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-18d485ea7e099351": {
-      "digest": "c656c405312f191a",
       "domain": "정책",
       "tags": [
-        "전원계획"
+        "12차전기본"
       ],
-      "title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
     },
     "issue-0c94592b8e9adc53": {
       "domain": "정책",
@@ -6532,6 +6530,102 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-09-22T16:16:53.545679+00:00"
+    },
+    "issue-a33259f3ac2e4d86": {
+      "domain": "정책",
+      "tags": [
+        "12차전기본"
+      ],
+      "title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-1210f787317a1d91": {
+      "domain": "해외사업",
+      "tags": [
+        "합작지분투자"
+      ],
+      "title": "삼성물산, 카이로스 파워에 1억 달러 투자 및 EPC 협력",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-4aac5dbf32864dbb": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "기후에너지환경부, 1180MW 규모 ESS 중앙계약시장 사업자 선정 공고",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-0f30816ab2440972": {
+      "domain": "",
+      "tags": [],
+      "title": "포스코퓨처엠, SK온과 1조742억 규모 LFP 양극재 공급계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-98615227b95bbcc1": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "미국 원자력학회, UAE 바라카 원전 인근 드론 공격 강력 규탄",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-85461eafcf7ac82e": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "정원주 대우건설 회장, 베트남 하노이 시장 면담 및 닌투언 원전 참여 의지 표명",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-4511e800def80655": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "중국, AI 전력난 대응 위해 SMR 및 핵융합 기술 개발 가속화",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-74477b87bbb4a347": {
+      "domain": "",
+      "tags": [],
+      "title": "LS일렉트릭, 북미 AI 데이터센터 전력설비 공급 계약 2309억 원으로 증액",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-302efc1d05fea600": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "싱가포르, 에너지 전환 전략에 원자력·재생에너지 병행 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
+    },
+    "issue-d4776c81220de821": {
+      "domain": "핵연료",
+      "tags": [
+        "핵연료제조"
+      ],
+      "title": "FANCO, NRC에 HALEU 연료 제조시설 건설 계획 제출",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-23T14:34:23.635950+00:00"
     }
   }
 }
