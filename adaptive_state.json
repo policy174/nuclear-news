@@ -380,6 +380,14 @@
       "type": "plant",
       "until": "2026-09-29T13:08:30.036410+00:00"
     },
+    "정부가3개월간": {
+      "new_articles": 30,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-23T18:48:08.731507+00:00",
+      "term": "정부가 3개월간",
+      "type": "plant",
+      "until": "2026-10-07T18:48:08.731507+00:00"
+    },
     "정부가대미": {
       "new_articles": 13,
       "reason": "기간 만료",
@@ -574,7 +582,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-24"
   },
   "terms": {
@@ -660,11 +668,11 @@
       "expires_at": "2026-09-24T12:39:37.805904+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-09-22T19:13:44.366958+00:00",
+      "last_run": "2026-09-23T18:48:11.267980+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-09-22T19:13:42.678102+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-09-23T18:48:08.731507+00:00",
+      "queries_run": 3,
       "query": "KURT 원자력",
       "score": 4.6,
       "status": "extended",
@@ -675,7 +683,7 @@
         "2026-09-22"
       ],
       "yields": 1,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "moc": {
       "articles": 3,
@@ -785,12 +793,12 @@
       ],
       "expires_at": "2026-09-23T19:13:44.366958+00:00",
       "importance": "must_read",
-      "last_result_count": 1,
-      "last_run": "2026-09-22T19:13:44.366958+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-09-23T18:48:11.267980+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-09-22T19:13:42.678102+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-23T18:48:08.731507+00:00",
+      "queries_run": 2,
       "query": "국민과 함께 원전",
       "score": 3.6,
       "status": "extended",
@@ -801,7 +809,7 @@
         "2026-09-23"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "대미투자2호로": {
       "articles": 1,
@@ -832,41 +840,6 @@
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
-        "2026-09-23"
-      ],
-      "yields": 2,
-      "zero_streak": 0
-    },
-    "정부가3개월간": {
-      "articles": 1,
-      "created_at": "2026-09-22T04:09:30.672552+00:00",
-      "domains": [
-        "ekn.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "ekn.kr",
-          "hash": "12488c80aa2370ce",
-          "importance": "must_read",
-          "title": "AI·반도체 전력 폭증에…정부, 3개월간 ‘원전 공론화’ 착수"
-        }
-      ],
-      "expires_at": "2026-09-23T18:28:38.896353+00:00",
-      "importance": "must_read",
-      "last_result_count": 3,
-      "last_run": "2026-09-22T18:28:38.896353+00:00",
-      "new_articles": 30,
-      "origin": "auto",
-      "planned_at": "2026-09-22T18:28:37.419723+00:00",
-      "queries_run": 2,
-      "query": "정부가 3개월간 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "정부가 3개월간",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-09-22",
         "2026-09-23"
       ],
       "yields": 2,
@@ -988,11 +961,11 @@
       "expires_at": "2026-09-24T20:39:32.578232+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-09-22T20:39:33.664517+00:00",
+      "last_run": "2026-09-23T18:48:11.267980+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-22T20:39:32.578232+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-23T18:48:08.731507+00:00",
+      "queries_run": 2,
       "query": "해치 원전",
       "score": 4.6,
       "status": "tracking",
@@ -1001,7 +974,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     }
   },
   "version": 1
