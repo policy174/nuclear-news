@@ -60,6 +60,14 @@
       "type": "company",
       "until": "2026-09-24T13:17:45.227049+00:00"
     },
+    "kurt": {
+      "new_articles": 2,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-24T02:46:25.416040+00:00",
+      "term": "KURT",
+      "type": "company",
+      "until": "2026-10-08T02:46:25.416040+00:00"
+    },
     "moc": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -588,6 +596,14 @@
       "type": "org",
       "until": "2026-10-03T17:42:43.938534+00:00"
     },
+    "해치": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-09-24T02:46:25.416040+00:00",
+      "term": "해치",
+      "type": "plant",
+      "until": "2026-10-08T02:46:25.416040+00:00"
+    },
     "행정청장접견해": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -614,7 +630,7 @@
     }
   },
   "spent": {
-    "count": 9,
+    "count": 11,
     "date": "2026-09-24"
   },
   "terms": {
@@ -668,54 +684,6 @@
       ],
       "yields": 2,
       "zero_streak": 0
-    },
-    "kurt": {
-      "articles": 3,
-      "created_at": "2026-09-22T12:39:37.805904+00:00",
-      "domains": [
-        "kaeri.re.kr",
-        "epj.co.kr",
-        "e-platform.net"
-      ],
-      "evidence": [
-        {
-          "domain": "kaeri.re.kr",
-          "hash": "091d942ecda0517b",
-          "importance": "nice_to_know",
-          "title": "원자력연, 방사성폐기물 심층처분 연구 20년 성과 심포지엄 개최"
-        },
-        {
-          "domain": "epj.co.kr",
-          "hash": "97715bbaec2bd2cd",
-          "importance": "nice_to_know",
-          "title": "원자력연구원, 지하처분연구시설 KURT 운영 20주년 심포지엄 개최"
-        },
-        {
-          "domain": "e-platform.net",
-          "hash": "7492209477c0d6d4",
-          "importance": "nice_to_know",
-          "title": "원자력연구원, 지하처분연구시설 KURT 운영 20주년 기념 심포지엄 개최"
-        }
-      ],
-      "expires_at": "2026-09-24T12:39:37.805904+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-23T18:48:11.267980+00:00",
-      "new_articles": 2,
-      "origin": "auto",
-      "planned_at": "2026-09-23T18:48:08.731507+00:00",
-      "queries_run": 3,
-      "query": "KURT 원자력",
-      "score": 4.6,
-      "status": "extended",
-      "term": "KURT",
-      "ttl_hours": 48,
-      "type": "company",
-      "yield_days": [
-        "2026-09-22"
-      ],
-      "yields": 1,
-      "zero_streak": 2
     },
     "공론화위원회": {
       "articles": 5,
@@ -814,52 +782,6 @@
       ],
       "yields": 1,
       "zero_streak": 1
-    },
-    "해치": {
-      "articles": 3,
-      "created_at": "2026-09-22T20:39:32.578232+00:00",
-      "domains": [
-        "pinpointnews.co.kr",
-        "prnewswire.com",
-        "world-nuclear-news.org"
-      ],
-      "evidence": [
-        {
-          "domain": "pinpointnews.co.kr",
-          "hash": "590c81183df896c2",
-          "importance": "nice_to_know",
-          "title": "구글, 미국 조지아파워 원전 2곳 증설 비용 직접 부담"
-        },
-        {
-          "domain": "prnewswire.com",
-          "hash": "71c61e6e319ff942",
-          "importance": "nice_to_know",
-          "title": "조지아 파워, 보글·해치 원전 증설에 구글 9억 달러 투자 유치"
-        },
-        {
-          "domain": "world-nuclear-news.org",
-          "hash": "44f77cc0dbf0ef2a",
-          "importance": "nice_to_know",
-          "title": "조지아 파워, 보글 및 해치 원전 출력 증강 추진"
-        }
-      ],
-      "expires_at": "2026-09-24T20:39:32.578232+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-23T18:48:11.267980+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-23T18:48:08.731507+00:00",
-      "queries_run": 2,
-      "query": "해치 원전",
-      "score": 4.6,
-      "status": "tracking",
-      "term": "해치",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     }
   },
   "version": 1
