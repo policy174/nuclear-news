@@ -351,6 +351,13 @@
       "reason": "지역과 사안이 다름",
       "same_event": false
     },
+    "issue-1210f787317a1d91--07df75016b": {
+      "issue_title": "카이로스 파워, 삼성물산과 헤르메스 2 SMR 실증 플랜트 협력 계약 체결",
+      "keei_item": "카자흐스탄, 러시아 Rosatom과 Balkhash 원전 EPC 계약 체결",
+      "prompt_version": 1,
+      "reason": "카이로스와 카자흐스탄의 계약 대상은 서로 다름",
+      "same_event": false
+    },
     "issue-12539c181bdda705--23abb7f7ab": {
       "issue_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
       "keei_item": "폴란드 대통령, 원전 인허가 간소화 법 개정안 서명",
@@ -525,6 +532,13 @@
       "prompt_version": 1,
       "reason": "원안위의 정기검사 법령 개정",
       "same_event": true
+    },
+    "issue-2210d5be949aa4c1--7175604cab": {
+      "issue_title": "이재명 대통령, 트럼프와 핵잠수함 논의 가속화 합의",
+      "keei_item": "영국 정부·EDF, Sizewell B 원전 계속운전 지원 조건 합의",
+      "prompt_version": 1,
+      "reason": "한미 정상회담과 영국 원전 계속운전은 다른 사안임",
+      "same_event": false
     },
     "issue-2275c1caa1bcad23--d4863d270a": {
       "issue_title": "영국 스타트업 뉴클리어 터빈스, 신형 원자로 개념 공개 및 1,500만 파운드 투자 유치",
@@ -1157,10 +1171,10 @@
       "same_event": false
     },
     "issue-40c55eaaa3e1c6e4--613ab26b06": {
-      "issue_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "issue_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
       "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
       "prompt_version": 1,
-      "reason": "한국과 중국의 서로 다른 원전 건설 사안입니다.",
+      "reason": "한미 협상과 중국 국무원 승인은 전혀 다른 사건임",
       "same_event": false
     },
     "issue-40c55eaaa3e1c6e4--c35275bb9a": {
@@ -2220,6 +2234,13 @@
       "reason": "다른 국가, 다른 주체, 다른 안건",
       "same_event": false
     },
+    "issue-6fcf95bec9f57954--9a0229abcf": {
+      "issue_title": "UAE·사우디, 한국과 방산 협력 확대하며 AI·우주·원전 공동 투자 논의",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "한-중동 협력과 미-사우디 123 협정은 다른 사건임",
+      "same_event": false
+    },
     "issue-726ce5e20cdd473d--0330b81e50": {
       "issue_title": "정부, 산업용 전기요금 지역별 차등제 추진, 이달 중 공청회 개최",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
@@ -2281,6 +2302,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "주체·국가·발전원 다름",
+      "same_event": false
+    },
+    "issue-7479a8497f87d9e8--88604b2e8c": {
+      "issue_title": "Škoda JS, 롤스로이스 SMR 원자로 제어봉 구동 장치 단독 공급사로 선정",
+      "keei_item": "스웨덴 Videberg Kraft, SMR 공급사로 Rolls-Royce SMR 최종 선정",
+      "prompt_version": 1,
+      "reason": "체코 기업의 부품 공급과 스웨덴의 SMR 선정은 다름",
       "same_event": false
     },
     "issue-76ffb07f2b6ccb8d--23a6f604ae": {
@@ -3151,6 +3179,13 @@
       "reason": "A는 지자체 제안, B는 한수원 부지 선정임",
       "same_event": false
     },
+    "issue-ad5a0787d9daf9c2--23abb7f7ab": {
+      "issue_title": "미국 상원, 인프라 인허가 개혁 법안 통과에 근접",
+      "keei_item": "폴란드 대통령, 원전 인허가 간소화 법 개정안 서명",
+      "prompt_version": 1,
+      "reason": "미국 인프라 법안과 폴란드 원전 법안은 다른 사안임",
+      "same_event": false
+    },
     "issue-aec4e7721d553311--d65bac9c4d": {
       "issue_title": "신규 원전 2기 경북 영덕, SMR 후보 부지 부산 기장 선정",
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
@@ -3611,6 +3646,13 @@
       "keei_item": "폴란드 대통령, 원전 인허가 간소화 법 개정안 서명",
       "prompt_version": 1,
       "reason": "미국 규정 제안 vs 폴란드 법 개정",
+      "same_event": false
+    },
+    "issue-c5acbde6bff5c3ae--f797174d9b": {
+      "issue_title": "미국 에너지부, 26개 주 전력망 개선에 52.5억 달러 투자 발표",
+      "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
+      "prompt_version": 1,
+      "reason": "미국 전력망 투자와 오하이오주 원전 개발은 다름",
       "same_event": false
     },
     "issue-c715119981e5d8c7--dc799316ad": {
