@@ -2984,6 +2984,16 @@ function renderLibrary() {
   const box = document.getElementById("libraryList");
   if (!box) return;
   const entries = state.precedents?.entries || [];
+  const quick = document.getElementById("libraryQuick");
+  if (quick) {
+    const linked = entries.filter(entry => entry.file);
+    quick.hidden = !linked.length;
+    quick.innerHTML = linked.length ? `<strong>대응 자료</strong>${linked.map(entry => {
+      const url = safeUrl(`${location.origin}${entry.file}`);
+      const label = entry.kind === "dossier" ? `${entry.title} PDF` : `${entry.title} 심층 분석`;
+      return url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span></a>` : "";
+    }).join("")}<button type="button" class="text-action" data-scroll-library>자료실 전체 보기 <span aria-hidden="true">↓</span></button>` : "";
+  }
   if (!entries.length) {
     box.innerHTML = `<p class="empty">${esc(STRINGS.libraryEmpty)}</p>`;
     return;
@@ -6086,6 +6096,10 @@ function bind() {
    "weeklyReportBody", "insightList",
    "recentIssueList", "leadHero"].forEach(id => {
     document.getElementById(id).addEventListener("click", handleIssueAction);
+  });
+  document.getElementById("libraryQuick").addEventListener("click", event => {
+    if (!event.target.closest("[data-scroll-library]")) return;
+    document.getElementById("reportLibrary").scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" });
   });
   // 레일이 따라갈 카드를 고른다. 마우스가 얹히거나 키보드 포커스가 들어오면
   // 바뀐다 — 누르는 동작은 이미 '펼치기'가 쓰고 있어서 선택까지 겸하면 펼치지

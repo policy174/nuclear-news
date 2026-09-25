@@ -561,6 +561,9 @@
         <p>보고 후보와 근거 자료를 한곳에서 확인하고 자료팩을 복사하세요.</p>
       </div>
     </div>
+    <!-- 대응 자료실 바로가기 — 자료실(03)은 보고 후보 아래 한참 밑이라 첫 화면에
+         문서 링크를 올린다(2026-09-25 "사이트에 안 보인다"). 문서가 없으면 숨김. -->
+    <nav id="libraryQuick" class="library-quick" aria-label="대응 자료 바로가기" hidden></nav>
     <section class="report-candidates" aria-labelledby="reportCandidatesTitle">
       <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">01</span><h2 id="reportCandidatesTitle">이번 주 보고 후보</h2></div></div>
       <div id="reportCandidateList"></div>
@@ -572,7 +575,7 @@
       <div id="agendaBlock"></div>
     </section>
     <!-- 대응 자료실 — 과거 사례 브리핑(종결된 사실만) + 부서 작성 문서 -->
-    <section class="report-library" aria-labelledby="libraryTitle">
+    <section class="report-library" id="reportLibrary" aria-labelledby="libraryTitle">
       <div class="section-heading compact"><div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="libraryTitle">대응 자료실</h2></div></div>
       <div id="libraryList"></div>
     </section>

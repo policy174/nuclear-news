@@ -2103,6 +2103,15 @@ body.booting .status-strip.loading { display: none; }
   color: var(--c-text);
 }
 .agenda-chip.auto { color: var(--c-text-secondary); border-style: dashed; }
+.library-quick {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4);
+  margin: calc(var(--sp-6) * -1 + var(--sp-2)) 0 var(--sp-6);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-signal); color: var(--c-signal-ink);
+}
+.library-quick strong { font-size: var(--t-caption); }
+.library-quick a,
+.library-quick button { color: var(--c-signal-ink); font-weight: 650; text-underline-offset: 3px; padding: 6px 0; }
 .library-item {
   margin-bottom: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
