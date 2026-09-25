@@ -1890,38 +1890,8 @@ body.booting .status-strip.loading { display: none; }
    칸 사이 연결선은 ::after 로 긋는다 — 마지막 칸에는 안 붙는다. 완료는
    --c-verified, 지금 할 것은 상호작용색. 나머지는 회색으로 가만히 있는다.
    좁은 화면에서는 가로줄이 접히므로 세로로 세운다. */
-.report-steps {
-  list-style: none; margin: var(--sp-1) 0 0; padding: 0;
-  display: flex; align-items: center; gap: var(--sp-2);
-  font-size: var(--t-caption); color: var(--c-text-muted);
-}
-.report-steps li { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-.report-steps li::after {
-  content: ""; flex: 1; min-width: var(--sp-4); height: 1px;
-  background: var(--c-border); margin-left: var(--sp-2);
-}
-.report-steps li:last-child { flex: 0 0 auto; }
-.report-steps li:last-child::after { display: none; }
-.report-steps li:not(:last-child) { flex: 1; }
-.report-steps b {
-  /* 원은 글자 크기 하한(--t-min 12.5px)에 맞춰 20px 이다. 18px 로 줄이려면
-     숫자를 10.5px 로 내려야 하는데 그건 가드가 막는다(그리고 프로젝터에서
-     안 보인다) — 원을 키우는 쪽이 맞다. */
-  flex: 0 0 auto; width: 20px; height: 20px; border-radius: var(--r-4);
-  border: 1.5px solid var(--c-border-strong); display: grid; place-items: center;
-  font-family: var(--ff-mono); font-size: var(--t-min); font-weight: 700; line-height: 1;
-}
-.report-steps .is-done { color: var(--c-verified); }
-.report-steps .is-done b { background: var(--c-verified); border-color: var(--c-verified); color: #fff; }
-.report-steps .is-done::after { background: var(--c-verified); }
-.report-steps .is-now { color: var(--c-accent-text); font-weight: 700; }
-.report-steps .is-now b { border-color: var(--c-secondary); border-width: 2px; color: var(--c-secondary); }
-.report-steps-foot { margin: 0; font-size: var(--t-caption); color: var(--c-text-muted); }
+
 @media (max-width: 719px) {
-  .report-steps { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
-  .report-steps li,
-  .report-steps li:not(:last-child) { flex: 0 0 auto; white-space: normal; }
-  .report-steps li::after { display: none; }
 }
 .report-candidate .secondary-button { justify-self: start; }
 /* 기술문서 접기 — 연구·설계 실무용 문서가 서가 앞줄을 차지해 정책 자료를
@@ -4276,7 +4246,6 @@ button.chip:focus-visible { outline: none; box-shadow: var(--fo-ring); }
   margin-bottom: var(--sp-2); font-size: var(--t-caption); color: var(--c-text-muted);
 }
 
-
 /* 선두 한 건만 한 단 크게 + 요지 한 줄. 카드로 키우지 않는다 — 상자가 되는
    순간 첫 화면을 혼자 먹고 목차가 아래로 밀린다(선두 카드가 그래서 걷혔다).
    강조 수단은 활자 크기·요지 한 줄·왼쪽 잉크 띠까지. 배경색은 쓰지 않는다:
@@ -4476,3 +4445,17 @@ button.agenda-head[aria-expanded="true"]::after { content: "▾"; }
 }
 /* 헤더의 날짜 줄은 패널 꼬리가 대신 든다 */
 .today-date { display: none; }
+
+/* 흐름 탭 "더 보기" — 첫 화면 네 질문 밖의 구역을 한 번에 접는다 (2026-09-25) */
+.fold-more { margin-top: var(--sp-8); border-top: var(--bd-1) solid var(--c-border-strong); }
+.fold-more > summary {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1) var(--sp-3);
+  padding: var(--sp-4) 0; cursor: pointer; list-style: none;
+}
+.fold-more > summary::-webkit-details-marker { display: none; }
+.fold-more > summary::before { content: "▸"; color: var(--c-secondary); }
+.fold-more[open] > summary::before { content: "▾"; }
+.fold-more > summary strong { color: var(--c-text); }
+.fold-more > summary span { color: var(--c-text-muted); font-size: var(--t-caption); }
+.fold-more > summary:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; }
+.cal-months details > summary { cursor: pointer; font-weight: 650; padding: var(--sp-2) 0; }

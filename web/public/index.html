@@ -371,113 +371,14 @@
       <div id="thisWeekBody"></div>
       <div id="weeklyReportBody"></div>
     </section>
-    <section class="flow-panel" aria-labelledby="flowHeading">
-      <!-- 오버라인은 위 트렌드 머리(THIS WEEK)가 이미 달았다. 같은 시간 범위에
-           두 번 붙이면 라벨이 아니라 배경이 된다 — 여기서는 구역 번호로 가른다. -->
+    <!-- 스토리(chronicle) — 이슈 60일 수명을 넘어 쌓이는 시간축 원장. 재료가
+         없으면 스스로 내려가고 renumberSections 가 번호를 당긴다. -->
+    <section id="chronicleSection" class="chronicle-panel" aria-labelledby="chronicleHeading" hidden>
       <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
-        <span class="data-note">보도량·보도 일수·매체 수 기준</span>
+        <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="chronicleHeading">이어지는 사안</h2></div>
+        <span class="data-note" id="chronicleMeta"></span>
       </div>
-      <!-- 수명 축. 눈금은 여기 한 번만 그리고 각 이슈 행이 같은 축을 나눠 쓴다 —
-           행마다 자기 축을 가지면 길이가 서로 비교되지 않아 '며칠째'가 안 보인다.
-           기간·건수는 각 행이 글자로도 말하므로 축은 스크린리더에서 감춘다. -->
-      <div id="flowAxis" class="flow-axis" aria-hidden="true" hidden></div>
-      <div id="insightList"></div>
-    </section>
-    <section id="trendReadiness" class="readiness-panel"></section>
-    <section id="trendData" hidden>
-      <div class="period-row">
-        <nav class="filter-tabs" id="periodTabs" aria-label="집계 기간">
-          <button class="filter-tab active" data-period="7" aria-pressed="true">7일</button>
-          <button class="filter-tab" data-period="30" aria-pressed="false">30일</button>
-          <button class="filter-tab" data-period="90" aria-pressed="false">분기</button>
-          <button class="filter-tab" data-period="180" aria-pressed="false">반기</button>
-          <button class="filter-tab" data-period="365" aria-pressed="false">1년</button>
-        </nav>
-      </div>
-      <section class="data-card period-timeline-card" aria-labelledby="periodTimelineTitle">
-        <div class="data-card-head"><div><h2 id="periodTimelineTitle">기간 흐름</h2><p id="periodTimelineMeta" class="data-note"></p></div></div>
-        <div id="periodTimeline" class="period-timeline"></div>
-        <p id="periodTimelineInterpretation" class="chart-interpretation"></p>
-      </section>
-      <div class="trend-stack">
-        <section class="data-card keyword-panel">
-          <!-- 위 기간 토글을 그대로 따른다. 어느 구간을 어느 구간과 비교했는지
-               한 줄로 밝히지 않으면 '분기'를 눌러 놓고 7일 표를 읽게 된다. -->
-          <div class="data-card-head"><div><h2>키워드 비교</h2><p id="keywordMeta" class="data-note"></p></div>
-            <div class="segmented" id="keywordSort">
-              <button class="active" type="button" data-sort="mentions" aria-pressed="true">언급순</button>
-              <button type="button" data-sort="change" aria-pressed="false">변화순</button>
-              <button type="button" data-sort="new" aria-pressed="false">신규만</button>
-            </div>
-          </div>
-          <div id="keywordTable" class="keyword-table"></div>
-          <p id="keywordInterpretation" class="chart-interpretation"></p>
-          <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="keywordEvidence"></div></details>
-        </section>
-        <!-- 지도는 막대와 다른 말을 해야 존재 이유가 있다. 막대는 건수순이라
-             유럽 5개국이 4~5건씩 흩어져 캐나다 6건보다 아래에 깔리지만, 실제
-             유럽 합계는 캐나다의 3배다 — 군집은 지도만 보여준다. 없는 지역
-             (중동·아프리카·남미)도 막대에는 아예 나타나지 않는다.
-             그래서 지도는 전체 폭으로 세우고, 대륙 합계와 해석 문장을 붙인다.
-             그림만 두면 '미국·한국이 많다'는 막대의 열등한 복사본이 된다. -->
-        <section class="data-card country-map-card">
-          <h2>이슈가 어디서 났나</h2>
-          <!-- 뒷문장은 지도에 대한 설명이라 지도를 접는 모바일에서는 같이 접는다. -->
-          <!-- 위 기간 토글을 따라가지 않는다. countries_30d 한 벌만 있고 7일치가
-               없어서인데, 말 안 하면 '7일'을 눌러 놓고 30일 지도를 보게 된다. -->
-          <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
-          <div class="country-map-layout">
-            <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
-            <div id="countryMap" class="country-map" aria-hidden="true"></div>
-            <div class="country-map-side">
-              <div id="countryMapLegend" class="country-map-legend" aria-hidden="true"></div>
-              <h3 class="country-region-title">대륙별 합계</h3>
-              <ul id="countryRegions" class="country-regions"></ul>
-              <p id="countryMapNote" class="data-note country-map-note" hidden></p>
-            </div>
-          </div>
-          <p id="countryMapInterpretation" class="chart-interpretation"></p>
-        </section>
-        <div class="trend-grid">
-          <section class="data-card">
-            <h2>국가·지역별 이슈 수</h2>
-            <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준 · 복수 국가는 각각 1건</p>
-            <div id="countryBars"></div>
-            <p id="countryInterpretation" class="chart-interpretation"></p>
-            <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>
-          </section>
-          <section class="data-card slope-card">
-            <h2>주제별 주간 변화</h2>
-            <!-- 단위는 이슈다(build_topic_weeks). 한 이슈가 주제 둘이면 둘 다에
-                 1건씩 가므로 합계는 이슈 총수보다 클 수 있다. -->
-            <p class="data-note">상위 4개 주제와 기타 합계 · 완료된 주의 이슈 수</p>
-            <div id="topicChart"></div>
-            <p id="topicInterpretation" class="chart-interpretation"></p>
-            <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="topicEvidence"></div></details>
-          </section>
-        </div>
-      </div>
-    </section>
-    <!-- 워드 클라우드 — 위 기간 토글(7·30·90·180·365일)을 **그대로** 따른다.
-         같은 keywordRows() 를 쓰므로 위의 키워드 표와 어긋날 수 없다.
-         표와 역할이 다르다: 표는 12개를 순위·증감으로 읽는 자리고, 이 그림은
-         그 기간의 무게 분포를 한눈에 보는 자리다. 크기는 언급 수, 색은 변화. -->
-    <section id="trendWordCloud" class="word-cloud-panel" aria-labelledby="wordCloudHeading" hidden>
-      <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="wordCloudHeading">무엇이 크게 있었나</h2></div>
-        <span class="data-note" id="wordCloudMeta"></span>
-      </div>
-      <div id="wordCloud" class="word-cloud"></div>
-      <!-- 색 범례. 비교할 직전 구간이 없는 기간에는 색이 아무 말도 하지 않으므로
-           app.js 가 통째로 내린다. 기호는 낱말 자체에도 붙는다(WORD_CLOUD_ICON) —
-           색 하나로만 가르면 구분이 옅어진다. -->
-      <ul id="wordCloudLegend" class="word-cloud-legend" hidden>
-        <li><span class="word-cloud-swatch new" aria-hidden="true">● 신규</span>직전 구간에 없던 말 중 큰 것</li>
-        <li><span class="word-cloud-swatch up" aria-hidden="true">▲ 증가</span>더 많이 다뤄짐</li>
-        <li><span class="word-cloud-swatch down" aria-hidden="true">▼ 감소</span>덜 다뤄짐</li>
-      </ul>
-      <p id="wordCloudInterpretation" class="chart-interpretation"></p>
+      <div id="chronicleList" class="chronicle-list"></div>
     </section>
     <!-- 앞으로 30일 — 흐름 탭이 뒤를 본 다음 앞을 본다.
          칸에 서는 이름은 기사 제목이 아니라 **그 날짜가 적힌 문장**에서 뽑은
@@ -504,38 +405,146 @@
       <!-- '9월 중'처럼 달까지만 적힌 일정. 날짜 칸에 넣으면 그 달 1일 일정이
            되므로 격자 밖에 따로 세운다. -->
       <section id="eventCalendarMonths" class="cal-months" aria-labelledby="eventCalendarMonthsTitle" hidden>
-        <h3 id="eventCalendarMonthsTitle">날짜까지는 안 나온 것</h3>
-        <ul id="eventCalendarMonthList"></ul>
+        <details><summary id="eventCalendarMonthsTitle">날짜까지는 안 나온 것</summary>
+          <ul id="eventCalendarMonthList"></ul>
+        </details>
       </section>
       <p class="data-note cal-note">기사 문장에 날짜가 적힌 일정만 세웁니다. 일정을 누르면 근거 문장과 출처를 봅니다.</p>
     </section>
-    <!-- 스토리(chronicle) — 이슈 60일 수명을 넘어 쌓이는 시간축 원장. 재료가
-         없으면 스스로 내려가고 renumberSections 가 번호를 당긴다. -->
-    <section id="chronicleSection" class="chronicle-panel" aria-labelledby="chronicleHeading" hidden>
-      <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">05</span><h2 id="chronicleHeading">이어지는 사안</h2></div>
-        <span class="data-note" id="chronicleMeta"></span>
-      </div>
-      <div id="chronicleList" class="chronicle-list"></div>
-    </section>
-    <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
-         쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
-    <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
-      <div class="section-heading compact">
-        <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
-        <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
-      </div>
-      <ol id="briefingTimelineList"></ol>
-    </section>
-    <!-- Carbon Brief 관행(2026-08-16 슈퍼샘플 계획): 집계 기준을 화면에 상시 공개
-         한다 — "이 숫자 어디서 났냐"에 먼저 답해 두는 것이 신뢰 확보의 최저비용.
-         신규 박스를 세우지 않고 기존 .notice 문단 어법을 그대로 쓴다(디자인 불변). -->
-    <p class="notice"><strong>집계 방법</strong> — 등록 수집원
-      <span id="methodologySources">—</span>곳에서 3시간마다 수집하고, AI가 통제 태그
-      (주제 12·국가 10·유형 7)로 분류합니다. 통계는 기사가 아니라 이슈(사건) 단위이며
-      매일 갱신됩니다. 검증 상태는 공식 원문·독립 출처 수로 4단계 표시하고, 요약·해석
-      문장에는 AI 배지를 붙입니다.</p>
-    <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
+    <!-- 더 보기 — 2026-09-25 "흐름탭 난잡하다" 정돈. 첫 화면은 네 질문(어디로
+         움직였나·이번 주 판세·이어지는 사안·앞으로)만 세운다. 같은 질문을 다른
+         모양으로 다시 답하던 구역 — 이번 주 이슈 전체(판세 머리 3건·이어지는 사안과
+         겹침), 기간 지표·키워드·워드클라우드(4주 흐름표와 겹침), 지난 브리핑 — 은
+         지우지 않고 여기 접는다. 접힌 안의 구역 번호는 renumberSections 가 감춘다. -->
+    <details class="fold-more" id="trendMore">
+      <summary><strong>지표·기록 더 보기</strong><span>이번 주 이슈 전체 · 기간 흐름·키워드·지역 · 워드클라우드 · 지난 브리핑</span></summary>
+      <section class="flow-panel" aria-labelledby="flowHeading">
+        <!-- 오버라인은 위 트렌드 머리(THIS WEEK)가 이미 달았다. 같은 시간 범위에
+             두 번 붙이면 라벨이 아니라 배경이 된다 — 여기서는 구역 번호로 가른다. -->
+        <div class="section-heading compact">
+          <div class="section-title"><span class="sec-no" aria-hidden="true">03</span><h2 id="flowHeading">이번 주 움직인 이슈</h2></div>
+          <span class="data-note">보도량·보도 일수·매체 수 기준</span>
+        </div>
+        <!-- 수명 축. 눈금은 여기 한 번만 그리고 각 이슈 행이 같은 축을 나눠 쓴다 —
+             행마다 자기 축을 가지면 길이가 서로 비교되지 않아 '며칠째'가 안 보인다.
+             기간·건수는 각 행이 글자로도 말하므로 축은 스크린리더에서 감춘다. -->
+        <div id="flowAxis" class="flow-axis" aria-hidden="true" hidden></div>
+        <div id="insightList"></div>
+      </section>
+      <section id="trendReadiness" class="readiness-panel"></section>
+      <section id="trendData" hidden>
+        <div class="period-row">
+          <nav class="filter-tabs" id="periodTabs" aria-label="집계 기간">
+            <button class="filter-tab active" data-period="7" aria-pressed="true">7일</button>
+            <button class="filter-tab" data-period="30" aria-pressed="false">30일</button>
+            <button class="filter-tab" data-period="90" aria-pressed="false">분기</button>
+            <button class="filter-tab" data-period="180" aria-pressed="false">반기</button>
+            <button class="filter-tab" data-period="365" aria-pressed="false">1년</button>
+          </nav>
+        </div>
+        <section class="data-card period-timeline-card" aria-labelledby="periodTimelineTitle">
+          <div class="data-card-head"><div><h2 id="periodTimelineTitle">기간 흐름</h2><p id="periodTimelineMeta" class="data-note"></p></div></div>
+          <div id="periodTimeline" class="period-timeline"></div>
+          <p id="periodTimelineInterpretation" class="chart-interpretation"></p>
+        </section>
+        <div class="trend-stack">
+          <section class="data-card keyword-panel">
+            <!-- 위 기간 토글을 그대로 따른다. 어느 구간을 어느 구간과 비교했는지
+                 한 줄로 밝히지 않으면 '분기'를 눌러 놓고 7일 표를 읽게 된다. -->
+            <div class="data-card-head"><div><h2>키워드 비교</h2><p id="keywordMeta" class="data-note"></p></div>
+              <div class="segmented" id="keywordSort">
+                <button class="active" type="button" data-sort="mentions" aria-pressed="true">언급순</button>
+                <button type="button" data-sort="change" aria-pressed="false">변화순</button>
+                <button type="button" data-sort="new" aria-pressed="false">신규만</button>
+              </div>
+            </div>
+            <div id="keywordTable" class="keyword-table"></div>
+            <p id="keywordInterpretation" class="chart-interpretation"></p>
+            <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="keywordEvidence"></div></details>
+          </section>
+          <!-- 지도는 막대와 다른 말을 해야 존재 이유가 있다. 막대는 건수순이라
+               유럽 5개국이 4~5건씩 흩어져 캐나다 6건보다 아래에 깔리지만, 실제
+               유럽 합계는 캐나다의 3배다 — 군집은 지도만 보여준다. 없는 지역
+               (중동·아프리카·남미)도 막대에는 아예 나타나지 않는다.
+               그래서 지도는 전체 폭으로 세우고, 대륙 합계와 해석 문장을 붙인다.
+               그림만 두면 '미국·한국이 많다'는 막대의 열등한 복사본이 된다. -->
+          <section class="data-card country-map-card">
+            <h2>이슈가 어디서 났나</h2>
+            <!-- 뒷문장은 지도에 대한 설명이라 지도를 접는 모바일에서는 같이 접는다. -->
+            <!-- 위 기간 토글을 따라가지 않는다. countries_30d 한 벌만 있고 7일치가
+                 없어서인데, 말 안 하면 '7일'을 눌러 놓고 30일 지도를 보게 된다. -->
+            <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준<span class="country-map-only"> · 칸 위치는 실제 좌표가 아니라 근사 배치</span></p>
+            <div class="country-map-layout">
+              <!-- 스크린리더에는 옆의 대륙 합계와 아래 막대가 완전한 수치를 준다. -->
+              <div id="countryMap" class="country-map" aria-hidden="true"></div>
+              <div class="country-map-side">
+                <div id="countryMapLegend" class="country-map-legend" aria-hidden="true"></div>
+                <h3 class="country-region-title">대륙별 합계</h3>
+                <ul id="countryRegions" class="country-regions"></ul>
+                <p id="countryMapNote" class="data-note country-map-note" hidden></p>
+              </div>
+            </div>
+            <p id="countryMapInterpretation" class="chart-interpretation"></p>
+          </section>
+          <div class="trend-grid">
+            <section class="data-card">
+              <h2>국가·지역별 이슈 수</h2>
+              <p class="data-note">선택 기간의 중복 보도를 합친 선정 사건 기준 · 복수 국가는 각각 1건</p>
+              <div id="countryBars"></div>
+              <p id="countryInterpretation" class="chart-interpretation"></p>
+              <details class="data-evidence"><summary>근거 데이터 보기</summary><p>EU는 유럽연합 기관·공동정책, 유럽은 범지역 이슈입니다. 개별 국가 이슈는 프랑스처럼 국가명으로 표시합니다.</p></details>
+            </section>
+            <section class="data-card slope-card">
+              <h2>주제별 주간 변화</h2>
+              <!-- 단위는 이슈다(build_topic_weeks). 한 이슈가 주제 둘이면 둘 다에
+                   1건씩 가므로 합계는 이슈 총수보다 클 수 있다. -->
+              <p class="data-note">상위 4개 주제와 기타 합계 · 완료된 주의 이슈 수</p>
+              <div id="topicChart"></div>
+              <p id="topicInterpretation" class="chart-interpretation"></p>
+              <details class="data-evidence"><summary>근거 데이터 보기</summary><div id="topicEvidence"></div></details>
+            </section>
+          </div>
+        </div>
+      </section>
+      <!-- 워드 클라우드 — 위 기간 토글(7·30·90·180·365일)을 **그대로** 따른다.
+           같은 keywordRows() 를 쓰므로 위의 키워드 표와 어긋날 수 없다.
+           표와 역할이 다르다: 표는 12개를 순위·증감으로 읽는 자리고, 이 그림은
+           그 기간의 무게 분포를 한눈에 보는 자리다. 크기는 언급 수, 색은 변화. -->
+      <section id="trendWordCloud" class="word-cloud-panel" aria-labelledby="wordCloudHeading" hidden>
+        <div class="section-heading compact">
+          <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="wordCloudHeading">무엇이 크게 있었나</h2></div>
+          <span class="data-note" id="wordCloudMeta"></span>
+        </div>
+        <div id="wordCloud" class="word-cloud"></div>
+        <!-- 색 범례. 비교할 직전 구간이 없는 기간에는 색이 아무 말도 하지 않으므로
+             app.js 가 통째로 내린다. 기호는 낱말 자체에도 붙는다(WORD_CLOUD_ICON) —
+             색 하나로만 가르면 구분이 옅어진다. -->
+        <ul id="wordCloudLegend" class="word-cloud-legend" hidden>
+          <li><span class="word-cloud-swatch new" aria-hidden="true">● 신규</span>직전 구간에 없던 말 중 큰 것</li>
+          <li><span class="word-cloud-swatch up" aria-hidden="true">▲ 증가</span>더 많이 다뤄짐</li>
+          <li><span class="word-cloud-swatch down" aria-hidden="true">▼ 감소</span>덜 다뤄짐</li>
+        </ul>
+        <p id="wordCloudInterpretation" class="chart-interpretation"></p>
+      </section>
+      <!-- 지난 브리핑 — 흐름 탭의 시간 축. 점·세로선 없이 얇은 괘선과 날짜 정렬만
+           쓴다(이 저장소의 괘선 어법). 행 클릭 = 그 날짜의 오늘 화면. -->
+      <section id="briefingTimeline" class="briefing-timeline" aria-labelledby="briefingTimelineTitle">
+        <div class="section-heading compact">
+          <div class="section-title"><span class="sec-no" aria-hidden="true">04</span><h2 id="briefingTimelineTitle">지난 브리핑</h2></div>
+          <span class="data-note">날짜를 누르면 그날 브리핑으로 이동합니다</span>
+        </div>
+        <ol id="briefingTimelineList"></ol>
+      </section>
+      <!-- Carbon Brief 관행(2026-08-16 슈퍼샘플 계획): 집계 기준을 화면에 상시 공개
+           한다 — "이 숫자 어디서 났냐"에 먼저 답해 두는 것이 신뢰 확보의 최저비용.
+           신규 박스를 세우지 않고 기존 .notice 문단 어법을 그대로 쓴다(디자인 불변). -->
+      <p class="notice"><strong>집계 방법</strong> — 등록 수집원
+        <span id="methodologySources">—</span>곳에서 3시간마다 수집하고, AI가 통제 태그
+        (주제 12·국가 10·유형 7)로 분류합니다. 통계는 기사가 아니라 이슈(사건) 단위이며
+        매일 갱신됩니다. 검증 상태는 공식 원문·독립 출처 수로 4단계 표시하고, 요약·해석
+        문장에는 AI 배지를 붙입니다.</p>
+      <p class="notice">언급량은 중요도가 아닙니다. 흐름은 근거 기사와 함께 보세요.</p>
+    </details>
   </section>
 
   <section id="search-saved" hidden aria-labelledby="savedTitle">

@@ -2812,34 +2812,6 @@ function renderSaved() {
   if (packButton) packButton.hidden = issues.length === 0;
 }
 
-// 보고 후보 진행 표시 — 이 카드가 "보고서까지 얼마나 온 것인가"를 네 칸으로
-// 말한다. 넷 다 이미 있는 값에서 유도한다(선정·검증 상태·초안 유무) — 진행률을
-// 따로 저장하지 않는다. 마지막 칸은 사람이 누르는 동작이라 절대 완료로 켜지지
-// 않는다: 화면이 "다 됐다"고 먼저 말하면 복사 안 한 것을 복사했다고 믿는다.
-function reportSteps(issue) {
-  const verState = verificationState(issue);
-  const verified = ["official", "corroborated"].includes(verState.status);
-  const hasDraft = Boolean(reportDraftFor(issue.issue_id));
-  // 미완료 사유는 검증 라벨을 그대로 쓴다 — 건수를 새로 계산하지 않는다.
-  // source_count 와 status 는 서로 다른 규칙으로 정해져서 빼기를 하면
-  // "1건 중 0건 미검증" 같은 문장이 나온다(09-20 실측).
-  const gap = (VERIFICATION_VIEW[verState.status] || {}).label || "";
-  const steps = [
-    { label: "이슈 연결", done: true },
-    { label: verified || !gap ? "근거 확인" : `근거 확인 (${gap})`, done: verified },
-    { label: "초안 검토", done: hasDraft },
-    { label: "자료팩 복사", done: false },
-  ];
-  const now = steps.findIndex(step => !step.done);
-  const doneCount = steps.filter(step => step.done).length;
-  return `<ol class="report-steps" aria-label="보고 진행">
-    ${steps.map((step, i) => `<li class="${step.done ? "is-done" : i === now ? "is-now" : ""}">
-      <b aria-hidden="true">${step.done ? "✓" : i + 1}</b>${esc(step.label)}
-    </li>`).join("")}
-  </ol>
-  <p class="report-steps-foot">${steps.length}단계 중 ${doneCount}단계 완료</p>`;
-}
-
 function renderReportCandidates() {
   const box = document.getElementById("reportCandidateList");
   if (!box) return;
@@ -2852,7 +2824,6 @@ function renderReportCandidates() {
       <h3><button type="button" data-issue-id="${esc(issue.issue_id)}">${esc(issue.title)}</button></h3>
       ${why ? `<p>${esc(why)}</p>` : ""}
       ${reasons.length ? `<div class="report-angle-row">${reasons.map(reason => `<span class="topic-chip">${esc(reason)}</span>`).join("")}</div>` : ""}
-      ${reportSteps(issue)}
       ${draftPreviewBlock(issue, { withCopy: true, collapsed: true })}
       <button type="button" class="secondary-button" data-pack-issue="${esc(issue.issue_id)}">보고서 자료팩 복사</button>
     </article>`;
@@ -3148,6 +3119,8 @@ function pubRow(item) {
   </article>`;
 }
 
+const PUBS_SHELF_MAX = 8;
+
 function renderPubs() {
   const listBox = document.getElementById("pubsList");
   const filterBox = document.getElementById("pubsFilters");
@@ -3194,8 +3167,15 @@ function renderPubs() {
   // 정책 자료가 안 보였다. 지우지는 않는다 — 원자력 문서가 맞고, 찾는 사람이 있다.
   const technical = visible.filter(item => item.relevance === "technical");
   const primary = visible.filter(item => item.relevance !== "technical");
+  // 서가 앞줄은 최신 PUBS_SHELF_MAX 건만. 41건이 보고서 탭의 절반(2,378px)을
+  // 차지해 탭이 난잡하다는 판정(2026-09-25) — 나머지는 기술문서처럼 접는다.
+  const front = primary.slice(0, PUBS_SHELF_MAX);
+  const back = primary.slice(PUBS_SHELF_MAX);
   const shelf = primary.length
-    ? primary.map(pubRow).join("")
+    ? front.map(pubRow).join("") + (back.length
+      ? `<details class="pub-technical pub-more"><summary>발간물 ${back.length}건 더 보기</summary>
+           <div class="pub-technical-shelf">${back.map(pubRow).join("")}</div></details>`
+      : "")
     : '<div class="empty-state"><strong>이 기관의 정책·시장 자료가 아직 없습니다</strong><p>아래 기술문서를 펼쳐 보세요.</p></div>';
   listBox.innerHTML = shelf + (technical.length
     ? `<details class="pub-technical">
@@ -4792,6 +4772,9 @@ function renumberSections(viewId) {
   for (const marker of view.querySelectorAll(".sec-no")) {
     const host = marker.closest("section");
     if (host && host.hidden) continue;
+    // "더 보기"에 접힌 구역은 번호 체계 밖이다 — 01~04 뒤에 05·06 이 접혀 있으면
+    // 펼치기 전엔 빠진 번호처럼 읽힌다.
+    if (marker.closest(".fold-more")) { marker.hidden = true; continue; }
     marker.textContent = String(++index).padStart(2, "0");
   }
 }
