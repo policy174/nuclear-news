@@ -995,6 +995,13 @@
       "reason": "주체와 행위가 다름",
       "same_event": false
     },
+    "issue-371f58bb78f102e7--77d959ece5": {
+      "issue_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "동일 주체, 동일 SMR 심사",
+      "same_event": true
+    },
     "issue-37429a89a97b6760--7bd28372a9": {
       "issue_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
       "keei_item": "미국 Duke Energy, 2026 Carolinas 자원계획에 신규 원전 약 4.5GW 반영",
@@ -2165,10 +2172,10 @@
       "same_event": false
     },
     "issue-6bd77dd19faecf6a--613ab26b06": {
-      "issue_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "issue_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
       "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
       "prompt_version": 1,
-      "reason": "주체(산업부 vs 중국 국무원) 및 대상 원전 국가 상이",
+      "reason": "주체와 대상 국가가 다름",
       "same_event": false
     },
     "issue-6bd77dd19faecf6a--617747aa21": {
@@ -2876,6 +2883,13 @@
       "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
       "prompt_version": 1,
       "reason": "베트남 수출통제 vs 캐나다 원전 전략",
+      "same_event": false
+    },
+    "issue-98c497b29e763f61--7175604cab": {
+      "issue_title": "이재명 대통령, 트럼프와 핵잠수함 논의 가속화 합의",
+      "keei_item": "영국 정부·EDF, Sizewell B 원전 계속운전 지원 조건 합의",
+      "prompt_version": 1,
+      "reason": "주체, 대상, 안건 모두 다름",
       "same_event": false
     },
     "issue-99fb7b94934451e5--249f1333d0": {
