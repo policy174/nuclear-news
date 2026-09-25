@@ -2998,9 +2998,11 @@ function renderLibrary() {
         ${url ? `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">원문 PDF 열기 <span aria-hidden="true">↗</span></a>` : ""}
       </details>`;
     }
+    const deepUrl = safeUrl(entry.file ? `${location.origin}${entry.file}` : "");
     return `<details class="library-item" id="prec-${esc(entry.id)}">
       <summary><strong>${esc(entry.title)}</strong><small>${esc(entry.period || "")}</small></summary>
       ${entry.one_liner ? `<p>${esc(entry.one_liner)}</p>` : ""}
+      ${deepUrl ? `<a class="source-link" href="${esc(deepUrl)}" target="_blank" rel="noopener noreferrer">${esc(entry.file_label || "심층 분석 열기")} <span aria-hidden="true">↗</span></a>` : ""}
       ${(entry.sections || []).map(section => `<h4>${esc(section.h || "")}</h4><p>${esc(section.body || "")}</p>`).join("")}
       ${(entry.sources || []).length ? `<p class="library-sources">출처: ${entry.sources.map(src => {
         const url = safeUrl(src.url);
