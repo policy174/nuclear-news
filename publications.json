@@ -1,6 +1,22 @@
 {
  "items": [
   {
+   "id": "27517176fa34",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "SSDL Newsletter Issue No. 83, August 2026",
+   "url": "http://www.iaea.org/publications/16131/ssdl-newsletter-issue-no-83-august-2026",
+   "date": "2026-09-21",
+   "fetched_at": "2026-09-26",
+   "title_kr": "SSDL 뉴스레터 제83호, 2026년 8월",
+   "gist": "SSDL 관련 최신 소식 및 정보 전달",
+   "off_topic": true,
+   "off_topic_reason": "뉴스레터는 정책 동향 파악에 직접적인 관련이 적음",
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "b5d6f55cb32e",
    "org": "OECD-NEA",
    "org_kr": "OECD 원자력기구(NEA)",
@@ -735,6 +751,21 @@
    "relevance": "policy"
   },
   {
+   "id": "e46c8c2363a0",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Regulatory Experience Feedback Management",
+   "url": "http://www.iaea.org/publications/16055/regulatory-experience-feedback-management",
+   "date": "2026-05-26",
+   "fetched_at": "2026-09-26",
+   "title_kr": "규제 경험 피드백 관리",
+   "gist": "규제 경험 피드백 관리 방안 및 절차",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "7c8f26fbc7fe",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -959,35 +990,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": true,
-   "new": 0,
+   "new": 2,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-09-25T02:04:03+09:00",
+   "at": "2026-09-26T00:07:47+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
