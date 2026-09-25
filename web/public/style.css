@@ -2112,6 +2112,7 @@ body.booting .status-strip.loading { display: none; }
 .library-quick strong { font-size: var(--t-caption); }
 .library-quick a,
 .library-quick button { color: var(--c-signal-ink); font-weight: 650; text-underline-offset: 3px; padding: 6px 0; }
+.library-quick button { border: 0; background: none; font: inherit; font-weight: 650; text-decoration: underline; cursor: pointer; }
 .library-item {
   margin-bottom: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
