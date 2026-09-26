@@ -178,7 +178,8 @@ SOURCES = [
     {"name": "녹색연합", "group": "ngo", "kind": "rss", "url": "https://www.greenkorea.org/feed/"},
     {"name": "녹색연합(공론화 태그)", "group": "ngo", "kind": "rss",
      "url": "https://www.greenkorea.org/tag/%EA%B3%B5%EB%A1%A0%ED%99%94/feed/", "allow_empty": True},
-    {"name": "에너지정의행동", "group": "ngo", "kind": "rss", "url": "http://energyjustice.kr/zbxe/rss"},  # https 불통
+    # 에너지정의행동(http://energyjustice.kr/zbxe/rss)은 국내에선 되지만 Actions(해외 IP)에서
+    # 0건(2026-09-26 첫 실행). 공동성명은 환경운동연합·녹색연합에 교차 게시돼 그쪽이 잡는다.
     {"name": "에너지전환포럼", "group": "ngo", "kind": "rss", "url": "https://www.energytransitionkorea.org/rss",
      "path_allow": ("/energypress/", "/agenda/", "/announcement/")},
     {"name": "참여연대", "group": "ngo", "kind": "rss", "url": "https://www.peoplepower21.org/feed"},
