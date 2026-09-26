@@ -6271,10 +6271,20 @@
     "0755f54587ed8e3c": "2026-09-26T14:07:59.211156+00:00",
     "4943d9b8b50aacc1": "2026-09-26T14:07:59.211156+00:00",
     "73dedbeda59998a4": "2026-09-26T14:07:59.211156+00:00",
-    "122eb7fbc9585e26": "2026-09-26T14:07:59.211156+00:00"
+    "122eb7fbc9585e26": "2026-09-26T14:07:59.211156+00:00",
+    "c82d74ff96c7c5a3": "2026-09-26T15:34:22.728521+00:00",
+    "b9bc3f16a71ae636": "2026-09-26T15:34:22.728521+00:00",
+    "b1718bd44c83ea93": "2026-09-26T15:34:22.728521+00:00",
+    "2ae01edb4c83fe02": "2026-09-26T15:34:22.728521+00:00",
+    "57357b38b6146161": "2026-09-26T15:34:22.728521+00:00",
+    "3e5b7cc9515b6649": "2026-09-26T15:34:22.728521+00:00",
+    "0e63a1dbf6addc4b": "2026-09-26T15:34:22.728521+00:00",
+    "3c11f5adc8dc252d": "2026-09-26T15:34:22.728521+00:00",
+    "6945c0df847b7b09": "2026-09-26T15:34:22.728521+00:00",
+    "d5a6e2933a584355": "2026-09-26T15:34:22.728521+00:00"
   },
   "source_yield": {
-    "at": "2026-09-26T14:09:26+00:00",
+    "at": "2026-09-26T15:36:12+00:00",
     "counts": {
       "한수원 보도자료": 10,
       "원안위 보도자료": 15,
@@ -6294,18 +6304,19 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 0,
       "혁신형 SMR 기술개발사업단": 0,
-      "Reuters 원자력": 4,
-      "La Tribune 원자력": 16,
+      "Reuters 원자력": 7,
+      "La Tribune 원자력": 17,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 7,
+      "FT 원자력": 9,
       "Les Échos 원자력": 37,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 18,
-      "Euractiv 원자력": 13,
-      "국내 원자력 보도": 4
+      "Euractiv 원자력": 10,
+      "국내 원자력 보도": 3
     },
     "kept": {
+      "Reuters 원자력": 2,
       "La Tribune 원자력": 2,
       "FT 원자력": 1,
       "국내 원자력 보도": 1
@@ -6313,415 +6324,6 @@
     "errors": {}
   },
   "scrap_seeds": {
-    "37ac4ca2e907": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.cbci.co.kr/news/articleView.html?idxno=608362",
-      "title": "우리기술 월요일 주가는?...SMR 특별법 시행 상용화 본격화 정책 흐름",
-      "description": ""
-    },
-    "0d6034170c78": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1016553",
-      "title": "가평군 소재 청평수력발전소, 추석맞이 가평쌀 200포 나눔",
-      "description": "수력발전소는 지난 17일 설악면의 어려운 이웃을 위해 10㎏들이 가평쌀 100포를 기탁했다. 이번 후원은 설악면과 청평면 취약계층을 대상으로 추진한 추석맞이 사회공헌사업의 하나다. 발전소는 두 지역에 가평쌀 총 200포..."
-    },
-    "d6ee38de4943": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8668031&ref=A",
-      "title": "지난해 온실가스 배출량, ‘간신히 감축’…전년 대비 0.9%↓",
-      "description": "지난해 국가 온실가스 총배출량이 전년보다 0.9% 줄어드는 데 그친 것으로 나타났습니다.... 정부의 ‘2030 국가 온실가스 감축 목표’는 2018년 대비 40% 감축으로, 지난해 배출량보다 1억 4천900만 톤을 더 줄여야..."
-    },
-    "9e212fcc0b53": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.hidomin.com/pdf/php/check.php?category=&y=2026&m=09&d=21&page=5&hosu=0",
-      "title": "5 측정값보다 더한 고통 … 영덕 풍력발전단지 3년째 소음 논란",
-      "description": "주민들이 특히 문제를 제기하는 부분 은소음측정결과와실제생활공간... 3년차에 접어들며 소음 등으로 영덕읍민들의 원성을 사고 있다. 김영호 기자 측정값보다 더한 고통 … 영덕 풍력발전단지 3년째 소음 논란..."
-    },
-    "a91c66869494": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.hidomin.com/news/articleView.html?idxno=721939",
-      "title": "포항시, 공영주차장에 태양광 설치…RE100 신·재생에너지 사업 본격 추...",
-      "description": "규모의 태양광 발전시설을 단계적으로 설치하는 것이다. 공영주차장의 주차구획 공간을 활용해 주차장 이용자의 불편을 최소화하면서 재생에너지 생산시설을 확충하고, 민간자본을 활용해 재정부담을 줄일 수..."
-    },
-    "9f1db6a1f475": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.smartbizn.com/news/articleView.html?idxno=152362",
-      "title": "한수원·캠코, AI로 감사 사각지대 찾는다···'디지털 감사' 본격화",
-      "description": "이런 흐름에서 이번 한수원과 캠코의 협력은 공공기관 감사의 디지털 전환이라는 측면에서도 주목된다. 캠코 역시 최근 기술보증기금과 주택도시보증공사 등 다른 공공기관과 AI 기반 디지털 감사 혁신을 위한 협력을..."
-    },
-    "f847f657a1eb": {
-      "tries": 6,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-22T08:12:22.247567+00:00",
-      "status": "gave_up"
-    },
-    "ae7edb531173": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.ajunews.com/view/20260920105556419",
-      "title": "포항시, 공영주차장 30곳에 태양광 10MW 설치…RE100 지원",
-      "description": "대규모 태양광 발전시설 구축에 나서며 지역의 재생에너지 공급 확대와 기업의 RE100 대응 지원을 본격화한다. 포항시는 지난 18일 시청 대회의실에서 ‘공영주차장 RE100 신·재생에너지 설치사업’ 추진을 위한 업무..."
-    },
-    "e777fcc4a0e1": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kbyn.co.kr/default/index_view_page.php?part_idx=243&idx=168650",
-      "title": "‘한국표준형원전, APR1400’ 미국 건설 무산되나",
-      "description": ""
-    },
-    "45e35d692a39": {
-      "tries": 2,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-21T03:54:52.361955+00:00",
-      "status": "resolved",
-      "link": "https://www.straightnews.co.kr/news/articleView.html?idxno=311581",
-      "title": "\"주차장이 친환경 발전소로\"… 포항시, 공영주차장 30곳에 '10MW 태양광'...",
-      "description": "공공태양광㈜와 '공영주차장 RE100 신·재생에너지 설치사업' 추진을 위한 업무협약(MOU)을 체결했다.... 아스팔트 주차장이 친환경 전력을 생산하고 지역 수출 기업의 탄소중립을 지원하는 거대한 '햇빛 발전소'로..."
-    },
-    "26970b3f1aff": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.ksmnews.co.kr/news/view.php?idx=622710",
-      "title": "한수원, 글로벌 원전해체 시장 노크",
-      "description": "한국수력원자력(이하 한수원)이 국내외 전문가들과 함께 원전해체 산업의 기술력을 점검하고 글로벌 시장 진출 방안을 모색하는 자리를 마련했다.한수원은 지난 18일 서울 웨스틴조선호텔에서 기후에너지환경부와 공동...."
-    },
-    "85de2070f9c0": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.ksmnews.co.kr/news/view.php?idx=622616",
-      "title": "한수원, 열띤 관심 속에 올 한해 안전 시민참관단 활동 마침표",
-      "description": ""
-    },
-    "a4412a96e619": {
-      "tries": 6,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-22T08:12:22.247567+00:00",
-      "status": "gave_up"
-    },
-    "9c72f368a26c": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.gjfocus.co.kr/news/articleView.html?idxno=30747",
-      "title": "[영상] 인터뷰 곽성민 공동대표 \"주민 직접 배분이 해결책...경주시 대안마련 나서라\"",
-      "description": ""
-    },
-    "f71661d11607": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.gjfocus.co.kr/news/articleView.html?idxno=30746",
-      "title": "감포읍 맥스터 지원금 주민갈등 장기화...경주시 ㆍ한수원은 방관?",
-      "description": ""
-    },
-    "9a5a1f2bfc8f": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.gjfocus.co.kr/news/articleView.html?idxno=30748",
-      "title": "인터뷰 정인철 감포발전협의회장 \"미래위한 적법투자...감포분열 더는 안돼\"",
-      "description": ""
-    },
-    "7acabc8eeaa1": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kjdaily.com/1789901508687315004",
-      "title": "전력거래소, 여름철 전력수급 안정적 운영 돋보였다",
-      "description": ""
-    },
-    "610e191e8da6": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kjdaily.com/1789900237687290008",
-      "title": "한빛원자력본부, 작업 현장 안전 점검 실시",
-      "description": ""
-    },
-    "3bc77f395fae": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260921.22005006579&kid=",
-      "title": "“SMR 청정 열에너지도 공급 가능…기장 밸류체인 구축을”",
-      "description": ""
-    },
-    "0bdfcdfdedb8": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260921.22001006778&kid=",
-      "title": "“고리 1호기 자리에 SMR·데이터센터” 첫 활용안(종합)",
-      "description": ""
-    },
-    "d01d9a4ed295": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260921.22004006543&kid=",
-      "title": "“기장 SMR, 생산 3조1800억·고용 1만6000명 효과”",
-      "description": ""
-    },
-    "fac93f70c14f": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20260921.22004006542&kid=",
-      "title": "“에너지 공급·선박전동화·SMR 결합 해양산업 육성”",
-      "description": ""
-    },
-    "04a998b431ab": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.g-enews.com/view.php?ud=202609210648066913fbbec65dfb_1",
-      "title": "美가 보글 원전 1기 매달릴 때 34GW 깐 중국, IAEA 문 열고 4세대 원전 패권 쥔다",
-      "description": ""
-    },
-    "3f776c07f0cd": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://worknworld.kctu.org/news/articleView.html?idxno=510043",
-      "title": "폭염의 도시 대구, 기후정의로 답하라!",
-      "description": ""
-    },
-    "cebdac974a33": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "http://www.newstomato.com/ReadNews.aspx?no=1314178&inflow=N",
-      "title": "원전 수출전략 1순위 'SMR 중심 전환'…3명 중 2명 \"정책금융 지원 찬성...",
-      "description": "(SMR) 중심으로 전환해야 한다고 봤습니다. SMR 수출 시장 선점 전략으로는 국내 독자 기술개발 강화가 가장 많이 꼽혔고, 해외 원전 기업의 국내 투자와 제작을 유도하기 위한 정책금융 지원에는 66.8%가 찬성했습니다...."
-    },
-    "87405f1541e7": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.newsian.co.kr/news/articleView.html?idxno=95637",
-      "title": "SMR·양자·우주·바이오…‘7대 SEED’ 승부처는 기술 아닌 산업화",
-      "description": ""
-    },
-    "e4dea51cb4e9": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.dkilbo.com/news/articleView.html?idxno=555014",
-      "title": "열띤 관심 속에 올 한해 안전 시민참관단 활동 마침표",
-      "description": ""
-    },
-    "d383013fe6a0": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.dgy.co.kr/news/view.php?idx=221004",
-      "title": "청송의 맑은 목소리, 전국 무대에 울리다",
-      "description": ""
-    },
-    "a6b7da837cea": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.idaegu.co.kr/news/articleView.html?idxno=560166",
-      "title": "한울본부, 울진 금강송배 전국 마라톤 대회 참가",
-      "description": "한국수력원자력㈜ 한울원자력본부는 지난 13일 울진군 일원에서 열린 '2026 울진 금강송배 전국 마라톤 대회'에 참가해 지역 주민들과 소통하는 시간을 가졌다. 전국 마라톤 동호인과 울진군민 등 3천800여 명이 참가한..."
-    },
-    "267e476707ba": {
-      "tries": 6,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-22T08:12:22.247567+00:00",
-      "status": "gave_up"
-    },
-    "af900ef9d517": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202609190307077130729",
-      "title": "전력거래소, 올여름 기록적 폭염 속에도 전력수급 안정 운영",
-      "description": ""
-    },
-    "df92b2c3a623": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.mk.co.kr/article/12157614",
-      "title": "전력망 찜해놓고 방치 … 유령사업자 80% 퇴출",
-      "description": "선점해놓고 실제로 발전은 하지 않는 허수 사업자에 대한 관리 기준을 강화하자 점검 대상 사업 가운데 80%가 전력망 이용을 스스로 포기한 것으로 집계됐다. 송전망 포화로 인해 발전 물량이 제한되는 상황을 감안해..."
-    },
-    "58c8a9a718e4": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9fZl9oRzBEbEhlVV85VlhkUktLUW4tMlhCc2RyTGQ0TUR1Q213YXJTM082UXl4bk1hQ2ZMaVltN3FYTTQ5RUFtQnRVczBpcl85b1h5d010clRaNHNmUWtJRGN3?oc=5",
-      "title": "경북도·경북경찰청 내달 20일 국감…TK 기관 피감 일정 윤곽",
-      "description": "경북도·경북경찰청 내달 20일 국감…TK 기관 피감 일정 윤곽  매일신문"
-    },
-    "2223a71f9abe": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.imaeil.com/page/view/2026092011304884166",
-      "title": "주낙영 경주시장, 가스공사 울산유치 '공감' 논란…여진 확산",
-      "description": ""
-    },
-    "f381d144ed18": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.sjbnews.com/news/news.php?number=888209",
-      "title": "고창군, ‘한가위 사랑의 꾸러미’ 전달",
-      "description": ""
-    },
-    "bd83e7251997": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.sedaily.com/article/20093125",
-      "title": "엇갈린 원전 관련주…한전기술 39% 뛸때 한국전력은 6% 하락",
-      "description": ""
-    },
-    "d95b98413785": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.yna.co.kr/view/AKR20260919039200530?input=1195m",
-      "title": "작년 온실가스 배출 못 줄였다…대형 산불에 순배출 '증가'",
-      "description": "5% 증가 원전 정비·가동중단에 발전 배출량 늘어…산업은 '불황형 감소' 작년 국가 온실가스... 작년 3월 경북에서 발생한 대형 산불로 바이오매스 연소에 의한 온실가스 배출량이 늘고 산림 흡수량은 감소한..."
-    },
-    "050c10e004d3": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.speconomy.com/news/articleView.html?idxno=418102",
-      "title": "대미투자 첫 사업 21~22일 국회 보고 예정…협상안 공개 주목",
-      "description": ""
-    },
-    "7ae5de18ca51": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260920010007507",
-      "title": "격식 낮추고 현장 가까이…김회천 한수원 사장, 소통 경영 ‘눈길’",
-      "description": ""
-    },
-    "b27073b7e030": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20260920010007507",
-      "title": "격식 낮추고 현장 가까이…김회천 한수원 사장, 소통 경영 ‘눈길’",
-      "description": "김 김회천 한국수력원자력 사장이 내부소통을 경영 전면에 세우고 남다른 행보를 보이고 있다. 취임 첫날부터 원전 현장을 찾은 데 이어 구내식당과 간담회에서 직원들과 마주 앉으며 경청하는 방식이다. 직원이 직접 ...."
-    },
-    "7ebf37e44549": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "http://www.gyeongbuk.tv/?p=60634",
-      "title": "포항시, 공영주차장에 태양광 설치…RE100 신·재생에너지 사업 본격 추진",
-      "description": ""
-    },
-    "ed12cc0585f6": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.edaily.co.kr/News/Read?newsId=01377606645582416&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
-      "title": "[단독]美 원전 8기 건설, ‘윌리엄 리’·‘터키포인트’ 유력 후보로 검...",
-      "description": "내 원전 8기 건설을 협의 중인 한미가 사우스캐롤라이나주의 ‘윌리엄 스테이츠 리 3세(William States Lee III) 1·2호기’와 플로리다주의 ‘터키포인트(Turkey Point) 6·7호기’를 유력 후보로 검토 중인 것으로 알려졌다...."
-    },
-    "3fd99deaf434": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.edaily.co.kr/news/read?newsId=01377606645582416&mediaCodeNo=257",
-      "title": "美 원전 8기 건설, ‘윌리엄 리’·‘터키포인트’ 유력 후보로 검토",
-      "description": ""
-    },
-    "efd4f6673c8c": {
-      "tries": 6,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-22T08:12:22.247567+00:00",
-      "status": "gave_up"
-    },
-    "136923dd80e8": {
-      "tries": 6,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-22T08:12:22.247567+00:00",
-      "status": "resolved",
-      "link": "https://www.asiatime.co.kr/article/20260922500263",
-      "title": "'2040 탈석탄' 12차 전기본…'적자 누적·전환 비용' 시험대",
-      "description": "악화 '부담' 안보전원 유지비까지 변수…전환비용 조달·정산방안 마련 과제 [아시아타임즈=옥한빈 기자] 정부가 제12차 전력수급기본계획(전기본)을 통해 '2040 탈석탄'의 구체적인 밑그림을 꺼내 들면서 통합..."
-    },
-    "707861c4bbdb": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.chosun.com/national/transport-environment/2026/09/21/RCGFLOZJXJACNL3JSXPCLTRNOE/",
-      "title": "제조업 부진에, 작년 온실가스 배출량 감소",
-      "description": ""
-    },
-    "30a52c7b6c86": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.joongang.co.kr/article/25463413",
-      "title": "대미투자 협상 절충점 찾았나…22일 국회 보고 추진",
-      "description": ""
-    },
-    "0a249cca3e54": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.cstimes.com/news/articleView.html?idxno=721352",
-      "title": "한수원, 경영혁신·해체·AI 전환 '미래 청사진' 총력전",
-      "description": ""
-    },
-    "88226bbffb37": {
-      "tries": 0,
-      "seed_date": "2026-09-21",
-      "status": "resolved",
-      "link": "https://www.hani.co.kr/arti/opinion/column/1278729.html",
-      "title": "기후위기 앞에서, 청소년이 말해야 하는 이유 [6411의 목소리]",
-      "description": ""
-    },
-    "3d04d38e5afc": {
-      "tries": 1,
-      "seed_date": "2026-09-21",
-      "last_tried": "2026-09-20T22:17:55.904456+00:00",
-      "status": "resolved",
-      "link": "https://www.hani.co.kr/arti/society/society_general/1278754.html",
-      "title": "시골 마을 할퀴는 역대급 초고압 송전탑…“공론화가 시급하다”",
-      "description": "토론하는 공론화가 시급하다”고 했다. ‘마을이 깨질지 모른다’는 시골 사람들의 두려움에서 밀양이 겹쳐보이기 때문이다. —왜 역대급인가? “밀양 이후엔 부분부분 보강 차원이나 예정된 구간만 송전선 건설을 했다...."
-    },
     "7eb4e916230a": {
       "tries": 0,
       "seed_date": "2026-09-22",
