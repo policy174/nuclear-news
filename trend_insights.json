@@ -1,204 +1,48 @@
 {
- "generated_at": "2026-09-26T09:45:07.416082+09:00",
+ "generated_at": "2026-09-26T10:45:03.114899+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "SMR",
    "count_now": 192,
    "count_prev": 225,
-   "direction": "정부의 7대 SEED 프로젝트와 대통령의 뉴욕 투자 서밋 세일즈를 통해 SMR 상용화 및 해외 협력 추진이 가속화되고 있으며, 국내 건설사들도 SMR 신사업 진출과 인재 채용을 확대하는 흐름을 보이고 있다.",
-   "evidence": [
-    {
-     "hash": "31d8c4baa34d545a",
-     "title_kr": "국내 주요 건설사 젊은 오너들, AI와 에너지·SMR 신사업 확장 가속",
-     "url": "https://www.g-enews.com/view.php?ud=2026092314321857952aa6f4cdad_1",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "1675c90bc84f7319",
-     "title_kr": "정부, SMR·핵융합 포함 '미래성장동력 7대 SEED 프로젝트' 본격 가동",
-     "url": "https://www.cbci.co.kr/news/articleView.html?idxno=609999",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "b97b938951e11003",
-     "title_kr": "건설업계, 원전·AI·해상풍력 등 핵심 인재 확보 경쟁",
-     "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1725426",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "b08f9923849bd5d5",
-     "title_kr": "이재명 대통령, '대한민국 투자 서밋 2026'서 SMR·핵융합 등 첨단산업 투자 제안",
-     "url": "https://www.gukjenews.com/news/articleView.html?idxno=3705711",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "f34aba01ffdb89b6",
-     "title_kr": "이재명 대통령, 미국 뉴욕 투자서밋서 조선 협력 및 SMR 등 7대 시드 프로젝트 육성 강조",
-     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000017021&cp=nv",
-     "date": "2026-09-24"
-    }
-   ]
+   "direction": "SMR은 정부의 미래성장동력 프로젝트에 포함되어 2035년 상용화를 목표로 하고 있으며, 국내외 건설사 및 기업들이 GE버노바, 히타치, 롤스로이스 등과 협력하여 시장 개발 및 핵심 계약 수주에 나서고 있습니다. 이는 AI 데이터센터와 같은 신사업 확장과 연계되는 흐름을 보입니다. (evidence_idx: [2, 4, 0, 1])",
+   "evidence": []
   },
   {
    "keyword": "데이터센터",
    "count_now": 171,
    "count_prev": 230,
-   "direction": "AI 확산에 따른 급증하는 전력 및 용수 수요로 인해 전력망 확보가 주요 병목으로 지적되는 가운데, 폐원전 부지 활용, 연료전지 온사이트 전원 도입, 전력망 연합 가입 등 다양한 대안 모색이 이어지고 있다.",
-   "evidence": [
-    {
-     "hash": "3ad287874b57d248",
-     "title_kr": "데이터센터, 폐원전 부지 등 다양한 입지 활용 모색",
-     "url": "https://it.chosun.com/news/articleView.html?idxno=2023092170722",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "dea91419d826fd94",
-     "title_kr": "AI 인프라 전력 대안으로 연료전지 시장 성장 가속화",
-     "url": "https://www.sidae.com/article/2026091814501160574",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "359691b281d5dc21",
-     "title_kr": "텍사스 주지사, AI 데이터센터 전력·용수 소비 우려 직면",
-     "url": "https://www.mt.co.kr/world/2026/09/26/2026092210240487143",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "22db5095717038d6",
-     "title_kr": "미국 빅테크 4사, 2026년 자본지출 최대 8000억 달러 육박",
-     "url": "https://www.tokenpost.kr/news/ai/413718",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "4fe900284e7148a4",
-     "title_kr": "캐머스 에너지, AI 전력망 연합 합류해 접속 기간 최대 5년 단축 추진",
-     "url": "https://www.tokenpost.kr/news/ai/413676",
-     "date": "2026-09-25"
-    }
-   ]
+   "direction": "AI 확산으로 인한 데이터센터의 급증하는 전력 및 용수 수요가 주요 이슈로 부상하고 있습니다. 이에 따라 폐원전 부지 활용, 연료전지 온사이트 전원 도입 등 다양한 입지 및 전력 확보 방안이 모색되고 있으며, 미국 빅테크 기업들은 전력망 확보에 막대한 투자를 진행하고 있습니다. (evidence_idx: [1, 2, 3, 6])",
+   "evidence": []
   },
   {
    "keyword": "대미투자",
    "count_now": 71,
    "count_prev": 55,
-   "direction": "정부가 텍사스 가스복합화력발전소 건설을 1호 사업으로 포함한 대규모 대미 전략투자 계획을 국회에 보고한 가운데, 미국 내 대형 원전 8기 및 원자력협정 개정 등이 주요 정책 과제로 논의되고 있다.",
-   "evidence": [
-    {
-     "hash": "6300f655caf81efd",
-     "title_kr": "정부, 미국 내 대형 원전 8기 건설 및 알래스카 LNG 사업 추진 보고",
-     "url": "https://www.hankookilbo.com/news/article/A2026092215050004844",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "e807bcc333baf6ac",
-     "title_kr": "정부, 텍사스 가스복합발전소 대미 전략투자 첫 사업으로 국회 보고",
-     "url": "http://www.sisafocus.co.kr/news/articleView.html?idxno=365378",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "37ae69e1ce423449",
-     "title_kr": "정부, 2000억 달러 대미 전략투자 국회 보고…텍사스 가스복합화력 1호 사업 추진",
-     "url": "https://www.joongang.co.kr/article/25464161",
-     "date": "2026-09-24"
-    },
-    {
-     "hash": "4e1089121310af8c",
-     "title_kr": "이재명 대통령, 트럼프와 회동…대미 투자 및 원자력 협정 개정 논의",
-     "url": "http://www.hansbiz.co.kr/news/articleView.html?idxno=867999",
-     "date": "2026-09-24"
-    }
-   ]
+   "direction": "정부는 텍사스 가스복합화력발전소 건설을 대미 전략투자 1호 사업으로 국회에 보고했으며, 미국 내 대형 원전 8기 건설 및 알래스카 LNG 사업 추진 현황도 보고했습니다. 이는 에너지 인프라 투자가 대미 투자의 핵심임을 보여주며, 일부에서는 투자 이행 지연에 대한 우려도 제기되고 있습니다. (evidence_idx: [0, 1, 5, 2])",
+   "evidence": []
   },
   {
    "keyword": "전력수요",
    "count_now": 68,
    "count_prev": 77,
-   "direction": "AI와 반도체 산업 확중에 따른 전력수요 급증을 반영하여 제12차 전기본의 수요 전망이 상향 조정되었으며, 미국에서도 데이터센터 전력 확보 지연과 화석연료 활용 필요성이 동시에 제기되고 있다.",
-   "evidence": [
-    {
-     "hash": "a92dbe0eda035f3c",
-     "title_kr": "엔비디아 CEO, AI 확산 위해 단기적 화석연료 필요성 언급",
-     "url": "https://www.tokenpost.kr/news/ai/413742",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "543ad3480ebc79f7",
-     "title_kr": "제12차 전기본 총괄위원회, 반도체·AI 데이터센터 급증 반영 전력수요 재전망",
-     "url": "http://www.e-platform.net/news/articleView.html?idxno=105696",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "142db0e1b09d06e6",
-     "title_kr": "오라클, 뉴멕시코 데이터센터 전력 확보 지연으로 '불가항력' 통보",
-     "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=53239",
-     "date": "2026-09-25"
-    }
-   ]
+   "direction": "AI 및 반도체 산업의 급증하는 전력 수요에 대응하기 위해 신규 원전 건설을 포함한 기저 전원 확충의 필요성이 제기되고 있습니다. 미국 빅테크 기업들은 AI 인프라에 막대한 투자를 계획하고 있으며, 전력망 확보가 주요 병목 현상으로 나타나고 있습니다. (evidence_idx: [1, 4, 6, 3])",
+   "evidence": []
   },
   {
    "keyword": "AI",
    "count_now": 67,
    "count_prev": 84,
-   "direction": "AI 인프라 투자가 데이터센터와 전력 인프라 확충으로 이어지면서, 구글의 우주 데이터센터 실증 및 에너지 인프라 기업들에 대한 투자 관심이 동반 상승하는 양상을 보이고 있다.",
-   "evidence": [
-    {
-     "hash": "e289129cfc2e0e96",
-     "title_kr": "구글, AI 칩 탑재 위성 발사…'우주 데이터센터' 궤도 실증 시작",
-     "url": "https://www.joongangenews.com/news/articleView.html?idxno=550520",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "959075e28977e119",
-     "title_kr": "추석 상여금, AI·반도체·전력 인프라 ETF 투자 전략 추천",
-     "url": "https://it.chosun.com/news/articleView.html?idxno=2023092170726",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "819721fbe7974a0a",
-     "title_kr": "전력 풍부한 노르웨이, 비용 부담에도 부유식 해상풍력 투자 확대",
-     "url": "https://www.ubc.co.kr/news/28152",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "e2266415aacc4ac4",
-     "title_kr": "추석 연휴에도 미국 증시 열린다…서학개미 주목할 종목은",
-     "url": "https://news.tf.co.kr/read/economy/2369319.htm",
-     "date": "2026-09-24"
-    }
-   ]
+   "direction": "AI 기술 발전은 데이터센터의 전력 및 냉각 부담 증가로 이어지고 있으며, 이를 해소하기 위해 우주 데이터센터 실증, 부유식 해상풍력 투자 확대 등 다양한 시도가 이루어지고 있습니다. 또한, AI 패권 경쟁은 반도체를 넘어 전력 인프라 확보 경쟁으로 확산되는 양상입니다. (evidence_idx: [0, 1, 4, 5])",
+   "evidence": []
   },
   {
    "keyword": "AI데이터센터",
    "count_now": 65,
    "count_prev": 90,
-   "direction": "국내 주요 건설사와 중후장대 기업들이 북미 AI 데이터센터를 겨냥해 에너지 및 전력 솔루션 공급과 신사업 확장을 추진하고 있으나, 현지 전력 공급 차질로 인한 사업 지연 사례도 발생하고 있다.",
-   "evidence": [
-    {
-     "hash": "31d8c4baa34d545a",
-     "title_kr": "국내 주요 건설사 젊은 오너들, AI와 에너지·SMR 신사업 확장 가속",
-     "url": "https://www.g-enews.com/view.php?ud=2026092314321857952aa6f4cdad_1",
-     "date": "2026-09-26"
-    },
-    {
-     "hash": "57d8322a4ba66ebe",
-     "title_kr": "오라클, AI 데이터센터 가동 지연에 '불가항력' 조항 적용",
-     "url": "https://www.hankyung.com/article/202609245338i",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "e8378f575fa9c98d",
-     "title_kr": "두산퓨얼셀, 북미 AI 데이터센터 온사이트 연료전지 공급 가속화",
-     "url": "https://daily.hankooki.com/news/articleView.html?idxno=1408253",
-     "date": "2026-09-25"
-    },
-    {
-     "hash": "72c781ab79d1fca5",
-     "title_kr": "국내 중후장대 기업, 북미 AI 데이터센터 수주 호조로 수주잔고 급증",
-     "url": "https://dealsite.co.kr/articles/169495",
-     "date": "2026-09-25"
-    }
-   ]
+   "direction": "AI 데이터센터의 급증하는 전력 수요에 대응하기 위해 북미 시장을 중심으로 연료전지 공급 계약이 확대되고 있으며, LG그룹은 마이크로소프트와 협력하여 데이터센터 인프라 구축을 강화하고 있습니다. 일부 기업은 에너지 공급 차질로 인해 데이터센터 사업에 '불가항력'을 통보하기도 했습니다. (evidence_idx: [5, 3, 1, 0])",
+   "evidence": []
   }
  ]
 }
