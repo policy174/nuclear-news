@@ -1,0 +1,53 @@
+name: Deliberation watch (공론화 신호 감시)
+
+# 원전 공론화(2026.10~12) 국면 신호를 매시간 확인해 지니 개인 DM 으로 보낸다.
+# 뉴스 크롤·Gemini 와 분리된 경량 작업(LLM 0회). 근거: deliberation_watch.py 머리말.
+# 상태(본 글 목록)는 저장소 커밋이 아니라 Actions 캐시에 둔다 — 다른 워크플로의
+# 상태 커밋과 rebase 충돌을 만들지 않기 위해서. 캐시가 날아가면 조용히 다시 채운다.
+# 공론화가 끝나면(권고·정부안 확정 후) 이 파일의 schedule 을 지운다.
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # 매시 17분(정각 혼잡 회피)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deliberation-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests==2.34.2 feedparser==6.0.14
+
+      - name: Restore watch state
+        uses: actions/cache/restore@v4
+        with:
+          path: deliberation_watch_state.json
+          key: ${{ runner.os }}-deliberation-watch-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-deliberation-watch-
+
+      - name: Watch
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+          ASSEMBLY_API_KEY: ${{ secrets.ASSEMBLY_API_KEY }}
+        run: python deliberation_watch.py
+
+      - name: Save watch state
+        if: always() && hashFiles('deliberation_watch_state.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: deliberation_watch_state.json
+          key: ${{ runner.os }}-deliberation-watch-${{ github.run_id }}
