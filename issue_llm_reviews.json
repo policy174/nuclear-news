@@ -12682,6 +12682,16 @@
       "right_title": "고준위 방폐장, 40년 실패 끝에 내년 10번째 부지 공모 추진",
       "same_event": true
     },
+    "0d34d78bcf9a87a2--5dcbb59731d4b460": {
+      "embedding_similarity": 0.8623,
+      "left_title": "이재명 대통령, 유엔총회 계기 미국 순방서 대미 투자·원전 건설 합의 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "순방 전반 vs 특정 회담",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": false
+    },
     "0d34d78bcf9a87a2--806225e255d4065e": {
       "embedding_similarity": 0.8742,
       "left_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
@@ -13992,6 +14002,26 @@
       "right_title": "호남권 반도체 클러스터, 안정적 전력 공급 및 RE100 달성 과제 직면",
       "same_event": false
     },
+    "0fb59a36c4d81453--48be1c86652132cf": {
+      "embedding_similarity": 0.8876,
+      "left_title": "울진군, 신한울 3·4호기 현안 해결 및 상생사업 확대 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "울진군수-한수원사장 면담",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "울진군수, 한수원 사장에 신한울 3·4호기 지역 현안 해결 촉구",
+      "same_event": true
+    },
+    "0fb59a36c4d81453--923f5da5a0c9774d": {
+      "embedding_similarity": 0.8925,
+      "left_title": "울진군, 한수원 김회천 사장과 지역 상생발전 방안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "울진군수-한수원사장 면담",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "울진군수, 한수원 사장에 신한울 3·4호기 지역 현안 해결 촉구",
+      "same_event": true
+    },
     "0fe57b415eac5206--0ffff3ff0eab4288": {
       "embedding_similarity": 0.84,
       "left_title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
@@ -14260,6 +14290,26 @@
       "reason": "주제만 유사한 다른 보도",
       "reviewed_at": "2026-09-20T18:08:32.121318+00:00",
       "right_title": "미국 에너지부, AI 데이터센터 전력 소비 2028년 최대 12% 전망",
+      "same_event": false
+    },
+    "0ffff3ff0eab4288--7393deb489c3e95c": {
+      "embedding_similarity": 0.8529,
+      "left_title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 확대 vs 우주 데이터센터",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "구글, 지상 전력 제약 해소 위해 우주 AI 데이터센터 구축 추진",
+      "same_event": false
+    },
+    "0ffff3ff0eab4288--73c4651fc17e77c1": {
+      "embedding_similarity": 0.8528,
+      "left_title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 확대 vs 화석연료 규제",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국, AI 데이터센터 전력 확보 위해 화석연료 발전소 규제 완화 분석",
       "same_event": false
     },
     "0ffff3ff0eab4288--77ac4b80d97601e7": {
@@ -19192,6 +19242,16 @@
       "right_title": "정부, SMR·핵융합 포함 '미래성장동력 7대 SEED 프로젝트' 본격 가동",
       "same_event": false
     },
+    "168509c4dc690d42--52f19d96fc842d66": {
+      "embedding_similarity": 0.8971,
+      "left_title": "미 에너지부, 전력망 안정성 위해 워싱턴주 석탄화력발전소 유지 비상명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역이 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국 에너지부, 콜로라도 석탄발전소 폐쇄 연기 긴급 명령 발동",
+      "same_event": false
+    },
     "168509c4dc690d42--b06948bba6b5555b": {
       "embedding_similarity": 0.8728,
       "left_title": "미국 법원, 트럼프 행정부 석탄화력발전소 가동 유지 명령 위법 판결",
@@ -20690,6 +20750,16 @@
       "reason": "석탄 폐지 vs 원전 추가",
       "reviewed_at": "2026-09-14T01:03:39.713425+00:00",
       "right_title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
+      "same_event": false
+    },
+    "18d485ea7e099351--a00aa17de6b9c8db": {
+      "embedding_similarity": 0.8475,
+      "left_title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 기술 분야 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이터나퓨전, 24시간 연속운전 핵융합 발전 기술 개발 추진",
       "same_event": false
     },
     "18d485ea7e099351--a33259f3ac2e4d86": {
@@ -31580,6 +31650,16 @@
       "reason": "원전 증력과 우주 데이터센터",
       "reviewed_at": "2026-09-26T09:26:39.413469+00:00",
       "right_title": "구글, 지상 전력 제약 해소 위해 우주 AI 데이터센터 구축 추진",
+      "same_event": false
+    },
+    "25ce2de9b3547c71--931040be98f7838d": {
+      "embedding_similarity": 0.8529,
+      "left_title": "구글, 조지아파워와 협력해 원전 증력 및 96MW 용량 추가",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 협력 vs 우주 프로젝트",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "구글, 우주 AI 데이터센터 '선캐처 프로젝트' 첫 시험…10월 1일 위성 발사",
       "same_event": false
     },
     "25efa4ffd66c1893--3936f98b28485c84": {
@@ -49592,6 +49672,16 @@
       "right_title": "한수원, 웨스팅하우스 지분 확보 통해 한국형 원전 수출 제약 해소 모색",
       "same_event": false
     },
+    "3e5b7cc9515b6649--5949227f174d59e7": {
+      "embedding_similarity": 0.8528,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구체적 계획 vs 일반적 전망",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "정부 '메가프로젝트' 따른 전력수요 급증, 원전이 해결책?",
+      "same_event": false
+    },
     "3e5b7cc9515b6649--ec8a2326e73cd933": {
       "embedding_similarity": 0.8563,
       "left_title": "정부, 신규 원전 건설 3개월간 공론화 추진…12차 전기본 반영",
@@ -63652,6 +63742,46 @@
       "right_title": "마리오 드라기 전 이탈리아 총리, EU AI 데이터센터 대규모 확충 촉구",
       "same_event": false
     },
+    "52f19d96fc842d66--8d771c691b805a6a": {
+      "embedding_similarity": 0.9063,
+      "left_title": "미국 에너지부, 인디애나 석탄 발전소 2곳 운영 유지 긴급 명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역이 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국 에너지부, 콜로라도 석탄발전소 폐쇄 연기 긴급 명령 발동",
+      "same_event": false
+    },
+    "52f19d96fc842d66--b06948bba6b5555b": {
+      "embedding_similarity": 0.8631,
+      "left_title": "미국 법원, 트럼프 행정부 석탄화력발전소 가동 유지 명령 위법 판결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "법원 판결 vs 행정부 명령",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국 에너지부, 콜로라도 석탄발전소 폐쇄 연기 긴급 명령 발동",
+      "same_event": false
+    },
+    "52f19d96fc842d66--ccd9093e2b3a06bb": {
+      "embedding_similarity": 0.8675,
+      "left_title": "美 에너지부, 캐롤라이나 지역 전력망 안정화 긴급 명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역이 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국 에너지부, 콜로라도 석탄발전소 폐쇄 연기 긴급 명령 발동",
+      "same_event": false
+    },
+    "52f19d96fc842d66--eb450f6a44b4e020": {
+      "embedding_similarity": 0.8547,
+      "left_title": "미국 에너지부, 중대서부 지역 전력망 비상명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역이 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "미국 에너지부, 콜로라도 석탄발전소 폐쇄 연기 긴급 명령 발동",
+      "same_event": false
+    },
     "52f271e48a4a89f9--6260c0799db78ac9": {
       "embedding_similarity": 0.8402,
       "left_title": "원자력학회, 제12차 전기본에 AI 전력 수요 대응 위한 신규 원전 반영 촉구",
@@ -72891,6 +73021,56 @@
       "reviewed_at": "2026-09-24T08:47:29.438114+00:00",
       "right_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
       "same_event": true
+    },
+    "5dcbb59731d4b460--76a70f0330c3db48": {
+      "embedding_similarity": 0.8462,
+      "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 국가가 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": false
+    },
+    "5dcbb59731d4b460--8cd39ecde6aeea5e": {
+      "embedding_similarity": 0.8428,
+      "left_title": "이재명 대통령, 멕시코 비즈니스 포럼서 무역협정 및 에너지·전력 협력 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 국가가 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": false
+    },
+    "5dcbb59731d4b460--b3f7d8986f5222b3": {
+      "embedding_similarity": 0.8796,
+      "left_title": "이재명 대통령, 트럼프와 핵잠수함 논의 가속화 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 정상 핵잠수함 논의",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": true
+    },
+    "5dcbb59731d4b460--cd76699834dcd8ac": {
+      "embedding_similarity": 0.8862,
+      "left_title": "한미 정상, 뉴욕 회담서 전략투자 성과 환영 및 핵연료·전작권 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 정상회담 안보협상",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": true
+    },
+    "5dcbb59731d4b460--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.844,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "외교장관회담 vs 정상회담",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 트럼프와 회담서 핵잠수함·원자력협정 등 안보협상 논의",
+      "same_event": false
     },
     "5dd80f7cf0ffa9de--aaa232f2b9b0540b": {
       "embedding_similarity": 0.9079,
@@ -98832,6 +99012,16 @@
       "right_title": "이재명 대통령, 유엔총회 리셉션서 체코 대통령과 원전 협력 논의",
       "same_event": false
     },
+    "8c54ce1fa7f062da--d9288b4de48e9218": {
+      "embedding_similarity": 0.8526,
+      "left_title": "이재명 대통령, ADB 총재 면담서 중앙아시아 원전 및 핵심광물 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "면담 대상이 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이재명 대통령, 유엔총회 리셉션서 체코 대통령과 원전 협력 논의",
+      "same_event": false
+    },
     "8c54ce1fa7f062da--f6607cce45ffc36b": {
       "embedding_similarity": 0.8632,
       "left_title": "이재명 대통령, 카자흐스탄과 원전·SMR 전주기 협력 MOU 체결",
@@ -107510,6 +107700,16 @@
       "reason": "주체 및 내용 상이 (SMR vs 원전 플랫폼)",
       "reviewed_at": "2026-08-07T01:04:27.172047+00:00",
       "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
+      "same_event": false
+    },
+    "a00aa17de6b9c8db--fe38c24988ff17a4": {
+      "embedding_similarity": 0.8431,
+      "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주제 및 기술 분야 다름",
+      "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
+      "right_title": "이터나퓨전, 24시간 연속운전 핵융합 발전 기술 개발 추진",
       "same_event": false
     },
     "a015fd8bcd8b76f6--ed964abc478fa449": {
