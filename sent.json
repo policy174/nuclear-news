@@ -6279,14 +6279,24 @@
     "ecdb621d85b729a6": "2026-09-27T02:52:47.824695+00:00",
     "acb4dc0c8bb338c1": "2026-09-27T02:52:47.824695+00:00",
     "80691d3764004e23": "2026-09-27T02:52:47.824695+00:00",
-    "9fc71e71c28c8a49": "2026-09-27T02:52:47.824695+00:00"
+    "9fc71e71c28c8a49": "2026-09-27T02:52:47.824695+00:00",
+    "f462db7d8a9a2bb9": "2026-09-27T03:11:19.866011+00:00",
+    "ec707630da7e8877": "2026-09-27T03:11:19.866011+00:00",
+    "e1ef7806cb6b08f5": "2026-09-27T03:11:19.866011+00:00",
+    "9cd368181f0a0e72": "2026-09-27T03:11:19.866011+00:00",
+    "0d0e8ce2a7876636": "2026-09-27T03:11:19.866011+00:00",
+    "7f442358bd6b8819": "2026-09-27T03:11:19.866011+00:00",
+    "086bd15096ef197a": "2026-09-27T03:11:19.866011+00:00",
+    "32ec7e06d2395586": "2026-09-27T03:11:19.866011+00:00",
+    "fdf983fa3639e543": "2026-09-27T03:11:19.866011+00:00",
+    "341bb6657db096c2": "2026-09-27T03:11:19.866011+00:00"
   },
   "source_yield": {
-    "at": "2026-09-27T02:54:48+00:00",
+    "at": "2026-09-27T03:13:42+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 15,
-      "산업부 보도자료": 10,
+      "원안위 보도자료": 0,
+      "산업부 보도자료": 0,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 48,
@@ -6302,7 +6312,7 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 0,
       "혁신형 SMR 기술개발사업단": 0,
-      "Reuters 원자력": 8,
+      "Reuters 원자력": 6,
       "La Tribune 원자력": 17,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
@@ -6310,13 +6320,16 @@
       "Les Échos 원자력": 24,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 17,
-      "Euractiv 원자력": 11,
+      "Euractiv 원자력": 10,
       "국내 원자력 보도": 2
     },
     "kept": {
-      "Reuters 원자력": 3
+      "Reuters 원자력": 1
     },
-    "errors": {}
+    "errors": {
+      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
+      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
+    }
   },
   "scrap_seeds": {
     "7eb4e916230a": {
