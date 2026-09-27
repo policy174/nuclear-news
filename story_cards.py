@@ -379,9 +379,7 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
         "chip": cover.get("chip") or payload["topic"], "topic": cover.get("topic") or "",
         "photo": None,                       # build.js 가 분류에서 고른다
         "headline": cover["headline"], "deck": cover["deck"],
-        # 기사 규모 수치가 없으면 원장이 센 값을 쓴다 — 지어낼 수 없는 유일한 수치다(09-24 실측 100%).
-        "badge": cover.get("badge") or ledger_badge(payload),
-        "ledger": ledger_badge(payload),
+        "badge": cover.get("badge") or None,
     }, {
         "type": "story-facts", "slideNum": num(2), "chip": "사실 정리",
         "headline": "무슨 일이 있었나?", "lede": facts.get("lede") or "",
@@ -414,13 +412,6 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
         slides[4]["cta"] = "이 이슈 계속 보기"
         slides[4]["ctaUrl"] = url.split("//", 1)[-1].rstrip("/")
     return slides
-
-
-def ledger_badge(payload: dict) -> dict | None:
-    days, count = int(payload.get("lifespan_days") or 0), int(payload.get("briefing_count") or 0)
-    if days < 2 or count < 2:
-        return None
-    return {"value": f"{days}일째", "label": f"브리핑 {count}회 · 이어지는 사안"}
 
 
 def issue_url(payload: dict) -> str:
@@ -629,7 +620,6 @@ def _self_check() -> None:
     assert slides[4]["checks"] == ok["check"]["checks"]
     assert "followUp" not in slides[0] and "ctaUrl" not in slides[4]
     assert slides[4]["unknowns"] == ["서명 일정"] and slides[0]["badge"] is None
-    assert build_slides(ok, {**payload, "lifespan_days": 32, "briefing_count": 4})[0]["badge"]["value"] == "32일째"
     bad = json.loads(json.dumps(ok)); bad["check"]["unknowns"] = ["a", "b", "c"]
     assert any("unknowns" in p for p in validate(bad, payload))
     linked = build_slides(ok, {**payload, "issue_id": "story-abc",

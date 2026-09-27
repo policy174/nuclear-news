@@ -655,13 +655,6 @@ ${fontLinks(theme)}
   /* 표지 */
   .st-photo { position: relative; height: 470px; flex: 0 0 auto; background-size: cover;
     background-position: center; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%); }
-  .st-photo.bare { background: #12294C; }
-  /* 사진이 없으면 그 자리가 원장 수치를 든다 — 지어낼 수 없는 값(추적 기간·브리핑 횟수). */
-  .st-ledger { position: absolute; z-index: 1; left: 64px; bottom: 96px; display: flex;
-    align-items: baseline; gap: 26px; color: #F6F2E9; }
-  .st-ledger .v { font-family: ${theme.fonts.heading.css}; font-size: 150px; font-weight: 900;
-    letter-spacing: -5px; line-height: 1; }
-  .st-ledger .l { font-size: 30px; font-weight: 700; color: rgba(246,242,233,.72); }
   .st-photo::after { content: ""; position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(18,41,76,.46) 0%, rgba(18,41,76,.12) 40%,
       rgba(18,41,76,.06) 100%); }
@@ -822,11 +815,10 @@ function photoKey(label) {
     : /전력|계통|수급|에너지/.test(t) ? "grid"
     : /규제|인허가|정책|법|국회/.test(t) ? "doc"
     : /SMR|원자로|신규|건설/.test(t) ? "atom"
-    : "";   // 맞는 사진이 없으면 사진 없이 간다 — 무관한 사진이 더 해롭다(09-24 진단)
+    : "wave";
 }
 
 function photoData(key) {
-  if (!key) return "";
   const file = path.join(PHOTO_DIR, `${key}.jpg`);
   if (!fs.existsSync(file)) return "";
   return `data:image/jpeg;base64,${fs.readFileSync(file).toString("base64")}`;
@@ -877,15 +869,14 @@ function renderStory(s, theme, type) {
     const data = photoData(key);
     return shell(
       `<div class="card st st-cover">
-        <div class="st-photo${data ? "" : " bare"}" style="${data ? `background-image:url('${data}')` : ""}">
+        <div class="st-photo" style="background-image:url('${data}')">
           ${storyHead(s, s.tagline || STORY_TAGLINE)}
-          ${!data && s.ledger ? `<div class="st-ledger"><span class="v">${esc(s.ledger.value)}</span><span class="l">${esc(s.ledger.label)}</span></div>` : ""}
         </div>
         <div class="st-body">
           <div class="st-row">${chip}${s.topic ? `<span class="st-desc" style="margin:0;font-size:24px;font-weight:700;color:#12294C">${esc(s.topic)}</span>` : ""}${s.followUp ? `<span class="st-follow">${esc(s.followUp)}</span>` : ""}</div>
           <h1 class="st-title">${accentize(s.headline, "em")}</h1>
           <p class="st-desc">${esc(s.deck || "")}</p>
-          ${s.badge && !(!data && s.ledger && s.badge.value === s.ledger.value) ? `<div class="st-badge"><span class="v">${esc(s.badge.value)}</span>
+          ${s.badge ? `<div class="st-badge"><span class="v">${esc(s.badge.value)}</span>
             <span class="l">${esc(s.badge.label)}</span></div>` : ""}
           <div class="st-credit">${esc(photoCredit(key))}</div>
           <div class="st-slogan"><strong>NUCLENS</strong><span>${esc(s.slogan || "")}</span></div>
