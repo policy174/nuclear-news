@@ -66,8 +66,10 @@ def _script_model() -> str:
 
 def _card_narrator_model() -> str:
     """카드 편집 데스크. **무엇을 말할지** 고르는 자리라 한 단 위를 쓴다."""
+    # v1 의 synthesis_model() 은 2.5-flash(사고형)라 사고 토큰이 출력 예산을 먹고
+    # MAX_TOKENS 로 잘렸다(2026-09-27 실측 thoughts=5292/6144). v2 와 같은 모델로.
     return gemini_client._resolve(
-        "CARD_EDITORIAL_NARRATOR_MODEL", _synthesis_model()) or _synthesis_model()
+        "CARD_EDITORIAL_NARRATOR_MODEL", "gemini-3.5-flash-lite") or "gemini-3.5-flash-lite"
 
 
 def _card_writer_model() -> str:

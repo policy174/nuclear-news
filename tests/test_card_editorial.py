@@ -85,7 +85,7 @@ class ModelPolicyTests(unittest.TestCase):
         """무엇을 말할지 고르는 일과 그것을 적는 일은 다른 과제다."""
         narrator = llm_policy.profile("card_editorial_narrator").model()
         writer = llm_policy.profile("card_writer").model()
-        # v1 은 synthesis_model() 이 MODEL 이라 narrator 값이 v2(3.5-flash-lite) 와 다르다.
+        self.assertEqual(narrator, "gemini-3.5-flash-lite")
         self.assertEqual(writer, "gemini-3.1-flash-lite")
         self.assertNotEqual(narrator, writer)
 

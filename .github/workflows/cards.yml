@@ -48,6 +48,10 @@ jobs:
         run: |
           mkdir -p web/public/data
           curl -fsS "https://nuclens.pages.dev/data/briefings.json?cb=$(date +%s)" -o web/public/data/briefings.json
+          # 심층 카드 재료 — v1 원장(chronicles)과 사건 본문(issues). 없으면 스토리만 빠진다.
+          for f in chronicles.json issues.json; do
+            curl -fsS "https://nuclens.pages.dev/data/$f?cb=$(date +%s)" -o "web/public/data/$f" || rm -f "web/public/data/$f"
+          done
 
       - name: Make cards
         env:

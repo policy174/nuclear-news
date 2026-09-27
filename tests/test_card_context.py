@@ -454,3 +454,32 @@ class NarratorPickTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class V1ChronicleAdapterTests(unittest.TestCase):
+    """v1 은 threads.json 대신 chronicles.json 을 낸다 — 기사(hash) → 이슈 한 행."""
+
+    def test_chronicle_articles_become_one_row_per_issue(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "issues.json").write_text(json.dumps([
+                {"issue_id": "i1", "title": "첫 사건", "representative_article": {"hash": "a"}},
+                {"issue_id": "i2", "title": "둘째 사건", "representative_article": {"hash": "b"},
+                 "related_articles": [{"hash": "c"}]},
+                {"issue_id": "i3", "title": "셋째 사건", "representative_article": {"hash": "d"}},
+            ]), encoding="utf-8")
+            ev = lambda h, d: {"hash": h, "briefing_date": d, "title_kr": h}
+            (root / "chronicles.json").write_text(json.dumps({"chronicles": {"chron-x": {
+                "title": "스토리", "events": [ev("a", "2026-09-01"), ev("b", "2026-09-05"),
+                                               ev("c", "2026-09-06"), ev("d", "2026-09-10")]}}}),
+                encoding="utf-8")
+            payload = card_context.threads_from_chronicles(root)
+        thread = payload["threads"][0]
+        self.assertEqual([r["source_event_id"] for r in thread["flow"]], ["i1", "i2", "i3"])
+        self.assertEqual(thread["flow"][1]["evidence_hashes"], ["b", "c"])
+        self.assertEqual((thread["lifespan_days"], thread["briefing_count"]), (10, 4))
+        self.assertTrue(card_context.eligibility(thread)[0])
+        thread["flow"] = thread["flow"][:2]
+        self.assertFalse(card_context.eligibility(thread)[0])  # 관계 미판정은 3건부터
+        self.assertEqual(card_context.resolve_thread({"issue_id": "i2"}, {"chron-x": thread}), thread)

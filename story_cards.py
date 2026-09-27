@@ -67,7 +67,7 @@ def use_story_out_dir() -> None:
 # 검증이 쓸 이름만 가져온다(두 벌을 두면 한쪽만 고치는 날이 온다).
 from card_editorial import (  # noqa: E402
     ASIDE_MAX, BADGE_LABEL_MAX, BADGE_VALUE_MAX, CHECK_COUNT, CHECK_HEADLINE_MAX,
-    CHECK_TEXT_MAX, COVER_DECK_MAX, COVER_HEADLINE_MAX, ISSUE_COUNT, ISSUE_ICONS,
+    CHECK_TEXT_MAX, UNKNOWN_MAX, COVER_DECK_MAX, COVER_HEADLINE_MAX, ISSUE_COUNT, ISSUE_ICONS,
     ISSUE_POINT_MAX, ISSUE_TITLE_MAX, LEDE_MAX, NOTE_MAX, PILLAR_COUNT,
     PILLAR_ICONS, PILLAR_TEXT_MAX, PILLAR_TITLE_MAX, QUOTE_MAX, TIMELINE_ROWS,
     WHAT_MAX, WHEN_MAX, WHY_HEADLINE_MAX,
@@ -223,6 +223,9 @@ def normalize(raw: dict, payload: dict) -> dict:
     for it in (check.get("checks") or []):
         if isinstance(it, dict):
             it["text"] = _fit(it.get("text"), CHECK_TEXT_MAX)
+    unknowns = check.get("unknowns")
+    check["unknowns"] = ([_fit(t, CHECK_TEXT_MAX) for t in unknowns if str(t or "").strip()][:UNKNOWN_MAX]
+                         if isinstance(unknowns, list) else [])
     return out
 
 
@@ -354,6 +357,12 @@ def validate(raw: dict, payload: dict) -> list[str]:
             problems.append("check.checks: 이미 일어난 항목(done)이 하나도 없다")
         if all((ck or {}).get("done") for ck in checks):
             problems.append("check.checks: 앞으로 볼 항목(done=false)이 하나도 없다")
+    unknowns = check.get("unknowns") or []
+    if not isinstance(unknowns, list) or len(unknowns) > UNKNOWN_MAX:
+        problems.append(f"check.unknowns: 0~{UNKNOWN_MAX}개 목록이어야 한다")
+    else:
+        for i, text in enumerate(unknowns, start=1):
+            _line(problems, f"check.unknowns[{i}]", text, CHECK_TEXT_MAX)
     return problems
 
 
@@ -370,7 +379,9 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
         "chip": cover.get("chip") or payload["topic"], "topic": cover.get("topic") or "",
         "photo": None,                       # build.js 가 분류에서 고른다
         "headline": cover["headline"], "deck": cover["deck"],
-        "badge": cover.get("badge") or None,
+        # 기사 규모 수치가 없으면 원장이 센 값을 쓴다 — 지어낼 수 없는 유일한 수치다(09-24 실측 100%).
+        "badge": cover.get("badge") or ledger_badge(payload),
+        "ledger": ledger_badge(payload),
     }, {
         "type": "story-facts", "slideNum": num(2), "chip": "사실 정리",
         "headline": "무슨 일이 있었나?", "lede": facts.get("lede") or "",
@@ -385,6 +396,7 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
     }, {
         "type": "story-check", "slideNum": num(5), "chip": "앞으로 볼 것",
         "headline": check["headline"], "checks": check["checks"],
+        "unknowns": check.get("unknowns") or [],
         "aside": check.get("aside") or "",
     }]
     # 표지 사진은 분류로 고른다 — 본문 문구를 훑으면 그날 기사에만 맞는 규칙이 된다.
@@ -402,6 +414,13 @@ def build_slides(raw: dict, payload: dict) -> list[dict]:
         slides[4]["cta"] = "이 이슈 계속 보기"
         slides[4]["ctaUrl"] = url.split("//", 1)[-1].rstrip("/")
     return slides
+
+
+def ledger_badge(payload: dict) -> dict | None:
+    days, count = int(payload.get("lifespan_days") or 0), int(payload.get("briefing_count") or 0)
+    if days < 2 or count < 2:
+        return None
+    return {"value": f"{days}일째", "label": f"브리핑 {count}회 · 이어지는 사안"}
 
 
 def issue_url(payload: dict) -> str:
@@ -514,19 +533,17 @@ def _self_check() -> None:
                                {"when": "9월 16일", "what": "국회 보고 취소"},
                                {"when": "9월 17일", "what": "MOU 서명 연기"}]},
         "issues": [{"title": "투자 규모", "points": ["규모가 조율 중입니다"], "icon": "coins"},
-                   {"title": "지분 구조", "points": ["의결권 확보가 쟁점입니다"], "icon": "plant"},
-                   {"title": "국회 절차", "points": ["보고 일정이 미정입니다"], "icon": "doc"}],
+                   {"title": "지분 구조", "points": ["의결권 확보가 쟁점입니다"], "icon": "plant"}],
         "why": {"headline": "협력 조건이 [[여기서]] 갈립니다",
                 "pillars": [{"title": "시장", "text": "참여 범위가 걸려 있습니다", "icon": "market"},
                             {"title": "통제권", "text": "지분이 수출 조건과 닿습니다", "icon": "shield"},
                             {"title": "산업", "text": "기자재 수주가 함께 움직입니다", "icon": "network"}],
                 "quotes": ["지금은 최종 조율 단계입니다"]},
         "check": {"headline": "이것을 주목하세요", "aside": "협상은 진행 중입니다",
+                  "unknowns": ["서명 일정"],
                   "checks": [{"text": "원전 8기 제안", "done": True},
                              {"text": "국회 보고 취소", "done": True},
-                             {"text": "서명 일정 발표", "done": False},
-                             {"text": "지분율 합의", "done": False},
-                             {"text": "첫 송금 집행", "done": False}]},
+                             {"text": "지분율 합의", "done": False}]},
     }
     assert validate(ok, payload) == [], validate(ok, payload)
 
@@ -561,7 +578,7 @@ def _self_check() -> None:
     assert len(normalize(invented, payload)["facts"]["timeline"]) == TIMELINE_ROWS, "지어낸 행 제거"
     bad = mut("cover", headline="가" * (COVER_HEADLINE_MAX + LEN_SLACK + 1))
     assert any("cover.headline" in p for p in validate(bad, payload))
-    bad = json.loads(json.dumps(ok)); bad["issues"] = bad["issues"][:2]
+    bad = json.loads(json.dumps(ok)); bad["issues"] = bad["issues"][:1]
     assert any("issues" in p for p in validate(bad, payload))
     # 가운데 한 줄 빠진 것은 봐준다(지어낸 행을 버린 결과일 수 있다).
     short = json.loads(json.dumps(ok)); del short["facts"]["timeline"][1]
@@ -611,6 +628,10 @@ def _self_check() -> None:
     assert slides[1]["timeline"] == ok["facts"]["timeline"]
     assert slides[4]["checks"] == ok["check"]["checks"]
     assert "followUp" not in slides[0] and "ctaUrl" not in slides[4]
+    assert slides[4]["unknowns"] == ["서명 일정"] and slides[0]["badge"] is None
+    assert build_slides(ok, {**payload, "lifespan_days": 32, "briefing_count": 4})[0]["badge"]["value"] == "32일째"
+    bad = json.loads(json.dumps(ok)); bad["check"]["unknowns"] = ["a", "b", "c"]
+    assert any("unknowns" in p for p in validate(bad, payload))
     linked = build_slides(ok, {**payload, "issue_id": "story-abc",
                                "since_last": {"date": "2026-09-21", "new_titles": ["x"]}})
     assert linked[0]["followUp"] == "9월 21일 카드 이후 후속", linked[0]

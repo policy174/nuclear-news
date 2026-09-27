@@ -57,7 +57,7 @@ COVER_HEADLINE_MAX = 26
 COVER_DECK_MAX = 90
 BADGE_VALUE_MAX = 14
 BADGE_LABEL_MAX = 20
-LEDE_MAX = 30
+LEDE_MAX = 36   # 48px 두 줄. 30 은 매 회차 넘겨 "…" 로 잘렸다(09-27)
 WHEN_MAX = 16
 WHAT_MAX = 34
 NOTE_MAX = 40
@@ -71,9 +71,12 @@ CHECK_HEADLINE_MAX = 20
 CHECK_TEXT_MAX = 34
 ASIDE_MAX = 64
 TIMELINE_ROWS = 4
-ISSUE_COUNT = 3
+# 2026-09-24 재료 실측(v2 스레드 52건): 쟁점 3개 이상 26%, 체크 5개 이상 0%.
+# 슬롯이 재료보다 크면 모델이 빈 칸을 지어낸다 — 재료 분포에 맞춰 내렸다.
+ISSUE_COUNT = 2
 PILLAR_COUNT = 3
-CHECK_COUNT = 5
+CHECK_COUNT = 3
+UNKNOWN_MAX = 2
 ISSUE_ICONS = ("coins", "plant", "doc", "market", "shield", "network")
 PILLAR_ICONS = ("market", "shield", "network", "coins", "plant", "doc")
 
@@ -210,6 +213,7 @@ STORY_SCHEMA = f"""
              "quotes": [{QUOTE_MAX}자 이내] 1~2개}},
   "check":  {{"headline": {CHECK_HEADLINE_MAX}자 이내,
              "checks": [{{"text": {CHECK_TEXT_MAX}자 이내, "done": true/false}}] {CHECK_COUNT}개,
+             "unknowns": [{CHECK_TEXT_MAX}자 이내] 0~{UNKNOWN_MAX}개 — 브리프 story.unknowns 에 있는 것만, 없으면 [],
              "aside": {ASIDE_MAX}자 이내}}
  }}
 
@@ -222,8 +226,10 @@ story 규칙:
 - story_background 는 타임라인에 **넣지 않은** 사건이다. 쟁점·의미를 쓸 때 재료로만 쓰고
   timeline 행으로 만들지 않는다.
 - badge.value 의 숫자는 입력에 나온 숫자여야 한다. 없으면 badge 를 null 로.
-- checks 는 반드시 섞는다: 앞의 2~3개는 이미 일어난 사실(done=true),
+- checks 는 반드시 섞는다: 앞의 1~2개는 이미 일어난 사실(done=true),
   나머지는 앞으로 볼 것(done=false). 전부 같은 값이면 버려진다.
+- check.unknowns 는 **아직 확정되지 않은 것**이다. 브리프 unknowns 를 옮기되 지어내지 않는다.
+- issues(지금 논의되는 것)와 why.pillars(달라지는 것)는 같은 말을 되풀이하지 않는다.
 - 브리프 story.since_last 가 있으면 이 스토리는 그 날짜에 이미 카드로 나갔다(후속이다).
   cover.deck 과 facts.lede 는 그 뒤 **새로 붙은 사건(new_titles)** 부터 쓴다.
   지난 카드에서 한 얘기를 처음부터 되풀이하지 않는다.

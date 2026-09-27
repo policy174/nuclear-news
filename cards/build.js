@@ -655,6 +655,13 @@ ${fontLinks(theme)}
   /* 표지 */
   .st-photo { position: relative; height: 470px; flex: 0 0 auto; background-size: cover;
     background-position: center; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%); }
+  .st-photo.bare { background: #12294C; }
+  /* 사진이 없으면 그 자리가 원장 수치를 든다 — 지어낼 수 없는 값(추적 기간·브리핑 횟수). */
+  .st-ledger { position: absolute; z-index: 1; left: 64px; bottom: 96px; display: flex;
+    align-items: baseline; gap: 26px; color: #F6F2E9; }
+  .st-ledger .v { font-family: ${theme.fonts.heading.css}; font-size: 150px; font-weight: 900;
+    letter-spacing: -5px; line-height: 1; }
+  .st-ledger .l { font-size: 30px; font-weight: 700; color: rgba(246,242,233,.72); }
   .st-photo::after { content: ""; position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(18,41,76,.46) 0%, rgba(18,41,76,.12) 40%,
       rgba(18,41,76,.06) 100%); }
@@ -679,13 +686,15 @@ ${fontLinks(theme)}
     font-weight: 900; letter-spacing: 2px; }
   .st-slogan span { font-size: 19px; font-weight: 650; color: #8A93A1; }
 
-  .st-lede { margin-top: 26px; font-family: ${theme.fonts.heading.css}; font-size: 54px;
+  .st-lede { margin-top: 26px; font-family: ${theme.fonts.heading.css}; font-size: 48px;
     font-weight: 850; line-height: 1.3; letter-spacing: -1.6px; word-break: keep-all; }
   .st-lede .em { color: #1F5FA8; }
 
   /* 사실 정리 — 세로 타임라인 */
-  .st-tl { flex: 1; margin: 26px 0 0; display: flex; flex-direction: column;
-    justify-content: space-evenly; }
+  /* 남는 높이를 행 사이에 흩뿌리지 않는다 — 2행짜리가 한 장에 퍼졌다(09-24).
+     위에서부터 고정 간격으로 쌓고 남는 면은 아래로 몬다. */
+  .st-tl { flex: 1; margin: 34px 0 0; display: flex; flex-direction: column;
+    justify-content: flex-start; }
   .st-tl .tl-row { position: relative; display: grid; grid-template-columns: 34px 236px 1fr;
     gap: 24px; align-items: center; padding-bottom: 26px; }
   .st-tl .tl-row:last-child { padding-bottom: 0; }
@@ -709,8 +718,10 @@ ${fontLinks(theme)}
     stroke-width: 3; stroke-linejoin: round; }
 
   /* 핵심 쟁점 — 번호 카드 */
-  .st-cards { flex: 1; margin: 26px 0 0; display: flex; flex-direction: column;
-    justify-content: space-evenly; gap: 20px; }
+  .st-cards { flex: 1; margin: 34px 0 0; display: flex; flex-direction: column;
+    justify-content: flex-start; gap: 24px; }
+  /* 쟁점은 2개다(재료 실측). 칸이 남는 높이를 **나눠 갖는다** — 위로 몰면 아래 절반이 빈다. */
+  .st-cards .st-icard { flex: 1 1 0; }
   .st-icard { background: #FFFFFF; border: 1px solid #D3E0F2; padding: 30px 32px;
     display: grid; grid-template-columns: 104px 1fr; gap: 28px; align-items: center; }
   .st-icard .lead { display: flex; flex-direction: column; align-items: center; gap: 8px; }
@@ -720,12 +731,12 @@ ${fontLinks(theme)}
     color: #1F5FA8; display: flex; align-items: center; justify-content: center; }
   .st-icard .ic svg { width: 46px; height: 46px; fill: none; stroke: currentColor;
     stroke-width: 3; stroke-linejoin: round; }
-  .st-icard h3 { font-size: 37px; font-weight: 850; word-break: keep-all; }
+  .st-icard h3 { font-size: 44px; font-weight: 850; word-break: keep-all; }
   .st-icard ul { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
   .st-icard li { list-style: none; display: grid; grid-template-columns: 14px 1fr; gap: 12px;
-    font-size: 28px; line-height: 1.4; font-weight: 650; color: #35455F;
+    font-size: 33px; line-height: 1.42; font-weight: 650; color: #35455F;
     word-break: keep-all; }
-  .st-icard li::before { content: ""; width: 9px; height: 9px; margin-top: 12px;
+  .st-icard li::before { content: ""; width: 9px; height: 9px; margin-top: 18px;
     border-radius: 50%; background: #1F5FA8; }
 
   /* 왜 중요한가 */
@@ -757,8 +768,15 @@ ${fontLinks(theme)}
   /* 앞으로 볼 것 */
   /* 인용을 옆 칸에 세우면 세로로 긴 빈 면에 작은 글씨가 갇힌다(지니 09-19).
      체크리스트가 폭을 다 쓰고, 인용은 그 아래 가로 띠로 깐다. */
-  .st-check { flex: 1; margin-top: 26px; display: flex; flex-direction: column;
-    justify-content: space-evenly; gap: 16px; }
+  .st-check { margin-top: 30px; display: flex; flex-direction: column;
+    justify-content: flex-start; gap: 16px; }
+  /* 확인된 것(체크) 아래 '아직 모르는 것' — 재료가 있을 때만(open_question 44%). */
+  .st-unknown { margin-top: 26px; border-top: 2px solid #12294C; padding-top: 22px; }
+  .st-unknown .k { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: #8A93A1; }
+  .st-unknown p { margin-top: 12px; font-size: 30px; line-height: 1.4; font-weight: 700;
+    color: #12294C; word-break: keep-all; display: grid; grid-template-columns: 30px 1fr; }
+  .st-unknown p::before { content: "?"; font-weight: 900; color: #1F5FA8; }
+  .st-spacer { flex: 1; }
   .st-check .item { display: grid; grid-template-columns: 42px 1fr; gap: 18px;
     align-items: center; background: #FFFDF7; border: 1px solid #E6E0D2;
     padding: 26px 24px; font-size: 30px; font-weight: 700; color: #35455F;
@@ -804,10 +822,11 @@ function photoKey(label) {
     : /전력|계통|수급|에너지/.test(t) ? "grid"
     : /규제|인허가|정책|법|국회/.test(t) ? "doc"
     : /SMR|원자로|신규|건설/.test(t) ? "atom"
-    : "wave";
+    : "";   // 맞는 사진이 없으면 사진 없이 간다 — 무관한 사진이 더 해롭다(09-24 진단)
 }
 
 function photoData(key) {
+  if (!key) return "";
   const file = path.join(PHOTO_DIR, `${key}.jpg`);
   if (!fs.existsSync(file)) return "";
   return `data:image/jpeg;base64,${fs.readFileSync(file).toString("base64")}`;
@@ -823,6 +842,10 @@ function photoCredit(key) {
 
 
 
+
+// 브랜드 문구는 하나다. 장마다 다른 영문 장식 5종 + 한국어 슬로건 1종이 있었다
+// (09-24 진단: "브랜드 문구가 6개면 브랜드가 없는 것").
+const STORY_TAGLINE = "IN-DEPTH BRIEFING";
 
 function storyHead(s, tagline) {
   return `<div class="st-hd"><div><span class="brand">NUCLENS</span>
@@ -854,17 +877,18 @@ function renderStory(s, theme, type) {
     const data = photoData(key);
     return shell(
       `<div class="card st st-cover">
-        <div class="st-photo" style="background-image:url('${data}')">
-          ${storyHead(s, s.tagline || "NEWS FOR A BRIGHTER TOMORROW")}
+        <div class="st-photo${data ? "" : " bare"}" style="${data ? `background-image:url('${data}')` : ""}">
+          ${storyHead(s, s.tagline || STORY_TAGLINE)}
+          ${!data && s.ledger ? `<div class="st-ledger"><span class="v">${esc(s.ledger.value)}</span><span class="l">${esc(s.ledger.label)}</span></div>` : ""}
         </div>
         <div class="st-body">
           <div class="st-row">${chip}${s.topic ? `<span class="st-desc" style="margin:0;font-size:24px;font-weight:700;color:#12294C">${esc(s.topic)}</span>` : ""}${s.followUp ? `<span class="st-follow">${esc(s.followUp)}</span>` : ""}</div>
           <h1 class="st-title">${accentize(s.headline, "em")}</h1>
           <p class="st-desc">${esc(s.deck || "")}</p>
-          ${s.badge ? `<div class="st-badge"><span class="v">${esc(s.badge.value)}</span>
+          ${s.badge && !(!data && s.ledger && s.badge.value === s.ledger.value) ? `<div class="st-badge"><span class="v">${esc(s.badge.value)}</span>
             <span class="l">${esc(s.badge.label)}</span></div>` : ""}
           <div class="st-credit">${esc(photoCredit(key))}</div>
-          <div class="st-slogan"><strong>NUCLENS</strong><span>${esc(s.slogan || "원전을 넘어, 더 나은 내일로")}</span></div>
+          <div class="st-slogan"><strong>NUCLENS</strong><span>${esc(s.slogan || "")}</span></div>
         </div>
       </div>`, theme, false);
   }
@@ -875,7 +899,7 @@ function renderStory(s, theme, type) {
         <div class="when">${esc(r.when)}</div><div class="what">${esc(r.what)}</div></div>`).join("");
     return shell(
       `<div class="card st">
-        ${storyHead(s, s.tagline || "GLOBAL NUCLEAR INSIGHT")}
+        ${storyHead(s, s.tagline || STORY_TAGLINE)}
         <div class="st-body">
           <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
           ${s.lede ? `<p class="st-lede">${accentize(s.lede, "em")}</p>` : ""}
@@ -886,7 +910,7 @@ function renderStory(s, theme, type) {
   }
 
   if (type === "story-issues") {
-    const cards = (s.issues || []).slice(0, 3).map((it, i) =>
+    const cards = (s.issues || []).slice(0, 2).map((it, i) =>
       `<div class="st-icard"><div class="lead"><span class="n">${String(i + 1).padStart(2, "0")}</span>
           <span class="ic">${storyIcon(it.icon || ["coins", "plant", "doc"][i] || "doc")}</span></div>
         <div><h3>${esc(it.title)}</h3>
@@ -894,7 +918,7 @@ function renderStory(s, theme, type) {
         </div></div>`).join("");
     return shell(
       `<div class="card st st-blue">
-        ${storyHead(s, s.tagline || "FOCUS ON WHAT MATTERS")}
+        ${storyHead(s, s.tagline || STORY_TAGLINE)}
         <div class="st-body">
           <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
           <div class="st-cards">${cards}</div>
@@ -907,7 +931,7 @@ function renderStory(s, theme, type) {
       `<div class="cell"><div class="ic">${storyIcon(c.icon)}</div><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p></div>`).join("");
     return shell(
       `<div class="card st">
-        ${storyHead(s, s.tagline || "BIGGER PICTURE, CLEARER INSIGHTS")}
+        ${storyHead(s, s.tagline || STORY_TAGLINE)}
         <div class="st-body">
           ${chip}
           <h2 class="st-msg">${accentize(s.headline, "em")}</h2>
@@ -918,14 +942,16 @@ function renderStory(s, theme, type) {
   }
 
   // story-check
-  const items = (s.checks || []).slice(0, 5).map((c) =>
+  const items = (s.checks || []).slice(0, 3).map((c) =>
     `<div class="item${c.done ? " on" : ""}"><span class="box">${c.done ? "✓" : ""}</span><span>${esc(c.text)}</span></div>`).join("");
   return shell(
     `<div class="card st">
-      ${storyHead(s, s.tagline || "NEXT STEP FOR A SUSTAINABLE TOMORROW")}
+      ${storyHead(s, s.tagline || STORY_TAGLINE)}
       <div class="st-body">
         <div class="st-row">${chip}<h2 class="st-q">${accentize(s.headline, "em")}</h2></div>
         <div class="st-check">${items}</div>
+        ${(s.unknowns || []).length ? `<div class="st-unknown"><span class="k">아직 모르는 것</span>${s.unknowns.slice(0, 2).map((t) => `<p>${esc(t)}</p>`).join("")}</div>` : ""}
+        <div class="st-spacer"></div>
         ${s.aside ? `<div class="st-aside"><span class="ic">${storyIcon("scope")}</span><span>${esc(s.aside)}</span></div>` : ""}
         <div class="st-foot"><div class="st-cta">${esc(s.cta || "지금 이슈를 계속 업데이트합니다")} →</div>
           ${s.ctaUrl ? `<span class="st-url">${esc(s.ctaUrl)}</span>` : ""}</div>

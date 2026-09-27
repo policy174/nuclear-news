@@ -30,6 +30,7 @@ make_cards.py 와 story_cards.py 가 같은 재료를 서로 다른 방법으로
 from __future__ import annotations
 
 import json
+from datetime import date as date_type
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -115,6 +116,8 @@ def load_site_data(date: str, data_dir: Path | None = None) -> SiteData:
 
     threads_path = data_dir / "threads.json"
     threads = _read(threads_path) if threads_path.exists() else {}
+    if not threads and (data_dir / "chronicles.json").exists():
+        threads = threads_from_chronicles(data_dir)
     if not isinstance(threads, dict):
         raise ContextError("threads.json 이 객체가 아니다")
 
@@ -142,6 +145,60 @@ def load_site_data(date: str, data_dir: Path | None = None) -> SiteData:
                             threads=threads, generation_id=generation_id,
                             source="briefings", warnings=warnings)
     raise ContextError(f"{date} 브리핑이 today.json 에도 briefings.json 에도 없다")
+
+
+# ── v1 원장 연결부 ───────────────────────────────────────────────────────────
+#
+# nuclens(v1)는 threads.json 을 내지 않고 자체 원장 chronicles.json 을 낸다.
+# 원장 행은 **기사**(hash) 단위라, 기사를 issues.json 의 이슈로 풀어 **이슈 하나 =
+# 사건 한 행**으로 세운다(2026-09-27 실측: 해시 98.6% 가 풀린다). 행의
+# source_event_id 가 issue_id 이므로 ② 신원 규칙과 evidence_packet 본문 조회가
+# v2 와 같은 길로 돈다.
+#
+# 원장엔 사건 사이 관계 판정(relation_to_next)이 없다. 지어내지 않고 빈칸으로
+# 두고, 스레드에 `relations_unjudged` 를 달아 자격을 사건 수로 본다(eligibility).
+UNJUDGED_MIN_EVENTS = 3
+
+
+def threads_from_chronicles(data_dir: Path) -> dict:
+    ledger = _read(data_dir / "chronicles.json") or {}
+    catalog = load_issue_index(data_dir)
+    hash_to_issue: dict[str, str] = {}
+    for issue_id, row in catalog.items():
+        for article in [row.get("representative_article") or {}, *(row.get("related_articles") or ())]:
+            if article.get("hash"):
+                hash_to_issue.setdefault(str(article["hash"]), issue_id)
+    threads = []
+    for cid, chron in sorted((ledger.get("chronicles") or {}).items()):
+        groups: dict[str, dict] = {}
+        dates = set()
+        for event in chron.get("events") or ():
+            digest = str(event.get("hash") or "")
+            day = str(event.get("briefing_date") or event.get("article_date") or "")
+            if not digest or not day:
+                continue
+            dates.add(day)
+            key = hash_to_issue.get(digest) or f"{cid}:{digest}"
+            row = groups.setdefault(key, {
+                "event_id": key, "source_event_id": key, "source_event_ids": [],
+                "evidence_hashes": [], "date": day, "date_kind": "first_seen",
+                "title": (catalog.get(key) or {}).get("title") or event.get("title_kr") or "",
+                "stages": [], "relation_to_next": "", "relation_label": ""})
+            row["evidence_hashes"].append(digest)
+            row["date"] = min(row["date"], day)
+        if not groups:
+            continue
+        flow = sorted(groups.values(), key=lambda r: (r["date"], r["event_id"]))
+        first, last = min(dates), max(dates)
+        span = (date_type.fromisoformat(last) - date_type.fromisoformat(first)).days + 1
+        threads.append({
+            "thread_id": cid, "title": chron.get("title") or flow[-1]["title"],
+            "first_seen": first, "last_seen": last, "lifespan_days": span,
+            "event_count": len(flow), "briefing_count": len(dates),
+            "entity_ids": list(chron.get("entity_ids") or ()),
+            "events": flow[::-1], "flow": flow, "relations_unjudged": True})
+    return {"version": REQUIRED_THREAD_CONTRACT, "visible": True, "status": "ok",
+            "degraded": False, "source": "chronicles.json", "threads": threads}
 
 
 def check_generation(data_dir: Path | None = None) -> tuple[bool, str]:
@@ -254,6 +311,12 @@ def eligibility(thread: dict) -> tuple[bool, str]:
     if bare:
         return False, f"근거 없는 사건 {len(bare)}건 — {str(bare[0].get('title') or '')[:24]}"
 
+    if thread.get("relations_unjudged"):
+        # v1 원장 — 관계 판정이 없으니 사건 수로 본다(threads_from_chronicles).
+        if len(events) < UNJUDGED_MIN_EVENTS:
+            return False, f"사건 {len(events)}건 — 관계 미판정 원장은 {UNJUDGED_MIN_EVENTS}건부터"
+        return True, f"사건 {len(events)}건 · 관계 미판정 원장"
+
     # 인접 관계는 마지막 행을 뺀 나머지가 들고 있다(`relation_to_next`).
     relations = [str(row.get("relation_to_next") or "") for row in events[:-1]]
     progress = [value for value in relations if value in PROGRESS_RELATIONS]
@@ -348,6 +411,8 @@ def repeat_verdict(thread: dict, history: list[dict], date: str) -> tuple[bool, 
                       *(str(v) for v in row.get("source_event_ids") or ())} & seen)]
     if not fresh:
         return False, f"{last.get('date')} 에 냈고 그 뒤 새 사건 없음"
+    if thread.get("relations_unjudged"):
+        return True, f"{last.get('date')} 이후 새 사건 {len(fresh)}건"
     # 새 사건이 앞뒤 어느 쪽으로든 진행 관계로 이어져야 '다음 단계' 다.
     for i in fresh:
         before = str(events[i - 1].get("relation_to_next") or "") if i > 0 else ""
