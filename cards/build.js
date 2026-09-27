@@ -667,11 +667,12 @@ ${fontLinks(theme)}
   .st-desc { margin-top: 24px; font-size: 33px; line-height: 1.48; font-weight: 600;
     color: #41506B; word-break: keep-all; }
   /* 표지 배지 — 그 이슈의 핵심 숫자. 원문에 있는 값이 있을 때만 붙는다. */
-  .st-badge { margin: auto 0; align-self: stretch; display: flex; align-items: baseline;
-    gap: 22px; background: #E6EEFA; border-left: 10px solid #1F5FA8; padding: 30px 34px; }
-  .st-badge .v { font-family: ${theme.fonts.heading.css}; font-size: 72px; font-weight: 900;
-    letter-spacing: -2px; color: #12294C; }
-  .st-badge .l { font-size: 29px; font-weight: 700; color: #41506B; word-break: keep-all; }
+  /* 전체 폭 박스는 제목보다 무거워 어색했다(지니 09-27) — 내용 폭 만한 띠로. */
+  .st-badge { margin-top: 30px; align-self: flex-start; display: flex; align-items: baseline;
+    gap: 16px; border-left: 6px solid #1F5FA8; padding: 4px 0 4px 20px; }
+  .st-badge .v { font-family: ${theme.fonts.heading.css}; font-size: 48px; font-weight: 900;
+    letter-spacing: -1.4px; color: #12294C; }
+  .st-badge .l { font-size: 26px; font-weight: 700; color: #41506B; word-break: keep-all; }
   .st-credit { margin-top: auto; font-size: 16px; font-weight: 600; color: #9AA3B0; }
   .st-slogan { margin-top: 14px; display: flex; justify-content: space-between;
     align-items: baseline; }
