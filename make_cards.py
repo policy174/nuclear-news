@@ -268,9 +268,8 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
     **클러스터**라 같은 사건의 다른 기사가 두 장 나가는 문제도 거기서 끝난다.
     카드가 따로 정렬하면 화면과 카드가 다른 얘기를 하게 된다(2026-09-14 교정).
 
-    거르는 것은 둘이다. ① 원문 링크 없는 이슈 ② **보고 후보가 아닌 이슈**
-    (v1 전용, 지니 2026-09-21 — 카드는 보고·카톡에 붙이는 자산). 매일 3건씩
-    나가게 되돌리려면 report_pick 조건만 지우면 된다.
+    하는 일은 원문 링크 없는 이슈를 건너뛰는 것뿐이다. (v1 의 '보고 후보만'
+    필터는 2026-09-27 지니 지시로 폐기 — v2 와 같이 매일 상위 3건.)
     """
     picked = []
     for row in issue_rows:
@@ -278,8 +277,6 @@ def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "")
         link = (rep.get("url") or "").strip()
         if not link:
             continue  # 출처 미확인 — 카드에서 빼고 텍스트 브리핑으로만
-        if not (row.get("report_pick") or "").strip():
-            continue  # 보고 후보가 아니면 카드로 만들지 않는다
         picked.append({
             "hash": rep.get("hash", ""),
             # 홈의 '먼저 볼 3건' 카드가 이 카피를 issue_id 로 되찾아 간다(album.json lines)
