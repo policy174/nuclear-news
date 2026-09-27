@@ -14,6 +14,7 @@
 죽으면 스토리만 빠지고 일일은 단독 호출로 살아난다.
 """
 import sys
+import json
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -81,23 +82,12 @@ class ModelPolicyTests(unittest.TestCase):
                 self.assertTrue(llm_policy.profile(task).model())
 
     def test_the_narrator_thinks_one_tier_above_the_writer(self):
-        """무엇을 말할지 고르는 일과 그것을 적는 일은 다른 과제다.
-
-        모델 **이름**은 못 박지 않는다. 이 저장소로 들여올 때 v2 의 기본값
-        (narrator=gemini-3.5-flash-lite / writer=gemini-3.1-flash-lite)을
-        그대로 쓰지 않기로 했다 — 이 키에서 3.5-flash-lite 는 400 을 돌려준
-        전력이 있다(카드 함정 목록). 모델 교체는 카드 이식과 별개 결정이라
-        `gemini_client.synthesis_model()` 이 이 저장소의 MODEL 로 되돌린다.
-
-        그래서 여기서 잠글 것은 이름이 아니라 **관계**다: 편집 데스크와
-        카피라이터가 같은 자리를 쓰지 않는다는 것, 둘 다 해석된다는 것.
-        """
+        """무엇을 말할지 고르는 일과 그것을 적는 일은 다른 과제다."""
         narrator = llm_policy.profile("card_editorial_narrator").model()
         writer = llm_policy.profile("card_writer").model()
-        self.assertTrue(narrator, "narrator 모델이 해석되지 않는다")
-        self.assertTrue(writer, "writer 모델이 해석되지 않는다")
-        self.assertNotEqual(narrator, writer,
-                            "편집 판단과 받아쓰기가 같은 자리를 쓴다")
+        # v1 은 synthesis_model() 이 MODEL 이라 narrator 값이 v2(3.5-flash-lite) 와 다르다.
+        self.assertEqual(writer, "gemini-3.1-flash-lite")
+        self.assertNotEqual(narrator, writer)
 
     def test_the_preview_model_default_is_gone(self):
         snapshot = llm_policy.production_policy_snapshot()
@@ -109,8 +99,6 @@ class ModelPolicyTests(unittest.TestCase):
     def test_the_call_actually_passes_the_profile_model(self):
         with mock.patch("gemini_client.call_json", return_value={}) as called:
             card_editorial.call("card_editorial_narrator", "sys", {"a": 1})
-        # 이름을 못 박지 않는 이유는 위 test_the_narrator_thinks_one_tier_above_the_writer
-        # 참고. 잠글 것은 "정책이 정한 모델이 실제 호출까지 간다"는 사실이다.
         self.assertEqual(called.call_args.kwargs["model"],
                          llm_policy.profile("card_editorial_narrator").model())
         self.assertEqual(called.call_args.kwargs["label"], "cards:card_editorial_narrator")
@@ -224,7 +212,7 @@ class CallCountTests(unittest.TestCase):
     def _run(self, story_payload, responses, story_bad=()):
         calls: list[dict] = []
         with mock.patch.object(make_cards, "story_problems",
-                               side_effect=lambda *_: list(story_bad)),                 mock.patch.object(make_cards, "card_editorial") as fake:
+                               side_effect=lambda *_, **__: list(story_bad)),                 mock.patch.object(make_cards, "card_editorial") as fake:
             fake.validate_brief = card_editorial.validate_brief
             fake.daily_writer_system = lambda **_: "sys"
             fake.writer_system = lambda **_: "sys"
@@ -249,6 +237,33 @@ class CallCountTests(unittest.TestCase):
         self.assertIsNotNone(story)
         self.assertEqual([c.args[0] for c in call.call_args_list],
                          ["card_editorial_narrator", "card_writer"])
+
+    def test_a_follow_up_story_tells_the_writer_since_when(self):
+        """후속 스토리면 Writer 가 브리프에서 지난 카드 날짜와 새 사건을 본다."""
+        since = {"date": "2026-09-18", "new_event_ids": ["e"], "new_titles": ["새 사건"]}
+        payload = {"thread_id": "thread-x", "events": [{"date": "2026-09-19"}],
+                   "since_last": since}
+        _daily, _story, call = self._run(payload, [brief(story_thread="thread-x"),
+                                                   copy(with_story=True)])
+        sent = call.call_args_list[1].args[2]
+        self.assertEqual(sent["brief"]["story"]["since_last"], since)
+
+    def test_the_desk_sees_every_candidate_and_its_pick_reaches_the_writer(self):
+        """편집 데스크는 코드 선택을 보지 않고 후보 전부에서 고른다. 그 선택이 Writer 로 간다."""
+        cands = [{"n": i + 1, "date": f"2026-09-{10 + i:02d}", "title": f"사건{i + 1}",
+                  "source_event_id": f"e{i + 1}", "relation_to_next": ""} for i in range(6)]
+        payload = {"thread_id": "thread-x", "candidates": cands, "code_pick": [0, 1, 2, 5],
+                   "events": [dict(cands[i]) for i in (0, 1, 2, 5)], "background": []}
+        desk = brief(story_thread="thread-x")
+        desk["story"]["timeline_pick"] = [1, 4, 5]
+        _daily, _story, call = self._run(payload, [desk, copy(with_story=True)])
+        narrator_story = call.call_args_list[0].args[2]["story"]
+        self.assertNotIn("events", narrator_story)
+        self.assertNotIn("code_pick", narrator_story)
+        self.assertEqual(len(narrator_story["candidates"]), 6)
+        sent = call.call_args_list[1].args[2]["story_events"]
+        self.assertEqual([e["source_event_id"] for e in sent], ["e1", "e4", "e5", "e6"])
+        self.assertEqual(payload["timeline_pick"]["used"], "모델")
 
     def test_a_narrator_failure_drops_the_story_and_keeps_the_daily_card(self):
         """**일일 카드는 핵심 산출물이다.** 스토리 때문에 같이 빠지지 않는다."""
@@ -277,6 +292,54 @@ class CallCountTests(unittest.TestCase):
         self.assertEqual([c.args[0] for c in call.call_args_list],
                          ["card_daily_writer", "card_writer_repair"])
 
+    def test_an_overlong_line_goes_to_repair_instead_of_being_cut(self):
+        """**자르기 전에 먼저 줄여 쓰게 한다.** 2026-09-26 카드는 repair 없이
+        normalize 가 잘라 "집행합…"·"요구됩…" 토막으로 나갔다 — 길이 초과가
+        검증에 한 번도 안 걸렸기 때문이다."""
+        long = copy()["daily"]
+        long["steps"][0]["facts"][0] = "가" * (make_cards.FACT_MAX + 6)
+        daily, _story, call = self._run(None, [long, copy()["daily"]])
+        self.assertIsNotNone(daily)
+        self.assertEqual([c.args[0] for c in call.call_args_list],
+                         ["card_daily_writer", "card_writer_repair"])
+        asked = call.call_args_list[1].kwargs["fix_these"]
+        self.assertTrue(any("자 > " in p and "다시 요약" in p for p in asked), asked)
+
+    def test_a_narrative_ending_is_asked_back_once_but_never_drops_the_album(self):
+        """카드 문구는 개조식이다. 09-26 은 "~습니다" 로 나와 줄마다 잘렸다.
+        첫 회차에만 되묻고, repair 뒤에도 서술형이면 그대로 보낸다."""
+        wordy = copy()["daily"]
+        wordy["steps"][0]["facts"][0] = "진안·금산에서 착수했습니다"
+        daily, _story, call = self._run(None, [wordy, json.loads(json.dumps(wordy))])
+        self.assertIsNotNone(daily)
+        self.assertEqual([c.args[0] for c in call.call_args_list],
+                         ["card_daily_writer", "card_writer_repair"])
+        asked = call.call_args_list[1].kwargs["fix_these"]
+        self.assertTrue(any("서술형 종결" in p for p in asked), asked)
+
+    def test_the_raw_copy_is_kept_before_normalize_cuts_it(self):
+        """자르기 전 원문을 남긴다 — 09-26 에는 모델이 몇 자를 썼는지 확인할 길이 없었다."""
+        long = copy()["daily"]
+        long["steps"][0]["facts"][0] = "가나다 " * 14
+        written = long["steps"][0]["facts"][0]
+        make_cards._RAW_ROUNDS.clear()
+        self._run(None, [long, json.loads(json.dumps(long))])
+        kept = [r["daily"]["steps"][0]["facts"][0] for r in make_cards._RAW_ROUNDS]
+        make_cards._RAW_ROUNDS.clear()
+        self.assertEqual(kept, [written] * 2)
+        self.assertNotEqual(long["steps"][0]["facts"][0], written)  # 카드 쪽은 잘렸다
+
+    def test_an_overlong_line_that_survives_the_repair_is_cut_not_dropped(self):
+        """repair 뒤에도 넘치면 그때 clip() 이 받는다 — 길이 한 자에 앨범을
+        떨어뜨리지 않는다는 09-20 원칙은 그대로다."""
+        long = copy()["daily"]
+        long["steps"][0]["facts"][0] = "가나다 " * 14
+        daily, _story, call = self._run(None, [long, json.loads(json.dumps(long))])
+        self.assertIsNotNone(daily)
+        self.assertEqual(call.call_count, 2)
+        self.assertLessEqual(make_cards.visible_len(daily["steps"][0]["facts"][0]),
+                             make_cards.FACT_MAX)
+
     def test_a_failure_that_survives_the_repair_gives_up_instead_of_shipping_it(self):
         bad = copy()["daily"]
         bad["steps"][0]["why"] = ["진안·금산에서 착수", "실증기간 1년"]
@@ -299,7 +362,7 @@ class StoryDomainTests(unittest.TestCase):
         calls: list[dict] = []
         seq = iter(story_bad_sequence)
         with mock.patch.object(make_cards, "story_problems",
-                               side_effect=lambda *_: list(next(seq, []))),                 mock.patch.object(make_cards, "card_editorial") as fake:
+                               side_effect=lambda *_, **__: list(next(seq, []))),                 mock.patch.object(make_cards, "card_editorial") as fake:
             fake.validate_brief = card_editorial.validate_brief
             fake.normalize_brief = card_editorial.normalize_brief
             fake.daily_writer_system = lambda **_: "sys"
@@ -418,8 +481,7 @@ class CallLogTests(unittest.TestCase):
         self.assertTrue(rows[1]["repair"])
         for row in rows:
             self.assertEqual(row["max_http_attempts"], card_editorial.CARD_LLM_RETRIES + 1)
-            # 모델 이름은 정책이 정한다(이식 메모: 위 ModelPolicyTests).
-            self.assertEqual(row["model"], llm_policy.profile("card_writer").model())
+            self.assertEqual(row["model"], "gemini-3.1-flash-lite")
 
     def test_the_worst_case_is_far_below_the_old_one(self):
         """예전: 바깥 2회 × call_json 기본 4회 = 8. 지금: 논리 2회 × 2 = 4."""

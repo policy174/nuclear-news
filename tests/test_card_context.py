@@ -234,6 +234,37 @@ class CandidateTests(unittest.TestCase):
         top = [issue(SAR_SEP, SAR_SEP_TITLE, thread_id=SAR_THREAD)]
         self.assertIsNone(card_context.pick_story_candidate(data, top))
 
+    def test_no_candidate_still_says_why_for_every_rank(self):
+        """2026-09-21: 상위 3건이 전부 빠졌는데 로그에는 이유가 없었다.
+
+        1위는 그날 새 id 로 조폐되어 thread_id 가 빈칸, 2위는 원래 스레드 없음,
+        3위는 자격 미달 — 세 가지가 다 다른 원인인데 밖으로는 같은 None 이었다.
+        """
+        thread = sar_thread()
+        thread["flow"][0]["relation_to_next"] = "same_matter"
+        data = card_context.SiteData(date="2026-09-21", issues=[], source="today",
+                                     generation_id="g", threads=threads(thread))
+        top = [issue("story-fc64f50e257b3a0a", "정부, 2000억 달러 규모 대미투자 협상"),
+               issue("story-5b2aa08eeeb78c3e", "북한, IAEA 결의안 거부", thread_id="thread-ghost"),
+               issue(SAR_SEP, SAR_SEP_TITLE, thread_id=SAR_THREAD)]
+        reasons: list[str] = []
+        self.assertIsNone(card_context.pick_story_candidate(data, top, reasons))
+        self.assertEqual(len(reasons), 3)
+        self.assertIn("#1 정부, 2000억 달러 규모 대미투자 → 스레드 없음", reasons[0])
+        self.assertIn("issue_id=story-fc64f50e257b3a0a", reasons[0])
+        self.assertIn("thread_id=빈칸", reasons[0])
+        self.assertIn("thread_id=thread-ghost — 원장에 없는 스레드", reasons[1])
+        self.assertIn(f"#3 {SAR_SEP_TITLE[:20]} → {SAR_THREAD}: 진행 관계 없음", reasons[2])
+
+    def test_reasons_are_optional_and_a_found_candidate_leaves_them_short(self):
+        top = [issue("story-1", "스토리 없는 1위"),
+               issue(SAR_SEP, SAR_SEP_TITLE, thread_id=SAR_THREAD)]
+        reasons: list[str] = []
+        found = card_context.pick_story_candidate(self._data(top), top, reasons)
+        self.assertIsNotNone(found)
+        self.assertEqual(len(reasons), 1)  # 1위가 왜 아닌지만 남는다
+        self.assertIsNotNone(card_context.pick_story_candidate(self._data(top), top))
+
     def test_a_hidden_payload_raises_so_the_caller_can_split_domains(self):
         data = card_context.SiteData(date="2026-09-20", issues=[], source="today",
                                      generation_id="g", threads=threads(visible=False))
@@ -288,6 +319,137 @@ class LoadTests(unittest.TestCase):
             tmp = self._dir(stack)
             with self.assertRaises(card_context.ContextError):
                 card_context.load_site_data("2026-01-01", tmp)
+
+
+# 2026-09-26 대미 전략투자 스레드(thread-69334fcff32b6984). 원장의 제목·날짜·인접
+# 관계를 그대로 옮겼다(08-17·08-18 같은 제목 두 건은 flow 가 한 칸으로 접는다).
+US_INVEST_FLOW = [
+    ("story-a", "2026-08-17", "정부, 2000억 달러 규모 대미 전략투자 첫 사업 막판 조율", "stage_progress"),
+    ("story-b", "2026-08-30", "한미 원전 노형 배분 등 이견으로 대미 투자 MOU 서명 연기", ""),
+    ("story-c", "2026-09-11", "미국, 한국의 대미 투자 지연에 불만…일본과 비교하며 속도 압박", ""),
+    ("story-d", "2026-09-12", "한-미, 대미 에너지 투자 협상 막판 조율", ""),
+    ("story-e", "2026-09-25", "한미 투자 패키지 중 APR1400 미국 도입 합의 지연", "cause_effect"),
+    ("story-f", "2026-09-25", "정부, 대미 전략투자 연간 200억 달러 제한 재확인", "same_matter"),
+    ("story-g", "2026-09-26", "정부, 대미 전략투자 첫 사업으로 텍사스 가스복합발전소 건설 확정", ""),
+]
+
+
+def us_invest_rows():
+    return [_flow_row(sid, title, date, rel, [sid]) for sid, date, title, rel in US_INVEST_FLOW]
+
+
+class TimelineSelectionTests(unittest.TestCase):
+    """7~8건 중 타임라인 4칸을 **코드가** 고른다 — 모델에게 맡기면 기준이 날마다 다르다."""
+
+    def test_the_real_thread_keeps_the_turning_points(self):
+        rows = us_invest_rows()
+        picked = [rows[i]["source_event_id"] for i in card_context.select_timeline(rows, 4)]
+        # 모델은 09-25 APR1400 지연(원인→결과 전환점)을 빼고 관계 판정도 없는
+        # 09-11 속도 압박을 넣었다. 기준으로 고르면 흐름이 선다.
+        self.assertEqual(picked, ["story-a", "story-b", "story-e", "story-g"])
+
+    def test_the_first_and_today_are_always_kept(self):
+        rows = us_invest_rows()
+        for limit in (2, 3, 4):
+            picked = card_context.select_timeline(rows, limit)
+            self.assertEqual(len(picked), limit)
+            self.assertEqual(picked[0], 0)
+            self.assertEqual(picked[-1], len(rows) - 1)
+
+    def test_fewer_events_than_slots_keeps_all(self):
+        rows = us_invest_rows()[:3]
+        self.assertEqual(card_context.select_timeline(rows, 4), [0, 1, 2])
+
+    def test_a_restatement_loses_to_the_step_it_repeats(self):
+        rows = us_invest_rows()
+        score_f, why_f = card_context.timeline_score(rows, 5)
+        score_e, _ = card_context.timeline_score(rows, 4)
+        self.assertIn("같은사안", why_f)
+        self.assertLess(score_f, score_e)
+
+    def test_khnp_relevance_breaks_a_tie_between_unjudged_rows(self):
+        rows = [_flow_row(f"s{i}", title, f"2026-09-{10 + i:02d}", "", [f"h{i}"])
+                for i, title in enumerate(["출발", "미국 투자 압박 발언",
+                                           "원전 노형 배분 협의 착수", "재정 당국 입장 발표",
+                                           "오늘 사건"])]
+        picked = card_context.select_timeline(rows, 3)
+        self.assertEqual([rows[i]["source_event_id"] for i in picked], ["s0", "s2", "s4"])
+
+    def test_the_packet_carries_only_the_picked_events_and_the_rest_as_background(self):
+        rows = us_invest_rows()
+        thread = sar_thread(flow=rows)
+        candidate = card_context.StoryCandidate(issue=issue("story-g", "텍사스"), thread=thread,
+                                                rank=1, events=rows)
+        packet = card_context.evidence_packet(candidate, "2026-09-26", topic="정책")
+        self.assertEqual([e["source_event_id"] for e in packet["events"]],
+                         ["story-a", "story-b", "story-e", "story-g"])
+        self.assertEqual([b["date"] for b in packet["background"]],
+                         ["2026-09-11", "2026-09-12", "2026-09-25"])
+        # 관계는 타임라인에서도 이웃일 때만 — 08-17 → 08-30 은 원래 이웃이라 남고,
+        # 09-25 APR1400 → 09-26 은 사이(200억 제한)를 건너뛰었으므로 비운다.
+        relations = [e["relation_to_next"] for e in packet["events"]]
+        self.assertEqual(relations, ["stage_progress", "", "", ""])
+
+
+class NarratorPickTests(unittest.TestCase):
+    """오늘 사건은 코드가 못 박고, 나머지 칸은 편집 데스크가 고른다. 틀리면 코드 선택."""
+
+    def packet(self):
+        rows = us_invest_rows()
+        thread = sar_thread(flow=rows)
+        candidate = card_context.StoryCandidate(issue=issue("story-g", "텍사스"), thread=thread,
+                                                rank=1, events=rows)
+        return card_context.evidence_packet(candidate, "2026-09-26", topic="정책")
+
+    def test_every_event_is_a_numbered_candidate(self):
+        packet = self.packet()
+        self.assertEqual([c["n"] for c in packet["candidates"]], list(range(1, 8)))
+        self.assertEqual(packet["code_pick"], [0, 1, 4, 6])
+
+    def test_a_valid_model_pick_is_used_and_today_is_always_last(self):
+        packet = self.packet()
+        line = card_context.choose_timeline(packet, [1, 2, 5])
+        self.assertIn("사용: 모델", line)
+        self.assertEqual([e["source_event_id"] for e in packet["events"]],
+                         ["story-a", "story-b", "story-e", "story-g"])
+        self.assertEqual(packet["timeline_pick"]["code"], [1, 2, 5, 7])
+
+    def test_the_model_may_or_may_not_list_today(self):
+        for pick in ([1, 3, 5], [1, 3, 5, 7]):
+            with self.subTest(pick=pick):
+                self.assertEqual(card_context.check_model_pick(pick, 7)[0], [0, 2, 4, 6])
+
+    def test_a_broken_pick_falls_back_to_the_code_pick(self):
+        for pick in (None, "1,2,3", [1, 2], [1, 1, 3], [0, 2, 3], [1, 2, 9], [True, 2, 3]):
+            with self.subTest(pick=pick):
+                packet = self.packet()
+                line = card_context.choose_timeline(packet, pick)
+                self.assertIn("사용: 코드", line)
+                self.assertEqual(packet["timeline_pick"]["final"], [1, 2, 5, 7])
+                self.assertEqual(packet["events"][-1]["source_event_id"], "story-g")
+
+    def test_a_short_story_takes_every_event(self):
+        rows = us_invest_rows()[:3]
+        packet = card_context.evidence_packet(
+            card_context.StoryCandidate(issue=issue("x", "x"), thread=sar_thread(flow=rows),
+                                        rank=1, events=rows), "2026-09-26")
+        card_context.choose_timeline(packet, [])
+        self.assertEqual(len(packet["events"]), 3)
+
+    def test_a_distant_repeat_is_marked_and_scored_down(self):
+        """09-23: 08-11 과 08-20 이 같은 제목인데 인접 관계로는 안 잡혔다."""
+        rows = [_flow_row(f"s{i}", title, f"2026-08-{10 + i:02d}", "", [f"h{i}"])
+                for i, title in enumerate(["공론화 방침", "신규 원전 공론화 결정", "전기본 토론회",
+                                           "신규 원전 공론화 결정", "전기본 반영 논의"])]
+        packet = card_context.evidence_packet(
+            card_context.StoryCandidate(issue=issue("x", "x"), thread=sar_thread(flow=rows),
+                                        rank=1, events=rows), "2026-09-26")
+        self.assertEqual(packet["candidates"][3].get("repeats"), 2)
+        first, _ = card_context.timeline_score(rows, 1)
+        again, why = card_context.timeline_score(rows, 3)
+        self.assertIn("되풀이", why)
+        # 같은 제목의 뒤 사건은 앞 사건보다 되풀이 감점만큼 낮다(직전 가점은 따로 더한다).
+        self.assertEqual(again, first + card_context.LEAD_IN_POINTS - card_context.RESTATED_PENALTY)
 
 
 if __name__ == "__main__":

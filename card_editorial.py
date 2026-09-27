@@ -110,6 +110,12 @@ RUBRIC = """편집 기준
 - 「정책적 의미가 큼」·「귀추 주목」·「관심 필요」·「영향 예상」 같은 문구는
   구체적인 결과 없이 쓰지 않는다. 무엇이 어떻게 달라지는지를 적는다.
 
+[말투]
+- 카드 문구는 **개조식 체언 종결**로 쓴다 — "~함"·"~됨"·"~임" 또는 명사로 끝낸다.
+  예) "원전 8기 노형 배분 합의 지연" / "연간 200억 달러 한도로 집행함" / "후속 일정은 미정임"
+- "~습니다"·"~합니다"·"~했다" 같은 서술형으로 쓰지 않는다. 글자가 늘어 카드에서 잘린다.
+- 예외는 스토리의 cover.deck·facts.lede 둘뿐이다(아래 story 규칙).
+
 [반복 금지]
 - 같은 사실이 제목·사실·의미 세 군데에 나오면 그 카드는 한 가지만 말한 것이다.
 
@@ -146,11 +152,25 @@ JSON 만 출력한다. 스키마:
    "key_change": 이 스토리의 핵심 변화,
    "core_issues": [현재 해결·결정되지 않은 것 2~3개],
    "so_what": [정책·시장·사업에서 달라지는 것 2~3개],
-   "confirmed_facts": [입력 events 로 확인된 사실 2~4개],
+   "confirmed_facts": [입력 candidates 로 확인된 사실 2~4개],
    "unknowns": [아직 모르는 것 1~3개],
-   "watchpoints": [다음에 확인해야 할 결정·실증·승인 2~5개]
+   "watchpoints": [다음에 확인해야 할 결정·실증·승인 2~5개],
+   "timeline_pick": [타임라인에 세울 candidates 의 n 번호] — 아래 규칙
  }}
 }}
+
+timeline_pick — 스토리 2장 타임라인에 세울 사건을 고른다. 칸은 {TIMELINE_ROWS}개다.
+- 마지막 후보(가장 큰 n)는 오늘 사건이라 **항상 들어간다.** 그것을 **빼고**
+  {TIMELINE_ROWS - 1}개를 고른다. 후보가 {TIMELINE_ROWS}개 이하면 [] 로 둔다.
+- 이 사안이 **어떻게 여기까지 왔는지** 한눈에 보이게 고른다. 앞세울 것:
+  출발점, 흐름이 바뀐 지점(relation_to_next 가 stage_progress·cause_effect),
+  한수원 사업·원전과 직접 닿는 사건.
+- 같은 얘기를 되풀이한 사건은 고르지 않는다 — relation_to_next 가 same_matter 이거나
+  repeats 가 붙은 후보(앞의 같은 제목 후보 번호다).
+- 입력에 있는 n 만 쓴다. 번호가 틀리면 코드가 대신 고른다.
+
+story.since_last 가 있으면 이 스토리는 그 날짜에 이미 카드로 나갔다. key_change 는
+그 날짜 이후 새로 붙은 사건(new_titles)으로 달라진 것이어야 한다.
 
 story 는 **일일 카드의 확대판이 아니다**. 일일은 "오늘 무엇이 달라졌는가",
 story 는 "이 사안이 어떻게 여기까지 왔는가" 를 보여 준다.
@@ -180,7 +200,7 @@ STORY_SCHEMA = f"""
              "badge": {{"value": 핵심 숫자({BADGE_VALUE_MAX}자 이내),
                        "label": 그 숫자가 무엇인지({BADGE_LABEL_MAX}자 이내)}} 또는 null}},
   "facts":  {{"lede": {LEDE_MAX}자 이내 한 줄,
-             "timeline": [{{"when": 날짜, "what": {WHAT_MAX}자 이내}}] 입력 events 수만큼(최대 {TIMELINE_ROWS}),
+             "timeline": [{{"when": 날짜, "what": {WHAT_MAX}자 이내}}] 입력 story_events **하나에 한 줄, 같은 순서로**,
              "note": {NOTE_MAX}자 이내 (없으면 "")}},
   "issues": [{{"title": {ISSUE_TITLE_MAX}자 이내, "points": [{ISSUE_POINT_MAX}자 이내] 1~2개,
              "icon": {" | ".join(ISSUE_ICONS)} 중 하나}}] {ISSUE_COUNT}개,
@@ -194,13 +214,21 @@ STORY_SCHEMA = f"""
  }}
 
 story 규칙:
-- **timeline[].when 은 입력 events 의 날짜만 쓴다.** 없던 날짜를 붙이지 않는다.
-- events 가 {TIMELINE_ROWS}개 미만이면 **그 개수만큼만** 쓴다. '현재' 같은 행을 지어내지 않는다.
+- **story_events 는 타임라인에 세울 사건으로 이미 골라 둔 것이다.** event 하나마다 한 줄을,
+  입력과 같은 순서로 쓴다. 고르거나 빼거나 합치지 않는다. 마지막 event 가 오늘 사건이다.
+- **timeline[].when 은 그 event 의 날짜만 쓴다.** 없던 날짜를 붙이지 않는다.
+  '현재' 같은 행을 지어내지 않는다.
 - 각 timeline 행은 **자기 event 의 내용만** 쓴다. 다른 날 사건을 끌어오지 않는다.
+- story_background 는 타임라인에 **넣지 않은** 사건이다. 쟁점·의미를 쓸 때 재료로만 쓰고
+  timeline 행으로 만들지 않는다.
 - badge.value 의 숫자는 입력에 나온 숫자여야 한다. 없으면 badge 를 null 로.
 - checks 는 반드시 섞는다: 앞의 2~3개는 이미 일어난 사실(done=true),
   나머지는 앞으로 볼 것(done=false). 전부 같은 값이면 버려진다.
-- 문장은 카드뉴스 말투(~습니다/~입니다)로 짧게."""
+- 브리프 story.since_last 가 있으면 이 스토리는 그 날짜에 이미 카드로 나갔다(후속이다).
+  cover.deck 과 facts.lede 는 그 뒤 **새로 붙은 사건(new_titles)** 부터 쓴다.
+  지난 카드에서 한 얘기를 처음부터 되풀이하지 않는다.
+- 말투: cover.deck·facts.lede 만 "~습니다" 서술형으로 짧게. 나머지(제목·타임라인·
+  쟁점·의미·인용·체크리스트·aside)는 위 [말투] 대로 개조식 체언 종결."""
 
 
 def writer_system(bullets_min: int, bullets_max: int, headline_max: int,

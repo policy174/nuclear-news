@@ -83,6 +83,18 @@ def publish(album: dict, site_dir: Path, album_root: Path, today: date_type | No
     return index
 
 
+def record_story(album: dict, path: Path) -> None:
+    """실제로 사이트에 나간 스토리 카드만 이력에 적는다(card_context.repeat_verdict 가 읽는다)."""
+    import card_context  # noqa: PLC0415 — 일일 게시 경로는 이 모듈이 필요 없다
+    history = card_context.record_story_card(
+        card_context.load_story_history(path), date=str(album["date"]),
+        thread_id=str(album["thread_id"]), issue_id=str(album.get("issue_id") or ""),
+        ids=list(album.get("event_ids") or []))
+    card_context.save_story_history(history, path)
+    print(f"[cards] 스토리 이력: {album['date']} {album['thread_id']} "
+          f"사건 {len(album.get('event_ids') or [])}건 (누적 {len(history)})")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--album", type=Path, default=ALBUM_FILE)
@@ -94,6 +106,8 @@ def main() -> int:
         return 0
     album = json.loads(args.album.read_text(encoding="utf-8"))
     index = publish(album, args.site_dir, args.album.resolve().parents[1], kind=args.kind)
+    if args.kind == "story" and album.get("thread_id"):
+        record_story(album, args.site_dir / "story_history.json")
     bucket = index["stories"] if args.kind == "story" else index["dates"]
     print(f"[cards] 사이트 게시({args.kind}): {album['date']} "
           f"{len(bucket.get(album['date']) or [])}장 (보관 {len(bucket)}일치) → {args.site_dir}")

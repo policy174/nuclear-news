@@ -86,7 +86,9 @@ def _card_writer_model() -> str:
     # 되고 "편집 판단은 한 단 위" 라는 이 표의 전제가 조용히 사라진다.
     # 받아쓰기 자리는 이 저장소가 이미 굶었을 때 물러서는 lite 를 기본으로 쓴다
     # (GEMINI_FALLBACK_MODEL 체인의 첫 칸). 모델을 새로 들이지 않는다.
-    _writer_default = gemini_client.FALLBACK_MODEL or _main_model()
+    # 2026-09-27: 2.5-flash-lite(FALLBACK_MODEL) 는 hook 모양을 틀리고 없는 숫자를
+    # 지어내 QA 에서 매일 떨어졌다 → v2 와 같은 3.1-flash-lite 로 맞춘다(별도 쿼터 버킷).
+    _writer_default = "gemini-3.1-flash-lite"
     return gemini_client._resolve(
         "CARD_WRITER_MODEL",
         gemini_client._resolve("CARDS_GEMINI_MODEL", _writer_default) or _writer_default,

@@ -189,6 +189,8 @@ def similarity(left: object, right: object) -> float:
 
 _UNIT = r"(?:GW|MW|kW|TW|㎿|㎾|GWh|MWh|원|달러|억|조|만|퍼센트|%|년|개월|일|건|기|호기|명|배|km|㎞|t|톤)"
 _NUMBER_RE = re.compile(rf"(\d[\d,]*(?:\.\d+)?)\s*({_UNIT})?")
+_KR_DIGIT = {"천": 1000, "백": 100}
+_KR_DIGIT_RE = re.compile(r"(\d+(?:\.\d+)?)\s*([천백])")
 _ISO_DATE_RE = re.compile(r"(\d{4})-(\d{1,2})-(\d{1,2})")
 _KR_DATE_RE = re.compile(r"(?:(\d{4})\s*년\s*)?(\d{1,2})\s*월\s*(\d{1,2})\s*일")
 _DOT_DATE_RE = re.compile(r"(?:(\d{4})\s*\.\s*)?(\d{1,2})\s*\.\s*(\d{1,2})\b")
@@ -212,6 +214,10 @@ def date_atoms(text: object) -> set[tuple[int, int]]:
 def number_atoms(text: object) -> set[tuple[str, str]]:
     """(값, 단위). 날짜로 읽히는 숫자는 뺀다 — 그쪽은 `date_atoms` 가 본다."""
     value = unicodedata.normalize("NFKC", str(text or ""))
+    # "7천억" 과 "7000억" 은 같은 값이다. 펴지 않으면 "7" 이 지어낸 숫자로 걸려
+    # 카피 전체가 폴백으로 떨어진다(2026-09-27: "210조 7천억 원" vs 원문 "7000억원").
+    value = _KR_DIGIT_RE.sub(
+        lambda m: f"{float(m.group(1)) * _KR_DIGIT[m.group(2)]:g}", value)
     spans = [match.span() for pattern in (_ISO_DATE_RE, _KR_DATE_RE, _DOT_DATE_RE)
              for match in pattern.finditer(value)]
     out: set[tuple[str, str]] = set()

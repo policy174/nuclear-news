@@ -128,6 +128,11 @@ class GroundingTests(unittest.TestCase):
         self.assertTrue(card_qa.ungrounded("17건 의결", "170건 접수"))
         self.assertFalse(card_qa.ungrounded("170건 접수", "170건 접수"))
 
+    def test_korean_digit_words_match_arabic(self):
+        """2026-09-27: "7천억" 이 원문 "7000억원" 과 다른 숫자로 걸려 카드가 폴백됐다."""
+        self.assertFalse(card_qa.ungrounded("부채 210조 7천억 원", "210조 7000억원"))
+        self.assertTrue(card_qa.ungrounded("부채 8천억 원", "7000억원"))
+
     def test_numbers_the_card_counted_itself_are_allowed(self):
         """표지의 "현안 3건" 은 입력이 아니라 카드가 센 수다 — 걸리면 안 된다."""
         item = {"title": "t", "summary": SOURCE, "detail": "", "why_important": "",

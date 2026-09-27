@@ -311,11 +311,14 @@ def _salvage_json(text: str) -> dict:
     a, b = s.find("{"), s.rfind("}")
     if a != -1 and b > a:
         s = s[a:b + 1]
+    # 첫 객체만 읽고 뒤는 버린다(v2 09-23 수리 이식). 온전한 객체 뒤에 객체를
+    # 하나 더 붙인 응답이 'Extra data' 로 죽는다 — 2026-09-27 카드 Writer 실측.
+    decoder = json.JSONDecoder()
     try:
-        return json.loads(s)
+        return decoder.raw_decode(s)[0]
     except json.JSONDecodeError:
         # 문자열 값 안의 raw 줄바꿈을 공백으로 (이스케이프된 \\n 은 건드리지 않음)
-        return json.loads(s.replace("\r", " ").replace("\n", " "))
+        return decoder.raw_decode(s.replace("\r", " ").replace("\n", " "))[0]
 
 
 def _finish_reason(payload: object) -> str:
@@ -355,8 +358,13 @@ def call_json(
     model: str | None = None,
     fallback_model: str | None = None,
     label: str = "unlabeled",
+    trace_sink=None,
 ) -> dict:
     """system+user 한 쌍을 Gemini에 보내고 JSON 객체로 파싱해 반환.
+
+    - trace_sink 를 주면 성공 응답의 토큰 사용량을 {"detail": {...}} 로 넘긴다.
+      v2 에서 이식한 카드 모듈(card_editorial)이 이 인자를 쓴다 — 없던 동안
+      2026-09-27 카드가 TypeError 로 매일 폴백 문장("…" 토막)으로 나갔다.
 
     - response_mime_type=application/json 으로 펜스·머리말 없는 순수 JSON 강제.
     - 429/일시 오류는 지수 백오프로 retries 만큼 재시도.
@@ -388,7 +396,7 @@ def call_json(
             return call_json(
                 system_prompt, user_message, temperature=temperature,
                 max_output_tokens=max_output_tokens, timeout=timeout,
-                retries=retries, thinking_budget=thinking_budget,
+                retries=retries, thinking_budget=thinking_budget, trace_sink=trace_sink,
                 model=model or MODEL, fallback_model=None, label=label)
         except GeminiTruncated:
             # 잘림은 모델을 바꿔도 같은 자리에서 잘린다 — 입력을 줄이라는 신호다.
@@ -401,7 +409,7 @@ def call_json(
             return call_json(
                 system_prompt, user_message, temperature=temperature,
                 max_output_tokens=max_output_tokens, timeout=timeout,
-                retries=retries, thinking_budget=thinking_budget,
+                retries=retries, thinking_budget=thinking_budget, trace_sink=trace_sink,
                 model=fallback_model, fallback_model=None,
                 label=f"{label}:fallback")
 
@@ -420,7 +428,7 @@ def call_json(
                     return call_json(
                         system_prompt, user_message, temperature=temperature,
                         max_output_tokens=max_output_tokens, timeout=timeout,
-                        retries=retries, thinking_budget=thinking_budget,
+                        retries=retries, thinking_budget=thinking_budget, trace_sink=trace_sink,
                         model=chain_model, fallback_model=None,
                         label=label if step == 0 else f"{label}:fallback")
                 except GeminiTruncated:
@@ -475,6 +483,15 @@ def call_json(
                 if _finish_reason(payload) == "MAX_TOKENS":
                     raise GeminiTruncated(_truncation_detail(payload)) from e
                 raise GeminiError(f"응답 구조 비정상: {payload}") from e
+            if trace_sink is not None:
+                meta = payload.get("usageMetadata") or {}
+                trace_sink({"detail": {
+                    "prompt_tokens": meta.get("promptTokenCount"),
+                    "candidate_tokens": meta.get("candidatesTokenCount"),
+                    "thought_tokens": meta.get("thoughtsTokenCount"),
+                    "total_tokens": meta.get("totalTokenCount"),
+                    "finish_reason": _finish_reason(payload),
+                }})
             try:
                 return json.loads(text)
             except json.JSONDecodeError:

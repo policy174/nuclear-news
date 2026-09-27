@@ -45,6 +45,35 @@ ALBUM_FILE = CARDS_DIR / "album.json"
 # 날은 편집 데스크를 한 번만 부르고, 그 결과로 두 산출물을 다 쓴다. 그래서
 # story_cards 는 정상 경로에서 **LLM 을 부르지 않는다** — 렌더와 검증만 한다.
 STORY_COPY_FILE = CARDS_DIR / "story_copy.json"
+# 모델이 쓴 카피를 **자르기 전 그대로** 남긴다. 2026-09-26 카드가 "…" 로 잘려
+# 나갔을 때 모델이 원래 몇 자를 썼는지 확인할 길이 없어 원인을 추정으로만
+# 짚었다. 워크플로가 Actions 산출물로 올린다(커밋하지 않는다).
+#
+# 카피만 싣는다 — 편집 브리프와 입력 재료는 빼고, 회차별 daily·story 칸만.
+RAW_COPY_FILE = CARDS_DIR / "copy_raw.json"
+_RAW_ROUNDS: list[dict] = []
+# 타임라인 선택의 모델·코드 비교(card_context.choose_timeline). 같은 산출물에 싣는다.
+_TIMELINE_PICK: dict = {}
+
+
+def keep_raw_copy(task: str, response: object) -> None:
+    """Writer 응답을 normalize 가 손대기 전에 복사해 둔다."""
+    if not isinstance(response, dict):
+        return
+    daily = response.get("daily") if isinstance(response.get("daily"), dict) else (
+        response if "steps" in response else None)
+    _RAW_ROUNDS.append({"task": task,
+                        "daily": json.loads(json.dumps(daily, ensure_ascii=False)),
+                        "story": json.loads(json.dumps(response.get("story"), ensure_ascii=False))})
+
+
+def save_raw_copy(date: str) -> None:
+    if not _RAW_ROUNDS:
+        return
+    RAW_COPY_FILE.write_text(json.dumps({"date": date, "rounds": _RAW_ROUNDS,
+                                         "timeline_pick": _TIMELINE_PICK or None},
+                                        ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"[cards] 원문 카피 {len(_RAW_ROUNDS)}회차 → {RAW_COPY_FILE.name}")
 OUTBOX_FILE = ROOT / "outbox.json"
 # 사이트가 매일 굽는 순위. web/build_data.py 가 배포 스텝에서 만든다(gitignore).
 BRIEFINGS_FILE = ROOT / "web" / "public" / "data" / "briefings.json"
@@ -72,7 +101,6 @@ TELEGRAM_ALBUM_MAX = 10
 # 폭이라 72px 에서 한 줄에 9자, 강조줄(1.13em)은 7자다 — 16자를 넘기면 3줄이 되고
 # 렌더가 글자를 줄여 제목이 작아진다(지니 09-20: "3줄일 필요가 있나, 자리만 차지").
 # 목표 14자, 상한 18자(72px 2줄의 실측 한계). 22자까지는 렌더 축소(하한 52px)가 2줄로 앉힌다.
-HEADLINE_TARGET = 14
 HEADLINE_MAX = 18
 # 18자는 **취향**(72px 2줄)이고, 28자는 **렌더 한계**(축소 하한 52px 2줄)다. 이 둘을
 # 같은 숫자로 쓰다 09-20 아침에 앨범을 통째로 날렸다 — 24자 제목 하나에 카피가
@@ -117,9 +145,7 @@ MIN_PNG_BYTES = 20_000  # 1080×1440 그라디언트 빈 카드가 대략 20KB. 
 # 카드 하단 핸들·캡션에 박히는 주소. 워크플로가 SITE_URL 을 이미 들고 있으므로
 # 그것을 먼저 본다 — v1 에서 가져온 상수를 그대로 두면 v2 카드가 v1 사이트를
 # 광고한다.
-# 기본 도메인은 이 저장소 것이다. v2(차장 포크)에서 카드 파이프라인을 들여올 때
-# 기본값이 nuclens-v2.pages.dev 로 딸려 왔고, 그대로 두면 카드 5장 전부와
-# 텔레그램 캡션이 남의 주소를 달고 나간다(실측: 표지 푸터·본문 푸터·끝장).
+# 기본 도메인은 이 저장소 것이다(v2 에서 들여올 때 nuclens-v2 주소가 딸려 온다).
 SITE = (os.environ.get("SITE_URL") or "https://nuclens.pages.dev").split("//")[-1].strip("/")
 DELIVERY_NOTE = "크롤 완료 직후 발송"  # cron 고정 시각이 아니다 (daily-brief.yml 주 경로 = workflow_run)
 
@@ -151,34 +177,6 @@ APP_JS = ROOT / "web" / "public" / "app.js"
 # (web/build_data.py infer_topics). 그 판정을 그대로 쓴다.
 SENSITIVE_TOPICS = {"safety"}
 SENSITIVE_WORDS = ("피폭", "방사능 누출", "INES", "중대재해")
-
-SYSTEM_PROMPT = f"""너는 한국수력원자력 원자력정책실의 일일 카드뉴스 카피라이터다.
-기사 1건당 카드 **한 장**을 만든다. 한 장 안에 ①무슨 일이 있었나(사실 불릿)
-②왜 중요한가(의미 불릿)를 둘 다 담는다.
-
-출력 형식(JSON 객체 하나):
-{{"hook": {{"headline": "..."}},
-  "steps": [{{"headline": "...", "facts": ["...", "..."], "why": ["...", "..."]}}]}}
-
-- steps 는 입력 기사와 **같은 개수·같은 순서**로 만든다. 하나도 빠뜨리지 않는다.
-- 분류(태그)는 코드가 붙이니 쓰지 않는다.
-- hook.headline: 오늘 전체를 관통하는 한 줄 판단. 한글 {HEADLINE_TARGET}자 이내
-  (최대 {HEADLINE_MAX}자, 넘기면 버려진다). 표지 부제는 코드가 만드니 쓰지 않는다.
-- steps[].headline: 그 기사에서 **무슨 일이 있었나**. 같은 길이 규칙.
-- steps[].facts: **{BULLETS_MAX}개**(재료가 정말 없을 때만 {BULLETS_MIN}개), 각 {FACT_MAX}자 이내. **날짜·기관·대상·결정·수치**처럼
-  원문에 적힌 구체값만. 해석·전망·형용사 금지. 개조식 체언 종결.
-  예) "9월 11일 제2026-14회 회의" / "2건 의결, 1건 재상정"
-- steps[].why: **{BULLETS_MAX}개**(재료가 정말 없을 때만 {BULLETS_MIN}개), 각 {WHY_MAX}자 이내. 정책 영향 / 한수원 시사점 /
-  다음 확인사항 순서를 권장한다. 입력의 why_important·implication·open_question 을
-  재료로 쓰되 그대로 베끼지 말고 한 줄로 줄인다.
-- 강조는 headline 에만 최대 한 곳 `[[대괄호]]`. 불릿에는 쓰지 않는다.
-- 숫자·호기명·국가명·기관명은 원문 그대로 옮긴다. 반올림·추정·의역 금지.
-  **입력에 없는 수치·날짜를 지어내지 않는다.** 재료가 부족하면 불릿 수를 줄인다.
-- 입력 기사에 sensitive=true 가 붙었으면 `[[ ]]` 강조와 수사적 표현을 쓰지 않는다.
-  사실 서술만.
-- 사람인 척하는 페르소나·감탄사·이모지 금지. 개조식 체언 종결을 기본으로 한다.
-- 글자 수는 코드로 다시 잰다. 넘기면 통째로 버려지니 짧게 쓴다."""
-
 
 # ---- A. 카드 소재 선정 + 재료 확보 ---------------------------------------------
 
@@ -263,25 +261,16 @@ def load_site_ranking(date: str) -> list[dict] | None:
 
 
 def pick_items(issue_rows: list[dict], k: int = MAX_CARDS, brief_date: str = "") -> list[dict]:
-    """카드 = 사이트 순위 상위 k **중 보고 후보만**. 순위를 여기서 다시 매기지 않는다.
+    """카드 = 사이트 순위 상위 k. 여기서 다시 고르지 않는다.
 
     순위는 사이트가 이미 정했다(web/build_data.py order_issue_rows — 국내·해외
     맞물림, 편집 고정, must_read, 며칠째 1위 쿨다운). 이슈는 기사가 아니라
     **클러스터**라 같은 사건의 다른 기사가 두 장 나가는 문제도 거기서 끝난다.
     카드가 따로 정렬하면 화면과 카드가 다른 얘기를 하게 된다(2026-09-14 교정).
 
-    거르는 것은 둘이다.
-
-    ① 원문 링크 없는 이슈 — 출처 미확인이라 카드에 못 싣는다.
-
-    ② **보고 후보가 아닌 이슈**(지니 2026-09-21). 카드는 임직원이 캡처해 보고·
-       카톡에 붙이는 이미지 자산이지 읽을거리가 아니다. 그러면 실릴 자격은
-       "오늘 순위가 높다"가 아니라 "보고할 만하다"여야 한다.
-
-       대가를 알고 쓰는 규칙이다. 실측(최근 30일): 보고 후보가 있는 날은
-       19/30(63%)이고 하루 평균 1.2건이다 — **3일에 1일꼴로 카드가 0장**이고,
-       나오는 날도 1~2장이다. 텔레그램 일일 앨범이 그만큼 안 나간다.
-       매일 나가는 쪽으로 되돌리려면 아래 report_pick 조건만 지우면 된다.
+    거르는 것은 둘이다. ① 원문 링크 없는 이슈 ② **보고 후보가 아닌 이슈**
+    (v1 전용, 지니 2026-09-21 — 카드는 보고·카톡에 붙이는 자산). 매일 3건씩
+    나가게 되돌리려면 report_pick 조건만 지우면 된다.
     """
     picked = []
     for row in issue_rows:
@@ -401,7 +390,11 @@ def ask_narrator(items: list[dict], date: str, story: dict | None,
     """
     payload = {"date": date, "issues": _article_payload(items)}
     if story:
-        payload["story"] = story
+        # 편집 데스크는 사건 **전부**(candidates)를 보고 타임라인을 고른다. 코드가
+        # 미리 골라 둔 events·background 는 싣지 않는다 — 같은 사건이 두 번 들어가고,
+        # 코드 선택이 눈앞에 있으면 모델이 그것을 따라 적어 비교가 무의미해진다.
+        payload["story"] = {k: v for k, v in story.items()
+                            if k not in ("events", "background", "code_pick", "timeline_pick")}
     return card_editorial.call(
         "card_editorial_narrator", card_editorial.NARRATOR_SYSTEM, payload,
         max_output_tokens=6144, log=log)
@@ -409,6 +402,7 @@ def ask_narrator(items: list[dict], date: str, story: dict | None,
 
 def ask_writer(brief: dict, items: list[dict], date: str, *, with_story: bool,
                problems: list[str] | None = None, story_events: list[dict] | None = None,
+               story_background: list[dict] | None = None,
                log: list[dict] | None = None, task: str = "card_writer") -> dict:
     """카피라이터. 브리프를 규격에 맞게 적는다 — 기사를 다시 해석하지 않는다."""
     payload = {"date": date, "brief": brief,
@@ -417,6 +411,9 @@ def ask_writer(brief: dict, items: list[dict], date: str, *, with_story: bool,
                "sensitive": [it.get("issue_id", "") for it in items if it["sensitive"]]}
     if with_story and story_events:
         payload["story_events"] = story_events
+        # 타임라인에 안 세운 사건. 쟁점·의미의 재료로만 쓴다(card_context.select_timeline).
+        if story_background:
+            payload["story_background"] = story_background
     # 스토리가 붙는 날은 한 응답에 일일 3장 + 스토리 5장이 들어간다. 예산을
     # 8192 로 두되 **부족해서 생긴 문제는 아니다** — 실측 2026-09-20 에 12288 을
     # 줘도 실제 사용은 1,354 토큰이었다(로그의 tokens=… 가 그것을 보여 준다).
@@ -475,30 +472,112 @@ def normalize(raw: dict, headline_max: int = HEADLINE_HARD,
     return raw
 
 
-def review(raw: dict, items: list[dict], **kwargs) -> list[str]:
+# 검증 메시지 중 **길이 초과**만 골라내는 자. `_check_line` 과
+# `story_cards._line` 이 같은 꼴(`where: 29자 > 26`)로 쓴다.
+_OVERRUN_RE = re.compile(r": \d+자 > \d+")
+LENGTH_ASK = " — 자르지 말고 핵심만 남겨 이 길이 안으로 다시 요약해 쓸 것"
+
+
+def length_overruns(problems: list[str]) -> list[str]:
+    """검증 결과에서 길이 초과만, repair 에 넘길 지시로 바꿔서."""
+    return [p + LENGTH_ASK for p in problems if _OVERRUN_RE.search(p)]
+
+
+# 서술형 종결. 카드 문구는 개조식이다(card_editorial.RUBRIC [말투]).
+#
+# 09-20 에 프롬프트를 card_editorial 로 옮기면서 옛 SYSTEM_PROMPT 의 "개조식
+# 체언 종결" 지시가 빠졌다. 그 뒤로 말투는 모델 재량이었다 — 09-25 는 "~함"
+# 으로, 09-26 은 "~습니다" 로 나왔고 서술형인 날은 글자가 늘어 줄마다 잘렸다.
+# 프롬프트만으로는 흔들리므로 첫 회차에서 한 번 되묻는다. 반려 사유로는 안
+# 쓴다 — repair 뒤에도 서술형이면 그대로 나간다(말투 때문에 앨범을 버리지 않는다).
+_NARRATIVE_END_RE = re.compile(r"(니다|했다|한다|된다|있다|이다|었다|였다)[.。]?$")
+
+
+def narrative_endings(where: str, lines) -> list[str]:
+    out = []
+    for i, line in enumerate(lines or [], start=1):
+        text = str(line or "").replace("[[", "").replace("]]", "").strip()
+        m = _NARRATIVE_END_RE.search(text)
+        if m:
+            out.append(f'{where}[{i}]: 서술형 종결("…{text[-8:]}") — 개조식 체언 종결'
+                       "(~함·~됨·~임·명사)로 다시 쓸 것")
+    return out
+
+
+def daily_style_problems(raw: dict) -> list[str]:
+    if not isinstance(raw, dict):
+        return []
+    out = narrative_endings("hook.headline", [(raw.get("hook") or {}).get("headline")])
+    for n, slide in enumerate(raw.get("steps") or [], start=1):
+        if not isinstance(slide, dict):
+            continue
+        out += narrative_endings(f"steps[{n}].headline", [slide.get("headline")])
+        for key in ("facts", "why"):
+            rows = slide.get(key)
+            out += narrative_endings(f"steps[{n}].{key}", rows if isinstance(rows, list) else [])
+    return out
+
+
+def review(raw: dict, items: list[dict], *, strict_length: bool = False, **kwargs) -> list[str]:
     """규격 검증 + 편집 QA 를 한 번에. **둘 다 통과해야 카드가 나간다.**
 
     규격(`validate`)은 "깨지지 않는가" 를, QA(`card_qa`)는 "같은 말을 두 번
     하지 않는가" 를 본다. 경고는 실패로 세지 않되 목록에는 실어 보낸다 —
     repair 는 경고까지 같이 고칠 기회가 있어야 한다.
+
+    `strict_length` — **자르기 전의 원문**으로 길이를 잰다. 첫 회차에 쓴다.
+    예전에는 `normalize()` 가 먼저 잘라 넣은 뒤 검증했으므로 길이 초과가 검증에
+    한 번도 안 걸렸고, repair 는 "줄여 다시 써라" 를 받을 일이 없었다 — 모델이
+    길게 쓴 날은 카드 전체가 "집행합…"·"요구됩…" 토막으로 나갔다(2026-09-26).
+    repair 회차는 strict 를 끈다: 그래도 넘치면 그때 `clip()` 이 안전망이다.
     """
     kwargs.setdefault("why_min", WHY_MIN)
-    problems = validate(normalize(raw), items, **kwargs)
+    before = (length_overruns(validate(json.loads(json.dumps(raw)), items, **kwargs))
+              + daily_style_problems(raw)
+              if strict_length and isinstance(raw, dict) else [])
+    problems = before + validate(normalize(raw), items, **kwargs)
     report = card_qa.review_daily(raw, items)
     return problems + [str(f) for f in report.failures]
 
 
-def find_story(data, items: list[dict]):
-    """오늘 스토리 후보. 재료가 못 믿을 상태면 조용히 없는 것으로 친다."""
+def story_pool(items: list[dict], rows: list[dict]) -> list[dict]:
+    """스토리 후보 목록 = 일일 카드 3건 + 나머지 오늘 이슈, **사이트 순서 그대로.**
+
+    2026-09-24 실측: 오늘 순위 18건 중 스토리 자격이 있는 이슈가 5건이었는데
+    3건 안에는 하나(그것도 이틀 전 재방송)뿐이었다. 3건 밖을 읽는 것은 새 중요도
+    판단이 아니다 — 같은 순위표를 더 내려가 읽을 뿐이다.
+    """
+    taken = {str(item.get("issue_id") or "") for item in items}
+    rest = [row for row in rows if str(row.get("issue_id") or "") not in taken]
+    return [*items, *rest]
+
+
+def find_story(data, items: list[dict], rows: list[dict] | None = None):
+    """오늘 스토리 후보. 재료가 못 믿을 상태면 없는 것으로 치되 **이유는 남긴다.**"""
+    reasons: list[str] = []
     try:
-        return card_context.pick_story_candidate(data, items)
+        found = card_context.pick_story_candidate(
+            data, story_pool(items, rows or []), reasons,
+            history=card_context.load_story_history())
     except card_context.ContextError as exc:
         print(f"[cards] 스토리 재료 제외 — {exc}")
         return None
+    if found is None:
+        # 2026-09-21: 이 줄이 없어서 "오늘 스토리 카피가 없다" 만 남았다.
+        print("[cards] 스토리 후보 없음 — " + ("; ".join(reasons) if reasons else "상위 목록이 비었다"))
+    return found
 
 
 def story_material(story, date: str) -> dict:
-    return card_context.evidence_packet(story, date, topic=topic_label(story.issue))
+    packet = card_context.evidence_packet(story, date, topic=topic_label(story.issue))
+    # 전에 카드로 나간 스토리면 그날과 그 뒤 새로 붙은 사건(card_context.since_last).
+    # Narrator 는 이 packet 을 통째로 받고, Writer 에게는 브리프로 넘긴다(run_editorial).
+    since = card_context.since_last(story.thread, card_context.load_story_history(), date)
+    if since:
+        packet["since_last"] = since
+        print(f"[cards] 후속 스토리 — {since['date']} 카드 이후 새 사건 "
+              f"{len(since['new_titles'])}건")
+    return packet
 
 
 def log_calls(call_log: list[dict]) -> None:
@@ -531,15 +610,19 @@ def _daily_of(candidate: dict) -> dict:
     봉투가 아닌 응답(카피 파일·옛 형식)은 그대로 돌려준다.
     """
     if isinstance(candidate, dict) and isinstance(candidate.get("daily"), dict):
-        return candidate["daily"]
+        candidate = candidate["daily"]
+    # 2.5-flash-lite 는 hook 을 객체 대신 문자열로 적는다(2026-09-27 실측) —
+    # 규격 위반이 아니라 모양 차이라 받아서 편다. 안 펴면 검증이 AttributeError 로 죽는다.
+    if isinstance(candidate, dict) and isinstance(candidate.get("hook"), str):
+        candidate["hook"] = {"headline": candidate["hook"]}
     return candidate
 
 
-def _apply_and_review(candidate: dict, items: list[dict]) -> list[str]:
+def _apply_and_review(candidate: dict, items: list[dict], *, strict_length: bool = False) -> list[str]:
     stripped = strip_accent_on_sensitive(candidate, items)
     if stripped:
         print(f"[cards] sensitive 기사 강조 {stripped}곳 제거")
-    return review(candidate, items)
+    return review(candidate, items, strict_length=strict_length)
 
 
 def run_editorial(items: list[dict], date: str, collected: int,
@@ -575,6 +658,12 @@ def run_editorial(items: list[dict], date: str, collected: int,
                 # 호출이 계약(2회)보다 한 번 더 나간다(2026-09-20 실측).
                 print(f"[cards] 스토리만 제외: {'; '.join(story_bad[:2])}")
                 story_payload = None
+    if brief is not None and story_payload is not None:
+        # 타임라인 칸: 오늘 사건은 코드가 못 박고 나머지는 편집 데스크가 고른다.
+        # 형식이 틀리면 코드 선택으로 간다(스토리를 빼거나 repair 를 부르지 않는다).
+        pick = (brief.get("story") or {}).get("timeline_pick")
+        print(card_context.choose_timeline(story_payload, pick))
+        _TIMELINE_PICK.update(story_payload.get("timeline_pick") or {})
     if brief is None and story_payload is not None:
         # Narrator 가 없으면 스토리도 없다 — 판단 없이 5장을 쓰면 규격만 맞는
         # 이야기가 나온다. 일일 카드는 아래 폴백 한 번으로 살린다.
@@ -582,6 +671,11 @@ def run_editorial(items: list[dict], date: str, collected: int,
         story_payload = None
 
     if brief is not None:
+        # Writer 는 packet 이 아니라 브리프를 본다. 후속 여부는 편집 판단의 재료라
+        # 브리프의 story 칸에 실어 준다 — Writer 가 덱·lede 를 새 사건부터 쓰게.
+        since = (story_payload or {}).get("since_last")
+        if since and isinstance(brief.get("story"), dict):
+            brief["story"]["since_last"] = since
         raw = _writer_round(brief, items, date, story_payload, call_log)
         if raw is not None:
             return _daily_of(raw), raw.get("story") or None
@@ -594,8 +688,9 @@ def run_editorial(items: list[dict], date: str, collected: int,
     except Exception as exc:  # noqa: BLE001
         print(f"[cards] card_daily_writer 실패 — {type(exc).__name__}: {exc}")
         return None, None
+    keep_raw_copy("card_daily_writer", candidate)
     daily_copy = _daily_of(candidate)
-    problems = _apply_and_review(daily_copy, items)
+    problems = _apply_and_review(daily_copy, items, strict_length=True)
     if not problems:
         return daily_copy, None
     print(f"[cards] 편집 QA 실패: {'; '.join(problems[:6])}")
@@ -609,6 +704,7 @@ def run_editorial(items: list[dict], date: str, collected: int,
     except Exception as exc:  # noqa: BLE001
         print(f"[cards] repair 실패 — {type(exc).__name__}: {exc}")
         return None, None
+    keep_raw_copy("card_writer_repair", repaired)
     repaired_daily = _daily_of(repaired)
     problems = _apply_and_review(repaired_daily, items)
     if problems:
@@ -617,7 +713,7 @@ def run_editorial(items: list[dict], date: str, collected: int,
     return repaired_daily, None
 
 
-def story_problems(copy: object, payload: dict) -> list[str]:
+def story_problems(copy: object, payload: dict, *, strict_length: bool = False) -> list[str]:
     """스토리 카피가 규격과 근거를 지키는가. 렌더 쪽 검증기를 그대로 쓴다.
 
     **지연 import 다.** `story_cards` 가 이 모듈을 읽으므로 맨 위에서 부르면
@@ -627,7 +723,15 @@ def story_problems(copy: object, payload: dict) -> list[str]:
     if not isinstance(copy, dict):
         return ["story: 객체가 아님"]
     import story_cards
-    return story_cards.validate(story_cards.normalize(copy, payload), payload)
+    problems = story_cards.validate(story_cards.normalize(copy, payload), payload)
+    if strict_length:
+        # `review(strict_length=...)` 와 같은 이유 — normalize 가 먼저 자르면
+        # 길이 초과가 검증에 안 걸린다. 2026-09-26 표지 제목(31자 > 26)과 덱이
+        # 그렇게 "텍사스…"·"확정되었으며…" 로 나갔다. 원문은 normalize 가
+        # 복사해서 다루므로 여기서 다시 재도 된다.
+        problems = (length_overruns(story_cards.validate(copy, payload))
+                    + story_cards.style_problems(copy) + problems)
+    return problems
 
 
 def _writer_round(brief: dict, items: list[dict], date: str,
@@ -652,12 +756,18 @@ def _writer_round(brief: dict, items: list[dict], date: str,
         try:
             raw = ask_writer(brief, items, date, with_story=with_story,
                              problems=(daily_bad + story_bad) or None,
-                             story_events=events, log=call_log, task=task)
+                             story_events=events,
+                             story_background=(story_payload or {}).get("background"),
+                             log=call_log, task=task)
         except Exception as exc:  # noqa: BLE001
             print(f"[cards] Writer({task}) 실패 — {type(exc).__name__}: {exc}")
             return None
-        daily_bad = _apply_and_review(_daily_of(raw), items)
-        story_bad = (story_problems(raw.get("story"), story_payload)
+        keep_raw_copy(task, raw)
+        # 첫 회차만 원문 길이로 잰다. repair 뒤에도 넘치면 clip() 이 받는다 —
+        # 길이 한 자에 앨범을 떨어뜨리지 않는다는 원칙(09-20)은 그대로다.
+        strict = task == "card_writer"
+        daily_bad = _apply_and_review(_daily_of(raw), items, strict_length=strict)
+        story_bad = (story_problems(raw.get("story"), story_payload, strict_length=strict)
                      if with_story else [])
         if not daily_bad and not story_bad:
             return raw
@@ -700,11 +810,54 @@ def terse(text: str) -> str:
 FALLBACK_HEADLINE_MAX = 44   # 제목은 축약 없이 세 줄까지 — "…지분…" 같은 잘린 제목보다 낫다
 
 
+def _cut_visible(text: str, n: int) -> str:
+    """보이는 글자 n 개까지. `[[ ]]` 는 마크업이라 세지 않고, 짝이 깨지면 걷는다.
+
+    예전 강제 절단은 `text[:limit - 1]` 이었다 — 마크업 네 글자까지 세서 화면에는
+    상한보다 **네 글자 적게** 남았다(2026-09-26 스토리 표지: 26자 상한에 21자
+    "정부, 대미 전략투자 첫 사업 텍사스…").
+    """
+    out, seen, i = [], 0, 0
+    while i < len(text) and seen < n:
+        if text.startswith(("[[", "]]"), i):
+            out.append(text[i:i + 2])
+            i += 2
+            continue
+        out.append(text[i])
+        seen += 1
+        i += 1
+    cut = "".join(out)
+    if cut.count("[[") != cut.count("]]"):
+        cut = cut.replace("[[", "").replace("]]", "")
+    return cut
+
+
 def clip(text: str, limit: int) -> str:
-    """limit 안으로 줄이되 절 경계에서 끊는다. 말줄임 없는 문장이 잘린 문장보다 낫다."""
+    """limit 안으로 줄이되 **문장 → 절 → 낱말** 경계 순서로 끊는다.
+
+    이건 마지막 안전망이다. 길이 초과는 먼저 repair 로 돌아가 모델이 줄여 쓴다
+    (`review(strict_length=True)`). 그래도 넘친 것만 여기 온다.
+
+    ① 문장 — 두 문장 중 앞 문장만 들어가면 그것만 쓴다. 온전한 문장이 잘린 두
+       문장보다 낫다(09-26 스토리 덱: "…확정되었으며…" 로 끝났다).
+    ② 절 — 절이 이어졌음을 "…" 로 남긴다. "확인되어" 로 끝나면 미완성으로 읽힌다.
+    ③ 낱말 — 낱말 한가운데서 끊지 않는다(09-26 일일: "집행합…"·"요구됩…").
+    """
     text = " ".join(str(text or "").split()).rstrip(".。")
     if visible_len(text) <= limit:
         return text
+    floor = max(8, limit // 3)
+    sentences = [part for part in _SENT_SPLIT_RE.split(text) if part.strip()]
+    if len(sentences) > 1:
+        acc = ""
+        for sent in sentences:
+            nxt = f"{acc} {sent}".strip()
+            if visible_len(nxt.rstrip(".。")) > limit:
+                break
+            acc = nxt
+        acc = acc.rstrip(".。")
+        if acc and visible_len(acc) >= floor and acc.count("[[") == acc.count("]]"):
+            return acc
     for sep in _CLAUSE_SEPS:
         if sep not in text:
             continue
@@ -712,14 +865,25 @@ def clip(text: str, limit: int) -> str:
         acc = parts[0]
         for part in parts[1:]:
             nxt = acc + sep + part
-            if visible_len(nxt) > limit:
+            if visible_len(nxt) > limit - 1:
                 break
             acc = nxt
         acc = acc.strip(" ,·-–")
         # 첫 절부터 상한을 넘으면 이 구분자로는 못 자른다 — 다음 구분자로
-        if visible_len(acc) <= limit - 1 and visible_len(acc) >= max(8, limit // 3):
-            return acc + "…"   # 절이 이어졌음을 남긴다 — "확인되어" 로 끝나면 미완성으로 읽힌다
-    return text[:limit - 1].rstrip(" ,·") + "…"
+        if (visible_len(acc) <= limit - 1 and visible_len(acc) >= floor
+                and acc.count("[[") == acc.count("]]")):
+            return acc + "…"
+    cut = _cut_visible(text, limit - 1)
+    words = cut.split(" ")
+    # 뒤 낱말이 잘렸으면 통째로 덜어낸다. 너무 많이 줄면 그냥 글자로 자른다.
+    if len(words) > 1 and not text.startswith(cut + " "):
+        shorter = " ".join(words[:-1])
+        if visible_len(shorter) >= max(8, limit // 2):
+            cut = shorter
+    cut = cut.rstrip(" ,·-–")
+    if cut.count("[[") != cut.count("]]"):
+        cut = cut.replace("[[", "").replace("]]", "")
+    return cut + "…"
 
 
 def _sentences(*fields: str) -> list[str]:
@@ -1045,6 +1209,36 @@ def already_published(date: str) -> int:
 
 
 
+def published_issue_ids(date: str) -> list[str]:
+    """그날 사이트에 올라간 일일 카드의 이슈 id. `index.json` 의 `lines` 키가 그 기록이다."""
+    try:
+        index = json.loads((CARDS_SITE_DIR / "index.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [str(key) for key in ((index.get("lines") or {}).get(date) or {})]
+
+
+def stale_against_ranking(date: str, rows: list[dict] | None) -> tuple[list[str], list[str]] | None:
+    """올라간 카드가 **지금 사이트 상위 k** 와 다르면 (올라간 것, 지금 것). 같거나 모르면 None.
+
+    카드는 발송 직후 한 번 굽는다. 그 뒤 사람이 편집 override 로 순위를 고치면
+    (2026-09-24: 07:27 에 구운 카드 뒤 10:05 에 400GW 숨김·이탈리아 올림) 사이트는
+    바뀌는데 카드는 옛 3건을 그대로 들고 있었다 — '이미 사이트에 있다' 스킵이 막았다.
+    카드의 계약은 "사이트 순위 상위 k 그대로"라(pick_items), 어긋나면 다시 굽는다.
+
+    `lines` 가 없는 옛날 카드는 무엇으로 구웠는지 모르므로 판정하지 않는다(None).
+    """
+    published = published_issue_ids(date)
+    if not published or rows is None:
+        return None
+    current = [item["issue_id"] for item in pick_items(rows, brief_date=date)]
+    # 순서까지 본다 — 카드에 01·02·03 이 박힌다. 발송 뒤 그날 기사는 고정이라
+    # 순서가 흔들리는 것은 사람이 순위를 고쳤을 때뿐이다.
+    if not current or published == current:
+        return None
+    return published, current
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true",
@@ -1058,6 +1252,15 @@ def main() -> int:
 
     if args.date:
         date, outbox = args.date, {}
+        # 그날이 outbox 의 날이면 수집 통계는 거기 있다. 안 읽으면 '오늘 수집 N건'이
+        # 카드에 실린 이슈의 기사 수 합으로 떨어진다(2026-09-24 복구 실행: 683 → 228).
+        if OUTBOX_FILE.exists():
+            try:
+                saved = json.loads(OUTBOX_FILE.read_text(encoding="utf-8"))
+            except ValueError:
+                saved = {}
+            if saved.get("date") == date:
+                outbox = {"selection_stats": saved.get("selection_stats") or {}}
     else:
         if not OUTBOX_FILE.exists():
             print("[cards] outbox.json 없음 — 브리핑이 아직 안 돌았다. 스킵")
@@ -1079,14 +1282,23 @@ def main() -> int:
         # 별도 워크플로로 떼면서 재실행이 쉬워졌으니 여기서 막는다.
         #
         # 손으로 다시 굽고 싶으면 --force (cards.yml 의 수동 실행이 그걸 쓴다).
-        if (outbox.get("cards") or {}).get("date") == date:
-            print(f"[cards] {date} 카드는 이미 발송됨 — 스킵")
-            return 0
+        #
+        # 단, 올라간 카드가 **지금 사이트 순위와 어긋나면** 다시 굽는다
+        # (stale_against_ranking). 텔레그램 앨범은 이미 나간 것이라 되돌릴 수 없지만,
+        # 사이트의 카드는 사이트와 같은 말을 해야 한다. 발송은 워크플로의 send 가 정한다.
+        sent = (outbox.get("cards") or {}).get("date") == date
         made = already_published(date)
-        if made:
-            print(f"[cards] {date} 카드 {made}장이 이미 사이트에 있다 — 스킵 "
-                  "(다시 구우려면 --force)")
-            return 0
+        if sent or made:
+            # 무엇으로 구웠는지 기록(lines)이 있을 때만 재료를 읽는다 — 없으면 판정할 수
+            # 없고, 재료를 읽는 길이 곧 Gemini 를 태우는 길이라 멱등 가드가 흐려진다.
+            probe = load_site_data(date) if published_issue_ids(date) else None
+            stale = stale_against_ranking(date, None if probe is None else probe.issues)
+            if stale is None:
+                print(f"[cards] {date} 카드는 이미 {'발송됨' if sent else f'사이트에 {made}장 있음'}"
+                      " — 사이트 순위와도 같다. 스킵 (다시 구우려면 --force)")
+                return 0
+            print(f"[cards] {date} 카드가 사이트 순위와 어긋났다 — 다시 굽는다: "
+                  f"올라간 {stale[0]} / 지금 {stale[1]}")
 
     data = load_site_data(date)
     rows = None if data is None else data.issues
@@ -1125,17 +1337,22 @@ def main() -> int:
         print(f"[cards] 카피 파일 사용 — {args.copy_file}")
         raw = candidate
 
-    # 오늘 스토리가 있는가. **일일 카드 대상 그 3건 안에서만** 찾는다 —
-    # 순위를 다시 매기면 같은 날 두 산출물이 다른 1위를 말한다.
-    story = None if (args.no_llm or raw) else find_story(data, items)
+    # 오늘 스토리가 있는가. 일일 카드 3건을 먼저 보고, 없으면 나머지 오늘 이슈를
+    # **사이트 순서대로** 내려간다. 순위를 다시 매기지 않는다 — 같은 날 두 산출물이
+    # 다른 1위를 말하면 안 된다. 새 전개 없는 재방송은 건너뛴다(card_context 이력).
+    story = None if (args.no_llm or raw) else find_story(data, items, rows)
     story_payload = None
     if story is not None:
         story_payload = story_material(story, date)
-        print(f"[cards] 스토리 후보 #{story.rank} {story.thread_id} "
-              f"사건 {len(story_payload['events'])}건")
+        story_payload["event_ids"] = card_context.event_ids(story.thread)
+        where = "" if story.rank <= len(items) else f" (일일 {len(items)}건 밖)"
+        shown = [f"{e.get('date')} {str(e.get('title') or '')[:16]}" for e in story_payload["events"]]
+        print(f"[cards] 스토리 후보 #{story.rank}{where} {story.thread_id} "
+              f"사건 {len(story.events)}건 · 타임라인 {len(shown)}건: {' / '.join(shown)}")
 
     if raw is None and not args.no_llm:
         raw, story_copy = run_editorial(items, date, collected, story_payload, call_log)
+        save_raw_copy(date)
         if story_copy is not None:
             STORY_COPY_FILE.write_text(json.dumps(
                 {"date": date, "thread_id": story.thread_id,
@@ -1330,6 +1547,14 @@ def _self_check() -> None:
     long_sent = "일본 주부전력은 하마오카 원전 3·4호기의 재가동 심사에 제출한 지진 데이터 일부를 조작했다고 인정하고 경영진 사임을 발표했다"
     assert visible_len(clip(long_sent, FACT_MAX)) <= FACT_MAX, clip(long_sent, FACT_MAX)
     assert "3·4호기" in clip("하마오카 원전 3·4호기 재가동 심사 지연", 20)   # '·'에서 안 자른다
+    # 두 문장 중 앞 문장이 들어가면 그것만 — 말줄임 없이 끝난다(09-26 스토리 덱).
+    deck = ("총 2000억 달러 규모의 대미 전략투자가 본격적인 실행 단계에 진입했습니다. "
+            "텍사스 가스복합발전소 건설이 첫 사업으로 확정되었으며, 한미 에너지 협력의 새 국면이 열릴 전망입니다.")
+    assert clip(deck, 90) == "총 2000억 달러 규모의 대미 전략투자가 본격적인 실행 단계에 진입했습니다", clip(deck, 90)
+    # 강제 절단은 보이는 글자로 세고 낱말 경계에서 끊는다. 마크업이 깨지면 걷는다.
+    head = clip("정부, 대미 전략투자 [[첫 사업]] 텍사스 가스복합발전소 확정", 26)
+    assert visible_len(head) <= 26 and head.endswith("텍사스…") and "[[첫 사업]]" in head, head
+    assert not clip("연간 200억 달러 한도로 총 2000억 달러 규모의 전략투자를 집행합니다", 30).endswith("집행합…")
     print("self-check OK")
 
 
