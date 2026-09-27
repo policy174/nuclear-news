@@ -44,7 +44,9 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
           ASSEMBLY_API_KEY: ${{ secrets.ASSEMBLY_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # 요약 전용 키(다른 계정) — nuclens 크롤이 쿼터를 다 쓴 날에도 요약이 돌게.
+          # 시크릿이 없으면 nuclens 공용 키로 돈다.
+          GEMINI_API_KEY: ${{ secrets.DELIBERATION_GEMINI_API_KEY || secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
         run: python deliberation_watch.py
 
