@@ -50,13 +50,23 @@ class RunTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def _run(self, now, fail=False):
+    def _run(self, now, fail=False, annotator=lambda items: None):
         def sender(text):
             if fail:
                 raise RuntimeError("telegram down")
             self.sent.append(text)
         return w.run(now, sources=self.src, fetcher=lambda s: [dict(i) for i in self.items[s["name"]]],
-                     sender=sender)
+                     sender=sender, annotator=annotator)
+
+    def test_alert_carries_summary_and_meaning(self):
+        self._run(NOW)
+        self.items["src"] = [{"url": "u5", "title": "원전 공론화위원회 위원 위촉", "date": NOW}]
+
+        def annotator(items):
+            items[0].update(summary="위원 15명 위촉 <발표>", meaning="숙의 절차 개시")
+        self._run(NOW + timedelta(hours=1), annotator=annotator)
+        self.assertIn("요약: 위원 15명 위촉 &lt;발표&gt;", self.sent[-1])
+        self.assertIn("의미: 숙의 절차 개시", self.sent[-1])
 
     def test_seed_is_silent_then_alerts_only_new(self):
         self.items["src"] = [{"url": "u1", "title": "원전 공론화위원회 출범", "date": NOW}]

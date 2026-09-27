@@ -1,7 +1,8 @@
 name: Deliberation watch (공론화 신호 감시)
 
 # 원전 공론화(2026.10~12) 국면 신호를 매시간 확인해 지니 개인 DM 으로 보낸다.
-# 뉴스 크롤·Gemini 와 분리된 경량 작업(LLM 0회). 근거: deliberation_watch.py 머리말.
+# 뉴스 크롤과 분리된 경량 작업. 판정은 키워드만, 보낼 글이 있을 때만 요약·의미에
+# Gemini 1회. 근거: deliberation_watch.py 머리말.
 # 상태(본 글 목록)는 저장소 커밋이 아니라 Actions 캐시에 둔다 — 다른 워크플로의
 # 상태 커밋과 rebase 충돌을 만들지 않기 위해서. 캐시가 날아가면 조용히 다시 채운다.
 # 공론화가 끝나면(권고·정부안 확정 후) 이 파일의 schedule 을 지운다.
@@ -43,6 +44,8 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
           ASSEMBLY_API_KEY: ${{ secrets.ASSEMBLY_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
         run: python deliberation_watch.py
 
       - name: Save watch state

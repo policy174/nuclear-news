@@ -128,6 +128,8 @@ jobs:
     needs: preflight
     if: needs.preflight.outputs.should_run == 'true'
     runs-on: ubuntu-latest
+    outputs:
+      sent: ${{ steps.send.outcome }}   # notify_failure 가 '브리핑이 나갔나'를 본다
     # [2026-09-12] **잡 타임아웃을 두지 않는다.** 이 값은 15 → 35 → 45 로 세 번
     # 올랐고 세 번 다 그 벽에 부딪혀 잡이 죽었다. 9/08~9/12 닷새는 45분 벽에
     # 걸려 매일 취소됐고(정확히 55분 00초 — 45분 + post steps), 그때마다 배포·
@@ -623,11 +625,16 @@ jobs:
     # preflight 도 지켜본다. 안 그러면 게이트가 죽었을 때 brief 가 skipped 가 되고
     # 알림은 침묵한다 — 이 워크플로가 고치려는 병을 새로 하나 만드는 셈이다.
     # skipped 는 알리지 않는다(게이트가 "오늘은 안 돌아도 된다"고 판정한 정상 경로).
+    #
+    # 치명적인 것만 보낸다(2026-09-27 지니 지시): **텍스트 브리핑이 안 나갔을 때만.**
+    # 발송 뒤 산출물 가드·카드·오디오 실패는 임직원이 받는 것에 영향이 없다 —
+    # 9/25·9/26 알림 4건이 전부 이 경우였다(Artifact guard, 브리핑은 발송됨).
     needs: [preflight, brief]
     if: >-
       ${{ always() && (
         needs.preflight.result == 'failure' || needs.preflight.result == 'cancelled' ||
-        needs.brief.result == 'failure' || needs.brief.result == 'cancelled') }}
+        ((needs.brief.result == 'failure' || needs.brief.result == 'cancelled') &&
+         needs.brief.outputs.sent != 'success')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -642,13 +649,13 @@ jobs:
           # operational_monitoring 도 같은 이유로 "알림을 보냈다고 기록하는 것"과
           # "알림 조건을 탐지한 것"을 분리한다. 여기선 셸 재시도로 그 절반만 한다.
           for i in 1 2 3; do
-            python3 telegram_send.py --ops --plain "⚠️ nuclens 아침 브리핑 실패 (${{ needs.brief.result }})
+            python3 telegram_send.py --ops --plain "⚠️ nuclens 아침 브리핑 미발송 (${{ needs.brief.result }})
 
           워크플로: ${{ github.workflow }} #${{ github.run_number }}
           로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          cancelled 면 잡이 중간에 끊긴 것, failure 면 산출물 가드 또는 배포 실패입니다.
-          로그에서 'Artifact guard' 스텝을 먼저 보세요." && exit 0
+          텍스트 브리핑이 채널에 나가지 않았습니다. 로그에서 Plan·Push claim·Send 스텝을
+          먼저 보세요." && exit 0
             echo "알림 발송 실패 $i/3 — 20초 후 재시도"
             sleep 20
           done

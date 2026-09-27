@@ -156,6 +156,11 @@ def generate() -> bool:
             "url": a.get("url", ""),
             "date": _date_of(a),
         } for a in (kw["articles"][i] for i in idxs)]
+        if not evidence:
+            # 근거 번호 없이 온 해석은 웹에서 원문으로 검증할 수 없다. 2026-09-26 에
+            # 6개 전부 evidence_idx 없이 와서 대표 흐름이 0개가 됐고, 생성 데이터
+            # 테스트가 크롤 배포를 19시간 막았다.
+            direction = ""
         items.append({
             "keyword": kw["keyword"],
             "count_now": kw["count_now"],
@@ -163,6 +168,10 @@ def generate() -> bool:
             "direction": direction,
             "evidence": evidence,
         })
+
+    if not any(i["direction"] for i in items):
+        print("[insights] 근거 달린 해석 0개 — 기존 파일 유지")
+        return False
 
     OUT_FILE.write_text(json.dumps({
         "generated_at": datetime.now(KST).isoformat(),

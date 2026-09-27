@@ -15,11 +15,15 @@
            23~07시(KST)는 보이콧·철수·위촉만 즉시, 나머지는 아침 묶음으로.
   digest — 그 밖의 공론화 관련 글. 07시 이후 첫 실행에서 하루 한 번 묶어 보낸다.
 
+발송 직전 글마다 요약·의미 한 줄씩을 붙인다(2026-09-27 지니 요청). 보낼 글이 있을
+때만 Gemini 1회. 요약이 실패하면 제목만 나간다 — 알림이 요약 때문에 멈추면 안 된다.
+
 상태(deliberation_watch_state.json)는 Actions 캐시에 둔다. 캐시가 날아가면 첫 실행처럼
 조용히 다시 채운다(과거 글 폭탄 방지). 발송이 실패하면 그 글은 '본 것'으로 치지 않고
 다음 실행에서 다시 보낸다.
 
 로컬 점검: python deliberation_watch.py --dry-run   (발송 없이 판정만 출력)
+          python deliberation_watch.py --annotate-test URL 제목   (요약 한 건 시험)
 """
 from __future__ import annotations
 
@@ -39,7 +43,7 @@ KST = timezone(timedelta(hours=9))
 STATE_FILE = Path(__file__).with_name("deliberation_watch_state.json")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/145 nuclens-watch"}
 RECENT_HOURS = 72          # 검색 결과로 재노출된 옛 글(2022 공청회 공고 등) 차단
-FAIL_ALERT_AT = 3          # 연속 실패(예외 또는 0건 파싱) 3회째에 한 번 알린다
+FAIL_ALERT_AT = 24         # 연속 실패(예외 또는 0건 파싱)가 하루(24회)째일 때 한 번 — 치명적인 것만(09-27)
 SEEN_KEEP_DAYS = 90
 
 # ---- 키워드 게이트 (04 ③ — 실제 제목 254건에 돌려 목표 신호 전부 포착 확인) --------
@@ -224,6 +228,53 @@ def fetch_assembly(key: str, today: datetime) -> list[dict]:
     return out
 
 
+# ---- 요약·의미 ------------------------------------------------------------------------
+
+ANNOTATE_MAX = 15
+ANNOTATE_PROMPT = """한국수력원자력 원자력정책실 담당자에게 원전 공론화 동향 알림을 보낸다.
+배경: 정부(기후에너지환경부)가 12차 전력수급기본계획에 앞서 미래 전력수급에서 원전의
+역할·규모를 국민 공론화로 묻는다(2026.10~12). 2017 신고리 5·6호기처럼 찬반 양자택일이
+아니라 역할·규모·조건을 묻는 형식이다.
+
+글마다 두 가지를 쓴다.
+- summary: 본문 핵심 사실 1~2문장, 120자 이내(누가·무엇을·언제·수치). 본문에 없는
+  내용 금지. 본문이 비어 있으면 빈 문자열.
+- meaning: 공론화 국면에서 이 글이 바꾸는 것 + 담당자가 준비할 것 한 가지, 100자 이내.
+  '쟁점 부각', '반대 입장 표명' 같은 일반론만 쓰지 말고 어떤 쟁점(수요 전제·질문 설계·
+  중립성·일정·부지 등)이 어느 국면(위촉·의제·숙의·권고)에서 움직이는지 구체적으로.
+  본문 밖 추정은 '~로 보임'으로 표시.
+  예: '수요 전제 고정을 답정너로 규정, 의제 확정 전 보이콧 명분 축적 단계로 보임. 수요 전망 근거 질의 대비'
+개조식 체언 종결(예: '~ 발표', '~ 요구'), 이모지·줄표 금지.
+
+출력: {"items": [{"i": 0, "summary": "...", "meaning": "..."}]}"""
+
+
+def annotate(items: list[dict]) -> None:
+    """items 에 summary·meaning 을 채운다. 실패는 전부 삼킨다(제목만 발송)."""
+    try:
+        import article_body
+        from gemini_client import call_json, is_available
+        if not items or not is_available():
+            return
+        session = requests.Session()
+        rows = []
+        for i, it in enumerate(items[:ANNOTATE_MAX]):
+            body = it.get("text") or ""
+            if len(body) < 500:   # RSS 요지(300자)·빈 본문은 원문을 받아 본다. 원안위는 본문이 이미 옴
+                fetched, _ = article_body.fetch_one(it["url"], session, it["title"])
+                body = fetched or body
+            rows.append({"i": i, "출처": it.get("source_label") or it.get("source", ""),
+                         "제목": it["title"], "본문": body[:1500]})
+        result = call_json(ANNOTATE_PROMPT, json.dumps(rows, ensure_ascii=False),
+                           thinking_budget=0, retries=1, label="deliberation_watch")
+        for r in result.get("items", []):
+            if isinstance(r, dict) and isinstance(r.get("i"), int) and 0 <= r["i"] < len(rows):
+                items[r["i"]]["summary"] = str(r.get("summary") or "").strip()
+                items[r["i"]]["meaning"] = str(r.get("meaning") or "").strip()
+    except Exception as exc:  # noqa: BLE001
+        print(f"  ! 요약 생략: {type(exc).__name__}: {exc}"[:200])
+
+
 # ---- 상태·발송 ------------------------------------------------------------------------
 
 def load_state() -> dict | None:
@@ -239,8 +290,12 @@ def save_state(state: dict) -> None:
 def fmt_item(it: dict) -> str:
     when = it["date"].strftime("%m-%d") if it.get("date") else ""
     label = it.get("source_label") or it["source"]
-    return (f"• ({html.escape(label)}) <a href=\"{html.escape(it['url'], quote=True)}\">"
+    line = (f"• ({html.escape(label)}) <a href=\"{html.escape(it['url'], quote=True)}\">"
             f"{html.escape(it['title'])}</a> {when}")
+    for name, key in (("요약", "summary"), ("의미", "meaning")):
+        if it.get(key):
+            line += f"\n   {name}: {html.escape(it[key])}"
+    return line
 
 
 def send_ops(text: str) -> None:
@@ -253,7 +308,8 @@ def send_ops(text: str) -> None:
     tg.send_long_text(text, parse_mode="HTML", disable_preview=True)
 
 
-def run(now: datetime, dry_run: bool = False, sources=None, fetcher=fetch, sender=send_ops) -> dict:
+def run(now: datetime, dry_run: bool = False, sources=None, fetcher=fetch, sender=send_ops,
+        annotator=annotate) -> dict:
     sources = SOURCES if sources is None else sources
     state = load_state()
     seeding = state is None
@@ -311,12 +367,14 @@ def run(now: datetime, dry_run: bool = False, sources=None, fetcher=fetch, sende
         state["pending"] += [{"key": k, **{f: (v.isoformat() if isinstance(v, datetime) else v)
                                            for f, v in it.items()}} for k, it in digests]
         send_digest = now.hour >= 7 and state["last_digest"] != now.strftime("%Y-%m-%d") and state["pending"]
+        pend = [{**p, "date": datetime.fromisoformat(p["date"]) if p.get("date") else None}
+                for p in state["pending"]] if send_digest else []
+        annotator([it for _, it in nows] + pend)
         parts = []
         if nows:
-            parts.append("<b>[공론화 신호] 즉시</b>\n" + "\n".join(fmt_item(it) for _, it in nows))
+            parts.append("<b>[공론화 신호] 즉시</b>\n" + "\n\n".join(fmt_item(it) for _, it in nows))
         if send_digest:
-            pend = [{**p, "date": datetime.fromisoformat(p["date"]) if p.get("date") else None} for p in state["pending"]]
-            parts.append(f"<b>[공론화 동향] {now:%m-%d} 묶음 {len(pend)}건</b>\n" + "\n".join(fmt_item(p) for p in pend))
+            parts.append(f"<b>[공론화 동향] {now:%m-%d} 묶음 {len(pend)}건</b>\n" + "\n\n".join(fmt_item(p) for p in pend))
         if health_lines:
             parts.append("<b>[공론화 감시] 소스 점검 필요</b>\n" + "\n".join(health_lines))
         text = "\n\n".join(parts)
@@ -342,7 +400,13 @@ def run(now: datetime, dry_run: bool = False, sources=None, fetcher=fetch, sende
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="발송·상태 저장 없이 판정만 출력")
+    parser.add_argument("--annotate-test", nargs=2, metavar=("URL", "TITLE"), help="요약 한 건 시험 출력")
     args = parser.parse_args()
+    if args.annotate_test:
+        item = {"url": args.annotate_test[0], "title": args.annotate_test[1], "source": "시험"}
+        annotate([item])
+        print(fmt_item(item))
+        return 0
     run(datetime.now(KST), dry_run=args.dry_run)
     return 0
 

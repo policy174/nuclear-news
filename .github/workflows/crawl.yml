@@ -34,6 +34,7 @@ on:
 
 permissions:
   contents: write
+  actions: read   # 실패 알림 게이트가 직전 실행들의 결과를 센다
 
 concurrency:
   group: crawl
@@ -420,14 +421,28 @@ jobs:
       # 2026-09-12 발견: 이 조건이 failure() 뿐이라 45분 타임아웃으로 죽은 런에서는
       # 이 스텝이 skipped 됐다. 위 주석이 "Deploy web 이 9번 연속 빨간 채로 이틀을
       # 갔다"고 적어놨는데, 정작 타임아웃은 그 그물을 통째로 빠져나가고 있었다.
+      #
+      # 치명적인 것만 보낸다(2026-09-27 지니 지시). 한 번 실패는 다음 크롤(최대 3시간)이
+      # 복구한다 — 알릴 일이 아니다. 연속 3회째(사이트가 반나절 가까이 멈춤)에 한 번,
+      # 그 뒤로도 안 풀리면 8회마다 다시 한 번. 세기에 실패하면 보내는 쪽으로 기운다.
       - name: Notify failure (운영 알림 → 개인 DM)
         if: failure() || cancelled()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          python telegram_send.py --ops --plain "⚠️ nuclens 수집·배포 실패
+          prev=$(gh run list -R "$GITHUB_REPOSITORY" -w crawl.yml -b main --limit 40 \
+            --json databaseId,status,conclusion \
+            -q '[.[] | select(.databaseId != ${{ github.run_id }} and .status == "completed")]
+                | map(.conclusion == "success") | index(true) // length') || prev=2
+          n=$(( ${prev:-2} + 1 ))
+          echo "연속 실패 $n회째"
+          if [ "$n" -ne 3 ] && { [ "$n" -lt 3 ] || [ $(( (n - 3) % 8 )) -ne 0 ]; }; then
+            echo "비치명 — 알림 생략"; exit 0
+          fi
+          python telegram_send.py --ops --plain "⚠️ nuclens 수집·배포 ${n}회 연속 실패
 
           워크플로: ${{ github.workflow }} #${{ github.run_number }}
           로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
