@@ -272931,5 +272931,513 @@
     "feed": "정책",
     "domain": "cctimes.kr",
     "matched": "한국수력원자력"
+  },
+  "ac7ce49cee0e1dd2": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [],
+    "article_type": "news",
+    "title_kr": "한수원, 추석맞이 나눔으로 급식봉사·어르신 돌봄 진행",
+    "summary": "한국수력원자력이 추석을 맞아 지역사회 봉사활동을 진행했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "한수원, 추석맞이 나눔으로 급식봉사·어르신 돌봄 진행",
+    "link": "http://www.newspost.kr/news/articleView.html?idxno=225959",
+    "feed": "정책",
+    "domain": "newspost.kr",
+    "matched": "사내스크랩"
+  },
+  "e41c64521cc66a71": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "현대엔지니어링, 군산 AI 데이터센터 60MW 1단계 사업 수주",
+    "summary": "현대엔지니어링이 군산에 총 300MW 규모의 AI 데이터센터 구축 프로젝트 중 1단계 60MW 사업을 수주했으며, 올해 10월 착공을 목표로 한다.",
+    "detail": "현대엔지니어링은 건축사업본부 산하에 데이터센터영업팀을 신설한 지 6개월 만에 '군산 SGC AI 데이터센터 신축 사업'을 수주했다고 28일 밝혔다. 이 사업은 전라북도 군산시 비응도동 일원 11만5702㎡ 부지에 총 300MW 규모의 데이터센터를 구축하는 프로젝트의 1단계로, 4만7000㎡ 부지에 60MW 규모의 데이터센터가 들어서며 올해 10월 착공이 목표다. 발주처는 SGC에너지의 자회사인 SGC에이아이인프라이며 총사업비는 8700억원으로, 현대엔지니어링은 건축, 토목, 설비, 조경, 통신 공사를 수행하고 냉각 및 전력 공급 관련 설비를 담당한다. 해당 데이터센터에는 엔비디아의 차세대 AI 반도체 '베라루빈'이 도입될 예정이며, 이에 따라 증가할 전력 밀도와 발열에 대응하기 위해 버티브의 '모듈러·스키드 솔루션'을 도입한다. 현대엔지니어링은 이번 수주에 이어 올해 데이터센터 분야에서 약 1조9000억원의 수주 실적을 예상하며, 인천과 경북 구미 데이터센터 사업의 우선협상대상자로도 선정된 상태다.",
+    "implication": "AI 반도체 도입으로 전력 밀도와 발열이 크게 증가하는 데이터센터의 안정적 운영을 위해 냉각 및 전력 공급 인프라 구축 역량이 중요해지고 있다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#AI전력수요"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-28",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "현대엔지니어링 \"올해 데이터센터 일감 1.9조…군산서 시작\"",
+    "link": "https://news.bizwatch.co.kr/article/real_estate/2026/09/28/0009",
+    "feed": "정책",
+    "domain": "bizwatch.co.kr",
+    "matched": "원전 부지 선정"
+  },
+  "29e52bb2da249505": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "smr"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "울진군, 황일순 서울대 명예교수 초청 SMR 등 미래 에너지 특강 개최",
+    "summary": "경북 울진군이 다음달 8일 황일순 서울대학교 원자핵공학과 명예교수를 초청해 AI 및 첨단 산업 발전에 따른 미래 에너지 비전과 SMR의 역할에 대한 특강을 개최한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-10-08",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "울진군, 황일순 교수 초청 특강···미래 에너지 비전 모색",
+    "link": "https://www.cnbnews.com/news/articleView.html?idxno=1017257",
+    "feed": "SMR",
+    "domain": "cnbnews.com",
+    "matched": "소형모듈원자로"
+  },
+  "dc35e7573aa5df1a": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "waste",
+      "regulation"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "대전시의회, 원자력안전특위 출범해 연구시설·방폐물 관리 실태 점검",
+    "summary": "대전시의회가 관내 원자력 유관 시설의 안전관리 실태를 과학적으로 검증하고 시민 불안감을 해소하기 위해 원자력안전 특별위원회를 출범하고 28일 위원장단을 선임했다.",
+    "detail": "대전시의회 원자력안전 특별위원회는 28일 제1차 회의를 열고 위원장단을 공식 선임하며 출범했다. 이 위원회는 대전 지역에 밀집한 원자력 유관 시설의 안전관리 실태를 과학적이고 정밀하게 검증하는 것을 목표로 한다. 궁극적으로 시민들의 불안감을 근본적으로 해소하는 데 기여할 예정이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#방사성폐기물",
+      "#안전규제"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-28",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "대전시의회, 원자력안전특위 출범해 연구시설과 방폐물 관리 실태 점검...",
+    "link": "https://www.newsworker.co.kr/news/articleView.html?idxno=506104",
+    "feed": "정책",
+    "domain": "newsworker.co.kr",
+    "matched": "원자력안전위원회"
+  },
+  "7127ef270962898c": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "원자력연구원장에 정우식 교수…전기연구원장 강상희",
+    "summary": "한국원자력연구원장에 정우식 교수가, 한국전기연구원장에는 강상희 교수가 임명되었다.",
+    "detail": "정우식 신임 원자력연구원장은 서울대 원자핵공학과를 졸업하고 동 대학원에서 석·박사 학위를 취득했으며, 현재 한국수력원자력 비상임이사를 맡고 있다. 강 신임 원장은 서울대 전기공학과를 졸업하고 같은 대학에서 전기공학 석·박사 학위를 받았다. 1994년 명지대 교수로 부임한 이후 차세대전력기술연구센터 소장을 역임했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#인사",
+      "#원자력연구원",
+      "#전기연구원"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "원자력연구원장에 정우식 교수…전기연구원장 강상희",
+    "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=490884",
+    "feed": "정책",
+    "domain": "pinpointnews.co.kr",
+    "matched": "한국수력원자력"
+  },
+  "9c40b02ba85a819f": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "삼성전기, AI 기판에 4.27조 투자…고객사 물량 확보 기반 증설",
+    "summary": "삼성전기가 AI 서버용 고성능 FCBGA 기판 생산 능력 확대를 위해 4.27조원을 투자하며, 고객사의 자금 지원과 물량 확보를 전제로 한다.",
+    "detail": "삼성전기는 세종사업장 내 FCBGA 생산능력 확대를 위해 총 4조2700억원을 투자하며, 투자 기간은 이달부터 2028년 5월까지다. 신규 생산라인은 2028년 9월부터 양산에 들어갈 예정이다. 이번 투자는 AI 서버와 고성능컴퓨팅(HPC) 시장 확대로 고사양 FCBGA 수요가 빠르게 늘고 있는 데 따른 것이다. 고객사가 신규 설비투자에 필요한 자금 일부를 지원하고 향후 일정 물량을 공급받는 구조로, 대규모 CAPEX 부담을 줄이고 초기 가동률을 확보할 수 있다.",
+    "implication": "삼성전기는 고객사의 자금 지원과 중장기 물량 확보를 전제로 대규모 투자를 단행하여 AI 반도체 기판 시장 경쟁력을 강화한다.",
+    "why_important": "AI 반도체 수요 증가에 따른 고성능 기판 시장의 성장은 전력 소비 증가와 연관되며, 대규모 투자는 관련 산업 생태계에 영향을 미친다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#삼성전기",
+      "#AI기판",
+      "#FCBGA"
+    ],
+    "related_reports": [],
+    "event_date": "2028-09-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "month",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "삼성전기, AI 기판에 4.27조 ‘역대 최대 베팅’…고객사 물량까지 확보",
+    "link": "https://www.g-enews.com/view.php?ud=2026092819384865083084322ec9_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "데이터센터 전력"
+  },
+  "489de13ef20994b5": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 데이터센터, 원전 1기 분량 전력 소모…전력망 과부하 우려",
+    "summary": "생성형 AI 학습 및 추론을 위한 초대형 AI 데이터센터는 원전 1기 분량의 전력을 소모하여 전력망 과부하 및 계통 보강 비용 증가를 야기할 수 있다.",
+    "detail": "특히 생성형 AI 학습과 추론을 담당하는 초대형 AI 데이터센터는 전력량이 수백 MW에서 최대 1GW에 달해 원전 1기 분량의 전력을 소모한다. 이로 인해 전력망 과부하로 비상 차단이 발생하거나 계통 보강 비용이 급증할 수 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#전력소비",
+      "#전력망"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "AI 시대, 데이터센터가 던지는 빛과 그림자 / 김일태",
+    "link": "http://www.kjdaily.com/article.php?aid=1790591919687776028",
+    "feed": "정책",
+    "domain": "kjdaily.com",
+    "matched": "데이터센터 전력"
+  },
+  "fe07ff78b647cd8c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한투PE, AI 시대 실물 인프라 투자 위한 1조 규모 플랫폼 구축",
+    "summary": "한국투자PE가 AI 시대에 급증하는 데이터센터, 전력 설비 등 실물 인프라 투자 기회를 선점하기 위해 1조원 규모의 투자 플랫폼을 구축한다.",
+    "detail": "한국투자PE는 1조원 규모의 그룹 고유자본 기반 투자 플랫폼 구축에 나선다. AI 전용 데이터센터(AIDC), 대규모 전력·발전 설비, 에너지 저장장치(ESS), 초고속 통신망 등 AI 전환에 필요한 실물 인프라 투자 기회를 신속하게 선점한다는 구상이다. 이는 생성형 AI 확산으로 인한 막대한 설비투자(CAPEX) 수요 증가에 따른 것이다.",
+    "implication": "한국투자PE는 AI 시대의 실물 인프라 투자 사이클 진입에 맞춰 데이터센터, 전력 설비 등에 대한 투자를 확대할 계획이다.",
+    "why_important": "AI 확산에 따른 데이터센터 및 전력 인프라 투자는 에너지 수요 증가와 직결되며, 금융 시장의 움직임은 관련 산업의 성장 동력을 보여준다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한투PE",
+      "#AI인프라",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "한투PE, 1조 규모 고유자본 투자 플랫폼 구축",
+    "link": "http://www.bizwnews.com/news/articleView.html?idxno=147421",
+    "feed": "정책",
+    "domain": "bizwnews.com",
+    "matched": "데이터센터 전력"
+  },
+  "928e89f57876c59d": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "인천시, 수도권 북부권 산업용 전기요금 할인 확대 촉구",
+    "summary": "인천시가 수도권 북부권에 포함되어 산업용 전기요금 할인이 추진되는 가운데, 인천 기업들은 요금 할인 확대를 촉구하고 있다.",
+    "detail": "정부가 지역별 차등 전기요금제를 수도권 북부·남부, 중부권, 남부권 등 4개 권역으로 나눠 적용하는 방안을 추진하는 가운데 인천은 수도권 북부권에 포함됐다. 인천 기업들은 산업용 전기요금을 1㎾h당 최대 10원 할인받을 수 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#인천시",
+      "#전기요금",
+      "#산업용전기"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "인천시, 인천 포함 수도권 북부권 전기료 할인 확대 촉구",
+    "link": "https://www.incheonilbo.com/news/articleView.html?idxno=1333005",
+    "feed": "정책",
+    "domain": "incheonilbo.com",
+    "matched": "지역별 차등 전기요금"
+  },
+  "1d74cf31c7bde6b9": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "삼전닉스 앞에 '메모리 황금길', 美 30조원 발…",
+    "summary": "미국의 원전 르네상스에 국내 기업 참여 가능성이 언급되었으나, 구체적인 참여율과 업무 범위는 확정되지 않았다.",
+    "detail": "국내 기업의 구체적인 참여율과 업무 범위 등은 아직 확정되지 않았지만 미국의 소위 '원전 르네상스'에 국내 기업의 참여 가능성이 제기되고 있다. 사우디아라비아의 초대형 미래도시 개발 사업인 네옴(NEOM) 프로젝트가 대표적이다. 윤석열 정부가 중동 세일즈 외교를 강화하면서 관련 논의가 진행 중이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#미국",
+      "#네옴시티"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "[EBN 오늘(28일) 이슈 종합] 삼전닉스 앞에 '메모리 황금길', 美 30조원 발...",
+    "link": "https://www.ebn.co.kr/news/articleView.html?idxno=1725911",
+    "feed": "정책",
+    "domain": "ebn.co.kr",
+    "matched": "사우디 원전"
+  },
+  "4de2448a7b4c4863": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "호남권 반도체 산단 정주여건 해법 찾기…전력·용수 등 핵심현안 점검",
+    "summary": "대통령 주재 회의에서 호남권 반도체 클러스터 조성을 위한 전력, 용수 등 핵심 현안과 함께 정주여건 조성 방안이 논의된다.",
+    "detail": "이재명 대통령은 관계부처 장관과 삼성전자·SK 사장급 인사가 참석한 가운데 전력·용수 등 핵심현안에 대한 남부권 반도체 벨트 추진 상황을 점검한다. 회의에서는 주택, 교통, 학교, 의료·문화시설 등 정주여건 조성 방안이 제시될 예정이다. 산업통상부, 국토교통부 등 관련 부처 장관들이 남부권 반도체 벨트 추진 현황과 계획을 설명한다.",
+    "implication": "호남권 반도체 클러스터 조성을 위해 전력, 용수 공급뿐만 아니라 주거, 교육, 의료 등 정주여건 개선 방안이 종합적으로 논의된다.",
+    "why_important": "AI 및 반도체 산업 발전의 핵심 요소인 전력 공급 안정성과 더불어, 산업 인력의 지역 정착을 위한 정주여건 마련은 국가 산업 경쟁력 강화에 필수적이다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#반도체클러스터",
+      "#호남권",
+      "#전력공급"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-29",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-28T11:37:57.555849+00:00",
+    "title": "호남권 반도체 산단 정주여건 해법 찾기",
+    "link": "http://www.kwangju.co.kr/article.php?aid=1790595000803770277",
+    "feed": "정책",
+    "domain": "kwangju.co.kr",
+    "matched": "데이터센터 전력"
   }
 }
