@@ -273054,5 +273054,138 @@
     "feed": "정책",
     "domain": "tokenpost.kr",
     "matched": "데이터센터 전력"
+  },
+  "dfcc4ce49a01e729": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한국수력원자력, 추석 맞이 전국 29개 사업소 나눔 활동 전개",
+    "summary": "한국수력원자력이 추석을 맞아 본사와 전국 29개 사업소에서 전통시장 장보기와 재난 복구 등 지역밀착형 사회공헌활동을 펼쳤다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#사회공헌",
+      "#한수원"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T18:52:49.518664+00:00",
+    "title": "한수원, 추석 맞아 전국 29개 사업소서 50여 건 나눔활동",
+    "link": "http://www.knpnews.com/news/articleView.html?idxno=34570",
+    "feed": "정책",
+    "domain": "knpnews.com",
+    "matched": "사내스크랩"
+  },
+  "1ffd9a2069ee8115": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "투자자 론 바론, 스페이스X 스타링크 가치 15조 달러 전망",
+    "summary": "미국 투자자 론 바론이 스페이스X의 스타링크가 우주 AI 데이터센터와 통신 수요 확대로 10년 내 가치 15조 달러에 이를 것이라고 전망했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#스타링크",
+      "#우주인프라"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T18:52:49.518664+00:00",
+    "title": "론 바론 “스타링크 가치 15조달러 가능”…AI 우주 인프라 주목",
+    "link": "https://www.g-enews.com/view.php?ud=2026092821532695269a1f309431_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "데이터센터 전력"
+  },
+  "f35c5db793e317ae": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "US",
+      "GB"
+    ],
+    "article_type": "analysis",
+    "title_kr": "주요 AI 연구자 22명, AI 지능 폭발 경고 및 규제 도입 촉구",
+    "summary": "세계 주요 AI 연구자 22명이 공동 논문을 통해 AI 개발 자동화에 따른 지능 폭발 위험을 경고하고 정부의 규제와 보고 의무화를 촉구했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI규제",
+      "#인공지능"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-28T18:52:49.518664+00:00",
+    "title": "주요 AI연구자 22명 \"AI 지능폭발 임박...통제 못하면 인류멸망\"",
+    "link": "https://www.ytn.co.kr/_ln/0104_202609290334521731",
+    "feed": "정책",
+    "domain": "ytn.co.kr",
+    "matched": "원자력 정책"
   }
 }
