@@ -3212,42 +3212,31 @@ class SelectionOverrideTests(unittest.TestCase):
         self.assertEqual(build_data.override_topics("issue-" + "f" * 16, ["fusion"]), ["fusion"])
 
 
-    def test_card_strip_shows_story_albums_only(self):
-        """띠에 서는 것은 스토리 앨범뿐이다(지니 2026-09-21).
+    def test_card_strip_shows_daily_then_story_albums(self):
+        """띠 = 그날 일일 카드 → 최근 스토리 앨범(지니 2026-09-28).
 
-        일일 3건 카드는 위 지면이 같은 3건을 더 자세히 말한다 — 아래에서 또
-        넘길 이유가 없다. 스토리는 한 이슈를 5장으로 푼 것이라 지면에 없는
-        물건이고, 그래서 이것만 남는다. 만드는 것과 텔레그램 발송은 그대로다.
+        09-21 에 일일 카드를 뺐다가 되살렸다 — 카드는 캡처해 보고·카톡에 붙이는
+        물건이라 지면에 같은 3건이 있어도 이미지로 바로 집을 수 있어야 한다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         fn = script.split("function renderCardStrip(", 1)[1].split("\nfunction ", 1)[0]
+        self.assertIn("index.dates", fn, "일일 카드가 띠에서 빠졌다")
         self.assertIn("index.stories", fn)
-        self.assertNotIn("index.dates", fn, "일일 카드가 띠로 되돌아왔다")
-        # 그날치가 없으면 빈 띠가 되므로 최신 몇 편을 세운다 — 날짜에 매면 안 된다.
+        self.assertIn("daily.concat(", fn, "일일 카드가 스토리보다 앞에 서야 한다")
         self.assertIn("STORY_SETS", fn)
-        markup = (ROOT / "public" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("스토리 카드뉴스", markup)
+        self.assertIn("renderCardStrip(briefing", script, "보고 있는 날짜를 넘기지 않는다")
 
-    def test_card_strip_sits_at_the_very_bottom(self):
-        """카드뉴스는 홈 맨 아래다(지니 2026-09-21). 폭에 따라 자리를 바꾸지 않는다.
+    def test_card_strip_sits_under_the_three_picks(self):
+        """카드뉴스는 「오늘 먼저 볼 3건」 바로 아래, 「그 밖의 이슈」 앞(지니 2026-09-28).
 
-        09-17 엔 3건 위, 09-20 엔 3건 아래였다가 여기로 왔다. 위에 두면 안 되는
-        이유가 둘이다. ①카드는 밤에 커밋되므로 낮에 보는 띠는 대개 **어제 것**이고
-        오늘 지면 위에 어제 카드가 선다. ②내용이 지면과 같다 — 같은 3건을 더
-        간략히 말한 것이라 위에서 읽을 이유가 없다.
-
-        그럼에도 사이트에 남기는 이유는 **가져가는 것**이라서다: 임직원이 캡처해
-        보고·카톡에 붙이는 것이 이 서비스의 실제 유통 경로다. 다 읽은 뒤 부록이
-        맞는 자리다.
+        09-21~27 에는 맨 아래(feed-drawer 앞)였는데 폰에서 닿기 어려워 있는 줄
+        몰랐다. 폭에 따라 자리를 바꾸지 않는다.
         """
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         place = script.split("function placeCardStrip(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("feed-drawer", place, "맨 아래(수집 원문 서랍 앞) 기준점이 없다")
+        self.assertIn('getElementById("briefPanel")', place)
         self.assertIn("anchor.before(strip)", place)
-        # 폭 분기가 남아 있으면 옛 동작이 되살아난 것이다.
         self.assertNotIn("narrowScreen", place, "폭에 따라 자리를 바꾸고 있다")
-        self.assertNotIn("picks.after(strip)", place)
-        self.assertNotIn("picks.before(strip)", place)
 
     def test_inline_scripts_parse(self):
         """public/ 의 인라인 <script> 가 전부 파싱되는지 본다.

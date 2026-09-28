@@ -1600,10 +1600,9 @@ function dropTextsAlreadyOnCards(lines, briefing) {
 // 리포트인데도 별개 기능처럼 보였고, 무엇보다 **무엇이 바뀌었나(what)와 그래서
 // 무슨 의미인가(so_what)를 읽으려면 화면을 오르내려야 했다.** 네 영역의 순서가
 // 곧 읽는 순서다 — 무엇이 바뀌었나 → 이번 주 흐름 → 그래서 어떤 의미 → 다음에 볼 것.
-// 카드뉴스 띠 — /cards/index.json 의 **스토리 카드만** 가로로 넘겨 본다.
-// 일일 3건 카드는 띠에서 뺐다(지니 2026-09-21): 같은 3건을 위 지면이 이미 더
-// 자세히 말하므로 아래에서 또 넘길 이유가 없다. 스토리는 다르다 — 한 이슈를
-// 5장으로 푼 것이라 지면에 없는 물건이고, 그래서 이것만 남긴다.
+// 카드뉴스 띠 — 보고 있는 날의 **일일 카드** 다음에 최근 **스토리 카드**를 잇는다.
+// 일일 카드는 09-21 에 뺐다가 09-28 에 되살렸다(지니): 카드는 캡처해 보고·카톡에
+// 붙이는 물건이라, 지면에 같은 3건이 있어도 이미지로 바로 집을 수 있어야 한다.
 let cardIndexPromise = null;
 function cardIndex() {
   cardIndexPromise = cardIndexPromise
@@ -1687,27 +1686,33 @@ async function initPush() {
 
 const STORY_SETS = 3;
 
-function renderCardStrip() {
+function renderCardStrip(date) {
   const section = document.getElementById("cardStrip");
   if (!section) return;
   cardIndex().then(index => {
     const stories = (index && index.stories) || {};
+    const dates = (index && index.dates) || {};
+    // 지난 날짜를 보면 그날 카드, 없으면(보관 기한 밖) 가장 최근 카드.
+    const dailyDay = (dates[date] || []).length ? date : (index && index.latest) || "";
+    const daily = (dates[dailyDay] || []).filter(Boolean)
+      .map((file, i) => ({ dir: dailyDay, file, day: dailyDay, first: i === 0, kind: "daily" }));
     // 보고 있는 날짜에 매지 않는다 — 스토리는 매일 나오는 것이 아니라서
     // 그날 것만 찾으면 대개 빈 띠가 된다. 최신 몇 편을 선반처럼 세운다.
     const days = Object.keys(stories).filter(day => (stories[day] || []).length)
       .sort().reverse().slice(0, STORY_SETS);
-    const items = days.flatMap(day =>
-      (stories[day] || []).filter(Boolean).map((file, i) => ({ dir: `${day}-story`, file, day, first: i === 0 })));
+    const items = daily.concat(days.flatMap(day =>
+      (stories[day] || []).filter(Boolean).map((file, i) => ({ dir: `${day}-story`, file, day, first: i === 0, kind: "story" }))));
     if (!items.length) { section.hidden = true; return; }
     const src = it => `/cards/${encodeURIComponent(it.dir)}/${encodeURIComponent(it.file)}`;
     // 날짜를 안 쓴다 — 스토리는 그날의 물건이 아니라 이슈의 물건이고, 날짜를
     // 앞세우면 "어제 것"으로 읽혀 안 본다.
-    document.getElementById("cardStripMeta").textContent = `${days.length}편 · ${items.length}장`;
+    document.getElementById("cardStripMeta").textContent =
+      [daily.length ? `오늘 ${daily.length}장` : "", days.length ? `스토리 ${days.length}편` : ""].filter(Boolean).join(" · ");
     document.getElementById("cardStripTrack").innerHTML = items.map((it, i) =>
       // 편과 편 사이에 경계 한 줄 — 여러 편이 한 띠에 이어 붙으므로 어디서
       // 새 이야기가 시작되는지 보여야 한다.
       `<a class="card-strip-item${it.first && i ? " is-story-start" : ""}" href="${src(it)}" target="_blank" rel="noopener" data-card-index="${i}">
-        <img src="${src(it)}" alt="스토리 카드뉴스 ${i + 1}/${items.length}" loading="lazy" width="1080" height="1080">
+        <img src="${src(it)}" alt="${it.kind === "daily" ? "오늘" : "스토리"} 카드뉴스 ${i + 1}/${items.length}" loading="lazy" width="1080" height="1080">
       </a>`).join("");
     section.hidden = false;
     bindCardStripNav();
@@ -1830,9 +1835,11 @@ function placeAudioBar() {
   if (audio.previousElementSibling !== anchor) anchor.after(audio);
 }
 
+// 자리: 「오늘 먼저 볼 3건」 바로 아래(09-28). 맨 아래 feed-drawer 앞에 있을 때는
+// 폰에서 여러 번 내려야 닿아 카드가 있는 줄 몰랐다.
 function placeCardStrip() {
   const strip = document.getElementById("cardStrip");
-  const anchor = document.querySelector("#view-news .feed-drawer");
+  const anchor = document.getElementById("briefPanel");
   if (!strip || !anchor) return;
   if (strip.nextElementSibling !== anchor) anchor.before(strip);
 }
@@ -2303,7 +2310,7 @@ function renderBriefing() {
     };
     archive.hidden = true;
   }
-  renderCardStrip();
+  renderCardStrip(briefing && briefing.date);
   // 정책의제 '한 주의 원자력' — 목차 아래. 주간 리포트가 없으면 스스로 숨는다.
   renderTodayAgenda(briefing);
 
