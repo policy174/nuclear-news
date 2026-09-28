@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-09-28T09:18:07.634274+09:00",
+ "generated_at": "2026-09-28T10:37:30.310376+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
-   "count_now": 184,
+   "count_now": 185,
    "count_prev": 216,
-   "direction": "국내외 기업들이 AI 데이터센터 확충에 맞춰 전력 공급, 냉각 장치, 전력저장장치 등 인프라 기술 협력과 사업 다각화를 추진하고 있으나, 전력 설비 관련 반발과 인허가 문제로 일부 지연도 발생하는 양상이다.",
+   "direction": "데이터센터 흐름은 인공지능(AI) 데이터센터의 전력 및 냉각 수요 급증에 대응하기 위한 다양한 기술 개발과 전략적 접근으로 구성됩니다. 국내에서는 LG전자가 AI 데이터센터 냉각 분야에서 엔비디아와 협력하고, HD한국조선해양은 데이터센터용 전력 공급 선박을 개발하며, 강원도는 대기업 AI 데이터센터 투자를 위해 한국전력과 전력 공급 협약을 체결하는 등 전력 확보와 효율화에 집중하는 모습입니다. 한편, 오라클의 뉴멕시코 데이터센터 프로젝트가 전력 설비 반발로 지연되고, HL리츠운용이 데이터센터 투자 시 전력 확보 가능성을 우선 고려하는 등 전력 인프라 구축의 어려움과 중요성이 부각되고 있습니다.",
    "evidence": [
     {
      "hash": "1ad51ac8e7a198f9",
@@ -33,24 +33,60 @@
      "date": "2026-09-28"
     },
     {
+     "hash": "3d8adcbe2e0d7a83",
+     "title_kr": "구글, 10월 우주 AI 클라우드 시험위성 발사로 우주 데이터센터 경쟁 본격화",
+     "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8672296",
+     "date": "2026-09-28"
+    },
+    {
      "hash": "3af43a01f8c7a356",
      "title_kr": "HL리츠운용, 데이터센터 투자 시 전력 확보 가능성 우선 고려",
      "url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202609181512243960106649",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "0e547f114a828b80",
+     "title_kr": "아세안 AI 데이터센터 급증에 국내 전력기기 업계 공략 가속화",
+     "url": "https://www.greened.kr/news/articleView.html?idxno=350836",
      "date": "2026-09-28"
     }
    ]
   },
   {
    "keyword": "SMR",
-   "count_now": 177,
+   "count_now": 179,
    "count_prev": 241,
-   "direction": "글로벌 전력 수요 증가 속에서 영국과 체코의 SMR 공급망 협력이 구체화되고 있으며, 국내 기업의 해외 SMR 개발사 투자 및 지자체의 원전·SMR 투자 유치 활동이 이어지고 있다.",
+   "direction": "SMR(소형모듈원자로) 흐름은 한국과 미국 기업 간의 활발한 협력과 투자를 중심으로 글로벌 시장에서 기술 개발 및 상용화를 가속화하는 방향으로 움직이고 있습니다. 국내 기업들은 미국 SMR 기업들과 4세대 SMR 표준화 설계 계약을 체결하고 비경수로형 SMR 실증로 사업에 투자하는 등 해외 시장 진출을 모색하고 있으며, 영국 롤스로이스 SMR이 유럽 공급망을 구축하는 등 국제적인 SMR 생태계가 구체화되고 있습니다. 이러한 움직임은 AI 시대의 전력 수요 증가와 기후변화 대응이라는 배경 속에서 SMR이 안정적인 저탄소 전력원으로 재평가되는 흐름과 맞닿아 있습니다.",
    "evidence": [
+    {
+     "hash": "b4869ee54854661d",
+     "title_kr": "SMR, 미국 진출 원하는 한국과 에너지 비용 절감 원하는 미국 수요 맞아",
+     "url": "https://www.chosun.com/economy/industry-company/2026/09/28/B27XID6ZJZEGDMNVLLQ62YBXY4",
+     "date": "2026-09-28"
+    },
     {
      "hash": "1d7950c74bb5b286",
      "title_kr": "롤스로이스 SMR, 체코 스코다JS와 핵심 제어계통 공급 계약 체결",
      "url": "https://www.cbci.co.kr/news/articleView.html?idxno=610232",
      "date": "2026-09-28"
+    },
+    {
+     "hash": "4aded304475c0fb1",
+     "title_kr": "국립한국해양대 서정 교수, 해양SMR 상용화를 위한 국가 플랫폼 구축 제안",
+     "url": "https://www.electimes.com/news/articleView.html?idxno=372799",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "dcb93c58af04ab83",
+     "title_kr": "DL이앤씨, 미국 엑스에너지와 4세대 SMR 표준화 설계 계약 체결",
+     "url": "https://www.dailian.co.kr/news/view/1694840?sc=Naver",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "eb05331dde38909f",
+     "title_kr": "AI 시대 전력 수요 증가로 원자력 발전 재평가 확산",
+     "url": "https://www.dailyt.co.kr/newsView/dlt202609260015",
+     "date": "2026-09-27"
     },
     {
      "hash": "fb962ecd3e9ebe50",
@@ -63,15 +99,39 @@
      "title_kr": "경남도, 10월 20일 서울서 투자유치 설명회 개최…원전·SMR 등 전략산업 소개",
      "url": "https://www.newsis.com/view/NISX20260927_0003804065",
      "date": "2026-09-27"
+    },
+    {
+     "hash": "54af90dcac1cfbe3",
+     "title_kr": "트럼프, 기후 위기 사기 주장 속 한미 기업들 친환경 기술로 돌파구 모색",
+     "url": "https://www.ytn.co.kr/_ln/0104_202609271112113189",
+     "date": "2026-09-27"
     }
    ]
   },
   {
    "keyword": "AI데이터센터",
-   "count_now": 72,
+   "count_now": 74,
    "count_prev": 98,
-   "direction": "AI 데이터센터 확대로 인해 전력 수요가 급증하면서 ESS와 전력기기 수출 기대감이 커지는 동시에, 송전망 접속 지연 및 고금리 장기화에 따른 인프라 투자 부담 우려가 함께 제기되고 있다.",
+   "direction": "AI 데이터센터 흐름은 급증하는 전력 수요에 대응하기 위한 국내외 대규모 투자와 인프라 구축에 집중되어 있습니다. 국내에서는 대통령 주재 회의에서 메가프로젝트로 다뤄지고 kt클라우드가 대규모 센터 구축에 착수하는 등 적극적인 육성 움직임이 보이며, 미국에서는 가스발전과 ESS를 결합한 전력 공급 사업이 추진되고 국내 전력기기 수출이 기대되는 등 전력 솔루션 확보가 핵심입니다. 그러나 전력망 접속 지연과 공급 용량 부족, 그리고 인프라 투자 비용 부담이라는 과제 또한 함께 부상하고 있습니다.",
    "evidence": [
+    {
+     "hash": "74adca975ed53a84",
+     "title_kr": "美 텍사스 가스발전+ESS 결합 사업에 K-배터리 주목",
+     "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=64921",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "9fc4f7c368d0b655",
+     "title_kr": "이재명 대통령, 29일 반도체·AI 데이터센터 등 메가프로젝트 제3차 민관합동회의 주재",
+     "url": "https://www.fnnews.com/news/202609280914192935",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "52f43bcaa821a598",
+     "title_kr": "kt클라우드, 군산 대규모 AI 데이터센터 구축 착수… SGC에너지 협력",
+     "url": "https://www.etnews.com/20260928000067",
+     "date": "2026-09-28"
+    },
     {
      "hash": "42447a3d1c28fe5b",
      "title_kr": "미국 데이터센터 증설로 ESS·변압기 수출 기대…전력 병목 우려",
@@ -85,6 +145,18 @@
      "date": "2026-09-27"
     },
     {
+     "hash": "00cfc1ff4005fddc",
+     "title_kr": "전북도, 현대차 8.9조원 투자 연계 피지컬AI·수소·AI데이터센터 육성",
+     "url": "https://www.etnews.com/20260927000031",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "2deb9e9034997811",
+     "title_kr": "한전기술-트러스톤자산운용, AI 데이터센터 연계 재생에너지 사업 개발 협력",
+     "url": "http://www.knpnews.com/news/articleView.html?idxno=34556",
+     "date": "2026-09-27"
+    },
+    {
      "hash": "5ded74e9cb65f5db",
      "title_kr": "글로벌 ESS 시장, AI 데이터센터 확대·재생에너지 전환으로 연간 1150GWh 성장 전망",
      "url": "https://www.ekn.kr/web/view.php?key=20260926020191596",
@@ -93,31 +165,17 @@
    ]
   },
   {
-   "keyword": "대미투자",
-   "count_now": 69,
-   "count_prev": 57,
-   "direction": "정부는 텍사스 가스복합화력발전소 건설을 대미 전략투자 1호 사업으로 확정하여 국회에 보고했으나, 미국 내부 절차로 인해 공식 발표가 지연되고 있다.",
-   "evidence": [
-    {
-     "hash": "3e5730a5ce752577",
-     "title_kr": "한미 223억 달러 텍사스 발전소 건설, 공식 발표 지연",
-     "url": "https://www.m-economynews.com/news/article.html?no=71089",
-     "date": "2026-09-27"
-    },
-    {
-     "hash": "e807bcc333baf6ac",
-     "title_kr": "정부, 텍사스 가스복합발전소 대미 전략투자 첫 사업으로 국회 보고",
-     "url": "http://www.sisafocus.co.kr/news/articleView.html?idxno=365378",
-     "date": "2026-09-25"
-    }
-   ]
-  },
-  {
    "keyword": "전력수요",
-   "count_now": 69,
+   "count_now": 70,
    "count_prev": 72,
-   "direction": "AI와 반도체 산업 확장에 따른 전력 수요 급증으로 국내외 데이터센터 건립이 추진되는 한편, 대규모 전력 사용과 송전 문제로 인한 주민 반발 및 추가 인프라 구축의 필요성이 대두되고 있다.",
+   "direction": "전력수요 흐름은 AI 데이터센터와 첨단산업의 확대로 인해 국내외에서 전례 없이 급증하고 있으며, 이는 안정적인 전력 공급원 확보와 전력 인프라 구축의 필요성을 전면에 내세우고 있습니다. 국회에서는 첨단산업 전력수요 급증에 따른 원전 경제성 토론회가 개최되고, 정부는 AI 시대 전력 유연성 보강책으로 ESS와 양수발전 확대를 제시하는 등 다양한 해법이 모색되고 있습니다. 그러나 막대한 연산 인프라 및 전력 투자 격차와 데이터센터 건립에 대한 주민 반발 등 사회적 과제 또한 심화되고 있습니다.",
    "evidence": [
+    {
+     "hash": "84ddfc9c0a905013",
+     "title_kr": "국회, 첨단산업 전력수요 급증에 따른 원전 경제성 토론회 개최",
+     "url": "https://www.daenews.co.kr/26670",
+     "date": "2026-09-28"
+    },
     {
      "hash": "272d83b8343bb42f",
      "title_kr": "케냐 대통령, AI 데이터센터 전력 수요 급증에 대한 우려 표명",
@@ -131,6 +189,24 @@
      "date": "2026-09-27"
     },
     {
+     "hash": "32ec7e06d2395586",
+     "title_kr": "한국, ESS 특허출원 세계 1위…정부, AI 시대 전력 유연성 보강책 제시",
+     "url": "https://www.fnnews.com/news/202609231053471600",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "4d99e25ae50077d4",
+     "title_kr": "한국 수출, 반도체 쏠림 심화…AI 데이터센터·전력 등 새 성장축 육성 제언",
+     "url": "https://www.m-i.kr/news/articleView.html?idxno=1417489",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "b63ed18bca986f3f",
+     "title_kr": "국내 AI 파운데이션 모델, 막대한 연산 인프라·전력 투자 격차로 글로벌 경쟁력 확보 난항",
+     "url": "http://www.metroseoul.co.kr/article/20260927500126",
+     "date": "2026-09-27"
+    },
+    {
      "hash": "817c5b65c122cb22",
      "title_kr": "경기지역 데이터센터 곳곳 추진…주민 반발 장기화",
      "url": "https://www.incheonilbo.com/news/articleView.html?idxno=1332906",
@@ -139,10 +215,66 @@
    ]
   },
   {
+   "keyword": "대미투자",
+   "count_now": 69,
+   "count_prev": 57,
+   "direction": "대미투자 흐름은 한국 정부와 기업들이 미국 내 에너지 및 원전 등 전략산업 분야에 대규모 투자를 추진하는 방향으로 전개되고 있습니다. 텍사스 가스복합화력발전소 건설이 대미 전략투자 1호 사업으로 확정되어 국회에 보고되었으나, 미국 내부 절차 지연으로 공식 발표가 늦어지고 있으며, 미국 내 대형 원전 8기 건설 및 알래스카 LNG 사업 추진 또한 논의되고 있습니다. 이러한 투자는 막대한 초기 자금과 복잡한 절차를 수반하는 과제를 안고 있습니다.",
+   "evidence": [
+    {
+     "hash": "4c8f305e07c5625a",
+     "title_kr": "국회 재경위, 국정감사서 대미 투자 및 원전 프레임워크 논의 예정",
+     "url": "https://www.news1.kr/economy/trend/6300857",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "acb4dc0c8bb338c1",
+     "title_kr": "미 전문가, 한미 정상회담 후 대미 투자 지연 오해 해소 기대…원전 사업 잠재력 주목",
+     "url": "https://www.khan.co.kr/article/202609271125001",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "ad420586f17b881d",
+     "title_kr": "산업부, 2천억 달러 대미 전략투자 1호 사업 발표 미 내부 절차로 지연",
+     "url": "https://www.hani.co.kr/arti/economy/economy_general/1279607.html",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "3e5730a5ce752577",
+     "title_kr": "한미 223억 달러 텍사스 발전소 건설, 공식 발표 지연",
+     "url": "https://www.m-economynews.com/news/article.html?no=71089",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "6300f655caf81efd",
+     "title_kr": "정부, 미국 내 대형 원전 8기 건설 및 알래스카 LNG 사업 추진 보고",
+     "url": "https://www.hankookilbo.com/news/article/A2026092215050004844",
+     "date": "2026-09-25"
+    },
+    {
+     "hash": "e807bcc333baf6ac",
+     "title_kr": "정부, 텍사스 가스복합발전소 대미 전략투자 첫 사업으로 국회 보고",
+     "url": "http://www.sisafocus.co.kr/news/articleView.html?idxno=365378",
+     "date": "2026-09-25"
+    },
+    {
+     "hash": "f8b50b898a404575",
+     "title_kr": "한국의 대미 전략산업 투자 현황과 실익·부담 분석",
+     "url": "https://www.asiatoday.co.kr/kn/view.php?key=20260925010009065",
+     "date": "2026-09-25"
+    },
+    {
+     "hash": "ff1324803e6fc64e",
+     "title_kr": "김정관 산업장관, 대미투자 보고서에서 발전소 투자 타당성 언급",
+     "url": "https://www.hankookilbo.com/news/article/A2026092312440002394?did=NA",
+     "date": "2026-09-24"
+    }
+   ]
+  },
+  {
    "keyword": "AI",
    "count_now": 67,
    "count_prev": 90,
-   "direction": "AI 확산에 따른 데이터센터 전력 소비 급증으로 전력망 구축 비용과 재원 분담 문제가 주요 현안으로 부상했으며, 이를 해결하기 위한 전력기기 실적 호조와 신기술 적용 시도가 이어지고 있다.",
+   "direction": "AI 흐름은 전력 수요의 급증을 야기하며 전력망 구축 비용 부담 논란을 심화시키는 동시에, 전력기기 및 전선 업계의 실적 호조를 이끌고 있습니다. 이러한 흐름 속에서 세계경제포럼은 AI 지속가능성을 위해 에너지 효율 개선을 강조하고 삼성은 AI 데이터센터 전력 소비 절감 신기술에 주목하는 등 전력 효율화 및 신기술 도입 노력이 활발히 이루어지고 있습니다. 또한 구글이 우주 AI 클라우드 시험위성을 발사하는 등 AI 인프라의 공간적 확장도 모색되고 있습니다.",
    "evidence": [
     {
      "hash": "134dff8bd3561a0e",
@@ -151,9 +283,39 @@
      "date": "2026-09-28"
     },
     {
+     "hash": "3d8adcbe2e0d7a83",
+     "title_kr": "구글, 10월 우주 AI 클라우드 시험위성 발사로 우주 데이터센터 경쟁 본격화",
+     "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8672296",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "d9a22b8bd7238a45",
+     "title_kr": "세계경제포럼, AI 지속가능성 위해 컴퓨트·에너지·인재 투자 촉구",
+     "url": "https://www.aitimes.kr/news/articleView.html?idxno=42075",
+     "date": "2026-09-28"
+    },
+    {
+     "hash": "272d83b8343bb42f",
+     "title_kr": "케냐 대통령, AI 데이터센터 전력 수요 급증에 대한 우려 표명",
+     "url": "http://www.wikileaks-kr.org/news/articleView.html?idxno=191986",
+     "date": "2026-09-27"
+    },
+    {
      "hash": "ad0bf50fe1a59399",
      "title_kr": "국내 전력기기·전선 5개사, AI 전력 수요 급증에 매출 30조원 달성",
      "url": "https://biz.heraldcorp.com/article/10883552",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "c342f4726771d9c9",
+     "title_kr": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
+     "url": "http://www.newsroad.co.kr/news/articleView.html?idxno=64908",
+     "date": "2026-09-27"
+    },
+    {
+     "hash": "f0a11c06fcb44f28",
+     "title_kr": "삼성, AI 데이터센터 전력 소비 절감 신기술에 주목",
+     "url": "https://www.hankyung.com/article/202609276925i",
      "date": "2026-09-27"
     },
     {
