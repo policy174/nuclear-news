@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 4,
+    "count": 5,
     "date": "2026-09-29"
   },
   "retired": {
@@ -662,7 +662,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-09-29"
   },
   "terms": {
@@ -756,6 +756,38 @@
       "score": 3.6,
       "status": "tracking",
       "term": "바이롱 원자력발전소",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "쓰리마일섬": {
+      "articles": 1,
+      "created_at": "2026-09-28T16:54:04.248665+00:00",
+      "domains": [
+        "world-nuclear-news.org"
+      ],
+      "evidence": [
+        {
+          "domain": "world-nuclear-news.org",
+          "hash": "d5f4164c53991de6",
+          "importance": "must_read",
+          "title": "美 NRC, 크레인 원전 재가동 환경 검토 완료"
+        }
+      ],
+      "expires_at": "2026-09-29T16:54:04.248665+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-28T16:54:06.416996+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-28T16:54:04.248665+00:00",
+      "queries_run": 1,
+      "query": "쓰리마일섬 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "쓰리마일섬",
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [],
@@ -956,11 +988,11 @@
       "expires_at": "2026-09-29T09:09:25.665068+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-28T09:09:26.671803+00:00",
+      "last_run": "2026-09-28T16:54:06.416996+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-28T09:09:25.665068+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-28T16:54:04.248665+00:00",
+      "queries_run": 2,
       "query": "해누리 원전",
       "score": 3.6,
       "status": "tracking",
@@ -969,7 +1001,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "호기원자력섬": {
       "articles": 1,
@@ -987,9 +1019,12 @@
       ],
       "expires_at": "2026-09-29T16:09:14.891666+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-28T16:54:06.416996+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-28T16:54:04.248665+00:00",
+      "queries_run": 1,
       "query": "호기 원자력섬",
       "score": 3.6,
       "status": "tracking",
@@ -998,7 +1033,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
