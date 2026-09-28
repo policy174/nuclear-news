@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 6,
-    "date": "2026-09-28"
+    "count": 4,
+    "date": "2026-09-29"
   },
   "retired": {
     "adb": {
@@ -662,8 +662,8 @@
     }
   },
   "spent": {
-    "count": 7,
-    "date": "2026-09-28"
+    "count": 3,
+    "date": "2026-09-29"
   },
   "terms": {
     "광시좡족자치구의바이롱": {
@@ -794,6 +794,102 @@
       "yields": 0,
       "zero_streak": 1
     },
+    "중단된마안산": {
+      "articles": 1,
+      "created_at": "2026-09-28T16:09:14.891666+00:00",
+      "domains": [
+        "energyconnects.com"
+      ],
+      "evidence": [
+        {
+          "domain": "energyconnects.com",
+          "hash": "dd6935f3efd08365",
+          "importance": "must_read",
+          "title": "대만, 가동 중단 마안산 원전 조기 재가동 계획 승인…2028년 재가동 가능성"
+        }
+      ],
+      "expires_at": "2026-09-29T16:09:14.891666+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-28T16:09:17.705090+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-28T16:09:14.891666+00:00",
+      "queries_run": 1,
+      "query": "중단된 마안산 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "중단된 마안산",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "중단마안산": {
+      "articles": 1,
+      "created_at": "2026-09-28T16:09:14.891666+00:00",
+      "domains": [
+        "energyconnects.com"
+      ],
+      "evidence": [
+        {
+          "domain": "energyconnects.com",
+          "hash": "dd6935f3efd08365",
+          "importance": "must_read",
+          "title": "대만, 가동 중단 마안산 원전 조기 재가동 계획 승인…2028년 재가동 가능성"
+        }
+      ],
+      "expires_at": "2026-09-29T16:09:14.891666+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-28T16:09:17.705090+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-28T16:09:14.891666+00:00",
+      "queries_run": 1,
+      "query": "중단 마안산 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "중단 마안산",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "콘스텔레이션의크레인": {
+      "articles": 1,
+      "created_at": "2026-09-28T16:09:14.891666+00:00",
+      "domains": [
+        "federalregister.gov"
+      ],
+      "evidence": [
+        {
+          "domain": "federalregister.gov",
+          "hash": "18cdb95041d08a7c",
+          "importance": "must_read",
+          "title": "콘스텔레이션, 크레인 원전 재가동 프로젝트 환경영향평가 통과"
+        }
+      ],
+      "expires_at": "2026-09-29T16:09:14.891666+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-28T16:09:17.705090+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-09-28T16:09:14.891666+00:00",
+      "queries_run": 1,
+      "query": "콘스텔레이션의 크레인 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "콘스텔레이션의 크레인",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "한국전기연구원": {
       "articles": 5,
       "created_at": "2026-09-28T08:38:54.086533+00:00",
@@ -874,6 +970,35 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
+    },
+    "호기원자력섬": {
+      "articles": 1,
+      "created_at": "2026-09-28T16:09:14.891666+00:00",
+      "domains": [
+        "world-nuclear-news.org"
+      ],
+      "evidence": [
+        {
+          "domain": "world-nuclear-news.org",
+          "hash": "9709515caf1d095c",
+          "importance": "must_read",
+          "title": "중국 바이롱 원전 2호기 원자력섬 원전 건설 첫 콘크리트 타설"
+        }
+      ],
+      "expires_at": "2026-09-29T16:09:14.891666+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "호기 원자력섬",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "호기 원자력섬",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
     }
   },
   "version": 1
