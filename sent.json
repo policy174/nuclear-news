@@ -6365,14 +6365,20 @@
     "15d689b962411913": "2026-09-28T17:38:15.896834+00:00",
     "1f0878f7b4cc1cff": "2026-09-28T17:38:15.896834+00:00",
     "1755c16520c7889c": "2026-09-28T17:52:56.027498+00:00",
-    "43a5a6979368ff0f": "2026-09-28T17:52:56.027498+00:00"
+    "43a5a6979368ff0f": "2026-09-28T17:52:56.027498+00:00",
+    "3d8f8b4d4336c0c3": "2026-09-28T18:38:07.151165+00:00",
+    "53755f4b8ef49992": "2026-09-28T18:38:07.151165+00:00",
+    "9670c7e2c8759c46": "2026-09-28T18:38:07.151165+00:00",
+    "d95cb74f7eb9cdc1": "2026-09-28T18:38:07.151165+00:00",
+    "4c8e6ee1c5820aa0": "2026-09-28T18:38:07.151165+00:00",
+    "13dcb8bd33e4787a": "2026-09-28T18:38:07.151165+00:00"
   },
   "source_yield": {
-    "at": "2026-09-28T17:55:20+00:00",
+    "at": "2026-09-28T18:39:42+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 48,
@@ -6386,26 +6392,24 @@
       "한국원자력산업협회": 0,
       "한국원자력환경공단": 0,
       "한국원자력통제기술원": 0,
-      "한전원자력연료": 1,
+      "한전원자력연료": 2,
       "혁신형 SMR 기술개발사업단": 0,
-      "Reuters 원자력": 12,
+      "Reuters 원자력": 14,
       "La Tribune 원자력": 59,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
-      "FT 원자력": 10,
-      "Les Échos 원자력": 8,
+      "FT 원자력": 9,
+      "Les Échos 원자력": 7,
       "E&E News 원자력": 0,
-      "Nuclear Engineering International": 14,
+      "Nuclear Engineering International": 11,
       "Euractiv 원자력": 6,
       "국내 원자력 보도": 6
     },
     "kept": {
-      "ANS Nuclear Newswire": 1
+      "ANS Nuclear Newswire": 1,
+      "Reuters 원자력": 1
     },
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "errors": {}
   },
   "scrap_seeds": {
     "42801dc1502a": {
