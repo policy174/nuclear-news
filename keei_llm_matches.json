@@ -513,10 +513,10 @@
       "same_event": false
     },
     "issue-1f235e424372ff51--dc799316ad": {
-      "issue_title": "원자력안전위원회, 새울원전 1호기 정기검사 후 8월 21일 재가동 허용",
+      "issue_title": "원안위, 정기검사 완료 새울원전 1호기 재가동 및 임계 허용",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
-      "reason": "개별 원전 재가동 vs 법령 개정",
+      "reason": "새울 1호기 재가동과 법령 개정안은 별개 사안임",
       "same_event": false
     },
     "issue-2159831fad1ddf60--cba0dde103": {
@@ -2115,6 +2115,13 @@
       "reason": "내용 완전히 다름",
       "same_event": false
     },
+    "issue-687f55c2836fcbc3--77d959ece5": {
+      "issue_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
+      "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
+      "prompt_version": 1,
+      "reason": "국내 i-SMR 표준설계인가 심사 착수로 동일 사건임",
+      "same_event": true
+    },
     "issue-68ded5211bab6770--99f6aed02e": {
       "issue_title": "미국 DOE, 첨단 원자로 및 핵연료 주기 프로젝트 12개 선정 지원",
       "keei_item": "미 에너지부, Genesis Mission 일환으로 원자력 AI 혁신 프로젝트 선정",
@@ -2766,6 +2773,13 @@
       "reason": "A는 특정 원전 해파리, B는 다수국 폭염",
       "same_event": false
     },
+    "issue-8f400ecdab896259--56dc541d23": {
+      "issue_title": "김구연 경남도의원, 석탄화력발전소 폐지 지역경제 충격 최소화 조례 발의",
+      "keei_item": "일본 후쿠이현, 현 의회에 핵연료세 인상 조례안 제출",
+      "prompt_version": 1,
+      "reason": "경남과 후쿠이현의 전혀 다른 지역 조례 발의임",
+      "same_event": false
+    },
     "issue-911eed395c44140c--b78f9ce6eb": {
       "issue_title": "유럽투자은행(EIB), 핀란드 SMR 기업 Steady Energy에 첫 투자 결정",
       "keei_item": "독일 연방연구기술우주부, 핵융합 허브 3개에 1억 2,500만 유로 지원",
@@ -3037,6 +3051,13 @@
       "keei_item": "전 세계 방사성동위원소 산업 현황 (NEA 보고서)",
       "prompt_version": 1,
       "reason": "백서와 일반 산업 현황 보고서로 대상이 다름",
+      "same_event": false
+    },
+    "issue-a3880024de8c77cf--dc799316ad": {
+      "issue_title": "원자력안전위원회, 새울원전 1호기 정기검사 후 8월 21일 재가동 허용",
+      "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
+      "prompt_version": 1,
+      "reason": "새울 1호기 재가동과 법령 개정안은 별개 사안임",
       "same_event": false
     },
     "issue-a3ebf95f8f2a3d16--0330b81e50": {
