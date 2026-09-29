@@ -12292,6 +12292,16 @@
       "right_title": "SK하이닉스, 용인 클러스터 난항 속 미국·일본 등 해외 생산기지 검토",
       "same_event": false
     },
+    "0c94592b8e9adc53--f59e6551e0e064d0": {
+      "embedding_similarity": 0.8566,
+      "left_title": "용인특례시장, 삼성·SK 반도체 산단 1600조 투자 및 16GW 전력 수요 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "용인과 광주·전남 산단",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부와 전남광주시, 광주 군 공항 부지 반도체 클러스터 전력공급 예타 면제 의결",
+      "same_event": false
+    },
     "0c9c758818ef14de--15693333736cd5b3": {
       "embedding_similarity": 0.8511,
       "left_title": "중국, '제로 탄소 단지'로 EU 규제 돌파…AI 데이터센터 유치",
@@ -50042,6 +50052,16 @@
       "right_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
       "same_event": false
     },
+    "3d67923b7d733157--d91d0de7b81c4197": {
+      "embedding_similarity": 0.8701,
+      "left_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전이 다름",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
+      "same_event": false
+    },
     "3d67923b7d733157--dbda6164230fdf97": {
       "embedding_similarity": 0.8836,
       "left_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
@@ -59512,6 +59532,16 @@
       "right_title": "한울본부, 신한울 3·4호기 제1기 안전 시민참관단 해단식 개최",
       "same_event": false
     },
+    "49f98200f659231b--e3f328e973a88a8f": {
+      "embedding_similarity": 0.8573,
+      "left_title": "美 압박 속 中 따라붙어… K반도체 정부·기업 '원팀' 대응 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "반도체 대응과 법안 지연",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "서울경제 사설: 노동 특례 이견으로 메가특구 특별법 처리 지연 우려",
+      "same_event": false
+    },
     "49feeb593e551c4b--cd76699834dcd8ac": {
       "embedding_similarity": 0.8829,
       "left_title": "한미 정상, 뉴욕 회담서 전략투자 성과 환영 및 핵연료·전작권 협력 논의",
@@ -59711,6 +59741,16 @@
       "reviewed_at": "2026-09-22T22:54:17.730809+00:00",
       "right_title": "전력거래소, 국내 3차 ESS 중앙계약시장 입찰 공고 임박…2조원 규모 예상",
       "same_event": true
+    },
+    "4aac5dbf32864dbb--76a906a330739628": {
+      "embedding_similarity": 0.8457,
+      "left_title": "기후에너지환경부, 1180MW 규모 ESS 중앙계약시장 사업자 선정 공고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "ESS 공고와 전력망 대책",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부, 2030년까지 재생에너지 수용력 171GW로 확대하는 전력망 혁신대책 발표",
+      "same_event": false
     },
     "4aac5dbf32864dbb--9c67aaac55f7bcf6": {
       "embedding_similarity": 0.8497,
@@ -60251,6 +60291,36 @@
       "reviewed_at": "2026-08-27T14:07:31.392251+00:00",
       "right_title": "대우건설 정원주 회장, 베트남 장관과 원전·LNG 사업 협력 논의",
       "same_event": true
+    },
+    "4b97d55a8dfcaef3--57357b38b6146161": {
+      "embedding_similarity": 0.9067,
+      "left_title": "현대차 새만금 투자…전북, 피지컬AI·수소·AI데이터 산업 대전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "현대차 새만금 투자",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "전북특별자치도, 현대차 새만금 투자 이행 위한 인프라 확충 및 규제 개선 추진",
+      "same_event": true
+    },
+    "4b97d55a8dfcaef3--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8658,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "전북특별자치도, 현대차 새만금 투자 이행 위한 인프라 확충 및 규제 개선 추진",
+      "same_event": false
+    },
+    "4b97d55a8dfcaef3--c342f4726771d9c9": {
+      "embedding_similarity": 0.8495,
+      "left_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전남광주와 전북 새만금",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "전북특별자치도, 현대차 새만금 투자 이행 위한 인프라 확충 및 규제 개선 추진",
+      "same_event": false
     },
     "4bb135bd3ac970ad--c1cbbd86642f6f3e": {
       "embedding_similarity": 0.8509,
@@ -62360,6 +62430,16 @@
       "reason": "서로 다른 SMR 사업",
       "reviewed_at": "2026-09-18T23:14:14.415462+00:00",
       "right_title": "오클로, 첫 오로라 원자로 2028년 상업 배치 목표",
+      "same_event": false
+    },
+    "4f1cad9e204860e2--d91d0de7b81c4197": {
+      "embedding_similarity": 0.8637,
+      "left_title": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 SMR 사업",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
       "same_event": false
     },
     "4f1cad9e204860e2--dbda6164230fdf97": {
@@ -70612,6 +70692,16 @@
       "right_title": "미국 에너지부, NASA 및 Radiant에 HALEU 연료 할당 결정",
       "same_event": false
     },
+    "584916f0105f6d17--d91d0de7b81c4197": {
+      "embedding_similarity": 0.85,
+      "left_title": "X-에너지, TRISO-X 핵연료 시설 건물 골조 공사 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵연료 시설과 SMR 허가",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
+      "same_event": false
+    },
     "584d1290f6c8ec55--66f947bcd7efd856": {
       "embedding_similarity": 0.8811,
       "left_title": "중국 하이난 창지앙 원전 3호기, 전력망 연결 후 상업운전 개시",
@@ -77762,6 +77852,16 @@
       "right_title": "광주시, 삼성전자 공조공장 착공·앰코 폐수 문제 해결로 반도체·AI 허브 가속",
       "same_event": false
     },
+    "6287cc06d374ad97--f59e6551e0e064d0": {
+      "embedding_similarity": 0.9072,
+      "left_title": "정부, 광주·전남 반도체 클러스터 2030년 첫 칩 생산 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "생산 목표와 예타 면제",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부와 전남광주시, 광주 군 공항 부지 반도체 클러스터 전력공급 예타 면제 의결",
+      "same_event": false
+    },
     "629a2a0fdc790c1f--795b7aa7c1b54d47": {
       "embedding_similarity": 0.8706,
       "left_title": "이재명 대통령, IEA 사무총장 면담서 중동전쟁으로 인한 원전 의존도 언급",
@@ -78410,6 +78510,16 @@
       "reason": "서로 다른 규제 개편",
       "reviewed_at": "2026-09-15T19:00:36.307312+00:00",
       "right_title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
+      "same_event": false
+    },
+    "63f4116f8b5103ca--d91d0de7b81c4197": {
+      "embedding_similarity": 0.8542,
+      "left_title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 개편과 특정 허가",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
       "same_event": false
     },
     "63f4116f8b5103ca--f1f4a9733a1bafa4": {
@@ -86980,6 +87090,36 @@
       "reason": "기지 배치 vs 임계 달성",
       "reviewed_at": "2026-08-29T18:22:56.815954+00:00",
       "right_title": "웨스팅하우스 eVinci 마이크로원자로, 네바다서 임계 달성",
+      "same_event": false
+    },
+    "73014f2a0180bc52--75814bae64a6e0e5": {
+      "embedding_similarity": 0.8989,
+      "left_title": "석탄발전 39기 2038년까지 폐지…최대 10기는 ‘안보전원’로 남긴다",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전기본 계획",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부, 2040년까지 석탄발전 60기 퇴출…해상풍력 45GW 확대",
+      "same_event": false
+    },
+    "73014f2a0180bc52--e471ebb1e8e3d19f": {
+      "embedding_similarity": 0.8816,
+      "left_title": "정부, 12차 전기본서 2040년까지 석탄발전 60기 폐지 로드맵 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 석탄폐지",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부, 2040년까지 석탄발전 60기 퇴출…해상풍력 45GW 확대",
+      "same_event": true
+    },
+    "73014f2a0180bc52--f64115189bcf3f45": {
+      "embedding_similarity": 0.861,
+      "left_title": "폐쇄 석탄발전소 부지에 SMR 건설, 전기본서 공식 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 논의와 석탄퇴출",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부, 2040년까지 석탄발전 60기 퇴출…해상풍력 45GW 확대",
       "same_event": false
     },
     "731c8719f8bb5c21--737df86cf04543b5": {
@@ -107652,6 +107792,16 @@
       "right_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
       "same_event": false
     },
+    "971313da21360267--f59e6551e0e064d0": {
+      "embedding_similarity": 0.9016,
+      "left_title": "정부·전남광주시·한전, 호남권 반도체 클러스터 전력공급 협약 체결 및 2029년 3GW 우선 공급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "호남 반도체 전력공급",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부와 전남광주시, 광주 군 공항 부지 반도체 클러스터 전력공급 예타 면제 의결",
+      "same_event": true
+    },
     "975146cde1cfceb8--9dac780789493824": {
       "embedding_similarity": 0.8635,
       "left_title": "유럽, 가뭄·폭염으로 원전 가동 차질…에너지 위기 확산",
@@ -110740,6 +110890,16 @@
       "reason": "서로 다른 기업의 개별 공급 및 수주 전망",
       "reviewed_at": "2026-09-26T11:10:47.609097+00:00",
       "right_title": "AI 전력수요 급증에 비에이치아이 등 북미 가스발전 설비 수주 기대감 확산",
+      "same_event": false
+    },
+    "9fd4c4e2ded65b09--d91d0de7b81c4197": {
+      "embedding_similarity": 0.8478,
+      "left_title": "Blue Energy, 텍사스 가스-원전 프로젝트 건설 허가 신청 제출",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 프로젝트",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
       "same_event": false
     },
     "9fdc75fe64993e9f--b35eb3f20deb19c6": {
@@ -113940,6 +114100,26 @@
       "reason": "다른 주체, 다른 안건",
       "reviewed_at": "2026-08-04T11:17:14.928643+00:00",
       "right_title": "미 상무부, 아이다호·와이오밍 신규 원자력 개발에 3,100만 달러 투자 발표",
+      "same_event": false
+    },
+    "a8ef1884cd3bc738--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8501,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "SGC에너지, 전북 군산에 60MW급 AI 데이터센터 1단계 내달 착공",
+      "same_event": false
+    },
+    "a8ef1884cd3bc738--c342f4726771d9c9": {
+      "embedding_similarity": 0.8552,
+      "left_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "해남과 군산 데이터센터",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "SGC에너지, 전북 군산에 60MW급 AI 데이터센터 1단계 내달 착공",
       "same_event": false
     },
     "a8f70eee44a629c0--c2c8ae09631cd504": {
@@ -123332,6 +123512,16 @@
       "right_title": "청와대, 미래대응기금 신설로 SMR 등 첨단산업 투자 계획 밝혀",
       "same_event": true
     },
+    "c2c4c1e5de2a6fcb--d91d0de7b81c4197": {
+      "embedding_similarity": 0.8476,
+      "left_title": "루이지애나 SMR 프로젝트, 다음 단계 진전",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 SMR 프로젝트",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "미국 NRC, 테네시밸리애소시에션 클린치리버 SMR 건설허가 발급 예정",
+      "same_event": false
+    },
     "c2c4c1e5de2a6fcb--ef8497efb48823ba": {
       "embedding_similarity": 0.8713,
       "left_title": "ONE Nuclear, 루이지애나 2.88GW 에너지 프로젝트 LOI 체결",
@@ -123491,6 +123681,16 @@
       "reviewed_at": "2026-09-27T23:54:16.527368+00:00",
       "right_title": "명현관 해남군수, AI 데이터센터 집적지 연계 인프라 구축 대통령 건의",
       "same_event": true
+    },
+    "c342f4726771d9c9--f59e6551e0e064d0": {
+      "embedding_similarity": 0.8534,
+      "left_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업 재편과 예타 면제",
+      "reviewed_at": "2026-09-29T16:49:17.506237+00:00",
+      "right_title": "정부와 전남광주시, 광주 군 공항 부지 반도체 클러스터 전력공급 예타 면제 의결",
+      "same_event": false
     },
     "c35e7d695873c436--d31013e6bf533618": {
       "embedding_similarity": 0.872,
