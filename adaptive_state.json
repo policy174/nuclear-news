@@ -628,6 +628,14 @@
       "type": "org",
       "until": "2026-10-03T17:42:43.938534+00:00"
     },
+    "해누리": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-09-29T10:08:49.169731+00:00",
+      "term": "해누리",
+      "type": "plant",
+      "until": "2026-10-13T10:08:49.169731+00:00"
+    },
     "해치": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -971,38 +979,6 @@
       ],
       "yields": 3,
       "zero_streak": 0
-    },
-    "해누리": {
-      "articles": 1,
-      "created_at": "2026-09-28T09:09:25.665068+00:00",
-      "domains": [
-        "kbmaeil.com"
-      ],
-      "evidence": [
-        {
-          "domain": "kbmaeil.com",
-          "hash": "80debf364610b28e",
-          "importance": "must_read",
-          "title": "영덕 신규 원전 명칭, '새빛'·'해누리' 최종 후보 선정"
-        }
-      ],
-      "expires_at": "2026-09-29T09:09:25.665068+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-28T16:54:06.416996+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-09-28T16:54:04.248665+00:00",
-      "queries_run": 2,
-      "query": "해누리 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "해누리",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     },
     "호기원자력섬": {
       "articles": 1,
