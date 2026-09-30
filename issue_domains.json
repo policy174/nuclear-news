@@ -589,15 +589,14 @@
       "generated_at": "2026-09-18T08:30:42.694758+00:00"
     },
     "issue-995a3a9b7cdd6475": {
-      "digest": "846a5954ea97b912",
       "domain": "SMR",
       "tags": [
         "SMR사업화"
       ],
       "title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
     },
     "issue-f07e8993b12e13bb": {
       "domain": "핵연료",
@@ -672,15 +671,14 @@
       "generated_at": "2026-09-18T10:20:37.492669+00:00"
     },
     "issue-2e2210cdf10c8f04": {
-      "digest": "9bc20c88ac144abe",
       "domain": "해외사업",
       "tags": [
         "원전수출"
       ],
       "title": "한국전력, 최대 18조원 규모 베트남 닌투언 2 원전 수주 협상 가속화",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
     },
     "issue-85d558a7373de935": {
       "digest": "1458955dec8d8d7b",
@@ -7662,6 +7660,46 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-09-30T01:08:46.311065+00:00"
+    },
+    "issue-c78e0418362af12c": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "베트남, AI·에너지 첨단산업 전환…한국과 원전 협력 가능성 시사",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
+    },
+    "issue-db08e16acafcc890": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "정부, 내년 예산안에 SMR 등 7대 국가전략기술 집중 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
+    },
+    "issue-5a6496dc2029b55d": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "대통령, 국무회의서 호남 반도체 클러스터 등 3대 메가프로젝트 예타 면제 의결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
+    },
+    "issue-7686f91e9f765318": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "산업부, 베트남과 핵심광물·에너지안보 협력 강화",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-09-30T15:07:17.349723+00:00"
     }
   }
 }
