@@ -12332,6 +12332,16 @@
       "right_title": "한경협, 용인 반도체 클러스터 인프라 확충 및 무탄소 전력 제도 개선 건의",
       "same_event": false
     },
+    "0c94592b8e9adc53--0e4540e62c4c2be3": {
+      "embedding_similarity": 0.8718,
+      "left_title": "용인특례시장, 삼성·SK 반도체 산단 1600조 투자 및 16GW 전력 수요 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체 및 세부 안건이 다름",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "SK이노베이션 E&S, AI·반도체 전력 수요 대응 독자 밸류체인 구축",
+      "same_event": false
+    },
     "0c94592b8e9adc53--10775bba6f983bb8": {
       "embedding_similarity": 0.879,
       "left_title": "정부, 호남 반도체 산단 용수 예타 면제 및 6조원 지원 의결",
@@ -13200,6 +13210,16 @@
       "reason": "한빛원전 사용후핵연료 저장시설 관련 주민 반발",
       "reviewed_at": "2026-09-05T22:54:21.617783+00:00",
       "right_title": "고준위 방폐장, 40년 실패 끝에 내년 10번째 부지 공모 추진",
+      "same_event": true
+    },
+    "0d34d78bcf9a87a2--1b0c5bf7f21be947": {
+      "embedding_similarity": 0.8584,
+      "left_title": "이재명 대통령, 유엔총회 계기 미국 순방서 대미 투자·원전 건설 합의 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 논의",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
       "same_event": true
     },
     "0d34d78bcf9a87a2--2aa1f9b9edb90edf": {
@@ -19282,6 +19302,16 @@
       "right_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
       "same_event": false
     },
+    "14960bc031595436--3ed8d86bcd930184": {
+      "embedding_similarity": 0.877,
+      "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 가스발전 투자 사업",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "텍사스 가스발전, 30조 투자해 60조 회수? 가스가격·장기계약 변수",
+      "same_event": true
+    },
     "14960bc031595436--40a0e967712cce42": {
       "embedding_similarity": 0.8878,
       "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
@@ -23822,6 +23852,16 @@
       "right_title": "LG전자, 엔비디아 파트너 네트워크 전력·냉각 분야 공식 등재",
       "same_event": false
     },
+    "1b0c5bf7f21be947--2ae8b369814ca32e": {
+      "embedding_similarity": 0.8608,
+      "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 진출",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
+      "same_event": true
+    },
     "1b0c5bf7f21be947--71c02da6768281e3": {
       "embedding_similarity": 0.8695,
       "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
@@ -23842,6 +23882,16 @@
       "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
       "same_event": true
     },
+    "1b0c5bf7f21be947--87303eb38eac4d70": {
+      "embedding_similarity": 0.8616,
+      "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 협상",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
+      "same_event": true
+    },
     "1b0c5bf7f21be947--8aedff067a37c200": {
       "embedding_similarity": 0.8995,
       "left_title": "한국, 미국 에너지 인프라에 2000억 달러 투자 논의…원전 8기 포함",
@@ -23849,6 +23899,16 @@
       "prompt_version": 1,
       "reason": "대미 투자 계획 발표",
       "reviewed_at": "2026-09-30T19:01:01.062874+00:00",
+      "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
+      "same_event": true
+    },
+    "1b0c5bf7f21be947--daa6e1d5572f88b9": {
+      "embedding_similarity": 0.8582,
+      "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 협상",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "도널드 트럼프 대통령, 한국의 2000억 달러 대미 투자 계획 발표 예정",
       "same_event": true
     },
@@ -27052,6 +27112,16 @@
       "right_title": "대한전기산업연합회, 제1차 에너지산업 수출 혁신포럼 개최",
       "same_event": true
     },
+    "1de1b7705c203421--2791acb877bb431d": {
+      "embedding_similarity": 0.8667,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 540억 달러 규모 알래스카 LNG 및 원전 대미투자 발표",
+      "same_event": true
+    },
     "1de1b7705c203421--36c1766a38f39825": {
       "embedding_similarity": 0.8535,
       "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
@@ -27190,6 +27260,16 @@
       "reason": "웨스팅하우스 지분 인수",
       "reviewed_at": "2026-09-16T13:34:06.077912+00:00",
       "right_title": "정부, 한전 통한 美 웨스팅하우스 지분 15% 인수 추진",
+      "same_event": true
+    },
+    "1de1b7705c203421--666245f06cdee902": {
+      "embedding_similarity": 0.8787,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 언급하며 대형 원전 8기 건설 추가 협의 과제로 분류",
       "same_event": true
     },
     "1de1b7705c203421--6b1e99a524b845d1": {
@@ -27460,6 +27540,16 @@
       "reason": "알래스카 LNG 투자 사안",
       "reviewed_at": "2026-09-12T16:31:46.289534+00:00",
       "right_title": "美, 알래스카 LNG 사업 불확실성에 한국 참여 압박",
+      "same_event": true
+    },
+    "1de1b7705c203421--db6267296ee034b8": {
+      "embedding_similarity": 0.86,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 계획 검토",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
       "same_event": true
     },
     "1de1b7705c203421--dcaac36649cb7fe2": {
@@ -34652,6 +34742,36 @@
       "right_title": "국회 본회의, 오세희 의원 대표발의 원자력안전법 개정안 통과",
       "same_event": false
     },
+    "2791acb877bb431d--3794d3ff53f5a406": {
+      "embedding_similarity": 0.8578,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 계획 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 540억 달러 규모 알래스카 LNG 및 원전 대미투자 발표",
+      "same_event": true
+    },
+    "2791acb877bb431d--f585f23e93ddf894": {
+      "embedding_similarity": 0.8766,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 540억 달러 규모 알래스카 LNG 및 원전 대미투자 발표",
+      "same_event": true
+    },
+    "2791acb877bb431d--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.8974,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 540억 달러 규모 알래스카 LNG 및 원전 대미투자 발표",
+      "same_event": true
+    },
     "27cf26ee5365bab5--27e417353612169a": {
       "embedding_similarity": 0.8541,
       "left_title": "미국 NRC, 환경영향평가 규정 개정 제안 규칙 공청회 개최",
@@ -35802,6 +35922,16 @@
       "right_title": "한국 핵잠수함 연료 조달 방식, 한미 협력 범위 결정할 것",
       "same_event": false
     },
+    "2aa1f9b9edb90edf--2ae8b369814ca32e": {
+      "embedding_similarity": 0.8581,
+      "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 진출",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": true
+    },
     "2aa1f9b9edb90edf--3794d3ff53f5a406": {
       "embedding_similarity": 0.8929,
       "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
@@ -35809,6 +35939,16 @@
       "prompt_version": 1,
       "reason": "대미 투자 계획 발표",
       "reviewed_at": "2026-09-30T16:42:18.311109+00:00",
+      "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": true
+    },
+    "2aa1f9b9edb90edf--6b82430734a06f85": {
+      "embedding_similarity": 0.8616,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전 추진",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
       "same_event": true
     },
@@ -35852,6 +35992,16 @@
       "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
       "same_event": true
     },
+    "2aa1f9b9edb90edf--b08f9923849bd5d5": {
+      "embedding_similarity": 0.8576,
+      "left_title": "이재명 대통령, '대한민국 투자 서밋 2026'서 SMR·핵융합 등 첨단산업 투자 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 투자 행사",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": false
+    },
     "2aa1f9b9edb90edf--bf3ca3af4ffc4d7e": {
       "embedding_similarity": 0.8683,
       "left_title": "한미 양국, 미국 대형원전 8기 중 APR1400 포함 및 웨스팅하우스 지분 7% 인수 논의",
@@ -35859,6 +36009,16 @@
       "prompt_version": 1,
       "reason": "대미 투자 프로젝트 관련 보도",
       "reviewed_at": "2026-09-30T19:01:01.062874+00:00",
+      "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": true
+    },
+    "2aa1f9b9edb90edf--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.8611,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 협력 논의",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
       "same_event": true
     },
@@ -45662,6 +45822,16 @@
       "right_title": "사설: 한국의 대미투자 1·2호 가스화력 및 원전 사업, 상업적 합리성 확보 강조",
       "same_event": true
     },
+    "3794d3ff53f5a406--666245f06cdee902": {
+      "embedding_similarity": 0.8637,
+      "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 계획",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 언급하며 대형 원전 8기 건설 추가 협의 과제로 분류",
+      "same_event": true
+    },
     "3794d3ff53f5a406--66e2e69429f9ab57": {
       "embedding_similarity": 0.8708,
       "left_title": "한국 정부, 대미 투자 1호 사업으로 원전 8기 등 1000억 달러 규모 공개 예정",
@@ -53300,6 +53470,36 @@
       "reason": "미국 AI 데이터센터 전력 정책",
       "reviewed_at": "2026-09-13T20:20:27.340194+00:00",
       "right_title": "미 하원 민주당 AI 위원회, 2026년 데이터센터 전력비용 등 정책 논의",
+      "same_event": true
+    },
+    "3ed8d86bcd930184--5a90405a6e0d4491": {
+      "embedding_similarity": 0.8749,
+      "left_title": "美 텍사스, AI 데이터센터 환경 인허가 중단…발전소 사업 '암초'",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 리스크 요인 분석",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "텍사스 가스발전, 30조 투자해 60조 회수? 가스가격·장기계약 변수",
+      "same_event": false
+    },
+    "3ed8d86bcd930184--d28a120879f31bf4": {
+      "embedding_similarity": 0.8635,
+      "left_title": "텍사스 ERCOT, 474GW 전력 연결 신청 접수…AI 전환 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력 사업",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "텍사스 가스발전, 30조 투자해 60조 회수? 가스가격·장기계약 변수",
+      "same_event": false
+    },
+    "3ed8d86bcd930184--f585f23e93ddf894": {
+      "embedding_similarity": 0.8608,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 가스발전 투자",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "텍사스 가스발전, 30조 투자해 60조 회수? 가스가격·장기계약 변수",
       "same_event": true
     },
     "3eeeb873f68422ca--b19fd0094bb30156": {
@@ -81882,6 +82082,36 @@
       "right_title": "K조선 3사, 방콕 가스텍서 부유식 데이터센터 등 미래 해양 에너지 기술 공개",
       "same_event": true
     },
+    "666245f06cdee902--daa6e1d5572f88b9": {
+      "embedding_similarity": 0.8657,
+      "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 협상",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 언급하며 대형 원전 8기 건설 추가 협의 과제로 분류",
+      "same_event": true
+    },
+    "666245f06cdee902--f585f23e93ddf894": {
+      "embedding_similarity": 0.8613,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 계획 보고",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 언급하며 대형 원전 8기 건설 추가 협의 과제로 분류",
+      "same_event": true
+    },
+    "666245f06cdee902--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.8854,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 언급하며 대형 원전 8기 건설 추가 협의 과제로 분류",
+      "same_event": true
+    },
     "6675a38e73ce73cf--85461eafcf7ac82e": {
       "embedding_similarity": 0.9164,
       "left_title": "정원주 대우건설 회장, 베트남 하노이 시장 면담 및 닌투언 원전 참여 의지 표명",
@@ -88342,6 +88572,16 @@
       "right_title": "한국 정부, 미국에 원전 8기 건설 추진…2기는 한국형 원자로 검토",
       "same_event": true
     },
+    "71c02da6768281e3--db6267296ee034b8": {
+      "embedding_similarity": 0.8647,
+      "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
+      "same_event": true
+    },
     "71c02da6768281e3--f8e7b22057b9012f": {
       "embedding_similarity": 0.9095,
       "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
@@ -94592,6 +94832,16 @@
       "right_title": "한-프랑스, 군사안보·AI·원전 등 16건 MOU 체결로 협력 강화",
       "same_event": true
     },
+    "795b63708ca79696--b719ef150ce83645": {
+      "embedding_similarity": 0.8588,
+      "left_title": "미 상원의원들, AI 규제 및 전력망 인프라 대응 위한 특별위원회 설치 요구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 상원 안건",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "미 상원, 데이터센터 송전망 비용 부담 및 인허가 간소화 법안 발의",
+      "same_event": false
+    },
     "795b7aa7c1b54d47--a0dfd243a1e84454": {
       "embedding_similarity": 0.8653,
       "left_title": "이재명 대통령, IEA 사무총장 면담서 중동전쟁으로 인한 원전 의존도 언급",
@@ -96570,6 +96820,16 @@
       "reason": "대미 투자 프로젝트 관련 보도",
       "reviewed_at": "2026-09-30T19:01:01.062874+00:00",
       "right_title": "미국 트럼프 정부, 알래스카 LNG 투자에 한국 포함 추진",
+      "same_event": true
+    },
+    "7d4f5a342c3182d8--db6267296ee034b8": {
+      "embedding_similarity": 0.8853,
+      "left_title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
       "same_event": true
     },
     "7d4f5a342c3182d8--e6c2826be60629b1": {
@@ -102192,6 +102452,16 @@
       "right_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
       "same_event": true
     },
+    "87303eb38eac4d70--db6267296ee034b8": {
+      "embedding_similarity": 0.8628,
+      "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 및 LNG 투자",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
+      "same_event": true
+    },
     "87303eb38eac4d70--e05a32ae2bbea867": {
       "embedding_similarity": 0.9064,
       "left_title": "한미 대미 투자 1,200억 달러 원전 협상, 노형 배치를 두고 난항",
@@ -102480,6 +102750,16 @@
       "reason": "이탈리아 원전 재개 법안 지지",
       "reviewed_at": "2026-09-26T00:19:18.801281+00:00",
       "right_title": "유럽 원자력계, 이탈리아 원전 재개 법안 통과 및 폴란드 협정 체결 추진",
+      "same_event": true
+    },
+    "88129dd9f5f18e9a--bf3ca3af4ffc4d7e": {
+      "embedding_similarity": 0.861,
+      "left_title": "한미 양국, 미국 대형원전 8기 중 APR1400 포함 및 웨스팅하우스 지분 7% 인수 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 시장 진출",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "한국, APR1400의 미국 시장 진출 계획 수립",
       "same_event": true
     },
     "883ea940d9859d4e--8ee1f406adeda252": {
@@ -103840,6 +104120,16 @@
       "reason": "대미 2000억 달러 투자 및 원전 반영 논의",
       "reviewed_at": "2026-09-23T14:23:15.004811+00:00",
       "right_title": "한국, 대미 투자 2천억 달러 유지 속 한국형 원전 반영 과제 부각",
+      "same_event": true
+    },
+    "8aedff067a37c200--db6267296ee034b8": {
+      "embedding_similarity": 0.8883,
+      "left_title": "한국, 미국 에너지 인프라에 2000억 달러 투자 논의…원전 8기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
       "same_event": true
     },
     "8aedff067a37c200--e05a32ae2bbea867": {
@@ -118642,6 +118932,16 @@
       "right_title": "산업부, 2천억 달러 대미 전략투자 1호 사업 발표 미 내부 절차로 지연",
       "same_event": true
     },
+    "ad5a0787d9daf9c2--b719ef150ce83645": {
+      "embedding_similarity": 0.8867,
+      "left_title": "미국 상원, 인프라 인허가 개혁 법안 통과에 근접",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 상원 인허가 간소화 법안",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "미 상원, 데이터센터 송전망 비용 부담 및 인허가 간소화 법안 발의",
+      "same_event": true
+    },
     "ad6ee254489e5bc3--beff8f802cca43be": {
       "embedding_similarity": 0.918,
       "left_title": "원안위, 고리 3·4호기 계속운전 올해 하반기 결정 및 처벌법 개정 추진",
@@ -118690,6 +118990,26 @@
       "reason": "같은 원전의 군사 활동 영향 보도",
       "reviewed_at": "2026-08-22T01:09:41.796883+00:00",
       "right_title": "군사 활동으로 자포리자 원자력 발전소 전력 공급 중단",
+      "same_event": true
+    },
+    "addafa13c6af4224--f585f23e93ddf894": {
+      "embedding_similarity": 0.8693,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "\"트럼프, 韓 대미투자 발표 예정…알래스카 LNG 등 에너지사업 집중\"",
+      "same_event": true
+    },
+    "addafa13c6af4224--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.8845,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "\"트럼프, 韓 대미투자 발표 예정…알래스카 LNG 등 에너지사업 집중\"",
       "same_event": true
     },
     "adea10b42f93a82a--bbd2a88f54b9ebf1": {
@@ -124802,6 +125122,16 @@
       "right_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
       "same_event": false
     },
+    "bd374f080cb5a55b--f585f23e93ddf894": {
+      "embedding_similarity": 0.8595,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 계획 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "\"백악관, 韓대미투자 발표에 '알래스카 LNG·원전 8기 포함' 확인\"",
+      "same_event": true
+    },
     "bd374f080cb5a55b--f9c74adbe9e445cb": {
       "embedding_similarity": 0.8778,
       "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
@@ -129712,6 +130042,16 @@
       "right_title": "미국 트럼프 정부, 알래스카 LNG 투자에 한국 포함 추진",
       "same_event": true
     },
+    "cec29d1c6854ff57--f8e7b22057b9012f": {
+      "embedding_similarity": 0.8617,
+      "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프로젝트 추진",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "미국 트럼프 정부, 알래스카 LNG 투자에 한국 포함 추진",
+      "same_event": true
+    },
     "cec29d1c6854ff57--f9c74adbe9e445cb": {
       "embedding_similarity": 0.9058,
       "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
@@ -131232,6 +131572,16 @@
       "right_title": "원전 2~3기 발전량 아낄수 있는데… 한국엔 데이터센터 전력효율 규제가...",
       "same_event": false
     },
+    "d9173f627e01175a--e444b60ea50d9446": {
+      "embedding_similarity": 0.8662,
+      "left_title": "한화오션, '바다 위 데이터센터' 첫 공개…60MW급 FDC 선봬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 제품 공개와 전시회 동향",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "싱가포르 데이터센터 전시회, 전력·냉각 병목 해소할 모듈러 솔루션 대거 등장",
+      "same_event": false
+    },
     "d92804977ee3022f--fbd3322d6a137c46": {
       "embedding_similarity": 0.8678,
       "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
@@ -131362,6 +131712,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
       "same_event": false
     },
+    "daa6e1d5572f88b9--e28a6058bbf180d3": {
+      "embedding_similarity": 0.8626,
+      "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 및 LNG 투자 협상",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "한국, 알래스카 LNG 사업 참여 압박 속 원전 8기 수출 추진",
+      "same_event": true
+    },
     "db08e16acafcc890--dc231859cce91b94": {
       "embedding_similarity": 0.8546,
       "left_title": "정부, 내년 예산안에 SMR 등 7대 국가전략기술 집중 지원",
@@ -131450,6 +131810,36 @@
       "reason": "알래스카 LNG 참여 압박",
       "reviewed_at": "2026-09-10T07:47:19.078405+00:00",
       "right_title": "美, 알래스카 LNG 사업 불확실성에 한국 참여 압박",
+      "same_event": true
+    },
+    "db6267296ee034b8--f585f23e93ddf894": {
+      "embedding_similarity": 0.8869,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
+      "same_event": true
+    },
+    "db6267296ee034b8--f8e7b22057b9012f": {
+      "embedding_similarity": 0.8828,
+      "left_title": "한국 정부, 2000억 달러 대미 투자 프로젝트 발표 임박…미국 원전 8기 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
+      "same_event": true
+    },
+    "db6267296ee034b8--fe4e4a65bce8a43b": {
+      "embedding_similarity": 0.872,
+      "left_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "백악관, 한국의 대미투자 발표…알래스카 LNG 및 원전 8기 포함",
       "same_event": true
     },
     "db6ca7b3ae8427e4--e444b60ea50d9446": {
@@ -132401,6 +132791,16 @@
       "reviewed_at": "2026-08-23T06:45:31.404612+00:00",
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": false
+    },
+    "e28a6058bbf180d3--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.8736,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국의 대미 에너지 투자 발표",
+      "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
+      "right_title": "한국, 알래스카 LNG 사업 참여 압박 속 원전 8기 수출 추진",
+      "same_event": true
     },
     "e2ac9fd71cf8554d--e9a60df143f1bd46": {
       "embedding_similarity": 0.8955,
