@@ -734,7 +734,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 9,
     "date": "2026-10-01"
   },
   "terms": {
@@ -1052,11 +1052,11 @@
       "expires_at": "2026-09-30T16:24:26.040794+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-09-29T17:07:52.460550+00:00",
+      "last_run": "2026-09-30T15:54:30.346613+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-09-29T17:07:50.801720+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-09-30T15:54:27.921543+00:00",
+      "queries_run": 2,
       "query": "상원이 보셀레 원전",
       "score": 3.6,
       "status": "tracking",
@@ -1065,7 +1065,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "심사중인": {
       "articles": 3,
@@ -1195,12 +1195,12 @@
       ],
       "expires_at": "2026-10-01T16:24:26.040794+00:00",
       "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-09-29T22:38:33.517647+00:00",
-      "new_articles": 4,
+      "last_result_count": 1,
+      "last_run": "2026-09-30T15:54:30.346613+00:00",
+      "new_articles": 5,
       "origin": "auto",
-      "planned_at": "2026-09-29T22:38:31.453166+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-09-30T15:54:27.921543+00:00",
+      "queries_run": 3,
       "query": "영덕군이 원전",
       "score": 5.72,
       "status": "extended",
@@ -1208,10 +1208,11 @@
       "ttl_hours": 48,
       "type": "plant",
       "yield_days": [
-        "2026-09-30"
+        "2026-09-30",
+        "2026-10-01"
       ],
-      "yields": 1,
-      "zero_streak": 1
+      "yields": 2,
+      "zero_streak": 0
     },
     "테네시밸리전력청": {
       "articles": 2,
@@ -1281,14 +1282,14 @@
           "title": "한국전기연구원, 상온에서 다층 그래핀 직접 성장 기술 개발"
         }
       ],
-      "expires_at": "2026-09-29T21:02:38.425576+00:00",
+      "expires_at": "2026-10-01T15:54:30.346613+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-09-29T17:38:56.624059+00:00",
-      "new_articles": 23,
+      "last_result_count": 1,
+      "last_run": "2026-09-30T15:54:30.346613+00:00",
+      "new_articles": 24,
       "origin": "auto",
-      "planned_at": "2026-09-29T17:38:55.947972+00:00",
-      "queries_run": 4,
+      "planned_at": "2026-09-30T15:54:27.921543+00:00",
+      "queries_run": 5,
       "query": "한국전기연구원 원자력",
       "score": 3.16,
       "status": "promote_candidate",
@@ -1297,10 +1298,11 @@
       "type": "org",
       "yield_days": [
         "2026-09-28",
-        "2026-09-29"
+        "2026-09-29",
+        "2026-10-01"
       ],
-      "yields": 3,
-      "zero_streak": 1
+      "yields": 4,
+      "zero_streak": 0
     }
   },
   "version": 1
