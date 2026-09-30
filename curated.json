@@ -290804,5 +290804,148 @@
     "feed": "정책",
     "domain": "lesechos.fr",
     "matched": "Les Échos 원자력"
+  },
+  "1c22a8390a3d9c37": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "미국과 한국, 제6차 미한 민주주의 거버넌스 협의체 회의 개최",
+    "summary": "미국과 한국이 워싱턴 D.C.에서 제6차 민주주의 거버넌스 협의체 회의를 열었다.",
+    "detail": "미국과 한국이 28일 워싱턴 D.C.에서 제6차 미한 민주주의 거버넌스 협의체 회의를 개최했다. 양국 관계부처가 참석한 이번 회의에서는 인권과 민주주의 현안을 논의하고 디지털 기술이 표현의 자유에 미치는 영향과 인신매매 범죄 예방 대책을 공유했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#외교안보",
+      "#인권",
+      "#디지털거버넌스"
+    ],
+    "related_reports": [],
+    "event_date": "2026-04-28",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-09-30T17:38:57.605374+00:00",
+    "title": "미한, 워싱턴서 민주주의 거버넌스 협의…인권·디지털 관련 등 논의",
+    "link": "https://www.voakorea.com/a/us--u-s-rok-discuss-human-rights-093026/8206247.html",
+    "feed": "정책",
+    "domain": "voakorea.com",
+    "matched": "원자력 정책"
+  },
+  "b790057b109f5838": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 3,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "newbuild"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "정부, 대미 투자 2호 사업으로 미국 내 대형 원전 8기 건설 추진",
+    "summary": "정부가 2000억 달러 규모의 대미 투자 2호 사업으로 미국 내 대형 원전 8기 건설 추진 계획을 국회에 보고했다.",
+    "detail": "정부가 미국 내 대형 원전 8기를 건설하는 1200억 달러 규모의 2호 투자 사업을 추진한다. 원전 8기 중 웨스팅하우스 노형 AP1000 6기와 한국형 원전 APR1400 2기가 참여할 가능성이 거론되며, 건설비 1000억 달러와 예비비 200억 달러로 구성된다. 또한 웨스팅하우스 지분 5~10% 매입 방안을 협의 중이며, 원리금 회수 전까지 한미 간 수익 배분은 5대 5로 유지된다.",
+    "implication": "한미 원자력 협력과 대미 투자가 결합된 대형 프로젝트로, 한국형 원전의 미국 본토 진출과 웨스팅하우스 지분 참여를 동시에 추진하는 전략적 전환점이다.",
+    "why_important": "미국 본토에 한국형 원전(APR1400) 2기 건설 추진과 웨스팅하우스 지분 인수 가능성이 공식화된 국가적 차원의 원전 수출·투자 중대 사안이다.",
+    "open_question": "장기 전력구매계약(PPA) 체결과 웨스팅하우스 지분 인수 최종 조건은 아직 확정되지 않았다.",
+    "open_question_source": "article_text",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#APR1400",
+      "#웨스팅하우스"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-30T17:38:57.605374+00:00",
+    "title": "2호 사업 1200억 달러 원전 8기 건설… K원전 美 본토 첫 진출",
+    "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000018812&cp=nv",
+    "feed": "정책",
+    "domain": "kmib.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "8e7e7fb7b30efc91": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "삼성 6개사, 미국 AI 인프라 플랫폼 헬릭스에 10억 달러 투자",
+    "summary": "삼성전자 등 삼성 6개사가 KKR의 AI 인프라 투자 플랫폼 헬릭스에 10억 달러를 투자한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI인프라",
+      "#데이터센터",
+      "#해외투자"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-09-30T17:38:57.605374+00:00",
+    "title": "삼성 6개사, 美 AI 인프라 '헬릭스'에 10억달러 투자…데이터센터 생태...",
+    "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2321740",
+    "feed": "정책",
+    "domain": "webeconomy.co.kr",
+    "matched": "데이터센터 전력"
   }
 }
