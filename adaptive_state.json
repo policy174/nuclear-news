@@ -734,7 +734,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-10-01"
   },
   "terms": {
@@ -987,9 +987,12 @@
       ],
       "expires_at": "2026-10-02T15:12:56.160512+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-30T15:39:04.236563+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-30T15:39:02.520313+00:00",
+      "queries_run": 1,
       "query": "보르셀레 원전",
       "score": 5.3,
       "status": "tracking",
@@ -998,7 +1001,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "보셀레": {
       "articles": 1,
@@ -1142,17 +1145,22 @@
       ],
       "expires_at": "2026-10-02T15:12:56.160512+00:00",
       "importance": "nice_to_know",
-      "new_articles": 0,
+      "last_result_count": 1,
+      "last_run": "2026-09-30T15:39:04.236563+00:00",
+      "new_articles": 1,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-30T15:39:02.520313+00:00",
+      "queries_run": 1,
       "query": "영덕군은 원전",
       "score": 4.52,
-      "status": "tracking",
+      "status": "extended",
       "term": "영덕군은",
       "ttl_hours": 48,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
+      "yield_days": [
+        "2026-10-01"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "영덕군이": {
@@ -1228,9 +1236,12 @@
       ],
       "expires_at": "2026-10-02T15:12:56.160512+00:00",
       "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-09-30T15:39:04.236563+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "queries_run": 0,
+      "planned_at": "2026-09-30T15:39:02.520313+00:00",
+      "queries_run": 1,
       "query": "테네시밸리전력청 원자력",
       "score": 5.3,
       "status": "tracking",
@@ -1239,7 +1250,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "한국전기연구원": {
       "articles": 5,
