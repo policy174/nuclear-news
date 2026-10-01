@@ -372,6 +372,16 @@
       "right_title": "효성중공업, 미국 빅테크 AI 데이터센터용 초고압 변압기 3865억 원 수주",
       "same_event": false
     },
+    "012f082746c41a33--54053fbd2f746564": {
+      "embedding_similarity": 0.8671,
+      "left_title": "효성중공업, 미국 전력망 스태콤 수주 확대…2GW급 기술 확보 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
     "012f082746c41a33--58cebe3d6ba483e3": {
       "embedding_similarity": 0.9171,
       "left_title": "효성중공업, 미국 전력망 스태콤 수주 확대…2GW급 기술 확보 추진",
@@ -28212,6 +28222,16 @@
       "right_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
       "same_event": false
     },
+    "1de1b7705c203421--9c7240ce8a6504fe": {
+      "embedding_similarity": 0.8678,
+      "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
     "1de1b7705c203421--a83b5f04110b2c41": {
       "embedding_similarity": 0.8732,
       "left_title": "정부, 웨스팅하우스 지분 인수 및 알래스카 LNG 등 대미투자 검토",
@@ -32240,6 +32260,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-11T05:55:06.333908+00:00",
       "right_title": "국내 데이터센터, 10년 내 물 수요 45배 급증 전망",
+      "same_event": false
+    },
+    "22c462b14de20a37--54053fbd2f746564": {
+      "embedding_similarity": 0.8518,
+      "left_title": "범한메카텍, 두산에너빌리티와 발전기 고정자 장기공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
       "same_event": false
     },
     "22cc2fae4f8c3cb5--dd3890cb8a9de4a4": {
@@ -39700,6 +39730,16 @@
       "reason": "전력망 장비 탈중국 vs AI 전력난",
       "reviewed_at": "2026-09-02T18:41:37.527724+00:00",
       "right_title": "AI 전력난 심화로 K전선 기업, 북미·유럽서 12.5조원 수주 달성",
+      "same_event": false
+    },
+    "2e0cb44d30e44c26--54053fbd2f746564": {
+      "embedding_similarity": 0.8608,
+      "left_title": "AI 전력난 심화로 K전선 기업, 북미·유럽서 12.5조원 수주 달성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 동향과 개별 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
       "same_event": false
     },
     "2e0cb44d30e44c26--58effbba016eec58": {
@@ -48230,6 +48270,16 @@
       "reason": "수행 주체 다름",
       "reviewed_at": "2026-10-01T12:16:25.448804+00:00",
       "right_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1억3341만달러 초고압 변압기 공급 계약 체결",
+      "same_event": false
+    },
+    "3859b6017f125ca1--54053fbd2f746564": {
+      "embedding_similarity": 0.8956,
+      "left_title": "효성중공업, 미국 빅테크 기업에 3865억 원 규모 초고압변압기 공급 계약 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
       "same_event": false
     },
     "3859b6017f125ca1--58cebe3d6ba483e3": {
@@ -70112,6 +70162,66 @@
       "right_title": "[대담한K] 국내 첫 SMR 건설…부산 산업 지도 변화",
       "same_event": false
     },
+    "54053fbd2f746564--8ea9ffe757632036": {
+      "embedding_similarity": 0.8551,
+      "left_title": "두산퓨얼셀, 북미 AI 데이터센터 수요 증가로 3222억 추가 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
+    "54053fbd2f746564--970e64f526cb5ffd": {
+      "embedding_similarity": 0.8516,
+      "left_title": "가온전선, 미국 현지 가공선 생산 추진으로 송전망 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
+    "54053fbd2f746564--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8559,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
+    "54053fbd2f746564--c1cbbd86642f6f3e": {
+      "embedding_similarity": 0.8848,
+      "left_title": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 투자/수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
+    "54053fbd2f746564--e8378f575fa9c98d": {
+      "embedding_similarity": 0.8632,
+      "left_title": "두산퓨얼셀, 북미 AI 데이터센터 온사이트 연료전지 공급 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
+    "54053fbd2f746564--ff5dcc1f3baae6a2": {
+      "embedding_similarity": 0.8806,
+      "left_title": "HD현대일렉트릭, 미국 와이오밍 데이터센터 배전시스템 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "LS일렉트릭, 북미 데이터센터에 1812억 규모 초고압변압기 공급",
+      "same_event": false
+    },
     "541195b5decf38c7--591caac62d5f3545": {
       "embedding_similarity": 0.8772,
       "left_title": "빌 게이츠 참여 SMR, 미국 NRC 건설허가 획득 및 착공",
@@ -90892,6 +91002,16 @@
       "right_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
       "same_event": true
     },
+    "71c02da6768281e3--9c7240ce8a6504fe": {
+      "embedding_similarity": 0.856,
+      "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
     "71c02da6768281e3--b19fd0094bb30156": {
       "embedding_similarity": 0.9,
       "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
@@ -99382,6 +99502,16 @@
       "right_title": "미국 백악관, 30일 한국 대미 투자 계획 발표 예정…알래스카 LNG 포함 주목",
       "same_event": true
     },
+    "7d4f5a342c3182d8--9c7240ce8a6504fe": {
+      "embedding_similarity": 0.8528,
+      "left_title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
     "7d4f5a342c3182d8--b19fd0094bb30156": {
       "embedding_similarity": 0.8824,
       "left_title": "한수원, 美 원전 2기 한국형 모델로 건설 추진…웨스팅하우스 지분 인수도 검토",
@@ -105082,6 +105212,16 @@
       "right_title": "산업통상부, APR1400 2기 포함 미 대형원전 8기 건설 '한미 원전 프레임워크' 추진",
       "same_event": true
     },
+    "87303eb38eac4d70--9c7240ce8a6504fe": {
+      "embedding_similarity": 0.8677,
+      "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
     "87303eb38eac4d70--a66ccd66b442f5da": {
       "embedding_similarity": 0.9149,
       "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
@@ -106770,6 +106910,16 @@
       "reason": "대미 투자 계획 발표",
       "reviewed_at": "2026-09-30T19:01:01.062874+00:00",
       "right_title": "트럼프, 韓 2000억 달러 대미 투자 중 알래스카 LNG 포함 발표",
+      "same_event": true
+    },
+    "8aedff067a37c200--9c7240ce8a6504fe": {
+      "embedding_similarity": 0.8815,
+      "left_title": "한국, 미국 에너지 인프라에 2000억 달러 투자 논의…원전 8기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
       "same_event": true
     },
     "8aedff067a37c200--a4ae63e36f89cb65": {
@@ -116081,6 +116231,56 @@
       "reviewed_at": "2026-08-25T01:13:16.926130+00:00",
       "right_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
       "same_event": false
+    },
+    "9c7240ce8a6504fe--bf3ca3af4ffc4d7e": {
+      "embedding_similarity": 0.8611,
+      "left_title": "한미 양국, 미국 대형원전 8기 중 APR1400 포함 및 웨스팅하우스 지분 7% 인수 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
+    "9c7240ce8a6504fe--daa6e1d5572f88b9": {
+      "embedding_similarity": 0.8968,
+      "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
+    "9c7240ce8a6504fe--efaa97de2c547577": {
+      "embedding_similarity": 0.8868,
+      "left_title": "미국, 이르면 30일 한국의 2000억 달러 대미 투자 및 알래스카 LNG 540억 달러 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
+    "9c7240ce8a6504fe--f585f23e93ddf894": {
+      "embedding_similarity": 0.878,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
+    "9c7240ce8a6504fe--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.9064,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 사업",
+      "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
+      "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
     },
     "9c835fbb45e4ce61--b7986724de30b5b7": {
       "embedding_similarity": 0.9067,
