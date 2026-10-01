@@ -13442,6 +13442,16 @@
       "right_title": "고준위 방폐장, 40년 실패 끝에 내년 10번째 부지 공모 추진",
       "same_event": true
     },
+    "0d34d78bcf9a87a2--153e214f9ce4dfcb": {
+      "embedding_similarity": 0.8504,
+      "left_title": "이재명 대통령, 유엔총회 계기 미국 순방서 대미 투자·원전 건설 합의 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 합의 논의와 타결",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
     "0d34d78bcf9a87a2--1b0c5bf7f21be947": {
       "embedding_similarity": 0.8584,
       "left_title": "이재명 대통령, 유엔총회 계기 미국 순방서 대미 투자·원전 건설 합의 논의",
@@ -15090,6 +15100,16 @@
       "reason": "원전 확대 계획과 전력망 비용 논란",
       "reviewed_at": "2026-09-27T21:01:54.173035+00:00",
       "right_title": "AI 전력 수요 급증에 따른 전력망 구축 비용 부담 논란",
+      "same_event": false
+    },
+    "0ffff3ff0eab4288--153e214f9ce4dfcb": {
+      "embedding_similarity": 0.8588,
+      "left_title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 정책 전망과 한미 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
       "same_event": false
     },
     "0ffff3ff0eab4288--16e9a342d277918f": {
@@ -20120,6 +20140,316 @@
       "reason": "부산 SMR 선점 및 실증",
       "reviewed_at": "2026-09-14T05:58:11.451279+00:00",
       "right_title": "부산, SMR 선점 골든타임 놓치지 말고 적극 추진해야",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--2aa1f9b9edb90edf": {
+      "embedding_similarity": 0.8867,
+      "left_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 포함",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--2ae8b369814ca32e": {
+      "embedding_similarity": 0.8724,
+      "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시장 진출 동향과 구체적 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--36b62be32bdd9c3d": {
+      "embedding_similarity": 0.865,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 협력 국회 보고",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--3d67923b7d733157": {
+      "embedding_similarity": 0.8565,
+      "left_title": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 부지 공사와 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--5da600fef839df85": {
+      "embedding_similarity": 0.8496,
+      "left_title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 협력 검토와 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--63f4116f8b5103ca": {
+      "embedding_similarity": 0.8565,
+      "left_title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 규제 및 협력 사안",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--66e2e69429f9ab57": {
+      "embedding_similarity": 0.8528,
+      "left_title": "정부, 3500억달러 대미투자 첫 사업 협상안 국회 보고 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미투자 첫 사업과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--6b82430734a06f85": {
+      "embedding_similarity": 0.8797,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 건설",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--70ef22d42129ca0c": {
+      "embedding_similarity": 0.8768,
+      "left_title": "두산에너빌리티·현대건설, 미국 AI 캠퍼스 원전 건설 참여",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 건설 사업",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--71c02da6768281e3": {
+      "embedding_similarity": 0.8876,
+      "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--76c25b6cb116675c": {
+      "embedding_similarity": 0.8743,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 관련",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--7d4f5a342c3182d8": {
+      "embedding_similarity": 0.8696,
+      "left_title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 투자 및 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--84a1e702ca4c3e3d": {
+      "embedding_similarity": 0.8552,
+      "left_title": "한미 정상, 뉴욕서 회담 갖고 핵잠수함·원자력협정 후속 협의 가속화 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵잠수함 협의와 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--87303eb38eac4d70": {
+      "embedding_similarity": 0.913,
+      "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--8aedff067a37c200": {
+      "embedding_similarity": 0.8924,
+      "left_title": "한국, 미국 에너지 인프라에 2000억 달러 투자 논의…원전 8기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--8ff638892d840faa": {
+      "embedding_similarity": 0.8432,
+      "left_title": "한미, 원자력 협정 등 '상업적 합리성' 문서화 두고 이견 조율 중",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원자력 협정 이견과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--923952b28d9b3c1a": {
+      "embedding_similarity": 0.847,
+      "left_title": "한국 정부, 2000억 달러 대미 전략투자 협상 '상업적 합리성' 이견으로 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 전략투자 난항과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--934c654fd10ef473": {
+      "embedding_similarity": 0.8401,
+      "left_title": "한국 정부, 미국 웨스팅하우스 지분 5~10% 인수 및 대미 전략투자 협의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자 협의와 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--99746f01419e6fec": {
+      "embedding_similarity": 0.8473,
+      "left_title": "미 육군 야누스 프로그램, 5개 원자로 개발사 및 군 기지 선정 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 군기지 원자로와 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--b790057b109f5838": {
+      "embedding_similarity": 0.8955,
+      "left_title": "정부, 대미 투자 2호 사업으로 미국 내 대형 원전 8기 건설 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 건설",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--bf3ca3af4ffc4d7e": {
+      "embedding_similarity": 0.8895,
+      "left_title": "한미 양국, 미국 대형원전 8기 중 APR1400 포함 및 웨스팅하우스 지분 7% 인수 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--d4c6619455be1716": {
+      "embedding_similarity": 0.8567,
+      "left_title": "미국, 한국 건설사 해외 수주 시장의 중심 부상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 동향과 구체적 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--daa6e1d5572f88b9": {
+      "embedding_similarity": 0.8478,
+      "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 8기 협상 난항과 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--dd3890cb8a9de4a4": {
+      "embedding_similarity": 0.8505,
+      "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "외교장관회담과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--e05a32ae2bbea867": {
+      "embedding_similarity": 0.8761,
+      "left_title": "한미 대미 투자 1,200억 달러 원전 협상, 노형 배치를 두고 난항",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 협상",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--eb27b2f1c28b5b78": {
+      "embedding_similarity": 0.8498,
+      "left_title": "한·미 2000억 달러 대미투자 협상, 상업적 합리성 확보 여부로 발표 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미투자 전반 협상과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--efaa97de2c547577": {
+      "embedding_similarity": 0.858,
+      "left_title": "미국, 이르면 30일 한국의 2000억 달러 대미 투자 및 알래스카 LNG 540억 달러 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 포함",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--f45df299630e12b5": {
+      "embedding_similarity": 0.8415,
+      "left_title": "한미 정상, 핵잠 연료·우라늄 농축·사용후핵연료 재처리 협력 심화 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵잠 연료 협력과 원전 건설 협력",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": false
+    },
+    "153e214f9ce4dfcb--f585f23e93ddf894": {
+      "embedding_similarity": 0.8663,
+      "left_title": "산업통상부, 대미투자 1호 텍사스 가스발전·2호 원전·3호 알래스카 LNG 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 보고",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--f9c74adbe9e445cb": {
+      "embedding_similarity": 0.8608,
+      "left_title": "정부, 대미 투자 1·2호 사업 윤곽 공개 속 알래스카 LNG 압박 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 원전 8기 관련",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--fe4e4a65bce8a43b": {
+      "embedding_similarity": 0.8741,
+      "left_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 보고",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
       "same_event": true
     },
     "15693333736cd5b3--525b21a811f83076": {
@@ -36590,6 +36920,16 @@
       "reason": "대미 투자 계획 발표",
       "reviewed_at": "2026-09-30T16:42:18.311109+00:00",
       "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": true
+    },
+    "2aa1f9b9edb90edf--8b32a17243a4c52c": {
+      "embedding_similarity": 0.8898,
+      "left_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 알래스카 LNG 발표",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "미국 백악관, 30일 한국 대미 투자 계획 발표 예정…알래스카 LNG 포함 주목",
       "same_event": true
     },
     "2aa1f9b9edb90edf--956730299110761d": {
@@ -56132,6 +56472,16 @@
       "right_title": "한미 양국, 미국 내 대형 원전 8기 건설 및 웨스팅하우스 지분 인수 추진",
       "same_event": true
     },
+    "413bc2307ec42f6f--934c654fd10ef473": {
+      "embedding_similarity": 0.8899,
+      "left_title": "한국 정부, 미국 웨스팅하우스 지분 5~10% 인수 및 대미 전략투자 협의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 8기 건설 및 지분 인수 추진",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "한미 양국, 미국 내 대형 원전 8기 건설 및 웨스팅하우스 지분 인수 추진",
+      "same_event": true
+    },
     "415e13a5b7ec759a--96dffa21b827ca27": {
       "embedding_similarity": 0.871,
       "left_title": "AI 데이터센터 물·전기 부족 문제 직면, 2035년 18.4GW 예상",
@@ -59689,6 +60039,16 @@
       "prompt_version": 1,
       "reason": "한미 원전 협력 및 투자 추진",
       "reviewed_at": "2026-10-01T08:19:19.879859+00:00",
+      "right_title": "한미, 원전 프레임워크 타결…미국 내 AP1000·APR1400 총 8기 건설 추진",
+      "same_event": true
+    },
+    "45fb26e254b2fb3a--6b82430734a06f85": {
+      "embedding_similarity": 0.8898,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 8기 건설 추진 및 타결",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
       "right_title": "한미, 원전 프레임워크 타결…미국 내 AP1000·APR1400 총 8기 건설 추진",
       "same_event": true
     },
@@ -66800,6 +67160,16 @@
       "reason": "12차 전기본 원전 확충 요구",
       "reviewed_at": "2026-09-11T01:08:54.690281+00:00",
       "right_title": "여야 의원·한수원 노조, 제12차 전기본 원전 확충 및 계속운전 반영 촉구",
+      "same_event": true
+    },
+    "515d95d9f603e8dd--6b82430734a06f85": {
+      "embedding_similarity": 0.8899,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 8기 건설 추진 및 합의",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "정부, 미국 내 대형 원전 8기 건설 프레임워크 합의 추진",
       "same_event": true
     },
     "515d95d9f603e8dd--71c02da6768281e3": {
@@ -84772,6 +85142,26 @@
       "right_title": "프라마톰, 미 연방정부로부터 리치랜드 핵연료 생산시설 확장 승인 획득",
       "same_event": false
     },
+    "67ae66615bcf0141--c464a0d27d1c31c0": {
+      "embedding_similarity": 0.8963,
+      "left_title": "美 제네락홀딩스, 아마존과 80억 달러 규모 데이터센터 백업 발전기 공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약과 시장 동향",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "미국 발전기 업체 제네락, AI 데이터센터 전력수요 급증으로 재평가",
+      "same_event": false
+    },
+    "67ae66615bcf0141--d28a120879f31bf4": {
+      "embedding_similarity": 0.8411,
+      "left_title": "텍사스 ERCOT, 474GW 전력 연결 신청 접수…AI 전환 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력망 신청과 발전기 업체 동향",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "미국 발전기 업체 제네락, AI 데이터센터 전력수요 급증으로 재평가",
+      "same_event": false
+    },
     "67b29b69bb768171--95249efbdf673402": {
       "embedding_similarity": 0.8692,
       "left_title": "아마존 AI 데이터센터, 연 3300만톤 탄소 배출 논란",
@@ -89851,6 +90241,16 @@
       "reviewed_at": "2026-08-25T12:59:14.321374+00:00",
       "right_title": "X-에너지, 센트러스와 HALEU 공급 계약 체결",
       "same_event": false
+    },
+    "70a48d34b7000fc3--efaa97de2c547577": {
+      "embedding_similarity": 0.8896,
+      "left_title": "미국, 이르면 30일 한국의 2000억 달러 대미 투자 및 알래스카 LNG 540억 달러 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 및 원전·LNG 검토 발표",
+      "reviewed_at": "2026-10-01T17:10:43.458977+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 대미 투자 계획 발표 전망 속 원전 8기·알래스카 LNG 추가 검토",
+      "same_event": true
     },
     "70a48d34b7000fc3--f9c74adbe9e445cb": {
       "embedding_similarity": 0.8877,
