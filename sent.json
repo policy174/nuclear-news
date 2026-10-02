@@ -7476,10 +7476,15 @@
     "3e186048416f071c": "2026-10-02T18:40:28.709113+00:00",
     "5f9f88cc446eec7a": "2026-10-02T18:40:28.709113+00:00",
     "dccf665e752a3115": "2026-10-02T18:40:28.709113+00:00",
-    "34d3a254818bd44d": "2026-10-02T18:40:28.709113+00:00"
+    "34d3a254818bd44d": "2026-10-02T18:40:28.709113+00:00",
+    "400223643b6355cd": "2026-10-02T19:15:07.639059+00:00",
+    "a22095673c1e8b29": "2026-10-02T19:15:07.639059+00:00",
+    "e143e2297105220c": "2026-10-02T19:15:07.639059+00:00",
+    "a7d58adc0fed51a4": "2026-10-02T19:15:07.639059+00:00",
+    "04b77f5522e24bd7": "2026-10-02T19:15:07.639059+00:00"
   },
   "source_yield": {
-    "at": "2026-10-02T18:42:06+00:00",
+    "at": "2026-10-02T19:16:45+00:00",
     "counts": {
       "한수원 보도자료": 10,
       "원안위 보도자료": 15,
@@ -7499,22 +7504,21 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 6,
       "혁신형 SMR 기술개발사업단": 2,
-      "Reuters 원자력": 42,
-      "La Tribune 원자력": 21,
+      "Reuters 원자력": 41,
+      "La Tribune 원자력": 22,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 14,
-      "Les Échos 원자력": 96,
+      "Les Échos 원자력": 98,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 12,
       "Euractiv 원자력": 0,
       "국내 원자력 보도": 17
     },
     "kept": {
-      "ANS Nuclear Newswire": 1,
-      "Reuters 원자력": 6,
-      "La Tribune 원자력": 1,
-      "Les Échos 원자력": 9
+      "Reuters 원자력": 1,
+      "Le Monde 에너지": 1,
+      "Les Échos 원자력": 2
     },
     "errors": {
       "원자력연구원 보도자료": "ConnectionError: HTTPSConnectionPool(host='www.kaeri.re.kr', port=443): Max retries exceeded with url: /board?menuId=MENU00326 (Caused by NameResolutionError(\"H"
