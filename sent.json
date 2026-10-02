@@ -7407,12 +7407,20 @@
     "404efa61f8ef9589": "2026-10-02T15:38:15.069449+00:00",
     "ac7d043d64c3f8c9": "2026-10-02T15:38:15.069449+00:00",
     "3682bf2f7c529e01": "2026-10-02T15:38:15.069449+00:00",
-    "82b2f0e21f07b6be": "2026-10-02T15:38:15.069449+00:00"
+    "82b2f0e21f07b6be": "2026-10-02T15:38:15.069449+00:00",
+    "91d47e9052d65cf5": "2026-10-02T16:01:13.304128+00:00",
+    "6e65ea7a26e5f3ff": "2026-10-02T16:01:13.304128+00:00",
+    "5f0e2ecf0408280b": "2026-10-02T16:01:13.304128+00:00",
+    "2b4447c0173ce7e8": "2026-10-02T16:01:13.304128+00:00",
+    "9f15898499fc1879": "2026-10-02T16:01:13.304128+00:00",
+    "0d1a52493a2db210": "2026-10-02T16:01:13.304128+00:00",
+    "ae04c52125c44302": "2026-10-02T16:01:13.304128+00:00",
+    "3d623529eaff4326": "2026-10-02T16:01:13.304128+00:00"
   },
   "source_yield": {
-    "at": "2026-10-02T15:40:11+00:00",
+    "at": "2026-10-02T16:03:40+00:00",
     "counts": {
-      "한수원 보도자료": 10,
+      "한수원 보도자료": 0,
       "원안위 보도자료": 15,
       "산업부 보도자료": 10,
       "원자력연구원 보도자료": 0,
@@ -7430,23 +7438,24 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 6,
       "혁신형 SMR 기술개발사업단": 2,
-      "Reuters 원자력": 11,
-      "La Tribune 원자력": 22,
+      "Reuters 원자력": 13,
+      "La Tribune 원자력": 20,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 14,
-      "Les Échos 원자력": 24,
+      "Les Échos 원자력": 29,
       "E&E News 원자력": 0,
       "Nuclear Engineering International": 12,
       "Euractiv 원자력": 0,
-      "국내 원자력 보도": 18
+      "국내 원자력 보도": 17
     },
     "kept": {
-      "WNN": 3,
-      "Les Échos 원자력": 14,
-      "국내 원자력 보도": 2
+      "WNN": 1,
+      "La Tribune 원자력": 1,
+      "Les Échos 원자력": 7
     },
     "errors": {
+      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn",
       "원자력연구원 보도자료": "ConnectionError: HTTPSConnectionPool(host='www.kaeri.re.kr', port=443): Max retries exceeded with url: /board?menuId=MENU00326 (Caused by NameResolutionError(\"H"
     }
   },
