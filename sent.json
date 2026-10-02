@@ -7415,12 +7415,25 @@
     "9f15898499fc1879": "2026-10-02T16:01:13.304128+00:00",
     "0d1a52493a2db210": "2026-10-02T16:01:13.304128+00:00",
     "ae04c52125c44302": "2026-10-02T16:01:13.304128+00:00",
-    "3d623529eaff4326": "2026-10-02T16:01:13.304128+00:00"
+    "3d623529eaff4326": "2026-10-02T16:01:13.304128+00:00",
+    "30ac277237753bd3": "2026-10-02T16:35:43.557570+00:00",
+    "9232dbc4b57e6d14": "2026-10-02T16:35:43.557570+00:00",
+    "4c3cd82e39d37193": "2026-10-02T16:35:43.557570+00:00",
+    "fdb2a9745b6dd723": "2026-10-02T16:35:43.557570+00:00",
+    "8731bc9d567669c0": "2026-10-02T16:35:43.557570+00:00",
+    "231a29fae507c614": "2026-10-02T16:35:43.557570+00:00",
+    "2335a3028c58ac59": "2026-10-02T16:35:43.557570+00:00",
+    "54dba713809ccdc0": "2026-10-02T16:35:43.557570+00:00",
+    "f9acbce3368811a6": "2026-10-02T16:35:43.557570+00:00",
+    "ac480a48bb2d370f": "2026-10-02T16:35:43.557570+00:00",
+    "d21b0baa91624e03": "2026-10-02T16:35:43.557570+00:00",
+    "44951166d61e0946": "2026-10-02T16:35:43.557570+00:00",
+    "046c01762d318c0f": "2026-10-02T16:35:43.557570+00:00"
   },
   "source_yield": {
-    "at": "2026-10-02T16:03:40+00:00",
+    "at": "2026-10-02T16:37:53+00:00",
     "counts": {
-      "한수원 보도자료": 0,
+      "한수원 보도자료": 10,
       "원안위 보도자료": 15,
       "산업부 보도자료": 10,
       "원자력연구원 보도자료": 0,
@@ -7438,24 +7451,25 @@
       "한국원자력통제기술원": 0,
       "한전원자력연료": 6,
       "혁신형 SMR 기술개발사업단": 2,
-      "Reuters 원자력": 13,
+      "Reuters 원자력": 12,
       "La Tribune 원자력": 20,
       "POWER Magazine": 10,
       "Le Monde 에너지": 20,
       "FT 원자력": 14,
-      "Les Échos 원자력": 29,
+      "Les Échos 원자력": 39,
       "E&E News 원자력": 0,
-      "Nuclear Engineering International": 12,
+      "Nuclear Engineering International": 13,
       "Euractiv 원자력": 0,
       "국내 원자력 보도": 17
     },
     "kept": {
       "WNN": 1,
-      "La Tribune 원자력": 1,
-      "Les Échos 원자력": 7
+      "ANS Nuclear Newswire": 1,
+      "Reuters 원자력": 1,
+      "Les Échos 원자력": 8,
+      "Nuclear Engineering International": 1
     },
     "errors": {
-      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn",
       "원자력연구원 보도자료": "ConnectionError: HTTPSConnectionPool(host='www.kaeri.re.kr', port=443): Max retries exceeded with url: /board?menuId=MENU00326 (Caused by NameResolutionError(\"H"
     }
   },
