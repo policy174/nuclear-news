@@ -327841,5 +327841,325 @@
     "feed": "정책",
     "domain": "ceoscoredaily.com",
     "matched": "데이터센터 전력"
+  },
+  "99a841d4d14bda60": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 퀴니피액 대학교, AI 전력 가격 상승 및 일자리 감소 관련 여론조사 결과 공개",
+    "summary": "AI 데이터센터 확산에 따른 전력 가격 상승과 일자리 감소 우려로 기술 발전 속도 조절 여론이 나타났다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#전력수요"
+    ],
+    "related_reports": [],
+    "event_date": "2025-09-30",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "description",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "[테크톡노트] AI는 왜 'SI'가 됐나…트럼프가 이름 바꾼 이유",
+    "link": "https://www.yna.co.kr/view/AKR20261002143500017?input=1195m",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "722f7246099eb879": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "산업통상부, 2000억 달러 규모 대미 전략투자 첫 투자금 24억 달러 송금 완료",
+    "summary": "정부가 대미 전략투자 1호 사업인 텍사스 가스복합화력발전소 건설을 위해 첫 투자금 24억 달러를 미국에 송금했다.",
+    "detail": "정부가 2000억 달러 규모 대미 전략투자의 첫 투자금 24억 달러를 미국에 송금했다. 도널드 트럼프 미국 대통령이 백악관에서 투자 프로젝트를 공개한 직후 이루어졌다. 첫 투자 대상은 미국 텍사스 엔시날 가스복합화력발전소 건설 사업인 '프로젝트 스타'다. 해당 사업은 4GW 규모의 가스복합화력발전소를 건설·운영하는 프로젝트로, 2029년 1단계 상업운전을 시작해 2032년 전체 설비를 준공할 예정이다. 한미 간 협상 일정과 오류 정정된 납입 기한에 따라 9월 말 집행이 추진됐다.",
+    "implication": "대미 전략투자 1호 사업의 자금 집행이 본궤도에 오르며 후속 에너지 인프라 협력의 실행력을 입증했다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#대미투자",
+      "#에너지협력"
+    ],
+    "related_reports": [],
+    "event_date": "2025-10-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "대미투자 첫 24억弗 송금…韓은 일정대로, 美 발표가 늦었다",
+    "link": "https://www.newsis.com/view/NISX20260922_0003801097",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "원전 계속운전"
+  },
+  "5107ab42803830e2": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "CN",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "중국 영유극과기, 화웨이 공급망 기반으로 AI 데이터센터 액체냉각 시장 공략",
+    "summary": "정밀 온도제어 기업 영유극과기가 화웨이 등과의 협력을 바탕으로 AI 데이터센터 액체냉각 제품군을 확장하고 있다.",
+    "detail": "AI 데이터센터의 냉각 효율이 핵심 경쟁력으로 부상하면서 액체냉각 시장이 성장하고 있다. 중국의 영유극과기는 화웨이 등 주요 ICT 기업과 협력해온 온도제어 기술을 바탕으로 냉각판, 냉각분배장치, 냉각액 등을 아우르는 액체냉각 제품군을 구축했다. 단일 서버랙 기준 200kW급 액체냉각 제품을 공급한 데 이어 인텔과도 기술 협력을 확대하며 실제 출하와 실적 중심의 성장 국면에 진입했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#액체냉각"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "[中 거인의 공급망] ①냉각 파트너 '영유극과기' 없으면 '화웨이'도 없다",
+    "link": "https://www.newspim.com/news/view/20261002000796",
+    "feed": "정책",
+    "domain": "newspim.com",
+    "matched": "데이터센터 전력"
+  },
+  "43dd9083a2ec2a7e": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "GB"
+    ],
+    "article_type": "news",
+    "title_kr": "국내 주요 재계 총수들, 해외 출장서 글로벌 AI 파트너십 및 문화외교 행보",
+    "summary": "이재용 삼성전자 회장과 최태원 SK그룹 회장이 뉴욕에서 젠슨 황 엔비디아 CEO를 만나 AI 인프라 협력을 논의했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#HBM",
+      "#AI인프라"
+    ],
+    "related_reports": [],
+    "event_date": "2025-09-30",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "젠슨 황 만난 이재용·최태원, 日 양궁장 찾은 정의선, 이지스함 띄운 ...",
+    "link": "https://www.dailian.co.kr/news/view/1697469?sc=Naver",
+    "feed": "정책",
+    "domain": "dailian.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "1eaf8c9753502b95": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "smr",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "울진군, 10월 7일 미래에너지포럼 개최해 SMR 및 원자력수소 전략 논의",
+    "summary": "경북 울진군이 SMR, 원자력수소, 재생에너지를 아우르는 무탄소 에너지 복합 벨트 구축 전략을 논의한다.",
+    "detail": "울진군은 오는 10월 7일 북면 덕구온천호텔에서 '에너지산업 수도 울진, 2026 미래에너지포럼'을 개최한다. 이번 포럼은 기존 대형 원전 중심의 지역 에너지 구조를 SMR, 원자력수소, 신재생에너지로 다변화하기 위해 마련됐다. 박은덕 한국에너지학회 회장의 기조강연을 시작으로 AI 시대 혁신형 SMR의 역할, 원자력수소 산업 발전 전략, 재생에너지 주민상생 모델 등에 대한 세션 발제와 패널 토론이 진행된다.",
+    "implication": "지자체가 AI 전력 수요 증가에 발맞춰 SMR과 원자력수소를 연계한 지역 에너지 신산업 육성 방안을 구체화하는 단계다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#울진",
+      "#SMR",
+      "#원자력수소"
+    ],
+    "related_reports": [],
+    "event_date": "2025-10-07",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "AI 무탄소 시대, 동해안 에너지 수도 울진의 미래 좌표를 찍다",
+    "link": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2476872",
+    "feed": "정책",
+    "domain": "enewstoday.co.kr",
+    "matched": "원자력 정책"
+  },
+  "945c45d846c624f0": {
+    "features": {
+      "event_type": "project_milestone",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "restart_lto"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 워싱턴주 컬럼비아 원자력발전소, 출력증강(EPU) 추진",
+    "summary": "워싱턴주 컬럼비아 원자력발전소가 발전 용량 확대를 위한 출력증강(EPU) 프로젝트를 추진하고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#계속운전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "Modernizing for more megawatts: Columbia’s EPU journey",
+    "link": "https://www.ans.org/news/2026-10-02/article-8410/modernizing-for-more-megawatts-columbias-epu-journey",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
+  },
+  "e7eab374f060cf03": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [],
+    "countries": [],
+    "article_type": "news",
+    "title_kr": "글로벌 M&A 시장 3분기 정체 속 커클랜드·라섬앤왓킨스 자문 실적 선두",
+    "summary": "3분기 M&A 시장 활동이 정체된 가운데 커클랜드 앤 엘리스와 라섬앤왓킨스가 자문 순위 상위권을 기록했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-02T22:41:09.498476+00:00",
+    "title": "Kirkland, Latham top M&A adviser rankings amid 3rd quarter slowdown",
+    "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOYl8wLXFQbFF4NWktUWFtcU41d2YyamJQaFlRbUNJcmJ3OHhHamI1cjFtTldsa2VOTjJ2N1FpektaNzVNVl93T1NDdU5sQVVwXzQ5U3lrZDBiSWpJckZtVlJOWHJLMnBZQnktNHBZdldPWGZVc1F1VTQwSF83ek9lWFI3b2IwemVIMUNWSkh5MmVHa0l2SDlzc1RWVUVLVWIteE50eVVLTFhsNDZOVmVxZnVKUlpCMFMyRDRmbFNR?oc=5",
+    "feed": "정책",
+    "domain": "reuters.com",
+    "matched": "Reuters 원자력"
   }
 }
