@@ -3212,6 +3212,26 @@
       "right_title": "AI 데이터센터 건설, 건설주 투자 기회 가능성",
       "same_event": false
     },
+    "04021f00df0a95bb--18d485ea7e099351": {
+      "embedding_similarity": 0.8591,
+      "left_title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AI 수요 반영",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "제12차 전력수급기본계획, AI 데이터센터 수요 반영 최대전력 129.3GW 상향",
+      "same_event": true
+    },
+    "04021f00df0a95bb--b6798bf57a7bb85b": {
+      "embedding_similarity": 0.8419,
+      "left_title": "정부, 2040년까지 적용할 12차 전기본에 원전·재생에너지 역할 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 논의",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "제12차 전력수급기본계획, AI 데이터센터 수요 반영 최대전력 129.3GW 상향",
+      "same_event": true
+    },
     "0412d08712c9a60e--25357b78fc8779ae": {
       "embedding_similarity": 0.8602,
       "left_title": "한수원, 영덕군과 신규 원전 건설 관련 상생발전 협력 합의",
@@ -20142,6 +20162,16 @@
       "right_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
       "same_event": true
     },
+    "14960bc031595436--a3dac30f73d61de9": {
+      "embedding_similarity": 0.8905,
+      "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 가스발전 대미투자",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
+      "same_event": true
+    },
     "14960bc031595436--a43af44680b1e33c": {
       "embedding_similarity": 0.8947,
       "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
@@ -20592,6 +20622,16 @@
       "right_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
       "same_event": false
     },
+    "153e214f9ce4dfcb--2cc62887077d22a6": {
+      "embedding_similarity": 0.8904,
+      "left_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한·미 원전 프레임워크 타결, APR1400 미국 진출 및 웨스팅하우스 지분 인수 추진",
+      "same_event": true
+    },
     "153e214f9ce4dfcb--36b62be32bdd9c3d": {
       "embedding_similarity": 0.865,
       "left_title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통",
@@ -20620,6 +20660,16 @@
       "reason": "한미 원전 8기 건설 합의",
       "reviewed_at": "2026-10-02T09:46:51.356707+00:00",
       "right_title": "한국형 원전 2기 미국 첫 진출…한미, 223억 달러 가스발전 및 원전 패키지 투자 확정",
+      "same_event": true
+    },
+    "153e214f9ce4dfcb--54e4538ade932dd2": {
+      "embedding_similarity": 0.8912,
+      "left_title": "한미, 미국 내 원전 8기 건설 협력 합의…한국형 원전 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 8기 건설 합의",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한·미, 대미 투자 원전 8기 건설 프레임워크 체결 및 APR1400 포함 확정",
       "same_event": true
     },
     "153e214f9ce4dfcb--5da600fef839df85": {
@@ -25190,6 +25240,16 @@
       "reason": "차세대 원전 EPC와 미래 사업 인재 확보",
       "reviewed_at": "2026-09-01T14:11:34.363705+00:00",
       "right_title": "현대건설, 하반기 신입 공채 돌입…원전·SMR 등 미래 사업 인재 확보",
+      "same_event": false
+    },
+    "1a6584be7e6a62d3--aac682302a4d1a9a": {
+      "embedding_similarity": 0.8903,
+      "left_title": "이상휘 의원, 철강 등 국가 기간산업의 원자력 전력 직접 구매 전기사업법 개정안 대표 발의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 법안 발의",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "국회, 발전 5사 통합 관련 법안 총 6건 발의…정부 조직개편 및 통합 공기업 추진과 쟁점 대립",
       "same_event": false
     },
     "1a7f3f915fba544b--ec468d9c8c3e4121": {
@@ -37790,6 +37850,16 @@
       "reason": "대미 투자 및 원전 진출",
       "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "same_event": true
+    },
+    "2aa1f9b9edb90edf--368e2ef402318f3b": {
+      "embedding_similarity": 0.8904,
+      "left_title": "백악관, 트럼프 대통령 방한 맞춰 한국의 2000억 달러 대미 투자 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프레임워크",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한미, 최대 1200억 달러 규모 미국 내 대형 원전 8기 건설 프레임워크 공식화",
       "same_event": true
     },
     "2aa1f9b9edb90edf--36c1766a38f39825": {
@@ -54422,6 +54492,16 @@
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
       "same_event": true
     },
+    "3dae927a93c07665--ec41f0a2f9b34be4": {
+      "embedding_similarity": 0.891,
+      "left_title": "미국, 한국과 APR1400 2기 포함 총 8기 건설 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 8기 건설 협약",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한국형 원전 2기 미국 첫 진출…한미, 223억 달러 가스발전 및 원전 패키지 투자 확정",
+      "same_event": true
+    },
     "3db1fb734ba2fd2f--7d9268f856d1f63f": {
       "embedding_similarity": 0.8479,
       "left_title": "영덕군의회, 신규 원전 예정지 확정 후 고리·새울 원전 안전성 점검",
@@ -56151,6 +56231,16 @@
       "reviewed_at": "2026-10-02T07:25:44.100194+00:00",
       "right_title": "현대건설, 포항에 AI 전용 데이터센터 16개월 초단기 시공",
       "same_event": true
+    },
+    "3ed342f37ee52941--ed3139132fc267a0": {
+      "embedding_similarity": 0.8903,
+      "left_title": "현대건설, 포항 AI 데이터센터 본계약 체결…원전·SMR 에너지 인프라 연계 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 데이터센터 수주",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "현대엔지니어링, 8700억원 규모 군산 SGC AI 데이터센터 수주",
+      "same_event": false
     },
     "3ed8d86bcd930184--5a90405a6e0d4491": {
       "embedding_similarity": 0.8749,
@@ -68669,6 +68759,16 @@
       "prompt_version": 1,
       "reason": "대미 원전 투자 합의",
       "reviewed_at": "2026-10-01T12:16:25.448804+00:00",
+      "right_title": "정부, 미국 내 대형 원전 8기 건설 프레임워크 합의 추진",
+      "same_event": true
+    },
+    "515d95d9f603e8dd--a3dac30f73d61de9": {
+      "embedding_similarity": 0.8911,
+      "left_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 8기 건설 합의",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
       "right_title": "정부, 미국 내 대형 원전 8기 건설 프레임워크 합의 추진",
       "same_event": true
     },
@@ -85532,6 +85632,16 @@
       "right_title": "정부·한수원, 대미투자 168조 원 규모 원전 8기 건설 추진…한국형 APR1400 2기 포함",
       "same_event": true
     },
+    "657fb1e8299bfac4--caf32349c7e90413": {
+      "embedding_similarity": 0.8906,
+      "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 에너지 투자 계획",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한·미, 대형 원전 8기 건설 프레임워크 합의…한국형 APR1400 미국 진출",
+      "same_event": true
+    },
     "657fb1e8299bfac4--cddca137766d633c": {
       "embedding_similarity": 0.9159,
       "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
@@ -85550,6 +85660,16 @@
       "reason": "대미 에너지 투자 계획",
       "reviewed_at": "2026-10-02T08:42:02.538200+00:00",
       "right_title": "미국 트럼프 정부, 알래스카 LNG 투자에 한국 포함 추진",
+      "same_event": true
+    },
+    "657fb1e8299bfac4--d79b6952edb7425f": {
+      "embedding_similarity": 0.8905,
+      "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 에너지 투자 계획",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "트럼프 미국 대통령, 알래스카 LNG 사업 한국 투자 계획 발표 전망",
       "same_event": true
     },
     "657fb1e8299bfac4--d910f20ea24430b3": {
@@ -85590,6 +85710,16 @@
       "reason": "대미 에너지 투자 계획 발표",
       "reviewed_at": "2026-10-02T09:46:51.356707+00:00",
       "right_title": "미국, 한국과 APR1400 2기 포함 총 8기 건설 협약",
+      "same_event": true
+    },
+    "657fb1e8299bfac4--ecc30b2c4cf5cc4d": {
+      "embedding_similarity": 0.891,
+      "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 에너지 투자 계획",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 한국의 알래스카 LNG 및 대형 원전 8기 투자 계획 공식 발표",
       "same_event": true
     },
     "657fb1e8299bfac4--ed33155381babbd9": {
@@ -93072,6 +93202,16 @@
       "right_title": "한미, 대미 전략투자 후속으로 원전 사업 추진 의견 접근",
       "same_event": true
     },
+    "71c02da6768281e3--7901d36720c2d03f": {
+      "embedding_similarity": 0.8909,
+      "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 전략투자 프레임워크",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
+      "same_event": true
+    },
     "71c02da6768281e3--7ba25920802ddab3": {
       "embedding_similarity": 0.8505,
       "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
@@ -98002,6 +98142,16 @@
       "right_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
       "same_event": true
     },
+    "76d6ffdb905a60f3--7901d36720c2d03f": {
+      "embedding_similarity": 0.8908,
+      "left_title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프레임워크 후속",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
+      "same_event": true
+    },
     "76d6ffdb905a60f3--87303eb38eac4d70": {
       "embedding_similarity": 0.9016,
       "left_title": "한미, 미국 신규 원전 8기 단계적 건설 및 웨스팅하우스 지분 협상",
@@ -102100,6 +102250,16 @@
       "reason": "대미 투자 및 알래스카 사업",
       "reviewed_at": "2026-10-01T17:49:49.287840+00:00",
       "right_title": "미국, 알래스카 LNG·원전 8기 건설 등 3500억 달러 투자 공식화",
+      "same_event": true
+    },
+    "7d4f5a342c3182d8--a3dac30f73d61de9": {
+      "embedding_similarity": 0.8906,
+      "left_title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 및 가스 투자",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
       "same_event": true
     },
     "7d4f5a342c3182d8--b19fd0094bb30156": {
@@ -116482,6 +116642,16 @@
       "right_title": "김성환 기후장관, AI 전력수요 25~30GW 증가 예상…원전 필수 고려 강조",
       "same_event": false
     },
+    "965141485609b419--a3dac30f73d61de9": {
+      "embedding_similarity": 0.8904,
+      "left_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 프로젝트 추진",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "산업부, 국회에 대미 투자 프로젝트 보고…신규 원전 8기 건설 추진",
+      "same_event": true
+    },
     "965141485609b419--a43af44680b1e33c": {
       "embedding_similarity": 0.8942,
       "left_title": "산업통상부, 한미 전략투자 프로젝트 3건 추진 계획 발표",
@@ -121952,6 +122122,16 @@
       "right_title": "산업통상부, 한미 전략투자 프로젝트 3건 추진 계획 발표",
       "same_event": true
     },
+    "a40f0eae3a792ed5--aa2e405c31164be2": {
+      "embedding_similarity": 0.8911,
+      "left_title": "이재명 대통령, '한미 전략투자 프로젝트' 알래스카 LNG·대형 원전 상업성 검증 전제 추진 천명",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 전략투자 프로젝트",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "한국기계산업진흥회, 텍사스 가스복합화력발전 등 대미 전략투자 1호 사업 기대감 표출",
+      "same_event": true
+    },
     "a40f0eae3a792ed5--cacb7c0195d694c3": {
       "embedding_similarity": 0.8921,
       "left_title": "이재명 대통령, '한미 전략투자 프로젝트' 알래스카 LNG·대형 원전 상업성 검증 전제 추진 천명",
@@ -121980,6 +122160,16 @@
       "reason": "알래스카 LNG 투자 추진",
       "reviewed_at": "2026-10-02T10:42:03.818097+00:00",
       "right_title": "트럼프, 한국의 알래스카 LNG 540억 달러 투자 발표 임박",
+      "same_event": true
+    },
+    "a40f0eae3a792ed5--efaa97de2c547577": {
+      "embedding_similarity": 0.8902,
+      "left_title": "미국, 이르면 30일 한국의 2000억 달러 대미 투자 및 알래스카 LNG 540억 달러 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 전략투자 프로젝트",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "이재명 대통령, '한미 전략투자 프로젝트' 알래스카 LNG·대형 원전 상업성 검증 전제 추진 천명",
       "same_event": true
     },
     "a40f0eae3a792ed5--f3a4f8a39819cd71": {
@@ -136230,6 +136420,16 @@
       "reason": "트럼프 대미 투자 발표",
       "reviewed_at": "2026-10-02T10:10:31.488889+00:00",
       "right_title": "트럼프, 알래스카 LNG 개발사업에 한국 2000억 달러 투자 발표",
+      "same_event": true
+    },
+    "cacb7c0195d694c3--fcc3ff6e37f7f3ff": {
+      "embedding_similarity": 0.8909,
+      "left_title": "미 트럼프 대통령, 한국의 2000억 달러 규모 에너지 인프라 투자 및 대형 원전 8기 건설 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 에너지 투자 발표",
+      "reviewed_at": "2026-10-02T11:15:24.042522+00:00",
+      "right_title": "트럼프, 알래스카 LNG 투자 발표에도 한국 정부는 '검토 단계' 입장 고수",
       "same_event": true
     },
     "cad7ad5a754410fe--cf220a841659c83f": {
