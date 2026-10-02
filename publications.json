@@ -1,6 +1,40 @@
 {
  "items": [
   {
+   "id": "cc333612c746",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.10.02.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=128283&mid=a10102050000",
+   "date": "2026-10-02",
+   "fetched_at": "2026-10-03",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=128283&seq=1",
+   "toc": {
+    "issue_title": "발전기술별 비용 비교와 원전 비용 분석(NEA·EPRI 보고서)",
+    "briefs": [
+     "미 DOE, Duane Arnold 원전 재가동에 최대 약 2조 6천억 원 대출 확정",
+     "미 국방부, Indiana 주 Crane 기지에 해군 최초 육상용 MMR 배치 계획",
+     "미 NRC, 원자로 인허가·운영감독·해체 규정 개정안 제안",
+     "미국 Kairos, 삼성물산과 전략적 투자 및 Hermes 2 건설 협력 합의서 체결",
+     "미국 TerraPower와 Bechtel, Natrium 실증 원전 EPC 협력 종료",
+     "프랑스 Framatome, 미국 내 가동원전 LEU+ 연료공급계약 체결",
+     "캐나다 OPG, Pickering B 원전 설비개선 사업 주요 계약 체결",
+     "유럽투자은행, SMR 분야 최초로 핀란드 Steady Energy에 투자",
+     "영국 ONR·환경청, 원전 도입 가속화를 위한 규제개혁 추진",
+     "핀란드 Fortum, 미국 Google과 Loviisa 원전 PPA 체결",
+     "이탈리아, 원전 재도입 위한 위임법 의회 승인절차 완료",
+     "중국, Changjiang 3호기 상업운전 시작",
+     "필리핀 에너지부, 원전 발전용량 경쟁 입찰 지침 구체화",
+     "튀르키예·태국, 미 USTDA 지원으로 SMR 로드맵 수립 및 타당성 조사 추진",
+     "일본 경제산업성, 고성능 원전연료 및 원전용 단조품 생산기반 확충 지원",
+     "일본 경제산업성, 1차 GX 전략 지역 확정",
+     "일본 간사이·도호쿠전력, 무쓰시 중간저장시설에 사용후핵연료 반입 계획",
+     "일본 이바라키현 히타치오미야시, 방폐물 최종처분지 1단계 부지 조사 수용"
+    ]
+   }
+  },
+  {
    "id": "27517176fa34",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -985,43 +1019,43 @@
  ],
  "state": {
   "nea_max_id": 121835,
-  "keei_max_list_no": 128168,
+  "keei_max_list_no": 128283,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 1
   },
   "eia_press": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-02T00:04:48+09:00",
+   "at": "2026-10-03T00:03:59+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }
