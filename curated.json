@@ -327565,5 +327565,281 @@
     "domain": "ebn.co.kr",
     "matched": "데이터센터 전력",
     "features_attempts": 1
+  },
+  "69bdf353373c1eeb": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "삼성·AMD·오픈AI, AI 칩 병목 현상 원인으로 전력·메모리 지목",
+    "summary": "삼성전자, AMD, 오픈AI 등 글로벌 반도체 기업들은 AI 반도체 성능 향상의 핵심 동력이 전력 효율과 메모리 대역폭, 첨단 패키징 기판으로 전환되었다고 진단했다.",
+    "detail": "",
+    "implication": "AI 데이터센터의 전력 소모 한계가 칩 설계 방식까지 변화시키고 있으며, 이는 전력 공급 인프라에 대한 새로운 접근 방식을 요구할 것이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI반도체",
+      "#데이터센터",
+      "#전력효율"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-03",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "[핫이슈] 삼성·AMD·오픈AI \"AI 칩 병목, 트랜지스터 아닌 전력·메모리...",
+    "link": "https://www.the-today.com/news/articleView.html?idxno=91137",
+    "feed": "정책",
+    "domain": "the-today.com",
+    "matched": "데이터센터 전력"
+  },
+  "608717bc4b452dbc": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국원자력학회, 2026년 동계 컨퍼런스 수상자 및 신임 펠로우 발표",
+    "summary": "미국원자력학회(ANS)는 2026년 동계 컨퍼런스 및 엑스포를 앞두고 레이 카오 교수와 로널드 크론 박사 등 올해의 국가상 수상자와 신임 펠로우를 발표했다.",
+    "detail": "미국원자력학회(ANS)는 11월 15일부터 18일까지 애리조나주 피닉스에서 열리는 2026년 동계 컨퍼런스 및 엑스포를 앞두고 올해의 국가상 수상자를 발표했다. 오하이오 주립대학교의 레이 카오(Lei (Raymond) Cao) 교수는 가혹한 핵 환경 및 국가 안보 응용 분야를 위한 광대역 반도체 방사선 검출기 연구 기여로 수상했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-11-15",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "ANS names 2026 Winter Conference award winners, new Fellows",
+    "link": "https://www.ans.org/news/2026-10-02/article-8459/ans-names-2026-winter-conference-award-winners-new-fellows",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
+  },
+  "42257a556cd2f750": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "트럼프, 한국에 알래스카 LNG 투자 불합의 시 '두 배 청구' 압박",
+    "summary": "도널드 트럼프 미국 대통령이 한국에 알래스카 액화천연가스(LNG) 사업 투자를 확정하지 않으면 '두 배로 청구하겠다'고 공개적으로 압박하며 무역 보복 가능성을 시사했다.",
+    "detail": "도널드 트럼프 미국 대통령은 2일(현지시간) 백악관에서 기자들과 만나 한국이 알래스카 LNG 사업 투자를 확정하지 않았다는 지적에 대해 '그들이 원하지 않는다면 나로서는 괜찮다. 그냥 더 많이 청구하면 된다'고 말했다. 그는 한국이 곧 합의하지 않는다면 '두 배로 올릴 것이라고 전하라'고 덧붙였다. 블룸버그통신은 트럼프 대통령이 과거 관세 인상을 위협할 때와 비슷한 표현을 사용했다며 한국에 대한 새로운 무역 보복 가능성을 거론한 것으로 해석했다. 다만 미 연방대법원이 트럼프 대통령의 관세 권한을 제한한 만큼 일방적인 관세 인상 권한은 불분명하다고 지적했다. 이번 발언은 알래스카 LNG 사업을 둘러싼 한미 간 이견이 공개적으로 표출되는 가운데 나왔다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-10-02",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "트럼프 \"韓, 알래스카 투자 합의 안하면 두배로 청구\"",
+    "link": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01708886645609312",
+    "feed": "정책",
+    "domain": "edaily.co.kr",
+    "matched": "원전 수출"
+  },
+  "74f2ee36be24c764": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market",
+      "finance"
+    ],
+    "countries": [
+      "KR",
+      "JP"
+    ],
+    "article_type": "corporate",
+    "title_kr": "키움·미래에셋, AI 서버 수요 급증에 MLCC ETF 출시 경쟁",
+    "summary": "키움투자자산운용에 이어 미래에셋자산운용이 AI 서버 확산으로 수요가 급증하는 적층세라믹커패시터(MLCC) 관련 상장지수펀드(ETF) 출시 경쟁에 나섰다.",
+    "detail": "미래에셋자산운용은 지난 1일 'TIGER 글로벌MLCC&기판' ETF 표준코드를 한국거래소로부터 받았으며, 키움투자자산운용은 지난달 21일 'KIWOOM 글로벌MLCC&AI기판TOP4+' ETF 표준코드 등록을 마쳤다. MLCC는 AI 반도체의 소비전력이 커질수록 전력을 안정적으로 공급하는 고용량 부품으로, 엔비디아 GPU 1개당 MLCC 탑재량이 H100의 약 200개에서 차세대 루빈 5000개로 급증할 것으로 예상된다. AI 서버발 수요 급증과 공급 부족이 맞물리면서 MLCC 업황이 호조를 보이고 있으며, 운용사들은 다음 AI 수혜 업종을 선점하려는 움직임을 보이고 있다. 주요 MLCC 업체로는 삼성전기(40%)와 일본 무라타제작소(45%)가 AI 서버용 시장 점유율 1, 2위를 차지한다.",
+    "implication": "AI 서버의 전력 소비 증가가 MLCC 수요를 급증시키고 있으며, 이는 데이터센터 전력 인프라 확충의 필요성을 더욱 부각시킨다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#MLCC",
+      "#AI서버",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "키움 이어 미래에셋도… '전자산업 쌀' MLCC ETF 경쟁",
+    "link": "https://it.chosun.com/news/articleView.html?idxno=2023092171330",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "데이터센터 전력"
+  },
+  "094996771467b5a2": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "finance"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "한국 기업들, 웨스팅하우스 지분 10% 인수 추진 및 이사회 진입 모색",
+    "summary": "한국전력·한국수력원자력 등 한국 기업들이 미국 웨스팅하우스 지분 최대 10% 인수를 추진하며 이사회 진입을 통해 해외 원전 수출 분쟁 리스크를 줄이고자 한다.",
+    "detail": "정부 당국은 한국 기업의 웨스팅하우스 지분 확보 추진과 관련해 웨스팅하우스 측과 협의를 거쳐 지분율을 최종 결정할 계획이며, 당초 목표 15% 이상에서 5~10% 수준으로 낮춘 것으로 알려졌다. 지분율 10% 확보는 이사회 참여 기준이 되는 만큼 경영 참여 범위가 협상의 쟁점이 될 전망이다. 웨스팅하우스는 캐나다 사모펀드 브룩필드(51%)와 캐나다 우라늄 광산업체 카메코(49%)가 보유하고 있으며, 웨스팅하우스 측은 한국 기업의 이사회 진입에 부담을 느끼는 것으로 전해졌다. 이번 지분 인수 추진은 산업통상부가 발표한 '한·미 원전 프레임워크'(프로젝트 파워)의 일환으로, 미국에 대형 원전 8기(AP1000 6기, APR1400 2기) 건설을 추진하는 총 1200억 달러 규모의 사업이다. 한국은 웨스팅하우스 지분 확보를 통해 지식재산권 문제를 해소하고 유럽 등 시장의 공동 진출 발판을 마련할 것으로 기대한다.",
+    "implication": "한국 기업의 웨스팅하우스 지분 인수는 한미 원전 협력을 강화하고 지식재산권 문제를 해소하여 한국형 원전의 해외 수출 경쟁력을 높이는 계기가 될 것이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#웨스팅하우스",
+      "#지분인수"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "시공 넘어 경영 참여로… 韓 기업, 웨스팅하우스 이사회 진입 노린다",
+    "link": "https://it.chosun.com/news/articleView.html?idxno=2023092171372",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "원전 수출"
+  },
+  "451d6326702d00de": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "LS전선, 임금·성과급 및 해저1공장 매각 추진으로 노사 갈등 심화",
+    "summary": "LS전선 노조가 임금 및 단체 협약 교섭 이견과 동해사업장 해저1공장 매각 추진 가능성으로 사측과 대립하며 37년 만에 파업에 돌입하는 등 노사 갈등이 악화되고 있다.",
+    "detail": "LS전선 노조는 임금 및 단체 협약(임단협) 교섭에서 사측과 이견을 좁히지 못해 지난달 16일 동해사업장과 구미사업장에서 파업 출정식을 진행했으며, 이는 노조 설립 이후 37년 만의 첫 파업이다. 노조는 기본급 6.5% 인상과 영업이익의 15%를 재원으로 한 1인당 3000만원 수준의 성과급을 요구하고 있으나, 사측은 기본급 4% 인상과 850만원의 성과급을 제시하며 맞서고 있다. LS전선은 AI 데이터센터 확대와 글로벌 전력망 투자 증가로 상반기 매출 4조5232억원, 영업이익 2384억원을 기록하며 실적이 크게 개선되었음에도 노조는 처우 개선이 미흡하다고 주장한다. 또한, 노조는 지난달 29일 동해사업장 해저1공장 매각 추진 내용을 회사로부터 통보받았다고 주장하며 고용 승계 등 중대한 사안이라고 지적했다. 사측은 매각이 확정된 사안은 아니라고 선을 그었다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-09-29",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-02T22:06:49.909496+00:00",
+    "title": "LS전선, 임금·성과급 이어 해저1공장 매각 논란까지…노사 갈등 악화",
+    "link": "https://www.ceoscoredaily.com/page/view/2026100214174090433",
+    "feed": "정책",
+    "domain": "ceoscoredaily.com",
+    "matched": "데이터센터 전력"
   }
 }
