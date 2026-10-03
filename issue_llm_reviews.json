@@ -62,6 +62,16 @@
       "right_title": "반도체특별법 시행, 산업계는 전력·용수 인프라 구축 속도 강조",
       "same_event": false
     },
+    "0007e17b4a53fd90--05d330956300dc97": {
+      "embedding_similarity": 0.8931,
+      "left_title": "美 원전 8기 발주 임박…두산에너빌리티, AP1000·SMR 사업 확대 기대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 수주 기대감",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "두산에너빌리티, 미국 원전 및 SMR 수주 확대 기대감 속 약세",
+      "same_event": true
+    },
     "001067c261e6b137--c56baa57f4715711": {
       "embedding_similarity": 0.8605,
       "left_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
@@ -360,6 +370,16 @@
       "reason": "미 에너지부 지원과 발라 투자 유치는 다른 사안",
       "reviewed_at": "2026-08-18T21:37:17.182874+00:00",
       "right_title": "발라(Valar), 마이크로 원자로 개발에 10억 달러 투자 유치",
+      "same_event": false
+    },
+    "012f082746c41a33--1116872abf085268": {
+      "embedding_similarity": 0.8985,
+      "left_title": "효성중공업, 미국 전력망 스태콤 수주 확대…2GW급 기술 확보 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 수주 건",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
       "same_event": false
     },
     "012f082746c41a33--321c60063050727a": {
@@ -3032,6 +3052,16 @@
       "right_title": "정부 '7대 SEED' SMR·핵융합 등, 기계설비 기술이 핵심 토양",
       "same_event": true
     },
+    "03450f3ac0dc83a1--285679d05e0af2c0": {
+      "embedding_similarity": 0.8956,
+      "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 추진",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "팀코리아, 美 원전 8기 정면 승부…K-원전 '직접 건설' 시동",
+      "same_event": true
+    },
     "03450f3ac0dc83a1--76d6ffdb905a60f3": {
       "embedding_similarity": 0.9021,
       "left_title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의",
@@ -4080,6 +4110,16 @@
       "reason": "대미 원전 투자 프로젝트 보도",
       "reviewed_at": "2026-09-18T13:27:31.058089+00:00",
       "right_title": "한국, 웨스팅하우스 지분 투자로 美 원전 8기 중 2기 APR1400 건설 추진",
+      "same_event": true
+    },
+    "0471714ffba7b505--cacb7c0195d694c3": {
+      "embedding_similarity": 0.9019,
+      "left_title": "미 트럼프 대통령, 한국의 2000억 달러 규모 에너지 인프라 투자 및 대형 원전 8기 건설 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 대미 투자 발표",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "트럼프 전 대통령, 한국의 2천억 달러 규모 미국 에너지 투자 언급",
       "same_event": true
     },
     "04730d54f47d106b--0c94592b8e9adc53": {
@@ -5962,6 +6002,16 @@
       "right_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
       "same_event": false
     },
+    "057d20a841e798e7--1116872abf085268": {
+      "embedding_similarity": 0.8966,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 계약과 로봇 도입",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "LS일렉트릭, 부산사업장에 로봇 '스팟' 배치해 생산 효율 증대",
+      "same_event": false
+    },
     "05810ce764a2e4db--571c41d8d5a745d5": {
       "embedding_similarity": 0.84,
       "left_title": "기후장관, 호남 반도체 클러스터 전력 공급에 기존 원전·재생에너지 활용 언급",
@@ -6400,6 +6450,16 @@
       "reason": "SMR 건설 논의와 공론화위 출범",
       "reviewed_at": "2026-10-02T04:31:17.711328+00:00",
       "right_title": "미래 원전 역할 논의할 '전기본 원전 공론화위' 공식 출범",
+      "same_event": false
+    },
+    "05d330956300dc97--70ef22d42129ca0c": {
+      "embedding_similarity": 0.8934,
+      "left_title": "두산에너빌리티·현대건설, 미국 AI 캠퍼스 원전 건설 참여",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "참여 사업 및 기대 요인 다름",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "美 원전 8기 발주 임박…두산에너빌리티, AP1000·SMR 사업 확대 기대",
       "same_event": false
     },
     "05da702fed62250a--1b4b7adc62647aaf": {
@@ -10759,6 +10819,16 @@
       "prompt_version": 1,
       "reason": "원전 합의에 대한 반응",
       "reviewed_at": "2026-10-02T22:26:33.548899+00:00",
+      "right_title": "한국원자력학회, 한미 원전 프레임워크 합의 환영 및 미국 시장 진출 기대",
+      "same_event": true
+    },
+    "09cee064136b2ea9--c14e1f891d72f699": {
+      "embedding_similarity": 0.8947,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 합의 및 학회 반응",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
       "right_title": "한국원자력학회, 한미 원전 프레임워크 합의 환영 및 미국 시장 진출 기대",
       "same_event": true
     },
@@ -15572,6 +15642,16 @@
       "right_title": "효성중공업, 미국 빅테크와 3865억원 초고압변압기 공급 계약 체결",
       "same_event": false
     },
+    "0fe57b415eac5206--1116872abf085268": {
+      "embedding_similarity": 0.8932,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 기업 및 계약 다름",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "효성중공업, 미국 빅테크와 3865억원 초고압변압기 공급 계약 체결",
+      "same_event": false
+    },
     "0fe57b415eac5206--2e0cb44d30e44c26": {
       "embedding_similarity": 0.8457,
       "left_title": "AI 전력난 심화로 K전선 기업, 북미·유럽서 12.5조원 수주 달성",
@@ -17502,6 +17582,16 @@
       "right_title": "효성중공업, 美 AI 데이터센터용 초고압변압기 3865억 수주",
       "same_event": false
     },
+    "1116872abf085268--9ec58b3cd56483f7": {
+      "embedding_similarity": 0.9023,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 공급 계약",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "효성중공업, 미국 빅테크와 3865억원 규모 초고압변압기 공급 계약 체결",
+      "same_event": false
+    },
     "1116872abf085268--ad0bf50fe1a59399": {
       "embedding_similarity": 0.9091,
       "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
@@ -17510,6 +17600,36 @@
       "reason": "개별 수주와 업계 동향",
       "reviewed_at": "2026-10-03T04:56:28.973575+00:00",
       "right_title": "국내 전력기기·전선 5개사, AI 전력 수요 급증에 매출 30조원 달성",
+      "same_event": false
+    },
+    "1116872abf085268--c1cbbd86642f6f3e": {
+      "embedding_similarity": 0.9047,
+      "left_title": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체 및 사업 내용 상이",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "same_event": false
+    },
+    "1116872abf085268--ddec4874efd29a28": {
+      "embedding_similarity": 0.8977,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 기업 및 계약 다름",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "효성중공업, 미국 빅테크 2곳과 3,865억 원 규모 변압기 공급 계약 체결",
+      "same_event": false
+    },
+    "1116872abf085268--ff5dcc1f3baae6a2": {
+      "embedding_similarity": 0.898,
+      "left_title": "HD현대일렉트릭, 미국 와이오밍 데이터센터 배전시스템 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 기업 및 사업 다름",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
       "same_event": false
     },
     "111b85c3edc24db6--e356787a673aa06d": {
@@ -24979,6 +25099,16 @@
       "prompt_version": 1,
       "reason": "미국 원전 건설 추진",
       "reviewed_at": "2026-10-01T06:19:19.285711+00:00",
+      "right_title": "한·미, 미국 내 대형원전 8기 건설 및 1200억 달러 투자 계획 공식 발표",
+      "same_event": true
+    },
+    "199e9b789ae8c474--c14e1f891d72f699": {
+      "embedding_similarity": 0.902,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
       "right_title": "한·미, 미국 내 대형원전 8기 건설 및 1200억 달러 투자 계획 공식 발표",
       "same_event": true
     },
@@ -37702,6 +37832,16 @@
       "right_title": "대우건설, 체코 원전 사업 기대감에 주가 급락…차익실현 매물 출회",
       "same_event": true
     },
+    "285679d05e0af2c0--54e4538ade932dd2": {
+      "embedding_similarity": 0.8935,
+      "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 합의 및 후속 절차",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한·미, 대미 투자 원전 8기 건설 프레임워크 체결 및 APR1400 포함 확정",
+      "same_event": true
+    },
     "285679d05e0af2c0--76c25b6cb116675c": {
       "embedding_similarity": 0.8843,
       "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
@@ -37722,6 +37862,26 @@
       "right_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
       "same_event": true
     },
+    "285679d05e0af2c0--8dd27ccdd6e1db7d": {
+      "embedding_similarity": 0.9049,
+      "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 후속 절차",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "산업부, 미국 대형원전·SMR 투자 협상 속 K기업 참여 본격화",
+      "same_event": true
+    },
+    "285679d05e0af2c0--b6ce40ce2081cab3": {
+      "embedding_similarity": 0.9048,
+      "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 후속 절차",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "K-원전, 미국 내 APR1400 2기 건설 추진",
+      "same_event": true
+    },
     "285679d05e0af2c0--c6e6df8995d1ac7d": {
       "embedding_similarity": 0.9057,
       "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
@@ -37730,6 +37890,16 @@
       "reason": "원전 합의 후속 회의 개최",
       "reviewed_at": "2026-10-03T04:56:28.973575+00:00",
       "right_title": "산업통상부, 원전수출기획위원회 열고 미국 진출 방안 논의",
+      "same_event": true
+    },
+    "285679d05e0af2c0--db2d50b3782ac622": {
+      "embedding_similarity": 0.8958,
+      "left_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 후속 대책",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "산업통상부, 원전수출기획위원회 열고 미국 원전 시장 진출 전략 논의",
       "same_event": true
     },
     "285679d05e0af2c0--e0b43327c7159fe1": {
@@ -37750,6 +37920,16 @@
       "reason": "원전 합의 후속 회의 개최",
       "reviewed_at": "2026-10-03T04:56:28.973575+00:00",
       "right_title": "산업부, 미국 원전 8기 건설 합의 후속 ‘원전수출기획위원회’ 개최",
+      "same_event": true
+    },
+    "285679d05e0af2c0--fe4e4a65bce8a43b": {
+      "embedding_similarity": 0.8952,
+      "left_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 후속 보고",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
       "same_event": true
     },
     "28698bc49ab35ba5--ebd03d5c6c900f78": {
@@ -37969,6 +38149,16 @@
       "prompt_version": 1,
       "reason": "미국 원전 8기 건설 협상",
       "reviewed_at": "2026-10-01T02:00:35.688377+00:00",
+      "right_title": "산업통상부, 미국 내 대형 원전 8기 건설 및 APR1400 미국 진출 ‘한미 원전 프레임워크’ 합의",
+      "same_event": true
+    },
+    "28e420a20d514d4b--c14e1f891d72f699": {
+      "embedding_similarity": 0.901,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
       "right_title": "산업통상부, 미국 내 대형 원전 8기 건설 및 APR1400 미국 진출 ‘한미 원전 프레임워크’ 합의",
       "same_event": true
     },
@@ -41129,6 +41319,16 @@
       "prompt_version": 1,
       "reason": "한미 원전 협력 합의",
       "reviewed_at": "2026-10-01T10:17:30.024680+00:00",
+      "right_title": "한·미 원전 프레임워크 타결, APR1400 미국 진출 및 웨스팅하우스 지분 인수 추진",
+      "same_event": true
+    },
+    "2cc62887077d22a6--c14e1f891d72f699": {
+      "embedding_similarity": 0.898,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
       "right_title": "한·미 원전 프레임워크 타결, APR1400 미국 진출 및 웨스팅하우스 지분 인수 추진",
       "same_event": true
     },
@@ -47962,6 +48162,16 @@
       "right_title": "한국형 원전 2기 미국 진출 추진, 이 대통령 \"발전소별 상업성 보장돼야\" 강조",
       "same_event": false
     },
+    "36b62be32bdd9c3d--c14e1f891d72f699": {
+      "embedding_similarity": 0.9049,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "same_event": true
+    },
     "36b62be32bdd9c3d--e05a32ae2bbea867": {
       "embedding_similarity": 0.9038,
       "left_title": "한미 대미 투자 1,200억 달러 원전 협상, 노형 배치를 두고 난항",
@@ -49070,6 +49280,16 @@
       "reason": "미국 지하원전과 SMR 미래성장동력 선정",
       "reviewed_at": "2026-08-24T01:10:53.329609+00:00",
       "right_title": "정부, SMR '미래성장동력 7대 SEED' 포함…i-SMR 표준설계인가 신청",
+      "same_event": false
+    },
+    "37259453a934cd16--89a3190808cceef0": {
+      "embedding_similarity": 0.8943,
+      "left_title": "두산에너빌리티, 태국서 SMR 사업 현황 발표하며 시장 진출 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수행 주체 및 활동 다름",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한수원, 태국 국영 발전사 GPSC와 SMR 사업협력 양해각서 체결",
       "same_event": false
     },
     "3733dacb6eb9bc94--9177c575aca6c154": {
@@ -66052,6 +66272,16 @@
       "right_title": "정부·한전, 美 웨스팅하우스 지분 제안에 못 나서는 속사정",
       "same_event": true
     },
+    "4b88a52b0395c931--73f74663a215bf65": {
+      "embedding_similarity": 0.8986,
+      "left_title": "한수원 등, 웨스팅하우스 지분 15%·이사회 의결권 확보 추진…미국은 5~10% 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한·미, 웨스팅하우스 지분 인수 및 APR1400 미국 건설 프레임워크 추진",
+      "same_event": true
+    },
     "4b88a52b0395c931--76c25b6cb116675c": {
       "embedding_similarity": 0.8837,
       "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
@@ -82232,6 +82462,26 @@
       "right_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
       "same_event": false
     },
+    "5cd2a36b4d72da10--657fb1e8299bfac4": {
+      "embedding_similarity": 0.8991,
+      "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 투자 계획 언급",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "트럼프 미국 대통령, 아시아 국가 대상 알래스카 LNG 투자 압박",
+      "same_event": false
+    },
+    "5cd2a36b4d72da10--cacb7c0195d694c3": {
+      "embedding_similarity": 0.8978,
+      "left_title": "미 트럼프 대통령, 한국의 2000억 달러 규모 에너지 인프라 투자 및 대형 원전 8기 건설 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자와 LNG 압박",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "트럼프 미국 대통령, 아시아 국가 대상 알래스카 LNG 투자 압박",
+      "same_event": false
+    },
     "5cefca895e246495--78b0e1f04036be7f": {
       "embedding_similarity": 0.8419,
       "left_title": "불가리아 AP1000 신규 원전 건설, 양국 간 '전략적 우선순위'로 강조",
@@ -82390,6 +82640,16 @@
       "reason": "대미 원전 투자 및 지분 인수",
       "reviewed_at": "2026-09-16T09:22:30.089853+00:00",
       "right_title": "한미, 원전 8기 대미 투자 합의 임박…웨스팅하우스 지분 확보 논의",
+      "same_event": true
+    },
+    "5da600fef839df85--73f74663a215bf65": {
+      "embedding_similarity": 0.9039,
+      "left_title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한·미, 웨스팅하우스 지분 인수 및 APR1400 미국 건설 프레임워크 추진",
       "same_event": true
     },
     "5da600fef839df85--76c25b6cb116675c": {
@@ -86212,6 +86472,16 @@
       "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
       "same_event": true
     },
+    "63e19996699720d2--7901d36720c2d03f": {
+      "embedding_similarity": 0.9013,
+      "left_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 전략투자 프레임워크",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한미, 2천억 달러 전략투자 공식 발표…원전 8기 건설 프레임워크 포함",
+      "same_event": true
+    },
     "63f4116f8b5103ca--9fd4c4e2ded65b09": {
       "embedding_similarity": 0.8434,
       "left_title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
@@ -87310,6 +87580,16 @@
       "reason": "대미 에너지 투자 계획 발표",
       "reviewed_at": "2026-10-02T09:46:51.356707+00:00",
       "right_title": "트럼프, 알래스카 LNG 한국 투자 발표…상업성 전제 사업 추진",
+      "same_event": true
+    },
+    "657fb1e8299bfac4--c14e1f891d72f699": {
+      "embedding_similarity": 0.8984,
+      "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 투자 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
       "same_event": true
     },
     "657fb1e8299bfac4--c1a4cc80f224c28c": {
@@ -91832,6 +92112,16 @@
       "right_title": "한국형 원전 2기 미국 진출 추진, 이 대통령 \"발전소별 상업성 보장돼야\" 강조",
       "same_event": false
     },
+    "6b82430734a06f85--c14e1f891d72f699": {
+      "embedding_similarity": 0.9049,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "same_event": true
+    },
     "6b82430734a06f85--c316f07443043bf1": {
       "embedding_similarity": 0.911,
       "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
@@ -92320,6 +92610,36 @@
       "reason": "대미투자 보도 해명",
       "reviewed_at": "2026-09-10T13:00:38.815478+00:00",
       "right_title": "산업통상부, 대미투자 수익배분 구조 미확정 보도에 신중 당부",
+      "same_event": true
+    },
+    "6bee641b4cdfbc54--7901d36720c2d03f": {
+      "embedding_similarity": 0.8977,
+      "left_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 합의 및 후속 송금",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한국, 대미 투자 첫 24억 달러 송금…알래스카 LNG는 검토 단계",
+      "same_event": true
+    },
+    "6bee641b4cdfbc54--c14e1f891d72f699": {
+      "embedding_similarity": 0.8951,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 합의 및 후속 송금",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한국, 대미 투자 첫 24억 달러 송금…알래스카 LNG는 검토 단계",
+      "same_event": true
+    },
+    "6bee641b4cdfbc54--ec41f0a2f9b34be4": {
+      "embedding_similarity": 0.894,
+      "left_title": "미국, 한국과 APR1400 2기 포함 총 8기 건설 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 합의 및 후속 송금",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한국, 대미 투자 첫 24억 달러 송금…알래스카 LNG는 검토 단계",
       "same_event": true
     },
     "6bf18ed2c2e284a4--9177c575aca6c154": {
@@ -97482,6 +97802,26 @@
       "right_title": "김성환 기후에너지환경부 장관, 신규 원전 공론화 절차 곧 발표",
       "same_event": true
     },
+    "73f74663a215bf65--76c25b6cb116675c": {
+      "embedding_similarity": 0.9042,
+      "left_title": "한국 정부, 대미 투자금 22억 달러 이달 말 첫 송금 및 웨스팅하우스 지분 매입 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한·미, 웨스팅하우스 지분 인수 및 APR1400 미국 건설 프레임워크 추진",
+      "same_event": true
+    },
+    "73f74663a215bf65--934c654fd10ef473": {
+      "embedding_similarity": 0.9045,
+      "left_title": "한국 정부, 미국 웨스팅하우스 지분 5~10% 인수 및 대미 전략투자 협의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 지분 인수 협의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한·미, 웨스팅하우스 지분 인수 및 APR1400 미국 건설 프레임워크 추진",
+      "same_event": true
+    },
     "74050a1283b5c208--76ce0f0151217ee0": {
       "embedding_similarity": 0.8892,
       "left_title": "정부, 2027년 예산안에 3대 메가·AI 21.3조 투자…SMR 등 7대 시드기술 육성",
@@ -100400,6 +100740,16 @@
       "reason": "원전 건설 추진 회의",
       "reviewed_at": "2026-10-02T22:26:33.548899+00:00",
       "right_title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의",
+      "same_event": true
+    },
+    "76d6ffdb905a60f3--c14e1f891d72f699": {
+      "embedding_similarity": 0.8989,
+      "left_title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
       "same_event": true
     },
     "76d6ffdb905a60f3--c6e6df8995d1ac7d": {
@@ -132332,6 +132682,16 @@
       "right_title": "K원전, 미국에 역수출 길 열려…상업성·전력 판로 불확실",
       "same_event": true
     },
+    "b4beddd1fc3ae632--c14e1f891d72f699": {
+      "embedding_similarity": 0.9026,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "K원전, 미국에 역수출 길 열려…상업성·전력 판로 불확실",
+      "same_event": true
+    },
     "b4beddd1fc3ae632--e05a32ae2bbea867": {
       "embedding_similarity": 0.8608,
       "left_title": "한미 대미 투자 1,200억 달러 원전 협상, 노형 배치를 두고 난항",
@@ -134862,6 +135222,16 @@
       "right_title": "핀란드 포시바 방사성폐기물 처분장 안전성 검토 통과",
       "same_event": true
     },
+    "bc22549066f442bd--c14e1f891d72f699": {
+      "embedding_similarity": 0.9043,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한전기술, 한미 원전 프레임워크 합의 소식에 장초반 주가 강세",
+      "same_event": true
+    },
     "bca1920d907255cd--be4db6502cb6704e": {
       "embedding_similarity": 0.8452,
       "left_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",
@@ -136952,6 +137322,16 @@
       "right_title": "한·미, 대형 원전 8기 건설 프레임워크 합의…한국형 APR1400 미국 진출",
       "same_event": true
     },
+    "c14e1f891d72f699--cba91a76966dff09": {
+      "embedding_similarity": 0.8963,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 합의 및 기대감",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "한수원·한전, APR1400 美 첫 진출 기대감…원전 경쟁력 강화",
+      "same_event": true
+    },
     "c14e1f891d72f699--d910f20ea24430b3": {
       "embedding_similarity": 0.9347,
       "left_title": "미 상무부, 한국과 대형 원전 8기 건설 및 알래스카 LNG 추진 합의 팩트시트 공개",
@@ -136980,6 +137360,16 @@
       "reason": "한미 원전 협력 합의",
       "reviewed_at": "2026-10-03T04:12:26.563316+00:00",
       "right_title": "산업통상자원부, 미국 내 대형 원전 8기 건설에 1200억 달러 투입 및 연말 선지급 추진",
+      "same_event": true
+    },
+    "c14e1f891d72f699--fa41d0fe7c63bfe1": {
+      "embedding_similarity": 0.8952,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 합의 및 세부내용",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "정부, 미국 대형원전 8기 건설 추진…한국형 적용 시 웨스팅하우스에 기당 20억불 기술료 부담",
       "same_event": true
     },
     "c14e1f891d72f699--fe4e4a65bce8a43b": {
@@ -141281,6 +141671,16 @@
       "reviewed_at": "2026-08-16T11:22:11.050184+00:00",
       "right_title": "미 에너지부, 오크리지 국립연구소 핵융합 증식 블랭킷 시설 지원",
       "same_event": false
+    },
+    "cff0e7c557805eaa--e28a111c9e78dcdb": {
+      "embedding_similarity": 0.8559,
+      "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 권고",
+      "reviewed_at": "2026-10-03T08:27:08.287188+00:00",
+      "right_title": "원전 공론화위원회 공식 출범…은재호 한국외대 교수 위원장 맡아",
+      "same_event": true
     },
     "cffc5263f67de626--f7d8189e1caf32ca": {
       "embedding_similarity": 0.8975,

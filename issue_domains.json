@@ -45,15 +45,14 @@
       "generated_at": "2026-09-16T13:42:12.637046+00:00"
     },
     "issue-541941314ac51e41": {
-      "digest": "d38db4dadcb04b4f",
-      "domain": "안전성",
+      "domain": "규제",
       "tags": [
-        "원전안전운영"
+        "해외규제"
       ],
-      "title": "日 하마오카 원전, 내진 데이터 조작 사실로 드러나 경영진 사임",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "일본 주부전력, 하마오카 원전 지진 데이터 조작으로 사장·회장 동반 사퇴",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-03T08:38:51.216010+00:00"
     },
     "issue-40c55eaaa3e1c6e4": {
       "domain": "해외사업",
@@ -8140,6 +8139,42 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-03T04:25:53.310938+00:00"
+    },
+    "issue-1116872abf085268": {
+      "domain": "",
+      "tags": [],
+      "title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-03T08:38:51.216010+00:00"
+    },
+    "issue-5c22cc5586b97424": {
+      "domain": "",
+      "tags": [],
+      "title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-03T08:38:51.216010+00:00"
+    },
+    "issue-e5237552273392ad": {
+      "domain": "사후처리",
+      "tags": [
+        "사용후핵연료"
+      ],
+      "title": "핀란드 포시바, 온칼로 사용후핵연료 최종 처분장 첫 시추 시작",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-03T08:38:51.216010+00:00"
+    },
+    "issue-99746f01419e6fec": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "미 육군 야누스 프로그램, 5개 원자로 개발사 및 군 기지 선정 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-03T08:38:51.216010+00:00"
     }
   }
 }
