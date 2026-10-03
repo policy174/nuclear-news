@@ -325283,5 +325283,529 @@
     "feed": "정책",
     "domain": "sbs.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "ea3cd0e3c5ec410e": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "정부, 제12차 전기본 수립서 석탄 대체 LNG 발전 이산화탄소 배출 기준 검토",
+    "summary": "정부가 제12차 전력수급기본계획 수립에서 석탄 대체 LNG 발전소의 전력 생산량당 이산화탄소 배출 허용 기준 설정을 검토하고 있다.",
+    "detail": "정부가 석탄발전을 LNG로 전환하며 2050년 탄소 배출 제로 규제를 검토하고 있다. 급증하는 전력 수요 대응을 위해 LNG 발전을 확대하되 탄소 저감 기술을 단계적으로 적용하려는 방침이나, 발전 업계는 기술 불확실성과 대규모 투자 비용에 대한 부담을 표하며 구체적인 단계별 수치와 보전 대책 마련을 촉구하고 있다.",
+    "implication": "석탄에서 LNG로의 전환 과정에서 배출 규제를 병행하려는 조치이나, 업계의 투자비용 부담 해소가 관건이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#제12차전기본",
+      "#LNG발전",
+      "#탄소배출규제"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "전력 모자라 석탄 대신 LNG 발전소 늘린다면서 탄소 규제도 강화?",
+    "link": "https://www.chosun.com/economy/industry-company/2026/10/03/5OK3I4NCFJAU7MCN2Y5IJA32KI",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "전력수급기본계획"
+  },
+  "d4e3512ab1be5171": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 3,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "산업통상부, 미국 내 원전 8기 건설 추진 및 APR1400 2기 도입 확정",
+    "summary": "산업부는 원전수출기획위원회를 열고 한미 전략투자 기금을 활용해 미국 내 대형원전 8기를 건설하며 한국형 APR1400 2기를 포함하는 추진 방안을 논의했다.",
+    "detail": "한국이 2009년 바라카 원전 수주 이후 17년 만에 미국 시장에 진출할 기회를 확보했다. 양국은 한미전략투자 기금 최대 1200억 달러를 활용해 미국 내 대형원전 8기를 건설하는 기본 계획을 마련했으며, 이 중 APR1400 2기와 웨스팅하우스 AP1000 6기를 단계적으로 추진한다. 특히 2단계에서 APR1400 2기를 AP1000보다 앞선 순서에 배치해 협상의 의미를 더했다.",
+    "implication": "미국 원전 종주국 본토에 한국형 노형 APR1400이 진입하는 첫 사례로, 향후 웨스팅하우스와의 추가 지분 및 기술료 협상이 핵심 과제로 남는다.",
+    "why_important": "한국형 원전 APR1400이 기술 종주국인 미국 본토에 진출하는 역사적 분기점으로, 향후 글로벌 원전 수주 전소에 중대한 영향을 미치는 국가적 핵심 사안이다.",
+    "open_question": "웨스팅하우스에 지불할 기술사용료와 공급망 구성, 지분 인수 조건 등 추가 협상 일정은 아직 확정되지 않았다.",
+    "open_question_source": "article_text",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#K원전",
+      "#APR1400",
+      "#미국원전수출"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-01",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "첫 수출 17년 만에 '종주국' 美 문 열었다…K원전 새 분기점",
+    "link": "https://www.newsis.com/view/NISX20261002_0003812579",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "원전 수출"
+  },
+  "2b26908a8e82796e": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 데이터센터 전력난 해법으로 아연 배터리 부상",
+    "summary": "AI 데이터센터의 급증하는 전력 수요에 대응하기 위해 리튬이온 배터리의 대안으로 아연 기반 배터리 기술이 주목받고 있다. 아연 배터리는 안전성과 긴 이용 시간 등의 장점을 가진다.",
+    "detail": "AI 데이터센터의 전력 소비 급증에 따라 배터리 에너지 저장 장치(BESS) 수요가 상승하는 가운데, 리튬이온 배터리의 대안으로 아연 기반 배터리 기술이 부상하고 있다. 이오스 에너지 엔터프라이즈(EOSE)는 수계 아연 하이브리드 배터리 기술을 개발하여 AI 데이터센터에 24시간 안정적인 전력 공급을 목표로 한다. 아연 배터리는 리튬이온 배터리와 달리 열 폭주나 화재 위험이 낮고 희귀 광물 의존도가 낮다는 장점이 있다.",
+    "implication": "AI 시대의 전력 수요 증가에 대한 새로운 에너지 저장 기술의 등장은 전력망 안정화 및 친환경 에너지 활용 확대에 기여할 수 있다.",
+    "why_important": "AI 데이터센터의 전력 수요 급증이라는 거시적 트렌드 속에서, 기존 리튬이온 배터리의 한계를 극복할 수 있는 아연 배터리 기술의 등장은 에너지 저장 시스템 분야의 기술 발전과 시장 경쟁 구도 변화를 시사한다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#아연배터리",
+      "#에너지저장"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "[GAM]리튬 이온 독주에 도전 EOSE ① AI 시대 전력난 해법 아연 배터리",
+    "link": "https://www.newspim.com/news/view/20261002000737",
+    "feed": "정책",
+    "domain": "newspim.com",
+    "matched": "데이터센터 전력"
+  },
+  "54926bf5f41a0ad5": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "AI 데이터센터 전력 수요 급증, 원전·재생에너지 논쟁 재점화",
+    "summary": "AI 데이터센터의 전력 수요 급증으로 2040년 최대전력수요 전망치가 20% 상향 조정되었다. 이는 원전, 재생에너지, 수도권과 지방 간의 전력 공급 논쟁을 재점화시키고 있다.",
+    "detail": "AI 경쟁 심화로 데이터센터의 전력 수요가 급증하면서, 정부는 2040년 최대전력수요 전망치를 기존 131.8~138.2GW에서 158.4~165.0GW로 약 20% 상향 조정했다. 이는 AI 가속기의 높은 전력 소비, 24시간 가동되는 데이터센터의 특성, 그리고 냉각 시스템에 필요한 추가 전력 소비 때문이다. 이러한 전력 수요 증가는 원전과 재생에너지의 역할, 수도권과 지방 간의 전력 공급 불균형, 그리고 성장과 탄소 감축 사이의 상충 관계에 대한 논쟁을 다시 불러일으키고 있다.",
+    "implication": "AI 시대의 폭발적인 전력 수요 증가는 국가 전력 계획 수립에 있어 원전과 재생에너지의 균형, 지역 간 전력 인프라 격차 해소라는 정책적 과제를 안겨준다.",
+    "why_important": "AI 데이터센터의 전력 수요 급증은 국가 전력 계획의 근간을 흔들고 있으며, 이는 원전 확대, 재생에너지 정책, 수도권 집중 완화 등 에너지 정책 전반에 대한 재검토를 촉발할 수 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#전력수요",
+      "#전원믹스"
+    ],
+    "related_reports": [],
+    "event_date": "2040-01-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "year",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "AI데이터센터 에너지 논쟁... 'AI 강국'과 '탄소중립' 충돌",
+    "link": "https://www.eroun.net/news/articleView.html?idxno=91528",
+    "feed": "정책",
+    "domain": "eroun.net",
+    "matched": "전력수급기본계획"
+  },
+  "79c4b322af1ea8ac": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "여성경제신문, 10월 6일 대한민국 지능생산 강국 도약 산업포럼 개최",
+    "summary": "여성경제신문이 10월 6일 국회의원회관에서 반도체, 전력, 데이터센터, 금융을 아우르는 지능생산 강국 도약 산업포럼을 개최한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#지능생산",
+      "#AI데이터센터",
+      "#산업포럼"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-06",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "[여성경제신문 산업포럼] 실리콘은 어떻게 지능이 되는가?···10월 6일 ...",
+    "link": "https://www.womaneconomy.co.kr/news/articleView.html?idxno=259248",
+    "feed": "정책",
+    "domain": "womaneconomy.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "eff4f9c0c36f8cd6": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "신간 도서 'AI는 공짜가 아니야' 등 출간",
+    "summary": "신간 도서 'AI는 공짜가 아니야'는 AI 확대에 따른 데이터센터 전력 수요와 온실가스 문제, 재생에너지, 에너지저장장치, 탄소배출권 거래제 등을 다룬다.",
+    "detail": "새로 출간된 도서 'AI는 공짜가 아니야'는 AI 기술의 확대에 따른 데이터센터의 전력 수요 증가와 온실가스 배출 문제에 대해 논한다. 또한 재생에너지, 에너지저장장치(ESS), 탄소배출권 거래제, RE100 등 관련 논의를 확장하며, AI 기술의 편익과 환경 부담을 균형 있게 다룬다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#환경"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "[신간도서 출간] ‘AI는 공짜가 아니야’·‘가나다라: 세상 모든 소리...",
+    "link": "https://www.ekn.kr/web/view.php?key=20261002023561776",
+    "feed": "정책",
+    "domain": "ekn.kr",
+    "matched": "데이터센터 전력"
+  },
+  "5cd2a36b4d72da10": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "트럼프 미국 대통령, 아시아 국가 대상 알래스카 LNG 투자 압박",
+    "summary": "미국 정부가 한국과 일본 등 아시아 국가에 알래스카 LNG 프로젝트 투자를 요구하고 있으나 상업적 타당성 부족으로 난항을 겪고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#알래스카LNG",
+      "#미국에너지",
+      "#대미투자"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "트럼프 “한국, 알래스카 투자 합의 안 하면 2배로”",
+    "link": "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000553416",
+    "feed": "정책",
+    "domain": "ichannela.com",
+    "matched": "원전 수출"
+  },
+  "b1626f9af35ad25d": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 3,
+      "market_materiality": 3,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "market",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "삼성증권, AI 데이터센터 전력 수요 급증에 따른 소부장·원전 투자 확대 전망",
+    "summary": "AI 데이터센터 전력 수요 증가로 원전, 가스발전, 전력기기 등 관련 인프라 기업에 대한 투자 온기가 확산될 전망이다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#전력인프라",
+      "#원전주"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "삼전닉스 다음은 소부장?…AI 투자 온기 확산 전망[주末머니]",
+    "link": "https://view.asiae.co.kr/article/2026100116484572719",
+    "feed": "정책",
+    "domain": "asiae.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "28afd79f14faf672": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "정부, 대미 원전 수출 합의 도출…웨스팅하우스 지분 인수 등 추가 협상 과제 직면",
+    "summary": "한국이 대미투자 프로젝트를 통해 미국에 원전 8기를 건설하고 APR1400 2기를 도입하기로 합의했으나 웨스팅하우스와의 지분 인수 등 추가 협상이 남았다.",
+    "detail": "미국은 원자력발전 종주국이자 한국에 원전 기술을 전수한 국가다. 이런 미국에 지난달 30일(현지시간) 발표된 대미투자 프로젝트를 통해 한국 원전이 역진출하는 길이 열렸다. 한국이 약 1,200억 달러를 투입해 미국에 원전 8기를 짓고, 그중 2기는 한국형 노형 APR1400을 넣기로 합의가 이뤄졌다. 여기까지 오는 과정은 쉽지 않았다. APR1400의 미국 진출 불허를 레드라인으로 삼은 미국을 10개월에 걸쳐 설득한 끝에 기회를 잡았다. 그러나 기술사용료, 공급망 구성, WEC 지분 인수 조건 등 추가 협상 과제가 산적해 있다.",
+    "implication": "미국 시장 진출의 교두보를 마련했으나, 원천기술 보유사인 웨스팅하우스와의 이해관계 조율과 지분 인수 협상이 향후 성패를 가르는 핵심 변수다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#APR1400",
+      "#웨스팅하우스",
+      "#한미원자력"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-30",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "10개월 매달려 美 자존심 뚫고 원전 빗장 열었지만… 남은 협상 첩첩산...",
+    "link": "https://www.hankookilbo.com/news/article/A2026092222220004457?did=NA",
+    "feed": "정책",
+    "domain": "hankookilbo.com",
+    "matched": "한미 원자력협정"
+  },
+  "ff1df6e34d8fbd83": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "AU",
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "호주 정부, AI 데이터센터 급증 속 주민 수용성과 지속가능성 최우선 조건 제시",
+    "summary": "호주 정부가 대규모 AI 데이터센터 투자 유치 과정에서 미국식 난개발을 피하고 주민 수용성과 지속가능성을 필수 조건으로 내걸었다.",
+    "detail": "대한민국은 인공지능 3강을 목표로 전국에 AI 데이터센터를 확대하려 하고 있으나 전력과 환경 문제에 직면해 있다. 반면 호주는 오픈AI, 엔비디아 등의 대규모 투자 유치 속에서도 지역사회 소통과 주민 수용성 확보를 강조하며 미국과 차별화된 전략을 추진 중이다. 그러나 현지에서는 법적 구속력 부족을 지적하는 반발도 이어지고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI데이터센터",
+      "#주민수용성",
+      "#호주에너지"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "오픈AI·앤트로픽 몰려간 호주...미국식 난개발 대신 '주민 수용성' 택했...",
+    "link": "https://www.hankookilbo.com/news/article/A2026091014080005828?did=NA",
+    "feed": "정책",
+    "domain": "hankookilbo.com",
+    "matched": "데이터센터 전력"
+  },
+  "26bb3a5e4f2ae0f5": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "EU"
+    ],
+    "article_type": "analysis",
+    "title_kr": "디지털 포토닉스, AI 인프라의 새로운 혁신 동력으로 부상",
+    "summary": "디지털 포토닉스 기술이 AI 데이터센터의 빠른 대역폭 수요 증가에 대응하는 차세대 기술로 주목받고 있다. 기존 구리 기반 기술의 한계를 극복하고 에너지 효율성을 높일 수 있다.",
+    "detail": "디지털 포토닉스 기술이 AI 인프라의 핵심으로 부상하고 있다. AI 데이터센터는 수천 개의 고성능 프로세서를 연결해야 하는데, 기존 구리 기반 기술은 대역폭 수요 증가에 한계를 보이고 있다. 디지털 포토닉스는 빛의 속도를 활용하여 더 빠르고 에너지 효율적인 데이터 전송을 가능하게 하며, 이는 AI 시대의 컴퓨팅 성능 향상에 기여할 것으로 기대된다. 글로벌 포토닉스 시장은 2030년까지 연평균 12% 성장할 것으로 전망된다.",
+    "implication": "디지털 포토닉스 기술의 발전은 AI 데이터센터의 성능 향상뿐만 아니라, 통신, 센싱 등 다양한 산업 분야의 혁신을 가속화할 잠재력을 지닌다.",
+    "why_important": "AI 시대의 핵심 인프라인 데이터센터의 기술적 한계를 극복할 수 있는 디지털 포토닉스 기술의 발전은 관련 산업의 미래 경쟁력 확보에 중요한 요소가 될 수 있으나, 아직은 기술 발전 초기 단계의 소개 기사로 must_read로 분류하기는 어렵다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#디지털포토닉스",
+      "#AI데이터센터",
+      "#차세대기술"
+    ],
+    "related_reports": [],
+    "event_date": "2030-01-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "year",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-03T02:08:14.054601+00:00",
+    "title": "[테크 리포트] 스마트 광원의 시대 디지털 포토닉스가 여는 새로운 혁신...",
+    "link": "https://www.epnc.co.kr/news/articleView.html?idxno=407703",
+    "feed": "정책",
+    "domain": "epnc.co.kr",
+    "matched": "데이터센터 전력"
   }
 }
