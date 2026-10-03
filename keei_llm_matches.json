@@ -1107,6 +1107,20 @@
       "reason": "동일 주체, 동일 SMR 심사",
       "same_event": true
     },
+    "issue-37259453a934cd16--4dd81cd9e3": {
+      "issue_title": "한수원, 태국 국영 발전사 GPSC와 SMR 사업협력 양해각서 체결",
+      "keei_item": "튀르키예·태국, 미 USTDA 지원으로 SMR 로드맵 수립 및 타당성 조사 추진",
+      "prompt_version": 1,
+      "reason": "한수원 태국 협력과 태국 SMR 로드맵은 별개 사안임",
+      "same_event": false
+    },
+    "issue-37259453a934cd16--75a9edbcb6": {
+      "issue_title": "한수원, 태국 국영 발전사 GPSC와 SMR 사업협력 양해각서 체결",
+      "keei_item": "스웨덴 Studsvik, 한·미 기업과 BWRX-300 SMR 4기 공동 개발 협약 체결",
+      "prompt_version": 1,
+      "reason": "한수원 태국 협력과 스웨덴 SMR 개발 협력은 무관함",
+      "same_event": false
+    },
     "issue-37429a89a97b6760--7bd28372a9": {
       "issue_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
       "keei_item": "미국 Duke Energy, 2026 Carolinas 자원계획에 신규 원전 약 4.5GW 반영",
@@ -1252,6 +1266,13 @@
       "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
       "prompt_version": 1,
       "reason": "A는 원전 재가동, B는 광범위한 대응 조치.",
+      "same_event": false
+    },
+    "issue-3e186048416f071c--6445d0b3c3": {
+      "issue_title": "미국 캘리포니아주, 차세대 원전 도입 타당성 평가 및 핵융합 전략 수립 법안 제정",
+      "keei_item": "미국 New Jersey 주, 신규 원전 도입 위한 법안 제정",
+      "prompt_version": 1,
+      "reason": "캘리포니아주와 뉴저지주의 신규 원전 관련 법안은 별개임",
       "same_event": false
     },
     "issue-3e8ffcf2b346c1e6--a3cf49987b": {
@@ -1674,6 +1695,13 @@
       "reason": "홀텍 SMR 부지 승인, 같은 사건",
       "same_event": true
     },
+    "issue-4f1cad9e204860e2--0b3993f90d": {
+      "issue_title": "미국 홀텍, 팔리세이드 SMR 건설 허가 신청 2단계 완료",
+      "keei_item": "폴란드 SGE, 영국 내 BWRX-300 14기 건설 위한 신청서 제출",
+      "prompt_version": 1,
+      "reason": "미국 홀텍과 폴란드 SGE의 건설 신청은 서로 다른 사안임",
+      "same_event": false
+    },
     "issue-4f1cad9e204860e2--6ed1757444": {
       "issue_title": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
       "keei_item": "미국 Holtec, Palisades 원전 재가동 위한 연료장전 착수",
@@ -1833,6 +1861,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "다른 국가, 다른 주체",
+      "same_event": false
+    },
+    "issue-540b6f85c6bf4077--0e615713ea": {
+      "issue_title": "미국 에너지부, 기초 과학 연구에 최대 4억 달러 지원 발표",
+      "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
+      "prompt_version": 1,
+      "reason": "기초 과학 연구 지원과 핵융합 로드맵 발표는 다른 사안임",
       "same_event": false
     },
     "issue-5550c8a8d7845204--8b6d0658ea": {
@@ -2367,6 +2402,13 @@
       "reason": "같은 규정 개정의 다른 단계",
       "same_event": true
     },
+    "issue-6bd77dd19faecf6a--230f7960b4": {
+      "issue_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "keei_item": "미국 Kairos, 삼성물산과 전략적 투자 및 Hermes 2 건설 협력 합의서 체결",
+      "prompt_version": 1,
+      "reason": "원전 프레임워크 합의와 Kairos-삼성물산 협력은 다름",
+      "same_event": false
+    },
     "issue-6bd77dd19faecf6a--36d332f8d9": {
       "issue_title": "정부, 3500억달러 대미투자 첫 사업 협상안 국회 보고 추진",
       "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
@@ -2828,6 +2870,13 @@
       "prompt_version": 1,
       "reason": "다른 안건",
       "same_event": false
+    },
+    "issue-8959032c095fd468--9a0229abcf": {
+      "issue_title": "미국 상원, 사우디아라비아와 트럼프 행정부 핵 협정 12월 13일 이전 표결 예상",
+      "keei_item": "미국·사우디아라비아, 123 협정 체결",
+      "prompt_version": 1,
+      "reason": "미국과 사우디의 123 협정 관련 회동 및 표결 추진임",
+      "same_event": true
     },
     "issue-895b471e7f2e1d4c--249f1333d0": {
       "issue_title": "두산에너빌리티, 오만 가스복합발전소 9281억 원 수주 및 SMR 협력 확대",

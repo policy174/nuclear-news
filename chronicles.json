@@ -1,5 +1,39 @@
 {
  "chronicles": {
+  "chron-012f082746c41a33": {
+   "chronicle_id": "chron-012f082746c41a33",
+   "entity_ids": [],
+   "events": [
+    {
+     "article_date": "2026-09-15",
+     "briefing_date": "2026-09-16",
+     "hash": "3859b6017f125ca1",
+     "publisher": "이넷뉴스",
+     "title_kr": "효성중공업, 미국 빅테크 기업에 3865억 원 규모 초고압변압기 공급 계약 수주",
+     "url": "https://www.enetnews.co.kr/news/articleView.html?idxno=54417"
+    },
+    {
+     "article_date": "2026-09-22",
+     "briefing_date": "2026-09-23",
+     "hash": "012f082746c41a33",
+     "publisher": "아주경제",
+     "title_kr": "효성중공업, 미국 전력망 스태콤 수주 확대…2GW급 기술 확보 추진",
+     "url": "https://www.ajunews.com/view/20260922170445959"
+    },
+    {
+     "article_date": "2026-10-01",
+     "briefing_date": "2026-10-03",
+     "hash": "1116872abf085268",
+     "publisher": "투데이에너지",
+     "title_kr": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+     "url": "https://www.todayenergy.kr/news/articleView.html?idxno=303731"
+    }
+   ],
+   "first_seen": "2026-09-16",
+   "last_seen": "2026-10-03",
+   "title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+   "updated_at": "2026-10-03T11:15:18.955831+09:00"
+  },
   "chron-01e1896c892484a1": {
    "chronicle_id": "chron-01e1896c892484a1",
    "entity_ids": [
@@ -2451,6 +2485,24 @@
    "title": "체코 두코바니 원전 본계약 비용, 자금조달 비용 누락으로 예상치 상회 전망",
    "updated_at": "2026-09-15T22:26:59.617358+09:00"
   },
+  "chron-285679d05e0af2c0": {
+   "chronicle_id": "chron-285679d05e0af2c0",
+   "entity_ids": [],
+   "events": [
+    {
+     "article_date": "2026-10-02",
+     "briefing_date": "2026-10-03",
+     "hash": "285679d05e0af2c0",
+     "publisher": "머니투데이",
+     "title_kr": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+     "url": "https://www.mt.co.kr/economy/2026/10/01/2026100116570922170"
+    }
+   ],
+   "first_seen": "2026-10-03",
+   "last_seen": "2026-10-03",
+   "title": "산업부, 1200억 달러 규모 미국 원전 건설 후속 절차 준비 착수",
+   "updated_at": "2026-10-03T11:15:18.955831+09:00"
+  },
   "chron-2abf24a24282c789": {
    "chronicle_id": "chron-2abf24a24282c789",
    "entity_ids": [
@@ -3416,6 +3468,43 @@
    "title": "IAEA, 해상 원자력 기술 활용 위한 ATLAS 프로그램 출범",
    "updated_at": "2026-09-28T10:42:42.546044+09:00"
   },
+  "chron-3d67923b7d733157": {
+   "chronicle_id": "chron-3d67923b7d733157",
+   "entity_ids": [
+    "holtec",
+    "nrc"
+   ],
+   "events": [
+    {
+     "article_date": "2026-09-16",
+     "briefing_date": "2026-09-17",
+     "hash": "4f1cad9e204860e2",
+     "publisher": "World Nuclear News",
+     "title_kr": "홀텍 SMR 프로젝트, 초기 부지 작업 규제 승인 획득",
+     "url": "https://www.world-nuclear-news.org/articles/holtec-smr-project-gets-regulatory-nod-for-early-site-work"
+    },
+    {
+     "article_date": "2026-09-17",
+     "briefing_date": "2026-09-18",
+     "hash": "3d67923b7d733157",
+     "publisher": "글로벌이코노믹",
+     "title_kr": "미국 원자력규제위원회, 팰리세이즈 SMR 부지 정식 LWA 전 토목 공사 허용",
+     "url": "https://www.g-enews.com/view.php?ud=202609171247331755fbbec65dfb_1"
+    },
+    {
+     "article_date": "2026-10-02",
+     "briefing_date": "2026-10-03",
+     "hash": "f9acbce3368811a6",
+     "publisher": "World Nuclear News",
+     "title_kr": "미국 홀텍, 팔리세이드 SMR 건설 허가 신청 2단계 완료",
+     "url": "https://www.world-nuclear-news.org/articles/second-part-of-construction-permit-application-submitted-for-pioneer-smrs"
+    }
+   ],
+   "first_seen": "2026-09-17",
+   "last_seen": "2026-10-03",
+   "title": "미국 홀텍, 팔리세이드 SMR 건설 허가 신청 2단계 완료",
+   "updated_at": "2026-10-03T11:15:18.955831+09:00"
+  },
   "chron-3d9498ab3d9e3128": {
    "chronicle_id": "chron-3d9498ab3d9e3128",
    "entity_ids": [],
@@ -4074,12 +4163,20 @@
      "publisher": "이투데이",
      "title_kr": "3500억 달러 대미 투자 본격화…원전 8기 건설 및 지분 인수 기업 부담 가중",
      "url": "https://www.etoday.co.kr/news/view/2631458"
+    },
+    {
+     "article_date": "2026-10-01",
+     "briefing_date": "2026-10-03",
+     "hash": "c14e1f891d72f699",
+     "publisher": "mbn.co.kr",
+     "title_kr": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+     "url": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005930034"
     }
    ],
    "first_seen": "2026-08-19",
-   "last_seen": "2026-10-02",
-   "title": "3500억 달러 대미 투자 본격화…원전 8기 건설 및 지분 인수 기업 부담 가중",
-   "updated_at": "2026-10-03T02:13:44.168213+09:00"
+   "last_seen": "2026-10-03",
+   "title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+   "updated_at": "2026-10-03T11:15:18.955831+09:00"
   },
   "chron-418cbfd4919c8483": {
    "chronicle_id": "chron-418cbfd4919c8483",
@@ -4801,12 +4898,20 @@
      "publisher": "서울경제",
      "title_kr": "신규 원전 필요 여론 80% 육박…정부, 3개월 공론화 착수",
      "url": "https://www.sedaily.com/article/20094935"
+    },
+    {
+     "article_date": "2026-10-02",
+     "briefing_date": "2026-10-03",
+     "hash": "e28a111c9e78dcdb",
+     "publisher": "에너지신문",
+     "title_kr": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+     "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=228751"
     }
    ],
    "first_seen": "2026-09-23",
-   "last_seen": "2026-09-26",
-   "title": "신규 원전 필요 여론 80% 육박…정부, 3개월 공론화 착수",
-   "updated_at": "2026-09-26T09:50:26.502462+09:00"
+   "last_seen": "2026-10-03",
+   "title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+   "updated_at": "2026-10-03T11:15:18.955831+09:00"
   },
   "chron-53ed255f676ef803": {
    "chronicle_id": "chron-53ed255f676ef803",
