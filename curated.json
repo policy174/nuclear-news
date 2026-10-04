@@ -324777,5 +324777,249 @@
     "feed": "정책",
     "domain": "ifm.kr",
     "matched": "데이터센터 전력"
+  },
+  "0a73829bd465e61e": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "원전 대미투자, 수혜주는 어디? (주末머니)",
+    "summary": "미국에 건설될 원전 8기 중 AP1000 2기, APR1400 2기, AP1000 2기 순으로 건설되며, APR1400 수출 걸림돌인 타협협정 개정도 이뤄질 전망이다.",
+    "detail": "미국에 건설될 원전 8기는 1단계 AP1000 2기, 2단계 APR1400 2기 및 AP1000 2기, 3단계 AP1000 2기 순으로 건설될 예정이다. APR1400 수출의 걸림돌이었던 타협협정 개정도 함께 이뤄질 것으로 보인다. 이에 따라 APR1400을 미국뿐 아니라 다른 국가에도 수출할 수 있는 길이 열릴 것으로 기대된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#미국원전",
+      "#APR1400",
+      "#수출"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T01:08:16.640974+00:00",
+    "title": "원전 대미투자, 수혜주는 어디?[주末머니]",
+    "link": "https://view.asiae.co.kr/article/2026100115541484101",
+    "feed": "정책",
+    "domain": "asiae.co.kr",
+    "matched": "원전 수출"
+  },
+  "88cb5044f32e4bb7": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "waste",
+      "security_trade"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "국감 6일 시작…TK 신공항·행정통합 등 대구경북 현안 도마 오르나",
+    "summary": "국정감사에서 월성·한울원전의 사용후핵연료 저장시설 및 고준위 방폐물 관리 문제, 원전 방호체계에 대한 질의가 예상된다.",
+    "detail": "국회 국정감사에서 월성·한울원전의 사용후핵연료 저장시설과 고준위 방사성폐기물 관리 문제가 도마 위에 오를 것으로 보인다. 또한 최근 5년간 두 원전 주변에서 불법 드론 371건이 탐지된 것으로 나타나 원전 방호체계에 대한 질의도 예상된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#국정감사",
+      "#사용후핵연료",
+      "#방폐물"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-06",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "title",
+    "cached_at": "2026-10-04T01:08:16.640974+00:00",
+    "title": "국감 6일 시작…TK 신공항·행정통합 등 대구경북 현안 도마 오르나",
+    "link": "https://www.news1.kr/local/daegu-gyeongbuk/6310024",
+    "feed": "정책",
+    "domain": "news1.kr",
+    "matched": "사용후핵연료"
+  },
+  "5119ced5f48af779": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "finance"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "[속보] 韓은 “확정 아니다”라는데…美국무부 “알래스카 LNG, 진정한 윈윈”",
+    "summary": "미국 국무부는 알래스카 LNG 사업 등 한국의 대미 투자 프로젝트가 양국 모두에 '윈윈'이 될 것이라 기대감을 표했으나, 한국 정부는 사업성을 검토하는 단계라고 밝혔다.",
+    "detail": "토미 피곳 미국 국무부 대변인은 알래스카 LNG 사업 등 한국의 대미 투자 프로젝트가 실현되면 양국 모두에 '윈윈'이 될 것이라고 평가했다. 그는 양국 합의가 중요하며, 대규모 투자가 일자리 창출과 안정적인 공급망 확보에 기여할 것이라고 강조했다. 그러나 한국 산업통상부는 투자 규모 및 사업 추진 여부가 결정되지 않았으며, 사업성을 검토하는 단계라고 선을 그었다. 알래스카 LNG 사업은 막대한 초기 투자비와 수익성 확보 불확실성이 변수로 꼽힌다.",
+    "implication": "미국은 알래스카 LNG 사업 등 한국의 대규모 투자를 기대하나, 한국은 상업적 합리성을 우선 검토하며 신중한 입장을 보이고 있다.",
+    "why_important": "미국 정부의 한국 대미 투자 프로젝트에 대한 긍정적 평가와 한국 정부의 신중한 입장 차이를 파악하고, 향후 사업 추진 동향을 주시할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#미국투자",
+      "#LNG",
+      "#알래스카"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T01:08:16.640974+00:00",
+    "title": "[속보] 韓은 “확정 아니다”라는데…美국무부 “알래스카 LNG, 진정한 ...",
+    "link": "https://economist.co.kr/article/view/ecn202610040002",
+    "feed": "정책",
+    "domain": "economist.co.kr",
+    "matched": "원전 수출"
+  },
+  "1fc179a7ff776494": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "security_trade"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "험난한 3500억 대미 투자…트럼프 압박에 ‘산 넘어 산’",
+    "summary": "미국 원전 기업 웨스팅하우스 지분 인수에 대해 한국전력·한수원 등이 의결권 포함 5~10% 지분 확보를 위한 협상을 진행 중이다.",
+    "detail": "미국 원전 기업 웨스팅하우스 지분 인수 문제가 남아 있으며, 한국전력, 한국수력원자력, 국내 기업들이 의결권이 포함된 5~10% 수준의 지분 확보를 위해 협상을 이어가고 있다. 이는 3500억 원 규모의 대미 투자와 관련된 사안이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#웨스팅하우스",
+      "#지분인수",
+      "#대미투자"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T01:08:16.640974+00:00",
+    "title": "험난한 3500억 대미 투자…트럼프 압박에 ‘산 넘어 산’",
+    "link": "https://biz.heraldcorp.com/article/10892797",
+    "feed": "정책",
+    "domain": "heraldcorp.com",
+    "matched": "한국수력원자력"
+  },
+  "f8db87991dc241e5": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "차세대 기술 선점 나선 K배터리·태양광…글로벌 주도권 잡는다",
+    "summary": "국내 배터리 및 태양광 업계는 AI 데이터센터 확산으로 인한 전력 수요 급증에 대응하기 위해 차세대 기술 상용화와 안정적인 공급망 확보에 집중하고 있다.",
+    "detail": "국내 배터리 업체들은 ESS 시장을 확대하고 LMR 및 전고체 배터리 등 차세대 기술 상용화에 속도를 내고 있다. LG에너지솔루션은 미국 테네시주에 LMR 각형 배터리 생산 체계를 구축하며, 삼성SDI는 황화물계 전고체 배터리 양산을 준비 중이다. OCI홀딩스는 비중국 공급망을 구축하고 있으며, 한화솔루션 큐셀부문은 미국 현지 제조 역량을 기반으로 사업 영역을 확장하고 있다. 업계는 AI 데이터센터 확산으로 인한 전력 수요 급증에 대응하기 위해 차세대 기술과 안정적인 공급망 확보가 중요하다고 보고 있다.",
+    "implication": "국내 배터리 및 태양광 산업은 AI 데이터센터 전력 수요 증가에 대응하여 차세대 기술 개발과 공급망 안정화에 주력하고 있다.",
+    "why_important": "AI 데이터센터 확산에 따른 전력 수요 급증에 대응하기 위한 국내 배터리 및 태양광 업계의 차세대 기술 개발 및 공급망 확보 노력을 파악하여 향후 에너지 시장 동향을 예측하는 데 참고해야 한다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#배터리",
+      "#태양광",
+      "#AI데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T01:08:16.640974+00:00",
+    "title": "차세대 기술 선점 나선 K배터리·태양광…글로벌 주도권 잡는다[초격차...",
+    "link": "https://www.newsis.com/view/NISX20261002_0003812996",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "데이터센터 전력"
   }
 }
