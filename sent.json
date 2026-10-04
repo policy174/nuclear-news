@@ -7447,14 +7447,17 @@
     "88cb5044f32e4bb7": "2026-10-04T01:08:16.640974+00:00",
     "5119ced5f48af779": "2026-10-04T01:08:16.640974+00:00",
     "1fc179a7ff776494": "2026-10-04T01:08:16.640974+00:00",
-    "f8db87991dc241e5": "2026-10-04T01:08:16.640974+00:00"
+    "f8db87991dc241e5": "2026-10-04T01:08:16.640974+00:00",
+    "c13272c60a91b249": "2026-10-04T01:34:00.203483+00:00",
+    "8a49af4b3c11d97a": "2026-10-04T01:34:00.203483+00:00",
+    "e8a5c58250c6fbc2": "2026-10-04T01:34:00.203483+00:00"
   },
   "source_yield": {
-    "at": "2026-10-04T01:10:12+00:00",
+    "at": "2026-10-04T01:35:29+00:00",
     "counts": {
       "한수원 보도자료": 10,
-      "원안위 보도자료": 0,
-      "산업부 보도자료": 0,
+      "원안위 보도자료": 15,
+      "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
       "IAEA Top News": 15,
       "WNN": 45,
@@ -7468,8 +7471,8 @@
       "한국원자력산업협회": 0,
       "한국원자력환경공단": 0,
       "한국원자력통제기술원": 0,
-      "한전원자력연료": 2,
-      "혁신형 SMR 기술개발사업단": 1,
+      "한전원자력연료": 3,
+      "혁신형 SMR 기술개발사업단": 0,
       "Reuters 원자력": 8,
       "La Tribune 원자력": 24,
       "POWER Magazine": 10,
@@ -7481,11 +7484,10 @@
       "Euractiv 원자력": 0,
       "국내 원자력 보도": 3
     },
-    "kept": {},
-    "errors": {
-      "원안위 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.nssc.go.kr', port=443): Max retries exceeded with url: /ajaxf/FR_BBS_SVC/BBSViewList.do (Caused by ConnectTimeoutE",
-      "산업부 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.motir.go.kr', port=443): Max retries exceeded with url: /kor/article/ATCL3f49a5a8c/rss (Caused by ConnectTimeoutEr"
-    }
+    "kept": {
+      "국내 원자력 보도": 1
+    },
+    "errors": {}
   },
   "scrap_seeds": {
     "e9846f26e578": {
