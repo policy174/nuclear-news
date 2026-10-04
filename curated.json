@@ -321918,5 +321918,144 @@
     "feed": "정책",
     "domain": "busan.com",
     "matched": "지역별 차등 전기요금"
+  },
+  "285091a0e253e803": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "finance",
+      "power_market"
+    ],
+    "countries": [
+      "US",
+      "JP"
+    ],
+    "article_type": "corporate",
+    "title_kr": "소프트뱅크, 디지털브리지 인수 완료로 AI 인프라 투자 외부 자금 조달",
+    "summary": "소프트뱅크는 디지털 인프라 투자 운용사 디지털브리지 인수를 완료하며, 데이터센터 및 전력 등 AI 인프라 프로젝트에 필요한 외부 기관투자자 자금 조달 통로를 확보했다.",
+    "detail": "소프트뱅크는 디지털 인프라 투자 운용사 디지털브리지 인수를 완료하며, 자사 재무제표로 감당하기 어려운 인공지능 프로젝트 자금 조달 한계를 돌파할 동력을 확보했다. 이번 계약은 부채 포함 약 40억 달러(약 5조 3960억원) 규모로 평가되었으며, 디지털브리지는 1000억 달러 이상의 디지털 인프라 관리 자산을 운용한다. 손정의 소프트뱅크 회장은 오픈AI 지분을 통한 대규모 언어 모델, Arm 지분을 통한 반도체 설계, 그리고 디지털브리지를 통한 전력 및 데이터센터 인프라를 인공지능의 세 축으로 보고 있다. 디지털브리지 최고경영자는 전력이 컴퓨팅의 관문임을 강조하며, 소프트뱅크의 광범위한 인공지능 전략이 한 걸음 나아가는 계기가 되었다고 밝혔다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI인프라",
+      "#데이터센터",
+      "#자금조달"
+    ],
+    "related_reports": [],
+    "event_date": "2024-10-04",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-04T20:56:33.583278+00:00",
+    "title": "손정의 AI 야망, 재무 한계 넘어 디지털브리지로 외부 자금 끌어온다",
+    "link": "https://www.g-enews.com/view.php?ud=2026100504342662692bd56fbc3c_1",
+    "feed": "정책",
+    "domain": "g-enews.com",
+    "matched": "데이터센터 전력"
+  },
+  "4dd8bbdf40ffee20": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "박정호 교수, AI·로봇 발전과 우주 산업의 경제적 가능성 진단",
+    "summary": "명지대 박정호 교수는 AI와 로봇 기술 발전에 따른 인류 문명의 도약과 우주 산업의 경제적 가능성을 진단하며, 장기적인 투자 전략 수립을 당부했다.",
+    "detail": "명지대 박정호 교수는 AI와 로봇 기술 발전에 따른 인류 문명의 도약과 우주 산업의 경제적 가능성을 진단했다. 그는 휴머노이드 로봇의 노동 시장 진입, 인터넷망 분리, 에너지 확보 경쟁 등을 언급하며, 자원 보고로 변모하는 우주를 향한 장기적인 투자 전략 수립의 중요성을 강조했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T20:56:33.583278+00:00",
+    "title": "박정호 “AI와 로봇 발전의 끝은 결국 우주, 폭발하는 우주 산업에 올라...",
+    "link": "https://www.chosun.com/economy/money/2026/10/05/7UU6JAXOB5GETLT5JO5WAMBBDM",
+    "feed": "SMR",
+    "domain": "chosun.com",
+    "matched": "SMR"
+  },
+  "ce0fd45930501079": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "삼바노바시스템즈, 데이터센터 구축 수년 걸리지만 AI 랙으로 며칠 내 가동 가능성 제시",
+    "summary": "삼바노바시스템즈는 새로운 데이터센터를 구축하는 데 수년이 걸리지만, 자사 인공지능 칩 랙을 활용하면 며칠 안에 가동할 수 있어 AI 인프라 구축의 시간 단축 가능성을 제시했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#AI전력",
+      "#기술혁신"
+    ],
+    "related_reports": [],
+    "event_date": "2024-10-02",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-04T20:56:33.583278+00:00",
+    "title": "\"데이터센터 새로 짓는데 수년, 삼바노바 랙으론 며칠 안에 가동\"",
+    "link": "https://www.hankyung.com/article/202610052873i",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "데이터센터 전력"
   }
 }
