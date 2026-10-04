@@ -322937,5 +322937,54 @@
     "feed": "정책",
     "domain": "lemonde.fr",
     "matched": "Le Monde 에너지"
+  },
+  "5bafe165f76a3111": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "security_trade"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "트럼프 ‘알래스카 압박’에 대미 투자 산 넘어…AI 데이터센터 전력 공급 난항",
+    "summary": "AI 데이터센터 전력 공급을 목표로 하는 텍사스 발전소는 향후 전력구매계약(PPA) 수요처 확보와 한국 기업의 기자재 공급망 안정화라는 과제를 안고 있다.",
+    "detail": "트럼프 전 대통령의 알래스카 압박으로 인해 미국 대규모 투자에 대한 불확실성이 커지고 있다. 특히 AI 데이터센터 전력 공급을 목표로 하는 텍사스 발전소 건설 사업은 향후 전력구매계약(PPA) 수요처를 안정적으로 확보해야 하는 과제를 안고 있다. 또한 한국 기업의 기자재 공급망 안정화 역시 중요한 과제로 지적된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#대미투자",
+      "#AI데이터센터",
+      "#전력구매계약"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-04T16:45:19.111233+00:00",
+    "title": "‘투지’냐 ‘독배’냐… 트럼프 ‘알래스카 압박’에 대미투자 산 넘어...",
+    "link": "http://www.breaknews.com/1240939",
+    "feed": "정책",
+    "domain": "breaknews.com",
+    "matched": "데이터센터 전력"
   }
 }
