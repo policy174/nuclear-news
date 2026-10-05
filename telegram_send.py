@@ -162,6 +162,10 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.ops:
+        # 2026-10-05 지니 요청: 운영 오류 DM 중지. 공론화 감시는 deliberation_watch.send_ops 직통이라 영향 없음.
+        # 되살리려면 이 return 두 줄만 지운다.
+        print("[SKIP] --ops 알림 중지됨", file=sys.stderr)
+        return 0
         global CHAT_ID
         if OPS_CHAT_ID:
             CHAT_ID = OPS_CHAT_ID
