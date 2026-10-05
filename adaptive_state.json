@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 2,
-    "date": "2026-10-05"
+    "count": 1,
+    "date": "2026-10-06"
   },
   "retired": {
     "adb": {
@@ -468,6 +468,14 @@
       "type": "plant",
       "until": "2026-10-02T18:02:35.886570+00:00"
     },
+    "산업통상부는한미": {
+      "new_articles": 5,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-05T15:39:56.401700+00:00",
+      "term": "산업통상부는 한미",
+      "type": "plant",
+      "until": "2026-10-19T15:39:56.401700+00:00"
+    },
     "산진해경제자유구역청": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -627,6 +635,14 @@
       "term": "이사진은 하마오카",
       "type": "plant",
       "until": "2026-09-30T03:38:50.825770+00:00"
+    },
+    "이행조치로": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-05T15:39:56.401700+00:00",
+      "term": "이행 조치로",
+      "type": "plant",
+      "until": "2026-10-19T15:39:56.401700+00:00"
     },
     "자원경제학회": {
       "new_articles": 0,
@@ -958,82 +974,41 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-05"
+    "count": 3,
+    "date": "2026-10-06"
   },
   "terms": {
-    "산업통상부는한미": {
-      "articles": 2,
-      "created_at": "2026-10-02T15:01:05.564209+00:00",
-      "domains": [
-        "motir.go.kr",
-        "sbs.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "motir.go.kr",
-          "hash": "bda13f0dbcd737a0",
-          "importance": "must_read",
-          "title": "산업부, K-원전(APR1400) 미국 진출 위한 민관합동 원전수출기획위 개최"
-        },
-        {
-          "domain": "sbs.co.kr",
-          "hash": "76d6ffdb905a60f3",
-          "importance": "must_read",
-          "title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의"
-        }
-      ],
-      "expires_at": "2026-10-05T15:01:05.564209+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-04T16:14:24.719083+00:00",
-      "new_articles": 5,
-      "origin": "auto",
-      "planned_at": "2026-10-04T16:14:22.168099+00:00",
-      "queries_run": 3,
-      "query": "산업통상부는 한미 원전",
-      "score": 7.7,
-      "status": "extended",
-      "term": "산업통상부는 한미",
-      "ttl_hours": 72,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-03"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    },
-    "이행조치로": {
+    "본토에외국": {
       "articles": 1,
-      "created_at": "2026-10-04T15:39:27.510570+00:00",
+      "created_at": "2026-10-05T15:39:56.401700+00:00",
       "domains": [
-        "kidd.co.kr"
+        "newscj.com"
       ],
       "evidence": [
         {
-          "domain": "kidd.co.kr",
-          "hash": "63e19996699720d2",
+          "domain": "newscj.com",
+          "hash": "da897a670de07a06",
           "importance": "must_read",
-          "title": "한미, 2천억 달러 전략투자 공식 발표…원전 8기 건설 프레임워크 포함"
+          "title": "한미 양국, 美 본토에 한국형 APR1400 원전 2기 건설 합의"
         }
       ],
-      "expires_at": "2026-10-05T15:39:27.510570+00:00",
+      "expires_at": "2026-10-06T15:39:56.401700+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-10-04T23:39:19.350725+00:00",
+      "last_run": "2026-10-05T15:39:59.105582+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-10-04T23:39:17.229278+00:00",
-      "queries_run": 2,
-      "query": "이행 조치로 원전",
+      "planned_at": "2026-10-05T15:39:56.401700+00:00",
+      "queries_run": 1,
+      "query": "본토에 외국 원전",
       "score": 3.6,
       "status": "tracking",
-      "term": "이행 조치로",
+      "term": "본토에 외국",
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 2
+      "zero_streak": 1
     },
     "캘버트클리프스": {
       "articles": 6,
@@ -1107,14 +1082,14 @@
           "title": "정부, 텍사스 가스발전·미국 원전·알래스카 LNG 등 한미 전략투자 3대 프로젝트 추진"
         }
       ],
-      "expires_at": "2026-10-05T16:14:24.719083+00:00",
+      "expires_at": "2026-10-06T15:39:59.105582+00:00",
       "importance": "must_read",
       "last_result_count": 1,
-      "last_run": "2026-10-04T16:14:24.719083+00:00",
-      "new_articles": 16,
+      "last_run": "2026-10-05T15:39:59.105582+00:00",
+      "new_articles": 17,
       "origin": "auto",
-      "planned_at": "2026-10-04T16:14:22.168099+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-10-05T15:39:56.401700+00:00",
+      "queries_run": 4,
       "query": "텍사스 가스발전·미국 원전",
       "score": 7.7,
       "status": "promote_candidate",
@@ -1124,9 +1099,10 @@
       "yield_days": [
         "2026-10-03",
         "2026-10-04",
-        "2026-10-05"
+        "2026-10-05",
+        "2026-10-06"
       ],
-      "yields": 3,
+      "yields": 4,
       "zero_streak": 0
     },
     "확정산업부": {
@@ -1143,14 +1119,14 @@
           "title": "산업통상부, 미국 내 원전 8기 건설 추진 및 APR1400 2기 도입 확정"
         }
       ],
-      "expires_at": "2026-10-05T23:39:19.350725+00:00",
+      "expires_at": "2026-10-06T15:39:59.105582+00:00",
       "importance": "must_read",
-      "last_result_count": 2,
-      "last_run": "2026-10-04T23:39:19.350725+00:00",
-      "new_articles": 2,
+      "last_result_count": 1,
+      "last_run": "2026-10-05T15:39:59.105582+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-10-04T23:39:17.229278+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-10-05T15:39:56.401700+00:00",
+      "queries_run": 3,
       "query": "확정 산업부 원전",
       "score": 3.6,
       "status": "extended",
@@ -1158,9 +1134,10 @@
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
-        "2026-10-05"
+        "2026-10-05",
+        "2026-10-06"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     }
   },

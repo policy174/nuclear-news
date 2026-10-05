@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-416aa4bcb522",
-   "date": "2026-09-28",
-   "end_date": "2026-09-28",
-   "kind": "point",
-   "label": "「산업·에너지」 전략",
-   "title": "「산업·에너지」 전략",
-   "notice_title": "",
-   "time": "14:00",
-   "host": "김소희 의원실, 경제사회연구원 기후에너지센터, 한국경영인학회",
-   "organizer": "김소희 의원실, 경제사회연구원 기후에너지센터, 한국경영인학회",
-   "place": "의원회관 제7간담회의실(210호)",
-   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
-   "publisher": "국회",
-   "source_id": "assembly_events",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-22"
-  },
-  {
    "hash": "of-e79addddc7b7",
    "date": "2026-09-28",
    "end_date": "2026-10-01",
@@ -441,24 +422,25 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-10-05T00:42:45+09:00",
-   "ok": false,
-   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
+   "at": "2026-10-06T00:45:26+09:00",
+   "ok": true,
+   "new": 0,
+   "parsed": 0
   },
   "kaif_calendar": {
-   "at": "2026-10-05T00:42:45+09:00",
+   "at": "2026-10-06T00:45:26+09:00",
    "ok": true,
    "new": 26,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-10-05T00:42:45+09:00",
+   "at": "2026-10-06T00:45:26+09:00",
    "ok": true,
    "new": 2,
    "parsed": 5
   },
   "kns_notice": {
-   "at": "2026-10-05T00:42:45+09:00",
+   "at": "2026-10-06T00:45:26+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
