@@ -320781,5 +320781,333 @@
     "feed": "SMR",
     "domain": "eroun.net",
     "matched": "SMR"
+  },
+  "d1e7635ad1087421": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "정부, 2026년 3월 시행 AI 데이터센터 특별법으로 인허가 지원 및 주민 수용성 확보",
+    "summary": "AI 인프라 확대로 데이터센터 건립 갈등이 커지는 가운데 정부는 내년 3월 시행될 AIDC 특별법으로 인허가 간소화와 주민 수용성 제고에 나선다.",
+    "detail": "미국에서는 대규모 AI 데이터센터 확산으로 전력·용수 사용과 주민 반발이 커지고 있으며, 텍사스주는 신규 전력망 연결 승인을 중단했다. 국내에서도 용인과 김포 등지에서 주민 반발과 지자체 갈등으로 사업이 지연되거나 철회된 사례가 발생했다. 한국데이터센터연합회에 따르면 2024년에만 8개 사업이 지연되거나 취소됐다. 정부는 AI 인프라가 국가 경쟁력과 직결된다고 보고 지난 6월 제정된 인공지능 데이터센터 산업 진흥에 관한 특별법을 내년 3월 10일부터 시행해 인허가 간소화와 주민 의견 수렴 절차를 마련할 방침이다.",
+    "implication": "데이터센터 확산에 따른 전력 수급과 주민 수용성 문제가 사업 지연의 주원인으로 작용하며, 특별법 시행이 인허가 불확실성을 해소하는 분수령이 될 것이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#주민수용성",
+      "#전력수급"
+    ],
+    "related_reports": [],
+    "event_date": "2026-03-10",
+    "event_date_type": "effective",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "[AI 고속도로] 데이터센터 포비아 퍼지는 미국…한국은?",
+    "link": "https://zdnet.co.kr/view?no=20261005073404",
+    "feed": "정책",
+    "domain": "zdnet.co.kr",
+    "matched": "원자력 정책"
+  },
+  "b7ffd19555ec832b": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 3,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "국내 전력기기 3사, AI 데이터센터 수요 대응해 국내외 생산능력 증설 추진",
+    "summary": "LS일렉트릭, HD현대일렉트릭, 효성중공업 등 전력기기 3사가 AI 데이터센터와 전력망 투자 주문을 소화하기 위해 국내외 공장 증설에 나선다.",
+    "detail": "LS일렉트릭은 부산사업장 제2생산동 준공으로 초고압변압기 생산능력을 연 6000억원으로 확대했으며, 미국 텍사스주 배스트럽 캠퍼스에도 2030년까지 2억4000만달러를 투자한다. HD현대일렉트릭은 울산과 미국 앨라배마 초고압변압기 공장에 총 3968억원을 투자해 2027년 생산 개시를 준비하고 있다. 효성중공업은 2028년까지 1억5700만달러를 투입해 미국 멤피스 공장의 초고압변압기 생산능력을 50% 이상 늘린다.",
+    "implication": "북미 중심의 전력기기 수요 급증에 대응하기 위한 현지 생산기반 확충이 향후 실적 성장의 핵심 변수로 작용한다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력기기",
+      "#변압기",
+      "#북미시장"
+    ],
+    "related_reports": [],
+    "event_date": "2028-12-31",
+    "event_date_type": "scheduled",
+    "event_date_precision": "year",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "전력기기 3사, 증설 속도전...수주 다음은 생산능력",
+    "link": "https://www.asiaa.co.kr/news/articleView.html?idxno=264952",
+    "feed": "정책",
+    "domain": "asiaa.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "afb11690566ac933": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "에너지 전환의 다중 과제와 안보적 함의 점검",
+    "summary": "한국의 낮은 에너지 자급률과 기후위기 대응 과정에서 에너지 안보와 복지, 산업정책의 결합 필요성이 제기된다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#에너지안보",
+      "#에너지전환"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "[굿모닝퓨처] 에너지는 지속가능한가: 한국 사회의 에너지 전환",
+    "link": "https://www.goodmorningcc.com/news/articleView.html?idxno=453422",
+    "feed": "정책",
+    "domain": "goodmorningcc.com",
+    "matched": "원자력 정책"
+  },
+  "69aad61450fd8247": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "newbuild"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "한국형 원전 미국 진출 기대감 대두",
+    "summary": "한전과 한수원, 웨스팅하우스 간 합의로 제약받던 한국형 원전의 미국 진출 가능성이 언급된다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#웨스팅하우스"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "미국에 LNG 대신 원전 제안…한국형 원전 길 열렸다",
+    "link": "https://www.jnilbo.com/news/articleView.html?idxno=90000070903",
+    "feed": "정책",
+    "domain": "jnilbo.com",
+    "matched": "한국수력원자력"
+  },
+  "3b796f35294dc6af": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한수원 프리미어 기획공연 '윤종신 전국 투어 콘서트' 경주 개최",
+    "summary": "한국수력원자력과 경주시가 주최하고 경주문화재단이 주관하는 윤종신 전국 투어 콘서트가 경주예술의전당에서 열린다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한수원",
+      "#문화공헌"
+    ],
+    "related_reports": [],
+    "event_date": "2026-11-07",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "description",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "윤종신, 가을의 끝자락 경주에서 만난다",
+    "link": "https://www.kbmaeil.com/article/20261005500266",
+    "feed": "정책",
+    "domain": "kbmaeil.com",
+    "matched": "한국수력원자력"
+  },
+  "8e47b54a06801d1e": {
+    "features": {
+      "event_type": "project_milestone",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "거창군, 한국남부발전과 600MW 규모 거창양수발전소 유치 결의대회 개최",
+    "summary": "거창군과 한국남부발전은 제11차 전력수급기본계획 반영을 목표로 1조 7900억원 규모의 거창양수발전소 유치 추진 결의대회를 개최했다.",
+    "detail": "거창군은 거창한마당대축제 현장에서 거창양수발전소 유치위원회 주관으로 주민 2000여 명이 참여한 가운데 유치 결의대회를 열었다. 거창군과 한국남부발전은 제11차 전력수급기본계획에 맞춰 가북면 우혜리 일원에 600MW 규모의 거창양수발전소 유치를 추진하고 있으며, 총사업비는 약 1조 7900억원 규모다.",
+    "implication": "제11차 전기본 반영을 위한 지자체와 발전사의 양수발전소 유치 움직임이 본격화되고 있음을 보여준다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#양수발전",
+      "#전력수급기본계획",
+      "#거창군"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "거창군, 양수발전소 유치 염원 담은 결의대회 개최",
+    "link": "https://www.newsgn.com/news/articleView.html?idxno=577364",
+    "feed": "정책",
+    "domain": "newsgn.com",
+    "matched": "전력수급기본계획"
+  },
+  "cfe33163f3ee558b": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "합천군, 오도산 양수발전소 유치 및 '쌍둥이 양수발전소' 구축 추진",
+    "summary": "김윤철 합천군수가 민선 9기 공약을 확정하며 두무산 양수발전소에 이어 오도산 양수발전소를 연계한 쌍둥이 양수발전소 구축을 추진한다고 밝혔다.",
+    "detail": "김윤철 경남 합천군수는 민선 9기 5대 분야 71개 공약사업을 확정하고, 오도산 양수발전소 유치를 정부 제11차 전력수급기본계획 반영을 목표로 추진하겠다고 밝혔다. 민선 8기 유치에 성공한 두무산 양수발전소와 연계한 쌍둥이 양수발전소 구축을 통해 지역 경제 활성화를 도모한다는 방침이다.",
+    "implication": "지자체의 추가 양수발전소 유치 의지가 제11차 전력수급기본계획 수립 과정에서 주요 변수로 작용할 전망이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#양수발전",
+      "#합천군",
+      "#전력수급기본계획"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T02:38:08.862543+00:00",
+    "title": "김윤철 합천군수 \"임기 동안 더 많이 듣고 현장 다닐 것\"",
+    "link": "https://www.pressian.com/pages/articles/2026100510534181611",
+    "feed": "정책",
+    "domain": "pressian.com",
+    "matched": "전력수급기본계획"
   }
 }
