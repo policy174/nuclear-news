@@ -756,6 +756,14 @@
       "type": "plant",
       "until": "2026-09-29T13:08:30.036410+00:00"
     },
+    "캘버트클리프스": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-05T16:18:17.889961+00:00",
+      "term": "캘버트 클리프스",
+      "type": "plant",
+      "until": "2026-10-19T16:18:17.889961+00:00"
+    },
     "콘스텔레이션의크레인": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1008,57 +1016,6 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
-    },
-    "캘버트클리프스": {
-      "articles": 6,
-      "created_at": "2026-10-02T15:01:05.564209+00:00",
-      "domains": [
-        "pinpointnews.co.kr",
-        "chosun.com",
-        "theguru.co.kr",
-        "world-nuclear-news.org",
-        "g-enews.com",
-        "impacton.net"
-      ],
-      "evidence": [
-        {
-          "domain": "pinpointnews.co.kr",
-          "hash": "3ec5ab9e81bd0f8e",
-          "importance": "nice_to_know",
-          "title": "아마존, 미국 콘스텔레이션 캘버트 클리프스 원전 전력 20년 장기 공급 계약 체결"
-        },
-        {
-          "domain": "chosun.com",
-          "hash": "6db1ca40c9b41250",
-          "importance": "nice_to_know",
-          "title": "아마존, 콘스텔레이션과 메릴랜드 원전 전력 20년 장기 구매 계약 체결"
-        },
-        {
-          "domain": "theguru.co.kr",
-          "hash": "09171829a90fa345",
-          "importance": "must_read",
-          "title": "아마존, 콘스텔레이션과 20년 전력구매계약 체결…캘버트 클리프스 원전 수명 연장 추진"
-        }
-      ],
-      "expires_at": "2026-10-05T16:14:24.719083+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-05T01:24:23.864597+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-10-05T01:24:22.921421+00:00",
-      "queries_run": 4,
-      "query": "캘버트 클리프스 원전",
-      "score": 12.1,
-      "status": "extended",
-      "term": "캘버트 클리프스",
-      "ttl_hours": 72,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-05"
-      ],
-      "yields": 1,
       "zero_streak": 1
     },
     "텍사스가스발전미국": {
