@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -q requests websocket-client "python-socketio[client]"
+      - run: pip install -q requests websocket-client "python-socketio[client]" python-docx
       - name: record
         working-directory: audit_recorder
         run: timeout ${{ inputs.minutes }}m python recorder.py --xcode ${{ matrix.xcode }} || true
@@ -57,7 +57,7 @@ jobs:
           if-no-files-found: ignore
   next:
     needs: record
-    if: always() && inputs.chain != '0'
+    if: ${{ !cancelled() && inputs.chain != '0' }}   # 취소하면 체인도 멈춘다
     runs-on: ubuntu-latest
     steps:
       - env:
