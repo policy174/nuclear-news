@@ -34412,6 +34412,16 @@
       "right_title": "울진군, 10월 7일 미래에너지포럼 개최해 SMR 및 원자력수소 전략 논의",
       "same_event": false
     },
+    "1eb733a62033a79a--bb6ed90b4dd61044": {
+      "embedding_similarity": 0.8684,
+      "left_title": "정부, AI 데이터센터 전용 전기요금제 도입 지연으로 투자 불확실성 증대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력망 이슈",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "AI 데이터센터 전력 수요 급증, 송전망 부족이 첫 번째 장벽",
+      "same_event": false
+    },
     "1eb7501cabec5e59--24670c10b103daf8": {
       "embedding_similarity": 0.891,
       "left_title": "한미, 핵잠 협력·전작권 전환 속도…11월 APEC 주목",
@@ -44302,6 +44312,16 @@
       "right_title": "정부, 한-중앙아 정상회담 계기로 카자흐스탄과 원자력 협력 양해각서 체결",
       "same_event": true
     },
+    "2ae8b369814ca32e--2deefb2665e70c84": {
+      "embedding_similarity": 0.859,
+      "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전과 가스발전으로 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "same_event": false
+    },
     "2ae8b369814ca32e--54e4538ade932dd2": {
       "embedding_similarity": 0.8764,
       "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
@@ -46300,6 +46320,16 @@
       "reason": "서로 다른 원자력 사업",
       "reviewed_at": "2026-09-30T10:43:11.816307+00:00",
       "right_title": "미 NRC, 테네시밸리토리티 BWRX-300 SMR 최초 건설허가 발급",
+      "same_event": false
+    },
+    "2deefb2665e70c84--d4e3512ab1be5171": {
+      "embedding_similarity": 0.8587,
+      "left_title": "산업통상부, 미국 내 원전 8기 건설 추진 및 APR1400 2기 도입 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전과 가스발전으로 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
       "same_event": false
     },
     "2df052ca9a668e8b--3ed342f37ee52941": {
@@ -62592,6 +62622,16 @@
       "right_title": "현대엔지니어링, 군산 60MW급 AI 데이터센터 8,700억원 규모 수주",
       "same_event": false
     },
+    "3ed342f37ee52941--a590e21e15b5aca8": {
+      "embedding_similarity": 0.9073,
+      "left_title": "현대건설, 포항 AI 데이터센터 본계약 체결…원전·SMR 에너지 인프라 연계 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 사업 내용이 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "현대엔지니어링, SMR 연계 데이터센터 전력 조달 모델 개발 추진",
+      "same_event": false
+    },
     "3ed342f37ee52941--b795e4f7e7503f80": {
       "embedding_similarity": 0.8922,
       "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
@@ -69642,6 +69682,26 @@
       "right_title": "김성환 기후부 장관, 신규 원전 건설 여부 국민 토론 통해 결정 방침 재확인",
       "same_event": true
     },
+    "46d630c9e4f6b86c--6287cc06d374ad97": {
+      "embedding_similarity": 0.8853,
+      "left_title": "정부, 광주·전남 반도체 클러스터 2030년 첫 칩 생산 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구체적 사안이 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "전남광주통합시, 반도체·AI·데이터센터 등 초광역 산업생태계 구축",
+      "same_event": false
+    },
+    "46d630c9e4f6b86c--971313da21360267": {
+      "embedding_similarity": 0.8647,
+      "left_title": "정부·전남광주시·한전, 호남권 반도체 클러스터 전력공급 협약 체결 및 2029년 3GW 우선 공급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구체적 협약과 종합 계획",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "전남광주통합시, 반도체·AI·데이터센터 등 초광역 산업생태계 구축",
+      "same_event": false
+    },
     "473ab8f432980637--711f37c7bec9b131": {
       "embedding_similarity": 0.9032,
       "left_title": "트럼프 대통령, AI 업계 수장들과 회동서 '자율규제' 강조",
@@ -73101,6 +73161,16 @@
       "reviewed_at": "2026-09-24T11:58:52.605145+00:00",
       "right_title": "웨스팅하우스, 500억 달러 이상 IPO 추진…한국 정부 지분 인수 협상 중",
       "same_event": true
+    },
+    "4d83006634ea3777--53f032df4fc7fdc0": {
+      "embedding_similarity": 0.8763,
+      "left_title": "기후에너지환경부, 원전 공론화 추진계획 국무회의 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 분야의 사건",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "알래스카 LNG 검토 단계인데…트럼프 한 마디에 여야 공방 예고",
+      "same_event": false
     },
     "4d83006634ea3777--5877c79bd6bdf945": {
       "embedding_similarity": 0.8426,
@@ -78870,6 +78940,46 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-09-06T00:48:53.231691+00:00",
       "right_title": "[대담한K] 국내 첫 SMR 건설…부산 산업 지도 변화",
+      "same_event": false
+    },
+    "53f032df4fc7fdc0--8c36e5a9adfdcab9": {
+      "embedding_similarity": 0.8618,
+      "left_title": "신규 원전 필요 여론 80% 육박…정부, 3개월 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 분야의 사건",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "알래스카 LNG 검토 단계인데…트럼프 한 마디에 여야 공방 예고",
+      "same_event": false
+    },
+    "53f032df4fc7fdc0--a33259f3ac2e4d86": {
+      "embedding_similarity": 0.8562,
+      "left_title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 분야의 사건",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "알래스카 LNG 검토 단계인데…트럼프 한 마디에 여야 공방 예고",
+      "same_event": false
+    },
+    "53f032df4fc7fdc0--e28a111c9e78dcdb": {
+      "embedding_similarity": 0.8542,
+      "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 분야의 사건",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "알래스카 LNG 검토 단계인데…트럼프 한 마디에 여야 공방 예고",
+      "same_event": false
+    },
+    "53f032df4fc7fdc0--ec8a2326e73cd933": {
+      "embedding_similarity": 0.8761,
+      "left_title": "정부, 신규 원전 건설 3개월간 공론화 추진…12차 전기본 반영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 분야의 사건",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "알래스카 LNG 검토 단계인데…트럼프 한 마디에 여야 공방 예고",
       "same_event": false
     },
     "54053fbd2f746564--8ea9ffe757632036": {
@@ -88522,6 +88632,16 @@
       "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
       "same_event": true
     },
+    "5da600fef839df85--caae225c3e680fbd": {
+      "embedding_similarity": 0.871,
+      "left_title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협상 관련",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
+      "same_event": true
+    },
     "5da600fef839df85--d3a2b30f23bcb892": {
       "embedding_similarity": 0.8521,
       "left_title": "한국 정부·한수원, 웨스팅하우스 지분 인수 및 대미 원전 협력 검토",
@@ -96810,6 +96930,36 @@
       "reason": "주제만 유사한 다른 보도",
       "reviewed_at": "2026-09-20T18:08:32.121318+00:00",
       "right_title": "미국 에너지부, AI 데이터센터 전력 소비 2028년 최대 12% 전망",
+      "same_event": false
+    },
+    "6972de8fc3b8bc46--9df0d4a759d1731a": {
+      "embedding_similarity": 0.8729,
+      "left_title": "삼성물산, 구글 전력 공급 SMR 개발사 카이로스 파워에 1천억 원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 투자와 업계 동향",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "AI 데이터센터 시장 확대에 삼성·SK·LG도 투자 확대 나서",
+      "same_event": false
+    },
+    "6972de8fc3b8bc46--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8716,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 사업 내용이 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "AI 데이터센터 시장 확대에 삼성·SK·LG도 투자 확대 나서",
+      "same_event": false
+    },
+    "6972de8fc3b8bc46--f20832187b9f0fed": {
+      "embedding_similarity": 0.9419,
+      "left_title": "삼성 관계사, 미국 AI 인프라 기업 헬릭스에 10억 달러 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 투자와 업계 동향",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "AI 데이터센터 시장 확대에 삼성·SK·LG도 투자 확대 나서",
       "same_event": false
     },
     "69979a4c0437c1bf--b35eb3f20deb19c6": {
@@ -124942,6 +125092,16 @@
       "right_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
       "same_event": true
     },
+    "934c654fd10ef473--caae225c3e680fbd": {
+      "embedding_similarity": 0.8647,
+      "left_title": "한국 정부, 미국 웨스팅하우스 지분 5~10% 인수 및 대미 전략투자 협의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협상 관련",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
+      "same_event": true
+    },
     "934c654fd10ef473--d3a2b30f23bcb892": {
       "embedding_similarity": 0.849,
       "left_title": "한국 정부, 미국 웨스팅하우스 지분 5~10% 인수 및 대미 전략투자 협의",
@@ -133931,6 +134091,16 @@
       "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "SK, 전남 동부권에 AI 데이터센터 등 100조원 투자 예정",
       "same_event": true
+    },
+    "a590e21e15b5aca8--b795e4f7e7503f80": {
+      "embedding_similarity": 0.8668,
+      "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체와 사업 내용이 다름",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "현대엔지니어링, SMR 연계 데이터센터 전력 조달 모델 개발 추진",
+      "same_event": false
     },
     "a5a1ef68231b4e51--a6ef16375b196870": {
       "embedding_similarity": 0.8455,
@@ -145402,6 +145572,16 @@
       "right_title": "산업통상부, 한미 대미투자 MOU 서명 연기 속 원전기자재 공급 명문화 요구",
       "same_event": true
     },
+    "c0c5ab7a396e4ef0--caae225c3e680fbd": {
+      "embedding_similarity": 0.8672,
+      "left_title": "한미, 웨스팅하우스 지분·원전 수출 협상 난항 지속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협상 관련",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
+      "same_event": true
+    },
     "c0c5ab7a396e4ef0--d3a2b30f23bcb892": {
       "embedding_similarity": 0.8492,
       "left_title": "한미, 웨스팅하우스 지분·원전 수출 협상 난항 지속",
@@ -148531,6 +148711,26 @@
       "reviewed_at": "2026-08-07T01:04:27.172047+00:00",
       "right_title": "웨스팅하우스, 어멘텀과 원전 공통 엔지니어링 플랫폼 협력",
       "same_event": false
+    },
+    "caae225c3e680fbd--fc0eb9f2a6adc516": {
+      "embedding_similarity": 0.8724,
+      "left_title": "정부·한수원, 웨스팅하우스 지분 투자 및 국내 EPC 참여 대안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협상 관련",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
+      "same_event": true
+    },
+    "caae225c3e680fbd--fe4e4a65bce8a43b": {
+      "embedding_similarity": 0.8679,
+      "left_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 협상 관련",
+      "reviewed_at": "2026-10-04T23:58:44.505134+00:00",
+      "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
+      "same_event": true
     },
     "cac1b0cc3d736923--cd2318c0be5d5379": {
       "embedding_similarity": 0.8806,
