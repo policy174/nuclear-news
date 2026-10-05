@@ -1,39 +1,51 @@
 {
- "generated_at": "2026-10-04T11:34:39.964747+09:00",
+ "generated_at": "2026-10-05T10:52:29.226924+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
-   "count_now": 309,
-   "count_prev": 177,
-   "direction": "AI 경쟁 심화로 데이터센터 전력 인프라 확충 경쟁이 가속화되고 있으며, 이는 국내 전력 기자재 기업에 수출 기회를 제공하고 있습니다. 다만, 막대한 전력 및 용수 소비로 인해 유럽과 한국 등에서 신규 건설 규제 및 지연이 확산되는 양상입니다. 빅테크 기업들은 지역사회와의 상생 투자 및 정보 공개를 통해 건설 반발을 완화하려는 움직임을 보이고 있습니다.",
+   "count_now": 294,
+   "count_prev": 184,
+   "direction": "AI 확산으로 데이터센터 전력 수요가 급증하는 가운데, 전력망 증설 지연과 송전망 부족으로 건설 차질이 발생하면서 원자력, SMR, 가스복합화력 등 다양한 전력 인프라 활용 및 투자 움직임이 이어지고 있다.",
    "evidence": [
     {
-     "hash": "5f1537abae670016",
-     "title_kr": "美 실리콘밸리 AI 경쟁, 데이터센터 전력인프라 확충으로 전환",
-     "url": "https://www.theguru.co.kr/news/article.html?no=107784",
-     "date": "2026-10-04"
+     "hash": "7d5a056b5bc87986",
+     "title_kr": "데이터센터 전력 수요 급증, 전력망 병목으로 건설 지연 현실화",
+     "url": "https://www.kmib.co.kr/article/view.asp?arcid=9000019768&cp=nv",
+     "date": "2026-10-05"
     },
     {
-     "hash": "ea04b0f3555732ee",
-     "title_kr": "아마존, 데이터센터 건설 반발 완화 위해 지역 상생 투자 발표",
-     "url": "https://www.cbci.co.kr/news/articleView.html?idxno=612116",
-     "date": "2026-10-04"
+     "hash": "1eb733a62033a79a",
+     "title_kr": "AI 데이터센터 전력 수요 급증, 송전망 부족이 첫 번째 장벽",
+     "url": "https://economist.co.kr/article/view/ecn202609280034",
+     "date": "2026-10-05"
     },
     {
-     "hash": "a45477728709007a",
-     "title_kr": "데이터센터 전력난 심화, 유럽·한국서 신규 건설 규제 및 지연 확산",
-     "url": "https://www.the-today.com/news/articleView.html?idxno=91165",
-     "date": "2026-10-04"
+     "hash": "2deefb2665e70c84",
+     "title_kr": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+     "url": "https://www.sidae.com/article/2026100210073768495",
+     "date": "2026-10-05"
     }
    ]
   },
   {
    "keyword": "SMR",
-   "count_now": 231,
-   "count_prev": 184,
-   "direction": "미국 아이다호 국립연구소에서 차세대 원자로 설계 테스트가 예정되어 있으며, 국내에서는 울진군이 SMR 및 원자력수소 전략을 논의하는 포럼을 개최합니다. 또한, DL이앤씨는 미국 엑스에너지와 4세대 SMR 표준화 설계 계약을 체결하며 사업 협력을 본격화하고 있으며, 두산에너빌리티는 AI 데이터센터 전력 수요 증가에 대응하여 SMR 사업 기회를 모색하고 있습니다.",
+   "count_now": 224,
+   "count_prev": 179,
+   "direction": "AI 전력 수요 급증에 대응하여 현대엔지니어링 등 국내 건설사들이 SMR 연계 데이터센터 전력 조달 모델 개발과 비주택 사업 확장에 나서고 있으며, 울진군의 무탄소 에너지 벨트 전략 논의와 미국 연구소의 원자로 설계 테스트가 진행되고 있다.",
    "evidence": [
+    {
+     "hash": "a590e21e15b5aca8",
+     "title_kr": "현대엔지니어링, SMR 연계 데이터센터 전력 조달 모델 개발 추진",
+     "url": "https://www.businesspost.co.kr/BP?command=article_view&num=448455",
+     "date": "2026-10-05"
+    },
+    {
+     "hash": "d9f773ecbb383cf5",
+     "title_kr": "5대 건설사 영업이익 60% 증가, 원전·SMR 등 비주택 사업 확대",
+     "url": "https://www.g-enews.com/view.php?ud=2026100213444185042aa6f4cdad_1",
+     "date": "2026-10-05"
+    },
     {
      "hash": "44951166d61e0946",
      "title_kr": "디플로이어블 에너지, 아이다호 국립연구소 DOME서 차세대 원자로 설계 테스트 예정",
@@ -45,26 +57,14 @@
      "title_kr": "울진군, 10월 7일 미래에너지포럼 개최해 SMR 및 원자력수소 전략 논의",
      "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2476872",
      "date": "2026-10-03"
-    },
-    {
-     "hash": "5d26d2add9c0a630",
-     "title_kr": "DL이앤씨, 미국 엑스에너지와 4세대 SMR 표준화 설계 계약 체결",
-     "url": "http://www.the-biz.co.kr/news/articleView.html?idxno=728591",
-     "date": "2026-10-02"
-    },
-    {
-     "hash": "5617be9180e604bc",
-     "title_kr": "두산에너빌리티, AI 데이터센터 전력 수요 증가에 원전·SMR 사업 기회 모색",
-     "url": "https://www.cbci.co.kr/news/articleView.html?idxno=611803",
-     "date": "2026-10-02"
     }
    ]
   },
   {
    "keyword": "대미투자",
-   "count_now": 220,
-   "count_prev": 71,
-   "direction": "한국의 대미 투자 프로젝트가 발표되었으나, 트럼프 전 대통령의 압박과 상업적 합리성 확보라는 과제에 직면해 있습니다. 24억 달러 규모의 투자는 AI 데이터센터용 발전소 건설에 투입되며, 100억 달러 규모의 원전 투자는 사업성 검토 후 추진될 예정입니다. 알래스카 LNG 사업 투자 압박 속에서도 한국은 상업적 합리성을 우선하며 신중한 검토를 이어가고 있습니다.",
+   "count_now": 218,
+   "count_prev": 69,
+   "direction": "한미 양국의 대미 투자 프로젝트 발표에 따라 텍사스 AI 데이터센터용 가스발전소 건설과 미국 내 대형 원전 8기 및 웨스팅하우스 지분 확보 협상이 추진되는 한편, 알래스카 LNG 투자 압박과 상업적 합리성을 둘러싼 공방이 국정감사 등에서 쟁점으로 부상했다.",
    "evidence": [
     {
      "hash": "54b1c834ff12ca8c",
@@ -79,67 +79,49 @@
      "date": "2026-10-04"
     },
     {
-     "hash": "537875e08821288e",
-     "title_kr": "첫 대미투자 24억 달러, 원전 100억 달러는 사업성 검토 후 추진",
-     "url": "https://www.news1.kr/economy/trend/6309469",
+     "hash": "70b02fd01c86d475",
+     "title_kr": "한미, 2000억 달러 대미 투자 합의…텍사스 발전소·원전 8기 건설 포함",
+     "url": "https://www.ddaily.co.kr/page/view/2026100223392844566",
      "date": "2026-10-04"
     },
     {
-     "hash": "45b86618c59eaedf",
-     "title_kr": "한국 대미 투자, 트럼프 압박과 상업적 합리성 사이에서 출발",
-     "url": "https://www.jnilbo.com/news/articleView.html?idxno=90000070755",
-     "date": "2026-10-04"
-    },
-    {
-     "hash": "1cde864e9a2c702c",
-     "title_kr": "트럼프, 알래스카 LNG 투자 압박…韓, 상업성 우선 원칙 고수",
-     "url": "http://www.newsian.co.kr/news/articleView.html?idxno=96497",
+     "hash": "1fc179a7ff776494",
+     "title_kr": "험난한 3500억 대미 투자…트럼프 압박에 ‘산 넘어 산’",
+     "url": "https://biz.heraldcorp.com/article/10892797",
      "date": "2026-10-04"
     }
    ]
   },
   {
    "keyword": "AI데이터센터",
-   "count_now": 143,
-   "count_prev": 67,
-   "direction": "AI 데이터센터의 전력 수요 급증으로 인해 2040년 최대전력수요 전망치가 상향 조정되며 원전 및 재생에너지 논쟁이 재점화되고 있습니다. 일본에서는 전력망 용량 선점 행위에 대한 규제 및 단속이 시작되었으며, 호주 정부는 주민 수용성과 지속가능성을 데이터센터 투자 유치의 필수 조건으로 제시하고 있습니다. 이러한 전력 수요 증가에 대응하기 위해 K배터리 및 태양광 업계는 차세대 기술 상용화에 집중하고 있으며, 아연 배터리 기술도 대안으로 주목받고 있습니다.",
+   "count_now": 131,
+   "count_prev": 75,
+   "direction": "AI 연산량 증가로 데이터센터 전력 및 냉각 수요가 급증하면서 삼성, SK, LG 등 주요 그룹의 관련 투자 확대와 함께 대규모 전력 공급 능력을 확보하기 위한 움직임이 나타나고 있다.",
    "evidence": [
     {
-     "hash": "5d0487459982421b",
-     "title_kr": "日 도쿄전력, AI 데이터센터 '용량 점거'에 칼 빼들어",
-     "url": "https://www.g-enews.com/view.php?ud=2026100317375144450c8c1c064d_1",
-     "date": "2026-10-04"
+     "hash": "6972de8fc3b8bc46",
+     "title_kr": "AI 데이터센터 시장 확대에 삼성·SK·LG도 투자 확대 나서",
+     "url": "https://www.newsis.com/view/NISX20261002_0003813107",
+     "date": "2026-10-05"
     },
     {
-     "hash": "f8db87991dc241e5",
-     "title_kr": "차세대 기술 선점 나선 K배터리·태양광…글로벌 주도권 잡는다",
-     "url": "https://www.newsis.com/view/NISX20261002_0003812996",
-     "date": "2026-10-04"
-    },
-    {
-     "hash": "2b26908a8e82796e",
-     "title_kr": "AI 데이터센터 전력난 해법으로 아연 배터리 부상",
-     "url": "https://www.newspim.com/news/view/20261002000737",
-     "date": "2026-10-03"
-    },
-    {
-     "hash": "54926bf5f41a0ad5",
-     "title_kr": "AI 데이터센터 전력 수요 급증, 원전·재생에너지 논쟁 재점화",
-     "url": "https://www.eroun.net/news/articleView.html?idxno=91528",
-     "date": "2026-10-03"
+     "hash": "a4069e53a2203aaf",
+     "title_kr": "AI 데이터센터, 전력시장 뒤흔들며 '지금 당장 1GW' 수요 급증",
+     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1QTEZRc3JzVlFoYkNLbjY5MGZSTGVCRVpPUFZ5ZEZMUEI3Y2QwcXpBbzBCUnFVS0FORjVBTDl0TWpTQUhVaGhtWC16T285bWprNmQ1Mnd2WHlXREdrV3hSdzA3c2I?oc=5",
+     "date": "2026-10-05"
     }
    ]
   },
   {
    "keyword": "AI",
-   "count_now": 130,
-   "count_prev": 61,
-   "direction": "AI 투자 폭발로 인해 반도체 기업 실적을 넘어 전력, 네트워크, 데이터센터 건설 등 관련 인프라 산업 전반에 거대한 투자 수요가 발생하고 있습니다. 특히 AI 데이터센터의 폭증하는 전력 수요와 에너지 안보, 탄소중립 목표가 맞물리며 원전이 다시 주목받고 있으며, 사고 원전 재가동 움직임까지 나타나고 있습니다. 빅테크 기업들은 AI 칩 유동화 등 자금 조달 방안을 검토하며 수익화 시험대에 오르고 있습니다.",
+   "count_now": 113,
+   "count_prev": 72,
+   "direction": "AI 인프라 확장에 따른 막대한 투자와 전력 수요 증가가 이어지는 가운데, 주요 기업들은 데이터센터 건설과 관련된 재원 조달 및 지역 상생 방안을 모색하고 있다.",
    "evidence": [
     {
-     "hash": "f4adda7f96f1dec1",
-     "title_kr": "2050년까지 데이터센터에 4경 7000조 원 투자…AI 빅테크, 수익화 시험대 올라",
-     "url": "https://www.joongangenews.com/news/articleView.html?idxno=552555",
+     "hash": "ea04b0f3555732ee",
+     "title_kr": "아마존, 데이터센터 건설 반발 완화 위해 지역 상생 투자 발표",
+     "url": "https://www.cbci.co.kr/news/articleView.html?idxno=612116",
      "date": "2026-10-04"
     },
     {
@@ -147,55 +129,31 @@
      "title_kr": "아마존, 엔비디아 AI칩 10.8조 원 규모 유동화 추진",
      "url": "https://www.joongangenews.com/news/articleView.html?idxno=552556",
      "date": "2026-10-04"
-    },
-    {
-     "hash": "3d705df9af0e8b9f",
-     "title_kr": "AI 투자 급증, 전력·데이터센터 등 인프라 산업 전반에 막대한 수요 유발",
-     "url": "https://www.jemin.com/news/articleView.html?idxno=843803",
-     "date": "2026-10-04"
-    },
-    {
-     "hash": "e375dfc3543929b6",
-     "title_kr": "AI가 촉발한 '원전 르네상스'…사고 원전까지 재가동 움직임",
-     "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1kN1BPWG5SZER0c3JtUEJSVFlFbXIzQ0lWdFZaYnFpeUMtUVN4OTBqLXdJRS0wXzF4bHBNQ2VwM1BielhyN3V0MllET2tWZ2c?oc=5",
-     "date": "2026-10-04"
     }
    ]
   },
   {
-   "keyword": "전력수요",
-   "count_now": 105,
-   "count_prev": 70,
-   "direction": "AI 데이터센터의 전력 수요 급증으로 인해 2040년 최대전력수요 전망치가 20% 상향 조정되었으며, 이는 원전, 재생에너지, 수도권과 지방 간의 전력 공급 논쟁을 재점화시키고 있습니다. 데이터센터의 막대한 전력 소비로 인한 전력난 심화로 유럽과 한국에서는 신규 건설 규제 및 지연이 확산되고 있습니다. 이러한 전력 수요 증가에 대응하여 천연가스의 역할에 대한 논의도 진행되고 있습니다.",
+   "keyword": "한수원",
+   "count_now": 107,
+   "count_prev": 16,
+   "direction": "한국수력원자력은 미국 전력연구원(EPRI)과의 공동 워크숍을 통해 원전 설비 건전성 및 첨단 검사 기술 협력을 강화하고, 보유 특허의 민간 이전과 체코 두코바니 원전 공급사 대상 입찰설명회를 개최했다.",
    "evidence": [
     {
-     "hash": "a45477728709007a",
-     "title_kr": "데이터센터 전력난 심화, 유럽·한국서 신규 건설 규제 및 지연 확산",
-     "url": "https://www.the-today.com/news/articleView.html?idxno=91165",
+     "hash": "d7aaa95368ac9ca1",
+     "title_kr": "한수원, 특허 401건 민간 이전 추진…유망기술 설명회 개최",
+     "url": "https://www.hidomin.com/news/articleView.html?idxno=723586",
+     "date": "2026-10-05"
+    },
+    {
+     "hash": "8e5de0ebd0a139c6",
+     "title_kr": "한수원, 미국 EPRI와 원전 설비 건전성·첨단 검사 기술 협력 강화",
+     "url": "https://www.enetnews.co.kr/news/articleView.html?idxno=54999",
      "date": "2026-10-04"
     },
     {
-     "hash": "3d705df9af0e8b9f",
-     "title_kr": "AI 투자 급증, 전력·데이터센터 등 인프라 산업 전반에 막대한 수요 유발",
-     "url": "https://www.jemin.com/news/articleView.html?idxno=843803",
-     "date": "2026-10-04"
-    },
-    {
-     "hash": "e375dfc3543929b6",
-     "title_kr": "AI가 촉발한 '원전 르네상스'…사고 원전까지 재가동 움직임",
-     "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1kN1BPWG5SZER0c3JtUEJSVFlFbXIzQ0lWdFZaYnFpeUMtUVN4OTBqLXdJRS0wXzF4bHBNQ2VwM1BielhyN3V0MllET2tWZ2c?oc=5",
-     "date": "2026-10-04"
-    },
-    {
-     "hash": "54926bf5f41a0ad5",
-     "title_kr": "AI 데이터센터 전력 수요 급증, 원전·재생에너지 논쟁 재점화",
-     "url": "https://www.eroun.net/news/articleView.html?idxno=91528",
-     "date": "2026-10-03"
-    },
-    {
-     "hash": "a3f161dbdd7585f0",
-     "title_kr": "가스공사, AI 시대 전력수요 증가에 따른 천연가스 역할 논의",
-     "url": "https://www.cstimes.com/news/articleView.html?idxno=722712",
+     "hash": "bad756389ce274cb",
+     "title_kr": "한국수력원자력, 체코 두코바니 원전 입찰설명회 개최…국내 130개사 참여",
+     "url": "https://www.nocutnews.co.kr/news/6586291",
      "date": "2026-10-02"
     }
    ]
