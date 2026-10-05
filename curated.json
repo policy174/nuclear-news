@@ -319836,5 +319836,282 @@
     "feed": "정책",
     "domain": "sedaily.com",
     "matched": "데이터센터 전력"
+  },
+  "b8082a675795dd2e": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "트럼프 '추가 청구'에 한미 전략투자 15% 관세 재점화 우려",
+    "summary": "한국이 지난해 한미 관세 협상 약속 이행을 위해 첫 전략투자를 집행했으나, 트럼프 대통령의 추가 투자 압박으로 15% 관세 부담이 재점화될 우려가 제기되었다.",
+    "detail": "한국이 지난해 한미 관세 협상에서 약속한 대미 전략투자의 첫 자금 집행을 마쳤지만, 도널드 트럼프 미국 대통령이 알래스카 액화천연가스(LNG)와 석유회수증진(EOR) 사업을 거론하며 추가 투자 압박을 가하고 있다. 이로 인해 지난해 합의한 15% 관세 부담이 다시 커질 수 있다는 우려가 나온다. 해당 투자는 인공지능(AI) 데이터센터 전력 공급을 위한 발전소 건설과 관련 있으며, 조선 분야 투자까지 포함하면 규모가 상당하다.",
+    "implication": "미국 대선 결과에 따라 한미 통상 관계 및 한국의 대미 투자 전략에 불확실성이 증대될 수 있다.",
+    "why_important": "미국 대선 결과에 따른 통상 마찰 가능성이 제기되며, 이는 한국의 대미 투자 및 에너지 인프라 사업 추진에 영향을 미칠 수 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한미협정",
+      "#AI데이터센터",
+      "#관세"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "3조 첫 송금했는데…트럼프 '추가 청구'에 15% 관세 다시 흔들",
+    "link": "http://www.ftoday.co.kr/news/articleView.html?idxno=366648",
+    "feed": "정책",
+    "domain": "ftoday.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "ebc864fb7a717032": {
+    "features": {
+      "event_type": "incident_safety",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "제2금융권 해킹 피해 확산, 한수원 과거 해킹 사건과 유사성 제기",
+    "summary": "제2금융권에서 발생한 AI 기반 해킹 피해가 확산되며, 2015년 한국수력원자력(한수원)이 겪었던 북한의 해킹 사건과 유사하다는 지적이 제기되었다.",
+    "detail": "제2금융권에서 AI를 활용한 해킹 피해가 확산되고 있으며, 2만 4000명 전 직원의 주요 정보가 유출된 점이 2015년 한국수력원자력(한수원)에 대한 북한의 해킹 사건을 연상케 한다는 분석이 나왔다. 해당 사건의 석연치 않은 점과 피해 확산에 대한 우려가 제기되었다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#사이버보안",
+      "#해킹",
+      "#금융권"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "금융권 해킹 피해 확산...평택 공원서 외국인 패싸움",
+    "link": "https://www.ytn.co.kr/_ln/0103_202610051805356846",
+    "feed": "정책",
+    "domain": "ytn.co.kr",
+    "matched": "한수원 AI"
+  },
+  "f70676fb7f7a8f3f": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "농진청, 한국원자력연구원 등 참여 '디지털 표현체 민관 협의체' 출범",
+    "summary": "농촌진흥청이 한국원자력연구원(KAERI) 등 산학연과 함께 '디지털 표현체 민관 협의체'를 출범시키고 디지털 농업 연구 기반 활용 확대에 나섰다.",
+    "detail": "농촌진흥청은 디지털 농업 연구 경쟁력 강화와 표현체 연구 기반 활용 확대를 위해 '디지털 표현체 민관 협의체'를 출범시켰다. 협의체에는 국립농업과학원, 국립식량과학원, 국립원예특작과학원 등 농진청 소속 기관과 한국과학기술연구원(KIST), 한국원자력연구원(KAERI), 대학, 산업체, 한국영상식물학회 등이 참여했다. 이들은 공동 연구 활성화, 데이터 표준화, 기술 개발 및 교류 등을 추진할 계획이다.",
+    "implication": "",
+    "why_important": "한국원자력연구원이 농업 분야의 디지털 표현체 연구에 참여하며, 이종 분야 간 융합 연구 및 데이터 기반 농업 기술 발전에 기여할 수 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#디지털농업",
+      "#KAERI",
+      "#산학연협력"
+    ],
+    "related_reports": [],
+    "event_date": "2024-07-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "농진청, 산학연 협력 '디지털 표현체 협의체' 출범",
+    "link": "http://www.jjn.co.kr/news/articleView.html?idxno=1053753",
+    "feed": "정책",
+    "domain": "jjn.co.kr",
+    "matched": "KAERI 원자력"
+  },
+  "6ce0521eb6d77f8d": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "산업용 차등 전기요금제 시행 시 한전 이사 배임죄 소송 리스크 부상",
+    "summary": "정부가 추진하는 산업용 차등 전기요금제가 시행될 경우, 한국전력 이사들이 배임죄 소송에 휘말릴 수 있다는 법률적 리스크가 제기되었다.",
+    "detail": "정부가 추진하는 산업용 차등 전기요금제가 시행되면 한국전력 이사들이 배임죄 소송에 휘말릴 가능성이 있다는 분석이 나왔다. 해당 제도가 시행될 경우 한국전력의 연간 전기 판매 수입이 2조 8000억 원에서 3조 원까지 줄어들 것으로 예상된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전기요금",
+      "#한국전력",
+      "#배임죄"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "[단독] 개정 상법에 한전 '소송 리스크'",
+    "link": "https://www.hankyung.com/article/2026100536791",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "지역별 차등 전기요금"
+  },
+  "9dad9649b3348ae1": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [],
+    "countries": [
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "JEDEC, 첫 실리콘 포토닉스 신뢰성 표준 발표…AI 인프라 혁신 예고",
+    "summary": "국제반도체표준화기구(JEDEC)가 업계 최초로 실리콘 포토닉스 신뢰성 표준을 발표하며 AI 및 고성능컴퓨팅(HPC) 인프라 기술 상용화에 속도가 붙을 전망이다.",
+    "detail": "국제반도체표준화기구(JEDEC)가 실리콘 포토닉스 기술에 대한 첫 신뢰성 표준인 'JESD264'를 발표했다. 이 표준은 모듈레이터, 광다이오드 등 구성 요소 검증 및 제조 공정에 대한 요구사항을 포함한다. 실리콘 포토닉스는 기존 전기 신호를 빛으로 변환하여 데이터 전송 속도, 거리, 전력 효율을 높일 수 있어 AI, HPC, 데이터센터 산업에서 수요가 증가하고 있다. 삼성전자, TSMC, 인텔 등 주요 반도체 기업들이 이 기술 상용화에 적극 나서고 있으며, 특히 공동패키징형광학(CPO) 기술 적용이 유망하다.",
+    "implication": "실리콘 포토닉스 표준화는 AI 및 데이터센터 인프라 시장의 성장을 가속화하고 관련 기술 경쟁을 심화시킬 것이다.",
+    "why_important": "AI 및 데이터센터 인프라의 핵심 기술인 실리콘 포토닉스의 첫 신뢰성 표준 제정은 관련 산업의 상용화와 기술 발전을 촉진할 것으로 예상된다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#실리콘포토닉스",
+      "#AI인프라",
+      "#표준화"
+    ],
+    "related_reports": [],
+    "event_date": "2024-07-05",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "JEDEC, 첫 '실리콘 포토닉스' 신뢰성 표준 발표…AI인프라 변혁 예고",
+    "link": "https://zdnet.co.kr/view?no=20261005183555",
+    "feed": "정책",
+    "domain": "zdnet.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "bfd054dfa8269bc1": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "newbuild"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "기후에너지환경부, 전력수급기본계획 위한 원전 공론화위원회 공식 출범",
+    "summary": "기후에너지환경부가 전력수급기본계획 수립을 위해 국민 의견 수렴을 위한 원전 공론화위원회를 공식 출범시켰다.",
+    "detail": "기후에너지환경부는 7월 2일 한강홍수통제소에서 '전력수급기본계획을 위한 원전 공론화위원회' 위원 위촉식을 갖고 위원회를 공식 출범시켰다고 밝혔다. 이번 위원회는 지난달 22일 국무회의에 보고된 '원전 공론화 추진계획'에 따라 구성되었으며, 공론화 기본 방향 및 세부 절차 마련, 국민 의견 수렴 후 정부에 권고하는 역할을 맡는다. 위원장은 은재호 한국외대 겸임교수가 맡는다.",
+    "implication": "원전 공론화 과정은 향후 전력수급기본계획 수립 및 원자력 정책 방향 결정에 중요한 영향을 미칠 것이다.",
+    "why_important": "전력수급기본계획 수립을 위한 원전 공론화위원회가 공식 출범함에 따라, 향후 원자력 정책 방향 결정에 국민적 합의를 도출하는 과정이 본격화될 것이다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "is_question",
+    "watch_next": "",
+    "tags": [
+      "#원전공론화",
+      "#전력수급기본계획",
+      "#국민의견"
+    ],
+    "related_reports": [],
+    "event_date": "2024-07-02",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T10:02:54.288138+00:00",
+    "title": "원전 공론화위원회 출범",
+    "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1wNVo2NGdZb3Jja1NqTzJkeHQybFJZd2JBYUFIcG9FRGo5N1pKREJZdXJ2R19ZZUxVQWpJc1U4R3dTTU5rb2taQnJXa0JWMENuWVNmSVlSUldFVFZmRkp5SXE4eEFzV2I4?oc=5",
+    "feed": "정책",
+    "domain": "hkbs.co.kr",
+    "matched": "국내 원자력 보도"
   }
 }
