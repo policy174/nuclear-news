@@ -317997,5 +317997,433 @@
     "feed": "정책",
     "domain": "gukjenews.com",
     "matched": "원자력 정책"
+  },
+  "73a71daf57c205de": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "fukushima",
+      "regulation"
+    ],
+    "countries": [
+      "JP",
+      "GLOBAL"
+    ],
+    "article_type": "official_doc",
+    "title_kr": "IAEA, 후쿠시마 ALPS 처리수 24차 방류 삼중수소 기준치 이하 확인",
+    "summary": "국제원자력기구(IAEA)는 후쿠시마 ALPS 처리수 24차 방류분에서 삼중수소 농도가 일본 운영 한참 아래임을 확인했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#후쿠시마",
+      "#방사능안전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "Tritium Level Far Below Japan’s Operational Limit in 24th Batch of ALPS Treated Water, IAEA Confirms",
+    "link": "http://www.iaea.org/newscenter/pressreleases/tritium-level-far-below-japans-operational-limit-in-24th-batch-of-alps-treated-water-iaea-confirms",
+    "feed": "정책",
+    "domain": "iaea.org",
+    "matched": "IAEA Top News"
+  },
+  "fe946e3ceedb0d5f": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "FR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "슈나이더 일렉트릭, 미국 소프트웨어 기업 PTC 226억 달러에 인수 발표",
+    "summary": "프랑스 슈나이더 일렉트릭이 미국 소프트웨어 기업 PTC를 226억 달러(약 30조3000억 원)에 인수한다고 발표하며 PTC 주가가 개장 전 급등했다.",
+    "detail": "프랑스 슈나이더 일렉트릭은 미국 소프트웨어 업체 PTC를 주당 205달러, 총 226억 달러(기업가치 237억 달러)에 인수한다고 발표했다. 이는 PTC 직전 종가 대비 42.3%의 프리미엄이 붙은 수준으로, 슈나이더로서는 사상 최대 규모의 인수다. PTC는 제품 설계, 제조, 서비스 지원 소프트웨어를 공급하며 AI 기반 도구 수요 증가로 수혜를 입어왔다. 슈나이더는 이번 인수를 통해 PTC의 제품 설계·수명주기 관리 소프트웨어를 더해 산업용 소프트웨어 및 AI 사업을 확장할 계획이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#기업인수",
+      "#소프트웨어"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-05",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "[미국 특징주] PTC, 개장 전 35% 급등…슈나이더 226억 달러에 인수",
+    "link": "https://www.newspim.com/news/view/20261005000138",
+    "feed": "정책",
+    "domain": "newspim.com",
+    "matched": "데이터센터 전력"
+  },
+  "daa3c537811f9db1": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+    "summary": "LG전자가 미국 에어 컨트롤 콘셉트와 5GW 규모의 AI 데이터센터 냉각 설비 공급 계약을 맺고 글로벌 AI 데이터센터 시장 입지를 강화한다.",
+    "detail": "LG전자는 미국 에어 컨트롤 콘셉트와 5GW 규모의 AI 데이터센터 냉각 설비 공급 계약을 체결했다. 이번 계약을 통해 LG전자는 고효율 칠러 등 냉각 솔루션을 제공하며, 글로벌 AI 데이터센터 시장에서 입지를 확대할 계획이다. LG전자는 이번 수주를 바탕으로 B2B 매출 비중을 늘리고 관련 인프라 투자를 확대하여 시장 성장에 대응할 방침이다.",
+    "implication": "AI 데이터센터의 급증하는 전력 수요에 대응하기 위한 인프라 투자가 활발하며, 이는 향후 전력 공급 계획 수립에 중요한 고려 사항이 될 것이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#전력수요"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "LG전자, 美서 5GW 규모 AI 데이터센터 냉각 수주…K가전 새 돌파구",
+    "link": "https://www.chosun.com/economy/tech_it/2026/10/05/TLHSB5NWOBAIXHIFDH6KNWLQ2Y",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "데이터센터 전력"
+  },
+  "44a8e7e6e02ca55c": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 3,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "report",
+    "title_kr": "골드만삭스, 미국 데이터센터 용량 2027년 90GW 전망치 유지",
+    "summary": "골드만삭스는 미국 내 데이터센터 건설 반대 여론에도 불구하고 2027년 말까지 데이터센터 용량이 90GW에 달할 것이라는 전망을 유지했다.",
+    "detail": "골드만삭스는 10월 5일 보고서에서 올해 말 미국 데이터센터 용량 전망치를 전년 대비 38% 증가한 64GW로 상향 조정했으며, 2027년 말 전망치는 90GW로 유지했다. 이는 기존 전망치에서 5GW 하향 조정되었으나 여전히 높은 성장세를 나타낸다. 데이터센터는 AI 모델 학습에 필요한 컴퓨팅 파워를 제공하지만, 전력 및 용수 수요 증가, 공공요금 상승, 낮은 고용 창출 효과 등으로 인해 미국 각지에서 반대 운동에 직면하고 있다. 그러나 골드만삭스는 이러한 정치적·사회적 반대에도 불구하고 2027년까지 미국 데이터센터 성장 전망은 크게 변하지 않을 것으로 분석했다.",
+    "implication": "미국 내 데이터센터의 급격한 성장이 지속될 것으로 예상되며, 이는 전력 수요 증가를 야기하여 안정적인 전력 공급원 확보의 중요성을 더욱 부각시킨다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#전력수요",
+      "#전력시장"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "데이터센터 반대여론에도 美건설 계속…2027년 90GW 전망",
+    "link": "https://www.hankyung.com/article/202610053953i",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "데이터센터 전력"
+  },
+  "ef06e6b1f9933a42": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "regulation",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한수원, EPRI와 원전 기계분야 워크숍 개최 및 유망기술 401건 공개",
+    "summary": "한국수력원자력(한수원)이 미국 전력연구원(EPRI)과 기계분야 통합 워크숍을 개최하고, 중소기업에 원자력 등 핵심 유망 특허 401건을 공개했다.",
+    "detail": "한수원은 10월 1일과 2일 양일간 대전컨벤션센터에서 미국 전력연구원(EPRI)과 '2026 KHNP-EPRI 기계분야 통합 워크숍'을 공동 개최했다. 이 워크숍에서는 원자로 주요 부품의 피로관리, AI 접목 비파괴검사 등 원전 설비 신뢰도 향상을 위한 한미 핵심 기술이 논의되었다. 또한, 한수원은 10월 2일 서울 방사선보건원에서 '2026년 한수원 유망 기술 설명회'를 열어 원자력발전, 해체, 신재생 등 핵심 에너지 분야 공공 연구개발(R&D) 특허 401건을 국내 중소기업에 공개했다. 이는 중소기업의 기술 경쟁력 강화와 경제 활성화를 목표로 한다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#기술협력",
+      "#R&D",
+      "#중소기업지원"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "한수원, 'KHNP-EPRI 기계분야 통합 워크숍'·'유망기술 설명회' 개최",
+    "link": "https://www.cstimes.com/news/articleView.html?idxno=722918",
+    "feed": "정책",
+    "domain": "cstimes.com",
+    "matched": "원자력 정책"
+  },
+  "d1001a38e63dea4f": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한수원, 개인정보보호위원회 평가 2년 연속 최고 등급 획득",
+    "summary": "한국수력원자력(한수원)이 개인정보보호위원회가 주관한 '공공기관 개인정보 보호수준 평가'에서 2년 연속 최고 등급을 획득하고 최우수 기관으로 선정됐다.",
+    "detail": "한국수력원자력(한수원)은 개인정보보호위원회의 '공공기관 개인정보 보호수준 평가'에서 2년 연속 최고등급(S)을 받고 최우수 기관으로 선정되어 위원장 표창을 받았다. 시상식은 9월 30일 '제6회 개인정보 보호의 날 기념식'에서 진행되었다. 한수원은 전문인력 양성, 전담 조직 및 인력 확충, 관련 예산 확대 등 기관 차원의 보안 역량 고도화와 인프라 투자를 통해 이러한 성과를 달성했다. 특히 '나도 개인정보 보안관!' 신고 포상 제도 신설과 통합 개인정보보호 포털 구축으로 사전 예방형 관리 시스템을 안착시켰다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#개인정보보호",
+      "#공공기관평가"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-30",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "한수원, 개인정보 보호수준 평가 2년 연속 '최고 등급' 획득…개보위 위...",
+    "link": "https://www.cstimes.com/news/articleView.html?idxno=722917",
+    "feed": "정책",
+    "domain": "cstimes.com",
+    "matched": "원자력안전위원회"
+  },
+  "89b7d27008204cae": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "restart_lto",
+      "finance",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "트럼프 행정부, 비스트라 원전 3기 성능개선에 40억 달러 대출 계획",
+    "summary": "트럼프 행정부가 비스트라(Vistra Corp.)의 오하이오 및 펜실베이니아 원전 3기 성능개선에 약 40억 달러 규모의 대출 패키지를 제공할 계획이다.",
+    "detail": "트럼프 행정부는 비스트라(Vistra Corp.)의 오하이오 원전 2기와 펜실베이니아 원전 1기 등 총 3기의 원전 성능개선을 위해 약 40억 달러 규모의 대출 패키지를 제공할 계획이다. 크리스 라이트 미국 에너지부 장관이 월요일 클리블랜드 북동부 페리 원자력 단지 방문 중 이 자금 지원을 발표할 것으로 예상된다. 이는 전력 수요 급증과 트럼프 행정부의 2050년까지 미국 원자력 발전 용량 4배 증대 목표에 따른 것으로, 기존 시설 업그레이드는 신규 원자로 건설보다 빠르게 용량을 추가할 수 있는 방법 중 하나이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전투자",
+      "#계속운전",
+      "#미국정책"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "The Trump administration plans a $4B loan to Vistra Corp. for nuclear plant upgrades. Bloomberg via Yahoo Finance",
+    "link": "https://finance.yahoo.com/energy/articles/us-offer-4-billion-loan-191410771.html",
+    "feed": "정책",
+    "domain": "yahoo.com",
+    "matched": "ANS Nuclear News Daily"
+  },
+  "04b9cb7ce1f8f71d": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "waste"
+    ],
+    "countries": [
+      "RU"
+    ],
+    "article_type": "analysis",
+    "title_kr": "러시아 노후 원전, 폐로 자금 부족으로 재정·환경 위험 직면",
+    "summary": "러시아의 노후 원전 폐로 과정에서 자금 부족 문제가 심각하며, 미래 비용이 수익을 초과할 수 있다는 분석이 나왔다.",
+    "detail": "러시아 내 노후 원전, 특히 50년 이상 된 원자로의 폐로 과정에서 재정적, 환경적 위험이 제기되고 있다. 리투아니아의 이그날리나 원전 폐로 경험에 따르면, 2020년 기준 예상 비용은 33억 유로에 달했으나 계획된 작업의 49%만 완료되었으며, 완료 시점은 2038년에서 2049년으로 연기되었다. 러시아는 이러한 문제에 대해 큰 관심을 기울이지 않는 것으로 보인다.",
+    "implication": "러시아의 노후 원전 폐로 지연은 잠재적인 환경 오염 및 안전 문제로 이어질 수 있으며, 이는 국제 사회의 우려를 낳을 수 있다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#러시아원전",
+      "#폐로",
+      "#안전위험"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "Russia’s aging NPPs pose significant financial and environmental risks as the decommissioning of old reactors faces a fu",
+    "link": "https://www.aljazeera.com/opinions/2026/10/4/russias-nuclear-plants-are-ageing-who-will-pay-to-dismantle-them",
+    "feed": "정책",
+    "domain": "aljazeera.com",
+    "matched": "ANS Nuclear News Daily"
+  },
+  "4174e94226f1bb44": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "regulation"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "report",
+    "title_kr": "미국 GAO, NRC 인력 채용·유지 노력 평가 보고서 발표",
+    "summary": "미국 정부회계감사원(GAO)이 원자력규제위원회(NRC)의 인력 채용 및 유지 노력에 대한 보고서를 발표하며, 관련 지표 설정과 전략적 인력 계획 도구 완성을 권고했다.",
+    "detail": "미국 정부회계감사원(GAO)은 최근 보고서에서 원자력규제위원회(NRC)가 인력 채용 및 유지 노력의 효과를 측정할 지표를 설정하고, 2027년 초까지 전략적 인력 계획 도구 작업을 완료할 것을 권고했다. 보고서에 따르면 NRC는 2024년 7월부터 올해 6월까지 약 500명의 순 인력 손실을 겪었으며, 총 직원 수는 2,957명에서 2,477명으로 16% 이상 감소했다. GAO는 NRC가 ADVANCE Act에 따라 부여된 보너스 지급 권한을 활용하여 18명의 직원에게 33만 5천 달러의 성과 보너스를 지급했으나, 직접 채용 및 보상 유연성 권한은 사용하지 않았다고 지적했다.",
+    "implication": "미국 원자력규제기관의 인력 부족은 규제 역량에 영향을 미칠 수 있으며, 이는 원전 산업의 인허가 및 안전 관리에도 간접적인 영향을 줄 수 있다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#규제기관",
+      "#인력관리",
+      "#미국정책"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-05T13:22:22.022367+00:00",
+    "title": "GAO report looks at NRC workforce recruitment and retention",
+    "link": "https://www.ans.org/news/2026-10-05/article-8460/gao-report-looks-at-nrc-workforce-recruitment-and-retention",
+    "feed": "정책",
+    "domain": "ans.org",
+    "matched": "ANS Nuclear Newswire"
   }
 }
