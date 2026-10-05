@@ -8832,6 +8832,16 @@
       "right_title": "과기정통부, 5년간 200조원 R&D 투자…첫 상용 SMR 건설 목표",
       "same_event": false
     },
+    "06f22aa88b138220--12a5d0470716926a": {
+      "embedding_similarity": 0.908,
+      "left_title": "두산, 미국 자회사 하이엑시엄에 8200억 투자해 AI 전력 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 투자와 업계 동향",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국내 제조업체들, AI 데이터센터 전력·냉각 인프라 시장 진출 확대",
+      "same_event": false
+    },
     "06f22aa88b138220--618699d25c6e6a21": {
       "embedding_similarity": 0.8675,
       "left_title": "두산퓨얼셀, 미국 AI 데이터센터용 연료전지 3222억 원 추가 수주",
@@ -19512,6 +19522,16 @@
       "right_title": "국내 기업, AI 데이터센터 전력 특수 속 전력기기·기술 시장 확대",
       "same_event": false
     },
+    "1116872abf085268--6bc7f4f7659fba1c": {
+      "embedding_similarity": 0.8877,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 계약",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "LG전자, 북미 AI 데이터센터에 5GW 냉각 솔루션 장기 공급 계약 체결",
+      "same_event": false
+    },
     "1116872abf085268--6cf2d60bd31339af": {
       "embedding_similarity": 0.909,
       "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
@@ -21309,6 +21329,26 @@
       "prompt_version": 1,
       "reason": "개별 수주와 업계 전반 동향",
       "reviewed_at": "2026-10-05T20:18:36.933587+00:00",
+      "right_title": "국내 제조업체들, AI 데이터센터 전력·냉각 인프라 시장 진출 확대",
+      "same_event": false
+    },
+    "12a5d0470716926a--618699d25c6e6a21": {
+      "embedding_similarity": 0.9097,
+      "left_title": "두산퓨얼셀, 미국 AI 데이터센터용 연료전지 3222억 원 추가 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주와 업계 동향",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국내 제조업체들, AI 데이터센터 전력·냉각 인프라 시장 진출 확대",
+      "same_event": false
+    },
+    "12a5d0470716926a--8ea9ffe757632036": {
+      "embedding_similarity": 0.9166,
+      "left_title": "두산퓨얼셀, 북미 AI 데이터센터 수요 증가로 3222억 추가 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주와 업계 동향",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
       "right_title": "국내 제조업체들, AI 데이터센터 전력·냉각 인프라 시장 진출 확대",
       "same_event": false
     },
@@ -23791,6 +23831,16 @@
       "reviewed_at": "2026-09-27T21:01:54.173035+00:00",
       "right_title": "정부, 대미투자 첫 사업 국회 보고 순연…9월 중 발표 예정",
       "same_event": true
+    },
+    "14960bc031595436--62797e39b8b27409": {
+      "embedding_similarity": 0.8815,
+      "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 투자와 거시경제 지표",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "한국 외환보유액 4개월 만에 감소, 대미 전략투자 위탁자산 첫 반영",
+      "same_event": false
     },
     "14960bc031595436--64e38eedc704963b": {
       "embedding_similarity": 0.8782,
@@ -35152,6 +35202,46 @@
       "right_title": "헝가리 팍스 원전, 다뉴브강 수위 저하로 운영 위기 직면",
       "same_event": false
     },
+    "1e6a3b448381ca35--8c36e5a9adfdcab9": {
+      "embedding_similarity": 0.8575,
+      "left_title": "신규 원전 필요 여론 80% 육박…정부, 3개월 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화 및 연기",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "정부, 12차 전력수급기본계획 원전 건설 포함 최종안 발표 연말 연기",
+      "same_event": true
+    },
+    "1e6a3b448381ca35--a33259f3ac2e4d86": {
+      "embedding_similarity": 0.8568,
+      "left_title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화 및 연기",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "정부, 12차 전력수급기본계획 원전 건설 포함 최종안 발표 연말 연기",
+      "same_event": true
+    },
+    "1e6a3b448381ca35--e28a111c9e78dcdb": {
+      "embedding_similarity": 0.867,
+      "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화 및 연기",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "정부, 12차 전력수급기본계획 원전 건설 포함 최종안 발표 연말 연기",
+      "same_event": true
+    },
+    "1e6a3b448381ca35--ec8a2326e73cd933": {
+      "embedding_similarity": 0.8823,
+      "left_title": "정부, 신규 원전 건설 3개월간 공론화 추진…12차 전기본 반영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화 및 연기",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "정부, 12차 전력수급기본계획 원전 건설 포함 최종안 발표 연말 연기",
+      "same_event": true
+    },
     "1e85c02f82d433ab--8959032c095fd468": {
       "embedding_similarity": 0.8862,
       "left_title": "미국 상원, 사우디아라비아와 트럼프 행정부 핵 협정 12월 13일 이전 표결 예상",
@@ -42610,6 +42700,36 @@
       "reason": "한국의 대미 에너지 투자 발표",
       "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "도널드 트럼프 미국 대통령, 540억 달러 규모 알래스카 LNG 및 원전 대미투자 발표",
+      "same_event": true
+    },
+    "27a274367e99e2a1--722ebbf9d8676b8c": {
+      "embedding_similarity": 0.847,
+      "left_title": "정부, 12차 전력수급기본계획 앞두고 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "신규 원전 공론화 여론",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국민에게 떠넘긴 정책 결정 책임, 신규 원전 건설 여론 확인",
+      "same_event": true
+    },
+    "27a274367e99e2a1--8c36e5a9adfdcab9": {
+      "embedding_similarity": 0.8619,
+      "left_title": "신규 원전 필요 여론 80% 육박…정부, 3개월 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "신규 원전 공론화 여론",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국민에게 떠넘긴 정책 결정 책임, 신규 원전 건설 여론 확인",
+      "same_event": true
+    },
+    "27a274367e99e2a1--e28a111c9e78dcdb": {
+      "embedding_similarity": 0.8633,
+      "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "신규 원전 공론화 여론",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국민에게 떠넘긴 정책 결정 책임, 신규 원전 건설 여론 확인",
       "same_event": true
     },
     "27b53e028472d5b2--657fb1e8299bfac4": {
@@ -67241,6 +67361,16 @@
       "reviewed_at": "2026-09-03T13:31:28.759797+00:00",
       "right_title": "포항 철강노조, 산업용 전기요금 인하 및 지역별 차등요금제 9월 시행 촉구",
       "same_event": true
+    },
+    "42140c47d3602872--c5acbde6bff5c3ae": {
+      "embedding_similarity": 0.8838,
+      "left_title": "미국 에너지부, 26개 주 전력망 개선에 52.5억 달러 투자 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 지원 사업",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "미국 에너지부, 펜실베이니아·오하이오 원전 성능 개선에 42억 달러 대출 지원",
+      "same_event": false
     },
     "422343bc527a566c--509f865c8b3e047f": {
       "embedding_similarity": 0.8512,
@@ -104842,6 +104972,16 @@
       "right_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
       "same_event": true
     },
+    "71c02da6768281e3--7a30d443976d8516": {
+      "embedding_similarity": 0.8816,
+      "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 건설 기수 및 내용 상이",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사",
+      "same_event": false
+    },
     "71c02da6768281e3--7ba25920802ddab3": {
       "embedding_similarity": 0.8505,
       "left_title": "한미, 미국 내 원전 8기 건설 후보지로 윌리엄 리·터키포인트 검토",
@@ -113342,6 +113482,16 @@
       "right_title": "트럼프, 대미투자 직접 발표…핵잠·원자력 등 안보협상 속도",
       "same_event": true
     },
+    "7a30d443976d8516--c14e1f891d72f699": {
+      "embedding_similarity": 0.8914,
+      "left_title": "한미 양국, 대미 투자 1,200억 달러 규모 원전 프레임워크 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 협력 건",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사",
+      "same_event": false
+    },
     "7a38ccf0fb712c82--ddcbf24f4d01a8f5": {
       "embedding_similarity": 0.9012,
       "left_title": "한·카자흐스탄 정상회담 계기로 원전·원유 협력 MOU 13건 체결",
@@ -120051,6 +120201,36 @@
       "reviewed_at": "2026-09-04T01:08:51.191668+00:00",
       "right_title": "정부, 영호남 산업용 전기요금 최대 10% 인하 지역별 차등 요금제 연내 도입",
       "same_event": true
+    },
+    "856ece66a5a22867--b6798bf57a7bb85b": {
+      "embedding_similarity": 0.8462,
+      "left_title": "정부, 2040년까지 적용할 12차 전기본에 원전·재생에너지 역할 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 사건",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국회 기후에너지환경노동위원회, 기후에너지환경부 대상 국정감사 실시",
+      "same_event": false
+    },
+    "856ece66a5a22867--ec8a2326e73cd933": {
+      "embedding_similarity": 0.8502,
+      "left_title": "정부, 신규 원전 건설 3개월간 공론화 추진…12차 전기본 반영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 사건",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국회 기후에너지환경노동위원회, 기후에너지환경부 대상 국정감사 실시",
+      "same_event": false
+    },
+    "856ece66a5a22867--f64115189bcf3f45": {
+      "embedding_similarity": 0.8427,
+      "left_title": "폐쇄 석탄발전소 부지에 SMR 건설, 전기본서 공식 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 사건",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "국회 기후에너지환경노동위원회, 기후에너지환경부 대상 국정감사 실시",
+      "same_event": false
     },
     "85788b54856243a7--96dffa21b827ca27": {
       "embedding_similarity": 0.8467,
@@ -147722,6 +147902,16 @@
       "right_title": "오라클, AI 데이터센터 전력 확보 차질로 '불가항력' 통지",
       "same_event": true
     },
+    "bc05981d9d156e41--f79101657e4ab4fc": {
+      "embedding_similarity": 0.8901,
+      "left_title": "오라클, 전력 설비 반발로 뉴멕시코 데이터센터 프로젝트 1년 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 업계 동향",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "미국 AI 데이터센터, 전력난으로 177조원 규모 현장 자가발전 시장 급성장",
+      "same_event": false
+    },
     "bc120f7b15017ad6--d5f14a4cd0093d3c": {
       "embedding_similarity": 0.868,
       "left_title": "핀란드 규제기관, 세계 최초 사용후핵연료 처분장 운영 허가 요건 충족 결정",
@@ -154100,6 +154290,16 @@
       "reason": "불가항력 통보와 실적 전망",
       "reviewed_at": "2026-09-27T23:54:16.527368+00:00",
       "right_title": "오라클, AI 투자 힘입어 클라우드 매출 급증 및 연간 실적 전망 상향",
+      "same_event": false
+    },
+    "cdafcc8ca14b489b--f79101657e4ab4fc": {
+      "embedding_similarity": 0.8915,
+      "left_title": "오라클, 전력 차질로 오픈AI 데이터센터에 불가항력 통보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 업계 동향",
+      "reviewed_at": "2026-10-05T23:25:25.827481+00:00",
+      "right_title": "미국 AI 데이터센터, 전력난으로 177조원 규모 현장 자가발전 시장 급성장",
       "same_event": false
     },
     "cdd5f9ed8f148233--ceab781d5c528e5c": {
