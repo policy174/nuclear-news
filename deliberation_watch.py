@@ -94,7 +94,7 @@ def classify(item: dict) -> str | None:
         return "now"
     if group == "ngo" and NGO_EXIT.search(title) and "공론화" in title:
         return "now"
-    return "digest"
+    return "now"   # 10-02: 기사가 공식 게시판보다 먼저 뜨는 날이 있어 언론·학회도 즉시
 
 
 def norm_key(title: str) -> str:
@@ -192,6 +192,8 @@ SOURCES = [
     # 백스톱 — 1차 소스 누락분, 전용 누리집 개설 기사
     {"name": "구글뉴스(원전 공론화)", "group": "press", "kind": "rss", "allow_empty": True,
      "url": "https://news.google.com/rss/search?q=%22%EC%9B%90%EC%A0%84+%EA%B3%B5%EB%A1%A0%ED%99%94%22+when:1d&hl=ko&gl=KR&ceid=KR:ko"},
+    {"name": "구글뉴스(공론화위원회)", "group": "press", "kind": "rss", "allow_empty": True,
+     "url": "https://news.google.com/rss/search?q=%22%EA%B3%B5%EB%A1%A0%ED%99%94%EC%9C%84%EC%9B%90%ED%9A%8C%22+%EC%9B%90%EC%A0%84+when:1d&hl=ko&gl=KR&ceid=KR:ko"},
 ]
 
 
@@ -231,6 +233,7 @@ def fetch_assembly(key: str, today: datetime) -> list[dict]:
 # ---- 요약·의미 ------------------------------------------------------------------------
 
 ANNOTATE_MAX = 15
+ANNOTATE_MODEL = os.environ.get("DELIBERATION_GEMINI_MODEL", "gemini-3.5-flash")
 ANNOTATE_PROMPT = """한국수력원자력 원자력정책실 담당자에게 원전 공론화 동향 알림을 보낸다.
 배경: 정부(기후에너지환경부)가 12차 전력수급기본계획에 앞서 미래 전력수급에서 원전의
 역할·규모를 국민 공론화로 묻는다(2026.10~12). 2017 신고리 5·6호기처럼 찬반 양자택일이
@@ -266,7 +269,7 @@ def annotate(items: list[dict]) -> None:
             rows.append({"i": i, "출처": it.get("source_label") or it.get("source", ""),
                          "제목": it["title"], "본문": body[:1500]})
         result = call_json(ANNOTATE_PROMPT, json.dumps(rows, ensure_ascii=False),
-                           thinking_budget=0, retries=1, label="deliberation_watch")
+                           thinking_budget=0, retries=1, label="deliberation_watch", model=ANNOTATE_MODEL)
         for r in result.get("items", []):
             if isinstance(r, dict) and isinstance(r.get("i"), int) and 0 <= r["i"] < len(rows):
                 items[r["i"]]["summary"] = str(r.get("summary") or "").strip()
@@ -305,7 +308,8 @@ def send_ops(text: str) -> None:
         # 브리핑 채널은 임직원이 보는 곳 — 개인 감시 알림을 거기로 폴백하지 않는다
         raise RuntimeError("TELEGRAM_OPS_CHAT_ID 미설정 — 개인 DM 경로가 없어 발송하지 않음")
     tg.CHAT_ID = ops
-    tg.send_long_text(text, parse_mode="HTML", disable_preview=True)
+    src = "GH" if os.environ.get("GITHUB_ACTIONS") else "PC"
+    tg.send_long_text(f"[{src}] " + text, parse_mode="HTML", disable_preview=True)
 
 
 def run(now: datetime, dry_run: bool = False, sources=None, fetcher=fetch, sender=send_ops,
