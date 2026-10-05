@@ -9,7 +9,8 @@
 
 출력: 2026-국정감사/<날짜>_<위원회>/ raw_events.jsonl · transcript.jsonl · 오늘_국감.md · alerts.jsonl · meta.json
 """
-import argparse, datetime as dt, html, json, os, re, sys, threading, time
+import argparse, datetime as dt, html, json, os, re, smtplib, sys, threading, time
+from email.message import EmailMessage
 from pathlib import Path
 
 import requests
@@ -20,6 +21,7 @@ ROOT = Path(__file__).resolve().parent / "2026-국정감사"
 IDLE_FINAL_SEC = 2.0      # 세그먼트가 이만큼 안 바뀌면 확정
 RENDER_EVERY_SEC = 30
 ALERT_GAP_SEC = 120       # 같은 발언·같은 등급 알림 최소 간격 (화자 전환이 안 잡혀 하루가 한 발언이 돼도 계속 울리게)
+MAIL_GAP_SEC = 600        # 메일은 새 알림이 있을 때만, 최소 10분 간격으로 모아서 (docx 첨부)
 ALERT_WAIT_SEC = 20       # 키워드 뒤 문맥을 붙이려고 이만큼 기다렸다 보낸다
 PLAIN_SMI_RE = re.compile(r"smi(-hy|-dw)?\d?\.webcast\.go\.kr", re.I)   # 플레이어 코드와 동일: 매치=일반 자막(socket.io), 아니면 AI 자막(WebSocket)
 
@@ -64,6 +66,7 @@ class Recorder:
         self.outdir = outdir
         self.docx_dir = docx_dir or ROOT / "_문서"
         self.pending_alerts = []   # (due, turn, 키워드 줄 시작 위치, 줄 길이, ev)
+        self.mail_queue, self.last_mail = [], -1e9
         outdir.mkdir(parents=True, exist_ok=True)
         self.meta = meta
         self.clock = clock
@@ -181,8 +184,23 @@ class Recorder:
             ev["context"] = ("…" if pos > 200 else "") + text[max(0, pos - 200):pos + n + 400] + ("…" if len(text) > pos + n + 400 else "")
             with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
                 f.write(json.dumps(ev, ensure_ascii=False) + "\n")
+            self.mail_queue.append(ev)
             icon = "🔴" if ev["level"] == "red" else "🟡"
             send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
+
+    # ---- 메일 ----
+    def maybe_mail(self, force=False):
+        """render() 뒤에 부른다 — 첨부 docx 가 방금 알림까지 반영된 상태여야 해서."""
+        if not self.mail_queue or (not force and self.clock() - self.last_mail < MAIL_GAP_SEC):
+            return
+        evs, self.mail_queue = self.mail_queue, []
+        self.last_mail = self.clock()
+        red = sum(e["level"] == "red" for e in evs)
+        subj = f"[국감자막] {self.meta.get('date', '')[5:]} {self.meta.get('title', '')} 🔴{red} 🟡{len(evs) - red} ({evs[0]['line_time'][11:16]}~{evs[-1]['line_time'][11:16]})"
+        body = "\n\n".join(f"{'🔴' if e['level'] == 'red' else '🟡'} {e['line_time'][11:19]} {e['speaker']} [{' · '.join(e['topics'])}]\n{e.get('context', e['text'])}" for e in evs)
+        body += "\n\n※ 국회 의사중계 AI 자막(오탈자 가능). 전체는 첨부 docx."
+        if not send_mail(subj, body, self.docx_path()):
+            self.mail_queue = evs + self.mail_queue   # 실패분은 다음 차례에 다시
 
     # ---- 문서 ----
     def docx_path(self):
@@ -226,6 +244,29 @@ class Recorder:
             f.write("\n".join(f"[{hm(t['start_time'])}] {t['speaker']}\n{t['text']}\n" for t in turns))
 
 
+def send_mail(subject, body, attach: Path = None):
+    """GMAIL_USER + GMAIL_APP_PASSWORD(구글 앱 비밀번호) → MAIL_TO. 셋 중 하나라도 없으면 조용히 건너뜀."""
+    load_env()   # 실행 중에 .env 에 앱 비밀번호를 넣어도 재시작 없이 반영
+    user, pw, to = (os.environ.get(k) for k in ("GMAIL_USER", "GMAIL_APP_PASSWORD", "MAIL_TO"))
+    if not (user and pw and to):
+        return True
+    m = EmailMessage()
+    m["From"], m["To"], m["Subject"] = user, to, f"[{SOURCE}] {subject}"
+    m.set_content(body)
+    if attach and attach.exists():
+        m.add_attachment(attach.read_bytes(), maintype="application",
+                         subtype="vnd.openxmlformats-officedocument.wordprocessingml.document", filename=attach.name)
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
+            smtp.login(user, pw.replace(" ", ""))
+            smtp.send_message(m)
+        print(now_iso(), "메일 발송", subject)
+        return True
+    except Exception as e:
+        print(now_iso(), "메일 실패", repr(e)[:200], file=sys.stderr)
+        return False
+
+
 def write_docx(path: Path, meta, turns):
     """회의 하나 = docx 하나. 30초마다 통째로 다시 쓴다(임시 파일 → 교체)."""
     from docx import Document
@@ -262,12 +303,14 @@ def write_docx(path: Path, meta, turns):
     os.replace(tmp, path)
 
 
-def load_env(path=Path(__file__).resolve().parents[1] / "nuclear-news-bot" / ".env"):
-    """뉴스봇 .env 의 텔레그램 키 재사용. OPS 챗이 없으면 개인 챗으로."""
-    if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
+def load_env(paths=(Path(__file__).resolve().parent / ".env", Path(__file__).resolve().parents[1] / "nuclear-news-bot" / ".env")):
+    """레코더 폴더 .env(메일) + 뉴스봇 .env(텔레그램). OPS 챗이 없으면 개인 챗으로."""
+    for path in paths:
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8-sig").splitlines():
             k, _, v = line.partition("=")
-            if k.strip() and v.strip():
+            if k.strip() and v.strip() and not k.strip().startswith("#"):
                 os.environ.setdefault(k.strip(), v.strip().strip('"'))
     os.environ.setdefault("TELEGRAM_OPS_CHAT_ID", os.environ.get("TELEGRAM_CHAT_ID", ""))
 
@@ -376,6 +419,7 @@ def record(args):
                 time.sleep(RENDER_EVERY_SEC)
                 rec.flush()
                 rec.render()
+                rec.maybe_mail()
         threading.Thread(target=ticker, daemon=True).start()
         try:
             (run_ai if mode == "ai" else run_plain)(url, rec, stop)
@@ -384,6 +428,7 @@ def record(args):
         stop.set()
         rec.flush(force=True)
         rec.render()
+        rec.maybe_mail(force=True)
         # ponytail: 끊기면 5초 뒤 처음부터(생중계 재확인→재접속). 회의 종료면 pick_live 가 None 을 주고 대기로 넘어간다.
         print(now_iso(), "연결 종료, 5초 후 재확인")
         time.sleep(5)
@@ -422,5 +467,7 @@ if __name__ == "__main__":
         for f in list(d.glob("*.docx")) or [d / "transcript.txt"]:
             if f.exists():
                 send_telegram(f"국감 자막 {f.name}", doc=f)
+                if f.suffix == ".docx":   # Actions 구간 마감본 (끊기기 직전 10분 안 알림도 여기 담긴다)
+                    send_mail(f"[국감자막] 구간 마감본 {f.stem}", "Actions 6시간 구간이 끝나 그때까지의 전체본을 보냅니다.", f)
     else:
         replay(a.replay) if a.replay else record(a)
