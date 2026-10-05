@@ -465,15 +465,14 @@
       "generated_at": "2026-09-16T16:24:02.178076+00:00"
     },
     "issue-57d2219c4e7d3660": {
-      "digest": "606e51da17b00b83",
       "domain": "규제",
       "tags": [
         "해외규제"
       ],
-      "title": "미국 NRC, 원자로 인허가 및 감독체계 대대적 개편안 발표",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
     },
     "issue-844109b3a19e53b5": {
       "digest": "aee931ae8f5500ec",
@@ -8321,6 +8320,106 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-04T16:11:45.128936+00:00"
+    },
+    "issue-a1502997b12fa00b": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "방산·원전 수출 지원 위한 전략수출금융기금 출범 지연",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-e1a37253c284eb3c": {
+      "domain": "재생·수소",
+      "tags": [
+        "RPS"
+      ],
+      "title": "한전, 에너지캐시백 절전 실적 검증 미흡으로 부풀려졌다는 지적 제기",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-1aa80c637068dca3": {
+      "domain": "안전성",
+      "tags": [
+        "방사선환경"
+      ],
+      "title": "국가 방사능 재난훈련에 교육·복지부 5년 연속 불참",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-4fefd12de1474c17": {
+      "domain": "규제",
+      "tags": [
+        "인허가심사"
+      ],
+      "title": "우진엔텍, 한수원으로부터 3개월 입찰참가 제한 처분 받아 집행정지 및 취소소송 제기",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-505747c0c40be0b4": {
+      "domain": "건설",
+      "tags": [
+        "신규원전"
+      ],
+      "title": "프랑스, 2027년 예산안에 EPR2 원전 6기 건설 예산 반영",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-9ef38ce126476b4d": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "미국·중국, 첨단 원자력 기술 패권 경쟁 심화",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-996e587a904f6b4a": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "AI 산업 투자, 수익화 역량과 국가별 강점 분석 중요",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-c310bb0ae589199c": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "IAEA, 2060년까지 세계 원전 설비 최대 3.4배 증가 전망",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-cc570754e1b1045b": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "IAEA 사무총장, 우크라이나 원전 상황 성명 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
+    },
+    "issue-83e930795b6984c2": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-05T04:09:28.520995+00:00"
     }
   }
 }
