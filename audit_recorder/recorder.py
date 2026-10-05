@@ -244,6 +244,13 @@ class Recorder:
             f.write("\n".join(f"[{hm(t['start_time'])}] {t['speaker']}\n{t['text']}\n" for t in turns))
 
 
+def ascii_name(path: Path):
+    """회사 메일 필터가 한글 파일명 첨부를 떼어 낸다(10-06 실측: 영문명 docx 만 도착). 날짜·위원회 코드로 영문화."""
+    m = re.match(r"(\d{4}-\d{2}-\d{2})_(.+?)_", path.name)
+    code = {"산자중기위": "sanja55", "기후노동위": "gihu62", "과방위": "gwabang56"}.get(m.group(2), "etc") if m else "etc"
+    return f"kukgam_{m.group(1) if m else 'file'}_{code}{path.suffix}"
+
+
 def send_mail(subject, body, attach: Path = None):
     """GMAIL_USER + GMAIL_APP_PASSWORD(구글 앱 비밀번호) → MAIL_TO. 셋 중 하나라도 없으면 조용히 건너뜀."""
     load_env()   # 실행 중에 .env 에 앱 비밀번호를 넣어도 재시작 없이 반영
@@ -255,7 +262,7 @@ def send_mail(subject, body, attach: Path = None):
     m.set_content(body)
     if attach and attach.exists():
         m.add_attachment(attach.read_bytes(), maintype="application",
-                         subtype="vnd.openxmlformats-officedocument.wordprocessingml.document", filename=attach.name)
+                         subtype="vnd.openxmlformats-officedocument.wordprocessingml.document", filename=ascii_name(attach))
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as smtp:
             smtp.login(user, pw.replace(" ", ""))
