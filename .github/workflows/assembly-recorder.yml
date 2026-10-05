@@ -10,6 +10,9 @@ on:
       chain:
         description: '이어 돌릴 횟수 (2 = 최대 약 17시간)'
         default: '2'
+      minutes:
+        description: '한 run 녹화 분 (시험할 때만 줄임)'
+        default: '345'
 permissions:
   contents: read
   actions: write
@@ -36,7 +39,7 @@ jobs:
       - run: pip install -q requests websocket-client "python-socketio[client]"
       - name: record
         working-directory: audit_recorder
-        run: timeout 345m python recorder.py --xcode ${{ matrix.xcode }} || true
+        run: timeout ${{ inputs.minutes }}m python recorder.py --xcode ${{ matrix.xcode }} || true
       - name: finish
         if: always()
         working-directory: audit_recorder
@@ -61,4 +64,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run assembly-recorder.yml -R ${{ github.repository }} \
-            -f xcodes='${{ inputs.xcodes }}' -f chain=$(( ${{ inputs.chain }} - 1 ))
+            -f xcodes='${{ inputs.xcodes }}' -f minutes='${{ inputs.minutes }}' -f chain=$(( ${{ inputs.chain }} - 1 ))
