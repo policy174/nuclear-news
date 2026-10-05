@@ -19,6 +19,8 @@ HDRS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/145", "R
 ROOT = Path(__file__).resolve().parent / "2026-국정감사"
 IDLE_FINAL_SEC = 2.0      # 세그먼트가 이만큼 안 바뀌면 확정
 RENDER_EVERY_SEC = 30
+ALERT_GAP_SEC = 120       # 같은 발언·같은 등급 알림 최소 간격 (화자 전환이 안 잡혀 하루가 한 발언이 돼도 계속 울리게)
+ALERT_WAIT_SEC = 20       # 키워드 뒤 문맥을 붙이려고 이만큼 기다렸다 보낸다
 PLAIN_SMI_RE = re.compile(r"smi(-hy|-dw)?\d?\.webcast\.go\.kr", re.I)   # 플레이어 코드와 동일: 매치=일반 자막(socket.io), 아니면 AI 자막(WebSocket)
 
 # Recall > Precision. AI 음성인식 자막이라 띄어쓰기 변형 허용.
@@ -58,8 +60,10 @@ def classify(text):
 class Recorder:
     """소켓 메시지 → raw_events.jsonl(전부) → 세그먼트 확정 → 턴(발언) → transcript.jsonl / 오늘_국감.md"""
 
-    def __init__(self, outdir: Path, meta: dict, clock=time.time):
+    def __init__(self, outdir: Path, meta: dict, clock=time.time, docx_dir: Path = None):
         self.outdir = outdir
+        self.docx_dir = docx_dir or ROOT / "_문서"
+        self.pending_alerts = []   # (due, turn, 키워드 줄 시작 위치, 줄 길이, ev)
         outdir.mkdir(parents=True, exist_ok=True)
         self.meta = meta
         self.clock = clock
@@ -123,6 +127,7 @@ class Recorder:
                     del self.segs[seg]
             if force and self.cur:
                 self._close_turn()
+            self._send_due_alerts(force)
 
     def _append_line(self, ts, hwa, text, new_speaker=False, segment=None):
         if self.cur is None or new_speaker:
@@ -132,12 +137,13 @@ class Recorder:
                         "speaker_live": f"UNKNOWN_{self.turn_seq:03d}",   # OCR 이 잡히면 이름 + status=estimated (v2)
                         "speaker_status": "unknown", "speaker_final": None, "speaker_source": None,
                         "speaker": f"UNKNOWN_{self.turn_seq:03d}",         # 표시용 = final or live
-                        "hwa": hwa, "text": "", "segments": [], "alerted": False}
+                        "hwa": hwa, "text": "", "segments": [], "alerted": {}}
         self.cur["end_time"] = ts
+        pos = len(self.cur["text"]) + (1 if self.cur["text"] else 0)
         self.cur["text"] = (self.cur["text"] + " " + text).strip()
         if segment is not None:
             self.cur["segments"].append(segment)
-        self._maybe_alert(self.cur)
+        self._maybe_alert(self.cur, text, ts, pos)
 
     def _close_turn(self):
         if not self.cur or not self.cur["text"]:
@@ -152,20 +158,37 @@ class Recorder:
         self.cur = None
 
     # ---- 알림 ----
-    def _maybe_alert(self, t):
-        if t["alerted"]:
+    def _maybe_alert(self, t, line, ts, pos):
+        """새로 확정된 줄 단위로 검사. red = 한수원·원자력 정책, yellow = 그 밖의 원자력. 발언·등급별 ALERT_GAP_SEC 간격."""
+        cat, topics = classify(line)
+        level = "red" if cat == "NUCLEAR_POLICY" or KW_COMPANY.search(line) else "yellow" if cat == "NUCLEAR_RELATED" else None
+        if not level:
             return
-        cat, topics = classify(t["text"])
-        if cat != "NUCLEAR_POLICY" and not KW_COMPANY.search(t["text"]):
+        now = self.clock()
+        if now - t["alerted"].get(level, -1e9) < ALERT_GAP_SEC:
             return
-        t["alerted"] = True
-        ev = {"at": now_iso(), "turn": t["turn"], "start_time": t["start_time"], "speaker": t["speaker"],
-              "category": cat, "topics": topics, "text": t["text"]}
-        with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
-            f.write(json.dumps(ev, ensure_ascii=False) + "\n")
-        send_telegram(f"🔴 국감 자막 알림 {t['start_time'][11:19]} {t['speaker']}\n[{cat} / {' · '.join(topics)}]\n\n{t['text'][:800]}\n\n{self.meta.get('title', '')}")
+        t["alerted"][level] = now
+        ev = {"at": now_iso(), "turn": t["turn"], "line_time": ts, "speaker": t["speaker"], "level": level,
+              "category": cat, "topics": topics, "text": line}
+        self.pending_alerts.append((now + ALERT_WAIT_SEC, t, pos, len(line), ev))
+
+    def _send_due_alerts(self, force=False):
+        now = self.clock()
+        due = [a for a in self.pending_alerts if force or now >= a[0]]
+        self.pending_alerts = [a for a in self.pending_alerts if not (force or now >= a[0])]
+        for _, t, pos, n, ev in due:
+            text = t["text"]
+            ev["context"] = ("…" if pos > 200 else "") + text[max(0, pos - 200):pos + n + 400] + ("…" if len(text) > pos + n + 400 else "")
+            with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps(ev, ensure_ascii=False) + "\n")
+            icon = "🔴" if ev["level"] == "red" else "🟡"
+            send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
 
     # ---- 문서 ----
+    def docx_path(self):
+        name = (self.meta.get("item") or {}).get("xname") or "회의"
+        return self.docx_dir / f"{self.meta.get('date', '')}_{name}_국감자막.docx"
+
     def render(self):
         with self.lock:
             turns = list(self.turns) + ([dict(self.cur)] if self.cur and self.cur["text"] else [])
@@ -193,8 +216,50 @@ class Recorder:
         L += ["## 4. 전체 스크립트", ""]
         L += [f"[{hm(t['start_time'])}] {t['speaker']} {mark[t['category']]}\n{t['text']}\n" for t in turns]
         (self.outdir / "오늘_국감.md").write_text("\n".join(L), encoding="utf-8")
+        try:
+            write_docx(self.docx_path(), self.meta, turns)
+        except PermissionError:
+            print(now_iso(), "docx 가 Word 에 열려 있어 이번 갱신은 건너뜀 (닫으면 다음 30초에 반영)")
+        except Exception as e:
+            print(now_iso(), "docx 실패", repr(e)[:150], file=sys.stderr)
         with open(self.outdir / "transcript.txt", "w", encoding="utf-8") as f:
             f.write("\n".join(f"[{hm(t['start_time'])}] {t['speaker']}\n{t['text']}\n" for t in turns))
+
+
+def write_docx(path: Path, meta, turns):
+    """회의 하나 = docx 하나. 30초마다 통째로 다시 쓴다(임시 파일 → 교체)."""
+    from docx import Document
+    from docx.oxml.ns import qn
+    from docx.shared import Pt
+    d = Document()
+    st = d.styles["Normal"]
+    st.font.name, st.font.size = "맑은 고딕", Pt(10)
+    st.element.rPr.rFonts.set(qn("w:eastAsia"), "맑은 고딕")
+    hm = lambda s: s[11:19] if len(s) >= 19 else s
+    d.add_heading(f"{meta.get('date', '')} {meta.get('title', '')} 국감 자막", 1)
+    d.add_paragraph(f"자동 갱신 {now_iso()[11:19]} · 발언 {len(turns)}건 · 국회 의사중계 AI 자막(오탈자 가능, 인용 전 영상 확인) · 발언자 번호는 회의 후 영상회의록으로 보정")
+    red = [t for t in turns if t["category"] == "NUCLEAR_POLICY" or KW_COMPANY.search(t["text"])]
+    yellow = [t for t in turns if t["category"] == "NUCLEAR_RELATED" and t not in red]
+    for title, rows in (("1. 한수원·원자력 정책 발언", red), ("2. 기타 원자력 관련 발언", yellow)):
+        d.add_heading(title, 2)
+        if not rows:
+            d.add_paragraph("(없음)")
+            continue
+        tb = d.add_table(rows=1, cols=4)
+        tb.style = "Table Grid"
+        for c, h in zip(tb.rows[0].cells, ("시각", "발언자", "키워드", "발언")):
+            c.text = h
+        for t in rows:
+            c = tb.add_row().cells
+            c[0].text, c[1].text, c[2].text, c[3].text = hm(t["start_time"]), t["speaker"], " · ".join(t["topics"]), t["text"]
+    d.add_heading("3. 전체 스크립트", 2)
+    for t in turns:
+        d.add_paragraph().add_run(f"[{hm(t['start_time'])}] {t['speaker']}").bold = True
+        d.add_paragraph(t["text"])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.stem + ".tmp.docx")
+    d.save(tmp)
+    os.replace(tmp, path)
 
 
 def load_env(path=Path(__file__).resolve().parents[1] / "nuclear-news-bot" / ".env"):
@@ -332,7 +397,7 @@ def replay(path):
     for f in ("transcript.jsonl", "alerts.jsonl", "raw_events.jsonl"):
         (outdir / f).unlink(missing_ok=True) if outdir.exists() else None
     t = [0.0]
-    rec = Recorder(outdir, meta, clock=lambda: t[0])
+    rec = Recorder(outdir, meta, clock=lambda: t[0], docx_dir=outdir)
     for ev in events:
         t[0] = dt.datetime.fromisoformat(ev["captured_at"]).timestamp()
         (rec.on_ai_message if ev.get("mode") == "ai" else rec.on_plain_message)(ev["raw"], ts=ev["captured_at"])
@@ -354,7 +419,8 @@ if __name__ == "__main__":
     a = ap.parse_args()
     if a.send:
         d = Path(a.send)
-        if (d / "transcript.txt").exists():
-            send_telegram(f"국감 전체 스크립트 {d.name}", doc=d / "transcript.txt")
+        for f in list(d.glob("*.docx")) or [d / "transcript.txt"]:
+            if f.exists():
+                send_telegram(f"국감 자막 {f.name}", doc=f)
     else:
         replay(a.replay) if a.replay else record(a)
