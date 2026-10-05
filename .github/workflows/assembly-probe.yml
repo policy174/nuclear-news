@@ -1,0 +1,15 @@
+name: Assembly probe (국회 중계 접속 시험)
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: |
+          for u in "https://assembly.webcast.go.kr/main/service/live_list.asp" \
+                   "https://assembly.webcast.go.kr/main/service/live_play.asp?xcode=55&xcgcd=" \
+                   "https://w3.assembly.go.kr/main/service/list.do?cmd=subList&menu=7&ct1=22&mc=355"; do
+            echo "== $u"
+            curl -sS -m 20 -o /tmp/b -w "HTTP %{http_code} %{size_download}B %{time_total}s\n" -A "Mozilla/5.0 Chrome/145" -e "https://assembly.webcast.go.kr/main/" "$u" || echo "FAIL"
+            head -c 300 /tmp/b; echo
+          done
