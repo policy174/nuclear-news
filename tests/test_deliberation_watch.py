@@ -25,10 +25,10 @@ class GateTests(unittest.TestCase):
     def test_levels(self):
         off = {"group": "official", "text": ""}
         self.assertEqual(w.classify({**off, "title": "원전 공론화위원회 위원 위촉"}), "now")
-        self.assertEqual(w.classify({**off, "title": "12차 전기본 석탄발전 조기폐지방안 논의"}), "digest")
+        self.assertEqual(w.classify({**off, "title": "12차 전기본 석탄발전 조기폐지방안 논의"}), "now")  # 10-02: 전부 즉시
         ngo = {"group": "ngo", "text": ""}
         self.assertEqual(w.classify({**ngo, "title": "답정너 원전 공론화 불참 선언"}), "now")
-        self.assertEqual(w.classify({**ngo, "title": "원전 공론화, 검증 안 된 전력수요 전제"}), "digest")
+        self.assertEqual(w.classify({**ngo, "title": "원전 공론화, 검증 안 된 전력수요 전제"}), "now")
         self.assertEqual(w.classify({"group": "nssc", "title": "제2026-16회 원자력안전위원회",
                                      "text": "고리3호기 계속운전 허가(안)"}), "now")
         self.assertEqual(w.classify({"group": "assembly", "title": "2026-10-14 원전 공론화 현안질의",
