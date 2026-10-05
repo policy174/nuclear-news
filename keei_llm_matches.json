@@ -2899,6 +2899,13 @@
       "reason": "다른 국가, 다른 원전",
       "same_event": false
     },
+    "issue-829572ab405b6400--bd91314eae": {
+      "issue_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 가동 중단",
+      "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
+      "prompt_version": 1,
+      "reason": "폭염과 가뭄으로 인한 헝가리 팍스 원전 가동 중단 동일 사안",
+      "same_event": true
+    },
     "issue-829572ab405b6400--f020226b19": {
       "issue_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
       "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
@@ -3339,6 +3346,20 @@
       "prompt_version": 1,
       "reason": "다른 원전의 다른 건설 단계",
       "same_event": false
+    },
+    "issue-975146cde1cfceb8--6f56f58c45": {
+      "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "keei_item": "유럽투자은행, 루마니아 Cernavodă 1호기 설비개선 1.3조 원 대출 승인",
+      "prompt_version": 1,
+      "reason": "냉각수 영향 보도와 설비개선 대출 승인은 다른 사안임",
+      "same_event": false
+    },
+    "issue-975146cde1cfceb8--f020226b19": {
+      "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "다뉴브강 저수위로 인한 체르나보다 및 루마니아·헝가리 대응 동일 사안",
+      "same_event": true
     },
     "issue-97e7c36d2ed5091a--8b6d0658ea": {
       "issue_title": "국내 원전 산업 인력, 4년 만에 증가세 전환",
@@ -5053,6 +5074,13 @@
       "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
       "prompt_version": 1,
       "reason": "가뭄 및 폭염으로 인한 유럽 원전 감발·정지라는 동일 사안임",
+      "same_event": true
+    },
+    "issue-e9c761ed60c251fb--f020226b19": {
+      "issue_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "다뉴브강 저수위 기후 위험과 원전 대응 조치 동일 사안",
       "same_event": true
     },
     "issue-eb197e1fd0eb5b1a--249f1333d0": {
