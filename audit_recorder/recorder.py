@@ -279,12 +279,17 @@ def run_plain(url, rec: Recorder, stop):
 def record(args):
     recs = {}   # outdir → Recorder. 재접속해도 같은 회의면 턴·문서를 이어 쓴다
     while True:
-        item = pick_live(args.xcode, args.any)
+        try:
+            item = pick_live(args.xcode, args.any)
+            info = play_info(item["xcode"], item["xcgcd"]) if item else None
+        except Exception as e:   # 국회 서버 타임아웃 한 번에 레코더가 죽으면 안 된다
+            print(now_iso(), "목록 조회 실패, 30초 후 재시도", repr(e)[:150])
+            time.sleep(30)
+            continue
         if not item:
             print(now_iso(), "생중계 없음, 60초 후 재확인")
             time.sleep(60)
             continue
-        info = play_info(item["xcode"], item["xcgcd"])
         mode, url = caption_endpoint(info.get("xsami", ""))
         title = f"{item.get('xname', '')} {info.get('xsubj') or item.get('xsubj') or ''}".strip()
         meta = {"date": dt.date.today().isoformat(), "title": title, "item": item, "play": info, "mode": mode, "url": url,
