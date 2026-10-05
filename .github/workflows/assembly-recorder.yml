@@ -1,0 +1,64 @@
+name: Assembly recorder (국감 자막 레코더)
+# 폰 GitHub 앱 → Actions → 이 워크플로 → Run workflow. 생중계가 시작될 때까지 기다렸다가 붙는다.
+# 한 run 은 5시간 45분에서 끊고(Actions 6시간 한도), chain 이 남아 있으면 자기 자신을 다시 띄운다.
+on:
+  workflow_dispatch:
+    inputs:
+      xcodes:
+        description: '위원회 코드 JSON (산자중기위 55, 기후노동위 62, 과방위 56)'
+        default: '["55","62"]'
+      chain:
+        description: '이어 돌릴 횟수 (2 = 최대 약 17시간)'
+        default: '2'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 358
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode: ${{ fromJSON(inputs.xcodes) }}
+    env:
+      TZ: Asia/Seoul
+      PYTHONUTF8: "1"
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: audit_recorder
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q requests websocket-client "python-socketio[client]"
+      - name: record
+        working-directory: audit_recorder
+        run: timeout 345m python recorder.py --xcode ${{ matrix.xcode }} || true
+      - name: finish
+        if: always()
+        working-directory: audit_recorder
+        run: |
+          for d in 2026-국정감사/*/; do
+            [ -f "$d/raw_events.jsonl" ] || continue
+            python recorder.py --replay "$d/raw_events.jsonl"
+            python recorder.py --send "$d/replay"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-${{ matrix.xcode }}-${{ github.run_id }}
+          path: audit_recorder/2026-국정감사/
+          if-no-files-found: ignore
+  next:
+    needs: record
+    if: always() && inputs.chain != '0'
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run assembly-recorder.yml -R ${{ github.repository }} \
+            -f xcodes='${{ inputs.xcodes }}' -f chain=$(( ${{ inputs.chain }} - 1 ))
