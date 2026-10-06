@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 5,
     "date": "2026-10-06"
   },
   "retired": {
@@ -982,10 +982,42 @@
     }
   },
   "spent": {
-    "count": 8,
+    "count": 10,
     "date": "2026-10-06"
   },
   "terms": {
+    "반세기만": {
+      "articles": 1,
+      "created_at": "2026-10-06T00:22:15.632399+00:00",
+      "domains": [
+        "cbci.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "cbci.co.kr",
+          "hash": "7a30d443976d8516",
+          "importance": "must_read",
+          "title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사"
+        }
+      ],
+      "expires_at": "2026-10-07T00:22:15.632399+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-06T00:22:17.314678+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-06T00:22:15.632399+00:00",
+      "queries_run": 1,
+      "query": "반세기 만 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "반세기 만",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "본토에외국": {
       "articles": 1,
       "created_at": "2026-10-05T15:39:56.401700+00:00",
@@ -1012,6 +1044,40 @@
       "score": 3.6,
       "status": "extended",
       "term": "본토에 외국",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-06"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "본토에한국형": {
+      "articles": 1,
+      "created_at": "2026-10-06T00:22:15.632399+00:00",
+      "domains": [
+        "cbci.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "cbci.co.kr",
+          "hash": "7a30d443976d8516",
+          "importance": "must_read",
+          "title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사"
+        }
+      ],
+      "expires_at": "2026-10-07T00:22:17.314678+00:00",
+      "importance": "must_read",
+      "last_result_count": 1,
+      "last_run": "2026-10-06T00:22:17.314678+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-10-06T00:22:15.632399+00:00",
+      "queries_run": 1,
+      "query": "본토에 한국형 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "본토에 한국형",
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
