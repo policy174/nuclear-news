@@ -325117,5 +325117,615 @@
     "feed": "정책",
     "domain": "g-enews.com",
     "matched": "송전망 건설"
+  },
+  "37b9be003d0123fa": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "FR"
+    ],
+    "article_type": "news",
+    "title_kr": "프랑스 학생들, 더 나은 조건 요구하며 전국 시위",
+    "summary": "프랑스 전역에서 학생들이 더 나은 조건을 요구하는 시위를 벌이고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "Nationwide protests as French students demand better conditions",
+    "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdnNsVW1vZm1rQUNuQW1qekJWMzZsejNiX212U05QVTdmMGNUbGZ2RDY1cmNHTldFaExxRGMwZGE3VkFCRERCdG55WjNRUEhEUXNhNUMxZjRfRU1vNldoRVdSaU5uOW9SaWJCZU01eFdyOWFYbzRBYlRxNkctWUxJRVNzSVk3OXpOQ2hMWUdPcVI4eWJXdG1Sc2h2UkVLblFCdzBmMmN6WHg?oc=5",
+    "feed": "정책",
+    "domain": "reuters.com",
+    "matched": "Reuters 원자력"
+  },
+  "29295991ccdd80a2": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "美 국채금리 숨고르자 S&P·나스닥, 사상 최고치 경신",
+    "summary": "데이터센터용 반도체 수요 증가에 힘입어 마벨테크놀로지가 6% 뛰었고, 구글과 장기 전력계약을 체결한 컨스텔레이션에너지는 12% 이상 급등했다.",
+    "detail": "미국 뉴욕증시가 6일(현지시간) 일제히 상승했다. 24년 만의 최고 수준까지 치솟았던 미 국채금리가 하락하면서 투자심리가 개선된 가운데 인공지능(AI) 관련주 강세와 3분기 기업 실적에 대한 기대가 증시를 끌어올렸다. 스탠더드앤드푸어스(S&P)500지수와 나스닥지수는 나란히 사상 최고치를 경신했다. 최근 증시의 가장 큰 부담이었던 국채금리가 이날 하락하면서 기술주에 숨통을 틔웠다. 미 10년물 국채금리는 전날 장중 5.349%까지 치솟아 2002년 4월 이후 약 24년 만의 최고치를 기록했지만 이날은 4bp가량 떨어진 5.27% 수준을 나타냈다. 데이터센터용 반도체 수요 증가에 힘입어 2028년 매출 전망을 높인 마벨테크놀로지는 약 6% 뛰었다. AMD도 약 3% 올랐다. 구글과 3.59GW 규모의 장기 전력계약을 체결한 컨스텔레이션에너지는 12% 이상 급등했다. 다음 주 본격적으로 시작되는 3분기 실적시즌에 대한 기대도 증시를 떠받쳤다.",
+    "implication": "",
+    "why_important": "미국 증시의 사상 최고치 경신은 AI 관련 기업들의 성장성과 안정적인 전력 공급 계약의 중요성을 부각하며, 이는 국내 관련 산업에도 시사하는 바가 크다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#반도체",
+      "#전력시장"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "[속보]美국채금리 숨고르자 S&P·나스닥 '사상 최고'",
+    "link": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01758086645610624",
+    "feed": "정책",
+    "domain": "edaily.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "766dec668d99a1bb": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "corporate",
+    "title_kr": "LG전자, AI 냉각사업 가속…북미 대형 계약에 버지니아 공장 신설",
+    "summary": "LG전자가 북미 사업자와 AI 데이터센터용 칠러 장기 공급 계약을 체결하고, 미국 버지니아주에 칠러 공장을 신설한다.",
+    "detail": "LG전자가 북미 인프라 기업 에어 컨트롤 콘셉트(AIR)와 AI 데이터센터용 칠러 장기공급계약을 체결했다. 미국·캐나다의 5GW 이상 규모 AI 데이터센터 프로젝트에 고효율 칠러 등 냉각 솔루션을 순차 공급하는 내용이다. 류재철 LG전자 사장은 이번 계약이 AI 데이터센터 냉각사업 확대의 중요한 진전이라고 설명했다. LG전자는 지난 1일 미국 버지니아주 윈저에 칠러 공장을 신설하고, 국내 평택·창원 생산라인을 증설하는 데 총 1500억원을 투자한다고 발표했다. 미국 공장은 내년 상반기 가동을 목표로 AI 데이터센터용 공랭식 칠러를 생산할 예정이다.",
+    "implication": "LG전자의 북미 AI 데이터센터 냉각 시장 공략 가속화는 관련 국내 부품·소재 산업에도 긍정적인 영향을 미칠 수 있다.",
+    "why_important": "LG전자의 북미 AI 데이터센터 냉각 시장 진출 확대는 AI 인프라 구축 경쟁 심화와 함께 관련 냉각 설비 시장의 성장 가능성을 보여준다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#냉각설비"
+    ],
+    "related_reports": [],
+    "event_date": "2027-07-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "month",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "LG전자, AI 냉각사업 공략 가속…북미 대형 계약에 버지니아 공장 신설...",
+    "link": "https://www.newsis.com/view/NISX20261006_0003816230",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "데이터센터 전력"
+  },
+  "822edbf2603c55a5": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 1,
+      "market_materiality": 3,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "must_read",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "구글, 美 최대 원전기업 컨스텔레이션과 3.6GW 전력공급 계약",
+    "summary": "구글이 AI 데이터센터 전력 수요 대응을 위해 미국 최대 원전기업 컨스텔레이션과 3.59GW 규모의 전력구매 계약을 체결했다.",
+    "detail": "구글이 미국 최대 원전기업 컨스텔레이션의 원전에서 전력 3천590㎿(약 3.6GW)를 공급받는 전력구매계약(PPA)을 맺었다. 이 중 890㎿는 컨스텔레이션이 시스템 현대화에 나서는 일리노이·펜실베이니아·뉴저지주의 11개 원전에서 2028년부터 20년간 도입한다. 컨스텔레이션은 이를 위해 43억 달러 이상을 투자해 설비를 개선할 방침이다. 양사는 또 5년간 기술 제휴를 맺고 구글 클라우드와 AI '제미나이 엔터프라이즈'를 컨스텔레이션의 발전소 운영 등 인프라 전반에 적용한다. 구글은 이번 합의가 백악관의 요금납부자 보호 서약에 부합해 일반 고객에게 비용을 전가하지 않는 방식이라고 설명했다.",
+    "implication": "",
+    "why_important": "AI 데이터센터의 막대한 전력 수요에 대응하기 위해 구글이 미국 최대 원전 기업과 대규모 전력 구매 계약을 체결한 것은 원자력이 안정적인 에너지원으로서 주목받고 있음을 보여준다.",
+    "open_question": "컨스텔레이션의 원전 설비 개선 투자 규모 및 구체적인 이행 계획은 아직 공개되지 않았다.",
+    "open_question_source": "article_text",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#원자력"
+    ],
+    "related_reports": [],
+    "event_date": "2028-01-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "year",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "구글, 美최대 원전기업 컨스텔레이션서 3.6GW 전력공급 계약",
+    "link": "https://www.yna.co.kr/view/AKR20261007007200091?input=1195m",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "64987703ff5a7459": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "'차'에서 'IT'로…AI가 삼킨 반도체 대란 [칩플레이션①]",
+    "summary": "AI 데이터센터로의 웨이퍼 쏠림으로 시작된 반도체 품귀 현상이 스마트폰, PC를 넘어 자동차, AI 가전 등 완제품 전방 산업으로 확산되고 있다.",
+    "detail": "AI 데이터센터로의 웨이퍼 쏠림으로 시작된 반도체 품귀는 스마트폰과 PC를 넘어 자동차, AI 가전 등 완제품 전방 산업으로 확산하며 제조사의 실적 쇼크와 소비자 가격 인상으로 직결되고 있다. 2021년 차량용 반도체 대란과 달리, 현재의 위기는 첨단 12인치 선단 공정의 구조적 왜곡에서 비롯됐다. 주요 반도체 팹의 가동률이 100%에 달했음에도, 빅테크의 AI 인프라 구축 경쟁이 한정된 웨이퍼 생산 능력을 독식하면서 범용 부품의 공급 여력을 파괴했다. 업계와 외신에서는 이를 두고 메모리 공급 절벽을 뜻하는 ‘램마겟돈(RAMageddon)’이라는 경고를 내놓았다. 집적도가 늘어나며 성능은 오르고 부품 가격은 떨어지던 ‘무어의 법칙’이 깨지면서, 범용 D램 거래 가격은 1년 만에 최대 4~5배 폭등했다.",
+    "implication": "AI 인프라 투자 확대가 반도체 공급망 전반에 걸쳐 가격 상승과 품귀 현상을 심화시키며, 이는 전방 산업의 원가 부담 증가로 이어질 수 있다.",
+    "why_important": "AI 데이터센터 구축 경쟁으로 인한 반도체 품귀 현상(칩플레이션)은 IT 기기뿐 아니라 자동차, 가전 등 전방 산업 전반의 가격 상승과 공급망 불안정을 야기하고 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#반도체",
+      "#공급망"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "'車'에서 'IT'로…AI가 삼킨 반도체 대란 [칩플레이션①]",
+    "link": "https://it.chosun.com/news/articleView.html?idxno=2023092171470",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "데이터센터 전력"
+  },
+  "210a47ec520bb0a6": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "newbuild",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "원전수출 시대 본격 추진…산·학·연·관 '리더스포럼' 출범",
+    "summary": "산업통상부는 '한미 원전 프레임워크'를 바탕으로 국내 원전 기업들의 해외 시장 진출 전략을 구체화하기 위해 '제1차 원전수출 리더스포럼'을 개최했다.",
+    "detail": "산업통상부는 7일 서울 한국프레스센터에서 원자력 산·학·연·관 관계자 약 100명이 참석한 가운데 '제1차 원전수출 리더스포럼'을 개최했다. 이날 포럼은 지난 1일 한미 양국이 발표한 '한미 원전 프레임워크'를 바탕으로 국내 원전 기업들의 해외 시장 진출 전략을 구체화하고 민관 협력을 강화하기 위해 마련됐다. 한미 원전 프레임워크는 한국의 대미 투자기금 중 최대 1천200억달러를 들여 미국에 대형 원전 8기를 짓는 구상이다. 정부는 국내 기업이 미국 등 글로벌 원전 공급망에 진입할 수 있도록 인증 취득, 공급사 등록, 수출보증보험 등 기존 30여개 지원사업을 고도화하고 맞춤형 신규 지원책을 내년부터 본격 추진할 방침이다.",
+    "implication": "한미 원전 프레임워크를 기반으로 한 원전 수출 리더스포럼 출범은 한국 원전 산업의 글로벌 경쟁력 강화와 수출 확대를 위한 민관 협력의 본격화를 의미한다.",
+    "why_important": "한미 원전 프레임워크 발표 이후 원전 수출 확대를 위한 산학연관 협의체인 '원전수출 리더스포럼'이 출범하며, 정부는 국내 기업의 해외 시장 진출 지원을 강화할 예정이다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전수출",
+      "#한미원전프레임워크",
+      "#민관협력"
+    ],
+    "related_reports": [],
+    "event_date": "2027-01-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "year",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "원전수출 시대 본격 추진…산·학·연·관 '리더스포럼' 출범",
+    "link": "https://www.yna.co.kr/view/AKR20261006182500003?input=1195m",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "원전 수출"
+  },
+  "045629ba69f405cc": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "[벼랑 끝 통신장비] ①메말라가는 통신 장비 생태계…정부는 차세대망...",
+    "summary": "통신사들이 AI 데이터센터 투자 확대에 집중하면서 통신 장비 업체 전반의 수주 가뭄 해소는 어려울 전망이다.",
+    "detail": "국내 통신장비 업계가 존립을 위협받고 있다. 2019년 5G 상용화 이후 SK텔레콤과 KT, LG유플러스가 전국망 투자를 사실상 마무리하면서 장비업계는 수주 가뭄에 빠졌다. 통신사들은 다음 먹거리로 삼은 인공지능 데이터센터(AIDC) 투자 확대도 AI 가속기나 전력 인프라 등 일부 분야에 혜택이 집중될 것으로 전망돼 통신 장비 업체 전반의 수주 가뭄을 해소하기는 어려울 것이란 관측이 나온다.",
+    "implication": "",
+    "why_important": "통신사들이 AI 데이터센터 투자에 집중하면서 통신 장비 업계의 수주 가뭄이 심화되고 있으며, 정부의 차세대 망 투자 독려 정책에도 불구하고 업계의 어려움은 지속될 전망이다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#통신장비"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "[벼랑 끝 통신장비] ①메말라가는 통신 장비 생태계…정부는 차세대망 ...",
+    "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202610061106220000539",
+    "feed": "정책",
+    "domain": "dnews.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "313ef8b8c69a81ce": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "엘리스그룹, 네오클라우드 중심의 글로벌 AI 인프라 사업 확대 추진",
+    "summary": "엘리스그룹 김재원 대표는 AI 연산에 특화된 네오클라우드 시장에서 모듈형 데이터센터와 클라우드 소프트웨어로 글로벌 경쟁력을 강화하겠다고 밝혔다.",
+    "detail": "엘리스그룹이 모듈형 AI 데이터센터와 자체 클라우드 인프라 소프트웨어를 결합해 네오클라우드 사업을 확대한다. 김재원 대표는 3~5년 장기 고객 계약을 기반으로 자금을 조달하고 최신 GPU 인프라를 신속하게 구축해 글로벌 클라우드 기업으로 도약하겠다는 구상을 밝혔다. 회사는 AI PMDC와 ECI를 통해 고전력·수랭식 환경과 GPU 자원 배분을 직접 관리하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI인프라",
+      "#데이터센터",
+      "#클라우드"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "[인터뷰] 김재원 엘리스그룹 대표 “네오클라우드, 1~2년이 승부… 글로...",
+    "link": "https://www.ddaily.co.kr/page/view/2026100615440778595",
+    "feed": "정책",
+    "domain": "ddaily.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "5db722b5b6cd8eca": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "GPU 보유국 넘어 ‘운영국’으로…한국 AI 주권의 승부처는?",
+    "summary": "네이버클라우드 전무는 컴퓨팅 주권 확보를 위해 GPU와 데이터센터의 '소유'를 넘어 운영·배분·가격·접근 권한까지 확보하는 것이 중요하다고 강조했다.",
+    "detail": "배성준 네이버클라우드 전무는 컴퓨팅 주권 확보를 위해 어떤 층위에서 의사결정할 수 있는 권한까지 가져갈 것인지가 중요하다고 말했다. AI 인프라 전 영역을 자국 기술로 채우기보다 무엇을 외부에 의존하고, 어느 영역에서 최종 의사결정권을 확보할지를 정하는 것이 현실적 과제다. 칩과 전력의 완전 자립은 어렵지만 이를 실제 서비스로 만들어 운영하는 클라우드 역량까지 외부에 맡기면 컴퓨팅 주권을 확보하기 어렵다는 진단이다. 한국은 복수의 자국 클라우드서비스제공사(CSP)가 자체 인프라를 운영하며 GPU 서비스를 제공하는 점에서 상대적으로 유리한 위치에 있다고 평가했다.",
+    "implication": "",
+    "why_important": "AI 인프라의 컴퓨팅 주권 확보를 위해 GPU와 데이터센터의 소유를 넘어 운영, 배분, 가격 결정 권한까지 확보하는 것이 중요하며, 한국은 자체 클라우드 운영 역량으로 경쟁력을 갖추고 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#컴퓨팅주권",
+      "#클라우드"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-06",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "GPU 보유국 넘어 ‘운영국’으로…한국 AI 주권의 승부처는?",
+    "link": "https://www.ddaily.co.kr/page/view/2026100617233807908",
+    "feed": "정책",
+    "domain": "ddaily.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "b2af5271afa44c93": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "“내년 상반기까지 박스권…일반 기업의 AI 성과 주시하라”",
+    "summary": "LS증권 신중호 센터장은 국내 증시가 내년 상반기까지 박스권에 머물 가능성이 크지만, 금리 안정과 AI 투자의 실질적인 성과가 확인되면 다시 상승할 것으로 전망했다.",
+    "detail": "신중호 LS증권 리서치센터장은 국내 증시가 내년 상반기까지 박스권에 머물 가능성이 크지만, 금리 안정과 반도체 이익에 대한 신뢰 회복이 필요하다고 봤다. 미국 장기 금리가 4.5% 아래로 내려가고, 빅테크 이외의 기업에서도 AI 도입이 생산성 향상과 실적 개선으로 이어지는 사례가 확인돼야 한다는 것이다. 이러한 조건이 갖춰지면 2027년 중반 이후 외국인 자금도 국내 증시로 돌아올 수 있다고 내다봤다. 반도체 이후의 유망 영역으로는 반도체 소재·부품·장비와 전력·원전 인프라, 보안을 제시했다.",
+    "implication": "AI 투자 비용 증가와 금리 상승 압박 속에서 시장은 AI 투자의 실질적인 성과와 수익성을 주목할 것이며, 이는 관련 기업들의 주가 흐름에 영향을 미칠 것이다.",
+    "why_important": "AI 투자 경쟁이 '성장'에서 '비용' 문제로 옮겨가면서 시장은 AI 투자의 수익성과 지속가능성을 따지기 시작했으며, 이는 향후 증시 흐름에 중요한 변수가 될 전망이다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#증시전망",
+      "#반도체"
+    ],
+    "related_reports": [],
+    "event_date": "2027-07-01",
+    "event_date_type": "scheduled",
+    "event_date_precision": "month",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "“내년 상반기까지 박스권…일반 기업의 AI 성과 주시하라”",
+    "link": "https://magazine.hankyung.com/money/article/202609168351c",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "원자력 정책"
+  },
+  "8348a87073f8c3f0": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "조선 1위에서 멈추지 않는다",
+    "summary": "HD현대중공업은 올해 9월 엔진사업 경쟁력 강화와 차세대 원전 시장 확대를 위해 1조 원 규모의 투자를 진행했다.",
+    "detail": "HD현대중공업은 올해 9월 엔진사업 경쟁력 강화와 차세대 원전 시장 확대에 대응하기 위해 1조 원 규모의 투자를 진행했다. 정 회장은 음성과 청주, 울산 등 국내 사업장뿐 아니라 필리핀과 베트남 생산 거점을 찾아 생산 현황과 점검을 진행했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전",
+      "#조선업"
+    ],
+    "related_reports": [],
+    "event_date": "2026-09-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "month",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "조선 1위에서 멈추지 않는다",
+    "link": "https://magazine.hankyung.com/money/article/202609155909c",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "베트남 원전"
+  },
+  "95827daaa4d6db75": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "waste"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "휴동 끝낸 동국제강…철근 불황에 ‘새 수요’ 찾는다",
+    "summary": "동국제강이 철근 불황 타개를 위해 원전용 철근과 LNG 저장시설용 철근 등 신규 수요처를 모색하고 있다.",
+    "detail": "동국제강이 철근 불황 타개를 위해 원전용 철근과 영하 160℃ 안팎의 극저온 환경에서도 성능을 유지하는 액화천연가스(LNG) 저장시설용 철근 등 신규 수요처를 모색하고 있다. 동시에 수출과 고부가 제품으로 판매처를 넓히고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#철근",
+      "#원전",
+      "#LNG"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "휴동 끝낸 동국제강…철근 불황에 ‘새 수요’ 찾는다",
+    "link": "https://www.kukinews.com/article/view/kuk202610060180",
+    "feed": "정책",
+    "domain": "kukinews.com",
+    "matched": "원전 수출"
+  },
+  "28c0cb595ba66057": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "“글로벌 콘텐츠사 도약”… 신세계, 워너브러더스 10억弗 투자",
+    "summary": "신세계가 미국 워너브러더스 인수에 10억달러를 투자하며 글로벌 콘텐츠 사업에 진출하고, 미국에 전력용량 250㎿ 규모의 AI 데이터센터를 구축한다.",
+    "detail": "신세계그룹이 미국 파라마운트 스카이댄스 그룹 주도의 워너브러더스 인수에 10억달러(약 1조3600억원)를 투자하며 글로벌 콘텐츠 사업에 뛰어든다. 신세계는 지난 3월 미국 인공지능(AI) 기업 리플렉션AI와 손잡고 국내에 전력용량 250㎿ 규모의 AI 데이터센터를 구축하기로 했다. 신세계는 엔비디아 그래픽처리장치(GPU) 공급을 기반으로 데이터센터를 구축하고, 클라우드 서비스를 제공할 계획이다.",
+    "implication": "",
+    "why_important": "신세계그룹이 워너브러더스 인수에 10억달러를 투자하며 글로벌 콘텐츠 사업에 진출하는 한편, 국내에 250㎿ 규모의 AI 데이터센터를 구축하며 사업 다각화를 추진하고 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#콘텐츠"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T21:05:09.403348+00:00",
+    "title": "“글로벌 콘텐츠사 도약”… 신세계, 워너브러더스 10억弗 투자",
+    "link": "https://www.segye.com/newsView/20261006519508?OutUrl=naver",
+    "feed": "정책",
+    "domain": "segye.com",
+    "matched": "데이터센터 전력"
   }
 }
