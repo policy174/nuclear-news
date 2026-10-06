@@ -536,15 +536,14 @@
       "generated_at": "2026-09-16T16:24:02.178076+00:00"
     },
     "issue-c2c4c1e5de2a6fcb": {
-      "digest": "34896581c452bf6e",
       "domain": "SMR",
       "tags": [
-        "SMR사업화"
+        "해외SMR"
       ],
       "title": "루이지애나 SMR 프로젝트, 다음 단계 진전",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-06T10:54:48.920320+00:00"
     },
     "issue-c1c8d0603e949e14": {
       "domain": "정책",
@@ -701,15 +700,14 @@
       "generated_at": "2026-09-15T13:19:24.041847+00:00"
     },
     "issue-99f2916afcd7ec62": {
-      "digest": "41bbfb2440536131",
       "domain": "정책",
       "tags": [
-        "전원계획"
+        "12차전기본"
       ],
-      "title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "title": "석탄발전 39기 2038년까지 폐지…최대 10기는 ‘안보전원’로 남긴다",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-06T10:54:48.920320+00:00"
     },
     "issue-84038b03afe761fa": {
       "digest": "b42ad78bc658f76c",
@@ -8560,6 +8558,24 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-06T08:22:13.713932+00:00"
+    },
+    "issue-a26275bf85bf65b6": {
+      "domain": "안전성",
+      "tags": [
+        "방사선환경"
+      ],
+      "title": "후쿠시마, ALPS 처리수 최신 방류 시작",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-06T10:54:48.920320+00:00"
+    },
+    "issue-01fba58f8dc8193d": {
+      "domain": "",
+      "tags": [],
+      "title": "정부, 2027년 821조원 예산 의결…반도체 세수로 162조 미래대응기금 신설",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-06T10:54:48.920320+00:00"
     }
   }
 }
