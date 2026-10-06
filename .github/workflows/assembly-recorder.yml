@@ -33,6 +33,7 @@ jobs:
       GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
       MAIL_TO: ${{ secrets.MAIL_TO }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      AUDIT_GEMINI_API_KEY: ${{ secrets.AUDIT_GEMINI_API_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:
