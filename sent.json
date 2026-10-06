@@ -7384,12 +7384,39 @@
     "ffbdd7ad32db9c12": "2026-10-06T22:15:43.183742+00:00",
     "34663f41a4f4e47d": "2026-10-06T22:15:43.183742+00:00",
     "a0dae29288cc89e8": "2026-10-06T22:15:43.183742+00:00",
-    "19932f40fb2c4a5a": "2026-10-06T22:15:43.183742+00:00"
+    "19932f40fb2c4a5a": "2026-10-06T22:15:43.183742+00:00",
+    "c3850354b5236a75": "2026-10-06T22:46:48.689725+00:00",
+    "b7743d5a5fe8becc": "2026-10-06T22:46:48.689725+00:00",
+    "19d09ff1192049f8": "2026-10-06T22:46:48.689725+00:00",
+    "4878f5d6b1be0d3b": "2026-10-06T22:46:48.689725+00:00",
+    "e6d5520aeca51e77": "2026-10-06T22:46:48.689725+00:00",
+    "91dcbd5d119661bb": "2026-10-06T22:46:48.689725+00:00",
+    "3247de9f4c84c13a": "2026-10-06T22:46:48.689725+00:00",
+    "e7dd063084ae54ea": "2026-10-06T22:46:48.689725+00:00",
+    "23439c48ad7e0582": "2026-10-06T22:46:48.689725+00:00",
+    "64420eeda4dcdf36": "2026-10-06T22:46:48.689725+00:00",
+    "8ed5d071806e1b4f": "2026-10-06T22:46:48.689725+00:00",
+    "57ca2721e47969c4": "2026-10-06T22:46:48.689725+00:00",
+    "4351f52465e780d4": "2026-10-06T22:46:48.689725+00:00",
+    "275cfcdbc2edfb6e": "2026-10-06T22:46:48.689725+00:00",
+    "0b39d11b77e5f892": "2026-10-06T22:46:48.689725+00:00",
+    "62ef246b650be26d": "2026-10-06T22:46:48.689725+00:00",
+    "da9f1d85039eab33": "2026-10-06T22:46:48.689725+00:00",
+    "f50888d484330d51": "2026-10-06T22:46:48.689725+00:00",
+    "e21ac3d2079e08f9": "2026-10-06T22:46:48.689725+00:00",
+    "2fc6da27d7da7936": "2026-10-06T22:46:48.689725+00:00",
+    "123de88ca0e96f7a": "2026-10-06T22:46:48.689725+00:00",
+    "784514b354cadb95": "2026-10-06T22:46:48.689725+00:00",
+    "dd4abf2176f6e728": "2026-10-06T22:46:48.689725+00:00",
+    "9b5d6ce949baf608": "2026-10-06T22:46:48.689725+00:00",
+    "209f7052762fb7bd": "2026-10-06T22:46:48.689725+00:00",
+    "c4a5ee46ef78998f": "2026-10-06T22:46:48.689725+00:00",
+    "25ae06ffe73393a3": "2026-10-06T22:46:48.689725+00:00"
   },
   "source_yield": {
-    "at": "2026-10-06T22:17:22+00:00",
+    "at": "2026-10-06T22:48:58+00:00",
     "counts": {
-      "한수원 보도자료": 10,
+      "한수원 보도자료": 0,
       "원안위 보도자료": 15,
       "산업부 보도자료": 10,
       "원자력연구원 보도자료": 10,
@@ -7419,10 +7446,11 @@
       "국내 원자력 보도": 21
     },
     "kept": {
-      "Les Échos 원자력": 1,
       "국내 원자력 보도": 1
     },
-    "errors": {}
+    "errors": {
+      "한수원 보도자료": "ConnectTimeout: HTTPSConnectionPool(host='www.khnp.co.kr', port=443): Max retries exceeded with url: /main/selectBbsNttList.do?bbsNo=71&key=2289 (Caused by Conn"
+    }
   },
   "scrap_seeds": {
     "113dbeb2d74b": {
@@ -9178,6 +9206,419 @@
       "status": "resolved",
       "link": "https://biz.heraldcorp.com/article/10894110?sec=002",
       "title": "“원전 8기 대미투자, 韓에 기회…APR1400 보유·건설 역량 강점” [대미투자]",
+      "description": ""
+    },
+    "7fa091ae4490": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1018317",
+      "title": "캠코, 수자원공사와 감사 전문성 강화 업무협약 체결",
+      "description": ""
+    },
+    "78524685a0bb": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.ebn.co.kr/news/articleView.html?idxno=1726896",
+      "title": "전력 6.3GW·용수 65만 톤 '팩트체크'…호남 반도체 인프라, 기후부 국감 뇌관 부상",
+      "description": ""
+    },
+    "c937fd5e1b9d": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=762013",
+      "title": "알래스카 LNG-원전 ‘조건부 검토’ 대미투자 협상 진단은? [정책+]",
+      "description": ""
+    },
+    "65bb366b1814": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202610061812001",
+      "title": "기후부 장관, 데이터센터 전력수요 ‘뻥튀기’ 지적에 “과잉 추계된 측면 있다” 시인",
+      "description": ""
+    },
+    "827f227e7878": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.khan.co.kr/article/202610062006005",
+      "title": "당위성·수익성 다 잡는 대미 전략투자, 원전이 안성맞춤",
+      "description": ""
+    },
+    "46b891d6c3df": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://kukjung.com/bbs/board.php?bo_table=news01&wr_id=11876",
+      "title": "정혜경 “데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구”",
+      "description": ""
+    },
+    "32915f745494": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.g-enews.com/article/Opinion/2026/10/20261006172931870335e857d010_1",
+      "title": "對美 투자 프로젝트…기업 수익도 중요",
+      "description": ""
+    },
+    "94fa1aa08a34": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.news1.kr/economy/trend/6311973",
+      "title": "김성환 \"호남반도체 전력·용수 공급 가능…2030년까지 재생e 100GW 확대\"(종합)",
+      "description": ""
+    },
+    "62675298e20e": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.newsdaily.kr/news/articleView.html?idxno=261702",
+      "title": "정혜경 “ 데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구 ” 에 김성환 장관 “ 데이터센터 전력요금제 설계에 반영할 것 ”",
+      "description": ""
+    },
+    "a980112ba837": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.newstown.co.kr/news/articleView.html?idxno=717792",
+      "title": "캠코, 한국수자원공사와 3대 감사 협력…2개 기관 인공지능·내부통제 강화",
+      "description": ""
+    },
+    "f68e5be6b361": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816150",
+      "title": "\"원전수출 시대 만든다\"…산업부, 원전수출 리더스포럼 발족",
+      "description": ""
+    },
+    "412525e4ab18": {
+      "tries": 1,
+      "seed_date": "2026-10-07",
+      "last_tried": "2026-10-06T22:49:30.915862+00:00",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816002",
+      "title": "경주 예술의전당, 11~12월 콘서트·뮤지컬 등 4개 공연 무대에",
+      "description": "경주 예술의전당이 11~12월 콘서트와 뮤지컬 등 4개 공연을 잇달아 무대에 올린다. 6일 경주문화재단에 따르면 이번 한수원 프리미어 공연 4편은 윤종신의 전국 투어 콘서트, 뮤직 페스티벌, 뮤지컬 광화문연가, 조수미..."
+    },
+    "3dce5678410e": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816380",
+      "title": "김성환 \"호남 반도체 팹 9기 땐 14GW…AI 급증에 전력망 계획 원점 점검\"(종합2보)",
+      "description": ""
+    },
+    "75d01ad8a6e5": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202610070638028500668",
+      "title": "산업부ㆍ원자력계 ‘원전수출 리더스포럼’ 출범…“민관 원팀” 구축",
+      "description": ""
+    },
+    "08edd9af23a9": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.dailian.co.kr/news/view/1698394/2026-%EA%B5%AD%EA%B0%90-%EC%A0%95%EB%B6%80-AI-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%84%BC%ED%84%B0%EC%9A%A9-2026",
+      "title": "[2026 국감] 정부, AI 데이터센터용 ‘SMR 온사이트 발전’ 검토",
+      "description": ""
+    },
+    "64aae8eb4384": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.lawissue.co.kr/view.php?ud=202610061658073565f4ab64559d_12",
+      "title": "한수원, 노사관계 우수기업 5년 연속 인증",
+      "description": ""
+    },
+    "51b71c2131b7": {
+      "tries": 1,
+      "seed_date": "2026-10-07",
+      "last_tried": "2026-10-06T22:49:30.915862+00:00",
+      "status": "resolved",
+      "link": "https://www.mk.co.kr/news/economy/12169601",
+      "title": "\"웨스팅하우스 상장때 신주인수권\" … 韓, 대미원전투자 지분율 지킨다",
+      "description": "6일 관계 부처에 따르면 한국 측은 대미 원전 투자의 일환으로 웨스팅하우스 지분을 프리 IPO에서 5~10%가량 인수하면서, 향후 웨스팅하우스가 IPO에 성공할 경우 기존 지분율을 유지할 수 있는 신주인수권을..."
+    },
+    "6b857c95de97": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.mt.co.kr/politics/2026/10/07/2026100701281337527",
+      "title": "[스코어보드-환노위]'호남반도체' 전력·용수로 붙은 與野…디테일 갖춘 정책 질의",
+      "description": ""
+    },
+    "210cc0dd3972": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.sedaily.com/article/20098615",
+      "title": "합천군 71개 사업 확정…이달 세부계획 발표",
+      "description": ""
+    },
+    "d540a04368ae": {
+      "tries": 1,
+      "seed_date": "2026-10-07",
+      "last_tried": "2026-10-06T22:49:30.915862+00:00",
+      "status": "resolved",
+      "link": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/10/07/20261007022001",
+      "title": "“양수발전소 잡아라”… 경남 거창·산청·하동·합천 불꽃 유치전",
+      "description": "경남 거창·산청·하동·합천 4개 군이 하반기 1.25GW 규모 양수발전소 공모를 앞두고 유치 경쟁에 뛰어들었다. 재생에너지 변동성을 보완하는 핵심 시설인 만큼 조 단위 투자와 일자리, 지원금, 관광 자원화 효과를 기대하...."
+    },
+    "f0931bf84f54": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.sisanews.kr/news/articleView.html?idxno=125172",
+      "title": "권익위가 차려준 밥상에 숟가락만 얹은 '원전안전'…관료주의의 뻔뻔함",
+      "description": ""
+    },
+    "74dffd4bcca3": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.sisafocus.co.kr/news/articleView.html?idxno=365846",
+      "title": "[이슈] 800조 호남 반도체 국감 격돌…입지·예산부터 전력·용수까지",
+      "description": ""
+    },
+    "7e2dcea446de": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261006010001580",
+      "title": "‘1조 8천억 오도산 발전소’부터 ‘기본소득’까지… 합천, 미래 50년 대도약 판 짠다",
+      "description": ""
+    },
+    "28b88373b514": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261006010001646",
+      "title": "“정책도 인사도 대통령 그림자?”…김성환, 기후부 첫 국감서 집중포화",
+      "description": ""
+    },
+    "43dd4e32cb98": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.ajunews.com/view/20261006235522174",
+      "title": "美 원전시장 문 두드리는 팀코리아…중소·중견기업 공급망 진입 지원",
+      "description": ""
+    },
+    "7f7abc45d626": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.ekn.kr/web/view.php?key=20261006023092961",
+      "title": "[2026 국감] 12차 전기본 원전 공론화 두고 논란…“시간 끌기” vs “필요한 절차”",
+      "description": ""
+    },
+    "09f821145898": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=203847",
+      "title": "“데이터센터 전력 수요 다시 전망하라”",
+      "description": ""
+    },
+    "8efa1d5c3e50": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.energy-news.co.kr/news/articleView.html?idxno=228791",
+      "title": "‘전력수요부터 요금까지’ 에너지정책 근거 따진 기후부 국감",
+      "description": ""
+    },
+    "60e6c66980aa": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.energykorea.co.kr/news/articleView.html?idxno=66511",
+      "title": "만족도 86%로 평균 웃돌았다…한수원 5년 연속 노사 우수기업",
+      "description": ""
+    },
+    "ab4673352944": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=71092",
+      "title": "노사관계 우수기업…한수원, 5년 연속 인증 획득",
+      "description": ""
+    },
+    "3de18f9bf5bb": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=71090",
+      "title": "도로·해안가 방치 어구…한빛원전, 어구창고‧지게차 등 지원",
+      "description": ""
+    },
+    "3dc2e1824dea": {
+      "tries": 1,
+      "seed_date": "2026-10-07",
+      "last_tried": "2026-10-06T22:49:30.915862+00:00",
+      "status": "resolved",
+      "link": "http://www.e-platform.net/news/articleView.html?idxno=105949",
+      "title": "불필요한 원전 공론화로 12차 전기본 지연…철회해야",
+      "description": "3개월간의 원전 공론화를 진행하고 있는 가운데, 이미 국민들도 원전 사용에 동의한 상황에서 불필요한... 이에 김소희 의원은 조속한 12차 전기본 확정을 위해 원전 공론화 과정을 철회해야 한다고 강조했다. 또한 김소희..."
+    },
+    "20db18ffb876": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.ecojournal.co.kr/news/view.php?idx=176291&mcode=m9373ku",
+      "title": "김성환 장관, “데이터센터 전력요금제 설계 반영”",
+      "description": ""
+    },
+    "9e0992f2b06c": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.yna.co.kr/view/AKR20261007012800007?input=1195m",
+      "title": "◇오늘의 경기(7일)",
+      "description": ""
+    },
+    "328757b92da9": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.yna.co.kr/view/AKR20261006182500003",
+      "title": "원전수출 시대 본격 추진…산·학·연·관 '리더스포럼' 출범",
+      "description": ""
+    },
+    "13c2a84d4117": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.edaily.co.kr/news/read?newsId=05277526645610296&mediaCodeNo=257",
+      "title": "美 발전소 수익 좌우할 전력계약도 없이…24억 달러 먼저 보냈다",
+      "description": ""
+    },
+    "d7cc64fb7c1d": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.inenews.kr/news/articleView.html?idxno=35267",
+      "title": "[국감] SMR·원자력·LNG PPA 온사이트 실증 현실화해야",
+      "description": ""
+    },
+    "cd85f0a7e8ab": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.inenews.kr/news/articleView.html?idxno=35268",
+      "title": "[국감] 데이터센터 효율 기준·재생에너지 요건 재전망 필요",
+      "description": ""
+    },
+    "110946f02ccb": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.jeonguknews.co.kr/news/articleView.html?idxno=87288",
+      "title": "[신뢰로 이어온 5년 동행]한수원, ‘노사관계 우수기업’ 5년 연속 인증…“신뢰와 소통으로 안전한 일터 만든다”",
+      "description": ""
+    },
+    "85cd8b6b9f1f": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.electimes.com/news/articleView.html?idxno=373120",
+      "title": "(2026 국감)AI 데이터센터 전력수요 넉 달 새 3배…산정근거 ‘논란’",
+      "description": ""
+    },
+    "b739a1b9e122": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.etnews.com/20261006000397",
+      "title": "[2026 국감] 12차 전기본 지연…'원전공론화 3개월' 놓고 여야 공방",
+      "description": ""
+    },
+    "4cf26c60d848": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://weekly.chosun.com/news/articleView.html?idxno=55818",
+      "title": "K-조선과 K-원전이 만나는 곳, 해상 SMR",
+      "description": ""
+    },
+    "60f4f5a921a4": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.joongang.co.kr/article/25467443",
+      "title": "한국수력원자력, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "description": ""
+    },
+    "2a878d2354d6": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.joongang.co.kr/article/25467701",
+      "title": "SMR 짓겠다는 기업들, 규제 갇혔다…2032년에나 심사기준 완비",
+      "description": ""
+    },
+    "d6cdde5cd425": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.laborplus.co.kr/news/articleView.html?idxno=41589",
+      "title": "재생에너지 전환의 교두보, ‘표준 직제 마련’으로",
+      "description": ""
+    },
+    "a1b4f9ba3654": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3438368",
+      "title": "한수원, ‘노사관계 우수기업’ 5년 연속 인증...실천형 파트너십 결실",
+      "description": ""
+    },
+    "458b69f393d1": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.cstimes.com/news/articleView.html?idxno=723063",
+      "title": "노사 만족도 86% 기록…한수원, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "description": ""
+    },
+    "ba780c30fbe5": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.tongilnews.com/news/articleView.html?idxno=217705",
+      "title": "“대한민국은 미국의 ‘봉’이 아니다”... 자주연합, 부당한 대미투자 강요 규탄",
+      "description": ""
+    },
+    "10a0367add4d": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.todayenergy.kr/news/articleView.html?idxno=303878",
+      "title": "[국정감사] 메가프로젝트 전력공급·전기본 집중 질타",
+      "description": ""
+    },
+    "e00212ff1ba4": {
+      "tries": 1,
+      "seed_date": "2026-10-07",
+      "last_tried": "2026-10-06T22:49:30.915862+00:00",
+      "status": "resolved",
+      "link": "https://daily.hankooki.com/news/articleView.html?idxno=1412471",
+      "title": "한수원, 경영인증권 주관 노사관계 우수기업 인증 5년 연속 획득",
+      "description": "주관하는 '노사관계 우수기업' 인증을 5년 연속 획득했다고 6일 밝혔다. '노사관계 우수기업' 인증제도는 상호... 미래지향적 노사관계를 구축한 기업을 인증하는 제도다. 한수원은 중앙 노조뿐 아니라 사업소 노조와도..."
+    },
+    "09e3915eb897": {
+      "tries": 0,
+      "seed_date": "2026-10-07",
+      "status": "resolved",
+      "link": "https://www.fnnews.com/news/202610061816067197",
+      "title": "野 \"호남 전력·물 턱없이 부족\" 與 \"남아돌아 수도권 송전\" [李정부 2년차 국감]",
       "description": ""
     }
   },
@@ -26654,6 +27095,465 @@
       "seed_title": "“원전 8기 대미투자, 韓에 기회…APR1400 보유·건설 역량 강점” [대미투자]",
       "link": "https://biz.heraldcorp.com/article/10894110?sec=002",
       "title": "“원전 8기 대미투자, 韓에 기회…APR1400 보유·건설 역량 강점” [대미투자]",
+      "description": "",
+      "edition": ""
+    },
+    "7fa091ae4490": {
+      "date": "2026-10-07",
+      "publisher": "CNB뉴스",
+      "seed_title": "캠코, 수자원공사와 감사 전문성 강화 업무협약 체결",
+      "link": "https://www.cnbnews.com/news/articleView.html?idxno=1018317",
+      "title": "캠코, 수자원공사와 감사 전문성 강화 업무협약 체결",
+      "description": "",
+      "edition": ""
+    },
+    "78524685a0bb": {
+      "date": "2026-10-07",
+      "publisher": "EBN",
+      "seed_title": "전력 6.3GW·용수 65만 톤 '팩트체크'…호남 반도체 인프라, 기후부 국감 뇌관 부상",
+      "link": "https://www.ebn.co.kr/news/articleView.html?idxno=1726896",
+      "title": "전력 6.3GW·용수 65만 톤 '팩트체크'…호남 반도체 인프라, 기후부 국감 뇌관 부상",
+      "description": "",
+      "edition": ""
+    },
+    "c937fd5e1b9d": {
+      "date": "2026-10-07",
+      "publisher": "KTV국민방송",
+      "seed_title": "알래스카 LNG-원전 ‘조건부 검토’ 대미투자 협상 진단은? [정책+]",
+      "link": "https://www.ktv.go.kr/news/latest/view?content_id=762013",
+      "title": "알래스카 LNG-원전 ‘조건부 검토’ 대미투자 협상 진단은? [정책+]",
+      "description": "",
+      "edition": ""
+    },
+    "65bb366b1814": {
+      "date": "2026-10-07",
+      "publisher": "경향신문",
+      "seed_title": "기후부 장관, 데이터센터 전력수요 ‘뻥튀기’ 지적에 “과잉 추계된 측면 있다” 시인",
+      "link": "https://www.khan.co.kr/article/202610061812001",
+      "title": "기후부 장관, 데이터센터 전력수요 ‘뻥튀기’ 지적에 “과잉 추계된 측면 있다” 시인",
+      "description": "",
+      "edition": ""
+    },
+    "827f227e7878": {
+      "date": "2026-10-07",
+      "publisher": "경향신문",
+      "seed_title": "당위성·수익성 다 잡는 대미 전략투자, 원전이 안성맞춤",
+      "link": "https://www.khan.co.kr/article/202610062006005",
+      "title": "당위성·수익성 다 잡는 대미 전략투자, 원전이 안성맞춤",
+      "description": "",
+      "edition": ""
+    },
+    "46b891d6c3df": {
+      "date": "2026-10-07",
+      "publisher": "국정일보",
+      "seed_title": "정혜경 “데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구”",
+      "link": "https://kukjung.com/bbs/board.php?bo_table=news01&wr_id=11876",
+      "title": "정혜경 “데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구”",
+      "description": "",
+      "edition": ""
+    },
+    "32915f745494": {
+      "date": "2026-10-07",
+      "publisher": "글로벌이코노믹",
+      "seed_title": "對美 투자 프로젝트…기업 수익도 중요",
+      "link": "https://www.g-enews.com/article/Opinion/2026/10/20261006172931870335e857d010_1",
+      "title": "對美 투자 프로젝트…기업 수익도 중요",
+      "description": "",
+      "edition": ""
+    },
+    "94fa1aa08a34": {
+      "date": "2026-10-07",
+      "publisher": "뉴스1",
+      "seed_title": "김성환 \"호남반도체 전력·용수 공급 가능…2030년까지 재생e 100GW 확대\"(종합)",
+      "link": "https://www.news1.kr/economy/trend/6311973",
+      "title": "김성환 \"호남반도체 전력·용수 공급 가능…2030년까지 재생e 100GW 확대\"(종합)",
+      "description": "",
+      "edition": ""
+    },
+    "62675298e20e": {
+      "date": "2026-10-07",
+      "publisher": "뉴스데일리",
+      "seed_title": "정혜경 “ 데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구 ” 에 김성환 장관 “ 데이터센터 전력요금제 설계에 반영할 것 ”",
+      "link": "http://www.newsdaily.kr/news/articleView.html?idxno=261702",
+      "title": "정혜경 “ 데이터센터 효율 기준 · 재생에너지 요건 등 마련 요구 ” 에 김성환 장관 “ 데이터센터 전력요금제 설계에 반영할 것 ”",
+      "description": "",
+      "edition": ""
+    },
+    "a980112ba837": {
+      "date": "2026-10-07",
+      "publisher": "뉴스타운",
+      "seed_title": "캠코, 한국수자원공사와 3대 감사 협력…2개 기관 인공지능·내부통제 강화",
+      "link": "https://www.newstown.co.kr/news/articleView.html?idxno=717792",
+      "title": "캠코, 한국수자원공사와 3대 감사 협력…2개 기관 인공지능·내부통제 강화",
+      "description": "",
+      "edition": ""
+    },
+    "f68e5be6b361": {
+      "date": "2026-10-07",
+      "publisher": "뉴시스",
+      "seed_title": "\"원전수출 시대 만든다\"…산업부, 원전수출 리더스포럼 발족",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816150",
+      "title": "\"원전수출 시대 만든다\"…산업부, 원전수출 리더스포럼 발족",
+      "description": "",
+      "edition": ""
+    },
+    "412525e4ab18": {
+      "date": "2026-10-07",
+      "publisher": "뉴시스",
+      "seed_title": "경주 예술의전당, 11~12월 콘서트·뮤지컬 등 4개 공연 무대에",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816002",
+      "title": "경주 예술의전당, 11~12월 콘서트·뮤지컬 등 4개 공연 무대에",
+      "description": "경주 예술의전당이 11~12월 콘서트와 뮤지컬 등 4개 공연을 잇달아 무대에 올린다. 6일 경주문화재단에 따르면 이번 한수원 프리미어 공연 4편은 윤종신의 전국 투어 콘서트, 뮤직 페스티벌, 뮤지컬 광화문연가, 조수미...",
+      "edition": ""
+    },
+    "3dce5678410e": {
+      "date": "2026-10-07",
+      "publisher": "뉴시스",
+      "seed_title": "김성환 \"호남 반도체 팹 9기 땐 14GW…AI 급증에 전력망 계획 원점 점검\"(종합2보)",
+      "link": "https://www.newsis.com/view/NISX20261006_0003816380",
+      "title": "김성환 \"호남 반도체 팹 9기 땐 14GW…AI 급증에 전력망 계획 원점 점검\"(종합2보)",
+      "description": "",
+      "edition": ""
+    },
+    "75d01ad8a6e5": {
+      "date": "2026-10-07",
+      "publisher": "대한경제",
+      "seed_title": "산업부ㆍ원자력계 ‘원전수출 리더스포럼’ 출범…“민관 원팀” 구축",
+      "link": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202610070638028500668",
+      "title": "산업부ㆍ원자력계 ‘원전수출 리더스포럼’ 출범…“민관 원팀” 구축",
+      "description": "",
+      "edition": ""
+    },
+    "08edd9af23a9": {
+      "date": "2026-10-07",
+      "publisher": "데일리안",
+      "seed_title": "[2026 국감] 정부, AI 데이터센터용 ‘SMR 온사이트 발전’ 검토",
+      "link": "https://www.dailian.co.kr/news/view/1698394/2026-%EA%B5%AD%EA%B0%90-%EC%A0%95%EB%B6%80-AI-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%84%BC%ED%84%B0%EC%9A%A9-2026",
+      "title": "[2026 국감] 정부, AI 데이터센터용 ‘SMR 온사이트 발전’ 검토",
+      "description": "",
+      "edition": ""
+    },
+    "64aae8eb4384": {
+      "date": "2026-10-07",
+      "publisher": "로이슈",
+      "seed_title": "한수원, 노사관계 우수기업 5년 연속 인증",
+      "link": "https://www.lawissue.co.kr/view.php?ud=202610061658073565f4ab64559d_12",
+      "title": "한수원, 노사관계 우수기업 5년 연속 인증",
+      "description": "",
+      "edition": ""
+    },
+    "51b71c2131b7": {
+      "date": "2026-10-07",
+      "publisher": "매일경제",
+      "seed_title": "\"웨스팅하우스 상장때 신주인수권\"… 韓, 대미원전투자 지분율 지킨다",
+      "link": "https://www.mk.co.kr/news/economy/12169601",
+      "title": "\"웨스팅하우스 상장때 신주인수권\" … 韓, 대미원전투자 지분율 지킨다",
+      "description": "6일 관계 부처에 따르면 한국 측은 대미 원전 투자의 일환으로 웨스팅하우스 지분을 프리 IPO에서 5~10%가량 인수하면서, 향후 웨스팅하우스가 IPO에 성공할 경우 기존 지분율을 유지할 수 있는 신주인수권을...",
+      "edition": ""
+    },
+    "6b857c95de97": {
+      "date": "2026-10-07",
+      "publisher": "머니투데이",
+      "seed_title": "[스코어보드-환노위]'호남반도체' 전력·용수로 붙은 與野…디테일 갖춘 정책 질의",
+      "link": "https://www.mt.co.kr/politics/2026/10/07/2026100701281337527",
+      "title": "[스코어보드-환노위]'호남반도체' 전력·용수로 붙은 與野…디테일 갖춘 정책 질의",
+      "description": "",
+      "edition": ""
+    },
+    "210cc0dd3972": {
+      "date": "2026-10-07",
+      "publisher": "서울경제",
+      "seed_title": "합천군 71개 사업 확정…이달 세부계획 발표",
+      "link": "https://www.sedaily.com/article/20098615",
+      "title": "합천군 71개 사업 확정…이달 세부계획 발표",
+      "description": "",
+      "edition": ""
+    },
+    "d540a04368ae": {
+      "date": "2026-10-07",
+      "publisher": "서울신문",
+      "seed_title": "“양수발전소 잡아라”… 경남 거창·산청·하동·합천 불꽃 유치전",
+      "link": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/10/07/20261007022001",
+      "title": "“양수발전소 잡아라”… 경남 거창·산청·하동·합천 불꽃 유치전",
+      "description": "경남 거창·산청·하동·합천 4개 군이 하반기 1.25GW 규모 양수발전소 공모를 앞두고 유치 경쟁에 뛰어들었다. 재생에너지 변동성을 보완하는 핵심 시설인 만큼 조 단위 투자와 일자리, 지원금, 관광 자원화 효과를 기대하....",
+      "edition": ""
+    },
+    "f0931bf84f54": {
+      "date": "2026-10-07",
+      "publisher": "시사경제신문",
+      "seed_title": "권익위가 차려준 밥상에 숟가락만 얹은 '원전안전'…관료주의의 뻔뻔함",
+      "link": "http://www.sisanews.kr/news/articleView.html?idxno=125172",
+      "title": "권익위가 차려준 밥상에 숟가락만 얹은 '원전안전'…관료주의의 뻔뻔함",
+      "description": "",
+      "edition": ""
+    },
+    "74dffd4bcca3": {
+      "date": "2026-10-07",
+      "publisher": "시사포커스",
+      "seed_title": "[이슈] 800조 호남 반도체 국감 격돌…입지·예산부터 전력·용수까지",
+      "link": "http://www.sisafocus.co.kr/news/articleView.html?idxno=365846",
+      "title": "[이슈] 800조 호남 반도체 국감 격돌…입지·예산부터 전력·용수까지",
+      "description": "",
+      "edition": ""
+    },
+    "7e2dcea446de": {
+      "date": "2026-10-07",
+      "publisher": "아시아투데이",
+      "seed_title": "‘1조 8천억 오도산 발전소’부터 ‘기본소득’까지… 합천, 미래 50년 대도약 판 짠다",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261006010001580",
+      "title": "‘1조 8천억 오도산 발전소’부터 ‘기본소득’까지… 합천, 미래 50년 대도약 판 짠다",
+      "description": "",
+      "edition": ""
+    },
+    "28b88373b514": {
+      "date": "2026-10-07",
+      "publisher": "아시아투데이",
+      "seed_title": "“정책도 인사도 대통령 그림자?”…김성환, 기후부 첫 국감서 집중포화",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261006010001646",
+      "title": "“정책도 인사도 대통령 그림자?”…김성환, 기후부 첫 국감서 집중포화",
+      "description": "",
+      "edition": ""
+    },
+    "43dd4e32cb98": {
+      "date": "2026-10-07",
+      "publisher": "아주경제",
+      "seed_title": "美 원전시장 문 두드리는 팀코리아…중소·중견기업 공급망 진입 지원",
+      "link": "https://www.ajunews.com/view/20261006235522174",
+      "title": "美 원전시장 문 두드리는 팀코리아…중소·중견기업 공급망 진입 지원",
+      "description": "",
+      "edition": ""
+    },
+    "7f7abc45d626": {
+      "date": "2026-10-07",
+      "publisher": "에너지경제신문",
+      "seed_title": "[2026 국감] 12차 전기본 원전 공론화 두고 논란…“시간 끌기” vs “필요한 절차”",
+      "link": "https://www.ekn.kr/web/view.php?key=20261006023092961",
+      "title": "[2026 국감] 12차 전기본 원전 공론화 두고 논란…“시간 끌기” vs “필요한 절차”",
+      "description": "",
+      "edition": ""
+    },
+    "09f821145898": {
+      "date": "2026-10-07",
+      "publisher": "에너지데일리",
+      "seed_title": "“데이터센터 전력 수요 다시 전망하라”",
+      "link": "https://www.energydaily.co.kr/news/articleView.html?idxno=203847",
+      "title": "“데이터센터 전력 수요 다시 전망하라”",
+      "description": "",
+      "edition": ""
+    },
+    "8efa1d5c3e50": {
+      "date": "2026-10-07",
+      "publisher": "에너지신문",
+      "seed_title": "‘전력수요부터 요금까지’ 에너지정책 근거 따진 기후부 국감",
+      "link": "http://www.energy-news.co.kr/news/articleView.html?idxno=228791",
+      "title": "‘전력수요부터 요금까지’ 에너지정책 근거 따진 기후부 국감",
+      "description": "",
+      "edition": ""
+    },
+    "60e6c66980aa": {
+      "date": "2026-10-07",
+      "publisher": "에너지코리아뉴스",
+      "seed_title": "만족도 86%로 평균 웃돌았다…한수원 5년 연속 노사 우수기업",
+      "link": "https://www.energykorea.co.kr/news/articleView.html?idxno=66511",
+      "title": "만족도 86%로 평균 웃돌았다…한수원 5년 연속 노사 우수기업",
+      "description": "",
+      "edition": ""
+    },
+    "ab4673352944": {
+      "date": "2026-10-07",
+      "publisher": "에너지타임즈",
+      "seed_title": "노사관계 우수기업…한수원, 5년 연속 인증 획득",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=71092",
+      "title": "노사관계 우수기업…한수원, 5년 연속 인증 획득",
+      "description": "",
+      "edition": ""
+    },
+    "3de18f9bf5bb": {
+      "date": "2026-10-07",
+      "publisher": "에너지타임즈",
+      "seed_title": "도로·해안가 방치 어구…한빛원전, 어구창고‧지게차 등 지원",
+      "link": "http://www.energytimes.kr/news/articleView.html?idxno=71090",
+      "title": "도로·해안가 방치 어구…한빛원전, 어구창고‧지게차 등 지원",
+      "description": "",
+      "edition": ""
+    },
+    "3dc2e1824dea": {
+      "date": "2026-10-07",
+      "publisher": "에너지플랫폼뉴스",
+      "seed_title": "불필요한 원전 공론화로 12차 전기본 지연…철회해야",
+      "link": "http://www.e-platform.net/news/articleView.html?idxno=105949",
+      "title": "불필요한 원전 공론화로 12차 전기본 지연…철회해야",
+      "description": "3개월간의 원전 공론화를 진행하고 있는 가운데, 이미 국민들도 원전 사용에 동의한 상황에서 불필요한... 이에 김소희 의원은 조속한 12차 전기본 확정을 위해 원전 공론화 과정을 철회해야 한다고 강조했다. 또한 김소희...",
+      "edition": ""
+    },
+    "20db18ffb876": {
+      "date": "2026-10-07",
+      "publisher": "에코저널",
+      "seed_title": "김성환 장관, “데이터센터 전력요금제 설계 반영”",
+      "link": "https://www.ecojournal.co.kr/news/view.php?idx=176291&mcode=m9373ku",
+      "title": "김성환 장관, “데이터센터 전력요금제 설계 반영”",
+      "description": "",
+      "edition": ""
+    },
+    "9e0992f2b06c": {
+      "date": "2026-10-07",
+      "publisher": "연합뉴스",
+      "seed_title": "◇오늘의 경기(7일)",
+      "link": "https://www.yna.co.kr/view/AKR20261007012800007?input=1195m",
+      "title": "◇오늘의 경기(7일)",
+      "description": "",
+      "edition": ""
+    },
+    "328757b92da9": {
+      "date": "2026-10-07",
+      "publisher": "연합뉴스",
+      "seed_title": "원전수출 시대 본격 추진…산·학·연·관 '리더스포럼' 출범",
+      "link": "https://www.yna.co.kr/view/AKR20261006182500003",
+      "title": "원전수출 시대 본격 추진…산·학·연·관 '리더스포럼' 출범",
+      "description": "",
+      "edition": ""
+    },
+    "13c2a84d4117": {
+      "date": "2026-10-07",
+      "publisher": "이데일리",
+      "seed_title": "美 발전소 수익 좌우할 전력계약도 없이…24억 달러 먼저 보냈다",
+      "link": "https://www.edaily.co.kr/news/read?newsId=05277526645610296&mediaCodeNo=257",
+      "title": "美 발전소 수익 좌우할 전력계약도 없이…24억 달러 먼저 보냈다",
+      "description": "",
+      "edition": ""
+    },
+    "d7cc64fb7c1d": {
+      "date": "2026-10-07",
+      "publisher": "인사이트에너지뉴스",
+      "seed_title": "[국감] SMR·원자력·LNG PPA 온사이트 실증 현실화해야",
+      "link": "https://www.inenews.kr/news/articleView.html?idxno=35267",
+      "title": "[국감] SMR·원자력·LNG PPA 온사이트 실증 현실화해야",
+      "description": "",
+      "edition": ""
+    },
+    "cd85f0a7e8ab": {
+      "date": "2026-10-07",
+      "publisher": "인사이트에너지뉴스",
+      "seed_title": "[국감] 데이터센터 효율 기준·재생에너지 요건 재전망 필요",
+      "link": "https://www.inenews.kr/news/articleView.html?idxno=35268",
+      "title": "[국감] 데이터센터 효율 기준·재생에너지 요건 재전망 필요",
+      "description": "",
+      "edition": ""
+    },
+    "110946f02ccb": {
+      "date": "2026-10-07",
+      "publisher": "전국뉴스",
+      "seed_title": "[신뢰로 이어온 5년 동행]한수원, ‘노사관계 우수기업’ 5년 연속 인증…“신뢰와 소통으로 안전한 일터 만든다”",
+      "link": "https://www.jeonguknews.co.kr/news/articleView.html?idxno=87288",
+      "title": "[신뢰로 이어온 5년 동행]한수원, ‘노사관계 우수기업’ 5년 연속 인증…“신뢰와 소통으로 안전한 일터 만든다”",
+      "description": "",
+      "edition": ""
+    },
+    "85cd8b6b9f1f": {
+      "date": "2026-10-07",
+      "publisher": "전기신문",
+      "seed_title": "(2026 국감)AI 데이터센터 전력수요 넉 달 새 3배…산정근거 ‘논란’",
+      "link": "https://www.electimes.com/news/articleView.html?idxno=373120",
+      "title": "(2026 국감)AI 데이터센터 전력수요 넉 달 새 3배…산정근거 ‘논란’",
+      "description": "",
+      "edition": ""
+    },
+    "b739a1b9e122": {
+      "date": "2026-10-07",
+      "publisher": "전자신문",
+      "seed_title": "[2026 국감] 12차 전기본 지연…'원전공론화 3개월' 놓고 여야 공방",
+      "link": "https://www.etnews.com/20261006000397",
+      "title": "[2026 국감] 12차 전기본 지연…'원전공론화 3개월' 놓고 여야 공방",
+      "description": "",
+      "edition": ""
+    },
+    "4cf26c60d848": {
+      "date": "2026-10-07",
+      "publisher": "주간조선",
+      "seed_title": "K-조선과 K-원전이 만나는 곳, 해상 SMR",
+      "link": "https://weekly.chosun.com/news/articleView.html?idxno=55818",
+      "title": "K-조선과 K-원전이 만나는 곳, 해상 SMR",
+      "description": "",
+      "edition": ""
+    },
+    "60f4f5a921a4": {
+      "date": "2026-10-07",
+      "publisher": "중앙SUNDAY",
+      "seed_title": "한국수력원자력, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "link": "https://www.joongang.co.kr/article/25467443",
+      "title": "한국수력원자력, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "description": "",
+      "edition": ""
+    },
+    "2a878d2354d6": {
+      "date": "2026-10-07",
+      "publisher": "중앙일보",
+      "seed_title": "SMR 짓겠다는 기업들, 규제 갇혔다…2032년에나 심사기준 완비",
+      "link": "https://www.joongang.co.kr/article/25467701",
+      "title": "SMR 짓겠다는 기업들, 규제 갇혔다…2032년에나 심사기준 완비",
+      "description": "",
+      "edition": ""
+    },
+    "d6cdde5cd425": {
+      "date": "2026-10-07",
+      "publisher": "참여와혁신",
+      "seed_title": "재생에너지 전환의 교두보, ‘표준 직제 마련’으로",
+      "link": "https://www.laborplus.co.kr/news/articleView.html?idxno=41589",
+      "title": "재생에너지 전환의 교두보, ‘표준 직제 마련’으로",
+      "description": "",
+      "edition": ""
+    },
+    "a1b4f9ba3654": {
+      "date": "2026-10-07",
+      "publisher": "천지일보",
+      "seed_title": "한수원, ‘노사관계 우수기업’ 5년 연속 인증...실천형 파트너십 결실",
+      "link": "https://www.newscj.com/news/articleView.html?idxno=3438368",
+      "title": "한수원, ‘노사관계 우수기업’ 5년 연속 인증...실천형 파트너십 결실",
+      "description": "",
+      "edition": ""
+    },
+    "458b69f393d1": {
+      "date": "2026-10-07",
+      "publisher": "컨슈머타임스",
+      "seed_title": "노사 만족도 86% 기록…한수원, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "link": "https://www.cstimes.com/news/articleView.html?idxno=723063",
+      "title": "노사 만족도 86% 기록…한수원, 노사관계 우수기업 5년 연속 인증 쾌거",
+      "description": "",
+      "edition": ""
+    },
+    "ba780c30fbe5": {
+      "date": "2026-10-07",
+      "publisher": "통일뉴스",
+      "seed_title": "“대한민국은 미국의 ‘봉’이 아니다”... 자주연합, 부당한 대미투자 강요 규탄",
+      "link": "https://www.tongilnews.com/news/articleView.html?idxno=217705",
+      "title": "“대한민국은 미국의 ‘봉’이 아니다”... 자주연합, 부당한 대미투자 강요 규탄",
+      "description": "",
+      "edition": ""
+    },
+    "10a0367add4d": {
+      "date": "2026-10-07",
+      "publisher": "투데이에너지",
+      "seed_title": "[국정감사] 메가프로젝트 전력공급·전기본 집중 질타",
+      "link": "https://www.todayenergy.kr/news/articleView.html?idxno=303878",
+      "title": "[국정감사] 메가프로젝트 전력공급·전기본 집중 질타",
+      "description": "",
+      "edition": ""
+    },
+    "e00212ff1ba4": {
+      "date": "2026-10-07",
+      "publisher": "투데이에너지",
+      "seed_title": "한수원, 노사관계 우수기업 5년 연속 인증 획득",
+      "link": "https://daily.hankooki.com/news/articleView.html?idxno=1412471",
+      "title": "한수원, 경영인증권 주관 노사관계 우수기업 인증 5년 연속 획득",
+      "description": "주관하는 '노사관계 우수기업' 인증을 5년 연속 획득했다고 6일 밝혔다. '노사관계 우수기업' 인증제도는 상호... 미래지향적 노사관계를 구축한 기업을 인증하는 제도다. 한수원은 중앙 노조뿐 아니라 사업소 노조와도...",
+      "edition": ""
+    },
+    "09e3915eb897": {
+      "date": "2026-10-07",
+      "publisher": "파이낸셜뉴스",
+      "seed_title": "野 \"호남 전력·물 턱없이 부족\" 與 \"남아돌아 수도권 송전\" [李정부 2년차 국감]",
+      "link": "https://www.fnnews.com/news/202610061816067197",
+      "title": "野 \"호남 전력·물 턱없이 부족\" 與 \"남아돌아 수도권 송전\" [李정부 2년차 국감]",
       "description": "",
       "edition": ""
     }
