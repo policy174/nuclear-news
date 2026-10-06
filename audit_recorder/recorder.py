@@ -20,6 +20,7 @@ HDRS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/145", "R
 ROOT = Path(__file__).resolve().parent / "2026-국정감사"
 IDLE_FINAL_SEC = 2.0      # 세그먼트가 이만큼 안 바뀌면 확정
 RENDER_EVERY_SEC = 30
+RECESS = re.compile(r"감사\s*중지를\s*선포|감사를\s*중지|정회를\s*선포|산회를\s*선포|회의를\s*마치")
 ALERT_GAP_SEC = 120       # 같은 발언·같은 등급 알림 최소 간격 (화자 전환이 안 잡혀 하루가 한 발언이 돼도 계속 울리게)
 MAIL_GAP_SEC = 600        # 메일은 새 알림이 있을 때만, 최소 10분 간격으로 모아서 (docx 첨부)
 ALERT_WAIT_SEC = 20       # 키워드 뒤 문맥을 붙이려고 이만큼 기다렸다 보낸다
@@ -69,6 +70,7 @@ class Recorder:
         self.meta = meta
         self.clock = clock
         self.replaying = False
+        self.recess_at, self.recess_label = None, ""   # 정회·감사중지 감지 → 미가공 자막 발송
         self.lines, self.alert_events, self.final = [], [], False   # 보고 양식 요약용 (report.py)
         self.mail_queue, self.last_mail = [], -1e9
         self.pending_alerts = []
@@ -163,6 +165,8 @@ class Recorder:
     def _append_line(self, ts, hwa, text, new_speaker=False, segment=None):
         if any(text in prev for _, prev in self.lines[-6:]):
             return
+        if not self.replaying and RECESS.search(text) and self.recess_at is None:
+            self.recess_at, self.recess_label = self.clock(), ts[11:16]
         if self.cur is None or new_speaker:
             self._close_turn()
             self.turn_seq += 1
@@ -227,6 +231,22 @@ class Recorder:
             if os.environ.get("RAW_ALERTS") != "1":   # 10-06 지니: 텔레그램은 지니 양식 요약만 — 원문 알림은 기본 끔
                 continue
             send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
+
+    # ---- 정회 시 미가공 자막 ----
+    def maybe_send_recess(self):
+        """10-06 지니: 휴식(정회·감사중지·산회)마다 그때까지의 미가공 자막을 텔레그램으로. 선포 30초 뒤(마무리 문장 포함)."""
+        if self.recess_at is None or self.clock() - self.recess_at < 30:
+            return
+        if SOURCE == "GH":   # PC 가 보낸다 — Actions 는 중복 발송 안 함
+            self.recess_at = None
+            return
+        name = (self.meta.get("item") or {}).get("xname") or "회의"
+        src = self.outdir / "transcript.txt"
+        if src.exists():
+            out = self.outdir / f"{self.meta.get('date', '')}_{name}_미가공자막_~{self.recess_label.replace(':', '')}.txt"
+            out.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            send_telegram(f"{name} 미가공 자막 (~{self.recess_label} 정회까지, 발언자 미확정·AI 자막)", doc=out)
+        self.recess_at = None
 
     # ---- 메일 ----
     def maybe_mail(self, force=False):
@@ -469,6 +489,7 @@ def record(args):
                 rec.flush()
                 rec.render()
                 rec.maybe_mail()
+                rec.maybe_send_recess()
         threading.Thread(target=ticker, daemon=True).start()
         try:
             (run_ai if mode == "ai" else run_plain)(url, rec, stop)
