@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 5,
+    "count": 6,
     "date": "2026-10-06"
   },
   "retired": {
@@ -982,7 +982,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 12,
     "date": "2026-10-06"
   },
   "terms": {
@@ -1139,14 +1139,14 @@
           "title": "정부, 텍사스 가스발전·미국 원전·알래스카 LNG 등 한미 전략투자 3대 프로젝트 추진"
         }
       ],
-      "expires_at": "2026-10-06T21:47:48.057820+00:00",
+      "expires_at": "2026-10-07T04:09:23.379650+00:00",
       "importance": "must_read",
-      "last_result_count": 3,
-      "last_run": "2026-10-05T21:47:48.057820+00:00",
-      "new_articles": 20,
+      "last_result_count": 26,
+      "last_run": "2026-10-06T04:09:23.379650+00:00",
+      "new_articles": 46,
       "origin": "auto",
-      "planned_at": "2026-10-05T21:47:45.638580+00:00",
-      "queries_run": 5,
+      "planned_at": "2026-10-06T04:09:21.536993+00:00",
+      "queries_run": 6,
       "query": "텍사스 가스발전·미국 원전",
       "score": 7.7,
       "status": "promote_candidate",
@@ -1159,7 +1159,7 @@
         "2026-10-05",
         "2026-10-06"
       ],
-      "yields": 5,
+      "yields": 6,
       "zero_streak": 0
     },
     "펜실베이니아오하이오": {
@@ -1193,6 +1193,40 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
+    },
+    "프로젝트에한국형": {
+      "articles": 1,
+      "created_at": "2026-10-06T04:09:21.536993+00:00",
+      "domains": [
+        "dnews.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "dnews.co.kr",
+          "hash": "d539f47d47e1a0bc",
+          "importance": "must_read",
+          "title": "산업통상부, 미국 대미투자 프로젝트에 한국형 원전 APR1400 2기 건설 공식 포함"
+        }
+      ],
+      "expires_at": "2026-10-07T04:09:23.379650+00:00",
+      "importance": "must_read",
+      "last_result_count": 16,
+      "last_run": "2026-10-06T04:09:23.379650+00:00",
+      "new_articles": 16,
+      "origin": "auto",
+      "planned_at": "2026-10-06T04:09:21.536993+00:00",
+      "queries_run": 1,
+      "query": "프로젝트에 한국형 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "프로젝트에 한국형",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-06"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     },
     "확정산업부": {
       "articles": 1,
