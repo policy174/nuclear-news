@@ -224,6 +224,8 @@ class Recorder:
                 continue
             self.mail_queue.append(ev)
             icon = "🔴" if ev["level"] == "red" else "🟡"
+            if os.environ.get("RAW_ALERTS") != "1":   # 10-06 지니: 텔레그램은 지니 양식 요약만 — 원문 알림은 기본 끔
+                continue
             send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
 
     # ---- 메일 ----
