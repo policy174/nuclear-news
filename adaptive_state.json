@@ -1,7 +1,7 @@
 {
   "minted": {
     "count": 6,
-    "date": "2026-10-06"
+    "date": "2026-10-07"
   },
   "retired": {
     "adb": {
@@ -982,10 +982,193 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-06"
+    "count": 3,
+    "date": "2026-10-07"
   },
   "terms": {
+    "pctc": {
+      "articles": 4,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "khan.co.kr",
+        "fnnews.com",
+        "donga.com",
+        "koreatimes.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "khan.co.kr",
+          "hash": "4d3ef3bb0f941dab",
+          "importance": "nice_to_know",
+          "title": "현대글로비스, 미국 LGL과 SMR 추진 자동차운반선 한미 항로 운항 검토 업무협약"
+        },
+        {
+          "domain": "fnnews.com",
+          "hash": "3aefb2e5a73ffe50",
+          "importance": "nice_to_know",
+          "title": "현대글로비스, 미국 리버티 글로벌과 SMR 추진 자동차운반선 상용화 검토"
+        },
+        {
+          "domain": "donga.com",
+          "hash": "398957c7c18c5b1f",
+          "importance": "nice_to_know",
+          "title": "현대글로비스, 美 LGL과 SMR 추진 자동차운반선 운영 공동 검토"
+        }
+      ],
+      "expires_at": "2026-10-09T15:52:20.128516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-06T15:52:22.316714+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-06T15:52:20.128516+00:00",
+      "queries_run": 1,
+      "query": "PCTC 원자력",
+      "score": 6.3,
+      "status": "tracking",
+      "term": "PCTC",
+      "ttl_hours": 72,
+      "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "국감서한미": {
+      "articles": 1,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "hani.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "hani.co.kr",
+          "hash": "885bf367b29a720f",
+          "importance": "must_read",
+          "title": "산업부, 국감서 한미 원전 프레임워크 통한 APR1400 미국 진출 추진 보고"
+        }
+      ],
+      "expires_at": "2026-10-07T15:52:20.128516+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "국감서 한미 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "국감서 한미",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
+    },
+    "국민권익위원회": {
+      "articles": 7,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "yna.co.kr",
+        "newsis.com",
+        "news1.kr",
+        "hidomin.com",
+        "imaeil.com",
+        "dailian.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "e20d5e86439f277d",
+          "importance": "nice_to_know",
+          "title": "국민권익위원회, 월성원전 인근 포항시 19개 마을 안전시설 보강 조정 성사"
+        },
+        {
+          "domain": "newsis.com",
+          "hash": "cbf370973f7fe2d0",
+          "importance": "nice_to_know",
+          "title": "국민권익위원회, 월성원전 방사선비상계획구역 주민 고충민원 최종 조정안 마련"
+        },
+        {
+          "domain": "news1.kr",
+          "hash": "eebd56fdb1abec3d",
+          "importance": "nice_to_know",
+          "title": "국민권익위, 월성원전 인근 포항 19개 마을 방사선비상계획구역 방재시설 보강 조정"
+        }
+      ],
+      "expires_at": "2026-10-09T15:52:20.128516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-06T15:52:22.316714+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-06T15:52:20.128516+00:00",
+      "queries_run": 1,
+      "query": "국민권익위원회 원자력",
+      "score": 9.3,
+      "status": "tracking",
+      "term": "국민권익위원회",
+      "ttl_hours": 72,
+      "type": "org",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "규모한국형": {
+      "articles": 1,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "businesskorea.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "businesskorea.co.kr",
+          "hash": "7e97d83f7e6ba897",
+          "importance": "must_read",
+          "title": "한국형 원전 APR1400, 미국 본토 첫 진출 확정…1200억 달러 규모"
+        }
+      ],
+      "expires_at": "2026-10-07T15:52:20.128516+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "규모 한국형 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "규모 한국형",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
+    },
+    "극복한국형": {
+      "articles": 1,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "kbsm.net"
+      ],
+      "evidence": [
+        {
+          "domain": "kbsm.net",
+          "hash": "5afbd9cb944ae70c",
+          "importance": "must_read",
+          "title": "한국형 원전 APR1400, 미국 본토 첫 진출 확정…웨스팅하우스 반대 극복"
+        }
+      ],
+      "expires_at": "2026-10-07T15:52:20.128516+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "극복 한국형 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "극복 한국형",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
+    },
     "반세기만": {
       "articles": 1,
       "created_at": "2026-10-06T00:22:15.632399+00:00",
@@ -1114,6 +1297,53 @@
       "term": "오하이오주 Vistra",
       "ttl_hours": 24,
       "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "재정경제기획위원회": {
+      "articles": 4,
+      "created_at": "2026-10-06T15:52:20.128516+00:00",
+      "domains": [
+        "mt.co.kr",
+        "tvchosun.com",
+        "newspim.com",
+        "etoday.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "mt.co.kr",
+          "hash": "8bbc5016cb8d3f28",
+          "importance": "noise",
+          "title": "재정경제기획위원회, 대미투자·세수추계 오차 대상 첫 국정감사 실시"
+        },
+        {
+          "domain": "tvchosun.com",
+          "hash": "96a830a6fb773b93",
+          "importance": "nice_to_know",
+          "title": "국회 재정경제기획위, 6일 국감서 대미 투자·세수 추계 쟁점 다룬다"
+        },
+        {
+          "domain": "newspim.com",
+          "hash": "793d9bc9a2ba4056",
+          "importance": "nice_to_know",
+          "title": "재경부 국정감사서 대미 투자 프로젝트 송금 및 원전·LNG 사업 검증 공방"
+        }
+      ],
+      "expires_at": "2026-10-07T15:52:20.128516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-06T15:52:22.316714+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-06T15:52:20.128516+00:00",
+      "queries_run": 1,
+      "query": "재정경제기획위원회 원자력",
+      "score": 3.68,
+      "status": "tracking",
+      "term": "재정경제기획위원회",
+      "ttl_hours": 24,
+      "type": "org",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
