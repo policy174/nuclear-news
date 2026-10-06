@@ -65,19 +65,42 @@ class Recorder:
     def __init__(self, outdir: Path, meta: dict, clock=time.time, docx_dir: Path = None):
         self.outdir = outdir
         self.docx_dir = docx_dir or ROOT / "_문서"
-        self.pending_alerts = []   # (due, turn, 키워드 줄 시작 위치, 줄 길이, ev)
-        self.mail_queue, self.last_mail = [], -1e9
-        self.lines, self.alert_events, self.final = [], [], False   # 보고 양식 요약용 (report.py)
         outdir.mkdir(parents=True, exist_ok=True)
         self.meta = meta
         self.clock = clock
-        self.raw = open(outdir / "raw_events.jsonl", "a", encoding="utf-8")
-        self.segs = {}        # segment id → {"first","last","lines":[[hwa,text],...]}
-        self.turns = []       # 닫힌 턴
-        self.cur = None       # 열린 턴
-        self.turn_seq = 0
+        self.replaying = False
+        self.lines, self.alert_events, self.final = [], [], False   # 보고 양식 요약용 (report.py)
+        self.mail_queue, self.last_mail = [], -1e9
+        self.pending_alerts = []
+        self.segs, self.turns, self.cur, self.turn_seq = {}, [], None, 0
         self.lock = threading.Lock()
+        prev = outdir / "raw_events.jsonl"
+        if prev.exists() and clock is time.time:
+            self._resume(prev)
+        self.raw = open(outdir / "raw_events.jsonl", "a", encoding="utf-8")
         (outdir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    def _resume(self, path):
+        """재시작 직후: 이미 받은 RAW 를 다시 흘려 턴·줄·알림 목록을 복원. 밖으로는 아무것도 안 보낸다."""
+        real_clock, t = self.clock, [0.0]
+        self.clock, self.replaying = (lambda: t[0]), True
+        try:
+            for line in path.read_text(encoding="utf-8").splitlines():
+                try:
+                    ev = json.loads(line)
+                    t[0] = dt.datetime.fromisoformat(ev["captured_at"]).timestamp()
+                    (self.on_ai_message if ev.get("mode") == "ai" else self.on_plain_message)(ev["raw"], ts=ev["captured_at"])
+                    self.flush()
+                except Exception:
+                    continue
+            t[0] += 3600
+            self.flush()
+            self._send_due_alerts(force=True)
+        finally:
+            self.clock, self.replaying = real_clock, False
+            for s_ in self.segs.values():
+                s_["last_mono"] = real_clock()
+        print(now_iso(), "이어 쓰기: 기존 자막", len(self.lines), "줄 복원")
 
     # ---- 수신 ----
     def on_ai_message(self, data: str, ts=None):
@@ -109,6 +132,8 @@ class Recorder:
             self._append_line(ts, None, text)
 
     def _raw(self, ev):
+        if self.replaying:
+            return
         self.raw.write(json.dumps(ev, ensure_ascii=False) + "\n")
         self.raw.flush()
 
@@ -136,6 +161,8 @@ class Recorder:
                 self.final = True   # 회의 끝(또는 끊김) — 열린 구간도 요약
 
     def _append_line(self, ts, hwa, text, new_speaker=False, segment=None):
+        if any(text in prev for _, prev in self.lines[-6:]):
+            return
         if self.cur is None or new_speaker:
             self._close_turn()
             self.turn_seq += 1
@@ -160,6 +187,9 @@ class Recorder:
         t["category"], t["topics"] = classify(t["text"])
         t["company_related"] = bool(KW_COMPANY.search(t["text"]))
         self.turns.append(t)
+        if self.replaying:
+            self.cur = None
+            return
         with open(self.outdir / "transcript.jsonl", "a", encoding="utf-8") as f:
             f.write(json.dumps({k: v for k, v in t.items() if k != "alerted"}, ensure_ascii=False) + "\n")
         self.cur = None
@@ -186,16 +216,22 @@ class Recorder:
         for _, t, pos, n, ev in due:
             text = t["text"]
             ev["context"] = ("…" if pos > 200 else "") + text[max(0, pos - 200):pos + n + 400] + ("…" if len(text) > pos + n + 400 else "")
-            with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
-                f.write(json.dumps(ev, ensure_ascii=False) + "\n")
-            self.mail_queue.append(ev)
+            if not self.replaying:
+                with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
+                    f.write(json.dumps(ev, ensure_ascii=False) + "\n")
             self.alert_events.append(ev)
+            if self.replaying:
+                continue
+            self.mail_queue.append(ev)
             icon = "🔴" if ev["level"] == "red" else "🟡"
             send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
 
     # ---- 메일 ----
     def maybe_mail(self, force=False):
         """render() 뒤에 부른다 — 첨부 docx 가 방금 알림까지 반영된 상태여야 해서."""
+        if os.environ.get("MAIL_AUTO") != "1":
+            self.mail_queue = []
+            return
         if not self.mail_queue or (not force and self.clock() - self.last_mail < MAIL_GAP_SEC):
             return
         evs, self.mail_queue = self.mail_queue, []
@@ -478,7 +514,7 @@ if __name__ == "__main__":
         for f in list(d.glob("*.docx")) or [d / "transcript.txt"]:
             if f.exists():
                 send_telegram(f"국감 자막 {f.name}", doc=f)
-                if f.suffix == ".docx":   # Actions 구간 마감본 (끊기기 직전 10분 안 알림도 여기 담긴다)
+                if f.suffix == ".docx" and os.environ.get("MAIL_AUTO") == "1":   # Actions 구간 마감본 (끊기기 직전 10분 안 알림도 여기 담긴다)
                     send_mail(f"[국감자막] 구간 마감본 {f.stem}", "Actions 6시간 구간이 끝나 그때까지의 전체본을 보냅니다.", f)
     else:
         replay(a.replay) if a.replay else record(a)
