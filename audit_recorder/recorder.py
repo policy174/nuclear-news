@@ -515,7 +515,8 @@ if __name__ == "__main__":
         d = Path(a.send)
         for f in list(d.glob("*.docx")) or [d / "transcript.txt"]:
             if f.exists():
-                send_telegram(f"국감 자막 {f.name}", doc=f)
+                if os.environ.get("SEND_PART_FILES") == "1":   # 10-06 지니: 텔레그램엔 지니 양식만 — 구간 마감 파일은 기본 안 보냄(artifact 로만)
+                    send_telegram(f"국감 자막 {f.name}", doc=f)
                 if f.suffix == ".docx" and os.environ.get("MAIL_AUTO") == "1":   # Actions 구간 마감본 (끊기기 직전 10분 안 알림도 여기 담긴다)
                     send_mail(f"[국감자막] 구간 마감본 {f.stem}", "Actions 6시간 구간이 끝나 그때까지의 전체본을 보냅니다.", f)
     else:
