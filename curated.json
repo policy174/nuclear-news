@@ -326581,5 +326581,100 @@
     "feed": "정책",
     "domain": "g-enews.com",
     "matched": "데이터센터 전력"
+  },
+  "49193b08289e84a3": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "smr",
+      "finance"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 SMR 개발 기업 주가, 최근 1년 만에 급락세 기록",
+    "summary": "Oklo, NuScale Power 등 차세대 소형원자로 개발 기업들의 주가가 지난 1년 동안 급락했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#주가하락"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-06T19:59:47.443282+00:00",
+    "title": "A New Trend in Nuclear Energy: Squeezing More Power Out of Old Plants",
+    "link": "https://www.nytimes.com/2026/10/06/climate/nuclear-power-plant-google-data-centers.html?partner=naver",
+    "feed": "SMR",
+    "domain": "nytimes.com",
+    "matched": "NuScale"
+  },
+  "1115125605c99047": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "fusion",
+      "finance"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미 에너지부, 엑시머 에너지와 3,050만 달러 규모 핵융합 개발 지원 계약 체결",
+    "summary": "미 에너지부(DOE)가 핵융합 스타트업 엑시머 에너지와 최대 3,050만 달러 규모의 추가 자금 지원 계약을 체결했다.",
+    "detail": "핵융합 에너지 기업 엑시머 에너지는 미 에너지부의 마일스톤 기반 핵융합 개발 프로그램 2차 예산 주기에 따라 최대 3,050만 달러의 추가 연방 자금 지원 계약을 체결했다고 10월 6일 발표했다. 이번 지원으로 엑시머 에너지가 확보한 누적 연방 기금은 3,950만 달러로 늘어났다. 엑시머는 상업용 핵융합 발전소에 적합한 엑시머 레이저 아키텍처를 개발 중이다.",
+    "implication": "미국 정부가 마일스톤 기반 프로그램을 통해 민간 주도 레이저 핵융합 기술 상용화에 재정 지원을 확대하고 있다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#핵융합",
+      "#DOE",
+      "#미국정부지원"
+    ],
+    "related_reports": [],
+    "event_date": "2025-10-06",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-06T19:59:47.443282+00:00",
+    "title": "Denver-Based Fusion Group Receives $30.5-Million Award from DOE",
+    "link": "https://www.powermag.com/denver-based-fusion-group-receives-30-5-million-award-from-doe",
+    "feed": "정책",
+    "domain": "powermag.com",
+    "matched": "POWER Magazine"
   }
 }
