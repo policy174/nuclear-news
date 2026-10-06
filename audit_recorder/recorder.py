@@ -67,6 +67,7 @@ class Recorder:
         self.docx_dir = docx_dir or ROOT / "_문서"
         self.pending_alerts = []   # (due, turn, 키워드 줄 시작 위치, 줄 길이, ev)
         self.mail_queue, self.last_mail = [], -1e9
+        self.lines, self.alert_events, self.final = [], [], False   # 보고 양식 요약용 (report.py)
         outdir.mkdir(parents=True, exist_ok=True)
         self.meta = meta
         self.clock = clock
@@ -131,6 +132,8 @@ class Recorder:
             if force and self.cur:
                 self._close_turn()
             self._send_due_alerts(force)
+            if force:
+                self.final = True   # 회의 끝(또는 끊김) — 열린 구간도 요약
 
     def _append_line(self, ts, hwa, text, new_speaker=False, segment=None):
         if self.cur is None or new_speaker:
@@ -144,6 +147,7 @@ class Recorder:
         self.cur["end_time"] = ts
         pos = len(self.cur["text"]) + (1 if self.cur["text"] else 0)
         self.cur["text"] = (self.cur["text"] + " " + text).strip()
+        self.lines.append((ts, text))
         if segment is not None:
             self.cur["segments"].append(segment)
         self._maybe_alert(self.cur, text, ts, pos)
@@ -185,6 +189,7 @@ class Recorder:
             with open(self.outdir / "alerts.jsonl", "a", encoding="utf-8") as f:
                 f.write(json.dumps(ev, ensure_ascii=False) + "\n")
             self.mail_queue.append(ev)
+            self.alert_events.append(ev)
             icon = "🔴" if ev["level"] == "red" else "🟡"
             send_telegram(f"{icon} 국감 자막 {ev['line_time'][11:19]} {ev['speaker']}\n[{' · '.join(ev['topics'])}]\n\n{ev['context']}\n\n{self.meta.get('title', '')}")
 
@@ -210,6 +215,7 @@ class Recorder:
     def render(self):
         with self.lock:
             turns = list(self.turns) + ([dict(self.cur)] if self.cur and self.cur["text"] else [])
+            lines, alerts, final = list(self.lines), list(self.alert_events), self.final
         for t in turns:
             t.setdefault("category", classify(t["text"])[0])
             t.setdefault("topics", classify(t["text"])[1])
@@ -235,7 +241,9 @@ class Recorder:
         L += [f"[{hm(t['start_time'])}] {t['speaker']} {mark[t['category']]}\n{t['text']}\n" for t in turns]
         (self.outdir / "오늘_국감.md").write_text("\n".join(L), encoding="utf-8")
         try:
-            write_docx(self.docx_path(), self.meta, turns)
+            import report
+            sections = report.update_sections(self.outdir / "sections.json", lines, alerts, final)
+            write_docx(self.docx_path(), self.meta, turns, sections)
         except PermissionError:
             print(now_iso(), "docx 가 Word 에 열려 있어 이번 갱신은 건너뜀 (닫으면 다음 30초에 반영)")
         except Exception as e:
@@ -274,33 +282,29 @@ def send_mail(subject, body, attach: Path = None):
         return False
 
 
-def write_docx(path: Path, meta, turns):
-    """회의 하나 = docx 하나. 30초마다 통째로 다시 쓴다(임시 파일 → 교체)."""
+def write_docx(path: Path, meta, turns, sections=()):
+    """회의 하나 = docx 하나. 30초마다 통째로 다시 쓴다(임시 파일 → 교체).
+    앞: 원자력 질의 구간을 회사 모니터링 양식으로(report.py) / 뒤: 참고) 전체 자막."""
     from docx import Document
+    from docx.enum.text import WD_BREAK
     from docx.oxml.ns import qn
     from docx.shared import Pt
+    import report
     d = Document()
     st = d.styles["Normal"]
-    st.font.name, st.font.size = "맑은 고딕", Pt(10)
+    st.font.name, st.font.size = "맑은 고딕", Pt(10.5)
     st.element.rPr.rFonts.set(qn("w:eastAsia"), "맑은 고딕")
     hm = lambda s: s[11:19] if len(s) >= 19 else s
-    d.add_heading(f"{meta.get('date', '')} {meta.get('title', '')} 국감 자막", 1)
-    d.add_paragraph(f"자동 갱신 {now_iso()[11:19]} · 발언 {len(turns)}건 · 국회 의사중계 AI 자막(오탈자 가능, 인용 전 영상 확인) · 발언자 번호는 회의 후 영상회의록으로 보정")
-    red = [t for t in turns if t["category"] == "NUCLEAR_POLICY" or KW_COMPANY.search(t["text"])]
-    yellow = [t for t in turns if t["category"] == "NUCLEAR_RELATED" and t not in red]
-    for title, rows in (("1. 한수원·원자력 정책 발언", red), ("2. 기타 원자력 관련 발언", yellow)):
-        d.add_heading(title, 2)
-        if not rows:
-            d.add_paragraph("(없음)")
-            continue
-        tb = d.add_table(rows=1, cols=4)
-        tb.style = "Table Grid"
-        for c, h in zip(tb.rows[0].cells, ("시각", "발언자", "키워드", "발언")):
-            c.text = h
-        for t in rows:
-            c = tb.add_row().cells
-            c[0].text, c[1].text, c[2].text, c[3].text = hm(t["start_time"]), t["speaker"], " · ".join(t["topics"]), t["text"]
-    d.add_heading("3. 전체 스크립트", 2)
+    head = d.add_paragraph()
+    head.add_run(f"{meta.get('title', '')} 국감 모니터링 (자동 초안)").bold = True
+    d.add_paragraph(f"갱신 {now_iso()[11:16]} · 원자력 질의 {len(sections)}건 · 국회 의사중계 AI 자막 기반(오탈자·발언자 추정 포함, 인용 전 영상 확인)")
+    if sections:
+        d.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+        report.add_sections(d, sections, meta.get("date", ""))
+    else:
+        d.add_paragraph("(아직 원자력 관련 질의 없음)")
+    d.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+    d.add_paragraph().add_run("참고) 전체 자막").bold = True
     for t in turns:
         d.add_paragraph().add_run(f"[{hm(t['start_time'])}] {t['speaker']}").bold = True
         d.add_paragraph(t["text"])
