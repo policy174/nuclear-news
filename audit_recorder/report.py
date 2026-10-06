@@ -10,6 +10,7 @@ import json
 import os
 import time
 from datetime import datetime
+from pathlib import Path
 
 import requests
 
@@ -60,8 +61,19 @@ def window(lines, start, end):
     return [(ts, tx) for ts, tx in lines if lo <= datetime.fromisoformat(ts).timestamp() <= hi]
 
 
+def _env_file_key():
+    """국감 전용 키(별도 프로젝트 = 별도 무료 한도). .env 에 넣으면 재시작 없이 다음 요약부터 쓴다."""
+    env = Path(__file__).resolve().parent / ".env"
+    if env.exists():
+        for line in env.read_text(encoding="utf-8-sig").splitlines():
+            k, _, v = line.partition("=")
+            if k.strip() == "AUDIT_GEMINI_API_KEY" and v.strip():
+                return v.strip().strip('"')
+    return None
+
+
 def summarize(win):
-    key = os.environ.get("GEMINI_API_KEY")
+    key = os.environ.get("AUDIT_GEMINI_API_KEY") or _env_file_key() or os.environ.get("GEMINI_API_KEY")
     if not key:
         return None
     text = "\n".join(f"[{ts[11:19]}] {tx}" for ts, tx in win)[:30000]
