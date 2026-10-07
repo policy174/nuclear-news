@@ -13452,6 +13452,16 @@
       "right_title": "도널드 트럼프 미국 대통령, 대미 투자 패키지 내 원전 8기 건설 포함 공식 발표",
       "same_event": false
     },
+    "0a40744715fd5d7f--3d7572322e9773e0": {
+      "embedding_similarity": 0.8893,
+      "left_title": "도널드 트럼프 미국 대통령, 대미 투자 패키지 내 원전 8기 건설 포함 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 대미투자 및 관세",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 대미 투자와 연계해 한국 관세 인하 조건 언급",
+      "same_event": true
+    },
     "0a40744715fd5d7f--92be0d3ad51fc2c0": {
       "embedding_similarity": 0.9168,
       "left_title": "트럼프, 한국에 알래스카 LNG 사업 500억 달러 투자 압박",
@@ -14002,6 +14012,16 @@
       "right_title": "HD현대, 수주잔고 110조원 돌파…SMR 추진선 등 고부가 선박 개발 집중",
       "same_event": false
     },
+    "0ad65c3149551bc0--7b8ea15a1ae3e2b5": {
+      "embedding_similarity": 0.8773,
+      "left_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공장 투자와 인사 단행",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대, 조선 총괄 체제 구축 및 안전 강화 인사 단행",
+      "same_event": false
+    },
     "0ad65c3149551bc0--8d3522d3bdfa40d1": {
       "embedding_similarity": 0.9025,
       "left_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
@@ -14160,6 +14180,16 @@
       "reason": "공장 투자와 선박 개발",
       "reviewed_at": "2026-09-13T13:55:09.803834+00:00",
       "right_title": "HD현대, SMR 추진선 개발로 친환경 선박 시장 선도",
+      "same_event": false
+    },
+    "0ad65c3149551bc0--efb13dc5c825e2a9": {
+      "embedding_similarity": 0.8736,
+      "left_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공장 투자와 인사 단행",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대, 조선사업 총괄부회장에 이상균 선임 및 SMR 사업 추진",
       "same_event": false
     },
     "0ad65c3149551bc0--f0f475db89c402cf": {
@@ -14720,6 +14750,36 @@
       "reason": "미국 내 신규 원전 추진",
       "reviewed_at": "2026-09-06T07:45:58.395792+00:00",
       "right_title": "미국 뉴욕주, 인디언포인트 폐쇄 5년 만에 신규 원전 5GW 추진",
+      "same_event": false
+    },
+    "0babf9c3c35557ce--284641974d2d1313": {
+      "embedding_similarity": 0.9012,
+      "left_title": "한국 원자력 산업계, 미국 본토 원전 건설 진출 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 진출 전략 논의",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "산업통상부, 제1차 원전수출 리더스포럼 개최해 미국 본토 진출 전략 논의",
+      "same_event": true
+    },
+    "0babf9c3c35557ce--2ae8b369814ca32e": {
+      "embedding_similarity": 0.8732,
+      "left_title": "한국 기업, 2000조 원 미국 원전시장 진출 위해 자재 선주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "자재 선주문과 포럼 개최",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "산업통상부, 제1차 원전수출 리더스포럼 개최해 미국 본토 진출 전략 논의",
+      "same_event": false
+    },
+    "0babf9c3c35557ce--c6e6df8995d1ac7d": {
+      "embedding_similarity": 0.893,
+      "left_title": "산업통상부, 원전수출기획위원회 열고 미국 진출 방안 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 회의체 개최",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "산업통상부, 제1차 원전수출 리더스포럼 개최해 미국 본토 진출 전략 논의",
       "same_event": false
     },
     "0bb0217c919b0d52--14da83ff4a3286f3": {
@@ -23340,6 +23400,16 @@
       "reason": "알래스카 LNG 투자 이견",
       "reviewed_at": "2026-10-04T10:23:58.093370+00:00",
       "right_title": "트럼프 '확정' 발표와 달리 한미 팩트시트엔 '검토'…알래스카 LNG 사업 이견",
+      "same_event": true
+    },
+    "140d10ed804f4a09--3d7572322e9773e0": {
+      "embedding_similarity": 0.8839,
+      "left_title": "트럼프, 한국에 알래스카 LNG 투자 압박하며 \"합의 안하면 두 배\" 경고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 대미투자 및 관세",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 대미 투자와 연계해 한국 관세 인하 조건 언급",
       "same_event": true
     },
     "140d10ed804f4a09--3ea8396f5f33e8de": {
@@ -32552,6 +32622,16 @@
       "right_title": "HD현대중공업, 발전엔진·SMR에 1조 투자… AI 데이터센터 전력 대응",
       "same_event": true
     },
+    "1c5dd0144a34b5f9--314525819aa563fb": {
+      "embedding_similarity": 0.8855,
+      "left_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공장 신설과 실증센터 협약",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대중공업 등 12개 기관, 'SMR 해양 기술 실증센터' 출범 업무협약 체결",
+      "same_event": false
+    },
     "1c5dd0144a34b5f9--4aab2eab0d878a03": {
       "embedding_similarity": 0.914,
       "left_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
@@ -32571,6 +32651,16 @@
       "reviewed_at": "2026-09-23T01:37:07.512809+00:00",
       "right_title": "HD현대중공업, 울산·영암에 발전엔진 및 SMR 전용공장 1조원 투자",
       "same_event": true
+    },
+    "1c5dd0144a34b5f9--7b8ea15a1ae3e2b5": {
+      "embedding_similarity": 0.8719,
+      "left_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공장 신설과 인사 단행",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대, 조선 총괄 체제 구축 및 안전 강화 인사 단행",
+      "same_event": false
     },
     "1c5dd0144a34b5f9--84a8cb1fc775a1a6": {
       "embedding_similarity": 0.9098,
@@ -32630,6 +32720,16 @@
       "reason": "투자 규모 및 대상 상이",
       "reviewed_at": "2026-09-23T11:49:41.690501+00:00",
       "right_title": "HD현대, 테라파워 협력 및 울산 SMR 주기기 공장에 2386억원 투자",
+      "same_event": false
+    },
+    "1c5dd0144a34b5f9--efb13dc5c825e2a9": {
+      "embedding_similarity": 0.875,
+      "left_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공장 신설과 인사 단행",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대, 조선사업 총괄부회장에 이상균 선임 및 SMR 사업 추진",
       "same_event": false
     },
     "1c5f1a0ac4944b8d--724a3270a5cb5092": {
@@ -42022,6 +42122,16 @@
       "right_title": "고리 2호기 및 한빛 1·2호기 계속운전 심사 지연으로 인한 전력 손실 발생",
       "same_event": true
     },
+    "25ce2de9b3547c71--2806bfe2bb383b24": {
+      "embedding_similarity": 0.9167,
+      "left_title": "구글, 조지아파워와 협력해 원전 증력 및 96MW 용량 추가",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 기업 및 계약 다름",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "구글, 콘스텔레이션 에너지와 AI 데이터센터 전력 공급 PPA 체결",
+      "same_event": false
+    },
     "25ce2de9b3547c71--32af5d2e78450e60": {
       "embedding_similarity": 0.9292,
       "left_title": "구글, 조지아파워와 협력해 원전 증력 및 96MW 용량 추가",
@@ -42040,6 +42150,16 @@
       "reason": "서로 다른 구글 사업",
       "reviewed_at": "2026-09-27T23:54:16.527368+00:00",
       "right_title": "구글, 10월 우주 AI 클라우드 시험위성 발사로 우주 데이터센터 경쟁 본격화",
+      "same_event": false
+    },
+    "25ce2de9b3547c71--4a5a8e7190692266": {
+      "embedding_similarity": 0.8826,
+      "left_title": "구글, 조지아파워와 협력해 원전 증력 및 96MW 용량 추가",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 기업 및 계약 다름",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "구글, 컨스텔레이션 원전 11기 890MW 증설에 20년 PPA 체결",
       "same_event": false
     },
     "25ce2de9b3547c71--590c81183df896c2": {
@@ -43781,6 +43901,26 @@
       "reviewed_at": "2026-09-20T22:52:41.330823+00:00",
       "right_title": "대우건설, 체코 원전 사업 기대감에 주가 급락…차익실현 매물 출회",
       "same_event": true
+    },
+    "2806bfe2bb383b24--6881e19f7cc9fa2a": {
+      "embedding_similarity": 0.918,
+      "left_title": "구글, AI 전력 확보 위해 SMR 전력 구매 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력 계약",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "구글, 콘스텔레이션 에너지와 AI 데이터센터 전력 공급 PPA 체결",
+      "same_event": false
+    },
+    "2806bfe2bb383b24--e8378f575fa9c98d": {
+      "embedding_similarity": 0.8703,
+      "left_title": "두산퓨얼셀, 북미 AI 데이터센터 온사이트 연료전지 공급 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 계약",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "구글, 콘스텔레이션 에너지와 AI 데이터센터 전력 공급 PPA 체결",
+      "same_event": false
     },
     "284641974d2d1313--b6c9950ca8668eda": {
       "embedding_similarity": 0.8842,
@@ -51672,6 +51812,16 @@
       "right_title": "경남도, LH 존치·발전 통합본사 유치 공동 대응",
       "same_event": false
     },
+    "314525819aa563fb--36e8b772580c819d": {
+      "embedding_similarity": 0.8804,
+      "left_title": "과학기술정보통신부, SMR 민관협의체 이달 출범 및 7대 시드 프로젝트 상용화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 협의체와 민간 협약",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "HD현대중공업 등 12개 기관, 'SMR 해양 기술 실증센터' 출범 업무협약 체결",
+      "same_event": false
+    },
     "316b7ada3ce7e040--5c22cc5586b97424": {
       "embedding_similarity": 0.8578,
       "left_title": "정부, 3대 메가프로젝트 전력수요 검증 미흡 지적",
@@ -55671,6 +55821,16 @@
       "reviewed_at": "2026-08-14T12:43:56.426278+00:00",
       "right_title": "HD현대중공업, 미 코반에너지에 9560억 규모 발전설비 공급 계약 체결",
       "same_event": false
+    },
+    "36a2d38979535c78--3d7572322e9773e0": {
+      "embedding_similarity": 0.8868,
+      "left_title": "미국, 한국 대미투자 패키지 발표…대형 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 대미투자 및 관세",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 대미 투자와 연계해 한국 관세 인하 조건 언급",
+      "same_event": true
     },
     "36a2d38979535c78--413bc2307ec42f6f": {
       "embedding_similarity": 0.9103,
@@ -64031,6 +64191,16 @@
       "reviewed_at": "2026-08-24T22:06:59.218065+00:00",
       "right_title": "현대건설, 테라파워 나트륨 원전 후속 8기 EPC 권한 확보",
       "same_event": false
+    },
+    "3d7572322e9773e0--cacb7c0195d694c3": {
+      "embedding_similarity": 0.8971,
+      "left_title": "미 트럼프 대통령, 한국의 2000억 달러 규모 에너지 인프라 투자 및 대형 원전 8기 건설 공식 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 대미투자 및 관세",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 대미 투자와 연계해 한국 관세 인하 조건 언급",
+      "same_event": true
     },
     "3d856a4e4d88f27b--724a3270a5cb5092": {
       "embedding_similarity": 0.8706,
@@ -75001,6 +75171,16 @@
       "reviewed_at": "2026-08-20T22:13:02.298844+00:00",
       "right_title": "SK하이닉스, 용인·청주 신규 반도체 팹에 54조원 투자 결정",
       "same_event": false
+    },
+    "4a5a8e7190692266--822edbf2603c55a5": {
+      "embedding_similarity": 0.8982,
+      "left_title": "구글, 美 최대 원전기업 컨스텔레이션과 3.6GW 전력공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구글-컨스텔레이션 PPA",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "구글, 컨스텔레이션 원전 11기 890MW 증설에 20년 PPA 체결",
+      "same_event": true
     },
     "4a5c51116d5c6ecc--970e64f526cb5ffd": {
       "embedding_similarity": 0.9193,
@@ -136332,6 +136512,16 @@
       "right_title": "정부, 호남 반도체 산단 전력망 구축 2028년 말로 1년 앞당겨",
       "same_event": false
     },
+    "9a5b1e174d0f721a--e8a84a813c9707fa": {
+      "embedding_similarity": 0.8515,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 관련 보도",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "기후에너지환경부, 12차 전력수급기본계획 확정 12월로 연기",
+      "same_event": true
+    },
     "9a5b1e174d0f721a--ea3cd0e3c5ec410e": {
       "embedding_similarity": 0.8462,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -139451,6 +139641,16 @@
       "reviewed_at": "2026-10-02T07:25:44.100194+00:00",
       "right_title": "기후부, 제12차 전기본 원전 숙의 담당할 공론화위원회 발족",
       "same_event": true
+    },
+    "a33259f3ac2e4d86--e8a84a813c9707fa": {
+      "embedding_similarity": 0.8447,
+      "left_title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정책 사안",
+      "reviewed_at": "2026-10-07T20:36:31.152232+00:00",
+      "right_title": "기후에너지환경부, 12차 전력수급기본계획 확정 12월로 연기",
+      "same_event": false
     },
     "a33259f3ac2e4d86--ea81618dbdc2002b": {
       "embedding_similarity": 0.8595,
