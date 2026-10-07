@@ -420,6 +420,14 @@
       "type": "plant",
       "until": "2026-10-13T13:39:14.341405+00:00"
     },
+    "반세기만": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-07T00:58:55.439917+00:00",
+      "term": "반세기 만",
+      "type": "plant",
+      "until": "2026-10-21T00:58:55.439917+00:00"
+    },
     "보령신복합": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -459,6 +467,14 @@
       "term": "본토에 외국",
       "type": "plant",
       "until": "2026-10-20T22:16:53.935530+00:00"
+    },
+    "본토에한국형": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-07T00:58:55.439917+00:00",
+      "term": "본토에 한국형",
+      "type": "plant",
+      "until": "2026-10-21T00:58:55.439917+00:00"
     },
     "사이버보안위원회": {
       "new_articles": 0,
@@ -1204,72 +1220,6 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
-    },
-    "반세기만": {
-      "articles": 1,
-      "created_at": "2026-10-06T00:22:15.632399+00:00",
-      "domains": [
-        "cbci.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "cbci.co.kr",
-          "hash": "7a30d443976d8516",
-          "importance": "must_read",
-          "title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사"
-        }
-      ],
-      "expires_at": "2026-10-07T00:22:15.632399+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-06T17:45:36.001187+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-06T17:45:33.403715+00:00",
-      "queries_run": 2,
-      "query": "반세기 만 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "반세기 만",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "본토에한국형": {
-      "articles": 1,
-      "created_at": "2026-10-06T00:22:15.632399+00:00",
-      "domains": [
-        "cbci.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "cbci.co.kr",
-          "hash": "7a30d443976d8516",
-          "importance": "must_read",
-          "title": "한국, 미국 본토에 APR1400 2기 건설…반세기 만의 원전 역수출 성사"
-        }
-      ],
-      "expires_at": "2026-10-07T00:22:17.314678+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-06T17:45:36.001187+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-10-06T17:45:33.403715+00:00",
-      "queries_run": 2,
-      "query": "본토에 한국형 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "본토에 한국형",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-06"
-      ],
-      "yields": 1,
       "zero_streak": 1
     },
     "재정경제기획위원회": {
