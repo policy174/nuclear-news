@@ -268,6 +268,14 @@
       "type": "plant",
       "until": "2026-09-27T01:23:35.262054+00:00"
     },
+    "국세청": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-08T22:09:28.625886+00:00",
+      "term": "국세청",
+      "type": "org",
+      "until": "2026-10-22T22:09:28.625886+00:00"
+    },
     "군정조정위원회": {
       "new_articles": 3,
       "reason": "기간 만료",
@@ -1118,7 +1126,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 8,
     "date": "2026-10-09"
   },
   "terms": {
@@ -1170,55 +1178,6 @@
       ],
       "yields": 1,
       "zero_streak": 0
-    },
-    "국세청": {
-      "articles": 8,
-      "created_at": "2026-10-07T15:18:43.202188+00:00",
-      "domains": [
-        "lawissue.co.kr",
-        "megaeconomy.co.kr",
-        "yna.co.kr",
-        "viva100.com",
-        "ziksir.com",
-        "tf.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "lawissue.co.kr",
-          "hash": "4f32711ff63976cb",
-          "importance": "nice_to_know",
-          "title": "부산 기장군, 국세청에 금정세무서 기장지서 설치 공식 요청"
-        },
-        {
-          "domain": "megaeconomy.co.kr",
-          "hash": "d9b23bbf2775f1d1",
-          "importance": "nice_to_know",
-          "title": "기장군, 국세청에 ‘금정세무서 기장지서’ 설치 공식 건의"
-        },
-        {
-          "domain": "yna.co.kr",
-          "hash": "52047e2f41cccaef",
-          "importance": "nice_to_know",
-          "title": "'세무서 가는데 30㎞'…기장군, 국세청에 '기장지서' 설치 요청"
-        }
-      ],
-      "expires_at": "2026-10-10T15:18:43.202188+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-07T21:54:28.480174+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-07T21:54:27.183260+00:00",
-      "queries_run": 2,
-      "query": "국세청 원자력",
-      "score": 7.3,
-      "status": "tracking",
-      "term": "국세청",
-      "ttl_hours": 72,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     },
     "명이참여하": {
       "articles": 1,
@@ -1276,11 +1235,11 @@
       "expires_at": "2026-10-09T15:18:43.202188+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-10-07T21:54:28.480174+00:00",
+      "last_run": "2026-10-08T22:09:28.625837+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-10-07T21:54:27.183260+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-10-08T22:09:26.923513+00:00",
+      "queries_run": 3,
       "query": "산업통상부는 제1차 원전",
       "score": 5.3,
       "status": "extended",
@@ -1291,7 +1250,7 @@
         "2026-10-08"
       ],
       "yields": 1,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "확정산업부": {
       "articles": 1,
