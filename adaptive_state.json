@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 6,
-    "date": "2026-10-08"
+    "count": 2,
+    "date": "2026-10-09"
   },
   "retired": {
     "adb": {
@@ -212,6 +212,14 @@
       "type": "plant",
       "until": "2026-10-13T13:39:14.341405+00:00"
     },
+    "구체화산업통상부": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-08T18:20:04.520441+00:00",
+      "term": "구체화 산업통상부",
+      "type": "plant",
+      "until": "2026-10-22T18:20:04.520441+00:00"
+    },
     "국감서한미": {
       "new_articles": 3,
       "reason": "기간 만료",
@@ -235,6 +243,14 @@
       "term": "국민과 함께",
       "type": "plant",
       "until": "2026-10-07T23:25:10.768082+00:00"
+    },
+    "국민권익위원회": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-08T18:20:07.266598+00:00",
+      "term": "국민권익위원회",
+      "type": "org",
+      "until": "2026-10-22T18:20:07.266598+00:00"
     },
     "국방ai": {
       "new_articles": 1,
@@ -476,6 +492,14 @@
       "type": "plant",
       "until": "2026-10-14T17:03:14.429033+00:00"
     },
+    "본격화산업통상부": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-08T18:20:04.520441+00:00",
+      "term": "본격화 산업통상부",
+      "type": "plant",
+      "until": "2026-10-22T18:20:04.520441+00:00"
+    },
     "본토에": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -507,6 +531,14 @@
       "term": "사이버보안위원회",
       "type": "org",
       "until": "2026-10-03T18:38:48.199546+00:00"
+    },
+    "산업부가제1차": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-08T18:20:04.520441+00:00",
+      "term": "산업부가 제1차",
+      "type": "plant",
+      "until": "2026-10-22T18:20:04.520441+00:00"
     },
     "산업장관회의를열고": {
       "new_articles": 0,
@@ -627,6 +659,14 @@
       "term": "여부를 논의할",
       "type": "plant",
       "until": "2026-10-18T15:39:27.510570+00:00"
+    },
+    "열고한미": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-08T18:20:04.520441+00:00",
+      "term": "열고 한미",
+      "type": "plant",
+      "until": "2026-10-22T18:20:04.520441+00:00"
     },
     "영덕군은": {
       "new_articles": 1,
@@ -1062,10 +1102,59 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-08"
+    "count": 3,
+    "date": "2026-10-09"
   },
   "terms": {
+    "feed1": {
+      "articles": 4,
+      "created_at": "2026-10-08T18:20:04.520441+00:00",
+      "domains": [
+        "greened.kr",
+        "newsway.co.kr",
+        "hbnpress.com",
+        "smartbizn.com"
+      ],
+      "evidence": [
+        {
+          "domain": "greened.kr",
+          "hash": "075b94b03a86380d",
+          "importance": "nice_to_know",
+          "title": "현대건설, 웨스팅하우스와 네덜란드 원전 2기 기본설계 착수"
+        },
+        {
+          "domain": "newsway.co.kr",
+          "hash": "b26240819335824a",
+          "importance": "nice_to_know",
+          "title": "현대건설, 웨스팅하우스와 네덜란드 신규 원전 2기 기본설계 계약"
+        },
+        {
+          "domain": "hbnpress.com",
+          "hash": "1f1df8b21510f0fe",
+          "importance": "nice_to_know",
+          "title": "현대건설, 웨스팅하우스와 네덜란드 신규 대형원전 1단계 기본설계 계약 체결하며 유럽 사업 확대"
+        }
+      ],
+      "expires_at": "2026-10-11T18:20:04.520441+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 2,
+      "last_run": "2026-10-08T18:20:07.266500+00:00",
+      "new_articles": 2,
+      "origin": "auto",
+      "planned_at": "2026-10-08T18:20:04.520441+00:00",
+      "queries_run": 1,
+      "query": "FEED 1 원자력",
+      "score": 6.3,
+      "status": "extended",
+      "term": "FEED 1",
+      "ttl_hours": 72,
+      "type": "company",
+      "yield_days": [
+        "2026-10-09"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
     "pctc": {
       "articles": 4,
       "created_at": "2026-10-06T15:52:20.128516+00:00",
@@ -1109,89 +1198,6 @@
       "term": "PCTC",
       "ttl_hours": 72,
       "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "구체화산업통상부": {
-      "articles": 1,
-      "created_at": "2026-10-07T15:18:43.202188+00:00",
-      "domains": [
-        "chosun.com"
-      ],
-      "evidence": [
-        {
-          "domain": "chosun.com",
-          "hash": "5b333df404e24c58",
-          "importance": "must_read",
-          "title": "산업부, 원전수출 리더스포럼 발족…미국 원전 8기 사업 2028년 구체화"
-        }
-      ],
-      "expires_at": "2026-10-08T15:18:46.378057+00:00",
-      "importance": "must_read",
-      "last_result_count": 1,
-      "last_run": "2026-10-07T15:18:46.378057+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-10-07T15:18:43.202188+00:00",
-      "queries_run": 1,
-      "query": "구체화 산업통상부 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "구체화 산업통상부",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-08"
-      ],
-      "yields": 1,
-      "zero_streak": 0
-    },
-    "국민권익위원회": {
-      "articles": 7,
-      "created_at": "2026-10-06T15:52:20.128516+00:00",
-      "domains": [
-        "yna.co.kr",
-        "newsis.com",
-        "news1.kr",
-        "hidomin.com",
-        "imaeil.com",
-        "dailian.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "yna.co.kr",
-          "hash": "e20d5e86439f277d",
-          "importance": "nice_to_know",
-          "title": "국민권익위원회, 월성원전 인근 포항시 19개 마을 안전시설 보강 조정 성사"
-        },
-        {
-          "domain": "newsis.com",
-          "hash": "cbf370973f7fe2d0",
-          "importance": "nice_to_know",
-          "title": "국민권익위원회, 월성원전 방사선비상계획구역 주민 고충민원 최종 조정안 마련"
-        },
-        {
-          "domain": "news1.kr",
-          "hash": "eebd56fdb1abec3d",
-          "importance": "nice_to_know",
-          "title": "국민권익위, 월성원전 인근 포항 19개 마을 방사선비상계획구역 방재시설 보강 조정"
-        }
-      ],
-      "expires_at": "2026-10-09T15:52:20.128516+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-07T16:20:54.811617+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-07T16:20:52.639477+00:00",
-      "queries_run": 2,
-      "query": "국민권익위원회 원자력",
-      "score": 9.3,
-      "status": "tracking",
-      "term": "국민권익위원회",
-      "ttl_hours": 72,
-      "type": "org",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
@@ -1245,64 +1251,32 @@
       "yields": 0,
       "zero_streak": 2
     },
-    "본격화산업통상부": {
+    "명이참여하": {
       "articles": 1,
-      "created_at": "2026-10-07T15:18:43.202188+00:00",
+      "created_at": "2026-10-08T18:20:04.520441+00:00",
       "domains": [
-        "hankookilbo.com"
+        "sedaily.com"
       ],
       "evidence": [
         {
-          "domain": "hankookilbo.com",
-          "hash": "1936e675fe902cc7",
+          "domain": "sedaily.com",
+          "hash": "1a17555f547fed48",
           "importance": "must_read",
-          "title": "산업통상부, 2028년 대미 원전 수출 가시화 및 WEC 협상 본격화"
+          "title": "정부, 12차 전력수급기본계획 위한 원전 공론화위원회 첫 회의 개최"
         }
       ],
-      "expires_at": "2026-10-08T15:18:43.202188+00:00",
+      "expires_at": "2026-10-09T18:20:04.520441+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-10-07T15:47:18.315320+00:00",
+      "last_run": "2026-10-08T18:20:07.266500+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-10-07T15:47:16.549721+00:00",
+      "planned_at": "2026-10-08T18:20:04.520441+00:00",
       "queries_run": 1,
-      "query": "본격화 산업통상부 원전",
+      "query": "명이 참여하 원전",
       "score": 3.6,
       "status": "tracking",
-      "term": "본격화 산업통상부",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
-    "산업부가제1차": {
-      "articles": 1,
-      "created_at": "2026-10-07T15:18:43.202188+00:00",
-      "domains": [
-        "yonhapnewstv.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "yonhapnewstv.co.kr",
-          "hash": "83f7516dd165f856",
-          "importance": "must_read",
-          "title": "산업부, 한미 원전 프레임워크 후속 조치…2028년 미국 내 대형 원전 사업 구체화 전망"
-        }
-      ],
-      "expires_at": "2026-10-08T15:18:43.202188+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-07T15:47:18.315320+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-07T15:47:16.549721+00:00",
-      "queries_run": 1,
-      "query": "산업부가 제1차 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "산업부가 제1차",
+      "term": "명이 참여하",
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [],
@@ -1348,38 +1322,6 @@
         "2026-10-08"
       ],
       "yields": 1,
-      "zero_streak": 1
-    },
-    "열고한미": {
-      "articles": 1,
-      "created_at": "2026-10-07T15:18:43.202188+00:00",
-      "domains": [
-        "yonhapnewstv.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "yonhapnewstv.co.kr",
-          "hash": "83f7516dd165f856",
-          "importance": "must_read",
-          "title": "산업부, 한미 원전 프레임워크 후속 조치…2028년 미국 내 대형 원전 사업 구체화 전망"
-        }
-      ],
-      "expires_at": "2026-10-08T15:18:43.202188+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-07T15:47:18.315320+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-07T15:47:16.549721+00:00",
-      "queries_run": 1,
-      "query": "열고 한미 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "열고 한미",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
       "zero_streak": 1
     },
     "텍사스가스발전미국": {
