@@ -4462,6 +4462,16 @@
       "right_title": "SMR 개발 촉진 특별법 시행…2035년 상용화 제도적 기반 구축",
       "same_event": false
     },
+    "041af99d2d695c00--7d6b95b6160a59a8": {
+      "embedding_similarity": 0.848,
+      "left_title": "SMR 개발 촉진 특별법 시행…2035년 상용화 제도적 기반 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특별법 시행과 국회 지적",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "국회, SMR 건설 인허가 2028년 신청에 기술기준 마련은 2032년으로 '규제 병목' 지적",
+      "same_event": false
+    },
     "041af99d2d695c00--906cf33fdcfd7cbc": {
       "embedding_similarity": 0.8518,
       "left_title": "SMR 개발 촉진 특별법 시행…2035년 상용화 제도적 기반 구축",
@@ -4899,6 +4909,16 @@
       "prompt_version": 1,
       "reason": "미국 내 원전 8기 건설 합의",
       "reviewed_at": "2026-10-02T13:23:25.836737+00:00",
+      "right_title": "한국, 웨스팅하우스 지분 투자로 美 원전 8기 중 2기 APR1400 건설 추진",
+      "same_event": true
+    },
+    "046a82d1f060890f--1962ec93229d7a70": {
+      "embedding_similarity": 0.8925,
+      "left_title": "산업부, 2028년 미국 내 대형 원전 8기 건설 추진 및 기술 사용료 상한 설정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 건설 추진 계획",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
       "right_title": "한국, 웨스팅하우스 지분 투자로 美 원전 8기 중 2기 APR1400 건설 추진",
       "same_event": true
     },
@@ -20642,6 +20662,16 @@
       "right_title": "효성중공업, 미국 빅테크와 3865억 원 규모 초고압변압기 공급계약 체결",
       "same_event": false
     },
+    "1116872abf085268--bfe0cb98c182c80d": {
+      "embedding_similarity": 0.8787,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 계약 및 인증",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "중국 장쑤 딩홍, 미국 UL 저전압 배전반 인증 획득으로 북미 조달 자격 확보",
+      "same_event": false
+    },
     "1116872abf085268--c1cbbd86642f6f3e": {
       "embedding_similarity": 0.9047,
       "left_title": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
@@ -35972,6 +36002,16 @@
       "right_title": "중국, 글로벌 전력망 배터리 에너지 저장 시스템(BESS) 시장 95% 독식",
       "same_event": false
     },
+    "1e3ed167a54e1e9b--bfe0cb98c182c80d": {
+      "embedding_similarity": 0.8487,
+      "left_title": "중국, AI 데이터센터 전력 수요 대응 위해 발전소 인접 배치 전략 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "중국 정책 동향과 기업 인증",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "중국 장쑤 딩홍, 미국 UL 저전압 배전반 인증 획득으로 북미 조달 자격 확보",
+      "same_event": false
+    },
     "1e4a88094bea09b9--4288e4cee8658728": {
       "embedding_similarity": 0.8527,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -43120,6 +43160,16 @@
       "reason": "개별 사업과 업계 동향",
       "reviewed_at": "2026-10-07T22:08:22.248978+00:00",
       "right_title": "빅테크 기업들, AI 전력 수요 충당 위해 기존 원전으로 집중",
+      "same_event": false
+    },
+    "25ce2de9b3547c71--3d5fd33d8318a8b3": {
+      "embedding_similarity": 0.8407,
+      "left_title": "구글, 조지아파워와 협력해 원전 증력 및 96MW 용량 추가",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구글 협력과 오라클 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
       "same_event": false
     },
     "25ce2de9b3547c71--3d8adcbe2e0d7a83": {
@@ -65300,6 +65350,76 @@
       "reason": "대미 에너지 투자 협상",
       "reviewed_at": "2026-09-14T05:58:11.451279+00:00",
       "right_title": "한국 정부, 미국에 원전 8기 포함 1000억 달러 에너지 투자 합의 임박 보도",
+      "same_event": true
+    },
+    "3d5fd33d8318a8b3--5a90405a6e0d4491": {
+      "embedding_similarity": 0.8428,
+      "left_title": "美 텍사스, AI 데이터센터 환경 인허가 중단…발전소 사업 '암초'",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스주 규제와 오라클 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": false
+    },
+    "3d5fd33d8318a8b3--6526f0c4099686b4": {
+      "embedding_similarity": 0.8411,
+      "left_title": "뉴욕주, 50MW 이상 데이터센터 환경허가 최대 1년 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "뉴욕주 규제와 오라클 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": false
+    },
+    "3d5fd33d8318a8b3--73c4651fc17e77c1": {
+      "embedding_similarity": 0.8498,
+      "left_title": "미국, AI 데이터센터 전력 확보 위해 화석연료 발전소 규제 완화 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 정책 동향과 오라클 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": false
+    },
+    "3d5fd33d8318a8b3--a15f519ae80f799c": {
+      "embedding_similarity": 0.8508,
+      "left_title": "미국 텍사스주, 전력망·수자원 점검 위해 신규 데이터센터 허가 일시 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스주 규제와 오라클 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": false
+    },
+    "3d5fd33d8318a8b3--b14e4ee7c1f1ef78": {
+      "embedding_similarity": 0.8514,
+      "left_title": "오라클, 위스콘신주 포인트 비치 원전 전력 구매 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 계약과 인허가 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": false
+    },
+    "3d5fd33d8318a8b3--bc05981d9d156e41": {
+      "embedding_similarity": 0.8625,
+      "left_title": "오라클, 전력 설비 반발로 뉴멕시코 데이터센터 프로젝트 1년 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "오라클 데이터센터 전력 지연",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
+      "same_event": true
+    },
+    "3d5fd33d8318a8b3--cdafcc8ca14b489b": {
+      "embedding_similarity": 0.8616,
+      "left_title": "오라클, 전력 차질로 오픈AI 데이터센터에 불가항력 통보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "오라클 데이터센터 전력 차질",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "미국 오라클 임차 AI 데이터센터 2곳, 전력 인허가 지연으로 가동 차질",
       "same_event": true
     },
     "3d67923b7d733157--57d2219c4e7d3660": {
@@ -92182,6 +92302,16 @@
       "right_title": "뉴욕주, 50MW 이상 데이터센터 환경허가 최대 1년 중단",
       "same_event": false
     },
+    "5a90405a6e0d4491--69cd68d2d3f37573": {
+      "embedding_similarity": 0.892,
+      "left_title": "美 텍사스, AI 데이터센터 환경 인허가 중단…발전소 사업 '암초'",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 데이터센터 인허가 보류",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "텍사스, 데이터센터 전력망 접속 검증 후 인허가 보류",
+      "same_event": true
+    },
     "5a90405a6e0d4491--6dbb206e0ca14231": {
       "embedding_similarity": 0.8892,
       "left_title": "美 텍사스, AI 데이터센터 환경 인허가 중단…발전소 사업 '암초'",
@@ -94361,6 +94491,16 @@
       "reviewed_at": "2026-10-08T01:02:56.894793+00:00",
       "right_title": "미국 블루 에너지, 텍사스 전력망에 1.5GW SMR 계통연계 및 NRC 인허가 동시 추진",
       "same_event": false
+    },
+    "5c9b17b1dcd22a6c--ea776877e7d9054a": {
+      "embedding_similarity": 0.8926,
+      "left_title": "미국 블루 에너지, 텍사스 전력망에 1.5GW SMR 계통연계 및 NRC 인허가 동시 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "블루에너지 SMR 인허가 추진",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "블루 에너지, 미국 텍사스주 가스-원자력 전환 프로젝트 NRC 건설허가 신청서 1단계 제출",
+      "same_event": true
     },
     "5cbb6bdac1cb82f9--fe1432d7e83e03dd": {
       "embedding_similarity": 0.8529,
@@ -110212,6 +110352,16 @@
       "right_title": "기후에너지환경부, 전력수급기본계획 위한 원전 공론화위원회 공식 출범",
       "same_event": true
     },
+    "722ebbf9d8676b8c--c135d5e561238817": {
+      "embedding_similarity": 0.9005,
+      "left_title": "정부, 12차 전력수급기본계획 앞두고 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 착수",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": true
+    },
     "722ebbf9d8676b8c--c9f9892cd514dc1d": {
       "embedding_similarity": 0.8916,
       "left_title": "정부, 12차 전력수급기본계획 앞두고 원전 공론화 착수",
@@ -120241,6 +120391,16 @@
       "reviewed_at": "2026-09-14T03:18:28.418684+00:00",
       "right_title": "한빛원전 2호기, 40년 운영허가 만료로 11일 가동 중단",
       "same_event": true
+    },
+    "7d6b95b6160a59a8--e8f360ad04cb122d": {
+      "embedding_similarity": 0.8482,
+      "left_title": "과기정통부, SMR 개발 촉진 특별법 및 시행령 시행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특별법 시행과 국회 지적",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "국회, SMR 건설 인허가 2028년 신청에 기술기준 마련은 2032년으로 '규제 병목' 지적",
+      "same_event": false
     },
     "7d8437b0216a6182--c342f4726771d9c9": {
       "embedding_similarity": 0.8893,
@@ -136832,6 +136992,16 @@
       "right_title": "가온전선, 캐나다 전력시장 진출 및 북미 사업 확대",
       "same_event": false
     },
+    "970e64f526cb5ffd--bfe0cb98c182c80d": {
+      "embedding_similarity": 0.8421,
+      "left_title": "가온전선, 미국 현지 가공선 생산 추진으로 송전망 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "중국 장쑤 딩홍, 미국 UL 저전압 배전반 인증 획득으로 북미 조달 자격 확보",
+      "same_event": false
+    },
     "970e64f526cb5ffd--c1cbbd86642f6f3e": {
       "embedding_similarity": 0.9108,
       "left_title": "LS전선, 북미 AI 데이터센터 전력 인프라에 5000억 원 투자",
@@ -141841,6 +142011,16 @@
       "reviewed_at": "2026-10-08T10:09:03.950757+00:00",
       "right_title": "산업통상부, 제12차 전력수급기본계획 원전 공론화위원회 1차 회의 개최",
       "same_event": false
+    },
+    "a1b8b69138dd095d--c135d5e561238817": {
+      "embedding_similarity": 0.8924,
+      "left_title": "산업통상부, 제12차 전력수급기본계획 원전 공론화위원회 1차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 회의",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": true
     },
     "a1b8b69138dd095d--c9f9892cd514dc1d": {
       "embedding_similarity": 0.8463,
@@ -156082,6 +156262,16 @@
       "right_title": "기후에너지환경부, 전력수급기본계획 위한 원전 공론화위원회 공식 출범",
       "same_event": true
     },
+    "bfe0cb98c182c80d--daa3c537811f9db1": {
+      "embedding_similarity": 0.8414,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "중국 장쑤 딩홍, 미국 UL 저전압 배전반 인증 획득으로 북미 조달 자격 확보",
+      "same_event": false
+    },
     "bfe3a1e99acbfae5--fe38c24988ff17a4": {
       "embedding_similarity": 0.8448,
       "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
@@ -156711,6 +156901,16 @@
       "reviewed_at": "2026-09-23T23:48:04.271112+00:00",
       "right_title": "뉴섬 캘리포니아 주지사, 데이터센터 규제 강화로 입장 선회",
       "same_event": false
+    },
+    "c135d5e561238817--e28a111c9e78dcdb": {
+      "embedding_similarity": 0.8898,
+      "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 권고",
+      "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": true
     },
     "c13d41dd8a54217c--e00221331ed5b153": {
       "embedding_similarity": 0.8467,
