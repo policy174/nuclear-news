@@ -7587,10 +7587,10 @@
       "left_title": "아카자와 일본 경제산업상 \"대미 5,500억 달러 투자, SMR 사업에 집중\"",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "SMR 투자와 AI 산업론",
-      "reviewed_at": "2026-10-07T11:14:16.960220+00:00",
-      "right_title": "日경제상 \"일본, 피지컬 AI 최강국…반도체·AI 급소 쥐고 있다\"",
-      "same_event": false
+      "reason": "일 경산상의 대미 투자 발언",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "日 경제산업상, 美 SMR 등 AI 전력 확보에 5,500억 달러 투자 언급",
+      "same_event": true
     },
     "05ac84b7a3f7fc7f--9c8aef5acd8286d5": {
       "embedding_similarity": 0.904,
@@ -53992,6 +53992,16 @@
       "right_title": "기후에너지환경부, 제12차 전기본에서 재생에너지 확대와 신규 원전 규모 검토",
       "same_event": true
     },
+    "334270212d7c2b61--c135d5e561238817": {
+      "embedding_similarity": 0.8693,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 전기본 검토",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본에서 재생에너지 확대와 신규 원전 규모 검토",
+      "same_event": false
+    },
     "334270212d7c2b61--e28a111c9e78dcdb": {
       "embedding_similarity": 0.8755,
       "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
@@ -92142,6 +92152,16 @@
       "right_title": "국회 기후에너지환경부 국감, 서남권 전력망 및 제12차 전기본 원전 역할 도마",
       "same_event": false
     },
+    "599a863103e529d0--c135d5e561238817": {
+      "embedding_similarity": 0.8597,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 국감 쟁점",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "국회 기후에너지환경부 국감, 서남권 전력망 및 제12차 전기본 원전 역할 도마",
+      "same_event": false
+    },
     "599a863103e529d0--e28a111c9e78dcdb": {
       "embedding_similarity": 0.8408,
       "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
@@ -92999,6 +93019,16 @@
       "prompt_version": 1,
       "reason": "서로 다른 계약 및 설명회",
       "reviewed_at": "2026-10-01T10:17:30.024680+00:00",
+      "right_title": "한수원, 체코 원전 사업 위한 국내 공급사 대상 입찰설명회 개최",
+      "same_event": false
+    },
+    "5b1cfc08857ba68b--b400d3ab565b5f11": {
+      "embedding_similarity": 0.8683,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코대사 발언과 입찰설명회",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
       "right_title": "한수원, 체코 원전 사업 위한 국내 공급사 대상 입찰설명회 개최",
       "same_event": false
     },
@@ -113502,6 +113532,16 @@
       "right_title": "한국수력원자력, 체코 두코바니 신규 원전 보조기기 입찰설명회 개최",
       "same_event": false
     },
+    "750c6992d9de073d--b400d3ab565b5f11": {
+      "embedding_similarity": 0.8745,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코대사 발언과 입찰설명회",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 신규 원전 보조기기 입찰설명회 개최",
+      "same_event": false
+    },
     "7532265b4f157617--79168fd7c5b4bf97": {
       "embedding_similarity": 0.8638,
       "left_title": "경북도, 정부의 산업용 전기요금 지역별 차등제 설계안에 인하폭 확대 요구",
@@ -116399,6 +116439,16 @@
       "prompt_version": 1,
       "reason": "계약 체결과 설명회",
       "reviewed_at": "2026-10-01T12:16:25.448804+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 보조기기 입찰설명회 개최",
+      "same_event": false
+    },
+    "771b1f4d57c9b0aa--b400d3ab565b5f11": {
+      "embedding_similarity": 0.8612,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코대사 발언과 입찰설명회",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 원전 보조기기 입찰설명회 개최",
       "same_event": false
     },
@@ -119730,6 +119780,16 @@
       "reason": "수주 목표와 설명회",
       "reviewed_at": "2026-10-01T12:16:25.448804+00:00",
       "right_title": "한수원, 체코 두코바니 원전 보조기기 입찰설명회 개최…국내 130개사 참여",
+      "same_event": false
+    },
+    "7bdd4ae8cae6271e--aac0e34dfceabfaf": {
+      "embedding_similarity": 0.8826,
+      "left_title": "대우건설, 체코 두코바니 원전 5조원 등 신규 수주 목표 27조원으로 상향",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 목표 상향과 위험 관리",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "대우건설, AI 데이터센터 및 체코 원전 등 대형 사업 위험 관리 강화",
       "same_event": false
     },
     "7bdd4ae8cae6271e--af498566d1a872e0": {
@@ -139572,6 +139632,16 @@
       "right_title": "국회 국감서 AI 데이터센터 전력수요 전망 넉 달 새 3배 증가, 산정 근거 논란 제기",
       "same_event": false
     },
+    "9a5b1e174d0f721a--c135d5e561238817": {
+      "embedding_similarity": 0.9023,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 검토와 공론화위 출범",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": false
+    },
     "9a5b1e174d0f721a--c99b7cc176f524d8": {
       "embedding_similarity": 0.865,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -143062,6 +143132,16 @@
       "right_title": "기후에너지환경부, 전력수급기본계획 위한 원전 공론화위원회 공식 출범",
       "same_event": true
     },
+    "a33259f3ac2e4d86--c135d5e561238817": {
+      "embedding_similarity": 0.8765,
+      "left_title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범과 반발",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": true
+    },
     "a33259f3ac2e4d86--c99b7cc176f524d8": {
       "embedding_similarity": 0.8495,
       "left_title": "정부, 원전 공론화 추진 계획 발표에 환경단체 '기만적' 반발",
@@ -143400,6 +143480,16 @@
       "reason": "새울 1호기 vs 새울 3호기",
       "reviewed_at": "2026-09-04T18:17:09.810772+00:00",
       "right_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
+      "same_event": false
+    },
+    "a3b98650a493cbf7--c135d5e561238817": {
+      "embedding_similarity": 0.8617,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 국감 공방",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "국회 기후부 국감, 제12차 전력수급기본계획 전문위원 명단 비공개 공방",
       "same_event": false
     },
     "a3dac30f73d61de9--a40f0eae3a792ed5": {
@@ -151042,6 +151132,16 @@
       "right_title": "정부, 12차 전기본 AI 데이터센터 수요 10.8GW 우선 반영",
       "same_event": true
     },
+    "b1c6af5f6e27bb77--c135d5e561238817": {
+      "embedding_similarity": 0.8817,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범과 반발",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "환경단체, 12차 전기본 원전 공론화 계획에 반발",
+      "same_event": true
+    },
     "b1c6af5f6e27bb77--ec8a2326e73cd933": {
       "embedding_similarity": 0.8708,
       "left_title": "정부, 신규 원전 건설 3개월간 공론화 추진…12차 전기본 반영",
@@ -151900,6 +152000,26 @@
       "reason": "대사 발언과 입찰 착수는 별개",
       "reviewed_at": "2026-10-09T03:12:18.743991+00:00",
       "right_title": "한수원, 체코 두코바니 원전 보조기기 공급사 입찰 착수 및 국내 기업 지원",
+      "same_event": false
+    },
+    "b400d3ab565b5f11--e08d5222ff4d21c7": {
+      "embedding_similarity": 0.8666,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코대사 발언과 입찰시스템 공유",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 보조기기 입찰 시스템 국내 업체에 공유",
+      "same_event": false
+    },
+    "b400d3ab565b5f11--e46ac8389efe4010": {
+      "embedding_similarity": 0.8681,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코대사 발언과 입찰설명회",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 보조기기 입찰설명회 개최",
       "same_event": false
     },
     "b405ebdfda998eeb--bd1c124b246d63a9": {
@@ -154071,6 +154191,16 @@
       "reviewed_at": "2026-09-12T12:47:02.632919+00:00",
       "right_title": "이재명 대통령, 프랑스와 호르무즈 해협 항행 자유 위해 공조 합의",
       "same_event": true
+    },
+    "b85031fcaedcd7c9--e2c83bc50d62de95": {
+      "embedding_similarity": 0.8599,
+      "left_title": "정부, K-원전 해외 공급망 진입 지원 확대…신규 지원책 마련",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 지원책과 수출기획위 가동",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "美 뚫은 K-원전, ‘제2의 마스가’ 기대…수출기획위 가동",
+      "same_event": false
     },
     "b869f5bfe8d681a5--d85f07205c5b9e41": {
       "embedding_similarity": 0.8806,
@@ -157602,6 +157732,36 @@
       "right_title": "뉴섬 캘리포니아 주지사, 데이터센터 규제 강화로 입장 선회",
       "same_event": false
     },
+    "c135d5e561238817--c99b7cc176f524d8": {
+      "embedding_similarity": 0.8983,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "산업통상자원부, 제12차 전력수급기본계획 수립 과정서 3개월 원전 공론화 진행",
+      "same_event": true
+    },
+    "c135d5e561238817--c9f9892cd514dc1d": {
+      "embedding_similarity": 0.9004,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 재생에너지 전망",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후부, 재생에너지 보급 가속화…내년부터 연간 10GW 이상 확대 전망",
+      "same_event": false
+    },
+    "c135d5e561238817--de245532471e900f": {
+      "embedding_similarity": 0.8648,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위원회 공식 출범",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 신규원전 건설 위한 공론화위원회 공식 출범",
+      "same_event": true
+    },
     "c135d5e561238817--e28a111c9e78dcdb": {
       "embedding_similarity": 0.8898,
       "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
@@ -157622,6 +157782,16 @@
       "right_title": "정부, 신규 원전 추가 방안 공론화 착수…3개월간 숙의 절차",
       "same_event": true
     },
+    "c135d5e561238817--e8a84a813c9707fa": {
+      "embedding_similarity": 0.8757,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 전기본 연기",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 12차 전력수급기본계획 확정 12월로 연기",
+      "same_event": false
+    },
     "c135d5e561238817--f29e3b352bef2d4f": {
       "embedding_similarity": 0.8777,
       "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
@@ -157631,6 +157801,26 @@
       "reviewed_at": "2026-10-09T03:12:18.743991+00:00",
       "right_title": "기후에너지환경부, 신규 원전 공론화 추진으로 12차 전력수급기본계획 연기",
       "same_event": true
+    },
+    "c135d5e561238817--f52258e6f94446a9": {
+      "embedding_similarity": 0.8888,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 재생에너지 전망",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "김성환 기후장관, \"내년부터 10GW 이상 재생에너지 증가 전망\"",
+      "same_event": false
+    },
+    "c135d5e561238817--f64115189bcf3f45": {
+      "embedding_similarity": 0.8727,
+      "left_title": "폐쇄 석탄발전소 부지에 SMR 건설, 전기본서 공식 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 건설 논의와 공론화위",
+      "reviewed_at": "2026-10-09T09:30:17.958543+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "same_event": false
     },
     "c135d5e561238817--fb355491065a71f7": {
       "embedding_similarity": 0.915,
