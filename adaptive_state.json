@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 2,
-    "date": "2026-10-09"
+    "count": 0,
+    "date": "2026-10-10"
   },
   "retired": {
     "adb": {
@@ -435,6 +435,14 @@
       "term": "만에 탈",
       "type": "plant",
       "until": "2026-10-01T23:20:58.953170+00:00"
+    },
+    "명이참여하": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-09T17:53:12.208154+00:00",
+      "term": "명이 참여하",
+      "type": "plant",
+      "until": "2026-10-23T17:53:12.208154+00:00"
     },
     "미사일방어사령부": {
       "new_articles": 2,
@@ -1142,8 +1150,8 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-09"
+    "count": 2,
+    "date": "2026-10-10"
   },
   "terms": {
     "feed1": {
@@ -1177,12 +1185,12 @@
       ],
       "expires_at": "2026-10-11T18:20:04.520441+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-09T00:32:23.449004+00:00",
-      "new_articles": 2,
+      "last_result_count": 1,
+      "last_run": "2026-10-09T17:53:12.207528+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-10-09T00:32:21.338596+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-10-09T17:53:10.782072+00:00",
+      "queries_run": 3,
       "query": "FEED 1 원자력",
       "score": 6.3,
       "status": "extended",
@@ -1190,42 +1198,11 @@
       "ttl_hours": 72,
       "type": "company",
       "yield_days": [
-        "2026-10-09"
+        "2026-10-09",
+        "2026-10-10"
       ],
-      "yields": 1,
-      "zero_streak": 1
-    },
-    "명이참여하": {
-      "articles": 1,
-      "created_at": "2026-10-08T18:20:04.520441+00:00",
-      "domains": [
-        "sedaily.com"
-      ],
-      "evidence": [
-        {
-          "domain": "sedaily.com",
-          "hash": "1a17555f547fed48",
-          "importance": "must_read",
-          "title": "정부, 12차 전력수급기본계획 위한 원전 공론화위원회 첫 회의 개최"
-        }
-      ],
-      "expires_at": "2026-10-09T18:20:04.520441+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-09T00:32:23.449004+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-09T00:32:21.338596+00:00",
-      "queries_run": 2,
-      "query": "명이 참여하 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "명이 참여하",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
+      "yields": 2,
+      "zero_streak": 0
     }
   },
   "version": 1

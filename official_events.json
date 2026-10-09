@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-49b7d1b8a8be",
-   "date": "2026-10-02",
-   "end_date": "2026-10-02",
-   "kind": "point",
-   "label": "산업용 지역 전기요금제 설계안 진단 및 개선방향 토론회",
-   "title": "산업용 지역 전기요금제 설계안 진단 및 개선방향 토론회",
-   "notice_title": "",
-   "time": "16:00",
-   "host": "차규근·김종민·서왕진 의원실, 기후시민프로젝트",
-   "organizer": "차규근·김종민·서왕진 의원실, 기후시민프로젝트",
-   "place": "의원회관 제10간담회의실(217호)",
-   "url": "https://ampos.nanet.go.kr:7443/seminarList.do",
-   "publisher": "국회",
-   "source_id": "assembly_events",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-30"
-  },
-  {
    "hash": "of-f7e637553ea5",
    "date": "2026-10-04",
    "end_date": "2026-10-09",
@@ -327,25 +308,24 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-10-09T03:28:05+09:00",
-   "ok": true,
-   "new": 0,
-   "parsed": 0
+   "at": "2026-10-10T03:01:52+09:00",
+   "ok": false,
+   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
   },
   "kaif_calendar": {
-   "at": "2026-10-09T03:28:05+09:00",
+   "at": "2026-10-10T03:01:52+09:00",
    "ok": true,
-   "new": 26,
+   "new": 27,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-10-09T03:28:05+09:00",
+   "at": "2026-10-10T03:01:52+09:00",
    "ok": true,
    "new": 2,
    "parsed": 5
   },
   "kns_notice": {
-   "at": "2026-10-09T03:28:05+09:00",
+   "at": "2026-10-10T03:01:52+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
