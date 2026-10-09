@@ -6,7 +6,7 @@ on:
     inputs:
       xcodes:
         description: '위원회 코드 JSON (산자중기위 55, 기후노동위 62, 과방위 56)'
-        default: '["55","62"]'
+        default: '["55","62","56"]'
       chain:
         description: '이어 돌릴 횟수 (2 = 최대 약 17시간)'
         default: '2'
