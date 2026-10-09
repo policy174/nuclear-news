@@ -246,7 +246,20 @@ class Recorder:
             out = self.outdir / f"{self.meta.get('date', '')}_{name}_미가공자막_~{self.recess_label.replace(':', '')}.txt"
             out.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
             send_telegram(f"{name} 미가공 자막 (~{self.recess_label} 정회까지, 발언자 미확정·AI 자막)", doc=out)
+            self.spawn_draft()
         self.recess_at = None
+
+    def spawn_draft(self):
+        """10-09 지니: 정회·산회마다 회사 양식 정리 초안(draft.py)도 발송. 별도 프로세스 — 레코더 수신을 막지 않는다."""
+        if os.environ.get("DRAFT_AUTO", "1") == "0":
+            return
+        try:
+            log = open(self.outdir / "draft_run.log", "a", encoding="utf-8")
+            subprocess.Popen([sys.executable, str(Path(__file__).resolve().parent / "draft.py"), str(self.outdir),
+                              "--until", self.recess_label, "--send"], stdout=log, stderr=subprocess.STDOUT,
+                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        except Exception as e:   # 초안 실패가 레코더를 죽이면 안 된다
+            print(now_iso(), "초안 생성 기동 실패", repr(e)[:150])
 
     # ---- 메일 ----
     def maybe_mail(self, force=False):
