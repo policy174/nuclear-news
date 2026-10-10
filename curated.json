@@ -345943,5 +345943,628 @@
     "feed": "정책",
     "domain": "mt.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "8a973a6fc1256873": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 시대, 공장 경쟁력은 전력 인프라가 좌우",
+    "summary": "슈나이더 일렉트릭은 AI 시대에 필요한 제조 경쟁력 강화를 위해 전력·냉각·자동화 인프라와 데이터·AI 기반 운영을 결합하는 방안을 제시한다.",
+    "detail": "슈나이더 일렉트릭은 AI 시대에 반도체 제조 현장의 경쟁력 강화를 위해 전력·냉각·자동화 및 데이터·AI 기반 운영을 아우르는 통합 인프라 구축 방향을 제시한다. 고효율 전력 보호 기술을 통해 안정적인 전력 공급을 확보하고, 유틸리티 최적화와 디지털 트윈을 활용해 에너지 사용과 가동 중단 위험을 줄이는 것이 핵심이다. 특히 500~1,250kW 용량의 3상 무정전 전원장치(UPS)인 '갤럭시 VXL'은 최대 99%의 효율을 제공하며, '라이브 스왑' 기술로 운영 연속성을 지원한다. 또한 냉동기 에너지 관리, 공조·환기 시뮬레이션, AI 기반 자율운영 등 유틸리티 최적화 솔루션을 국내 반도체 팹에 제안한다.",
+    "implication": "AI 시대의 반도체 제조 경쟁력은 고도화된 전력 및 냉각 인프라와 데이터 기반 운영 역량에 달려 있다.",
+    "why_important": "AI 시대의 도래로 반도체 제조 공장의 전력 및 냉각 인프라의 중요성이 증대되고 있으며, 관련 기술 동향 파악이 필요하다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#전력인프라",
+      "#반도체"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "\"AI 시대, 공장의 경쟁력은 전력 인프라가 좌우\"...슈나이더 일렉트릭, ...",
+    "link": "https://www.aitimes.kr/news/articleView.html?idxno=42231",
+    "feed": "정책",
+    "domain": "aitimes.kr",
+    "matched": "사내스크랩"
+  },
+  "f2c26bd449187c0d": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "정부, 텍사스 발전소 사업에 24억 달러 송금…美 원전·LNG는 추가 검증",
+    "summary": "정부는 미국 텍사스 가스복합화력발전소 사업에 상업성을 인정하고 첫 전략투자금 24억 달러를 송금했으나, 미국 원전·LNG 사업은 추가 검증 방침이다.",
+    "detail": "이형일 부총리 겸 기획재정부 장관은 미국 텍사스 가스복합화력발전소 사업에 상업성을 인정하고 대미 전략투자 첫 자금 24억 달러를 송금했다고 밝혔다. 해당 사업은 총사업비 약 223억 달러 규모로, 2052년까지 약 430억~454억 달러 회수를 목표로 한다. 미국 원전 프로젝트(총 8기, 한국형 APR1400 2기 포함, 총사업비 1200억 달러 규모)와 알래스카 LNG 사업은 투자 조건과 회수 구조를 추가 검증 후 집행할 예정이다. 정부는 대미 전략투자 전체 한도를 2000억 달러로 설정했다.",
+    "implication": "미국 텍사스 발전소 사업에 대한 24억 달러 송금은 대규모 대미 투자 집행의 시작을 알리며, 향후 원전·LNG 사업의 투자 조건 검증이 중요 과제로 남았다.",
+    "why_important": "정부의 대규모 대미 전략투자 집행 현황과 향후 원전·LNG 사업 투자 결정에 대한 검증 절차를 파악할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#대미투자",
+      "#텍사스발전소",
+      "#원전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "이형일 “텍사스발전소 사업 첫 24억달러 송금”… 알래스카 LNG·美 원전...",
+    "link": "https://www.dt.co.kr/article/12087607",
+    "feed": "정책",
+    "domain": "dt.co.kr",
+    "matched": "사내스크랩"
+  },
+  "55e42f91b0437f6c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "한전 컨소시엄, 웨스팅하우스 지분 5~10% 확보…IPO 시 지분 희석 방지",
+    "summary": "한국전력 컨소시엄은 웨스팅하우스 프리IPO 지분 5~10%와 신주인수권을 확보하여 향후 IPO 시 지분 희석을 방지하는 구조를 마련했다.",
+    "detail": "한국전력 등 한국 기업 컨소시엄이 미국 원전 기업 웨스팅하우스의 프리IPO 과정에서 지분 5~10%를 10% 할인된 가격으로 인수하고, 웨스팅하우스가 상장할 경우 지분 희석을 방지할 수 있는 신주인수권을 확보했다. 이는 한국형 원전(APR1400)의 미국 진출을 위한 웨스팅하우스와의 전략적 협력 합의(SA) 개정에도 영향을 미친다. 다만, 1200억 달러 규모의 원전 프로젝트 관련 공사비 초과, 지반 조건, 냉각수 확보 등 세부적인 상업성 검증은 향후 과제로 남아 있다.",
+    "implication": "웨스팅하우스 지분 확보와 신주인수권 확보는 한국형 원전의 미국 진출을 위한 전략적 발판을 마련했으나, 대규모 프로젝트의 상업성 검증이 주요 과제로 남았다.",
+    "why_important": "미국 원전 사업 참여를 위한 웨스팅하우스와의 지분 확보 및 협력 관계 재정립 동향을 파악하고, 향후 사업 추진 과정에서의 리스크 요인을 점검할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#웨스팅하우스",
+      "#지분투자",
+      "#APR1400"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "\"웨스팅하우스 상장때 신주인수권\" … 韓, 대미원전투자 지분율 지킨다",
+    "link": "https://www.mk.co.kr/article/12169601",
+    "feed": "정책",
+    "domain": "mk.co.kr",
+    "matched": "사내스크랩"
+  },
+  "6b49584ef2d0180d": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "waste"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "원전 공론화위, '숙의' 방식 도입…시민 300명 2박3일 토론",
+    "summary": "원전 공론화위원회는 다수결 대신 숙의를 거쳐 의견과 판단 근거를 종합하는 방식으로 운영하며, 시민 300명을 대상으로 2박 3일간의 토론을 진행할 계획이다.",
+    "detail": "전력수급기본계획 수립을 위한 원전 공론화위원회가 첫 회의를 열고 위원회 운영규정과 시민참여형 조사용역 계획, 공론화 추진 방향 등을 논의했다. 위원회는 공론화 결과를 다수 선택만으로 도출하지 않고 숙의를 거쳐 의견과 판단 근거, 공통점 등을 종합해 정리하기로 합의했다. 약 300명의 시민참여단은 2박 3일간의 숙의 토론을 거쳐 의견을 제시할 예정이다. 위원회는 주 1회 정기회의를 원칙으로 운영하며, 국무회의 기본방향에 따라 미래 전력수요 충당을 위한 원전의 역할을 논의할 예정이다.",
+    "implication": "원전 공론화 과정에 숙의 민주주의 방식을 도입하여 시민 참여를 확대하고, 다양한 의견을 종합적으로 수렴하려는 노력이 진행 중이다.",
+    "why_important": "제12차 전력수급기본계획 수립 과정에서 원전의 역할에 대한 사회적 합의를 도출하기 위한 공론화 절차의 진행 상황을 파악할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전공론화",
+      "#숙의민주주의",
+      "#전기본"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "원전 공론화위 \"다수결 대신 숙의\"…시민 300명 2박3일 토론",
+    "link": "https://www.yna.co.kr/view/AKR20261008072100530",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "사내스크랩"
+  },
+  "321713245f7c5b5c": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "12차 전기본 확정 지연 속 '원전 공론화' 놓고 국감서 공방",
+    "summary": "제12차 전력수급기본계획 확정이 지연되는 가운데, 원전 역할에 대한 추가 공론화 추진을 두고 국정감사에서 여야 간 공방이 벌어졌다.",
+    "detail": "제12차 전력수급기본계획(전기본) 확정이 늦어지고 있는 가운데, 원전 역할에 대한 추가 공론화를 놓고 국정감사에서 공방이 있었다. 김소희 의원은 12차 전기본이 수요 재전망과 원전 공론화 이유로 계속 연기되는 점을 지적하며 조속한 확정을 촉구했다. 김성환 장관은 원전 공론화가 특정 원전 건설 개수를 묻는 절차가 아니며, 다양한 의견을 수렴해 반영할 것이라고 설명했다. 또한, 전기본 수립 시 국회 상임위 심의 절차를 거치도록 하는 법안 발의 경험을 언급하며 국회의 심도 있는 논의와 민주적 통제를 강조했다.",
+    "implication": "AI·반도체 등 산업 전력수요 급증 속에서 12차 전기본 수립 지연은 발전설비 및 전력망 투자 등 후속 정책에 영향을 미칠 수 있다.",
+    "why_important": "제12차 전력수급기본계획 수립 지연 사유와 원전 공론화 추진에 대한 정치권의 입장을 파악하고, 향후 계획 확정 일정에 미칠 영향을 주시할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전기본",
+      "#원전공론화",
+      "#전력수급"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "[국감] 기후에너지환경부 “12차 전기본 또 미뤄지나”…국감서 ‘원전 공론화’ 놓고 공방",
+    "link": "http://www.ecomedia.co.kr/news/newsview.php?ncode=1065599205586798",
+    "feed": "정책",
+    "domain": "ecomedia.co.kr",
+    "matched": "사내스크랩"
+  },
+  "9158266eb87c675a": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 중간선거 이슈는 '에너지 가격', 트럼프 AI 정책과 이란 전쟁",
+    "summary": "공화당의 그레그 애봇 텍사스 주지사는 데이터센터가 전력망에 미칠 영향을 조사해야 한다며 환경당국의 신규 건설 허가를 중단시켰다.",
+    "detail": "공화당의 그레그 애봇 텍사스 주지사는 인공지능 데이터센터가 전력망에 미칠 영향을 조사해야 한다며 환경당국의 신규 건설 허가를 중단하도록 했다. S&P글로벌은 이러한 사례를 들어 '데이터센터에 대한 주민 반발이 확산될 수 있다'고 분석했다.",
+    "implication": "미국 텍사스 주지사의 데이터센터 신규 건설 허가 중단은 AI 데이터센터 확장에 따른 전력망 영향에 대한 지역사회의 우려를 반영한다.",
+    "why_important": "미국 중간선거 이슈와 관련된 에너지 가격, 트럼프 AI 정책, 이란 전쟁 등 다양한 사안을 다루고 있으며, 텍사스 주지사의 데이터센터 건설 허가 중단은 에너지 인프라 관련 규제 동향을 시사한다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#에너지가격"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "현대건설, 네덜란드 대형원전 2기 기본설계 맡는다",
+    "link": "https://www.fnnews.com/news/202610080958509694",
+    "feed": "정책",
+    "domain": "fnnews.com",
+    "matched": "사내스크랩"
+  },
+  "3116ca5e6722dbbb": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 0,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 칩 임대료 1년새 60% 급등…앤트로픽, 스페이스X와 대규모 컴퓨팅 자원 계약",
+    "summary": "AI 기업 앤트로픽이 연산자원 부족으로 일론 머스크의 스페이스X로부터 전력 기준 300MW 이상의 컴퓨팅 자원을 임차하는 대규모 계약을 체결했다.",
+    "detail": "인공지능(AI) 기업 앤트로픽은 코딩 도구 '클로드 코드'의 예상 밖 흥행으로 연산 수요가 급증하자, 일론 머스크의 스페이스X로부터 전력 기준 300MW가 넘는 규모의 컴퓨팅 자원을 임차하는 계약을 체결했다. 이는 향후 수년간 최대 450억 달러 규모의 거래 일부로 알려졌다. 수요가 공급을 앞지르면서 GPU 같은 AI칩 기반 연산자원의 시간당 비용은 지난 1년 사이 60% 올랐다. 구글 모회사 알파벳은 올해 자본지출의 상당 부분을 AI 인프라에 투입할 계획이며, 내부적으로 연산자원 배분을 놓고 갈등이 벌어지고 있다.",
+    "implication": "AI 컴퓨팅 자원 수요 급증과 공급 부족 현상은 관련 시장의 가격 상승과 기업 간 대규모 자원 확보 경쟁을 심화시키고 있다.",
+    "why_important": "AI 컴퓨팅 자원 시장의 수급 불균형과 가격 상승 동향, 주요 기업들의 자원 확보 경쟁 현황을 파악할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#컴퓨팅자원",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "AI칩 빌리는 값 1년새 60% 뛰었다…클로드도 연산 모자라 장애 잦았다",
+    "link": "https://www.newsis.com/view/NISX20261011_0003820733",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "데이터센터 전력"
+  },
+  "781bb64826ee7db0": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 PERM 중단 등 국제 이슈",
+    "summary": "국제에너지기구(IEA)는 2025~2040년 동남아 전력망 확충 및 현대화에 3000억 달러 이상이 필요하다고 추산했다.",
+    "detail": "미국 정부가 마이크로소프트 등 8개 기업의 취업 기반 영주권 노동 인증 절차인 PERM 신규 신청 접수 및 계류 신청 처리를 중단했다. 국제에너지기구(IEA)는 동남아시아 전력 수요가 2026~2030년 연평균 5.4% 증가할 것으로 전망하며, 2025~2040년 전력망 확충과 현대화에 3000억 달러 이상이 필요하다고 추산했다. 레저(Ledger)는 피해 이용자 기기에서 무단 하드웨어 삽입을 확인했으며, 코인베이스의 평가에서 GPT-5.6 (sol) 재현율이 이전 모델보다 20.7%포인트 낮았다.",
+    "implication": "",
+    "why_important": "미국 PERM 중단, 동남아 전력 수요 증가 전망, AI 모델 평가 등 다양한 국제 이슈를 다루고 있으며, 특히 동남아 전력망 투자 규모 추산은 주목할 만하다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#동남아",
+      "#전력망",
+      "#AI"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "[모닝 뉴스브리핑] PERM 중단에 MS 등 8곳 영향 外",
+    "link": "https://www.tokenpost.kr/news/briefing/420961",
+    "feed": "정책",
+    "domain": "tokenpost.kr",
+    "matched": "데이터센터 전력"
+  },
+  "5203982112328a7a": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 3,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "opinion",
+    "title_kr": "추경호 대구시장 \"TK, 반도체·AI 데이터센터 최적지…공정한 경쟁 기회 달라\"",
+    "summary": "추경호 대구시장은 대구경북이 반도체 공장 및 AI 데이터센터 입지에 필요한 전력, 용수, 인재 양성 기반을 갖추고 있어 공정한 경쟁 기회를 보장해야 한다고 주장했다.",
+    "detail": "추경호 대구시장은 대구경북(TK)이 반도체 공장과 AI 데이터센터 입지에 필요한 전력, 용수, 인재 양성 기반을 갖추고 있어 정부의 3대 메가프로젝트 투자에서 공정한 경쟁 기회를 보장받아야 한다고 강조했다. TK는 원전 밀집으로 전력 생산량이 소비량의 두 배를 넘고 연간 잉여 발전량은 약 5만6000GWh에 달하며, 낙동강 수계를 활용해 하루 약 100만 톤의 용수 취수가 가능하다. 구미를 중심으로 반도체 소재·부품·장비 산업 기반도 갖추고 있다.",
+    "implication": "",
+    "why_important": "AI 데이터센터 및 반도체 산업 입지 조건과 관련하여 지역별 자원 현황을 파악하고, 지역 균형 발전 관점에서 정책적 시사점을 도출할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#대구경북",
+      "#AI데이터센터",
+      "#전력"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "[인터뷰] 추경호 “電·水·人 갖춘 TK, 반도체 산업 최적지… 공정 경쟁...",
+    "link": "https://biz.chosun.com/topics/topics_social/2026/10/11/SU4ILBAWUFABLNDMEYGRCN3DAY",
+    "feed": "정책",
+    "domain": "chosun.com",
+    "matched": "데이터센터 전력"
+  },
+  "f03e635259ba383a": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 중간선거 이슈는 '에너지 가격', 트럼프 AI 정책과 이란 전쟁",
+    "summary": "공화당의 그레그 애봇 텍사스 주지사는 데이터센터가 전력망에 미칠 영향을 조사해야 한다며 환경당국의 신규 건설 허가를 중단시켰다.",
+    "detail": "공화당의 그레그 애봇 텍사스 주지사는 인공지능 데이터센터가 전력망에 미칠 영향을 조사해야 한다며 환경당국의 신규 건설 허가를 중단하도록 했다. S&P글로벌은 이러한 사례를 들어 '데이터센터에 대한 주민 반발이 확산될 수 있다'고 분석했다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#데이터센터",
+      "#에너지가격"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "미국 11월 중간선거 이슈는 '에너지 가격', 트럼프 AI 정책과 이란 전쟁...",
+    "link": "https://www.businesspost.co.kr/BP?command=article_view&num=448928",
+    "feed": "정책",
+    "domain": "businesspost.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "54268037b32e364c": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "정부, 내년 4.7조 투입 '프런티어 AI' 개발 추진…빅테크와 '규모의 싸움'",
+    "summary": "오픈AI, 구글, 앤트로픽 등 빅테크들은 막대한 자본과 인프라를 바탕으로 AI 모델 개발 기술과 운영 경험을 축적하고 있다.",
+    "detail": "정부는 내년 4.7조 원을 투입하여 '프런티어 AI' 개발을 추진할 계획이다. 오픈AI, 구글, 앤트로픽 등 빅테크들은 막대한 자본을 바탕으로 자체 데이터센터와 전력 인프라, 연구인력을 확보하고 있으며, 이들이 오랜 기간 축적한 AI 모델 개발 기술과 운영 경험은 단기간에 따라잡기 어렵다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI",
+      "#프런티어AI",
+      "#빅테크"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "정부 내년 4.7조 투입 '프런티어 AI' 개발 추진, 빅테크와 '규모의 싸움...",
+    "link": "https://www.businesspost.co.kr/BP?command=article_view&num=448934",
+    "feed": "정책",
+    "domain": "businesspost.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "7a48026e317d9fe5": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "newbuild"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "한미 원전 협력, 캐나다 견제 속 한국형 원전 진출 돌파구 마련",
+    "summary": "미국은 캐나다 자본에 대한 경계심으로 한국형 원전(APR1400) 도입을 허용하고 웨스팅하우스 지분 인수 조건을 유리하게 제공하며 한미 원전 협력의 돌파구를 마련했다.",
+    "detail": "미국은 한국형 원전 2기를 포함해 총 8기의 원전을 미국에 건설하는 '한미 원전 프레임워크'를 통해 한국의 원전 시공 역량을 활용하기로 했다. 이는 웨스팅하우스의 주요 주주가 캐나다 자본이라는 점에 대한 미국의 경계심이 작용한 결과로 분석된다. 한국은 웨스팅하우스 지분 5~10%를 인수하며, 상장 시 공모가의 10% 할인된 가격으로 인수할 수 있는 조건을 포함했다. 또한, 한국형 원전의 미국 진출을 가로막던 웨스팅하우스와의 기존 타협협정(SA)도 개정될 예정이다. 미국 정부는 웨스팅하우스 상장 과정에서 황금주를 확보하여 경영 중요 사항에 대한 거부권을 행사할 수 있는 지위를 확보할 계획이다.",
+    "implication": "",
+    "why_important": "미국 원전 시장 진출을 위한 한미 원전 협력 동향과 웨스팅하우스와의 관계 재정립 과정을 파악하고, 캐나다 자본 견제 등 지정학적 요인이 사업에 미치는 영향을 분석할 필요가 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#한미원전협력",
+      "#APR1400",
+      "#웨스팅하우스"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "캐나다와 갈등하는 미국…한국은 틈 비집고 원전 진출 돌파구",
+    "link": "https://www.yna.co.kr/view/AKR20261010033600003?input=1195m",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "원자력안전위원회"
+  },
+  "a445c2d5cf7ba76b": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "KP"
+    ],
+    "article_type": "opinion",
+    "title_kr": "일촉즉발 남북 대치, 출구 전략은?...김용현 동국대 북한학과 교수",
+    "summary": "김용현 교수는 북한의 지뢰 폭발 사태와 관련하여 정확한 팩트 확인과 재발 방지를 위한 엄중한 요구, 그리고 우발적 사태 방지를 위한 위기 관리 능력이 중요하다고 강조했다.",
+    "detail": "김용현 동국대학교 북한학과 교수는 최근 북한의 지뢰 폭발로 인한 남북 장병 부상 사태와 관련하여, 정확한 팩트 확인과 재발 방지를 위한 북측에 대한 엄중한 요구가 필요하다고 밝혔다. 또한, 비무장지대나 서해 NLL 선상에서 발생할 수 있는 우발적·돌발적 사태를 방지하기 위한 위기 관리 능력이 중요하다고 강조했다. 북한은 이번 사태에 대해 자작극이라고 주장하고 있으나, 한국 측은 북한의 소행으로 결론 내리고 재발 방지 확약을 받아야 한다는 입장이다.",
+    "implication": "",
+    "why_important": "남북 간 군사적 긴장 고조 상황과 관련하여 전문가의 분석을 제공하고 있으며, 국제원자력기구나 유엔, 미국 등의 제재 가능성을 언급하고 있다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#남북관계",
+      "#북한",
+      "#위기관리"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-10T21:38:12.400975+00:00",
+    "title": "일촉즉발 남북 대치, 출구 전략은?...김용현 동국대 북한학과 교수",
+    "link": "https://news.bbsi.co.kr/news/articleView.html?idxno=4111348",
+    "feed": "정책",
+    "domain": "bbsi.co.kr",
+    "matched": "한미 민간 원자력 협력"
   }
 }
