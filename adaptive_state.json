@@ -1150,7 +1150,7 @@
     }
   },
   "spent": {
-    "count": 2,
+    "count": 3,
     "date": "2026-10-10"
   },
   "terms": {
@@ -1186,14 +1186,14 @@
       "expires_at": "2026-10-11T18:20:04.520441+00:00",
       "importance": "nice_to_know",
       "last_result_count": 1,
-      "last_run": "2026-10-09T17:53:12.207528+00:00",
-      "new_articles": 3,
+      "last_run": "2026-10-10T00:32:06.006744+00:00",
+      "new_articles": 4,
       "origin": "auto",
-      "planned_at": "2026-10-09T17:53:10.782072+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-10-10T00:32:04.977645+00:00",
+      "queries_run": 4,
       "query": "FEED 1 원자력",
       "score": 6.3,
-      "status": "extended",
+      "status": "promote_candidate",
       "term": "FEED 1",
       "ttl_hours": 72,
       "type": "company",
@@ -1201,7 +1201,7 @@
         "2026-10-09",
         "2026-10-10"
       ],
-      "yields": 2,
+      "yields": 3,
       "zero_streak": 0
     }
   },
