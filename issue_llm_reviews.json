@@ -5162,6 +5162,16 @@
       "right_title": "트럼프 전 대통령, 한국의 2천억 달러 규모 미국 에너지 투자 언급",
       "same_event": true
     },
+    "0471714ffba7b505--3438314039050dee": {
+      "embedding_similarity": 0.893,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 대한국 투자 언급 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프 전 대통령, 한국의 2천억 달러 규모 미국 에너지 투자 언급",
+      "same_event": true
+    },
     "0471714ffba7b505--657fb1e8299bfac4": {
       "embedding_similarity": 0.8886,
       "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
@@ -8631,6 +8641,16 @@
       "reviewed_at": "2026-08-26T16:32:17.816059+00:00",
       "right_title": "KBS 시사기획 창, 한국형 핵추진 잠수함과 한미 원자력협정 조명",
       "same_event": false
+    },
+    "05f618d79292dfbd--3142dcb7e62f84a0": {
+      "embedding_similarity": 0.8921,
+      "left_title": "경북 울진, 2026 미래에너지 포럼 개최…SMR·원자력수소 거점 도약 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "울진군 미래에너지포럼 개최",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "울진군, 미래에너지포럼 개최해 원전·수소·재생에너지 발전전략 논의",
+      "same_event": true
     },
     "05f618d79292dfbd--533440397f53c976": {
       "embedding_similarity": 0.8713,
@@ -49902,6 +49922,16 @@
       "right_title": "한·미 원전 프레임워크 타결, APR1400 미국 진출 및 웨스팅하우스 지분 인수 추진",
       "same_event": true
     },
+    "2cc62887077d22a6--c2e6d326513ee0aa": {
+      "embedding_similarity": 0.8989,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 추진 및 타결 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "한·미 원전 프레임워크 타결, APR1400 미국 진출 및 웨스팅하우스 지분 인수 추진",
+      "same_event": true
+    },
     "2cc62887077d22a6--c6e6df8995d1ac7d": {
       "embedding_similarity": 0.8643,
       "left_title": "산업통상부, 원전수출기획위원회 열고 미국 진출 방안 논의",
@@ -53822,6 +53852,16 @@
       "right_title": "경북 울진, 2026 미래에너지 포럼 개최…SMR·원자력수소 거점 도약 모색",
       "same_event": true
     },
+    "3142dcb7e62f84a0--c98208f3b298ca09": {
+      "embedding_similarity": 0.9023,
+      "left_title": "경북 울진, 2026 미래에너지 포럼 개최…SMR·원자력수소 거점 도약 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "포럼 개최와 정부 지원 촉구는 다른 사건",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "울진군, 원자력 수소 국가산단 성공 위해 범정부 지원 촉구",
+      "same_event": false
+    },
     "314525819aa563fb--36e8b772580c819d": {
       "embedding_similarity": 0.8804,
       "left_title": "과학기술정보통신부, SMR 민관협의체 이달 출범 및 7대 시드 프로젝트 상용화 추진",
@@ -54131,6 +54171,16 @@
       "reviewed_at": "2026-09-21T19:12:04.910006+00:00",
       "right_title": "효성중공업, 미국 전력시장 겨냥 반도체 변압기 기술 개발 추진",
       "same_event": false
+    },
+    "31c923d83ba1707d--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.8992,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령 “에너지 정책의 정치화 위험…일관성 있는 추진 필요”",
+      "same_event": true
     },
     "31ed75087c39315f--7bdd4ae8cae6271e": {
       "embedding_similarity": 0.8778,
@@ -56141,6 +56191,116 @@
       "reviewed_at": "2026-10-05T14:17:12.561712+00:00",
       "right_title": "글로벌 투자자, '코리아 프리미엄' 기대감 속 한국 증시로 복귀 움직임",
       "same_event": false
+    },
+    "3438314039050dee--58080c7dee0863a8": {
+      "embedding_similarity": 0.8932,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 측의 한국 투자 관련 언론",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프 측, 한국의 알래스카 LNG 투자 등 대형 프로젝트 추가 협의 시사",
+      "same_event": true
+    },
+    "3438314039050dee--66f29931d77c4b46": {
+      "embedding_similarity": 0.8935,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 한국 투자 관련 발언",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 투자 발표…정부 \"미확정\"",
+      "same_event": true
+    },
+    "3438314039050dee--74b5a382744d6643": {
+      "embedding_similarity": 0.8915,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 발언과 양국 정부 간 합의",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "한미 양국, 대형 원전 8기 건설 프레임워크 합의…APR1400 미국 진출 추진",
+      "same_event": false
+    },
+    "3438314039050dee--8b32a17243a4c52c": {
+      "embedding_similarity": 0.9043,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 협력 언급과 LNG 발표 예정은 다름",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "미국 백악관, 30일 한국 대미 투자 계획 발표 예정…알래스카 LNG 포함 주목",
+      "same_event": false
+    },
+    "3438314039050dee--9b4e1e35dbc995d2": {
+      "embedding_similarity": 0.8989,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "조선/원전 언급과 LNG 투자 발표는 다름",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프, 韓 2000억 달러 대미 투자 중 알래스카 LNG 포함 발표",
+      "same_event": false
+    },
+    "3438314039050dee--9b9ce3b801e8b75c": {
+      "embedding_similarity": 0.9111,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령 언급과 투자 협상 압박은 별개",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "미국, 대미 투자 협상서 알래스카 LNG 및 대형 원전 건실 추진 압박",
+      "same_event": false
+    },
+    "3438314039050dee--be926f0515b8b97c": {
+      "embedding_similarity": 0.892,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 한국 에너지 투자 발언",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프, 알래스카 LNG 한국 투자 발표…상업성 전제 사업 추진",
+      "same_event": true
+    },
+    "3438314039050dee--cddca137766d633c": {
+      "embedding_similarity": 0.8986,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "조선/원전 언급과 LNG 투자 발표는 다름",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프, 韓 대미 투자 계획 발표…알래스카 LNG 540억 달러 포함",
+      "same_event": false
+    },
+    "3438314039050dee--cec29d1c6854ff57": {
+      "embedding_similarity": 0.9056,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "조선/원전 협력과 LNG 투자는 별개 사안",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "미국 트럼프 정부, 알래스카 LNG 투자에 한국 포함 추진",
+      "same_event": false
+    },
+    "3438314039050dee--e4a4d128a92a1a5f": {
+      "embedding_similarity": 0.9068,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "조선/원전 언급과 LNG 투자 발표는 다름",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "트럼프, 한국의 알래스카 LNG 540억 달러 투자 발표 임박",
+      "same_event": false
+    },
+    "3438314039050dee--ecc30b2c4cf5cc4d": {
+      "embedding_similarity": 0.8965,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 대한국 투자 발표",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "도널드 트럼프 미국 대통령, 한국의 알래스카 LNG 및 대형 원전 8기 투자 계획 공식 발표",
+      "same_event": true
     },
     "34575730dc364184--3590184774ef2006": {
       "embedding_similarity": 0.8422,
@@ -63952,6 +64112,16 @@
       "right_title": "정부, K-GX 전략 추진…소형모듈원자로 국가전략기술 지정 추진",
       "same_event": true
     },
+    "39b7083e4a49a475--a05c808ea984b478": {
+      "embedding_similarity": 0.904,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, K-GX 전략 추진…소형모듈원자로 국가전략기술 지정 추진",
+      "same_event": true
+    },
     "39d2da80812a25d1--72fdb8f9c170e368": {
       "embedding_similarity": 0.8416,
       "left_title": "미군, 마이크로원자로 기지 배치…2030년 목표",
@@ -70022,6 +70192,16 @@
       "right_title": "정부, 미국 텍사스에 223억 달러 규모 가스복합발전소 건설 추진",
       "same_event": true
     },
+    "40a95a867af2bd1d--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.9056,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, \"에너지 정책 정치화 위험…원전 논란은 정쟁\"",
+      "same_event": true
+    },
     "40b7e9b76676e6f9--59fdec838a3146f8": {
       "embedding_similarity": 0.8827,
       "left_title": "정부·국회, 미국 내 원전 8기 건설 추진…한수원 APR1400 참여 유력",
@@ -74902,6 +75082,16 @@
       "right_title": "소양강댐 초대형 수상 태양광 발전 비전 선포",
       "same_event": false
     },
+    "45cd01a16ca3883d--93e720ad9ccca9fa": {
+      "embedding_similarity": 0.8909,
+      "left_title": "텍사스 주지사, 474GW 데이터센터 전력망 접속 신청 감사 및 허가 보류 지시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력망 규제와 용수 사용 규제",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "미국 텍사스주, 데이터센터 용수 사용량 조사 및 규제 강화",
+      "same_event": false
+    },
     "45fb26e254b2fb3a--4b88a52b0395c931": {
       "embedding_similarity": 0.9009,
       "left_title": "한수원 등, 웨스팅하우스 지분 15%·이사회 의결권 확보 추진…미국은 5~10% 제안",
@@ -76742,6 +76932,16 @@
       "right_title": "정부, 10년간 1000조원 투입 'K-GX' 발표…2035년 i-SMR 1호기 도입",
       "same_event": false
     },
+    "486869b03afb9178--a05c808ea984b478": {
+      "embedding_similarity": 0.8984,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 10년간 1000조원 투입 'K-GX' 발표…2035년 i-SMR 1호기 도입",
+      "same_event": true
+    },
     "486869b03afb9178--d93da0948a32f743": {
       "embedding_similarity": 0.8698,
       "left_title": "정부, SMR 개발·제조·실증 동시 추진해 글로벌 시장 선점 나선다",
@@ -77651,6 +77851,16 @@
       "reviewed_at": "2026-09-29T22:38:45.381878+00:00",
       "right_title": "영덕군, 신규 원전 명칭 후보 '새빛'·'해누리' 선정",
       "same_event": false
+    },
+    "49c213dcad11385f--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.906,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, '한국형 녹색대전환' 보고회 주재… \"정책의 정치화는 위험\"",
+      "same_event": true
     },
     "49d30d34e452c58d--5d1025d1b23c6e0d": {
       "embedding_similarity": 0.856,
@@ -86781,6 +86991,16 @@
       "reviewed_at": "2026-10-01T16:36:17.986600+00:00",
       "right_title": "한·미, 대미 투자 원전 8기 건설 프레임워크 체결 및 APR1400 포함 확정",
       "same_event": false
+    },
+    "54e4538ade932dd2--c2e6d326513ee0aa": {
+      "embedding_similarity": 0.8979,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 추진 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "한·미, 대미 투자 원전 8기 건설 프레임워크 체결 및 APR1400 포함 확정",
+      "same_event": true
     },
     "54e4538ade932dd2--c412d838670684db": {
       "embedding_similarity": 0.8699,
@@ -105382,6 +105602,16 @@
       "right_title": "삼성전자, 광주사업장에 HVAC 공장 신설…데이터센터 냉각 수요 대응",
       "same_event": false
     },
+    "69f1f93c8fc72a04--a05c808ea984b478": {
+      "embedding_similarity": 0.896,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 한국형 녹색대전환(K-GX) 전략 발표…SMR 등 10대 녹색산업에 10년간 1000조원 투입",
+      "same_event": true
+    },
     "6a023b9e745f4165--722ebbf9d8676b8c": {
       "embedding_similarity": 0.8888,
       "left_title": "정부, 12차 전력수급기본계획 앞두고 원전 공론화 착수",
@@ -121632,6 +121862,16 @@
       "right_title": "미국 AI 데이터센터 및 송전망 투자 확대로 K-전력기기 수혜",
       "same_event": true
     },
+    "7d449d498cc819b4--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.9169,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이 대통령, \"원전·태양광 정치 논쟁 위험, 정책의 정치화 경계해야\"",
+      "same_event": true
+    },
     "7d4f5a342c3182d8--7d93f72fe6cd3b8b": {
       "embedding_similarity": 0.862,
       "left_title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
@@ -125592,6 +125832,16 @@
       "right_title": "산업부, 미국에 대형 원전 최대 8기 건설 방안 검토 보고",
       "same_event": true
     },
+    "83a5283e6a990283--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.8954,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령의 K-GX 및 에너지 정책 발언",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, K-GX 전략 보고회 주재하며 에너지 정책 정치화 우려 표명",
+      "same_event": true
+    },
     "83b3ffe9523e336e--87ed2c177c6b914e": {
       "embedding_similarity": 0.8457,
       "left_title": "정부, 발전 5사·석유가스공사 통합 등 109개 공공기관 기능 개혁 추진",
@@ -126061,6 +126311,16 @@
       "reviewed_at": "2026-09-13T22:41:01.361803+00:00",
       "right_title": "부산 기장군 SMR 부지 지원을 위한 특별법 시행 및 기본계획 추진",
       "same_event": false
+    },
+    "83f7516dd165f856--c2e6d326513ee0aa": {
+      "embedding_similarity": 0.8949,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 후속 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "산업부, 한미 원전 프레임워크 후속 조치…2028년 미국 내 대형 원전 사업 구체화 전망",
+      "same_event": true
     },
     "8400ea24b1cde938--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8941,
@@ -130002,6 +130262,16 @@
       "right_title": "한미 정상, 30분 회담서 핵잠·농축·재처리 등 안보 현안 논의",
       "same_event": true
     },
+    "89ba0cf9ed760ab3--c2cbd5781ccb5296": {
+      "embedding_similarity": 0.9254,
+      "left_title": "일본 정부, 원전 재가동·재건축 발맞춰 '원자력 인재 컨소시엄' 발족",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "컨소시엄 발족과 인력난 분석은 다른 사안",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "일본, 원전 부활 정책에도 인력난 직면…2050년까지 11~14기 대체 건설 목표",
+      "same_event": false
+    },
     "89c1ce7ebf89478f--949d9fe2e6a68fff": {
       "embedding_similarity": 0.9024,
       "left_title": "원자력안전위원회, UAE·체코·싱가포르와 원전 안전규제 협력 논의",
@@ -132892,6 +133162,16 @@
       "right_title": "한국, 웨스팅하우스 지분 인수 시 지재권 분쟁 해소 기대",
       "same_event": true
     },
+    "8e1204df2703e94e--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.918,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 녹색대전환 보고회 관련 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, 한국형 녹색대전환 전략 국민보고회 주재",
+      "same_event": true
+    },
     "8e451397a8f1f85d--97d7ccf69b1d259d": {
       "embedding_similarity": 0.8864,
       "left_title": "정부, 송전망 건설 수용성 제고 위해 철탑 절반 감축 및 지중화 확대",
@@ -134641,6 +134921,16 @@
       "reviewed_at": "2026-09-17T16:25:57.088911+00:00",
       "right_title": "“데이터센터 병목은 전력… 사용 방식 바꿔야”",
       "same_event": false
+    },
+    "91a33a878767be22--bac7fc719a0d9a33": {
+      "embedding_similarity": 0.9179,
+      "left_title": "한전, 해남 솔라시도 데이터센터 변전소 1390억 조기 건설 추진 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한전 변전소 조기 건설 특혜 의혹 다룸",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "구자근 의원, 한전 솔라시도 변전소 1300억 조기 건설 특혜 의혹 제기",
+      "same_event": true
     },
     "91c28f4c623f0bf0--96dffa21b827ca27": {
       "embedding_similarity": 0.8503,
@@ -143562,6 +143852,36 @@
       "right_title": "한수원-오라노, 장기 농축역무 공급 협력 의향서 체결",
       "same_event": true
     },
+    "a05c808ea984b478--a0bd91f2fdc1941e": {
+      "embedding_similarity": 0.8949,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 정책과 개별 기업 투자건",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "두산에너빌리티, 2030년까지 창원에 SMR 전용 공장 구축",
+      "same_event": false
+    },
+    "a05c808ea984b478--bc56a393a3c600f9": {
+      "embedding_similarity": 0.8943,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 2035년까지 1000조 원 투입 K-GX 전략 추진, SMR 등 녹색산업 육성",
+      "same_event": true
+    },
+    "a05c808ea984b478--d44bfeeb1e2fb578": {
+      "embedding_similarity": 0.9072,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 10년간 1000조원 투입 K-GX 발표…SMR 국가전략기술 지정 추진",
+      "same_event": true
+    },
     "a05c808ea984b478--ec7384431fc97169": {
       "embedding_similarity": 0.8899,
       "left_title": "정부, '한국형 녹색대전환' 발표…10년간 1000조 투입 및 SMR 국가전략기술 지정",
@@ -143570,6 +143890,26 @@
       "reason": "동일한 K-GX 발표",
       "reviewed_at": "2026-10-09T21:07:33.975823+00:00",
       "right_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "same_event": true
+    },
+    "a05c808ea984b478--f449e76cde0a6568": {
+      "embedding_similarity": 0.8934,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 K-GX 전략 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 1000조원 규모 K-GX 전략 발표…SMR 국가전략기술 추진",
+      "same_event": true
+    },
+    "a05c808ea984b478--feeff71f2422f31b": {
+      "embedding_similarity": 0.8947,
+      "left_title": "정부·기업, 10년간 K-GX에 1천조원 이상 투자…SMR 등 10대 녹색산업 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "K-GX 전략 추진 발표 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "정부, 2035년까지 1000조 원 투입 ‘K-녹색대전환’ 추진",
       "same_event": true
     },
     "a062937d4beb3847--db2fc65e3de8b34b": {
@@ -147301,6 +147641,16 @@
       "reviewed_at": "2026-08-12T14:20:52.498980+00:00",
       "right_title": "정기선 HD현대 회장, 14일 방한 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": false
+    },
+    "a70c7db773656837--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.9068,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, '한국형 녹색 대전환 전략 국민보고회'서 에너지 정책 지적",
+      "same_event": true
     },
     "a71fd7046705b0b4--d1f22b19a877962c": {
       "embedding_similarity": 0.8706,
@@ -153732,6 +154082,16 @@
       "right_title": "美 PJM, 신규 전력 수요 비용 부담 고객 배정 촉구",
       "same_event": false
     },
+    "b48b10277724a425--cf169f7352e07914": {
+      "embedding_similarity": 0.8904,
+      "left_title": "美 PJM, 신규 전력 수요 비용 부담 고객 배정 촉구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "PJM 비용 배정 촉구와 전력 연계",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "AI 데이터센터 전력난 덮친 미국 전력망, 2.1기가와트 신속 연계로 숨통...",
+      "same_event": false
+    },
     "b48b10277724a425--eb450f6a44b4e020": {
       "embedding_similarity": 0.8452,
       "left_title": "미국 에너지부, 중대서부 지역 전력망 비상명령 발동",
@@ -153901,6 +154261,16 @@
       "reviewed_at": "2026-10-09T10:16:18.258231+00:00",
       "right_title": "기후부 장관, 제12차 전기본 자문위원 명단 비공개 입장 고수",
       "same_event": false
+    },
+    "b4bff20c0a72eb09--d19a8d6ebaa2d061": {
+      "embedding_similarity": 0.9069,
+      "left_title": "이재명 대통령, 녹색대전환 추진 및 에너지 정책의 전문가 중심 공론화 주문",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 행사의 대통령 발언 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "이재명 대통령, 한국형 녹색대전환(K-GX) 전략 추진 의지 강조",
+      "same_event": true
     },
     "b4c20ebef14903b8--b6c9950ca8668eda": {
       "embedding_similarity": 0.8955,
@@ -160492,6 +160862,16 @@
       "right_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
       "same_event": false
     },
+    "c2e6d326513ee0aa--caf32349c7e90413": {
+      "embedding_similarity": 0.8917,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 합의 보도",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "한·미, 대형 원전 8기 건설 프레임워크 합의…한국형 APR1400 미국 진출",
+      "same_event": true
+    },
     "c2e6d326513ee0aa--d539f47d47e1a0bc": {
       "embedding_similarity": 0.8434,
       "left_title": "산업통상부, 미국 대미투자 프로젝트에 한국형 원전 APR1400 2기 건설 공식 포함",
@@ -160501,6 +160881,16 @@
       "reviewed_at": "2026-10-09T01:28:43.836905+00:00",
       "right_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
       "same_event": false
+    },
+    "c2e6d326513ee0aa--da897a670de07a06": {
+      "embedding_similarity": 0.8946,
+      "left_title": "산업통상자원부, 한미 원전 프레임워크 추진으로 미국 대형원전 수출 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 및 수출 합의",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "한미 양국, 美 본토에 한국형 APR1400 원전 2기 건설 합의",
+      "same_event": true
     },
     "c2e6d326513ee0aa--fe4e4a65bce8a43b": {
       "embedding_similarity": 0.8511,
@@ -166550,6 +166940,16 @@
       "reason": "A는 안전기준 개정, B는 특정 심의",
       "reviewed_at": "2026-08-04T18:05:26.705058+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 하반기 심의 예정",
+      "same_event": false
+    },
+    "daa3c537811f9db1--ffb00eba7ac92297": {
+      "embedding_similarity": 0.8918,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주 건과 업계 동향 전망",
+      "reviewed_at": "2026-10-10T02:31:18.873668+00:00",
+      "right_title": "AI 데이터센터 확산에 전력·냉각 시장 공략 가속",
       "same_event": false
     },
     "daa6e1d5572f88b9--e28a6058bbf180d3": {
