@@ -246,6 +246,20 @@
       "reason": "기술 종류(핵분열/핵융합) 다름",
       "same_event": false
     },
+    "issue-0babf9c3c35557ce--613ab26b06": {
+      "issue_title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
+      "keei_item": "중국 국무원, 원전 8기 신규 건설 승인",
+      "prompt_version": 1,
+      "reason": "주체와 대상 국가가 다름",
+      "same_event": false
+    },
+    "issue-0babf9c3c35557ce--841ceedbf0": {
+      "issue_title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "주체와 대상 국가가 다름",
+      "same_event": false
+    },
     "issue-0c9c758818ef14de--23a6f604ae": {
       "issue_title": "중국, '제로 탄소 단지'로 EU 규제 돌파…AI 데이터센터 유치",
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
@@ -496,6 +510,13 @@
       "keei_item": "미국 Oklo, Centrus·Standard Nuclear와 원전 연료 공급망 협력 추진",
       "prompt_version": 1,
       "reason": "동일한 HALEU 연료 공급 계약 건",
+      "same_event": true
+    },
+    "issue-139ef867c400ece2--f020226b19": {
+      "issue_title": "루마니아 체르나보다 원전 가동 중단, 헝가리 팍스 원전 운영 노력",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "다뉴브강 저수위 관련 조치",
       "same_event": true
     },
     "issue-13d178fae214cbef--77d959ece5": {
@@ -4543,6 +4564,20 @@
       "prompt_version": 1,
       "reason": "주체, 안건이 다름",
       "same_event": false
+    },
+    "issue-cc5ef12e160a4ddf--841ceedbf0": {
+      "issue_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "주체와 대상 국가가 다름",
+      "same_event": false
+    },
+    "issue-cc5ef12e160a4ddf--d65bac9c4d": {
+      "issue_title": "한수원, 영덕 신규원전 2기 건설 9월 전략환경영향평가 초안 제출 예정",
+      "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
+      "prompt_version": 1,
+      "reason": "영덕 신규원전 건설 진행 단계",
+      "same_event": true
     },
     "issue-cd798dfa8457d15c--249f1333d0": {
       "issue_title": "아이다호 국립연구소 주도 프로메테우스 프로젝트, 연방 정부 6천만 달러 지원 선정",
