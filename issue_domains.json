@@ -792,15 +792,14 @@
       "generated_at": "2026-09-15T13:19:24.041847+00:00"
     },
     "issue-547e2a94314636a3": {
-      "digest": "1af7915bb6e6c127",
       "domain": "정책",
       "tags": [
         "원자력정책"
       ],
       "title": "정부, 한전 발전 5사 통합 '㈜한국발전' 출범 결정…2027년 10월 목표",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
     },
     "issue-e009af115f0ba074": {
       "domain": "해외사업",
@@ -9458,6 +9457,166 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-11T17:56:58.947803+00:00"
+    },
+    "issue-d6b73a07929cea3a": {
+      "domain": "사후처리",
+      "tags": [
+        "사용후핵연료"
+      ],
+      "title": "국회 박해철 의원, 고리·한빛·한울원전 사용후핵연료 저장조 포화 임박 대책 촉구",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-d423dcbdee3514ab": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "SK 최태원 회장, 호남 반도체 클러스터 400조원 투자 '속도전' 지시",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-3837eff359c1d656": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-7f41bc243288fe17": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "미국 에너지부, 허리케인으로 인한 원유 공급 차질 해소 위해 비축유 방출 승인",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-fe276c215813a520": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-518eea34e168e27e": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "북미 빅테크, AI 데이터센터 전력 공급 위해 원전 장기 계약 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-362cfc37fd638c9a": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한광전기공업, 미국서 국내 대기업 공장용 배전반 500억원 규모 수주",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-4208b34c49880c8b": {
+      "domain": "해외사업",
+      "tags": [
+        "해외운영"
+      ],
+      "title": "한수원 직원, 루마니아 파견 후 사망…해외사업 인력 관리 부실 지적",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-cf607a03c39f337c": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "미국 페르미, 텍사스 전력 인프라 17GW로 확장하며 SMR 제외; 현대건설 협력",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-efc7c6ef57dd19cb": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "가온전선, 미국 노스캐롤라이나 공장에 원전용 케이블 생산설비 구축 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-79725fa37cfd1ddc": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "북미 전기차 배터리 공장, 수요 둔화로 1000억 달러 투자에도 가동 중단 위기… ESS로 전환",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-c40a941e15ff61ef": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "미국, 탈중국 정책으로 한국 배터리 기업에 ESS 시장 선점 기회 제공",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-aaf5b1b82a18ad60": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "LG에너지솔루션, 3분기 매출 9조 원 돌파…북미 ESS 및 유럽 물량 증가 견인",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-2c6cc7500ee7284b": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "중국·프랑스 외교안보 전략대화 개최…원자력 및 AI 협력 강화 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-d592371115ea63b1": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "삼성물산·GE버노바 등 4사, 유럽 내 BWRX-300 SMR 반복 공급 협력 체계 구축",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
+    },
+    "issue-bd042c13c329e015": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-12T09:31:02.266654+00:00"
     }
   }
 }

@@ -16372,6 +16372,16 @@
       "right_title": "글로벌 기업, 중국 투자 전략을 생산에서 R&D로 전환",
       "same_event": false
     },
+    "0c9c77621cea4304--3837eff359c1d656": {
+      "embedding_similarity": 0.878,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 계획 착수와 미·한 비교 동향",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "美 AIDC 늘자 전력 확보 과제…한국도 공급 검토만 2년 넘겨",
+      "same_event": false
+    },
     "0c9c77621cea4304--5949227f174d59e7": {
       "embedding_similarity": 0.8466,
       "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
@@ -42292,6 +42302,16 @@
       "right_title": "정혜경 국회의원, 12차 전력수급기본계획의 데이터센터 전력효율 추정치 재검증 요구",
       "same_event": true
     },
+    "225ceacf9a02ffd5--fe276c215813a520": {
+      "embedding_similarity": 0.8794,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란 및 재검증 요구",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "정혜경 국회의원, 12차 전력수급기본계획의 데이터센터 전력효율 추정치 재검증 요구",
+      "same_event": true
+    },
     "225ceacf9a02ffd5--fe38c24988ff17a4": {
       "embedding_similarity": 0.8746,
       "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
@@ -43821,6 +43841,16 @@
       "reviewed_at": "2026-10-07T06:03:55.293369+00:00",
       "right_title": "김성환 기후장관, 장래 데이터센터 전력 수요 전망에 과잉 측면 인정",
       "same_event": false
+    },
+    "24ae64a9a12046c5--fe276c215813a520": {
+      "embedding_similarity": 0.8855,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 인정",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "김성환 기후장관, 장래 데이터센터 전력 수요 전망에 과잉 측면 인정",
+      "same_event": true
     },
     "24af6a920048a850--3399fabc42412de7": {
       "embedding_similarity": 0.8908,
@@ -52761,6 +52791,16 @@
       "reviewed_at": "2026-10-02T13:23:25.836737+00:00",
       "right_title": "현대제철, AI 데이터센터 공략 위한 H형강 신규 브랜드 출범 임박",
       "same_event": false
+    },
+    "2df31c6b116ed572--3837eff359c1d656": {
+      "embedding_similarity": 0.8779,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AI 수요 반영 착수",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "AI 전력난 심화로 12차 전기본 2040년 최대전력 수요 26.8GW 상향 전망",
+      "same_event": true
     },
     "2df31c6b116ed572--5949227f174d59e7": {
       "embedding_similarity": 0.8902,
@@ -63641,6 +63681,56 @@
       "reviewed_at": "2026-10-12T02:35:37.506492+00:00",
       "right_title": "기후부 국감, 반도체·AI 메가 프로젝트 따른 전력망 계획 재설계 도마에 올라",
       "same_event": false
+    },
+    "3837eff359c1d656--5949227f174d59e7": {
+      "embedding_similarity": 0.9022,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AI 수요 반영 및 착수",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "same_event": true
+    },
+    "3837eff359c1d656--9a5b1e174d0f721a": {
+      "embedding_similarity": 0.8829,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전·재생에너지 검토와 계획 착수",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "same_event": false
+    },
+    "3837eff359c1d656--ad0f210680313a53": {
+      "embedding_similarity": 0.8837,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "마스터플랜 착수와 공론화위 출범",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "기후부, 제12차 전기본 원전 역할 논의 위한 공론화위원회 공식 출범",
+      "same_event": false
+    },
+    "3837eff359c1d656--b55ac510a63af76d": {
+      "embedding_similarity": 0.8721,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 착수와 10차 한계",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "AI·RE100 확산으로 전력수요 급증…제10차 전력수급기본계획 한계 지적",
+      "same_event": false
+    },
+    "3837eff359c1d656--b6798bf57a7bb85b": {
+      "embedding_similarity": 0.9162,
+      "left_title": "정부, 2040년까지 적용할 12차 전기본에 원전·재생에너지 역할 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 수립 착수 보도",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "same_event": true
     },
     "3837eff359c1d656--c1bc9bc3289da717": {
       "embedding_similarity": 0.841,
@@ -124132,6 +124222,16 @@
       "right_title": "기후부 장관, AI 데이터센터 전력 수요 '과잉 추계' 인정",
       "same_event": false
     },
+    "7aaf84cabdd449cd--fe276c215813a520": {
+      "embedding_similarity": 0.8783,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 인정",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "기후부 장관, AI 데이터센터 전력 수요 '과잉 추계' 인정",
+      "same_event": true
+    },
     "7ab5268d41134241--c1d0a94234114e5a": {
       "embedding_similarity": 0.8453,
       "left_title": "한빛원전, 13년 묵은 용접절차시방서 오류 적용 의혹 제기",
@@ -126841,6 +126941,16 @@
       "reviewed_at": "2026-09-28T00:37:06.781349+00:00",
       "right_title": "기후에너지환경부, 제12차 전기본 토론회서 2040년 데이터센터 전력소비량 100.6TWh 전망",
       "same_event": true
+    },
+    "7efcc0f05f287db6--fe276c215813a520": {
+      "embedding_similarity": 0.8762,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 토론회 전망",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 토론회서 2040년 데이터센터 전력소비량 100.6TWh 전망",
+      "same_event": false
     },
     "7efcc0f05f287db6--fe38c24988ff17a4": {
       "embedding_similarity": 0.869,
@@ -136532,6 +136642,16 @@
       "right_title": "정혜경 의원, \"AI 전력수요 과장, 원전 공론화 근거로 부적절\" 지적",
       "same_event": true
     },
+    "8c82c3013914f0df--fe276c215813a520": {
+      "embedding_similarity": 0.8893,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 및 원전 확대 논란",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "정혜경 의원, \"AI 전력수요 과장, 원전 공론화 근거로 부적절\" 지적",
+      "same_event": true
+    },
     "8c82c3013914f0df--fe38c24988ff17a4": {
       "embedding_similarity": 0.8626,
       "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
@@ -143181,6 +143301,16 @@
       "reviewed_at": "2026-10-07T09:33:04.912942+00:00",
       "right_title": "기후장관, 데이터센터 전력 수요 전망 '과잉' 가능성 시사",
       "same_event": false
+    },
+    "96a0cec73f9acf55--fe276c215813a520": {
+      "embedding_similarity": 0.8881,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 시사",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "기후장관, 데이터센터 전력 수요 전망 '과잉' 가능성 시사",
+      "same_event": true
     },
     "96c77dcd9d96c572--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8799,
@@ -152801,6 +152931,16 @@
       "reviewed_at": "2026-10-07T09:33:04.912942+00:00",
       "right_title": "기후부 장관, 제12차 전기본 AI 데이터센터 전력수요 과잉 추계 인정",
       "same_event": false
+    },
+    "a86fe55fbffee273--fe276c215813a520": {
+      "embedding_similarity": 0.8801,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 인정",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "기후부 장관, 제12차 전기본 AI 데이터센터 전력수요 과잉 추계 인정",
+      "same_event": true
     },
     "a87ab972d6695268--a8939936ce7b57fe": {
       "embedding_similarity": 0.8844,
@@ -163412,6 +163552,16 @@
       "right_title": "'속도전' 광주 군공항 반도체클러스터, '전력'과 '물' 확보는 여전히 숙...",
       "same_event": false
     },
+    "bf337d5006ece413--fe276c215813a520": {
+      "embedding_similarity": 0.8925,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 전망 산정 근거 과장 논란",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "국회 국감서 AI 데이터센터 전력수요 전망 넉 달 새 3배 증가, 산정 근거 논란 제기",
+      "same_event": true
+    },
     "bf3c310d019ede03--c60046634052feca": {
       "embedding_similarity": 0.8481,
       "left_title": "한국수력원자력, 필리핀 아보이티즈 파워와 원전 사업 협력 MOU 체결",
@@ -168102,6 +168252,16 @@
       "right_title": "12차 전기본 데이터센터 전력수요 예측, 과거 수치로 과대평가 지적",
       "same_event": false
     },
+    "ca04aa1a2108d2dc--fe276c215813a520": {
+      "embedding_similarity": 0.9082,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 전력수요 과대평가 논란",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "12차 전기본 데이터센터 전력수요 예측, 과거 수치로 과대평가 지적",
+      "same_event": true
+    },
     "ca04aa1a2108d2dc--fe38c24988ff17a4": {
       "embedding_similarity": 0.8844,
       "left_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
@@ -171972,6 +172132,16 @@
       "right_title": "전 세계 SMR 개발 속도전, 한국 i-SMR 등 표준설계 인가 심사 중",
       "same_event": false
     },
+    "d94b1fdfaf4d3f32--fe276c215813a520": {
+      "embedding_similarity": 0.911,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 인정",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "김성환 기후장관, 제12차 전기본 AI 데이터센터 전력수요 전망 과잉 인정",
+      "same_event": true
+    },
     "d994095f62ee5d80--fbd3322d6a137c46": {
       "embedding_similarity": 0.8661,
       "left_title": "12차 전기본, 반도체·AI 메가프로젝트 위해 원전 19기 추가 필요성 제기",
@@ -175382,6 +175552,16 @@
       "right_title": "기후부, 2040년 석탄발전 전면 폐지 추진 및 최대 10기 '안보전원' 검토",
       "same_event": true
     },
+    "f4a1a8d01b04eb5a--fe276c215813a520": {
+      "embedding_similarity": 0.8721,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 발언",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "김성환 기후장관 \"장래 데이터센터 전력수요 전망, 과잉된 측면 있어\"",
+      "same_event": true
+    },
     "f4a492f8a5a08765--f6607cce45ffc36b": {
       "embedding_similarity": 0.8768,
       "left_title": "이재명 대통령, 카자흐스탄과 원전·SMR 전주기 협력 MOU 체결",
@@ -175682,6 +175862,16 @@
       "right_title": "제12차 전력수급기본계획, 3대 메가프로젝트 반영해 전력수요 전망 재수립 20일 공개 예정",
       "same_event": true
     },
+    "fba29223fce98bda--fe276c215813a520": {
+      "embedding_similarity": 0.8728,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 논란과 국감 공론화 지연",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "국회 국감서 12차 전기본 원전 공론화 지연 공방…한전 부채 해소 대책 촉구",
+      "same_event": false
+    },
     "fbaacb3e11ce9992--fc50126228a0a072": {
       "embedding_similarity": 0.8457,
       "left_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
@@ -175841,6 +176031,16 @@
       "reviewed_at": "2026-08-21T15:45:47.588382+00:00",
       "right_title": "3대 메가프로젝트 전력공급 방안과 무탄소 전원 확대",
       "same_event": false
+    },
+    "fe276c215813a520--febf8fc9c47c2946": {
+      "embedding_similarity": 0.889,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 과장 논란과 장관 발언",
+      "reviewed_at": "2026-10-12T09:23:30.165380+00:00",
+      "right_title": "김성환 기후부 장관, AI 데이터센터 전력수요 과잉 추계 가능성 언급",
+      "same_event": true
     },
     "fe38c24988ff17a4--ff6cd44461d26e1a": {
       "embedding_similarity": 0.8587,
