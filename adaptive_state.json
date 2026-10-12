@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-10-13"
   },
   "retired": {
@@ -1174,9 +1174,56 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 1,
     "date": "2026-10-13"
   },
-  "terms": {},
+  "terms": {
+    "타보로공장에": {
+      "articles": 3,
+      "created_at": "2026-10-12T23:39:44.021596+00:00",
+      "domains": [
+        "yna.co.kr",
+        "sedaily.com",
+        "mk.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "efc7c6ef57dd19cb",
+          "importance": "nice_to_know",
+          "title": "가온전선, 미국 노스캐롤라이나 공장에 원전용 케이블 생산설비 구축 추진"
+        },
+        {
+          "domain": "sedaily.com",
+          "hash": "f8531ffe6d2701e1",
+          "importance": "nice_to_know",
+          "title": "가온전선, 미국 노스캐롤라이나 공장에 원전용 케이블 생산설비 구축 추진"
+        },
+        {
+          "domain": "mk.co.kr",
+          "hash": "98bb6132796ed1f2",
+          "importance": "nice_to_know",
+          "title": "가온전선, 미국 노스캐롤라이나 공장에 원전용 케이블 생산설비 구축"
+        }
+      ],
+      "expires_at": "2026-10-14T23:39:44.021596+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-12T23:39:45.226631+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-12T23:39:44.021596+00:00",
+      "queries_run": 1,
+      "query": "타보로 공장에 원전",
+      "score": 4.6,
+      "status": "tracking",
+      "term": "타보로 공장에",
+      "ttl_hours": 48,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    }
+  },
   "version": 1
 }
