@@ -9,7 +9,7 @@
 
 출력: 2026-국정감사/<날짜>_<위원회>/ raw_events.jsonl · transcript.jsonl · 오늘_국감.md · alerts.jsonl · meta.json
 """
-import argparse, datetime as dt, html, json, os, re, smtplib, sys, threading, time
+import argparse, datetime as dt, html, json, os, re, smtplib, subprocess, sys, threading, time
 from email.message import EmailMessage
 from pathlib import Path
 
