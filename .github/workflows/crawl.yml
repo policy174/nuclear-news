@@ -99,7 +99,7 @@ jobs:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ vars.AUDIT_QUIET == '1' && secrets.TELEGRAM_OPS_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}   # 국감 기간(AUDIT_QUIET=1)엔 낮 알림을 채널 대신 개인 DM 으로
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash' }}
           # 이메일 뉴스레터 수집 (선택 — 미설정 시 자동 스킵)
@@ -200,7 +200,7 @@ jobs:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ vars.AUDIT_QUIET == '1' && secrets.TELEGRAM_OPS_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}   # 국감 기간(AUDIT_QUIET=1)엔 낮 알림을 채널 대신 개인 DM 으로
         run: |
           h=$(date -u +%H)
           if [ "$h" -ge 7 ] && [ "$h" -le 9 ]; then
