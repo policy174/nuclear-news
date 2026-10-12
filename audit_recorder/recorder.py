@@ -167,6 +167,7 @@ class Recorder:
             return
         if not self.replaying and RECESS.search(text) and self.recess_at is None:
             self.recess_at, self.recess_label = self.clock(), ts[11:16]
+            self.recess_final = bool(re.search(r"산회|마치", text))   # 산회면 최종본을 사내 메일로(10-12 지니 "산회 때 바로 메일")
         if self.cur is None or new_speaker:
             self._close_turn()
             self.turn_seq += 1
@@ -255,8 +256,10 @@ class Recorder:
             return
         try:
             log = open(self.outdir / "draft_run.log", "a", encoding="utf-8")
-            subprocess.Popen([sys.executable, str(Path(__file__).resolve().parent / "draft.py"), str(self.outdir),
-                              "--until", self.recess_label, "--send"], stdout=log, stderr=subprocess.STDOUT,
+            cmd = [sys.executable, str(Path(__file__).resolve().parent / "draft.py"), str(self.outdir), "--until", self.recess_label, "--send"]
+            if getattr(self, "recess_final", False):
+                cmd.append("--mail")
+            subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT,
                              creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         except Exception as e:   # 초안 실패가 레코더를 죽이면 안 된다
             print(now_iso(), "초안 생성 기동 실패", repr(e)[:150])
