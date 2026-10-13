@@ -212,7 +212,7 @@ def clean_noise(t: str) -> str:
     return NOISE_REPEAT.sub(r"\1 (반복)", t)
 
 
-ONLY_YEARS = re.compile(r"^(?:\s*(?:20\d{1,3}|2\d{3})년?[\s,]*)+$")   # 정회 중 한 줄이 통째로 '2013년 2023년' 인 줄은 버린다
+ONLY_YEARS = re.compile(r"^(?:(?:20\d{1,3}|2\d{3})년?[\s,]*)+$")   # 정회 중 한 줄이 통째로 '2013년 2023년' 인 줄은 버린다 (앞의 \s* 를 겹치면 역추적 폭발 — 10-13 실측 멈춤)
 
 
 def as_text(lines):
