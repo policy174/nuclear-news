@@ -180,8 +180,13 @@ def turns(lines):
     """위원장 호명 → [{who, a, b, lines}]. 첫 호명 전(업무보고 등)은 who=None."""
     calls = []
     parties = json.loads(PARTIES.read_text(encoding="utf-8")) if PARTIES.exists() else {}
+    from recorder import RECESS   # 정회·산회 선언도 질의 경계 — 안 끊으면 마지막 질의에 정회 중 잡음이 붙는다(10-13 한준호 12:03→14:10)
     for ts, t in lines:
         s = t.lstrip("- "); pos = 0
+        if RECESS.search(s):
+            if not calls or calls[-1][1] is not None:
+                calls.append((ts, None))
+            continue
         while (m := CALL.search(s, pos)):   # 10-13 '김현 위원 위원님 김현 위원님 질의' → 첫 매치 '위원'이 이름으로 잡힘 → 한 글자씩 밀며 다음 후보를 본다
             pos = m.start() + 1
             # 호명 오인식(구자영→구자근)을 명단으로 먼저 바로잡아야 같은 의원 질의가 둘로 안 쪼개진다(10-12)
@@ -514,11 +519,14 @@ def write_docx(path: Path, meta, blocks, parties, check=False, failed=()):
             p = d.add_paragraph(); p.paragraph_format.space_before = Pt(10)
             _run(p, f"({t['a'][:5]}~{t['b'][:5]}) {t['who']} 위원 질의", bold=True, size=10.5)
             for ts, line in t["lines"]:
+                body = line.replace(" -", " [/]").lstrip("-").strip()
+                if ONLY_YEARS.match(body):   # 정회 중 잡음 줄(10-13 지니 "요약본도?")
+                    continue
                 p = d.add_paragraph()
                 pf = p.paragraph_format
                 pf.left_indent, pf.first_line_indent, pf.line_spacing, pf.space_after = Cm(1.6), Cm(-1.6), 1.2, Pt(1)
                 _run(p, f"[{ts}] ", size=9, color="777777")
-                _run(p, line.replace(" -", " [/]").lstrip("-").strip(), size=10)
+                _run(p, clean_noise(body), size=10)
     d.save(path)
 
 
