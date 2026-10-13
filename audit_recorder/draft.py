@@ -212,8 +212,17 @@ def clean_noise(t: str) -> str:
     return NOISE_REPEAT.sub(r"\1 (반복)", t)
 
 
+ONLY_YEARS = re.compile(r"^(?:\s*(?:20\d{1,3}|2\d{3})년?[\s,]*)+$")   # 정회 중 한 줄이 통째로 '2013년 2023년' 인 줄은 버린다
+
+
 def as_text(lines):
-    return "\n".join(f"[{ts}] {clean_noise(t.replace(' -', ' [/]').lstrip('-').strip())}" for ts, t in lines)
+    out = []
+    for ts, t in lines:
+        body = t.replace(" -", " [/]").lstrip("-").strip()
+        if ONLY_YEARS.match(body):
+            continue
+        out.append(f"[{ts}] {clean_noise(body)}")
+    return "\n".join(out)
 
 
 # ---- 요약 ---------------------------------------------------------------------
