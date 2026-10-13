@@ -380,15 +380,14 @@
       "generated_at": "2026-09-15T13:03:20.457898+00:00"
     },
     "issue-3baed88320762d8b": {
-      "digest": "4f1b147a2f3996d0",
       "domain": "계속운전",
       "tags": [
         "계속운전"
       ],
-      "title": "한수원, 운영허가 만료된 한빛 2호기 가동 중단…계속운전 심사 지연",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "계속운전 심사 지연으로 원전 4기 가동 중단, 반도체 팹 12기 전력 손실",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-c1a5b7851b1493fd": {
       "digest": "c69be544be69d05d",
@@ -473,15 +472,14 @@
       "generated_at": "2026-10-05T04:09:28.520995+00:00"
     },
     "issue-844109b3a19e53b5": {
-      "digest": "aee931ae8f5500ec",
-      "domain": "정책",
+      "domain": "재생·수소",
       "tags": [
-        "AI데이터센터"
+        "재생에너지"
       ],
       "title": "중국 정부, ESS 배터리 신규 공장 인허가 5월부터 전면 동결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-9153dd7eaf6c0ed5": {
       "domain": "규제",
@@ -676,26 +674,24 @@
       "generated_at": "2026-09-30T15:07:17.349723+00:00"
     },
     "issue-85d558a7373de935": {
-      "digest": "1458955dec8d8d7b",
-      "domain": "SMR",
+      "domain": "정책",
       "tags": [
-        "SMR사업화"
+        "국제협력외교"
       ],
-      "title": "한·프랑스 정상회담, SMR 공동연구 및 우라늄 농축 협력 합의",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-4e5a7621c0abfa9f": {
-      "digest": "2e99fdaaec23c67d",
       "domain": "안전성",
       "tags": [
         "원전안전운영"
       ],
       "title": "IAEA 중재로 자포리자 원전, 18일 만에 외부 전력망 재연결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-99f2916afcd7ec62": {
       "domain": "정책",
@@ -812,15 +808,14 @@
       "generated_at": "2026-09-17T03:33:53.690277+00:00"
     },
     "issue-4681cd2d1eacc8fd": {
-      "digest": "4ff7cfc530044af7",
       "domain": "안전성",
       "tags": [
-        "원전안전운영"
+        "사고고장"
       ],
-      "title": "한국수력원자력, 새울원전 3호기 시운전 중 원자로 수동 정지",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:19:24.041847+00:00"
+      "title": "한수원, 시운전 재개 이틀 만에 배관 누설로 새울 3호기 수동 정지",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-37429a89a97b6760": {
       "domain": "건설",
@@ -9647,6 +9642,56 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-12T22:47:36.301591+00:00"
+    },
+    "issue-b19fd0094bb30156": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
+    },
+    "issue-5cc9059203094445": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
+    },
+    "issue-50a0450c20bee9ac": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "산업부, 2028년 미국 내 대형 원전 8기 건설 추진 및 기술 사용료 상한 설정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
+    },
+    "issue-a89623745fab0d00": {
+      "domain": "해외사업",
+      "tags": [
+        "합작지분투자"
+      ],
+      "title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
+    },
+    "issue-c6416e9cf7d667f9": {
+      "domain": "해외사업",
+      "tags": [
+        "합작지분투자"
+      ],
+      "title": "한미전략투자 운영위원회, 30조원 규모 텍사스 가스발전 첫 의결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-13T00:14:02.635206+00:00"
     }
   }
 }
