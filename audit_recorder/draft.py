@@ -51,9 +51,11 @@ CLAUDE = str(_EXE if _EXE.exists() else Path.home() / "AppData/Roaming/npm/claud
 PARTIES = HERE / "parties.json"
 DOCS = HERE / "2026-국정감사" / "_문서"
 
-CALL = re.compile(r"([가-힣]{2,4})\s?(?:위원님|간사님)[^.?]{0,10}?(?:질의해|질의하|질문해|질문하|발언하|발언해|이십니다)"
-                  r"|다음은\s([가-힣]{2,4})\s?(?:위원님|간사님)|^\s*([가-힣]{2,4})\s?(?:위원님|간사님)\s*$")
-NOT_NAME = {"존경하는", "우리", "그리고", "장관님", "간사님", "위원님", "다음", "그러면", "이어서", "먼저", "그러니까", "그래서", "아니"}
+CALL = re.compile(r"([가-힣]{2,4})\s?(?:위원님|간사님)(?!들)[^.?]{0,10}?(?:질의해|질의하|질문해|질문하|발언하|발언해|이십니다)"
+                  r"|다음은\s([가-힣]{2,4})\s?(?:위원님|간사님)(?!들)|^\s*([가-힣]{2,4})\s?(?:위원님|간사님)\s*$"   # '위원님들' 은 호명 아님(10-13 '대해서만' 오탐)
+                  r"|(?:다음은?\s)?([가-힣]{2,4})\s?위원(?!님|들|장)\s*(?:질의|발언|$)")   # '서천호 위원 질의하시기' — 님 없는 호명(10-13 서천호가 이연희에 묻힘). 명단에 있을 때만 인정
+NOT_NAME = {"존경하는", "우리", "그리고", "장관님", "간사님", "위원님", "다음", "그러면", "이어서", "먼저", "그러니까", "그래서", "아니", "대해서만", "대해서", "위원", "간사"}
+NOT_NAME_TAIL = "만는은을를에서도과와의께"   # 조사로 끝나는 '이름'은 호명이 아니다 — 명단에 있으면 예외
 ENERGY = re.compile(r"원전|원자력|한수원|공론화|전기본|정기본|전력|전기|에너지|SMR|송전|변전|계통|개통|전력망|송전망|요금|데이터\s*센터"
                     r"|재생|태양광|풍력|수소|LNG|가스|석탄|ESS|발전소|발전사|고준위|사용후\s*핵연료|계속\s*운전|한전|용수|탄소")
 # 지니 제출본 쟁점 순서(10-07): 공론화 → 데이터센터 수요 → 신규원전·SMR → 전력망 → 요금·보안·기타
@@ -74,7 +76,8 @@ PROMPT = """너는 한국수력원자력 원자력정책실의 국정감사 모�
 
 요약 양식(지니 제출본 문체 — 아래 예시가 기준이다):
 - 질의→답변을 실제 순서대로 번갈아 쓴다. 한 줄 = 한 사람의 연속 발언을 **한 문장, 60자 안팎(최대 80자)**. 열거는 2개까지, 세미콜론 금지으로. 같은 사람이 이어 말한 것은 한 줄로 합친다. 블록당 2~4줄.
-- **풀어 쓰지 않는다.** 배경 설명·해외 사례·수치 나열·수사는 뺀다. 의원은 '무엇을 문제 삼고 무엇을 요구했나', 답변자는 '뭐라고 답했나'만. 수치는 논점에 꼭 필요한 한두 개만(10-12 지니: "딱 언급한 내용만 핵심으로").
+- **풀어 쓰지 않는다.** 배경 설명·해외 사례·수사는 뺀다. 의원은 '무엇을 문제 삼고 무엇을 요구했나', 답변자는 '뭐라고 답했나'만(10-12 지니: "딱 언급한 내용만 핵심으로").
+- **단, 의원이 말한 수치는 빼지 않는다.** 수치는 팩트다(10-13 지니: 황정아 2,395만MWh·1.9조·2,530만MWh·하루 51억이 빠짐). 수치가 많으면 한 줄을 120자까지 늘리거나 Q를 둘로 나눈다. 줄이는 것은 수식어·사례·반복이지 숫자가 아니다.
 - 의원 줄 = 근거(사실·수치) 한두 마디 + 요구나 질문. 종결: ~함. / ~음. / ~는지? / ~것 아닌지? / ~해 주기 바람. / ~필요가 있음.
 - 답변자 줄 = 입장 + 조치. 종결: ~하겠음. / ~임. / ~있음. / ~것으로 생각함. / ~판단함. / ~없음.
 - "예·그렇습니다" 같은 짧은 대답은 "그렇다고 답함." / "동의함." / "맞다고 답함."으로 쓴다. 어미만 바꾼 비문("그렇음") 금지.
@@ -108,7 +111,9 @@ PROMPT = """너는 한국수력원자력 원자력정책실의 국정감사 모�
 {{"who":"한전사장","text":"20억 달러는 상한 가이드라인이며, 체코 기술사용료는 언급된 수치보다 적었음."}}
 {feedback}
 출력은 JSON 하나만(설명·코드블록 금지):
-{{"energy": true|false, "reason": "한 줄", "blocks": [{{"category": "...", "title": "...", "lines": [{{"who": "...", "text": "..."}}]}}]}}
+{{"energy": true|false, "reason": "한 줄", "blocks": [{{"category": "...", "title": "...", "lines": [{{"who": "...", "text": "..."}}],
+  "requests": [{{"to": "한수원|원안위|…", "items": ["요구한 자료·조치 한 줄", ...]}}]}}]}}
+- requests: 의원이 "제출해 달라 / 보고해 달라 / 마련해 달라"고 한 자료·조치만, 기관별로. 자막에 없으면 빈 배열.
 
 === 자막 원문 ===
 {text}
@@ -168,12 +173,17 @@ def turns(lines):
     calls = []
     parties = json.loads(PARTIES.read_text(encoding="utf-8")) if PARTIES.exists() else {}
     for ts, t in lines:
-        m = CALL.search(t.lstrip("- "))
-        if m:
+        s = t.lstrip("- "); pos = 0
+        while (m := CALL.search(s, pos)):   # 10-13 '김현 위원 위원님 김현 위원님 질의' → 첫 매치 '위원'이 이름으로 잡힘 → 한 글자씩 밀며 다음 후보를 본다
+            pos = m.start() + 1
             # 호명 오인식(구자영→구자근)을 명단으로 먼저 바로잡아야 같은 의원 질의가 둘로 안 쪼개진다(10-12)
-            name = fix_name(m.group(1) or m.group(2) or m.group(3), parties)
-            if name not in NOT_NAME and (not calls or calls[-1][1] != name):
-                calls.append((ts, name))
+            name = fix_name(m.group(1) or m.group(2) or m.group(3) or m.group(4), parties)
+            if m.group(4) and name not in parties:   # 님 없는 형태는 명단 밖이면 무시('본 위원', '현안 위원' 류)
+                continue
+            if name not in NOT_NAME and (name in parties or name[-1] not in NOT_NAME_TAIL):
+                if not calls or calls[-1][1] != name:
+                    calls.append((ts, name))
+                break
     bounds = [(lines[0][0] if lines else "00:00:00", None)] + calls
     out = []
     for i, (a, who) in enumerate(bounds):
@@ -190,13 +200,20 @@ def as_text(lines):
 
 # ---- 요약 ---------------------------------------------------------------------
 
-def claude(prompt: str, timeout: int = 600, model: str | None = None) -> str:
+def claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
     env = {k: v for k, v in os.environ.items() if not k.startswith("CLAUDE") and k != "ANTHROPIC_API_KEY"}
     # 사용자 설정(SessionStart 훅 등)·MCP 를 빼면 기동 57초 → 13초 (2026-10-09 실측)
-    r = subprocess.run([CLAUDE, "-p", "--setting-sources", "", "--strict-mcp-config", "--output-format", "json", "--model", model or os.environ.get("DRAFT_MODEL", "sonnet")],
-                       input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
-                       timeout=timeout, env=env, cwd=str(Path(os.environ.get("TEMP", HERE))),
-                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    cmd = [CLAUDE, "-p", "--setting-sources", "", "--strict-mcp-config", "--output-format", "json", "--model", model or os.environ.get("DRAFT_MODEL", "sonnet")]
+    for attempt in (1, 2):   # 10-13: 간헐적으로 600초 넘게 매달림 → 300초에 끊고 1회 재시도가 더 빠르다
+        try:
+            r = subprocess.run(cmd, input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                               timeout=timeout, env=env, cwd=str(Path(os.environ.get("TEMP", HERE))),
+                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            break
+        except subprocess.TimeoutExpired:
+            if attempt == 2:
+                raise
+            print(f"claude -p {timeout}초 초과 → 재시도", flush=True)
     try:
         res = json.loads(r.stdout)
     except Exception:
@@ -213,6 +230,21 @@ def parse_json(s: str) -> dict:
 
 def window(lines, a, b, pad=300):
     return [t for ts, t in lines if sec(a) - pad <= sec(ts) <= sec(b) + pad]
+
+
+def mark_unverified(block):
+    """자막에서 확인 안 된 숫자·이름은 그 자리에 [?] (10-13 지니 "수치 모르면 물음표"). 이미 [?]면 그대로."""
+    toks = sorted(set(block.get("unverified") or []), key=len, reverse=True)
+    if not toks:
+        return block
+    def mark(s):
+        for tok in toks:
+            s = re.sub(re.escape(tok) + r"(?!\s*\[\?\])", tok + "[?]", s)
+        return s
+    block["title"] = mark(block.get("title", ""))
+    for l in block.get("lines") or []:
+        l["text"] = mark(l["text"])
+    return block
 
 
 def mismatches(block, corpus_lines):
@@ -428,6 +460,7 @@ def write_docx(path: Path, meta, blocks, parties, check=False, failed=()):
                 for to in b["turn_objs"]:
                     d.add_paragraph(f"{to['a'][:5]}~{to['b'][:5]} {meta['short']}")
             p = d.add_paragraph(); _run(p, "※ 자막에 없음: " + ", ".join(b["unverified"]), size=10, color="C00000")
+            b = mark_unverified(dict(b, lines=[dict(l) for l in b["lines"]]))   # 숫자 옆에 [?] (10-13)
             for l in b["lines"]:
                 say(d, l["who"].strip(), l["text"].strip(), parties.get(l["who"].strip()))
     if ref and not check:
