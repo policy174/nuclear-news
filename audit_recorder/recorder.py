@@ -256,9 +256,8 @@ class Recorder:
             return
         try:
             log = open(self.outdir / "draft_run.log", "a", encoding="utf-8")
-            cmd = [sys.executable, str(Path(__file__).resolve().parent / "draft.py"), str(self.outdir), "--until", self.recess_label, "--send"]
-            if getattr(self, "recess_final", False):
-                cmd.append("--mail")
+            # 정회·산회 모두 메일(10-13 지니 "오전 거 왜 안 왔지 메일?") — 정리본 docx + 그때까지 전체 자막 txt
+            cmd = [sys.executable, str(Path(__file__).resolve().parent / "draft.py"), str(self.outdir), "--until", self.recess_label, "--send", "--mail"]
             subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT,
                              creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         except Exception as e:   # 초안 실패가 레코더를 죽이면 안 된다
