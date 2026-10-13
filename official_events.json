@@ -134,6 +134,25 @@
    "first_seen": "2026-09-06"
   },
   {
+   "hash": "of-c46ba0150a22",
+   "date": "2026-10-19",
+   "end_date": "2026-10-19",
+   "kind": "deadline",
+   "label": "2026 SMR 해외 비즈니스 개발 과정 교육생 추가모집",
+   "title": "2026 SMR 해외 비즈니스 개발 과정 교육생 추가모집",
+   "notice_title": "2026 SMR 해외 비즈니스 개발 과정 교육생 추가모집(~10. 19.)",
+   "time": "",
+   "host": "",
+   "organizer": "",
+   "place": "",
+   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30099&s=",
+   "publisher": "한국원자력산업협회",
+   "source_id": "kaif_notice",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-10-14"
+  },
+  {
    "hash": "of-7ba918475097",
    "date": "2026-10-21",
    "end_date": "2026-10-23",
@@ -151,6 +170,25 @@
    "origin": "official",
    "source_kind": "official",
    "first_seen": "2026-09-06"
+  },
+  {
+   "hash": "of-8c0f49d481b3",
+   "date": "2026-10-23",
+   "end_date": "2026-10-23",
+   "kind": "deadline",
+   "label": "2026 공급기업 다변화 지원사업 참여기업 모집공고",
+   "title": "2026 공급기업 다변화 지원사업 참여기업 모집공고",
+   "notice_title": "2026 공급기업 다변화 지원사업 참여기업 모집공고(~ 10. 23.)",
+   "time": "",
+   "host": "",
+   "organizer": "",
+   "place": "",
+   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30098&s=",
+   "publisher": "한국원자력산업협회",
+   "source_id": "kaif_notice",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-10-14"
   },
   {
    "hash": "of-3e704b671b69",
@@ -308,25 +346,24 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-10-13T07:30:47+09:00",
-   "ok": true,
-   "new": 0,
-   "parsed": 0
+   "at": "2026-10-14T05:38:58+09:00",
+   "ok": false,
+   "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
   },
   "kaif_calendar": {
-   "at": "2026-10-13T07:30:47+09:00",
+   "at": "2026-10-14T05:38:58+09:00",
    "ok": true,
    "new": 27,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-10-13T07:30:47+09:00",
+   "at": "2026-10-14T05:38:58+09:00",
    "ok": true,
-   "new": 2,
-   "parsed": 5
+   "new": 3,
+   "parsed": 6
   },
   "kns_notice": {
-   "at": "2026-10-13T07:30:47+09:00",
+   "at": "2026-10-14T05:38:58+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
