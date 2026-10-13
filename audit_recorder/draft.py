@@ -202,8 +202,18 @@ def turns(lines):
     return out
 
 
+NOISE_YEARS = re.compile(r"(?:\b(?:20\d{1,3}|2\d{3})년?\b[\s,]*){4,}")   # '202년' '20년' '20230년' 변형 포함     # 정회 중 잡음을 자막기가 '2023년 2013년 …'로 뱉는다(10-13 지니 "풀 스크립트 2023 있던데")
+NOISE_REPEAT = re.compile(r"\b(\S+(?:\s\S+)?)(?:\s+\1\b){3,}")   # '감사합니다 감사합니다 감사합니다 …'
+
+
+def clean_noise(t: str) -> str:
+    """음성인식 잡음 반복만 지운다 — 실제 발언은 건드리지 않는다(연도 4개 이상 연속, 같은 말 4회 이상 반복)."""
+    t = NOISE_YEARS.sub("(잡음) ", t)
+    return NOISE_REPEAT.sub(r"\1 (반복)", t)
+
+
 def as_text(lines):
-    return "\n".join(f"[{ts}] {t.replace(' -', ' [/]').lstrip('-').strip()}" for ts, t in lines)
+    return "\n".join(f"[{ts}] {clean_noise(t.replace(' -', ' [/]').lstrip('-').strip())}" for ts, t in lines)
 
 
 # ---- 요약 ---------------------------------------------------------------------
