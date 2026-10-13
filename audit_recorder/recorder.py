@@ -20,7 +20,7 @@ HDRS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/145", "R
 ROOT = Path(__file__).resolve().parent / "2026-국정감사"
 IDLE_FINAL_SEC = 2.0      # 세그먼트가 이만큼 안 바뀌면 확정
 RENDER_EVERY_SEC = 30
-RECESS = re.compile(r"감사\s*중지를\s*선포|감사를\s*(?:잠시\s*)?중지|정회(?:를|하겠|합니다)|산회를\s*선포|회의를\s*마치|감사를\s*마치")
+RECESS = re.compile(r"감사\s*중지를\s*선포|감사를\s*(?:잠시\s*)?중지|정회(?:를|하겠|합니다)|산회를\s*선포|회의를\s*마치|감사를\s*마치|(?:감사|회의)의?\s*종료를\s*선언")   # 10-13 과방위 "국정감사의 종료를 선언합니다" 못 잡아 산회 메일 누락
 ALERT_GAP_SEC = 120       # 같은 발언·같은 등급 알림 최소 간격 (화자 전환이 안 잡혀 하루가 한 발언이 돼도 계속 울리게)
 MAIL_GAP_SEC = 600        # 메일은 새 알림이 있을 때만, 최소 10분 간격으로 모아서 (docx 첨부)
 ALERT_WAIT_SEC = 20       # 키워드 뒤 문맥을 붙이려고 이만큼 기다렸다 보낸다
@@ -167,7 +167,7 @@ class Recorder:
             return
         if not self.replaying and RECESS.search(text) and self.recess_at is None:
             self.recess_at, self.recess_label = self.clock(), ts[11:16]
-            self.recess_final = bool(re.search(r"산회|마치", text))   # 산회면 최종본을 사내 메일로(10-12 지니 "산회 때 바로 메일")
+            self.recess_final = bool(re.search(r"산회|마치|종료", text))   # 산회면 최종본을 사내 메일로(10-12 지니 "산회 때 바로 메일")
         if self.cur is None or new_speaker:
             self._close_turn()
             self.turn_seq += 1
