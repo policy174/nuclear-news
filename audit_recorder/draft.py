@@ -61,6 +61,13 @@ ENERGY = re.compile(r"원전|원자력|한수원|공론화|전기본|정기본|�
 # 지니 제출본 쟁점 순서(10-07): 공론화 → 데이터센터 수요 → 신규원전·SMR → 전력망 → 요금·보안·기타
 CATEGORIES = ["공론화·전기본", "전력수요·데이터센터", "신규원전·SMR", "원전 운영·안전·폐기물",
               "전력망·재생에너지", "전기요금", "보안", "기타 에너지"]
+CEO_Q = re.compile(r"한수원\s*사장|수력원자력\s*사장|김회천|김\s*회\s*천")
+
+def is_cand(turn):
+    """에너지 단어 2개 이상, 또는 한수원 사장을 직접 부른 질의(10-13 김선민 건강검진 질의가 '한수원' 1회로 탈락)."""
+    txt = " ".join(x for _, x in turn["lines"])
+    return bool(turn["who"]) and (len(ENERGY.findall(txt)) >= 2 or bool(CEO_Q.search(txt)))
+
 RECHECK = {"num", "name"}
 
 PROMPT = """너는 한국수력원자력 원자력정책실의 국정감사 모니터링 담당자다. 아래는 국회 의사중계 AI 자막(음성인식, 오탈자 있음) 중
@@ -507,7 +514,7 @@ def build(folder: Path, until: str | None = None, workers: int = 5):
     lines = load_lines(folder, until)
     ts_all = turns(lines)
     # 키워드 2회 이상 — 1회는 인사·업무보고 언급 수준이 대부분(10-06 실측 80개 중 76개가 1회 기준 통과)
-    cands = [t for t in ts_all if t["who"] and len(ENERGY.findall(" ".join(x for _, x in t["lines"]))) >= 2]
+    cands = [t for t in ts_all if is_cand(t)]
     cache = folder / "draft_cache"
     cache.mkdir(exist_ok=True)
     limit_hit = []
