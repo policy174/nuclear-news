@@ -141,6 +141,20 @@
       "reason": "중국 국무원, 신규 원자로 8기 건설 승인",
       "same_event": true
     },
+    "issue-0988047fbedcde3a--5924c0c9b7": {
+      "issue_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "keei_item": "스페인 Almaraz 원전, 연장운전 조건부 적합 판정",
+      "prompt_version": 1,
+      "reason": "스페인 알마라즈 원전 연장운전 관련 동일 사안임",
+      "same_event": true
+    },
+    "issue-0988047fbedcde3a--c2b8808fe0": {
+      "issue_title": "스페인 정부, 알마라즈 원전 운영 허가 2030년까지 3년 연장",
+      "keei_item": "스페인 정부, Almaraz 원전 운영허가 2030년까지 갱신",
+      "prompt_version": 1,
+      "reason": "알마라즈 원전 2030년까지 운영허가 연장으로 동일함",
+      "same_event": true
+    },
     "issue-09ac4f943ed7ad61--bd91314eae": {
       "issue_title": "헝가리 팍스 원전, 다뉴브강 수위 하락으로 가동 중단",
       "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
@@ -4467,6 +4481,13 @@
       "reason": "팔리세이즈 원전 재가동의 다른 단계",
       "same_event": true
     },
+    "issue-c4f465e1c9fd8b08--b6aec252c7": {
+      "issue_title": "PNNL, 팔리세이즈 원전 재가동 환경 평가 가속화 지원",
+      "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
+      "prompt_version": 1,
+      "reason": "팔리세이즈 원전 평가와 미 NRC 규정 개정안은 별개 사안임",
+      "same_event": false
+    },
     "issue-c5acbde6bff5c3ae--f797174d9b": {
       "issue_title": "미국 에너지부, 26개 주 전력망 개선에 52.5억 달러 투자 발표",
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
@@ -5656,6 +5677,20 @@
       "prompt_version": 1,
       "reason": "국가 및 안건 상이",
       "same_event": false
+    },
+    "issue-faa4cef040b9d283--bd91314eae": {
+      "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "keei_item": "프랑스·헝가리·루마니아, 폭염·가뭄으로 일부 원전 감발·정지",
+      "prompt_version": 1,
+      "reason": "유럽 전역의 폭염 가뭄 영향으로 대상 범위와 초점이 다름",
+      "same_event": false
+    },
+    "issue-faa4cef040b9d283--f020226b19": {
+      "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
+      "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
+      "prompt_version": 1,
+      "reason": "다뉴브강 가뭄으로 인한 루마니아 원전 영향 대응으로 동일",
+      "same_event": true
     },
     "issue-fb0c85d957b01043--56dc541d23": {
       "issue_title": "트럼프, 사우디 30년 민간 원자력 협정 의회 제출",
