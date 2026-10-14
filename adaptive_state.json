@@ -1198,7 +1198,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 5,
     "date": "2026-10-15"
   },
   "terms": {
@@ -1264,12 +1264,12 @@
       ],
       "expires_at": "2026-10-15T09:05:40.492432+00:00",
       "importance": "must_read",
-      "last_result_count": 4,
-      "last_run": "2026-10-14T09:05:40.492432+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-14T22:18:05.287324+00:00",
       "new_articles": 14,
       "origin": "auto",
-      "planned_at": "2026-10-14T09:05:38.457858+00:00",
-      "queries_run": 4,
+      "planned_at": "2026-10-14T22:18:03.176494+00:00",
+      "queries_run": 5,
       "query": "기후변화로 원전",
       "score": 3.6,
       "status": "promote_candidate",
@@ -1281,7 +1281,7 @@
         "2026-10-14"
       ],
       "yields": 3,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "선급협회": {
       "articles": 5,
@@ -1316,11 +1316,11 @@
       "expires_at": "2026-10-15T09:05:38.457858+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-10-14T09:05:40.492432+00:00",
+      "last_run": "2026-10-14T22:18:05.287324+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-10-14T09:05:38.457858+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-14T22:18:03.176494+00:00",
+      "queries_run": 2,
       "query": "선급협회 원자력",
       "score": 3.4,
       "status": "tracking",
@@ -1329,7 +1329,7 @@
       "type": "org",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     }
   },
   "version": 1
