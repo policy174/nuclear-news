@@ -140,6 +140,14 @@
       "type": "company",
       "until": "2026-10-02T18:02:35.886570+00:00"
     },
+    "rx50": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-15T07:56:59.309513+00:00",
+      "term": "RX-50",
+      "type": "tech",
+      "until": "2026-10-29T07:56:59.309513+00:00"
+    },
     "v900": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1206,56 +1214,10 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 11,
     "date": "2026-10-15"
   },
   "terms": {
-    "rx50": {
-      "articles": 3,
-      "created_at": "2026-10-14T19:09:13.670614+00:00",
-      "domains": [
-        "hankyung.com",
-        "mk.co.kr",
-        "venturesquare.net"
-      ],
-      "evidence": [
-        {
-          "domain": "hankyung.com",
-          "hash": "979e6a5eb215161d",
-          "importance": "nice_to_know",
-          "title": "SMR 엔지니어링 스타트업 알엑스, 100억원 규모 프리A 브리지 투자 유치"
-        },
-        {
-          "domain": "mk.co.kr",
-          "hash": "4396a2fbea2d5f8e",
-          "importance": "nice_to_know",
-          "title": "알엑스(RX), 100억 원 규모 프리 A 브릿지 투자 유치…RX-50 개발 가속"
-        },
-        {
-          "domain": "venturesquare.net",
-          "hash": "fd584081d983ac53",
-          "importance": "nice_to_know",
-          "title": "알엑스, 산업은행 등으로부터 100억원 투자 유치…산업용 열공급 SMR 'RX-50' 개발 가속화"
-        }
-      ],
-      "expires_at": "2026-10-15T19:09:13.670614+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-15T01:39:47.016731+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-15T01:39:45.815264+00:00",
-      "queries_run": 2,
-      "query": "RX-50 원자력",
-      "score": 3.35,
-      "status": "tracking",
-      "term": "RX-50",
-      "ttl_hours": 24,
-      "type": "tech",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "기후변화로": {
       "articles": 1,
       "created_at": "2026-10-13T13:23:25.499575+00:00",
