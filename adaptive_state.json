@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 4,
     "date": "2026-10-15"
   },
   "retired": {
@@ -1214,10 +1214,59 @@
     }
   },
   "spent": {
-    "count": 11,
+    "count": 12,
     "date": "2026-10-15"
   },
   "terms": {
+    "bwxt캐나다와": {
+      "articles": 4,
+      "created_at": "2026-10-15T09:03:04.271866+00:00",
+      "domains": [
+        "edaily.co.kr",
+        "chosun.com",
+        "yna.co.kr",
+        "sbs.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "edaily.co.kr",
+          "hash": "453a2dbe47fed4f1",
+          "importance": "nice_to_know",
+          "title": "세아베스틸, BWXT 캐나다와 원전 고부가 기자재 공급 협력 업무협약 체결"
+        },
+        {
+          "domain": "chosun.com",
+          "hash": "e34e6b01d965d4cf",
+          "importance": "nice_to_know",
+          "title": "세아베스틸, BWXT 캐나다와 원전 부품 공급 업무협약 체결"
+        },
+        {
+          "domain": "yna.co.kr",
+          "hash": "9c343e22b0f1e1c8",
+          "importance": "nice_to_know",
+          "title": "세아베스틸, 캐나다 BWXT와 SMR 및 대형 원자로 부품 공급 협력 추진"
+        }
+      ],
+      "expires_at": "2026-10-16T09:03:05.261612+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 9,
+      "last_run": "2026-10-15T09:03:05.261612+00:00",
+      "new_articles": 9,
+      "origin": "auto",
+      "planned_at": "2026-10-15T09:03:04.271866+00:00",
+      "queries_run": 1,
+      "query": "BWXT 캐나다와 원전",
+      "score": 3.9,
+      "status": "extended",
+      "term": "BWXT 캐나다와",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
     "기후변화로": {
       "articles": 1,
       "created_at": "2026-10-13T13:23:25.499575+00:00",
