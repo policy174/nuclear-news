@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 3,
     "date": "2026-10-15"
   },
   "retired": {
@@ -1198,7 +1198,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 8,
     "date": "2026-10-15"
   },
   "terms": {
@@ -1283,6 +1283,54 @@
       "yields": 3,
       "zero_streak": 1
     },
+    "미국선급협회": {
+      "articles": 3,
+      "created_at": "2026-10-15T02:50:18.887669+00:00",
+      "domains": [
+        "world-nuclear-news.org",
+        "ans.org",
+        "neimagazine.com"
+      ],
+      "evidence": [
+        {
+          "domain": "world-nuclear-news.org",
+          "hash": "6dc56735f22d7120",
+          "importance": "nice_to_know",
+          "title": "미국 에너지부-ABS, 해상 원자력 기술 발전 위한 MOU 체결"
+        },
+        {
+          "domain": "ans.org",
+          "hash": "47b6d3b39c1526d6",
+          "importance": "nice_to_know",
+          "title": "미국 ABS·DOE-NE, 해상 원자력 기술 발전을 위한 MOU 체결"
+        },
+        {
+          "domain": "neimagazine.com",
+          "hash": "8f9a5e6c44a1f55c",
+          "importance": "nice_to_know",
+          "title": "미국선급협회(ABS)와 에너지부(DOE), 해상 원자력 기술 협력"
+        }
+      ],
+      "expires_at": "2026-10-16T02:50:20.560450+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 1,
+      "last_run": "2026-10-15T02:50:20.560450+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-10-15T02:50:18.887669+00:00",
+      "queries_run": 1,
+      "query": "미국선급협회 원자력",
+      "score": 3.7,
+      "status": "extended",
+      "term": "미국선급협회",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-10-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
     "선급협회": {
       "articles": 5,
       "created_at": "2026-10-14T09:05:38.457858+00:00",
@@ -1330,6 +1378,55 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "중소벤처기업진흥공단": {
+      "articles": 4,
+      "created_at": "2026-10-15T02:50:18.887669+00:00",
+      "domains": [
+        "yna.co.kr",
+        "asiae.co.kr",
+        "newsis.com",
+        "news1.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "ba9d7620990852f2",
+          "importance": "nice_to_know",
+          "title": "중진공, 한수원 등 경북 공공기관과 에너지 중소기업 판로·금융 지원"
+        },
+        {
+          "domain": "asiae.co.kr",
+          "hash": "064bec39d9e33876",
+          "importance": "noise",
+          "title": "중진공, 경북 공공기관과 협약 맺고 기술마켓 인증 중소기업 지원"
+        },
+        {
+          "domain": "newsis.com",
+          "hash": "a13c6311206f8342",
+          "importance": "nice_to_know",
+          "title": "중진공, 경북 공공기관과 협력해 에너지 분야 중소기업 지원 강화"
+        }
+      ],
+      "expires_at": "2026-10-16T02:50:20.560450+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 7,
+      "last_run": "2026-10-15T02:50:20.560450+00:00",
+      "new_articles": 7,
+      "origin": "auto",
+      "planned_at": "2026-10-15T02:50:18.887669+00:00",
+      "queries_run": 1,
+      "query": "중소벤처기업진흥공단 원자력",
+      "score": 3.43,
+      "status": "extended",
+      "term": "중소벤처기업진흥공단",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-10-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     }
   },
   "version": 1
