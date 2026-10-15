@@ -340,6 +340,14 @@
       "type": "plant",
       "until": "2026-09-25T18:07:36.047613+00:00"
     },
+    "기후변화로": {
+      "new_articles": 14,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-15T22:17:34.107330+00:00",
+      "term": "기후변화로",
+      "type": "plant",
+      "until": "2026-10-29T22:17:34.107330+00:00"
+    },
     "기후산업국제박람회서": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1214,7 +1222,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-10-16"
   },
   "terms": {
@@ -1267,41 +1275,6 @@
       "yields": 1,
       "zero_streak": 0
     },
-    "기후변화로": {
-      "articles": 1,
-      "created_at": "2026-10-13T13:23:25.499575+00:00",
-      "domains": [
-        "hani.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "hani.co.kr",
-          "hash": "62448b3db1ae30ae",
-          "importance": "must_read",
-          "title": "기후변화로 원전 8기 냉각용 해수온도 상승…한울4호기 설계 기준 근접"
-        }
-      ],
-      "expires_at": "2026-10-15T09:05:40.492432+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-15T04:24:34.286206+00:00",
-      "new_articles": 14,
-      "origin": "auto",
-      "planned_at": "2026-10-15T04:24:32.665021+00:00",
-      "queries_run": 6,
-      "query": "기후변화로 원전",
-      "score": 3.6,
-      "status": "promote_candidate",
-      "term": "기후변화로",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-13",
-        "2026-10-14"
-      ],
-      "yields": 3,
-      "zero_streak": 2
-    },
     "미국선급협회": {
       "articles": 3,
       "created_at": "2026-10-15T02:50:18.887669+00:00",
@@ -1332,12 +1305,12 @@
       ],
       "expires_at": "2026-10-16T02:50:20.560450+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-10-15T02:50:20.560450+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-15T22:17:34.107263+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-10-15T02:50:18.887669+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-15T22:17:31.326827+00:00",
+      "queries_run": 2,
       "query": "미국선급협회 원자력",
       "score": 3.7,
       "status": "extended",
@@ -1348,7 +1321,7 @@
         "2026-10-15"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "심사중단": {
       "articles": 1,
@@ -1495,12 +1468,12 @@
       ],
       "expires_at": "2026-10-16T02:50:20.560450+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 7,
-      "last_run": "2026-10-15T02:50:20.560450+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-15T22:17:34.107263+00:00",
       "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-10-15T02:50:18.887669+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-15T22:17:31.326827+00:00",
+      "queries_run": 2,
       "query": "중소벤처기업진흥공단 원자력",
       "score": 3.43,
       "status": "extended",
@@ -1511,7 +1484,7 @@
         "2026-10-15"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
