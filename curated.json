@@ -279420,5 +279420,918 @@
     "feed": "정책",
     "domain": "discoverynews.kr",
     "matched": "데이터센터 전력"
+  },
+  "2e48dae068d1b31c": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "restart_lto",
+      "regulation"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "원자력안전위원회, 고리 3·4·한빛 1·2호기 사고관리계획서 의결",
+    "summary": "원자력안전위원회가 제2026-16회 회의에서 고리 3·4호기와 한빛 1·2호기 사고관리계획서를 표결로 승인했다.",
+    "detail": "원자력안전위원회는 15일 제2026-16회 회의를 열어 고리 3·4호기와 한빛 1·2호기 사고관리계획서 승인안을 표결에 부쳐 원안 의결했다. 한국원자력안전기술원(KINS)의 심사와 원자력안전전문위원회의 사전검토를 거쳐 사고관리 능력이 허가기준을 충족하는 것으로 확인됐다. 재적위원 9명 중 7명이 찬성했으며 반대 2표로 통과됐다. 사고관리계획서 승인으로 향후 고리 3·4호기 계속운전 심사 본격화 여부가 주목된다.",
+    "implication": "고리 3·4호기 계속운전 허가의 필수 관문인 사고관리계획서가 통과됨에 따라 향후 수명연장 본심사의 진행 속도가 빨라질 전망이다.",
+    "why_important": "계속운전의 선결 요건인 사고관리계획서가 원안위 표결을 통과함에 따라 향후 노후원전 재가동 절차의 향방을 가를 중대 전기가 마련되었다.",
+    "open_question": "고리 3·4호기 계속운전 허가안의 본격적인 심사 착수 시점은 아직 확정되지 않았다.",
+    "open_question_source": "article_text",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원안위",
+      "#계속운전",
+      "#고리34호기"
+    ],
+    "related_reports": [],
+    "event_date": "2026-03-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "고리 3·4호기 사고관리계획서 승인…계속운전 허가 주목",
+    "link": "https://www.yna.co.kr/view/AKR20261015113600017",
+    "feed": "정책",
+    "domain": "yna.co.kr",
+    "matched": "사내스크랩"
+  },
+  "b0d73b0e85a8b3c0": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "국내 에너지 정책 공론화 의제 확정",
+    "summary": "국내 에너지 정책 공론화 의제가 확정되어 국민 의견 수렴 절차에 돌입한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력수급",
+      "#공론화"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "원전 공론화 의제 확정…국민에 묻는다 '어떤 전기로 살 것인가'",
+    "link": "https://www.asiae.co.kr/article/2026101510221959640",
+    "feed": "정책",
+    "domain": "asiae.co.kr",
+    "matched": "사내스크랩"
+  },
+  "c27c9d9e71de5c7a": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "finance"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "SK·삼성·현대·두산, 미국 웨스팅하우스 지분 5~10% 인수 검토",
+    "summary": "국내 주요 대기업들이 SK그룹을 중심으로 컨소시엄을 구성해 웨스팅하우스 지분 인수를 검토 중이다.",
+    "detail": "국내 주요 원전 대기업들이 SK그룹을 중심으로 민간 컨소시엄을 구성해 미국 원전 설계기업 웨스팅하우스에 지분 투자를 검토하고 있다. 정부의 대미 투자 협의에 따라 한전과 한수원의 재무 부담을 덜기 위해 국내 기업이 전략적 투자자로 참여하는 방식이며 목표 지분율은 5~10%다. 투자 규모는 최대 4조원에 이를 것으로 예상된다. SK그룹이 컨소시엄을 주도하며 삼성물산, 현대건설, 두산에너빌리티 등이 수천억 원대 투자를 검토 중이다. 이번 투자를 통해 기업들은 미국 대형 원전 및 AI 전력 인프라 사업에서 EPC와 기자재 공급 등의 역할을 확보할 것으로 기대하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#웨스팅하우스",
+      "#지분투자",
+      "#해외수주"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "SK·삼성·현대·두산, 최대 4조 ‘웨스팅하우스 지분 투자’ 검토",
+    "link": "https://www.joongang.co.kr/article/25469807",
+    "feed": "정책",
+    "domain": "joongang.co.kr",
+    "matched": "사내스크랩"
+  },
+  "c4dddcf4e326b200": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "restart_lto"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "원안위, 노후원전 수명연장 심사 진행",
+    "summary": "원자력안전위원회가 국정감사 기간 중 노후원전 수명연장 관련 절차를 진행했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원안위",
+      "#계속운전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "[속보] 국정감사 기간 중 ‘고리 3·4, 한빛 1·2호기’ 기습 통과...원안위, 노후원전 수명연장 수순 밟나",
+    "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9oclg1MzZ6OGJhOFNYSGFyc09SRVFORXpkZlBhbTM2SXZHOTQ4NFV0MmlMT0JqRFZ4VXRBTkRtb3g0V0lHQzdKT1dBSjR6aVludG9XMVRKd1RZeVhzMHp0QWRTbzRJS2c?oc=5",
+    "feed": "정책",
+    "domain": "skenews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "8f188814a02dc20a": {
+    "features": {
+      "event_type": "other",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "월성 원전 정비를 위한 로봇 활용 방안 모색",
+    "summary": "로봇을 활용한 원전 정비 기술 도입이 월성 원전 등에 시사하는 바를 다룬 기사다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#원전정비",
+      "#로봇"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "로봇이 원전 고치는 시대… 캐나다 ‘초격차 정비’가 월성 원전에 던지는 질문",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBEQnJZMXl6cEVmS0J6ejBZOWx3RmltSFdBVGFuamo4UjQwX09pbXFSZWtaY3RVNGFaUFc2aGc1a0dJUmZ4Q21pcl9qWFNOelVmMm81OWFJcFg0OUJ2dHZISE0xM1I?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "57ba3bc2ac969d12": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 3,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "market",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "smr",
+      "finance"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "report",
+    "title_kr": "하나증권, 두산에너빌리티 목표가 12만원으로 하향 조정",
+    "summary": "하나증권이 두산에너빌리티의 3분기 실적 부진 전망을 반영해 목표주가를 27.3% 하향 조정했다.",
+    "detail": "하나증권은 두산에너빌리티의 올해 3분기 매출액을 4조2604억원, 영업이익을 1941억원으로 전망하며 시장 기대치를 밑돌 것으로 내다봤다. 이에 따라 기업가치 평가 배수를 낮춰 목표주가를 기존 16만5000원에서 12만원으로 하향 조정했다. 다만 SMR 추가 수주 가능성과 가스터빈 및 스팀터빈의 수주 증가세를 근거로 투자의견 '매수'는 유지했다. 향후 주가 반등의 핵심 변수로는 연내 SMR 핵심 기자재 수주와 제12차 전력수급기본계획의 신규 원전 및 SMR 반영 규모가 꼽혔다.",
+    "implication": "단기 실적 부진에도 불구하고 SMR 기자재 수주와 제12차 전기본 반영 여부가 향후 기업 가치의 핵심 변수로 작용할 전망이다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#두산에너빌리티",
+      "#목표주가",
+      "#실적전망"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "하나證 \"두산에너빌리티, 3분기 실적 기대치 밑돌 것…목표가 27%↓\"",
+    "link": "https://www.ajunews.com/view/20261016075542732",
+    "feed": "정책",
+    "domain": "ajunews.com",
+    "matched": "전력수급기본계획"
+  },
+  "6a2d127ff40682b6": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "smr",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "smr"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "HD현대, 조선소 AI·로봇 고도화 및 SMR 미래 먹거리 육성",
+    "summary": "HD현대가 조선 사업의 디지털 전환과 함께 테라파워 SMR 설비 공급 등 원자력 사업을 확대한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#SMR",
+      "#테라파워",
+      "#HD현대"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "정기선號 혁신의 1년…조선소엔 AI·로봇, 미래 먹거리는 SMR",
+    "link": "https://view.asiae.co.kr/article/2026101608384647792",
+    "feed": "SMR",
+    "domain": "asiae.co.kr",
+    "matched": "SMR"
+  },
+  "35228f1a341fbec3": {
+    "features": {
+      "event_type": "contract_award",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "대한전선, 미국서 1200억원 규모 초고압 송전망 턴키 수주",
+    "summary": "대한전선 미국 법인이 현지 초고압 전력망 구축 사업을 턴키 방식으로 수주했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#송전망",
+      "#전력인프라"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "AI 데이터센터 늘자 전력망도 바빠졌다···대한전선, 美 턴키 수주 확...",
+    "link": "https://www.womaneconomy.co.kr/news/articleView.html?idxno=259801",
+    "feed": "정책",
+    "domain": "womaneconomy.co.kr",
+    "matched": "송전망 건설"
+  },
+  "52a1fd85e61bd013": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "기술",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "전기안전공사 에너지저장연구센터, ESS 안전성 및 기술 경쟁력 연구 강화",
+    "summary": "한국전기안전공사 에너지저장연구센터가 ESS 안전검증을 넘어 산업 기술 경쟁력 지원에 나선다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#ESS",
+      "#안전성"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "오명국 전기안전공사 에너지저장연구센터장 \"ESS 안전 넘어 산업 경쟁력...",
+    "link": "https://www.electimes.com/news/articleView.html?idxno=373427",
+    "feed": "정책",
+    "domain": "electimes.com",
+    "matched": "데이터센터 전력"
+  },
+  "6b0c8fe255ce7a3c": {
+    "features": {
+      "event_type": "opinion",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "AI 데이터센터 급증에 따른 전력 수요 및 수용성 갈등 심화",
+    "summary": "AI 서비스 이용 증가와 달리 데이터센터 건설을 반대하는 지역사회 여론의 모순이 지적됐다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#수용성"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "\"데이터센터 반대하면서 AI 쓰잖아\"…AI 반대 여론의 모순",
+    "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=707699",
+    "feed": "정책",
+    "domain": "digitaltoday.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "2f270d1bb858eb28": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [],
+    "countries": [],
+    "article_type": "corporate",
+    "title_kr": "마우저, 알레그로 절연형 SiC 게이트 드라이버 공급",
+    "summary": "마우저일렉트로닉스가 전력 변환 효율을 높이는 절연형 SiC 게이트 드라이버 칩셋을 공급한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "마우저, 알레그로마이크로시스템즈 'AHV850xx' 절연형 SiC 게이트 드라이...",
+    "link": "https://www.epnc.co.kr/news/articleView.html?idxno=408319",
+    "feed": "정책",
+    "domain": "epnc.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "d9a29250eecd67c3": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "TH"
+    ],
+    "article_type": "news",
+    "title_kr": "미 연준 의장 \"AI는 중대한 경제 변화\"…금리 결정엔 신중",
+    "summary": "미 연방준비제도 의장이 AI가 경제에 미칠 영향을 진단하며 통화정책 방향에 신중한 입장을 보였다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "연준 의장 \"AI, 생애 가장 중대한 경제 변화\"…10월 금리 인상 언급엔 신...",
+    "link": "https://www.slist.kr/news/articleView.html?idxno=773993",
+    "feed": "정책",
+    "domain": "slist.kr",
+    "matched": "데이터센터 전력"
+  },
+  "9a2bd89b175c9071": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "HD현대일렉트릭, LG CNS와 데이터센터 전력 인프라 협력 MOU 체결",
+    "summary": "HD현대일렉트릭이 LG CNS와 손잡고 AI 데이터센터 전력 인프라와 스마트팩토리 구축 사업에 나선다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-10-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "HD현대일렉트릭, LG CNS와 데이터센터 제조 협력 '맞손'",
+    "link": "https://www.etnews.com/20261016000169",
+    "feed": "정책",
+    "domain": "etnews.com",
+    "matched": "데이터센터 전력"
+  },
+  "7a40d0854d412b81": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "규제",
+    "topics": [
+      "waste"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "대전시의회 원자력특위, 한국원자력연구원 안전 점검 실시",
+    "summary": "대전시의회 원자력안전특별위원회가 한국원자력연구원을 찾아 방사성폐기물 관리 실태를 점검했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#방사성폐기물",
+      "#안전점검"
+    ],
+    "related_reports": [],
+    "event_date": "2026-10-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "[대전시의회소식] 원자력시설 안전 점검…방사성폐기물 관리 강조 등",
+    "link": "https://weekly.hankooki.com/news/articleView.html?idxno=7189291",
+    "feed": "정책",
+    "domain": "hankooki.com",
+    "matched": "원자력안전위원회"
+  },
+  "d5192c96fdeb5a21": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "CN"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한화솔루션, 500kV급 HVAC 초고압 케이블 소재 기술 검증 성공",
+    "summary": "한화솔루션이 중국 전선사와 협력해 500kV급 초고압교류송전 케이블 소재 기술 검증에 성공했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-10-15",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "한화솔루션, 500kv급 HVAC 소재 기술검증 성공…글로벌 시장 공략",
+    "link": "https://www.etnews.com/20261016000171",
+    "feed": "정책",
+    "domain": "etnews.com",
+    "matched": "데이터센터 전력"
+  },
+  "f25fb7fb1df171ac": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "power_market"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "효성중공업, 창원공장 초고압차단기 신공장 준공",
+    "summary": "효성중공업이 창원에 초고압차단기 신공장을 준공하여 수출 생산능력을 두 배로 확대한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력망",
+      "#효성중공업"
+    ],
+    "related_reports": [],
+    "event_date": "2026-06-16",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "효성重, 창원에 신공장 준공… 초고압차단기 생산 2배로",
+    "link": "https://www.greened.kr/news/articleView.html?idxno=352235",
+    "feed": "정책",
+    "domain": "greened.kr",
+    "matched": "데이터센터 전력"
+  },
+  "dc740b8494404fb8": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "policy",
+    "title_kr": "김대자 제13대 한국산업단지공단 이사장 취임",
+    "summary": "김대자 전 산업통상자원부 원전산업정책관이 제13대 한국산업단지공단 이사장으로 취임했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#산업단지공단",
+      "#인사"
+    ],
+    "related_reports": [],
+    "event_date": "2026-06-16",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "김대자 13대 산단공 이사장 취임…“산업 전환 이끄는 핵심 공간 돼야”",
+    "link": "https://www.viva100.com/article/20261016500398",
+    "feed": "정책",
+    "domain": "viva100.com",
+    "matched": "원전 수출"
+  },
+  "b1157c32e7ff2d58": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "스마일게이트 오렌지플래닛, 2026년 하반기 창업 스타트업 정기모집 실시",
+    "summary": "스마일게이트 오렌지플래닛 창업재단이 2026년 하반기 유망 스타트업 정기모집을 진행한다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#스타트업"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "'더 나은 세상' 향한 12년… 스마일게이트 오렌지플래닛, 딥테크 앞세운...",
+    "link": "https://www.s-journal.co.kr/news/articleView.html?idxno=44529",
+    "feed": "정책",
+    "domain": "s-journal.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "7f75e1c6e8e02a13": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "report",
+    "title_kr": "인크루트, 최근 1년간 구직자 관심 기업 1위 SK하이닉스 집계",
+    "summary": "인크루트가 발표한 구직자 관심 기업 조사에서 SK하이닉스가 1위를 기록했다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#채용",
+      "#SK하이닉스"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "구직자 관심 기업 1위 SK하이닉스…현대차 2위",
+    "link": "https://www.kfenews.co.kr/news/articleView.html?idxno=666393",
+    "feed": "정책",
+    "domain": "kfenews.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "c4c6a6f66f52dcbe": {
+    "features": {
+      "event_type": "incident_safety",
+      "korea_relevance": 3,
+      "market_materiality": 3,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "newbuild",
+      "security_trade",
+      "finance"
+    ],
+    "countries": [
+      "KR",
+      "EG"
+    ],
+    "article_type": "news",
+    "title_kr": "한수원, 이집트 엘다바 원전 총액계약으로 1조원대 손실 위험 노출",
+    "summary": "한수원이 설계 미확정 상태로 이집트 엘다바 원전 총액계약을 체결해 공사손실충당부채가 1조원대를 기록했다.",
+    "detail": "한국수력원자력이 이집트 엘다바 원전 사업에서 설계와 물량이 확정되지 않은 상태로 총액확정계약을 체결하여 1조원대 손실 위험에 직면한 사실이 국정감사에서 드러났다. 한수원은 2022년 8월 러시아 로사톰 자회사 ASE와 계약을 맺고 원전 4기의 터빈건물 시공과 기자재 공급을 맡았으나, 기초 설계자료 부족으로 일부 기자재 비용이 5배 이상 급증했다. 올해 상반기 기준 한수원의 공사손실충당부채는 1조2704억원으로 집계되었으며 대부분 엘다바 사업과 연관된 것으로 파악됐다. 내부 감사 결과 불리한 조건을 보고받고도 계약을 서단 책임자들에게 징계가 내려졌으며, 한수원은 발주처와 계약 변경 협상을 진행 중이다.",
+    "implication": "",
+    "why_important": "한수원의 이집트 엘다바 원전 사업 계약 부실로 1조 원 넘는 공사손실충당부채가 발생한 사실이 국정감사에서 공식 확인되었으며, 향후 해외 사업의 리스크 관리 체계 점검이 시급하다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "incident_no_uncertainty",
+    "watch_next": "",
+    "tags": [
+      "#엘다바원전",
+      "#한수원",
+      "#해외수주"
+    ],
+    "related_reports": [],
+    "event_date": "2022-08-01",
+    "event_date_type": "occurrence",
+    "event_date_precision": "month",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-16T04:38:04.341700+00:00",
+    "title": "설계 확정 전 계약한 엘다바 원전…한수원 1조원대 손실 우려",
+    "link": "http://www.dailypop.kr/news/articleView.html?idxno=103446",
+    "feed": "정책",
+    "domain": "dailypop.kr",
+    "matched": "원전 수출"
   }
 }
