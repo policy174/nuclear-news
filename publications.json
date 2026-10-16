@@ -1,6 +1,38 @@
 {
  "items": [
   {
+   "id": "dcaaf1975eb1",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.10.16.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=128360&mid=a10102050000",
+   "date": "2026-10-16",
+   "fetched_at": "2026-10-17",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=128360&seq=1",
+   "toc": {
+    "issue_title": "유럽 전력 소매가격과 소비 유연성 분석(ACER·CEER 보고서)",
+    "briefs": [
+     "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
+     "미 DOE, Vistra 원전 출력증강·현대화에 최대 5.7조 원 조건부 대출 약정",
+     "미국 TVA, Clinch River 부지 BWRX-300 건설허가 취득",
+     "미국 빅테크, 기존 원전 전력구매 및 출력증강 지원 확대",
+     "캐나다 Saskatchewan 주, 2050년까지 최소 2,600MW 원전 확보 추진",
+     "IAEA·미주개발은행, 중남미·카리브 지역 원자력 협력 MOU 체결",
+     "폴란드, 원자력발전 프로그램 개정…첫 원전 2036년 상업운전 목표",
+     "네덜란드, Borssele 원전 계속운전 위한 원자력법 개정안 의회 승인",
+     "현대건설, 미국 Westinghouse와 네덜란드 신규 원전 FEED 계약 체결",
+     "슬로바키아 JAVYS, ČEZ로부터 JESS 지분 49% 인수 합의",
+     "중국, Bailong 원전 2호기 최초 콘크리트 타설",
+     "중국 CGN, 3세대+ 노형 Hualong One 2.0 첫 공개",
+     "우즈베키스탄, 원자력 포함 장기 에너지안보 전략 수립 계획 발표",
+     "우즈베키스탄 정부, Jizzakh 원전 사업 현지화 비중 30%로 확대 추진",
+     "일본 주고쿠전력, GX 전환금융으로 시마네 3호기 안전대책 자금 조달",
+     "일본 경제산업성, 선진 원자로 개발에 NEDO 자금 투입 위한 법 개정 검토"
+    ]
+   }
+  },
+  {
    "id": "cc333612c746",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -1034,43 +1066,43 @@
  ],
  "state": {
   "nea_max_id": 121835,
-  "keei_max_list_no": 128283,
+  "keei_max_list_no": 128360,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-16T04:00:07+09:00",
+   "at": "2026-10-17T03:40:59+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }
