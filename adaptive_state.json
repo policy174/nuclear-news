@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 4,
     "date": "2026-10-16"
   },
   "retired": {
@@ -1222,7 +1222,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 11,
     "date": "2026-10-16"
   },
   "terms": {
@@ -1432,6 +1432,54 @@
       "status": "extended",
       "term": "전력수요 대비",
       "ttl_hours": 48,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-16"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "전력수요에대비한": {
+      "articles": 3,
+      "created_at": "2026-10-16T02:47:18.360115+00:00",
+      "domains": [
+        "sedaily.com",
+        "dailian.co.kr",
+        "news1.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "sedaily.com",
+          "hash": "dfa47b9cf972e22b",
+          "importance": "nice_to_know",
+          "title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제"
+        },
+        {
+          "domain": "dailian.co.kr",
+          "hash": "361162897f2eeeab",
+          "importance": "nice_to_know",
+          "title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 국민 의견 수렴 착수"
+        },
+        {
+          "domain": "news1.kr",
+          "hash": "3333c264855e93ba",
+          "importance": "noise",
+          "title": "원전 공론화위원회, 전력 수요 대비 원전 비중 논의 착수"
+        }
+      ],
+      "expires_at": "2026-10-17T02:47:19.496516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 2,
+      "last_run": "2026-10-16T02:47:19.496516+00:00",
+      "new_articles": 2,
+      "origin": "auto",
+      "planned_at": "2026-10-16T02:47:18.360115+00:00",
+      "queries_run": 1,
+      "query": "전력수요에 대비한 원전",
+      "score": 3.64,
+      "status": "extended",
+      "term": "전력수요에 대비한",
+      "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
         "2026-10-16"
