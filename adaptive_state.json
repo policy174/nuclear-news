@@ -1222,7 +1222,7 @@
     }
   },
   "spent": {
-    "count": 7,
+    "count": 10,
     "date": "2026-10-16"
   },
   "terms": {
@@ -1337,14 +1337,14 @@
           "title": "계속운전 심사 중단 원전 4기 기회비용 2조원…원안위원장 “지연 없도록 챙기겠다”"
         }
       ],
-      "expires_at": "2026-10-16T18:51:47.980160+00:00",
+      "expires_at": "2026-10-17T01:54:32.633484+00:00",
       "importance": "must_read",
-      "last_result_count": 2,
-      "last_run": "2026-10-15T18:51:47.980160+00:00",
-      "new_articles": 2,
+      "last_result_count": 1,
+      "last_run": "2026-10-16T01:54:32.633484+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-10-15T18:51:45.000761+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-16T01:54:29.705224+00:00",
+      "queries_run": 2,
       "query": "심사 중단 원전",
       "score": 3.6,
       "status": "extended",
@@ -1354,7 +1354,7 @@
       "yield_days": [
         "2026-10-16"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "심사중단된": {
@@ -1371,14 +1371,14 @@
           "title": "계속운전 심사 중단 원전 4기 기회비용 2조원…원안위원장 “지연 없도록 챙기겠다”"
         }
       ],
-      "expires_at": "2026-10-16T18:51:47.980160+00:00",
+      "expires_at": "2026-10-17T01:54:32.633484+00:00",
       "importance": "must_read",
-      "last_result_count": 2,
-      "last_run": "2026-10-15T18:51:47.980160+00:00",
-      "new_articles": 2,
+      "last_result_count": 1,
+      "last_run": "2026-10-16T01:54:32.633484+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-10-15T18:51:45.000761+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-16T01:54:29.705224+00:00",
+      "queries_run": 2,
       "query": "심사 중단된 원전",
       "score": 3.6,
       "status": "extended",
@@ -1388,7 +1388,7 @@
       "yield_days": [
         "2026-10-16"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "전력수요대비": {
@@ -1421,21 +1421,23 @@
       ],
       "expires_at": "2026-10-17T18:51:45.000761+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-15T18:51:47.980160+00:00",
-      "new_articles": 0,
+      "last_result_count": 5,
+      "last_run": "2026-10-16T01:54:32.633484+00:00",
+      "new_articles": 5,
       "origin": "auto",
-      "planned_at": "2026-10-15T18:51:45.000761+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-16T01:54:29.705224+00:00",
+      "queries_run": 2,
       "query": "전력수요 대비 원전",
       "score": 4.6,
-      "status": "tracking",
+      "status": "extended",
       "term": "전력수요 대비",
       "ttl_hours": 48,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
+      "yield_days": [
+        "2026-10-16"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     },
     "중소벤처기업진흥공단": {
       "articles": 4,
