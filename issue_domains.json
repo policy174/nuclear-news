@@ -328,15 +328,14 @@
       "generated_at": "2026-09-16T16:24:02.178076+00:00"
     },
     "issue-d28a120879f31bf4": {
-      "digest": "7da79e7e05a53b9b",
       "domain": "정책",
       "tags": [
         "AI데이터센터"
       ],
       "title": "텍사스 ERCOT, 474GW 전력 연결 신청 접수…AI 전환 경쟁 심화",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
     },
     "issue-e444b60ea50d9446": {
       "domain": "SMR",
@@ -600,15 +599,14 @@
       "generated_at": "2026-09-16T16:24:02.178076+00:00"
     },
     "issue-2f366bdb6179c57a": {
-      "digest": "369566704b122bdd",
       "domain": "정책",
       "tags": [
         "국제협력외교"
       ],
-      "title": "한-프랑스 정상, 원자력 포함 9건 협정 체결 및 협력 확대 합의",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "한-프랑스 정상회담, 국방·AI·원전 등 8건 협정 체결",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
     },
     "issue-be3b0bc33f0f8c0a": {
       "domain": "핵연료",
@@ -10229,6 +10227,156 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-15T22:54:13.834542+00:00"
+    },
+    "issue-ef91a73b6eeb97a7": {
+      "domain": "계속운전",
+      "tags": [
+        "계속운전"
+      ],
+      "title": "계속운전 심사 중단 원전 4기 기회비용 2조원…원안위원장 “지연 없도록 챙기겠다”",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-0ede095f0ce8b5b8": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "조정식 국회의장, 케빈 매카시 전 미 하원의장 접견해 한미 안보합의 이행 촉구",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-af8af4bdd8b01640": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "폴란드, 6기 SMR 발전소 건설 위한 합작사 설립",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-b82e71c7c9145c1d": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "외교부, 조선·원자력 분야 한미 전략동맹 성과 가속화 표명",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-26fd5f37413c8d50": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "삼성물산 파트너 美 카이로스파워, 6.4억 달러 투자 유치…실증로 가동 목표 2031년",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-db936ad38d2274ba": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "대한전선, 미국서 초고압 전력망 턴키 프로젝트 수주 및 1200억 자재 계약",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-9c343e22b0f1e1c8": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "세아베스틸, 캐나다 BWXT와 SMR 및 대형 원자로 부품 공급 협력 추진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-3597a684676763b6": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "EU 신철강 조치 등 역대급 무역 규제, 한국 4대 주력 산업 타격 우려",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-db0af63480c6972c": {
+      "domain": "안전성",
+      "tags": [
+        "원전안전운영"
+      ],
+      "title": "IAEA, INES 지침 업데이트",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-0a9a31b8d6d153f7": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "미국 NERC, 대규모 데이터센터·암호화폐 시설 전력망 신뢰도 표준안 최종 투과",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-801196f5ab1792f4": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "서전트 앤 룬디, 디플로이어블 에너지의 Unity-1 마이크로리액터 엔지니어링 및 허가 지원",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-72888f93b36f1d3a": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "박완수 경남지사, SMR 글로벌 생산거점 육성 및 특구 지정 추진 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-603a7c13853cd80b": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-76a70f0330c3db48": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
+    },
+    "issue-0591d0ff1fc0988c": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "한국·프랑스, AI·양자 및 원자력 특화 기술 협력 본격화",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-16T10:57:39.658567+00:00"
     }
   }
 }
