@@ -13,15 +13,14 @@
       "generated_at": "2026-10-09T03:24:50.418757+00:00"
     },
     "issue-51c2f9141fbf7dee": {
-      "digest": "0148513614981872",
       "domain": "규제",
       "tags": [
         "원안위"
       ],
       "title": "원안위, 생활방사선법 하위규정 개정안 등 2건 의결",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
     },
     "issue-ebf0f3941e2ed499": {
       "domain": "해외사업",
@@ -388,15 +387,14 @@
       "generated_at": "2026-10-13T00:14:02.635206+00:00"
     },
     "issue-c1a5b7851b1493fd": {
-      "digest": "c69be544be69d05d",
       "domain": "SMR",
       "tags": [
-        "SMR사업화"
+        "SMR제도"
       ],
-      "title": "과기정통부, 소형모듈원자로 개발 촉진 및 지원에 관한 특별법 및 시행령 시행",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "SMR 개발 촉진 특별법 시행…2035년 상용화 제도적 기반 구축",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
     },
     "issue-168509c4dc690d42": {
       "domain": "재생·수소",
@@ -10397,6 +10395,136 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-16T23:36:13.044680+00:00"
+    },
+    "issue-c4c6a6f66f52dcbe": {
+      "domain": "해외사업",
+      "tags": [
+        "해외운영"
+      ],
+      "title": "한수원, 이집트 엘다바 원전 총액계약으로 1조원대 손실 위험 노출",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-7e8390441595b3e7": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "한미재계회의 총회 개최…원전 대형 프로젝트 등 대미 전략투자 이행 논의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-77a6705d575be156": {
+      "domain": "규제",
+      "tags": [
+        "해외규제"
+      ],
+      "title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-608f1078240dca41": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "대통령실, 신임 산업통상자원부 차관에 박동일 산업정책실장 임명",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-2dd539d95c908fae": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "세계은행 총재, 5년 내 핵심 광물 금융 지원 5배 확대 목표 설정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-1dba5df01fa25981": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "HD현대, 정기선 회장 취임 1년 맞아 원자력·AI 사업 확장",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-877bc9b63a31eecf": {
+      "domain": "사후처리",
+      "tags": [
+        "사용후핵연료"
+      ],
+      "title": "노르웨이, 사용후핵연료 스웨덴 Studsvik 시설에 저장 합의",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-13b43ef1c6ca164d": {
+      "domain": "정책",
+      "tags": [
+        "국제협력외교"
+      ],
+      "title": "JP모건체이스, 지속가능금융 녹색금융 범위에 원자력발전 포함",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-19ca4a5d781e6aec": {
+      "domain": "해외사업",
+      "tags": [
+        "원전수출"
+      ],
+      "title": "EU, 유럽산 70% 미달 시 보조금 제외 정책으로 한국 원전·전력기기 수출 영향 우려",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-feb33ea620c402dd": {
+      "domain": "안전성",
+      "tags": [
+        "기후변화"
+      ],
+      "title": "2026년 프랑스 폭염으로 원전 최대 27기 가동 중단…발전 손실 10TWh 기록",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-459639f5518da5d5": {
+      "domain": "정책",
+      "tags": [
+        "AI데이터센터"
+      ],
+      "title": "OCP 글로벌 서밋, 데이터센터 기술 표준화 논의…한국 기업 참여",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-be0dbbd8038bbf8e": {
+      "domain": "정책",
+      "tags": [
+        "원자력정책"
+      ],
+      "title": "방산업계, 해외 잠수함 수주 경쟁 치열…국내 물량 곧 소진",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
+    },
+    "issue-bd79c2a1ca55c24b": {
+      "domain": "SMR",
+      "tags": [
+        "해외SMR"
+      ],
+      "title": "삼성물산·GE버노바 등 4사, 유럽 내 BWRX-300 SMR 반복 공급 협력 체계 구축",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T04:07:20.385446+00:00"
     }
   }
 }
