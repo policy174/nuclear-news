@@ -93,15 +93,14 @@
       "generated_at": "2026-09-16T13:42:12.637046+00:00"
     },
     "issue-63f4116f8b5103ca": {
-      "digest": "27eae26cd96d56d3",
       "domain": "규제",
       "tags": [
         "해외규제"
       ],
       "title": "미국 NRC, 원전 인허가·해체·운영 감독 규제 전면 개편안 공개",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
     },
     "issue-89c1ce7ebf89478f": {
       "domain": "규제",
@@ -203,26 +202,24 @@
       "generated_at": "2026-09-16T13:42:12.637046+00:00"
     },
     "issue-eff231f64748ec5c": {
-      "digest": "7efe5a027c529636",
       "domain": "SMR",
       "tags": [
-        "SMR사업화"
+        "SMR제도"
       ],
-      "title": "과기정통부, SMR 특별법 및 시행령 시행…2035년 상용화 목표",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "SMR 개발 촉진 특별법 시행…2035년 상용화 제도적 기반 구축",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
     },
     "issue-7d4f5a342c3182d8": {
-      "digest": "c1fdd81851dea9de",
       "domain": "해외사업",
       "tags": [
         "원전수출"
       ],
-      "title": "한국 정부, 미국 원전 8기 및 천연가스 사업 투자 방안 마련 보도",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "도널드 트럼프 미국 대통령, 한국의 2000억 달러 대미 투자 계획 발표",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
     },
     "issue-98d67f29cf01a985": {
       "domain": "정책",
@@ -235,15 +232,14 @@
       "generated_at": "2026-09-16T13:42:12.637046+00:00"
     },
     "issue-f2779e3dff33262a": {
-      "digest": "a2f450cddbf8e802",
       "domain": "계속운전",
       "tags": [
         "계속운전"
       ],
-      "title": "한빛 2호기, 계속운전 인허가 지연으로 가동 중단 및 4400억 추가 비용 발생",
-      "prompt_version": 1,
-      "model": "gemini-2.5-flash-lite",
-      "generated_at": "2026-09-15T13:03:20.457898+00:00"
+      "title": "계속운전 심사 지연으로 원전 4기 가동 중단, 반도체 팹 12기 전력 손실",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
     },
     "issue-18d485ea7e099351": {
       "domain": "정책",
@@ -10565,6 +10561,26 @@
       "prompt_version": 2,
       "model": "gemini-2.5-flash",
       "generated_at": "2026-10-17T18:21:10.032009+00:00"
+    },
+    "issue-2deefb2665e70c84": {
+      "domain": "재생·수소",
+      "tags": [
+        "재생에너지"
+      ],
+      "title": "HD현대일렉트릭 등 국내 기업, 텍사스 가스발전 프로젝트 참여로 북미 전력기기 시장 공략",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
+    },
+    "issue-1c5dd0144a34b5f9": {
+      "domain": "SMR",
+      "tags": [
+        "SMR사업화"
+      ],
+      "title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
+      "prompt_version": 2,
+      "model": "gemini-2.5-flash",
+      "generated_at": "2026-10-17T23:13:06.246066+00:00"
     }
   }
 }
