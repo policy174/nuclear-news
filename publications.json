@@ -1032,36 +1032,6 @@
    "off_topic": true,
    "off_topic_reason": "원자력 발전과 무관한 식품 안전 분야 뉴스레터",
    "relevance": "policy"
-  },
-  {
-   "id": "eae8a438327d",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Cooperative Approaches to the Back End of the Nuclear Fuel Cycle",
-   "url": "http://www.iaea.org/publications/16040/cooperative-approaches-to-the-back-end-of-the-nuclear-fuel-cycle",
-   "date": "2026-04-21",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 핵연료 주기 후행부문에 대한 협력적 접근 방식",
-   "gist": "핵연료 주기 후행부문 관리를 위한 국제 협력 및 공동 접근 방안",
-   "translated_version": 3,
-   "off_topic": false,
-   "relevance": "policy"
-  },
-  {
-   "id": "248b68f27ca8",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Safety Assessment of Nuclear Installations Against Combinations of Hazards Induced by External Events",
-   "url": "http://www.iaea.org/publications/16037/safety-assessment-of-nuclear-installations-against-combinations-of-hazards-induced-by-external-events",
-   "date": "2026-04-21",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 외부 사건으로 유발된 복합 위험에 대한 원자력 시설 안전성 평가",
-   "gist": "외부 사건 복합 위험에 대한 원자력 시설의 안전성 평가 방법론 및 지침",
-   "translated_version": 3,
-   "off_topic": false,
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1071,35 +1041,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-18T02:48:06+09:00",
+   "at": "2026-10-19T02:49:26+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
