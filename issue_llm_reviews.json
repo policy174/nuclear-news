@@ -8337,9 +8337,9 @@
       "left_title": "美 원전 8기 발주 임박…두산에너빌리티, AP1000·SMR 사업 확대 기대",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "원전 발주 기대와 3분기 실적",
-      "reviewed_at": "2026-10-17T00:54:54.940071+00:00",
-      "right_title": "두산에너빌, 3Q 영업익 85% 성장 전망…원전·가스터빈 본격화",
+      "reason": "미국 원전 발주와 실적 발표 차이",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "두산에너빌리티, 3분기 영업익 85% 성장 전망…SMR·원전 기자재 수주 기대",
       "same_event": false
     },
     "05d330956300dc97--3b43ac626245e470": {
@@ -23552,6 +23552,16 @@
       "right_title": "HD현대일렉트릭, AI 데이터센터 열풍에 변압기 '뉴노멀' 수요 전망",
       "same_event": false
     },
+    "1245dd001e54ee2f--262701a8f1842d48": {
+      "embedding_similarity": 0.8839,
+      "left_title": "미국 전력망 규제 강화…효성중공업, 현지 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 변압기 계약과 창원 공장 준공",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "효성중공업, 창원 초고압차단기 신공장 준공…AI 데이터센터 전력 수요 대응",
+      "same_event": false
+    },
     "1245dd001e54ee2f--2deefb2665e70c84": {
       "embedding_similarity": 0.8461,
       "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
@@ -26482,6 +26492,16 @@
       "right_title": "원안위, 고리 3·4호기 사고관리계획서 승인…계속운전 심사 본격화",
       "same_event": true
     },
+    "1449af55b5a0114d--66fe486e3027bb99": {
+      "embedding_similarity": 0.8708,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동과 AI 안전장치 여론조사로 무관함",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 퀴니피악대 여론조사, 응답자 91% AI 안전장치 의무화 지지",
+      "same_event": false
+    },
     "14513aaa20acb745--18d485ea7e099351": {
       "embedding_similarity": 0.862,
       "left_title": "AI 전력수요 급증으로 원전 19기 추가 필요성 제기, 12차 전기본 논의",
@@ -26620,6 +26640,16 @@
       "reason": "사고관리계획서 승인과 계속운전 심의는 별개",
       "reviewed_at": "2026-10-18T05:44:21.910410+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 심의 개시",
+      "same_event": false
+    },
+    "14960bc031595436--1598d45c9352cd97": {
+      "embedding_similarity": 0.8706,
+      "left_title": "정부, 텍사스 223억 달러 규모 가스발전소 대미 전략투자 사업 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스발전 투자 확정과 대미 무역흑자 분석",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1000억달러 돌파 전망…트럼프 투자 압박 직면",
       "same_event": false
     },
     "14960bc031595436--1848ffbccc0b4cb2": {
@@ -28252,6 +28282,16 @@
       "right_title": "텍사스 가스발전, 30조 투자해 60조 회수 가능성…장기계약·가스 가격 변수",
       "same_event": true
     },
+    "154e26c40578a908--4a63ee9f6c511a04": {
+      "embedding_similarity": 0.882,
+      "left_title": "산업통상부, 대미 전략투자 1호 텍사스 가스발전 추진 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스발전 추진과 대미 무역흑자 이슈",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1천억달러 유력…트럼프 투자 압박에 정부 난감",
+      "same_event": false
+    },
     "154e26c40578a908--54b1c834ff12ca8c": {
       "embedding_similarity": 0.8693,
       "left_title": "산업통상부, 대미 전략투자 1호 텍사스 가스발전 추진 발표",
@@ -28301,6 +28341,16 @@
       "reviewed_at": "2026-10-02T10:42:03.818097+00:00",
       "right_title": "한·미, 2000억 달러 대미 전략투자 프레임워크 공식 발표",
       "same_event": true
+    },
+    "154e26c40578a908--887ce6ffb64ca196": {
+      "embedding_similarity": 0.8707,
+      "left_title": "산업통상부, 대미 전략투자 1호 텍사스 가스발전 추진 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스발전 추진 발표와 대미 무역흑자 분석",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1천억 달러 돌파 확실…트럼프 투자 압박 우려",
+      "same_event": false
     },
     "154e26c40578a908--9e285f7f76062bbb": {
       "embedding_similarity": 0.8845,
@@ -28630,6 +28680,46 @@
       "reason": "i-SMR 설계 심사와 고준위폐기물·SMR 규제 논의",
       "reviewed_at": "2026-08-18T15:44:16.356197+00:00",
       "right_title": "원안위, 스웨덴 방사선안전청과 고준위폐기물·SMR 규제 논의",
+      "same_event": false
+    },
+    "1598d45c9352cd97--2deefb2665e70c84": {
+      "embedding_similarity": 0.882,
+      "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발전소 수주와 대미 무역흑자 이슈",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1000억달러 돌파 전망…트럼프 투자 압박 직면",
+      "same_event": false
+    },
+    "1598d45c9352cd97--3438314039050dee": {
+      "embedding_similarity": 0.8704,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 발언 내용과 대미 무역흑자 전망",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1000억달러 돌파 전망…트럼프 투자 압박 직면",
+      "same_event": false
+    },
+    "1598d45c9352cd97--369a47d7e35bf003": {
+      "embedding_similarity": 0.8707,
+      "left_title": "도널드 트럼프 미국 대통령, 한국의 2000억 달러 대미 투자 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 발표와 무역흑자 전망으로 사안 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1000억달러 돌파 전망…트럼프 투자 압박 직면",
+      "same_event": false
+    },
+    "1598d45c9352cd97--64dbd75ba01f9421": {
+      "embedding_similarity": 0.8755,
+      "left_title": "HD현대일렉트릭 등 국내 기업, 텍사스 가스발전 프로젝트 참여로 북미 전력기기 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 프로젝트 참여와 무역 동향으로 사안 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1000억달러 돌파 전망…트럼프 투자 압박 직면",
       "same_event": false
     },
     "15a4689f66109f9d--2bed756f70c17c7d": {
@@ -34139,6 +34229,16 @@
       "prompt_version": 1,
       "reason": "계약 상대방 및 용량이 다름",
       "reviewed_at": "2026-10-07T11:14:16.960220+00:00",
+      "right_title": "구글, 미국 최대 원전기업 콘스텔레이션과 3.6GW 전력구매계약 체결",
+      "same_event": false
+    },
+    "1af9eb8685a35893--66fe486e3027bb99": {
+      "embedding_similarity": 0.8708,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 구글의 계약 체결",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
       "right_title": "구글, 미국 최대 원전기업 콘스텔레이션과 3.6GW 전력구매계약 체결",
       "same_event": false
     },
@@ -49742,6 +49842,16 @@
       "right_title": "미국 원자력규제위원회, 테네시밸리전력청 300MW SMR 건설 허가 승인",
       "same_event": false
     },
+    "28ae59bacf422fa6--66fe486e3027bb99": {
+      "embedding_similarity": 0.8706,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 SMR 건설 승인",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 원자력규제위원회, 테네시밸리전력청 300MW SMR 건설 허가 승인",
+      "same_event": false
+    },
     "28ae59bacf422fa6--6bd028d3c9adaf2c": {
       "embedding_similarity": 0.9102,
       "left_title": "미 NRC, 테네시주 GEVH SMR 1호기 건설 허가 승인 임박",
@@ -54382,6 +54492,16 @@
       "right_title": "LS에코에너지-가온전선, 북미 전력 시장 공략 가속화",
       "same_event": false
     },
+    "2deefb2665e70c84--4a63ee9f6c511a04": {
+      "embedding_similarity": 0.8826,
+      "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발전소 수주 기회와 무역흑자 이슈",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1천억달러 유력…트럼프 투자 압박에 정부 난감",
+      "same_event": false
+    },
     "2deefb2665e70c84--54053fbd2f746564": {
       "embedding_similarity": 0.8601,
       "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
@@ -57280,6 +57400,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-30T08:26:17.681137+00:00",
       "right_title": "미국, AI 데이터센터용 가스발전소 99곳 가동 시 전력 탄소배출 20% 증가 전망",
+      "same_event": false
+    },
+    "2fd5fc5cc5bc0a08--66fe486e3027bb99": {
+      "embedding_similarity": 0.8715,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 법안 합의로 주제가 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 상원, 에너지 프로젝트 인허가 간소화 'BAAJA' 법안 합의",
       "same_event": false
     },
     "2fd700741247869f--86f3bd115da5e89c": {
@@ -65762,6 +65892,16 @@
       "right_title": "원자력안전위원회, SMR 인허가 전담 조직 부족으로 규제 공백 우려 제기",
       "same_event": false
     },
+    "3749a98b10d30d4b--e7751e117f0c2671": {
+      "embedding_similarity": 0.9059,
+      "left_title": "국내 SMR 건설 인허가 2028년 신청 예정이나, 심사기준은 2032년에야 마련될 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 SMR 인허가와 한미 원전 합의",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
+      "same_event": false
+    },
     "3749a98b10d30d4b--e8f360ad04cb122d": {
       "embedding_similarity": 0.8526,
       "left_title": "과기정통부, SMR 개발 촉진 특별법 및 시행령 시행",
@@ -65770,6 +65910,16 @@
       "reason": "주제만 같고 세부 안건이 다름",
       "reviewed_at": "2026-10-11T00:55:20.081963+00:00",
       "right_title": "국내 SMR 건설 인허가 2028년 신청 예정이나, 심사기준은 2032년에야 마련될 전망",
+      "same_event": false
+    },
+    "3749a98b10d30d4b--ec6d0bec0bae2f44": {
+      "embedding_similarity": 0.8923,
+      "left_title": "국내 SMR 건설 인허가 2028년 신청 예정이나, 심사기준은 2032년에야 마련될 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 규제 지연과 해외 진출 기획",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "[美 진출 K원전, 과제는] 다음은 SMR... 본게임은 2030년부터",
       "same_event": false
     },
     "3755290fbd6dc745--42d294aaa404e892": {
@@ -76522,6 +76672,16 @@
       "right_title": "한미, 대미 원전 8기 건설 후보지로 '윌리엄 리'·'터키포인트' 검토",
       "same_event": true
     },
+    "3f38d31a0e721c9e--459639f5518da5d5": {
+      "embedding_similarity": 0.8921,
+      "left_title": "OCP 글로벌 서밋, 데이터센터 기술 표준화 논의…한국 기업 참여",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 기술 표준과 낸드 기술 경쟁",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "삼성전자·SK하이닉스, AI 추론용 낸드 기술 경쟁 심화",
+      "same_event": false
+    },
     "3f6f7279182e52d8--6526f0c4099686b4": {
       "embedding_similarity": 0.9188,
       "left_title": "뉴욕주, 50MW 이상 데이터센터 환경허가 최대 1년 중단",
@@ -85650,6 +85810,26 @@
       "reason": "주체 및 사업 내용 상이",
       "reviewed_at": "2026-09-15T16:00:05.096853+00:00",
       "right_title": "LS에코에너지-가온전선, 북미 전력 시장 공략 가속화",
+      "same_event": false
+    },
+    "4a63ee9f6c511a04--64dbd75ba01f9421": {
+      "embedding_similarity": 0.8727,
+      "left_title": "HD현대일렉트릭 등 국내 기업, 텍사스 가스발전 프로젝트 참여로 북미 전력기기 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 프로젝트와 무역 수지 동향으로 사안 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1천억달러 유력…트럼프 투자 압박에 정부 난감",
+      "same_event": false
+    },
+    "4a63ee9f6c511a04--a3dac30f73d61de9": {
+      "embedding_similarity": 0.8915,
+      "left_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발전소 합의건과 대미 무역흑자 동향",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한국, 대미 무역흑자 1천억달러 유력…트럼프 투자 압박에 정부 난감",
       "same_event": false
     },
     "4a7bb3ee4541e469--7fbf45e0f47e3880": {
@@ -96167,10 +96347,10 @@
       "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "특정 시설 투자와 회장 취임 1년 성과",
-      "reviewed_at": "2026-10-17T05:24:01.176180+00:00",
-      "right_title": "정기선 HD현대 회장 취임 1년 맞아…\"실적 키우고 신사업·지배력 확대\"",
-      "same_event": false
+      "reason": "HD현대의 SMR 및 전력 사업 투자 확장",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "HD현대, AI 데이터센터 전력 수요 대응 위해 SMR·발전 엔진 사업 확장",
+      "same_event": true
     },
     "55aea56637835886--c56baa57f4715711": {
       "embedding_similarity": 0.8655,
@@ -109652,6 +109832,26 @@
       "right_title": "경주시, 문무대왕과학연구소 및 SMR 제작지원센터 설립 등 국가예산 건의",
       "same_event": false
     },
+    "643fd7413d806738--95ba4b23978a00e7": {
+      "embedding_similarity": 0.8908,
+      "left_title": "박완수 경남지사, SMR 글로벌 생산거점 육성 및 특구 지정 추진 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남도 발표와 창원시 로드맵의 차이",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "창원시, SMR 산업 생태계 구축 및 특구 유치 위한 중장기 로드맵 수립",
+      "same_event": false
+    },
+    "643fd7413d806738--a91bd08972a96d01": {
+      "embedding_similarity": 0.8762,
+      "left_title": "두산에너빌리티, 창원에 SMR 파운드리 전용공장 구축…2030년까지 연 20기 생산 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두산의 공장 구축과 창원시의 로드맵",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "창원시, SMR 산업 생태계 구축 및 특구 유치 위한 중장기 로드맵 수립",
+      "same_event": false
+    },
     "646d988465fdaf1d--ab0f4ec01ae5bec3": {
       "embedding_similarity": 0.8965,
       "left_title": "정부, APEC 에너지장관회의서 2030 재생에너지 100GW 및 AI 전력망 혁신 정책 공유",
@@ -112652,6 +112852,16 @@
       "right_title": "중국 창장 원전 4호기, 냉간 기능시험 완료",
       "same_event": false
     },
+    "66fe486e3027bb99--67d77434892236a9": {
+      "embedding_similarity": 0.8708,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 데이터센터 시장 전망",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "블룸버그 인텔리전스, 미국 AI 데이터센터 자가발전 시장 177조 원 규모 전망",
+      "same_event": false
+    },
     "66fe486e3027bb99--688c6d92f147a96b": {
       "embedding_similarity": 0.8852,
       "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
@@ -112790,6 +113000,16 @@
       "reason": "원전 재가동 검토와 빅테크 투자",
       "reviewed_at": "2026-10-18T06:52:05.785570+00:00",
       "right_title": "美 빅테크, AI 전력 확보 위해 원전 투자 확대",
+      "same_event": false
+    },
+    "66fe486e3027bb99--de73610bdcd632eb": {
+      "embedding_similarity": 0.87,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 데이터센터 인허가 지연",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 데이터센터, 주민 전력난 우려로 인허가 지연 발생",
       "same_event": false
     },
     "66fe486e3027bb99--ea5712b9860c7c0b": {
@@ -114941,6 +115161,16 @@
       "reviewed_at": "2026-10-09T03:12:18.743991+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 신규 원전 보조기기 입찰설명회 개최",
       "same_event": false
+    },
+    "692fb665f97af260--a5cc5b9d6803e0d2": {
+      "embedding_similarity": 0.8759,
+      "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위원회의 논의 의제 결정",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "원전 공론화위, 계속운전·부지 확정 등은 논의서 배제",
+      "same_event": true
     },
     "693a58e26c9e9db9--ab0f4ec01ae5bec3": {
       "embedding_similarity": 0.8923,
@@ -124190,6 +124420,16 @@
       "reason": "개별 수주 건과 업계 동향",
       "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
       "right_title": "케이블 수출 넘어 생산·시공까지…K전선, 해외 전력망 공략 확대",
+      "same_event": false
+    },
+    "73bf79f294ecc613--efc7c6ef57dd19cb": {
+      "embedding_similarity": 0.9153,
+      "left_title": "가온전선, 미국 노스캐롤라이나 공장에 원전용 케이블 생산설비 구축 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 기업 투자와 업계 전반 동향",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "국내 전선업계, 미국·동남아 해외 전력망 시장 공략 확대",
       "same_event": false
     },
     "73c4651fc17e77c1--a5dca30d550abf70": {
@@ -140682,6 +140922,16 @@
       "right_title": "미국 에너지부, 국방물자생산법(DPA) 자금 투입해 버지니아·웨스트버지니아 송전망 확충 추진",
       "same_event": false
     },
+    "87ea850a87400b4b--c0860a1362bc8b15": {
+      "embedding_similarity": 0.8721,
+      "left_title": "미국 에너지부, 중부 대서양 전력망 안정화 위한 비상 명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "에너지부의 서로 다른 정책 조치",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 에너지부, 국방물자생산법(DPA) 자금 투입해 버지니아·웨스트버지니아 송전망 확충 추진",
+      "same_event": false
+    },
     "87ea88de11e2d1fc--e471ebb1e8e3d19f": {
       "embedding_similarity": 0.8709,
       "left_title": "정부, 12차 전기본서 2040년까지 석탄발전 60기 폐지 로드맵 발표",
@@ -146832,6 +147082,16 @@
       "right_title": "행정안전부, 원자력안전위원회 포함 44개 정부기관 세종 이전 계획 발표",
       "same_event": true
     },
+    "91b1760d2ce95663--f1493b104cff5059": {
+      "embedding_similarity": 0.9103,
+      "left_title": "정부, 원안위 세종 이전 추진…경주시, 유치 무산에 차선책 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원자력안전위원회의 세종시 이전 발표",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "행안부, 원자력안전위원회 포함 44개 중앙행정기관 세종 이전 발표",
+      "same_event": true
+    },
     "91b787e4c3b67b45--db936ad38d2274ba": {
       "embedding_similarity": 0.8989,
       "left_title": "대한전선, 미국서 초고압 전력망 턴키 프로젝트 수주 및 1200억 자재 계약",
@@ -149392,6 +149652,16 @@
       "right_title": "트럼프 미국 대통령, 한국 대미투자 패키지 내 원전 8기·알래스카 LNG 포함 발표",
       "same_event": true
     },
+    "9579b15e1df92c0d--c342f4726771d9c9": {
+      "embedding_similarity": 0.8706,
+      "left_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역 및 사업 내용이 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "동남권, AI 데이터센터 혁신 생태계 구축…조선·방산·자동차 산업 첨단화",
+      "same_event": false
+    },
     "95868004ec5b49db--9d27e89f4e6b16fe": {
       "embedding_similarity": 0.8737,
       "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
@@ -150150,6 +150420,16 @@
       "reason": "도정 성과 제시 간담회",
       "reviewed_at": "2026-10-09T21:07:33.975823+00:00",
       "right_title": "박완수 경남지사, 취임 100일 기자간담회서 SMR 및 AI 데이터센터 육성 성과 제시",
+      "same_event": false
+    },
+    "95ba4b23978a00e7--e98d26cac5bc559e": {
+      "embedding_similarity": 0.8759,
+      "left_title": "박완수 경남지사, SMR 글로벌 생산거점 육성 및 특구 지정 추진 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체 및 세부 사업 계획이 다름",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "창원시, SMR 중심 원전산업 육성 계획 수립",
       "same_event": false
     },
     "95ba4b23978a00e7--f97597a02aca4767": {
@@ -154902,6 +155182,16 @@
       "right_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
       "same_event": false
     },
+    "9d27e89f4e6b16fe--b0f35b0e3de27b5e": {
+      "embedding_similarity": 0.8708,
+      "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정기선 회장 경영 동향과 HD현대중 사장 선임",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "HD현대중공업, 조민수 사장 선임…안전경영 강화 및 SMR 등 신사업 추진",
+      "same_event": false
+    },
     "9d27e89f4e6b16fe--b8c41cbaea68457a": {
       "embedding_similarity": 0.8819,
       "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
@@ -154911,6 +155201,16 @@
       "reviewed_at": "2026-10-18T05:44:21.910410+00:00",
       "right_title": "HD현대, 이상균 조선사업 총괄 부회장 선임…SMR 사업 진출 추진",
       "same_event": false
+    },
+    "9d27e89f4e6b16fe--bb70bd7e6631b225": {
+      "embedding_similarity": 0.8709,
+      "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정기선 회장의 SMR 신사업 성과 및 주력 보도",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "정기선 HD현대 회장 취임 1년, SMR 등 미래 신사업 육성 성과",
+      "same_event": true
     },
     "9d27e89f4e6b16fe--c3eb7517409cb9a5": {
       "embedding_similarity": 0.905,
@@ -157197,9 +157497,9 @@
       "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "수주 건과 실적 전망 기사",
-      "reviewed_at": "2026-10-17T09:21:41.577569+00:00",
-      "right_title": "가전 비용 부담에 실적 출렁였지만…LG전자, 신사업 가치 커진다",
+      "reason": "개별 수주 건과 신사업 성장 전망 차이",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "LG전자, AI 데이터센터 냉각솔루션 등 신사업 성장 가능성 주목",
       "same_event": false
     },
     "a2008b3343fae06b--b1fb7fdb7c5bdceb": {
@@ -161871,6 +162171,16 @@
       "reviewed_at": "2026-10-11T12:18:43.421842+00:00",
       "right_title": "두산에너빌리티, SMR 제작공장 구축 및 중장기 수주 기반 강화",
       "same_event": true
+    },
+    "a91bd08972a96d01--e98d26cac5bc559e": {
+      "embedding_similarity": 0.8699,
+      "left_title": "두산에너빌리티, 창원에 SMR 파운드리 전용공장 구축…2030년까지 연 20기 생산 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 기업 공장 구축과 지자체 육성 계획",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "창원시, SMR 중심 원전산업 육성 계획 수립",
+      "same_event": false
     },
     "a91bd08972a96d01--f1daf0e76e21f677": {
       "embedding_similarity": 0.8822,
@@ -169912,6 +170222,16 @@
       "right_title": "삼성물산, 미국 카이로스 파워와 협력해 차세대 비경수로형 SMR 공략",
       "same_event": false
     },
+    "b8c7780770dee3c7--e7751e117f0c2671": {
+      "embedding_similarity": 0.8815,
+      "left_title": "미국 원자력규제위원회(NRC), 미국 최초 소형모듈원자로(SMR) 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 NRC SMR 승인과 한미 원전 합의",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
+      "same_event": false
+    },
     "b8c7780770dee3c7--e9460a9838e7f0d8": {
       "embedding_similarity": 0.9179,
       "left_title": "미국 원자력규제위원회(NRC), 미국 최초 소형모듈원자로(SMR) 건설 승인",
@@ -171200,6 +171520,16 @@
       "reason": "서로 다른 데이터센터 프로젝트",
       "reviewed_at": "2026-09-27T21:01:54.173035+00:00",
       "right_title": "오라클, 전력 설비 반발로 뉴멕시코 데이터센터 프로젝트 1년 지연",
+      "same_event": false
+    },
+    "bc05981d9d156e41--cfd0cd407caecf97": {
+      "embedding_similarity": 0.8703,
+      "left_title": "오라클, 전력 설비 반발로 뉴멕시코 데이터센터 프로젝트 1년 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "오라클 개별 사례와 데이터센터 전반 동향",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "미국 데이터센터 47곳, 비용 부담·송전망 인허가 문제로 사업 제동",
       "same_event": false
     },
     "bc05981d9d156e41--de06e942044151d6": {
@@ -176962,6 +177292,16 @@
       "right_title": "중국 쉬다바오 1호기 원자로 돔 설치 완료",
       "same_event": false
     },
+    "c95639aaee1b8c7b--f7fb078b486e181e": {
+      "embedding_similarity": 0.8754,
+      "left_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 승인 및 물리적방호법 개정안 심의·의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원자력안전위원회의 서로 다른 심의 안건",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 심의 이달 진행 및 SMR 규제 정비 추진",
+      "same_event": false
+    },
     "c98914cd0325f951--c9c9550bc9af26ce": {
       "embedding_similarity": 0.8763,
       "left_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
@@ -179810,6 +180150,16 @@
       "reason": "SMR 인허가 규제 우려",
       "reviewed_at": "2026-10-08T20:51:49.090531+00:00",
       "right_title": "원자력안전위원회, SMR 인허가 전담 조직 부족으로 규제 공백 우려 제기",
+      "same_event": true
+    },
+    "d32e558450809391--de7f0e7878eba584": {
+      "embedding_similarity": 0.8846,
+      "left_title": "세종시, SK증권과 7조 원 규모 데이터센터 건립 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세종시 데이터센터 투자 유치 협약",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "세종시, 반도체·AI 데이터센터에 8조8000억원 투자 유치…전력수요 460MW 급증",
       "same_event": true
     },
     "d32e558450809391--def45a4266d71df2": {
@@ -183582,6 +183932,16 @@
       "right_title": "과기정통부, IAEA 총회서 SMR 및 해상원자력 개발 계획 공식화",
       "same_event": true
     },
+    "e7751e117f0c2671--f86e61a3c89da55e": {
+      "embedding_similarity": 0.9004,
+      "left_title": "SMR 건설허가 신청은 2028년인데 심사기준은 2032년…'규제 병목' 경고음",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 규제 문제와 한미 원전 합의",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
+      "same_event": false
+    },
     "e7818e375328e46c--e9c761ed60c251fb": {
       "embedding_similarity": 0.8714,
       "left_title": "다뉴브강 역대 최저 수위, 헝가리·루마니아 원전에 기후 위험 노출",
@@ -184090,6 +184450,16 @@
       "reason": "IAEA 발표와 기업 설계 승인",
       "reviewed_at": "2026-09-17T03:24:59.482621+00:00",
       "right_title": "HD현대·삼성중공업, 원자력 추진선 개념설계 승인 획득",
+      "same_event": false
+    },
+    "ec6d0bec0bae2f44--f86e61a3c89da55e": {
+      "embedding_similarity": 0.888,
+      "left_title": "SMR 건설허가 신청은 2028년인데 심사기준은 2032년…'규제 병목' 경고음",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 규제 병목과 미 진출 전망 차이",
+      "reviewed_at": "2026-10-18T09:29:47.187965+00:00",
+      "right_title": "[美 진출 K원전, 과제는] 다음은 SMR... 본게임은 2030년부터",
       "same_event": false
     },
     "ec7384431fc97169--f26cdcf401cfcc40": {
