@@ -232,7 +232,7 @@ def as_text(lines):
 
 # ---- 요약 ---------------------------------------------------------------------
 
-def claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
+def _claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
     env = {k: v for k, v in os.environ.items() if not k.startswith("CLAUDE") and k != "ANTHROPIC_API_KEY"}
     # 사용자 설정(SessionStart 훅 등)·MCP 를 빼면 기동 57초 → 13초 (2026-10-09 실측)
     cmd = [CLAUDE, "-p", "--setting-sources", "", "--strict-mcp-config", "--output-format", "json", "--model", model or os.environ.get("DRAFT_MODEL", "sonnet")]
@@ -253,6 +253,11 @@ def claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
     if res.get("is_error"):
         raise RuntimeError(f"claude -p 오류: {str(res.get('result'))[:300]}")
     return res.get("result", "")
+
+
+def claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
+    from llm_backup import complete
+    return complete(_claude, prompt, timeout=timeout, model=model)
 
 
 def parse_json(s: str) -> dict:
