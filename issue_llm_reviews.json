@@ -18892,6 +18892,16 @@
       "right_title": "한수원 새울 3호기, 시운전 중 응축수 배관 누설로 수동 정지",
       "same_event": true
     },
+    "0f30816ab2440972--3385fab8c63793ed": {
+      "embedding_similarity": 0.8441,
+      "left_title": "포스코퓨처엠, SK온과 1조742억 규모 LFP 양극재 공급계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 공급 계약과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "K배터리, ESS 수요 증가에 LFP 전환…AI 데이터센터 전력 효율 혁신",
+      "same_event": false
+    },
     "0f30816ab2440972--622dedefca9e3a0c": {
       "embedding_similarity": 0.888,
       "left_title": "포스코퓨처엠, SK온과 1조742억 규모 LFP 양극재 공급계약 체결",
@@ -21380,6 +21390,16 @@
       "reason": "서로 다른 기업의 계약",
       "reviewed_at": "2026-10-03T13:05:51.934597+00:00",
       "right_title": "국내 증시 주요 공시: 효성중공업 미국향 초고압변압기 계약 등",
+      "same_event": false
+    },
+    "1116872abf085268--180b5388473c1fae": {
+      "embedding_similarity": 0.8428,
+      "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 공급 계약과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
       "same_event": false
     },
     "1116872abf085268--1dbc74f6d76d191d": {
@@ -29642,6 +29662,76 @@
       "right_title": "정부, 12차 전기본 앞두고 원전 공론화 재개…실효성 논란 제기",
       "same_event": true
     },
+    "180b5388473c1fae--22c462b14de20a37": {
+      "embedding_similarity": 0.8414,
+      "left_title": "범한메카텍, 두산에너빌리티와 발전기 고정자 장기공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 사업 소식",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--3387d3246fbc666e": {
+      "embedding_similarity": 0.852,
+      "left_title": "현대건설, 웨스팅하우스와 네덜란드 원전 2기 기본설계 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사안이 다른 보도",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--3ed342f37ee52941": {
+      "embedding_similarity": 0.8731,
+      "left_title": "현대건설, 포항 AI 데이터센터 본계약 체결…원전·SMR 에너지 인프라 연계 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 본계약과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--968c78d48333891f": {
+      "embedding_similarity": 0.8509,
+      "left_title": "HD건설기계, 미국 데이터센터용 발전 엔진 3900억원 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주 건과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--aeebe4601413be0a": {
+      "embedding_similarity": 0.8531,
+      "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 공급 계약과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--d32e558450809391": {
+      "embedding_similarity": 0.8499,
+      "left_title": "세종시, SK증권과 7조 원 규모 데이터센터 건립 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 지자체 협약과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
+    "180b5388473c1fae--daa3c537811f9db1": {
+      "embedding_similarity": 0.8504,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주 건과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "중견 건설사, 데이터센터 사업으로 새 동력 모색",
+      "same_event": false
+    },
     "18151ca788643e51--2449e0ab8d45461b": {
       "embedding_similarity": 0.855,
       "left_title": "미국 에너지부, 패듀카·사바나강 부지에 민간 데이터센터 건설 파트너십 발표",
@@ -37552,6 +37642,16 @@
       "right_title": "현대엔지니어링, 8,700억 원 규모 군산 AI 데이터센터 1단계 사업 수주",
       "same_event": false
     },
+    "1dc4ec5086d95a31--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8716,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "HD현대 투자 발표와 현대엔지니어링 수주",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "현대엔지니어링, 8,700억 원 규모 군산 AI 데이터센터 1단계 사업 수주",
+      "same_event": false
+    },
     "1dcdc14282ec8451--346da384dda06dab": {
       "embedding_similarity": 0.8939,
       "left_title": "강민국 의원, 5개 발전공기업 통합 '한국발전공사법안' 발의",
@@ -44290,6 +44390,16 @@
       "reason": "미국 원전 건설 협상",
       "reviewed_at": "2026-10-07T22:08:22.248978+00:00",
       "right_title": "미국, 1200억 달러 규모 원전 사업 추진하며 기술 사용료 등 조건 변경",
+      "same_event": true
+    },
+    "23e8e803fb902bea--7b484c891029c395": {
+      "embedding_similarity": 0.842,
+      "left_title": "한국 정부, 미국 원전 8기 건설에 최대 1200억 달러 투자 협상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 투자 협상 사안",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
       "same_event": true
     },
     "23e8e803fb902bea--7e8390441595b3e7": {
@@ -51912,6 +52022,16 @@
       "right_title": "경남도의원, 경남을 대한민국 SMR 생산거점으로 육성 제안",
       "same_event": false
     },
+    "2b35e540aa5c9cf6--77a6705d575be156": {
+      "embedding_similarity": 0.871,
+      "left_title": "미국 페르미 아메리카, 텍사스 AP1000 원전 4기 환경영향평가 초안 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 원전 환경평가와 NRC 설계인증 갱신",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
+      "same_event": false
+    },
     "2b35e540aa5c9cf6--cf607a03c39f337c": {
       "embedding_similarity": 0.9145,
       "left_title": "미국 페르미 아메리카, 텍사스 AP1000 원전 4기 환경영향평가 초안 완료",
@@ -54040,6 +54160,16 @@
       "reason": "수주 기회와 투자 송금",
       "reviewed_at": "2026-10-05T09:49:04.981574+00:00",
       "right_title": "산업통상부, 2000억 달러 규모 대미 전략투자 첫 투자금 24억 달러 송금 완료",
+      "same_event": false
+    },
+    "2deefb2665e70c84--73bf79f294ecc613": {
+      "embedding_similarity": 0.8406,
+      "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스복합화력 수주와 전선업계 해외공략 비교",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "케이블 수출 넘어 생산·시공까지…K전선, 해외 전력망 공략 확대",
       "same_event": false
     },
     "2deefb2665e70c84--7634d4708a167c69": {
@@ -58802,6 +58932,46 @@
       "right_title": "루마니아, 다뉴브강 물 전환으로 원자로 9일간 가동 가능",
       "same_event": false
     },
+    "3385fab8c63793ed--79725fa37cfd1ddc": {
+      "embedding_similarity": 0.8762,
+      "left_title": "북미 전기차 배터리 공장, 수요 둔화로 1000억 달러 투자에도 가동 중단 위기… ESS로 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 공장 이슈와 산업 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "K배터리, ESS 수요 증가에 LFP 전환…AI 데이터센터 전력 효율 혁신",
+      "same_event": false
+    },
+    "3385fab8c63793ed--8d1b7bb762b72266": {
+      "embedding_similarity": 0.8512,
+      "left_title": "미국 에너지저장연합, 2032년까지 ESS 저장용량 1TWh 구축 목표 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 연합 목표와 국내 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "K배터리, ESS 수요 증가에 LFP 전환…AI 데이터센터 전력 효율 혁신",
+      "same_event": false
+    },
+    "3385fab8c63793ed--aaf5b1b82a18ad60": {
+      "embedding_similarity": 0.8586,
+      "left_title": "LG에너지솔루션, 3분기 매출 9조 원 돌파…북미 ESS 및 유럽 물량 증가 견인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 실적과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "K배터리, ESS 수요 증가에 LFP 전환…AI 데이터센터 전력 효율 혁신",
+      "same_event": false
+    },
+    "3385fab8c63793ed--c40a941e15ff61ef": {
+      "embedding_similarity": 0.8623,
+      "left_title": "미국, 탈중국 정책으로 한국 배터리 기업에 ESS 시장 선점 기회 제공",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시장 전망과 배터리 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "K배터리, ESS 수요 증가에 LFP 전환…AI 데이터센터 전력 효율 혁신",
+      "same_event": false
+    },
     "3399fabc42412de7--54ac4b11fa322cf1": {
       "embedding_similarity": 0.8506,
       "left_title": "대만, 반도체 전력 수요 급증으로 탈원전 정책 재검토 및 원전 재가동 논의",
@@ -60361,6 +60531,16 @@
       "reviewed_at": "2026-10-10T17:13:21.822154+00:00",
       "right_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
       "same_event": false
+    },
+    "3438314039050dee--7b484c891029c395": {
+      "embedding_similarity": 0.8612,
+      "left_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프의 대미 원전 협력 발언",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+      "same_event": true
     },
     "3438314039050dee--7e8390441595b3e7": {
       "embedding_similarity": 0.8877,
@@ -63211,6 +63391,16 @@
       "reviewed_at": "2026-08-14T12:43:56.426278+00:00",
       "right_title": "HD현대중공업, 미 코반에너지에 9560억 규모 발전설비 공급 계약 체결",
       "same_event": false
+    },
+    "369a47d7e35bf003--7b484c891029c395": {
+      "embedding_similarity": 0.869,
+      "left_title": "도널드 트럼프 미국 대통령, 한국의 2000억 달러 대미 투자 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 발표 관련 동일 사건",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+      "same_event": true
     },
     "369a47d7e35bf003--7e8390441595b3e7": {
       "embedding_similarity": 0.891,
@@ -70892,6 +71082,16 @@
       "right_title": "한미, 대미투자 텍사스 가스복합발전·미국 대형 원전 8기·알래스카 LNG 추진",
       "same_event": true
     },
+    "3b43ac626245e470--7b484c891029c395": {
+      "embedding_similarity": 0.8521,
+      "left_title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 합의 동일 사안",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+      "same_event": true
+    },
     "3b43ac626245e470--7e8390441595b3e7": {
       "embedding_similarity": 0.9001,
       "left_title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
@@ -75260,6 +75460,16 @@
       "reason": "서로 다른 수주 건",
       "reviewed_at": "2026-10-07T13:40:46.195289+00:00",
       "right_title": "현대엔지니어링, 8700억 원 규모 인천 원창동 AI 데이터센터 수주",
+      "same_event": false
+    },
+    "3ed342f37ee52941--6862cc268892d8ca": {
+      "embedding_similarity": 0.8714,
+      "left_title": "현대건설, 포항 AI 데이터센터 본계약 체결…원전·SMR 에너지 인프라 연계 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 수주와 3분기 실적 전망",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "현대건설, 3분기 영업이익 2104억원 전망…주택 부문이 플랜트 부진 보완",
       "same_event": false
     },
     "3ed342f37ee52941--6bc7f4f7659fba1c": {
@@ -79771,6 +79981,16 @@
       "reviewed_at": "2026-10-03T01:44:35.089622+00:00",
       "right_title": "산업통상부, 2000억 달러 규모 대미 전략투자 첫 투자금 24억 달러 송금 완료",
       "same_event": false
+    },
+    "42d6605402ab2a05--7b484c891029c395": {
+      "embedding_similarity": 0.8425,
+      "left_title": "3500억 달러 대미 투자 본격화…원전 8기 건설 및 지분 인수 기업 부담 가중",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 건설 투자 관련 사안",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+      "same_event": true
     },
     "42d6605402ab2a05--7e8390441595b3e7": {
       "embedding_similarity": 0.8868,
@@ -89659,6 +89879,16 @@
       "prompt_version": 1,
       "reason": "그룹 전략과 개별 실증센터 협약",
       "reviewed_at": "2026-10-17T09:21:41.577569+00:00",
+      "right_title": "HD현대중공업 등 12개 기관, SMR 해양 기술 실증센터 출범 협약 체결",
+      "same_event": false
+    },
+    "50f2698f1cb2bb44--c98914cd0325f951": {
+      "embedding_similarity": 0.8712,
+      "left_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "회장 취임 성과와 해양 SMR 실증 센터",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
       "right_title": "HD현대중공업 등 12개 기관, SMR 해양 기술 실증센터 출범 협약 체결",
       "same_event": false
     },
@@ -107642,6 +107872,16 @@
       "right_title": "정부와 전남광주시, 광주 군 공항 부지 반도체 클러스터 전력공급 예타 면제 의결",
       "same_event": false
     },
+    "62994074af9b5a08--bb6ed90b4dd61044": {
+      "embedding_similarity": 0.8602,
+      "left_title": "정부, AI 데이터센터 전용 전기요금제 도입 지연으로 투자 불확실성 증대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 전력 제도 안건",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "지역별 전력도매가격제 도입 앞두고 발전업계 투자 위축 우려",
+      "same_event": false
+    },
     "629a2a0fdc790c1f--795b7aa7c1b54d47": {
       "embedding_similarity": 0.8706,
       "left_title": "이재명 대통령, IEA 사무총장 면담서 중동전쟁으로 인한 원전 의존도 언급",
@@ -114482,6 +114722,16 @@
       "right_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
       "same_event": true
     },
+    "6a2d127ff40682b6--aeb5aeb354f4abbf": {
+      "embedding_similarity": 0.872,
+      "left_title": "HD현대, 조선소 AI·로봇 고도화 및 SMR 미래 먹거리 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미래 먹거리 육성 전략과 부회장 인사",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대, 조선사업 총괄에 이상균 부회장 선임",
+      "same_event": false
+    },
     "6a2d127ff40682b6--b75cd687c8a558e4": {
       "embedding_similarity": 0.8809,
       "left_title": "HD현대, 조선소 AI·로봇 고도화 및 SMR 미래 먹거리 육성",
@@ -114621,6 +114871,16 @@
       "reviewed_at": "2026-10-17T20:18:11.326333+00:00",
       "right_title": "한화·HD현대, 조선·방산·전력 인프라 호조로 재계 순위 급상승",
       "same_event": false
+    },
+    "6a2d127ff40682b6--e5d92f7b7589c835": {
+      "embedding_similarity": 0.8718,
+      "left_title": "HD현대, 조선소 AI·로봇 고도화 및 SMR 미래 먹거리 육성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "HD현대의 SMR 및 미래 신사업 투자 발표",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대 정기선 회장 취임 1년, 육상 발전용 엔진·SMR 생산시설 투자",
+      "same_event": true
     },
     "6a2d127ff40682b6--e5ed302987f3ea5b": {
       "embedding_similarity": 0.8787,
@@ -115761,6 +116021,16 @@
       "reviewed_at": "2026-10-08T01:02:56.894793+00:00",
       "right_title": "한국 원전, 웨스팅하우스 장벽 넘고 미국 시장 진출 기대감 고조",
       "same_event": true
+    },
+    "6b82430734a06f85--7e8390441595b3e7": {
+      "embedding_similarity": 0.8715,
+      "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미투자 원전 협업과 한미재계회의 개최",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "한미재계회의 총회 개최…원전 대형 프로젝트 등 대미 전략투자 이행 논의",
+      "same_event": false
     },
     "6b82430734a06f85--81d0ccd190a702d9": {
       "embedding_similarity": 0.9084,
@@ -122952,6 +123222,26 @@
       "right_title": "IAEA, 후쿠시마 ALPS 처리수 24차 방류 삼중수소 기준치 이하 확인",
       "same_event": false
     },
+    "73bf79f294ecc613--970e64f526cb5ffd": {
+      "embedding_similarity": 0.8965,
+      "left_title": "가온전선, 미국 현지 가공선 생산 추진으로 송전망 시장 공략",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 추진 건과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "케이블 수출 넘어 생산·시공까지…K전선, 해외 전력망 공략 확대",
+      "same_event": false
+    },
+    "73bf79f294ecc613--db936ad38d2274ba": {
+      "embedding_similarity": 0.8595,
+      "left_title": "대한전선, 미국서 초고압 전력망 턴키 프로젝트 수주 및 1200억 자재 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주 건과 업계 동향",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "케이블 수출 넘어 생산·시공까지…K전선, 해외 전력망 공략 확대",
+      "same_event": false
+    },
     "73c4651fc17e77c1--a5dca30d550abf70": {
       "embedding_similarity": 0.8719,
       "left_title": "미국, AI 데이터센터 전력 확보 위해 화석연료 발전소 규제 완화 분석",
@@ -127192,6 +127482,16 @@
       "right_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
       "same_event": false
     },
+    "77a6705d575be156--af49688bf7a27759": {
+      "embedding_similarity": 0.8722,
+      "left_title": "TVA, 클린치강 부지 BWRX-300 건설 허가 취득",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 노형 및 심의 건",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
+      "same_event": false
+    },
     "77a6705d575be156--b8c7780770dee3c7": {
       "embedding_similarity": 0.8854,
       "left_title": "미국 원자력규제위원회(NRC), 미국 최초 소형모듈원자로(SMR) 건설 승인",
@@ -130212,6 +130512,16 @@
       "right_title": "현대차그룹, 새만금에 로봇·AI·수소·태양광 등 9조원 투자 발표",
       "same_event": false
     },
+    "7b484c891029c395--f0f81f89699c7cb9": {
+      "embedding_similarity": 0.8402,
+      "left_title": "산업부, 한미 원전프레임워크로 K-원전 APR1400 2기 미국 수출길 개척",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전프레임워크와 트럼프 리스크 분석",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+      "same_event": false
+    },
     "7b5b01045873a4a4--acd19c0064cbf19f": {
       "embedding_similarity": 0.8466,
       "left_title": "한수원, 우리기술과 중소기업 최초 VMI 협약 체결",
@@ -132971,6 +133281,16 @@
       "reviewed_at": "2026-08-08T17:23:03.900576+00:00",
       "right_title": "국회, 한전 지주사 체제 등 전력산업 구조개편 방향 제안",
       "same_event": true
+    },
+    "7f59ebe10b631df4--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8714,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "그룹 전력인프라 투자와 계열사 IT협력",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대일렉트릭, LG CNS와 협력…AI 데이터센터 시장 공략",
+      "same_event": false
     },
     "7f59ebe10b631df4--daa3c537811f9db1": {
       "embedding_similarity": 0.8766,
@@ -137301,6 +137621,26 @@
       "reviewed_at": "2026-09-10T18:18:06.808564+00:00",
       "right_title": "미국 듀안 아놀드 원전 재가동을 위한 대출 계약 체결",
       "same_event": true
+    },
+    "85bceb8899232f71--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8711,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "그룹 투자 발표와 계열사 해양 SMR 실증",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대중공업, 12개 기관과 해양 SMR 기술 실증 및 산업화 추진",
+      "same_event": false
+    },
+    "85bceb8899232f71--c98914cd0325f951": {
+      "embedding_similarity": 0.8716,
+      "left_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정기선 회장 동향과 해양 SMR 실증 협약",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대중공업, 12개 기관과 해양 SMR 기술 실증 및 산업화 추진",
+      "same_event": false
     },
     "85d558a7373de935--8879f77918518460": {
       "embedding_similarity": 0.8805,
@@ -145242,6 +145582,16 @@
       "right_title": "미국 SMR 시장에 깃발 꽂은 태웅…선점 효과 본격화",
       "same_event": false
     },
+    "917a84bdd0697161--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8713,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력인프라 투자와 발전용 엔진 시장 전망",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD한국조선해양, AI 데이터센터 확산에 따른 발전용 엔진 시장 성장",
+      "same_event": false
+    },
     "9182cd68aba44404--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8968,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -147891,6 +148241,16 @@
       "reviewed_at": "2026-10-01T06:19:19.285711+00:00",
       "right_title": "트럼프 미국 대통령, 한국 대미투자 패키지 내 원전 8기·알래스카 LNG 포함 발표",
       "same_event": true
+    },
+    "95868004ec5b49db--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8715,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "1조원대 투자 발표와 무탄소 에너지원 전략",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대, 미래 첨단 조선소 혁신 전략에 SMR 등 차세대 무탄소 에너지원 포함",
+      "same_event": false
     },
     "95868004ec5b49db--c98914cd0325f951": {
       "embedding_similarity": 0.8826,
@@ -159252,6 +159612,26 @@
       "right_title": "HD현대, AI·친환경·자율운항 기술력 강화…SMR 사업 진출",
       "same_event": false
     },
+    "a82bd590bd7de6b8--cab9566a7147c8f2": {
+      "embedding_similarity": 0.8717,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "HD현대 투자 발표와 해양 SMR 실증 협약",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대중공업 등 12개 기관, 해양 SMR 기술 실증 및 산업화 추진",
+      "same_event": false
+    },
+    "a82bd590bd7de6b8--d2330a61919fd7b5": {
+      "embedding_similarity": 0.8714,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "그룹 전력인프라 투자와 계열사 부회장 선임",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대중공업, 조선 사업 총괄 부회장에 이상균 선임 및 SMR 사업 추진",
+      "same_event": false
+    },
     "a82bd590bd7de6b8--d4075e319d3b567a": {
       "embedding_similarity": 0.8736,
       "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
@@ -159270,6 +159650,16 @@
       "reason": "투자와 취임 1주년은 별개 안건",
       "reviewed_at": "2026-10-17T07:54:01.336642+00:00",
       "right_title": "정기선 HD현대 회장 취임 1주년…SMR 등 미래 사업 다각화 주력",
+      "same_event": false
+    },
+    "a82bd590bd7de6b8--d8a93f67d13daaa9": {
+      "embedding_similarity": 0.8718,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 인프라 투자 발표와 사장단 인사",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대 사장단 인사… 계열사 시너지 강화 및 신사업 추진",
       "same_event": false
     },
     "a82bd590bd7de6b8--e064760a0056f263": {
@@ -164010,6 +164400,16 @@
       "reason": "정부 로드맵과 토론회",
       "reviewed_at": "2026-09-19T10:23:21.050947+00:00",
       "right_title": "제12차 전기본 토론회, 석탄발전 폐지 부지 SMR·안보전원 논의",
+      "same_event": false
+    },
+    "b0f35b0e3de27b5e--c98914cd0325f951": {
+      "embedding_similarity": 0.8723,
+      "left_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정기선 회장 취임 성과와 사장 선임 인사",
+      "reviewed_at": "2026-10-18T00:45:35.573526+00:00",
+      "right_title": "HD현대중공업, 조민수 사장 선임…안전경영 강화 및 SMR 등 신사업 추진",
       "same_event": false
     },
     "b0f4ac5b3e395b70--cc5ef12e160a4ddf": {
