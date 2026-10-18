@@ -828,6 +828,14 @@
       "type": "plant",
       "until": "2026-09-30T22:16:50.586418+00:00"
     },
+    "원자력발전소3": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-18T04:39:24.166001+00:00",
+      "term": "원자력발전소 3",
+      "type": "plant",
+      "until": "2026-11-01T04:39:24.166001+00:00"
+    },
     "원전수출기획위원회": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1289,41 +1297,6 @@
     "count": 5,
     "date": "2026-10-18"
   },
-  "terms": {
-    "원자력발전소3": {
-      "articles": 1,
-      "created_at": "2026-10-17T04:24:45.350328+00:00",
-      "domains": [
-        "kmkj.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "kmkj.kr",
-          "hash": "727d06348551a08a",
-          "importance": "must_read",
-          "title": "원자력안전위원회, 고리 원자력발전소 3·4호기 사고관리계획서 승인"
-        }
-      ],
-      "expires_at": "2026-10-18T04:24:46.565989+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-18T00:32:33.536298+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-10-18T00:32:32.483266+00:00",
-      "queries_run": 3,
-      "query": "원자력발전소 3",
-      "score": 3.6,
-      "status": "extended",
-      "term": "원자력발전소 3",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-17"
-      ],
-      "yields": 1,
-      "zero_streak": 2
-    }
-  },
+  "terms": {},
   "version": 1
 }
