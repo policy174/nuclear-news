@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-2139169fe902",
-   "date": "2026-10-12",
-   "end_date": "2026-10-12",
-   "kind": "deadline",
-   "label": "2026 SMR 해외 비즈니스 개발 과정 교육생 모집",
-   "title": "2026 SMR 해외 비즈니스 개발 과정 교육생 모집",
-   "notice_title": "2026 SMR 해외 비즈니스 개발 과정 교육생 모집(~10. 12.)",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "",
-   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30081&s=",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_notice",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-30"
-  },
-  {
    "hash": "of-af2d7a0aff0b",
    "date": "2026-10-12",
    "end_date": "2026-10-16",
@@ -37,25 +18,6 @@
    "origin": "official",
    "source_kind": "official",
    "first_seen": "2026-09-06"
-  },
-  {
-   "hash": "of-b58676f3f919",
-   "date": "2026-10-12",
-   "end_date": "2026-10-12",
-   "kind": "deadline",
-   "label": "2026 캐나다 원전 신사업 개척단 참가기업 모집",
-   "title": "2026 캐나다 원전 신사업 개척단 참가기업 모집",
-   "notice_title": "2026 캐나다 원전 신사업 개척단 참가기업 모집(~10. 12.)",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "",
-   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30083&s=",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_notice",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-30"
   },
   {
    "hash": "of-a10175e4626f",
@@ -308,24 +270,24 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-10-19T02:49:29+09:00",
+   "at": "2026-10-20T01:15:33+09:00",
    "ok": false,
    "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
   },
   "kaif_calendar": {
-   "at": "2026-10-19T02:49:29+09:00",
+   "at": "2026-10-20T01:15:33+09:00",
    "ok": true,
    "new": 28,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-10-19T02:49:29+09:00",
+   "at": "2026-10-20T01:15:33+09:00",
    "ok": true,
    "new": 2,
    "parsed": 6
   },
   "kns_notice": {
-   "at": "2026-10-19T02:49:29+09:00",
+   "at": "2026-10-20T01:15:33+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1

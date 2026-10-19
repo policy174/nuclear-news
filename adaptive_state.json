@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 3,
-    "date": "2026-10-19"
+    "count": 1,
+    "date": "2026-10-20"
   },
   "retired": {
     "adb": {
@@ -1295,7 +1295,7 @@
   },
   "spent": {
     "count": 3,
-    "date": "2026-10-19"
+    "date": "2026-10-20"
   },
   "terms": {
     "smr신규": {
@@ -1312,14 +1312,14 @@
           "title": "김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진"
         }
       ],
-      "expires_at": "2026-10-20T08:25:11.816290+00:00",
+      "expires_at": "2026-10-20T16:08:02.156404+00:00",
       "importance": "must_read",
-      "last_result_count": 13,
-      "last_run": "2026-10-19T08:25:11.816290+00:00",
-      "new_articles": 13,
+      "last_result_count": 3,
+      "last_run": "2026-10-19T16:08:02.156404+00:00",
+      "new_articles": 16,
       "origin": "auto",
-      "planned_at": "2026-10-19T08:25:10.633888+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-19T16:07:59.941421+00:00",
+      "queries_run": 2,
       "query": "SMR·신규",
       "score": 3.6,
       "status": "extended",
@@ -1327,10 +1327,57 @@
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
-        "2026-10-19"
+        "2026-10-19",
+        "2026-10-20"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
+    },
+    "미래원자력기술개발단장이한국형": {
+      "articles": 3,
+      "created_at": "2026-10-19T16:07:59.941421+00:00",
+      "domains": [
+        "kaeri.re.kr",
+        "sedaily.com",
+        "todayenergy.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "kaeri.re.kr",
+          "hash": "ca4707e8e948ee83",
+          "importance": "nice_to_know",
+          "title": "한국원자력연구원 김병구 전 단장, 한국 원자력 역사·미래 담은 책 출간"
+        },
+        {
+          "domain": "sedaily.com",
+          "hash": "f8e8c29b701e499d",
+          "importance": "nice_to_know",
+          "title": "김병구 전 원자력연 단장, K-원전부터 SMR까지 다룬 저서 20일 출간"
+        },
+        {
+          "domain": "todayenergy.kr",
+          "hash": "c0e0e54dc0ac34bb",
+          "importance": "nice_to_know",
+          "title": "김병구 前 원자력연 단장, 한국형 원전·SMR 다룬 신간 출간"
+        }
+      ],
+      "expires_at": "2026-10-21T16:07:59.941421+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-19T16:08:02.156404+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-19T16:07:59.941421+00:00",
+      "queries_run": 1,
+      "query": "미래원자력기술개발단장이 한국형",
+      "score": 4.6,
+      "status": "tracking",
+      "term": "미래원자력기술개발단장이 한국형",
+      "ttl_hours": 48,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "준위방사성폐기물관리위원회": {
       "articles": 3,
@@ -1408,12 +1455,12 @@
       ],
       "expires_at": "2026-10-20T06:54:22.397583+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-10-19T06:54:22.397583+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-19T16:08:02.156404+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-10-19T06:54:21.583374+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-19T16:07:59.941421+00:00",
+      "queries_run": 2,
       "query": "한국원자력협력재단",
       "score": 3.7,
       "status": "extended",
@@ -1424,7 +1471,7 @@
         "2026-10-19"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
