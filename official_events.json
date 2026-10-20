@@ -191,6 +191,25 @@
    "first_seen": "2026-09-06"
   },
   {
+   "hash": "of-985cf83767ee",
+   "date": "2026-11-02",
+   "end_date": "2026-11-02",
+   "kind": "deadline",
+   "label": "2026년 제3차 원자력 품질보증 및 안전문화 제고과정 교육생 모집",
+   "title": "2026년 제3차 원자력 품질보증 및 안전문화 제고과정 교육생 모집",
+   "notice_title": "2026년 제3차 원자력 품질보증 및 안전문화 제고과정 교육생 모집 (~ 11. 2)",
+   "time": "",
+   "host": "",
+   "organizer": "",
+   "place": "",
+   "url": "https://www.kaif.or.kr/ko?c=193&gbn=view&gp=1&ix=30110&s=",
+   "publisher": "한국원자력산업협회",
+   "source_id": "kaif_notice",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-10-21"
+  },
+  {
    "hash": "of-b610b9d09e7f",
    "date": "2026-11-06",
    "end_date": "2026-11-07",
@@ -208,6 +227,25 @@
    "origin": "official",
    "source_kind": "official",
    "first_seen": "2026-09-06"
+  },
+  {
+   "hash": "of-705696316c46",
+   "date": "2026-11-12",
+   "end_date": "2026-11-12",
+   "kind": "point",
+   "label": "2026 DETO - 원자력·핵융합 분야 기술포럼",
+   "title": "2026 DETO - 원자력·핵융합 분야 기술포럼",
+   "notice_title": "",
+   "time": "",
+   "host": "",
+   "organizer": "",
+   "place": "그랜드하얏트 서울 1층 그랜드볼룸3",
+   "url": "https://deepdiveinto.kr/",
+   "publisher": "한국원자력산업협회",
+   "source_id": "kaif_calendar",
+   "origin": "official",
+   "source_kind": "official",
+   "first_seen": "2026-10-21"
   },
   {
    "hash": "of-d7c609f4776e",
@@ -270,24 +308,24 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-10-20T01:15:33+09:00",
+   "at": "2026-10-21T01:23:08+09:00",
    "ok": false,
    "error": "ConnectTimeout: HTTPSConnectionPool(host='ampos.nanet.go.kr', port=7443): Max retries exceeded with url: /seminarScheduleListInner.do?searchGubun=cal&curPage=1&curMonth=&fileNo=&searchType=&queryText="
   },
   "kaif_calendar": {
-   "at": "2026-10-20T01:15:33+09:00",
+   "at": "2026-10-21T01:23:08+09:00",
    "ok": true,
    "new": 28,
    "parsed": 40
   },
   "kaif_notice": {
-   "at": "2026-10-20T01:15:33+09:00",
+   "at": "2026-10-21T01:23:08+09:00",
    "ok": true,
-   "new": 2,
-   "parsed": 6
+   "new": 5,
+   "parsed": 7
   },
   "kns_notice": {
-   "at": "2026-10-20T01:15:33+09:00",
+   "at": "2026-10-21T01:23:08+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1

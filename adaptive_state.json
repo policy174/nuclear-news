@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 3,
-    "date": "2026-10-20"
+    "count": 0,
+    "date": "2026-10-21"
   },
   "retired": {
     "adb": {
@@ -163,6 +163,14 @@
       "term": "RX-50",
       "type": "tech",
       "until": "2026-10-29T07:56:59.309513+00:00"
+    },
+    "smr신규": {
+      "new_articles": 16,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-20T16:13:35.560931+00:00",
+      "term": "SMR·신규",
+      "type": "plant",
+      "until": "2026-11-03T16:13:35.560931+00:00"
     },
     "v900": {
       "new_articles": 0,
@@ -1318,45 +1326,10 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-20"
+    "count": 2,
+    "date": "2026-10-21"
   },
   "terms": {
-    "smr신규": {
-      "articles": 1,
-      "created_at": "2026-10-19T08:25:10.633888+00:00",
-      "domains": [
-        "etoday.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "etoday.co.kr",
-          "hash": "0ac381471335526e",
-          "importance": "must_read",
-          "title": "김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진"
-        }
-      ],
-      "expires_at": "2026-10-20T16:08:02.156404+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-19T22:47:54.638257+00:00",
-      "new_articles": 16,
-      "origin": "auto",
-      "planned_at": "2026-10-19T22:47:52.605113+00:00",
-      "queries_run": 3,
-      "query": "SMR·신규",
-      "score": 3.6,
-      "status": "extended",
-      "term": "SMR·신규",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-19",
-        "2026-10-20"
-      ],
-      "yields": 2,
-      "zero_streak": 1
-    },
     "사단과함께": {
       "articles": 1,
       "created_at": "2026-10-19T21:57:15.938922+00:00",
@@ -1373,12 +1346,12 @@
       ],
       "expires_at": "2026-10-21T06:39:40.454073+00:00",
       "importance": "must_read",
-      "last_result_count": 3,
-      "last_run": "2026-10-20T06:39:40.454073+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-20T16:13:37.305525+00:00",
       "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-10-20T06:39:38.195312+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-10-20T16:13:35.560931+00:00",
+      "queries_run": 3,
       "query": "사단과 함께 원전",
       "score": 3.6,
       "status": "extended",
@@ -1389,7 +1362,7 @@
         "2026-10-20"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "전국5개": {
       "articles": 3,
@@ -1419,14 +1392,14 @@
           "title": "전국 5개 원전 소재 지자체, 사용후핵연료 저장시설 지원 대책 촉구"
         }
       ],
-      "expires_at": "2026-10-21T07:24:41.718871+00:00",
+      "expires_at": "2026-10-21T16:13:37.305525+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 6,
-      "last_run": "2026-10-20T07:24:41.718871+00:00",
-      "new_articles": 6,
+      "last_result_count": 7,
+      "last_run": "2026-10-20T16:13:37.305525+00:00",
+      "new_articles": 13,
       "origin": "auto",
-      "planned_at": "2026-10-20T07:24:40.657545+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-20T16:13:35.560931+00:00",
+      "queries_run": 2,
       "query": "전국 5개 원전",
       "score": 3.64,
       "status": "extended",
@@ -1434,9 +1407,10 @@
       "ttl_hours": 24,
       "type": "plant",
       "yield_days": [
-        "2026-10-20"
+        "2026-10-20",
+        "2026-10-21"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     }
   },
