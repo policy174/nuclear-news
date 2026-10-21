@@ -10,6 +10,7 @@
 → verify.py 로 누락 구간(④) 재검사 → 발송.
 """
 from __future__ import annotations
+from summary_guard import guard_storage_titles
 
 import argparse
 import hashlib
@@ -48,6 +49,9 @@ def say(d, who, text, party=None):
 # .cmd 를 거치면 timeout 이 cmd.exe 만 죽이고 claude.exe 는 남아 무한 대기(10-10 실측) → exe 직접
 _EXE = Path.home() / "AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe"
 CLAUDE = str(_EXE if _EXE.exists() else Path.home() / "AppData/Roaming/npm/claude.cmd")
+if os.name != "nt":   # GitHub Actions(리눅스) — npm 전역 설치된 claude (10-22 클라우드 이전)
+    import shutil
+    CLAUDE = shutil.which("claude") or "claude"
 PARTIES = HERE / "parties.json"
 DOCS = HERE / "2026-국정감사" / "_문서"
 
@@ -81,6 +85,7 @@ PROMPT = """너는 한국수력원자력 원자력정책실의 국정감사 모�
 - **한수원(사장·임원)에 대한 질의는 주제가 무엇이든 포함한다** — 기관 운영·인사·조직·지역사회·수출 조직 배치 등도 우리 회사 사안이다(10-12 허성무 의원 동경주 질의 누락 사고).
 - 제외: 노동·환경 등 비에너지 질의, 자료제출·위원 명단 같은 절차 공방, 정치 공세, 의사진행 발언, 업무보고 낭독.
 - 한 질의 안에 주제가 둘 이상이면 블록을 나눈다.
+- 제목도 본문과 같은 사실검증 대상이다. 서로 다른 시설의 상태·일정을 합치지 않는다. 습식저장시설 포화와 건식저장시설 가동을 비교한 경우 제목에도 두 대상을 모두 쓴다. 건식 포화로 줄이지 않는다. 시설개혁 등 오인식 용어는 추측 교정하지 말고 확인 필요로 표시한다.
 
 요약 양식(지니 제출본 문체 — 아래 예시가 기준이다):
 - 질의→답변을 실제 순서대로 번갈아 쓴다. 한 줄 = 한 사람의 연속 발언을 **한 문장, 60자 안팎(최대 80자)**. 열거는 2개까지, 세미콜론 금지으로. 같은 사람이 이어 말한 것은 한 줄로 합친다. 블록당 2~4줄.
@@ -88,6 +93,7 @@ PROMPT = """너는 한국수력원자력 원자력정책실의 국정감사 모�
 - **단, 의원이 말한 수치는 빼지 않는다.** 수치는 팩트다(10-13 지니: 황정아 2,395만MWh·1.9조·2,530만MWh·하루 51억이 빠짐). 수치가 많으면 한 줄을 120자까지 늘리거나 Q를 둘로 나눈다. 줄이는 것은 수식어·사례·반복이지 숫자가 아니다.
 - 의원 줄 = 근거(사실·수치) 한두 마디 + 요구나 질문. 종결: ~함. / ~음. / ~는지? / ~것 아닌지? / ~해 주기 바람. / ~필요가 있음.
 - 답변자 줄 = 입장 + 조치. 종결: ~하겠음. / ~임. / ~있음. / ~것으로 생각함. / ~판단함. / ~없음.
+- **답변의 서술 방식을 바꾸지 않는다**(10-19 지니: "둘은 다른 말이야"). "대응하고 있습니다"(우리가 직접 함)와 "진행되고 있는 것으로 알고 있습니다"(남의 일을 전해 들음)는 다르다. "~하겠습니다"(약속)·"검토하겠습니다"·"살펴보겠습니다"·"알고 있습니다"·"생각합니다"도 그 동사와 양태를 그대로 살려 어미만 ~함/~음으로 바꾼다. 한 답변 안에 둘이 섞이면 둘 다 쓴다.
 - "예·그렇습니다" 같은 짧은 대답은 "그렇다고 답함." / "동의함." / "맞다고 답함."으로 쓴다. 어미만 바꾼 비문("그렇음") 금지.
 - 용어는 제출본 표기: 전력수급기본계획(첫 언급, 이후 '12차 계획' 가능), 반도체공장, 데이터센터, 원전 공론화, 한수원. 자막의 구어("뻥튀기", "~거예요")는 보고서 말로 바꾼다.
 - 배경 설명·해외 사례 나열·수사는 줄이되, **질의에 담긴 요구·쟁점은 하나도 빼지 않는다**. 줄이는 것은 한 발언 안의 군더더기이지 쟁점이 아니다. 쟁점이 다르면 블록을 나눈다(한 질의에 보통 1~3블록).
@@ -181,11 +187,11 @@ def turns(lines):
     calls = []
     parties = json.loads(PARTIES.read_text(encoding="utf-8")) if PARTIES.exists() else {}
     from recorder import RECESS   # 정회·산회 선언도 질의 경계 — 안 끊으면 마지막 질의에 정회 중 잡음이 붙는다(10-13 한준호 12:03→14:10)
-    for ts, t in lines:
+    for k, (ts, t) in enumerate(lines):
         s = t.lstrip("- "); pos = 0
         if RECESS.search(s):
             if not calls or calls[-1][1] is not None:
-                calls.append((ts, None))
+                calls.append((ts, None, k))
             continue
         while (m := CALL.search(s, pos)):   # 10-13 '김현 위원 위원님 김현 위원님 질의' → 첫 매치 '위원'이 이름으로 잡힘 → 한 글자씩 밀며 다음 후보를 본다
             pos = m.start() + 1
@@ -195,13 +201,14 @@ def turns(lines):
                 continue
             if name not in NOT_NAME and (name in parties or name[-1] not in NOT_NAME_TAIL):
                 if not calls or calls[-1][1] != name:
-                    calls.append((ts, name))
+                    calls.append((ts, name, k))
                 break
-    bounds = [(lines[0][0] if lines else "00:00:00", None)] + calls
+    # 경계는 시각이 아니라 줄 위치로 자른다 — 자정을 넘기면 '23:57' < '00:01' 비교가 깨져 질의가 통째로 빠짐(10-19 이건태)
+    bounds = [(lines[0][0] if lines else "00:00:00", None, 0)] + calls
     out = []
-    for i, (a, who) in enumerate(bounds):
+    for i, (a, who, k) in enumerate(bounds):
         b = bounds[i + 1][0] if i + 1 < len(bounds) else (lines[-1][0] if lines else a)
-        body = [(ts, t) for ts, t in lines if a <= ts < b or (i + 1 == len(bounds) and ts == b)]
+        body = lines[k:bounds[i + 1][2]] if i + 1 < len(bounds) else lines[k:]
         if body:
             out.append({"who": who, "a": a, "b": b, "lines": body})
     return out
@@ -233,7 +240,8 @@ def as_text(lines):
 # ---- 요약 ---------------------------------------------------------------------
 
 def _claude(prompt: str, timeout: int = 300, model: str | None = None) -> str:
-    env = {k: v for k, v in os.environ.items() if not k.startswith("CLAUDE") and k != "ANTHROPIC_API_KEY"}
+    # Max 구독 토큰(CLAUDE_CODE_OAUTH_TOKEN)만 남긴다. API 키는 쓴 만큼 과금이라 항상 뺀다(10-22 지니 "따로 돈 드나")
+    env = {k: v for k, v in os.environ.items() if (not k.startswith("CLAUDE") or k == "CLAUDE_CODE_OAUTH_TOKEN") and k != "ANTHROPIC_API_KEY"}
     # 사용자 설정(SessionStart 훅 등)·MCP 를 빼면 기동 57초 → 13초 (2026-10-09 실측)
     cmd = [CLAUDE, "-p", "--setting-sources", "", "--strict-mcp-config", "--output-format", "json", "--model", model or os.environ.get("DRAFT_MODEL", "sonnet")]
     for attempt in (1, 2):   # 10-13: 간헐적으로 600초 넘게 매달림 → 300초에 끊고 1회 재시도가 더 빠르다
@@ -308,6 +316,7 @@ REVIEW = """너는 국정감사 요약 검수자다. 아래 자막 원문(위원
 2) 화자: 답변자의 말("위원님…", "~하겠습니다")이 의원 줄에 들어가거나 그 반대가 아닌가.
 3) 누락: 한수원(사장·임원·사업·지역)에 관한 질의·답변이 자막에 있는데 요약에 없지 않은가. energy=false 로 통째로 뺀 경우도 포함.
 4) 문장: "그렇음" 같은 비문, 90자를 크게 넘는 줄, 자막에 없는 수치.
+6) 전문용어 관계: 제목·본문에서 습식/건식, 저장/처분, 포화/가동의 대상을 뒤바꾸거나 생략하지 않았는가.
 5) 팩트: 자막에 없는 평가어(논란·의혹·특혜·부당·강행·전가·전락·불일치·실현 가능성·우려 등)나 의원이 말하지 않은 동기·인과 추정("~을 빌미로")이 제목·본문에 있지 않은가. 의원이 쓴 말이면 "~라고 지적함"으로 귀속됐는가.
 출력은 JSON 하나만: {{"ok": true|false, "problems": ["항목번호: 무엇이 어떻게 틀렸고 어떻게 고칠지 한 줄", ...]}}
 
@@ -335,7 +344,7 @@ def summarize(turn, meta, all_lines, cache_dir: Path, feedback: str = ""):
     key = hashlib.sha1((PROMPT + text).encode()).hexdigest()[:16]
     cf = cache_dir / f"{turn['a'].replace(':', '')}_{turn['who']}_{key}.json"
     if cf.exists() and not feedback:
-        return json.loads(cf.read_text(encoding="utf-8"))
+        return guard_storage_titles(json.loads(cf.read_text(encoding="utf-8")))
     args = dict(who=turn["who"], cmte=meta["cmte"], org=meta["org"], cats=", ".join(CATEGORIES), text=text, feedback=feedback)
     res = parse_json(claude(PROMPT.format(**args)))
     corpus = window(all_lines, turn["a"], turn["b"])
@@ -347,6 +356,7 @@ def summarize(turn, meta, all_lines, cache_dir: Path, feedback: str = ""):
         bad = {i: mismatches(b, corpus) for i, b in enumerate(res.get("blocks") or [])}
     for i, b in enumerate(res.get("blocks") or []):
         b["unverified"] = bad.get(i, [])
+    res = guard_storage_titles(res)
     cf.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
 

@@ -238,7 +238,7 @@ class Recorder:
         """10-06 지니: 휴식(정회·감사중지·산회)마다 그때까지의 미가공 자막을 텔레그램으로. 선포 30초 뒤(마무리 문장 포함)."""
         if self.recess_at is None or self.clock() - self.recess_at < 30:
             return
-        if SOURCE == "GH":   # PC 가 보낸다 — Actions 는 중복 발송 안 함
+        if SOURCE == "GH" and os.environ.get("CLOUD_PRIMARY") != "1":   # PC 가 보낸다 — Actions 는 중복 발송 안 함. 클라우드 주력 날(10-23~)은 Actions 가 보냄
             self.recess_at = None
             return
         name = (self.meta.get("item") or {}).get("xname") or "회의"
