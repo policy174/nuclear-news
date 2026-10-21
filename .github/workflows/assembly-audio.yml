@@ -95,7 +95,9 @@ jobs:
         with:
           name: audio-${{ github.run_id }}
           path: audio
-      - run: pip install -q faster-whisper
+      - run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg > /dev/null
+          pip install -q faster-whisper
       - working-directory: audit_recorder
         run: |
           [ -d ../audio ] || { echo "소리 없음"; exit 0; }

@@ -36,7 +36,11 @@ def transcribe(audio: Path, out: Path, shard: int, shards: int, model_name: str)
     for p in mine:
         t0 = start_of(p)
         dst = out / (p.stem + ".jsonl")
-        segs, info = model.transcribe(str(p), language="ko", beam_size=5, vad_filter=True,
+        # PyAV 버전 충돌(10-22 러너: open() metadata_errors) → ffmpeg 로 직접 16kHz float 로 풀어 넘긴다
+        import subprocess, numpy as np
+        raw = subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(p), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                             capture_output=True, check=True).stdout
+        segs, info = model.transcribe(np.frombuffer(raw, dtype=np.float32), language="ko", beam_size=5, vad_filter=True,
                                       initial_prompt=PROMPT, condition_on_previous_text=False)
         n = 0
         with dst.open("w", encoding="utf-8") as f:
