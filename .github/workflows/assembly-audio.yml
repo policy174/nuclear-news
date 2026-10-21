@@ -1,0 +1,145 @@
+name: Assembly audio STT (국감 소리 → 두 번째 자막)
+# 실시간 요약(assembly-recorder.yml)과 무관한 별도 실험 — 실패해도 요약엔 영향 없음. 정본: audit-recorder/audio_stt/KICKOFF.md
+# 생중계 소리만 10분 조각으로 받고 → 여러 러너에 나눠 Whisper(무료, 외부 전송 없음) → 합본 txt 를 개인 대화로.
+on:
+  schedule:
+    - cron: '5 23 22 10 *'   # 10/23 08:05 KST 과방위 56
+    - cron: '5 23 25 10 *'   # 10/26 08:05 KST 기노위 62
+  workflow_dispatch:
+    inputs:
+      xcode:
+        description: '위원회 코드 (산자중기위 55, 기후노동위 62, 과방위 56)'
+        default: '55'
+      minutes:
+        description: '한 run 소리 수집 분'
+        default: '345'
+      chain:
+        description: '이어 돌릴 횟수'
+        default: '2'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      xcode: ${{ steps.p.outputs.xcode }}
+      minutes: ${{ steps.p.outputs.minutes }}
+      chain: ${{ steps.p.outputs.chain }}
+    steps:
+      - id: p
+        env:
+          EV: ${{ github.event_name }}
+          IX: ${{ inputs.xcode }}
+          IM: ${{ inputs.minutes }}
+          IC: ${{ inputs.chain }}
+        run: |
+          if [ "$EV" = schedule ]; then
+            case "$(TZ=Asia/Seoul date +%F)" in
+              2026-10-23) X=56 ;; 2026-10-26) X=62 ;; *) X=none ;;
+            esac
+            echo "xcode=$X" >> $GITHUB_OUTPUT; echo "minutes=345" >> $GITHUB_OUTPUT; echo "chain=2" >> $GITHUB_OUTPUT
+          else
+            echo "xcode=$IX" >> $GITHUB_OUTPUT; echo "minutes=$IM" >> $GITHUB_OUTPUT; echo "chain=$IC" >> $GITHUB_OUTPUT
+          fi
+  capture:
+    needs: plan
+    if: ${{ needs.plan.outputs.xcode != 'none' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      TZ: Asia/Seoul
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: audit_recorder
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg > /dev/null
+          pip install -q requests websocket-client "python-socketio[client]" python-docx
+      - name: 접속 확인
+        run: curl -s -o /dev/null -w "hscdn %{http_code}\n" -e https://assembly.webcast.go.kr/ https://w-assembly.hscdn.com/assembly/sangi_240p/playlist.m3u8 || true
+      - name: capture
+        working-directory: audit_recorder
+        run: timeout $(( ${{ needs.plan.outputs.minutes }} + 2 ))m python audio_capture.py --xcode ${{ needs.plan.outputs.xcode }} --minutes ${{ needs.plan.outputs.minutes }} --out audio || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-${{ github.run_id }}
+          path: audit_recorder/audio/
+          if-no-files-found: ignore
+  stt:
+    needs: capture
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: audit_recorder
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: audio-${{ github.run_id }}
+          path: audio
+      - run: pip install -q faster-whisper
+      - working-directory: audit_recorder
+        run: |
+          [ -d ../audio ] || { echo "소리 없음"; exit 0; }
+          python audio_stt.py --audio ../audio --out ../stt --shard ${{ matrix.shard }} --shards 8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stt-${{ github.run_id }}-${{ matrix.shard }}
+          path: stt/
+          if-no-files-found: ignore
+  merge:
+    needs: stt
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: audit_recorder
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: stt-${{ github.run_id }}-*
+          path: stt
+          merge-multiple: true
+      - working-directory: audit_recorder
+        run: |
+          [ -d ../stt ] || { echo "자막 없음"; exit 0; }
+          F=../whisper_$(TZ=Asia/Seoul date +%Y%m%d_%H%M).txt
+          python audio_stt.py --merge ../stt --out "$F"
+          curl -s -o /dev/null -w "telegram %{http_code}\n" -F chat_id="$TELEGRAM_OPS_CHAT_ID" -F document=@"$F" \
+            -F caption="Whisper 두 번째 자막 (대조용, 정답 아님)" "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendDocument"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: whisper-${{ github.run_id }}
+          path: whisper_*.txt
+          if-no-files-found: ignore
+  next:
+    needs: [plan, capture]
+    if: ${{ !cancelled() && needs.plan.outputs.xcode != 'none' && needs.plan.outputs.chain != '0' }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run assembly-audio.yml -R ${{ github.repository }} \
+            -f xcode='${{ needs.plan.outputs.xcode }}' -f minutes='${{ needs.plan.outputs.minutes }}' \
+            -f chain=$(( ${{ needs.plan.outputs.chain }} - 1 ))
