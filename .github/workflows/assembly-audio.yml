@@ -16,6 +16,9 @@ on:
       chain:
         description: '이어 돌릴 횟수'
         default: '2'
+      force:
+        description: '시험: 1 이면 생중계가 아니어도 대기 화면 소리를 받음'
+        default: '0'
 permissions:
   contents: read
   actions: write
@@ -64,7 +67,7 @@ jobs:
         run: curl -s -o /dev/null -w "hscdn %{http_code}\n" -e https://assembly.webcast.go.kr/ https://w-assembly.hscdn.com/assembly/sangi_240p/playlist.m3u8 || true
       - name: capture
         working-directory: audit_recorder
-        run: timeout $(( ${{ needs.plan.outputs.minutes }} + 2 ))m python audio_capture.py --xcode ${{ needs.plan.outputs.xcode }} --minutes ${{ needs.plan.outputs.minutes }} --out audio || true
+        run: timeout $(( ${{ needs.plan.outputs.minutes }} + 2 ))m python audio_capture.py --xcode ${{ needs.plan.outputs.xcode }} --minutes ${{ needs.plan.outputs.minutes }} --out audio $([ "${{ inputs.force }}" = 1 ] && echo --force) || true
       - uses: actions/upload-artifact@v4
         with:
           name: audio-${{ github.run_id }}

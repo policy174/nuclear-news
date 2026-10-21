@@ -10,7 +10,7 @@ import sys
 import time
 from pathlib import Path
 
-from recorder import pick_live, play_info
+from recorder import live_items, pick_live, play_info
 
 REFERER = "https://assembly.webcast.go.kr/"
 
@@ -31,6 +31,7 @@ def main():
     ap.add_argument("--xcode", required=True)
     ap.add_argument("--minutes", type=float, default=345)
     ap.add_argument("--out", default="audio")
+    ap.add_argument("--force", action="store_true", help="시험: 생중계가 아니어도 대기 화면 소리를 받는다")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -38,6 +39,8 @@ def main():
     while time.time() < deadline:
         try:
             item = pick_live(a.xcode)
+            if not item and a.force:
+                item = next((i for i in live_items() if str(i.get("xcode")) == str(a.xcode) and i.get("xcgcd")), None)
             url = hls_url(item) if item else None
         except Exception as e:
             print("중계 조회 실패", repr(e)[:150], flush=True)
