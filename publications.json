@@ -405,6 +405,21 @@
    "translated_version": 3
   },
   {
+   "id": "cb7e8e676ef3",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Nuclear Energy in the Age of Artificial Intelligence",
+   "url": "http://www.iaea.org/publications/16113/nuclear-energy-in-the-age-of-artificial-intelligence",
+   "date": "2026-08-10",
+   "fetched_at": "2026-10-22",
+   "title_kr": "인공지능 시대의 원자력 에너지",
+   "gist": "AI 기술이 원자력 에너지 분야에 미치는 영향 분석",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "82371ad3225c",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -1041,35 +1056,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-21T01:23:05+09:00",
+   "at": "2026-10-22T04:13:04+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
