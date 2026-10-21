@@ -1,300 +1,193 @@
 {
   "schema_version": 1,
-  "date": "2026-10-20",
-  "created_at": "2026-10-20T01:42:47.107579+00:00",
-  "status": "sent",
+  "date": "2026-10-21",
+  "created_at": "2026-10-21T01:28:32.919638+00:00",
+  "status": "pending",
   "briefs": [
     {
       "name": "보고서추천",
-      "text": "<b>📝 보고서 검토 추천 (2026-10-20)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진 계획 공식화</b>\n   • <b>왜:</b> 한수원 최고경영자가 국정감사에서 SMR 초도기 부지 준비, 체코·이집트 후속 수주, 계속운전 및 사용후핵저장시설 적기 확보 등 회사의 10대 중점사업 추진 계획을 공식화하여, 향후 한수원 및 한국 원전 정책 방향에 대한 의사결정 근거를 제공한다.\n   • <b>추천 각도:</b> SMR 초도기 부지 준비 및 건설 계획 구체화 / 체코·이집트 후속 수주 추진 전략 및 전망 / 계속운전 및 사용후핵저장시설 확보 계획의 정책적 함의\n\n<b>2. 원안위, 고리 3·4호기 계속운전 심의 보류에 따른 한수원 일정 차질 및 대응 방안</b>\n   • <b>왜:</b> 계속운전 핵심 설비인 고리 3·4호기의 인허가 심사가 추가 검증을 이유로 보류되면서 한수원의 차질 없는 계속운전 이행 일정에 제동이 걸렸으므로, 이에 대한 심층 분석이 필요하다.\n   • <b>추천 각도:</b> 계속운전 심사 보류 원인 및 절차 분석 / 한수원 계속운전 일정 차질에 따른 전력 수급 영향 / 향후 계속운전 심사 절차 개선 및 대응 방안",
-      "status": "sent",
-      "sent_at": "2026-10-20T01:44:33.844524+00:00"
+      "text": "<b>📝 보고서 검토 추천 (2026-10-21)</b>\n<i>오늘 동향 중 부서 보고서로 다룰 만한 사안</i>\n\n<b>1. 한미 &#x27;프로젝트 파워&#x27; 추진 및 한국형 APR1400 미국 본토 진출 전략</b>\n   • <b>왜:</b> 한미 양국 간 1200억 달러 규모의 대형 원전 사업 추진은 한국형 APR1400의 미국 본토 첫 진출을 의미하며, 이는 한국 원전 수출 역사상 가장 중요한 전략적 전환점이 될 것입니다.\n   • <b>추천 각도:</b> 미국 내 대형 원전 시장 진출을 위한 사업 구조 및 파이낸싱 전략 분석 / APR1400의 미국 규제 환경 적합성 및 인허가 리스크 검토 / 한미 원전 동맹 강화 및 국내 공급망 활용 방안\n\n<b>2. 한-체코 원전 협력 확대 및 EU 산업가속화법안 대응 전략</b>\n   • <b>왜:</b> 체코 두코바니 사업의 성공적 이행 점검과 테믈린 3·4호기 추가 협력 논의는 유럽 시장 확대의 핵심이며, EU 산업가속화법안 등 규제 환경 변화에 대한 선제적 대응 방안 마련이 시급합니다.\n   • <b>추천 각도:</b> 두코바니 사업의 안정적 추진을 위한 리스크 관리 및 이행 전략 / 테믈린 3·4호기 사업 참여 가능성 및 경쟁력 분석 / EU 산업가속화법안이 한국 원전 수출에 미치는 영향 및 정책적 대응 방안",
+      "status": "pending"
     },
     {
       "name": "국내",
-      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-10-20)</b>\n\n<b>📌 1. 김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 김회천 한수원 사장이 국감 업무보고에서 SMR 및 신규 원전 적기 건설과 체코·이집트 사업의 차질 없는 수행을 강조했다.\n   • <b>왜 중요:</b> 한수원 최고경영자가 국정감사에서 SMR 초도기 부지 준비, 체코·이집트 후속 수주, 계속운전 및 사용후핵저장시설 적기 확보 등 회사의 10대 중점사업 추진 계획을 공식화했다.\n   • <b>🇰🇷 한수원 시사점:</b> 한수원의 향후 원전 수출, SMR 건설, 계속운전 등 핵심 경영 과제의 이행 방향을 재확인했다.\n   🔗 <a href=\"https://www.etoday.co.kr/news/view/2637439\">출처</a> · <code>etoday.co.kr</code>\n\n<b>📌 2. 원안위, 고리 3·4호기 계속운전 심의 보류…사고관리계획서는 통과</b>\n   • <b>무슨 일:</b> 원자력안전위원회가 고리 3·4호기 계속운전 허가안 심의를 보류한 반면, 사고관리계획서 및 운영변경허가안은 가결했다.\n   • <b>왜 중요:</b> 계속운전 핵심 설비인 고리 3·4호기의 인허가 심사가 추가 검증을 이유로 보류되면서 한수원의 차질 없는 계속운전 이행 일정에 제동이 걸렸다.\n   • <b>🇰🇷 한수원 시사점:</b> 사고관리계획서는 통과되었으나 환경영향 및 수명평가 검증이 길어지면서 계속운전 승인 일정이 지연되고 있다.\n   🔗 <a href=\"http://www.dailypop.kr/news/articleView.html?idxno=103461\">출처</a> · <code>dailypop.kr</code>\n\n<b>📌 3. 기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최</b>\n   • <b>무슨 일:</b> 원전 공론화위원회가 2040년까지의 전력수요 대응을 위한 원전 역할과 비중을 논의하는 공론화 대주제를 확정했다.\n   • <b>왜 중요:</b> 제12차 전력수급기본계획의 핵심인 원전 비중과 전원 믹스 방향을 결정할 대국민 공론화 절차가 본격 개시되어 향후 원자력 정책의 향방에 직접적인 영향을 미친다.\n   • <b>🇰🇷 한수원 시사점:</b> 제12차 전력수급기본계획 수립을 앞두고 원전 비중 및 전원 믹스 설계를 위한 사회적 숙의 절차가 공식 착수되었음을 보여준다.\n   🔗 <a href=\"https://www.esgeconomy.com/news/articleView.html?idxno=17040\">출처</a> · <code>esgeconomy.com</code>\n\n<b>📌 4. 안호영 의원, 첨단산업 전력망 확충 위한 재원·인력 확보 시급 강조</b>\n   • <b>무슨 일:</b> 안호영 의원은 12차 전력수급기본계획 재전망에 따른 전력 수요 증가에 맞춰, 113조원 규모의 전력망 투자 재원 마련과 전문인력 확보가 시급하다고 지적했다.\n   • <b>왜 중요:</b> 첨단산업 육성을 위한 전력망 확충은 국가 경제 성장과 에너지 안보에 직결되는 핵심 과제이다. 한전의 재무 상태와 인력 확보 문제는 전력망 투자 실행력에 직접적인 영향을 미치므로, 관련 정책 결정 및 예산 확보 논의가 중요하다.\n   🔗 <a href=\"https://www.pressian.com/pages/articles/2026102007412523117\">출처</a> · <code>pressian.com</code>\n\n<b>📌 5. 한수원, 원전 설비 무단 교체 등 법령 위반 반복…과징금 338억 누적</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 한국수력원자력이 2021년부터 올해 7월까지 원자력 안전 관련 법령 위반으로 총 338억 원의 과징금을 부과받았다. 허가 없는 설비 교체 및 안전 조치 미이행 사례가 반복되었다.\n   • <b>왜 중요:</b> 한국수력원자력이 원전 설비 무단 교체 등 안전 관련 법령 위반을 반복하여 총 338억 원의 과징금을 부과받은 사실은 원전 안전 관리 시스템에 대한 심각한 우려를 제기한다.\n   • <b>🇰🇷 한수원 시사점:</b> 반복되는 법령 위반은 원전 안전성에 대한 우려를 증폭시키고, 규제 당국의 관리 감독 강화 및 한수원의 내부 통제 시스템 개선을 요구한다.\n   🔗 <a href=\"https://biz.sbs.co.kr/article_hub/20000340802?division=NAVER\">출처</a> · <code>sbs.co.kr</code>\n\n<b>📌 6. 국감서 원전 4기 계속운전 심사 신속 처리 요구</b>\n   • <b>무슨 일:</b> 국회 국정감사에서 원전 4기의 계속운전 심사를 신속히 추진해야 한다는 지적이 제기되었으며, 이는 AI 데이터센터 등 전력 수요 급증에 대응하기 위함이다.\n   • <b>왜 중요:</b> 계속운전 심사 지연으로 인한 전력 생산 기회비용 발생 및 산업 경쟁력 약화 우려가 제기됨에 따라, 신속한 심사 절차 마련이 시급하다.\n   • <b>🇰🇷 한수원 시사점:</b> AI 데이터센터 등 급증하는 전력 수요에 대응하기 위해 계속운전 대상 원전 4기에 대한 신속한 심사 및 인허가 절차 진행이 필요하다.\n   🔗 <a href=\"https://news.google.com/rss/articles/CBMibEFVX3lxTE9FVnQ0VG1RcVdjVmJkRUVfaGpHaEZvb0tvckxKcEZJV3N6cDhiUE9BTUZ5YkJXbXFUZ2ZZa252bDRZdGIwYTEyTUJyUnh2RlJHR2VjWm1ZUGZSeEJmb2QwQ19wd1B6a3BlNE1yZA?oc=5\">출처</a> · <code>투데이에너지</code>\n\n<b>📌 7. 국회, 한수원에 원전 해체 역량 및 사용후핵연료 저장시설 포화 문제 해결책 요구</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 국회 국정감사에서 한국수력원자력에 세계 원전 해체시장 진출을 위한 기술 경쟁력 확보와 사용후핵연료 저장시설 포화 문제 해결책 마련을 요구하는 질의가 이어졌다.\n   • <b>🇰🇷 한수원 시사점:</b> 국정감사에서 제기된 원전 해체 역량 및 사용후핵연료 저장시설 포화 문제는 한수원의 중장기 전략 수립 및 관련 기술 개발에 대한 압박으로 작용할 것이다.\n   🔗 <a href=\"https://weekly.hankooki.com/news/articleView.html?idxno=7189699\">출처</a> · <code>hankooki.com</code>\n\n<b>📌 8. 국회, 원전 경제성 재평가 및 공론화 반영 촉구</b>\n   • <b>무슨 일:</b> 국회 국정감사에서 박지혜 의원은 원전의 건설비와 방폐물 처리비용을 포함한 경제성 재평가를 요구하며, 이를 향후 공론화 과정에 반영해야 한다고 지적했다.\n   • <b>🇰🇷 한수원 시사점:</b> 원전의 경제성 평가 시 건설비와 방폐물 처리비용을 포함하여 공론화 과정에 반영해야 한다는 국회 지적이 제기되어, 향후 원전 정책 수립에 영향을 미칠 수 있다.\n   🔗 <a href=\"https://news.cpbc.co.kr/article/1176413?division=NAVER\">출처</a> · <code>cpbc.co.kr</code>\n",
-      "status": "sent",
-      "sent_at": "2026-10-20T01:44:33.844524+00:00"
+      "text": "<b>📰 🇰🇷 원자력 국내 브리핑 (2026-10-21)</b>\n\n<b>📌 1. 한미, 1200억 달러 규모 &#x27;프로젝트 파워&#x27; 추진…한국형 APR1400 2기 미국 본토 첫 진출</b>\n   • <b>무슨 일:</b> 한미 양국이 1200억 달러 규모의 &#x27;프로젝트 파워&#x27;를 통해 미국 내 대형 원전 8기를 건설하며, 한국형 APR1400 2기가 미국 본토에 처음으로 건설될 예정이다.\n   • <b>왜 중요:</b> 한미 양국이 1200억 달러 규모의 &#x27;프로젝트 파워&#x27;를 통해 미국 내 대형 원전 8기를 건설하며, 한국형 APR1400 2기가 미국 본토에 처음으로 진출하는 역사적인 사업이 추진된다. 이는 한국 원전 기술의 위상을 높이고 수출 확대에 결정적인 계기가 될 것이다.\n   🔗 <a href=\"https://news.jkn.co.kr/post/1037045\">출처</a> · <code>jkn.co.kr</code>\n\n<b>📌 2. 한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의</b>  ✅ 서울경제\n   • <b>무슨 일:</b> 한국과 체코가 두코바니 신규 원전 사업의 원활한 이행을 점검하고, 테믈린 3·4호기 건설 등 원전 협력 확대 방안을 논의했다.\n   • <b>왜 중요:</b> 한국과 체코가 두코바니 신규 원전 사업의 이행 현황을 점검하고 EU의 산업가속화법안에 대한 우려를 공유하며 테믈린 3·4호기 건설 협력까지 논의한 것은 한국 원전의 유럽 시장 진출 확대와 국제 협력 강화 측면에서 중요한 의미를 갖는다.\n   • <b>🇰🇷 한수원 시사점:</b> 한-체코 양국은 두코바니 원전 사업의 원활한 이행을 재확인하고, 테믈린 3·4호기 건설 등 미래 원전 협력 방안을 논의하며 양국 원전 산업의 파트너십을 강화했다.\n   🔗 <a href=\"https://www.sedaily.com/article/20103907\">출처</a> · <code>서울경제</code>\n\n<b>📌 3. 국회 한미전략투자공사 국감서 엔시날 발전소 등 대미투자 부실 검증 질타</b>  ✅ 서울경제\n   • <b>무슨 일:</b> 국회 국정감사에서 한미전략투자공사가 전력구매계약이나 수요처가 확정되지 않은 상태에서 엔시날 가스복합발전소에 투자금을 선지행한 점 등에 대해 부실 검증 질타가 이어졌다.\n   🔗 <a href=\"https://www.sedaily.com/article/20103929\">출처</a> · <code>서울경제</code>\n\n<b>📌 4. 국회서 대미투자 텍사스 발전 사업 수익성 우려 제기…PPA 불확실성 지적</b>\n   • <b>무슨 일:</b> 미국 AI 인프라 투자 회의론이 확산하는 가운데, 한국의 대미투자 1호인 텍사스 가스복합화력발전 사업이 전력구매계약(PPA) 부재 등으로 수익성 검증 도마 위에 올랐다.\n   • <b>왜 중요:</b> 정부가 추진하는 대규모 대미 에너지 인프라 투자 사업의 핵심 수익성 전제와 PPA 체결 계획이 국정감사와 외신을 통해 본격적인 검증과 리스크 제기에 직면했기 때문이다.\n   • <b>🇰🇷 한수원 시사점:</b> 대규모 대미 에너지 인프라 투자가 수요처 미확정 상태로 진행되면서 향후 계약 조건 악화 및 리스크 관리 체계 점검이 불가피해졌다.\n   🔗 <a href=\"https://www.khan.co.kr/article/202610210600091\">출처</a> · <code>khan.co.kr</code>\n\n<b>📌 5. 산업통상부, 체코와 두코바니 원전 사업 추진 현황 및 EU 법안 대응 논의</b>  ✅ 산업통상부\n   • <b>무슨 일:</b> 산업통상부 장관은 체코 산업통상부 장관과 제3차 두코바니 이행점검 협의체를 개최하여 두코바니 신규원전 사업 추진 현황을 점검하고 EU 산업가속화법안 대응 방안을 논의했다.\n   🔗 <a href=\"https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172314/view\">출처</a> · <code>산업통상부</code>\n\n<b>📌 6. 김정관 산업장관, 체코 장관과 회의…EU 산업가속화법안 우려 전달</b>\n   • <b>무슨 일:</b> 김정관 산업통상부 장관이 체코 산업부 장관과의 화상 회의에서 EU 산업가속화법안이 한국의 유럽 원전 진출을 제한할 수 우려를 표명하고 협력을 당부했다.\n   • <b>왜 중요:</b> 체코 두코바니 원전 최종 계약 이후 EU의 규제 리스크가 가시화된 상황에서 정부가 공식 협의체를 통해 정책적 대응에 착수했음을 보여주는 핵심 사안이다.\n   • <b>🇰🇷 한수원 시사점:</b> EU 산업가속화법안의 입법 과정에서 비EU 국가 원전기업에 대한 차별적 조항을 막기 위해 체코와의 외교적 공조가 본격화되는 국면이다.\n   🔗 <a href=\"https://www.edaily.co.kr/News/Read?mediaCodeNo=257&amp;newsId=03965526645614888\">출처</a> · <code>edaily.co.kr</code>\n\n<b>📌 7. 산업부, 중동 플랜트 수주 부진에 민관 협력 강화 방안 논의</b>  ✅ 산업통상자원부\n   • <b>무슨 일:</b> 산업통상부가 10월 20일 중동 플랜트 수주 부진에 대응하여 주요 기업들과 간담회를 열고 금융 지원 및 발주처 네트워킹 강화 등 민관 협력 방안을 논의했다.\n   • <b>🇰🇷 한수원 시사점:</b> 정부가 해외 플랜트 수주 지원을 강화하며, 이는 원전 수출을 포함한 대규모 해외 사업 추진에 긍정적 영향을 미칠 수 있다.\n   🔗 <a href=\"http://www.ferrotimes.com/news/articleView.html?idxno=51010\">출처</a> · <code>ferrotimes.com</code>\n\n<b>📌 8. 이건태 의원, 한수원 원안법 위반 338억 과징금 및 소송 패소 지적</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 이건태 의원은 한수원이 원자력안전법 위반으로 338억 원이 넘는 과징금을 부과받고 채용형 인턴 소송에서도 패소한 사실을 지적하며 내부 통제 강화를 촉구했다.\n   • <b>🇰🇷 한수원 시사점:</b> 한수원의 원전 현장 안전관리 체계에 심각한 허점이 드러났으며, 공기업으로서 신뢰 회복을 위해 내부 통제 시스템 정비 및 소통 강화가 시급하다는 지적이다.\n   🔗 <a href=\"https://www.greened.kr/news/articleView.html?idxno=352513\">출처</a> · <code>greened.kr</code>\n",
+      "status": "pending"
     },
     {
       "name": "해외",
-      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-10-20)</b>\n\n<b>📌 1. 아마존, 미국 인디애나주에 엑스에너지 SMR 12기 건설 추진</b>  ✅ 연합뉴스\n   • <b>무슨 일:</b> 아마존이 미국 인디애나주에 엑스에너지의 SMR 12기를 건설하는 사업을 추진하며 타당성 검토에 착수했다.\n   • <b>왜 중요:</b> 빅테크 기업이 데이터센터 전력 확보를 위해 SMR을 대규모로 도입하는 실질적 부지 선정 프로젝트가 가속화되고 있음을 보여주는 핵심 사례다.\n   🔗 <a href=\"https://www.yna.co.kr/view/AKR20261020040900091?input=1195m\">출처</a> · <code>연합뉴스</code>\n\n<b>📌 2. 남아프리카공화국 넥사, 퀀텀 립 에너지와 HALEU 생산 합작법인 설립 계약 체결</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> ASP 이소토프스의 자회사 퀀텀 립 에너지와 남아공 국영 원자력기업 넥사가 HALEU 테스트벤치 및 상업시설 개발·운영을 위한 구속력 있는 합의각서를 체결했다.\n   • <b>왜 중요:</b> 차세대 원전 연료인 HALEU 공급망 구축을 위한 국제 합작법인이 공식 출범하며 글로벌 핵연료주기 시장에 직접적인 영향을 미치는 핵심 사안이다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/joint-ventureto-produce-haleu-in-south-africa\">출처</a> · <code>World Nuclear News</code>\n\n<b>📌 3. 미국 에너지부, 4,200만 달러 규모 컨스티튜션 천연가스 파이프라인 사업 승인</b>  ✅ US DOE\n   • <b>무슨 일:</b> 미국 에너지부가 국방물자생산법(DPA) 자금 4,200만 달러를 투입해 펜실베이니아와 뉴욕을 잇는 125마일 규모의 천연가스 파이프라인 건설 사업을 추진한다.\n   • <b>왜 중요:</b> 미국 에너지부가 국방물자생산법 자금을 투입해 대규모 천연가스 파이프라인 건설을 공식 승인 및 추진함에 따라, 향후 북동부 지역 에너지 공급망과 가격 구조에 직접적인 파급이 예상된다.\n   • <b>🇰🇷 한수원 시사점:</b> 트럼프 행정부의 화석연료 인프라 확대 정책에 따라 국방물자생산법 예산이 직접 투입된 사례로, 북동부 지역 에너지 가격 인하와 공급망 확충을 겨냥한다.\n   🔗 <a href=\"https://www.energy.gov/articles/energy-department-advances-constitution-pipeline-project-42-million-defense-production-act\">출처</a> · <code>US DOE</code>\n\n<b>📌 4. 현대건설·오스넷, 호주서 BESS·데이터센터 등 계통 연계 사업 협력</b>\n   • <b>무슨 일:</b> 현대건설과 호주 오스넷이 송변전 설비를 넘어 BESS, 데이터센터 등 계통 연계 사업으로 협력을 확대한다. 양사는 호주 인프라 시장 선점에 나선다.\n   • <b>왜 중요:</b> 현대건설이 호주 에너지 인프라 시장에서 오스넷과의 협력을 통해 BESS 및 데이터센터 등 계통 연계 사업으로 사업 영역을 확장하며 시장 선점 기회를 모색하는 것은 국내 건설사의 해외 에너지 인프라 시장 진출 확대 가능성을 보여준다.\n   • <b>🇰🇷 한수원 시사점:</b> 현대건설이 호주 에너지 인프라 시장에서 오스넷과의 협력을 통해 BESS 및 데이터센터 등 계통 연계 사업으로 사업 영역을 확장하며 시장 선점 기회를 모색한다.\n   🔗 <a href=\"https://www.fnnews.com/news/202610191401051347\">출처</a> · <code>fnnews.com</code>\n\n<b>📌 5. 삼성물산, 미국 카이로스 파워와 차세대 SMR 사업 협력 및 지분 투자 추진</b>\n   • <b>무슨 일:</b> 삼성물산이 미국 차세대 SMR 기업 카이로스 파워와 전략적 업무협약을 맺고 약 7000만달러 규모의 투자를 추진한다.\n   • <b>🇰🇷 한수원 시사점:</b> 국내 건설사가 비경수로형 차세대 SMR 실증 사업에 직접 참여하고 지분 투자를 단행하며 글로벌 공급망 진입을 본격화하고 있다.\n   🔗 <a href=\"http://www.wsobi.com/news/articleView.html?idxno=319931\">출처</a> · <code>wsobi.com</code>\n\n<b>📌 6. 올해 1~3분기 해외건설 수주액 206억 달러로 전년 대비 반토막</b>\n   • <b>무슨 일:</b> 유럽 기저 효과 소멸과 중동 시장 부진으로 1~3분기 해외건설 수주가 급감해 연간 500억 달러 달성에 비상이 걸렸다.\n   • <b>🇰🇷 한수원 시사점:</b> 유럽 및 중동 시장의 단기 수주 정체가 플랜트 및 원전 수출 전선의 추가 성과 창출 압박을 높이고 있다.\n   🔗 <a href=\"http://www.datanews.co.kr/news/article.html?no=146976\">출처</a> · <code>datanews.co.kr</code>\n\n<b>📌 7. LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약</b>\n   • <b>무슨 일:</b> LS일렉트릭이 미국 빅테크 기업과 약 1689억원 규모의 인공지능(AI) 데이터센터용 고압 배전 솔루션 공급 계약을 체결했다.\n   🔗 <a href=\"https://www.nocutnews.co.kr/news/6593682\">출처</a> · <code>nocutnews.co.kr</code>\n\n<b>📌 8. 미 상원의원들, 미·사우디 원자력 협력 협정 저지 위한 공동결의안 발제</b>  ✅ ANS Nuclear Newswire\n   • <b>무슨 일:</b> 미국과 사우디아라비아 간 체결된 원자력협력협정(123조 협정)의 발효를 막기 위해 상원의원들이 합동반대결의안을 공식 발의했다.\n   🔗 <a href=\"https://www.ans.org/news/2026-10-19/article-8500/merkley-and-markey-introduce-resolution-to-block-ussaudi-deal\">출처</a> · <code>ANS Nuclear Newswire</code>\n\n<b>📌 9. 버지니아주, 도미니언·넥스트에라 합병 승인 조건으로 전기요금 동결 요구</b>  ✅ 연합뉴스\n   • <b>무슨 일:</b> 미국 버지니아주 주지사가 넥스트에라와 도미니언의 합병 승인 조건으로 6년간 가정용 전기요금 동결 등을 요구했다.\n   • <b>🇰🇷 한수원 시사점:</b> 대형 전력회사 간 합병 과정에서 AI 데이터센터 급증에 따른 전력 요금 안정화와 규제 기관의 승인 조건이 핵심 쟁점으로 작용하고 있다.\n   🔗 <a href=\"https://www.yna.co.kr/view/AKR20261020030300009?input=1195m\">출처</a> · <code>연합뉴스</code>\n\n<b>📌 10. 앤트로픽, 엔스케일과 60조원 규모 AI 컴퓨팅 인프라 추가 계약 추진</b>\n   • <b>무슨 일:</b> 앤트로픽이 영국 엔스케일과 약 60조원 규모의 데이터센터 컴퓨팅 인프라 계약을 추가로 추진하고 있다.\n   • <b>🇰🇷 한수원 시사점:</b> AI 모델 고도화에 따른 초대형 컴퓨팅 인프라 수요가 급증하는 한편, 이에 수반되는 막대한 전력 공급 인프라 구축의 불확실성도 커지고 있다.\n   🔗 <a href=\"https://zdnet.co.kr/view?no=20261020084317\">출처</a> · <code>zdnet.co.kr</code>\n\n<b>📌 11. 미국 NRC, 2032년까지 원전 31건 파워 업레이트 심사 착수 및 빅테크 투입</b>\n   • <b>무슨 일:</b> 미국 원자력규제위원회(NRC)가 기존 원전의 출력 증강 심사를 가속화하는 가운데, 구글과 아마존 등 빅테크가 수조 원 규모를 투자하고 있다.\n   • <b>🇰🇷 한수원 시사점:</b> 신규 건설의 장기 소요를 우려한 미 빅테크가 기존 원전의 출력 증강을 통해 대규모 기저전력을 조기에 확보하는 핵심 트렌드로 자리 잡았다.\n   🔗 <a href=\"https://www.g-enews.com/view.php?ud=2026101923005870500c8c1c064d_1\">출처</a> · <code>g-enews.com</code>\n",
-      "status": "sent",
-      "sent_at": "2026-10-20T01:44:33.844524+00:00"
+      "text": "<b>📰 🌐 원자력 해외 브리핑 (2026-10-21)</b>\n\n<b>📌 1. 한수원, 타지키스탄에 3MW급 태양광·ESS 구축 사업 준공</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 한수원이 타지키스탄에 3MW급 태양광 발전시설과 0.5MWh 규모 ESS 구축 사업을 준공하며 현지 재생에너지 보급 기반 확대에 나섰다.\n   • <b>왜 중요:</b> 한수원이 중앙아시아 지역에서 재생에너지 사업 기반을 확대하고 국내 기자재의 해외 시장 진출을 지원하는 ODA 사업을 성공적으로 완료했다는 점에서 의의가 있다.\n   • <b>🇰🇷 한수원 시사점:</b> 한수원은 타지키스탄 태양광·ESS 구축 사업 준공을 통해 중앙아시아 지역에서 새로운 사업 기회를 모색하고 국내 기자재 해외 진출을 지원한다.\n   🔗 <a href=\"http://www.ikld.kr/news/articleView.html?idxno=342560\">출처</a> · <code>ikld.kr</code>\n\n<b>📌 2. EU 집행위원회, 탄소중립 혁신기금 공모서 SMR 프로젝트 최초 선정</b>  ✅ 전기신문\n   • <b>무슨 일:</b> EU가 기후테크 프로젝트 77개에 34억 유로를 지원하는 가운데 소형모듈원자로 프로젝트를 처음으로 선정했다.\n   🔗 <a href=\"https://www.electimes.com/news/articleView.html?idxno=373663\">출처</a> · <code>전기신문</code>\n\n<b>📌 3. 한수원, 타지키스탄 최초 MW급 태양광 발전소 준공</b>  ✅ 한국수력원자력\n   • <b>무슨 일:</b> 한국수력원자력이 타지키스탄 최초의 메가와트(㎿)급 태양광 발전소 및 에너지저장장치(ESS) 구축 공적개발원조(ODA) 사업을 20일 준공했다.\n   • <b>🇰🇷 한수원 시사점:</b> 한수원이 정부 ODA 사업의 일환으로 타지키스탄에 MW급 태양광 발전소를 준공하며 해외 재생에너지 사업 포트폴리오를 확장했다.\n   🔗 <a href=\"https://www.fnnews.com/news/202610201428461185\">출처</a> · <code>fnnews.com</code>\n\n<b>📌 4. 미국 전직 고위 관료들, 의회 지도부에 에너지 인프라 인허가 개혁 촉구 서한 발송</b>  ✅ KBS 뉴스\n   • <b>무슨 일:</b> 미국 역대 행정부 전직 고위 관료들이 AI 패권 경쟁 대응을 위해 전력망 등 에너지 인프라 인허가 절차 개혁과 조속한 입법을 촉구했다.\n   🔗 <a href=\"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8690843\">출처</a> · <code>KBS 뉴스</code>\n\n<b>📌 5. 미국 아메리칸 일렉트릭 파워·엑스에너지, 석탄 부지 SMR 공동개발협약 체결</b>\n   • <b>무슨 일:</b> 미국 아메리칸 일렉트릭 파워와 엑스에너지가 폐쇄 석탄화력발전소 부지에 960MW 규모 SMR 단지 조성을 위한 공동개발협약을 체결했다.\n   • <b>🇰🇷 한수원 시사점:</b> 미국 빅테크와 유틸리티의 협력을 통한 4세대 SMR 상용화 움직임이 구체화되면서 국내 원전 기자재 공급망과의 연계 가능성이 커진다.\n   🔗 <a href=\"https://www.g-enews.com/view.php?ud=202610201101498355fbbec65dfb_1\">출처</a> · <code>g-enews.com</code>\n\n<b>📌 6. 빌 게이츠 테라파워 의장, 미국 와이오밍주 케머러 SMR 1호기 현장 방문</b>\n   • <b>무슨 일:</b> 빌 게이츠 테라파워 의장이 주지사들과 함께 와이오밍주 케머러 SMR 1호기 건설 현장을 방문해 사업 진행 상황을 공유했다.\n   🔗 <a href=\"https://www.theguru.co.kr/news/article.html?no=108436\">출처</a> · <code>theguru.co.kr</code>\n\n<b>📌 7. 미국 인디애나주, 아틀킨스레알리스와 최대 8기 캔두 원전 프로젝트 검토</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 미국 인디애나주와 아틀킨스레알리스 등이 최대 8기, 총 6GW 규모의 캔두 원전 프로젝트 도입을 위한 양해각서를 체결했다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/indiana-considering-6-gw-candu-nuclear-project\">출처</a> · <code>World Nuclear News</code>\n\n<b>📌 8. 한미전략투자공사, 텍사스 가스복합발전 사업에 첫 투자금 24억달러 송금</b>\n   • <b>무슨 일:</b> 한미전략투자공사가 미국 텍사스 가스복합화력발전 사업을 대상으로 첫 투자금 24억달러를 송금했다.\n   • <b>🇰🇷 한수원 시사점:</b> 대규모 해외 전력 인프라 투자가 본격 집행되면서 한미 간 에너지 및 인프라 협력이 재정적 실행 단계로 진입했다.\n   🔗 <a href=\"https://www.fnnews.com/news/202610201125108329\">출처</a> · <code>fnnews.com</code>\n\n<b>📌 9. 필리핀, 에너지 안보 강화 위해 원자력 발전 도입 계획 추진</b>  ✅ World Nuclear News\n   • <b>무슨 일:</b> 필리핀 정부는 에너지 안보 강화와 청정 에너지 목표 달성을 위해 2032년까지 1.2GW 규모의 원자력 발전소 건설을 목표로 정책, 규제, 상업적 기반을 마련하고 있다.\n   • <b>왜 중요:</b> 필리핀의 원자력 발전 도입 추진은 동남아시아 지역의 에너지 믹스 다변화 추세를 반영하며, 향후 관련 기술 및 기자재 시장에 새로운 기회를 제공할 수 있다.\n   • <b>🇰🇷 한수원 시사점:</b> 필리핀의 원자력 발전 도입 추진은 동남아시아 지역의 에너지 믹스 다변화 추세를 반영하며, 향후 관련 기술 및 기자재 시장에 새로운 기회를 제공할 수 있다.\n   🔗 <a href=\"https://www.world-nuclear-news.org/articles/philippines-advances-plans-for-nuclear-power-as-energy-demand-rises\">출처</a> · <code>World Nuclear News</code>\n",
+      "status": "pending"
     }
   ],
   "items": [
     {
-      "hash": "0ac381471335526e",
+      "hash": "16649acbe7065533",
       "brief_rank": 1,
-      "title_kr": "김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진",
+      "title_kr": "한미, 1200억 달러 규모 '프로젝트 파워' 추진…한국형 APR1400 2기 미국 본토 첫 진출",
       "region": "국내",
-      "summary": "김회천 한수원 사장이 국감 업무보고에서 SMR 및 신규 원전 적기 건설과 체코·이집트 사업의 차질 없는 수행을 강조했다.",
+      "summary": "한미 양국이 1200억 달러 규모의 '프로젝트 파워'를 통해 미국 내 대형 원전 8기를 건설하며, 한국형 APR1400 2기가 미국 본토에 처음으로 건설될 예정이다.",
       "tags": [
-        "#한수원",
-        "#SMR",
-        "#원전수출"
+        "#한미원전협력",
+        "#APR1400",
+        "#미국원전"
       ],
-      "event_date": "2026-10-19",
+      "event_date": null,
       "section": "khnp",
       "scope": "kr",
-      "domain": "etoday.co.kr",
+      "domain": "jkn.co.kr",
       "theme": "",
-      "score": 30.214,
+      "score": 31.466,
       "breakdown": {
         "importance": 10.0,
+        "event:contract_award": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 3.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 2.0,
+        "report_worthiness": 1.0,
+        "tracking:repeat": 0.5,
+        "scrap_seed": 2.5,
+        "time_decay": -0.13
+      },
+      "story_id": "story-16649acbe7065533",
+      "story_article_count": 1,
+      "story_outlet_count": 1,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 1,
+      "report_pick": "한미 '프로젝트 파워' 추진 및 한국형 APR1400 미국 본토 진출 전략",
+      "report_pick_why": "한미 양국 간 1200억 달러 규모의 대형 원전 사업 추진은 한국형 APR1400의 미국 본토 첫 진출을 의미하며, 이는 한국 원전 수출 역사상 가장 중요한 전략적 전환점이 될 것입니다.",
+      "report_pick_angles": [
+        "미국 내 대형 원전 시장 진출을 위한 사업 구조 및 파이낸싱 전략 분석",
+        "APR1400의 미국 규제 환경 적합성 및 인허가 리스크 검토",
+        "한미 원전 동맹 강화 및 국내 공급망 활용 방안"
+      ]
+    },
+    {
+      "hash": "98fe30ce4f211836",
+      "brief_rank": 2,
+      "title_kr": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "region": "국내",
+      "summary": "한국과 체코가 두코바니 신규 원전 사업의 원활한 이행을 점검하고, 테믈린 3·4호기 건설 등 원전 협력 확대 방안을 논의했다.",
+      "tags": [
+        "#체코원전",
+        "#원전수출"
+      ],
+      "event_date": "2026-10-20",
+      "section": "khnp",
+      "scope": "kr",
+      "domain": "sedaily.com",
+      "theme": "",
+      "score": 27.893,
+      "breakdown": {
+        "importance": 5.0,
         "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
         "market_materiality": 2.0,
         "policy_materiality": 3.0,
-        "evidence_strength": 2.0,
+        "evidence_strength": 3.0,
         "report_worthiness": 1.0,
-        "source_tier2": 1.5,
         "tracking:follow_up": 1.5,
+        "scrap_seed": 2.5,
         "coverage:outlets": 0.4,
-        "time_decay": -0.78
+        "time_decay": -0.11
       },
-      "story_id": "story-0ac381471335526e",
+      "story_id": "story-98fe30ce4f211836",
       "story_article_count": 2,
       "story_outlet_count": 2,
       "story_tier1_count": 0,
       "story_independent_outlet_count": 2,
-      "report_pick": "김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진 계획 공식화",
-      "report_pick_why": "한수원 최고경영자가 국정감사에서 SMR 초도기 부지 준비, 체코·이집트 후속 수주, 계속운전 및 사용후핵저장시설 적기 확보 등 회사의 10대 중점사업 추진 계획을 공식화하여, 향후 한수원 및 한국 원전 정책 방향에 대한 의사결정 근거를 제공한다.",
+      "report_pick": "한-체코 원전 협력 확대 및 EU 산업가속화법안 대응 전략",
+      "report_pick_why": "체코 두코바니 사업의 성공적 이행 점검과 테믈린 3·4호기 추가 협력 논의는 유럽 시장 확대의 핵심이며, EU 산업가속화법안 등 규제 환경 변화에 대한 선제적 대응 방안 마련이 시급합니다.",
       "report_pick_angles": [
-        "SMR 초도기 부지 준비 및 건설 계획 구체화",
-        "체코·이집트 후속 수주 추진 전략 및 전망",
-        "계속운전 및 사용후핵저장시설 확보 계획의 정책적 함의"
+        "두코바니 사업의 안정적 추진을 위한 리스크 관리 및 이행 전략",
+        "테믈린 3·4호기 사업 참여 가능성 및 경쟁력 분석",
+        "EU 산업가속화법안이 한국 원전 수출에 미치는 영향 및 정책적 대응 방안"
       ]
     },
     {
-      "hash": "3fc95c88d659f5c8",
-      "brief_rank": 2,
-      "title_kr": "원안위, 고리 3·4호기 계속운전 심의 보류…사고관리계획서는 통과",
-      "region": "국내",
-      "summary": "원자력안전위원회가 고리 3·4호기 계속운전 허가안 심의를 보류한 반면, 사고관리계획서 및 운영변경허가안은 가결했다.",
-      "tags": [
-        "#고리34호기",
-        "#계속운전",
-        "#원안위심의"
-      ],
-      "event_date": "2026-10-15",
-      "section": "khnp",
-      "scope": "kr",
-      "domain": "dailypop.kr",
-      "theme": "",
-      "score": 29.264,
-      "breakdown": {
-        "importance": 10.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 3.0,
-        "evidence_strength": 3.0,
-        "report_worthiness": 1.0,
-        "tracking:repeat": 0.5,
-        "coverage:outlets": 1.2,
-        "time_decay": -0.78,
-        "continuity:material": -0.25
-      },
-      "story_id": "story-3fc95c88d659f5c8",
-      "story_article_count": 4,
-      "story_outlet_count": 4,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 4,
-      "report_pick": "원안위, 고리 3·4호기 계속운전 심의 보류에 따른 한수원 일정 차질 및 대응 방안",
-      "report_pick_why": "계속운전 핵심 설비인 고리 3·4호기의 인허가 심사가 추가 검증을 이유로 보류되면서 한수원의 차질 없는 계속운전 이행 일정에 제동이 걸렸으므로, 이에 대한 심층 분석이 필요하다.",
-      "report_pick_angles": [
-        "계속운전 심사 보류 원인 및 절차 분석",
-        "한수원 계속운전 일정 차질에 따른 전력 수급 영향",
-        "향후 계속운전 심사 절차 개선 및 대응 방안"
-      ]
-    },
-    {
-      "hash": "2b32fc42d9118314",
+      "hash": "d1e4243667e5f719",
       "brief_rank": 3,
-      "title_kr": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "title_kr": "국회 한미전략투자공사 국감서 엔시날 발전소 등 대미투자 부실 검증 질타",
       "region": "국내",
-      "summary": "원전 공론화위원회가 2040년까지의 전력수요 대응을 위한 원전 역할과 비중을 논의하는 공론화 대주제를 확정했다.",
+      "summary": "국회 국정감사에서 한미전략투자공사가 전력구매계약이나 수요처가 확정되지 않은 상태에서 엔시날 가스복합발전소에 투자금을 선지행한 점 등에 대해 부실 검증 질타가 이어졌다.",
       "tags": [
-        "#제12차전기본",
-        "#원전공론화",
-        "#전력수급기본계획"
+        "#한미전략투자공사",
+        "#대미투자",
+        "#엔시날발전소"
       ],
-      "event_date": "2026-10-14",
+      "event_date": "2026-10-20",
       "section": "domestic",
       "scope": "kr",
-      "domain": "esgeconomy.com",
+      "domain": "sedaily.com",
       "theme": "",
-      "score": 26.572,
+      "score": 27.466,
       "breakdown": {
         "importance": 10.0,
         "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
         "market_materiality": 2.0,
         "policy_materiality": 3.0,
-        "evidence_strength": 3.0,
+        "evidence_strength": 2.0,
         "report_worthiness": 1.0,
-        "tracking:repeat:cancelled": 0.0,
-        "coverage:outlets": 0.8,
-        "time_decay": -0.95,
-        "continuity:minor": -1.88
+        "time_decay": -0.13
       },
-      "story_id": "story-2b32fc42d9118314",
-      "story_article_count": 3,
-      "story_outlet_count": 3,
+      "story_id": "story-d1e4243667e5f719",
+      "story_article_count": 1,
+      "story_outlet_count": 1,
       "story_tier1_count": 0,
-      "story_independent_outlet_count": 3
+      "story_independent_outlet_count": 1
     },
     {
-      "hash": "3ad78c2cdef82036",
+      "hash": "47aa41525e4a3b66",
       "brief_rank": 4,
-      "title_kr": "안호영 의원, 첨단산업 전력망 확충 위한 재원·인력 확보 시급 강조",
+      "title_kr": "국회서 대미투자 텍사스 발전 사업 수익성 우려 제기…PPA 불확실성 지적",
       "region": "국내",
-      "summary": "안호영 의원은 12차 전력수급기본계획 재전망에 따른 전력 수요 증가에 맞춰, 113조원 규모의 전력망 투자 재원 마련과 전문인력 확보가 시급하다고 지적했다.",
+      "summary": "미국 AI 인프라 투자 회의론이 확산하는 가운데, 한국의 대미투자 1호인 텍사스 가스복합화력발전 사업이 전력구매계약(PPA) 부재 등으로 수익성 검증 도마 위에 올랐다.",
       "tags": [
-        "#전력망",
-        "#한전",
-        "#전기요금"
+        "#대미투자",
+        "#가스복합발전",
+        "#PPA"
       ],
-      "event_date": null,
+      "event_date": "2026-11-22",
       "section": "domestic",
       "scope": "kr",
-      "domain": "pressian.com",
+      "domain": "khan.co.kr",
       "theme": "",
-      "score": 26.549,
+      "score": 26.966,
       "breakdown": {
         "importance": 10.0,
         "event:policy_decision": 6.0,
         "korea_relevance": 3.6,
         "market_materiality": 2.0,
         "policy_materiality": 3.0,
-        "evidence_strength": 1.0,
         "report_worthiness": 1.0,
-        "time_decay": -0.05
+        "tracking:follow_up": 1.5,
+        "time_decay": -0.13
       },
-      "story_id": "story-3ad78c2cdef82036",
+      "story_id": "story-47aa41525e4a3b66",
       "story_article_count": 1,
       "story_outlet_count": 1,
       "story_tier1_count": 0,
       "story_independent_outlet_count": 1
     },
     {
-      "hash": "a7d5aad998522493",
+      "hash": "8ccbba2a3e6f3bd8",
       "brief_rank": 5,
-      "title_kr": "한수원, 원전 설비 무단 교체 등 법령 위반 반복…과징금 338억 누적",
+      "title_kr": "산업통상부, 체코와 두코바니 원전 사업 추진 현황 및 EU 법안 대응 논의",
       "region": "국내",
-      "summary": "한국수력원자력이 2021년부터 올해 7월까지 원자력 안전 관련 법령 위반으로 총 338억 원의 과징금을 부과받았다. 허가 없는 설비 교체 및 안전 조치 미이행 사례가 반복되었다.",
+      "summary": "산업통상부 장관은 체코 산업통상부 장관과 제3차 두코바니 이행점검 협의체를 개최하여 두코바니 신규원전 사업 추진 현황을 점검하고 EU 산업가속화법안 대응 방안을 논의했다.",
       "tags": [
-        "#한수원",
-        "#원전안전",
-        "#과징금"
+        "#원전수출",
+        "#체코수주",
+        "#EU정책"
       ],
-      "event_date": null,
+      "event_date": "2026-10-20",
       "section": "khnp",
       "scope": "kr",
-      "domain": "sbs.co.kr",
+      "domain": "motir.go.kr",
       "theme": "",
-      "score": 27.314,
-      "breakdown": {
-        "importance": 10.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 3.6,
-        "policy_materiality": 3.0,
-        "evidence_strength": 3.0,
-        "report_worthiness": 1.0,
-        "source_tier2": 1.5,
-        "time_decay": -0.78
-      },
-      "story_id": "story-a7d5aad998522493",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "995644b6aeaad981",
-      "brief_rank": 6,
-      "title_kr": "국감서 원전 4기 계속운전 심사 신속 처리 요구",
-      "region": "국내",
-      "summary": "국회 국정감사에서 원전 4기의 계속운전 심사를 신속히 추진해야 한다는 지적이 제기되었으며, 이는 AI 데이터센터 등 전력 수요 급증에 대응하기 위함이다.",
-      "tags": [
-        "#계속운전",
-        "#AI데이터센터",
-        "#전력수요"
-      ],
-      "event_date": null,
-      "section": "domestic",
-      "scope": "kr",
-      "domain": "todayenergy.kr",
-      "theme": "",
-      "score": 25.942,
-      "breakdown": {
-        "importance": 10.0,
-        "event:regulatory_action": 6.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 3.0,
-        "evidence_strength": 3.0,
-        "report_worthiness": 1.0,
-        "tracking:repeat:cancelled": 0.0,
-        "time_decay": -0.16,
-        "continuity:minor": -2.5
-      },
-      "story_id": "story-995644b6aeaad981",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "53102c484629209f",
-      "brief_rank": 7,
-      "title_kr": "국회, 한수원에 원전 해체 역량 및 사용후핵연료 저장시설 포화 문제 해결책 요구",
-      "region": "국내",
-      "summary": "국회 국정감사에서 한국수력원자력에 세계 원전 해체시장 진출을 위한 기술 경쟁력 확보와 사용후핵연료 저장시설 포화 문제 해결책 마련을 요구하는 질의가 이어졌다.",
-      "tags": [
-        "#원전해체",
-        "#사용후핵연료",
-        "#국정감사"
-      ],
-      "event_date": "2026-10-19",
-      "section": "khnp",
-      "scope": "kr",
-      "domain": "hankooki.com",
-      "theme": "",
-      "score": 25.549,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "korea_relevance": 3.6,
-        "market_materiality": 2.0,
-        "policy_materiality": 3.0,
-        "evidence_strength": 1.0,
-        "report_worthiness": 1.0,
-        "source_tier2": 1.5,
-        "scrap_seed": 2.5,
-        "time_decay": -0.05
-      },
-      "story_id": "story-53102c484629209f",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "41b6ef392e3cdb12",
-      "brief_rank": 8,
-      "title_kr": "국회, 원전 경제성 재평가 및 공론화 반영 촉구",
-      "region": "국내",
-      "summary": "국회 국정감사에서 박지혜 의원은 원전의 건설비와 방폐물 처리비용을 포함한 경제성 재평가를 요구하며, 이를 향후 공론화 과정에 반영해야 한다고 지적했다.",
-      "tags": [],
-      "event_date": "2026-10-19",
-      "section": "domestic",
-      "scope": "kr",
-      "domain": "cpbc.co.kr",
-      "theme": "",
-      "score": 25.049,
+      "score": 26.787,
       "breakdown": {
         "importance": 5.0,
         "event:policy_decision": 6.0,
@@ -303,381 +196,425 @@
         "policy_materiality": 3.0,
         "evidence_strength": 2.0,
         "report_worthiness": 1.0,
-        "scrap_seed": 2.5,
-        "time_decay": -0.05
+        "source_tier1": 3.0,
+        "tracking:follow_up": 1.5,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.71
       },
-      "story_id": "story-41b6ef392e3cdb12",
+      "story_id": "story-8ccbba2a3e6f3bd8",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 1,
+      "story_independent_outlet_count": 1
+    },
+    {
+      "hash": "dc7e7c49253c4576",
+      "brief_rank": 6,
+      "title_kr": "김정관 산업장관, 체코 장관과 회의…EU 산업가속화법안 우려 전달",
+      "region": "국내",
+      "summary": "김정관 산업통상부 장관이 체코 산업부 장관과의 화상 회의에서 EU 산업가속화법안이 한국의 유럽 원전 진출을 제한할 수 우려를 표명하고 협력을 당부했다.",
+      "tags": [
+        "#체코원전",
+        "#EU규제",
+        "#산업가속화법안"
+      ],
+      "event_date": "2026-06-20",
+      "section": "khnp",
+      "scope": "kr",
+      "domain": "edaily.co.kr",
+      "theme": "",
+      "score": 25.214,
+      "breakdown": {
+        "importance": 10.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "report_worthiness": 1.0,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.78
+      },
+      "story_id": "story-dc7e7c49253c4576",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 2
+    },
+    {
+      "hash": "421dcf57195d8b59",
+      "brief_rank": 7,
+      "title_kr": "산업부, 중동 플랜트 수주 부진에 민관 협력 강화 방안 논의",
+      "region": "국내",
+      "summary": "산업통상부가 10월 20일 중동 플랜트 수주 부진에 대응하여 주요 기업들과 간담회를 열고 금융 지원 및 발주처 네트워킹 강화 등 민관 협력 방안을 논의했다.",
+      "tags": [
+        "#해외수주"
+      ],
+      "event_date": "2026-10-20",
+      "section": "domestic",
+      "scope": "kr",
+      "domain": "ferrotimes.com",
+      "theme": "",
+      "score": 24.86,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 2.4,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.67,
+        "source_tier1": 3.0,
+        "tracking:follow_up": 1.5,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.11
+      },
+      "story_id": "story-421dcf57195d8b59",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 1,
+      "story_independent_outlet_count": 1
+    },
+    {
+      "hash": "9f6221dc0d35468e",
+      "brief_rank": 8,
+      "title_kr": "이건태 의원, 한수원 원안법 위반 338억 과징금 및 소송 패소 지적",
+      "region": "국내",
+      "summary": "이건태 의원은 한수원이 원자력안전법 위반으로 338억 원이 넘는 과징금을 부과받고 채용형 인턴 소송에서도 패소한 사실을 지적하며 내부 통제 강화를 촉구했다.",
+      "tags": [
+        "#원전규제",
+        "#한수원"
+      ],
+      "event_date": "2026-07-31",
+      "section": "khnp",
+      "scope": "kr",
+      "domain": "greened.kr",
+      "theme": "",
+      "score": 24.339,
+      "breakdown": {
+        "importance": 5.0,
+        "event:regulatory_action": 6.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 1.0,
+        "source_tier2": 1.5,
+        "tracking:follow_up": 1.5,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.66
+      },
+      "story_id": "story-9f6221dc0d35468e",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 2
+    },
+    {
+      "hash": "995abd8371b9d770",
+      "brief_rank": 1,
+      "title_kr": "한수원, 타지키스탄에 3MW급 태양광·ESS 구축 사업 준공",
+      "region": "해외",
+      "summary": "한수원이 타지키스탄에 3MW급 태양광 발전시설과 0.5MWh 규모 ESS 구축 사업을 준공하며 현지 재생에너지 보급 기반 확대에 나섰다.",
+      "tags": [
+        "#재생에너지",
+        "#ODA"
+      ],
+      "event_date": "2026-10-20",
+      "section": "khnp",
+      "scope": "overseas",
+      "domain": "ikld.kr",
+      "theme": "",
+      "score": 21.527,
+      "breakdown": {
+        "importance": 5.0,
+        "event:corporate_move": 3.0,
+        "korea_relevance": 2.4,
+        "market_materiality": 1.0,
+        "policy_materiality": 1.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.33,
+        "source_tier2": 1.5,
+        "tracking:follow_up": 1.5,
+        "scrap_seed": 2.5,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.11
+      },
+      "story_id": "story-995abd8371b9d770",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 2
+    },
+    {
+      "hash": "b6a2b771f20bcee8",
+      "brief_rank": 2,
+      "title_kr": "EU 집행위원회, 탄소중립 혁신기금 공모서 SMR 프로젝트 최초 선정",
+      "region": "해외",
+      "summary": "EU가 기후테크 프로젝트 77개에 34억 유로를 지원하는 가운데 소형모듈원자로 프로젝트를 처음으로 선정했다.",
+      "tags": [
+        "#EU",
+        "#혁신기금",
+        "#SMR"
+      ],
+      "event_date": "2026-10-19",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "electimes.com",
+      "theme": "",
+      "score": 21.431,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 2.0,
+        "policy_materiality": 3.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.67,
+        "source_tier2": 1.5,
+        "time_decay": -0.93
+      },
+      "story_id": "story-b6a2b771f20bcee8",
       "story_article_count": 1,
       "story_outlet_count": 1,
       "story_tier1_count": 0,
       "story_independent_outlet_count": 1
     },
     {
-      "hash": "27d14cf16f52ee9c",
-      "brief_rank": 1,
-      "title_kr": "아마존, 미국 인디애나주에 엑스에너지 SMR 12기 건설 추진",
+      "hash": "78fcf1d491b3ef8e",
+      "brief_rank": 3,
+      "title_kr": "한수원, 타지키스탄 최초 MW급 태양광 발전소 준공",
       "region": "해외",
-      "summary": "아마존이 미국 인디애나주에 엑스에너지의 SMR 12기를 건설하는 사업을 추진하며 타당성 검토에 착수했다.",
+      "summary": "한국수력원자력이 타지키스탄 최초의 메가와트(㎿)급 태양광 발전소 및 에너지저장장치(ESS) 구축 공적개발원조(ODA) 사업을 20일 준공했다.",
+      "tags": [
+        "#해외사업",
+        "#태양광",
+        "#ODA"
+      ],
+      "event_date": "2024-05-20",
+      "section": "khnp",
+      "scope": "overseas",
+      "domain": "fnnews.com",
+      "theme": "",
+      "score": 21.313,
+      "breakdown": {
+        "importance": 5.0,
+        "event:project_milestone": 4.0,
+        "korea_relevance": 3.6,
+        "market_materiality": 1.0,
+        "policy_materiality": 1.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.67,
+        "source_tier2": 1.5,
+        "tracking:follow_up": 1.5,
+        "coverage:outlets": 0.8,
+        "time_decay": -0.75
+      },
+      "story_id": "story-78fcf1d491b3ef8e",
+      "story_article_count": 3,
+      "story_outlet_count": 3,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 2
+    },
+    {
+      "hash": "ea90321399c0db0d",
+      "brief_rank": 4,
+      "title_kr": "미국 전직 고위 관료들, 의회 지도부에 에너지 인프라 인허가 개혁 촉구 서한 발송",
+      "region": "해외",
+      "summary": "미국 역대 행정부 전직 고위 관료들이 AI 패권 경쟁 대응을 위해 전력망 등 에너지 인프라 인허가 절차 개혁과 조속한 입법을 촉구했다.",
+      "tags": [
+        "#전력망",
+        "#인허가개혁",
+        "#미국의회"
+      ],
+      "event_date": "2026-10-20",
+      "section": "international",
+      "scope": "overseas",
+      "domain": "kbs.co.kr",
+      "theme": "",
+      "score": 19.633,
+      "breakdown": {
+        "importance": 5.0,
+        "event:policy_decision": 6.0,
+        "korea_relevance": 1.2,
+        "market_materiality": 1.0,
+        "policy_materiality": 2.0,
+        "evidence_strength": 2.0,
+        "report_worthiness": 0.67,
+        "tracking:follow_up": 1.5,
+        "coverage:outlets": 0.4,
+        "time_decay": -0.13
+      },
+      "story_id": "story-ea90321399c0db0d",
+      "story_article_count": 2,
+      "story_outlet_count": 2,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 2
+    },
+    {
+      "hash": "c40bed13829749e1",
+      "brief_rank": 5,
+      "title_kr": "미국 아메리칸 일렉트릭 파워·엑스에너지, 석탄 부지 SMR 공동개발협약 체결",
+      "region": "해외",
+      "summary": "미국 아메리칸 일렉트릭 파워와 엑스에너지가 폐쇄 석탄화력발전소 부지에 960MW 규모 SMR 단지 조성을 위한 공동개발협약을 체결했다.",
       "tags": [
         "#SMR",
-        "#아마존",
-        "#엑스에너지"
+        "#엑스에너지",
+        "#아마존"
       ],
       "event_date": "2026-10-19",
       "section": "smr",
       "scope": "overseas",
-      "domain": "yna.co.kr",
+      "domain": "g-enews.com",
       "theme": "",
-      "score": 26.549,
+      "score": 17.631,
       "breakdown": {
-        "importance": 10.0,
-        "event:project_milestone": 4.0,
+        "importance": 5.0,
+        "event:contract_award": 6.0,
         "korea_relevance": 2.4,
         "market_materiality": 3.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 1.0,
-        "report_worthiness": 1.0,
-        "source_tier2": 1.5,
-        "tracking:repeat": 0.5,
-        "coverage:outlets": 1.2,
-        "time_decay": -0.05
+        "policy_materiality": 1.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.67,
+        "tracking:follow_up:cancelled": 0.0,
+        "time_decay": -0.93,
+        "continuity:minor": -2.5
       },
-      "story_id": "story-27d14cf16f52ee9c",
-      "story_article_count": 4,
-      "story_outlet_count": 4,
+      "story_id": "story-c40bed13829749e1",
+      "story_article_count": 1,
+      "story_outlet_count": 1,
       "story_tier1_count": 0,
-      "story_independent_outlet_count": 4
+      "story_independent_outlet_count": 1
     },
     {
-      "hash": "d6aeb2d90932bf96",
-      "brief_rank": 2,
-      "title_kr": "남아프리카공화국 넥사, 퀀텀 립 에너지와 HALEU 생산 합작법인 설립 계약 체결",
+      "hash": "7dd6c9630dd330e7",
+      "brief_rank": 6,
+      "title_kr": "빌 게이츠 테라파워 의장, 미국 와이오밍주 케머러 SMR 1호기 현장 방문",
       "region": "해외",
-      "summary": "ASP 이소토프스의 자회사 퀀텀 립 에너지와 남아공 국영 원자력기업 넥사가 HALEU 테스트벤치 및 상업시설 개발·운영을 위한 구속력 있는 합의각서를 체결했다.",
+      "summary": "빌 게이츠 테라파워 의장이 주지사들과 함께 와이오밍주 케머러 SMR 1호기 건설 현장을 방문해 사업 진행 상황을 공유했다.",
       "tags": [
-        "#핵연료주기",
-        "#에너지_안보"
+        "#SMR",
+        "#테라파워",
+        "#나트륨원전"
+      ],
+      "event_date": "2025-08-01",
+      "section": "smr",
+      "scope": "overseas",
+      "domain": "theguru.co.kr",
+      "theme": "",
+      "score": 17.124,
+      "breakdown": {
+        "importance": 5.0,
+        "event:project_milestone": 4.0,
+        "korea_relevance": 2.4,
+        "market_materiality": 2.0,
+        "policy_materiality": 2.0,
+        "evidence_strength": 3.0,
+        "report_worthiness": 0.67,
+        "time_decay": -1.94
+      },
+      "story_id": "story-7dd6c9630dd330e7",
+      "story_article_count": 1,
+      "story_outlet_count": 1,
+      "story_tier1_count": 0,
+      "story_independent_outlet_count": 1
+    },
+    {
+      "hash": "de01eab532421ba9",
+      "brief_rank": 7,
+      "title_kr": "미국 인디애나주, 아틀킨스레알리스와 최대 8기 캔두 원전 프로젝트 검토",
+      "region": "해외",
+      "summary": "미국 인디애나주와 아틀킨스레알리스 등이 최대 8기, 총 6GW 규모의 캔두 원전 프로젝트 도입을 위한 양해각서를 체결했다.",
+      "tags": [
+        "#Candu원전",
+        "#신규원전",
+        "#미국시장"
       ],
       "event_date": null,
       "section": "international",
       "scope": "overseas",
       "domain": "world-nuclear-news.org",
       "theme": "",
-      "score": 25.299,
+      "score": 19.566,
       "breakdown": {
-        "importance": 10.0,
+        "importance": 5.0,
         "event:contract_award": 6.0,
         "korea_relevance": 1.2,
         "market_materiality": 2.0,
         "policy_materiality": 2.0,
-        "evidence_strength": 2.0,
+        "evidence_strength": 1.0,
         "report_worthiness": 1.0,
         "source_tier2": 1.5,
-        "time_decay": -0.4
+        "time_decay": -0.13
       },
-      "story_id": "story-d6aeb2d90932bf96",
+      "story_id": "story-de01eab532421ba9",
       "story_article_count": 1,
       "story_outlet_count": 1,
       "story_tier1_count": 0,
       "story_independent_outlet_count": 1
     },
     {
-      "hash": "c08b2874ffce0676",
-      "brief_rank": 3,
-      "title_kr": "미국 에너지부, 4,200만 달러 규모 컨스티튜션 천연가스 파이프라인 사업 승인",
+      "hash": "039e651d30917434",
+      "brief_rank": 8,
+      "title_kr": "한미전략투자공사, 텍사스 가스복합발전 사업에 첫 투자금 24억달러 송금",
       "region": "해외",
-      "summary": "미국 에너지부가 국방물자생산법(DPA) 자금 4,200만 달러를 투입해 펜실베이니아와 뉴욕을 잇는 125마일 규모의 천연가스 파이프라인 건설 사업을 추진한다.",
+      "summary": "한미전략투자공사가 미국 텍사스 가스복합화력발전 사업을 대상으로 첫 투자금 24억달러를 송금했다.",
       "tags": [
-        "#에너지안보",
-        "#천연가스",
-        "#미국에너지부"
+        "#한미전략투자공사",
+        "#가스복합발전",
+        "#미국투자"
       ],
-      "event_date": null,
+      "event_date": "2026-10-01",
       "section": "international",
-      "scope": "overseas",
-      "domain": "energy.gov",
-      "theme": "",
-      "score": 21.301,
-      "breakdown": {
-        "importance": 10.0,
-        "event:policy_decision": 6.0,
-        "market_materiality": 1.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 1.0,
-        "report_worthiness": 0.33,
-        "source_tier1": 3.0,
-        "time_decay": -0.16,
-        "continuity:minor": -1.88
-      },
-      "story_id": "story-c08b2874ffce0676",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 1,
-      "story_independent_outlet_count": 0
-    },
-    {
-      "hash": "e6773c72dbab2c97",
-      "brief_rank": 4,
-      "title_kr": "현대건설·오스넷, 호주서 BESS·데이터센터 등 계통 연계 사업 협력",
-      "region": "해외",
-      "summary": "현대건설과 호주 오스넷이 송변전 설비를 넘어 BESS, 데이터센터 등 계통 연계 사업으로 협력을 확대한다. 양사는 호주 인프라 시장 선점에 나선다.",
-      "tags": [
-        "#현대건설",
-        "#호주",
-        "#BESS"
-      ],
-      "event_date": null,
-      "section": "domestic",
       "scope": "overseas",
       "domain": "fnnews.com",
       "theme": "",
-      "score": 18.729,
+      "score": 19.298,
       "breakdown": {
         "importance": 5.0,
-        "event:contract_award": 6.0,
+        "event:project_milestone": 4.0,
         "korea_relevance": 2.4,
-        "market_materiality": 2.0,
-        "evidence_strength": 2.0,
-        "report_worthiness": 0.67,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.84
-      },
-      "story_id": "story-e6773c72dbab2c97",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "aa1d22ea4ef8ff61",
-      "brief_rank": 5,
-      "title_kr": "삼성물산, 미국 카이로스 파워와 차세대 SMR 사업 협력 및 지분 투자 추진",
-      "region": "해외",
-      "summary": "삼성물산이 미국 차세대 SMR 기업 카이로스 파워와 전략적 업무협약을 맺고 약 7000만달러 규모의 투자를 추진한다.",
-      "tags": [
-        "#SMR",
-        "#삼성물산",
-        "#카이로스파워"
-      ],
-      "event_date": "2031-01-01",
-      "section": "smr",
-      "scope": "overseas",
-      "domain": "wsobi.com",
-      "theme": "",
-      "score": 18.729,
-      "breakdown": {
-        "importance": 5.0,
-        "event:contract_award": 6.0,
-        "korea_relevance": 2.4,
-        "market_materiality": 2.0,
-        "policy_materiality": 1.0,
-        "evidence_strength": 1.0,
-        "report_worthiness": 0.67,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.84
-      },
-      "story_id": "story-aa1d22ea4ef8ff61",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "199ca422dae2bec5",
-      "brief_rank": 6,
-      "title_kr": "올해 1~3분기 해외건설 수주액 206억 달러로 전년 대비 반토막",
-      "region": "해외",
-      "summary": "유럽 기저 효과 소멸과 중동 시장 부진으로 1~3분기 해외건설 수주가 급감해 연간 500억 달러 달성에 비상이 걸렸다.",
-      "tags": [
-        "#해외건설",
-        "#수주",
-        "#중동"
-      ],
-      "event_date": "2025-09-30",
-      "section": "domestic",
-      "scope": "overseas",
-      "domain": "datanews.co.kr",
-      "theme": "",
-      "score": 18.716,
-      "breakdown": {
-        "importance": 5.0,
-        "event:market_signal": 2.0,
-        "korea_relevance": 3.6,
         "market_materiality": 2.0,
         "policy_materiality": 2.0,
-        "evidence_strength": 2.0,
-        "report_worthiness": 0.67,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.05
-      },
-      "story_id": "story-199ca422dae2bec5",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "fc83997c1d5e9a7c",
-      "brief_rank": 7,
-      "title_kr": "LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약",
-      "region": "해외",
-      "summary": "LS일렉트릭이 미국 빅테크 기업과 약 1689억원 규모의 인공지능(AI) 데이터센터용 고압 배전 솔루션 공급 계약을 체결했다.",
-      "tags": [
-        "#AI전력수요",
-        "#전력시장",
-        "#해외사업"
-      ],
-      "event_date": null,
-      "section": "international",
-      "scope": "overseas",
-      "domain": "nocutnews.co.kr",
-      "theme": "",
-      "score": 20.844,
-      "breakdown": {
-        "importance": 5.0,
-        "event:contract_award": 6.0,
-        "korea_relevance": 2.4,
-        "market_materiality": 2.0,
-        "policy_materiality": 1.0,
         "evidence_strength": 3.0,
-        "report_worthiness": 0.67,
+        "report_worthiness": 0.33,
         "tracking:follow_up": 1.5,
-        "time_decay": -0.72
+        "time_decay": -0.93
       },
-      "story_id": "story-fc83997c1d5e9a7c",
+      "story_id": "story-039e651d30917434",
       "story_article_count": 1,
       "story_outlet_count": 1,
       "story_tier1_count": 0,
       "story_independent_outlet_count": 1
     },
     {
-      "hash": "24997bda56bf7c3a",
-      "brief_rank": 8,
-      "title_kr": "미 상원의원들, 미·사우디 원자력 협력 협정 저지 위한 공동결의안 발제",
-      "region": "해외",
-      "summary": "미국과 사우디아라비아 간 체결된 원자력협력협정(123조 협정)의 발효를 막기 위해 상원의원들이 합동반대결의안을 공식 발의했다.",
-      "tags": [
-        "#미사우디원자력협정",
-        "#123협정",
-        "#비확산"
-      ],
-      "event_date": "2025-07-22",
-      "section": "international",
-      "scope": "overseas",
-      "domain": "ans.org",
-      "theme": "",
-      "score": 20.009,
-      "breakdown": {
-        "importance": 5.0,
-        "event:policy_decision": 6.0,
-        "market_materiality": 1.0,
-        "policy_materiality": 3.0,
-        "evidence_strength": 3.0,
-        "report_worthiness": 0.67,
-        "source_tier2": 1.5,
-        "time_decay": -0.16
-      },
-      "story_id": "story-24997bda56bf7c3a",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "cd448a8266f7747f",
+      "hash": "8280e081f4b24c2e",
       "brief_rank": 9,
-      "title_kr": "버지니아주, 도미니언·넥스트에라 합병 승인 조건으로 전기요금 동결 요구",
+      "title_kr": "필리핀, 에너지 안보 강화 위해 원자력 발전 도입 계획 추진",
       "region": "해외",
-      "summary": "미국 버지니아주 주지사가 넥스트에라와 도미니언의 합병 승인 조건으로 6년간 가정용 전기요금 동결 등을 요구했다.",
+      "summary": "필리핀 정부는 에너지 안보 강화와 청정 에너지 목표 달성을 위해 2032년까지 1.2GW 규모의 원자력 발전소 건설을 목표로 정책, 규제, 상업적 기반을 마련하고 있다.",
       "tags": [
-        "#전력회사합병",
-        "#전기요금동결",
-        "#버지니아주"
-      ],
-      "event_date": null,
-      "section": "international",
-      "scope": "overseas",
-      "domain": "yna.co.kr",
-      "theme": "",
-      "score": 19.783,
-      "breakdown": {
-        "importance": 5.0,
-        "event:regulatory_action": 6.0,
-        "market_materiality": 2.0,
-        "policy_materiality": 2.0,
-        "evidence_strength": 3.0,
-        "report_worthiness": 0.33,
-        "source_tier2": 1.5,
-        "time_decay": -0.05
-      },
-      "story_id": "story-cd448a8266f7747f",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "18dc18e31662f3f8",
-      "brief_rank": 10,
-      "title_kr": "앤트로픽, 엔스케일과 60조원 규모 AI 컴퓨팅 인프라 추가 계약 추진",
-      "region": "해외",
-      "summary": "앤트로픽이 영국 엔스케일과 약 60조원 규모의 데이터센터 컴퓨팅 인프라 계약을 추가로 추진하고 있다.",
-      "tags": [
-        "#데이터센터",
-        "#AI인프라",
-        "#앤트로픽"
-      ],
-      "event_date": "2026-10-19",
-      "section": "international",
-      "scope": "overseas",
-      "domain": "zdnet.co.kr",
-      "theme": "",
-      "score": 18.983,
-      "breakdown": {
-        "importance": 5.0,
-        "event:contract_award": 6.0,
-        "korea_relevance": 1.2,
-        "market_materiality": 2.0,
-        "policy_materiality": 1.0,
-        "evidence_strength": 2.0,
-        "report_worthiness": 0.33,
-        "tracking:follow_up": 1.5,
-        "time_decay": -0.05
-      },
-      "story_id": "story-18dc18e31662f3f8",
-      "story_article_count": 1,
-      "story_outlet_count": 1,
-      "story_tier1_count": 0,
-      "story_independent_outlet_count": 1
-    },
-    {
-      "hash": "1366d381246af1cd",
-      "brief_rank": 11,
-      "title_kr": "미국 NRC, 2032년까지 원전 31건 파워 업레이트 심사 착수 및 빅테크 투입",
-      "region": "해외",
-      "summary": "미국 원자력규제위원회(NRC)가 기존 원전의 출력 증강 심사를 가속화하는 가운데, 구글과 아마존 등 빅테크가 수조 원 규모를 투자하고 있다.",
-      "tags": [
-        "#파워업레이트",
-        "#미국원전",
-        "#빅테크전력"
+        "#필리핀",
+        "#원자력발전",
+        "#에너지안보"
       ],
       "event_date": "2032-12-31",
       "section": "international",
       "scope": "overseas",
-      "domain": "g-enews.com",
+      "domain": "world-nuclear-news.org",
       "theme": "",
-      "score": 18.709,
+      "score": 18.373,
       "breakdown": {
         "importance": 5.0,
-        "event:regulatory_action": 6.0,
+        "event:policy_decision": 6.0,
         "korea_relevance": 1.2,
-        "market_materiality": 2.0,
+        "market_materiality": 1.0,
         "policy_materiality": 2.0,
         "evidence_strength": 2.0,
-        "report_worthiness": 0.67,
-        "time_decay": -0.16
+        "report_worthiness": 0.33,
+        "source_tier2": 1.5,
+        "time_decay": -0.66
       },
-      "story_id": "story-1366d381246af1cd",
+      "story_id": "story-8280e081f4b24c2e",
       "story_article_count": 1,
       "story_outlet_count": 1,
       "story_tier1_count": 0,
@@ -686,57 +623,54 @@
   ],
   "report_diag": {
     "candidates": [
-      "0ac38147",
-      "3fc95c88",
-      "2b32fc42",
-      "3ad78c2c",
-      "a7d5aad9",
-      "995644b6",
-      "53102c48",
-      "41b6ef39",
-      "27d14cf1",
-      "d6aeb2d9",
-      "e6773c72",
-      "aa1d22ea",
-      "199ca422",
-      "fc83997c",
-      "24997bda",
-      "1366d381"
+      "16649acb",
+      "98fe30ce",
+      "d1e42436",
+      "47aa4152",
+      "8ccbba2a",
+      "dc7e7c49",
+      "421dcf57",
+      "9f6221dc",
+      "b6a2b771",
+      "ea903213",
+      "c40bed13",
+      "7dd6c963",
+      "de01eab5"
     ],
     "recommended": [
       {
-        "hash": "0ac381471335526e",
-        "topic": "김회천 한수원 사장, SMR·신규 원전 적기 건설 및 체코·이집트 후속 수주 추진 계획 공식화",
-        "why": "한수원 최고경영자가 국정감사에서 SMR 초도기 부지 준비, 체코·이집트 후속 수주, 계속운전 및 사용후핵저장시설 적기 확보 등 회사의 10대 중점사업 추진 계획을 공식화하여, 향후 한수원 및 한국 원전 정책 방향에 대한 의사결정 근거를 제공한다.",
+        "hash": "16649acbe7065533",
+        "topic": "한미 '프로젝트 파워' 추진 및 한국형 APR1400 미국 본토 진출 전략",
+        "why": "한미 양국 간 1200억 달러 규모의 대형 원전 사업 추진은 한국형 APR1400의 미국 본토 첫 진출을 의미하며, 이는 한국 원전 수출 역사상 가장 중요한 전략적 전환점이 될 것입니다.",
         "angles": [
-          "SMR 초도기 부지 준비 및 건설 계획 구체화",
-          "체코·이집트 후속 수주 추진 전략 및 전망",
-          "계속운전 및 사용후핵저장시설 확보 계획의 정책적 함의"
+          "미국 내 대형 원전 시장 진출을 위한 사업 구조 및 파이낸싱 전략 분석",
+          "APR1400의 미국 규제 환경 적합성 및 인허가 리스크 검토",
+          "한미 원전 동맹 강화 및 국내 공급망 활용 방안"
         ]
       },
       {
-        "hash": "3fc95c88d659f5c8",
-        "topic": "원안위, 고리 3·4호기 계속운전 심의 보류에 따른 한수원 일정 차질 및 대응 방안",
-        "why": "계속운전 핵심 설비인 고리 3·4호기의 인허가 심사가 추가 검증을 이유로 보류되면서 한수원의 차질 없는 계속운전 이행 일정에 제동이 걸렸으므로, 이에 대한 심층 분석이 필요하다.",
+        "hash": "98fe30ce4f211836",
+        "topic": "한-체코 원전 협력 확대 및 EU 산업가속화법안 대응 전략",
+        "why": "체코 두코바니 사업의 성공적 이행 점검과 테믈린 3·4호기 추가 협력 논의는 유럽 시장 확대의 핵심이며, EU 산업가속화법안 등 규제 환경 변화에 대한 선제적 대응 방안 마련이 시급합니다.",
         "angles": [
-          "계속운전 심사 보류 원인 및 절차 분석",
-          "한수원 계속운전 일정 차질에 따른 전력 수급 영향",
-          "향후 계속운전 심사 절차 개선 및 대응 방안"
+          "두코바니 사업의 안정적 추진을 위한 리스크 관리 및 이행 전략",
+          "테믈린 3·4호기 사업 참여 가능성 및 경쟁력 분석",
+          "EU 산업가속화법안이 한국 원전 수출에 미치는 영향 및 정책적 대응 방안"
         ]
       }
     ]
   },
   "selection_stats": {
     "domestic": {
-      "candidate_count": 376,
+      "candidate_count": 545,
       "selected_count": 8,
-      "below_floor_count": 67,
-      "features_missing": 101,
+      "below_floor_count": 86,
+      "features_missing": 149,
       "cap": {
         "base": 3,
         "max": 8,
-        "eligible": 256,
-        "must_read": 8,
+        "eligible": 367,
+        "must_read": 7,
         "must_read_bonus": 2,
         "eligible_bonus": 3,
         "surge_bonus": 0,
@@ -744,47 +678,28 @@
         "cap_applied": 8
       },
       "continuity": {
-        "checked": 376,
-        "matched": 54,
-        "dropped": 1,
+        "checked": 545,
+        "matched": 90,
+        "dropped": 2,
         "by_progression": {
-          "material": 1,
-          "minor": 25,
-          "none": 28
+          "material": 3,
+          "minor": 37,
+          "none": 50
         },
         "samples": [
           {
-            "hash": "c4bb65b9c75b286d",
-            "title": "SK 등 한국 기업, 웨스팅하우스에 조 단위 지분 투자 검토",
-            "prior_title": "삼성·SK·현대차·두산, 웨스팅하우스 지분 4조원 규모 투자 검토",
-            "prior_date": "2026-10-16",
+            "hash": "7b484c891029c395",
+            "title": "AI 특수에도 '트럼프 리스크'…대미 투자 2000억 달러 중 원전 건설 포함",
+            "prior_title": "한미재계회의 총회 개최…원전 대형 프로젝트 등 대미 전략투자 이행 논의",
+            "prior_date": "2026-10-17",
             "days_ago": 4,
-            "similarity": 0.625,
-            "evidence_shared": 0,
-            "evidence_confirmed": false,
-            "progression": "none",
-            "progression_kind": "",
-            "window_days": 7,
-            "repeat_streak": 3,
-            "penalty": 7.0,
-            "drop": false,
-            "identity_confirmed": false,
-            "identity_method": "",
-            "story_id_inheritable": false
-          },
-          {
-            "hash": "3556f1719382618c",
-            "title": "원전 공론화위원회, 대주제 '우리는 앞으로 어떤 전기로 살 것인가' 확정",
-            "prior_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 국민 의견 수렴 착수",
-            "prior_date": "2026-10-16",
-            "days_ago": 4,
-            "similarity": 0.357,
+            "similarity": 0.2,
             "evidence_shared": 0,
             "evidence_confirmed": false,
             "progression": "minor",
-            "progression_kind": "unmarked_prior",
+            "progression_kind": "new_quantities",
             "window_days": 1,
-            "repeat_streak": 1,
+            "repeat_streak": 2,
             "penalty": 0.625,
             "drop": false,
             "identity_confirmed": false,
@@ -792,31 +707,12 @@
             "story_id_inheritable": false
           },
           {
-            "hash": "7f66870e56a1f742",
-            "title": "효성중공업, AI 데이터센터 전력 수요 대응 초고압차단기 신공장 준공",
+            "hash": "fb5bcd2ad6681050",
+            "title": "AI 데이터센터 자금 불안에 삼성전자·SK하이닉스 주가 급락",
             "prior_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
             "prior_date": "2026-10-19",
-            "days_ago": 1,
-            "similarity": 0.351,
-            "evidence_shared": 0,
-            "evidence_confirmed": false,
-            "progression": "minor",
-            "progression_kind": "unmarked_prior",
-            "window_days": 1,
-            "repeat_streak": 3,
-            "penalty": 2.5,
-            "drop": false,
-            "identity_confirmed": false,
-            "identity_method": "",
-            "story_id_inheritable": false
-          },
-          {
-            "hash": "38c89d1fffc9e63a",
-            "title": "제12차 전력수급기본계획 원전 공론화위원회, AI 수요 급증 반영 전력수요 전망 재검증 착수",
-            "prior_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
-            "prior_date": "2026-10-18",
             "days_ago": 2,
-            "similarity": 0.406,
+            "similarity": 0.333,
             "evidence_shared": 0,
             "evidence_confirmed": false,
             "progression": "none",
@@ -830,38 +726,76 @@
             "story_id_inheritable": false
           },
           {
-            "hash": "2317d00af2262249",
-            "title": "HD현대 정기선 회장, '퓨처 빌더' 비전 제시…테라파워 등 협력 모색",
-            "prior_title": "HD현대, 조선소 AI·로봇 고도화 및 SMR 미래 먹거리 육성",
-            "prior_date": "2026-10-17",
-            "days_ago": 3,
-            "similarity": 0.196,
+            "hash": "324c4aa6a617194a",
+            "title": "AI 데이터센터, 전력 대량 소비로 국내외 반대 운동 직면",
+            "prior_title": "마이크로소프트, 전력 부족으로 영국 AI 데이터센터 프로젝트 철회",
+            "prior_date": "2026-10-19",
+            "days_ago": 2,
+            "similarity": 0.375,
             "evidence_shared": 0,
             "evidence_confirmed": false,
             "progression": "none",
             "progression_kind": "",
             "window_days": 1,
             "repeat_streak": 1,
-            "penalty": 2.5,
+            "penalty": 3.75,
             "drop": false,
             "identity_confirmed": false,
             "identity_method": "",
             "story_id_inheritable": false
           },
           {
-            "hash": "70280467ee8750a4",
-            "title": "HD현대일렉트릭, LG CNS와 데이터센터 전력 인프라 구축 MOU 체결",
-            "prior_title": "HD현대일렉트릭, 영국 내셔널그리드에 초대형 변압기 3기 공급",
-            "prior_date": "2026-10-18",
+            "hash": "6ba9cca8b07803a7",
+            "title": "국회, 1GW AI 데이터센터 연간 9109억 세수 효과 분석",
+            "prior_title": "마이크로소프트, 전력 부족으로 영국 AI 데이터센터 프로젝트 철회",
+            "prior_date": "2026-10-19",
             "days_ago": 2,
-            "similarity": 0.276,
+            "similarity": 0.302,
+            "evidence_shared": 0,
+            "evidence_confirmed": false,
+            "progression": "minor",
+            "progression_kind": "new_quantities",
+            "window_days": 1,
+            "repeat_streak": 1,
+            "penalty": 1.875,
+            "drop": false,
+            "identity_confirmed": false,
+            "identity_method": "",
+            "story_id_inheritable": false
+          },
+          {
+            "hash": "8cc130edcf715016",
+            "title": "이형일 경제부총리, EBRD와 AI 협력 MOU 체결 및 SMR 기술 관심 확인",
+            "prior_title": "이형일 부총리, 국제신평사 면담서 EBRD에 한국 SMR 기술 관심 확인",
+            "prior_date": "2026-10-19",
+            "days_ago": 2,
+            "similarity": 0.613,
             "evidence_shared": 0,
             "evidence_confirmed": false,
             "progression": "none",
             "progression_kind": "",
             "window_days": 1,
-            "repeat_streak": 2,
-            "penalty": 4.5,
+            "repeat_streak": 1,
+            "penalty": 3.75,
+            "drop": false,
+            "identity_confirmed": false,
+            "identity_method": "",
+            "story_id_inheritable": false
+          },
+          {
+            "hash": "f641625bb351c598",
+            "title": "HD현대, SMR·발전엔진 등 미래사업 투자 확대",
+            "prior_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
+            "prior_date": "2026-10-17",
+            "days_ago": 4,
+            "similarity": 0.667,
+            "evidence_shared": 0,
+            "evidence_confirmed": false,
+            "progression": "minor",
+            "progression_kind": "new_quantities",
+            "window_days": 3,
+            "repeat_streak": 1,
+            "penalty": 1.875,
             "drop": false,
             "identity_confirmed": false,
             "identity_method": "",
@@ -869,12 +803,12 @@
           }
         ],
         "recheck": {
-          "checked": 324,
-          "matched": 45,
+          "checked": 455,
+          "matched": 67,
           "by_progression": {
-            "material": 1,
-            "minor": 22,
-            "none": 22
+            "material": 2,
+            "minor": 30,
+            "none": 35
           },
           "evidence_confirmed": 0,
           "evidence_overlapping": 0
@@ -882,29 +816,29 @@
       }
     },
     "overseas": {
-      "candidate_count": 78,
-      "selected_count": 11,
-      "below_floor_count": 39,
+      "candidate_count": 122,
+      "selected_count": 9,
+      "below_floor_count": 56,
       "features_missing": 0,
       "cap": {
         "base": 6,
         "max": 12,
-        "eligible": 32,
-        "must_read": 3,
-        "must_read_bonus": 2,
+        "eligible": 52,
+        "must_read": 0,
+        "must_read_bonus": 0,
         "eligible_bonus": 3,
         "surge_bonus": 0,
-        "cap_before_limits": 11,
-        "cap_applied": 11
+        "cap_before_limits": 9,
+        "cap_applied": 9
       },
       "continuity": {
-        "checked": 78,
-        "matched": 10,
-        "dropped": 0,
+        "checked": 122,
+        "matched": 23,
+        "dropped": 1,
         "by_progression": {
-          "material": 1,
-          "minor": 1,
-          "none": 8
+          "material": 2,
+          "minor": 6,
+          "none": 15
         },
         "samples": [
           {
@@ -912,7 +846,7 @@
             "title": "루마니아 체르나보다 모델, 한국 원전 계속운전·SMR에 시사점 제시",
             "prior_title": "한수원, 루마니아 체르나보다 1호기 계속운전 사업으로 유럽 에너지 안보 기여",
             "prior_date": "2026-10-19",
-            "days_ago": 1,
+            "days_ago": 2,
             "similarity": 0.467,
             "evidence_shared": 0,
             "evidence_confirmed": false,
@@ -920,7 +854,26 @@
             "progression_kind": "",
             "window_days": 1,
             "repeat_streak": 1,
-            "penalty": 5.0,
+            "penalty": 3.75,
+            "drop": false,
+            "identity_confirmed": false,
+            "identity_method": "",
+            "story_id_inheritable": false
+          },
+          {
+            "hash": "f993424bde543d10",
+            "title": "앤트로픽, AI 반도체 구매 위해 연 10%대 고금리 후순위채 발행 추진",
+            "prior_title": "앤트로픽, 엔스케일과 60조원 규모 AI 컴퓨팅 인프라 추가 계약 추진",
+            "prior_date": "2026-10-20",
+            "days_ago": 1,
+            "similarity": 0.3,
+            "evidence_shared": 0,
+            "evidence_confirmed": false,
+            "progression": "minor",
+            "progression_kind": "new_quantities",
+            "window_days": 1,
+            "repeat_streak": 1,
+            "penalty": 2.5,
             "drop": false,
             "identity_confirmed": false,
             "identity_method": "",
@@ -931,7 +884,7 @@
             "title": "마이크로소프트, 영국 데이터센터 전력 공급 지연으로 계약 철회",
             "prior_title": "마이크로소프트, 전력 부족으로 영국 AI 데이터센터 프로젝트 철회",
             "prior_date": "2026-10-19",
-            "days_ago": 1,
+            "days_ago": 2,
             "similarity": 0.63,
             "evidence_shared": 0,
             "evidence_confirmed": false,
@@ -950,7 +903,7 @@
             "title": "마이크로소프트, 영국 AI 데이터센터 전력 공급 지연으로 계약 철회",
             "prior_title": "국감서 원전 4기 계속운전 심사 신속 처리 요구",
             "prior_date": "2026-10-20",
-            "days_ago": 0,
+            "days_ago": 1,
             "similarity": 0.128,
             "evidence_shared": 0,
             "evidence_confirmed": false,
@@ -958,7 +911,7 @@
             "progression_kind": "stage_flip",
             "window_days": 0,
             "repeat_streak": 2,
-            "penalty": 0.5,
+            "penalty": 0.375,
             "drop": false,
             "identity_confirmed": false,
             "identity_method": "",
@@ -969,27 +922,8 @@
             "title": "Studsvik, 노르웨이 국영기업과 사용후핵연료 관리 계약 체결",
             "prior_title": "노르웨이, 사용후핵연료 스웨덴 Studsvik 시설에 저장 합의",
             "prior_date": "2026-10-17",
-            "days_ago": 3,
-            "similarity": 0.429,
-            "evidence_shared": 0,
-            "evidence_confirmed": false,
-            "progression": "none",
-            "progression_kind": "",
-            "window_days": 1,
-            "repeat_streak": 1,
-            "penalty": 2.5,
-            "drop": false,
-            "identity_confirmed": false,
-            "identity_method": "",
-            "story_id_inheritable": false
-          },
-          {
-            "hash": "92b0940f2255539f",
-            "title": "북미 전력망, AI 데이터센터·암호화폐 채굴 시설 신뢰성 기준 강화",
-            "prior_title": "미국 NERC, 대규모 데이터센터·암호화폐 시설 전력망 신뢰도 표준안 최종 투과",
-            "prior_date": "2026-10-16",
             "days_ago": 4,
-            "similarity": 0.5,
+            "similarity": 0.429,
             "evidence_shared": 0,
             "evidence_confirmed": false,
             "progression": "none",
@@ -1003,19 +937,19 @@
             "story_id_inheritable": false
           },
           {
-            "hash": "c08b2874ffce0676",
-            "title": "미국 에너지부, 4,200만 달러 규모 컨스티튜션 천연가스 파이프라인 사업 승인",
-            "prior_title": "미국 에너지부, 국방물자생산법(DPA) 자금 투입해 버지니아·웨스트버지니아 송전망 확충 추진",
-            "prior_date": "2026-10-18",
+            "hash": "4b321e553a9dc43c",
+            "title": "미국 데이터센터 프로젝트 47건 지연·철회…전력·자금 조달난 직면",
+            "prior_title": "마이크로소프트, 전력 부족으로 영국 AI 데이터센터 프로젝트 철회",
+            "prior_date": "2026-10-19",
             "days_ago": 2,
-            "similarity": 0.203,
+            "similarity": 0.5,
             "evidence_shared": 0,
             "evidence_confirmed": false,
-            "progression": "minor",
-            "progression_kind": "unmarked_prior",
+            "progression": "none",
+            "progression_kind": "",
             "window_days": 1,
             "repeat_streak": 1,
-            "penalty": 1.875,
+            "penalty": 3.75,
             "drop": false,
             "identity_confirmed": false,
             "identity_method": "",
@@ -1023,12 +957,12 @@
           }
         ],
         "recheck": {
-          "checked": 71,
-          "matched": 7,
+          "checked": 109,
+          "matched": 16,
           "by_progression": {
-            "material": 1,
-            "minor": 1,
-            "none": 5
+            "material": 2,
+            "minor": 4,
+            "none": 10
           },
           "evidence_confirmed": 0,
           "evidence_overlapping": 0
@@ -1038,14 +972,44 @@
   },
   "dropped_duplicates": [
     {
-      "hash": "d538ce46c02a698d",
-      "dup_of": "3fc95c88d659f5c8",
-      "title": "원안위, 고리 3·4호기 계속운전 심사 개시…연내 결론 전망"
+      "hash": "76d5249a72a2c36e",
+      "dup_of": "dc7e7c49253c4576",
+      "title": "장관, 체코에 EU 산업가속화법의 원전 협력 저해 우려 전달"
     },
     {
-      "hash": "0f184117804b4bf9",
-      "dup_of": "8f323b07c470b503",
-      "title": "LS일렉트릭, 美 빅테크와 1689억 규모 데이터센터 배전 솔루션 공급 계약 체결"
+      "hash": "b54388afefadc676",
+      "dup_of": "98fe30ce4f211836",
+      "title": "한-체코, 두코바니 원전 점검…EU 산업가속화법 대응 논의"
+    },
+    {
+      "hash": "b332efc5e8e0dc49",
+      "dup_of": "421dcf57195d8b59",
+      "title": "산업부, 중동 플랜트 수주 확대를 위한 민관 협력 간담회 개최"
+    },
+    {
+      "hash": "da1df9908a447e60",
+      "dup_of": "a5d249367c81a87e",
+      "title": "월성원자력본부·해병대, 드론 침투 대비 합동훈련 실시"
+    },
+    {
+      "hash": "acd1a48703fe7469",
+      "dup_of": "a5d249367c81a87e",
+      "title": "월성원자력본부, 해병대와 드론 침투 대비 합동 훈련 실시"
+    },
+    {
+      "hash": "efdcac882ff9f36b",
+      "dup_of": "4b1fe0957944643a",
+      "title": "한수원노조, 신규원전 지연 책임 규명과 제12차 전기본 반영 촉구 공동행동 전개"
+    },
+    {
+      "hash": "283319f408129d20",
+      "dup_of": "0f2b173355ed5f8e",
+      "title": "발전소 온배수 어업피해 보상 2312억 원, 재활용률은 1% 불과"
+    },
+    {
+      "hash": "d3eec9234f3b83d3",
+      "dup_of": "448bd15e6119640c",
+      "title": "진안군, 345kV 송전선로 최적경과대역 주민공청회 26일 개최"
     },
     {
       "hash": "f871007813c3e555",
@@ -1053,9 +1017,19 @@
       "title": "SK하이닉스, 소부장 협력사에 2조원 금융 지원…상생 무역금융 확대"
     },
     {
+      "hash": "05f7cc3c640e95fe",
+      "dup_of": "be378d779f670115",
+      "title": "지투파워, 체코·슬로바키아 3개사와 원전 기자재 기술제휴 MOU"
+    },
+    {
       "hash": "e2486f9ba43b79ee",
-      "dup_of": "283319f408129d20",
+      "dup_of": "0f2b173355ed5f8e",
       "title": "발전소 온배수 재활용률 1% 불과…어업피해 보상 2312억 원"
+    },
+    {
+      "hash": "08622fc4793123e3",
+      "dup_of": "cd8b4385b400dc2a",
+      "title": "더불어민주당, 서남권 반도체 클러스터 메가특구법 추진"
     },
     {
       "hash": "879cefcf3915fd5f",
@@ -1063,29 +1037,34 @@
       "title": "창원시, SMR 중심 미래 원전산업 육성…글로벌 제조 거점 조성 추진"
     },
     {
-      "hash": "a8dcae323fe6d0b4",
-      "dup_of": "3fc95c88d659f5c8",
-      "title": "원안위, 고리 3·4호기 계속운전 심사 재연기…영덕 신규원전 정책 독립성 우려 제기"
+      "hash": "552a0627fcf052b9",
+      "dup_of": "448bd15e6119640c",
+      "title": "진안군, 송전선로 건설사업 주민공청회 개최"
     },
     {
-      "hash": "2711d53a8a76e494",
-      "dup_of": "283319f408129d20",
-      "title": "[2026 국감] 발전 온배수 피해보상 5년간 2312억…재활용률 1% 불과"
+      "hash": "06ea0dc8b9100079",
+      "dup_of": "c9e5c7615b6074f0",
+      "title": "정부, 2040년대 상용 핵융합로 건설 및 K-문샷·7대 SEED 연계 전략 추진"
     },
     {
       "hash": "587aebf19014c93c",
-      "dup_of": "efdcac882ff9f36b",
+      "dup_of": "4b1fe0957944643a",
       "title": "한수원노조, 신규 원전 지연 책임 규명 공동 행동 개최"
     },
     {
-      "hash": "2d439f2d536b8c90",
-      "dup_of": "0ac381471335526e",
-      "title": "김회천 한수원 사장 \"SMR·신규 원전 적기 건설…체코·이집트 후속 수주 만전\""
+      "hash": "2ec21b910f25dc89",
+      "dup_of": "dd52e6171746365b",
+      "title": "한울본부, 한울1호기 제27차 계획예방정비 착수 및 12월 재개 예정"
     },
     {
-      "hash": "a859f0a8499cea0a",
-      "dup_of": "3fc95c88d659f5c8",
-      "title": "고리 3,4호기 계속운전 심사 개시, 연내 결론 전망"
+      "hash": "46b5a50427e06c37",
+      "dup_of": "a5d249367c81a87e",
+      "title": "월성원자력본부, 해병대와 드론 침투 대비 합동 훈련 실시"
+    },
+    {
+      "hash": "04378444554ef1b0",
+      "dup_of": "9f6221dc0d35468e",
+      "title": "이건태 의원, 한수원 안전법령 위반 과징금 338억 원 지적"
     },
     {
       "hash": "e1f82602297664aa",
@@ -1093,9 +1072,19 @@
       "title": "한전, 산지 변전소 조경 의무 면제…산불 예방 강화"
     },
     {
+      "hash": "069290f7c30216bb",
+      "dup_of": "225f66a6783e3b13",
+      "title": "한수원 한울원전 1호기 계획예방정비 착수, 12월 재가동 예정"
+    },
+    {
       "hash": "71563590fe072d6d",
       "dup_of": "de801e590e1bc882",
       "title": "한전, 산불 예방 위해 변전소 조경수 설치 의무 면제…520곳 대상"
+    },
+    {
+      "hash": "7b6e6af3b2f2e305",
+      "dup_of": "80ba42967a802a10",
+      "title": "한수원, 타지키스탄에 최초 MW급 태양광발전소 준공 및 중앙아 진출"
     },
     {
       "hash": "e47436a9dad40658",
@@ -1103,8 +1092,28 @@
       "title": "앰코, 광주 첨단반도체 공장에 3조원 투자"
     },
     {
+      "hash": "46fd743ecca2c222",
+      "dup_of": "80ba42967a802a10",
+      "title": "한수원, 타지키스탄에 최초 메가와트급 태양광 발전소 및 ESS 준공"
+    },
+    {
+      "hash": "cf9c1c073fa53c30",
+      "dup_of": "dd52e6171746365b",
+      "title": "한울 1호기, 59일간 계획예방정비 위해 발전 정지"
+    },
+    {
+      "hash": "9c15b1ab5bc89733",
+      "dup_of": "0a5f49a3619d60ba",
+      "title": "SK이터닉스, 이천·파주 연료전지 발전사업 상업운전 개시"
+    },
+    {
+      "hash": "78674bae6bcc9f77",
+      "dup_of": "dd52e6171746365b",
+      "title": "한울 1호기, 제27차 계획예방정비 착수"
+    },
+    {
       "hash": "671d96669b67102d",
-      "dup_of": "283319f408129d20",
+      "dup_of": "0f2b173355ed5f8e",
       "title": "국회 환노위, 발전 온배수 관리 촉구…최근 5년간 어업피해 보상 2312억 원 집계"
     },
     {
@@ -1113,14 +1122,19 @@
       "title": "서울대 부유식인프라연구단, 강재 모듈러 부유식 구조체 테스트베드 AIP 인증 취득"
     },
     {
-      "hash": "2c8ba6efbde8e0c1",
-      "dup_of": "63232d78f8819d48",
-      "title": "한전 사장, AI 전력수요 급증에 전기요금 인상 논의 필요성 언급"
+      "hash": "bb40340d16166c74",
+      "dup_of": "585d8168a3c6c056",
+      "title": "전국 5개 원전 소재 지자체, 사용후핵연료 저장시설 지원 대책 촉구"
     },
     {
       "hash": "e98d26cac5bc559e",
       "dup_of": "655813f48d18234b",
       "title": "창원시, SMR 중심 원전산업 육성 계획 수립"
+    },
+    {
+      "hash": "eb71c217de7f8088",
+      "dup_of": "0a5f49a3619d60ba",
+      "title": "SK이터닉스, 이천·파주 연료전지 발전소 상업운전 돌입"
     },
     {
       "hash": "07d86c3748f52cf6",
@@ -1129,8 +1143,18 @@
     },
     {
       "hash": "45e70ebdcab2a33c",
-      "dup_of": "efdcac882ff9f36b",
+      "dup_of": "4b1fe0957944643a",
       "title": "한수원노조·시민단체, 신규원전 지연 책임 규명 촉구 공동 행동 예고"
+    },
+    {
+      "hash": "2c8ba6efbde8e0c1",
+      "dup_of": "33b9bf79ef7c6f63",
+      "title": "한전 사장, AI 전력수요 급증에 전기요금 인상 논의 필요성 언급"
+    },
+    {
+      "hash": "fad92d4a97c7fe3f",
+      "dup_of": "0a5f49a3619d60ba",
+      "title": "SK이터닉스, 이천·파주 연료전지 발전소 3곳 상업운전 돌입"
     },
     {
       "hash": "c88ff5bfbfe1ada8",
@@ -1138,9 +1162,44 @@
       "title": "두산그룹, 김민철·박상현 CFO 부회장 승진 및 송용진 COO 선임"
     },
     {
-      "hash": "e22499ede594caa1",
-      "dup_of": "2b32fc42d9118314",
-      "title": "기후에너지환경부, 제12차 전력수급기본계획 원전 공론화 착수"
+      "hash": "027952b5e1622d2a",
+      "dup_of": "ecaf93c247cbe6ca",
+      "title": "대전서 OECD/NEA FIDES 핵연료 국제공동연구 정기회의 개최"
+    },
+    {
+      "hash": "618fb1072a8e12f4",
+      "dup_of": "be378d779f670115",
+      "title": "지투파워, 체코·슬로바키아 원전 기자재 기업과 MOU 체결"
+    },
+    {
+      "hash": "1d4323318137b682",
+      "dup_of": "225f66a6783e3b13",
+      "title": "한울원전 1호기, 27차 계획예방정비 착수 12월 재가동 목표"
+    },
+    {
+      "hash": "efc194dbf58a4f92",
+      "dup_of": "8293f9ba55aed2a1",
+      "title": "해외 플랜트 수주 34.8% 감소…중동 전쟁 장기화 영향"
+    },
+    {
+      "hash": "d9afa3c1cc94e662",
+      "dup_of": "7d4e2203463375db",
+      "title": "동해시, 100MW급 AI 데이터센터 12월 착공…전력·용수 인프라 점검"
+    },
+    {
+      "hash": "0f184117804b4bf9",
+      "dup_of": "8f323b07c470b503",
+      "title": "LS일렉트릭, 美 빅테크와 1689억 규모 데이터센터 배전 솔루션 공급 계약 체결"
+    },
+    {
+      "hash": "e6fa271c0a34e815",
+      "dup_of": "cf10935b60431f13",
+      "title": "대구 건설기업 서한, 1296억 규모 AI 데이터센터 건설 우선협상자 선정"
+    },
+    {
+      "hash": "2567e10575fc0cb8",
+      "dup_of": "585d8168a3c6c056",
+      "title": "원전 소재 5개 지자체, 사용후핵연료 저장시설 지원대책 촉구"
     },
     {
       "hash": "c630bc134c30033b",
@@ -1148,14 +1207,34 @@
       "title": "거창군, 신장수~무주영동 송전선로 경과대역에서 사실상 제외"
     },
     {
-      "hash": "1f1b5489c5284b21",
-      "dup_of": "c6383c6df0cfe00d",
-      "title": "국감서 AI 데이터센터 전력수요 대응 및 재원 마련 촉구"
+      "hash": "6070ecae4ad88427",
+      "dup_of": "d7ffb6ec7330c679",
+      "title": "엠에이치에스, 냉각수 60% 절감하는 AI 반도체 콜드플레이트 개발"
     },
     {
-      "hash": "d8dd6f4e72b3655f",
-      "dup_of": "2f5959f9603c99b7",
-      "title": "국회예산정책처, AI 데이터센터 18.4GW 가동 시 연간 15조원 법인세 추산"
+      "hash": "06ad7d36c2c8fb83",
+      "dup_of": "585d8168a3c6c056",
+      "title": "원전 소재 5개 지자체 행정협의회, 고준위방폐물위원회에 저장시설 지원대책 촉구"
+    },
+    {
+      "hash": "0289bdc4aa98114b",
+      "dup_of": "585d8168a3c6c056",
+      "title": "원전 소재 지자체, 사용후 핵연료 저장시설 관련 정부 지원 건의"
+    },
+    {
+      "hash": "f3f1b63556260cb1",
+      "dup_of": "218c9b092b5dc093",
+      "title": "가온전선, 美 AI 데이터센터·전력망 투자 확대 힘입어 3분기 역대 최대 실적"
+    },
+    {
+      "hash": "b23654580703109e",
+      "dup_of": "585d8168a3c6c056",
+      "title": "원전 소재 5개 지자체, 사용후핵연료 저장시설 지원 촉구"
+    },
+    {
+      "hash": "63232d78f8819d48",
+      "dup_of": "33b9bf79ef7c6f63",
+      "title": "김동철 한전 사장, 113조 원 규모 전력망 확충 위한 전기요금 인상 필요성 시사"
     },
     {
       "hash": "90c449c20c3ee0bc",
@@ -1168,6 +1247,21 @@
       "title": "김병구 前 원자력연 단장, 한국형 원전·SMR 다룬 신간 출간"
     },
     {
+      "hash": "1f1b5489c5284b21",
+      "dup_of": "c6383c6df0cfe00d",
+      "title": "국감서 AI 데이터센터 전력수요 대응 및 재원 마련 촉구"
+    },
+    {
+      "hash": "88f513247cb15d91",
+      "dup_of": "33b9bf79ef7c6f63",
+      "title": "한전, 전기요금 인상 필요성 제기…정부와 전력정책 엇박자"
+    },
+    {
+      "hash": "f641625bb351c598",
+      "dup_of": "c4866c2ec593c389",
+      "title": "HD현대, SMR·발전엔진 등 미래사업 투자 확대"
+    },
+    {
       "hash": "d7873b6f011944cb",
       "dup_of": "6bf57236b17611af",
       "title": "국내 연구진, 종이접기 기법 활용한 유연 태양광 시스템 개발"
@@ -1178,23 +1272,18 @@
       "title": "경남도, SMR 특구 조성을 위한 전략기획 자문위원회 운영 시작"
     },
     {
-      "hash": "f641625bb351c598",
-      "dup_of": "669d6db83f3a41b8",
-      "title": "HD현대, SMR·발전엔진 등 미래사업 투자 확대"
-    },
-    {
       "hash": "f8e8c29b701e499d",
       "dup_of": "0b6afdb046e3d1f8",
       "title": "김병구 전 원자력연 단장, K-원전부터 SMR까지 다룬 저서 20일 출간"
     },
     {
-      "hash": "42326e3d0d24f456",
-      "dup_of": "b95e8505c6200458",
-      "title": "효성중공업, AI 데이터센터 전력 수요 대응 위해 초고압차단기 생산 2배 확대"
+      "hash": "055f1321a885b2db",
+      "dup_of": "585d8168a3c6c056",
+      "title": "원전 소재 5개 지자체 행정협의회, 고준위방폐물 저장시설 지원 촉구"
     },
     {
       "hash": "262701a8f1842d48",
-      "dup_of": "b95e8505c6200458",
+      "dup_of": "13ac568d51d3c56a",
       "title": "효성중공업, 창원 초고압차단기 신공장 준공…AI 데이터센터 전력 수요 대응"
     },
     {
@@ -1203,9 +1292,14 @@
       "title": "제20회 세계해양포럼 내달 부산서 개막, SMR 선박연료 논의 예정"
     },
     {
-      "hash": "6862cc268892d8ca",
-      "dup_of": "ca001dd2148d5730",
-      "title": "현대건설, 3분기 영업이익 2104억원 전망…주택 부문이 플랜트 부진 보완"
+      "hash": "e389432050b6fc79",
+      "dup_of": "cf10935b60431f13",
+      "title": "서한, 서울 강남 AI 데이터센터 건설공사 우선협상대상자 선정"
+    },
+    {
+      "hash": "1d26c627a46cf441",
+      "dup_of": "32c28474c954fcb6",
+      "title": "LG전자 CEO, AI 데이터센터 경쟁력 좌우할 핵심은 '냉각 기술'"
     },
     {
       "hash": "0e8d7ef335357441",
@@ -1213,14 +1307,59 @@
       "title": "김병구 전 미래원자력단장, 'K-원전에서 SMR까지' 신간 출간"
     },
     {
-      "hash": "672ea2b69f63a876",
-      "dup_of": "70280467ee8750a4",
-      "title": "HD현대일렉트릭, LG CNS와 AI 데이터센터 전력 인프라 협력"
+      "hash": "ba67bbe81091070f",
+      "dup_of": "32c28474c954fcb6",
+      "title": "LG CNS 류재철 CEO, AI 데이터센터 경쟁력은 냉각 기술에 달렸다"
     },
     {
-      "hash": "c4bb65b9c75b286d",
-      "dup_of": "5d870ad60a94d2b4",
-      "title": "SK 등 한국 기업, 웨스팅하우스에 조 단위 지분 투자 검토"
+      "hash": "05dfd810b488832b",
+      "dup_of": "bdd836099a817949",
+      "title": "창원시, 두산에너빌리티 등과 5000억 규모 투자 협약 체결"
+    },
+    {
+      "hash": "ea3ab618e9d0a3ae",
+      "dup_of": "b92bf01e5ba056c5",
+      "title": "통신 3사, AI 데이터센터 투자 확대 속 전력망 확보가 핵심 변수로 부상"
+    },
+    {
+      "hash": "1aba108ea26108f3",
+      "dup_of": "70b9884e52fac46d",
+      "title": "[글로벌포커스] 원전 공론화, 탈진영 계기로"
+    },
+    {
+      "hash": "d2d61ae3e85dd5cc",
+      "dup_of": "37a9aa53ee9562e3",
+      "title": "글로벌 원전 공급망 협력의 장 'NES 2026', 경주서 열린다"
+    },
+    {
+      "hash": "b08a3a24a25a2e97",
+      "dup_of": "33779491bd760775",
+      "title": "두코바니 다음은 테믈린… 韓, 체코 원전 추가 수주 시동"
+    },
+    {
+      "hash": "c74047efeaab9049",
+      "dup_of": "8ccbba2a3e6f3bd8",
+      "title": "산업부, 체코에 EU 산업가속화법 대응 요청···\"원전시장 제약 없었으..."
+    },
+    {
+      "hash": "b1ff61361a60fbf4",
+      "dup_of": "592ddcb96ccfbb32",
+      "title": "AI 데이터센터 열풍은 거들 뿐...LS그룹 구자은 회장이 오른손에 든 전력..."
+    },
+    {
+      "hash": "0b3a74fd5256f809",
+      "dup_of": "bdd836099a817949",
+      "title": "창원특례시 두산에너빌리티 등 3개사와 5000억 투자협약"
+    },
+    {
+      "hash": "5a5909cf3b774fcc",
+      "dup_of": "7d4e2203463375db",
+      "title": "\"120조 동해 AI데이터센터 어디까지 왔나\"…정부, 전력·용수 점검"
+    },
+    {
+      "hash": "25dfda437a6a985f",
+      "dup_of": "c7534d8fdcfde20d",
+      "title": "경남도, 글로벌 SMR 생산거점 조성 전략 마련"
     },
     {
       "hash": "00b5ad40f29c9759",
@@ -1258,11 +1397,6 @@
       "title": "한국형원전부터 SMR까지···김병구 전 원자력연 단장 신간 출간"
     },
     {
-      "hash": "8e91f8a0f355cf5e",
-      "dup_of": "d943370546696126",
-      "title": "[2026 국정감사] 김회천 한수원 사장 \"혁신형 SMR 적기 개발…기장 초도..."
-    },
-    {
       "hash": "dc4a73bdd33e7160",
       "dup_of": "393ec2f300e52a91",
       "title": "신한자산운용, 'SOL 전고체배터리&실리콘음극재' ETF…3개월 수익률 22.7..."
@@ -1283,39 +1417,59 @@
       "title": "대미 무역흑자 1천억달러 달성 유력…트럼프 투자 압박에 난감한 정부"
     },
     {
-      "hash": "354969d85e194022",
-      "dup_of": "0ae2bea2b48c8045",
-      "title": "두산에너빌, 3Q 영업익 85% 성장 전망…원전·가스터빈 본격화"
+      "hash": "d194f10cd57824e3",
+      "dup_of": "70660ea6df92a32f",
+      "title": "경남도, SMR 특구 조성 위한 전략 마련 나선다"
     },
     {
-      "hash": "d943370546696126",
-      "dup_of": "0ac381471335526e",
-      "title": "김회천 한수원 사장, 혁신형 SMR 적기 개발 및 기장 초도기 건설 준비 추진"
+      "hash": "6c56faca41bc764c",
+      "dup_of": "78fcf1d491b3ef8e",
+      "title": "한국수력원자력, 타지키스탄 최초 3MW급 태양광 발전소 준공"
     },
     {
-      "hash": "baae838400b302e1",
-      "dup_of": "41b6ef392e3cdb12",
-      "title": "박지혜 의원 \"신규 원전 경제성, 건설비·관리비용 등 면밀히 검증해야\""
+      "hash": "2ea3d2a03cbec3a4",
+      "dup_of": "ea90321399c0db0d",
+      "title": "미국 전직 고위 관료들, 에너지 인프라 인허가 간소화 초당적 촉구"
     },
     {
-      "hash": "ea68ebe1d13353f6",
-      "dup_of": "27d14cf16f52ee9c",
-      "title": "美 AEP, 아마존·X-energy와 12기 SMR 건설 프로젝트 추진"
+      "hash": "f3a662ba99256c21",
+      "dup_of": "995abd8371b9d770",
+      "title": "한수원, 타지키스탄 최초 MW급 태양광 발전소 및 ESS 준공"
     },
     {
-      "hash": "dc0191f7dcbd5891",
-      "dup_of": "27d14cf16f52ee9c",
-      "title": "아마존·AEP·엑스에너지, 인디애나주 960MW 규모 SMR 건설 공동개발 협약 체결"
+      "hash": "37c1c847e3f67a4b",
+      "dup_of": "78fcf1d491b3ef8e",
+      "title": "한수원, 타지키스탄 첫 MW급 태양광 발전소 준공으로 전력난 해소 지원"
     },
     {
-      "hash": "3d1287fe7d88000f",
-      "dup_of": "27d14cf16f52ee9c",
-      "title": "미국 아메리칸 일렉트릭 파워·엑스에너지, 인디애나주 960MW SMR 건설 검토"
+      "hash": "f63024c617862f56",
+      "dup_of": "c23482906e9e4c08",
+      "title": "인디애나주, 앳킨스리얼리스와 CANDU 원자로 8기 도입 검토 MOU 체결"
+    },
+    {
+      "hash": "c975c6e79878ad98",
+      "dup_of": "05ae3f0f920ff555",
+      "title": "유럽 원자력 산업계, EU에 원전·재생에너지 동등 지원 촉구"
     },
     {
       "hash": "9ec61d50a7997b94",
       "dup_of": "d5879e3f794102ee",
       "title": "Studsvik, 노르웨이 국영기업과 사용후핵연료 관리 계약 체결"
+    },
+    {
+      "hash": "90141f9ff62766ce",
+      "dup_of": "a20b1c837a9ca337",
+      "title": "MS, 영국 AI 데이터센터 사업 철회…전력망 공급 지연 영향"
+    },
+    {
+      "hash": "e964163c0248e64d",
+      "dup_of": "54d42cd9a9a20366",
+      "title": "아마존, 미국 인디애나주에 SMR 12기 건설 사업 추진"
+    },
+    {
+      "hash": "5306e7ed9da6283e",
+      "dup_of": "54d42cd9a9a20366",
+      "title": "아마존, AI 전력 확보 위해 미국에 SMR 12기 건설 추진"
     },
     {
       "hash": "4b321e553a9dc43c",
@@ -1328,85 +1482,58 @@
       "title": "마이크로소프트, 영국 데이터센터 전력 공급 지연으로 계약 철회"
     },
     {
-      "hash": "51ebad9ae3ebddc8",
-      "dup_of": "27d14cf16f52ee9c",
-      "title": "엑스에너지·아마존, 인디애나주 SMR 사업 공동개발협약 체결"
+      "hash": "ab58679377c5f66a",
+      "dup_of": "bd9315945f15d912",
+      "title": "MS 떠난 데이터센터에 앤트로픽…엔스케일과 60조원 추가 계약 협상"
     }
   ],
   "prune_hashes": [
-    "02006ba03b4312ab",
-    "030ce4fd47feb981",
-    "06978c2808896663",
-    "0ac381471335526e",
-    "1366d381246af1cd",
-    "18dc18e31662f3f8",
-    "199ca422dae2bec5",
-    "22ae609300d905b3",
-    "24997bda56bf7c3a",
-    "27d14cf16f52ee9c",
-    "2b32fc42d9118314",
-    "2d439f2d536b8c90",
-    "2f286b2fdbdbbab2",
-    "3ad78c2cdef82036",
-    "3d1287fe7d88000f",
-    "3fc95c88d659f5c8",
-    "40ca26f6684b7913",
-    "41b6ef392e3cdb12",
-    "42dd9cac55a5010a",
-    "51ebad9ae3ebddc8",
-    "53102c484629209f",
-    "75db0c8d41338aad",
-    "7d4f695210b93884",
-    "7da6ade2db4557ca",
-    "7f874e4fbdade8d9",
-    "95ebf954fb23fb50",
-    "995644b6aeaad981",
-    "a7d5aad998522493",
-    "a859f0a8499cea0a",
-    "a8dcae323fe6d0b4",
-    "aa1d22ea4ef8ff61",
-    "b21d4d6e3f731a48",
-    "b6ae488d6e28960f",
-    "b8712f3d683f73a9",
-    "baae838400b302e1",
-    "be7c3651cdd4c801",
-    "c08b2874ffce0676",
-    "cd448a8266f7747f",
-    "d4a7d8dee18567d6",
-    "d538ce46c02a698d",
-    "d6aeb2d90932bf96",
-    "d8d4b76a57206747",
-    "d943370546696126",
-    "dc0191f7dcbd5891",
-    "dd48db724f680bd9",
-    "e22499ede594caa1",
-    "e6773c72dbab2c97",
-    "ea68ebe1d13353f6",
-    "ed643f3b0ea7f447",
-    "fc83997c1d5e9a7c"
-  ],
-  "cards": {
-    "date": "2026-10-20",
-    "sent_at": "2026-10-20T11:24:06.083298+09:00",
-    "count": 5,
-    "message_ids": [
-      1247,
-      1248,
-      1249,
-      1250,
-      1251
-    ]
-  },
-  "story_cards": {
-    "date": "2026-10-20",
-    "sent_at": "2026-10-20T11:24:13.978051+09:00",
-    "count": 5,
-    "message_ids": [
-      1252,
-      1253,
-      1254,
-      1255,
-      1256
-    ]
-  }
+    "039e651d30917434",
+    "04378444554ef1b0",
+    "05fd0d18db50f469",
+    "147b6b504c83c901",
+    "16649acbe7065533",
+    "1a001ad1877b8c74",
+    "1f51be29126cc345",
+    "216ef7fea6e1a43e",
+    "269544920f1e6789",
+    "2ea3d2a03cbec3a4",
+    "30eed88920979a0c",
+    "37c1c847e3f67a4b",
+    "421dcf57195d8b59",
+    "47aa41525e4a3b66",
+    "4bcb8d4a9fa337e6",
+    "4d83d4adb5c9d34e",
+    "5416967c4a605739",
+    "66d5e146f7c72872",
+    "6c56faca41bc764c",
+    "74e0a927e8ff3385",
+    "76d5249a72a2c36e",
+    "789d977862a2076c",
+    "78fcf1d491b3ef8e",
+    "7dd6c9630dd330e7",
+    "8280e081f4b24c2e",
+    "8ccbba2a3e6f3bd8",
+    "98fe30ce4f211836",
+    "995abd8371b9d770",
+    "9cff592088e65464",
+    "9f6221dc0d35468e",
+    "b332efc5e8e0dc49",
+    "b54388afefadc676",
+    "b6a2b771f20bcee8",
+    "c256edc5216a8a0e",
+    "c40bed13829749e1",
+    "c74047efeaab9049",
+    "ccebf2647e7b6f7d",
+    "d1ca39a7e6195aa6",
+    "d1e4243667e5f719",
+    "dc7e7c49253c4576",
+    "de01eab532421ba9",
+    "e1f4639a9ae3f2b6",
+    "ea90321399c0db0d",
+    "eb9afa5c4a6779e5",
+    "f3a662ba99256c21",
+    "f534b82e95545f81",
+    "fedc5713a431c49c"
+  ]
 }
