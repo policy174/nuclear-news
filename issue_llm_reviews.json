@@ -8082,6 +8082,26 @@
       "right_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
       "same_event": false
     },
+    "057a4c080bea7887--3e781cdb7484a01f": {
+      "embedding_similarity": 0.8448,
+      "left_title": "당진시, AI 데이터센터 5곳 추진 중이며 전력·용수 공급 문제없음 밝혀",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "당진시와 세종시의 별개 사안",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "세종시, '경제·행정 2수도' 시대 개막 선언…대규모 데이터센터 투자 유치",
+      "same_event": false
+    },
+    "057a4c080bea7887--d32e558450809391": {
+      "embedding_similarity": 0.8896,
+      "left_title": "세종시, SK증권과 7조 원 규모 데이터센터 건립 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 세종시 데이터센터 유치",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "세종시, '경제·행정 2수도' 시대 개막 선언…대규모 데이터센터 투자 유치",
+      "same_event": true
+    },
     "057d20a841e798e7--1116872abf085268": {
       "embedding_similarity": 0.8966,
       "left_title": "LS일렉트릭, 북미 AI 데이터센터 프로젝트에 1,812억 원 규모 초고압 변압기 공급 계약 체결",
@@ -47422,6 +47442,26 @@
       "right_title": "제12차 전기본 전력수요 예측, 근거·검증 부족 비판 제기",
       "same_event": true
     },
+    "24126c9eda03dbc3--686386b958dffbfc": {
+      "embedding_similarity": 0.8609,
+      "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 추진 경과",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위원회, 전문가 9명 구성해 12월 숙의토론 추진",
+      "same_event": true
+    },
+    "24126c9eda03dbc3--a5cc5b9d6803e0d2": {
+      "embedding_similarity": 0.8461,
+      "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 추진 경과",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위원회, 전문가 9명 구성해 12월 숙의토론 추진",
+      "same_event": true
+    },
     "2421d53c2335ae1a--9d27e89f4e6b16fe": {
       "embedding_similarity": 0.8884,
       "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
@@ -49880,6 +49920,26 @@
       "reason": "합작법인 설립과 기업 성장",
       "reviewed_at": "2026-10-11T22:29:59.271140+00:00",
       "right_title": "LS일렉트릭, AI 전력 수요 증가에 따른 전력사업 성장세",
+      "same_event": false
+    },
+    "2642e5df5619fe7e--aeebe4601413be0a": {
+      "embedding_similarity": 0.8979,
+      "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약과 전체 실적 동향",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "상반기 AI 데이터센터 1조 수주…해외 사업도 확장",
+      "same_event": false
+    },
+    "2642e5df5619fe7e--daa3c537811f9db1": {
+      "embedding_similarity": 0.8998,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약과 전체 실적 동향",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "상반기 AI 데이터센터 1조 수주…해외 사업도 확장",
       "same_event": false
     },
     "26501fe7282055e9--523e0acf9253e1c6": {
@@ -62420,6 +62480,16 @@
       "reason": "전력수요 논란과 국회 질의로 별개의 사안임",
       "reviewed_at": "2026-10-15T09:24:06.476299+00:00",
       "right_title": "국회, 제12차 전력수급기본계획 및 산업용 지역별 요금제 집중 질의",
+      "same_event": false
+    },
+    "3116ca5e6722dbbb--6f0666203aea1913": {
+      "embedding_similarity": 0.86,
+      "left_title": "AI 칩 임대료 1년새 60% 급등…앤트로픽, 스페이스X와 대규모 컴퓨팅 자원 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "컴퓨팅 계약과 합병 검토 구상",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "머스크, 테슬라·스페이스X 합병 검토…우주 데이터센터 구상",
       "same_event": false
     },
     "3116ca5e6722dbbb--b810438ae39a7b93": {
@@ -95072,6 +95142,16 @@
       "right_title": "이상일 용인시장 “반도체 산단 속도 내야…경기도 세수 공동화 반대”",
       "same_event": false
     },
+    "4fb9fd19f5913c0d--a8166b9957b2d0a8": {
+      "embedding_similarity": 0.8621,
+      "left_title": "국회, 발전5사 통합 및 한전 재정 문제 국정감사서 쟁점화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국감 내 서로 다른 질의 안건",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "김정관 산업부 장관, 산중위 국감서 원전 수출·운영 부처 이원화 비효율 인정",
+      "same_event": false
+    },
     "4fc2d575147c7020--6b82430734a06f85": {
       "embedding_similarity": 0.8893,
       "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
@@ -103632,6 +103712,16 @@
       "right_title": "\"한·싱가포르 협력은 선택 아닌 공동의 생존 전략\"",
       "same_event": true
     },
+    "57b62d2e5e8c9517--62e6de7b4d0a8121": {
+      "embedding_similarity": 0.8461,
+      "left_title": "캐나다, SMR 경쟁 참여…2030년 북미 첫 상업운전 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 목표와 타국 협력 사안",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "캐나다, 튀르키예와 신규 원전·방산 협력 모색",
+      "same_event": false
+    },
     "57ccf12fc668f7f3--dcb01ec8f4a23259": {
       "embedding_similarity": 0.8988,
       "left_title": "DL이앤씨, 미국 엑스에너지와 SMR 표준화 설계 계약 체결",
@@ -106170,6 +106260,16 @@
       "reason": "서로 다른 사안",
       "reviewed_at": "2026-09-22T04:31:55.693126+00:00",
       "right_title": "전국 태양광 설치 잠재량 398GW…배전망 보강 시 182GW 수용 가능",
+      "same_event": false
+    },
+    "5949227f174d59e7--b112a798104f67e3": {
+      "embedding_similarity": 0.8412,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 계획과 의원 발언 상이",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "이언주 의원, AI 시대 전력공급 및 에너지 피지컬 AI 육성 촉구",
       "same_event": false
     },
     "5949227f174d59e7--b1ba1728c250cf7c": {
@@ -120202,6 +120302,16 @@
       "right_title": "원전 경제성 재평가 요구, 공론화 의제 포함 필요",
       "same_event": true
     },
+    "686386b958dffbfc--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8624,
+      "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 추진 경과",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "same_event": true
+    },
     "686386b958dffbfc--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8638,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -120400,6 +120510,16 @@
       "reason": "공론화위 출범 및 의제 확정",
       "reviewed_at": "2026-10-17T03:54:48.617416+00:00",
       "right_title": "기후에너지환경부, 제12차 전기본 원전 정책 논의할 공론화위원회 출범",
+      "same_event": true
+    },
+    "686386b958dffbfc--dc00dd37eff008b1": {
+      "embedding_similarity": 0.9008,
+      "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 안건 처리",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위, 전문위원회 구성안 의결",
       "same_event": true
     },
     "686386b958dffbfc--dfa47b9cf972e22b": {
@@ -144272,6 +144392,26 @@
       "right_title": "미국, ESS 시장서 탈중국 가속화…K-배터리 공급망 과제 직면",
       "same_event": false
     },
+    "82d5b5981995316a--a65d5eec48399db4": {
+      "embedding_similarity": 0.8603,
+      "left_title": "강원, 석탄 산업 전환 지역의 데이터센터 유치 전략 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전략 모색과 지역 전망 기사",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "[창간 특집]미래 동해안 AI데이터센터 빼곡⋯‘年 수천억원’ 추가 세수...",
+      "same_event": false
+    },
+    "82d5b5981995316a--c500d33ab6290a54": {
+      "embedding_similarity": 0.865,
+      "left_title": "강원, 석탄 산업 전환 지역의 데이터센터 유치 전략 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "도 전체 전략과 특정지역 협의",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "강원도, 강릉 AI데이터센터 부지 및 전력 확보 위해 SK와 협의 진행",
+      "same_event": false
+    },
     "82d5b5981995316a--dffe5181d554fc6d": {
       "embedding_similarity": 0.8475,
       "left_title": "강원, 석탄 산업 전환 지역의 데이터센터 유치 전략 모색",
@@ -161162,6 +161302,26 @@
       "right_title": "SMR 특별법 오늘 시행, 연내 범정부 촉진위원회 출범",
       "same_event": true
     },
+    "99ec771a6255a1e6--a5cc5b9d6803e0d2": {
+      "embedding_similarity": 0.8476,
+      "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 추진 경과",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "same_event": true
+    },
+    "99ec771a6255a1e6--c135d5e561238817": {
+      "embedding_similarity": 0.8524,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 출범 및 계획",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "same_event": true
+    },
     "99f2916afcd7ec62--9cf6c0fcd5b756f7": {
       "embedding_similarity": 0.8545,
       "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
@@ -168992,6 +169152,16 @@
       "right_title": "기후에너지환경부, 제12차 전기본 원전 정책 논의할 공론화위원회 출범",
       "same_event": false
     },
+    "a5cc5b9d6803e0d2--dc00dd37eff008b1": {
+      "embedding_similarity": 0.8956,
+      "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 안건 처리",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위, 전문위원회 구성안 의결",
+      "same_event": true
+    },
     "a5cc5b9d6803e0d2--dfa47b9cf972e22b": {
       "embedding_similarity": 0.8863,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -172621,6 +172791,16 @@
       "reviewed_at": "2026-10-06T11:10:18.799389+00:00",
       "right_title": "김성환 기후장관, 제12차 전기본 AI 데이터센터 전력수요 전망 과잉 인정",
       "same_event": false
+    },
+    "ad039dd6f4752815--dc00dd37eff008b1": {
+      "embedding_similarity": 0.8535,
+      "left_title": "기후에너지환경부, 제12차 전기본 원전 비중 확대 두고 3개월 공론화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 출범 및 의결",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위, 전문위원회 구성안 의결",
+      "same_event": true
     },
     "ad039dd6f4752815--dced5907c608e617": {
       "embedding_similarity": 0.8621,
@@ -182822,6 +183002,16 @@
       "right_title": "AI·첨단산단 전력 수요 급증에 정부, 전력망 계획 원점 재검토",
       "same_event": false
     },
+    "c135d5e561238817--dc00dd37eff008b1": {
+      "embedding_similarity": 0.8827,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 공론화위 출범 및 의결",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "원전 공론화위, 전문위원회 구성안 의결",
+      "same_event": true
+    },
     "c135d5e561238817--dced5907c608e617": {
       "embedding_similarity": 0.8449,
       "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
@@ -185080,6 +185270,16 @@
       "reason": "환경 평가 vs 위반 적발",
       "reviewed_at": "2026-09-05T11:40:59.816527+00:00",
       "right_title": "NRC 보고서, 팔리세이즈 원전 재가동 중 저수준 위반 2건 적발",
+      "same_event": false
+    },
+    "c500d33ab6290a54--d32e558450809391": {
+      "embedding_similarity": 0.8429,
+      "left_title": "세종시, SK증권과 7조 원 규모 데이터센터 건립 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세종시와 강원도의 별개 사안",
+      "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
+      "right_title": "강원도, 강릉 AI데이터센터 부지 및 전력 확보 위해 SK와 협의 진행",
       "same_event": false
     },
     "c50c129ba8446def--c5cb09c157a6ed02": {
