@@ -459,6 +459,9 @@ def edit(blocks, cache: Path, all_lines, workers: int = 5):
 
 def fix_name(name, parties):
     """호명 음성인식 오류(소왕진→서왕진): 명단에 없고, 명단 중 같은 길이·한 글자 차이가 하나뿐이면 교정."""
+    alias = HERE / "name_alias.json"   # 10-22: 조주현→조지연처럼 두 글자 이상 틀린 호명은 교정표로
+    if alias.exists():
+        name = json.loads(alias.read_text(encoding="utf-8")).get(name, name)
     if name in parties or not re.fullmatch(r"[가-힣]{2,4}", name):
         return name
     near = [k for k in parties if len(k) == len(name) and sum(a != b for a, b in zip(k, name)) == 1]
