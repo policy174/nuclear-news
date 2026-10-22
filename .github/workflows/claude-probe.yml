@@ -1,0 +1,21 @@
+name: Claude probe (클라우드 Claude 로그인 점검)
+# 10-22 국감 요약이 "Not logged in" 으로 전부 실패 → 토큰 모양·CLI 호출 점검용. 값은 출력하지 않는다.
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    env:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+    steps:
+      - run: npm install -g -q @anthropic-ai/claude-code > /dev/null 2>&1; claude --version
+      - name: 토큰 모양
+        run: |
+          python3 - <<'PY'
+          import os
+          t = os.environ.get("CLAUDE_CODE_OAUTH_TOKEN", "")
+          print("길이", len(t), "| sk-ant-oat 시작", t.startswith("sk-ant-oat"), "| 공백·줄바꿈 포함", any(c.isspace() for c in t), "| 앞뒤 공백", t != t.strip())
+          PY
+      - name: 기본 호출
+        run: echo '응답은 OK 한 단어' | timeout 120 claude -p --model haiku; echo "exit $?"
+      - name: 레코더와 같은 옵션
+        run: echo '응답은 OK 한 단어' | timeout 120 claude -p --setting-sources "" --strict-mcp-config --output-format json --model haiku | head -c 400; echo
