@@ -67,6 +67,21 @@
    }
   },
   {
+   "id": "f3f20d5451cf",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Global Nuclear Power Development Outlook",
+   "url": "http://www.iaea.org/publications/16138/global-nuclear-power-development-outlook",
+   "date": "2026-09-30",
+   "fetched_at": "2026-10-23",
+   "title_kr": "세계 원자력 발전 개발 전망",
+   "gist": "글로벌 원전 발전 용량 및 시장 수요 장기 전망 보고서",
+   "off_topic": false,
+   "relevance": "market",
+   "translated_version": 3
+  },
+  {
    "id": "27517176fa34",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -250,6 +265,21 @@
    "gist": "원자력법 교육 프로그램의 25년간 성과 기념",
    "off_topic": true,
    "off_topic_reason": "교육기관 기념 행사 소식",
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
+   "id": "8240bc33ae59",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Resilience of Nuclear Installations Against External Events from a Safety Perspective",
+   "url": "http://www.iaea.org/publications/16121/resilience-of-nuclear-installations-against-external-events-from-a-safety-perspective",
+   "date": "2026-09-08",
+   "fetched_at": "2026-10-23",
+   "title_kr": "안전 관점에서의 외부 이벤트 대비 원자력 시설 회복력",
+   "gist": "외부 재해에 대한 원전 안전성 확보 및 규제 기준 지침",
+   "off_topic": false,
    "relevance": "policy",
    "translated_version": 3
   },
@@ -460,6 +490,21 @@
    "fetched_at": "2026-09-18",
    "title_kr": "마이크로반응로: 기술 개발 동향 및 2026년 전망",
    "gist": "마이크로반응로 기술 개발 현황과 향후 전망을 다룬 기술보고서",
+   "off_topic": false,
+   "relevance": "technical",
+   "translated_version": 3
+  },
+  {
+   "id": "4292165e1e16",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "A Procedure for Rapid Determination of Strontium-89 and Strontium-90 in Sea Water in Emergency Situations",
+   "url": "http://www.iaea.org/publications/16093/a-procedure-for-rapid-determination-of-strontium-89-and-strontium-90-in-sea-water-in-emergency-situations",
+   "date": "2026-08-10",
+   "fetched_at": "2026-10-23",
+   "title_kr": "비상 상황 시 해수 중 스트론튬-89 및 스트론튬-90 신속 분석 절차",
+   "gist": "해수 시료 내 방사성 스트론튬 측정 분석 방법론 기술보고서",
    "off_topic": false,
    "relevance": "technical",
    "translated_version": 3
@@ -1056,35 +1101,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": true,
-   "new": 1,
+   "new": 3,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-22T04:13:04+09:00",
+   "at": "2026-10-23T00:47:07+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0

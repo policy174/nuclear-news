@@ -1,7 +1,7 @@
 {
   "minted": {
     "count": 3,
-    "date": "2026-10-22"
+    "date": "2026-10-23"
   },
   "retired": {
     "adb": {
@@ -828,6 +828,14 @@
       "type": "plant",
       "until": "2026-10-22T18:20:04.520441+00:00"
     },
+    "영광군등": {
+      "new_articles": 10,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-22T15:39:19.413881+00:00",
+      "term": "영광군 등",
+      "type": "plant",
+      "until": "2026-11-05T15:39:19.413881+00:00"
+    },
     "영덕군은": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1342,8 +1350,8 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-22"
+    "count": 3,
+    "date": "2026-10-23"
   },
   "terms": {
     "건설공사": {
@@ -1463,6 +1471,38 @@
       "yields": 0,
       "zero_streak": 2
     },
+    "기장군등": {
+      "articles": 1,
+      "created_at": "2026-10-22T15:39:19.413881+00:00",
+      "domains": [
+        "ikld.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "ikld.kr",
+          "hash": "50e715e49ac1bb13",
+          "importance": "must_read",
+          "title": "원전소재 5개 지자체, 사용후핵연료 건식저장 지원대책 촉구"
+        }
+      ],
+      "expires_at": "2026-10-23T15:39:19.413881+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-22T15:39:21.849882+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-22T15:39:19.413881+00:00",
+      "queries_run": 1,
+      "query": "기장군 등 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "기장군 등",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "상품무역위원회": {
       "articles": 4,
       "created_at": "2026-10-21T19:06:16.666068+00:00",
@@ -1512,40 +1552,6 @@
       "yields": 1,
       "zero_streak": 0
     },
-    "영광군등": {
-      "articles": 1,
-      "created_at": "2026-10-21T06:53:47.687370+00:00",
-      "domains": [
-        "mt.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "mt.co.kr",
-          "hash": "d31e4d1c27c88f60",
-          "importance": "must_read",
-          "title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응"
-        }
-      ],
-      "expires_at": "2026-10-22T14:19:36.566439+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-21T22:18:45.786817+00:00",
-      "new_articles": 10,
-      "origin": "auto",
-      "planned_at": "2026-10-21T22:18:43.752711+00:00",
-      "queries_run": 3,
-      "query": "영광군 등 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "영광군 등",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-21"
-      ],
-      "yields": 2,
-      "zero_streak": 1
-    },
     "전국5개": {
       "articles": 3,
       "created_at": "2026-10-20T07:24:40.657545+00:00",
@@ -1594,6 +1600,88 @@
         "2026-10-22"
       ],
       "yields": 5,
+      "zero_streak": 0
+    },
+    "전문위원회": {
+      "articles": 3,
+      "created_at": "2026-10-22T15:39:19.413881+00:00",
+      "domains": [
+        "chosun.com",
+        "hankookilbo.com",
+        "ekn.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "chosun.com",
+          "hash": "16e0961e1914a508",
+          "importance": "nice_to_know",
+          "title": "원전 공론화위원회, 제3차 회의서 9인 전문위원회 구성안 의결"
+        },
+        {
+          "domain": "hankookilbo.com",
+          "hash": "c99c229de4d96495",
+          "importance": "nice_to_know",
+          "title": "제12차 전기본 원전 공론화위, 전문위원회 구성 완료 및 숙의 의제 확정"
+        },
+        {
+          "domain": "ekn.kr",
+          "hash": "dc00dd37eff008b1",
+          "importance": "nice_to_know",
+          "title": "원전 공론화위, 전문위원회 구성안 의결"
+        }
+      ],
+      "expires_at": "2026-10-23T15:39:21.849882+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 1,
+      "last_run": "2026-10-22T15:39:21.849882+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-10-22T15:39:19.413881+00:00",
+      "queries_run": 1,
+      "query": "전문위원회 원자력",
+      "score": 3.7,
+      "status": "extended",
+      "term": "전문위원회",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-10-23"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "진행중인": {
+      "articles": 1,
+      "created_at": "2026-10-22T15:39:19.413881+00:00",
+      "domains": [
+        "reuters.com"
+      ],
+      "evidence": [
+        {
+          "domain": "reuters.com",
+          "hash": "5f6841c49a7b1e2b",
+          "importance": "must_read",
+          "title": "헝가리, 원전 사업에서 러시아 로사톰 대체 가능성 검토"
+        }
+      ],
+      "expires_at": "2026-10-23T15:39:21.849882+00:00",
+      "importance": "must_read",
+      "last_result_count": 9,
+      "last_run": "2026-10-22T15:39:21.849882+00:00",
+      "new_articles": 9,
+      "origin": "auto",
+      "planned_at": "2026-10-22T15:39:19.413881+00:00",
+      "queries_run": 1,
+      "query": "진행 중인 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "진행 중인",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-23"
+      ],
+      "yields": 1,
       "zero_streak": 0
     }
   },
