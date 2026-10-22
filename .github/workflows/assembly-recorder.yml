@@ -91,12 +91,20 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -q requests websocket-client "python-socketio[client]" python-docx
+      - name: Claude 토큰 정리   # 10-22: 복사할 때 줄바꿈이 섞여 "Not logged in" — 공백 제거 후 다시 가림
+        env:
+          RAW_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          T=$(printf '%s' "$RAW_TOKEN" | tr -d '[:space:]')
+          echo "::add-mask::$T"
+          echo "CLAUDE_CODE_OAUTH_TOKEN=$T" >> "$GITHUB_ENV"
       - name: claude CLI
         if: ${{ env.LIVE_TO != 'off' || env.CLOUD_PRIMARY == '1' }}
         run: |
           npm install -g -q @anthropic-ai/claude-code
           [ -n "$CLAUDE_CODE_OAUTH_TOKEN" ] || echo "::warning::CLAUDE_CODE_OAUTH_TOKEN 비밀값 없음 — 요약 실패함"
-          echo '응답은 OK 한 단어' | timeout 120 claude -p --setting-sources "" --strict-mcp-config --model haiku || echo "::warning::claude 시험 호출 실패"
+          A=$(echo '응답은 OK 한 단어' | timeout 120 claude -p --setting-sources "" --strict-mcp-config --model haiku 2>&1); echo "시험 호출: $A"
+          echo "$A" | grep -qi "ok" || echo "::warning::claude 시험 호출 실패: $A"
       - name: watch topics   # 우리 처 예상질의는 공개 저장소에 두지 않는다 — 비밀값에서 파일로
         working-directory: audit_recorder
         env:
