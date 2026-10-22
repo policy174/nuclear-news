@@ -7832,6 +7832,16 @@
       "right_title": "삼성물산, GE·히타치와 유럽 SMR 플릿 사업 개발 협력",
       "same_event": true
     },
+    "055f1321a885b2db--d31e4d1c27c88f60": {
+      "embedding_similarity": 0.8843,
+      "left_title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 지자체들의 공동 대응 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "원전 소재 5개 지자체 행정협의회, 고준위방폐물 저장시설 지원 촉구",
+      "same_event": true
+    },
     "0566c98f225d37a3--06e9dd3d1fe8d66a": {
       "embedding_similarity": 0.854,
       "left_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
@@ -10100,6 +10110,16 @@
       "reason": "대만 원전 재가동 추진",
       "reviewed_at": "2026-09-18T10:11:36.616663+00:00",
       "right_title": "대만전력공사, 가스 쇼크 대응해 3.9GW 규모 마안산 원전 재가동 추진",
+      "same_event": true
+    },
+    "06ad7d36c2c8fb83--d31e4d1c27c88f60": {
+      "embedding_similarity": 0.8924,
+      "left_title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 소재 지자체 사용후핵연료 공동대응",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "원전 소재 5개 지자체 행정협의회, 고준위방폐물위원회에 저장시설 지원대책 촉구",
       "same_event": true
     },
     "06b3440e79ff1beb--adf4685fb75ca6bc": {
@@ -12389,6 +12409,16 @@
       "prompt_version": 1,
       "reason": "투자 계획과 지분 인수 상이",
       "reviewed_at": "2026-10-02T21:55:29.976329+00:00",
+      "right_title": "한수원, 웨스팅하우스 지분 인수 추진…한국형 원전 종주국 첫 수출",
+      "same_event": false
+    },
+    "07b3ce8267258363--76905b41e9253ae7": {
+      "embedding_similarity": 0.8844,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 지분 인수 및 수출 안건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
       "right_title": "한수원, 웨스팅하우스 지분 인수 추진…한국형 원전 종주국 첫 수출",
       "same_event": false
     },
@@ -19000,6 +19030,16 @@
       "reason": "개별 기업과 업계 동향",
       "reviewed_at": "2026-09-20T22:52:41.330823+00:00",
       "right_title": "국내 건설사, 해외 원전·SMR 수주 기대감 증대 및 계약 성사 주목",
+      "same_event": false
+    },
+    "0d9650c34ab92de3--ebebdce66949b68d": {
+      "embedding_similarity": 0.8856,
+      "left_title": "미국 NASA·DOE, 우주 핵추진 및 전력 개발 협력 MOU 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 NASA 우주 원자로 관련건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "NASA, 2028년 발사 목표 SR-1 프리덤 우주 원자로 계약 갱신",
       "same_event": false
     },
     "0d98b3f0ce5d3186--1a07e62ef9323ed1": {
@@ -30971,6 +31011,16 @@
       "reviewed_at": "2026-10-21T08:05:08.767122+00:00",
       "right_title": "한국 원전, 미국 진출 시동…원전수출기획위서 APR1400 사업 구체화",
       "same_event": true
+    },
+    "16649acbe7065533--ea6fbe0a9143328d": {
+      "embedding_similarity": 0.8852,
+      "left_title": "한미, 1200억 달러 규모 '프로젝트 파워' 추진…한국형 APR1400 2기 미국 본토 첫 진출",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 건설 프로젝트",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "미국, 켄터키주에 6.6GW 규모 AP1000 원전 단지 건설 계획 발표",
+      "same_event": false
     },
     "16649acbe7065533--ebaa94b4343754ae": {
       "embedding_similarity": 0.9184,
@@ -56142,6 +56192,16 @@
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": true
     },
+    "2b32fc42d9118314--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8851,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 진행 상황",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
+      "same_event": true
+    },
     "2b32fc42d9118314--e351d48d18479905": {
       "embedding_similarity": 0.8797,
       "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
@@ -65832,6 +65892,16 @@
       "right_title": "두산에너빌리티, 상반기 원자력 가동률 80% 달성…하반기 美원전 수주 기대",
       "same_event": false
     },
+    "3498de383627bc9c--ede95154e1328e0f": {
+      "embedding_similarity": 0.8838,
+      "left_title": "국회 산중위, 산업부 종합감사서 호남 반도체 투자 및 대미 원전 협상 쟁점 심층 점검",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 산업부 국정감사 안건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업통상부, 국정감사서 대미투자 및 호남권 반도체 클러스터 추진 현황 점검",
+      "same_event": true
+    },
     "3499a7e75bf453df--525b21a811f83076": {
       "embedding_similarity": 0.865,
       "left_title": "중국, 네이멍구에 대규모 AI 데이터센터 가동 및 추가 건설 추진",
@@ -69081,6 +69151,16 @@
       "reviewed_at": "2026-10-04T13:07:36.507578+00:00",
       "right_title": "SMR 특별법 시행…2035년 경수형 상용화 목표",
       "same_event": false
+    },
+    "36e8b772580c819d--4517e1e0aef7efc1": {
+      "embedding_similarity": 0.8913,
+      "left_title": "과학기술정보통신부, SMR 민관협의체 이달 출범 및 7대 시드 프로젝트 상용화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 등 7대 시드 프로젝트 추진",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "정부, SMR 등 '7대 SEED 프로젝트' 이행전략 수립 본격 착수",
+      "same_event": true
     },
     "36e8b772580c819d--4ba0fcd1a508e905": {
       "embedding_similarity": 0.8849,
@@ -72441,6 +72521,16 @@
       "reviewed_at": "2026-09-14T05:58:11.451279+00:00",
       "right_title": "정부, 미국 텍사스 가스발전 확정 및 원전 8기 합의안 발표 예정",
       "same_event": true
+    },
+    "38751598cf59f774--4c61507732c9a278": {
+      "embedding_similarity": 0.8857,
+      "left_title": "국방부, 핵추진잠수함정책기획단 신설…29조 사업비·한미 협상 과제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국방부의 서로 다른 정책 안건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "국방부, 핵추진잠수함 특별법 연내 제정 추진 및 하위법령 마련 착수",
+      "same_event": false
     },
     "387ff5d5517287a8--813f63b730f89d11": {
       "embedding_similarity": 0.8535,
@@ -78780,6 +78870,16 @@
       "reason": "현대건설, 美 SMR 도입 검토",
       "reviewed_at": "2026-08-08T21:22:17.961551+00:00",
       "right_title": "현대건설, 美 AI 데이터센터용 SMR 공급 타당성 평가 착수",
+      "same_event": true
+    },
+    "3dae927a93c07665--76905b41e9253ae7": {
+      "embedding_similarity": 0.8836,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한미 원전 투자 합의 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한국형 원전 2기 미국 첫 진출…한미, 223억 달러 가스발전 및 원전 패키지 투자 확정",
       "same_event": true
     },
     "3dae927a93c07665--c14e1f891d72f699": {
@@ -96172,6 +96272,16 @@
       "right_title": "정부, 반도체 추가세수 100조원 이상 전망, SMR·핵융합 등 미래 성장동력에 투자 계획",
       "same_event": true
     },
+    "5119605c13b103ed--86de4c2c81e4e08b": {
+      "embedding_similarity": 0.8903,
+      "left_title": "LS일렉트릭, 미국 블룸에너지와 1,853억원 규모 수배전반 공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약 체결과 주가/증권 동향",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "LS ELECTRIC 15만9700원…전력기기 수주 이행이 관건",
+      "same_event": false
+    },
     "5119ced5f48af779--daa6e1d5572f88b9": {
       "embedding_similarity": 0.8759,
       "left_title": "한미, 원전 8기 및 알래스카 LNG 사업 조건 협상 난항",
@@ -108080,6 +108190,16 @@
       "reason": "원전수출 리더스포럼 출범",
       "reviewed_at": "2026-10-09T23:10:45.739556+00:00",
       "right_title": "정부, '원전수출 리더스포럼' 출범…美 공급망 진입 지원 강화",
+      "same_event": true
+    },
+    "5b333df404e24c58--76905b41e9253ae7": {
+      "embedding_similarity": 0.8925,
+      "left_title": "산업부, 원전수출 리더스포럼 발족…미국 원전 8기 사업 2028년 구체화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 원전 8기 건설 프레임워크 관련",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
       "same_event": true
     },
     "5b333df404e24c58--83f7516dd165f856": {
@@ -120072,6 +120192,16 @@
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": true
     },
+    "686386b958dffbfc--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8881,
+      "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 관련 보도",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
+      "same_event": true
+    },
     "686386b958dffbfc--e22499ede594caa1": {
       "embedding_similarity": 0.8471,
       "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
@@ -124299,6 +124429,16 @@
       "prompt_version": 1,
       "reason": "원전 후보지 검토와 대미 송금",
       "reviewed_at": "2026-10-03T13:05:51.934597+00:00",
+      "right_title": "한국, 대미 투자 첫 24억 달러 송금…알래스카 LNG는 검토 단계",
+      "same_event": false
+    },
+    "6bee641b4cdfbc54--76905b41e9253ae7": {
+      "embedding_similarity": 0.8884,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 프레임워크와 대미 투자 송금 이슈",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
       "right_title": "한국, 대미 투자 첫 24억 달러 송금…알래스카 LNG는 검토 단계",
       "same_event": false
     },
@@ -129822,6 +129962,16 @@
       "right_title": "한미, 대미투자 텍사스 가스복합발전·미국 대형 원전 8기·알래스카 LNG 추진",
       "same_event": true
     },
+    "727e44b244389dbd--ea6fbe0a9143328d": {
+      "embedding_similarity": 0.8891,
+      "left_title": "미국, 켄터키주에 6.6GW 규모 AP1000 원전 단지 건설 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 자체 원전 발표와 한미 협력 사업",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미, 대미투자 텍사스 가스복합발전·미국 대형 원전 8기·알래스카 LNG 추진",
+      "same_event": false
+    },
     "727e44b244389dbd--ec41f0a2f9b34be4": {
       "embedding_similarity": 0.9083,
       "left_title": "미국, 한국과 APR1400 2기 포함 총 8기 건설 협약",
@@ -131060,6 +131210,16 @@
       "reason": "12차 전기본 재생에너지 목표 및 신규 원전 공론화",
       "reviewed_at": "2026-09-01T01:55:14.661635+00:00",
       "right_title": "김성환 기후에너지환경부 장관, 신규 원전 공론화 절차 곧 발표",
+      "same_event": true
+    },
+    "73f74663a215bf65--76905b41e9253ae7": {
+      "embedding_similarity": 0.8926,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대형 원전 건설 프레임워크 추진",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한·미, 웨스팅하우스 지분 인수 및 APR1400 미국 건설 프레임워크 추진",
       "same_event": true
     },
     "73f74663a215bf65--76c25b6cb116675c": {
@@ -132512,6 +132672,16 @@
       "right_title": "김성환 장관, 폭염 속 여름철 전력수급 상황 점검",
       "same_event": true
     },
+    "757c900858720262--76905b41e9253ae7": {
+      "embedding_similarity": 0.8911,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 원전 프레임워크 발표 및 반응",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "원자력학회, 한미 원전 프레임워크 환영…APR1400 미국 건설 촉구",
+      "same_event": true
+    },
     "757c900858720262--77a6705d575be156": {
       "embedding_similarity": 0.8778,
       "left_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
@@ -133212,6 +133382,16 @@
       "right_title": "전력거래소, 재생에너지 변동성·AI 수요 대응 위한 중장기 전략 발표",
       "same_event": false
     },
+    "76356a427feb564f--76905b41e9253ae7": {
+      "embedding_similarity": 0.8843,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 미국 원전 프로젝트 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "미국, 1200억 달러 규모 원전 프로젝트 가동…K-건설 EPC 참여 기대",
+      "same_event": true
+    },
     "76356a427feb564f--e7751e117f0c2671": {
       "embedding_similarity": 0.8872,
       "left_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
@@ -133372,6 +133552,16 @@
       "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
       "same_event": false
     },
+    "76905b41e9253ae7--7e97d83f7e6ba897": {
+      "embedding_similarity": 0.8892,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대형 원전 건설 프레임워크 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한국형 원전 APR1400, 미국 본토 첫 진출 확정…1200억 달러 규모",
+      "same_event": true
+    },
     "76905b41e9253ae7--8470c320a7225474": {
       "embedding_similarity": 0.8938,
       "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
@@ -133380,6 +133570,16 @@
       "reason": "미 원전 건설 1200억불 협약",
       "reviewed_at": "2026-10-22T07:49:53.799140+00:00",
       "right_title": "미 상무부, 한국과 1,200억 달러 규모 미국 원전 건설 투자 협약 발표",
+      "same_event": true
+    },
+    "76905b41e9253ae7--86799cda4191033c": {
+      "embedding_similarity": 0.884,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 미 원전 건설 합의 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업통상자원부, 웨스팅하우스와 타협협정 개정 합의 및 미국 내 APR1400 건설 추진",
       "same_event": true
     },
     "76905b41e9253ae7--892c1ae29ffaa656": {
@@ -133392,6 +133592,26 @@
       "right_title": "산업통상부, 163조 원 규모 '한미 원전 프레임워크' 체결 및 미국 본토 원전 8기 건설 확정",
       "same_event": true
     },
+    "76905b41e9253ae7--916be750e45385e6": {
+      "embedding_similarity": 0.8896,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대형 원전 건설 프레임워크 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미 원전 프레임워크 통해 한국형 원전, 미국 본토 진출 확대",
+      "same_event": true
+    },
+    "76905b41e9253ae7--95ee12c93f3ec670": {
+      "embedding_similarity": 0.8857,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한미 원전 프레임워크 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업통상부, APR1400 2기 포함 미 대형원전 8기 건설 '한미 원전 프레임워크' 추진",
+      "same_event": true
+    },
     "76905b41e9253ae7--a3dac30f73d61de9": {
       "embedding_similarity": 0.9087,
       "left_title": "한미, 텍사스 가스발전소 대미투자 1호 확정 및 원전 8기 건설 합의",
@@ -133399,6 +133619,26 @@
       "prompt_version": 1,
       "reason": "미 대형 원전 8기 건설 합의",
       "reviewed_at": "2026-10-22T07:49:53.799140+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "same_event": true
+    },
+    "76905b41e9253ae7--a40f0eae3a792ed5": {
+      "embedding_similarity": 0.8876,
+      "left_title": "이재명 대통령, '한미 전략투자 프로젝트' 알래스카 LNG·대형 원전 상업성 검증 전제 추진 천명",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한미 투자 프로젝트 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "same_event": true
+    },
+    "76905b41e9253ae7--a43af44680b1e33c": {
+      "embedding_similarity": 0.8833,
+      "left_title": "산업통상부, 한미 전략투자 프로젝트 3건 추진 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 한미 전략투자 발표건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
       "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
       "same_event": true
     },
@@ -133410,6 +133650,46 @@
       "reason": "한미 미국 내 원전 8기 건설 발표",
       "reviewed_at": "2026-10-22T07:49:53.799140+00:00",
       "right_title": "한수원·한전, 미국 내 대형원전 8기 건설을 위한 1,200억 달러 투자 합의",
+      "same_event": true
+    },
+    "76905b41e9253ae7--b4beddd1fc3ae632": {
+      "embedding_similarity": 0.8883,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 대미 원전 수출 발표 건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "K원전, 미국에 역수출 길 열려…상업성·전력 판로 불확실",
+      "same_event": true
+    },
+    "76905b41e9253ae7--b6ce40ce2081cab3": {
+      "embedding_similarity": 0.8849,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 미 원전 2기 건설 추진건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "K-원전, 미국 내 APR1400 2기 건설 추진",
+      "same_event": true
+    },
+    "76905b41e9253ae7--bf9d8a8794a12723": {
+      "embedding_similarity": 0.8929,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대형 원전 8기 건설 협력 사안",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한국형 원전 2기 미국 진출 추진, 이 대통령 \"발전소별 상업성 보장돼야\" 강조",
+      "same_event": true
+    },
+    "76905b41e9253ae7--c30dd2feaac4d9f8": {
+      "embedding_similarity": 0.889,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 대형 원전 건설 프레임워크 발표",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미 원전 프로젝트 1200억 달러 규모, 2028년 美시장 공략 승부수",
       "same_event": true
     },
     "76905b41e9253ae7--c56c26b93ecc3357": {
@@ -133432,6 +133712,36 @@
       "right_title": "한국형 원전 APR1400 2기 미국 시장 진출 확정",
       "same_event": true
     },
+    "76905b41e9253ae7--e0b43327c7159fe1": {
+      "embedding_similarity": 0.8844,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 합의 및 후속 대응 회의",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업부, APR1400 미국 건설 대응 위한 원전수출기획위원회 개최",
+      "same_event": true
+    },
+    "76905b41e9253ae7--e47bbd192bc9f027": {
+      "embedding_similarity": 0.8835,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 합의건과 일반 동향 분석",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "K-원자력, 웨스팅하우스와 파트너십으로 미국 시장 진출 모색",
+      "same_event": false
+    },
+    "76905b41e9253ae7--ea6fbe0a9143328d": {
+      "embedding_similarity": 0.8826,
+      "left_title": "미국, 켄터키주에 6.6GW 규모 AP1000 원전 단지 건설 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 건설 프로젝트",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "same_event": false
+    },
     "76905b41e9253ae7--ebaa94b4343754ae": {
       "embedding_similarity": 0.909,
       "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
@@ -133440,6 +133750,16 @@
       "reason": "미 대형 원전 8기 건설 발표",
       "reviewed_at": "2026-10-22T07:49:53.799140+00:00",
       "right_title": "산업통상자원부, 미국 내 대형 원전 8기 건설에 1200억 달러 투입 및 연말 선지급 추진",
+      "same_event": true
+    },
+    "76905b41e9253ae7--eebfe7592cd2b5cb": {
+      "embedding_similarity": 0.8846,
+      "left_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 합의 및 후속 회의 개최건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업부, 미국 원전 8기 건설 합의 후속 ‘원전수출기획위원회’ 개최",
       "same_event": true
     },
     "76905b41e9253ae7--ffda7317d1329310": {
@@ -154942,6 +155262,16 @@
       "right_title": "정성장 부소장, 한불 정상회담서 핵연료주기 협력 본격화 제안",
       "same_event": true
     },
+    "92a433d6d9dfedbc--d31e4d1c27c88f60": {
+      "embedding_similarity": 0.8906,
+      "left_title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 소재 지자체 사용후핵연료 공동대응",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "경주시 등 원전 지자체 5곳, 사용후핵연료 저장시설 지원 촉구",
+      "same_event": true
+    },
     "92be0d3ad51fc2c0--93ec51958927a81b": {
       "embedding_similarity": 0.8579,
       "left_title": "트럼프, 한국에 알래스카 LNG 사업 500억 달러 투자 압박",
@@ -165022,6 +165352,16 @@
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": true
     },
+    "a1b8b69138dd095d--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8848,
+      "left_title": "산업통상부, 제12차 전력수급기본계획 원전 공론화위원회 1차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진 과정",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
+      "same_event": true
+    },
     "a1b8b69138dd095d--e28a111c9e78dcdb": {
       "embedding_similarity": 0.9185,
       "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
@@ -168310,6 +168650,16 @@
       "reason": "공론화 논의 범위 및 주제 확정 사안",
       "reviewed_at": "2026-10-18T01:11:57.688136+00:00",
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
+      "same_event": true
+    },
+    "a5cc5b9d6803e0d2--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8795,
+      "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 의제 관련",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
       "same_event": true
     },
     "a5cc5b9d6803e0d2--e28a111c9e78dcdb": {
@@ -171940,6 +172290,16 @@
       "reason": "전기본 원전 공론화 추진과 범위 설정",
       "reviewed_at": "2026-10-15T08:25:49.297424+00:00",
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
+      "same_event": true
+    },
+    "ad039dd6f4752815--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8612,
+      "left_title": "기후에너지환경부, 제12차 전기본 원전 비중 확대 두고 3개월 공론화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진 과정",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
       "same_event": true
     },
     "ad039dd6f4752815--e18aeabd84048b51": {
@@ -182122,6 +182482,16 @@
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": true
     },
+    "c135d5e561238817--dfbcf56bc014232d": {
+      "embedding_similarity": 0.8817,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진 과정",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
+      "same_event": true
+    },
     "c135d5e561238817--e18aeabd84048b51": {
       "embedding_similarity": 0.846,
       "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
@@ -182921,6 +183291,16 @@
       "reviewed_at": "2026-08-29T12:21:14.373316+00:00",
       "right_title": "홀텍 SMR-300 시험 시설, 아이다호 국립연구소에 구축 중",
       "same_event": false
+    },
+    "c1e1c854a65f9be7--e629b282ba64a8a1": {
+      "embedding_similarity": 0.8928,
+      "left_title": "정부, EU에 산업가속화법안(IAA) 한국산 동등대우 및 비관세장벽 완화 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "EU 규제에 원전 등 동등대우 요청",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "산업부, EU 신규 규제에 한국 기업 수출 부담 완화 및 원전 등 전략산업 동등 대우 요청",
+      "same_event": true
     },
     "c1e1ec2ddbe854dd--eff11b52b6a8e976": {
       "embedding_similarity": 0.8902,
@@ -184541,6 +184921,16 @@
       "reviewed_at": "2026-10-19T04:34:26.673315+00:00",
       "right_title": "정부·한수원, 대미투자 168조 원 규모 원전 8기 건설 추진…한국형 APR1400 2기 포함",
       "same_event": true
+    },
+    "c56c26b93ecc3357--ea6fbe0a9143328d": {
+      "embedding_similarity": 0.8854,
+      "left_title": "미국, 켄터키주에 6.6GW 규모 AP1000 원전 단지 건설 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 건설 프로젝트",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "정부·한수원, 대미투자 168조 원 규모 원전 8기 건설 추진…한국형 APR1400 2기 포함",
+      "same_event": false
     },
     "c56c26b93ecc3357--fe4e4a65bce8a43b": {
       "embedding_similarity": 0.9024,
@@ -193440,6 +193830,16 @@
       "reason": "서로 다른 SMR 계획",
       "reviewed_at": "2026-09-10T23:08:32.351430+00:00",
       "right_title": "HD현대중공업, 1조 722억원 투자해 발전엔진 및 SMR 전용공장 건립",
+      "same_event": false
+    },
+    "f0f81f89699c7cb9--f3802d1aec442f3a": {
+      "embedding_similarity": 0.8838,
+      "left_title": "산업부, 한미 원전프레임워크로 K-원전 APR1400 2기 미국 수출길 개척",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "별개의 원전 수출 및 법인화 건",
+      "reviewed_at": "2026-10-22T08:24:57.257271+00:00",
+      "right_title": "한수원, APR 노형 운용사 모임 'APROG' 공식 법인화 추진",
       "same_event": false
     },
     "f17c3e63543db5d8--f2779e3dff33262a": {
