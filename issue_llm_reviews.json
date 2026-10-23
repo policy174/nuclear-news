@@ -8512,6 +8512,16 @@
       "right_title": "AI 데이터센터 전력 수요 급증, 송전망 부족이 첫 번째 장벽",
       "same_event": false
     },
+    "0592fd106b3a579c--1f40a90e1d3c13f4": {
+      "embedding_similarity": 0.8559,
+      "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 공급 이슈와 개별 기업 사업 전략",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
     "0592fd106b3a579c--224423c9a9bff634": {
       "embedding_similarity": 0.8788,
       "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
@@ -11691,6 +11701,16 @@
       "reviewed_at": "2026-10-19T07:14:57.524325+00:00",
       "right_title": "삼성그룹, 美 AI 인프라 기업 '헬릭스'에 10억 달러 투자 결정",
       "same_event": true
+    },
+    "0783917e86456f2d--1f40a90e1d3c13f4": {
+      "embedding_similarity": 0.8486,
+      "left_title": "KKR, 110억 달러 규모 통합 AI 인프라 플랫폼 '헬릭스' 출범…삼성 등 참여",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "KKR 플랫폼 출범과 SK에코플랜트 전략",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
     },
     "0783917e86456f2d--20bfb60e1ffef23c": {
       "embedding_similarity": 0.8933,
@@ -26189,6 +26209,16 @@
       "prompt_version": 1,
       "reason": "특정 노형 승인과 규정 제정",
       "reviewed_at": "2026-10-23T00:07:54.350890+00:00",
+      "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "same_event": false
+    },
+    "137cb0e5139bfdfd--83372868654be274": {
+      "embedding_similarity": 0.8491,
+      "left_title": "美 NRC 직원 16% 감소에도 TVA SMR 건설허가 4개월 조기 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "TVA SMR 허가와 NRC 인허가 규칙 확정",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
       "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
       "same_event": false
     },
@@ -43642,6 +43672,76 @@
       "right_title": "새울 3호기, 재가동 이틀 만에 증기 배관 누설로 수동 정지",
       "same_event": false
     },
+    "1f40a90e1d3c13f4--3837eff359c1d656": {
+      "embedding_similarity": 0.8474,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 전력 정책과 개별 기업 사업 전략",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--968c78d48333891f": {
+      "embedding_similarity": 0.8486,
+      "left_title": "HD건설기계, 미국 데이터센터용 발전 엔진 3900억원 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업과 수주 내용이 서로 다름",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--a82bd590bd7de6b8": {
+      "embedding_similarity": 0.8527,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "HD현대 투자와 SK에코플랜트 전략 별개",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--aeebe4601413be0a": {
+      "embedding_similarity": 0.8634,
+      "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업과 수주/사업 내용이 다름",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--d32e558450809391": {
+      "embedding_similarity": 0.8874,
+      "left_title": "세종시, SK증권과 7조 원 규모 데이터센터 건립 협약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 주체의 데이터센터 관련 사업",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--d423dcbdee3514ab": {
+      "embedding_similarity": 0.8659,
+      "left_title": "SK 최태원 회장, 호남 반도체 클러스터 400조원 투자 '속도전' 지시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "반도체 투자와 AI 데이터센터 공략 별개",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
+    "1f40a90e1d3c13f4--daa3c537811f9db1": {
+      "embedding_similarity": 0.8696,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업과 사업 내용이 다른 별개 사안",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "SK에코플랜트, 반도체 공장 시공 기술로 AI 데이터센터 시장 공략",
+      "same_event": false
+    },
     "1f5270f31d6e57ef--6069799c66af44db": {
       "embedding_similarity": 0.8545,
       "left_title": "산업부, 산업용 전기요금 지역별 차등 개편안 발표에 인천 역차별 논란",
@@ -58682,6 +58782,16 @@
       "right_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
       "same_event": false
     },
+    "2deefb2665e70c84--5db4e7dbf51e23da": {
+      "embedding_similarity": 0.8491,
+      "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 발전소 수주와 HD현대 엔진 공급",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "HD현대, 20㎿급 힘센엔진 발전설비 미국 데이터센터에 공급",
+      "same_event": false
+    },
     "2deefb2665e70c84--5f67f5d218d04936": {
       "embedding_similarity": 0.899,
       "left_title": "미국 텍사스 가스복합화력발전소 건설, K-전력기기 수주 기회 확대",
@@ -63892,6 +64002,16 @@
       "right_title": "현대건설, 호주 오스넷과 전력망 구축 사업 협력 합의각서 체결",
       "same_event": false
     },
+    "3387d3246fbc666e--f9826b0017a6d3bc": {
+      "embedding_similarity": 0.8462,
+      "left_title": "현대건설, 웨스팅하우스와 네덜란드 원전 2기 기본설계 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 기본설계 계약과 대표 유임 전망",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "이한우 현대건설 대표, 해외 원전 사업 성과로 유임 가능성 높아",
+      "same_event": false
+    },
     "3399fabc42412de7--54ac4b11fa322cf1": {
       "embedding_similarity": 0.8506,
       "left_title": "대만, 반도체 전력 수요 급증으로 탈원전 정책 재검토 및 원전 재가동 논의",
@@ -67371,6 +67491,16 @@
       "reviewed_at": "2026-10-05T08:25:39.075616+00:00",
       "right_title": "미국 텍사스주, 데이터센터 대기·수질 인허가 동결 조치 시행",
       "same_event": true
+    },
+    "359691b281d5dc21--eacb7819506cd81e": {
+      "embedding_similarity": 0.8456,
+      "left_title": "텍사스 주지사, AI 데이터센터 전력·용수 소비 우려 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스주 데이터센터 우려와 미국 중간선거",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 중간선거, AI·빅테크가 양당의 공격 표적으로",
+      "same_event": false
     },
     "359691b281d5dc21--f53cb1d6f507c6b3": {
       "embedding_similarity": 0.878,
@@ -96682,6 +96812,16 @@
       "right_title": "여야 의원·한수원 노조, 제12차 전기본 원전 확충 및 계속운전 반영 촉구",
       "same_event": true
     },
+    "514db0740aebcbb7--da11a48f438a8732": {
+      "embedding_similarity": 0.8495,
+      "left_title": "구글, 콘스텔레이션과 11개 원전 890MW 증설 20년 PPA 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구글 PPA 체결과 업계 전반/선거 동향",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 중간선거 앞두고 반도체 수출통제 및 빅테크 원전 전력 확보 가속화",
+      "same_event": false
+    },
     "515d95d9f603e8dd--6b82430734a06f85": {
       "embedding_similarity": 0.8899,
       "left_title": "정부, 대미투자 2호 사업으로 원전 8기 건설 추진…웨스팅하우스 지분 인수 협상 진통",
@@ -97180,6 +97320,16 @@
       "reason": "개별 계약과 업계 동향",
       "reviewed_at": "2026-10-12T00:52:32.781027+00:00",
       "right_title": "북미 빅테크, AI 데이터센터 전력 공급 위해 원전 장기 계약 체결",
+      "same_event": false
+    },
+    "518eea34e168e27e--eacb7819506cd81e": {
+      "embedding_similarity": 0.852,
+      "left_title": "북미 빅테크, AI 데이터센터 전력 공급 위해 원전 장기 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 계약과 중간선거 정치 동향 별개",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 중간선거, AI·빅테크가 양당의 공격 표적으로",
       "same_event": false
     },
     "518eea34e168e27e--fc83997c1d5e9a7c": {
@@ -111432,6 +111582,16 @@
       "right_title": "HD현대, 20㎿급 힘센엔진 발전설비 미국 데이터센터에 공급",
       "same_event": false
     },
+    "5db4e7dbf51e23da--fc83997c1d5e9a7c": {
+      "embedding_similarity": 0.8507,
+      "left_title": "LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 수주 계약",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "HD현대, 20㎿급 힘센엔진 발전설비 미국 데이터센터에 공급",
+      "same_event": false
+    },
     "5dcbb59731d4b460--76a70f0330c3db48": {
       "embedding_similarity": 0.8462,
       "left_title": "李대통령, 프랑스와 민간 원자력 고위급 대화 출범 합의",
@@ -119600,6 +119760,16 @@
       "reason": "업계 동향 분석과 미국 정부 검토는 다름",
       "reviewed_at": "2026-10-18T05:44:21.910410+00:00",
       "right_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "same_event": false
+    },
+    "66fe486e3027bb99--eacb7819506cd81e": {
+      "embedding_similarity": 0.8486,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 중간선거 정치 이슈",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 중간선거, AI·빅테크가 양당의 공격 표적으로",
       "same_event": false
     },
     "66fe486e3027bb99--eacc7c3848c4c485": {
@@ -136290,6 +136460,16 @@
       "reason": "대상 원전 및 규제 안건이 다름",
       "reviewed_at": "2026-10-18T13:20:47.409394+00:00",
       "right_title": "NRC, 팔리세이즈 원전의 기울어진 핵연료 조립체 제거 위한 대체 접근법 허용",
+      "same_event": false
+    },
+    "77a6705d575be156--a3363060313b9bc3": {
+      "embedding_similarity": 0.8468,
+      "left_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "AP1000 설계 승인과 데이터 활용 규칙",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 원자력규제위원회, 인허가 신청 시 기관 프로젝트 데이터 활용 허용",
       "same_event": false
     },
     "77a6705d575be156--af49688bf7a27759": {
@@ -174182,6 +174362,16 @@
       "right_title": "세종시, 2029년까지 7조 원 규모 360MW급 AI 데이터센터 유치",
       "same_event": false
     },
+    "aeebe4601413be0a--e784233cdfc650d0": {
+      "embedding_similarity": 0.8471,
+      "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "LG전자 북미 수주와 데이터빈-남동발전",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "데이터빈, 남동발전과 해수냉각 AI 데이터센터 개발 착수",
+      "same_event": false
+    },
     "aeebe4601413be0a--fc83997c1d5e9a7c": {
       "embedding_similarity": 0.889,
       "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
@@ -193990,6 +194180,16 @@
       "reason": "SMR 건설과 LNG 기준 검토",
       "reviewed_at": "2026-10-03T04:12:26.563316+00:00",
       "right_title": "정부, 제12차 전기본 수립서 석탄 대체 LNG 발전 이산화탄소 배출 기준 검토",
+      "same_event": false
+    },
+    "ea5712b9860c7c0b--eacb7819506cd81e": {
+      "embedding_similarity": 0.8478,
+      "left_title": "AI 전력 수요 급증에 빅테크, 신생 SMR 대신 대형 유틸리티 원전으로 선회",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "빅테크 원전 선호 동향과 중간선거 이슈",
+      "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
+      "right_title": "미국 중간선거, AI·빅테크가 양당의 공격 표적으로",
       "same_event": false
     },
     "ea5712b9860c7c0b--fbdd77716c021992": {
