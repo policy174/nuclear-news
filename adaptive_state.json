@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 6,
-    "date": "2026-10-23"
+    "count": 1,
+    "date": "2026-10-24"
   },
   "retired": {
     "adb": {
@@ -379,6 +379,14 @@
       "term": "금속 3D프린팅",
       "type": "plant",
       "until": "2026-09-25T18:07:36.047613+00:00"
+    },
+    "기장군등": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-23T15:54:22.992596+00:00",
+      "term": "기장군 등",
+      "type": "plant",
+      "until": "2026-11-06T15:54:22.992596+00:00"
     },
     "기후변화로": {
       "new_articles": 14,
@@ -996,6 +1004,14 @@
       "type": "plant",
       "until": "2026-09-29T13:08:30.036410+00:00"
     },
+    "전문위원회": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-23T15:54:22.992596+00:00",
+      "term": "전문위원회",
+      "type": "org",
+      "until": "2026-11-06T15:54:22.992596+00:00"
+    },
     "정부가3개월간": {
       "new_articles": 30,
       "reason": "기간 만료",
@@ -1067,6 +1083,14 @@
       "term": "중소벤처기업진흥공단",
       "type": "org",
       "until": "2026-10-30T03:39:18.646009+00:00"
+    },
+    "진행중인": {
+      "new_articles": 9,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-23T15:54:22.992596+00:00",
+      "term": "진행 중인",
+      "type": "plant",
+      "until": "2026-11-06T15:54:22.992596+00:00"
     },
     "창지앙": {
       "new_articles": 0,
@@ -1374,8 +1398,8 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-23"
+    "count": 3,
+    "date": "2026-10-24"
   },
   "terms": {
     "asn": {
@@ -1395,11 +1419,11 @@
       "expires_at": "2026-10-23T23:50:35.386154+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-10-22T23:50:37.526800+00:00",
+      "last_run": "2026-10-23T15:54:25.323633+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-10-22T23:50:35.386154+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-23T15:54:22.992596+00:00",
+      "queries_run": 2,
       "query": "ASN 원자력",
       "score": 3.6,
       "status": "tracking",
@@ -1408,7 +1432,7 @@
       "type": "company",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "doedod승인": {
       "articles": 1,
@@ -1459,11 +1483,11 @@
       "expires_at": "2026-10-23T07:09:06.452160+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-10-22T23:50:37.526800+00:00",
+      "last_run": "2026-10-23T15:54:25.323633+00:00",
       "new_articles": 18,
       "origin": "auto",
-      "planned_at": "2026-10-22T23:50:35.386154+00:00",
-      "queries_run": 6,
+      "planned_at": "2026-10-23T15:54:22.992596+00:00",
+      "queries_run": 7,
       "query": "경주 등 원전",
       "score": 3.6,
       "status": "promote_candidate",
@@ -1475,39 +1499,7 @@
         "2026-10-22"
       ],
       "yields": 3,
-      "zero_streak": 1
-    },
-    "기장군등": {
-      "articles": 1,
-      "created_at": "2026-10-22T15:39:19.413881+00:00",
-      "domains": [
-        "ikld.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "ikld.kr",
-          "hash": "50e715e49ac1bb13",
-          "importance": "must_read",
-          "title": "원전소재 5개 지자체, 사용후핵연료 건식저장 지원대책 촉구"
-        }
-      ],
-      "expires_at": "2026-10-23T15:39:19.413881+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-22T15:39:21.849882+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-22T15:39:19.413881+00:00",
-      "queries_run": 1,
-      "query": "기장군 등 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "기장군 등",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "년간핵심": {
       "articles": 1,
@@ -1591,87 +1583,52 @@
       "yields": 2,
       "zero_streak": 0
     },
-    "전문위원회": {
-      "articles": 3,
-      "created_at": "2026-10-22T15:39:19.413881+00:00",
+    "한국방사성폐기물학회": {
+      "articles": 4,
+      "created_at": "2026-10-23T15:54:22.992596+00:00",
       "domains": [
-        "chosun.com",
-        "hankookilbo.com",
-        "ekn.kr"
+        "energy-news.co.kr",
+        "e-platform.net",
+        "epj.co.kr",
+        "todayenergy.kr"
       ],
       "evidence": [
         {
-          "domain": "chosun.com",
-          "hash": "16e0961e1914a508",
+          "domain": "energy-news.co.kr",
+          "hash": "74f8a78c73c2657d",
           "importance": "nice_to_know",
-          "title": "원전 공론화위원회, 제3차 회의서 9인 전문위원회 구성안 의결"
+          "title": "한국방사성폐기물학회 추계학술대회 개최, 방폐물 관리 AI 신뢰성 논의"
         },
         {
-          "domain": "hankookilbo.com",
-          "hash": "c99c229de4d96495",
+          "domain": "e-platform.net",
+          "hash": "fdebb89b3e197196",
           "importance": "nice_to_know",
-          "title": "제12차 전기본 원전 공론화위, 전문위원회 구성 완료 및 숙의 의제 확정"
+          "title": "한국방사성폐기물학회, 제주서 추계학술발표회 개최…방폐물 관리 AI 접목 논의"
         },
         {
-          "domain": "ekn.kr",
-          "hash": "dc00dd37eff008b1",
-          "importance": "nice_to_know",
-          "title": "원전 공론화위, 전문위원회 구성안 의결"
+          "domain": "epj.co.kr",
+          "hash": "27a0fc4afc7ced42",
+          "importance": "noise",
+          "title": "한국방사성폐기물학회, AI 시대 방사성폐기물 관리기술 주제로 추계학술발표회 개최"
         }
       ],
-      "expires_at": "2026-10-23T15:39:21.849882+00:00",
+      "expires_at": "2026-10-24T15:54:22.992596+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-10-23T00:32:35.643364+00:00",
-      "new_articles": 1,
+      "last_run": "2026-10-23T15:54:25.323633+00:00",
+      "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-10-23T00:32:33.339380+00:00",
-      "queries_run": 2,
-      "query": "전문위원회 원자력",
-      "score": 3.7,
-      "status": "extended",
-      "term": "전문위원회",
+      "planned_at": "2026-10-23T15:54:22.992596+00:00",
+      "queries_run": 1,
+      "query": "한국방사성폐기물학회 원자력",
+      "score": 4.38,
+      "status": "tracking",
+      "term": "한국방사성폐기물학회",
       "ttl_hours": 24,
       "type": "org",
-      "yield_days": [
-        "2026-10-23"
-      ],
-      "yields": 1,
+      "yield_days": [],
+      "yields": 0,
       "zero_streak": 1
-    },
-    "진행중인": {
-      "articles": 1,
-      "created_at": "2026-10-22T15:39:19.413881+00:00",
-      "domains": [
-        "reuters.com"
-      ],
-      "evidence": [
-        {
-          "domain": "reuters.com",
-          "hash": "5f6841c49a7b1e2b",
-          "importance": "must_read",
-          "title": "헝가리, 원전 사업에서 러시아 로사톰 대체 가능성 검토"
-        }
-      ],
-      "expires_at": "2026-10-23T15:39:21.849882+00:00",
-      "importance": "must_read",
-      "last_result_count": 9,
-      "last_run": "2026-10-22T15:39:21.849882+00:00",
-      "new_articles": 9,
-      "origin": "auto",
-      "planned_at": "2026-10-22T15:39:19.413881+00:00",
-      "queries_run": 1,
-      "query": "진행 중인 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "진행 중인",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-10-23"
-      ],
-      "yields": 1,
-      "zero_streak": 0
     }
   },
   "version": 1

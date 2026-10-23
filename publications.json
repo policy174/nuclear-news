@@ -299,6 +299,21 @@
    "translated_version": 3
   },
   {
+   "id": "467308bed6db",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Generic User Rationale and Considerations for Small Modular Reactors",
+   "url": "http://www.iaea.org/publications/16111/generic-user-rationale-and-considerations-for-small-modular-reactors",
+   "date": "2026-09-08",
+   "fetched_at": "2026-10-24",
+   "title_kr": "소형모듈원자로(SMR)의 일반 사용자 논리 및 고려사항",
+   "gist": "SMR 배치를 위한 사용자 관점의 논리 및 고려사항 정리",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "f17f0aec4d86",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -507,6 +522,21 @@
    "gist": "해수 시료 내 방사성 스트론튬 측정 분석 방법론 기술보고서",
    "off_topic": false,
    "relevance": "technical",
+   "translated_version": 3
+  },
+  {
+   "id": "3865361c2589",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Nuclear Power Plant Life Management",
+   "url": "http://www.iaea.org/publications/16107/nuclear-power-plant-life-management",
+   "date": "2026-08-10",
+   "fetched_at": "2026-10-24",
+   "title_kr": "원자력 발전소 수명 관리",
+   "gist": "원자력 발전소의 안전하고 효율적인 수명 관리 방안",
+   "off_topic": false,
+   "relevance": "policy",
    "translated_version": 3
   },
   {
@@ -1101,35 +1131,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": true,
-   "new": 3,
+   "new": 2,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-23T00:47:07+09:00",
+   "at": "2026-10-24T00:59:20+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
