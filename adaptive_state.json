@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 4,
+    "count": 6,
     "date": "2026-10-23"
   },
   "retired": {
@@ -1366,7 +1366,7 @@
     }
   },
   "spent": {
-    "count": 9,
+    "count": 12,
     "date": "2026-10-23"
   },
   "terms": {
@@ -1398,6 +1398,38 @@
       "term": "ASN",
       "ttl_hours": 24,
       "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "doedod승인": {
+      "articles": 1,
+      "created_at": "2026-10-23T00:32:33.339380+00:00",
+      "domains": [
+        "ans.org"
+      ],
+      "evidence": [
+        {
+          "domain": "ans.org",
+          "hash": "137cb0e5139bfdfd",
+          "importance": "must_read",
+          "title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정"
+        }
+      ],
+      "expires_at": "2026-10-24T00:32:33.339380+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-23T00:32:35.643364+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-23T00:32:33.339380+00:00",
+      "queries_run": 1,
+      "query": "DOE·DOD 승인 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "DOE·DOD 승인",
+      "ttl_hours": 24,
+      "type": "plant",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
@@ -1519,6 +1551,38 @@
       "yields": 0,
       "zero_streak": 1
     },
+    "년간핵심": {
+      "articles": 1,
+      "created_at": "2026-10-23T00:32:33.339380+00:00",
+      "domains": [
+        "lkp.news"
+      ],
+      "evidence": [
+        {
+          "domain": "lkp.news",
+          "hash": "103991b8bddc8be8",
+          "importance": "must_read",
+          "title": "한국전력기술, 외부 파견 인력에 5년간 핵심 원전 설계 도면 노출"
+        }
+      ],
+      "expires_at": "2026-10-24T00:32:33.339380+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-23T00:32:35.643364+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-23T00:32:33.339380+00:00",
+      "queries_run": 1,
+      "query": "년간 핵심 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "년간 핵심",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "상품무역위원회": {
       "articles": 4,
       "created_at": "2026-10-21T19:06:16.666068+00:00",
@@ -1599,12 +1663,12 @@
       ],
       "expires_at": "2026-10-23T15:39:21.849882+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-10-22T15:39:21.849882+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-23T00:32:35.643364+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-10-22T15:39:19.413881+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-23T00:32:33.339380+00:00",
+      "queries_run": 2,
       "query": "전문위원회 원자력",
       "score": 3.7,
       "status": "extended",
@@ -1615,7 +1679,7 @@
         "2026-10-23"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "진행중인": {
       "articles": 1,
