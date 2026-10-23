@@ -6022,6 +6022,16 @@
       "right_title": "국회 기후부 국정감사서 12차 전력수급기본계획 위원 명단 공개 공방",
       "same_event": false
     },
+    "049a3e88141de1e4--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8547,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전문위 구성 완료와 국정감사 공방은 별개",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "국회 기후부 국정감사서 12차 전력수급기본계획 위원 명단 공개 공방",
+      "same_event": false
+    },
     "049a3e88141de1e4--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8559,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -56102,6 +56112,16 @@
       "right_title": "산업부 국감서 대미투자·호남 반도체·메가특구 등 주요 정책 검증",
       "same_event": true
     },
+    "2b32fc42d9118314--2c4973890c50a600": {
+      "embedding_similarity": 0.8725,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화와 석탄발전 토론회로 사안 다름",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "기후에너지환경부, 석탄발전 폐지 대응 고용안정 토론회 개최",
+      "same_event": false
+    },
     "2b32fc42d9118314--3108915ed459023b": {
       "embedding_similarity": 0.858,
       "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
@@ -57901,6 +57921,26 @@
       "reviewed_at": "2026-09-06T07:45:58.395792+00:00",
       "right_title": "원자력안전위원회, 내년 예산 3030억 편성…비경수형 SMR 평가 체계 개발",
       "same_event": true
+    },
+    "2c4973890c50a600--9a5b1e174d0f721a": {
+      "embedding_similarity": 0.848,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 검토와 석탄발전 토론회는 별개 사안",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "기후에너지환경부, 석탄발전 폐지 대응 고용안정 토론회 개최",
+      "same_event": false
+    },
+    "2c4973890c50a600--c135d5e561238817": {
+      "embedding_similarity": 0.8631,
+      "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 석탄발전 토론회는 별개 사안",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "기후에너지환경부, 석탄발전 폐지 대응 고용안정 토론회 개최",
+      "same_event": false
     },
     "2c6902e71fd32e75--69c8a881044613f7": {
       "embedding_similarity": 0.8658,
@@ -72642,6 +72682,16 @@
       "right_title": "AI 데이터센터 전력 수요 급증, 12차 전기본 2040년 목표 최대전력 26.8GW 상향",
       "same_event": false
     },
+    "3837eff359c1d656--fa47bccd9d09faef": {
+      "embedding_similarity": 0.8492,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "마스터플랜 수립과 수요 하향 검토는 별개",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
+      "same_event": false
+    },
     "3837eff359c1d656--fe276c215813a520": {
       "embedding_similarity": 0.8635,
       "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
@@ -75399,6 +75449,16 @@
       "prompt_version": 1,
       "reason": "원전 공론화 착수와 전기본 발표 연기는 다름",
       "reviewed_at": "2026-10-08T10:09:03.950757+00:00",
+      "right_title": "정부, 제12차 전기본 발표 12월 이후로 연기…ESS 총량 확정 지연",
+      "same_event": false
+    },
+    "397db9c2cb190fff--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8475,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 구성과 전기본 발표 연기는 별개",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
       "right_title": "정부, 제12차 전기본 발표 12월 이후로 연기…ESS 총량 확정 지연",
       "same_event": false
     },
@@ -107012,6 +107072,16 @@
       "right_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
       "same_event": false
     },
+    "5949227f174d59e7--fa47bccd9d09faef": {
+      "embedding_similarity": 0.8428,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 상향 조정과 하향 검토는 다른 사안",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
+      "same_event": false
+    },
     "5949227f174d59e7--fe276c215813a520": {
       "embedding_similarity": 0.8685,
       "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
@@ -111680,6 +111750,16 @@
       "reason": "지분 인수 검토와 합의 환영",
       "reviewed_at": "2026-10-04T20:41:52.048416+00:00",
       "right_title": "한국원자력학회, 한미 원전 건설 프레임워크 합의 공식 환영",
+      "same_event": false
+    },
+    "5da7fb6e9a05a53e--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8456,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화와 석탄발전 로드맵은 다른 안건",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "정부, 12차 전력수급기본계획에 석탄발전 전환 로드맵·특별법 하위법령 반영 예정",
       "same_event": false
     },
     "5da7fb6e9a05a53e--9a5b1e174d0f721a": {
@@ -152722,6 +152802,16 @@
       "right_title": "대미 원전 투자를 통한 국내 원자력 수출 영토 확장 전략",
       "same_event": false
     },
+    "8ccbba2a3e6f3bd8--8f4b805ccf16d76f": {
+      "embedding_similarity": 0.8466,
+      "left_title": "산업통상부, 체코와 두코바니 원전 사업 추진 현황 및 EU 법안 대응 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 정부간 논의와 한수원의 인허가 준비",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "한국수력원자력, 26조 원 규모 체코 두코바니 원전 인허가 신청 준비 착수",
+      "same_event": false
+    },
     "8ccbba2a3e6f3bd8--8fc489eb4edee617": {
       "embedding_similarity": 0.8522,
       "left_title": "산업통상부, 체코와 두코바니 원전 사업 추진 현황 및 EU 법안 대응 논의",
@@ -153532,6 +153622,16 @@
       "right_title": "이재명 대통령, 한국형 녹색대전환 전략 국민보고회 주재",
       "same_event": true
     },
+    "8e237f12febca8cd--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8508,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 구성에 대한 시민사회 반발 후속",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "시민사회, 정부 전문가 추천 '거부'…12차 전력수급기본계획 재검토 촉구",
+      "same_event": true
+    },
     "8e237f12febca8cd--a1b8b69138dd095d": {
       "embedding_similarity": 0.8513,
       "left_title": "산업통상부, 제12차 전력수급기본계획 원전 공론화위원회 1차 회의 개최",
@@ -153581,6 +153681,16 @@
       "reviewed_at": "2026-09-16T09:22:30.089853+00:00",
       "right_title": "김성환 기후에너지부 장관, 송전망 건설 수용성 제고 방안 국무회의 보고",
       "same_event": true
+    },
+    "8e5dceb7b97550ea--99ec771a6255a1e6": {
+      "embedding_similarity": 0.8509,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 구성과 언론사 토론회는 별개",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "한겨레, 12차 전기본 메가 프로젝트 전력수급 과제 토론회 개최",
+      "same_event": false
     },
     "8e5dceb7b97550ea--a1b8b69138dd095d": {
       "embedding_similarity": 0.8466,
@@ -161112,6 +161222,16 @@
       "right_title": "지투파워, 체코 원전 기자재 기업과 기술·사업 제휴 MOU 체결",
       "same_event": false
     },
+    "98fe30ce4f211836--c08907e59c90471a": {
+      "embedding_similarity": 0.8548,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-체코 협력 논의와 한전기술 감사는 다름",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "한국전력기술, 체코 원전 리스크 관리계획 늑장 수립 및 등급 하향",
+      "same_event": false
+    },
     "98fe30ce4f211836--c4ce4ba40b147225": {
       "embedding_similarity": 0.878,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -161862,6 +161982,16 @@
       "right_title": "SMR 특별법 오늘 시행, 연내 범정부 촉진위원회 출범",
       "same_event": true
     },
+    "99ec771a6255a1e6--9a5b1e174d0f721a": {
+      "embedding_similarity": 0.8429,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 전체 내용 검토와 공론화위 구성",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "same_event": false
+    },
     "99ec771a6255a1e6--9aa33a39ae2f6e63": {
       "embedding_similarity": 0.8745,
       "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
@@ -161942,6 +162072,16 @@
       "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
       "same_event": true
     },
+    "99ec771a6255a1e6--ad0f210680313a53": {
+      "embedding_similarity": 0.8428,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위원회 출범 및 구성 동일 사건",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "기후부, 제12차 전기본 원전 역할 논의 위한 공론화위원회 공식 출범",
+      "same_event": true
+    },
     "99ec771a6255a1e6--b1265c34be82378e": {
       "embedding_similarity": 0.8557,
       "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
@@ -161962,6 +162102,16 @@
       "right_title": "원전 공론화위원회, 노후 원전 계속운전 및 기존 건설계획 논의 배제",
       "same_event": true
     },
+    "99ec771a6255a1e6--c05b226cb2302eec": {
+      "embedding_similarity": 0.8514,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 구성 및 첫 회의 후속 보도",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "원전 공론화위원회, 첫 회의서 운영 원칙·시민참여 방식 논의",
+      "same_event": true
+    },
     "99ec771a6255a1e6--c135d5e561238817": {
       "embedding_similarity": 0.8524,
       "left_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
@@ -161970,6 +162120,16 @@
       "reason": "동일 공론화위 출범 및 계획",
       "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
       "right_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "same_event": true
+    },
+    "99ec771a6255a1e6--cff0e7c557805eaa": {
+      "embedding_similarity": 0.8507,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위원회 출범 및 구성 동일 사건",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "원전 공론화위원회 공식 출범…은재호 한국외대 교수 위원장 맡아",
       "same_event": true
     },
     "99ec771a6255a1e6--d8de0e3c651594a0": {
@@ -162002,6 +162162,16 @@
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": true
     },
+    "99ec771a6255a1e6--e351d48d18479905": {
+      "embedding_similarity": 0.846,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 구성과 전기본 확정 일정 발표",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "12차 전력계획, 내년 상반기 확정…AI 데이터센터 수요 반영",
+      "same_event": false
+    },
     "99ec771a6255a1e6--e5dfb4c6204792a2": {
       "embedding_similarity": 0.9014,
       "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
@@ -162020,6 +162190,26 @@
       "reason": "12차 전기본 공론화위 발족",
       "reviewed_at": "2026-10-23T08:50:42.774760+00:00",
       "right_title": "기후부, 제12차 전기본 원전 숙의 담당할 공론화위원회 발족",
+      "same_event": true
+    },
+    "99ec771a6255a1e6--ea81618dbdc2002b": {
+      "embedding_similarity": 0.8465,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화 추진과 이에 따른 여야 공방",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "12차 전기본 원전 공론화 두고 여야 공방",
+      "same_event": true
+    },
+    "99ec771a6255a1e6--f1bab597aa75cd30": {
+      "embedding_similarity": 0.8541,
+      "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위원회 출범 및 구성 동일 사건",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "원전 공론화위원회 출범, 위원장에 은재호 한국외대 겸임교수 위촉",
       "same_event": true
     },
     "99ec771a6255a1e6--f441da227adb8fcd": {
@@ -195731,6 +195921,16 @@
       "reviewed_at": "2026-10-01T06:19:19.285711+00:00",
       "right_title": "미국 트럼프 대통령, 한국의 대미 투자 프로젝트로 텍사스 발전소 및 원전 8기 공개",
       "same_event": true
+    },
+    "fa47bccd9d09faef--fe276c215813a520": {
+      "embedding_similarity": 0.8534,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 논란과 수요 전망 하향은 별개",
+      "reviewed_at": "2026-10-23T09:41:38.656045+00:00",
+      "right_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
+      "same_event": false
     },
     "fa7e1f7855f33ca6--fb0c85d957b01043": {
       "embedding_similarity": 0.8654,
