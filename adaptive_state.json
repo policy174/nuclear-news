@@ -220,6 +220,14 @@
       "type": "plant",
       "until": "2026-10-03T17:42:43.938534+00:00"
     },
+    "건설공사": {
+      "new_articles": 3,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-23T03:00:33.493433+00:00",
+      "term": "건설공사",
+      "type": "org",
+      "until": "2026-11-06T03:00:33.493433+00:00"
+    },
     "경상북도개발공사": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1432,56 +1440,6 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
-    },
-    "건설공사": {
-      "articles": 5,
-      "created_at": "2026-10-22T02:57:19.826827+00:00",
-      "domains": [
-        "tbc.co.kr",
-        "imaeil.com",
-        "dkilbo.com",
-        "pennmike.com",
-        "job-post.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "tbc.co.kr",
-          "hash": "e389432050b6fc79",
-          "importance": "nice_to_know",
-          "title": "서한, 서울 강남 AI 데이터센터 건설공사 우선협상대상자 선정"
-        },
-        {
-          "domain": "imaeil.com",
-          "hash": "05fd0d18db50f469",
-          "importance": "market",
-          "title": "서한, 서울 강남 엣지 AI 데이터센터 건설공사 1296억원 단독 수주"
-        },
-        {
-          "domain": "dkilbo.com",
-          "hash": "e6fa271c0a34e815",
-          "importance": "nice_to_know",
-          "title": "대구 건설기업 서한, 1296억 규모 AI 데이터센터 건설 우선협상자 선정"
-        }
-      ],
-      "expires_at": "2026-10-23T02:57:22.436494+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-22T19:02:42.379316+00:00",
-      "new_articles": 3,
-      "origin": "auto",
-      "planned_at": "2026-10-22T19:02:39.717862+00:00",
-      "queries_run": 2,
-      "query": "건설공사 원자력",
-      "score": 3.32,
-      "status": "extended",
-      "term": "건설공사",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [
-        "2026-10-22"
-      ],
-      "yields": 1,
       "zero_streak": 1
     },
     "경주등": {
