@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 2,
     "date": "2026-10-25"
   },
   "retired": {
@@ -908,14 +908,6 @@
       "type": "plant",
       "until": "2026-10-16T15:39:34.939053+00:00"
     },
-    "영덕군이": {
-      "new_articles": 5,
-      "reason": "기간 만료",
-      "retired_at": "2026-10-01T16:49:38.386830+00:00",
-      "term": "영덕군이",
-      "type": "plant",
-      "until": "2026-10-15T16:49:38.386830+00:00"
-    },
     "오하이오주vistra": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1454,7 +1446,7 @@
     }
   },
   "spent": {
-    "count": 2,
+    "count": 3,
     "date": "2026-10-25"
   },
   "terms": {
@@ -1502,6 +1494,53 @@
       "term": "관세청",
       "ttl_hours": 24,
       "type": "org",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "영덕군이": {
+      "articles": 4,
+      "created_at": "2026-10-24T20:06:09.505454+00:00",
+      "domains": [
+        "hankooki.com",
+        "weeklytoday.com",
+        "hansbiz.co.kr",
+        "newspim.com"
+      ],
+      "evidence": [
+        {
+          "domain": "hankooki.com",
+          "hash": "9122096eb6d86377",
+          "importance": "nice_to_know",
+          "title": "영덕군, 신규 원전·풍력 연계 수소·데이터센터 등 미래산업 육성 계획 발표"
+        },
+        {
+          "domain": "weeklytoday.com",
+          "hash": "ca9da32bbcac2c0d",
+          "importance": "nice_to_know",
+          "title": "영덕군, 신규 원전 후보지 선정 연계한 에너지종합계획 중간보고회 개최"
+        },
+        {
+          "domain": "hansbiz.co.kr",
+          "hash": "d9428b21becd4d47",
+          "importance": "nice_to_know",
+          "title": "영덕군, 신규 원전 2기 건설 연계 무탄소·재생에너지 종합계획 추진"
+        }
+      ],
+      "expires_at": "2026-10-25T20:06:09.505454+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-24T20:06:10.444073+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-24T20:06:09.505454+00:00",
+      "queries_run": 1,
+      "query": "영덕군이 원전",
+      "score": 3.9,
+      "status": "tracking",
+      "term": "영덕군이",
+      "ttl_hours": 24,
+      "type": "plant",
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
