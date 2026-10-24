@@ -4622,6 +4622,26 @@
       "right_title": "정부, '피지컬 AI' 예산 3배 증액…SMR 등 7대 프로젝트 AI 접목",
       "same_event": true
     },
+    "03b3a045a9062746--9b3430efc380ff79": {
+      "embedding_similarity": 0.8753,
+      "left_title": "박홍근 기획예산처 장관, SMR 등 7대 국가전략기술 육성 위한 기금 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 7대 미래기술 육성 전략",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "정부, SMR·핵융합 등 7대 미래기술 육성 전략 마련",
+      "same_event": true
+    },
+    "03b3a045a9062746--c90049f3beffbed2": {
+      "embedding_similarity": 0.8739,
+      "left_title": "정부, SMR·핵융합 등 7대 미래기술 육성 전략 마련",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 7대 미래기술 육성 전략",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "중소벤처기업부, SMR 등 7대 시드 프로젝트 참여 역할 확대",
+      "same_event": true
+    },
     "03b3a045a9062746--e9e0b7555c685ba3": {
       "embedding_similarity": 0.879,
       "left_title": "정부, SMR·핵융합 등 7대 미래기술 육성 전략 마련",
@@ -8780,6 +8800,16 @@
       "reason": "전력 판정과 통신사 동향",
       "reviewed_at": "2026-10-20T00:52:31.676261+00:00",
       "right_title": "통신 3사, AI 데이터센터 투자 확대 속 전력망 확보가 핵심 변수로 부상",
+      "same_event": false
+    },
+    "0592fd106b3a579c--fa47bccd9d09faef": {
+      "embedding_similarity": 0.873,
+      "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 공급 난항과 정부 수요 전망",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
       "same_event": false
     },
     "059ab63ffeadf0c9--f3811a0608f558ac": {
@@ -26472,6 +26502,16 @@
       "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
       "same_event": false
     },
+    "137cb0e5139bfdfd--7be39fc0a4fec2e5": {
+      "embedding_similarity": 0.8898,
+      "left_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 심사와 일반 규정 개정",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "same_event": false
+    },
     "137cb0e5139bfdfd--801196f5ab1792f4": {
       "embedding_similarity": 0.8768,
       "left_title": "서전트 앤 룬디, 디플로이어블 에너지의 Unity-1 마이크로리액터 엔지니어링 및 허가 지원",
@@ -26519,6 +26559,16 @@
       "prompt_version": 1,
       "reason": "개별 기업 인허가와 규제기관 규칙",
       "reviewed_at": "2026-10-23T16:06:45.360299+00:00",
+      "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "same_event": false
+    },
+    "137cb0e5139bfdfd--f9acbce3368811a6": {
+      "embedding_similarity": 0.8735,
+      "left_title": "미국 홀텍, 팔리세이드 SMR 건설 허가 신청 2단계 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 신청과 일반 규정 개정",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
       "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
       "same_event": false
     },
@@ -60792,6 +60842,16 @@
       "right_title": "원안위, 고리 3·4호기 계속운전 허가 첫 심의 착수",
       "same_event": false
     },
+    "2e48dae068d1b31c--ef62dd7ead1c9b9e": {
+      "embedding_similarity": 0.9007,
+      "left_title": "원자력안전위원회, 고리 3·4·한빛 1·2호기 사고관리계획서 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안건이 서로 다른 심의",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가, 27일 원안위서 재심의",
+      "same_event": false
+    },
     "2e48dae068d1b31c--f4d6815a753587e8": {
       "embedding_similarity": 0.8439,
       "left_title": "원자력안전위원회, 고리 3·4·한빛 1·2호기 사고관리계획서 의결",
@@ -70071,6 +70131,16 @@
       "reviewed_at": "2026-10-09T01:28:43.836905+00:00",
       "right_title": "K조선, 해양 SMR 기술 선점 속도…LNG·암모니아 넘어 차세대 동력원 주목",
       "same_event": false
+    },
+    "36e8b772580c819d--bbda762b30ab319d": {
+      "embedding_similarity": 0.8898,
+      "left_title": "과학기술정보통신부, SMR 민관협의체 이달 출범 및 7대 시드 프로젝트 상용화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "과기정통부 7대 기술 육성 전략",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "과기정통부, SMR 등 7대 첨단기술 육성전략 연내 마련 추진",
+      "same_event": true
     },
     "36e8b772580c819d--c563662976e53252": {
       "embedding_similarity": 0.8868,
@@ -82662,6 +82732,16 @@
       "right_title": "고리 3·4호기 계속운전 심사 개시…연내 결론 전망",
       "same_event": true
     },
+    "3fc95c88d659f5c8--ef62dd7ead1c9b9e": {
+      "embedding_similarity": 0.9175,
+      "left_title": "원안위, 고리 3·4호기 계속운전 심의 보류…사고관리계획서는 통과",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 재심의",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가, 27일 원안위서 재심의",
+      "same_event": true
+    },
     "3fcdb78ac06a937d--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8415,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -87641,6 +87721,16 @@
       "reviewed_at": "2026-10-21T08:05:08.767122+00:00",
       "right_title": "엑스에너지, 아마존·아메리칸일렉트릭파워와 SMR 12기 프로젝트 타당성 조사 협약",
       "same_event": true
+    },
+    "4548ba221f5a667e--e6773c72dbab2c97": {
+      "embedding_similarity": 0.8863,
+      "left_title": "현대건설·오스넷, 호주서 BESS·데이터센터 등 계통 연계 사업 협력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사업",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "GS건설, 호주 에너지 인프라 시장 진출…송전망 등 협력 확대",
+      "same_event": false
     },
     "45510ce6eb51954b--571c41d8d5a745d5": {
       "embedding_similarity": 0.863,
@@ -93762,6 +93852,16 @@
       "right_title": "IAEA, 해상·해양 에너지용 원자력 탐색 위한 ATLAS 출범",
       "same_event": true
     },
+    "4d508e1f99a15166--f7fb078b486e181e": {
+      "embedding_similarity": 0.8903,
+      "left_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 승인 및 물리적방호법 개정안 심의·의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안건이 서로 다른 심의",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "원자력안전위원회, 고리원전 3·4호기 계속운전 허가안 27일 재심의",
+      "same_event": false
+    },
     "4d55708b92e20a28--5ac10a6a29b71dc9": {
       "embedding_similarity": 0.8504,
       "left_title": "X-에너지, 텍사스 SMR 프로젝트에 최대 10억 달러 추가 공적 자금 확보",
@@ -97390,6 +97490,16 @@
       "reason": "구글 PPA 체결과 업계 전반/선거 동향",
       "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
       "right_title": "미국 중간선거 앞두고 반도체 수출통제 및 빅테크 원전 전력 확보 가속화",
+      "same_event": false
+    },
+    "514db0740aebcbb7--eacb7819506cd81e": {
+      "embedding_similarity": 0.8743,
+      "left_title": "미국 중간선거 앞두고 반도체 수출통제 및 빅테크 원전 전력 확보 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 선거 쟁점",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "미국 중간선거, 데이터센터 전력 소비·환경 영향이 주요 쟁점으로 부상",
       "same_event": false
     },
     "515d95d9f603e8dd--6b82430734a06f85": {
@@ -128162,6 +128272,16 @@
       "right_title": "국회 국정감사서 전력망 113조원 투자 재원과 한전 부채 문제 대두",
       "same_event": false
     },
+    "6fbe77df806fb2f7--f029b67e03227c12": {
+      "embedding_similarity": 0.8802,
+      "left_title": "한전 사장 \"내년 말 사채발행 한도 감축 대비해 전기요금 인상 필요\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한전 사채한도와 요금인상",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "한전 사채 한도 특례 종료 시 19조 초과 전망…전기요금 인상론 대두",
+      "same_event": true
+    },
     "6fc5e9f939b9ad49--a3e13685ce3cf3f9": {
       "embedding_similarity": 0.8738,
       "left_title": "정부, 12차 전기본에 2040년 석탄발전 중단 및 전력망 투자 확대 방침",
@@ -144592,6 +144712,16 @@
       "right_title": "美 정부, '지하 원전' 추진 속 두산·수산이앤에스 미래 기회 확보 기대",
       "same_event": false
     },
+    "808ede7c3986c3e8--86de4c2c81e4e08b": {
+      "embedding_similarity": 0.8889,
+      "left_title": "LS일렉트릭, 미국 블룸에너지와 1,853억원 규모 수배전반 공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약과 실적 전망",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "美 데이터센터 건설 제한 확산에도 LS일렉트릭, 수주 영향 없어…역대 최대 실적",
+      "same_event": false
+    },
     "808ede7c3986c3e8--fc83997c1d5e9a7c": {
       "embedding_similarity": 0.897,
       "left_title": "LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약",
@@ -154352,6 +154482,16 @@
       "right_title": "두산퓨얼셀, 북미 AI 데이터센터 수요 증가로 3222억 추가 계약",
       "same_event": false
     },
+    "8ec300ea196251f6--d31e4d1c27c88f60": {
+      "embedding_similarity": 0.8889,
+      "left_title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 지자체의 사용후핵연료 대응",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "원전 소재 5개 지자체 협의회, 사용후핵연료 건식저장시설 지원대책 촉구",
+      "same_event": true
+    },
     "8ed0ddd8bfea6a7c--99f2916afcd7ec62": {
       "embedding_similarity": 0.8911,
       "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
@@ -161932,6 +162072,16 @@
       "right_title": "국회 국감서 AI 데이터센터 전력수요 전망 넉 달 새 3배 증가, 산정 근거 논란 제기",
       "same_event": false
     },
+    "995644b6aeaad981--eea6e3ba33320ea9": {
+      "embedding_similarity": 0.8746,
+      "left_title": "국감서 원전 4기 계속운전 심사 신속 처리 요구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국정감사 내 서로 다른 질의",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "국정감사서 \"AI 경쟁력 위해 데이터 규제 완화 및 전력 인프라 확충 필요\" 제언",
+      "same_event": false
+    },
     "995a3a9b7cdd6475--b13c2956325ce467": {
       "embedding_similarity": 0.9018,
       "left_title": "정부, 2027년 예산안 확정…핵융합·SMR 등 미래 성장엔진 예산 62조8000억원 편성",
@@ -162070,6 +162220,16 @@
       "reason": "업계 전망 및 분석",
       "reviewed_at": "2026-10-05T09:14:48.920138+00:00",
       "right_title": "2050년까지 데이터센터에 4경 7000조 원 투자…AI 빅테크, 수익화 시험대 올라",
+      "same_event": false
+    },
+    "996e587a904f6b4a--faeb4d7e38453d89": {
+      "embedding_similarity": 0.8455,
+      "left_title": "AI 산업 투자, 수익화 역량과 국가별 강점 분석 중요",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안이 서로 다름",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "국내 정유업계, AI 데이터센터 냉각용 특수 액침냉각유 시장 진출",
       "same_event": false
     },
     "996e587a904f6b4a--fd907b0639cfa882": {
@@ -171772,6 +171932,16 @@
       "right_title": "HD현대, SMR·발전엔진 등 미래사업 투자 확대",
       "same_event": true
     },
+    "a82bd590bd7de6b8--faeb4d7e38453d89": {
+      "embedding_similarity": 0.8407,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업과 사안",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "국내 정유업계, AI 데이터센터 냉각용 특수 액침냉각유 시장 진출",
+      "same_event": false
+    },
     "a836385597ba53c3--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8685,
       "left_title": "정부, 유턴기업 지방 유치 위해 산업용 전기요금 지역차등제 도입",
@@ -175530,6 +175700,16 @@
       "reason": "LG전자 북미 수주와 데이터빈-남동발전",
       "reviewed_at": "2026-10-23T00:54:06.515387+00:00",
       "right_title": "데이터빈, 남동발전과 해수냉각 AI 데이터센터 개발 착수",
+      "same_event": false
+    },
+    "aeebe4601413be0a--faeb4d7e38453d89": {
+      "embedding_similarity": 0.8555,
+      "left_title": "LG전자, 북미 시장서 5GW 규모 인공지능 데이터센터 칠러 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업과 분야",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "국내 정유업계, AI 데이터센터 냉각용 특수 액침냉각유 시장 진출",
       "same_event": false
     },
     "aeebe4601413be0a--fc83997c1d5e9a7c": {
@@ -192642,6 +192822,16 @@
       "right_title": "고리 3·4호기 등 원전 4기 가동 중단, 전력 판매 기회비용 2조원 발생",
       "same_event": true
     },
+    "daa3c537811f9db1--faeb4d7e38453d89": {
+      "embedding_similarity": 0.8589,
+      "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업과 분야",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "국내 정유업계, AI 데이터센터 냉각용 특수 액침냉각유 시장 진출",
+      "same_event": false
+    },
     "daa3c537811f9db1--fc83997c1d5e9a7c": {
       "embedding_similarity": 0.9114,
       "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
@@ -195801,6 +195991,16 @@
       "reviewed_at": "2026-09-21T19:12:04.910006+00:00",
       "right_title": "이재명 대통령, 미국·멕시코 순방 돌입…대미투자 및 원전 등 정상외교 전개",
       "same_event": true
+    },
+    "ef62dd7ead1c9b9e--f7fb078b486e181e": {
+      "embedding_similarity": 0.8892,
+      "left_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 승인 및 물리적방호법 개정안 심의·의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안건이 서로 다른 심의",
+      "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가, 27일 원안위서 재심의",
+      "same_event": false
     },
     "ef6405c86efedeb0--f8e7b22057b9012f": {
       "embedding_similarity": 0.8605,
