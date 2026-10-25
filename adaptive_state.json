@@ -292,6 +292,14 @@
       "type": "org",
       "until": "2026-10-08T16:54:45.073696+00:00"
     },
+    "관세청": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-25T08:03:07.062572+00:00",
+      "term": "관세청",
+      "type": "org",
+      "until": "2026-11-08T08:03:07.062572+00:00"
+    },
     "광시좡족자치구의바이롱": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1446,58 +1454,10 @@
     }
   },
   "spent": {
-    "count": 5,
+    "count": 6,
     "date": "2026-10-25"
   },
   "terms": {
-    "관세청": {
-      "articles": 5,
-      "created_at": "2026-10-24T16:09:17.846180+00:00",
-      "domains": [
-        "yna.co.kr",
-        "newsis.com",
-        "joongangenews.com",
-        "joseilbo.com",
-        "mediaus.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "yna.co.kr",
-          "hash": "4a0bfee42516f92a",
-          "importance": "nice_to_know",
-          "title": "관세청, 반도체·AI 데이터센터 전력 공급 위해 해상 보세건설장 허용 등 규제혁신 추진"
-        },
-        {
-          "domain": "newsis.com",
-          "hash": "351bdad6072233c1",
-          "importance": "nice_to_know",
-          "title": "관세청, 해상 보세건설장 허용 및 첨단산업 규제 6개 혁신 추진"
-        },
-        {
-          "domain": "joongangenews.com",
-          "hash": "72ed7e1383de7bf7",
-          "importance": "nice_to_know",
-          "title": "관세청, 반도체·로봇·AI 산업 규제 6건 완화…첨단산업 거점 보세구역 확대"
-        }
-      ],
-      "expires_at": "2026-10-25T16:09:17.846180+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-24T22:17:32.563021+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-24T22:17:31.434221+00:00",
-      "queries_run": 2,
-      "query": "관세청 원자력",
-      "score": 3.18,
-      "status": "tracking",
-      "term": "관세청",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "영덕군이": {
       "articles": 4,
       "created_at": "2026-10-24T20:06:09.505454+00:00",
