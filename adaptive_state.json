@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 4,
     "date": "2026-10-27"
   },
   "retired": {
@@ -1462,10 +1462,42 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 3,
     "date": "2026-10-27"
   },
   "terms": {
+    "규모의지하": {
+      "articles": 1,
+      "created_at": "2026-10-26T16:39:32.949807+00:00",
+      "domains": [
+        "deepfission.com"
+      ],
+      "evidence": [
+        {
+          "domain": "deepfission.com",
+          "hash": "33478b8c694120bb",
+          "importance": "must_read",
+          "title": "딥 피전, 그레이트플레인스개발청과 캔자스주 지하 원전 공급 계약 체결"
+        }
+      ],
+      "expires_at": "2026-10-27T16:39:32.949807+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-26T16:39:35.087012+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-26T16:39:32.949807+00:00",
+      "queries_run": 1,
+      "query": "규모의 지하 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "규모의 지하",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "늑장심사신규": {
       "articles": 1,
       "created_at": "2026-10-26T10:54:21.314312+00:00",
@@ -1497,6 +1529,99 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
+    },
+    "산단이독점하": {
+      "articles": 1,
+      "created_at": "2026-10-26T16:39:32.949807+00:00",
+      "domains": [
+        "busan.com"
+      ],
+      "evidence": [
+        {
+          "domain": "busan.com",
+          "hash": "0ade9f476bb0711d",
+          "importance": "must_read",
+          "title": "기후에너지환경부, 원전 전력 직접구매계약(PPA) 허용 법안 '수용 불가' 입장 공식 표명"
+        }
+      ],
+      "expires_at": "2026-10-27T16:39:32.949807+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-26T16:39:35.087012+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-26T16:39:32.949807+00:00",
+      "queries_run": 1,
+      "query": "산단이 독점하 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "산단이 독점하",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "캔자스주지하": {
+      "articles": 1,
+      "created_at": "2026-10-26T16:39:32.949807+00:00",
+      "domains": [
+        "deepfission.com"
+      ],
+      "evidence": [
+        {
+          "domain": "deepfission.com",
+          "hash": "33478b8c694120bb",
+          "importance": "must_read",
+          "title": "딥 피전, 그레이트플레인스개발청과 캔자스주 지하 원전 공급 계약 체결"
+        }
+      ],
+      "expires_at": "2026-10-27T16:39:32.949807+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-26T16:39:35.087012+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-26T16:39:32.949807+00:00",
+      "queries_run": 1,
+      "query": "캔자스주 지하 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "캔자스주 지하",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
+    "표명기후에너지환경부": {
+      "articles": 1,
+      "created_at": "2026-10-26T16:39:32.949807+00:00",
+      "domains": [
+        "busan.com"
+      ],
+      "evidence": [
+        {
+          "domain": "busan.com",
+          "hash": "0ade9f476bb0711d",
+          "importance": "must_read",
+          "title": "기후에너지환경부, 원전 전력 직접구매계약(PPA) 허용 법안 '수용 불가' 입장 공식 표명"
+        }
+      ],
+      "expires_at": "2026-10-27T16:39:32.949807+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "표명 기후에너지환경부 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "표명 기후에너지환경부",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
     }
   },
   "version": 1
