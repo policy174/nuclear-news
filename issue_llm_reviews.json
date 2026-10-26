@@ -8882,6 +8882,16 @@
       "right_title": "AI 데이터센터 급증, 송전망 연결 지연·전력기기 부족 심화",
       "same_event": false
     },
+    "0592fd106b3a579c--6d39abd9609a74eb": {
+      "embedding_similarity": 0.8841,
+      "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 공급 불가 판정과 착공률 동향",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "국내 AI 데이터센터 목표 용량 6.5GW 중 착공률 6%에 그쳐",
+      "same_event": false
+    },
     "0592fd106b3a579c--7d3f8e724ec8ff62": {
       "embedding_similarity": 0.8411,
       "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
@@ -12102,6 +12112,16 @@
       "right_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
       "same_event": false
     },
+    "0708d65654b8c9bd--d5ea80af38305629": {
+      "embedding_similarity": 0.8842,
+      "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 패스트트랙과 전기본 수요 축소",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
+      "same_event": false
+    },
     "0708d65654b8c9bd--daa3c537811f9db1": {
       "embedding_similarity": 0.8662,
       "left_title": "LG전자, 미국서 5GW 규모 AI 데이터센터 냉각 설비 수주",
@@ -12280,6 +12300,16 @@
       "reason": "AI 데이터센터 전력 부족과 탄소 배출",
       "reviewed_at": "2026-08-17T18:47:55.276171+00:00",
       "right_title": "美데이터센터 60곳 가동 시, ‘석탄발전 27기급’ 탄소 배출",
+      "same_event": false
+    },
+    "073f77a5da10c608--968c78d48333891f": {
+      "embedding_similarity": 0.9153,
+      "left_title": "HD건설기계, 미국 데이터센터용 발전 엔진 3900억원 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 주체 기업 및 계약 사안 불일치",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "HD현대중공업, 미국 빅테크 데이터센터용 발전용 엔진 역대 최대 공급계약 체결",
       "same_event": false
     },
     "076036e9576007bc--079f72343bd8d41b": {
@@ -30991,6 +31021,16 @@
       "reviewed_at": "2026-09-30T12:55:01.880345+00:00",
       "right_title": "미국 트럼프 행정부, 한국 대미 전략투자 계획 발표 임박…원전·LNG 포함 촉각",
       "same_event": true
+    },
+    "14ede7fb892f1cfc--f3b6090fdd9fab64": {
+      "embedding_similarity": 0.8803,
+      "left_title": "글로벌 AI 데이터센터 2027년까지 45% 전력난으로 무산 위기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기관의 시장 전망 및 경고",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "골드만삭스, 전력 인프라 부족이 AI 산업 성장의 최대 걸림돌이라 경고",
+      "same_event": false
     },
     "14fdea2b11e3b9ae--1dcdc14282ec8451": {
       "embedding_similarity": 0.8859,
@@ -54462,6 +54502,16 @@
       "right_title": "박완수 경남도지사, SMR 및 제조AI데이터센터 기반 미래산업 육성 추진",
       "same_event": true
     },
+    "27b1f65a8db5f987--85cbb51c2d6dccc7": {
+      "embedding_similarity": 0.8826,
+      "left_title": "삼성SDI, 포스코퓨처엠과 6조원 규모 LFP 양극재 장기 공급계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양극재 공급계약과 ESS 수주 확대",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "삼성SDI, AI 데이터센터용 ESS 수주 확대",
+      "same_event": false
+    },
     "27b53e028472d5b2--657fb1e8299bfac4": {
       "embedding_similarity": 0.8521,
       "left_title": "트럼프 미국 대통령, 한미 무역협정 연계 대미 에너지 투자 계획 공개",
@@ -59520,6 +59570,16 @@
       "reason": "제2차 회의와 첫 회의 보도로 회차 다름",
       "reviewed_at": "2026-10-20T10:02:17.154956+00:00",
       "right_title": "원전 공론화위원회, 첫 회의서 운영 원칙·시민참여 방식 논의",
+      "same_event": false
+    },
+    "2b32fc42d9118314--c821d93128546879": {
+      "embedding_similarity": 0.8453,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 회의와 AIDC 수요 재조정",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
       "same_event": false
     },
     "2b32fc42d9118314--c9a704fc3dc24b9d": {
@@ -75962,6 +76022,16 @@
       "right_title": "국회, 전력망·재생에너지·원전 포함 에너지 청사진 국정감사 실시",
       "same_event": false
     },
+    "3837eff359c1d656--c821d93128546879": {
+      "embedding_similarity": 0.8807,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "중장기 마스터플랜과 전기본 수요 재조정",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
+      "same_event": false
+    },
     "3837eff359c1d656--c9f9892cd514dc1d": {
       "embedding_similarity": 0.8433,
       "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
@@ -75990,6 +76060,16 @@
       "reason": "중장기 마스터플랜과 LNG 비중의 차이",
       "reviewed_at": "2026-10-21T08:05:08.767122+00:00",
       "right_title": "3대 메가프로젝트로 2030년 LNG 발전 비중↑…탄소감축 점검 필요",
+      "same_event": false
+    },
+    "3837eff359c1d656--d5ea80af38305629": {
+      "embedding_similarity": 0.8721,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "2040 마스터플랜과 12차 전기본 수요 축소",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
       "same_event": false
     },
     "3837eff359c1d656--d94b1fdfaf4d3f32": {
@@ -111432,6 +111512,16 @@
       "right_title": "정부, 제12차 전기본 수립 토론회 개최…석탄발전 조기 폐지 논의",
       "same_event": false
     },
+    "5949227f174d59e7--c821d93128546879": {
+      "embedding_similarity": 0.8997,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "상향 조정과 재조정 검토로 안건 상이",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
+      "same_event": false
+    },
     "5949227f174d59e7--c99b7cc176f524d8": {
       "embedding_similarity": 0.8406,
       "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
@@ -111490,6 +111580,16 @@
       "reason": "전기본 수요상향과 전력망 계획은 별개",
       "reviewed_at": "2026-10-10T22:35:09.652838+00:00",
       "right_title": "AI·첨단산단 전력 수요 급증에 정부, 전력망 계획 원점 재검토",
+      "same_event": false
+    },
+    "5949227f174d59e7--d5ea80af38305629": {
+      "embedding_similarity": 0.8754,
+      "left_title": "정부, 제12차 전기본에서 AI 전력수요 반영해 최대전력 27GW 상향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력수요 상향 조정과 축소 시사는 상반",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
       "same_event": false
     },
     "5949227f174d59e7--d94b1fdfaf4d3f32": {
@@ -116621,6 +116721,16 @@
       "reviewed_at": "2026-10-09T23:10:45.739556+00:00",
       "right_title": "이집트 알시시 대통령, 8일 국빈 방한 정상회담서 엘다바 원전 협력 논의",
       "same_event": true
+    },
+    "5dfbb1645b5e0a94--699127d067b36e36": {
+      "embedding_similarity": 0.9031,
+      "left_title": "LS머트리얼즈, 미국 수소연료전지사와 5150만 달러 울트라캐패시터 공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 수주 및 투자",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "LS에코에너지, 베트남에 650억 투자...AI 데이터센터용 UC 생산",
+      "same_event": false
     },
     "5e14bf6e70d9a886--98fe30ce4f211836": {
       "embedding_similarity": 0.9001,
@@ -167342,6 +167452,16 @@
       "right_title": "한수원, 체코 두코바니 원전 보조기기 공급사 입찰 착수 및 국내 기업 지원",
       "same_event": false
     },
+    "98fe30ce4f211836--d36c679315a69891": {
+      "embedding_similarity": 0.8731,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 정부 협의와 주한 대사의 발언",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
+      "same_event": false
+    },
     "98fe30ce4f211836--d3afcd85e1c7de88": {
       "embedding_similarity": 0.8833,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -169182,6 +169302,16 @@
       "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화위원회 출범",
       "same_event": false
     },
+    "9a5b1e174d0f721a--c821d93128546879": {
+      "embedding_similarity": 0.8732,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전·재생에너지 검토와 AIDC 수요 재조정",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
+      "same_event": false
+    },
     "9a5b1e174d0f721a--c99b7cc176f524d8": {
       "embedding_similarity": 0.865,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -169250,6 +169380,16 @@
       "reason": "전기본 검토와 전력망 재검토는 다름",
       "reviewed_at": "2026-10-10T22:35:09.652838+00:00",
       "right_title": "AI·첨단산단 전력 수요 급증에 정부, 전력망 계획 원점 재검토",
+      "same_event": false
+    },
+    "9a5b1e174d0f721a--d5ea80af38305629": {
+      "embedding_similarity": 0.8616,
+      "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 규모 검토와 AIDC 전력수요 축소",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
       "same_event": false
     },
     "9a5b1e174d0f721a--d8de0e3c651594a0": {
@@ -184672,6 +184812,16 @@
       "right_title": "한수원, 체코 두코바니 원전 보조기기 공급사 입찰 착수 및 국내 기업 지원",
       "same_event": false
     },
+    "b400d3ab565b5f11--d36c679315a69891": {
+      "embedding_similarity": 0.8854,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 대사의 두코바니 원전 협력 발언",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
+      "same_event": true
+    },
     "b400d3ab565b5f11--e08d5222ff4d21c7": {
       "embedding_similarity": 0.8666,
       "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
@@ -188280,6 +188430,16 @@
       "reason": "원전 인허가와 한전기술 리스크관리 이슈 다름",
       "reviewed_at": "2026-10-25T01:17:12.424519+00:00",
       "right_title": "한국전력기술, 체코 원전 리스크 관리계획 늑장 수립 및 등급 하향",
+      "same_event": false
+    },
+    "bb5be47ba3fd8a11--d36c679315a69891": {
+      "embedding_similarity": 0.8562,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 인허가 절차 개시와 체코 대사 발언",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
       "same_event": false
     },
     "bb5be47ba3fd8a11--d4a2f5dfc186bf94": {
@@ -194582,6 +194742,26 @@
       "right_title": "한수원, 원자력산업 AI 전환 위한 산·학·연 협력 강화",
       "same_event": false
     },
+    "c821d93128546879--fa47bccd9d09faef": {
+      "embedding_similarity": 0.888,
+      "left_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 AIDC 수요 하향 검토 보도",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
+      "same_event": true
+    },
+    "c821d93128546879--fe276c215813a520": {
+      "embedding_similarity": 0.8916,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 논란과 정부의 수요 검토는 별개",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 AIDC 수요 재조정 검토",
+      "same_event": false
+    },
     "c82aa35cee00b535--d1f22b19a877962c": {
       "embedding_similarity": 0.8902,
       "left_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
@@ -198790,6 +198970,26 @@
       "reason": "엔비디아 투자 vs 구광모·젠슨황 회담",
       "reviewed_at": "2026-08-13T21:41:16.066885+00:00",
       "right_title": "구광모·젠슨황, 피지컬 AI·데이터센터 협력 논의 재회",
+      "same_event": false
+    },
+    "d5ea80af38305629--fa47bccd9d09faef": {
+      "embedding_similarity": 0.8872,
+      "left_title": "정부, AI 데이터센터 전력 수요 전망치 하향 검토…업계 비상",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부의 AI 데이터센터 전력수요 축소 검토",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
+      "same_event": true
+    },
+    "d5ea80af38305629--fe276c215813a520": {
+      "embedding_similarity": 0.8801,
+      "left_title": "12차 전기본 앞두고 메가 프로젝트 전력수요 과장 논란, 원전 확대 정당성 의문 제기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수요 과장 논란과 장관의 수요 축소 시사",
+      "reviewed_at": "2026-10-26T11:11:05.627314+00:00",
+      "right_title": "김성환 기후부 장관, 12차 전기본 AI 데이터센터 전력수요 축소 시사",
       "same_event": false
     },
     "d5f14a4cd0093d3c--e5237552273392ad": {
