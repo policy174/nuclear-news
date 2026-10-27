@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 4,
+    "count": 5,
     "date": "2026-10-27"
   },
   "retired": {
@@ -1462,7 +1462,7 @@
     }
   },
   "spent": {
-    "count": 8,
+    "count": 9,
     "date": "2026-10-27"
   },
   "terms": {
@@ -1561,6 +1561,54 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "어린이재단": {
+      "articles": 6,
+      "created_at": "2026-10-27T03:22:32.473900+00:00",
+      "domains": [
+        "fnnews.com",
+        "mt.co.kr",
+        "mhns.co.kr",
+        "busan.com",
+        "ikld.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "fnnews.com",
+          "hash": "f5086c8eca776ba4",
+          "importance": "nice_to_know",
+          "title": "한수원 고리원자력본부, 부산 지역 위기아동 지원 위한 후원금 2800만원 전달"
+        },
+        {
+          "domain": "mt.co.kr",
+          "hash": "4581c8070e1e8e19",
+          "importance": "noise",
+          "title": "한수원 고리본부, 위기아동 지원 '부산의 힘' 사업 추진…2800만원 후원"
+        },
+        {
+          "domain": "mhns.co.kr",
+          "hash": "1d9cedefe38426c3",
+          "importance": "noise",
+          "title": "고리원자력본부, 부산 위기아동 10명에 2800만원 지원"
+        }
+      ],
+      "expires_at": "2026-10-28T03:22:32.473900+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-10-27T03:22:33.478001+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-27T03:22:32.473900+00:00",
+      "queries_run": 1,
+      "query": "어린이재단 원자력",
+      "score": 3.45,
+      "status": "tracking",
+      "term": "어린이재단",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "캔자스주지하": {
       "articles": 1,
