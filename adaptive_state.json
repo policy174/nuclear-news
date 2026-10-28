@@ -900,6 +900,14 @@
       "type": "org",
       "until": "2026-10-28T19:09:16.235087+00:00"
     },
+    "어린이재단": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-28T00:32:05.401828+00:00",
+      "term": "어린이재단",
+      "type": "org",
+      "until": "2026-11-11T00:32:05.401828+00:00"
+    },
     "여부를논의할": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1494,7 +1502,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 12,
     "date": "2026-10-28"
   },
   "terms": {
@@ -1646,54 +1654,6 @@
       "yields": 2,
       "zero_streak": 0
     },
-    "어린이재단": {
-      "articles": 6,
-      "created_at": "2026-10-27T03:22:32.473900+00:00",
-      "domains": [
-        "fnnews.com",
-        "mt.co.kr",
-        "mhns.co.kr",
-        "busan.com",
-        "ikld.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "fnnews.com",
-          "hash": "f5086c8eca776ba4",
-          "importance": "nice_to_know",
-          "title": "한수원 고리원자력본부, 부산 지역 위기아동 지원 위한 후원금 2800만원 전달"
-        },
-        {
-          "domain": "mt.co.kr",
-          "hash": "4581c8070e1e8e19",
-          "importance": "noise",
-          "title": "한수원 고리본부, 위기아동 지원 '부산의 힘' 사업 추진…2800만원 후원"
-        },
-        {
-          "domain": "mhns.co.kr",
-          "hash": "1d9cedefe38426c3",
-          "importance": "noise",
-          "title": "고리원자력본부, 부산 위기아동 10명에 2800만원 지원"
-        }
-      ],
-      "expires_at": "2026-10-28T03:22:32.473900+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-27T17:17:13.841679+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-27T17:17:11.538522+00:00",
-      "queries_run": 2,
-      "query": "어린이재단 원자력",
-      "score": 3.45,
-      "status": "tracking",
-      "term": "어린이재단",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "중인7기": {
       "articles": 1,
       "created_at": "2026-10-27T16:39:50.276067+00:00",
@@ -1708,14 +1668,14 @@
           "title": "원자력안전위원회, 고리 3·4호기 계속운전 허가 의결…심사 대기 7기 속도 붙나"
         }
       ],
-      "expires_at": "2026-10-28T17:17:13.841679+00:00",
+      "expires_at": "2026-10-29T00:32:05.401764+00:00",
       "importance": "must_read",
       "last_result_count": 1,
-      "last_run": "2026-10-27T17:17:13.841679+00:00",
-      "new_articles": 1,
+      "last_run": "2026-10-28T00:32:05.401764+00:00",
+      "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-10-27T17:17:11.538522+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-10-28T00:32:03.896537+00:00",
+      "queries_run": 2,
       "query": "중인 7기 원전",
       "score": 3.6,
       "status": "extended",
@@ -1725,7 +1685,7 @@
       "yield_days": [
         "2026-10-28"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "체코관광청": {
