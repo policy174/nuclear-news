@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 5,
-    "date": "2026-10-28"
+    "count": 2,
+    "date": "2026-10-29"
   },
   "retired": {
     "adb": {
@@ -316,6 +316,14 @@
       "type": "plant",
       "until": "2026-10-22T18:20:04.520441+00:00"
     },
+    "국가연구소": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-28T16:54:49.880527+00:00",
+      "term": "국가연구소",
+      "type": "org",
+      "until": "2026-11-11T16:54:49.880527+00:00"
+    },
     "국감서한미": {
       "new_articles": 3,
       "reason": "기간 만료",
@@ -435,6 +443,14 @@
       "term": "기후변화로",
       "type": "plant",
       "until": "2026-10-29T22:17:34.107330+00:00"
+    },
+    "기후부국감서": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-28T16:54:49.880527+00:00",
+      "term": "기후부 국감서",
+      "type": "plant",
+      "until": "2026-11-11T16:54:49.880527+00:00"
     },
     "기후산업국제박람회서": {
       "new_articles": 0,
@@ -1180,6 +1196,14 @@
       "type": "plant",
       "until": "2026-10-03T18:38:48.199546+00:00"
     },
+    "체코관광청": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-10-28T16:54:49.880527+00:00",
+      "term": "체코관광청",
+      "type": "org",
+      "until": "2026-11-11T16:54:49.880527+00:00"
+    },
     "체코수소협회": {
       "new_articles": 3,
       "reason": "성과 없음",
@@ -1510,89 +1534,57 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-10-28"
+    "count": 3,
+    "date": "2026-10-29"
   },
   "terms": {
-    "국가연구소": {
+    "부산울산경남시도의회": {
       "articles": 3,
-      "created_at": "2026-10-27T16:39:50.276067+00:00",
+      "created_at": "2026-10-28T16:54:49.880527+00:00",
       "domains": [
-        "hansbiz.co.kr",
-        "cnbnews.com",
-        "mhns.co.kr"
+        "seoul.co.kr",
+        "ekn.kr",
+        "ebn.co.kr"
       ],
       "evidence": [
         {
-          "domain": "hansbiz.co.kr",
-          "hash": "8afa52e888bc136d",
+          "domain": "seoul.co.kr",
+          "hash": "8660a1cb01be0f01",
           "importance": "nice_to_know",
-          "title": "국립창원대 SMR² 연구소, 대만·베트남과 SMR 기술 국제협력 논의"
+          "title": "부·울·경 3개 광역의회, 원전·에너지 생태계 조성을 위한 공동협력 선언"
         },
         {
-          "domain": "cnbnews.com",
-          "hash": "0234844545daf2c7",
+          "domain": "ekn.kr",
+          "hash": "012f373fb809033b",
           "importance": "nice_to_know",
-          "title": "국립창원대 SMR² 플랫폼 국가연구소, 대만·베트남과 연구협력 확대"
+          "title": "부울경 3개 시·도의회, 미래산업 육성 등 광역발전 공동 대응 추진"
         },
         {
-          "domain": "mhns.co.kr",
-          "hash": "98998b13d63ad8f8",
-          "importance": "nice_to_know",
-          "title": "국립창원대 SMR² 연구소, 대만·베트남과 SMR 국제 연구협력 확대"
+          "domain": "ebn.co.kr",
+          "hash": "a636c5e78c9b2b9b",
+          "importance": "noise",
+          "title": "부울경 3개 시·도의회, 원전·에너지 생태계 조성 등 광역발전 공동 대응"
         }
       ],
-      "expires_at": "2026-10-28T16:39:53.105375+00:00",
+      "expires_at": "2026-10-29T16:54:52.611790+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-27T22:47:29.251459+00:00",
-      "new_articles": 1,
+      "last_result_count": 7,
+      "last_run": "2026-10-28T16:54:52.611790+00:00",
+      "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-10-27T22:47:26.748464+00:00",
-      "queries_run": 2,
-      "query": "국가연구소 원자력",
-      "score": 3.7,
+      "planned_at": "2026-10-28T16:54:49.880527+00:00",
+      "queries_run": 1,
+      "query": "부산·울산·경남 시·도의회 원전",
+      "score": 3.64,
       "status": "extended",
-      "term": "국가연구소",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [
-        "2026-10-28"
-      ],
-      "yields": 1,
-      "zero_streak": 1
-    },
-    "기후부국감서": {
-      "articles": 1,
-      "created_at": "2026-10-27T16:39:50.276067+00:00",
-      "domains": [
-        "newspim.com"
-      ],
-      "evidence": [
-        {
-          "domain": "newspim.com",
-          "hash": "7c47d39a747ce495",
-          "importance": "must_read",
-          "title": "국회 기후부 국감서 원전 늑장심사·신규원전 공론화 지적"
-        }
-      ],
-      "expires_at": "2026-10-28T16:39:50.276067+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-27T22:47:29.251459+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-27T22:47:26.748464+00:00",
-      "queries_run": 2,
-      "query": "기후부 국감서 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "기후부 국감서",
+      "term": "부산·울산·경남 시·도의회",
       "ttl_hours": 24,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
+      "yield_days": [
+        "2026-10-29"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     },
     "상업운전을시작한": {
       "articles": 1,
@@ -1610,12 +1602,12 @@
       ],
       "expires_at": "2026-10-28T22:47:29.251459+00:00",
       "importance": "must_read",
-      "last_result_count": 9,
-      "last_run": "2026-10-27T22:47:29.251459+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-10-28T16:54:52.611790+00:00",
       "new_articles": 18,
       "origin": "auto",
-      "planned_at": "2026-10-27T22:47:26.748464+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-10-28T16:54:49.880527+00:00",
+      "queries_run": 3,
       "query": "상업운전을 시작한 원전",
       "score": 3.6,
       "status": "extended",
@@ -1626,6 +1618,40 @@
         "2026-10-28"
       ],
       "yields": 2,
+      "zero_streak": 1
+    },
+    "에너지에8개": {
+      "articles": 1,
+      "created_at": "2026-10-28T16:54:49.880527+00:00",
+      "domains": [
+        "powermag.com"
+      ],
+      "evidence": [
+        {
+          "domain": "powermag.com",
+          "hash": "a0d4e5ca42b18a9a",
+          "importance": "must_read",
+          "title": "미국 에너지부, 콘스텔레이션에 원전 증설용 50억 달러 차관 승인"
+        }
+      ],
+      "expires_at": "2026-10-29T16:54:52.611790+00:00",
+      "importance": "must_read",
+      "last_result_count": 1,
+      "last_run": "2026-10-28T16:54:52.611790+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-10-28T16:54:49.880527+00:00",
+      "queries_run": 1,
+      "query": "에너지에 8개 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "에너지에 8개",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-10-29"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "중인7기": {
@@ -1661,52 +1687,6 @@
       ],
       "yields": 2,
       "zero_streak": 0
-    },
-    "체코관광청": {
-      "articles": 3,
-      "created_at": "2026-10-27T16:39:50.276067+00:00",
-      "domains": [
-        "travie.com",
-        "daehanilbo.co.kr",
-        "ajunews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "travie.com",
-          "hash": "4934cb0edc9a069d",
-          "importance": "nice_to_know",
-          "title": "체코관광청, 한국수력원자력 참여하는 두코바니 지역 중심 비소치나 관광 홍보"
-        },
-        {
-          "domain": "daehanilbo.co.kr",
-          "hash": "a173ce1982c26ac4",
-          "importance": "nice_to_know",
-          "title": "체코관광청, 두코바니 원전 사업 연계 '비소치나 지역' 로드쇼 개최"
-        },
-        {
-          "domain": "ajunews.com",
-          "hash": "9f542c4a03d8ac9a",
-          "importance": "nice_to_know",
-          "title": "체코관광청, 한국수력원자력의 두코바니 원전 사업 계기로 비소치나주 관광 활성화 추진"
-        }
-      ],
-      "expires_at": "2026-10-28T16:39:50.276067+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-10-27T17:17:13.841679+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-27T17:17:11.538522+00:00",
-      "queries_run": 1,
-      "query": "체코관광청 원자력",
-      "score": 3.4,
-      "status": "tracking",
-      "term": "체코관광청",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
     }
   },
   "version": 1
