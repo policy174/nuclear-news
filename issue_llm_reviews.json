@@ -3242,6 +3242,16 @@
       "right_title": "한미 당국, 2,000억 달러 규모 대미 투자 프로젝트 내 대형원전 8기 포함 여부 논의",
       "same_event": true
     },
+    "0289bdc4aa98114b--a5250d0d4069ab04": {
+      "embedding_similarity": 0.8987,
+      "left_title": "울진군 등 원전 소재 지자체, 고준위 건식저장시설 협의체 구성 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 소재 지자체의 고준위 시설 공동 건의",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원전 소재 지자체, 사용후 핵연료 저장시설 관련 정부 지원 건의",
+      "same_event": true
+    },
     "028ac925fb7d5d66--4288e4cee8658728": {
       "embedding_similarity": 0.8711,
       "left_title": "현대건설, 테라파워 나트륨 SMR EPC 우선권 확보",
@@ -4169,6 +4179,16 @@
       "prompt_version": 1,
       "reason": "12차 전기본 원전 공론화 대주제 의결",
       "reviewed_at": "2026-10-19T05:16:10.167354+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화 대주제 의결",
+      "same_event": true
+    },
+    "03113113187781fc--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8412,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
       "right_title": "기후에너지환경부, 제12차 전기본 수립 위한 원전 공론화 대주제 의결",
       "same_event": true
     },
@@ -8120,6 +8140,16 @@
       "reason": "삼성물산 유럽 SMR 협력",
       "reviewed_at": "2026-09-24T08:47:29.438114+00:00",
       "right_title": "삼성물산, GE·히타치와 유럽 SMR 플릿 사업 개발 협력",
+      "same_event": true
+    },
+    "055f1321a885b2db--a5250d0d4069ab04": {
+      "embedding_similarity": 0.9009,
+      "left_title": "울진군 등 원전 소재 지자체, 고준위 건식저장시설 협의체 구성 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 지자체의 고준위 시설 공동 건의",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원전 소재 5개 지자체 행정협의회, 고준위방폐물 저장시설 지원 촉구",
       "same_event": true
     },
     "055f1321a885b2db--d31e4d1c27c88f60": {
@@ -12492,6 +12522,16 @@
       "right_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
       "same_event": false
     },
+    "0708d65654b8c9bd--fc4a903519c6d88a": {
+      "embedding_similarity": 0.898,
+      "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 패스트트랙과 전기본 공론화는 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "same_event": false
+    },
     "0708d65654b8c9bd--febf8fc9c47c2946": {
       "embedding_similarity": 0.8765,
       "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
@@ -14020,6 +14060,26 @@
       "reason": "업계 전반 공급 계약과 삼성SDI 수주로 다름",
       "reviewed_at": "2026-10-27T17:03:38.369638+00:00",
       "right_title": "삼성SDI, 美 AI 데이터센터 연계 ESS 수주 확대",
+      "same_event": false
+    },
+    "079cfee17cf465cb--1960f26bbc5ce7c3": {
+      "embedding_similarity": 0.9139,
+      "left_title": "고리 3·4호기 계속운전 허가, 오늘 원안위 재심의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 2차 심의 보도",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원자력안전위원회, 고리 3·4호기 계속운전 2차 심의 진행",
+      "same_event": true
+    },
+    "079cfee17cf465cb--75a7ef0f1f1516ba": {
+      "embedding_similarity": 0.8987,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원안위 심의와 한수원 재가동 계획은 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원자력안전위원회, 고리 3·4호기 계속운전 2차 심의 진행",
       "same_event": false
     },
     "079f72343bd8d41b--51dcb7c7707f1ab4": {
@@ -32912,6 +32972,16 @@
       "right_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 승인 의결",
       "same_event": true
     },
+    "157152555738ff32--8237fa6d1cc4f08a": {
+      "embedding_similarity": 0.8963,
+      "left_title": "원안위, 고리 3·4호기 계속운전 허가 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계속운전 허가와 사고관리계획서 승인은 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 승인 의결",
+      "same_event": false
+    },
     "157152555738ff32--aee72901ca96aec7": {
       "embedding_similarity": 0.8669,
       "left_title": "원자력안전위원회, 27일 고리 3·4호기 계속운전 허가안 심의 개최",
@@ -46352,6 +46422,16 @@
       "right_title": "정부, 신규 원전 공론화 착수…연말까지 기수·규모 확정 예정",
       "same_event": true
     },
+    "1ee0f2c733bbf575--75a7ef0f1f1516ba": {
+      "embedding_similarity": 0.9189,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 심의 및 재가동",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 허가 여부 2차 심의 진행",
+      "same_event": true
+    },
     "1efb437f82932fdc--36e8b772580c819d": {
       "embedding_similarity": 0.8985,
       "left_title": "과학기술정보통신부, SMR 민관협의체 이달 출범 및 7대 시드 프로젝트 상용화 추진",
@@ -47940,6 +48020,26 @@
       "reason": "우라늄 채굴 규정 제안과 사용후핵연료 재활용",
       "reviewed_at": "2026-09-05T22:54:21.617783+00:00",
       "right_title": "미국, 사용후핵연료 재활용 'REDUCE' 프로젝트 개발 중",
+      "same_event": false
+    },
+    "1ff08f33d795a82b--65be98ab8fc869b1": {
+      "embedding_similarity": 0.8941,
+      "left_title": "경상남도, 지역 원전기업 5곳의 SMR 산업 진출 지원 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 지원 발표와 기업의 펀드 유치는 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "경남 원전기업, SMR 분야 성장펀드 투자금 집중 유치",
+      "same_event": false
+    },
+    "1ff08f33d795a82b--aadc53e9bb3ae9c6": {
+      "embedding_similarity": 0.9151,
+      "left_title": "경상남도, 지역 원전기업 5곳의 SMR 산업 진출 지원 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경상남도의 서로 다른 SMR 지원 행사",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "경상남도, SMR 기업 현장 간담회 개최…2035년까지 수출기업 100곳 육성 계획",
       "same_event": false
     },
     "2000ac3ae765391e--970e64f526cb5ffd": {
@@ -50962,6 +51062,16 @@
       "right_title": "기후에너지환경부, 18일 제12차 전기본 제7차 토론회 개최…석탄발전 조기 폐지 논의",
       "same_event": false
     },
+    "23e8a39c3216ac04--9aa7e3cac0d94b77": {
+      "embedding_similarity": 0.9189,
+      "left_title": "미국 에너지부, 컨스텔레이션 원전 출력 증강에 50억 달러 조건부 대출 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "콘스텔레이션 50억 달러 대출 승인",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "콘스텔레이션, 美 원전 현대화에 최대 50억 달러 조건부 대출 확보",
+      "same_event": true
+    },
     "23e8a39c3216ac04--abf21d9cadee3a53": {
       "embedding_similarity": 0.8502,
       "left_title": "미국 Constellation Energy, 구글과 협력해 890MW 규모 신규 원전 용량에 43억 달러 투자",
@@ -52610,6 +52720,16 @@
       "reason": "국감 내 서로 다른 지적 안건",
       "reviewed_at": "2026-10-27T10:13:42.953097+00:00",
       "right_title": "국회 국감서 재생에너지 확대 연계 원전 경제성 평가 및 온배수 영향 재검토 요구",
+      "same_event": false
+    },
+    "2545ad61f6884f07--66fe486e3027bb99": {
+      "embedding_similarity": 0.9029,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 대출 지원은 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "미 에너지부, 기존 원전 출력 증강에 50억 달러 조건부 대출 약정",
       "same_event": false
     },
     "2556c13195bbf7c1--b19fd0094bb30156": {
@@ -56960,6 +57080,16 @@
       "reason": "다른 사안, 다른 내용",
       "reviewed_at": "2026-08-10T14:19:44.594623+00:00",
       "right_title": "폭염 속 전력수급 동향: 태양광 역할과 '구름 낀 피크' 우려",
+      "same_event": false
+    },
+    "289b48d7b199af1e--5e14bf6e70d9a886": {
+      "embedding_similarity": 0.894,
+      "left_title": "체코 테믈린 원전 수주 전초전…美·佛 견제 속 한국 우선협상권 흔들",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 관련 서로 다른 분석 기사",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
       "same_event": false
     },
     "289b48d7b199af1e--8ccbba2a3e6f3bd8": {
@@ -63232,6 +63362,16 @@
       "right_title": "한수원노조·시민단체, 신규원전 지연 책임 규명 요구",
       "same_event": true
     },
+    "2dd3840274a506c5--44a52742358c109b": {
+      "embedding_similarity": 0.8984,
+      "left_title": "미국 제너럴 매터, 파두카 우라늄 농축시설 건설 허가 신청서 제출",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "허가 신청과 NRC 환경평가서 발행은 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "미국 원자력규제위원회, 파두카 레이저 농축시설 최종 환경영향평가서 발행",
+      "same_event": false
+    },
     "2dd3840274a506c5--4c952b20900b7898": {
       "embedding_similarity": 0.8658,
       "left_title": "미국 제너럴 매터, 파두카 우라늄 농축시설 건설 허가 신청서 제출",
@@ -64850,6 +64990,16 @@
       "reason": "한국 측의 웨스팅하우스 지분 인수 추진건",
       "reviewed_at": "2026-10-16T23:28:01.052182+00:00",
       "right_title": "한국 기업들, 미국 웨스팅하우스 지분 인수 추진…한미 원전 협력 확대",
+      "same_event": true
+    },
+    "2e20de65a693c391--75a7ef0f1f1516ba": {
+      "embedding_similarity": 0.9009,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 허가 및 재가동",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 허가 의결",
       "same_event": true
     },
     "2e2210cdf10c8f04--3f58a38c838e6ae5": {
@@ -67661,6 +67811,16 @@
       "reviewed_at": "2026-10-11T12:18:43.421842+00:00",
       "right_title": "한전기술, 원전 설계 AI 전환 가속화 및 협력사 21곳과 노하우 공유",
       "same_event": false
+    },
+    "313f1248f77b0967--a6600ef9e7d2ced1": {
+      "embedding_similarity": 0.9113,
+      "left_title": "국제원자력기구 주관 국제 원자력 장관급 회의, 인천에서 개막",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인천 개최 IAEA 원자력 장관회의",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "과기정통부, 제6차 IAEA 원자력 장관회의 인천 송도서 개최",
+      "same_event": true
     },
     "3142dcb7e62f84a0--533440397f53c976": {
       "embedding_similarity": 0.9034,
@@ -75131,6 +75291,16 @@
       "reviewed_at": "2026-10-26T09:07:32.094969+00:00",
       "right_title": "원안위, 고리 3·4호기 계속운전 허가 안건 심의 예정",
       "same_event": true
+    },
+    "370e37ef40746d1f--75a7ef0f1f1516ba": {
+      "embedding_similarity": 0.8951,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "심의 예정 안건과 재가동 추진 계획은 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원안위, 고리 3·4호기 계속운전 허가 안건 심의 예정",
+      "same_event": false
     },
     "3713bea8bc4ee16d--f7c64b00291c1a44": {
       "embedding_similarity": 0.8917,
@@ -90002,6 +90172,16 @@
       "right_title": "K-건설, 해외수주 위해 사업 초기 단계부터 선점 전략 구사",
       "same_event": false
     },
+    "41c77b1b2d8d1a9e--75a7ef0f1f1516ba": {
+      "embedding_similarity": 0.899,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 재가동 및 심의 관련",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "고리 3·4호기 계속운전 허가, 27일 원안위 심의 재개",
+      "same_event": true
+    },
     "41d994dee10c3024--45b86618c59eaedf": {
       "embedding_similarity": 0.8614,
       "left_title": "한미 대미투자 협상 장기화 속 실제 집행 거칠 자금·계약·인허가 과제 산적",
@@ -92901,6 +93081,16 @@
       "reviewed_at": "2026-09-21T15:56:57.722782+00:00",
       "right_title": "정부, 2천억 달러 대미투자 국회 보고 연기…원전 협상 난항",
       "same_event": true
+    },
+    "44a52742358c109b--5eaf50940ba3cffe": {
+      "embedding_similarity": 0.9189,
+      "left_title": "미국 제너럴 매터, 파두카 부지 우라늄 농축 시설 건설 위한 NRC 라이선스 신청 서류 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "라이선스 신청과 환경영향평가서 발행 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "미국 원자력규제위원회, 파두카 레이저 농축시설 최종 환경영향평가서 발행",
+      "same_event": false
     },
     "44af16619ddc4885--669f3cd470352a4e": {
       "embedding_similarity": 0.8476,
@@ -104380,6 +104570,16 @@
       "reason": "한국 개최 IAEA 원자력 장관회의 보도",
       "reviewed_at": "2026-10-27T12:56:50.111417+00:00",
       "right_title": "IAEA 원자력 장관회의 한국 개최…SMR 개발·글로벌 생산 거점 도약 제시",
+      "same_event": true
+    },
+    "51c8e214669a3630--ce050b57701cbe78": {
+      "embedding_similarity": 0.9156,
+      "left_title": "IAEA 원자력 장관회의 한국 개최…SMR 개발·글로벌 생산 거점 도약 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 원자력 장관회의 한국 개최",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한국, IAEA 원자력 장관회의 첫 개최…원자력 평화적 이용 논의",
       "same_event": true
     },
     "51cc889029a795b8--d423dcbdee3514ab": {
@@ -142482,6 +142682,16 @@
       "right_title": "한국 정부, IAEA에 핵잠 도입 위한 핵물질 사찰 면제 협의 의향 통보",
       "same_event": true
     },
+    "75a7ef0f1f1516ba--8237fa6d1cc4f08a": {
+      "embedding_similarity": 0.9139,
+      "left_title": "원안위, 고리 3·4호기 계속운전 허가 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 허가 및 재가동",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "same_event": true
+    },
     "75a7ef0f1f1516ba--869983ed312a5bd8": {
       "embedding_similarity": 0.8744,
       "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
@@ -142541,6 +142751,16 @@
       "reviewed_at": "2026-10-28T11:28:31.441134+00:00",
       "right_title": "원자력안전위원회, 고리 3·4호기 계속운전 심사 착수…내년 재가동 전망",
       "same_event": true
+    },
+    "75a7ef0f1f1516ba--fd5053fb082328ec": {
+      "embedding_similarity": 0.8951,
+      "left_title": "한국수력원자력, 고리 원자력발전소 3·4호기 내년 상반기 재가동 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "재가동 추진과 사고관리계획서 심의는 별개",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원안위, 고리 3·4호기 및 한빛 1·2호기 사고관리계획서 3차 심의",
+      "same_event": false
     },
     "75eedb72f4e8246c--76a70f0330c3db48": {
       "embedding_similarity": 0.8771,
@@ -156032,6 +156252,16 @@
       "right_title": "한국-프랑스, AI·에너지 등 첨단산업 협력 확대 합의",
       "same_event": true
     },
+    "84f0875808035704--8e1929dd18a17fc3": {
+      "embedding_similarity": 0.9144,
+      "left_title": "핀란드 당국, 구글 데이터센터 예정지 환경평가 완료 전 산림 벌채 중단 지시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핀란드 당국의 구글 데이터센터 중단 지시",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "핀란드 당국, 환경 훼손 우려로 구글 데이터센터 2곳 건설 중지 명령",
+      "same_event": true
+    },
     "85183017c1690f9f--f5d91b68e38231eb": {
       "embedding_similarity": 0.8577,
       "left_title": "효성중공업, 미국 AI 데이터센터 전력 인프라 공략으로 상반기 수주 7.5조원 달성",
@@ -162392,6 +162622,16 @@
       "right_title": "원전 공론화 결과, 12차 전력수급기본계획 최대 변수로 작용",
       "same_event": false
     },
+    "8c97893e9cf03673--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8418,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 관련 보도",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원전 공론화 결과, 12차 전력수급기본계획 최대 변수로 작용",
+      "same_event": true
+    },
     "8cbbd9806434ba90--8df8ff446b69d318": {
       "embedding_similarity": 0.878,
       "left_title": "한전, 웨스팅하우스 지분 인수 논란…재무 건전성·실익 의문",
@@ -165321,6 +165561,16 @@
       "reviewed_at": "2026-10-11T21:43:53.899821+00:00",
       "right_title": "한미 원전 프레임워크 통해 한국형 원전, 미국 본토 진출 확대",
       "same_event": true
+    },
+    "9177a52d4c239422--a5250d0d4069ab04": {
+      "embedding_similarity": 0.9002,
+      "left_title": "울진군 등 원전 소재 지자체, 고준위 건식저장시설 협의체 구성 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 공동 제안과 울진군 개별 논의",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "울진군, 고준위 방폐장 유치 공론화 및 지원 방안 논의 착수",
+      "same_event": false
     },
     "9177a52d4c239422--febf7609ae2b7235": {
       "embedding_similarity": 0.9052,
@@ -169302,6 +169552,16 @@
       "right_title": "창원특례시, SMR 글로벌 파운드리 도약 목표…연말까지 육성계획 수립",
       "same_event": false
     },
+    "95bfae0af8f6e9bc--968c78d48333891f": {
+      "embedding_similarity": 0.909,
+      "left_title": "HD건설기계, 미국 데이터센터용 발전 엔진 3900억원 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "엔진 수주와 신공장 준공은 별개 사건",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "HD건설기계, 군산에 1168억원 투자해 엔진·배터리팩 신공장 준공",
+      "same_event": false
+    },
     "95c33d197b68b465--afefc17d290a9361": {
       "embedding_similarity": 0.8535,
       "left_title": "이 대통령, 해남 청정에너지로 미래 산업 성장 동력 강조",
@@ -171272,6 +171532,16 @@
       "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력 추진",
       "same_event": false
     },
+    "98fe30ce4f211836--9e3420606aeaf230": {
+      "embedding_similarity": 0.8543,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사업 점검과 시공사 교체 논란 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 1조원 감액 요구 직면 속 시공사 교체 시사",
+      "same_event": false
+    },
     "98fe30ce4f211836--9f42dd0e21aedcc5": {
       "embedding_similarity": 0.8751,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -171430,6 +171700,16 @@
       "reason": "양국 정부 회의와 입찰시스템 공유는 별개",
       "reviewed_at": "2026-10-21T07:23:03.535892+00:00",
       "right_title": "한수원, 체코 두코바니 원전 보조기기 입찰 시스템 국내 업체에 공유",
+      "same_event": false
+    },
+    "98fe30ce4f211836--e34248c493954c4b": {
+      "embedding_similarity": 0.8838,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사업 점검과 시공 계약 협상의 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 세부 조건 협상 진행",
       "same_event": false
     },
     "98fe30ce4f211836--e46ac8389efe4010": {
@@ -174032,6 +174312,16 @@
       "right_title": "전력수급기본계획 원전 공론화 의제, '미래 전력수요 대비 원전 역할·비중'으로 확정",
       "same_event": true
     },
+    "9aa7e3cac0d94b77--a0d4e5ca42b18a9a": {
+      "embedding_similarity": 0.9179,
+      "left_title": "미국 에너지부, 컨스텔레이션 원전 출력 증강에 50억 달러 조건부 대출 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "콘스텔레이션 50억 달러 대출 승인",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "미국 에너지부, 콘스텔레이션에 원전 증설용 50억 달러 차관 승인",
+      "same_event": true
+    },
     "9aa7e3cac0d94b77--a60b4b66bae1dfe3": {
       "embedding_similarity": 0.86,
       "left_title": "미 에너지부, 8개 주 송배전망 확충에 5억 달러 이상 지원",
@@ -175611,6 +175901,16 @@
       "reviewed_at": "2026-10-01T02:00:35.688377+00:00",
       "right_title": "한미 양국, 텍사스 발전소·원전 8기 전략투자 추진 및 알래스카 LNG 검토 합의",
       "same_event": true
+    },
+    "9e3420606aeaf230--b400d3ab565b5f11": {
+      "embedding_similarity": 0.84,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대사 발언과 시공사 교체 이슈 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 1조원 감액 요구 직면 속 시공사 교체 시사",
+      "same_event": false
     },
     "9e34ba9695f5e68e--b35eb3f20deb19c6": {
       "embedding_similarity": 0.8803,
@@ -180222,6 +180522,26 @@
       "right_title": "원전 소재 5개 지자체, 사용후핵연료 저장시설 지원 촉구",
       "same_event": true
     },
+    "a5250d0d4069ab04--bb40340d16166c74": {
+      "embedding_similarity": 0.8944,
+      "left_title": "울진군 등 원전 소재 지자체, 고준위 건식저장시설 협의체 구성 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 소재 지자체의 고준위 시설 공동 건의",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "전국 5개 원전 소재 지자체, 사용후핵연료 저장시설 지원 대책 촉구",
+      "same_event": true
+    },
+    "a5250d0d4069ab04--d31e4d1c27c88f60": {
+      "embedding_similarity": 0.8942,
+      "left_title": "영광군 등 원전소재 지자체, 사용후핵연료 정책 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 소재 지자체의 고준위 시설 공동 대응",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "울진군 등 원전 소재 지자체, 고준위 건식저장시설 협의체 구성 제안",
+      "same_event": true
+    },
     "a536c304c4bef911--c4c6a6f66f52dcbe": {
       "embedding_similarity": 0.8912,
       "left_title": "한수원, 이집트 엘다바 원전 총액계약으로 1조원대 손실 위험 노출",
@@ -182171,6 +182491,16 @@
       "reviewed_at": "2026-10-24T00:05:04.732047+00:00",
       "right_title": "국내 정유업계, AI 데이터센터 냉각용 특수 액침냉각유 시장 진출",
       "same_event": false
+    },
+    "a82bd590bd7de6b8--ffcc68ec1a7310a7": {
+      "embedding_similarity": 0.8973,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "HD현대의 SMR 및 데이터센터 투자 발표",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "HD현대, AI 데이터센터 사업 확대 및 SMR 주기기 제작 공장 설립 추진",
+      "same_event": true
     },
     "a836385597ba53c3--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8685,
@@ -189152,6 +189482,16 @@
       "right_title": "한수원, 체코 두코바니 원전 보조기기 입찰 시스템 국내 업체에 공유",
       "same_event": false
     },
+    "b400d3ab565b5f11--e34248c493954c4b": {
+      "embedding_similarity": 0.857,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대사 발언과 시공 계약 협상의 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 세부 조건 협상 진행",
+      "same_event": false
+    },
     "b400d3ab565b5f11--e46ac8389efe4010": {
       "embedding_similarity": 0.8681,
       "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
@@ -191742,6 +192082,16 @@
       "right_title": "현대엔지니어링, 美 SMR 개발사 NNE 및 ARC와 초도기 사업 협력 잇따라 체결",
       "same_event": false
     },
+    "b8a82c11b398d262--fd85bdd23e1f365d": {
+      "embedding_similarity": 0.9149,
+      "left_title": "현대엔지니어링, 美 SMR 개발사 NNE 및 ARC와 초도기 사업 협력 잇따라 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "현대엔지니어링의 美 SMR 협약",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "현대엔지니어링, 미국 SMR 기업 2곳과 업무협약 체결",
+      "same_event": true
+    },
     "b8c7780770dee3c7--cd7402e9a9f88194": {
       "embedding_similarity": 0.8535,
       "left_title": "웨스팅하우스 eVinci 마이크로원자로, 네바다서 임계 달성",
@@ -192860,6 +193210,16 @@
       "reason": "개별 원전 인허가와 업계 전반 동향 보도",
       "reviewed_at": "2026-10-25T01:17:12.424519+00:00",
       "right_title": "'473억 달러' 진기록 K-건설, \"글로벌 회복기, '팀코리아' 똘똘 뭉쳐야\"",
+      "same_event": false
+    },
+    "bb5be47ba3fd8a11--e34248c493954c4b": {
+      "embedding_similarity": 0.8702,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 절차와 시공 계약 협상의 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 세부 조건 협상 진행",
       "same_event": false
     },
     "bb5be47ba3fd8a11--e4efe2011507c90e": {
@@ -202732,6 +203092,16 @@
       "right_title": "'473억 달러' 진기록 K-건설, \"글로벌 회복기, '팀코리아' 똘똘 뭉쳐야\"",
       "same_event": false
     },
+    "d36c679315a69891--e34248c493954c4b": {
+      "embedding_similarity": 0.8522,
+      "left_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대사 발언과 시공 계약 협상의 차이",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 세부 조건 협상 진행",
+      "same_event": false
+    },
     "d36c679315a69891--e775ccf1892334e6": {
       "embedding_similarity": 0.8616,
       "left_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
@@ -205441,6 +205811,16 @@
       "reviewed_at": "2026-10-15T08:25:49.297424+00:00",
       "right_title": "원전공론화위원회, 부지 확정된 원전 및 계속운전은 논의 대상에서 배제",
       "same_event": false
+    },
+    "dfbcf56bc014232d--fc4a903519c6d88a": {
+      "embedding_similarity": 0.84,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 진행 상황",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "12차 전기본 원전 공론화, 환경단체 불참 속 다음달 숙의토론 개최",
+      "same_event": true
     },
     "dfc92d82a14a5860--f0fd1d874206e5fe": {
       "embedding_similarity": 0.8905,
@@ -208502,6 +208882,16 @@
       "right_title": "HD현대·테라파워·현대건설, 美 SMR 시장 선점 협력 가속화",
       "same_event": false
     },
+    "f441da227adb8fcd--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8415,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 착수 및 의제",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 공론화 의제 확정",
+      "same_event": true
+    },
     "f460ee8576a77837--f64115189bcf3f45": {
       "embedding_similarity": 0.8882,
       "left_title": "폐쇄 석탄발전소 부지에 SMR 건설, 전기본서 공식 논의",
@@ -208830,6 +209220,16 @@
       "reason": "성장동력 육성과 AI 로봇 보급은 별개",
       "reviewed_at": "2026-08-14T12:43:56.426278+00:00",
       "right_title": "정부, 전 산업에 'AI 옷' 입힌다…AI 로봇 연 1000대 보급 추진",
+      "same_event": false
+    },
+    "f98f7ff266d5a5fd--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8402,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 공론화와 과거 송변전 사업 지연",
+      "reviewed_at": "2026-10-28T12:14:06.694984+00:00",
+      "right_title": "제7~10차 전력수급계획 송변전사업, 10건 중 6건 이상 지연",
       "same_event": false
     },
     "f9a026de25a76dae--fbd3322d6a137c46": {
