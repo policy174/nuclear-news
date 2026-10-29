@@ -49,8 +49,8 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
 .panel[hidden]{display:none}
 .feature{margin-top:24px}
 .feature h2{margin-top:6px}
-.list .feature{margin-top:0;padding:4px 0 32px}
-.list .feature + .feature{padding-top:28px;border-top:1px solid rgba(255,255,255,.14)}
+.sheet{display:block;width:calc(100% + 32px);margin:8px -16px 0;min-height:80vh;border:0;
+  background:var(--navy)}
 .player{display:block;width:100%;max-width:360px;aspect-ratio:9/16;margin:16px auto 0;
   border-radius:14px;background:#0b1830}
 .comic{display:block;width:100%;min-height:70vh;border:0;margin-top:16px;border-radius:14px;
@@ -70,7 +70,9 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
   </div>
 
   <section class="panel" id="panel-brief" role="tabpanel" aria-labelledby="tab-brief">
-    <p class="lede" style="margin-top:16px">원자력 현안을 1분 안팎 영상으로. 최신 편이 맨 위.</p>
+    <p class="lede" id="briefLede" style="margin-top:16px">원자력 현안을 1분 안팎 영상으로. 최신 편이 맨 위.</p>
+    <!-- 최신 편 공유 페이지(/shorts/<page>/)를 그대로 띄운다. src 는 index.json 을 읽고 채운다. -->
+    <iframe class="sheet" id="briefFrame" hidden></iframe>
     <ul class="list" id="list"></ul>
     <p class="empty" id="empty" hidden>아직 올라온 영상이 없습니다.</p>
   </section>
@@ -102,18 +104,42 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
 (function () {
   var tabs = [].slice.call(document.querySelectorAll(".tab"));
   var frame = document.getElementById("comicFrame");
-  // 같은 출처라 만화 문서 높이를 읽어 iframe 을 늘린다 — 안쪽 스크롤바 없이 페이지째 내려 읽게.
-  function fit() {
+  var briefFrame = document.getElementById("briefFrame");
+  // 같은 출처라 안쪽 문서 높이를 읽어 iframe 을 늘린다 — 안쪽 스크롤바 없이 페이지째 내려 읽게.
+  function fitOne(f) {
     try {
-      var doc = frame.contentDocument;
-      if (doc && doc.documentElement) frame.style.height = doc.documentElement.scrollHeight + "px";
+      var doc = f.contentDocument;
+      if (!doc || !doc.documentElement || f.offsetParent === null) return;   // 숨은 탭은 높이 0 이라 건너뛴다
+      doc.documentElement.style.overflow = "hidden";
+      f.style.height = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0) + "px";
     } catch (e) { /* 실패하면 min-height 로 남는다 */ }
   }
-  frame.addEventListener("load", function () {
-    fit();
-    setTimeout(fit, 800);   // 글꼴·그림이 늦게 붙으면 높이가 또 바뀐다
+  function fit() { fitOne(frame); fitOne(briefFrame); }
+  [frame, briefFrame].forEach(function (f) {
+    f.addEventListener("load", function () {
+      // 브리핑 페이지의 바깥 링크(← NUCLENS·스토리·자세한 뉴스)는 iframe 이 아니라 창째 이동.
+      // 만화의 #ep 같은 같은 문서 안 링크는 그대로 둔다.
+      if (f === briefFrame) {
+        try {
+          [].forEach.call(f.contentDocument.querySelectorAll("a[href]"), function (a) {
+            if (a.getAttribute("href").charAt(0) !== "#") a.target = "_top";
+            // 바깥 페이지에 「← NUCLENS」가 이미 있다 — 두 번 보이지 않게.
+            if (a.getAttribute("href") === "/") a.style.visibility = "hidden";
+          });
+        } catch (e) { /* 링크는 iframe 안에서 열린다 */ }
+      }
+      fitOne(f);
+      setTimeout(function () { fitOne(f); }, 800);   // 글꼴·그림이 늦게 붙으면 높이가 또 바뀐다
+      setTimeout(function () { fitOne(f); }, 2500);
+    });
   });
   window.addEventListener("resize", fit);
+  // 숨은 탭 안 iframe 의 영상까지 멈춘다.
+  function pauseFrame(f) {
+    try {
+      [].forEach.call(f.contentDocument.querySelectorAll("video"), function (v) { if (!v.paused) v.pause(); });
+    } catch (e) { /* 아직 안 열린 iframe */ }
+  }
   function show(hash) {
     var found = tabs.some(function (t) { return t.getAttribute("data-hash") === hash; });
     if (!found) hash = "";
@@ -123,11 +149,13 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
       t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
     });
-    // 숨겨진 탭의 영상은 멈춘다 — 브리핑 탭도 이제 플레이어다.
+    // 숨겨진 탭의 영상은 멈춘다.
     [].forEach.call(document.querySelectorAll(".player"), function (v) {
       if (v.closest(".panel").hidden && !v.paused) v.pause();
     });
+    if (hash !== "") pauseFrame(briefFrame);
     if (hash === "comic" && !frame.getAttribute("src")) frame.setAttribute("src", frame.getAttribute("data-src"));
+    fit();   // 숨어 있다 보이게 된 iframe 은 그때 높이를 잰다
   }
   tabs.forEach(function (t) {
     t.addEventListener("click", function () {
@@ -186,22 +214,22 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
       });
       var list = document.getElementById("list");
       if (!rows.length) { document.getElementById("empty").hidden = false; return; }
+      // 최신 편은 공유 페이지(요약·공유·스토리 링크가 있는 원래 영상 브리핑 화면)를
+      // 탭 안에 통째로 띄운다 — 눌러서 들어가지 않아도 바로 보이게(2026-10-29 지니).
+      // 지난 편은 아래 목록으로 남는다.
+      var latest = rows[0];
+      var latestPage = String(latest.page || "").trim();
+      if (latestPage) {
+        rows = rows.slice(1);
+        var brief = document.getElementById("briefFrame");
+        brief.hidden = false;
+        brief.setAttribute("title", "영상 브리핑 #" + latest.no + " — " + latest.title);
+        brief.setAttribute("src", "/shorts/" + encodeURIComponent(latestPage) + "/");
+        document.getElementById("briefLede").hidden = true;
+      }
       list.innerHTML = rows.map(function (row) {
         var img = poster(row);
         var meta = [dateLabel(row.date), len(row.seconds)].filter(Boolean).join(" · ");
-        // 파일이 있는 편은 목록 칸이 아니라 플레이어로 바로 — 카톡 영상 탭과 같은 모양(2026-10-29 지니).
-        var file = String(row.file || "").trim();
-        if (file) {
-          return '<li class="feature">'
-            + '<p class="series">영상 브리핑 #' + esc(row.no) + '</p>'
-            + '<h2>' + esc(row.title) + '</h2>'
-            + (row.lead ? '<p class="lead">' + esc(row.lead) + '</p>' : "")
-            + (meta ? '<p class="meta">' + esc(meta) + '</p>' : "")
-            + '<video class="player" controls playsinline preload="none"'
-            + (img ? ' poster="' + esc(img) + '"' : "") + '>'
-            + '<source src="/shorts/' + esc(encodeURIComponent(file)) + '" type="video/mp4"></video>'
-            + '</li>';
-        }
         return '<li><a class="ep" href="' + esc(href(row)) + '">'
           + '<div class="thumb">' + (img ? '<img src="' + esc(img) + '" alt="" loading="lazy">' : "")
           + '<span aria-hidden="true">&#9654;</span></div>'
