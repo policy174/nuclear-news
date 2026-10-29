@@ -134,6 +134,9 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
     });
   });
   window.addEventListener("resize", fit);
+  // load 는 그림을 전부 받아야 온다(만화 3.7MB) — 폰에서는 그 전까지 위쪽만 보였다.
+  // 받는 동안에도 0.7초마다 다시 잰다. 같은 출처 scrollHeight 읽기라 비용은 작다.
+  setInterval(fit, 700);
   // 숨은 탭 안 iframe 의 영상까지 멈춘다.
   function pauseFrame(f) {
     try {
