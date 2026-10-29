@@ -1871,14 +1871,12 @@ function shortsLatest() {
 }
 
 // 코너 진입 칩. 이슈에 붙는 배지와 달리 지면 내용과 무관하게 항상 선다.
-// 최신 편의 공유 페이지로 보내고, 전편 목록은 /shorts/(아카이브)가 맡는다.
+// /shorts/ 로 보낸다 — 영상 브리핑 전편·카톡 영상·웅찌 만화가 탭으로 거기 있다
+// (2026-10-29 지니). 최신 편 공유 페이지로 바로 보내면 탭을 못 본다.
 function renderBriefVideoLink() {
   const el = document.getElementById("briefVideoLink");
   if (!el) return;
-  const row = shortsLatest();
-  if (!row) { el.hidden = true; return; }
-  const page = String(row.page || "").trim();
-  el.href = page ? `/shorts/${encodeURIComponent(page)}/` : "/shorts/";
+  el.href = "/shorts/";
   el.hidden = false;
 }
 

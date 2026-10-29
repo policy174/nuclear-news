@@ -121,10 +121,11 @@ class ShortsIndexTests(unittest.TestCase):
             self.assertIn("형이 다름", first_problem([dict(two, seconds="69")]))
 
     def test_app_picks_latest_by_date_and_primary_issue(self):
-        """칩은 배열 첫 줄이 아니라 date·no 최신, 「이슈 보기」는 primary_issue_id."""
+        """칩은 탭 모음(/shorts/)으로, 최신 편은 date·no, 「이슈 보기」는 primary_issue_id."""
         script = (ROOT / "public" / "app.js").read_text(encoding="utf-8")
         chip = script.split("function renderBriefVideoLink(", 1)[1].split("\nfunction ", 1)[0]
-        self.assertIn("shortsLatest()", chip)
+        # 2026-10-29: 칩이 최신 편 공유 페이지로 가면 카톡 영상·웅찌 만화 탭을 못 본다.
+        self.assertIn('"/shorts/"', chip)
         self.assertNotIn("shortsAll()[0]", chip, "02편을 어디에 끼우느냐에 따라 칩이 바뀐다")
         latest = script.split("function shortsLatest(", 1)[1].split("\nfunction ", 1)[0]
         self.assertIn("date", latest)

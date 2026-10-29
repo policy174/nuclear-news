@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>영상 브리핑 · Nuclens</title>
-<meta name="description" content="nuclens 영상 브리핑 전편 목록">
+<title>영상 보기 · Nuclens</title>
+<meta name="description" content="nuclens 영상 브리핑 전편 · 카톡 영상 · 웅찌 만화">
 <link rel="canonical" href="https://nuclens.pages.dev/shorts/">
 <meta name="robots" content="noindex">
 <style>
@@ -39,17 +39,105 @@ h2{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-t
 .lead{font-size:14.5px;line-height:1.6;color:#C8D4E4;margin-top:7px;word-break:keep-all}
 .meta{font-size:12.5px;color:var(--dim);margin-top:9px;letter-spacing:.02em}
 .empty{margin-top:28px;font-size:15px;color:var(--dim)}
+/* 탭 — 영상 브리핑 · 카톡 영상 · 웅찌 만화. 주소 끝(#chat·#comic)으로 바로 열린다. */
+.tabs{display:flex;gap:6px;margin-top:24px;border-bottom:1px solid rgba(255,255,255,.14)}
+.tab{appearance:none;background:none;border:0;color:var(--dim);font:inherit;font-size:15px;
+  font-weight:700;padding:10px 4px 12px;margin-right:14px;cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--paper);border-bottom-color:var(--video)}
+.tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.panel[hidden]{display:none}
+.feature{margin-top:24px}
+.feature h2{margin-top:6px}
+.player{display:block;width:100%;max-width:360px;aspect-ratio:9/16;margin:16px auto 0;
+  border-radius:14px;background:#0b1830}
+.comic{display:block;width:100%;min-height:70vh;border:0;margin-top:16px;border-radius:14px;
+  background:#fff}
+.open{display:inline-block;margin-top:12px;font-size:14px;font-weight:600;color:var(--blue)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="home" href="/">← NUCLENS</a>
   <div class="rule"></div>
-  <h1>영상 브리핑</h1>
-  <p class="lede">원자력 현안을 1분 안팎 영상으로. 최신 편이 맨 위.</p>
-  <ul class="list" id="list"></ul>
-  <p class="empty" id="empty" hidden>아직 올라온 영상이 없습니다.</p>
+  <h1>영상 보기</h1>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-brief" aria-controls="panel-brief" data-hash="">영상 브리핑</button>
+    <button class="tab" role="tab" id="tab-chat" aria-controls="panel-chat" data-hash="chat">카톡 영상</button>
+    <button class="tab" role="tab" id="tab-comic" aria-controls="panel-comic" data-hash="comic">웅찌 만화</button>
+  </div>
+
+  <section class="panel" id="panel-brief" role="tabpanel" aria-labelledby="tab-brief">
+    <p class="lede" style="margin-top:16px">원자력 현안을 1분 안팎 영상으로. 최신 편이 맨 위.</p>
+    <ul class="list" id="list"></ul>
+    <p class="empty" id="empty" hidden>아직 올라온 영상이 없습니다.</p>
+  </section>
+
+  <section class="panel" id="panel-chat" role="tabpanel" aria-labelledby="tab-chat" hidden>
+    <div class="feature">
+      <p class="series">카톡 영상</p>
+      <h2>66원? 잠깐만 · 민지와의 대화</h2>
+      <p class="meta">2026. 10. 13. · 2분 44초</p>
+      <!-- preload=none: 22MB — 탭을 열고 재생을 눌러야 받는다 -->
+      <video class="player" controls playsinline preload="none"
+             poster="/shorts/2026-10-13-chat-66won.jpg">
+        <source src="/shorts/2026-10-13-chat-66won.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-comic" role="tabpanel" aria-labelledby="tab-comic" hidden>
+    <div class="feature">
+      <p class="series">웅찌 만화</p>
+      <h2>66원? 잠깐만 · 민지와의 대화</h2>
+      <a class="open" href="/shorts/woongchi/" target="_blank" rel="noopener">새 창에서 크게 보기 ↗</a>
+      <!-- src 는 탭을 처음 열 때 채운다 — 그림·글꼴 내장 5.5MB -->
+      <iframe class="comic" id="comicFrame" title="웅찌 만화 — 66원? 잠깐만" data-src="/shorts/woongchi/"></iframe>
+    </div>
+  </section>
 </div>
+<script>
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll(".tab"));
+  var frame = document.getElementById("comicFrame");
+  // 같은 출처라 만화 문서 높이를 읽어 iframe 을 늘린다 — 안쪽 스크롤바 없이 페이지째 내려 읽게.
+  function fit() {
+    try {
+      var doc = frame.contentDocument;
+      if (doc && doc.documentElement) frame.style.height = doc.documentElement.scrollHeight + "px";
+    } catch (e) { /* 실패하면 min-height 로 남는다 */ }
+  }
+  frame.addEventListener("load", function () {
+    fit();
+    setTimeout(fit, 800);   // 글꼴·그림이 늦게 붙으면 높이가 또 바뀐다
+  });
+  window.addEventListener("resize", fit);
+  function show(hash) {
+    var found = tabs.some(function (t) { return t.getAttribute("data-hash") === hash; });
+    if (!found) hash = "";
+    tabs.forEach(function (t) {
+      var on = t.getAttribute("data-hash") === hash;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if (hash !== "chat") {
+      var v = document.querySelector(".player");
+      if (v && !v.paused) v.pause();
+    }
+    if (hash === "comic" && !frame.getAttribute("src")) frame.setAttribute("src", frame.getAttribute("data-src"));
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () {
+      var h = t.getAttribute("data-hash");
+      history.replaceState(null, "", h ? "#" + h : location.pathname + location.search);
+      show(h);
+    });
+  });
+  window.addEventListener("hashchange", function () { show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+})();
+</script>
 <script>
 (function () {
   function esc(s) {
