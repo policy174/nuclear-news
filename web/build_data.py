@@ -118,6 +118,8 @@ ISSUE_EMBEDDING_CANDIDATE_THRESHOLD = 0.70
 LOCAL_EMBEDDING_CANDIDATE_THRESHOLD = 0.18
 LOCAL_EMBEDDING_DIMENSION = 1024
 MATCH_OVERRIDES_FILE = BOT_DIR / "issue_match_overrides.json"
+# news.json 에 쓰지 않는 필드 — 화면이 안 읽고 용량만 차지한다(아래 outputs 참고).
+NEWS_JSON_OMIT = frozenset({"features", "canonical_tags"})
 SITE_URL = os.environ.get("SITE_URL", "https://nuclens.pages.dev").rstrip("/")
 KST = timezone(timedelta(hours=9))
 
@@ -5599,8 +5601,15 @@ def build() -> None:
               "generation_id": generation_id}
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    # news.json 은 Pages 파일 한도(25 MiB)에 걸린다 — 2026-10-29 26.1 MiB 로 배포가
+    # 막혔다. 화면(app.js)이 안 읽는 두 필드는 파일에 쓸 때만 뺀다(약 2.2 MiB).
+    # 빌드 안의 news_items 는 그대로라 병합·태그 계산은 바뀌지 않는다.
+    news_public = [
+        {key: value for key, value in item.items() if key not in NEWS_JSON_OMIT}
+        for item in news_items
+    ]
     outputs = (
-        ("news.json", news_items),
+        ("news.json", news_public),
         ("briefings.json", briefings),
         ("issues.json", issue_catalog),
         ("trend.json", trend),
