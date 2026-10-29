@@ -1980,7 +1980,15 @@ class GeneratedDataTests(unittest.TestCase):
             for cluster in self.issue_audit["clusters"]
             for match in cluster["matches"]
         }
-        self.assertIn("manual_approved", methods)
+        # 승인 짝은 기사 둘이 지금 데이터에 같이 있을 때만 병합으로 드러난다.
+        # 2026-10-27: 8월에 승인한 짝이 전부 데이터 창 밖으로 밀려나자 이 검사가
+        # 상시 실패해 crawl·deploy-web 배포가 이틀 멈췄다 — 살아 있는 짝이 있을 때만 요구한다.
+        present = {article["hash"] for article in self.news}
+        overrides = json.loads(build_data.MATCH_OVERRIDES_FILE.read_text(encoding="utf-8"))
+        live_pairs = [pair for pair in overrides.get("approved", [])
+                      if pair.get("left_hash") in present and pair.get("right_hash") in present]
+        if live_pairs:
+            self.assertIn("manual_approved", methods)
 
     def test_generated_issue_clusters_have_no_country_or_facility_conflicts(self):
         by_hash = {article["hash"]: article for article in self.news}
