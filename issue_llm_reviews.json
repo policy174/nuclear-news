@@ -1002,6 +1002,26 @@
       "right_title": "KIOST, 해저 데이터센터로 AI 전력·물 절감 기술 개발 추진",
       "same_event": false
     },
+    "01ab12c74b3350e2--40e8c4d2d0a3e880": {
+      "embedding_similarity": 0.8961,
+      "left_title": "두산에너빌리티, 3분기 영업익 2612억원 달성… 뉴스케일파워 SMR 주기기 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 대상 SMR 업체가 다름",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "두산에너빌리티, 3분기 영업이익 2612억 원 기록…테라파워 SMR 수주",
+      "same_event": false
+    },
+    "01ab12c74b3350e2--7fc471660310f0e1": {
+      "embedding_similarity": 0.8937,
+      "left_title": "두산에너빌리티, 3분기 영업익 2612억원 달성… 뉴스케일파워 SMR 주기기 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두산에너빌리티 3분기 실적",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "두산에너빌리티, 3분기 영업이익 2612억 원 기록…매출 14.7% 증가",
+      "same_event": true
+    },
     "01b7385f8ed0c882--140d10ed804f4a09": {
       "embedding_similarity": 0.8937,
       "left_title": "트럼프, 한국에 알래스카 LNG 투자 압박하며 \"합의 안하면 두 배\" 경고",
@@ -35632,6 +35652,16 @@
       "right_title": "정부, 12차 전기본 앞두고 원전 공론화 재개…실효성 논란 제기",
       "same_event": true
     },
+    "180b1810f47838dc--dae5d9af25ada683": {
+      "embedding_similarity": 0.8951,
+      "left_title": "기후에너지환경부, 영덕 신규 원전 2기 부지 확정 절차 개시…전략환경영향평가 공고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "영덕 원전 절차와 일반 공론화",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "정부, 12차 전기본 앞두고 원전 공론화 재개…실효성 논란 제기",
+      "same_event": false
+    },
     "180b1810f47838dc--e28a111c9e78dcdb": {
       "embedding_similarity": 0.9052,
       "left_title": "전기본 원전 정책, 시민 공론화 거쳐 정부에 권고 결정",
@@ -57742,6 +57772,16 @@
       "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
       "same_event": false
     },
+    "289b48d7b199af1e--f914263797a62c95": {
+      "embedding_similarity": 0.8658,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 난항 관련 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
+      "same_event": true
+    },
     "28ac0f04c86fd094--9153dd7eaf6c0ed5": {
       "embedding_similarity": 0.8659,
       "left_title": "미국 주정부, 데이터센터 전력 수요 증가에 따른 계통 비용 분담 규제 강화",
@@ -59091,6 +59131,16 @@
       "reviewed_at": "2026-09-12T20:13:07.830018+00:00",
       "right_title": "이 대통령, 마크롱에 한강 책 선물하며 “진정한 ‘꼬뺑’(친구)”",
       "same_event": true
+    },
+    "2a24f61d81da9ef0--f6b67df68185369f": {
+      "embedding_similarity": 0.9212,
+      "left_title": "미국 정부, 한·미 핵연료 주기 협력 가능성 시사 및 123협정 개정 과제 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "123협정 개정 안건과 글로벌 원전 참여 의견",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "미국 정부 관계자, 한국 기업의 미국 및 글로벌 원전 확장 참여는 필수적",
+      "same_event": false
     },
     "2a2b5e5bbd50d096--911526189a05bdad": {
       "embedding_similarity": 0.9133,
@@ -65362,6 +65412,16 @@
       "right_title": "한수원, 체코 원전 시공사 계약 협상 난항…대우건설 교체 검토",
       "same_event": false
     },
+    "2e13958a15d738c8--f914263797a62c95": {
+      "embedding_similarity": 0.864,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 난항 및 교체 검토",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 원전 시공사 계약 협상 난항…대우건설 교체 검토",
+      "same_event": true
+    },
     "2e1a5ee355098b0b--457aa2e1b508d72c": {
       "embedding_similarity": 0.8515,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -68522,6 +68582,16 @@
       "right_title": "과기정통부, 제6차 IAEA 원자력 장관회의 인천 송도서 개최",
       "same_event": true
     },
+    "313f1248f77b0967--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.9187,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 원자력 장관회의 행사 관련 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "과기정통부, 제6차 IAEA 원자력 장관회의 인천 송도서 개최",
+      "same_event": true
+    },
     "313f1248f77b0967--d9325ac898ee3d57": {
       "embedding_similarity": 0.9148,
       "left_title": "인천서 IAEA 원자력 장관회의 개막…SMR 안전개발 및 글로벌 협력 논의",
@@ -69699,6 +69769,16 @@
       "prompt_version": 1,
       "reason": "슬로바키아 원전과 한수원 체코 원전",
       "reviewed_at": "2026-10-20T21:25:20.196855+00:00",
+      "right_title": "한수원, 체코 테믈린 원전 추가 수주 시동…두코바니 성공 기반",
+      "same_event": false
+    },
+    "33779491bd760775--f914263797a62c95": {
+      "embedding_similarity": 0.8433,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두코바니 시공계약과 테믈린 수주건은 다름",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
       "right_title": "한수원, 체코 테믈린 원전 추가 수주 시동…두코바니 성공 기반",
       "same_event": false
     },
@@ -85222,6 +85302,26 @@
       "right_title": "유럽 가뭄으로 원전 가동 중단, 전력난 심화 우려",
       "same_event": false
     },
+    "3d2c3fdb5faa2382--44c0cd797434414c": {
+      "embedding_similarity": 0.8897,
+      "left_title": "대우건설-두산에너빌리티 컨소시엄, 한수원의 체코 원전 협상 결렬 입장 정면 반박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "26조 체코 원전 시공 협상 결렬···한수원, 새 건설업체 찾는다",
+      "same_event": true
+    },
+    "3d2c3fdb5faa2382--f914263797a62c95": {
+      "embedding_similarity": 0.8856,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "26조 체코 원전 시공 협상 결렬···한수원, 새 건설업체 찾는다",
+      "same_event": true
+    },
     "3d40dcc6ed6f3fac--8087dd0c3497cc5f": {
       "embedding_similarity": 0.8598,
       "left_title": "원안위, 고리 3·4호기 계속운전 연내 결론 및 SMR 규제 가속화",
@@ -86131,6 +86231,16 @@
       "reviewed_at": "2026-10-29T11:01:34.573086+00:00",
       "right_title": "한수원, 체코 두코바니 원전 시공계약 협상 최종 결렬…신규 시공사 선정 돌입",
       "same_event": false
+    },
+    "3dbfbb181ca5c0e2--f914263797a62c95": {
+      "embedding_similarity": 0.9056,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 시공계약 협상 결렬 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공계약 협상 최종 결렬…신규 시공사 선정 돌입",
+      "same_event": true
     },
     "3dd4d4aba0a37df0--6699709aea7eb25a": {
       "embedding_similarity": 0.8719,
@@ -88379,6 +88489,16 @@
       "prompt_version": 1,
       "reason": "두코바니 발언과 테믈린 원전 협력 논의는 상이",
       "reviewed_at": "2026-10-27T02:31:18.147512+00:00",
+      "right_title": "체코, 두코바니 이어 테믈린 원전 사업도 한국과 협력 논의",
+      "same_event": false
+    },
+    "3eef3e672304bc8f--f914263797a62c95": {
+      "embedding_similarity": 0.8433,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두코바니 시공계약과 테믈린 원전 협력 논의",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
       "right_title": "체코, 두코바니 이어 테믈린 원전 사업도 한국과 협력 논의",
       "same_event": false
     },
@@ -94171,6 +94291,26 @@
       "reviewed_at": "2026-10-25T08:41:01.228239+00:00",
       "right_title": "원자력발전 지역자원시설세 1원서 2원으로 인상 필요성 제기",
       "same_event": false
+    },
+    "44c0cd797434414c--82cd0841007bf49d": {
+      "embedding_similarity": 0.8916,
+      "left_title": "대우건설-두산에너빌리티 컨소시엄, 한수원의 체코 원전 협상 결렬 입장 정면 반박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 공사비 이견으로 협상 결렬",
+      "same_event": true
+    },
+    "44c0cd797434414c--bf7416f55f11a9d8": {
+      "embedding_similarity": 0.8877,
+      "left_title": "대우건설-두산에너빌리티 컨소시엄, 한수원의 체코 원전 협상 결렬 입장 정면 반박",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협상 대우건설 컨소시엄과 결렬",
+      "same_event": true
     },
     "44c8137dead103cc--975146cde1cfceb8": {
       "embedding_similarity": 0.8695,
@@ -103132,6 +103272,16 @@
       "right_title": "국내 건설사 해외 수주액, 체코 원전 역기저효과로 전년 대비 50% 감소",
       "same_event": false
     },
+    "4fa41d04b8079920--f914263797a62c95": {
+      "embedding_similarity": 0.8425,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 시공계약 사안과 건설업계 수주 동향",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "국내 건설사 해외 수주액, 체코 원전 역기저효과로 전년 대비 50% 감소",
+      "same_event": false
+    },
     "4faadb8aa8aacc5f--7d19110e0c58b28f": {
       "embedding_similarity": 0.8603,
       "left_title": "김정관 장관, 미국서 대형 원전 8기 건설 등 대미 투자 최종 협상",
@@ -105700,6 +105850,16 @@
       "reason": "한국 개최 IAEA 원자력 장관회의 보도",
       "reviewed_at": "2026-10-27T12:56:50.111417+00:00",
       "right_title": "IAEA 원자력 장관회의 한국 개최…SMR 개발·글로벌 생산 거점 도약 제시",
+      "same_event": true
+    },
+    "51c8e214669a3630--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.9125,
+      "left_title": "IAEA 원자력 장관회의 한국 개최…SMR 개발·글로벌 생산 거점 도약 제시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IAEA 장관회의 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
       "same_event": true
     },
     "51c8e214669a3630--ce050b57701cbe78": {
@@ -110622,6 +110782,16 @@
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
       "same_event": false
     },
+    "55867a2870904a16--f914263797a62c95": {
+      "embedding_similarity": 0.8829,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 시공계약 사안과 증시 동향 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "대우건설, 체코 원전 시공계약 협상 결렬 여파로 급락… 삼성·SK 등 증시 동향",
+      "same_event": false
+    },
     "558de2130f481049--9c3c5e658986fdf4": {
       "embedding_similarity": 0.8752,
       "left_title": "웨스팅하우스 지분 인수, 국익 부합 여부 냉철한 판단 필요",
@@ -114211,6 +114381,16 @@
       "reviewed_at": "2026-10-28T11:28:31.441134+00:00",
       "right_title": "원전 소재 5개 지자체, 사용후핵연료 저장시설 지원대책 촉구",
       "same_event": true
+    },
+    "587615fd6c57e1f2--7726a9305fa80d9c": {
+      "embedding_similarity": 0.8873,
+      "left_title": "두산에너빌리티, 체코 원전 시공 협상 결렬 여파로 연간 수주 목표치 하향 조정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "실적 하향과 SMR 사업 확대",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "두산에너빌리티, 연내 SMR 기자재 추가 수주 기대…북미·사우디 원전 사업 확대",
+      "same_event": false
     },
     "5877c79bd6bdf945--722ebbf9d8676b8c": {
       "embedding_similarity": 0.8453,
@@ -122172,6 +122352,16 @@
       "right_title": "IAEA, 한국서 제6회 원자력 장관회의 개최…SMR 개발 등 논의",
       "same_event": true
     },
+    "60736bab4071c97a--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.9028,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IAEA 장관회의 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "IAEA, 한국서 제6회 원자력 장관회의 개최…SMR 개발 등 논의",
+      "same_event": true
+    },
     "6075e41f9e7cab7b--7fbf45e0f47e3880": {
       "embedding_similarity": 0.9064,
       "left_title": "대우건설, 하반기 신규 수주 목표 20조원…체코 두코바니 원전 포함",
@@ -129582,6 +129772,16 @@
       "right_title": "폴란드, 본계약 전 대형 기자재 발주…원전 공기 지연 방지",
       "same_event": false
     },
+    "67201b9277c0cef6--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.8893,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "행사 폐막과 사무총장 방한 취소",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "IAEA 사무총장 방한 취소…원자력 장관회의 참석 불발",
+      "same_event": false
+    },
     "672df3891d062a98--fd47081578facf4b": {
       "embedding_similarity": 0.9048,
       "left_title": "이재명 대통령, ADB와 중앙아시아 원전·광물 진출 협력 모색",
@@ -133299,6 +133499,16 @@
       "prompt_version": 1,
       "reason": "대사 개인 발언과 양국 간 점검 회의는 별개",
       "reviewed_at": "2026-10-27T02:31:18.147512+00:00",
+      "right_title": "한-체코, 두코바니 원전 프로젝트 진행 상황 점검 및 협력 논의",
+      "same_event": false
+    },
+    "6aef558c74ddeb5d--f914263797a62c95": {
+      "embedding_similarity": 0.8417,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공계약 협상과 프로젝트 전체 진행 점검",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
       "right_title": "한-체코, 두코바니 원전 프로젝트 진행 상황 점검 및 협력 논의",
       "same_event": false
     },
@@ -143970,6 +144180,16 @@
       "reason": "계속운전 심사 및 전력공급 현황 점검",
       "reviewed_at": "2026-08-08T19:23:23.694820+00:00",
       "right_title": "김성진 전력거래소 이사장, 한빛원전 방문해 전력공급 현황 점검",
+      "same_event": true
+    },
+    "756c40a7a79b644c--db15d33d84db3db6": {
+      "embedding_similarity": 0.898,
+      "left_title": "두산에너빌리티, 뉴스케일 SMR 상부 원자로 모듈 제작 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두산-뉴스케일 SMR 모듈 계약",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "뉴스케일 파워-두산에너빌리티, SMR 모듈 제조 계약 체결",
       "same_event": true
     },
     "756d9e176f2e43d9--e35ba84675a81735": {
@@ -156322,6 +156542,16 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 공사비 이견으로 협상 결렬",
       "same_event": false
     },
+    "82cd0841007bf49d--f914263797a62c95": {
+      "embedding_similarity": 0.8985,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 결렬 관련 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 공사비 이견으로 협상 결렬",
+      "same_event": true
+    },
     "82d5b5981995316a--a65d5eec48399db4": {
       "embedding_similarity": 0.8603,
       "left_title": "강원, 석탄 산업 전환 지역의 데이터센터 유치 전략 모색",
@@ -166082,6 +166312,16 @@
       "right_title": "한국수력원자력, 26조 원 규모 체코 두코바니 원전 인허가 신청 준비 착수",
       "same_event": false
     },
+    "8f4b805ccf16d76f--f914263797a62c95": {
+      "embedding_similarity": 0.8424,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공계약 협상과 원전 전체 인허가 신청",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한국수력원자력, 26조 원 규모 체코 두코바니 원전 인허가 신청 준비 착수",
+      "same_event": false
+    },
     "8f76353e37febb05--aee72901ca96aec7": {
       "embedding_similarity": 0.8696,
       "left_title": "원자력안전위원회, 27일 고리 3·4호기 계속운전 허가안 심의 개최",
@@ -170122,6 +170362,16 @@
       "right_title": "이재명 대통령, ADB 총재 접견…핵심광물·원전 협력 논의",
       "same_event": false
     },
+    "94650d03168ee2ca--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.8889,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IAEA 장관회의 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "과기정통부, IAEA 장관회의서 한국 원자력 정책 방향 제시",
+      "same_event": true
+    },
     "949cf05ae6eb26df--94d1472d5107818d": {
       "embedding_similarity": 0.8893,
       "left_title": "산업부, 한미 대미투자 프로젝트 내 대형 원전 8기 건설 포함 협상 진행",
@@ -172281,6 +172531,16 @@
       "reviewed_at": "2026-10-24T08:20:13.345006+00:00",
       "right_title": "한수원, 경북 영덕에 2.8GW 규모 신규 대형 원전 2기 건설 추진",
       "same_event": false
+    },
+    "96d3c71f26db90ad--dae5d9af25ada683": {
+      "embedding_similarity": 0.8937,
+      "left_title": "기후에너지환경부, 영덕 신규 원전 2기 부지 확정 절차 개시…전략환경영향평가 공고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "영덕 신규 원전 2기 추진",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 경북 영덕에 2.8GW 규모 신규 대형 원전 2기 건설 추진",
+      "same_event": true
     },
     "96dffa21b827ca27--a92fc19e45ef4b95": {
       "embedding_similarity": 0.8495,
@@ -177922,6 +178182,16 @@
       "right_title": "한수원, 체코 두코바니 원전 1조원 감액 요구 직면 속 시공사 교체 시사",
       "same_event": false
     },
+    "9e3420606aeaf230--f914263797a62c95": {
+      "embedding_similarity": 0.8681,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 과정 및 배경",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 1조원 감액 요구 직면 속 시공사 교체 시사",
+      "same_event": true
+    },
     "9e34ba9695f5e68e--b35eb3f20deb19c6": {
       "embedding_similarity": 0.8803,
       "left_title": "LS전선, 유럽·북미 AI 데이터센터 전력 인프라 공급망 구축",
@@ -179489,6 +179759,16 @@
       "prompt_version": 1,
       "reason": "대사 발언과 특정 기업 계약으로 사안 다름",
       "reviewed_at": "2026-10-27T23:11:06.228012+00:00",
+      "right_title": "두산에너빌리티, 한수원과 체코 두코바니 5·6호기 5.6조원 설비 공급 계약",
+      "same_event": false
+    },
+    "a175aa97f4f5358f--f914263797a62c95": {
+      "embedding_similarity": 0.8547,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공계약 협상 결렬과 설비 공급 계약은 다름",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
       "right_title": "두산에너빌리티, 한수원과 체코 두코바니 5·6호기 5.6조원 설비 공급 계약",
       "same_event": false
     },
@@ -183620,6 +183900,16 @@
       "reason": "IAEA 장관급 회의 개최 동일 보도",
       "reviewed_at": "2026-10-27T11:51:11.826941+00:00",
       "right_title": "IAEA 원자력 장관회의, 한국서 첫 개최…SMR·글로벌 협력 논의",
+      "same_event": true
+    },
+    "a6600ef9e7d2ced1--bb7ef7f329e5081e": {
+      "embedding_similarity": 0.8998,
+      "left_title": "국제원자력기구 주관 국제 원자력 장관급 회의, 인천에서 개막",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IAEA 장관회의 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
       "same_event": true
     },
     "a6600ef9e7d2ced1--ce050b57701cbe78": {
@@ -187850,6 +188140,16 @@
       "reason": "미 상원 인허가 간소화 법안",
       "reviewed_at": "2026-09-30T22:02:08.996505+00:00",
       "right_title": "미 상원, 데이터센터 송전망 비용 부담 및 인허가 간소화 법안 발의",
+      "same_event": true
+    },
+    "ad6cd33b8c417ccf--eaff46b869f5c5d1": {
+      "embedding_similarity": 0.9039,
+      "left_title": "미국 정부, 한미 안보 협상 속 우라늄 농축·재처리 협력 잠재력 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 우라늄 농축·재처리 협력",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한미 안보 협의 중단, 한국 핵잠·우라늄 농축 논의 재개 요청에 미국 미온적",
       "same_event": true
     },
     "ad6ee254489e5bc3--beff8f802cca43be": {
@@ -192272,6 +192572,16 @@
       "right_title": "한-체코, 두코바니 원전 점검…EU 산업가속화법 대응 논의",
       "same_event": true
     },
+    "b54388afefadc676--f914263797a62c95": {
+      "embedding_similarity": 0.8446,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공계약 협상 사안과 정부간 정책 점검",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한-체코, 두코바니 원전 점검…EU 산업가속화법 대응 논의",
+      "same_event": false
+    },
     "b55ac510a63af76d--b6798bf57a7bb85b": {
       "embedding_similarity": 0.8621,
       "left_title": "정부, 2040년까지 적용할 12차 전기본에 원전·재생에너지 역할 검토",
@@ -195581,6 +195891,26 @@
       "reviewed_at": "2026-10-18T23:19:17.056059+00:00",
       "right_title": "제7~10차 전력수급계획 송변전사업, 10건 중 6건 이상 지연",
       "same_event": false
+    },
+    "bb7ef7f329e5081e--ce050b57701cbe78": {
+      "embedding_similarity": 0.8993,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IAEA 장관회의 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한국, IAEA 원자력 장관회의 첫 개최…원자력 평화적 이용 논의",
+      "same_event": true
+    },
+    "bb7ef7f329e5081e--d286c89a72c96afb": {
+      "embedding_similarity": 0.9152,
+      "left_title": "IAEA 원자력 장관회의 폐막…원전 확대 위한 재원·규제·인력 공감대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 원자력 장관회의 행사 관련 보도",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "IAEA 원자력 장관회의 인천서 개막, 정부 SMR 개발·실증 추진 구상 발표",
+      "same_event": true
     },
     "bb8a70beae9e901b--e6773c72dbab2c97": {
       "embedding_similarity": 0.8804,
@@ -204012,6 +204342,16 @@
       "right_title": "정부, 신규 원전 공론화 본격화 속 영덕 대형 원전 2기 향방 촉각",
       "same_event": false
     },
+    "cdeb49acb9674b0e--dae5d9af25ada683": {
+      "embedding_similarity": 0.9079,
+      "left_title": "기후에너지환경부, 영덕 신규 원전 2기 부지 확정 절차 개시…전략환경영향평가 공고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "영덕 신규 원전 2기 추진",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "정부, 신규 원전 공론화 본격화 속 영덕 대형 원전 2기 향방 촉각",
+      "same_event": true
+    },
     "cdf84543be54fcb1--d129ad136da614dd": {
       "embedding_similarity": 0.8554,
       "left_title": "한수원 새울 3호기, 4월 임계 달성 후 10월 상업운전 목표",
@@ -205200,6 +205540,16 @@
       "reason": "정부의 7대 시드 프로젝트 중 SMR 육성",
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
       "right_title": "(OFFICIAL) 한국 정부, 2035년 국산 SMR 상용화 등 7대 미래성장동력 공개",
+      "same_event": true
+    },
+    "d2ed9b2f32d51af0--f914263797a62c95": {
+      "embedding_similarity": 0.891,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원-체코 원전 시공계약 협상 결렬…대우건설 주가 18% 급락",
       "same_event": true
     },
     "d2f2fbb0ecb0d2f6--f5d91b68e38231eb": {
@@ -207552,6 +207902,16 @@
       "right_title": "한수원, 프랑스 오라노와 우라늄 농축 협력의향서 체결…해외사업 전 주기 확대",
       "same_event": false
     },
+    "dbd790a955f0aa57--eaff46b869f5c5d1": {
+      "embedding_similarity": 0.8912,
+      "left_title": "강경화 주미대사, 한미 정보협력 및 농축·재처리 권한 논의 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 우라늄 농축·재처리 논의",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "미국 정부, 한미 안보 협상 속 우라늄 농축·재처리 협력 잠재력 언급",
+      "same_event": true
+    },
     "dbe669519b0bd065--e4ccfc7cc9bf3032": {
       "embedding_similarity": 0.9001,
       "left_title": "IAEA, ATLAS 장관급 출범 행사 공동 성명 발표",
@@ -208762,6 +209122,16 @@
       "right_title": "한국, 알래스카 LNG 사업 참여 압박 속 원전 8기 수출 추진",
       "same_event": true
     },
+    "e294e32186ce98ea--f914263797a62c95": {
+      "embedding_similarity": 0.8894,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 결렬 동일 사안",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 대우건설·두산에너빌리티 컨소시엄과 체코 두코바니 원전 시공계약 협상 결렬",
+      "same_event": true
+    },
     "e2ac9fd71cf8554d--e9a60df143f1bd46": {
       "embedding_similarity": 0.8955,
       "left_title": "한빛 2호기, 설계수명 만료로 장기 정지 및 계속운전 심사 착수",
@@ -208911,6 +209281,16 @@
       "reviewed_at": "2026-10-24T11:21:38.970250+00:00",
       "right_title": "미국 상무부, 핵융합·AI 데이터센터 전력반도체 개발에 3.89억 달러 지원",
       "same_event": false
+    },
+    "e34248c493954c4b--f914263797a62c95": {
+      "embedding_similarity": 0.869,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 과정 및 결과",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 세부 조건 협상 진행",
+      "same_event": true
     },
     "e351d48d18479905--e4bbbf9674a6653b": {
       "embedding_similarity": 0.8668,
@@ -209811,6 +210191,16 @@
       "reviewed_at": "2026-08-30T07:56:58.971921+00:00",
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
       "same_event": false
+    },
+    "e730ac1298490463--f914263797a62c95": {
+      "embedding_similarity": 0.8594,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 조건 및 결렬 배경",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "한수원, 체코 원전 시공계약서 대우건설에 1조원 이상 감액 요구",
+      "same_event": true
     },
     "e7367f907c782c0f--ec468d9c8c3e4121": {
       "embedding_similarity": 0.9089,
@@ -211611,6 +212001,16 @@
       "reviewed_at": "2026-09-14T03:18:28.418684+00:00",
       "right_title": "산업부, 미국에 대형 원전 최대 8기 건설 방안 검토 보고",
       "same_event": true
+    },
+    "f914263797a62c95--fb4dd40c1f248cc5": {
+      "embedding_similarity": 0.8415,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공계약 협상 사안과 체코대사 발언",
+      "reviewed_at": "2026-10-29T22:58:16.030265+00:00",
+      "right_title": "주한 체코대사, 두코바니 사업은 원전 2기 아닌 산업협력 플랜트 강조",
+      "same_event": false
     },
     "f9836d3cb1423104--fde9f43babfbf220": {
       "embedding_similarity": 0.8505,
