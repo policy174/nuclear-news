@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 2,
+    "count": 5,
     "date": "2026-10-31"
   },
   "retired": {
@@ -1598,10 +1598,42 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-10-31"
   },
   "terms": {
+    "rellis파일럿": {
+      "articles": 1,
+      "created_at": "2026-10-30T17:54:32.215301+00:00",
+      "domains": [
+        "lastenergy.com"
+      ],
+      "evidence": [
+        {
+          "domain": "lastenergy.com",
+          "hash": "68c0c7e56372ecfe",
+          "importance": "must_read",
+          "title": "미국 에너지부, 라스트 에너지 파일럿 원전 문서화 안전분석 승인"
+        }
+      ],
+      "expires_at": "2026-10-31T17:54:32.215301+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-30T17:54:34.029324+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-30T17:54:32.215301+00:00",
+      "queries_run": 1,
+      "query": "RELLIS 파일럿 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "RELLIS 파일럿",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "농어촌공사": {
       "articles": 4,
       "created_at": "2026-10-30T15:39:29.278924+00:00",
@@ -1682,6 +1714,38 @@
       "yields": 0,
       "zero_streak": 2
     },
+    "에너지파일럿": {
+      "articles": 1,
+      "created_at": "2026-10-30T17:54:32.215301+00:00",
+      "domains": [
+        "lastenergy.com"
+      ],
+      "evidence": [
+        {
+          "domain": "lastenergy.com",
+          "hash": "68c0c7e56372ecfe",
+          "importance": "must_read",
+          "title": "미국 에너지부, 라스트 에너지 파일럿 원전 문서화 안전분석 승인"
+        }
+      ],
+      "expires_at": "2026-10-31T17:54:32.215301+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-30T17:54:34.029324+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-30T17:54:32.215301+00:00",
+      "queries_run": 1,
+      "query": "에너지 파일럿 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "에너지 파일럿",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "중앙연구원": {
       "articles": 5,
       "created_at": "2026-10-30T09:02:28.004610+00:00",
@@ -1731,6 +1795,38 @@
       ],
       "yields": 1,
       "zero_streak": 0
+    },
+    "켄터키주패두커": {
+      "articles": 1,
+      "created_at": "2026-10-30T17:54:32.215301+00:00",
+      "domains": [
+        "heatmap.news"
+      ],
+      "evidence": [
+        {
+          "domain": "heatmap.news",
+          "hash": "787189b9430bc15e",
+          "importance": "must_read",
+          "title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인"
+        }
+      ],
+      "expires_at": "2026-10-31T17:54:32.215301+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-10-30T17:54:34.029324+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-10-30T17:54:32.215301+00:00",
+      "queries_run": 1,
+      "query": "켄터키주 패두커 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "켄터키주 패두커",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "한국농어촌공사": {
       "articles": 4,
