@@ -1,6 +1,34 @@
 {
  "items": [
   {
+   "id": "e6f1af3be02b",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.10.30.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=128444&mid=a10102050000",
+   "date": "2026-10-30",
+   "fetched_at": "2026-10-31",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=128444&seq=1",
+   "toc": {
+    "issue_title": "세계 원전정책 동향 업데이트",
+    "briefs": [
+     "미 NRC, 에너지부·국방부 승인 원자로 설계 활용 관련 인허가 규칙 확정",
+     "미 NRC, AP1000 설계인증 갱신·변경 규정 공표",
+     "미 해군, Crane 기지용 초소형원자로 사업자로 Radiant 선정",
+     "미국 Westinghouse, LEU+ 연료 공장 신설에 약 1조 3,250억 원 투자",
+     "핀란드, 사용후핵연료 최종처분시설 운영허가 발급",
+     "슬로바키아, Mochovce 4호기 계통 연결",
+     "폴란드 정부·국영기업, 제2 대형 원전 건설 준비 위한 협약 체결",
+     "폴란드 SGE, 자국·영국 BWRX-300 사업별 합작사 설립 추진",
+     "중국, Tianwan 원전 7호기 계통 연결 완료",
+     "인도네시아, 러시아 Rosatom과 200MW 부유식 원전 전력공급 협약 체결",
+     "일본 후쿠이현, 원전 비방사성 금속폐기물 집중처리시설 건설 예정지 확정",
+     "일본 OCCTO, 용량시장 계약 취소분 보완에 미낙찰 자원 활용 추진"
+    ]
+   }
+  },
+  {
    "id": "dcaaf1975eb1",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -1126,43 +1154,43 @@
  ],
  "state": {
   "nea_max_id": 121835,
-  "keei_max_list_no": 128360,
+  "keei_max_list_no": 128444,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-30T02:18:03+09:00",
+   "at": "2026-10-31T00:45:49+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }
