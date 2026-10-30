@@ -295,6 +295,13 @@
       "reason": "주체와 대상이 다름",
       "same_event": false
     },
+    "issue-0ad65c3149551bc0--15847ae667": {
+      "issue_title": "HD현대중공업, SMR 주기기 공장 신설 포함 1조원대 투자",
+      "keei_item": "미국 Westinghouse, LEU+ 연료 공장 신설에 약 1조 3,250억 원 투자",
+      "prompt_version": 1,
+      "reason": "주체와 투자 대상이 서로 다름",
+      "same_event": false
+    },
     "issue-0b5218c29cbb0084--249f1333d0": {
       "issue_title": "미국 롱비치항, 해양 SMR 개발 협력 이니셔티브에 첫 참여",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -631,6 +638,13 @@
       "reason": "최종 규정과 규정안 발표는 다른 단계의 사안임",
       "same_event": false
     },
+    "issue-137cb0e5139bfdfd--7fbb926708": {
+      "issue_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "keei_item": "미 NRC, 에너지부·국방부 승인 원자로 설계 활용 관련 인허가 규칙 확정",
+      "prompt_version": 1,
+      "reason": "미 NRC의 실증데이터 활용 규정 확정",
+      "same_event": true
+    },
     "issue-137cb0e5139bfdfd--f174d71c44": {
       "issue_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
       "keei_item": "미 NRC, 원자로 인허가·운영감독·해체 규정 개정안 제안",
@@ -736,11 +750,25 @@
       "reason": "국가와 프로젝트 주체가 다름",
       "same_event": false
     },
+    "issue-19a13366c1378ea8--6ed1757444": {
+      "issue_title": "홀텍, 미국 팔리세이즈 원전 재가동 위한 연료 장전 시작",
+      "keei_item": "미국 Holtec, Palisades 원전 재가동 위한 연료장전 착수",
+      "prompt_version": 1,
+      "reason": "홀텍 팔리세이즈 원전 재가동 연료 장전",
+      "same_event": true
+    },
     "issue-1a08c05d0557d415--dc799316ad": {
       "issue_title": "원안위, 생활방사선법 하위규정 개정안 등 2건 의결",
       "keei_item": "원자력안전위원회, 연중 상시 정기검사 허용 위한 법령 개정안 의결",
       "prompt_version": 1,
       "reason": "생활방사선법 개정과 정기검사 법령 개정은 별개의 안건임",
+      "same_event": false
+    },
+    "issue-1c5dd0144a34b5f9--15847ae667": {
+      "issue_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
+      "keei_item": "미국 Westinghouse, LEU+ 연료 공장 신설에 약 1조 3,250억 원 투자",
+      "prompt_version": 1,
+      "reason": "주체와 투자 대상이 전혀 다름",
       "same_event": false
     },
     "issue-1dcaf60cfcfe14d2--54df950745": {
@@ -2099,6 +2127,13 @@
       "keei_item": "루마니아 SNN·헝가리 정부, 다뉴브강 저수위 대응조치 시행",
       "prompt_version": 1,
       "reason": "가동 중단과 대응 조치는 같은 사건",
+      "same_event": true
+    },
+    "issue-4c72df21fde87f87--865a21630f": {
+      "issue_title": "폴란드, 제2 원전 건설을 위한 에너지부·PEJ·PGE 간 협정 체결",
+      "keei_item": "폴란드 정부·국영기업, 제2 대형 원전 건설 준비 위한 협약 체결",
+      "prompt_version": 1,
+      "reason": "폴란드 제2 원전 건설 협정 체결",
       "same_event": true
     },
     "issue-4d55708b92e20a28--37147e9bf3": {
@@ -3501,6 +3536,13 @@
       "reason": "협력 주체와 구체적 사안이 다름",
       "same_event": false
     },
+    "issue-77a6705d575be156--3253cf7bb8": {
+      "issue_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
+      "keei_item": "미 NRC, AP1000 설계인증 갱신·변경 규정 공표",
+      "prompt_version": 1,
+      "reason": "미 NRC의 AP1000 설계인증 갱신 승인",
+      "same_event": true
+    },
     "issue-77a6705d575be156--dcf5909f44": {
       "issue_title": "美 NRC, 웨스팅하우스 AP1000 설계 인증 갱신 및 개정 승인",
       "keei_item": "미 NRC, AP1000 설계 인증 갱신 조기 신청 승인",
@@ -3751,6 +3793,13 @@
       "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
       "prompt_version": 1,
       "reason": "국내 1호 SMR = i-SMR, 심사 착수",
+      "same_event": true
+    },
+    "issue-84eb28ab7174e37f--e3d568ffdd": {
+      "issue_title": "핀란드 정부, 포시바 올킬루토 사용후핵연료 최종처분시설 운영허가 승인",
+      "keei_item": "핀란드, 사용후핵연료 최종처분시설 운영허가 발급",
+      "prompt_version": 1,
+      "reason": "핀란드 최종처분시설 운영허가 승인",
       "same_event": true
     },
     "issue-84eb28ab7174e37f--fe0a11c05d": {
@@ -4285,6 +4334,13 @@
       "reason": "다른 원전의 다른 건설 단계",
       "same_event": false
     },
+    "issue-971313da21360267--3b4c540218": {
+      "issue_title": "정부·전남광주시·한전, 호남권 반도체 클러스터 전력공급 협약 체결 및 2029년 3GW 우선 공급",
+      "keei_item": "인도네시아, 러시아 Rosatom과 200MW 부유식 원전 전력공급 협약 체결",
+      "prompt_version": 1,
+      "reason": "국내 반도체 클러스터와 인도네시아 원전",
+      "same_event": false
+    },
     "issue-975146cde1cfceb8--6f56f58c45": {
       "issue_title": "다뉴브강 가뭄으로 유럽 원전 냉각수 문제 발생…루마니아 체르나보다 영향",
       "keei_item": "유럽투자은행, 루마니아 Cernavodă 1호기 설비개선 1.3조 원 대출 승인",
@@ -4754,6 +4810,13 @@
       "reason": "캐나다 서스캐처원주 원전 2.6GWe 확보 계획 동일 사안",
       "same_event": true
     },
+    "issue-aa0ea503986b42f0--758c1d5f9a": {
+      "issue_title": "중국 톈완 7호기, 임계 10일 만에 전력망 연결…시운전 기간 단축 과제 부상",
+      "keei_item": "중국, Tianwan 원전 7호기 계통 연결 완료",
+      "prompt_version": 1,
+      "reason": "중국 톈완 7호기 계통 연결",
+      "same_event": true
+    },
     "issue-aa165fa0824b87d8--0330b81e50": {
       "issue_title": "11차 전기본 신규 양수발전 1.25GW 입찰, 발전사 수주 경쟁 심화",
       "keei_item": "미 NRC, 원전 인허가 관련 의무 공청회 개최 시점 및 절차 개편",
@@ -4830,6 +4893,13 @@
       "prompt_version": 1,
       "reason": "다른 원전 대상 및 사업",
       "same_event": false
+    },
+    "issue-add7dd58c1b5ca3e--9c9e8d0333": {
+      "issue_title": "영국 SMR 프로젝트에 폴란드 SGE와 캐나다 OPG 자회사 합작사 설립",
+      "keei_item": "폴란드 SGE, 자국·영국 BWRX-300 사업별 합작사 설립 추진",
+      "prompt_version": 1,
+      "reason": "폴란드 SGE의 BWRX-300 합작사 설립",
+      "same_event": true
     },
     "issue-aec4e7721d553311--d65bac9c4d": {
       "issue_title": "신규 원전 2기 경북 영덕, SMR 후보 부지 부산 기장 선정",
@@ -5201,6 +5271,13 @@
       "prompt_version": 1,
       "reason": "유럽 SMR 플릿 사업과 스웨덴 Studsvik 공동 개발은 다릅니다.",
       "same_event": false
+    },
+    "issue-bd79c2a1ca55c24b--9c9e8d0333": {
+      "issue_title": "폴란드, 6기 SMR 발전소 건설 위한 합작사 설립",
+      "keei_item": "폴란드 SGE, 자국·영국 BWRX-300 사업별 합작사 설립 추진",
+      "prompt_version": 1,
+      "reason": "폴란드 SMR 합작사 설립 추진",
+      "same_event": true
     },
     "issue-bd79c2a1ca55c24b--9f6f4710a8": {
       "issue_title": "삼성물산, GE버노바 등과 유럽 SMR 플릿 사업 개발 본격 추진",
@@ -5839,6 +5916,20 @@
       "reason": "개별 기업 인허가 서류 제출과 NRC의 제도 개편임",
       "same_event": false
     },
+    "issue-d380d727a7322ff3--7fbb926708": {
+      "issue_title": "테레스트리얼 에너지, IMSR 인허가 지원용 흑연 관련 보고서 미국 NRC 제출",
+      "keei_item": "미 NRC, 에너지부·국방부 승인 원자로 설계 활용 관련 인허가 규칙 확정",
+      "prompt_version": 1,
+      "reason": "테레스트리얼 IMSR 보고서와 국방부 설계 규칙",
+      "same_event": false
+    },
+    "issue-d3e3f82b091518b0--13dd2b197a": {
+      "issue_title": "호주, 데이터센터에 청정 전력 자급 및 계통 비용 부담 의무화 추진",
+      "keei_item": "슬로바키아, Mochovce 4호기 계통 연결",
+      "prompt_version": 1,
+      "reason": "호주 데이터센터 규제와 슬로바키아 원전",
+      "same_event": false
+    },
     "issue-d4776c81220de821--a50cc0c8f8": {
       "issue_title": "FANCO, NRC에 HALEU 연료 제조시설 건설 계획 제출",
       "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
@@ -6083,6 +6174,13 @@
       "prompt_version": 1,
       "reason": "개별 인허가는 규제 진전의 사례",
       "same_event": true
+    },
+    "issue-dbc2743e407e894e--e3d568ffdd": {
+      "issue_title": "테네시주, Type One Energy에 상업용 핵융합 시설 첫 인허가 발급",
+      "keei_item": "핀란드, 사용후핵연료 최종처분시설 운영허가 발급",
+      "prompt_version": 1,
+      "reason": "테네시주 핵융합 시설과 핀란드 처분시설",
+      "same_event": false
     },
     "issue-dbc2743e407e894e--f174d71c44": {
       "issue_title": "테네시주, Type One Energy에 상업용 핵융합 시설 첫 인허가 발급",
@@ -6343,6 +6441,13 @@
       "reason": "주제가 다름",
       "same_event": false
     },
+    "issue-e38d743ac889b582--15847ae667": {
+      "issue_title": "웨스팅하우스, 사우스캐롤라이나주에 10억 달러 투자해 LEU+ 핵연료 공장 건설",
+      "keei_item": "미국 Westinghouse, LEU+ 연료 공장 신설에 약 1조 3,250억 원 투자",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 LEU+ 핵연료 공장 건설 투자",
+      "same_event": true
+    },
     "issue-e3bff0056142abce--5ea831d148": {
       "issue_title": "캐나다 Phoenix 우라늄 광산, 본격적인 건설 작업 착수",
       "keei_item": "스위스, 신규 원전 건설 금지 해제 법안 가결로 의회 절차 완료",
@@ -6461,6 +6566,13 @@
       "prompt_version": 1,
       "reason": "카자흐스탄 발하시 원전 EPC 계약 체결 동일 사건",
       "same_event": true
+    },
+    "issue-e83fff73156ff7f4--3b4c540218": {
+      "issue_title": "로사톰, 카자흐스탄 발하시 원전 2.4GW EPC 계약 체결",
+      "keei_item": "인도네시아, 러시아 Rosatom과 200MW 부유식 원전 전력공급 협약 체결",
+      "prompt_version": 1,
+      "reason": "카자흐스탄 발하시 원전과 인도네시아 부유식 원전",
+      "same_event": false
     },
     "issue-e86ceaef07092ccd--bd91314eae": {
       "issue_title": "유럽 가뭄으로 원전 냉각수 부족, 발전량 축소 및 정지",
