@@ -1052,6 +1052,16 @@
       "right_title": "두산에너빌리티, 3분기 영업이익 2612억 원 기록…매출 14.7% 증가",
       "same_event": true
     },
+    "01ab12c74b3350e2--a5ba9923026edabc": {
+      "embedding_similarity": 0.8672,
+      "left_title": "두산에너빌리티, 3분기 영업익 2612억원 달성… 뉴스케일파워 SMR 주기기 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두산과 DL이앤씨의 별개 동향",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "DL이앤씨, 북미 에너지 인프라·SMR·데이터센터 등 미래 성장 분야 사업 확대",
+      "same_event": false
+    },
     "01b7385f8ed0c882--140d10ed804f4a09": {
       "embedding_similarity": 0.8937,
       "left_title": "트럼프, 한국에 알래스카 LNG 투자 압박하며 \"합의 안하면 두 배\" 경고",
@@ -14822,6 +14832,16 @@
       "right_title": "창원시, SMR 제조 파운드리 도약 위한 원자력산업 육성계획 및 특구 추진",
       "same_event": false
     },
+    "07d75b1c08be1abc--4613e502c176386a": {
+      "embedding_similarity": 0.8696,
+      "left_title": "창원시, 국회에 SMR 제조부품 시험검사 지원센터 건립 국비 지원 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국비 지원 요청과 전체 구상 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "same_event": false
+    },
     "07e65af901810a9c--0ed85cc5401abf5a": {
       "embedding_similarity": 0.8446,
       "left_title": "주한 체코 대사, 두코바니 원전 프로젝트를 양국 파트너십의 상징으로 강조",
@@ -16941,6 +16961,16 @@
       "reviewed_at": "2026-10-28T13:13:04.232104+00:00",
       "right_title": "더뉴클리어컴퍼니, 미국 켄터키주에 6.6GW 규모 AP1000 원전 단지 제안",
       "same_event": false
+    },
+    "09e8b22aa80a351a--787189b9430bc15e": {
+      "embedding_similarity": 0.8702,
+      "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "켄터키주 원전 건설 프로젝트 건",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "더뉴클리어컴퍼니, 미국 켄터키주에 6.6GW 규모 AP1000 원전 단지 제안",
+      "same_event": true
     },
     "09f577db68f25f4b--2534b3b550f84a4e": {
       "embedding_similarity": 0.8802,
@@ -28262,6 +28292,16 @@
       "right_title": "효성중공업, 美 빅테크서 3865억원 규모 변압기 수주…북미 전력망 수요 지속",
       "same_event": true
     },
+    "1245dd001e54ee2f--5d29794574f7a9a6": {
+      "embedding_similarity": 0.8621,
+      "left_title": "미국 전력망 규제 강화…효성중공업, 현지 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 수주 계약과 지멘스 협약은 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "효성중공업, 지멘스와 디지털 전력망 및 AI 데이터센터 솔루션 협약 체결",
+      "same_event": false
+    },
     "1245dd001e54ee2f--5db4e7dbf51e23da": {
       "embedding_similarity": 0.8617,
       "left_title": "미국 전력망 규제 강화…효성중공업, 현지 변압기 공급 계약 체결",
@@ -28300,6 +28340,16 @@
       "reason": "효성중공업의 서로 다른 계약 건",
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "효성중공업, 독일 지멘스와 디지털 전력망·AI 데이터센터 협력 협약 체결",
+      "same_event": false
+    },
+    "1245dd001e54ee2f--745153f51bd53f71": {
+      "embedding_similarity": 0.8685,
+      "left_title": "미국 전력망 규제 강화…효성중공업, 현지 변압기 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "효성중공업의 서로 다른 사업 계약",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "효성중공업, 지멘스와 디지털 전력·데이터센터 솔루션 협력 협약 체결",
       "same_event": false
     },
     "1245dd001e54ee2f--77eb69b5c61d460a": {
@@ -55142,6 +55192,16 @@
       "right_title": "LG전자, 미국 에어사와 5GW 규모 AI 데이터센터 냉각 설비 공급 계약 체결",
       "same_event": false
     },
+    "25dfda437a6a985f--4613e502c176386a": {
+      "embedding_similarity": 0.8701,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상과 경남도 회의 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경남도, SMR 특구 전략기획 자문회의 개최해 글로벌 생산거점 조성 추진",
+      "same_event": false
+    },
     "25dfda437a6a985f--95ba4b23978a00e7": {
       "embedding_similarity": 0.8998,
       "left_title": "박완수 경남지사, SMR 글로벌 생산거점 육성 및 특구 지정 추진 발표",
@@ -58482,6 +58542,16 @@
       "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
       "same_event": false
     },
+    "289b48d7b199af1e--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8709,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 선정 및 난항 건",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
+      "same_event": true
+    },
     "289b48d7b199af1e--d36c679315a69891": {
       "embedding_similarity": 0.854,
       "left_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
@@ -59762,6 +59832,16 @@
       "right_title": "산업부, 한미 원전 프레임워크 협상 바탕으로 K-원전 수출 본격 추진",
       "same_event": true
     },
+    "29ef7d7dde41595a--d982c3ea34d67c26": {
+      "embedding_similarity": 0.8679,
+      "left_title": "고준위 방폐장 부적합 지역 연내 공개…후보지 공모 내년 1분기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐장 부지 공모 계획 발표",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "고준위 위원장, 내년 방폐물 부지공모 시 조사·특별지원금 잠정 규모 제시 계획",
+      "same_event": true
+    },
     "29f431cb0cf9670f--65bc735c35edf37c": {
       "embedding_similarity": 0.9019,
       "left_title": "한수원, 필리핀과 원자력 협력 MOU 체결로 아시아 시장 확대",
@@ -59940,6 +60020,16 @@
       "reason": "다른 원전 호기",
       "reviewed_at": "2026-08-26T13:02:45.968741+00:00",
       "right_title": "중국 타이핑링 2호기, 최초 계통연결 및 발전 개시",
+      "same_event": false
+    },
+    "2a456dc6a2cf23f3--4613e502c176386a": {
+      "embedding_similarity": 0.8617,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상과 경남도 투자 유치는 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경남도, 도내 원전기업 5곳에 330억 원 투자 유치하며 SMR 육성 가속",
       "same_event": false
     },
     "2a50966bd4020e94--da1df9908a447e60": {
@@ -66231,6 +66321,16 @@
       "reviewed_at": "2026-10-29T11:01:34.573086+00:00",
       "right_title": "한수원, 체코 원전 시공사 계약 협상 난항…대우건설 교체 검토",
       "same_event": false
+    },
+    "2e13958a15d738c8--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8626,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 교체 관련 동일 사안",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "한수원, 체코 원전 시공사 계약 협상 난항…대우건설 교체 검토",
+      "same_event": true
     },
     "2e13958a15d738c8--f914263797a62c95": {
       "embedding_similarity": 0.864,
@@ -74262,6 +74362,16 @@
       "right_title": "원전 공론화위원회, 대주제 '우리는 앞으로 어떤 전기로 살 것인가' 확정",
       "same_event": true
     },
+    "35710241f8d47f82--4613e502c176386a": {
+      "embedding_similarity": 0.8633,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 비전 공유 및 행사",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "“제조 도시 창원, 북극항로-청정에너지로 산업 영토 넓힐 것”",
+      "same_event": false
+    },
     "35886f73cf174dde--e33195f2b377636f": {
       "embedding_similarity": 0.8567,
       "left_title": "미국 상무부, 핵융합·AI 데이터센터 전력반도체 개발에 3.89억 달러 지원",
@@ -79362,6 +79472,16 @@
       "right_title": "호남 반도체 클러스터 추진, 전력수급 계획 조율 난항",
       "same_event": false
     },
+    "3837eff359c1d656--4761bbf84c8e7cbe": {
+      "embedding_similarity": 0.8629,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 계획 착수와 업계 동향 의견",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "AI·반도체 전력 수요 폭증, 송전망 건설 속도 6배 이상 확대 필요",
+      "same_event": false
+    },
     "3837eff359c1d656--4d5d07d932fc8cd3": {
       "embedding_similarity": 0.8433,
       "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
@@ -79540,6 +79660,16 @@
       "reason": "중장기 플랜과 전기본 전망",
       "reviewed_at": "2026-10-23T00:07:54.350890+00:00",
       "right_title": "제12차 전기본 전력수요 급증 전망 속 대규모 무탄소 전원 확보 필요성 대두",
+      "same_event": false
+    },
+    "3837eff359c1d656--a69c379ec8302fc9": {
+      "embedding_similarity": 0.8672,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 마스터플랜과 시장 수혜 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "AI 데이터센터 급증에 전력시장 판도 변화…국내 기업, 변압기 등 수혜",
       "same_event": false
     },
     "3837eff359c1d656--a86fe55fbffee273": {
@@ -96892,6 +97022,16 @@
       "right_title": "차세대 원자로 개발사, 향후 2~3개 핵심 기업으로 재편 전망",
       "same_event": false
     },
+    "4613e502c176386a--4ce9dc22221c1f29": {
+      "embedding_similarity": 0.8709,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 육성안과 경남도 펀드 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경남도, 원전산업 성장펀드로 SMR 기업 5곳에 330억 원 투자 지원",
+      "same_event": false
+    },
     "4613e502c176386a--57463a53d7ca54c3": {
       "embedding_similarity": 0.8824,
       "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
@@ -96952,6 +97092,26 @@
       "right_title": "경남도, SMR 특구 조성을 위한 전략기획 자문위원회 운영 시작",
       "same_event": false
     },
+    "4613e502c176386a--6f1219e55b9504f2": {
+      "embedding_similarity": 0.8673,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상과 경남도 회의 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경상남도, SMR 특구 전략기획 자문회의 개최",
+      "same_event": false
+    },
+    "4613e502c176386a--70660ea6df92a32f": {
+      "embedding_similarity": 0.8612,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상과 경남도 특구 전략은 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경남도, SMR 특구 조성을 위한 전략 마련 착수",
+      "same_event": false
+    },
     "4613e502c176386a--8abf6aa21a680659": {
       "embedding_similarity": 0.8945,
       "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
@@ -96961,6 +97121,16 @@
       "reviewed_at": "2026-10-31T11:09:08.907177+00:00",
       "right_title": "창원특례시, SMR 산업 육성 및 기업 맞춤형 지원 강화",
       "same_event": true
+    },
+    "4613e502c176386a--93c5096d50c40353": {
+      "embedding_similarity": 0.8706,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상 발표와 대학 세미나",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "국립창원대, SMR 시대 대비 원자력 정책 세미나 개최",
+      "same_event": false
     },
     "4613e502c176386a--942de6968aeccd04": {
       "embedding_similarity": 0.895,
@@ -97012,6 +97182,26 @@
       "right_title": "국립창원대, 경남 SMR 특구 추진 연계 원전 전문인력 양성 논의",
       "same_event": false
     },
+    "4613e502c176386a--b53ee783020a1d0c": {
+      "embedding_similarity": 0.8633,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "육성 구상 발표와 국비 요청 개별 사안",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "창원특례시, 국회에 SMR 제조부품 시험검사 지원센터 국비 반영 요청",
+      "same_event": false
+    },
+    "4613e502c176386a--c6678170ef4a0ca3": {
+      "embedding_similarity": 0.8701,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원 SMR 육성 구상 발표 행사",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "창원서 SMR 산업 육성 위한 산학연 협력 방안 논의",
+      "same_event": true
+    },
     "4613e502c176386a--c7534d8fdcfde20d": {
       "embedding_similarity": 0.8657,
       "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
@@ -97020,6 +97210,16 @@
       "reason": "창원시 구상과 경남도 특구 추진은 별개",
       "reviewed_at": "2026-10-31T16:09:36.717783+00:00",
       "right_title": "경남도, SMR 특구 조성 본격화로 글로벌 생산거점 육성 추진",
+      "same_event": false
+    },
+    "4613e502c176386a--e14a2e32712fb94c": {
+      "embedding_similarity": 0.8625,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "육성 구상 공유와 시장 강연은 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "창원특례시장, '기업하기 좋은 창원' 강조…유럽 원전 현황 및 SMR 산업 전망 강연",
       "same_event": false
     },
     "4613e502c176386a--e6c5556ad033559a": {
@@ -97041,6 +97241,16 @@
       "reviewed_at": "2026-10-31T09:34:02.072893+00:00",
       "right_title": "창원시, SMR 중심 원전산업 육성 계획 수립",
       "same_event": true
+    },
+    "4613e502c176386a--ea8671c1c6cba22d": {
+      "embedding_similarity": 0.8625,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상과 경남도 금융 지원은 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "경남도, SMR 시장 진출 원전 기업에 330억 원 정책 금융 지원 강화",
+      "same_event": false
     },
     "4613e502c176386a--ebc0cb208b66707b": {
       "embedding_similarity": 0.8912,
@@ -107309,6 +107519,16 @@
       "prompt_version": 1,
       "reason": "서로 다른 전력망 지원 사업",
       "reviewed_at": "2026-10-31T11:09:08.907177+00:00",
+      "right_title": "美 에너지부, 전력망 공급망 강화 및 전기료 절감에 2억 3천만 달러 지원",
+      "same_event": false
+    },
+    "51ad00b0bcc9540c--a399a72020f9a358": {
+      "embedding_similarity": 0.871,
+      "left_title": "미국 에너지부, 중국산 전력망 장비 금지 행정명령 14421호 시행 규칙 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 에너지부의 서로 다른 정책",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
       "right_title": "美 에너지부, 전력망 공급망 강화 및 전기료 절감에 2억 3천만 달러 지원",
       "same_event": false
     },
@@ -121280,6 +121500,16 @@
       "reason": "상반기 전체 수주와 특정 계약 건",
       "reviewed_at": "2026-10-24T08:20:13.345006+00:00",
       "right_title": "효성중공업, 美 빅테크서 3865억원 규모 변압기 수주…북미 전력망 수요 지속",
+      "same_event": false
+    },
+    "5c3be8ec9a7c955b--7af174e3fc3a25e8": {
+      "embedding_similarity": 0.8634,
+      "left_title": "삼성물산, 미국 엘리멘틀파워 SMR 투자 컨소시엄 참여",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 및 협력 대상이 다름",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
       "same_event": false
     },
     "5c3be8ec9a7c955b--82b70bbbb0a53588": {
@@ -135362,6 +135592,16 @@
       "right_title": "한국전력기술, 체코 원전 리스크 관리계획 늑장 수립 및 등급 하향",
       "same_event": false
     },
+    "6a72f64f2255163a--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8697,
+      "left_title": "한수원, 체코 원전 시공단과 공사비 합의 난항 속 계약 발표 예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 계약 결렬 사안",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "same_event": true
+    },
     "6a72f64f2255163a--cfd9dfccabd94472": {
       "embedding_similarity": 0.8774,
       "left_title": "한수원, 체코 원전 시공단과 공사비 합의 난항 속 계약 발표 예고",
@@ -141371,6 +141611,16 @@
       "reviewed_at": "2026-10-28T10:35:11.759146+00:00",
       "right_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
       "same_event": true
+    },
+    "717681b89cdda7c3--a69c379ec8302fc9": {
+      "embedding_similarity": 0.8625,
+      "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국민 공론화 착수와 업계 수혜 동향",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "AI 데이터센터 급증에 전력시장 판도 변화…국내 기업, 변압기 등 수혜",
+      "same_event": false
     },
     "717681b89cdda7c3--a7dd8811afa583cb": {
       "embedding_similarity": 0.858,
@@ -148712,6 +148962,16 @@
       "right_title": "장관, 체코에 EU 산업가속화법의 원전 협력 저해 우려 전달",
       "same_event": true
     },
+    "76d5249a72a2c36e--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8622,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 선정 발언과 EU 법안 우려 전달",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "장관, 체코에 EU 산업가속화법의 원전 협력 저해 우려 전달",
+      "same_event": false
+    },
     "76d6ffdb905a60f3--7901d36720c2d03f": {
       "embedding_similarity": 0.8908,
       "left_title": "산업부, 한미 원전 프레임워크 후속 원전수출기획위 개최 및 추진 방안 논의",
@@ -149931,6 +150191,16 @@
       "reviewed_at": "2026-09-12T00:43:42.523204+00:00",
       "right_title": "헝가리 팍스 원전, 수요일까지 완전 가동 가능성 언급",
       "same_event": true
+    },
+    "77eb69b5c61d460a--fc83997c1d5e9a7c": {
+      "embedding_similarity": 0.8621,
+      "left_title": "LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 사안",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "효성그룹, AI 시대 맞아 전력 인프라 시장 확대하며 새 성장 동력 확보",
+      "same_event": false
     },
     "77f1e74ee5d42b10--96dffa21b827ca27": {
       "embedding_similarity": 0.871,
@@ -152502,6 +152772,16 @@
       "right_title": "황이주 울진군수, 고준위 방폐장·한울원전 계속운전 문제에 군민 의견 수렴 강조",
       "same_event": true
     },
+    "7af174e3fc3a25e8--8d12bc18d6c1667d": {
+      "embedding_similarity": 0.862,
+      "left_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "부품 공급 계약과 공장 증설 계획",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "두산에너빌리티, 2028년 완공 목표 SMR 전용공장 및 가스터빈 생산능력 확대",
+      "same_event": false
+    },
     "7af174e3fc3a25e8--a091e266a43a60c3": {
       "embedding_similarity": 0.8649,
       "left_title": "안타레스 뉴클리어, BWXT와 마이크로반응로용 TRISO 핵연료 조달 계약 체결",
@@ -152509,6 +152789,16 @@
       "prompt_version": 1,
       "reason": "주체 및 계약 대상이 다름",
       "reviewed_at": "2026-10-31T16:09:36.717783+00:00",
+      "right_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
+      "same_event": false
+    },
+    "7af174e3fc3a25e8--aa1d22ea4ef8ff61": {
+      "embedding_similarity": 0.8632,
+      "left_title": "삼성물산, 미국 카이로스 파워와 차세대 SMR 사업 협력 및 지분 투자 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 SMR 협력",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
       "right_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
       "same_event": false
     },
@@ -152520,6 +152810,16 @@
       "reason": "서로 다른 기업의 SMR 계약",
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
+      "same_event": false
+    },
+    "7af174e3fc3a25e8--afe3217ded4fbe99": {
+      "embedding_similarity": 0.8631,
+      "left_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 계약",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "현대엔지니어링, 미국 SMR 개발사 NNE·ARC와 실증 사업 참여 협약",
       "same_event": false
     },
     "7af174e3fc3a25e8--c3a997e4e3c79751": {
@@ -158922,6 +159222,16 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 공사비 이견으로 협상 결렬",
       "same_event": false
     },
+    "82cd0841007bf49d--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8682,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 협상 결렬 건",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 공사비 이견으로 협상 결렬",
+      "same_event": true
+    },
     "82cd0841007bf49d--f914263797a62c95": {
       "embedding_similarity": 0.8985,
       "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
@@ -161050,6 +161360,16 @@
       "reason": "다른 전력망 정책",
       "reviewed_at": "2026-08-23T21:56:32.457746+00:00",
       "right_title": "전기는 남았는데 불은 꺼졌다",
+      "same_event": false
+    },
+    "855c8925b1b5d78c--db936ad38d2274ba": {
+      "embedding_similarity": 0.8625,
+      "left_title": "대한전선, 미국서 초고압 전력망 턴키 프로젝트 수주 및 1200억 자재 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 수주 계약과 실적/잔고 동향",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "대한전선, 3분기 실적 부진에도 AI 데이터센터 확산으로 수주잔고 역대 최대",
       "same_event": false
     },
     "85666bc0063fa3f7--cd2318c0be5d5379": {
@@ -165202,6 +165522,16 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 시공계약 협상 결렬",
       "same_event": false
     },
+    "8ab7322eff9b3d6c--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8713,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 협상 결렬 관련",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 시공계약 협상 결렬",
+      "same_event": true
+    },
     "8ab7322eff9b3d6c--d36c679315a69891": {
       "embedding_similarity": 0.841,
       "left_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
@@ -168270,6 +168600,16 @@
       "reason": "전력수요 과장 논란과 공론화 반발",
       "reviewed_at": "2026-10-19T08:51:48.060881+00:00",
       "right_title": "\"핵발전 확대 정해놓고 무슨 공론화?\"… 시민사회, 정부 전문가 추천 '거...",
+      "same_event": false
+    },
+    "8e3f5fa5f7c8f531--d982c3ea34d67c26": {
+      "embedding_similarity": 0.8618,
+      "left_title": "이진호 신임 이사장 취임…원자력환경공단, 고준위 방폐물 부지선정 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "이사장 취임 사안과 구체적 공모 일정",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "고준위 방폐장 부적합 지역 연내 공개…후보지 공모 내년 1분기",
       "same_event": false
     },
     "8e451397a8f1f85d--97d7ccf69b1d259d": {
@@ -183072,6 +183412,16 @@
       "right_title": "NRC, 팔리세이즈 원전의 기울어진 핵연료 조립체 제거 위한 대체 접근법 허용",
       "same_event": false
     },
+    "a2a96ec91c6563ae--cb33c88b110a6b15": {
+      "embedding_similarity": 0.8689,
+      "left_title": "NRC, 팔리세이즈 원전의 기울어진 핵연료 조립체 제거 위한 대체 접근법 허용",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 원전 안건과 NRC 규정 개정",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "미국 NRC, 원전 인허가 심리 기간 6개월로 단축 규칙 최종 확정",
+      "same_event": false
+    },
     "a2a96ec91c6563ae--e2d0eea18121b4da": {
       "embedding_similarity": 0.9009,
       "left_title": "NRC, 팔리세이즈 원전의 기울어진 핵연료 조립체 제거 위한 대체 접근법 허용",
@@ -186152,6 +186502,16 @@
       "right_title": "테라파워 첫 원전 상용화, 국내 기업 SMR 시장 진출 가속화 전망",
       "same_event": true
     },
+    "a5ba9923026edabc--adbeb07c7bb981a5": {
+      "embedding_similarity": 0.8623,
+      "left_title": "DL이앤씨, 엑스에너지와 1천만 달러 규모 SMR 표준화 설계 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약 체결과 기업 사업 확대 동향",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "DL이앤씨, 북미 에너지 인프라·SMR·데이터센터 등 미래 성장 분야 사업 확대",
+      "same_event": false
+    },
     "a5c1d15ea92ccb4f--a5e21a02762fb9b6": {
       "embedding_similarity": 0.8993,
       "left_title": "한수원, 필리핀 아보이티즈 파워와 원전 사업 MOU 체결",
@@ -186780,6 +187140,16 @@
       "reason": "주제는 같으나 개별 사안",
       "reviewed_at": "2026-09-18T23:55:10.785142+00:00",
       "right_title": "제12차 전력수급기본계획 대상 하동 7·8호기 인력 고용 승계 과제 대두",
+      "same_event": false
+    },
+    "a69c379ec8302fc9--e4bbbf9674a6653b": {
+      "embedding_similarity": 0.8708,
+      "left_title": "김성환 장관, AIDC 전력수요 확정 많지 않아 12차 전기본에 적절 반영할 것",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 전력계획과 시장 동향 별개",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "AI 데이터센터 급증에 전력시장 판도 변화…국내 기업, 변압기 등 수혜",
       "same_event": false
     },
     "a69c379ec8302fc9--fa47bccd9d09faef": {
@@ -187470,6 +187840,16 @@
       "reason": "투자 발표와 회장 목표 제시로 다름",
       "reviewed_at": "2026-10-17T12:50:56.766691+00:00",
       "right_title": "HD현대 정기선 회장, SMR 등 신성장 사업 육성으로 글로벌 1위 목표",
+      "same_event": false
+    },
+    "a82bd590bd7de6b8--c40700f5efc73fe8": {
+      "embedding_similarity": 0.8726,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "투자 주체 및 대상 사업 다름",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "현대차그룹, 새만금에 9조원 투자해 AI 산업단지 조성",
       "same_event": false
     },
     "a82bd590bd7de6b8--c4e2969a4b4a3b6f": {
@@ -189601,6 +189981,16 @@
       "reviewed_at": "2026-10-12T02:35:37.506492+00:00",
       "right_title": "LG엔솔, 역대급 매출 달성…ESS 시장 성장 덕분",
       "same_event": true
+    },
+    "aaf5b1b82a18ad60--dad972abddd0fc61": {
+      "embedding_similarity": 0.8617,
+      "left_title": "LG에너지솔루션, 3분기 매출 9조 원 돌파…북미 ESS 및 유럽 물량 증가 견인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 실적 및 동향",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
+      "right_title": "솔브레인홀딩스, ESS·전기차 시장 공략으로 성장 동력 확보",
+      "same_event": false
     },
     "aaf5b1b82a18ad60--dc4a73bdd33e7160": {
       "embedding_similarity": 0.8833,
@@ -207939,6 +208329,16 @@
       "prompt_version": 1,
       "reason": "체코 원전 시공계약 협상 관련 경과",
       "reviewed_at": "2026-10-31T16:09:36.717783+00:00",
+      "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
+      "same_event": true
+    },
+    "cfd9dfccabd94472--fb760a18f4d64219": {
+      "embedding_similarity": 0.8677,
+      "left_title": "한수원, 체코 두코바니 원전 건설 계약 협상 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 협상 결렬 및 재선정 건",
+      "reviewed_at": "2026-10-31T19:09:53.295381+00:00",
       "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
       "same_event": true
     },
