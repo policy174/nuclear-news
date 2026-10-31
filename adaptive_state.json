@@ -172,6 +172,14 @@
       "type": "company",
       "until": "2026-10-02T18:02:35.886570+00:00"
     },
+    "rellis파일럿": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-31T16:42:31.896550+00:00",
+      "term": "RELLIS 파일럿",
+      "type": "plant",
+      "until": "2026-11-14T16:42:31.896550+00:00"
+    },
     "rx50": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -972,6 +980,14 @@
       "type": "plant",
       "until": "2026-11-13T10:39:22.897272+00:00"
     },
+    "에너지파일럿": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-10-31T16:42:31.896550+00:00",
+      "term": "에너지 파일럿",
+      "type": "plant",
+      "until": "2026-11-14T16:42:31.896550+00:00"
+    },
     "여부를논의할": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1622,74 +1638,10 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 5,
     "date": "2026-11-01"
   },
   "terms": {
-    "rellis파일럿": {
-      "articles": 1,
-      "created_at": "2026-10-30T17:54:32.215301+00:00",
-      "domains": [
-        "lastenergy.com"
-      ],
-      "evidence": [
-        {
-          "domain": "lastenergy.com",
-          "hash": "68c0c7e56372ecfe",
-          "importance": "must_read",
-          "title": "미국 에너지부, 라스트 에너지 파일럿 원전 문서화 안전분석 승인"
-        }
-      ],
-      "expires_at": "2026-10-31T17:54:32.215301+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-31T00:22:52.288112+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-31T00:22:50.344706+00:00",
-      "queries_run": 2,
-      "query": "RELLIS 파일럿 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "RELLIS 파일럿",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "에너지파일럿": {
-      "articles": 1,
-      "created_at": "2026-10-30T17:54:32.215301+00:00",
-      "domains": [
-        "lastenergy.com"
-      ],
-      "evidence": [
-        {
-          "domain": "lastenergy.com",
-          "hash": "68c0c7e56372ecfe",
-          "importance": "must_read",
-          "title": "미국 에너지부, 라스트 에너지 파일럿 원전 문서화 안전분석 승인"
-        }
-      ],
-      "expires_at": "2026-10-31T17:54:32.215301+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-10-31T00:22:52.288112+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-10-31T00:22:50.344706+00:00",
-      "queries_run": 2,
-      "query": "에너지 파일럿 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "에너지 파일럿",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "켄터키주패두커": {
       "articles": 1,
       "created_at": "2026-10-30T17:54:32.215301+00:00",

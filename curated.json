@@ -242526,5 +242526,142 @@
     "feed": "정책",
     "domain": "cbci.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "8ed2aae67b1834d4": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "finance",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US",
+      "GB"
+    ],
+    "article_type": "news",
+    "title_kr": "오픈AI, 투자유치 목표 미달…AI 업계 자금조달 문턱 높아져",
+    "summary": "오픈AI가 신규 투자유치에서 당초 목표액의 절반에도 못 미치는 자금을 확보하는 등 AI 기업들이 데이터센터 건설 지연과 수익성 우려로 자금 조달에 어려움을 겪고 있다.",
+    "detail": "월스트리트저널(WSJ) 보도에 따르면 오픈AI는 최근 투자유치에서 목표액 300억 달러의 절반 미만을 확보했으며, 클라우드 업체 람다는 IPO 전 목표 기업가치를 145억 달러에서 130억 달러로 낮췄다. 영국 AI 클라우드 업체 엔스케일은 상장을 12월로 연기했다. 대출기관과 투자자들은 데이터센터 건설 지연과 AI 수익성에 대한 우려로 투자 대상을 까다롭게 고르고 있으며, 지역사회의 데이터센터 반대 움직임도 커지고 있다. 구글 모회사 알파벳의 실적 부진과 나스닥지수 하락 등 기술기업의 실적 부진도 투자심리를 위축시켰다. 코어위브 등 '네오클라우드' 업체들은 최근 신규 채권 발행이 어려운 상태이며, 기존 채권 수익률도 상승해 자금 조달 비용이 증가하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-31T16:41:11.286890+00:00",
+    "title": "오픈AI, 투자유치 당초 목표 절반 미달…AI 업계 자금조달 문턱 높아져...",
+    "link": "https://www.newsis.com/view/NISX20261031_0003849411",
+    "feed": "정책",
+    "domain": "newsis.com",
+    "matched": "데이터센터 전력"
+  },
+  "d77d29e6ecfc5711": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "샘 올트먼 오픈AI CEO, 최태원 SK 회장·삼성 사장단과 AI 협력 논의",
+    "summary": "샘 올트먼 오픈AI CEO가 한국을 방문해 최태원 SK그룹 회장 및 삼성 주요 계열사 사장단과 잇따라 만나 국내 양대 그룹과의 AI 협력 확대를 논의했다.",
+    "detail": "오픈AI의 샘 올트먼 CEO는 10월 31일 경기 용인 삼성인력개발원에서 삼성전자, 삼성SDI, 삼성전기 등 주요 계열사 사장단 50여 명과 AI 미래 경영전략을 논의했다. 같은 날 서울에서 최태원 SK그룹 회장과 오찬 회동을 갖고 기존 AI 인프라 협력 관계를 이어갔다. 이번 방한은 삼성과 SK가 오픈AI의 초거대 AI 기술을 활용한 사업 기회를 모색하고, AI 데이터센터 구축에 필요한 반도체 및 전력 설비 공급 등 협력 방안을 구체화하기 위한 것으로 풀이된다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2026-10-31",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-31T16:41:11.286890+00:00",
+    "title": "샘 올트먼, 최태원·삼성 사장단 연쇄 회동…韓 AI 동맹 확대",
+    "link": "http://www.4th.kr/news/articleView.html?idxno=2120862",
+    "feed": "정책",
+    "domain": "4th.kr",
+    "matched": "데이터센터 전력"
+  },
+  "d19cc56daf63202a": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 2,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "정책",
+    "topics": [
+      "smr",
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "새만금, AI·로봇 시대 첨단산업 혁신 플랫폼으로…SMR 등 무탄소 전원 확충 강조",
+    "summary": "새만금이 AI·로봇 시대 첨단산업 혁신 플랫폼으로 부상하며, 관련 포럼에서 기존 송전망 활용도 제고와 소형모듈원전(SMR) 등 안정적인 무탄소 전원 확충의 중요성이 강조되었다.",
+    "detail": "새만금개발청은 '새만금 AI 얼라이언스와 글로벌 에너지 전환'을 주제로 포럼을 개최하여 국내외 전문가들이 새만금의 첨단산업 혁신 플랫폼으로서의 역할을 논의했다. 이 자리에서 전문가들은 AI·로봇 시대의 승부처가 에너지에 있음을 강조하며, 기존 송전망의 활용도를 높이고 소형모듈원전(SMR)과 지열 등 안정적인 무탄소 전원을 확충해야 한다고 제언했다. 이는 새만금이 미래 산업의 핵심 거점으로 성장하기 위한 에너지 인프라 구축의 중요성을 시사한다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#새만금",
+      "#SMR",
+      "#무탄소에너지"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-31T16:41:11.286890+00:00",
+    "title": "AI·로봇 시대 승부처는 에너지…새만금, 첨단산업 혁신 플랫폼으로",
+    "link": "https://www.sedaily.com/article/20108626",
+    "feed": "정책",
+    "domain": "sedaily.com",
+    "matched": "EU SMR 얼라이언스"
   }
 }
