@@ -1002,6 +1002,26 @@
       "right_title": "유럽, 역대급 가뭄으로 원전 가동 중단 및 전력난 심화",
       "same_event": true
     },
+    "0197b1feca7ff54b--98fe30ce4f211836": {
+      "embedding_similarity": 0.8431,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안건과 내용이 다름",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "한수원, 체코 원전 시공계약 협상 결렬…새 시공사 선정 난항 예상",
+      "same_event": false
+    },
+    "0197b1feca7ff54b--f914263797a62c95": {
+      "embedding_similarity": 0.8409,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 결렬 동일 사건",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "한수원, 체코 원전 시공계약 협상 결렬…새 시공사 선정 난항 예상",
+      "same_event": true
+    },
     "019fb4ed9c519195--1671085462fb1d98": {
       "embedding_similarity": 0.8711,
       "left_title": "산업통상부 장관, G20 혁신장관회의서 AI 협력방안 논의",
@@ -12222,6 +12242,16 @@
       "right_title": "세종시, 7조 원 규모 AI 데이터센터 유치…2029년까지 360MW 건립",
       "same_event": false
     },
+    "0708d65654b8c9bd--36c21db173b913f7": {
+      "embedding_similarity": 0.8653,
+      "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 정책과 원전 AI 기술 법안 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "원전 AI 기술 도입 위한 법적 기반 마련 및 협의회 설치 추진",
+      "same_event": false
+    },
     "0708d65654b8c9bd--3837eff359c1d656": {
       "embedding_similarity": 0.8965,
       "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
@@ -17070,6 +17100,26 @@
       "reason": "상이한 수주 계약 내용",
       "reviewed_at": "2026-10-20T08:49:04.616848+00:00",
       "right_title": "LS일렉트릭, 블룸에너지와 북미 AI 데이터센터 전력 수주 5억 달러 돌파",
+      "same_event": false
+    },
+    "0a243154ee129735--a87ab972d6695268": {
+      "embedding_similarity": 0.8436,
+      "left_title": "IEA, 2030년 세계 데이터센터 전력소비 950TWh로 두 배 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기관과 기업의 전망",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "폭스콘 대표, AI 데이터센터 수요 견고…2027년 두 자릿수 성장 자신",
+      "same_event": false
+    },
+    "0a243154ee129735--f3b6090fdd9fab64": {
+      "embedding_similarity": 0.8411,
+      "left_title": "글로벌 AI 데이터센터 2027년까지 45% 전력난으로 무산 위기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력난 전망과 기업 매출 전망의 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "폭스콘 대표, AI 데이터센터 수요 견고…2027년 두 자릿수 성장 자신",
       "same_event": false
     },
     "0a3a69c9a73e8bbe--0abd318976122879": {
@@ -28900,6 +28950,16 @@
       "reason": "주체는 같으나 사안이 다름",
       "reviewed_at": "2026-08-31T14:42:28.369943+00:00",
       "right_title": "트럼프, 국가 전력망 보호 위해 외국산 ESS 등 장비 유입 금지 행정명령 서명",
+      "same_event": false
+    },
+    "12647c55325b2978--4613e502c176386a": {
+      "embedding_similarity": 0.8559,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 시정 구상과 대학 세미나 개최 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "국립창원대·두산에너빌리티, 2026 원자력 정책 세미나 개최",
       "same_event": false
     },
     "12686a74ad4671cf--586cbe4545fe78f1": {
@@ -41000,6 +41060,16 @@
       "reason": "서로 다른 방사능 훈련",
       "reviewed_at": "2026-10-05T14:17:12.561712+00:00",
       "right_title": "경주시·월성본부, 지진·산불 복합재난 대비 방사능방재 훈련 실시",
+      "same_event": false
+    },
+    "1aac1ff68d3c25c0--b12f658eb4b544aa": {
+      "embedding_similarity": 0.8404,
+      "left_title": "산업부, 내달 공공기관과 국산 AI 반도체 우선구매 업무협약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 업무협약과 해외 인사 면담 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "샘 올트먼, 삼성 핵심 경영진과 AI 미래 논의… 반도체·데이터센터 협...",
       "same_event": false
     },
     "1abc463aa30399f2--cf269b4c0cdce93c": {
@@ -61102,6 +61172,16 @@
       "right_title": "정부, 송전탑 절반 줄이는 지중화 전환 추진…재원 분담 체계 정비 과제",
       "same_event": true
     },
+    "2ab7af1d83cdba57--7af174e3fc3a25e8": {
+      "embedding_similarity": 0.856,
+      "left_title": "두산에너빌리티, 美 NuScale SMR 핵심 부품 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계약 대상 기업(NuScale/테라파워)이 다름",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "두산에너빌리티, 테라파워와 SMR 핵심 기자재 제작 계약 체결",
+      "same_event": false
+    },
     "2ab8625088dbb5f9--9153dd7eaf6c0ed5": {
       "embedding_similarity": 0.8466,
       "left_title": "미국 주정부, 데이터센터 전력 수요 증가에 따른 계통 비용 분담 규제 강화",
@@ -69472,6 +69552,16 @@
       "right_title": "앤트로픽, 스페이스X와 2029년까지 845억 달러 우주 컴퓨팅 계약 체결",
       "same_event": true
     },
+    "3116ca5e6722dbbb--c2429745c6fb2d74": {
+      "embedding_similarity": 0.8409,
+      "left_title": "AI 칩 임대료 1년새 60% 급등…앤트로픽, 스페이스X와 대규모 컴퓨팅 자원 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 계약 건과 언론 분석 기사 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "포린어페어스, AI 패권 경쟁 승패는 막대한 비용 조달 능력에 달려",
+      "same_event": false
+    },
     "3116ca5e6722dbbb--de97d1362619063e": {
       "embedding_similarity": 0.9085,
       "left_title": "AI 칩 임대료 1년새 60% 급등…앤트로픽, 스페이스X와 대규모 컴퓨팅 자원 계약",
@@ -76621,6 +76711,36 @@
       "reviewed_at": "2026-09-24T14:14:46.055748+00:00",
       "right_title": "한미, 원전 8기 건설 및 LNG 투자 포함 134조 원 대미투자 합의 임박",
       "same_event": true
+    },
+    "36c21db173b913f7--717681b89cdda7c3": {
+      "embedding_similarity": 0.8547,
+      "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 수요 공론화와 원전 AI 법안 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "원전 AI 기술 도입 위한 법적 기반 마련 및 협의회 설치 추진",
+      "same_event": false
+    },
+    "36cf2ab6312642a5--9d27e89f4e6b16fe": {
+      "embedding_similarity": 0.8754,
+      "left_title": "HD현대 정기선 회장, SMR 등 신사업 수익화에 주력",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 동향 및 개별 발표 내용 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "HD현대, AI 데이터센터 전력 인프라 및 SMR 신사업 추진",
+      "same_event": false
+    },
+    "36cf2ab6312642a5--c98914cd0325f951": {
+      "embedding_similarity": 0.8748,
+      "left_title": "정기선 HD현대 회장, 취임 1년간 SMR 및 발전용 엔진 투자의욕 고취",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 경영 동향과 신사업 추진 발표",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "HD현대, AI 데이터센터 전력 인프라 및 SMR 신사업 추진",
+      "same_event": false
     },
     "36e4c25410ce3cf4--3db1fb734ba2fd2f": {
       "embedding_similarity": 0.8592,
@@ -97372,6 +97492,16 @@
       "right_title": "창원특례시, 국회에 SMR 제조부품 시험검사 지원센터 국비 반영 요청",
       "same_event": false
     },
+    "4613e502c176386a--c194ef5a1910150b": {
+      "embedding_similarity": 0.8559,
+      "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원시 구상 발표와 경상남도 자문회의 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "경상남도, SMR 특구 육성 위한 전략기획 자문회의 개최",
+      "same_event": false
+    },
     "4613e502c176386a--c6678170ef4a0ca3": {
       "embedding_similarity": 0.8701,
       "left_title": "창원시, 'SMR 중심 미래 50년 원전산업 육성' 구상 공유 및 기업 지원 강화",
@@ -98741,6 +98871,16 @@
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "김현권 고준위위원장 “사용후핵연료 55만 다발, 내년 방폐장 부지 공모 실시”",
       "same_event": true
+    },
+    "4761bbf84c8e7cbe--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8571,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화와 송전망 건설 요구 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "AI·반도체 전력 수요 폭증, 송전망 건설 속도 6배 이상 확대 필요",
+      "same_event": false
     },
     "476af249015fcbc4--de01eab532421ba9": {
       "embedding_similarity": 0.9125,
@@ -121012,6 +121152,16 @@
       "right_title": "K건설, 미국 해외수주 절반 차지…원전·SMR로 사업 확장",
       "same_event": false
     },
+    "5bc115fb69512d4b--bae9004385c8319d": {
+      "embedding_similarity": 0.8416,
+      "left_title": "트럼프, 미국 데이터센터에 자체 전력 생산 및 지역사회 '배당금' 의무화 명령",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정책 발표와 지역 반발 동향 기사",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "[월드 프리즘] \"우리 지역은 안 돼\"…트럼프의 AI 야심, 공화당 텃밭서...",
+      "same_event": false
+    },
     "5bc115fb69512d4b--bf71465c9adbbc4b": {
       "embedding_similarity": 0.9013,
       "left_title": "트럼프, 미국 데이터센터에 자체 전력 생산 및 지역사회 '배당금' 의무화 명령",
@@ -123210,6 +123360,16 @@
       "reason": "체코 수주 동향과 시장 분석 의견",
       "reviewed_at": "2026-10-26T16:58:40.887615+00:00",
       "right_title": "한국 원전, 미국보다 동유럽에 집중해야",
+      "same_event": false
+    },
+    "5e14bf6e70d9a886--cfd9dfccabd94472": {
+      "embedding_similarity": 0.8569,
+      "left_title": "체코 테믈린 원전 수주 전초전…美·佛 견제 속 한국 우선협상권 흔들",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "테믈린 수주 전망과 시공사 재선정 사건 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
       "same_event": false
     },
     "5e2c11cd445bbcee--6ba91278beddc8b7": {
@@ -135820,6 +135980,16 @@
       "reason": "체코 원전 계약 및 공사비 협상 사안",
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
+      "same_event": true
+    },
+    "6a72f64f2255163a--d2bf64d42fa79f42": {
+      "embedding_similarity": 0.853,
+      "left_title": "한수원, 체코 원전 시공단과 공사비 합의 난항 속 계약 발표 예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공/하도급 협상 난항 동일 사건",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "체코 원전 하도급 협상은 왜 깨졌나…한수원·시공단 4대 쟁점",
       "same_event": true
     },
     "6a72f64f2255163a--d36c679315a69891": {
@@ -190752,6 +190922,16 @@
       "right_title": "삼성SDI, 美 AOP와 1GWh ESS 공급 계약 체결",
       "same_event": false
     },
+    "abd7dc797744c4fe--dad972abddd0fc61": {
+      "embedding_similarity": 0.8567,
+      "left_title": "삼성SDI, 美 AOP와 1GWh ESS 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 개별 소식",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "솔브레인홀딩스, ESS·전기차 시장 공략으로 성장 동력 확보",
+      "same_event": false
+    },
     "abd7dc797744c4fe--e59c549ac045fd4c": {
       "embedding_similarity": 0.9071,
       "left_title": "삼성SDI, 美 AOP와 1GWh ESS 공급 계약 체결",
@@ -209692,6 +209872,16 @@
       "right_title": "SK하이퍼, 15GW AI 데이터센터 구축 위해 3500억 달러 자금 조달 추진",
       "same_event": false
     },
+    "d423dcbdee3514ab--df3cb47e563f0e2d": {
+      "embedding_similarity": 0.8563,
+      "left_title": "SK 최태원 회장, 호남 반도체 클러스터 400조원 투자 '속도전' 지시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "호남 투자 지시와 올트먼 면담 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "삼성·SK, 샘 올트먼 방한에 AI 동맹 강화…최태원 오찬·삼성 사장단 5...",
+      "same_event": false
+    },
     "d423dcbdee3514ab--e3a4645257784282": {
       "embedding_similarity": 0.8655,
       "left_title": "SK 최태원 회장, 호남 반도체 클러스터 400조원 투자 '속도전' 지시",
@@ -211190,6 +211380,16 @@
       "reason": "개별 계약과 사업 계획의 차이",
       "reviewed_at": "2026-10-27T11:51:11.826941+00:00",
       "right_title": "삼성SDI, 미국 ESS용 LFP 배터리 양산 준비 및 데이터센터 전력 공급 확대",
+      "same_event": false
+    },
+    "d982c3ea34d67c26--e1b39d99616256ee": {
+      "embedding_similarity": 0.8566,
+      "left_title": "고준위 방폐장 부적합 지역 연내 공개…후보지 공모 내년 1분기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "방폐장 후보지 일정과 기술 세미나 차이",
+      "reviewed_at": "2026-10-31T23:01:20.007073+00:00",
+      "right_title": "국내 고준위 방폐물 처분시설, 1만년 안전성 위한 토목공학적 과제 논의",
       "same_event": false
     },
     "d994095f62ee5d80--fbd3322d6a137c46": {
