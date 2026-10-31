@@ -242394,5 +242394,137 @@
     "domain": "tokenpost.kr",
     "matched": "데이터센터 전력",
     "features_attempts": 1
+  },
+  "60defe1abe25070c": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 3,
+      "market_materiality": 2,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "nice_to_know",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "최태원·이재용, 샘 올트먼과 회동…삼성·SK, AI 인프라 협력 강화",
+    "summary": "최태원 SK그룹 회장과 이재용 삼성전자 회장이 샘 올트먼 오픈AI CEO와 잇따라 회동하며 고성능 메모리 반도체와 데이터센터 구축 등 글로벌 AI 인프라 협력 강화를 모색했다.",
+    "detail": "최태원 SK그룹 회장은 5월 31일 올트먼 CEO와 오찬을 함께하며 SK하이닉스를 비롯한 계열사 임원들과 글로벌 AI 인프라 구축을 위한 전략적 파트너십 확대 방안을 논의했다. SK그룹은 지난해 10월 오픈AI와 메모리 공급 의향서(LOI) 및 서남권 AI 데이터센터 구축 MOU를 체결했으며, 오픈AI의 '스타게이트 프로젝트'에도 핵심 협력사로 참여 중이다. 이재용 삼성전자 회장도 지난해 7월 올트먼 CEO와 AI 인프라 협력을 논의한 바 있으며, 이번 방한 기간 삼성 관계사 사장단 50여명과 간담회를 통해 AI 기술 발전 방향과 사업 접목 방안을 모색했다. 삼성과 오픈AI도 지난해 10월 AI 인프라 구축 LOI를 체결했으며, 삼성SDS는 AI 데이터센터 구축, 삼성물산과 삼성중공업은 해상 부유식 데이터센터 공동 개발을 추진 중이다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI전력수요",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2024-05-31",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-31T15:53:05.714320+00:00",
+    "title": "[종합] 최태원·이재용, 올트먼과 잇단 회동…삼성·SK, AI 인프라 동맹...",
+    "link": "https://www.newsian.co.kr/news/articleView.html?idxno=100362",
+    "feed": "정책",
+    "domain": "newsian.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "fb96753b79be7ab6": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "khnp",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "corporate",
+    "title_kr": "한국수력원자력, 사회적 가치경영 대상 수상 및 새만금 조력발전 공동개발 추진",
+    "summary": "한국수력원자력(한수원)이 사회적 가치경영 대상을 수상했으며, 한국농어촌공사 및 한국수자원공사와 새만금 조력발전사업 공동개발을 추진하고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-10-31T15:53:05.714320+00:00",
+    "title": "한국수력원자력, 사회적 가치경영 대상…새만금 조력발전 공동개발도 추...",
+    "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2355332",
+    "feed": "정책",
+    "domain": "webeconomy.co.kr",
+    "matched": "한국수력원자력"
+  },
+  "dd47dbcc8f4d1c52": {
+    "features": {
+      "event_type": "project_milestone",
+      "korea_relevance": 0,
+      "market_materiality": 0,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "구글, 궤도상 위성에서 AI 구동 성공…우주 데이터센터 '선캐처' 프로젝트 시동",
+    "summary": "구글이 '프로젝트 선캐처' 시제품 위성에서 궤도상 텐서처리장치(TPU)를 성공적으로 구동하여 첫 AI 응답을 수신했으며, 이는 우주 데이터센터 실현을 목표로 한 중요한 진전이다.",
+    "detail": "구글은 5월 1일 스페이스X 팰콘9 로켓에 실어 발사한 '프로젝트 선캐처' 시제품 위성에서 3주간의 시운전 후 기계학습 연산 시험에 돌입했다. 이 위성에는 4대의 TPU가 탑재되어 태양광 발전으로 최대 1㎾의 전력을 생산하지만, TPU의 높은 전력 소모로 한 번에 한 대만 20분 동안 가동 가능하다. 구글은 5월 30일(현지시간) 위성에 탑재된 오픈소스 AI 모델 '젬마4'로부터 우주를 주제로 한 하이쿠 형태의 첫 AI 응답을 수신했다고 발표했다. 구글은 내년 중 고성능 TPU와 광학 레이저 통신 기능을 갖춘 쌍둥이 위성 발사를 추진할 계획이며, 엔비디아와 스페이스X 등 다른 기업들도 우주 AI 위성 개발에 참여하고 있다.",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [],
+    "related_reports": [],
+    "event_date": "2024-05-30",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-10-31T15:53:05.714320+00:00",
+    "title": "[구글 우주 AI] 궤도상 위성서 TPU 구동 성공한 구글…프로젝트 선캐처...",
+    "link": "https://www.cbci.co.kr/news/articleView.html?idxno=621750",
+    "feed": "정책",
+    "domain": "cbci.co.kr",
+    "matched": "데이터센터 전력"
   }
 }

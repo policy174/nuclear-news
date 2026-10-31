@@ -1134,22 +1134,6 @@
    "off_topic": true,
    "off_topic_reason": "원자력 발전과 무관한 축산 분야 뉴스레터",
    "relevance": "policy"
-  },
-  {
-   "id": "6135ce2684ae",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Food Safety and Control Newsletter Vol. 05 No. 1, January 2026",
-   "url": "http://www.iaea.org/publications/16069/food-safety-and-control-newsletter-vol-05-no-1-january-2026",
-   "date": "2026-05-04",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 식품 안전 및 관리 뉴스레터 제5권 제1호, 2026년 1월",
-   "gist": "식품 안전 및 관리 뉴스레터",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 식품 안전 분야 뉴스레터",
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1159,38 +1143,38 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-10-31T00:45:49+09:00",
+   "at": "2026-11-01T00:56:55+09:00",
    "ok": true,
-   "new": 1,
-   "parsed": 1
+   "new": 0,
+   "parsed": 0
   }
  }
 }
