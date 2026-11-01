@@ -1118,22 +1118,6 @@
    "translated_version": 3,
    "off_topic": false,
    "relevance": "policy"
-  },
-  {
-   "id": "c0fcee1ee1ab",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Animal Production and Health Newsletter, No. 83, January 2026",
-   "url": "http://www.iaea.org/publications/16065/animal-production-and-health-newsletter-no-83-january-2026",
-   "date": "2026-05-05",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 동물 생산 및 건강 뉴스레터 제83호, 2026년 1월",
-   "gist": "동물 생산 및 건강 뉴스레터",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 축산 분야 뉴스레터",
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1143,35 +1127,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-01T00:56:55+09:00",
+   "at": "2026-11-02T00:46:36+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
