@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-02"
   },
   "retired": {
@@ -1646,10 +1646,44 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 5,
     "date": "2026-11-02"
   },
   "terms": {
+    "수요탈탄소로": {
+      "articles": 1,
+      "created_at": "2026-11-02T02:21:27.781444+00:00",
+      "domains": [
+        "g-enews.com"
+      ],
+      "evidence": [
+        {
+          "domain": "g-enews.com",
+          "hash": "be4001ce05829b3f",
+          "importance": "must_read",
+          "title": "전 세계 건설 원자로 79기…AI 전력 수요·탈탄소로 원전 르네상스"
+        }
+      ],
+      "expires_at": "2026-11-03T02:21:28.654024+00:00",
+      "importance": "must_read",
+      "last_result_count": 6,
+      "last_run": "2026-11-02T02:21:28.654024+00:00",
+      "new_articles": 6,
+      "origin": "auto",
+      "planned_at": "2026-11-02T02:21:27.781444+00:00",
+      "queries_run": 1,
+      "query": "수요·탈탄소로 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "수요·탈탄소로",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-11-02"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
     "한국농어촌공사": {
       "articles": 4,
       "created_at": "2026-10-30T15:39:29.278924+00:00",
