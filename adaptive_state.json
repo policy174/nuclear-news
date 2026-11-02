@@ -1604,6 +1604,14 @@
       "type": "plant",
       "until": "2026-10-13T10:08:49.169731+00:00"
     },
+    "해안감시기동대대와": {
+      "new_articles": 1,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-02T11:24:28.734922+00:00",
+      "term": "해안감시기동대대와",
+      "type": "plant",
+      "until": "2026-11-16T11:24:28.734922+00:00"
+    },
     "해치": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1654,7 +1662,7 @@
     }
   },
   "spent": {
-    "count": 8,
+    "count": 10,
     "date": "2026-11-02"
   },
   "terms": {
@@ -1706,12 +1714,12 @@
       ],
       "expires_at": "2026-11-03T02:21:28.654024+00:00",
       "importance": "must_read",
-      "last_result_count": 6,
-      "last_run": "2026-11-02T02:21:28.654024+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-02T11:24:28.734862+00:00",
       "new_articles": 6,
       "origin": "auto",
-      "planned_at": "2026-11-02T02:21:27.781444+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-02T11:24:26.676827+00:00",
+      "queries_run": 2,
       "query": "수요·탈탄소로 원전",
       "score": 3.6,
       "status": "extended",
@@ -1722,7 +1730,7 @@
         "2026-11-02"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "이노비즈협회": {
       "articles": 4,
@@ -1769,56 +1777,6 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
-    },
-    "해안감시기동대대와": {
-      "articles": 5,
-      "created_at": "2026-10-31T15:54:16.755651+00:00",
-      "domains": [
-        "e-platform.net",
-        "knpnews.com",
-        "kbmaeil.com",
-        "heraldcorp.com",
-        "hidomin.com"
-      ],
-      "evidence": [
-        {
-          "domain": "e-platform.net",
-          "hash": "de30eb4423a5d709",
-          "importance": "nice_to_know",
-          "title": "한울원자력본부, 군과 협력 강화해 원전 방호태세 고도화"
-        },
-        {
-          "domain": "knpnews.com",
-          "hash": "91a357ccfda14473",
-          "importance": "nice_to_know",
-          "title": "한울원자력본부, 15해안감시기동대대와 대드론 원전 방호 업무협약 체결"
-        },
-        {
-          "domain": "kbmaeil.com",
-          "hash": "c5e6a0e40a1c9858",
-          "importance": "nice_to_know",
-          "title": "한울원자력본부, 15해안감시기동대대와 원전 방호태세 강화 업무협약 체결"
-        }
-      ],
-      "expires_at": "2026-11-02T15:54:16.755651+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-02T00:10:58.406710+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-11-02T00:10:56.660797+00:00",
-      "queries_run": 5,
-      "query": "해안감시기동대대와 원전",
-      "score": 4.52,
-      "status": "extended",
-      "term": "해안감시기동대대와",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [
-        "2026-11-01"
-      ],
-      "yields": 1,
-      "zero_streak": 2
     }
   },
   "version": 1
