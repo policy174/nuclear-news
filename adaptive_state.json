@@ -1524,6 +1524,14 @@
       "type": "plant",
       "until": "2026-10-03T18:38:48.199546+00:00"
     },
+    "하이양": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-03T11:24:24.397788+00:00",
+      "term": "하이양",
+      "type": "plant",
+      "until": "2026-11-17T11:24:24.397788+00:00"
+    },
     "한국경제인협회": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1686,42 +1694,9 @@
     }
   },
   "spent": {
-    "count": 7,
+    "count": 8,
     "date": "2026-11-03"
   },
-  "terms": {
-    "하이양": {
-      "articles": 1,
-      "created_at": "2026-11-02T21:18:38.894694+00:00",
-      "domains": [
-        "world-nuclear-news.org"
-      ],
-      "evidence": [
-        {
-          "domain": "world-nuclear-news.org",
-          "hash": "23c17f864827c377",
-          "importance": "must_read",
-          "title": "중국 하이양 원전 5호기 첫 콘크리트 타설, 본 건설 착수"
-        }
-      ],
-      "expires_at": "2026-11-03T21:18:38.894694+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-03T04:59:32.432503+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-03T04:59:29.883476+00:00",
-      "queries_run": 2,
-      "query": "하이양 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "하이양",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    }
-  },
+  "terms": {},
   "version": 1
 }
