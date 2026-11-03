@@ -19362,6 +19362,16 @@
       "right_title": "정부, AI 시대 전력수요 급증에 대비해 원전 공론화 본격화",
       "same_event": true
     },
+    "0ade688c9378b430--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8522,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 착수 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "정부, AI 시대 전력수요 급증에 대비해 원전 공론화 본격화",
+      "same_event": true
+    },
     "0ade688c9378b430--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8628,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -20351,6 +20361,16 @@
       "reviewed_at": "2026-10-17T00:54:54.940071+00:00",
       "right_title": "국내외 SMR 건설허가 신청은 2028년인데 심사 기준은 2032년 마련 우려",
       "same_event": false
+    },
+    "0c401209a684567a--e10e22f406191ea3": {
+      "embedding_similarity": 0.9098,
+      "left_title": "튀르키예 대통령, 국빈 방한해 한국과 원전·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한-튀르키예 정상회담 원전 협력 논의",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "이재명 대통령, 튀르키예 대통령과 정상회담…원전·방산 협력 논의",
+      "same_event": true
     },
     "0c4f0085803fba96--53cff084bc298889": {
       "embedding_similarity": 0.8825,
@@ -37082,6 +37102,16 @@
       "right_title": "제12차 전기본 수립, 재생에너지 목표 고정 논란",
       "same_event": false
     },
+    "176a13cf2f309a6b--a25e1309b3b962ed": {
+      "embedding_similarity": 0.855,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화와 재생에너지 논란 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "제12차 전기본 수립, 재생에너지 목표 고정 논란",
+      "same_event": false
+    },
     "176a13cf2f309a6b--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8955,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -41161,6 +41191,46 @@
       "reviewed_at": "2026-10-06T01:04:16.967502+00:00",
       "right_title": "한국수력원자력, EPRI와 기술 교류 및 중소기업 특허 개방 추진",
       "same_event": false
+    },
+    "19c607842463bc6f--1ca6341a330daf35": {
+      "embedding_similarity": 0.8528,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업부 관리체계와 협상 종료는 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
+      "same_event": false
+    },
+    "19c607842463bc6f--75c9ca256e559815": {
+      "embedding_similarity": 0.86,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 협상 종료와 업계 동향으로 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
+      "same_event": false
+    },
+    "19c607842463bc6f--98fe30ce4f211836": {
+      "embedding_similarity": 0.8627,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 협력 논의와 협상 종료는 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
+      "same_event": false
+    },
+    "19c607842463bc6f--fb760a18f4d64219": {
+      "embedding_similarity": 0.8844,
+      "left_title": "한수원, 체코 두코바니 원전 건설 계약 협상 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 협상 종료 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
+      "same_event": true
     },
     "19c7308bc9bfcb2e--959a0bd83cc42eea": {
       "embedding_similarity": 0.8494,
@@ -54592,6 +54662,16 @@
       "right_title": "원전 공론화위원회, 전문가 9명 구성해 12월 숙의토론 추진",
       "same_event": true
     },
+    "24126c9eda03dbc3--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8557,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 구성 및 토론 추진 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "원전 공론화위원회, 전문가 9명 구성해 12월 숙의토론 추진",
+      "same_event": true
+    },
     "24126c9eda03dbc3--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8461,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -59762,6 +59842,16 @@
       "right_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
       "same_event": false
     },
+    "2837162be3eb00bb--285c5b6c0d708ec4": {
+      "embedding_similarity": 0.916,
+      "left_title": "러시아 로사톰, 아프리카 4개국과 대형 원전 건설 협상 중",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "아프리카 전체 동향과 우간다 협력은 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "러시아 로사톰, 우간다와 원자력 발전소 건설 협력 로드맵 서명",
+      "same_event": false
+    },
     "2837162be3eb00bb--2f55b8f39c3aafe7": {
       "embedding_similarity": 0.9157,
       "left_title": "러시아 로사톰, 아프리카 4개국과 대형 원전 건설 협상 중",
@@ -60789,6 +60879,16 @@
       "prompt_version": 1,
       "reason": "공론화위 1차 회의 및 시민참여단 추진",
       "reviewed_at": "2026-10-15T08:25:49.297424+00:00",
+      "right_title": "12차 전기본 원전 공론화, 시민참여단 300명 2박3일 숙의토론 추진",
+      "same_event": true
+    },
+    "28c3a4f2b72b6feb--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8576,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화 숙의 추진 동일 사안",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
       "right_title": "12차 전기본 원전 공론화, 시민참여단 300명 2박3일 숙의토론 추진",
       "same_event": true
     },
@@ -64602,6 +64702,16 @@
       "right_title": "기후에너지환경부, 제12차 전기본 위원 명단 비공개 관행 방어…송전선로 단축 입장 밝혀",
       "same_event": false
     },
+    "2b32fc42d9118314--99e8417b939b0c3e": {
+      "embedding_similarity": 0.8453,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 회의와 산업계 촉구는 별개의 건",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "반도체산업협회, 전력·용수 공급 지연 우려하며 원전 포함 에너지믹스 촉구",
+      "same_event": false
+    },
     "2b32fc42d9118314--9a5b1e174d0f721a": {
       "embedding_similarity": 0.9035,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -64802,6 +64912,16 @@
       "right_title": "한국가스공사, 제10회 KOGAS 포럼 개최해 천연가스 산업 핵심 현안 논의",
       "same_event": false
     },
+    "2b32fc42d9118314--d82ac0cff3bcbee7": {
+      "embedding_similarity": 0.8574,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 회의와 RE100 요구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100, 제12차 전기본에 재생에너지 감축 경로 및 기업 조달 대책 마련 촉구",
+      "same_event": false
+    },
     "2b32fc42d9118314--d94b1fdfaf4d3f32": {
       "embedding_similarity": 0.8454,
       "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
@@ -64810,6 +64930,16 @@
       "reason": "회의 개최와 장관 발언으로 사안 다름",
       "reviewed_at": "2026-10-20T07:00:01.251159+00:00",
       "right_title": "김성환 기후장관, 제12차 전기본 AI 데이터센터 전력수요 전망 과잉 인정",
+      "same_event": false
+    },
+    "2b32fc42d9118314--da008e573ee275b0": {
+      "embedding_similarity": 0.8441,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 공론화 회의와 시민단체 촉구는 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100 협의체, 12차 전기본에 재생에너지 확대 방안 마련 촉구",
       "same_event": false
     },
     "2b32fc42d9118314--dd1e903df5cda2ea": {
@@ -69331,6 +69461,16 @@
       "reviewed_at": "2026-08-30T20:36:31.001439+00:00",
       "right_title": "박용선 포항시장, 지역별 차등 전기요금제 조속 시행 요구",
       "same_event": true
+    },
+    "2e726d7527e3727b--8237fa6d1cc4f08a": {
+      "embedding_similarity": 0.9067,
+      "left_title": "원안위, 고리 3·4호기 계속운전 허가 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 허가 의결과 노후원전 일반 동향",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "OECD 원전 평균 연령 38년…한국도 노후 원전 계속운전 '관건'",
+      "same_event": false
     },
     "2ea3d2a03cbec3a4--66fe486e3027bb99": {
       "embedding_similarity": 0.8579,
@@ -82392,6 +82532,16 @@
       "right_title": "기후장관, 데이터센터 전력 수요 전망 '과잉' 가능성 시사",
       "same_event": false
     },
+    "3837eff359c1d656--99e8417b939b0c3e": {
+      "embedding_similarity": 0.8584,
+      "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 마스터플랜과 산업협회 촉구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "반도체산업협회, 전력·용수 공급 지연 우려하며 원전 포함 에너지믹스 촉구",
+      "same_event": false
+    },
     "3837eff359c1d656--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8829,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -89372,6 +89522,16 @@
       "right_title": "한수원, 체코 두코바니 원전 시공 계약 협상 결렬…새 건설업체 물색",
       "same_event": true
     },
+    "3d2c3fdb5faa2382--6e44db3c17b19418": {
+      "embedding_similarity": 0.9063,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "이사회 보고 누락 건과 시공협상 결렬 건",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 협상 결렬…새 건설업체 물색",
+      "same_event": false
+    },
     "3d2c3fdb5faa2382--75c9ca256e559815": {
       "embedding_similarity": 0.8913,
       "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
@@ -95982,6 +96142,16 @@
       "right_title": "김성환 기후에너지환경부 장관, \"원전 공론화 12월 중순 마무리 후 12차 전기본 발표\"",
       "same_event": false
     },
+    "4247ec5e45458710--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8436,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진 동일 사안",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "김성환 기후에너지환경부 장관, \"원전 공론화 12월 중순 마무리 후 12차 전기본 발표\"",
+      "same_event": true
+    },
     "42528b0ccca356b6--ccc2aaf8c8051305": {
       "embedding_similarity": 0.8443,
       "left_title": "AI 전력 수요 급증에 따른 전력망 비용 분담 논란 심화",
@@ -102560,6 +102730,16 @@
       "reason": "핵연료 개발 관련 후속 보도",
       "reviewed_at": "2026-08-30T03:23:01.610837+00:00",
       "right_title": "암페라, LLNL과 첨단 핵연료 개발 전략적 파트너십 체결",
+      "same_event": true
+    },
+    "48dc229814a39284--9eec0bd2920b2fc9": {
+      "embedding_similarity": 0.9132,
+      "left_title": "에르도안 터키 대통령, 시노프 원전 프로젝트 한국과 협력 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "튀르키예 대통령의 한국 원전 협력 발언",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "에르도안 튀르키예 대통령, 시놉 원전 사업 한국 참여 가능성 언급",
       "same_event": true
     },
     "48dc229814a39284--e10e22f406191ea3": {
@@ -129462,6 +129642,16 @@
       "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
       "same_event": false
     },
+    "622e98d8d7c56df6--77bcdecf338c59d5": {
+      "embedding_similarity": 0.9145,
+      "left_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "X-에너지 SMR NRC 안전성 평가 완료",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
+      "same_event": true
+    },
     "622e98d8d7c56df6--7b33293631f65d6e": {
       "embedding_similarity": 0.8549,
       "left_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
@@ -129501,6 +129691,16 @@
       "reviewed_at": "2026-10-30T15:58:31.806818+00:00",
       "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
       "same_event": false
+    },
+    "622e98d8d7c56df6--f63825bd0efa1e22": {
+      "embedding_similarity": 0.9101,
+      "left_title": "미국 텍사스 SMR 플랜트, 최종 인허가 단계 진입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "X-에너지 SMR NRC 안전성 평가 완료",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
+      "same_event": true
     },
     "623bc44f0c5dc5ea--995a3a9b7cdd6475": {
       "embedding_similarity": 0.8595,
@@ -145652,6 +145852,16 @@
       "right_title": "정부, 12차 전력수급기본계획 원전 비중 공론화 착수",
       "same_event": true
     },
+    "717681b89cdda7c3--99e8417b939b0c3e": {
+      "embedding_similarity": 0.8458,
+      "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화 착수와 반도체협회 촉구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "반도체산업협회, 전력·용수 공급 지연 우려하며 원전 포함 에너지믹스 촉구",
+      "same_event": false
+    },
     "717681b89cdda7c3--99ec771a6255a1e6": {
       "embedding_similarity": 0.8534,
       "left_title": "전력수급기본계획 원전 공론화 전문위 구성 완료, 12월 시민 숙의토론 예정",
@@ -154782,6 +154992,16 @@
       "right_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
       "same_event": false
     },
+    "77bcdecf338c59d5--f63825bd0efa1e22": {
+      "embedding_similarity": 0.9148,
+      "left_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "X-에너지 SMR NRC 안전성 평가 승인",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "미국 텍사스 SMR 플랜트, 최종 인허가 단계 진입",
+      "same_event": true
+    },
     "77c3e707bca60967--da958f5fde753b62": {
       "embedding_similarity": 0.848,
       "left_title": "헝가리, 다뉴브강 수위 높여 팍스 원전 가동 유지",
@@ -159102,6 +159322,26 @@
       "right_title": "국회 국정감사, 제12차 전력수급기본계획 수립 위원회 명단 공개 여부로 여야 충돌",
       "same_event": true
     },
+    "7c47d39a747ce495--d82ac0cff3bcbee7": {
+      "embedding_similarity": 0.847,
+      "left_title": "국회 기후부 국감서 원전 늑장심사·신규원전 공론화 지적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국정감사 지적과 RE100 촉구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100, 제12차 전기본에 재생에너지 감축 경로 및 기업 조달 대책 마련 촉구",
+      "same_event": false
+    },
+    "7c47d39a747ce495--da008e573ee275b0": {
+      "embedding_similarity": 0.8462,
+      "left_title": "국회 기후부 국감서 원전 늑장심사·신규원전 공론화 지적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국정감사 지적과 RE100 촉구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100 협의체, 12차 전기본에 재생에너지 확대 방안 마련 촉구",
+      "same_event": false
+    },
     "7c47d39a747ce495--dfa47b9cf972e22b": {
       "embedding_similarity": 0.8601,
       "left_title": "국회 기후부 국감서 원전 늑장심사·신규원전 공론화 지적",
@@ -162081,6 +162321,16 @@
       "reviewed_at": "2026-09-27T23:54:16.527368+00:00",
       "right_title": "'유령 발전사업' 걷어낸 전력망,,,송전선 안 짓고 원전 3기급 공급 확보",
       "same_event": false
+    },
+    "80523635d506311f--c31d9219028a9420": {
+      "embedding_similarity": 0.9149,
+      "left_title": "현대건설, 미국 SMR 개발사 FANCO와 5년간 포괄적 기본계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "현대건설-FANCO 계약 체결 동일 사건",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "현대건설, 美 FANCO와 기본 계약 체결…차세대 SMR 협력 확대",
+      "same_event": true
     },
     "8061405192b0c70b--b6798bf57a7bb85b": {
       "embedding_similarity": 0.8423,
@@ -165210,6 +165460,16 @@
       "reason": "한수원 원안법 위반 과징금 지적",
       "reviewed_at": "2026-10-21T08:05:08.767122+00:00",
       "right_title": "한수원, 6년간 무허가 시공·안전조치 위반으로 340억 원 과징금 부과",
+      "same_event": true
+    },
+    "83fd6f2c31241aa7--b01cd4ff35bac0db": {
+      "embedding_similarity": 0.9103,
+      "left_title": "원안위, 이달 말 SMR 사전 검토 시스템 도입 예정…국내외 10여개 기업 관심",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 사전검토제 시행 관련 동일 사안",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "[만나보니] SMR 사전검토제 이달 시행…원안위원장 \"규제 인력 확충 시급...",
       "same_event": true
     },
     "8400ea24b1cde938--aaa232f2b9b0540b": {
@@ -173432,6 +173692,16 @@
       "right_title": "\"핵발전 확대 정해놓고 무슨 공론화?\"… 시민사회, 정부 전문가 추천 '거...",
       "same_event": true
     },
+    "8e237f12febca8cd--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8428,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 시민단체 거부 입장은 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "시민사회, 정부 전문가 추천 '거부'…12차 전력수급기본계획 재검토 촉구",
+      "same_event": false
+    },
     "8e237f12febca8cd--ad039dd6f4752815": {
       "embedding_similarity": 0.8447,
       "left_title": "기후에너지환경부, 제12차 전기본 원전 비중 확대 두고 3개월 공론화 추진",
@@ -174981,6 +175251,16 @@
       "reviewed_at": "2026-08-26T01:15:35.021313+00:00",
       "right_title": "중국 쉬다바오 원전 1·2호기 주제어실 시뮬레이터 가동 개시",
       "same_event": false
+    },
+    "911a935b1b724c73--f914263797a62c95": {
+      "embedding_similarity": 0.8517,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 협상 종료 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "대우건설, 한국수력원자력으로부터 체코 두코바니 신규원전 시공계약 협상 종료 통보 수령 공시",
+      "same_event": true
     },
     "911bd1fb427625ac--e6f1b841d625b887": {
       "embedding_similarity": 0.8421,
@@ -177511,6 +177791,16 @@
       "reviewed_at": "2026-11-02T23:12:59.747038+00:00",
       "right_title": "30년 수명만료 '월성 2호기' 재가동 논란...주민들 \"위험한 노후원전, 영...",
       "same_event": true
+    },
+    "93301d8bc4f04a29--b48eb0ef2f330ced": {
+      "embedding_similarity": 0.8588,
+      "left_title": "월성2호기 설계수명 종료, 10년 계속운전 논의 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수명종료 논의와 시민단체 촉구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "경주시민 입장서 월성 2·3·4호기 계속운전 조속 추진 촉구",
+      "same_event": false
     },
     "93301d8bc4f04a29--bd094ef5f6a4f8e1": {
       "embedding_similarity": 0.8645,
@@ -180882,6 +181172,16 @@
       "right_title": "K-배터리, AI 데이터센터 전력시장 공략하며 사업 영역 확장",
       "same_event": false
     },
+    "96eaccff90548418--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8422,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 특정 의제 요구는 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "원전 경제성 재평가 요구, 공론화 의제 포함 필요",
+      "same_event": false
+    },
     "96eaccff90548418--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8497,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -182890,6 +183190,16 @@
       "reason": "회장 취임 행보와 특정 기업 협력 사업",
       "reviewed_at": "2026-10-30T09:41:23.594573+00:00",
       "right_title": "HD현대, 테라파워와 SMR 핵심 설비 제작 추진 및 원자력 선박 기술 개발",
+      "same_event": false
+    },
+    "99e8417b939b0c3e--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8799,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 공론화와 업계 요구로 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "반도체산업협회, 전력·용수 공급 지연 우려하며 원전 포함 에너지믹스 촉구",
       "same_event": false
     },
     "99ec771a6255a1e6--9a5b1e174d0f721a": {
@@ -186752,6 +187062,16 @@
       "right_title": "이재용 삼성전자 회장, UAE 아부다비 가스화력발전소 현장 방문",
       "same_event": true
     },
+    "9ecc7eb272aa0799--c930103179892b4d": {
+      "embedding_similarity": 0.915,
+      "left_title": "이재용 회장, UAE 발전소 건설 현장 점검 및 신규 사업 기회 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "UAE 방문과 일본 방문은 별개의 출장",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "이재용 삼성전자 회장, 일본 반도체 패키징 연구거점 방문 등 현장경영 행보",
+      "same_event": false
+    },
     "9ecc7eb272aa0799--cd7d599f654a77e2": {
       "embedding_similarity": 0.9086,
       "left_title": "이재용 회장, UAE 발전소 건설 현장 점검 및 신규 사업 기회 모색",
@@ -188542,6 +188862,16 @@
       "right_title": "AI 데이터센터 확산에 실리콘밸리 전력 인프라 '비상'",
       "same_event": false
     },
+    "a25e1309b3b962ed--a3d42204a3561c1d": {
+      "embedding_similarity": 0.848,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 위원 구성 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "원전 공론화위원회, 환경·원자력·중립 분야 전문위원 9명 구성 의결",
+      "same_event": true
+    },
     "a25e1309b3b962ed--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8985,
       "left_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 대주제 확정",
@@ -188560,6 +188890,26 @@
       "reason": "원전 공론화위원회 1차 회의 개최",
       "reviewed_at": "2026-11-02T23:12:59.747038+00:00",
       "right_title": "원전 공론화위원회, 제1차 회의 개최…시민참여단 구성 용역 의결",
+      "same_event": true
+    },
+    "a25e1309b3b962ed--bf2074be01f6746b": {
+      "embedding_similarity": 0.8443,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 진행 과정",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "전력수급기본계획 위한 원전 공론화 시민참여단 300명 선정 시작",
+      "same_event": true
+    },
+    "a25e1309b3b962ed--c99c229de4d96495": {
+      "embedding_similarity": 0.8573,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 의제 확정 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "제12차 전기본 원전 공론화위, 전문위원회 구성 완료 및 숙의 의제 확정",
       "same_event": true
     },
     "a25e1309b3b962ed--dc00dd37eff008b1": {
@@ -188621,6 +188971,16 @@
       "reviewed_at": "2026-11-02T23:12:59.747038+00:00",
       "right_title": "원전 공론화, '축소 전제' 우려 속 필요성 재점화",
       "same_event": false
+    },
+    "a25e1309b3b962ed--f441da227adb8fcd": {
+      "embedding_similarity": 0.8501,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 공론화위 출범 및 의제 확정 동일",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "원전 공론화위원회, 미래 전력수요 대비 원전 역할 공론화 의제 확정",
+      "same_event": true
     },
     "a25e1309b3b962ed--faf2c54b120d70d4": {
       "embedding_similarity": 0.8719,
@@ -190810,6 +191170,16 @@
       "reason": "다른 원전 건설 사업",
       "reviewed_at": "2026-08-12T21:38:08.186029+00:00",
       "right_title": "중국 바이룽 2호기 재래식 건물 기초 콘크리트 타설 시작",
+      "same_event": false
+    },
+    "a4791970d3e08eb6--b400d3ab565b5f11": {
+      "embedding_similarity": 0.841,
+      "left_title": "이반 얀차렉 주한체코대사 \"두코바니 원전은 수십 년간 이어질 공동사업\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대사 발언과 시공계획 협상 진통은 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
       "same_event": false
     },
     "a4791970d3e08eb6--bb5be47ba3fd8a11": {
@@ -193240,6 +193610,16 @@
       "reason": "서로 다른 기업 투자",
       "reviewed_at": "2026-11-02T21:43:10.227269+00:00",
       "right_title": "삼성SDS, 구미 AI 데이터센터 첫 삽 떴다",
+      "same_event": false
+    },
+    "a82bd590bd7de6b8--c2400addf69804bf": {
+      "embedding_similarity": 0.9064,
+      "left_title": "HD현대, SMR·AI 데이터센터 전력 인프라에 1조722억원 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "그룹 차원 투자와 계열사 투자 구분",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "HD한국조선해양, SMR 전용 생산시설에 2386억원 투자 결정",
       "same_event": false
     },
     "a82bd590bd7de6b8--c3eb7517409cb9a5": {
@@ -216522,6 +216902,16 @@
       "right_title": "한·프랑스 정상회담 계기, 삼성전자 미스트랄AI 투자 및 원자력연-프라마톰 SMR 협력 추진",
       "same_event": true
     },
+    "d82ac0cff3bcbee7--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8472,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 원전 공론화와 RE100 요구 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100, 제12차 전기본에 재생에너지 감축 경로 및 기업 조달 대책 마련 촉구",
+      "same_event": false
+    },
     "d85f07205c5b9e41--ddc18f82e49ced09": {
       "embedding_similarity": 0.8766,
       "left_title": "대통령, 3대 메가 프로젝트 추진 위해 재계 총수들과 회동",
@@ -216940,6 +217330,16 @@
       "reason": "개별 기업 수주와 업계 전반 실적",
       "reviewed_at": "2026-10-24T17:57:28.221734+00:00",
       "right_title": "AI·북미 전력망 특수…국내 전선업계 3분기 역대급 실적 예상",
+      "same_event": false
+    },
+    "da008e573ee275b0--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8423,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 공론화 착수와 RE100 촉구는 별개",
+      "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
+      "right_title": "RE100 협의체, 12차 전기본에 재생에너지 확대 방안 마련 촉구",
       "same_event": false
     },
     "da18bc4f6cd74897--fc0eb9f2a6adc516": {
