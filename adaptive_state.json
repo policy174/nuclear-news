@@ -124,6 +124,14 @@
       "type": "company",
       "until": "2026-10-07T23:25:10.768082+00:00"
     },
+    "mtis": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-04T19:18:08.084168+00:00",
+      "term": "MTIS",
+      "type": "company",
+      "until": "2026-11-18T19:18:08.084168+00:00"
+    },
     "mw발하슈": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1686,7 +1694,7 @@
     }
   },
   "spent": {
-    "count": 6,
+    "count": 9,
     "date": "2026-11-05"
   },
   "terms": {
@@ -1786,52 +1794,6 @@
       "yields": 1,
       "zero_streak": 0
     },
-    "mtis": {
-      "articles": 3,
-      "created_at": "2026-11-03T20:46:27.274405+00:00",
-      "domains": [
-        "todayenergy.kr",
-        "newdaily.co.kr",
-        "busan.com"
-      ],
-      "evidence": [
-        {
-          "domain": "todayenergy.kr",
-          "hash": "352c6b020d7fa3d1",
-          "importance": "nice_to_know",
-          "title": "한국원자력안전기술원, MTIS 활용 우수사례로 방사성폐기물 운반선 위험도 평가 체계 개발"
-        },
-        {
-          "domain": "newdaily.co.kr",
-          "hash": "cee9a54b554db6db",
-          "importance": "nice_to_know",
-          "title": "한국원자력안전기술원, 방사성폐기물 해상운반 위험도 평가체계 개발"
-        },
-        {
-          "domain": "busan.com",
-          "hash": "6172cff24f4ea3fe",
-          "importance": "noise",
-          "title": "해양교통안전정보시스템(MTIS) 활용 우수사례 11건 선정"
-        }
-      ],
-      "expires_at": "2026-11-04T20:46:27.274405+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T03:38:47.244168+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-04T03:38:46.607733+00:00",
-      "queries_run": 2,
-      "query": "MTIS 원자력",
-      "score": 3.48,
-      "status": "tracking",
-      "term": "MTIS",
-      "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "라인란드와": {
       "articles": 5,
       "created_at": "2026-11-04T16:09:09.283526+00:00",
@@ -1910,12 +1872,12 @@
       ],
       "expires_at": "2026-11-05T18:40:19.387913+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 4,
-      "last_run": "2026-11-04T01:07:48.007187+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-04T19:18:08.084087+00:00",
       "new_articles": 8,
       "origin": "auto",
-      "planned_at": "2026-11-04T01:07:46.379698+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-04T19:18:05.588627+00:00",
+      "queries_run": 3,
       "query": "시노프 원전",
       "score": 4.6,
       "status": "extended",
@@ -1926,7 +1888,7 @@
         "2026-11-04"
       ],
       "yields": 2,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "원자력공사": {
       "articles": 4,
@@ -2090,12 +2052,12 @@
       ],
       "expires_at": "2026-11-05T18:40:19.387913+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-11-04T01:07:48.007187+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-04T19:18:08.084087+00:00",
       "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-11-04T01:07:46.379698+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-04T19:18:05.588627+00:00",
+      "queries_run": 3,
       "query": "정상회담을 갖고 원전",
       "score": 4.6,
       "status": "extended",
@@ -2106,7 +2068,7 @@
         "2026-11-04"
       ],
       "yields": 2,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "촉구울산시의회": {
       "articles": 3,
