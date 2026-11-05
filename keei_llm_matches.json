@@ -1569,6 +1569,13 @@
       "reason": "개별 지원 vs 국가 전략",
       "same_event": false
     },
+    "issue-368e2ef402318f3b--2f256ca9b0": {
+      "issue_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
+      "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
+      "prompt_version": 1,
+      "reason": "동일한 한미 원전 프레임워크",
+      "same_event": true
+    },
     "issue-36e4c25410ce3cf4--d65bac9c4d": {
       "issue_title": "경북도의회, 원자력 특별위원회 구성…영덕 신규 원전 2기 건설 확정 언급",
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
@@ -1638,6 +1645,13 @@
       "prompt_version": 1,
       "reason": "효성중공업 변압기 수주와 테라파워 SMR 공급망 협력은 다른 사안임",
       "same_event": false
+    },
+    "issue-390a6a794d32e1c7--35d63aa558": {
+      "issue_title": "미국 NRC, 테네시주 전력회사 TVA의 300㎿급 상업용 SMR 건설 허가",
+      "keei_item": "미국 TVA, Clinch River 부지 BWRX-300 건설허가 취득",
+      "prompt_version": 1,
+      "reason": "동일 원전 건설허가 발급/취득",
+      "same_event": true
     },
     "issue-3936f98b28485c84--de0fd4314f": {
       "issue_title": "정부, 12차 전기본 재생에너지 보급 목표 2040년 220GW로 설정",
@@ -3703,6 +3717,13 @@
       "prompt_version": 1,
       "reason": "루마니아 체르나보다 1호기 계속운전 및 설비개선 대출 관련",
       "same_event": true
+    },
+    "issue-7be39fc0a4fec2e5--35d63aa558": {
+      "issue_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
+      "keei_item": "미국 TVA, Clinch River 부지 BWRX-300 건설허가 취득",
+      "prompt_version": 1,
+      "reason": "다른 주체, 다른 원전 사업",
+      "same_event": false
     },
     "issue-7be39fc0a4fec2e5--77d959ece5": {
       "issue_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
@@ -7030,11 +7051,11 @@
       "same_event": false
     },
     "issue-f9acbce3368811a6--35d63aa558": {
-      "issue_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
+      "issue_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
       "keei_item": "미국 TVA, Clinch River 부지 BWRX-300 건설허가 취득",
       "prompt_version": 1,
-      "reason": "홀텍 팰리세이드와 TVA 클린치리버는 서로 다른 SMR 사업",
-      "same_event": false
+      "reason": "동일 원전 건설허가 발급/취득",
+      "same_event": true
     },
     "issue-f9acbce3368811a6--77d959ece5": {
       "issue_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
