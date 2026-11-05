@@ -1,6 +1,13 @@
 {
   "_comment": "KEEI 인사이트 ↔ 이슈 매칭 LLM 판정 캐시. 사람이 고쳐도 된다.",
   "matches": {
+    "issue-00f6a86c3b4356bc--7569e8217b": {
+      "issue_title": "인도, 2047년 원전 100GW 및 SMR 5기 가동 목표 추진",
+      "keei_item": "인도 원자력에너지부, 민간 원전 투자 허용 위한 세부 규정 초안 공개",
+      "prompt_version": 1,
+      "reason": "목표 정책과 민간 투자 규정 초안 공개로 안건이 다름",
+      "same_event": false
+    },
     "issue-01083ffbfa10992b--0e615713ea": {
       "issue_title": "美 원전 투자 재시동 및 국내 전력수요 급증, 건설사 수주 기대감 상승",
       "keei_item": "미 에너지부, 핵융합 기술 로드맵 최종본 발표",
@@ -3809,6 +3816,13 @@
       "reason": "키르기스스탄 투자청장과 테라파워 협력은 별개",
       "same_event": false
     },
+    "issue-80523635d506311f--adccdb8617": {
+      "issue_title": "FANCO, 현대건설과 EAGL-1 SMR 개발 마스터 서비스 계약 체결",
+      "keei_item": "현대건설, 미국 Westinghouse와 네덜란드 신규 원전 FEED 계약 체결",
+      "prompt_version": 1,
+      "reason": "FANCO SMR 계약과 웨스팅하우스 FEED 계약은 별개임",
+      "same_event": false
+    },
     "issue-806225e255d4065e--2f256ca9b0": {
       "issue_title": "한미 대미투자 협상 본격화…텍사스 가스발전 및 미국 내 대형 원전 8기 검토",
       "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
@@ -4312,6 +4326,13 @@
       "prompt_version": 1,
       "reason": "팰리세이즈 원전 연료장전 과정의 동일 사안",
       "same_event": true
+    },
+    "issue-927c7a634d5cceee--75a9edbcb6": {
+      "issue_title": "한수원, 미국 전력연구원(EPRI)과 청정수소 및 저탄소 에너지 기술 개발 협약 체결",
+      "keei_item": "스웨덴 Studsvik, 한·미 기업과 BWRX-300 SMR 4기 공동 개발 협약 체결",
+      "prompt_version": 1,
+      "reason": "EPRI 수소 기술 협약과 BWRX-300 공동 개발 협약은 다름",
+      "same_event": false
     },
     "issue-92e555a3c19fdcb7--9a0229abcf": {
       "issue_title": "미국 핵안보국(NNSA), Y-12 칼시너 프로젝트 해체 작업 승인",
