@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 6,
-    "date": "2026-11-05"
+    "count": 0,
+    "date": "2026-11-06"
   },
   "retired": {
     "adb": {
@@ -11,6 +11,14 @@
       "term": "ADB",
       "type": "company",
       "until": "2026-09-29T22:18:00.483831+00:00"
+    },
+    "apr1000": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-05T16:23:49.852343+00:00",
+      "term": "APR1000",
+      "type": "tech",
+      "until": "2026-11-19T16:23:49.852343+00:00"
     },
     "asn": {
       "new_articles": 0,
@@ -1068,6 +1076,14 @@
       "type": "plant",
       "until": "2026-09-30T22:16:50.586418+00:00"
     },
+    "원자력공사와시놉": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-05T16:23:49.852343+00:00",
+      "term": "원자력공사와 시놉",
+      "type": "plant",
+      "until": "2026-11-19T16:23:49.852343+00:00"
+    },
     "원자력발전소3": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1710,56 +1726,10 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-11-05"
+    "count": 3,
+    "date": "2026-11-06"
   },
   "terms": {
-    "apr1000": {
-      "articles": 3,
-      "created_at": "2026-11-04T16:09:09.283526+00:00",
-      "domains": [
-        "e-platform.net",
-        "mt.co.kr",
-        "hankookilbo.com"
-      ],
-      "evidence": [
-        {
-          "domain": "e-platform.net",
-          "hash": "3fdeeb6ff90c61e2",
-          "importance": "nice_to_know",
-          "title": "한국전력기술, 해양 SMR 'BANDI' 및 APR1000 수출형 노형 공개"
-        },
-        {
-          "domain": "mt.co.kr",
-          "hash": "f217960400e14fa4",
-          "importance": "nice_to_know",
-          "title": "한전, AI 기반 전력망 관리 기술 공개…한수원, i-SMR 및 APR1000 노형 전시"
-        },
-        {
-          "domain": "hankookilbo.com",
-          "hash": "ed37a9ff3e241c44",
-          "importance": "nice_to_know",
-          "title": "한수원, BIXPO 2026서 체코 수주 APR1000 및 i-SMR 모형 전시"
-        }
-      ],
-      "expires_at": "2026-11-05T16:09:09.283526+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T18:53:55.269739+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-04T18:53:52.992265+00:00",
-      "queries_run": 1,
-      "query": "APR1000 원자력",
-      "score": 4.0,
-      "status": "tracking",
-      "term": "APR1000",
-      "ttl_hours": 24,
-      "type": "tech",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
     "epri": {
       "articles": 5,
       "created_at": "2026-11-04T16:09:09.283526+00:00",
@@ -1843,11 +1813,11 @@
       "expires_at": "2026-11-06T16:09:09.283526+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-04T18:53:55.269739+00:00",
+      "last_run": "2026-11-05T16:23:51.931300+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-11-04T18:53:52.992265+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-05T16:23:49.852343+00:00",
+      "queries_run": 2,
       "query": "라인란드와 원전",
       "score": 5.0,
       "status": "tracking",
@@ -1856,7 +1826,7 @@
       "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "시노프": {
       "articles": 3,
@@ -1886,25 +1856,26 @@
           "title": "이재명 대통령, 튀르키예와 원전 프로젝트 금융 협력 MOU 체결"
         }
       ],
-      "expires_at": "2026-11-05T18:40:19.387913+00:00",
+      "expires_at": "2026-11-06T16:23:51.931300+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T19:18:08.084087+00:00",
-      "new_articles": 8,
+      "last_result_count": 3,
+      "last_run": "2026-11-05T16:23:51.931300+00:00",
+      "new_articles": 11,
       "origin": "auto",
-      "planned_at": "2026-11-04T19:18:05.588627+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-11-05T16:23:49.852343+00:00",
+      "queries_run": 4,
       "query": "시노프 원전",
       "score": 4.6,
-      "status": "extended",
+      "status": "promote_candidate",
       "term": "시노프",
       "ttl_hours": 48,
       "type": "plant",
       "yield_days": [
-        "2026-11-04"
+        "2026-11-04",
+        "2026-11-06"
       ],
-      "yields": 2,
-      "zero_streak": 1
+      "yields": 3,
+      "zero_streak": 0
     },
     "원자력공사": {
       "articles": 4,
@@ -1954,38 +1925,6 @@
       ],
       "yields": 2,
       "zero_streak": 0
-    },
-    "원자력공사와시놉": {
-      "articles": 1,
-      "created_at": "2026-11-04T16:09:09.283526+00:00",
-      "domains": [
-        "mt.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "mt.co.kr",
-          "hash": "4dcba7fe070710e5",
-          "importance": "must_read",
-          "title": "수출입은행, 튀르키예 시놉 원전 수주 지원 위한 금융협력 MOU 체결"
-        }
-      ],
-      "expires_at": "2026-11-05T16:09:09.283526+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T18:53:55.269739+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-04T18:53:52.992265+00:00",
-      "queries_run": 1,
-      "query": "원자력공사와 시놉",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "원자력공사와 시놉",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
     },
     "전력연구원": {
       "articles": 6,
@@ -2069,11 +2008,11 @@
       "expires_at": "2026-11-05T18:40:19.387913+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-04T19:18:08.084087+00:00",
+      "last_run": "2026-11-05T16:23:51.931300+00:00",
       "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-11-04T19:18:05.588627+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-11-05T16:23:49.852343+00:00",
+      "queries_run": 4,
       "query": "정상회담을 갖고 원전",
       "score": 4.6,
       "status": "extended",
@@ -2084,7 +2023,7 @@
         "2026-11-04"
       ],
       "yields": 2,
-      "zero_streak": 1
+      "zero_streak": 2
     }
   },
   "version": 1
