@@ -1316,6 +1316,14 @@
       "type": "org",
       "until": "2026-09-24T21:53:55.793932+00:00"
     },
+    "촉구울산시의회": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-05T01:16:43.090629+00:00",
+      "term": "촉구 울산시의회",
+      "type": "plant",
+      "until": "2026-11-19T01:16:43.090629+00:00"
+    },
     "측이요구한": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1411,6 +1419,14 @@
       "term": "태양광위원회",
       "type": "org",
       "until": "2026-10-03T17:42:43.938534+00:00"
+    },
+    "터키양국": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-05T01:16:43.090629+00:00",
+      "term": "터키 양국",
+      "type": "plant",
+      "until": "2026-11-19T01:16:43.090629+00:00"
     },
     "테네시밸리전력청": {
       "new_articles": 0,
@@ -1694,7 +1710,7 @@
     }
   },
   "spent": {
-    "count": 9,
+    "count": 12,
     "date": "2026-11-05"
   },
   "terms": {
@@ -1776,12 +1792,12 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-11-04T16:09:11.977311+00:00",
-      "new_articles": 1,
+      "last_result_count": 2,
+      "last_run": "2026-11-05T01:16:45.234826+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-11-04T16:09:09.283526+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-05T01:16:43.090629+00:00",
+      "queries_run": 2,
       "query": "EPRI 원자력",
       "score": 8.0,
       "status": "extended",
@@ -1791,7 +1807,7 @@
       "yield_days": [
         "2026-11-05"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "라인란드와": {
@@ -1921,12 +1937,12 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "must_read",
-      "last_result_count": 3,
-      "last_run": "2026-11-04T16:09:11.977311+00:00",
-      "new_articles": 3,
+      "last_result_count": 19,
+      "last_run": "2026-11-05T01:16:45.234826+00:00",
+      "new_articles": 22,
       "origin": "auto",
-      "planned_at": "2026-11-04T16:09:09.283526+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-05T01:16:43.090629+00:00",
+      "queries_run": 2,
       "query": "원자력공사",
       "score": 8.7,
       "status": "extended",
@@ -1936,7 +1952,7 @@
       "yield_days": [
         "2026-11-05"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "원자력공사와시놉": {
@@ -2004,12 +2020,12 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-11-04T16:09:11.977311+00:00",
-      "new_articles": 1,
+      "last_result_count": 7,
+      "last_run": "2026-11-05T01:16:45.234826+00:00",
+      "new_articles": 8,
       "origin": "auto",
-      "planned_at": "2026-11-04T16:09:09.283526+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-05T01:16:43.090629+00:00",
+      "queries_run": 2,
       "query": "전력연구원 원자력",
       "score": 7.32,
       "status": "extended",
@@ -2019,7 +2035,7 @@
       "yield_days": [
         "2026-11-05"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "정상회담을갖고": {
@@ -2069,84 +2085,6 @@
       ],
       "yields": 2,
       "zero_streak": 1
-    },
-    "촉구울산시의회": {
-      "articles": 3,
-      "created_at": "2026-11-03T22:17:17.677602+00:00",
-      "domains": [
-        "iusm.co.kr",
-        "ujeil.com",
-        "ksilbo.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "iusm.co.kr",
-          "hash": "386a61670db6b861",
-          "importance": "nice_to_know",
-          "title": "울산시의회 원전특위, 원전해체산업 지역기업 참여 확대 촉구"
-        },
-        {
-          "domain": "ujeil.com",
-          "hash": "294e4494d9b87fc7",
-          "importance": "noise",
-          "title": "울산시의회, 원전해체 산업 육성 및 지역기업 참여 확대 지원 촉구"
-        },
-        {
-          "domain": "ksilbo.co.kr",
-          "hash": "f73b2cbdf6ee1c66",
-          "importance": "nice_to_know",
-          "title": "울산시의회 원전특위, 월성 1호기 해체 지역기업 참여 확대 촉구"
-        }
-      ],
-      "expires_at": "2026-11-04T22:17:17.677602+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T09:02:13.588633+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-04T09:02:12.189754+00:00",
-      "queries_run": 2,
-      "query": "촉구 울산시의회 원전",
-      "score": 3.64,
-      "status": "tracking",
-      "term": "촉구 울산시의회",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "터키양국": {
-      "articles": 1,
-      "created_at": "2026-11-03T22:17:17.677602+00:00",
-      "domains": [
-        "world-nuclear-news.org"
-      ],
-      "evidence": [
-        {
-          "domain": "world-nuclear-news.org",
-          "hash": "7a08f403d601f75d",
-          "importance": "must_read",
-          "title": "한-터키, 원전 금융 협력 방안 모색"
-        }
-      ],
-      "expires_at": "2026-11-04T22:17:17.677602+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-04T09:02:13.588633+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-04T09:02:12.189754+00:00",
-      "queries_run": 2,
-      "query": "터키 양국 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "터키 양국",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
     }
   },
   "version": 1
