@@ -1,0 +1,76 @@
+name: AI check watch (AI 설명 점검)
+
+# 공식 게시판을 3시간마다 보고 월요일에 AI 답변을 다시 묻는다. 결과는 개인 DM 과 /ai-check/.
+# 상태는 Actions 캐시에 둔다. 근거: ai_check_watch.py 머리말.
+
+on:
+  schedule:
+    - cron: "23 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      weekly:
+        description: "AI 답변 전체 조회"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: ai-check-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests==2.34.2 feedparser==6.0.14
+
+      - name: Restore state
+        uses: actions/cache/restore@v4
+        with:
+          path: ai_check_state.json
+          key: ${{ runner.os }}-ai-check-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-ai-check-
+
+      - name: Watch
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OPS_CHAT_ID: ${{ secrets.TELEGRAM_OPS_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.DELIBERATION_GEMINI_API_KEY || secrets.GEMINI_API_KEY }}
+          AI_CHECK_MODEL: ${{ vars.AI_CHECK_MODEL }}
+        run: python ai_check_watch.py ${{ inputs.weekly && '--weekly' || '' }}
+
+      - name: Save state
+        if: always() && hashFiles('ai_check_state.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: ai_check_state.json
+          key: ${{ runner.os }}-ai-check-${{ github.run_id }}
+
+      - name: Commit screen data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/public/ai-check/data.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: ai check update"
+          for i in 1 2 3 4 5; do
+            if git push; then
+              gh workflow run deploy-web.yml --ref main
+              exit 0
+            fi
+            sleep $((i * 5))
+            git pull --rebase origin main
+          done
+          exit 1
