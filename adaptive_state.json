@@ -1228,6 +1228,14 @@
       "type": "plant",
       "until": "2026-09-24T21:53:53.664847+00:00"
     },
+    "정상회담을갖고": {
+      "new_articles": 7,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-05T19:08:56.882094+00:00",
+      "term": "정상회담을 갖고",
+      "type": "plant",
+      "until": "2026-11-19T19:08:56.882094+00:00"
+    },
     "정상회의계기": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1726,7 +1734,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-11-06"
   },
   "terms": {
@@ -1762,12 +1770,12 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-11-05T01:16:45.234826+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-05T19:08:59.355820+00:00",
       "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-11-05T01:16:43.090629+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-05T19:08:56.882094+00:00",
+      "queries_run": 3,
       "query": "EPRI 원자력",
       "score": 8.0,
       "status": "extended",
@@ -1778,7 +1786,7 @@
         "2026-11-05"
       ],
       "yields": 2,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "라인란드와": {
       "articles": 5,
@@ -1908,22 +1916,23 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "must_read",
-      "last_result_count": 19,
-      "last_run": "2026-11-05T01:16:45.234826+00:00",
-      "new_articles": 22,
+      "last_result_count": 2,
+      "last_run": "2026-11-05T19:08:59.355820+00:00",
+      "new_articles": 24,
       "origin": "auto",
-      "planned_at": "2026-11-05T01:16:43.090629+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-05T19:08:56.882094+00:00",
+      "queries_run": 3,
       "query": "원자력공사",
       "score": 8.7,
-      "status": "extended",
+      "status": "promote_candidate",
       "term": "원자력공사",
       "ttl_hours": 72,
       "type": "org",
       "yield_days": [
-        "2026-11-05"
+        "2026-11-05",
+        "2026-11-06"
       ],
-      "yields": 2,
+      "yields": 3,
       "zero_streak": 0
     },
     "전력연구원": {
@@ -1959,12 +1968,12 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 7,
-      "last_run": "2026-11-05T01:16:45.234826+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-05T19:08:59.355820+00:00",
       "new_articles": 8,
       "origin": "auto",
-      "planned_at": "2026-11-05T01:16:43.090629+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-05T19:08:56.882094+00:00",
+      "queries_run": 3,
       "query": "전력연구원 원자력",
       "score": 7.32,
       "status": "extended",
@@ -1975,55 +1984,7 @@
         "2026-11-05"
       ],
       "yields": 2,
-      "zero_streak": 0
-    },
-    "정상회담을갖고": {
-      "articles": 3,
-      "created_at": "2026-11-03T18:40:19.387913+00:00",
-      "domains": [
-        "news1.kr",
-        "jnilbo.com",
-        "fnnews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "news1.kr",
-          "hash": "ad089f40f74f0b97",
-          "importance": "nice_to_know",
-          "title": "이 대통령, 튀르키예 정상회담서 원전·방산 등 미래산업 협력 논의"
-        },
-        {
-          "domain": "jnilbo.com",
-          "hash": "0c401209a684567a",
-          "importance": "nice_to_know",
-          "title": "이재명 대통령, 튀르키예 대통령과 정상회담…원전·방산 협력 논의"
-        },
-        {
-          "domain": "fnnews.com",
-          "hash": "1d1221bcc5e292ed",
-          "importance": "nice_to_know",
-          "title": "한-튀르키예 정상회담, 원전·방산 등 첨단 기술 협력 확대 논의"
-        }
-      ],
-      "expires_at": "2026-11-05T18:40:19.387913+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-05T16:23:51.931300+00:00",
-      "new_articles": 7,
-      "origin": "auto",
-      "planned_at": "2026-11-05T16:23:49.852343+00:00",
-      "queries_run": 4,
-      "query": "정상회담을 갖고 원전",
-      "score": 4.6,
-      "status": "extended",
-      "term": "정상회담을 갖고",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [
-        "2026-11-04"
-      ],
-      "yields": 2,
-      "zero_streak": 2
+      "zero_streak": 1
     }
   },
   "version": 1
