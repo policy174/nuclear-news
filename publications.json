@@ -201,6 +201,21 @@
    "translated_version": 3
   },
   {
+   "id": "dc2c81d55232",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Strategy for the Prevention, Detection and Response to the Inadvertent Presence of Radioactive Material in Metal Recycling and Other Associated Processes",
+   "url": "http://www.iaea.org/publications/16074/strategy-for-the-prevention-detection-and-response-to-the-inadvertent-presence-of-radioactive-material-in-metal-recycling-and-other-associated-processes-1",
+   "date": "2026-09-11",
+   "fetched_at": "2026-11-07",
+   "title_kr": "금속 재활용 및 관련 공정에서 방사성 물질의 비의도적 존재 방지, 탐지 및 대응 전략",
+   "gist": "금속 재활용 공정 내 방사성 물질 유입 차단 및 대응 방안",
+   "off_topic": false,
+   "relevance": "technical",
+   "translated_version": 3
+  },
+  {
    "id": "353b597a9af9",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -1127,35 +1142,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-06T01:31:24+09:00",
+   "at": "2026-11-07T01:49:06+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0

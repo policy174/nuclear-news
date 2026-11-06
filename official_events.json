@@ -1,25 +1,6 @@
 {
  "items": [
   {
-   "hash": "of-b85d309a581a",
-   "date": "2026-10-28",
-   "end_date": "2026-10-30",
-   "kind": "range",
-   "label": "2026년 한국원자력학회 추계학술발표회 및 제59회 정기총회",
-   "title": "2026년 한국원자력학회 추계학술발표회 및 제59회 정기총회",
-   "notice_title": "",
-   "time": "",
-   "host": "",
-   "organizer": "",
-   "place": "경주화백컨벤션센터",
-   "url": "https://www.kaif.or.kr/ko/?c=240",
-   "publisher": "한국원자력산업협회",
-   "source_id": "kaif_calendar",
-   "origin": "official",
-   "source_kind": "official",
-   "first_seen": "2026-09-06"
-  },
-  {
    "hash": "of-985cf83767ee",
    "date": "2026-11-02",
    "end_date": "2026-11-02",
@@ -308,25 +289,23 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-11-06T01:31:27+09:00",
+   "at": "2026-11-07T01:49:23+09:00",
    "ok": true,
-   "new": 1,
+   "new": 0,
    "parsed": 2
   },
   "kaif_calendar": {
-   "at": "2026-11-06T01:31:27+09:00",
-   "ok": true,
-   "new": 31,
-   "parsed": 40
+   "at": "2026-11-07T01:49:23+09:00",
+   "ok": false,
+   "error": "ConnectionError: HTTPSConnectionPool(host='www.kaif.or.kr', port=443): Max retries exceeded with url: /common/plugin/kaif/ax.204.php (Caused by NewConnectionError(\"HTTPSConnection(host='www.kaif.or.kr"
   },
   "kaif_notice": {
-   "at": "2026-11-06T01:31:27+09:00",
-   "ok": true,
-   "new": 2,
-   "parsed": 7
+   "at": "2026-11-07T01:49:23+09:00",
+   "ok": false,
+   "error": "ConnectionError: HTTPSConnectionPool(host='www.kaif.or.kr', port=443): Max retries exceeded with url: /ko/?c=193 (Caused by NewConnectionError(\"HTTPSConnection(host='www.kaif.or.kr', port=443): Failed"
   },
   "kns_notice": {
-   "at": "2026-11-06T01:31:27+09:00",
+   "at": "2026-11-07T01:49:23+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
