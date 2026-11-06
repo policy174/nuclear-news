@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 2,
     "date": "2026-11-06"
   },
   "retired": {
@@ -1734,7 +1734,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 12,
     "date": "2026-11-06"
   },
   "terms": {
@@ -1815,23 +1815,24 @@
       ],
       "expires_at": "2026-11-07T16:09:09.283526+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-05T19:08:59.355820+00:00",
-      "new_articles": 3,
+      "last_result_count": 4,
+      "last_run": "2026-11-06T04:08:56.225623+00:00",
+      "new_articles": 7,
       "origin": "auto",
-      "planned_at": "2026-11-05T19:08:56.882094+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-11-06T04:08:54.649133+00:00",
+      "queries_run": 4,
       "query": "EPRI 원자력",
       "score": 8.0,
-      "status": "extended",
+      "status": "promote_candidate",
       "term": "EPRI",
       "ttl_hours": 72,
       "type": "company",
       "yield_days": [
-        "2026-11-05"
+        "2026-11-05",
+        "2026-11-06"
       ],
-      "yields": 2,
-      "zero_streak": 1
+      "yields": 3,
+      "zero_streak": 0
     },
     "라인란드와": {
       "articles": 5,
@@ -1882,6 +1883,52 @@
       ],
       "yields": 1,
       "zero_streak": 0
+    },
+    "세일럼": {
+      "articles": 3,
+      "created_at": "2026-11-06T04:08:54.649133+00:00",
+      "domains": [
+        "utilitydive.com",
+        "esnews.kr",
+        "ans.org"
+      ],
+      "evidence": [
+        {
+          "domain": "utilitydive.com",
+          "hash": "5991529c23b75c4b",
+          "importance": "nice_to_know",
+          "title": "미국 PSEG·콘스텔레이션에너지, 세일럼 원전 200MW 출력 증강 추진"
+        },
+        {
+          "domain": "esnews.kr",
+          "hash": "3de17f7a23e515c4",
+          "importance": "nice_to_know",
+          "title": "미국 PSEG, 세일럼 원전 출력 200MW 증강 추진, 데이터센터 시장 주목"
+        },
+        {
+          "domain": "ans.org",
+          "hash": "9808f49b2fe376bf",
+          "importance": "nice_to_know",
+          "title": "미국 세일럼 원전, 200MW 출력 증강 계획"
+        }
+      ],
+      "expires_at": "2026-11-08T04:08:54.649133+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-11-06T04:08:56.225623+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-06T04:08:54.649133+00:00",
+      "queries_run": 1,
+      "query": "세일럼 원전",
+      "score": 4.6,
+      "status": "tracking",
+      "term": "세일럼",
+      "ttl_hours": 48,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "시노프": {
       "articles": 3,
