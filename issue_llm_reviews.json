@@ -10282,6 +10282,16 @@
       "right_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
       "same_event": false
     },
+    "05c85509f6f0a3c0--ed694064177e417a": {
+      "embedding_similarity": 0.8732,
+      "left_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 규정 확정과 특정 기업 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "05c85509f6f0a3c0--f63825bd0efa1e22": {
       "embedding_similarity": 0.8766,
       "left_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
@@ -12990,6 +13000,16 @@
       "reason": "지자체 유치 전략과 중앙정부 정책 차이",
       "reviewed_at": "2026-10-25T23:11:34.637499+00:00",
       "right_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "same_event": false
+    },
+    "0708d65654b8c9bd--86fff30fcf42c21b": {
+      "embedding_similarity": 0.8622,
+      "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 패스트트랙 정책과 일반적 필요성",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "AI 시대 전력 수요 급증에 따른 원자력 발전 확대 필요성 제기",
       "same_event": false
     },
     "0708d65654b8c9bd--88fdf16ec2e3e6fc": {
@@ -31582,6 +31602,16 @@
       "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
       "same_event": false
     },
+    "137cb0e5139bfdfd--ed694064177e417a": {
+      "embedding_similarity": 0.8827,
+      "left_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 규정 확정과 특정 기업 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "137cb0e5139bfdfd--f3c4756b163601bf": {
       "embedding_similarity": 0.9081,
       "left_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
@@ -45922,6 +45952,16 @@
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
       "same_event": true
     },
+    "1ca6341a330daf35--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8577,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업부 관리체계와 공사비 갈등",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
     "1ca6341a330daf35--b851201523b44ceb": {
       "embedding_similarity": 0.8642,
       "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
@@ -54030,6 +54070,86 @@
       "reason": "공급 계약과 투자 발표",
       "reviewed_at": "2026-09-29T22:38:45.381878+00:00",
       "right_title": "삼성전기, AI 반도체 기판 수요 50% 초과에 국내외 6.7조원 투자",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--518eea34e168e27e": {
+      "embedding_similarity": 0.8559,
+      "left_title": "북미 빅테크, AI 데이터센터 전력 공급 위해 원전 장기 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "빅테크 원전 계약과 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--5bc115fb69512d4b": {
+      "embedding_similarity": 0.8581,
+      "left_title": "트럼프, 미국 데이터센터에 자체 전력 생산 및 지역사회 '배당금' 의무화 명령",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "트럼프 의무화 명령과 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--66fe486e3027bb99": {
+      "embedding_similarity": 0.8625,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동 검토와 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--6895a5405b40f615": {
+      "embedding_similarity": 0.9026,
+      "left_title": "오픈AI, AI 정책 소통 강화…데이터센터·일자리 등 논쟁 대비",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정책 소통 강화와 전력망 상생안은 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--90e1a00489f1bafa": {
+      "embedding_similarity": 0.8652,
+      "left_title": "AI 전력 수요 급증에 미국 폐쇄·노후 원전 가동 연장 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 가동 연장과 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--c76b0ba8eedc9c7d": {
+      "embedding_similarity": 0.9085,
+      "left_title": "오픈AI, AI 데이터센터 전력망 안정화 프로그램 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "오픈AI의 전력망 상생 프로그램 발표",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": true
+    },
+    "225842e7bd5c6f03--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8655,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 제동과 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
+      "same_event": false
+    },
+    "225842e7bd5c6f03--f3b6090fdd9fab64": {
+      "embedding_similarity": 0.8644,
+      "left_title": "글로벌 AI 데이터센터 2027년까지 45% 전력난으로 무산 위기",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력난 전망과 오픈AI 상생안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "오픈아이, 데이터센터 전력망 확충 비용 전액 부담하는 상생안 발표",
       "same_event": false
     },
     "225ceacf9a02ffd5--5949227f174d59e7": {
@@ -62600,6 +62720,16 @@
       "reason": "체코 원전 시공계약 결렬 관련 보도",
       "reviewed_at": "2026-11-05T01:40:10.350727+00:00",
       "right_title": "한수원-시공사 시공계약 협상 결렬…해외 원전 분쟁조정 체계 보완 필요성 대두",
+      "same_event": true
+    },
+    "299c5ebfdbb48383--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8671,
+      "left_title": "체코 원전 사업, 시공 계약 지연으로 '팀코리아' 신뢰도 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 계약 지연 및 갈등",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
       "same_event": true
     },
     "299c5ebfdbb48383--bd89f9792252c71f": {
@@ -72642,6 +72772,16 @@
       "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
       "same_event": true
     },
+    "30cddcfd859de906--ed694064177e417a": {
+      "embedding_similarity": 0.8919,
+      "left_title": "X-에너지 Xe-100 SMR, 핵심 안전성 검토 통과",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안전성 검토 통과와 기자재 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "30cddcfd859de906--f63825bd0efa1e22": {
       "embedding_similarity": 0.9011,
       "left_title": "미국 텍사스 SMR 플랜트, 최종 인허가 단계 진입",
@@ -73340,6 +73480,16 @@
       "reason": "장관 발언 내 서로 다른 주제",
       "reviewed_at": "2026-10-27T12:56:50.111417+00:00",
       "right_title": "김성환 장관, 러·우 전쟁 시기 전기요금 인상 균등 반영 주장",
+      "same_event": false
+    },
+    "319aa727ae2ffb24--47aa41525e4a3b66": {
+      "embedding_similarity": 0.8549,
+      "left_title": "국회서 대미투자 텍사스 발전 사업 수익성 우려 제기…PPA 불확실성 지적",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "텍사스 사업 우려와 중간선거 전망",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "미국 중간선거 결과, 한국 에너지 기업 투자 전략 재점검 필요",
       "same_event": false
     },
     "31b2de420cc249d5--58158c94ab72ede0": {
@@ -76680,6 +76830,16 @@
       "reason": "서로 다른 NRC 규제 안건",
       "reviewed_at": "2026-11-05T16:43:29.072360+00:00",
       "right_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
+      "same_event": false
+    },
+    "3438c27c002364dd--ed694064177e417a": {
+      "embedding_similarity": 0.8727,
+      "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 워크숍 개최와 기자재 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
       "same_event": false
     },
     "3438c27c002364dd--f3c4756b163601bf": {
@@ -82960,6 +83120,16 @@
       "reason": "협상 결렬에 따른 정부 대응 보도",
       "reviewed_at": "2026-11-01T11:36:54.527377+00:00",
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
+      "same_event": true
+    },
+    "37b786f439394804--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8839,
+      "left_title": "한수원 컨소시엄 체코 원전 시공계약 협상 결렬, 국내 건설업계 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 난항 및 분석",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
       "same_event": true
     },
     "37b786f439394804--b851201523b44ceb": {
@@ -107092,6 +107262,16 @@
       "right_title": "국방부, 핵추진잠수함정책기획단 신설…29조 사업비·한미 협상 과제",
       "same_event": false
     },
+    "4c61507732c9a278--bafea6e30b98dd08": {
+      "embedding_similarity": 0.8789,
+      "left_title": "국방부, 핵추진잠수함정책기획단 신설…29조 사업비·한미 협상 과제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵잠 기획단 신설과 장보고-III 예산은 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "방사청·해군, 3600t급 장보고-III 배치-III 선행 개발 예산 966억 원 편성",
+      "same_event": false
+    },
     "4c6afc267c6bc350--60f81aeeee8e0a2e": {
       "embedding_similarity": 0.8769,
       "left_title": "정부, AI 데이터센터 전력난 대응해 2030년대 핵융합 전력 실증 추진",
@@ -128662,6 +128842,16 @@
       "right_title": "한국 원전, 미국보다 동유럽에 집중해야",
       "same_event": false
     },
+    "5e14bf6e70d9a886--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8706,
+      "left_title": "체코 테믈린 원전 수주 전초전…美·佛 견제 속 한국 우선협상권 흔들",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "테믈린 수주전과 두코바니 시공 갈등은 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
     "5e14bf6e70d9a886--cfd9dfccabd94472": {
       "embedding_similarity": 0.8569,
       "left_title": "체코 테믈린 원전 수주 전초전…美·佛 견제 속 한국 우선협상권 흔들",
@@ -146242,6 +146432,16 @@
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
       "same_event": true
     },
+    "6e44db3c17b19418--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8668,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "보고 누락과 공사비 갈등으로 사안 다름",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
     "6e44db3c17b19418--bd89f9792252c71f": {
       "embedding_similarity": 0.8798,
       "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
@@ -148031,6 +148231,16 @@
       "reviewed_at": "2026-10-29T09:42:30.192408+00:00",
       "right_title": "전력수급기본계획 원전 공론화위 출범…시민참여단 300명 숙의토론 진행",
       "same_event": true
+    },
+    "717681b89cdda7c3--86fff30fcf42c21b": {
+      "embedding_similarity": 0.868,
+      "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 수요와 원전 필요성에 관한 전반적 의견",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "AI 시대 전력 수요 급증에 따른 원자력 발전 확대 필요성 제기",
+      "same_event": false
     },
     "717681b89cdda7c3--8982a672b73b9fc1": {
       "embedding_similarity": 0.8696,
@@ -154002,6 +154212,16 @@
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
       "same_event": true
     },
+    "75c9ca256e559815--b7b1b6698168e58c": {
+      "embedding_similarity": 0.87,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 업계 전반 전망이 섞인 기사",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
     "75c9ca256e559815--b851201523b44ceb": {
       "embedding_similarity": 0.8415,
       "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
@@ -157262,6 +157482,16 @@
       "right_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
       "same_event": false
     },
+    "77bcdecf338c59d5--ed694064177e417a": {
+      "embedding_similarity": 0.9063,
+      "left_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "안전성 평가 완료와 기자재 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "77bcdecf338c59d5--f63825bd0efa1e22": {
       "embedding_similarity": 0.9148,
       "left_title": "미국 원자력규제위원회, 엑스에너지 4세대 SMR Xe-100 안전성 평가 완료",
@@ -157541,6 +157771,16 @@
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
       "same_event": true
+    },
+    "787189b9430bc15e--ed694064177e417a": {
+      "embedding_similarity": 0.8544,
+      "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "패두커 건설 승인과 두산 발주",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
     },
     "787189b9430bc15e--f3c4756b163601bf": {
       "embedding_similarity": 0.8749,
@@ -160562,6 +160802,16 @@
       "right_title": "미 버지니아주, 650MW급 SMR 프로젝트 발표",
       "same_event": false
     },
+    "7b33293631f65d6e--ed694064177e417a": {
+      "embedding_similarity": 0.8801,
+      "left_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "TVA 건설허가와 엑스에너지 발주는 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "7b33293631f65d6e--f63825bd0efa1e22": {
       "embedding_similarity": 0.882,
       "left_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
@@ -161102,6 +161352,16 @@
       "right_title": "한미, 미국 내 대형 원전 8기 건설 프레임워크 합의…APR1400 2기 공급",
       "same_event": false
     },
+    "7be39fc0a4fec2e5--ed694064177e417a": {
+      "embedding_similarity": 0.8601,
+      "left_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "홀텍 심사와 두산에너빌리티 발주",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "7be39fc0a4fec2e5--f63825bd0efa1e22": {
       "embedding_similarity": 0.8728,
       "left_title": "현대건설 파트너 홀텍, 팰리세이드 SMR 300㎿ 2기 NRC 건설허가 심사 진행",
@@ -161371,6 +161631,16 @@
       "reviewed_at": "2026-09-25T01:10:30.005303+00:00",
       "right_title": "기후에너지환경부, 제12차 전기본 앞서 원전 공론화위원회 구성해 3개월간 의견 수렴",
       "same_event": true
+    },
+    "7c39e981e8382528--c88f53a8215026f3": {
+      "embedding_similarity": 0.8619,
+      "left_title": "정부, 2038년까지 고준위 방폐장 부지 확정…제3차 관리 기본계획 초안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기본계획 초안 발표와 일반 의견",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "고준위 방폐물 처분시설, 사회적 합의 통한 확보 시급",
+      "same_event": false
     },
     "7c47d39a747ce495--801eb3f13729ae20": {
       "embedding_similarity": 0.8408,
@@ -166992,6 +167262,16 @@
       "right_title": "미 NRC, 테네시밸리토리티 BWRX-300 SMR 최초 건설허가 발급",
       "same_event": true
     },
+    "83372868654be274--ed694064177e417a": {
+      "embedding_similarity": 0.8606,
+      "left_title": "美 NRC 직원 16% 감소에도 TVA SMR 건설허가 4개월 조기 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "TVA 건설허가와 두산에너빌리티 발주",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "83372868654be274--f63825bd0efa1e22": {
       "embedding_similarity": 0.8745,
       "left_title": "美 NRC 직원 16% 감소에도 TVA SMR 건설허가 4개월 조기 완료",
@@ -170752,6 +171032,16 @@
       "right_title": "원안위, SMR 인허가 대비 규제 인력 7명뿐…IAEA 출입 누락 등 질타",
       "same_event": false
     },
+    "86fff30fcf42c21b--fc4a903519c6d88a": {
+      "embedding_similarity": 0.856,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화와 일반적 제언",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "AI 시대 전력 수요 급증에 따른 원자력 발전 확대 필요성 제기",
+      "same_event": false
+    },
     "8714991df4bab3e8--b795e4f7e7503f80": {
       "embedding_similarity": 0.857,
       "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
@@ -174240,6 +174530,16 @@
       "reason": "미국-사우디 협상 vs 트럼프 의회 제출",
       "reviewed_at": "2026-08-26T10:00:50.133400+00:00",
       "right_title": "트럼프, 사우디 30년 민간 원자력 협정 의회 제출",
+      "same_event": false
+    },
+    "8ba5d1e9cfc6e86d--ed694064177e417a": {
+      "embedding_similarity": 0.9189,
+      "left_title": "미국 NRC, 엑스에너지 Xe-100 SMR 최종 안전성 평가 보고서 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 승인과 부품 발주의 별개 사안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
       "same_event": false
     },
     "8ba5d1e9cfc6e86d--f63825bd0efa1e22": {
@@ -184782,6 +185082,16 @@
       "right_title": "한수원, 체코 두코바니 원전사업 보조기기 입찰설명회 개최",
       "same_event": false
     },
+    "98fe30ce4f211836--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8743,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 간 협력 논의와 국내 시공 갈등은 별개",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
     "98fe30ce4f211836--b851201523b44ceb": {
       "embedding_similarity": 0.8626,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -185790,6 +186100,26 @@
       "reason": "대상 원전이 다름",
       "reviewed_at": "2026-09-09T21:55:46.365698+00:00",
       "right_title": "중국 자오위안 2호기, 최초 콘크리트 타설 시작",
+      "same_event": false
+    },
+    "999e7dc275c98de4--bc293e94e731b3bf": {
+      "embedding_similarity": 0.8596,
+      "left_title": "이재명 대통령, 튀르키예와 원전 프로젝트 금융 협력 MOU 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "튀르키예 MOU와 동티모르 정상회담",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "이재명 대통령, 동티모르 대통령과 정상회담 개최",
+      "same_event": false
+    },
+    "999e7dc275c98de4--e10e22f406191ea3": {
+      "embedding_similarity": 0.8567,
+      "left_title": "튀르키예 대통령, 국빈 방한해 한국과 원전·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "튀르키예 논의와 동티모르 정상회담",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "이재명 대통령, 동티모르 대통령과 정상회담 개최",
       "same_event": false
     },
     "99a8ba7ef52935ac--b35eb3f20deb19c6": {
@@ -187950,6 +188280,16 @@
       "reason": "시공사 계약 변동 사태 및 정부 대응",
       "reviewed_at": "2026-11-04T13:03:26.224187+00:00",
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
+      "same_event": true
+    },
+    "9b2079eef5023d61--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8875,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 계약 갈등 및 변동",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
       "same_event": true
     },
     "9b2079eef5023d61--b851201523b44ceb": {
@@ -200542,6 +200882,16 @@
       "right_title": "두산에너빌리티, 미국 엑스에너지 SMR 증기발생기 튜브 제작",
       "same_event": false
     },
+    "adbeb07c7bb981a5--ed694064177e417a": {
+      "embedding_similarity": 0.8621,
+      "left_title": "DL이앤씨, 엑스에너지와 1천만 달러 규모 SMR 표준화 설계 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "DL이앤씨 설계계약과 두산 발주",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
+    },
     "adc51c6d402cf67a--bb2e822ccf66891c": {
       "embedding_similarity": 0.8673,
       "left_title": "군사 활동으로 자포리자 원자력 발전소 전력 공급 중단",
@@ -206970,6 +207320,46 @@
       "reason": "협상 결렬에 따른 정부 대응 보도",
       "reviewed_at": "2026-11-01T11:36:54.527377+00:00",
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
+      "same_event": true
+    },
+    "b7b1b6698168e58c--b851201523b44ceb": {
+      "embedding_similarity": 0.8858,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 공사비 갈등 및 중재 요청",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": true
+    },
+    "b7b1b6698168e58c--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8553,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "현지 인허가 절차와 공사비 갈등",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": false
+    },
+    "b7b1b6698168e58c--f914263797a62c95": {
+      "embedding_similarity": 0.898,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 계약 협상 갈등 및 종료",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": true
+    },
+    "b7b1b6698168e58c--fb760a18f4d64219": {
+      "embedding_similarity": 0.8775,
+      "left_title": "한수원, 체코 두코바니 원전 건설 계약 협상 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공계약 협상 난항 및 결렬",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
       "same_event": true
     },
     "b7c4d29da059b40c--e215403c9efd4be4": {
@@ -224971,6 +225361,16 @@
       "reviewed_at": "2026-09-03T01:15:30.313929+00:00",
       "right_title": "12차 전기본 전력수요 전망, 기업 투자계획 검증 부족 지적",
       "same_event": true
+    },
+    "ed694064177e417a--f63825bd0efa1e22": {
+      "embedding_similarity": 0.9117,
+      "left_title": "미국 텍사스 SMR 플랜트, 최종 인허가 단계 진입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 진행과 소재 발주의 별개 사안",
+      "reviewed_at": "2026-11-06T01:40:20.321321+00:00",
+      "right_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+      "same_event": false
     },
     "ee2ec350331c7591--ff2e3b01deddf64e": {
       "embedding_similarity": 0.9095,
