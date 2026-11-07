@@ -289,23 +289,23 @@
  "state": {},
  "last_checked": {
   "assembly_events": {
-   "at": "2026-11-07T01:49:23+09:00",
+   "at": "2026-11-08T01:58:30+09:00",
    "ok": true,
    "new": 0,
    "parsed": 2
   },
   "kaif_calendar": {
-   "at": "2026-11-07T01:49:23+09:00",
+   "at": "2026-11-08T01:58:30+09:00",
    "ok": false,
    "error": "ConnectionError: HTTPSConnectionPool(host='www.kaif.or.kr', port=443): Max retries exceeded with url: /common/plugin/kaif/ax.204.php (Caused by NewConnectionError(\"HTTPSConnection(host='www.kaif.or.kr"
   },
   "kaif_notice": {
-   "at": "2026-11-07T01:49:23+09:00",
+   "at": "2026-11-08T01:58:30+09:00",
    "ok": false,
    "error": "ConnectionError: HTTPSConnectionPool(host='www.kaif.or.kr', port=443): Max retries exceeded with url: /ko/?c=193 (Caused by NewConnectionError(\"HTTPSConnection(host='www.kaif.or.kr', port=443): Failed"
   },
   "kns_notice": {
-   "at": "2026-11-07T01:49:23+09:00",
+   "at": "2026-11-08T01:58:30+09:00",
    "ok": true,
    "new": 1,
    "parsed": 1
