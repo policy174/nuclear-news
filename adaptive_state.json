@@ -924,6 +924,14 @@
       "type": "org",
       "until": "2026-09-23T22:34:44.510509+00:00"
     },
+    "세일럼": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-07T17:21:58.107505+00:00",
+      "term": "세일럼",
+      "type": "plant",
+      "until": "2026-11-21T17:21:58.107505+00:00"
+    },
     "송금및": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1758,7 +1766,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-11-08"
   },
   "terms": {
@@ -1861,52 +1869,6 @@
       "yields": 0,
       "zero_streak": 1
     },
-    "세일럼": {
-      "articles": 3,
-      "created_at": "2026-11-06T04:08:54.649133+00:00",
-      "domains": [
-        "utilitydive.com",
-        "esnews.kr",
-        "ans.org"
-      ],
-      "evidence": [
-        {
-          "domain": "utilitydive.com",
-          "hash": "5991529c23b75c4b",
-          "importance": "nice_to_know",
-          "title": "미국 PSEG·콘스텔레이션에너지, 세일럼 원전 200MW 출력 증강 추진"
-        },
-        {
-          "domain": "esnews.kr",
-          "hash": "3de17f7a23e515c4",
-          "importance": "nice_to_know",
-          "title": "미국 PSEG, 세일럼 원전 출력 200MW 증강 추진, 데이터센터 시장 주목"
-        },
-        {
-          "domain": "ans.org",
-          "hash": "9808f49b2fe376bf",
-          "importance": "nice_to_know",
-          "title": "미국 세일럼 원전, 200MW 출력 증강 계획"
-        }
-      ],
-      "expires_at": "2026-11-08T04:08:54.649133+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-06T21:38:59.709350+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-06T21:38:57.386482+00:00",
-      "queries_run": 2,
-      "query": "세일럼 원전",
-      "score": 4.6,
-      "status": "tracking",
-      "term": "세일럼",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "시노프": {
       "articles": 3,
       "created_at": "2026-11-03T18:40:19.387913+00:00",
@@ -1938,11 +1900,11 @@
       "expires_at": "2026-11-07T01:21:22.389367+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-06T21:38:59.709350+00:00",
+      "last_run": "2026-11-07T17:21:58.107453+00:00",
       "new_articles": 13,
       "origin": "auto",
-      "planned_at": "2026-11-06T21:38:57.386482+00:00",
-      "queries_run": 6,
+      "planned_at": "2026-11-07T17:21:55.949084+00:00",
+      "queries_run": 7,
       "query": "시노프 원전",
       "score": 4.6,
       "status": "promote_candidate",
@@ -1954,7 +1916,7 @@
         "2026-11-06"
       ],
       "yields": 4,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "원자력공사": {
       "articles": 4,
@@ -2041,12 +2003,12 @@
       ],
       "expires_at": "2026-11-08T00:35:57.709470+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-11-07T00:35:57.709470+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-07T17:21:58.107453+00:00",
       "new_articles": 11,
       "origin": "auto",
-      "planned_at": "2026-11-07T00:35:55.235052+00:00",
-      "queries_run": 5,
+      "planned_at": "2026-11-07T17:21:55.949084+00:00",
+      "queries_run": 6,
       "query": "전력연구원 원자력",
       "score": 7.32,
       "status": "promote_candidate",
@@ -2058,7 +2020,7 @@
         "2026-11-07"
       ],
       "yields": 4,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
