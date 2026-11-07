@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-07T10:07:33.447487+09:00",
+ "generated_at": "2026-11-07T11:42:39.896748+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
    "count_now": 152,
    "count_prev": 148,
-   "direction": "유럽과 미국 등지에서 데이터센터의 전력 및 자원 소비에 반대하는 지역사회 시위와 규제 움직임이 확산되는 가운데, 투자를 지속하려는 기업 입장과 인프라 제약 요인이 동시에 나타나고 있다.",
+   "direction": "유럽과 미국 등지에서 데이터센터의 전력 및 자원 소비에 반대하는 지역사회 시위와 규제 여론이 확산되는 동시에, 오픈AI 등 주요 기업의 지속적인 투자 의지와 전력 인프라 확충의 과제가 병존하고 있다.",
    "evidence": [
     {
      "hash": "f184f71dd58fd2fb",
@@ -32,18 +32,18 @@
    "keyword": "SMR",
    "count_now": 147,
    "count_prev": 223,
-   "direction": "미국 워싱턴주 첨단 SMR 프로젝트 선정과 덴마크 솔트포스의 미국 NRC 인허가 사전 협의 의향서 제출 등 SMR 관련 절차가 진행되고 있다. 또한 데이터센터 규제 강화에 대응해 자체 온사이트 전력 확보 수단으로 SMR 연계 논의가 이어지고 있다.",
+   "direction": "미국의 데이터센터 규제 강화에 따른 자체 전력 확보 필요성이 대두되는 가운데, 솔트포스의 NRC 인허가 사전 협의 의향서 제출과 두산에너빌리티의 핵심 소재 발주 등 SMR 관련 사업 절차가 구체화되고 있다.",
    "evidence": [
-    {
-     "hash": "0e57e384b6b2fe82",
-     "title_kr": "플루어, 워싱턴주 첨단 SMR 프로젝트에 선정",
-     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQeHpyZjItZTYwbXI0OWwwZWJkNzdlbVVXdndfTVRaME8zOU8wa2d1QlFLWThpNTVmZ2Q1U29SVFh4M2l4d3VmdU92VTdDRzJJd1kxX3JFSWVtRzZMTkM1NGR6Q1NUUXZTaFZUNXMxU3FxcGRjTmFubXVjVkx2dElRTHlHMEFFdWJWYkJXM1loSC14ZnJvdjduNDNKeFdqM093YnpQWmJB?oc=5",
-     "date": "2026-11-06"
-    },
     {
      "hash": "44d8549697f8846a",
      "title_kr": "美 데이터센터 규제 강화, SMR 등 자체 전력 확보 과제 부상",
      "url": "http://www.choicenews.co.kr/news/articleView.html?idxno=172953",
+     "date": "2026-11-06"
+    },
+    {
+     "hash": "ed694064177e417a",
+     "title_kr": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
+     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=501635",
      "date": "2026-11-06"
     },
     {
@@ -58,7 +58,7 @@
    "keyword": "AI",
    "count_now": 87,
    "count_prev": 74,
-   "direction": "AI 데이터센터 투자 확대 의지와 전력 인프라 투자 부족에 따른 재무 부담이 교차하며 관련 산업 전반에 영향을 미치고 있다. 미국 중간선거 결과에 따른 규제 우려와 원전 데이터 분석 솔루션 등 기술 적용 사례가 함께 나타나는 중이다.",
+   "direction": "AI 수요 충족을 위한 데이터센터 투자 지속 입장과 함께, 전력망 투자 부족에 따른 한전의 재무난 심화 및 미국 중간선거 결과에 따른 규제 강화 우려가 교차하고 있다.",
    "evidence": [
     {
      "hash": "c9b7e7f329abbe4b",
@@ -73,12 +73,6 @@
      "date": "2026-11-06"
     },
     {
-     "hash": "f7802aa794c9993d",
-     "title_kr": "딥테크 스타트업 챌린지, AI 기반 원전 데이터 분석 솔루션 투자 유치",
-     "url": "https://www.mt.co.kr/tech/2026/11/06/2026110519452120550",
-     "date": "2026-11-06"
-    },
-    {
      "hash": "c15425c69abc9e62",
      "title_kr": "미국 중간선거 민주당 승리, AI 데이터센터 규제 강화로 K반도체 영향 우려",
      "url": "https://news.sbs.co.kr/news/endPage.do?cooper=NAVER&news_id=N1008833202&plink=ORI",
@@ -90,13 +84,13 @@
    "keyword": "AI데이터센터",
    "count_now": 65,
    "count_prev": 87,
-   "direction": "미국 중간선거 이후 주지사 당선인들의 규제 공약으로 인해 신규 AI 데이터센터 건설 계획이 차질을 빚을 위기에 처해 있다. 이에 대응해 글로벌 시장에서 냉각 솔루션 확장과 전력망 수요 변화에 따른 대책 검토가 이루어지고 있다.",
+   "direction": "미국 중간선거 이후 주요 주에서 AI 데이터센터 규제 공약이 제기되면서 신규 건설 프로젝트가 차질을 빚을 위기에 처해 있으며, 이에 대응한 냉각 솔루션 확장 등의 움직임이 나타나고 있다.",
    "evidence": [
     {
-     "hash": "a229b798af71f202",
-     "title_kr": "美 전력망 계획, 상업용 수요 증가에 따른 재검토 필요성 대두",
-     "url": "https://www.powermag.com/when-commercial-demand-takes-the-lead-rethinking-grid-planning-for-a-new-load-era",
-     "date": "2026-11-07"
+     "hash": "0cf1c2cb0373043d",
+     "title_kr": "미국 중간선거, 주지사 당선인 절반 이상 AI 데이터센터 규제 입장 표명",
+     "url": "https://www.chosun.com/economy/tech_it/2026/11/06/GYB6KNIAFRDNZBFTCVXPGTX3AA",
+     "date": "2026-11-06"
     },
     {
      "hash": "563b295465191e6e",
@@ -116,18 +110,12 @@
    "keyword": "원전수출",
    "count_now": 59,
    "count_prev": 55,
-   "direction": "체코 두코바니 원전 사업에서 시공사 간 공사비 갈등과 협상 결렬 소식이 전해진 반면, 튀르키예 시노프 원전 금융 협력 양해각서 체결 및 체코와의 청정수소 연구 협력이 병행되고 있다.",
+   "direction": "튀르키예 시노프 원전 사업의 금융 협력 MOU 체결과 체코 두코바니 원전 관련 협력이 진행되는 과정에서, 한수원과 시공사 간 공사비 갈등으로 인한 수출 경쟁력 우려가 동시에 부각되고 있다.",
    "evidence": [
     {
      "hash": "744b8a2fc0c07822",
      "title_kr": "한수원·시공사 공사비 갈등, K원전 수출 경쟁력 시험대 올라",
      "url": "https://www.theguru.co.kr/news/article.html?no=109254",
-     "date": "2026-11-07"
-    },
-    {
-     "hash": "fb59cc80cb95f24a",
-     "title_kr": "'27조' 원전 수출 성과에도 '1조' 공사비 문제로 '팀코리아'에 비상등",
-     "url": "https://www.mt.co.kr/estate/2026/11/07/2026110610091294957",
      "date": "2026-11-07"
     },
     {
@@ -137,9 +125,9 @@
      "date": "2026-11-06"
     },
     {
-     "hash": "ec1681b0e19f4311",
-     "title_kr": "한수원, 체코서 원자력 청정수소 연구 성과 공유 및 유럽시장 공략",
-     "url": "https://www.bizwork.co.kr/news/articleView.html?idxno=420627",
+     "hash": "0bf21d2504f9cd0e",
+     "title_kr": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
+     "url": "https://www.sportsseoul.com/news/read/1647475",
      "date": "2026-11-06"
     }
    ]
@@ -148,7 +136,7 @@
    "keyword": "한수원",
    "count_now": 52,
    "count_prev": 37,
-   "direction": "한수원은 체코에서 원자력 청정수소 생산 연구 성과를 공유하고 TUV 라인란드와 디지털 기기 인증 협력을 체결하는 등의 활동을 전개했다. 이와 동시에 두코바니 원전 시공사 컨소시엄과의 협상 종료 및 신규 시공사 선정 절차 전환 상황이 맞물려 있다.",
+   "direction": "한수원이 체코 프라하에서 원자력 청정수소 연구 성과를 공유하고 TUV 라인란드와 유럽 원전 디지털 기기 인증 협력을 체결하는 한편, 체코 두코바니 원전 시공사 협상 결렬로 신규 시공사 선정을 추진하고 있다.",
    "evidence": [
     {
      "hash": "4fe76ff4c50d9b4e",
@@ -160,12 +148,6 @@
      "hash": "c4e4d2480e9b93ec",
      "title_kr": "한수원, 체코 프라하서 원자력 청정수소 기반 연구 성과 공유회 개최",
      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280645",
-     "date": "2026-11-06"
-    },
-    {
-     "hash": "234fe8a2f17b5bce",
-     "title_kr": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
-     "url": "https://www.g-enews.com/view.php?ud=2026110610044312932bd56fbc3c_1",
      "date": "2026-11-06"
     },
     {
