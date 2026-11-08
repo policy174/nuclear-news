@@ -572,14 +572,6 @@
       "type": "plant",
       "until": "2026-10-07T23:25:10.768082+00:00"
     },
-    "대미투자프로젝트에": {
-      "new_articles": 10,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-09T18:16:21.340073+00:00",
-      "term": "대미투자 프로젝트에",
-      "type": "plant",
-      "until": "2026-09-23T18:16:21.340073+00:00"
-    },
     "두에인아놀드": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -587,38 +579,6 @@
       "term": "두에인 아놀드",
       "type": "plant",
       "until": "2026-09-24T21:53:55.793932+00:00"
-    },
-    "듀안아놀드": {
-      "new_articles": 0,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-09T18:16:21.340073+00:00",
-      "term": "듀안 아놀드",
-      "type": "plant",
-      "until": "2026-09-23T18:16:21.340073+00:00"
-    },
-    "듀언아놀드": {
-      "new_articles": 0,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-09T18:16:21.340073+00:00",
-      "term": "듀언 아놀드",
-      "type": "plant",
-      "until": "2026-09-23T18:16:21.340073+00:00"
-    },
-    "듀웨인아놀드": {
-      "new_articles": 0,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-09T18:16:21.340073+00:00",
-      "term": "듀웨인 아놀드",
-      "type": "plant",
-      "until": "2026-09-23T18:16:21.340073+00:00"
-    },
-    "드웨인아놀드": {
-      "new_articles": 0,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-09T18:16:21.340073+00:00",
-      "term": "드웨인 아놀드",
-      "type": "plant",
-      "until": "2026-09-23T18:16:21.340073+00:00"
     },
     "라인란드와": {
       "new_articles": 1,
@@ -1252,6 +1212,14 @@
       "type": "org",
       "until": "2026-11-21T16:53:48.057158+00:00"
     },
+    "전력연구원": {
+      "new_articles": 11,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-08T18:38:51.265379+00:00",
+      "term": "전력연구원",
+      "type": "org",
+      "until": "2026-11-22T18:38:51.265379+00:00"
+    },
     "전력회사주부전력": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1790,7 +1758,7 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-11-09"
   },
   "terms": {
@@ -1811,11 +1779,11 @@
       "expires_at": "2026-11-09T03:38:47.101330+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-11-08T03:38:49.118514+00:00",
+      "last_run": "2026-11-08T18:38:51.265315+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-11-08T03:38:47.101330+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-08T18:38:49.301115+00:00",
+      "queries_run": 2,
       "query": "SLR 원자력",
       "score": 3.6,
       "status": "tracking",
@@ -1824,7 +1792,7 @@
       "type": "company",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "드레스덴": {
       "articles": 1,
@@ -1891,11 +1859,11 @@
       "expires_at": "2026-11-10T16:53:48.057158+00:00",
       "importance": "must_read",
       "last_result_count": 1,
-      "last_run": "2026-11-08T00:32:37.302658+00:00",
-      "new_articles": 1,
+      "last_run": "2026-11-08T18:38:51.265315+00:00",
+      "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-11-08T00:32:34.663783+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-08T18:38:49.301115+00:00",
+      "queries_run": 3,
       "query": "방위사업청 원자력",
       "score": 6.38,
       "status": "extended",
@@ -1903,62 +1871,11 @@
       "ttl_hours": 72,
       "type": "org",
       "yield_days": [
-        "2026-11-08"
+        "2026-11-08",
+        "2026-11-09"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
-    },
-    "전력연구원": {
-      "articles": 6,
-      "created_at": "2026-11-04T16:09:09.283526+00:00",
-      "domains": [
-        "energy-news.co.kr",
-        "businesskorea.co.kr",
-        "newsroad.co.kr",
-        "khnp.co.kr",
-        "nocutnews.co.kr",
-        "e-platform.net"
-      ],
-      "evidence": [
-        {
-          "domain": "energy-news.co.kr",
-          "hash": "2e9f186e333b4100",
-          "importance": "nice_to_know",
-          "title": "한수원-EPRI, 청정수소·에너지저장 기술 공동연구 협약 체결"
-        },
-        {
-          "domain": "businesskorea.co.kr",
-          "hash": "11f50911bfe3063b",
-          "importance": "nice_to_know",
-          "title": "한수원·美 EPRI, 청정수소 전주기 기술협력 맞손"
-        },
-        {
-          "domain": "newsroad.co.kr",
-          "hash": "92eb7c6013c5838a",
-          "importance": "nice_to_know",
-          "title": "한수원·美 EPRI, 청정수소 전주기 기술협력 맞손"
-        }
-      ],
-      "expires_at": "2026-11-08T00:35:57.709470+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-08T03:38:49.118514+00:00",
-      "new_articles": 11,
-      "origin": "auto",
-      "planned_at": "2026-11-08T03:38:47.101330+00:00",
-      "queries_run": 7,
-      "query": "전력연구원 원자력",
-      "score": 7.32,
-      "status": "promote_candidate",
-      "term": "전력연구원",
-      "ttl_hours": 72,
-      "type": "org",
-      "yield_days": [
-        "2026-11-05",
-        "2026-11-07"
-      ],
-      "yields": 4,
-      "zero_streak": 2
     },
     "추진하려던대미": {
       "articles": 1,
