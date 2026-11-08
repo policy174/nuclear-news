@@ -1071,68 +1071,6 @@
    "off_topic": true,
    "off_topic_reason": "원자력 발전과 무관한 농업/환경 분야 뉴스레터",
    "relevance": "policy"
-  },
-  {
-   "id": "ad79b4c3b24f",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Improving the Understanding of Irradiation Creep Behaviour in Nuclear Graphite Models and Mechanisms",
-   "url": "http://www.iaea.org/publications/16031/improving-the-understanding-of-irradiation-creep-behaviour-in-nuclear-graphite-models-and-mechanisms",
-   "date": "2026-05-12",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 원자력 흑연 모델 및 메커니즘의 조사 크리프 거동 이해 증진",
-   "gist": "원자로 흑연 재료의 조사 크리프 거동에 대한 심층 분석 및 이해",
-   "translated_version": 3,
-   "off_topic": false,
-   "relevance": "technical"
-  },
-  {
-   "id": "968b3f46f432",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Improving the Understanding of Nitrate Sources in Freshwater Systems Through Linking Isotopes and Contaminants of Emerging Concern",
-   "url": "http://www.iaea.org/publications/16054/improving-the-understanding-of-nitrate-sources-in-freshwater-systems-through-linking-isotopes-and-contaminants-of-emerging-concern",
-   "date": "2026-05-12",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 동위원소 및 신규 오염물질 연계를 통한 담수 시스템 내 질산염원 이해 증진",
-   "gist": "담수 질산염원 이해 증진",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 환경 분야 연구",
-   "relevance": "policy"
-  },
-  {
-   "id": "90788a242366",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Integrated Radiometric and Complementary Techniques for Mixed Contaminants and Residues in Foods",
-   "url": "http://www.iaea.org/publications/16046/integrated-radiometric-and-complementary-techniques-for-mixed-contaminants-and-residues-in-foods",
-   "date": "2026-05-12",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 식품 내 혼합 오염물질 및 잔류물 분석을 위한 통합 방사능 측정 및 보완 기술",
-   "gist": "식품 내 혼합 오염물질 분석 기술",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 식품 안전 분야 기술 보고서",
-   "relevance": "policy"
-  },
-  {
-   "id": "467cea2d6a41",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Lessons Learned from Climate Related External Events at Nuclear Installations",
-   "url": "http://www.iaea.org/publications/16050/lessons-learned-from-climate-related-external-events-at-nuclear-installations",
-   "date": "2026-05-12",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 원자력 시설의 기후 관련 외부 사건에서 얻은 교훈",
-   "gist": "기후 변화로 인한 원자력 시설 외부 사건 사례 분석 및 안전성 강화 방안",
-   "translated_version": 3,
-   "off_topic": false,
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1142,35 +1080,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-08T01:58:28+09:00",
+   "at": "2026-11-09T00:45:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
