@@ -10052,6 +10052,16 @@
       "right_title": "‘3대 메가프로젝트’ 성공 위해 인프라·인재·기술 병목 해소 시급",
       "same_event": false
     },
+    "0592fd106b3a579c--e837c8a83caaeeeb": {
+      "embedding_similarity": 0.8804,
+      "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수도권 전력 문제와 대외 비교 동향 기사",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美 AI 데이터센터 규제 우려와 달리 한국은 확충 추진",
+      "same_event": false
+    },
     "0592fd106b3a579c--ea3ab618e9d0a3ae": {
       "embedding_similarity": 0.8594,
       "left_title": "AI 데이터센터, 수도권 전력 공급 불가 판정 절반 넘어…사업 병목 심화",
@@ -13750,6 +13760,16 @@
       "reason": "정부 정책과 기업 제품 공개",
       "reviewed_at": "2026-10-25T11:33:33.108188+00:00",
       "right_title": "슈나이더 일렉트릭, 모듈형 전력 솔루션 공개",
+      "same_event": false
+    },
+    "0708d65654b8c9bd--e837c8a83caaeeeb": {
+      "embedding_similarity": 0.888,
+      "left_title": "정부, AI 데이터센터 인허가 원스톱 패스트트랙 추진 및 비수도권 전력평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 정책 추진과 미-한 비교 동향 기사",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美 AI 데이터센터 규제 우려와 달리 한국은 확충 추진",
       "same_event": false
     },
     "0708d65654b8c9bd--ed47c9e2405862c1": {
@@ -21250,6 +21270,16 @@
       "reason": "미래포럼 개최와 프라하 직항 증편은 별개",
       "reviewed_at": "2026-11-07T22:35:19.234180+00:00",
       "right_title": "체코관광청, 내년 프라하 직항 주 10회 증편…두코바니 원전 건설 영향",
+      "same_event": false
+    },
+    "0bf21d2504f9cd0e--2714318dcc236647": {
+      "embedding_similarity": 0.8756,
+      "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미래포럼 논의와 수소 연구 공유회로 다름",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "한수원, 체코 UJV-Rez와 원자력 청정수소 기반 연구 성과 공유회 개최",
       "same_event": false
     },
     "0bf21d2504f9cd0e--289b48d7b199af1e": {
@@ -40742,6 +40772,16 @@
       "right_title": "기후에너지환경부, 신규 원전 역할 논의 위한 공론화 추진",
       "same_event": true
     },
+    "18c8c54d729974e6--75afc3c27967f40d": {
+      "embedding_similarity": 0.8762,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 100억 달러 선급금 보류 논란",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美 민주당 데이터센터 규제 전망에 대미 원전사업 100억 달러 선급금 논란",
+      "same_event": true
+    },
     "18cbdf9d828811f6--1cca41eae3dd2c28": {
       "embedding_similarity": 0.8679,
       "left_title": "지역별 전기요금제 도입에 중소기업계, 업종별 차등 적용 요구",
@@ -57732,6 +57772,16 @@
       "right_title": "아르헨티나-루마니아, 노후 원전 수명연장 협력 추진",
       "same_event": false
     },
+    "2385ac5b21f2c473--699d65d52d8b4525": {
+      "embedding_similarity": 0.8758,
+      "left_title": "제주도-도의회, 국비사업 예산 증액 및 현안 해결 공동 대응",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "제주도-도의회 대응과 국회 상임위 건의",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "국회 기후노동위, 제주 에너지전환 현안 논의…해상풍력 반영 등 건의",
+      "same_event": false
+    },
     "238910e99cab0f24--98fe30ce4f211836": {
       "embedding_similarity": 0.869,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -62350,6 +62400,26 @@
       "reason": "주체와 안건이 다름",
       "reviewed_at": "2026-08-04T05:38:30.560095+00:00",
       "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
+      "same_event": false
+    },
+    "2714318dcc236647--98fe30ce4f211836": {
+      "embedding_similarity": 0.898,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 사업 논의와 수소 연구 공유회로 다름",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "한수원, 체코 UJV-Rez와 원자력 청정수소 기반 연구 성과 공유회 개최",
+      "same_event": false
+    },
+    "2714318dcc236647--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8801,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두코바니 인허가와 수소 연구 공유회로 다름",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "한수원, 체코 UJV-Rez와 원자력 청정수소 기반 연구 성과 공유회 개최",
       "same_event": false
     },
     "274511da46688793--32cf3fdaff8033f0": {
@@ -111092,6 +111162,16 @@
       "right_title": "방사청·해군, 3600t급 장보고-III 배치-III 선행 개발 예산 966억 원 편성",
       "same_event": false
     },
+    "4c61507732c9a278--cab686b83a66e709": {
+      "embedding_similarity": 0.892,
+      "left_title": "국방부, 핵추진잠수함정책기획단 신설…29조 사업비·한미 협상 과제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기획단 신설과 핵연료 추진 계획의 별개 안건",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "정부, 20% 미만 저농축 핵연료 활용 장주기 한국형 핵잠수함 추진",
+      "same_event": false
+    },
     "4c61507732c9a278--dd126c4d0a15f202": {
       "embedding_similarity": 0.8723,
       "left_title": "국방부, 핵추진잠수함정책기획단 신설…29조 사업비·한미 협상 과제",
@@ -112850,6 +112930,16 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-24T12:54:53.127914+00:00",
       "right_title": "미국 중간선거, 데이터센터 전력·물 사용 놓고 공방 확산",
+      "same_event": false
+    },
+    "4dd4e7f5750e5f5a--75afc3c27967f40d": {
+      "embedding_similarity": 0.8773,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류 개별사건과 산업전반 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美 중간선거 결과, 한국 증시 및 원전·전력기기 등 산업 영향 전망",
       "same_event": false
     },
     "4dd4e7f5750e5f5a--e9c136e895a0a4f1": {
@@ -140422,6 +140512,16 @@
       "right_title": "K조선 3사, 방콕 가스텍서 부유식 데이터센터 등 미래 해양 에너지 기술 공개",
       "same_event": true
     },
+    "66502f8c7255141f--75afc3c27967f40d": {
+      "embedding_similarity": 0.875,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류 논란과 데이터센터 변수 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美민주당 의회 장악에 데이터센터 투자변수로",
+      "same_event": false
+    },
     "666245f06cdee902--92be0d3ad51fc2c0": {
       "embedding_similarity": 0.8933,
       "left_title": "트럼프, 한국에 알래스카 LNG 사업 500억 달러 투자 압박",
@@ -158472,6 +158572,16 @@
       "right_title": "[美중간선거 D-2] AI 투자·금리에 韓 경제 촉각…관세 부담은 여전",
       "same_event": false
     },
+    "75afc3c27967f40d--b92a3f0150af2e4b": {
+      "embedding_similarity": 0.876,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류 논란과 데이터센터 규제 일반",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "미국 중간선거, AI 데이터센터 증설 규제 이슈로 부상",
+      "same_event": false
+    },
     "75afc3c27967f40d--bef3d87bcaceb91b": {
       "embedding_similarity": 0.9051,
       "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
@@ -158500,6 +158610,16 @@
       "reason": "원전 투자 보류 논란과 데이터센터 규제 전망",
       "reviewed_at": "2026-11-08T02:27:38.530043+00:00",
       "right_title": "미국 민주당 의회 장악으로 AI 데이터센터 규제 강화 전망",
+      "same_event": false
+    },
+    "75afc3c27967f40d--e8015015ae0b602a": {
+      "embedding_similarity": 0.8751,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류 논란과 AI 주가 하락 동향",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "美 민주당 승리 후 데이터센터 규제 강화 우려, AI 관련 주식 하락",
       "same_event": false
     },
     "75afc3c27967f40d--e80f2115f548f738": {
@@ -177012,6 +177132,16 @@
       "right_title": "금리 올리고 돈 푼다…‘하준경식 폴리시믹스’ 변수는 노봉법",
       "same_event": false
     },
+    "88e8f1613da630f1--e80f2115f548f738": {
+      "embedding_similarity": 0.8755,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "민주당 발언 사안과 투자 지연 일반 우려",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "미국 중간선거 민주당 승리 시 AI 규제 강화와 데이터센터 투자 지연 우려",
+      "same_event": false
+    },
     "88f2b31e11b8a304--aaa232f2b9b0540b": {
       "embedding_similarity": 0.8831,
       "left_title": "정부, 유턴기업 지방 유치 위해 산업용 전기요금 지역차등제 도입",
@@ -179359,6 +179489,16 @@
       "prompt_version": 1,
       "reason": "인허가 제한 시사와 선거 결과에 따른 우려",
       "reviewed_at": "2026-11-08T02:27:38.530043+00:00",
+      "right_title": "미국 중간선거 민주당 선전 속 데이터센터 규제 강화 우려 대두",
+      "same_event": false
+    },
+    "8c1dc36032325dc9--ea028e339d281c6b": {
+      "embedding_similarity": 0.8763,
+      "left_title": "미국 데이터센터 사업 3분기 17건 취소…주민 반대 48% 차지",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사업 취소 통계와 선거 후 우려 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
       "right_title": "미국 중간선거 민주당 선전 속 데이터센터 규제 강화 우려 대두",
       "same_event": false
     },
@@ -187902,6 +188042,16 @@
       "right_title": "국방부·방사청 핵추진잠수함 사업단, 2029년 한시 조직 한계 지적",
       "same_event": false
     },
+    "95d8055e93aa9863--ac313a21e3ef7c23": {
+      "embedding_similarity": 0.9059,
+      "left_title": "정부, 한국형 핵추진잠수함 '장보고 N사업' 추진 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국형 핵잠수함 사업 추진 확정 보도",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "한국형 핵잠, 내년부터 사업 본격 착수…타당성조사 면제로 속도전",
+      "same_event": true
+    },
     "95d8055e93aa9863--bafea6e30b98dd08": {
       "embedding_similarity": 0.8572,
       "left_title": "정부, 한국형 핵추진잠수함 '장보고 N사업' 추진 확정",
@@ -187911,6 +188061,16 @@
       "reviewed_at": "2026-11-07T21:39:02.263624+00:00",
       "right_title": "방사청·해군, 3600t급 장보고-III 배치-III 선행 개발 예산 966억 원 편성",
       "same_event": false
+    },
+    "95d8055e93aa9863--cab686b83a66e709": {
+      "embedding_similarity": 0.8905,
+      "left_title": "정부, 한국형 핵추진잠수함 '장보고 N사업' 추진 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국형 핵추진잠수함 사업 추진 발표",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "정부, 20% 미만 저농축 핵연료 활용 장주기 한국형 핵잠수함 추진",
+      "same_event": true
     },
     "95d8055e93aa9863--cf8bf83345a6b566": {
       "embedding_similarity": 0.8577,
@@ -222512,6 +222672,16 @@
       "right_title": "반세기만의 원전 역수출…웨스팅하우스 반대 뚫어낸 막전막후",
       "same_event": true
     },
+    "cab686b83a66e709--ec1d2b1e73cd5420": {
+      "embedding_similarity": 0.8897,
+      "left_title": "한국형 핵잠수함, 사업타당성 조사 면제…내년 사업 추진 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "타당성조사 면제와 저농축 핵연료의 별개 안건",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "정부, 20% 미만 저농축 핵연료 활용 장주기 한국형 핵잠수함 추진",
+      "same_event": false
+    },
     "cac1b0cc3d736923--cd2318c0be5d5379": {
       "embedding_similarity": 0.8806,
       "left_title": "기후에너지환경부, 지역별 전기요금 차등제 설계안 공개",
@@ -224430,6 +224600,16 @@
       "reason": "서로 다른 규제 분석",
       "reviewed_at": "2026-11-06T21:50:22.231164+00:00",
       "right_title": "미국 중간선거 후 데이터센터 건설 규제 강화…중국 반사이익 전망",
+      "same_event": false
+    },
+    "cf2202c2b99d22f7--f1a83f71593e1646": {
+      "embedding_similarity": 0.8751,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기요금 반발 사안과 반도체 영향 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "미국 데이터센터 규제 여파에 반도체 2028년 증설 불확실성 증대",
       "same_event": false
     },
     "cf2202c2b99d22f7--f1e28dcbc6db2ce3": {
@@ -230550,6 +230730,26 @@
       "reason": "가스발전과 원전 건설 보고",
       "reviewed_at": "2026-09-27T08:22:42.409547+00:00",
       "right_title": "산업부, 미국에 대형 원전 최대 8기 건설 방안 검토 보고",
+      "same_event": false
+    },
+    "e80f2115f548f738--ed8adb50b596b52f": {
+      "embedding_similarity": 0.8773,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 제한 시사와 중국 반사이익 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "미국 중간선거 후 데이터센터 건설 규제 강화…중국 반사이익 전망",
+      "same_event": false
+    },
+    "e80f2115f548f738--f1a83f71593e1646": {
+      "embedding_similarity": 0.8859,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "민주당 발언 사안과 반도체 산업 영향 전망",
+      "reviewed_at": "2026-11-08T06:52:19.304987+00:00",
+      "right_title": "미국 데이터센터 규제 여파에 반도체 2028년 증설 불확실성 증대",
       "same_event": false
     },
     "e811c043672c6967--efa4b4ceafb77c3c": {
