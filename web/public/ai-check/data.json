@@ -1,5 +1,5 @@
 {
-"as_of": "2026.11.8.",
+"as_of": "2026.11.9.",
 "signal_note": "첫 조회를 기준으로 삼았습니다. 다음 조회부터 달라진 답변과 공식 자료 변경을 여기에 표시합니다.",
 "signals": [
 {
@@ -413,48 +413,52 @@
 }
 ],
 "news": {
-"as_of": "2026.11.8.",
+"as_of": "2026.11.9.",
 "rows": [
 {
 "name": "입지·지역 부담",
-"count": 97,
+"count": 85,
 "top": [
+{
+"t": "한빛원전 범대위, 원안위에 계속운전 및 건식저장시설 안전규제·주민 동의 요구",
+"u": "https://www.namdonews.com/news/articleView.html?idxno=928504"
+},
+{
+"t": "제주도·도의회, 추자해상풍력 12차 전기본 반영 등 국비 확보 공동 건의",
+"u": "https://www.jemin.com/news/articleView.html?idxno=846463"
+},
 {
 "t": "경북 구미, 원전 기반 전력자급률 250%로 중국 피지컬AI 기업 유치 추진",
 "u": "http://weekly.chosun.com/news/articleView.html?idxno=56911"
-},
-{
-"t": "경주시·한국원자력연구원, 혁신 원자력기술 설명회 개최 및 유망기술 38건 공개",
-"u": "https://www.ajunews.com/view/20261107000009694"
-},
-{
-"t": "기장군의회, 월성원자력본부 및 방사성폐기물 처분시설 현장 점검",
-"u": "https://www.newstnt.com/news/articleView.html?idxno=727231"
 }
 ]
 },
 {
 "name": "안전",
-"count": 55,
+"count": 49,
 "top": [
+{
+"t": "후쿠시마 원전 사고 15년, 재해 전승관 통해 복구 현황과 안전성 조명",
+"u": "https://www.traveltimes.co.kr/news/articleView.html?idxno=500618"
+},
+{
+"t": "한빛원전 범대위, 원안위에 계속운전 및 건식저장시설 안전규제·주민 동의 요구",
+"u": "https://www.namdonews.com/news/articleView.html?idxno=928504"
+},
 {
 "t": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
 "u": "https://www.financialpost.co.kr/news/articleView.html?idxno=285394"
-},
-{
-"t": "핵무기 위협 속 원자력의 평화적 이용과 안전 관리 중요성 강조",
-"u": "http://www.knpnews.com/news/articleView.html?idxno=34823"
-},
-{
-"t": "美 중간선거 후 데이터센터 규제 전망에 韓 원전사업 13.6조 선급금 논란 가중",
-"u": "http://www.joseilbo.com/news/news_read.php?class=1&grp=&uid=579163"
 }
 ]
 },
 {
 "name": "사용후핵연료",
-"count": 52,
+"count": 46,
 "top": [
+{
+"t": "한빛원전 범대위, 원안위에 계속운전 및 건식저장시설 안전규제·주민 동의 요구",
+"u": "https://www.namdonews.com/news/articleView.html?idxno=928504"
+},
 {
 "t": "이상훈 교수, 핵폐기물 처리 비용으로 원전 경제성 저하 주장",
 "u": "https://www.koya-culture.com/news/article.html?no=153607"
@@ -462,17 +466,17 @@
 {
 "t": "기장군의회, 월성원자력본부 및 방사성폐기물 처분시설 현장 점검",
 "u": "https://www.newstnt.com/news/articleView.html?idxno=727231"
-},
-{
-"t": "영국, 사용후핵연료·방사성폐기물 운송 규제 간소화 법안 발의",
-"u": "https://www.ans.org/news/2026-11-06/article-8564/uk-energy-bill-proposes-changes-to-waste-transport-regulation"
 }
 ]
 },
 {
 "name": "전력수요",
-"count": 45,
+"count": 35,
 "top": [
+{
+"t": "제주도·도의회, 추자해상풍력 12차 전기본 반영 등 국비 확보 공동 건의",
+"u": "https://www.jemin.com/news/articleView.html?idxno=846463"
+},
 {
 "t": "美 중간선거 후 데이터센터 규제 전망에 韓 원전사업 13.6조 선급금 논란 가중",
 "u": "http://www.joseilbo.com/news/news_read.php?class=1&grp=&uid=579163"
@@ -480,16 +484,30 @@
 {
 "t": "美 민주당 데이터센터 규제 전망에 대미 원전사업 100억 달러 선급금 논란",
 "u": "https://www.m-economynews.com/news/article.html?no=72722"
+}
+]
 },
 {
-"t": "12차 전력수급기본계획, 원전·재생에너지 쟁점 해결 난항",
-"u": "https://www.dailyt.co.kr/newsView/dlt202611060026"
+"name": "대안 비교",
+"count": 19,
+"top": [
+{
+"t": "제주도·도의회, 추자해상풍력 12차 전기본 반영 등 국비 확보 공동 건의",
+"u": "https://www.jemin.com/news/articleView.html?idxno=846463"
+},
+{
+"t": "프랑스 대선 후보 멜랑숑, 원전 사업 백지화 및 재생에너지 전환 공약",
+"u": "https://www.kmib.co.kr/article/20261108500019"
+},
+{
+"t": "미중 패권 경쟁 속 에너지 안보 전략, 원자력·재생에너지 조합 언급",
+"u": "http://www.breaknews.com/1249148"
 }
 ]
 },
 {
 "name": "정보·절차 신뢰",
-"count": 27,
+"count": 18,
 "top": [
 {
 "t": "한국원자력연구원, 2026년 혁신기술 설명회 개최 예정",
@@ -506,27 +524,13 @@
 ]
 },
 {
-"name": "대안 비교",
-"count": 19,
-"top": [
-{
-"t": "미중 패권 경쟁 속 에너지 안보 전략, 원자력·재생에너지 조합 언급",
-"u": "http://www.breaknews.com/1249148"
-},
-{
-"t": "중동 위기 계기, 재생에너지·원전 병행 정책 부상",
-"u": "https://www.esnews.kr/news/articleView.html?idxno=7225"
-},
-{
-"t": "12차 전력수급기본계획, 원전·재생에너지 쟁점 해결 난항",
-"u": "https://www.dailyt.co.kr/newsView/dlt202611060026"
-}
-]
-},
-{
 "name": "전기요금·비용",
-"count": 9,
+"count": 10,
 "top": [
+{
+"t": "에너지 정책, 원전 경쟁력 외면으로 전기요금 문제 초래했다는 비판 제기",
+"u": "https://www.ainews1.co.kr/news/articleView.html?idxno=38411"
+},
 {
 "t": "이상훈 교수, 핵폐기물 처리 비용으로 원전 경제성 저하 주장",
 "u": "https://www.koya-culture.com/news/article.html?no=153607"
@@ -534,10 +538,6 @@
 {
 "t": "한국, 원전의 친환경성 인정받지 못해 REC 비용·감발 손실 부담",
 "u": "http://www.e-platform.net/news/articleView.html?idxno=106768"
-},
-{
-"t": "블루포인트, SMR 경제성 확보를 핵심 과제로 지목하며 투자 조건 제시",
-"u": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=06209046645642768"
 }
 ]
 },
