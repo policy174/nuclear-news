@@ -112,6 +112,16 @@
       "right_title": "산업부, 대형원전 넘어 글로벌 공급망 진입 위한 '원전수출 리더스포럼' 출범",
       "same_event": false
     },
+    "006e78e3ae620623--18c0c740a02e4b3b": {
+      "embedding_similarity": 0.8603,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬이 대우건설 수주에 미친 영향",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "대우건설, 체코 원전 협상 결렬로 연간 수주 목표 달성 '빨간불'",
+      "same_event": true
+    },
     "006e78e3ae620623--37b786f439394804": {
       "embedding_similarity": 0.8816,
       "left_title": "한수원 컨소시엄 체코 원전 시공계약 협상 결렬, 국내 건설업계 영향 분석",
@@ -1190,6 +1200,16 @@
       "reason": "유럽 가뭄으로 인한 원전 가동 문제",
       "reviewed_at": "2026-08-18T04:04:06.533958+00:00",
       "right_title": "유럽, 역대급 가뭄으로 원전 가동 중단 및 전력난 심화",
+      "same_event": true
+    },
+    "0197b1feca7ff54b--18c0c740a02e4b3b": {
+      "embedding_similarity": 0.8845,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 원전 시공계약 협상 결렬…새 시공사 선정 난항 예상",
       "same_event": true
     },
     "0197b1feca7ff54b--98fe30ce4f211836": {
@@ -14082,6 +14102,16 @@
       "right_title": "대우건설, 체코 원전 시공 계약 협상 결렬…'승자의 저주' 우려",
       "same_event": false
     },
+    "072f4c675152769f--18c0c740a02e4b3b": {
+      "embedding_similarity": 0.906,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "대우건설, 체코 원전 시공 계약 협상 결렬…'승자의 저주' 우려",
+      "same_event": true
+    },
     "072f4c675152769f--1ca6341a330daf35": {
       "embedding_similarity": 0.8402,
       "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
@@ -16281,6 +16311,16 @@
       "reviewed_at": "2026-10-30T12:53:32.396817+00:00",
       "right_title": "한수원, 체코 원전 사업 건설사 선정 난항…재협상 가능성",
       "same_event": false
+    },
+    "07e65af901810a9c--18c0c740a02e4b3b": {
+      "embedding_similarity": 0.8721,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 난항 및 재협상 가능성",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 원전 사업 건설사 선정 난항…재협상 가능성",
+      "same_event": true
     },
     "07e65af901810a9c--1ca6341a330daf35": {
       "embedding_similarity": 0.8643,
@@ -27360,6 +27400,16 @@
       "reason": "동일 주체, 동일 호기, 동일 설비 수주",
       "reviewed_at": "2026-08-25T18:50:56.215526+00:00",
       "right_title": "우리기술, 한수원과 고리 3·4호기 PMS 설비개선 자재 85억원 공급 계약",
+      "same_event": true
+    },
+    "1009e539c2b9f0a0--18c0c740a02e4b3b": {
+      "embedding_similarity": 0.8554,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬에 따른 증권사 분석 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "LS증권, 체코 원전 시공 협상 결렬에 국내 건설사 수익성 우려 제기",
       "same_event": true
     },
     "1009e539c2b9f0a0--234fe8a2f17b5bce": {
@@ -41352,6 +41402,106 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": true
     },
+    "18c0c740a02e4b3b--289b48d7b199af1e": {
+      "embedding_similarity": 0.897,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 난항 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 신규 원전사업 컨소시엄 구성 난항…수익성 확보 과제",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--2e13958a15d738c8": {
+      "embedding_similarity": 0.8965,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 난항 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 원전 시공사 계약 협상 난항…대우건설 교체 검토",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--33779491bd760775": {
+      "embedding_similarity": 0.855,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두코바니 시공협상과 테믈린 수주는 별개",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 테믈린 원전 추가 수주 시동…두코바니 성공 기반",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--33f93df9ed89016c": {
+      "embedding_similarity": 0.8781,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 및 후속 시공사 선정 추진",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공사 협상 결렬로 새 시공사 선정 추진",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--3d2c3fdb5faa2382": {
+      "embedding_similarity": 0.9007,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 협상 결렬…새 건설업체 물색",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--3dbfbb181ca5c0e2": {
+      "embedding_similarity": 0.8971,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공계약 협상 최종 결렬…신규 시공사 선정 돌입",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--40150269263045c5": {
+      "embedding_similarity": 0.8752,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대우건설과의 시공협상 종료 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 27조 체코 두코바니 원전 시공계약 협상 대우건설과 종료",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--481508d0f819c0fc": {
+      "embedding_similarity": 0.856,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 현지 건설업계 반응",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코 원전사업, '팀 코리아' 균열 후 현지 건설업계 시공 지분 확대 요구",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--524d87b4a9cb7844": {
+      "embedding_similarity": 0.8903,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 갈등 관련 후속 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코 원전 시공 갈등 '진실 공방'… 한수원 \"두코바니 문제없다\" 재차 강...",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--52702f077816bc54": {
+      "embedding_similarity": 0.8764,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 현대건설 재입찰 검토",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "현대건설, 한수원 체코 두코바니 원전 시공협력사 계약 종료 후 재입찰 검토",
+      "same_event": true
+    },
     "18c0c740a02e4b3b--6e44db3c17b19418": {
       "embedding_similarity": 0.8627,
       "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
@@ -41360,6 +41510,26 @@
       "reason": "체코 원전 시공 협상 결렬 사안",
       "reviewed_at": "2026-11-09T16:19:14.694008+00:00",
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--744b8a2fc0c07822": {
+      "embedding_similarity": 0.8918,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수출 경쟁력 영향 등 업계 분석",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원·시공사 공사비 갈등, K원전 수출 경쟁력 시험대 올라",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--7598fc0bbcea85dd": {
+      "embedding_similarity": 0.8688,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대우건설과의 시공협상 중단 동일 사안",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원 컨소시엄, 체코 두코바니 원전사업 대우건설과 협상 중단",
       "same_event": true
     },
     "18c0c740a02e4b3b--75c9ca256e559815": {
@@ -41372,6 +41542,46 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": false
     },
+    "18c0c740a02e4b3b--8351d12f20ea4275": {
+      "embedding_similarity": 0.9065,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사업 관행에 대한 문제 제기 및 의견",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코 원전 사업, '선 선정·후 단가 협상' 관행 문제 제기",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--84d3197d2b3ab11f": {
+      "embedding_similarity": 0.8555,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 건설업계 전반 동향",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "건설사, 고수익 사업으로 불황 돌파구 모색…원전 프로젝트 주목",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--8f4b805ccf16d76f": {
+      "embedding_similarity": 0.8551,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공협상 결렬과 인허가 신청은 별개",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한국수력원자력, 26조 원 규모 체코 두코바니 원전 인허가 신청 준비 착수",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--9238bd31d464ecb5": {
+      "embedding_similarity": 0.8586,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 두산에너빌리티 계약 유지",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "두산에너빌리티, 체코 원전 시공계약 협상 종료에도 주기기 공급계약 유지",
+      "same_event": true
+    },
     "18c0c740a02e4b3b--98fe30ce4f211836": {
       "embedding_similarity": 0.8565,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -41381,6 +41591,16 @@
       "reviewed_at": "2026-11-09T09:30:17.464543+00:00",
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": false
+    },
+    "18c0c740a02e4b3b--99d27066248b3c8d": {
+      "embedding_similarity": 0.8854,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 계약 대우건설 컨소시엄과 협상 종료 선언",
+      "same_event": true
     },
     "18c0c740a02e4b3b--9b2079eef5023d61": {
       "embedding_similarity": 0.8652,
@@ -41392,6 +41612,26 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": true
     },
+    "18c0c740a02e4b3b--9e3420606aeaf230": {
+      "embedding_similarity": 0.8852,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공협상 이견 및 교체 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 1조원 감액 요구 직면 속 시공사 교체 시사",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--a22dc36fc4ba6f6c": {
+      "embedding_similarity": 0.9154,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 전반의 동향 및 논란 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코도 '대우건설 교체' 경고음…韓 원전 '사업비 적정성' 논란 확산",
+      "same_event": false
+    },
     "18c0c740a02e4b3b--a2a59a20cb58dbb9": {
       "embedding_similarity": 0.8999,
       "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
@@ -41402,6 +41642,36 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": true
     },
+    "18c0c740a02e4b3b--a8b060e1ef566646": {
+      "embedding_similarity": 0.8887,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 교체 논란 관련 후속 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--ab015e3221c49ca5": {
+      "embedding_similarity": 0.8827,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사안",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원-시공사 시공계약 협상 결렬…해외 원전 분쟁조정 체계 보완 필요성 대두",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--b7ab289c1fa8f66d": {
+      "embedding_similarity": 0.8581,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 협상 결렬과 장관의 원론적 발언",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
+      "same_event": false
+    },
     "18c0c740a02e4b3b--b851201523b44ceb": {
       "embedding_similarity": 0.8884,
       "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
@@ -41411,6 +41681,126 @@
       "reviewed_at": "2026-11-09T09:30:17.464543+00:00",
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": false
+    },
+    "18c0c740a02e4b3b--bd89f9792252c71f": {
+      "embedding_similarity": 0.9145,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 이견 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공사 선정 난항…공사비 증가 위험 이견",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--bf254f79ce11da61": {
+      "embedding_similarity": 0.8685,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후속 대응에 관한 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코 원전 수주 계약은 유효…새 시공사 선정으로 국익 보호해야",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--bf7416f55f11a9d8": {
+      "embedding_similarity": 0.8913,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협상 대우건설 컨소시엄과 결렬",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--c771e4986fdf4215": {
+      "embedding_similarity": 0.9102,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공협상 결렬에 따른 후속 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 신규 시공사 확보 난항 예상",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--d4adbbb7f8746549": {
+      "embedding_similarity": 0.8569,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 종료 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "팀코리아, 체코 원전 시공 계약 협상 종료…대우건설 '8년 노력' 허무",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--db33b1b62a5a2379": {
+      "embedding_similarity": 0.8774,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬에 따른 공기 차질 우려 보도",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "체코 원전 사업, 시공사 재입찰로 공기 차질 우려…팀코리아 흔들",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--dc08c86f65e7bda7": {
+      "embedding_similarity": 0.8999,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 원전 사업 시공 계약 협상 종료…새 시공사 물색",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--e16c6ddc51fe326f": {
+      "embedding_similarity": 0.9076,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 여파에 대한 전망·의견",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "K원전, 체코 시공협상 결렬로 추가 수주 '시험대'",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--e294e32186ce98ea": {
+      "embedding_similarity": 0.8812,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 대우건설·두산에너빌리티 컨소시엄과 체코 두코바니 원전 시공계약 협상 결렬",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--e4efe2011507c90e": {
+      "embedding_similarity": 0.8631,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬과 대우건설 조직개편은 별개",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "대우건설, 가덕도신공항 및 체코 두코바니 원전 중점 관리를 위한 조직 개편 단행",
+      "same_event": false
+    },
+    "18c0c740a02e4b3b--e730ac1298490463": {
+      "embedding_similarity": 0.9065,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공협상 감액 이견 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 원전 시공계약서 대우건설에 1조원 이상 감액 요구",
+      "same_event": true
+    },
+    "18c0c740a02e4b3b--f10ecbde53677df3": {
+      "embedding_similarity": 0.9153,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협상 결렬 동일 사건",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공계약 협상 종료 발표",
+      "same_event": true
     },
     "18c366f788c5b0eb--ad039dd6f4752815": {
       "embedding_similarity": 0.8469,
@@ -72391,6 +72781,16 @@
       "reviewed_at": "2026-09-04T07:56:57.804386+00:00",
       "right_title": "한전, 지역별 차등 전기요금 제도 도입…산업용에 우선 적용",
       "same_event": true
+    },
+    "2cf7026e195267bb--41aeb2116ec7dd24": {
+      "embedding_similarity": 0.8672,
+      "left_title": "한울원전, 사용후핵연료 저장시설 건립 난항…2032년까지 확보 필요",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵연료 저장시설과 계속운전 심의는 별개",
+      "reviewed_at": "2026-11-09T22:36:36.291605+00:00",
+      "right_title": "노후 원전 계속운전 심의 지연…한울 1·2호기 2년째 심사 미뤄져",
+      "same_event": false
     },
     "2cf7026e195267bb--93301d8bc4f04a29": {
       "embedding_similarity": 0.8971,
