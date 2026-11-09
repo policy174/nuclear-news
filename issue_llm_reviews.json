@@ -1052,6 +1052,16 @@
       "right_title": "핵융합 스타트업 헬리온, 상무부로부터 1억 7500만 달러 규모 반도체 연구 자금 확보",
       "same_event": true
     },
+    "0179181b1fac5b23--f63825bd0efa1e22": {
+      "embedding_similarity": 0.8986,
+      "left_title": "미국 텍사스 SMR 플랜트, 최종 인허가 단계 진입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 SMR 노형 및 프로젝트",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 NRC, 엑스에너지 Xe-100 SMR 안전성 평가보고서 최종 승인",
+      "same_event": false
+    },
     "017ab310db05a348--48be1c86652132cf": {
       "embedding_similarity": 0.8576,
       "left_title": "울진군, 신한울 3·4호기 현안 해결 및 상생사업 확대 요청",
@@ -1177,10 +1187,10 @@
       "left_title": "美 빅테크, AI 전력 확보 위해 원전 PPA 20년 장기계약 체결",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "업계 동향과 개별 계약 건",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "셰브론 약 2.67GW 공급 계획…MS와 20년 계약·ADNOC는 AI 도입",
-      "same_event": false
+      "reason": "빅테크 AI 전력 PPA 체결 동일 사안",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "글로벌 빅테크 및 에너지 기업, AI 데이터센터 연계 전력 공급 계약 체결 잇따라",
+      "same_event": true
     },
     "019fb4ed9c519195--1671085462fb1d98": {
       "embedding_similarity": 0.8711,
@@ -21812,6 +21822,16 @@
       "right_title": "한수원, 체코 두코바니 원전 시공 협상 대우건설 컨소시엄과 결렬",
       "same_event": false
     },
+    "0bf21d2504f9cd0e--d52086427742e61f": {
+      "embedding_similarity": 0.876,
+      "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 포럼 및 학술대회",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "경기도·한국유럽학회 추계학술대회 개최…한·체코 두코바니 원전 계약 조명",
+      "same_event": false
+    },
     "0bf21d2504f9cd0e--db33b1b62a5a2379": {
       "embedding_similarity": 0.8423,
       "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
@@ -25581,6 +25601,16 @@
       "reviewed_at": "2026-10-28T10:35:11.759146+00:00",
       "right_title": "주한 체코 대사, 두코바니 원전 프로젝트를 양국 파트너십의 상징으로 강조",
       "same_event": true
+    },
+    "0ed85cc5401abf5a--d52086427742e61f": {
+      "embedding_similarity": 0.854,
+      "left_title": "주한 체코 대사, 두코바니 원전 프로젝트를 양국 파트너십의 상징으로 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주한 체코대사 발언과 학술대회 개최는 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "경기도·한국유럽학회 추계학술대회 개최…한·체코 두코바니 원전 계약 조명",
+      "same_event": false
     },
     "0ed85cc5401abf5a--db33b1b62a5a2379": {
       "embedding_similarity": 0.8415,
@@ -33400,6 +33430,16 @@
       "reason": "NRC 심사와 지열 발전 성공",
       "reviewed_at": "2026-10-25T22:39:03.686692+00:00",
       "right_title": "미국 엔듀런스 에너지, 세계 최초 해저 활화산 지열 발전 성공",
+      "same_event": false
+    },
+    "1366d381246af1cd--ddb11f5156a7a1c5": {
+      "embedding_similarity": 0.8799,
+      "left_title": "미국 NRC, 2032년까지 원전 31건 파워 업레이트 심사 착수 및 빅테크 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "파워 업레이트 심사와 특정 원전 계속운전 승인",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 NRC, 드레스덴 원전 2·3호기 80년 후속 계속운전 승인",
       "same_event": false
     },
     "1366d381246af1cd--ea5712b9860c7c0b": {
@@ -47392,6 +47432,16 @@
       "right_title": "LG CNS, 글로벌 SW·AI 기업 공동투자 추진…AI 인프라·최적화 사업 확대",
       "same_event": false
     },
+    "1c1c11801925653a--341afbb0d0ad9922": {
+      "embedding_similarity": 0.8843,
+      "left_title": "베트남 정부, 2027년 GDP 성장률 최소 10% 목표 및 전력 공급 계획 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "베트남 2027년 성장 목표 및 계획의 승인 과정",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "베트남 국회, 경제성장률 최소 10% 목표 담은 2027년 사회경제발전계획 승인",
+      "same_event": true
+    },
     "1c1d581bcafd6247--234fe8a2f17b5bce": {
       "embedding_similarity": 0.893,
       "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
@@ -48440,6 +48490,16 @@
       "reason": "정부 관리체계와 시공계약 결렬로 다름",
       "reviewed_at": "2026-11-02T23:12:59.747038+00:00",
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
+      "same_event": false
+    },
+    "1ca6341a330daf35--a8b060e1ef566646": {
+      "embedding_similarity": 0.8468,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업부 관리체계 가동과 노조 의혹 제기는 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
       "same_event": false
     },
     "1ca6341a330daf35--b08a3a24a25a2e97": {
@@ -57812,6 +57872,16 @@
       "right_title": "한국전력, 해외 신규 원전 사업 총액확정계약 가능 입장 밝혀",
       "same_event": false
     },
+    "234fe8a2f17b5bce--a8b060e1ef566646": {
+      "embedding_similarity": 0.8877,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경쟁입찰 전환과 노조 의혹으로 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": false
+    },
     "234fe8a2f17b5bce--ab015e3221c49ca5": {
       "embedding_similarity": 0.8519,
       "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
@@ -64337,9 +64407,9 @@
       "left_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "개별 데이터센터 착공과 업계 동향 분석",
-      "reviewed_at": "2026-11-09T00:49:09.505834+00:00",
-      "right_title": "[AIDC 투자 점검①] 韓 550조 투자, 어디까지 왔나",
+      "reason": "개별 착공과 전반 동향으로 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "정부 주도 AI 데이터센터 투자 추진 속 국내 주요 프로젝트 진행 현황",
       "same_event": false
     },
     "28348985da265c84--7909f5da8533ec60": {
@@ -66490,6 +66560,16 @@
       "reason": "개별 기업 수주와 업계 전반의 동향",
       "reviewed_at": "2026-10-24T10:41:27.850080+00:00",
       "right_title": "변압기 대기 5년…AI 데이터센터·전력망 재정비로 장기계약 '필수'",
+      "same_event": false
+    },
+    "29a9538baacf95f8--e80f2115f548f738": {
+      "embedding_similarity": 0.8855,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 민주당 방침과 한국 산업부 점검은 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "산업부, 미국 중간선거 이후 대미투자 불확실성 대응 점검",
       "same_event": false
     },
     "29ad721a16c702fb--51dcb7c7707f1ab4": {
@@ -69392,6 +69472,16 @@
       "right_title": "전력수급기본계획 원전 공론화위 출범…시민참여단 300명 숙의토론 진행",
       "same_event": true
     },
+    "2b32fc42d9118314--8333422a49b9812c": {
+      "embedding_similarity": 0.8548,
+      "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 회의와 시민단체 포럼 출범은 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "‘다른 질문 포럼’ 출범…원전 공론화委에 경제성·안전성 검증 촉구",
+      "same_event": false
+    },
     "2b32fc42d9118314--856ece66a5a22867": {
       "embedding_similarity": 0.851,
       "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
@@ -72237,9 +72327,9 @@
       "left_title": "미국 중간선거 민주당 상하원 장악, 한미 원자력 협력 및 안보 현안 변수",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "원자력 안보와 일반 통상 기고문",
-      "reviewed_at": "2026-11-09T00:49:09.505834+00:00",
-      "right_title": "[기고] 美 민주당이 바꿀 한국 통상의 셈법",
+      "reason": "원력 안보 현안과 통상 대응 과제",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 민주당 의회 장악에 따른 통상 압박과 대미 투자 대응 과제",
       "same_event": false
     },
     "2dacd868339c76de--34b54b6a74dfabbb": {
@@ -87352,6 +87442,16 @@
       "right_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
       "same_event": true
     },
+    "37b786f439394804--a8b060e1ef566646": {
+      "embedding_similarity": 0.879,
+      "left_title": "한수원 컨소시엄 체코 원전 시공계약 협상 결렬, 국내 건설업계 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 영향과 노조 의혹으로 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": false
+    },
     "37b786f439394804--ab015e3221c49ca5": {
       "embedding_similarity": 0.8416,
       "left_title": "한수원 컨소시엄 체코 원전 시공계약 협상 결렬, 국내 건설업계 영향 분석",
@@ -92752,6 +92852,16 @@
       "right_title": "송전탑 감축·지중화 확대 추진…사업비 증감 규모는 미산출",
       "same_event": false
     },
+    "3ad78c2cdef82036--e032844894d9da59": {
+      "embedding_similarity": 0.8886,
+      "left_title": "안호영 의원, 첨단산업 전력망 확충 위한 재원·인력 확보 시급 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 인물의 별개 주장을 다룸",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "한전 김동철 사장, 누적적자 34조원 해소 위해 전기요금 현실화 재강조",
+      "same_event": false
+    },
     "3ad78c2cdef82036--ee54b509a3645ee5": {
       "embedding_similarity": 0.8523,
       "left_title": "안호영 의원, 첨단산업 전력망 확충 위한 재원·인력 확보 시급 강조",
@@ -93680,6 +93790,16 @@
       "reason": "가스발전 추진과 원전 건설 합의",
       "reviewed_at": "2026-10-11T12:18:43.421842+00:00",
       "right_title": "산업통상부, 3500억달러 대미투자 첫 사업으로 텍사스 가스발전 추진",
+      "same_event": false
+    },
+    "3b43ac626245e470--f87d1683410b3ffe": {
+      "embedding_similarity": 0.881,
+      "left_title": "한국, 미국에 APR1400 2기 포함 신규 원전 8기 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 건설 합의 사건과 선거 영향 분석",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 민주당 승리에 따른 AI 데이터센터 규제 강화로 대미 원전 투자 불거져",
       "same_event": false
     },
     "3b43ac626245e470--f985b22592d4d4a8": {
@@ -95341,6 +95461,16 @@
       "reviewed_at": "2026-08-21T15:45:47.588382+00:00",
       "right_title": "뉴클레오, 美 MOX 핵연료 제조시설 규제 참여 계획 NRC에 제출",
       "same_event": false
+    },
+    "3cee9c1e732f8e6d--e9c136e895a0a4f1": {
+      "embedding_similarity": 0.9035,
+      "left_title": "미국 중간선거 민주당 상하원 장악, 한미 원자력 협력 및 안보 현안 변수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 중간선거 민주당 승리와 원자력 정책 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 중간선거 민주당 압승, 한국의 원자력추진잠수함 및 핵연료 정책에 부담",
+      "same_event": true
     },
     "3cf15d8e7645aa9c--79725fa37cfd1ddc": {
       "embedding_similarity": 0.8552,
@@ -142747,9 +142877,9 @@
       "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "미 원전 재가동과 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "66fe486e3027bb99--73c4651fc17e77c1": {
@@ -143561,6 +143691,16 @@
       "reviewed_at": "2026-11-08T00:49:11.776320+00:00",
       "right_title": "벨기에 정부와 엔지, 원자력 사업 인수 조건 합의 목표일 12월 12일로 연장",
       "same_event": true
+    },
+    "676079a6309ac357--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8852,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 건설 제동과 업계 반사이익 전망",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미·유럽 AI 데이터센터 규제 강화 속 한국의 반사이익 기대",
+      "same_event": false
     },
     "676cd380d609d954--a6bf269f3d5aa561": {
       "embedding_similarity": 0.8546,
@@ -152022,6 +152162,16 @@
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
       "same_event": true
     },
+    "6e44db3c17b19418--a8b060e1ef566646": {
+      "embedding_similarity": 0.8905,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 협상 종료 관련 논란",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": true
+    },
     "6e44db3c17b19418--b7b1b6698168e58c": {
       "embedding_similarity": 0.8668,
       "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
@@ -152867,9 +153017,9 @@
       "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "투자 보류 논란과 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "703e16d29669ed38--90e1a00489f1bafa": {
@@ -152877,9 +153027,9 @@
       "left_title": "AI 전력 수요 급증에 미국 폐쇄·노후 원전 가동 연장 추진",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "미 원전 연장과 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "703e16d29669ed38--992eaba96700ae56": {
@@ -152897,9 +153047,9 @@
       "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "미 규제 이슈와 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "703e16d29669ed38--e80f2115f548f738": {
@@ -152907,9 +153057,9 @@
       "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "미 정치 이슈와 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "703e16d29669ed38--ea028e339d281c6b": {
@@ -152917,9 +153067,9 @@
       "left_title": "미국 데이터센터 사업 3분기 17건 취소…주민 반대 48% 차지",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "미 사업 취소와 국내 반도체 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "703e16d29669ed38--f3b6090fdd9fab64": {
@@ -152927,9 +153077,9 @@
       "left_title": "글로벌 AI 데이터센터 2027년까지 45% 전력난으로 무산 위기",
       "model": "gemini-3.5-flash",
       "prompt_version": 1,
-      "reason": "서로 다른 사안 다룸",
-      "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
-      "right_title": "긴장하는 韓 반도체 기업들… HSBC “중단보다 이전 가능성”",
+      "reason": "글로벌 전력난 전망과 국내 영향",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 AI 데이터센터 규제 우려 속 국내 반도체 업계 HBM 수요 주시",
       "same_event": false
     },
     "70660ea6df92a32f--95ba4b23978a00e7": {
@@ -153931,6 +154081,16 @@
       "reviewed_at": "2026-10-29T09:42:30.192408+00:00",
       "right_title": "전력수급기본계획 원전 공론화위 출범…시민참여단 300명 숙의토론 진행",
       "same_event": true
+    },
+    "717681b89cdda7c3--8333422a49b9812c": {
+      "embedding_similarity": 0.8598,
+      "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화 착수와 시민포럼 출범 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "‘다른 질문 포럼’ 출범…원전 공론화委에 경제성·안전성 검증 촉구",
+      "same_event": false
     },
     "717681b89cdda7c3--86fff30fcf42c21b": {
       "embedding_similarity": 0.868,
@@ -160200,6 +160360,16 @@
       "reason": "체코 원전 시공사 계약 결렬 및 재협상",
       "reviewed_at": "2026-11-02T23:12:59.747038+00:00",
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
+      "same_event": true
+    },
+    "75c9ca256e559815--a8b060e1ef566646": {
+      "embedding_similarity": 0.8571,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 협상 결렬 및 교체 논란",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
       "same_event": true
     },
     "75c9ca256e559815--b08a3a24a25a2e97": {
@@ -173422,6 +173592,26 @@
       "right_title": "월가 은행들, 앤스로픽 연계 텍사스 데이터센터 150억 달러 대출 채권 발행 연기",
       "same_event": false
     },
+    "8333422a49b9812c--a25e1309b3b962ed": {
+      "embedding_similarity": 0.8522,
+      "left_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 시민단체 포럼 출범은 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "‘다른 질문 포럼’ 출범…원전 공론화委에 경제성·안전성 검증 촉구",
+      "same_event": false
+    },
+    "8333422a49b9812c--fc4a903519c6d88a": {
+      "embedding_similarity": 0.8745,
+      "left_title": "정부, AI·반도체 전력수요 대응 위한 12차 전기본 원전 공론화 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 공론화와 시민포럼 출범 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "‘다른 질문 포럼’ 출범…원전 공론화委에 경제성·안전성 검증 촉구",
+      "same_event": false
+    },
     "83372868654be274--8aa9dfed0bdd7533": {
       "embedding_similarity": 0.8673,
       "left_title": "美 NRC 직원 16% 감소에도 TVA SMR 건설허가 4개월 조기 완료",
@@ -183342,6 +183532,16 @@
       "right_title": "원전 소재 5개 지자체 협의회, 사용후핵연료 건식저장시설 지원대책 촉구",
       "same_event": true
     },
+    "8ec300ea196251f6--defb946df11da648": {
+      "embedding_similarity": 0.8793,
+      "left_title": "기장군의회, 경주 월성 원전 건식저장시설·방폐물 처분시설 현장 점검",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기장군의회 현장점검과 지자체협의회 건의",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "원전 소재 5개 지자체 협의회, 사용후핵연료 건식저장시설 지원대책 촉구",
+      "same_event": false
+    },
     "8ed0ddd8bfea6a7c--99f2916afcd7ec62": {
       "embedding_similarity": 0.8911,
       "left_title": "기후에너지환경부, 제12차 전기본 7차 정책토론회 18일 개최해 석탄발전 조기폐지 모색",
@@ -191892,6 +192092,16 @@
       "right_title": "체코 원전 사업, 현지 한인경제권 성장의 새 동력으로 부상 전망",
       "same_event": false
     },
+    "98fe30ce4f211836--a8b060e1ef566646": {
+      "embedding_similarity": 0.8668,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 협력 논의와 노조 의혹 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": false
+    },
     "98fe30ce4f211836--af498566d1a872e0": {
       "embedding_similarity": 0.887,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -192090,6 +192300,16 @@
       "reason": "개별 회담과 업계 동향",
       "reviewed_at": "2026-10-21T07:23:03.535892+00:00",
       "right_title": "'473억 달러' 진기록 K-건설, \"글로벌 회복기, '팀코리아' 똘똘 뭉쳐야\"",
+      "same_event": false
+    },
+    "98fe30ce4f211836--d52086427742e61f": {
+      "embedding_similarity": 0.8576,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 협력 논의와 학술대회 개최",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "경기도·한국유럽학회 추계학술대회 개최…한·체코 두코바니 원전 계약 조명",
       "same_event": false
     },
     "98fe30ce4f211836--db33b1b62a5a2379": {
@@ -195112,6 +195332,16 @@
       "right_title": "DOE, 콘스텔레이션 함대 업그레이드 지원",
       "same_event": true
     },
+    "9aa7e3cac0d94b77--ddb11f5156a7a1c5": {
+      "embedding_similarity": 0.8796,
+      "left_title": "미국 에너지부, 컨스텔레이션 원전 출력 증강에 50억 달러 조건부 대출 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "DOE 대출 승인과 NRC 계속운전 승인",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 NRC, 드레스덴 원전 2·3호기 80년 후속 계속운전 승인",
+      "same_event": false
+    },
     "9aa7e3cac0d94b77--dfbfdc276af5c65d": {
       "embedding_similarity": 0.882,
       "left_title": "미국 에너지부, 컨스텔레이션 원전 출력 증강에 50억 달러 조건부 대출 승인",
@@ -195201,6 +195431,16 @@
       "reviewed_at": "2026-11-04T03:11:52.120046+00:00",
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
       "same_event": true
+    },
+    "9b2079eef5023d61--a8b060e1ef566646": {
+      "embedding_similarity": 0.8952,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "계약 변동과 노조 의혹 제기로 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": false
     },
     "9b2079eef5023d61--ab015e3221c49ca5": {
       "embedding_similarity": 0.8442,
@@ -195350,6 +195590,16 @@
       "reason": "건설업계 동향 보도로 서로 다른 사안",
       "reviewed_at": "2026-11-04T19:06:43.080763+00:00",
       "right_title": "'473억 달러' 진기록 K-건설, \"글로벌 회복기, '팀코리아' 똘똘 뭉쳐야\"",
+      "same_event": false
+    },
+    "9b2079eef5023d61--d52086427742e61f": {
+      "embedding_similarity": 0.8446,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 계약 변동과 학술대회 개최는 별개",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "경기도·한국유럽학회 추계학술대회 개최…한·체코 두코바니 원전 계약 조명",
       "same_event": false
     },
     "9b2079eef5023d61--db33b1b62a5a2379": {
@@ -199661,6 +199911,16 @@
       "reviewed_at": "2026-11-09T01:16:28.755243+00:00",
       "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
       "same_event": true
+    },
+    "a2a59a20cb58dbb9--a8b060e1ef566646": {
+      "embedding_similarity": 0.9047,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬과 노조 의혹 제기로 다름",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
+      "same_event": false
     },
     "a2a59a20cb58dbb9--ab015e3221c49ca5": {
       "embedding_similarity": 0.8638,
@@ -204152,6 +204412,16 @@
       "right_title": "SK이노, LNG·SMR 활용 AI 에너지 솔루션 프로바이더 도약 추진",
       "same_event": false
     },
+    "a73b0ef4897a9bc2--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8798,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 규제 현황과 향후 규제 전개 전망",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "전문가, 미 중간선거 이후 AI 규제는 연방보다 주 단위 중심 전개 전망",
+      "same_event": false
+    },
     "a73e050bd4d851e8--cad7ad5a754410fe": {
       "embedding_similarity": 0.9075,
       "left_title": "과기정통부, SMR 선박 포함 'K-문샷 프로그램' 12대 미션 추진",
@@ -205390,6 +205660,16 @@
       "reason": "대통령 회의와 세종시 유치",
       "reviewed_at": "2026-10-08T20:51:49.090531+00:00",
       "right_title": "세종시, 2029년까지 7조 원 규모 360MW급 AI 데이터센터 유치",
+      "same_event": false
+    },
+    "a8b060e1ef566646--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8548,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 절차 개시와 시공사 교체 의혹은 다른 안건",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
       "same_event": false
     },
     "a8be7b36d039f96d--adfbe2085bf6c11e": {
@@ -222292,6 +222572,16 @@
       "right_title": "한미 양국, 대미투자 프레임워크 서명…APR1400 2기 미국 본토 건설 합의",
       "same_event": false
     },
+    "c3cca85e03c10169--f87d1683410b3ffe": {
+      "embedding_similarity": 0.8825,
+      "left_title": "한미 양국, 대미투자 프레임워크 서명…APR1400 2기 미국 본토 건설 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 투자 합의 사건과 선거 결과 분석",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "미국 민주당 승리에 따른 AI 데이터센터 규제 강화로 대미 원전 투자 불거져",
+      "same_event": false
+    },
     "c3cca85e03c10169--f985b22592d4d4a8": {
       "embedding_similarity": 0.8737,
       "left_title": "한미 양국, 대미투자 프레임워크 서명…APR1400 2기 미국 본토 건설 합의",
@@ -227950,6 +228240,16 @@
       "reason": "두코바니 원전 발언과 K-건설 동향으로 상이",
       "reviewed_at": "2026-10-27T02:31:18.147512+00:00",
       "right_title": "'473억 달러' 진기록 K-건설, \"글로벌 회복기, '팀코리아' 똘똘 뭉쳐야\"",
+      "same_event": false
+    },
+    "d36c679315a69891--d52086427742e61f": {
+      "embedding_similarity": 0.8607,
+      "left_title": "체코 대사 \"두코바니 원전은 양국 제조업 경쟁력 높이는 산업협력 플랫폼\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 대사 발언과 학술대회 개최",
+      "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
+      "right_title": "경기도·한국유럽학회 추계학술대회 개최…한·체코 두코바니 원전 계약 조명",
       "same_event": false
     },
     "d36c679315a69891--de522063f483be86": {
