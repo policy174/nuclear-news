@@ -1055,22 +1055,6 @@
    "off_topic": true,
    "off_topic_reason": "원자력 발전과 무관한 농업 분야 뉴스레터",
    "relevance": "policy"
-  },
-  {
-   "id": "7fb4f5ddcbc2",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Soils Newsletter Vol. 48 No. 2, January 2026",
-   "url": "http://www.iaea.org/publications/16066/soils-newsletter-vol-48-no-2-january-2026",
-   "date": "2026-05-13",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 토양 뉴스레터 제48권 제2호, 2026년 1월",
-   "gist": "토양 뉴스레터",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 농업/환경 분야 뉴스레터",
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1080,35 +1064,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-09T00:45:05+09:00",
+   "at": "2026-11-10T01:05:33+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
