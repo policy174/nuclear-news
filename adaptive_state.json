@@ -1316,6 +1316,14 @@
       "type": "plant",
       "until": "2026-11-19T01:16:43.090629+00:00"
     },
+    "추진하려던대미": {
+      "new_articles": 14,
+      "reason": "질의 횟수 소진",
+      "retired_at": "2026-11-10T21:11:28.345127+00:00",
+      "term": "추진하려던 대미",
+      "type": "plant",
+      "until": "2026-11-24T21:11:28.345127+00:00"
+    },
     "측이요구한": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1654,7 +1662,7 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 2,
     "date": "2026-11-11"
   },
   "terms": {
@@ -1675,11 +1683,11 @@
       "expires_at": "2026-11-11T04:08:52.562482+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-11-10T14:10:33.186035+00:00",
+      "last_run": "2026-11-10T21:11:28.345048+00:00",
       "new_articles": 4,
       "origin": "auto",
-      "planned_at": "2026-11-10T14:10:31.103069+00:00",
-      "queries_run": 4,
+      "planned_at": "2026-11-10T21:11:26.694537+00:00",
+      "queries_run": 5,
       "query": "장관이 대미 원전",
       "score": 3.6,
       "status": "extended",
@@ -1691,41 +1699,6 @@
         "2026-11-10"
       ],
       "yields": 2,
-      "zero_streak": 1
-    },
-    "추진하려던대미": {
-      "articles": 1,
-      "created_at": "2026-11-08T15:38:43.347586+00:00",
-      "domains": [
-        "khan.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "khan.co.kr",
-          "hash": "4377e09c0c86f5d4",
-          "importance": "must_read",
-          "title": "미국 민주당 압승에 한국 정부, 대미 원전 100억달러 선투입 재검토 직면"
-        }
-      ],
-      "expires_at": "2026-11-11T00:33:28.391481+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-10T14:10:33.186035+00:00",
-      "new_articles": 13,
-      "origin": "auto",
-      "planned_at": "2026-11-10T14:10:31.103069+00:00",
-      "queries_run": 7,
-      "query": "추진하려던 대미 원전",
-      "score": 3.6,
-      "status": "promote_candidate",
-      "term": "추진하려던 대미",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-11-09",
-        "2026-11-10"
-      ],
-      "yields": 5,
       "zero_streak": 2
     }
   },
