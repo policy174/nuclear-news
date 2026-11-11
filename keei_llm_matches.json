@@ -750,6 +750,13 @@
       "reason": "국가와 주체가 다름",
       "same_event": false
     },
+    "issue-17fed4f2a47f4806--841ceedbf0": {
+      "issue_title": "튀르키예 에너지부 장관, 신규 원전 사업 파트너로 한국·캐나다 유력 검토 시사",
+      "keei_item": "캐나다 정부, 신규 원전 건설 포함한 원자력 에너지 전략 발표",
+      "prompt_version": 1,
+      "reason": "신규 원전 사업 파트너 검토와 원전 건설 전략 발표는 다른 사안임",
+      "same_event": false
+    },
     "issue-189cc4c4e5021986--36d332f8d9": {
       "issue_title": "두산스코다파워, 핀란드 로비사 원전 현대화 사업 착수",
       "keei_item": "핀란드 Fortum, 스웨덴 Oskarshamn 신규원전 사업에 대한 국가보조 신청",
@@ -947,17 +954,17 @@
       "same_event": true
     },
     "issue-23c17f864827c377--b71c8ab2d7": {
-      "issue_title": "중국 하이양 원전 5호기 첫 콘크리트 타설, 본 건설 착수",
+      "issue_title": "중국 사나오 원전 4호기, 화룡원 노형 첫 콘크리트 타설",
       "keei_item": "중국, Bailong 원전 2호기 최초 콘크리트 타설",
       "prompt_version": 1,
-      "reason": "원전 명칭(하이양 vs Bailong)이 다름",
-      "same_event": false
+      "reason": "중국 사나오/화룡원과 Bailong 원전은 같은 원전으로 추정됨",
+      "same_event": true
     },
     "issue-23c17f864827c377--e0700959da": {
-      "issue_title": "중국 하이양 원전 5호기 첫 콘크리트 타설, 본 건설 착수",
+      "issue_title": "중국 사나오 원전 4호기, 화룡원 노형 첫 콘크리트 타설",
       "keei_item": "중국, Zhaoyuan 원전 2호기 최초 콘크리트 타설",
       "prompt_version": 1,
-      "reason": "원전 명칭(하이양 vs Zhaoyuan)이 다름",
+      "reason": "사나오 원전과 Zhaoyuan 원전은 다른 원전임",
       "same_event": false
     },
     "issue-23e8e803fb902bea--2f256ca9b0": {
@@ -1115,10 +1122,10 @@
       "same_event": false
     },
     "issue-27d14cf16f52ee9c--a50cc0c8f8": {
-      "issue_title": "미국 NRC, 엑스에너지 Xe-100 SMR 최종 안전성 평가 보고서 승인",
+      "issue_title": "미국 NRC, 엑스에너지 Xe-100 SMR 4기 건설 허가…두산에너빌리티 역할 주목",
       "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
       "prompt_version": 1,
-      "reason": "규제기관은 같으나 대상 기업과 사안이 다름",
+      "reason": "엑스에너지 SMR 건설 허가와 연료 제조 승인은 다른 사안임",
       "same_event": false
     },
     "issue-27e417353612169a--0330b81e50": {
@@ -5186,6 +5193,13 @@
       "keei_item": "한수원, 신규 대형원전 및 SMR 부지로 각각 경북 영덕군과 부산 기장군 선정",
       "prompt_version": 1,
       "reason": "A는 지자체 제안, B는 한수원 부지 선정임",
+      "same_event": false
+    },
+    "issue-ad241292c902204e--1925d37910": {
+      "issue_title": "일론 머스크 테라팹, 2032년까지 월 100만 장 웨이퍼 생산 로드맵 확정",
+      "keei_item": "일본 정부, 7차 에기본 실현을 위한 원자력 정책 로드맵 확정",
+      "prompt_version": 1,
+      "reason": "일론 머스크 로드맵과 일본 정부 로드맵은 관련 없음",
       "same_event": false
     },
     "issue-ad5a0787d9daf9c2--23abb7f7ab": {
