@@ -1162,6 +1162,16 @@
       "right_title": "미국 NRC, 엑스에너지 Xe-100 SMR 안전성 평가보고서 최종 승인",
       "same_event": false
     },
+    "0179181b1fac5b23--35c3d63fef377701": {
+      "embedding_similarity": 0.9081,
+      "left_title": "미국 NRC, X-energy SMR 건설 허가 발급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "엑스에너지 SMR 인허가 단계 보도",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, 엑스에너지 Xe-100 SMR 안전성 평가보고서 최종 승인",
+      "same_event": true
+    },
     "0179181b1fac5b23--ed694064177e417a": {
       "embedding_similarity": 0.8712,
       "left_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
@@ -10590,6 +10600,16 @@
       "reason": "우라늄 시설 허가와 NRC 규정 확정은 별개",
       "reviewed_at": "2026-10-24T16:28:59.103737+00:00",
       "right_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "same_event": false
+    },
+    "05c85509f6f0a3c0--35c3d63fef377701": {
+      "embedding_similarity": 0.9097,
+      "left_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "일반 규정 확정과 특정 기업 허가는 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, X-energy SMR 건설 허가 발급",
       "same_event": false
     },
     "05c85509f6f0a3c0--39fbd04f13a0bdd5": {
@@ -34140,6 +34160,16 @@
       "reason": "상업용 규칙 제정과 특정 원전 계속운전",
       "reviewed_at": "2026-10-25T10:49:17.743987+00:00",
       "right_title": "美 NRC, 세인트루시 원전 1·2호기 80년 계속운전 최종 승인",
+      "same_event": false
+    },
+    "137cb0e5139bfdfd--35c3d63fef377701": {
+      "embedding_similarity": 0.9098,
+      "left_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 규칙 확정과 특정 기업 승인은 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, X-energy SMR 건설 허가 발급",
       "same_event": false
     },
     "137cb0e5139bfdfd--39fbd04f13a0bdd5": {
@@ -58782,6 +58812,16 @@
       "right_title": "미국 중간선거, AI 데이터센터 전력·환경 규제 쟁점으로 부상",
       "same_event": false
     },
+    "22c55f243841d912--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8962,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 중간선거 후 AI 데이터센터 규제 이슈",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 중간선거, AI 데이터센터 전력·환경 규제 쟁점으로 부상",
+      "same_event": true
+    },
     "22cc2fae4f8c3cb5--dd3890cb8a9de4a4": {
       "embedding_similarity": 0.8803,
       "left_title": "한미 외교장관회담 18일 개최…대미 투자 및 원자력 협력 현안 논의 주목",
@@ -78632,6 +78672,16 @@
       "right_title": "FANCO, 고농축 저농축 우라늄(HALEU) 연료 시설 진전",
       "same_event": false
     },
+    "30cddcfd859de906--35c3d63fef377701": {
+      "embedding_similarity": 0.9014,
+      "left_title": "X-에너지 Xe-100 SMR, 핵심 안전성 검토 통과",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "엑스에너지 SMR의 NRC 인허가 승인 건",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, X-energy SMR 건설 허가 발급",
+      "same_event": true
+    },
     "30cddcfd859de906--622e98d8d7c56df6": {
       "embedding_similarity": 0.9074,
       "left_title": "X-에너지 Xe-100 SMR, 핵심 안전성 검토 통과",
@@ -79310,6 +79360,16 @@
       "reason": "한수원 원자력 교육 혁신 워크숍 보도",
       "reviewed_at": "2026-11-11T00:46:24.019640+00:00",
       "right_title": "한수원, 원자력 교육기관 협력체계 구축 및 2027년 실무협의체 정식 출범",
+      "same_event": true
+    },
+    "3180c4bcd0c21ec4--843f149c8aa53b5e": {
+      "embedding_similarity": 0.9176,
+      "left_title": "한수원, KAIST서 제1회 원자력 교육 혁신 워크숍 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한수원의 원자력 인재양성 교육 행사 보도",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "한수원, AI·i-SMR 시대 대비 원전 인재양성 위한 산학연 교육 협력 확대",
       "same_event": true
     },
     "3180c4bcd0c21ec4--bab4423e36ea6658": {
@@ -82842,6 +82902,16 @@
       "right_title": "트럼프 미국 대통령, 한국의 대미 조선 투자 및 원전 협력 언급",
       "same_event": false
     },
+    "3438c27c002364dd--35c3d63fef377701": {
+      "embedding_similarity": 0.8953,
+      "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 간소화 워크숍과 특정 허가는 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, X-energy SMR 건설 허가 발급",
+      "same_event": false
+    },
     "3438c27c002364dd--6e0e2111c5d3bbff": {
       "embedding_similarity": 0.8879,
       "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
@@ -84781,6 +84851,16 @@
       "reviewed_at": "2026-11-11T00:46:24.019640+00:00",
       "right_title": "X-에너지, 텍사스 원자로 프로젝트 NRC 안전성 검토 완료",
       "same_event": true
+    },
+    "35c3d63fef377701--787189b9430bc15e": {
+      "embedding_similarity": 0.9028,
+      "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 원전 건설 승인 건",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 NRC, X-energy SMR 건설 허가 발급",
+      "same_event": false
     },
     "35c3d63fef377701--cc13965be7da354e": {
       "embedding_similarity": 0.8978,
@@ -101082,6 +101162,36 @@
       "right_title": "체코, 두코바니 이어 테믈린 원전 사업도 한국과 협력 논의",
       "same_event": false
     },
+    "3ef13d708426344d--570ec94067e63142": {
+      "embedding_similarity": 0.8458,
+      "left_title": "한수원, 원안위에 월성 2·3·4호기 10년 계속운전 위한 운영변경 허가 신청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "월성원전 계속운전 신청과 이에 대한 반대",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "월성 2호기 수명만료 후 재가동 논란, 주민들 영구폐쇄 촉구",
+      "same_event": true
+    },
+    "3ef13d708426344d--77647ca0ae1f414b": {
+      "embedding_similarity": 0.8436,
+      "left_title": "한수원, 원안위에 월성 2·3·4호기 10년 계속운전 위한 운영변경 허가 신청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "월성원전 계속운전 신청과 지역단체 반대",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "월성원전 2호기 수명 연장 반대, 지역 환경단체 영구 폐쇄 요구",
+      "same_event": true
+    },
+    "3ef13d708426344d--f56f44180d47351e": {
+      "embedding_similarity": 0.8514,
+      "left_title": "한수원, 원안위에 월성 2·3·4호기 10년 계속운전 위한 운영변경 허가 신청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "신청 주체 및 요청 내용이 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "경주시, 월성 2호기 계속운전 주기 20년 연장 공식 요구",
+      "same_event": false
+    },
     "3ef91ec475d5f54a--4a9cf3ea15d8dc1c": {
       "embedding_similarity": 0.8614,
       "left_title": "삼성물산, 카이로스 파워에 1억 달러 투자 및 EPC 협력",
@@ -101451,6 +101561,16 @@
       "reviewed_at": "2026-11-08T00:49:11.776320+00:00",
       "right_title": "美 중간선거 결과, AI 산업 규제 강화 변수로 작용 가능성",
       "same_event": false
+    },
+    "3f5d78931fa31362--fbe704edbf03e77f": {
+      "embedding_similarity": 0.9085,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 중간선거 후 AI 규제 영향 분석",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "美 중간선거 결과, AI 산업 규제 강화 변수로 작용 가능성",
+      "same_event": true
     },
     "3f6532c4f89cb58f--fa47bccd9d09faef": {
       "embedding_similarity": 0.8676,
@@ -132342,6 +132462,16 @@
       "right_title": "새울 3호기 시운전 중 원자로 수동정지, 사건조사 착수",
       "same_event": true
     },
+    "5a18b01d8ae522db--89245c34a9b1ae65": {
+      "embedding_similarity": 0.8428,
+      "left_title": "자포리자 원전, 외부 전력 공급 상실로 비상 발전기 재가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 상실과 드론 공격 피해는 별개 사건",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "IAEA, 자포리자 원전 및 인근 화력발전소 드론 공격으로 2명 사망 확인",
+      "same_event": false
+    },
     "5a1a06a2525631b1--717681b89cdda7c3": {
       "embedding_similarity": 0.8572,
       "left_title": "AI 발 전력 수요 급증에 따른 원전 비중 국민 공론화 착수",
@@ -135142,6 +135272,16 @@
       "right_title": "산업부, 제12차 전기본 원전 계속운전 및 신규 건설 검토",
       "same_event": false
     },
+    "5c4ba3eeafe688ca--ff3861b0d07a3bad": {
+      "embedding_similarity": 0.915,
+      "left_title": "에스토니아, 첫 BWRX-300 SMR 건설 부지 3곳 최종 후보지로 선정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "에스토니아 SMR 부지 3곳 선정 동일 사건",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "에스토니아, 원전 부지 후보지 3곳으로 압축",
+      "same_event": true
+    },
     "5c525d7d86f08757--dcb01ec8f4a23259": {
       "embedding_similarity": 0.8631,
       "left_title": "DL이앤씨, 미국 엑스에너지와 SMR 표준화 설계 계약 체결",
@@ -135879,6 +136019,16 @@
       "prompt_version": 1,
       "reason": "원전 투자 보류와 AI 종목 매도 전망",
       "reviewed_at": "2026-11-08T02:27:38.530043+00:00",
+      "right_title": "\"美중간선거 '블루 웨이브' 되면 AI 종목 매도세 확산 가능성\"",
+      "same_event": false
+    },
+    "5d77ebfa1483e768--fbe704edbf03e77f": {
+      "embedding_similarity": 0.918,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력망 영향 분석과 주가 전망으로 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
       "right_title": "\"美중간선거 '블루 웨이브' 되면 AI 종목 매도세 확산 가능성\"",
       "same_event": false
     },
@@ -144289,6 +144439,16 @@
       "prompt_version": 1,
       "reason": "데이터센터 규제와 국내 증시 영향은 별개",
       "reviewed_at": "2026-11-08T18:48:42.954113+00:00",
+      "right_title": "美 중간선거 결과, 국내 증시 영향 주목…원전·방산 등 업종별 수혜/부담 엇갈릴 듯",
+      "same_event": false
+    },
+    "666b1fb6c7c0139f--fbe704edbf03e77f": {
+      "embedding_similarity": 0.9046,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "데이터센터 전력망과 국내 증시 영향 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
       "right_title": "美 중간선거 결과, 국내 증시 영향 주목…원전·방산 등 업종별 수혜/부담 엇갈릴 듯",
       "same_event": false
     },
@@ -163040,6 +163200,16 @@
       "reason": "대미 원전 투자 보류와 오픈AI의 투자 의지",
       "reviewed_at": "2026-11-08T13:05:28.726236+00:00",
       "right_title": "오픈AI CFO, AI 데이터센터 투자 지속 의지 표명…규제 우려 돌파",
+      "same_event": false
+    },
+    "75afc3c27967f40d--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8939,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류 논란과 일반 분석으로 다름",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
       "same_event": false
     },
     "75c9ca256e559815--82cd0841007bf49d": {
@@ -183030,6 +183200,16 @@
       "reason": "사업 확정과 외교 장관의 협의 추진",
       "reviewed_at": "2026-11-08T13:05:28.726236+00:00",
       "right_title": "조현 외교부 장관, G7 참석 및 美 국무장관과 핵잠·핵연료 협의 추진",
+      "same_event": false
+    },
+    "8a95eeb231599574--d17c8d93d695634c": {
+      "embedding_similarity": 0.8939,
+      "left_title": "조현 외교부 장관, G7 참석 및 美 국무장관과 핵잠·핵연료 협의 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "G7 계기 서로 다른 국가와의 회담",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "조현 외교부 장관, G7 계기 프랑스·사우디 외교장관과 원전 등 협력 논의",
       "same_event": false
     },
     "8a993fa32456abc0--9b85b2a6e2593847": {
@@ -213192,6 +213372,16 @@
       "right_title": "국가 AI 인프라 구축, 전력망·기술 확보 과제 직면",
       "same_event": true
     },
+    "af425999c19574ba--bf68bdfc0248fbea": {
+      "embedding_similarity": 0.9102,
+      "left_title": "한빛2호기 원자로 내부 구조물서 설계 요건 미달 선형 흔적 발견",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한빛 2호기 노심 구조물 흔적 발견",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "한빛원전 2호기 노심지지통 용접부서 선 모양 흔적 발견",
+      "same_event": true
+    },
     "af425999c19574ba--cce56d67eed872f4": {
       "embedding_similarity": 0.8525,
       "left_title": "한빛2호기 원자로 내부 구조물서 설계 요건 미달 선형 흔적 발견",
@@ -237531,6 +237721,16 @@
       "reviewed_at": "2026-11-11T00:21:03.633251+00:00",
       "right_title": "美 데이터센터 규제 우려 속 韓 건설주, 반사이익 기대",
       "same_event": false
+    },
+    "e80f2115f548f738--fbe704edbf03e77f": {
+      "embedding_similarity": 0.9069,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 중간선거 후 AI 데이터센터 규제 전망",
+      "reviewed_at": "2026-11-11T02:56:16.486703+00:00",
+      "right_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "same_event": true
     },
     "e811c043672c6967--efa4b4ceafb77c3c": {
       "embedding_similarity": 0.8438,
