@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-12T07:20:17.493333+09:00",
+ "generated_at": "2026-11-12T12:46:44.089989+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
    "count_now": 178,
    "count_prev": 162,
-   "direction": "미국에서는 데이터센터 인허가 절차 간소화 움직임과 함께 AI 경쟁력 확보를 위한 전력 및 냉각 효율성, 주민 수용성 확보가 중요해지고 있습니다. 국내에서는 이동통신 3사가 실적과 무관하게 AI 데이터센터 투자를 지속하며 관련 기술 개발에 집중하고 있습니다. 한편, 평촌 데이터센터는 전력망 접속 지연 및 소음 문제로 주민 갈등이 심화되는 양상입니다. (evidence_idx: [0, 1, 4, 5, 6])",
+   "direction": "국내외적으로 데이터센터의 인허가 절차 간소화 논의가 진행되는 가운데, AI 경쟁의 핵심이 전력 확보와 데이터센터의 효율성으로 전환되고 있습니다. 이로 인해 전력 인프라 투자 확대와 함께 전력망 접속 지연, 소음 발생 등 주민 수용성 문제가 주요 과제로 부상하고 있습니다.",
    "evidence": [
     {
      "hash": "ffb241299901b3cc",
@@ -18,6 +18,12 @@
      "hash": "f1fc9a8aa97cb916",
      "title_kr": "AI 경쟁력, GPU 넘어 전력·데이터센터 효율성으로 전환",
      "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01646566645645064",
+     "date": "2026-11-12"
+    },
+    {
+     "hash": "1a54486cef0f000a",
+     "title_kr": "효성중공업, AI 데이터센터발 미국 전력 인프라 투자 수혜",
+     "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611111421468180608",
      "date": "2026-11-12"
     },
     {
@@ -33,9 +39,9 @@
      "date": "2026-11-12"
     },
     {
-     "hash": "e840cb5affb8e259",
-     "title_kr": "美 블루웨이브에 전력망·조선 호재, 자동차는 악화 우려",
-     "url": "https://www.donga.com/news/Economy/article/all/20261110/135001698/2",
+     "hash": "2765da1774ab20b8",
+     "title_kr": "주요 그룹, 에너지 사업 강화…AI 전력 수요 대응 총력",
+     "url": "https://www.chosun.com/economy/industry-company/2026/11/11/5B7GW3DWI5BRHFCQM37DS7362Q",
      "date": "2026-11-11"
     }
    ]
@@ -44,7 +50,7 @@
    "keyword": "SMR",
    "count_now": 117,
    "count_prev": 189,
-   "direction": "미국에서는 텍사스주에 건설될 SMR 플랜트에 대한 최초 건설 허가가 발급되는 등 상용화가 가속화되고 있으며, 이는 미래 전력 믹스의 핵심으로 부상하고 있습니다. SK이노베이션은 미국 테라파워 SMR 현장 IR 활동을 통해 외국인 지분율 상승을 이끌었습니다. 한국의 미래 성장 동력으로 SMR이 포함되어 있습니다. (evidence_idx: [0, 1, 3, 5, 6, 7])",
+   "direction": "미국에서는 원자력규제위원회(NRC)가 텍사스주에 소형모듈원자로(SMR) 건설 허가를 발급하며 SMR 상용화의 중요한 이정표를 세웠습니다. 국내외적으로 SMR은 AI 기술 접목과 에너지 수요 증가에 힘입어 미래 전력 믹스의 핵심으로 부상하며 관련 투자와 기술 개발이 활발히 진행되고 있습니다.",
    "evidence": [
     {
      "hash": "40a3c7103fa89ee1",
@@ -62,6 +68,12 @@
      "hash": "9daf3d096927d6af",
      "title_kr": "미국 NRC, 텍사스 SMR 플랜트 건설 허가 최초 발급",
      "url": "https://www.world-nuclear-news.org/articles/us-issues-landmark-construction-permit-for-texas-smr-plant",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "9550e315af3e90cd",
+     "title_kr": "미 NRC, 텍사스 부지 소형모듈원전 4기 건설 허가…최종 결정은 남아",
+     "url": "https://www.tokenpost.kr/news/breaking/436032",
      "date": "2026-11-11"
     },
     {
@@ -88,12 +100,18 @@
    "keyword": "AI",
    "count_now": 82,
    "count_prev": 82,
-   "direction": "AI 경쟁의 중심이 GPU 확보에서 전력 및 데이터센터 효율성으로 이동하고 있으며, 미국에서는 AI 사용 급증으로 인한 전력 수요 증가가 전망되고 있습니다. 이러한 AI 인프라 투자 확대는 미국 전력 인프라 투자 확대와 효성중공업의 실적 호조로 이어지고 있습니다. 국내 이동통신 3사 역시 AI 데이터센터 투자를 지속하며 관련 기술 개발에 집중하고 있습니다. (evidence_idx: [0, 2, 3, 4, 7])",
+   "direction": "AI 기술 발전은 전력 수요를 급증시키며, 미국에서는 2026-2027년 전력 수요가 사상 최고치를 기록할 것으로 전망됩니다. 이에 따라 AI 경쟁의 핵심이 전력 확보와 데이터센터의 효율성, 냉각 기술로 전환되고 있으며, SMR과 같은 미래 전력 기술이 AI 시대의 에너지 수요를 충족시키는 중요한 요소로 부상하고 있습니다.",
    "evidence": [
     {
      "hash": "f1fc9a8aa97cb916",
      "title_kr": "AI 경쟁력, GPU 넘어 전력·데이터센터 효율성으로 전환",
      "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01646566645645064",
+     "date": "2026-11-12"
+    },
+    {
+     "hash": "60e9fc8e40f137db",
+     "title_kr": "AI 인프라 투자 둔화 시 한국 수출 직격탄 우려",
+     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503172",
      "date": "2026-11-12"
     },
     {
@@ -115,6 +133,12 @@
      "date": "2026-11-11"
     },
     {
+     "hash": "418935898955ed58",
+     "title_kr": "SMR, AI 기술 접목으로 상용화 현실화…미래 전력 믹스의 핵심 부상",
+     "url": "https://www.powermag.com/the-rise-of-smrs-making-the-case-for-industrial-ai-across-the-nuclear-lifecycle",
+     "date": "2026-11-11"
+    },
+    {
      "hash": "c0c04416d6731948",
      "title_kr": "미국 전력 수요, AI 사용 급증으로 2026-2027년 기록 경신 전망",
      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNU09qSWZoX25keGl3bHdyUmFDbFdzUTlTZU84enJuQUlwZDFvejlwNWxiQmVTeC1LWGtLXzMwakppdm9zZkRaUDJOWG1GaVVsdFl3cGZDYmVuZHEtMl9SbzBaVXhqTUVwbDBuVDRMaTkzNGFYeGlZSXpnR1FaMzdCamNONk9wbHJod0tsc0hvaDFjRWFDUU1HcVdQTVFaNXJiaVVNUzRMNmkzd3ZwUU5nbHY2X2taRnpISXc?oc=5",
@@ -126,8 +150,20 @@
    "keyword": "AI데이터센터",
    "count_now": 72,
    "count_prev": 76,
-   "direction": "AI 데이터센터 구축에 필수적인 전력반도체 소재 기업 제엠제코가 투자를 유치했으며, 조선업계는 AI 데이터센터의 전력 수요 증가에 맞춰 육상 발전 엔진 시장 공략을 가속화하고 있습니다. 스페이스X는 텍사스에 AI 데이터센터와 자체 가스발전소를 건설하며 전력 확보 전략을 추진하고 있습니다. AMD는 6세대 에픽 CPU 출시로 AI 데이터센터 시장 공략을 강화하고 있습니다. (evidence_idx: [2, 3, 6, 7])",
+   "direction": "AI 데이터센터 구축을 위한 전력 인프라 수요가 견조하게 유지되며, 변압기 및 전력설비 관련 투자가 활발합니다. 전력 확보가 핵심 과제로 부상함에 따라 스페이스X의 자체 발전소 구축 사례처럼 다양한 전력 조달 방안이 모색되고 있으며, 국내 지자체들도 AI 데이터센터 조성을 위한 인프라 확충 논의를 진행하고 있습니다.",
    "evidence": [
+    {
+     "hash": "2eeaca7e86b512a3",
+     "title_kr": "AI 데이터센터 수요 견조…반도체·전력설비주 저가 매수 유입",
+     "url": "https://www.thefairnews.co.kr/news/articleView.html?idxno=93710",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "9b091c325a6eec48",
+     "title_kr": "삼성SDI·LG엔솔, BMW 차세대 배터리 공급…미국 전력 수요 증가 겨냥",
+     "url": "http://www.issuenbiz.com/news/articleView.html?idxno=81439",
+     "date": "2026-11-11"
+    },
     {
      "hash": "6c164dc4ccd2f847",
      "title_kr": "스페이스X, 텍사스에 32조원 AI 데이터센터 건설…자체 가스발전소도 구축",
@@ -138,6 +174,18 @@
      "hash": "73f1c1407b6c0187",
      "title_kr": "AI 데이터센터용 전력반도체 소재 기업 제엠제코, 150억 투자 유치",
      "url": "https://www.thebell.co.kr/free/content/ArticleView.asp?key=202611090806042980103752",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "3159d946b7df1343",
+     "title_kr": "강원도, 국회에 AI 데이터센터 연계 고전력 평가시스템 등 국비 138억 추가 요청",
+     "url": "https://www.viva100.com/article/20261111500026",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "2ba002ed56d53619",
+     "title_kr": "제주권, AI 데이터센터 조성 등 전략산업 육성 위한 예타 면제 전략 논의",
+     "url": "https://www.jejudomin.co.kr/news/articleView.html?idxno=402233",
      "date": "2026-11-11"
     },
     {
@@ -158,7 +206,7 @@
    "keyword": "전력수요",
    "count_now": 65,
    "count_prev": 47,
-   "direction": "AI 사용 급증으로 인해 미국 전력 수요가 2026-2027년에 사상 최고치를 경신할 것으로 전망되며, 이는 국가 전력망 재설계의 시급성을 부각시키고 있습니다. 정부는 호남 반도체 클러스터 전력망 착공 계획을 발표했으나 변압기 수급난 등 난관이 예상됩니다. 또한, 3대 메가 프로젝트 현실화 시 전력 수요가 29% 증가할 것으로 전망됩니다. (evidence_idx: [0, 3, 5, 6])",
+   "direction": "AI 및 반도체 산업의 급증으로 국내외 전력 수요가 크게 증가하고 있으며, 미국은 2026-2027년에 사상 최고치를 기록할 것으로 전망됩니다. 국내에서는 첨단산업 단지의 전력 공급을 위한 송전망 구축이 시급하며, 고속도로 부지 활용 등 다양한 전력망 확충 방안이 검토되는 가운데 국가 전력망 재설계와 병목 현상 해소가 주요 과제로 부상하고 있습니다.",
    "evidence": [
     {
      "hash": "cdf538cf49f3aee6",
@@ -167,9 +215,21 @@
      "date": "2026-11-12"
     },
     {
+     "hash": "f1fc9a8aa97cb916",
+     "title_kr": "AI 경쟁력, GPU 넘어 전력·데이터센터 효율성으로 전환",
+     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01646566645645064",
+     "date": "2026-11-12"
+    },
+    {
      "hash": "c0c04416d6731948",
      "title_kr": "미국 전력 수요, AI 사용 급증으로 2026-2027년 기록 경신 전망",
      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNU09qSWZoX25keGl3bHdyUmFDbFdzUTlTZU84enJuQUlwZDFvejlwNWxiQmVTeC1LWGtLXzMwakppdm9zZkRaUDJOWG1GaVVsdFl3cGZDYmVuZHEtMl9SbzBaVXhqTUVwbDBuVDRMaTkzNGFYeGlZSXpnR1FaMzdCamNONk9wbHJod0tsc0hvaDFjRWFDUU1HcVdQTVFaNXJiaVVNUzRMNmkzd3ZwUU5nbHY2X2taRnpISXc?oc=5",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "74a87cd7bb6885fc",
+     "title_kr": "고속도로 활용 송전망 구축, 안전성·경제성 검증 필요",
+     "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611101802493110470",
      "date": "2026-11-11"
     },
     {
@@ -183,6 +243,12 @@
      "title_kr": "제12차 전력수급기본계획, '3대 메가' 현실화 시 전력수요 29%↑ 전망",
      "url": "https://www.news1.kr/economy/trend/6350218",
      "date": "2026-11-11"
+    },
+    {
+     "hash": "6c25ecac87cd8d2c",
+     "title_kr": "에너지경제연구원, 2026 KGU 에너지 컨퍼런스 개최…LNG 공급망 및 AI 전력 안보 논의",
+     "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=229652",
+     "date": "2026-11-11"
     }
    ]
   },
@@ -190,13 +256,19 @@
    "keyword": "전력망",
    "count_now": 63,
    "count_prev": 42,
-   "direction": "AI 및 반도체 산업의 전력 수요 급증에 대응하기 위해 국가 전력망 재설계가 시급하다는 지적이 있으며, AI 데이터센터 접속 신청량 대비 공급 확정 용량은 낮은 수준입니다. 정부는 호남 반도체 클러스터 전력망 착공 계획을 발표했으나 변압기 수급난 등 난관이 예상됩니다. 리투아니아는 안보 위협 대응을 위해 전력망 분산화를 추진하고 있습니다. (evidence_idx: [0, 2, 3, 4])",
+   "direction": "국내외적으로 AI 및 반도체 산업의 급증하는 전력 수요에 대응하기 위한 전력망 확충이 시급한 과제로 부상하고 있습니다. 국내에서는 호남 반도체 클러스터 송전선로 구축과 같은 인프라 확충이 추진되지만, 주민 반발과 전력 공급 계약 해지 등으로 난항을 겪고 있으며, AI 데이터센터의 전력망 접속 문제 해결과 전력망 분산화 논의가 활발히 진행되고 있습니다.",
    "evidence": [
     {
      "hash": "cdf538cf49f3aee6",
      "title_kr": "정부, 호남 반도체 클러스터 전력망 내년 1월 착공해 3년 내 완공 계획 발표",
      "url": "https://www.chosun.com/economy/industry-company/2026/11/12/H55UOU4A3ZAXNJ5LTWVIPUDMQQ",
      "date": "2026-11-12"
+    },
+    {
+     "hash": "fbe704edbf03e77f",
+     "title_kr": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+     "url": "https://www.inthenews.co.kr/news/article.html?no=94297",
+     "date": "2026-11-11"
     },
     {
      "hash": "c7f60b07855249d1",
@@ -214,6 +286,24 @@
      "hash": "d002221b86b16feb",
      "title_kr": "AI 데이터센터 접속 신청 63.9GW…공급 확정은 4% 그쳐",
      "url": "http://www.metroseoul.co.kr/article/20261111500175",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "dbf62a801adf5f40",
+     "title_kr": "기후에너지환경부, 동서울변환소 증설 이달 내 미합의시 법적 추진",
+     "url": "https://www.chosun.com/economy/economy_general/2026/11/11/72T326LJPJENBB2H77YRE4OATI",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "a23a02d3e68d4824",
+     "title_kr": "GS건설 용인 데이터센터, 전력 공급 계약 해지 및 개발행위허가 재심의로 난항",
+     "url": "https://www.newsis.com/view/NISX20261111_0003863959",
+     "date": "2026-11-11"
+    },
+    {
+     "hash": "6e5e731c3574bb69",
+     "title_kr": "충남도의회, 데이터센터 건립 시 전력·계통 부담 엄밀 검토 촉구",
+     "url": "https://www.cctoday.co.kr/news/articleView.html?idxno=2240070",
      "date": "2026-11-11"
     }
    ]
