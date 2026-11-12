@@ -4832,6 +4832,16 @@
       "right_title": "튀르키예 에너지부 장관, 신규 원전 사업 파트너로 한국·캐나다 유력 검토 시사",
       "same_event": false
     },
+    "030f0bc8c91f08c3--40b6292cd951cd15": {
+      "embedding_similarity": 0.8869,
+      "left_title": "캐나다-튀르키예, 원자력 협력 포함 전략적 파트너십 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 간 협정과 기업 간 협력 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "캐나다 AtkinsRéalis, 튀르키예와 원자력 기술 협력 강화",
+      "same_event": false
+    },
     "030f0bc8c91f08c3--5d274c23d617ac63": {
       "embedding_similarity": 0.8996,
       "left_title": "캐나다-튀르키예, 원자력 협력 포함 전략적 파트너십 체결",
@@ -11760,6 +11770,36 @@
       "reason": "정부 보고와 업계 전망",
       "reviewed_at": "2026-10-03T20:53:33.343621+00:00",
       "right_title": "美 원전 8기 발주 임박…두산에너빌리티, AP1000·SMR 사업 확대 기대",
+      "same_event": false
+    },
+    "05d36e28f46247da--66fe486e3027bb99": {
+      "embedding_similarity": 0.8482,
+      "left_title": "미국, AI 전력 수요 대응 위해 가동 중단 원전 재가동 검토",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 재가동과 물가·긴축 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "美 물가, 에너지 넘어 서비스·AI로 확산…연준 긴축 부담 가중",
+      "same_event": false
+    },
+    "05d36e28f46247da--90e1a00489f1bafa": {
+      "embedding_similarity": 0.8462,
+      "left_title": "AI 전력 수요 급증에 미국 폐쇄·노후 원전 가동 연장 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 가동 연장과 물가·긴축 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "美 물가, 에너지 넘어 서비스·AI로 확산…연준 긴축 부담 가중",
+      "same_event": false
+    },
+    "05d36e28f46247da--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8612,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 경제·전력 이슈",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "美 물가, 에너지 넘어 서비스·AI로 확산…연준 긴축 부담 가중",
       "same_event": false
     },
     "05d557e05ed0cdf0--47037b4edddb145c": {
@@ -22100,6 +22140,16 @@
       "reason": "포럼 논의와 중동 플랜트 수주 확대는 별개",
       "reviewed_at": "2026-11-07T22:35:19.234180+00:00",
       "right_title": "민관, 중동 플랜트 수주 확대 추진…2025년 체코 두코바니 원전 수주 언급",
+      "same_event": false
+    },
+    "0bf21d2504f9cd0e--3cfe3369edbf4cc2": {
+      "embedding_similarity": 0.843,
+      "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미래포럼 개최 및 논의 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
       "same_event": false
     },
     "0bf21d2504f9cd0e--3d2c3fdb5faa2382": {
@@ -50342,6 +50392,16 @@
       "right_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
       "same_event": false
     },
+    "1ca6341a330daf35--3cfe3369edbf4cc2": {
+      "embedding_similarity": 0.8921,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 정부의 후속 조치",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
     "1ca6341a330daf35--3d2c3fdb5faa2382": {
       "embedding_similarity": 0.8797,
       "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
@@ -59982,6 +60042,16 @@
       "right_title": "한수원, 체코 두코바니 원전 시공사 협상 결렬로 새 시공사 선정 추진",
       "same_event": true
     },
+    "234fe8a2f17b5bce--3cfe3369edbf4cc2": {
+      "embedding_similarity": 0.8859,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬에 따른 후속 단계 전환",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
     "234fe8a2f17b5bce--3eef3e672304bc8f": {
       "embedding_similarity": 0.8455,
       "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
@@ -61340,6 +61410,16 @@
       "reason": "동일 공론화위 추진 경과",
       "reviewed_at": "2026-10-22T19:25:07.343592+00:00",
       "right_title": "원전 공론화위원회, 전문가 9명 구성해 12월 숙의토론 추진",
+      "same_event": true
+    },
+    "24145db32d82fc32--40b6292cd951cd15": {
+      "embedding_similarity": 0.8813,
+      "left_title": "캐나다 마크 카니, 아킨스레일리스의 튀르키예 원전 건설 참여 가능성 언급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "튀르키예 원전 협력 관련 발언 및 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "캐나다 AtkinsRéalis, 튀르키예와 원자력 기술 협력 강화",
       "same_event": true
     },
     "24145db32d82fc32--57b62d2e5e8c9517": {
@@ -68980,6 +69060,16 @@
       "reason": "베트남 원전 협력 논의",
       "reviewed_at": "2026-09-08T06:57:11.751282+00:00",
       "right_title": "한 총리, 베트남에 한국 에너지·원전 기업 진출 지원 요청",
+      "same_event": true
+    },
+    "299c5ebfdbb48383--3cfe3369edbf4cc2": {
+      "embedding_similarity": 0.8927,
+      "left_title": "체코 원전 사업, 시공 계약 지연으로 '팀코리아' 신뢰도 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협상 결렬에 따른 후속 보도",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
       "same_event": true
     },
     "299c5ebfdbb48383--481508d0f819c0fc": {
@@ -98801,6 +98891,106 @@
       "reviewed_at": "2026-10-18T22:44:10.783427+00:00",
       "right_title": "ESS 신규 수주 목표 90GWh 달성 기대…배터리주 반등 전망",
       "same_event": false
+    },
+    "3cfe3369edbf4cc2--5e14bf6e70d9a886": {
+      "embedding_similarity": 0.8609,
+      "left_title": "체코 테믈린 원전 수주 전초전…美·佛 견제 속 한국 우선협상권 흔들",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "테믈린 원전 수주 관련 별개 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": false
+    },
+    "3cfe3369edbf4cc2--6e44db3c17b19418": {
+      "embedding_similarity": 0.8731,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 과정의 내부 후속 이슈",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
+    "3cfe3369edbf4cc2--75c9ca256e559815": {
+      "embedding_similarity": 0.8534,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 전력 수요 전망 동향",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": false
+    },
+    "3cfe3369edbf4cc2--98fe30ce4f211836": {
+      "embedding_similarity": 0.8716,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "양국 간 별도 협력 회담 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": false
+    },
+    "3cfe3369edbf4cc2--9b2079eef5023d61": {
+      "embedding_similarity": 0.8773,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 계약 결렬 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
+    "3cfe3369edbf4cc2--a2a59a20cb58dbb9": {
+      "embedding_similarity": 0.8934,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
+    "3cfe3369edbf4cc2--b851201523b44ceb": {
+      "embedding_similarity": 0.9012,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
+    "3cfe3369edbf4cc2--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8587,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 건설 인허가 절차 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": false
+    },
+    "3cfe3369edbf4cc2--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8609,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 후 신규 시공사 선정 입장",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
+    },
+    "3cfe3369edbf4cc2--ee8d849600c1e2fa": {
+      "embedding_similarity": 0.8671,
+      "left_title": "산업부, 체코 원전사업 비상관리체제 가동…매주 진행상황 점검",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬에 따른 산업부 후속 대응",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": true
     },
     "3d01f28d61498fd1--c2e6d326513ee0aa": {
       "embedding_similarity": 0.8879,
@@ -166770,6 +166960,16 @@
       "reason": "서로 다른 시기/주체",
       "reviewed_at": "2026-09-11T22:06:52.895628+00:00",
       "right_title": "한·프 기업인, SMR 핵심부품 등 전략산업 협력 가능성 모색",
+      "same_event": false
+    },
+    "76a8b1b821bcc206--e032844894d9da59": {
+      "embedding_similarity": 0.8485,
+      "left_title": "한전 김동철 사장, 누적적자 34조원 해소 위해 전기요금 현실화 재강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "요금 인상 주장과 실적 발표 사안",
+      "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
+      "right_title": "한전, 연료비 급등으로 영업이익 70% 급감…4분기 적자 예상",
       "same_event": false
     },
     "76bbb9f943f08ee2--79168fd7c5b4bf97": {
