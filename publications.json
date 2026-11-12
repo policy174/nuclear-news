@@ -110,6 +110,21 @@
    "translated_version": 3
   },
   {
+   "id": "9c7c915aaf30",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "IAEA World Fusion Outlook 2026",
+   "url": "http://www.iaea.org/publications/16135/iaea-world-fusion-outlook-2026",
+   "date": "2026-09-30",
+   "fetched_at": "2026-11-13",
+   "title_kr": "국제원자력기구(IAEA) 세계 핵융합 전망 2026",
+   "gist": "2026년까지 핵융합 에너지 분야의 국제적 전망 및 동향",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "37958b860c55",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -1078,35 +1093,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": true,
    "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-12T01:29:30+09:00",
+   "at": "2026-11-13T00:57:59+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
