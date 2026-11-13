@@ -268,6 +268,14 @@
       "type": "org",
       "until": "2026-11-06T03:00:33.493433+00:00"
     },
+    "경북연구원": {
+      "new_articles": 2,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-13T10:09:09.252198+00:00",
+      "term": "경북연구원",
+      "type": "org",
+      "until": "2026-11-27T10:09:09.252198+00:00"
+    },
     "경상북도개발공사": {
       "new_articles": 0,
       "reason": "성과 없음",
@@ -1630,7 +1638,7 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 5,
     "date": "2026-11-13"
   },
   "terms": {
@@ -1664,12 +1672,12 @@
       ],
       "expires_at": "2026-11-14T21:42:42.364519+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-11-13T04:09:07.256725+00:00",
-      "new_articles": 1,
+      "last_result_count": 2,
+      "last_run": "2026-11-13T10:09:10.280279+00:00",
+      "new_articles": 3,
       "origin": "auto",
-      "planned_at": "2026-11-13T04:09:05.384090+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-13T10:09:09.252198+00:00",
+      "queries_run": 3,
       "query": "OSART 원자력",
       "score": 4.6,
       "status": "extended",
@@ -1679,56 +1687,8 @@
       "yield_days": [
         "2026-11-13"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
-    },
-    "경북연구원": {
-      "articles": 3,
-      "created_at": "2026-11-12T09:54:07.936235+00:00",
-      "domains": [
-        "dnews.co.kr",
-        "ekn.kr",
-        "kbmaeil.com"
-      ],
-      "evidence": [
-        {
-          "domain": "dnews.co.kr",
-          "hash": "fcde51386e967bc2",
-          "importance": "nice_to_know",
-          "title": "경북연구원, 원자력·SMR 분야 산학연 협력 강화"
-        },
-        {
-          "domain": "ekn.kr",
-          "hash": "3f5681fad1ceedfd",
-          "importance": "nice_to_know",
-          "title": "경북연구원, 한국원자력학회 등과 원자력 및 SMR 분야 협력 MOU 체결"
-        },
-        {
-          "domain": "kbmaeil.com",
-          "hash": "8f1ce8b5700013d0",
-          "importance": "nice_to_know",
-          "title": "경북연구원, 한국원자력학회 등과 원자력·SMR 분야 다자간 업무협약 체결"
-        }
-      ],
-      "expires_at": "2026-11-13T09:54:09.221765+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-13T04:09:07.256725+00:00",
-      "new_articles": 2,
-      "origin": "auto",
-      "planned_at": "2026-11-13T04:09:05.384090+00:00",
-      "queries_run": 3,
-      "query": "경북연구원 원자력",
-      "score": 3.7,
-      "status": "extended",
-      "term": "경북연구원",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [
-        "2026-11-12"
-      ],
-      "yields": 1,
-      "zero_streak": 2
     }
   },
   "version": 1
