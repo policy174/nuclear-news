@@ -43,6 +43,13 @@
       "reason": "네덜란드 신규 원전 FEED 연구 계약 주체 및 내용 동일",
       "same_event": true
     },
+    "issue-012f082746c41a33--0d8b4dfb45": {
+      "issue_title": "효성중공업, 미국 전력망 스태콤 수주 확대…2GW급 기술 확보 추진",
+      "keei_item": "데이터센터 확대에 따른 전력공급 과제와 대응 동향(IEA 보고서)",
+      "prompt_version": 1,
+      "reason": "A는 스태콤 수주, B는 데이터센터 전력공급",
+      "same_event": false
+    },
     "issue-013ae7cc0c1e490b--b78f9ce6eb": {
       "issue_title": "핵융합 스타트업 헬리온, 상무부로부터 1억 7500만 달러 규모 반도체 연구 자금 확보",
       "keei_item": "독일 연방연구기술우주부, 핵융합 허브 3개에 1억 2,500만 유로 지원",
@@ -517,6 +524,13 @@
       "keei_item": "호주·인도, 평화적 목적의 우라늄 수출 위한 행정협정 체결",
       "prompt_version": 1,
       "reason": "다른 주체, 다른 협력 사안",
+      "same_event": false
+    },
+    "issue-0ffff3ff0eab4288--0d8b4dfb45": {
+      "issue_title": "AI 전력 수요 급증에 미국, 원전 용량 4배 확대 계획",
+      "keei_item": "데이터센터 확대에 따른 전력공급 과제와 대응 동향(IEA 보고서)",
+      "prompt_version": 1,
+      "reason": "A는 원전 용량 확대, B는 데이터센터 전력공급",
       "same_event": false
     },
     "issue-10093fb76e92c305--4ba6fcaf01": {
@@ -1310,6 +1324,13 @@
       "reason": "미국 주지사의 요건 발표와 영국의 규제개혁으로 서로 다른 사안임",
       "same_event": false
     },
+    "issue-2c39021a91c7156f--bc639312b5": {
+      "issue_title": "원안위, 고리 3·4호기 계속운전 허가 의결",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 허가",
+      "same_event": true
+    },
     "issue-2cf1683f9a309e62--16d9dcc69c": {
       "issue_title": "미국 NRC, 드레스덴 원전 2·3호기 80년 후속 계속운전 승인",
       "keei_item": "미 NRC, Hatch 원전 2차 계속운전 승인",
@@ -1646,6 +1667,13 @@
       "reason": "주체, 기술, 대상 모두 다름",
       "same_event": false
     },
+    "issue-34ae950d0d976ab7--2248be13f1": {
+      "issue_title": "미국 에너지부, 차세대 핵연료 기술 개발에 5천만 달러 지원",
+      "keei_item": "미 DOE, 약 666억 원 규모 재활용 원전연료 개발 지원 위해 8개사 선정",
+      "prompt_version": 1,
+      "reason": "A는 핵연료 기술 개발, B는 재활용 원전연료 개발",
+      "same_event": false
+    },
     "issue-34b54b6a74dfabbb--77d959ece5": {
       "issue_title": "원안위, 국내 1호 SMR 표준설계인가 심사 착수",
       "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
@@ -1687,6 +1715,13 @@
       "prompt_version": 1,
       "reason": "동일한 한미 원전 프레임워크",
       "same_event": true
+    },
+    "issue-36b62be32bdd9c3d--2f256ca9b0": {
+      "issue_title": "산업통상자원부, 한미 원전 프레임워크 국회 보고…웨스팅하우스 지분 인수 협상 진통",
+      "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
+      "prompt_version": 1,
+      "reason": "A는 지분 인수 협상, B는 원전 건설 프레임워크",
+      "same_event": false
     },
     "issue-36e4c25410ce3cf4--d65bac9c4d": {
       "issue_title": "경북도의회, 원자력 특별위원회 구성…영덕 신규 원전 2기 건설 확정 언급",
@@ -1735,6 +1770,13 @@
       "keei_item": "일본, 원전 전력 기반 AI 데이터센터 등 GX 산업단지 조성 본격화",
       "prompt_version": 1,
       "reason": "주체(국가)가 다름",
+      "same_event": false
+    },
+    "issue-3837eff359c1d656--bc639312b5": {
+      "issue_title": "원전 공론화위원회 출범…제12차 전기본 반영 앞두고 적정 비중 숙의 착수",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "A는 공론화위 출범, B는 고리 3·4호기 허가",
       "same_event": false
     },
     "issue-3845bd6bc47811e1--249f1333d0": {
@@ -2106,6 +2148,13 @@
       "keei_item": "미 NRC, 환경심사 규정 개정안 발표",
       "prompt_version": 1,
       "reason": "주체·대상·내용 다름",
+      "same_event": false
+    },
+    "issue-42140c47d3602872--6c2f075d12": {
+      "issue_title": "미국 에너지부, 펜실베이니아·오하이오 원전 성능 개선에 42억 달러 대출 지원",
+      "keei_item": "미 DOE, Constellation 원전 출력증강에 약 6.7조 원 조건부 대출약정",
+      "prompt_version": 1,
+      "reason": "A는 원전 성능 개선 대출, B는 출력증강 대출",
       "same_event": false
     },
     "issue-42140c47d3602872--76da1c3e41": {
@@ -3053,6 +3102,13 @@
       "reason": "피복재 연구자금 지원과 핵융합 로드맵은 다른 사안임",
       "same_event": false
     },
+    "issue-5fe522b1401865bd--2248be13f1": {
+      "issue_title": "미국 에너지부, 원자로 피복재 혁신에 5천만 달러 연구자금 지원",
+      "keei_item": "미 DOE, 약 666억 원 규모 재활용 원전연료 개발 지원 위해 8개사 선정",
+      "prompt_version": 1,
+      "reason": "A는 피복재 혁신, B는 재활용 원전연료 개발",
+      "same_event": false
+    },
     "issue-603a7c13853cd80b--02506fe991": {
       "issue_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
       "keei_item": "미국 Holtec, Oyster Creek 원전 부지에 SMR-300 4기 도입 추진",
@@ -3242,6 +3298,13 @@
       "reason": "상업 생산 개시와 시설 증설 기공식은 서로 다른 사안임",
       "same_event": false
     },
+    "issue-65287d81b430ff9e--706ea3ecc8": {
+      "issue_title": "우렌코 미국, 서방 최초 LEU+ 상업 생산 개시",
+      "keei_item": "미국 Urenco USA, 서방 최초로 상업용 LEU+ 생산",
+      "prompt_version": 1,
+      "reason": "서방 최초 LEU+ 상업 생산",
+      "same_event": true
+    },
     "issue-65287d81b430ff9e--a50cc0c8f8": {
       "issue_title": "우렌코 미국, 서방 최초 LEU+ 상업 생산 개시",
       "keei_item": "미 NRC, Framatome에 최대 10% 농축 연료 제조 승인",
@@ -3312,6 +3375,13 @@
       "reason": "국가, 원전, 계약 주체 모두 다름",
       "same_event": false
     },
+    "issue-671be7ee9ce090aa--a27ace7cdb": {
+      "issue_title": "폴란드 첫 AP1000 원전, 웨스팅하우스와 IHI 부품 공급 계약",
+      "keei_item": "일본 IHI, 폴란드 최초 원전 1호기용 자재 설계·선행 조달 계약 수주",
+      "prompt_version": 1,
+      "reason": "폴란드 첫 원전 부품 공급 계약",
+      "same_event": true
+    },
     "issue-671be7ee9ce090aa--e0700959da": {
       "issue_title": "폴란드, 본계약 전 대형 기자재 발주…원전 공기 지연 방지",
       "keei_item": "중국, Zhaoyuan 원전 2호기 최초 콘크리트 타설",
@@ -3380,6 +3450,13 @@
       "keei_item": "캐나다 OPG, Pickering B 원전 설비개선 사업 주요 계약 체결",
       "prompt_version": 1,
       "reason": "폴란드 AP1000과 캐나다 피커링 원전은 서로 다른 사업임",
+      "same_event": false
+    },
+    "issue-690ab273baa7aeaa--bc639312b5": {
+      "issue_title": "한수원, IAEA 원전 운영안전점검(OSART) 정례화…아시아 최초",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "A는 OSART 정례화, B는 고리 3·4호기 허가",
       "same_event": false
     },
     "issue-694097caaf93cdb8--d65bac9c4d": {
@@ -4039,6 +4116,13 @@
       "prompt_version": 1,
       "reason": "헝가리 다뉴브강 저수위 대응.",
       "same_event": true
+    },
+    "issue-822edbf2603c55a5--0d8b4dfb45": {
+      "issue_title": "구글, 美 최대 원전기업 컨스텔레이션과 3.6GW 전력공급 계약",
+      "keei_item": "데이터센터 확대에 따른 전력공급 과제와 대응 동향(IEA 보고서)",
+      "prompt_version": 1,
+      "reason": "A는 구글 전력공급 계약, B는 데이터센터 전력공급",
+      "same_event": false
     },
     "issue-825c981b6effb82e--4fe7b05f50": {
       "issue_title": "중국 장저우 4호기, 피동형 안전 모듈 최종 설치 완료",
@@ -5293,6 +5377,13 @@
       "reason": "대상 원전·국가 다름",
       "same_event": false
     },
+    "issue-aee72901ca96aec7--bc639312b5": {
+      "issue_title": "원자력안전위원회, 고리 3·4호기 계속운전 허가 여부 2차 심의 진행",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 허가",
+      "same_event": true
+    },
     "issue-af49688bf7a27759--35d63aa558": {
       "issue_title": "TVA, 클린치강 부지 BWRX-300 건설 허가 취득",
       "keei_item": "미국 TVA, Clinch River 부지 BWRX-300 건설허가 취득",
@@ -5600,6 +5691,13 @@
       "prompt_version": 1,
       "reason": "안건이 다름",
       "same_event": false
+    },
+    "issue-bbd2a88f54b9ebf1--2f256ca9b0": {
+      "issue_title": "산업부, 2028년 미국 내 대형 원전 8기 건설 추진 및 기술 사용료 상한 설정",
+      "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
+      "prompt_version": 1,
+      "reason": "미국 내 대형 원전 8기 건설 추진",
+      "same_event": true
     },
     "issue-bbd2a88f54b9ebf1--c35275bb9a": {
       "issue_title": "정부, 삼성물산·현대건설 등 민간 컨소시엄 구성해 웨스팅하우스 지분 5~10% 인수 추진",
@@ -6609,6 +6707,13 @@
       "reason": "폴란드 신규 원전과 영국 Sizewell B 계속운전으로 대상이 다름",
       "same_event": false
     },
+    "issue-db0928aff42c2745--a27ace7cdb": {
+      "issue_title": "폴란드 신규 원전 핵심 EPC 계약 조건 합의",
+      "keei_item": "일본 IHI, 폴란드 최초 원전 1호기용 자재 설계·선행 조달 계약 수주",
+      "prompt_version": 1,
+      "reason": "폴란드 신규 원전 EPC 계약 합의",
+      "same_event": true
+    },
     "issue-db88cff11d029f91--249f1333d0": {
       "issue_title": "미국 인디애나주, 원자력 준비 태세 지정 시스템 도입",
       "keei_item": "미국, 아시아 지역 SMR 도입 위해 한국·일본과 협력각서 체결 및 지원 확대",
@@ -6657,6 +6762,13 @@
       "prompt_version": 1,
       "reason": "고리 3·4호기 계속운전과 중국 장장 3호기 가동은 무관",
       "same_event": false
+    },
+    "issue-dbe4aed21d3f7d36--bc639312b5": {
+      "issue_title": "원안위, 고리 3·4호기 계속운전 허가…1900MW 추가 전력 확보",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "고리 3·4호기 계속운전 허가",
+      "same_event": true
     },
     "issue-dbe669519b0bd065--10aeef51d9": {
       "issue_title": "IAEA, 부유식 원자력 발전소(FNPP) 위한 ATLAS 이니셔티브 출범",
@@ -7006,6 +7118,13 @@
       "keei_item": "미국 Elementl Power, Ohio 주에 원전 개발 계획 발표",
       "prompt_version": 1,
       "reason": "주체와 사안이 다름",
+      "same_event": false
+    },
+    "issue-e70ad8ad03230c64--bc639312b5": {
+      "issue_title": "우진엔텍, 고리 3·4호기 정비용역 51억 증액…계속운전 설비개선 반영",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "A는 정비용역, B는 고리 3·4호기 허가",
       "same_event": false
     },
     "issue-e7751e117f0c2671--2f256ca9b0": {
@@ -7496,6 +7615,13 @@
       "keei_item": "폴란드 OSGE, 자국 내 BWRX-300 14기 건설 관련 CfD 지원 신청",
       "prompt_version": 1,
       "reason": "국가와 주체가 다름",
+      "same_event": false
+    },
+    "issue-ffa4860464595c91--bc639312b5": {
+      "issue_title": "한수원, 원안위에 월성 2·3·4호기 10년 계속운전 위한 운영변경 허가 신청",
+      "keei_item": "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+      "prompt_version": 1,
+      "reason": "A는 월성 2·3·4호기 신청, B는 고리 3·4호기 허가",
       "same_event": false
     },
     "issue-ffdb243b18554e80--77d959ece5": {
