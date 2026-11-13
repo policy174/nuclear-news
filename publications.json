@@ -1,6 +1,36 @@
 {
  "items": [
   {
+   "id": "5305972e75a0",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.11.13.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=128537&mid=a10102050000",
+   "date": "2026-11-13",
+   "fetched_at": "2026-11-14",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=128537&seq=1",
+   "toc": {
+    "issue_title": "데이터센터 확대에 따른 전력공급 과제와 대응 동향(IEA 보고서)",
+    "briefs": [
+     "미 DOE, Constellation 원전 출력증강에 약 6.7조 원 조건부 대출약정",
+     "미 DOE, 약 666억 원 규모 재활용 원전연료 개발 지원 위해 8개사 선정",
+     "미국 NuScale·두산에너빌리티, SMR 상부 원자로 모듈 제작계약 체결",
+     "미국 Urenco USA, 서방 최초로 상업용 LEU+ 생산",
+     "미국 Westinghouse, 슬로바키아 AP1000 기본설계 착수",
+     "일본 IHI, 폴란드 최초 원전 1호기용 자재 설계·선행 조달 계약 수주",
+     "러시아 Rosatom, 자국 최대 규모 우라늄 습식제련 시설 건설 계획 발표",
+     "한국 원자력안전위원회, 고리 3·4호기 계속운전 허가",
+     "중국, Xuwei 3호기 착공",
+     "인도, Kakrapar 5·6호기 부지조사 착수 및 SMR-55 사업보고서 발표",
+     "일본 규제위, 가시와자키 가리와 6호기 장기시설관리계획 승인",
+     "일본 규제위, 원전 인허가·핵물질 안전조치 제도 개편안 승인",
+     "일본 경제산업성, GX 지역상생 보조금 지원 대상 11개 사업 선정",
+     "일본, 후쿠시마 원전 사고 대응비용 누적 집행액 약 116조 원으로 집계"
+    ]
+   }
+  },
+  {
    "id": "e6f1af3be02b",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -1088,43 +1118,43 @@
  ],
  "state": {
   "nea_max_id": 121835,
-  "keei_max_list_no": 128444,
+  "keei_max_list_no": 128537,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": true,
-   "new": 1,
+   "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-13T00:57:59+09:00",
+   "at": "2026-11-14T04:00:22+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }
