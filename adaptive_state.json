@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-14"
   },
   "retired": {
@@ -1638,7 +1638,7 @@
     }
   },
   "spent": {
-    "count": 1,
+    "count": 2,
     "date": "2026-11-14"
   },
   "terms": {
@@ -1688,6 +1688,38 @@
         "2026-11-13"
       ],
       "yields": 2,
+      "zero_streak": 1
+    },
+    "미하마": {
+      "articles": 1,
+      "created_at": "2026-11-13T21:09:53.469811+00:00",
+      "domains": [
+        "iaea.org"
+      ],
+      "evidence": [
+        {
+          "domain": "iaea.org",
+          "hash": "9815739dbb2a1ac4",
+          "importance": "must_read",
+          "title": "IAEA, 일본 미하마 원전 장기운전 안전성 검토 완료"
+        }
+      ],
+      "expires_at": "2026-11-14T21:09:53.469811+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-11-13T21:09:54.465749+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-13T21:09:53.469811+00:00",
+      "queries_run": 1,
+      "query": "미하마 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "미하마",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
       "zero_streak": 1
     }
   },
