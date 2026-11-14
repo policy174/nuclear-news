@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 3,
-    "date": "2026-11-14"
+    "count": 0,
+    "date": "2026-11-15"
   },
   "retired": {
     "adb": {
@@ -1028,6 +1028,14 @@
       "type": "plant",
       "until": "2026-09-30T22:16:50.586418+00:00"
     },
+    "원자력공동조정위원회": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-14T19:08:52.307273+00:00",
+      "term": "원자력공동조정위원회",
+      "type": "org",
+      "until": "2026-11-28T19:08:52.307273+00:00"
+    },
     "원자력공사": {
       "new_articles": 49,
       "reason": "질의 횟수 소진",
@@ -1164,14 +1172,6 @@
       "type": "org",
       "until": "2026-11-22T18:38:51.265379+00:00"
     },
-    "전력회사주부전력": {
-      "new_articles": 1,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-15T13:08:30.036410+00:00",
-      "term": "전력회사 주부전력",
-      "type": "plant",
-      "until": "2026-09-29T13:08:30.036410+00:00"
-    },
     "전문위원회": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1211,14 +1211,6 @@
       "term": "주부전력이 하마오카",
       "type": "plant",
       "until": "2026-09-30T22:16:50.586418+00:00"
-    },
-    "주부전력하마오카": {
-      "new_articles": 4,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-15T14:06:39.037739+00:00",
-      "term": "주부전력 하마오카",
-      "type": "plant",
-      "until": "2026-09-29T14:06:39.037739+00:00"
     },
     "준위방사성폐기물관리위원회": {
       "new_articles": 0,
@@ -1315,14 +1307,6 @@
       "term": "측이 요구한",
       "type": "plant",
       "until": "2026-10-25T17:29:21.437472+00:00"
-    },
-    "카자흐스탄국영": {
-      "new_articles": 1,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-15T13:08:30.036410+00:00",
-      "term": "카자흐스탄 국영",
-      "type": "plant",
-      "until": "2026-09-29T13:08:30.036410+00:00"
     },
     "캔자스주지하": {
       "new_articles": 0,
@@ -1435,6 +1419,14 @@
       "term": "텍사스 가스발전·미국",
       "type": "plant",
       "until": "2026-10-22T20:39:30.810419+00:00"
+    },
+    "텍사스첨단": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-14T19:08:52.307273+00:00",
+      "term": "텍사스 첨단",
+      "type": "plant",
+      "until": "2026-11-28T19:08:52.307273+00:00"
     },
     "펜실베이니아오하이오": {
       "new_articles": 0,
@@ -1638,88 +1630,9 @@
     }
   },
   "spent": {
-    "count": 10,
-    "date": "2026-11-14"
+    "count": 2,
+    "date": "2026-11-15"
   },
-  "terms": {
-    "원자력공동조정위원회": {
-      "articles": 3,
-      "created_at": "2026-11-14T04:36:52.748335+00:00",
-      "domains": [
-        "edaily.co.kr",
-        "sentv.co.kr",
-        "energydaily.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "edaily.co.kr",
-          "hash": "d26a2f589c295e63",
-          "importance": "nice_to_know",
-          "title": "한국·프랑스, 제27차 원자력공동조정위원회 개최…SMR 및 핵연료 협력 강화"
-        },
-        {
-          "domain": "sentv.co.kr",
-          "hash": "7007be26244bc259",
-          "importance": "nice_to_know",
-          "title": "한국·프랑스, 원자력 협력 범위 SMR·핵연료 주기 전반으로 확대 합의"
-        },
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "d0af0638796469bc",
-          "importance": "nice_to_know",
-          "title": "한·불 원자력 협력, 핵연료 공급망부터 SMR·고준위 방폐물까지 확대"
-        }
-      ],
-      "expires_at": "2026-11-15T04:36:52.748335+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-14T13:06:57.801673+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-14T13:06:57.014364+00:00",
-      "queries_run": 2,
-      "query": "원자력공동조정위원회",
-      "score": 3.7,
-      "status": "tracking",
-      "term": "원자력공동조정위원회",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
-    "텍사스첨단": {
-      "articles": 1,
-      "created_at": "2026-11-14T04:23:49.567790+00:00",
-      "domains": [
-        "energy.gov"
-      ],
-      "evidence": [
-        {
-          "domain": "energy.gov",
-          "hash": "c6accd0a113329d6",
-          "importance": "must_read",
-          "title": "미국 NRC, Dow-X-energy 텍사스 첨단 원전 건설 허가 승인"
-        }
-      ],
-      "expires_at": "2026-11-15T04:23:49.567790+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-14T12:38:52.716368+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-14T12:38:49.992084+00:00",
-      "queries_run": 2,
-      "query": "텍사스 첨단 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "텍사스 첨단",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    }
-  },
+  "terms": {},
   "version": 1
 }
