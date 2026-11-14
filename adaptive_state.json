@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 2,
+    "count": 3,
     "date": "2026-11-14"
   },
   "retired": {
@@ -1622,7 +1622,7 @@
     }
   },
   "spent": {
-    "count": 5,
+    "count": 6,
     "date": "2026-11-14"
   },
   "terms": {
@@ -1705,6 +1705,52 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "원자력공동조정위원회": {
+      "articles": 3,
+      "created_at": "2026-11-14T04:36:52.748335+00:00",
+      "domains": [
+        "edaily.co.kr",
+        "sentv.co.kr",
+        "energydaily.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "edaily.co.kr",
+          "hash": "d26a2f589c295e63",
+          "importance": "nice_to_know",
+          "title": "한국·프랑스, 제27차 원자력공동조정위원회 개최…SMR 및 핵연료 협력 강화"
+        },
+        {
+          "domain": "sentv.co.kr",
+          "hash": "7007be26244bc259",
+          "importance": "nice_to_know",
+          "title": "한국·프랑스, 원자력 협력 범위 SMR·핵연료 주기 전반으로 확대 합의"
+        },
+        {
+          "domain": "energydaily.co.kr",
+          "hash": "d0af0638796469bc",
+          "importance": "nice_to_know",
+          "title": "한·불 원자력 협력, 핵연료 공급망부터 SMR·고준위 방폐물까지 확대"
+        }
+      ],
+      "expires_at": "2026-11-15T04:36:52.748335+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-11-14T04:36:53.703172+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-14T04:36:52.748335+00:00",
+      "queries_run": 1,
+      "query": "원자력공동조정위원회",
+      "score": 3.7,
+      "status": "tracking",
+      "term": "원자력공동조정위원회",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "텍사스첨단": {
       "articles": 1,
