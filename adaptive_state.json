@@ -1590,7 +1590,7 @@
     }
   },
   "spent": {
-    "count": 1,
+    "count": 4,
     "date": "2026-11-16"
   },
   "terms": {
@@ -1625,12 +1625,12 @@
       ],
       "expires_at": "2026-11-16T12:54:03.308516+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-11-15T12:54:03.308516+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-15T21:38:51.902221+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-11-15T12:54:00.829424+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-15T21:38:49.364635+00:00",
+      "queries_run": 2,
       "query": "수출입은행과 원전",
       "score": 3.9,
       "status": "extended",
@@ -1641,7 +1641,7 @@
         "2026-11-15"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "신규원전1": {
       "articles": 1,
@@ -1701,11 +1701,11 @@
       "expires_at": "2026-11-17T12:54:00.829424+00:00",
       "importance": "must_read",
       "last_result_count": 1,
-      "last_run": "2026-11-15T12:54:03.308516+00:00",
-      "new_articles": 1,
+      "last_run": "2026-11-15T21:38:51.902221+00:00",
+      "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-11-15T12:54:00.829424+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-15T21:38:49.364635+00:00",
+      "queries_run": 2,
       "query": "전기위원회 원자력",
       "score": 5.9,
       "status": "extended",
@@ -1713,9 +1713,10 @@
       "ttl_hours": 48,
       "type": "org",
       "yield_days": [
-        "2026-11-15"
+        "2026-11-15",
+        "2026-11-16"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "한국무역보험공사": {
@@ -1748,12 +1749,12 @@
       ],
       "expires_at": "2026-11-16T12:54:03.308516+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 2,
-      "last_run": "2026-11-15T12:54:03.308516+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-15T21:38:51.902221+00:00",
       "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-11-15T12:54:00.829424+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-15T21:38:49.364635+00:00",
+      "queries_run": 2,
       "query": "한국무역보험공사 원자력",
       "score": 3.7,
       "status": "extended",
@@ -1764,7 +1765,7 @@
         "2026-11-15"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
