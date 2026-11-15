@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 4,
     "date": "2026-11-15"
   },
   "retired": {
@@ -1606,10 +1606,59 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 6,
     "date": "2026-11-15"
   },
   "terms": {
+    "수출입은행과": {
+      "articles": 4,
+      "created_at": "2026-11-15T12:54:00.829424+00:00",
+      "domains": [
+        "yna.co.kr",
+        "fnnews.com",
+        "etnews.com",
+        "newspim.com"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "4b0e5131410290b0",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 원전·에너지 금융협력 강화"
+        },
+        {
+          "domain": "fnnews.com",
+          "hash": "6eeb62f28d9331b0",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 협약 체결로 한국 원전기업 유럽 진출 지원"
+        },
+        {
+          "domain": "etnews.com",
+          "hash": "a9a80c4467e8b4a7",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 원전·에너지 분야 금융협력 강화"
+        }
+      ],
+      "expires_at": "2026-11-16T12:54:03.308516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 2,
+      "last_run": "2026-11-15T12:54:03.308516+00:00",
+      "new_articles": 2,
+      "origin": "auto",
+      "planned_at": "2026-11-15T12:54:00.829424+00:00",
+      "queries_run": 1,
+      "query": "수출입은행과 원전",
+      "score": 3.9,
+      "status": "extended",
+      "term": "수출입은행과",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-11-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
     "신규원전1": {
       "articles": 1,
       "created_at": "2026-11-15T10:18:52.659265+00:00",
@@ -1641,6 +1690,95 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 1
+    },
+    "전기위원회": {
+      "articles": 2,
+      "created_at": "2026-11-15T12:54:00.829424+00:00",
+      "domains": [
+        "straightnews.co.kr",
+        "kbmaeil.com"
+      ],
+      "evidence": [
+        {
+          "domain": "straightnews.co.kr",
+          "hash": "fed1e0fc52a6f777",
+          "importance": "must_read",
+          "title": "전기위원회, 영덕 신규원전 2기 발전사업 허가안 원안 의결"
+        },
+        {
+          "domain": "kbmaeil.com",
+          "hash": "ef1f84178bcc9770",
+          "importance": "must_read",
+          "title": "전기위원회, 영덕 신규원전 2기 발전사업 허가안 원안 의결"
+        }
+      ],
+      "expires_at": "2026-11-17T12:54:00.829424+00:00",
+      "importance": "must_read",
+      "last_result_count": 1,
+      "last_run": "2026-11-15T12:54:03.308516+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-11-15T12:54:00.829424+00:00",
+      "queries_run": 1,
+      "query": "전기위원회 원자력",
+      "score": 5.9,
+      "status": "extended",
+      "term": "전기위원회",
+      "ttl_hours": 48,
+      "type": "org",
+      "yield_days": [
+        "2026-11-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "한국무역보험공사": {
+      "articles": 3,
+      "created_at": "2026-11-15T12:54:00.829424+00:00",
+      "domains": [
+        "yna.co.kr",
+        "fnnews.com",
+        "newspim.com"
+      ],
+      "evidence": [
+        {
+          "domain": "yna.co.kr",
+          "hash": "4b0e5131410290b0",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 원전·에너지 금융협력 강화"
+        },
+        {
+          "domain": "fnnews.com",
+          "hash": "6eeb62f28d9331b0",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 협약 체결로 한국 원전기업 유럽 진출 지원"
+        },
+        {
+          "domain": "newspim.com",
+          "hash": "bf41cf85209e89bf",
+          "importance": "nice_to_know",
+          "title": "무보, 슬로바키아 수출입은행과 원전·에너지 금융협력 MOU 체결"
+        }
+      ],
+      "expires_at": "2026-11-16T12:54:03.308516+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 2,
+      "last_run": "2026-11-15T12:54:03.308516+00:00",
+      "new_articles": 2,
+      "origin": "auto",
+      "planned_at": "2026-11-15T12:54:00.829424+00:00",
+      "queries_run": 1,
+      "query": "한국무역보험공사 원자력",
+      "score": 3.7,
+      "status": "extended",
+      "term": "한국무역보험공사",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-11-15"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     }
   },
   "version": 1
