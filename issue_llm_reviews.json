@@ -9642,6 +9642,16 @@
       "right_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
       "same_event": false
     },
+    "0576fd81ddfcfef1--c6217c778b2b3b34": {
+      "embedding_similarity": 0.9102,
+      "left_title": "캐나다 달링턴 SMR 프로젝트 지연 발생",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "캐나다 달링턴 SMR 사업 지연 동일 사건",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "캐나다 OPG, BWRX-300 SMR 프로젝트 지연 및 예산 초과",
+      "same_event": true
+    },
     "057a4c080bea7887--3e781cdb7484a01f": {
       "embedding_similarity": 0.8448,
       "left_title": "당진시, AI 데이터센터 5곳 추진 중이며 전력·용수 공급 문제없음 밝혀",
@@ -11140,6 +11150,16 @@
       "reason": "SMR 건설승인과 인허가 규정 확정 구분",
       "reviewed_at": "2026-10-24T08:20:13.345006+00:00",
       "right_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "same_event": false
+    },
+    "05c85509f6f0a3c0--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.9003,
+      "left_title": "미국 NRC, 신형 원전 인허가에 연방 실증 데이터 활용 허용 최종 규정 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 규정 확정과 Oklo 승인은 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
       "same_event": false
     },
     "05c85509f6f0a3c0--c31d9219028a9420": {
@@ -24882,6 +24902,16 @@
       "right_title": "한국 정부, SMR 인허가 절차 가속화 추진",
       "same_event": false
     },
+    "0d52b8dc9183542b--a44662ad4fac7914": {
+      "embedding_similarity": 0.8904,
+      "left_title": "한국 정부, SMR 인허가 절차 가속화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 방침과 규제체계 적용은 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한국, SMR 규제체계 2029년 시범 적용…상용화 속도 지연",
+      "same_event": false
+    },
     "0d52b8dc9183542b--bbda762b30ab319d": {
       "embedding_similarity": 0.8748,
       "left_title": "과기정통부, SMR 등 7대 첨단기술 육성전략 연내 마련 추진",
@@ -26670,6 +26700,16 @@
       "reason": "체코 대사 발언과 시공 협상 결렬은 별개",
       "reviewed_at": "2026-11-10T14:40:43.988250+00:00",
       "right_title": "한수원-대우건설, 26조 체코 원전 시공 계약 협상 결렬",
+      "same_event": false
+    },
+    "0ed85cc5401abf5a--67692ca9625c6f16": {
+      "embedding_similarity": 0.8745,
+      "left_title": "주한 체코 대사, 두코바니 원전 프로젝트를 양국 파트너십의 상징으로 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 대사 발언과 한수원 회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
       "same_event": false
     },
     "0ed85cc5401abf5a--6a5a8570fc506fde": {
@@ -28840,6 +28880,16 @@
       "reason": "전기본 원전 공론화와 데이터센터 착공",
       "reviewed_at": "2026-11-02T16:11:56.777429+00:00",
       "right_title": "삼성SDS, 구미에 60㎿급 초대형 AI 데이터센터 착공…2028년 말 완공",
+      "same_event": false
+    },
+    "10337348b71b91d3--897daa4d4b4804c4": {
+      "embedding_similarity": 0.8919,
+      "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "건설허가 일정과 공급망 협력은 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "두산에너빌리티, 체코 원전 현지 공급망 협력 확대",
       "same_event": false
     },
     "10337348b71b91d3--98fe30ce4f211836": {
@@ -32422,6 +32472,16 @@
       "right_title": "영덕군, 신규 원전 2기 건설 연계 무탄소·재생에너지 종합계획 추진",
       "same_event": false
     },
+    "117098d3d05dfaa1--ef1f84178bcc9770": {
+      "embedding_similarity": 0.8927,
+      "left_title": "기후에너지환경부, 경북 영덕 신규 원전 2기 전원개발사업 예정구역 지정 절차 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "예정구역 절차와 발전사업 허가는 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "전기위원회, 영덕 신규원전 2기 발전사업 허가안 원안 의결",
+      "same_event": false
+    },
     "1182253279c464e4--457aa2e1b508d72c": {
       "embedding_similarity": 0.8492,
       "left_title": "원안위, 계속운전 원전의 신규 원전 수준 안전성 확인 발표",
@@ -32471,6 +32531,16 @@
       "reviewed_at": "2026-09-03T13:31:28.759797+00:00",
       "right_title": "포르튬, 스웨덴 원자력 발전에 대한 지원 요청",
       "same_event": true
+    },
+    "11adbb964df0f84b--897daa4d4b4804c4": {
+      "embedding_similarity": 0.8916,
+      "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 허가 일정과 수소 협력은 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 원자력 청정수소 생산사업 협력 논의",
+      "same_event": false
     },
     "11adbb964df0f84b--98fe30ce4f211836": {
       "embedding_similarity": 0.8954,
@@ -35340,6 +35410,16 @@
       "reason": "개별 승인과 규정 확정",
       "reviewed_at": "2026-10-23T00:07:54.350890+00:00",
       "right_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "same_event": false
+    },
+    "137cb0e5139bfdfd--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.899,
+      "left_title": "미국 NRC, DOE·DOD 승인 원전 설계의 상업용 인허가 간소화 최종 규칙 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 규정 확정과 DOE Oklo 승인은 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
       "same_event": false
     },
     "137cb0e5139bfdfd--c31d9219028a9420": {
@@ -43122,6 +43202,16 @@
       "right_title": "산업장관, 체코 측에 두코바니 원전 사업 차질 없는 완수 약속",
       "same_event": false
     },
+    "18c0c740a02e4b3b--330b1c299702df0b": {
+      "embedding_similarity": 0.9171,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 시공 협상 결렬과 업계 전반 전망",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "체코 원전 프로젝트, 한국-체코 협력으로 순항할까?",
+      "same_event": false
+    },
     "18c0c740a02e4b3b--33779491bd760775": {
       "embedding_similarity": 0.855,
       "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
@@ -43271,6 +43361,16 @@
       "reviewed_at": "2026-11-11T16:37:04.551226+00:00",
       "right_title": "대우건설, 한수원에 체코 원전 시공계약 재협상 중재 요청",
       "same_event": true
+    },
+    "18c0c740a02e4b3b--67692ca9625c6f16": {
+      "embedding_similarity": 0.865,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "컨소시엄 협상 결렬과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
     },
     "18c0c740a02e4b3b--6aef558c74ddeb5d": {
       "embedding_similarity": 0.8447,
@@ -51520,6 +51620,16 @@
       "reason": "정부 관리체계와 계약 결렬 다름",
       "reviewed_at": "2026-11-10T07:41:57.470208+00:00",
       "right_title": "한수원-대우건설, 26조 체코 원전 시공 계약 협상 결렬",
+      "same_event": false
+    },
+    "1ca6341a330daf35--67692ca9625c6f16": {
+      "embedding_similarity": 0.8713,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업부 관리체계 가동과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
       "same_event": false
     },
     "1ca6341a330daf35--6a72f64f2255163a": {
@@ -61282,6 +61392,16 @@
       "right_title": "한수원-대우건설, 26조 체코 원전 시공 계약 협상 결렬",
       "same_event": true
     },
+    "234fe8a2f17b5bce--67692ca9625c6f16": {
+      "embedding_similarity": 0.8683,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협상 결렬과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
     "234fe8a2f17b5bce--6aef558c74ddeb5d": {
       "embedding_similarity": 0.8512,
       "left_title": "한국수력원자력, 체코 두코바니 원전 시공 협상 결렬로 경쟁 입찰 전환",
@@ -66882,6 +67002,16 @@
       "right_title": "나노 뉴클리어, 미 공군으로부터 Kronos 원자로 개발 SBIR 계약 수주",
       "same_event": false
     },
+    "2714318dcc236647--897daa4d4b4804c4": {
+      "embedding_similarity": 0.8997,
+      "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 허가 일정과 수소 연구 성과 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 UJV-Rez와 원자력 청정수소 기반 연구 성과 공유회 개최",
+      "same_event": false
+    },
     "2714318dcc236647--98fe30ce4f211836": {
       "embedding_similarity": 0.898,
       "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
@@ -69040,6 +69170,16 @@
       "reason": "유럽 BWRX-300 협력",
       "reviewed_at": "2026-10-01T01:23:18.421326+00:00",
       "right_title": "삼성물산, 유럽 SMR 글로벌 파트너십 구축 및 폴란드 BWRX-300 사업 참여",
+      "same_event": true
+    },
+    "286b05b7a65324db--72ffdcfd681b619b": {
+      "embedding_similarity": 0.9108,
+      "left_title": "IAEA, 요르단의 원자력 감독 체계 높이 평가",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA의 요르단 규제체계 평가 동일 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "IAEA, 요르단 방사선 및 핵 안전 감독 강화 의지 표명",
       "same_event": true
     },
     "286b9d4d16eb02f6--f7d8189e1caf32ca": {
@@ -85862,6 +86002,16 @@
       "right_title": "미국 NRC, 엑스에너지 Xe-100 SMR 4기 건설 허가…두산에너빌리티 역할 주목",
       "same_event": false
     },
+    "3438c27c002364dd--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.8972,
+      "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "NRC 워크숍과 DOE 승인은 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
+      "same_event": false
+    },
     "3438c27c002364dd--c6accd0a113329d6": {
       "embedding_similarity": 0.8995,
       "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
@@ -87801,6 +87951,16 @@
       "reviewed_at": "2026-11-11T10:12:39.900579+00:00",
       "right_title": "미국 NRC, 엑스에너지 SMR 건설 승인",
       "same_event": true
+    },
+    "35c3d63fef377701--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.8902,
+      "left_title": "미국 NRC, X-energy SMR 건설 허가 발급",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "X-energy 허가와 Oklo 승인은 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
+      "same_event": false
     },
     "35c3d63fef377701--cc13965be7da354e": {
       "embedding_similarity": 0.8978,
@@ -110462,6 +110622,16 @@
       "right_title": "삼성물산, 미국 차세대 원전 및 유럽 BWRX-300 SMR 사업으로 글로벌 시장 확장",
       "same_event": false
     },
+    "434d9d49ecd1f00a--e9c136e895a0a4f1": {
+      "embedding_similarity": 0.8961,
+      "left_title": "미국 중간선거 민주당 상하원 장악, 한미 원자력 협력 및 안보 현안 변수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 주제의 기사",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 중간선거 이후 ‘마스가’",
+      "same_event": false
+    },
     "43752cfdc9aa675a--b613d34b976b7c8c": {
       "embedding_similarity": 0.89,
       "left_title": "두산그룹, 영남권에 5.1조 원 투자해 원전·SMR 생산기지 조성",
@@ -120952,6 +121122,16 @@
       "right_title": "3자 협약, SMR 재활용 핵연료 개발 목표",
       "same_event": false
     },
+    "4ecc4d0d785abfed--ecf12093cde08000": {
+      "embedding_similarity": 0.9046,
+      "left_title": "국내 배터리사, 미국 에너지저장장치 대규모 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공급 계약 체결과 제품 공개는 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "LG엔솔·삼성SDI, 미국서 AI 데이터센터용 차세대 ESS 배터리 솔루션 공개",
+      "same_event": false
+    },
     "4eccf7e2ecd1798d--73884e9eb2e1421b": {
       "embedding_similarity": 0.8444,
       "left_title": "미국 NRC, 방사선 방호 'ALARA' 원칙 폐지 제안 규칙에 대한 공청회 개최",
@@ -121400,6 +121580,16 @@
       "reason": "같은 원전, 같은 냉각수 문제",
       "reviewed_at": "2026-08-19T21:42:54.738826+00:00",
       "right_title": "헝가리 팍스 원전, 냉각수 수위 충분해 가동 중단 피해",
+      "same_event": true
+    },
+    "4f4ea3d1003add21--b4a936d94bf21a9b": {
+      "embedding_similarity": 0.9097,
+      "left_title": "울산시, SMR 산업 육성 및 생태계 구축 위한 자문회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "울산시 SMR 산업 육성 회의 동일 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "울산시, 조선·해양 제조 기반 활용 SMR 산업 육성 방안 모색",
       "same_event": true
     },
     "4f51995d946eaa78--5949227f174d59e7": {
@@ -151342,6 +151532,86 @@
       "right_title": "미·유럽 AI 데이터센터 규제 강화 속 한국의 반사이익 기대",
       "same_event": false
     },
+    "67692ca9625c6f16--75c9ca256e559815": {
+      "embedding_similarity": 0.8583,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협상 결렬 및 전망과 점검회의는 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--9b2079eef5023d61": {
+      "embedding_similarity": 0.876,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 계약 변동과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--a2a59a20cb58dbb9": {
+      "embedding_similarity": 0.8623,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협상 결렬 원인과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--b22752614b32b68a": {
+      "embedding_similarity": 0.8963,
+      "left_title": "한수원, 체코와 원자력 청정수소 사업화 기반 연구 성과 공유",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수소 연구 성과와 원전 점검회의는 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--b851201523b44ceb": {
+      "embedding_similarity": 0.8599,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대우건설 중재 요청과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8983,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 절차 개시와 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--cf40a6b56a06efb5": {
+      "embedding_similarity": 0.903,
+      "left_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "건설허가 신청 추진과 점검회의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--dd00be43a4447d87": {
+      "embedding_similarity": 0.8444,
+      "left_title": "김정관 장관, 체코 원전 사업 관련 하블리첵 장관과 화상 면담",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "장관 화상 면담과 한수원 점검회의는 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
     "676cd380d609d954--a6bf269f3d5aa561": {
       "embedding_similarity": 0.8546,
       "left_title": "원전 추가 가동기간 논란: 기후부 20년 연장 vs 원안위 현행 유지",
@@ -172612,6 +172882,16 @@
       "right_title": "미국 NRC, 텍사스 SMR 플랜트 건설 허가 최초 발급",
       "same_event": false
     },
+    "787189b9430bc15e--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.8959,
+      "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "패두커 승인과 Oklo 승인은 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
+      "same_event": false
+    },
     "787189b9430bc15e--c6accd0a113329d6": {
       "embedding_similarity": 0.9068,
       "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
@@ -178361,6 +178641,16 @@
       "reviewed_at": "2026-10-24T17:57:28.221734+00:00",
       "right_title": "울진, AI 시대 무탄소 전력 기반 에너지 허브로 도약 모색",
       "same_event": false
+    },
+    "7dd0752f226748ca--c6217c778b2b3b34": {
+      "embedding_similarity": 0.8973,
+      "left_title": "캐나다 달링턴 SMR 프로젝트 지연 발생",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "달링턴 SMR 사업 지연 동일 보도",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "캐나다 OPG, 첫 SMR 건설 일정 및 비용 재검토",
+      "same_event": true
     },
     "7dd6c9630dd330e7--85a49340e191ed33": {
       "embedding_similarity": 0.8888,
@@ -188152,6 +188442,16 @@
       "right_title": "산업용 전기요금 지역별 차등제 공청회 개최, AI 데이터센터 전용 요금제 도입 가능성 논의",
       "same_event": true
     },
+    "88f2cace7e39e3eb--c1efe485ea352ca6": {
+      "embedding_similarity": 0.9173,
+      "left_title": "한수원, 제주서 산학연 그린수소 기술혁신 세미나 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세미나 개최와 부지 사용 약정은 별개 행사",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 제주대에 '그린수소 기술혁신센터' 구축 부지 사용 약정 체결",
+      "same_event": false
+    },
     "88fd1d7216710f7b--9d64535a81b9a8fb": {
       "embedding_similarity": 0.878,
       "left_title": "원자력안전위원회, 고리 3·4호기 및 한빛 1·2호기 계속운전 심의 착수",
@@ -188600,6 +188900,16 @@
       "reason": "인허가 일정과 시공계약 결렬은 별개",
       "reviewed_at": "2026-11-15T04:58:36.611620+00:00",
       "right_title": "한수원-대우건설 컨소시엄, 체코 두코바니 원전 시공계약 협상 결렬",
+      "same_event": false
+    },
+    "897daa4d4b4804c4--8f6f67409679e14e": {
+      "embedding_similarity": 0.8905,
+      "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 허가 일정과 수소 협력은 다름",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원, 체코와 원자력 청정수소 생산사업화 협력 확대",
       "same_event": false
     },
     "897daa4d4b4804c4--9238bd31d464ecb5": {
@@ -209442,6 +209752,16 @@
       "right_title": "체코 두코바니 원전 2기, 팀코리아 우선협상대상자 선정",
       "same_event": false
     },
+    "a0bd99a6adee66ca--bb5be47ba3fd8a11": {
+      "embedding_similarity": 0.8663,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 절차 개시와 우협 선정은 다른 단계",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "체코 두코바니 원전 2기, 팀코리아 우선협상대상자 선정",
+      "same_event": false
+    },
     "a0bd99a6adee66ca--cf40a6b56a06efb5": {
       "embedding_similarity": 0.8586,
       "left_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
@@ -213001,6 +213321,16 @@
       "reviewed_at": "2026-08-19T06:57:15.493469+00:00",
       "right_title": "SK이노베이션, 빌 게이츠의 테라파워와 맞손…'K-나트륨'으로 SMR 영토 넓...",
       "same_event": true
+    },
+    "a44662ad4fac7914--e5dd914c17bd60cc": {
+      "embedding_similarity": 0.8999,
+      "left_title": "원안위 과장, SMR 규제 속도전 강조…2027년부터 심사 기준 개발 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 규제 관련 별개의 발표 내용",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한국, SMR 규제체계 2029년 시범 적용…상용화 속도 지연",
+      "same_event": false
     },
     "a44d6ecb1924a42a--c9b7e7f329abbe4b": {
       "embedding_similarity": 0.9064,
@@ -220632,6 +220962,16 @@
       "right_title": "한빛원전 2호기 노심지지통 용접부서 선 모양 흔적 발견",
       "same_event": true
     },
+    "af425999c19574ba--c095725d7d7013b5": {
+      "embedding_similarity": 0.884,
+      "left_title": "한빛2호기 원자로 내부 구조물서 설계 요건 미달 선형 흔적 발견",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한빛2호기 원자로 내부 결함 발견 동일 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한빛2호기 원자로 내부 결함 의심 및 사용후핵연료 건식저장시설 주민 의견수렴 완료",
+      "same_event": true
+    },
     "af425999c19574ba--cce56d67eed872f4": {
       "embedding_similarity": 0.8525,
       "left_title": "한빛2호기 원자로 내부 구조물서 설계 요건 미달 선형 흔적 발견",
@@ -227532,6 +227872,16 @@
       "right_title": "마이크로소프트, 중동 AI 인프라에 13조 6천억 원 투자 발표",
       "same_event": false
     },
+    "b9b4b07b4de99e85--c6accd0a113329d6": {
+      "embedding_similarity": 0.8922,
+      "left_title": "미국 NRC, Dow-X-energy 텍사스 첨단 원전 건설 허가 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "X-energy 승인과 Oklo 승인은 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
+      "same_event": false
+    },
     "b9d38f426347d282--bd1c124b246d63a9": {
       "embedding_similarity": 0.8473,
       "left_title": "기후장관, 용인·호남 반도체 전력에 원전 15기 필요성 언급",
@@ -228520,6 +228870,16 @@
       "reason": "인허가 개시와 시공사 계약 관련 별개 사안",
       "reviewed_at": "2026-10-31T16:09:36.717783+00:00",
       "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
+      "same_event": false
+    },
+    "bb5be47ba3fd8a11--d1120a6c94024138": {
+      "embedding_similarity": 0.8698,
+      "left_title": "한수원 수주 체코 두코바니 원전, 건설허가 신청 앞두고 인허가 절차 개시",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 절차 개시와 장관급 논의는 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한-체코 산업부 장관, 두코바니 원전 사업 정상 추진 협력 논의",
       "same_event": false
     },
     "bb5be47ba3fd8a11--d36c679315a69891": {
@@ -230192,6 +230552,16 @@
       "right_title": "미국 에너지부, 듀안 아놀드 원전 재가동에 최대 19억 달러 대출 확정",
       "same_event": false
     },
+    "bdb870a980af2ae9--c1efe485ea352ca6": {
+      "embedding_similarity": 0.9054,
+      "left_title": "한수원, 제주서 산학연 그린수소 기술혁신 세미나 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세미나 개최와 약정 체결은 별개 사안",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "한수원·제주대, 그린수소 기술혁신센터 구축 약정 체결…2028년 준공",
+      "same_event": false
+    },
     "bdbb49a2077a9f4a--d629f03c05c9422e": {
       "embedding_similarity": 0.8402,
       "left_title": "EU, SF₆ 사용 제한 강화…효성·HD현대, 420kV 친환경 GIS 경쟁",
@@ -231210,6 +231580,16 @@
       "reason": "정상회담과 개별 기업 협약",
       "reviewed_at": "2026-09-12T07:53:54.881195+00:00",
       "right_title": "한수원, 프랑스 오라노와 우라늄 농축 장기 협력의향서 체결",
+      "same_event": false
+    },
+    "bfc2a70955a81b74--c1efe485ea352ca6": {
+      "embedding_similarity": 0.9136,
+      "left_title": "한수원, 제주서 산학연 그린수소 기술혁신 세미나 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "세미나 개최와 기부채납 약정은 별개 행사",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "제주대·한수원, 캠퍼스 내 그린수소 기술혁신센터 구축 위한 기부채납 약정 체결",
       "same_event": false
     },
     "bfc67ce932263d19--eab2c67a53416b3b": {
@@ -235021,6 +235401,16 @@
       "reviewed_at": "2026-08-14T07:23:16.873377+00:00",
       "right_title": "빌 게이츠 방한, 한국 원전설비 발주 및 수출 협력 논의",
       "same_event": false
+    },
+    "c6217c778b2b3b34--e5eec258e53b266f": {
+      "embedding_similarity": 0.8987,
+      "left_title": "캐나다 달링턴 SMR 프로젝트 지연 발생",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "달링턴 SMR 사업 지연 동일 보도",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "캐나다 온타리오파워제너레이션, 달링턴 SMR 1호기 일정 지연 및 예산 초과 발표",
+      "same_event": true
     },
     "c635ceb310705bc0--c73973400bc0f6da": {
       "embedding_similarity": 0.8483,
@@ -242690,6 +243080,16 @@
       "reason": "서로 다른 기업의 시장 활동",
       "reviewed_at": "2026-10-31T13:08:31.349356+00:00",
       "right_title": "솔브레인홀딩스, ESS·전기차 시장 공략으로 성장 동력 확보",
+      "same_event": false
+    },
+    "dae5d9af25ada683--ef1f84178bcc9770": {
+      "embedding_similarity": 0.8935,
+      "left_title": "기후에너지환경부, 영덕 신규 원전 2기 부지 확정 절차 개시…전략환경영향평가 공고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "부지 절차와 발전사업 허가는 별개",
+      "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
+      "right_title": "전기위원회, 영덕 신규원전 2기 발전사업 허가안 원안 의결",
       "same_event": false
     },
     "dae5d9af25ada683--f5419b49563b58eb": {
