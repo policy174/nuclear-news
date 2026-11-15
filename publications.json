@@ -1082,38 +1082,6 @@
    "translated_version": 3,
    "off_topic": false,
    "relevance": "technical"
-  },
-  {
-   "id": "6f6d9a7d10f0",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Plant Breeding and Genetics Newsletter, No. 56, January 2026",
-   "url": "http://www.iaea.org/publications/16077/plant-breeding-and-genetics-newsletter-no-56-january-2026",
-   "date": "2026-05-19",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 식물 육종 및 유전학 뉴스레터 제56호, 2026년 1월",
-   "gist": "식물 육종 및 유전학 뉴스레터",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 농업 분야 뉴스레터",
-   "relevance": "policy"
-  },
-  {
-   "id": "3401d1cb9219",
-   "org": "IAEA",
-   "org_kr": "국제원자력기구",
-   "kind": "publication",
-   "title": "Insect Pest Control Newsletter No. 106, January 2026",
-   "url": "http://www.iaea.org/publications/16068/insect-pest-control-newsletter-no-106-january-2026",
-   "date": "2026-05-19",
-   "fetched_at": "2026-08-02",
-   "title_kr": "국제원자력기구(IAEA) 해충 방제 뉴스레터 제106호, 2026년 1월",
-   "gist": "해충 방제 뉴스레터",
-   "translated_version": 3,
-   "off_topic": true,
-   "off_topic_reason": "원자력 발전과 무관한 농업 분야 뉴스레터",
-   "relevance": "policy"
   }
  ],
  "state": {
@@ -1123,35 +1091,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": true,
    "new": 0,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-15T04:13:16+09:00",
+   "at": "2026-11-16T03:32:58+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
