@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-16"
   },
   "retired": {
@@ -1558,10 +1558,42 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 6,
     "date": "2026-11-16"
   },
   "terms": {
+    "그어": {
+      "articles": 1,
+      "created_at": "2026-11-16T00:33:24.353702+00:00",
+      "domains": [
+        "dnews.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "dnews.co.kr",
+          "hash": "1fa25125f87d23f2",
+          "importance": "must_read",
+          "title": "체코 원전 갈등, 산업부 관리 책임론…중재는 선 그어"
+        }
+      ],
+      "expires_at": "2026-11-17T00:33:24.353702+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-11-16T00:33:26.345602+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-16T00:33:24.353702+00:00",
+      "queries_run": 1,
+      "query": "그어 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "그어",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "수출입은행과": {
       "articles": 4,
       "created_at": "2026-11-15T12:54:00.829424+00:00",
@@ -1625,14 +1657,14 @@
           "title": "전기위원회, 영덕 신규원전 2기 발전사업 허가안 원안 의결"
         }
       ],
-      "expires_at": "2026-11-16T18:24:18.529713+00:00",
+      "expires_at": "2026-11-17T00:33:26.345602+00:00",
       "importance": "must_read",
-      "last_result_count": 2,
-      "last_run": "2026-11-15T18:24:18.529713+00:00",
-      "new_articles": 2,
+      "last_result_count": 11,
+      "last_run": "2026-11-16T00:33:26.345602+00:00",
+      "new_articles": 13,
       "origin": "auto",
-      "planned_at": "2026-11-15T18:24:17.685783+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-16T00:33:24.353702+00:00",
+      "queries_run": 3,
       "query": "신규원전 1",
       "score": 3.6,
       "status": "extended",
@@ -1642,7 +1674,7 @@
       "yield_days": [
         "2026-11-16"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     },
     "전기위원회": {
