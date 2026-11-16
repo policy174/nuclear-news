@@ -1,69 +1,93 @@
 {
- "generated_at": "2026-11-15T11:33:27.111475+09:00",
+ "generated_at": "2026-11-16T11:42:01.707378+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
-   "count_now": 171,
-   "count_prev": 174,
-   "direction": "국내에서는 AI 데이터센터와 반도체 클러스터로 인한 전력 수요 급증이 예상되며, 이로 인해 전력 및 임베디드 반도체 공급 압박과 전력망 확충 차질 우려가 제기되고 있습니다. 해외에서는 일본의 대규모 데이터센터 투자와 함께 미국에서 데이터센터 자금 조달 급증에 따른 금융 시스템 취약성 경고 및 전력망 연결 비용과 인허가 지연 문제가 나타나고 있습니다. 이러한 흐름은 데이터센터의 빠른 확장이 전력 인프라, 공급망, 그리고 금융 안정성에 광범위한 영향을 미치고 있음을 보여줍니다.",
+   "count_now": 162,
+   "count_prev": 178,
+   "direction": "국내에서는 정부가 수도권 데이터센터의 과밀 해소와 전력 문제 해결을 위해 전기 공급 심사 기준을 강화하고 전력 밀집 지역에 감점을 부여하는 등 규제를 강화하는 흐름입니다. 이로 인해 호남권 등 비수도권으로의 데이터센터 분산 유치 노력이 나타나고 있으나, 강원경제자유구역의 사례처럼 전력 및 용수 공급 시점 확보가 과제로 지적됩니다. 해외에서는 미국에서 AI 데이터센터 건설에 대한 주민 반발로 규제안이 통과되고 있으며, 전력 부족과 송전망 갈등이 민생 문제로 부상하는 가운데 가정용 배터리 등을 활용한 전력난 해소 방안이 모색되고 있습니다.",
    "evidence": [
     {
-     "hash": "a2d48cd2fa144e49",
-     "title_kr": "12차 전력수급기본계획, AI 데이터센터·반도체 클러스터로 전력수요 30GW 이상 증가 전망",
-     "url": "https://www.ekn.kr/web/view.php?key=20261113022419517",
-     "date": "2026-11-15"
+     "hash": "330e3bcfaa872e76",
+     "title_kr": "강원경제자유구역, AI 데이터센터 유치 위한 전력·용수 공급 과제 직면",
+     "url": "https://www.kwnews.co.kr/article/20261115500766",
+     "date": "2026-11-16"
     },
     {
-     "hash": "7e6327a93fdef614",
-     "title_kr": "TI코리아 대표, AI 데이터센터발 전력·임베디드 반도체 공급 압박 경고",
-     "url": "https://biz.chosun.com/it-science/ict/2026/11/15/ENK2X7SDIREC3A3FOT7SQRCHHA",
-     "date": "2026-11-15"
+     "hash": "eb334d7eae3d65ff",
+     "title_kr": "정부, 수도권 데이터센터 전기 공급 심사 기준 강화",
+     "url": "https://www.chosun.com/economy/industry-company/2026/11/16/7LCRGC4WD5EWNADGZ6QNAO3L5A",
+     "date": "2026-11-16"
     },
     {
-     "hash": "a7dbd0315650ea4b",
-     "title_kr": "美 연준, AI 데이터센터 자금 조달 급증에 따른 금융시스템 취약성 경고",
-     "url": "https://www.ddaily.co.kr/page/view/2026111509030426341",
-     "date": "2026-11-15"
+     "hash": "54546cb8c4dd7095",
+     "title_kr": "美 중간선거서 AI 데이터센터 건설 규제안 44건 통과, 주민 반발 확산",
+     "url": "https://www.radiokorea.com/news/article.php?uid=509642",
+     "date": "2026-11-16"
     },
     {
-     "hash": "388102ebd50ee34b",
-     "title_kr": "인천 시민단체, 대규모 전력 소비 기업 지원 초광역특구법 철회 촉구",
-     "url": "https://www.seoul.co.kr/news/society/2026/11/15/20261115500012?wlog_tag3=naver",
-     "date": "2026-11-15"
+     "hash": "5e7c88d2da3266fb",
+     "title_kr": "데이터센터 건설 반대 민심, 전기요금·송전망 갈등으로 민생 문제 부상",
+     "url": "https://www.sedaily.com/article/20114409",
+     "date": "2026-11-16"
     },
     {
-     "hash": "2c57f88d9925c11c",
-     "title_kr": "전기요금 억제, 반도체·AI 데이터센터 전력망 확충 차질 우려 제기",
-     "url": "https://www.jnilbo.com/news/articleView.html?idxno=90000082755",
-     "date": "2026-11-15"
+     "hash": "da06d00f62083bf8",
+     "title_kr": "호남권, AI 데이터센터 구축 등 반도체 심장부로 도약 추진",
+     "url": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/11/16/20261116022002?wlog_tag3=naver",
+     "date": "2026-11-16"
     },
     {
-     "hash": "d56804e85fd944fe",
-     "title_kr": "디지털리얼티, 일본 데이터센터에 10년간 100억 달러 추가 투자",
-     "url": "https://www.tokenpost.kr/news/ai/438485",
-     "date": "2026-11-15"
+     "hash": "74571414698f3edf",
+     "title_kr": "수도권 데이터센터 건립 전력평가 문턱 높아진다",
+     "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611151329381240106",
+     "date": "2026-11-16"
     },
     {
-     "hash": "3bb35db2d1cc3d64",
-     "title_kr": "미국 데이터센터 업계, 전력망 연결 비용 및 인허가 지연 직면",
-     "url": "https://www.joongang.co.kr/article/25478493",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "48eb51b042ad8167",
-     "title_kr": "삼성전자, 미국 AI 데이터센터 열관리업체 모딘 인수 협상 중",
-     "url": "https://www.mediapen.com/news/view/1137465",
-     "date": "2026-11-14"
+     "hash": "e7774ffa18546380",
+     "title_kr": "가정용 배터리·전기차, AI 데이터센터 전력난 해소에 기여",
+     "url": "https://www.mt.co.kr/industry/2026/11/16/2026111305034664153",
+     "date": "2026-11-16"
     }
    ]
   },
   {
    "keyword": "SMR",
-   "count_now": 116,
-   "count_prev": 151,
-   "direction": "SMR 관련 흐름은 북미 지역의 부품 제조 시설 확장과 SMR 개발사의 핵연료 공급 계약 체결 등 공급망 구축 노력을 포함합니다. 국내에서는 울산시와 경상북도가 SMR 산업 육성과 생태계 구축을 위한 자문회의 및 국제자문위원회를 출범시키며 적극적인 움직임을 보이고 있으며, 한-불 원자력 협력도 SMR 분야로 확대되고 있습니다. 다만, 캐나다의 첫 서방형 SMR 프로젝트에서 건설 비용 및 일정 초과가 발생하며 사업 추진에 난항을 겪는 등 실제 구현 과정에서의 도전 과제도 나타나고 있습니다.",
+   "count_now": 118,
+   "count_prev": 143,
+   "direction": "국내에서는 SMR이 무탄소 전력원으로 제시되며, 중견 건설사들이 신사업으로 SMR 분야에 진출하고 지자체에서 연구개발특구 육성을 건의하는 등 산업계와 지자체의 관심과 추진이 활발합니다. 해외에서는 캐나다 BWXT가 SMR 핵심기기 양산 시설을 확장하며 SMR 건설 지원 역량을 강화하고 있으며, 한국과 프랑스는 SMR을 포함한 원자력 협력을 확대하는 흐름입니다. 전반적으로 SMR의 기술 개발 및 산업 생태계 구축 노력이 국내외에서 진행되고 있습니다.",
    "evidence": [
+    {
+     "hash": "d334e64e2b838c5d",
+     "title_kr": "BWXT, 캐나다 공장 8천만 캐나다달러 투자해 SMR 핵심기기 양산 확장 완료",
+     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBCSWVNVFVONjE5TEpsNGQtWTUxY2FvRXZJZDZJeXVtaEZNMFZ6dndRXzdyN0pkQTlVSVc4ckI2aGREUkl0WGQtZGptUmJiMG93UzAyaXp6V2ExejhtMlcyZFB5MWQ?oc=5",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "cb4b576d81089c20",
+     "title_kr": "대한상의, COP31에 산업계 대표단 파견…i-SMR 활용 무탄소 전력 제시",
+     "url": "https://www.newsis.com/view/NISX20261115_0003868512",
+     "date": "2026-11-15"
+    },
+    {
+     "hash": "171efd02e6ea7a1e",
+     "title_kr": "중견 건설사, 주택경기 부진 속 SMR·LNG 등 신사업으로 활로 모색",
+     "url": "https://www.ajunews.com/view/20261115172711477",
+     "date": "2026-11-15"
+    },
+    {
+     "hash": "4793aa3d7a0e4b71",
+     "title_kr": "창원시, SMR 연구개발특구 육성 등 24건 국회 건의",
+     "url": "https://www.knnews.co.kr/news/articleView.php?idxno=1555096",
+     "date": "2026-11-15"
+    },
+    {
+     "hash": "7edec16a24508c16",
+     "title_kr": "SK그룹, 재무 개선 후 '리밸런싱 2.0' 선언하며 AI 비즈니스 강화",
+     "url": "https://www.ajunews.com/view/20261115144111160",
+     "date": "2026-11-15"
+    },
     {
      "hash": "93d7805804259b57",
      "title_kr": "BWXT, 북미 최대 원전 부품 제조 시설 확장 완료",
@@ -71,171 +95,85 @@
      "date": "2026-11-14"
     },
     {
-     "hash": "b60914b22014a247",
-     "title_kr": "김병구 전 원자력연 단장, SMR 시장 주도권은 경제성에 달려",
-     "url": "https://www.sedaily.com/article/20114044",
-     "date": "2026-11-14"
-    },
-    {
      "hash": "d0af0638796469bc",
      "title_kr": "한·불 원자력 협력, 핵연료 공급망부터 SMR·고준위 방폐물까지 확대",
      "url": "https://www.energydaily.co.kr/news/articleView.html?idxno=205099",
      "date": "2026-11-14"
-    },
-    {
-     "hash": "b4a936d94bf21a9b",
-     "title_kr": "울산시, SMR 산업 육성 및 생태계 구축 위한 자문회의 개최",
-     "url": "https://www.newsis.com/view/NISX20261113_0003866768",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "ad5b53a12d9414f6",
-     "title_kr": "Oklo, Centrus와 핵연료 공급 계약 체결",
-     "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9EQXJxZnFja0phempUUmcxeTBXRFVSaEdBSnhiV1p1SFFwY0ppWU9tMWt3aXFvOWVaWWl2U2lodW1vcV9LMUZVM0d4LU1yS2txWHBNR3pSdS1Ob215cE1zTk5QaUEzMlFneWs0ZU5ET2stRVk?oc=5",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "0de5f43fb33f1c81",
-     "title_kr": "경상북도, SMR 국제자문위원회 출범으로 산업 육성 및 기술 협력 본격화",
-     "url": "https://www.gukjenews.com/news/articleView.html?idxno=3751779",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "2a9e164b342aaf61",
-     "title_kr": "캐나다 첫 서방형 SMR, 건설 비용 및 일정 대폭 초과 발생",
-     "url": "https://news.google.com/rss/articles/CBMiqgJBVV95cUxNY3pLclVFQ1hKVmEwMUdpNEJuQUFaLVROZnZoUWdrNnJwT1ZCQkpYQ2NYdVpBUGxSVjFSakVjQ1pJdzktYmJwelBYRjZMX1liaG1ieFZhcU5FVlJhMW55WVg5aXFVTjloWVdGcm9pNklZUUR5RGdETDBvV0NqcnEzV3UwT1pBSTMxdTFqbmlEMFlTYnFkWlhBWmNTV241clBfN3BuQTBIck96dFVKdDFDOS0zLUl4dVp6UzJveTVyRUxtaWxVUFhZaWRLU3YtakQ2SjFPcEc1VlBWdndVQmhEajBkR0Z6U3c3dlNIdDJfXzBFbDFiM2VxX1FFRTUwYk1ZRXM4WXFvREVWZWpVQTdicGt6ZHM1R0ZZWmd3VXN1YWpweWpZc0w0VUZR?oc=5",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "861bb125ab9baf3d",
-     "title_kr": "글로벌 전력 수요와 원전·SMR 건설 기대감에 기계·기자재주 주목",
-     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=503674",
-     "date": "2026-11-13"
     }
    ]
   },
   {
    "keyword": "AI데이터센터",
-   "count_now": 75,
-   "count_prev": 79,
-   "direction": "AI 데이터센터 관련 흐름은 스페이스X의 대규모 데이터센터 추진과 체코의 전력망 현대화 투자 계획에서 볼 수 있듯이 전 세계적으로 대규모 투자와 확장이 이루어지고 있습니다. 그러나 노르웨이 등 일부 국가에서는 전력 수요 급증으로 인한 규제 강화 움직임이 나타나고 있으며, 미국 오하이오 프로젝트에서 대규모 손실이 발생하는 등 사업 추진의 어려움도 존재합니다. 국내에서는 정부가 AI 데이터센터 특별법을 통해 비수도권 유치 및 규제 완화를 추진하며 산업 육성을 지원하고 있습니다.",
+   "count_now": 80,
+   "count_prev": 82,
+   "direction": "국내에서는 AI 데이터센터 건설 활성화를 위한 시공 기술 및 제도 개선 논의가 이루어지고 있으며, 국내 기업들은 AI 데이터센터 전력 공급 문제 해결을 위한 에너지 솔루션 개발과 해상 데이터센터 시장 진출을 확대하고 있습니다. 해외 시장에서는 국내 기업들이 미국에서 AI 데이터센터 전력 시스템 및 AI 팩토리 구축 계약을 수주하는 등 활발한 진출을 보이고 있으나, 미국 내에서는 대규모 AI 데이터센터 건설에 대한 주민 반발이 확산되는 흐름도 관찰됩니다.",
    "evidence": [
+    {
+     "hash": "9ef4273be8396701",
+     "title_kr": "삼성SDI·LG엔솔, 美 'RE+ 2026'서 AI 데이터센터 전력 솔루션 공개",
+     "url": "https://www.donga.com/news/Economy/article/all/20261115/135027884/2",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "06dfe4b5585bc0c1",
+     "title_kr": "AI 데이터센터 건설 활성화 위한 기술·제도 개선 논의",
+     "url": "https://www.kmecnews.co.kr/news/articleView.html?idxno=52735",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "12893ae1bae25c7a",
+     "title_kr": "네이버, 美 데이터센터 병목 수혜주 되나…AI 팩토리 2조 수주",
+     "url": "http://www.economytalk.kr/news/articleView.html?idxno=425309",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "0c48fcf042470ce2",
+     "title_kr": "K-조선, AI 특수 맞아 해상 데이터센터 시장 진출 확대",
+     "url": "https://magazine.hankyung.com/business/article/202611168312b",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "3088e2c012b18410",
+     "title_kr": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
+     "url": "https://www.yna.co.kr/view/AKR20261116038300003?input=1195m",
+     "date": "2026-11-16"
+    },
     {
      "hash": "2639b4e0a201eb77",
      "title_kr": "스페이스X, 67조원 규모 데이터센터 추진…주민 반발 확산",
      "url": "http://www.kjdaily.com/article.php?aid=1794670913692195276",
      "date": "2026-11-15"
-    },
-    {
-     "hash": "eb97e81bdf65a767",
-     "title_kr": "체코, 전력망 현대화·AI 데이터센터에 2.4조원 이상 투자 계획",
-     "url": "https://www.theguru.co.kr/news/article.html?no=109656",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "1d2dd57939f3d4da",
-     "title_kr": "노르웨이 등 각국, AI 데이터센터 전력 수요 급증에 규제 강화",
-     "url": "https://www.ytn.co.kr/_ln/0104_202611150430265613",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "cbd754ea3cd62f36",
-     "title_kr": "美 오하이오 데이터센터 개발사, 70억 달러 손실 기록",
-     "url": "https://www.ans.org/news/2026-11-13/article-8578/firm-developing-portsmouth-site-data-center-posts-7b-loss",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "359c5f0db00f9789",
-     "title_kr": "정부, AI 데이터센터 특별법 통해 비수도권 유치 및 규제 완화 추진",
-     "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065577830995939",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "c339314550048993",
-     "title_kr": "로이터 “중국 내 엔비디아 의존 AI 프로젝트 규모 4조6000억원 상회”",
-     "url": "https://www.etnews.com/20261114000015",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "6405e0bb07060394",
-     "title_kr": "로이터, 중국 내 엔비디아 AI 칩 활용 프로젝트 규모 4조 6천억 원 초과 보도",
-     "url": "https://www.sedaily.com/article/20114318",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "98bc36cb57e44dd7",
-     "title_kr": "씨이랩, 3분기 누적 매출 46% 증가 56억…수주잔고 3600억",
-     "url": "https://zdnet.co.kr/view?no=20261114153035",
-     "date": "2026-11-14"
-    }
-   ]
-  },
-  {
-   "keyword": "전력수요",
-   "count_now": 73,
-   "count_prev": 49,
-   "direction": "국내에서는 제12차 전력수급기본계획을 통해 AI 데이터센터와 반도체 클러스터로 인한 전력 수요가 30GW 이상 증가할 것으로 전망되며, 이는 전력 및 임베디드 반도체 공급 압박으로 이어지고 있습니다. 해외에서도 스페이스X의 대규모 데이터센터 건설 계획과 같이 AI 데이터센터가 전력 수요 급증의 주요 원인으로 지목되며, 노르웨이 등 각국은 이에 대응하여 규제를 강화하는 흐름을 보입니다. 이러한 흐름은 첨단 산업의 발전이 전력 인프라와 공급망에 상당한 부담을 주고 있음을 나타냅니다.",
-   "evidence": [
-    {
-     "hash": "1d2dd57939f3d4da",
-     "title_kr": "노르웨이 등 각국, AI 데이터센터 전력 수요 급증에 규제 강화",
-     "url": "https://www.ytn.co.kr/_ln/0104_202611150430265613",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "a2d48cd2fa144e49",
-     "title_kr": "12차 전력수급기본계획, AI 데이터센터·반도체 클러스터로 전력수요 30GW 이상 증가 전망",
-     "url": "https://www.ekn.kr/web/view.php?key=20261113022419517",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "7e6327a93fdef614",
-     "title_kr": "TI코리아 대표, AI 데이터센터발 전력·임베디드 반도체 공급 압박 경고",
-     "url": "https://biz.chosun.com/it-science/ict/2026/11/15/ENK2X7SDIREC3A3FOT7SQRCHHA",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "388102ebd50ee34b",
-     "title_kr": "인천 시민단체, 대규모 전력 소비 기업 지원 초광역특구법 철회 촉구",
-     "url": "https://www.seoul.co.kr/news/society/2026/11/15/20261115500012?wlog_tag3=naver",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "0ce3a1f4135bb13f",
-     "title_kr": "스페이스X, 애리조나에 67조 원 규모 데이터센터 건설 계획 발표",
-     "url": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00008&news_seq_no=5230837",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "aaf4ac8a1b3b39c8",
-     "title_kr": "나주시, 호남권 반도체 클러스터 배후거점 육성 위해 에너지산업 역량 결집",
-     "url": "https://www.ekn.kr/web/view.php?key=20261114025559479",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "e8b1a1658ac35459",
-     "title_kr": "이탈리아 에넬, 2월 데이터센터 서비스 계획 발표 예정",
-     "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPRzdQOVh1VHRfWnpMLUhjZW5kakVFczR0Nmw1MXhPdmNFX0NkRmRzRjd5UXdhbmdfRVhKOXZIS0VCbzRZeVNkNU1TWEpwU25RTXFEcDB0T1JMWG5SMXFObHBfbkNiLThtS3dYbF9GQ002aUk0bjBnNFNWT0ZFSmxmZkltM1pLa09hU2x0Qy1OVlFsUkY0cHhtLXlRUEhwUlhIZ1htTVJLWlU1NVZPQmlaRG1ya3M?oc=5",
-     "date": "2026-11-13"
     }
    ]
   },
   {
    "keyword": "AI",
-   "count_now": 69,
-   "count_prev": 88,
-   "direction": "AI는 한국수력원자력의 AI 형상관리 고도화 사업 수주 사례처럼 국내 공공 부문에서도 활용이 확대되고 있으며, 인텔과 엔비디아는 국내 AI 기업들과 협력을 강화하며 산업 전반으로 AI 적용을 넓히고 있습니다. 이러한 AI의 확산은 일본 데이터센터에 대한 대규모 투자와 미국 AI 데이터센터 열관리업체 인수 협상 등 관련 인프라 투자로 이어지고 있으나, 동시에 AI 시대의 전력 수요 급증과 전력 인프라 및 제도 정비 미흡이라는 과제도 부각되고 있습니다.",
+   "count_now": 71,
+   "count_prev": 86,
+   "direction": "국내에서는 SK그룹이 AI 서비스 영역을 확장하며 'AI 컴퍼니'로 재정의하고, 한국수력원자력의 AI 사업 수주를 통해 국내 기업들이 성장하는 등 AI 산업의 외연이 확장되고 있습니다. 해외에서는 미국 AI 투자 열풍이 전력 부족 등으로 조정 국면에 진입할 수 있다는 경고가 나오는 한편, 중국은 미국의 수출 규제에도 불구하고 AI 프로젝트를 추진하고 있으며, 글로벌 기업들은 한국 AI 기업들과 협력을 확대하며 AI 활용 분야를 산업 전반으로 넓히고 있습니다. AI 산업의 전력 수요 급증에 대한 우려와 함께 물 에너지 등 대안 모색도 이루어지고 있습니다.",
    "evidence": [
+    {
+     "hash": "2be807fbbc1109a4",
+     "title_kr": "현대경제연구원, 미국 AI 투자 2028년 조정 가능성 경고",
+     "url": "https://www.geconomy.co.kr/news/article.html?no=325687",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "e123fd7b8ab663d1",
+     "title_kr": "SK그룹, 최태원 회장 주도로 AI 서비스 영역 확장 및 'AI 컴퍼니' 재정의",
+     "url": "http://www.dailypop.kr/news/articleView.html?idxno=104599",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "37e801bd57abb6b3",
+     "title_kr": "中, 美 수출 규제에도 엔비디아 칩 기반 AI 프로젝트 다수 추진",
+     "url": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=715592",
+     "date": "2026-11-16"
+    },
     {
      "hash": "b62174fd05fa36ba",
      "title_kr": "솔트룩스, 한수원 AI 사업 수주로 3분기 흑자 전환 성공",
      "url": "http://www.hansbiz.co.kr/news/articleView.html?idxno=883315",
-     "date": "2026-11-15"
-    },
-    {
-     "hash": "d56804e85fd944fe",
-     "title_kr": "디지털리얼티, 일본 데이터센터에 10년간 100억 달러 추가 투자",
-     "url": "https://www.tokenpost.kr/news/ai/438485",
      "date": "2026-11-15"
     },
     {
@@ -255,27 +193,51 @@
      "title_kr": "AI 시대 전력 수요 급증, 물 에너지로 돌파구 모색",
      "url": "https://www.lecturernews.com/news/articleView.html?idxno=213712",
      "date": "2026-11-14"
-    },
-    {
-     "hash": "e14afceb2f19da97",
-     "title_kr": "SK·LG·KT, AI 데이터센터 추진…전력 인프라·제도 정비 미흡 지적",
-     "url": "http://www.press9.kr/news/articleView.html?idxno=86257",
-     "date": "2026-11-14"
-    },
-    {
-     "hash": "abf2c6786281251d",
-     "title_kr": "美, 中 AI 반도체 우회 수입 경로 차단 검토…삼성·SK하이닉스 HBM 공급망 영향",
-     "url": "http://www.issuenbiz.com/news/articleView.html?idxno=81546",
-     "date": "2026-11-13"
     }
    ]
   },
   {
-   "keyword": "전력망",
-   "count_now": 60,
-   "count_prev": 53,
-   "direction": "전력망 관련 흐름은 국내외적으로 반도체 산업단지와 AI 데이터센터 등 첨단 산업의 대규모 전력 수요 증가에 따라 확충의 시급성이 부각되고 있습니다. 국내에서는 전기요금 억제가 전력망 확충에 차질을 빚을 수 있다는 우려와 함께, 대규모 전력 소비 기업 지원 법안에 대한 시민단체의 철회 촉구 및 동서울변환소와 같은 전력망 사업의 주민 수용성 확보 문제가 제기되고 있습니다. 해외에서도 미국 데이터센터 업계가 전력망 연결 비용 증가와 인허가 지연에 직면하는 등 전력망 인프라 구축이 주요 도전 과제로 나타나고 있습니다.",
+   "keyword": "전력수요",
+   "count_now": 63,
+   "count_prev": 60,
+   "direction": "국내에서는 AI 데이터센터와 반도체 클러스터 설립 등으로 전력 수요가 크게 증가할 것으로 예상되며, 이는 전력 및 용수 공급의 과제로 지적되고 있습니다. 수도권의 전력 문제로 인해 호남권 등 비수도권으로의 데이터센터 분산 유치가 추진되는 한편, 대규모 전력 소비 기업 지원 법안에 대한 시민단체의 반대 의견도 나타나고 있습니다. 해외에서는 노르웨이 등 각국이 AI 데이터센터의 막대한 전력 수요에 대응하여 규제를 강화하고 있으며, 미국에서는 전력 부족이 AI 투자 조정 가능성의 한 요인으로 언급되는 등 전력 수요 증가에 대한 국내외적 대응과 우려가 공존하고 있습니다.",
    "evidence": [
+    {
+     "hash": "330e3bcfaa872e76",
+     "title_kr": "강원경제자유구역, AI 데이터센터 유치 위한 전력·용수 공급 과제 직면",
+     "url": "https://www.kwnews.co.kr/article/20261115500766",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "da06d00f62083bf8",
+     "title_kr": "호남권, AI 데이터센터 구축 등 반도체 심장부로 도약 추진",
+     "url": "https://www.seoul.co.kr/news/publicnews/local_govern/news_local/2026/11/16/20261116022002?wlog_tag3=naver",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "2be807fbbc1109a4",
+     "title_kr": "현대경제연구원, 미국 AI 투자 2028년 조정 가능성 경고",
+     "url": "https://www.geconomy.co.kr/news/article.html?no=325687",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "1d2dd57939f3d4da",
+     "title_kr": "노르웨이 등 각국, AI 데이터센터 전력 수요 급증에 규제 강화",
+     "url": "https://www.ytn.co.kr/_ln/0104_202611150430265613",
+     "date": "2026-11-15"
+    },
+    {
+     "hash": "a2d48cd2fa144e49",
+     "title_kr": "12차 전력수급기본계획, AI 데이터센터·반도체 클러스터로 전력수요 30GW 이상 증가 전망",
+     "url": "https://www.ekn.kr/web/view.php?key=20261113022419517",
+     "date": "2026-11-15"
+    },
+    {
+     "hash": "7e6327a93fdef614",
+     "title_kr": "TI코리아 대표, AI 데이터센터발 전력·임베디드 반도체 공급 압박 경고",
+     "url": "https://biz.chosun.com/it-science/ict/2026/11/15/ENK2X7SDIREC3A3FOT7SQRCHHA",
+     "date": "2026-11-15"
+    },
     {
      "hash": "388102ebd50ee34b",
      "title_kr": "인천 시민단체, 대규모 전력 소비 기업 지원 초광역특구법 철회 촉구",
@@ -283,40 +245,66 @@
      "date": "2026-11-15"
     },
     {
-     "hash": "2c57f88d9925c11c",
-     "title_kr": "전기요금 억제, 반도체·AI 데이터센터 전력망 확충 차질 우려 제기",
-     "url": "https://www.jnilbo.com/news/articleView.html?idxno=90000082755",
+     "hash": "e0aca7a5786e9733",
+     "title_kr": "고려아연 미국 제련소, TVA로부터 230MW 대규모 전력 사용 승인",
+     "url": "https://biz.chosun.com/industry/company/2026/11/15/Z2YDG247NNGM7CHKNEGQNKD2K4",
+     "date": "2026-11-15"
+    }
+   ]
+  },
+  {
+   "keyword": "원전수출",
+   "count_now": 61,
+   "count_prev": 58,
+   "direction": "한국은 체코 두코바니 원전사업의 성공적 추진을 위해 발주사와 합동 점검회의를 개최하고 2027년 인허가 신청을 추진하는 등 대형 원전 수출 노력을 지속하고 있습니다. 이와 함께 한국원전수출산업협회는 스위스 원전발전협회와 MOU를 체결하여 국내 원전 기업의 유럽 시장 진출을 위한 협력 체계를 구축하고 있으며, 한국무역보험공사 등 정책금융기관들은 슬로바키아 수출입은행과 원전 및 에너지 분야 금융협력을 강화하며 한국 원전 기업의 유럽 진출을 지원하는 등 대형 원전 사업 추진과 유럽 시장으로의 원전 관련 산업 전반의 수출 기반을 확대하려는 흐름이 나타나고 있습니다.",
+   "evidence": [
+    {
+     "hash": "77fc6fa3f5c43da0",
+     "title_kr": "한국원전수출산업협회, 스위스 원전발전협회와 MOU 체결",
+     "url": "https://view.asiae.co.kr/article/2026111510242489526",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "833420e2574ca470",
+     "title_kr": "장영진 무보 사장, 원전·에너지 금융협력 등 수출 1조 달러 지원 행보",
+     "url": "https://view.asiae.co.kr/article/2026111608403252830",
+     "date": "2026-11-16"
+    },
+    {
+     "hash": "4b0e5131410290b0",
+     "title_kr": "무보, 슬로바키아 수출입은행과 원전·에너지 금융협력 강화",
+     "url": "https://www.yna.co.kr/view/AKR20261115013600003?input=1195m",
      "date": "2026-11-15"
     },
     {
-     "hash": "3bb35db2d1cc3d64",
-     "title_kr": "미국 데이터센터 업계, 전력망 연결 비용 및 인허가 지연 직면",
-     "url": "https://www.joongang.co.kr/article/25478493",
-     "date": "2026-11-14"
+     "hash": "86de641c9e1c7180",
+     "title_kr": "한수원, 체코 두코바니 원전사업 점검 및 2027년 인허가 신청 추진",
+     "url": "https://www.hidomin.com/news/articleView.html?idxno=729314",
+     "date": "2026-11-15"
     },
     {
-     "hash": "a63e79f778969ca2",
-     "title_kr": "반도체 산업 투자 확대에 따른 전력 인프라 구축 시급",
-     "url": "https://www.newsis.com/view/NISX20261113_0003866483",
-     "date": "2026-11-14"
+     "hash": "6eeb62f28d9331b0",
+     "title_kr": "무보, 슬로바키아 수출입은행과 협약 체결로 한국 원전기업 유럽 진출 지원",
+     "url": "https://www.fnnews.com/news/202611151000103158",
+     "date": "2026-11-15"
     },
     {
-     "hash": "ec3d2b9edde58d22",
-     "title_kr": "[산업X파일] 데이터센터 전력 요금과 비용 분담 체계 논란",
-     "url": "https://www.chosun.com/economy/economy_general/2026/11/14/U35FNNU6X5HAHGMAM2JRZUR44Q",
-     "date": "2026-11-14"
+     "hash": "67692ca9625c6f16",
+     "title_kr": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+     "url": "https://www.kbmaeil.com/article/20261115500267",
+     "date": "2026-11-15"
     },
     {
-     "hash": "c82888c0c8488a32",
-     "title_kr": "정부, 동서울변환소 주민협의는 '지연 방지 절차'…대체부지 검토 결과 공개 필요",
-     "url": "https://www.energydaily.co.kr/news/articleView.html?idxno=205100",
-     "date": "2026-11-14"
+     "hash": "bf41cf85209e89bf",
+     "title_kr": "무보, 슬로바키아 수출입은행과 원전·에너지 금융협력 MOU 체결",
+     "url": "https://www.newspim.com/news/view/20261115000123",
+     "date": "2026-11-15"
     },
     {
-     "hash": "7b53124f3c4e94f7",
-     "title_kr": "이언주 의원, 용인 반도체산단 전력 공급 위한 송전선로 지중화 사업 강조",
-     "url": "https://www.gukjenews.com/news/articleView.html?idxno=3752101",
-     "date": "2026-11-14"
+     "hash": "40590996cec0486a",
+     "title_kr": "한국 정책금융기관, 슬로바키아 원전사업 금융지원 협력 추진",
+     "url": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2376030",
+     "date": "2026-11-15"
     }
    ]
   }
