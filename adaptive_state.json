@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 4,
     "date": "2026-11-16"
   },
   "retired": {
@@ -1558,10 +1558,56 @@
     }
   },
   "spent": {
-    "count": 11,
+    "count": 12,
     "date": "2026-11-16"
   },
   "terms": {
+    "snf": {
+      "articles": 3,
+      "created_at": "2026-11-16T09:02:24.182581+00:00",
+      "domains": [
+        "asiae.co.kr",
+        "edaily.co.kr",
+        "weeklytrade.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "asiae.co.kr",
+          "hash": "77fc6fa3f5c43da0",
+          "importance": "nice_to_know",
+          "title": "한국원전수출산업협회, 스위스 원전발전협회와 MOU 체결"
+        },
+        {
+          "domain": "edaily.co.kr",
+          "hash": "f72d548e09f19e2c",
+          "importance": "noise",
+          "title": "코트라, 스위스서 소부장 상담회…원전 기자재 MOU 체결"
+        },
+        {
+          "domain": "weeklytrade.co.kr",
+          "hash": "c403a81eff59be34",
+          "importance": "nice_to_know",
+          "title": "한국원전수출산업협회, 스위스 원전발전협회와 MOU 체결로 시장 진출 지원"
+        }
+      ],
+      "expires_at": "2026-11-17T09:02:24.182581+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 0,
+      "last_run": "2026-11-16T09:02:25.387252+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-16T09:02:24.182581+00:00",
+      "queries_run": 1,
+      "query": "SNF 원자력",
+      "score": 3.64,
+      "status": "tracking",
+      "term": "SNF",
+      "ttl_hours": 24,
+      "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "그어": {
       "articles": 1,
       "created_at": "2026-11-16T00:33:24.353702+00:00",
@@ -1593,6 +1639,35 @@
       "yield_days": [],
       "yields": 0,
       "zero_streak": 2
+    },
+    "기저전원인": {
+      "articles": 1,
+      "created_at": "2026-11-16T09:02:24.182581+00:00",
+      "domains": [
+        "segye.com"
+      ],
+      "evidence": [
+        {
+          "domain": "segye.com",
+          "hash": "eb888838d445f6b2",
+          "importance": "must_read",
+          "title": "이종호 칼럼: AI 시대, 전기에너지 주권 확보 위해 원전 확대 및 사용후핵연료 대책 시급"
+        }
+      ],
+      "expires_at": "2026-11-17T09:02:24.182581+00:00",
+      "importance": "must_read",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "기저 전원인 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "기저 전원인",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 0
     },
     "수출입은행과": {
       "articles": 4,
@@ -1718,6 +1793,51 @@
         "2026-11-16"
       ],
       "yields": 3,
+      "zero_streak": 0
+    },
+    "테네시강유역개발공사": {
+      "articles": 5,
+      "created_at": "2026-11-16T09:02:24.182581+00:00",
+      "domains": [
+        "dailian.co.kr",
+        "chosun.com",
+        "newsis.com",
+        "segye.com",
+        "energy-news.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "dailian.co.kr",
+          "hash": "774c6860df73f6f0",
+          "importance": "nice_to_know",
+          "title": "고려아연, 美 제련소 230MW 전력 사용 승인…TVA 2029년 공급"
+        },
+        {
+          "domain": "chosun.com",
+          "hash": "e0aca7a5786e9733",
+          "importance": "nice_to_know",
+          "title": "고려아연 미국 제련소, TVA로부터 230MW 대규모 전력 사용 승인"
+        },
+        {
+          "domain": "newsis.com",
+          "hash": "c6df761fe2ea448c",
+          "importance": "nice_to_know",
+          "title": "고려아연, 美 통합제련소 전력 사용 승인…2029년부터 230㎿ 공급"
+        }
+      ],
+      "expires_at": "2026-11-17T09:02:24.182581+00:00",
+      "importance": "nice_to_know",
+      "new_articles": 0,
+      "origin": "auto",
+      "queries_run": 0,
+      "query": "테네시강유역개발공사 원자력",
+      "score": 3.32,
+      "status": "tracking",
+      "term": "테네시강유역개발공사",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [],
+      "yields": 0,
       "zero_streak": 0
     },
     "한국무역보험공사": {
