@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-18"
   },
   "retired": {
@@ -1566,10 +1566,42 @@
     }
   },
   "spent": {
-    "count": 4,
+    "count": 7,
     "date": "2026-11-18"
   },
   "terms": {
+    "부이그에파주빈치와epr2": {
+      "articles": 1,
+      "created_at": "2026-11-17T22:25:56.554159+00:00",
+      "domains": [
+        "lesechos.fr"
+      ],
+      "evidence": [
+        {
+          "domain": "lesechos.fr",
+          "hash": "a4cff403d7cd67f3",
+          "importance": "must_read",
+          "title": "프랑스 EDF, 부이그·에파주·빈치와 EPR2 원전 건설 14조 원 계약 체결 임박"
+        }
+      ],
+      "expires_at": "2026-11-18T22:25:56.554159+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-11-17T22:25:58.717830+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-17T22:25:56.554159+00:00",
+      "queries_run": 1,
+      "query": "부이그·에파주·빈치와 EPR2 원전",
+      "score": 3.6,
+      "status": "tracking",
+      "term": "부이그·에파주·빈치와 EPR2",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
+    },
     "신규원전1": {
       "articles": 1,
       "created_at": "2026-11-15T10:18:52.659265+00:00",
@@ -1633,17 +1665,17 @@
           "title": "한국원전수출산업협회, 스위스 원전발전협회와 원전 기자재 공급망 협력 MOU 체결"
         }
       ],
-      "expires_at": "2026-11-18T15:38:52.050683+00:00",
+      "expires_at": "2026-11-18T22:25:58.717830+00:00",
       "importance": "nice_to_know",
       "last_result_count": 2,
-      "last_run": "2026-11-17T15:38:52.050683+00:00",
-      "new_articles": 3,
+      "last_run": "2026-11-17T22:25:58.717830+00:00",
+      "new_articles": 5,
       "origin": "auto",
-      "planned_at": "2026-11-17T15:38:49.658696+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-17T22:25:56.554159+00:00",
+      "queries_run": 3,
       "query": "원전발전협회",
       "score": 3.7,
-      "status": "extended",
+      "status": "promote_candidate",
       "term": "원전발전협회",
       "ttl_hours": 24,
       "type": "org",
@@ -1651,7 +1683,7 @@
         "2026-11-17",
         "2026-11-18"
       ],
-      "yields": 2,
+      "yields": 3,
       "zero_streak": 0
     },
     "전기위원회": {
@@ -1730,11 +1762,11 @@
       "expires_at": "2026-11-20T03:38:57.596644+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-17T15:38:52.050683+00:00",
+      "last_run": "2026-11-17T22:25:58.717830+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-17T15:38:49.658696+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-17T22:25:56.554159+00:00",
+      "queries_run": 3,
       "query": "정책자문위원회 원자력",
       "score": 6.5,
       "status": "extended",
@@ -1745,7 +1777,7 @@
         "2026-11-17"
       ],
       "yields": 1,
-      "zero_streak": 1
+      "zero_streak": 2
     }
   },
   "version": 1
