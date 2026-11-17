@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-17"
   },
   "retired": {
@@ -515,14 +515,6 @@
       "term": "만나 닌투언2",
       "type": "plant",
       "until": "2026-10-17T15:36:26.030613+00:00"
-    },
-    "만에탈": {
-      "new_articles": 0,
-      "reason": "성과 없음",
-      "retired_at": "2026-09-17T23:20:58.953170+00:00",
-      "term": "만에 탈",
-      "type": "plant",
-      "until": "2026-10-01T23:20:58.953170+00:00"
     },
     "명이참여하": {
       "new_articles": 0,
@@ -1558,7 +1550,7 @@
     }
   },
   "spent": {
-    "count": 8,
+    "count": 9,
     "date": "2026-11-17"
   },
   "terms": {
@@ -1723,6 +1715,54 @@
         "2026-11-17"
       ],
       "yields": 4,
+      "zero_streak": 0
+    },
+    "원전발전협회": {
+      "articles": 3,
+      "created_at": "2026-11-17T00:32:58.469454+00:00",
+      "domains": [
+        "asiae.co.kr",
+        "weeklytrade.co.kr",
+        "cstimes.com"
+      ],
+      "evidence": [
+        {
+          "domain": "asiae.co.kr",
+          "hash": "77fc6fa3f5c43da0",
+          "importance": "nice_to_know",
+          "title": "한국원전수출산업협회, 스위스 원전발전협회와 MOU 체결"
+        },
+        {
+          "domain": "weeklytrade.co.kr",
+          "hash": "c403a81eff59be34",
+          "importance": "nice_to_know",
+          "title": "한국원전수출산업협회, 스위스 원전발전협회와 MOU 체결로 시장 진출 지원"
+        },
+        {
+          "domain": "cstimes.com",
+          "hash": "8f20829bb55f2046",
+          "importance": "nice_to_know",
+          "title": "한국원전수출산업협회, 스위스 원전발전협회와 원전 기자재 공급망 협력 MOU 체결"
+        }
+      ],
+      "expires_at": "2026-11-18T00:32:59.275951+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 1,
+      "last_run": "2026-11-17T00:32:59.275951+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-11-17T00:32:58.469454+00:00",
+      "queries_run": 1,
+      "query": "원전발전협회",
+      "score": 3.7,
+      "status": "extended",
+      "term": "원전발전협회",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-11-17"
+      ],
+      "yields": 1,
       "zero_streak": 0
     },
     "전기위원회": {
