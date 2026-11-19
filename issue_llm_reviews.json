@@ -412,6 +412,16 @@
       "right_title": "국방예산 70조 돌파, 핵추진잠수함 개발 기본계획 보고",
       "same_event": false
     },
+    "00b89a7a1d0a14a6--592093d97585685d": {
+      "embedding_similarity": 0.9033,
+      "left_title": "EU 이사회, 신재생에너지·전력망 인허가 기간 단축 법안 잠정 합의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "EU의 서로 다른 인허가 안건",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "EU, 전력망 병목 해소를 위해 1MW 이하 충전소 허가 면제 잠정 합의",
+      "same_event": false
+    },
     "00d4e0fc758705af--686386b958dffbfc": {
       "embedding_similarity": 0.8441,
       "left_title": "전기본 원전 공론화위, 원전 역할·비중 핵심 의제로 확정",
@@ -62952,6 +62962,16 @@
       "right_title": "서부발전, 태안 석탄화력 대체 LNG 발전소 준공…탈석탄 정책 첫 결실",
       "same_event": false
     },
+    "22ee6365a334bd2d--280dee06b11910a3": {
+      "embedding_similarity": 0.9091,
+      "left_title": "경남도, 미국 메릴랜드주와 SMR 산업 육성 업무협약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협력 주체 지자체가 경남과 경북으로 다름",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "경북도, 美 메릴랜드주와 양자산업 넘어 SMR 분야 협력 확대",
+      "same_event": false
+    },
     "22f0394dd0806c21--c5ee71b4b7c49c2a": {
       "embedding_similarity": 0.8808,
       "left_title": "COP31, 미래 기후 협상 핵심 의제로 '전력화' 부상",
@@ -81721,6 +81741,26 @@
       "reviewed_at": "2026-10-24T23:00:10.194238+00:00",
       "right_title": "나비타스, 엔비디아와 협력해 차세대 AI 데이터센터 전력 솔루션 개발",
       "same_event": false
+    },
+    "2e2e3e916bc2c2fb--d0af0638796469bc": {
+      "embedding_similarity": 0.9007,
+      "left_title": "한·불 원자력 협력, 핵연료 공급망부터 SMR·고준위 방폐물까지 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한·불 SMR 및 원자력 협력 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "한국·프랑스, 소형모듈원자로(SMR) 분야 협력 강화",
+      "same_event": true
+    },
+    "2e2e3e916bc2c2fb--d26a2f589c295e63": {
+      "embedding_similarity": 0.8967,
+      "left_title": "한국·프랑스, 제27차 원자력공동조정위원회 개최…SMR 및 핵연료 협력 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한·불 원자력공동위원회 SMR 협력 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "한국·프랑스, 소형모듈원자로(SMR) 분야 협력 강화",
+      "same_event": true
     },
     "2e350f61d297d418--3180c4bcd0c21ec4": {
       "embedding_similarity": 0.8895,
@@ -104682,6 +104722,16 @@
       "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
       "same_event": false
     },
+    "3d28d33af67ec2ec--a6c5333014b98b20": {
+      "embedding_similarity": 0.9168,
+      "left_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 전력 차액계약 시행 동일 사안",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
+      "same_event": true
+    },
     "3d2b177ae4f51424--45ba205e3e57eff7": {
       "embedding_similarity": 0.845,
       "left_title": "영국, 자국 전력 공급 보존 위해 유럽으로의 전력 수출 제한",
@@ -124082,6 +124132,26 @@
       "right_title": "기후에너지환경부, 원전 공론화 추진계획 국무회의 보고",
       "same_event": false
     },
+    "4d9bfce9591d34ff--9ef4273be8396701": {
+      "embedding_similarity": 0.9014,
+      "left_title": "삼성SDI·LG엔솔, 美 'RE+ 2026'서 AI 데이터센터 전력 솔루션 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전시회 신제품 공개와 임원 인터뷰로 다름",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "LG에너지솔루션 미국 임원, AI 데이터센터발 ESS 수요에 자신감 표명",
+      "same_event": false
+    },
+    "4d9bfce9591d34ff--ecf12093cde08000": {
+      "embedding_similarity": 0.899,
+      "left_title": "국내 배터리사, 미국 에너지저장장치 대규모 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 계약 건과 업계 전망 인터뷰로 다름",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "LG에너지솔루션 미국 임원, AI 데이터센터발 ESS 수요에 자신감 표명",
+      "same_event": false
+    },
     "4d9d0f4caa24d822--f84dde4dd89b676c": {
       "embedding_similarity": 0.9079,
       "left_title": "한미일 외교장관, SMR 협력에 이어 북극·태평양 협력각서 서명",
@@ -125419,6 +125489,16 @@
       "prompt_version": 1,
       "reason": "건설허가 신청과 시공사 갈등은 별개",
       "reviewed_at": "2026-11-19T00:52:39.939540+00:00",
+      "right_title": "한수원·대우건설 '두코바니 원전 갈등' 놓고…체코 전·현직 장관 충돌",
+      "same_event": false
+    },
+    "4f2f3e2a5ae35840--d8531177505bee02": {
+      "embedding_similarity": 0.9122,
+      "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주체 및 다루는 구체 사안 다름",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
       "right_title": "한수원·대우건설 '두코바니 원전 갈등' 놓고…체코 전·현직 장관 충돌",
       "same_event": false
     },
@@ -144772,6 +144852,16 @@
       "right_title": "루마니아, 다뉴브강 수위 하락으로 원자로 가동 중단 가능성",
       "same_event": true
     },
+    "5c74ef1936ab4bac--86113fe8be311953": {
+      "embedding_similarity": 0.9122,
+      "left_title": "정부, 40조원 역대 최대 R&D 예산안 국회 심사…SMR 등 7대 SEED 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 R&D 예산 SMR 배정 동일 사안",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "정부, 2027년 R&D 예산 39.5조원 확정…SMR 등 7대 SEED 분야 3.7조원 배정",
+      "same_event": true
+    },
     "5c74ef1936ab4bac--924488765032379c": {
       "embedding_similarity": 0.8635,
       "left_title": "정부, 40조원 역대 최대 R&D 예산안 국회 심사…SMR 등 7대 SEED 포함",
@@ -148261,6 +148351,16 @@
       "reviewed_at": "2026-10-24T17:57:28.221734+00:00",
       "right_title": "제주도, 40MW 재생에너지 연계 AI 데이터센터 구축 위한 공공기관 수요 조사",
       "same_event": false
+    },
+    "61481384c202e281--9de163ee2d166b73": {
+      "embedding_similarity": 0.9002,
+      "left_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 관련 국회 청문회 추진",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "국회, 체코 원전 시공사 교체 논란 관련 청문회 추진 가닥",
+      "same_event": true
     },
     "6148e83f9ecd1df7--c1e1c854a65f9be7": {
       "embedding_similarity": 0.8774,
@@ -166001,6 +166101,16 @@
       "reviewed_at": "2026-11-09T07:20:38.458983+00:00",
       "right_title": "대우건설 노조, 체코 원전 시공사 교체 사전 접촉 의혹 제기",
       "same_event": true
+    },
+    "6e44db3c17b19418--ae09c2ba2fd18513": {
+      "embedding_similarity": 0.9029,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "이사회 보고 누락과 국회 요구로 사안 다름",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "한수원, 체코 원전 시공사 교체 논란…국회 진상 규명 요구",
+      "same_event": false
     },
     "6e44db3c17b19418--b7b1b6698168e58c": {
       "embedding_similarity": 0.8668,
@@ -193202,6 +193312,46 @@
       "right_title": "AI 시대 전력 수요 급증에 따른 원자력 발전 확대 필요성 제기",
       "same_event": false
     },
+    "8708eff7b304fde4--ab55991b6fbe78af": {
+      "embedding_similarity": 0.9051,
+      "left_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐물 기본계획 관련 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "고준위 방폐물 관리 기본계획 부산 설명회 개최…2038년 부지 선정 목표 실현성 논란",
+      "same_event": true
+    },
+    "8708eff7b304fde4--ba30bfbda80c4607": {
+      "embedding_similarity": 0.9163,
+      "left_title": "고준위방폐물 관리시설 부적합지역 배제기준 확정…부지선정 본격화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐장 부지선정 착수 동일 사안",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
+      "same_event": true
+    },
+    "8708eff7b304fde4--c88f53a8215026f3": {
+      "embedding_similarity": 0.9027,
+      "left_title": "정부, 2038년까지 고준위 방폐장 부지 확정…제3차 관리 기본계획 초안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "제3차 고준위 방폐물 기본계획 발표 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
+      "same_event": true
+    },
+    "8708eff7b304fde4--de3f0c9dc378fea6": {
+      "embedding_similarity": 0.9074,
+      "left_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐물 기본계획 및 부지선정 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "정부, 2038년 고준위 방폐장 부지 확정 및 3차 기본계획 초안 공개",
+      "same_event": true
+    },
     "8714991df4bab3e8--b795e4f7e7503f80": {
       "embedding_similarity": 0.857,
       "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
@@ -197710,6 +197860,16 @@
       "reason": "미 중간선거 후 AI 데이터센터 규제 영향",
       "reviewed_at": "2026-11-11T13:44:15.100063+00:00",
       "right_title": "미국 중간선거 민주당 선전 속 데이터센터 규제 강화 우려 대두",
+      "same_event": true
+    },
+    "8c29ef65548a7ca4--a6c5333014b98b20": {
+      "embedding_similarity": 0.9074,
+      "left_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 정부승인차액계약 시행 확정 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "정부, 원전 정부승인차액계약 내년 1월 1일 시행 확정",
       "same_event": true
     },
     "8c32eada0e1f5144--96dffa21b827ca27": {
@@ -204111,6 +204271,16 @@
       "reviewed_at": "2026-10-27T10:13:42.953097+00:00",
       "right_title": "제12차 전력수급기본계획, 2040년 목표수요 대폭 상향",
       "same_event": false
+    },
+    "9318b58054c8589e--fa0f8dbbd606c64d": {
+      "embedding_similarity": 0.9147,
+      "left_title": "한빛원전 범대위, 사용후핵연료 저장시설 설치 반대…주민 안전·지원 대책 촉구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한빛원전 건식저장시설 반대 동일 사안",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "한수원 한빛원전 건식저장시설 건설에 전남광주 환경단체 집단 반발",
+      "same_event": true
     },
     "931af3c993bc2e8b--c40a941e15ff61ef": {
       "embedding_similarity": 0.9322,
@@ -214752,6 +214922,16 @@
       "right_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
       "same_event": false
     },
+    "9de163ee2d166b73--d68fd5297e7cc072": {
+      "embedding_similarity": 0.8965,
+      "left_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 관련 국회 청문회 추진",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "체코 원전 시공사 교체 논란…국회 청문회 추진",
+      "same_event": true
+    },
     "9de163ee2d166b73--d8531177505bee02": {
       "embedding_similarity": 0.8636,
       "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
@@ -214761,6 +214941,16 @@
       "reviewed_at": "2026-11-18T04:24:27.840939+00:00",
       "right_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
       "same_event": false
+    },
+    "9de163ee2d166b73--da202902bce3f551": {
+      "embedding_similarity": 0.9005,
+      "left_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공사 관련 국회 청문회 추진",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "국회, 한수원 체코 원전 시공사 교체 논란 관련 청문회 개최 요구",
+      "same_event": true
     },
     "9de163ee2d166b73--db33b1b62a5a2379": {
       "embedding_similarity": 0.8627,
@@ -216031,6 +216221,16 @@
       "reviewed_at": "2026-09-26T11:10:47.609097+00:00",
       "right_title": "AI 전력수요 급증에 비에이치아이 등 북미 가스발전 설비 수주 기대감 확산",
       "same_event": false
+    },
+    "9fcaf638e939744e--cee4c5ebc2abe33c": {
+      "embedding_similarity": 0.9155,
+      "left_title": "국회 국방위, 핵잠수함 특별법 공청회…안전규제 주체 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "핵잠수함 특별법 안전주체 쟁점 보도",
+      "reviewed_at": "2026-11-19T13:30:35.685563+00:00",
+      "right_title": "핵추진잠수함 특별법 입법 본격화, 안전관리체계 주체 쟁점 부상",
+      "same_event": true
     },
     "9fd4c4e2ded65b09--b8c7780770dee3c7": {
       "embedding_similarity": 0.8762,
