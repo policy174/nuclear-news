@@ -92,6 +92,14 @@
       "type": "plant",
       "until": "2026-10-14T16:09:16.840334+00:00"
     },
+    "hochul": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-20T10:51:14.801266+00:00",
+      "term": "Hochul",
+      "type": "company",
+      "until": "2026-12-04T10:51:14.801266+00:00"
+    },
     "kurt": {
       "new_articles": 2,
       "reason": "성과 없음",
@@ -228,14 +236,6 @@
       "type": "org",
       "until": "2026-11-27T10:09:09.252198+00:00"
     },
-    "경상북도개발공사": {
-      "new_articles": 0,
-      "reason": "성과 없음",
-      "retired_at": "2026-09-21T08:30:57.330725+00:00",
-      "term": "경상북도개발공사",
-      "type": "org",
-      "until": "2026-10-05T08:30:57.330725+00:00"
-    },
     "경주등": {
       "new_articles": 18,
       "reason": "성과 없음",
@@ -299,14 +299,6 @@
       "term": "국감서 한미",
       "type": "plant",
       "until": "2026-10-21T17:24:35.119635+00:00"
-    },
-    "국내외전문가들": {
-      "new_articles": 1,
-      "reason": "기간 만료",
-      "retired_at": "2026-09-21T08:30:56.346428+00:00",
-      "term": "국내외 전문가들",
-      "type": "plant",
-      "until": "2026-10-05T08:30:56.346428+00:00"
     },
     "국민과함께": {
       "new_articles": 1,
@@ -1486,42 +1478,9 @@
     }
   },
   "spent": {
-    "count": 3,
+    "count": 4,
     "date": "2026-11-20"
   },
-  "terms": {
-    "hochul": {
-      "articles": 1,
-      "created_at": "2026-11-19T18:53:58.444107+00:00",
-      "domains": [
-        "ny.gov"
-      ],
-      "evidence": [
-        {
-          "domain": "ny.gov",
-          "hash": "1bd29dad13c20039",
-          "importance": "must_read",
-          "title": "뉴욕주, 5GW 규모 첨단 원자력 개발 마스터플랜 발표"
-        }
-      ],
-      "expires_at": "2026-11-20T18:53:58.444107+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-20T02:00:41.132359+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-20T02:00:40.071982+00:00",
-      "queries_run": 2,
-      "query": "Hochul 원자력",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "Hochul",
-      "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    }
-  },
+  "terms": {},
   "version": 1
 }
