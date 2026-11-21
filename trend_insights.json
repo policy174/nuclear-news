@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-21T08:43:46.120547+09:00",
+ "generated_at": "2026-11-21T12:54:33.412837+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
-   "count_now": 160,
+   "count_now": 162,
    "count_prev": 183,
-   "direction": "국내외 데이터센터 전력 수요의 급증에 따른 송전망 인프라 확충과 전력계통 제도 개선 움직임이 이어지고 있으며, 해외에서는 기업의 탄소중립 목표 재검토와 전력망 병목 대응을 위한 연료전지 채택 사례가 확인된다.",
+   "direction": "국내외 모두 데이터센터의 전력 수요 급증에 직면하며, 이는 전력망 인프라 확충과 안정적인 전력 수급 역량 확보의 시급한 과제로 부상하고 있습니다. 미국에서는 대규모 데이터센터 건설 제한 및 해외 건설에 대한 세금 부과 논의가 진행되고 있으며, 국내에서는 신속한 데이터센터 구축을 위한 전력계통평가 제도 개선이 추진되는 등 전력 인프라와 관련된 정책적 대응이 활발히 이루어지고 있습니다. 또한, 데이터센터의 탄소 배출 증가 문제와 전력망 병목 현상에 대한 기술적 해결책 모색도 함께 나타나고 있습니다.",
    "evidence": [
     {
      "hash": "ae812e63c20ab2f7",
@@ -21,9 +21,21 @@
      "date": "2026-11-21"
     },
     {
+     "hash": "9af09f84609dca4f",
+     "title_kr": "트럼프, 미국 기업의 해외 데이터센터 건설 시 고액 세금 부과 방침 밝혀",
+     "url": "https://www.yna.co.kr/view/AKR20261121006000071?input=1195m",
+     "date": "2026-11-21"
+    },
+    {
      "hash": "ba00e7a18a390838",
      "title_kr": "오리건주 데이터센터 전력 수요, 2030년 주 전체의 31~32% 차지 전망",
      "url": "https://www.tokenpost.kr/news/ai/441747",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "dac9c060cbd150ce",
+     "title_kr": "트럼프, 미국 기업의 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+     "url": "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00009&news_seq_no=5232109",
      "date": "2026-11-21"
     },
     {
@@ -48,14 +60,44 @@
   },
   {
    "keyword": "SMR",
-   "count_now": 108,
+   "count_now": 110,
    "count_prev": 115,
-   "direction": "국내 기업들의 SMR 생산시설 구축 및 원자력 추진선 실증 협력이 추진되는 한편, 국내외 기관 간 SMR 기술 및 인력 양성 협력 논의가 다방면으로 진행되고 있다.",
+   "direction": "국내외에서 소형모듈원자로(SMR)의 개발 및 상용화를 위한 움직임이 활발합니다. 국내에서는 SMR 첨단 제조기술 개발 협력과 전용 생산시설 구축 논의가 진행되고 있으며, 삼성중공업은 미국 기업과 원자력 추진 LNG 운반선 개발 협력을 추진하는 등 SMR의 다양한 적용 분야를 모색하고 있습니다. 한편, 국내 SMR 사업의 계획된 전력 공급 차질 우려와 미국 에너지부의 숙련된 원자력 인력 확보 필요성 제기는 SMR 도입 및 확산 과정에서 해결해야 할 과제들을 보여줍니다.",
    "evidence": [
+    {
+     "hash": "c05437aa0f822e8c",
+     "title_kr": "미국 에너지부, 2050년까지 37만 명 이상의 숙련된 원자력 인력 필요",
+     "url": "https://www.ans.org/news/2026-11-20/article-8538/building-nuclears-nextgen-workforce",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "5445ddda1f04ed12",
+     "title_kr": "국내 SMR 사업, 계획대로 진행될 경우 전력 공급 차질 우려",
+     "url": "https://www.chosun.com/economy/economy_general/2026/11/21/HMRSXGFH6FAHVEUCJTGGIZTKXU",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "3933aaf6eaffb3a4",
+     "title_kr": "국립창원대-SNT에너지, 차세대 SMR 첨단 제조기술 개발 협력",
+     "url": "https://www.cnbnews.com/news/articleView.html?idxno=1024747",
+     "date": "2026-11-21"
+    },
     {
      "hash": "0e953e4d81ca649e",
      "title_kr": "삼성중공업, 미국 테서와 원자력 추진 액화천연가스선 개발 협력",
      "url": "https://www.world-nuclear-news.org/articles/samsung-tesser-to-collaborate-on-nuclear-power-lng-carrier",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "ad1ba3e14ee0e579",
+     "title_kr": "뉴스케일파워, 3분기 매출 28만 달러 기록…두산에너빌리티와 부품 제작 계약",
+     "url": "https://www.tokenpost.kr/news/market/441012",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "9e3ba2a79a6f2bc0",
+     "title_kr": "국내 대형 건설사, 중동 선별수주 및 선진국 원전·데이터센터 신사업 다변화",
+     "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202611191020069000749",
      "date": "2026-11-20"
     },
     {
@@ -69,21 +111,27 @@
      "title_kr": "두산에너빌리티, 창원공장 SMR 생산시설 구축 논의",
      "url": "https://www.etoday.co.kr/news/view/2650683",
      "date": "2026-11-20"
-    },
-    {
-     "hash": "e0e0913bf5af9066",
-     "title_kr": "경상북도, 미국 메릴랜드주와 SMR 및 양자산업 협력 논의",
-     "url": "http://www.metroseoul.co.kr/article/20261119500714",
-     "date": "2026-11-20"
     }
    ]
   },
   {
    "keyword": "AI데이터센터",
-   "count_now": 82,
+   "count_now": 83,
    "count_prev": 72,
-   "direction": "AI 데이터센터 확대에 따른 급증하는 전력 수요와 소비 패턴 변화가 전력 설비 시장에 새로운 과제를 던지고 있으며, 이에 대응한 냉각 솔루션 및 전력설비 진출 움직임이 나타나고 있다.",
+   "direction": "AI 데이터센터는 전 세계적으로 기술 개발 및 투자가 활발히 이루어지고 있으며, 특히 고속·고효율 데이터 통신 기술과 통합 냉각 솔루션 등 인프라 고도화에 집중하고 있습니다. 동시에 AI 데이터센터의 막대한 전력 수요와 급격한 소비 패턴 변화는 전력망과 에너지 안보에 새로운 과제를 제시하고 있으며, 한국의 높은 에너지 수입 의존도는 이러한 위협을 가중시키는 요인으로 지적됩니다. 미국은 자국 기업의 해외 AI 데이터센터 건설에 고액 세금을 부과하겠다는 방침을 밝히는 등 AI 인프라의 국내 집중을 유도하는 정책적 움직임도 나타나고 있습니다.",
    "evidence": [
+    {
+     "hash": "d6bb83d1f184fc66",
+     "title_kr": "트럼프, 美 기업 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01807286645648016",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "5a4343e958bd49c8",
+     "title_kr": "사우디 아람코, AI 기술 도입으로 연간 26억달러 가치 창출 및 데이터센터 투자 확대",
+     "url": "https://www.fnnews.com/news/202611191546269650",
+     "date": "2026-11-20"
+    },
     {
      "hash": "8107a742cf8840de",
      "title_kr": "LG전자, 인도네시아 AI 데이터센터 통합 냉각 솔루션 공개",
@@ -91,15 +139,33 @@
      "date": "2026-11-20"
     },
     {
-     "hash": "5d78d3fd0ae0f9bc",
-     "title_kr": "AI 데이터센터의 전력 소비 패턴 변화, 유틸리티에 새로운 과제 제시",
-     "url": "https://www.powermag.com/spiky-ai-loads-are-forcing-a-rethink-of-data-center-power",
+     "hash": "cfca4bb464f00437",
+     "title_kr": "포인투테크놀로지, 엔비디아 투자 유치… AI 데이터센터 연결 기술 '이튜브' 제시",
+     "url": "https://www.seoul.co.kr/news/economy/2026/11/20/20261120500161?wlog_tag3=naver",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "52237127e916516b",
+     "title_kr": "알파벳 존 헤네시 의장, 스탠퍼드대서 한국 AI 산업·인프라 협력 논의",
+     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04004886645647688",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "503f2902f1d964ea",
+     "title_kr": "IEA, 한국 에너지 수입 의존도 80% 지적…AI 시대 전력 수요 위협 경고",
+     "url": "https://www.donga.com/news/Opinion/article/all/20261120/135063783/2",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "fa82b3e5ec9689a0",
+     "title_kr": "기고: 대미 투자 3500억 달러, 美 정국 변화에도 안전한가",
+     "url": "https://www.hankyung.com/article/2026111856191",
      "date": "2026-11-19"
     },
     {
-     "hash": "f35db7ab8b1f3fe7",
-     "title_kr": "테슬라, AI 전력설비 시장 진출… 전직 임원과 경쟁",
-     "url": "https://www.g-enews.com/view.php?ud=2026111821351543629a1f309431_1",
+     "hash": "5d78d3fd0ae0f9bc",
+     "title_kr": "AI 데이터센터의 전력 소비 패턴 변화, 유틸리티에 새로운 과제 제시",
+     "url": "https://www.powermag.com/spiky-ai-loads-are-forcing-a-rethink-of-data-center-power",
      "date": "2026-11-19"
     }
    ]
@@ -108,13 +174,37 @@
    "keyword": "AI",
    "count_now": 67,
    "count_prev": 73,
-   "direction": "AI 기술이 전력 소비 패턴 분석, 분산자원 운영 및 반도체 개발 기간 단축 등에 적극 활용되는 동시에, 인프라 투자 측면에서는 데이터센터와 전력 확보의 중요성이 강조되고 있다.",
+   "direction": "AI 기술은 전력 소비 최적화 및 분산자원 운영(한전, 에이치에너지), 반도체 개발 기간 단축(AMD) 등 다양한 분야에서 효율성 향상에 기여하며 활용 범위가 확대되고 있습니다. 카자흐스탄이 2026년을 'AI의 해'로 선포하고 데이터센터 인프라 투자를 추진하는 등 국가적 차원의 전략적 중요성이 부각되고 있으며, 미국은 동남아시아에 AI 기술과 안정적인 전력 공급 협력을 제안하며 원전이 AI 전력 확보에 기여할 수 있음을 언급하는 등 AI와 에너지의 연계성이 강조되고 있습니다. 또한, LG와 같은 기업들은 AI 분야 투자를 가속화하고 있으며, AI 스타트업의 IPO 성공 사례는 AI 시장의 성장세를 보여줍니다.",
    "evidence": [
     {
      "hash": "c808b8833225ce2b",
      "title_kr": "한전, AI 활용 소상공인 전기요금 절감 컨설팅 서비스 제공",
      "url": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065569545036905",
      "date": "2026-11-20"
+    },
+    {
+     "hash": "a39a0337c055585b",
+     "title_kr": "카자흐스탄, 2026년 AI 해 선포 및 데이터센터 연산 인프라 구축 추진",
+     "url": "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?bbsGbn=403&bbsSn=403&CONTENTS_NO=1&MENU_ID=200&pNttSn=245159&SITE_NO=3",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "fb5d83881f113de0",
+     "title_kr": "미국, 동남아에 AI 기술·에너지 공급 협력 제안",
+     "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01184086645647360",
+     "date": "2026-11-19"
+    },
+    {
+     "hash": "ebbb4b1163f2f807",
+     "title_kr": "LG, AI·로봇·ESS 투자 가속화…엔비디아와 협력 강화",
+     "url": "http://www.consumernews.co.kr/news/articleView.html?idxno=768484",
+     "date": "2026-11-19"
+    },
+    {
+     "hash": "50bf3afa2d0c3c6b",
+     "title_kr": "AI 스타트업 앤트로픽, IPO 공모가 상향 결정…삼성전자·SK하이닉스 수혜 기대",
+     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=505648",
+     "date": "2026-11-19"
     },
     {
      "hash": "1386890e89796bc0",
@@ -137,15 +227,83 @@
    ]
   },
   {
+   "keyword": "전력시장",
+   "count_now": 64,
+   "count_prev": 28,
+   "direction": "국제에너지기구(IEA)는 중동전쟁 여파로 에너지 전환이 가속화되며 '전기의 시대'가 도래할 것으로 전망하는 등 전력의 중요성이 부각되고 있습니다. 국내 전력시장에서는 내년부터 원자력발전에 정부승인차액계약(Vesting Contract) 제도가 도입되어 기준가격과 시장가격의 차액을 정산하게 되며, 이는 주력 전원에 처음 적용되는 중요한 정책 변화입니다. 한편, 산업용 전기요금 상승에 대응하여 기업들이 자가발전소 건설을 추진하는 움직임과 전력산업 성장을 저해하는 정보의 벽 문제가 제기되는 등 전력시장의 구조적 변화와 당면 과제들이 나타나고 있습니다.",
+   "evidence": [
+    {
+     "hash": "3a8b7e1960e139df",
+     "title_kr": "IEA, 중동전쟁 여파로 2035년 석유·가스 수요 감소 전망…'전기의 시대' 도래",
+     "url": "https://www.ekn.kr/web/view.php?key=20261120028162391",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "d2accfe78c6c3b10",
+     "title_kr": "현대제철, 8000억 투입 당진 LNG 자가발전소 건설…철강업계 전력비 부담 가중",
+     "url": "https://www.etoday.co.kr/news/view/2650747",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "54347471b55494e7",
+     "title_kr": "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입",
+     "url": "https://www.kbsm.net/news/view.php?idx=542421",
+     "date": "2026-11-21"
+    },
+    {
+     "hash": "474760004533d3df",
+     "title_kr": "독일, 재생에너지 수익 예측 가능성 높인 시장 프리미엄 제도 시행",
+     "url": "https://jejumbc.com/NewsArticle/874629",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "503310af843bce65",
+     "title_kr": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB2ejJ2WEZBZUZHTDJ0QklKLV90d2F6WW56WTJCS3BkTlk5d2J4OGEzZEN6S3huYzZQb3hwQUtoQTNFczRCT0lEaHVtVTNOVmZMbVRCOUlkWXBrX2QtZy16eVVwcWdIQ1Z0ZlRJQ1IwT2RKek0tMnfSAXZBVV95cUxQdnoydlhGQWVGR0wydEJJSi1fdHdhelluelkyQktwZE5ZOXdieDhhM2RDekt4bmM2UG94cEFLaEEzRXM0Qk9JRGh1bVUzTlZmTG1UQjlJZFlwa19kLWctenlVcHFnSENWdGZUSUNSME9kSnpNLTJ3?oc=5",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "b72aa8719628c268",
+     "title_kr": "원전 전기값, 2027년부터 '차액계약'으로 정산…주력 전원 첫 적용",
+     "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9KWGd2d0RoQl9WRFY0d203aW5fOTZZemtCMVZNbXdvZHNmR0JDejAta3otWTViYzN0QzhZZzFvZWRzekp4OC1Pbk9TOGc2UVNKVXVTZVZ3bnhfNmFFd1B3Y1N3dmwxV1Zj?oc=5",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "a6c5333014b98b20",
+     "title_kr": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
+     "url": "https://www.newsis.com/view/NISX20261118_0003873692",
+     "date": "2026-11-19"
+    },
+    {
+     "hash": "6927a770219692ac",
+     "title_kr": "전력산업 성장을 저해하는 ‘정보의 벽’ 문제 제기",
+     "url": "https://www.joongang.co.kr/article/25480013",
+     "date": "2026-11-19"
+    }
+   ]
+  },
+  {
    "keyword": "원전수출",
    "count_now": 63,
    "count_prev": 60,
-   "direction": "국내외 시장에서 원전 등 주력 산업의 다변화와 해외 원전 사업 선점을 위한 경쟁 및 협력 논의가 진행되는 가운데, 체코 두코바니 원전 관련 후속 절차가 수행되고 있다.",
+   "direction": "원전 수출은 한국의 핵심 산업 다변화 및 수출 1조 달러 시대를 위한 주요 전략으로 부상하고 있으며, 대통령의 정상회담을 통한 원전 협력 논의와 산업통상자원부의 신규 수출 주력 품목 육성 계획 발표 등 국가적 차원의 노력이 활발합니다. 특히 체코 두코바니 원전 냉각탑 입찰 현장설명회 개최와 필리핀 원전 사업을 둘러싼 한미 경쟁 분석은 구체적인 사업 추진과 국제 경쟁 상황을 보여줍니다. 한편, 후티 반군 공격이 미국과 사우디아라비아 간의 잠재적 원자력 협정에 대한 우려를 증폭시키는 등 지정학적 요인도 원전 수출 환경에 영향을 미치고 있습니다.",
    "evidence": [
+    {
+     "hash": "2772f14e0713ee6c",
+     "title_kr": "후티 공격, 트럼프-사우디 원자력 협정 우려 증폭",
+     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOeERTd2VXX21mYUpEQUFyRjN2dk5Hdkl3RTZLTDUzbV9HRzE5cy1CcThnQkF3WVNsMDR0bWsxZDMxTlI1d0o2dFZwNjEtX0ZKSVBYQmFycVN2dGNYaXVTRnh3a2Y2M09uM0RkQU4wSDdGWEo3TF94ZlVySy1RNTNEaGhjZmlQZFJ4VjNzM094Rmp4Y0RJZHJZZG5MZVB1VHBkUjJxTmUwUlpBc1JFa2NhQkdGTVhOcGc?oc=5",
+     "date": "2026-11-21"
+    },
     {
      "hash": "2fd865b6d3c5ebc3",
      "title_kr": "한국무역협회, 수출 1조 달러 시대 지속 위해 원전 등 주력 산업 다변화 제언",
      "url": "https://www.kmib.co.kr/article/20261119502216",
+     "date": "2026-11-20"
+    },
+    {
+     "hash": "350df252b115db80",
+     "title_kr": "이재명 대통령, APEC 계기 푸틴 대통령과 첫 회동 및 원전 협력 논의",
+     "url": "https://www.ksilbo.co.kr/news/articleView.html?idxno=1073118",
      "date": "2026-11-20"
     },
     {
@@ -161,6 +319,12 @@
      "date": "2026-11-20"
     },
     {
+     "hash": "d4c21a31a3aac22f",
+     "title_kr": "산업통상자원부, 다음 달 무역의 날 맞아 수출 1조 달러 새 비전 발표 예정",
+     "url": "http://www.economytalk.kr/news/articleView.html?idxno=425435",
+     "date": "2026-11-20"
+    },
+    {
      "hash": "8aed6acfd56d3a2a",
      "title_kr": "한수원, 체코 두코바니 원전 냉각탑 입찰 현장설명회 개최",
      "url": "https://www.khnp.co.kr/main/selectBbsNttView.do?bbsNo=71&integrDeptCode=&key=2289&nttNo=77829&pageIndex=1&searchCnd=all&searchCtgry=&searchKrwd=",
@@ -171,38 +335,6 @@
      "title_kr": "한수원, 체코 두코바니 원전 냉각탑 입찰 현장설명회 완료 및 시공 협력 협약 종료",
      "url": "https://www.wikileaks-kr.org/news/articleView.html?idxno=194977",
      "date": "2026-11-20"
-    }
-   ]
-  },
-  {
-   "keyword": "전력시장",
-   "count_now": 62,
-   "count_prev": 28,
-   "direction": "에너지 전환과 전력 수요 증가 속에서 한전과 한수원 간의 원전 정부승인차액계약 도입이 확정되어 내년부터 5년간 시행을 앞두고 있다.",
-   "evidence": [
-    {
-     "hash": "503310af843bce65",
-     "title_kr": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB2ejJ2WEZBZUZHTDJ0QklKLV90d2F6WW56WTJCS3BkTlk5d2J4OGEzZEN6S3huYzZQb3hwQUtoQTNFczRCT0lEaHVtVTNOVmZMbVRCOUlkWXBrX2QtZy16eVVwcWdIQ1Z0ZlRJQ1IwT2RKek0tMnfSAXZBVV95cUxQdnoydlhGQWVGR0wydEJJSi1fdHdhelluelkyQktwZE5ZOXdieDhhM2RDekt4bmM2UG94cEFLaEEzRXM0Qk9JRGh1bVUzTlZmTG1UQjlJZFlwa19kLWctenlVcHFnSENWdGZUSUNSME9kSnpNLTJ3?oc=5",
-     "date": "2026-11-20"
-    },
-    {
-     "hash": "a6c5333014b98b20",
-     "title_kr": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
-     "url": "https://www.newsis.com/view/NISX20261118_0003873692",
-     "date": "2026-11-19"
-    },
-    {
-     "hash": "f3867db51e256f14",
-     "title_kr": "내년부터 원전 차액계약 첫 적용…한전·한수원 전력거래 5년간 안정화",
-     "url": "https://www.ajunews.com/view/20261118204436512",
-     "date": "2026-11-19"
-    },
-    {
-     "hash": "3d28d33af67ec2ec",
-     "title_kr": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
-     "url": "https://www.news1.kr/economy/env-policy/6358586",
-     "date": "2026-11-19"
     }
    ]
   }
