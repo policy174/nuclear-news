@@ -23722,6 +23722,16 @@
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
       "same_event": false
     },
+    "0bf21d2504f9cd0e--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8606,
+      "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "포럼 논의와 시공사 선정은 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": false
+    },
     "0bf21d2504f9cd0e--d52086427742e61f": {
       "embedding_similarity": 0.876,
       "left_title": "한-체코 미래포럼, 두코바니 원전 사업 이행 및 AI·방산 협력 논의",
@@ -30302,6 +30312,16 @@
       "right_title": "두산에너빌리티, 체코 원전 현지 공급망 협력 확대",
       "same_event": false
     },
+    "10337348b71b91d3--f46b26a312497faa": {
+      "embedding_similarity": 0.8889,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 관련 별개의 기업 활동",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "두산에너빌리티, 체코 원전 현지 공급망 협력 확대",
+      "same_event": false
+    },
     "10350f833ad8d75b--9a5b1e174d0f721a": {
       "embedding_similarity": 0.8616,
       "left_title": "산업부·기후부, 제12차 전기본서 재생에너지 100GW 및 신규 원전 규모 검토",
@@ -34329,6 +34349,16 @@
       "prompt_version": 1,
       "reason": "두코바니 원전과 청정수소로 사안 다름",
       "reviewed_at": "2026-11-07T00:51:39.395099+00:00",
+      "right_title": "한수원, 체코 원자력 청정수소 생산사업 협력 논의",
+      "same_event": false
+    },
+    "11adbb964df0f84b--f46b26a312497faa": {
+      "embedding_similarity": 0.9073,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 설명회와 수소사업 협력은 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
       "right_title": "한수원, 체코 원자력 청정수소 생산사업 협력 논의",
       "same_event": false
     },
@@ -43542,6 +43572,16 @@
       "right_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
       "same_event": true
     },
+    "16bbdb58d69d03b2--3438c27c002364dd": {
+      "embedding_similarity": 0.8861,
+      "left_title": "美 NRC, DOE 승인 원자로의 상업 인허가 간소화 워크숍 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "제도 워크숍과 특정 인허가 승인으로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
+      "same_event": false
+    },
     "16bbdb58d69d03b2--5b8f0f306362165c": {
       "embedding_similarity": 0.8982,
       "left_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
@@ -43571,6 +43611,36 @@
       "reviewed_at": "2026-11-21T09:40:34.693058+00:00",
       "right_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
       "same_event": true
+    },
+    "16bbdb58d69d03b2--787189b9430bc15e": {
+      "embedding_similarity": 0.8923,
+      "left_title": "미국 원자력규제위원회, 켄터키주 패두커 원전 스타트업 건설 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 원전 및 지역이 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
+      "same_event": false
+    },
+    "16bbdb58d69d03b2--a6e011710bbec95b": {
+      "embedding_similarity": 0.9085,
+      "left_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "다우 X-energy SMR 허가 승인",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "Dow X-energy 프로젝트, 허가 획득",
+      "same_event": true
+    },
+    "16bbdb58d69d03b2--b9b4b07b4de99e85": {
+      "embedding_similarity": 0.8915,
+      "left_title": "미국 에너지부(DOE), Oklo 시험용 원자로 승인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 사업 및 기관이 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "미 NRC, 다우케미칼 텍사스 화학단지 Xe-100 SMR 건설 허가 승인",
+      "same_event": false
     },
     "16bbdb58d69d03b2--c6accd0a113329d6": {
       "embedding_similarity": 0.853,
@@ -46261,6 +46331,16 @@
       "reviewed_at": "2026-11-15T07:55:50.811895+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
       "same_event": false
+    },
+    "18c0c740a02e4b3b--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8631,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협상 결렬 후 새 시공사 선정",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": true
     },
     "18c0c740a02e4b3b--d1120a6c94024138": {
       "embedding_similarity": 0.8478,
@@ -53332,6 +53412,16 @@
       "right_title": "체코 원전사업, '팀 코리아' 균열 후 현지 건설업계 시공 지분 확대 요구",
       "same_event": false
     },
+    "1c099e39bd8f3c0f--4a9507f3301ae594": {
+      "embedding_similarity": 0.8857,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 종료 및 후속 반박",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한수원, 대우건설 노조의 체코 원전 시공사 밀어주기 의혹 전면 반박",
+      "same_event": true
+    },
     "1c099e39bd8f3c0f--4f2f3e2a5ae35840": {
       "embedding_similarity": 0.8972,
       "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
@@ -53482,6 +53572,16 @@
       "right_title": "체코 원자력안전청, 두코바니 원전 설계 품질보증감사 최초 참관",
       "same_event": false
     },
+    "1c099e39bd8f3c0f--7d38eb2873f314b9": {
+      "embedding_similarity": 0.8896,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 종료 관련 사안",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "대우건설 노조, 한수원 체코 원전 협상 결렬에 \"불공정 계약 강요\" 비판",
+      "same_event": true
+    },
     "1c099e39bd8f3c0f--84ed84c5ffdc1ef3": {
       "embedding_similarity": 0.8627,
       "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
@@ -53492,6 +53592,16 @@
       "right_title": "체코 원자력안전청, 두코바니 원전 건설허가 앞두고 韓 공급망 품질 감사 참관",
       "same_event": false
     },
+    "1c099e39bd8f3c0f--87f25f3b5637a38f": {
+      "embedding_similarity": 0.8862,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 업계 전반 동향",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "체코 원전 쇼크 후 두산·대우건설, 정중동 행보",
+      "same_event": false
+    },
     "1c099e39bd8f3c0f--8aed6acfd56d3a2a": {
       "embedding_similarity": 0.8537,
       "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
@@ -53500,6 +53610,16 @@
       "reason": "안건이 다른 별개의 사안",
       "reviewed_at": "2026-11-21T04:05:30.493648+00:00",
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 현장설명회 개최",
+      "same_event": false
+    },
+    "1c099e39bd8f3c0f--8f1dd4b44a9f3594": {
+      "embedding_similarity": 0.9112,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한수원 행보와 대우건설 개별 동향",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "대우건설, 체코 원전 시공 협상 결렬 및 가덕도신공항 공사비 갈등 직면",
       "same_event": false
     },
     "1c099e39bd8f3c0f--911a935b1b724c73": {
@@ -53540,6 +53660,16 @@
       "reason": "정부간 협력 논의와 시공사 문제는 별개",
       "reviewed_at": "2026-11-20T19:27:46.053365+00:00",
       "right_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "same_event": false
+    },
+    "1c099e39bd8f3c0f--99fc4217ff293f92": {
+      "embedding_similarity": 0.9091,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 교체와 현지기업 요구는 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한수원, 체코 원전 시공사 교체 논란 속 현지 기업 직접 시공 요구 직면",
       "same_event": false
     },
     "1c099e39bd8f3c0f--9b2079eef5023d61": {
@@ -53632,6 +53762,16 @@
       "right_title": "김정관 산업부 장관 \"체코 원전 사업 무산 안 돼\"; 한수원 \"일정 준수 가능\"",
       "same_event": true
     },
+    "1c099e39bd8f3c0f--ab4eab04817fec58": {
+      "embedding_similarity": 0.8908,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 결렬 동일 사안",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "대우건설, 나이지리아 비료 플랜트 수주…체코 원전 협상 결렬엔 산업부 중재 요청",
+      "same_event": true
+    },
     "1c099e39bd8f3c0f--ae09c2ba2fd18513": {
       "embedding_similarity": 0.8916,
       "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
@@ -53651,6 +53791,16 @@
       "reviewed_at": "2026-11-21T04:05:30.493648+00:00",
       "right_title": "김정관 산업장관, 체코 두코바니 원전 사업 차질 없는 완수 의지 재확인",
       "same_event": false
+    },
+    "1c099e39bd8f3c0f--b7b1b6698168e58c": {
+      "embedding_similarity": 0.8858,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 종료 및 갈등",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "체코 원전 27조 수주 후폭풍…공사비 갈등으로 계약 난항",
+      "same_event": true
     },
     "1c099e39bd8f3c0f--b851201523b44ceb": {
       "embedding_similarity": 0.8907,
@@ -53831,6 +53981,16 @@
       "reviewed_at": "2026-11-21T00:49:21.013036+00:00",
       "right_title": "체코 원전 사업 시공사 교체, 한수원-대우건설 계약 해지 영향 주목",
       "same_event": true
+    },
+    "1c099e39bd8f3c0f--f308451ff0a74aa4": {
+      "embedding_similarity": 0.8842,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 사건과 개별 기업 리포트",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "현대건설, 연내 실적 불확실하나 원전 시공사 지위 확고…목표가 14.6만원",
+      "same_event": false
     },
     "1c099e39bd8f3c0f--f46b26a312497faa": {
       "embedding_similarity": 0.8889,
@@ -55700,6 +55860,16 @@
       "reason": "관리체계 가동과 건설허가 신청은 별개",
       "reviewed_at": "2026-11-15T02:42:56.027475+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
+      "same_event": false
+    },
+    "1ca6341a330daf35--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8476,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 관리체계 구축과 시공사 선정",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
       "same_event": false
     },
     "1ca6341a330daf35--d1120a6c94024138": {
@@ -74902,6 +75072,16 @@
       "right_title": "국립창원대-SNT에너지, 차세대 SMR 핵심 기자재 기술개발 산학협력 협약 체결",
       "same_event": false
     },
+    "2914d2e765ef8fb7--85da7a1bff80ba0c": {
+      "embedding_similarity": 0.8873,
+      "left_title": "국립창원대-SNT에너지, 차세대 SMR 핵심 기자재 기술개발 산학협력 협약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "창원대-SNT에너지 SMR 협약 체결",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "두산에너빌리티·SNT에너지, 국립창원대와 SMR 기술개발 협약",
+      "same_event": true
+    },
     "291f6e29d79a43b7--c342f4726771d9c9": {
       "embedding_similarity": 0.8603,
       "left_title": "전남광주, 반도체·AI 벨트로 산업 재편…해남에 대규모 데이터센터 구축",
@@ -82071,6 +82251,16 @@
       "reviewed_at": "2026-10-26T09:07:32.094969+00:00",
       "right_title": "한수원노조·시민단체, 신규원전 지연 책임 규명 요구",
       "same_event": true
+    },
+    "2dbbc57aa8e00e0c--eb334d7eae3d65ff": {
+      "embedding_similarity": 0.8867,
+      "left_title": "정부, 수도권 데이터센터 전기 공급 심사 기준 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수도권 심사 강화와 면제 추진으로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
     },
     "2dd3840274a506c5--44a52742358c109b": {
       "embedding_similarity": 0.8984,
@@ -107432,6 +107622,16 @@
       "right_title": "HD현대重, 발전엔진증설 장·단기 긍정 효과 [한국주식 원포인트 레슨]",
       "same_event": false
     },
+    "3d28d33af67ec2ec--503310af843bce65": {
+      "embedding_similarity": 0.8845,
+      "left_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시행 시기 및 규정 내용이 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
+      "same_event": false
+    },
     "3d28d33af67ec2ec--5e3845edba820d65": {
       "embedding_similarity": 0.8765,
       "left_title": "기후에너지환경부, 내년 1월 1일부터 원전 차액계약 적용 확정",
@@ -129572,6 +129772,16 @@
       "right_title": "중국 톈완 원전 7호기, 핵연료 장전 개시",
       "same_event": false
     },
+    "503310af843bce65--54347471b55494e7": {
+      "embedding_similarity": 0.9072,
+      "left_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약제도 도입 발표",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입",
+      "same_event": true
+    },
     "503310af843bce65--69557c6ecc90c873": {
       "embedding_similarity": 0.9138,
       "left_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
@@ -132359,6 +132569,16 @@
       "prompt_version": 1,
       "reason": "핵잠수함 사업 확정 및 예타 면제 보도",
       "reviewed_at": "2026-11-07T09:39:16.002157+00:00",
+      "right_title": "정부, 핵잠 사업타당성 조사 면제…내년 상반기 체계개발 착수",
+      "same_event": true
+    },
+    "51fd9fd18b967c89--e8d0642e8d16d192": {
+      "embedding_similarity": 0.907,
+      "left_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "장보고N 사업추진기본전략 의결",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
       "right_title": "정부, 핵잠 사업타당성 조사 면제…내년 상반기 체계개발 착수",
       "same_event": true
     },
@@ -142141,6 +142361,16 @@
       "reviewed_at": "2026-09-18T13:27:31.058089+00:00",
       "right_title": "중국 하이난 첫 화룽원 원전 상업가동, AI 전력 수요 대응",
       "same_event": true
+    },
+    "58585556d0957e36--93aa4b72b0ff8598": {
+      "embedding_similarity": 0.8871,
+      "left_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 정부 입장과 IAEA 보고서로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "same_event": false
     },
     "585d8168a3c6c056--a5250d0d4069ab04": {
       "embedding_similarity": 0.91,
@@ -157452,6 +157682,16 @@
       "right_title": "과기정통부·기후부, AI 데이터센터 신속 구축용 전력계통평가 개선",
       "same_event": false
     },
+    "6617e28adffda7ef--f6e74a4f86b089b7": {
+      "embedding_similarity": 0.8883,
+      "left_title": "과학기술정보통신부, 50MW 이하 지방 AI 데이터센터 전력계통영향평가 면제 시행령 입법예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력계통평가 개선 입법",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "과기정통부·기후부, AI 데이터센터 신속 구축용 전력계통평가 개선",
+      "same_event": true
+    },
     "6617f9a082470942--b795e4f7e7503f80": {
       "embedding_similarity": 0.8972,
       "left_title": "HD현대, AI 전력 인프라 투자 확대…1.6조 발전설비 수주",
@@ -160330,6 +160570,16 @@
       "reason": "건설허가 신청 추진과 점검회의는 별개 사안",
       "reviewed_at": "2026-11-15T10:40:03.199407+00:00",
       "right_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "same_event": false
+    },
+    "67692ca9625c6f16--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8927,
+      "left_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "점검회의와 시공사 선정은 별개 사안",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
       "same_event": false
     },
     "67692ca9625c6f16--d2bf64d42fa79f42": {
@@ -178790,6 +179040,16 @@
       "reason": "전력 수요 전망과 건설허가 신청 차이",
       "reviewed_at": "2026-11-15T07:55:50.811895+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
+      "same_event": false
+    },
+    "75c9ca256e559815--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8621,
+      "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건과 원전 시장 동향 보도",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
       "same_event": false
     },
     "75c9ca256e559815--d1120a6c94024138": {
@@ -199552,6 +199812,16 @@
       "right_title": "체코전력공사, 원전 고정 가격·공기 계약 유효 확인…한수원 시공사 재선정",
       "same_event": false
     },
+    "897daa4d4b4804c4--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8914,
+      "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "건설허가 일정과 시공사 선정은 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": false
+    },
     "897daa4d4b4804c4--d2bf64d42fa79f42": {
       "embedding_similarity": 0.8475,
       "left_title": "한수원, 체코 두코바니 원전 2027년 4월 건설허가 신청 일정 확인",
@@ -209382,6 +209652,26 @@
       "right_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
       "same_event": false
     },
+    "93aa4b72b0ff8598--e8d0642e8d16d192": {
+      "embedding_similarity": 0.886,
+      "left_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 사업 의결과 미국의 반응으로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
+      "same_event": false
+    },
+    "93aa4b72b0ff8598--ef58023b42b63b6c": {
+      "embedding_similarity": 0.905,
+      "left_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 입장 발표와 정부 사업 의결",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "정부, 핵추진잠수함 확보 위한 '장보고 N사업' 기본전략안 의결",
+      "same_event": false
+    },
     "93c1e143e7b8e173--bf6399b160f26270": {
       "embedding_similarity": 0.8687,
       "left_title": "베트남, AI·에너지 첨단산업 전환…한국과 원전 협력 가능성 시사",
@@ -217562,6 +217852,16 @@
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
       "same_event": false
     },
+    "9b2079eef5023d61--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8991,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "두코바니 원전 시공사 변경 사안",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": true
+    },
     "9b2079eef5023d61--d1120a6c94024138": {
       "embedding_similarity": 0.8789,
       "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
@@ -218560,6 +218860,16 @@
       "reason": "동일 주체, 동일 대상 SMR 계약",
       "reviewed_at": "2026-08-25T21:37:20.888555+00:00",
       "right_title": "테라파워, 현대건설·SK이노베이션과 나트륨 원자로 기술 개발 협력 확대",
+      "same_event": true
+    },
+    "9cc65c348ec8cbcc--e8d0642e8d16d192": {
+      "embedding_similarity": 0.8904,
+      "left_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "방사청의 핵잠수함 사업 추진 결정",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "방위사업청, 한국형 핵추진잠수함 사업 공식 재추진 결정",
       "same_event": true
     },
     "9ce353cfe6d5549b--9ef4273be8396701": {
@@ -222801,6 +223111,16 @@
       "reviewed_at": "2026-11-15T07:55:50.811895+00:00",
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
       "same_event": false
+    },
+    "a2a59a20cb58dbb9--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8539,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협상 결렬 및 새 시공사 선정",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": true
     },
     "a2a59a20cb58dbb9--d1120a6c94024138": {
       "embedding_similarity": 0.8472,
@@ -239292,6 +239612,16 @@
       "right_title": "한국수력원자력, 체코 두코바니 원전 2027년 4월 건설허가 신청 추진",
       "same_event": false
     },
+    "b851201523b44ceb--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8551,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대우건설 중재 요청과 한수원 선정 건",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": false
+    },
     "b851201523b44ceb--d1120a6c94024138": {
       "embedding_similarity": 0.85,
       "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
@@ -247742,6 +248072,16 @@
       "right_title": "산업부 장관, 체코와 두코바니 원전사업 정상추진 협력 논의",
       "same_event": false
     },
+    "c52893d390e16828--d0322e11fcebe9c5": {
+      "embedding_similarity": 0.8487,
+      "left_title": "산업부 장관, 체코와 두코바니 원전사업 정상추진 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "장관 회담과 시공사 선정은 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": false
+    },
     "c52893d390e16828--d52086427742e61f": {
       "embedding_similarity": 0.8422,
       "left_title": "산업부 장관, 체코와 두코바니 원전사업 정상추진 협력 논의",
@@ -252162,6 +252502,16 @@
       "right_title": "미국 중간선거 후 민주당 주지사 주 데이터센터 전력 용량 비중 60%로 급증",
       "same_event": false
     },
+    "cf2202c2b99d22f7--d6bb83d1f184fc66": {
+      "embedding_similarity": 0.8859,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 규제와 트럼프 경고로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "트럼프, 美 기업 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+      "same_event": false
+    },
     "cf2202c2b99d22f7--d8173a538f670532": {
       "embedding_similarity": 0.8798,
       "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
@@ -253020,6 +253370,26 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-21T09:50:13.447042+00:00",
       "right_title": "NRC, Orano의 50억 달러 규모 우라늄 농축시설 인허가 청문회 개시",
+      "same_event": false
+    },
+    "d0322e11fcebe9c5--d59971dc5ad69759": {
+      "embedding_similarity": 0.8554,
+      "left_title": "체코 원전 규제기관, 한국 두코바니 원전 품질관리 현장 첫 점검",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "품질 점검과 시공사 선정은 별개 사안",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+      "same_event": false
+    },
+    "d0322e11fcebe9c5--f46b26a312497faa": {
+      "embedding_similarity": 0.8817,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 설명회와 시공사 선정은 별개",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
       "same_event": false
     },
     "d0468add0e6e8f36--edd7cd1a2a6bd9cc": {
@@ -260012,6 +260382,16 @@
       "right_title": "HD현대일렉트릭, 미국 AI 데이터센터 전력기기 1.1조 원 규모 장기 공급 계약 체결",
       "same_event": false
     },
+    "e8d0642e8d16d192--ec1d2b1e73cd5420": {
+      "embedding_similarity": 0.9066,
+      "left_title": "한국형 핵잠수함, 사업타당성 조사 면제…내년 사업 추진 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "장보고N 사업추진기본전략 의결",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
+      "same_event": true
+    },
     "e8f360ad04cb122d--ed11472438a2c144": {
       "embedding_similarity": 0.9174,
       "left_title": "과기정통부, SMR 개발 촉진 특별법 및 시행령 시행",
@@ -260340,6 +260720,16 @@
       "reason": "투자 지연과 국회 보고",
       "reviewed_at": "2026-09-24T11:58:52.605145+00:00",
       "right_title": "산업통상부, 국회에 미국 원전 8기 건설 및 웨스팅하우스 지분 투자 계획 보고",
+      "same_event": false
+    },
+    "eb334d7eae3d65ff--f6e74a4f86b089b7": {
+      "embedding_similarity": 0.89,
+      "left_title": "정부, 수도권 데이터센터 전기 공급 심사 기준 강화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수도권 규제 강화와 지방 면제로 다름",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "과학기술정보통신부, 50MW 이하 지방 AI 데이터센터 전력계통영향평가 면제 시행령 입법예고",
       "same_event": false
     },
     "eb4f9cc624ee91c4--fe1432d7e83e03dd": {
@@ -261771,6 +262161,16 @@
       "reviewed_at": "2026-11-11T10:12:39.900579+00:00",
       "right_title": "정부, 12차 전력수급기본계획 원전 비중 놓고 대국민 공론화 착수",
       "same_event": true
+    },
+    "f61ff0fc4b06c133--f6e74a4f86b089b7": {
+      "embedding_similarity": 0.8867,
+      "left_title": "과학기술정보통신부, 50MW 이하 지방 AI 데이터센터 전력계통영향평가 면제 시행령 입법예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 정책 발표와 증시 동향 분석",
+      "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "美 데이터센터 규제 우려 속 韓 건설주, 반사이익 기대",
+      "same_event": false
     },
     "f63825bd0efa1e22--f9acbce3368811a6": {
       "embedding_similarity": 0.8965,
