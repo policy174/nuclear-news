@@ -1454,7 +1454,7 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-22"
   },
   "terms": {
@@ -1474,12 +1474,12 @@
       ],
       "expires_at": "2026-11-22T10:35:07.650577+00:00",
       "importance": "must_read",
-      "last_result_count": 1,
-      "last_run": "2026-11-21T10:35:07.650577+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-21T18:36:48.697711+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-21T10:35:06.803982+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-21T18:36:47.828081+00:00",
+      "queries_run": 2,
       "query": "이날 원전",
       "score": 3.6,
       "status": "extended",
@@ -1490,7 +1490,7 @@
         "2026-11-21"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     }
   },
   "version": 1
