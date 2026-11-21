@@ -554,7 +554,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 4,
     "story_article_hashes": [
       "a6a610efff8a2d0f",
       "92f78862299a32c8"
@@ -817,7 +817,7 @@
       "prior_title": "엔비디아, 3분기 매출 1158억 달러 돌파…삼성·SK HBM4 슈퍼 사이클 기대",
       "prior_date": "2026-11-19",
       "prior_region": "해외",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.338,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -835,8 +835,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 1,
-      "penalty": 3.75,
-      "score_delta": -3.75,
+      "penalty": 2.5,
+      "score_delta": -2.5,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -1514,7 +1514,35 @@
     "story_id_source": "generated",
     "story_id_trust": "canonical",
     "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash"
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "19d3953a0b5cf7aa"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "에너지신문",
+        "publisher": "에너지신문",
+        "domain": "energy-news.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "“고준위 기본계획 재검토·원전 부지 내 저장계획 철회하라”"
+    ],
+    "story_members": [
+      {
+        "hash": "19d3953a0b5cf7aa",
+        "title": "“고준위 기본계획 재검토·원전 부지 내 저장계획 철회하라”",
+        "publisher": "에너지신문"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "abf3f8b52526834f",
@@ -1642,7 +1670,35 @@
     "story_id_source": "generated",
     "story_id_trust": "canonical",
     "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash"
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "053c709dc008d5f1"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "cfnews.kr",
+        "publisher": "cfnews.kr",
+        "domain": "cfnews.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "대한민국 원자력대전 창원서 개막…5개국 바이어와 원전 기자재 수출 상담"
+    ],
+    "story_members": [
+      {
+        "hash": "053c709dc008d5f1",
+        "title": "대한민국 원자력대전 창원서 개막…5개국 바이어와 원전 기자재 수출 상담",
+        "publisher": "cfnews.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "672ace453f281c9a",
@@ -1733,7 +1789,7 @@
         "publisher": "newsquest.co.kr"
       }
     ],
-    "story_relation": "duplicate",
+    "story_relation": "single",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사"
   },
@@ -1792,7 +1848,7 @@
       "prior_title": "프랑스 EDF, 부이그·에파주·빈치와 EPR2 원전 건설 14조 원 계약 체결 임박",
       "prior_date": "2026-11-18",
       "prior_region": "해외",
-      "days_ago": 3,
+      "days_ago": 4,
       "similarity": 0.545,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -1810,8 +1866,8 @@
       "progression_detail": "140억",
       "window_days": 1,
       "repeat_streak": 2,
-      "penalty": 1.25,
-      "score_delta": -1.25,
+      "penalty": 0.625,
+      "score_delta": -0.625,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -2129,35 +2185,35 @@
     "story_identity_decision": "fresh_article_hash",
     "continuity": {
       "matched": true,
-      "prior_hash": "a6c5333014b98b20",
-      "prior_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
-      "prior_date": "2026-11-19",
+      "prior_hash": "503310af843bce65",
+      "prior_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "prior_date": "2026-11-21",
       "prior_region": "국내",
-      "days_ago": 2,
-      "similarity": 0.375,
+      "days_ago": 1,
+      "similarity": 0.16,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
       "evidence_confirmed": false,
       "identity_confirmed": false,
       "identity_method": "",
-      "story_id": "story-a6c5333014b98b20",
+      "story_id": "story-503310af843bce65",
       "story_id_inheritable": false,
       "fingerprint_identity_contested": [],
       "match_reasons": [
-        "anchors:내년부터,전력시장"
+        "anchors:원전경제성,전력시장"
       ],
-      "progression": "minor",
-      "progression_kind": "new_quantities",
-      "progression_detail": "5년",
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
       "window_days": 1,
-      "repeat_streak": 1,
-      "penalty": 1.875,
-      "score_delta": -1.875,
+      "repeat_streak": 2,
+      "penalty": 6.0,
+      "score_delta": -6.0,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
     },
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "3d28d33af67ec2ec",
       "69557c6ecc90c873"
@@ -2971,7 +3027,7 @@
         "publisher": "zdnet.co.kr"
       }
     ],
-    "story_relation": "duplicate",
+    "story_relation": "single",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사"
   },
@@ -3054,99 +3110,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "02206cd4804a723c",
-    "title": "강원도의회, 70조 강릉 AI 데이터센터 행정사무조사 가결…민선 9기 첫 ...",
-    "title_kr": "강원도의회, 70조원 강릉 AI 데이터센터 투자계획 행정사무조사 가결",
-    "link": "https://www.ekn.kr/web/view.php?key=20261119024051758",
-    "domain": "ekn.kr",
-    "publisher": "에너지경제",
-    "source_type": "specialist_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "강원도의회가 70조원 규모의 강릉 AI 데이터센터 투자계획에 대한 행정사무조사를 가결하며 민선 9기 강원도정의 주요 경제정책을 둘러싼 여야 갈등이 본격화되었다.",
-    "detail": "강원도의회는 강릉 AI 데이터센터 투자계획에 대한 행정사무조사를 의결하며, 민선 9기 강원도정의 주요 경제정책을 둘러싼 여야 갈등이 본격화되었다. 특히 AI 데이터센터는 막대한 전력과 기반시설이 필요한 사업이라는 점에서, 투자계획의 구체성, 전력 공급 가능 시점, 관련 인허가 절차 등이 핵심 검증 대상이 될 전망이다. 이번 조사는 민선 9기 강원도정에서 처음으로 실시되는 행정사무조사이다.",
-    "implication": "강원도의회의 행정사무조사 가결은 대규모 AI 데이터센터 건설에 필요한 전력 공급 및 인허가 절차의 투명성과 적정성에 대한 검증을 강화할 것이다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#데이터센터",
-      "#전력수요",
-      "#지방의회"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "regulatory_action",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 2,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-19T00:31:09.503013+00:00",
-    "story_id": "story-02206cd4804a723c",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
-    "story_article_hashes": [
-      "02206cd4804a723c",
-      "63b72f8a3d57c61f"
-    ],
-    "story_outlet_count": 2,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 2,
-    "story_sources": [
-      {
-        "identity": "ytn.co.kr",
-        "publisher": "ytn.co.kr",
-        "domain": "ytn.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      },
-      {
-        "identity": "에너지경제",
-        "publisher": "에너지경제",
-        "domain": "ekn.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "강원도의회, 70조원 강릉 AI 데이터센터 투자계획 행정사무조사 가결",
-      "강원도의회, 강릉 AI 데이터센터 유치 관련 행정사무조사 안건 가결"
-    ],
-    "story_members": [
-      {
-        "hash": "02206cd4804a723c",
-        "title": "강원도의회, 70조원 강릉 AI 데이터센터 투자계획 행정사무조사 가결",
-        "publisher": "에너지경제"
-      },
-      {
-        "hash": "63b72f8a3d57c61f",
-        "title": "강원도의회, 강릉 AI 데이터센터 유치 관련 행정사무조사 안건 가결",
-        "publisher": "ytn.co.kr"
-      }
-    ],
-    "story_relation": "duplicate",
-    "story_dedup_stage": "rank_title",
-    "story_reason": "제목·시설 유사"
-  },
-  {
     "hash": "d2ba9b0f6d128610",
     "title": "DB하이텍, 자사주 429억원 소각…서울 도심 AI 데이터센터 진출",
     "title_kr": "DB하이텍, 1473억원 투자해 서울 도심 추론용 AI 데이터센터 구축",
@@ -3195,36 +3158,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "d5ac45803a823493",
-      "prior_title": "시장조사업체, 2028년부터 AI 인프라 투자 둔화 및 전력 수요 하향 전망",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.222,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-d5ac45803a823493",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai전력수요,데이터센터"
-      ],
-      "progression": "minor",
-      "progression_kind": "new_quantities",
-      "progression_detail": "1473억, 429억",
-      "window_days": 1,
-      "repeat_streak": 1,
-      "penalty": 1.25,
-      "score_delta": -1.25,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "d2ba9b0f6d128610"
@@ -3380,36 +3313,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.308,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 3.0,
-      "score_delta": -3.0,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "b823617cddf7fed1"
@@ -3565,7 +3468,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 4,
     "story_article_hashes": [
       "1386890e89796bc0",
       "460fa7842516ffc8"
@@ -4029,7 +3932,7 @@
       "prior_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
       "prior_date": "2026-11-19",
       "prior_region": "국내",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.444,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -4047,8 +3950,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 1,
-      "penalty": 3.75,
-      "score_delta": -3.75,
+      "penalty": 2.5,
+      "score_delta": -2.5,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -4949,7 +4852,7 @@
         "publisher": "뉴시스"
       }
     ],
-    "story_relation": "duplicate",
+    "story_relation": "single",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사"
   },
@@ -5937,36 +5840,49 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.265,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 3.0,
-      "score_delta": -3.0,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    }
+    "story_article_count": 4,
+    "story_article_hashes": [
+      "a9a513ae8d359594",
+      "f9da88b8fdc32ed9"
+    ],
+    "story_outlet_count": 2,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 2,
+    "story_sources": [
+      {
+        "identity": "heraldcorp.com",
+        "publisher": "heraldcorp.com",
+        "domain": "heraldcorp.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
+      {
+        "identity": "weeklytoday.com",
+        "publisher": "weeklytoday.com",
+        "domain": "weeklytoday.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "동해시, GS AI 데이터센터 조성사업과 연계한 지역상생협력과제 40건 발굴",
+      "동해시, GS그룹 AI 데이터센터 지역상생협력과제 40건 발굴 및 주민설명회 개최"
+    ],
+    "story_members": [
+      {
+        "hash": "a9a513ae8d359594",
+        "title": "동해시, GS AI 데이터센터 조성사업과 연계한 지역상생협력과제 40건 발굴",
+        "publisher": "weeklytoday.com"
+      },
+      {
+        "hash": "f9da88b8fdc32ed9",
+        "title": "동해시, GS그룹 AI 데이터센터 지역상생협력과제 40건 발굴 및 주민설명회 개최",
+        "publisher": "heraldcorp.com"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "460fa7842516ffc8",
@@ -6126,7 +6042,7 @@
       "prior_title": "한국·프랑스, 제27차 원자력공동조정위원회 개최…SMR 및 핵연료 협력 강화",
       "prior_date": "2026-11-14",
       "prior_region": "해외",
-      "days_ago": 7,
+      "days_ago": 8,
       "similarity": 0.714,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -6143,9 +6059,9 @@
       "progression_kind": "",
       "progression_detail": "",
       "window_days": 7,
-      "repeat_streak": 1,
-      "penalty": 5.0,
-      "score_delta": -5.0,
+      "repeat_streak": 0,
+      "penalty": 3.75,
+      "score_delta": -3.75,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -6295,18 +6211,18 @@
     "story_identity_decision": "fresh_article_hash",
     "continuity": {
       "matched": true,
-      "prior_hash": "5e3845edba820d65",
-      "prior_title": "기후에너지환경부, 내년 1월 1일부터 원전 차액계약 적용 확정",
-      "prior_date": "2026-11-20",
+      "prior_hash": "503310af843bce65",
+      "prior_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "prior_date": "2026-11-21",
       "prior_region": "국내",
       "days_ago": 1,
-      "similarity": 0.259,
+      "similarity": 0.255,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
       "evidence_confirmed": false,
       "identity_confirmed": false,
       "identity_method": "",
-      "story_id": "story-5e3845edba820d65",
+      "story_id": "story-503310af843bce65",
       "story_id_inheritable": false,
       "fingerprint_identity_contested": [],
       "match_reasons": [
@@ -6316,7 +6232,7 @@
       "progression_kind": "stage_flip",
       "progression_detail": "취소·철회",
       "window_days": 0,
-      "repeat_streak": 2,
+      "repeat_streak": 3,
       "penalty": 0.375,
       "score_delta": -0.375,
       "cancel_tracking": false,
@@ -6479,7 +6395,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 5,
+    "story_article_count": 6,
     "story_article_hashes": [
       "2f3ac4816c609a10",
       "df3307e74d055af2",
@@ -6592,7 +6508,7 @@
       "prior_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
       "prior_date": "2026-11-19",
       "prior_region": "국내",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.875,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -6611,20 +6527,28 @@
       "progression_detail": "permit:승인→시행",
       "window_days": 0,
       "repeat_streak": 1,
-      "penalty": 0.25,
-      "score_delta": -0.25,
+      "penalty": 0.125,
+      "score_delta": -0.125,
       "cancel_tracking": false,
       "drop": false,
       "identity_resolution": "uncertain"
     },
-    "story_article_count": 1,
+    "story_article_count": 2,
     "story_article_hashes": [
-      "ccb5279c0c4de8d2"
+      "ccb5279c0c4de8d2",
+      "54347471b55494e7"
     ],
-    "story_outlet_count": 1,
+    "story_outlet_count": 2,
     "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
+    "story_independent_outlet_count": 2,
     "story_sources": [
+      {
+        "identity": "kbsm.net",
+        "publisher": "kbsm.net",
+        "domain": "kbsm.net",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
       {
         "identity": "khan.co.kr",
         "publisher": "khan.co.kr",
@@ -6634,17 +6558,24 @@
       }
     ],
     "story_related_titles": [
-      "내년부터 원전 전력가격 미리 결정…한전-한수원 차액 정산"
+      "내년부터 원전 전력가격 미리 결정…한전-한수원 차액 정산",
+      "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입"
     ],
     "story_members": [
       {
         "hash": "ccb5279c0c4de8d2",
         "title": "내년부터 원전 전력가격 미리 결정…한전-한수원 차액 정산",
         "publisher": "khan.co.kr"
+      },
+      {
+        "hash": "54347471b55494e7",
+        "title": "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입",
+        "publisher": "kbsm.net"
       }
     ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "2a12aa47d1321c21",
@@ -6695,36 +6626,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.375,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 4,
-      "penalty": 3.5,
-      "score_delta": -3.5,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "2a12aa47d1321c21"
@@ -6801,37 +6702,7 @@
     "story_id_source": "generated",
     "story_id_trust": "canonical",
     "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "d5ac45803a823493",
-      "prior_title": "시장조사업체, 2028년부터 AI 인프라 투자 둔화 및 전력 수요 하향 전망",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.111,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-d5ac45803a823493",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai전력수요,데이터센터"
-      ],
-      "progression": "minor",
-      "progression_kind": "unmarked_prior",
-      "progression_detail": "permit:승인",
-      "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 1.25,
-      "score_delta": -1.25,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    }
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "2e85d2ab4c77add6",
@@ -6882,7 +6753,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 4,
     "story_article_hashes": [
       "2e85d2ab4c77add6",
       "b8547f04fa529653"
@@ -7351,37 +7222,7 @@
     "story_id_source": "generated",
     "story_id_trust": "canonical",
     "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.375,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 4,
-      "penalty": 3.5,
-      "score_delta": -3.5,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    }
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "778fb530acf8d9cc",
@@ -7420,7 +7261,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 5,
+    "story_article_count": 6,
     "story_article_hashes": [
       "778fb530acf8d9cc",
       "3094a005eb8124dc",
@@ -9869,7 +9710,7 @@
       "prior_title": "IAEA, 한국 핵잠수함 건조 관련 첫 안전조치 보고서 공개",
       "prior_date": "2026-11-20",
       "prior_region": "국내",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.429,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -9887,8 +9728,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 1,
-      "penalty": 5.0,
-      "score_delta": -5.0,
+      "penalty": 3.75,
+      "score_delta": -3.75,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -10687,36 +10528,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.276,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 3.0,
-      "score_delta": -3.0,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "c63918abfc9f3539"
@@ -11707,80 +11518,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "1e7f0d6782d3102e",
-    "title": "Energy crisis reinforces comeback of nuclear power, says IEA",
-    "title_kr": "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망",
-    "link": "https://www.world-nuclear-news.org/articles/energy-crisis-reinforces-comeback-of-nuclear-power-says-iea",
-    "domain": "world-nuclear-news.org",
-    "publisher": "World Nuclear News",
-    "source_type": "specialist_media",
-    "evidence_role": "independent",
-    "source_tier": 2,
-    "feed": "정책",
-    "matched": "WNN",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "IEA는 중동 분쟁으로 인한 전례 없는 에너지 시장 혼란이 에너지원 다변화와 전력화 가속화를 촉진하며 원자력 발전의 재부상을 강화할 것이라고 밝혔다.",
-    "detail": "국제에너지기구(IEA)는 중동 분쟁과 호르무즈 해협 운송 차질로 인한 에너지 시장의 혼란이 전 세계로 확산되고 있다고 언급했다. 이러한 위기 속에서 각국은 에너지원 및 공급처 다변화, 국내 자원 선호 강화, 전력화 가속화를 공통적으로 추진하고 있다. IEA는 이러한 전환의 최대 수혜자가 태양광을 비롯한 재생에너지와 원자력 발전이 될 것이며, 2026년 에너지 위기가 원자력의 재부상을 강화할 것이라고 전망했다.",
-    "implication": "IEA는 중동 분쟁으로 인한 에너지 안보 위기가 각국의 에너지원 다변화 정책을 가속화하며 원자력 발전의 역할이 더욱 중요해질 것으로 분석했다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-19T13:07:41.850591+00:00",
-    "story_id": "story-1e7f0d6782d3102e",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "1e7f0d6782d3102e"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "world nuclear news",
-        "publisher": "World Nuclear News",
-        "domain": "world-nuclear-news.org",
-        "tier": 2,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망"
-    ],
-    "story_members": [
-      {
-        "hash": "1e7f0d6782d3102e",
-        "title": "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망",
-        "publisher": "World Nuclear News"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "f7ed6aed0e33a7f6",
     "title": "[사설] 인천형 데이터센터 기본계획이 시급하다",
     "title_kr": "[사설] 인천형 데이터센터 기본계획이 시급하다",
@@ -12169,36 +11906,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.242,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "minor",
-      "progression_kind": "new_quantities",
-      "progression_detail": "20억, 4일",
-      "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 1.25,
-      "score_delta": -1.25,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "9144cd89f3522759"
@@ -13123,7 +12830,7 @@
         "publisher": "KBS 뉴스"
       }
     ],
-    "story_relation": "duplicate",
+    "story_relation": "single",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사",
     "continuity": {
@@ -13132,7 +12839,7 @@
       "prior_title": "IAEA 사무총장, 우크라이나 제재 러시아 관료 최고위직 지명에 논란",
       "prior_date": "2026-11-20",
       "prior_region": "해외",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.875,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -13364,18 +13071,18 @@
     "story_identity_decision": "fresh_article_hash",
     "continuity": {
       "matched": true,
-      "prior_hash": "5e3845edba820d65",
-      "prior_title": "기후에너지환경부, 내년 1월 1일부터 원전 차액계약 적용 확정",
-      "prior_date": "2026-11-20",
+      "prior_hash": "503310af843bce65",
+      "prior_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "prior_date": "2026-11-21",
       "prior_region": "국내",
       "days_ago": 1,
-      "similarity": 0.5,
+      "similarity": 0.25,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
       "evidence_confirmed": false,
       "identity_confirmed": false,
       "identity_method": "",
-      "story_id": "story-5e3845edba820d65",
+      "story_id": "story-503310af843bce65",
       "story_id_inheritable": false,
       "fingerprint_identity_contested": [],
       "match_reasons": [
@@ -13385,9 +13092,9 @@
       "progression_kind": "",
       "progression_detail": "",
       "window_days": 1,
-      "repeat_streak": 2,
-      "penalty": 6.0,
-      "score_delta": -6.0,
+      "repeat_streak": 3,
+      "penalty": 7.0,
+      "score_delta": -7.0,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -13447,7 +13154,7 @@
       "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
       "prior_date": "2026-11-18",
       "prior_region": "해외",
-      "days_ago": 3,
+      "days_ago": 4,
       "similarity": 0.212,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -13465,8 +13172,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 1,
-      "penalty": 2.5,
-      "score_delta": -2.5,
+      "penalty": 1.25,
+      "score_delta": -1.25,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -13549,7 +13256,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 4,
     "story_article_hashes": [
       "9a120fd78a525cde",
       "538fada79e0b267b"
@@ -13882,7 +13589,7 @@
       "prior_title": "유렌코·블리카야, 세계 최초 HALEU 농축 공급 계약 체결",
       "prior_date": "2026-11-18",
       "prior_region": "해외",
-      "days_ago": 3,
+      "days_ago": 4,
       "similarity": 1.0,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -13899,9 +13606,9 @@
       "progression_kind": "",
       "progression_detail": "",
       "window_days": 14,
-      "repeat_streak": 2,
-      "penalty": 6.0,
-      "score_delta": -6.0,
+      "repeat_streak": 1,
+      "penalty": 5.0,
+      "score_delta": -5.0,
       "cancel_tracking": true,
       "drop": true,
       "identity_resolution": "uncertain"
@@ -14118,7 +13825,7 @@
       "prior_title": "IAEA 사무총장, 국제원자력기구 이사회 기조연설",
       "prior_date": "2026-11-19",
       "prior_region": "해외",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.367,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -14136,8 +13843,8 @@
       "progression_detail": "certainty:확정",
       "window_days": 1,
       "repeat_streak": 1,
-      "penalty": 1.875,
-      "score_delta": -1.875,
+      "penalty": 1.25,
+      "score_delta": -1.25,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -14226,7 +13933,7 @@
       "prior_title": "경북도, 美 메릴랜드주와 양자산업 넘어 SMR 분야 협력 확대",
       "prior_date": "2026-11-20",
       "prior_region": "국내",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.622,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -14411,8 +14118,8 @@
       "prior_hash": "93aa4b72b0ff8598",
       "prior_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
       "prior_date": "2026-11-21",
-      "prior_region": "",
-      "days_ago": 0,
+      "prior_region": "국내",
+      "days_ago": 1,
       "similarity": 0.375,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -15186,114 +14893,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "0a00fce9adcfc3f2",
-    "title": "DOE Offers $2.8B Conditional Loan for 1.8-GW Wyoming Link Between Eastern and Western Grids",
-    "title_kr": "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공",
-    "link": "https://www.powermag.com/doe-offers-2-8b-conditional-loan-for-1-8-gw-wyoming-link-between-eastern-and-western-grids",
-    "domain": "powermag.com",
-    "publisher": "POWER Magazine",
-    "source_type": "specialist_media",
-    "evidence_role": "independent",
-    "source_tier": 2,
-    "feed": "정책",
-    "matched": "POWER Magazine",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "시장",
-    "summary": "미국 에너지부가 와이오밍주와 서부 전력망을 연결하는 1.8GW 규모 송전선 프로젝트에 28억달러 규모의 조건부 자금 지원을 제안했다.",
-    "detail": "미국 에너지부 산하 국방에너지금융국이 그리드 유나이티드가 개발 중인 와이오밍 인테리어 송전 프로젝트에 최대 28억 달러의 조건부 금융지원을 발표했다. 이 프로젝트는 동부와 서부 상호연계망 간 전력 전송 용량을 두 배 이상 확대하는 106마일 길이의 송전망 건설 사업이다. 17개 주의 전력 비용 절감 효과가 기대된다.",
-    "implication": "대규모 재생에너지 및 전력 수요 급증에 대응하기 위한 미 연방정부 차원의 핵심 계통 연계 인프라 투자가 가속화되고 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#전력망",
-      "#미국DOE",
-      "#송전선"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 0,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2025-11-17",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-19T22:50:32.369881+00:00",
-    "story_id": "story-0a00fce9adcfc3f2",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "b3c5089474feb9a7",
-      "prior_title": "미국 에너지부, 그리드 유나이티드의 와이오밍 인터타이 프로젝트에 28억 달러 조건부 대출 승인",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.494,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-b3c5089474feb9a7",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:에너지부,프로젝트에"
-      ],
-      "progression": "minor",
-      "progression_kind": "new_quantities",
-      "progression_detail": "1.8GW",
-      "window_days": 1,
-      "repeat_streak": 1,
-      "penalty": 1.25,
-      "score_delta": -1.25,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "0a00fce9adcfc3f2"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "power magazine",
-        "publisher": "POWER Magazine",
-        "domain": "powermag.com",
-        "tier": 2,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공"
-    ],
-    "story_members": [
-      {
-        "hash": "0a00fce9adcfc3f2",
-        "title": "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공",
-        "publisher": "POWER Magazine"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "874cc02be861dfd2",
     "title": "Blykalla Secures World’s First HALEU Enrichment Contract for a Commercial Lead-Cooled Reactor",
     "title_kr": "스웨덴 블리카라, 유렌코와 상업용 납냉각로 HALEU 핵연료 농축 계약 체결",
@@ -15348,7 +14947,7 @@
       "prior_title": "유렌코·블리카야, 세계 최초 HALEU 농축 공급 계약 체결",
       "prior_date": "2026-11-18",
       "prior_region": "해외",
-      "days_ago": 3,
+      "days_ago": 4,
       "similarity": 0.667,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -15372,7 +14971,7 @@
       "drop": false,
       "identity_resolution": "uncertain"
     },
-    "story_article_count": 3,
+    "story_article_count": 4,
     "story_article_hashes": [
       "874cc02be861dfd2",
       "a38730433f855a68"
@@ -16537,7 +16136,7 @@
       "prior_title": "한국수력원자력, 월성 2·3·4호기 계속운전 허가 신청",
       "prior_date": "2026-11-20",
       "prior_region": "국내",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.833,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -16557,8 +16156,8 @@
       "progression_detail": "permit:신청→심사",
       "window_days": 0,
       "repeat_streak": 1,
-      "penalty": 0.375,
-      "score_delta": -0.375,
+      "penalty": 0.25,
+      "score_delta": -0.25,
       "cancel_tracking": false,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -16641,7 +16240,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "60cb61a30e6d9307",
       "5b3cde3b0ff07df6"
@@ -17230,84 +16829,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "5ae90a873449f361",
-    "title": "오리온이엔씨, 캐나다와 '운송형 마이크로원자로' 개발 착수…북미 시장...",
-    "title_kr": "오리온이엔씨, 캐나다 북부 오지용 운송형 마이크로원자로 개발 추진",
-    "link": "http://www.e-platform.net/news/articleView.html?idxno=107163",
-    "domain": "e-platform.net",
-    "publisher": "e-platform.net",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "SMR",
-    "matched": "SMR",
-    "importance": "nice_to_know",
-    "section": "smr",
-    "scope": "overseas",
-    "category": "시장",
-    "summary": "오리온이엔씨가 휘슬랩, 캐나다 비나 아토믹스와 3자 협약을 맺고 운송형 마이크로원자로 개발에 착수했다.",
-    "detail": "오리온이엔씨는 16일 서울대학교에서 원자로 설계 전문기업 휘슬랩, 캐나다 비나 아토믹스와 운송형 마이크로원자로 기술 개발 및 상용화를 위한 3자 업무협약을 체결했다. 이번 협약은 공장에서 완제품으로 제작해 트럭이나 컨테이너로 운송할 수 있는 수MWe급 초소형 원자로를 개발해 캐나다 북부 오지 등에 공급하는 것을 목표로 한다. 프로젝트에서 오리온이엔씨는 플랜트 엔지니어링과 제조 통합을 총괄하고, 휘슬랩은 독자 전산 코드 기반의 노심 및 원자로 설계를 맡으며, 비나 아토믹스는 캐나다 현지 시스템 통합과 인허가를 담당한다.",
-    "implication": "국내 기자재 공급망 역량을 바탕으로 캐나다 오지 전력망 공급을 위한 초소형 원자로 글로벌 시장 진출을 본격화하는 단계이다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#SMR",
-      "#MMR",
-      "#오리온이엔씨"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "contract_award",
-      "korea_relevance": 2,
-      "market_materiality": 1,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-16",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T01:59:06.629603+00:00",
-    "story_id": "story-5ae90a873449f361",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "5ae90a873449f361"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "e-platform.net",
-        "publisher": "e-platform.net",
-        "domain": "e-platform.net",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "오리온이엔씨, 캐나다 북부 오지용 운송형 마이크로원자로 개발 추진"
-    ],
-    "story_members": [
-      {
-        "hash": "5ae90a873449f361",
-        "title": "오리온이엔씨, 캐나다 북부 오지용 운송형 마이크로원자로 개발 추진",
-        "publisher": "e-platform.net"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "e0e0913bf5af9066",
     "title": "경북도, 메릴랜드주와 양자협력 구체화…기업 매칭·대학 공동연구 추진",
     "title_kr": "경상북도, 미국 메릴랜드주와 SMR 및 양자산업 협력 논의",
@@ -17362,7 +16883,7 @@
       "prior_title": "경북도, 美 메릴랜드주와 양자산업 넘어 SMR 분야 협력 확대",
       "prior_date": "2026-11-20",
       "prior_region": "국내",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.612,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -17380,8 +16901,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 3,
-      "penalty": 7.0,
-      "score_delta": -7.0,
+      "penalty": 5.25,
+      "score_delta": -5.25,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -17442,7 +16963,7 @@
       "prior_title": "삼성중공업, 미국 테서와 원자력 추진 LNG 운반선 실증 협력 MOU 체결",
       "prior_date": "2026-11-20",
       "prior_region": "해외",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.875,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -17907,7 +17428,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "f22dd574d99d164f",
       "cf2d49f26ef3cde0"
@@ -17996,56 +17517,6 @@
     "event_date_source": "article_text",
     "queued_at": "2026-11-20T01:59:06.629603+00:00",
     "story_id": "story-6a87ec52dbd929de",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash"
-  },
-  {
-    "hash": "800a435107e0e58e",
-    "title": "[국립창원대 소식]AI 학술대회서 학부생 우수논문상 등",
-    "title_kr": "국립창원대 SMR² 플랫폼 국가연구소, i-SMR 기자재 공급망 포럼 개최",
-    "link": "https://www.sidae.com/article/2026112010152090231",
-    "domain": "sidae.com",
-    "publisher": "sidae.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "SMR",
-    "matched": "SMR",
-    "importance": "nice_to_know",
-    "section": "smr",
-    "scope": "kr",
-    "category": "기술",
-    "summary": "국립창원대 SMR² 플랫폼 국가연구소는 i-SMR 개발 현황과 지역 제조기업의 기자재 공급망 참여 방안을 논의하는 포럼을 개최했다.",
-    "detail": "국립창원대 SMR² 플랫폼 국가연구소는 대학본부 인송홀에서 'SMR² INSIGHT FORUM'을 열고 i-SMR 개발 현황과 경제적 파급효과, 지역 기업의 산업 참여 방안을 논의했다. 포럼에서는 i-SMR 건설·운영에 따른 지역경제 효과와 원자력 기자재 산업의 공급망 전망이 주요 의제로 다뤄졌다. 소재·부품 제작과 정밀가공, 용접·접합, 검사·평가 등 기존 제조업 기술의 활용 가능성이 제시됐다. 권용세 i-SMR 사업단 책임연구원은 개발 현황과 기자재 공급망 참여 기회를 설명하고, 기업별 공급 품목 검토와 기술·품질 요건 확보의 필요성을 강조했다.",
-    "implication": "i-SMR 상용화 단계에서 지역 제조기업의 참여 기반을 넓히고 공급망을 다변화하려는 산·학·연 협력의 일환이다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#iSMR",
-      "#기자재공급망",
-      "#창원대"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "project_milestone",
-      "korea_relevance": 3,
-      "market_materiality": 1,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-20",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T01:59:06.629603+00:00",
-    "story_id": "story-800a435107e0e58e",
     "story_id_source": "generated",
     "story_id_trust": "canonical",
     "story_identity_version": 2,
@@ -18180,84 +17651,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "e72f2a6a955cc22d",
-    "title": "IEA, “韓 에너지 수입의존도 세계 최고 수준”…재생에너지 확대 관건",
-    "title_kr": "IEA, 한국·일본 에너지 수입의존도 세계 최고 수준 진단",
-    "link": "https://www.kmib.co.kr/article/20261120500132",
-    "domain": "kmib.co.kr",
-    "publisher": "kmib.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "국제에너지기구(IEA)는 '세계에너지전망 2026' 보고서에서 한국과 일본을 세계에서 에너지 수입의존도가 가장 높은 국가로 분류했다.",
-    "detail": "국제에너지기구(IEA)는 '세계에너지전망 2026'을 통해 호르무즈 해협 공급 차질로 인한 아시아 수입국의 피해를 진단했다. 한국과 일본은 에너지 수요의 약 80%를 순수입에 의존하며 원유·가스 수입의존도가 거의 100%에 달하는 것으로 나타났다. IEA는 한국이 2030년 재생에너지 100GW 보급 등 계획을 이행하면 수입의존도를 낮출 수 있다고 평가했다. 아울러 반도체·데이터센터 전력 수요 급증에 대응하기 위해 해상풍력 가속, 송전망 확충, ESS·양수발전 확대를 핵심 과제로 제시했다.",
-    "implication": "에너지 수입의존도가 극심한 국내 구조상 전력 수요 급증에 대응하려면 재생에너지와 함께 양수발전·ESS 등 유연성 전원 확보가 필수적임을 재확인시켜 준다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#IEA",
-      "#에너지수입의존도",
-      "#양수발전"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 3,
-      "market_materiality": 1,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-20",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T01:59:06.629603+00:00",
-    "story_id": "story-e72f2a6a955cc22d",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "e72f2a6a955cc22d"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "kmib.co.kr",
-        "publisher": "kmib.co.kr",
-        "domain": "kmib.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "IEA, 한국·일본 에너지 수입의존도 세계 최고 수준 진단"
-    ],
-    "story_members": [
-      {
-        "hash": "e72f2a6a955cc22d",
-        "title": "IEA, 한국·일본 에너지 수입의존도 세계 최고 수준 진단",
-        "publisher": "kmib.co.kr"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "08ae9c1067f3bcff",
     "title": "원전도 ‘계약 후 차액 정산’ 내년 도입…전력시장 구조 개편 속도",
     "title_kr": "정부, 원전 발전량 대상 계약후 차액정산 제도 내년 도입",
@@ -18384,7 +17777,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "c808b8833225ce2b",
       "9f2a16020e39dd54"
@@ -18585,56 +17978,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "2c9a8a100e873a01",
-    "title": "유가 충격 커질수록 빨라지는 전력화…글로벌 전기차 판매·태양광 거래...",
-    "title_kr": "IEA, 세계 에너지 전망 2026 보고서 발간…원전 및 태양광 확대 전망",
-    "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=716913",
-    "domain": "digitaltoday.co.kr",
-    "publisher": "digitaltoday.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "원자력 정책",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "IEA는 세계 에너지 전망 2026 보고서를 통해 호르무즈 해협 위기에 대응해 태양광과 원자력 발전이 확대될 것이라고 밝혔다.",
-    "detail": "국제에너지기구(IEA)는 '세계 에너지 전망 2026' 보고서에서 중동 분쟁으로 인한 호르무즈 해협의 원유 공급 위기가 에너지 정책과 시장 구조를 바꿀 수 있다고 분석했다. 석유·가스 수입 의존도를 낮추기 위해 전기차, 태양광, 원자력 발전이 확대될 것으로 내다봤다. 다만 전력망 확충 지연과 핵심 광물 공급망 불안이 새로운 안보 위협으로 지적됐다.",
-    "implication": "중동 리스크에 따른 에너지 안보 강화가 원자력 및 재생에너지 중심의 전환을 가속화하고 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#IEA",
-      "#에너지전망",
-      "#원자력확대"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 1,
-      "market_materiality": 1,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 2,
-    "event_date": "2026-11-19",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T04:22:34.064433+00:00",
-    "story_id": "story-2c9a8a100e873a01",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash"
-  },
-  {
     "hash": "c388d847e33d39e0",
     "title": "IEA \"호르무즈 사태는 역대 최대 에너지 충격\"… 한국 수입의존 80%로 일...",
     "title_kr": "IEA, 한국 2040년 원전 발전비중 30% 유지 전망",
@@ -18791,99 +18134,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "3b7660b8e26dbdc0",
-    "title": "상용화도 전에 전력 선구매…구글, 초고온 지열발전 50MW 장기계약",
-    "title_kr": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
-    "link": "https://www.impacton.net/news/articleView.html?idxno=30759",
-    "domain": "impacton.net",
-    "publisher": "impacton.net",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "송전망 건설",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "시장",
-    "summary": "구글은 미국 지열발전 기업 퀘이즈에너지와 50MW 규모의 초고온 지열 전력구매계약을 체결하고 데이터센터 전력 확보에 나섰다.",
-    "detail": "미국 퀘이즈에너지는 17일 구글과 50MW 규모의 초고온 지열 전력구매계약(PPA)을 체결했다. 계약 가치는 5억달러 이상이며, 구글은 2030년부터 오리건주 데이터센터 운영에 전력을 활용할 계획이다. 퀘이즈에너지는 상용화 이전 단계에서 장기 구매처를 확보해 자금조달 기반을 마련했으나, 지하 열원 검증과 발전소 건설 및 추가 구매자 확보가 과제로 남아 있다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#지열발전",
-      "#구글",
-      "#전력구매계약"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "contract_award",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2030-01-01",
-    "event_date_type": "scheduled",
-    "event_date_precision": "year",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T04:22:34.064433+00:00",
-    "story_id": "story-3b7660b8e26dbdc0",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
-    "story_article_hashes": [
-      "3b7660b8e26dbdc0",
-      "67f8d0871499c51f"
-    ],
-    "story_outlet_count": 2,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 2,
-    "story_sources": [
-      {
-        "identity": "impacton.net",
-        "publisher": "impacton.net",
-        "domain": "impacton.net",
-        "tier": 3,
-        "evidence_role": "independent"
-      },
-      {
-        "identity": "tokenpost.kr",
-        "publisher": "tokenpost.kr",
-        "domain": "tokenpost.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
-      "구글, 초고온 지열 50MW 전력 구매 계약…이르면 2030년 공급"
-    ],
-    "story_members": [
-      {
-        "hash": "3b7660b8e26dbdc0",
-        "title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
-        "publisher": "impacton.net"
-      },
-      {
-        "hash": "67f8d0871499c51f",
-        "title": "구글, 초고온 지열 50MW 전력 구매 계약…이르면 2030년 공급",
-        "publisher": "tokenpost.kr"
-      }
-    ],
-    "story_relation": "duplicate",
-    "story_dedup_stage": "rank_title",
-    "story_reason": "제목·시설 유사"
-  },
-  {
     "hash": "47e5c15f72fcccc4",
     "title": "방글라데시 태양광 시장 확대와 산업용 옥상 태양광 분야의 진출 기회",
     "title_kr": "방글라데시, 2030년 재생에너지 확대 목표와 태양광 장비 수입 수요",
@@ -19016,7 +18266,7 @@
       "prior_title": "경북도, 美 메릴랜드주와 양자산업 넘어 SMR 분야 협력 확대",
       "prior_date": "2026-11-20",
       "prior_region": "국내",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.714,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -19041,7 +18291,7 @@
       "drop": false,
       "identity_resolution": "uncertain"
     },
-    "story_article_count": 3,
+    "story_article_count": 5,
     "story_article_hashes": [
       "d73d26051e1bc1ab",
       "2706cfedfcfe4b0a",
@@ -19228,84 +18478,6 @@
     "story_identity_decision": "fresh_article_hash"
   },
   {
-    "hash": "b33d34158ea4e975",
-    "title": "일본, 배터리 제조 기반 확충과 ESS 활용 다변화 추진",
-    "title_kr": "일본 경제산업성, 축전지·전원산업전략 개정 및 제조 기반 확충 추진",
-    "link": "http://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?bbsGbn=243&bbsSn=243&CONTENTS_NO=1&MENU_ID=180&pNttSn=245076&SITE_NO=3",
-    "domain": "kotra.or.kr",
-    "publisher": "kotra.or.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "일본 경제산업성이 배터리 및 전력 공급 시스템 제조 기반을 강화하기 위해 축전지산업전략을 개정했다.",
-    "detail": "일본 경제산업성은 2026년 6월 기존 축전지산업전략을 축전지·전원산업전략으로 개정했다. 글로벌 공급 과잉과 AI 데이터센터 등 전력 제어 수요 증가에 대응하기 위한 조치다. 일본 정부는 2030년부터 2030년대 중반까지 연간 150GWh 규모의 국내 배터리 제조 기반을 구축하고 2035년까지 관련 매출을 3배로 확대한다는 목표를 세웠다. 아울러 전기차 폐배터리를 에너지저장장치(ESS)로 재사용하기 위한 안전·성능 평가 기준인 IEC 63330-1 및 JIS C 4442를 제정하고 관련 실증 사업을 진행하고 있다.",
-    "implication": "배터리 공급망 다변화와 ESS 재사용 표준화를 통해 에너지 안보와 차세대 전력 시스템 주도권을 확보하려는 전략이다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#ESS",
-      "#배터리전략",
-      "#일본"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-06-01",
-    "event_date_type": "effective",
-    "event_date_precision": "month",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T04:22:34.064433+00:00",
-    "story_id": "story-b33d34158ea4e975",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "b33d34158ea4e975"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "kotra.or.kr",
-        "publisher": "kotra.or.kr",
-        "domain": "kotra.or.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "일본 경제산업성, 축전지·전원산업전략 개정 및 제조 기반 확충 추진"
-    ],
-    "story_members": [
-      {
-        "hash": "b33d34158ea4e975",
-        "title": "일본 경제산업성, 축전지·전원산업전략 개정 및 제조 기반 확충 추진",
-        "publisher": "kotra.or.kr"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "7883e7486a09e8ed",
     "title": "국내 이차전지 비중 확대...내년 BESS 매출 개선 전망",
     "title_kr": "한국투자증권, 국내 이차전지 BESS 매출 개선 전망 제시",
@@ -19438,7 +18610,7 @@
       "prior_title": "삼성SDI·LG엔솔, 美 'RE+ 2026'서 AI 데이터센터 전력 솔루션 공개",
       "prior_date": "2026-11-16",
       "prior_region": "해외",
-      "days_ago": 5,
+      "days_ago": 6,
       "similarity": 0.625,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -19822,36 +18994,6 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "3088e2c012b18410",
-      "prior_title": "LS일렉트릭, 美 빅테크와 1천300억 규모 AI 데이터센터 전력 시스템 공급 계약",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.299,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-3088e2c012b18410",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:ai데이터센터,데이터센터"
-      ],
-      "progression": "none",
-      "progression_kind": "",
-      "progression_detail": "",
-      "window_days": 1,
-      "repeat_streak": 3,
-      "penalty": 3.5,
-      "score_delta": -3.5,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
     "story_article_count": 1,
     "story_article_hashes": [
       "cfca4bb464f00437"
@@ -19978,7 +19120,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 5,
     "story_article_hashes": [
       "502861ab94b9550e",
       "3e6b224b40dd0010",
@@ -20176,80 +19318,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "3976493ce5794d2f",
-    "title": "국가AI전략위, 전남광주 AI·AX 현장 방문…“메가프로젝트 지원”",
-    "title_kr": "국가AI전략위, 전남광주 '재생에너지 기반 AI 클러스터' 현장 점검",
-    "link": "https://www.etnews.com/20261120000248",
-    "domain": "etnews.com",
-    "publisher": "전자신문",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "반도체 클러스터 전력",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "국가AI전략위원회가 전남광주 지역의 AI 반도체 및 인프라, 조선 AX 현장을 방문하여 '재생에너지 기반 반도체·AI 클러스터' 육성 방안을 논의하고 지원을 약속했다.",
-    "detail": "국가인공지능전략위원회는 11월 19일부터 이틀간 전남광주 지역의 AI 정책 현장을 방문하여 국산 AI 반도체와 AI 인프라, 조선 AX 현장을 살폈다. 이는 지난 6월 정부가 전남광주를 제2 반도체 생산거점으로 육성하고 8월 서남권을 '재생에너지 기반 반도체·AI 클러스터'로 키우기로 한 데 따른 현장 행보다. 하정우 부위원장은 국산 AI 반도체 기업 간담회를 통해 K-AI 풀스택 생태계 구축을 지원하고, HD현대삼호를 방문하여 조선산업 AX 확산을 위한 정책 지원 방안을 논의했다. 위원회는 국산 AI 모델과 NPU가 공공 및 민간 현장에서 레퍼런스를 쌓도록 범정부 차원에서 적극 지원할 계획이다.",
-    "implication": "정부가 전남광주를 재생에너지 기반 반도체·AI 클러스터로 육성하며 AI 데이터센터의 전력 수요 증가에 대한 대응 방안을 모색하고 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": "2024-11-19",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T10:50:09.370963+00:00",
-    "story_id": "story-3976493ce5794d2f",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "3976493ce5794d2f"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "전자신문",
-        "publisher": "전자신문",
-        "domain": "etnews.com",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "국가AI전략위, 전남광주 '재생에너지 기반 AI 클러스터' 현장 점검"
-    ],
-    "story_members": [
-      {
-        "hash": "3976493ce5794d2f",
-        "title": "국가AI전략위, 전남광주 '재생에너지 기반 AI 클러스터' 현장 점검",
-        "publisher": "전자신문"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "a6f8fb925132d190",
     "title": "이현빈 남동발전 사장 “에너지 산업 미래, 소비·효율에서 찾아야”",
     "title_kr": "이현빈 한국남동발전 사장, '에너지 산업 미래는 소비·효율 개선에 있다' 강조",
@@ -20297,7 +19365,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
+    "story_article_count": 5,
     "story_article_hashes": [
       "a6f8fb925132d190",
       "6d510f79b421cb65",
@@ -20354,82 +19422,6 @@
     "story_relation": "duplicate",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사"
-  },
-  {
-    "hash": "58585556d0957e36",
-    "title": "\"한국 핵추진잠수함에 IAEA 첫 긍정 평가\"... 협력에 '만족', 남은 과제는...",
-    "title_kr": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
-    "link": "https://www.insight.co.kr/news/582957",
-    "domain": "insight.co.kr",
-    "publisher": "insight.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "한미 원자력협정",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "IAEA가 한국의 핵추진잠수함 도입 관련 첫 사무총장 보고서를 공개하며 한국 정부의 핵물질 신고 의무 이행을 확인하고 그간의 협력에 만족한다는 입장을 밝혔다.",
-    "detail": "국제원자력기구(IAEA)는 11월 19일(현지시간) 오스트리아 빈에서 열린 정기이사회를 계기로 한국의 핵추진잠수함 도입을 다룬 첫 사무총장 보고서를 대외 공개했다. 보고서는 한국이 전면안전조치협정(CSA)과 추가의정서(AP)에 따른 신고 의무를 이행했으며, IAEA는 한국 정부와의 기술협의 및 의견 교환 등 협력에 만족한다고 평가했다. 한국은 핵잠 연료로 우라늄 농축도 20% 미만의 저농축우라늄을 사용하겠다는 계획을 IAEA에 설명했으며, 핵물질 전용 방지를 위한 검증 절차를 마련하기 위한 후속 협의가 남아있다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#핵비확산"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 0,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2024-11-19",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T10:50:09.370963+00:00",
-    "story_id": "story-58585556d0957e36",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "58585556d0957e36"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "insight.co.kr",
-        "publisher": "insight.co.kr",
-        "domain": "insight.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인"
-    ],
-    "story_members": [
-      {
-        "hash": "58585556d0957e36",
-        "title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
-        "publisher": "insight.co.kr"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "ae21f00a198d3b8d",
@@ -20606,7 +19598,7 @@
       "prior_title": "삼성중공업, 미국 테서와 원자력 추진 LNG 운반선 실증 협력 MOU 체결",
       "prior_date": "2026-11-20",
       "prior_region": "해외",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.667,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -22568,7 +21560,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "bcfd94f4bb0acbb7",
       "8e33cce0ab0f5e13"
@@ -22688,98 +21680,6 @@
     ],
     "story_relation": "single",
     "story_dedup_stage": "rank_title"
-  },
-  {
-    "hash": "eaec2c6f14cc390e",
-    "title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
-    "title_kr": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
-    "link": "https://www.cnbnews.com/news/articleView.html?idxno=1024697",
-    "domain": "cnbnews.com",
-    "publisher": "cnbnews.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "원자력 정책",
-    "importance": "nice_to_know",
-    "section": "smr",
-    "scope": "kr",
-    "category": "기술",
-    "summary": "국립창원대학교 SMR² 플랫폼 국가연구소는 20일 'SMR² INSIGHT FORUM'을 개최하여 i-SMR 개발 현황과 원자력 기자재 산업의 기회 및 과제를 논의했다.",
-    "detail": "국립창원대학교 SMR² 플랫폼 국가연구소는 20일 국립창원대 대학본부 인송홀에서 'SMR² INSIGHT FORUM'을 개최했다. 이 포럼에서는 에너지 전환 정책 검토에 필요한 시사점이 제시되었으며, i-SMR 사업단 권용세 책임연구원이 '혁신형 SMR 개발 현황과 전망-원자력 기자재 산업의 기회와 과제'를 주제로 i-SMR의 개발 현황과 기자재 공급망 전망을 발표했다. 이번 포럼은 SMR 기술 개발 및 산업 생태계 조성에 대한 심도 깊은 논의의 장을 마련했다.",
-    "implication": "i-SMR 개발 현황과 원자력 기자재 산업의 기회 및 과제 논의는 국내 SMR 사업화 전략 수립 및 공급망 구축에 중요한 정보를 제공할 것으로 판단된다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#iSMR",
-      "#SMR기자재"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 1,
-    "event_date": "2026-05-20",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T13:22:36.552295+00:00",
-    "story_id": "story-eaec2c6f14cc390e",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
-    "story_article_hashes": [
-      "eaec2c6f14cc390e",
-      "800a435107e0e58e"
-    ],
-    "story_outlet_count": 2,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 2,
-    "story_sources": [
-      {
-        "identity": "cnbnews.com",
-        "publisher": "cnbnews.com",
-        "domain": "cnbnews.com",
-        "tier": 3,
-        "evidence_role": "independent"
-      },
-      {
-        "identity": "sidae.com",
-        "publisher": "sidae.com",
-        "domain": "sidae.com",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
-      "국립창원대 SMR² 플랫폼 국가연구소, i-SMR 기자재 공급망 포럼 개최"
-    ],
-    "story_members": [
-      {
-        "hash": "eaec2c6f14cc390e",
-        "title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
-        "publisher": "cnbnews.com"
-      },
-      {
-        "hash": "800a435107e0e58e",
-        "title": "국립창원대 SMR² 플랫폼 국가연구소, i-SMR 기자재 공급망 포럼 개최",
-        "publisher": "sidae.com"
-      }
-    ],
-    "story_relation": "duplicate",
-    "story_dedup_stage": "rank_title",
-    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "cf2d49f26ef3cde0",
@@ -23331,7 +22231,37 @@
       }
     ],
     "story_relation": "single",
-    "story_dedup_stage": "rank_title"
+    "story_dedup_stage": "rank_title",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "e65d48a1634a4d8a",
+      "prior_title": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
+      "prior_date": "2026-11-22",
+      "prior_region": "",
+      "days_ago": 0,
+      "similarity": 0.053,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-e65d48a1634a4d8a",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "anchors:방사성폐기물,사용후핵연료"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 1,
+      "repeat_streak": 2,
+      "penalty": 6.0,
+      "score_delta": -6.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
+    }
   },
   {
     "hash": "9821a26893b2f6d4",
@@ -23381,7 +22311,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "9821a26893b2f6d4",
       "161ed20c800ce9c8"
@@ -23786,7 +22716,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "fe1d0a3ac306faa8",
       "b3016bc9a5413055"
@@ -23883,7 +22813,7 @@
       "prior_title": "프랑스 EDF, 140억 유로 규모 원전 건설 계약 최종 확정 임박",
       "prior_date": "2026-11-19",
       "prior_region": "해외",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.512,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -23901,8 +22831,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 2,
-      "penalty": 4.5,
-      "score_delta": -4.5,
+      "penalty": 3.0,
+      "score_delta": -3.0,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -24089,112 +23019,6 @@
     ],
     "story_relation": "single",
     "story_dedup_stage": "rank_title"
-  },
-  {
-    "hash": "dad204d35bdb2b27",
-    "title": "IEA, 석유·가스 수송난 해소 후 구매자 우위 시장으로 재편",
-    "title_kr": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
-    "link": "https://www.esgeconomy.com/news/articleView.html?idxno=17494",
-    "domain": "esgeconomy.com",
-    "publisher": "esgeconomy.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "원자력 정책",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "국제에너지기구(IEA)가 '2026년 세계 에너지 전망' 보고서를 통해 석유·가스 시장 재편과 함께 원자력 발전량 증가를 전망했습니다.",
-    "detail": "국제에너지기구(IEA)는 19일 '2026년 세계 에너지 전망(World Energy Outlook 2026)' 보고서를 발표했습니다. 보고서는 이란 전쟁으로 인한 수송 위기가 해결되면 석유와 천연가스 시장이 구매자 우위로 전환되어 가격 하락 압력을 받을 것으로 전망했습니다. 또한 석탄 수요는 단기적으로 증가하나 2030년에는 모든 시나리오에서 감소할 것으로 예측했습니다. 보고서에 따르면 원자력 발전량도 증가할 것으로 예상되며, 현재 약 90GW 규모의 신규 원전 건설이 진행 중입니다.",
-    "implication": "IEA의 세계 에너지 전망 보고서는 글로벌 에너지 믹스에서 원자력의 역할 확대 가능성을 제시하며, 각국의 에너지 정책 수립에 중요한 참고 자료가 될 것입니다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#전원계획",
-      "#에너지안보"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 2,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-20T13:22:36.552295+00:00",
-    "story_id": "story-dad204d35bdb2b27",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 3,
-    "story_article_hashes": [
-      "dad204d35bdb2b27",
-      "1e7f0d6782d3102e",
-      "2c9a8a100e873a01"
-    ],
-    "story_outlet_count": 3,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 3,
-    "story_sources": [
-      {
-        "identity": "digitaltoday.co.kr",
-        "publisher": "digitaltoday.co.kr",
-        "domain": "digitaltoday.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      },
-      {
-        "identity": "esgeconomy.com",
-        "publisher": "esgeconomy.com",
-        "domain": "esgeconomy.com",
-        "tier": 3,
-        "evidence_role": "independent"
-      },
-      {
-        "identity": "world nuclear news",
-        "publisher": "World Nuclear News",
-        "domain": "world-nuclear-news.org",
-        "tier": 2,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
-      "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망",
-      "IEA, 세계 에너지 전망 2026 보고서 발간…원전 및 태양광 확대 전망"
-    ],
-    "story_members": [
-      {
-        "hash": "dad204d35bdb2b27",
-        "title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
-        "publisher": "esgeconomy.com"
-      },
-      {
-        "hash": "1e7f0d6782d3102e",
-        "title": "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망",
-        "publisher": "World Nuclear News"
-      },
-      {
-        "hash": "2c9a8a100e873a01",
-        "title": "IEA, 세계 에너지 전망 2026 보고서 발간…원전 및 태양광 확대 전망",
-        "publisher": "digitaltoday.co.kr"
-      }
-    ],
-    "story_relation": "duplicate",
-    "story_dedup_stage": "rank_title",
-    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "f7211a01eebb2b80",
@@ -24560,7 +23384,7 @@
       "prior_title": "삼성중공업, 미국 테서와 원자력 추진 LNG 운반선 실증 협력 MOU 체결",
       "prior_date": "2026-11-20",
       "prior_region": "해외",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.625,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -25071,7 +23895,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "4bd750ce4fbae8c4",
       "3bbddc4b98e00a22"
@@ -25266,84 +24090,6 @@
         "hash": "503f2902f1d964ea",
         "title": "IEA, 한국 에너지 수입 의존도 80% 지적…AI 시대 전력 수요 위협 경고",
         "publisher": "donga.com"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
-    "hash": "ed4abd67a00c5e4e",
-    "title": "Spain's burgeoning data centres become election issue with new rules",
-    "title_kr": "스페인, 데이터센터 급증과 새 규제가 선거 쟁점으로 부상",
-    "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOMU4tN0lkenRDSjFTZ2JzT3pWSTB1aXQyc3JDbTNXUjIzQk1yTFI5ck5GbE82UGw5Wl92NE1rMklMTW9sMnhKYVlYODhTVDVhWHplU0J1R2M3aE13eFE3RlMyNGtBS2hXbVhpVDFDVjlaZThmdjJ2QVF0WG9CRTItZmo5S0Q2bzg4SjEtZ0lRakRPWUxDQWJEdVNBZU5uSXJzVjNsY3h2SHNJQXBHV0tBcDNRRVNrMkhpT29TVldTLUg?oc=5",
-    "domain": "reuters.com",
-    "publisher": "Reuters",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 2,
-    "feed": "정책",
-    "matched": "Reuters 원자력",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "스페인에서 급증하는 데이터센터와 이에 대한 새로운 규제 마련이 선거 쟁점으로 부상하고 있다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#데이터센터",
-      "#전력수요",
-      "#규제"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 1,
-      "market_materiality": 1,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-20T16:07:45.390042+00:00",
-    "story_id": "story-ed4abd67a00c5e4e",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "ed4abd67a00c5e4e"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "reuters",
-        "publisher": "Reuters",
-        "domain": "reuters.com",
-        "tier": 2,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "스페인, 데이터센터 급증과 새 규제가 선거 쟁점으로 부상"
-    ],
-    "story_members": [
-      {
-        "hash": "ed4abd67a00c5e4e",
-        "title": "스페인, 데이터센터 급증과 새 규제가 선거 쟁점으로 부상",
-        "publisher": "Reuters"
       }
     ],
     "story_relation": "single",
@@ -25946,114 +24692,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "71ccdebe11108c37",
-    "title": "한수원, 체코 두코바니 원전 냉각탑 입찰 현장설명회 마무리 … 내년 상...",
-    "title_kr": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
-    "link": "http://www.worktoday.co.kr/news/articleView.html?idxno=92424",
-    "domain": "worktoday.co.kr",
-    "publisher": "worktoday.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "한국수력원자력",
-    "importance": "nice_to_know",
-    "section": "khnp",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "한수원이 체코 두코바니 원전 냉각탑 공급업체 선정을 위한 절차를 본격화하며, 내년 상반기 중 계약 체결을 목표로 한다.",
-    "detail": "한국수력원자력은 체코 두코바니 신규 원전 건설사업의 핵심 설비인 냉각탑 공급업체 선정을 위한 절차를 본격화했다. 국내 원전 건설에 적용된 사례가 없는 신규 설비이므로 해외 전문기업의 기술력을 활용하고 관련 기술 및 시공 경험을 확보할 계획이다. 지난 18일부터 19일까지 이틀간 체코 현지에서 잠재 공급사를 대상으로 현장설명회를 개최했으며, MVM EGI-메트로스타브 컨소시엄과 JC 하몬-호흐티프 컨소시엄 등 2개 컨소시엄이 경쟁에 참여하고 있다. 한수원은 내년 상반기 중 냉각탑 건설 계약을 체결할 예정이며, 두코바니 원전사업은 2029년 착공을 목표로 한다.",
-    "implication": "한수원은 체코 두코바니 원전 냉각탑 공급업체 선정을 위한 절차를 본격화하며, 내년 상반기 중 계약 체결을 목표로 한다.",
-    "why_important": "한수원이 체코 두코바니 원전 건설사업의 핵심 설비인 냉각탑 공급업체 선정을 위한 절차를 본격화하며, 내년 상반기 중 계약 체결을 목표로 하고 있어 향후 사업 진행에 중요한 이정표가 될 전망이다.",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#체코원전",
-      "#냉각탑",
-      "#한수원"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "contract_award",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 3,
-    "event_date": "2025-06-30",
-    "event_date_type": "deadline",
-    "event_date_precision": "month",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T19:42:14.822439+00:00",
-    "story_id": "story-71ccdebe11108c37",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "9de163ee2d166b73",
-      "prior_title": "국회 산자중기위, 한수원 주도 팀코리아의 체코 원전 시공 협상 결렬 경위 청문회 추진",
-      "prior_date": "2026-11-19",
-      "prior_region": "국내",
-      "days_ago": 2,
-      "similarity": 0.25,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-9de163ee2d166b73",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:체코원전,한수원"
-      ],
-      "progression": "minor",
-      "progression_kind": "unmarked_prior",
-      "progression_detail": "deal:본계약",
-      "window_days": 1,
-      "repeat_streak": 3,
-      "penalty": 1.875,
-      "score_delta": -1.875,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "71ccdebe11108c37"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "worktoday.co.kr",
-        "publisher": "worktoday.co.kr",
-        "domain": "worktoday.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표"
-    ],
-    "story_members": [
-      {
-        "hash": "71ccdebe11108c37",
-        "title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
-        "publisher": "worktoday.co.kr"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
     "hash": "2772f14e0713ee6c",
     "title": "Houthi attacks add to worries over Trump Saudi nuclear power pact",
     "title_kr": "후티 공격, 트럼프-사우디 원자력 협정 우려 증폭",
@@ -26197,56 +24835,6 @@
     "story_dedup_stage": "rank_title"
   },
   {
-    "hash": "67f8d0871499c51f",
-    "title": "구글 50MW 초고온 지열 계약, 이르면 2030년 공급",
-    "title_kr": "구글, 초고온 지열 50MW 전력 구매 계약…이르면 2030년 공급",
-    "link": "https://www.tokenpost.kr/news/ai/441763",
-    "domain": "tokenpost.kr",
-    "publisher": "tokenpost.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "송전망 건설",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "구글이 미국 오리건주 프로젝트 옵시디언에서 50MW 규모 초고온 지열 전력을 구매하는 계약을 체결했으며, 공급 개시는 이르면 2030년으로 예정되어 있다.",
-    "detail": "구글이 미국 오리건주에서 개발 중인 초고온 암석 지열 프로젝트에서 50MW 전력을 구매하기로 했다. 공급 개시는 이르면 2030년으로 제시됐다. Quaise Energy는 17일 발표문에서 구글과 오리건주 중부 프로젝트 옵시디언(Project Obsidian)의 전력구매계약(PPA)을 체결했다고 밝혔다. 1단계는 기존 시추 기술로 진행하고 2단계에는 밀리미터파 시추를 적용할 계획이다. 구글은 19일 공식 블로그에서 더댈러스 데이터센터를 위한 50MW 초고온 지열 계약을 확인했다. OPB는 이 전력이 더댈러스의 구글 데이터센터 3곳에 공급되고 약 5만 가구가 사용할 수 있는 규모라고 전했다. 초고온 지열은 375℃ 이상, 압력 22MPa 이상의 암석층을 활용하는 기술이다. 지하 암석에 물을 순환시켜 증기를 만들고 터빈으로 전력을 생산한다. 물이 초임계 유체가 되면 같은 양으로 더 많은 열을 운반할 수 있다는 게 기업 측 설명이다. Quaise Energy는 초고온 지열이 기존 지열보다 우물당 최대 10배 많은 청정 전력을 생산할 수 있다고 설명했다.",
-    "implication": "초고온 지열 발전의 첫 상업 규모 전력 구매 사례로, 향후 지열 발전 상용화에 기여할 수 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#초고온지열",
-      "#구글",
-      "#PPA"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "contract_award",
-      "korea_relevance": 0,
-      "market_materiality": 1,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "prior_coverage": 1,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-20T19:42:14.822439+00:00",
-    "story_id": "story-67f8d0871499c51f",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash"
-  },
-  {
     "hash": "1c05e93250e3d092",
     "title": "인구 느는데 집·전력은 부족…현대건설이 '기회의 땅' 호주에 꽂힌 이...",
     "title_kr": "인구 느는데 집·전력은 부족…현대건설이 '기회의 땅' 호주에 꽂힌 이...",
@@ -26307,114 +24895,6 @@
         "hash": "1c05e93250e3d092",
         "title": "인구 느는데 집·전력은 부족…현대건설이 '기회의 땅' 호주에 꽂힌 이...",
         "publisher": "머니투데이"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
-  },
-  {
-    "hash": "c05437aa0f822e8c",
-    "title": "Building nuclear’s next-gen workforce",
-    "title_kr": "미국 에너지부, 2050년까지 37만 명 이상의 숙련된 원자력 인력 필요",
-    "link": "https://www.ans.org/news/2026-11-20/article-8538/building-nuclears-nextgen-workforce",
-    "domain": "ans.org",
-    "publisher": "ANS Nuclear Newswire",
-    "source_type": "specialist_media",
-    "evidence_role": "independent",
-    "source_tier": 2,
-    "feed": "정책",
-    "matched": "ANS Nuclear Newswire",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "미국 에너지부는 원전 운영과 차세대 원전 배치를 위해 2050년까지 37만5000명 이상의 숙련된 인력이 필요하다고 밝혔다.",
-    "detail": "미국 에너지부는 기존 원전 운영 유지와 차세대 소형 원전 배치를 지원하기 위해 2050년까지 37만5000명 이상의 숙련된 원자력 인력이 필요할 것으로 전망했다. 이를 해결하기 위해 오크리지연합대학 주도의 공공동맹을 통해 '원자력에너지학술로드맵(NEAR)'이 개발됐다. NEAR은 대학, 전문대학, 기술훈련기관, 원자력 산업체, 정부 기관을 연결하여 원자력 교육과 인력 양성을 강화하기 위한 청사진을 제공한다. ORAU의 미셸 굿슨 선임이사는 이 로드맵이 이론을 넘어 미래 인재를 위한 명확한 경로를 구축하는 실행 계획이라고 강조했다.",
-    "implication": "미국 에너지부는 차세대 원전 확대에 따른 인력 부족을 해소하기 위해 산학연 협력 로드맵을 본격 가동하기 시작했다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#인력양성",
-      "#미국에너지부",
-      "#SMR"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 0,
-      "market_materiality": 0,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-20T23:16:43.374680+00:00",
-    "story_id": "story-c05437aa0f822e8c",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "b3c5089474feb9a7",
-      "prior_title": "미국 에너지부, 그리드 유나이티드의 와이오밍 인터타이 프로젝트에 28억 달러 조건부 대출 승인",
-      "prior_date": "2026-11-18",
-      "prior_region": "해외",
-      "days_ago": 3,
-      "similarity": 0.229,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-b3c5089474feb9a7",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:미국에너지부,에너지부"
-      ],
-      "progression": "minor",
-      "progression_kind": "unmarked_prior",
-      "progression_detail": "certainty:확정",
-      "window_days": 1,
-      "repeat_streak": 1,
-      "penalty": 1.25,
-      "score_delta": -1.25,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "c05437aa0f822e8c"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "ans nuclear newswire",
-        "publisher": "ANS Nuclear Newswire",
-        "domain": "ans.org",
-        "tier": 2,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "미국 에너지부, 2050년까지 37만 명 이상의 숙련된 원자력 인력 필요"
-    ],
-    "story_members": [
-      {
-        "hash": "c05437aa0f822e8c",
-        "title": "미국 에너지부, 2050년까지 37만 명 이상의 숙련된 원자력 인력 필요",
-        "publisher": "ANS Nuclear Newswire"
       }
     ],
     "story_relation": "single",
@@ -26709,7 +25189,7 @@
       "prior_title": "LS일렉트릭, 베트남 박닌 공장 증설로 아세안 시장 주도권 강화",
       "prior_date": "2026-11-20",
       "prior_region": "해외",
-      "days_ago": 1,
+      "days_ago": 2,
       "similarity": 0.61,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -26727,8 +25207,8 @@
       "progression_detail": "2030년",
       "window_days": 1,
       "repeat_streak": 2,
-      "penalty": 2.5,
-      "score_delta": -2.5,
+      "penalty": 1.875,
+      "score_delta": -1.875,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -26889,7 +25369,7 @@
     "story_id_trust": "canonical",
     "story_identity_version": 2,
     "story_identity_decision": "fresh_article_hash",
-    "story_article_count": 2,
+    "story_article_count": 3,
     "story_article_hashes": [
       "fcd8ab66a899dd80",
       "e60df2442f435ab1"
@@ -26932,114 +25412,6 @@
     "story_relation": "duplicate",
     "story_dedup_stage": "rank_title",
     "story_reason": "제목·시설 유사"
-  },
-  {
-    "hash": "e65d48a1634a4d8a",
-    "title": "고준위 방폐장, 40년 반대 끝 다시 부지 찾기…이번엔 다를까?",
-    "title_kr": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
-    "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8719043",
-    "domain": "kbs.co.kr",
-    "publisher": "KBS 뉴스",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "사용후핵연료",
-    "importance": "must_read",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "정부가 고준위 방사성폐기물 영구처분장 부지 선정을 위해 내년 상반기 공모를 시작하고 2038년 최종 선정을 추진한다.",
-    "detail": "원자력발전 과정에서 발생하는 고준위 방사성폐기물을 영구 격리할 부지를 찾는 절차가 재개됐다. 국내 원전에서 발생한 사용후핵연료는 55만 다발에 달하며 계속운전 시 76만 다발로 늘어날 전망이다. 원전 부지 내 임시 저장시설은 한빛원전이 2030년, 한울원전이 2031년부터 순차적으로 포화될 예정이다. 「고준위 특별법」에 따라 중간 저장시설은 2050년 이전, 최종 처분시설은 2060년 가동을 목표로 하고 있다. 고준위방사성폐기물관리위원회는 2038년 부지 선정을 목표로 내년 상반기 공모를 시작할 계획이며 이를 위해 지역 설명회를 개최했다. 소멸 위기의 기초자치단체들이 대규모 특별지원금을 바탕으로 유치를 검토하고 있다.",
-    "implication": "사용후핵연료 임시저장시설 포화 시점에 맞춰 고준위 방폐장 부지 공모 절차가 본격화되면서 지자체 수용성 확보가 핵심 과제로 부각됐다.",
-    "why_important": "원전 부지 내 사용후핵연료 임시저장시설 포화에 대응하는 고준위 방폐장 부지 선정 공모가 내년 상반기 시작되어 원전 운영의 지속성과 직결된다.",
-    "open_question": "2038년 부지 선정을 위한 내년 상반기 공모의 구체적인 지자체 참여 결과",
-    "open_question_source": "article_text",
-    "watch_next": "",
-    "tags": [
-      "#고준위방폐장",
-      "#사용후핵연료",
-      "#고준위특별법"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 1,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": "2038-12-31",
-    "event_date_type": "scheduled",
-    "event_date_precision": "year",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-20T23:16:43.374680+00:00",
-    "story_id": "story-e65d48a1634a4d8a",
-    "story_id_source": "generated",
-    "story_id_trust": "canonical",
-    "story_identity_version": 2,
-    "story_identity_decision": "fresh_article_hash",
-    "continuity": {
-      "matched": true,
-      "prior_hash": "8708eff7b304fde4",
-      "prior_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
-      "prior_date": "2026-11-19",
-      "prior_region": "국내",
-      "days_ago": 2,
-      "similarity": 0.4,
-      "evidence_shared": 0,
-      "evidence_ratio": 0.0,
-      "evidence_confirmed": false,
-      "identity_confirmed": false,
-      "identity_method": "",
-      "story_id": "story-8708eff7b304fde4",
-      "story_id_inheritable": false,
-      "fingerprint_identity_contested": [],
-      "match_reasons": [
-        "anchors:고준위방폐장,사용후핵연료"
-      ],
-      "progression": "minor",
-      "progression_kind": "new_quantities",
-      "progression_detail": "2038년",
-      "window_days": 1,
-      "repeat_streak": 1,
-      "penalty": 1.875,
-      "score_delta": -1.875,
-      "cancel_tracking": true,
-      "drop": false,
-      "identity_resolution": "uncertain"
-    },
-    "story_article_count": 1,
-    "story_article_hashes": [
-      "e65d48a1634a4d8a"
-    ],
-    "story_outlet_count": 1,
-    "story_tier1_count": 0,
-    "story_independent_outlet_count": 1,
-    "story_sources": [
-      {
-        "identity": "kbs 뉴스",
-        "publisher": "KBS 뉴스",
-        "domain": "kbs.co.kr",
-        "tier": 3,
-        "evidence_role": "independent"
-      }
-    ],
-    "story_related_titles": [
-      "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표"
-    ],
-    "story_members": [
-      {
-        "hash": "e65d48a1634a4d8a",
-        "title": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
-        "publisher": "KBS 뉴스"
-      }
-    ],
-    "story_relation": "single",
-    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d23e5f033a438b5f",
@@ -27407,7 +25779,7 @@
       "prior_title": "엔비디아, 3분기 매출 1158억 달러 돌파…삼성·SK HBM4 슈퍼 사이클 기대",
       "prior_date": "2026-11-19",
       "prior_region": "해외",
-      "days_ago": 2,
+      "days_ago": 3,
       "similarity": 0.066,
       "evidence_shared": 0,
       "evidence_ratio": 0.0,
@@ -27425,8 +25797,8 @@
       "progression_detail": "",
       "window_days": 1,
       "repeat_streak": 2,
-      "penalty": 4.5,
-      "score_delta": -4.5,
+      "penalty": 3.0,
+      "score_delta": -3.0,
       "cancel_tracking": true,
       "drop": false,
       "identity_resolution": "uncertain"
@@ -27502,7 +25874,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
+    "queued_at": "2026-11-21T00:30:59.531599+00:00",
+    "story_id": "story-5445ddda1f04ed12",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "5445ddda1f04ed12"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "chosun.com",
+        "publisher": "chosun.com",
+        "domain": "chosun.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "국내 SMR 사업, 계획대로 진행될 경우 전력 공급 차질 우려"
+    ],
+    "story_members": [
+      {
+        "hash": "5445ddda1f04ed12",
+        "title": "국내 SMR 사업, 계획대로 진행될 경우 전력 공급 차질 우려",
+        "publisher": "chosun.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "ec7274ee74fbdb2f",
@@ -27535,7 +25940,12 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
+    "queued_at": "2026-11-21T00:30:59.531599+00:00",
+    "story_id": "story-ec7274ee74fbdb2f",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "66f66252ebee2219",
@@ -27568,7 +25978,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
+    "queued_at": "2026-11-21T00:30:59.531599+00:00",
+    "story_id": "story-66f66252ebee2219",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "66f66252ebee2219"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "AI 황금기 끝났나…앤트로픽 급락에 데이터센터 전력주 어디로?"
+    ],
+    "story_members": [
+      {
+        "hash": "66f66252ebee2219",
+        "title": "AI 황금기 끝났나…앤트로픽 급락에 데이터센터 전력주 어디로?",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "54347471b55494e7",
@@ -27613,7 +26056,42 @@
     "event_date_type": "effective",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
+    "queued_at": "2026-11-21T00:30:59.531599+00:00",
+    "story_id": "story-54347471b55494e7",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "503310af843bce65",
+      "prior_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "prior_date": "2026-11-21",
+      "prior_region": "국내",
+      "days_ago": 1,
+      "similarity": 0.292,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-503310af843bce65",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "anchors:전력시장,차액계약"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 1,
+      "repeat_streak": 3,
+      "penalty": 7.0,
+      "score_delta": -7.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
+    }
   },
   {
     "hash": "1214699432499367",
@@ -27658,52 +26136,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
-  },
-  {
-    "hash": "2dbbc57aa8e00e0c",
-    "title": "전력 규제 문턱 낮춘 AIDC…모듈형 데이터센터 시장 커진다 [빛이 나는 ...",
-    "title_kr": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
-    "link": "https://www.sedaily.com/article/20117056",
-    "domain": "sedaily.com",
-    "publisher": "서울경제",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "정부가 비수도권에 구축하는 50㎿ 이하 AI 데이터센터의 전력계통영향평가를 면제하기로 했다.",
-    "detail": "과학기술정보통신부와 기후에너지환경부에 따르면 정부는 내년 3월 AI 데이터센터 특별법 시행에 맞춰 비수도권에 구축하는 계약전력 50㎿ 이하 AI 데이터센터의 전력계통영향평가를 면제하기로 했다. 이를 통해 전력 규제 문턱을 낮추고 모듈형 데이터센터 시장 확대를 유도할 방침이다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#데이터센터",
-      "#전력계통",
-      "#규제완화"
+    "queued_at": "2026-11-21T00:30:59.531599+00:00",
+    "story_id": "story-1214699432499367",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "1214699432499367"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 1,
-    "event_date": "2027-03-01",
-    "event_date_type": "effective",
-    "event_date_precision": "month",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T00:30:59.531599+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "뉴시스",
+        "publisher": "뉴시스",
+        "domain": "newsis.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "현대차그룹, 새만금에 9조원 투자해 AI 수소 시티 및 수전해 플랜트 구축"
+    ],
+    "story_members": [
+      {
+        "hash": "1214699432499367",
+        "title": "현대차그룹, 새만금에 9조원 투자해 AI 수소 시티 및 수전해 플랜트 구축",
+        "publisher": "뉴시스"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "b72aa8719628c268",
@@ -27747,7 +26213,85 @@
     "event_date_type": "effective",
     "event_date_precision": "year",
     "event_date_source": "title",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-b72aa8719628c268",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "503310af843bce65",
+      "prior_title": "기후에너지환경부, 원전 차액계약 2027년 1월 1일 시행 확정",
+      "prior_date": "2026-11-21",
+      "prior_region": "국내",
+      "days_ago": 1,
+      "similarity": 0.375,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-503310af843bce65",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "anchors:전력시장,차액계약"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 1,
+      "repeat_streak": 3,
+      "penalty": 7.0,
+      "score_delta": -7.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
+    },
+    "story_article_count": 2,
+    "story_article_hashes": [
+      "b72aa8719628c268",
+      "8920a6013328a936"
+    ],
+    "story_outlet_count": 2,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 2,
+    "story_sources": [
+      {
+        "identity": "energydaily.co.kr",
+        "publisher": "energydaily.co.kr",
+        "domain": "energydaily.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
+      {
+        "identity": "https://www.2news.co.kr/",
+        "publisher": "https://www.2news.co.kr/",
+        "domain": "2news.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "원전 전기값, 2027년부터 '차액계약'으로 정산…주력 전원 첫 적용",
+      "내년부터 원전 차액계약 적용한다… 주력 전원 최초 적용"
+    ],
+    "story_members": [
+      {
+        "hash": "b72aa8719628c268",
+        "title": "원전 전기값, 2027년부터 '차액계약'으로 정산…주력 전원 첫 적용",
+        "publisher": "https://www.2news.co.kr/"
+      },
+      {
+        "hash": "8920a6013328a936",
+        "title": "내년부터 원전 차액계약 적용한다… 주력 전원 최초 적용",
+        "publisher": "energydaily.co.kr"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "b6efd9828789a02d",
@@ -27780,7 +26324,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-b6efd9828789a02d",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "b6efd9828789a02d"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "전기차 넘어 ESS 시장으로…엘앤에프, LFP 양산 효과 주목"
+    ],
+    "story_members": [
+      {
+        "hash": "b6efd9828789a02d",
+        "title": "전기차 넘어 ESS 시장으로…엘앤에프, LFP 양산 효과 주목",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "33dcaa7bb2d02bc1",
@@ -27813,7 +26390,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-33dcaa7bb2d02bc1",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "33dcaa7bb2d02bc1"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "tokenpost.kr",
+        "publisher": "tokenpost.kr",
+        "domain": "tokenpost.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "2만4000건 넘은 청원…퀸즐랜드 주민, 데이터센터 중단 요구"
+    ],
+    "story_members": [
+      {
+        "hash": "33dcaa7bb2d02bc1",
+        "title": "2만4000건 넘은 청원…퀸즐랜드 주민, 데이터센터 중단 요구",
+        "publisher": "tokenpost.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d6bb83d1f184fc66",
@@ -27857,7 +26467,85 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-d6bb83d1f184fc66",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "dac9c060cbd150ce",
+      "prior_title": "트럼프, 미국 기업의 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+      "prior_date": "2026-11-21",
+      "prior_region": "해외",
+      "days_ago": 1,
+      "similarity": 1.0,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-dac9c060cbd150ce",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "title:1.0"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 14,
+      "repeat_streak": 1,
+      "penalty": 5.0,
+      "score_delta": -5.0,
+      "cancel_tracking": true,
+      "drop": true,
+      "identity_resolution": "uncertain"
+    },
+    "story_article_count": 2,
+    "story_article_hashes": [
+      "d6bb83d1f184fc66",
+      "07406b90368daaca"
+    ],
+    "story_outlet_count": 2,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 2,
+    "story_sources": [
+      {
+        "identity": "edaily.co.kr",
+        "publisher": "edaily.co.kr",
+        "domain": "edaily.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
+      {
+        "identity": "tokenpost.kr",
+        "publisher": "tokenpost.kr",
+        "domain": "tokenpost.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "트럼프, 美 기업 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+      "트럼프, 해외 데이터센터 건설에 고율 관세 부과 예고"
+    ],
+    "story_members": [
+      {
+        "hash": "d6bb83d1f184fc66",
+        "title": "트럼프, 美 기업 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+        "publisher": "edaily.co.kr"
+      },
+      {
+        "hash": "07406b90368daaca",
+        "title": "트럼프, 해외 데이터센터 건설에 고율 관세 부과 예고",
+        "publisher": "tokenpost.kr"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "a53450baaaaa86cb",
@@ -27902,7 +26590,40 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-a53450baaaaa86cb",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "a53450baaaaa86cb"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "mtn.co.kr",
+        "publisher": "mtn.co.kr",
+        "domain": "mtn.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "전병서 소장, AI 데이터센터 전력 비용 증가로 메모리 반도체 수요 감소 전망"
+    ],
+    "story_members": [
+      {
+        "hash": "a53450baaaaa86cb",
+        "title": "전병서 소장, AI 데이터센터 전력 비용 증가로 메모리 반도체 수요 감소 전망",
+        "publisher": "mtn.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "aa7f43cf5e397895",
@@ -27935,7 +26656,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-aa7f43cf5e397895",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "aa7f43cf5e397895"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "jnilbo.com",
+        "publisher": "jnilbo.com",
+        "domain": "jnilbo.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "사상 처음 냉방 수요가 난방 추월…폭염에 세계 에너지 지형 바뀐다"
+    ],
+    "story_members": [
+      {
+        "hash": "aa7f43cf5e397895",
+        "title": "사상 처음 냉방 수요가 난방 추월…폭염에 세계 에너지 지형 바뀐다",
+        "publisher": "jnilbo.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d506ba644c49784b",
@@ -27968,7 +26722,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-d506ba644c49784b",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "d506ba644c49784b"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "AI 반도체 검사 수요 커진다…리노공업, 첨단 패키징 성장 수혜 기대"
+    ],
+    "story_members": [
+      {
+        "hash": "d506ba644c49784b",
+        "title": "AI 반도체 검사 수요 커진다…리노공업, 첨단 패키징 성장 수혜 기대",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "cda04a3f32477709",
@@ -28001,7 +26788,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-cda04a3f32477709",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "cda04a3f32477709"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "imbc.com",
+        "publisher": "imbc.com",
+        "domain": "imbc.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "화석연료는 넘지 못할 거대한 성벽인가‥전기화 가속하면 80% 와르르 [기..."
+    ],
+    "story_members": [
+      {
+        "hash": "cda04a3f32477709",
+        "title": "화석연료는 넘지 못할 거대한 성벽인가‥전기화 가속하면 80% 와르르 [기...",
+        "publisher": "imbc.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "7cfc2daa9fb8e4a7",
@@ -28046,7 +26866,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-7cfc2daa9fb8e4a7",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "7cfc2daa9fb8e4a7"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "KH바텍, 폴더블폰 부진 속 AI 서버 부품으로 성장 동력 모색"
+    ],
+    "story_members": [
+      {
+        "hash": "7cfc2daa9fb8e4a7",
+        "title": "KH바텍, 폴더블폰 부진 속 AI 서버 부품으로 성장 동력 모색",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "3933aaf6eaffb3a4",
@@ -28091,7 +26944,71 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-3933aaf6eaffb3a4",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "2914d2e765ef8fb7",
+      "prior_title": "국립창원대-SNT에너지, 차세대 SMR 핵심 기자재 기술개발 산학협력 협약 체결",
+      "prior_date": "2026-11-21",
+      "prior_region": "국내",
+      "days_ago": 1,
+      "similarity": 0.754,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-2914d2e765ef8fb7",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "title:0.754",
+        "anchors:snt,국립창원대"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 7,
+      "repeat_streak": 1,
+      "penalty": 5.0,
+      "score_delta": -5.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
+    },
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "3933aaf6eaffb3a4"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "cnbnews.com",
+        "publisher": "cnbnews.com",
+        "domain": "cnbnews.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "국립창원대-SNT에너지, 차세대 SMR 첨단 제조기술 개발 협력"
+    ],
+    "story_members": [
+      {
+        "hash": "3933aaf6eaffb3a4",
+        "title": "국립창원대-SNT에너지, 차세대 SMR 첨단 제조기술 개발 협력",
+        "publisher": "cnbnews.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d0416327355f4295",
@@ -28124,7 +27041,48 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-d0416327355f4295",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 2,
+    "story_article_hashes": [
+      "d0416327355f4295",
+      "7f608407f3a66209"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "ajunews.com",
+        "publisher": "ajunews.com",
+        "domain": "ajunews.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "[선전 APEC 특별결산 2 | 인문자의 시진핑 APEC 외교 이야기 | 인간·문화...",
+      "[선전 APEC 특별결산 1 | 인문자의 미·중·러 정상 핵 이야기 | 인간·문..."
+    ],
+    "story_members": [
+      {
+        "hash": "d0416327355f4295",
+        "title": "[선전 APEC 특별결산 2 | 인문자의 시진핑 APEC 외교 이야기 | 인간·문화...",
+        "publisher": "ajunews.com"
+      },
+      {
+        "hash": "7f608407f3a66209",
+        "title": "[선전 APEC 특별결산 1 | 인문자의 미·중·러 정상 핵 이야기 | 인간·문...",
+        "publisher": "ajunews.com"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "8287167335fcd967",
@@ -28169,48 +27127,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T01:56:04.591590+00:00"
-  },
-  {
-    "hash": "01738a7058ff9043",
-    "title": "F4 Uranium Corp, B25:MUN profile",
-    "title_kr": "F4 우라늄 기업, B25:MUN 주식 프로필 공개",
-    "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE8wRFFmVEs2MHlXSlU5djNTS0c2YUpkaFU1bTBWQXZ0QmpLSjI1Y2ZOMjZzUXlaWHdnVDR2NW9HLVJKU2cyZUc3V0kzY3JmWGd2ZndUUDlZZ0Q2MUFFb2xhc3ZkbFBMcVgwV3FYM2x5Qk1ZUQ?oc=5",
-    "domain": "ft.com",
-    "publisher": "Financial Times",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 2,
-    "feed": "정책",
-    "matched": "FT 원자력",
-    "importance": "market",
-    "section": "international",
-    "scope": "overseas",
-    "category": "시장",
-    "summary": "F4 우라늄 기업의 B25:MUN 주식 프로필이 파이낸셜 타임즈에 공개되었다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 0,
-      "market_materiality": 1,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
+    "queued_at": "2026-11-21T01:56:04.591590+00:00",
+    "story_id": "story-8287167335fcd967",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "8287167335fcd967"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "knpnews.com",
+        "publisher": "knpnews.com",
+        "domain": "knpnews.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "삼신, 미국 Celeros와 원자력·SMR용 전문 밸브 공급 전략적 제휴"
+    ],
+    "story_members": [
+      {
+        "hash": "8287167335fcd967",
+        "title": "삼신, 미국 Celeros와 원자력·SMR용 전문 밸브 공급 전략적 제휴",
+        "publisher": "knpnews.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "b9bc098cc780e831",
@@ -28243,51 +27193,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
-  },
-  {
-    "hash": "2ef8998f424c8aaa",
-    "title": "AI 인프라·언어모델 ETF 2종, 24일 상장",
-    "title_kr": "한국거래소, AI 인프라·언어모델 ETF 2종 24일 상장",
-    "link": "https://www.koreareport.co.kr/news/articleView.html?idxno=54986",
-    "domain": "koreareport.co.kr",
-    "publisher": "koreareport.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "한국거래소는 인공지능(AI) 데이터센터 전력·냉각 장비 공급 기업과 거대언어모델(LLM) 상용화 기업에 투자하는 상장지수펀드(ETF) 2종을 오는 24일 유가증권시장에 상장한다.",
-    "detail": "한국거래소는 AI 데이터센터에 전력 및 냉각 장비를 공급하는 기업과 자체 거대언어모델(LLM)을 상용화한 기업에 각각 투자하는 상장지수펀드(ETF) 2종을 11월 24일 유가증권시장에 상장할 예정이다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#AI데이터센터",
-      "#금융투자"
+    "queued_at": "2026-11-21T04:37:33.185158+00:00",
+    "story_id": "story-b9bc098cc780e831",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "b9bc098cc780e831"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 2,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2024-11-24",
-    "event_date_type": "scheduled",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "코세스, AI 데이터센터 규제가 호재로…SOFC 주전원 시대 열린다"
+    ],
+    "story_members": [
+      {
+        "hash": "b9bc098cc780e831",
+        "title": "코세스, AI 데이터센터 규제가 호재로…SOFC 주전원 시대 열린다",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d97b8511481c74f0",
@@ -28320,97 +27259,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
-  },
-  {
-    "hash": "1027a53fe84bccdb",
-    "title": "손정의, SK하이닉스 ‘1조 달러 인수’ 저울질…“현재는 검토 중단”",
-    "title_kr": "손정의 소프트뱅크 회장, SK하이닉스 1조 달러 인수 검토 후 중단",
-    "link": "https://www.sedaily.com/article/20117215",
-    "domain": "sedaily.com",
-    "publisher": "서울경제",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "손정의 소프트뱅크그룹 회장이 SK하이닉스 1조 달러 인수를 위해 금융기관들과 자금 조달을 논의했으나, 실현 가능성이 낮아 현재 검토를 중단한 것으로 알려졌다.",
-    "detail": "손정의 소프트뱅크그룹 회장이 글로벌 메모리반도체 2위 기업인 SK하이닉스 인수를 위해 미국 금융기관들을 상대로 최대 1조 달러 규모의 자금 조달 가능성을 타진했던 것으로 보도되었다. 그러나 소프트뱅크 측은 해당 거래를 더 이상 추진하지 않으며, 초기 검토 단계에서 중단했다고 밝혔다. 시장에서는 SK하이닉스의 시가총액이 약 5777억 달러 수준임을 고려할 때, 1조 달러 인수는 실현 가능성이 낮은 구상이었다는 평가가 지배적이다. 이번 정황은 손 회장이 AI 밸류체인 전체를 장악하려는 투자 구상을 가지고 있음을 보여준다는 해석이 나온다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#M&A",
-      "#반도체",
-      "#AI"
+    "queued_at": "2026-11-21T04:37:33.185158+00:00",
+    "story_id": "story-d97b8511481c74f0",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "d97b8511481c74f0"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 3,
-      "market_materiality": 3,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
-  },
-  {
-    "hash": "11ef96a0710469ca",
-    "title": "“AI 고속도로가 대한민국의 미래 연다”…울산 AI데이터센터 찾은 이재...",
-    "title_kr": "이재명 대통령, 울산 SK AI데이터센터 현장 방문…AI 인프라 확충 강조",
-    "link": "https://www.khan.co.kr/article/202611211311001",
-    "domain": "khan.co.kr",
-    "publisher": "khan.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "이재명 대통령이 21일 울산 SK AI데이터센터 건설 현장을 방문하여 사업 추진 상황을 점검하고, AI 인프라 확충과 국가 균형발전의 중요성을 강조했다.",
-    "detail": "이재명 대통령은 21일 울산 SK AI데이터센터 건설 현장을 방문하여 사업 추진 상황을 점검하고, AI 인프라 확충과 국가 균형발전의 중요성을 강조했다. 이 대통령은 현장소장으로부터 데이터센터 구축 경과를 보고받고 전력 공급 방식과 건설 인력 규모 등에 대해 질문하며 사업 추진 여건을 확인했다. 실내 보고회에서는 울산 AI 데이터센터가 글로벌 AI 기업 투자를 이끌어내는 마중물이 될 것이라는 기대를 표명하며, 수도권에 집중된 AI 인프라 투자가 지방으로 확대되는 의미를 부여했다. 또한, 건설 인력 부족 문제에 대한 정부 차원의 고민과 지원 방안 마련을 약속했다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#AI데이터센터",
-      "#전력수요",
-      "#국가균형발전"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-21",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T04:37:33.185158+00:00"
+    "story_related_titles": [
+      "설비만 늘리는 시대 끝났나…NHN, AI 인프라 흑자 전환으로 차별화"
+    ],
+    "story_members": [
+      {
+        "hash": "d97b8511481c74f0",
+        "title": "설비만 늘리는 시대 끝났나…NHN, AI 인프라 흑자 전환으로 차별화",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "21c1a000851397a4",
@@ -28453,51 +27335,40 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
-  },
-  {
-    "hash": "a00af92fae402c47",
-    "title": "12년 만에 빗장 풀린 '원전 차액계약'… 전력시장 구조 개편의 신호탄 ...",
-    "title_kr": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
-    "link": "https://www.dailyt.co.kr/newsView/dlt202611210015",
-    "domain": "dailyt.co.kr",
-    "publisher": "dailyt.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "한국수력원자력",
-    "importance": "must_read",
-    "section": "khnp",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "기후에너지환경부가 2027년 1월 1일부터 원자력발전에 차액계약 제도를 전격 적용한다고 19일 발표했으며, 한국전력공사와 한국수력원자력은 이날 원전 차액계약 체결식을 가졌다.",
-    "detail": "기후에너지환경부는 2027년 1월 1일부터 원자력발전에 차액계약 제도를 전격 적용한다고 19일 밝혔다. 이에 따라 한국전력공사와 한국수력원자력은 이날 서울 중구 한전 경인건설본부에서 원전 차액계약 체결식을 가졌다. 양사는 이미 지난 10월 말 각사 이사회를 통해 계약 내용을 승인했으며, 전력거래소의 검토 절차도 마쳤다. 이번 계약은 산업통상자원부의 최종 승인을 거쳐 내년 1월 1일 거래분부터 5년간 적용될 예정이다. 차액계약은 발전사업자와 전력구매자가 사전에 거래물량과 기준가격을 약정하고, 실제 시장가격과의 차이를 사후 정산하는 제도로, 원전에 적용되는 것은 12년 만에 처음이다. 이 제도는 현물시장 편중을 완화하고 저비용 발전 이익을 합리적으로 배분하여 한전과 한수원 양사의 재무적 불확실성을 줄이며, 전력 수급 안정과 전기요금 변동성 완화에 기여할 것으로 기대된다.",
-    "implication": "",
-    "why_important": "원자력발전에 차액계약 제도가 처음으로 도입되어 한수원의 재무 안정성 확보와 전력시장 구조 개편에 중대한 영향을 미칠 것입니다. 이는 전력도매가격(SMP) 변동성 완화 및 전기요금 안정화에도 기여할 것으로 보입니다.",
-    "open_question": "산업통상자원부의 최종 승인 여부가 남아있다.",
-    "open_question_source": "article_text",
-    "watch_next": "",
-    "tags": [
-      "#전력시장",
-      "#발전원가"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-21c1a000851397a4",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "21c1a000851397a4"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 3,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 2,
-    "event_date": "2027-01-01",
-    "event_date_type": "effective",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "hidomin.com",
+        "publisher": "hidomin.com",
+        "domain": "hidomin.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "울진군, 신한울 3·4호기 지역업체 참여 확대 포함 2027년도 예산안 7840억원 군의회 제출"
+    ],
+    "story_members": [
+      {
+        "hash": "21c1a000851397a4",
+        "title": "울진군, 신한울 3·4호기 지역업체 참여 확대 포함 2027년도 예산안 7840억원 군의회 제출",
+        "publisher": "hidomin.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "dc503c2582f4384c",
@@ -28541,7 +27412,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-dc503c2582f4384c",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "dc503c2582f4384c"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "bizwatch.co.kr",
+        "publisher": "bizwatch.co.kr",
+        "domain": "bizwatch.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "LS일렉트릭, 미국 AI 데이터센터 전력설비 1300억원 추가 수주 및 베트남 생산시설 확충"
+    ],
+    "story_members": [
+      {
+        "hash": "dc503c2582f4384c",
+        "title": "LS일렉트릭, 미국 AI 데이터센터 전력설비 1300억원 추가 수주 및 베트남 생산시설 확충",
+        "publisher": "bizwatch.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "956f4a30914a34e2",
@@ -28574,7 +27478,12 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-956f4a30914a34e2",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "dd1813296a47cf67",
@@ -28607,7 +27516,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-dd1813296a47cf67",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "dd1813296a47cf67"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "AI 전력 인프라주 조정 본격화…HD현대일렉트릭 실적이 버팀목 될까"
+    ],
+    "story_members": [
+      {
+        "hash": "dd1813296a47cf67",
+        "title": "AI 전력 인프라주 조정 본격화…HD현대일렉트릭 실적이 버팀목 될까",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "0ad1bd48df1da8e0",
@@ -28650,7 +27592,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-0ad1bd48df1da8e0",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "0ad1bd48df1da8e0"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "해성디에스, DDR5 매출 확대 힘입어 3분기 리드프레임·패키지기판 분기 최대 매출 경신"
+    ],
+    "story_members": [
+      {
+        "hash": "0ad1bd48df1da8e0",
+        "title": "해성디에스, DDR5 매출 확대 힘입어 3분기 리드프레임·패키지기판 분기 최대 매출 경신",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "23474059a3608dd1",
@@ -28683,7 +27658,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-23474059a3608dd1",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "23474059a3608dd1"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "머니투데이",
+        "publisher": "머니투데이",
+        "domain": "mt.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "알 수웨이디 UAE 대사 \"양국 협력, 바라카 원전 등 실질적 성과 거둬\""
+    ],
+    "story_members": [
+      {
+        "hash": "23474059a3608dd1",
+        "title": "알 수웨이디 UAE 대사 \"양국 협력, 바라카 원전 등 실질적 성과 거둬\"",
+        "publisher": "머니투데이"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "57ec4d4fcd056440",
@@ -28726,7 +27734,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-57ec4d4fcd056440",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "57ec4d4fcd056440"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "pinpointnews.co.kr",
+        "publisher": "pinpointnews.co.kr",
+        "domain": "pinpointnews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "삼성전기, AI 서버용 고성능 부품 수요 증가로 분기 영업이익 1조원 시대 기대"
+    ],
+    "story_members": [
+      {
+        "hash": "57ec4d4fcd056440",
+        "title": "삼성전기, AI 서버용 고성능 부품 수요 증가로 분기 영업이익 1조원 시대 기대",
+        "publisher": "pinpointnews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "a297af84fde22e04",
@@ -28770,7 +27811,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-a297af84fde22e04",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "a297af84fde22e04"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "에너지경제",
+        "publisher": "에너지경제",
+        "domain": "ekn.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "李 대통령, AI 데이터센터 산업 성장 핵심 강조 및 전력 수급 점검"
+    ],
+    "story_members": [
+      {
+        "hash": "a297af84fde22e04",
+        "title": "李 대통령, AI 데이터센터 산업 성장 핵심 강조 및 전력 수급 점검",
+        "publisher": "에너지경제"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "7eea7824f1fe8359",
@@ -28811,7 +27885,40 @@
     "event_date_type": "announcement",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-7eea7824f1fe8359",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "7eea7824f1fe8359"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "vegannews.co.kr",
+        "publisher": "vegannews.co.kr",
+        "domain": "vegannews.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "IEA, 한국 재생에너지 확대 위해 송전망·저장설비 확충 제언"
+    ],
+    "story_members": [
+      {
+        "hash": "7eea7824f1fe8359",
+        "title": "IEA, 한국 재생에너지 확대 위해 송전망·저장설비 확충 제언",
+        "publisher": "vegannews.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "09492f30555967b6",
@@ -28844,51 +27951,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T09:01:22.985298+00:00"
-  },
-  {
-    "hash": "49bc75dd27d9104f",
-    "title": "240만원 찍고 66% 폭락했는데 목표가 280만원?…삼성전기, ‘엔비디아 효...",
-    "title_kr": "삼성전기, AI 컴퓨팅 플랫폼 전력 소모 증가로 MLCC 수요 확대 전망",
-    "link": "https://biz.heraldcorp.com/article/10944256",
-    "domain": "heraldcorp.com",
-    "publisher": "heraldcorp.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "삼성전기가 고성능 AI 컴퓨팅 플랫폼의 전력 소모 증가로 핵심 부품인 MLCC 수요가 늘어날 것으로 전망되지만, 데이터센터 건설 지연 등으로 불확실성이 존재한다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#MLCC",
-      "#AI데이터센터"
+    "queued_at": "2026-11-21T09:01:22.985298+00:00",
+    "story_id": "story-09492f30555967b6",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "09492f30555967b6"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "market_signal",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "prior_coverage": 2,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "bbsi.co.kr",
+        "publisher": "bbsi.co.kr",
+        "domain": "bbsi.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "현대건설, 고성능 합성보 기술 확보…데이터센터 적용 확대"
+    ],
+    "story_members": [
+      {
+        "hash": "09492f30555967b6",
+        "title": "현대건설, 고성능 합성보 기술 확보…데이터센터 적용 확대",
+        "publisher": "bbsi.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "427294f08fc384f2",
@@ -28932,7 +28028,40 @@
     "event_date_type": "scheduled",
     "event_date_precision": "year",
     "event_date_source": "description",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
+    "queued_at": "2026-11-21T10:33:48.439036+00:00",
+    "story_id": "story-427294f08fc384f2",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "427294f08fc384f2"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "전기신문",
+        "publisher": "전기신문",
+        "domain": "electimes.com",
+        "tier": 2,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "전기산업진흥회, 국가 기술전략에 미래 원자력·지능형 전력망 기술 반영"
+    ],
+    "story_members": [
+      {
+        "hash": "427294f08fc384f2",
+        "title": "전기산업진흥회, 국가 기술전략에 미래 원자력·지능형 전력망 기술 반영",
+        "publisher": "전기신문"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "ad398d7319f14728",
@@ -28976,7 +28105,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
+    "queued_at": "2026-11-21T10:33:48.439036+00:00",
+    "story_id": "story-ad398d7319f14728",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "ad398d7319f14728"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "ajunews.com",
+        "publisher": "ajunews.com",
+        "domain": "ajunews.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "곽재원 칼럼, 서울공대 100년 내다보며 부유식 SMR 등 미래 기술 강조"
+    ],
+    "story_members": [
+      {
+        "hash": "ad398d7319f14728",
+        "title": "곽재원 칼럼, 서울공대 100년 내다보며 부유식 SMR 등 미래 기술 강조",
+        "publisher": "ajunews.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "11f881905539d697",
@@ -29009,7 +28171,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
+    "queued_at": "2026-11-21T10:33:48.439036+00:00",
+    "story_id": "story-11f881905539d697",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "11f881905539d697"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "betanews.net",
+        "publisher": "betanews.net",
+        "domain": "betanews.net",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "온산 액체부두 앞당기고 동해가스전엔 풍력…김상욱 울산시장, 李 대통..."
+    ],
+    "story_members": [
+      {
+        "hash": "11f881905539d697",
+        "title": "온산 액체부두 앞당기고 동해가스전엔 풍력…김상욱 울산시장, 李 대통...",
+        "publisher": "betanews.net"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d0322e11fcebe9c5",
@@ -29053,48 +28248,70 @@
     "event_date_type": "deadline",
     "event_date_precision": "month",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
-  },
-  {
-    "hash": "1b3ab99f2bdc9836",
-    "title": "앤트로픽 상장 이후, 한국 AI 기업의 몸값은 무엇으로 증명하나",
-    "title_kr": "앤트로픽 상장 후 주가 하락, 한국 AI 기업 가치 평가에 시사점",
-    "link": "https://www.koreaittimes.com/news/articleView.html?idxno=159344",
-    "domain": "koreaittimes.com",
-    "publisher": "koreaittimes.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "미국 AI 기업 앤트로픽의 상장 후 주가 하락은 AI 기업의 성장성과 수익성에 대한 투자자 검증의 중요성을 부각하며, 한국 AI 기업의 기업가치 평가에도 중요한 시사점을 제공한다.",
-    "detail": "미국 인공지능(AI) 기업 앤트로픽(Anthropic)이 사상 최대 규모의 기업공개(IPO)를 마무리했지만 상장 이튿날 주가는 8.5% 하락했다. 앤트로픽은 11월 19일 나스닥에 상장한 뒤 첫날 97.17달러로 거래를 마쳤으나, 20일에는 88.91달러로 하락했다. 공모가 83달러보다는 약 7.1% 높은 수준이다. 이러한 주가 하락은 AI 기업의 성장성과 수익성에 대한 투자자들의 검증이 중요해지고 있음을 보여준다. 한국 AI 기업인 업스테이지, 리벨리온, 퓨리오사AI 등도 대규모 투자를 유치하며 사업을 확대하고 있으나, 투자 유치액과 기술 성능뿐 아니라 유료 고객, 실제 매출, 운영비와 수익성 개선 가능성을 함께 고려한 기업가치 평가가 필요하다는 시사점을 얻는다. 특히 리벨리온은 AI 추론에 특화된 신경망처리장치(NPU)를 개발하며 데이터센터 시장에 진출하고 있으며, 퓨리오사AI는 AI 추론 반도체의 전력 효율과 운영비 절감을 강조한다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "market_signal",
-      "korea_relevance": 2,
-      "market_materiality": 3,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
+    "queued_at": "2026-11-21T10:33:48.439036+00:00",
+    "story_id": "story-d0322e11fcebe9c5",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "f46b26a312497faa",
+      "prior_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "prior_date": "2026-11-21",
+      "prior_region": "국내",
+      "days_ago": 1,
+      "similarity": 0.387,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-f46b26a312497faa",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "anchors:두코바니,체코원전"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 1,
+      "repeat_streak": 7,
+      "penalty": 7.0,
+      "score_delta": -7.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
     },
-    "prior_coverage": 0,
-    "event_date": "2026-11-19",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "d0322e11fcebe9c5"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "webeconomy.co.kr",
+        "publisher": "webeconomy.co.kr",
+        "domain": "webeconomy.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정"
+    ],
+    "story_members": [
+      {
+        "hash": "d0322e11fcebe9c5",
+        "title": "한국수력원자력, 체코 두코바니 원전 주설비공사 새 시공사 내년 7월까지 선정",
+        "publisher": "webeconomy.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "f4115d74e90320c4",
@@ -29138,137 +28355,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
-  },
-  {
-    "hash": "f973168ac9dc900c",
-    "title": "“앤트로픽 상장했는데 내 주식도 오를까”…수혜주 살펴보니",
-    "title_kr": "HD현대일렉트릭, LG CNS와 데이터센터 전력 인프라 구축 MOU 체결",
-    "link": "https://www.mk.co.kr/article/12215326",
-    "domain": "mk.co.kr",
-    "publisher": "mk.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "HD현대일렉트릭은 LG CNS와 데이터센터 전력 인프라 및 스마트팩토리 구축을 위한 업무협약을 체결하고, 전력기기와 배전시스템을 데이터센터에 공급하는 사업을 공동 추진하기로 했다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#데이터센터",
-      "#전력인프라"
+    "queued_at": "2026-11-21T10:33:48.439036+00:00",
+    "story_id": "story-f4115d74e90320c4",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "f4115d74e90320c4"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "corporate_move",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
-  },
-  {
-    "hash": "dea8d2bdc5e52e7f",
-    "title": "주식만 떨어진 게 아니네…美 AI투자 지연 우려에 고점서 12% 넘게 빠진...",
-    "title_kr": "미국 데이터센터·전력망, 구리 수요 급증 견인",
-    "link": "https://www.mk.co.kr/article/12215325",
-    "domain": "mk.co.kr",
-    "publisher": "mk.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "international",
-    "scope": "overseas",
-    "category": "시장",
-    "summary": "대신증권이 인용한 원자재 시장조사업체 CRU 자료에 따르면, 최근 5년간 늘어난 구리 수요의 대부분은 미국을 중심으로 데이터센터와 전력망, 에너지저장장치(ESS)에서 발생했다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#구리수요",
-      "#데이터센터",
-      "#전력망"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "aitimes.com",
+        "publisher": "aitimes.com",
+        "domain": "aitimes.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "market_signal",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 4,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T10:33:48.439036+00:00"
-  },
-  {
-    "hash": "058aacb22e4b4aa5",
-    "title": "Energy Secretary Keeps Critical Generation Available in Mid-Atlantic",
-    "title_kr": "미국 에너지부, 펜실베이니아 발전소 2기 가동 유지 긴급 명령",
-    "link": "https://www.energy.gov/articles/energy-secretary-keeps-critical-generation-available-mid-atlantic-0",
-    "domain": "energy.gov",
-    "publisher": "US DOE",
-    "source_type": "official",
-    "evidence_role": "primary",
-    "source_tier": 1,
-    "feed": "정책",
-    "matched": "DOE",
-    "importance": "must_read",
-    "section": "international",
-    "scope": "overseas",
-    "category": "규제",
-    "summary": "미국 에너지부 장관이 PJM과 컨스텔레이션 에너지에 펜실베이니아 에디스톤 발전소 3·4호기 가동 유지를 지시하는 긴급 명령을 발령했다.",
-    "detail": "미국 에너지부 크리스 라이트 장관은 중부 대서양 지역의 전력망 신뢰성 문제 해결을 위해 긴급 명령을 발령했다. 이 명령은 PJM과 컨스텔레이션 에너지에 펜실베이니아 에디스톤 발전소 3·4호기를 가동 상태로 유지하도록 지시하며, 원래 2025년 5월 31일 폐쇄 예정이었다. 라이트 장관은 2025년 5월 30일 첫 긴급 명령을 내린 이후 2025년과 2026년에도 추가 명령을 발령하여 이 발전소들의 운영을 유지해왔다.",
-    "implication": "중부 대서양 지역의 전력망 신뢰성 확보를 위해 2025년 폐쇄 예정이던 발전소의 가동이 연장되었다.",
-    "why_important": "미국 에너지부의 긴급 명령은 특정 발전소의 폐쇄를 연기하고 전력 공급 안정성을 확보하기 위한 직접적인 정부 개입 사례이다. 이는 전력망 신뢰성 유지를 위한 정책적 의지를 보여주며, 향후 유사 상황 발생 시 참고할 수 있는 선례가 된다.",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "regulatory_action",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 1,
-    "event_date": "2025-05-31",
-    "event_date_type": "scheduled",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
+    "story_related_titles": [
+      "일론 머스크의 우주 데이터센터, GPU 담보 인정 문제로 자금 조달 난항"
+    ],
+    "story_members": [
+      {
+        "hash": "f4115d74e90320c4",
+        "title": "일론 머스크의 우주 데이터센터, GPU 담보 인정 문제로 자금 조달 난항",
+        "publisher": "aitimes.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "e05b1113828753db",
@@ -29313,7 +28433,55 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
+    "queued_at": "2026-11-21T13:37:34.369284+00:00",
+    "story_id": "story-e05b1113828753db",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 2,
+    "story_article_hashes": [
+      "e05b1113828753db",
+      "ec7274ee74fbdb2f"
+    ],
+    "story_outlet_count": 2,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 2,
+    "story_sources": [
+      {
+        "identity": "dealsitetv.com",
+        "publisher": "dealsitetv.com",
+        "domain": "dealsitetv.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
+      {
+        "identity": "dealsite경제tv",
+        "publisher": "DealSite경제TV",
+        "domain": "dealsitetv.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "신규 원전 추진, 주민·환경·정치권 변수로 난항 예상",
+      "[AI전력 해결사 원전] 신규 추진 급한데…주민·환경·정치권이 변수"
+    ],
+    "story_members": [
+      {
+        "hash": "e05b1113828753db",
+        "title": "신규 원전 추진, 주민·환경·정치권 변수로 난항 예상",
+        "publisher": "DealSite경제TV"
+      },
+      {
+        "hash": "ec7274ee74fbdb2f",
+        "title": "[AI전력 해결사 원전] 신규 추진 급한데…주민·환경·정치권이 변수",
+        "publisher": "dealsitetv.com"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "772cde372cc6c925",
@@ -29356,89 +28524,12 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
-  },
-  {
-    "hash": "04497d8a9deba55d",
-    "title": "\"삼전닉스, 반전은 온다\"...무디스 전망에 개미들 '반색'",
-    "title_kr": "무디스, AI 인프라 투자 확대로 한국 기업 실적 개선 전망",
-    "link": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202611210035&t=NN",
-    "domain": "wowtv.co.kr",
-    "publisher": "wowtv.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "무디스는 AI 인프라 투자가 데이터센터, 전력 등 산업 전반으로 확산되어 한국 기업들의 수출과 실적을 견인할 것이라고 전망했다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "research_report",
-      "korea_relevance": 2,
-      "market_materiality": 2,
-      "policy_materiality": 1,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 1
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
-  },
-  {
-    "hash": "92869753ca068a59",
-    "title": "中, 해저 데이터센터·수중호텔에 자본 유도…해양산업 투자 확대",
-    "title_kr": "중국, 해저 데이터센터 등 첨단 해양산업 투자 유도 정책 발표",
-    "link": "https://www.the-today.com/news/articleView.html?idxno=93913",
-    "domain": "the-today.com",
-    "publisher": "the-today.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "international",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "중국 정부가 해저 데이터센터, 수중 호텔 등 첨단 해양산업으로 민간 자본을 유도하는 '해양산업 투·융자 가이드 목록(2026년)'을 공동 발표했다.",
-    "detail": "중국 자연자원부 등 5개 부처는 20일 '해양산업 투·융자 가이드 목록(2026년)'을 공동 발표하며 해저 데이터센터, 수중 호텔 등 첨단 해양산업으로 민간 자본 유입을 유도한다. 이 목록은 11개 대분류와 185개 항목으로 구성되어 있으며, 해양 어업, 해양 전력 등 전통 산업 외에 심해 과학기술 및 해저 컴퓨팅 시설까지 투자 범위를 넓혔다. 특히 해저 데이터센터는 데이터 처리 열을 바닷물로 냉각하는 방식이 주목받고 있다.",
-    "implication": "중국이 해저 데이터센터와 같은 새로운 인프라 구축을 통해 해양산업을 육성하고 있으며, 이는 데이터센터 전력 및 냉각 기술 발전에 영향을 미칠 수 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 1,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 2
-    },
-    "prior_coverage": 0,
-    "event_date": "2024-06-20",
-    "event_date_type": "announcement",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
+    "queued_at": "2026-11-21T13:37:34.369284+00:00",
+    "story_id": "story-772cde372cc6c925",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "8c0849291679c758",
@@ -29483,7 +28574,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
+    "queued_at": "2026-11-21T13:37:34.369284+00:00",
+    "story_id": "story-8c0849291679c758",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "8c0849291679c758"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "wowtv.co.kr",
+        "publisher": "wowtv.co.kr",
+        "domain": "wowtv.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "데이터센터 전력 수요 폭증, 발전소·송전망 확충 시급"
+    ],
+    "story_members": [
+      {
+        "hash": "8c0849291679c758",
+        "title": "데이터센터 전력 수요 폭증, 발전소·송전망 확충 시급",
+        "publisher": "wowtv.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "7440a617eb8b44ce",
@@ -29524,7 +28648,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T13:37:34.369284+00:00"
+    "queued_at": "2026-11-21T13:37:34.369284+00:00",
+    "story_id": "story-7440a617eb8b44ce",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "7440a617eb8b44ce"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "womaneconomy.co.kr",
+        "publisher": "womaneconomy.co.kr",
+        "domain": "womaneconomy.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "영국 데이터센터, 전력망 접속 신청 72.8GW로 정부 목표 12배 초과"
+    ],
+    "story_members": [
+      {
+        "hash": "7440a617eb8b44ce",
+        "title": "영국 데이터센터, 전력망 접속 신청 72.8GW로 정부 목표 12배 초과",
+        "publisher": "womaneconomy.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "d162227db0d21841",
@@ -29568,50 +28725,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
-  },
-  {
-    "hash": "b9c539bb34d1587f",
-    "title": "美 기술주 급락에 코스피 4900선 이탈…다음주 금리 변수에 촉각",
-    "title_kr": "미국 기술주 급락 여파로 코스피 4900선 이탈, 전력기기·원전 관련주도 하락",
-    "link": "https://www.econovill.com/news/articleView.html?idxno=758068",
-    "domain": "econovill.com",
-    "publisher": "econovill.com",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "원전 수출",
-    "importance": "market",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "시장",
-    "summary": "미국 기술주 급락과 반도체 업종 불확실성으로 코스피가 4900선을 이탈했으며, 전력기기와 원전 관련주도 하락세를 보였다.",
-    "detail": "이번 주 국내외 증시는 AI 투자 회의론과 반도체 업종 불확실성으로 큰 폭의 조정을 받았다. 코스피는 지난 13일 대비 420.57포인트(7.95%) 하락한 4869.96에 마감했으며, 코스닥도 53.98포인트(7.72%) 떨어졌다. 특히 20일에는 양 시장에서 매도 사이드카가 발동되는 등 투매 양상이 나타났다. AI 산업의 자금 조달 구조와 반도체 수요 전망에 대한 의구심이 증시 하락의 주요 원인으로 꼽히며, 전력기기와 원전 등 관련 업종도 영향을 받았다.",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#주식시장"
+    "queued_at": "2026-11-21T16:22:38.315541+00:00",
+    "story_id": "story-d162227db0d21841",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "d162227db0d21841"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "market_signal",
-      "korea_relevance": 1,
-      "market_materiality": 3,
-      "policy_materiality": 0,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 0
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-21",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "financialpost.co.kr",
+        "publisher": "financialpost.co.kr",
+        "domain": "financialpost.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "SK그룹, 신설법인 통해 전국 15GW급 AI 데이터센터 구축 본격화"
+    ],
+    "story_members": [
+      {
+        "hash": "d162227db0d21841",
+        "title": "SK그룹, 신설법인 통해 전국 15GW급 AI 데이터센터 구축 본격화",
+        "publisher": "financialpost.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "b84a01e2612ea924",
@@ -29655,7 +28802,40 @@
     "event_date_type": "announcement",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
+    "queued_at": "2026-11-21T16:22:38.315541+00:00",
+    "story_id": "story-b84a01e2612ea924",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "b84a01e2612ea924"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "heraldcorp.com",
+        "publisher": "heraldcorp.com",
+        "domain": "heraldcorp.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "무디스, AI 반도체 호황 전망…데이터센터·전력망 산업 수혜 확산 예상"
+    ],
+    "story_members": [
+      {
+        "hash": "b84a01e2612ea924",
+        "title": "무디스, AI 반도체 호황 전망…데이터센터·전력망 산업 수혜 확산 예상",
+        "publisher": "heraldcorp.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "1fb9d476d09f2ae7",
@@ -29699,7 +28879,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
+    "queued_at": "2026-11-21T16:22:38.315541+00:00",
+    "story_id": "story-1fb9d476d09f2ae7",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "1fb9d476d09f2ae7"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "ajunews.com",
+        "publisher": "ajunews.com",
+        "domain": "ajunews.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "손정의의 AI 투자와 미국 데이터센터 건설, 송전망 비용 문제 직면"
+    ],
+    "story_members": [
+      {
+        "hash": "1fb9d476d09f2ae7",
+        "title": "손정의의 AI 투자와 미국 데이터센터 건설, 송전망 비용 문제 직면",
+        "publisher": "ajunews.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "144db7aeb6a491ec",
@@ -29743,7 +28956,40 @@
     "event_date_type": "announcement",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
+    "queued_at": "2026-11-21T16:22:38.315541+00:00",
+    "story_id": "story-144db7aeb6a491ec",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "144db7aeb6a491ec"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "theguru.co.kr",
+        "publisher": "theguru.co.kr",
+        "domain": "theguru.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "삼성물산 SMR 파트너 GE버노바, 증권가 투자 의견 하향 조정"
+    ],
+    "story_members": [
+      {
+        "hash": "144db7aeb6a491ec",
+        "title": "삼성물산 SMR 파트너 GE버노바, 증권가 투자 의견 하향 조정",
+        "publisher": "theguru.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "01930a372cb46c36",
@@ -29787,51 +29033,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T16:22:38.315541+00:00"
-  },
-  {
-    "hash": "5220bd832a412075",
-    "title": "李대통령, 울산 AI데이터센터 점검 뒤 전통시장 방문…\"속도가 생명\"",
-    "title_kr": "李대통령, 울산 AI데이터센터 건설 현장 점검 및 전력 수급 논의",
-    "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=903926",
-    "domain": "newsworks.co.kr",
-    "publisher": "newsworks.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "데이터센터 전력",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "이재명 대통령이 울산 SK AI 데이터센터 건설 현장을 점검하고 입지, 전력 수급, 재생에너지 활용 등을 논의했다.",
-    "detail": "이재명 대통령은 21일 울산 SK 인공지능(AI) 데이터센터 건설 현장을 방문하여 점검했다. 청와대 부대변인 서면 브리핑에 따르면, 이번 회의에서는 AI 데이터센터의 입지 선정, 안정적인 전력 수급 방안, 재생에너지 활용 계획 등이 주요 의제로 논의되었다. 또한, AI 데이터센터와 메모리 반도체 수요 전망, 관련 일자리 창출 및 전문인력 양성 방안에 대한 심도 있는 논의도 이루어졌다.",
-    "implication": "대통령의 직접 현장 점검을 통해 AI 데이터센터의 전력 수요 증가에 대한 정부의 높은 관심과 함께 관련 산업 육성 의지를 확인할 수 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#AI데이터센터",
-      "#전력수급"
+    "queued_at": "2026-11-21T16:22:38.315541+00:00",
+    "story_id": "story-01930a372cb46c36",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "01930a372cb46c36"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T18:35:21.953306+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "tokenpost.kr",
+        "publisher": "tokenpost.kr",
+        "domain": "tokenpost.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "영국, 원전 규제 권고 47건 중 완료 0건…규제 개편 법안 미제출"
+    ],
+    "story_members": [
+      {
+        "hash": "01930a372cb46c36",
+        "title": "영국, 원전 규제 권고 47건 중 완료 0건…규제 개편 법안 미제출",
+        "publisher": "tokenpost.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "07406b90368daaca",
@@ -29875,7 +29110,42 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T18:35:21.953306+00:00"
+    "queued_at": "2026-11-21T18:35:21.953306+00:00",
+    "story_id": "story-07406b90368daaca",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "dac9c060cbd150ce",
+      "prior_title": "트럼프, 미국 기업의 해외 AI 데이터센터 건설 시 고액 세금 부과 경고",
+      "prior_date": "2026-11-21",
+      "prior_region": "해외",
+      "days_ago": 1,
+      "similarity": 0.694,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-dac9c060cbd150ce",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "title:0.694"
+      ],
+      "progression": "none",
+      "progression_kind": "",
+      "progression_detail": "",
+      "window_days": 7,
+      "repeat_streak": 1,
+      "penalty": 5.0,
+      "score_delta": -5.0,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
+    }
   },
   {
     "hash": "05bc7e51e0f91ddc",
@@ -29919,51 +29189,70 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "description",
-    "queued_at": "2026-11-21T18:35:21.953306+00:00"
-  },
-  {
-    "hash": "19c66fcb38e2b648",
-    "title": "박진 전 외교장관 “전작권은 조건, 대미투자는 경제성”…워싱턴서 한...",
-    "title_kr": "박진 전 외교장관, 한미일 SMR 공동 개발 및 제3국 공급 협력 제안",
-    "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261122010008222",
-    "domain": "asiatoday.co.kr",
-    "publisher": "asiatoday.co.kr",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "SMR",
-    "matched": "SMR",
-    "importance": "nice_to_know",
-    "section": "smr",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "박진 전 외교부 장관이 워싱턴에서 열린 한미동맹 관련 행사에서 한국, 미국, 일본이 소형모듈원자로(SMR)를 공동 개발하여 제3국에 공급하는 협력을 제안했다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#SMR협력",
-      "#원전수출"
-    ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 2,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
+    "queued_at": "2026-11-21T18:35:21.953306+00:00",
+    "story_id": "story-05bc7e51e0f91ddc",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "continuity": {
+      "matched": true,
+      "prior_hash": "1075c96e9977a757",
+      "prior_title": "IAEA, 글로벌 원자력 공동체와 지역사회 참여 협력 강화",
+      "prior_date": "2026-11-20",
+      "prior_region": "해외",
+      "days_ago": 2,
+      "similarity": 0.208,
+      "evidence_shared": 0,
+      "evidence_ratio": 0.0,
+      "evidence_confirmed": false,
+      "identity_confirmed": false,
+      "identity_method": "",
+      "story_id": "story-1075c96e9977a757",
+      "story_id_inheritable": false,
+      "fingerprint_identity_contested": [],
+      "match_reasons": [
+        "anchors:지역사회,지역수용성"
+      ],
+      "progression": "minor",
+      "progression_kind": "unmarked_prior",
+      "progression_detail": "certainty:확정",
+      "window_days": 1,
+      "repeat_streak": 1,
+      "penalty": 1.875,
+      "score_delta": -1.875,
+      "cancel_tracking": true,
+      "drop": false,
+      "identity_resolution": "uncertain"
     },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T18:35:21.953306+00:00"
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "05bc7e51e0f91ddc"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "chosun.com",
+        "publisher": "chosun.com",
+        "domain": "chosun.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "영덕군수, 신규 원전 2기 후보지 선정 후 지역사회 과제 분투"
+    ],
+    "story_members": [
+      {
+        "hash": "05bc7e51e0f91ddc",
+        "title": "영덕군수, 신규 원전 2기 후보지 선정 후 지역사회 과제 분투",
+        "publisher": "chosun.com"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "74d7fd06cf56c992",
@@ -30004,7 +29293,12 @@
     "event_date_type": "occurrence",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-74d7fd06cf56c992",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash"
   },
   {
     "hash": "15aebf78401ccfd0",
@@ -30045,7 +29339,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-15aebf78401ccfd0",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "15aebf78401ccfd0"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "news2day.co.kr",
+        "publisher": "news2day.co.kr",
+        "domain": "news2day.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "SK증권 센터장, 중간선거 후 데이터센터 전력요금·인프라 비용 부담 증가 전망"
+    ],
+    "story_members": [
+      {
+        "hash": "15aebf78401ccfd0",
+        "title": "SK증권 센터장, 중간선거 후 데이터센터 전력요금·인프라 비용 부담 증가 전망",
+        "publisher": "news2day.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "f3e01ecf8c481394",
@@ -30086,7 +29413,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-f3e01ecf8c481394",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "f3e01ecf8c481394"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "뉴스1",
+        "publisher": "뉴스1",
+        "domain": "news1.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "북미 정상회담 불발 속 한미 원자력협정 개정 등 안보 협의 진행"
+    ],
+    "story_members": [
+      {
+        "hash": "f3e01ecf8c481394",
+        "title": "북미 정상회담 불발 속 한미 원자력협정 개정 등 안보 협의 진행",
+        "publisher": "뉴스1"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "8cb451146a3fd233",
@@ -30127,52 +29487,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
-  },
-  {
-    "hash": "8aef586f4736bf27",
-    "title": "[단독] 발전5사 '정부 공사'로 통합 땐 출자 61조…기후부도 난색",
-    "title_kr": "국회, 발전5사 통합 공사 설립 시 61조원 출자 예상…기후부 신중론",
-    "link": "https://www.newsis.com/view/NISX20261121_0003877675",
-    "domain": "newsis.com",
-    "publisher": "뉴시스",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "정책",
-    "matched": "전력수급기본계획",
-    "importance": "nice_to_know",
-    "section": "domestic",
-    "scope": "kr",
-    "category": "정책",
-    "summary": "국회 검토 결과, 발전 5사를 정부 과반 지분 공사로 통합 시 총 61조원 규모의 출자가 필요하며, 기후에너지환경부는 정부 직접 출자에 신중한 입장을 보였다.",
-    "detail": "국회 기후에너지환경노동위원회의 검토보고서에 따르면, 발전공기업 5사를 하나의 공사로 통합하고 정부가 과반 지분을 보유할 경우 총 출자 규모가 약 61조원에 달할 수 있다. 이는 자본금 32조원 규모의 회사를 설립하는 데 필요한 금액으로, 정부가 31조원 이상을 추가 투입해야 할 가능성이 제기된다. 한국전력공사는 통합 법인에 대한 지배력을 상실하고 연결재무제표에서 발전 부문이 제외될 수 있다고 우려를 표명했다. 기후에너지환경부도 정부 직접 출자 방식에 신중한 입장을 보였으며, 5개 관련 법안은 11월 18일 전체회의를 거쳐 법안심사소위원회로 넘어갔다.",
-    "implication": "발전 5사 통합 논의는 국내 전력 시장 구조와 한전의 재무 건전성에 중대한 영향을 미칠 수 있으며, 향후 전력수급기본계획 이행에도 영향을 줄 수 있다.",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#전력시장",
-      "#발전공기업",
-      "#정부정책"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-8cb451146a3fd233",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "8cb451146a3fd233"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 3,
-      "market_materiality": 3,
-      "policy_materiality": 3,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": "2026-11-18",
-    "event_date_type": "occurrence",
-    "event_date_precision": "day",
-    "event_date_source": "article_text",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "tokenpost.kr",
+        "publisher": "tokenpost.kr",
+        "domain": "tokenpost.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "AI 데이터센터 전력 수요로 인한 석탄 발전 확대에 활동가 200명 반대"
+    ],
+    "story_members": [
+      {
+        "hash": "8cb451146a3fd233",
+        "title": "AI 데이터센터 전력 수요로 인한 석탄 발전 확대에 활동가 200명 반대",
+        "publisher": "tokenpost.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "601b6334faf3fb77",
@@ -30213,7 +29561,55 @@
     "event_date_type": "announcement",
     "event_date_precision": "day",
     "event_date_source": "article_text",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-601b6334faf3fb77",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 2,
+    "story_article_hashes": [
+      "601b6334faf3fb77",
+      "956f4a30914a34e2"
+    ],
+    "story_outlet_count": 2,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 2,
+    "story_sources": [
+      {
+        "identity": "aitimes.com",
+        "publisher": "aitimes.com",
+        "domain": "aitimes.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      },
+      {
+        "identity": "뉴시스",
+        "publisher": "뉴시스",
+        "domain": "newsis.com",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "손정의 소프트뱅크 회장, SK하이닉스 1조 달러 인수 검토했으나 중단",
+      "\"소프트뱅크 손정의, SK하이닉스 1조달러 인수 검토했다 중단\""
+    ],
+    "story_members": [
+      {
+        "hash": "601b6334faf3fb77",
+        "title": "손정의 소프트뱅크 회장, SK하이닉스 1조 달러 인수 검토했으나 중단",
+        "publisher": "aitimes.com"
+      },
+      {
+        "hash": "956f4a30914a34e2",
+        "title": "\"소프트뱅크 손정의, SK하이닉스 1조달러 인수 검토했다 중단\"",
+        "publisher": "뉴시스"
+      }
+    ],
+    "story_relation": "duplicate",
+    "story_dedup_stage": "rank_title",
+    "story_reason": "제목·시설 유사"
   },
   {
     "hash": "105b82a8861261b5",
@@ -30254,7 +29650,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-105b82a8861261b5",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "105b82a8861261b5"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "businesspost.co.kr",
+        "publisher": "businesspost.co.kr",
+        "domain": "businesspost.co.kr",
+        "tier": 3,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "HD건설기계, AI 데이터센터용 초대형 발전기 엔진 개발 박차"
+    ],
+    "story_members": [
+      {
+        "hash": "105b82a8861261b5",
+        "title": "HD건설기계, AI 데이터센터용 초대형 발전기 엔진 개발 박차",
+        "publisher": "businesspost.co.kr"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "ede2f4c23fd42935",
@@ -30287,51 +29716,40 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
-  },
-  {
-    "hash": "9dfa0a36c5c6cfb6",
-    "title": "미국 원전 인력 37만5000명 필요…SMR 시대 인재양성 속도",
-    "title_kr": "미국, SMR 시대 대비 원전 인력 37만5천명 필요…인재양성 가속화",
-    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFAwUFllcmZKZGtnYm1CRkpLbk0xTmJuWG5IcXdGREZFcXlVTFNUNWV5UzlZMjllZ0pKX014QzU5RXpPWHBmclphS2JzcFNGSUdZVkFtMHc2MjlEMW5XSWlZNjFFbkc?oc=5",
-    "domain": "esnews.kr",
-    "publisher": "에너지안전신문",
-    "source_type": "general_media",
-    "evidence_role": "independent",
-    "source_tier": 3,
-    "feed": "SMR",
-    "matched": "국내 원자력 보도",
-    "importance": "nice_to_know",
-    "section": "smr",
-    "scope": "overseas",
-    "category": "정책",
-    "summary": "미국이 소형모듈원자로(SMR) 시대에 대비하여 원전 산업에 37만5천명의 인력이 추가로 필요할 것으로 전망하며, 이에 따라 인재양성 노력을 가속화하고 있다.",
-    "detail": "",
-    "implication": "",
-    "why_important": "",
-    "open_question": "",
-    "open_question_source": "unknown",
-    "watch_next": "",
-    "tags": [
-      "#SMR인력",
-      "#인재양성"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-ede2f4c23fd42935",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "ede2f4c23fd42935"
     ],
-    "related_reports": [],
-    "features": {
-      "event_type": "policy_decision",
-      "korea_relevance": 2,
-      "market_materiality": 1,
-      "policy_materiality": 2,
-      "novelty": 0,
-      "evidence_strength": 0,
-      "report_worthiness": 3
-    },
-    "prior_coverage": 0,
-    "event_date": null,
-    "event_date_type": "unknown",
-    "event_date_precision": "unknown",
-    "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "연합뉴스",
+        "publisher": "연합뉴스",
+        "domain": "yna.co.kr",
+        "tier": 2,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "'블루 웨이브'로 AI인프라 우려 커지자 '닥터 코퍼' 구리주 하락"
+    ],
+    "story_members": [
+      {
+        "hash": "ede2f4c23fd42935",
+        "title": "'블루 웨이브'로 AI인프라 우려 커지자 '닥터 코퍼' 구리주 하락",
+        "publisher": "연합뉴스"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   },
   {
     "hash": "cde01af2a5f94654",
@@ -30364,6 +29782,39 @@
     "event_date_type": "unknown",
     "event_date_precision": "unknown",
     "event_date_source": "unknown",
-    "queued_at": "2026-11-21T21:37:33.828633+00:00"
+    "queued_at": "2026-11-21T21:37:33.828633+00:00",
+    "story_id": "story-cde01af2a5f94654",
+    "story_id_source": "generated",
+    "story_id_trust": "canonical",
+    "story_identity_version": 2,
+    "story_identity_decision": "fresh_article_hash",
+    "story_article_count": 1,
+    "story_article_hashes": [
+      "cde01af2a5f94654"
+    ],
+    "story_outlet_count": 1,
+    "story_tier1_count": 0,
+    "story_independent_outlet_count": 1,
+    "story_sources": [
+      {
+        "identity": "연합뉴스",
+        "publisher": "연합뉴스",
+        "domain": "yna.co.kr",
+        "tier": 2,
+        "evidence_role": "independent"
+      }
+    ],
+    "story_related_titles": [
+      "韓 ESG채권 발행 16% 늘었지만…공공기관·은행 쏠림 심화"
+    ],
+    "story_members": [
+      {
+        "hash": "cde01af2a5f94654",
+        "title": "韓 ESG채권 발행 16% 늘었지만…공공기관·은행 쏠림 심화",
+        "publisher": "연합뉴스"
+      }
+    ],
+    "story_relation": "single",
+    "story_dedup_stage": "rank_title"
   }
 ]
