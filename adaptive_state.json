@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-21"
   },
   "retired": {
@@ -1454,9 +1454,44 @@
     }
   },
   "spent": {
-    "count": 0,
+    "count": 1,
     "date": "2026-11-21"
   },
-  "terms": {},
+  "terms": {
+    "이날": {
+      "articles": 1,
+      "created_at": "2026-11-21T10:35:06.803982+00:00",
+      "domains": [
+        "dailyt.co.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "dailyt.co.kr",
+          "hash": "a00af92fae402c47",
+          "importance": "must_read",
+          "title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표"
+        }
+      ],
+      "expires_at": "2026-11-22T10:35:07.650577+00:00",
+      "importance": "must_read",
+      "last_result_count": 1,
+      "last_run": "2026-11-21T10:35:07.650577+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-11-21T10:35:06.803982+00:00",
+      "queries_run": 1,
+      "query": "이날 원전",
+      "score": 3.6,
+      "status": "extended",
+      "term": "이날",
+      "ttl_hours": 24,
+      "type": "plant",
+      "yield_days": [
+        "2026-11-21"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    }
+  },
   "version": 1
 }
