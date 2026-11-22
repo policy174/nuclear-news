@@ -20222,6 +20222,26 @@
       "right_title": "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공",
       "same_event": true
     },
+    "0a00fce9adcfc3f2--c418dcdd8b8b8d51": {
+      "embedding_similarity": 0.8516,
+      "left_title": "미 에너지부, 지열 발전 기술 개발에 최대 3천만 달러 지원",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지열 발전 지원과 송전 프로젝트 융자는 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공",
+      "same_event": false
+    },
+    "0a00fce9adcfc3f2--c49988bfe1bdee18": {
+      "embedding_similarity": 0.851,
+      "left_title": "미국 에너지부, 동·서부 전력망 연결 1.8GW 송전 프로젝트에 28억달러 조건부 융자 제공",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 프로젝트 융자와 초고압망 투자 동향임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, AI 데이터센터 전력수요 급증에 765kV 초고압 송전망 투자 확대",
+      "same_event": false
+    },
     "0a23b86c295ae0f4--fc83997c1d5e9a7c": {
       "embedding_similarity": 0.9004,
       "left_title": "LS일렉트릭, 美 빅테크와 1689억원 규모 AI 데이터센터 배전 솔루션 계약",
@@ -34772,6 +34792,56 @@
       "right_title": "한수원, 체코 원자력 청정수소 생산사업 협력 논의",
       "same_event": false
     },
+    "11b5fa9fa013ea4b--1c978e79fcdf249f": {
+      "embedding_similarity": 0.8627,
+      "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 정책 내용이 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정부, 반도체 산단 전력망·용수 공급 가속화 및 AI 데이터센터 전력 지원",
+      "same_event": false
+    },
+    "11b5fa9fa013ea4b--2dbbc57aa8e00e0c": {
+      "embedding_similarity": 0.8427,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정부 지원 정책 및 입법",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정부, 반도체 산단 전력망·용수 공급 가속화 및 AI 데이터센터 전력 지원",
+      "same_event": false
+    },
+    "11b5fa9fa013ea4b--374b316abe70d2c0": {
+      "embedding_similarity": 0.8638,
+      "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "충청권 프로젝트와 반도체 산단 지원으로 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정부, 반도체 산단 전력망·용수 공급 가속화 및 AI 데이터센터 전력 지원",
+      "same_event": false
+    },
+    "11b5fa9fa013ea4b--67e5853b7e5a6817": {
+      "embedding_similarity": 0.8666,
+      "left_title": "여당, 정부 3대 메가 전력·용수 인프라에 10년간 84조원 필요 추산 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "여당 발표 내용과 정부 추진 정책 차이",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정부, 반도체 산단 전력망·용수 공급 가속화 및 AI 데이터센터 전력 지원",
+      "same_event": false
+    },
+    "11b5fa9fa013ea4b--fe08c83078ab105b": {
+      "embedding_similarity": 0.8672,
+      "left_title": "정부, '3대 메가 프로젝트' 지원 특별보증 신설…AI 데이터센터 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 정책 발표 및 사안",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정부, 반도체 산단 전력망·용수 공급 가속화 및 AI 데이터센터 전력 지원",
+      "same_event": false
+    },
     "11b8e712103098fe--f5d91b68e38231eb": {
       "embedding_similarity": 0.8498,
       "left_title": "효성중공업, 미국 AI 데이터센터 전력 인프라 공략으로 상반기 수주 7.5조원 달성",
@@ -34971,6 +35041,16 @@
       "reviewed_at": "2026-11-07T09:39:16.002157+00:00",
       "right_title": "현대건설, 미국 FANCO와 차세대 SMR 'EAGL-1' 협력 기본계약 체결",
       "same_event": true
+    },
+    "11d62f2933fb1f57--78b46b6e7b082973": {
+      "embedding_similarity": 0.842,
+      "left_title": "현대건설, 미국 SMR 스타트업과 협력 강화로 해외 시장 진출 모색",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 사업 동향임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "정기선 HD현대 회장, SMR 생산 채비 및 미국 방산 영토 확장",
+      "same_event": false
     },
     "11d62f2933fb1f57--9d79d7d4b62a564f": {
       "embedding_similarity": 0.8688,
@@ -55782,6 +55862,16 @@
       "right_title": "李대통령, 울산 AI데이터센터 건설 현장 점검 및 전력 수급 논의",
       "same_event": false
     },
+    "1c978e79fcdf249f--528bf5392a5e9dd0": {
+      "embedding_similarity": 0.8421,
+      "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 사안과 인물의 행보임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "이재명 대통령, 울산 AIDC 현장 재방문…AI 데이터센터 유치 속도전 강조",
+      "same_event": false
+    },
     "1c978e79fcdf249f--6508c7624183eda8": {
       "embedding_similarity": 0.8631,
       "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
@@ -55892,6 +55982,16 @@
       "right_title": "AI 데이터센터發 특수 잡아라…K-철강, 고부가 시장 공략",
       "same_event": false
     },
+    "1c978e79fcdf249f--a6abf33214113203": {
+      "embedding_similarity": 0.8423,
+      "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 주체가 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
+      "same_event": false
+    },
     "1c978e79fcdf249f--c7f60b07855249d1": {
       "embedding_similarity": 0.8883,
       "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
@@ -55900,6 +56000,16 @@
       "reason": "개별 전력 확보 실적과 전력망 주장",
       "reviewed_at": "2026-11-15T00:55:39.510992+00:00",
       "right_title": "AI·반도체 시대, 국가 전력망 재설계 시급",
+      "same_event": false
+    },
+    "1c978e79fcdf249f--c8ef2b3bbdaa6b1a": {
+      "embedding_similarity": 0.8629,
+      "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 대상이 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "용인 SK하이닉스 지원시설, AI 시대 위한 고성능 데이터센터 구축 중",
       "same_event": false
     },
     "1c978e79fcdf249f--d7884b34af4f8054": {
@@ -62402,6 +62512,16 @@
       "right_title": "체코 원전 갈등, 산업부 관리 책임론…중재는 선 그어",
       "same_event": false
     },
+    "1fa25125f87d23f2--9f7f3f174c00bbb2": {
+      "embedding_similarity": 0.8514,
+      "left_title": "체코 원전 갈등, 산업부 관리 책임론…중재는 선 그어",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 책임론 논란과 시공사 교체 추진은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공사 교체 추진…내년 7월까지 신규 계약 목표",
+      "same_event": false
+    },
     "1fa25125f87d23f2--ee8d849600c1e2fa": {
       "embedding_similarity": 0.8829,
       "left_title": "산업부, 체코 원전사업 비상관리체제 가동…매주 진행상황 점검",
@@ -66180,6 +66300,16 @@
       "reason": "업계 동향과 특정 기업 투자",
       "reviewed_at": "2026-09-13T13:55:09.803834+00:00",
       "right_title": "HD현대중공업, 발전엔진 및 SMR 공장 건립에 1조원대 투자 단행",
+      "same_event": false
+    },
+    "22e020602dc5edf6--2dbbc57aa8e00e0c": {
+      "embedding_similarity": 0.8517,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 제도 시행과 환경규제 지적은 별개임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "한국, 데이터센터 환경규제 미흡으로 글로벌 흐름에 역행 지적",
       "same_event": false
     },
     "22e34ca476785469--95ba4b23978a00e7": {
@@ -72132,6 +72262,16 @@
       "right_title": "한빛원전 범대위, 원안위에 계속운전 및 건식저장시설 안전규제·주민 동의 요구",
       "same_event": false
     },
+    "2694ed81ea579ca0--f562a18265b27537": {
+      "embedding_similarity": 0.8518,
+      "left_title": "한수원 한빛원전, 사용후핵연료 건식저장시설 주민 의견수렴 완료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 원전 건식저장과 국가 최종처분장은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "한국, 사용후핵연료 최종 처분시설 부지 확보 본격화",
+      "same_event": false
+    },
     "269538276bb6a27b--9cfe538a3c4d1592": {
       "embedding_similarity": 0.9099,
       "left_title": "슬로바키아 모호체 4호기, 물리적 시운전 시험 준비 완료",
@@ -74580,6 +74720,16 @@
       "reason": "개별 착공 소식과 산업 동향",
       "reviewed_at": "2026-11-15T21:53:12.306226+00:00",
       "right_title": "AI 데이터센터發 특수 잡아라…K-철강, 고부가 시장 공략",
+      "same_event": false
+    },
+    "28348985da265c84--a6abf33214113203": {
+      "embedding_similarity": 0.8412,
+      "left_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "기업 착공과 해외 기업 IPO의 다른 사안임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
       "same_event": false
     },
     "28348985da265c84--ecf12093cde08000": {
@@ -81972,6 +82122,16 @@
       "right_title": "머스크, 스페이스X 연환산 매출 최대 1327조원 목표 제시",
       "same_event": false
     },
+    "2c2dabdcc45c008b--6d2657faa9f744ce": {
+      "embedding_similarity": 0.8575,
+      "left_title": "앤트로픽, 4.6조원 가스발전기 확보…AI 전력 확보 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 계약 건과 업계 전반 동향",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 전력난 심화로 가스터빈 품귀…중고·제트·선박 엔진까지 활용",
+      "same_event": false
+    },
     "2c2fbb44ad440fd9--742c43e9aa3d49dd": {
       "embedding_similarity": 0.8724,
       "left_title": "소프트뱅크, 美 오하이오에 9.2GW급 AI 데이터센터용 가스 발전소 추진",
@@ -83592,6 +83752,16 @@
       "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
       "same_event": false
     },
+    "2dbbc57aa8e00e0c--9191e7264814569a": {
+      "embedding_similarity": 0.8515,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구체적 면제 조치와 일반 정책 논의는 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "한국 정부의 AI 데이터센터 유치 정책, 송전망·용수 지원 및 규제 필요성 논의",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--b3016bc9a5413055": {
       "embedding_similarity": 0.8538,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83642,6 +83812,26 @@
       "right_title": "SK·LG·KT, AI 데이터센터 추진…전력 인프라·제도 정비 미흡 지적",
       "same_event": false
     },
+    "2dbbc57aa8e00e0c--e285ba6085aeecd9": {
+      "embedding_similarity": 0.8509,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부의 평가 면제 정책과 산업 동향 설명임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 데이터센터, 원전 1기 전력 통째로 삼킨다… 1GW급 초대형 캠퍼스 시대 개막",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--e600b9fcfc68adae": {
+      "embedding_similarity": 0.852,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "영향평가 면제 정책과 입지 규제 문제는 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "학교 주변 AI 데이터센터 입지 규제 부재, 교육환경 보호 사각지대",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--e837c8a83caaeeeb": {
       "embedding_similarity": 0.877,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83670,6 +83860,16 @@
       "reason": "특화도시 법안과 전력계통 평가 면제",
       "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
       "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--f14621b7ca1a0262": {
+      "embedding_similarity": 0.8521,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특정 시행령과 업계 우려에 관한 별개 기사임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 산업지원, 전력망 구축 지연으로 지속가능 성장 저해 우려",
       "same_event": false
     },
     "2dbbc57aa8e00e0c--f61ff0fc4b06c133": {
@@ -98952,6 +99152,16 @@
       "right_title": "이재명 대통령, 충청권 메가프로젝트 착공식 참석…반도체·AI 인프라 전폭 지원 약속",
       "same_event": true
     },
+    "374b316abe70d2c0--528bf5392a5e9dd0": {
+      "embedding_similarity": 0.8437,
+      "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "충청권 투자와 울산 현장 방문으로 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "이재명 대통령, 울산 AIDC 현장 재방문…AI 데이터센터 유치 속도전 강조",
+      "same_event": false
+    },
     "374b316abe70d2c0--7249ed1c199740dd": {
       "embedding_similarity": 0.8507,
       "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
@@ -102869,6 +103079,16 @@
       "prompt_version": 1,
       "reason": "정부 기본계획과 특정 원전의 현안",
       "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한빛원전, 사용후핵연료 32년간 임시 보관 우려…중간저장시설 건설 지연",
+      "same_event": false
+    },
+    "391aa3385c10d435--fa0f8dbbd606c64d": {
+      "embedding_similarity": 0.851,
+      "left_title": "한빛원전 범대위, 사용후핵연료 저장시설 설치 반대…주민 안전·지원 대책 촉구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "주민 범대위 성명과 보관 지연 문제는 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
       "right_title": "한빛원전, 사용후핵연료 32년간 임시 보관 우려…중간저장시설 건설 지연",
       "same_event": false
     },
@@ -162362,6 +162582,26 @@
       "right_title": "IAEA 사무총장 방한 취소…원자력 장관회의 참석 불발",
       "same_event": false
     },
+    "67286e8e3103a460--75afc3c27967f40d": {
+      "embedding_similarity": 0.8516,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 주제가 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 데이터센터 지하 건설 기술 개발…냉각 에너지 절감 기대",
+      "same_event": false
+    },
+    "67286e8e3103a460--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8743,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안이 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 데이터센터 지하 건설 기술 개발…냉각 에너지 절감 기대",
+      "same_event": false
+    },
     "672df3891d062a98--fd47081578facf4b": {
       "embedding_similarity": 0.9048,
       "left_title": "이재명 대통령, ADB와 중앙아시아 원전·광물 진출 협력 모색",
@@ -170991,6 +171231,16 @@
       "reviewed_at": "2026-11-10T00:56:00.651567+00:00",
       "right_title": "AI 기업, 전력난 해소 위해 4.6조원 규모 발전기 직접 구매 나서",
       "same_event": true
+    },
+    "6d2657faa9f744ce--a6abf33214113203": {
+      "embedding_similarity": 0.8625,
+      "left_title": "앤트로픽, 4.6조원 가스발전기 확보…AI 전력 확보 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가스발전기 확보와 IPO 추진으로 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
+      "same_event": false
     },
     "6d2657faa9f744ce--d7503033d1eb18bc": {
       "embedding_similarity": 0.8575,
@@ -181210,6 +181460,16 @@
       "reason": "개별 사건과 시나리오별 영향 분석",
       "reviewed_at": "2026-11-08T15:55:32.215148+00:00",
       "right_title": "미국 중간선거 시나리오별 국내 증시 및 전력 인프라 영향",
+      "same_event": false
+    },
+    "75afc3c27967f40d--b47c1f1256ee4333": {
+      "embedding_similarity": 0.8405,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 투자 보류와 인허가 법안은 별개 사안임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
       "same_event": false
     },
     "75afc3c27967f40d--b92a3f0150af2e4b": {
@@ -197462,6 +197722,16 @@
       "right_title": "미국, 데이터센터 전력 수요 급증에 따른 송전망 인프라 과제 직면",
       "same_event": false
     },
+    "84715f9c97f8405c--b47c1f1256ee4333": {
+      "embedding_similarity": 0.8552,
+      "left_title": "미국, AI 데이터센터 전력·용수 규제 강화 움직임에 K-전력기기 수주 영향 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 영향 우려 분석과 법안 추진의 차이",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "same_event": false
+    },
     "84715f9c97f8405c--c046e447db49c868": {
       "embedding_similarity": 0.8583,
       "left_title": "미국, AI 데이터센터 전력·용수 규제 강화 움직임에 K-전력기기 수주 영향 우려",
@@ -198870,6 +199140,16 @@
       "reason": "부산시 예산안과 정부 R&D 예산안",
       "reviewed_at": "2026-11-20T13:42:56.680499+00:00",
       "right_title": "정부, 2027년 R&D 예산 39.5조원 확정…SMR 등 7대 SEED 분야 3.7조원 배정",
+      "same_event": false
+    },
+    "86113fe8be311953--f4edb4c8085aa888": {
+      "embedding_similarity": 0.8514,
+      "left_title": "정부, 2027년 R&D 예산 39.5조원 확정…SMR 등 7대 SEED 분야 3.7조원 배정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 R&D 예산과 경주시 지자체 예산은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "경주시, 2027년 예산 2조2,200억 편성…SMR·방사선 로봇센터 등 반영",
       "same_event": false
     },
     "862c3ec2994cfb4c--a87ab972d6695268": {
@@ -210382,6 +210662,16 @@
       "right_title": "원전 표준에서 미래 에너지 표준으로··· KEPIC 새로운 30년을 준비하다",
       "same_event": true
     },
+    "91f9e5fa80b002e5--af425999c19574ba": {
+      "embedding_similarity": 0.865,
+      "left_title": "한빛2호기 원자로 내부 구조물서 설계 요건 미달 선형 흔적 발견",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한빛2호기 원자로 내부 결함 발견 관련 건",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "한빛2호기 원자로 내부서 균열 징후 발견…수명연장 중단 요구",
+      "same_event": true
+    },
     "920ec3d45798e4af--959a0bd83cc42eea": {
       "embedding_similarity": 0.8811,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -215299,6 +215589,26 @@
       "prompt_version": 1,
       "reason": "미국 현지 상황과 국내 영향 전망",
       "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "美 AI 인프라 투자 부담 증가…국내 전력기기 시장 영향 주목",
+      "same_event": false
+    },
+    "969aadf2876e23d2--cf767f1af89e2a08": {
+      "embedding_similarity": 0.8514,
+      "left_title": "미국 상원, AI 데이터센터 전력망 비용 부담·인허가 개편안 다음 주 표결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 상원 표결과 국내 시장 영향 분석은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "美 AI 인프라 투자 부담 증가…국내 전력기기 시장 영향 주목",
+      "same_event": false
+    },
+    "969aadf2876e23d2--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8511,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 선거 영향 분석과 국내 전력기기 영향임",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
       "right_title": "美 AI 인프라 투자 부담 증가…국내 전력기기 시장 영향 주목",
       "same_event": false
     },
@@ -223572,6 +223882,16 @@
       "right_title": "중국 국가원자력기구, IAEA 총회서 SMR 협력체 'GNSI' 공식 발족",
       "same_event": false
     },
+    "9ef4273be8396701--a6abf33214113203": {
+      "embedding_similarity": 0.8819,
+      "left_title": "삼성SDI·LG엔솔, 美 'RE+ 2026'서 AI 데이터센터 전력 솔루션 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 주체가 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
+      "same_event": false
+    },
     "9ef4273be8396701--abd7dc797744c4fe": {
       "embedding_similarity": 0.8802,
       "left_title": "삼성SDI, 美 AOP와 1GWh ESS 공급 계약 체결",
@@ -230940,6 +231260,26 @@
       "reason": "전기본 수요 논란과 데이터센터 수혜는 다름",
       "reviewed_at": "2026-10-31T16:09:36.717783+00:00",
       "right_title": "AI 데이터센터 급증에 전력시장 판도 변화…국내 기업, 변압기 등 수혜",
+      "same_event": false
+    },
+    "a6abf33214113203--b9d0d55f143a9dfd": {
+      "embedding_similarity": 0.9043,
+      "left_title": "K배터리, 북미 ESS 시장 공략 가속…삼성SDI·LG엔솔 대규모 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 주체가 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
+      "same_event": false
+    },
+    "a6abf33214113203--ecf12093cde08000": {
+      "embedding_similarity": 0.8699,
+      "left_title": "국내 배터리사, 미국 에너지저장장치 대규모 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "사안과 주체가 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "앤트로픽 IPO 추진에 AI 인프라 투자 확대…국내 기업 수혜 영역 넓어져",
       "same_event": false
     },
     "a6bf269f3d5aa561--ae822a5b629c39b6": {
@@ -240360,6 +240700,46 @@
       "reason": "전기요금 인하 vs 전력망 확충법",
       "reviewed_at": "2026-08-23T12:40:25.224100+00:00",
       "right_title": "국회, 안도걸 의원 대표발의 '전력망 확충 3법' 본회의 통과",
+      "same_event": false
+    },
+    "b47c1f1256ee4333--cf767f1af89e2a08": {
+      "embedding_similarity": 0.8595,
+      "left_title": "미국 상원, AI 데이터센터 전력망 비용 부담·인허가 개편안 다음 주 표결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 인허가·전력비용 법안 추진 및 상원 표결",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "same_event": true
+    },
+    "b47c1f1256ee4333--e438a4fbf3544881": {
+      "embedding_similarity": 0.8606,
+      "left_title": "미국, 데이터센터 전력망 비용 부담 및 송전망 인허가 간소화 입법 논의 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 송전망 인허가 및 비용부담 법안 추진",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "same_event": true
+    },
+    "b47c1f1256ee4333--e80f2115f548f738": {
+      "embedding_similarity": 0.8403,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 제한 시사와 인허가 단축 법안은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "same_event": false
+    },
+    "b47c1f1256ee4333--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8522,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "선거 영향 분석과 특정 법안 추진 차이",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
       "same_event": false
     },
     "b48b10277724a425--c5acbde6bff5c3ae": {
@@ -255202,6 +255582,16 @@
       "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
       "same_event": false
     },
+    "cd3c47ebe16b3507--e9c136e895a0a4f1": {
+      "embedding_similarity": 0.852,
+      "left_title": "미국 중간선거 민주당 상하원 장악, 한미 원자력 협력 및 안보 현안 변수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한미 안보 현안과 주정부 규제 추진은 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
+      "same_event": false
+    },
     "cd3c47ebe16b3507--fbe704edbf03e77f": {
       "embedding_similarity": 0.8984,
       "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
@@ -260421,6 +260811,16 @@
       "reviewed_at": "2026-10-26T09:07:32.094969+00:00",
       "right_title": "영덕군, 신규 원전·재생에너지 연계 성장전략 발표",
       "same_event": true
+    },
+    "dad204d35bdb2b27--e64f67d1f753f471": {
+      "embedding_similarity": 0.852,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IEA 보고서 발표와 일반 동향 보도로 다름",
+      "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
+      "right_title": "AI 전력 수요 급증에 세계 원전 79기 건설, 40년 만에 최대치 기록",
+      "same_event": false
     },
     "dad204d35bdb2b27--fad2eeb0059beb91": {
       "embedding_similarity": 0.8599,
