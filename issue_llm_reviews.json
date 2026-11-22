@@ -46402,6 +46402,16 @@
       "right_title": "LS증권, 한전기술 목표주가 10만5000원으로 하향…단기 실적 부담 지적",
       "same_event": false
     },
+    "18c0c740a02e4b3b--4d978425501eebe5": {
+      "embedding_similarity": 0.909,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협약 종료 관련 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
     "18c0c740a02e4b3b--4f2f3e2a5ae35840": {
       "embedding_similarity": 0.8865,
       "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
@@ -50442,6 +50452,16 @@
       "right_title": "미국, 동남아에 AI 기술·에너지 공급 협력 제안",
       "same_event": false
     },
+    "19c66fcb38e2b648--ffb190d3fbc4f78a": {
+      "embedding_similarity": 0.8527,
+      "left_title": "박진 전 외교장관, 한미일 SMR 공동 개발 및 제3국 공급 협력 제안",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개인 제안과 국가 간 공식 논의로 다름",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한일, 에너지 위기 대응 위해 LNG 공동구매 및 SMR 협력 논의",
+      "same_event": false
+    },
     "19c7308bc9bfcb2e--959a0bd83cc42eea": {
       "embedding_similarity": 0.8494,
       "left_title": "정부, 18.4GW AI 데이터센터 메가프로젝트 추진 및 특별법 제정",
@@ -51310,6 +51330,16 @@
       "reason": "한국 핵잠 관련 IAEA 첫 안전조치 보고서 발표",
       "reviewed_at": "2026-11-20T02:22:34.758851+00:00",
       "right_title": "IAEA, 한국 핵추진잠수함 첫 검증서 \"만족\"… 정작 한미 핵심 논의는 '표...",
+      "same_event": true
+    },
+    "1a5a0908db7bdf4f--6db04814fdd6238e": {
+      "embedding_similarity": 0.8541,
+      "left_title": "IAEA, 한국 핵잠수함 건조 관련 첫 안전조치 보고서 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "한국 핵잠수함 IAEA 검증 관련 동일 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "중국, IAEA 이사회서 한국 핵추진잠수함 핵물질 검증 절차에 공식 이의 제기",
       "same_event": true
     },
     "1a5a0908db7bdf4f--93aa4b72b0ff8598": {
@@ -55792,6 +55822,16 @@
       "right_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
       "same_event": false
     },
+    "1c978e79fcdf249f--7249ed1c199740dd": {
+      "embedding_similarity": 0.8687,
+      "left_title": "한국, 원전 계속운전으로 AI 데이터센터 19곳 전력 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 계속운전 동향과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
+      "same_event": false
+    },
     "1c978e79fcdf249f--74bff0d365492289": {
       "embedding_similarity": 0.8996,
       "left_title": "원안위, 고리 3·4호기 계속운전 허가…1900MW 추가 전력 확보",
@@ -56200,6 +56240,16 @@
       "reason": "정부 관리체계와 현지업계 요구",
       "reviewed_at": "2026-11-05T01:40:10.350727+00:00",
       "right_title": "체코 원전사업, '팀 코리아' 균열 후 현지 건설업계 시공 지분 확대 요구",
+      "same_event": false
+    },
+    "1ca6341a330daf35--4d978425501eebe5": {
+      "embedding_similarity": 0.8462,
+      "left_title": "체코 원전 사업 산업부 장·차관 직접 관리체계 가동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 관리체계와 시공협약 종료로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
       "same_event": false
     },
     "1ca6341a330daf35--4f2f3e2a5ae35840": {
@@ -64570,6 +64620,16 @@
       "reason": "안전기준 최신화 vs 정기검사 허용 시행규칙 개정",
       "reviewed_at": "2026-08-06T22:54:33.582331+00:00",
       "right_title": "원안위, 원전 운전 중 정기검사 허용 위한 시행규칙 개정 추진",
+      "same_event": false
+    },
+    "215bf48934f62278--2dbbc57aa8e00e0c": {
+      "embedding_similarity": 0.853,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 정책 발표와 토론회 개최로 다름",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "국토부·국회, AI 데이터센터 등 3대 메가프로젝트 기계설비 혁신 토론회 개최",
       "same_event": false
     },
     "215ed94a142d6ce9--36b62be32bdd9c3d": {
@@ -74472,6 +74532,16 @@
       "right_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
       "same_event": false
     },
+    "28348985da265c84--7249ed1c199740dd": {
+      "embedding_similarity": 0.8662,
+      "left_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구미 데이터센터와 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
+      "same_event": false
+    },
     "28348985da265c84--755962d298d731a5": {
       "embedding_similarity": 0.9449,
       "left_title": "삼성SDS, 구미 AI 데이터센터 착공…초기 전력 60MW 규모",
@@ -83372,6 +83442,16 @@
       "right_title": "전력기기 3사, AI 데이터센터 겨냥 배전 분야 확장",
       "same_event": false
     },
+    "2dbbc57aa8e00e0c--3eae05d546262392": {
+      "embedding_similarity": 0.8528,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 정책과 특정 데이터센터 착공 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "강원 동해 GS AI 데이터센터, 이달 말 1단계 100MW급 착공 예정",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--3f6532c4f89cb58f": {
       "embedding_similarity": 0.8615,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83390,6 +83470,16 @@
       "reason": "평가 면제 확정과 혜택 부여 검토",
       "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
       "right_title": "데이터센터, 지역 전력 사용 시 계통평가·세제 혜택 부여 검토",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--4aeb7ed7cbc8df65": {
+      "embedding_similarity": 0.8534,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 정책과 업계 일반 동향의 차이",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "AI 데이터센터 전력 확보 경쟁…LNG 발전 연계 사업 확대",
       "same_event": false
     },
     "2dbbc57aa8e00e0c--5dc923e4c36e57c8": {
@@ -83462,6 +83552,16 @@
       "right_title": "정부, AI·첨단산업에 21.3조 투자…데이터센터 전력 인프라 2.1조 배정",
       "same_event": false
     },
+    "2dbbc57aa8e00e0c--7249ed1c199740dd": {
+      "embedding_similarity": 0.8486,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특별법 시행과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--779074a919343c23": {
       "embedding_similarity": 0.8621,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83490,6 +83590,16 @@
       "reason": "미국의 규제 강화와 한국의 평가 면제",
       "reviewed_at": "2026-11-22T14:09:01.650299+00:00",
       "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--b3016bc9a5413055": {
+      "embedding_similarity": 0.8538,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 특별법과 지자체 조례로 사안 다름",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "여수시, AI 데이터센터 유치 지원 조례 제정",
       "same_event": false
     },
     "2dbbc57aa8e00e0c--c6631f6fa8860ed4": {
@@ -98842,6 +98952,16 @@
       "right_title": "이재명 대통령, 충청권 메가프로젝트 착공식 참석…반도체·AI 인프라 전폭 지원 약속",
       "same_event": true
     },
+    "374b316abe70d2c0--7249ed1c199740dd": {
+      "embedding_similarity": 0.8507,
+      "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "충청권 프로젝트와 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
+      "same_event": false
+    },
     "374b316abe70d2c0--af367d9fdd019c67": {
       "embedding_similarity": 0.8969,
       "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
@@ -98851,6 +98971,16 @@
       "reviewed_at": "2026-11-13T10:32:01.476122+00:00",
       "right_title": "충남도, 392조 규모 충청권 메가프로젝트 착수…첨단산업 투자 가속화",
       "same_event": true
+    },
+    "374b316abe70d2c0--c7b0fd373a376b2f": {
+      "embedding_similarity": 0.8539,
+      "left_title": "이재명 대통령, 충청권 392조원 메가프로젝트 본격 추진…AI·반도체 투자 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대통령의 서로 다른 지역 일정",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "이재명 대통령, 울산 AI 데이터센터 현장 방문해 건설인력·전력 공급 점검",
+      "same_event": false
     },
     "3755290fbd6dc745--42d294aaa404e892": {
       "embedding_similarity": 0.8616,
@@ -102731,6 +102861,16 @@
       "reviewed_at": "2026-09-03T08:00:15.786027+00:00",
       "right_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
       "same_event": true
+    },
+    "391aa3385c10d435--c88f53a8215026f3": {
+      "embedding_similarity": 0.8524,
+      "left_title": "정부, 2038년까지 고준위 방폐장 부지 확정…제3차 관리 기본계획 초안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 기본계획과 특정 원전의 현안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한빛원전, 사용후핵연료 32년간 임시 보관 우려…중간저장시설 건설 지연",
+      "same_event": false
     },
     "3933aaf6eaffb3a4--eaec2c6f14cc390e": {
       "embedding_similarity": 0.875,
@@ -106842,6 +106982,16 @@
       "right_title": "AI 투자 거품 붕괴 경고 속 데이터센터 전력·용수 부담 부각",
       "same_event": false
     },
+    "3b7660b8e26dbdc0--41c9f5e2341c2da7": {
+      "embedding_similarity": 0.8535,
+      "left_title": "미국 페르미, 하이퍼스케일러에 600MW 전력·부지 공급 합의 및 2억 달러 선급금 확보",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 계약 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
+      "same_event": false
+    },
     "3b7660b8e26dbdc0--460ef26e8a08cf60": {
       "embedding_similarity": 0.8632,
       "left_title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
@@ -106850,6 +107000,16 @@
       "reason": "지열발전 계약과 부지 인수는 별개 계약",
       "reviewed_at": "2026-11-22T14:09:01.650299+00:00",
       "right_title": "구글, 크루소로부터 와이오밍주 데이터센터 부지 인수",
+      "same_event": false
+    },
+    "3b7660b8e26dbdc0--6d2657faa9f744ce": {
+      "embedding_similarity": 0.8535,
+      "left_title": "앤트로픽, 4.6조원 가스발전기 확보…AI 전력 확보 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업의 별개 계약 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
       "same_event": false
     },
     "3b7660b8e26dbdc0--92e13b9fc5c74898": {
@@ -107070,6 +107230,16 @@
       "reason": "SMR 건설 논의와 공론화위 출범",
       "reviewed_at": "2026-10-02T07:25:44.100194+00:00",
       "right_title": "기후부, 제12차 전기본 원전 정책 논의 위한 국민 숙의 공론화위 출범",
+      "same_event": false
+    },
+    "3b995c6ae60048a0--c88f53a8215026f3": {
+      "embedding_similarity": 0.8464,
+      "left_title": "정부, 2038년까지 고준위 방폐장 부지 확정…제3차 관리 기본계획 초안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "방폐장 기본계획과 임시저장시설 분류로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "원전 부지 내 사용후핵연료 임시저장시설, 고준위 방폐물 제1차 중간저장시설로 분류",
       "same_event": false
     },
     "3ba51f578a66482f--9a4d229363274948": {
@@ -118952,6 +119122,16 @@
       "right_title": "미국 중간선거 민주당 상하원 장악, 대중국 견제와 통상 전략 전망",
       "same_event": false
     },
+    "4377e09c0c86f5d4--cd3c47ebe16b3507": {
+      "embedding_similarity": 0.8523,
+      "left_title": "미국 민주당 압승에 한국 정부, 대미 원전 100억달러 선투입 재검토 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 원전 투자와 데이터센터 규제로 다름",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
+      "same_event": false
+    },
     "4377e09c0c86f5d4--cf8bf83345a6b566": {
       "embedding_similarity": 0.8681,
       "left_title": "한미 양국, 대미 전략투자 후속으로 원전 8기 사업 추진 합의",
@@ -128992,6 +129172,96 @@
       "right_title": "기후에너지환경부, 원전 공론화 추진계획 국무회의 보고",
       "same_event": false
     },
+    "4d978425501eebe5--6e44db3c17b19418": {
+      "embedding_similarity": 0.8795,
+      "left_title": "한수원, 체코 원전 시공 컨소시엄 협상 종료 과정서 이사회 보고 누락",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 종료 관련 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--71ccdebe11108c37": {
+      "embedding_similarity": 0.8479,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공협약 종료로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": false
+    },
+    "4d978425501eebe5--98fe30ce4f211836": {
+      "embedding_similarity": 0.8636,
+      "left_title": "한-체코, 두코바니 원전 사업 점검 및 테믈린 3·4호기 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 간 논의와 시공협약 종료로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": false
+    },
+    "4d978425501eebe5--9b2079eef5023d61": {
+      "embedding_similarity": 0.883,
+      "left_title": "체코 두코바니 원전 사업, 시공사 계약 관련 변동 직면",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협약 종료 관련 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--a2a59a20cb58dbb9": {
+      "embedding_similarity": 0.9011,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협약 종료 관련 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--b851201523b44ceb": {
+      "embedding_similarity": 0.8835,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공협약 종료 갈등 관련 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--c7eed83d7657eb11": {
+      "embedding_similarity": 0.8538,
+      "left_title": "김정관 장관 “한수원의 체코 원전 신규 시공사 선정 불가피”",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협약 종료 및 관련 발언",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--d8531177505bee02": {
+      "embedding_similarity": 0.8727,
+      "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협약 종료와 수습 회의",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": true
+    },
+    "4d978425501eebe5--f46b26a312497faa": {
+      "embedding_similarity": 0.8616,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 설명회와 시공협약 종료로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공분야 공동협력 협약 종료",
+      "same_event": false
+    },
     "4d9bfce9591d34ff--9ef4273be8396701": {
       "embedding_similarity": 0.9014,
       "left_title": "삼성SDI·LG엔솔, 美 'RE+ 2026'서 AI 데이터센터 전력 솔루션 공개",
@@ -131561,6 +131831,16 @@
       "reviewed_at": "2026-10-23T19:13:29.306517+00:00",
       "right_title": "과기정통부, 7대 SEED 총괄 '미래개척기획과' 신설",
       "same_event": false
+    },
+    "503f2902f1d964ea--e72f2a6a955cc22d": {
+      "embedding_similarity": 0.8524,
+      "left_title": "IEA, 한국·일본 에너지 수입의존도 세계 최고 수준 진단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일한 IEA 보고서진단 보도",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "IEA, 한국 에너지 수입 의존도 80% 지적…AI 시대 전력 수요 위협 경고",
+      "same_event": true
     },
     "505ed33f9999cc06--ed7932c94fc5af82": {
       "embedding_similarity": 0.8756,
@@ -136130,6 +136410,16 @@
       "reason": "부산시와 경남도의 서로 다른 예산안",
       "reviewed_at": "2026-11-11T16:37:04.551226+00:00",
       "right_title": "경남도, 내년도 예산안에 SMR 제조·검사 거점 구축 31억원 편성",
+      "same_event": false
+    },
+    "528ddf6fd62b0113--f4edb4c8085aa888": {
+      "embedding_similarity": 0.8839,
+      "left_title": "경남도, 내년도 예산안에 SMR 제조·검사 거점 구축 31억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남도 예산과 경주시 예산으로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "경주시, 2027년 예산 2조2,200억 편성…SMR·방사선 로봇센터 등 반영",
       "same_event": false
     },
     "528ddf6fd62b0113--f9d95d3bd84c16c2": {
@@ -150482,6 +150772,16 @@
       "right_title": "블루 에너지, 미국 텍사스주 가스-원자력 전환 프로젝트 NRC 건설허가 신청서 1단계 제출",
       "same_event": true
     },
+    "5cb09ec15a73ea3d--8a1ca05b4ae5ca18": {
+      "embedding_similarity": 0.855,
+      "left_title": "한일, 에너지 위기 대응 위해 LNG·원전·SMR 등 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "참여국 및 논의 회의가 다른 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "한미일, 지난달 인천서 SMR 공동 사업 추진 첫 협의",
+      "same_event": false
+    },
     "5cbb6bdac1cb82f9--fe1432d7e83e03dd": {
       "embedding_similarity": 0.8529,
       "left_title": "정부, 896조원 규모 전남광주 반도체 메가클러스터 조성 추진",
@@ -154220,6 +154520,16 @@
       "reason": "R&D 예산 편성과 전력계통평가 개선은 다름",
       "reviewed_at": "2026-11-20T23:31:55.423512+00:00",
       "right_title": "과기정통부·기후부, AI 데이터센터 신속 구축용 전력계통평가 개선",
+      "same_event": false
+    },
+    "615550bdddc2ffe6--7249ed1c199740dd": {
+      "embedding_similarity": 0.8421,
+      "left_title": "내년 AI·ICT R&D 예산 2조 755억원 편성…피지컬 AI, AI 데이터센터 등 집중 투자",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "R&D 예산 편성과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
       "same_event": false
     },
     "615550bdddc2ffe6--92e84b943115118b": {
@@ -163160,6 +163470,16 @@
       "reason": "여당 예산 추산과 데이터센터 평가 면제",
       "reviewed_at": "2026-11-20T23:56:33.606499+00:00",
       "right_title": "정부, 비수도권 50MW 이하 AI 데이터센터 전력계통영향평가 면제",
+      "same_event": false
+    },
+    "67e5853b7e5a6817--7249ed1c199740dd": {
+      "embedding_similarity": 0.8665,
+      "left_title": "여당, 정부 3대 메가 전력·용수 인프라에 10년간 84조원 필요 추산 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 인프라 추산과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
       "same_event": false
     },
     "67e9d8e68965f581--6a4c035c89f7767e": {
@@ -176430,6 +176750,26 @@
       "reason": "서로 다른 기업의 실적 보도",
       "reviewed_at": "2026-10-24T11:21:38.970250+00:00",
       "right_title": "HD현대중공업·일렉트릭, 3분기 영업이익 두 자릿수 성장 전망",
+      "same_event": false
+    },
+    "7249ed1c199740dd--f6e74a4f86b089b7": {
+      "embedding_similarity": 0.8532,
+      "left_title": "과학기술정보통신부, 50MW 이하 지방 AI 데이터센터 전력계통영향평가 면제 시행령 입법예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "입법예고 정책과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
+      "same_event": false
+    },
+    "7249ed1c199740dd--fe08c83078ab105b": {
+      "embedding_similarity": 0.8561,
+      "left_title": "정부, '3대 메가 프로젝트' 지원 특별보증 신설…AI 데이터센터 포함",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 특별보증과 동해 AIDC로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "[메가에서 기가로]새 시대 여는 AI데이터센터⋯동해 AIDC 착공 초읽기",
       "same_event": false
     },
     "724a3270a5cb5092--76c25b6cb116675c": {
@@ -206952,6 +207292,16 @@
       "right_title": "한겨레, 12차 전기본 메가 프로젝트 전력수급 과제 토론회 개최",
       "same_event": false
     },
+    "8e661d80bbae35fe--dad204d35bdb2b27": {
+      "embedding_similarity": 0.8539,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기관의 전격 보고서 발표",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "IAEA, 2026년 세계 핵융합 전망 보고서 발간",
+      "same_event": false
+    },
     "8e6703198dd5a0bd--92be0d3ad51fc2c0": {
       "embedding_similarity": 0.8931,
       "left_title": "트럼프, 한국에 알래스카 LNG 사업 500억 달러 투자 압박",
@@ -214940,6 +215290,16 @@
       "reason": "수주 기업과 품목이 다름",
       "reviewed_at": "2026-10-08T20:51:49.090531+00:00",
       "right_title": "HD건설기계, 미국 데이터센터용 발전 엔진 3900억원 수주",
+      "same_event": false
+    },
+    "969aadf2876e23d2--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8527,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 현지 상황과 국내 영향 전망",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "美 AI 인프라 투자 부담 증가…국내 전력기기 시장 영향 주목",
       "same_event": false
     },
     "96a0cec73f9acf55--9a5b1e174d0f721a": {
@@ -234092,6 +234452,16 @@
       "right_title": "에너지 공기업 국정감사, 발전 5사 통합·한전 재무구조 개선 쟁점 부상",
       "same_event": false
     },
+    "ab81e80d8d2d15c2--dad204d35bdb2b27": {
+      "embedding_similarity": 0.8534,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 에너지 분야 전망 보고서",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "세계 재생에너지 4800GW 폭증 전망…에너지 안보가 성장 견인",
+      "same_event": false
+    },
     "aba9aca795bf3bd6--e35ba84675a81735": {
       "embedding_similarity": 0.9106,
       "left_title": "정부, \"역대 최대 전력수요 가능성 대비 예비자원 점검\"",
@@ -246842,6 +247212,16 @@
       "right_title": "정부·한수원, 체코 두코바니 원전 시공사 협상 종료에도 사업 차질 없다고 진화",
       "same_event": false
     },
+    "bf2213f6f32f2e18--e80f2115f548f738": {
+      "embedding_similarity": 0.8455,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 민주당 동향과 캔자스시티 표결로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "캔자스시티, 도심 데이터센터 건설안 부결 및 신규 유예 지지",
+      "same_event": false
+    },
     "bf254f79ce11da61--c52893d390e16828": {
       "embedding_similarity": 0.8557,
       "left_title": "산업부 장관, 체코와 두코바니 원전사업 정상추진 협력 논의",
@@ -252660,6 +253040,16 @@
       "reason": "지자체별 별개 예산안 및 사업",
       "reviewed_at": "2026-11-11T16:37:04.551226+00:00",
       "right_title": "경남도, 2027년 예산 14조7368억 편성…창원산단 SMR 제작 지원",
+      "same_event": false
+    },
+    "c7f2e69e303d676b--f4edb4c8085aa888": {
+      "embedding_similarity": 0.8849,
+      "left_title": "경남도, 2027년 예산 14조7368억 편성…창원산단 SMR 제작 지원",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "경남도 예산과 경주시 예산으로 별개",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "경주시, 2027년 예산 2조2,200억 편성…SMR·방사선 로봇센터 등 반영",
       "same_event": false
     },
     "c7f2e69e303d676b--f9d95d3bd84c16c2": {
@@ -264580,6 +264970,16 @@
       "reason": "전력망 영향 분석과 주가 변동 뉴스",
       "reviewed_at": "2026-11-21T21:54:38.159432+00:00",
       "right_title": "'블루 웨이브'로 AI인프라 우려 커지자 '닥터 코퍼' 구리주 하락",
+      "same_event": false
+    },
+    "ee211b6e4a6ffe26--f4edb4c8085aa888": {
+      "embedding_similarity": 0.8749,
+      "left_title": "부산시, 내년 예산 19.3조 편성…SMR 보조기기 제작지원센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 지자체의 예산 편성 사안",
+      "reviewed_at": "2026-11-22T19:08:27.310291+00:00",
+      "right_title": "경주시, 2027년 예산 2조2,200억 편성…SMR·방사선 로봇센터 등 반영",
       "same_event": false
     },
     "ee2ec350331c7591--ff2e3b01deddf64e": {
