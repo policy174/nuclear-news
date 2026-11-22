@@ -33592,6 +33592,16 @@
       "right_title": "제주도, 2035 탄소중립 위해 국회에 전력망 확충 건의",
       "same_event": false
     },
+    "11469216223fa910--e65d48a1634a4d8a": {
+      "embedding_similarity": 0.8869,
+      "left_title": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "추진 일정 및 지역 안건이 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "고준위방폐장 2028년 부지 공모 추진…울진 지역 주목",
+      "same_event": false
+    },
     "114c0105a9a5871f--11fd6f786a9a2d47": {
       "embedding_similarity": 0.8468,
       "left_title": "울산, 지역별 차등 전기요금제 혜택 확대 요구",
@@ -34511,6 +34521,16 @@
       "reviewed_at": "2026-11-19T16:14:14.849859+00:00",
       "right_title": "고준위 방사성폐기물 관리위원회, 2027년 상반기 영구처분장 부지 공모 개시",
       "same_event": true
+    },
+    "1173cdabac8a8734--e65d48a1634a4d8a": {
+      "embedding_similarity": 0.8793,
+      "left_title": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "부지 공모 및 선정 일정 내용 차이",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "고준위 방사성폐기물 관리위원회, 2027년 상반기 영구처분장 부지 공모 개시",
+      "same_event": false
     },
     "1182253279c464e4--457aa2e1b508d72c": {
       "embedding_similarity": 0.8492,
@@ -50241,6 +50261,16 @@
       "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
       "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
       "same_event": true
+    },
+    "19c66fcb38e2b648--2b4f9978b82df08f": {
+      "embedding_similarity": 0.8764,
+      "left_title": "미셸 스틸 주한 미국 대사, 한미 SMR 협력 확대 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "발언 주체 및 제안 사안이 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "박진 전 외교장관, 한미일 SMR 공동 개발 및 제3국 공급 협력 제안",
+      "same_event": false
     },
     "19c7308bc9bfcb2e--959a0bd83cc42eea": {
       "embedding_similarity": 0.8494,
@@ -82972,6 +83002,56 @@
       "right_title": "한수원노조·시민단체, 신규원전 지연 책임 규명 요구",
       "same_event": true
     },
+    "2dbbc57aa8e00e0c--47a5885c5dd30a8d": {
+      "embedding_similarity": 0.8769,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "평가 면제 확정과 혜택 부여 검토",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "데이터센터, 지역 전력 사용 시 계통평가·세제 혜택 부여 검토",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--5dc923e4c36e57c8": {
+      "embedding_similarity": 0.8847,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력평가 면제와 인정기준 완화로 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "정부, AI 데이터센터 인정 기준 완화 추진…하위법령 입법예고 임박",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--6617e28adffda7ef": {
+      "embedding_similarity": 0.8822,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 전력계통평가 개선 발표",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "과기정통부·기후부, AI 데이터센터 신속 구축용 전력계통평가 개선",
+      "same_event": true
+    },
+    "2dbbc57aa8e00e0c--c6631f6fa8860ed4": {
+      "embedding_similarity": 0.8872,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 데이터센터 정책 안건",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "정부, 수도권 데이터센터 건설 기준 강화로 지방 분산 유도",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--e837c8a83caaeeeb": {
+      "embedding_similarity": 0.877,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 정책 발표와 정책 방향 비교 동향",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "美 AI 데이터센터 규제 우려와 달리 한국은 확충 추진",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--eb334d7eae3d65ff": {
       "embedding_similarity": 0.8867,
       "left_title": "정부, 수도권 데이터센터 전기 공급 심사 기준 강화",
@@ -82979,6 +83059,16 @@
       "prompt_version": 1,
       "reason": "수도권 심사 강화와 면제 추진으로 다름",
       "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--ed47c9e2405862c1": {
+      "embedding_similarity": 0.8793,
+      "left_title": "천안·아산·원주 AI 특화도시 조성 위한 법안 발의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "특화도시 법안과 전력계통 평가 면제",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
       "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
       "same_event": false
     },
@@ -115272,6 +115362,16 @@
       "right_title": "한울원전 등 원전 내 고준위 방사성폐기물 포화 임박에 따른 의견 수렴 진행",
       "same_event": false
     },
+    "41aeb2116ec7dd24--f562a18265b27537": {
+      "embedding_similarity": 0.8809,
+      "left_title": "한울원전, 사용후핵연료 저장시설 건립 난항…2032년까지 확보 필요",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 원전 저장시설과 국가 처분시설",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "한국, 사용후핵연료 최종 처분시설 부지 확보 본격화",
+      "same_event": false
+    },
     "41b6ef392e3cdb12--7a73639419582844": {
       "embedding_similarity": 0.8881,
       "left_title": "국회, 원전 경제성 재평가 및 공론화 반영 촉구",
@@ -143320,6 +143420,16 @@
       "reason": "정부 사업 확정과 IAEA 보고서",
       "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
       "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "same_event": false
+    },
+    "58585556d0957e36--ef58023b42b63b6c": {
+      "embedding_similarity": 0.8818,
+      "left_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 보고서와 정부 전략안으로 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "정부, 핵추진잠수함 확보 위한 '장보고 N사업' 기본전략안 의결",
       "same_event": false
     },
     "585d8168a3c6c056--a5250d0d4069ab04": {
@@ -179842,6 +179952,16 @@
       "right_title": "AI 데이터센터, 전력망 부담·전기요금 인상 우려로 미국서 반발 직면",
       "same_event": false
     },
+    "75afc3c27967f40d--cd3c47ebe16b3507": {
+      "embedding_similarity": 0.8832,
+      "left_title": "美 중간선거 후 AI 규제 강화 우려, 대미 원전 투자 100억 달러 선지급 보류 논란",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대미 투자 보류와 주정부 규제 정책",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
+      "same_event": false
+    },
     "75afc3c27967f40d--cf2202c2b99d22f7": {
       "embedding_similarity": 0.8819,
       "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
@@ -189910,6 +190030,16 @@
       "reason": "특별법 시행과 국회 지적",
       "reviewed_at": "2026-10-08T23:40:30.443363+00:00",
       "right_title": "국회, SMR 건설 인허가 2028년 신청에 기술기준 마련은 2032년으로 '규제 병목' 지적",
+      "same_event": false
+    },
+    "7d6c6bc2f354e74c--eaec2c6f14cc390e": {
+      "embedding_similarity": 0.887,
+      "left_title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "행사 개최와 장학기금 조성으로 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "국립창원대, SMR 연구 거점 국가연구소 선정 기념 장학기금 조성",
       "same_event": false
     },
     "7d8437b0216a6182--c342f4726771d9c9": {
@@ -203672,6 +203802,16 @@
       "right_title": "미국 중간선거 민주당 선전 속 데이터센터 규제 강화 우려 대두",
       "same_event": true
     },
+    "8c29ef65548a7ca4--a00af92fae402c47": {
+      "embedding_similarity": 0.8841,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시행 시점 및 세부 발표 내용 차이",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "정부, 원전 정부승인차액계약 내년 1월 1일 시행 확정",
+      "same_event": false
+    },
     "8c29ef65548a7ca4--a6c5333014b98b20": {
       "embedding_similarity": 0.9074,
       "left_title": "한전·한수원, 내년부터 원전 전력 차액계약으로 가격 정산",
@@ -209451,6 +209591,16 @@
       "reviewed_at": "2026-09-15T19:00:36.307312+00:00",
       "right_title": "이탈리아, 45년만에 탈원전 폐기",
       "same_event": true
+    },
+    "92869753ca068a59--c899dbed4317308b": {
+      "embedding_similarity": 0.8802,
+      "left_title": "중국, 해저 데이터센터 등 첨단 해양산업 투자 유도 정책 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "투자 정책 발표와 특정 시설 가동",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "중국 상하이 해저 데이터센터 가동 및 미국 예비허가 신청",
+      "same_event": false
     },
     "929eb365af36c77f--e356787a673aa06d": {
       "embedding_similarity": 0.8648,
@@ -227021,6 +227171,16 @@
       "reviewed_at": "2026-08-19T06:57:15.493469+00:00",
       "right_title": "SK이노베이션, 빌 게이츠의 테라파워와 맞손…'K-나트륨'으로 SMR 영토 넓...",
       "same_event": true
+    },
+    "a44662ad4fac7914--a4db21be15cef204": {
+      "embedding_similarity": 0.8796,
+      "left_title": "한국, SMR 규제체계 2029년 시범 적용…상용화 속도 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 시범적용과 사전검토제 시행으로 다름",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "차세대 원전 SMR 개발 빨라지나…사전검토제 본격 시행",
+      "same_event": false
     },
     "a44662ad4fac7914--e5dd914c17bd60cc": {
       "embedding_similarity": 0.8999,
@@ -245182,6 +245342,16 @@
       "right_title": "미국, 사용후핵연료 재활용 'REDUCE' 프로젝트 개발 중",
       "same_event": false
     },
+    "be6f5d05c8589bd8--e80f2115f548f738": {
+      "embedding_similarity": 0.8812,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인허가 제한 시사와 전력수요 통계 분석",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "미국 데이터센터 전력 수요 300GW 중 77% 민주당 주에 집중, 121GW 증설 전망",
+      "same_event": false
+    },
     "be81fc0f2fdce1e9--e8741e7c6c9f68a0": {
       "embedding_similarity": 0.8966,
       "left_title": "원안위, 운전원 실수로 정지된 새울3호기 재가동 승인",
@@ -248932,6 +249102,16 @@
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR·핵융합 협력 논의",
       "same_event": true
     },
+    "c388d847e33d39e0--e72f2a6a955cc22d": {
+      "embedding_similarity": 0.8813,
+      "left_title": "IEA, 한국·일본 에너지 수입의존도 세계 최고 수준 진단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IEA 보고서의 서로 다른 분석 내용",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "IEA, 한국 2040년 원전 발전비중 30% 유지 전망",
+      "same_event": false
+    },
     "c3a997e4e3c79751--ed694064177e417a": {
       "embedding_similarity": 0.8966,
       "left_title": "두산에너빌리티, 美 엑스에너지 SMR 증기발생기 소재 첫 발주",
@@ -249040,6 +249220,16 @@
       "reason": "원전 건설 합의와 재무장관 회담 차이",
       "reviewed_at": "2026-11-06T18:58:44.536330+00:00",
       "right_title": "한미 재무·통화당국 첫 2+2 면담…통화스와프 논의는 안 한 듯",
+      "same_event": false
+    },
+    "c3d4d6f4b6ad25ef--eaec2c6f14cc390e": {
+      "embedding_similarity": 0.8787,
+      "left_title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "포럼 개최와 기업 산학협력 체결",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "SNT에너지-국립창원대, SMR 산학 협력 강화",
       "same_event": false
     },
     "c3da5b2712fff2d6--d76380ca9c1e1687": {
@@ -257171,6 +257361,16 @@
       "reviewed_at": "2026-09-03T08:00:15.786027+00:00",
       "right_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
       "same_event": true
+    },
+    "d616bd40867d817a--ecf12093cde08000": {
+      "embedding_similarity": 0.8873,
+      "left_title": "국내 배터리사, 미국 에너지저장장치 대규모 공급 계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "서로 다른 기업 동향 및 사안",
+      "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
+      "right_title": "LG엔솔·삼성SDI, AI 데이터센터 공략…통합 전력 솔루션 강화",
+      "same_event": false
     },
     "d621a4293eb89200--db08e16acafcc890": {
       "embedding_similarity": 0.8792,
