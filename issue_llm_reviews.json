@@ -14142,6 +14142,36 @@
       "right_title": "정부, 대미 전략투자 1호 사업 텍사스 가스복합발전소 첫 송금 및 원전 8기 합의",
       "same_event": true
     },
+    "06f6d89299878470--528ddf6fd62b0113": {
+      "embedding_similarity": 0.8884,
+      "left_title": "경남도, 내년도 예산안에 SMR 제조·검사 거점 구축 31억원 편성",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 및 예산안이 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "경주시, 2027년 예산 2조2200억원 편성…SMR·원전산업에 97억원 배정",
+      "same_event": false
+    },
+    "06f6d89299878470--c7f2e69e303d676b": {
+      "embedding_similarity": 0.8723,
+      "left_title": "경남도, 2027년 예산 14조7368억 편성…창원산단 SMR 제작 지원",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 및 예산안이 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "경주시, 2027년 예산 2조2200억원 편성…SMR·원전산업에 97억원 배정",
+      "same_event": false
+    },
+    "06f6d89299878470--ee211b6e4a6ffe26": {
+      "embedding_similarity": 0.8832,
+      "left_title": "부산시, 내년 예산 19.3조 편성…SMR 보조기기 제작지원센터 구축",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "지자체 및 예산안이 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "경주시, 2027년 예산 2조2200억원 편성…SMR·원전산업에 97억원 배정",
+      "same_event": false
+    },
     "06f800c29b2dd7c6--c56baa57f4715711": {
       "embedding_similarity": 0.9101,
       "left_title": "이재명 대통령, 칼둔 UAE 행정청장 접견해 원전·AI 협력 후속 논의",
@@ -31779,6 +31809,16 @@
       "prompt_version": 1,
       "reason": "지자구상 발표와 특정기업-대학 협약으로 다름",
       "reviewed_at": "2026-11-20T19:27:46.053365+00:00",
+      "right_title": "SNT에너지·국립창원대, SMR 핵심기술 개발 및 전문인력 양성 협약",
+      "same_event": false
+    },
+    "1097237df84e9171--eaec2c6f14cc390e": {
+      "embedding_similarity": 0.872,
+      "left_title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "포럼 개최와 산학협약 체결",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
       "right_title": "SNT에너지·국립창원대, SMR 핵심기술 개발 및 전문인력 양성 협약",
       "same_event": false
     },
@@ -50261,6 +50301,16 @@
       "reviewed_at": "2026-11-03T11:47:20.822220+00:00",
       "right_title": "한수원 컨소시엄, 체코 두코바니 원전 시공계약 협상 종료",
       "same_event": true
+    },
+    "19c66fcb38e2b648--269332246d29fbb2": {
+      "embedding_similarity": 0.8732,
+      "left_title": "한미일 외교장관, 7월 튀르키예서 SMR 배치 협력각서 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "협정 체결과 개인의 제안으로 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "박진 전 외교장관, 한미일 SMR 공동 개발 및 제3국 공급 협력 제안",
+      "same_event": false
     },
     "19c66fcb38e2b648--2b4f9978b82df08f": {
       "embedding_similarity": 0.8764,
@@ -82112,6 +82162,16 @@
       "right_title": "태국 발전청, 미국 USTDA와 SMR 도입 타당성 조사 협약 체결",
       "same_event": true
     },
+    "2c9a8a100e873a01--dad204d35bdb2b27": {
+      "embedding_similarity": 0.8704,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 IEA 2026 보고서 발간",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "IEA, 세계 에너지 전망 2026 보고서 발간…원전 및 태양광 확대 전망",
+      "same_event": true
+    },
     "2c9a8a100e873a01--fad2eeb0059beb91": {
       "embedding_similarity": 0.8635,
       "left_title": "중동 위기 계기, 재생에너지·원전 병행 정책 부상",
@@ -83022,6 +83082,16 @@
       "right_title": "정부, AI 데이터센터 인정 기준 완화 추진…하위법령 입법예고 임박",
       "same_event": false
     },
+    "2dbbc57aa8e00e0c--656b7bfa7e343921": {
+      "embedding_similarity": 0.8722,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "평가 면제 방침과 입지 규제 강화",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "데이터센터 수도권 입지 깐깐해진다... '전기 몰린 곳'에는 감점도",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--6617e28adffda7ef": {
       "embedding_similarity": 0.8822,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83032,6 +83102,16 @@
       "right_title": "과기정통부·기후부, AI 데이터센터 신속 구축용 전력계통평가 개선",
       "same_event": true
     },
+    "2dbbc57aa8e00e0c--67e5853b7e5a6817": {
+      "embedding_similarity": 0.8705,
+      "left_title": "여당, 정부 3대 메가 전력·용수 인프라에 10년간 84조원 필요 추산 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "인프라 추산과 평가 면제로 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
+    },
     "2dbbc57aa8e00e0c--c6631f6fa8860ed4": {
       "embedding_similarity": 0.8872,
       "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
@@ -83040,6 +83120,16 @@
       "reason": "서로 다른 데이터센터 정책 안건",
       "reviewed_at": "2026-11-22T03:10:29.372892+00:00",
       "right_title": "정부, 수도권 데이터센터 건설 기준 강화로 지방 분산 유도",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--db08ae804d038ac8": {
+      "embedding_similarity": 0.8723,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "평가 면제와 제도 시행으로 안건 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "기후에너지환경부, 대규모 전력수요 분산 위한 전력계통영향평가 제도 시행",
       "same_event": false
     },
     "2dbbc57aa8e00e0c--e837c8a83caaeeeb": {
@@ -102172,6 +102262,16 @@
       "right_title": "12차 전기본, AI 데이터센터 전력수요 20GW 전망 잠정안 공개",
       "same_event": true
     },
+    "3933aaf6eaffb3a4--eaec2c6f14cc390e": {
+      "embedding_similarity": 0.875,
+      "left_title": "국립창원대 SMR² 플랫폼 국가연구소, SMR² INSIGHT FORUM 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "포럼 개최와 기업 협력으로 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "국립창원대-SNT에너지, 차세대 SMR 첨단 제조기술 개발 협력",
+      "same_event": false
+    },
     "3936f98b28485c84--3ed1a8710404d7c2": {
       "embedding_similarity": 0.843,
       "left_title": "정부, 12차 전기본서 2040년 재생에너지 설비 220GW 확대 방안 제시",
@@ -108541,6 +108641,16 @@
       "reviewed_at": "2026-11-19T00:52:39.939540+00:00",
       "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
       "same_event": false
+    },
+    "3d28d33af67ec2ec--a00af92fae402c47": {
+      "embedding_similarity": 0.8754,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 전력 차액계약제도 적용 발표",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
+      "same_event": true
     },
     "3d28d33af67ec2ec--a5cc5b9d6803e0d2": {
       "embedding_similarity": 0.8456,
@@ -143422,6 +143532,26 @@
       "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
       "same_event": false
     },
+    "58585556d0957e36--e8d0642e8d16d192": {
+      "embedding_similarity": 0.8753,
+      "left_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 사업의결과 IAEA 보고서로 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "same_event": false
+    },
+    "58585556d0957e36--ec1d2b1e73cd5420": {
+      "embedding_similarity": 0.8711,
+      "left_title": "한국형 핵잠수함, 사업타당성 조사 면제…내년 사업 추진 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "예타 면정과 IAEA 보고서로 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "same_event": false
+    },
     "58585556d0957e36--ef58023b42b63b6c": {
       "embedding_similarity": 0.8818,
       "left_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
@@ -157472,6 +157602,16 @@
       "right_title": "국내 전력 기기 3사, 상반기 수주 잔고 36조원 돌파하며 고속 성장",
       "same_event": false
     },
+    "654749c348d5286e--71ccdebe11108c37": {
+      "embedding_similarity": 0.875,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공사 관리로 안건 다름",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "한수원, 체코 원전 신규 시공사 선정 과정 주 단위 관리 착수",
+      "same_event": false
+    },
     "654749c348d5286e--d59971dc5ad69759": {
       "embedding_similarity": 0.8565,
       "left_title": "체코 원전 규제기관, 한국 두코바니 원전 품질관리 현장 첫 점검",
@@ -169780,6 +169920,16 @@
       "reason": "앤트로픽과 HD현대로 주체 다름",
       "reviewed_at": "2026-11-11T22:02:35.159432+00:00",
       "right_title": "HD현대, AI 데이터센터 전력시장 공략…엔진·전력기기 계열사 총출동",
+      "same_event": false
+    },
+    "6d2657faa9f744ce--e7488306805a86c4": {
+      "embedding_similarity": 0.8701,
+      "left_title": "앤트로픽, 4.6조원 가스발전기 확보…AI 전력 확보 경쟁 심화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력 설비 확보와 기업가치 달성",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "AI 스타트업 앤트로픽, 상장 후 기업가치 2조 달러 돌파",
       "same_event": false
     },
     "6d2657faa9f744ce--f94c9cccbbc37e50": {
@@ -229842,6 +229992,16 @@
       "right_title": "한국전력기술, 한국선급과 손잡고 해양 SMR '반디' 설계 검토 및 인증 착수",
       "same_event": false
     },
+    "a777ead97a55693d--a7dbd0315650ea4b": {
+      "embedding_similarity": 0.8706,
+      "left_title": "美 연준, AI 데이터센터 자금 조달 급증에 따른 금융시스템 취약성 경고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "연준 경고와 엔비디아의 기업 정책",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "엔비디아, AI 금융 모델 전환…고객사 지분투자·보증 축소",
+      "same_event": false
+    },
     "a7d1f09e47935d2a--aaa232f2b9b0540b": {
       "embedding_similarity": 0.859,
       "left_title": "정부, 유턴기업 지방 유치 위해 산업용 전기요금 지역차등제 도입",
@@ -245342,6 +245502,26 @@
       "right_title": "미국, 사용후핵연료 재활용 'REDUCE' 프로젝트 개발 중",
       "same_event": false
     },
+    "be6f5d05c8589bd8--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.8723,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "건설 반대 이슈와 전력 수요 동향",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "미국 데이터센터 전력 수요 300GW 중 77% 민주당 주에 집중, 121GW 증설 전망",
+      "same_event": false
+    },
+    "be6f5d05c8589bd8--e438a4fbf3544881": {
+      "embedding_similarity": 0.8712,
+      "left_title": "미국, 데이터센터 전력망 비용 부담 및 송전망 인허가 간소화 입법 논의 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "입법 논의와 전력 수요 통계",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "미국 데이터센터 전력 수요 300GW 중 77% 민주당 주에 집중, 121GW 증설 전망",
+      "same_event": false
+    },
     "be6f5d05c8589bd8--e80f2115f548f738": {
       "embedding_similarity": 0.8812,
       "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
@@ -246441,6 +246621,16 @@
       "reviewed_at": "2026-10-24T11:21:38.970250+00:00",
       "right_title": "국내 전력기기 4사, 3분기 영업익 45% 증가 전망…성장 기대감은 주춤",
       "same_event": false
+    },
+    "c08e7018df06324f--dad204d35bdb2b27": {
+      "embedding_similarity": 0.8725,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "동일 IEA 2026 보고서 발표",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "IEA, '세계에너지전망 2026'서 한국 재생에너지 100GW 계획 긍정 평가",
+      "same_event": true
     },
     "c095725d7d7013b5--c5bcef313300167e": {
       "embedding_similarity": 0.8644,
@@ -251620,6 +251810,16 @@
       "reason": "2038년 고준위 방폐장 부지 선정 계획 보도",
       "reviewed_at": "2026-11-20T23:31:55.423512+00:00",
       "right_title": "고준위 방사성폐기물 영구처분장 부지 선정 절차 재개…2038년 부지 선정 목표",
+      "same_event": true
+    },
+    "c88f53a8215026f3--f562a18265b27537": {
+      "embedding_similarity": 0.8762,
+      "left_title": "정부, 2038년까지 고준위 방폐장 부지 확정…제3차 관리 기본계획 초안 공개",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐장 부지 확보 계획 발표",
+      "reviewed_at": "2026-11-22T05:10:08.784167+00:00",
+      "right_title": "한국, 사용후핵연료 최종 처분시설 부지 확보 본격화",
       "same_event": true
     },
     "c8b6134bc8a382df--fbd3322d6a137c46": {
