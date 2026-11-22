@@ -112,6 +112,16 @@
       "right_title": "[IR 분석] HD현대마린솔루션, 해상 데이터센터 '검토→초기 설계'로 진전",
       "same_event": false
     },
+    "00309a69cf3ffa62--2dbbc57aa8e00e0c": {
+      "embedding_similarity": 0.8914,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "AIDC 특별법 하위법령 추진",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "과기정통부, AIDC 특별법 하위법령 입법예고…인허가·전력평가 기준 구체화",
+      "same_event": true
+    },
     "00309a69cf3ffa62--ed47c9e2405862c1": {
       "embedding_similarity": 0.8571,
       "left_title": "천안·아산·원주 AI 특화도시 조성 위한 법안 발의",
@@ -10080,6 +10090,26 @@
       "reason": "한국형 핵잠수함 사업 추진 사안",
       "reviewed_at": "2026-11-21T09:40:34.693058+00:00",
       "right_title": "방위사업청, 29조원 규모 한국형 핵잠수함 '장보고N' 사업추진전략 의결",
+      "same_event": true
+    },
+    "058aacb22e4b4aa5--220a270f7b5409c8": {
+      "embedding_similarity": 0.8879,
+      "left_title": "미 에너지부, 푸에르토리코 전력망 안정화 위한 긴급 명령 재확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "대상 지역 및 발전소가 다름",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 에너지부, 펜실베이니아 발전소 2기 가동 유지 긴급 명령",
+      "same_event": false
+    },
+    "058aacb22e4b4aa5--5b3bc01b4fda0674": {
+      "embedding_similarity": 0.9181,
+      "left_title": "美 에너지부, 중부 대서양 지역 전력망 안정화 위한 긴급 명령 발동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 에너지부 발전소 긴급 명령 동일 사건",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 에너지부, 펜실베이니아 발전소 2기 가동 유지 긴급 명령",
       "same_event": true
     },
     "058aacb22e4b4aa5--76c56f7113ec64a8": {
@@ -26252,6 +26282,16 @@
       "right_title": "한국, SMR 규제체계 2029년 시범 적용…상용화 속도 지연",
       "same_event": false
     },
+    "0d52b8dc9183542b--a4db21be15cef204": {
+      "embedding_similarity": 0.9036,
+      "left_title": "한국 정부, SMR 인허가 절차 가속화 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 인허가 절차 가속화 보도",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "차세대 원전 SMR 개발 빨라지나…사전검토제 본격 시행",
+      "same_event": true
+    },
     "0d52b8dc9183542b--bbda762b30ab319d": {
       "embedding_similarity": 0.8748,
       "left_title": "과기정통부, SMR 등 7대 첨단기술 육성전략 연내 마련 추진",
@@ -37662,6 +37702,16 @@
       "right_title": "완전히 결별…한수원, ‘체코 원전 시공’ 대우건설과 공식 계약 종료",
       "same_event": true
     },
+    "138f231fbdca2b17--71ccdebe11108c37": {
+      "embedding_similarity": 0.8554,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공 컨소시엄 계약 종료",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 대우건설 컨소시엄과 공식 계약 종료",
+      "same_event": false
+    },
     "138f231fbdca2b17--75c9ca256e559815": {
       "embedding_similarity": 0.8623,
       "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
@@ -46392,6 +46442,16 @@
       "right_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
       "same_event": false
     },
+    "18c0c740a02e4b3b--7bef19243e21e2f1": {
+      "embedding_similarity": 0.8854,
+      "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협상 결렬/종료 보도",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협력 협약 종료…공사비 이견",
+      "same_event": true
+    },
     "18c0c740a02e4b3b--7d38eb2873f314b9": {
       "embedding_similarity": 0.9199,
       "left_title": "한수원-대우건설 컨소시엄, 체코 원전 시공 협상 공사 물량 이견으로 결렬",
@@ -54052,6 +54112,16 @@
       "right_title": "체코 원자력안전청, 두코바니 원전 설계 품질보증감사 최초 참관",
       "same_event": false
     },
+    "1c099e39bd8f3c0f--7bef19243e21e2f1": {
+      "embedding_similarity": 0.8933,
+      "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 원전 시공 협력 종료 동일 보도",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협력 협약 종료…공사비 이견",
+      "same_event": true
+    },
     "1c099e39bd8f3c0f--7d38eb2873f314b9": {
       "embedding_similarity": 0.8896,
       "left_title": "한수원, 체코 두코바니 원전 시공 협력 종료…새 시공사 선정 착수",
@@ -60090,6 +60160,16 @@
       "reason": "전반적 추진과 특정 원전 검토 차이",
       "reviewed_at": "2026-11-07T09:39:16.002157+00:00",
       "right_title": "필리핀, 가동 중단된 바탄 원전 재가동 검토",
+      "same_event": false
+    },
+    "1e7f0d6782d3102e--dad204d35bdb2b27": {
+      "embedding_similarity": 0.8953,
+      "left_title": "IEA, 2026년 세계 에너지 전망 보고서 발표…원자력 발전량 증가 전망",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "보고서 내용 및 배경이 다름",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "IEA, 중동발 에너지 위기로 원자력 발전 재부상 전망",
       "same_event": false
     },
     "1e818f67472e00b1--7f87d6b4d86a0190": {
@@ -82900,6 +82980,16 @@
       "reason": "수도권 심사 강화와 면제 추진으로 다름",
       "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
       "right_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "same_event": false
+    },
+    "2dbbc57aa8e00e0c--f61ff0fc4b06c133": {
+      "embedding_similarity": 0.9016,
+      "left_title": "정부, 내년 3월 AI 데이터센터 특별법 시행 맞춰 전력계통영향평가 면제",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전력평가 면제와 주가 동향 차이",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "美 데이터센터 규제 우려 속 韓 건설주, 반사이익 기대",
       "same_event": false
     },
     "2dd3840274a506c5--44a52742358c109b": {
@@ -106012,6 +106102,16 @@
       "right_title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
       "same_event": false
     },
+    "3b7660b8e26dbdc0--d0559adbabdcb23f": {
+      "embedding_similarity": 0.9128,
+      "left_title": "구글, 초고온 지열발전 기업 퀘이즈에너지와 50MW 전력구매계약 체결",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "구글의 지열발전 계약 보도",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "구글, AI 데이터센터 전력 수요 대응 위해 지열발전 확보 나서",
+      "same_event": true
+    },
     "3b7f97efffe4bc0d--9a94d3be8028be9e": {
       "embedding_similarity": 0.866,
       "left_title": "기후부, 계절별 송전용량 시범사업 착수…전력망 효율 높인다",
@@ -108041,6 +108141,16 @@
       "reviewed_at": "2026-11-12T18:53:20.076559+00:00",
       "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
       "same_event": true
+    },
+    "3cfe3369edbf4cc2--71ccdebe11108c37": {
+      "embedding_similarity": 0.8401,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 팀코리아 비상 대응",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 협상 결렬…정부, 팀코리아 결집 비상",
+      "same_event": false
     },
     "3cfe3369edbf4cc2--75c9ca256e559815": {
       "embedding_similarity": 0.8534,
@@ -137022,6 +137132,16 @@
       "right_title": "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입",
       "same_event": true
     },
+    "54347471b55494e7--a00af92fae402c47": {
+      "embedding_similarity": 0.9112,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "내년부터 원전 전력가격 미리 정한다…'차액계약' 도입",
+      "same_event": true
+    },
     "543d86a77f49a2d1--82d5b5981995316a": {
       "embedding_similarity": 0.8471,
       "left_title": "강원, 석탄 산업 전환 지역의 데이터센터 유치 전략 모색",
@@ -137130,6 +137250,16 @@
       "reason": "기업 입장 발표와 선거 결과",
       "reviewed_at": "2026-11-15T18:43:30.687838+00:00",
       "right_title": "美 중간선거서 AI 데이터센터 건설 규제안 44건 통과, 주민 반발 확산",
+      "same_event": false
+    },
+    "54546cb8c4dd7095--cd3c47ebe16b3507": {
+      "embedding_similarity": 0.8938,
+      "left_title": "美 중간선거서 AI 데이터센터 건설 규제안 44건 통과, 주민 반발 확산",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제안 통과와 주 입법 추진 차이",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
       "same_event": false
     },
     "54546cb8c4dd7095--cf2202c2b99d22f7": {
@@ -140542,6 +140672,16 @@
       "right_title": "한수원, 체코 원전 시공계약 지연 시 전체 사업 일정에 악영향 우려 표명",
       "same_event": false
     },
+    "56f48df2b4225e64--71ccdebe11108c37": {
+      "embedding_similarity": 0.8451,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공계약 지연 우려 표명",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 원전 시공계약 지연 시 전체 사업 일정에 악영향 우려 표명",
+      "same_event": false
+    },
     "56f48df2b4225e64--75c9ca256e559815": {
       "embedding_similarity": 0.8656,
       "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
@@ -143152,6 +143292,16 @@
       "right_title": "중국 하이난 첫 화룽원 원전 상업가동, AI 전력 수요 대응",
       "same_event": true
     },
+    "58585556d0957e36--6335e4232d2a9116": {
+      "embedding_similarity": 0.9024,
+      "left_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 한국 핵잠 보고서 공개",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "IAEA, 한국 핵추진잠수함 안전조치 신고 의무 이행 '만족' 보고서 공개",
+      "same_event": true
+    },
     "58585556d0957e36--93aa4b72b0ff8598": {
       "embedding_similarity": 0.8871,
       "left_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
@@ -143159,6 +143309,16 @@
       "prompt_version": 1,
       "reason": "미국 정부 입장과 IAEA 보고서로 다름",
       "reviewed_at": "2026-11-21T13:54:14.397901+00:00",
+      "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
+      "same_event": false
+    },
+    "58585556d0957e36--95d8055e93aa9863": {
+      "embedding_similarity": 0.8885,
+      "left_title": "정부, 한국형 핵추진잠수함 '장보고 N사업' 추진 확정",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 사업 확정과 IAEA 보고서",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
       "right_title": "IAEA, 한국 핵추진잠수함 계획 첫 공식 보고서서 신고 의무 이행 확인",
       "same_event": false
     },
@@ -152859,6 +153019,16 @@
       "prompt_version": 1,
       "reason": "점검회의와 시공계약 협상 결렬은 별개",
       "reviewed_at": "2026-11-15T22:14:00.983408+00:00",
+      "right_title": "한수원-대우건설, 26조 체코 원전 시공 계약 협상 결렬",
+      "same_event": false
+    },
+    "614ac17cfc27af12--71ccdebe11108c37": {
+      "embedding_similarity": 0.8526,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공 계약 협상 결렬",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
       "right_title": "한수원-대우건설, 26조 체코 원전 시공 계약 협상 결렬",
       "same_event": false
     },
@@ -164392,6 +164562,16 @@
       "right_title": "루마니아 체르나보다 원전, 가뭄으로 인한 가동 중단 후 재가동",
       "same_event": false
     },
+    "69557c6ecc90c873--a00af92fae402c47": {
+      "embedding_similarity": 0.9132,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "정부, 내년부터 원전 전력거래에 기준가격 차액 정산 제도 적용",
+      "same_event": true
+    },
     "695f6dbbf28db5df--de243b28fc02b0b1": {
       "embedding_similarity": 0.8924,
       "left_title": "EU, 데이터센터 에너지·물 소비량 등급제 추진…내년 첫 등급 공개 예정",
@@ -165542,6 +165722,16 @@
       "right_title": "기후에너지환경부, 제12차 전기본 수립 앞두고 원전 공론화 추진",
       "same_event": true
     },
+    "6a5a8570fc506fde--71ccdebe11108c37": {
+      "embedding_similarity": 0.8462,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 지자체 관광객 공략",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "체코 비소치나주, 한수원 원전 건설 계기로 한국 관광객 공략 본격화",
+      "same_event": false
+    },
     "6a5a8570fc506fde--75c9ca256e559815": {
       "embedding_similarity": 0.8422,
       "left_title": "체코 원전 시공사 협상 결렬, AI 전력 수요 증가로 원전 증설 필요성 부각",
@@ -166679,6 +166869,16 @@
       "prompt_version": 1,
       "reason": "이사회 보고 누락과 노조 반박 주장",
       "reviewed_at": "2026-11-12T16:10:59.876423+00:00",
+      "right_title": "체코 원전 협상 논란: 대우건설 노조, 한수원 해명 반박하며 단가 인하 요구 주장",
+      "same_event": false
+    },
+    "6b3cc4b2057c3f12--71ccdebe11108c37": {
+      "embedding_similarity": 0.8401,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 대우건설 노조 반박",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
       "right_title": "체코 원전 협상 논란: 대우건설 노조, 한수원 해명 반박하며 단가 인하 요구 주장",
       "same_event": false
     },
@@ -174022,6 +174222,16 @@
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
       "same_event": false
     },
+    "71ccdebe11108c37--a0bd99a6adee66ca": {
+      "embedding_similarity": 0.8417,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 우선협상대상자 선정",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "체코 두코바니 원전 2기, 팀코리아 우선협상대상자 선정",
+      "same_event": false
+    },
     "71ccdebe11108c37--a2a59a20cb58dbb9": {
       "embedding_similarity": 0.8523,
       "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
@@ -174030,6 +174240,36 @@
       "reason": "시공 협상 결렬과 냉각탑 입찰은 별개 안건",
       "reviewed_at": "2026-11-20T23:31:55.423512+00:00",
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "same_event": false
+    },
+    "71ccdebe11108c37--a4791970d3e08eb6": {
+      "embedding_similarity": 0.8463,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공 계약 결렬 후 재협상",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원-대우건설 체코 원전 시공계약 결렬 후 재협상 진통",
+      "same_event": false
+    },
+    "71ccdebe11108c37--ab44af9b07eec487": {
+      "embedding_similarity": 0.8403,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 산업부 장관 발언",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "김정관 산업부 장관 \"체코 원전 사업 무산 안 돼\"; 한수원 \"일정 준수 가능\"",
+      "same_event": false
+    },
+    "71ccdebe11108c37--ae09c2ba2fd18513": {
+      "embedding_similarity": 0.8537,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 국회 진상 규명 요구",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 원전 시공사 교체 논란…국회 진상 규명 요구",
       "same_event": false
     },
     "71ccdebe11108c37--b22752614b32b68a": {
@@ -174050,6 +174290,16 @@
       "reason": "시공 협상 중재 요청과 냉각탑 입찰은 별개",
       "reviewed_at": "2026-11-20T23:31:55.423512+00:00",
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "same_event": false
+    },
+    "71ccdebe11108c37--bd89f9792252c71f": {
+      "embedding_similarity": 0.8445,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공사 선정 난항",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공사 선정 난항…공사비 증가 위험 이견",
       "same_event": false
     },
     "71ccdebe11108c37--bf1eecd8010217e2": {
@@ -174102,6 +174352,26 @@
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
       "same_event": false
     },
+    "71ccdebe11108c37--da202902bce3f551": {
+      "embedding_similarity": 0.8406,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 국회 청문회 요구",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "국회, 한수원 체코 원전 시공사 교체 논란 관련 청문회 개최 요구",
+      "same_event": false
+    },
+    "71ccdebe11108c37--dc08c86f65e7bda7": {
+      "embedding_similarity": 0.8574,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 시공 협상 종료는 별개",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 원전 사업 시공 계약 협상 종료…새 시공사 물색",
+      "same_event": false
+    },
     "71ccdebe11108c37--e09594c8f3712b11": {
       "embedding_similarity": 0.9152,
       "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
@@ -174120,6 +174390,16 @@
       "reason": "개별 입찰 건과 시공협상 결렬 분석은 다름",
       "reviewed_at": "2026-11-21T22:16:07.188711+00:00",
       "right_title": "K원전, 체코 시공협상 결렬로 추가 수주 '시험대'",
+      "same_event": false
+    },
+    "71ccdebe11108c37--fd348296675d2b65": {
+      "embedding_similarity": 0.8562,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 입찰 절차 본격화…내년 상반기 계약 목표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "냉각탑 입찰과 정부 일정 관리 별개 안건",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "체코 원전사업, 정부 주 단위 일정 관리…설계·인허가·시공사 선정 점검",
       "same_event": false
     },
     "71d3f7582351534b--b35eb3f20deb19c6": {
@@ -187872,6 +188152,26 @@
       "right_title": "한수원-프랑스 오라노, 신규 농축시설 기반 장기 농축역무 공급 협력 추진",
       "same_event": true
     },
+    "7bef19243e21e2f1--a2a59a20cb58dbb9": {
+      "embedding_similarity": 0.8569,
+      "left_title": "체코 두코바니 원전 협상 결렬…공사비 증액 대비 물량 확대 요구 충돌",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공사비 이견으로 인한 시공 협상 결렬",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협력 협약 종료…공사비 이견",
+      "same_event": true
+    },
+    "7bef19243e21e2f1--b851201523b44ceb": {
+      "embedding_similarity": 0.8428,
+      "left_title": "대우건설, 체코 두코바니 원전 사업 관련 한수원과 정부 중재 요청",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "중재 요청 건과 협력 협약 종료 건",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 시공 협력 협약 종료…공사비 이견",
+      "same_event": false
+    },
     "7bf4225197893629--f3b6090fdd9fab64": {
       "embedding_similarity": 0.8984,
       "left_title": "글로벌 AI 데이터센터 2027년까지 45% 전력난으로 무산 위기",
@@ -195212,6 +195512,16 @@
       "right_title": "한국, SMR 규제체계 2029년 시범 적용…상용화 속도 지연",
       "same_event": false
     },
+    "83fd6f2c31241aa7--a4db21be15cef204": {
+      "embedding_similarity": 0.9173,
+      "left_title": "원안위, 이달 말 SMR 사전 검토 시스템 도입 예정…국내외 10여개 기업 관심",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "SMR 사전검토제 도입/시행 동일 사건",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "차세대 원전 SMR 개발 빨라지나…사전검토제 본격 시행",
+      "same_event": true
+    },
     "83fd6f2c31241aa7--b01cd4ff35bac0db": {
       "embedding_similarity": 0.9103,
       "left_title": "원안위, 이달 말 SMR 사전 검토 시스템 도입 예정…국내외 10여개 기업 관심",
@@ -198681,6 +198991,16 @@
       "reviewed_at": "2026-11-19T16:14:14.849859+00:00",
       "right_title": "한울원전 등 원전 내 고준위 방사성폐기물 포화 임박에 따른 의견 수렴 진행",
       "same_event": false
+    },
+    "8708eff7b304fde4--f562a18265b27537": {
+      "embedding_similarity": 0.9116,
+      "left_title": "고준위 방폐장 부지 선정 착수…원전 지역 장기 저장 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "고준위 방폐장 부지선정 착수",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "한국, 사용후핵연료 최종 처분시설 부지 확보 본격화",
+      "same_event": true
     },
     "8714991df4bab3e8--b795e4f7e7503f80": {
       "embedding_similarity": 0.857,
@@ -221082,6 +221402,16 @@
       "right_title": "삼성물산, 카이로스파워에 1000억원 투자…비경수로형 SMR 사업 확장",
       "same_event": true
     },
+    "9dfa0a36c5c6cfb6--c05437aa0f822e8c": {
+      "embedding_similarity": 0.9089,
+      "left_title": "미국, SMR 시대 대비 원전 인력 37만5천명 필요…인재양성 가속화",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "美 에너지부 원전 인력 전망",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 에너지부, 2050년까지 37만 명 이상의 숙련된 원자력 인력 필요",
+      "same_event": true
+    },
     "9dfdcd2ff80a1e22--dcb01ec8f4a23259": {
       "embedding_similarity": 0.9045,
       "left_title": "DL이앤씨, 미국 엑스에너지와 SMR 표준화 설계 계약 체결",
@@ -222501,6 +222831,46 @@
       "reviewed_at": "2026-09-26T20:49:34.079731+00:00",
       "right_title": "이터나퓨전, 24시간 연속운전 핵융합 발전 기술 개발 추진",
       "same_event": false
+    },
+    "a00af92fae402c47--b72aa8719628c268": {
+      "embedding_similarity": 0.9034,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "원전 전기값, 2027년부터 '차액계약'으로 정산…주력 전원 첫 적용",
+      "same_event": true
+    },
+    "a00af92fae402c47--ccb5279c0c4de8d2": {
+      "embedding_similarity": 0.896,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "내년부터 원전 전력가격 미리 결정…한전-한수원 차액 정산",
+      "same_event": true
+    },
+    "a00af92fae402c47--e0d0d5e13cd70291": {
+      "embedding_similarity": 0.9166,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "내년부터 원전 전력, 기준가격으로 거래… 정부승인차액계약 첫 적용",
+      "same_event": true
+    },
+    "a00af92fae402c47--f3867db51e256f14": {
+      "embedding_similarity": 0.9012,
+      "left_title": "기후에너지환경부, 2027년 1월 1일부터 원자력발전 차액계약 제도 전격 적용 발표",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 차액계약 제도 적용 발표",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "내년부터 원전 차액계약 첫 적용…한전·한수원 전력거래 5년간 안정화",
+      "same_event": true
     },
     "a015fd8bcd8b76f6--ed964abc478fa449": {
       "embedding_similarity": 0.8844,
@@ -241722,6 +242092,16 @@
       "right_title": "미국 ESS 시장 성장, 한국 배터리 기업 실적 개선 기대",
       "same_event": false
     },
+    "b9d0d55f143a9dfd--d616bd40867d817a": {
+      "embedding_similarity": 0.906,
+      "left_title": "K배터리, 북미 ESS 시장 공략 가속…삼성SDI·LG엔솔 대규모 수주",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "수주 분야 및 사안이 다름",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "LG엔솔·삼성SDI, AI 데이터센터 공략…통합 전력 솔루션 강화",
+      "same_event": false
+    },
     "b9d0d55f143a9dfd--d6a1b9b8082cbf59": {
       "embedding_similarity": 0.8734,
       "left_title": "K배터리, 북미 ESS 시장 공략 가속…삼성SDI·LG엔솔 대규모 수주",
@@ -252910,6 +253290,26 @@
       "reason": "주체는 같으나 안건이 다름",
       "reviewed_at": "2026-08-25T12:59:14.321374+00:00",
       "right_title": "정기선 HD현대 회장, 빌 게이츠와 SMR 협력 논의 위해 재회",
+      "same_event": false
+    },
+    "cd3c47ebe16b3507--cf2202c2b99d22f7": {
+      "embedding_similarity": 0.9084,
+      "left_title": "美, AI 데이터센터 건설 제동…전기요금 부담에 초당파적 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "AI 데이터센터 규제 관련 별개 사안",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
+      "same_event": false
+    },
+    "cd3c47ebe16b3507--fbe704edbf03e77f": {
+      "embedding_similarity": 0.8984,
+      "left_title": "미국 중간선거 '블루웨이브' 후 AI 데이터센터 규제·전력망 확충 영향 분석",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "업계 분석과 주 정부 규제 추진",
+      "reviewed_at": "2026-11-22T00:49:48.782963+00:00",
+      "right_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
       "same_event": false
     },
     "cd41a2521da2b627--d793c1b7b8c06295": {
