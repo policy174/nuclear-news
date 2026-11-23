@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 1,
+    "count": 2,
     "date": "2026-11-24"
   },
   "retired": {
@@ -219,14 +219,6 @@
       "term": "공동대응기구",
       "type": "org",
       "until": "2026-10-18T15:39:27.510570+00:00"
-    },
-    "공론화위원회": {
-      "new_articles": 0,
-      "reason": "성과 없음",
-      "retired_at": "2026-09-24T16:54:45.073696+00:00",
-      "term": "공론화위원회",
-      "type": "org",
-      "until": "2026-10-08T16:54:45.073696+00:00"
     },
     "관세청": {
       "new_articles": 0,
@@ -1390,7 +1382,7 @@
     }
   },
   "spent": {
-    "count": 1,
+    "count": 4,
     "date": "2026-11-24"
   },
   "terms": {
@@ -1427,12 +1419,12 @@
       ],
       "expires_at": "2026-11-26T11:41:11.437645+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 24,
-      "last_run": "2026-11-23T11:41:13.789212+00:00",
-      "new_articles": 24,
+      "last_result_count": 1,
+      "last_run": "2026-11-23T22:09:06.844578+00:00",
+      "new_articles": 25,
       "origin": "auto",
-      "planned_at": "2026-11-23T11:41:11.437645+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-23T22:09:04.762301+00:00",
+      "queries_run": 2,
       "query": "ASME 원자력",
       "score": 13.1,
       "status": "extended",
@@ -1440,10 +1432,50 @@
       "ttl_hours": 72,
       "type": "company",
       "yield_days": [
-        "2026-11-23"
+        "2026-11-23",
+        "2026-11-24"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
+    },
+    "heu": {
+      "articles": 2,
+      "created_at": "2026-11-23T22:09:04.762301+00:00",
+      "domains": [
+        "munhwa.com",
+        "world-nuclear-news.org"
+      ],
+      "evidence": [
+        {
+          "domain": "munhwa.com",
+          "hash": "fbf7c3009b00eb37",
+          "importance": "noise",
+          "title": "北, 영변 핵 원심분리기 추가 설치… HEU 연간 35㎏ 증산 가능"
+        },
+        {
+          "domain": "world-nuclear-news.org",
+          "hash": "eabbccefbaa2ef1e",
+          "importance": "must_read",
+          "title": "FRM II 연구로 전환 위한 첫 저농축 우라늄 연료판 제작 완료"
+        }
+      ],
+      "expires_at": "2026-11-24T22:09:04.762301+00:00",
+      "importance": "must_read",
+      "last_result_count": 0,
+      "last_run": "2026-11-23T22:09:06.844578+00:00",
+      "new_articles": 0,
+      "origin": "auto",
+      "planned_at": "2026-11-23T22:09:04.762301+00:00",
+      "queries_run": 1,
+      "query": "HEU 원자력",
+      "score": 4.34,
+      "status": "tracking",
+      "term": "HEU",
+      "ttl_hours": 24,
+      "type": "company",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "uvpp": {
       "articles": 4,
@@ -1658,12 +1690,12 @@
       ],
       "expires_at": "2026-11-26T11:41:11.437645+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 21,
-      "last_run": "2026-11-23T11:41:13.789212+00:00",
-      "new_articles": 21,
+      "last_result_count": 1,
+      "last_run": "2026-11-23T22:09:06.844578+00:00",
+      "new_articles": 22,
       "origin": "auto",
-      "planned_at": "2026-11-23T11:41:11.437645+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-23T22:09:04.762301+00:00",
+      "queries_run": 2,
       "query": "획득 효성굿스프링스 원전",
       "score": 8.0,
       "status": "extended",
@@ -1671,9 +1703,10 @@
       "ttl_hours": 72,
       "type": "plant",
       "yield_days": [
-        "2026-11-23"
+        "2026-11-23",
+        "2026-11-24"
       ],
-      "yields": 1,
+      "yields": 2,
       "zero_streak": 0
     }
   },
