@@ -156,6 +156,14 @@
       "type": "company",
       "until": "2026-12-01T09:02:37.046156+00:00"
     },
+    "uvpp": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-24T14:23:55.631458+00:00",
+      "term": "U-VPP",
+      "type": "company",
+      "until": "2026-12-08T14:23:55.631458+00:00"
+    },
     "wano": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1100,6 +1108,14 @@
       "type": "plant",
       "until": "2026-11-06T15:54:22.992596+00:00"
     },
+    "참여중인": {
+      "new_articles": 4,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-24T14:23:55.631458+00:00",
+      "term": "참여 중인",
+      "type": "plant",
+      "until": "2026-12-08T14:23:55.631458+00:00"
+    },
     "체코관광청": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1461,55 +1477,6 @@
       "yields": 0,
       "zero_streak": 2
     },
-    "uvpp": {
-      "articles": 4,
-      "created_at": "2026-11-23T14:08:59.503008+00:00",
-      "domains": [
-        "pinpointnews.co.kr",
-        "betanews.net",
-        "energydaily.co.kr",
-        "dailian.co.kr"
-      ],
-      "evidence": [
-        {
-          "domain": "pinpointnews.co.kr",
-          "hash": "235d107c73819800",
-          "importance": "nice_to_know",
-          "title": "한국동서발전·울산시, 공공참여형 가상발전소(U-VPP) 구축 추진"
-        },
-        {
-          "domain": "betanews.net",
-          "hash": "961ecc220636d6ee",
-          "importance": "nice_to_know",
-          "title": "동서발전·울산시, AI 시대 전력수요 대응 위해 울산형 가상발전소(U-VPP) 구축"
-        },
-        {
-          "domain": "energydaily.co.kr",
-          "hash": "ef68daec225e2636",
-          "importance": "nice_to_know",
-          "title": "한국동서발전·울산시, AI 시대 전력망 대응 위한 울산형 가상발전소 구축 협약"
-        }
-      ],
-      "expires_at": "2026-11-24T14:09:01.122463+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-23T22:47:21.677910+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-11-23T22:47:19.077441+00:00",
-      "queries_run": 2,
-      "query": "U-VPP 원자력",
-      "score": 3.18,
-      "status": "extended",
-      "term": "U-VPP",
-      "ttl_hours": 24,
-      "type": "company",
-      "yield_days": [
-        "2026-11-23"
-      ],
-      "yields": 1,
-      "zero_streak": 1
-    },
     "기계학회": {
       "articles": 3,
       "created_at": "2026-11-23T16:53:53.220179+00:00",
@@ -1655,40 +1622,6 @@
       ],
       "yields": 1,
       "zero_streak": 0
-    },
-    "참여중인": {
-      "articles": 1,
-      "created_at": "2026-11-23T14:08:59.503008+00:00",
-      "domains": [
-        "chosun.com"
-      ],
-      "evidence": [
-        {
-          "domain": "chosun.com",
-          "hash": "479ed0cfd5810b02",
-          "importance": "must_read",
-          "title": "12차 전기본 원전 공론화위, 원전 전문가 3인 논의 목적·범위 이견으로 활동 잠정 중단"
-        }
-      ],
-      "expires_at": "2026-11-24T14:09:01.122463+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-23T22:47:21.677910+00:00",
-      "new_articles": 4,
-      "origin": "auto",
-      "planned_at": "2026-11-23T22:47:19.077441+00:00",
-      "queries_run": 2,
-      "query": "참여 중인 원전",
-      "score": 3.6,
-      "status": "extended",
-      "term": "참여 중인",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [
-        "2026-11-23"
-      ],
-      "yields": 1,
-      "zero_streak": 1
     },
     "획득효성굿스프링스": {
       "articles": 5,
