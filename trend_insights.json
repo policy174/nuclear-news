@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-25T07:57:09.594291+09:00",
+ "generated_at": "2026-11-25T14:23:43.609232+09:00",
  "window": "7d",
  "items": [
   {
    "keyword": "데이터센터",
-   "count_now": 161,
+   "count_now": 163,
    "count_prev": 156,
-   "direction": "미국 46개 주 등에서 데이터센터 전력 및 물 사용량 증가로 규제가 강화되는 한편, 국내외에서는 건설사와 기업들의 인프라 운영 및 통합엔지니어링 협력, AI 데이터센터 구축 추진이 이어지고 있다.",
+   "direction": "글로벌 데이터센터는 전력 및 물 사용량 급증으로 미국과 중국 등에서 규제 강화와 전력 공급 안전성 점검이 이루어지는 등 환경적, 정책적 압력에 직면하고 있습니다. 이러한 가운데 AI 산업의 전력 확보 난제를 해결하기 위해 바이오컴퓨팅 연구, 자원 관리 플랫폼 출시, 통합 엔지니어링 협력 등 기술적 효율성 증대 노력이 활발하며, 글로벌 빅테크 기업들은 원전 및 SMR 확보를 통해 안정적인 전력원을 모색하고 있습니다. 국내에서는 건설사들이 데이터센터 운영 사업으로 영역을 확장하고 대규모 국방 AI 데이터센터 구축이 추진되는 등 지속적인 성장과 함께 최적화된 개발 및 운영 방안이 모색되는 흐름입니다.",
    "evidence": [
     {
      "hash": "ca0ac11c8fe33810",
@@ -21,6 +21,18 @@
      "date": "2026-11-25"
     },
     {
+     "hash": "6e5727d10b8483d9",
+     "title_kr": "AI 전력난 해소 위해 뇌 신경세포 활용 바이오컴퓨팅 연구 활발",
+     "url": "https://www.dailycar.co.kr/content/news.html?autoId=63291&type=view",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "a1ff330d0480a008",
+     "title_kr": "티사이언티픽, AI 데이터센터 GPU 전력·자원 관리 플랫폼 '호크아이' 출시",
+     "url": "https://www.vegannews.co.kr/news/article.html?no=410676",
+     "date": "2026-11-25"
+    },
+    {
      "hash": "817039f528815445",
      "title_kr": "GS건설, 데이터센터 통합엔지니어링 체계 구축 위해 4개사 협력",
      "url": "https://www.sentv.co.kr/article/view/sentv202611230246",
@@ -31,14 +43,26 @@
      "title_kr": "한화에어로스페이스, 경남 창원에 10조원 규모 국방 AI 데이터센터 구축 추진",
      "url": "https://www.news2day.co.kr/article/20261125500015",
      "date": "2026-11-25"
+    },
+    {
+     "hash": "3da2a3f46b759b70",
+     "title_kr": "중국 구이저우 에너지감독사무소, 데이터센터 전력공급 안전성 조사 강화",
+     "url": "https://it.chosun.com/news/articleView.html?idxno=3000000001647",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "9ebb8169d933d4a9",
+     "title_kr": "글로벌 빅테크, AI 전력 병목 해소 위해 원전·SMR 확보 추진",
+     "url": "https://www.newsian.co.kr/news/articleView.html?idxno=101752",
+     "date": "2026-11-25"
     }
    ]
   },
   {
    "keyword": "SMR",
-   "count_now": 100,
+   "count_now": 106,
    "count_prev": 121,
-   "direction": "정부의 '7대 시드 프로젝트'에 SMR이 포함되고 두산에너빌리티가 핵심 기자재 계약 체결 및 생산거점 조성을 논의하는 등 국내외에서 SMR 육성과 사업화 움직임이 전개되고 있다.",
+   "direction": "SMR은 국내외에서 미래 성장 동력 및 핵심 전력원으로 주목받으며, 정부 차원의 '7대 시드 프로젝트' 포함 및 조기 상용화 R&D 추진과 같은 육성 정책과 연구개발 지원이 활발히 이루어지고 있습니다. 특히, AI 데이터센터의 전력 수요 증가에 대응하기 위한 글로벌 빅테크 기업들의 SMR 확보 움직임과 미국 NASA의 달 기지용 소형 원자로 개발 공모 등 다양한 분야에서의 활용 가능성이 모색되고 있습니다. 국내에서는 창원시가 SMR 및 방위산업 혁신 거점으로 도심융합특구 후보지로 선정되었으며, 미국 기업의 SMR 양산 체제 구축과 국내 기업의 동남아시아 시장 진출 전략 등 상용화 및 시장 확대 흐름이 관찰됩니다.",
    "evidence": [
     {
      "hash": "7ac3e1f424662e80",
@@ -47,25 +71,73 @@
      "date": "2026-11-25"
     },
     {
-     "hash": "f44fd99cd983625f",
-     "title_kr": "경상남도, 두산에너빌리티와 SMR 생산거점 조성 논의",
-     "url": "https://www.newscj.com/news/articleView.html?idxno=3451286",
-     "date": "2026-11-24"
+     "hash": "9ebb8169d933d4a9",
+     "title_kr": "글로벌 빅테크, AI 전력 병목 해소 위해 원전·SMR 확보 추진",
+     "url": "https://www.newsian.co.kr/news/articleView.html?idxno=101752",
+     "date": "2026-11-25"
     },
     {
-     "hash": "ae7062be80dd5984",
-     "title_kr": "두산에너빌리티, 뉴스케일·테라파워 SMR 핵심 기자재 계약으로 실적 개선 기대",
-     "url": "https://kpenews.com/View.aspx?No=4326272",
-     "date": "2026-11-24"
+     "hash": "a4aa963544740d6f",
+     "title_kr": "창원시, 방위·원자력 기반 첫 '도심융합특구' 후보지 낙점",
+     "url": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=721162",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "c69e35e4383c826e",
+     "title_kr": "미국 NASA, 달 기지용 소형 원자로 'LR-1' 개발 제안 요청서 공모",
+     "url": "https://www.ans.org/news/2026-11-24/article-8617/nasa-solicits-lunar-reactor-proposals",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "a47410848a2e12d0",
+     "title_kr": "정부, 출연연 7대 SEED 프로젝트 본격화…SMR 조기 상용화 R&D 추진",
+     "url": "https://www.ajunews.com/view/20261124111707786",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "f583a2f3a2a5f970",
+     "title_kr": "래디언트, 칼레이도스 SMR 양산 체제 돌입",
+     "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5pYWR5OXc0OXBfN1N3YVJxZnEwWjV4dS1IYlV1ZlhRYzlYUDFVSzVpQkp4YmhpdFlod3FMbTRMUDJ3dGMwa01HclgzbnVORHpfcDVpZlBSRjQwa3Z3VWl2ZWo3R2pHOHdSN2pPLWRNYzJVWTF0b2Vr?oc=5",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "f107c68d01bf6198",
+     "title_kr": "나노, 동남아시아 시장 진출 타겟 설정",
+     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9vRm04UFFzMFVhVWd2WTdyclNUN2R0MXdBSlNNT1pQZjhfT1RQeE5tSzVHVEdJRmF0YmpJalVJbWlCUm55eE9GaE40RDRDZmhHcEl2aENnbFZkRFJZaDhqaXNUTDhiaTBDZFR5bnhmdVhNd3c5VlJQSjJfbw?oc=5",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "3114efc291f6e4c3",
+     "title_kr": "창원시, SMR 중심 도심융합특구 최종 후보지 선정",
+     "url": "https://www.munhwa.com/article/11633932",
+     "date": "2026-11-25"
     }
    ]
   },
   {
    "keyword": "원전수출",
-   "count_now": 80,
+   "count_now": 82,
    "count_prev": 60,
-   "direction": "한수원과 국내 건설사들의 체코 원전 시공 협약 무산과 기술사용료 부담 관련 언급이 나오는 동시에, 효성굿스프링스의 미국 ASME 인증 획득과 중기부의 원전 기자재 국산화 상생협력 우수사례 선정 등이 이어지고 있다.",
+   "direction": "한국의 원전 수출은 AI 전환으로 인한 신흥국 전력 수요 증가라는 기회 요인 속에서 진행되고 있으나, 아랍에미리트 및 이집트 사업에서의 손실 누적과 체코 두코바니 사업 시공 협약 종료 등 여러 난관에 직면하고 있습니다. 특히, 원전 1기 수출 시 발생하는 기술사용료 부담과 북미 시장에서의 독자 사업 제한 등 구조적인 제약이 언급되며, 해외 EPC 프로젝트의 수익성 중심 전략과 고정가 계약 리스크 관리의 중요성이 제기되고 있습니다. 이러한 상황 속에서도 신한은행 폴란드 사무소의 원전 기자재 업종 관찰 확대와 효성굿스프링스의 원전용 펌프 ASME 인증 획득 등 시장 정보 축적 및 기술 경쟁력 확보 노력은 지속되고 있습니다.",
    "evidence": [
+    {
+     "hash": "192281bd79a5c2de",
+     "title_kr": "신부남 전 대사, 신흥국 전력 수요 폭증 속 한국의 에너지 리더십 강조",
+     "url": "https://www.sedaily.com/article/20118318",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "efe5d20715984eec",
+     "title_kr": "한수원, 아랍에미리트 및 이집트 등 해외 원전 사업 손실 누적",
+     "url": "https://h21.hani.co.kr/arti/society/environment/60202.html",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "158becf86a085657",
+     "title_kr": "신한은행 폴란드사무소, 원전 기자재 등 업종 관찰 확대",
+     "url": "https://www.etoday.co.kr/news/view/2651685",
+     "date": "2026-11-24"
+    },
     {
      "hash": "0b9766ca2b9a7199",
      "title_kr": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
@@ -79,15 +151,71 @@
      "date": "2026-11-24"
     },
     {
+     "hash": "128443633c9f322e",
+     "title_kr": "삼일PwC, 해외건설 수익성 중심 전략 제언…고정가 계약 리스크 경고",
+     "url": "https://www.etoday.co.kr/news/view/2651984",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "9b402071eda1cb63",
+     "title_kr": "이반 얀차렉 주한 체코대사, 부산서 한국-체코 원전 협력 강조",
+     "url": "https://www.electimes.com/news/articleView.html?idxno=375096",
+     "date": "2026-11-24"
+    },
+    {
      "hash": "82195d70b9c7662a",
      "title_kr": "효성굿스프링스, 원전용 펌프 미국 ASME 인증 획득…글로벌 SMR 시장 확대 추진",
      "url": "https://www.newsinside.kr/news/articleView.html?idxno=5055417",
      "date": "2026-11-24"
+    }
+   ]
+  },
+  {
+   "keyword": "AI데이터센터",
+   "count_now": 78,
+   "count_prev": 98,
+   "direction": "AI 데이터센터는 국내외에서 대규모 투자를 통해 구축이 활발히 진행되고 있으며, 한화에어로스페이스의 국방 AI 데이터센터 추진과 같이 특정 분야에서의 수요가 두드러집니다. 이러한 성장은 LG전자의 냉각 솔루션 수주액 증가와 같은 관련 산업의 동반 성장을 이끌고 있으며, 효율적인 구축을 위한 통합 엔지니어링 협력과 액체 냉각 솔루션 도입 등 기술적 고도화 노력도 병행되고 있습니다. 한편, AI 데이터센터의 전력 수요 폭증은 산업용 전기료 상승과 '그리드 엑소더스' 우려를 낳는 등 전력 공급 및 비용 측면에서의 과제를 야기하고 있습니다.",
+   "evidence": [
+    {
+     "hash": "2741005e2b01b5c4",
+     "title_kr": "한화에어로스페이스, 창원에 180MW 규모 국방 AI 데이터센터 구축 추진",
+     "url": "https://www.globalepic.co.kr/view.php?ud=20261125095436604648439a4874_29",
+     "date": "2026-11-25"
     },
     {
-     "hash": "7d22f2c2742ad858",
-     "title_kr": "중기부, 한수원-무진기연 원전 기자재 국산화 및 해외 진출 우수 사례 선정",
-     "url": "https://view.asiae.co.kr/article/2026112407595084103",
+     "hash": "3c2f48c08ee42643",
+     "title_kr": "LG전자, 북미 5GW 냉각설비 공급 계약 등 AIDC 솔루션 수주 3조원 돌파",
+     "url": "https://www.upkoreanews.kr/news/articleView.html?idxno=101354",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "c92c51a92255d2af",
+     "title_kr": "젠슨 황 엔비디아 CEO 복귀에 글로벌 AI 투자심리 반등…국내 부품업계 기회",
+     "url": "https://www.businessplus.kr/news/articleView.html?idxno=120347",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "b146a3f79e09c8a7",
+     "title_kr": "미국 굴착기·농기계주, AI 데이터센터 투자 확대에 일제히 반등",
+     "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=507288",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "04dc052d2d0e61a8",
+     "title_kr": "엠키스코어·LG전자, 수랭식 AI 데이터센터 구축 협력 MOU 체결",
+     "url": "https://www.seoul.co.kr/news/economy/2026/11/23/20261123500301?wlog_tag3=naver",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "90dc41a144d64bee",
+     "title_kr": "AI 전력 수요 폭증에 산업용 전기료 상승, '그리드 엑소더스' 조짐",
+     "url": "https://www.newsworks.co.kr/news/articleView.html?idxno=904140",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "205239adf5007fd8",
+     "title_kr": "GS건설, 4개사 협력 통해 AI 데이터센터 구축 효율성 증대",
+     "url": "http://www.dailypop.kr/news/articleView.html?idxno=104908",
      "date": "2026-11-24"
     }
    ]
@@ -96,7 +224,7 @@
    "keyword": "AI",
    "count_now": 77,
    "count_prev": 71,
-   "direction": "AI 산업 확산에 따른 전력 및 물 사용량 증가로 규제가 강화되는 동시에, 전력난 해소를 위한 바이오컴퓨팅 연구와 AI 데이터센터 인프라 운영 플랫폼 출시가 진행되고 있다.",
+   "direction": "AI 산업은 전력 및 자원 소비 급증으로 인해 미국 내 데이터센터 규제 강화와 같은 환경적, 정책적 압력에 직면하고 있으며, 이를 해결하기 위한 바이오컴퓨팅 연구와 같은 혁신적인 전력 확보 노력이 진행되고 있습니다. 국내에서는 대규모 국방 AI 데이터센터 구축이 추진되고 있으며, AI 데이터센터의 효율적인 운영을 위한 전력·자원 관리 플랫폼 출시와 통합 엔지니어링 협력 등 기술적, 사업적 대응이 활발합니다. 또한, AI 추론 시장은 성능 경쟁을 넘어 전력 효율과 비용 효율성으로 경쟁의 초점이 이동하고 있으며, AI 확산에 따른 사이버 보안 정책 재검토 필요성도 제기되는 등 AI의 광범위한 영향과 그에 따른 대응이 흐름의 중심을 이룹니다.",
    "evidence": [
     {
      "hash": "ca0ac11c8fe33810",
@@ -115,31 +243,35 @@
      "title_kr": "티사이언티픽, AI 데이터센터 GPU 전력·자원 관리 플랫폼 '호크아이' 출시",
      "url": "https://www.vegannews.co.kr/news/article.html?no=410676",
      "date": "2026-11-25"
-    }
-   ]
-  },
-  {
-   "keyword": "AI데이터센터",
-   "count_now": 76,
-   "count_prev": 98,
-   "direction": "LS전선과 효성중공업이 각각 초고압 케이블 공급 계약 체결과 변압기 수주 증가로 북미 전력망 및 AI 데이터센터 관련 수혜를 입고 있으며, 국내에서는 LG전자와 엠키스코어의 냉각 솔루션 협력 등이 추진되고 있다.",
-   "evidence": [
+    },
     {
-     "hash": "6104dfb2f381bf57",
-     "title_kr": "LS전선, 미국 뉴욕서 7000억 규모 초고압 케이블 공급 계약 체결",
-     "url": "https://www.joongang.co.kr/article/25481245",
+     "hash": "817039f528815445",
+     "title_kr": "GS건설, 데이터센터 통합엔지니어링 체계 구축 위해 4개사 협력",
+     "url": "https://www.sentv.co.kr/article/view/sentv202611230246",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "7d95a0bd127993bb",
+     "title_kr": "한화에어로스페이스, 경남 창원에 10조원 규모 국방 AI 데이터센터 구축 추진",
+     "url": "https://www.news2day.co.kr/article/20261125500015",
+     "date": "2026-11-25"
+    },
+    {
+     "hash": "308bd3bde744149e",
+     "title_kr": "AI 풀스택 강점 살려 생산성 확산 관건…송전망·전력 요금제 개선 필요",
+     "url": "https://www.mt.co.kr/tech/2026/11/24/2026111914385734357",
      "date": "2026-11-24"
     },
     {
-     "hash": "04dc052d2d0e61a8",
-     "title_kr": "엠키스코어·LG전자, 수랭식 AI 데이터센터 구축 협력 MOU 체결",
-     "url": "https://www.seoul.co.kr/news/economy/2026/11/23/20261123500301?wlog_tag3=naver",
+     "hash": "d70169b595fa9c8d",
+     "title_kr": "AI 해킹 도구, 1시간 만에 1주일 분량 작업 완료…사이버 보안 정책 재검토 시급",
+     "url": "https://www.sidae.com/article/2026112314412243534",
      "date": "2026-11-24"
     },
     {
-     "hash": "5b6e5a240d7b0b42",
-     "title_kr": "효성중공업, 북미 초고압 변압기 수주 증가로 역대 최대 수주잔고 기록",
-     "url": "https://www.polinews.co.kr/news/articleView.html?idxno=749074",
+     "hash": "2a05db283a867325",
+     "title_kr": "AI 추론 시장, 성능 넘어 전력 효율·비용 경쟁 가속화",
+     "url": "https://www.sedaily.com/article/20118009",
      "date": "2026-11-24"
     }
    ]
@@ -148,7 +280,7 @@
    "keyword": "전력망",
    "count_now": 63,
    "count_prev": 67,
-   "direction": "한전의 345kV 송전선로 후보 경과대역 설정과 LS전선의 미국 뉴욕 초고압 케이블 공급 계약 체결이 이루어졌으며, 반도체 및 AI 확산에 따른 송전망 확보와 전력 병목 해소의 필요성이 제기되고 있다.",
+   "direction": "국내 전력망은 수도권 집중 수요와 비수도권 발전의 불균형 심화로 인해 송전망 확보와 전력 병목 현상 해소가 핵심 과제로 부상하고 있으며, 이를 위해 한국전력은 신규 송전선로 건설을 추진하고 있습니다. 특히, K-반도체 산업의 성공과 AI 데이터센터의 전력 수요 증가에 대응하기 위한 전력망 확충 및 요금제 개선의 필요성이 강조되고 있으며, 용인국가산단과 같은 대규모 산업단지 조성에 따른 전력 및 송전 인프라 구축은 지역 사회의 논란을 야기하고 있습니다. 한편, 해외에서는 LS전선이 미국 뉴욕에서 대규모 초고압 케이블 공급 계약을 체결하며 전력망 인프라 확장에 기여하고 있으며, 국내에서는 가상발전소(VPP) 구축을 통해 전력망 안정화와 수요 대응 노력이 이루어지는 등 전력망의 안정성과 효율성 확보가 국내외 흐름의 중심을 이룹니다.",
    "evidence": [
     {
      "hash": "4a2449faef1a6920",
@@ -166,6 +298,36 @@
      "hash": "88e1fa7ac45fb74b",
      "title_kr": "K반도체 성공 열쇠는 전력 병목 해소…12차 전기본에 달렸다",
      "url": "https://www.joongang.co.kr/article/25481258",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "308bd3bde744149e",
+     "title_kr": "AI 풀스택 강점 살려 생산성 확산 관건…송전망·전력 요금제 개선 필요",
+     "url": "https://www.mt.co.kr/tech/2026/11/24/2026111914385734357",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "4e3d785d3d57c020",
+     "title_kr": "용인국가산단, 막대한 전력·용수 조달 및 지역 불평등 문제로 논란",
+     "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CMPT_CD=P0010&CNTN_CD=A0003286979",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "5b0995dc43db8338",
+     "title_kr": "ESS, 국가 전력망의 핵심 인프라로 부상…2038년까지 23GW 필요 전망",
+     "url": "https://www.electimes.com/news/articleView.html?idxno=375118",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "f186e4980587d40a",
+     "title_kr": "LS전선, 미국 뉴욕 초고압 전력망 사업에 7천억 원 규모 해저·지중케이블 공급",
+     "url": "http://www.wsobi.com/news/articleView.html?idxno=322390",
+     "date": "2026-11-24"
+    },
+    {
+     "hash": "f65c47a7cdf44b91",
+     "title_kr": "한국동서발전, 울산시와 공공참여 가상발전소(VPP) 구축 업무협약 체결",
+     "url": "https://www.todayenergy.kr/news/articleView.html?idxno=305979",
      "date": "2026-11-24"
     }
    ]
