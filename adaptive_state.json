@@ -1398,7 +1398,7 @@
     }
   },
   "spent": {
-    "count": 10,
+    "count": 12,
     "date": "2026-11-25"
   },
   "terms": {
@@ -1436,11 +1436,11 @@
       "expires_at": "2026-11-26T11:41:11.437645+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-24T19:53:44.979096+00:00",
+      "last_run": "2026-11-25T05:37:26.626061+00:00",
       "new_articles": 26,
       "origin": "auto",
-      "planned_at": "2026-11-24T19:53:42.408084+00:00",
-      "queries_run": 4,
+      "planned_at": "2026-11-25T05:37:25.082922+00:00",
+      "queries_run": 5,
       "query": "ASME 원자력",
       "score": 13.1,
       "status": "promote_candidate",
@@ -1452,7 +1452,7 @@
         "2026-11-24"
       ],
       "yields": 3,
-      "zero_streak": 1
+      "zero_streak": 2
     },
     "강화효성굿스프링스": {
       "articles": 3,
@@ -1581,14 +1581,14 @@
           "title": "한수원·팀코리아, 체코 두코바니 원전 적기 준공 및 완수 의지 재확인"
         }
       ],
-      "expires_at": "2026-11-26T00:32:16.202422+00:00",
+      "expires_at": "2026-11-26T05:37:26.626061+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-24T19:53:44.979096+00:00",
-      "new_articles": 4,
+      "last_result_count": 7,
+      "last_run": "2026-11-25T05:37:26.626061+00:00",
+      "new_articles": 11,
       "origin": "auto",
-      "planned_at": "2026-11-24T19:53:42.408084+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-25T05:37:25.082922+00:00",
+      "queries_run": 3,
       "query": "신규원전 5",
       "score": 4.6,
       "status": "extended",
@@ -1596,10 +1596,11 @@
       "ttl_hours": 48,
       "type": "plant",
       "yield_days": [
-        "2026-11-24"
+        "2026-11-24",
+        "2026-11-25"
       ],
-      "yields": 1,
-      "zero_streak": 1
+      "yields": 2,
+      "zero_streak": 0
     },
     "해외건설협회": {
       "articles": 3,
