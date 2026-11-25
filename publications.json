@@ -582,6 +582,21 @@
    "translated_version": 3
   },
   {
+   "id": "7685f405ab9f",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Disposal of Reactor Graphite Waste",
+   "url": "http://www.iaea.org/publications/16073/disposal-of-reactor-graphite-waste",
+   "date": "2026-08-10",
+   "fetched_at": "2026-11-26",
+   "title_kr": "원자로 흑연 폐기물 처리",
+   "gist": "원자로 흑연 폐기물 처리 기술 및 안전성 검토",
+   "off_topic": false,
+   "relevance": "technical",
+   "translated_version": 3
+  },
+  {
    "id": "66b4070d5731",
    "org": "IAEA",
    "org_kr": "국제원자력기구(IAEA)",
@@ -1001,35 +1016,35 @@
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-25T02:16:21+09:00",
+   "at": "2026-11-26T01:45:13+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
