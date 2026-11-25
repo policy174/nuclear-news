@@ -332,6 +332,14 @@
       "type": "plant",
       "until": "2026-10-21T16:20:52.639477+00:00"
     },
+    "기계학회": {
+      "new_articles": 4,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-25T03:56:17.160744+00:00",
+      "term": "기계학회",
+      "type": "org",
+      "until": "2026-12-09T03:56:17.160744+00:00"
+    },
     "기소브루스": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1390,7 +1398,7 @@
     }
   },
   "spent": {
-    "count": 7,
+    "count": 10,
     "date": "2026-11-25"
   },
   "terms": {
@@ -1476,69 +1484,23 @@
       ],
       "expires_at": "2026-11-26T17:08:56.754669+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-24T17:08:59.055928+00:00",
-      "new_articles": 0,
+      "last_result_count": 2,
+      "last_run": "2026-11-25T03:56:19.078242+00:00",
+      "new_articles": 2,
       "origin": "auto",
-      "planned_at": "2026-11-24T17:08:56.754669+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-25T03:56:17.160744+00:00",
+      "queries_run": 2,
       "query": "강화 효성굿스프링스 원전",
       "score": 4.6,
-      "status": "tracking",
+      "status": "extended",
       "term": "강화 효성굿스프링스",
       "ttl_hours": 48,
       "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
-    },
-    "기계학회": {
-      "articles": 3,
-      "created_at": "2026-11-23T16:53:53.220179+00:00",
-      "domains": [
-        "etnews.com",
-        "dailypop.kr",
-        "knpnews.com"
-      ],
-      "evidence": [
-        {
-          "domain": "etnews.com",
-          "hash": "5f35681385f4ed69",
-          "importance": "nice_to_know",
-          "title": "효성굿스프링스, 원전 펌프 전 제품 美 기계학회(ASME) 인증 획득"
-        },
-        {
-          "domain": "dailypop.kr",
-          "hash": "153546ab01949562",
-          "importance": "nice_to_know",
-          "title": "효성굿스프링스, 원전 펌프 전 제품 美 기계학회(ASME) 인증 획득"
-        },
-        {
-          "domain": "knpnews.com",
-          "hash": "8dc136d3f3c697bb",
-          "importance": "nice_to_know",
-          "title": "효성굿스프링스, 원전용 펌프 美 ASME 인증 획득으로 해외 시장 경쟁력 강화"
-        }
-      ],
-      "expires_at": "2026-11-24T23:15:42.142106+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-24T19:53:44.979096+00:00",
-      "new_articles": 4,
-      "origin": "auto",
-      "planned_at": "2026-11-24T19:53:42.408084+00:00",
-      "queries_run": 3,
-      "query": "기계학회 원자력",
-      "score": 3.7,
-      "status": "extended",
-      "term": "기계학회",
-      "ttl_hours": 24,
-      "type": "org",
       "yield_days": [
-        "2026-11-24"
+        "2026-11-25"
       ],
-      "yields": 2,
-      "zero_streak": 1
+      "yields": 1,
+      "zero_streak": 0
     },
     "미국기계학회": {
       "articles": 5,
@@ -1572,12 +1534,12 @@
       ],
       "expires_at": "2026-11-26T11:41:11.437645+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-24T17:08:59.055928+00:00",
-      "new_articles": 17,
+      "last_result_count": 1,
+      "last_run": "2026-11-25T03:56:19.078242+00:00",
+      "new_articles": 18,
       "origin": "auto",
-      "planned_at": "2026-11-24T17:08:56.754669+00:00",
-      "queries_run": 3,
+      "planned_at": "2026-11-25T03:56:17.160744+00:00",
+      "queries_run": 4,
       "query": "미국기계학회 원자력",
       "score": 6.5,
       "status": "extended",
@@ -1585,10 +1547,11 @@
       "ttl_hours": 72,
       "type": "org",
       "yield_days": [
-        "2026-11-23"
+        "2026-11-23",
+        "2026-11-25"
       ],
-      "yields": 1,
-      "zero_streak": 2
+      "yields": 2,
+      "zero_streak": 0
     },
     "신규원전5": {
       "articles": 3,
@@ -1666,23 +1629,25 @@
           "title": "해건협-외교부, 해외건설 수주 및 유망분야 진출 지원 협력 강화"
         }
       ],
-      "expires_at": "2026-11-25T17:08:56.754669+00:00",
+      "expires_at": "2026-11-26T03:56:19.078242+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-24T17:08:59.055928+00:00",
-      "new_articles": 0,
+      "last_result_count": 1,
+      "last_run": "2026-11-25T03:56:19.078242+00:00",
+      "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-24T17:08:56.754669+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-25T03:56:17.160744+00:00",
+      "queries_run": 2,
       "query": "해외건설협회 원자력",
       "score": 3.12,
-      "status": "tracking",
+      "status": "extended",
       "term": "해외건설협회",
       "ttl_hours": 24,
       "type": "org",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 1
+      "yield_days": [
+        "2026-11-25"
+      ],
+      "yields": 1,
+      "zero_streak": 0
     },
     "획득효성굿스프링스": {
       "articles": 5,
