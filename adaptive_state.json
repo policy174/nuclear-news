@@ -1380,6 +1380,14 @@
       "type": "plant",
       "until": "2026-11-16T11:24:28.734922+00:00"
     },
+    "해외건설협회": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-26T06:53:54.259350+00:00",
+      "term": "해외건설협회",
+      "type": "org",
+      "until": "2026-12-10T06:53:54.259350+00:00"
+    },
     "호기원자력섬": {
       "new_articles": 0,
       "reason": "기간 만료",
@@ -1624,54 +1632,6 @@
       ],
       "yields": 1,
       "zero_streak": 0
-    },
-    "해외건설협회": {
-      "articles": 3,
-      "created_at": "2026-11-24T17:08:56.754669+00:00",
-      "domains": [
-        "tf.co.kr",
-        "sedaily.com",
-        "econovill.com"
-      ],
-      "evidence": [
-        {
-          "domain": "tf.co.kr",
-          "hash": "6136fe034e0479bd",
-          "importance": "nice_to_know",
-          "title": "해건협·외교부, 원전·AI 인프라 해외진출 지원 협력 강화"
-        },
-        {
-          "domain": "sedaily.com",
-          "hash": "e434442a13d58455",
-          "importance": "nice_to_know",
-          "title": "해외건설협회-외교부, 원전·SMR 등 유망분야 해외건설 수주 지원 강화 협약 개정"
-        },
-        {
-          "domain": "econovill.com",
-          "hash": "2762ae33dfa2efa6",
-          "importance": "nice_to_know",
-          "title": "해건협-외교부, 해외건설 수주 및 유망분야 진출 지원 협력 강화"
-        }
-      ],
-      "expires_at": "2026-11-26T03:56:19.078242+00:00",
-      "importance": "nice_to_know",
-      "last_result_count": 0,
-      "last_run": "2026-11-25T18:38:54.584101+00:00",
-      "new_articles": 1,
-      "origin": "auto",
-      "planned_at": "2026-11-25T18:38:52.630343+00:00",
-      "queries_run": 3,
-      "query": "해외건설협회 원자력",
-      "score": 3.12,
-      "status": "extended",
-      "term": "해외건설협회",
-      "ttl_hours": 24,
-      "type": "org",
-      "yield_days": [
-        "2026-11-25"
-      ],
-      "yields": 1,
-      "zero_streak": 1
     }
   },
   "version": 1
