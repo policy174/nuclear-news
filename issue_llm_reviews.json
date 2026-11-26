@@ -4532,6 +4532,36 @@
       "right_title": "빌 게이츠 테라파워 이사장, 국무총리 면담 위해 정부서울청사 방문",
       "same_event": true
     },
+    "02b2532e95daaf2c--252a567038857e7a": {
+      "embedding_similarity": 0.8483,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "첫 토론회 무산 및 설명회 개최 등 공론화 파행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전공론화위원회, 첫 토론회 무산 속 원전 확대-감축 입장 설명회 개최",
+      "same_event": true
+    },
+    "02b2532e95daaf2c--479ed0cfd5810b02": {
+      "embedding_similarity": 0.8492,
+      "left_title": "12차 전기본 원전 공론화위, 원전 전문가 3인 논의 목적·범위 이견으로 활동 잠정 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전문가 불참으로 인한 토론회 파행 및 설명회 진행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전공론화위원회, 첫 토론회 무산 속 원전 확대-감축 입장 설명회 개최",
+      "same_event": true
+    },
+    "02b2532e95daaf2c--8b229d4b476f453d": {
+      "embedding_similarity": 0.8502,
+      "left_title": "원전 확대 측, 12차 전기본 공론화 참여 중단…2050년 비중 제외 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 확대 측 불참과 토론회 파행 후속 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전공론화위원회, 첫 토론회 무산 속 원전 확대-감축 입장 설명회 개최",
+      "same_event": true
+    },
     "02b8a1afb0ebee45--d1e4243667e5f719": {
       "embedding_similarity": 0.877,
       "left_title": "국회 한미전략투자공사 국감서 엔시날 발전소 등 대미투자 부실 검증 질타",
@@ -21642,6 +21672,16 @@
       "right_title": "안정적 전력 공급, 3대 메가프로젝트 성공의 핵심 열쇠로 부각",
       "same_event": false
     },
+    "0aaa5c5a485c3cc7--252a567038857e7a": {
+      "embedding_similarity": 0.8498,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 사건 보도와 3대 메가프로젝트 일반론 기사",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "안정적 전력 공급, 3대 메가프로젝트 성공의 핵심 열쇠로 부각",
+      "same_event": false
+    },
     "0aaa5c5a485c3cc7--3837eff359c1d656": {
       "embedding_similarity": 0.8575,
       "left_title": "정부, AI·반도체 전력수요 급증에 2040년까지 중장기 전력 마스터플랜 마련 착수",
@@ -23272,6 +23312,16 @@
       "right_title": "한수원·시공사 공사비 갈등, K원전 수출 경쟁력 시험대 올라",
       "same_event": false
     },
+    "0b9766ca2b9a7199--7ac40a5ebea46318": {
+      "embedding_similarity": 0.8415,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료와 안전청 품질감사는 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "체코 원자력안전청, 두코바니 원전 설계 품질보증감사 최초 참관",
+      "same_event": false
+    },
     "0b9766ca2b9a7199--7bef19243e21e2f1": {
       "embedding_similarity": 0.9184,
       "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
@@ -23281,6 +23331,16 @@
       "reviewed_at": "2026-11-25T22:56:05.867542+00:00",
       "right_title": "한수원, 체코 두코바니 원전 시공 협력 협약 종료…공사비 이견",
       "same_event": true
+    },
+    "0b9766ca2b9a7199--84ed84c5ffdc1ef3": {
+      "embedding_similarity": 0.8446,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료와 체코 안전청 감사 참관은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "체코 원자력안전청, 두코바니 원전 건설허가 앞두고 韓 공급망 품질 감사 참관",
+      "same_event": false
     },
     "0b9766ca2b9a7199--8aed6acfd56d3a2a": {
       "embedding_similarity": 0.8755,
@@ -23361,6 +23421,16 @@
       "reviewed_at": "2026-11-25T22:56:05.867542+00:00",
       "right_title": "한수원-시공사 시공계약 협상 결렬…해외 원전 분쟁조정 체계 보완 필요성 대두",
       "same_event": false
+    },
+    "0b9766ca2b9a7199--ab44af9b07eec487": {
+      "embedding_similarity": 0.8419,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료에 대한 장관 및 한수원 반응",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "김정관 산업부 장관 \"체코 원전 사업 무산 안 돼\"; 한수원 \"일정 준수 가능\"",
+      "same_event": true
     },
     "0b9766ca2b9a7199--adc1b7fb0d1e5785": {
       "embedding_similarity": 0.8674,
@@ -23512,6 +23582,16 @@
       "right_title": "한수원·팀코리아, 체코 두코바니 원전 '정상 추진' 재확인",
       "same_event": true
     },
+    "0b9766ca2b9a7199--e4aad4a798f6bcc3": {
+      "embedding_similarity": 0.8443,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료에 따른 정부 대응 후속 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "산업부 장관 “체코 두코바니 원전 계약 무산 안 되게 만들 것”",
+      "same_event": true
+    },
     "0b9766ca2b9a7199--e6e3bfecba1a6985": {
       "embedding_similarity": 0.8717,
       "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
@@ -23532,6 +23612,16 @@
       "right_title": "체코 원전 사업 시공사 교체, 한수원-대우건설 계약 해지 영향 주목",
       "same_event": true
     },
+    "0b9766ca2b9a7199--ecb261b01d0df845": {
+      "embedding_similarity": 0.8426,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료와 현지화율 산정 논란은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "한수원, 체코 두코바니 현지화율 산정 방식 변경 논란에 60% 목표 유지 표명",
+      "same_event": false
+    },
     "0b9766ca2b9a7199--f46b26a312497faa": {
       "embedding_similarity": 0.8753,
       "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
@@ -23541,6 +23631,16 @@
       "reviewed_at": "2026-11-24T05:44:37.619045+00:00",
       "right_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
       "same_event": false
+    },
+    "0b9766ca2b9a7199--f7448d2e7caf718f": {
+      "embedding_similarity": 0.8432,
+      "left_title": "한수원, 대우건설·두산에너빌리티와 체코 두코바니 원전사업 시공 협약 종료",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공 협약 종료 후 산업부 점검회의 개최 후속 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 원전사업 점검회의 주재…수주 난항 속 신중론 제기",
+      "same_event": true
     },
     "0b9766ca2b9a7199--fd348296675d2b65": {
       "embedding_similarity": 0.881,
@@ -25010,6 +25110,26 @@
       "reason": "SMR 규제 관련 서로 다른 지적 사안",
       "reviewed_at": "2026-10-17T00:54:54.940071+00:00",
       "right_title": "국내외 SMR 건설허가 신청은 2028년인데 심사 기준은 2032년 마련 우려",
+      "same_event": false
+    },
+    "0c1fe3ad10fc8450--67692ca9625c6f16": {
+      "embedding_similarity": 0.8601,
+      "left_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 사업 점검회의와 두산스코다파워 실적 발표는 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "두산스코다파워, 체코 매출 159% 급증 등에 힘입어 9개월 순익 70% 증가",
+      "same_event": false
+    },
+    "0c1fe3ad10fc8450--f46b26a312497faa": {
+      "embedding_similarity": 0.841,
+      "left_title": "한수원, 체코 두코바니 원전 냉각탑 유럽 잠재공급사 대상 현장설명회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "현장설명회 개최와 두산스코다파워 실적은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "두산스코다파워, 체코 매출 159% 급증 등에 힘입어 9개월 순익 70% 증가",
       "same_event": false
     },
     "0c401209a684567a--e10e22f406191ea3": {
@@ -41100,6 +41220,26 @@
       "reason": "규제 개편 소식과 기업 투자의견 하향",
       "reviewed_at": "2026-11-21T16:36:39.143435+00:00",
       "right_title": "삼성물산 SMR 파트너 GE버노바, 증권가 투자 의견 하향 조정",
+      "same_event": false
+    },
+    "144ec370e09d6834--23abad8c5185dc8c": {
+      "embedding_similarity": 0.8431,
+      "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범과 월성 계속운전 의결은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "정부, 월성 2·3·4호기 계속운전 국무회의 의결…설비 발주 병행 추진",
+      "same_event": false
+    },
+    "144ec370e09d6834--3d28d33af67ec2ec": {
+      "embedding_similarity": 0.8433,
+      "left_title": "정부, 월성 2·3·4호기 계속운전 국무회의 의결…설비 발주 병행 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "월성 계속운전과 전력 거래 기준가격은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "정부, 원전 전력 내년부터 5년간 승인 기준가격으로 거래",
       "same_event": false
     },
     "14511747b9a6ad2b--4fd71807aabfb5ae": {
@@ -67832,6 +67972,16 @@
       "right_title": "한국, 일본 철수한 베트남 닌투언2 원전 수주 가능성 확대",
       "same_event": false
     },
+    "22b94f70cd5cd1e8--e299dc0cfab1d7ee": {
+      "embedding_similarity": 0.842,
+      "left_title": "한국, 일본 철수한 베트남 닌투언2 원전 수주 가능성 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "베트남 원전 수주와 체코 원전 시공사 계약은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "한수원·팀코리아, 시공사 계약 협상 종료에도 두코바니 원전 일정 고수",
+      "same_event": false
+    },
     "22b94f70cd5cd1e8--e91fea64f65c02a2": {
       "embedding_similarity": 0.841,
       "left_title": "한국, 일본 철수한 베트남 닌투언2 원전 수주 가능성 확대",
@@ -69662,6 +69812,16 @@
       "right_title": "블리칼라, 두 번째 원자로 단지 건설 추진",
       "same_event": true
     },
+    "23abad8c5185dc8c--252a567038857e7a": {
+      "embedding_similarity": 0.8606,
+      "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화위 출범 및 난항 경과",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "same_event": true
+    },
     "23abad8c5185dc8c--2b32fc42d9118314": {
       "embedding_similarity": 0.9042,
       "left_title": "기후에너지환경부, 제12차 전기본 대비 원전 공론화위원회 제2차 회의 개최",
@@ -69700,6 +69860,16 @@
       "reason": "12차 전기본 원전 공론화위 관련 후속 진행",
       "reviewed_at": "2026-11-23T10:18:28.896925+00:00",
       "right_title": "원전 확대 측, 12차 전력수급기본계획 공론화 불참 선언",
+      "same_event": true
+    },
+    "23abad8c5185dc8c--44ac152bb1b822bb": {
+      "embedding_similarity": 0.8529,
+      "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화위 출범 및 진행 경과",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "제12차 전력수급기본계획 원전 공론화, 확대·감축 측 불참 속 중립 전문위원 설명회로 진행",
       "same_event": true
     },
     "23abad8c5185dc8c--479ed0cfd5810b02": {
@@ -70042,6 +70212,16 @@
       "right_title": "원전 공론화위 공개토론회 앞두고 누리집 자료 부족…실효성 우려",
       "same_event": false
     },
+    "23abad8c5185dc8c--f162840e00b22361": {
+      "embedding_similarity": 0.8506,
+      "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화위 출범과 논의 난항",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "12차 전기본 원전 공론화위, 논의 범위 이견으로 시작부터 난항",
+      "same_event": true
+    },
     "23abad8c5185dc8c--f2b3813a70effbcc": {
       "embedding_similarity": 0.8414,
       "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
@@ -70061,6 +70241,16 @@
       "reviewed_at": "2026-11-17T00:49:15.211834+00:00",
       "right_title": "정부, 12차 전력수급기본계획 원전 비중 놓고 대국민 공론화 착수",
       "same_event": true
+    },
+    "23abad8c5185dc8c--f93cfb848d2a9500": {
+      "embedding_similarity": 0.8707,
+      "left_title": "산업부, 신규 원전 공론화위원회 출범 및 25일 첫 공개토론회 개최",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 출범 일정과 공론화 쟁점 해설은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "제12차 전기본 원전 공론화, 신규 원전 선제 착수 vs 수요 확인 뒤 확충 쟁점",
+      "same_event": false
     },
     "23abad8c5185dc8c--faf2c54b120d70d4": {
       "embedding_similarity": 0.8567,
@@ -71822,6 +72012,16 @@
       "right_title": "12차 전기본 원전 공론화위, 논의 범위 이견으로 전문위원 3명 참여 중단",
       "same_event": true
     },
+    "252a567038857e7a--3a2d0c99e6742d3b": {
+      "embedding_similarity": 0.8401,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "전기본 공론화위 파행과 통합 발전공사 법안 갈등은 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "통합 발전공사 법안, 지분구조·투자재원 쟁점으로 한전-발전노조 갈등",
+      "same_event": false
+    },
     "252a567038857e7a--3da397aae25b4914": {
       "embedding_similarity": 0.8462,
       "left_title": "원전 확대 측, 12차 전력수급기본계획 공론화 불참 선언",
@@ -71830,6 +72030,16 @@
       "reason": "공론화 불참 선언 및 이로 인한 파행",
       "reviewed_at": "2026-11-25T05:33:44.627209+00:00",
       "right_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "same_event": true
+    },
+    "252a567038857e7a--3f3c455312cbc136": {
+      "embedding_similarity": 0.8591,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "위원 불참으로 인한 공론화위 토론회 무산 및 파행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화위원회, 확대 측 불참으로 12차 전기본 토론회 무산",
       "same_event": true
     },
     "252a567038857e7a--479ed0cfd5810b02": {
@@ -71902,6 +72112,26 @@
       "right_title": "기후에너지환경부, 제12차 전기본 원전 공론화위원회 출범 및 위원 이탈 난항",
       "same_event": true
     },
+    "252a567038857e7a--5f724d2bae11b028": {
+      "embedding_similarity": 0.8511,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 추진 과정의 후속 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "12차 전기본 원전 공론화 누리집 개설, 공개토론회 방청객 신청 접수 시작",
+      "same_event": true
+    },
+    "252a567038857e7a--65b510f719532bf7": {
+      "embedding_similarity": 0.8476,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 진행 과정 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "기후에너지환경부, 제12차 전기본 원전 공론화 누리집 개설 및 토론회 신청 접수",
+      "same_event": true
+    },
     "252a567038857e7a--7338fddd6ecd6eae": {
       "embedding_similarity": 0.8729,
       "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
@@ -71922,6 +72152,26 @@
       "right_title": "원전 공론화 파행으로 제12차 전기본 수립 차질 우려",
       "same_event": true
     },
+    "252a567038857e7a--80abcab9d385eb23": {
+      "embedding_similarity": 0.854,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "확대 측 위원 참여 중단에 따른 공론화위 파행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화 확대 측 위원 3인, '2050년 비중 논의 불발'에 참여 중단",
+      "same_event": true
+    },
+    "252a567038857e7a--88e99e0cdd9ea794": {
+      "embedding_similarity": 0.8613,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화위 위원 활동 중단 및 파행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화위 첫 토론회 앞두고 확대 측 위원들 활동 중단 선언",
+      "same_event": true
+    },
     "252a567038857e7a--8b229d4b476f453d": {
       "embedding_similarity": 0.9075,
       "left_title": "원전 확대 측, 12차 전기본 공론화 참여 중단…2050년 비중 제외 반발",
@@ -71931,6 +72181,16 @@
       "reviewed_at": "2026-11-26T03:56:52.361071+00:00",
       "right_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
       "same_event": true
+    },
+    "252a567038857e7a--91d6b6881c55cc1d": {
+      "embedding_similarity": 0.8456,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "개별 파행 사건과 기획·분석 보도는 별개",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "한겨레21, 제11·12차 전기본 연계 원전 공론화의 타당성과 쟁점 조명",
+      "same_event": false
     },
     "252a567038857e7a--93ca633e8fa3b312": {
       "embedding_similarity": 0.8654,
@@ -71972,6 +72232,16 @@
       "right_title": "원전 공론화위 파행…원전 비중 수치화 범위 갈등에 전문가 3인 보이콧 선언",
       "same_event": true
     },
+    "252a567038857e7a--ddf6517cf4778f14": {
+      "embedding_similarity": 0.8447,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 공론화위 첫 토론회 파행 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화위원회 첫 토론회 무산, 사회적 합의 도출 난항",
+      "same_event": true
+    },
     "252a567038857e7a--e117497ea6559de9": {
       "embedding_similarity": 0.9025,
       "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
@@ -71980,6 +72250,16 @@
       "reason": "첫 공개토론회 논의 범위 이견으로 인한 파행",
       "reviewed_at": "2026-11-26T03:56:52.361071+00:00",
       "right_title": "원전 공론화위원회 첫 공개토론회, 논의 범위 이견으로 파행",
+      "same_event": true
+    },
+    "252a567038857e7a--e4514526334ecbd3": {
+      "embedding_similarity": 0.8572,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 파행 및 수립 난항",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "12차 전기본, AI 전력수요 재검토 및 원전 공론화 갈등으로 수립 난항",
       "same_event": true
     },
     "252a567038857e7a--e766b49835715af3": {
@@ -72021,6 +72301,26 @@
       "reviewed_at": "2026-11-26T03:56:52.361071+00:00",
       "right_title": "제12차 전기본 원전 공론화위, 확대 측 전문위원 3명 참여 중단 선언",
       "same_event": true
+    },
+    "252a567038857e7a--f60e2c55601c7479": {
+      "embedding_similarity": 0.861,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "12차 전기본 원전 공론화 관련 경과 및 파행",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "정부, 12차 전력수급기본계획 원전 비중 놓고 대국민 공론화 착수",
+      "same_event": true
+    },
+    "252a567038857e7a--f93cfb848d2a9500": {
+      "embedding_similarity": 0.8438,
+      "left_title": "제12차 전기본 원전 공론화위 파행…3대 메가 프로젝트 전력 차질 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화 파행 사건과 공론화 쟁점 해설의 차이",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "제12차 전기본 원전 공론화, 신규 원전 선제 착수 vs 수요 확인 뒤 확충 쟁점",
+      "same_event": false
     },
     "2534b3b550f84a4e--2802eafd20ad9d90": {
       "embedding_similarity": 0.8691,
@@ -116662,6 +116962,26 @@
       "right_title": "삼성전자·SK하이닉스, AI 추론용 낸드 기술 경쟁 심화",
       "same_event": false
     },
+    "3f3c455312cbc136--479ed0cfd5810b02": {
+      "embedding_similarity": 0.8545,
+      "left_title": "12차 전기본 원전 공론화위, 원전 전문가 3인 논의 목적·범위 이견으로 활동 잠정 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 전문가 불참 및 토론회 무산 관련 동일 사건",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화위원회, 확대 측 불참으로 12차 전기본 토론회 무산",
+      "same_event": true
+    },
+    "3f3c455312cbc136--8b229d4b476f453d": {
+      "embedding_similarity": 0.8652,
+      "left_title": "원전 확대 측, 12차 전기본 공론화 참여 중단…2050년 비중 제외 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 확대 측 불참으로 인한 토론회 무산 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "원전 공론화위원회, 확대 측 불참으로 12차 전기본 토론회 무산",
+      "same_event": true
+    },
     "3f5378de3c220827--4208b34c49880c8b": {
       "embedding_similarity": 0.9028,
       "left_title": "한수원 직원, 루마니아 파견 후 사망…해외사업 인력 관리 부실 지적",
@@ -123142,6 +123462,16 @@
       "right_title": "미국 NRC, 원전 인허가 심리 기간 6개월로 단축 규칙 최종 확정",
       "same_event": false
     },
+    "44ac152bb1b822bb--479ed0cfd5810b02": {
+      "embedding_similarity": 0.8487,
+      "left_title": "12차 전기본 원전 공론화위, 원전 전문가 3인 논의 목적·범위 이견으로 활동 잠정 중단",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "공론화위 위원 불참 및 설명회 대체 진행 경과",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "제12차 전력수급기본계획 원전 공론화, 확대·감축 측 불참 속 중립 전문위원 설명회로 진행",
+      "same_event": true
+    },
     "44af16619ddc4885--669f3cd470352a4e": {
       "embedding_similarity": 0.8476,
       "left_title": "김정관 산업부 장관, 美 투자 압박에 긴급 방미…원전·SMR 투자 논의",
@@ -124920,6 +125250,16 @@
       "reason": "한-체코 산업장관 회담 관련 보도",
       "reviewed_at": "2026-11-14T03:17:20.722253+00:00",
       "right_title": "체코 산업통상부 장관, 방한해 두코바니 원전 사업 협의 예정",
+      "same_event": true
+    },
+    "45eff2631070e71e--e03553f9e911bdee": {
+      "embedding_similarity": 0.8448,
+      "left_title": "산업장관, 체코 측에 \"원전사업 완수…결과로 책임질 것\"",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 사업 완성 및 협력 강조",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 두코바니 원전 시공사 교체 문제에 '팀코리아' 협력 강조",
       "same_event": true
     },
     "45eff2631070e71e--e09594c8f3712b11": {
@@ -209322,6 +209662,16 @@
       "right_title": "원전 공론화위 파행…원전 비중 수치화 범위 갈등에 전문가 3인 보이콧 선언",
       "same_event": true
     },
+    "8b229d4b476f453d--c16e8d78e0147849": {
+      "embedding_similarity": 0.8453,
+      "left_title": "원전 확대 측, 12차 전기본 공론화 참여 중단…2050년 비중 제외 반발",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "원전 확대 측 보이콧으로 인한 토론회 파행 보도",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "12차 전기본 원전 공론화위, 확대 측 보이콧으로 첫 토론회 파행",
+      "same_event": true
+    },
     "8b229d4b476f453d--e117497ea6559de9": {
       "embedding_similarity": 0.8937,
       "left_title": "원전 확대 측, 12차 전기본 공론화 참여 중단…2050년 비중 제외 반발",
@@ -241832,6 +242182,16 @@
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 잠재공급사 현장설명회 개최",
       "same_event": false
     },
+    "adc1b7fb0d1e5785--e03553f9e911bdee": {
+      "embedding_similarity": 0.8461,
+      "left_title": "팀코리아, 체코 원전사업 차질 없이 적기 준공 약속",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 적기 준공 및 시공사 교력 협력",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 두코바니 원전 시공사 교체 문제에 '팀코리아' 협력 강조",
+      "same_event": true
+    },
     "adc1b7fb0d1e5785--e09594c8f3712b11": {
       "embedding_similarity": 0.9035,
       "left_title": "팀코리아, 체코 원전사업 차질 없이 적기 준공 약속",
@@ -253892,6 +254252,16 @@
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 잠재공급사 현장설명회 개최",
       "same_event": false
     },
+    "bf21df13ebc30c1d--e03553f9e911bdee": {
+      "embedding_similarity": 0.8529,
+      "left_title": "팀코리아, 체코 두코바니 원전 공동성명 발표…시공사 재선정 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 시공사 재선정/교체 관련 논의",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 두코바니 원전 시공사 교체 문제에 '팀코리아' 협력 강조",
+      "same_event": true
+    },
     "bf21df13ebc30c1d--e09594c8f3712b11": {
       "embedding_similarity": 0.8962,
       "left_title": "팀코리아, 체코 두코바니 원전 공동성명 발표…시공사 재선정 추진",
@@ -258501,6 +258871,16 @@
       "reviewed_at": "2026-11-20T11:19:43.796585+00:00",
       "right_title": "한수원, 체코 두코바니 원전 냉각탑 잠재공급사 현장설명회 개최",
       "same_event": false
+    },
+    "c52893d390e16828--e03553f9e911bdee": {
+      "embedding_similarity": 0.8533,
+      "left_title": "산업부 장관, 체코와 두코바니 원전사업 정상추진 협력 논의",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "체코 두코바니 원전 사업 협력 및 시공사 문제 논의",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 두코바니 원전 시공사 교체 문제에 '팀코리아' 협력 강조",
+      "same_event": true
     },
     "c52893d390e16828--e09594c8f3712b11": {
       "embedding_similarity": 0.8452,
@@ -266692,6 +267072,16 @@
       "right_title": "체코 산업통상부 장관, 방한해 두코바니 원전 사업 협의 예정",
       "same_event": false
     },
+    "d8531177505bee02--e03553f9e911bdee": {
+      "embedding_similarity": 0.8412,
+      "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "시공사 교체 관련 팀코리아 점검회의 및 장관 발언",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "장관, 체코 두코바니 원전 시공사 교체 문제에 '팀코리아' 협력 강조",
+      "same_event": true
+    },
     "d8531177505bee02--e09594c8f3712b11": {
       "embedding_similarity": 0.8966,
       "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
@@ -268220,6 +268610,16 @@
       "reason": "서로 다른 기업의 계약",
       "reviewed_at": "2026-09-26T09:26:39.413469+00:00",
       "right_title": "DL이앤씨, 미국 엑스에너지와 SMR 표준화 설계 계약 체결",
+      "same_event": false
+    },
+    "dce470bec113a228--e10c5c72572a2852": {
+      "embedding_similarity": 0.8554,
+      "left_title": "한수원, IAEA 원전 안전점검 정례화…신고리2호기 재난 대응체계 호평",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "IAEA 점검과 방사능방재 훈련은 별개의 행사",
+      "reviewed_at": "2026-11-26T07:12:41.745842+00:00",
+      "right_title": "한수원 고리본부, 신고리2호기 대상 방사능방재 합동훈련 실시",
       "same_event": false
     },
     "dced5907c608e617--e28a111c9e78dcdb": {
