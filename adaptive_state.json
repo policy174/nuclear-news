@@ -1,6 +1,6 @@
 {
   "minted": {
-    "count": 3,
+    "count": 4,
     "date": "2026-11-27"
   },
   "retired": {
@@ -996,6 +996,14 @@
       "type": "plant",
       "until": "2026-10-19T15:39:56.401700+00:00"
     },
+    "잃은": {
+      "new_articles": 1,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-26T22:17:53.091328+00:00",
+      "term": "잃은",
+      "type": "plant",
+      "until": "2026-12-10T22:17:53.091328+00:00"
+    },
     "임산부": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -1438,7 +1446,7 @@
     }
   },
   "spent": {
-    "count": 5,
+    "count": 6,
     "date": "2026-11-27"
   },
   "terms": {
@@ -1572,39 +1580,55 @@
       "yields": 3,
       "zero_streak": 1
     },
-    "잃은": {
-      "articles": 1,
-      "created_at": "2026-11-25T22:17:33.982854+00:00",
+    "연방통신위원회": {
+      "articles": 5,
+      "created_at": "2026-11-26T22:17:53.091328+00:00",
       "domains": [
-        "seoul.co.kr"
+        "mk.co.kr",
+        "newsian.co.kr",
+        "chosun.com",
+        "m-i.kr",
+        "wikitree.co.kr"
       ],
       "evidence": [
         {
-          "domain": "seoul.co.kr",
-          "hash": "fb9dce5620262236",
-          "importance": "must_read",
-          "title": "길 잃은 원전 공론화… 정부, 책임지고 결단할 단계"
+          "domain": "mk.co.kr",
+          "hash": "c0248948519535ff",
+          "importance": "nice_to_know",
+          "title": "미 FCC, 스페이스X의 우주 데이터센터용 위성 100만기 배치 승인"
+        },
+        {
+          "domain": "newsian.co.kr",
+          "hash": "de69724606448d5c",
+          "importance": "nice_to_know",
+          "title": "미국 FCC, 스페이스X의 우주 데이터센터 위성 100만 기 배치 승인"
+        },
+        {
+          "domain": "chosun.com",
+          "hash": "51591d2f33a4decc",
+          "importance": "nice_to_know",
+          "title": "스페이스X, 우주 AI 데이터센터 구축을 위한 위성 100만 기 FCC 조건부 승인"
         }
       ],
-      "expires_at": "2026-11-26T22:17:35.534541+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-26T20:51:27.439124+00:00",
+      "expires_at": "2026-11-27T22:17:54.187776+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 1,
+      "last_run": "2026-11-26T22:17:54.187776+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-26T20:51:25.635254+00:00",
-      "queries_run": 2,
-      "query": "잃은 원전",
-      "score": 3.6,
+      "planned_at": "2026-11-26T22:17:53.091328+00:00",
+      "queries_run": 1,
+      "query": "연방통신위원회 원자력",
+      "score": 3.32,
       "status": "extended",
-      "term": "잃은",
+      "term": "연방통신위원회",
       "ttl_hours": 24,
-      "type": "plant",
+      "type": "org",
       "yield_days": [
-        "2026-11-26"
+        "2026-11-27"
       ],
       "yields": 1,
-      "zero_streak": 1
+      "zero_streak": 0
     },
     "한국전기안전공사": {
       "articles": 5,
