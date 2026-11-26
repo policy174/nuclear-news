@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 2,
-    "date": "2026-11-26"
+    "count": 3,
+    "date": "2026-11-27"
   },
   "retired": {
     "apr1000": {
@@ -172,6 +172,14 @@
       "type": "company",
       "until": "2026-12-01T09:02:37.046156+00:00"
     },
+    "srs": {
+      "new_articles": 0,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-26T18:54:08.481524+00:00",
+      "term": "SRS",
+      "type": "company",
+      "until": "2026-12-10T18:54:08.481524+00:00"
+    },
     "uvpp": {
       "new_articles": 1,
       "reason": "기간 만료",
@@ -195,6 +203,14 @@
       "term": "Xe-100",
       "type": "tech",
       "until": "2026-11-17T04:59:32.432570+00:00"
+    },
+    "강화효성굿스프링스": {
+      "new_articles": 2,
+      "reason": "기간 만료",
+      "retired_at": "2026-11-26T18:54:08.481524+00:00",
+      "term": "강화 효성굿스프링스",
+      "type": "plant",
+      "until": "2026-12-10T18:54:08.481524+00:00"
     },
     "개인정보보호위원회": {
       "new_articles": 0,
@@ -1422,89 +1438,89 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-11-26"
+    "count": 3,
+    "date": "2026-11-27"
   },
   "terms": {
-    "srs": {
+    "두와이힌": {
       "articles": 1,
-      "created_at": "2026-11-25T16:41:10.519986+00:00",
+      "created_at": "2026-11-26T18:54:08.481524+00:00",
       "domains": [
-        "energy.gov"
+        "chosun.com"
       ],
       "evidence": [
         {
-          "domain": "energy.gov",
-          "hash": "ed56d89a3a1c3744",
+          "domain": "chosun.com",
+          "hash": "b6cb29c689e9617f",
           "importance": "must_read",
-          "title": "美 SRS, 차세대 원자로용 HALEU 생산 준비 완료"
+          "title": "사우디 두와이힌 원전, 후티 공세와 미 의회 123협정 불승인 변수 직면"
         }
       ],
-      "expires_at": "2026-11-26T16:41:10.519986+00:00",
+      "expires_at": "2026-11-27T18:54:08.481524+00:00",
       "importance": "must_read",
       "last_result_count": 0,
-      "last_run": "2026-11-25T22:47:40.554421+00:00",
+      "last_run": "2026-11-26T18:54:11.488555+00:00",
       "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-11-25T22:47:37.925535+00:00",
-      "queries_run": 2,
-      "query": "SRS 원자력",
+      "planned_at": "2026-11-26T18:54:08.481524+00:00",
+      "queries_run": 1,
+      "query": "두와이힌 원전",
       "score": 3.6,
       "status": "tracking",
-      "term": "SRS",
+      "term": "두와이힌",
       "ttl_hours": 24,
-      "type": "company",
+      "type": "plant",
       "yield_days": [],
       "yields": 0,
-      "zero_streak": 2
+      "zero_streak": 1
     },
-    "강화효성굿스프링스": {
-      "articles": 3,
-      "created_at": "2026-11-24T17:08:56.754669+00:00",
+    "무역대표부": {
+      "articles": 5,
+      "created_at": "2026-11-26T18:54:08.481524+00:00",
       "domains": [
-        "knpnews.com",
-        "apnews.kr",
-        "biztribune.co.kr"
+        "chosun.com",
+        "motir.go.kr",
+        "khan.co.kr",
+        "hankooki.com",
+        "seoul.co.kr"
       ],
       "evidence": [
         {
-          "domain": "knpnews.com",
-          "hash": "8dc136d3f3c697bb",
-          "importance": "nice_to_know",
-          "title": "효성굿스프링스, 원전용 펌프 美 ASME 인증 획득으로 해외 시장 경쟁력 강화"
+          "domain": "chosun.com",
+          "hash": "ad8b356d44bc5723",
+          "importance": "noise",
+          "title": "미국 무역대표부, 한국 반도체 등 메가 프로젝트 과잉생산 관세 검토"
         },
         {
-          "domain": "apnews.kr",
-          "hash": "a955135ffd935e8f",
+          "domain": "motir.go.kr",
+          "hash": "f3567a84ae1d3d45",
           "importance": "nice_to_know",
-          "title": "효성굿스프링스, ASME 인증 획득…글로벌 원전 펌프 공급 경쟁력 강화"
+          "title": "미국 무역대표부, 제조업 과잉생산 301조 조사 결과 발표…한국에 15% 제안"
         },
         {
-          "domain": "biztribune.co.kr",
-          "hash": "85b4f4f8bae4378a",
+          "domain": "khan.co.kr",
+          "hash": "82ac6c81e9085b95",
           "importance": "nice_to_know",
-          "title": "효성굿스프링스, 美 ASME 인증 확보로 글로벌 원전 수주 경쟁력 강화"
+          "title": "미국 USTR, 한국의 반도체 및 AI 데이터센터 등 산업정책을 과잉생산 유발 관행으로 지목"
         }
       ],
-      "expires_at": "2026-11-26T17:08:56.754669+00:00",
+      "expires_at": "2026-11-27T18:54:08.481524+00:00",
       "importance": "nice_to_know",
       "last_result_count": 0,
-      "last_run": "2026-11-26T01:29:14.507710+00:00",
-      "new_articles": 2,
+      "last_run": "2026-11-26T18:54:11.488555+00:00",
+      "new_articles": 0,
       "origin": "auto",
-      "planned_at": "2026-11-26T01:29:13.229094+00:00",
-      "queries_run": 4,
-      "query": "강화 효성굿스프링스 원전",
-      "score": 4.6,
-      "status": "extended",
-      "term": "강화 효성굿스프링스",
-      "ttl_hours": 48,
-      "type": "plant",
-      "yield_days": [
-        "2026-11-25"
-      ],
-      "yields": 1,
-      "zero_streak": 2
+      "planned_at": "2026-11-26T18:54:08.481524+00:00",
+      "queries_run": 1,
+      "query": "무역대표부 원자력",
+      "score": 3.7,
+      "status": "tracking",
+      "term": "무역대표부",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [],
+      "yields": 0,
+      "zero_streak": 1
     },
     "신규원전5": {
       "articles": 3,
@@ -1586,6 +1602,56 @@
       "type": "plant",
       "yield_days": [
         "2026-11-26"
+      ],
+      "yields": 1,
+      "zero_streak": 0
+    },
+    "한국전기안전공사": {
+      "articles": 5,
+      "created_at": "2026-11-26T18:54:08.481524+00:00",
+      "domains": [
+        "e2news.com",
+        "ytn.co.kr",
+        "energy-news.co.kr",
+        "lawissue.co.kr",
+        "newsmaker.or.kr"
+      ],
+      "evidence": [
+        {
+          "domain": "e2news.com",
+          "hash": "dd97e47c514e4487",
+          "importance": "nice_to_know",
+          "title": "한국전기안전공사, 정읍에 154kV 초고압 변전 실습설비 준공"
+        },
+        {
+          "domain": "ytn.co.kr",
+          "hash": "e4f675dcb8c5a962",
+          "importance": "nice_to_know",
+          "title": "한국전기안전공사, 정읍 연수원에 154kV 초고압 변전 실습설비 구축…데이터센터 전문인력 양성"
+        },
+        {
+          "domain": "energy-news.co.kr",
+          "hash": "d765da5f764aa20a",
+          "importance": "nice_to_know",
+          "title": "한국전기안전공사, 정읍에 154kV 초고압 변전 실습설비 준공"
+        }
+      ],
+      "expires_at": "2026-11-27T18:54:11.488555+00:00",
+      "importance": "nice_to_know",
+      "last_result_count": 1,
+      "last_run": "2026-11-26T18:54:11.488555+00:00",
+      "new_articles": 1,
+      "origin": "auto",
+      "planned_at": "2026-11-26T18:54:08.481524+00:00",
+      "queries_run": 1,
+      "query": "한국전기안전공사 원자력",
+      "score": 3.32,
+      "status": "extended",
+      "term": "한국전기안전공사",
+      "ttl_hours": 24,
+      "type": "org",
+      "yield_days": [
+        "2026-11-27"
       ],
       "yields": 1,
       "zero_streak": 0
