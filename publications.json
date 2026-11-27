@@ -1,6 +1,48 @@
 {
  "items": [
   {
+   "id": "eda7bf9bf168",
+   "org": "KEEI",
+   "org_kr": "에너지경제연구원(KEEI)",
+   "kind": "keei_insight",
+   "title": "[격주간] 세계 원전시장 인사이트(2026.11.27.)",
+   "url": "https://www.keei.re.kr/board.es?act=view&bid=0002&list_no=128637&mid=a10102050000",
+   "date": "2026-11-27",
+   "fetched_at": "2026-11-28",
+   "pdf_url": "https://www.keei.re.kr/boardDownload.es?bid=0002&list_no=128637&seq=1",
+   "toc": {
+    "issue_title": "SMR을 활용한 지역 냉난방의 수요 전망과 경제성 평가(NEA 보고서)",
+    "briefs": [
+     "미 하원, 원자력 관련 법안 6건 가결",
+     "미 NRC, Long Mott 원전 건설허가 발급",
+     "미국 New York 주, 5GW 규모 신규 원전 도입 위한 마스터플랜 공개",
+     "캐나다 OPG, Darlington SMR 1호기 상업운전 지연·사업비 초과 전망",
+     "EIB, 루마니아 Cernavodă 1호기 설비개선에 4억 유로 대출계약 체결",
+     "프랑스 감사원, 전력 가격 하락 시 EPR2 6기 건설자금 조달난 우려",
+     "에스토니아, 자국 최초 원전 건설 후보부지 6곳에서 3곳으로 압축",
+     "중국, San'ao 4호기 최초 콘크리트 타설",
+     "방글라데시, Rooppur 1호기 최초 계통 연결",
+     "일본 규제위, 미하마 3호기 장기시설관리계획 승인",
+     "일본 Mitsubishi 중공업, 원자력 사업 확대 위해 8천억 원 규모 투자 계획 발표"
+    ]
+   }
+  },
+  {
+   "id": "f97b80623aa9",
+   "org": "IAEA",
+   "org_kr": "국제원자력기구(IAEA)",
+   "kind": "publication",
+   "title": "Long Term Operation and Plant Life Management of Nuclear Power Plants",
+   "url": "http://www.iaea.org/publications/16152/long-term-operation-and-plant-life-management-of-nuclear-power-plants",
+   "date": "2026-11-17",
+   "fetched_at": "2026-11-28",
+   "title_kr": "원자력 발전소의 장기운전 및 수명 관리",
+   "gist": "원전 장기운전 및 수명 관리 관련 IAEA 보고서",
+   "off_topic": false,
+   "relevance": "policy",
+   "translated_version": 3
+  },
+  {
    "id": "5305972e75a0",
    "org": "KEEI",
    "org_kr": "에너지경제연구원(KEEI)",
@@ -1011,43 +1053,43 @@
  ],
  "state": {
   "nea_max_id": 121835,
-  "keei_max_list_no": 128537,
+  "keei_max_list_no": 128637,
   "keei_pending_toc": []
  },
  "last_checked": {
   "iaea_publications": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": true,
-   "new": 0,
+   "new": 1,
    "parsed": 15
   },
   "eia_today": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "eia_press": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": true,
    "new": 0,
    "parsed": 0
   },
   "nea_news": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.oecd-nea.org/jcms/p_23/news"
   },
   "iea_reports": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": false,
    "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.iea.org/analysis?type=report"
   },
   "keei_insight": {
-   "at": "2026-11-27T00:01:23+09:00",
+   "at": "2026-11-28T00:44:05+09:00",
    "ok": true,
-   "new": 0,
-   "parsed": 0
+   "new": 1,
+   "parsed": 1
   }
  }
 }

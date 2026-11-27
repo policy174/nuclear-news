@@ -1,7 +1,7 @@
 {
   "minted": {
-    "count": 5,
-    "date": "2026-11-27"
+    "count": 0,
+    "date": "2026-11-28"
   },
   "retired": {
     "apr1000": {
@@ -443,6 +443,14 @@
       "term": "닌투언2",
       "type": "plant",
       "until": "2026-10-17T15:36:26.030613+00:00"
+    },
+    "두와이힌": {
+      "new_articles": 0,
+      "reason": "성과 없음",
+      "retired_at": "2026-11-27T15:39:00.032221+00:00",
+      "term": "두와이힌",
+      "type": "plant",
+      "until": "2026-12-11T15:39:00.032221+00:00"
     },
     "드레스덴": {
       "new_articles": 0,
@@ -1446,42 +1454,10 @@
     }
   },
   "spent": {
-    "count": 12,
-    "date": "2026-11-27"
+    "count": 3,
+    "date": "2026-11-28"
   },
   "terms": {
-    "두와이힌": {
-      "articles": 1,
-      "created_at": "2026-11-26T18:54:08.481524+00:00",
-      "domains": [
-        "chosun.com"
-      ],
-      "evidence": [
-        {
-          "domain": "chosun.com",
-          "hash": "b6cb29c689e9617f",
-          "importance": "must_read",
-          "title": "사우디 두와이힌 원전, 후티 공세와 미 의회 123협정 불승인 변수 직면"
-        }
-      ],
-      "expires_at": "2026-11-27T18:54:08.481524+00:00",
-      "importance": "must_read",
-      "last_result_count": 0,
-      "last_run": "2026-11-27T03:27:37.875627+00:00",
-      "new_articles": 0,
-      "origin": "auto",
-      "planned_at": "2026-11-27T03:27:35.580780+00:00",
-      "queries_run": 2,
-      "query": "두와이힌 원전",
-      "score": 3.6,
-      "status": "tracking",
-      "term": "두와이힌",
-      "ttl_hours": 24,
-      "type": "plant",
-      "yield_days": [],
-      "yields": 0,
-      "zero_streak": 2
-    },
     "무역대표부": {
       "articles": 5,
       "created_at": "2026-11-26T18:54:08.481524+00:00",
@@ -1514,12 +1490,12 @@
       ],
       "expires_at": "2026-11-28T03:27:37.875627+00:00",
       "importance": "nice_to_know",
-      "last_result_count": 1,
-      "last_run": "2026-11-27T03:27:37.875627+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-27T15:39:00.032151+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-27T03:27:35.580780+00:00",
-      "queries_run": 2,
+      "planned_at": "2026-11-27T15:38:57.689782+00:00",
+      "queries_run": 3,
       "query": "무역대표부 원자력",
       "score": 3.7,
       "status": "extended",
@@ -1530,7 +1506,7 @@
         "2026-11-27"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "신규원전5": {
       "articles": 3,
@@ -1656,12 +1632,12 @@
       ],
       "expires_at": "2026-11-29T03:27:35.580780+00:00",
       "importance": "must_read",
-      "last_result_count": 1,
-      "last_run": "2026-11-27T03:27:37.875627+00:00",
+      "last_result_count": 0,
+      "last_run": "2026-11-27T15:39:00.032151+00:00",
       "new_articles": 1,
       "origin": "auto",
-      "planned_at": "2026-11-27T03:27:35.580780+00:00",
-      "queries_run": 1,
+      "planned_at": "2026-11-27T15:38:57.689782+00:00",
+      "queries_run": 2,
       "query": "종합로드맵 원자력",
       "score": 4.5,
       "status": "extended",
@@ -1672,7 +1648,7 @@
         "2026-11-27"
       ],
       "yields": 1,
-      "zero_streak": 0
+      "zero_streak": 1
     },
     "한국전기안전공사": {
       "articles": 5,
