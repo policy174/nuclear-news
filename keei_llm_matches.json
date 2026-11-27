@@ -162,6 +162,13 @@
       "reason": "다른 국가, 다른 사업",
       "same_event": false
     },
+    "issue-048c7c4bf4529eb2--ee5c3e62bc": {
+      "issue_title": "프랑스, 차세대 원전 설비 생산 시설 가동…EPR2 6기 건설 준비",
+      "keei_item": "프랑스 감사원, 전력 가격 하락 시 EPR2 6기 건설자금 조달난 우려",
+      "prompt_version": 1,
+      "reason": "A는 건설 준비, B는 자금 조달 우려",
+      "same_event": false
+    },
     "issue-0566c98f225d37a3--ef34bfc751": {
       "issue_title": "이소영 중기부 장관 후보자, SMR 등 신기술 육성 위한 규제개혁 강조",
       "keei_item": "영국 ONR·환경청, 원전 도입 가속화를 위한 규제개혁 추진",
@@ -489,6 +496,13 @@
       "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
       "prompt_version": 1,
       "reason": "한미 원전 협력 및 8기 건설 관련 동일 사안임",
+      "same_event": true
+    },
+    "issue-0e96e5e8a57dc9ea--0c9975a279": {
+      "issue_title": "방글라데시 루푸르 원전 1호기, 11월 17일 최초로 계통에 전력 공급 시작",
+      "keei_item": "방글라데시, Rooppur 1호기 최초 계통 연결",
+      "prompt_version": 1,
+      "reason": "방글라데시 루푸르 1호기 전력 공급",
       "same_event": true
     },
     "issue-0f67fdfe143a9591--249f1333d0": {
@@ -862,6 +876,13 @@
       "reason": "연료 공급 계약은 공급망 협력의 일환",
       "same_event": true
     },
+    "issue-1bd29dad13c20039--744b618adc": {
+      "issue_title": "뉴욕주, 5GW 신규 원전 개발 마스터플랜 발표",
+      "keei_item": "미국 New York 주, 5GW 규모 신규 원전 도입 위한 마스터플랜 공개",
+      "prompt_version": 1,
+      "reason": "뉴욕주 신규 원전 마스터플랜",
+      "same_event": true
+    },
     "issue-1c5dd0144a34b5f9--15847ae667": {
       "issue_title": "HD현대중공업, 울산에 1조원대 발전엔진 및 SMR 공장 신설 결정",
       "keei_item": "미국 Westinghouse, LEU+ 연료 공장 신설에 약 1조 3,250억 원 투자",
@@ -1015,6 +1036,13 @@
       "prompt_version": 1,
       "reason": "사나오 원전과 Zhaoyuan 원전은 다른 원전임",
       "same_event": false
+    },
+    "issue-23c17f864827c377--e4abb875ea": {
+      "issue_title": "중국 사나오 원전 4호기, 화룡원 노형 첫 콘크리트 타설",
+      "keei_item": "중국, San'ao 4호기 최초 콘크리트 타설",
+      "prompt_version": 1,
+      "reason": "중국 사나오 4호기 최초 콘크리트 타설",
+      "same_event": true
     },
     "issue-23e8e803fb902bea--2f256ca9b0": {
       "issue_title": "한미, 미국 내 대형 원전 8기 건설 '프로젝트 파워' 프레임워크 발표…APR1400 2기 포함",
@@ -2675,6 +2703,13 @@
       "reason": "미국과 한국으로 대상 국가 및 규제기관이 다름",
       "same_event": false
     },
+    "issue-505747c0c40be0b4--ee5c3e62bc": {
+      "issue_title": "프랑스, 2027년 예산안에 EPR2 원전 6기 건설 예산 반영",
+      "keei_item": "프랑스 감사원, 전력 가격 하락 시 EPR2 6기 건설자금 조달난 우려",
+      "prompt_version": 1,
+      "reason": "A는 예산 반영, B는 자금 조달 우려",
+      "same_event": false
+    },
     "issue-50a0450c20bee9ac--230f7960b4": {
       "issue_title": "한국 기업, 미국 현지에 원전 8기 건설 대미 투자 합의 명시",
       "keei_item": "미국 Kairos, 삼성물산과 전략적 투자 및 Hermes 2 건설 협력 합의서 체결",
@@ -3725,6 +3760,13 @@
       "reason": "동일 원전, 가뭄으로 인한 대응 조치",
       "same_event": true
     },
+    "issue-6bacc9324e6fe365--0c9975a279": {
+      "issue_title": "방글라데시 루푸르 원전 1호기, 최초 임계 도달",
+      "keei_item": "방글라데시, Rooppur 1호기 최초 계통 연결",
+      "prompt_version": 1,
+      "reason": "A는 최초 임계, B는 최초 계통 연결",
+      "same_event": false
+    },
     "issue-6bacc9324e6fe365--835e580735": {
       "issue_title": "방글라데시 루푸르 원전 1호기, 최초 임계 도달",
       "keei_item": "미국, 세 번째 선진 원자로 임계 도달로 대통령 행정명령 목표 달성",
@@ -4150,6 +4192,13 @@
       "keei_item": "유럽투자은행, 루마니아 Cernavodă 1호기 설비개선 1.3조 원 대출 승인",
       "prompt_version": 1,
       "reason": "루마니아 체르나보다 1호기 계속운전 및 설비개선 대출 관련",
+      "same_event": true
+    },
+    "issue-7bd12948515e9508--be4053fd7c": {
+      "issue_title": "한수원, 루마니아 체르나보다 1호기 계속운전 사업으로 유럽 에너지 안보 기여",
+      "keei_item": "EIB, 루마니아 Cernavodă 1호기 설비개선에 4억 유로 대출계약 체결",
+      "prompt_version": 1,
+      "reason": "루마니아 체르나보다 1호기 계속운전/설비개선",
       "same_event": true
     },
     "issue-7be39fc0a4fec2e5--35d63aa558": {
@@ -5844,6 +5893,13 @@
       "keei_item": "미국 Kairos, 삼성물산과 전략적 투자 및 Hermes 2 건설 협력 합의서 체결",
       "prompt_version": 1,
       "reason": "국내 건설사 일반 동향과 삼성물산 개별 계약으로 사안이 다름",
+      "same_event": false
+    },
+    "issue-b4c14d3775e8d3fd--ee5c3e62bc": {
+      "issue_title": "프랑스, EPR 2 원전 재원 조달 2027년 재정법안에 따라 결정될 예정",
+      "keei_item": "프랑스 감사원, 전력 가격 하락 시 EPR2 6기 건설자금 조달난 우려",
+      "prompt_version": 1,
+      "reason": "A는 재원 조달 결정 시점, B는 자금 조달 우려",
       "same_event": false
     },
     "issue-b55e201374267ece--02506fe991": {
@@ -7708,6 +7764,13 @@
       "reason": "주체 및 안건이 다름.",
       "same_event": false
     },
+    "issue-f02abff4b078be6e--ee5c3e62bc": {
+      "issue_title": "프랑스 감사원, 저전력 가격으로 EDF EPR2 건설 자금 조달 난항 경고",
+      "keei_item": "프랑스 감사원, 전력 가격 하락 시 EPR2 6기 건설자금 조달난 우려",
+      "prompt_version": 1,
+      "reason": "프랑스 감사원 EPR2 자금 조달 우려",
+      "same_event": true
+    },
     "issue-f05008a326b99feb--77d959ece5": {
       "issue_title": "한국형 i-SMR 표준설계 심사 준비 절차 2월 시작",
       "keei_item": "한국 원안위, i-SMR 표준설계인가 안전성 심사 착수",
@@ -7967,6 +8030,13 @@
       "reason": "미국 홀텍 SMR과 한국 i-SMR은 서로 다른 원전 프로젝트",
       "same_event": false
     },
+    "issue-f9acbce3368811a6--d3170ad988": {
+      "issue_title": "미국 NRC, TVA의 300MW급 BWRX-300 SMR 건설허가 발급",
+      "keei_item": "미 NRC, Long Mott 원전 건설허가 발급",
+      "prompt_version": 1,
+      "reason": "A는 SMR 건설허가, B는 원전 건설허가",
+      "same_event": false
+    },
     "issue-f9c74adbe9e445cb--2f256ca9b0": {
       "issue_title": "정부, 대미 원전 8기 투자 협상 연기...APR1400 이견",
       "keei_item": "한미, 미국 내 대형원전 8기 건설 추진 프레임워크 합의",
@@ -8091,6 +8161,13 @@
       "keei_item": "폴란드 OSGE, 자국 내 BWRX-300 14기 건설 관련 CfD 지원 신청",
       "prompt_version": 1,
       "reason": "국가와 주체가 다름",
+      "same_event": false
+    },
+    "issue-ff3861b0d07a3bad--873f390e5f": {
+      "issue_title": "에스토니아, 첫 BWRX-300 SMR 건설 부지 3곳 최종 후보지로 선정",
+      "keei_item": "에스토니아, 자국 최초 원전 건설 후보부지 6곳에서 3곳으로 압축",
+      "prompt_version": 1,
+      "reason": "A는 BWRX-300 부지, B는 원전 건설 부지",
       "same_event": false
     },
     "issue-ffa4860464595c91--bc639312b5": {
