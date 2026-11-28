@@ -16642,6 +16642,16 @@
       "right_title": "고창군 범대위, 한빛원전 사용후핵연료 건식저장시설 설치 반대…안전·제도 개선 촉구",
       "same_event": false
     },
+    "076e75b36545a7ac--7833f63b5f2cc8e0": {
+      "embedding_similarity": 0.8853,
+      "left_title": "RPS 제도 일몰, 2027년부터 계약시장제도로 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "2027년 RPS 전환과 2029년 REC 종료는 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "재생에너지 REC 현물시장 2029년 종료…장기 고정가격계약 전환",
+      "same_event": false
+    },
     "077b5dc0fb9d7882--18d7399f8aad9119": {
       "embedding_similarity": 0.9056,
       "left_title": "한빛원전 2호기, 9월 11일 설계수명 만료로 가동 중단",
@@ -25622,6 +25632,16 @@
       "right_title": "국내외 SMR 건설허가 신청은 2028년인데 심사 기준은 2032년 마련 우려",
       "same_event": false
     },
+    "0c1f45fc56ae9978--d173305d3d785a1b": {
+      "embedding_similarity": 0.8926,
+      "left_title": "정부, 2030년까지 ESS 13.6GW 확보 목표…15조 원 투입",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 ESS 목표 발표와 기업 수주 성과는 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "동서발전, ESS 입찰 672MW 확보로 국내 누적 용량 1위 달성",
+      "same_event": false
+    },
     "0c1fe3ad10fc8450--67692ca9625c6f16": {
       "embedding_similarity": 0.8601,
       "left_title": "한수원, 체코 두코바니 원전사업 발주사와 합동 점검회의 개최",
@@ -33810,6 +33830,16 @@
       "reason": "12차 전기본 원전 비중 공론화 착수",
       "reviewed_at": "2026-10-30T09:41:23.594573+00:00",
       "right_title": "정부, 제12차 전력수급기본계획 반영 위한 원전 비중 공론화 착수",
+      "same_event": true
+    },
+    "10f3994dd55c7c0c--76c41ec37e103826": {
+      "embedding_similarity": 0.8861,
+      "left_title": "일본 도쿄전력, 가시와자키 가리와 원전 재가동 지연",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "가시와자키 가리와 시설 연기로 인한 재가동 지연",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "도쿄전력, 가시와자키·가리와 7호기 대테러 시설 완공 2031년 4월로 연기",
       "same_event": true
     },
     "10f43507e6552b06--dcb01ec8f4a23259": {
@@ -61442,6 +61472,16 @@
       "right_title": "미국 주민들, AI 데이터센터 전력·자원 소모 및 규제 부재 우려",
       "same_event": false
     },
+    "1dd92bfcf8967381--bddea2df764af4e1": {
+      "embedding_similarity": 0.8902,
+      "left_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "M&A 제동 건과 주민 우려 동향은 서로 다름",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 주민들, AI 데이터센터 전력·자원 소모 및 규제 부재 우려",
+      "same_event": false
+    },
     "1dd92bfcf8967381--cd3c47ebe16b3507": {
       "embedding_similarity": 0.8916,
       "left_title": "미국 민주당 장악 6개 주, AI 데이터센터 전력·용수 사용 규제 추진",
@@ -80272,6 +80312,16 @@
       "right_title": "오픈AI 의장, 미국 중간선거 AI 데이터센터 반발에도 AI 주도권 유지 강조",
       "same_event": false
     },
+    "29574168fdeaa507--bddea2df764af4e1": {
+      "embedding_similarity": 0.8826,
+      "left_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "요금 반발 동향과 오픈AI 의장 발언은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "오픈AI 의장, 미국 중간선거 AI 데이터센터 반발에도 AI 주도권 유지 강조",
+      "same_event": false
+    },
     "29574168fdeaa507--c9b7e7f329abbe4b": {
       "embedding_similarity": 0.8788,
       "left_title": "오픈AI CFO, 미국 중간선거 결과 무관하게 AI 데이터센터 투자 지속 천명",
@@ -83331,6 +83381,16 @@
       "reviewed_at": "2026-11-14T12:54:15.914746+00:00",
       "right_title": "김정관 산업장관, 체코 장관에 원전 사업 차질 없는 추진 강조",
       "same_event": true
+    },
+    "2af75476eaa33875--c443c9a03011e082": {
+      "embedding_similarity": 0.8897,
+      "left_title": "김정관 산업부 장관, 체코 원전 시공사 교체 관련해 '생즉사 사즉생' 각오 촉구",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "국내 시공사 회의와 체코 장관 면담은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "김정관 산업장관, 체코 장관에 원전 사업 차질 없는 추진 강조",
+      "same_event": false
     },
     "2af75476eaa33875--c52893d390e16828": {
       "embedding_similarity": 0.9086,
@@ -100940,6 +101000,16 @@
       "reason": "배터리사 계약 체결과 ESS 시장 전망 기혹",
       "reviewed_at": "2026-11-20T16:29:44.465186+00:00",
       "right_title": "AI 답변 뒤 보조배터리…\"ESS 성장 10년 뒤까지\" [ESS 대전환 ①]",
+      "same_event": false
+    },
+    "36b1df641580327c--39ed8da36d77b2a6": {
+      "embedding_similarity": 0.8878,
+      "left_title": "미 국무부, 한국 핵잠 안전조치 협상에 IAEA의 직접 권한 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미 국무부 입장과 중국의 반대 표명은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "중국, IAEA 이사회서 한국 원자력 잠수함 도입에 공식 반대 표명",
       "same_event": false
     },
     "36b1df641580327c--58585556d0957e36": {
@@ -140632,6 +140702,16 @@
       "right_title": "폴란드, 첫 원전 건설 계약 2027년 체결 전망",
       "same_event": false
     },
+    "5223e3e98913a092--a56804288af2f883": {
+      "embedding_similarity": 0.8821,
+      "left_title": "폴란드 첫 AP1000 원전, 웨스팅하우스와 IHI 부품 공급 계약",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "웨스팅하우스 계약과 원전공사 발주는 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "폴란드 원전공사, 본계약 앞서 장납기 기자재 발주 착수",
+      "same_event": false
+    },
     "5223e3e98913a092--af8af4bdd8b01640": {
       "embedding_similarity": 0.8645,
       "left_title": "폴란드, 6기 SMR 발전소 건설 위한 합작사 설립",
@@ -166942,6 +167022,16 @@
       "right_title": "미국 민주당 의회 장악에 따른 데이터센터 세제 및 인허가 규제 변수 부각",
       "same_event": false
     },
+    "66502f8c7255141f--bddea2df764af4e1": {
+      "embedding_similarity": 0.8829,
+      "left_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "M&A 제동 사건과 민주당 규제 변수는 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 민주당 의회 장악에 따른 데이터센터 세제 및 인허가 규제 변수 부각",
+      "same_event": false
+    },
     "66502f8c7255141f--be6f5d05c8589bd8": {
       "embedding_similarity": 0.8994,
       "left_title": "미국 데이터센터 전력 수요 300GW 중 77% 민주당 주에 집중, 121GW 증설 전망",
@@ -169149,6 +169239,16 @@
       "prompt_version": 1,
       "reason": "규제기관 현장점검과 시공사 선정은 다름",
       "reviewed_at": "2026-11-28T04:51:39.381617+00:00",
+      "right_title": "한수원, 체코 두코바니 원전 새 시공사 내년 7월 공개경쟁 선출",
+      "same_event": false
+    },
+    "67356821492f5a39--d8531177505bee02": {
+      "embedding_similarity": 0.8949,
+      "left_title": "산업통상부, 체코 원전 팀코리아 파열 수습 위해 점검회의 주재",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "산업부 점검회의와 한수원 시공사 선출은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
       "right_title": "한수원, 체코 두코바니 원전 새 시공사 내년 7월 공개경쟁 선출",
       "same_event": false
     },
@@ -193022,6 +193122,16 @@
       "right_title": "연구용 원자로 '하나로', 6개월 만에 재가동 승인",
       "same_event": false
     },
+    "7833f63b5f2cc8e0--b1e6fcb15aff11d2": {
+      "embedding_similarity": 0.8816,
+      "left_title": "RPS 제도 일몰, 2027년부터 계약시장제도로 전환",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "2027년 RPS 일몰 및 장기계약 전환 동일 사안",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "기후부, 2027년 RPS 폐지…경쟁입찰 장기계약 시장으로 전환",
+      "same_event": true
+    },
     "7834aac8a10f2d14--970e64f526cb5ffd": {
       "embedding_similarity": 0.8809,
       "left_title": "가온전선, 미국 현지 가공선 생산 추진으로 송전망 시장 공략",
@@ -205390,6 +205500,16 @@
       "reason": "수주 영향 우려 분석과 법안 추진의 차이",
       "reviewed_at": "2026-11-22T22:11:21.172253+00:00",
       "right_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "same_event": false
+    },
+    "84715f9c97f8405c--bddea2df764af4e1": {
+      "embedding_similarity": 0.8953,
+      "left_title": "미국, AI 데이터센터 전력·용수 규제 강화 움직임에 K-전력기기 수주 영향 우려",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "규제 강화 우려와 요금 반발 이슈로 다름",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
       "same_event": false
     },
     "84715f9c97f8405c--c046e447db49c868": {
@@ -221182,6 +221302,16 @@
       "right_title": "한미 당국, 우라늄 농축 및 사용후핵연료 재처리의 원자력협정 절차 협의 지속",
       "same_event": false
     },
+    "93aa4b72b0ff8598--e3c9e2a084adf8d3": {
+      "embedding_similarity": 0.8837,
+      "left_title": "미국, 한국의 IAEA 핵추진잠수함 핵물질 안전조치 협의 결정 환영",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국의 환영 입장과 미중 이사회 충돌은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "한미 핵잠수함 협력 관련 IAEA 절차 두고 미국과 중국 이사회 충돌",
+      "same_event": false
+    },
     "93aa4b72b0ff8598--e8d0642e8d16d192": {
       "embedding_similarity": 0.886,
       "left_title": "방사청, 29조 원 규모 '장보고N' 핵추진잠수함 사업추진기본전략 의결",
@@ -224940,6 +225070,16 @@
       "reason": "원전 추가 필요성 vs 국민 공감",
       "reviewed_at": "2026-08-29T23:10:20.828213+00:00",
       "right_title": "국민 80%, 신규 원전 건설 및 12차 전기본 반영 필요성 공감",
+      "same_event": false
+    },
+    "97a5a04f17bce1c3--9b402071eda1cb63": {
+      "embedding_similarity": 0.8833,
+      "left_title": "이반 얀차렉 주한 체코대사, 부산서 한국-체코 원전 협력 강조",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "부산에서의 발언과 대구시장 면담은 별개 사건",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "추경호 대구시장, 주한 체코대사와 두코바니 원전 연계 산업협력 논의",
       "same_event": false
     },
     "97a86a79d052bb77--c3cca85e03c10169": {
@@ -250062,6 +250202,16 @@
       "right_title": "국회, 안도걸 의원 대표발의 '전력망 확충 3법' 본회의 통과",
       "same_event": false
     },
+    "b47c1f1256ee4333--bddea2df764af4e1": {
+      "embedding_similarity": 0.8868,
+      "left_title": "미국, 발전소·송전망 인허가 단축 및 데이터센터 전력 비용 부담 법안 추진",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "법안 추진 소식과 반발 및 M&A 제동은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "same_event": false
+    },
     "b47c1f1256ee4333--be6f5d05c8589bd8": {
       "embedding_similarity": 0.8922,
       "left_title": "미국 데이터센터 전력 수요 300GW 중 77% 민주당 주에 집중, 121GW 증설 전망",
@@ -256681,6 +256831,46 @@
       "reviewed_at": "2026-08-03T20:54:56.019310+00:00",
       "right_title": "세르비아 정부, 프랑스 EDF와 신규 원자력 프로그램 협정 체결",
       "same_event": true
+    },
+    "bddea2df764af4e1--e33cda951dde4acb": {
+      "embedding_similarity": 0.8925,
+      "left_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "미국 내 반발 동향과 한국 이전 전망은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "美 AI 기업, 전력망 비용 부담 늘자 한국으로 눈 돌릴 수도",
+      "same_event": false
+    },
+    "bddea2df764af4e1--e438a4fbf3544881": {
+      "embedding_similarity": 0.8833,
+      "left_title": "미국, 데이터센터 전력망 비용 부담 및 송전망 인허가 간소화 입법 논의 확대",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "입법 논의 확대와 요금 반발 및 제동은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "same_event": false
+    },
+    "bddea2df764af4e1--e80f2115f548f738": {
+      "embedding_similarity": 0.8811,
+      "left_title": "미국 중간선거 후 민주당, 데이터센터 신규 인허가 제한 시사",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "민주당의 인허가 제한과 요금 반발은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "same_event": false
+    },
+    "bddea2df764af4e1--e96844df1274ef5b": {
+      "embedding_similarity": 0.8884,
+      "left_title": "미국 AI 데이터센터 확산에 따른 전기요금 인상 반발 및 인수합병 제동",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "M&A 제동 사건과 전력망 비용 입법은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "美, AI 데이터센터 전력망 비용 62% 일반 소비자 부담…입법 추진",
+      "same_event": false
     },
     "bde8334e9ae8de9f--e870b8b86ab6ca79": {
       "embedding_similarity": 0.9213,
@@ -276520,6 +276710,16 @@
       "reason": "대미 투자 프로젝트와 지분 인수",
       "reviewed_at": "2026-09-17T19:04:48.393362+00:00",
       "right_title": "한국, 웨스팅하우스 지분 15% 인수 추진",
+      "same_event": false
+    },
+    "f0ee3889fa691afd--f6e74a4f86b089b7": {
+      "embedding_similarity": 0.8937,
+      "left_title": "과학기술정보통신부, 50MW 이하 지방 AI 데이터센터 전력계통영향평가 면제 시행령 입법예고",
+      "model": "gemini-3.5-flash",
+      "prompt_version": 1,
+      "reason": "정부 입법예고와 기업의 데이터센터 착공은 별개",
+      "reviewed_at": "2026-11-28T07:09:13.212384+00:00",
+      "right_title": "GS그룹, 강원 동해시에 아시아 최대 규모 AI 데이터센터 착공",
       "same_event": false
     },
     "f0efc8230c4b47c2--f655bf56703f99e7": {
