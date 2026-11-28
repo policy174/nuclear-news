@@ -232009,5 +232009,387 @@
     "feed": "정책",
     "domain": "fortunekorea.co.kr",
     "matched": "데이터센터 전력"
+  },
+  "f7cb97faaf05b7f4": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 1,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "뉴욕증시, AI 데이터센터 확대 기대감 속 컴퓨터 하드웨어주 강세",
+    "summary": "뉴욕증시에서 샌디스크 등 하드웨어 관련주가 급등하며 AI 데이터센터 투자 확대의 수혜 기대가 커졌다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#AI인프라",
+      "#데이터센터",
+      "#하드웨어"
+    ],
+    "related_reports": [],
+    "event_date": "2026-01-28",
+    "event_date_type": "occurrence",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "AI 투자 돈줄 서버·저장장치로 확산…델·HPE 상승에 이수페타시스 주...",
+    "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=509090",
+    "feed": "정책",
+    "domain": "pinpointnews.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "5a2665da3e3b11f8": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 3,
+      "market_materiality": 0,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 2
+    },
+    "importance": "must_read",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "security_trade"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "미국 국무부, 한국 핵잠수함 IAEA 협의에 중국의 전체 회원국 동의 요구 반박",
+    "summary": "미국 국무부는 한국의 핵추진 잠수함 건조를 위한 IAEA 기술협의에 중국이 전체 회원국 동의를 요구한 주장을 반박하며 IAEA의 정당한 권한임을 확인했다.",
+    "detail": "미 국무부 대변인은 한국과 국제원자력기구(IAEA)의 기술협의에 전체 회원국 합의가 필요하다는 중국 측 주장에 대해 IAEA가 제14조 약정을 포함해 안전조치협정 이행을 협상할 확립된 권한을 갖고 있다고 반박했다. 리쑹 오스트리아 빈 주재 중국대표부 대사는 앞서 IAEA 이사회에서 비평화적 목적의 핵물질 이전을 주장하며 회원국 합의를 요구했으나, 미국과 EU 등은 한국의 신고 의무 이행과 협의 절차를 지지했다. 한국은 2030년대 중반 진수를 목표로 저농축우라늄을 활용한 잠수함용 핵연료 국내 제조를 추진 중이다.",
+    "implication": "미국이 한국의 핵추진 잠수함 건조에 대한 IAEA 제14조 약정 체결 절차를 외교적으로 뒷받침하며 중국의 견제를 차단한 결과다.",
+    "why_important": "한미 정상회담 후속인 핵추진 잠수함 연료 조달 및 IAEA 안전조치 협의 과정에서 미·중 간 외교적 마찰과 규제적 쟁점이 공식화된 중요 사안이다.",
+    "open_question": "한국과 IAEA 간 제14조 약정의 구체적인 체결 시점은 아직 확정되지 않았다.",
+    "open_question_source": "article_text",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#핵추진잠수함",
+      "#IAEA",
+      "#안전조치협정"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "韓 핵잠수함에 '전체 회원국 동의' 요구한 중국…미국이 반박했다",
+    "link": "https://news.tvchosun.com/site/data/html_dir/2026/11/28/2026112890008.html",
+    "feed": "정책",
+    "domain": "tvchosun.com",
+    "matched": "한미 원자력협정"
+  },
+  "48f91ede312c2231": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 2,
+      "market_materiality": 2,
+      "policy_materiality": 0,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "domestic",
+    "scope": "kr",
+    "category": "시장",
+    "topics": [
+      "power_market",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR"
+    ],
+    "article_type": "news",
+    "title_kr": "국내 전력기기 업계, AI 데이터센터 전력 수요 증가로 성장세 주목",
+    "summary": "AI 데이터센터 전력 수요 확대로 HD현대일렉트릭과 LS ELECTRIC 등 전력기기 기업들의 성장성이 부각되고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#전력기기",
+      "#데이터센터",
+      "#변압기"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "재생에너지 투자 다시 살아나나… LS ELECTRIC·HD현대일렉트릭 주목을",
+    "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=509094",
+    "feed": "정책",
+    "domain": "pinpointnews.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "f5dca5e86206a0e9": {
+    "features": {
+      "event_type": "corporate_move",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "기술",
+    "topics": [
+      "datacenter_ai",
+      "power_market"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "analysis",
+    "title_kr": "글로벌 빅테크 기업, AI 데이터센터 전력 및 냉각 효율화 기술 도입 가속",
+    "summary": "생성형 AI 확산으로 데이터센터 전력 소비가 급증하는 가운데 글로벌 빅테크들이 AI 기반 냉각 제어와 에너지 효율화로 대응하고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#데이터센터",
+      "#전력효율",
+      "#AI냉각"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "[청년발언대] AI 데이터센터의 전력 문제…글로벌 빅테크는 어떤 해법을...",
+    "link": "https://www.youthdaily.co.kr/news/article.html?no=230420",
+    "feed": "정책",
+    "domain": "youthdaily.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "419aac818a789a8d": {
+    "features": {
+      "event_type": "research_report",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "KR",
+      "US"
+    ],
+    "article_type": "report",
+    "title_kr": "서울시, 세계스마트시티기구 2026 도시 미래 준비지수 8위 기록",
+    "summary": "세계스마트시티기구가 발표한 미래 준비지수에서 서울이 8위를 기록했으나 데이터센터 전력 인프라 격차 우려도 제기됐다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#스마트시티",
+      "#AI인프라",
+      "#데이터센터"
+    ],
+    "related_reports": [],
+    "event_date": "2026-01-27",
+    "event_date_type": "announcement",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "서울, AI 시대 도시 미래 준비지수 세계 8위...인간 중심성·혁신 1위",
+    "link": "https://www.m-economynews.com/news/article.html?no=73695",
+    "feed": "정책",
+    "domain": "m-economynews.com",
+    "matched": "데이터센터 전력"
+  },
+  "65c81247253851f5": {
+    "features": {
+      "event_type": "regulatory_action",
+      "korea_relevance": 2,
+      "market_materiality": 0,
+      "policy_materiality": 3,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 3
+    },
+    "importance": "must_read",
+    "section": "international",
+    "scope": "overseas",
+    "category": "규제",
+    "topics": [
+      "restart_lto",
+      "regulation"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 원자력규제위원회 규제개혁 이후 원전 계속운전 80년 승인 본격화",
+    "summary": "미국 원자력규제위원회(NRC)의 규제 개혁 이후 로빈슨 원전 등을 시작으로 원전 계속운전 80년 시대가 본격화되고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "세계 최대 원전 시장인 미국의 80년 계속운전 허가 본격화는 글로벌 원전 운영 기간 연장 추세를 주도하며 국내 계속운전 정책 수립에 중요한 선례가 된다.",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "llm_null",
+    "watch_next": "",
+    "tags": [
+      "#계속운전",
+      "#NRC",
+      "#미국원전"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "[1년후 지금] 美 원전 계속운전 80년 시대 본격화",
+    "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5ZU0t4RWs1X3M2d1ZfeGEyUWF4ZkVoWTdiZWdHTngwZTR6SWRBNE9iYjJVUjNPX1cwcjc4THJKcGdSdF9FbVdqVE91ZTlHTnhvQk42b19VTnpVZG03bGFBV01nc1M?oc=5",
+    "feed": "정책",
+    "domain": "esnews.kr",
+    "matched": "국내 원자력 보도"
+  },
+  "916acadb816fb062": {
+    "features": {
+      "event_type": "policy_decision",
+      "korea_relevance": 1,
+      "market_materiality": 1,
+      "policy_materiality": 2,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 1
+    },
+    "importance": "nice_to_know",
+    "section": "international",
+    "scope": "overseas",
+    "category": "정책",
+    "topics": [
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "policy",
+    "title_kr": "미국 FCC, 스페이스X의 궤도 우주 데이터센터 위성망 구축 계획 승인",
+    "summary": "미국 연방통신위원회(FCC)가 지상 전력난 대안으로 일론 머스크의 스페이스X가 추진하는 궤도 우주 데이터센터 위성망 구축 계획을 승인했다.",
+    "detail": "막대한 전력과 물을 소모하는 지상 데이터센터 건설에 대한 주민 반발의 대안으로, 미국 연방통신위원회(FCC)는 스페이스X의 '스타마인드' 위성군 구축 계획을 승인했다. 이번 결정으로 15년 허가 기간 동안 최대 100만 개의 우주 데이터센터가 궤도에 설치될 수 있는 기반이 마련됐다. 브렌던 카르 FCC 위원장은 우주 공간에서 태양 에너지를 활용해 인프라를 확장함으로써 미국의 AI 리더십을 강화할 수 있다고 강조했다. 스페이스X는 2033년 11월까지 첫 우주 정거장을 궤도에 올려야 하며 2040년까지 목표를 달성해야 한다.",
+    "implication": "지상 데이터센터의 전력 제약을 우주 태양광 기반 인프라로 우회하려는 새로운 기술적 시도가 규제 승인을 얻은 사례다.",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#우주데이터센터",
+      "#스페이스X",
+      "#FCC"
+    ],
+    "related_reports": [],
+    "event_date": "2033-11-25",
+    "event_date_type": "scheduled",
+    "event_date_precision": "day",
+    "event_date_source": "article_text",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "미국 FCC, 머스크의 \"우주 데이터 센터\" 건설 계획 승인",
+    "link": "http://www.newstown.co.kr/news/articleView.html?idxno=723730",
+    "feed": "정책",
+    "domain": "newstown.co.kr",
+    "matched": "데이터센터 전력"
+  },
+  "c459e4ff5d184bf4": {
+    "features": {
+      "event_type": "market_signal",
+      "korea_relevance": 0,
+      "market_materiality": 1,
+      "policy_materiality": 1,
+      "novelty": 0,
+      "evidence_strength": 0,
+      "report_worthiness": 0
+    },
+    "importance": "noise",
+    "section": "international",
+    "scope": "overseas",
+    "category": "시장",
+    "topics": [
+      "security_trade",
+      "datacenter_ai"
+    ],
+    "countries": [
+      "US"
+    ],
+    "article_type": "news",
+    "title_kr": "미국 방산업계, AI 데이터센터 쏠림 현상으로 생산 부담 가중",
+    "summary": "AI 인프라로 자본과 전력, 숙련 인력이 집중되면서 미국 항공우주 및 방위산업계의 생산 비용과 부담이 커지고 있다.",
+    "detail": "",
+    "implication": "",
+    "why_important": "",
+    "open_question": "",
+    "open_question_source": "unknown",
+    "open_question_reject": "",
+    "watch_next": "",
+    "tags": [
+      "#방산업계",
+      "#AI인프라",
+      "#생산비용"
+    ],
+    "related_reports": [],
+    "event_date": null,
+    "event_date_type": "unknown",
+    "event_date_precision": "unknown",
+    "event_date_source": "unknown",
+    "cached_at": "2026-11-28T00:57:54.479298+00:00",
+    "title": "\"빅테크에 다 뺏겼다\"…비명 지르는 美 방산업계",
+    "link": "https://www.hankyung.com/article/2026112859087",
+    "feed": "정책",
+    "domain": "hankyung.com",
+    "matched": "데이터센터 전력"
   }
 }
